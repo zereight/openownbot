@@ -84,7 +84,12 @@ export function createSettingsHostedSitesStore(props: HostedSitesStoreProps, isA
 
   let shownServerId: string | null = null;
   createEffect(
-    () => (props.open && isActive() ? props.serverId : null),
+    // `hostedSitesApi` is read here, in the compute, and not only in `load()`: the caller gives it
+    // as a conditional JSX expression, which Solid turns into a memo on its first read. A first read
+    // from the effect callback below creates that memo with no owner, which Solid's development
+    // build refuses with `PRIMITIVE_IN_EFFECT_CALLBACK`, and the whole page stops updating.
+    // Without an api there is nothing to load, so the effect sits idle, as `load()` did.
+    () => (props.open && isActive() && props.hostedSitesApi ? props.serverId : null),
     (serverId) => {
       if (serverId === null) return;
       if (serverId !== shownServerId) {
