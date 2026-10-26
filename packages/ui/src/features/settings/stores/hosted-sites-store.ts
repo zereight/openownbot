@@ -41,8 +41,12 @@ export function createSettingsHostedSitesStore(props: HostedSitesStoreProps, isA
   let reloadRequested = false;
   let loadPromise: Promise<void> | null = null;
 
+  // `props.hostedSitesApi` is read only inside the task below, never before it. The effect that
+  // calls `load()` runs its callback with no owner, and the caller passes the api as a conditional
+  // JSX expression, which Solid compiles to a getter that makes a new memo on every read. A memo
+  // made in that callback has no owner, so Solid's development build throws
+  // `PRIMITIVE_IN_EFFECT_CALLBACK` and halts the page. The task's own check covers a missing api.
   function load(): Promise<void> {
-    if (!props.hostedSitesApi) return Promise.resolve();
     reloadRequested = true;
     if (loadPromise) return loadPromise;
     loadPromise = Promise.resolve().then(async () => {
@@ -84,12 +88,7 @@ export function createSettingsHostedSitesStore(props: HostedSitesStoreProps, isA
 
   let shownServerId: string | null = null;
   createEffect(
-    // `hostedSitesApi` is read here, in the compute, and not only in `load()`: the caller gives it
-    // as a conditional JSX expression, which Solid turns into a memo on its first read. A first read
-    // from the effect callback below creates that memo with no owner, which Solid's development
-    // build refuses with `PRIMITIVE_IN_EFFECT_CALLBACK`, and the whole page stops updating.
-    // Without an api there is nothing to load, so the effect sits idle, as `load()` did.
-    () => (props.open && isActive() && props.hostedSitesApi ? props.serverId : null),
+    () => (props.open && isActive() ? props.serverId : null),
     (serverId) => {
       if (serverId === null) return;
       if (serverId !== shownServerId) {
