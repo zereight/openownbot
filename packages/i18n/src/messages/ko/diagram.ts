@@ -138,4 +138,6 @@ export const messages = {
   "diagram.chat.working": "{name}이(가) 다이어그램을 편집하는 중",
   "diagram.chat.changes": "다이어그램 변경 사항",
   "diagram.chat.failed": "에이전트에 연결할 수 없어요.",
+  "diagram.chat.agent": "에이전트",
+  "diagram.chat.openChat": "채팅 열기",
 } as const satisfies PartialTranslation<typeof source>;

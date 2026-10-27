@@ -138,4 +138,6 @@ export const messages = {
   "diagram.chat.working": "{name} 正在编辑图表",
   "diagram.chat.changes": "图表改动",
   "diagram.chat.failed": "无法连接到该助手。",
+  "diagram.chat.agent": "助手",
+  "diagram.chat.openChat": "打开对话",
 } as const satisfies PartialTranslation<typeof source>;

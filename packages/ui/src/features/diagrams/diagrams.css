@@ -1326,6 +1326,12 @@
   white-space: nowrap;
 }
 
+/* The row under the header holds the agent that answers. */
+.diagram-chat-picker {
+  border-bottom: 1px solid var(--openbot-border);
+  padding: var(--openbot-space-2) var(--openbot-space-3);
+}
+
 .diagram-chat-messages {
   display: flex;
   min-height: 96px;
@@ -1391,6 +1397,14 @@
   font-size: var(--openbot-text-sm);
 }
 
+.diagram-chat-unavailable {
+  margin: 0;
+  border-top: 1px solid var(--openbot-border);
+  padding: var(--openbot-space-2) var(--openbot-space-3);
+  color: var(--openbot-text-muted);
+  font-size: var(--openbot-text-sm);
+}
+
 /* The chat composer's compact row, without its attach button: the editor and the send button. */
 .diagram-chat-composer.composer[data-compact] {
   grid-template-columns: minmax(0, 1fr) auto;
@@ -1399,6 +1413,25 @@
 
 .diagram-chat-composer.composer[data-compact] > .composer-input-label {
   grid-column: 1;
+}
+
+/*
+ * On the Workflows page the chat is over the bottom-right corner of the canvas, above the button that
+ * shows the hidden interface. The bars of the canvas hold the other corners and the middle of the bottom.
+ */
+.diagram-view-chat[data-placement="end"] {
+  right: var(--openbot-space-2);
+  bottom: calc(var(--openbot-space-2) + var(--openbot-control-sm) + var(--openbot-space-2));
+  left: auto;
+}
+
+.diagram-view-chat[data-placement="end"] .diagram-chat-launcher.ui-button {
+  justify-self: end;
+}
+
+/* The folded panel is the launcher's pill at the end, so the panel grows out of the right edge. */
+.diagram-view-chat[data-placement="end"] .diagram-chat-morph[data-open="false"] .diagram-chat {
+  clip-path: inset(calc(100% - var(--diagram-chat-launcher-height)) 0 0 24% round var(--openbot-radius-pill));
 }
 
 @media (prefers-reduced-motion: reduce) {
