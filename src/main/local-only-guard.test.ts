@@ -1,5 +1,31 @@
 import { type GuardableScope, LOCAL_ONLY } from "@openbot/contracts/local-only";
-import { afterEach, describe, expect, it, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import type { GuardableSession } from "./local-only-guard";
+
+type BeforeRequestListener = Parameters<GuardableSession["webRequest"]["onBeforeRequest"]>[1];
+
+// electron cannot be imported outside an Electron process, so the listeners that the guard adds to
+// `app` and the session it reads are captured. Hoisted because the factory runs while
+// ./local-only-guard is imported.
+interface ElectronCapture {
+  sessionCreated: Array<(created: GuardableSession) => void>;
+  defaultSession: GuardableSession | null;
+}
+const electron = vi.hoisted((): ElectronCapture => ({ sessionCreated: [], defaultSession: null }));
+
+vi.mock("electron", () => ({
+  app: {
+    on(event: string, listener: (created: GuardableSession) => void) {
+      if (event === "session-created") electron.sessionCreated.push(listener);
+    },
+    whenReady: () => Promise.resolve(),
+  },
+  session: {
+    get defaultSession() {
+      return electron.defaultSession;
+    },
+  },
+}));
 
 /** Loads the contract with the switch set to `localOnly`, whatever `local-only.json` says. */
 async function contractWithSwitch(localOnly: boolean) {
@@ -8,8 +34,48 @@ async function contractWithSwitch(localOnly: boolean) {
   return await import("@openbot/contracts/local-only");
 }
 
+async function guardWithSwitch(localOnly: boolean) {
+  await contractWithSwitch(localOnly);
+  return { guard: await import("./local-only-guard"), logging: await import("@openbot/logging") };
+}
+
+/** A session that keeps one `onBeforeRequest` listener, as Electron does: a repeat call replaces it. */
+class FakeSession implements GuardableSession {
+  filter: { urls: string[] } | null = null;
+  #listener: BeforeRequestListener | null = null;
+  registrations = 0;
+
+  webRequest = {
+    onBeforeRequest: (filter: { urls: string[] }, listener: BeforeRequestListener) => {
+      this.registrations += 1;
+      this.filter = filter;
+      this.#listener = listener;
+    },
+  };
+
+  /** What the listener answers for a request to `url`, or null when no listener is set. */
+  answer(url: string): { cancel: boolean } | null {
+    let response: { cancel: boolean } | null = null;
+    this.#listener?.({ url }, (value) => {
+      response = value;
+    });
+    return response;
+  }
+}
+
+let defaultSession = new FakeSession();
+
+beforeEach(() => {
+  vi.stubGlobal("fetch", globalThis.fetch);
+  vi.stubGlobal("WebSocket", globalThis.WebSocket);
+  defaultSession = new FakeSession();
+  electron.sessionCreated = [];
+  electron.defaultSession = defaultSession;
+});
+
 afterEach(() => {
   vi.doUnmock("../../packages/contracts/src/local-only.json");
+  vi.unstubAllGlobals();
 });
 
 interface FakeScope {
@@ -212,5 +278,102 @@ describe("guardOpenBotEgress", () => {
 
     await expect(withoutSocket.fetch("https://x.openbot.run/")).rejects.toBeInstanceOf(TypeError);
     expect(withoutSocket.WebSocket).toBeUndefined();
+  });
+});
+
+describe("guardSession", () => {
+  it("cancels a request to an OpenBot service and reports the origin without the path", async () => {
+    const { guard } = await guardWithSwitch(true);
+    const fake = new FakeSession();
+    const reported: string[] = [];
+    guard.guardSession(fake, (origin) => reported.push(origin));
+
+    expect(fake.filter).toEqual({ urls: ["<all_urls>"] });
+    expect(fake.answer("https://api.openbot.run/v1/tickets/secret?token=abc")).toEqual({ cancel: true });
+    expect(fake.answer("wss://signal.openbot.run/v1/signal")).toEqual({ cancel: true });
+    expect(fake.answer("https://github.com/nightly-labs/openbot/releases/latest")).toEqual({ cancel: true });
+    expect(reported).toEqual(["https://api.openbot.run", "wss://signal.openbot.run", "https://github.com"]);
+  });
+
+  it("lets every other request through without a report", async () => {
+    const { guard } = await guardWithSwitch(true);
+    const fake = new FakeSession();
+    const reported: string[] = [];
+    guard.guardSession(fake, (origin) => reported.push(origin));
+
+    expect(fake.answer("https://api.anthropic.com/v1/messages")).toEqual({ cancel: false });
+    expect(fake.answer("http://127.0.0.1:3100/v1/health")).toEqual({ cancel: false });
+    expect(fake.answer("https://github.com/zereight/openbot")).toEqual({ cancel: false });
+    expect(reported).toEqual([]);
+  });
+});
+
+describe("installLocalOnlyGuard", () => {
+  it("refuses an OpenBot fetch and WebSocket in this process and passes others to the originals", async () => {
+    const fetched: string[] = [];
+    vi.stubGlobal("fetch", async (input: string | URL | Request) => {
+      fetched.push(String(input));
+      return new Response("from the original fetch");
+    });
+    const { guard } = await guardWithSwitch(true);
+    guard.installLocalOnlyGuard();
+
+    await expect(globalThis.fetch("https://x.openbot.run/v1/ping")).rejects.toBeInstanceOf(TypeError);
+    expect(() => new globalThis.WebSocket("wss://signal.openbot.run/v1/signal")).toThrow(TypeError);
+    const response = await globalThis.fetch("https://api.anthropic.com/v1/messages");
+
+    expect(await response.text()).toBe("from the original fetch");
+    expect(fetched).toEqual(["https://api.anthropic.com/v1/messages"]);
+  });
+
+  it("guards a session when Electron creates it and the default session when the app is ready", async () => {
+    const { guard } = await guardWithSwitch(true);
+    guard.installLocalOnlyGuard();
+
+    const browserPane = new FakeSession();
+    for (const listener of electron.sessionCreated) listener(browserPane);
+
+    expect(browserPane.answer("https://u.expo.dev/eeec730f-c8f4-42c0-a750-64df8af14940")).toEqual({ cancel: true });
+    await vi.waitFor(() => expect(defaultSession.registrations).toBe(1));
+    expect(defaultSession.answer("https://x.openbot.site/")).toEqual({ cancel: true });
+    expect(defaultSession.answer("https://example.com/")).toEqual({ cancel: false });
+  });
+
+  it("keeps one listener on a session that Electron reports and the app also guards", async () => {
+    const { guard } = await guardWithSwitch(true);
+    guard.installLocalOnlyGuard();
+    for (const listener of electron.sessionCreated) listener(defaultSession);
+    await vi.waitFor(() => expect(defaultSession.registrations).toBe(2));
+
+    expect(defaultSession.answer("https://x.openbot.run/")).toEqual({ cancel: true });
+  });
+
+  it("logs a refused origin once and never the path", async () => {
+    const { guard, logging } = await guardWithSwitch(true);
+    const lines: string[] = [];
+    const stopTee = logging.teeLogLines(["local-only-guard"], (line) => lines.push(line));
+    vi.stubGlobal("fetch", async () => new Response("from the original fetch"));
+    guard.installLocalOnlyGuard();
+    await vi.waitFor(() => expect(defaultSession.registrations).toBe(1));
+
+    await expect(globalThis.fetch("https://x.openbot.run/v1/tickets/secret-ticket")).rejects.toBeInstanceOf(TypeError);
+    defaultSession.answer("https://x.openbot.run/v1/other?token=abc");
+    defaultSession.answer("https://api.openbot.run/v1/account");
+    stopTee();
+
+    expect(lines).toHaveLength(2);
+    expect(lines[0]).toContain("Local-only mode refused a request to https://x.openbot.run.");
+    expect(lines[1]).toContain("Local-only mode refused a request to https://api.openbot.run.");
+    expect(lines.join("\n")).not.toMatch(/secret-ticket|token=abc|\/v1\//);
+  });
+
+  it("changes nothing while the switch is off", async () => {
+    const before = { fetch: globalThis.fetch, WebSocket: globalThis.WebSocket };
+    const { guard } = await guardWithSwitch(false);
+    guard.installLocalOnlyGuard();
+
+    expect(globalThis.fetch).toBe(before.fetch);
+    expect(globalThis.WebSocket).toBe(before.WebSocket);
+    expect(electron.sessionCreated).toEqual([]);
   });
 });
