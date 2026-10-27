@@ -18,6 +18,7 @@
     "./avatar-images": "./src/avatar-images.ts",
     "./billing": "./src/billing.ts",
     "./license": "./src/license.ts",
+    "./local-only": "./src/local-only.ts",
     "./discord-app": "./src/discord-app.ts",
     "./discord-guild-grant": "./src/discord-guild-grant.ts",
     "./event-filter-value": "./src/event-filter-value.ts",
