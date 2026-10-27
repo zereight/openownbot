@@ -51,6 +51,7 @@ import {
   routineToolSchedule,
   routineToolString,
 } from "./routine-tools";
+import { personTurn } from "./turn-requester";
 import {
   CREATE_WEBHOOK_ROUTINE_ARGUMENTS,
   CREATE_WEBHOOK_ROUTINE_TOOL,
@@ -1222,13 +1223,10 @@ export class RoutineScheduler implements RoutineDueSource {
   #webhookTool(senderAgentId: string, threadId: string, turnId: string): WebhookRoutineWriter {
     const webhooks = this.#webhookRoutines?.();
     if (!webhooks) throw new RoutineInputError("This server cannot create webhook routines.");
-    // Every delivery of the turn: a message steered into a routine run shares the run's turn. Only
-    // the agent's own chat: a channel task and a Slack or Telegram message also arrive as `user`.
-    const deliveries = this.#mailbox.findDeliveriesByTurn(senderAgentId, turnId);
-    const requested =
-      deliveries.length > 0 &&
-      deliveries.every(({ delivery }) => delivery.sender.kind === "user") &&
-      !this.#conversation.isExecutionThread(this.#conversation.publicThreadId(senderAgentId, threadId));
+    const requested = personTurn(
+      this.#mailbox.findDeliveriesByTurn(senderAgentId, turnId).map(({ delivery }) => delivery),
+      this.#conversation.isExecutionThread(this.#conversation.publicThreadId(senderAgentId, threadId)),
+    );
     if (!requested) {
       throw new RoutineInputError(
         "Only a person's message can create or change a webhook routine. Ask the user to request it in the chat.",
