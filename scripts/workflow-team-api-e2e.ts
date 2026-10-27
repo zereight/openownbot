@@ -1000,13 +1000,15 @@ try {
   });
 
   await step("size: a workflow too large for one frame answers 413 with its own sentence", async () => {
-    const nodes: WorkflowNode[] = Array.from({ length: 100 }, (_, index) => ({
-      id: `text-${index}`,
-      kind: "text",
-      at: { x: index * 10, y: 0 },
-      fields: { text: "b".repeat(20_000) },
-    }));
-    const huge = await hostWorkflow("Huge", { nodes, edges: [], strokes: [] });
+    // The store refuses a graph over 1 MiB, which is under the 1.5 MiB frame budget, so no write can make
+    // a graph that the route guard refuses. The rows go in by SQL to reach the guard.
+    const huge = await hostWorkflow("Huge", { nodes: [], edges: [], strokes: [] });
+    const insert = current().database.connection.prepare(
+      `INSERT INTO workflow_nodes (workflow_id, node_id, position, kind, x, y, fields_json)
+       VALUES (?, ?, ?, 'text', ?, 0, ?)`,
+    );
+    for (let index = 0; index < 100; index += 1)
+      insert.run(huge.id, `text-${index}`, index, index * 10, JSON.stringify({ text: "b".repeat(20_000) }));
     const status = await refused(
       WORKFLOWS_ROUTES.get,
       member,
