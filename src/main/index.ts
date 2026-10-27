@@ -116,7 +116,7 @@ import { sendToRenderer } from "./renderer-ipc";
 import { RoutineWake } from "./routine-wake";
 import { takeServerModeEnvironment } from "./server-mode";
 import { configureContentSecurityPolicy, configureRendererPermissions } from "./session-configuration";
-import { acquireSingleInstanceLock, sleepMilliseconds } from "./single-instance-lock";
+import { acquireSingleInstanceLock, lockHolderPid, processIsAlive, sleepMilliseconds } from "./single-instance-lock";
 import { trustSystemCertificates } from "./system-certificates";
 import { TeardownRegistry } from "./teardown-registry";
 import type { TraceFile } from "./trace-file";
@@ -210,12 +210,14 @@ if (commandLineUserDataDirectory) {
 app.setName("OpenBot");
 app.enableSandbox();
 if (process.platform === "win32") app.setAppUserModelId("app.openbot.desktop");
-// In development this waits for the lock while a restart quits the previous instance; a
-// packaged second launch still exits at once. Either way a launch without the lock must not
+// In development this waits for the process holding the lock to quit while a restart replaces
+// it; a packaged second launch still exits at once. Either way a launch without the lock must not
 // write into the files of the instance that runs.
 const hasSingleInstanceLock = acquireSingleInstanceLock({
   request: () => app.requestSingleInstanceLock(),
   isDevelopment: !app.isPackaged,
+  holder: () => lockHolderPid(app.getPath("userData")),
+  isAlive: processIsAlive,
   sleep: sleepMilliseconds,
   log: (message) => logger.info(message),
 });
