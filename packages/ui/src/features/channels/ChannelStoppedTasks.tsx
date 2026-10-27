@@ -19,7 +19,11 @@ export function ChannelStoppedTasks(props: {
               class="channel-paused-task"
               aria-label={t("channel.stoppedTask.label", { name: props.name(task.ownerAgentId) })}
             >
-              <p class="channel-paused-task-reason">{task.error ? sourceText(task.error) : null}</p>
+              <p class="channel-paused-task-reason">
+                {task.error
+                  ? sourceText(task.error)
+                  : t("channel.stoppedTask.label", { name: props.name(task.ownerAgentId) })}
+              </p>
               <div class="channel-paused-task-actions">
                 <Button size="xs" onClick={() => void props.onResume(task.id, null)}>
                   {t("common.continue")}
