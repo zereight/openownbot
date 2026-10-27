@@ -47,9 +47,11 @@ case "$1" in
     fi
     # dev-services는 Electron 인자를 못 넘기므로(electron-vite가 ELECTRON_CLI_ARGS를 []로 덮어씀)
     # 앱만 electron-vite로 직접 띄움. 계정 API(localhost:3100)와 Remote API는 뜨지 않음.
+    # 그래서 개발용 계정 부트스트랩(OPENBOT_DEV_REMOTE_ROLE=host)은 끔. 켜 두면 시작할 때 계정 API로
+    # 로그인 코드를 요청하다 실패해 앱이 종료되고, 실제 프로필의 로그인 계정을 임시 계정으로 바꿀 수 있음.
     bun run dev:stop >/dev/null 2>&1
     unset ELECTRON_RUN_AS_NODE ELECTRON_EXTRA_LAUNCH_ARGS
-    export OPENBOT_APP_VARIANT=dev OPENBOT_DEV_PROFILE=app OPENBOT_DEV_REMOTE_ROLE=host
+    export OPENBOT_APP_VARIANT=dev OPENBOT_DEV_PROFILE=app OPENBOT_DEV_REMOTE_ROLE=none
     export OPENBOT_DEV_RENDERER_PORT=5173 OPENBOT_DEV_REMOTE_DEBUGGING_PORT=9333
     exec ./node_modules/.bin/electron-vite dev --watch --outDir out-dev-app \
       --entry out-dev-app/main/index.js -- "--user-data-dir=$REAL_PROFILE" ;;
