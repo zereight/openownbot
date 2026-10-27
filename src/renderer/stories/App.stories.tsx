@@ -1,4 +1,5 @@
 import type { AgentEvent } from "@openbot/contracts/ipc";
+import { WORKFLOWS_CAPABILITY } from "@openbot/contracts/team-protocol/workflows-v1";
 import type { ServerView } from "@openbot/ui/features/servers/ServerMenu";
 import { onCleanup } from "solid-js";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";
@@ -7,6 +8,7 @@ import { LEFT_PANEL_COLLAPSED_STORAGE_KEY, SERVER_VIEW_STORAGE_KEY } from "../sr
 import { createMockOpenBot, type MockOpenBotOptions } from "../src/preview/mock-openbot";
 import { OpenBotPlayground } from "../src/preview/OpenBotPlayground";
 import { STORY_AGENT_STATUS, STORY_AGENT_SUMMARIES, STORY_APP_INFO, STORY_SERVERS } from "./fixtures";
+import { competitorWatch, newCompetitorAlert } from "./workflow-story-data";
 
 const [storyLocalServer, storyRemoteServer] = STORY_SERVERS;
 if (!storyLocalServer || !storyRemoteServer) throw new Error("Story server fixtures need a local and a remote server.");
@@ -130,6 +132,48 @@ export const DifferentRemoteVersions: Story = {
                 "remote-desktop",
                 "sidebar-layout",
               ],
+            },
+            connectionSequence: 1,
+          },
+        ],
+      }}
+    />
+  ),
+};
+
+/** Ids of the form the host makes, so the first line that the chat sends names a workflow it can read. */
+const STORY_WORKFLOW_IDS = ["5b1c2d3e-4f60-4a71-8b92-a3b4c5d6e7f8", "6c2d3e4f-5071-4b82-9ca3-b4c5d6e7f809"];
+const STORY_WORKFLOWS = [competitorWatch(), newCompetitorAlert()].map(({ title, graph }, index) => ({
+  id: STORY_WORKFLOW_IDS[index] ?? crypto.randomUUID(),
+  title,
+  graph,
+  // The first workflow is the newest, so the page opens it.
+  updatedAt: new Date(2026, 9, 26 - index).toISOString(),
+}));
+
+/** Open Workflows in the rail: the page has a chat with an agent about the open workflow. */
+export const WorkflowsAgentChat: Story = {
+  render: () => <OpenBotPlayground options={{ workflows: STORY_WORKFLOWS }} />,
+};
+
+/** The same page on a joined server that serves workflows: the chat shows, disabled, with its reason. */
+export const WorkflowsAgentChatJoinedServer: Story = {
+  render: () => (
+    <OpenBotPlayground
+      options={{
+        workflows: STORY_WORKFLOWS,
+        servers: [
+          { ...storyLocalServer, active: false },
+          {
+            ...storyRemoteServer,
+            active: true,
+            compatibility: {
+              localAppVersion: "44.0.0",
+              hostAppVersion: "44.0.0",
+              localProtocol: { minimum: 1, maximum: 1 },
+              hostProtocol: { minimum: 1, maximum: 1 },
+              negotiatedProtocol: 1,
+              capabilities: ["sidebar-layout", WORKFLOWS_CAPABILITY],
             },
             connectionSequence: 1,
           },
