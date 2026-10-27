@@ -142,6 +142,7 @@ import {
 } from "./agent/attention-registry";
 import { BootRecovery } from "./agent/boot-recovery";
 import { BrowserUploads } from "./agent/browser-uploads";
+import { channelGenerationModel } from "./agent/channel-generation-model";
 import type { ChatVisualPreviewHost } from "./agent/chat-visual-preview";
 import { ContextCompaction } from "./agent/context-compaction";
 import { ConversationReader } from "./agent/conversation-reader";
@@ -990,12 +991,7 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
           const client = this.#providers.createProfileClient(lead.provider);
           return yield* this.#profileClients
             .run(client, (cancelled) =>
-              generateTextWithoutTools(
-                client,
-                { ...model, defaultReasoningEffort: lead.reasoningEffort },
-                prompt,
-                cancelled,
-              ),
+              generateTextWithoutTools(client, channelGenerationModel(model), prompt, cancelled),
             )
             .pipe(
               // A routing turn can be the first one a spent plan refuses: in its completion, or as the
