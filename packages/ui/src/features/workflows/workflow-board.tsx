@@ -193,8 +193,11 @@ export interface WfnBoard {
   field: (id: string, key: string) => WfnFieldValue | undefined;
   /** Sets a field as one change. Each key stroke of one burst of typing joins the same change. */
   setField: (id: string, key: string, value: WfnFieldValue, typing?: boolean) => void;
-  /** Sets several fields as one change, such as the connection and the place of a channel. */
-  setFields: (id: string, values: WfnFields) => void;
+  /**
+   * Sets several fields as one change, such as the connection and the place of a channel. A value of
+   * `undefined` removes the field.
+   */
+  setFields: (id: string, values: Record<string, WfnFieldValue | undefined>) => void;
   /** Copies a node. Only the canvas has it. */
   duplicate?: ((id: string) => void) | undefined;
   status: (id: string) => WfnRunStatus | undefined;
@@ -814,7 +817,12 @@ export function createBoard(options: BoardOptions) {
       options.beforeChange?.();
       typing = null;
       setState((draft) => {
-        draft.fields[id] = { ...draft.fields[id], ...values };
+        const next: WfnFields = { ...draft.fields[id] };
+        for (const [key, value] of Object.entries(values)) {
+          if (value === undefined) delete next[key];
+          else next[key] = value;
+        }
+        draft.fields[id] = next;
       });
     },
     duplicate: options.duplicate,
