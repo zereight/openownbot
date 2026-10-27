@@ -52,7 +52,8 @@ export default defineConfig({
     },
   },
   renderer: {
-    plugins: [solidPlugin(), tailwindcss({ optimize: false })],
+    // The dev-only Chrome performance tracks took 40% of the renderer's busy time while switching agents.
+    plugins: [solidPlugin({ performanceTracks: false }), tailwindcss({ optimize: false })],
     optimizeDeps: {
       include: ["@norbert_bodziony/bloub"],
     },
