@@ -5,7 +5,9 @@
 // chat turn of the same agent goes back to the agent's own effort, that a step without an effort and
 // a step with an effort that the agent's model does not offer (one warning) or that is not a level at
 // all run with the agent's own effort, and that the effort is kept beside the message, survives a
-// reload of the mailbox, and does not show in the queue or in the delivery that a client reads.
+// reload of the mailbox, and does not show in the queue or in the delivery that a client reads. A step
+// that fails once and is retried after its node is edited (a new effort, a new agent with a new effort,
+// the effort removed) starts the retried turn with what the node asks for now.
 // `bun scripts/workflow-agent-effort-e2e.ts`. Writes .openbot-build/workflow-agent-effort-e2e/report.json.
 import assert from "node:assert/strict";
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
@@ -52,9 +54,11 @@ const OFFERED = ["low", "medium", "high"];
 /**
  * A Codex app-server with the methods that the service calls. It offers one model with `OFFERED`
  * levels, logs `{ turnId, effort, text }` for each `turn/start`, and answers "Done." after a moment.
+ * A turn whose text holds `FAIL-FIRST:<name>` fails when no earlier turn held the same token, in any
+ * process, so a step can fail once and then be retried.
  */
 const FAKE_CODEX = `#!/usr/bin/env node
-const { appendFileSync } = require("node:fs");
+const { appendFileSync, readFileSync } = require("node:fs");
 if (process.argv.includes("--version")) {
   process.stdout.write("codex-cli 0.160.1\\n");
   process.exit(0);
@@ -65,11 +69,24 @@ const levels = ${JSON.stringify(OFFERED)}.map((reasoningEffort) => ({ reasoningE
 let buffer = "";
 let threads = 0;
 let turns = 0;
+// Two agents run two processes: their ids must not meet.
+const prefix = "p" + process.pid + "-";
 process.stdout.on("error", (error) => {
   if (error.code === "EPIPE") process.exit(0);
   throw error;
 });
 const write = (message) => process.stdout.write(JSON.stringify(message) + "\\n");
+const turnsHolding = (token) => {
+  try {
+    return readFileSync(TURNS, "utf8").split("\\n").filter((line) => line.includes(token)).length;
+  } catch {
+    return 0;
+  }
+};
+const fail = (threadId, turnId) => {
+  write({ method: "error", params: { threadId, turnId, error: { message: "The turn fails on purpose." }, willRetry: false } });
+  write({ method: "turn/completed", params: { threadId, turn: { id: turnId, status: "failed" } } });
+};
 const finish = (threadId, turnId) => {
   const item = { type: "agentMessage", id: "message-" + turnId, text: "Done.", phase: "final_answer" };
   write({ method: "item/completed", params: { threadId, turnId, item } });
@@ -85,19 +102,22 @@ const answer = (message) => {
     case "plugin/list": return write({ id: message.id, result: { marketplaces: [] } });
     case "config/read": return write({ id: message.id, result: config });
     case "config/batchWrite": return write({ id: message.id, result: {} });
-    case "thread/start": return write({ id: message.id, result: { thread: { id: "thread-" + (++threads), turns: [] } } });
+    case "thread/start": return write({ id: message.id, result: { thread: { id: prefix + "thread-" + (++threads), turns: [] } } });
     case "thread/resume": return write({ id: message.id, result: { thread: { id: params.threadId, turns: [] } } });
     case "thread/unsubscribe": return write({ id: message.id, result: { status: "Unsubscribed" } });
     case "thread/turns/list":
     case "thread/items/list": return write({ id: message.id, result: { data: [], nextCursor: null } });
     case "thread/read": return write({ id: message.id, result: { thread: { id: params.threadId, turns: [] } } });
     case "turn/start": {
-      const turnId = "turn-" + (++turns);
+      const turnId = prefix + "turn-" + (++turns);
       const text = (params.input || []).map((item) => item.text || "").join("\\n");
+      // The last token is the one of this message; the transcript before it can hold older ones.
+      const token = text.match(/FAIL-FIRST:\\S+/g)?.at(-1);
+      const doomed = token !== undefined && turnsHolding(token) === 0;
       appendFileSync(TURNS, JSON.stringify({ turnId, effort: params.effort ?? null, text }) + "\\n");
       write({ id: message.id, result: { turn: { id: turnId, status: "inProgress", items: [] } } });
       write({ method: "turn/started", params: { threadId: params.threadId, turn: { id: turnId } } });
-      return setTimeout(() => finish(params.threadId, turnId), 20);
+      return setTimeout(() => (doomed ? fail(params.threadId, turnId) : finish(params.threadId, turnId)), 20);
     }
     case "turn/interrupt": {
       write({ id: message.id, result: {} });
@@ -141,7 +161,7 @@ const report: {
   warnings: [],
   checks: [],
   notCovered: [
-    "A step that a restart sends again: the check starts every run once and never restarts the process.",
+    "A step that a restart sends again: the check starts every run once and never restarts the process. A retried step that a restart cuts off before its delivery is sent again with the effort of the graph the run started with, not the edited node.",
     "A step whose agent changes model while the delivery waits: the check changes no model.",
     "Claude, Pi and the other providers: the fake is a Codex app-server, so only the value that reaches `turn/start` is read.",
   ],
@@ -371,6 +391,111 @@ try {
       report.warnings.length === warningsBeforeBogus,
     report.warnings,
   );
+
+  // 7. A retried step takes its agent, task and effort from the node as it is now, not from the graph
+  // the run started with. Each case: a step fails once with `before`, the node is edited, the step is
+  // retried, and the retried turn is read. Worker's own effort is low, so no case starts or ends on it
+  // by chance except the one that removes the effort on purpose.
+  const second = await runCauseEffect(
+    agents.createAgent({
+      name: "Second",
+      description: "Takes a retried step over.",
+      avatarSeed: "second",
+      avatarHue: null,
+      initialMessage: "SECOND-CHAT",
+    }),
+  );
+  await turnOf("SECOND-CHAT");
+  const retryCase = async (
+    name: string,
+    before: string,
+    edit: Record<string, string | undefined>,
+    expect: { agentId: string; effort: string },
+  ) => {
+    const marker = `RETRY-${name}`;
+    const task = `${marker} FAIL-FIRST:${name}`;
+    const created = await runCauseEffect(
+      workflows.create({
+        title: marker,
+        graph: {
+          nodes: [
+            { id: "trigger", kind: "trigger", at: { x: 0, y: 0 }, fields: { trigger: "manual" } },
+            { id: "agent", kind: "agent", at: { x: 360, y: 0 }, fields: { agentId: worker.id, task, effort: before } },
+          ],
+          edges: [{ id: "edge", from: "trigger", to: "agent", type: "text" }],
+          strokes: [],
+        },
+      }),
+    );
+    const started = await runCauseEffect(
+      workflows.startRun({ workflowId: created.summary.id, requestId: crypto.randomUUID() }),
+    );
+    const firstTurn = await turnOf(marker);
+    const failedRun = await waitForAsync(`the run of ${marker} to fail`, async () => {
+      const current = await runCauseEffect(workflows.run(started.run.id));
+      return current.run.status === "running" ? null : current;
+    });
+    const failedStep = failedRun.steps.find((step) => step.nodeId === "agent");
+    pass(`${name}: the first attempt starts with the effort it asks for and fails`, firstTurn.effort === before, {
+      firstTurn,
+      before,
+    });
+    pass(
+      `${name}: the step and the run end failed`,
+      failedStep?.status === "failed" && failedRun.run.status === "failed",
+      {
+        step: failedStep,
+        run: failedRun.run,
+      },
+    );
+
+    // The node is edited after the run started: the graph of the run keeps what it had.
+    const current = await runCauseEffect(workflows.get(created.summary.id));
+    const edited = {
+      ...current.graph,
+      nodes: current.graph.nodes.map((node) => {
+        if (node.id !== "agent") return node;
+        const fields = { ...node.fields };
+        for (const [key, value] of Object.entries(edit)) {
+          if (value === undefined) delete fields[key];
+          else fields[key] = value;
+        }
+        return { ...node, fields };
+      }),
+    };
+    const saved = await runCauseEffect(
+      workflows.saveGraph({ workflowId: created.summary.id, baseRevision: current.revision, graph: edited }),
+    );
+    pass(`${name}: the edit is saved`, saved.ok, saved);
+    const retried = await runCauseEffect(
+      workflows.retryStep({ stepId: failedStep?.id ?? "", requestId: crypto.randomUUID() }),
+    );
+    const retriedTurn = await waitFor(`the retried turn of ${marker}`, () =>
+      turnLogs()
+        .filter((turn) => turn.text.includes(marker))
+        .at(1),
+    );
+    const retriedRun = await waitForAsync(`the retried run of ${marker} to end`, async () => {
+      const latest = await runCauseEffect(workflows.run(started.run.id));
+      return latest.run.status === "running" ? null : latest;
+    });
+    report.turns.push({ name: `retry ${name}`, effort: retriedTurn.effort });
+    const stored = runStore.steps(started.run.id).find((step) => step.id === retried.id);
+    pass(`${name}: the retried attempt goes to the agent that the node names now`, stored?.agentId === expect.agentId, {
+      stored,
+      expect,
+    });
+    pass(
+      `${name}: the retried turn starts with the effort that the node asks for now`,
+      retriedTurn.effort === expect.effort,
+      { retriedTurn, expect },
+    );
+    pass(`${name}: the run ends done after the retry`, retriedRun.run.status === "done", retriedRun.run);
+  };
+  await retryCase("EFFORT", "medium", { effort: "high" }, { agentId: worker.id, effort: "high" });
+  await retryCase("AGENT", "high", { agentId: second.id, effort: "medium" }, { agentId: second.id, effort: "medium" });
+  await retryCase("CLEARED", "high", { effort: undefined }, { agentId: worker.id, effort: OWN_EFFORT });
+
   report.passed = true;
 } catch (error) {
   report.error = error instanceof Error ? (error.stack ?? error.message) : String(error);
