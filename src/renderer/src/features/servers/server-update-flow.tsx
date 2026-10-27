@@ -10,7 +10,8 @@ import {
 } from "@openbot/ui/features/servers/ServerUpdateDialog";
 import { restartReasonKey } from "@openbot/ui/features/updates/restart-reasons";
 import { currentText } from "@openbot/ui/text";
-import { createEffect, createRoot, createSignal, createStore, onSettled, untrack } from "solid-js";
+import { createEffect, createSignal, createStore, onSettled, untrack } from "solid-js";
+import { createDetachedRoot } from "../../detached-root";
 import type { HostRestartView } from "../updates/host-restart-toast";
 import type { HostUpdateCalls } from "./ServerUpdatePanel";
 
@@ -460,9 +461,9 @@ function hide(id: string): void {
   setOpenId(null);
   const runtime = runtimes.get(id);
   if (!runtime || runtime.disposeNotice) return;
-  // An explicit root, because the notice outlives the dialog. A write to the Toaster from an owner
+  // A detached root, because the notice outlives the dialog. A write to the Toaster from an owner
   // throws, so the notice is raised outside the root.
-  const parts = createRoot((dispose) => ({ dispose, line: <span>{noticeLine(id)}</span> }));
+  const parts = createDetachedRoot((dispose) => ({ dispose, line: <span>{noticeLine(id)}</span> }));
   runtime.disposeNotice = parts.dispose;
   setTimeout(() => {
     if (runtime.disposeNotice !== parts.dispose) return;
