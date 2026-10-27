@@ -5,6 +5,7 @@ import { playableMediaKind } from "@openbot/contracts/attachment-files";
 import { rewriteAttachmentReferences } from "@openbot/contracts/attachment-references";
 import { INPUT_LIMITS } from "@openbot/contracts/input-limits";
 import type {
+  AgentReasoningEffort,
   AgentRuntimeWorkItem,
   AttachmentDataInput,
   AttachmentSummary,
@@ -28,6 +29,7 @@ import {
   AGENT_RUNTIME_WORKING_ITEMS_LIMIT,
   isConversationMessageSender,
   isMessageReaction,
+  isReasoningEffort,
   QUEUE_STEER_FALLBACKS,
 } from "@openbot/contracts/ipc";
 import { type DynamicRecord, isNumber, isOneOf, isString } from "@openbot/contracts/runtime-values";
@@ -104,6 +106,12 @@ interface StoredMessage {
    * a person's turn. Never sent to a client. A person's edit of the text clears it.
    */
   writtenByAgentId?: string;
+  /**
+   * The reasoning effort that a workflow step asks for on the turn this routine message starts. It
+   * sits beside `sender`, as `writtenByAgentId` does, and is never sent to a client, the queue or the
+   * transfer manifest. Absent means the agent's own setting, which is what every older message meant.
+   */
+  reasoningEffort?: AgentReasoningEffort;
   text: string;
   attachments: StoredAttachment[];
   /**
@@ -185,6 +193,8 @@ interface EnqueueInput {
   senderMember?: ConversationMessageSender;
   /** Set on a user message that an agent's tool call writes. Ignored on any other sender. */
   writtenByAgentId?: string;
+  /** Set on a routine message that a workflow step hands over with its own effort. Ignored on any other sender. */
+  reasoningEffort?: AgentReasoningEffort | undefined;
   recipientAgentIds: string[];
   text: string;
   replyToMessageId?: string | null;
@@ -583,6 +593,9 @@ export class MailboxStore {
         sender: input.sender,
         ...(input.sender.kind === "user" && input.senderMember ? { senderMember: input.senderMember } : {}),
         ...(input.sender.kind === "user" && input.writtenByAgentId ? { writtenByAgentId: input.writtenByAgentId } : {}),
+        ...(input.sender.kind === "routine" && isReasoningEffort(input.reasoningEffort)
+          ? { reasoningEffort: input.reasoningEffort }
+          : {}),
         text: rewriteAttachmentReferences(text, (reference) => {
           const attachment = committedByDraftId.get(reference.attachmentId);
           return attachment ? { attachmentId: attachment.id, name: attachment.name } : null;
@@ -1700,6 +1713,11 @@ export class MailboxStore {
   /** The agent whose tool call wrote a user message, or undefined: no such message, or a person's. */
   writtenByAgentIdOf(messageId: string): string | undefined {
     return this.#state.messages.find((message) => message.id === messageId)?.writtenByAgentId;
+  }
+
+  /** The effort a workflow step asked for on a routine message, or undefined: no such message, or none asked. */
+  reasoningEffortOf(messageId: string): AgentReasoningEffort | undefined {
+    return this.#state.messages.find((message) => message.id === messageId)?.reasoningEffort;
   }
 
   hasReplyFrom(agentId: string, messageId: string): boolean {
@@ -3007,6 +3025,7 @@ function isStoredMessage(value: unknown): value is StoredMessage {
         isString(value.sender.scheduledFor))) &&
     (value.senderMember === undefined || isConversationMessageSender(value.senderMember)) &&
     (value.writtenByAgentId === undefined || isString(value.writtenByAgentId)) &&
+    (value.reasoningEffort === undefined || isReasoningEffort(value.reasoningEffort)) &&
     isString(value.text) &&
     Array.isArray(value.attachments) &&
     value.attachments.every(isStoredAttachment) &&
