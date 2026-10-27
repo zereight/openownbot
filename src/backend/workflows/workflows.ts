@@ -152,6 +152,8 @@ export interface WorkflowsDependencies {
     agentId: string;
     text: string;
     idempotencyKey: string;
+    /** The effort for the one turn the handoff starts. Absent: the agent's own setting. */
+    reasoningEffort?: AgentReasoningEffort;
   }): Effect.Effect<string, { readonly cause: unknown }>;
   /** Ends a delivery: cancels it while it waits, or interrupts the turn that answers it. */
   stopDelivery(agentId: string, deliveryId: string): Effect.Effect<void, { readonly cause: unknown }>;
@@ -332,6 +334,12 @@ class Workflows extends Context.Service<Workflows, WorkflowsShape>()("openbot/ba
             return;
           }
           const run = step.runId ? runs.run(step.runId) : null;
+          // The node of the graph the run started with, so a step that a restart sends again asks for
+          // the effort it first asked for. Only one of the known levels counts; the agent's own
+          // setting answers for a missing or unknown one.
+          const asked = (run?.graph ?? store.detail(step.workflowId)?.graph)?.nodes.find(
+            (candidate) => candidate.id === step.nodeId,
+          )?.fields.effort;
           const sent = yield* dependencies
             .sendHandoff({
               run: {
@@ -343,6 +351,7 @@ class Workflows extends Context.Service<Workflows, WorkflowsShape>()("openbot/ba
               agentId: step.agentId,
               text: step.input,
               idempotencyKey: `workflow-step:${step.id}`,
+              ...(isReasoningEffort(asked) ? { reasoningEffort: asked } : {}),
             })
             .pipe(Effect.exit);
           if (Exit.isSuccess(sent)) {
