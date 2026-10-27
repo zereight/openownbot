@@ -427,7 +427,10 @@ export class MobileChannelStore {
       // that no screen shows reads its history when it opens.
       if (options?.waitForRefresh && command.type === "send" && entry.observed.has(result.id))
         await this.refreshHistory(serverId, result.id);
-      else if (options?.waitForRefresh && (command.type === "resume" || command.type === "reassign"))
+      else if (
+        options?.waitForRefresh &&
+        (command.type === "resume" || command.type === "reassign" || command.type === "cancel")
+      )
         await this.refreshHistory(serverId, result.id, sourceText("error.remote.taskHistoryRefreshFailed"));
       else {
         const refresh = this.refresh(serverId);

@@ -1,6 +1,6 @@
 import type { ChannelTask } from "@openbot/contracts/ipc";
 import { Button, Typography } from "heroui-native";
-import { View } from "react-native";
+import { Alert, View } from "react-native";
 import { BloubAvatarThumbnail } from "@/features/agents/components/bloub-avatar";
 import { ChatMarkdown } from "@/features/chat/components/chat-markdown";
 import { SettingsSection } from "@/features/settings/components/settings-content";
@@ -8,7 +8,7 @@ import type { MobileAgent } from "@/features/workspace/model/workspace-types";
 import { CoveringMenuView } from "@/shared/components/covering-menu-view";
 import { useText } from "@/shared/lib/text";
 
-type TaskCommand = (taskId: string, type: "resume" | "reassign", recipientAgentId?: string | null) => void;
+type TaskCommand = (taskId: string, type: "resume" | "reassign" | "cancel", recipientAgentId?: string | null) => void;
 
 export function ChannelTaskActions({
   tasks,
@@ -54,6 +54,15 @@ function TaskActionCard({
   const { t, sourceText } = useText();
   const agent = members.find((member) => member.id === task.ownerAgentId);
   const name = agent?.name ?? t("mobile.channel.task.task");
+  const confirmCancel = () =>
+    Alert.alert(t("mobile.channel.task.cancelTitle"), t("mobile.channel.task.cancelBody"), [
+      { text: t("common.back"), style: "cancel" },
+      {
+        text: t("mobile.channel.task.cancelConfirm"),
+        style: "destructive",
+        onPress: () => onCommand(task.id, "cancel"),
+      },
+    ]);
   return (
     <SettingsSection>
       <View className="gap-3 p-4">
@@ -112,6 +121,9 @@ function TaskActionCard({
               </Button>
             </CoveringMenuView>
           </View>
+          <Button className="min-h-11 flex-1" size="sm" variant="ghost" isDisabled={disabled} onPress={confirmCancel}>
+            <Button.Label className="text-danger-text">{t("mobile.channel.task.cancel")}</Button.Label>
+          </Button>
         </View>
       </View>
     </SettingsSection>
