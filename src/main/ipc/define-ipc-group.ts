@@ -30,6 +30,7 @@ import {
   handleTrusted,
   handleTrustedWithEvent,
   type PayloadDecoder,
+  removeTrustedHandler,
   type TakesEventOnly,
   type TakesNoArguments,
 } from "../trusted-ipc";
@@ -107,12 +108,19 @@ export type GroupHandlers<Group extends IpcEndpointGroup> = {
 /** One `GroupHandlers` per group in `IPC_ENDPOINTS`. */
 export type IpcGroupHandlers = { readonly [Group in keyof IpcEndpoints]: GroupHandlers<IpcEndpoints[Group]> };
 
+// Every channel `bindGroup` bound, so shutdown can unbind exactly that set. A renderer read that
+// lands after the database closed must reject in the renderer with "No handler registered", not
+// run against stopped services and log "OpenBot database is not initialized" from the main
+// process on every restart.
+const boundChannels = new Set<string>();
+
 function bindGroup(group: IpcEndpointGroup, handlers: Readonly<Record<string, UntypedHandler>>): void {
   for (const [name, endpoint] of Object.entries(group)) {
     if (endpoint.kind !== "request") continue;
     const handler = handlers[name];
     if (!handler) throw new Error(`The IPC endpoint ${name} has no handler.`);
     handler(endpoint.channel);
+    boundChannels.add(endpoint.channel);
   }
 }
 
@@ -146,4 +154,15 @@ export function registerIpcGroups(handlers: Readonly<Record<string, Readonly<Rec
     if (!groupHandlers) throw new Error(`The IPC group ${name} has no handlers.`);
     bindGroup(group, groupHandlers);
   }
+}
+
+/**
+ * Removes every channel `bindGroup` bound. Shutdown calls this before the services stop: the
+ * renderer keeps reading while they do, and a read past this point rejects in the hidden
+ * renderer instead of throwing from a handler whose services are gone. Safe before anything
+ * registered, for a quit that arrives mid-startup.
+ */
+export function unregisterIpcGroups(): void {
+  for (const channel of boundChannels) removeTrustedHandler(channel);
+  boundChannels.clear();
 }

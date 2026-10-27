@@ -99,6 +99,11 @@ const TRUSTED_WRAPPERS = /\bhandleTrusted(?:WithEvent)?\b/;
 // The parameter both wrappers take and pass straight to ipcMain.
 const WRAPPER_CHANNEL_PARAMETER = "channel";
 
+// Only registrations hand a handler to a sender, so only they are scanned for the sender check.
+// `removeHandler` takes a channel away and validates no sender; the fixture in the test below
+// keeps a pattern that stopped matching registrations from going green by matching nothing.
+const REGISTERING_IPC_CALL = /\bipcMain\.(handle[A-Za-z0-9_]*)\s*\(/;
+
 // The call that makes a registration a trusted one.
 const SENDER_CHECK = "isTrustedRendererUrl";
 
@@ -274,9 +279,12 @@ describe("IPC channel coverage", () => {
   // are properties rather than a count of calls, so a third wrapper that has them
   // stays green.
   it("validates the sender of every channel it is handed inside the trusted module", () => {
+    expect(REGISTERING_IPC_CALL.test("ipcMain.handle(channel, listener)")).toBe(true);
+    expect(REGISTERING_IPC_CALL.test("ipcMain.removeHandler(channel)")).toBe(false);
+
     const source = readSource(TRUSTED_IPC_MODULE);
     const unguarded: string[] = [];
-    for (const match of source.matchAll(/\bipcMain\.([A-Za-z0-9_]+)\s*\(/g)) {
+    for (const match of source.matchAll(new RegExp(REGISTERING_IPC_CALL.source, "g"))) {
       const start = match.index + match[0].length;
       const channel = argumentAt(source, start, 0)?.argument ?? "(unreadable)";
       if (channel !== WRAPPER_CHANNEL_PARAMETER) unguarded.push(`${match[1]} registers ${channel}`);

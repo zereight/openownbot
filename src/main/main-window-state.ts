@@ -46,6 +46,11 @@ export interface SecondLaunchState {
   hasMainWindow: boolean;
   /** Startup has built the services, so a closed main window can be built again. */
   started: boolean;
+  /**
+   * False in development, where the supervisor owns restarts: a relaunch there would run a
+   * detached Electron outside it, with no renderer server.
+   */
+  isPackaged: boolean;
 }
 
 /**
@@ -59,7 +64,9 @@ export type SecondLaunchResponse = "present" | "reopen" | "relaunch" | "ignore";
 
 export function secondLaunchResponse(state: SecondLaunchState): SecondLaunchResponse {
   if (state.sessionEnding) return "ignore";
-  if (state.quitting) return "relaunch";
+  // In development the launch that asked waits for the lock instead of exiting, so nothing has
+  // to relaunch for it — and the relaunch would escape the supervisor.
+  if (state.quitting) return state.isPackaged ? "relaunch" : "ignore";
   if (state.hasMainWindow) return "present";
   return state.started ? "reopen" : "ignore";
 }

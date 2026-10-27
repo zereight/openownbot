@@ -63,7 +63,7 @@ import { channelRoutineIpcHandlers } from "./ipc/channel-routine-handlers";
 import { computerUseIpcHandlers } from "./ipc/computer-use-handlers";
 import { customAgentIpcHandlers } from "./ipc/custom-agent-handlers";
 import { customProviderIpcHandlers } from "./ipc/custom-provider-handlers";
-import { registerIpcGroups } from "./ipc/define-ipc-group";
+import { registerIpcGroups, unregisterIpcGroups } from "./ipc/define-ipc-group";
 import { dynamicIslandIpcHandlers } from "./ipc/dynamic-island-handlers";
 import { eventsIpcHandlers } from "./ipc/events-handlers";
 import { githubConnectorIpcHandlers } from "./ipc/github-connector-handlers";
@@ -116,6 +116,7 @@ import { sendToRenderer } from "./renderer-ipc";
 import { RoutineWake } from "./routine-wake";
 import { takeServerModeEnvironment } from "./server-mode";
 import { configureContentSecurityPolicy, configureRendererPermissions } from "./session-configuration";
+import { acquireSingleInstanceLock, sleepMilliseconds } from "./single-instance-lock";
 import { trustSystemCertificates } from "./system-certificates";
 import { TeardownRegistry } from "./teardown-registry";
 import type { TraceFile } from "./trace-file";
@@ -209,8 +210,15 @@ if (commandLineUserDataDirectory) {
 app.setName("OpenBot");
 app.enableSandbox();
 if (process.platform === "win32") app.setAppUserModelId("app.openbot.desktop");
-const hasSingleInstanceLock = app.requestSingleInstanceLock();
-// A second launch exits at once and must not write into the files of the instance that runs.
+// In development this waits for the lock while a restart quits the previous instance; a
+// packaged second launch still exits at once. Either way a launch without the lock must not
+// write into the files of the instance that runs.
+const hasSingleInstanceLock = acquireSingleInstanceLock({
+  request: () => app.requestSingleInstanceLock(),
+  isDevelopment: !app.isPackaged,
+  sleep: sleepMilliseconds,
+  log: (message) => logger.info(message),
+});
 if (hasSingleInstanceLock) {
   startMainLog(join(app.getPath("userData"), "logs"));
   // Crash dumps stay in `crashDumps` on this computer. Crashpad removes old reports itself. Without
@@ -1027,6 +1035,7 @@ if (!hasSingleInstanceLock) {
       quitting: isQuitting,
       hasMainWindow,
       started: services !== null,
+      isPackaged: app.isPackaged,
     });
     if (response === "present" && window) showMainWindow(window);
     else if (response === "reopen") reopenMainWindow();
@@ -1493,7 +1502,7 @@ async function prepareForUpdateInstall(): Promise<void> {
 }
 
 /**
- * The five steps ahead of `teardown.runAll()` are pinned here rather than registered: the windows,
+ * The six steps ahead of `teardown.runAll()` are pinned here rather than registered: the windows,
  * the notch windows and the haptic process have to disappear the moment the user asks to quit, not
  * behind a remote host that can take seconds to stop. The two service calls among them are
  * registered as well, for the case where the quit arrives before those services exist; both are
@@ -1512,6 +1521,10 @@ async function prepareForShutdown(): Promise<void> {
   );
   // After the bounds are saved.
   hideWindowsForQuit();
+  // Before the services stop: the hidden renderer keeps reading while they do, and a read that
+  // lands after this rejects in the renderer instead of throwing from a handler whose database
+  // is already closed.
+  unregisterIpcGroups();
   services?.dynamicIsland.destroy();
   macHapticFeedback.destroy();
   await teardown.runAll();

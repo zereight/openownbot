@@ -10,7 +10,7 @@ import {
   type VoiceTranscriptionResult,
 } from "@openbot/contracts/ipc";
 import { describe, expect, it, vi } from "vitest";
-import { handler, payloadHandler, registerIpcGroup } from "./define-ipc-group";
+import { handler, payloadHandler, registerIpcGroup, unregisterIpcGroups } from "./define-ipc-group";
 import {
   parseSpeechInput,
   parseSpeechSettings,
@@ -31,6 +31,9 @@ vi.mock("electron", () => ({
   ipcMain: {
     handle(channel: string, listener: (event: unknown, ...arguments_: unknown[]) => unknown) {
       registrations.set(channel, listener);
+    },
+    removeHandler(channel: string) {
+      registrations.delete(channel);
     },
   },
 }));
@@ -112,5 +115,28 @@ describe("IPC group registration", () => {
       "Rejected IPC request from an untrusted renderer.",
     );
     expect(handled).toBe(0);
+  });
+});
+
+// Shutdown unregisters what registration bound: a renderer read that lands after the database
+// closed must reject in the renderer, not run against stopped services and log "OpenBot database
+// is not initialized" from the main process on every restart.
+describe("IPC group unregistration", () => {
+  it("removes every registered channel", () => {
+    registerVoice(() => ({ text: "" }));
+
+    expect(registrations.has("voice:get-model-status")).toBe(true);
+    expect(registrations.has("voice:transcribe")).toBe(true);
+
+    unregisterIpcGroups();
+
+    expect(registrations.has("voice:get-model-status")).toBe(false);
+    expect(registrations.has("voice:transcribe")).toBe(false);
+  });
+
+  it("is a no-op when nothing is registered", () => {
+    unregisterIpcGroups();
+
+    expect(() => unregisterIpcGroups()).not.toThrow();
   });
 });

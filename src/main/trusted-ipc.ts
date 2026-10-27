@@ -188,3 +188,12 @@ export function handleTrustedWithEvent(channel: string, ...registration: Trusted
     );
   });
 }
+
+/**
+ * Undoes one `handleTrusted` or `handleTrustedWithEvent` registration. Removal validates no
+ * sender: it hands no handler to anyone, so a renderer can only lose a channel it had, never
+ * reach one without the check. Called only from the endpoint binder's shutdown path.
+ */
+export function removeTrustedHandler(channel: string): void {
+  ipcMain.removeHandler(channel);
+}
