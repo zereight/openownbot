@@ -57,6 +57,8 @@ git diff --cached --name-only -z --diff-filter=ACMR -- 'changelog.d/*.md' 'apps/
   ':(exclude)changelog.d/README.md' ':(exclude)apps/mobile/changelog.d/README.md' |
   xargs -0 -r bun scripts/check-release-notes.ts --staged --fragments
 
+bun run check:local-only
+
 # Text-only commits, such as docs and AGENTS.md, cannot change a type or a UI rule. Data JSON is
 # not code; `apps/mobile/app.json` is, because the mobile codegen reads it.
 code_pattern='\.(ts|tsx|mts|cts|js|mjs|cjs|css|grit)$|(^|/)(tsconfig[^/]*|package|biome)\.json$|^apps/mobile/app\.json$|(^|/)bun\.lock$'

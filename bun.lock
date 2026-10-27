@@ -58,6 +58,7 @@
         "@types/node": "catalog:",
         "@types/qrcode": "^1.5.6",
         "@types/ws": "8.18.2",
+        "@typescript/typescript6": "6.0.2",
         "axe-core": "4.14.0",
         "electron": "44.9.3",
         "electron-builder": "26.18.0",
