@@ -202,8 +202,10 @@ export function hostDefaults(
 ): WfnFields {
   switch (kind) {
     case "agent": {
+      // The model of an agent step is the model of its agent. A copy here would go stale at the next
+      // change of the agent, so the node keeps none.
       const agent = catalogs.agents[0];
-      return agent ? { agentId: agent.id, model: agent.model, provider: agent.provider } : {};
+      return agent ? { agentId: agent.id } : {};
     }
     case "llm": {
       const model = catalogs.models[0];
