@@ -9,7 +9,7 @@ import { latestTurnAnswer } from "@openbot/contracts/ipc";
 import { toast } from "@openbot/ui";
 import type { DiagramChatMessage } from "@openbot/ui/features/diagrams/diagram-model";
 import { useText } from "@openbot/ui/text";
-import { createEffect, createStore, onSettled } from "solid-js";
+import { createEffect, createMemo, createStore, onSettled } from "solid-js";
 import type { AgentChatPort } from "./agent-chat-port";
 
 /** A request sent and not answered yet. `deliveryId` names the request in the conversation. */
@@ -23,6 +23,8 @@ export interface CanvasAssistantOptions {
   prepare?: (() => Promise<void>) | undefined;
   /** The text the agent gets for what the user typed. The panel always shows the typed text. */
   compose?: ((typed: string) => string) | undefined;
+  /** What the exchange in the panel is about. When it changes, the panel drops the exchange, as for another agent. */
+  scope?: (() => string | null | undefined) | undefined;
 }
 
 export function createCanvasAssistant(
@@ -36,7 +38,10 @@ export function createCanvasAssistant(
     pending: null,
   });
 
-  createEffect(agentId, () => {
+  // The memo stops a new value that is the same: an effect runs on each change of what its compute
+  // function reads, as a read of the open workflow gives a new object, also for the same workflow.
+  const exchangeOf = createMemo(() => `${agentId() ?? ""}\u0000${options.scope?.() ?? ""}`);
+  createEffect(exchangeOf, () => {
     setChat((draft) => {
       draft.messages = [];
       draft.pending = null;

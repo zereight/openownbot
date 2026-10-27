@@ -1,7 +1,7 @@
 import { graphAgentIds } from "@openbot/contracts/ipc";
 import { workflowChatReference } from "@openbot/contracts/workflow-chat-reference";
 import type { AgentProfile } from "@openbot/ui/data";
-import { createMemo, createSignal } from "solid-js";
+import { createMemo, createSignal, untrack } from "solid-js";
 import { desktopAgentChatPort } from "../../agent-chat-port";
 import { createCanvasAssistant } from "../../canvas-assistant";
 import { readAgentSelection, writeAgentSelection } from "../agents/agent-selection";
@@ -28,15 +28,28 @@ export function createWorkflowAssistant(options: {
   const [picked, setPicked] = createSignal(readAgentSelection(WORKFLOW_CHAT_AGENT_KEY)[serverId] ?? "");
   const isListed = (id: string) => options.agents().some((agent) => agent.id === id);
 
-  /** The agent picked last, else the first agent that a step of the workflow names, else the first agent. */
+  /** The open workflow. The memo changes only when another workflow opens, not on each read of it. */
+  const workflowId = createMemo(() => workflows.detail()?.summary.id ?? null);
+  /**
+   * The agents that the steps of the workflow name, read when the workflow opens. An edit of the graph,
+   * also one by the agent, does not change who answers: that would drop the exchange in the panel.
+   */
+  const named = createMemo(() => {
+    const id = workflowId();
+    const detail = untrack(workflows.detail);
+    return id === null || !detail ? [] : graphAgentIds(detail.graph);
+  });
+
+  /** The agent picked last, else the first agent that a step of the workflow named, else the first agent. */
   const agentId = createMemo(() => {
     if (isListed(picked())) return picked();
-    const detail = workflows.detail();
-    const named = detail && graphAgentIds(detail.graph).find(isListed);
-    return named ?? options.agents()[0]?.id ?? null;
+    return named().find(isListed) ?? options.agents()[0]?.id ?? null;
   });
 
   const assistant = createCanvasAssistant(() => desktopAgentChatPort(serverId), agentId, {
+    // The exchange in the panel is about one workflow: another one opens with an empty panel. The
+    // conversation of the agent keeps the whole history.
+    scope: workflowId,
     // The save of the edits that wait goes first, so the agent reads the graph the user sees.
     prepare: workflows.settled,
     compose: (typed) => {
