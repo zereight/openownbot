@@ -284,7 +284,6 @@ export function OptionsPane({
   helpShift,
   onToggleHelp,
   onScan,
-  onEmail,
   onLayout,
   onHelpLayout,
   reduced,
@@ -296,7 +295,6 @@ export function OptionsPane({
   helpShift: SharedValue<number>;
   onToggleHelp: () => void;
   onScan: () => void;
-  onEmail: () => void;
   onLayout?: (height: number) => void;
   onHelpLayout?: (height: number) => void;
   reduced: boolean;
@@ -320,7 +318,10 @@ export function OptionsPane({
       </PaneItem>
       <PaneItem index={2} motion={motion} className="mt-7 gap-3">
         <SignInButton brand icon={ScanLine} label={t("mobile.auth.scanQrCode")} onPress={onScan} reduced={reduced} />
+        {/* Email sign-in is switched off in this fork, so its button stays commented out. Bringing it back
+        also needs an `onEmail` prop, which `sign-in-screen.tsx` sets to `signIn.openEmail`.
         <SignInButton brand={false} label={t("mobile.auth.signIn.emailButton")} onPress={onEmail} reduced={reduced} />
+        */}
       </PaneItem>
       <PaneItem index={3} motion={motion}>
         <HelpToggle open={helpOpen} onToggle={onToggleHelp} onBodyLayout={onHelpLayout} reduced={reduced} />

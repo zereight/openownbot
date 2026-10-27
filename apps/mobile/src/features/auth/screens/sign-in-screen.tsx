@@ -399,7 +399,6 @@ export function SignInScreen({ notice }: { notice?: SignInNotice }) {
             helpShift={staticShift}
             onToggleHelp={() => undefined}
             onScan={() => undefined}
-            onEmail={() => undefined}
             onLayout={setOptionsHeight}
             onHelpLayout={setHelpHeight}
             reduced={reduced}
@@ -424,7 +423,6 @@ export function SignInScreen({ notice }: { notice?: SignInNotice }) {
               helpShift={helpShift}
               onToggleHelp={() => setHelpOpen((open) => !open)}
               onScan={openScanner}
-              onEmail={signIn.openEmail}
               reduced={reduced}
             />
           </Animated.View>
