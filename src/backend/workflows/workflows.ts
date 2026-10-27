@@ -324,22 +324,28 @@ class Workflows extends Context.Service<Workflows, WorkflowsShape>()("openbot/ba
 
         // --- Steps ---------------------------------------------------------------------------------
 
+        /** The node of a step in the graph of its run, or in the current graph when it has no run. */
+        const nodeOf = (step: StoredWorkflowStep, run: StoredWorkflowRun | null) =>
+          (run?.graph ?? store.detail(step.workflowId)?.graph)?.nodes.find((candidate) => candidate.id === step.nodeId);
+
         /**
          * Sends an agent step's message and keeps the delivery. The key is the step's, so a second
          * attempt after a restart finds the delivery the first one made instead of sending twice.
+         * `node` is the node whose settings the step runs with: a retry passes the current node, so
+         * the effort comes from the same place as the agent and the task.
          */
-        const sendAgentStep = Effect.fn("Workflows.sendAgentStep")(function* (step: StoredWorkflowStep) {
+        const sendAgentStep = Effect.fn("Workflows.sendAgentStep")(function* (
+          step: StoredWorkflowStep,
+          node: WorkflowNode,
+        ) {
           if (!step.agentId) {
             settle(step, { status: "failed", error: sourceText("error.workflow.agentMissing") });
             return;
           }
           const run = step.runId ? runs.run(step.runId) : null;
-          // The node of the graph the run started with, so a step that a restart sends again asks for
-          // the effort it first asked for. Only one of the known levels counts; the agent's own
-          // setting answers for a missing or unknown one.
-          const asked = (run?.graph ?? store.detail(step.workflowId)?.graph)?.nodes.find(
-            (candidate) => candidate.id === step.nodeId,
-          )?.fields.effort;
+          // Only one of the known levels counts; the agent's own setting answers for a missing or
+          // unknown one.
+          const asked = node.fields.effort;
           const sent = yield* dependencies
             .sendHandoff({
               run: {
@@ -534,7 +540,7 @@ class Workflows extends Context.Service<Workflows, WorkflowsShape>()("openbot/ba
               settle(step, { status: "done", output: fieldText(node, "text") });
               return;
             case "agent":
-              yield* sendAgentStep(step);
+              yield* sendAgentStep(step, node);
               return;
             case "llm":
             case "condition":
@@ -692,7 +698,9 @@ class Workflows extends Context.Service<Workflows, WorkflowsShape>()("openbot/ba
             if (step.kind === "agent") {
               // A step without a delivery lost its message to a restart between the two writes.
               if (!step.deliveryId) {
-                yield* sendAgentStep(step);
+                const node = nodeOf(step, step.runId ? runs.run(step.runId) : null);
+                if (node) yield* sendAgentStep(step, node);
+                else settle(step, { status: "failed", error: sourceText("error.workflow.nodeMissing") });
                 ended = runs.step(step.id)?.status !== "running";
               } else ended = settleFromDelivery(step);
             } else if (step.kind === "llm" || step.kind === "condition" || step.kind === "output") {
@@ -704,8 +712,7 @@ class Workflows extends Context.Service<Workflows, WorkflowsShape>()("openbot/ba
             } else {
               // A restart came between the step and what it does at once, such as an approval's wait.
               const run = step.runId ? runs.run(step.runId) : null;
-              const graph = run?.graph ?? store.detail(step.workflowId)?.graph;
-              const node = graph?.nodes.find((candidate) => candidate.id === step.nodeId);
+              const node = nodeOf(step, run);
               if (node) yield* execute(step, node, run);
               else settle(step, { status: "failed", error: sourceText("error.workflow.nodeMissing") });
               ended = runs.step(step.id)?.status !== "running";

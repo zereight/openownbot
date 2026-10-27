@@ -35,7 +35,7 @@ import {
 import { type DynamicRecord, isNumber, isOneOf, isString } from "@openbot/contracts/runtime-values";
 import { QueueEditRejectedError } from "@openbot/contracts/team-protocol/queue-edit-v1";
 import { sourceText } from "@openbot/i18n/source";
-import { redactText } from "@openbot/logging";
+import { createOpenBotLogger, redactText } from "@openbot/logging";
 import { Effect, Result } from "effect";
 import {
   AttachmentFiles,
@@ -58,6 +58,9 @@ import { isRecord } from "./protocol";
 import { recordRestartActivity } from "./restart-activity";
 
 const MAX_ATTACHMENTS = INPUT_LIMITS.attachments;
+
+const logger = createOpenBotLogger("mailbox-store");
+
 /**
  * The external conversation a message came from. Such a message runs in the execution thread of
  * that conversation, so the queue and the public chat do not show it, like channel work.
@@ -2855,6 +2858,12 @@ function compareQueueOrder(left: StoredDelivery, right: StoredDelivery): number 
 function toCurrentMailboxState(value: unknown): DynamicRecord | null {
   if (!isRecord(value)) return null;
   const state = withCurrentAgentKeys(value, { pausedBotIds: "pausedAgentIds" });
+  const unreadableEfforts = Array.isArray(state.messages) ? state.messages.filter(hasUnreadableEffort).length : 0;
+  // One line for the whole read, not one for each message.
+  if (unreadableEfforts > 0)
+    logger.warn("Stored messages ask for an effort that this build cannot read and were reset.", {
+      count: unreadableEfforts,
+    });
   return {
     ...state,
     ...(Array.isArray(state.messages) ? { messages: state.messages.map(toCurrentMailboxMessage) } : {}),
@@ -2881,15 +2890,25 @@ function setSenderMember(message: StoredMessage, sender: ConversationMessageSend
   else delete message.senderMember;
 }
 
+/**
+ * A step's effort that this build does not know, such as a level that a newer build added: the shared
+ * profile can hold it after a downgrade.
+ */
+function hasUnreadableEffort(value: unknown): boolean {
+  return isRecord(value) && value.reasoningEffort !== undefined && !isReasoningEffort(value.reasoningEffort);
+}
+
 function toCurrentMailboxMessage(value: unknown): DynamicRecord | null {
   if (!isRecord(value)) return null;
-  const { senderMember, ...message } = value;
+  const { senderMember, reasoningEffort, ...message } = value;
   // A sender that does not decode only loses the name on its message; it must not stop the whole
-  // mailbox from loading.
+  // mailbox from loading. The same holds for an effort that this build cannot read: the turn then
+  // runs with the agent's own effort, as it did before the step asked for one.
   return {
     ...message,
     sender: toCurrentMailboxActor(value.sender),
     ...(isConversationMessageSender(senderMember) ? { senderMember } : {}),
+    ...(isReasoningEffort(reasoningEffort) ? { reasoningEffort } : {}),
     // Released builds kept an agent's `replyToMessageId: ""`, which refers to no message, and every
     // conversation that showed the message then failed to read.
     ...(message.replyToMessageId === "" ? { replyToMessageId: null } : {}),
