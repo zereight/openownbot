@@ -329,4 +329,11 @@ export const messages = {
   "workflow.page.needsNewerApp":
     "このワークフローには新しいバージョンの OpenBot のステップがあります。変更するには OpenBot を更新してください。",
   "workflow.page.manageOnly": "このワークフローを変更するには、各エージェントの管理アクセスが必要です。",
+  "workflow.chat.label": "ワークフローアシスタント",
+  "workflow.chat.title": "{name} にこのワークフローを相談",
+  "workflow.chat.empty": "このワークフローの内容を {name} に尋ねるか、変更したい点を伝えてください。",
+  "workflow.chat.placeholder": "質問するか、変更内容を説明してください",
+  "workflow.chat.show": "このワークフローをエージェントに相談",
+  "workflow.chat.working": "{name} がワークフローを処理しています",
+  "workflow.chat.remote": "参加しているサーバーでは、ワークフローについてエージェントに相談できません。",
 } as const satisfies PartialTranslation<typeof source>;

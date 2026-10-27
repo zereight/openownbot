@@ -343,4 +343,11 @@ export const messages = {
   "workflow.page.conflict": "Ten przepływ zmienił się podczas edycji. Cofnij, aby odzyskać swoje zmiany.",
   "workflow.page.needsNewerApp": "Ten przepływ ma kroki z nowszej wersji OpenBot. Zaktualizuj OpenBot, aby go zmienić.",
   "workflow.page.manageOnly": "Aby zmienić ten przepływ, potrzebujesz dostępu do zarządzania każdym z jego agentów.",
+  "workflow.chat.label": "Asystent przepływu",
+  "workflow.chat.title": "Zapytaj agenta {name} o ten przepływ",
+  "workflow.chat.empty": "Zapytaj agenta {name}, co robi ten przepływ, albo napisz, co zmienić.",
+  "workflow.chat.placeholder": "Zadaj pytanie lub opisz zmianę",
+  "workflow.chat.show": "Zapytaj agenta o ten przepływ",
+  "workflow.chat.working": "{name} pracuje nad przepływem",
+  "workflow.chat.remote": "Na serwerze, do którego dołączyłeś, nie możesz pytać agenta o przepływ.",
 } as const satisfies PartialTranslation<typeof source>;

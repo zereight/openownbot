@@ -331,4 +331,11 @@ export const messages = {
     "Questo flusso di lavoro ha passaggi di una versione più recente di OpenBot. Aggiorna OpenBot per modificarlo.",
   "workflow.page.manageOnly":
     "Per modificare questo flusso di lavoro, ti serve l'accesso Gestione a ciascuno dei suoi agenti.",
+  "workflow.chat.label": "Assistente del flusso di lavoro",
+  "workflow.chat.title": "Chiedi a {name} di questo flusso di lavoro",
+  "workflow.chat.empty": "Chiedi a {name} cosa fa questo flusso di lavoro o digli cosa cambiare.",
+  "workflow.chat.placeholder": "Fai una domanda o descrivi una modifica",
+  "workflow.chat.show": "Chiedi a un agente di questo flusso di lavoro",
+  "workflow.chat.working": "{name} sta lavorando sul flusso di lavoro",
+  "workflow.chat.remote": "Su un server a cui ti sei unito non puoi chiedere a un agente di un flusso di lavoro.",
 } as const satisfies PartialTranslation<typeof source>;

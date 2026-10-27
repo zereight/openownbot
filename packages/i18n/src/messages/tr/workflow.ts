@@ -330,4 +330,11 @@ export const messages = {
   "workflow.page.needsNewerApp":
     "Bu iş akışında daha yeni bir OpenBot sürümünden adımlar var. Değiştirmek için OpenBot'u güncelleyin.",
   "workflow.page.manageOnly": "Bu iş akışını değiştirmek için her bir ajanı üzerinde Yönetme erişiminiz olmalı.",
+  "workflow.chat.label": "İş akışı asistanı",
+  "workflow.chat.title": "{name} ile bu iş akışını konuşun",
+  "workflow.chat.empty": "{name} ajanına bu iş akışının ne yaptığını sorun ya da neyi değiştireceğini söyleyin.",
+  "workflow.chat.placeholder": "Bir soru sorun veya değişikliği açıklayın",
+  "workflow.chat.show": "Bu iş akışını bir ajana sorun",
+  "workflow.chat.working": "{name} iş akışı üzerinde çalışıyor",
+  "workflow.chat.remote": "Katıldığınız bir sunucuda bir iş akışı hakkında ajana soru soramazsınız.",
 } as const satisfies PartialTranslation<typeof source>;
