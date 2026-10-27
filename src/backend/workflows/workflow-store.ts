@@ -40,7 +40,7 @@ import {
   requiredStringColumn,
 } from "../database/database-rows";
 import type { OpenBotDatabase } from "../openbot-database";
-import { nodeTimezone } from "./workflow-graph";
+import { triggerPlan, type WorkflowTriggerPlan, workflowGraphFits } from "./workflow-graph";
 import { workflowTransaction } from "./workflow-transaction";
 
 /**
@@ -78,6 +78,11 @@ export interface DueWorkflowTrigger {
   timezone: string | null;
   /** The occurrence that came, as stored. */
   dueAt: string;
+}
+
+export interface SaveGraphOptions {
+  /** Keep the graph that the save replaces as an `auto` version. */
+  keepBefore?: boolean;
 }
 
 export interface WorkflowStoreOptions {
@@ -151,7 +156,7 @@ export class WorkflowStore {
 
   create(input: { title: string; graph?: WorkflowGraph }, now = new Date()): WorkflowDetail {
     const graph = input.graph ?? { nodes: [], edges: [], strokes: [] };
-    assertRunnable(graph);
+    assertStorable(graph);
     const workflowId = this.#createId();
     return this.#transaction(() => {
       const at = now.toISOString();
@@ -187,13 +192,24 @@ export class WorkflowStore {
 
   /**
    * Replaces the graph, when no one saved since `baseRevision`. A stale save gets the current workflow
-   * back, so the editor can show it instead of overwriting newer work.
+   * back, so the editor can show it instead of overwriting newer work. With `keepBefore`, the graph
+   * the save replaces stays as an `auto` version, unless the newest version already holds that
+   * revision; it is kept in the save's transaction, so a stale save keeps nothing. The version that
+   * a save adds after a quiet five minutes then skips: the kept one is as new as the save.
    */
-  saveGraph(workflowId: string, baseRevision: number, graph: WorkflowGraph, now = new Date()): WorkflowSaveResult {
-    assertRunnable(graph);
+  saveGraph(
+    workflowId: string,
+    baseRevision: number,
+    graph: WorkflowGraph,
+    now = new Date(),
+    options: SaveGraphOptions = {},
+  ): WorkflowSaveResult {
+    assertStorable(graph);
     return this.#transaction(() => {
-      const revision = this.#revision(workflowId);
-      if (revision !== baseRevision) return { ok: false, conflict: this.#requireDetail(workflowId) };
+      const current = this.#requireDetail(workflowId);
+      if (current.revision !== baseRevision) return { ok: false, conflict: current };
+      if (options.keepBefore && this.#newestVersionRevision(workflowId) !== baseRevision)
+        this.#addVersion(workflowId, baseRevision, "auto", current.graph, now);
       this.#writeGraph(workflowId, graph, now);
       const next = this.#bumpRevision(workflowId, now);
       const last = this.#lastVersionAt(workflowId);
@@ -290,7 +306,7 @@ export class WorkflowStore {
       );
       if (!row) throw new WorkflowStoreError({ code: "missing", message: sourceText("error.workflow.versionMissing") });
       const graph = storedGraph(requiredStringColumn(row, "graph_json"));
-      assertRunnable(graph);
+      assertStorable(graph);
       const current = this.#requireDetail(workflowId);
       this.#addVersion(workflowId, current.revision, "restore", current.graph, now);
       this.#writeGraph(workflowId, graph, now);
@@ -305,6 +321,12 @@ export class WorkflowStore {
    * saved versions out of the history.
    */
   addRunVersion(workflowId: string, revision: number, graph: WorkflowGraph, now = new Date()): void {
+    if (this.#newestVersionRevision(workflowId) === revision) return;
+    this.#addVersion(workflowId, revision, "run", graph, now);
+  }
+
+  /** The revision of the newest version, or null when the workflow has none. */
+  #newestVersionRevision(workflowId: string): number | null {
     const newest = databaseRow(
       this.#database.connection
         .prepare(
@@ -313,8 +335,7 @@ export class WorkflowStore {
         )
         .get(workflowId),
     );
-    if (newest && requiredNumberColumn(newest, "graph_revision") === revision) return;
-    this.#addVersion(workflowId, revision, "run", graph, now);
+    return newest ? requiredNumberColumn(newest, "graph_revision") : null;
   }
 
   #graph(workflowId: string, strokesJson: string): WorkflowGraph {
@@ -357,8 +378,8 @@ export class WorkflowStore {
     const kept = new Set(graph.nodes.map((node) => node.id));
     const desired = new Map(
       graph.nodes.flatMap((node) => {
-        const kind = triggerKind(node);
-        return kind ? [[node.id, { node, kind }] as const] : [];
+        const plan = storedTriggerPlan(node);
+        return plan ? [[node.id, { node, ...plan }] as const] : [];
       }),
     );
     const revoke = db.prepare(
@@ -373,7 +394,7 @@ export class WorkflowStore {
     for (const row of existing) {
       const nodeId = requiredStringColumn(row, "node_id");
       const next = desired.get(nodeId);
-      if (row.kind === "webhook" && next?.kind !== "webhook") {
+      if (row.kind === "webhook" && next?.type !== "webhook") {
         revoke.run(at, workflowId, nodeId);
         db.prepare("DELETE FROM workflow_trigger_webhooks WHERE workflow_id = ? AND node_id = ?").run(
           workflowId,
@@ -433,9 +454,7 @@ export class WorkflowStore {
        ON CONFLICT(workflow_id, node_id) DO UPDATE SET kind = excluded.kind, timezone = excluded.timezone,
          schedule_json = excluded.schedule_json, next_due_at = excluded.next_due_at, updated_at = excluded.updated_at`,
     );
-    for (const [nodeId, { node, kind }] of desired) {
-      const timezone = nodeTimezone(node);
-      const scheduleJson = kind === "schedule" && node.schedule ? JSON.stringify(node.schedule) : null;
+    for (const [nodeId, { node, type: kind, scheduleJson, timezone }] of desired) {
       const before = previous.get(nodeId);
       // An unchanged trigger keeps its next occurrence; only a changed one is planned again.
       if (before?.kind === kind && before.schedule_json === scheduleJson && before.timezone === timezone) continue;
@@ -509,7 +528,15 @@ const SUMMARY_SELECT = `
       ORDER BY r.started_at DESC, r.run_id DESC LIMIT 1) AS last_run_at
   FROM workflows AS w`;
 
-function assertRunnable(graph: WorkflowGraph): void {
+/**
+ * A graph the store keeps: the contract's shape and limits, at most `INPUT_LIMITS.workflowGraphBytes`
+ * of JSON, and the host rules. Every writer passes it, so no write stores a graph that a later read
+ * refuses. A wrong shape is a fault: every writer checks the shape before it, so only a bug gets here.
+ */
+function assertStorable(graph: WorkflowGraph): void {
+  if (!isWorkflowGraph(graph)) throw new Error("The workflow graph is invalid.");
+  if (!workflowGraphFits(graph))
+    throw new WorkflowStoreError({ code: "refused", message: sourceText("error.workflow.tooLarge") });
   const problem = workflowGraphProblem(graph);
   if (problem) throw new WorkflowStoreError({ code: "refused", message: sourceText(PROBLEM_TEXT[problem]) });
 }
@@ -518,10 +545,10 @@ function missing(): WorkflowStoreError {
   return new WorkflowStoreError({ code: "missing", message: sourceText("error.workflow.missing") });
 }
 
-function triggerKind(node: WorkflowNode): StoredTriggerKind | null {
-  if (node.kind !== "trigger") return null;
-  const value = node.fields.trigger ?? "manual";
-  return isOneOf(STORED_TRIGGER_KINDS, value) ? value : null;
+/** The plan of a trigger that has a row, or null for another node and for a `message` trigger. */
+function storedTriggerPlan(node: WorkflowNode): (WorkflowTriggerPlan & { type: StoredTriggerKind }) | null {
+  const plan = triggerPlan(node);
+  return plan && isOneOf(STORED_TRIGGER_KINDS, plan.type) ? { ...plan, type: plan.type } : null;
 }
 
 function storedGraph(json: string): WorkflowGraph {

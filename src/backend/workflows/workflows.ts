@@ -54,6 +54,7 @@ import {
 } from "@openbot/contracts/ipc";
 import { sourceText } from "@openbot/i18n/source";
 import { createOpenBotLogger } from "@openbot/logging";
+import { RoutineInputError } from "@openbot/team-client/routine-schedule";
 import { Cause, Context, Effect, Exit, Fiber, Layer, ManagedRuntime, Result, Schema, Scope, Semaphore } from "effect";
 import { isNoUpdateAnswer } from "../agent/routine-quiet-runs";
 import type { AgentProvider } from "../agent-client";
@@ -61,6 +62,13 @@ import { coalescedPasses } from "../coalesced-passes";
 import type { MessagingPostFailure } from "../messaging/messaging-threads";
 import { resultText } from "../routine-results/routine-results";
 import type { ReceivedWebhookEvent } from "../routine-store";
+import {
+  applyWorkflowEdits,
+  armingChanges,
+  armingReason,
+  sameWorkflowGraph,
+  type WorkflowEdit,
+} from "./workflow-edits";
 import {
   isOpenStep,
   publicRun,
@@ -196,6 +204,37 @@ interface WorkflowRunScope {
   agentIds: string[];
 }
 
+export interface WorkflowEditInput {
+  workflowId: string;
+  /** The revision the edits were written against, from a read. */
+  revision: number;
+  edits: readonly WorkflowEdit[];
+  /**
+   * The first saved edit of a workflow with this key keeps the graph before it as a version; later
+   * edits of the same workflow with the key keep none. The agent tools pass the turn id, so a turn
+   * that edits a workflow several times leaves one return point.
+   */
+  checkpointKey: string;
+}
+
+export type WorkflowEditResult =
+  | {
+      kind: "saved";
+      revision: number;
+      /** Key of an added node -> its id. */
+      created: Readonly<Record<string, string>>;
+      /** Whether the graph before this turn's first edit is in the version list. */
+      keptVersion: boolean;
+    }
+  /** The batch changed nothing: no save, no version, no event. */
+  | { kind: "unchanged"; revision: number }
+  | { kind: "stale"; current: WorkflowDetail }
+  /** For the model: what the batch may not do, or why the store refused the graph. */
+  | { kind: "refused"; reason: string };
+
+/** The checkpoint keys the service remembers. A restart forgets them: at most one extra version per turn. */
+const CHECKPOINT_LIMIT = 256;
+
 interface WorkflowsShape {
   list(): Effect.Effect<WorkflowSummary[], WorkflowFailed>;
   /** Every workflow with its graph, in one read. */
@@ -205,6 +244,12 @@ interface WorkflowsShape {
   rename(input: RenameWorkflowInput): Effect.Effect<WorkflowSummary, WorkflowFailed>;
   remove(workflowId: string): Effect.Effect<void, WorkflowFailed>;
   saveGraph(input: SaveWorkflowGraphInput): Effect.Effect<WorkflowSaveResult, WorkflowFailed>;
+  /**
+   * A change described as edits, never as a whole graph, for an agent. It never arms the workflow: it
+   * refuses to add, change or remove a schedule, webhook or message trigger, or to add or move an
+   * output to a messaging place. A store refusal is a `refused` result; a missing workflow is a fault.
+   */
+  edit(input: WorkflowEditInput): Effect.Effect<WorkflowEditResult, WorkflowFailed>;
   versions(workflowId: string): Effect.Effect<WorkflowVersion[], WorkflowFailed>;
   restoreVersion(input: WorkflowVersionInput): Effect.Effect<WorkflowDetail, WorkflowFailed>;
   /** The graph that a restore of the version would put back, or null when there is no such version. */
@@ -745,6 +790,54 @@ class Workflows extends Context.Service<Workflows, WorkflowsShape>()("openbot/ba
           return result;
         });
 
+        /** `${checkpointKey}\u0000${workflowId}` of each edit that kept a version, oldest first. */
+        const checkpointed = new Set<string>();
+        const remember = (checkpoint: string) => {
+          checkpointed.add(checkpoint);
+          if (checkpointed.size <= CHECKPOINT_LIMIT) return;
+          const oldest = checkpointed.values().next().value;
+          if (oldest !== undefined) checkpointed.delete(oldest);
+        };
+
+        const edit = Effect.fn("Workflows.edit")(function* (input: WorkflowEditInput) {
+          const checkpoint = `${input.checkpointKey}\u0000${input.workflowId}`;
+          const keep = !checkpointed.has(checkpoint);
+          // Synchronous SQLite: the read, the edits and the save are one step, so nothing comes between.
+          const outcome = yield* attempt((): WorkflowEditResult => {
+            const current = detailOf(input.workflowId);
+            if (current.revision !== input.revision) return { kind: "stale", current };
+            const applied = applyWorkflowEdits(current.graph, input.edits, () => crypto.randomUUID());
+            if (!applied.ok) return { kind: "refused", reason: applied.reason };
+            const arming = armingChanges(current.graph, applied.graph);
+            if (arming.length > 0) return { kind: "refused", reason: armingReason(arming) };
+            if (sameWorkflowGraph(current.graph, applied.graph))
+              return { kind: "unchanged", revision: current.revision };
+            const saved = store.saveGraph(
+              input.workflowId,
+              input.revision,
+              prepareWorkflowSchedules(applied.graph, dependencies.timezone(), now()),
+              now(),
+              { keepBefore: keep },
+            );
+            if (!saved.ok) return { kind: "stale", current: saved.conflict };
+            return { kind: "saved", revision: saved.revision, created: applied.created, keptVersion: keep };
+          }).pipe(
+            // The model can correct a refused graph and a schedule that cannot run; a fault it cannot.
+            Effect.catch((failure) =>
+              (failure.cause instanceof WorkflowStoreError && failure.cause.code === "refused") ||
+              failure.cause instanceof RoutineInputError
+                ? Effect.succeed<WorkflowEditResult>({ kind: "refused", reason: failure.cause.message })
+                : Effect.fail(failure),
+            ),
+          );
+          if (outcome.kind === "saved") {
+            if (keep) remember(checkpoint);
+            changed(input.workflowId);
+            rearm();
+          }
+          return outcome;
+        });
+
         const versions = Effect.fn("Workflows.versions")(function* (workflowId: string) {
           return yield* attempt(() => {
             detailOf(workflowId);
@@ -1074,6 +1167,7 @@ class Workflows extends Context.Service<Workflows, WorkflowsShape>()("openbot/ba
           rename,
           remove,
           saveGraph,
+          edit,
           versions,
           restoreVersion,
           versionGraph,

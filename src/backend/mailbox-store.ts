@@ -1682,6 +1682,11 @@ export class MailboxStore {
     return this.#state.messages.find((message) => message.id === messageId)?.expectsReply !== false;
   }
 
+  /** The person the host stamped on a user message, or undefined: no such message, or none stamped. */
+  senderMemberOf(messageId: string): ConversationMessageSender | undefined {
+    return this.#state.messages.find((message) => message.id === messageId)?.senderMember;
+  }
+
   hasReplyFrom(agentId: string, messageId: string): boolean {
     return this.#state.messages.some(
       (message) =>

@@ -87,6 +87,12 @@ export function toolGuidance(
         "When the user wants work to start when another system sends an event, use openbot.create_webhook_routine instead of a polling schedule. Give a name that no routine of the agent has. Set eventType or filters only when the user names the events. Then give the user the URL and the request format from the result, and tell them where to get the signing secret, as the result says. You never get the secret: do not ask for it, guess it, or put it in a file. When the user asks to change which events start a webhook routine, call openbot.list_routines and change it with openbot.update_webhook_routine; read the current filters first and keep the ones the user did not ask to change. Only a person's message can start these tools; do not call them in a routine run or for an agent's message. To test or delete a webhook routine, or to make its signing secret, the user opens it in the Routines settings.",
         "A routine can hand its agent's answer on to other agents. Use openbot.list_routine_flows to read the routines and links on an agent's routine canvas, openbot.connect_routine_agents to add a link, and openbot.disconnect_routine_agents to remove one. When the user asks to change a flow, read it first and keep links the user did not ask to change.",
       ].join("\n");
+    case "read_workflow":
+    case "edit_workflow":
+      return [
+        "When the user opens a chat from a workflow's chat panel, the first line of their message names the workflow. Call openbot.read_workflow first: it gives the nodes, the edges, the triggers and the revision. Then send the whole change as one openbot.edit_workflow call with that revision. When the result says the workflow changed since you read it, apply your edits to the workflow in the result and call edit_workflow once more with the new revision. Name existing nodes by their id and new nodes by the key you gave them in the same batch.",
+        "You cannot set a schedule, a webhook or a message trigger, or an output that posts to a messaging place: when the user asks for one, make the rest of the change and tell them to set that part on the canvas. When the result says a version was kept, tell the user that the graph from before your change is in the workflow's version list.",
+      ].join("\n");
     case "html_render":
     case "html_preview":
       return [
