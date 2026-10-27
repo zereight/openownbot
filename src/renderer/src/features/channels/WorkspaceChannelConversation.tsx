@@ -55,6 +55,7 @@ function DesktopChannelConversation(props: { channelId: string; account: () => C
     browserControlState,
     activateBrowserTab,
     closeBrowserTab,
+    resyncBrowserTabs,
   } = useBrowserTabs();
   const { activeRemoteDesktopSession, remoteDesktopWorkspaceVisible, openRemoteDesktopWorkspace } = useRemoteDesktop();
   const windowPage = useWindowPage();
@@ -150,6 +151,7 @@ function DesktopChannelConversation(props: { channelId: string; account: () => C
       onReorderQueue={() => {}}
       onActivateBrowserTab={activateBrowserTab}
       onCloseBrowserTab={closeBrowserTab}
+      onResyncBrowserTabs={resyncBrowserTabs}
       onOpenRemoteDesktop={openRemoteDesktopWorkspace}
       onStop={view.onStop}
     />

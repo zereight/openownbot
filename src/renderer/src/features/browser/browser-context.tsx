@@ -92,19 +92,35 @@ const BrowserTabs = createSimpleContext({
       setActiveBrowserTabId(activeTabId);
     }
 
+    /**
+     * Reads the tabs of main again. The list follows `browser-changed` events, so one that never arrives
+     * leaves tabs that main has closed in the strip. Every press on such a tab fails, and nothing else
+     * would put the list right until the server connects again.
+     */
+    function resyncBrowserTabs(): void {
+      const apply = beginBrowserLoad();
+      void browserPort()
+        .browser.getDisplayState()
+        .then((state) => {
+          if (scopeIsCurrent()) apply(state);
+        })
+        .catch(() => undefined);
+    }
+
     function activateBrowserTab(tabId: string) {
       const analytics = desktopAnalytics.scope();
       const operation = browserPort().browser.activate(tabId);
       browserTabActivationOperations.set(tabId, operation);
       void operation
         .then(() => analytics.track("browser_action", { action: "activate", result: "succeeded" }))
-        .catch(() =>
+        .catch(() => {
           analytics.track("browser_action", {
             action: "activate",
             result: "failed",
             failure_code: "browser_activate_failed",
-          }),
-        )
+          });
+          resyncBrowserTabs();
+        })
         .finally(() => {
           if (browserTabActivationOperations.get(tabId) === operation) {
             browserTabActivationOperations.delete(tabId);
@@ -151,6 +167,7 @@ const BrowserTabs = createSimpleContext({
       applyBrowserChange,
       activateBrowserTab,
       closeBrowserTab,
+      resyncBrowserTabs,
     };
   },
 });

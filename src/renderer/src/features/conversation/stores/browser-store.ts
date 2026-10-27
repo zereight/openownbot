@@ -596,6 +596,8 @@ export function createBrowserStore(deps: BrowserStoreDeps) {
   let fullViewWasOpen = false;
   createEffect(browserExpandedOpen, (open) => {
     const closed = fullViewWasOpen && !open;
+    // The full view lists every tab, so a tab that main has dropped must not wait there for a press.
+    if (open && !fullViewWasOpen) untrack(() => deps.props.onResyncBrowserTabs?.());
     fullViewWasOpen = open;
     if (!closed) return;
     const held = new Set(untrack(allBrowserTabs).flatMap((tab) => (tab.userControl ? [tab.id] : [])));
@@ -620,6 +622,7 @@ export function createBrowserStore(deps: BrowserStoreDeps) {
       else await browser.releaseControl(tabId);
       return true;
     } catch (error) {
+      deps.props.onResyncBrowserTabs?.();
       deps.setComposerError(
         currentText().t(action === "take" ? "browser.error.takeControl" : "browser.error.releaseControl"),
         target,

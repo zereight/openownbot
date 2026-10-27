@@ -335,6 +335,8 @@ export interface ConversationProps {
   onReorderQueue: (deliveryIds: string[]) => void;
   onActivateBrowserTab: (tabId: string) => void;
   onCloseBrowserTab: (tabId: string) => void | Promise<void>;
+  /** Reads the tabs of main again, after a request on a tab that main no longer has. */
+  onResyncBrowserTabs?: () => void;
   onOpenRemoteDesktop: (serverId: string, trigger: HTMLElement) => Promise<void>;
   onStop: () => void;
 }

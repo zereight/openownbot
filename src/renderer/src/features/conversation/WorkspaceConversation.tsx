@@ -170,6 +170,7 @@ export function WorkspaceConversation(props: { account: () => CentralAuthUser })
     browserControlState,
     activateBrowserTab,
     closeBrowserTab,
+    resyncBrowserTabs,
   } = useBrowserTabs();
   const { activeRemoteDesktopSession, remoteDesktopWorkspaceVisible, openRemoteDesktopWorkspace } = useRemoteDesktop();
   const usage = useUsage();
@@ -605,6 +606,7 @@ export function WorkspaceConversation(props: { account: () => CentralAuthUser })
         onReorderQueue={reorderQueue}
         onActivateBrowserTab={activateBrowserTab}
         onCloseBrowserTab={closeBrowserTab}
+        onResyncBrowserTabs={resyncBrowserTabs}
         onOpenRemoteDesktop={openRemoteDesktopWorkspace}
         onStop={stopActiveTurn}
       />
