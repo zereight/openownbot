@@ -1,8 +1,8 @@
 /**
- * The chat over the routine canvas. A request goes into the open agent's own conversation, where
- * the agent changes routines and flows with its tools; its answer comes back when the turn that
- * read the request ends. The panel shows only the exchange started here: the whole conversation
- * stays on the Agents tab.
+ * The chat over a canvas. A request goes into the open agent's own conversation, where the agent
+ * changes the canvas with its tools; its answer comes back when the turn that read the request
+ * ends. The panel shows only the exchange started here: the whole conversation stays on the Agents
+ * tab. The routine canvas and the Workflows page both use it.
  */
 
 import { latestTurnAnswer } from "@openbot/contracts/ipc";
@@ -10,7 +10,7 @@ import { toast } from "@openbot/ui";
 import type { DiagramChatMessage } from "@openbot/ui/features/diagrams/diagram-model";
 import { useText } from "@openbot/ui/text";
 import { createEffect, createStore, onSettled } from "solid-js";
-import type { RoutineFlowsHost } from "./routine-flows-port";
+import type { AgentChatPort } from "./agent-chat-port";
 
 /** A request sent and not answered yet. `deliveryId` names the request in the conversation. */
 interface PendingRequest {
@@ -18,7 +18,18 @@ interface PendingRequest {
   deliveryId: string | null;
 }
 
-export function createRoutineFlowAssistant(host: () => RoutineFlowsHost, agentId: () => string | null) {
+export interface CanvasAssistantOptions {
+  /** Called when the user sends. The request goes out when the promise ends; a rejection ends it with the failure toast. */
+  prepare?: (() => Promise<void>) | undefined;
+  /** The text the agent gets for what the user typed. The panel always shows the typed text. */
+  compose?: ((typed: string) => string) | undefined;
+}
+
+export function createCanvasAssistant(
+  port: () => AgentChatPort,
+  agentId: () => string | null,
+  options: CanvasAssistantOptions = {},
+) {
   const { t, errorMessage } = useText();
   const [chat, setChat] = createStore<{ messages: DiagramChatMessage[]; pending: PendingRequest | null }>({
     messages: [],
@@ -41,7 +52,7 @@ export function createRoutineFlowAssistant(host: () => RoutineFlowsHost, agentId
   const check = async (forAgent: string, endedTurnId: string | null) => {
     const pending = chat.pending;
     if (!pending?.deliveryId || pending.agentId !== forAgent) return;
-    const page = await host().conversation.page(forAgent, pending.deliveryId);
+    const page = await port().conversation.page(forAgent, pending.deliveryId);
     const index = page.messages.findIndex((message) => message.id === pending.deliveryId);
     const asked = page.messages[index];
     if (!asked || chat.pending !== pending) return;
@@ -60,7 +71,7 @@ export function createRoutineFlowAssistant(host: () => RoutineFlowsHost, agentId
     // request, which can hold only an earlier message of it. Once the turn has ended, the newest
     // page holds its end, so its answer there wins.
     if (turnId && status === "completed") {
-      const latest = await host().conversation.page(forAgent);
+      const latest = await port().conversation.page(forAgent);
       if (chat.pending !== pending) return;
       reply = latestTurnAnswer(latest.messages, turnId) ?? reply;
     }
@@ -75,7 +86,7 @@ export function createRoutineFlowAssistant(host: () => RoutineFlowsHost, agentId
   };
 
   onSettled(() =>
-    host().onEvent((event) => {
+    port().onEvent((event) => {
       const ended =
         event.type === "turn-completed"
           ? { agentId: event.agentId, turnId: event.turnId }
@@ -94,12 +105,16 @@ export function createRoutineFlowAssistant(host: () => RoutineFlowsHost, agentId
     if (!id || chat.pending) return;
     const clientMessageId = crypto.randomUUID();
     const pending: PendingRequest = { agentId: id, deliveryId: null };
+    // Both run in the step of the click, so the request names what the user saw when they pressed
+    // send, also when the wait for `prepare` is long.
+    const body = options.compose?.(text) ?? text;
+    const ready = options.prepare?.() ?? Promise.resolve();
     setChat((draft) => {
       draft.messages.push({ id: clientMessageId, author: "user", text, createdAt: new Date().toISOString() });
       draft.pending = pending;
     });
-    host()
-      .conversation.send({ agentId: id, text, clientMessageId })
+    ready
+      .then(() => port().conversation.send({ agentId: id, text: body, clientMessageId }))
       .then((deliveryId) => {
         setChat((draft) => {
           if (draft.pending?.agentId !== id || draft.pending.deliveryId) return;

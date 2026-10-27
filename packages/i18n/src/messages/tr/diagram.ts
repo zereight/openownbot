@@ -144,4 +144,6 @@ export const messages = {
   "diagram.chat.working": "{name} diyagramı düzenliyor",
   "diagram.chat.changes": "Diyagramdaki değişiklikler",
   "diagram.chat.failed": "Ajana ulaşılamadı.",
+  "diagram.chat.agent": "Ajan",
+  "diagram.chat.openChat": "Sohbeti aç",
 } as const satisfies PartialTranslation<typeof source>;

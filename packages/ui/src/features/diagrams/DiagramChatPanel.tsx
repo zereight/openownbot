@@ -6,7 +6,21 @@
  * hidden one is inert. The user drags the chat by the button or the panel header, inside the canvas.
  */
 
-import { ArrowUp, Bubble, BubbleContent, Button, Check, Minimize2, Spinner } from "@openbot/ui";
+import {
+  ArrowUp,
+  Bubble,
+  BubbleContent,
+  Button,
+  Check,
+  Minimize2,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+  Spinner,
+} from "@openbot/ui";
+import type { JSX } from "@solidjs/web";
 import { createEffect, createSignal, For, Show } from "solid-js";
 import type { AvatarMood } from "../../bloub-avatar";
 import type { AgentProfile } from "../../data";
@@ -19,6 +33,19 @@ import type { DiagramChatMessage } from "./diagram-model";
 /** A press that moves less than this is a click, so the button still opens the panel. */
 const DRAG_THRESHOLD_PX = 4;
 
+/**
+ * The texts that name what the chat edits. A text left out is the diagram text. The caller gives
+ * texts in the interface language, with the agent name in `title`, `empty` and `working`.
+ */
+export interface DiagramChatCopy {
+  label?: string | undefined;
+  title?: string | undefined;
+  empty?: string | undefined;
+  placeholder?: string | undefined;
+  show?: string | undefined;
+  working?: string | undefined;
+}
+
 export interface DiagramChatPanelProps {
   agent: AgentProfile;
   messages: DiagramChatMessage[];
@@ -29,6 +56,17 @@ export interface DiagramChatPanelProps {
   onSend: (text: string) => void;
   /** Opens a link in an agent's answer. Without it, links do nothing. */
   onOpenLink?: ((url: string) => void) | undefined;
+  /** Texts that name what the chat edits. Without them, the panel names a diagram. */
+  copy?: DiagramChatCopy | undefined;
+  /**
+   * A control in a row under the header, such as an agent picker. It is not in the header: a press
+   * there starts a drag, and the drag keeps the pointer for the header unless the target is a button.
+   */
+  agentPicker?: JSX.Element | undefined;
+  /** Shows a link in the working line that opens the whole conversation, where a question of the agent waits. */
+  onOpenConversation?: (() => void) | undefined;
+  /** Why the chat cannot take a message now. The composer stops, and the text shows above it. */
+  unavailable?: string | undefined;
 }
 
 export function DiagramChatPanel(props: DiagramChatPanelProps) {
@@ -84,7 +122,7 @@ export function DiagramChatPanel(props: DiagramChatPanelProps) {
   };
   const send = () => {
     const text = draft().trim();
-    if (!text || props.working) return;
+    if (!text || props.working || props.unavailable !== undefined) return;
     props.onSend(text);
     setDraft("");
   };
@@ -111,9 +149,15 @@ export function DiagramChatPanel(props: DiagramChatPanelProps) {
         }}
       >
         <AgentAvatar agent={props.agent} class="diagram-chat-avatar" motion="idle" />
-        {t("diagram.chat.show")}
+        {props.copy?.show ?? t("diagram.chat.show")}
       </Button>
-      <section class="diagram-chat" aria-label={t("diagram.chat.label")} inert={!props.open}>
+      {/* A click on text focuses the panel. Else the focus falls to the page, where Delete removes canvas nodes. */}
+      <section
+        class="diagram-chat"
+        tabindex="-1"
+        aria-label={props.copy?.label ?? t("diagram.chat.label")}
+        inert={!props.open}
+      >
         <header
           class="diagram-chat-header"
           onPointerDown={(event) => {
@@ -121,7 +165,7 @@ export function DiagramChatPanel(props: DiagramChatPanelProps) {
           }}
         >
           <AgentAvatar agent={props.agent} class="diagram-chat-avatar" motion="idle" mood={mood()} />
-          <h2 class="diagram-chat-title">{t("diagram.chat.title", { name: props.agent.name })}</h2>
+          <h2 class="diagram-chat-title">{props.copy?.title ?? t("diagram.chat.title", { name: props.agent.name })}</h2>
           <Button
             type="button"
             variant="ghost"
@@ -134,10 +178,18 @@ export function DiagramChatPanel(props: DiagramChatPanelProps) {
           </Button>
         </header>
 
+        <Show when={props.agentPicker}>
+          <div class="diagram-chat-picker">{props.agentPicker}</div>
+        </Show>
+
         <div ref={(element) => (log = element)} class="diagram-chat-messages" role="log" aria-live="polite">
           <Show
             when={props.messages.length > 0}
-            fallback={<p class="diagram-chat-empty">{t("diagram.chat.empty", { name: props.agent.name })}</p>}
+            fallback={
+              <p class="diagram-chat-empty">
+                {props.copy?.empty ?? t("diagram.chat.empty", { name: props.agent.name })}
+              </p>
+            }
           >
             <For each={props.messages}>
               {(message) => (
@@ -180,10 +232,23 @@ export function DiagramChatPanel(props: DiagramChatPanelProps) {
           <Show when={props.working}>
             <p class="diagram-chat-working">
               <Spinner size="sm" />
-              {t("diagram.chat.working", { name: props.agent.name })}
+              {props.copy?.working ?? t("diagram.chat.working", { name: props.agent.name })}
+              <Show when={props.onOpenConversation}>
+                <Button type="button" variant="link" size="xs" onClick={() => props.onOpenConversation?.()}>
+                  {t("diagram.chat.openChat")}
+                </Button>
+              </Show>
             </p>
           </Show>
         </div>
+
+        <Show when={props.unavailable}>
+          {(reason) => (
+            <p class="diagram-chat-unavailable" role="status">
+              {reason()}
+            </p>
+          )}
+        </Show>
 
         <form
           class="composer diagram-chat-composer"
@@ -198,9 +263,9 @@ export function DiagramChatPanel(props: DiagramChatPanelProps) {
               agentId={undefined}
               agents={[]}
               value={draft()}
-              placeholder={t("diagram.chat.placeholder")}
-              ariaLabel={t("diagram.chat.placeholder")}
-              disabled={false}
+              placeholder={props.copy?.placeholder ?? t("diagram.chat.placeholder")}
+              ariaLabel={props.copy?.placeholder ?? t("diagram.chat.placeholder")}
+              disabled={props.unavailable !== undefined}
               focusRequest={focusRequest()}
               onValueChange={setDraft}
               onSubmit={send}
@@ -211,7 +276,7 @@ export function DiagramChatPanel(props: DiagramChatPanelProps) {
               type="submit"
               variant="ghost"
               class="voice-button"
-              disabled={!draft().trim() || props.working}
+              disabled={!draft().trim() || props.working || props.unavailable !== undefined}
               aria-label={t("diagram.chat.send")}
               title={t("diagram.chat.send")}
             >
@@ -221,5 +286,32 @@ export function DiagramChatPanel(props: DiagramChatPanelProps) {
         </form>
       </section>
     </div>
+  );
+}
+
+/** The agent that answers the chat. The list opens on the page, outside the panel, which clips what it holds. */
+export function DiagramChatAgentPicker(props: {
+  agents: readonly AgentProfile[];
+  value: string;
+  onChange: (agentId: string) => void;
+}) {
+  const { t } = useText();
+  return (
+    <Select<AgentProfile>
+      options={[...props.agents]}
+      value={props.agents.find((agent) => agent.id === props.value) ?? null}
+      optionValue="id"
+      optionTextValue="name"
+      disabled={props.agents.length < 2}
+      onChange={(agent) => {
+        if (agent) props.onChange(agent.id);
+      }}
+      itemComponent={(item) => <SelectItem item={item.item}>{item.item.rawValue.name}</SelectItem>}
+    >
+      <SelectTrigger size="sm" aria-label={t("diagram.chat.agent")}>
+        <SelectValue<AgentProfile>>{(state) => state.selectedOption()?.name}</SelectValue>
+      </SelectTrigger>
+      <SelectContent />
+    </Select>
   );
 }

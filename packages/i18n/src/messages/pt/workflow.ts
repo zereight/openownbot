@@ -325,9 +325,18 @@ export const messages = {
   "workflow.canvas.deleteUndo.title": "{name} excluído",
   "workflow.canvas.deleteUndo.action": "Desfazer",
   "workflow.page.failed": "O OpenBot não conseguiu fazer isso. Tente de novo.",
-  "workflow.page.conflict": "Alterado em outro dispositivo. Desfaça para recuperar suas edições.",
+  "workflow.page.conflict":
+    "Este fluxo de trabalho mudou enquanto você o editava. Desfaça para recuperar suas edições.",
   "workflow.page.needsNewerApp":
     "Este fluxo de trabalho tem etapas de uma versão mais recente do OpenBot. Atualize o OpenBot para alterá-lo.",
   "workflow.page.manageOnly":
     "Para alterar este fluxo de trabalho, você precisa de acesso de gerenciamento a cada um dos agentes dele.",
+  "workflow.chat.label": "Assistente do fluxo de trabalho",
+  "workflow.chat.title": "Perguntar a {name} sobre este fluxo de trabalho",
+  "workflow.chat.empty": "Pergunte a {name} o que este fluxo de trabalho faz ou diga o que mudar.",
+  "workflow.chat.placeholder": "Pergunte ou descreva uma mudança",
+  "workflow.chat.show": "Perguntar a um agente sobre este fluxo de trabalho",
+  "workflow.chat.working": "{name} está trabalhando no fluxo de trabalho",
+  "workflow.chat.remote":
+    "Em um servidor em que você entrou, não é possível perguntar a um agente sobre um fluxo de trabalho.",
 } as const satisfies PartialTranslation<typeof source>;

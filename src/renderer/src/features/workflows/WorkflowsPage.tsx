@@ -1,4 +1,5 @@
 import { WORKFLOWS_CAPABILITY } from "@openbot/contracts/team-protocol/workflows-v1";
+import { DiagramChatAgentPicker, DiagramChatPanel } from "@openbot/ui/features/diagrams/DiagramChatPanel";
 import { WorkflowCanvas } from "@openbot/ui/features/workflows/WorkflowCanvas";
 import {
   WORKFLOW_FEATURES_V1,
@@ -6,12 +7,14 @@ import {
   type WorkflowFeatures,
 } from "@openbot/ui/features/workflows/workflow-model";
 import { useText } from "@openbot/ui/text";
-import { createMemo, Show, untrack } from "solid-js";
+import { createMemo, createSignal, Show, untrack } from "solid-js";
 import { desktopAnalytics } from "../../analytics";
+import { useNavigation } from "../../navigation";
 import { useAuth } from "../account/account-context";
 import { useAgents } from "../agents/agents-context";
 import { serverRoleCanAdminister, serverSupportsCapability } from "../servers/server-capabilities";
 import { useServers } from "../servers/servers-context";
+import { createWorkflowAssistant } from "./workflow-assistant";
 import { createWorkflowsController } from "./workflows-controller";
 import { desktopWorkflowHost, type WorkflowHost } from "./workflows-port";
 
@@ -45,14 +48,22 @@ export function WorkflowsPage(props: { serverId: string }) {
       }
     >
       {(serverId) => (
-        <WorkflowsCanvas host={desktopWorkflowHost(serverId, server)} admin={serverRoleCanAdminister(server())} />
+        <WorkflowsCanvas
+          serverId={serverId}
+          host={desktopWorkflowHost(serverId, server)}
+          admin={serverRoleCanAdminister(server())}
+          remote={server()?.kind === "remote"}
+        />
       )}
     </Show>
   );
 }
 
-/** `admin`: an owner or admin of the server, who may make a webhook secret. The host checks it again. */
-function WorkflowsCanvas(props: { host: WorkflowHost; admin: boolean }) {
+/**
+ * `admin`: an owner or admin of the server, who may make a webhook secret. The host checks it again.
+ * `remote`: a joined server, whose agents the workflow chat does not reach.
+ */
+function WorkflowsCanvas(props: { serverId: string; host: WorkflowHost; admin: boolean; remote: boolean }) {
   const { agentList, modelOptions } = useAgents();
   const { signedInAccount } = useAuth();
   // The keyed parent mounts a new canvas for each server, so the host does not change.
@@ -82,19 +93,78 @@ function WorkflowsCanvas(props: { host: WorkflowHost; admin: boolean }) {
       ? WORKFLOW_FEATURES_V1
       : { ...WORKFLOW_FEATURES_V1, outputs: WORKFLOW_FEATURES_V1.outputs.filter((output) => output !== "channel") },
   );
-  // The canvas is a direct child of the window page, which gives it the height of the pane.
+  // The canvas is a direct child of the window page, which gives it the height of the pane. The chat
+  // is its sibling, not inside it: a key pressed in the chat is not a key pressed on the canvas.
   return (
     <Show when={workflows.detail()}>
       {(workflow) => (
-        <WorkflowCanvas
-          workflow={workflow()}
-          features={features()}
-          catalogs={catalogs}
-          frame="window"
-          readOnly={workflows.readOnly()}
-          {...workflows.props}
-          onRotateWebhookSecret={props.admin ? workflows.props.onRotateWebhookSecret : undefined}
-        />
+        <>
+          <WorkflowCanvas
+            workflow={workflow()}
+            features={features()}
+            catalogs={catalogs}
+            frame="window"
+            readOnly={workflows.readOnly()}
+            {...workflows.props}
+            onRotateWebhookSecret={props.admin ? workflows.props.onRotateWebhookSecret : undefined}
+          />
+          <WorkflowChat serverId={props.serverId} workflows={workflows} remote={props.remote} />
+        </>
+      )}
+    </Show>
+  );
+}
+
+/**
+ * The chat over the open workflow. It stays on screen, disabled with its reason, when the workflow is
+ * read-only or the server is a joined one, and then it sends nothing.
+ */
+function WorkflowChat(props: {
+  serverId: string;
+  workflows: ReturnType<typeof createWorkflowsController>;
+  remote: boolean;
+}) {
+  const { t } = useText();
+  const { agentList, userHiddenAgentIds } = useAgents();
+  const { selectAgent } = useNavigation();
+  const [open, setOpen] = createSignal(false);
+  const unavailable = createMemo(() => {
+    if (props.remote) return t("workflow.chat.remote");
+    const reason = props.workflows.lock();
+    return reason ? t(reason) : undefined;
+  });
+  const agents = createMemo(() => agentList().filter((agent) => !userHiddenAgentIds().has(agent.id)));
+  const assistant = createWorkflowAssistant({
+    serverId: untrack(() => props.serverId),
+    workflows: props.workflows,
+    agents,
+    disabled: () => unavailable() !== undefined,
+  });
+  return (
+    <Show when={assistant.agent()}>
+      {(agent) => (
+        <div class="diagram-view-chat" data-placement="end">
+          <DiagramChatPanel
+            agent={agent()}
+            copy={{
+              label: t("workflow.chat.label"),
+              title: t("workflow.chat.title", { name: agent().name }),
+              empty: t("workflow.chat.empty", { name: agent().name }),
+              placeholder: t("workflow.chat.placeholder"),
+              show: t("workflow.chat.show"),
+              working: t("workflow.chat.working", { name: agent().name }),
+            }}
+            agentPicker={<DiagramChatAgentPicker agents={agents()} value={agent().id} onChange={assistant.choose} />}
+            messages={assistant.messages()}
+            working={assistant.working()}
+            open={open()}
+            onOpenChange={setOpen}
+            onSend={assistant.send}
+            onOpenConversation={() => selectAgent(agent().id)}
+            onOpenLink={(url) => void window.openbot.openUrl(url)}
+            unavailable={unavailable()}
+          />
+        </div>
       )}
     </Show>
   );

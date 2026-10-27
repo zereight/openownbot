@@ -325,8 +325,16 @@ export const messages = {
   "workflow.canvas.deleteUndo.title": "{name} supprimé",
   "workflow.canvas.deleteUndo.action": "Annuler",
   "workflow.page.failed": "OpenBot n’a pas pu effectuer cette action. Réessayez.",
-  "workflow.page.conflict": "Modifié sur un autre appareil. Annulez pour récupérer vos modifications.",
+  "workflow.page.conflict":
+    "Ce workflow a changé pendant votre modification. Annulez pour récupérer vos modifications.",
   "workflow.page.needsNewerApp":
     "Ce workflow contient des étapes d’une version plus récente d’OpenBot. Mettez OpenBot à jour pour le modifier.",
   "workflow.page.manageOnly": "Pour modifier ce workflow, il vous faut l’accès Gérer sur chacun de ses agents.",
+  "workflow.chat.label": "Assistant de workflow",
+  "workflow.chat.title": "Interroger {name} sur ce workflow",
+  "workflow.chat.empty": "Demandez à {name} ce que fait ce workflow, ou dites-lui quoi modifier.",
+  "workflow.chat.placeholder": "Posez une question ou décrivez une modification",
+  "workflow.chat.show": "Interroger un agent sur ce workflow",
+  "workflow.chat.working": "{name} travaille sur le workflow",
+  "workflow.chat.remote": "Sur un serveur rejoint, vous ne pouvez pas interroger un agent sur un workflow.",
 } as const satisfies PartialTranslation<typeof source>;

@@ -340,8 +340,16 @@ export const messages = {
   "workflow.canvas.deleteUndo.title": "Удалено: {name}",
   "workflow.canvas.deleteUndo.action": "Отменить",
   "workflow.page.failed": "OpenBot не смог это сделать. Повторите попытку.",
-  "workflow.page.conflict": "Изменено на другом устройстве. Отмените, чтобы вернуть свои правки.",
+  "workflow.page.conflict":
+    "Этот рабочий процесс изменился, пока вы его редактировали. Отмените, чтобы вернуть свои правки.",
   "workflow.page.needsNewerApp":
     "В этом рабочем процессе есть шаги из более новой версии OpenBot. Обновите OpenBot, чтобы изменить его.",
   "workflow.page.manageOnly": "Чтобы изменить этот рабочий процесс, нужен доступ на управление каждым из его агентов.",
+  "workflow.chat.label": "Помощник по рабочему процессу",
+  "workflow.chat.title": "Спросить {name} об этом рабочем процессе",
+  "workflow.chat.empty": "Спросите {name}, что делает этот рабочий процесс, или скажите, что изменить.",
+  "workflow.chat.placeholder": "Задайте вопрос или опишите изменение",
+  "workflow.chat.show": "Спросить агента об этом рабочем процессе",
+  "workflow.chat.working": "{name} работает над рабочим процессом",
+  "workflow.chat.remote": "На сервере, к которому вы присоединились, нельзя спросить агента о рабочем процессе.",
 } as const satisfies PartialTranslation<typeof source>;

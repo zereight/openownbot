@@ -96,6 +96,7 @@ export function createWorkflowsController(host: WorkflowHost, analytics?: () => 
   const [levels, setLevels] = createSignal<AgentAccessLevels | null>(null);
   const [preview, setPreview] = createSignal<{ versionId: string; graph: WorkflowGraph }>();
   const [resetKey, setResetKey] = createSignal(0);
+  const [resetView, setResetView] = createSignal<"fit" | "keep">("fit");
 
   /** The open workflow. A plain value, so that a callback reads the new one at once. */
   let current = "";
@@ -138,12 +139,16 @@ export function createWorkflowsController(host: WorkflowHost, analytics?: () => 
     setPreview(undefined);
   };
 
-  /** Shows `next` in place of the canvas edits. Undo on the canvas gets them back. */
-  const reset = (next: WorkflowDetail) => {
+  /**
+   * Shows `next` in place of the canvas edits. Undo on the canvas gets them back. With `keep`, the canvas
+   * keeps its camera and selection.
+   */
+  const reset = (next: WorkflowDetail, view: "fit" | "keep" = "fit") => {
     if (disposed) return;
     base = { workflowId: next.summary.id, revision: next.revision };
     setStored((open) => open && { ...open, detail: next });
     closePreview();
+    setResetView(view);
     setResetKey((key) => key + 1);
   };
 
@@ -169,7 +174,7 @@ export function createWorkflowsController(host: WorkflowHost, analytics?: () => 
       pending === undefined;
     // The canvas reads the graph only when it opens or resets, so a read under its edits keeps them.
     setStored({ detail: next, runs: page, versions });
-    if (outside) reset(next);
+    if (outside) reset(next, "keep");
     return next;
   };
 
@@ -281,6 +286,15 @@ export function createWorkflowsController(host: WorkflowHost, analytics?: () => 
     if (token && reason) toast.info(t(reason));
   });
 
+  /**
+   * Starts the save of the edit that waits, and resolves when every queued write has ended. It never
+   * rejects: the queue shows the errors.
+   */
+  const settled = (): Promise<void> => {
+    flush();
+    return writes;
+  };
+
   /** Starts a run of the open workflow after the save of its edits. */
   const start = (
     action: WorkflowAnalyticsAction,
@@ -295,6 +309,9 @@ export function createWorkflowsController(host: WorkflowHost, analytics?: () => 
   const props: WorkflowsControllerProps = {
     get resetKey() {
       return resetKey();
+    },
+    get resetView() {
+      return resetView();
     },
     get runs() {
       return stored()?.runs ?? EMPTY_WORKFLOW_RUN_VIEW;
@@ -401,5 +418,5 @@ export function createWorkflowsController(host: WorkflowHost, analytics?: () => 
     },
   };
 
-  return { detail: () => stored()?.detail, places, readOnly: () => lock() !== undefined, props };
+  return { detail: () => stored()?.detail, places, readOnly: () => lock() !== undefined, lock, settled, props };
 }

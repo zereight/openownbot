@@ -325,8 +325,15 @@ export const messages = {
   "workflow.canvas.deleteUndo.title": "{name} を削除しました",
   "workflow.canvas.deleteUndo.action": "元に戻す",
   "workflow.page.failed": "OpenBot で実行できませんでした。もう一度お試しください。",
-  "workflow.page.conflict": "別のデバイスで変更されました。元に戻すと編集内容を復元できます。",
+  "workflow.page.conflict": "編集中にこのワークフローが変更されました。元に戻すと編集内容を復元できます。",
   "workflow.page.needsNewerApp":
     "このワークフローには新しいバージョンの OpenBot のステップがあります。変更するには OpenBot を更新してください。",
   "workflow.page.manageOnly": "このワークフローを変更するには、各エージェントの管理アクセスが必要です。",
+  "workflow.chat.label": "ワークフローアシスタント",
+  "workflow.chat.title": "{name} にこのワークフローを相談",
+  "workflow.chat.empty": "このワークフローの内容を {name} に尋ねるか、変更したい点を伝えてください。",
+  "workflow.chat.placeholder": "質問するか、変更内容を説明してください",
+  "workflow.chat.show": "このワークフローをエージェントに相談",
+  "workflow.chat.working": "{name} がワークフローを処理しています",
+  "workflow.chat.remote": "参加しているサーバーでは、ワークフローについてエージェントに相談できません。",
 } as const satisfies PartialTranslation<typeof source>;

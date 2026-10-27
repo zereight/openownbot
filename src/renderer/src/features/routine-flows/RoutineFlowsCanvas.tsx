@@ -22,7 +22,7 @@ import { DiagramView } from "@openbot/ui/features/diagrams/DiagramView";
 import type { DiagramPoint } from "@openbot/ui/features/diagrams/diagram-model";
 import { useText } from "@openbot/ui/text";
 import { createEffect, createMemo, createStore, onSettled, Show } from "solid-js";
-import { createRoutineFlowAssistant } from "./routine-flow-assistant";
+import { createCanvasAssistant } from "../../canvas-assistant";
 import { agentIdOfNode, isRoutineStartEdge, routineFlowDiagram, routineIdOfNode } from "./routine-flow-diagram";
 import type { RoutineFlowsHost } from "./routine-flows-port";
 
@@ -69,7 +69,7 @@ export function RoutineFlowsCanvas(props: RoutineFlowsCanvasProps) {
     pendingLinks: [],
     webhookConnected: null,
   });
-  const assistant = createRoutineFlowAssistant(host, agentId);
+  const assistant = createCanvasAssistant(host, agentId);
   let generation = 0;
   let reloadTimer: number | undefined;
   /** Moves waiting to be saved, by node: the timer, and the save it runs. */

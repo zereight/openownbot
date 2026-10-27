@@ -145,4 +145,6 @@ export const messages = {
   "diagram.chat.working": "{name} modifie le diagramme",
   "diagram.chat.changes": "Modifications du diagramme",
   "diagram.chat.failed": "Impossible de joindre l’agent.",
+  "diagram.chat.agent": "Agent",
+  "diagram.chat.openChat": "Ouvrir la discussion",
 } as const satisfies PartialTranslation<typeof source>;

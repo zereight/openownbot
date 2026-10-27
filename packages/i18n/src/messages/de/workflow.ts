@@ -325,8 +325,16 @@ export const messages = {
   "workflow.canvas.deleteUndo.title": "{name} gelöscht",
   "workflow.canvas.deleteUndo.action": "Rückgängig",
   "workflow.page.failed": "OpenBot konnte das nicht ausführen. Versuche es erneut.",
-  "workflow.page.conflict": "Auf einem anderen Gerät geändert. Mit Rückgängig erhältst du deine Änderungen zurück.",
+  "workflow.page.conflict":
+    "Der Workflow wurde geändert, während du ihn bearbeitet hast. Mit Rückgängig erhältst du deine Änderungen zurück.",
   "workflow.page.needsNewerApp":
     "Dieser Workflow hat Schritte aus einer neueren OpenBot-Version. Aktualisiere OpenBot, um ihn zu ändern.",
   "workflow.page.manageOnly": "Um diesen Workflow zu ändern, brauchst du Verwalten-Zugriff auf jeden seiner Agenten.",
+  "workflow.chat.label": "Workflow-Assistent",
+  "workflow.chat.title": "{name} zu diesem Workflow fragen",
+  "workflow.chat.empty": "Frag {name}, was dieser Workflow macht, oder sag, was sich ändern soll.",
+  "workflow.chat.placeholder": "Frage stellen oder Änderung beschreiben",
+  "workflow.chat.show": "Einen Agenten zu diesem Workflow fragen",
+  "workflow.chat.working": "{name} arbeitet am Workflow",
+  "workflow.chat.remote": "Auf einem beigetretenen Server kannst du einen Agenten nicht zu einem Workflow fragen.",
 } as const satisfies PartialTranslation<typeof source>;

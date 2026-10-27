@@ -1271,6 +1271,14 @@
     opacity var(--diagram-chat-close-duration) var(--openbot-ease-out);
 }
 
+/*
+ * A click on the text of the panel puts the focus on the panel, so a key pressed next is not a key of
+ * the canvas under it. The panel has no key of its own, so the focus shows no ring.
+ */
+.diagram-chat:focus-visible {
+  outline: none;
+}
+
 .diagram-chat-morph[data-open="true"] .diagram-chat {
   clip-path: inset(-32px round 0);
   opacity: 1;
@@ -1324,6 +1332,12 @@
   font-weight: var(--openbot-weight-semibold);
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+/* The row under the header holds the agent that answers. */
+.diagram-chat-picker {
+  border-bottom: 1px solid var(--openbot-border);
+  padding: var(--openbot-space-2) var(--openbot-space-3);
 }
 
 .diagram-chat-messages {
@@ -1391,6 +1405,14 @@
   font-size: var(--openbot-text-sm);
 }
 
+.diagram-chat-unavailable {
+  margin: 0;
+  border-top: 1px solid var(--openbot-border);
+  padding: var(--openbot-space-2) var(--openbot-space-3);
+  color: var(--openbot-text-muted);
+  font-size: var(--openbot-text-sm);
+}
+
 /* The chat composer's compact row, without its attach button: the editor and the send button. */
 .diagram-chat-composer.composer[data-compact] {
   grid-template-columns: minmax(0, 1fr) auto;
@@ -1399,6 +1421,27 @@
 
 .diagram-chat-composer.composer[data-compact] > .composer-input-label {
   grid-column: 1;
+}
+
+/*
+ * On the Workflows page the chat is over the bottom-right corner of the canvas, above the bottom row
+ * of the canvas: the tool bar in the middle and the button that shows the hidden interface at the end.
+ * The tool bar is wider than the space between the zoom bar and the chat in a window under 1300px, so
+ * the chat clears the whole bar, as the options of the tools above it do, not only the button.
+ */
+.diagram-view-chat[data-placement="end"] {
+  right: var(--openbot-space-2);
+  bottom: calc(var(--openbot-space-2) + var(--openbot-control-lg) + var(--openbot-space-3) + var(--openbot-space-2));
+  left: auto;
+}
+
+.diagram-view-chat[data-placement="end"] .diagram-chat-launcher.ui-button {
+  justify-self: end;
+}
+
+/* The folded panel is the launcher's pill at the end, so the panel grows out of the right edge. */
+.diagram-view-chat[data-placement="end"] .diagram-chat-morph[data-open="false"] .diagram-chat {
+  clip-path: inset(calc(100% - var(--diagram-chat-launcher-height)) 0 0 24% round var(--openbot-radius-pill));
 }
 
 @media (prefers-reduced-motion: reduce) {
