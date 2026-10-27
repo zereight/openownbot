@@ -59,6 +59,7 @@ import {
 import { type AppServerRequest, type DynamicToolCallParams, type DynamicToolResult, isRecord } from "../protocol";
 import { handleRoutineFlowTool, type RoutineFlowTools } from "../routine-flows/routine-flow-tools";
 import type { StoredStateFailure } from "../stored-state-effects";
+import { handleWorkflowTool, type WorkflowTools, type WorkflowToolTurn } from "../workflows/workflow-tools";
 import { AgentInterruptTool } from "./agent-interrupt-tool";
 import type { AgentMemories } from "./agent-memories";
 import { type ApprovalAutomationPolicy, NO_APPROVAL_AUTOMATION } from "./approval-automation";
@@ -114,6 +115,7 @@ import { toolCallIdempotencyKey } from "./tool-call-idempotency";
 import { discoverTools, resolveDeferredTool } from "./tool-catalog";
 import { ToolOperationFailed, toolStep, toToolOperationFailed } from "./tool-operation";
 import type { AgentBrowserHost } from "./turn-lifecycle";
+import { turnRequester } from "./turn-requester";
 import { handleUpdateAgentsTool } from "./update-agents-tool";
 
 const logger = createOpenBotLogger("openbot-tool-router");
@@ -206,6 +208,10 @@ export interface OpenBotToolRouterOptions {
   sidebarLayout: AgentSidebar | null;
   localSkillTools?: (() => LocalSkillTools) | undefined;
   routineFlowTools?: (() => RoutineFlowTools) | undefined;
+  /** Built after the service, so read when a tool call needs it. */
+  workflowTools?: (() => WorkflowTools) | undefined;
+  /** Whether the person stamped on a message uses a remote client. Omitted, no. */
+  remotePerson?: ((personId: string) => boolean) | undefined;
   approvalAutomation?: ApprovalAutomationPolicy | undefined;
   /** Draws pages for `html_preview`; null where no window can draw one. */
   visualPreview?: ChatVisualPreviewHost | null | undefined;
@@ -247,6 +253,8 @@ export class OpenBotToolRouter {
   readonly #sidebarLayout: AgentSidebar | null;
   readonly #localSkillTools: (() => LocalSkillTools) | undefined;
   readonly #routineFlowTools: (() => RoutineFlowTools) | undefined;
+  readonly #workflowTools: (() => WorkflowTools) | undefined;
+  readonly #remotePerson: (personId: string) => boolean;
   readonly #approvalAutomation: ApprovalAutomationPolicy;
   readonly #visualPreview: ChatVisualPreviewHost | null;
   readonly #screenCapture: ScreenCaptureHost | null;
@@ -281,6 +289,8 @@ export class OpenBotToolRouter {
     this.#sidebarLayout = options.sidebarLayout;
     this.#localSkillTools = options.localSkillTools;
     this.#routineFlowTools = options.routineFlowTools;
+    this.#workflowTools = options.workflowTools;
+    this.#remotePerson = options.remotePerson ?? (() => false);
     this.#approvalAutomation = options.approvalAutomation ?? NO_APPROVAL_AUTOMATION;
     this.#visualPreview = options.visualPreview ?? null;
     this.#screenCapture = options.screenCapture ?? null;
@@ -719,6 +729,20 @@ export class OpenBotToolRouter {
     };
   });
 
+  /** The turn a workflow tool runs in: who started it, and the texts of its deliveries. */
+  #workflowToolTurn(agentId: string, threadId: string, turnId: string): WorkflowToolTurn {
+    const deliveries = this.#mailbox.findDeliveriesByTurn(agentId, turnId).map(({ delivery }) => delivery);
+    return {
+      requester: turnRequester({
+        deliveries,
+        inExecutionThread: this.#conversation.isExecutionThread(this.#conversation.publicThreadId(agentId, threadId)),
+        senderMember: (messageId) => this.#mailbox.senderMemberOf(messageId),
+        remotePerson: this.#remotePerson,
+      }),
+      texts: deliveries.map((delivery) => delivery.text),
+    };
+  }
+
   readonly #handleOpenBotTool = Effect.fn("OpenBotToolRouter.handleOpenBotTool")(function* (
     this: OpenBotToolRouter,
     params: DynamicToolCallParams,
@@ -970,6 +994,24 @@ export class OpenBotToolRouter {
       new Set(this.#hooks.listAgents().map((agent) => agent.id)),
     );
     if (flowResult) return flowResult;
+
+    const workflowResult = yield* handleWorkflowTool(
+      params.tool,
+      params.arguments,
+      {
+        turnId: params.turnId,
+        // A hidden agent cannot take a handoff, so an agent node cannot name one.
+        agentIds: new Set(
+          this.#hooks
+            .listAgents()
+            .filter((agent) => agent.hiddenAt === undefined)
+            .map((agent) => agent.id),
+        ),
+        turn: () => this.#workflowToolTurn(senderAgentId, params.threadId, params.turnId),
+      },
+      this.#workflowTools?.() ?? null,
+    );
+    if (workflowResult) return workflowResult;
 
     const memoryResult = this.#memories.handleTool(params, senderAgentId, this.#hooks.redactMcp);
     if (memoryResult) return memoryResult;
