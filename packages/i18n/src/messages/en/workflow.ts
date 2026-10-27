@@ -96,6 +96,8 @@ export const messages = defineMessages("workflow", {
   "workflow.model.providers": "Providers",
   "workflow.model.providerModels": "{name} models",
   "workflow.model.effort": "Effort: {name}",
+  "workflow.model.effortOwn": "Agent's own ({name})",
+  "workflow.model.effortInherited": "Effort: {name}, the agent's own",
   "workflow.model.effortRange": "{from}–{to}",
 
   "workflow.llm.title": "LLM",

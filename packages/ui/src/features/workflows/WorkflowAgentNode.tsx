@@ -1,7 +1,7 @@
 /** An agent step: a task that one agent does, with the agent, its model and the effort of the step. */
 
 import { ProviderLogo } from "@openbot/brand";
-import { AGENT_REASONING_EFFORTS, type AgentReasoningEffort } from "@openbot/contracts/ipc";
+import { AGENT_REASONING_EFFORTS } from "@openbot/contracts/ipc";
 import { Bot, Button, buttonVariants, ChevronDown, DropdownMenu, Play, Textarea, TriangleAlert } from "@openbot/ui";
 import { Show, untrack } from "solid-js";
 import type { AgentProfile } from "../../data";
@@ -125,11 +125,6 @@ export function AgentNode(props: { id: string; agentId?: string; task?: string }
   const efforts = () => model()?.supportedReasoningEfforts ?? [];
   // A step with no effort of its own runs with the effort of the agent, so the field stays absent then.
   const stored = () => oneOf(AGENT_REASONING_EFFORTS)(board.field(props.id, "effort") ?? "");
-  const effort = (): AgentReasoningEffort =>
-    efforts().find((choice) => choice === stored()) ??
-    agent()?.reasoningEffort ??
-    model()?.defaultReasoningEffort ??
-    "medium";
   const [task, setTask] = useTextField(
     () => props.id,
     "task",
@@ -185,20 +180,29 @@ export function AgentNode(props: { id: string; agentId?: string; task?: string }
             }}
           />
           <Show when={agent()}>
-            {(found) => (
-              <>
-                <span class="wfn-pill" data-static="">
-                  <ProviderLogo provider={wfKnownProvider(found().provider)} class="wfn-model-logo" />
-                  <span>{model()?.name ?? found().model}</span>
-                </span>
-                <EffortPill
-                  efforts={efforts()}
-                  value={effort()}
-                  disabled={locked()}
-                  onChange={(next) => board.setField(props.id, "effort", next)}
-                />
-              </>
-            )}
+            {(found) => {
+              // The effort that the step holds, when the model of the agent offers it. A stale one counts as none.
+              const own = () => efforts().find((choice) => choice === stored());
+              return (
+                <>
+                  <span class="wfn-pill" data-static="">
+                    <ProviderLogo provider={wfKnownProvider(found().provider)} class="wfn-model-logo" />
+                    <span>{model()?.name ?? found().model}</span>
+                  </span>
+                  <EffortPill
+                    efforts={efforts()}
+                    value={own() ?? found().reasoningEffort}
+                    disabled={locked()}
+                    agent={{
+                      effort: found().reasoningEffort,
+                      inherited: own() === undefined,
+                      onSelect: () => board.setFields(props.id, { effort: undefined }),
+                    }}
+                    onChange={(next) => board.setField(props.id, "effort", next)}
+                  />
+                </>
+              );
+            }}
           </Show>
         </div>
       </Field>

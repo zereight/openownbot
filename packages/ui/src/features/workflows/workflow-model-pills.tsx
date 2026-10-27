@@ -12,6 +12,7 @@ import {
 } from "@openbot/contracts/ipc";
 import type { AppTextKey, AppTranslate } from "@openbot/i18n";
 import {
+  Bot,
   buttonVariants,
   ChartNoAxesColumnIncreasing,
   ChevronDown,
@@ -253,20 +254,56 @@ function EffortMeter(props: { effort: AgentReasoningEffort }) {
   );
 }
 
-/** How long the model thinks. The menu lists only the efforts that the chosen model supports. */
+/** The row that clears the effort of a step. It is not an effort, so it cannot clash with one. */
+const OWN_EFFORT = "own";
+type EffortChoice = AgentReasoningEffort | typeof OWN_EFFORT;
+
+/**
+ * How long the model thinks. The menu lists only the efforts that the chosen model supports. A step
+ * that runs on an agent passes `agent`: the menu then has a first row, "Agent's own", that clears the
+ * effort of the step, so the step follows the setting of its agent again.
+ */
 export function EffortPill(props: {
   efforts: readonly AgentReasoningEffort[];
   value: AgentReasoningEffort;
   disabled?: boolean;
+  agent?: {
+    /** The effort of the agent, which a step with no effort of its own runs with. */
+    effort: AgentReasoningEffort;
+    /** True when the step has no effort of its own, so `value` is the effort of the agent. */
+    inherited: boolean;
+    onSelect: () => void;
+  };
   onChange: (effort: AgentReasoningEffort) => void;
 }) {
   const { t } = useText();
+  const inherited = () => props.agent?.inherited === true;
+  // One effort is no choice, but a step that holds an effort must still be able to give it up.
+  const choosable = () => props.efforts.length >= 2 || props.agent?.inherited === false;
+  const options = (): PickerOption<EffortChoice>[] => {
+    const levels: PickerOption<EffortChoice>[] = props.efforts.map((choice) => ({
+      value: choice,
+      label: t(EFFORT_LABEL[choice]),
+      tile: () => <EffortMeter effort={choice} />,
+    }));
+    const agent = props.agent;
+    if (!agent) return levels;
+    const own: PickerOption<EffortChoice> = {
+      value: OWN_EFFORT,
+      label: t("workflow.model.effortOwn", { name: t(EFFORT_LABEL[agent.effort]) }),
+      tile: () => <Bot aria-hidden="true" />,
+    };
+    return [own, ...levels];
+  };
   return (
     <DropdownMenu.Root placement="bottom-end" gutter={6}>
       <DropdownMenu.Trigger
         class={`${buttonVariants({ variant: "ghost", size: "xs" })} wfn-pill`}
-        aria-label={t("workflow.model.effort", { name: t(EFFORT_LABEL[props.value]) })}
-        disabled={props.disabled || props.efforts.length < 2}
+        data-inherited={inherited() ? "" : undefined}
+        aria-label={t(inherited() ? "workflow.model.effortInherited" : "workflow.model.effort", {
+          name: t(EFFORT_LABEL[props.value]),
+        })}
+        disabled={props.disabled || !choosable()}
       >
         <ChartNoAxesColumnIncreasing aria-hidden="true" />
         <span>{t(EFFORT_LABEL[props.value])}</span>
@@ -274,17 +311,9 @@ export function EffortPill(props: {
       <DropdownMenu.Portal>
         <PickerMenu
           label={t("provider.picker.effort")}
-          groups={[
-            {
-              options: props.efforts.map((choice) => ({
-                value: choice,
-                label: t(EFFORT_LABEL[choice]),
-                tile: () => <EffortMeter effort={choice} />,
-              })),
-            },
-          ]}
-          value={props.value}
-          onSelect={props.onChange}
+          groups={[{ options: options() }]}
+          value={inherited() ? OWN_EFFORT : props.value}
+          onSelect={(choice) => (choice === OWN_EFFORT ? props.agent?.onSelect() : props.onChange(choice))}
         />
       </DropdownMenu.Portal>
     </DropdownMenu.Root>

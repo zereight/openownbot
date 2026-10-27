@@ -228,6 +228,11 @@
   background: transparent;
 }
 
+/* A pill that shows what the step takes from its agent, such as an effort that the step does not hold. */
+.wfn-stage .wfn-pill[data-inherited] {
+  color: var(--openbot-text-muted);
+}
+
 .wfn-pill > svg {
   width: var(--openbot-icon-xs);
   height: var(--openbot-icon-xs);

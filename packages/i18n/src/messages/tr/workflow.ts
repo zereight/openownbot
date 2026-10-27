@@ -97,6 +97,8 @@ export const messages = {
   "workflow.model.providers": "Sağlayıcılar",
   "workflow.model.providerModels": "{name} modelleri",
   "workflow.model.effort": "Efor: {name}",
+  "workflow.model.effortOwn": "Ajanın kendi ayarı ({name})",
+  "workflow.model.effortInherited": "Efor: {name}, ajanın kendi ayarı",
   "workflow.model.effortRange": "{from}–{to}",
 
   "workflow.llm.title": "LLM",

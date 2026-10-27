@@ -97,6 +97,8 @@ export const messages = {
   "workflow.model.providers": "服务商",
   "workflow.model.providerModels": "{name} 模型",
   "workflow.model.effort": "强度：{name}",
+  "workflow.model.effortOwn": "助手自身的设置（{name}）",
+  "workflow.model.effortInherited": "强度：{name}，助手自身的设置",
   "workflow.model.effortRange": "{from}–{to}",
 
   "workflow.llm.title": "LLM",

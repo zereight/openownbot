@@ -97,6 +97,8 @@ export const messages = {
   "workflow.model.providers": "プロバイダー",
   "workflow.model.providerModels": "{name} のモデル",
   "workflow.model.effort": "推論レベル: {name}",
+  "workflow.model.effortOwn": "エージェントの設定 ({name})",
+  "workflow.model.effortInherited": "推論レベル: {name}、エージェントの設定",
   "workflow.model.effortRange": "{from}～{to}",
 
   "workflow.llm.title": "LLM",
