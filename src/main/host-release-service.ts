@@ -1,5 +1,6 @@
 import { readFile } from "node:fs/promises";
 import type { HostReleaseStatus, UpdateStatus } from "@openbot/contracts/ipc";
+import { LOCAL_ONLY } from "@openbot/contracts/local-only";
 import { Deferred, Effect, Exit, Schema } from "effect";
 import { parse } from "yaml";
 import { isValidSemver } from "./update-service";
@@ -67,7 +68,9 @@ export class HostReleaseService {
   constructor(options: HostReleaseOptions) {
     this.#options = options;
     this.#target =
-      options.packaged && isValidSemver(options.currentVersion) ? releaseTarget(options.platform, options.arch) : null;
+      options.packaged && !LOCAL_ONLY && isValidSemver(options.currentVersion)
+        ? releaseTarget(options.platform, options.arch)
+        : null;
   }
 
   snapshot(): HostReleaseStatus {

@@ -1,22 +1,60 @@
-import { describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import { buildContentSecurityPolicy, readSelfHostedSignalOrigin } from "./content-security-policy";
 
-describe("buildContentSecurityPolicy", () => {
-  it("allows the production analytics endpoint", () => {
-    const policy = buildContentSecurityPolicy(true);
+/** Builds the policy with the switch set to `localOnly`, whatever `local-only.json` says. */
+async function policyWithSwitch(localOnly: boolean) {
+  vi.resetModules();
+  vi.doMock("../../packages/contracts/src/local-only.json", () => ({ default: { localOnly } }));
+  return (await import("./content-security-policy")).buildContentSecurityPolicy;
+}
 
-    expect(policy).toContain(
-      "connect-src 'self' openbot-attachment: openbot-remote-attachment: https://analytics.openbot.run ws://127.0.0.1:* wss://*.openbot.run",
-    );
-    expect(policy.split("; ").find((directive) => directive.startsWith("connect-src "))).not.toContain("localhost");
+afterEach(() => {
+  vi.doUnmock("../../packages/contracts/src/local-only.json");
+});
+
+function directive(policy: string, name: string): string | undefined {
+  return policy.split("; ").find((candidate) => candidate.startsWith(`${name} `));
+}
+
+const CONNECT_WITHOUT_OPENBOT = "connect-src 'self' openbot-attachment: openbot-remote-attachment: ws://127.0.0.1:*";
+const CONNECT_WITH_OPENBOT =
+  "connect-src 'self' openbot-attachment: openbot-remote-attachment: https://analytics.openbot.run ws://127.0.0.1:* wss://*.openbot.run";
+const FRAME_WITHOUT_OPENBOT =
+  "frame-src 'self' openbot-attachment: openbot-remote-attachment: openbot-visual: openbot-remote-visual: http://127.0.0.1:* http://localhost:*";
+const FRAME_WITH_OPENBOT =
+  "frame-src 'self' openbot-attachment: openbot-remote-attachment: openbot-visual: openbot-remote-visual: https://*.openbot.run http://127.0.0.1:* http://localhost:*";
+
+describe("buildContentSecurityPolicy", () => {
+  it("allows the analytics endpoint and the OpenBot hosts only while the switch is off", async () => {
+    const build = await policyWithSwitch(false);
+    const policy = build(true);
+
+    expect(directive(policy, "connect-src")).toBe(CONNECT_WITH_OPENBOT);
+    expect(directive(policy, "connect-src")).not.toContain("localhost");
+    expect(directive(build(false), "frame-src")).toBe(FRAME_WITH_OPENBOT);
+    expect(directive(policy, "frame-src")).toBe(FRAME_WITH_OPENBOT);
   });
 
-  it.each([true, false])("allows loopback viewer frames when packaged=%s", (packaged) => {
-    const directives = buildContentSecurityPolicy(packaged).split("; ");
-    expect(directives.find((directive) => directive.startsWith("frame-src "))).toBe(
-      "frame-src 'self' openbot-attachment: openbot-remote-attachment: openbot-visual: openbot-remote-visual: https://*.openbot.run http://127.0.0.1:* http://localhost:*",
+  it.each([true, false])("allows no OpenBot host while the switch is on and packaged=%s", async (packaged) => {
+    const build = await policyWithSwitch(true);
+    const policy = build(packaged);
+
+    expect(directive(policy, "frame-src")).toBe(FRAME_WITHOUT_OPENBOT);
+    expect(policy).not.toContain("openbot.run");
+    expect(policy).not.toContain("openbot.site");
+  });
+
+  it("keeps the loopback sockets and the self-hosted Signal while the switch is on", async () => {
+    const build = await policyWithSwitch(true);
+
+    expect(directive(build(true), "connect-src")).toBe(CONNECT_WITHOUT_OPENBOT);
+    expect(directive(build(true, undefined, "wss://signal.example.com:8443"), "connect-src")).toBe(
+      `${CONNECT_WITHOUT_OPENBOT} wss://signal.example.com:8443`,
     );
-    expect(directives.find((directive) => directive.startsWith("script-src "))).toBe("script-src 'self'");
+  });
+
+  it.each([true, false])("keeps script-src to the app itself when packaged=%s", (packaged) => {
+    expect(directive(buildContentSecurityPolicy(packaged), "script-src")).toBe("script-src 'self'");
   });
 
   it("lets the renderer play an attachment recording, but only from the attachment schemes", () => {
