@@ -8,8 +8,8 @@ import { PreferenceStore } from "./preference-file";
 
 /**
  * The network that devices use to connect to this computer. The host reads it each time it connects
- * to Signal. A file that names an unknown route reads as `openbot`, which is how every connection
- * worked before the setting existed.
+ * to Signal. A file that names an unknown route reads as the default, `private`. This fork has the
+ * `openbot` relay route switched off, so a file that names it reads as `private` too.
  */
 export type RemoteNetworkRoutePreferenceStore = PreferenceStore<RemoteNetworkRoutePreference>;
 
@@ -19,7 +19,7 @@ export function createRemoteNetworkRoutePreferenceStore(path: string): RemoteNet
     defaultValue: { route: DEFAULT_REMOTE_NETWORK_ROUTE },
     decode: (parsed) =>
       isDynamicRecord(parsed) && parsed.version === 1 && isRemoteNetworkRoute(parsed.route)
-        ? { route: parsed.route }
+        ? { route: parsed.route === "openbot" ? DEFAULT_REMOTE_NETWORK_ROUTE : parsed.route }
         : null,
   });
 }

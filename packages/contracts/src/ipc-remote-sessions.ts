@@ -18,7 +18,9 @@ export const DEFAULT_REMOTE_SESSION_REUSE_PREFERENCE: RemoteSessionReusePreferen
  */
 export const REMOTE_NETWORK_ROUTES = ["openbot", "private"] as const;
 export type RemoteNetworkRoute = (typeof REMOTE_NETWORK_ROUTES)[number];
-export const DEFAULT_REMOTE_NETWORK_ROUTE: RemoteNetworkRoute = "openbot";
+// The `openbot` relay route is switched off in this fork. The default is `private`, and the route
+// store reads a saved `openbot` as `private`.
+export const DEFAULT_REMOTE_NETWORK_ROUTE: RemoteNetworkRoute = "private";
 
 export function isRemoteNetworkRoute(value: unknown): value is RemoteNetworkRoute {
   return isOneOf(REMOTE_NETWORK_ROUTES, value);

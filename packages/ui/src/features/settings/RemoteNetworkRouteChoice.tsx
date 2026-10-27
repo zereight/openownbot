@@ -10,7 +10,7 @@ interface RemoteNetworkRouteChoiceProps {
   onChange: (route: RemoteNetworkRoute) => void;
 }
 
-/** The two routes as cards with a radio dot. OpenBot is the default and has the recommended badge. */
+/** The routes as cards with a radio dot. The OpenBot relay card is switched off in this fork. */
 export function RemoteNetworkRouteChoice(props: RemoteNetworkRouteChoiceProps) {
   const { t } = useText();
   return (
@@ -23,6 +23,7 @@ export function RemoteNetworkRouteChoice(props: RemoteNetworkRouteChoiceProps) {
         if (isRemoteNetworkRoute(value)) props.onChange(value);
       }}
     >
+      {/* The OpenBot relay route is switched off in this fork, so its card stays commented out.
       <RadioGroup.Item class="settings-mobile-route-option" value="openbot">
         <RadioGroup.ItemInput />
         <RadioGroup.ItemControl class="settings-mobile-route-card">
@@ -38,6 +39,7 @@ export function RemoteNetworkRouteChoice(props: RemoteNetworkRouteChoiceProps) {
           </span>
         </RadioGroup.ItemControl>
       </RadioGroup.Item>
+      */}
       <RadioGroup.Item class="settings-mobile-route-option" value="private">
         <RadioGroup.ItemInput />
         <RadioGroup.ItemControl class="settings-mobile-route-card">
