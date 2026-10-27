@@ -1,4 +1,5 @@
 import { MANAGED_RUNTIME_PROVIDERS, type ManagedProviderId } from "@openbot/contracts/ipc";
+import { LOCAL_ONLY } from "@openbot/contracts/local-only";
 import { type DynamicRecord, isDynamicRecord, isNumber, isString } from "@openbot/contracts/runtime-values";
 import { sourceText } from "@openbot/i18n/source";
 import { Effect } from "effect";
@@ -346,6 +347,7 @@ export function latestRelease(
 export const fetchBlockedVersions = Effect.fn("ProviderRelease.fetchBlockedVersions")(function* (
   fetch: Fetch,
 ): Effect.fn.Return<BlockedVersions, ProviderRuntimeFailure> {
+  if (LOCAL_ONLY) return new Map();
   const value = yield* fetchJsonEffect(fetch, BLOCKED_VERSIONS_URL);
   if (!(value.schemaVersion === 1 && isDynamicRecord(value.blocked))) {
     return yield* new ProviderRuntimeFailure({ cause: new Error(sourceText("error.provider.blockedListShape")) });

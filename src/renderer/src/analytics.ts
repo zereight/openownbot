@@ -22,6 +22,7 @@ import {
   WORKFLOW_NODE_KINDS,
   type WorkflowNodeKind,
 } from "@openbot/contracts/ipc";
+import { LOCAL_ONLY } from "@openbot/contracts/local-only";
 import { isBoolean, isDynamicRecord, isFunction, isNumber, isOneOf, isString } from "@openbot/contracts/runtime-values";
 import { normalizeEmailAddress } from "@openbot/contracts/validation";
 import { ANALYTICS_GENERATIONS } from "@openbot/telemetry";
@@ -721,7 +722,9 @@ const UPDATE_PHASES = new Set([
 ]);
 
 function shouldEnableDesktopAnalytics(appInfo: AppInfo, productionBuild: boolean): boolean {
-  return appInfo.analyticsCaptureUrl !== undefined || (productionBuild && appInfo.variant === "production");
+  return (
+    appInfo.analyticsCaptureUrl !== undefined || (productionBuild && appInfo.variant === "production" && !LOCAL_ONLY)
+  );
 }
 
 function sanitizeDesktopAnalyticsEvent(

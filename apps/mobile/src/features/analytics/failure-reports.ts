@@ -1,3 +1,4 @@
+import { LOCAL_ONLY } from "@openbot/contracts/local-only";
 import {
   ANALYTICS_GENERATIONS,
   classifyFailure,
@@ -43,6 +44,7 @@ export function mobileReportQueue(): ReportQueue | undefined {
   const clientId = process.env.EXPO_PUBLIC_OPENPANEL_CLIENT_ID;
   const clientSecret = process.env.EXPO_PUBLIC_OPENPANEL_CLIENT_SECRET;
   if (
+    LOCAL_ONLY ||
     __DEV__ ||
     process.env.EXPO_PUBLIC_APP_ENV !== "production" ||
     !clientId ||

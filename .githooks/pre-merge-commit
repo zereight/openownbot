@@ -1,0 +1,9 @@
+#!/bin/sh
+set -eu
+
+repository_root=$(git rev-parse --show-toplevel)
+cd "$repository_root"
+
+# A merge without conflicts runs this hook and not pre-commit, so an upstream change that calls an
+# OpenBot service would otherwise reach the history unchecked.
+bun run check:local-only

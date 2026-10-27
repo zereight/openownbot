@@ -1,4 +1,9 @@
+import { LOCAL_ONLY } from "@openbot/contracts/local-only";
 import { isMobileConnectDevelopmentHost } from "@openbot/contracts/mobile-connect";
+
+function unlessLocalOnly(source: string): string {
+  return LOCAL_ONLY ? "" : source;
+}
 
 export function buildContentSecurityPolicy(
   packaged: boolean,
@@ -20,10 +25,10 @@ export function buildContentSecurityPolicy(
     // The lightbox plays a recording from the attachment scheme, and the preview panel plays one
     // from an object URL of the bytes that the main process sent. Neither matches `default-src`.
     "media-src 'self' blob: openbot-attachment: openbot-remote-attachment:",
-    `connect-src 'self' openbot-attachment: openbot-remote-attachment: https://analytics.openbot.run ws://127.0.0.1:* wss://*.openbot.run${selfHostedSignalSource}${developmentSources}`,
+    `connect-src 'self' openbot-attachment: openbot-remote-attachment:${unlessLocalOnly(" https://analytics.openbot.run")} ws://127.0.0.1:*${unlessLocalOnly(" wss://*.openbot.run")}${selfHostedSignalSource}${developmentSources}`,
     "object-src 'none'",
     // The remote desktop viewer uses a loopback proxy in packaged apps too.
-    "frame-src 'self' openbot-attachment: openbot-remote-attachment: openbot-visual: openbot-remote-visual: https://*.openbot.run http://127.0.0.1:* http://localhost:*",
+    `frame-src 'self' openbot-attachment: openbot-remote-attachment: openbot-visual: openbot-remote-visual:${unlessLocalOnly(" https://*.openbot.run")} http://127.0.0.1:* http://localhost:*`,
     "base-uri 'none'",
   ].join("; ");
 }

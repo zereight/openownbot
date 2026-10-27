@@ -99,6 +99,7 @@ import { stopAppImageCrashpadHandlerAtExit } from "./linux-appimage-crashpad";
 import { installLinuxDesktopEntry } from "./linux-desktop-entry";
 import { configureLinuxGpu } from "./linux-gpu-mode";
 import { configureLinuxPasswordStore } from "./linux-password-store";
+import { installLocalOnlyGuard } from "./local-only-guard";
 import { MacHapticFeedback } from "./mac-haptic-feedback";
 import {
   configureApplicationMenu,
@@ -162,6 +163,7 @@ try {
 } catch (error) {
   logger.warn("Could not read the system certificate store; Node uses its bundled roots only:", toLogValue(error));
 }
+installLocalOnlyGuard();
 
 const commandLineUserDataDirectory = app.commandLine.getSwitchValue("user-data-dir").trim();
 const developmentProfile = !app.isPackaged ? readDevelopmentProfile(process.env.OPENBOT_DEV_PROFILE) : null;

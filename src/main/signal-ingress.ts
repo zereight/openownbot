@@ -1,4 +1,5 @@
 import type { MessagingPlatform } from "@openbot/contracts/ipc";
+import { refusesOpenBotUrl } from "@openbot/contracts/local-only";
 import { decodeSignalServerMessage } from "@openbot/contracts/signal-protocol/decode";
 import { type DiscordApiRequest, decodeDiscordApiError } from "@openbot/contracts/signal-protocol/discord-api";
 import { DISCORD_API_PATH } from "@openbot/contracts/signal-protocol/discord-route";
@@ -439,6 +440,7 @@ export class SignalIngress implements MessagingIngress {
     this.#webhookMissing = webhooks && webhookRoute === null;
     this.#telegramMissing = telegram && telegramRoute === null;
     if (telegram && telegramRoute !== null) this.#telegramBackoffMs = BACKOFF_START_MS;
+    if (refusesOpenBotUrl(bootstrap.signalUrl)) return this.#wait("unavailable");
     const socket = new WebSocket(bootstrap.signalUrl);
     this.#socket = socket;
     // A socket that stalls before `ready` closes, so that the retry opens a new one.

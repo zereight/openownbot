@@ -87,6 +87,7 @@ import {
   latestTurnAnswer,
 } from "@openbot/contracts/ipc";
 import { decodeRecord, requiredString } from "@openbot/contracts/ipc-decoding";
+import { LOCAL_ONLY } from "@openbot/contracts/local-only";
 import { sourceText } from "@openbot/i18n/source";
 import { createOpenBotLogger, toLogValue } from "@openbot/logging";
 import { REMOTE_ACCOUNT_CHECK_INTERVAL_MS } from "@openbot/team-client";
@@ -916,7 +917,7 @@ export async function createApplicationServices({
   teardown.push(TEARDOWN_ORDER.dynamicIsland, "the Dynamic Island", () => dynamicIsland.destroy());
   const centralAuthApiUrl = readCentralAuthApiUrl(
     process.env.OPENBOT_AUTH_API_URL,
-    app.isPackaged ? "https://api.openbot.run" : "http://127.0.0.1:3100",
+    app.isPackaged && !LOCAL_ONLY ? "https://api.openbot.run" : "http://127.0.0.1:3100",
   );
   const centralAuth = new CentralAuthManager({
     apiUrl: centralAuthApiUrl,
@@ -2468,7 +2469,8 @@ export async function createApplicationServices({
         : resolve(__dirname, "../../resources/plugin-catalog"),
     ),
   );
-  const analyticsEnabled = (app.isPackaged && appVariant === "production") || analyticsCaptureUrl !== null;
+  const analyticsEnabled =
+    (app.isPackaged && appVariant === "production" && !LOCAL_ONLY) || analyticsCaptureUrl !== null;
   const failureReports = analyticsEnabled
     ? new ReportQueue(
         fileReportStorage(join(app.getPath("userData"), "openbot-error-reports-v1.json")),
@@ -2723,6 +2725,7 @@ export async function createApplicationServices({
       existsSync(HOSTED_UPDATE_TRIGGER));
   const updatesEnabled =
     app.isPackaged &&
+    !LOCAL_ONLY &&
     !isNixStoreInstall() &&
     (hostedInstaller || (supportsInstalledUpdates(process.platform) && updateMetadataAvailable)) &&
     isValidSemver(currentVersion);

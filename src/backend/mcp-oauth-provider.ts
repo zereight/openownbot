@@ -45,6 +45,7 @@ import {
 } from "@modelcontextprotocol/sdk/shared/auth.js";
 import type { FetchLike } from "@modelcontextprotocol/sdk/shared/transport.js";
 import { MCP_SIGN_IN_TIMEOUT_MS } from "@openbot/contracts/ipc";
+import { LOCAL_ONLY } from "@openbot/contracts/local-only";
 import { sourceText } from "@openbot/i18n/source";
 import type { Logger } from "@openbot/logging";
 import { z } from "zod";
@@ -843,8 +844,7 @@ class McpOAuthClientProvider implements OAuthClientProvider {
     const scope = this.#record().app?.scope;
     return {
       client_name: "OpenBot",
-      client_uri: "https://openbot.run",
-      logo_uri: "https://openbot.run/icon-512x512.png",
+      ...(LOCAL_ONLY ? {} : { client_uri: "https://openbot.run", logo_uri: "https://openbot.run/icon-512x512.png" }),
       redirect_uris: [this.#options.redirectUrl],
       grant_types: ["authorization_code", "refresh_token"],
       response_types: ["code"],
