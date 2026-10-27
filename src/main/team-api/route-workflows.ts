@@ -18,6 +18,7 @@ import { sourceText } from "@openbot/i18n/source";
 import { RoutineInputError } from "@openbot/team-client/routine-schedule";
 import type { Effect } from "effect";
 import { runCauseEffect } from "../../backend/effect-boundary";
+import { placeOutputs } from "../../backend/workflows/workflow-graph";
 import { WorkflowStoreError } from "../../backend/workflows/workflow-store";
 import {
   parseCreateWorkflow,
@@ -65,16 +66,6 @@ async function run<A>(operation: Effect.Effect<A, { readonly cause: unknown }>):
     if (error instanceof RoutineInputError) throw new HttpError(400, error.message);
     throw error;
   }
-}
-
-/** The messaging place of each output node that posts to one, by node. */
-function placeOutputs(graph: WorkflowGraph): Map<string, string> {
-  const places = new Map<string, string>();
-  for (const node of graph.nodes) {
-    if (node.kind !== "output" || node.fields.target !== "channel") continue;
-    places.set(node.id, JSON.stringify([node.fields.connectionId ?? null, node.fields.placeId ?? null]));
-  }
-  return places;
 }
 
 function clip(text: string | null): string | null {

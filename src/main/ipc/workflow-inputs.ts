@@ -30,6 +30,7 @@ import {
   type WorkflowVersionInput,
 } from "@openbot/contracts/ipc";
 import { sourceText } from "@openbot/i18n/source";
+import { workflowGraphFits } from "../../backend/workflows/workflow-graph";
 import { requireString } from "./validation";
 
 const point = ({ x, y }: WorkflowPoint): WorkflowPoint => ({ x, y });
@@ -80,8 +81,7 @@ function knownGraph(graph: WorkflowGraph): WorkflowGraph {
       points: stroke.points.map(point),
     })),
   };
-  if (Buffer.byteLength(JSON.stringify(known)) > INPUT_LIMITS.workflowGraphBytes)
-    throw new Error(sourceText("error.workflow.tooLarge"));
+  if (!workflowGraphFits(known)) throw new Error(sourceText("error.workflow.tooLarge"));
   return known;
 }
 
