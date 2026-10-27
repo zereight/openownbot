@@ -91,6 +91,7 @@ import {
   isGlogBelowErrorDiagnostic,
   isIgnoredConfigDiagnostic,
   isMcpSubsystemDiagnostic,
+  isNoModelForPatternDiagnostic,
   isTelemetryExportDiagnostic,
   isToolCallDiagnostic,
   isUsageLimitDiagnostic,
@@ -3413,6 +3414,13 @@ export class ProviderRuntime implements ProviderPort {
       }
       if (isIgnoredConfigDiagnostic(message)) {
         stderrLogger.warn("A provider ignored settings in its configuration.", { provider: client.provider, message });
+        return;
+      }
+      if (isNoModelForPatternDiagnostic(message)) {
+        stderrLogger.warn("A provider has a model setting that matches no model.", {
+          provider: client.provider,
+          message,
+        });
         return;
       }
       if (isBundledSandboxFallbackDiagnostic(message)) {

@@ -263,6 +263,18 @@ export function isIgnoredConfigDiagnostic(message: string): boolean {
 }
 
 /**
+ * Pi and Pi-Bolt print this at start for each `enabledModels` entry of the shared `~/.pi/agent`
+ * settings that no signed-in provider lists, such as a model of a provider that is signed out. They
+ * start and work either way, and the user cannot fix a setting from a toast on every connect, so the
+ * line belongs in the log.
+ */
+const NO_MODEL_FOR_PATTERN = /^\s*Warning: No models match pattern "[^"]+"/u;
+
+export function isNoModelForPatternDiagnostic(message: string): boolean {
+  return NO_MODEL_FOR_PATTERN.test(message);
+}
+
+/**
  * What a Codex `configWarning` summary names as ignored, or `null` for any other warning.
  *
  * `count` is the total from the first line. Codex names up to three of them, one per line, as
