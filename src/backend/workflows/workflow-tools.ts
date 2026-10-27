@@ -135,11 +135,11 @@ function staleFailure(current: WorkflowDetail): OpenBotToolResponse {
 
 /** The workflow that every delivery of the turn names, or the failure the model reads. */
 function referencedWorkflow(texts: readonly string[]): { workflowId: string } | { failure: OpenBotToolResponse } {
-  const ids = new Set(texts.map(parseWorkflowChatReference).filter((id) => id !== null));
-  if (ids.size === 0) return { failure: openBotToolFailure(NO_REFERENCE) };
-  if (ids.size > 1) return { failure: openBotToolFailure(MANY_REFERENCES) };
+  const ids = texts.map(parseWorkflowChatReference).filter((id) => id !== null);
   const [workflowId] = ids;
-  return workflowId === undefined ? { failure: openBotToolFailure(NO_REFERENCE) } : { workflowId };
+  if (workflowId === undefined) return { failure: openBotToolFailure(NO_REFERENCE) };
+  if (ids.some((id) => id !== workflowId)) return { failure: openBotToolFailure(MANY_REFERENCES) };
+  return { workflowId };
 }
 
 /** Each agent an edit names that the caller does not list. */
