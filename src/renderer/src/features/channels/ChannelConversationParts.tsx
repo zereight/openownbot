@@ -115,14 +115,16 @@ export function ChannelAboveComposer(props: { channelId: string }) {
   const page = useOpenChannel(props.channelId);
   const name = (id: string | null) =>
     channels.agents().find((agent) => agent.id === id)?.name ?? t("sidebar.section.unassigned");
-  const resumeTask = (taskId: string, recipientAgentId: string | null) =>
+  const taskCommand = (type: "resume" | "reassign" | "cancel", taskId: string, recipientAgentId: string | null) =>
     channels.command({
-      type: recipientAgentId ? "reassign" : "resume",
+      type,
       operationId: crypto.randomUUID(),
       channelId: props.channelId,
       taskId,
       recipientAgentId,
     });
+  const resumeTask = (taskId: string, recipientAgentId: string | null) =>
+    taskCommand(recipientAgentId ? "reassign" : "resume", taskId, recipientAgentId);
   return (
     <Show when={page()}>
       {(current) => (
@@ -132,6 +134,7 @@ export function ChannelAboveComposer(props: { channelId: string }) {
             members={current().channel.members}
             name={name}
             onResume={resumeTask}
+            onCancel={(taskId) => taskCommand("cancel", taskId, null)}
           />
           <Show when={!current().channel.archived && !current().channel.members.length}>
             <p>{t("channel.conversation.noMembers")}</p>
