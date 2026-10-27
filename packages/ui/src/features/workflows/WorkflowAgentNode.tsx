@@ -1,7 +1,7 @@
-/** An agent step: a task that one agent does, with the agent and its model. */
+/** An agent step: a task that one agent does, with the agent, its model and the effort of the step. */
 
 import { ProviderLogo } from "@openbot/brand";
-import type { AgentModelId } from "@openbot/contracts/ipc";
+import { AGENT_REASONING_EFFORTS, type AgentReasoningEffort } from "@openbot/contracts/ipc";
 import { Bot, Button, buttonVariants, ChevronDown, DropdownMenu, Play, Textarea, TriangleAlert } from "@openbot/ui";
 import { Show, untrack } from "solid-js";
 import type { AgentProfile } from "../../data";
@@ -10,19 +10,18 @@ import { AgentAvatar } from "../agents/AgentAvatar";
 import { PickerMenu, type PickerOption } from "./WorkflowPicker";
 import { useBoard } from "./workflow-board";
 import type { WorkflowCatalogs } from "./workflow-model";
-import { ModelPill, modelOption } from "./workflow-model-pills";
+import { EffortPill, modelOption } from "./workflow-model-pills";
 import {
-  asProvider,
   asString,
   Field,
   NodeShell,
   NodeToolbar,
+  oneOf,
   ResultField,
   useField,
   useLocked,
   useStepRun,
   useTextField,
-  type WfProvider,
   wfKnownProvider,
 } from "./workflow-node-parts";
 
@@ -105,8 +104,9 @@ function AgentPill(props: {
 }
 
 /**
- * One step that an agent does. The field holds the task, with the agent and its model at the
- * bottom, as the Higgsfield LLM Assistant holds its prompt with the model and Effort controls.
+ * One step that an agent does. The field holds the task, with the agent, its model and the effort of
+ * this step at the bottom, as the Higgsfield LLM Assistant holds its prompt with the model and Effort
+ * controls. The model is the model of the agent, so it only shows; the step picks no other model.
  */
 export function AgentNode(props: { id: string; agentId?: string; task?: string }) {
   const board = useBoard();
@@ -118,13 +118,18 @@ export function AgentNode(props: { id: string; agentId?: string; task?: string }
     asString,
   );
   const agent = () => board.catalogs().agents.find((candidate) => candidate.id === agentId());
-  // The catalog agent is a store, so its fields too are read once here.
-  const first = untrack(() => {
+  const model = () => {
     const found = agent();
-    return { model: found?.model ?? "", provider: found?.provider ?? "codex" };
-  });
-  const [model] = useField<AgentModelId>(() => props.id, "model", first.model, asString);
-  const [provider] = useField<WfProvider>(() => props.id, "provider", first.provider, asProvider);
+    return found ? modelOption(board.catalogs().models, found.model) : undefined;
+  };
+  const efforts = () => model()?.supportedReasoningEfforts ?? [];
+  // A step with no effort of its own runs with the effort of the agent, so the field stays absent then.
+  const stored = () => oneOf(AGENT_REASONING_EFFORTS)(board.field(props.id, "effort") ?? "");
+  const effort = (): AgentReasoningEffort =>
+    efforts().find((choice) => choice === stored()) ??
+    agent()?.reasoningEffort ??
+    model()?.defaultReasoningEffort ??
+    "medium";
   const [task, setTask] = useTextField(
     () => props.id,
     "task",
@@ -169,17 +174,31 @@ export function AgentNode(props: { id: string; agentId?: string; task?: string }
             agent={agent()}
             removed={agentId() !== "" && !agent()}
             disabled={locked()}
-            onChange={(choice) =>
-              board.setFields(props.id, { agentId: choice.id, model: choice.model, provider: choice.provider })
-            }
+            onChange={(choice) => {
+              const offered = modelOption(board.catalogs().models, choice.model)?.supportedReasoningEfforts ?? [];
+              const own = stored();
+              // The effort of the step follows the new agent only when the model of that agent offers it.
+              board.setFields(props.id, {
+                agentId: choice.id,
+                ...(own && !offered.includes(own) ? { effort: undefined } : {}),
+              });
+            }}
           />
           <Show when={agent()}>
-            <ModelPill
-              provider={provider()}
-              value={model()}
-              disabled={locked()}
-              onChange={(next, nextProvider) => board.setFields(props.id, { model: next, provider: nextProvider })}
-            />
+            {(found) => (
+              <>
+                <span class="wfn-pill" data-static="">
+                  <ProviderLogo provider={wfKnownProvider(found().provider)} class="wfn-model-logo" />
+                  <span>{model()?.name ?? found().model}</span>
+                </span>
+                <EffortPill
+                  efforts={efforts()}
+                  value={effort()}
+                  disabled={locked()}
+                  onChange={(next) => board.setField(props.id, "effort", next)}
+                />
+              </>
+            )}
           </Show>
         </div>
       </Field>
