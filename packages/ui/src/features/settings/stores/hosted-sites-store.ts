@@ -41,8 +41,12 @@ export function createSettingsHostedSitesStore(props: HostedSitesStoreProps, isA
   let reloadRequested = false;
   let loadPromise: Promise<void> | null = null;
 
+  // `props.hostedSitesApi` is read only inside the task below, never before it. The effect that
+  // calls `load()` runs its callback with no owner, and the caller passes the api as a conditional
+  // JSX expression, which Solid compiles to a getter that makes a new memo on every read. A memo
+  // made in that callback has no owner, so Solid's development build throws
+  // `PRIMITIVE_IN_EFFECT_CALLBACK` and halts the page. The task's own check covers a missing api.
   function load(): Promise<void> {
-    if (!props.hostedSitesApi) return Promise.resolve();
     reloadRequested = true;
     if (loadPromise) return loadPromise;
     loadPromise = Promise.resolve().then(async () => {
