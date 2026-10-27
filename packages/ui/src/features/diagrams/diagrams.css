@@ -1271,6 +1271,14 @@
     opacity var(--diagram-chat-close-duration) var(--openbot-ease-out);
 }
 
+/*
+ * A click on the text of the panel puts the focus on the panel, so a key pressed next is not a key of
+ * the canvas under it. The panel has no key of its own, so the focus shows no ring.
+ */
+.diagram-chat:focus-visible {
+  outline: none;
+}
+
 .diagram-chat-morph[data-open="true"] .diagram-chat {
   clip-path: inset(-32px round 0);
   opacity: 1;
@@ -1416,12 +1424,14 @@
 }
 
 /*
- * On the Workflows page the chat is over the bottom-right corner of the canvas, above the button that
- * shows the hidden interface. The bars of the canvas hold the other corners and the middle of the bottom.
+ * On the Workflows page the chat is over the bottom-right corner of the canvas, above the bottom row
+ * of the canvas: the tool bar in the middle and the button that shows the hidden interface at the end.
+ * The tool bar is wider than the space between the zoom bar and the chat in a window under 1300px, so
+ * the chat clears the whole bar, as the options of the tools above it do, not only the button.
  */
 .diagram-view-chat[data-placement="end"] {
   right: var(--openbot-space-2);
-  bottom: calc(var(--openbot-space-2) + var(--openbot-control-sm) + var(--openbot-space-2));
+  bottom: calc(var(--openbot-space-2) + var(--openbot-control-lg) + var(--openbot-space-3) + var(--openbot-space-2));
   left: auto;
 }
 
