@@ -3,7 +3,7 @@ import { attachmentReferenceIds } from "@openbot/contracts/attachment-references
 import { serializeChatTagReference } from "@openbot/contracts/chat-tag-references";
 import { INPUT_LIMITS } from "@openbot/contracts/input-limits";
 import type { DraftAttachment } from "@openbot/contracts/ipc";
-import { Badge, Blocks, Listbox, Puzzle } from "@openbot/ui";
+import { Badge, Blocks, Listbox, Minimize2, Puzzle } from "@openbot/ui";
 import { usesTouchLayout } from "@openbot/ui/utils";
 import { Dynamic, Portal } from "@solidjs/web";
 import {
@@ -43,6 +43,7 @@ import {
 } from "./composer-dom";
 import { shouldRestoreComposerFocus } from "./composer-focus";
 import {
+  type ComposerCommand,
   measurePickerFrame,
   type PickerFrame,
   type PickerOption,
@@ -52,6 +53,7 @@ import {
   pickerOptionName,
   pickerOptionText,
   skillMatchRank,
+  slashQuery,
 } from "./composer-picker";
 import {
   type AttachmentTokenActions,
@@ -116,6 +118,8 @@ interface ComposerEditorProps {
     attachments: DraftAttachment[],
     remaining: string | undefined,
   ) => void;
+  /** The commands that `/` at the start of a message offers, before the skills. */
+  commands?: readonly ComposerCommand[] | undefined;
   /** Told when the mention picker opens or closes, so the queue panel can give up the same space. */
   onPickerOpenChange?: (open: boolean) => void;
   /**
@@ -126,6 +130,8 @@ interface ComposerEditorProps {
 }
 
 export type { ComposerPasteResult, ComposerSelection } from "./composer-dom";
+export type { ComposerCommand };
+export { pickerOptionDescription, pickerOptionKey, pickerOptionName, slashQuery };
 
 export interface QuoteRequest {
   id: number;
@@ -137,7 +143,7 @@ interface MentionContext {
   query: string;
   start: number;
   end: number;
-  trigger: "@" | "$";
+  trigger: "@" | "$" | "/";
 }
 
 const DICTATION_INTERIM_WORDS = 2;
@@ -208,8 +214,18 @@ export function ComposerEditor(props: ComposerEditorProps) {
       (server) => server.enabled && (!query || server.name.toLocaleLowerCase().includes(query)),
     );
   });
+  const matchingCommands = createMemo(() => {
+    const query = mention()?.query.trim().toLocaleLowerCase() ?? "";
+    return (props.commands ?? []).filter((command) => !query || command.name.toLocaleLowerCase().startsWith(query));
+  });
   const matchingOptions = createMemo<PickerOption[]>(() => {
     const trigger = mention()?.trigger;
+    /* A command is an action on the thread, so it comes before the skills that the same `/` lists. */
+    if (trigger === "/")
+      return [
+        ...matchingCommands().map((command) => ({ type: "command" as const, command })),
+        ...matchingSkills().map((match) => ({ type: "skill" as const, ...match })),
+      ];
     /* Skills first: a skill is what the user writes with, and a server is what one of them reaches. */
     if (trigger === "$")
       return [
@@ -531,6 +547,9 @@ export function ComposerEditor(props: ComposerEditorProps) {
     const selection = readEditorSelection(editor);
     if (!selection || selection.anchor !== selection.focus) return null;
     const beforeCaret = editorText(editor).slice(0, selection.focus);
+    /* `/` opens the picker only at the start of the message, so a path such as `src/main` stays text. */
+    const slash = slashQuery(beforeCaret);
+    if (slash !== null) return { query: slash, start: 0, end: beforeCaret.length, trigger: "/" };
     const match = beforeCaret.match(/(?:^|\s)([@$])([^@$\n\uFFFC]{0,60})$/u);
     if (!match) return null;
     const trigger = match[1] === "$" ? "$" : "@";
@@ -576,9 +595,18 @@ export function ComposerEditor(props: ComposerEditorProps) {
   function insertOption(option: PickerOption) {
     const context = mention();
     if (!editor || !context) return;
+    if (option.type === "command" && option.command.unavailable) return;
     const range = rangeFromTextOffsets(editor, context.start, context.end);
     if (!range) return;
     range.deleteContents();
+    if (option.type === "command") {
+      // The command runs in place of text: the typed `/name` is removed and nothing is inserted.
+      setMention(null);
+      emitValue();
+      editor.focus();
+      void option.command.run();
+      return;
+    }
     const token =
       option.type === "agent"
         ? createMentionToken(option.agent)
@@ -980,7 +1008,7 @@ export function ComposerEditor(props: ComposerEditorProps) {
                 class={["mention-picker-list", pickerFades.classes()]}
                 onScroll={pickerFades.measure}
                 aria-label={t(
-                  mention()?.trigger === "$" ? "composer.picker.skillLabel" : "composer.picker.mentionLabel",
+                  mention()?.trigger === "@" ? "composer.picker.mentionLabel" : "composer.picker.skillLabel",
                 )}
                 options={matchingOptions()}
                 optionValue={pickerOptionKey}
@@ -1023,6 +1051,10 @@ export function ComposerEditor(props: ComposerEditorProps) {
                     >
                       {option.type === "agent" ? (
                         <AgentAvatar agent={option.agent} />
+                      ) : option.type === "command" ? (
+                        <span class="mention-picker-skill-icon" aria-hidden="true">
+                          <Minimize2 />
+                        </span>
                       ) : option.type === "skill" ? (
                         <span class="mention-picker-skill-icon" aria-hidden="true">
                           <Puzzle />

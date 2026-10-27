@@ -1,5 +1,5 @@
 import type { DraftAttachment } from "@openbot/contracts/ipc";
-import { Bot, File, Folder, Plug, type Puzzle, ShieldCheck, Store } from "@openbot/ui";
+import { Bot, File, Folder, Minimize2, Plug, type Puzzle, ShieldCheck, Store } from "@openbot/ui";
 import type { ComposerAgent, ComposerMcpServer, ComposerSkill } from "../../data";
 import type { TextValue } from "../../text";
 
@@ -14,8 +14,22 @@ export interface PickerFrame {
   bottom: number;
 }
 
+/**
+ * An action that the user starts by typing `/` at the start of a message, such as `/compact`.
+ * `unavailable` is the reason it cannot run now, which the picker shows in place of the description.
+ */
+export interface ComposerCommand {
+  id: string;
+  /** What the user types after the slash. It is a command name, so it is not translated. */
+  name: string;
+  description: string;
+  unavailable?: string | undefined;
+  run: () => void | Promise<void>;
+}
+
 export type PickerOption =
   | { type: "agent"; agent: ComposerAgent }
+  | { type: "command"; command: ComposerCommand }
   /** `showSlug` is set when another listed skill has the same name: the slug tells them apart. */
   | { type: "skill"; skill: ComposerSkill; showSlug: boolean }
   | { type: "mcp"; server: ComposerMcpServer }
@@ -23,12 +37,14 @@ export type PickerOption =
 
 export function pickerOptionKey(option: PickerOption): string {
   if (option.type === "agent") return `agent:${option.agent.id}`;
+  if (option.type === "command") return `command:${option.command.id}`;
   if (option.type === "skill") return `skill:${option.skill.skillId}`;
   return option.type === "mcp" ? `mcp:${option.server.id}` : `attachment:${option.attachment.id}`;
 }
 
 export function pickerOptionText(option: PickerOption, t: TextValue["t"]): string {
   if (option.type === "agent") return t("composer.picker.option.agent", { name: option.agent.name });
+  if (option.type === "command") return t("composer.picker.option.command", { name: option.command.name });
   if (option.type === "skill") {
     const name = option.showSlug ? `${option.skill.name} ${option.skill.slug}` : option.skill.name;
     return t("composer.picker.option.skill", { name });
@@ -40,12 +56,14 @@ export function pickerOptionText(option: PickerOption, t: TextValue["t"]): strin
 
 export function pickerOptionName(option: PickerOption): string {
   if (option.type === "agent") return option.agent.name;
+  if (option.type === "command") return `/${option.command.name}`;
   if (option.type === "skill") return option.skill.name;
   return option.type === "mcp" ? option.server.name : option.attachment.name;
 }
 
 export function pickerOptionDescription(option: PickerOption, format: TextValue["format"]): string | undefined {
   if (option.type === "attachment") return format.fileSize(option.attachment.size);
+  if (option.type === "command") return option.command.unavailable ?? option.command.description;
   if (option.type === "skill") return skillDescription(option.skill);
   if (option.type === "mcp") return mcpServerDescription(option.server);
   return option.agent.description.trim() || option.agent.title.trim() || undefined;
@@ -71,6 +89,7 @@ export function measurePickerFrame(editor: HTMLElement): PickerFrame {
  */
 export function pickerOptionBadge(option: PickerOption, t: TextValue["t"]): { label: string; icon: typeof Puzzle } {
   if (option.type === "agent") return { label: t("composer.picker.badge.agent"), icon: Bot };
+  if (option.type === "command") return { label: t("composer.picker.badge.command"), icon: Minimize2 };
   if (option.type === "attachment") return { label: t("composer.picker.badge.file"), icon: File };
   if (option.type === "mcp") return { label: MCP_BADGE, icon: Plug };
   switch (option.skill.origin ?? "marketplace") {
@@ -106,4 +125,13 @@ export function skillMatchRank(skill: ComposerSkill, query: string): number | nu
 function skillDescription(skill: ComposerSkill): string | undefined {
   const description = skill.description?.trim();
   return description || undefined;
+}
+
+/**
+ * What the user typed after a `/` that starts the message, or null when the text before the caret is
+ * anything else. A `/` later in the text stays text, so a path such as `src/main` never opens the
+ * picker. The name ends at a space, a second slash or a mention.
+ */
+export function slashQuery(beforeCaret: string): string | null {
+  return /^\/([^\s/@$\uFFFC]{0,60})$/u.exec(beforeCaret)?.[1] ?? null;
 }

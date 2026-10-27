@@ -34,7 +34,7 @@ import {
 import { fileBadge } from "@openbot/ui/features/conversation/AttachmentCards";
 import { attachmentReferenceTone } from "@openbot/ui/features/conversation/AttachmentReference";
 import { AwaitingReplies } from "@openbot/ui/features/conversation/AwaitingReplies";
-import { ComposerEditor } from "@openbot/ui/features/conversation/ComposerEditor";
+import { type ComposerCommand, ComposerEditor } from "@openbot/ui/features/conversation/ComposerEditor";
 import { ComposerErrorBanner } from "@openbot/ui/features/conversation/ComposerErrorBanner";
 import {
   ComposerNotice,
@@ -129,7 +129,7 @@ export function ConversationComposer() {
     agentProviderName,
     sideThreadOpen,
   } = useConversationViewScope();
-  const { t, format, sourceText: localizeSourceText } = useText();
+  const { t, format, errorMessage, sourceText: localizeSourceText } = useText();
   const messageLabel = () =>
     channel
       ? t("channel.composer.placeholder", { name: channel.name() })
@@ -172,6 +172,38 @@ export function ConversationComposer() {
     const value = context()?.compaction;
     return value && value.id !== dismissedCompactions()[currentChatConversationKey() ?? ""] ? value : null;
   };
+  /** A failed `/compact`, shown as the banner of the chat that it ran in. */
+  const [commandError, setCommandError] = createSignal<{ key: string; message: string } | null>(null);
+  /** The commands of `/`. They follow the rules of the Compact action of the context ring. */
+  const composerCommands = createMemo<ComposerCommand[]>(() => {
+    const compact = props.onCompactAgentContext;
+    if (!compact) return [];
+    const usage = context()?.usage;
+    const unavailable = !usage
+      ? t("composer.command.compact.noUsage")
+      : usage.autoCompactAt === null
+        ? t("composer.command.compact.managed")
+        : context()?.compaction?.status === "running"
+          ? t("composer.command.compact.running")
+          : undefined;
+    return [
+      {
+        id: "compact",
+        name: "compact",
+        description: t("composer.command.compact.description"),
+        unavailable,
+        run: async () => {
+          const key = currentChatConversationKey() ?? "";
+          setCommandError(null);
+          try {
+            await compact();
+          } catch (error) {
+            setCommandError({ key, message: errorMessage(error, t("composer.context.compactFailed")) });
+          }
+        },
+      },
+    ];
+  });
 
   /**
    * The provider status is the only source of truth for a signed-out provider, so the notice and the
@@ -568,6 +600,24 @@ export function ConversationComposer() {
           </Show>
           <Show
             when={
+              commandError()?.key === (currentChatConversationKey() ?? "") && !currentChatError()
+                ? commandError()
+                : null
+            }
+          >
+            {(failure) => (
+              <ComposerErrorBanner
+                message={failure().message}
+                conversationKey={currentChatConversationKey()}
+                onDismiss={() => {
+                  setCommandError(null);
+                  setComposerFocusRequest((current) => current + 1);
+                }}
+              />
+            )}
+          </Show>
+          <Show
+            when={
               currentChatError() && currentChatError() !== providerUpdateRequired()?.message ? currentChatError() : null
             }
           >
@@ -652,6 +702,7 @@ export function ConversationComposer() {
               agentId={props.agent?.id}
               agents={props.mentionAgents ?? props.agents}
               skills={installedSkills()}
+              commands={composerCommands()}
               skillsLoadFailed={installedSkillsLoadFailed()}
               mcpServers={mcpServers()}
               attachments={currentDraft().attachments}
