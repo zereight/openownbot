@@ -1,7 +1,8 @@
 /**
  * Who started a turn, from the deliveries that the turn reads. Pure: the mailbox and the host supply
  * the lookups. The webhook routine tools and the workflow tools share the person rule, so a routine
- * run, an agent message, a channel task and a Slack or Telegram message cannot reach either.
+ * run, an agent message, a message that an agent's tool call wrote, a channel task and a Slack or
+ * Telegram message cannot reach either.
  */
 
 import type { ConversationMessageSender, QueueDelivery } from "@openbot/contracts/ipc";
@@ -17,11 +18,22 @@ export type TurnRequester = { kind: "host-person" } | { kind: "member"; personId
 
 /**
  * Whether a person's messages started the turn, in the agent's own chat: every delivery of the turn is
- * from `user` (a message steered into a routine run shares the run's turn), and the thread is not an
+ * from `user` (a message steered into a routine run shares the run's turn) and no agent's tool call
+ * wrote it (`create_agent` writes the first message of a new agent as `user`), and the thread is not an
  * execution thread (a channel task, an agent task, a Slack or Telegram conversation also arrive as `user`).
  */
-export function personTurn(deliveries: readonly TurnDelivery[], inExecutionThread: boolean): boolean {
-  return deliveries.length > 0 && deliveries.every((delivery) => delivery.sender.kind === "user") && !inExecutionThread;
+export function personTurn(
+  deliveries: readonly TurnDelivery[],
+  inExecutionThread: boolean,
+  writtenByAgentId: (messageId: string) => string | undefined,
+): boolean {
+  return (
+    deliveries.length > 0 &&
+    deliveries.every(
+      (delivery) => delivery.sender.kind === "user" && writtenByAgentId(delivery.messageId) === undefined,
+    ) &&
+    !inExecutionThread
+  );
 }
 
 /**
@@ -33,9 +45,10 @@ export function turnRequester(input: {
   deliveries: readonly TurnDelivery[];
   inExecutionThread: boolean;
   senderMember: (messageId: string) => ConversationMessageSender | undefined;
+  writtenByAgentId: (messageId: string) => string | undefined;
   remotePerson: (personId: string) => boolean;
 }): TurnRequester {
-  if (!personTurn(input.deliveries, input.inExecutionThread)) return { kind: "none" };
+  if (!personTurn(input.deliveries, input.inExecutionThread, input.writtenByAgentId)) return { kind: "none" };
   for (const delivery of input.deliveries) {
     const member = input.senderMember(delivery.messageId);
     if (member && input.remotePerson(member.id)) return { kind: "member", personId: member.id };
