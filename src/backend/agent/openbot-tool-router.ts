@@ -1001,12 +1001,13 @@ export class OpenBotToolRouter {
       {
         turnId: params.turnId,
         // A hidden agent cannot take a handoff, so an agent node cannot name one.
-        agentIds: new Set(
-          this.#hooks
-            .listAgents()
-            .filter((agent) => agent.hiddenAt === undefined)
-            .map((agent) => agent.id),
-        ),
+        agentIds: () =>
+          new Set(
+            this.#hooks
+              .listAgents()
+              .filter((agent) => agent.hiddenAt === undefined)
+              .map((agent) => agent.id),
+          ),
         turn: () => this.#workflowToolTurn(senderAgentId, params.threadId, params.turnId),
       },
       this.#workflowTools?.() ?? null,

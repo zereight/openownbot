@@ -35,8 +35,8 @@ export interface WorkflowToolTurn {
 
 export interface WorkflowToolCaller {
   turnId: string;
-  /** The agents an agent node may name: listed and not hidden. */
-  agentIds: ReadonlySet<string>;
+  /** The agents an agent node may name: listed and not hidden. Read only when an edit names one. */
+  agentIds: () => ReadonlySet<string>;
   turn: () => WorkflowToolTurn;
 }
 
@@ -180,7 +180,7 @@ export const handleWorkflowTool = Effect.fn("WorkflowTools.handle")(function* (
     const parsed = editInput.safeParse(args);
     if (!parsed.success) return shapeFailure(parsed.error);
     const edits: readonly WorkflowEdit[] = parsed.data.edits;
-    const unknown = unknownAgents(edits, caller.agentIds);
+    const unknown = unknownAgents(edits, caller.agentIds());
     if (unknown.length > 0) return openBotToolFailure(`Unknown agent: ${unknown.join(", ")}.`);
     const result = yield* workflows.edit({
       workflowId,

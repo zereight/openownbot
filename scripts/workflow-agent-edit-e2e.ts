@@ -864,7 +864,7 @@ try {
       {},
       {
         turnId: "direct-turn",
-        agentIds: new Set([planner.id, helper.id]),
+        agentIds: () => new Set([planner.id, helper.id]),
         turn: () => ({ requester: { kind: "host-person" }, texts: [refMain, refArmed] }),
       },
       workflows,
