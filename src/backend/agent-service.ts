@@ -1745,6 +1745,8 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
     agentId: string;
     text: string;
     idempotencyKey: string;
+    /** The effort for the one turn this handoff starts. Absent: the agent's own setting. */
+    reasoningEffort?: AgentReasoningEffort;
   }): Effect.Effect<string, AgentLifecycleFailed> {
     return this.#routines
       .enqueueHandoff(input)

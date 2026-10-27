@@ -12,8 +12,9 @@
 // until a person edits it; that a chat with no reference line, a
 // reference to an unknown workflow and two references are refused; that two edits in one turn keep
 // exactly one `auto` version of the graph before them and a later turn keeps another; that a no-op edit
-// saves nothing; and that a graph too large or against the port rules is refused while the stored graph
-// still reads back.
+// saves nothing; that a graph too large or against the port rules is refused while the stored graph
+// still reads back; and that an agent step takes one of the five efforts, refuses any other value with
+// a sentence the model reads, and lets a model step keep the value it always could.
 // `bun scripts/workflow-agent-edit-e2e.ts`. Writes .openbot-build/workflow-agent-edit-e2e/report.json.
 import assert from "node:assert/strict";
 import { randomUUID } from "node:crypto";
@@ -1147,6 +1148,90 @@ try {
   pass(
     "The stored graph still reads back unchanged",
     mainAtEnd.revision === afterEdit.revision && sameGraph(mainAtEnd.graph, afterEdit.graph),
+  );
+
+  // 9. The effort of an agent step is one of the five levels; any other value is a failure the model reads.
+  const effortBase = await detail(armedId);
+  const [badLevel, badType] = await callTools(
+    "bad effort",
+    planner.id,
+    callText(refArmed, [
+      {
+        __tool: "edit_workflow",
+        revision: effortBase.revision,
+        edits: [{ op: "update_node", node: "a2", fields: { effort: "turbo" } }],
+      },
+      {
+        __tool: "edit_workflow",
+        revision: effortBase.revision,
+        edits: [{ op: "add_node", key: "n", kind: "agent", fields: { agentId: helper.id, task: "x", effort: 7 } }],
+      },
+    ]),
+    2,
+  );
+  const afterBadEffort = await detail(armedId);
+  pass(
+    "An agent step with an unknown effort is refused with a sentence that names the levels, and saves nothing",
+    badLevel?.success === false &&
+      badLevel.body?.error?.startsWith("Edit 1 (update_node):") === true &&
+      badLevel.body.error.includes("low, medium, high, xhigh, max") &&
+      badLevel.body.error.includes('"turbo"'),
+    badLevel?.text,
+  );
+  pass(
+    "An agent step with an effort that is not a text is refused too, and the stored graph is unchanged",
+    badType?.success === false &&
+      badType.body?.error?.startsWith("Edit 1 (add_node):") === true &&
+      afterBadEffort.revision === effortBase.revision &&
+      sameGraph(afterBadEffort.graph, effortBase.graph),
+    badType?.text,
+  );
+  const [setHigh] = await callTools(
+    "set effort",
+    planner.id,
+    callText(refArmed, [
+      {
+        __tool: "edit_workflow",
+        revision: effortBase.revision,
+        edits: [{ op: "update_node", node: "a2", fields: { effort: "high" } }],
+      },
+    ]),
+    1,
+  );
+  const withEffort = await detail(armedId);
+  pass(
+    "A valid effort saves on the agent step and leaves its other fields",
+    setHigh?.success === true &&
+      withEffort.revision === effortBase.revision + 1 &&
+      withEffort.graph.nodes.find((item) => item.id === "a2")?.fields.effort === "high" &&
+      withEffort.graph.nodes.find((item) => item.id === "a2")?.fields.task === "Summarize in one line.",
+    setHigh?.text,
+  );
+  const [modelStep, clearEffort] = await callTools(
+    "other kinds and clearing",
+    planner.id,
+    callText(refArmed, [
+      {
+        __tool: "edit_workflow",
+        revision: withEffort.revision,
+        edits: [{ op: "add_node", key: "m", kind: "llm", fields: { prompt: "Sum up.", effort: "turbo" } }],
+      },
+      {
+        __tool: "edit_workflow",
+        revision: withEffort.revision + 1,
+        edits: [{ op: "update_node", node: "a2", fields: { effort: null } }],
+      },
+    ]),
+    2,
+  );
+  const clearedEffort = await detail(armedId);
+  pass(
+    "A model step keeps whatever effort it was given before, and null takes the effort off an agent step",
+    modelStep?.success === true &&
+      clearEffort?.success === true &&
+      clearedEffort.graph.nodes.some((item) => item.kind === "llm" && item.fields.effort === "turbo") &&
+      clearedEffort.graph.nodes.find((item) => item.id === "a2")?.fields.effort === undefined,
+    `${modelStep?.text} ${clearEffort?.text}`,
   );
   report.versions.push({ workflow: "Main", versions: await versionsOf(mainId) });
   report.versions.push({ workflow: "Armed", versions: await versionsOf(armedId) });

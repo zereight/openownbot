@@ -8,6 +8,8 @@
 
 import { INPUT_LIMITS } from "@openbot/contracts/input-limits";
 import {
+  AGENT_REASONING_EFFORTS,
+  isReasoningEffort,
   isWorkflowNode,
   WORKFLOW_MAX_COORDINATE,
   type WorkflowBranch,
@@ -120,7 +122,7 @@ export function applyWorkflowEdits(
           at: edit.at ?? placement(nodes, anchor < 0 ? undefined : nodes[anchor]),
           fields: { ...edit.fields },
         };
-        const problem = nodeProblem(node);
+        const problem = effortProblem(node.kind, edit.fields.effort) ?? nodeProblem(node);
         if (problem) return refuse(index, edit.op, problem);
         nodes.push(node);
         refs.set(edit.key, node.id);
@@ -138,7 +140,7 @@ export function applyWorkflowEdits(
           else fields[name] = value;
         }
         const next: WorkflowNode = { ...node, fields, ...(edit.at ? { at: edit.at } : {}) };
-        const problem = nodeProblem(next);
+        const problem = effortProblem(node.kind, edit.fields?.effort) ?? nodeProblem(next);
         if (problem) return refuse(index, edit.op, problem);
         nodes[position] = next;
         break;
@@ -191,6 +193,16 @@ function placement(nodes: readonly WorkflowNode[], after: WorkflowNode | undefin
   if (!first) return { x: 0, y: 0 };
   const right = Math.max(...nodes.map((node) => node.at.x));
   return { x: right + NODE_GAP, y: first.at.y };
+}
+
+/**
+ * Why the effort that an edit sets cannot run on an agent step, or null. Only the edit that sets it is
+ * checked, so a node that already holds another value does not stop an unrelated edit. A node of any
+ * other kind keeps whatever it is given, as before.
+ */
+function effortProblem(kind: WorkflowNodeKind, effort: WorkflowFieldValue | null | undefined): string | null {
+  if (kind !== "agent" || effort === undefined || effort === null || isReasoningEffort(effort)) return null;
+  return `an agent step takes an effort of ${AGENT_REASONING_EFFORTS.join(", ")}, not ${JSON.stringify(effort)}. Set it to null to use the agent's own effort.`;
 }
 
 /** Why a node an edit produced cannot be stored, or null. The limits are the contract's. */

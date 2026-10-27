@@ -3,6 +3,7 @@ import { sortConversationMessages } from "@openbot/contracts/conversation-order"
 import { INPUT_LIMITS } from "@openbot/contracts/input-limits";
 import type {
   AgentEvent,
+  AgentReasoningEffort,
   AgentSummary,
   AgentWait,
   ConversationMessage,
@@ -945,6 +946,8 @@ export class RoutineScheduler implements RoutineDueSource {
       agentId: string;
       text: string;
       idempotencyKey: string;
+      /** The effort for the one turn this handoff starts. Absent: the agent's own setting. */
+      reasoningEffort?: AgentReasoningEffort;
     },
   ) {
     const agent = yield* routineStep(() => {
@@ -965,6 +968,7 @@ export class RoutineScheduler implements RoutineDueSource {
           routineName: input.run.routineName,
           scheduledFor: input.run.scheduledFor,
         },
+        reasoningEffort: input.reasoningEffort,
         recipientAgentIds: [agent.id],
         text: input.text,
         draftIds: [],

@@ -51,7 +51,8 @@ export type WorkflowFieldValue = string | number | boolean;
 /**
  * The fields of a node, by name. The host reads only the names its runtime needs:
  * - trigger: `trigger` (a `WorkflowTriggerType`) and `timezone`; the schedule is `WorkflowNode.schedule`.
- * - agent: `agentId`, `task`.
+ * - agent: `agentId`, `task`, and `effort` (an `AgentReasoningEffort`, for the one turn the step starts; absent means
+ *   the agent's own setting).
  * - llm: `provider`, `model`, `effort`, `prompt`, `system`.
  * - condition: `rule`, the yes-or-no question about its input.
  * - approval: `question`.

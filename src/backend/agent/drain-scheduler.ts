@@ -1,5 +1,10 @@
 import { randomUUID } from "node:crypto";
-import { AGENT_PROVIDERS, type AgentModelOption, type AgentSummary } from "@openbot/contracts/ipc";
+import {
+  AGENT_PROVIDERS,
+  type AgentModelOption,
+  type AgentReasoningEffort,
+  type AgentSummary,
+} from "@openbot/contracts/ipc";
 import { sourceText } from "@openbot/i18n/source";
 import { createOpenBotLogger } from "@openbot/logging";
 import { Deferred, Effect, Result, Schema } from "effect";
@@ -746,6 +751,8 @@ export class DrainScheduler {
       }
       this.#conversation.emitConversation(snapshot);
 
+      // Once, before the retry below can start the turn a second time, so a refused effort is logged once.
+      const effort = this.#turnEffort(agent, delivery);
       const startTurn = (providerThreadId: string) =>
         Effect.gen({ self: this }, function* () {
           // Read again here, not only above: the provider, the thread and the channel are prepared in
@@ -760,7 +767,7 @@ export class DrainScheduler {
               {
                 threadId: providerThreadId,
                 model: agent.model,
-                effort: agent.reasoningEffort,
+                effort,
                 sessionSettings: sessionSettingsOverrides(
                   this.#store.list().find((current) => current.id === agent.id) ?? agent,
                 ),
@@ -971,6 +978,39 @@ export class DrainScheduler {
       ),
     );
   }, Effect.uninterruptible);
+
+  /**
+   * The effort of the turn that `delivery` starts. A workflow step can hand the agent a message with
+   * an effort of its own. It is used when the agent's model, as it is now, offers it; else the agent's
+   * own setting stays. A model that the catalogue no longer lists offers nothing. Neither the message
+   * nor the agent keeps the choice: every turn start passes its effort again, so the next turn of the
+   * agent goes back to `agent.reasoningEffort`.
+   *
+   * Only the delivery that opens the turn counts. A routine message starts alone, because
+   * `repliesToStartWith` returns no companion for a sender that is not a user. A delivery that was
+   * steered into a turn that already runs never comes here, so it cannot change that turn.
+   */
+  #turnEffort(
+    agent: Pick<AgentSummary, "id" | "provider" | "model" | "reasoningEffort">,
+    delivery: DeliveryContext["delivery"],
+  ): AgentReasoningEffort {
+    const asked = this.#mailbox.reasoningEffortOf(delivery.messageId);
+    if (asked === undefined) return agent.reasoningEffort;
+    const model = this.#providers
+      .listModels()
+      .find((candidate) => candidate.provider === providerForAgent(agent) && candidate.id === agent.model);
+    if (model?.supportedReasoningEfforts.includes(asked)) return asked;
+    // The step was saved against a model that the agent has left. The run goes on with the agent's own
+    // effort. A step id is not known here: the run and the delivery name the step.
+    logger.warn("A workflow step asked for an effort that the agent's model does not offer.", {
+      agentId: agent.id,
+      model: agent.model,
+      effort: asked,
+      runId: delivery.sender.kind === "routine" ? delivery.sender.runId : undefined,
+      deliveryId: delivery.id,
+    });
+    return agent.reasoningEffort;
+  }
 
   /**
    * Whether this delivery is a routine run in the agent's own chat. It runs in a provider session
