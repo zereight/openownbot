@@ -154,7 +154,14 @@ function WorkflowChat(props: {
               show: t("workflow.chat.show"),
               working: t("workflow.chat.working", { name: agent().name }),
             }}
-            agentPicker={<DiagramChatAgentPicker agents={agents()} value={agent().id} onChange={assistant.choose} />}
+            agentPicker={
+              <DiagramChatAgentPicker
+                agents={agents()}
+                value={agent().id}
+                disabled={assistant.working()}
+                onChange={assistant.choose}
+              />
+            }
             messages={assistant.messages()}
             working={assistant.working()}
             open={open()}

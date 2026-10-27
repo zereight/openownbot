@@ -294,6 +294,8 @@ export function DiagramChatAgentPicker(props: {
   agents: readonly AgentProfile[];
   value: string;
   onChange: (agentId: string) => void;
+  /** True while a request waits for its answer: another agent would drop that answer. */
+  disabled?: boolean | undefined;
 }) {
   const { t } = useText();
   return (
@@ -302,7 +304,7 @@ export function DiagramChatAgentPicker(props: {
       value={props.agents.find((agent) => agent.id === props.value) ?? null}
       optionValue="id"
       optionTextValue="name"
-      disabled={props.agents.length < 2}
+      disabled={props.disabled || props.agents.length < 2}
       onChange={(agent) => {
         // The list also reports the shown agent again when the agent list refreshes: that is not a pick.
         if (agent && agent.id !== props.value) props.onChange(agent.id);
