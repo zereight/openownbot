@@ -1,4 +1,5 @@
 import type { AppInfo, CentralAuthUser } from "@openbot/contracts/ipc";
+import { LOCAL_ONLY } from "@openbot/contracts/local-only";
 import {
   ANALYTICS_GENERATIONS,
   classifyFailure,
@@ -28,7 +29,7 @@ export function configureDesktopReports(
   user: Pick<CentralAuthUser, "id" | "email"> | null,
 ): void {
   const capture = info.analyticsCaptureUrl;
-  if (capture === undefined && (!import.meta.env.PROD || info.variant !== "production")) return;
+  if (capture === undefined && (!import.meta.env.PROD || info.variant !== "production" || LOCAL_ONLY)) return;
   queue ??= new ReportQueue(
     indexedReportStorage("openbot-desktop-error-reports-v1"),
     openPanelTransport({
