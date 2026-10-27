@@ -894,6 +894,7 @@ function RemoteDesktop() {
     remoteDesktopConnectionError,
     remoteDesktopConnectionErrorCode,
     hideRemoteDesktopWorkspace,
+    reportRemoteDesktopViewerFailed,
     disconnectRemoteDesktopWorkspace,
     retryRemoteDesktopWorkspace,
     selectRemoteDesktopDisplay,
@@ -914,6 +915,7 @@ function RemoteDesktop() {
               connectionError={remoteDesktopConnectionError()}
               connectionErrorCode={remoteDesktopConnectionErrorCode()}
               onHide={hideRemoteDesktopWorkspace}
+              onViewerState={(state) => reportRemoteDesktopViewerFailed(state === "error")}
               onDisconnect={() => disconnectRemoteDesktopWorkspace()}
               onRetry={retryRemoteDesktopWorkspace}
               onSelectDisplay={selectRemoteDesktopDisplay}
