@@ -146,7 +146,8 @@ export type ChannelCommand =
       origin: { kind: "routine"; routineId: string; routineName: string; runId: string };
     }
   | {
-      type: "stop" | "resume" | "reassign";
+      /** `cancel` ends the whole request of the task for good; `stop` only pauses it. */
+      type: "stop" | "resume" | "reassign" | "cancel";
       operationId: string;
       channelId: string;
       taskId: string;
@@ -355,7 +356,7 @@ export function parseChannelCommand(value: unknown): ChannelCommand {
   if (value.type === "read" && sequence(value.throughSequence))
     return { ...common, type: value.type, throughSequence: value.throughSequence };
   if (
-    (value.type === "stop" || value.type === "resume" || value.type === "reassign") &&
+    (value.type === "stop" || value.type === "resume" || value.type === "reassign" || value.type === "cancel") &&
     isIdentifier(value.taskId) &&
     (value.recipientAgentId === null || isIdentifier(value.recipientAgentId))
   ) {

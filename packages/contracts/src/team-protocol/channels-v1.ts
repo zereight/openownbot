@@ -269,7 +269,7 @@ export function channelRequest(path: string, value: unknown): TeamProtocolV2Json
   }
   if (pathname !== CHANNEL_ROUTES.command || !isDynamicRecord(value)) throw new Error("Invalid channel command.");
   const common = record(value, {
-    type: oneOf("save", "archive", "restore", "read", "send", "stop", "resume", "reassign"),
+    type: oneOf("save", "archive", "restore", "read", "send", "stop", "resume", "reassign", "cancel"),
     operationId: identifier,
     channelId: identifier,
   });

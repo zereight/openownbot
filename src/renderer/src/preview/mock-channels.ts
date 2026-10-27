@@ -100,6 +100,17 @@ export function createMockChannels(
         task.revision += 1;
         if (input.type === "reassign") task.ownerAgentId = input.recipientAgentId;
       }
+      if (input.type === "cancel") {
+        const selected = work.find((item) => item.id === input.taskId);
+        if (!selected) throw new Error("Channel task not found.");
+        for (const task of work) {
+          if (task.rootTaskId !== selected.rootTaskId || task.state === "completed" || task.state === "cancelled")
+            continue;
+          task.state = "cancelled";
+          task.error = null;
+          task.revision += 1;
+        }
+      }
       if (input.type === "send") {
         const list = messages.get(channel.id) ?? [];
         const id = crypto.randomUUID();
