@@ -97,6 +97,8 @@ export const messages = {
   "workflow.model.providers": "제공자",
   "workflow.model.providerModels": "{name} 모델",
   "workflow.model.effort": "강도: {name}",
+  "workflow.model.effortOwn": "에이전트 설정 ({name})",
+  "workflow.model.effortInherited": "강도: {name}, 에이전트 설정",
   "workflow.model.effortRange": "{from}–{to}",
 
   "workflow.llm.title": "LLM",

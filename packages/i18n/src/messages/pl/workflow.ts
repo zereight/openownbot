@@ -102,6 +102,8 @@ export const messages = {
   "workflow.model.providers": "Dostawcy",
   "workflow.model.providerModels": "Modele: {name}",
   "workflow.model.effort": "Wysiłek: {name}",
+  "workflow.model.effortOwn": "Jak u agenta ({name})",
+  "workflow.model.effortInherited": "Wysiłek: {name}, jak u agenta",
   "workflow.model.effortRange": "{from}–{to}",
 
   "workflow.llm.title": "LLM",
