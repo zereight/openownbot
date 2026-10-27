@@ -55,6 +55,7 @@ import {
 import type { RemoteServerManager } from "./remote-server-manager";
 import type { RemoteWorkflowError } from "./remote-service-effects";
 import { sendToRenderer } from "./renderer-ipc";
+import { createRendererRecovery } from "./renderer-recovery";
 import { isTrustedRendererUrl } from "./trusted-renderer";
 import type { UpdateService } from "./update-service";
 import { followAppearance, followWindowGlass, windowBackgroundColor } from "./window-appearance";
@@ -227,6 +228,13 @@ export function createMainWindowController({
     });
     window.webContents.on("render-process-gone", onRendererGone);
     window.webContents.once("destroyed", onRendererGone);
+    // A crashed renderer leaves the window black, so the window loads its page again.
+    const recovery = createRendererRecovery();
+    window.webContents.on("render-process-gone", (_event, details) => {
+      if (isQuitting() || window.isDestroyed() || !recovery.shouldReload(details.reason)) return;
+      reportError("The main window renderer stopped, so the window loads it again", { reason: details.reason });
+      loadRenderer(window).catch((error: unknown) => reportError("Could not load the main window again", error));
+    });
     attachAppInput(window, getServices, getTranslate, { closesBrowserTabs: true });
     window.webContents.on("will-navigate", (event, targetUrl) => {
       if (!isTrustedRendererUrl(targetUrl)) event.preventDefault();
