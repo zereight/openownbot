@@ -7,7 +7,8 @@
 // all run with the agent's own effort, and that the effort is kept beside the message, survives a
 // reload of the mailbox, and does not show in the queue or in the delivery that a client reads. A step
 // that fails once and is retried after its node is edited (a new effort, a new agent with a new effort,
-// the effort removed) starts the retried turn with what the node asks for now.
+// the effort removed) starts the retried turn with what the node asks for now. A stored effort that this
+// build cannot read does not stop the mailbox from loading: the read drops it and warns once.
 // `bun scripts/workflow-agent-effort-e2e.ts`. Writes .openbot-build/workflow-agent-effort-e2e/report.json.
 import assert from "node:assert/strict";
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
@@ -152,6 +153,7 @@ interface TurnLog {
 const report: {
   turns: { name: string; effort: string | null }[];
   warnings: string[];
+  mailboxWarnings: string[];
   checks: { name: string; passed: boolean }[];
   notCovered: string[];
   passed: boolean;
@@ -159,6 +161,7 @@ const report: {
 } = {
   turns: [],
   warnings: [],
+  mailboxWarnings: [],
   checks: [],
   notCovered: [
     "A step that a restart sends again: the check starts every run once and never restarts the process. A retried step that a restart cuts off before its delivery is sent again with the effort of the graph the run started with, not the edited node.",
@@ -229,8 +232,9 @@ const ended = (status: string | undefined) =>
   status === "completed" || status === "failed" || status === "interrupted" || status === "cancelled";
 
 await writeFile(fakeCodex, FAKE_CODEX, { mode: 0o755 });
-const stopWarnings = teeLogLines(["drain-scheduler"], (line) => {
+const stopWarnings = teeLogLines(["drain-scheduler", "mailbox-store"], (line) => {
   if (line.includes("asked for an effort")) report.warnings.push(line);
+  if (line.includes("[mailbox-store]")) report.mailboxWarnings.push(line);
 });
 const database = new OpenBotDatabase(userData);
 const store = new AgentStore(userData, home, database);
@@ -496,6 +500,47 @@ try {
   await retryCase("AGENT", "high", { agentId: second.id, effort: "medium" }, { agentId: second.id, effort: "medium" });
   await retryCase("CLEARED", "high", { effort: undefined }, { agentId: worker.id, effort: OWN_EFFORT });
 
+  // 8. An effort that this build cannot read, such as a level that a newer build added to the shared
+  // profile, must not stop the mailbox from loading. The read drops it and warns once, the message
+  // stays, and the read stores the cleaned message, so the next start has nothing to drop. Last, so
+  // the mailbox of this script writes nothing after the row is changed.
+  const written = database.connection
+    .prepare(
+      "UPDATE projection_mailbox_messages SET message_json = json_set(message_json, '$.reasoningEffort', 'turbo') WHERE message_id = ?",
+    )
+    .run(highMessageId);
+  pass("the row of the high step holds an effort that no build reads", Number(written.changes) === 1, written);
+  const mailboxWarningsBefore = report.mailboxWarnings.length;
+  const unreadable = new MailboxStore(userData, store.sharedRoot, store.database);
+  await runCauseEffect(unreadable.initialize());
+  pass("a mailbox that holds an unreadable effort loads", true);
+  pass(
+    "the message stays and its effort is gone",
+    unreadable.getDelivery(high.deliveryId ?? "")?.delivery.messageId === highMessageId &&
+      unreadable.reasoningEffortOf(highMessageId) === undefined,
+    unreadable.reasoningEffortOf(highMessageId),
+  );
+  const readWarnings = report.mailboxWarnings.slice(mailboxWarningsBefore);
+  pass(
+    "one warning counts the dropped efforts",
+    readWarnings.length === 1 && readWarnings[0]?.includes('"count":1') === true,
+    {
+      readWarnings,
+    },
+  );
+  const stored = database.connection
+    .prepare(
+      "SELECT json_extract(message_json, '$.reasoningEffort') AS effort FROM projection_mailbox_messages WHERE message_id = ?",
+    )
+    .get(highMessageId);
+  pass("the read stored the cleaned message", stored !== undefined && stored.effort === null, stored);
+  const again = new MailboxStore(userData, store.sharedRoot, store.database);
+  await runCauseEffect(again.initialize());
+  pass(
+    "the next read has nothing to drop and says nothing",
+    again.reasoningEffortOf(highMessageId) === undefined && report.mailboxWarnings.length === mailboxWarningsBefore + 1,
+    report.mailboxWarnings,
+  );
   report.passed = true;
 } catch (error) {
   report.error = error instanceof Error ? (error.stack ?? error.message) : String(error);
