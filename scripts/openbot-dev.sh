@@ -100,7 +100,8 @@ esac
 
 # 휴대폰 페어링용: QR 속 계정 API 주소.
 # Tailscale이 켜져 있으면 tailnet HTTPS를 우선 사용(밖에서도 스캔 가능,
-# `tailscale serve --https=443`로 :3100 노출 필요). 꺼져 있으면 LAN IP로 폴백.
+# `tailscale serve --bg --https=8443 http://127.0.0.1:3100`로 :3100 노출 필요).
+# 443의 `/`는 다른 앱(T3 Code)이 쓸 수 있어서 8443을 씀. 꺼져 있으면 LAN IP로 폴백.
 # 둘 다 미리 지정돼 있으면 그 값을 존중함. dev 기본값(127.0.0.1)은
 # 휴대폰에서 자기 자신이 되어 스캔이 실패함.
 TS_DNS="$(tailscale status --json 2>/dev/null | python3 -c 'import json,sys; print(json.load(sys.stdin).get("Self",{}).get("DNSName","").rstrip("."))' 2>/dev/null)"
@@ -109,7 +110,7 @@ if [ -n "$TS_DNS" ] && [ -z "$__VITE_ADDITIONAL_SERVER_ALLOWED_HOSTS" ]; then
 fi
 if [ -z "$OPENBOT_MOBILE_AUTH_API_URL" ]; then
   if [ -n "$TS_DNS" ]; then
-    export OPENBOT_MOBILE_AUTH_API_URL="https://$TS_DNS"
+    export OPENBOT_MOBILE_AUTH_API_URL="https://$TS_DNS:8443"
   else
     LAN_IP="$(ipconfig getifaddr en0 2>/dev/null)"
     [ -n "$LAN_IP" ] && export OPENBOT_MOBILE_AUTH_API_URL="http://$LAN_IP:3100"
