@@ -33,6 +33,15 @@ describe("channelRunStatusForTasks", () => {
     });
   });
 
+  it("reads a run as cancelled when the owner cancelled the rest of it after one task completed", () => {
+    expect(
+      channelRunStatusForTasks(
+        [task("root", "cancelled"), task("done", "completed"), task("other", "cancelled")],
+        true,
+      ),
+    ).toEqual({ status: "cancelled", error: null });
+  });
+
   it("still reads a run whose tasks all completed as succeeded", () => {
     expect(channelRunStatusForTasks([task("root", "completed"), task("child", "completed")], false)).toEqual({
       status: "succeeded",
