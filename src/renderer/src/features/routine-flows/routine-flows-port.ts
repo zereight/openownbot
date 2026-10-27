@@ -1,11 +1,5 @@
-import type {
-  AgentEvent,
-  ConversationPage,
-  OpenBotDesktopApi,
-  TeamRealtimeEvent,
-  TestRoutineInput,
-  UpdateRoutineInput,
-} from "@openbot/contracts/ipc";
+import type { OpenBotDesktopApi, TestRoutineInput, UpdateRoutineInput } from "@openbot/contracts/ipc";
+import { type AgentChatPort, desktopAgentChatPort } from "../../agent-chat-port";
 import { desktopEventRoutinesApi, type EventRoutinesApi } from "../conversation/routine-webhooks-api";
 
 /**
@@ -14,7 +8,7 @@ import { desktopEventRoutinesApi, type EventRoutinesApi } from "../conversation/
  * answers. The desktop app reaches this computer or a joined server through main; the web client
  * reaches its connected host over the Team API.
  */
-export interface RoutineFlowsHost {
+export interface RoutineFlowsHost extends AgentChatPort {
   /** Called without a server: the host already names one. */
   flows: OpenBotDesktopApi["routineFlows"];
   routines: {
@@ -26,14 +20,6 @@ export interface RoutineFlowsHost {
    * account that may not manage them; the canvas then hides the config and refuses their edits.
    */
   readonly webhooks: Pick<EventRoutinesApi, "getStatus" | "saveRoutine" | "rotateSecret" | "testRoutine"> | undefined;
-  conversation: {
-    /** Sends a request to the agent. Resolves to the delivery that names it, or null without one. */
-    send(input: { agentId: string; text: string; clientMessageId: string }): Promise<string | null>;
-    /** The newest page, or the page around one message. */
-    page(agentId: string, aroundMessageId?: string): Promise<ConversationPage>;
-  };
-  /** The events of this host only. */
-  onEvent(listener: (event: AgentEvent | TeamRealtimeEvent) => void): () => void;
   openUrl(url: string): Promise<void>;
 }
 
@@ -60,21 +46,7 @@ export function desktopRoutineFlowsHost(serverId: string, webhooks: () => boolea
     get webhooks() {
       return webhooks() ? desktopEventRoutinesApi(serverId) : undefined;
     },
-    conversation: {
-      send: async ({ agentId, text, clientMessageId }) => {
-        const receipt = await agent().sendMessage({ agentId, text, clientMessageId }, serverId);
-        return receipt.deliveries.find((delivery) => delivery.recipientAgentId === agentId)?.id ?? null;
-      },
-      page: (agentId, aroundMessageId) =>
-        agent().readConversationPage(
-          { agentId, ...(aroundMessageId ? { anchor: { type: "around", messageId: aroundMessageId } } : {}) },
-          serverId,
-        ),
-    },
-    onEvent: (listener) =>
-      agent().onScopedEvent((scoped) => {
-        if (scoped.serverId === serverId) listener(scoped.event);
-      }),
+    ...desktopAgentChatPort(serverId),
     openUrl: (url) => window.openbot.openUrl(url),
   };
 }
