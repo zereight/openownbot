@@ -131,5 +131,25 @@ if [ -n "$TS_DNS" ]; then
   fi
 fi
 
-bun run dev:stop >/dev/null 2>&1
-exec bun run dev "$@"
+# --force는 떠 있는 스택 옆에 두 번째 스택을 띄우는 옵션이고, 그러면 앱이 워크트리 프로필 대신
+# 빈 `OpenBot Dev <포트>` 프로필을 열어 데이터가 초기화된 것처럼 보임. 이 실행기는 먼저 멈추고
+# 다시 띄우므로 --force를 넘기지 않음. 스택이 남아 있으면 dev가 오류로 멈춤.
+args=()
+for arg in "$@"; do
+  if [ "$arg" = "--force" ]; then
+    echo "--force는 무시함: 빈 개발 프로필이 열리는 것을 막기 위함." >&2
+  else
+    args+=("$arg")
+  fi
+done
+
+# 프로세스만 죽이고 레지스트리 기록이 남으면 dev:stop이 실패하고 다음 실행이 막힘.
+# stop이 풀지 못한 스택 중 supervisor pid가 이미 죽은 것만 기록에서 지움. 살아 있는 pid는 건드리지 않음.
+stop_output="$(bun run dev:stop 2>&1)" || {
+  for pid in $(printf '%s\n' "$stop_output" | sed -n 's/.*"supervisorPid": *\([0-9][0-9]*\).*/\1/p'); do
+    kill -0 "$pid" 2>/dev/null && continue
+    echo "죽은 스택 기록 정리: pid=$pid" >&2
+    bun run dev:forget --pid="$pid" >/dev/null 2>&1
+  done
+}
+exec bun run dev "${args[@]}"
