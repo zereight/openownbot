@@ -562,6 +562,29 @@ export class ChannelService {
       const recipientAgentId = command.recipientAgentId;
       yield* channelSync(() => this.requireAvailableMember(channel, recipientAgentId));
     }
+    // `cancel` ends the whole request, so it starts at the root and not at the selected task. A
+    // parent waits for each task it delegated: cancelling only a child would leave its parent
+    // waiting for ever. `descendants` skips the tasks that are already final, so a completed task
+    // keeps its result.
+    if (command.type === "cancel") {
+      const rootId = tasks.find((task) => task.id === selected.rootTaskId)?.id ?? selected.id;
+      const run = descendants(tasks, rootId);
+      const result = yield* channelSync(() =>
+        this.store.update(
+          channel,
+          {
+            tasks: run.map(
+              (task): ChannelTask => ({ ...task, state: "cancelled", error: null, revision: task.revision + 1 }),
+            ),
+          },
+          operationId,
+        ),
+      );
+      this.publish(channel.id);
+      yield* this.interruptTasks(channel.id, run);
+      yield* this.wake(channel.id);
+      return result;
+    }
     // `stop` and `resume` hold the whole run below the selected task. `reassign` gives one task
     // another owner, but it must start the rest of the stopped run with it: a parent waits for each
     // task it delegated, so a root that started alone would wait for a stopped child for ever. A

@@ -223,8 +223,10 @@ their existing meaning.
 Task revisions prevent an old assignment from completing a corrected request. The stored request
 keeps its own text and files: only its first dispatch converts the attachment drafts, and a later
 dispatch of the same request sends the stored copies again. Stop pauses a task and its descendants
-and interrupts active work. Reassign waits for the old assignment to finish stopping. Restart
-recovery checks accepted provider work before retrying. Unknown outcomes require attention.
+and interrupts active work. Cancel ends the whole request from its root, interrupts active work, and
+leaves completed tasks as they are. No command restarts a cancelled task. Reassign waits for the old
+assignment to finish stopping. Restart recovery checks accepted provider work before retrying.
+Unknown outcomes require attention.
 Command, assignment, and result IDs prevent duplicate dispatch and visible results; external side
 effects do not have an exactly-once guarantee.
 
