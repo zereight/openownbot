@@ -611,6 +611,30 @@ export class ChannelStore {
     return row ? requiredStringColumn(row, "channel_id") : null;
   }
 
+  /**
+   * The channel of an assignment in one of these states running this turn, or null.
+   *
+   * A `turn-completed` event whose thread no longer maps to its channel still settles its
+   * assignment through this: without it the assignment stays active and holds the agent's queue
+   * until a restart, with every chat reading "working in" that channel. One query, like the
+   * assignment-state checks above: reaching a channel through `list` parses every stored message
+   * of every channel.
+   */
+  assignmentChannelForTurn(turnId: string, states: readonly ChannelAssignment["state"][]): string | null {
+    if (!states.length) return null;
+    const placeholders = states.map(() => "?").join(", ");
+    const row = databaseRow(
+      this.database.connection
+        .prepare(
+          `SELECT channel_id FROM projection_channel_assignments
+            WHERE json_extract(assignment_json, '$.turnId') = ?
+              AND json_extract(assignment_json, '$.state') IN (${placeholders}) LIMIT 1`,
+        )
+        .get(turnId, ...states),
+    );
+    return row ? requiredStringColumn(row, "channel_id") : null;
+  }
+
   acceptContext(
     channelId: string,
     agentId: string,

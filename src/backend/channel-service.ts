@@ -143,6 +143,7 @@ export class ChannelService {
   #scope = Scope.makeUnsafe();
   readonly #pumps = new Map<string, Fiber.Fiber<void>>();
   readonly #commands = new Map<string, Deferred.Deferred<void>>();
+  // biome-ignore lint/suspicious/noConfusingVoidType: Effect fibers use void for valueless results; undefined breaks assignability (typecheck-verified).
   readonly #commandFibers = new Set<Fiber.Fiber<Channel | void, ChannelOperationError>>();
   readonly #interrupts = new Set<Fiber.Fiber<void>>();
   readonly #events = new Set<Fiber.Fiber<void>>();
@@ -218,6 +219,7 @@ export class ChannelService {
   );
 
   readonly #serialize = Effect.fn("ChannelService.serialize")(
+    // biome-ignore lint/suspicious/noConfusingVoidType: Effect effects use void for valueless results; undefined breaks assignability (typecheck-verified).
     <A extends Channel | void>(channelId: string, operation: Effect.Effect<A, ChannelOperationError>) =>
       Effect.uninterruptibleMask((restore) =>
         Effect.gen({ self: this }, function* () {
@@ -1831,7 +1833,12 @@ export class ChannelService {
       return true;
     }
     if (event.type === "turn-completed") {
-      const channelId = this.store.channelForThread(event.threadId);
+      // The thread usually maps to its channel, but a turn that outlived its mapping still
+      // carries its assignment: resolve through the turn so a failed turn cannot leave its
+      // assignment active, holding the agent's queue with "working in" that channel.
+      const channelId =
+        this.store.channelForThread(event.threadId) ??
+        this.store.assignmentChannelForTurn(event.turnId, ACTIVE_ASSIGNMENT_STATES);
       if (!channelId) {
         this.#dispatchEvent(this.wake());
         return false;
