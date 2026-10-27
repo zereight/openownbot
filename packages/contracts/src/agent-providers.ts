@@ -552,6 +552,7 @@ export const LOCAL_ONLY_PROVIDERS = [
   "cursor",
   "cline",
   "pi",
+  "pi-bolt",
   "muse",
   "inception",
   "deepseek",
