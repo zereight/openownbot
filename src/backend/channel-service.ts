@@ -143,7 +143,6 @@ export class ChannelService {
   #scope = Scope.makeUnsafe();
   readonly #pumps = new Map<string, Fiber.Fiber<void>>();
   readonly #commands = new Map<string, Deferred.Deferred<void>>();
-  // biome-ignore lint/suspicious/noConfusingVoidType: Effect fibers use void for valueless results; undefined breaks assignability (typecheck-verified).
   readonly #commandFibers = new Set<Fiber.Fiber<Channel | void, ChannelOperationError>>();
   readonly #interrupts = new Set<Fiber.Fiber<void>>();
   readonly #events = new Set<Fiber.Fiber<void>>();
@@ -219,7 +218,6 @@ export class ChannelService {
   );
 
   readonly #serialize = Effect.fn("ChannelService.serialize")(
-    // biome-ignore lint/suspicious/noConfusingVoidType: Effect effects use void for valueless results; undefined breaks assignability (typecheck-verified).
     <A extends Channel | void>(channelId: string, operation: Effect.Effect<A, ChannelOperationError>) =>
       Effect.uninterruptibleMask((restore) =>
         Effect.gen({ self: this }, function* () {
