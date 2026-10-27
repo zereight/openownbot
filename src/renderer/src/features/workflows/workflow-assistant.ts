@@ -37,6 +37,9 @@ export function createWorkflowAssistant(options: {
   });
 
   const assistant = createCanvasAssistant(() => desktopAgentChatPort(serverId), agentId, {
+    // The exchange in the panel is about one workflow: another one opens with an empty panel. The
+    // conversation of the agent keeps the whole history.
+    scope: () => workflows.detail()?.summary.id,
     // The save of the edits that wait goes first, so the agent reads the graph the user sees.
     prepare: workflows.settled,
     compose: (typed) => {
