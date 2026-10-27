@@ -1,5 +1,6 @@
 import "../../global.css";
 
+import { guardOpenBotEgress } from "@openbot/contracts/local-only";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { usePathname } from "expo-router";
 import { DarkTheme, DefaultTheme, ThemeProvider } from "expo-router/react-navigation";
@@ -49,6 +50,7 @@ export const unstable_settings = {
   anchor: "index",
 };
 
+guardOpenBotEgress(globalThis);
 installSupportLog();
 installQuickActions();
 installAppLock();
