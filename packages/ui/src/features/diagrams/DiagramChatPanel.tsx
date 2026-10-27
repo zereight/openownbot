@@ -304,7 +304,8 @@ export function DiagramChatAgentPicker(props: {
       optionTextValue="name"
       disabled={props.agents.length < 2}
       onChange={(agent) => {
-        if (agent) props.onChange(agent.id);
+        // The list also reports the shown agent again when the agent list refreshes: that is not a pick.
+        if (agent && agent.id !== props.value) props.onChange(agent.id);
       }}
       itemComponent={(item) => <SelectItem item={item.item}>{item.item.rawValue.name}</SelectItem>}
     >
