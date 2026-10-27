@@ -174,7 +174,8 @@ export interface WorkflowCanvasProps {
   /**
    * What a reset does to the camera and the selection. `fit` fits the graph and clears the selection, as
    * when the canvas opens. `keep` leaves the camera and keeps the nodes that are still in the graph selected,
-   * for a change that arrives under a canvas that has no edits of its own.
+   * for a change that arrives under a canvas that has no edits of its own. It applies only while the same
+   * workflow stays open: another workflow always opens fitted.
    */
   resetView?: "fit" | "keep" | undefined;
   runs: WorkflowRunView;
@@ -1029,9 +1030,11 @@ export function WorkflowCanvas(props: WorkflowCanvasProps) {
    * before goes on the undo stack, so undo gets back edits that another device replaced.
    */
   const reset = (next: WorkflowGraph, same: boolean, view: "fit" | "keep") => {
+    // A camera that was kept for one workflow means nothing for another one.
+    const keep = same && view === "keep";
     const before = same ? (liveCanvas ?? capture()) : undefined;
     const snapshot = snapshotFromGraph(next);
-    if (view === "keep") {
+    if (keep) {
       const present = new Set(snapshot.nodes.map((node) => node.id));
       snapshot.board.selection = canvas.selection().filter((id) => present.has(id));
     }
@@ -1052,7 +1055,7 @@ export function WorkflowCanvas(props: WorkflowCanvasProps) {
     setStrokes(snapshot.strokes);
     if (!before) edits.clear();
     else if (stableJson(graphFromSnapshot(before)) !== savedGraph) edits.push(before);
-    if (view === "keep") return;
+    if (keep) return;
     board.view(null);
     cameraMoved = false;
     requestAnimationFrame(() => fitView(false));
