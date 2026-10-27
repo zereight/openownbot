@@ -78,6 +78,11 @@ export interface PiProviderOptions {
    * `<provider>/` prefix.
    */
   keyProvider?: { id: KeyOnlyProviderId; apiKey: () => string | null };
+  /**
+   * The provider row of a Pi build that has its own row, such as Pi-Bolt. The client runs as Pi does,
+   * with `<provider>/` model ids, but its models and processes belong to this row, not to Pi.
+   */
+  identity?: "pi-bolt";
   providerStateDirectory?: string;
   profileGeneration?: boolean;
   mcpServers?: McpServerSource;
@@ -127,7 +132,7 @@ interface ClientEvents {
 /** Owns Pi's native sessions. The database owns OpenBot history and agent identity. */
 export class PiAgentClient extends EventEmitter<ClientEvents> implements AgentClient {
   readonly contextCompaction = "request";
-  readonly provider: "pi" | KeyOnlyProviderId;
+  readonly provider: "pi" | "pi-bolt" | KeyOnlyProviderId;
   readonly #bridge = new LocalMcpBridge();
   readonly #requests = new PendingServerRequests((request) => this.emit("request", request));
   readonly #threads = new Map<string, PiThread>();
@@ -143,7 +148,7 @@ export class PiAgentClient extends EventEmitter<ClientEvents> implements AgentCl
     private readonly options: PiProviderOptions,
   ) {
     super();
-    this.provider = options.keyProvider?.id ?? "pi";
+    this.provider = options.keyProvider?.id ?? options.identity ?? "pi";
   }
   get running(): boolean {
     return this.#running;
@@ -169,7 +174,7 @@ export class PiAgentClient extends EventEmitter<ClientEvents> implements AgentCl
 
   /** Pi starts an API error with its HTTP status. A key provider's 401 and 402 point at the saved key. */
   #failureText(message: string | null): string {
-    if (message && this.provider !== "pi") {
+    if (message && this.options.keyProvider) {
       const provider = agentProviderName(this.provider);
       if (/^401\b/u.test(message)) return sourceText("error.provider.keyProviderRefused", { provider });
       if (/^402\b/u.test(message)) return sourceText("error.provider.keyProviderNoBalance", { provider });
@@ -577,8 +582,9 @@ export class PiAgentClient extends EventEmitter<ClientEvents> implements AgentCl
     params: unknown,
   ) {
     const model = getString(params, "model");
-    if (model && this.provider !== "pi") {
-      yield* thread.rpc.request({ type: "set_model", provider: this.provider, modelId: model });
+    const keyProvider = this.options.keyProvider;
+    if (model && keyProvider) {
+      yield* thread.rpc.request({ type: "set_model", provider: keyProvider.id, modelId: model });
     } else if (model) {
       const separator = model.indexOf("/");
       if (separator < 1) return yield* providerFailure(new Error(sourceText("error.provider.piModelInvalid")));

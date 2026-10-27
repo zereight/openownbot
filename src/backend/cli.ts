@@ -604,7 +604,7 @@ function isMinimumVersion(version: string, minimum: readonly number[]): boolean 
 
 /** Resolves native RPC providers through the same explicit/managed/system precedence. */
 const resolveNativeCli = Effect.fn("Cli.resolveNativeCli")(function* (
-  provider: "pi" | "muse",
+  provider: "pi" | "pi-bolt" | "muse",
   input: { systemCandidates?: string[]; bundledExecutable?: string | null | undefined } = {},
 ): Effect.fn.Return<AgentCliInfo, ProviderClientOperationError> {
   const candidates = yield* cliCandidates(provider, input.systemCandidates, input.bundledExecutable ?? null);
@@ -616,8 +616,10 @@ const resolveNativeCli = Effect.fn("Cli.resolveNativeCli")(function* (
     const attempt = yield* Effect.result(
       Effect.gen(function* () {
         const { stdout, launch } = yield* readCliVersion(candidate, provider);
-        const version = provider === "pi" ? parsePiVersion(stdout) : parseMuseVersion(stdout);
-        if (provider === "pi" && !isMinimumVersion(version, [1, 1, 0]))
+        // Pi-Bolt is a build of Pi, so it prints a Pi version and has the same minimum.
+        const piBased = provider === "pi" || provider === "pi-bolt";
+        const version = piBased ? parsePiVersion(stdout) : parseMuseVersion(stdout);
+        if (piBased && !isMinimumVersion(version, [1, 1, 0]))
           throw new CodexCliError(sourceText("error.provider.piOutdated", { version }), "outdated");
         return { executable: candidate.executable, version, source: candidate.source, ...launch };
       }).pipe(Effect.catchDefect((cause) => Effect.fail(providerFailure(cause)))),
@@ -642,6 +644,11 @@ const resolveNativeCli = Effect.fn("Cli.resolveNativeCli")(function* (
 
 export const resolvePiCli = (input?: { systemCandidates?: string[]; bundledExecutable?: string | null | undefined }) =>
   resolveNativeCli("pi", input);
+/** Pi-Bolt has no managed install: an explicit `OPENBOT_PI_BOLT_PATH` or the `pi-bolt` command on `PATH`. */
+export const resolvePiBoltCli = (input?: {
+  systemCandidates?: string[];
+  bundledExecutable?: string | null | undefined;
+}) => resolveNativeCli("pi-bolt", input);
 export const resolveMuseCli = (input?: {
   systemCandidates?: string[];
   bundledExecutable?: string | null | undefined;
@@ -667,7 +674,8 @@ function cliCommandName(provider: AgentProviderId): string {
 
 /** An explicit path remains under the user's control, including during managed updates. */
 export function configuredCliPath(provider: AgentProviderId): string | null {
-  return process.env[`OPENBOT_${provider.toUpperCase()}_PATH`]?.trim() || null;
+  // A hyphen is not valid in an environment variable name, so `pi-bolt` reads `OPENBOT_PI_BOLT_PATH`.
+  return process.env[`OPENBOT_${provider.toUpperCase().replaceAll("-", "_")}_PATH`]?.trim() || null;
 }
 
 const cliCandidates = Effect.fn("Cli.candidates")(function* (

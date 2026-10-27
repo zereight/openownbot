@@ -41,6 +41,7 @@ import {
   resolveGrokCli,
   resolveMuseCli,
   resolveOpencodeCli,
+  resolvePiBoltCli,
   resolvePiCli,
 } from "./cli";
 import { clineFreeModels } from "./cline-free-models";
@@ -493,9 +494,9 @@ export interface BuiltInProviderDriver {
   validateAccount(account: NonNullable<AccountReadResult["account"]>): void;
 }
 
-/** Pi and the key-only providers run the same Pi client. A key-only provider adds its key extension. */
+/** Pi, Pi-Bolt and the key-only providers run the same Pi client. A key-only provider adds its key extension. */
 function piClient(
-  provider: "pi" | KeyOnlyProviderId,
+  provider: "pi" | "pi-bolt" | KeyOnlyProviderId,
   cli: AgentCliInfo,
   timeout: number,
   context: ProviderClientContext,
@@ -530,12 +531,15 @@ function piClient(
   });
 }
 
-function piKeyProvider(provider: "pi" | KeyOnlyProviderId, context: ProviderClientContext) {
-  return provider === "pi" ? {} : { keyProvider: { id: provider, apiKey: () => context.apiKey(provider) } };
+function piKeyProvider(provider: "pi" | "pi-bolt" | KeyOnlyProviderId, context: ProviderClientContext) {
+  if (provider === "pi") return {};
+  // Pi-Bolt runs as Pi does, but its models belong to its own row.
+  if (provider === "pi-bolt") return { identity: provider } as const;
+  return { keyProvider: { id: provider, apiKey: () => context.apiKey(provider) } };
 }
 
 function piProfileClient(
-  provider: "pi" | KeyOnlyProviderId,
+  provider: "pi" | "pi-bolt" | KeyOnlyProviderId,
   cli: AgentCliInfo,
   timeout: number,
   context: ProviderClientContext,
@@ -557,6 +561,17 @@ export const BUILT_IN_PROVIDER_DRIVERS: readonly BuiltInProviderDriver[] = [
     createClient: (cli, timeout, context, confinement) => piClient("pi", cli, timeout, context, confinement),
     createProfileClient: (cli, timeout, context) => piProfileClient("pi", cli, timeout, context),
     authState: (account) => ({ kind: "pi", email: account?.email ?? null }),
+    validateAccount: () => undefined,
+  },
+  {
+    id: "pi-bolt",
+    // Pi-Bolt reads the same agent directory as Pi, so one `/login` serves both.
+    signIn: { kind: "terminal", timeoutMs: CLI_LOGIN_TIMEOUT_MS },
+    signInFile: () => join(piAgentDirectory(), "auth.json"),
+    resolveCli: resolvePiBoltCli,
+    createClient: (cli, timeout, context, confinement) => piClient("pi-bolt", cli, timeout, context, confinement),
+    createProfileClient: (cli, timeout, context) => piProfileClient("pi-bolt", cli, timeout, context),
+    authState: (account) => ({ kind: "pi-bolt", email: account?.email ?? null }),
     validateAccount: () => undefined,
   },
   {

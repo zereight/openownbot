@@ -154,6 +154,7 @@ export type AgentAuthState =
   | { kind: "cursor"; email: string | null }
   | { kind: "cline"; email: string | null }
   | { kind: "pi"; email: string | null }
+  | { kind: "pi-bolt"; email: string | null }
   | { kind: "muse"; email: string | null }
   | { kind: "inception"; email: string | null }
   | { kind: "deepseek"; email: string | null }

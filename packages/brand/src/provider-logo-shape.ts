@@ -59,6 +59,7 @@ export type ProviderLogoVariant =
   | "acp"
   | "pi"
   | "muse"
+  | "pi-bolt"
   | "inception"
   | "deepseek"
   | "openrouter"
@@ -105,6 +106,7 @@ export function providerLogoShape(provider: ProviderLogoVariant): ProviderLogoSh
     // Native CLI providers use the neutral terminal mark.
     case "acp":
     case "pi":
+    case "pi-bolt":
     case "muse":
     case "inception":
       return { viewBox: GRID_24, paths: [{ d: ACP_PROMPT_PATH }, { d: ACP_CURSOR_PATH }] };
