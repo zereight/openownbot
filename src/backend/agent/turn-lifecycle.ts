@@ -80,6 +80,7 @@ import {
   toThreadItem,
 } from "./thread-items";
 import { TurnTraces, traceMessage } from "./turn-traces";
+import { steerWasUnread } from "./unread-steers";
 import { collectProviderUsage } from "./usage-collection";
 import { USAGE_LIMIT_METHOD, type UsageLimitGate } from "./usage-limit-gate";
 
@@ -890,6 +891,9 @@ export class TurnLifecycle {
       this.#browser.endControl(this.#conversation.publicThreadId(agentId, threadId), turnId);
       const snapshot = this.#conversation.ensureSnapshot(agentId, threadId);
       snapshot.activeTurnId = null;
+      // A message steered in as the turn ended was not read, so it goes back to the queue before the turn
+      // takes it as its own. The drain at the end of this turn starts it.
+      if (status === "completed") yield* this.#restoreUnreadSteers(agentId, turnId, snapshot.messages);
       const deliveries = this.#mailbox.findDeliveriesByTurn(agentId, turnId);
       // A task turn ends as a turn of the agent's own chat does, in the task's own lane.
       const taskTurn = this.#conversation.isTaskThread(snapshot.threadId);
@@ -1262,6 +1266,27 @@ export class TurnLifecycle {
   }, Effect.uninterruptible);
 
   /** Queues refused or unfinished deliveries, retaining the continuation across provider switches and restarts. */
+  /** Puts the messages that were steered into the turn too late to be read back in the queue. */
+  readonly #restoreUnreadSteers = Effect.fn("TurnLifecycle.restoreUnreadSteers")(function* (
+    this: TurnLifecycle,
+    agentId: string,
+    turnId: string,
+    messages: readonly ConversationMessage[],
+  ) {
+    const endedAt = Date.now();
+    for (const { delivery } of this.#mailbox.findDeliveriesByTurn(agentId, turnId)) {
+      const steeredAt = this.#mailbox.steeredAtOf(delivery.id);
+      if (!steerWasUnread({ steeredAt, endedAt, turnId, messages })) continue;
+      logger.warn("A message steered into a turn that ended at once goes back to the queue.", {
+        agentId,
+        turnId,
+        deliveryId: delivery.id,
+        steeredAt,
+      });
+      yield* this.#mailbox.restoreUnsteered(delivery.id, turnId).pipe(toTurnOperationFailed);
+    }
+  });
+
   readonly #requeueTurn = Effect.fn("TurnLifecycle.requeueTurn")(function* (
     this: TurnLifecycle,
     agentId: string,

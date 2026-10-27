@@ -1528,6 +1528,11 @@ export class MailboxStore {
     return delivery ? this.#context(delivery) : null;
   }
 
+  /** When the delivery joined a running turn, or undefined for one that started its own turn. */
+  steeredAtOf(deliveryId: string): string | undefined {
+    return this.#state.deliveries.find((candidate) => candidate.id === deliveryId)?.steeredAt;
+  }
+
   findDeliveriesByTurn(agentId: string, turnId: string): DeliveryContext[] {
     return this.#contexts(
       this.#state.deliveries.filter(
