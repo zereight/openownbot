@@ -146,6 +146,9 @@ interface MentionContext {
   trigger: "@" | "$" | "/";
 }
 
+/** How many skills the picker draws at most: with 500 installed skills the full list made each key lag. */
+const PICKER_SKILL_LIMIT = 30;
+
 const DICTATION_INTERIM_WORDS = 2;
 
 export function expandComposerMentions(value: string): string {
@@ -203,7 +206,9 @@ export function ComposerEditor(props: ComposerEditorProps) {
       const name = skill.name.toLocaleLowerCase();
       nameCounts.set(name, (nameCounts.get(name) ?? 0) + 1);
     }
-    return ranked.map(({ skill }) => ({
+    // Rows are drawn for every option, and a computer can hold hundreds of skills, so the list shows
+    // the best matches. Typing narrows it to the rest.
+    return ranked.slice(0, PICKER_SKILL_LIMIT).map(({ skill }) => ({
       skill,
       showSlug: (nameCounts.get(skill.name.toLocaleLowerCase()) ?? 0) > 1,
     }));
