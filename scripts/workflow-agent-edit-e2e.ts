@@ -6,7 +6,10 @@
 // the current graph and saves nothing; that every edit that would arm the workflow, add an output to a
 // file or move a locked node is refused and saves nothing, while an edit beside them saves and leaves
 // the trigger rows as they were; that a routine run, an agent's message, a
-// task thread and a member's message cannot use the tools; that a chat with no reference line, a
+// task thread, a member's message and the first message that `create_agent` writes for a new agent
+// cannot use the tools, while that first message is still a user message that the new agent reads
+// as written and answers without a relay to its creator, and keeps its creator's stamp after a reload,
+// until a person edits it; that a chat with no reference line, a
 // reference to an unknown workflow and two references are refused; that two edits in one turn keep
 // exactly one `auto` version of the graph before them and a later turn keeps another; that a no-op edit
 // saves nothing; and that a graph too large or against the port rules is refused while the stored graph
@@ -20,6 +23,7 @@ import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import {
   AGENT_PROVIDERS,
+  type AgentEvent,
   type ConversationMessageSender,
   type WorkflowDetail,
   type WorkflowGraph,
@@ -37,6 +41,7 @@ const userData = join(root, "user-data");
 const home = join(root, "home");
 const fakeCodex = join(root, "codex");
 const fakeLog = join(root, "codex.jsonl");
+const fakePrompts = join(root, "codex-prompts.jsonl");
 
 // Before the service modules load: the Codex process and the stores read the home folder.
 process.env.HOME = home;
@@ -74,6 +79,7 @@ if (process.argv.includes("--version")) {
   process.exit(0);
 }
 const LOG = ${JSON.stringify(fakeLog)};
+const PROMPTS = ${JSON.stringify(fakePrompts)};
 const CALL = ${JSON.stringify(CALL_MARK)};
 const config = { config: { mcp_servers: {} }, layers: [{ name: { type: "user", file: "/fake/.codex/config.toml", profile: null }, version: "1", config: { mcp_servers: {} } }] };
 let buffer = "";
@@ -145,6 +151,7 @@ const answer = (message) => {
     case "turn/start": {
       const turnId = "turn-" + (++turns);
       const text = (params.input || []).map((item) => item.text || "").join("\\n");
+      appendFileSync(PROMPTS, JSON.stringify({ turnId, text }) + "\\n");
       write({ id: message.id, result: { turn: { id: turnId, status: "inProgress", items: [] } } });
       write({ method: "turn/started", params: { threadId: params.threadId, turn: { id: turnId } } });
       const calls = callsOf(text);
@@ -211,12 +218,15 @@ interface SentEdit {
 
 /** The arguments of one call that the fake makes, with the tool that `__tool` names. */
 interface SentCall {
-  __tool?: "read_workflow" | "edit_workflow" | "send_message";
+  __tool?: "read_workflow" | "edit_workflow" | "send_message" | "create_agent";
   revision?: number;
   edits?: SentEdit[];
   recipientAgentIds?: string[];
   text?: string;
   expectsReply?: boolean;
+  name?: string;
+  description?: string;
+  initialMessage?: string;
 }
 
 /** The fields of a tool result that the check reads. The router sends them as JSON text. */
@@ -258,6 +268,8 @@ const report: {
     "Two deliveries with different references in one real turn: the check calls the handler with two texts, as the router would.",
     "An agent node that names a hidden agent: the check names an agent that does not exist.",
     "A member's message through the Team API: the check stamps the member on the message as the host does.",
+    "A restart of the process: the reload check opens a second mailbox store on the open database and reads the stored rows through the parser.",
+    "How the chat shows the first message of a created agent: the check reads the queue and the prompt, not the rendered chat.",
   ],
   passed: false,
 };
@@ -304,6 +316,20 @@ function toolLogs(): ToolLog[] {
     .map((line) => JSON.parse(line));
 }
 
+/** The text of each turn the fake started, in order. */
+function turnPrompts(): { turnId: string; text: string }[] {
+  let text = "";
+  try {
+    text = readFileSync(fakePrompts, "utf8");
+  } catch {
+    return [];
+  }
+  return text
+    .split("\n")
+    .filter(Boolean)
+    .map((line) => JSON.parse(line));
+}
+
 function pass(name: string, condition: boolean, detail?: string) {
   report.checks.push({ name, passed: condition });
   assert.ok(condition, detail ? `${name}: ${detail}` : name);
@@ -326,8 +352,9 @@ function callText(reference: string | null, calls: SentCall[]): string {
 }
 
 /** The same, packed so that it can travel inside another call's JSON. */
-function packedCallText(reference: string, call: SentCall): string {
-  return `${reference}\n${CALL_MARK} <<B64${Buffer.from(JSON.stringify(call)).toString("base64")}B64>>`;
+function packedCallText(reference: string, calls: SentCall[]): string {
+  const args = calls.length === 1 ? calls[0] : { __calls: calls };
+  return `${reference}\n${CALL_MARK} <<B64${Buffer.from(JSON.stringify(args)).toString("base64")}B64>>`;
 }
 
 await writeFile(fakeCodex, FAKE_CODEX, { mode: 0o755 });
@@ -335,6 +362,7 @@ const database = new OpenBotDatabase(userData);
 const store = new AgentStore(userData, home, database);
 const mailbox = new MailboxStore(userData, store.sharedRoot, store.database);
 const changedIds: string[] = [];
+const turnEnds: Extract<AgentEvent, { type: "turn-completed" }>[] = [];
 let rearms = 0;
 const agents = new AgentService({
   store,
@@ -345,6 +373,9 @@ const agents = new AgentService({
   // As in the app: the workflows service is built after the agent service.
   workflowTools: () => workflows,
   channelRemotePerson: (personId) => personId === MEMBER.id,
+});
+agents.on("event", (event) => {
+  if (event.type === "turn-completed") turnEnds.push(event);
 });
 const workflows = await Effect.runPromise(
   createWorkflows({
@@ -795,7 +826,7 @@ try {
       {
         __tool: "send_message",
         recipientAgentIds: [helper.id],
-        text: packedCallText(refMain, addNote),
+        text: packedCallText(refMain, [addNote]),
         expectsReply: false,
       },
     ]),
@@ -822,6 +853,100 @@ try {
     "A team member's message cannot use the workflow tools",
     fromMember?.success === false && fromMember.text.includes("Only a person's message"),
     fromMember?.text,
+  );
+  // The first message of an agent that `create_agent` makes is a tool call's text, not a person's.
+  const beforeCreated = toolLogs().length;
+  const recruitMessage = packedCallText(refMain, [{ __tool: "read_workflow" }, addNote]);
+  const [created] = await callTools(
+    "create agent",
+    planner.id,
+    callText(null, [
+      {
+        __tool: "create_agent",
+        name: "Recruit",
+        description: "Recruit of the check.",
+        initialMessage: recruitMessage,
+      },
+    ]),
+    1,
+  );
+  pass("create_agent makes the agent", created?.success === true, created?.text);
+  // The fake numbers its turns per process, so the new agent's results are found by tool, not by turn.
+  const fromCreated = await waitFor("the created agent's tool results", () => {
+    const entries = toolLogs()
+      .slice(beforeCreated)
+      .filter((entry) => entry.tool !== "create_agent");
+    return entries.length >= 2 ? entries : null;
+  });
+  const createdCalls = fromCreated.map((entry, index) => logged(`created agent ${index + 1}`, entry));
+  const createdRead = createdCalls.find((call) => call.tool === "read_workflow");
+  const createdEdit = createdCalls.find((call) => call.tool === "edit_workflow");
+  pass(
+    "The first message that create_agent writes cannot use the workflow tools",
+    createdRead?.success === false &&
+      createdRead.text.includes("Only a person's message") &&
+      createdEdit?.success === false &&
+      createdEdit.text.includes("Only a person's message"),
+    createdCalls.map((call) => call.text).join("\n"),
+  );
+  // `create_agent` changes nothing else about that first message: it is a user message that the new
+  // agent reads as a person's, and its answer does not go back to the creator.
+  const recruit = agents.listAgents().find((agent) => agent.name === "Recruit");
+  assert.ok(recruit, "the created agent is listed");
+  await waitFor("the created agent's first turn to end", () =>
+    turnEnds.find((event) => event.agentId === recruit.id && event.status === "completed"),
+  );
+  const [recruitFirst] = agents.listQueue(recruit.id).deliveries;
+  assert.ok(recruitFirst, "the created agent has its first delivery");
+  pass("The first message that create_agent writes is still a user message", recruitFirst.sender.kind === "user");
+  const recruitPrompts = turnPrompts().filter((entry) => entry.text.includes(recruitMessage));
+  pass(
+    "The new agent reads it as written, with no teammate framing",
+    recruitPrompts.length === 1 && recruitPrompts[0]?.text === recruitMessage,
+    recruitPrompts.map((entry) => entry.text).join("\n---\n"),
+  );
+  // The relay runs before the turn-completed event, so the creator would have its answer by now.
+  pass(
+    "The new agent's answer is not relayed to the creator",
+    !mailbox.hasReplyFrom(recruit.id, recruitFirst.messageId) &&
+      !agents
+        .listQueue(planner.id)
+        .deliveries.some((delivery) => delivery.sender.kind === "agent" && delivery.sender.agentId === recruit.id),
+  );
+  const plannerFirst = agents.listQueue(planner.id).deliveries.find((delivery) => delivery.text === "Hello.");
+  assert.ok(plannerFirst, "the planner has its first delivery");
+  const reloadedMailbox = new MailboxStore(userData, store.sharedRoot, database);
+  await runCauseEffect(reloadedMailbox.initialize());
+  pass(
+    "The creator stays stamped on the message in the mailbox and after a reload, and a person's message has no stamp",
+    mailbox.writtenByAgentIdOf(recruitFirst.messageId) === planner.id &&
+      reloadedMailbox.writtenByAgentIdOf(recruitFirst.messageId) === planner.id &&
+      reloadedMailbox.getDelivery(recruitFirst.id)?.delivery.sender.kind === "user" &&
+      mailbox.writtenByAgentIdOf(plannerFirst.messageId) === undefined &&
+      reloadedMailbox.writtenByAgentIdOf(plannerFirst.messageId) === undefined,
+  );
+  // A person who edits the queued message writes its words, so the stamp goes.
+  const editRoot = join(root, "edit-profile");
+  const editMailbox = new MailboxStore(editRoot, join(root, "edit-shared"), new OpenBotDatabase(editRoot));
+  await runCauseEffect(editMailbox.initialize());
+  const written = await runCauseEffect(
+    editMailbox.enqueue({
+      sender: { kind: "user" },
+      writtenByAgentId: planner.id,
+      recipientAgentIds: [helper.id],
+      text: "Written by a tool call.",
+    }),
+  );
+  const writtenDelivery = written.deliveries[0]?.id;
+  assert.ok(writtenDelivery, "the queued message has a delivery");
+  editMailbox.beginQueueEdit(helper.id, writtenDelivery, "edit-1");
+  const stampedBeforeEdit = editMailbox.writtenByAgentIdOf(written.messageId) === planner.id;
+  await runCauseEffect(
+    editMailbox.updateQueuedMessage(helper.id, writtenDelivery, "Saved by a person.", [], [], "edit-1", MEMBER),
+  );
+  pass(
+    "A person's edit of a message that a tool call wrote clears the stamp",
+    stampedBeforeEdit && editMailbox.writtenByAgentIdOf(written.messageId) === undefined,
   );
   const mainAfterOthers = await detail(mainId);
   pass(

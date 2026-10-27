@@ -392,6 +392,14 @@ const TASK_STOP_WAIT_MS = 15_000;
 /** The user's update, and the browser profile choice that the profile operations set after their checks. */
 export type AgentUpdate = UpdateAgentInput & { ownBrowserSession?: boolean; browserProfileId?: string | null };
 
+/**
+ * Who writes a message into an agent's chat: a person the host saw, `member` when signed in, or an
+ * agent whose tool call writes it. Either way the message is a user message, as the prompt, the
+ * relay and every client read it. An agent's message carries a stamp of that agent, so the turn it
+ * starts is not a person's turn.
+ */
+type ChatMessageAuthor = { kind: "person"; member?: ConversationMessageSender } | { kind: "agent"; agentId: string };
+
 export class AgentService extends EventEmitter<AgentServiceEvents> {
   readonly channels: ChannelService;
   readonly messaging: MessagingThreads;
@@ -1383,7 +1391,8 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
       ...(this.#localSkillTools === undefined ? {} : { localSkillTools: this.#localSkillTools }),
       ...(this.#routineFlowTools === undefined ? {} : { routineFlowTools: this.#routineFlowTools }),
       ...(this.#workflowTools === undefined ? {} : { workflowTools: this.#workflowTools }),
-      ...(options.channelRemotePerson === undefined ? {} : { remotePerson: options.channelRemotePerson }),
+      // Without the host's lookup, every stamped person is remote: a member, never the host person.
+      remotePerson: options.channelRemotePerson ?? (() => true),
       ...(options.approvalAutomation === undefined ? {} : { approvalAutomation: options.approvalAutomation }),
       ...(options.visualPreview === undefined ? {} : { visualPreview: options.visualPreview }),
       ...(options.screenCapture === undefined ? {} : { screenCapture: options.screenCapture }),
@@ -1394,9 +1403,10 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
         listModels: () => this.listModels(),
         providerAccounts: (provider) => this.getStatus().providers?.find((row) => row.id === provider)?.accounts,
         preferredProvider: () => this.preferredProvider(),
-        createAgent: (input, configure) =>
-          this.createAgent(
+        createAgent: (input, creatorAgentId, configure) =>
+          this.#createAgent(
             input,
+            { kind: "agent", agentId: creatorAgentId },
             configure
               ? (agent) =>
                   configure(agent).pipe(
@@ -2230,13 +2240,24 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
   }
 
   /** `sender` is the person who writes the first message, as `sendMessage` takes it. */
-
-  readonly createAgent = Effect.fn("AgentService.createAgent")(function* (
-    this: AgentService,
+  readonly createAgent = (
     input: CreateAgentInput,
     configure?: (agent: AgentSummary) => Effect.Effect<AgentSummary, AgentLifecycleFailed>,
     profileOperationId?: string,
     sender?: ConversationMessageSender,
+  ) => this.#createAgent(input, { kind: "person", member: sender }, configure, profileOperationId);
+
+  /**
+   * `author` writes the first message. Text from an agent's tool call is stamped, so the new agent's
+   * first turn is not a person's turn and cannot use a tool that only a person's message can. The
+   * message is otherwise the same as a person's.
+   */
+  readonly #createAgent = Effect.fn("AgentService.createAgent")(function* (
+    this: AgentService,
+    input: CreateAgentInput,
+    author: ChatMessageAuthor,
+    configure?: (agent: AgentSummary) => Effect.Effect<AgentSummary, AgentLifecycleFailed>,
+    profileOperationId?: string,
   ) {
     const initialMessage = yield* lifecycleStep("validate initial message", () => {
       const text = input.initialMessage.trim();
@@ -2255,7 +2276,11 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
         yield* this.#prepareAgentWorkspace(agent);
         agent = yield* this.#assignNewAgentModel(agent, input, true);
         if (configure) agent = yield* configure(agent);
-        yield* this.sendMessage({ agentId: agent.id, text: initialMessage, attachmentDraftIds: [] }, sender);
+        yield* this.#sendChatMessage(
+          { agentId: agent.id, text: initialMessage, attachmentDraftIds: [] },
+          author,
+          undefined,
+        );
         return this.#store.list().find((candidate) => candidate.id === agent.id) ?? agent;
       }).pipe(
         Effect.catchDefect((cause) => Effect.fail(new AgentLifecycleFailed({ operation: "create agent", cause }))),
@@ -4339,7 +4364,8 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
     sender?: ConversationMessageSender,
     timezone?: string,
   ): Effect.fn.Return<QueuedMessageReceipt, AgentLifecycleFailed> {
-    if (!input.clientMessageId) return yield* this.#sendUserMessage(input, sender, timezone);
+    if (!input.clientMessageId)
+      return yield* this.#sendChatMessage(input, { kind: "person", member: sender }, timezone);
     const idempotencyKey = `user-send:${createHash("sha256")
       .update(JSON.stringify([sender?.id ?? null, input.agentId, input.clientMessageId]))
       .digest("hex")}`;
@@ -4351,16 +4377,17 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
     if (pending) return yield* Deferred.await(pending);
     const send = Deferred.makeUnsafe<QueuedMessageReceipt, AgentLifecycleFailed>();
     this.#pendingUserSends.set(idempotencyKey, send);
-    return yield* this.#sendUserMessage(input, sender, timezone, idempotencyKey).pipe(
+    return yield* this.#sendChatMessage(input, { kind: "person", member: sender }, timezone, idempotencyKey).pipe(
       Effect.onExit((exit) => Deferred.done(send, exit)),
       Effect.ensuring(Effect.sync(() => this.#pendingUserSends.delete(idempotencyKey))),
     );
   }).bind(this);
 
-  readonly #sendUserMessage = Effect.fn("AgentService.sendUserMessage")(function* (
+  /** A message into an agent's chat or task, from `author`. `sendMessage` takes a person's. */
+  readonly #sendChatMessage = Effect.fn("AgentService.sendChatMessage")(function* (
     this: AgentService,
     input: SendMessageInput,
-    sender: ConversationMessageSender | undefined,
+    author: ChatMessageAuthor,
     timezone: string | undefined,
     idempotencyKey?: string,
   ) {
@@ -4400,7 +4427,8 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
     const receipt = yield* this.#mailbox
       .enqueue({
         sender: { kind: "user" },
-        ...(sender ? { senderMember: sender } : {}),
+        ...(author.kind === "person" && author.member ? { senderMember: author.member } : {}),
+        ...(author.kind === "agent" ? { writtenByAgentId: author.agentId } : {}),
         ...(task ? { taskId: task.taskId } : {}),
         recipientAgentIds: [agent.id],
         text: input.text,

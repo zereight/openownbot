@@ -1226,6 +1226,7 @@ export class RoutineScheduler implements RoutineDueSource {
     const requested = personTurn(
       this.#mailbox.findDeliveriesByTurn(senderAgentId, turnId).map(({ delivery }) => delivery),
       this.#conversation.isExecutionThread(this.#conversation.publicThreadId(senderAgentId, threadId)),
+      (messageId) => this.#mailbox.writtenByAgentIdOf(messageId),
     );
     if (!requested) {
       throw new RoutineInputError(

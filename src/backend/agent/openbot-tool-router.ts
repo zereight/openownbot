@@ -155,8 +155,13 @@ export interface OpenBotToolRouterHooks {
   /** The accounts of a signed-in provider, as the settings page lists them. */
   providerAccounts: ProviderAccountRows;
   preferredProvider(): AgentProvider;
+  /**
+   * `creatorAgentId` is the calling agent. It writes the new agent's first message, which stays a
+   * user message but is stamped as the creator's, so it does not start a person's turn.
+   */
   createAgent(
     input: CreateAgentInput,
+    creatorAgentId: string,
     configure?: (agent: AgentSummary) => Effect.Effect<AgentSummary, ToolOperationFailed>,
   ): Effect.Effect<AgentSummary, ToolOperationFailed>;
   /** `initiatingAgentId` is the calling agent, recorded with a model change. */
@@ -210,8 +215,8 @@ export interface OpenBotToolRouterOptions {
   routineFlowTools?: (() => RoutineFlowTools) | undefined;
   /** Built after the service, so read when a tool call needs it. */
   workflowTools?: (() => WorkflowTools) | undefined;
-  /** Whether the person stamped on a message uses a remote client. Omitted, no. */
-  remotePerson?: ((personId: string) => boolean) | undefined;
+  /** Whether the person stamped on a message uses a remote client. */
+  remotePerson: (personId: string) => boolean;
   approvalAutomation?: ApprovalAutomationPolicy | undefined;
   /** Draws pages for `html_preview`; null where no window can draw one. */
   visualPreview?: ChatVisualPreviewHost | null | undefined;
@@ -290,7 +295,7 @@ export class OpenBotToolRouter {
     this.#localSkillTools = options.localSkillTools;
     this.#routineFlowTools = options.routineFlowTools;
     this.#workflowTools = options.workflowTools;
-    this.#remotePerson = options.remotePerson ?? (() => false);
+    this.#remotePerson = options.remotePerson;
     this.#approvalAutomation = options.approvalAutomation ?? NO_APPROVAL_AUTOMATION;
     this.#visualPreview = options.visualPreview ?? null;
     this.#screenCapture = options.screenCapture ?? null;
@@ -737,6 +742,7 @@ export class OpenBotToolRouter {
         deliveries,
         inExecutionThread: this.#conversation.isExecutionThread(this.#conversation.publicThreadId(agentId, threadId)),
         senderMember: (messageId) => this.#mailbox.senderMemberOf(messageId),
+        writtenByAgentId: (messageId) => this.#mailbox.writtenByAgentIdOf(messageId),
         remotePerson: this.#remotePerson,
       }),
       texts: deliveries.map((delivery) => delivery.text),
@@ -1457,6 +1463,7 @@ export class OpenBotToolRouter {
                 }
               : {}),
           },
+          senderAgentId,
           (agent) =>
             Effect.gen({ self: this }, function* () {
               if (assign) yield* assign(agent.id).pipe(toToolOperationFailed);

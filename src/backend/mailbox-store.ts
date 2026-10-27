@@ -97,6 +97,13 @@ interface StoredMessage {
    * because `sender` is also the queue's and the transfer manifest's. Absent on older messages.
    */
   senderMember?: ConversationMessageSender;
+  /**
+   * The agent whose tool call wrote this user message, such as the first message of an agent that
+   * `create_agent` makes. The message stays a user message for the prompt, the relay and every
+   * client, so the stamp sits beside `sender`, as `senderMember` does. A turn that reads it is not
+   * a person's turn. Never sent to a client. A person's edit of the text clears it.
+   */
+  writtenByAgentId?: string;
   text: string;
   attachments: StoredAttachment[];
   /**
@@ -176,6 +183,8 @@ interface EnqueueInput {
   senderTaskId?: string;
   sender: StoredMessage["sender"];
   senderMember?: ConversationMessageSender;
+  /** Set on a user message that an agent's tool call writes. Ignored on any other sender. */
+  writtenByAgentId?: string;
   recipientAgentIds: string[];
   text: string;
   replyToMessageId?: string | null;
@@ -573,6 +582,7 @@ export class MailboxStore {
         id: messageId,
         sender: input.sender,
         ...(input.sender.kind === "user" && input.senderMember ? { senderMember: input.senderMember } : {}),
+        ...(input.sender.kind === "user" && input.writtenByAgentId ? { writtenByAgentId: input.writtenByAgentId } : {}),
         text: rewriteAttachmentReferences(text, (reference) => {
           const attachment = committedByDraftId.get(reference.attachmentId);
           return attachment ? { attachmentId: attachment.id, name: attachment.name } : null;
@@ -1687,6 +1697,11 @@ export class MailboxStore {
     return this.#state.messages.find((message) => message.id === messageId)?.senderMember;
   }
 
+  /** The agent whose tool call wrote a user message, or undefined: no such message, or a person's. */
+  writtenByAgentIdOf(messageId: string): string | undefined {
+    return this.#state.messages.find((message) => message.id === messageId)?.writtenByAgentId;
+  }
+
   hasReplyFrom(agentId: string, messageId: string): boolean {
     return this.#state.messages.some(
       (message) =>
@@ -2042,7 +2057,11 @@ export class MailboxStore {
               message.attachments = replacementAttachments;
               // The saved text is the editor's, so the editor is its sender. A member can edit another
               // member's queued message, and the first name must not stay on words that person did not write.
-              if (message.sender.kind === "user") setSenderMember(message, sender);
+              // The same holds for an agent's tool call: words that a person saved are a person's.
+              if (message.sender.kind === "user") {
+                setSenderMember(message, sender);
+                delete message.writtenByAgentId;
+              }
               if (editId) {
                 delete delivery.editId;
                 recordFinishedQueueEdit(delivery, editId, {
@@ -2076,6 +2095,7 @@ export class MailboxStore {
           message.text = previous.text;
           message.attachments = previous.attachments;
           setSenderMember(message, previous.senderMember);
+          if (previous.writtenByAgentId) message.writtenByAgentId = previous.writtenByAgentId;
           if (editId) {
             delivery.editId = editId;
             if (previousOutcomes) delivery.finishedEditOutcomes = previousOutcomes;
@@ -2986,6 +3006,7 @@ function isStoredMessage(value: unknown): value is StoredMessage {
         isString(value.sender.routineName) &&
         isString(value.sender.scheduledFor))) &&
     (value.senderMember === undefined || isConversationMessageSender(value.senderMember)) &&
+    (value.writtenByAgentId === undefined || isString(value.writtenByAgentId)) &&
     isString(value.text) &&
     Array.isArray(value.attachments) &&
     value.attachments.every(isStoredAttachment) &&
