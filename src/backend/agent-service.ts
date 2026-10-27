@@ -4787,6 +4787,12 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
   }
 
   #emitError(code: string, error: unknown, agentId?: string, context?: FailureContext): void {
+    // A coordination failure reaches the channel only as fixed text, so the cause stays in the log.
+    if (code === "channel_coordination_failed")
+      logger.warn("A channel coordination failed.", {
+        ...(agentId !== undefined ? { agentId } : {}),
+        message: this.#mcp.redact(error instanceof Error ? error.message : String(error)).slice(0, 500),
+      });
     this.emit("failure", {
       ...context,
       code,

@@ -28,8 +28,9 @@ import { PendingServerRequests } from "./pending-server-requests";
 import { createPiKeyExtension } from "./pi-key-providers";
 import { createPiMcpExtension, type PiMcpExtension } from "./pi-mcp";
 import { piMessageItems, piPrompt, piText } from "./pi-messages";
+import { piExtensionForModel } from "./pi-model-extension";
 import { PiRpc } from "./pi-rpc";
-import type { SpawnTarget } from "./process-confinement";
+import { piAgentDirectory, type SpawnTarget } from "./process-confinement";
 import {
   type AppServerNotification,
   type AppServerRequest,
@@ -488,9 +489,14 @@ export class PiAgentClient extends EventEmitter<ClientEvents> implements AgentCl
       // The key extension loads first, so that it removes the key from the environment before the
       // other extensions run.
       const args = keyExtension ? ["--extension", keyExtension.path] : [];
+      // A profile generation turns the extensions off, but the models of an extension such as
+      // `pi-claude-bridge` exist only while it loads. Without it the model of the run is "not found".
+      const modelExtension = this.options.profileGeneration
+        ? piExtensionForModel(getString(params, "model"), piAgentDirectory())
+        : null;
       args.push(
         ...(this.options.profileGeneration
-          ? ["--no-tools", "--no-extensions", "--no-mcp"]
+          ? ["--no-tools", "--no-extensions", ...(modelExtension ? ["--extension", modelExtension] : []), "--no-mcp"]
           : ["--extension", extension.path]),
       );
       const instructions = getString(params, "developerInstructions");
