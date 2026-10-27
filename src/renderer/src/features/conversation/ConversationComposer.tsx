@@ -43,7 +43,11 @@ import {
   ComposerUpdateNotice,
   ComposerUsageLimitNotice,
 } from "@openbot/ui/features/conversation/ComposerNotice";
-import { ComposerCompactionNotice, ContextUsageMeter } from "@openbot/ui/features/conversation/ContextUsage";
+import {
+  ComposerCompactionNotice,
+  ContextUsageMeter,
+  contextUsageView,
+} from "@openbot/ui/features/conversation/ContextUsage";
 import { CloseIcon, StopIcon } from "@openbot/ui/features/conversation/ConversationIcons";
 import { type OpenWaitItem, OpenWaits } from "@openbot/ui/features/conversation/OpenWaits";
 import { ReplyQuote } from "@openbot/ui/features/conversation/ReplyQuote";
@@ -914,7 +918,7 @@ export function ConversationComposer() {
               </DropdownMenu.Portal>
             </DropdownMenu.Root>
             <div class="composer-primary-actions">
-              <Show when={context()?.usage}>
+              <Show when={contextUsageView(context())}>
                 {(usage) => (
                   <ContextUsageMeter
                     newChat={
@@ -923,20 +927,7 @@ export function ConversationComposer() {
                         : undefined
                     }
                     compact={props.onCompactAgentContext}
-                    usage={{
-                      ...usage(),
-                      compacting: context()?.compaction?.status === "running",
-                      ...(context()?.compaction?.status === "completed" &&
-                      context()?.compaction?.beforeTokens !== undefined &&
-                      context()?.compaction?.afterTokens !== undefined
-                        ? {
-                            lastCompaction: {
-                              beforeTokens: context()?.compaction?.beforeTokens ?? 0,
-                              afterTokens: context()?.compaction?.afterTokens ?? 0,
-                            },
-                          }
-                        : {}),
-                    }}
+                    usage={usage()}
                   />
                 )}
               </Show>
