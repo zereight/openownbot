@@ -171,6 +171,12 @@ export interface WorkflowCanvasProps {
    * then puts back the canvas from before. A save of the changes of this canvas must not change it.
    */
   resetKey?: number | undefined;
+  /**
+   * What a reset does to the camera and the selection. `fit` fits the graph and clears the selection, as
+   * when the canvas opens. `keep` leaves the camera and keeps the nodes that are still in the graph selected,
+   * for a change that arrives under a canvas that has no edits of its own.
+   */
+  resetView?: "fit" | "keep" | undefined;
   runs: WorkflowRunView;
   /** What this host supports. The canvas hides the kinds, triggers and outputs that it does not list. */
   features: WorkflowFeatures;
@@ -1022,9 +1028,13 @@ export function WorkflowCanvas(props: WorkflowCanvasProps) {
    * Loads a graph from the host, as when the canvas opens. For the same workflow, the canvas from
    * before goes on the undo stack, so undo gets back edits that another device replaced.
    */
-  const reset = (next: WorkflowGraph, same: boolean) => {
+  const reset = (next: WorkflowGraph, same: boolean, view: "fit" | "keep") => {
     const before = same ? (liveCanvas ?? capture()) : undefined;
     const snapshot = snapshotFromGraph(next);
+    if (view === "keep") {
+      const present = new Set(snapshot.nodes.map((node) => node.id));
+      snapshot.board.selection = canvas.selection().filter((id) => present.has(id));
+    }
     savedGraph = savedJson(next);
     liveCanvas = undefined;
     scheduleEdit = undefined;
@@ -1042,6 +1052,7 @@ export function WorkflowCanvas(props: WorkflowCanvasProps) {
     setStrokes(snapshot.strokes);
     if (!before) edits.clear();
     else if (stableJson(graphFromSnapshot(before)) !== savedGraph) edits.push(before);
+    if (view === "keep") return;
     board.view(null);
     cameraMoved = false;
     requestAnimationFrame(() => fitView(false));
@@ -1055,7 +1066,7 @@ export function WorkflowCanvas(props: WorkflowCanvasProps) {
     const id = untrack(() => props.workflow.summary.id);
     const before = openedId;
     openedId = id;
-    if (before !== undefined) untrack(() => reset(props.workflow.graph, before === id));
+    if (before !== undefined) untrack(() => reset(props.workflow.graph, before === id, props.resetView ?? "fit"));
   });
   // The host opens another workflow when a delete is kept, so the canvas shows again. A switch while
   // the Undo toast is open keeps that delete.
