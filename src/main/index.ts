@@ -51,6 +51,7 @@ import { acpRegistryIpcHandlers } from "./ipc/acp-registry-handlers";
 import { agentAdminIpcHandlers } from "./ipc/agent-admin-handlers";
 import { agentIpcHandlers } from "./ipc/agent-handlers";
 import { agentImportIpcHandlers } from "./ipc/agent-import-handlers";
+import { agentTeamIpcHandlers } from "./ipc/agent-team-handlers";
 import { agentTemplateIpcHandlers } from "./ipc/agent-template-handlers";
 import { appIpcHandlers } from "./ipc/app-handlers";
 import { attachmentIpcHandlers } from "./ipc/attachment-handlers";
@@ -589,6 +590,7 @@ function registerIpcHandlers({
   providerDetectionSettings,
   marketplaceAgents,
   agentTemplates,
+  agentTeams,
   agentImport,
   hermesImport,
   instanceTransfer,
@@ -691,6 +693,7 @@ function registerIpcHandlers({
       agentTemplates,
       takePendingLink: () => takePendingDeepLink("agent-template"),
     }),
+    ...agentTeamIpcHandlers({ agentTeams, getMainWindow: getDialogParent, translate: language.translate }),
     ...agentImportIpcHandlers({
       agentImport,
       hermesImport,

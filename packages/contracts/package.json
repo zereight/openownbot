@@ -15,6 +15,7 @@
     "./provider-environment": "./src/provider-environment.ts",
     "./agent-template-links": "./src/agent-template-links.ts",
     "./agent-team-file": "./src/agent-team-file.ts",
+    "./ipc-agent-teams": "./src/ipc-agent-teams.ts",
     "./attachment-files": "./src/attachment-files.ts",
     "./attachment-references": "./src/attachment-references.ts",
     "./avatar-images": "./src/avatar-images.ts",

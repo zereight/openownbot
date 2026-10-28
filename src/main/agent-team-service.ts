@@ -1,10 +1,6 @@
-import {
-  type AgentTeamFileProblem,
-  type AgentTeamFileSection,
-  buildAgentTeamFile,
-  parseAgentTeamFile,
-} from "@openbot/contracts/agent-team-file";
+import { type AgentTeamFileSection, buildAgentTeamFile, parseAgentTeamFile } from "@openbot/contracts/agent-team-file";
 import type {
+  AgentTeamPreview,
   AgentTemplateSnapshot,
   AvatarImageInput,
   SetEnabledSkillInput,
@@ -33,9 +29,7 @@ export interface TeamTemplates {
 }
 
 export interface TeamSkills {
-  setEnabled(
-    input: Pick<SetEnabledSkillInput, "skillId" | "enabled"> & { agentId?: string },
-  ): Effect.Effect<unknown, unknown>;
+  setEnabled(input: SetEnabledSkillInput): Effect.Effect<unknown, unknown>;
 }
 
 export interface AgentTeamOptions {
@@ -50,19 +44,6 @@ export class AgentTeamFailure extends Schema.TaggedError<AgentTeamFailure>()("Ag
 }) {}
 
 const toAgentTeamFailure = Effect.mapError((cause: unknown) => new AgentTeamFailure({ cause }));
-
-export type TeamPreview =
-  | {
-      ok: true;
-      name: string;
-      sections: Array<{ name: string; agents: string[] }>;
-      agents: number;
-      /** The agents and sections that get a number because their name is taken. */
-      renamed: number;
-      skills: number;
-      routines: number;
-    }
-  | { ok: false; problem: AgentTeamFileProblem };
 
 /**
  * Moves the agents of some sidebar sections to a file and back. An import creates new agents and
@@ -100,7 +81,7 @@ export class AgentTeamService {
   }
 
   /** What importing `text` would create, or why it cannot be imported. */
-  preview(text: string): Effect.Effect<TeamPreview> {
+  preview(text: string): Effect.Effect<AgentTeamPreview> {
     return Effect.sync(() => {
       const parsed = parseAgentTeamFile(text);
       if (!parsed.ok) return parsed;

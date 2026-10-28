@@ -137,6 +137,7 @@ import {
   type AgentMemoryLimitSetting,
   reloadingAgentMemoryLimit,
 } from "./agent-memory-limit-preference-store";
+import { AgentTeamService } from "./agent-team-service";
 import { AgentTemplateService } from "./agent-template-service";
 import { HostAnalytics } from "./analytics";
 import { analyticsInventoryDayStore, collectAnalyticsInventory } from "./analytics-inventory";
@@ -588,6 +589,7 @@ export interface ApplicationServices {
   providerDetectionSettings: ProviderDetectionSettingsStore;
   marketplaceAgents: AgentMarketplaceService;
   agentTemplates: AgentTemplateService;
+  agentTeams: AgentTeamService;
   agentImport: AgentImportService;
   hermesImport: HermesImportService;
   instanceTransfer: InstanceTransferService;
@@ -2050,6 +2052,21 @@ export async function createApplicationServices({
     library: () => skills.requireLocalLibrary(),
     installLocal: (input) => skills.installLocal(input),
   });
+  const agentTeams = new AgentTeamService({
+    agents: { list: () => service.listAgents() },
+    sidebar: sidebarLayout,
+    templates: {
+      snapshot: (agentId) => {
+        const agent = service.listAgents().find((item) => item.id === agentId);
+        return agent ? agentTemplates.snapshot(agent) : Effect.fail(new Error("The agent for the team file is gone."));
+      },
+      installSnapshot: (snapshot, avatar, timezone) =>
+        agentTemplates
+          .installSnapshot(snapshot, avatar, timezone)
+          .pipe(Effect.map(({ agent, skillIds }) => ({ agentId: agent.id, skillIds }))),
+    },
+    skills: { setEnabled: (input) => skills.setEnabled(input) },
+  });
   const teamStore = new TeamStore(
     join(app.getPath("userData"), TEAM_FILE_V2),
     join(app.getPath("userData"), TEAM_FILE),
@@ -3067,6 +3084,7 @@ export async function createApplicationServices({
     providerDetectionSettings,
     marketplaceAgents,
     agentTemplates,
+    agentTeams,
     agentImport,
     hermesImport,
     instanceTransfer,

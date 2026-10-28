@@ -1516,6 +1516,11 @@ export function createMockOpenBot(options: MockOpenBotOptions = {}): MockOpenBot
       saveCustomProvider: (input) => api.customProviders.save(input),
       deleteCustomProvider: (input) => api.customProviders.delete(input),
     },
+    agentTeams: {
+      export: async () => null,
+      choose: async () => null,
+      import: async () => ({ agents: 0 }),
+    },
     agentTemplates: {
       // One published template per local agent. The preview shows the agent's own identity with the
       // fixture skills and routines, so every state of the dialog has content.

@@ -19,6 +19,7 @@ export * from "./ipc-agent-session-settings";
 export * from "./ipc-agent-side-question";
 export * from "./ipc-agent-status";
 export * from "./ipc-agent-tasks";
+export * from "./ipc-agent-teams";
 export * from "./ipc-agent-templates";
 export * from "./ipc-agent-waits";
 export * from "./ipc-agents";

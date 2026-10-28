@@ -106,6 +106,13 @@ import type {
   StartAgentTaskInput,
 } from "./ipc-agent-tasks";
 import type {
+  ChosenAgentTeam,
+  ExportAgentTeamInput,
+  ExportAgentTeamResult,
+  ImportAgentTeamInput,
+  ImportAgentTeamResult,
+} from "./ipc-agent-teams";
+import type {
   AgentTemplateDetail,
   AgentTemplatePreview,
   AgentTemplatePublication,
@@ -1223,6 +1230,11 @@ export const IPC_ENDPOINTS = {
   },
   // Link-only agent templates. `takePendingLink` and `openLink` carry an id from an
   // `openbot://agents/<id>` link; there is no endpoint that installs from a link without the dialog.
+  agentTeams: {
+    export: request<ExportAgentTeamInput, ExportAgentTeamResult | null>()("agent-teams:export"),
+    choose: request<undefined, ChosenAgentTeam | null>()("agent-teams:choose"),
+    import: request<ImportAgentTeamInput, ImportAgentTeamResult>()("agent-teams:import"),
+  },
   agentTemplates: {
     preview: request<string, AgentTemplatePreview>()("agent-templates:preview"),
     publish: request<PublishAgentTemplateInput, AgentTemplatePublication>()("agent-templates:publish"),
@@ -1796,6 +1808,7 @@ export const IPC_GROUP_PATHS = {
   license: "license",
   hostedServers: "hostedServers",
   marketplaceAgents: "marketplaceAgents",
+  agentTeams: "agentTeams",
   agentTemplates: "agentTemplates",
   auth: "auth",
   update: "update",
