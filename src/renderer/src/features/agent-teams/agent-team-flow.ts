@@ -114,6 +114,15 @@ export function createAgentTeamFlow(sectionName: (sectionId: string) => string |
     }
   }
 
+  /** Reads the teams without opening the screen, for the sidebar's team view. A failure leaves the last list. */
+  async function refreshSquads(): Promise<void> {
+    try {
+      setSquads(await window.openbot.squads.list());
+    } catch {
+      // The team view shows the agents without a team until the next read succeeds.
+    }
+  }
+
   async function saveSquad(input: SaveSquadInput): Promise<void> {
     await window.openbot.squads.save(input);
     setSquads(await window.openbot.squads.list());
@@ -129,6 +138,7 @@ export function createAgentTeamFlow(sectionName: (sectionId: string) => string |
     squadsOpen,
     setSquadsOpen,
     openSquads,
+    refreshSquads,
     saveSquad,
     removeSquad,
     exportSection,

@@ -137,4 +137,7 @@ export const messages = defineMessages("sidebar", {
   "sidebar.new.importTeam": "Import team",
   "sidebar.section.exportTeam": "Export as team file",
   "sidebar.new.manageTeams": "Manage teams",
+  "sidebar.view.byTeam": "View by team",
+  "sidebar.view.bySection": "View by section",
+  "sidebar.team.none": "No team",
 });

@@ -12,6 +12,7 @@ import { SidebarEmptyState } from "./SidebarEmptyState";
 import { SidebarHiddenGroup } from "./SidebarHiddenGroup";
 import { SidebarPinnedGroup } from "./SidebarPinnedGroup";
 import { SidebarSectionList } from "./SidebarSectionList";
+import { SidebarTeamList } from "./SidebarTeamList";
 import { SidebarWaitingGroup } from "./SidebarWaitingGroup";
 import { useSidebarScope } from "./sidebar-scope";
 
@@ -61,7 +62,9 @@ export function SidebarNav() {
         </Show>
         <SidebarPinnedGroup />
         <SidebarWaitingGroup />
-        <SidebarSectionList />
+        <Show when={props.groupByTeam} fallback={<SidebarSectionList />}>
+          <SidebarTeamList />
+        </Show>
         <SidebarHiddenGroup />
         <Show when={props.showingArchivedChannels}>
           <section class="sidebar-chat-group sidebar-section" aria-label={t("sidebar.deletedChannels.title")}>
@@ -116,6 +119,12 @@ export function SidebarNav() {
                 <ContextMenu.Item onSelect={() => props.onManageTeams?.()}>
                   <UsersRound class="agent-context-icon size-4" aria-hidden="true" />
                   <span>{t("sidebar.new.manageTeams")}</span>
+                </ContextMenu.Item>
+              </Show>
+              <Show when={props.onGroupByTeamChange}>
+                <ContextMenu.Item onSelect={() => props.onGroupByTeamChange?.(!props.groupByTeam)}>
+                  <UsersRound class="agent-context-icon size-4" aria-hidden="true" />
+                  <span>{props.groupByTeam ? t("sidebar.view.bySection") : t("sidebar.view.byTeam")}</span>
                 </ContextMenu.Item>
               </Show>
               <Show when={props.onMarkAllRead}>

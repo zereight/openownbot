@@ -139,4 +139,7 @@ export const messages = {
   "sidebar.new.importTeam": "Takımı içe aktar",
   "sidebar.section.exportTeam": "Takım dosyası olarak dışa aktar",
   "sidebar.new.manageTeams": "Takımları yönet",
+  "sidebar.view.byTeam": "Takıma göre göster",
+  "sidebar.view.bySection": "Bölüme göre göster",
+  "sidebar.team.none": "Takımsız",
 } as const satisfies PartialTranslation<typeof source>;

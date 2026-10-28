@@ -43,6 +43,7 @@ import { createStorageCard } from "./storage-card";
 /** Dismissing the mobile app card is a choice of this computer, like the sidebar width. The key is
  * new with the Android release, so a computer that dismissed the iPhone-only card sees it once more. */
 const MOBILE_APP_DISMISSED_STORAGE_KEY = "openbot:mobile-app-card-dismissed";
+const GROUP_BY_TEAM_STORAGE_KEY = "openbot:sidebar-group-by-team";
 
 /**
  * The list of Agents and people. It reads the most domains of any pane, and every
@@ -134,6 +135,13 @@ export function WorkspaceSidebar(props: { peopleEnabled: boolean }) {
   const [mobileAppDismissed, setMobileAppDismissed] = createSignal(
     window.localStorage.getItem(MOBILE_APP_DISMISSED_STORAGE_KEY) === "true",
   );
+  const [groupByTeam, setGroupByTeamState] = createSignal(
+    window.localStorage.getItem(GROUP_BY_TEAM_STORAGE_KEY) === "true",
+  );
+  function setGroupByTeam(value: boolean): void {
+    window.localStorage.setItem(GROUP_BY_TEAM_STORAGE_KEY, String(value));
+    setGroupByTeamState(value);
+  }
   const communityCard = createCommunityCardVisibility();
   const storageCard = createStorageCard(activeServer);
   // A clear in Server settings frees space, so the card reads the disk again when settings close.
@@ -203,6 +211,9 @@ export function WorkspaceSidebar(props: { peopleEnabled: boolean }) {
   const teams = createAgentTeamFlow(
     (sectionId) => sidebarLayout().sections.find((item) => item.id === sectionId)?.name,
   );
+  createEffect(teamFiles, (local) => {
+    if (local) void teams.refreshSquads();
+  });
 
   return (
     <>
@@ -277,6 +288,9 @@ export function WorkspaceSidebar(props: { peopleEnabled: boolean }) {
         onExportSection={teamFiles() ? teams.exportSection : undefined}
         onImportTeam={teamFiles() ? () => void teams.chooseFile() : undefined}
         onManageTeams={teamFiles() ? () => void teams.openSquads() : undefined}
+        squads={teamFiles() ? teams.squads() : undefined}
+        groupByTeam={groupByTeam()}
+        onGroupByTeamChange={teamFiles() ? setGroupByTeam : undefined}
         onToggleSection={toggleSidebarSection}
         pinnedItems={pinnedSidebarItems()}
         peopleOrder={sidebarPeopleOrder()}

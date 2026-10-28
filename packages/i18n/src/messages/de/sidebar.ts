@@ -161,4 +161,7 @@ export const messages = {
   "sidebar.new.importTeam": "Team importieren",
   "sidebar.section.exportTeam": "Als Team-Datei exportieren",
   "sidebar.new.manageTeams": "Teams verwalten",
+  "sidebar.view.byTeam": "Nach Team anzeigen",
+  "sidebar.view.bySection": "Nach Bereich anzeigen",
+  "sidebar.team.none": "Ohne Team",
 } as const satisfies PartialTranslation<typeof source>;

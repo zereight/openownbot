@@ -168,6 +168,12 @@ export function SidebarTopbar() {
                     {t("sidebar.new.importTeam")}
                   </DropdownMenu.Item>
                 </Show>
+                <Show when={props.onGroupByTeamChange}>
+                  <DropdownMenu.Item onSelectAfterClose={() => props.onGroupByTeamChange?.(!props.groupByTeam)}>
+                    <UsersRound aria-hidden="true" />
+                    {props.groupByTeam ? t("sidebar.view.bySection") : t("sidebar.view.byTeam")}
+                  </DropdownMenu.Item>
+                </Show>
                 <Show when={props.onManageTeams}>
                   <DropdownMenu.Item onSelectAfterClose={() => props.onManageTeams?.()}>
                     <UsersRound aria-hidden="true" />

@@ -179,4 +179,7 @@ export const messages = {
   "sidebar.new.importTeam": "Импортировать команду",
   "sidebar.section.exportTeam": "Экспортировать как файл команды",
   "sidebar.new.manageTeams": "Управление командами",
+  "sidebar.view.byTeam": "Показать по командам",
+  "sidebar.view.bySection": "Показать по разделам",
+  "sidebar.team.none": "Без команды",
 } as const satisfies PartialTranslation<typeof source>;

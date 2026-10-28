@@ -4,6 +4,8 @@
  * A waiting agent's row sits in the "Needs you" group instead. There it does not drag, because the
  * group is not a place in the layout, and its tooltip says what the agent waits for.
  *
+ * A row in the team view is `fixed`: the teams are not places in the layout either, so it does not drag.
+ *
  * A hidden agent's row sits in the "Hidden" group. It does not drag either. It sleeps, shows no state,
  * and shows when the user hid it in place of the last message.
  */
@@ -25,7 +27,12 @@ import { useSidebarScope } from "./sidebar-scope";
  * the group holds its members still during a drag while the state moves on. `userHidden` is set by
  * the "Hidden" group.
  */
-export function SidebarAgentRow(rowProps: { agent: AgentProfile; waiting?: boolean; userHidden?: boolean }) {
+export function SidebarAgentRow(rowProps: {
+  agent: AgentProfile;
+  waiting?: boolean;
+  userHidden?: boolean;
+  fixed?: boolean;
+}) {
   const {
     dragOffset,
     draggedChatId,
@@ -54,7 +61,8 @@ export function SidebarAgentRow(rowProps: { agent: AgentProfile; waiting?: boole
   // mood inside an effect, where a memo cannot be created.
   const mood = () => (rowProps.userHidden ? "asleep" : (props.agentMoods[rowProps.agent.id] ?? "idle"));
   const hiddenLabel = () => (rowProps.userHidden ? `${t("sidebar.hidden.title")}. ` : "");
-  const draggable = () => layoutMutable() && !props.compact && !rowProps.waiting && !rowProps.userHidden;
+  const draggable = () =>
+    layoutMutable() && !props.compact && !rowProps.waiting && !rowProps.userHidden && !rowProps.fixed;
   const wait = () => {
     const current = state();
     return rowProps.waiting && current?.kind === "waiting" ? current : undefined;

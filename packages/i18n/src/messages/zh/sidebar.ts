@@ -138,4 +138,7 @@ export const messages = {
   "sidebar.new.importTeam": "导入团队",
   "sidebar.section.exportTeam": "导出为团队文件",
   "sidebar.new.manageTeams": "管理团队",
+  "sidebar.view.byTeam": "按团队查看",
+  "sidebar.view.bySection": "按分区查看",
+  "sidebar.team.none": "无团队",
 } as const satisfies PartialTranslation<typeof source>;

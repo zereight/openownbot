@@ -139,4 +139,7 @@ export const messages = {
   "sidebar.new.importTeam": "팀 가져오기",
   "sidebar.section.exportTeam": "팀 파일로 내보내기",
   "sidebar.new.manageTeams": "팀 관리",
+  "sidebar.view.byTeam": "팀별로 보기",
+  "sidebar.view.bySection": "섹션별로 보기",
+  "sidebar.team.none": "팀 없음",
 } as const satisfies PartialTranslation<typeof source>;

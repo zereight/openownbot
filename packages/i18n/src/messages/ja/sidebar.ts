@@ -140,4 +140,7 @@ export const messages = {
   "sidebar.new.importTeam": "チームをインポート",
   "sidebar.section.exportTeam": "チームファイルとしてエクスポート",
   "sidebar.new.manageTeams": "チームを管理",
+  "sidebar.view.byTeam": "チーム別に表示",
+  "sidebar.view.bySection": "セクション別に表示",
+  "sidebar.team.none": "チームなし",
 } as const satisfies PartialTranslation<typeof source>;
