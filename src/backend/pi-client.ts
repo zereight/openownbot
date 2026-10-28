@@ -25,6 +25,7 @@ import {
 } from "./mcp-provider-shapes";
 import { mcpSecretValues, redactMcpRecord, redactMcpValues } from "./mcp-redaction";
 import { PendingServerRequests } from "./pending-server-requests";
+import { piTokenUsageParams } from "./pi-context-usage";
 import { createPiKeyExtension } from "./pi-key-providers";
 import { createPiMcpExtension, type PiMcpExtension } from "./pi-mcp";
 import { piMessageItems, piPrompt, piText } from "./pi-messages";
@@ -791,15 +792,22 @@ export class PiAgentClient extends EventEmitter<ClientEvents> implements AgentCl
     if (failure) this.#notify("error", thread, { error: { message: this.#redact(failure) }, willRetry: false });
     // Native totals survive process release/resume. Per-message usage is not a cumulative counter.
     yield* thread.rpc.request({ type: "get_session_stats" }, 2_000).pipe(
-      Effect.flatMap((stats) => providerSync(() => Schema.decodeUnknownSync(PiSessionUsage)(stats))),
-      Effect.map(({ tokens }) =>
-        this.#notify("openbot/usage", thread, {
-          usage: {
-            inputTokens: tokens.input + tokens.cacheRead + tokens.cacheWrite,
-            outputTokens: tokens.output,
-            cachedReadTokens: tokens.cacheRead,
-            cachedWriteTokens: tokens.cacheWrite,
-          },
+      Effect.flatMap((stats) =>
+        providerSync(() => ({ stats, usage: Schema.decodeUnknownSync(PiSessionUsage)(stats) })),
+      ),
+      Effect.tap(({ stats, usage: { tokens } }) =>
+        Effect.sync(() => {
+          this.#notify("openbot/usage", thread, {
+            usage: {
+              inputTokens: tokens.input + tokens.cacheRead + tokens.cacheWrite,
+              outputTokens: tokens.output,
+              cachedReadTokens: tokens.cacheRead,
+              cachedWriteTokens: tokens.cacheWrite,
+            },
+          });
+          // The context ring and `/compact` need the size of the context, which only this reading gives.
+          const context = piTokenUsageParams(stats);
+          if (context) this.#notify("thread/tokenUsage/updated", thread, context);
         }),
       ),
       // A crashed host cannot answer telemetry; it must not block durable completion.
