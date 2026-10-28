@@ -131,7 +131,7 @@ import {
   type UpdateStatus,
   type WorkspaceDirectory,
 } from "@openbot/contracts/ipc";
-import { parseProviderEnvironment } from "@openbot/contracts/provider-environment";
+import { type ProviderEnvironmentEntry, providerEnvironmentInputIssue } from "@openbot/contracts/provider-environment";
 import { sourceText } from "@openbot/i18n/source";
 import {
   AGENT_IMPORT_PREVIEW,
@@ -410,7 +410,7 @@ export function createMockOpenBot(options: MockOpenBotOptions = {}): MockOpenBot
     keys: { jev: false, openrouter: false, cloudflare: false },
   };
   let promptCacheTtl: PromptCacheTtlSetting = { ...DEFAULT_PROMPT_CACHE_TTL };
-  let claudeEnvironment: Readonly<Record<string, string>> = {};
+  let claudeEnvironment: ProviderEnvironmentEntry[] = [];
   let agentAccess: AgentAccessChange = { revision: 0, everyone: {}, roles: [] };
   const agentMemoryLimitListeners = new Set<(preference: AgentMemoryLimitPreference) => void>();
   let remoteSessionReuse: RemoteSessionReusePreference = { ...DEFAULT_REMOTE_SESSION_REUSE_PREFERENCE };
@@ -1218,12 +1218,19 @@ export function createMockOpenBot(options: MockOpenBotOptions = {}): MockOpenBot
       usageResets.set(accountId, available - 1);
       return "reset";
     },
-    getClaudeEnvironment: async () => ({ environment: clone(claudeEnvironment) }),
-    setClaudeEnvironment: async (text) => {
-      const parsed = parseProviderEnvironment(text);
-      if (!parsed.ok) throw new Error(`Line ${parsed.line}: ${parsed.message}`);
-      claudeEnvironment = parsed.environment;
-      return { environment: clone(claudeEnvironment) };
+    getClaudeEnvironment: async () => ({ entries: clone(claudeEnvironment) }),
+    setClaudeEnvironment: async (inputs) => {
+      const issue = providerEnvironmentInputIssue(
+        inputs,
+        new Set(claudeEnvironment.filter((entry) => entry.secret).map((entry) => entry.name)),
+      );
+      if (issue) throw new Error(issue);
+      claudeEnvironment = inputs.map((input) => ({
+        name: input.name,
+        secret: input.secret,
+        value: input.secret ? null : input.value,
+      }));
+      return { entries: clone(claudeEnvironment) };
     },
     getProviderApiKeyState: async (provider) => ({
       provider,

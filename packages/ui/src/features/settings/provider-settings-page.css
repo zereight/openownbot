@@ -61,3 +61,25 @@
 .provider-settings-progress {
   max-width: 320px;
 }
+
+/* Claude environment variables: one row for each variable. */
+.provider-environment-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr) auto auto;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.provider-environment-secret {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+
+.provider-environment-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 12px;
+}

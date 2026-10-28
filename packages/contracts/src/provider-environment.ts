@@ -1,3 +1,5 @@
+import { isDynamicRecord } from "./runtime-values";
+
 /** The most variables a provider can hold, and the longest value of one. */
 export const PROVIDER_ENVIRONMENT_LIMITS = { variables: 32, valueLength: 4096 } as const;
 
@@ -26,6 +28,24 @@ const REFUSED_PREFIXES = ["OPENBOT_", "CLAUDE_AGENT_SDK_", "DYLD_", "LD_"] as co
 
 export type ProviderEnvironment = Readonly<Record<string, string>>;
 
+/** Renderer to main. `value: null` keeps the value that main holds for this secret name. */
+export interface ProviderEnvironmentInput {
+  name: string;
+  secret: boolean;
+  value: string | null;
+}
+
+/** Main to renderer. The value of a secret never comes back: it is null. */
+export interface ProviderEnvironmentEntry {
+  name: string;
+  secret: boolean;
+  value: string | null;
+}
+
+export interface ProviderEnvironmentState {
+  entries: ProviderEnvironmentEntry[];
+}
+
 /** Why `name` cannot be set, or null when it can. */
 export function providerEnvironmentIssue(name: string): string | null {
   if (!NAME.test(name)) return "The name may hold only letters, digits and _, and cannot start with a digit.";
@@ -36,51 +56,37 @@ export function providerEnvironmentIssue(name: string): string | null {
   return null;
 }
 
-export type ProviderEnvironmentParse =
-  | { ok: true; environment: ProviderEnvironment }
-  | { ok: false; line: number; message: string };
-
-/** The variables of a text with one NAME=value on each line. A blank line and a line that starts with # are skipped. */
-export function parseProviderEnvironment(text: string): ProviderEnvironmentParse {
-  const environment: Record<string, string> = {};
-  const lines = text.split(/\r?\n/);
-  for (const [index, raw] of lines.entries()) {
-    const line = raw.trim();
-    if (line === "" || line.startsWith("#")) continue;
-    const at = index + 1;
-    const equals = line.indexOf("=");
-    if (equals < 0) return { ok: false, line: at, message: "Write each variable as NAME=value." };
-    const name = line.slice(0, equals).trim();
-    const value = line.slice(equals + 1).trim();
-    const issue = providerEnvironmentIssue(name);
-    if (issue) return { ok: false, line: at, message: issue };
-    if (Object.hasOwn(environment, name)) return { ok: false, line: at, message: `${name} is set twice.` };
-    if (value.length > PROVIDER_ENVIRONMENT_LIMITS.valueLength) {
-      return { ok: false, line: at, message: `The value of ${name} is too long.` };
-    }
-    if (Object.keys(environment).length >= PROVIDER_ENVIRONMENT_LIMITS.variables) {
-      return {
-        ok: false,
-        line: at,
-        message: `A provider can hold at most ${PROVIDER_ENVIRONMENT_LIMITS.variables} variables.`,
-      };
-    }
-    environment[name] = value;
+/**
+ * The first problem of a list that a person typed, with its row number, or null when it can be
+ * saved. `saved` names the secrets that main holds, since only those can keep their value.
+ */
+export function providerEnvironmentInputIssue(
+  inputs: readonly ProviderEnvironmentInput[],
+  saved: ReadonlySet<string>,
+): string | null {
+  if (inputs.length > PROVIDER_ENVIRONMENT_LIMITS.variables) {
+    return `A provider can hold at most ${PROVIDER_ENVIRONMENT_LIMITS.variables} variables.`;
   }
-  return { ok: true, environment };
-}
-
-/** The text that `parseProviderEnvironment` reads back as `environment`. */
-export function formatProviderEnvironment(environment: ProviderEnvironment): string {
-  return Object.entries(environment)
-    .map(([name, value]) => `${name}=${value}`)
-    .join("\n");
+  const seen = new Set<string>();
+  for (const [index, input] of inputs.entries()) {
+    const row = `Row ${index + 1}: `;
+    const issue = providerEnvironmentIssue(input.name);
+    if (issue) return row + issue;
+    if (seen.has(input.name)) return `${row}${input.name} is set twice.`;
+    seen.add(input.name);
+    if (input.value === null) {
+      if (!input.secret || !saved.has(input.name)) return `${row}${input.name} needs a value.`;
+    } else if (input.value.length > PROVIDER_ENVIRONMENT_LIMITS.valueLength) {
+      return `${row}The value of ${input.name} is too long. It can hold ${PROVIDER_ENVIRONMENT_LIMITS.valueLength} characters.`;
+    }
+  }
+  return null;
 }
 
 /**
- * The entries of a stored value that `parseProviderEnvironment` would accept. A name that a later
- * release refuses, or a value that is not text, is dropped here and the rest is kept, so one bad
- * entry never makes the file unreadable.
+ * The entries of a stored map that `providerEnvironmentIssue` accepts. A name that a later release
+ * refuses, or a value that is not text, is dropped here and the rest is kept, so one bad entry never
+ * makes the file unreadable.
  */
 export function readProviderEnvironment(value: unknown): ProviderEnvironment {
   if (typeof value !== "object" || value === null || Array.isArray(value)) return {};
@@ -93,14 +99,19 @@ export function readProviderEnvironment(value: unknown): ProviderEnvironment {
   return environment;
 }
 
-/** The variables that Claude's process gets on top of its own, as the settings page reads them. */
-export interface ProviderEnvironmentState {
-  environment: ProviderEnvironment;
-}
-
 export function decodeProviderEnvironmentState(value: unknown): ProviderEnvironmentState {
-  if (typeof value !== "object" || value === null || !("environment" in value)) {
+  if (typeof value !== "object" || value === null || !("entries" in value) || !Array.isArray(value.entries)) {
     throw new Error("Invalid provider environment.");
   }
-  return { environment: readProviderEnvironment(value.environment) };
+  const entries: ProviderEnvironmentEntry[] = [];
+  for (const item of value.entries) {
+    if (!isDynamicRecord(item) || typeof item.name !== "string" || typeof item.secret !== "boolean") continue;
+    // A secret never comes back, so a value on a secret row is dropped, not trusted.
+    entries.push({
+      name: item.name,
+      secret: item.secret,
+      value: !item.secret && typeof item.value === "string" ? item.value : null,
+    });
+  }
+  return { entries };
 }

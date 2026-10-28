@@ -1,26 +1,27 @@
-import { formatProviderEnvironment } from "@openbot/contracts/provider-environment";
+import type { ProviderEnvironmentEntry, ProviderEnvironmentInput } from "@openbot/contracts/provider-environment";
 import type { ProviderEnvironmentEditor } from "@openbot/ui/features/settings/ProviderSettingsPage";
 import { useText } from "@openbot/ui/text";
 import { createEffect, createStore } from "solid-js";
 
 /**
  * The Claude page's environment variables of this computer. Undefined while `enabled` is false: a
- * joined server keeps its own, and the Team API does not carry them.
+ * joined server keeps its own, and the Team API does not carry them. The value of a secret never
+ * reaches this store: main sends the name only.
  */
 export function createProviderClaudeEnvironment(enabled: () => boolean): () => ProviderEnvironmentEditor | undefined {
   const { t, errorMessage } = useText();
-  const [state, setState] = createStore<{ text: string | null; pending: boolean; error: string | null }>({
-    text: null,
-    pending: false,
-    error: null,
-  });
+  const [state, setState] = createStore<{
+    entries: ProviderEnvironmentEntry[] | null;
+    pending: boolean;
+    error: string | null;
+  }>({ entries: null, pending: false, error: null });
 
   createEffect(enabled, (on) => {
     if (!on) return;
     window.openbot.getClaudeEnvironment().then(
       (next) =>
         setState((draft) => {
-          draft.text = formatProviderEnvironment(next.environment);
+          draft.entries = next.entries;
         }),
       (error: unknown) =>
         setState((draft) => {
@@ -29,16 +30,16 @@ export function createProviderClaudeEnvironment(enabled: () => boolean): () => P
     );
   });
 
-  async function save(text: string): Promise<void> {
+  async function save(inputs: ProviderEnvironmentInput[]): Promise<void> {
     if (state.pending) return;
     setState((draft) => {
       draft.pending = true;
       draft.error = null;
     });
     try {
-      const next = await window.openbot.setClaudeEnvironment(text);
+      const next = await window.openbot.setClaudeEnvironment(inputs);
       setState((draft) => {
-        draft.text = formatProviderEnvironment(next.environment);
+        draft.entries = next.entries;
       });
     } catch (error) {
       setState((draft) => {
@@ -52,8 +53,8 @@ export function createProviderClaudeEnvironment(enabled: () => boolean): () => P
   }
 
   const editor: ProviderEnvironmentEditor = {
-    get text() {
-      return state.text;
+    get entries() {
+      return state.entries;
     },
     get pending() {
       return state.pending;
@@ -61,7 +62,7 @@ export function createProviderClaudeEnvironment(enabled: () => boolean): () => P
     get error() {
       return state.error;
     },
-    onSave: (text) => void save(text),
+    onSave: (inputs) => void save(inputs),
   };
   return () => (enabled() ? editor : undefined);
 }

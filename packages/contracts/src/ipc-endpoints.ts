@@ -518,7 +518,7 @@ import type {
 } from "./ipc-workflows";
 import type { LicenseCheckoutRequest, LicenseRenewalRequest, LicenseState, LicenseUsersRequest } from "./license";
 import type { AccountSession, MobileConnectedDevice, MobileConnectLink, MobileConnectTicket } from "./mobile-connect";
-import type { ProviderEnvironmentState } from "./provider-environment";
+import type { ProviderEnvironmentInput, ProviderEnvironmentState } from "./provider-environment";
 
 declare const payloadType: unique symbol;
 declare const resultType: unique symbol;
@@ -727,10 +727,11 @@ export const IPC_ENDPOINTS = {
     clearProviderApiKey: request<AgentProviderId, AgentStatus>()("app:clear-provider-api-key"),
     getProviderApiKeyState: request<AgentProviderId, ProviderApiKeyState>()("app:get-provider-api-key-state"),
     // The variables that every Claude agent of this computer starts with. They go into the settings of
-    // the Claude process, so they win over a Claude settings file. `set` takes the text of the
-    // editor and answers with the variables it kept, or fails with the line that is wrong.
+    // the Claude process, so they win over a Claude settings file. The value of a secret never comes
+    // back: `set` takes it with a row and keeps the saved one for a null value. A wrong row fails
+    // with its number.
     getClaudeEnvironment: request<undefined, ProviderEnvironmentState>()("app:get-claude-environment"),
-    setClaudeEnvironment: request<string, ProviderEnvironmentState>()("app:set-claude-environment"),
+    setClaudeEnvironment: request<ProviderEnvironmentInput[], ProviderEnvironmentState>()("app:set-claude-environment"),
     /**
      * Starts a sign-in the user finishes on another device, for a provider whose backend driver has
      * one: Codex, Grok, Cursor, Cline and Muse, and Claude on Linux. A pasted code goes to

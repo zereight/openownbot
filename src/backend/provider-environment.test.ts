@@ -1,31 +1,23 @@
 import {
-  parseProviderEnvironment,
+  decodeProviderEnvironmentState,
+  providerEnvironmentInputIssue,
   providerEnvironmentIssue,
   readProviderEnvironment,
 } from "@openbot/contracts/provider-environment";
 import { describe, expect, it } from "vitest";
 
-describe("parseProviderEnvironment", () => {
-  it("reads lines of NAME=value, with blanks and # comments skipped", () => {
-    const parsed = parseProviderEnvironment(
-      "# note\n\nCLAUDE_CODE_EVEN_MORE_DANGEROUSLY_SKIP_PERMISSIONS=1\nFOO=a=b c\n",
-    );
-    expect(parsed).toEqual({
-      ok: true,
-      environment: { CLAUDE_CODE_EVEN_MORE_DANGEROUSLY_SKIP_PERMISSIONS: "1", FOO: "a=b c" },
-    });
-  });
+const none = new Set<string>();
 
+describe("providerEnvironmentIssue", () => {
   it("refuses a name that is not a shell variable name", () => {
-    expect(parseProviderEnvironment("1BAD=x")).toMatchObject({ ok: false, line: 1 });
-    expect(parseProviderEnvironment("A-B=x")).toMatchObject({ ok: false });
-    expect(parseProviderEnvironment("NOEQUALS")).toMatchObject({ ok: false });
+    expect(providerEnvironmentIssue("1BAD")).not.toBeNull();
+    expect(providerEnvironmentIssue("A-B")).not.toBeNull();
+    expect(providerEnvironmentIssue("")).not.toBeNull();
   });
 
   it("refuses the names that OpenBot owns", () => {
     for (const name of [
       "ANTHROPIC_API_KEY",
-      "ANTHROPIC_AUTH_TOKEN",
       "PATH",
       "HOME",
       "CLAUDE_CONFIG_DIR",
@@ -38,22 +30,53 @@ describe("parseProviderEnvironment", () => {
     ]) {
       expect(providerEnvironmentIssue(name), name).not.toBeNull();
     }
-    expect(providerEnvironmentIssue("CLAUDE_CODE_USE_BEDROCK")).toBeNull();
+    expect(providerEnvironmentIssue("CLAUDE_CODE_EVEN_MORE_DANGEROUSLY_SKIP_PERMISSIONS")).toBeNull();
+  });
+});
+
+describe("providerEnvironmentInputIssue", () => {
+  it("accepts rows with a name and a value, and none at all", () => {
+    expect(providerEnvironmentInputIssue([], none)).toBeNull();
+    expect(providerEnvironmentInputIssue([{ name: "A", secret: false, value: "1" }], none)).toBeNull();
+    expect(providerEnvironmentInputIssue([{ name: "A", secret: true, value: "" }], none)).toBeNull();
   });
 
-  it("names the line of the first problem, and refuses a duplicate name", () => {
-    expect(parseProviderEnvironment("A=1\nPATH=/x")).toMatchObject({ ok: false, line: 2 });
-    expect(parseProviderEnvironment("A=1\nA=2")).toMatchObject({ ok: false, line: 2 });
+  it("names the row of the first problem", () => {
+    const issue = providerEnvironmentInputIssue(
+      [
+        { name: "A", secret: false, value: "1" },
+        { name: "PATH", secret: false, value: "/x" },
+      ],
+      none,
+    );
+    expect(issue).toMatch(/^Row 2: /);
   });
 
-  it("limits the count and the length of a value", () => {
-    const many = Array.from({ length: 33 }, (_, i) => `V${i}=1`).join("\n");
-    expect(parseProviderEnvironment(many)).toMatchObject({ ok: false });
-    expect(parseProviderEnvironment(`A=${"x".repeat(4097)}`)).toMatchObject({ ok: false });
+  it("refuses a duplicate name, a long value and too many rows", () => {
+    expect(
+      providerEnvironmentInputIssue(
+        [
+          { name: "A", secret: false, value: "1" },
+          { name: "A", secret: false, value: "2" },
+        ],
+        none,
+      ),
+    ).toMatch(/^Row 2: /);
+    expect(providerEnvironmentInputIssue([{ name: "A", secret: false, value: "x".repeat(4097) }], none)).toMatch(
+      /4096/,
+    );
+    const many = Array.from({ length: 33 }, (_, i) => ({ name: `V${i}`, secret: false, value: "1" }));
+    expect(providerEnvironmentInputIssue(many, none)).not.toBeNull();
   });
 
-  it("accepts an empty text as no variables", () => {
-    expect(parseProviderEnvironment("  \n")).toEqual({ ok: true, environment: {} });
+  it("lets only a saved secret keep its value", () => {
+    const keep = [{ name: "TOKEN", secret: true, value: null }];
+    expect(providerEnvironmentInputIssue(keep, new Set(["TOKEN"]))).toBeNull();
+    expect(providerEnvironmentInputIssue(keep, none)).not.toBeNull();
+    // A secret that turns visible has to be typed again: its value is not here to show.
+    expect(
+      providerEnvironmentInputIssue([{ name: "TOKEN", secret: false, value: null }], new Set(["TOKEN"])),
+    ).not.toBeNull();
   });
 });
 
@@ -65,6 +88,23 @@ describe("readProviderEnvironment", () => {
   it("reads anything that is not a record as no variables", () => {
     expect(readProviderEnvironment(null)).toEqual({});
     expect(readProviderEnvironment(["A=1"])).toEqual({});
-    expect(readProviderEnvironment("A=1")).toEqual({});
+  });
+});
+
+describe("decodeProviderEnvironmentState", () => {
+  it("never trusts a value on a secret row", () => {
+    expect(
+      decodeProviderEnvironmentState({
+        entries: [
+          { name: "A", secret: false, value: "1" },
+          { name: "T", secret: true, value: "leak" },
+        ],
+      }),
+    ).toEqual({
+      entries: [
+        { name: "A", secret: false, value: "1" },
+        { name: "T", secret: true, value: null },
+      ],
+    });
   });
 });

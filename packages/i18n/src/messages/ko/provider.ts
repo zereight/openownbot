@@ -266,7 +266,15 @@ export const messages = {
   "provider.settings.endpointModels": { other: "{url} · 모델 {count}개" },
   "provider.settings.environment": "환경변수",
   "provider.settings.environmentDescription":
-    "한 줄에 NAME=value 하나씩 적어요. Claude를 시작할 때 전달되고, Claude 설정 파일에 같은 이름이 있으면 이 값이 우선해요. 바꾼 내용은 새 세션부터 적용돼요.",
+    "Claude를 시작할 때 이 변수들이 전달되고, Claude 설정 파일에 같은 이름이 있으면 이 값이 우선해요. 비밀로 표시한 값은 암호화해서 저장하고 다시 보여주지 않아요. 바꾼 내용은 새 세션부터 적용돼요.",
+  "provider.settings.environmentName": "이름",
+  "provider.settings.environmentNamePlaceholder": "NAME",
+  "provider.settings.environmentValue": "값",
+  "provider.settings.environmentValuePlaceholder": "value",
+  "provider.settings.environmentSaved": "저장됨",
+  "provider.settings.environmentSecret": "비밀",
+  "provider.settings.environmentRemove": "{name} 삭제",
+  "provider.settings.environmentAdd": "변수 추가",
   "provider.settings.environmentSave": "저장",
   "provider.settings.environmentLoadFailed": "환경변수를 불러오지 못했어요.",
 } as const satisfies PartialTranslation<typeof source>;

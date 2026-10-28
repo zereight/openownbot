@@ -17,6 +17,7 @@ import {
   type ProviderUsageResetOutcome,
   type ProviderUsageResets,
 } from "@openbot/contracts/ipc";
+import type { ProviderEnvironmentEntry, ProviderEnvironmentInput } from "@openbot/contracts/provider-environment";
 import type { AppTextKey } from "@openbot/i18n";
 import {
   Badge,
@@ -56,7 +57,6 @@ import {
   Smartphone,
   Spinner,
   Switch,
-  Textarea,
   Trash2,
   UserRoundPlus,
   X,
@@ -101,13 +101,16 @@ export interface ProviderPromptCache {
   onChange: (ttl: PromptCacheTtl) => void;
 }
 
-/** The variables that Claude starts with, as the text of an editor. `text` is null until the computer answers. */
+/**
+ * The variables that Claude starts with. `entries` is null until the computer answers. The value of a
+ * secret never comes back; a row saved with a null value keeps it.
+ */
 export interface ProviderEnvironmentEditor {
-  text: string | null;
+  entries: ProviderEnvironmentEntry[] | null;
   pending: boolean;
-  /** A load or a save that failed, with the line that is wrong. */
+  /** A load or a save that failed, with the row that is wrong. */
   error: string | null;
-  onSave: (text: string) => void;
+  onSave: (inputs: ProviderEnvironmentInput[]) => void;
 }
 
 export interface ProviderSettingsPageProps extends ProviderRowHost {
@@ -1370,23 +1373,60 @@ function PromptCacheSection(props: {
 
 /* ---------------------------------------------- Environment */
 
+interface EnvironmentRow {
+  id: number;
+  name: string;
+  value: string;
+  secret: boolean;
+  /** A saved secret that the person has not retyped: it has no value here and keeps the saved one. */
+  kept: boolean;
+}
+
 /** Claude only. A saved change applies to the next Claude process, not to a running turn. */
 function ClaudeEnvironmentSection(props: { editor: ProviderEnvironmentEditor; disabled: boolean | undefined }) {
   const { t } = useText();
-  const [draft, setDraft] = createSignal("");
+  let nextId = 0;
+  const [rows, setRows] = createStore<EnvironmentRow[]>([]);
+  const fromEntries = (entries: ProviderEnvironmentEntry[]): EnvironmentRow[] =>
+    entries.map((entry) => ({
+      id: nextId++,
+      name: entry.name,
+      value: entry.value ?? "",
+      secret: entry.secret,
+      kept: entry.secret,
+    }));
   createEffect(
-    () => props.editor.text,
-    (text) => {
-      if (text !== null) setDraft(text);
+    () => props.editor.entries,
+    (entries) => {
+      if (entries !== null) setRows(() => fromEntries(entries));
     },
   );
-  const changed = () => props.editor.text !== null && draft() !== props.editor.text;
+  const inputs = (): ProviderEnvironmentInput[] =>
+    rows
+      .filter((row) => row.name.trim() !== "" || row.value !== "")
+      .map((row) => ({ name: row.name.trim(), secret: row.secret, value: row.kept ? null : row.value }));
+  const changed = () => {
+    const saved = props.editor.entries;
+    if (saved === null) return false;
+    const now = inputs();
+    return (
+      now.length !== saved.length ||
+      now.some((row, index) => {
+        const was = saved[index];
+        return !was || row.name !== was.name || row.secret !== was.secret || (row.value ?? null) !== was.value;
+      })
+    );
+  };
+  const update = (id: number, change: (row: EnvironmentRow) => void) =>
+    setRows((draft) => {
+      const row = draft.find((item) => item.id === id);
+      if (row) change(row);
+    });
   return (
     <SettingsSection title={t("provider.settings.environment")}>
       <ItemGroup class="settings-modal-card">
         <Item class="settings-modal-row">
           <ItemContent>
-            <ItemTitle id="provider-settings-environment-label">{t("provider.settings.environment")}</ItemTitle>
             <Show
               when={props.editor.error}
               fallback={<ItemDescription>{t("provider.settings.environmentDescription")}</ItemDescription>}
@@ -1397,25 +1437,95 @@ function ClaudeEnvironmentSection(props: { editor: ProviderEnvironmentEditor; di
                 </ItemDescription>
               )}
             </Show>
-            <Textarea
-              rows="5"
-              spellcheck={false}
-              value={draft()}
-              aria-labelledby="provider-settings-environment-label"
-              placeholder={t("provider.settings.environmentPlaceholder")}
-              disabled={Boolean(props.disabled || props.editor.text === null)}
-              onValueChange={setDraft}
-            />
+            <For each={rows}>
+              {(row) => (
+                <div class="provider-environment-row">
+                  <Input
+                    size="sm"
+                    spellcheck={false}
+                    value={row.name}
+                    aria-label={t("provider.settings.environmentName")}
+                    placeholder={t("provider.settings.environmentNamePlaceholder")}
+                    disabled={Boolean(props.disabled || props.editor.entries === null)}
+                    onValueChange={(name) =>
+                      update(row.id, (item) => {
+                        item.name = name;
+                      })
+                    }
+                  />
+                  <Input
+                    size="sm"
+                    spellcheck={false}
+                    autocomplete="off"
+                    type={row.secret ? "password" : "text"}
+                    value={row.kept ? "" : row.value}
+                    aria-label={t("provider.settings.environmentValue")}
+                    placeholder={
+                      row.kept
+                        ? t("provider.settings.environmentSaved")
+                        : t("provider.settings.environmentValuePlaceholder")
+                    }
+                    disabled={Boolean(props.disabled || props.editor.entries === null)}
+                    onValueChange={(value) =>
+                      update(row.id, (item) => {
+                        item.value = value;
+                        item.kept = false;
+                      })
+                    }
+                  />
+                  <div class="provider-environment-secret">
+                    <Switch
+                      checked={row.secret}
+                      disabled={Boolean(props.disabled)}
+                      aria-label={t("provider.settings.environmentSecret")}
+                      onChange={(secret: boolean) =>
+                        update(row.id, (item) => {
+                          item.secret = secret;
+                          // The saved value of a secret never came back, so it has to be typed again.
+                          if (!secret && item.kept) {
+                            item.kept = false;
+                            item.value = "";
+                          }
+                        })
+                      }
+                    />
+                    {t("provider.settings.environmentSecret")}
+                  </div>
+                  <Button
+                    size="sm"
+                    variant="ghost"
+                    aria-label={t("provider.settings.environmentRemove", { name: row.name })}
+                    disabled={Boolean(props.disabled)}
+                    onClick={() => setRows((draft) => draft.filter((item) => item.id !== row.id))}
+                  >
+                    <X />
+                  </Button>
+                </div>
+              )}
+            </For>
+            <div class="provider-environment-actions">
+              <Button
+                size="sm"
+                variant="outline"
+                disabled={Boolean(props.disabled || props.editor.entries === null)}
+                onClick={() =>
+                  setRows((draft) => {
+                    draft.push({ id: nextId++, name: "", value: "", secret: false, kept: false });
+                  })
+                }
+              >
+                <Plus />
+                {t("provider.settings.environmentAdd")}
+              </Button>
+              <Button
+                size="sm"
+                disabled={Boolean(props.disabled || props.editor.pending || !changed())}
+                onClick={() => props.editor.onSave(inputs())}
+              >
+                {t("provider.settings.environmentSave")}
+              </Button>
+            </div>
           </ItemContent>
-          <ItemActions>
-            <Button
-              size="sm"
-              disabled={Boolean(props.disabled || props.editor.pending || !changed())}
-              onClick={() => props.editor.onSave(draft())}
-            >
-              {t("provider.settings.environmentSave")}
-            </Button>
-          </ItemActions>
         </Item>
       </ItemGroup>
     </SettingsSection>

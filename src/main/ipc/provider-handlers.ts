@@ -13,13 +13,12 @@ import {
   type ResetProviderUsageInput,
   type SetProviderApiKeyInput,
 } from "@openbot/contracts/ipc";
-import { parseProviderEnvironment } from "@openbot/contracts/provider-environment";
+import type { ProviderEnvironmentInput } from "@openbot/contracts/provider-environment";
 import { isDynamicRecord, isString } from "@openbot/contracts/runtime-values";
 import { sourceText } from "@openbot/i18n/source";
 import { AgentLifecycleFailed, type AgentService } from "../../backend/agent-service";
 import { runCauseEffect } from "../../backend/effect-boundary";
-import type { ClaudeEnvironmentPreference } from "../claude-environment-preference-store";
-import type { PreferenceStore } from "../preference-file";
+import type { ClaudeEnvironmentStore } from "../claude-environment-store";
 import type { ProviderCredentialStore } from "../provider-credential-store";
 import type { ProviderRuntimeManager } from "../provider-runtime-manager";
 import { parseProviderId } from "./app-inputs";
@@ -33,7 +32,7 @@ export interface ProviderIpcDependencies {
   service: AgentService;
   providerRuntimes: ProviderRuntimeManager;
   credentials: ProviderCredentialStore;
-  claudeEnvironment: PreferenceStore<ClaudeEnvironmentPreference>;
+  claudeEnvironment: ClaudeEnvironmentStore;
   /** Opens a web page in the program that the user chose in Settings. */
   openLink: (url: string) => Promise<void>;
 }
@@ -136,9 +135,9 @@ export function providerIpcHandlers({
       resetProviderUsage: payloadHandler(parseResetProviderUsageInput, ({ provider, accountId }) =>
         runCauseEffect(service.resetProviderUsage(provider, accountId)),
       ),
-      getClaudeEnvironment: handler(() => claudeEnvironment.get()),
-      setClaudeEnvironment: payloadHandler(parseClaudeEnvironmentText, (text) =>
-        runCauseEffect(claudeEnvironment.set({ environment: readClaudeEnvironmentText(text) })),
+      getClaudeEnvironment: handler(() => claudeEnvironment.view()),
+      setClaudeEnvironment: payloadHandler(parseClaudeEnvironmentInputs, (inputs) =>
+        runCauseEffect(claudeEnvironment.set(inputs)),
       ),
       // A status, never the key: see `setProviderApiKey` in the desktop API contract.
       getProviderApiKeyState: payloadHandler(parseProviderId, async (provider) => ({
@@ -220,16 +219,18 @@ export function parseRenameProviderAccountInput(value: unknown): RenameProviderA
   return { ...parseRemoveProviderAccountInput(value), label };
 }
 
-/** The text of the editor. */
-function parseClaudeEnvironmentText(value: unknown): string {
-  if (typeof value !== "string") throw new Error("The variables must be text.");
-  readClaudeEnvironmentText(value);
-  return value;
-}
-
-/** A line that is wrong fails with its number, which the editor shows. */
-function readClaudeEnvironmentText(text: string) {
-  const parsed = parseProviderEnvironment(text);
-  if (!parsed.ok) throw new Error(`Line ${parsed.line}: ${parsed.message}`);
-  return parsed.environment;
+/** The rows of the editor. Their names and values are checked again by the store. */
+function parseClaudeEnvironmentInputs(value: unknown): ProviderEnvironmentInput[] {
+  if (!Array.isArray(value)) throw new Error("The variables must be a list.");
+  return value.map((row) => {
+    if (
+      !isDynamicRecord(row) ||
+      typeof row.name !== "string" ||
+      typeof row.secret !== "boolean" ||
+      !(row.value === null || typeof row.value === "string")
+    ) {
+      throw new Error("A variable needs a name, a secret flag and a value.");
+    }
+    return { name: row.name, secret: row.secret, value: row.value };
+  });
 }

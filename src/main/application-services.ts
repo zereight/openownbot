@@ -158,7 +158,7 @@ import { BusyMessageModePreferenceStore } from "./busy-message-mode-preference-s
 import { CentralAuthManager, readCentralAuthApiUrl, readMobileConnectApiUrl } from "./central-auth-manager";
 import { startChannelLog } from "./channel-log";
 import { ChatVisualPreviewer } from "./chat-visual-preview";
-import { createClaudeEnvironmentPreferenceStore } from "./claude-environment-preference-store";
+import { ClaudeEnvironmentStore } from "./claude-environment-store";
 import { ComputerUseHighlightController } from "./computer-use-highlight-window";
 import { applicationBundlePath, applicationIconName } from "./computer-use-permission-app";
 import { ComputerUsePermissionHelpWindowController } from "./computer-use-permission-help-window";
@@ -555,7 +555,7 @@ export interface ApplicationServices {
   agentAccess: AgentAccessStore;
   serverTimezone: ServerTimezonePreferenceStore;
   promptCacheTtl: PromptCacheTtlPreferenceStore;
-  claudeEnvironment: ReturnType<typeof createClaudeEnvironmentPreferenceStore>;
+  claudeEnvironment: ClaudeEnvironmentStore;
   remoteSessionReuse: RemoteSessionReusePreferenceStore;
   externalLinkPreference: ExternalLinkPreferenceStore;
   externalLinks: ExternalLinkOpener;
@@ -1168,10 +1168,6 @@ export async function createApplicationServices({
     join(app.getPath("userData"), PROMPT_CACHE_TTL_PREFERENCE_FILE),
   );
   await runCauseEffect(promptCacheTtl.load());
-  const claudeEnvironment = createClaudeEnvironmentPreferenceStore(
-    join(app.getPath("userData"), CLAUDE_ENVIRONMENT_PREFERENCE_FILE),
-  );
-  await runCauseEffect(claudeEnvironment.load());
   const remoteSessionReuse = createRemoteSessionReusePreferenceStore(
     join(app.getPath("userData"), REMOTE_SESSION_REUSE_PREFERENCE_FILE),
   );
@@ -1269,6 +1265,11 @@ export async function createApplicationServices({
   // Before `new AgentService`, which reads every `executablePath` eagerly.
   await runCauseEffect(providerRuntimes.initialize());
   const secretCipher = safeStorageCipher("error.app.secretStorageUnavailable");
+  const claudeEnvironment = new ClaudeEnvironmentStore({
+    path: join(app.getPath("userData"), CLAUDE_ENVIRONMENT_PREFERENCE_FILE),
+    cipher: secretCipher,
+  });
+  await runCauseEffect(claudeEnvironment.load());
   const decisionModel = new DecisionModelStore({
     settingsPath: join(app.getPath("userData"), "decision-model.json"),
     keysPath: join(app.getPath("userData"), "decision-model-keys.json"),
@@ -1681,7 +1682,7 @@ export async function createApplicationServices({
       // Read at each Claude spawn, so a change from Server settings applies to the next process.
       promptCacheTtl: () => promptCacheTtl.get().ttl,
       // Read at each Claude spawn, like the prompt cache time.
-      claudeEnvironment: () => claudeEnvironment.get().environment,
+      claudeEnvironment: () => claudeEnvironment.values(),
       // `configs()`, not `list()`: this is the one path the API keys travel, and it ends at the
       // spawned provider process. The IPC handlers are given `list()`.
       customProviders: () => customProviders.configs(),
