@@ -1516,6 +1516,16 @@ export function createMockOpenBot(options: MockOpenBotOptions = {}): MockOpenBot
       saveCustomProvider: (input) => api.customProviders.save(input),
       deleteCustomProvider: (input) => api.customProviders.delete(input),
     },
+    squads: {
+      list: async () => [],
+      save: async (input) => ({
+        id: input.id ?? "squad-story",
+        name: input.name,
+        leadAgentId: input.leadAgentId,
+        memberAgentIds: input.memberAgentIds,
+      }),
+      remove: async () => undefined,
+    },
     agentTeams: {
       export: async () => null,
       choose: async () => null,

@@ -85,4 +85,5 @@ export * from "./marketplace-suggestion-events";
 export * from "./mcp-sign-in-events";
 export * from "./mobile-connect";
 export * from "./skill-conversation-events";
+export * from "./squads";
 export * from "./ui-blocks";

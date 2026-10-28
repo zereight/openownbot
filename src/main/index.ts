@@ -90,6 +90,7 @@ import { routineIpcHandlers } from "./ipc/routine-handlers";
 import { routineResultIpcHandlers } from "./ipc/routine-result-handlers";
 import { sharedTableIpcHandlers } from "./ipc/shared-table-handlers";
 import { skillIpcHandlers } from "./ipc/skill-handlers";
+import { squadIpcHandlers } from "./ipc/squad-handlers";
 import { storageIpcHandlers } from "./ipc/storage-handlers";
 import { teamIpcHandlers } from "./ipc/team-handlers";
 import { updateIpcHandlers } from "./ipc/update-handlers";
@@ -591,6 +592,7 @@ function registerIpcHandlers({
   marketplaceAgents,
   agentTemplates,
   agentTeams,
+  squads,
   agentImport,
   hermesImport,
   instanceTransfer,
@@ -693,6 +695,7 @@ function registerIpcHandlers({
       agentTemplates,
       takePendingLink: () => takePendingDeepLink("agent-template"),
     }),
+    ...squadIpcHandlers({ squads, agentIds: () => new Set(service.listAgents().map((agent) => agent.id)) }),
     ...agentTeamIpcHandlers({ agentTeams, getMainWindow: getDialogParent, translate: language.translate }),
     ...agentImportIpcHandlers({
       agentImport,

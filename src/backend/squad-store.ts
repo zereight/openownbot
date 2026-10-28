@@ -3,7 +3,7 @@ import { EventEmitter } from "node:events";
 import { mkdir, readFile, rename } from "node:fs/promises";
 import { dirname } from "node:path";
 import { isDynamicRecord } from "@openbot/contracts/runtime-values";
-import { type AgentSquad, isAgentSquad, SQUAD_LIMITS } from "@openbot/contracts/squads";
+import { type AgentSquad, isAgentSquad, type SaveSquadInput, SQUAD_LIMITS } from "@openbot/contracts/squads";
 import { Effect, Result, Semaphore } from "effect";
 import { parseStoredJson, writeJsonFileAtomically } from "./atomic-json-file";
 import { isMissingFileError } from "./file-errors";
@@ -16,14 +16,6 @@ interface StoredSquads {
 
 interface SquadStoreEvents {
   changed: [squads: AgentSquad[]];
-}
-
-export interface SaveSquadInput {
-  /** Absent to create a squad. */
-  id?: string;
-  name: string;
-  leadAgentId: string;
-  memberAgentIds: string[];
 }
 
 function decodeStored(value: unknown): StoredSquads {

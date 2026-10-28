@@ -9,6 +9,8 @@ import {
   decodeAgentImportPreview,
   decodeAgentImportResult,
   decodeAgentProfileDraft,
+  decodeAgentSquad,
+  decodeAgentSquads,
   decodeAgentTaskLimitSettings,
   decodeBrowserProfileList,
   decodeBrowserProfileSummary,
@@ -1033,6 +1035,11 @@ const openbotApi: OpenBotDesktopApi = {
     preview: decodeAgentPublicationPreview,
     submit: decodeAgentSubmission,
     install: decodeAgentInstallation,
+  }),
+  squads: bridgeGroup(IPC_ENDPOINTS.squads, {
+    list: decodeAgentSquads,
+    save: decodeAgentSquad,
+    remove: decodeVoid,
   }),
   agentTeams: bridgeGroup(IPC_ENDPOINTS.agentTeams, {
     export: decodeExportAgentTeamResult,

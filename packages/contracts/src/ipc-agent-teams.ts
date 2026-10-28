@@ -1,5 +1,6 @@
 import type { AgentTeamFileProblem } from "./agent-team-file";
 import { isDynamicRecord, isNumber, isString } from "./runtime-values";
+import { type AgentSquad, isAgentSquad } from "./squads";
 
 export interface ExportAgentTeamInput {
   sectionIds: string[];
@@ -122,4 +123,14 @@ export function decodeChosenAgentTeam(value: unknown): ChosenAgentTeam | null {
 export function decodeImportAgentTeamResult(value: unknown): ImportAgentTeamResult {
   if (!isDynamicRecord(value) || !isNumber(value.agents)) throw new Error("IPC returned an invalid team import.");
   return { agents: value.agents };
+}
+
+export function decodeAgentSquad(value: unknown): AgentSquad {
+  if (!isAgentSquad(value)) throw new Error("IPC returned an invalid team.");
+  return { id: value.id, name: value.name, leadAgentId: value.leadAgentId, memberAgentIds: [...value.memberAgentIds] };
+}
+
+export function decodeAgentSquads(value: unknown): AgentSquad[] {
+  if (!Array.isArray(value)) throw new Error("IPC returned an invalid team list.");
+  return value.map(decodeAgentSquad);
 }

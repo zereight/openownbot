@@ -14,6 +14,14 @@ export interface AgentSquad {
   memberAgentIds: string[];
 }
 
+export interface SaveSquadInput {
+  /** Absent to create a squad. */
+  id?: string;
+  name: string;
+  leadAgentId: string;
+  memberAgentIds: string[];
+}
+
 export const SQUAD_LIMITS = { squads: 32, members: 64 } as const;
 
 export function squadHas(squad: AgentSquad, agentId: string): boolean {
