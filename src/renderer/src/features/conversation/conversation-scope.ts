@@ -45,6 +45,7 @@ import {
   stopRevealingFileQuote,
   workspaceAgentOfPath,
 } from "./quoted-text";
+import { driftedFromLatest } from "./scroll-follow";
 import { createActivityStore } from "./stores/activity-store";
 import { createBrowserStore } from "./stores/browser-store";
 import { createComposerActions } from "./stores/composer-actions";
@@ -78,7 +79,7 @@ function builtInBrowserPage(url: string): boolean {
   return (page?.protocol === "http:" || page?.protocol === "https:") && relayableSignInLink(url) === null;
 }
 
-function followConversationBottom(element: HTMLDivElement): void {
+function followConversationBottom(element: HTMLElement): void {
   element.scrollTop = element.scrollHeight - element.clientHeight;
 }
 
@@ -771,6 +772,8 @@ export function createConversationViewScope(props: ConversationProps) {
   let latestScrollSettleFrame: number | undefined;
   let lastScrollTop = 0;
   let readerLeftLatest = false;
+  /** When the chat on show opened: the settle window of `driftedFromLatest` starts here. */
+  let openedAt = performance.now();
   let readerDragging = false;
   let readerIntent: { up: boolean; at: number } | undefined;
   let lastTouchY: number | undefined;
@@ -1124,6 +1127,7 @@ export function createConversationViewScope(props: ConversationProps) {
       if (conversationIdentity !== lastConversationIdentity) {
         if (lastConversationIdentity !== undefined) closeChatSearch(false);
         lastConversationIdentity = conversationIdentity;
+        openedAt = performance.now();
         setStickToLatest(true);
         setAgentActivitySpaceReserved(false);
       }
@@ -1564,6 +1568,13 @@ export function createConversationViewScope(props: ConversationProps) {
     const intent = readerIntent && performance.now() - readerIntent.at < READER_INPUT_WINDOW_MS ? readerIntent : null;
     if (moved < 0 && (readerDragging || intent?.up === true)) leaveLatest();
     else if (moved > 0 && (readerDragging || intent?.up === false)) readerLeftLatest = false;
+    const drifted = driftedFromLatest({
+      following: stickToLatest && !readerLeftLatest,
+      moved,
+      fromReader: readerDragging || intent !== null,
+      sinceOpenMs: performance.now() - openedAt,
+    });
+    if (drifted) followConversationBottom(element);
     // Distance only rejoins. A follow that has not yet landed, or a correction to the last row
     // above the activity line, can sit more than 80px from the real bottom while a turn runs.
     if (!readerLeftLatest && element.scrollHeight - element.scrollTop - element.clientHeight <= 80) {
