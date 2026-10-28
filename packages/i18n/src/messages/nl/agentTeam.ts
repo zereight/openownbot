@@ -38,6 +38,12 @@ export const messages = {
   "agentTeam.manage.name": "Teamnaam",
   "agentTeam.manage.lead": "Lead",
   "agentTeam.manage.members": "Leden",
+  "agentTeam.manage.ranks": "Rangen",
+  "agentTeam.manage.ranksPlaceholder": "Senior, Junior, Stagiair",
+  "agentTeam.manage.ranksHint":
+    "De hoogste eerst, gescheiden door komma's. De leider staat boven alle rangen. Een lid schrijft naar de eigen rang en lager, en omhoog alleen naar de rang direct erboven.",
+  "agentTeam.manage.rankOf": "Rang van {agent}",
+  "agentTeam.manage.noRank": "Geen rang",
   "agentTeam.manage.save": "Opslaan",
   "agentTeam.manage.saving": "Opslaan…",
   "agentTeam.manage.summary": "Lead: {lead}. Leden: {count}.",

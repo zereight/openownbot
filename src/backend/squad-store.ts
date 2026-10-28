@@ -19,14 +19,14 @@ interface SquadStoreEvents {
 }
 
 function decodeStored(value: unknown): StoredSquads {
-  if (
-    !isDynamicRecord(value) ||
-    value.version !== 1 ||
-    !Array.isArray(value.squads) ||
-    !value.squads.every(isAgentSquad)
-  )
+  if (!isDynamicRecord(value) || value.version !== 1 || !Array.isArray(value.squads))
     throw new Error("Invalid squad state.");
-  return { version: 1, squads: value.squads.map((squad) => structuredClone(squad)) };
+  // A file from before ranks existed has none, which reads as a squad with no ranks.
+  const squads = value.squads.map((squad) =>
+    isDynamicRecord(squad) ? { ranks: [], memberRanks: {}, ...squad } : squad,
+  );
+  if (!squads.every(isAgentSquad)) throw new Error("Invalid squad state.");
+  return { version: 1, squads: squads.map((squad) => structuredClone(squad)) };
 }
 
 /**
@@ -83,6 +83,8 @@ export class SquadStore extends EventEmitter<SquadStoreEvents> {
             name,
             leadAgentId: input.leadAgentId,
             memberAgentIds: members,
+            ranks: input.ranks.map((rank) => rank.trim()),
+            memberRanks: Object.fromEntries(Object.entries(input.memberRanks).filter(([id]) => members.includes(id))),
           };
           if (!isAgentSquad(candidate)) throw new Error("The squad is not valid.");
           if (![candidate.leadAgentId, ...members].every((id) => agentIds.has(id)))
@@ -117,7 +119,14 @@ export class SquadStore extends EventEmitter<SquadStoreEvents> {
       Effect.gen({ self: this }, function* () {
         const next = this.#squads
           .filter((squad) => agentIds.has(squad.leadAgentId))
-          .map((squad) => ({ ...squad, memberAgentIds: squad.memberAgentIds.filter((id) => agentIds.has(id)) }));
+          .map((squad) => {
+            const members = squad.memberAgentIds.filter((id) => agentIds.has(id));
+            return {
+              ...squad,
+              memberAgentIds: members,
+              memberRanks: Object.fromEntries(Object.entries(squad.memberRanks).filter(([id]) => members.includes(id))),
+            };
+          });
         if (JSON.stringify(next) !== JSON.stringify(this.#squads)) yield* this.#commit(next);
       }),
     );

@@ -350,4 +350,6 @@ export const messages = {
     "Você está na equipe {squad}, e só o líder dela escreve a agentes de fora. Peça ao líder de {squad} para repassar, ou pergunte ao usuário.",
   "error.backend.squadEnters":
     "{agent} está na equipe {squad}. Fale com ele pelo líder de {squad}, ou pergunte ao usuário.",
+  "error.backend.squadSkipsRank":
+    "{agent} está acima do nível que você pode alcançar na equipe {squad}. Uma mensagem sobe apenas ao nível imediatamente acima do seu. Peça a esse nível que repasse ou pergunte ao usuário.",
 } as const satisfies PartialTranslation<typeof source>;

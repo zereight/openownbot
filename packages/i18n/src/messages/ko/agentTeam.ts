@@ -38,6 +38,12 @@ export const messages = {
   "agentTeam.manage.name": "팀 이름",
   "agentTeam.manage.lead": "리드",
   "agentTeam.manage.members": "멤버",
+  "agentTeam.manage.ranks": "직급",
+  "agentTeam.manage.ranksPlaceholder": "시니어, 주니어, 인턴",
+  "agentTeam.manage.ranksHint":
+    "높은 순서대로 쉼표로 구분해 입력해요. 리드는 모든 직급 위에 있어요. 멤버는 같은 직급과 아래 직급에게 자유롭게, 위로는 바로 위 직급에게만 메시지를 보낼 수 있어요.",
+  "agentTeam.manage.rankOf": "{agent}의 직급",
+  "agentTeam.manage.noRank": "직급 없음",
   "agentTeam.manage.save": "저장",
   "agentTeam.manage.saving": "저장 중…",
   "agentTeam.manage.summary": "리드: {lead}. 멤버 {count}명.",

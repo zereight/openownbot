@@ -61,3 +61,17 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
+.agent-squads-rank {
+  width: 9rem;
+  flex-shrink: 0;
+}
+
+/* The small heading over a run of agents of one rank in the sidebar's team view. */
+.sidebar-team-rank {
+  margin: var(--openbot-space-1) 0 0;
+  padding-inline: var(--openbot-space-3);
+  color: var(--openbot-text-muted);
+  font-size: var(--openbot-text-sm);
+  line-height: 16px;
+}

@@ -1523,6 +1523,8 @@ export function createMockOpenBot(options: MockOpenBotOptions = {}): MockOpenBot
         name: input.name,
         leadAgentId: input.leadAgentId,
         memberAgentIds: input.memberAgentIds,
+        ranks: input.ranks,
+        memberRanks: input.memberRanks,
       }),
       remove: async () => undefined,
     },

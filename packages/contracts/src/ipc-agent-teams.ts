@@ -127,7 +127,14 @@ export function decodeImportAgentTeamResult(value: unknown): ImportAgentTeamResu
 
 export function decodeAgentSquad(value: unknown): AgentSquad {
   if (!isAgentSquad(value)) throw new Error("IPC returned an invalid team.");
-  return { id: value.id, name: value.name, leadAgentId: value.leadAgentId, memberAgentIds: [...value.memberAgentIds] };
+  return {
+    id: value.id,
+    name: value.name,
+    leadAgentId: value.leadAgentId,
+    memberAgentIds: [...value.memberAgentIds],
+    ranks: [...value.ranks],
+    memberRanks: { ...value.memberRanks },
+  };
 }
 
 export function decodeAgentSquads(value: unknown): AgentSquad[] {

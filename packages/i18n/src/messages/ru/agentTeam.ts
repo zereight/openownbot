@@ -38,6 +38,12 @@ export const messages = {
   "agentTeam.manage.name": "Название команды",
   "agentTeam.manage.lead": "Лидер",
   "agentTeam.manage.members": "Участники",
+  "agentTeam.manage.ranks": "Ранги",
+  "agentTeam.manage.ranksPlaceholder": "Старший, Младший, Стажёр",
+  "agentTeam.manage.ranksHint":
+    "Сначала самый высокий, через запятую. Руководитель стоит выше всех рангов. Участник пишет своему рангу и ниже, а вверх только рангу непосредственно выше.",
+  "agentTeam.manage.rankOf": "Ранг: {agent}",
+  "agentTeam.manage.noRank": "Без ранга",
   "agentTeam.manage.save": "Сохранить",
   "agentTeam.manage.saving": "Сохранение…",
   "agentTeam.manage.summary": "Лидер: {lead}. Участников: {count}.",

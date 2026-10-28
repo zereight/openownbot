@@ -36,6 +36,12 @@ export const messages = defineMessages("agentTeam", {
   "agentTeam.manage.name": "Team name",
   "agentTeam.manage.lead": "Lead",
   "agentTeam.manage.members": "Members",
+  "agentTeam.manage.ranks": "Ranks",
+  "agentTeam.manage.ranksPlaceholder": "Lead, Senior, Junior",
+  "agentTeam.manage.ranksHint":
+    "The highest first, separated by commas. The lead is above all ranks. A member writes to its own rank and below, and up only to the rank directly above.",
+  "agentTeam.manage.rankOf": "Rank of {agent}",
+  "agentTeam.manage.noRank": "No rank",
   "agentTeam.manage.save": "Save",
   "agentTeam.manage.saving": "Saving…",
   "agentTeam.manage.summary": "Lead: {lead}. Members: {count}.",

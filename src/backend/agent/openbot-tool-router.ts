@@ -59,6 +59,7 @@ import {
 } from "../openbot-tools";
 import { type AppServerRequest, type DynamicToolCallParams, type DynamicToolResult, isRecord } from "../protocol";
 import { handleRoutineFlowTool, type RoutineFlowTools } from "../routine-flows/routine-flow-tools";
+import { squadRefusalText } from "../squad-refusal";
 import type { StoredStateFailure } from "../stored-state-effects";
 import { handleWorkflowTool, type WorkflowTools, type WorkflowToolTurn } from "../workflows/workflow-tools";
 import { AgentInterruptTool } from "./agent-interrupt-tool";
@@ -1737,13 +1738,7 @@ export class OpenBotToolRouter {
         for (const recipient of recipientValues) {
           if (replyTo && this.#mailbox.isAnswerTo(senderAgentId, replyTo, recipient)) continue;
           const check = squadMayMessage(squads, senderAgentId, recipient);
-          if (!check.ok)
-            throw new Error(
-              sourceText(check.reason === "leavesSquad" ? "error.backend.squadLeaves" : "error.backend.squadEnters", {
-                agent: known.get(recipient)?.name ?? recipient,
-                squad: check.squad,
-              }),
-            );
+          if (!check.ok) throw new Error(squadRefusalText(check, known.get(recipient)?.name ?? recipient));
         }
       }
       // An answer to a request from a side thread runs in that thread. When the thread is archived, the

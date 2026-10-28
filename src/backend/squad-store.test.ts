@@ -25,9 +25,18 @@ describe("SquadStore", () => {
   it("creates a squad and keeps it after a restart", async () => {
     const store = await open();
     const squad = await Effect.runPromise(
-      store.save({ name: " Review ", leadAgentId: "lead", memberAgentIds: ["a", "b"] }, agents),
+      store.save(
+        { name: " Review ", leadAgentId: "lead", memberAgentIds: ["a", "b"], ranks: [], memberRanks: {} },
+        agents,
+      ),
     );
-    expect(squad).toMatchObject({ name: "Review", leadAgentId: "lead", memberAgentIds: ["a", "b"] });
+    expect(squad).toMatchObject({
+      name: "Review",
+      leadAgentId: "lead",
+      memberAgentIds: ["a", "b"],
+      ranks: [],
+      memberRanks: {},
+    });
     const again = await open();
     expect(again.list()).toEqual([squad]);
   });
@@ -35,33 +44,51 @@ describe("SquadStore", () => {
   it("changes a squad by its id", async () => {
     const store = await open();
     const squad = await Effect.runPromise(
-      store.save({ name: "Review", leadAgentId: "lead", memberAgentIds: [] }, agents),
+      store.save({ name: "Review", leadAgentId: "lead", memberAgentIds: [], ranks: [], memberRanks: {} }, agents),
     );
     const changed = await Effect.runPromise(
-      store.save({ id: squad.id, name: "Review 2", leadAgentId: "a", memberAgentIds: ["lead"] }, agents),
+      store.save(
+        { id: squad.id, name: "Review 2", leadAgentId: "a", memberAgentIds: ["lead"], ranks: [], memberRanks: {} },
+        agents,
+      ),
     );
-    expect(changed).toMatchObject({ id: squad.id, name: "Review 2", leadAgentId: "a", memberAgentIds: ["lead"] });
+    expect(changed).toMatchObject({
+      id: squad.id,
+      name: "Review 2",
+      leadAgentId: "a",
+      memberAgentIds: ["lead"],
+      ranks: [],
+      memberRanks: {},
+    });
     expect(store.list()).toHaveLength(1);
   });
 
   it("refuses an unknown agent, a lead who is also a member, and a repeated name", async () => {
     const store = await open();
     await expect(
-      Effect.runPromise(store.save({ name: "X", leadAgentId: "ghost", memberAgentIds: [] }, agents)),
+      Effect.runPromise(
+        store.save({ name: "X", leadAgentId: "ghost", memberAgentIds: [], ranks: [], memberRanks: {} }, agents),
+      ),
     ).rejects.toThrow();
     await expect(
-      Effect.runPromise(store.save({ name: "X", leadAgentId: "lead", memberAgentIds: ["lead"] }, agents)),
+      Effect.runPromise(
+        store.save({ name: "X", leadAgentId: "lead", memberAgentIds: ["lead"], ranks: [], memberRanks: {} }, agents),
+      ),
     ).rejects.toThrow();
-    await Effect.runPromise(store.save({ name: "Review", leadAgentId: "lead", memberAgentIds: [] }, agents));
+    await Effect.runPromise(
+      store.save({ name: "Review", leadAgentId: "lead", memberAgentIds: [], ranks: [], memberRanks: {} }, agents),
+    );
     await expect(
-      Effect.runPromise(store.save({ name: "review", leadAgentId: "a", memberAgentIds: [] }, agents)),
+      Effect.runPromise(
+        store.save({ name: "review", leadAgentId: "a", memberAgentIds: [], ranks: [], memberRanks: {} }, agents),
+      ),
     ).rejects.toThrow();
   });
 
   it("removes a squad", async () => {
     const store = await open();
     const squad = await Effect.runPromise(
-      store.save({ name: "Review", leadAgentId: "lead", memberAgentIds: [] }, agents),
+      store.save({ name: "Review", leadAgentId: "lead", memberAgentIds: [], ranks: [], memberRanks: {} }, agents),
     );
     await Effect.runPromise(store.remove(squad.id));
     expect(store.list()).toEqual([]);
@@ -69,8 +96,15 @@ describe("SquadStore", () => {
 
   it("drops a deleted member, and the whole squad when its lead is deleted", async () => {
     const store = await open();
-    await Effect.runPromise(store.save({ name: "Review", leadAgentId: "lead", memberAgentIds: ["a", "b"] }, agents));
-    await Effect.runPromise(store.save({ name: "Ops", leadAgentId: "c", memberAgentIds: ["a"] }, agents));
+    await Effect.runPromise(
+      store.save(
+        { name: "Review", leadAgentId: "lead", memberAgentIds: ["a", "b"], ranks: [], memberRanks: {} },
+        agents,
+      ),
+    );
+    await Effect.runPromise(
+      store.save({ name: "Ops", leadAgentId: "c", memberAgentIds: ["a"], ranks: [], memberRanks: {} }, agents),
+    );
     await Effect.runPromise(store.reconcile(new Set(["lead", "b", "c"])));
     expect(store.list().map((squad) => [squad.name, squad.memberAgentIds])).toEqual([
       ["Review", ["b"]],
@@ -86,5 +120,68 @@ describe("SquadStore", () => {
     expect(store.list()).toEqual([]);
     const saved = await readFile(join(directory, "squads.json"), "utf8").catch(() => null);
     expect(saved).toBeNull();
+  });
+
+  it("keeps the ranks and the rank of each member", async () => {
+    const store = await open();
+    const squad = await Effect.runPromise(
+      store.save(
+        {
+          name: "Studio",
+          leadAgentId: "lead",
+          memberAgentIds: ["a", "b"],
+          ranks: [" senior ", "junior"],
+          memberRanks: { a: "senior", b: "junior", c: "junior" },
+        },
+        agents,
+      ),
+    );
+    expect(squad.ranks).toEqual(["senior", "junior"]);
+    expect(squad.memberRanks).toEqual({ a: "senior", b: "junior" });
+    expect((await open()).list()).toEqual([squad]);
+  });
+
+  it("refuses a rank that is not in the list, a repeated rank, and too many ranks", async () => {
+    const store = await open();
+    const base = { name: "Studio", leadAgentId: "lead", memberAgentIds: ["a"] };
+    await expect(
+      Effect.runPromise(store.save({ ...base, ranks: ["x"], memberRanks: { a: "y" } }, agents)),
+    ).rejects.toThrow();
+    await expect(
+      Effect.runPromise(store.save({ ...base, ranks: ["x", "x"], memberRanks: {} }, agents)),
+    ).rejects.toThrow();
+    await expect(
+      Effect.runPromise(
+        store.save({ ...base, ranks: Array.from({ length: 9 }, (_, index) => `r${index}`), memberRanks: {} }, agents),
+      ),
+    ).rejects.toThrow();
+  });
+
+  it("reads a file that was written before ranks existed", async () => {
+    await writeFile(
+      join(directory, "squads.json"),
+      JSON.stringify({ version: 1, squads: [{ id: "s", name: "Old", leadAgentId: "lead", memberAgentIds: ["a"] }] }),
+    );
+    expect((await open()).list()).toEqual([
+      { id: "s", name: "Old", leadAgentId: "lead", memberAgentIds: ["a"], ranks: [], memberRanks: {} },
+    ]);
+  });
+
+  it("drops the rank of a member that no longer exists", async () => {
+    const store = await open();
+    await Effect.runPromise(
+      store.save(
+        {
+          name: "Studio",
+          leadAgentId: "lead",
+          memberAgentIds: ["a", "b"],
+          ranks: ["senior"],
+          memberRanks: { a: "senior", b: "senior" },
+        },
+        agents,
+      ),
+    );
+    await Effect.runPromise(store.reconcile(new Set(["lead", "a"])));
+    expect(store.list()[0]?.memberRanks).toEqual({ a: "senior" });
   });
 });

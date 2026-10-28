@@ -39,6 +39,12 @@ export const messages = {
   "agentTeam.manage.name": "Nom de l’équipe",
   "agentTeam.manage.lead": "Responsable",
   "agentTeam.manage.members": "Membres",
+  "agentTeam.manage.ranks": "Rangs",
+  "agentTeam.manage.ranksPlaceholder": "Senior, Junior, Stagiaire",
+  "agentTeam.manage.ranksHint":
+    "Le plus élevé d'abord, séparés par des virgules. Le responsable est au-dessus de tous les rangs. Un membre écrit à son rang et aux rangs inférieurs, et vers le haut seulement au rang directement supérieur.",
+  "agentTeam.manage.rankOf": "Rang de {agent}",
+  "agentTeam.manage.noRank": "Sans rang",
   "agentTeam.manage.save": "Enregistrer",
   "agentTeam.manage.saving": "Enregistrement…",
   "agentTeam.manage.summary": "Responsable : {lead}. Membres : {count}.",

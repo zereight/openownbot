@@ -7,6 +7,8 @@ const squad = (id: string, leadAgentId: string, memberAgentIds: string[]) => ({
   name: `Team ${id}`,
   leadAgentId,
   memberAgentIds,
+  ranks: [],
+  memberRanks: {},
 });
 
 describe("groupAgentsByTeam", () => {
@@ -37,5 +39,27 @@ describe("groupAgentsByTeam", () => {
 
   it("lists everyone as loose when there is no team", () => {
     expect(groupAgentsByTeam([], agents).loose).toHaveLength(5);
+  });
+
+  it("gives a team with ranks a run per rank, from the lead down to the agents with no rank", () => {
+    const studio = {
+      ...squad("s1", "lead", ["a", "b", "c"]),
+      ranks: ["senior", "junior"],
+      memberRanks: { c: "senior", a: "junior" },
+    };
+    const { groups } = groupAgentsByTeam([studio], agents);
+    expect(groups[0]?.sections.map((section) => [section.heading, section.agents.map((agent) => agent.id)])).toEqual([
+      [{ kind: "lead" }, ["lead"]],
+      [{ kind: "rank", name: "senior" }, ["c"]],
+      [{ kind: "rank", name: "junior" }, ["a"]],
+      [{ kind: "unranked" }, ["b"]],
+    ]);
+    expect(groups[0]?.agents.map((agent) => agent.id)).toEqual(["lead", "c", "a", "b"]);
+  });
+
+  it("leaves out a run that nobody in it is shown", () => {
+    const studio = { ...squad("s1", "lead", ["a"]), ranks: ["senior", "junior"], memberRanks: { a: "junior" } };
+    const { groups } = groupAgentsByTeam([studio], agents);
+    expect(groups[0]?.sections.map((section) => section.heading.kind)).toEqual(["lead", "rank"]);
   });
 });

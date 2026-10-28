@@ -130,6 +130,8 @@ export const messages = {
     "당신은 팀 {squad}에 속해 있고, 팀 밖의 에이전트에게는 리드만 메시지를 보낼 수 있어요. {squad}의 리드에게 전달을 부탁하거나 사용자에게 물어보세요.",
   "error.backend.squadEnters":
     "{agent}은(는) 팀 {squad}에 속해 있어요. {squad}의 리드를 통해 연락하거나 사용자에게 물어보세요.",
+  "error.backend.squadSkipsRank":
+    "{agent}은(는) 팀 {squad}에서 당신이 직접 연락할 수 있는 직급보다 높아요. 위로는 바로 위 직급에게만 메시지를 보낼 수 있어요. 그 직급에게 전달을 부탁하거나 사용자에게 물어보세요.",
   "error.backend.recipientHidden": "이 에이전트는 숨겨져 있어요. 메시지를 보내려면 복원하세요.",
   "error.backend.attachBetween": "파일을 1개에서 {limit}개 사이로 첨부하세요.",
   "error.backend.attachmentNotFile": "첨부 파일이 파일이 아니에요: {path}",

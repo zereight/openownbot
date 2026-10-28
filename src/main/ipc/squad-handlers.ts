@@ -27,12 +27,26 @@ export function squadIpcHandlers({ squads, agentIds }: SquadIpcDependencies): Pi
 }
 
 export function parseSaveSquad(input: unknown): SaveSquadInput {
-  if (!isObject(input) || !Array.isArray(input.memberAgentIds) || input.memberAgentIds.length > SQUAD_LIMITS.members)
+  if (
+    !isObject(input) ||
+    !Array.isArray(input.memberAgentIds) ||
+    input.memberAgentIds.length > SQUAD_LIMITS.members ||
+    !Array.isArray(input.ranks) ||
+    input.ranks.length > SQUAD_LIMITS.ranks ||
+    !isObject(input.memberRanks)
+  )
     throw new Error("Invalid team.");
   return {
     ...(input.id === undefined ? {} : { id: requireString(input.id, "id") }),
     name: requireString(input.name, "name", INPUT_LIMITS.agentName),
     leadAgentId: requireString(input.leadAgentId, "leadAgentId"),
     memberAgentIds: input.memberAgentIds.map((id) => requireString(id, "memberAgentId")),
+    ranks: input.ranks.map((rank) => requireString(rank, "rank", SQUAD_LIMITS.rankName)),
+    memberRanks: Object.fromEntries(
+      Object.entries(input.memberRanks).map(([id, rank]) => [
+        id,
+        requireString(rank, "memberRank", SQUAD_LIMITS.rankName),
+      ]),
+    ),
   };
 }

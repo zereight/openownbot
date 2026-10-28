@@ -59,7 +59,7 @@ describe("AgentSquadsDialog", () => {
 
   it("shows the list again when the dialog is closed from the form and opened again", async () => {
     const [isOpen, setOpen] = createSignal(true);
-    const squad = { id: "s1", name: "Review", leadAgentId: "a", memberAgentIds: [] };
+    const squad = { id: "s1", name: "Review", leadAgentId: "a", memberAgentIds: [], ranks: [], memberRanks: {} };
     render(() => (
       <AgentSquadsDialog
         open={isOpen()}

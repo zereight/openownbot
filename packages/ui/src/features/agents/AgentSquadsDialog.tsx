@@ -23,6 +23,21 @@ interface Draft {
   name: string;
   leadAgentId: string;
   memberAgentIds: string[];
+  /** The ranks as the user types them: names with commas between, the highest first. */
+  ranksText: string;
+  memberRanks: Record<string, string>;
+}
+
+/** The ranks that a text names: trimmed, without blanks and repeats, in the order typed. */
+function parseRanks(text: string): string[] {
+  return [
+    ...new Set(
+      text
+        .split(",")
+        .map((rank) => rank.trim())
+        .filter((rank) => rank.length > 0),
+    ),
+  ];
 }
 
 /**
@@ -39,11 +54,14 @@ export function AgentSquadsDialog(props: AgentSquadsDialogProps) {
   const leadId = createMemo(() => draft()?.leadAgentId ?? "");
   const candidates = createMemo(() => props.agents.filter((agent) => agent.id !== leadId()));
 
+  // The typed list changes the choices in each row's select, not the rows.
+  const rankOptions = createMemo(() => parseRanks(draft()?.ranksText ?? ""));
+
   const agentName = (id: string) => props.agents.find((agent) => agent.id === id)?.name ?? id;
 
   function startNew(): void {
     const first = props.agents[0];
-    setDraft({ name: "", leadAgentId: first?.id ?? "", memberAgentIds: [] });
+    setDraft({ name: "", leadAgentId: first?.id ?? "", memberAgentIds: [], ranksText: "", memberRanks: {} });
   }
 
   function startEdit(squad: AgentSquad): void {
@@ -52,6 +70,8 @@ export function AgentSquadsDialog(props: AgentSquadsDialogProps) {
       name: squad.name,
       leadAgentId: squad.leadAgentId,
       memberAgentIds: [...squad.memberAgentIds],
+      ranksText: squad.ranks.join(", "),
+      memberRanks: { ...squad.memberRanks },
     });
   }
 
@@ -70,6 +90,13 @@ export function AgentSquadsDialog(props: AgentSquadsDialogProps) {
     if (!current) return;
     const rest = current.memberAgentIds.filter((id) => id !== agentId);
     setDraft({ ...current, memberAgentIds: checked ? [...rest, agentId] : rest });
+  }
+
+  function setMemberRank(agentId: string, rank: string): void {
+    const current = draft();
+    if (!current) return;
+    const { [agentId]: _removed, ...rest } = current.memberRanks;
+    setDraft({ ...current, memberRanks: rank === "" ? rest : { ...rest, [agentId]: rank } });
   }
 
   async function run(operation: () => Promise<void>, failure: string): Promise<boolean> {
@@ -97,6 +124,13 @@ export function AgentSquadsDialog(props: AgentSquadsDialogProps) {
           name: current.name,
           leadAgentId: current.leadAgentId,
           memberAgentIds: current.memberAgentIds,
+          ranks: parseRanks(current.ranksText),
+          // A rank that the list no longer has, or a member that was unchecked, is dropped here.
+          memberRanks: Object.fromEntries(
+            Object.entries(current.memberRanks).filter(
+              ([id, rank]) => current.memberAgentIds.includes(id) && parseRanks(current.ranksText).includes(rank),
+            ),
+          ),
         }),
       t("agentTeam.manage.saveFailed"),
     );
@@ -215,6 +249,20 @@ export function AgentSquadsDialog(props: AgentSquadsDialogProps) {
                     </div>
                     <div class="agent-squads-field">
                       <Heading as="h3" size="sm">
+                        {t("agentTeam.manage.ranks")}
+                      </Heading>
+                      <Input
+                        aria-label={t("agentTeam.manage.ranks")}
+                        placeholder={t("agentTeam.manage.ranksPlaceholder")}
+                        value={current().ranksText}
+                        onInput={(event) => setDraft({ ...current(), ranksText: event.currentTarget.value })}
+                      />
+                      <Text tone="muted" variant="caption">
+                        {t("agentTeam.manage.ranksHint")}
+                      </Text>
+                    </div>
+                    <div class="agent-squads-field">
+                      <Heading as="h3" size="sm">
                         {t("agentTeam.manage.members")}
                       </Heading>
                       <div class="agent-squads-members">
@@ -227,6 +275,17 @@ export function AgentSquadsDialog(props: AgentSquadsDialogProps) {
                                 onChange={(event) => toggleMember(agent().id, event.currentTarget.checked)}
                               />
                               <label for={`squad-member-${agent().id}`}>{agent().name}</label>
+                              <Show when={current().memberAgentIds.includes(agent().id) && rankOptions().length > 0}>
+                                <NativeSelect
+                                  class="agent-squads-rank"
+                                  aria-label={t("agentTeam.manage.rankOf", { agent: agent().name })}
+                                  value={current().memberRanks[agent().id] ?? ""}
+                                  onChange={(event) => setMemberRank(agent().id, event.currentTarget.value)}
+                                >
+                                  <option value="">{t("agentTeam.manage.noRank")}</option>
+                                  <For each={rankOptions()}>{(rank) => <option value={rank}>{rank}</option>}</For>
+                                </NativeSelect>
+                              </Show>
                             </div>
                           )}
                         </For>

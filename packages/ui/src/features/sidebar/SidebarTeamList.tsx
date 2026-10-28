@@ -8,13 +8,24 @@ import { For, Show } from "solid-js";
 import { useText } from "../../text";
 import { SidebarAgentRow } from "./SidebarAgentRow";
 import { useSidebarScope } from "./sidebar-scope";
-import { groupAgentsByTeam } from "./sidebar-teams";
+import { groupAgentsByTeam, type SidebarTeamHeading } from "./sidebar-teams";
+
+const headingKey = (heading: SidebarTeamHeading): string =>
+  heading.kind === "rank" ? `rank:${heading.name}` : heading.kind;
 
 export function SidebarTeamList() {
   const { filteredChats, props } = useSidebarScope();
   const { t } = useText();
   const agents = () => filteredChats().flatMap((chat) => (chat.kind === "agent" ? [chat.agent] : []));
   const teams = () => groupAgentsByTeam(props.squads ?? [], agents());
+  const headingText = (heading: SidebarTeamHeading): string =>
+    heading.kind === "lead"
+      ? t("agentTeam.manage.lead")
+      : heading.kind === "rank"
+        ? heading.name
+        : heading.kind === "unranked"
+          ? t("agentTeam.manage.noRank")
+          : "";
   return (
     <>
       <For each={teams().groups} keyed={(group) => group.id}>
@@ -24,8 +35,17 @@ export function SidebarTeamList() {
               <h2 class="sidebar-section-name">{group().name}</h2>
             </header>
             <div class="sidebar-section-body">
-              <For each={group().agents} keyed={(agent) => agent.id}>
-                {(agent) => <SidebarAgentRow agent={agent()} fixed />}
+              <For each={group().sections} keyed={(section) => headingKey(section.heading)}>
+                {(section) => (
+                  <>
+                    <Show when={headingText(section().heading)}>
+                      {(text) => <p class="sidebar-team-rank">{text()}</p>}
+                    </Show>
+                    <For each={section().agents} keyed={(agent) => agent.id}>
+                      {(agent) => <SidebarAgentRow agent={agent()} fixed />}
+                    </For>
+                  </>
+                )}
               </For>
             </div>
           </section>

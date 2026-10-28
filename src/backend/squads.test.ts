@@ -1,8 +1,22 @@
-import { type AgentSquad, squadMayMessage, squadsOfAgent } from "@openbot/contracts/squads";
+import { type AgentSquad, squadLevels, squadMayMessage, squadsOfAgent } from "@openbot/contracts/squads";
 import { describe, expect, it } from "vitest";
 
-const review: AgentSquad = { id: "s1", name: "Review", leadAgentId: "lead", memberAgentIds: ["a", "b"] };
-const ops: AgentSquad = { id: "s2", name: "Ops", leadAgentId: "ops-lead", memberAgentIds: ["c"] };
+const review: AgentSquad = {
+  id: "s1",
+  name: "Review",
+  leadAgentId: "lead",
+  memberAgentIds: ["a", "b"],
+  ranks: [],
+  memberRanks: {},
+};
+const ops: AgentSquad = {
+  id: "s2",
+  name: "Ops",
+  leadAgentId: "ops-lead",
+  memberAgentIds: ["c"],
+  ranks: [],
+  memberRanks: {},
+};
 
 describe("squadMayMessage", () => {
   it("changes nothing while no squad names either agent", () => {
@@ -34,7 +48,14 @@ describe("squadMayMessage", () => {
   });
 
   it("allows an agent in two squads to talk to the members of either", () => {
-    const shared: AgentSquad = { id: "s3", name: "Shared", leadAgentId: "z", memberAgentIds: ["a", "c"] };
+    const shared: AgentSquad = {
+      id: "s3",
+      name: "Shared",
+      leadAgentId: "z",
+      memberAgentIds: ["a", "c"],
+      ranks: [],
+      memberRanks: {},
+    };
     expect(squadMayMessage([review, shared], "a", "c")).toEqual({ ok: true });
     expect(squadMayMessage([review, shared], "a", "b")).toEqual({ ok: true });
   });
@@ -45,5 +66,63 @@ describe("squadsOfAgent", () => {
     expect(squadsOfAgent([review, ops], "lead").map((squad) => squad.id)).toEqual(["s1"]);
     expect(squadsOfAgent([review, ops], "a").map((squad) => squad.id)).toEqual(["s1"]);
     expect(squadsOfAgent([review, ops], "x")).toEqual([]);
+  });
+});
+
+describe("ranks inside a squad", () => {
+  const ranked: AgentSquad = {
+    id: "s4",
+    name: "Studio",
+    leadAgentId: "boss",
+    memberAgentIds: ["senior", "peer", "junior", "intern", "plain"],
+    ranks: ["senior", "junior", "intern"],
+    memberRanks: { senior: "senior", peer: "senior", junior: "junior", intern: "intern" },
+  };
+  const may = (from: string, to: string) => squadMayMessage([ranked], from, to);
+
+  it("puts the lead above every rank and an agent with no rank below them", () => {
+    expect(squadLevels(ranked)).toEqual({ boss: -1, senior: 0, peer: 0, junior: 1, intern: 2, plain: 3 });
+  });
+
+  it("lets an agent write to its own rank and to every rank below it", () => {
+    expect(may("senior", "peer")).toEqual({ ok: true });
+    expect(may("senior", "intern")).toEqual({ ok: true });
+    expect(may("boss", "plain")).toEqual({ ok: true });
+  });
+
+  it("lets an agent write up only to the rank directly above it", () => {
+    expect(may("junior", "senior")).toEqual({ ok: true });
+    expect(may("intern", "junior")).toEqual({ ok: true });
+    expect(may("senior", "boss")).toEqual({ ok: true });
+  });
+
+  it("refuses a message that skips a rank above", () => {
+    expect(may("intern", "senior")).toEqual({ ok: false, reason: "skipsRank", squad: "Studio" });
+    expect(may("junior", "boss")).toEqual({ ok: false, reason: "skipsRank", squad: "Studio" });
+  });
+
+  it("skips a rank that nobody holds when it counts what is directly above", () => {
+    const gap: AgentSquad = {
+      ...ranked,
+      memberRanks: { senior: "senior", intern: "intern" },
+      memberAgentIds: ["senior", "intern"],
+    };
+    expect(squadMayMessage([gap], "intern", "senior")).toEqual({ ok: true });
+  });
+
+  it("allows the message when another squad that both are in allows it", () => {
+    const flat: AgentSquad = {
+      id: "s5",
+      name: "Flat",
+      leadAgentId: "z",
+      memberAgentIds: ["intern", "senior"],
+      ranks: [],
+      memberRanks: {},
+    };
+    expect(squadMayMessage([ranked, flat], "intern", "senior")).toEqual({ ok: true });
+  });
+
+  it("keeps the rule for a squad with no ranks as before", () => {
+    expect(squadMayMessage([review], "a", "lead")).toEqual({ ok: true });
   });
 });

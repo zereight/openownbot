@@ -6,11 +6,11 @@
 
 import { INPUT_LIMITS } from "@openbot/contracts/input-limits";
 import { type AgentSquad, squadMayMessage } from "@openbot/contracts/squads";
-import { sourceText } from "@openbot/i18n/source";
 import { Effect } from "effect";
 import { z } from "zod";
 import { openBotToolFailure, openBotToolResult } from "../agent/routine-tools";
 import { ToolOperationFailed, toolStep } from "../agent/tool-operation";
+import { squadRefusalText } from "../squad-refusal";
 import { RoutineFlowError } from "./routine-flow-store";
 import type { RoutineFlowsShape } from "./routine-flows";
 
@@ -90,13 +90,7 @@ export const handleRoutineFlowTool = Effect.fn("RoutineFlowTools.handle")(functi
       if (unknown) return openBotToolFailure(`Unknown agent: ${unknown}.`);
       // A link makes the routine of one agent message another, so it follows the rule of a message.
       const reach = squadMayMessage(squads, input.fromAgentId, input.toAgentId);
-      if (!reach.ok)
-        return openBotToolFailure(
-          sourceText(reach.reason === "leavesSquad" ? "error.backend.squadLeaves" : "error.backend.squadEnters", {
-            agent: input.toAgentId,
-            squad: reach.squad,
-          }),
-        );
+      if (!reach.ok) return openBotToolFailure(squadRefusalText(reach, input.toAgentId));
       const link = yield* flows.connect({
         routineId: input.routineId,
         fromAgentId: input.fromAgentId,

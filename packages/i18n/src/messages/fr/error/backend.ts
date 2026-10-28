@@ -360,4 +360,6 @@ export const messages = {
     "Vous êtes dans l’équipe {squad}, et seul son responsable écrit aux agents extérieurs. Demandez au responsable de {squad} de transmettre, ou demandez à l’utilisateur.",
   "error.backend.squadEnters":
     "{agent} est dans l’équipe {squad}. Passez par le responsable de {squad}, ou demandez à l’utilisateur.",
+  "error.backend.squadSkipsRank":
+    "{agent} est au-dessus du rang que tu peux joindre dans l'équipe {squad}. Un message monte seulement au rang directement supérieur au tien. Demande à ce rang de le transmettre, ou demande à l'utilisateur.",
 } as const satisfies PartialTranslation<typeof source>;

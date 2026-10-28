@@ -303,4 +303,6 @@ export const messages = {
   "error.backend.squadLeaves":
     "你属于团队 {squad}，只有它的负责人才能给团队以外的智能体发消息。请让 {squad} 的负责人转达，或询问用户。",
   "error.backend.squadEnters": "{agent} 属于团队 {squad}。请通过 {squad} 的负责人联系，或询问用户。",
+  "error.backend.squadSkipsRank":
+    "在团队 {squad} 中，{agent} 的职级高于你可以直接联系的职级。消息只能发给紧邻你上一级的职级。请让该职级代为转达，或询问用户。",
 } as const satisfies PartialTranslation<typeof source>;

@@ -352,4 +352,6 @@ export const messages = {
     "Sei nel team {squad} e solo il suo responsabile scrive agli agenti esterni. Chiedi al responsabile di {squad} di inoltrare, oppure chiedi all’utente.",
   "error.backend.squadEnters":
     "{agent} è nel team {squad}. Contattalo tramite il responsabile di {squad}, oppure chiedi all’utente.",
+  "error.backend.squadSkipsRank":
+    "{agent} è sopra il livello che puoi raggiungere nel team {squad}. Un messaggio sale solo al livello immediatamente superiore al tuo. Chiedi a quel livello di inoltrarlo o chiedi all'utente.",
 } as const satisfies PartialTranslation<typeof source>;

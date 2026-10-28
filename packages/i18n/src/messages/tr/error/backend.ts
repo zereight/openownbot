@@ -335,4 +335,6 @@ export const messages = {
   "error.backend.squadLeaves":
     "{squad} takımındasın ve takım dışındaki ajanlara yalnızca lider yazar. {squad} liderinden iletmesini iste veya kullanıcıya sor.",
   "error.backend.squadEnters": "{agent}, {squad} takımında. {squad} lideri üzerinden ulaş veya kullanıcıya sor.",
+  "error.backend.squadSkipsRank":
+    "{agent}, {squad} takımında ulaşabileceğin rütbenin üstünde. Mesaj yalnızca senin rütbenin hemen üstündeki rütbeye gider. O rütbeden iletmesini iste veya kullanıcıya sor.",
 } as const satisfies PartialTranslation<typeof source>;

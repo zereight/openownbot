@@ -122,7 +122,7 @@ import {
   WORKFLOWS_USAGE_ID,
   workspaceAccessEnforced,
 } from "@openbot/contracts/ipc";
-import type { AgentSquad } from "@openbot/contracts/squads";
+import { type AgentSquad, squadMayMessage, squadsOfAgent } from "@openbot/contracts/squads";
 import { CLAUDE_API_KEY_ACCOUNT_ID } from "@openbot/contracts/team-protocol/claude-api-key-v1";
 import { ContextResetBusyError } from "@openbot/contracts/team-protocol/context-reset-v1";
 import type { QueueEditRequest } from "@openbot/contracts/team-protocol/queue-edit-v1";
@@ -151,7 +151,7 @@ import { ConversationRuntime } from "./agent/conversation-runtime";
 import { CustomEndpoints, toEndpointChangeFailed } from "./agent/custom-endpoints";
 import { agentNamesById, displayMessageReferences } from "./agent/delivery-content";
 import { DeltaBuffer } from "./agent/delta-buffer";
-import type { SectionTeammates } from "./agent/developer-instructions";
+import type { SectionTeammates, TeamBriefing } from "./agent/developer-instructions";
 import { DrainScheduler } from "./agent/drain-scheduler";
 import { DuplicationGate, toAgentDuplicationFailed } from "./agent/duplication-gate";
 import type { FailureContext, FailureSignal } from "./agent/failure-signal";
@@ -1553,6 +1553,13 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
    * serve unrelated integrations and choose teammates by fit.
    */
   sectionTeammates(agentId: string): SectionTeammates | null {
+    const section = this.#sectionMates(agentId);
+    const teams = this.#teamBriefings(agentId);
+    if (!section && teams.length === 0) return null;
+    return { name: section?.name ?? "", members: section?.members ?? [], ...(teams.length > 0 ? { teams } : {}) };
+  }
+
+  #sectionMates(agentId: string): { name: string; members: SectionTeammates["members"] } | null {
     const layout = this.#sidebarLayout?.getSnapshot();
     const section = layout?.sections.find((entry) => entry.id === layout.agentAssignments[agentId]);
     if (!layout || !section || section.name === sourceText("status.messaging.integrationsSection")) return null;
@@ -1570,6 +1577,32 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
       .slice(0, MAX_SECTION_TEAMMATES)
       .map((agent) => ({ id: agent.id, name: agent.name, title: agent.title }));
     return members.length > 0 ? { name: section.name, members } : null;
+  }
+
+  /**
+   * The teams the agent is in, for its instructions: who is in each, at which rank, and whom the rules
+   * let it message. The rules are the ones the send tool applies, so the list and the refusals agree.
+   */
+  #teamBriefings(agentId: string): TeamBriefing[] {
+    const squads = this.#squads?.list() ?? [];
+    const agents = new Map(this.listAgents().map((agent) => [agent.id, agent]));
+    return squadsOfAgent(squads, agentId).map((squad) => {
+      const rankOf = (id: string) => (id === squad.leadAgentId ? "lead" : (squad.memberRanks[id] ?? "no rank"));
+      const members = [squad.leadAgentId, ...squad.memberAgentIds].flatMap((id) => {
+        const agent = agents.get(id);
+        return id === agentId || !agent || agent.hiddenAt !== undefined
+          ? []
+          : [{ id, name: agent.name, title: agent.title, rank: rankOf(id) }];
+      });
+      return {
+        team: squad.name,
+        you: rankOf(agentId),
+        members,
+        canMessage: members
+          .filter((member) => squadMayMessage(squads, agentId, member.id).ok)
+          .map((member) => member.id),
+      };
+    });
   }
 
   /**

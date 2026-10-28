@@ -36,6 +36,12 @@ export const messages = {
   "agentTeam.manage.name": "Takım adı",
   "agentTeam.manage.lead": "Lider",
   "agentTeam.manage.members": "Üyeler",
+  "agentTeam.manage.ranks": "Rütbeler",
+  "agentTeam.manage.ranksPlaceholder": "Kıdemli, Genç, Stajyer",
+  "agentTeam.manage.ranksHint":
+    "En yüksek önce, virgülle ayırın. Lider tüm rütbelerin üstündedir. Üye kendi rütbesine ve altına yazar, yukarıya yalnızca hemen üstündeki rütbeye yazabilir.",
+  "agentTeam.manage.rankOf": "{agent} rütbesi",
+  "agentTeam.manage.noRank": "Rütbe yok",
   "agentTeam.manage.save": "Kaydet",
   "agentTeam.manage.saving": "Kaydediliyor…",
   "agentTeam.manage.summary": "Lider: {lead}. Üye sayısı: {count}.",

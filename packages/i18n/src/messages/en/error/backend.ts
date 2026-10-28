@@ -129,6 +129,8 @@ export const messages = defineMessages("error.backend", {
   "error.backend.squadLeaves":
     "You are in the team {squad}, and only its lead writes to agents outside it. Ask the lead of {squad} to pass this on, or ask the user.",
   "error.backend.squadEnters": "{agent} is in the team {squad}. Reach it through the lead of {squad}, or ask the user.",
+  "error.backend.squadSkipsRank":
+    "{agent} is above the rank you may reach in the team {squad}. A message goes up only to the rank directly above yours. Ask that rank to pass it on, or ask the user.",
   "error.backend.recipientHidden": "This agent is hidden. Restore it to send messages.",
   "error.backend.attachBetween": "Attach between 1 and {limit} files.",
   "error.backend.attachmentNotFile": "Attachment is not a file: {path}",

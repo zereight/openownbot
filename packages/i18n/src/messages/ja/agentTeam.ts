@@ -38,6 +38,12 @@ export const messages = {
   "agentTeam.manage.name": "チーム名",
   "agentTeam.manage.lead": "リード",
   "agentTeam.manage.members": "メンバー",
+  "agentTeam.manage.ranks": "役職",
+  "agentTeam.manage.ranksPlaceholder": "シニア, ジュニア, インターン",
+  "agentTeam.manage.ranksHint":
+    "高い順にカンマで区切って入力します。リードはすべての役職の上にいます。メンバーは同じ役職と下位の役職には自由に、上位にはすぐ上の役職にだけメッセージを送れます。",
+  "agentTeam.manage.rankOf": "{agent} の役職",
+  "agentTeam.manage.noRank": "役職なし",
   "agentTeam.manage.save": "保存",
   "agentTeam.manage.saving": "保存中…",
   "agentTeam.manage.summary": "リード: {lead}。メンバー: {count} 人。",

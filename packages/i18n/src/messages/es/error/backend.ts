@@ -352,4 +352,6 @@ export const messages = {
     "Estás en el equipo {squad} y solo su líder escribe a agentes de fuera. Pide al líder de {squad} que lo transmita, o pregunta al usuario.",
   "error.backend.squadEnters":
     "{agent} está en el equipo {squad}. Contáctalo a través del líder de {squad}, o pregunta al usuario.",
+  "error.backend.squadSkipsRank":
+    "{agent} está por encima del rango al que puedes escribir en el equipo {squad}. Un mensaje sube solo al rango inmediatamente superior al tuyo. Pídele que lo transmita o pregunta al usuario.",
 } as const satisfies PartialTranslation<typeof source>;

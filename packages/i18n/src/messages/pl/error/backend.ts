@@ -341,4 +341,6 @@ export const messages = {
     "Jesteś w zespole {squad}, a do agentów spoza niego pisze tylko jego lider. Poproś lidera zespołu {squad} o przekazanie albo zapytaj użytkownika.",
   "error.backend.squadEnters":
     "{agent} jest w zespole {squad}. Skontaktuj się przez lidera zespołu {squad} albo zapytaj użytkownika.",
+  "error.backend.squadSkipsRank":
+    "{agent} jest w zespole {squad} powyżej rangi, do której możesz pisać. Wiadomość idzie w górę tylko do rangi bezpośrednio nad twoją. Poproś tę rangę o przekazanie albo zapytaj użytkownika.",
 } as const satisfies PartialTranslation<typeof source>;

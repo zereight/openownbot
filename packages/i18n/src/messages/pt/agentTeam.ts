@@ -38,6 +38,12 @@ export const messages = {
   "agentTeam.manage.name": "Nome da equipe",
   "agentTeam.manage.lead": "Líder",
   "agentTeam.manage.members": "Membros",
+  "agentTeam.manage.ranks": "Níveis",
+  "agentTeam.manage.ranksPlaceholder": "Sênior, Júnior, Estagiário",
+  "agentTeam.manage.ranksHint":
+    "O mais alto primeiro, separados por vírgulas. O líder fica acima de todos os níveis. Um membro escreve ao próprio nível e aos inferiores, e para cima apenas ao nível imediatamente acima.",
+  "agentTeam.manage.rankOf": "Nível de {agent}",
+  "agentTeam.manage.noRank": "Sem nível",
   "agentTeam.manage.save": "Salvar",
   "agentTeam.manage.saving": "Salvando…",
   "agentTeam.manage.summary": "Líder: {lead}. Membros: {count}.",

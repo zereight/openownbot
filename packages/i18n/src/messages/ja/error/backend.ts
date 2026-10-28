@@ -349,4 +349,6 @@ export const messages = {
     "あなたはチーム {squad} に所属しており、チーム外のエージェントに書き込めるのはそのリードだけです。{squad} のリードに伝えてもらうか、ユーザーに尋ねてください。",
   "error.backend.squadEnters":
     "{agent} はチーム {squad} に所属しています。{squad} のリードを通して連絡するか、ユーザーに尋ねてください。",
+  "error.backend.squadSkipsRank":
+    "{agent} はチーム {squad} であなたが直接連絡できる役職より上です。上位へは、すぐ上の役職にだけメッセージを送れます。その役職に取り次いでもらうか、ユーザーに尋ねてください。",
 } as const satisfies PartialTranslation<typeof source>;

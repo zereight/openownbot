@@ -36,6 +36,12 @@ export const messages = {
   "agentTeam.manage.name": "团队名称",
   "agentTeam.manage.lead": "负责人",
   "agentTeam.manage.members": "成员",
+  "agentTeam.manage.ranks": "职级",
+  "agentTeam.manage.ranksPlaceholder": "高级, 初级, 实习",
+  "agentTeam.manage.ranksHint":
+    "按从高到低排列，用逗号分隔。负责人高于所有职级。成员可以联系同级和下级，向上只能联系紧邻的上一级。",
+  "agentTeam.manage.rankOf": "{agent} 的职级",
+  "agentTeam.manage.noRank": "无职级",
   "agentTeam.manage.save": "保存",
   "agentTeam.manage.saving": "正在保存…",
   "agentTeam.manage.summary": "负责人：{lead}。成员：{count} 人。",
