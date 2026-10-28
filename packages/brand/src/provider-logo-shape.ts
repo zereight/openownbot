@@ -39,6 +39,21 @@ const ACP_PROMPT_PATH =
 
 const ACP_CURSOR_PATH = "M12 17a1 1 0 0 1 1-1h7a1 1 0 1 1 0 2h-7a1 1 0 0 1-1-1Z";
 
+// The Pi mark, three blocks in one colour, on a 24 by 24 grid. It is the favicon of https://pi.dev, as
+// LobeHub Icons draws it (MIT): https://github.com/lobehub/lobe-icons
+const PI_PATHS = [
+  { d: "M1 1h16.5v11H12v5.5H6.5V23H1V1zm5.5 5.5V12H12V6.5H6.5z", evenOdd: true },
+  { d: "M17.5 12H23v11h-5.5V12z" },
+] as const;
+
+// OpenBot's own addition for Pi-Bolt, so that it differs from Pi: a bolt in the gap under the Pi mark.
+const PI_BOLT_PATH = "M15.9 12.8 12.9 18.1h2.1l-.9 4.7 3.3-5.5h-2.2z";
+
+// The Muse mark in one colour, on a 24 by 24 grid, from LobeHub Icons (MIT):
+// https://github.com/lobehub/lobe-icons
+const MUSE_PATH =
+  "M5.91 3.869C6.777 3.869 7.396 4.546 7.396 5.607 7.396 6.669 7.225 7.626 6.941 9.659 6.738 11.084 6.389 13.258 6.243 14.162 6.523 13.628 7.178 12.378 7.294 12.144 8.666 9.375 10.096 6.901 10.508 6.246 11.054 5.372 11.535 5.021 12.278 5.021 12.664 5.022 13.124 5.217 13.352 5.477 13.66 5.829 13.725 6.398 13.714 7.019 13.698 7.97 13.574 9.486 13.405 11.177 13.33 11.929 13.185 13.466 13.087 14.496 13.965 12.925 15.591 10.035 16.246 9.025 16.817 8.146 17.392 7.579 18.164 7.579 18.83 7.579 19.651 8.05 19.603 9.302 19.531 11.149 19.264 15.174 19.143 16.979 19.96 15.79 21.033 14.029 21.436 13.367 21.842 12.698 22.26 12.157 22.894 12.139 23.544 12.12 23.979 12.562 23.999 13.244 24.019 13.927 23.612 14.694 23.072 15.565 22.486 16.511 21.831 17.523 21.033 18.468 20.236 19.413 19.502 20.131 18.384 20.131 17.382 20.131 16.677 19.465 16.628 18.246 16.602 17.607 16.723 16.234 16.814 15.16 16.92 13.917 17.048 12.717 17.137 11.923 16.256 13.535 14.402 16.912 13.568 18.23 12.752 19.52 12.355 19.974 11.493 19.975 10.631 19.975 10.253 19.354 10.241 18.42 10.227 17.407 10.988 11.324 11.246 9.297 10.828 10.191 9.801 12.385 9.157 13.69 8.534 14.953 7.489 17.135 6.73 18.393 6.184 19.298 5.57 19.975 4.66 19.975 3.75 19.975 3.236 19.363 3.236 18.379 3.236 17.395 3.521 15.756 3.827 13.723 3.98 12.739 4.155 11.667 4.352 10.53 4.496 9.708 4.746 8.26 4.9 7.371 4.2 8.461 2.941 10.423 2.558 11.014 2.131 11.671 1.749 12.15 1.115 12.15 0.416 12.15 0 11.605 0 10.971 0 10.337 0.322 9.848 0.846 8.988 1.518 7.883 2.726 6.377 3.388 5.586 4.168 4.654 4.947 3.869 5.91 3.869Z";
+
 // A neutral ring for a provider that this build does not know. It is no provider's mark.
 const UNKNOWN_PATH = "M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20Zm0 2a8 8 0 1 0 0 16 8 8 0 0 0 0-16Z";
 
@@ -103,11 +118,14 @@ export function providerLogoShape(provider: ProviderLogoVariant): ProviderLogoSh
       return { viewBox: GRID_24, paths: [{ d: DEEPSEEK_PATH, evenOdd: true }] };
     case "openrouter":
       return { viewBox: GRID_24, paths: [{ d: OPENROUTER_PATH }] };
-    // Native CLI providers use the neutral terminal mark.
-    case "acp":
     case "pi":
+      return { viewBox: GRID_24, paths: [...PI_PATHS] };
     case "pi-bolt":
+      return { viewBox: GRID_24, paths: [...PI_PATHS, { d: PI_BOLT_PATH }] };
     case "muse":
+      return { viewBox: GRID_24, paths: [{ d: MUSE_PATH }] };
+    // The other native CLI providers use the neutral terminal mark.
+    case "acp":
     case "inception":
       return { viewBox: GRID_24, paths: [{ d: ACP_PROMPT_PATH }, { d: ACP_CURSOR_PATH }] };
     case "unknown":
