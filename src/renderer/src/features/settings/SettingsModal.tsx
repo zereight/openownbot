@@ -46,6 +46,7 @@ import { licenseContactUs, trackLicenseEvent } from "./license-analytics";
 import { createProfileActivityStore } from "./profile-activity-store";
 import { renderProfileShareImage } from "./profile-share-image";
 import { createSettingsAgentsSection } from "./SettingsAgentsSection";
+import { SettingsDecisionModel } from "./SettingsDecisionModel";
 import { SettingsDynamicIslandTab } from "./SettingsDynamicIslandTab";
 import { SettingsGeneralTab } from "./SettingsGeneralTab";
 import { SettingsNotificationsTab } from "./SettingsNotificationsTab";
@@ -287,6 +288,7 @@ export function SettingsModal(props: SettingsModalProps) {
         <Tabs.Content value="agents" class="settings-modal-tab-panel" data-tab="agents">
           {preferencesLoadError()}
           <agents.Panel menuMount={modalElement} />
+          <SettingsDecisionModel selectMount={modalElement} />
         </Tabs.Content>
 
         <Tabs.Content value="notifications" class="settings-modal-tab-panel" data-tab="notifications">

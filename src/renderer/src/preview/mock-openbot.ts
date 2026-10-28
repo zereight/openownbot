@@ -56,6 +56,7 @@ import {
   type CustomProviderSummary,
   composedCustomModelId,
   createMcpServerId,
+  DECISION_MODEL_KEY_NAMES,
   DEFAULT_AGENT_ACCESS,
   DEFAULT_AGENT_DEFAULTS,
   DEFAULT_AGENT_MEMORY_LIMIT,
@@ -64,6 +65,7 @@ import {
   DEFAULT_APP_LOGO_COLOR,
   DEFAULT_APPROVAL_AUTOMATION_PREFERENCE,
   DEFAULT_BUSY_MESSAGE_MODE,
+  DEFAULT_DECISION_MODEL_SETTINGS,
   DEFAULT_DYNAMIC_ISLAND_PREFERENCE,
   DEFAULT_EXTERNAL_LINK_PREFERENCE,
   DEFAULT_PROMPT_CACHE_TTL,
@@ -72,6 +74,7 @@ import {
   DEFAULT_REMOTE_NETWORK_ROUTE,
   DEFAULT_REMOTE_SESSION_REUSE_PREFERENCE,
   DEFAULT_TRANSPARENT_WINDOW,
+  type DecisionModelState,
   type DirectConversationSnapshot,
   type DirectMessageRealtimeEvent,
   type DirectTypingRealtimeEvent,
@@ -401,6 +404,10 @@ export function createMockOpenBot(options: MockOpenBotOptions = {}): MockOpenBot
   let busyMessageMode: BusyMessageModePreference = { mode: DEFAULT_BUSY_MESSAGE_MODE };
   let agentDefaults: AgentDefaults = { ...DEFAULT_AGENT_DEFAULTS };
   let agentMemoryLimit: AgentMemoryLimitPreference = { limit: DEFAULT_AGENT_MEMORY_LIMIT };
+  let decisionModelState: DecisionModelState = {
+    ...DEFAULT_DECISION_MODEL_SETTINGS,
+    keys: { jev: false, openrouter: false, cloudflare: false },
+  };
   let promptCacheTtl: PromptCacheTtlSetting = { ...DEFAULT_PROMPT_CACHE_TTL };
   let agentAccess: AgentAccessChange = { revision: 0, everyone: {}, roles: [] };
   const agentMemoryLimitListeners = new Set<(preference: AgentMemoryLimitPreference) => void>();
@@ -1215,6 +1222,20 @@ export function createMockOpenBot(options: MockOpenBotOptions = {}): MockOpenBot
     }),
     providerRuntimes: mockProviderRuntimes.providerRuntimes,
     openUrl: async () => undefined,
+    decisionModel: {
+      get: async () => clone(decisionModelState),
+      save: async (input) => {
+        const { keys, ...settings } = input;
+        const saved = { ...decisionModelState.keys };
+        for (const name of DECISION_MODEL_KEY_NAMES) {
+          const update = keys?.[name];
+          if (update === null) saved[name] = false;
+          else if (typeof update === "string") saved[name] = true;
+        }
+        decisionModelState = { ...settings, keys: saved };
+        return clone(decisionModelState);
+      },
+    },
     voice: mockVoice.voice,
     routineFlows: mockRoutineFlows(
       { routines, routineRuns, links: options.routineFlowLinks, steps: options.routineFlowSteps },

@@ -246,6 +246,7 @@ import type {
   SaveCustomProviderInput,
   UpdateCustomProviderInput,
 } from "./ipc-custom-providers";
+import type { DecisionModelState, SaveDecisionModelInput } from "./ipc-decision-model";
 import type {
   DynamicIslandAction,
   DynamicIslandGeometry,
@@ -762,6 +763,12 @@ export const IPC_ENDPOINTS = {
     /** Asks each provider's upstream for its latest release. Rejects when no source answered. */
     checkForUpdates: request<undefined, ProviderRuntimeSnapshot>()("provider-runtimes:check-for-updates"),
     event: event<ProviderRuntimeSnapshot>()("provider-runtimes:event"),
+  },
+  decisionModel: {
+    /** The fast decision model for channel requests: its settings, and which keys are saved. */
+    get: request<undefined, DecisionModelState>()("decision-model:get"),
+    /** Saves the settings and the keys that the input names. Answers the state after the save. */
+    save: request<SaveDecisionModelInput, DecisionModelState>()("decision-model:save"),
   },
   voice: {
     /** The status of the model in use. */
@@ -1755,6 +1762,7 @@ export const IPC_GROUP_PATHS = {
   providers: "",
   providerRuntimes: "providerRuntimes",
   voice: "voice",
+  decisionModel: "decisionModel",
   dynamicIsland: "dynamicIsland",
   browserDock: "browserDock",
   computerUse: "computerUse",

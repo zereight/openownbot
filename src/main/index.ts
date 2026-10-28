@@ -63,6 +63,7 @@ import { channelRoutineIpcHandlers } from "./ipc/channel-routine-handlers";
 import { computerUseIpcHandlers } from "./ipc/computer-use-handlers";
 import { customAgentIpcHandlers } from "./ipc/custom-agent-handlers";
 import { customProviderIpcHandlers } from "./ipc/custom-provider-handlers";
+import { decisionModelIpcHandlers } from "./ipc/decision-model-handlers";
 import { registerIpcGroups, unregisterIpcGroups } from "./ipc/define-ipc-group";
 import { dynamicIslandIpcHandlers } from "./ipc/dynamic-island-handlers";
 import { eventsIpcHandlers } from "./ipc/events-handlers";
@@ -591,6 +592,7 @@ function registerIpcHandlers({
   hermesImport,
   instanceTransfer,
   voice,
+  decisionModel,
   speech,
   dynamicIsland,
   cuaDriver,
@@ -655,6 +657,7 @@ function registerIpcHandlers({
     }),
     ...providerIpcHandlers({ service, providerRuntimes, credentials: providerCredentials, openLink }),
     ...voiceIpcHandlers({ voice, speech, service }),
+    ...decisionModelIpcHandlers({ decisionModel }),
     ...accountIpcHandlers({ centralAuth, host }),
     ...skillIpcHandlers({ skills, getMainWindow: getDialogParent, translate: language.translate }),
     ...hostedSiteIpcHandlers({

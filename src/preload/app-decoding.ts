@@ -43,6 +43,7 @@ import {
   type CustomProviderResult,
   type CustomProviderSummary,
   DEFAULT_AGENT_DEFAULTS,
+  type DecisionModelState,
   type DetectedAcpAgent,
   type DetectedModelServer,
   type DiscoverModelsResult,
@@ -74,6 +75,7 @@ import {
   isCustomAgentUsage,
   isCustomProviderResult,
   isCustomProviderSummary,
+  isDecisionModelState,
   isDetectedAcpAgent,
   isDetectedModelServer,
   isDiscoverModelsResult,
@@ -416,6 +418,12 @@ export function decodeNotificationOpenedEvent(value: unknown): NotificationOpene
 }
 
 const VOICE_MODEL_PHASES: readonly VoiceModelStatus["phase"][] = ["missing", "downloading", "ready", "error"];
+
+export function decodeDecisionModelState(value: unknown): DecisionModelState {
+  if (!isDecisionModelState(value)) throw new Error("Invalid decision model state.");
+  const { backend, openrouterModel, cloudflareAccountId, cloudflareModel, keys } = value;
+  return { backend, openrouterModel, cloudflareAccountId, cloudflareModel, keys };
+}
 
 export function decodeVoiceModelStatus(value: unknown): VoiceModelStatus {
   const status = decodeRecord(value, "voice model status");

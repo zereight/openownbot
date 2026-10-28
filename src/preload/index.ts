@@ -132,6 +132,7 @@ import {
   decodeCustomAgentUsage,
   decodeCustomProviderResult,
   decodeCustomProviders,
+  decodeDecisionModelState,
   decodeDetectedAcpAgents,
   decodeDetectedModelServers,
   decodeDiscoverModelsResult,
@@ -730,6 +731,10 @@ const openbotApi: OpenBotDesktopApi = {
     setDestination: decodeRoutineResultDestination,
     deliveries: decodeRoutineResultDeliveries,
     resend: decodeVoid,
+  }),
+  decisionModel: bridgeGroup(IPC_ENDPOINTS.decisionModel, {
+    get: decodeDecisionModelState,
+    save: decodeDecisionModelState,
   }),
   voice: bridgeGroup(IPC_ENDPOINTS.voice, {
     getModelStatus: decodeVoiceModelStatus,

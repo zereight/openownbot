@@ -214,6 +214,7 @@ import { type AgentThreadRecord, AgentThreadStore } from "./agent-threads/agent-
 import { AgentWaitStore } from "./agent-waits/agent-wait-store";
 import { AgentWaits } from "./agent-waits/agent-waits";
 import { automationRunCommand } from "./automation-command";
+import { DECISION_TIMEOUT_MS, type DecisionBackend, decideMember } from "./channel-decision";
 import { toChannelOperationError } from "./channel-effects";
 import { ChannelRoutineScheduler } from "./channel-routine-scheduler";
 import { ChannelService } from "./channel-service";
@@ -320,6 +321,8 @@ export interface AgentServiceOptions {
    * Omitted, such a message waits in the queue, as every one did before the setting existed.
    */
   busyMessageMode?: () => BusyMessageMode;
+  /** The fast decision model for channel requests, or null when none is set up. Read at each request. */
+  decisionBackend?: () => DecisionBackend | null;
   /**
    * How many memories one agent can hold. The main process owns the preference. Omitted, the
    * default cap, which was the only cap before the setting existed.
@@ -457,6 +460,7 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
   readonly #workflowTools: (() => WorkflowTools) | undefined;
   readonly #developmentDefaults: boolean;
   readonly #busyMessageMode: () => BusyMessageMode;
+  readonly #decisionBackend: () => DecisionBackend | null;
   /** The last turn of each agent's chat that the user stopped. One per agent, so it needs no clean-up. */
   readonly #stoppedTurns = new Map<string, string>();
   /** The agents that asked for a new chat with `start_new_chat`. A restart forgets the request. */
@@ -487,9 +491,11 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
       githubConnector = null,
       hostMemory = null,
       busyMessageMode = () => DEFAULT_BUSY_MESSAGE_MODE,
+      decisionBackend = () => null,
     } = options;
     this.#developmentDefaults = developmentDefaults;
     this.#busyMessageMode = busyMessageMode;
+    this.#decisionBackend = decisionBackend;
     this.#localSkillTools = localSkillTools;
     this.#routineFlowTools = routineFlowTools;
     this.#workflowTools = workflowTools;
@@ -992,6 +998,13 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
     this.channels = new ChannelService(store.database, mailbox, {
       agents: () => this.listAgents(),
       hidden: (agentId) => this.#store.isHidden(agentId),
+      decideMember: (input) => {
+        const backend = this.#decisionBackend();
+        if (!backend) return Effect.succeed(null);
+        return Effect.promise(() =>
+          decideMember(backend, input, { fetch: (url, init) => fetch(url, init), timeoutMs: DECISION_TIMEOUT_MS }),
+        ).pipe(Effect.map((result) => (result.ok ? result.agentId : null)));
+      },
       generate: (lead, prompt) =>
         Effect.gen({ self: this }, function* () {
           yield* this.#providers.ensureProvider(lead.provider);

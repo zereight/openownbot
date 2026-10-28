@@ -173,6 +173,7 @@ import { type CustomAgentChanges, createCustomAgentChanges } from "./custom-agen
 import { CUSTOM_AGENTS_FILE, CustomAgentStore } from "./custom-agent-store";
 import { type CustomProviderChanges, createCustomProviderChanges } from "./custom-provider-changes";
 import { CustomProviderStore } from "./custom-provider-store";
+import { DecisionModelStore } from "./decision-model-store";
 import { MCP_OAUTH_REDIRECT_URL } from "./deep-link-router";
 import { desktopShowsAgentEvent } from "./desktop-notifications";
 import {
@@ -587,6 +588,7 @@ export interface ApplicationServices {
   hermesImport: HermesImportService;
   instanceTransfer: InstanceTransferService;
   voice: VoiceTranscriptionService;
+  decisionModel: DecisionModelStore;
   speech: VoiceSpeechService;
   dynamicIsland: DynamicIslandWindowController;
   cuaDriver: CuaDriverRuntime;
@@ -1258,6 +1260,12 @@ export async function createApplicationServices({
   // Before `new AgentService`, which reads every `executablePath` eagerly.
   await runCauseEffect(providerRuntimes.initialize());
   const secretCipher = safeStorageCipher("error.app.secretStorageUnavailable");
+  const decisionModel = new DecisionModelStore({
+    settingsPath: join(app.getPath("userData"), "decision-model.json"),
+    keysPath: join(app.getPath("userData"), "decision-model-keys.json"),
+    cipher: secretCipher,
+  });
+  await runCauseEffect(decisionModel.load());
   const customProviders = new CustomProviderStore({
     path: join(app.getPath("userData"), CUSTOM_PROVIDERS_FILE),
     cipher: secretCipher,
@@ -1712,6 +1720,7 @@ export async function createApplicationServices({
     webhookRoutines: () => agentWebhookRoutineWriter(events),
     approvalAutomation,
     busyMessageMode: () => busyMessageMode.get().mode,
+    decisionBackend: () => decisionModel.resolve(),
     agentMemoryLimit: () => agentMemoryLimit.get().limit,
     timezone: () => serverTimezone.effective(),
     // `workflowTriggers` is built later, after the workflows.
@@ -3049,6 +3058,7 @@ export async function createApplicationServices({
     hermesImport,
     instanceTransfer,
     voice,
+    decisionModel,
     speech,
     dynamicIsland,
     cuaDriver,
