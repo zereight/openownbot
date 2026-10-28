@@ -609,6 +609,26 @@ See [CONTRIBUTING.md](CONTRIBUTING.md). The [Contributor Assignment Agreement](C
 original project's and does not apply to this fork. Community behavior is governed by the
 [Code of Conduct](CODE_OF_CONDUCT.md).
 
+## Network use
+
+No requests go to OpenBot's own servers (`openbot.run` and others), and telemetry and automatic update
+checks are off. The network is used only for:
+
+- the model providers you connect,
+- provider runtime downloads (Codex, Claude, Grok and others) from their vendors,
+- external services (MCP) that you add,
+- the sites you open in the built-in browser.
+
+Two limits to know. An image that an answer or a page embeds is loaded from the site that hosts it, so
+that site sees the request. And the provider programs that OpenOwnBot starts (such as Codex or Claude
+Code) make their own network connections, which OpenOwnBot does not control.
+
+How this is kept: `packages/contracts/src/local-only.json` has `"localOnly": true`. The app then refuses
+every request to an OpenBot service (`src/main/local-only-guard.ts`), the telemetry and update code stays
+off, and `bun run check:local-only` stops a change that names such a service. The plugin marketplace and
+chat links do not ask other sites for icons while the switch is on. A measured list of the connections
+an idle app makes is planned and not written yet.
+
 ## License and attribution
 
 OpenOwnBot is a fork of OpenBot. The changes in this fork are Copyright 2026 zereight. The original
