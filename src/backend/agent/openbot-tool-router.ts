@@ -26,6 +26,7 @@ import {
   workspaceAccessEnforced,
 } from "@openbot/contracts/ipc";
 import { isString } from "@openbot/contracts/runtime-values";
+import { type AgentSquad, squadMayMessage } from "@openbot/contracts/squads";
 import { isUiBlockId, normalizeUiBlockSpec } from "@openbot/contracts/ui-blocks";
 import { sourceText } from "@openbot/i18n/source";
 import { createOpenBotLogger, redactText } from "@openbot/logging";
@@ -211,6 +212,8 @@ export interface OpenBotToolRouterOptions {
   drain: DrainScheduler;
   tables: AgentTables | null;
   sidebarLayout: AgentSidebar | null;
+  /** The squads the user made; null where there are none to read. */
+  squads: { list(): AgentSquad[] } | null;
   localSkillTools?: (() => LocalSkillTools) | undefined;
   routineFlowTools?: (() => RoutineFlowTools) | undefined;
   /** Built after the service, so read when a tool call needs it. */
@@ -256,6 +259,7 @@ export class OpenBotToolRouter {
   readonly #drain: DrainScheduler;
   readonly #tables: AgentTables | null;
   readonly #sidebarLayout: AgentSidebar | null;
+  readonly #squads: { list(): AgentSquad[] } | null;
   readonly #localSkillTools: (() => LocalSkillTools) | undefined;
   readonly #routineFlowTools: (() => RoutineFlowTools) | undefined;
   readonly #workflowTools: (() => WorkflowTools) | undefined;
@@ -292,6 +296,7 @@ export class OpenBotToolRouter {
     this.#drain = options.drain;
     this.#tables = options.tables;
     this.#sidebarLayout = options.sidebarLayout;
+    this.#squads = options.squads;
     this.#localSkillTools = options.localSkillTools;
     this.#routineFlowTools = options.routineFlowTools;
     this.#workflowTools = options.workflowTools;
@@ -998,6 +1003,7 @@ export class OpenBotToolRouter {
       senderAgentId,
       this.#routineFlowTools?.() ?? null,
       new Set(this.#hooks.listAgents().map((agent) => agent.id)),
+      this.#squads?.list() ?? [],
     );
     if (flowResult) return flowResult;
 
@@ -1711,6 +1717,22 @@ export class OpenBotToolRouter {
           ?.trim()
           .replace(/^"(.*)"$/s, "$1")
           .trim() || null;
+      // A squad limits who may start a message to whom. An answer to a request that the recipient sent
+      // is not a new request, so it always goes through.
+      const squads = this.#squads?.list() ?? [];
+      if (squads.length > 0) {
+        for (const recipient of recipientValues) {
+          if (replyTo && this.#mailbox.isAnswerTo(senderAgentId, replyTo, recipient)) continue;
+          const check = squadMayMessage(squads, senderAgentId, recipient);
+          if (!check.ok)
+            throw new Error(
+              sourceText(check.reason === "leavesSquad" ? "error.backend.squadLeaves" : "error.backend.squadEnters", {
+                agent: known.get(recipient)?.name ?? recipient,
+                squad: check.squad,
+              }),
+            );
+        }
+      }
       // An answer to a request from a side thread runs in that thread. When the thread is archived, the
       // answer goes to the recipient's own chat, so it is not lost.
       const answerTaskId = replyTo ? this.#mailbox.answerTaskId(senderAgentId, replyTo, recipientValues) : null;

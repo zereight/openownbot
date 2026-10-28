@@ -126,6 +126,10 @@ export const messages = {
   "error.backend.mailboxStateCorrupt":
     "메일함 상태가 손상되었거나 더 새로운 OpenOwnBot 버전의 것이에요. 덮어쓰지 않아요.",
   "error.backend.recipientDeleting": "받는 사람을 삭제하는 중이에요. 삭제가 끝난 후 다시 시도해 주세요.",
+  "error.backend.squadLeaves":
+    "당신은 팀 {squad}에 속해 있고, 팀 밖의 에이전트에게는 리드만 메시지를 보낼 수 있어요. {squad}의 리드에게 전달을 부탁하거나 사용자에게 물어보세요.",
+  "error.backend.squadEnters":
+    "{agent}은(는) 팀 {squad}에 속해 있어요. {squad}의 리드를 통해 연락하거나 사용자에게 물어보세요.",
   "error.backend.recipientHidden": "이 에이전트는 숨겨져 있어요. 메시지를 보내려면 복원하세요.",
   "error.backend.attachBetween": "파일을 1개에서 {limit}개 사이로 첨부하세요.",
   "error.backend.attachmentNotFile": "첨부 파일이 파일이 아니에요: {path}",

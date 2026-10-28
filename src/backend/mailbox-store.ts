@@ -469,6 +469,18 @@ export class MailboxStore {
   }
 
   /**
+   * Whether `replyToMessageId` is a message that `recipientAgentId` sent and `senderAgentId`
+   * received, so a message to that recipient answers a request instead of starting one.
+   */
+  isAnswerTo(senderAgentId: string, replyToMessageId: string, recipientAgentId: string): boolean {
+    const request = this.#state.messages.find((message) => message.id === replyToMessageId);
+    if (request?.sender.kind !== "agent" || request.sender.agentId !== recipientAgentId) return false;
+    return this.#state.deliveries.some(
+      (delivery) => delivery.messageId === request.id && delivery.recipientAgentId === senderAgentId,
+    );
+  }
+
+  /**
    * The deliveries of requests that an agent sent from one messaging link, whose answer goes back to
    * it, and that have not ended.
    */
