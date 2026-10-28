@@ -1,0 +1,101 @@
+/** First names for a new agent, in English whatever the interface language. The user can rename it. */
+export const AGENT_NAMES = [
+  "Aiden",
+  "Alma",
+  "Anders",
+  "Beatrix",
+  "Bianca",
+  "Callum",
+  "Cleo",
+  "Dante",
+  "Dara",
+  "Edith",
+  "Elio",
+  "Esme",
+  "Farid",
+  "Greta",
+  "Hector",
+  "Ines",
+  "Ingrid",
+  "Jonas",
+  "Kofi",
+  "Lena",
+  "Lior",
+  "Mateo",
+  "Mira",
+  "Nolan",
+  "Odette",
+  "Pablo",
+  "Rafael",
+  "Selma",
+  "Tessa",
+  "Viktor",
+  "Wren",
+  "Xavier",
+  "Adaline",
+  "Bram",
+  "Celeste",
+  "Dmitri",
+  "Elodie",
+  "Fabian",
+  "Gianna",
+  "Henrik",
+  "Imani",
+  "Joaquin",
+  "Katya",
+  "Leopold",
+  "Marlowe",
+  "Nadir",
+  "Oriel",
+  "Percy",
+  "Rosalind",
+  "Soren",
+  "Talia",
+  "Ulrich",
+  "Vivian",
+  "Winston",
+  "Yusuf",
+  "Zelda",
+  "Amos",
+  "Briar",
+  "Cyrus",
+  "Delia",
+  "Emeric",
+  "Fiona",
+  "Gideon",
+  "Hollis",
+  "Ilsa",
+  "Jules",
+  "Kestrel",
+  "Lorenzo",
+  "Maeve",
+  "Niamh",
+  "Orson",
+  "Penelope",
+  "Quentin",
+  "Rhea",
+  "Stellan",
+  "Thea",
+  "Una",
+  "Vesper",
+  "Wilder",
+  "Xena",
+  "Yannick",
+  "Zephyr",
+] as const;
+
+/**
+ * A name that no agent has yet, so the mention list does not hold two of the same name. Once every
+ * name is taken, a name gets a number: "Aiden 2".
+ */
+export function pickAgentName(random: () => number, taken: readonly string[]): string {
+  const used = new Set(taken.map((name) => name.trim().toLowerCase()));
+  const free = AGENT_NAMES.filter((name) => !used.has(name.toLowerCase()));
+  if (free.length > 0) return free[Math.min(free.length - 1, Math.floor(random() * free.length))] ?? AGENT_NAMES[0];
+  const base =
+    AGENT_NAMES[Math.min(AGENT_NAMES.length - 1, Math.floor(random() * AGENT_NAMES.length))] ?? AGENT_NAMES[0];
+  for (let number = 2; ; number += 1) {
+    const candidate = `${base} ${number}`;
+    if (!used.has(candidate.toLowerCase())) return candidate;
+  }
+}

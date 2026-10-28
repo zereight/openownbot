@@ -16,9 +16,10 @@ import { Button, Field, Input, Textarea } from "@openbot/ui";
 import { createSignal, For, onSettled, Show } from "solid-js";
 import { AVATAR_HUE_CHOICES, avatarCandidateSeeds, avatarHeadColor, avatarHueSwatch } from "../../bloub-avatar";
 import { ProviderModelPicker } from "../../components/ProviderModelPicker";
-import { currentText, useText } from "../../text";
+import { useText } from "../../text";
 import { prefersReducedMotion } from "../../utils";
 import { AgentAvatar } from "./AgentAvatar";
+import { pickAgentName } from "./agent-names";
 import { AVATAR_HUE_LABEL } from "./avatar-hue-label";
 import { InstructionsLimit, instructionsTooLong } from "./InstructionsLimit";
 
@@ -82,13 +83,16 @@ const SUGGESTION_DRAG_THRESHOLD = 8;
 const MOTION_FRAME_DURATION = 1000 / 60;
 
 /**
- * A new draft. Its name is the default name in the interface language when the draft is made: the
- * name is the user's value from then on, and becomes the created agent's name.
+ * A new draft. Its name is a random English first name, not one that an agent of `takenNames` has, when
+ * the draft is made: the name is the user's value from then on, and becomes the created agent's name.
  */
-export function createFirstAgentDraft(random: () => number = Math.random): FirstAgentDraft {
+export function createFirstAgentDraft(
+  random: () => number = Math.random,
+  takenNames: readonly string[] = [],
+): FirstAgentDraft {
   const index = Math.min(FIRST_AGENT_AVATAR_SEEDS.length - 1, Math.floor(random() * FIRST_AGENT_AVATAR_SEEDS.length));
   return {
-    name: currentText().t("agent.setup.nameFallback"),
+    name: pickAgentName(random, takenNames),
     purpose: "",
     avatarSeed: FIRST_AGENT_AVATAR_SEEDS[index] ?? "first-bot",
     avatarHue: null,

@@ -236,7 +236,12 @@ const Agents = createSimpleContext({
         return (profiles.find((agent) => !hidden.has(agent.id)) ?? profiles[0])?.id ?? "";
       });
       if (profiles.length === 0 && !agentSetupOpen()) {
-        setAgentSetupDraft(createFirstAgentDraft());
+        setAgentSetupDraft(
+          createFirstAgentDraft(
+            Math.random,
+            profiles.map((agent) => agent.name),
+          ),
+        );
         setAgentSetupError(null);
         setAgentSetupOpen(true);
       }
@@ -269,6 +274,10 @@ const Agents = createSimpleContext({
       hiddenAgentIds.delete(agentId);
     }
 
+    function takenAgentNames(): string[] {
+      return agentList().map((agent) => agent.name);
+    }
+
     function openAgentSetup(): void {
       // The form renders in the workspace content that a rail page covers, and the
       // sidebar button that asks for it is outside that markup. Above the guard
@@ -279,7 +288,7 @@ const Agents = createSimpleContext({
       windowPage.showAgents();
       if (agentSetupOpen()) return;
       setDirectTyping(false);
-      setAgentSetupDraft(createFirstAgentDraft());
+      setAgentSetupDraft(createFirstAgentDraft(Math.random, takenAgentNames()));
       setAgentSetupError(null);
       openedAgentChatId = null;
       setAgentSetupOpen(true);
@@ -289,7 +298,7 @@ const Agents = createSimpleContext({
       if (creatingAgent() || agentList().length === 0) return;
       setAgentSetupOpen(false);
       setAgentSetupError(null);
-      setAgentSetupDraft(createFirstAgentDraft());
+      setAgentSetupDraft(createFirstAgentDraft(Math.random, takenAgentNames()));
     }
 
     async function updateAgent(agentId: string, updates: Omit<UpdateAgentInput, "agentId">): Promise<void> {
