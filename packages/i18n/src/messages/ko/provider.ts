@@ -264,4 +264,9 @@ export const messages = {
   "provider.settings.endpoints": "엔드포인트",
   "provider.settings.noEndpoints": "엔드포인트가 없어요.",
   "provider.settings.endpointModels": { other: "{url} · 모델 {count}개" },
+  "provider.settings.environment": "환경변수",
+  "provider.settings.environmentDescription":
+    "한 줄에 NAME=value 하나씩 적어요. Claude를 시작할 때 전달되고, Claude 설정 파일에 같은 이름이 있으면 이 값이 우선해요. 바꾼 내용은 새 세션부터 적용돼요.",
+  "provider.settings.environmentSave": "저장",
+  "provider.settings.environmentLoadFailed": "환경변수를 불러오지 못했어요.",
 } as const satisfies PartialTranslation<typeof source>;

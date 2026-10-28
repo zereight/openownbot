@@ -386,6 +386,11 @@ export interface ProviderClientContext {
    * same reason as `reportMcpDrops`: without it the CLI uses its own cache time.
    */
   readonly promptCacheTtl?: () => PromptCacheTtl;
+  /**
+   * The variables that the user set for Claude, read at each query start. They go into the flag
+   * settings, not the process environment, so they replace the same name in a Claude settings file.
+   */
+  readonly claudeEnvironment?: () => Readonly<Record<string, string>>;
 }
 
 /** The agent environment with the account's home folder after it, so the account folder wins. */
@@ -708,6 +713,7 @@ export const BUILT_IN_PROVIDER_DRIVERS: readonly BuiltInProviderDriver[] = [
         claudeAgentEnvironment(context),
         undefined,
         claudeFallbackApiKey(context),
+        context.claudeEnvironment,
       ),
     authState: (account) => ({ kind: "claude", email: account?.email ?? null }),
     validateAccount: () => undefined,

@@ -56,6 +56,7 @@ import {
   Smartphone,
   Spinner,
   Switch,
+  Textarea,
   Trash2,
   UserRoundPlus,
   X,
@@ -100,6 +101,15 @@ export interface ProviderPromptCache {
   onChange: (ttl: PromptCacheTtl) => void;
 }
 
+/** The variables that Claude starts with, as the text of an editor. `text` is null until the computer answers. */
+export interface ProviderEnvironmentEditor {
+  text: string | null;
+  pending: boolean;
+  /** A load or a save that failed, with the line that is wrong. */
+  error: string | null;
+  onSave: (text: string) => void;
+}
+
 export interface ProviderSettingsPageProps extends ProviderRowHost {
   options: ProviderPickerOption[];
   /** The default for new agents. A joined server has none: its default is not this computer's. */
@@ -136,6 +146,8 @@ export interface ProviderSettingsPageProps extends ProviderRowHost {
   onDetailChange?: ((detail: ProviderSettingsDetail | null) => void) | undefined;
   /** On the Claude page. Only for a host with `prompt-cache-ttl-v1` that this account administers. */
   promptCache?: ProviderPromptCache | undefined;
+  /** Claude only, and only for this computer: the Team API does not carry the variables. */
+  claudeEnvironment?: ProviderEnvironmentEditor | undefined;
   /** Below the list: what the host found, and the other agents the user can add. */
   footer?: JSX.Element;
 }
@@ -514,6 +526,9 @@ function ProviderPage(props: PageProps) {
         <RuntimeSection {...props} row={row} />
         <Show when={props.option.id === "claude" && props.promptCache}>
           {(cache) => <PromptCacheSection cache={cache()} disabled={props.disabled} menuMount={props.menuMount} />}
+        </Show>
+        <Show when={props.option.id === "claude" && props.claudeEnvironment}>
+          {(editor) => <ClaudeEnvironmentSection editor={editor()} disabled={props.disabled} />}
         </Show>
       </Show>
       <UseSection {...props} row={row} />
@@ -1347,6 +1362,60 @@ function PromptCacheSection(props: {
               </ItemActions>
             )}
           </Show>
+        </Item>
+      </ItemGroup>
+    </SettingsSection>
+  );
+}
+
+/* ---------------------------------------------- Environment */
+
+/** Claude only. A saved change applies to the next Claude process, not to a running turn. */
+function ClaudeEnvironmentSection(props: { editor: ProviderEnvironmentEditor; disabled: boolean | undefined }) {
+  const { t } = useText();
+  const [draft, setDraft] = createSignal("");
+  createEffect(
+    () => props.editor.text,
+    (text) => {
+      if (text !== null) setDraft(text);
+    },
+  );
+  const changed = () => props.editor.text !== null && draft() !== props.editor.text;
+  return (
+    <SettingsSection title={t("provider.settings.environment")}>
+      <ItemGroup class="settings-modal-card">
+        <Item class="settings-modal-row">
+          <ItemContent>
+            <ItemTitle id="provider-settings-environment-label">{t("provider.settings.environment")}</ItemTitle>
+            <Show
+              when={props.editor.error}
+              fallback={<ItemDescription>{t("provider.settings.environmentDescription")}</ItemDescription>}
+            >
+              {(message) => (
+                <ItemDescription class="provider-settings-error" role="alert">
+                  {message()}
+                </ItemDescription>
+              )}
+            </Show>
+            <Textarea
+              rows="5"
+              spellcheck={false}
+              value={draft()}
+              aria-labelledby="provider-settings-environment-label"
+              placeholder={t("provider.settings.environmentPlaceholder")}
+              disabled={Boolean(props.disabled || props.editor.text === null)}
+              onValueChange={setDraft}
+            />
+          </ItemContent>
+          <ItemActions>
+            <Button
+              size="sm"
+              disabled={Boolean(props.disabled || props.editor.pending || !changed())}
+              onClick={() => props.editor.onSave(draft())}
+            >
+              {t("provider.settings.environmentSave")}
+            </Button>
+          </ItemActions>
         </Item>
       </ItemGroup>
     </SettingsSection>

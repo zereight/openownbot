@@ -808,6 +808,7 @@ export function ServerSettingsModal(props: ServerSettingsModalProps) {
                   selectMount={modalElement()}
                   onDetailChange={setProviderDetail}
                   promptCache={promptCacheSource()}
+                  claudeEnvironment={local()}
                 />
               )}
             </Show>

@@ -131,6 +131,7 @@ import {
   type UpdateStatus,
   type WorkspaceDirectory,
 } from "@openbot/contracts/ipc";
+import { parseProviderEnvironment } from "@openbot/contracts/provider-environment";
 import { sourceText } from "@openbot/i18n/source";
 import {
   AGENT_IMPORT_PREVIEW,
@@ -409,6 +410,7 @@ export function createMockOpenBot(options: MockOpenBotOptions = {}): MockOpenBot
     keys: { jev: false, openrouter: false, cloudflare: false },
   };
   let promptCacheTtl: PromptCacheTtlSetting = { ...DEFAULT_PROMPT_CACHE_TTL };
+  let claudeEnvironment: Readonly<Record<string, string>> = {};
   let agentAccess: AgentAccessChange = { revision: 0, everyone: {}, roles: [] };
   const agentMemoryLimitListeners = new Set<(preference: AgentMemoryLimitPreference) => void>();
   let remoteSessionReuse: RemoteSessionReusePreference = { ...DEFAULT_REMOTE_SESSION_REUSE_PREFERENCE };
@@ -1215,6 +1217,13 @@ export function createMockOpenBot(options: MockOpenBotOptions = {}): MockOpenBot
       if (available === 0) return "noCredit";
       usageResets.set(accountId, available - 1);
       return "reset";
+    },
+    getClaudeEnvironment: async () => ({ environment: clone(claudeEnvironment) }),
+    setClaudeEnvironment: async (text) => {
+      const parsed = parseProviderEnvironment(text);
+      if (!parsed.ok) throw new Error(`Line ${parsed.line}: ${parsed.message}`);
+      claudeEnvironment = parsed.environment;
+      return { environment: clone(claudeEnvironment) };
     },
     getProviderApiKeyState: async (provider) => ({
       provider,

@@ -63,6 +63,7 @@ import {
   RequestTimeoutError,
 } from "./agent-client";
 import { claudeContextCategories } from "./claude-context-categories";
+import { claudeFlagSettings } from "./claude-flag-settings";
 import { type ClaudeHistoryOptions, claudeHistoryFromMessages, claudeHistoryReader } from "./claude-history";
 import {
   CLAUDE_WORKSPACE_MANAGED_SETTINGS,
@@ -315,6 +316,8 @@ export class ClaudeAgentClient extends EventEmitter<ClientEvents> {
    * account: the key then serves the agents that the user did not move to another account.
    */
   readonly #fallbackApiKey: (() => string | null) | undefined;
+  /** The variables that the user set for Claude, read at each query start like `#agentEnvironment`. */
+  readonly #userEnvironment: (() => Readonly<Record<string, string>>) | undefined;
   /** Whether the last account read found no claude.ai account and signed in with the key. */
   #onApiKey = false;
   readonly readHistory: ReadProviderHistory;
@@ -364,6 +367,7 @@ export class ClaudeAgentClient extends EventEmitter<ClientEvents> {
     agentEnvironment?: (inherited?: NodeJS.ProcessEnv) => Readonly<Record<string, string>>,
     historyIndexDirectory?: string,
     fallbackApiKey?: () => string | null,
+    userEnvironment?: () => Readonly<Record<string, string>>,
   ) {
     super();
     this.#cli = cli;
@@ -378,6 +382,7 @@ export class ClaudeAgentClient extends EventEmitter<ClientEvents> {
     this.#stateDirectory = stateDirectory;
     this.#agentEnvironment = agentEnvironment;
     this.#fallbackApiKey = fallbackApiKey;
+    this.#userEnvironment = userEnvironment;
     const historyEnvironment = agentEnvironment?.();
     const resolvedHistoryIndexDirectory = historyIndexDirectory ?? stateDirectory;
     const historyOptions: ClaudeHistoryOptions = {
@@ -859,6 +864,7 @@ export class ClaudeAgentClient extends EventEmitter<ClientEvents> {
     if (handoff) this.#reportMcpDrops?.(this.provider, handoff.dropped);
     const mcpServers = handoff ? { ...handoff.servers, ...this.#createOpenBotServers(threadId) } : {};
     const nodeOptions = this.#agentEnvironment?.().NODE_OPTIONS;
+    const flagSettings = claudeFlagSettings(this.#userEnvironment?.() ?? {}, nodeOptions);
     const claudeQuery = yield* providerSync(() =>
       this.#createQuery({
         prompt: input,
@@ -902,7 +908,7 @@ export class ClaudeAgentClient extends EventEmitter<ClientEvents> {
           // The SDK deletes NODE_OPTIONS from the environment of the CLI. On a server the agent
           // environment has the CPU limit module there (`agentProcessEnvironment`), so it goes into
           // the flag settings, whose `env` the CLI gives to the Bash tool and its hooks.
-          ...(nodeOptions ? { settings: { env: { NODE_OPTIONS: nodeOptions } } } : {}),
+          ...(flagSettings ? { settings: flagSettings } : {}),
           ...(config.workspaceOnly
             ? {
                 sandbox: claudeWorkspaceSandbox(config.additionalDirectories),

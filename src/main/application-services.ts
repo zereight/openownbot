@@ -158,6 +158,7 @@ import { BusyMessageModePreferenceStore } from "./busy-message-mode-preference-s
 import { CentralAuthManager, readCentralAuthApiUrl, readMobileConnectApiUrl } from "./central-auth-manager";
 import { startChannelLog } from "./channel-log";
 import { ChatVisualPreviewer } from "./chat-visual-preview";
+import { createClaudeEnvironmentPreferenceStore } from "./claude-environment-preference-store";
 import { ComputerUseHighlightController } from "./computer-use-highlight-window";
 import { applicationBundlePath, applicationIconName } from "./computer-use-permission-app";
 import { ComputerUsePermissionHelpWindowController } from "./computer-use-permission-help-window";
@@ -347,6 +348,7 @@ const AGENT_DEFAULTS_PREFERENCE_FILE = "openbot-agent-defaults-v1.json";
 const AGENT_MEMORY_LIMIT_PREFERENCE_FILE = "openbot-agent-memory-limit-v1.json";
 const SERVER_TIMEZONE_PREFERENCE_FILE = "openbot-server-timezone-v1.json";
 const PROMPT_CACHE_TTL_PREFERENCE_FILE = "openbot-prompt-cache-ttl-v1.json";
+const CLAUDE_ENVIRONMENT_PREFERENCE_FILE = "openbot-claude-environment-v1.json";
 const REMOTE_SESSION_REUSE_PREFERENCE_FILE = "openbot-remote-session-reuse-preference-v1.json";
 const EXTERNAL_LINK_PREFERENCE_FILE = "openbot-external-link-preference-v1.json";
 const REMOTE_NETWORK_ROUTE_PREFERENCE_FILE = "openbot-remote-network-route-v1.json";
@@ -553,6 +555,7 @@ export interface ApplicationServices {
   agentAccess: AgentAccessStore;
   serverTimezone: ServerTimezonePreferenceStore;
   promptCacheTtl: PromptCacheTtlPreferenceStore;
+  claudeEnvironment: ReturnType<typeof createClaudeEnvironmentPreferenceStore>;
   remoteSessionReuse: RemoteSessionReusePreferenceStore;
   externalLinkPreference: ExternalLinkPreferenceStore;
   externalLinks: ExternalLinkOpener;
@@ -1165,6 +1168,10 @@ export async function createApplicationServices({
     join(app.getPath("userData"), PROMPT_CACHE_TTL_PREFERENCE_FILE),
   );
   await runCauseEffect(promptCacheTtl.load());
+  const claudeEnvironment = createClaudeEnvironmentPreferenceStore(
+    join(app.getPath("userData"), CLAUDE_ENVIRONMENT_PREFERENCE_FILE),
+  );
+  await runCauseEffect(claudeEnvironment.load());
   const remoteSessionReuse = createRemoteSessionReusePreferenceStore(
     join(app.getPath("userData"), REMOTE_SESSION_REUSE_PREFERENCE_FILE),
   );
@@ -1673,6 +1680,8 @@ export async function createApplicationServices({
       apiKey: (provider) => providerCredentials.get(provider),
       // Read at each Claude spawn, so a change from Server settings applies to the next process.
       promptCacheTtl: () => promptCacheTtl.get().ttl,
+      // Read at each Claude spawn, like the prompt cache time.
+      claudeEnvironment: () => claudeEnvironment.get().environment,
       // `configs()`, not `list()`: this is the one path the API keys travel, and it ends at the
       // spawned provider process. The IPC handlers are given `list()`.
       customProviders: () => customProviders.configs(),
@@ -3022,6 +3031,7 @@ export async function createApplicationServices({
     agentAccess,
     serverTimezone,
     promptCacheTtl,
+    claudeEnvironment,
     remoteSessionReuse,
     externalLinkPreference,
     externalLinks,

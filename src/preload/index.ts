@@ -72,6 +72,7 @@ import {
   decodeWebhookSecret,
   decodeWebhookTestResult,
 } from "@openbot/contracts/ipc-events";
+import { decodeProviderEnvironmentState } from "@openbot/contracts/provider-environment";
 import { contextBridge, ipcRenderer, webUtils } from "electron";
 import {
   decodeAccountUsageFromMain,
@@ -648,6 +649,8 @@ const openbotApi: OpenBotDesktopApi = {
     setProviderApiKey: decodeAgentStatusFromMain,
     clearProviderApiKey: decodeAgentStatusFromMain,
     getProviderApiKeyState: decodeProviderApiKeyState,
+    getClaudeEnvironment: decodeProviderEnvironmentState,
+    setClaudeEnvironment: decodeProviderEnvironmentState,
     startProviderCodeLogin: decodeProviderCodeLoginStart,
     cancelProviderCodeLogin: decodeAgentStatusFromMain,
     connectProviderAccount: decodeAgentStatusFromMain,

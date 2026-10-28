@@ -265,6 +265,12 @@ export const messages = defineMessages("provider", {
   "provider.settings.promptCacheHour": "1 hour",
   "provider.settings.promptCacheDefault": "Claude Code default",
   "provider.settings.promptCacheLoadFailed": "Could not load the prompt cache time of this server.",
+  "provider.settings.environment": "Environment variables",
+  "provider.settings.environmentDescription":
+    "One NAME=value on each line. Claude starts with them, and they replace the same name in your Claude settings files. A change applies to the next new session.",
+  "provider.settings.environmentPlaceholder": "NAME=value",
+  "provider.settings.environmentSave": "Save",
+  "provider.settings.environmentLoadFailed": "Could not load the environment variables.",
   "provider.settings.use": "Use",
   "provider.settings.defaultForNew": "Default for new agents",
   "provider.settings.startsWith": "New agents start with {name}.",

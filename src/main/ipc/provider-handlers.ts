@@ -13,10 +13,13 @@ import {
   type ResetProviderUsageInput,
   type SetProviderApiKeyInput,
 } from "@openbot/contracts/ipc";
+import { parseProviderEnvironment } from "@openbot/contracts/provider-environment";
 import { isDynamicRecord, isString } from "@openbot/contracts/runtime-values";
 import { sourceText } from "@openbot/i18n/source";
 import { AgentLifecycleFailed, type AgentService } from "../../backend/agent-service";
 import { runCauseEffect } from "../../backend/effect-boundary";
+import type { ClaudeEnvironmentPreference } from "../claude-environment-preference-store";
+import type { PreferenceStore } from "../preference-file";
 import type { ProviderCredentialStore } from "../provider-credential-store";
 import type { ProviderRuntimeManager } from "../provider-runtime-manager";
 import { parseProviderId } from "./app-inputs";
@@ -30,6 +33,7 @@ export interface ProviderIpcDependencies {
   service: AgentService;
   providerRuntimes: ProviderRuntimeManager;
   credentials: ProviderCredentialStore;
+  claudeEnvironment: PreferenceStore<ClaudeEnvironmentPreference>;
   /** Opens a web page in the program that the user chose in Settings. */
   openLink: (url: string) => Promise<void>;
 }
@@ -38,6 +42,7 @@ export function providerIpcHandlers({
   service,
   providerRuntimes,
   credentials,
+  claudeEnvironment,
   openLink,
 }: ProviderIpcDependencies): Pick<IpcGroupHandlers, "providers" | "providerRuntimes"> {
   return {
@@ -131,6 +136,10 @@ export function providerIpcHandlers({
       resetProviderUsage: payloadHandler(parseResetProviderUsageInput, ({ provider, accountId }) =>
         runCauseEffect(service.resetProviderUsage(provider, accountId)),
       ),
+      getClaudeEnvironment: handler(() => claudeEnvironment.get()),
+      setClaudeEnvironment: payloadHandler(parseClaudeEnvironmentText, (text) =>
+        runCauseEffect(claudeEnvironment.set({ environment: readClaudeEnvironmentText(text) })),
+      ),
       // A status, never the key: see `setProviderApiKey` in the desktop API contract.
       getProviderApiKeyState: payloadHandler(parseProviderId, async (provider) => ({
         provider,
@@ -209,4 +218,18 @@ export function parseRenameProviderAccountInput(value: unknown): RenameProviderA
   const label = value.label?.trim() || null;
   if (label && label.length > PROVIDER_ACCOUNT_LABEL_MAX_LENGTH) throw new Error("Invalid provider account.");
   return { ...parseRemoveProviderAccountInput(value), label };
+}
+
+/** The text of the editor. */
+function parseClaudeEnvironmentText(value: unknown): string {
+  if (typeof value !== "string") throw new Error("The variables must be text.");
+  readClaudeEnvironmentText(value);
+  return value;
+}
+
+/** A line that is wrong fails with its number, which the editor shows. */
+function readClaudeEnvironmentText(text: string) {
+  const parsed = parseProviderEnvironment(text);
+  if (!parsed.ok) throw new Error(`Line ${parsed.line}: ${parsed.message}`);
+  return parsed.environment;
 }
