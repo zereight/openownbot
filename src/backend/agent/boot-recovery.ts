@@ -1,3 +1,4 @@
+import { RESTART_INTERRUPTED_REASON } from "@openbot/contracts/ipc";
 import { Cause, Effect, Schema } from "effect";
 import type { AgentProvider } from "../agent-client";
 import type { AgentStore } from "../agent-store";
@@ -180,7 +181,7 @@ export class BootRecovery {
   ) {
     const interrupted = {
       terminal: "interrupted" as const,
-      reason: "OpenBot restarted before this delivery reached a confirmed terminal state.",
+      reason: RESTART_INTERRUPTED_REASON,
     };
     const { terminal, reason } = yield* Effect.gen({ self: this }, function* () {
       const { agent, client, session } = yield* recoveryStep(() => {

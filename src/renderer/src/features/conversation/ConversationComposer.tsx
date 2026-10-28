@@ -57,9 +57,12 @@ import { speechReading } from "../speech/speech-playback";
 import { stopSpokenReply } from "../speech/speech-replies";
 import { copyComposerSelection, readComposerCopy } from "./composer-clipboard";
 import { useConversationViewScope } from "./conversation-scope";
+import { restartInterruptedDelivery } from "./restart-interrupted";
 
 // Module scope: the composer remounts on navigation, and a dismissed notice must stay dismissed.
 const [dismissedCompactions, setDismissedCompactions] = createSignal<Record<string, string>>({});
+// Keyed by chat: the delivery whose restart notice the user closed.
+const [dismissedRestartNotices, setDismissedRestartNotices] = createSignal<Record<string, string>>({});
 // Keyed by provider account, then by chat: a recovered window clears every chat of that account.
 const [dismissedUsageLimits, setDismissedUsageLimits] = createStore<Record<string, Record<string, string>>>({});
 
@@ -119,6 +122,7 @@ export function ConversationComposer() {
     voiceLiveText,
     voicePhase,
     voiceModelProgress,
+    sendCardMessage,
     sideQuestionAvailable,
     openSideQuestion,
     voiceConversationAvailable,
@@ -175,6 +179,12 @@ export function ConversationComposer() {
     const value = context()?.compaction;
     return value && value.id !== dismissedCompactions()[currentChatConversationKey() ?? ""] ? value : null;
   };
+  /** The request that a restart of OpenBot cut off, until the user writes again or closes the notice. */
+  const restartNotice = createMemo(() => {
+    const agentId = props.agent?.id;
+    const cut = agentId ? restartInterruptedDelivery(props.queue?.deliveries ?? [], agentId) : null;
+    return cut && cut.id !== dismissedRestartNotices()[currentChatConversationKey() ?? ""] ? cut : null;
+  });
   /** A failed `/compact`, shown as the banner of the chat that it ran in. */
   const [commandError, setCommandError] = createSignal<{ key: string; message: string } | null>(null);
   /** The commands of `/`. They follow the rules of the Compact action of the context ring. */
@@ -626,6 +636,32 @@ export function ConversationComposer() {
                   setCommandError(null);
                   setComposerFocusRequest((current) => current + 1);
                 }}
+              />
+            )}
+          </Show>
+          <Show when={restartNotice()}>
+            {(cut) => (
+              <ComposerErrorBanner
+                message={t("composer.restartInterrupted.body")}
+                tone="warning"
+                conversationKey={currentChatConversationKey()}
+                onDismiss={() => {
+                  setDismissedRestartNotices((current) => ({
+                    ...current,
+                    [currentChatConversationKey() ?? ""]: cut().id,
+                  }));
+                  setComposerFocusRequest((current) => current + 1);
+                }}
+                action={
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    type="button"
+                    onClick={() => sendCardMessage(t("composer.restartInterrupted.message"))}
+                  >
+                    {t("composer.restartInterrupted.action")}
+                  </Button>
+                }
               />
             )}
           </Show>

@@ -16,6 +16,12 @@ export const QUEUE_DELIVERY_STATUSES = [
 export type QueueDeliveryStatus = (typeof QUEUE_DELIVERY_STATUSES)[number];
 
 /**
+ * The `error` of a delivery that restart recovery left `interrupted`: the provider could not confirm how
+ * it ended. A stop by the user, or a turn that never started, has another reason.
+ */
+export const RESTART_INTERRUPTED_REASON = "OpenBot restarted before this delivery reached a confirmed terminal state.";
+
+/**
  * What a message sent to a busy agent does. `queue` waits behind the running turn; `steer` joins
  * that turn at the provider's next step. Idle agents start every message the same way.
  */
