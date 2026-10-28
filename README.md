@@ -3,6 +3,12 @@
 [![CI](https://github.com/nightly-labs/openbot/actions/workflows/ci.yml/badge.svg)](https://github.com/nightly-labs/openbot/actions/workflows/ci.yml)
 [![License](https://img.shields.io/badge/license-PolyForm_Noncommercial_1.0.0-blue.svg)](LICENSE)
 
+> [!NOTE]
+> This is OpenOwnBot, a noncommercial fork of [OpenBot](https://github.com/nightly-labs/openbot) by
+> Synthetify Labs. It is not affiliated with or supported by Synthetify Labs. The source is available
+> under the PolyForm Noncommercial License 1.0.0 (see [License and attribution](#license-and-attribution)):
+> it is not an OSI open-source license, and commercial use is not allowed.
+
 OpenBot is a local-first desktop workspace for persistent AI teammates. It supports the local
 [Codex App Server](https://learn.chatgpt.com/docs/app-server) and
 [Claude Code](https://code.claude.com/docs/en/overview), plus [Grok CLI](https://docs.x.ai/build/overview),
@@ -599,12 +605,18 @@ popover. Release signing secrets and the complete procedure are documented in
 
 ## Contributing
 
-See [CONTRIBUTING.md](CONTRIBUTING.md). Before we merge a contribution, each
-author from outside the organization signs the [Contributor Assignment Agreement](CLA.md), which
-assigns its copyright to Synthetify Labs. Community behavior is governed by the
+See [CONTRIBUTING.md](CONTRIBUTING.md). The [Contributor Assignment Agreement](CLA.md) is the
+original project's and does not apply to this fork. Community behavior is governed by the
 [Code of Conduct](CODE_OF_CONDUCT.md).
 
 ## License and attribution
+
+OpenOwnBot is a fork of OpenBot. The changes in this fork are Copyright 2026 zereight. The original
+code is Copyright 2026 Synthetify Labs spółka z ograniczoną odpowiedzialnością, and its license does
+not allow anyone to license it again under other terms, so the whole fork stays under the same
+license. Both copyright notices stay in [LICENSE](LICENSE) and [NOTICE](NOTICE). The paragraphs below
+are the original project's text: the commercial license they mention is for the original code and
+comes from its copyright owner, not from this fork.
 
 Copyright 2026 Synthetify Labs spółka z ograniczoną odpowiedzialnością.
 

@@ -181,7 +181,11 @@ reason in the `bunfig.toml` comment. `bun pm untrusted` shows the blocked script
 
 ## Licensing
 
-Each author of a pull request must sign the
+This fork does not use the agreement below and does not ask you to assign your copyright. It is the
+original project's text, kept so that the history stays whole. You keep the copyright in what you
+send, and you license it under the PolyForm Noncommercial License 1.0.0 of this repository.
+
+For the original project: each author of a pull request must sign the
 [OpenBot Contributor Assignment Agreement](CLA.md). The agreement assigns the copyright in your
 contributions to Synthetify Labs spółka z ograniczoną odpowiedzialnością. Organization members,
 users with write access to this repository and bots do not sign.
