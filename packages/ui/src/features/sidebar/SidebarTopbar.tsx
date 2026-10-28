@@ -14,6 +14,8 @@ import {
   Hash,
   IconButton,
   Puzzle,
+  Upload,
+  UsersRound,
 } from "@openbot/ui";
 import { Show } from "solid-js";
 import { useText } from "../../text";
@@ -130,7 +132,7 @@ export function SidebarTopbar() {
             </Show>
           </Button>
         </Show>
-        <Show when={props.createSupported !== false || props.onCreateChannel || layoutMutable()}>
+        <Show when={props.createSupported !== false || props.onCreateChannel || layoutMutable() || props.onManageTeams}>
           <DropdownMenu.Root placement="bottom-end" gutter={4}>
             <DropdownMenu.Trigger
               class="sidebar-icon-button sidebar-new-button no-drag"
@@ -158,6 +160,18 @@ export function SidebarTopbar() {
                   <DropdownMenu.Item onSelectAfterClose={() => startCreateSection()}>
                     <FolderPlus aria-hidden="true" />
                     {t("sidebar.new.section")}
+                  </DropdownMenu.Item>
+                </Show>
+                <Show when={layoutMutable() && props.onImportTeam}>
+                  <DropdownMenu.Item onSelectAfterClose={() => props.onImportTeam?.()}>
+                    <Upload aria-hidden="true" />
+                    {t("sidebar.new.importTeam")}
+                  </DropdownMenu.Item>
+                </Show>
+                <Show when={props.onManageTeams}>
+                  <DropdownMenu.Item onSelectAfterClose={() => props.onManageTeams?.()}>
+                    <UsersRound aria-hidden="true" />
+                    {t("sidebar.new.manageTeams")}
                   </DropdownMenu.Item>
                 </Show>
               </DropdownMenu.Content>
