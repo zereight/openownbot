@@ -1,7 +1,7 @@
 import type { AgentSquad, SaveSquadInput } from "@openbot/contracts/ipc";
 import { classifyFailure } from "@openbot/telemetry";
 import { Button, Checkbox, Dialog, Heading, IconButton, Input, NativeSelect, Text, toast, X } from "@openbot/ui";
-import { createSignal, For, Show } from "solid-js";
+import { createMemo, createSignal, For, Show } from "solid-js";
 import { useText } from "../../text";
 
 export interface SquadAgentOption {
@@ -33,6 +33,11 @@ export function AgentSquadsDialog(props: AgentSquadsDialogProps) {
   const { t, errorMessage } = useText();
   const [draft, setDraft] = createSignal<Draft | null>(null);
   const [busy, setBusy] = createSignal(false);
+
+  // The lead alone decides who can be a member. Reading the whole draft here would rebuild the rows each
+  // time a box is checked or a letter is typed, and a long list would jump back to its top.
+  const leadId = createMemo(() => draft()?.leadAgentId ?? "");
+  const candidates = createMemo(() => props.agents.filter((agent) => agent.id !== leadId()));
 
   const agentName = (id: string) => props.agents.find((agent) => agent.id === id)?.name ?? id;
 
@@ -203,7 +208,9 @@ export function AgentSquadsDialog(props: AgentSquadsDialogProps) {
                         value={current().leadAgentId}
                         onChange={(event) => setLead(event.currentTarget.value)}
                       >
-                        <For each={props.agents}>{(agent) => <option value={agent.id}>{agent.name}</option>}</For>
+                        <For each={props.agents} keyed={(agent) => agent.id}>
+                          {(agent) => <option value={agent().id}>{agent().name}</option>}
+                        </For>
                       </NativeSelect>
                     </div>
                     <div class="agent-squads-field">
@@ -211,15 +218,15 @@ export function AgentSquadsDialog(props: AgentSquadsDialogProps) {
                         {t("agentTeam.manage.members")}
                       </Heading>
                       <div class="agent-squads-members">
-                        <For each={props.agents.filter((agent) => agent.id !== current().leadAgentId)}>
+                        <For each={candidates()} keyed={(agent) => agent.id}>
                           {(agent) => (
                             <div class="agent-squads-member">
                               <Checkbox
-                                id={`squad-member-${agent.id}`}
-                                checked={current().memberAgentIds.includes(agent.id)}
-                                onChange={(event) => toggleMember(agent.id, event.currentTarget.checked)}
+                                id={`squad-member-${agent().id}`}
+                                checked={current().memberAgentIds.includes(agent().id)}
+                                onChange={(event) => toggleMember(agent().id, event.currentTarget.checked)}
                               />
-                              <label for={`squad-member-${agent.id}`}>{agent.name}</label>
+                              <label for={`squad-member-${agent().id}`}>{agent().name}</label>
                             </div>
                           )}
                         </For>
