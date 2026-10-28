@@ -161,6 +161,12 @@ export function expandComposerMentions(value: string): string {
 export function ComposerEditor(props: ComposerEditorProps) {
   const { t, format } = useText();
   const [mention, setMention] = createSignal<MentionContext | null>(null);
+  /**
+   * Whether the editor holds text, as the editor itself says. `props.value` can be empty while it does:
+   * the parent writes a stale value back, and the editor ignores it while an IME composes. The
+   * placeholder then lay over the text.
+   */
+  const [editorHasText, setEditorHasText] = createSignal(false);
   const [activeOption, setActiveOption] = createSignal(0);
   /* Where the `$` that the add menu wrote starts, so that picker can say why it is empty. */
   const [requestedMentionStart, setRequestedMentionStart] = createSignal<number | null>(null);
@@ -374,6 +380,7 @@ export function ComposerEditor(props: ComposerEditorProps) {
         lastEmittedValue = value;
         setAttachmentTooltip(null);
         renderEditorValue(editor, value, agents, skills, mcpServers, attachments, attachmentTokenActions);
+        setEditorHasText(value !== "");
         setMention(null);
       } else {
         if (attachmentsChanged) syncAttachmentTokens(editor, attachments, attachmentTokenActions);
@@ -524,6 +531,7 @@ export function ComposerEditor(props: ComposerEditorProps) {
       placeCaretAtEnd(editor);
     }
     lastEmittedValue = value;
+    setEditorHasText(value !== "");
     props.onValueChange(value);
     scheduleCaretScroll();
   }
@@ -905,7 +913,7 @@ export function ComposerEditor(props: ComposerEditorProps) {
 
   return (
     <div class="composer-editor-root" data-size={props.size ?? "default"} data-dictating={dictating() ? "" : undefined}>
-      <Show when={!props.value && !dictating()}>
+      <Show when={!props.value && !editorHasText() && !dictating()}>
         <span class="composer-editor-placeholder" aria-hidden="true">
           {props.placeholder}
         </span>
