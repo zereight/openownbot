@@ -1,0 +1,63 @@
+/* The teams dialog. It reuses the card of the agent template dialog; these rules are the lists inside it. */
+
+.agent-squads-title {
+  padding-inline-end: var(--openbot-space-6);
+}
+
+.agent-squads-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--openbot-space-3);
+  border: 1px solid var(--openbot-border);
+  border-radius: var(--openbot-radius-md);
+  padding: var(--openbot-space-2) var(--openbot-space-3);
+}
+
+.agent-squads-row-text {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: var(--openbot-space-0-5);
+}
+
+.agent-squads-row-actions {
+  display: flex;
+  flex-shrink: 0;
+  gap: var(--openbot-space-1);
+}
+
+.agent-squads-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--openbot-space-1-5);
+}
+
+/* A long roster scrolls inside the card, so the name, the lead and the buttons stay in view. */
+.agent-squads-members {
+  display: flex;
+  max-height: min(320px, 40dvh);
+  flex-direction: column;
+  overflow-y: auto;
+  border: 1px solid var(--openbot-border);
+  border-radius: var(--openbot-radius-md);
+  padding: var(--openbot-space-1);
+}
+
+.agent-squads-member {
+  display: flex;
+  align-items: center;
+  gap: var(--openbot-space-2);
+  border-radius: var(--openbot-radius-md);
+  padding: var(--openbot-space-1) var(--openbot-space-2);
+  font-size: var(--openbot-text-sm);
+}
+
+.agent-squads-member label {
+  min-width: 0;
+  flex: 1;
+  overflow: hidden;
+  cursor: pointer;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

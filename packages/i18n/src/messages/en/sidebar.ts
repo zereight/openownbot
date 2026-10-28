@@ -134,7 +134,7 @@ export const messages = defineMessages("sidebar", {
   "sidebar.community.joinDiscord": "Join the Discord",
   "sidebar.community.followX": "Follow OpenOwnBot on X",
   "sidebar.community.dismiss": "Dismiss the community invitation",
-  "sidebar.new.importTeam": "Import team…",
-  "sidebar.section.exportTeam": "Export as team file…",
-  "sidebar.new.manageTeams": "Teams…",
+  "sidebar.new.importTeam": "Import team",
+  "sidebar.section.exportTeam": "Export as team file",
+  "sidebar.new.manageTeams": "Manage teams",
 });

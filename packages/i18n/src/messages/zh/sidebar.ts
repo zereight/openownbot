@@ -135,7 +135,7 @@ export const messages = {
   "sidebar.community.joinDiscord": "加入 Discord",
   "sidebar.community.followX": "在 X 上关注 OpenOwnBot",
   "sidebar.community.dismiss": "关闭社区邀请",
-  "sidebar.new.importTeam": "导入团队…",
-  "sidebar.section.exportTeam": "导出为团队文件…",
-  "sidebar.new.manageTeams": "团队…",
+  "sidebar.new.importTeam": "导入团队",
+  "sidebar.section.exportTeam": "导出为团队文件",
+  "sidebar.new.manageTeams": "管理团队",
 } as const satisfies PartialTranslation<typeof source>;

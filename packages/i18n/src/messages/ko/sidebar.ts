@@ -136,7 +136,7 @@ export const messages = {
   "sidebar.community.joinDiscord": "Discord 참여",
   "sidebar.community.followX": "X에서 OpenOwnBot 팔로우",
   "sidebar.community.dismiss": "커뮤니티 초대 닫기",
-  "sidebar.new.importTeam": "팀 가져오기…",
-  "sidebar.section.exportTeam": "팀 파일로 내보내기…",
-  "sidebar.new.manageTeams": "팀…",
+  "sidebar.new.importTeam": "팀 가져오기",
+  "sidebar.section.exportTeam": "팀 파일로 내보내기",
+  "sidebar.new.manageTeams": "팀 관리",
 } as const satisfies PartialTranslation<typeof source>;

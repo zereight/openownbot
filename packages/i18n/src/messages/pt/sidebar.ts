@@ -136,7 +136,7 @@ export const messages = {
   "sidebar.community.joinDiscord": "Entrar no Discord",
   "sidebar.community.followX": "Seguir o OpenOwnBot no X",
   "sidebar.community.dismiss": "Dispensar o convite para a comunidade",
-  "sidebar.new.importTeam": "Importar equipe…",
-  "sidebar.section.exportTeam": "Exportar como arquivo de equipe…",
-  "sidebar.new.manageTeams": "Equipes…",
+  "sidebar.new.importTeam": "Importar equipe",
+  "sidebar.section.exportTeam": "Exportar como arquivo de equipe",
+  "sidebar.new.manageTeams": "Gerenciar equipes",
 } as const satisfies PartialTranslation<typeof source>;

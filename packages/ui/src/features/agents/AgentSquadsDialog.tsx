@@ -121,7 +121,7 @@ export function AgentSquadsDialog(props: AgentSquadsDialogProps) {
               fallback={
                 <>
                   <div class="agent-template-body agent-template-scroll">
-                    <Heading as="h2" size="md">
+                    <Heading as="h2" size="md" class="agent-squads-title">
                       {t("agentTeam.manage.title")}
                     </Heading>
                     <Text tone="muted" variant="caption">
@@ -133,29 +133,33 @@ export function AgentSquadsDialog(props: AgentSquadsDialogProps) {
                     >
                       <For each={props.squads}>
                         {(squad) => (
-                          <div>
-                            <Heading as="h3" size="sm">
-                              {squad.name}
-                            </Heading>
-                            <Text tone="muted" variant="caption">
-                              {t("agentTeam.manage.summary", {
-                                lead: agentName(squad.leadAgentId),
-                                count: squad.memberAgentIds.length,
-                              })}
-                            </Text>
-                            <Button type="button" variant="ghost" disabled={busy()} onClick={() => startEdit(squad)}>
-                              {t("agentTeam.manage.edit")}
-                            </Button>
-                            <Button
-                              type="button"
-                              variant="ghost"
-                              disabled={busy()}
-                              onClick={() =>
-                                void run(() => props.onRemove(squad.id), t("agentTeam.manage.deleteFailed"))
-                              }
-                            >
-                              {t("agentTeam.manage.delete")}
-                            </Button>
+                          <div class="agent-squads-row">
+                            <div class="agent-squads-row-text">
+                              <Heading as="h3" size="sm">
+                                {squad.name}
+                              </Heading>
+                              <Text tone="muted" variant="caption">
+                                {t("agentTeam.manage.summary", {
+                                  lead: agentName(squad.leadAgentId),
+                                  count: squad.memberAgentIds.length,
+                                })}
+                              </Text>
+                            </div>
+                            <div class="agent-squads-row-actions">
+                              <Button type="button" variant="ghost" disabled={busy()} onClick={() => startEdit(squad)}>
+                                {t("agentTeam.manage.edit")}
+                              </Button>
+                              <Button
+                                type="button"
+                                variant="ghost"
+                                disabled={busy()}
+                                onClick={() =>
+                                  void run(() => props.onRemove(squad.id), t("agentTeam.manage.deleteFailed"))
+                                }
+                              >
+                                {t("agentTeam.manage.delete")}
+                              </Button>
+                            </div>
                           </div>
                         )}
                       </For>
@@ -177,37 +181,50 @@ export function AgentSquadsDialog(props: AgentSquadsDialogProps) {
               {(current) => (
                 <>
                   <div class="agent-template-body agent-template-scroll">
-                    <Input
-                      aria-label={t("agentTeam.manage.name")}
-                      placeholder={t("agentTeam.manage.name")}
-                      value={current().name}
-                      onInput={(event) => setDraft({ ...current(), name: event.currentTarget.value })}
-                    />
-                    <Heading as="h3" size="sm">
-                      {t("agentTeam.manage.lead")}
+                    <Heading as="h2" size="md" class="agent-squads-title">
+                      {current().id === undefined ? t("agentTeam.manage.new") : t("agentTeam.manage.edit")}
                     </Heading>
-                    <NativeSelect
-                      aria-label={t("agentTeam.manage.lead")}
-                      value={current().leadAgentId}
-                      onChange={(event) => setLead(event.currentTarget.value)}
-                    >
-                      <For each={props.agents}>{(agent) => <option value={agent.id}>{agent.name}</option>}</For>
-                    </NativeSelect>
-                    <Heading as="h3" size="sm">
-                      {t("agentTeam.manage.members")}
-                    </Heading>
-                    <For each={props.agents.filter((agent) => agent.id !== current().leadAgentId)}>
-                      {(agent) => (
-                        <div>
-                          <Checkbox
-                            id={`squad-member-${agent.id}`}
-                            checked={current().memberAgentIds.includes(agent.id)}
-                            onChange={(event) => toggleMember(agent.id, event.currentTarget.checked)}
-                          />
-                          <label for={`squad-member-${agent.id}`}>{agent.name}</label>
-                        </div>
-                      )}
-                    </For>
+                    <div class="agent-squads-field">
+                      <Heading as="h3" size="sm">
+                        {t("agentTeam.manage.name")}
+                      </Heading>
+                      <Input
+                        aria-label={t("agentTeam.manage.name")}
+                        value={current().name}
+                        onInput={(event) => setDraft({ ...current(), name: event.currentTarget.value })}
+                      />
+                    </div>
+                    <div class="agent-squads-field">
+                      <Heading as="h3" size="sm">
+                        {t("agentTeam.manage.lead")}
+                      </Heading>
+                      <NativeSelect
+                        aria-label={t("agentTeam.manage.lead")}
+                        value={current().leadAgentId}
+                        onChange={(event) => setLead(event.currentTarget.value)}
+                      >
+                        <For each={props.agents}>{(agent) => <option value={agent.id}>{agent.name}</option>}</For>
+                      </NativeSelect>
+                    </div>
+                    <div class="agent-squads-field">
+                      <Heading as="h3" size="sm">
+                        {t("agentTeam.manage.members")}
+                      </Heading>
+                      <div class="agent-squads-members">
+                        <For each={props.agents.filter((agent) => agent.id !== current().leadAgentId)}>
+                          {(agent) => (
+                            <div class="agent-squads-member">
+                              <Checkbox
+                                id={`squad-member-${agent.id}`}
+                                checked={current().memberAgentIds.includes(agent.id)}
+                                onChange={(event) => toggleMember(agent.id, event.currentTarget.checked)}
+                              />
+                              <label for={`squad-member-${agent.id}`}>{agent.name}</label>
+                            </div>
+                          )}
+                        </For>
+                      </div>
+                    </div>
                   </div>
                   <footer class="agent-template-actions">
                     <Button type="button" variant="ghost" disabled={busy()} onClick={() => setDraft(null)}>
