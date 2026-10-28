@@ -249,6 +249,7 @@ import {
 } from "./workspace-paths";
 
 const logger = createOpenBotLogger("agent-service");
+const decisionLogger = createOpenBotLogger("channel-decision");
 
 /**
  * Only the application knows which managed CLIs it downloaded, so a caller that says nothing gets
@@ -1007,7 +1008,7 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
         ).pipe(
           Effect.map((result) => {
             // Never the request text or the key: only what is needed to see why the lead's model took over.
-            logger.info("Channel decision model answered.", {
+            decisionLogger.info("Channel decision model answered.", {
               backend: backend.kind,
               ok: result.ok,
               reason: result.ok ? undefined : result.reason,

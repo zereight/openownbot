@@ -156,6 +156,7 @@ import { BrowserPictureInPicture } from "./browser-picture-in-picture";
 import { BrowserViewClient } from "./browser-view-client";
 import { BusyMessageModePreferenceStore } from "./busy-message-mode-preference-store";
 import { CentralAuthManager, readCentralAuthApiUrl, readMobileConnectApiUrl } from "./central-auth-manager";
+import { startChannelLog } from "./channel-log";
 import { ChatVisualPreviewer } from "./chat-visual-preview";
 import { ComputerUseHighlightController } from "./computer-use-highlight-window";
 import { applicationBundlePath, applicationIconName } from "./computer-use-permission-app";
@@ -867,6 +868,7 @@ export async function createApplicationServices({
     startProviderLog(join(app.getPath("userData"), "logs")),
   );
   teardown.push(TEARDOWN_ORDER.agentLog, "the agent log", startAgentLog(join(app.getPath("userData"), "logs")));
+  teardown.push(TEARDOWN_ORDER.agentLog, "the channel log", startChannelLog(join(app.getPath("userData"), "logs")));
   teardown.push(TEARDOWN_ORDER.accountLog, "the account log", startAccountLog(join(app.getPath("userData"), "logs")));
   const externalLinkPreference = createExternalLinkPreferenceStore(
     join(app.getPath("userData"), EXTERNAL_LINK_PREFERENCE_FILE),
