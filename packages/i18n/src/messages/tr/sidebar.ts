@@ -136,4 +136,6 @@ export const messages = {
   "sidebar.community.joinDiscord": "Discord’a katıl",
   "sidebar.community.followX": "X’te OpenOwnBot’u takip et",
   "sidebar.community.dismiss": "Topluluk davetini kapat",
+  "sidebar.new.importTeam": "Takımı içe aktar…",
+  "sidebar.section.exportTeam": "Takım dosyası olarak dışa aktar…",
 } as const satisfies PartialTranslation<typeof source>;

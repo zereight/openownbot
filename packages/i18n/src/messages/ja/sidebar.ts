@@ -137,4 +137,6 @@ export const messages = {
   "sidebar.community.joinDiscord": "Discord に参加",
   "sidebar.community.followX": "X で OpenOwnBot をフォロー",
   "sidebar.community.dismiss": "コミュニティへの招待を閉じる",
+  "sidebar.new.importTeam": "チームをインポート…",
+  "sidebar.section.exportTeam": "チームファイルとしてエクスポート…",
 } as const satisfies PartialTranslation<typeof source>;
