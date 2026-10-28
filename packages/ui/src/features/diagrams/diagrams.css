@@ -1312,6 +1312,8 @@
 .diagram-chat-avatar.agent-avatar {
   width: 24px;
   height: 24px;
+  /* The workflow page shows this avatar outside .diagram-view, so the rule at the top does not reach it. */
+  grid-template: 100% / 100%;
 }
 
 .diagram-chat-header {
