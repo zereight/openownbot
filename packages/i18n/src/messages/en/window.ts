@@ -2,7 +2,7 @@ import { defineMessages } from "../../message";
 
 export const messages = defineMessages("window", {
   // Native window titles.
-  "window.localHostTitle": "OpenBot Local Host",
-  "window.localClientTitle": "OpenBot Local Client",
+  "window.localHostTitle": "zereight bot Local Host",
+  "window.localClientTitle": "zereight bot Local Client",
   "window.computerUsePermissionTitle": "Turn on Computer Use",
 });

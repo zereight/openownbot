@@ -9,7 +9,7 @@ export const messages = {
   "remoteDesktop.workspaceLabel": "Удалённое управление",
   "remoteDesktop.displayLabel": "Удалённый экран",
   "remoteDesktop.selectDisplay": "Выбрать экран",
-  "remoteDesktop.backToOpenBot": "Вернуться в OpenBot",
+  "remoteDesktop.backToOpenBot": "Вернуться в zereight bot",
   "remoteDesktop.disconnect": "Отключить",
   "remoteDesktop.viewerTitle": "Удалённый рабочий стол Sunshine",
   "remoteDesktop.viewerLoadFailed": "Не удалось загрузить просмотр Moonlight.",
@@ -41,7 +41,7 @@ export const messages = {
   "remoteDesktop.setup.startFailed": "Не удалось запустить проверку удалённого рабочего стола.",
   "remoteDesktop.setup.connectionLost": "Тестовое подключение потеряно.",
   "remoteDesktop.setup.hostUpdateRequired":
-    "Обновите OpenBot на сервере, чтобы проверить разрешения и удалённый рабочий стол.",
+    "Обновите zereight bot на сервере, чтобы проверить разрешения и удалённый рабочий стол.",
   "remoteDesktop.setup.permissions": "Разрешения",
   "remoteDesktop.setup.checked": "Проверено",
   "remoteDesktop.setup.checkAgain": "Проверить снова",

@@ -15,11 +15,11 @@ export const messages = {
   "connector.github.cancel": "取消",
   "connector.github.connectedAs": "已连接为 @{login}",
   "connector.github.repositoriesTitle": "仓库",
-  "connector.github.repositoriesDescription": "助手只能使用已安装 OpenBot GitHub App 的仓库。",
+  "connector.github.repositoriesDescription": "助手只能使用已安装 zereight bot GitHub App 的仓库。",
   "connector.github.chooseRepositories": "选择仓库",
   "connector.github.repositoriesLoading": "正在从 GitHub 读取仓库",
-  "connector.github.repositoriesFailed": "OpenBot 无法从 GitHub 读取仓库。",
-  "connector.github.noRepositories": "尚未在任何仓库上安装 OpenBot GitHub App。",
+  "connector.github.repositoriesFailed": "zereight bot 无法从 GitHub 读取仓库。",
+  "connector.github.noRepositories": "尚未在任何仓库上安装 zereight bot GitHub App。",
   // {count} is a number, such as 12.
   "connector.github.moreRepositories": { one: "还有 {count} 个仓库", other: "还有 {count} 个仓库" },
   // A badge next to a repository that only its members can see.
@@ -30,7 +30,7 @@ export const messages = {
   "connector.github.expiredTitle": "GitHub 连接已过期",
   "connector.github.expiredDescription": "以 @{login} 重新连接，即可让助手继续使用 GitHub。",
   "connector.github.reconnect": "重新连接",
-  "connector.github.actionFailed": "OpenBot 无法更改 GitHub 连接。",
+  "connector.github.actionFailed": "zereight bot 无法更改 GitHub 连接。",
   // The status next to the name at the top of the GitHub page.
   "connector.github.statusConnected": "已连接",
   "connector.github.statusConnecting": "连接中",
@@ -44,7 +44,7 @@ export const messages = {
   // The connect dialog. The steps show as numbers; screen readers read the names.
   "connector.github.stepSignIn": "登录",
   "connector.github.stepConnected": "已连接",
-  "connector.github.requestingCode": "OpenBot 正在向 GitHub 请求验证码。",
+  "connector.github.requestingCode": "zereight bot 正在向 GitHub 请求验证码。",
   // {code} is the code to type on GitHub, such as WDJB-MJHT.
   "connector.github.codeLabel": "验证码 {code}",
   "connector.github.failedTitle": "GitHub 未连接成功",
@@ -60,7 +60,7 @@ export const messages = {
   "connector.github.disconnectConfirmTitle": "断开 GitHub？",
   "connector.github.disconnectConfirmDescription": "断开后会从这台电脑移除 @{login} 的登录信息。",
   "connector.github.disconnectEffectTools": "所有助手都将失去 GitHub 工具、gh 和 git。",
-  "connector.github.disconnectEffectRevoke": "随后会打开 GitHub，你可以在那里撤销 OpenBot。",
+  "connector.github.disconnectEffectRevoke": "随后会打开 GitHub，你可以在那里撤销 zereight bot。",
   "connector.github.disconnectEffectKept": "聊天、文件和助手记忆仍保留在这台电脑上。",
   // The same text for the connection of a joined server. {host} is the server name, such as Studio.
   "connector.github.descriptionHost":
@@ -77,7 +77,7 @@ export const messages = {
   "connector.dangerZone": "危险操作",
 
   "connector.statusUnknown": "未知",
-  "connector.readFailed": "OpenBot 无法读取该连接的状态。",
+  "connector.readFailed": "zereight bot 无法读取该连接的状态。",
   // Marketplace > Apps > Slack: a workspace installs the one OpenBot app, and the Slack
   // Orchestrator agent receives each request, asks the team and answers.
   "connector.slack.title": "Slack",
@@ -100,9 +100,10 @@ export const messages = {
   "connector.slack.disconnectWorkspace": "断开连接",
   "connector.slack.disconnectAllTitle": "断开 Slack",
   "connector.slack.disconnectAllSummary": "所有工作区都将断开，其他人无法再通过 @OpenBot 联系你的助手。",
-  "connector.slack.disconnectAllSummaryOrchestrator": "所有工作区都将断开，Slack 调度助手及其对话将从 OpenBot 中删除。",
-  "connector.slack.missingScopes": "OpenBot 在 Slack 中缺少这些权限：{scopes}。请断开该工作区后重新连接。",
-  "connector.slack.retryAt": "Slack 要求 OpenBot 等待，将于 {time} 重试。",
+  "connector.slack.disconnectAllSummaryOrchestrator":
+    "所有工作区都将断开，Slack 调度助手及其对话将从 zereight bot 中删除。",
+  "connector.slack.missingScopes": "zereight bot 在 Slack 中缺少这些权限：{scopes}。请断开该工作区后重新连接。",
+  "connector.slack.retryAt": "Slack 要求 zereight bot 等待，将于 {time} 重试。",
   "connector.slack.reconnect": "重新连接",
   "connector.slack.pause": "暂停",
   "connector.slack.resume": "恢复",
@@ -119,7 +120,8 @@ export const messages = {
   "connector.slack.stepWorkspace": "工作区",
   "connector.slack.stepAgent": "助手",
   "connector.slack.connectTitle": "连接 Slack 工作区",
-  "connector.slack.connectDescription": "OpenBot 会在该工作区安装一个名为 OpenBot 的应用，并加入所有公开频道。",
+  "connector.slack.connectDescription":
+    "zereight bot 会在该工作区安装一个名为 zereight bot 的应用，并加入所有公开频道。",
   "connector.slack.connectStepBrowser": "Slack 会在浏览器中打开",
   "connector.slack.connectStepAllow": "在右上角选择工作区，然后点“允许”",
   "connector.slack.connectStepReturn": "Slack 完成后该对话框会继续",
@@ -134,15 +136,16 @@ export const messages = {
   "connector.slack.orchestratorDoesDelegate": "把每项任务交给最合适的助手",
   "connector.slack.orchestratorDoesAnswer": "把答案发到 Slack 话题中",
   "connector.slack.orchestratorModel": "模型",
-  "connector.slack.doneTitle": "OpenBot 已加入 {workspace}",
+  "connector.slack.doneTitle": "zereight bot 已加入 {workspace}",
   "connector.slack.doneDescription": "在任意公开频道中提及 @OpenBot，或给它发私信。",
   "connector.slack.done": "完成",
   "connector.slack.disconnectTitle": "断开 {workspace}？",
-  "connector.slack.disconnectDescription": "OpenBot 将停止在 {workspace} 中回答，并从这台电脑删除其 Slack 令牌。",
-  "connector.slack.disconnectDescriptionHost": "OpenBot 将停止在 {workspace} 中回答，并从 {host} 删除其 Slack 令牌。",
+  "connector.slack.disconnectDescription": "zereight bot 将停止在 {workspace} 中回答，并从这台电脑删除其 Slack 令牌。",
+  "connector.slack.disconnectDescriptionHost":
+    "zereight bot 将停止在 {workspace} 中回答，并从 {host} 删除其 Slack 令牌。",
   "connector.slack.disconnectEffect": "{workspace} 中的人将无法再通过 @OpenBot 联系你的助手。",
-  "connector.slack.removeEffectKept": "对话和 Slack 调度助手会保留在 OpenBot 中。",
-  "connector.slack.removeEffectDeleted": "Slack 调度助手及其对话将从 OpenBot 中删除。",
+  "connector.slack.removeEffectKept": "对话和 Slack 调度助手会保留在 zereight bot 中。",
+  "connector.slack.removeEffectDeleted": "Slack 调度助手及其对话将从 zereight bot 中删除。",
   "connector.slack.keep": "保持连接",
   "connector.slack.close": "关闭",
 
@@ -176,9 +179,10 @@ export const messages = {
   "connector.discord.disconnectAllTitle": "断开 Discord",
   "connector.discord.disconnectAllSummary": "所有服务器都将断开，其他人无法再通过 @OpenBot 联系你的助手。",
   "connector.discord.disconnectAllSummaryOrchestrator":
-    "所有服务器都将断开，Discord 调度助手及其对话将从 OpenBot 中删除。",
-  "connector.discord.missingScopes": "OpenBot 在 Discord 中缺少这些权限：{scopes}。请断开该 Discord 服务器后重新连接。",
-  "connector.discord.retryAt": "Discord 要求 OpenBot 等待，将于 {time} 重试。",
+    "所有服务器都将断开，Discord 调度助手及其对话将从 zereight bot 中删除。",
+  "connector.discord.missingScopes":
+    "zereight bot 在 Discord 中缺少这些权限：{scopes}。请断开该 Discord 服务器后重新连接。",
+  "connector.discord.retryAt": "Discord 要求 zereight bot 等待，将于 {time} 重试。",
   "connector.discord.reconnect": "重新连接",
   "connector.discord.pause": "暂停",
   "connector.discord.resume": "恢复",
@@ -189,12 +193,12 @@ export const messages = {
     "该助手接收来自 Discord 的所有请求。简单的问题它自己回答，其余的交给合适的助手处理，并在频道中回复答案。",
   "connector.discord.orchestratorNone": "还没有助手回答",
   "connector.discord.orchestratorNoneDescription": "请添加 Discord 调度助手，否则 Discord 中不会有人回答。",
-  "connector.discord.channelsNote": "OpenBot 能看到其角色可见的频道。",
+  "connector.discord.channelsNote": "zereight bot 能看到其角色可见的频道。",
   // The connect dialog. The steps show as numbers; screen readers read the names.
   "connector.discord.stepWorkspace": "Discord 服务器",
   "connector.discord.stepAgent": "助手",
   "connector.discord.connectTitle": "连接 Discord 服务器",
-  "connector.discord.connectDescription": "OpenBot 会向该 Discord 服务器添加一个名为 OpenBot 的机器人。",
+  "connector.discord.connectDescription": "zereight bot 会向该 Discord 服务器添加一个名为 zereight bot 的机器人。",
   "connector.discord.connectStepBrowser": "Discord 会在浏览器中打开",
   "connector.discord.connectStepAllow": "选择服务器，然后点“授权”",
   "connector.discord.connectStepReturn": "Discord 完成后该对话框会继续",
@@ -209,15 +213,17 @@ export const messages = {
   "connector.discord.orchestratorDoesDelegate": "把每项任务交给最合适的助手",
   "connector.discord.orchestratorDoesAnswer": "在 Discord 频道中回复答案",
   "connector.discord.orchestratorModel": "模型",
-  "connector.discord.doneTitle": "OpenBot 已加入 {workspace}",
+  "connector.discord.doneTitle": "zereight bot 已加入 {workspace}",
   "connector.discord.doneDescription": "在频道中提及 @OpenBot，回复 OpenBot 可继续对话。",
   "connector.discord.done": "完成",
   "connector.discord.disconnectTitle": "断开 {workspace}？",
-  "connector.discord.disconnectDescription": "OpenBot 将停止在 {workspace} 中回答，并从这台电脑移除 Discord 连接。",
-  "connector.discord.disconnectDescriptionHost": "OpenBot 将停止在 {workspace} 中回答，并从 {host} 移除 Discord 连接。",
+  "connector.discord.disconnectDescription":
+    "zereight bot 将停止在 {workspace} 中回答，并从这台电脑移除 Discord 连接。",
+  "connector.discord.disconnectDescriptionHost":
+    "zereight bot 将停止在 {workspace} 中回答，并从 {host} 移除 Discord 连接。",
   "connector.discord.disconnectEffect": "{workspace} 中的人将无法再通过 @OpenBot 联系你的助手。",
-  "connector.discord.removeEffectKept": "对话和 Discord 调度助手会保留在 OpenBot 中。",
-  "connector.discord.removeEffectDeleted": "Discord 调度助手及其对话将从 OpenBot 中删除。",
+  "connector.discord.removeEffectKept": "对话和 Discord 调度助手会保留在 zereight bot 中。",
+  "connector.discord.removeEffectDeleted": "Discord 调度助手及其对话将从 zereight bot 中删除。",
   "connector.discord.keep": "保持连接",
   "connector.discord.close": "关闭",
 
@@ -226,16 +232,16 @@ export const messages = {
   // {count} is the number of Discord servers: two or more.
   "connector.discord.summaryMany": { other: "{count} 个 Discord 服务器 · 由 Discord 调度助手回答" },
   // Who can use OpenBot in one Discord server: the members with one of the chosen Discord roles.
-  "connector.discord.accessTitle": "谁可以使用 OpenBot",
-  "connector.discord.accessDescription": "OpenBot 只回答这些人。其他人的提及会被忽略。",
+  "connector.discord.accessTitle": "谁可以使用 zereight bot",
+  "connector.discord.accessDescription": "zereight bot 只回答这些人。其他人的提及会被忽略。",
   "connector.discord.accessEveryone": "服务器中的所有人",
-  "connector.discord.accessEveryoneDescription": "凡是能在 OpenBot 可见的频道中发消息的人，都可以提及它。",
+  "connector.discord.accessEveryoneDescription": "凡是能在 zereight bot 可见的频道中发消息的人，都可以提及它。",
   // {roles} is a list of Discord role names, such as "Admin and Moderator".
   "connector.discord.accessRoles": "拥有 {roles} 的成员",
   "connector.discord.accessChoose": "选择角色",
   // {workspace} is the Discord server name.
-  "connector.discord.accessDialogTitle": "谁可以在 {workspace} 中使用 OpenBot？",
-  "connector.discord.accessDialogDescription": "不选择任何角色时，所有人都可以提及 OpenBot。",
+  "connector.discord.accessDialogTitle": "谁可以在 {workspace} 中使用 zereight bot？",
+  "connector.discord.accessDialogDescription": "不选择任何角色时，所有人都可以提及 zereight bot。",
   "connector.discord.accessLoading": "正在加载角色…",
   "connector.discord.accessLoadFailed": "Discord 角色未能加载",
   "connector.discord.accessNoRoles": "该服务器没有可选的角色。",
@@ -243,12 +249,12 @@ export const messages = {
   "connector.discord.accessRoleDeleted": "{role}（已删除）",
   "connector.discord.accessSave": "保存",
   // {host} is the joined server's name.
-  "connector.discord.accessHostUpdate": "请更新 {host} 上的 OpenBot，以选择角色。",
+  "connector.discord.accessHostUpdate": "请更新 {host} 上的 zereight bot，以选择角色。",
   // Marketplace > Apps > Telegram: each chat adds the one OpenBot bot, and the Telegram
   // Orchestrator agent receives the messages of all chats, asks the team and answers.
   "connector.telegram.title": "Telegram",
   "connector.telegram.description":
-    "把 OpenBot 机器人加入 Telegram 群组，或与它开启私聊。Telegram 调度助手会找到合适的助手来回答。",
+    "把 zereight bot 机器人加入 Telegram 群组，或与它开启私聊。Telegram 调度助手会找到合适的助手来回答。",
   "connector.telegram.statusConnected": "已连接",
   "connector.telegram.statusAttention": "需要关注",
   // {count} is the number of linked Telegram chats.
@@ -271,21 +277,21 @@ export const messages = {
   "connector.telegram.chatsTitle": "聊天",
   "connector.telegram.groupDescription": "人们提及机器人或回复它的消息。",
   "connector.telegram.directDescription": "该聊天中的所有消息都会交给 Telegram 调度助手。",
-  "connector.telegram.helpRemoved": "OpenBot 机器人已不在该聊天中。请断开该聊天，然后重新添加机器人。",
+  "connector.telegram.helpRemoved": "zereight bot 机器人已不在该聊天中。请断开该聊天，然后重新添加机器人。",
   "connector.telegram.helpRelayUnavailable":
-    "OpenBot 无法在这台电脑上接收 Telegram 消息。请先登录，在服务器设置中为这台电脑命名，并保持 OpenBot 开着。",
+    "zereight bot 无法在这台电脑上接收 Telegram 消息。请先登录，在服务器设置中为这台电脑命名，并保持 zereight bot 开着。",
   "connector.telegram.helpRelayUnavailableHost":
-    "{host} 上的 OpenBot 无法接收 Telegram 消息。请在 {host} 上登录，在服务器设置中为该服务器命名，并保持 OpenBot 开着。",
-  "connector.telegram.helpError": "OpenBot 无法连接到该聊天。请重新连接，或断开该聊天。",
-  "connector.telegram.retryAt": "Telegram 要求 OpenBot 等待，将于 {time} 重试。",
+    "{host} 上的 zereight bot 无法接收 Telegram 消息。请在 {host} 上登录，在服务器设置中为该服务器命名，并保持 zereight bot 开着。",
+  "connector.telegram.helpError": "zereight bot 无法连接到该聊天。请重新连接，或断开该聊天。",
+  "connector.telegram.retryAt": "Telegram 要求 zereight bot 等待，将于 {time} 重试。",
   "connector.telegram.pause": "暂停",
   "connector.telegram.resume": "恢复",
   "connector.telegram.reconnect": "重新连接",
   "connector.telegram.disconnectChat": "断开连接",
   "connector.telegram.disconnectAllTitle": "断开 Telegram",
-  "connector.telegram.disconnectAllSummary": "所有聊天都将断开，其他人无法再通过 OpenBot 机器人联系你的助手。",
+  "connector.telegram.disconnectAllSummary": "所有聊天都将断开，其他人无法再通过 zereight bot 机器人联系你的助手。",
   "connector.telegram.disconnectAllSummaryOrchestrator":
-    "所有聊天都将断开，Telegram 调度助手及其对话将从 OpenBot 中删除。",
+    "所有聊天都将断开，Telegram 调度助手及其对话将从 zereight bot 中删除。",
   // {action} is a button, such as Pause; {name} is the chat name.
   "connector.telegram.rowAction": "{action}：{name}",
   "connector.telegram.linkChat": "关联聊天",
@@ -293,7 +299,7 @@ export const messages = {
   "connector.telegram.openDirectChat": "开启私聊",
   "connector.telegram.orchestratorTitle": "Telegram 调度助手",
   "connector.telegram.orchestratorDescription":
-    "该助手接收来自你所有 Telegram 聊天中发给 OpenBot 的消息。简单的问题它自己回答，其余的交给合适的助手处理，并把答案发在聊天中。",
+    "该助手接收来自你所有 Telegram 聊天中发给 zereight bot 的消息。简单的问题它自己回答，其余的交给合适的助手处理，并把答案发在聊天中。",
   "connector.telegram.orchestratorNone": "还没有助手回答",
   "connector.telegram.orchestratorNoneDescription": "请添加 Telegram 调度助手，否则 Telegram 中不会有人回答。",
   "connector.telegram.mentionNote": "在群组中请提及机器人或回复它的消息；在私聊中所有消息都会发给机器人。",
@@ -302,7 +308,7 @@ export const messages = {
   "connector.telegram.stepAgent": "助手",
   "connector.telegram.connectTitle": "关联 Telegram 聊天",
   "connector.telegram.connectDescription":
-    "把 OpenBot 机器人加入群组，或与它开启私聊。一个机器人即可服务你的所有聊天。",
+    "把 zereight bot 机器人加入群组，或与它开启私聊。一个机器人即可服务你的所有聊天。",
   "connector.telegram.connectStepBrowser": "Telegram 会在浏览器中打开",
   "connector.telegram.connectStepPick": "选择群组，或在私聊中点击“开始”",
   "connector.telegram.connectStepReturn": "聊天关联完成后该对话框会继续",
@@ -310,26 +316,27 @@ export const messages = {
   "connector.telegram.agentStepTitle": "添加 Telegram 调度助手",
   // {chat} is the Telegram chat name.
   "connector.telegram.agentStepDescription":
-    "这个新助手会回答 {chat} 中以及你之后关联的每个聊天中发给 OpenBot 的消息。",
+    "这个新助手会回答 {chat} 中以及你之后关联的每个聊天中发给 zereight bot 的消息。",
   "connector.telegram.orchestratorName": "Telegram 调度助手",
   "connector.telegram.orchestratorRole": "在 Telegram 中回答并调度团队",
-  "connector.telegram.orchestratorDoesReceive": "优先接收所有发给 OpenBot 的 Telegram 消息",
+  "connector.telegram.orchestratorDoesReceive": "优先接收所有发给 zereight bot 的 Telegram 消息",
   "connector.telegram.orchestratorDoesDelegate": "把每项任务交给最合适的助手",
   "connector.telegram.orchestratorDoesAnswer": "把答案发到 Telegram 聊天中",
   "connector.telegram.orchestratorModel": "模型",
-  "connector.telegram.doneTitle": "OpenBot 已加入 {chat}",
+  "connector.telegram.doneTitle": "zereight bot 已加入 {chat}",
   "connector.telegram.done": "完成",
   "connector.telegram.disconnectTitle": "断开 {chat}？",
-  "connector.telegram.leaveDescription": "OpenBot 机器人会退出 {chat}，OpenBot 将停止在那里回答。",
-  "connector.telegram.disconnectEffect": "{chat} 中的人将无法再通过 OpenBot 机器人联系你的助手。",
-  "connector.telegram.removeEffectKept": "对话和 Telegram 调度助手会保留在 OpenBot 中。",
-  "connector.telegram.removeEffectDeleted": "这是最后一个聊天，因此 Telegram 调度助手及其对话将从 OpenBot 中删除。",
+  "connector.telegram.leaveDescription": "zereight bot 机器人会退出 {chat}，zereight bot 将停止在那里回答。",
+  "connector.telegram.disconnectEffect": "{chat} 中的人将无法再通过 zereight bot 机器人联系你的助手。",
+  "connector.telegram.removeEffectKept": "对话和 Telegram 调度助手会保留在 zereight bot 中。",
+  "connector.telegram.removeEffectDeleted":
+    "这是最后一个聊天，因此 Telegram 调度助手及其对话将从 zereight bot 中删除。",
   "connector.telegram.keep": "保持连接",
   "connector.telegram.close": "关闭",
   // Marketplace > 1Password: a vault that the user shares with OpenBot through a service account.
   "connector.onePassword.title": "1Password",
   "connector.onePassword.description":
-    "通过服务账号把一个专用的 1Password 保险库共享给 OpenBot，让助手可以在 OpenBot 浏览器中登录网站。",
+    "通过服务账号把一个专用的 1Password 保险库共享给 zereight bot，让助手可以在 zereight bot 浏览器中登录网站。",
   "connector.onePassword.howItWorks":
     "连接时会在你的 1Password 账号中创建“Shared with OpenBot”保险库，以及一个只能读取该保险库的服务账号。OpenBot 在这台电脑的浏览器中填充已保存的登录信息，因此只会共享你移入该保险库的条目。助手永远看不到密码。",
   "connector.onePassword.connect": "连接 1Password",
@@ -341,13 +348,13 @@ export const messages = {
   // {version} is a version number, such as 2.39.0.
   "connector.onePassword.stepCliReady": "已安装版本 {version}。",
   "connector.onePassword.stepCliMissing": "OpenBot 会从 1Password 下载到自己的文件夹，不需要管理员密码。",
-  "connector.onePassword.stepCliManual": "OpenBot 无法在这台电脑上安装它。请从 1Password 安装后再回到该页面。",
+  "connector.onePassword.stepCliManual": "zereight bot 无法在这台电脑上安装它。请从 1Password 安装后再回到该页面。",
   "connector.onePassword.installCli": "安装",
   "connector.onePassword.stepAppTitle": "开启 CLI 集成",
   "connector.onePassword.stepAppDescription": "在 1Password 应用中打开“设置 > 开发者”，开启“与 1Password CLI 集成”。",
   "connector.onePassword.stepAppReady": "1Password 应用已允许 CLI 创建共享保险库。",
   "connector.onePassword.openApp": "打开 1Password",
-  "connector.onePassword.openAppFailed": "OpenBot 无法打开 1Password。",
+  "connector.onePassword.openAppFailed": "zereight bot 无法打开 1Password。",
   "connector.onePassword.checkAgain": "重新检查",
   "connector.onePassword.stepVaultTitle": "创建共享保险库",
   "connector.onePassword.stepVaultDescription":
@@ -360,7 +367,7 @@ export const messages = {
   "connector.onePassword.approveInApp": "请在 1Password 应用中批准该请求",
   "connector.onePassword.cancel": "取消",
   "connector.onePassword.chooseAccountTitle": "选择账号",
-  "connector.onePassword.chooseAccountDescription": "OpenBot 会在你选择的账号中创建共享保险库。",
+  "connector.onePassword.chooseAccountDescription": "zereight bot 会在你选择的账号中创建共享保险库。",
   "connector.onePassword.useAccount": "使用该账号",
   "connector.onePassword.vaultTitle": "共享保险库",
   "connector.onePassword.vaultDescription": "在 1Password 中把登录信息移入该保险库，助手即可用它登录。移出后即停止。",
@@ -370,15 +377,15 @@ export const messages = {
   "connector.onePassword.disconnect": "断开连接",
   "connector.onePassword.disconnectTitle": "断开 1Password",
   "connector.onePassword.disconnectSummary":
-    "OpenBot 会忘记该令牌。保险库和服务账号仍保留在 1Password 中，如不再需要请在那里删除。",
-  "connector.onePassword.actionFailed": "OpenBot 无法更改 1Password 连接。",
+    "zereight bot 会忘记该令牌。保险库和服务账号仍保留在 1Password 中，如不再需要请在那里删除。",
+  "connector.onePassword.actionFailed": "zereight bot 无法更改 1Password 连接。",
   "connector.onePassword.statusConnected": "已连接",
   "connector.onePassword.statusConnecting": "连接中",
   // The same page for the connection of a joined server. {host} is the server name, such as Studio.
   "connector.onePassword.descriptionHost":
-    "通过服务账号把一个专用的 1Password 保险库共享给 {host} 上的 OpenBot，让 {host} 上的助手可以在其浏览器中登录网站。",
+    "通过服务账号把一个专用的 1Password 保险库共享给 {host} 上的 zereight bot，让 {host} 上的助手可以在其浏览器中登录网站。",
   "connector.onePassword.howItWorksHost":
-    "{host} 使用服务账号令牌连接。请在 1Password.com 上创建一个只能读取你共享给 OpenBot 的保险库的服务账号，然后把它的令牌粘贴到这里。{host} 会校验并保存该令牌，这台电脑不保存。助手永远看不到密码。",
+    "{host} 使用服务账号令牌连接。请在 1Password.com 上创建一个只能读取你共享给 zereight bot 的保险库的服务账号，然后把它的令牌粘贴到这里。{host} 会校验并保存该令牌，这台电脑不保存。助手永远看不到密码。",
   "connector.onePassword.disconnectSummaryHost":
     "{host} 会忘记该令牌。保险库和服务账号仍保留在 1Password 中，如不再需要请在那里删除。",
   "connector.bitwarden.title": "Bitwarden",
@@ -388,17 +395,17 @@ export const messages = {
   "connector.bitwarden.scope":
     "这台电脑上的所有助手都可以使用 Shared with OpenBot 中匹配的登录信息。OpenBot 只按精确的 HTTPS 来源匹配，不会使用需要主密码提示或自定义 URI 匹配规则的条目。",
   "connector.bitwarden.session":
-    "会话密钥只保存在内存中。连续 8 小时未使用保险库或 OpenBot 退出后，需要重新连接。断开只停止 OpenBot 的访问，不会锁定其他 Bitwarden 客户端。",
+    "会话密钥只保存在内存中。连续 8 小时未使用保险库或 zereight bot 退出后，需要重新连接。断开只停止 zereight bot 的访问，不会锁定其他 Bitwarden 客户端。",
   "connector.bitwarden.sessionKey": "Bitwarden 会话密钥",
   "connector.bitwarden.connect": "连接 Bitwarden",
   "connector.bitwarden.disconnect": "断开 Bitwarden",
   "connector.bitwarden.disconnectAction": "断开",
   "connector.bitwarden.disconnectSummary":
-    "OpenBot 会忘记会话密钥。代理将无法再从 Bitwarden 填写登录信息。其他 Bitwarden 客户端保持解锁状态。",
+    "zereight bot 会忘记会话密钥。代理将无法再从 Bitwarden 填写登录信息。其他 Bitwarden 客户端保持解锁状态。",
   "connector.bitwarden.disconnectSummaryHost":
     "{host} 会删除 API 密钥和主密码。{host} 上的代理将无法再从 Bitwarden 填写登录信息。",
   "connector.bitwarden.connected": "已连接",
-  "connector.bitwarden.actionFailed": "OpenBot 无法更改 Bitwarden 连接。",
+  "connector.bitwarden.actionFailed": "zereight bot 无法更改 Bitwarden 连接。",
   "connector.bitwarden.descriptionHost": "在 {host} 上用 Bitwarden 或 Vaultwarden 填充浏览器登录信息。",
   "connector.bitwarden.setupHost":
     "{host} 使用自己的 Bitwarden CLI 登录。请在你的保险库中创建一个名为 Shared with OpenBot 的文件夹，只把允许助手使用的登录信息放进去。在网页版保险库中打开“设置 › 安全 › 密钥”，查看你的 API 密钥。然后在下方填写服务器地址、client_id、client_secret 和你的主密码。",

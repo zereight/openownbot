@@ -16,11 +16,11 @@ export const messages = {
   "connector.github.connectedAs": "Verbonden als @{login}",
   "connector.github.repositoriesTitle": "Repository’s",
   "connector.github.repositoriesDescription":
-    "Agents kunnen alleen de repository’s gebruiken waarop de OpenBot GitHub App is geïnstalleerd.",
+    "Agents kunnen alleen de repository’s gebruiken waarop de zereight bot GitHub App is geïnstalleerd.",
   "connector.github.chooseRepositories": "Kies repository’s",
   "connector.github.repositoriesLoading": "Repository’s van GitHub lezen",
-  "connector.github.repositoriesFailed": "OpenBot kan de repository’s van GitHub niet lezen.",
-  "connector.github.noRepositories": "De OpenBot GitHub App is nog op geen enkele repository geïnstalleerd.",
+  "connector.github.repositoriesFailed": "zereight bot kan de repository’s van GitHub niet lezen.",
+  "connector.github.noRepositories": "De zereight bot GitHub App is nog op geen enkele repository geïnstalleerd.",
   "connector.github.moreRepositories": { one: "En nog {count} repository", other: "En nog {count} repository’s" },
   "connector.github.private": "Privé",
   "connector.github.disconnect": "Verbreken",
@@ -29,7 +29,7 @@ export const messages = {
   "connector.github.expiredTitle": "De GitHub-verbinding is verlopen",
   "connector.github.expiredDescription": "Verbind opnieuw als @{login} om agents weer GitHub te geven.",
   "connector.github.reconnect": "Opnieuw verbinden",
-  "connector.github.actionFailed": "OpenBot kan de GitHub-verbinding niet wijzigen.",
+  "connector.github.actionFailed": "zereight bot kan de GitHub-verbinding niet wijzigen.",
   "connector.github.statusConnected": "Verbonden",
   "connector.github.statusConnecting": "Verbinden",
   "connector.github.statusExpired": "Verlopen",
@@ -39,7 +39,7 @@ export const messages = {
   "connector.github.noMatch": "Geen repository komt overeen met “{query}”.",
   "connector.github.stepSignIn": "Inloggen",
   "connector.github.stepConnected": "Verbonden",
-  "connector.github.requestingCode": "OpenBot vraagt GitHub om een code.",
+  "connector.github.requestingCode": "zereight bot vraagt GitHub om een code.",
   "connector.github.codeLabel": "Code {code}",
   "connector.github.failedTitle": "GitHub is niet verbonden",
   "connector.github.cancelConnecting": "Verbinden met GitHub annuleren",
@@ -53,7 +53,7 @@ export const messages = {
   "connector.github.disconnectConfirmDescription":
     "Loskoppelen verwijdert de aanmelding van @{login} van deze computer.",
   "connector.github.disconnectEffectTools": "Elke agent verliest de GitHub-tools, gh en git.",
-  "connector.github.disconnectEffectRevoke": "Daarna opent GitHub, waar je OpenBot kunt intrekken.",
+  "connector.github.disconnectEffectRevoke": "Daarna opent GitHub, waar je zereight bot kunt intrekken.",
   "connector.github.disconnectEffectKept": "Chats, bestanden en het geheugen van agents blijven op deze computer.",
   "connector.github.descriptionHost":
     "Elke agent op {host} kan je GitHub-repository’s, issues en pull requests gebruiken, en gh en git.",
@@ -67,7 +67,7 @@ export const messages = {
   "connector.github.close": "Sluiten",
   "connector.dangerZone": "Gevarenzone",
   "connector.statusUnknown": "Onbekend",
-  "connector.readFailed": "OpenBot kan de status van deze verbinding niet lezen.",
+  "connector.readFailed": "zereight bot kan de status van deze verbinding niet lezen.",
 
   "connector.slack.title": "Slack",
   "connector.slack.description":
@@ -91,10 +91,10 @@ export const messages = {
   "connector.slack.disconnectAllSummary":
     "Elke werkruimte wordt losgekoppeld. Mensen kunnen je agents niet meer bereiken via @OpenBot.",
   "connector.slack.disconnectAllSummaryOrchestrator":
-    "Elke werkruimte wordt losgekoppeld. De Slack Orchestrator en zijn gesprekken worden uit OpenBot verwijderd.",
+    "Elke werkruimte wordt losgekoppeld. De Slack Orchestrator en zijn gesprekken worden uit zereight bot verwijderd.",
   "connector.slack.missingScopes":
-    "OpenBot heeft deze machtigingen in Slack niet: {scopes}. Koppel de werkruimte los en verbind hem daarna opnieuw.",
-  "connector.slack.retryAt": "Slack vroeg OpenBot te wachten. Het probeert het opnieuw om {time}.",
+    "zereight bot heeft deze machtigingen in Slack niet: {scopes}. Koppel de werkruimte los en verbind hem daarna opnieuw.",
+  "connector.slack.retryAt": "Slack vroeg zereight bot te wachten. Het probeert het opnieuw om {time}.",
   "connector.slack.reconnect": "Opnieuw verbinden",
   "connector.slack.pause": "Pauzeren",
   "connector.slack.resume": "Hervatten",
@@ -110,7 +110,7 @@ export const messages = {
   "connector.slack.stepAgent": "Agent",
   "connector.slack.connectTitle": "Verbind een Slack-werkruimte",
   "connector.slack.connectDescription":
-    "OpenBot installeert één app in de werkruimte, met de naam OpenBot, en die wordt lid van elk openbaar kanaal.",
+    "zereight bot installeert één app in de werkruimte, met de naam zereight bot, en die wordt lid van elk openbaar kanaal.",
   "connector.slack.connectStepBrowser": "Slack opent in je browser",
   "connector.slack.connectStepAllow": "Kies rechtsboven de werkruimte en daarna Toestaan",
   "connector.slack.connectStepReturn": "Dit venster gaat verder als Slack klaar is",
@@ -125,17 +125,17 @@ export const messages = {
   "connector.slack.orchestratorDoesDelegate": "Geeft elke taak aan de agent die het best past",
   "connector.slack.orchestratorDoesAnswer": "Plaatst het antwoord in de Slack-thread",
   "connector.slack.orchestratorModel": "Model",
-  "connector.slack.doneTitle": "OpenBot zit in {workspace}",
+  "connector.slack.doneTitle": "zereight bot zit in {workspace}",
   "connector.slack.doneDescription": "Noem @OpenBot in een openbaar kanaal, of stuur het een direct bericht.",
   "connector.slack.done": "Klaar",
   "connector.slack.disconnectTitle": "{workspace} loskoppelen?",
   "connector.slack.disconnectDescription":
-    "OpenBot antwoordt niet meer in {workspace} en verwijdert zijn Slack-token van deze computer.",
+    "zereight bot antwoordt niet meer in {workspace} en verwijdert zijn Slack-token van deze computer.",
   "connector.slack.disconnectDescriptionHost":
-    "OpenBot antwoordt niet meer in {workspace} en verwijdert zijn Slack-token van {host}.",
+    "zereight bot antwoordt niet meer in {workspace} en verwijdert zijn Slack-token van {host}.",
   "connector.slack.disconnectEffect": "Mensen in {workspace} kunnen je agents niet meer bereiken via @OpenBot.",
-  "connector.slack.removeEffectKept": "De gesprekken en de Slack Orchestrator blijven in OpenBot.",
-  "connector.slack.removeEffectDeleted": "De Slack Orchestrator en zijn gesprekken worden uit OpenBot verwijderd.",
+  "connector.slack.removeEffectKept": "De gesprekken en de Slack Orchestrator blijven in zereight bot.",
+  "connector.slack.removeEffectDeleted": "De Slack Orchestrator en zijn gesprekken worden uit zereight bot verwijderd.",
   "connector.slack.keep": "Verbonden houden",
   "connector.slack.close": "Sluiten",
   "connector.slack.addWorkspace": "Werkruimte toevoegen",
@@ -170,10 +170,10 @@ export const messages = {
   "connector.discord.disconnectAllSummary":
     "Elke Discord-server wordt losgekoppeld. Mensen kunnen je agents niet meer bereiken via @OpenBot.",
   "connector.discord.disconnectAllSummaryOrchestrator":
-    "Elke Discord-server wordt losgekoppeld. De Discord Orchestrator en zijn gesprekken worden uit OpenBot verwijderd.",
+    "Elke Discord-server wordt losgekoppeld. De Discord Orchestrator en zijn gesprekken worden uit zereight bot verwijderd.",
   "connector.discord.missingScopes":
-    "OpenBot heeft deze machtigingen in Discord niet: {scopes}. Koppel de Discord-server los en verbind hem daarna opnieuw.",
-  "connector.discord.retryAt": "Discord vroeg OpenBot te wachten. Het probeert het opnieuw om {time}.",
+    "zereight bot heeft deze machtigingen in Discord niet: {scopes}. Koppel de Discord-server los en verbind hem daarna opnieuw.",
+  "connector.discord.retryAt": "Discord vroeg zereight bot te wachten. Het probeert het opnieuw om {time}.",
   "connector.discord.reconnect": "Opnieuw verbinden",
   "connector.discord.pause": "Pauzeren",
   "connector.discord.resume": "Hervatten",
@@ -184,11 +184,12 @@ export const messages = {
   "connector.discord.orchestratorNone": "Nog geen agent antwoordt",
   "connector.discord.orchestratorNoneDescription":
     "Voeg de Discord Orchestrator toe, anders krijgt Discord geen antwoord.",
-  "connector.discord.channelsNote": "OpenBot ziet de kanalen die zijn rol kan bekijken.",
+  "connector.discord.channelsNote": "zereight bot ziet de kanalen die zijn rol kan bekijken.",
   "connector.discord.stepWorkspace": "Discord-server",
   "connector.discord.stepAgent": "Agent",
   "connector.discord.connectTitle": "Verbind een Discord-server",
-  "connector.discord.connectDescription": "OpenBot voegt één bot, met de naam OpenBot, toe aan de Discord-server.",
+  "connector.discord.connectDescription":
+    "zereight bot voegt één bot, met de naam zereight bot, toe aan de Discord-server.",
   "connector.discord.connectStepBrowser": "Discord opent in je browser",
   "connector.discord.connectStepAllow": "Kies de server en daarna Autoriseren",
   "connector.discord.connectStepReturn": "Dit venster gaat verder als Discord klaar is",
@@ -203,17 +204,18 @@ export const messages = {
   "connector.discord.orchestratorDoesDelegate": "Geeft elke taak aan de agent die het best past",
   "connector.discord.orchestratorDoesAnswer": "Antwoordt in het Discord-kanaal",
   "connector.discord.orchestratorModel": "Model",
-  "connector.discord.doneTitle": "OpenBot zit in {workspace}",
+  "connector.discord.doneTitle": "zereight bot zit in {workspace}",
   "connector.discord.doneDescription": "Noem @OpenBot in een kanaal. Antwoord op OpenBot om verder te gaan.",
   "connector.discord.done": "Klaar",
   "connector.discord.disconnectTitle": "{workspace} loskoppelen?",
   "connector.discord.disconnectDescription":
-    "OpenBot antwoordt niet meer in {workspace} en verwijdert de Discord-verbinding van deze computer.",
+    "zereight bot antwoordt niet meer in {workspace} en verwijdert de Discord-verbinding van deze computer.",
   "connector.discord.disconnectDescriptionHost":
-    "OpenBot antwoordt niet meer in {workspace} en verwijdert de Discord-verbinding van {host}.",
+    "zereight bot antwoordt niet meer in {workspace} en verwijdert de Discord-verbinding van {host}.",
   "connector.discord.disconnectEffect": "Mensen in {workspace} kunnen je agents niet meer bereiken via @OpenBot.",
-  "connector.discord.removeEffectKept": "De gesprekken en de Discord Orchestrator blijven in OpenBot.",
-  "connector.discord.removeEffectDeleted": "De Discord Orchestrator en zijn gesprekken worden uit OpenBot verwijderd.",
+  "connector.discord.removeEffectKept": "De gesprekken en de Discord Orchestrator blijven in zereight bot.",
+  "connector.discord.removeEffectDeleted":
+    "De Discord Orchestrator en zijn gesprekken worden uit zereight bot verwijderd.",
   "connector.discord.keep": "Verbonden houden",
   "connector.discord.close": "Sluiten",
   "connector.discord.addWorkspace": "Discord-server toevoegen",
@@ -225,25 +227,26 @@ export const messages = {
     one: "{count} Discord-server · Discord Orchestrator antwoordt",
     other: "{count} Discord-servers · Discord Orchestrator antwoordt",
   },
-  "connector.discord.accessTitle": "Wie OpenBot kan gebruiken",
-  "connector.discord.accessDescription": "OpenBot antwoordt alleen deze mensen. Het negeert vermeldingen van anderen.",
+  "connector.discord.accessTitle": "Wie zereight bot kan gebruiken",
+  "connector.discord.accessDescription":
+    "zereight bot antwoordt alleen deze mensen. Het negeert vermeldingen van anderen.",
   "connector.discord.accessEveryone": "Iedereen op de server",
   "connector.discord.accessEveryoneDescription":
-    "Iedereen die kan posten in een kanaal dat OpenBot ziet, kan het noemen.",
+    "Iedereen die kan posten in een kanaal dat zereight bot ziet, kan het noemen.",
   "connector.discord.accessRoles": "Leden met {roles}",
   "connector.discord.accessChoose": "Kies rollen",
-  "connector.discord.accessDialogTitle": "Wie kan OpenBot gebruiken in {workspace}?",
-  "connector.discord.accessDialogDescription": "Als er geen rol is gekozen, kan iedereen OpenBot noemen.",
+  "connector.discord.accessDialogTitle": "Wie kan zereight bot gebruiken in {workspace}?",
+  "connector.discord.accessDialogDescription": "Als er geen rol is gekozen, kan iedereen zereight bot noemen.",
   "connector.discord.accessLoading": "Rollen laden…",
   "connector.discord.accessLoadFailed": "Discord-rollen zijn niet geladen",
   "connector.discord.accessNoRoles": "Deze Discord-server heeft geen rollen om te kiezen.",
   "connector.discord.accessRoleDeleted": "{role} (verwijderd)",
   "connector.discord.accessSave": "Opslaan",
-  "connector.discord.accessHostUpdate": "Werk OpenBot bij op {host} om rollen te kiezen.",
+  "connector.discord.accessHostUpdate": "Werk zereight bot bij op {host} om rollen te kiezen.",
 
   "connector.telegram.title": "Telegram",
   "connector.telegram.description":
-    "Voeg de OpenBot-bot toe aan een Telegram-groep of open een directe chat ermee. De Telegram Orchestrator vraagt de juiste agent en antwoordt.",
+    "Voeg de zereight bot-bot toe aan een Telegram-groep of open een directe chat ermee. De Telegram Orchestrator vraagt de juiste agent en antwoordt.",
   "connector.telegram.statusConnected": "Verbonden",
   "connector.telegram.statusAttention": "Aandacht nodig",
   "connector.telegram.summaryConnected": {
@@ -266,29 +269,29 @@ export const messages = {
   "connector.telegram.groupDescription": "Mensen noemen de bot of antwoorden op zijn berichten.",
   "connector.telegram.directDescription": "Elk bericht in deze chat gaat naar de Telegram Orchestrator.",
   "connector.telegram.helpRemoved":
-    "De OpenBot-bot zit niet meer in deze chat. Koppel de chat los en voeg de bot daarna opnieuw toe.",
+    "De zereight bot-bot zit niet meer in deze chat. Koppel de chat los en voeg de bot daarna opnieuw toe.",
   "connector.telegram.helpRelayUnavailable":
-    "OpenBot kan op deze computer geen Telegram-berichten ontvangen. Log in, geef deze computer een naam in Serverinstellingen en houd OpenBot open.",
+    "zereight bot kan op deze computer geen Telegram-berichten ontvangen. Log in, geef deze computer een naam in Serverinstellingen en houd zereight bot open.",
   "connector.telegram.helpRelayUnavailableHost":
-    "OpenBot op {host} kan geen Telegram-berichten ontvangen. Log op {host} in, geef de server een naam in Serverinstellingen en houd OpenBot open.",
-  "connector.telegram.helpError": "OpenBot kan deze chat niet bereiken. Verbind opnieuw of koppel de chat los.",
-  "connector.telegram.retryAt": "Telegram vroeg OpenBot te wachten. Het probeert het opnieuw om {time}.",
+    "zereight bot op {host} kan geen Telegram-berichten ontvangen. Log op {host} in, geef de server een naam in Serverinstellingen en houd zereight bot open.",
+  "connector.telegram.helpError": "zereight bot kan deze chat niet bereiken. Verbind opnieuw of koppel de chat los.",
+  "connector.telegram.retryAt": "Telegram vroeg zereight bot te wachten. Het probeert het opnieuw om {time}.",
   "connector.telegram.pause": "Pauzeren",
   "connector.telegram.resume": "Hervatten",
   "connector.telegram.reconnect": "Opnieuw verbinden",
   "connector.telegram.disconnectChat": "Verbreken",
   "connector.telegram.disconnectAllTitle": "Telegram loskoppelen",
   "connector.telegram.disconnectAllSummary":
-    "Elke chat wordt losgekoppeld. Mensen kunnen je agents niet meer bereiken via de OpenBot-bot.",
+    "Elke chat wordt losgekoppeld. Mensen kunnen je agents niet meer bereiken via de zereight bot-bot.",
   "connector.telegram.disconnectAllSummaryOrchestrator":
-    "Elke chat wordt losgekoppeld. De Telegram Orchestrator en zijn gesprekken worden uit OpenBot verwijderd.",
+    "Elke chat wordt losgekoppeld. De Telegram Orchestrator en zijn gesprekken worden uit zereight bot verwijderd.",
   "connector.telegram.rowAction": "{action}: {name}",
   "connector.telegram.linkChat": "Koppel een chat",
   "connector.telegram.addToGroup": "Toevoegen aan een groep",
   "connector.telegram.openDirectChat": "Open een directe chat",
   "connector.telegram.orchestratorTitle": "Telegram Orchestrator",
   "connector.telegram.orchestratorDescription":
-    "Deze agent ontvangt de berichten voor OpenBot uit al je Telegram-chats. Korte berichten beantwoordt hij zelf, ander werk geeft hij aan de juiste agent, en hij plaatst het antwoord in de chat.",
+    "Deze agent ontvangt de berichten voor zereight bot uit al je Telegram-chats. Korte berichten beantwoordt hij zelf, ander werk geeft hij aan de juiste agent, en hij plaatst het antwoord in de chat.",
   "connector.telegram.orchestratorNone": "Nog geen agent antwoordt",
   "connector.telegram.orchestratorNoneDescription":
     "Voeg de Telegram Orchestrator toe, anders krijgt Telegram geen antwoord.",
@@ -298,33 +301,35 @@ export const messages = {
   "connector.telegram.stepAgent": "Agent",
   "connector.telegram.connectTitle": "Koppel een Telegram-chat",
   "connector.telegram.connectDescription":
-    "Voeg de OpenBot-bot toe aan een groep, of open een directe chat ermee. Eén bot bedient al je chats.",
+    "Voeg de zereight bot-bot toe aan een groep, of open een directe chat ermee. Eén bot bedient al je chats.",
   "connector.telegram.connectStepBrowser": "Telegram opent in je browser",
   "connector.telegram.connectStepPick": "Kies de groep, of druk op Start in de directe chat",
   "connector.telegram.connectStepReturn": "Dit venster gaat verder als de chat is gekoppeld",
   "connector.telegram.connectWaiting": "Wachten op Telegram. Kies de chat in Telegram.",
   "connector.telegram.agentStepTitle": "Voeg de Telegram Orchestrator toe",
   "connector.telegram.agentStepDescription":
-    "Deze nieuwe agent beantwoordt de berichten voor OpenBot in {chat} en in elke chat die je later koppelt.",
+    "Deze nieuwe agent beantwoordt de berichten voor zereight bot in {chat} en in elke chat die je later koppelt.",
   "connector.telegram.orchestratorName": "Telegram Orchestrator",
   "connector.telegram.orchestratorRole": "Antwoordt in Telegram en vraagt het team",
-  "connector.telegram.orchestratorDoesReceive": "Ontvangt elk Telegram-bericht voor OpenBot als eerste",
+  "connector.telegram.orchestratorDoesReceive": "Ontvangt elk Telegram-bericht voor zereight bot als eerste",
   "connector.telegram.orchestratorDoesDelegate": "Geeft elke taak aan de agent die het best past",
   "connector.telegram.orchestratorDoesAnswer": "Plaatst het antwoord in de Telegram-chat",
   "connector.telegram.orchestratorModel": "Model",
-  "connector.telegram.doneTitle": "OpenBot zit in {chat}",
+  "connector.telegram.doneTitle": "zereight bot zit in {chat}",
   "connector.telegram.done": "Klaar",
   "connector.telegram.disconnectTitle": "{chat} loskoppelen?",
-  "connector.telegram.leaveDescription": "De OpenBot-bot verlaat {chat}, en OpenBot antwoordt daar niet meer.",
-  "connector.telegram.disconnectEffect": "Mensen in {chat} kunnen je agents niet meer bereiken via de OpenBot-bot.",
-  "connector.telegram.removeEffectKept": "De gesprekken en de Telegram Orchestrator blijven in OpenBot.",
+  "connector.telegram.leaveDescription":
+    "De zereight bot-bot verlaat {chat}, en zereight bot antwoordt daar niet meer.",
+  "connector.telegram.disconnectEffect":
+    "Mensen in {chat} kunnen je agents niet meer bereiken via de zereight bot-bot.",
+  "connector.telegram.removeEffectKept": "De gesprekken en de Telegram Orchestrator blijven in zereight bot.",
   "connector.telegram.removeEffectDeleted":
-    "Dit is de laatste chat, dus de Telegram Orchestrator en zijn gesprekken worden uit OpenBot verwijderd.",
+    "Dit is de laatste chat, dus de Telegram Orchestrator en zijn gesprekken worden uit zereight bot verwijderd.",
   "connector.telegram.keep": "Verbonden houden",
   "connector.telegram.close": "Sluiten",
   "connector.onePassword.title": "1Password",
   "connector.onePassword.description":
-    "Deel een aparte 1Password-kluis met OpenBot via een serviceaccount, zodat agents kunnen inloggen op sites in de OpenBot-browser.",
+    "Deel een aparte 1Password-kluis met zereight bot via een serviceaccount, zodat agents kunnen inloggen op sites in de zereight bot-browser.",
   "connector.onePassword.howItWorks":
     "Bij het verbinden worden in je 1Password-account een kluis “Shared with OpenBot” en een serviceaccount gemaakt dat alleen die kluis kan lezen. OpenBot vult opgeslagen logins in zijn browser op deze computer in, dus alleen de items die je naar die kluis verplaatst, worden ooit gedeeld. Agents zien nooit een wachtwoord.",
   "connector.onePassword.connect": "Verbind 1Password",
@@ -336,14 +341,14 @@ export const messages = {
   "connector.onePassword.stepCliMissing":
     "OpenBot downloadt hem van 1Password naar een eigen map. Er is geen beheerderswachtwoord nodig.",
   "connector.onePassword.stepCliManual":
-    "OpenBot kan hem niet op deze computer installeren. Installeer hem via 1Password en kom dan terug naar deze pagina.",
+    "zereight bot kan hem niet op deze computer installeren. Installeer hem via 1Password en kom dan terug naar deze pagina.",
   "connector.onePassword.installCli": "Installeren",
   "connector.onePassword.stepAppTitle": "Zet de CLI-integratie aan",
   "connector.onePassword.stepAppDescription":
     "Open in de 1Password-app Instellingen > Ontwikkelaar en zet “Integreren met 1Password CLI” aan.",
   "connector.onePassword.stepAppReady": "De 1Password-app laat de CLI de gedeelde kluis maken.",
   "connector.onePassword.openApp": "Open 1Password",
-  "connector.onePassword.openAppFailed": "OpenBot kan 1Password niet openen.",
+  "connector.onePassword.openAppFailed": "zereight bot kan 1Password niet openen.",
   "connector.onePassword.checkAgain": "Opnieuw controleren",
   "connector.onePassword.stepVaultTitle": "Maak de gedeelde kluis",
   "connector.onePassword.stepVaultDescription":
@@ -357,7 +362,7 @@ export const messages = {
   "connector.onePassword.approveInApp": "Keur het verzoek goed in de 1Password-app",
   "connector.onePassword.cancel": "Annuleren",
   "connector.onePassword.chooseAccountTitle": "Kies een account",
-  "connector.onePassword.chooseAccountDescription": "OpenBot maakt de gedeelde kluis in het account dat je kiest.",
+  "connector.onePassword.chooseAccountDescription": "zereight bot maakt de gedeelde kluis in het account dat je kiest.",
   "connector.onePassword.useAccount": "Gebruik dit account",
   "connector.onePassword.vaultTitle": "Gedeelde kluis",
   "connector.onePassword.vaultDescription":
@@ -367,14 +372,14 @@ export const messages = {
   "connector.onePassword.disconnect": "Verbreken",
   "connector.onePassword.disconnectTitle": "1Password loskoppelen",
   "connector.onePassword.disconnectSummary":
-    "OpenBot vergeet het token. De kluis en het serviceaccount blijven in 1Password; verwijder ze daar als je ze niet meer nodig hebt.",
-  "connector.onePassword.actionFailed": "OpenBot kan de 1Password-verbinding niet wijzigen.",
+    "zereight bot vergeet het token. De kluis en het serviceaccount blijven in 1Password; verwijder ze daar als je ze niet meer nodig hebt.",
+  "connector.onePassword.actionFailed": "zereight bot kan de 1Password-verbinding niet wijzigen.",
   "connector.onePassword.statusConnected": "Verbonden",
   "connector.onePassword.statusConnecting": "Verbinden",
   "connector.onePassword.descriptionHost":
-    "Deel een aparte 1Password-kluis met OpenBot op {host} via een serviceaccount, zodat agents op {host} kunnen inloggen op sites in de browser ervan.",
+    "Deel een aparte 1Password-kluis met zereight bot op {host} via een serviceaccount, zodat agents op {host} kunnen inloggen op sites in de browser ervan.",
   "connector.onePassword.howItWorksHost":
-    "{host} verbindt met een serviceaccounttoken. Maak op 1Password.com een serviceaccount dat alleen de kluis kan lezen die je met OpenBot deelt, en plak het token ervan hier. {host} controleert het token en bewaart het; deze computer niet. Agents zien nooit een wachtwoord.",
+    "{host} verbindt met een serviceaccounttoken. Maak op 1Password.com een serviceaccount dat alleen de kluis kan lezen die je met zereight bot deelt, en plak het token ervan hier. {host} controleert het token en bewaart het; deze computer niet. Agents zien nooit een wachtwoord.",
   "connector.onePassword.disconnectSummaryHost":
     "{host} vergeet het token. De kluis en het serviceaccount blijven in 1Password; verwijder ze daar als je ze niet meer nodig hebt.",
   "connector.bitwarden.title": "Bitwarden",
@@ -384,17 +389,17 @@ export const messages = {
   "connector.bitwarden.scope":
     "Alle agents op deze computer kunnen passende logins in Shared with OpenBot gebruiken. OpenBot gebruikt exacte HTTPS-origins. Het gebruikt geen items die om het hoofdwachtwoord vragen of een aangepaste URI-matchregel hebben.",
   "connector.bitwarden.session":
-    "De sessiesleutel blijft in het geheugen. Verbind opnieuw na 8 uur zonder kluisgebruik of nadat OpenBot is afgesloten. Loskoppelen stopt de toegang van OpenBot; andere Bitwarden-clients worden niet vergrendeld.",
+    "De sessiesleutel blijft in het geheugen. Verbind opnieuw na 8 uur zonder kluisgebruik of nadat zereight bot is afgesloten. Loskoppelen stopt de toegang van zereight bot; andere Bitwarden-clients worden niet vergrendeld.",
   "connector.bitwarden.sessionKey": "Bitwarden-sessiesleutel",
   "connector.bitwarden.connect": "Verbind Bitwarden",
   "connector.bitwarden.disconnect": "Bitwarden loskoppelen",
   "connector.bitwarden.disconnectAction": "Verbreken",
   "connector.bitwarden.disconnectSummary":
-    "OpenBot vergeet de sessiesleutel. Agents kunnen geen logins uit Bitwarden meer invullen. Andere Bitwarden-clients blijven ontgrendeld.",
+    "zereight bot vergeet de sessiesleutel. Agents kunnen geen logins uit Bitwarden meer invullen. Andere Bitwarden-clients blijven ontgrendeld.",
   "connector.bitwarden.disconnectSummaryHost":
     "{host} verwijdert de API-sleutel en het hoofdwachtwoord. Agents op {host} kunnen geen logins uit Bitwarden meer invullen.",
   "connector.bitwarden.connected": "Verbonden",
-  "connector.bitwarden.actionFailed": "OpenBot kan de Bitwarden-verbinding niet wijzigen.",
+  "connector.bitwarden.actionFailed": "zereight bot kan de Bitwarden-verbinding niet wijzigen.",
   "connector.bitwarden.descriptionHost": "Vul browserlogins op {host} in vanuit Bitwarden of Vaultwarden.",
   "connector.bitwarden.setupHost":
     "{host} logt in met een eigen Bitwarden CLI. Maak in je kluis een map met de naam Shared with OpenBot en zet daar alleen de logins in die agents mogen gebruiken. Open in de webkluis Instellingen › Beveiliging › Sleutels en bekijk je API-sleutel. Voer hieronder het serveradres, client_id, client_secret en je hoofdwachtwoord in.",

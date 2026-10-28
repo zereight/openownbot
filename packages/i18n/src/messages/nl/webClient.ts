@@ -2,7 +2,7 @@ import type { PartialTranslation } from "../../message";
 import type { messages as source } from "../en/webClient";
 
 export const messages = {
-  "webClient.loading": "OpenBot laden…",
+  "webClient.loading": "zereight bot laden…",
   "webClient.loadingLine.wake": "De agents wakker maken…",
   "webClient.loadingLine.coffee": "Koffie inschenken voor de agents…",
   "webClient.loadingLine.tokens": "Tokens tellen op de vingers…",
@@ -24,13 +24,13 @@ export const messages = {
   "webClient.notice.hostsFailed": "Kan je servers niet laden",
   "webClient.notice.connectComputer": "Verbind een server",
   "webClient.connect.description":
-    "Draai OpenBot op je computer om vanuit deze browser met je agents te chatten. Je kunt ook lid worden van een server met een uitnodiging.",
+    "Draai zereight bot op je computer om vanuit deze browser met je agents te chatten. Je kunt ook lid worden van een server met een uitnodiging.",
   "webClient.connect.descriptionHosted":
-    "Maak een gehoste server om vanuit deze browser met je agents te chatten. Je kunt OpenBot ook op je computer draaien, of lid worden van een server met een uitnodiging.",
-  "webClient.connect.stepInstall": "Installeer en open OpenBot op je computer.",
+    "Maak een gehoste server om vanuit deze browser met je agents te chatten. Je kunt zereight bot ook op je computer draaien, of lid worden van een server met een uitnodiging.",
+  "webClient.connect.stepInstall": "Installeer en open zereight bot op je computer.",
   "webClient.connect.stepSignIn": "Log in met je e-mailadres.",
   "webClient.connect.stepRemote": "Zet toegang op afstand aan.",
-  "webClient.notice.download": "OpenBot downloaden",
+  "webClient.notice.download": "zereight bot downloaden",
   "webClient.notice.createServer": "Gehoste server maken",
   "webClient.notice.join": "Lid worden met uitnodiging",
   "webClient.notice.refreshHosts": "Servers vernieuwen",
@@ -42,7 +42,7 @@ export const messages = {
   "webClient.error.usageOffline": "Maak verbinding met je server om het gebruik te bekijken.",
   "webClient.error.desktopOnly": "Deze actie is beschikbaar in de desktop-app.",
   "webClient.settings.preferences.title": "Voorkeuren",
-  "webClient.settings.preferences.description": "Kies de taal en geluiden van OpenBot in deze browser.",
+  "webClient.settings.preferences.description": "Kies de taal en geluiden van zereight bot in deze browser.",
   "webClient.error.checkConversation": "Controleer het gesprek voordat je opnieuw verstuurt.",
   "webClient.error.hostReported": "De server meldde een fout. Controleer het gesprek en de serverstatus.",
   "webClient.error.requestFailed": "Het verzoek is mislukt.",
@@ -74,7 +74,7 @@ export const messages = {
   "webClient.error.identityChanged": "De identiteit van de server is gewijzigd. Verbinding geweigerd.",
   "webClient.error.connectionUnavailable": "De serververbinding is niet beschikbaar.",
   "webClient.error.incompatible":
-    "Deze server is niet compatibel met OpenBot web. Werk de server bij en laad deze pagina opnieuw.",
+    "Deze server is niet compatibel met zereight bot web. Werk de server bij en laad deze pagina opnieuw.",
   "webClient.error.sendUnconfirmed":
     "De bezorging van het bericht is niet bevestigd. Vernieuw voordat je het opnieuw verstuurt.",
   "webClient.error.fileType": "Werk de server bij om dit bestandstype bij te voegen.",
@@ -82,7 +82,7 @@ export const messages = {
   "webClient.error.duplication": "Deze server ondersteunt het dupliceren van agents niet.",
   "webClient.error.connectServerFirst": "Maak eerst verbinding met deze server.",
   "webClient.error.agentInstallNotAllowed":
-    "Alleen een eigenaar of beheerder kan hier een agent toevoegen, en de server moet een actuele versie van OpenBot draaien.",
+    "Alleen een eigenaar of beheerder kan hier een agent toevoegen, en de server moet een actuele versie van zereight bot draaien.",
   "webClient.error.linkDesktopOnly": "Deze link opent alleen in de desktop-app.",
   "webClient.error.saveEndpointOffline": "Maak verbinding met je server om een endpoint op te slaan.",
   "webClient.error.removeEndpointOffline": "Maak verbinding met je server om een endpoint te verwijderen.",

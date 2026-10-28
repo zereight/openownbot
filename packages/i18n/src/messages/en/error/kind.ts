@@ -5,7 +5,7 @@ export const messages = defineMessages("error.kind", {
   "error.kind.network": "Could not connect. Check your connection and try again.",
   "error.kind.timeout": "The request took too long. Check whether the action completed before you try again.",
   "error.kind.storage":
-    "There is not enough storage space. Free some space on the computer running OpenBot, then try again.",
+    "There is not enough storage space. Free some space on the computer running zereight bot, then try again.",
   "error.kind.filePermission":
     "OpenBot does not have permission to complete this action. Check the file or folder permissions, then try again.",
   "error.kind.notFound":

@@ -9,12 +9,13 @@ export const messages = {
   "error.workflow.branch": "Solo una condizione può avere connessioni sì e no.",
   "error.workflow.conditionBranch": "Ogni connessione da una condizione deve essere sì o no.",
   "error.workflow.duplicateEdge": "Questi due passaggi hanno già questa connessione.",
-  "error.workflow.serverTooOld": "Questo server non supporta i workflow. Aggiorna OpenBot sul computer che lo esegue.",
+  "error.workflow.serverTooOld":
+    "Questo server non supporta i workflow. Aggiorna zereight bot sul computer che lo esegue.",
   "error.workflow.nodeUnsupported":
-    "Questa versione di OpenBot non può ancora eseguire passaggi di immagine, file e messaggio.",
-  "error.workflow.interrupted": "OpenBot si è fermato durante questo passaggio. Eseguilo di nuovo.",
+    "Questa versione di zereight bot non può ancora eseguire passaggi di immagine, file e messaggio.",
+  "error.workflow.interrupted": "zereight bot si è fermato durante questo passaggio. Eseguilo di nuovo.",
   "error.workflow.agentMissing": "Scegli un agente per questo passaggio.",
-  "error.workflow.handoffFailed": "OpenBot non è riuscito a inviare questo passaggio al suo agente.",
+  "error.workflow.handoffFailed": "zereight bot non è riuscito a inviare questo passaggio al suo agente.",
   "error.workflow.agentStepEnded": "Il messaggio all’agente è stato rimosso prima della sua risposta.",
   "error.workflow.conditionUnclear": "Il modello non ha risposto sì o no.",
   "error.workflow.modelFailed": "Il modello non ha potuto rispondere. Esegui di nuovo il passaggio.",
@@ -28,7 +29,7 @@ export const messages = {
   "error.workflow.outputConnectionOff":
     "La connessione di messaggistica di questo output è disattivata o rimossa. Scegli di nuovo un luogo.",
   "error.workflow.outputNotRunning": "La connessione di messaggistica non è attiva ora. Riprova quando è attiva.",
-  "error.workflow.outputRefused": "Il luogo ha rifiutato il post. Verifica che OpenBot possa pubblicare lì.",
+  "error.workflow.outputRefused": "Il luogo ha rifiutato il post. Verifica che zereight bot possa pubblicare lì.",
   "error.workflow.outputUncertain":
     "Il post si è fermato a metà. Una parte può essere già nel luogo. Controlla prima di riprovare.",
   "error.workflow.tooLarge":

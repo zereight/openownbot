@@ -56,8 +56,8 @@ export const messages = {
   "composer.voice.blocked":
     "Toegang tot de microfoon is geblokkeerd. Geef OpenBot toegang tot de microfoon in de systeeminstellingen.",
   "composer.voice.noMicrophone": "Er is geen microfoon beschikbaar.",
-  "composer.voice.startFailed": "OpenBot kan de spraakopname niet starten.",
-  "composer.voice.transcribeFailed": "OpenBot kan deze opname niet uitschrijven.",
+  "composer.voice.startFailed": "zereight bot kan de spraakopname niet starten.",
+  "composer.voice.transcribeFailed": "zereight bot kan deze opname niet uitschrijven.",
   "composer.reply.toYou": "Antwoord op je bericht",
   "composer.reply.toAgent": "Antwoord aan agent",
   "composer.reply.attachment": "Bijlage",

@@ -56,8 +56,8 @@ export const messages = {
   "browser.pip.reattach": "Browser terugzetten in rechterzijbalk",
   "browser.pip.reattachTitle": "Browser terugzetten",
   "browser.pip.close": "Browserpop-up sluiten",
-  "browser.pip.reattachFailed": "OpenBot kon de browser niet terugzetten.",
-  "browser.pip.closeFailed": "OpenBot kon de browserpop-up niet sluiten.",
+  "browser.pip.reattachFailed": "zereight bot kon de browser niet terugzetten.",
+  "browser.pip.closeFailed": "zereight bot kon de browserpop-up niet sluiten.",
   "browser.popupBlocked.title": "Pop-up geblokkeerd",
   "browser.popupBlocked.dismiss": "Pop-upmelding sluiten",
   "browser.liveView.label": "Live weergave van de pagina op de server",
@@ -132,22 +132,22 @@ export const messages = {
   "browser.signIn.local": "Inloggen op deze computer",
   "browser.signIn.title": "Inloggen bij {site}",
   "browser.signIn.description":
-    "Sommige sites weigeren inloggen vanaf een server. Log in op deze computer, en OpenBot stuurt de login voor {site} naar {server}. Alle agents en leden op {server} kunnen die daarna in de browser gebruiken.",
+    "Sommige sites weigeren inloggen vanaf een server. Log in op deze computer, en zereight bot stuurt de login voor {site} naar {server}. Alle agents en leden op {server} kunnen die daarna in de browser gebruiken.",
   "browser.signIn.windowOpen":
-    "Log in in het venster dat is geopend. OpenBot stuurt de login als die klaar is. Kies Klaar als het venster open blijft.",
+    "Log in in het venster dat is geopend. zereight bot stuurt de login als die klaar is. Kies Klaar als het venster open blijft.",
   "browser.signIn.windowClosed":
     "Het inlogvenster is gesloten. Kies Klaar om de login te sturen, of open het venster opnieuw.",
   "browser.signIn.reopen": "Inlogvenster openen",
   "browser.signIn.sending": "Versturen naar {server}…",
   "browser.signIn.sent": "Ingelogd bij {site} op {server}",
   "browser.signIn.notFound":
-    "OpenBot heeft geen login voor {site} gevonden. Log in in het venster en kies daarna Klaar.",
+    "zereight bot heeft geen login voor {site} gevonden. Log in in het venster en kies daarna Klaar.",
   "browser.signIn.stillSignedOut":
     "{server} toont nog een inlogpagina voor {site}. Rond het inloggen af in het venster.",
-  "browser.signIn.failed": "OpenBot kon de login niet versturen.",
+  "browser.signIn.failed": "zereight bot kon de login niet versturen.",
   "browser.profiles.title": "Browserprofielen",
   "browser.profiles.subtitle":
-    "Elk profiel bewaart eigen logins, cookies en sitegegevens op de computer waarop OpenBot draait.",
+    "Elk profiel bewaart eigen logins, cookies en sitegegevens op de computer waarop zereight bot draait.",
   "browser.profiles.label": "Browserprofielen",
   "browser.profiles.newName": "Profielnaam",
   "browser.profiles.create": "Toevoegen",
@@ -166,8 +166,8 @@ export const messages = {
   "browser.profiles.deleteDescription":
     "Hiermee worden de logins, cookies en sitegegevens van het profiel verwijderd. De open tabbladen worden gesloten.",
   "browser.profiles.deleteAgents": "Deze agents gaan over op het gedeelde profiel: {agents}.",
-  "browser.profiles.failed": "OpenBot kon de browserprofielen niet wijzigen.",
-  "browser.profiles.loadFailed": "OpenBot kon de browserprofielen niet laden.",
+  "browser.profiles.failed": "zereight bot kon de browserprofielen niet wijzigen.",
+  "browser.profiles.loadFailed": "zereight bot kon de browserprofielen niet laden.",
   "browser.profiles.tabLabel": "Profiel: {name}",
   "browser.profiles.agentTabLabel": "Eigen profiel van de agent",
 } as const satisfies PartialTranslation<typeof source>;

@@ -10,7 +10,7 @@ export const messages = defineMessages("menu", {
   "menu.zoomIn": "Zoom In",
   "menu.zoomOut": "Zoom Out",
   "menu.copyLink": "Copy Link",
-  "menu.trayOpen": "Open OpenBot",
-  "menu.trayQuit": "Quit OpenBot",
-  "menu.trayTooltip": "OpenBot",
+  "menu.trayOpen": "Open zereight bot",
+  "menu.trayQuit": "Quit zereight bot",
+  "menu.trayTooltip": "zereight bot",
 });

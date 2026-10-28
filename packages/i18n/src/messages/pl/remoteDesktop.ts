@@ -9,7 +9,7 @@ export const messages = {
   "remoteDesktop.workspaceLabel": "Zdalne sterowanie",
   "remoteDesktop.displayLabel": "Zdalny ekran",
   "remoteDesktop.selectDisplay": "Wybierz ekran",
-  "remoteDesktop.backToOpenBot": "Wróć do OpenBot",
+  "remoteDesktop.backToOpenBot": "Wróć do zereight bot",
   "remoteDesktop.disconnect": "Rozłącz",
   "remoteDesktop.viewerTitle": "Zdalny pulpit Sunshine",
   "remoteDesktop.viewerLoadFailed": "Nie udało się wczytać podglądu Moonlight.",
@@ -40,7 +40,7 @@ export const messages = {
   "remoteDesktop.setup.startFailed": "Nie udało się uruchomić testu zdalnego pulpitu.",
   "remoteDesktop.setup.connectionLost": "Utracono połączenie testowe.",
   "remoteDesktop.setup.hostUpdateRequired":
-    "Zaktualizuj OpenBot na serwerze, aby sprawdzić uprawnienia i przetestować zdalny pulpit.",
+    "Zaktualizuj zereight bot na serwerze, aby sprawdzić uprawnienia i przetestować zdalny pulpit.",
   "remoteDesktop.setup.permissions": "Uprawnienia",
   "remoteDesktop.setup.checked": "Sprawdzono",
   "remoteDesktop.setup.checkAgain": "Sprawdź ponownie",

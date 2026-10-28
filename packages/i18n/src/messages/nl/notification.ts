@@ -14,15 +14,15 @@ export const messages = {
   "notification.channelMessage": "Heeft een bericht gestuurd.",
   "notification.usageLimit.title": "Account van {provider} heeft de limiet bereikt",
   "notification.usageLimit.body": {
-    one: "{count} agent wacht. OpenBot probeert het later opnieuw.",
-    other: "{count} agents wachten. OpenBot probeert het later opnieuw.",
+    one: "{count} agent wacht. zereight bot probeert het later opnieuw.",
+    other: "{count} agents wachten. zereight bot probeert het later opnieuw.",
   },
   "notification.usageLimit.bodyResets": {
     one: "{count} agent wacht. Reset op {reset}.",
     other: "{count} agents wachten. Reset op {reset}.",
   },
   "notification.test": "Meldingen werken.",
-  "notification.welcome": "OpenBot laat je hier weten wanneer een agent je nodig heeft.",
+  "notification.welcome": "zereight bot laat je hier weten wanneer een agent je nodig heeft.",
   "notification.toast.region": "Meldingen",
   "notification.toast.close": "Melding sluiten",
 } as const satisfies PartialTranslation<typeof source>;

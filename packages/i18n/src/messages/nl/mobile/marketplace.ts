@@ -55,13 +55,13 @@ export const messages = {
   "mobile.marketplace.facts.accessNone": "Geen inlog",
   "mobile.marketplace.permission.admin": "Alleen eigenaren en beheerders kunnen installeren uit de marktplaats.",
   "mobile.marketplace.permission.unavailable":
-    "Deze server is offline, of de OpenBot-versie is hiervoor te oud. Werk OpenBot bij op de computer waarop de server draait.",
+    "Deze server is offline, of de zereight bot-versie is hiervoor te oud. Werk zereight bot bij op de computer waarop de server draait.",
   "mobile.marketplace.error.agentUnsupported":
-    "Werk OpenBot bij op de server om agents uit de marktplaats toe te voegen.",
+    "Werk zereight bot bij op de server om agents uit de marktplaats toe te voegen.",
   "mobile.marketplace.error.agentUpdateUnsupported":
-    "Werk OpenBot bij op de server om agents uit de marktplaats bij te werken.",
+    "Werk zereight bot bij op de server om agents uit de marktplaats bij te werken.",
   "mobile.marketplace.error.signInUnsupported":
-    "Werk OpenBot bij op de server om vanaf je telefoon in te loggen bij apps.",
+    "Werk zereight bot bij op de server om vanaf je telefoon in te loggen bij apps.",
   "mobile.marketplace.agent.add": "Voeg agent toe",
   "mobile.marketplace.agent.adding": "Agent toevoegen",
   "mobile.marketplace.agent.update": "Werk agent bij",

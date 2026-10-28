@@ -60,15 +60,15 @@ export const messages = {
   "error.agent.changedWhileDuplicating": "El agente cambió mientras se duplicaba. Inténtalo de nuevo.",
   "error.agent.duplicatedAgentGone": "El agente duplicado ya no existe.",
   "error.agent.stateCorrupt":
-    "El estado del agente está dañado o pertenece a una versión más reciente de OpenBot; no se sobrescribirá.",
+    "El estado del agente está dañado o pertenece a una versión más reciente de zereight bot; no se sobrescribirá.",
   "error.agent.oldRoleField":
-    "Los perfiles de agente guardados usan el antiguo campo role; actualiza los datos antes de iniciar OpenBot.",
+    "Los perfiles de agente guardados usan el antiguo campo role; actualiza los datos antes de iniciar zereight bot.",
   "error.agent.duplicateIds":
     "El estado del agente contiene identificadores de agente duplicados; no se sobrescribirá.",
-  "error.agent.copyNameFailed": "OpenBot no pudo crear un nombre único para la copia del agente.",
+  "error.agent.copyNameFailed": "zereight bot no pudo crear un nombre único para la copia del agente.",
   "error.agent.endpointRemoved": "Se eliminó el endpoint que usaba este agente. Elige otro modelo para él.",
   "error.agent.turnStalled":
-    "{provider} dejó de responder, así que OpenBot terminó este turno. Envía el mensaje de nuevo o elige otro modelo.",
+    "{provider} dejó de responder, así que zereight bot terminó este turno. Envía el mensaje de nuevo o elige otro modelo.",
   "error.agent.selectedGone": "El agente seleccionado ya no existe.",
   "error.agent.profileEndpointsChanged":
     "Los endpoints personalizados cambiaron durante la generación. Inténtalo de nuevo.",
@@ -89,9 +89,9 @@ export const messages = {
   "error.agent.saveOtherAgent": "Este guardado pertenece a otro agente.",
   "error.agent.savedGone": "El agente guardado ya no existe.",
   "error.agent.storedProfileUnreadable":
-    "Un perfil de agente guardado tiene un valor «{field}» ilegible; actualiza los datos antes de iniciar OpenBot.",
+    "Un perfil de agente guardado tiene un valor «{field}» ilegible; actualiza los datos antes de iniciar zereight bot.",
   "error.agent.storedProfileUnreadableId":
-    "El perfil de agente guardado {id} tiene un valor «{field}» ilegible; actualiza los datos antes de iniciar OpenBot.",
+    "El perfil de agente guardado {id} tiene un valor «{field}» ilegible; actualiza los datos antes de iniciar zereight bot.",
   "error.agent.queueEditRejected": "Edición de la cola rechazada: {reason}",
   "error.agent.computerUseLocalOnly": "El uso del equipo solo se puede cambiar en el equipo que ejecuta el agente.",
   "error.agent.automationLocalOnly": "Los scripts locales solo se pueden permitir en el equipo que ejecuta el agente.",
@@ -118,7 +118,7 @@ export const messages = {
   "error.agent.lowMemoryServer":
     "Este servidor tiene poca memoria disponible. Tu mensaje espera en la cola y se iniciará cuando se libere memoria.",
   "error.agent.workspaceOnlyToolMissing":
-    "Solo espacio de trabajo requiere {tool}, que OpenBot no encontró. Instálalo o elige Acceso completo en los ajustes del agente.",
+    "Solo espacio de trabajo requiere {tool}, que zereight bot no encontró. Instálalo o elige Acceso completo en los ajustes del agente.",
   "error.agent.screenCaptureOff":
     "La captura de pantalla está desactivada para este agente. El usuario puede activar el uso del equipo en los ajustes del agente.",
   "error.agent.screenCaptureUnavailable": "La captura de pantalla no está disponible en este equipo.",

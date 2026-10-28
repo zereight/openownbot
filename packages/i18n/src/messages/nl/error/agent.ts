@@ -63,15 +63,15 @@ export const messages = {
   "error.agent.changedWhileDuplicating": "De agent is gewijzigd terwijl hij werd gedupliceerd. Probeer het opnieuw.",
   "error.agent.duplicatedAgentGone": "De gedupliceerde agent bestaat niet meer.",
   "error.agent.stateCorrupt":
-    "De status van de agent is beschadigd of komt van een nieuwere versie van OpenBot; OpenBot overschrijft deze niet.",
+    "De status van de agent is beschadigd of komt van een nieuwere versie van zereight bot; zereight bot overschrijft deze niet.",
   "error.agent.oldRoleField":
-    "Opgeslagen agentprofielen gebruiken het oude rolveld; werk de gegevens bij voordat je OpenBot start.",
-  "error.agent.duplicateIds": "De status van de agents bevat dubbele agent-id’s; OpenBot overschrijft deze niet.",
-  "error.agent.copyNameFailed": "OpenBot kon geen unieke naam voor de kopie van de agent maken.",
+    "Opgeslagen agentprofielen gebruiken het oude rolveld; werk de gegevens bij voordat je zereight bot start.",
+  "error.agent.duplicateIds": "De status van de agents bevat dubbele agent-id’s; zereight bot overschrijft deze niet.",
+  "error.agent.copyNameFailed": "zereight bot kon geen unieke naam voor de kopie van de agent maken.",
   "error.agent.endpointRemoved":
     "Het endpoint dat deze agent gebruikte, is verwijderd. Kies een ander model voor de agent.",
   "error.agent.turnStalled":
-    "{provider} reageerde niet meer, dus OpenBot heeft deze beurt beëindigd. Stuur het bericht opnieuw, of kies een ander model.",
+    "{provider} reageerde niet meer, dus zereight bot heeft deze beurt beëindigd. Stuur het bericht opnieuw, of kies een ander model.",
   "error.agent.selectedGone": "De gekozen agent bestaat niet meer.",
   "error.agent.profileEndpointsChanged":
     "De aangepaste endpoints zijn gewijzigd tijdens het maken. Probeer het opnieuw.",
@@ -93,9 +93,9 @@ export const messages = {
   "error.agent.saveOtherAgent": "Deze opslag hoort bij een andere agent.",
   "error.agent.savedGone": "De opgeslagen agent bestaat niet meer.",
   "error.agent.storedProfileUnreadable":
-    "Een opgeslagen agentprofiel heeft een onleesbare waarde voor “{field}”; werk de gegevens bij voordat je OpenBot start.",
+    "Een opgeslagen agentprofiel heeft een onleesbare waarde voor “{field}”; werk de gegevens bij voordat je zereight bot start.",
   "error.agent.storedProfileUnreadableId":
-    "Opgeslagen agentprofiel {id} heeft een onleesbare waarde voor “{field}”; werk de gegevens bij voordat je OpenBot start.",
+    "Opgeslagen agentprofiel {id} heeft een onleesbare waarde voor “{field}”; werk de gegevens bij voordat je zereight bot start.",
   "error.agent.queueEditRejected": "Wijziging van de wachtrij geweigerd: {reason}",
   "error.agent.computerUseLocalOnly": "Computerbesturing kun je alleen wijzigen op de computer waarop de agent draait.",
   "error.agent.automationLocalOnly": "Lokale scripts kun je alleen toestaan op de computer waarop de agent draait.",
@@ -122,7 +122,7 @@ export const messages = {
   "error.agent.lowMemoryServer":
     "Deze server heeft weinig geheugen. Je bericht wacht in de wachtrij en start zodra er geheugen vrij is.",
   "error.agent.workspaceOnlyToolMissing":
-    "Alleen werkruimte heeft {tool} nodig, maar OpenBot heeft dit niet gevonden. Installeer het, of kies Volledige toegang in de instellingen van de agent.",
+    "Alleen werkruimte heeft {tool} nodig, maar zereight bot heeft dit niet gevonden. Installeer het, of kies Volledige toegang in de instellingen van de agent.",
   "error.agent.screenCaptureOff":
     "Schermopname staat uit voor deze agent. De gebruiker kan Computerbesturing aanzetten in de instellingen van de agent.",
   "error.agent.screenCaptureUnavailable": "Schermopname is niet beschikbaar op deze computer.",

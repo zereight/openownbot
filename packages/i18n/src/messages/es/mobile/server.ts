@@ -9,10 +9,11 @@ export const messages = {
   "mobile.server.drawer.editOrder": "Editar orden",
   "mobile.server.drawer.leaveFailed": "No se pudo salir de {name}",
   "mobile.server.drawer.removeFailed": "No se pudo eliminar {name}",
-  "mobile.server.drawer.actionFailed": "OpenBot no pudo completar esta acción. Inténtalo de nuevo.",
+  "mobile.server.drawer.actionFailed": "zereight bot no pudo completar esta acción. Inténtalo de nuevo.",
   "mobile.server.drawer.moveUp": "Subir",
   "mobile.server.drawer.moveDown": "Bajar",
-  "mobile.server.drawer.orderHint": "OpenBot se abre en el primer servidor. El orden se guarda en este dispositivo.",
+  "mobile.server.drawer.orderHint":
+    "zereight bot se abre en el primer servidor. El orden se guarda en este dispositivo.",
   "mobile.server.drawer.title": "Servidores",
   "mobile.server.drawer.serverSettings": "Ajustes del servidor",
   "mobile.server.drawer.serverListHint": "Muestra u oculta los servidores",
@@ -25,8 +26,8 @@ export const messages = {
   "mobile.server.drawer.close": "Cerrar el panel de servidores",
   "mobile.server.invite.noExpiry": "{role} · Sin caducidad",
   "mobile.server.invite.expires": "{role} · Caduca el {date}",
-  "mobile.server.invite.loadFailed": "OpenBot no pudo cargar esta invitación.",
-  "mobile.server.invite.joinFailed": "OpenBot no pudo unirse a este servidor.",
+  "mobile.server.invite.loadFailed": "zereight bot no pudo cargar esta invitación.",
+  "mobile.server.invite.joinFailed": "zereight bot no pudo unirse a este servidor.",
   "mobile.server.invite.checking": "Comprobando la invitación…",
   "mobile.server.invite.unavailable": "Invitación no disponible",
   "mobile.server.invite.verifying": "Verificando la identidad del servidor.",
@@ -66,14 +67,14 @@ export const messages = {
   "mobile.server.hosted.join": "Unirse a un servidor",
   "mobile.server.hosted.intro.title": "Tus agentes, siempre activos",
   "mobile.server.hosted.intro.description":
-    "Un servidor en la nube ejecuta tus agentes y rutinas cuando tu equipo está apagado. OpenBot lo configura y lo mantiene en marcha.",
+    "Un servidor en la nube ejecuta tus agentes y rutinas cuando tu equipo está apagado. zereight bot lo configura y lo mantiene en marcha.",
   "mobile.server.hosted.planFacts": "{members} · {storage} · {speed}",
   "mobile.server.hosted.computer.title": "En tu equipo",
   "mobile.server.hosted.computer.add": "Añadir un servidor en la nube",
   "mobile.server.hosted.computer.addHint":
-    "En OpenBot, abre Ajustes → Servidores alojados y selecciona Añadir servidor.",
+    "En zereight bot, abre Ajustes → Servidores alojados y selecciona Añadir servidor.",
   "mobile.server.hosted.computer.change": "Cambiar de plan",
-  "mobile.server.hosted.computer.changeHint": "En OpenBot, abre Ajustes → Facturación.",
+  "mobile.server.hosted.computer.changeHint": "En zereight bot, abre Ajustes → Facturación.",
   "mobile.server.hosted.yourServers": "Tus servidores",
   "mobile.server.hosted.plans": "Planes",
   "mobile.server.hosted.currentPlan": "Tu plan",
@@ -90,7 +91,7 @@ export const messages = {
   "mobile.server.hosted.paymentTitle": "Esperando el pago",
   "mobile.server.hosted.paymentDescription": "La configuración empieza cuando se confirma el pago.",
   "mobile.server.hosted.progressTitle": "Configurando {name}",
-  "mobile.server.hosted.progressDescription": "OpenBot prepara una máquina privada para ti.",
+  "mobile.server.hosted.progressDescription": "zereight bot prepara una máquina privada para ti.",
   "mobile.server.hosted.closeHint":
     "Puedes cerrar este panel. La configuración continúa y el servidor aparecerá en tu lista cuando esté listo.",
   "mobile.server.hosted.readyTitle": "{name} está listo",
@@ -99,21 +100,21 @@ export const messages = {
   "mobile.server.hosted.open": "Abrir servidor",
   "mobile.server.hosted.failedTitle": "El servidor no pudo iniciarse",
   "mobile.server.hosted.failedDescription":
-    "Inténtalo de nuevo. Si vuelve a fallar, elimina el servidor en Ajustes en OpenBot en tu equipo.",
+    "Inténtalo de nuevo. Si vuelve a fallar, elimina el servidor en Ajustes en zereight bot en tu equipo.",
   "mobile.server.hosted.retrying": "Iniciando…",
   "mobile.server.hosted.expiredTitle": "La página de pago ha caducado",
   "mobile.server.hosted.expiredDescription": "El servidor no se pagó, así que se eliminó.",
   "mobile.server.hosted.step.payment": "Confirmar el pago",
   "mobile.server.hosted.step.create": "Crear la máquina",
-  "mobile.server.hosted.step.start": "Iniciar OpenBot",
+  "mobile.server.hosted.step.start": "Iniciar zereight bot",
   "mobile.server.hosted.step.connect": "Conectar con tu cuenta",
   "mobile.server.hosted.detail.payment": "Esperando a Stripe",
   "mobile.server.hosted.detail.reserve": "Reservando una máquina privada",
-  "mobile.server.hosted.detail.copy": "Copiando OpenBot a la máquina",
+  "mobile.server.hosted.detail.copy": "Copiando zereight bot a la máquina",
   "mobile.server.hosted.detail.key": "Añadiendo una clave de inicio de sesión de un solo uso",
   "mobile.server.hosted.detail.boot": "Encendiendo la máquina",
   "mobile.server.hosted.detail.app": "Iniciando OpenBot",
-  "mobile.server.hosted.detail.wait": "Esperando la respuesta de OpenBot",
+  "mobile.server.hosted.detail.wait": "Esperando la respuesta de zereight bot",
   "mobile.server.hosted.detail.signIn": "Iniciando sesión con tu identidad",
   "mobile.server.hosted.detail.publish": "Añadiendo el servidor a tu cuenta",
   "mobile.server.hosted.detail.check": "Comprobando la conexión",
@@ -121,7 +122,7 @@ export const messages = {
   "mobile.server.hosted.stepActive": "en curso",
   "mobile.server.hosted.stepPending": "sin iniciar",
   "mobile.server.hosted.stepFailed": "fallido",
-  "mobile.server.scan.notInvitation": "Este código QR no es una invitación de OpenBot.",
+  "mobile.server.scan.notInvitation": "Este código QR no es una invitación de zereight bot.",
   "mobile.server.scan.title": "Escanear invitación",
   "mobile.server.role.owner": "propietario",
   "mobile.server.role.admin": "administrador",
@@ -161,7 +162,7 @@ export const messages = {
   "mobile.server.routines.status.paused": "En pausa",
   "mobile.server.routines.status.failed": "Fallida",
   "mobile.server.routines.status.completed": "Completada",
-  "mobile.server.tasks.unsupported": "Este host no admite tareas. Actualiza OpenBot en el host.",
+  "mobile.server.tasks.unsupported": "Este host no admite tareas. Actualiza zereight bot en el host.",
   "mobile.server.tasks.ask": "¿Qué quieres que se haga?",
   "mobile.server.tasks.chooseAgent": "Dar la tarea a",
   "mobile.server.tasks.agentLabel": "Dar la tarea a {name}",
@@ -244,7 +245,7 @@ export const messages = {
   "mobile.server.settings.identityNotAllowed":
     "Solo un propietario o un administrador puede cambiar el nombre y el logotipo del servidor.",
   "mobile.server.settings.identityUnsupported":
-    "Actualiza OpenBot en este servidor para cambiar aquí su nombre y logotipo.",
+    "Actualiza zereight bot en este servidor para cambiar aquí su nombre y logotipo.",
   "mobile.server.settings.identityOffline": "Conéctate a este servidor para cambiar su nombre y logotipo.",
   "mobile.server.route.cropLogo": "Recortar logotipo",
   "mobile.server.members.remove": "Eliminar miembro",
@@ -299,7 +300,7 @@ export const messages = {
   "mobile.server.storage.category.caches": "Archivos del servidor en caché",
   "mobile.server.storage.category.runtimes": "Entornos de ejecución de proveedores",
   "mobile.server.storage.category.logs": "Registros",
-  "mobile.server.storage.total": "OpenBot en {name}",
+  "mobile.server.storage.total": "zereight bot en {name}",
   "mobile.server.storage.used": "Usado",
   "mobile.server.storage.byType": "Almacenamiento por tipo",
   "mobile.server.storage.free": "{size} libres en este disco",
@@ -321,10 +322,10 @@ export const messages = {
   "mobile.server.storage.clearTitle.caches": "¿Borrar los archivos del servidor en caché?",
   "mobile.server.storage.clearTitle.logs": "¿Borrar los registros?",
   "mobile.server.storage.clearBody.caches":
-    "Copias de archivos del servidor. OpenBot los descarga de nuevo cuando los abres.",
+    "Copias de archivos del servidor. zereight bot los descarga de nuevo cuando los abres.",
   "mobile.server.storage.clearBody.logs": "Registros de diagnóstico. Los nuevos registros se inician de inmediato.",
   "mobile.server.storage.clearFailed": "No se pudieron borrar los datos",
-  "mobile.server.storage.clearFailedBody": "OpenBot no pudo borrar estos datos en el servidor.",
+  "mobile.server.storage.clearFailedBody": "zereight bot no pudo borrar estos datos en el servidor.",
   "mobile.server.storage.noFiles": "No hay archivos almacenados en este servidor.",
   "mobile.server.route.providers": "Proveedores",
   "mobile.server.route.provider": "Proveedor",
@@ -372,18 +373,19 @@ export const messages = {
   "mobile.server.settings.timezoneSaveFailed": "No se pudo guardar la zona horaria. Inténtalo de nuevo.",
   "mobile.server.settings.timezoneUnavailable":
     "Conéctate a este servidor como propietario o administrador para cambiar su zona horaria.",
-  "mobile.server.settings.timezoneUnsupported": "Actualiza OpenBot en este servidor para cambiar aquí su zona horaria.",
+  "mobile.server.settings.timezoneUnsupported":
+    "Actualiza zereight bot en este servidor para cambiar aquí su zona horaria.",
   "mobile.server.settings.memoryLimit": "Recuerdos por agente",
   "mobile.server.settings.memoryLimitDescription": "Cuántos recuerdos puede guardar cada agente en este servidor.",
   "mobile.server.settings.memoryLimitLoadFailed": "No se pudo cargar el límite de recuerdos de este servidor.",
   "mobile.server.settings.memoryLimitSaveFailed": "No se pudo guardar el límite de recuerdos. Inténtalo de nuevo.",
   "mobile.server.settings.memoryLimitUnsupported":
-    "Actualiza OpenBot en este servidor para cambiar aquí su límite de recuerdos.",
+    "Actualiza zereight bot en este servidor para cambiar aquí su límite de recuerdos.",
   "mobile.server.route.connectors": "Conectores",
   "mobile.server.settings.connectors": "Conectores",
   "mobile.server.connectors.unavailable":
     "Conéctate a este servidor como propietario o administrador para gestionar sus conectores.",
-  "mobile.server.connectors.unsupported": "Actualiza OpenBot en este servidor para gestionar sus conectores aquí.",
+  "mobile.server.connectors.unsupported": "Actualiza zereight bot en este servidor para gestionar sus conectores aquí.",
   "mobile.server.connectors.loading": "Cargando conectores…",
   "mobile.server.connectors.onServer": "En {name}",
   "mobile.server.connectors.notSetUp": "Sin configurar",
@@ -441,7 +443,7 @@ export const messages = {
     "Repositorios, incidencias y solicitudes de incorporación para todos los agentes",
   "mobile.server.connectors.github.description":
     "Todos los agentes de {host} pueden usar tus repositorios, incidencias y solicitudes de incorporación de GitHub, además de gh y git.",
-  "mobile.server.connectors.github.unavailable": "OpenBot en este servidor no puede conectar GitHub.",
+  "mobile.server.connectors.github.unavailable": "zereight bot en este servidor no puede conectar GitHub.",
   "mobile.server.connectors.github.connect": "Conectar GitHub",
   "mobile.server.connectors.github.codeTitle": "Escribe este código en GitHub",
   "mobile.server.connectors.github.codeFooter":
@@ -451,12 +453,12 @@ export const messages = {
   "mobile.server.connectors.github.connectedAs": "Conectado como @{login}",
   "mobile.server.connectors.github.chooseRepositories": "Elegir repositorios",
   "mobile.server.connectors.github.repositoriesFooter":
-    "Los agentes solo pueden usar los repositorios donde está instalada la aplicación de GitHub de OpenBot.",
+    "Los agentes solo pueden usar los repositorios donde está instalada la aplicación de GitHub de zereight bot.",
   "mobile.server.connectors.github.repositoriesTitle": "Repositorios",
   "mobile.server.connectors.github.repositoriesLoading": "Leyendo los repositorios de GitHub",
-  "mobile.server.connectors.github.repositoriesFailed": "OpenBot no pudo leer los repositorios de GitHub.",
+  "mobile.server.connectors.github.repositoriesFailed": "zereight bot no pudo leer los repositorios de GitHub.",
   "mobile.server.connectors.github.noRepositories":
-    "La aplicación de GitHub de OpenBot aún no está instalada en ningún repositorio.",
+    "La aplicación de GitHub de zereight bot aún no está instalada en ningún repositorio.",
   "mobile.server.connectors.github.moreRepositories": {
     one: "Y {count} repositorio más",
     other: "Y {count} repositorios más",
@@ -470,14 +472,14 @@ export const messages = {
   "mobile.server.connectors.github.disconnect": "Desconectar GitHub",
   "mobile.server.connectors.github.disconnectTitle": "¿Desconectar GitHub?",
   "mobile.server.connectors.github.disconnectBody":
-    "Esto quita el inicio de sesión de @{login} de {host}, y todos los agentes pierden las herramientas de GitHub, gh y git. Después se abre GitHub, donde puedes revocar el acceso de OpenBot.",
+    "Esto quita el inicio de sesión de @{login} de {host}, y todos los agentes pierden las herramientas de GitHub, gh y git. Después se abre GitHub, donde puedes revocar el acceso de zereight bot.",
   "mobile.server.connectors.onePassword.title": "1Password",
   "mobile.server.connectors.onePassword.summary":
-    "Una bóveda compartida para iniciar sesión en el navegador de OpenBot",
+    "Una bóveda compartida para iniciar sesión en el navegador de zereight bot",
   "mobile.server.connectors.onePassword.description":
-    "Comparte con OpenBot en {host} una bóveda exclusiva de 1Password mediante una cuenta de servicio, para que los agentes de {host} puedan iniciar sesión en sitios desde su navegador.",
+    "Comparte con zereight bot en {host} una bóveda exclusiva de 1Password mediante una cuenta de servicio, para que los agentes de {host} puedan iniciar sesión en sitios desde su navegador.",
   "mobile.server.connectors.onePassword.howItWorks":
-    "En 1Password.com, crea una cuenta de servicio que solo pueda leer la bóveda que compartes con OpenBot y pega aquí su token. {host} comprueba el token y lo guarda; este teléfono no. Los agentes nunca ven una contraseña.",
+    "En 1Password.com, crea una cuenta de servicio que solo pueda leer la bóveda que compartes con zereight bot y pega aquí su token. {host} comprueba el token y lo guarda; este teléfono no. Los agentes nunca ven una contraseña.",
   "mobile.server.connectors.onePassword.token": "Token de cuenta de servicio",
   "mobile.server.connectors.onePassword.tokenPlaceholder": "ops_…",
   "mobile.server.connectors.onePassword.connect": "Conectar 1Password",
@@ -511,7 +513,7 @@ export const messages = {
   },
   "mobile.server.connectors.slack.connect": "Conectar Slack",
   "mobile.server.connectors.slack.connectFooter":
-    "Slack se abre en un navegador. Selecciona el espacio de trabajo en la esquina superior derecha y después Permitir. OpenBot instala una aplicación llamada OpenBot, que se une a todos los canales públicos.",
+    "Slack se abre en un navegador. Selecciona el espacio de trabajo en la esquina superior derecha y después Permitir. zereight bot instala una aplicación llamada zereight bot, que se une a todos los canales públicos.",
   "mobile.server.connectors.slack.add": "Añadir espacio de trabajo",
   "mobile.server.connectors.slack.limit": {
     one: "Puedes conectar como máximo {count} espacio de trabajo.",
@@ -521,14 +523,15 @@ export const messages = {
   "mobile.server.connectors.slack.workspaceDescription":
     "Las personas mencionan a @OpenBot o le envían un mensaje directo.",
   "mobile.server.connectors.slack.missingScopes":
-    "OpenBot no tiene estos permisos en Slack: {scopes}. Desconecta el espacio de trabajo y vuelve a conectarlo.",
-  "mobile.server.connectors.slack.retryAt": "Slack pidió a OpenBot que esperara. Lo intentará de nuevo a las {time}.",
+    "zereight bot no tiene estos permisos en Slack: {scopes}. Desconecta el espacio de trabajo y vuelve a conectarlo.",
+  "mobile.server.connectors.slack.retryAt":
+    "Slack pidió a zereight bot que esperara. Lo intentará de nuevo a las {time}.",
   "mobile.server.connectors.slack.helpInvalidToken":
-    "Slack ya no acepta OpenBot en este espacio de trabajo. Puede que se haya desinstalado. Conecta el espacio de trabajo de nuevo.",
+    "Slack ya no acepta zereight bot en este espacio de trabajo. Puede que se haya desinstalado. Conecta el espacio de trabajo de nuevo.",
   "mobile.server.connectors.slack.helpSecretStorage":
-    "OpenBot no puede leer los tokens guardados en {host}. Desconecta el espacio de trabajo y vuelve a conectarlo.",
+    "zereight bot no puede leer los tokens guardados en {host}. Desconecta el espacio de trabajo y vuelve a conectarlo.",
   "mobile.server.connectors.slack.helpRelay":
-    "OpenBot en {host} no puede recibir eventos de Slack. En {host}, inicia sesión, ponle un nombre al servidor en Ajustes del servidor y mantén OpenBot abierto.",
+    "zereight bot en {host} no puede recibir eventos de Slack. En {host}, inicia sesión, ponle un nombre al servidor en Ajustes del servidor y mantén zereight bot abierto.",
   "mobile.server.connectors.slack.orchestratorTitle": "Orquestador de Slack",
   "mobile.server.connectors.slack.orchestratorDescription":
     "Este agente recibe todas las solicitudes de Slack. Responde por sí mismo a las breves, asigna el resto del trabajo al agente adecuado y publica la respuesta en el hilo.",
@@ -538,11 +541,11 @@ export const messages = {
     "OpenBot se une automáticamente a todos los canales públicos y a los nuevos. Para un canal privado, invítalo: /invite @OpenBot.",
   "mobile.server.connectors.slack.disconnectTitle": "¿Desconectar {workspace}?",
   "mobile.server.connectors.slack.disconnectBody":
-    "OpenBot deja de responder en {workspace} y elimina su token de Slack de {host}.",
+    "zereight bot deja de responder en {workspace} y elimina su token de Slack de {host}.",
   "mobile.server.connectors.slack.disconnectKept":
-    "Las conversaciones y el Orquestador de Slack permanecen en OpenBot.",
+    "Las conversaciones y el Orquestador de Slack permanecen en zereight bot.",
   "mobile.server.connectors.slack.disconnectDeleted":
-    "El Orquestador de Slack y sus conversaciones se eliminan de OpenBot.",
+    "El Orquestador de Slack y sus conversaciones se eliminan de zereight bot.",
   "mobile.server.connectors.slack.agentPromptTitle": "¿Añadir el Orquestador de Slack?",
   "mobile.server.connectors.slack.agentPromptBody":
     "Este nuevo agente responde a todo lo que las personas envían a @OpenBot en {workspace}.",
@@ -563,7 +566,7 @@ export const messages = {
   },
   "mobile.server.connectors.discord.connect": "Conectar Discord",
   "mobile.server.connectors.discord.connectFooter":
-    "Discord se abre en un navegador. Selecciona el servidor de Discord y después Autorizar. OpenBot añade un bot llamado OpenBot.",
+    "Discord se abre en un navegador. Selecciona el servidor de Discord y después Autorizar. zereight bot añade un bot llamado zereight bot.",
   "mobile.server.connectors.discord.add": "Añadir servidor de Discord",
   "mobile.server.connectors.discord.limit": {
     one: "Puedes conectar como máximo {count} servidor de Discord.",
@@ -573,37 +576,37 @@ export const messages = {
   "mobile.server.connectors.discord.workspaceDescription":
     "Menciona a @OpenBot en un canal. Responde a OpenBot para continuar.",
   "mobile.server.connectors.discord.missingScopes":
-    "OpenBot no tiene estos permisos en Discord: {scopes}. Desconecta el servidor de Discord y vuelve a conectarlo.",
+    "zereight bot no tiene estos permisos en Discord: {scopes}. Desconecta el servidor de Discord y vuelve a conectarlo.",
   "mobile.server.connectors.discord.retryAt":
-    "Discord pidió a OpenBot que esperara. Lo intentará de nuevo a las {time}.",
+    "Discord pidió a zereight bot que esperara. Lo intentará de nuevo a las {time}.",
   "mobile.server.connectors.discord.helpInvalidToken":
-    "Discord ya no acepta OpenBot en este servidor de Discord. Puede que se haya eliminado. Conecta el servidor de Discord de nuevo.",
+    "Discord ya no acepta zereight bot en este servidor de Discord. Puede que se haya eliminado. Conecta el servidor de Discord de nuevo.",
   "mobile.server.connectors.discord.helpSecretStorage":
-    "OpenBot no puede leer los tokens guardados en {host}. Desconecta el servidor de Discord y vuelve a conectarlo.",
+    "zereight bot no puede leer los tokens guardados en {host}. Desconecta el servidor de Discord y vuelve a conectarlo.",
   "mobile.server.connectors.discord.helpRelay":
-    "OpenBot en {host} no puede recibir eventos de Discord. En {host}, inicia sesión, ponle un nombre al servidor en Ajustes del servidor y mantén OpenBot abierto.",
+    "zereight bot en {host} no puede recibir eventos de Discord. En {host}, inicia sesión, ponle un nombre al servidor en Ajustes del servidor y mantén zereight bot abierto.",
   "mobile.server.connectors.discord.orchestratorTitle": "Orquestador de Discord",
   "mobile.server.connectors.discord.orchestratorDescription":
     "Este agente recibe todas las solicitudes de Discord. Responde por sí mismo a las breves, asigna el resto del trabajo al agente adecuado y responde en el canal.",
   "mobile.server.connectors.discord.orchestratorNone":
     "Añade el Orquestador de Discord o Discord no recibirá respuesta.",
   "mobile.server.connectors.discord.addAgent": "Añadir Orquestador de Discord",
-  "mobile.server.connectors.discord.note": "OpenBot ve los canales que su rol puede ver.",
+  "mobile.server.connectors.discord.note": "zereight bot ve los canales que su rol puede ver.",
   "mobile.server.connectors.discord.disconnectTitle": "¿Desconectar {workspace}?",
   "mobile.server.connectors.discord.disconnectBody":
-    "OpenBot deja de responder en {workspace} y elimina la conexión de Discord de {host}.",
+    "zereight bot deja de responder en {workspace} y elimina la conexión de Discord de {host}.",
   "mobile.server.connectors.discord.disconnectKept":
-    "Las conversaciones y el Orquestador de Discord permanecen en OpenBot.",
+    "Las conversaciones y el Orquestador de Discord permanecen en zereight bot.",
   "mobile.server.connectors.discord.disconnectDeleted":
-    "El Orquestador de Discord y sus conversaciones se eliminan de OpenBot.",
+    "El Orquestador de Discord y sus conversaciones se eliminan de zereight bot.",
   "mobile.server.connectors.discord.agentPromptTitle": "¿Añadir el Orquestador de Discord?",
   "mobile.server.connectors.discord.agentPromptBody":
     "Este nuevo agente responde a todo lo que las personas envían a @OpenBot en {workspace}.",
   "mobile.server.connectors.discord.installFailed": "Discord no terminó la autorización. Inténtalo de nuevo.",
   "mobile.server.connectors.telegram.title": "Telegram",
-  "mobile.server.connectors.telegram.summary": "Añade el bot de OpenBot a un chat de Telegram",
+  "mobile.server.connectors.telegram.summary": "Añade el bot de zereight bot a un chat de Telegram",
   "mobile.server.connectors.telegram.description":
-    "Añade el bot de OpenBot a un grupo de Telegram o abre un chat directo con él. El Orquestador de Telegram consulta al agente adecuado y responde.",
+    "Añade el bot de zereight bot a un grupo de Telegram o abre un chat directo con él. El Orquestador de Telegram consulta al agente adecuado y responde.",
   "mobile.server.connectors.telegram.connected": {
     one: "{count} chat · Responde el Orquestador de Telegram",
     other: "{count} chats · Responde el Orquestador de Telegram",
@@ -621,13 +624,13 @@ export const messages = {
   "mobile.server.connectors.telegram.groupDescription": "Las personas mencionan al bot o responden a sus mensajes.",
   "mobile.server.connectors.telegram.directDescription": "Cada mensaje de este chat va al Orquestador de Telegram.",
   "mobile.server.connectors.telegram.helpRemoved":
-    "El bot de OpenBot ya no está en este chat. Desconecta el chat y vuelve a añadir el bot.",
+    "El bot de zereight bot ya no está en este chat. Desconecta el chat y vuelve a añadir el bot.",
   "mobile.server.connectors.telegram.helpRelay":
-    "OpenBot en {host} no puede recibir mensajes de Telegram. En {host}, inicia sesión, ponle un nombre al servidor en Ajustes del servidor y mantén OpenBot abierto.",
+    "zereight bot en {host} no puede recibir mensajes de Telegram. En {host}, inicia sesión, ponle un nombre al servidor en Ajustes del servidor y mantén zereight bot abierto.",
   "mobile.server.connectors.telegram.helpError":
-    "OpenBot no puede acceder a este chat. Vuelve a conectar o desconecta el chat.",
+    "zereight bot no puede acceder a este chat. Vuelve a conectar o desconecta el chat.",
   "mobile.server.connectors.telegram.retryAt":
-    "Telegram pidió a OpenBot que esperara. Lo intentará de nuevo a las {time}.",
+    "Telegram pidió a zereight bot que esperara. Lo intentará de nuevo a las {time}.",
   "mobile.server.connectors.telegram.linkTitle": "Vincular un chat",
   "mobile.server.connectors.telegram.linkAnother": "Vincular otro chat",
   "mobile.server.connectors.telegram.linkFooter":
@@ -640,17 +643,17 @@ export const messages = {
   "mobile.server.connectors.telegram.openDirectChat": "Abrir un chat directo",
   "mobile.server.connectors.telegram.orchestratorTitle": "Orquestador de Telegram",
   "mobile.server.connectors.telegram.orchestratorDescription":
-    "Este agente recibe los mensajes para OpenBot de todos tus chats de Telegram. Responde él mismo a los cortos, asigna el resto del trabajo al agente adecuado y publica la respuesta en el chat.",
+    "Este agente recibe los mensajes para zereight bot de todos tus chats de Telegram. Responde él mismo a los cortos, asigna el resto del trabajo al agente adecuado y publica la respuesta en el chat.",
   "mobile.server.connectors.telegram.orchestratorNone":
     "Añade el Orquestador de Telegram o Telegram no recibirá respuesta.",
   "mobile.server.connectors.telegram.addAgent": "Añadir Orquestador de Telegram",
   "mobile.server.connectors.telegram.disconnectTitle": "¿Desconectar {chat}?",
   "mobile.server.connectors.telegram.disconnectBody":
-    "El bot de OpenBot sale de {chat} y OpenBot deja de responder allí.",
+    "El bot de zereight bot sale de {chat} y zereight bot deja de responder allí.",
   "mobile.server.connectors.telegram.disconnectKept":
-    "Las conversaciones y el Orquestador de Telegram permanecen en OpenBot.",
+    "Las conversaciones y el Orquestador de Telegram permanecen en zereight bot.",
   "mobile.server.connectors.telegram.disconnectDeleted":
-    "Es el último chat, así que el Orquestador de Telegram y sus conversaciones se eliminan de OpenBot.",
+    "Es el último chat, así que el Orquestador de Telegram y sus conversaciones se eliminan de zereight bot.",
   "mobile.server.settings.providers": "Proveedores",
   "mobile.server.settings.providersConnected": { one: "{count} conectado", other: "{count} conectados" },
   "mobile.server.providers.description": "Los proveedores de IA del equipo que ejecuta este servidor.",
@@ -659,10 +662,10 @@ export const messages = {
   "mobile.server.providers.runtimesFailed": "No se pudieron cargar las descargas de este servidor.",
   "mobile.server.providers.unavailable":
     "Conéctate a este servidor como propietario o administrador para gestionar sus proveedores.",
-  "mobile.server.providers.unsupported": "Actualiza OpenBot en este servidor para gestionar aquí sus proveedores.",
+  "mobile.server.providers.unsupported": "Actualiza zereight bot en este servidor para gestionar aquí sus proveedores.",
   "mobile.server.providers.signInUnsupported":
     "Este servidor no puede iniciar sesión en este proveedor desde el teléfono.",
-  "mobile.server.providers.actionFailed": "OpenBot no pudo completar esta acción. Inténtalo de nuevo.",
+  "mobile.server.providers.actionFailed": "zereight bot no pudo completar esta acción. Inténtalo de nuevo.",
   "mobile.server.providers.openFailed": "No se pudo abrir la página de inicio de sesión.",
   "mobile.server.providers.copyFailed": "No se pudo copiar el código.",
   "mobile.server.providers.onHost": "Este proveedor se ejecuta en el equipo de este servidor.",
@@ -675,15 +678,16 @@ export const messages = {
     "El servidor obtiene un inicio de sesión del proveedor. Lo terminas en este teléfono.",
   "mobile.server.providers.relayHint":
     "Inicias sesión en la página del proveedor en este teléfono. El servidor recibe la sesión.",
-  "mobile.server.providers.connectOnComputer": "Conecta este proveedor en OpenBot en un ordenador.",
+  "mobile.server.providers.connectOnComputer": "Conecta este proveedor en zereight bot en un ordenador.",
   "mobile.server.providers.signIn": "Iniciar sesión",
   "mobile.server.providers.starting": "Iniciando sesión en el servidor…",
   "mobile.server.providers.openPage": "Abrir página de acceso",
   "mobile.server.providers.copy": "Copiar",
   "mobile.server.providers.copyCode": "Copiar código",
-  "mobile.server.providers.codeHint": "Copia el código, abre la página e introduce el código. OpenBot continúa solo.",
+  "mobile.server.providers.codeHint":
+    "Copia el código, abre la página e introduce el código. zereight bot continúa solo.",
   "mobile.server.providers.pasteHint": "Inicia sesión en la página y pega el código que muestra.",
-  "mobile.server.providers.linkHint": "Inicia sesión en la página. OpenBot continúa solo.",
+  "mobile.server.providers.linkHint": "Inicia sesión en la página. zereight bot continúa solo.",
   "mobile.server.providers.relayWaiting": "Esperando la página de acceso del servidor…",
   "mobile.server.providers.relayPasteHint":
     "Inicia sesión en la página. Después no cargará. Toca la barra de direcciones, copia la dirección y pégala aquí.",
@@ -734,7 +738,7 @@ export const messages = {
   "mobile.server.providers.status.checking": "Comprobando",
   "mobile.server.settings.mcp": "Servidores MCP",
   "mobile.server.settings.mcpCount": { one: "{count} servidor", other: "{count} servidores" },
-  "mobile.server.mcp.unsupported": "Actualiza OpenBot en este servidor para gestionar sus servidores MCP aquí.",
+  "mobile.server.mcp.unsupported": "Actualiza zereight bot en este servidor para gestionar sus servidores MCP aquí.",
   "mobile.server.mcp.unavailable":
     "Conéctate a este servidor como propietario o administrador para gestionar sus servidores MCP.",
   "mobile.server.mcp.description":
@@ -753,7 +757,7 @@ export const messages = {
   "mobile.server.mcp.addConfirm": "Añadir",
   "mobile.server.mcp.name": "Nombre",
   "mobile.server.mcp.namePlaceholder": "Nombre del servidor MCP",
-  "mobile.server.mcp.nameReserved": "OpenBot ya usa el nombre {name}.",
+  "mobile.server.mcp.nameReserved": "zereight bot ya usa el nombre {name}.",
   "mobile.server.mcp.transport": "Transporte",
   "mobile.server.mcp.stdio": "Comando (STDIO)",
   "mobile.server.mcp.http": "URL (HTTP)",
@@ -764,12 +768,12 @@ export const messages = {
   "mobile.server.mcp.command": "Comando",
   "mobile.server.mcp.commandHint": "Solo el programa. Pon cada palabra que sigue en Argumentos.",
   "mobile.server.mcp.arguments": "Argumentos",
-  "mobile.server.mcp.argumentsHint": "OpenBot da cada argumento al programa como una palabra.",
+  "mobile.server.mcp.argumentsHint": "zereight bot da cada argumento al programa como una palabra.",
   "mobile.server.mcp.addArgument": "Añadir argumento",
   "mobile.server.mcp.argument": "Argumento {position}",
   "mobile.server.mcp.removeArgument": "Quitar argumento {position}",
   "mobile.server.mcp.environment": "Variables de entorno",
-  "mobile.server.mcp.environmentHint": "OpenBot da estas variables al servidor MCP cuando se inicia.",
+  "mobile.server.mcp.environmentHint": "zereight bot da estas variables al servidor MCP cuando se inicia.",
   "mobile.server.mcp.addVariable": "Añadir variable",
   "mobile.server.mcp.variableKey": "Nombre de la variable {position}",
   "mobile.server.mcp.variableValue": "Valor de la variable {position}",
@@ -785,7 +789,7 @@ export const messages = {
   "mobile.server.mcp.url": "URL del servidor",
   "mobile.server.mcp.urlInvalid": "Escribe una dirección http o https.",
   "mobile.server.mcp.headers": "Encabezados",
-  "mobile.server.mcp.headersHint": "OpenBot envía estos encabezados con cada solicitud.",
+  "mobile.server.mcp.headersHint": "zereight bot envía estos encabezados con cada solicitud.",
   "mobile.server.mcp.addHeader": "Añadir encabezado",
   "mobile.server.mcp.headerName": "Nombre del encabezado {position}",
   "mobile.server.mcp.headerValue": "Valor del encabezado {position}",
@@ -802,7 +806,7 @@ export const messages = {
   "mobile.server.mcp.testFailed": "El servidor MCP no respondió.",
   "mobile.server.mcp.connected": { one: "Conectado · {count} herramienta", other: "Conectado · {count} herramientas" },
   "mobile.server.mcp.signInOnComputer":
-    "Este servidor MCP pide iniciar sesión. Inicia sesión desde OpenBot en un ordenador y vuelve a probar.",
+    "Este servidor MCP pide iniciar sesión. Inicia sesión desde zereight bot en un ordenador y vuelve a probar.",
   "mobile.server.mcp.signedInDescription": "{server} tiene una sesión iniciada en este servidor MCP.",
   "mobile.server.mcp.signOut": "Cerrar sesión",
   "mobile.server.mcp.saveFailed": "No se pudo guardar el cambio. Inténtalo de nuevo.",
@@ -833,8 +837,8 @@ export const messages = {
   "mobile.server.settings.updates": "Actualizaciones",
   "mobile.server.settings.updateAvailable": "Actualización disponible",
   "mobile.server.route.updates": "Actualizaciones",
-  "mobile.server.update.hostTitle": "OpenBot en {name}",
-  "mobile.server.update.version": "OpenBot {version}",
+  "mobile.server.update.hostTitle": "zereight bot en {name}",
+  "mobile.server.update.version": "zereight bot {version}",
   "mobile.server.update.status.idle": "Busca actualizaciones para encontrar la versión más reciente.",
   "mobile.server.update.status.checking": "Buscando actualizaciones…",
   "mobile.server.update.status.available": "{version} está disponible.",
@@ -842,28 +846,28 @@ export const messages = {
   "mobile.server.update.status.downloadingUnknown": "Descargando {version}…",
   "mobile.server.update.status.ready": "{version} se ha descargado.",
   "mobile.server.update.status.installing": "{name} se está reiniciando para instalar la actualización.",
-  "mobile.server.update.status.upToDate": "OpenBot está actualizado en {name}.",
+  "mobile.server.update.status.upToDate": "zereight bot está actualizado en {name}.",
   "mobile.server.update.status.checkFailed": "{name} no pudo buscar actualizaciones. Inténtalo de nuevo.",
   "mobile.server.update.status.downloadFailed": "{name} no pudo descargar la actualización. Inténtalo de nuevo.",
   "mobile.server.update.status.installFailed":
-    "{name} no pudo instalar la actualización. Asegúrate de que ningún otro usuario de ese equipo esté ejecutando OpenBot y vuelve a intentarlo.",
+    "{name} no pudo instalar la actualización. Asegúrate de que ningún otro usuario de ese equipo esté ejecutando zereight bot y vuelve a intentarlo.",
   "mobile.server.update.releaseCheckFailed":
     "{name} no pudo leer la fuente de versiones. Comprueba la conexión de red del host y vuelve a intentarlo.",
   "mobile.server.update.releaseUnavailable":
     "Esta versión no puede buscar nuevas versiones. Pide al administrador del host que busque una versión compatible.",
   "mobile.server.update.externalTitle": "El host controla la instalación",
   "mobile.server.update.path.hostManager":
-    "OpenBot Host Manager instala las actualizaciones cuando todos los usuarios están inactivos. Si una actualización no comienza, pide al administrador del host que compruebe el estado de Host Manager.",
+    "zereight bot Host Manager instala las actualizaciones cuando todos los usuarios están inactivos. Si una actualización no comienza, pide al administrador del host que compruebe el estado de Host Manager.",
   "mobile.server.update.path.hosted":
     "El servicio alojado descarga actualizaciones en segundo plano. Una actualización descargada se inicia cuando el servidor vuelve a iniciarse. Espera a que termine el trabajo activo antes de detener y reanudar el servidor. Si continúa con una versión antigua, contacta con el administrador del host.",
   "mobile.server.update.path.system":
-    "En el host, ejecuta sudo openbot update para instalar la versión más reciente. Este comando detiene OpenBot. Espera primero a que termine el trabajo activo. Las descargas automáticas se instalan en el siguiente arranque.",
+    "En el host, ejecuta sudo openbot update para instalar la versión más reciente. Este comando detiene zereight bot. Espera primero a que termine el trabajo activo. Las descargas automáticas se instalan en el siguiente arranque.",
   "mobile.server.update.path.container":
-    "En el host de Docker, descarga la nueva imagen de OpenBot y vuelve a crear el contenedor con los mismos volúmenes de datos. Espera primero a que termine el trabajo activo. Conserva los volúmenes existentes para preservar tus datos.",
+    "En el host de Docker, descarga la nueva imagen de zereight bot y vuelve a crear el contenedor con los mismos volúmenes de datos. Espera primero a que termine el trabajo activo. Conserva los volúmenes existentes para preservar tus datos.",
   "mobile.server.update.path.manual":
-    "Esta instalación no puede reemplazarse a sí misma. Pide al administrador del host que instale la versión compatible de github.com/nightly-labs/openbot/releases. Conserva los datos existentes de OpenBot.",
+    "Esta instalación no puede reemplazarse a sí misma. Pide al administrador del host que instale la versión compatible de github.com/nightly-labs/openbot/releases. Conserva los datos existentes de zereight bot.",
   "mobile.server.update.path.unavailable":
-    "Esta es una versión de desarrollo. Usa una versión instalada de OpenBot para buscar actualizaciones.",
+    "Esta es una versión de desarrollo. Usa una versión instalada de zereight bot para buscar actualizaciones.",
   "mobile.server.update.check": "Buscar actualizaciones",
   "mobile.server.update.start": "Actualizar sin actividad",
   "mobile.server.update.restartNow": "Reiniciar ahora",
@@ -873,27 +877,28 @@ export const messages = {
   "mobile.server.update.requestedBy": "{member} solicitó esta actualización.",
   "mobile.server.update.automatic": "{name} instala las actualizaciones automáticamente.",
   "mobile.server.update.autoDownloadTitle": "Descargar actualizaciones automáticamente",
-  "mobile.server.update.autoDownloadDescription": "{name} descarga cada nueva versión de OpenBot cuando se publica.",
+  "mobile.server.update.autoDownloadDescription":
+    "{name} descarga cada nueva versión de zereight bot cuando se publica.",
   "mobile.server.update.autoInstallTitle": "Instalar actualizaciones automáticamente",
   "mobile.server.update.autoInstallDescription":
     "{name} se reinicia con una actualización descargada cuando sus agentes están inactivos. Los miembros se desconectan brevemente y vuelven a conectarse automáticamente.",
   "mobile.server.update.waitingFor": "Esperando {reasons}.",
   "mobile.server.update.disabledTitle": "Las actualizaciones remotas están desactivadas",
   "mobile.server.update.disabledDescription":
-    "El usuario de {name} desactivó las actualizaciones de los miembros del servidor. Pídele que actualice OpenBot o que active el ajuste.",
+    "El usuario de {name} desactivó las actualizaciones de los miembros del servidor. Pídele que actualice zereight bot o que active el ajuste.",
   "mobile.server.update.managedTitle": "Un Host Manager controla las actualizaciones",
   "mobile.server.update.managedDescription":
-    "OpenBot Host Manager actualiza {name}. Contacta con el administrador del host.",
+    "zereight bot Host Manager actualiza {name}. Contacta con el administrador del host.",
   "mobile.server.update.unsupportedTitle": "{name} no puede actualizarse por sí mismo",
   "mobile.server.update.unsupportedDescription":
-    "Esta versión de OpenBot no tiene actualizador. Instala una nueva versión en {name}.",
+    "Esta versión de zereight bot no tiene actualizador. Instala una nueva versión en {name}.",
   "mobile.server.update.restarting": "Reiniciando…",
   "mobile.server.update.loadFailed": "No se cargó el estado de actualización de {name}.",
-  "mobile.server.update.dialog.offerTitle": "Actualizar {name} a OpenBot {version}",
+  "mobile.server.update.dialog.offerTitle": "Actualizar {name} a zereight bot {version}",
   "mobile.server.update.dialog.offerDescription":
-    "{name} usa OpenBot {current}. Primero descarga la actualización y luego se reinicia.",
+    "{name} usa zereight bot {current}. Primero descarga la actualización y luego se reinicia.",
   "mobile.server.update.dialog.offerReadyDescription":
-    "{name} usa OpenBot {current}. La actualización está descargada. {name} se reinicia para instalarla.",
+    "{name} usa zereight bot {current}. La actualización está descargada. {name} se reinicia para instalarla.",
   "mobile.server.update.dialog.waitIdleDescription":
     "El reinicio espera a que terminen los turnos de agente y las ejecuciones de rutinas.",
   "mobile.server.update.dialog.updateNow": "Actualizar ahora",
@@ -909,10 +914,10 @@ export const messages = {
   "mobile.server.update.reason.fileTransfer": "una transferencia de archivos",
   "mobile.server.update.reason.browserControl": "control del navegador por un agente",
   "mobile.server.update.reason.updateOperation": "otro paso de actualización",
-  "mobile.server.update.reason.initialization": "el inicio de OpenBot",
+  "mobile.server.update.reason.initialization": "el inicio de zereight bot",
   "mobile.server.update.reason.other": "otro trabajo",
   "mobile.server.update.actionFailed": "La acción del servidor falló.",
-  "mobile.server.update.unavailable": "Conéctate a este servidor para ver sus actualizaciones de OpenBot.",
+  "mobile.server.update.unavailable": "Conéctate a este servidor para ver sus actualizaciones de zereight bot.",
   "mobile.server.update.loading": "Cargando actualizaciones…",
   "mobile.server.route.sites": "Sitios",
   "mobile.server.settings.sites": "Sitios",
@@ -934,13 +939,13 @@ export const messages = {
   "mobile.server.sites.deleteDescription": "Esta dirección devolverá 410 Gone inmediatamente.",
   "mobile.server.sites.deleteFailed": "No se pudo eliminar el sitio.",
   "mobile.server.sites.openFailed": "No se pudo abrir el sitio.",
-  "mobile.server.sites.unsupported": "Actualiza OpenBot en este servidor para ver sus sitios aquí.",
+  "mobile.server.sites.unsupported": "Actualiza zereight bot en este servidor para ver sus sitios aquí.",
   "mobile.server.sites.offline": "Conéctate a este servidor para ver sus sitios.",
   "mobile.server.route.roles": "Roles",
   "mobile.server.route.role": "Rol",
   "mobile.server.roles.description":
     "Elige los agentes que pueden usar los miembros. Los propietarios y administradores pueden usar todos los agentes.",
-  "mobile.server.roles.unsupported": "Actualiza OpenBot en este servidor para gestionar roles.",
+  "mobile.server.roles.unsupported": "Actualiza zereight bot en este servidor para gestionar roles.",
   "mobile.server.roles.unavailable":
     "Solo un propietario o administrador de un servidor en línea puede gestionar roles.",
   "mobile.server.roles.loading": "Cargando roles…",

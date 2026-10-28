@@ -47,7 +47,7 @@ export const messages = {
   "provider.status.checking": "Проверка",
   "provider.status.off": "Выключено",
   "provider.gemini.hostSignIn":
-    "Чтобы подключить Gemini, откройте OpenBot на хосте и нажмите «Подключить» в разделе «Настройки» > «Провайдеры». Для входа в Google на этом хосте нужен браузер. Удалённый вход не поддерживается.",
+    "Чтобы подключить Gemini, откройте zereight bot на хосте и нажмите «Подключить» в разделе «Настройки» > «Провайдеры». Для входа в Google на этом хосте нужен браузер. Удалённый вход не поддерживается.",
 
   "provider.key.free": "Бесплатно",
 
@@ -74,13 +74,13 @@ export const messages = {
   "provider.aria.cancelSignIn": "Отменить вход в {name}",
   "provider.aria.apiKey": "Ключ API {name}",
   "provider.connecting.browserHint": "Завершите вход, если откроется страница в браузере.",
-  "provider.connecting.cancelFailed": "OpenBot не удалось отменить вход в {name}. Повторите попытку.",
+  "provider.connecting.cancelFailed": "zereight bot не удалось отменить вход в {name}. Повторите попытку.",
   "provider.aria.install": "Установить: {name}",
   "provider.aria.signIn": "Войти в {name}",
   "provider.aria.codeFallback": "Войти в {name} по коду",
   "provider.aria.moreActions": "Другие действия для {name}",
 
-  "provider.aria.use": "Использовать {name} в OpenBot",
+  "provider.aria.use": "Использовать {name} в zereight bot",
   "provider.use.inUseOne": "{agent} использует {name}. Смените модель этого агента, затем выключите {name}.",
   "provider.use.inUse": {
     one: "{count} агент использует {name}. Смените модель этих агентов, затем выключите {name}.",
@@ -90,7 +90,7 @@ export const messages = {
   },
 
   "provider.codeLogin.title": "Вход в {name} по коду",
-  "provider.codeLogin.description": "Завершите вход на телефоне или в другом браузере. OpenBot ждёт здесь.",
+  "provider.codeLogin.description": "Завершите вход на телефоне или в другом браузере. zereight bot ждёт здесь.",
   "provider.codeLogin.starting": "Получаем код от {name}…",
   "provider.codeLogin.qrLabel": "QR-код страницы входа в {name}",
   "provider.codeLogin.open": "Открыть",
@@ -111,10 +111,10 @@ export const messages = {
   "provider.codeLogin.pageDescription": "Эта страница открыта в браузере на {host}. Войдите здесь.",
   "provider.codeLogin.relayStarting": "Запуск входа в {name} на {host}…",
   "provider.codeLogin.pageOpening": "Открываем страницу входа {name} на {host}…",
-  "provider.codeLogin.linkStep": "Войдите в {name}. OpenBot продолжит сам.",
-  "provider.useApp.title": "Подключите {name} в приложении OpenBot",
+  "provider.codeLogin.linkStep": "Войдите в {name}. zereight bot продолжит сам.",
+  "provider.useApp.title": "Подключите {name} в приложении zereight bot",
   "provider.useApp.description":
-    "Вход в {name} возвращается на компьютер, который его начал, а вкладка браузера не может его принять. Подключите {name} в приложении OpenBot. Приложение завершит вход само.",
+    "Вход в {name} возвращается на компьютер, который его начал, а вкладка браузера не может его принять. Подключите {name} в приложении zereight bot. Приложение завершит вход само.",
   "provider.useApp.download": "Скачать приложение",
 
   "provider.picker.noEndpoints": "Эндпоинтов пока нет",
@@ -125,7 +125,7 @@ export const messages = {
   "provider.picker.providers": "Провайдеры моделей",
   "provider.picker.downloading": "Загрузка {percent}",
   "provider.picker.unavailable": "{name} недоступен.",
-  "provider.picker.updateToUse": "Обновите OpenBot, чтобы использовать {name}",
+  "provider.picker.updateToUse": "Обновите zereight bot, чтобы использовать {name}",
   "provider.picker.models": "Модели {name}",
   "provider.picker.addProvider": "Добавить провайдера",
   "provider.picker.download": "Загрузка {name}",
@@ -163,15 +163,15 @@ export const messages = {
   "provider.claudeKey.label": "Ключ API Anthropic",
   "provider.inceptionKey.title": "Ключ API Inception",
   "provider.inceptionKey.description":
-    "Сохраните ключ API Inception на этом компьютере, чтобы использовать модели Mercury. OpenBot запускает их в загруженном Pi CLI.",
+    "Сохраните ключ API Inception на этом компьютере, чтобы использовать модели Mercury. zereight bot запускает их в загруженном Pi CLI.",
   "provider.inceptionKey.label": "Ключ API Inception",
   "provider.deepseekKey.title": "Ключ API DeepSeek",
   "provider.deepseekKey.description":
-    "Сохраните ключ API DeepSeek на этом компьютере, чтобы использовать модели DeepSeek. OpenBot запускает их в загруженном Pi CLI.",
+    "Сохраните ключ API DeepSeek на этом компьютере, чтобы использовать модели DeepSeek. zereight bot запускает их в загруженном Pi CLI.",
   "provider.deepseekKey.label": "Ключ API DeepSeek",
   "provider.openrouterKey.title": "Ключ API OpenRouter",
   "provider.openrouterKey.description":
-    "Сохраните ключ API OpenRouter на этом компьютере, чтобы использовать модели OpenRouter. OpenBot запускает их в загруженном Pi CLI.",
+    "Сохраните ключ API OpenRouter на этом компьютере, чтобы использовать модели OpenRouter. zereight bot запускает их в загруженном Pi CLI.",
   "provider.openrouterKey.label": "Ключ API OpenRouter",
 
   "provider.openCodeKey.title": "Вход в OpenCode Go",
@@ -241,7 +241,7 @@ export const messages = {
     many: "{count} версий · {size}",
     other: "{count} версии · {size}",
   },
-  "provider.settings.downloadAgain": "Когда вы включите {name}, OpenBot снова загрузит CLI.",
+  "provider.settings.downloadAgain": "Когда вы включите {name}, zereight bot снова загрузит CLI.",
   "provider.settings.removeDownloadConfirm": "Удалить {size}?",
   "provider.settings.removeDownloadKeeps": "Аккаунты, входы и агенты останутся.",
   "provider.settings.removeDownload": "Удалить загрузку",

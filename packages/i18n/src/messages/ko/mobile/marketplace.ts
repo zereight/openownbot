@@ -55,12 +55,12 @@ export const messages = {
   "mobile.marketplace.facts.accessNone": "로그인 없음",
   "mobile.marketplace.permission.admin": "마켓플레이스에서는 소유자와 관리자만 설치할 수 있어요.",
   "mobile.marketplace.permission.unavailable":
-    "이 서버가 오프라인이거나 서버의 OpenBot 버전이 너무 오래되었어요. 서버를 실행하는 컴퓨터에서 OpenBot을 업데이트해 주세요.",
+    "이 서버가 오프라인이거나 서버의 zereight bot 버전이 너무 오래되었어요. 서버를 실행하는 컴퓨터에서 zereight bot을 업데이트해 주세요.",
   "mobile.marketplace.error.agentUnsupported":
-    "마켓플레이스에서 에이전트를 추가하려면 서버의 OpenBot을 업데이트해 주세요.",
+    "마켓플레이스에서 에이전트를 추가하려면 서버의 zereight bot을 업데이트해 주세요.",
   "mobile.marketplace.error.agentUpdateUnsupported":
-    "마켓플레이스에서 에이전트를 업데이트하려면 서버의 OpenBot을 업데이트해 주세요.",
-  "mobile.marketplace.error.signInUnsupported": "휴대폰에서 앱에 로그인하려면 서버의 OpenBot을 업데이트해 주세요.",
+    "마켓플레이스에서 에이전트를 업데이트하려면 서버의 zereight bot을 업데이트해 주세요.",
+  "mobile.marketplace.error.signInUnsupported": "휴대폰에서 앱에 로그인하려면 서버의 zereight bot을 업데이트해 주세요.",
   "mobile.marketplace.agent.add": "에이전트 추가",
   "mobile.marketplace.agent.adding": "에이전트 추가 중",
   "mobile.marketplace.agent.update": "에이전트 업데이트",

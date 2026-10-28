@@ -9,7 +9,7 @@ export const messages = {
   "remoteDesktop.workspaceLabel": "Bediening op afstand",
   "remoteDesktop.displayLabel": "Extern scherm",
   "remoteDesktop.selectDisplay": "Scherm kiezen",
-  "remoteDesktop.backToOpenBot": "Terug naar OpenBot",
+  "remoteDesktop.backToOpenBot": "Terug naar zereight bot",
   "remoteDesktop.disconnect": "Verbreken",
   "remoteDesktop.viewerTitle": "Extern Sunshine-bureaublad",
   "remoteDesktop.viewerLoadFailed": "Kan de Moonlight-viewer niet laden.",
@@ -41,7 +41,7 @@ export const messages = {
   "remoteDesktop.setup.startFailed": "Kan de test voor extern bureaublad niet starten.",
   "remoteDesktop.setup.connectionLost": "De testverbinding is verbroken.",
   "remoteDesktop.setup.hostUpdateRequired":
-    "Werk OpenBot op de server bij om machtigingen te controleren en extern bureaublad te testen.",
+    "Werk zereight bot op de server bij om machtigingen te controleren en extern bureaublad te testen.",
   "remoteDesktop.setup.permissions": "Machtigingen",
   "remoteDesktop.setup.checked": "Gecontroleerd",
   "remoteDesktop.setup.checkAgain": "Opnieuw controleren",

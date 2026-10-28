@@ -48,12 +48,12 @@ export const messages = {
   "error.agent.hostLimit": "一台主机最多可有 {limit} 个助手。",
   "error.agent.changedWhileDuplicating": "复制过程中助手发生了变更，请重试。",
   "error.agent.duplicatedAgentGone": "复制出的助手已不存在。",
-  "error.agent.stateCorrupt": "助手状态已损坏或来自更新版本的 OpenBot，拒绝覆盖它。",
-  "error.agent.oldRoleField": "已保存的助手资料使用旧的 role 字段，请先更新数据再启动 OpenBot。",
+  "error.agent.stateCorrupt": "助手状态已损坏或来自更新版本的 zereight bot，拒绝覆盖它。",
+  "error.agent.oldRoleField": "已保存的助手资料使用旧的 role 字段，请先更新数据再启动 zereight bot。",
   "error.agent.duplicateIds": "助手状态中存在重复的助手 ID，拒绝覆盖它。",
-  "error.agent.copyNameFailed": "OpenBot 无法生成唯一的助手副本名称。",
+  "error.agent.copyNameFailed": "zereight bot 无法生成唯一的助手副本名称。",
   "error.agent.endpointRemoved": "该助手使用的端点已被移除，请为它选择其他模型。",
-  "error.agent.turnStalled": "{provider} 已停止响应，因此 OpenBot 结束了该轮次。请重新发送消息，或选择其他模型。",
+  "error.agent.turnStalled": "{provider} 已停止响应，因此 zereight bot 结束了该轮次。请重新发送消息，或选择其他模型。",
   "error.agent.selectedGone": "所选的助手已不存在。",
   "error.agent.profileEndpointsChanged": "生成期间自定义端点发生了变更，请重试。",
   "error.agent.profileInvalid": "服务商返回了无效的资料，请试着修改提示词。",
@@ -71,9 +71,10 @@ export const messages = {
   "error.agent.waitBeforeDuplicate": "请等该助手结束并清空队列后再复制。",
   "error.agent.saveOtherAgent": "该保存操作属于另一个助手。",
   "error.agent.savedGone": "已保存的助手已不存在。",
-  "error.agent.storedProfileUnreadable": "某个已保存的助手资料中“{field}”的值无法读取，请先更新数据再启动 OpenBot。",
+  "error.agent.storedProfileUnreadable":
+    "某个已保存的助手资料中“{field}”的值无法读取，请先更新数据再启动 zereight bot。",
   "error.agent.storedProfileUnreadableId":
-    "已保存的助手资料 {id} 中“{field}”的值无法读取，请先更新数据再启动 OpenBot。",
+    "已保存的助手资料 {id} 中“{field}”的值无法读取，请先更新数据再启动 zereight bot。",
   // Written by `QueueEditRejectedError` in @openbot/contracts, which cannot import this package.
   "error.agent.queueEditRejected": "队列编辑被拒绝：{reason}",
   "error.agent.computerUseLocalOnly": "Computer Use 只能在运行该助手的电脑上更改。",
@@ -96,7 +97,7 @@ export const messages = {
     "该服务器内存不足。你的消息会在队列中等待，内存释放后自动开始。更大的套餐可为服务器提供更多内存。",
   "error.agent.lowMemoryServer": "该服务器内存不足。你的消息会在队列中等待，内存释放后自动开始。",
   "error.agent.workspaceOnlyToolMissing":
-    "“仅工作区”需要 {tool}，但 OpenBot 没有找到它。请安装它，或在助手设置中选择完全访问。",
+    "“仅工作区”需要 {tool}，但 zereight bot 没有找到它。请安装它，或在助手设置中选择完全访问。",
   "error.agent.screenCaptureOff": "该助手的截屏功能已关闭，用户可以在助手设置中开启 Computer Use。",
   "error.agent.screenCaptureUnavailable": "这台电脑不支持截屏。",
   "error.agent.screenCaptureShared": "在 Slack、Discord、Telegram 对话中无法使用截屏，因为其他人也会收到这些文件。",

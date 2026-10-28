@@ -6,7 +6,7 @@ export const messages = {
   "error.kind.timeout":
     "Het verzoek duurde te lang. Controleer of de actie is voltooid voordat je het opnieuw probeert.",
   "error.kind.storage":
-    "Er is niet genoeg opslagruimte. Maak ruimte vrij op de computer waarop OpenBot draait en probeer het opnieuw.",
+    "Er is niet genoeg opslagruimte. Maak ruimte vrij op de computer waarop zereight bot draait en probeer het opnieuw.",
   "error.kind.filePermission":
     "OpenBot heeft geen toestemming om deze actie uit te voeren. Controleer de rechten van het bestand of de map en probeer het opnieuw.",
   "error.kind.notFound":

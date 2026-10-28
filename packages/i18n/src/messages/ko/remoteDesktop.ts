@@ -9,7 +9,7 @@ export const messages = {
   "remoteDesktop.workspaceLabel": "원격 제어",
   "remoteDesktop.displayLabel": "원격 디스플레이",
   "remoteDesktop.selectDisplay": "디스플레이 선택",
-  "remoteDesktop.backToOpenBot": "OpenBot으로 돌아가기",
+  "remoteDesktop.backToOpenBot": "zereight bot으로 돌아가기",
   "remoteDesktop.disconnect": "연결 끊기",
   "remoteDesktop.viewerTitle": "Sunshine 원격 데스크톱",
   "remoteDesktop.viewerLoadFailed": "Moonlight 뷰어를 불러올 수 없어요.",
@@ -40,7 +40,7 @@ export const messages = {
   "remoteDesktop.setup.startFailed": "원격 데스크톱 테스트를 시작할 수 없어요.",
   "remoteDesktop.setup.connectionLost": "테스트 연결이 끊어졌어요.",
   "remoteDesktop.setup.hostUpdateRequired":
-    "권한을 확인하고 원격 데스크톱을 테스트하려면 서버의 OpenBot을 업데이트해 주세요.",
+    "권한을 확인하고 원격 데스크톱을 테스트하려면 서버의 zereight bot을 업데이트해 주세요.",
   "remoteDesktop.setup.permissions": "권한",
   "remoteDesktop.setup.checked": "확인함",
   "remoteDesktop.setup.checkAgain": "다시 확인",

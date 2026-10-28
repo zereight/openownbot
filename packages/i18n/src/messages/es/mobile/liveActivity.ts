@@ -28,7 +28,7 @@ export const messages = {
   "mobile.liveActivity.button.approve": "Aprobar",
   "mobile.liveActivity.button.openDetails": "Abrir detalles",
   "mobile.liveActivity.stale.label": "Sin actualizar",
-  "mobile.liveActivity.stale.detail": "Abre OpenBot para ver el estado actual.",
+  "mobile.liveActivity.stale.detail": "Abre zereight bot para ver el estado actual.",
   "mobile.liveActivity.confirm.title": "¿Aprobar este comando?",
   "mobile.liveActivity.confirm.cancel": "Cancelar",
   "mobile.liveActivity.confirm.approve": "Aprobar",
@@ -43,7 +43,7 @@ export const messages = {
   "mobile.liveActivity.error.decisionFallback": "Abre la solicitud en el escritorio.",
   "mobile.liveActivity.island.taskWorking": "Trabajando en tu solicitud",
   "mobile.liveActivity.island.questionHeader": "Pregunta de tu agente",
-  "mobile.liveActivity.island.questionText": "Abre OpenBot para responder a esta pregunta.",
+  "mobile.liveActivity.island.questionText": "Abre zereight bot para responder a esta pregunta.",
   "mobile.liveActivity.island.optionFallback": "Opción {number}",
   "mobile.liveActivity.island.takeoverTitle": "El paso del navegador te necesita",
   "mobile.liveActivity.island.takeoverDetail":

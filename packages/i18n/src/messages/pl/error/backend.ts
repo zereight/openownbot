@@ -3,7 +3,7 @@ import type { messages as source } from "../../en/error/backend";
 
 export const messages = {
   "error.backend.eventsUnavailable": "Zdarzenia nie są dostępne na tym hoście.",
-  "error.backend.databaseIntegrity": "Baza danych OpenBot nie przeszła kontroli integralności.",
+  "error.backend.databaseIntegrity": "Baza danych zereight bot nie przeszła kontroli integralności.",
   "error.backend.webhookRouteLimit": "Host może mieć maksymalnie {limit} rutyn typu webhook.",
   "error.backend.webhookSettingsInvalid": "Sprawdź ustawienia webhooka i spróbuj ponownie.",
   "error.backend.webhookRouteUnavailable":
@@ -13,8 +13,8 @@ export const messages = {
   "error.backend.browserViewLimit": "Na tym hoście jest otwartych zbyt wiele widoków przeglądarki.",
   "error.backend.browserViewEnded": "Podgląd tej strony na żywo zakończył się.",
   "error.backend.browserViewFailed": "Podgląd tej strony na żywo nie powiódł się.",
-  "error.backend.windowTemporarilyUnavailable": "Okno OpenBot jest chwilowo niedostępne.",
-  "error.backend.windowUnavailable": "Okno OpenBot jest niedostępne.",
+  "error.backend.windowTemporarilyUnavailable": "Okno zereight bot jest chwilowo niedostępne.",
+  "error.backend.windowUnavailable": "Okno zereight bot jest niedostępne.",
   "error.backend.sunshineApiHttp": "API Sunshine zwróciło błąd HTTP {status}.",
   "error.backend.sunshinePortsUnavailable":
     "Nie udało się zarezerwować wolnej rodziny portów Sunshine dla zdalnego pulpitu.",
@@ -32,7 +32,7 @@ export const messages = {
   "error.backend.moonlightRejectedPairing": "Moonlight odrzucił parowanie z Sunshine.",
   "error.backend.moonlightNoPin": "Moonlight nie zwrócił kodu PIN parowania.",
   "error.backend.moonlightPairingIncomplete": "Parowanie Moonlight nie zostało ukończone.",
-  "error.backend.moonlightWebNotEmbedded": "Moonlight Web nie jest wbudowaną wersją OpenBot.",
+  "error.backend.moonlightWebNotEmbedded": "Moonlight Web nie jest wbudowaną wersją zereight bot.",
   "error.backend.moonlightEmptyResponse": "Moonlight zwrócił pustą odpowiedź.",
   "error.backend.remoteDesktopTimeout": "Upłynął limit czasu żądania zdalnego pulpitu.",
   "error.backend.moonlightApiHttp": "API Moonlight zwróciło błąd HTTP {status}.",
@@ -49,8 +49,8 @@ export const messages = {
   "error.backend.browserUserControlUnsupported":
     "Ten zdalny host nie obsługuje przejmowania kontroli nad kartą przeglądarki.",
   "error.backend.browserSignInUnsupported": "Ten zdalny host nie może przyjąć logowania z tego komputera.",
-  "error.backend.browserSignInOpenFailed": "OpenBot nie mógł otworzyć okna logowania.",
-  "error.backend.browserSignInReadFailed": "OpenBot nie mógł odczytać logowania z okna.",
+  "error.backend.browserSignInOpenFailed": "zereight bot nie mógł otworzyć okna logowania.",
+  "error.backend.browserSignInReadFailed": "zereight bot nie mógł odczytać logowania z okna.",
   "error.backend.browserStopUnsupported": "Ten zdalny host nie może zatrzymać wczytywania strony.",
   "error.backend.sharedDataLocalOnly": "Dane współdzielone są zarządzane na komputerze, na którym działają ci agenci.",
   "error.backend.browserUrlProtocol": "Dozwolone są tylko adresy URL HTTP(S).",
@@ -58,7 +58,7 @@ export const messages = {
   "error.backend.sunshineNotReadyReason": "Sunshine nie osiągnął gotowości. {reason}",
   "error.backend.channelLeadModelUnavailable": "Model lidera kanału jest niedostępny.",
   "error.backend.sharedDataUnavailable": "Dane współdzielone są niedostępne.",
-  "error.backend.shuttingDown": "OpenBot się zamyka.",
+  "error.backend.shuttingDown": "zereight bot się zamyka.",
   "error.backend.channelUnconfirmedStart":
     "Kanał ma niepotwierdzone rozpoczęcie przydziału. Sprawdź jego wynik przed usunięciem.",
   "error.backend.channelNotFound": "Nie znaleziono kanału.",
@@ -129,14 +129,14 @@ export const messages = {
   "error.backend.fileGone": "Plik nie istnieje lub został już usunięty.",
   "error.backend.managedAttachmentChanged": "Zarządzany załącznik nie istnieje lub się zmienił: {name}",
   "error.backend.mailboxStateCorrupt":
-    "Stan skrzynki jest uszkodzony lub pochodzi z nowszej wersji OpenBot; odmowa nadpisania.",
+    "Stan skrzynki jest uszkodzony lub pochodzi z nowszej wersji zereight bot; odmowa nadpisania.",
   "error.backend.recipientDeleting": "Odbiorca jest usuwany. Spróbuj ponownie po zakończeniu usuwania.",
   "error.backend.recipientHidden": "Ten agent jest ukryty. Przywróć go, aby wysyłać wiadomości.",
   "error.backend.attachBetween": "Załącz od 1 do {limit} plików.",
   "error.backend.attachmentNotFile": "Załącznik nie jest plikiem: {path}",
   "error.backend.generatedImageTooLarge": "Wygenerowany obraz przekracza limit 100 MB.",
   "error.backend.attachmentNotRegularFile": "Załączać można tylko zwykłe pliki: {name}",
-  "error.backend.attachmentCopyFailed": "OpenBot nie mógł skopiować pliku {name}.",
+  "error.backend.attachmentCopyFailed": "zereight bot nie mógł skopiować pliku {name}.",
   "error.backend.routineNameRequired": "Nazwa rutyny jest wymagana.",
   "error.backend.routineNameTooLong": "Nazwa rutyny jest za długa.",
   "error.backend.routineInstructionRequired": "Instrukcja rutyny jest wymagana.",
@@ -159,13 +159,13 @@ export const messages = {
   "error.backend.routineRunStarting":
     "To uruchomienie rutyny wciąż się rozpoczyna. Spróbuj ponownie, gdy tura się zacznie.",
   "error.backend.routineRunNoSession":
-    "OpenBot nie może przerwać aktywnego uruchomienia rutyny, ponieważ sesja dostawcy jest niedostępna.",
+    "zereight bot nie może przerwać aktywnego uruchomienia rutyny, ponieważ sesja dostawcy jest niedostępna.",
   "error.backend.interruptSelf": "Agent nie może przerwać samego siebie.",
   "error.backend.interruptOtherWork":
     "Ten agent pracuje nad zadaniem, którego nie rozpoczęła twoja wiadomość. Zatrzymać je może tylko użytkownik lub nadawca tego zadania.",
   "error.backend.interruptStarting": "Ten agent wciąż rozpoczyna turę. Spróbuj ponownie, gdy tura się zacznie.",
   "error.backend.interruptNoSession":
-    "OpenBot nie może przerwać tego agenta, ponieważ jego sesja dostawcy jest niedostępna.",
+    "zereight bot nie może przerwać tego agenta, ponieważ jego sesja dostawcy jest niedostępna.",
   "error.backend.memoryTextRequired": "Tekst wspomnienia jest wymagany.",
   "error.backend.memoryTextTooLong": "Tekst wspomnienia jest za długi.",
   "error.backend.mcpServerGone": "Ten serwer MCP już nie istnieje.",
@@ -189,13 +189,13 @@ export const messages = {
     "Oczekiwanie budzi tylko uruchomienie jednej z twoich rutyn, a nie masz żadnej rutyny. Utwórz ją za pomocą openbot.create_routine, a potem otwórz oczekiwanie.",
   "error.backend.agentWaitRemoteUnsupported": "Otwarte oczekiwania są dostępne tylko dla agentów na tym komputerze.",
   "error.backend.routineFlowHandoffFailed": "Rutyna nie mogła przekazać pracy temu agentowi.",
-  "error.backend.mcpServerLimit": "OpenBot przechowuje maksymalnie {limit} serwerów MCP.",
+  "error.backend.mcpServerLimit": "zereight bot przechowuje maksymalnie {limit} serwerów MCP.",
   "error.backend.mcpServerNameTaken": "Serwer MCP o nazwie {name} już istnieje.",
   "error.backend.mcpServerNoAnswer": "Serwer nie odpowiedział w ciągu {seconds} s.",
   "error.backend.mcpSignInNotAccepted": "Serwer nie zaakceptował tego logowania.",
   "error.backend.mcpCommandNotFound": "Nie znaleziono polecenia: {command}",
   "error.backend.mcpRegistrationRefused":
-    "Serwer logowania nie akceptuje jeszcze OpenBot jako aplikacji. Przyczyną nie jest twoje konto. Połącz się w inny sposób, na przykład przez lokalny serwer MCP.",
+    "Serwer logowania nie akceptuje jeszcze zereight bot jako aplikacji. Przyczyną nie jest twoje konto. Połącz się w inny sposób, na przykład przez lokalny serwer MCP.",
   "error.backend.mcpSignInAbandonedGeneric": "Logowanie zostało porzucone.",
   "error.backend.mcpSignInForgotten": "Logowanie MCP zostało zapomniane w trakcie działania.",
   "error.backend.mcpSignInAbandoned": "Logowanie MCP zostało porzucone.",
@@ -203,21 +203,22 @@ export const messages = {
   "error.backend.mcpSignInNotWebPage": "Adres logowania nie jest stroną internetową.",
   "error.backend.mcpSignInRequired":
     "Ten serwer wymaga zalogowania. Wybierz „Zaloguj się”, aby kontynuować w przeglądarce.",
-  "error.backend.mcpSignInOnHost": "Ten serwer wymaga zalogowania. Zaloguj się do niego w OpenBot na komputerze hosta.",
+  "error.backend.mcpSignInOnHost":
+    "Ten serwer wymaga zalogowania. Zaloguj się do niego w zereight bot na komputerze hosta.",
   "error.backend.mcpSignInNeedsHttps":
-    "Ten serwer wymaga zalogowania, a OpenBot loguje się tylko przez https. Zmień URL na {url}.",
+    "Ten serwer wymaga zalogowania, a zereight bot loguje się tylko przez https. Zmień URL na {url}.",
   "error.backend.mcpSignInCancelled": "Logowanie zostało anulowane.",
   "error.backend.mcpSignInTimedOut": "Logowanie nie zostało ukończone w przeglądarce.",
   "error.backend.mcpSignInResponseTimedOut": "Odpowiedź logowania nie dotarła na czas.",
   "error.backend.mcpSignInMetadataUnreadable":
-    "OpenBot nie mógł odczytać informacji o logowaniu tego serwera. Sprawdź adres serwera i spróbuj ponownie.",
+    "zereight bot nie mógł odczytać informacji o logowaniu tego serwera. Sprawdź adres serwera i spróbuj ponownie.",
   "error.backend.mcpServerExited":
     "Serwer zatrzymał się przed odpowiedzią. Uruchom polecenie w terminalu, aby zobaczyć błąd.",
   "error.backend.mcpOAuthProxyUnavailable":
-    "OpenBot nie mógł uruchomić lokalnego połączenia logowania dla tego serwera. Uruchom ponownie OpenBot i spróbuj jeszcze raz.",
+    "zereight bot nie mógł uruchomić lokalnego połączenia logowania dla tego serwera. Uruchom ponownie zereight bot i spróbuj jeszcze raz.",
   "error.backend.mcpOAuthSignInNeeded":
-    "Logowanie do tego serwera MCP wygasło. Użytkownik musi zalogować się ponownie w OpenBot.",
-  "error.backend.mcpServerUnreachable": "OpenBot nie mógł połączyć się z serwerem. Sprawdź URL i sieć.",
+    "Logowanie do tego serwera MCP wygasło. Użytkownik musi zalogować się ponownie w zereight bot.",
+  "error.backend.mcpServerUnreachable": "zereight bot nie mógł połączyć się z serwerem. Sprawdź URL i sieć.",
   "error.backend.mcpLocalServerOff":
     "Żaden serwer nie odpowiada pod adresem {address} na tym komputerze. Uruchom serwer lub włącz go w aplikacji, która go obsługuje, i spróbuj ponownie.",
   "error.backend.mcpServerBlocked":
@@ -225,7 +226,7 @@ export const messages = {
   "error.backend.mcpServerIncompatible":
     "Pod tym adresem coś odpowiedziało, ale nie jako serwer MCP przez Streamable HTTP. Sprawdź URL i zaktualizuj aplikację, która uruchamia serwer.",
   "error.backend.mcpRemoteBridge":
-    "{reason} To polecenie uruchamia most mcp-remote. Zamiast tego wybierz Streamable HTTP z URL {url}, a OpenBot cię zaloguje.",
+    "{reason} To polecenie uruchamia most mcp-remote. Zamiast tego wybierz Streamable HTTP z URL {url}, a zereight bot cię zaloguje.",
   "error.backend.oauthNotHttps":
     "Endpoint OAuth {origin} nie używa https, więc dane uwierzytelniające nie zostały wysłane.",
   "error.backend.oauthTooManyRedirects": "Endpoint OAuth przekierował zbyt wiele razy.",
@@ -269,7 +270,7 @@ export const messages = {
   "error.backend.approvalInactive": "To zatwierdzenie nie jest już aktywne.",
   "error.backend.takeoverInactive": "To przejęcie przeglądarki nie jest już aktywne.",
   "error.backend.authSubmitting": "Wysyłanie uwierzytelnienia już trwa.",
-  "error.backend.apiKeySaveFailed": "OpenBot nie mógł zapisać klucza API. Spróbuj ponownie.",
+  "error.backend.apiKeySaveFailed": "zereight bot nie mógł zapisać klucza API. Spróbuj ponownie.",
   "error.backend.apiKeyNotAllowed": "Klucz API może wpisać tylko właściciel serwera lub administrator.",
   "error.backend.apiKeySaving": "Klucz API jest już zapisywany.",
   "error.backend.authRequestInactive": "To żądanie bezpiecznego uwierzytelnienia nie jest już aktywne.",
@@ -310,7 +311,7 @@ export const messages = {
   "error.backend.mcpSignInAppUrl": "Aplikacja logowania wymaga prawidłowego adresu URL serwera.",
   "error.backend.mcpSignInAppClientId": "Wpisz identyfikator klienta aplikacji logowania.",
   "error.backend.mcpSignInAppIssuerChanged":
-    "Serwer logowania tego serwera MCP zmienił się, więc OpenBot nie wysłał mu aplikacji logowania. Jeśli ta zmiana jest poprawna, usuń aplikację logowania i dodaj ją ponownie.",
+    "Serwer logowania tego serwera MCP zmienił się, więc zereight bot nie wysłał mu aplikacji logowania. Jeśli ta zmiana jest poprawna, usuń aplikację logowania i dodaj ją ponownie.",
   "error.backend.mcpSignInAppNoServer": "Zapisz ten serwer MCP jako serwer URL, zanim dodasz aplikację logowania.",
   "error.backend.mcpSignInAppUnavailable": "Ten komputer nie może przechować aplikacji logowania.",
   "error.backend.taskMoveRefused": "Jako zadanie można uruchomić tylko wiadomość wysłaną wyłącznie do tego agenta.",
@@ -335,5 +336,5 @@ export const messages = {
   "error.backend.taskOpenLimitReached":
     "Liczba otwartych zadań tego agenta: {count}. Zamknij zadanie, a potem rozpocznij lub otwórz inne.",
   "error.backend.taskRemoteUnsupported": "Zadania są dostępne tylko dla agentów na tym komputerze.",
-  "error.backend.taskStartFailed": "OpenBot nie może rozpocząć zadania. Zamiast tego wykonaj pracę w tej turze.",
+  "error.backend.taskStartFailed": "zereight bot nie może rozpocząć zadania. Zamiast tego wykonaj pracę w tej turze.",
 } as const satisfies PartialTranslation<typeof source>;

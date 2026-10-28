@@ -6,7 +6,7 @@ export const messages = {
   "error.kind.timeout":
     "Die Anfrage hat zu lange gedauert. Prüfe, ob die Aktion abgeschlossen wurde, bevor du es erneut versuchst.",
   "error.kind.storage":
-    "Es ist nicht genug Speicherplatz vorhanden. Gib auf dem Computer, auf dem OpenBot läuft, Speicherplatz frei und versuche es erneut.",
+    "Es ist nicht genug Speicherplatz vorhanden. Gib auf dem Computer, auf dem zereight bot läuft, Speicherplatz frei und versuche es erneut.",
   "error.kind.filePermission":
     "OpenBot hat keine Berechtigung, diese Aktion abzuschließen. Prüfe die Datei- oder Ordnerberechtigungen und versuche es erneut.",
   "error.kind.notFound":

@@ -57,14 +57,15 @@ export const messages = {
   "error.agent.hostLimit": "Host może mieć maksymalnie {limit} agentów.",
   "error.agent.changedWhileDuplicating": "Agent zmienił się podczas duplikowania. Spróbuj ponownie.",
   "error.agent.duplicatedAgentGone": "Zduplikowany agent już nie istnieje.",
-  "error.agent.stateCorrupt": "Stan agenta jest uszkodzony lub pochodzi z nowszej wersji OpenBot; odmowa nadpisania.",
+  "error.agent.stateCorrupt":
+    "Stan agenta jest uszkodzony lub pochodzi z nowszej wersji zereight bot; odmowa nadpisania.",
   "error.agent.oldRoleField":
-    "Zapisane profile agentów używają starego pola roli; zaktualizuj dane przed uruchomieniem OpenBot.",
+    "Zapisane profile agentów używają starego pola roli; zaktualizuj dane przed uruchomieniem zereight bot.",
   "error.agent.duplicateIds": "Stan agentów zawiera zduplikowane identyfikatory agentów; odmowa nadpisania.",
-  "error.agent.copyNameFailed": "OpenBot nie mógł utworzyć unikalnej nazwy kopii agenta.",
+  "error.agent.copyNameFailed": "zereight bot nie mógł utworzyć unikalnej nazwy kopii agenta.",
   "error.agent.endpointRemoved": "Endpoint używany przez tego agenta został usunięty. Wybierz dla niego inny model.",
   "error.agent.turnStalled":
-    "{provider} przestał odpowiadać, więc OpenBot zakończył tę turę. Wyślij wiadomość ponownie albo wybierz inny model.",
+    "{provider} przestał odpowiadać, więc zereight bot zakończył tę turę. Wyślij wiadomość ponownie albo wybierz inny model.",
   "error.agent.selectedGone": "Wybrany agent już nie istnieje.",
   "error.agent.profileEndpointsChanged": "Własne endpointy zmieniły się w trakcie generowania. Spróbuj ponownie.",
   "error.agent.profileInvalid": "Dostawca zwrócił nieprawidłowy profil. Spróbuj zmienić prompt.",
@@ -84,9 +85,9 @@ export const messages = {
   "error.agent.saveOtherAgent": "Ten zapis należy do innego agenta.",
   "error.agent.savedGone": "Zapisany agent już nie istnieje.",
   "error.agent.storedProfileUnreadable":
-    "Zapisany profil agenta ma nieczytelną wartość „{field}”; zaktualizuj dane przed uruchomieniem OpenBot.",
+    "Zapisany profil agenta ma nieczytelną wartość „{field}”; zaktualizuj dane przed uruchomieniem zereight bot.",
   "error.agent.storedProfileUnreadableId":
-    "Zapisany profil agenta {id} ma nieczytelną wartość „{field}”; zaktualizuj dane przed uruchomieniem OpenBot.",
+    "Zapisany profil agenta {id} ma nieczytelną wartość „{field}”; zaktualizuj dane przed uruchomieniem zereight bot.",
   "error.agent.queueEditRejected": "Odrzucono edycję kolejki: {reason}",
   "error.agent.computerUseLocalOnly":
     "Sterowanie komputerem można zmienić tylko na komputerze, na którym działa agent.",
@@ -113,7 +114,7 @@ export const messages = {
   "error.agent.lowMemoryServer":
     "Na tym serwerze brakuje pamięci. Twoja wiadomość czeka w kolejce i ruszy, gdy pamięć się zwolni.",
   "error.agent.workspaceOnlyToolMissing":
-    "Tryb „Tylko obszar roboczy” wymaga narzędzia {tool}, którego OpenBot nie znalazł. Zainstaluj je lub wybierz pełny dostęp w ustawieniach agenta.",
+    "Tryb „Tylko obszar roboczy” wymaga narzędzia {tool}, którego zereight bot nie znalazł. Zainstaluj je lub wybierz pełny dostęp w ustawieniach agenta.",
   "error.agent.screenCaptureOff":
     "Przechwytywanie ekranu jest wyłączone dla tego agenta. Użytkownik może włączyć Sterowanie komputerem w ustawieniach agenta.",
   "error.agent.screenCaptureUnavailable": "Przechwytywanie ekranu nie jest dostępne na tym komputerze.",

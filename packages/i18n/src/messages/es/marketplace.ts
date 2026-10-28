@@ -24,7 +24,7 @@ export const messages = {
   "marketplace.description.apps": "Conecta las herramientas y los servicios con los que trabajan tus agentes.",
   "marketplace.description.agents": "Agentes listos para usar, con sus propias instrucciones y habilidades.",
   "marketplace.description.skills": "Instrucciones que enseñan a un agente una tarea o una herramienta.",
-  "marketplace.plugins.missing": "Este plugin no está en el catálogo de OpenBot.",
+  "marketplace.plugins.missing": "Este plugin no está en el catálogo de zereight bot.",
   "marketplace.agents.loadingDetail": "Cargando detalles del agente…",
   "marketplace.agents.skills": "Habilidades",
   "marketplace.agents.routines": "Rutinas",
@@ -32,7 +32,7 @@ export const messages = {
   "marketplace.agents.routineInactive": "Inactiva",
   "marketplace.skill.loading": "Cargando habilidad",
   "marketplace.skill.update": "Actualizar habilidad",
-  "marketplace.try.readFailed": "OpenBot no pudo leer las habilidades de este agente. Inténtalo de nuevo.",
+  "marketplace.try.readFailed": "zereight bot no pudo leer las habilidades de este agente. Inténtalo de nuevo.",
   "marketplace.try.enable": "Activa esta habilidad en los ajustes del agente para probarla.",
   "marketplace.try.repair": "Repara esta habilidad en los ajustes del agente para probarla.",
   "marketplace.try.update": "Actualiza esta habilidad para probar esta versión.",
@@ -190,7 +190,7 @@ export const messages = {
   "marketplace.plugin.figma.prompt.assets": "Extrae los iconos de marketing a 2x para el paquete de la aplicación.",
   "marketplace.plugin.paper.tagline": "Lienzo de diseño basado en HTML y CSS",
   "marketplace.plugin.paper.description":
-    "Paper permite a los agentes leer y escribir el archivo de diseño abierto en Paper Desktop: inspeccionar mesas de trabajo, selecciones, estilos calculados, JSX y tokens, y crear o cambiar marcos, texto y estilos. Instala Paper Desktop, ábrelo una vez y abre un archivo antes de empezar. OpenBot inicia la CLI de Paper que instala Paper Desktop. Paper no necesita clave. Las herramientas de escritura cambian el archivo abierto, así que revisa cada escritura antes de aprobarla.",
+    "Paper permite a los agentes leer y escribir el archivo de diseño abierto en Paper Desktop: inspeccionar mesas de trabajo, selecciones, estilos calculados, JSX y tokens, y crear o cambiar marcos, texto y estilos. Instala Paper Desktop, ábrelo una vez y abre un archivo antes de empezar. zereight bot inicia la CLI de Paper que instala Paper Desktop. Paper no necesita clave. Las herramientas de escritura cambian el archivo abierto, así que revisa cada escritura antes de aprobarla.",
   "marketplace.plugin.paper.app":
     "Lee y escribe el archivo abierto de Paper Desktop, mediante el servidor MCP local que retransmite la CLI de Paper. Necesita Paper Desktop con un archivo abierto.",
   "marketplace.plugin.paper.prompt.implement":

@@ -6,7 +6,7 @@ export const messages = {
   "error.kind.network": "Bağlanılamadı. Bağlantınızı kontrol edin ve tekrar deneyin.",
   "error.kind.timeout": "İstek çok uzun sürdü. Tekrar denemeden önce eylemin tamamlanıp tamamlanmadığını kontrol edin.",
   "error.kind.storage":
-    "Yeterli depolama alanı yok. OpenBot'u çalıştıran bilgisayarda biraz yer açın, ardından tekrar deneyin.",
+    "Yeterli depolama alanı yok. zereight bot'u çalıştıran bilgisayarda biraz yer açın, ardından tekrar deneyin.",
   "error.kind.filePermission":
     "OpenBot'un bu eylemi tamamlamak için izni yok. Dosya veya klasör izinlerini kontrol edin, ardından tekrar deneyin.",
   "error.kind.notFound":

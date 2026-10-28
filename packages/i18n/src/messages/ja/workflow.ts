@@ -326,10 +326,10 @@ export const messages = {
   "workflow.canvas.version.run": "実行前",
   "workflow.canvas.deleteUndo.title": "{name} を削除しました",
   "workflow.canvas.deleteUndo.action": "元に戻す",
-  "workflow.page.failed": "OpenBot で実行できませんでした。もう一度お試しください。",
+  "workflow.page.failed": "zereight bot で実行できませんでした。もう一度お試しください。",
   "workflow.page.conflict": "編集中にこのワークフローが変更されました。元に戻すと編集内容を復元できます。",
   "workflow.page.needsNewerApp":
-    "このワークフローには新しいバージョンの OpenBot のステップがあります。変更するには OpenBot を更新してください。",
+    "このワークフローには新しいバージョンの zereight bot のステップがあります。変更するには zereight bot を更新してください。",
   "workflow.page.manageOnly": "このワークフローを変更するには、各エージェントの管理アクセスが必要です。",
   "workflow.chat.label": "ワークフローアシスタント",
   "workflow.chat.title": "{name} にこのワークフローを相談",

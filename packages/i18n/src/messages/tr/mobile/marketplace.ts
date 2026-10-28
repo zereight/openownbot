@@ -55,12 +55,12 @@ export const messages = {
   "mobile.marketplace.facts.accessNone": "Oturum gerekmez",
   "mobile.marketplace.permission.admin": "Pazaryerinden yalnızca sahipler ve yöneticiler kurulum yapabilir.",
   "mobile.marketplace.permission.unavailable":
-    "Bu sunucu çevrimdışı veya OpenBot sürümü bunun için çok eski. OpenBot'u, sunucuyu çalıştıran bilgisayarda güncelleyin.",
-  "mobile.marketplace.error.agentUnsupported": "Pazaryerinden ajan eklemek için sunucudaki OpenBot'u güncelleyin.",
+    "Bu sunucu çevrimdışı veya zereight bot sürümü bunun için çok eski. zereight bot'u, sunucuyu çalıştıran bilgisayarda güncelleyin.",
+  "mobile.marketplace.error.agentUnsupported": "Pazaryerinden ajan eklemek için sunucudaki zereight bot'u güncelleyin.",
   "mobile.marketplace.error.agentUpdateUnsupported":
-    "Pazaryerindeki ajanları güncellemek için sunucudaki OpenBot’u güncelleyin.",
+    "Pazaryerindeki ajanları güncellemek için sunucudaki zereight bot’u güncelleyin.",
   "mobile.marketplace.error.signInUnsupported":
-    "Telefondan uygulamalarda oturum açmak için sunucudaki OpenBot'u güncelleyin.",
+    "Telefondan uygulamalarda oturum açmak için sunucudaki zereight bot'u güncelleyin.",
   "mobile.marketplace.agent.add": "Ajan ekle",
   "mobile.marketplace.agent.adding": "Ajan ekleniyor",
   "mobile.marketplace.agent.update": "Ajanı güncelle",
