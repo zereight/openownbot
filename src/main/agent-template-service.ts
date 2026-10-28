@@ -78,6 +78,11 @@ function snapshotProblemText(problem: AgentTemplateSnapshotProblem): string {
   }
 }
 
+export interface InstalledTemplateAgent {
+  agent: AgentSummary;
+  skillIds: string[];
+}
+
 /** Embedded skills are written here in the new agent's workspace, added to the library, and removed. */
 const SKILL_STAGING = ".openbot/template-skills";
 
@@ -253,6 +258,31 @@ export class AgentTemplateService {
         return yield* new AgentTemplateFailure({
           cause: new Error(sourceText("error.marketplace.changedSinceOpened")),
         });
+      let avatar: AvatarImageInput | null = null;
+      if (detail.avatarUrl) {
+        const avatarUrl = detail.avatarUrl;
+        const bytes = yield* this.auth.downloadAuthorized(avatarUrl).pipe(toAgentTemplateFailure);
+        const mimeType = imageMimeType(bytes);
+        if (!mimeType)
+          return yield* new AgentTemplateFailure({ cause: new Error(sourceText("error.marketplace.avatarInvalid")) });
+        avatar = { mimeType, bytes };
+      }
+
+      const installed = yield* this.installSnapshot(detail, avatar, input.timezone);
+      return { agent: installed.agent };
+    });
+  }
+
+  /**
+   * Creates the agent of a snapshot: its skills, routines and avatar. A failure removes the agent and
+   * any skill it added to the library. `skillIds` are the installed skills, so a caller can switch them off.
+   */
+  installSnapshot(
+    detail: AgentTemplateSnapshot,
+    avatar: AvatarImageInput | null,
+    timezone: string,
+  ): Effect.Effect<InstalledTemplateAgent, AgentTemplateFailure> {
+    return Effect.gen({ self: this }, function* (): Effect.fn.Return<InstalledTemplateAgent, AgentTemplateFailure> {
       // Every embedded skill is checked before the agent exists, so a bad one creates nothing. A local
       // skill with the same name is reused only when its text is the same: a template never revises a
       // skill the user already has.
@@ -273,16 +303,6 @@ export class AgentTemplateService {
           });
         reused.set(slug, { id: current.id, revision: current.version });
       }
-      let avatar: AvatarImageInput | null = null;
-      if (detail.avatarUrl) {
-        const avatarUrl = detail.avatarUrl;
-        const bytes = yield* this.auth.downloadAuthorized(avatarUrl).pipe(toAgentTemplateFailure);
-        const mimeType = imageMimeType(bytes);
-        if (!mimeType)
-          return yield* new AgentTemplateFailure({ cause: new Error(sourceText("error.marketplace.avatarInvalid")) });
-        avatar = { mimeType, bytes };
-      }
-
       let agent = yield* this.agents
         .createAgentProfile({
           name: detail.name,
@@ -293,6 +313,7 @@ export class AgentTemplateService {
         })
         .pipe(toAgentTemplateFailure);
       const published: Array<{ id: string; revision: number }> = [];
+      const skillIds: string[] = [];
       {
         const outcome = yield* Effect.result(
           Effect.gen({ self: this }, function* () {
@@ -308,6 +329,7 @@ export class AgentTemplateService {
                 yield* this.skills
                   .installLocal({ agentId: agent.id, skillId: existing.id, revision: existing.revision })
                   .pipe(toAgentTemplateFailure);
+                skillIds.push(existing.id);
                 continue;
               }
               const folder = `${SKILL_STAGING}/${skill.slug}`;
@@ -320,6 +342,7 @@ export class AgentTemplateService {
                 yield* this.skills
                   .installLocal({ agentId: agent.id, skillId: revision.id, revision: revision.version })
                   .pipe(toAgentTemplateFailure);
+                skillIds.push(revision.id);
               }).pipe(
                 Effect.ensuring(
                   Effect.gen({ self: this }, function* () {
@@ -336,7 +359,7 @@ export class AgentTemplateService {
                     name: routine.name,
                     instruction: routine.instruction,
                     active: routine.active,
-                    timezone: input.timezone,
+                    timezone,
                     schedule: localSchedule(routine.schedule),
                   },
                   { recordConversationEvent: false },
@@ -354,7 +377,7 @@ export class AgentTemplateService {
           return yield* new AgentTemplateFailure({ cause: error });
         }
       }
-      return { agent };
+      return { agent, skillIds };
     });
   }
 
