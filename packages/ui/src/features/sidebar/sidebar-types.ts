@@ -87,6 +87,8 @@ export interface SidebarProps {
   onExportSection?: ((sectionId: string) => Promise<void>) | undefined;
   /** Opens a team file to import. Without it, the sidebar menu has no import item. */
   onImportTeam?: (() => void) | undefined;
+  /** Opens the screen where the user makes teams. Without it, the sidebar menu has no teams item. */
+  onManageTeams?: (() => void) | undefined;
   onToggleSection: (sectionId: string) => void;
   pinnedItems: SidebarPinnedItem[];
   peopleOrder: string[];

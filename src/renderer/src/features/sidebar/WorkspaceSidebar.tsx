@@ -1,5 +1,6 @@
 import type { ChatWindowTarget } from "@openbot/contracts/ipc";
 import { AGENT_HIDDEN_CAPABILITY } from "@openbot/contracts/team-protocol/current";
+import { AgentSquadsDialog } from "@openbot/ui/features/agents/AgentSquadsDialog";
 import { AgentTeamImportDialog } from "@openbot/ui/features/agents/AgentTeamImportDialog";
 import { computeAgentAvatarMoods } from "@openbot/ui/features/agents/agent-avatar-mood";
 import { Sidebar } from "@openbot/ui/features/sidebar/Sidebar";
@@ -275,6 +276,7 @@ export function WorkspaceSidebar(props: { peopleEnabled: boolean }) {
         onDuplicateSection={duplicateSection}
         onExportSection={teamFiles() ? teams.exportSection : undefined}
         onImportTeam={teamFiles() ? () => void teams.chooseFile() : undefined}
+        onManageTeams={teamFiles() ? () => void teams.openSquads() : undefined}
         onToggleSection={toggleSidebarSection}
         pinnedItems={pinnedSidebarItems()}
         peopleOrder={sidebarPeopleOrder()}
@@ -361,6 +363,14 @@ export function WorkspaceSidebar(props: { peopleEnabled: boolean }) {
               }
             : undefined
         }
+      />
+      <AgentSquadsDialog
+        open={teams.squadsOpen()}
+        onOpenChange={teams.setSquadsOpen}
+        squads={teams.squads()}
+        agents={agentList().map((agent) => ({ id: agent.id, name: agent.name }))}
+        onSave={teams.saveSquad}
+        onRemove={teams.removeSquad}
       />
       <AgentTeamImportDialog
         open={teams.preview() !== null}

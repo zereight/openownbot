@@ -27,4 +27,21 @@ export const messages = {
   "agentTeam.problem.marketplaceSkill":
     "에이전트 {name}이(가) 마켓플레이스 스킬을 쓰는데, 팀 파일에는 담을 수 없습니다.",
   "agentTeam.problem.duplicate": "이름이 {name}인 에이전트가 둘 있습니다.",
+  "agentTeam.manage.title": "팀",
+  "agentTeam.manage.description":
+    "팀에는 리드가 있습니다. 멤버끼리는 자유롭게 대화하고, 팀 밖의 에이전트에게는 리드만 메시지를 보낼 수 있으며, 팀 밖에서는 리드를 통해서만 팀에 연락할 수 있습니다.",
+  "agentTeam.manage.empty": "아직 팀이 없습니다. 어느 팀에도 속하지 않은 에이전트는 제한을 받지 않습니다.",
+  "agentTeam.manage.new": "새 팀",
+  "agentTeam.manage.edit": "수정",
+  "agentTeam.manage.delete": "삭제",
+  "agentTeam.manage.back": "뒤로",
+  "agentTeam.manage.name": "팀 이름",
+  "agentTeam.manage.lead": "리드",
+  "agentTeam.manage.members": "멤버",
+  "agentTeam.manage.save": "저장",
+  "agentTeam.manage.saving": "저장 중…",
+  "agentTeam.manage.summary": "리드: {lead}. 멤버 {count}명.",
+  "agentTeam.manage.saveFailed": "팀을 저장하지 못했습니다.",
+  "agentTeam.manage.deleteFailed": "팀을 삭제하지 못했습니다.",
+  "agentTeam.manage.loadFailed": "팀 목록을 불러오지 못했습니다.",
 } as const satisfies PartialTranslation<typeof source>;

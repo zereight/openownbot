@@ -136,4 +136,5 @@ export const messages = defineMessages("sidebar", {
   "sidebar.community.dismiss": "Dismiss the community invitation",
   "sidebar.new.importTeam": "Import team…",
   "sidebar.section.exportTeam": "Export as team file…",
+  "sidebar.new.manageTeams": "Teams…",
 });
