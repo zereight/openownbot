@@ -3,6 +3,7 @@ import type { AppMessages } from "../en/index";
 import { messages as account } from "./account";
 import { messages as agent } from "./agent";
 import { messages as agentSettings } from "./agentSettings";
+import { messages as agentTeam } from "./agentTeam";
 import { messages as agentTemplate } from "./agentTemplate";
 import { messages as app } from "./app";
 import { messages as attachment } from "./attachment";
@@ -106,6 +107,7 @@ export const ko = {
   ...diagram,
   ...workflow,
   ...agent,
+  ...agentTeam,
   ...agentTemplate,
   ...importAgent,
   ...files,

@@ -4,7 +4,7 @@
  * the scroll fades in that order.
  */
 
-import { Bot, CheckCheck, ContextMenu, FolderPlus, Hash } from "@openbot/ui";
+import { Bot, CheckCheck, ContextMenu, FolderPlus, Hash, Upload } from "@openbot/ui";
 import { For, Show } from "solid-js";
 import { useText } from "../../text";
 import { SidebarChannelRow } from "./SidebarChannelRow";
@@ -104,6 +104,12 @@ export function SidebarNav() {
                 <ContextMenu.Item onSelectAfterClose={() => startCreateSection()}>
                   <FolderPlus class="agent-context-icon size-4" aria-hidden="true" />
                   <span>{t("sidebar.new.section")}</span>
+                </ContextMenu.Item>
+              </Show>
+              <Show when={layoutMutable() && props.onImportTeam}>
+                <ContextMenu.Item onSelect={() => props.onImportTeam?.()}>
+                  <Upload class="agent-context-icon size-4" aria-hidden="true" />
+                  <span>{t("sidebar.new.importTeam")}</span>
                 </ContextMenu.Item>
               </Show>
               <Show when={props.onMarkAllRead}>

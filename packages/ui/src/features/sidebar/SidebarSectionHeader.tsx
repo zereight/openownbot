@@ -4,7 +4,17 @@
  * caller - both regions that show a section header reach it through here.
  */
 
-import { ArrowDown, ArrowUp, buttonVariants, ChevronDown, ContextMenu, Copy, Pencil, Trash2 } from "@openbot/ui";
+import {
+  ArrowDown,
+  ArrowUp,
+  buttonVariants,
+  ChevronDown,
+  ContextMenu,
+  Copy,
+  Download,
+  Pencil,
+  Trash2,
+} from "@openbot/ui";
 import { Show } from "solid-js";
 import { useText } from "../../text";
 import { SidebarSectionEditor } from "./SidebarSectionEditor";
@@ -88,6 +98,12 @@ export function SidebarSectionHeader(headerProps: { sectionId: string; name: str
                           ? t("sidebar.section.duplicating")
                           : t("sidebar.section.duplicate")}
                       </span>
+                    </ContextMenu.Item>
+                  </Show>
+                  <Show when={props.onExportSection}>
+                    <ContextMenu.Item onSelect={() => void props.onExportSection?.(headerProps.sectionId)}>
+                      <Download class="agent-context-icon size-4" aria-hidden="true" />
+                      <span>{t("sidebar.section.exportTeam")}</span>
                     </ContextMenu.Item>
                   </Show>
                 </Show>
