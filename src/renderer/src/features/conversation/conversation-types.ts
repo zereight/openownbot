@@ -338,7 +338,7 @@ export interface ConversationProps {
   /** Reads the tabs of main again, after a request on a tab that main no longer has. */
   onResyncBrowserTabs?: () => void;
   onOpenRemoteDesktop: (serverId: string, trigger: HTMLElement) => Promise<void>;
-  onStop: () => void;
+  onStop: (turnIdOverride?: string) => void;
 }
 
 /** `messageId` is the conversation message the host stored: the delivery id of the receipt. */

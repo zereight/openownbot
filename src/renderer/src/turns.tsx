@@ -412,9 +412,10 @@ const Turns = createSimpleContext({
         });
     }
 
-    function stopActiveTurn() {
+    /** `turnIdOverride` is a turn that the queue reports for work that `activeTurns` does not know. */
+    function stopActiveTurn(turnIdOverride?: string) {
       const agent = activeAgent();
-      const turnId = agent ? activeTurns()[agent.id] : null;
+      const turnId = turnIdOverride ?? (agent ? activeTurns()[agent.id] : null);
       if (!agent || !turnId) return;
       const serverId = activeServerId();
       const analytics = desktopAnalytics.scope();

@@ -86,6 +86,7 @@ export const messages = {
   "composer.send.voice": "음성 메시지 보내기",
   "composer.send.message": "메시지 보내기",
   "composer.send.stop": "에이전트 중지",
+  "composer.send.stopUnavailable": "이 대화에서 정지할 수 있는 턴이 없어요. 채널에서 실행 중인 작업일 수 있어요.",
   "composer.send.hint.enter": "보내기 (Enter). Shift+Enter로 줄을 바꿔요.",
   "composer.send.hint.modEnterMac": "보내기 (⌘Enter). Enter로 줄을 바꿔요.",
   "composer.send.hint.modEnterWin": "보내기 (Ctrl+Enter). Enter로 줄을 바꿔요.",

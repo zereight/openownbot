@@ -372,6 +372,13 @@ export function createConversationViewScope(props: ConversationProps) {
     agentActivityLabels: resources.agentActivityLabels,
     turnRuntimes: resources.turnRuntimes,
   });
+  /**
+   * The turn that Stop interrupts. The working line also lights for a running delivery, so a turn that only
+   * the queue reports stops the work as well.
+   */
+  const stopTurnId = createMemo(
+    () => props.activeTurnId ?? activeDeliveries().find((delivery) => delivery.turnId)?.turnId ?? null,
+  );
   const {
     renderedAgentActivity,
     agentActivitySpaceReserved,
@@ -1787,6 +1794,7 @@ export function createConversationViewScope(props: ConversationProps) {
     stopBrowserTab,
     removeAttachment,
     renderedAgentActivity,
+    stopTurnId,
     providerSilentMinutes,
     providerOffline,
     agentProviderName,

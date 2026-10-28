@@ -85,6 +85,7 @@ export const messages = defineMessages("composer", {
   "composer.send.voice": "Send voice message",
   "composer.send.message": "Send message",
   "composer.send.stop": "Stop agent",
+  "composer.send.stopUnavailable": "This work has no turn to stop from this chat. It may run in a channel.",
   "composer.send.hint.enter": "Send (Enter). Shift+Enter adds a new line.",
   "composer.send.hint.modEnterMac": "Send (⌘Enter). Enter adds a new line.",
   "composer.send.hint.modEnterWin": "Send (Ctrl+Enter). Enter adds a new line.",

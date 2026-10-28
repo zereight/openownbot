@@ -82,6 +82,8 @@ export const messages = {
   "composer.send.voice": "Отправить голосовое сообщение",
   "composer.send.message": "Отправить сообщение",
   "composer.send.stop": "Остановить агента",
+  "composer.send.stopUnavailable":
+    "У этой работы нет хода, который можно остановить из этого чата. Возможно, она выполняется в канале.",
   "composer.send.hint.enter": "Отправить (Enter). Shift+Enter — новая строка.",
   "composer.send.hint.modEnterMac": "Отправить (⌘Enter). Enter — новая строка.",
   "composer.send.hint.modEnterWin": "Отправить (Ctrl+Enter). Enter — новая строка.",

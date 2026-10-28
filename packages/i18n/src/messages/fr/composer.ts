@@ -85,6 +85,8 @@ export const messages = {
   "composer.send.voice": "Envoyer le message vocal",
   "composer.send.message": "Envoyer le message",
   "composer.send.stop": "Arrêter l’agent",
+  "composer.send.stopUnavailable":
+    "Ce travail n’a aucun tour à arrêter depuis ce chat. Il s’exécute peut-être dans un canal.",
   "composer.send.hint.enter": "Envoyer (Entrée). Maj+Entrée ajoute une nouvelle ligne.",
   "composer.send.hint.modEnterMac": "Envoyer (⌘Entrée). Entrée ajoute une nouvelle ligne.",
   "composer.send.hint.modEnterWin": "Envoyer (Ctrl+Entrée). Entrée ajoute une nouvelle ligne.",

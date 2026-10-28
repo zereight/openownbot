@@ -83,6 +83,8 @@ export const messages = {
   "composer.send.voice": "Sesli mesaj gönder",
   "composer.send.message": "Mesaj gönder",
   "composer.send.stop": "Ajanı durdur",
+  "composer.send.stopUnavailable":
+    "Bu işin bu sohbetten durdurulabilecek bir turu yok. Bir kanalda çalışıyor olabilir.",
   "composer.send.hint.enter": "Gönder (Enter). Shift+Enter yeni satır ekler.",
   "composer.send.hint.modEnterMac": "Gönder (⌘Enter). Enter yeni satır ekler.",
   "composer.send.hint.modEnterWin": "Gönder (Ctrl+Enter). Enter yeni satır ekler.",

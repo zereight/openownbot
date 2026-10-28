@@ -80,6 +80,7 @@ export const messages = {
   "composer.send.voice": "发送语音消息",
   "composer.send.message": "发送消息",
   "composer.send.stop": "停止助手",
+  "composer.send.stopUnavailable": "此工作在当前聊天中没有可停止的回合。它可能在频道中运行。",
   "composer.send.hint.enter": "发送（Enter）。Shift+Enter 换行。",
   "composer.send.hint.modEnterMac": "发送（⌘Enter）。Enter 换行。",
   "composer.send.hint.modEnterWin": "发送（Ctrl+Enter）。Enter 换行。",

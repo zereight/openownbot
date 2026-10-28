@@ -82,6 +82,8 @@ export const messages = {
   "composer.send.voice": "Enviar mensaje de voz",
   "composer.send.message": "Enviar mensaje",
   "composer.send.stop": "Detener agente",
+  "composer.send.stopUnavailable":
+    "Este trabajo no tiene un turno que detener desde este chat. Puede ejecutarse en un canal.",
   "composer.send.hint.enter": "Enviar (Enter). Shift+Enter añade una línea.",
   "composer.send.hint.modEnterMac": "Enviar (⌘Enter). Enter añade una línea.",
   "composer.send.hint.modEnterWin": "Enviar (Ctrl+Enter). Enter añade una línea.",

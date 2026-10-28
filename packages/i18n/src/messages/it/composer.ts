@@ -82,6 +82,8 @@ export const messages = {
   "composer.send.voice": "Invia messaggio vocale",
   "composer.send.message": "Invia messaggio",
   "composer.send.stop": "Ferma l'agente",
+  "composer.send.stopUnavailable":
+    "Questo lavoro non ha un turno da fermare da questa chat. Potrebbe essere in esecuzione in un canale.",
   "composer.send.hint.enter": "Invia (Invio). Maiusc+Invio va a capo.",
   "composer.send.hint.modEnterMac": "Invia (⌘Invio). Invio va a capo.",
   "composer.send.hint.modEnterWin": "Invia (Ctrl+Invio). Invio va a capo.",

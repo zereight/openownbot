@@ -30,6 +30,7 @@ import {
   Mic,
   Plus,
   Puzzle,
+  toast,
 } from "@openbot/ui";
 import { fileBadge } from "@openbot/ui/features/conversation/AttachmentCards";
 import { attachmentReferenceTone } from "@openbot/ui/features/conversation/AttachmentReference";
@@ -128,6 +129,8 @@ export function ConversationComposer() {
     providerOffline,
     agentProviderName,
     sideThreadOpen,
+    stopTurnId,
+    agentActivity,
   } = useConversationViewScope();
   const { t, format, errorMessage, sourceText: localizeSourceText } = useText();
   const messageLabel = () =>
@@ -341,7 +344,12 @@ export function ConversationComposer() {
   /** Send, or Stop while the agent works and the message box is empty. */
   const SendControl = () => (
     <Show
-      when={props.activeTurnId && !editingDeliveryId() && !composerHasContent() && voicePhase() !== "recording"}
+      when={
+        (stopTurnId() || agentActivity()) &&
+        !editingDeliveryId() &&
+        !composerHasContent() &&
+        voicePhase() !== "recording"
+      }
       fallback={
         <Button
           variant="ghost"
@@ -386,7 +394,12 @@ export function ConversationComposer() {
         class="voice-button voice-button-active"
         aria-label={t("composer.send.stop")}
         data-cuelume-tap="close"
-        onClick={props.onStop}
+        onClick={() => {
+          const turnId = stopTurnId();
+          // The working line shows but no turn is known: say so, as a silent button reads as broken.
+          if (turnId) props.onStop(turnId);
+          else toast.error(t("composer.send.stopUnavailable"));
+        }}
       >
         <StopIcon />
       </Button>

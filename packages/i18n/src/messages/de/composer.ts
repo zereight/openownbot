@@ -84,6 +84,8 @@ export const messages = {
   "composer.send.voice": "Sprachnachricht senden",
   "composer.send.message": "Nachricht senden",
   "composer.send.stop": "Agenten stoppen",
+  "composer.send.stopUnavailable":
+    "Für diese Arbeit gibt es in diesem Chat keinen Durchlauf zum Stoppen. Sie läuft möglicherweise in einem Kanal.",
   "composer.send.hint.enter": "Senden (Enter). Shift+Enter fügt eine neue Zeile ein.",
   "composer.send.hint.modEnterMac": "Senden (⌘Enter). Enter fügt eine neue Zeile ein.",
   "composer.send.hint.modEnterWin": "Senden (Strg+Enter). Enter fügt eine neue Zeile ein.",

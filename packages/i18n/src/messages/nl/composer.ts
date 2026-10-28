@@ -84,6 +84,8 @@ export const messages = {
   "composer.send.voice": "Spraakbericht sturen",
   "composer.send.message": "Bericht sturen",
   "composer.send.stop": "Agent stoppen",
+  "composer.send.stopUnavailable":
+    "Dit werk heeft geen beurt die vanuit deze chat te stoppen is. Het draait mogelijk in een kanaal.",
   "composer.send.hint.enter": "Sturen (Enter). Shift+Enter voegt een nieuwe regel toe.",
   "composer.send.hint.modEnterMac": "Sturen (⌘Enter). Enter voegt een nieuwe regel toe.",
   "composer.send.hint.modEnterWin": "Sturen (Ctrl+Enter). Enter voegt een nieuwe regel toe.",

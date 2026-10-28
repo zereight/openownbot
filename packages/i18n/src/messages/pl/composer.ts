@@ -82,6 +82,7 @@ export const messages = {
   "composer.send.voice": "Wyślij wiadomość głosową",
   "composer.send.message": "Wyślij wiadomość",
   "composer.send.stop": "Zatrzymaj agenta",
+  "composer.send.stopUnavailable": "Ta praca nie ma tury, którą można zatrzymać z tego czatu. Może działać w kanale.",
   "composer.send.hint.enter": "Wyślij (Enter). Shift+Enter dodaje nowy wiersz.",
   "composer.send.hint.modEnterMac": "Wyślij (⌘Enter). Enter dodaje nowy wiersz.",
   "composer.send.hint.modEnterWin": "Wyślij (Ctrl+Enter). Enter dodaje nowy wiersz.",

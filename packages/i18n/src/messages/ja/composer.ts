@@ -82,6 +82,8 @@ export const messages = {
   "composer.send.voice": "音声メッセージを送信",
   "composer.send.message": "メッセージを送信",
   "composer.send.stop": "エージェントを停止",
+  "composer.send.stopUnavailable":
+    "このチャットから停止できるターンがありません。チャンネルで実行中の作業かもしれません。",
   "composer.send.hint.enter": "送信 (Enter)。Shift+Enter で改行します。",
   "composer.send.hint.modEnterMac": "送信 (⌘Enter)。Enter で改行します。",
   "composer.send.hint.modEnterWin": "送信 (Ctrl+Enter)。Enter で改行します。",
