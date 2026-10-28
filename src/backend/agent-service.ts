@@ -1042,7 +1042,7 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
             return yield* new ProfileGenerationFailed({
               cause: new Error(sourceText("error.backend.channelLeadModelUnavailable")),
             });
-          const client = this.#providers.createProfileClient(lead.provider);
+          const client = this.#providers.createProfileClient(lead.provider, lead.providerAccountId);
           return yield* this.#profileClients
             .run(client, (cancelled) =>
               generateTextWithoutTools(client, channelGenerationModel(model), prompt, cancelled),
@@ -2164,7 +2164,7 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
         return yield* new ProfileGenerationFailed({
           cause: new Error(sourceText("error.agent.profileGenerationBusy")),
         });
-      const client = this.#providers.createProfileClient(provider);
+      const client = this.#providers.createProfileClient(provider, agent?.providerAccountId);
       return yield* this.#profileClients.run(client, (cancelled) =>
         generateProfile(client, model, input, sections, cancelled),
       );
@@ -2198,7 +2198,7 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
           { type: "latest" },
           SIDE_QUESTION_CHAT_MESSAGES,
         ).messages;
-      const client = this.#providers.createProfileClient(agent.provider);
+      const client = this.#providers.createProfileClient(agent.provider, agent.providerAccountId);
       return yield* this.#profileClients
         .run(client, (cancelled) =>
           generateTextWithoutTools(
