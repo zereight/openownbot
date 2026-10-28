@@ -44,6 +44,7 @@ export const messages = {
   "onboarding.provider.inceptionKey": "Mercury-modellen met een Inception-API-sleutel",
   "onboarding.provider.deepseekKey": "DeepSeek-modellen met een DeepSeek-API-sleutel",
   "onboarding.provider.openrouterKey": "Veel modellen met een OpenRouter-API-sleutel",
+  "onboarding.provider.piBoltCommand": "Gebruikt de opdracht pi-bolt op deze computer",
   "onboarding.provider.tryFree": "Probeer gratis",
   "onboarding.provider.noSignIn": "Inloggen niet nodig",
   "onboarding.provider.more": "Meer aanbieders",

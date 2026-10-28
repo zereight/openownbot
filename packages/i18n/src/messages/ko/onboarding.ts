@@ -43,6 +43,7 @@ export const messages = {
   "onboarding.provider.inceptionKey": "Inception API 키로 쓰는 Mercury 모델",
   "onboarding.provider.deepseekKey": "DeepSeek API 키로 쓰는 DeepSeek 모델",
   "onboarding.provider.openrouterKey": "OpenRouter API 키로 쓰는 다양한 모델",
+  "onboarding.provider.piBoltCommand": "이 컴퓨터의 pi-bolt 명령어를 사용해요",
   "onboarding.provider.tryFree": "무료로 사용해 보기",
   "onboarding.provider.noSignIn": "로그인 필요 없음",
   "onboarding.provider.more": "더 많은 제공자",
