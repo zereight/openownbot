@@ -147,7 +147,11 @@ describe("decideMember", () => {
       fetch: reply(answer("m1", { m1: 0.5, m2: 0.5, none: 0 })),
       timeoutMs: 1000,
     });
-    expect(outcome).toEqual({ ok: false, reason: "below-threshold" });
+    expect(outcome).toEqual({
+      ok: false,
+      reason: "below-threshold",
+      probabilities: { m1: 0.5, m2: 0.5, none: 0 },
+    });
   });
 
   it("does not ask when there is a single member: that is no decision", async () => {

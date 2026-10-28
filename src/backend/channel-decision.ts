@@ -47,7 +47,9 @@ export interface DecisionRequest {
 /** `fetch` as far as this module uses it: Bun's own type also asks for `preconnect`. */
 export type DecisionFetch = (input: string | URL | Request, init?: RequestInit) => Promise<Response>;
 
-export type DecisionResult = { ok: true; agentId: string; probability: number } | { ok: false; reason: string };
+export type DecisionResult =
+  | { ok: true; agentId: string; probability: number }
+  | { ok: false; reason: string; probabilities?: Record<string, number> };
 
 /** What the model must reach to pick a member. Below it, the lead decides, as before. */
 export const DECISION_THRESHOLD = 0.6;
@@ -165,6 +167,19 @@ export function decisionRefusal(
   return "not-top";
 }
 
+/** The probability of each option (`m1`, `m2`, `none`), for a log line. Empty when the answer has none. */
+function answerProbabilities(response: unknown): Record<string, number> | undefined {
+  const answered = isDynamicRecord(response) && isDynamicRecord(response.result) ? response.result : response;
+  if (!isDynamicRecord(answered) || !isDynamicRecord(answered.answers)) return undefined;
+  const answer = answered.answers[QUESTION_ID];
+  if (!isDynamicRecord(answer) || !isDynamicRecord(answer.probabilities)) return undefined;
+  const numbers: Record<string, number> = {};
+  for (const [key, value] of Object.entries(answer.probabilities)) {
+    if (typeof value === "number" && Number.isFinite(value)) numbers[key] = value;
+  }
+  return numbers;
+}
+
 export async function decideMember(
   backend: DecisionBackend,
   input: DecisionInput,
@@ -203,5 +218,5 @@ export async function decideMember(
   const member = index >= 0 ? input.members[index] : undefined;
   return outcome && member
     ? { ok: true, agentId: member.id, probability: outcome.probability }
-    : { ok: false, reason: decisionRefusal(parsed, keys) };
+    : { ok: false, reason: decisionRefusal(parsed, keys), probabilities: answerProbabilities(parsed) };
 }

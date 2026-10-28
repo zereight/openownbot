@@ -1013,6 +1013,7 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
               ok: result.ok,
               reason: result.ok ? undefined : result.reason,
               probability: result.ok ? result.probability : undefined,
+              probabilities: result.ok ? undefined : result.probabilities,
               milliseconds: Date.now() - startedAt,
             });
             return result.ok ? result.agentId : null;
