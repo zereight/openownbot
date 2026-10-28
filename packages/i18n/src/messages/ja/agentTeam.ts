@@ -27,4 +27,21 @@ export const messages = {
   "agentTeam.problem.marketplaceSkill":
     "エージェント {name} はマーケットプレイスのスキルを使っており、チームファイルには含められません。",
   "agentTeam.problem.duplicate": "{name} という名前のエージェントが 2 つあります。",
+  "agentTeam.manage.title": "チーム",
+  "agentTeam.manage.description":
+    "チームにはリードがいます。メンバー同士は自由に話せます。チーム外のエージェントに書き込めるのはリードだけで、チーム外からはリードを通してチームに連絡します。",
+  "agentTeam.manage.empty": "まだチームがありません。どのチームにも属さないエージェントは制限されません。",
+  "agentTeam.manage.new": "新しいチーム",
+  "agentTeam.manage.edit": "編集",
+  "agentTeam.manage.delete": "削除",
+  "agentTeam.manage.back": "戻る",
+  "agentTeam.manage.name": "チーム名",
+  "agentTeam.manage.lead": "リード",
+  "agentTeam.manage.members": "メンバー",
+  "agentTeam.manage.save": "保存",
+  "agentTeam.manage.saving": "保存中…",
+  "agentTeam.manage.summary": "リード: {lead}。メンバー: {count} 人。",
+  "agentTeam.manage.saveFailed": "チームを保存できませんでした。",
+  "agentTeam.manage.deleteFailed": "チームを削除できませんでした。",
+  "agentTeam.manage.loadFailed": "チームを読み込めませんでした。",
 } as const satisfies PartialTranslation<typeof source>;

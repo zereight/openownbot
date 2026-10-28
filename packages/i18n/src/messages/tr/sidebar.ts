@@ -138,4 +138,5 @@ export const messages = {
   "sidebar.community.dismiss": "Topluluk davetini kapat",
   "sidebar.new.importTeam": "Takımı içe aktar…",
   "sidebar.section.exportTeam": "Takım dosyası olarak dışa aktar…",
+  "sidebar.new.manageTeams": "Takımlar…",
 } as const satisfies PartialTranslation<typeof source>;

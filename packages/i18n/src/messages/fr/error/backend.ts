@@ -356,4 +356,8 @@ export const messages = {
     "Cet agent a {count} tâches ouvertes. Fermez une tâche, puis lancez-en ou ouvrez-en une autre.",
   "error.backend.taskRemoteUnsupported": "Les tâches sont disponibles uniquement pour les agents de cet ordinateur.",
   "error.backend.taskStartFailed": "OpenOwnBot n’a pas pu lancer la tâche. Faites plutôt le travail dans ce tour.",
+  "error.backend.squadLeaves":
+    "Vous êtes dans l’équipe {squad}, et seul son responsable écrit aux agents extérieurs. Demandez au responsable de {squad} de transmettre, ou demandez à l’utilisateur.",
+  "error.backend.squadEnters":
+    "{agent} est dans l’équipe {squad}. Passez par le responsable de {squad}, ou demandez à l’utilisateur.",
 } as const satisfies PartialTranslation<typeof source>;

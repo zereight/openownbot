@@ -332,4 +332,7 @@ export const messages = {
     "Bu ajanın {count} açık görevi var. Bir görevi kapatın, ardından başka bir görev başlatın veya açın.",
   "error.backend.taskRemoteUnsupported": "Görevler yalnızca bu bilgisayardaki ajanlar için kullanılabilir.",
   "error.backend.taskStartFailed": "OpenOwnBot görevi başlatamadı. Bunun yerine işi bu turda yapın.",
+  "error.backend.squadLeaves":
+    "{squad} takımındasın ve takım dışındaki ajanlara yalnızca lider yazar. {squad} liderinden iletmesini iste veya kullanıcıya sor.",
+  "error.backend.squadEnters": "{agent}, {squad} takımında. {squad} lideri üzerinden ulaş veya kullanıcıya sor.",
 } as const satisfies PartialTranslation<typeof source>;

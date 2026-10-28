@@ -348,4 +348,8 @@ export const messages = {
     "Este agente tiene {count} tareas abiertas. Cierra una tarea y después inicia o abre otra.",
   "error.backend.taskRemoteUnsupported": "Las tareas solo están disponibles para los agentes de este equipo.",
   "error.backend.taskStartFailed": "OpenOwnBot no pudo iniciar la tarea. Haz el trabajo en este turno.",
+  "error.backend.squadLeaves":
+    "Estás en el equipo {squad} y solo su líder escribe a agentes de fuera. Pide al líder de {squad} que lo transmita, o pregunta al usuario.",
+  "error.backend.squadEnters":
+    "{agent} está en el equipo {squad}. Contáctalo a través del líder de {squad}, o pregunta al usuario.",
 } as const satisfies PartialTranslation<typeof source>;

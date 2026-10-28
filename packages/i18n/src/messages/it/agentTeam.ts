@@ -27,4 +27,21 @@ export const messages = {
   "agentTeam.problem.marketplaceSkill":
     "L’agente {name} usa una skill del marketplace, che un file del team non può contenere.",
   "agentTeam.problem.duplicate": "Due agenti si chiamano {name}.",
+  "agentTeam.manage.title": "Team",
+  "agentTeam.manage.description":
+    "Un team ha un responsabile. I membri parlano liberamente tra loro. Solo il responsabile scrive agli agenti fuori dal team, e gli agenti esterni raggiungono il team tramite il suo responsabile.",
+  "agentTeam.manage.empty": "Ancora nessun team. Gli agenti che non fanno parte di alcun team non hanno limiti.",
+  "agentTeam.manage.new": "Nuovo team",
+  "agentTeam.manage.edit": "Modifica",
+  "agentTeam.manage.delete": "Elimina",
+  "agentTeam.manage.back": "Indietro",
+  "agentTeam.manage.name": "Nome del team",
+  "agentTeam.manage.lead": "Responsabile",
+  "agentTeam.manage.members": "Membri",
+  "agentTeam.manage.save": "Salva",
+  "agentTeam.manage.saving": "Salvataggio…",
+  "agentTeam.manage.summary": "Responsabile: {lead}. Membri: {count}.",
+  "agentTeam.manage.saveFailed": "Impossibile salvare il team.",
+  "agentTeam.manage.deleteFailed": "Impossibile eliminare il team.",
+  "agentTeam.manage.loadFailed": "Impossibile caricare i team.",
 } as const satisfies PartialTranslation<typeof source>;

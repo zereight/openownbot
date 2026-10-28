@@ -345,4 +345,8 @@ export const messages = {
     "このエージェントには {count} 件の開いているタスクがあります。タスクを閉じてから、別のタスクを開始するか開いてください。",
   "error.backend.taskRemoteUnsupported": "タスクは、このコンピューター上のエージェントでのみ利用できます。",
   "error.backend.taskStartFailed": "OpenOwnBot はタスクを開始できませんでした。代わりにこのターンで作業してください。",
+  "error.backend.squadLeaves":
+    "あなたはチーム {squad} に所属しており、チーム外のエージェントに書き込めるのはそのリードだけです。{squad} のリードに伝えてもらうか、ユーザーに尋ねてください。",
+  "error.backend.squadEnters":
+    "{agent} はチーム {squad} に所属しています。{squad} のリードを通して連絡するか、ユーザーに尋ねてください。",
 } as const satisfies PartialTranslation<typeof source>;

@@ -139,4 +139,5 @@ export const messages = {
   "sidebar.community.dismiss": "コミュニティへの招待を閉じる",
   "sidebar.new.importTeam": "チームをインポート…",
   "sidebar.section.exportTeam": "チームファイルとしてエクスポート…",
+  "sidebar.new.manageTeams": "チーム…",
 } as const satisfies PartialTranslation<typeof source>;

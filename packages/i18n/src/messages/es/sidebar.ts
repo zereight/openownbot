@@ -159,4 +159,5 @@ export const messages = {
   "sidebar.community.dismiss": "Cerrar la invitación a la comunidad",
   "sidebar.new.importTeam": "Importar equipo…",
   "sidebar.section.exportTeam": "Exportar como archivo de equipo…",
+  "sidebar.new.manageTeams": "Equipos…",
 } as const satisfies PartialTranslation<typeof source>;

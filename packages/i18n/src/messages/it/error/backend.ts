@@ -348,4 +348,8 @@ export const messages = {
   "error.backend.taskRemoteUnsupported": "Le attività sono disponibili solo per gli agenti su questo computer.",
   "error.backend.taskStartFailed":
     "OpenOwnBot non è riuscito ad avviare l'attività. Esegui invece il lavoro in questo turno.",
+  "error.backend.squadLeaves":
+    "Sei nel team {squad} e solo il suo responsabile scrive agli agenti esterni. Chiedi al responsabile di {squad} di inoltrare, oppure chiedi all’utente.",
+  "error.backend.squadEnters":
+    "{agent} è nel team {squad}. Contattalo tramite il responsabile di {squad}, oppure chiedi all’utente.",
 } as const satisfies PartialTranslation<typeof source>;

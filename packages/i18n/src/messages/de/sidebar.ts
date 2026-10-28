@@ -160,4 +160,5 @@ export const messages = {
   "sidebar.community.dismiss": "Community-Einladung ausblenden",
   "sidebar.new.importTeam": "Team importieren…",
   "sidebar.section.exportTeam": "Als Team-Datei exportieren…",
+  "sidebar.new.manageTeams": "Teams…",
 } as const satisfies PartialTranslation<typeof source>;

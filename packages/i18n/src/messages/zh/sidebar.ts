@@ -137,4 +137,5 @@ export const messages = {
   "sidebar.community.dismiss": "关闭社区邀请",
   "sidebar.new.importTeam": "导入团队…",
   "sidebar.section.exportTeam": "导出为团队文件…",
+  "sidebar.new.manageTeams": "团队…",
 } as const satisfies PartialTranslation<typeof source>;

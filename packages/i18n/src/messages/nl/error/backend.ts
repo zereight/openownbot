@@ -351,4 +351,8 @@ export const messages = {
     "Deze agent heeft {count} open taken. Sluit een taak en start of open dan een andere.",
   "error.backend.taskRemoteUnsupported": "Taken zijn alleen beschikbaar voor agents op deze computer.",
   "error.backend.taskStartFailed": "OpenOwnBot kon de taak niet starten. Doe het werk in plaats daarvan in deze beurt.",
+  "error.backend.squadLeaves":
+    "Je zit in het team {squad}, en alleen de lead schrijft naar agenten daarbuiten. Vraag de lead van {squad} het door te geven, of vraag het de gebruiker.",
+  "error.backend.squadEnters":
+    "{agent} zit in het team {squad}. Bereik die via de lead van {squad}, of vraag het de gebruiker.",
 } as const satisfies PartialTranslation<typeof source>;

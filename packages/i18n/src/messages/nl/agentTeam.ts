@@ -27,4 +27,21 @@ export const messages = {
   "agentTeam.problem.marketplaceSkill":
     "De agent {name} gebruikt een marketplace-skill, die een teambestand niet kan bevatten.",
   "agentTeam.problem.duplicate": "Twee agenten heten {name}.",
+  "agentTeam.manage.title": "Teams",
+  "agentTeam.manage.description":
+    "Een team heeft een lead. Leden praten vrij met elkaar. Alleen de lead schrijft naar agenten buiten het team, en agenten buiten het team bereiken het team via de lead.",
+  "agentTeam.manage.empty": "Nog geen teams. Agenten die in geen enkel team zitten, zijn niet beperkt.",
+  "agentTeam.manage.new": "Nieuw team",
+  "agentTeam.manage.edit": "Bewerken",
+  "agentTeam.manage.delete": "Verwijderen",
+  "agentTeam.manage.back": "Terug",
+  "agentTeam.manage.name": "Teamnaam",
+  "agentTeam.manage.lead": "Lead",
+  "agentTeam.manage.members": "Leden",
+  "agentTeam.manage.save": "Opslaan",
+  "agentTeam.manage.saving": "Opslaan…",
+  "agentTeam.manage.summary": "Lead: {lead}. Leden: {count}.",
+  "agentTeam.manage.saveFailed": "Het team kon niet worden opgeslagen.",
+  "agentTeam.manage.deleteFailed": "Het team kon niet worden verwijderd.",
+  "agentTeam.manage.loadFailed": "De teams konden niet worden geladen.",
 } as const satisfies PartialTranslation<typeof source>;

@@ -27,4 +27,22 @@ export const messages = {
   "agentTeam.problem.marketplaceSkill":
     "L’agent {name} utilise une compétence du marketplace, qu’un fichier d’équipe ne peut pas contenir.",
   "agentTeam.problem.duplicate": "Deux agents s’appellent {name}.",
+  "agentTeam.manage.title": "Équipes",
+  "agentTeam.manage.description":
+    "Une équipe a un responsable. Les membres échangent librement entre eux. Seul le responsable écrit aux agents extérieurs à l’équipe, et les agents extérieurs joignent l’équipe par son responsable.",
+  "agentTeam.manage.empty":
+    "Aucune équipe pour l’instant. Les agents qui ne sont dans aucune équipe ne sont pas limités.",
+  "agentTeam.manage.new": "Nouvelle équipe",
+  "agentTeam.manage.edit": "Modifier",
+  "agentTeam.manage.delete": "Supprimer",
+  "agentTeam.manage.back": "Retour",
+  "agentTeam.manage.name": "Nom de l’équipe",
+  "agentTeam.manage.lead": "Responsable",
+  "agentTeam.manage.members": "Membres",
+  "agentTeam.manage.save": "Enregistrer",
+  "agentTeam.manage.saving": "Enregistrement…",
+  "agentTeam.manage.summary": "Responsable : {lead}. Membres : {count}.",
+  "agentTeam.manage.saveFailed": "Impossible d’enregistrer l’équipe.",
+  "agentTeam.manage.deleteFailed": "Impossible de supprimer l’équipe.",
+  "agentTeam.manage.loadFailed": "Impossible de charger les équipes.",
 } as const satisfies PartialTranslation<typeof source>;

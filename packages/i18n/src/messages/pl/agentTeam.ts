@@ -27,4 +27,21 @@ export const messages = {
   "agentTeam.problem.marketplaceSkill":
     "Agent {name} używa umiejętności z marketplace, której plik zespołu nie może zawierać.",
   "agentTeam.problem.duplicate": "Dwóch agentów nazywa się {name}.",
+  "agentTeam.manage.title": "Zespoły",
+  "agentTeam.manage.description":
+    "Zespół ma lidera. Członkowie rozmawiają ze sobą swobodnie. Tylko lider pisze do agentów spoza zespołu, a agenci z zewnątrz docierają do zespołu przez jego lidera.",
+  "agentTeam.manage.empty": "Nie ma jeszcze zespołów. Agenci bez zespołu nie mają ograniczeń.",
+  "agentTeam.manage.new": "Nowy zespół",
+  "agentTeam.manage.edit": "Edytuj",
+  "agentTeam.manage.delete": "Usuń",
+  "agentTeam.manage.back": "Wstecz",
+  "agentTeam.manage.name": "Nazwa zespołu",
+  "agentTeam.manage.lead": "Lider",
+  "agentTeam.manage.members": "Członkowie",
+  "agentTeam.manage.save": "Zapisz",
+  "agentTeam.manage.saving": "Zapisywanie…",
+  "agentTeam.manage.summary": "Lider: {lead}. Członków: {count}.",
+  "agentTeam.manage.saveFailed": "Nie udało się zapisać zespołu.",
+  "agentTeam.manage.deleteFailed": "Nie udało się usunąć zespołu.",
+  "agentTeam.manage.loadFailed": "Nie udało się wczytać zespołów.",
 } as const satisfies PartialTranslation<typeof source>;

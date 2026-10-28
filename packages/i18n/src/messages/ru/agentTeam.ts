@@ -27,4 +27,21 @@ export const messages = {
   "agentTeam.problem.marketplaceSkill":
     "Агент {name} использует навык из маркетплейса, который не может входить в файл команды.",
   "agentTeam.problem.duplicate": "Двух агентов зовут {name}.",
+  "agentTeam.manage.title": "Команды",
+  "agentTeam.manage.description":
+    "У команды есть лидер. Участники свободно общаются друг с другом. Агентам вне команды пишет только лидер, а агенты извне связываются с командой через её лидера.",
+  "agentTeam.manage.empty": "Команд пока нет. Агенты, не состоящие ни в одной команде, не ограничены.",
+  "agentTeam.manage.new": "Новая команда",
+  "agentTeam.manage.edit": "Изменить",
+  "agentTeam.manage.delete": "Удалить",
+  "agentTeam.manage.back": "Назад",
+  "agentTeam.manage.name": "Название команды",
+  "agentTeam.manage.lead": "Лидер",
+  "agentTeam.manage.members": "Участники",
+  "agentTeam.manage.save": "Сохранить",
+  "agentTeam.manage.saving": "Сохранение…",
+  "agentTeam.manage.summary": "Лидер: {lead}. Участников: {count}.",
+  "agentTeam.manage.saveFailed": "Не удалось сохранить команду.",
+  "agentTeam.manage.deleteFailed": "Не удалось удалить команду.",
+  "agentTeam.manage.loadFailed": "Не удалось загрузить команды.",
 } as const satisfies PartialTranslation<typeof source>;
