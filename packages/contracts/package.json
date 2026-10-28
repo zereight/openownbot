@@ -14,6 +14,7 @@
     "./app-logo-color": "./src/app-logo-color.ts",
     "./provider-environment": "./src/provider-environment.ts",
     "./agent-template-links": "./src/agent-template-links.ts",
+    "./agent-team-file": "./src/agent-team-file.ts",
     "./attachment-files": "./src/attachment-files.ts",
     "./attachment-references": "./src/attachment-references.ts",
     "./avatar-images": "./src/avatar-images.ts",
