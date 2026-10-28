@@ -24,7 +24,8 @@ import type { WorkflowEdit } from "./workflow-edits";
 import { WorkflowStoreError } from "./workflow-store";
 import type { WorkflowsHandle } from "./workflows";
 
-export type WorkflowTools = Pick<WorkflowsHandle, "get" | "edit">;
+export type WorkflowRunTools = Pick<WorkflowsHandle, "list" | "startRun" | "run">;
+export type WorkflowTools = Pick<WorkflowsHandle, "get" | "edit"> & WorkflowRunTools;
 
 /** The turn a workflow tool runs in. Read only when one runs: it reads the mailbox. */
 export interface WorkflowToolTurn {
@@ -79,6 +80,8 @@ const editSchema = z.discriminatedUnion("op", [
   z.object({ op: z.literal("disconnect"), edge: identifier }).strict(),
 ]);
 const readSchema = z.object({}).strict();
+const runInput = z.object({ workflowId: identifier, fromNodeId: identifier.optional() }).strict();
+const runLookupInput = z.object({ runId: identifier }).strict();
 const editInput = z
   .object({ revision: z.number().int().nonnegative(), edits: z.array(editSchema).min(1).max(EDITS_PER_CALL) })
   .strict();
@@ -96,9 +99,28 @@ export const WORKFLOW_TOOL_DEFINITIONS = [
       "Change the workflow that this chat is about with a batch of edits applied in order to the stored graph, against the revision you read. Ops: add_node (key names the node for later edits of this batch; kind; fields; at or after, else it goes right of the graph), update_node (fields merge, null removes a field; at moves it), remove_node (its edges go too), connect (from, to, type text|image|file, default text; branch yes|no from a condition), disconnect (edge id). Fields the host reads: trigger: trigger (manual only), timezone; agent: agentId (a listed agent), task, effort (low, medium, high, xhigh or max, for this step only; leave it out for the agent's own); llm: provider, model, effort, prompt, system; condition: rule; approval: question; output: target (notify or channel), for channel connectionId and placeId; prompt: text. A locked node keeps its place and stays. You cannot add, change or remove a schedule, webhook or message trigger, add or move an output to a messaging place, or add an output to a file.",
     shape: editInput.shape,
   },
+  {
+    name: "list_workflows",
+    description:
+      "List the workflows on this computer: each one's id, title, number of steps and last run. Use it to find the workflowId for run_workflow.",
+    shape: readSchema.shape,
+  },
+  {
+    name: "run_workflow",
+    description:
+      "Start a run of a workflow now, as the Run button of the Workflows page does: the whole workflow from its triggers, or, with fromNodeId, that node and what comes after it with the newest answers of the nodes before. The run goes on in the background; this returns its runId and status. A run can message people or change things elsewhere, so run only what the user asked for. Calling it again in the same turn with the same arguments starts no second run. Use get_workflow_run to see how the run ends.",
+    shape: runInput.shape,
+  },
+  {
+    name: "get_workflow_run",
+    description:
+      "Read a run that run_workflow started: its status, its error, and the status of each step that ran. The outputs of the steps are left out; they are in the Workflows page.",
+    shape: runLookupInput.shape,
+  },
 ] as const;
 
 const NAMES = new Set<string>(WORKFLOW_TOOL_DEFINITIONS.map((tool) => tool.name));
+const RUN_TOOL_NAMES = new Set(["list_workflows", "run_workflow", "get_workflow_run"]);
 
 const PERSON_ONLY =
   "Only a person's message in your own chat on this computer can use the workflow tools. Ask the user to request it there.";
@@ -168,6 +190,7 @@ export const handleWorkflowTool = Effect.fn("WorkflowTools.handle")(function* (
   if (!workflows) return yield* new ToolOperationFailed({ cause: new Error("Workflows are unavailable.") });
   const turn = caller.turn();
   if (turn.requester.kind !== "host-person") return openBotToolFailure(PERSON_ONLY);
+  if (RUN_TOOL_NAMES.has(tool)) return yield* handleWorkflowRunTool(tool, args, caller.turnId, workflows);
   const reference = referencedWorkflow(turn.texts);
   if ("failure" in reference) return reference.failure;
   const { workflowId } = reference;
@@ -206,6 +229,59 @@ export const handleWorkflowTool = Effect.fn("WorkflowTools.handle")(function* (
       case "refused":
         return openBotToolFailure(result.reason);
     }
+  });
+  return yield* operation.pipe(
+    Effect.catchTag("WorkflowFailed", (failure) =>
+      failure.cause instanceof WorkflowStoreError
+        ? Effect.succeed(openBotToolFailure(failure.cause.message))
+        : Effect.fail(new ToolOperationFailed({ cause: failure.cause })),
+    ),
+  );
+});
+
+/**
+ * The tools that start and follow runs. Unlike the editing tools they name the workflow themselves,
+ * since an agent that is asked to run a workflow has to find it. The caller has checked that a person
+ * started the turn. The request id is the turn with the workflow and the node, so the same call twice in
+ * one turn starts one run.
+ */
+export const handleWorkflowRunTool = Effect.fn("WorkflowTools.handleRun")(function* (
+  tool: string,
+  args: unknown,
+  turnId: string,
+  workflows: WorkflowRunTools,
+) {
+  const operation = Effect.gen(function* () {
+    if (tool === "list_workflows") {
+      const parsed = readSchema.safeParse(args ?? {});
+      if (!parsed.success) return shapeFailure(parsed.error);
+      const list = yield* workflows.list();
+      return openBotToolResult({
+        workflows: list.map(({ id, title, steps, lastRun }) => ({ id, title, steps, lastRun })),
+      });
+    }
+    if (tool === "run_workflow") {
+      const parsed = runInput.safeParse(args);
+      if (!parsed.success) return shapeFailure(parsed.error);
+      const { workflowId, fromNodeId } = parsed.data;
+      const started = yield* workflows.startRun({
+        workflowId,
+        requestId: `agent:${turnId}:${workflowId}:${fromNodeId ?? ""}`,
+        ...(fromNodeId === undefined ? {} : { fromNodeId }),
+      });
+      return openBotToolResult({ runId: started.run.id, number: started.run.number, status: started.run.status });
+    }
+    const parsed = runLookupInput.safeParse(args);
+    if (!parsed.success) return shapeFailure(parsed.error);
+    const { run, steps } = yield* workflows.run(parsed.data.runId);
+    return openBotToolResult({
+      runId: run.id,
+      status: run.status,
+      error: run.error,
+      startedAt: run.startedAt,
+      endedAt: run.endedAt,
+      steps: steps.map(({ nodeId, attempt, status, error }) => ({ nodeId, attempt, status, error })),
+    });
   });
   return yield* operation.pipe(
     Effect.catchTag("WorkflowFailed", (failure) =>
