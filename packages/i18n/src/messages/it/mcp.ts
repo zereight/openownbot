@@ -8,10 +8,10 @@ export const messages = {
   "mcp.connect.close": "Chiudi la finestra di connessione di {name}",
   "mcp.connect.getKey": "Ottieni una chiave",
   "mcp.connect.keyDescription":
-    "Incolla una credenziale del tuo account {name}. zereight bot si collega con quella e la conserva su {host}.",
+    "Incolla una credenziale del tuo account {name}. OpenOwnBot si collega con quella e la conserva su {host}.",
   "mcp.connect.thisComputer": "questo computer",
   "mcp.connect.noCredentialDescription":
-    "{name} non richiede credenziali. zereight bot si collega una volta per vedere quali tool offre.",
+    "{name} non richiede credenziali. OpenOwnBot si collega una volta per vedere quali tool offre.",
   "mcp.connect.connect": "Connetti",
   "mcp.connect.required": "Obbligatorio.",
   "mcp.connect.keptOn": "Conservata su {host}.",
@@ -22,7 +22,7 @@ export const messages = {
   "mcp.local.address": "Indirizzo",
   "mcp.local.docs": "Guida alla configurazione",
   "mcp.signIn.description":
-    "Accedi al tuo account {name}. zereight bot ottiene i tool raggiungibili da quell'account, senza password.",
+    "Accedi al tuo account {name}. OpenOwnBot ottiene i tool raggiungibili da quell'account, senza password.",
   "mcp.signIn.waiting": "In attesa del browser…",
   "mcp.signIn.continue": "Continua su {name}",
   "mcp.signIn.pageDescription": "Questa pagina è aperta nel browser su {host}. Accedi da lì.",
@@ -60,7 +60,7 @@ export const messages = {
   "mcp.panel.empty": "Ancora nessun server MCP.",
   "mcp.panel.enable": "Attiva {name}",
   "mcp.panel.detailsTitle": "Dettagli",
-  "mcp.panel.detailsDescription": "Dai un nome a questo server e scegli come zereight bot lo raggiunge.",
+  "mcp.panel.detailsDescription": "Dai un nome a questo server e scegli come OpenOwnBot lo raggiunge.",
   "mcp.panel.transport": "Trasporto",
   "mcp.panel.name": "Nome",
   "mcp.panel.namePlaceholder": "Nome del server MCP",
@@ -111,16 +111,16 @@ export const messages = {
   "mcp.panel.signInTo": "Accedi a {name}",
   "mcp.panel.cancelSignInTo": "Annulla accesso a {name}",
   "mcp.panel.signInWaiting": {
-    one: "Completa l'accesso nel browser. zereight bot smette di aspettare dopo {count} minuto.",
-    other: "Completa l'accesso nel browser. zereight bot smette di aspettare dopo {count} minuti.",
+    one: "Completa l'accesso nel browser. OpenOwnBot smette di aspettare dopo {count} minuto.",
+    other: "Completa l'accesso nel browser. OpenOwnBot smette di aspettare dopo {count} minuti.",
   },
   "mcp.panel.signInWaitingOn": {
-    one: "Apertura della pagina di accesso su {host}. zereight bot smette di aspettare dopo {count} minuto.",
-    other: "Apertura della pagina di accesso su {host}. zereight bot smette di aspettare dopo {count} minuti.",
+    one: "Apertura della pagina di accesso su {host}. OpenOwnBot smette di aspettare dopo {count} minuto.",
+    other: "Apertura della pagina di accesso su {host}. OpenOwnBot smette di aspettare dopo {count} minuti.",
   },
   "mcp.panel.appTitle": "App di accesso",
   "mcp.panel.appDescription":
-    "Usa un'app OAuth che hai registrato presso il provider del server. zereight bot la usa quando il server non può registrare zereight bot da solo. Lascia vuoto per far registrare zereight bot.",
+    "Usa un'app OAuth che hai registrato presso il provider del server. OpenOwnBot la usa quando il server non può registrare OpenOwnBot da solo. Lascia vuoto per far registrare OpenOwnBot.",
   "mcp.panel.appSaveFirst": "Prima salva questo server. Poi puoi aggiungere un'app di accesso.",
   "mcp.panel.appUrlChanged": "Prima salva il nuovo URL del server. L'app di accesso appartiene all'URL salvato.",
   "mcp.panel.appLoadFailed": "Impossibile leggere l'app di accesso.",
@@ -144,17 +144,17 @@ export const messages = {
   "mcp.panel.appSaved": "App salvata. Accedi per usarla.",
   "mcp.panel.appRemoved": "App rimossa.",
   "mcp.signIn.relayDescription":
-    "Controlla che la pagina di accesso sia su {page}, poi aprila nel browser. Quando hai finito, zereight bot invia l'accesso a {host}.",
+    "Controlla che la pagina di accesso sia su {page}, poi aprila nel browser. Quando hai finito, OpenOwnBot invia l'accesso a {host}.",
   "mcp.signIn.relayOpenDescription":
-    "Apri nel browser la pagina di accesso di {page}. Quando hai finito, incolla qui l'indirizzo che mostra il browser. zereight bot poi invia l'accesso a {host}.",
+    "Apri nel browser la pagina di accesso di {page}. Quando hai finito, incolla qui l'indirizzo che mostra il browser. OpenOwnBot poi invia l'accesso a {host}.",
   "mcp.signIn.relayDeviceDescription":
     "Controlla che la pagina di accesso sia su {page}, poi aprila nel browser e completa l'accesso lì. {host} vede l'accesso da solo.",
   "mcp.signIn.relayOpen": "Apri la pagina di accesso",
-  "mcp.signIn.relayPasteHint": "Se il browser non torna a zereight bot, copia l'indirizzo che mostra e incollalo qui.",
+  "mcp.signIn.relayPasteHint": "Se il browser non torna a OpenOwnBot, copia l'indirizzo che mostra e incollalo qui.",
   "mcp.signIn.relayPasteRequired":
-    "zereight bot non può ottenere l'accesso dal browser da solo. Quando hai finito, copia l'indirizzo che mostra il browser e incollalo qui.",
+    "OpenOwnBot non può ottenere l'accesso dal browser da solo. Quando hai finito, copia l'indirizzo che mostra il browser e incollalo qui.",
   "mcp.signIn.relayAddress": "Indirizzo del browser",
   "mcp.signIn.relaySend": "Invia",
   "mcp.panel.callbackUrlRelayed":
-    "La pagina di accesso si apre nel tuo browser, e zereight bot sul tuo computer invia l'accesso a {host}. Aggiungi esattamente questo URL agli URL di reindirizzamento consentiti dell'app.",
+    "La pagina di accesso si apre nel tuo browser, e OpenOwnBot sul tuo computer invia l'accesso a {host}. Aggiungi esattamente questo URL agli URL di reindirizzamento consentiti dell'app.",
 } as const satisfies PartialTranslation<typeof source>;

@@ -16,7 +16,7 @@ export const messages = {
   "mobile.settings.about.privacy": "Gizlilik politikası",
   "mobile.settings.home.profile": "Profil",
   "mobile.settings.home.preferences": "Tercihler",
-  "mobile.settings.home.about": "zereight bot hakkında",
+  "mobile.settings.home.about": "OpenOwnBot hakkında",
   "mobile.settings.home.support": "Destek",
   "mobile.settings.home.supportHint": "Yardım alın ve destek günlüğünü kaydedin",
   "mobile.settings.support.help": "Yardım alın",
@@ -31,7 +31,7 @@ export const messages = {
   "mobile.settings.support.clearTitle": "Destek günlüğü temizlensin mi?",
   "mobile.settings.support.clearBody": "Bu işlem, bu telefondaki günlükten tüm olayları kaldırır.",
   "mobile.settings.support.logFooter":
-    "Günlük bu telefonda kalır ve zereight bot onu göndermez. Bağlantı adımlarını, istekleri ve hataları kaydeder. Mesajları ve dosyaları kaydetmez; parolaları ve belirteçleri gizler. Paylaşmadan önce dosyayı okuyun.",
+    "Günlük bu telefonda kalır ve OpenOwnBot onu göndermez. Bağlantı adımlarını, istekleri ve hataları kaydeder. Mesajları ve dosyaları kaydetmez; parolaları ve belirteçleri gizler. Paylaşmadan önce dosyayı okuyun.",
   "mobile.settings.support.saveFailed": "Günlük dosyası kaydedilemedi. Tekrar deneyin.",
   "mobile.settings.support.sharingUnavailable": "Bu telefonda paylaşım kullanılamıyor.",
   "mobile.settings.support.recent": "Son olaylar",
@@ -90,24 +90,24 @@ export const messages = {
   "mobile.settings.feedback.retry": "Dokunsal ayarını kaydetmeyi tekrar dene",
   "mobile.settings.liveActivities.title": "Canlı Etkinlikler",
   "mobile.settings.liveActivities.footer":
-    "zereight bot çalışırken Kilit Ekranı'nda ve Dynamic Island'da ajan çalışmasını, mesajları, soruları ve onayları gösterir.",
+    "OpenOwnBot çalışırken Kilit Ekranı'nda ve Dynamic Island'da ajan çalışmasını, mesajları, soruları ve onayları gösterir.",
   "mobile.settings.liveActivities.toggle": "Ajan etkinliğini göster",
   "mobile.settings.liveActivities.retry": "Canlı Etkinlikler ayarını kaydetmeyi tekrar dene",
   "mobile.settings.notifications.title": "Bildirimler",
   "mobile.settings.notifications.toggle": "Bildirimlere izin ver",
   "mobile.settings.notifications.footer":
-    "Ajanlar işi bitirdiğinde, bir hatayla durduğunda veya girdinize, bir onaya ya da tarayıcıda bir adıma ihtiyaç duyduğunda size haber verir. zereight bot'u burada veya masaüstü uygulamasında kullanırken bildirim gelmez. Canlı Etkinlik gösterilirken olayı o gösterir.",
+    "Ajanlar işi bitirdiğinde, bir hatayla durduğunda veya girdinize, bir onaya ya da tarayıcıda bir adıma ihtiyaç duyduğunda size haber verir. OpenOwnBot'u burada veya masaüstü uygulamasında kullanırken bildirim gelmez. Canlı Etkinlik gösterilirken olayı o gösterir.",
   "mobile.settings.notifications.footerAndroid":
-    "Ajanlar işi bitirdiğinde, bir hatayla durduğunda veya girdinize, bir onaya ya da tarayıcıda bir adıma ihtiyaç duyduğunda size haber verir. zereight bot'u burada veya masaüstü uygulamasında kullanırken bildirim gelmez.",
-  "mobile.settings.notifications.denied": "zereight bot bildirimleri iOS Ayarlar'da kapalı.",
-  "mobile.settings.notifications.deniedAndroid": "zereight bot bildirimleri Android ayarlarında kapalı.",
+    "Ajanlar işi bitirdiğinde, bir hatayla durduğunda veya girdinize, bir onaya ya da tarayıcıda bir adıma ihtiyaç duyduğunda size haber verir. OpenOwnBot'u burada veya masaüstü uygulamasında kullanırken bildirim gelmez.",
+  "mobile.settings.notifications.denied": "OpenOwnBot bildirimleri iOS Ayarlar'da kapalı.",
+  "mobile.settings.notifications.deniedAndroid": "OpenOwnBot bildirimleri Android ayarlarında kapalı.",
   "mobile.settings.notifications.openSettings": "iOS Ayarlar'ı aç",
   "mobile.settings.notifications.openSettingsAndroid": "Android ayarlarını aç",
   "mobile.settings.notifications.preview": "Yanıt önizlemesini göster",
   "mobile.settings.notifications.previewFooter":
-    "Bir yanıtın başını, bir soruyu veya onaylanacak işlemi gösterir. Apple ve zereight bot hesap hizmeti bunu okuyamaz.",
+    "Bir yanıtın başını, bir soruyu veya onaylanacak işlemi gösterir. Apple ve OpenOwnBot hesap hizmeti bunu okuyamaz.",
   "mobile.settings.notifications.previewFooterAndroid":
-    "Bir yanıtın başını, bir soruyu veya onaylanacak işlemi gösterir. Google ve zereight bot hesap hizmeti bunu okuyamaz.",
+    "Bir yanıtın başını, bir soruyu veya onaylanacak işlemi gösterir. Google ve OpenOwnBot hesap hizmeti bunu okuyamaz.",
   "mobile.settings.notifications.sound": "Ses",
   "mobile.settings.notifications.playSound": "Ses çal",
   "mobile.settings.notifications.sound.openbot": "OpenBot",
@@ -118,9 +118,9 @@ export const messages = {
   "mobile.settings.notifications.sound.default": "iOS varsayılanı",
   "mobile.settings.notifications.sound.defaultAndroid": "Android varsayılanı",
   "mobile.settings.notifications.soundFooter":
-    "Bildirimler ve Canlı Etkinlik bu sesi çalar. Canlı Etkinlik ekranı da açar. zereight bot sesi, masaüstü uygulamasının bir görev bittiğinde çaldığı sestir. Sonraki dört ses, masaüstü uygulamasının ses temalarının sesleridir.",
+    "Bildirimler ve Canlı Etkinlik bu sesi çalar. Canlı Etkinlik ekranı da açar. OpenOwnBot sesi, masaüstü uygulamasının bir görev bittiğinde çaldığı sestir. Sonraki dört ses, masaüstü uygulamasının ses temalarının sesleridir.",
   "mobile.settings.notifications.soundFooterAndroid":
-    "Bildirimler bu sesi çalar. zereight bot sesi, masaüstü uygulamasının bir görev bittiğinde çaldığı sestir. Sonraki dört ses, masaüstü uygulamasının ses temalarının sesleridir.",
+    "Bildirimler bu sesi çalar. OpenOwnBot sesi, masaüstü uygulamasının bir görev bittiğinde çaldığı sestir. Sonraki dört ses, masaüstü uygulamasının ses temalarının sesleridir.",
   "mobile.settings.notifications.notifyAbout": "Şunun hakkında bildir",
   "mobile.settings.notifications.level.all": "Tüm etkinlikler",
   "mobile.settings.notifications.level.needsMe": "Yalnızca bana ihtiyaç duyduğunda",
@@ -137,7 +137,7 @@ export const messages = {
   "mobile.settings.notifications.serverFooter":
     "Bu sunucunun bu telefona bildirdiği olaylar. Masaüstü uygulamasının kendi ayarları vardır.",
   "mobile.settings.notifications.serverUnsupported":
-    "Bu sunucu bildirim gönderemez. Sunucuyu çalıştıran bilgisayardaki zereight bot'u güncelleyin.",
+    "Bu sunucu bildirim gönderemez. Sunucuyu çalıştıran bilgisayardaki OpenOwnBot'u güncelleyin.",
   "mobile.settings.notifications.channel": "Ajan bildirimleri ({sound})",
   "mobile.settings.notifications.channelSilent": "Ajan bildirimleri (sessiz)",
   "mobile.settings.privacy.title": "Gizlilik",
@@ -162,6 +162,6 @@ export const messages = {
   "mobile.settings.profile.security": "Güvenlik",
   "mobile.settings.profile.accountSessions": "Hesap oturumları",
   "mobile.settings.profile.signOutTitle": "Oturum kapatılsın mı?",
-  "mobile.settings.profile.signOutBody": "Masaüstünüzdeki zereight bot'tan yeni bir kod tarayarak yeniden bağlanın.",
+  "mobile.settings.profile.signOutBody": "Masaüstünüzdeki OpenOwnBot'tan yeni bir kod tarayarak yeniden bağlanın.",
   "mobile.settings.profile.signOut": "Oturumu kapat",
 } as const satisfies PartialTranslation<typeof source>;

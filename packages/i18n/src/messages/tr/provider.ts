@@ -33,7 +33,7 @@ export const messages = {
 
   "provider.status.off": "Kapalı",
   "provider.gemini.hostSignIn":
-    "Gemini'yi bağlamak için ana makinede zereight bot'u açın ve Ayarlar > Sağlayıcılar bölümünde Bağlan'ı seçin. Google ile oturum açmak için o ana makinede bir tarayıcı gerekir. Uzaktan oturum açma desteklenmez.",
+    "Gemini'yi bağlamak için ana makinede OpenOwnBot'u açın ve Ayarlar > Sağlayıcılar bölümünde Bağlan'ı seçin. Google ile oturum açmak için o ana makinede bir tarayıcı gerekir. Uzaktan oturum açma desteklenmez.",
   "provider.key.free": "Ücretsiz",
 
   "provider.action.connect": "Bağlan",
@@ -59,13 +59,13 @@ export const messages = {
   "provider.aria.cancelSignIn": "{name} oturum açmasını iptal et",
   "provider.aria.apiKey": "{name} API anahtarı",
   "provider.connecting.browserHint": "Bir tarayıcı sayfası açılırsa oturum açmayı tamamlayın.",
-  "provider.connecting.cancelFailed": "zereight bot, {name} oturum açma işlemini iptal edemedi. Tekrar deneyin.",
+  "provider.connecting.cancelFailed": "OpenOwnBot, {name} oturum açma işlemini iptal edemedi. Tekrar deneyin.",
   "provider.aria.install": "{name} sağlayıcısını yükle",
   "provider.aria.signIn": "{name} sağlayıcısında oturum aç",
   "provider.aria.codeFallback": "{name} için kodla oturum aç",
   "provider.aria.moreActions": "{name} için diğer eylemler",
 
-  "provider.aria.use": "zereight bot'ta {name} kullan",
+  "provider.aria.use": "OpenOwnBot'ta {name} kullan",
   "provider.use.inUseOne":
     "{agent}, {name} kullanıyor. Bu ajanın modelini değiştirin, ardından {name} sağlayıcısını kapatın.",
   "provider.use.inUse": {
@@ -73,7 +73,7 @@ export const messages = {
     other: "{count} ajan {name} kullanıyor. Bu ajanların modelini değiştirin, ardından {name} sağlayıcısını kapatın.",
   },
   "provider.codeLogin.title": "Kodla {name} hesabında oturum açın",
-  "provider.codeLogin.description": "Telefonunuzda veya başka bir tarayıcıda tamamlayın. zereight bot burada bekler.",
+  "provider.codeLogin.description": "Telefonunuzda veya başka bir tarayıcıda tamamlayın. OpenOwnBot burada bekler.",
   "provider.codeLogin.starting": "{name} kaynağından bir kod alınıyor…",
   "provider.codeLogin.qrLabel": "{name} oturum açma sayfası için QR kodu",
   "provider.codeLogin.open": "Aç",
@@ -94,10 +94,10 @@ export const messages = {
   "provider.codeLogin.pageDescription": "Bu sayfa {host} üzerindeki tarayıcıda açık. Burada oturum açın.",
   "provider.codeLogin.relayStarting": "{name} oturum açma işlemi {host} üzerinde başlatılıyor…",
   "provider.codeLogin.pageOpening": "{name} oturum açma sayfası {host} üzerinde açılıyor…",
-  "provider.codeLogin.linkStep": "{name} hesabında oturum açın. zereight bot kendiliğinden devam eder.",
-  "provider.useApp.title": "{name} bağlantısını zereight bot uygulamasında yapın",
+  "provider.codeLogin.linkStep": "{name} hesabında oturum açın. OpenOwnBot kendiliğinden devam eder.",
+  "provider.useApp.title": "{name} bağlantısını OpenOwnBot uygulamasında yapın",
   "provider.useApp.description":
-    "{name} oturum açma işlemi onu başlatan bilgisayara döner ve bir tarayıcı sekmesi bunu alamaz. {name} bağlantısını zereight bot uygulamasında yapın. Uygulama oturum açmayı kendiliğinden tamamlar.",
+    "{name} oturum açma işlemi onu başlatan bilgisayara döner ve bir tarayıcı sekmesi bunu alamaz. {name} bağlantısını OpenOwnBot uygulamasında yapın. Uygulama oturum açmayı kendiliğinden tamamlar.",
   "provider.useApp.download": "Uygulamayı indir",
 
   "provider.picker.noEndpoints": "Henüz uç nokta yok",
@@ -108,7 +108,7 @@ export const messages = {
   "provider.picker.providers": "Model sağlayıcıları",
   "provider.picker.downloading": "{percent} indiriliyor",
   "provider.picker.unavailable": "{name} kullanılamıyor.",
-  "provider.picker.updateToUse": "{name} kullanmak için zereight bot'u güncelleyin",
+  "provider.picker.updateToUse": "{name} kullanmak için OpenOwnBot'u güncelleyin",
   "provider.picker.models": "{name} modelleri",
   "provider.picker.addProvider": "Sağlayıcı ekle",
   "provider.picker.download": "{name} indirmesi",
@@ -148,15 +148,15 @@ export const messages = {
   "provider.claudeKey.label": "Anthropic API anahtarı",
   "provider.inceptionKey.title": "Inception API anahtarı",
   "provider.inceptionKey.description":
-    "Mercury modellerini kullanmak için bu bilgisayara bir Inception API anahtarı kaydedin. zereight bot bunları indirdiği Pi CLI'da çalıştırır.",
+    "Mercury modellerini kullanmak için bu bilgisayara bir Inception API anahtarı kaydedin. OpenOwnBot bunları indirdiği Pi CLI'da çalıştırır.",
   "provider.inceptionKey.label": "Inception API anahtarı",
   "provider.deepseekKey.title": "DeepSeek API anahtarı",
   "provider.deepseekKey.description":
-    "DeepSeek modellerini kullanmak için bu bilgisayara bir DeepSeek API anahtarı kaydedin. zereight bot bunları indirdiği Pi CLI'da çalıştırır.",
+    "DeepSeek modellerini kullanmak için bu bilgisayara bir DeepSeek API anahtarı kaydedin. OpenOwnBot bunları indirdiği Pi CLI'da çalıştırır.",
   "provider.deepseekKey.label": "DeepSeek API anahtarı",
   "provider.openrouterKey.title": "OpenRouter API anahtarı",
   "provider.openrouterKey.description":
-    "OpenRouter modellerini kullanmak için bu bilgisayara bir OpenRouter API anahtarı kaydedin. zereight bot bunları indirdiği Pi CLI'da çalıştırır.",
+    "OpenRouter modellerini kullanmak için bu bilgisayara bir OpenRouter API anahtarı kaydedin. OpenOwnBot bunları indirdiği Pi CLI'da çalıştırır.",
   "provider.openrouterKey.label": "OpenRouter API anahtarı",
   "provider.openCodeKey.title": "OpenCode Go'da oturum açın",
   "provider.openCodeKey.description":
@@ -213,7 +213,7 @@ export const messages = {
     other: "{version} · {count} sürüm · {size}",
   },
   "provider.settings.downloadVersions": { one: "1 sürüm · {size}", other: "{count} sürüm · {size}" },
-  "provider.settings.downloadAgain": "{name} açıldığında zereight bot CLI'yi yeniden indirir.",
+  "provider.settings.downloadAgain": "{name} açıldığında OpenOwnBot CLI'yi yeniden indirir.",
   "provider.settings.removeDownloadConfirm": "{size} kaldırılsın mı?",
   "provider.settings.removeDownloadKeeps": "Hesaplar, oturumlar ve ajanlar kalır.",
   "provider.settings.removeDownload": "İndirmeyi kaldır",

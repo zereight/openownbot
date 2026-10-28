@@ -2,15 +2,15 @@ import type { PartialTranslation } from "../../../message";
 import type { messages as source } from "../../en/error/team";
 
 export const messages = {
-  "error.team.ownerNotLinked": "Dieser Host ist nicht mit einem zereight bot-Eigentümerkonto verknüpft.",
+  "error.team.ownerNotLinked": "Dieser Host ist nicht mit einem OpenOwnBot-Eigentümerkonto verknüpft.",
   "error.team.ownerEmailRequired":
-    "Melde dich mit der zereight bot-E-Mail-Adresse an, mit der dieser Host erstellt wurde.",
+    "Melde dich mit der OpenOwnBot-E-Mail-Adresse an, mit der dieser Host erstellt wurde.",
   "error.team.hostNotConfigured": "Der Teamhost ist nicht eingerichtet.",
   "error.team.alreadyConfigured": "Der Teamserver ist bereits eingerichtet.",
   "error.team.identityCreateFailed": "Die Teamidentität konnte nicht erstellt werden.",
   "error.team.accountChangedDuringCreate":
     "Das angemeldete Konto wurde während der Erstellung dieses Servers geändert.",
-  "error.team.notConfigured": "Dieser zereight bot wurde nicht eingerichtet.",
+  "error.team.notConfigured": "Dieser OpenOwnBot wurde nicht eingerichtet.",
   "error.team.keyRotationMissing": "Es wartet keine Änderung des Serverschlüssels.",
   "error.team.serverNotActive": "Dieser Server ist für das angemeldete Konto nicht mehr aktiv.",
   "error.team.logoInvalid": "Wähle ein gültiges PNG-, JPEG- oder WebP-Bild mit höchstens 512 KB.",
@@ -25,9 +25,9 @@ export const messages = {
   "error.team.inviteEmailMismatch": "Diese Einladung gehört zu einer anderen E-Mail-Adresse.",
   "error.team.memberDisabled": "Dieses Teammitglied ist deaktiviert.",
   "error.team.memberLimit": "Ein Host kann bis zu {limit} Mitglieder haben.",
-  "error.team.accountNotMember": "Dieses zereight bot-Konto ist kein Teammitglied.",
+  "error.team.accountNotMember": "Dieses OpenOwnBot-Konto ist kein Teammitglied.",
   "error.team.usernameTaken": "Dieser Benutzername wird bereits verwendet.",
-  "error.team.inviteRequiresAccount": "Diese Einladung erfordert ein bestätigtes zereight bot-Konto.",
+  "error.team.inviteRequiresAccount": "Diese Einladung erfordert ein bestätigtes OpenOwnBot-Konto.",
   "error.team.loginIncorrect": "Der Benutzername oder das Passwort ist falsch.",
   "error.team.currentPasswordIncorrect": "Das aktuelle Passwort ist falsch.",
   "error.team.memberNotFound": "Teammitglied nicht gefunden.",
@@ -49,18 +49,17 @@ export const messages = {
     "Der Benutzername muss 3 bis 32 Buchstaben, Zahlen, Punkte, Bindestriche oder Unterstriche enthalten.",
   "error.team.passwordLength": "Das Passwort muss 12 bis 256 Zeichen enthalten.",
   "error.team.bindFailed": "Die Team-API konnte nicht gebunden werden.",
-  "error.team.signInRequired": "Eine zereight bot-Anmeldung ist erforderlich.",
+  "error.team.signInRequired": "Eine OpenOwnBot-Anmeldung ist erforderlich.",
   "error.team.authenticationRequired": "Authentifizierung erforderlich.",
   "error.team.agentNotFound": "Agent nicht gefunden.",
   "error.team.routeNotFound": "Route nicht gefunden.",
   "error.team.requestFailed": "Anfrage fehlgeschlagen.",
   "error.team.tooManySignInAttempts": "Zu viele Anmeldeversuche. Versuche es später erneut.",
-  "error.team.clientUpdateRequired":
-    "Aktualisiere diesen zereight bot-Client, bevor du dich mit diesem Host verbindest.",
-  "error.team.hostUpdateRequired": "Aktualisiere zereight bot auf dem Host, bevor du dich verbindest.",
+  "error.team.clientUpdateRequired": "Aktualisiere diesen OpenOwnBot-Client, bevor du dich mit diesem Host verbindest.",
+  "error.team.hostUpdateRequired": "Aktualisiere OpenOwnBot auf dem Host, bevor du dich verbindest.",
   "error.team.sidebarLayoutUnavailable": "Die Anordnung der Seitenleiste ist nicht verfügbar.",
   "error.team.providersUnsupported": "Diese Verbindung unterstützt keine Anbietereinstellungen.",
-  "error.team.providerNotManaged": "zereight bot verwaltet die CLI dieses Anbieters nicht.",
+  "error.team.providerNotManaged": "OpenOwnBot verwaltet die CLI dieses Anbieters nicht.",
   "error.team.channelsUnsupported": "Diese Verbindung unterstützt keine Kanalchats.",
   "error.team.channelDeleteUnsupported": "Diese Verbindung unterstützt das Löschen von Kanälen nicht.",
   "error.team.membersCannotDeleteChannels": "Mitglieder können keine Kanäle löschen.",
@@ -77,7 +76,7 @@ export const messages = {
   "error.team.conversationFileSearchUnsupported": "Diese Verbindung unterstützt das Suchen von Dateien nicht.",
   "error.team.sideQuestionUnsupported": "Diese Verbindung unterstützt keine Nebenfragen.",
   "error.team.routineFlowsUnsupported":
-    "Dieser Server unterstützt keine Routinenabläufe. Aktualisiere zereight bot auf dem Computer, auf dem er läuft.",
+    "Dieser Server unterstützt keine Routinenabläufe. Aktualisiere OpenOwnBot auf dem Computer, auf dem er läuft.",
   "error.team.routineCanvasTooLarge":
     "Diese Routinenansicht ist zu groß, um sie an dieses Gerät zu senden. Kürze die Routinenanweisungen auf dem Computer, auf dem der Server läuft.",
   "error.team.conversationPageTooLarge":
@@ -105,7 +104,7 @@ export const messages = {
   "error.team.storageUnsupported": "Diese Verbindung unterstützt keinen Speicher.",
   "error.team.hostedSitesUnsupported": "Diese Verbindung unterstützt keine Websites.",
   "error.team.hostedSitesUnregistered":
-    "Dieser Server ist nicht bei zereight bot registriert und hat daher keine Websites.",
+    "Dieser Server ist nicht bei OpenOwnBot registriert und hat daher keine Websites.",
   "error.team.hostedSiteNotFound": "Website nicht gefunden.",
   "error.team.markUnreadUnsupported": "Dieser Client unterstützt das Markieren von Unterhaltungen als ungelesen nicht.",
   "error.team.inviteServiceUnavailable": "Der Einladungsdienst ist nicht verfügbar.",
@@ -127,12 +126,12 @@ export const messages = {
   "error.team.adminRequired": "Administratorzugriff ist erforderlich.",
   "error.team.requestTooLarge": "Der Anfragetext ist zu groß.",
   "error.team.signInRelayUnsupported":
-    "Dieser Server kann keine Anmeldungen weiterleiten. Aktualisiere zereight bot auf dem Host.",
+    "Dieser Server kann keine Anmeldungen weiterleiten. Aktualisiere OpenOwnBot auf dem Host.",
   "error.team.connectorsUnsupported":
-    "Die Verbindungen dieses Servers lassen sich hier nicht verwalten. Aktualisiere zereight bot auf dem Host.",
+    "Die Verbindungen dieses Servers lassen sich hier nicht verwalten. Aktualisiere OpenOwnBot auf dem Host.",
   "error.team.discordAccessUnsupported":
-    "Dieser Server kann keine Discord-Rollen festlegen. Aktualisiere zereight bot auf dem Server.",
-  "error.team.connectorPageRefused": "Der Server hat eine Seite gesendet, die zereight bot nicht öffnet.",
+    "Dieser Server kann keine Discord-Rollen festlegen. Aktualisiere OpenOwnBot auf dem Server.",
+  "error.team.connectorPageRefused": "Der Server hat eine Seite gesendet, die OpenOwnBot nicht öffnet.",
   "error.team.signInRelayUnknown": "Diese Anmeldung ist beendet oder existiert nicht.",
   "error.team.signInRelayUsed": "Diese Anmeldung wurde bereits gesendet.",
   "error.team.signInRelayMismatch": "Diese Adresse gehört nicht zu dieser Anmeldung.",

@@ -11,7 +11,7 @@ export const messages = {
   "menu.zoomIn": "Zoom avant",
   "menu.zoomOut": "Zoom arrière",
   "menu.copyLink": "Copier le lien",
-  "menu.trayOpen": "Ouvrir zereight bot",
-  "menu.trayQuit": "Quitter zereight bot",
-  "menu.trayTooltip": "zereight bot",
+  "menu.trayOpen": "Ouvrir OpenOwnBot",
+  "menu.trayQuit": "Quitter OpenOwnBot",
+  "menu.trayTooltip": "OpenOwnBot",
 } as const satisfies PartialTranslation<typeof source>;

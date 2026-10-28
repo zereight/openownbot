@@ -12,7 +12,7 @@ export const messages = {
   "customProvider.registry.update": "Güncelle",
   "customProvider.registry.remove": "Çalışma zamanını kaldır",
   "customProvider.registry.searchFailed": "Kayıt defterinde arama yapılamadı. Tekrar deneyin.",
-  "customProvider.registry.statusFailed": "Yükleme ilerlemesi denetlenemedi. zereight bot tekrar deneyecek.",
+  "customProvider.registry.statusFailed": "Yükleme ilerlemesi denetlenemedi. OpenOwnBot tekrar deneyecek.",
   "customProvider.registry.installFailed": "Ajan yüklenemedi. Tekrar deneyin.",
   "customProvider.registry.updateFailed": "Ajan güncellenemedi. Tekrar deneyin.",
   "customProvider.registry.removeFailed": "Çalışma zamanı kaldırılamadı. Tekrar deneyin.",
@@ -23,7 +23,7 @@ export const messages = {
     "Bir harf veya rakamla başlayan küçük harfler, rakamlar, kısa çizgiler veya alt çizgiler kullanın.",
   "customProvider.error.providerIdLength": "Sağlayıcı kimliğini en fazla {max} karakter tutun.",
   "customProvider.error.providerIdBuiltIn":
-    "zereight bot'ta zaten {id} adında bir sağlayıcı var. Başka bir kimlik seçin.",
+    "OpenOwnBot'ta zaten {id} adında bir sağlayıcı var. Başka bir kimlik seçin.",
   "customProvider.error.providerIdSaved":
     "{id} adlı bir uç nokta zaten kayıtlı. Önce onu kaldırın veya başka bir kimlik seçin.",
   "customProvider.error.displayNameRequired": "Bir görünen ad girin.",
@@ -47,14 +47,14 @@ export const messages = {
   "customProvider.error.baseUrlCredential": "Kimlik bilgilerini URL'ye değil, bir başlığa koyun.",
 
   // Kaydetme veya kaldırma işleminden sonraki not. OpenCode'un yeni listeyi ne zaman okuduğunu belirtir.
-  "customProvider.saved.restarted": "Kaydedildi. zereight bot modelleri yüklüyor.",
+  "customProvider.saved.restarted": "Kaydedildi. OpenOwnBot modelleri yüklüyor.",
   "customProvider.saved.skippedBusy": "Kaydedildi. OpenCode listeyi geçerli görev durduktan sonra okur.",
   "customProvider.saved.notRunning": "Kaydedildi. OpenCode bir sonraki başlatılışında listeyi okur.",
-  "customProvider.removed.restarted": "Kaldırıldı. zereight bot modelleri yüklüyor.",
+  "customProvider.removed.restarted": "Kaldırıldı. OpenOwnBot modelleri yüklüyor.",
   "customProvider.removed.skippedBusy": "Kaldırıldı. OpenCode listeyi geçerli görev durduktan sonra okur.",
   "customProvider.removed.notRunning": "Kaldırıldı. OpenCode bir sonraki başlatılışında listeyi okur.",
-  "customProvider.saveFailed": "zereight bot bu uç noktayı kaydedemedi.",
-  "customProvider.removeFailed": "zereight bot {name} öğesini kaldıramadı.",
+  "customProvider.saveFailed": "OpenOwnBot bu uç noktayı kaydedemedi.",
+  "customProvider.removeFailed": "OpenOwnBot {name} öğesini kaldıramadı.",
   "customProvider.saveUnavailable": "Bu derleme bir uç noktayı kaydedemez.",
   "customProvider.removeUnavailable": "Bu derleme bir uç noktayı kaldıramaz.",
 
@@ -124,7 +124,7 @@ export const messages = {
   "customProvider.detected.title": "Bu bilgisayarda bulundu",
   "customProvider.detected.scanning": "Yerel modeller ve ajanlar aranıyor.",
   "customProvider.detected.scanAgain": "Tekrar tara",
-  "customProvider.detected.empty": "zereight bot yerel bir model sunucusu veya ACP ajanı bulamadı.",
+  "customProvider.detected.empty": "OpenOwnBot yerel bir model sunucusu veya ACP ajanı bulamadı.",
   "customProvider.detected.add": "Ekle",
   "customProvider.detected.addLabel": "{name} sağlayıcısını ekle",
   "customProvider.detected.added": "Eklendi",
@@ -142,11 +142,10 @@ export const messages = {
   // Taramanın baktığı yer. Varsayılan adresler ve PATH her zaman bunun bir parçasıdır.
   "customProvider.detection.title": "Yerel algılama",
   "customProvider.detection.saveFailed": "Algılama ayarları kaydedilemedi.",
-  "customProvider.detection.description":
-    "zereight bot'un yerel model sunucularını ve ACP ajanlarını arayacağı yerler.",
+  "customProvider.detection.description": "OpenOwnBot'un yerel model sunucularını ve ACP ajanlarını arayacağı yerler.",
   "customProvider.detection.enabled": "Yerel modelleri ve ajanları ara",
   "customProvider.detection.enabledDescription":
-    "zereight bot, Ollama ve LM Studio'nun varsayılan adreslerini kontrol eder ve PATH'inizde bilinen ACP ajanlarını arar.",
+    "OpenOwnBot, Ollama ve LM Studio'nun varsayılan adreslerini kontrol eder ve PATH'inizde bilinen ACP ajanlarını arar.",
   "customProvider.detection.addresses": "Diğer model sunucusu adresleri",
   "customProvider.detection.address.label": "{number}. adres",
   "customProvider.detection.address.remove": "{number}. adresi kaldır",
@@ -167,13 +166,13 @@ export const messages = {
   "customProvider.acp.agentId": "Ajan kimliği",
   "customProvider.acp.agentIdHint": "Küçük harfler, rakamlar veya kısa çizgiler. Daha sonra değiştiremezsiniz.",
   "customProvider.acp.command": "Komut",
-  "customProvider.acp.commandHint": "Başlatılacak program. zereight bot bunu PATH'inizde arar.",
+  "customProvider.acp.commandHint": "Başlatılacak program. OpenOwnBot bunu PATH'inizde arar.",
   "customProvider.acp.args": "Bağımsız değişkenler",
   "customProvider.acp.argsHint":
     "Bağımsız değişkenleri boşluklarla ayırın. Boşluk içeren bir bağımsız değişkenin etrafına tırnak işareti koyun.",
   "customProvider.acp.usagePrompt": "Kullanım komutu",
   "customProvider.acp.usagePromptHint":
-    "zereight bot bunu en fazla 5 dakikada bir gönderir ve son yanıtı gösterir. Ajanın kendisinin yanıtladığı bir komut kullanın, örneğin /usage.",
+    "OpenOwnBot bunu en fazla 5 dakikada bir gönderir ve son yanıtı gösterir. Ajanın kendisinin yanıtladığı bir komut kullanın, örneğin /usage.",
   "customProvider.acp.env": "Ortam değişkenleri",
   "customProvider.acp.env.name": "{number}. değişken adı",
   "customProvider.acp.env.value": "{number}. değişken değeri",
@@ -181,7 +180,7 @@ export const messages = {
   "customProvider.acp.env.add": "Değişken ekle",
   "customProvider.acp.check": "Bağlantı",
   "customProvider.acp.checkRun": "Ajanı kontrol et",
-  "customProvider.acp.checkIdle": "zereight bot, yanıt verdiğinden emin olmak için komutu bir kez başlatır.",
+  "customProvider.acp.checkIdle": "OpenOwnBot, yanıt verdiğinden emin olmak için komutu bir kez başlatır.",
   "customProvider.acp.checking": "{command} başlatılıyor.",
   "customProvider.acp.checkOk": "{name} yanıt verdi",
   "customProvider.acp.checkOkVersion": "{name} {version} yanıt verdi",
@@ -193,7 +192,7 @@ export const messages = {
   "customProvider.acp.checkFailed": "Ajan yanıt vermedi",
   "customProvider.acp.trustTitle": "Bu komut bilgisayarınızda çalışır",
   "customProvider.acp.trustDescription":
-    "zereight bot bunu kullanıcı hesabınızla başlatır. Ajan dosyaları okuyabilir, değiştirebilir ve komutlar çalıştırabilir. Yalnızca güvendiğiniz bir ajanı ekleyin.",
+    "OpenOwnBot bunu kullanıcı hesabınızla başlatır. Ajan dosyaları okuyabilir, değiştirebilir ve komutlar çalıştırabilir. Yalnızca güvendiğiniz bir ajanı ekleyin.",
   "customProvider.acp.submit": "Ajan ekle",
   "customProvider.acp.editTitle": "Özel ACP ajanını düzenle",
   "customProvider.acp.submitEdit": "Ajanı kaydet",
@@ -211,7 +210,7 @@ export const messages = {
 
   // Ayarlar'daki kullanıcının kendi ACP ajanları. Her biri OpenBot'un bu bilgisayarda başlattığı bir komuttur.
   "customProvider.agents.title": "Özel ajanlar",
-  "customProvider.agents.description": "zereight bot'un bu bilgisayarda başlattığı ACP ajanları.",
+  "customProvider.agents.description": "OpenOwnBot'un bu bilgisayarda başlattığı ACP ajanları.",
   "customProvider.agents.empty": "Henüz özel ajan yok.",
   "customProvider.agents.add": "Ajan ekle",
   "customProvider.agents.restart": "Ajanları yeniden başlat",
@@ -226,11 +225,11 @@ export const messages = {
   "customProvider.agents.deleteLabel": "{name} ajanını sil",
   "customProvider.agents.confirmDescription":
     "Kayıtlı değişkenleri atılır ve bunu kullanan her ajan varsayılan bir modele geçer.",
-  "customProvider.agents.saveFailed": "zereight bot bu ajanı kaydedemedi.",
-  "customProvider.agents.saved.restarted": "Kaydedildi. zereight bot özel ajanları yeniden başlattı.",
+  "customProvider.agents.saveFailed": "OpenOwnBot bu ajanı kaydedemedi.",
+  "customProvider.agents.saved.restarted": "Kaydedildi. OpenOwnBot özel ajanları yeniden başlattı.",
   "customProvider.agents.saved.skippedBusy": "Kaydedildi. Özel ajanlar geçerli görev durduktan sonra yeniden başlar.",
   "customProvider.agents.saved.notRunning": "Kaydedildi. Özel ajanlar bir sonraki başlatılışlarında bunu okur.",
-  "customProvider.agents.removed.restarted": "Kaldırıldı. zereight bot özel ajanları yeniden başlattı.",
+  "customProvider.agents.removed.restarted": "Kaldırıldı. OpenOwnBot özel ajanları yeniden başlattı.",
   "customProvider.agents.removed.skippedBusy": "Kaldırıldı. Özel ajanlar geçerli görev durduktan sonra yeniden başlar.",
   "customProvider.agents.removed.notRunning": "Kaldırıldı. Özel ajanlar bir sonraki başlatılışlarında bunu okur.",
 

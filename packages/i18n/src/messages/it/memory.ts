@@ -33,7 +33,7 @@ export const messages = {
   "memory.clearAll": "Cancella tutte le memorie",
   "memory.clearTitle": "Cancellare tutte le memorie?",
   "memory.clearDescription":
-    "zereight bot rimuoverà definitivamente tutte le {total} memorie salvate per {name}. I messaggi originali resteranno nella cronologia della conversazione.",
+    "OpenOwnBot rimuoverà definitivamente tutte le {total} memorie salvate per {name}. I messaggi originali resteranno nella cronologia della conversazione.",
 
   "memory.loadFailed": "Impossibile caricare le memorie.",
   "memory.saveFailed": "Impossibile salvare la memoria.",

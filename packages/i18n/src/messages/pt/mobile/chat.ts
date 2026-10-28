@@ -4,7 +4,7 @@ import type { messages as source } from "../../en/mobile/chat";
 export const messages = {
   "mobile.chat.dictation.microphoneOffTitle": "O acesso ao microfone está desativado",
   "mobile.chat.dictation.microphoneOffMessage":
-    "Para ditar uma mensagem, permita que o zereight bot use o microfone e o reconhecimento de fala em Configurações.",
+    "Para ditar uma mensagem, permita que o OpenOwnBot use o microfone e o reconhecimento de fala em Configurações.",
   "mobile.chat.dictation.stopped": "Ditado interrompido",
   "mobile.chat.dictation.tryAgain": "Tente novamente.",
   "mobile.chat.dictation.unavailable": "O ditado está indisponível",
@@ -97,7 +97,7 @@ export const messages = {
   "mobile.chat.attachment.openFailed": "Não foi possível abrir o anexo",
   "mobile.chat.attachment.photosNeedUpdate": "Para salvar fotos, é necessário ter a versão mais recente do app.",
   "mobile.chat.attachment.photosPermission":
-    "Permita que o zereight bot adicione fotos em Configurações para salvar esta imagem.",
+    "Permita que o OpenOwnBot adicione fotos em Configurações para salvar esta imagem.",
   "mobile.chat.attachment.imageUnavailable": "A imagem está indisponível. Tente novamente.",
   "mobile.chat.attachment.saveImageFailed": "Não foi possível salvar a imagem",
   "mobile.chat.attachment.preview": "Visualizar {name}",
@@ -122,9 +122,9 @@ export const messages = {
   "mobile.chat.attachment.unsupported":
     "{name}: escolha imagens, áudio MP3, vídeo MOV ou MP4, arquivos ZIP, PDF, documentos do Office, EML, texto, Markdown, dados ou arquivos de código-fonte.",
   "mobile.chat.attachment.hostRejectsType":
-    "{name}: o computador anfitrião não aceita arquivos {type}. Atualize o zereight bot nele para anexá-los.",
+    "{name}: o computador anfitrião não aceita arquivos {type}. Atualize o OpenOwnBot nele para anexá-los.",
   "mobile.chat.attachment.hostRejects":
-    "{name}: o computador anfitrião não aceita estes arquivos. Atualize o zereight bot nele para anexá-los.",
+    "{name}: o computador anfitrião não aceita estes arquivos. Atualize o OpenOwnBot nele para anexá-los.",
   "mobile.chat.attachment.nameTooLong": "Escolha um arquivo com um nome mais curto.",
   "mobile.chat.attachment.damaged": "O anexo está danificado. Selecione-o novamente.",
   "mobile.chat.attachment.tooLarge": "{name} tem mais de 10 MB.",
@@ -195,7 +195,7 @@ export const messages = {
   "mobile.chat.video.retry": "Recarregar vídeo",
   "mobile.chat.video.share": "Compartilhar {name}",
   "mobile.chat.video.save": "Salvar {name} em Fotos",
-  "mobile.chat.video.photosPermission": "Permita que o zereight bot adicione fotos em Ajustes para salvar este vídeo.",
+  "mobile.chat.video.photosPermission": "Permita que o OpenOwnBot adicione fotos em Ajustes para salvar este vídeo.",
   "mobile.chat.video.saveFailed": "Não foi possível salvar o vídeo",
   "mobile.chat.audio.play": "Reproduzir {name}",
   "mobile.chat.audio.pause": "Pausar {name}",
@@ -209,7 +209,7 @@ export const messages = {
   "mobile.chat.browserSecret.authenticatorCode": "Código do autenticador",
   "mobile.chat.browserSecret.oneTimeCode": "Código de uso único",
   "mobile.chat.browserSecret.takeoverTitle": "Assumir controle do navegador",
-  "mobile.chat.browserSecret.takeoverBody": "Conclua esta etapa no navegador do computador que executa o zereight bot.",
+  "mobile.chat.browserSecret.takeoverBody": "Conclua esta etapa no navegador do computador que executa o OpenOwnBot.",
   "mobile.chat.browserSecret.takeoverReload": "Depois, recarregue a página antes de escolher Concluí.",
   "mobile.chat.browserSecret.takeoverFailed": "Não foi possível concluir a solicitação.",
   "mobile.chat.browserSecret.done": "Concluí",
@@ -291,7 +291,7 @@ export const messages = {
   "mobile.chat.approval.effect.permissions":
     "Permitir dá a {name} estas permissões em {server}. Negar mantém as permissões atuais.",
   "mobile.chat.approval.partial":
-    "Esta solicitação é longa demais para aparecer no celular. Para permiti-la, abra o zereight bot em {server}. Você pode negá-la aqui.",
+    "Esta solicitação é longa demais para aparecer no celular. Para permiti-la, abra o OpenOwnBot em {server}. Você pode negá-la aqui.",
   "mobile.chat.approval.allow": "Permitir",
   "mobile.chat.approval.deny": "Negar",
   "mobile.chat.approval.reconnect": "Conecte-se a {server} para responder a esta solicitação.",
@@ -357,7 +357,7 @@ export const messages = {
   "mobile.chat.queue.steerNeedsTurn": "Orientar precisa de um turno em execução.",
   "mobile.chat.queue.stillHoldingTitle": "A mensagem continua retida",
   "mobile.chat.queue.stillHoldingMessage":
-    "O zereight bot não conseguiu liberar esta mensagem, então o agente continua aguardando. Tente novamente depois que o celular se reconectar.",
+    "O OpenOwnBot não conseguiu liberar esta mensagem, então o agente continua aguardando. Tente novamente depois que o celular se reconectar.",
   "mobile.chat.queue.keepEditing": "Continuar editando",
   "mobile.chat.queue.leaveAnyway": "Sair mesmo assim",
   "mobile.chat.queue.discardTitle": "Descartar alterações?",
@@ -365,7 +365,7 @@ export const messages = {
   "mobile.chat.queue.discard": "Descartar",
   "mobile.chat.queue.alreadyReceived": "O agente já recebeu esta mensagem, então ela não pode ser alterada.",
   "mobile.chat.queue.holding": "Retendo a mensagem para você…",
-  "mobile.chat.queue.holdFailed": "O zereight bot não conseguiu reter esta mensagem para edição.",
+  "mobile.chat.queue.holdFailed": "O OpenOwnBot não conseguiu reter esta mensagem para edição.",
   "mobile.chat.queue.messageLabel": "Mensagem",
   "mobile.chat.queue.messagePlaceholder": "Texto da mensagem",
   "mobile.chat.queue.save": "Salvar mensagem da fila",

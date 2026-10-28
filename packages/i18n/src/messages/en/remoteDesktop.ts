@@ -8,7 +8,7 @@ export const messages = defineMessages("remoteDesktop", {
   "remoteDesktop.workspaceLabel": "Remote control",
   "remoteDesktop.displayLabel": "Remote display",
   "remoteDesktop.selectDisplay": "Select display",
-  "remoteDesktop.backToOpenBot": "Back to zereight bot",
+  "remoteDesktop.backToOpenBot": "Back to OpenOwnBot",
   "remoteDesktop.disconnect": "Disconnect",
   "remoteDesktop.viewerTitle": "Sunshine remote desktop",
   "remoteDesktop.viewerLoadFailed": "The Moonlight viewer could not load.",
@@ -39,7 +39,7 @@ export const messages = defineMessages("remoteDesktop", {
   "remoteDesktop.setup.startFailed": "Could not start the remote desktop test.",
   "remoteDesktop.setup.connectionLost": "The test connection was lost.",
   "remoteDesktop.setup.hostUpdateRequired":
-    "Update zereight bot on the server to check permissions and test remote desktop.",
+    "Update OpenOwnBot on the server to check permissions and test remote desktop.",
   "remoteDesktop.setup.permissions": "Permissions",
   "remoteDesktop.setup.checked": "Checked",
   "remoteDesktop.setup.checkAgain": "Check again",

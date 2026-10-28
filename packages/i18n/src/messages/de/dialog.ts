@@ -15,7 +15,7 @@ export const messages = {
   "dialog.saveExportSkill": "Exportfähigkeit speichern",
   "dialog.saveTransfer": "Übertragungsdatei speichern",
   "dialog.chooseTransfer": "Übertragungsdatei wählen",
-  "dialog.filter.transfer": "zereight bot-Übertragungsdateien",
+  "dialog.filter.transfer": "OpenOwnBot-Übertragungsdateien",
   "dialog.chooseExternalLinkApp": "Browser auswählen",
   "dialog.filter.applications": "Programme",
 } as const satisfies PartialTranslation<typeof source>;

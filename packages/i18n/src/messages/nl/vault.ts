@@ -4,7 +4,7 @@ import type { messages as source } from "../en/vault";
 export const messages = {
   "vault.items.title": "Opgeslagen items",
   "vault.items.description":
-    "Elke agent op deze server kan deze items gebruiken. zereight bot typt wachtwoorden, kaartnummers en beveiligingscodes zelf in de pagina, zodat agents ze nooit zien.",
+    "Elke agent op deze server kan deze items gebruiken. OpenOwnBot typt wachtwoorden, kaartnummers en beveiligingscodes zelf in de pagina, zodat agents ze nooit zien.",
   "vault.newItem": "Nieuw item",
   "vault.kind.login": "Login",
   "vault.kind.card": "Kaart",
@@ -81,17 +81,17 @@ export const messages = {
   "vault.importMenu": "Importeren uit CSV",
   "vault.importTitle": "Importeren uit een CSV-bestand",
   "vault.importDescription":
-    "Importeer logins uit een CSV-bestand dat 1Password, Bitwarden, Chrome, Edge, Firefox, Safari, Apple Wachtwoorden of LastPass exporteert. zereight bot leest het bestand op deze computer en uploadt het niet.",
+    "Importeer logins uit een CSV-bestand dat 1Password, Bitwarden, Chrome, Edge, Firefox, Safari, Apple Wachtwoorden of LastPass exporteert. OpenOwnBot leest het bestand op deze computer en uploadt het niet.",
   "vault.importChoose": "CSV-bestand kiezen",
   "vault.importDone": "Geïmporteerd: {imported}. Overgeslagen: {skipped}.",
   "vault.unavailableTitle": "Deze computer kan geen geheimen bewaren",
   "vault.unavailableDescription":
-    "zereight bot versleutelt de kluis met de geheimenopslag van het systeem. Stel een sleutelhanger in en open deze pagina daarna opnieuw.",
-  "vault.unreadableTitle": "zereight bot kan de kluis niet lezen",
+    "OpenOwnBot versleutelt de kluis met de geheimenopslag van het systeem. Stel een sleutelhanger in en open deze pagina daarna opnieuw.",
+  "vault.unreadableTitle": "OpenOwnBot kan de kluis niet lezen",
   "vault.unreadableDescription":
     "Het kluisbestand staat op deze computer, maar OpenBot kan het niet ontsleutelen. Dit kan gebeuren als de sleutelhanger van het systeem verandert. Reset de kluis om opnieuw te beginnen zonder items.",
   "vault.reset": "Kluis resetten",
   "vault.resetTitle": "De kluis resetten?",
   "vault.resetDescription":
-    "zereight bot verwijdert het kluisbestand en alle items erin. Je kunt dit niet ongedaan maken.",
+    "OpenOwnBot verwijdert het kluisbestand en alle items erin. Je kunt dit niet ongedaan maken.",
 } as const satisfies PartialTranslation<typeof source>;

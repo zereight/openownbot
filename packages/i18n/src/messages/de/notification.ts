@@ -16,15 +16,15 @@ export const messages = {
   "notification.channelMessage": "Hat eine Nachricht gesendet.",
   "notification.usageLimit.title": "Das {provider}-Konto hat sein Limit erreicht",
   "notification.usageLimit.body": {
-    one: "{count} Agent wartet. zereight bot versucht es später erneut.",
-    other: "{count} Agenten warten. zereight bot versucht es später erneut.",
+    one: "{count} Agent wartet. OpenOwnBot versucht es später erneut.",
+    other: "{count} Agenten warten. OpenOwnBot versucht es später erneut.",
   },
   "notification.usageLimit.bodyResets": {
     one: "{count} Agent wartet. Das Limit wird {reset} zurückgesetzt.",
     other: "{count} Agenten warten. Das Limit wird {reset} zurückgesetzt.",
   },
   "notification.test": "Benachrichtigungen funktionieren.",
-  "notification.welcome": "zereight bot informiert dich hier, wenn ein Agent dich braucht.",
+  "notification.welcome": "OpenOwnBot informiert dich hier, wenn ein Agent dich braucht.",
   "notification.toast.region": "Benachrichtigungen",
   "notification.toast.close": "Benachrichtigung schließen",
 } as const satisfies PartialTranslation<typeof source>;

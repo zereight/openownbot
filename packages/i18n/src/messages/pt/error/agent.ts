@@ -58,14 +58,14 @@ export const messages = {
   "error.agent.changedWhileDuplicating": "O agente mudou durante a duplicação. Tente novamente.",
   "error.agent.duplicatedAgentGone": "O agente duplicado não existe mais.",
   "error.agent.stateCorrupt":
-    "O estado dos agentes está corrompido ou é de uma versão mais recente do zereight bot; ele não será sobrescrito.",
+    "O estado dos agentes está corrompido ou é de uma versão mais recente do OpenOwnBot; ele não será sobrescrito.",
   "error.agent.oldRoleField":
-    "Os perfis de agente salvos usam o campo de função antigo; atualize os dados antes de iniciar o zereight bot.",
+    "Os perfis de agente salvos usam o campo de função antigo; atualize os dados antes de iniciar o OpenOwnBot.",
   "error.agent.duplicateIds": "O estado dos agentes contém IDs de agente duplicados; ele não será sobrescrito.",
-  "error.agent.copyNameFailed": "O zereight bot não conseguiu criar um nome exclusivo para a cópia do agente.",
+  "error.agent.copyNameFailed": "O OpenOwnBot não conseguiu criar um nome exclusivo para a cópia do agente.",
   "error.agent.endpointRemoved": "O endpoint usado por este agente foi removido. Escolha outro modelo para ele.",
   "error.agent.turnStalled":
-    "{provider} parou de responder, então o zereight bot encerrou este turno. Envie a mensagem novamente ou escolha outro modelo.",
+    "{provider} parou de responder, então o OpenOwnBot encerrou este turno. Envie a mensagem novamente ou escolha outro modelo.",
   "error.agent.selectedGone": "O agente selecionado não existe mais.",
   "error.agent.profileEndpointsChanged": "Os endpoints personalizados mudaram durante a geração. Tente novamente.",
   "error.agent.profileInvalid": "O provedor retornou um perfil inválido. Tente reformular seu pedido.",
@@ -86,9 +86,9 @@ export const messages = {
   "error.agent.saveOtherAgent": "Este registro salvo pertence a outro agente.",
   "error.agent.savedGone": "O agente salvo não existe mais.",
   "error.agent.storedProfileUnreadable":
-    'Um perfil de agente salvo tem um valor "{field}" ilegível; atualize os dados antes de iniciar o zereight bot.',
+    'Um perfil de agente salvo tem um valor "{field}" ilegível; atualize os dados antes de iniciar o OpenOwnBot.',
   "error.agent.storedProfileUnreadableId":
-    'O perfil de agente salvo {id} tem um valor "{field}" ilegível; atualize os dados antes de iniciar o zereight bot.',
+    'O perfil de agente salvo {id} tem um valor "{field}" ilegível; atualize os dados antes de iniciar o OpenOwnBot.',
   "error.agent.queueEditRejected": "Edição da fila rejeitada: {reason}",
   "error.agent.computerUseLocalOnly": "Uso do computador só pode ser alterado no computador que executa o agente.",
   "error.agent.automationLocalOnly": "Scripts locais só podem ser permitidos no computador que executa o agente.",
@@ -115,7 +115,7 @@ export const messages = {
   "error.agent.lowMemoryServer":
     "Este servidor está com pouca memória. Sua mensagem aguarda na fila e começa quando houver memória livre.",
   "error.agent.workspaceOnlyToolMissing":
-    "O acesso Somente o espaço de trabalho exige {tool}, que o zereight bot não encontrou. Instale a ferramenta ou escolha Acesso completo nas configurações do agente.",
+    "O acesso Somente o espaço de trabalho exige {tool}, que o OpenOwnBot não encontrou. Instale a ferramenta ou escolha Acesso completo nas configurações do agente.",
   "error.agent.screenCaptureOff":
     "A captura de tela está desativada para este agente. O usuário pode ativar o Uso do computador nas configurações do agente.",
   "error.agent.screenCaptureUnavailable": "A captura de tela não está disponível neste computador.",

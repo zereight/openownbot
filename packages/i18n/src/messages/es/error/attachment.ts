@@ -8,12 +8,12 @@ export const messages = {
   "error.attachment.unavailable": "Este archivo ya no está disponible.",
   "error.attachment.tooMany": "Elige un máximo de {limit} archivos.",
   "error.attachment.mediaUnsupported":
-    "Este servidor no admite archivos adjuntos MP3 o MOV. Actualiza zereight bot en el host e inténtalo de nuevo.",
+    "Este servidor no admite archivos adjuntos MP3 o MOV. Actualiza OpenOwnBot en el host e inténtalo de nuevo.",
   "error.attachment.emlUnsupported":
-    "Este servidor no admite archivos adjuntos EML. Actualiza zereight bot en el host e inténtalo de nuevo.",
+    "Este servidor no admite archivos adjuntos EML. Actualiza OpenOwnBot en el host e inténtalo de nuevo.",
   "error.attachment.zipUnsupported":
-    "Este servidor no admite archivos adjuntos ZIP. Actualiza zereight bot en el host e inténtalo de nuevo.",
+    "Este servidor no admite archivos adjuntos ZIP. Actualiza OpenOwnBot en el host e inténtalo de nuevo.",
   "error.attachment.mp4Unsupported":
-    "Este servidor no admite archivos adjuntos MP4. Actualiza zereight bot en el host e inténtalo de nuevo.",
+    "Este servidor no admite archivos adjuntos MP4. Actualiza OpenOwnBot en el host e inténtalo de nuevo.",
   "error.attachment.previewTooLarge": "El archivo supera el límite de 100 MB.",
 } as const satisfies PartialTranslation<typeof source>;

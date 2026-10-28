@@ -55,8 +55,8 @@ export const messages = {
   "browser.pip.reattach": "ブラウザーを右のサイドバーに戻す",
   "browser.pip.reattachTitle": "ブラウザーを戻す",
   "browser.pip.close": "ブラウザーのポップアップを閉じる",
-  "browser.pip.reattachFailed": "zereight bot はブラウザーをサイドバーに戻せませんでした。",
-  "browser.pip.closeFailed": "zereight bot はブラウザーのポップアップを閉じられませんでした。",
+  "browser.pip.reattachFailed": "OpenOwnBot はブラウザーをサイドバーに戻せませんでした。",
+  "browser.pip.closeFailed": "OpenOwnBot はブラウザーのポップアップを閉じられませんでした。",
   "browser.popupBlocked.title": "ポップアップがブロックされました",
   "browser.popupBlocked.dismiss": "ポップアップのメッセージを閉じる",
   "browser.liveView.label": "サーバー上のページのライブビュー",
@@ -128,22 +128,22 @@ export const messages = {
   "browser.signIn.local": "このコンピュータでサインイン",
   "browser.signIn.title": "{site} にサインイン",
   "browser.signIn.description":
-    "一部のサイトはサーバーからのサインインを拒否します。このコンピュータでサインインすると、zereight bot が {site} のサインインを {server} に送信します。{server} のすべてのエージェントとメンバーがブラウザでそれを使用できます。",
+    "一部のサイトはサーバーからのサインインを拒否します。このコンピュータでサインインすると、OpenOwnBot が {site} のサインインを {server} に送信します。{server} のすべてのエージェントとメンバーがブラウザでそれを使用できます。",
   "browser.signIn.windowOpen":
-    "開いたウィンドウでサインインしてください。サインインが完了すると、zereight bot が送信します。ウィンドウが開いたままの場合は、完了を選択してください。",
+    "開いたウィンドウでサインインしてください。サインインが完了すると、OpenOwnBot が送信します。ウィンドウが開いたままの場合は、完了を選択してください。",
   "browser.signIn.windowClosed":
     "サインインウィンドウは閉じています。完了を選択してサインインを送信するか、ウィンドウをもう一度開いてください。",
   "browser.signIn.reopen": "サインインウィンドウを開く",
   "browser.signIn.sending": "{server} に送信中…",
   "browser.signIn.sent": "{server} で {site} にサインインしました",
   "browser.signIn.notFound":
-    "zereight bot は {site} のサインインを見つけられませんでした。ウィンドウでサインインしてから、完了を選択してください。",
+    "OpenOwnBot は {site} のサインインを見つけられませんでした。ウィンドウでサインインしてから、完了を選択してください。",
   "browser.signIn.stillSignedOut":
     "{server} にはまだ {site} のサインインページが表示されています。ウィンドウでサインインを完了してください。",
-  "browser.signIn.failed": "zereight bot はサインインを送信できませんでした。",
+  "browser.signIn.failed": "OpenOwnBot はサインインを送信できませんでした。",
   "browser.profiles.title": "ブラウザープロファイル",
   "browser.profiles.subtitle":
-    "各プロファイルは、専用のサインイン、Cookie、サイトデータを zereight bot を実行しているコンピューターに保持します。",
+    "各プロファイルは、専用のサインイン、Cookie、サイトデータを OpenOwnBot を実行しているコンピューターに保持します。",
   "browser.profiles.label": "ブラウザープロファイル",
   "browser.profiles.newName": "プロファイル名",
   "browser.profiles.create": "追加",
@@ -162,8 +162,8 @@ export const messages = {
   "browser.profiles.deleteDescription":
     "プロファイルのサインイン、Cookie、サイトデータを削除します。開いているタブは閉じます。",
   "browser.profiles.deleteAgents": "次のエージェントは共有プロファイルに切り替わります: {agents}。",
-  "browser.profiles.failed": "zereight bot はブラウザープロファイルを変更できませんでした。",
-  "browser.profiles.loadFailed": "zereight bot はブラウザープロファイルを読み込めませんでした。",
+  "browser.profiles.failed": "OpenOwnBot はブラウザープロファイルを変更できませんでした。",
+  "browser.profiles.loadFailed": "OpenOwnBot はブラウザープロファイルを読み込めませんでした。",
   "browser.profiles.tabLabel": "プロファイル: {name}",
   "browser.profiles.agentTabLabel": "エージェント専用のプロファイル",
 } as const satisfies PartialTranslation<typeof source>;

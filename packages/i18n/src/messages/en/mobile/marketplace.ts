@@ -54,11 +54,11 @@ export const messages = defineMessages("mobile.marketplace", {
   "mobile.marketplace.facts.accessNone": "No sign-in",
   "mobile.marketplace.permission.admin": "Only owners and admins can install from the Marketplace.",
   "mobile.marketplace.permission.unavailable":
-    "This server is offline, or its zereight bot is too old for this. Update zereight bot on the computer that runs it.",
-  "mobile.marketplace.error.agentUnsupported": "Update zereight bot on the server to add agents from the Marketplace.",
+    "This server is offline, or its OpenOwnBot is too old for this. Update OpenOwnBot on the computer that runs it.",
+  "mobile.marketplace.error.agentUnsupported": "Update OpenOwnBot on the server to add agents from the Marketplace.",
   "mobile.marketplace.error.agentUpdateUnsupported":
-    "Update zereight bot on the server to update agents from the Marketplace.",
-  "mobile.marketplace.error.signInUnsupported": "Update zereight bot on the server to sign in to apps from the phone.",
+    "Update OpenOwnBot on the server to update agents from the Marketplace.",
+  "mobile.marketplace.error.signInUnsupported": "Update OpenOwnBot on the server to sign in to apps from the phone.",
   "mobile.marketplace.agent.add": "Add agent",
   "mobile.marketplace.agent.adding": "Adding agent",
   "mobile.marketplace.agent.update": "Update agent",

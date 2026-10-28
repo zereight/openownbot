@@ -65,7 +65,7 @@ export const messages = {
   "prompt.browser.signInBlocked.title": "{host} hat die Anmeldung von {server} blockiert",
   "prompt.browser.signInBlocked.cancelledTitle": "Anmeldung bei {host} abgebrochen",
   "prompt.browser.signInBlocked.body":
-    "Melde dich auf diesem Computer an. zereight bot sendet nur die Anmeldung für {host} an {server}, und {name} fährt fort.",
+    "Melde dich auf diesem Computer an. OpenOwnBot sendet nur die Anmeldung für {host} an {server}, und {name} fährt fort.",
   "prompt.browser.signInBlocked.cancelledBody": "Die Anmeldung wurde abgebrochen.",
   "prompt.browser.signInBlocked.waiting": "Warten auf die Anmeldung",
   "prompt.browser.signInBlocked.waitingButton": "Warten auf die Anmeldung…",

@@ -341,11 +341,11 @@ export const messages = {
   "workflow.canvas.version.run": "Перед запуском",
   "workflow.canvas.deleteUndo.title": "Удалено: {name}",
   "workflow.canvas.deleteUndo.action": "Отменить",
-  "workflow.page.failed": "zereight bot не смог это сделать. Повторите попытку.",
+  "workflow.page.failed": "OpenOwnBot не смог это сделать. Повторите попытку.",
   "workflow.page.conflict":
     "Этот рабочий процесс изменился, пока вы его редактировали. Отмените, чтобы вернуть свои правки.",
   "workflow.page.needsNewerApp":
-    "В этом рабочем процессе есть шаги из более новой версии zereight bot. Обновите zereight bot, чтобы изменить его.",
+    "В этом рабочем процессе есть шаги из более новой версии OpenOwnBot. Обновите OpenOwnBot, чтобы изменить его.",
   "workflow.page.manageOnly": "Чтобы изменить этот рабочий процесс, нужен доступ на управление каждым из его агентов.",
   "workflow.chat.label": "Помощник по рабочему процессу",
   "workflow.chat.title": "Спросить {name} об этом рабочем процессе",

@@ -3,11 +3,11 @@ import type { messages as source } from "../../en/status/host";
 
 export const messages = {
   // Status lines of the WebRTC host.
-  "status.host.registered": "Cet zereight bot est enregistré pour l’accès WebRTC.",
+  "status.host.registered": "Cet OpenOwnBot est enregistré pour l’accès WebRTC.",
   "status.host.keyRotated": "Clé du serveur changée. Les appareils associés restent associés.",
   "status.host.identityUpdated": "Identité du serveur mise à jour.",
   "status.host.starting": "Démarrage de l’hôte WebRTC…",
-  "status.host.ready": "Cet zereight bot est prêt pour les connexions WebRTC.",
-  "status.host.stopping": "Passage de cet zereight bot en mode privé…",
-  "status.host.private": "Cet zereight bot est privé.",
+  "status.host.ready": "Cet OpenOwnBot est prêt pour les connexions WebRTC.",
+  "status.host.stopping": "Passage de cet OpenOwnBot en mode privé…",
+  "status.host.private": "Cet OpenOwnBot est privé.",
 } as const satisfies PartialTranslation<typeof source>;

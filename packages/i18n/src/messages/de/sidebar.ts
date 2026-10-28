@@ -126,7 +126,7 @@ export const messages = {
   "sidebar.delete.pending": "Wird gelöscht…",
   "sidebar.delete.title": "{name} löschen?",
   "sidebar.delete.agentDescription":
-    "Dies entfernt den Agenten und seine zereight bot-Unterhaltung aus der App. Seine Warteschlange, Erinnerungen, Routinen und sein Arbeitsbereich werden gelöscht. Der separat vom verbundenen CLI-Anbieter gespeicherte Verlauf wird nicht gelöscht.",
+    "Dies entfernt den Agenten und seine OpenOwnBot-Unterhaltung aus der App. Seine Warteschlange, Erinnerungen, Routinen und sein Arbeitsbereich werden gelöscht. Der separat vom verbundenen CLI-Anbieter gespeicherte Verlauf wird nicht gelöscht.",
   "sidebar.delete.channelDescription":
     "Dies stoppt den Kanal. Sein Verlauf bleibt unter „Gelöschte Kanäle“ nur zur Ansicht erhalten. Dort kannst du ihn wiederherstellen. Die zugehörigen Agenten bleiben erhalten.",
   "sidebar.delete.sectionDescription":
@@ -140,7 +140,7 @@ export const messages = {
   "sidebar.announce.movedPinned": "Der angeheftete Chat wurde an Position {position} von {total} verschoben.",
   "sidebar.announce.personFallback": "Person",
   "sidebar.announce.chatFallback": "Chat",
-  "sidebar.mobileApp.title": "zereight bot für Mobilgeräte",
+  "sidebar.mobileApp.title": "OpenOwnBot für Mobilgeräte",
   "sidebar.mobileApp.body": "Die App gibt es jetzt für iPhone und Android.",
   "sidebar.mobileApp.howToInstall": "Anleitung",
   "sidebar.mobileApp.dismiss": "Ankündigung der Mobile-App ausblenden",
@@ -156,6 +156,6 @@ export const messages = {
   "sidebar.community.title": "Setz dich zu uns.",
   "sidebar.community.body": "In der KI-Zukunft ist ein Platz für dich frei. Komm in die Community auf Discord und X.",
   "sidebar.community.joinDiscord": "Zum Discord",
-  "sidebar.community.followX": "zereight bot auf X folgen",
+  "sidebar.community.followX": "OpenOwnBot auf X folgen",
   "sidebar.community.dismiss": "Community-Einladung ausblenden",
 } as const satisfies PartialTranslation<typeof source>;

@@ -4,16 +4,16 @@ import type { messages as source } from "../en/messaging";
 export const messages = {
   // What the user can do about a Slack workspace connection that stopped.
   "messaging.help.invalid_token":
-    "Slack artık bu çalışma alanında zereight bot'u kabul etmiyor. Kaldırılmış olabilir. Çalışma alanını tekrar bağlayın.",
+    "Slack artık bu çalışma alanında OpenOwnBot'u kabul etmiyor. Kaldırılmış olabilir. Çalışma alanını tekrar bağlayın.",
   "messaging.help.secret_storage_unavailable":
-    "zereight bot bu bilgisayardaki kayıtlı belirteçleri okuyamıyor. Çalışma alanı bağlantısını kesin, ardından tekrar bağlayın.",
+    "OpenOwnBot bu bilgisayardaki kayıtlı belirteçleri okuyamıyor. Çalışma alanı bağlantısını kesin, ardından tekrar bağlayın.",
   "messaging.help.relay_unavailable":
-    "zereight bot bu bilgisayarda Slack etkinliklerini alamıyor. Oturum açın, Sunucu ayarlarından bu bilgisayara bir ad verin ve zereight bot'u açık tutun.",
+    "OpenOwnBot bu bilgisayarda Slack etkinliklerini alamıyor. Oturum açın, Sunucu ayarlarından bu bilgisayara bir ad verin ve OpenOwnBot'u açık tutun.",
   // Bir Discord sunucusu bağlantısı için aynı yardım.
   "messaging.discordHelp.invalid_token":
-    "Discord artık bu Discord sunucusunda zereight bot'u kabul etmiyor. Kaldırılmış olabilir. Discord sunucusunu tekrar bağlayın.",
+    "Discord artık bu Discord sunucusunda OpenOwnBot'u kabul etmiyor. Kaldırılmış olabilir. Discord sunucusunu tekrar bağlayın.",
   "messaging.discordHelp.secret_storage_unavailable":
-    "zereight bot bu bilgisayardaki kayıtlı belirteçleri okuyamıyor. Discord sunucusu bağlantısını kesin, ardından tekrar bağlayın.",
+    "OpenOwnBot bu bilgisayardaki kayıtlı belirteçleri okuyamıyor. Discord sunucusu bağlantısını kesin, ardından tekrar bağlayın.",
   "messaging.discordHelp.relay_unavailable":
-    "zereight bot bu bilgisayarda Discord etkinliklerini alamıyor. Oturum açın, Sunucu ayarlarından bu bilgisayara bir ad verin ve zereight bot'u açık tutun.",
+    "OpenOwnBot bu bilgisayarda Discord etkinliklerini alamıyor. Oturum açın, Sunucu ayarlarından bu bilgisayara bir ad verin ve OpenOwnBot'u açık tutun.",
 } as const satisfies PartialTranslation<typeof source>;

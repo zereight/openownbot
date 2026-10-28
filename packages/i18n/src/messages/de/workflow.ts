@@ -326,11 +326,11 @@ export const messages = {
   "workflow.canvas.version.run": "Vor einem Lauf",
   "workflow.canvas.deleteUndo.title": "{name} gelöscht",
   "workflow.canvas.deleteUndo.action": "Rückgängig",
-  "workflow.page.failed": "zereight bot konnte das nicht ausführen. Versuche es erneut.",
+  "workflow.page.failed": "OpenOwnBot konnte das nicht ausführen. Versuche es erneut.",
   "workflow.page.conflict":
     "Der Workflow wurde geändert, während du ihn bearbeitet hast. Mit Rückgängig erhältst du deine Änderungen zurück.",
   "workflow.page.needsNewerApp":
-    "Dieser Workflow hat Schritte aus einer neueren zereight bot-Version. Aktualisiere zereight bot, um ihn zu ändern.",
+    "Dieser Workflow hat Schritte aus einer neueren OpenOwnBot-Version. Aktualisiere OpenOwnBot, um ihn zu ändern.",
   "workflow.page.manageOnly": "Um diesen Workflow zu ändern, brauchst du Verwalten-Zugriff auf jeden seiner Agenten.",
   "workflow.chat.label": "Workflow-Assistent",
   "workflow.chat.title": "{name} zu diesem Workflow fragen",

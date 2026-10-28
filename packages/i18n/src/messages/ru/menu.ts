@@ -9,7 +9,7 @@ export const messages = {
   "menu.zoomIn": "Увеличить",
   "menu.zoomOut": "Уменьшить",
   "menu.copyLink": "Скопировать ссылку",
-  "menu.trayOpen": "Открыть zereight bot",
-  "menu.trayQuit": "Выйти из zereight bot",
-  "menu.trayTooltip": "zereight bot",
+  "menu.trayOpen": "Открыть OpenOwnBot",
+  "menu.trayQuit": "Выйти из OpenOwnBot",
+  "menu.trayTooltip": "OpenOwnBot",
 } as const satisfies PartialTranslation<typeof source>;

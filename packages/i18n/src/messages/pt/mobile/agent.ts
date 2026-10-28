@@ -66,7 +66,7 @@ export const messages = {
     "“{name}” será excluído do disco. As mensagens que o mostram permanecem no chat sem o arquivo.",
   "mobile.agent.files.keep": "Manter",
   "mobile.agent.files.deleteFailed": "Não foi possível excluir o arquivo",
-  "mobile.agent.files.deleteFailedBody": "O zereight bot não conseguiu excluir este arquivo.",
+  "mobile.agent.files.deleteFailedBody": "O OpenOwnBot não conseguiu excluir este arquivo.",
   "mobile.agent.files.downloading": "Baixando…",
   "mobile.agent.files.removeNamed": "Remover {name}",
   "mobile.agent.files.deleteNamed": "Excluir {name}",
@@ -119,13 +119,13 @@ export const messages = {
   "mobile.agent.info.noRoutines": "Ainda não há rotinas.",
   "mobile.agent.info.addRoutine": "Adicionar rotina",
   "mobile.agent.info.skillsUnsupported":
-    "Este computador anfitrião não aceita habilidades. Atualize o zereight bot nele.",
+    "Este computador anfitrião não aceita habilidades. Atualize o OpenOwnBot nele.",
   "mobile.agent.info.noSkills": "Ainda não há habilidades.",
   "mobile.agent.info.skillsManaged": "As habilidades deste agente são gerenciadas no computador anfitrião.",
   "mobile.agent.info.skillsAddOnComputer":
-    "Use + para criar uma habilidade com este agente. Adicione habilidades da loja no zereight bot em um computador ou no app web.",
+    "Use + para criar uma habilidade com este agente. Adicione habilidades da loja no OpenOwnBot em um computador ou no app web.",
   "mobile.agent.info.filesUnsupported":
-    "Este computador anfitrião não oferece gerenciamento de arquivos. Atualize o zereight bot nele.",
+    "Este computador anfitrião não oferece gerenciamento de arquivos. Atualize o OpenOwnBot nele.",
   "mobile.agent.info.memoryGone": "Esta memória não está mais disponível.",
   "mobile.agent.info.routineGone": "Esta rotina não está mais disponível.",
   "mobile.agent.skill.workspaceFolder": "Pasta do espaço de trabalho",
@@ -137,8 +137,7 @@ export const messages = {
   "mobile.agent.skill.uninstall": "Desinstalar",
   "mobile.agent.skill.uninstallNamed": "Desinstalar {name}",
   "mobile.agent.skill.uninstallTitle": "Desinstalar {name}?",
-  "mobile.agent.skill.uninstallBody":
-    "O zereight bot removerá esta habilidade do agente. O histórico do chat permanece.",
+  "mobile.agent.skill.uninstallBody": "O OpenOwnBot removerá esta habilidade do agente. O histórico do chat permanece.",
   "mobile.agent.skill.uninstallModifiedBody":
     "Esta habilidade tem alterações locais no espaço de trabalho do agente. A desinstalação exclui esses arquivos. O histórico do chat permanece.",
   "mobile.agent.skill.uninstalling": "Desinstalando…",
@@ -146,7 +145,7 @@ export const messages = {
   "mobile.agent.skill.enableFailed": "Não foi possível ativar {name}.",
   "mobile.agent.skill.disableFailed": "Não foi possível desativar {name}.",
   "mobile.agent.skill.manageUnsupported":
-    "Este computador anfitrião não pode alterar habilidades. Atualize o zereight bot nele.",
+    "Este computador anfitrião não pode alterar habilidades. Atualize o OpenOwnBot nele.",
   "mobile.agent.discard.title": "Descartar alterações?",
   "mobile.agent.discard.body": "Suas alterações não foram salvas.",
   "mobile.agent.discard.keepEditing": "Continuar editando",
@@ -186,7 +185,7 @@ export const messages = {
   "mobile.agent.record.addEventFilter": "Adicionar filtro",
   "mobile.agent.record.removeEventFilter": "Remover filtro",
   "mobile.agent.record.eventsUnsupported":
-    "Este computador anfitrião não aceita rotinas de evento. Atualize o zereight bot nele.",
+    "Este computador anfitrião não aceita rotinas de evento. Atualize o OpenOwnBot nele.",
   "mobile.agent.webhook.url": "Endpoint",
   "mobile.agent.webhook.urlNew": "Salve a rotina para obter seu endpoint e segredo de assinatura.",
   "mobile.agent.webhook.urlPending":
@@ -262,7 +261,7 @@ export const messages = {
   "mobile.agent.record.resultDestination.createFailed":
     "A rotina foi salva, mas o lugar de mensagens não. Abra a rotina para escolher o lugar de novo.",
   "mobile.agent.record.resultDestinationUnsupported":
-    "Este host não pode enviar respostas de rotinas para um lugar de mensagens. Atualize o zereight bot no host.",
+    "Este host não pode enviar respostas de rotinas para um lugar de mensagens. Atualize o OpenOwnBot no host.",
   "mobile.agent.record.enabled": "Ativada",
   "mobile.agent.record.routine": "Rotina",
   "mobile.agent.record.testStarting": "Iniciando…",
@@ -278,7 +277,7 @@ export const messages = {
   "mobile.agent.permissions.title": "Permissões",
   "mobile.agent.advanced.title": "Avançado",
   "mobile.agent.runtime.unavailable": "Indisponível",
-  "mobile.agent.runtime.updateToUse": "Atualize o zereight bot para usar {name}",
+  "mobile.agent.runtime.updateToUse": "Atualize o OpenOwnBot para usar {name}",
   "mobile.agent.runtime.hostDefault": "Padrão do anfitrião",
   "mobile.agent.runtime.provider": "Provedor",
   "mobile.agent.runtime.account": "Conta",
@@ -306,7 +305,7 @@ export const messages = {
   "mobile.agent.access.workspaceNote":
     "O agente trabalha no seu espaço de trabalho e na pasta compartilhada do computador anfitrião.",
   "mobile.agent.access.askNote":
-    "O agente pergunta antes de usar uma ferramenta do zereight bot ou publicar um site, e quando o provedor pede aprovação.",
+    "O agente pergunta antes de usar uma ferramenta do OpenOwnBot ou publicar um site, e quando o provedor pede aprovação.",
   "mobile.agent.access.fullNote": "O agente age sem perguntar, exceto pelas perguntas que faz a você.",
   "mobile.agent.access.fullTitle": "Dar acesso completo a este agente?",
   "mobile.agent.access.askTitle": "Deixar este agente trabalhar fora do espaço de trabalho?",
@@ -362,7 +361,7 @@ export const messages = {
     "Nenhuma tabela ainda. Um agente cria uma quando uma tarefa precisa manter registros entre turnos, e todos os agentes podem usá-la.",
   "mobile.agent.tables.note":
     "Todos os agentes deste computador anfitrião compartilham estas tabelas. Uma tabela excluída deixa de existir para todos os agentes.",
-  "mobile.agent.tables.madeOutside": "Criada fora do zereight bot · qualquer agente pode excluí-la",
+  "mobile.agent.tables.madeOutside": "Criada fora do OpenOwnBot · qualquer agente pode excluí-la",
   "mobile.agent.tables.keptBy": "Mantida por {name}",
   "mobile.agent.tables.keptByDeleted": "Mantida por um agente que não existe mais",
   "mobile.agent.tables.notCounted": "Não contados",
@@ -373,7 +372,7 @@ export const messages = {
     "A tabela é excluída para todos os agentes. Os registros não poderão ser recuperados.",
   "mobile.agent.tables.keep": "Manter",
   "mobile.agent.tables.deleteFailed": "Não foi possível excluir a tabela",
-  "mobile.agent.tables.deleteFailedBody": "O zereight bot não conseguiu excluir esta tabela.",
+  "mobile.agent.tables.deleteFailedBody": "O OpenOwnBot não conseguiu excluir esta tabela.",
   "mobile.agent.tables.unsupported":
     "Este computador anfitrião não pode mostrar as tabelas dele em um dispositivo remoto.",
   "mobile.agent.publish.title": "Publicar",
@@ -475,7 +474,7 @@ export const messages = {
   "mobile.agent.list.waiting.state.question": "Aguardando sua resposta",
   "mobile.agent.list.waiting.state.approval": "Aguardando sua aprovação",
   "mobile.agent.list.waiting.state.takeover": "Aguardando você no navegador",
-  "mobile.agent.add.failed": "O zereight bot não conseguiu criar este agente.",
+  "mobile.agent.add.failed": "O OpenOwnBot não conseguiu criar este agente.",
   "mobile.agent.add.create": "Criar agente",
   "mobile.agent.add.creating": "Criando…",
   "mobile.agent.form.name": "Nome",
@@ -485,7 +484,7 @@ export const messages = {
   "mobile.agent.add.nameRequired": "Digite um nome para este agente.",
   "mobile.agent.edit.loading": "Carregando agente…",
   "mobile.agent.edit.gone": "Este agente não está mais disponível neste computador anfitrião.",
-  "mobile.agent.edit.failed": "O zereight bot não conseguiu atualizar este agente.",
+  "mobile.agent.edit.failed": "O OpenOwnBot não conseguiu atualizar este agente.",
   "mobile.agent.edit.appearance": "Editar aparência",
   "mobile.agent.edit.title": "Título",
   "mobile.agent.edit.titlePlaceholder": "Descreva o que seu agente faz",

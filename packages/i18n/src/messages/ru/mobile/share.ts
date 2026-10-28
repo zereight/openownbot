@@ -4,9 +4,9 @@ import type { messages as source } from "../../en/mobile/share";
 export const messages = {
   "mobile.share.signInTitle": "Войдите, чтобы поделиться",
   "mobile.share.signInDescription":
-    "Отсканируйте QR-код в zereight bot на компьютере. После этого вы сможете выбрать агента, который получит то, чем вы поделились.",
+    "Отсканируйте QR-код в OpenOwnBot на компьютере. После этого вы сможете выбрать агента, который получит то, чем вы поделились.",
   "mobile.share.reading": "Чтение того, чем вы поделились…",
-  "mobile.share.readFailed": "zereight bot не удалось прочитать то, чем вы поделились. Поделитесь ещё раз.",
+  "mobile.share.readFailed": "OpenOwnBot не удалось прочитать то, чем вы поделились. Поделитесь ещё раз.",
   "mobile.share.content": "Что отправить",
   "mobile.share.footer":
     "Чат откроется с этим содержимым в поле сообщения. Ничего не будет отправлено, пока вы не отправите это.",

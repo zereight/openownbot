@@ -10,11 +10,11 @@ export const messages = {
   "error.workflow.conditionBranch": "Bir koşuldan çıkan her bağlantı evet veya hayır olmalıdır.",
   "error.workflow.duplicateEdge": "Bu iki adımda bu bağlantı zaten var.",
   "error.workflow.serverTooOld":
-    "Bu sunucu iş akışlarını desteklemiyor. zereight bot'u sunucuyu çalıştıran bilgisayarda güncelleyin.",
-  "error.workflow.nodeUnsupported": "zereight bot'un bu sürümü görsel, dosya ve mesaj adımlarını henüz çalıştıramaz.",
-  "error.workflow.interrupted": "Bu adım çalışırken zereight bot durdu. Adımı yeniden çalıştırın.",
+    "Bu sunucu iş akışlarını desteklemiyor. OpenOwnBot'u sunucuyu çalıştıran bilgisayarda güncelleyin.",
+  "error.workflow.nodeUnsupported": "OpenOwnBot'un bu sürümü görsel, dosya ve mesaj adımlarını henüz çalıştıramaz.",
+  "error.workflow.interrupted": "Bu adım çalışırken OpenOwnBot durdu. Adımı yeniden çalıştırın.",
   "error.workflow.agentMissing": "Bu adım için bir ajan seçin.",
-  "error.workflow.handoffFailed": "zereight bot bu adımı ajanına gönderemedi.",
+  "error.workflow.handoffFailed": "OpenOwnBot bu adımı ajanına gönderemedi.",
   "error.workflow.agentStepEnded": "Ajana giden mesaj, ajan yanıt vermeden kaldırıldı.",
   "error.workflow.conditionUnclear": "Model evet ya da hayır yanıtı vermedi.",
   "error.workflow.modelFailed": "Model yanıt veremedi. Adımı yeniden çalıştırın.",
@@ -28,7 +28,7 @@ export const messages = {
   "error.workflow.outputConnectionOff":
     "Bu çıktının mesajlaşma bağlantısı kapalı ya da kaldırılmış. Yeniden bir yer seçin.",
   "error.workflow.outputNotRunning": "Mesajlaşma bağlantısı şu anda çalışmıyor. Çalıştığında yeniden deneyin.",
-  "error.workflow.outputRefused": "Yer gönderiyi reddetti. zereight bot'un orada gönderi yapabildiğinden emin olun.",
+  "error.workflow.outputRefused": "Yer gönderiyi reddetti. OpenOwnBot'un orada gönderi yapabildiğinden emin olun.",
   "error.workflow.outputUncertain":
     "Gönderi yolda durdu. Bir kısmı yerde olabilir. Yeniden denemeden önce kontrol edin.",
   "error.workflow.tooLarge":

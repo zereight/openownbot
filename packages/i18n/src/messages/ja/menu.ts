@@ -9,7 +9,7 @@ export const messages = {
   "menu.zoomIn": "拡大",
   "menu.zoomOut": "縮小",
   "menu.copyLink": "リンクをコピー",
-  "menu.trayOpen": "zereight bot を開く",
-  "menu.trayQuit": "zereight bot を終了",
-  "menu.trayTooltip": "zereight bot",
+  "menu.trayOpen": "OpenOwnBot を開く",
+  "menu.trayQuit": "OpenOwnBot を終了",
+  "menu.trayTooltip": "OpenOwnBot",
 } as const satisfies PartialTranslation<typeof source>;

@@ -2,7 +2,7 @@ import type { PartialTranslation } from "../../../message";
 import type { messages as source } from "../../en/mobile/auth";
 
 export const messages = {
-  "mobile.auth.logo.animate": "Animuj logo zereight bot",
+  "mobile.auth.logo.animate": "Animuj logo OpenOwnBot",
   "mobile.auth.logo.animateHint": "Logo puszcza oko",
   "mobile.auth.scanQrCode": "Zeskanuj kod QR",
   "mobile.auth.closeScanner": "Zamknij skaner",
@@ -20,16 +20,16 @@ export const messages = {
   "mobile.auth.scanner.cameraFailed": "Nie udało się uruchomić aparatu. Spróbuj ponownie.",
   "mobile.auth.camera.title": "Wymagany dostęp do aparatu",
   "mobile.auth.camera.pairingReason":
-    "zereight bot używa aparatu tylko do zeskanowania jednorazowego kodu QR z aplikacji na komputer.",
-  "mobile.auth.camera.invitationReason": "zereight bot używa aparatu tylko do zeskanowania kodu QR zaproszenia.",
+    "OpenOwnBot używa aparatu tylko do zeskanowania jednorazowego kodu QR z aplikacji na komputer.",
+  "mobile.auth.camera.invitationReason": "OpenOwnBot używa aparatu tylko do zeskanowania kodu QR zaproszenia.",
   "mobile.auth.camera.blocked":
-    "Dostęp do aparatu jest zablokowany. Włącz go dla zereight bot w ustawieniach urządzenia, a potem wróć tutaj, aby zeskanować kod.",
+    "Dostęp do aparatu jest zablokowany. Włącz go dla OpenOwnBot w ustawieniach urządzenia, a potem wróć tutaj, aby zeskanować kod.",
   "mobile.auth.camera.allow": "Zezwól na dostęp do aparatu",
   "mobile.auth.camera.openSettings": "Otwórz ustawienia",
   "mobile.auth.signIn.title": "Twoi agenci, wszędzie.",
-  "mobile.auth.signIn.subtitle": "Połącz się z zereight bot na swoim komputerze.",
+  "mobile.auth.signIn.subtitle": "Połącz się z OpenOwnBot na swoim komputerze.",
   "mobile.auth.signIn.helpTitle": "Gdzie jest kod QR?",
-  "mobile.auth.signIn.helpStep1": "1. Otwórz zereight bot na komputerze.",
+  "mobile.auth.signIn.helpStep1": "1. Otwórz OpenOwnBot na komputerze.",
   "mobile.auth.signIn.helpStep2": "2. Otwórz Ustawienia → Mobile Connect.",
   "mobile.auth.signIn.helpStep3": "3. Wybierz „Wygeneruj kod QR”, a potem zeskanuj go tutaj.",
   "mobile.auth.signIn.emailButton": "Kontynuuj przez e-mail",
@@ -60,15 +60,15 @@ export const messages = {
   "mobile.auth.email.error.invalidEmail": "Wpisz prawidłowy adres e-mail.",
   "mobile.auth.email.error.wait": "Poczekaj, zanim poprosisz o kolejny kod.",
   "mobile.auth.email.error.deliveryUnconfirmed":
-    "zereight bot nie mógł potwierdzić wysłania kodu. Sprawdź dostarczenie, zanim wyślesz kolejny kod.",
-  "mobile.auth.email.error.sendFailed": "zereight bot nie mógł wysłać kodu. Spróbuj ponownie.",
+    "OpenOwnBot nie mógł potwierdzić wysłania kodu. Sprawdź dostarczenie, zanim wyślesz kolejny kod.",
+  "mobile.auth.email.error.sendFailed": "OpenOwnBot nie mógł wysłać kodu. Spróbuj ponownie.",
   "mobile.auth.email.error.codeIncorrect": "Ten kod jest nieprawidłowy. Spróbuj ponownie.",
   "mobile.auth.email.error.codeExpired": "Ten kod wygasł. Wyślij nowy kod.",
   "mobile.auth.email.error.tooManyAttempts": "Zbyt wiele nieprawidłowych kodów. Wyślij nowy kod.",
-  "mobile.auth.email.error.verifyFailed": "zereight bot nie mógł zweryfikować kodu. Spróbuj ponownie.",
+  "mobile.auth.email.error.verifyFailed": "OpenOwnBot nie mógł zweryfikować kodu. Spróbuj ponownie.",
   "mobile.auth.error.sessionEnded": "Sesja się zakończyła. Zaloguj się ponownie.",
   "mobile.auth.error.connectionInProgress": "Trwa inne połączenie. Poczekaj, aż się zakończy.",
-  "mobile.auth.error.invalidCode": "To nie jest prawidłowy kod zereight bot Mobile Connect.",
+  "mobile.auth.error.invalidCode": "To nie jest prawidłowy kod OpenOwnBot Mobile Connect.",
   "mobile.auth.error.codeOutdated": "Wygeneruj nowy kod Mobile Connect w zaktualizowanej aplikacji na komputer.",
   "mobile.auth.error.alreadySignedIn": "To urządzenie jest już zalogowane. Wyloguj się, zanim połączysz inne konto.",
   "mobile.auth.error.desktopUnreachable":

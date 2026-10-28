@@ -5,19 +5,19 @@ export const messages = {
   "error.messaging.notConnected": "Dieser Slack-Arbeitsbereich ist nicht verbunden.",
   "error.messaging.unsupported": "Dieser Computer kann keine Verbindung zu Slack herstellen.",
   "error.messaging.relayUnavailable":
-    "zereight bot kann auf diesem Computer keine Slack-Ereignisse empfangen. Melde dich an, gib diesem Computer einen Namen und versuche es erneut.",
+    "OpenOwnBot kann auf diesem Computer keine Slack-Ereignisse empfangen. Melde dich an, gib diesem Computer einen Namen und versuche es erneut.",
   "error.messaging.discordNotConnected": "Dieser Discord-Server ist nicht verbunden.",
   "error.messaging.discordUnsupported": "Dieser Computer kann keine Verbindung zu Discord herstellen.",
   "error.messaging.discordRelayUnavailable":
-    "zereight bot kann auf diesem Computer keine Discord-Ereignisse empfangen. Melde dich an, gib diesem Computer einen Namen und versuche es erneut.",
+    "OpenOwnBot kann auf diesem Computer keine Discord-Ereignisse empfangen. Melde dich an, gib diesem Computer einen Namen und versuche es erneut.",
   "error.messaging.discordRolesUnsupported":
-    "zereight bot kann die Discord-Rollen noch nicht auflisten. Versuche es später noch einmal.",
+    "OpenOwnBot kann die Discord-Rollen noch nicht auflisten. Versuche es später noch einmal.",
   "error.messaging.telegramNotConnected": "Dieser Telegram-Chat ist nicht verbunden.",
   "error.messaging.telegramUnsupported": "Dieser Computer kann keine Verbindung zu Telegram herstellen.",
   "error.messaging.telegramRelayUnavailable":
-    "zereight bot kann Telegram auf diesem Computer nicht erreichen. Melde dich an, gib diesem Computer einen Namen und versuche es erneut.",
+    "OpenOwnBot kann Telegram auf diesem Computer nicht erreichen. Melde dich an, gib diesem Computer einen Namen und versuche es erneut.",
   "error.messaging.telegramServiceUnavailable":
-    "zereight bot kann Telegram gerade nicht verbinden. Versuche es später erneut.",
+    "OpenOwnBot kann Telegram gerade nicht verbinden. Versuche es später erneut.",
   "error.messaging.memoryLimit":
     "Ein verbundener Arbeitsbereich kann bis zu {limit} Erinnerungen haben. Lösche zuerst eine.",
 } as const satisfies PartialTranslation<typeof source>;

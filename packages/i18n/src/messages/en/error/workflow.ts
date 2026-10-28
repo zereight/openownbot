@@ -10,11 +10,11 @@ export const messages = defineMessages("error.workflow", {
   "error.workflow.conditionBranch": "Each connection from a condition must be yes or no.",
   "error.workflow.duplicateEdge": "These two steps already have this connection.",
   "error.workflow.serverTooOld":
-    "This server does not support workflows. Update zereight bot on the computer that runs it.",
-  "error.workflow.nodeUnsupported": "This version of zereight bot cannot run image, file and message steps yet.",
-  "error.workflow.interrupted": "zereight bot stopped while this step ran. Run it again.",
+    "This server does not support workflows. Update OpenOwnBot on the computer that runs it.",
+  "error.workflow.nodeUnsupported": "This version of OpenOwnBot cannot run image, file and message steps yet.",
+  "error.workflow.interrupted": "OpenOwnBot stopped while this step ran. Run it again.",
   "error.workflow.agentMissing": "Choose an agent for this step.",
-  "error.workflow.handoffFailed": "zereight bot could not send this step to its agent.",
+  "error.workflow.handoffFailed": "OpenOwnBot could not send this step to its agent.",
   "error.workflow.agentStepEnded": "The agent's message for this step was removed before it answered.",
   "error.workflow.conditionUnclear": "The model did not answer yes or no.",
   "error.workflow.modelFailed": "The model could not answer. Run the step again.",
@@ -28,7 +28,7 @@ export const messages = defineMessages("error.workflow", {
   "error.workflow.outputConnectionOff":
     "The messaging connection of this output is off or removed. Choose a place again.",
   "error.workflow.outputNotRunning": "The messaging connection does not run now. Try again when it runs.",
-  "error.workflow.outputRefused": "The place refused the post. Make sure that zereight bot can post there.",
+  "error.workflow.outputRefused": "The place refused the post. Make sure that OpenOwnBot can post there.",
   "error.workflow.outputUncertain":
     "The post stopped on its way. Part of it can be in the place. Look there before you try again.",
   "error.workflow.tooLarge": "This workflow is too large to save. Remove some drawings or long texts, then try again.",

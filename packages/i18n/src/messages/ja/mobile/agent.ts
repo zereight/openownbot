@@ -67,7 +67,7 @@ export const messages = {
     "「{name}」をディスクから削除します。このファイルを表示するメッセージは、ファイルなしでチャットに残ります。",
   "mobile.agent.files.keep": "残す",
   "mobile.agent.files.deleteFailed": "ファイルを削除できませんでした",
-  "mobile.agent.files.deleteFailedBody": "zereight bot はこのファイルを削除できませんでした。",
+  "mobile.agent.files.deleteFailedBody": "OpenOwnBot はこのファイルを削除できませんでした。",
   "mobile.agent.files.downloading": "ダウンロード中…",
   "mobile.agent.files.removeNamed": "{name} を一覧から外す",
   "mobile.agent.files.deleteNamed": "{name} を削除",
@@ -120,13 +120,13 @@ export const messages = {
   "mobile.agent.info.noRoutines": "ルーティンはまだありません。",
   "mobile.agent.info.addRoutine": "ルーティンを追加",
   "mobile.agent.info.skillsUnsupported":
-    "このホストはスキルに対応していません。ホストの zereight bot を更新してください。",
+    "このホストはスキルに対応していません。ホストの OpenOwnBot を更新してください。",
   "mobile.agent.info.noSkills": "スキルはまだありません。",
   "mobile.agent.info.skillsManaged": "このエージェントのスキルはホストで管理されています。",
   "mobile.agent.info.skillsAddOnComputer":
-    "+ を使うと、このエージェントとスキルを作成できます。マーケットプレイスのスキルは、コンピューターの zereight bot か Web アプリで追加します。",
+    "+ を使うと、このエージェントとスキルを作成できます。マーケットプレイスのスキルは、コンピューターの OpenOwnBot か Web アプリで追加します。",
   "mobile.agent.info.filesUnsupported":
-    "このホストはファイル管理に対応していません。ホストの zereight bot を更新してください。",
+    "このホストはファイル管理に対応していません。ホストの OpenOwnBot を更新してください。",
   "mobile.agent.info.memoryGone": "このメモリーは利用できなくなりました。",
   "mobile.agent.info.routineGone": "このルーティンは利用できなくなりました。",
   "mobile.agent.skill.workspaceFolder": "ワークスペースのフォルダー",
@@ -138,7 +138,7 @@ export const messages = {
   "mobile.agent.skill.uninstall": "アンインストール",
   "mobile.agent.skill.uninstallNamed": "{name} をアンインストール",
   "mobile.agent.skill.uninstallTitle": "{name} をアンインストールしますか？",
-  "mobile.agent.skill.uninstallBody": "zereight bot はこのスキルをエージェントから削除します。チャット履歴は残ります。",
+  "mobile.agent.skill.uninstallBody": "OpenOwnBot はこのスキルをエージェントから削除します。チャット履歴は残ります。",
   "mobile.agent.skill.uninstallModifiedBody":
     "このスキルにはエージェントのワークスペースでのローカルな変更があります。アンインストールするとそれらのファイルは削除されます。チャット履歴は残ります。",
   "mobile.agent.skill.uninstalling": "アンインストール中…",
@@ -146,7 +146,7 @@ export const messages = {
   "mobile.agent.skill.enableFailed": "{name} を有効にできませんでした。",
   "mobile.agent.skill.disableFailed": "{name} を無効にできませんでした。",
   "mobile.agent.skill.manageUnsupported":
-    "このホストではスキルを変更できません。ホストの zereight bot を更新してください。",
+    "このホストではスキルを変更できません。ホストの OpenOwnBot を更新してください。",
   "mobile.agent.discard.title": "変更を破棄しますか？",
   "mobile.agent.discard.body": "変更は保存されていません。",
   "mobile.agent.discard.keepEditing": "編集を続ける",
@@ -185,7 +185,7 @@ export const messages = {
   "mobile.agent.record.addEventFilter": "フィルターを追加",
   "mobile.agent.record.removeEventFilter": "フィルターを削除",
   "mobile.agent.record.eventsUnsupported":
-    "このホストはイベントのルーティンに対応していません。ホストの zereight bot を更新してください。",
+    "このホストはイベントのルーティンに対応していません。ホストの OpenOwnBot を更新してください。",
   "mobile.agent.webhook.url": "エンドポイント",
   "mobile.agent.webhook.urlNew": "エンドポイントと署名シークレットを取得するには、ルーティンを保存してください。",
   "mobile.agent.webhook.urlPending":
@@ -262,7 +262,7 @@ export const messages = {
   "mobile.agent.record.resultDestination.createFailed":
     "ルーティンは保存されましたが、メッセージの送信先は保存されていません。ルーティンを開いて送信先をもう一度選んでください。",
   "mobile.agent.record.resultDestinationUnsupported":
-    "このホストはルーティンの回答をメッセージの送信先に送れません。ホストの zereight bot を更新してください。",
+    "このホストはルーティンの回答をメッセージの送信先に送れません。ホストの OpenOwnBot を更新してください。",
   "mobile.agent.record.enabled": "有効",
   "mobile.agent.record.routine": "ルーティン",
   "mobile.agent.record.testStarting": "開始中…",
@@ -278,7 +278,7 @@ export const messages = {
   "mobile.agent.permissions.title": "権限",
   "mobile.agent.advanced.title": "詳細設定",
   "mobile.agent.runtime.unavailable": "利用できません",
-  "mobile.agent.runtime.updateToUse": "{name} を使うには zereight bot を更新してください",
+  "mobile.agent.runtime.updateToUse": "{name} を使うには OpenOwnBot を更新してください",
   "mobile.agent.runtime.hostDefault": "ホストの既定",
   "mobile.agent.runtime.provider": "プロバイダー",
   "mobile.agent.runtime.account": "アカウント",
@@ -305,7 +305,7 @@ export const messages = {
     "このホストでは Turbo モードがオンのため、すべてのエージェントが自動承認します。",
   "mobile.agent.access.workspaceNote": "エージェントは、ホスト上のワークスペースと共有フォルダーで作業します。",
   "mobile.agent.access.askNote":
-    "エージェントは、zereight bot のツールを使う前、サイトを公開する前、およびプロバイダーが承認を求めたときに確認します。",
+    "エージェントは、OpenOwnBot のツールを使う前、サイトを公開する前、およびプロバイダーが承認を求めたときに確認します。",
   "mobile.agent.access.fullNote": "エージェントは、あなたへの質問を除き、確認せずに操作します。",
   "mobile.agent.access.fullTitle": "このエージェントにフルアクセスを許可しますか？",
   "mobile.agent.access.askTitle": "このエージェントにワークスペースの外での作業を許可しますか？",
@@ -358,7 +358,7 @@ export const messages = {
     "まだテーブルはありません。タスクでターン間にレコードが必要になると、エージェントが自分で作成します。どのエージェントも使用できます。",
   "mobile.agent.tables.note":
     "このホストのすべてのエージェントがこれらのテーブルを共有します。削除したテーブルは、すべてのエージェントから消えます。",
-  "mobile.agent.tables.madeOutside": "zereight bot の外部で作成 · どのエージェントでも削除できます",
+  "mobile.agent.tables.madeOutside": "OpenOwnBot の外部で作成 · どのエージェントでも削除できます",
   "mobile.agent.tables.keptBy": "{name} が保持",
   "mobile.agent.tables.keptByDeleted": "存在しないエージェントが保持",
   "mobile.agent.tables.notCounted": "未集計",
@@ -368,7 +368,7 @@ export const messages = {
   "mobile.agent.tables.deleteBody": "このテーブルはすべてのエージェントから削除されます。レコードは復元できません。",
   "mobile.agent.tables.keep": "残す",
   "mobile.agent.tables.deleteFailed": "テーブルを削除できませんでした",
-  "mobile.agent.tables.deleteFailedBody": "zereight bot はこのテーブルを削除できませんでした。",
+  "mobile.agent.tables.deleteFailedBody": "OpenOwnBot はこのテーブルを削除できませんでした。",
   "mobile.agent.tables.unsupported": "このホストでは、リモートデバイスにテーブルを表示できません。",
   "mobile.agent.publish.title": "公開",
   "mobile.agent.publish.loading": "読み込んでいます…",
@@ -465,7 +465,7 @@ export const messages = {
   "mobile.agent.list.waiting.state.question": "回答を待っています",
   "mobile.agent.list.waiting.state.approval": "承認を待っています",
   "mobile.agent.list.waiting.state.takeover": "ブラウザーでの操作を待っています",
-  "mobile.agent.add.failed": "zereight bot はこのエージェントを作成できませんでした。",
+  "mobile.agent.add.failed": "OpenOwnBot はこのエージェントを作成できませんでした。",
   "mobile.agent.add.create": "エージェントを作成",
   "mobile.agent.add.creating": "作成中…",
   "mobile.agent.form.name": "名前",
@@ -475,7 +475,7 @@ export const messages = {
   "mobile.agent.add.nameRequired": "このエージェントの名前を入力してください。",
   "mobile.agent.edit.loading": "エージェントを読み込んでいます…",
   "mobile.agent.edit.gone": "このエージェントは、このホストで利用できなくなりました。",
-  "mobile.agent.edit.failed": "zereight bot はこのエージェントを更新できませんでした。",
+  "mobile.agent.edit.failed": "OpenOwnBot はこのエージェントを更新できませんでした。",
   "mobile.agent.edit.appearance": "外観を編集",
   "mobile.agent.edit.title": "タイトル",
   "mobile.agent.edit.titlePlaceholder": "エージェントが行うことを説明してください",

@@ -10,7 +10,7 @@ export const messages = {
   "remoteDesktop.workspaceLabel": "Fernsteuerung",
   "remoteDesktop.displayLabel": "Remote-Bildschirm",
   "remoteDesktop.selectDisplay": "Bildschirm auswählen",
-  "remoteDesktop.backToOpenBot": "Zurück zu zereight bot",
+  "remoteDesktop.backToOpenBot": "Zurück zu OpenOwnBot",
   "remoteDesktop.disconnect": "Trennen",
   "remoteDesktop.viewerTitle": "Sunshine-Remotedesktop",
   "remoteDesktop.viewerLoadFailed": "Der Moonlight-Viewer konnte nicht geladen werden.",
@@ -42,7 +42,7 @@ export const messages = {
   "remoteDesktop.setup.startFailed": "Der Remotedesktop-Test konnte nicht gestartet werden.",
   "remoteDesktop.setup.connectionLost": "Die Testverbindung wurde unterbrochen.",
   "remoteDesktop.setup.hostUpdateRequired":
-    "Aktualisiere zereight bot auf dem Server, um Berechtigungen zu prüfen und den Remotedesktop zu testen.",
+    "Aktualisiere OpenOwnBot auf dem Server, um Berechtigungen zu prüfen und den Remotedesktop zu testen.",
   "remoteDesktop.setup.permissions": "Berechtigungen",
   "remoteDesktop.setup.checked": "Geprüft",
   "remoteDesktop.setup.checkAgain": "Erneut prüfen",

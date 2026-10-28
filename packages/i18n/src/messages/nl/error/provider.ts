@@ -3,12 +3,12 @@ import type { messages as source } from "../../en/error/provider";
 
 export const messages = {
   "error.provider.mcpConfig":
-    "zereight bot kon geen MCP-servers registreren in de configuratie van Codex. Controleer of je Codex-config.toml geldig en beschrijfbaar is en start zereight bot opnieuw.",
+    "OpenOwnBot kon geen MCP-servers registreren in de configuratie van Codex. Controleer of je Codex-config.toml geldig en beschrijfbaar is en start OpenOwnBot opnieuw.",
   "error.provider.computerUseConfig":
-    "zereight bot kon Computerbesturing niet registreren in de configuratie van Codex. Controleer of je Codex-config.toml geldig en beschrijfbaar is en start zereight bot opnieuw. Je kunt Computerbesturing uitzetten in de instellingen van de teamgenoot om zonder door te gaan.",
-  "error.provider.codexUnresponsive": "Codex reageerde niet meer, dus zereight bot heeft het proces beëindigd.",
+    "OpenOwnBot kon Computerbesturing niet registreren in de configuratie van Codex. Controleer of je Codex-config.toml geldig en beschrijfbaar is en start OpenOwnBot opnieuw. Je kunt Computerbesturing uitzetten in de instellingen van de teamgenoot om zonder door te gaan.",
+  "error.provider.codexUnresponsive": "Codex reageerde niet meer, dus OpenOwnBot heeft het proces beëindigd.",
   "error.provider.endpointsReadOnly":
-    "De opgeslagen endpoints zijn geschreven door een nieuwere versie van zereight bot, of het bestand kan niet worden gelezen. Werk zereight bot bij om ze te wijzigen.",
+    "De opgeslagen endpoints zijn geschreven door een nieuwere versie van OpenOwnBot, of het bestand kan niet worden gelezen. Werk OpenOwnBot bij om ze te wijzigen.",
   "error.provider.endpointNoSecureStorage":
     "Deze computer heeft geen beveiligde opslag, dus een API-sleutel of header kan niet worden opgeslagen. Verwijder ze, of gebruik een endpoint dat geen inloggegevens nodig heeft.",
   "error.provider.endpointDuplicate":
@@ -19,7 +19,7 @@ export const messages = {
   "error.provider.endpointSecretUnreadable":
     "Deze computer kan de opgeslagen API-sleutel en headers niet lezen. Voer de API-sleutel en de headers opnieuw in, zodat er niets verloren gaat.",
   "error.provider.discoveryTimeout": "{host} reageerde niet op tijd.",
-  "error.provider.discoveryUnreachable": "zereight bot kon geen verbinding maken met {host}.",
+  "error.provider.discoveryUnreachable": "OpenOwnBot kon geen verbinding maken met {host}.",
   "error.provider.discoveryRedirect":
     "{host} stuurde een doorverwijzing. Voer het uiteindelijke adres van de server in.",
   "error.provider.discoveryRefused": "{host} heeft het verzoek geweigerd. Controleer de API-sleutel en de headers.",
@@ -27,7 +27,7 @@ export const messages = {
   "error.provider.discoveryTooLarge": "De modellenlijst van {host} is te groot.",
   "error.provider.discoveryInvalid": "{host} stuurde geen OpenAI-compatibele modellenlijst.",
   "error.provider.detectionSettingsReadOnly":
-    "De detectie-instellingen zijn geschreven door een nieuwere versie van zereight bot, of het bestand kan niet worden gelezen. Werk zereight bot bij om ze te wijzigen.",
+    "De detectie-instellingen zijn geschreven door een nieuwere versie van OpenOwnBot, of het bestand kan niet worden gelezen. Werk OpenOwnBot bij om ze te wijzigen.",
   "error.provider.detectionEntryInvalid":
     "Een adres moet een http://- of https://-URL zonder wachtwoord zijn, en een map moet een absoluut pad zijn.",
   "error.provider.detectionEntriesTooMany": "Er zijn te veel adressen of mappen.",
@@ -55,10 +55,10 @@ export const messages = {
   "error.provider.bunLicenseChecksum": "Checksum van de Bun-licentie komt niet overeen.",
   "error.provider.bunxDamaged": "De runner van de Bun-pakketbeheerder ontbreekt of is beschadigd.",
   "error.provider.releaseSourcesUnreachable":
-    "zereight bot kon de releasebronnen van de aanbieder niet bereiken. Controleer de verbinding en probeer het opnieuw.",
+    "OpenOwnBot kon de releasebronnen van de aanbieder niet bereiken. Controleer de verbinding en probeer het opnieuw.",
   "error.provider.runtimesUnsupported": "Runtimes van aanbieders zijn niet beschikbaar op dit platform.",
-  "error.provider.closing": "zereight bot wordt gesloten.",
-  "error.provider.cliOverride": "Verwijder het expliciet ingestelde CLI-pad voordat je bijwerkt in zereight bot.",
+  "error.provider.closing": "OpenOwnBot wordt gesloten.",
+  "error.provider.cliOverride": "Verwijder het expliciet ingestelde CLI-pad voordat je bijwerkt in OpenOwnBot.",
   "error.provider.runtimeUpdateIncomplete": "De update van de runtime is niet voltooid.",
   "error.provider.downloadHttp": "Download van de runtime is mislukt met HTTP {status}.",
   "error.provider.downloadNoData": "Download van de runtime gaf geen gegevens.",
@@ -74,7 +74,7 @@ export const messages = {
   "error.provider.unexpectedVersion": "De runtime van de aanbieder gaf een onverwachte versie.",
   "error.provider.metadataNoData": "Download van de runtime-metadata gaf geen gegevens.",
   "error.provider.metadataTooLarge": "De runtime-metadata zijn te groot.",
-  "error.provider.requestFailed": "zereight bot kon {url} niet downloaden. {reason}",
+  "error.provider.requestFailed": "OpenOwnBot kon {url} niet downloaden. {reason}",
   "error.provider.installRecordMismatch": "Het installatierecord van de runtime komt niet overeen.",
   "error.provider.runtimeChecksum": "Checksum van de runtime van de aanbieder komt niet overeen.",
   "error.provider.codexReleaseShape": "De Codex-release heeft een onverwachte vorm.",
@@ -110,16 +110,16 @@ export const messages = {
     "De sleutel van de aanbieder bevat een spatie of een teken dat een sleutel niet kan bevatten.",
   "error.provider.noModel": "De gekozen aanbieder heeft geen beschikbaar model.",
   "error.provider.noModelNamed": "{provider} heeft geen model beschikbaar.",
-  "error.provider.acpNoModels": "ACP CLI heeft geen ACP-modellen aangeboden. zereight bot raadt geen reservemodel.",
+  "error.provider.acpNoModels": "ACP CLI heeft geen ACP-modellen aangeboden. OpenOwnBot raadt geen reservemodel.",
   "error.provider.endpointRemoveBusy":
     "Wacht tot de actieve beurt en de wachtrij klaar zijn voordat je dit endpoint verwijdert.",
-  "error.provider.codexOutdated": "Codex CLI {version} is te oud. zereight bot vereist 0.156.0 of nieuwer.",
+  "error.provider.codexOutdated": "Codex CLI {version} is te oud. OpenOwnBot vereist 0.156.0 of nieuwer.",
   "error.provider.codexNotStarted": "Codex CLI is gevonden, maar kon niet worden gestart.",
   "error.provider.codexNotStartedHint":
     "Codex CLI is gevonden, maar kon niet worden gestart. Voer `codex --version` uit in een nieuwe terminal.",
   "error.provider.codexManagedNotStarted":
-    "ChatGPT is gedownload, maar kon niet worden gestart. Download het opnieuw in zereight bot.",
-  "error.provider.codexMissing": "ChatGPT is niet gedownload. Download het in zereight bot om door te gaan.",
+    "ChatGPT is gedownload, maar kon niet worden gestart. Download het opnieuw in OpenOwnBot.",
+  "error.provider.codexMissing": "ChatGPT is niet gedownload. Download het in OpenOwnBot om door te gaan.",
   "error.provider.codexConfigIgnored": {
     one: "Codex heeft {count} instelling in de configuratie genegeerd: {settings}. Corrigeer of verwijder deze, of werk Codex bij.",
     other:
@@ -130,20 +130,20 @@ export const messages = {
     other:
       "Codex heeft {count} instellingen in de configuratie genegeerd. Corrigeer of verwijder ze, of werk Codex bij.",
   },
-  "error.provider.claudeOutdated": "Claude Code {version} is te oud. zereight bot vereist 2.1.232 of nieuwer.",
+  "error.provider.claudeOutdated": "Claude Code {version} is te oud. OpenOwnBot vereist 2.1.232 of nieuwer.",
   "error.provider.claudeNotStarted": "Claude CLI is gevonden, maar kon niet worden gestart.",
   "error.provider.claudeNotStartedHint":
     "Claude CLI is gevonden, maar kon niet worden gestart. Voer `claude --version` uit in een nieuwe terminal.",
   "error.provider.claudeManagedNotStarted":
-    "Claude is gedownload, maar kon niet worden gestart. Download het opnieuw in zereight bot.",
-  "error.provider.claudeMissing": "Claude is niet gedownload. Download het in zereight bot om door te gaan.",
-  "error.provider.grokOutdated": "Grok CLI {version} is te oud. zereight bot vereist 1.0.5 of nieuwer.",
+    "Claude is gedownload, maar kon niet worden gestart. Download het opnieuw in OpenOwnBot.",
+  "error.provider.claudeMissing": "Claude is niet gedownload. Download het in OpenOwnBot om door te gaan.",
+  "error.provider.grokOutdated": "Grok CLI {version} is te oud. OpenOwnBot vereist 1.0.5 of nieuwer.",
   "error.provider.grokNotStarted": "Grok CLI is gevonden, maar kon niet worden gestart.",
   "error.provider.grokNotStartedHint":
     "Grok CLI is gevonden, maar kon niet worden gestart. Voer `grok --version` uit in een nieuwe terminal.",
-  "error.provider.grokMissing": "Grok is niet gedownload. Download het in zereight bot om door te gaan.",
+  "error.provider.grokMissing": "Grok is niet gedownload. Download het in OpenOwnBot om door te gaan.",
   "error.provider.opencodeNotStarted": "OpenCode kon niet starten. Voer `opencode --version` uit in een terminal.",
-  "error.provider.opencodeMissing": "OpenCode is niet gedownload. Download het in zereight bot om door te gaan.",
+  "error.provider.opencodeMissing": "OpenCode is niet gedownload. Download het in OpenOwnBot om door te gaan.",
   "error.provider.codexVersionUnreadable": "Kan de versie van Codex CLI niet lezen.",
   "error.provider.claudeVersionUnreadable": "Kan de versie van Claude CLI niet lezen.",
   "error.provider.grokVersionUnreadable": "Kan de versie van Grok CLI niet lezen.",
@@ -152,7 +152,7 @@ export const messages = {
   "error.provider.connectBeforeProfile": "Verbind de gekozen aanbieder voordat je een profiel maakt.",
   "error.provider.cliNotReady": "{provider} CLI is niet klaar of niet ingelogd.",
   "error.provider.cliTimedOut":
-    "{provider} reageerde niet op tijd. De computer is misschien bezet. zereight bot probeert het opnieuw.",
+    "{provider} reageerde niet op tijd. De computer is misschien bezet. OpenOwnBot probeert het opnieuw.",
   "error.provider.cliTimedOutRefresh":
     "{provider} reageerde niet op tijd. De computer is misschien bezet. Vernieuw de aanbieders om het opnieuw te proberen.",
   "error.provider.acpStartTimedOut":
@@ -160,7 +160,7 @@ export const messages = {
   "error.provider.acpModelsTimedOut":
     "{provider} gaf de modellen niet binnen {seconds} s. De computer is misschien bezet.",
   "error.provider.startStopped":
-    "{provider} is meerdere keren achter elkaar niet gestart, dus zereight bot probeert het niet meer. Vernieuw de aanbieders om het opnieuw te proberen.",
+    "{provider} is meerdere keren achter elkaar niet gestart, dus OpenOwnBot probeert het niet meer. Vernieuw de aanbieders om het opnieuw te proberen.",
   "error.provider.tempDiskSpace":
     "{provider} heeft minstens 1 GB vrije schijfruimte nodig om te starten. Maak ruimte vrij en vernieuw daarna de aanbieders.",
   "error.provider.noCodeSignIn": "Bij {provider} kun je niet inloggen met een code.",
@@ -176,10 +176,10 @@ export const messages = {
   "error.provider.cliSigningIn":
     "De {provider} CLI is bezig met inloggen. Rond het inloggen af of annuleer het, en werk dan bij.",
   "error.provider.cliBusyUpdate": "De {provider} CLI werkt aan een beurt. Wacht tot die klaar is en werk dan bij.",
-  "error.provider.cliSelectFailed": "zereight bot kon de geïnstalleerde beheerde CLI niet selecteren.",
+  "error.provider.cliSelectFailed": "OpenOwnBot kon de geïnstalleerde beheerde CLI niet selecteren.",
   "error.provider.noAuthenticatedAccount": "{provider} gaf geen geverifieerd account terug.",
   "error.provider.signInExpired": "Je inlog bij {provider} is verlopen. Log opnieuw in om door te gaan.",
-  "error.provider.cliActivateFailed": "zereight bot kon de beheerde CLI niet activeren.",
+  "error.provider.cliActivateFailed": "OpenOwnBot kon de beheerde CLI niet activeren.",
   "error.provider.cliBusyReconnect":
     "De {provider} CLI werkt aan een beurt. Wacht tot die klaar is en verbind dan opnieuw.",
   "error.provider.opencodeCredentialsRejected":
@@ -205,18 +205,18 @@ export const messages = {
   "error.provider.opencodeProviderFailed":
     "De modelaanbieder had een storing aan zijn kant. Het ligt niet aan je verbinding. Probeer het later opnieuw of kies een ander model.\n{detail}",
   "error.provider.opencodeNetwork":
-    "OpenCode kon geen verbinding maken met de modelaanbieder. Controleer de netwerkverbinding van de computer waarop zereight bot draait en probeer het opnieuw.\n{detail}",
+    "OpenCode kon geen verbinding maken met de modelaanbieder. Controleer de netwerkverbinding van de computer waarop OpenOwnBot draait en probeer het opnieuw.\n{detail}",
   "error.provider.opencodeDatabaseNewer":
     "OpenCode kon de database niet openen, omdat een nieuwere versie van OpenCode deze heeft gewijzigd. Werk OpenCode bij naar versie 2 of nieuwer en probeer het opnieuw.",
   "error.provider.opencodeNoAnswer":
     "Het OpenCode-model beëindigde de beurt zonder antwoord. Probeer het opnieuw, of kies een ander model.",
   "error.provider.opencodeReasoningWithoutAnswer":
     "Het OpenCode-model beëindigde de beurt na het redeneren, zonder antwoord. Probeer het opnieuw, of kies een ander model.",
-  "error.provider.chatgptPageFailed": "zereight bot kon de verbindingspagina van ChatGPT niet openen.",
+  "error.provider.chatgptPageFailed": "OpenOwnBot kon de verbindingspagina van ChatGPT niet openen.",
   "error.provider.noneReady": "Er is geen agentaanbieder klaar.",
   "error.provider.claudeTurnActive": "Wacht op de actieve Claude-beurt voordat je de context vernieuwt.",
   "error.provider.codexLoginRequired": "Codex vereist inloggen met een ChatGPT-abonnement. Voer `codex login` uit.",
-  "error.provider.cliUpdateFailed": "zereight bot kon de {provider} CLI niet bijwerken. {reason}",
+  "error.provider.cliUpdateFailed": "OpenOwnBot kon de {provider} CLI niet bijwerken. {reason}",
   "error.provider.tryAgain": "Probeer het opnieuw.",
   "error.provider.noAgentProcess": "{provider} heeft geen proces dat draait voor deze agent.",
   "error.provider.stoppedBeforeAgentProcess": "{provider} is gestopt voordat het proces van de agent startte.",
@@ -225,7 +225,7 @@ export const messages = {
   "error.provider.antigravityArchivePath": "Het Gemini-archief bevat een onverwacht bestand.",
   "error.provider.antigravityChecksum": "Checksum van de Gemini-runtime komt niet overeen.",
   "error.provider.antigravityReleaseShape": "De Gemini-release heeft een onverwachte vorm.",
-  "error.provider.antigravityMissing": "Gemini is niet gedownload. Download het in zereight bot om door te gaan.",
+  "error.provider.antigravityMissing": "Gemini is niet gedownload. Download het in OpenOwnBot om door te gaan.",
   "error.provider.antigravityNotStarted": "De Gemini-server is gevonden, maar de versie kan niet worden gelezen.",
   "error.provider.antigravityVersionUnreadable": "Kan de versie van de Gemini-server niet lezen.",
   "error.provider.antigravitySignIn": "Log in met Google om Gemini te gebruiken.",
@@ -240,7 +240,7 @@ export const messages = {
   "error.provider.cursorArchivePath": "Het Cursor-archief bevat een onverwacht bestand.",
   "error.provider.cursorChecksum": "Checksum van de Cursor-runtime komt niet overeen.",
   "error.provider.cursorReleaseShape": "De Cursor-release heeft een onverwachte vorm.",
-  "error.provider.cursorMissing": "Cursor is niet gedownload. Download het in zereight bot om door te gaan.",
+  "error.provider.cursorMissing": "Cursor is niet gedownload. Download het in OpenOwnBot om door te gaan.",
   "error.provider.cursorNotStarted": "De Cursor-agent is gevonden, maar de versie kan niet worden gelezen.",
   "error.provider.cursorVersionUnreadable": "Kan de versie van de Cursor-agent niet lezen.",
   "error.provider.cursorSignIn": "Log in met Cursor of stel CURSOR_API_KEY in om Cursor te gebruiken.",
@@ -248,18 +248,18 @@ export const messages = {
   "error.provider.clinePackageMismatch": "Het Cline-pakket komt niet overeen met de runtimecatalogus.",
   "error.provider.clineChecksum": "Checksum van de Cline-runtime komt niet overeen.",
   "error.provider.clineLicenseChecksum": "Checksum van de Cline-licentie komt niet overeen.",
-  "error.provider.clineMissing": "Cline is niet gedownload. Download het in zereight bot om door te gaan.",
-  "error.provider.clineOutdated": "Cline CLI {version} is te oud. zereight bot vereist 3.0.68 of nieuwer.",
+  "error.provider.clineMissing": "Cline is niet gedownload. Download het in OpenOwnBot om door te gaan.",
+  "error.provider.clineOutdated": "Cline CLI {version} is te oud. OpenOwnBot vereist 3.0.68 of nieuwer.",
   "error.provider.clineNotStarted": "Cline kon niet starten. Voer `cline --version` uit in een terminal.",
   "error.provider.clineVersionUnreadable": "Kan de versie van Cline CLI niet lezen.",
   "error.provider.clineSignIn": "Log in met Cline of stel CLINE_API_KEY in om Cline te gebruiken.",
   "error.provider.usageLimitReached": "Het account heeft de gebruikslimiet bereikt.",
   "error.provider.foreignReasoning":
-    "{provider} heeft het eerdere redeneren in deze chat niet geaccepteerd, omdat een ander account of een andere API-sleutel het heeft ontvangen. zereight bot heeft een nieuwe {provider}-sessie gestart met de chatgeschiedenis. Probeer het opnieuw.",
+    "{provider} heeft het eerdere redeneren in deze chat niet geaccepteerd, omdat een ander account of een andere API-sleutel het heeft ontvangen. OpenOwnBot heeft een nieuwe {provider}-sessie gestart met de chatgeschiedenis. Probeer het opnieuw.",
   "error.provider.opencodeSessionRejected":
-    "OpenCode heeft het verzoek geweigerd zonder de oorzaak te geven. Dit kan gebeuren in een lange chat of na een modelwijziging. zereight bot heeft een nieuwe OpenCode-sessie gestart met de chatgeschiedenis. Probeer het opnieuw. Blijft de fout, kies dan een ander model of een lager niveau.",
+    "OpenCode heeft het verzoek geweigerd zonder de oorzaak te geven. Dit kan gebeuren in een lange chat of na een modelwijziging. OpenOwnBot heeft een nieuwe OpenCode-sessie gestart met de chatgeschiedenis. Probeer het opnieuw. Blijft de fout, kies dan een ander model of een lager niveau.",
   "error.provider.museMcpStartupFault":
-    "Muse kon een MCP-server niet starten en heeft MCP in deze sessie geblokkeerd. zereight bot heeft een nieuwe Muse-sessie gestart met de chatgeschiedenis. Probeer het opnieuw. Blijft de fout, zet dan Computerbesturing of de mislukte MCP-server uit voor deze agent.",
+    "Muse kon een MCP-server niet starten en heeft MCP in deze sessie geblokkeerd. OpenOwnBot heeft een nieuwe Muse-sessie gestart met de chatgeschiedenis. Probeer het opnieuw. Blijft de fout, zet dan Computerbesturing of de mislukte MCP-server uit voor deze agent.",
   "error.provider.grokSignIn": "Voer `grok login` uit of stel XAI_API_KEY in om Grok te gebruiken.",
   "error.provider.acpSignInTimedOut": "Het inloggen duurde te lang.",
   "error.provider.acpSignInStopped": "Het inloggen is gestopt voordat het klaar was.",
@@ -277,7 +277,7 @@ export const messages = {
   "error.provider.keyProviderNoBalance":
     "Het {provider}-account van de opgeslagen API-sleutel heeft geen saldo. Voeg tegoed toe aan het account en probeer het opnieuw.",
   "error.provider.messageTooLarge":
-    "zereight bot heeft {provider} gestopt, omdat het een bericht groter dan {limit} MB stuurde.",
+    "OpenOwnBot heeft {provider} gestopt, omdat het een bericht groter dan {limit} MB stuurde.",
   "error.provider.customAgentIdInvalid":
     "Een agent-ID mag alleen kleine letters, cijfers of `-` bevatten, en mag niet de ID van een ingebouwde aanbieder zijn.",
   "error.provider.customAgentEnvInvalid":
@@ -289,11 +289,10 @@ export const messages = {
   "error.provider.customAgentWindowsScript":
     "Een .cmd- of .bat-opdracht accepteert alleen letters, cijfers en - _ . , : = @ + / \\ in de argumenten.",
   "error.provider.customAgentNotFound":
-    "zereight bot kan {command} niet vinden. Voer het volledige pad van de opdracht in.",
+    "OpenOwnBot kan {command} niet vinden. Voer het volledige pad van de opdracht in.",
   "error.provider.customAgentCheckTimedOut": "De agent reageerde niet binnen 20 seconden.",
   "error.provider.customAgentCheckStopped": "De agent is gestopt voordat hij antwoordde.",
-  "error.provider.customAgentProtocolVersion":
-    "De agent gebruikt ACP-versie {version}. zereight bot gebruikt versie 1.",
+  "error.provider.customAgentProtocolVersion": "De agent gebruikt ACP-versie {version}. OpenOwnBot gebruikt versie 1.",
   "error.provider.customAgentCheckFailed": "De agent antwoordde niet als een ACP-agent.",
   "error.provider.customAgentRemoveBusy":
     "Wacht tot de actieve beurt en de wachtrij klaar zijn voordat je deze aangepaste agent verwijdert.",
@@ -301,20 +300,20 @@ export const messages = {
   "error.provider.customAgentMissing": "Deze aangepaste agent is nu niet opgeslagen. Kies een ander model.",
   "error.provider.customAgentSignIn": "Log in met de eigen opdracht van de agent en probeer het opnieuw.",
   "error.provider.customAgentsReadOnly":
-    "De opgeslagen aangepaste agents zijn geschreven door een nieuwere versie van zereight bot, of het bestand kan niet worden gelezen. Werk zereight bot bij om ze te wijzigen.",
+    "De opgeslagen aangepaste agents zijn geschreven door een nieuwere versie van OpenOwnBot, of het bestand kan niet worden gelezen. Werk OpenOwnBot bij om ze te wijzigen.",
   "error.provider.customAgentNoSecureStorage":
     "Deze computer heeft geen beveiligde opslag, dus omgevingswaarden kunnen niet worden opgeslagen. Verwijder ze en probeer het opnieuw.",
   "error.provider.customAgentNotSaved":
     "Deze aangepaste agent is niet opgeslagen. Vernieuw de lijst en probeer het opnieuw.",
   "error.provider.customAgentTooMany": "Je kunt maximaal {count} aangepaste agents opslaan.",
   "error.provider.customAgentEnvValueMissing": "Voer een waarde in voor {name}.",
-  "error.provider.off": "{provider} staat uit in zereight bot. Zet het eerst aan in de instellingen voor aanbieders.",
+  "error.provider.off": "{provider} staat uit in OpenOwnBot. Zet het eerst aan in de instellingen voor aanbieders.",
   "error.provider.inUse":
     "Een agent gebruikt {provider}. Wijzig het model van de agent voordat je deze aanbieder uitzet.",
   "error.provider.useBusy": "Wacht tot de controle van de aanbieder of het inloggen klaar is en probeer het opnieuw.",
   "error.provider.useSettingsReadOnly":
-    "De opgeslagen instellingen voor aanbieders kunnen niet worden gelezen. Werk zereight bot bij voordat je ze wijzigt.",
-  "error.provider.useChangeFailed": "zereight bot kon de instelling van de aanbieder niet wijzigen.",
+    "De opgeslagen instellingen voor aanbieders kunnen niet worden gelezen. Werk OpenOwnBot bij voordat je ze wijzigt.",
+  "error.provider.useChangeFailed": "OpenOwnBot kon de instelling van de aanbieder niet wijzigen.",
   "error.provider.accountsUnsupported": "{provider} kan maar één account hebben.",
   "error.provider.accountNeedsConnection": "Verbind {provider} voordat je nog een account toevoegt.",
   "error.provider.usageResetUnsupported": "{provider} kan gebruikslimieten niet resetten.",
@@ -328,7 +327,7 @@ export const messages = {
     "Dit {provider}-account gebruikt de opgeslagen API-sleutel en heeft geen inlog. Wijzig de sleutel in Serverinstellingen → Aanbieders.",
   "error.provider.accountInUse": "Een agent op dit account is aan het werk. Probeer het opnieuw als de agent stopt.",
   "error.provider.accountsReadOnly":
-    "De opgeslagen accounts van aanbieders kunnen niet worden gelezen. Werk zereight bot bij voordat je ze wijzigt.",
+    "De opgeslagen accounts van aanbieders kunnen niet worden gelezen. Werk OpenOwnBot bij voordat je ze wijzigt.",
   "error.provider.accountSignedOut": "Dit {provider}-account is uitgelogd. Log opnieuw in.",
   "error.provider.sessionSettingUnavailable":
     "Deze instelling is niet beschikbaar in de huidige sessie van de aanbieder.",
@@ -362,7 +361,7 @@ export const messages = {
   "error.provider.museConnectionFailed":
     "Verbinding met Muse is mislukt. Hervat het gesprek om de opgeslagen geschiedenis te herstellen.",
   "error.provider.museUnknownSession": "Onbekende Muse-sessie.",
-  "error.provider.museInvalidToolResult": "Ongeldig resultaat van een zereight bot-tool.",
+  "error.provider.museInvalidToolResult": "Ongeldig resultaat van een OpenOwnBot-tool.",
   "error.provider.museMcpRequired": "Muse moet MCP-servers per sessie ondersteunen.",
   "error.provider.museSessionMismatch": "Muse gaf een andere sessie terug.",
   "error.provider.museCompactRejected": "Muse heeft het comprimeren niet geaccepteerd.",

@@ -56,8 +56,8 @@ export const messages = {
   "browser.pip.reattach": "Tarayıcıyı sağ kenar çubuğuna yeniden ekle",
   "browser.pip.reattachTitle": "Tarayıcıyı yeniden ekle",
   "browser.pip.close": "Tarayıcı açılır penceresini kapat",
-  "browser.pip.reattachFailed": "zereight bot tarayıcıyı kenar çubuğuna geri ekleyemedi.",
-  "browser.pip.closeFailed": "zereight bot tarayıcı açılır penceresini kapatamadı.",
+  "browser.pip.reattachFailed": "OpenOwnBot tarayıcıyı kenar çubuğuna geri ekleyemedi.",
+  "browser.pip.closeFailed": "OpenOwnBot tarayıcı açılır penceresini kapatamadı.",
   "browser.popupBlocked.title": "Açılır pencere engellendi",
   "browser.popupBlocked.dismiss": "Açılır pencere mesajını kapat",
   "browser.liveView.label": "Sunucudaki sayfanın canlı görünümü",
@@ -131,21 +131,21 @@ export const messages = {
   "browser.signIn.local": "Bu bilgisayarda oturum aç",
   "browser.signIn.title": "{site} sitesinde oturum aç",
   "browser.signIn.description":
-    "Bazı siteler bir sunucudan oturum açmayı reddeder. Bu bilgisayarda oturum açın; zereight bot {site} oturumunu {server} sunucusuna gönderir. {server} üzerindeki tüm ajanlar ve üyeler bunu tarayıcıda kullanabilir.",
+    "Bazı siteler bir sunucudan oturum açmayı reddeder. Bu bilgisayarda oturum açın; OpenOwnBot {site} oturumunu {server} sunucusuna gönderir. {server} üzerindeki tüm ajanlar ve üyeler bunu tarayıcıda kullanabilir.",
   "browser.signIn.windowOpen":
-    "Açılan pencerede oturum açın. Oturum açma tamamlanınca zereight bot onu gönderir. Pencere açık kalırsa Bitti'yi seçin.",
+    "Açılan pencerede oturum açın. Oturum açma tamamlanınca OpenOwnBot onu gönderir. Pencere açık kalırsa Bitti'yi seçin.",
   "browser.signIn.windowClosed":
     "Oturum açma penceresi kapalı. Oturumu göndermek için Bitti'yi seçin veya pencereyi yeniden açın.",
   "browser.signIn.reopen": "Oturum açma penceresini aç",
   "browser.signIn.sending": "{server} sunucusuna gönderiliyor…",
   "browser.signIn.sent": "{server} üzerinde {site} oturumu açıldı",
-  "browser.signIn.notFound": "zereight bot {site} için oturum bulamadı. Pencerede oturum açın, sonra Bitti'yi seçin.",
+  "browser.signIn.notFound": "OpenOwnBot {site} için oturum bulamadı. Pencerede oturum açın, sonra Bitti'yi seçin.",
   "browser.signIn.stillSignedOut":
     "{server} hâlâ {site} için bir oturum açma sayfası gösteriyor. Oturum açmayı pencerede tamamlayın.",
-  "browser.signIn.failed": "zereight bot oturumu gönderemedi.",
+  "browser.signIn.failed": "OpenOwnBot oturumu gönderemedi.",
   "browser.profiles.title": "Tarayıcı profilleri",
   "browser.profiles.subtitle":
-    "Her profil kendi oturum açma bilgilerini, çerezlerini ve site verilerini zereight bot'u çalıştıran bilgisayarda tutar.",
+    "Her profil kendi oturum açma bilgilerini, çerezlerini ve site verilerini OpenOwnBot'u çalıştıran bilgisayarda tutar.",
   "browser.profiles.label": "Tarayıcı profilleri",
   "browser.profiles.newName": "Profil adı",
   "browser.profiles.create": "Ekle",
@@ -164,8 +164,8 @@ export const messages = {
   "browser.profiles.deleteDescription":
     "Bu işlem profilin oturum açma bilgilerini, çerezlerini ve site verilerini siler. Açık sekmeleri kapanır.",
   "browser.profiles.deleteAgents": "Bu ajanlar paylaşılan profile geçer: {agents}.",
-  "browser.profiles.failed": "zereight bot tarayıcı profillerini değiştiremedi.",
-  "browser.profiles.loadFailed": "zereight bot tarayıcı profillerini yükleyemedi.",
+  "browser.profiles.failed": "OpenOwnBot tarayıcı profillerini değiştiremedi.",
+  "browser.profiles.loadFailed": "OpenOwnBot tarayıcı profillerini yükleyemedi.",
   "browser.profiles.tabLabel": "Profil: {name}",
   "browser.profiles.agentTabLabel": "Ajanın kendi profili",
 } as const satisfies PartialTranslation<typeof source>;

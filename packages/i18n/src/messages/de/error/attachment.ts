@@ -8,12 +8,12 @@ export const messages = {
   "error.attachment.unavailable": "Diese Datei ist nicht mehr verfügbar.",
   "error.attachment.tooMany": "Wähle höchstens {limit} Dateien.",
   "error.attachment.mediaUnsupported":
-    "Dieser Server unterstützt keine MP3- oder MOV-Anhänge. Aktualisiere zereight bot auf dem Host und versuche es erneut.",
+    "Dieser Server unterstützt keine MP3- oder MOV-Anhänge. Aktualisiere OpenOwnBot auf dem Host und versuche es erneut.",
   "error.attachment.emlUnsupported":
-    "Dieser Server unterstützt keine EML-Anhänge. Aktualisiere zereight bot auf dem Host und versuche es erneut.",
+    "Dieser Server unterstützt keine EML-Anhänge. Aktualisiere OpenOwnBot auf dem Host und versuche es erneut.",
   "error.attachment.zipUnsupported":
-    "Dieser Server unterstützt keine ZIP-Anhänge. Aktualisiere zereight bot auf dem Host und versuche es erneut.",
+    "Dieser Server unterstützt keine ZIP-Anhänge. Aktualisiere OpenOwnBot auf dem Host und versuche es erneut.",
   "error.attachment.mp4Unsupported":
-    "Dieser Server unterstützt keine MP4-Anhänge. Aktualisiere zereight bot auf dem Host und versuche es erneut.",
+    "Dieser Server unterstützt keine MP4-Anhänge. Aktualisiere OpenOwnBot auf dem Host und versuche es erneut.",
   "error.attachment.previewTooLarge": "Die Datei überschreitet die Grenze von 100 MB.",
 } as const satisfies PartialTranslation<typeof source>;

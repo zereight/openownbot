@@ -3,14 +3,14 @@ import type { messages as source } from "../en/computerUse";
 
 export const messages = {
   "computerUse.permission.screenRecording.title": "Gravação de Tela",
-  "computerUse.permission.screenRecording.description": "Permite que o zereight bot veja as janelas dos aplicativos.",
+  "computerUse.permission.screenRecording.description": "Permite que o OpenOwnBot veja as janelas dos aplicativos.",
   "computerUse.permission.screenRecording.pane": "Gravação de Tela e Áudio do Sistema",
   "computerUse.permission.accessibility.title": "Acessibilidade",
-  "computerUse.permission.accessibility.description": "Permite que o zereight bot clique e digite.",
+  "computerUse.permission.accessibility.description": "Permite que o OpenOwnBot clique e digite.",
   "computerUse.permission.accessibility.pane": "Acessibilidade",
-  "computerUse.error.check": "O zereight bot não conseguiu verificar o Uso do computador.",
+  "computerUse.error.check": "O OpenOwnBot não conseguiu verificar o Uso do computador.",
   "computerUse.error.openSettings": "O OpenBot não conseguiu abrir os Ajustes do Sistema.",
-  "computerUse.error.startDriver": "O zereight bot não conseguiu iniciar o driver de Uso do computador.",
+  "computerUse.error.startDriver": "O OpenOwnBot não conseguiu iniciar o driver de Uso do computador.",
   "computerUse.checkAgain": "Verificar de novo",
   "computerUse.checking": "Verificando o Uso do computador",
   "computerUse.unavailable.title": "O Uso do computador ainda não está disponível",
@@ -18,10 +18,10 @@ export const messages = {
   "computerUse.permissions.description": "As permissões são gerenciadas pelo macOS.",
   "computerUse.ready.title": "O Uso do computador está pronto",
   "computerUse.ready.description":
-    "O zereight bot pode ver e interagir com aplicativos neste computador. Este sistema não pede nenhuma permissão adicional.",
+    "O OpenOwnBot pode ver e interagir com aplicativos neste computador. Este sistema não pede nenhuma permissão adicional.",
   "computerUse.openSettingsFailed.title": "Não foi possível abrir os Ajustes do Sistema",
   "computerUse.compact.title": "Ativar Uso do computador",
-  "computerUse.compact.description": "Permitir que o zereight bot veja e interaja com aplicativos neste computador.",
+  "computerUse.compact.description": "Permitir que o OpenOwnBot veja e interaja com aplicativos neste computador.",
   "computerUse.granted": "Concedida",
   "computerUse.opening": "Abrindo…",
   "computerUse.manage": "Gerenciar",
@@ -38,5 +38,5 @@ export const messages = {
   "computerUse.help.showInFinder": "Mostrar no Finder",
   "computerUse.help.revealFailed": "Não foi possível mostrar o aplicativo no Finder.",
   "computerUse.help.dragFailed": "Não foi possível arrastar o aplicativo.",
-  "computerUse.highlight.working": "O zereight bot está trabalhando em {title}",
+  "computerUse.highlight.working": "O OpenOwnBot está trabalhando em {title}",
 } as const satisfies PartialTranslation<typeof source>;

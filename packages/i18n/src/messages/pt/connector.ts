@@ -16,12 +16,12 @@ export const messages = {
   "connector.github.connectedAs": "Conectado como @{login}",
   "connector.github.repositoriesTitle": "Repositórios",
   "connector.github.repositoriesDescription":
-    "Os agentes só podem usar os repositórios em que o aplicativo zereight bot para GitHub está instalado.",
+    "Os agentes só podem usar os repositórios em que o aplicativo OpenOwnBot para GitHub está instalado.",
   "connector.github.chooseRepositories": "Escolher repositórios",
   "connector.github.repositoriesLoading": "Lendo os repositórios do GitHub",
-  "connector.github.repositoriesFailed": "O zereight bot não conseguiu ler os repositórios do GitHub.",
+  "connector.github.repositoriesFailed": "O OpenOwnBot não conseguiu ler os repositórios do GitHub.",
   "connector.github.noRepositories":
-    "O aplicativo zereight bot para GitHub ainda não está instalado em nenhum repositório.",
+    "O aplicativo OpenOwnBot para GitHub ainda não está instalado em nenhum repositório.",
   "connector.github.moreRepositories": { one: "E mais {count} repositório", other: "E mais {count} repositórios" },
   "connector.github.private": "Privado",
   "connector.github.disconnect": "Desconectar",
@@ -32,7 +32,7 @@ export const messages = {
   "connector.github.expiredDescription":
     "Conecte novamente como @{login} para devolver o acesso ao GitHub aos agentes.",
   "connector.github.reconnect": "Reconectar",
-  "connector.github.actionFailed": "O zereight bot não conseguiu alterar a conexão com o GitHub.",
+  "connector.github.actionFailed": "O OpenOwnBot não conseguiu alterar a conexão com o GitHub.",
   "connector.github.statusConnected": "Conectado",
   "connector.github.statusConnecting": "Conectando",
   "connector.github.statusExpired": "Expirado",
@@ -42,7 +42,7 @@ export const messages = {
   "connector.github.noMatch": "Nenhum repositório corresponde a “{query}”.",
   "connector.github.stepSignIn": "Entrar",
   "connector.github.stepConnected": "Conectado",
-  "connector.github.requestingCode": "O zereight bot solicita um código ao GitHub.",
+  "connector.github.requestingCode": "O OpenOwnBot solicita um código ao GitHub.",
   "connector.github.codeLabel": "Código {code}",
   "connector.github.failedTitle": "O GitHub não conectou",
   "connector.github.cancelConnecting": "Cancelar conexão com o GitHub",
@@ -55,7 +55,7 @@ export const messages = {
   "connector.github.disconnectConfirmTitle": "Desconectar GitHub?",
   "connector.github.disconnectConfirmDescription": "Desconectar remove o login de @{login} deste computador.",
   "connector.github.disconnectEffectTools": "Todos os agentes perdem as ferramentas do GitHub, gh e git.",
-  "connector.github.disconnectEffectRevoke": "Em seguida, o GitHub abre para você revogar o zereight bot.",
+  "connector.github.disconnectEffectRevoke": "Em seguida, o GitHub abre para você revogar o OpenOwnBot.",
   "connector.github.disconnectEffectKept": "Os chats, arquivos e a memória dos agentes continuam neste computador.",
   // The same text for the connection of a joined server. {host} is the server name, such as Studio.
   "connector.github.descriptionHost":
@@ -70,7 +70,7 @@ export const messages = {
   "connector.github.close": "Fechar",
   "connector.dangerZone": "Zona de perigo",
   "connector.statusUnknown": "Desconhecido",
-  "connector.readFailed": "O zereight bot não conseguiu ler o estado desta conexão.",
+  "connector.readFailed": "O OpenOwnBot não conseguiu ler o estado desta conexão.",
   "connector.slack.title": "Slack",
   "connector.slack.description":
     "As pessoas mencionam @OpenBot no Slack ou enviam uma mensagem direta para ele. O Orquestrador do Slack consulta o agente certo e responde.",
@@ -93,10 +93,10 @@ export const messages = {
   "connector.slack.disconnectAllSummary":
     "Todos os workspaces são desconectados. Ninguém poderá falar com seus agentes pelo @OpenBot.",
   "connector.slack.disconnectAllSummaryOrchestrator":
-    "Todos os workspaces são desconectados. O Orquestrador do Slack e as conversas dele são excluídos do zereight bot.",
+    "Todos os workspaces são desconectados. O Orquestrador do Slack e as conversas dele são excluídos do OpenOwnBot.",
   "connector.slack.missingScopes":
-    "O zereight bot não tem estas permissões no Slack: {scopes}. Desconecte o espaço de trabalho e conecte-o novamente.",
-  "connector.slack.retryAt": "O Slack pediu para o zereight bot aguardar. Ele tentará novamente às {time}.",
+    "O OpenOwnBot não tem estas permissões no Slack: {scopes}. Desconecte o espaço de trabalho e conecte-o novamente.",
+  "connector.slack.retryAt": "O Slack pediu para o OpenOwnBot aguardar. Ele tentará novamente às {time}.",
   "connector.slack.reconnect": "Reconectar",
   "connector.slack.pause": "Pausar",
   "connector.slack.resume": "Retomar",
@@ -112,7 +112,7 @@ export const messages = {
   "connector.slack.stepAgent": "Agente",
   "connector.slack.connectTitle": "Conectar um espaço de trabalho do Slack",
   "connector.slack.connectDescription":
-    "O zereight bot instala um aplicativo chamado zereight bot no espaço de trabalho e entra em todos os canais públicos.",
+    "O OpenOwnBot instala um aplicativo chamado OpenOwnBot no espaço de trabalho e entra em todos os canais públicos.",
   "connector.slack.connectStepBrowser": "O Slack abre no seu navegador",
   "connector.slack.connectStepAllow": "Selecione o espaço de trabalho no canto superior direito e depois Permitir",
   "connector.slack.connectStepReturn": "Esta janela continua quando o Slack terminar",
@@ -127,19 +127,19 @@ export const messages = {
   "connector.slack.orchestratorDoesDelegate": "Atribui cada tarefa ao agente mais adequado",
   "connector.slack.orchestratorDoesAnswer": "Publica a resposta na conversa do Slack",
   "connector.slack.orchestratorModel": "Modelo",
-  "connector.slack.doneTitle": "O zereight bot está em {workspace}",
+  "connector.slack.doneTitle": "O OpenOwnBot está em {workspace}",
   "connector.slack.doneDescription":
     "Mencione @OpenBot em qualquer canal público ou envie uma mensagem direta para ele.",
   "connector.slack.done": "Concluir",
   "connector.slack.disconnectTitle": "Desconectar {workspace}?",
   "connector.slack.disconnectDescription":
-    "O zereight bot para de responder em {workspace} e remove o token do Slack deste computador.",
+    "O OpenOwnBot para de responder em {workspace} e remove o token do Slack deste computador.",
   "connector.slack.disconnectDescriptionHost":
-    "O zereight bot para de responder em {workspace} e remove o token do Slack de {host}.",
+    "O OpenOwnBot para de responder em {workspace} e remove o token do Slack de {host}.",
   "connector.slack.disconnectEffect":
     "As pessoas em {workspace} não poderão mais acessar seus agentes por meio de @OpenBot.",
-  "connector.slack.removeEffectKept": "As conversas e o Orquestrador do Slack continuam no zereight bot.",
-  "connector.slack.removeEffectDeleted": "O Orquestrador do Slack e as conversas dele são excluídos do zereight bot.",
+  "connector.slack.removeEffectKept": "As conversas e o Orquestrador do Slack continuam no OpenOwnBot.",
+  "connector.slack.removeEffectDeleted": "O Orquestrador do Slack e as conversas dele são excluídos do OpenOwnBot.",
   "connector.slack.keep": "Manter conectado",
   "connector.slack.close": "Fechar",
   "connector.slack.addWorkspace": "Adicionar espaço de trabalho",
@@ -173,10 +173,10 @@ export const messages = {
   "connector.discord.disconnectAllSummary":
     "Todos os servidores são desconectados. Ninguém poderá falar com seus agentes pelo @OpenBot.",
   "connector.discord.disconnectAllSummaryOrchestrator":
-    "Todos os servidores são desconectados. O Orquestrador do Discord e as conversas dele são excluídos do zereight bot.",
+    "Todos os servidores são desconectados. O Orquestrador do Discord e as conversas dele são excluídos do OpenOwnBot.",
   "connector.discord.missingScopes":
-    "O zereight bot não tem estas permissões no Discord: {scopes}. Desconecte o servidor do Discord e conecte-o novamente.",
-  "connector.discord.retryAt": "O Discord pediu para o zereight bot aguardar. Ele tentará novamente às {time}.",
+    "O OpenOwnBot não tem estas permissões no Discord: {scopes}. Desconecte o servidor do Discord e conecte-o novamente.",
+  "connector.discord.retryAt": "O Discord pediu para o OpenOwnBot aguardar. Ele tentará novamente às {time}.",
   "connector.discord.reconnect": "Reconectar",
   "connector.discord.pause": "Pausar",
   "connector.discord.resume": "Retomar",
@@ -187,11 +187,11 @@ export const messages = {
   "connector.discord.orchestratorNone": "Nenhum agente responde ainda",
   "connector.discord.orchestratorNoneDescription":
     "Adicione o Orquestrador do Discord para que o Discord receba respostas.",
-  "connector.discord.channelsNote": "O zereight bot vê os canais que a função dele pode visualizar.",
+  "connector.discord.channelsNote": "O OpenOwnBot vê os canais que a função dele pode visualizar.",
   "connector.discord.stepWorkspace": "Servidor do Discord",
   "connector.discord.stepAgent": "Agente",
   "connector.discord.connectTitle": "Conectar um servidor do Discord",
-  "connector.discord.connectDescription": "O zereight bot adiciona um bot chamado zereight bot ao servidor do Discord.",
+  "connector.discord.connectDescription": "O OpenOwnBot adiciona um bot chamado OpenOwnBot ao servidor do Discord.",
   "connector.discord.connectStepBrowser": "O Discord abre no seu navegador",
   "connector.discord.connectStepAllow": "Selecione o servidor e depois Autorizar",
   "connector.discord.connectStepReturn": "Esta janela continua quando o Discord terminar",
@@ -206,19 +206,18 @@ export const messages = {
   "connector.discord.orchestratorDoesDelegate": "Atribui cada tarefa ao agente mais adequado",
   "connector.discord.orchestratorDoesAnswer": "Responde no canal do Discord",
   "connector.discord.orchestratorModel": "Modelo",
-  "connector.discord.doneTitle": "O zereight bot está em {workspace}",
+  "connector.discord.doneTitle": "O OpenOwnBot está em {workspace}",
   "connector.discord.doneDescription": "Mencione @OpenBot em um canal. Responda ao OpenBot para continuar.",
   "connector.discord.done": "Concluir",
   "connector.discord.disconnectTitle": "Desconectar {workspace}?",
   "connector.discord.disconnectDescription":
-    "O zereight bot para de responder em {workspace} e remove a conexão do Discord deste computador.",
+    "O OpenOwnBot para de responder em {workspace} e remove a conexão do Discord deste computador.",
   "connector.discord.disconnectDescriptionHost":
-    "O zereight bot para de responder em {workspace} e remove a conexão do Discord de {host}.",
+    "O OpenOwnBot para de responder em {workspace} e remove a conexão do Discord de {host}.",
   "connector.discord.disconnectEffect":
     "As pessoas em {workspace} não poderão mais acessar seus agentes por meio de @OpenBot.",
-  "connector.discord.removeEffectKept": "As conversas e o Orquestrador do Discord continuam no zereight bot.",
-  "connector.discord.removeEffectDeleted":
-    "O Orquestrador do Discord e as conversas dele são excluídos do zereight bot.",
+  "connector.discord.removeEffectKept": "As conversas e o Orquestrador do Discord continuam no OpenOwnBot.",
+  "connector.discord.removeEffectDeleted": "O Orquestrador do Discord e as conversas dele são excluídos do OpenOwnBot.",
   "connector.discord.keep": "Manter conectado",
   "connector.discord.close": "Fechar",
   "connector.discord.addWorkspace": "Adicionar servidor do Discord",
@@ -230,25 +229,25 @@ export const messages = {
     one: "{count} servidor do Discord · O Orquestrador do Discord responde",
     other: "{count} servidores do Discord · O Orquestrador do Discord responde",
   },
-  "connector.discord.accessTitle": "Quem pode usar o zereight bot",
+  "connector.discord.accessTitle": "Quem pode usar o OpenOwnBot",
   "connector.discord.accessDescription":
-    "O zereight bot responde só a essas pessoas. Ele ignora menções de outras pessoas.",
+    "O OpenOwnBot responde só a essas pessoas. Ele ignora menções de outras pessoas.",
   "connector.discord.accessEveryone": "Todos no servidor",
   "connector.discord.accessEveryoneDescription":
-    "Qualquer pessoa que pode postar em um canal que o zereight bot vê pode mencioná-lo.",
+    "Qualquer pessoa que pode postar em um canal que o OpenOwnBot vê pode mencioná-lo.",
   "connector.discord.accessRoles": "Membros com {roles}",
   "connector.discord.accessChoose": "Escolher funções",
-  "connector.discord.accessDialogTitle": "Quem pode usar o zereight bot em {workspace}?",
-  "connector.discord.accessDialogDescription": "Sem nenhuma função selecionada, todos podem mencionar o zereight bot.",
+  "connector.discord.accessDialogTitle": "Quem pode usar o OpenOwnBot em {workspace}?",
+  "connector.discord.accessDialogDescription": "Sem nenhuma função selecionada, todos podem mencionar o OpenOwnBot.",
   "connector.discord.accessLoading": "Carregando funções…",
   "connector.discord.accessLoadFailed": "As funções do Discord não carregaram",
   "connector.discord.accessNoRoles": "Este servidor não tem funções para escolher.",
   "connector.discord.accessRoleDeleted": "{role} (excluída)",
   "connector.discord.accessSave": "Salvar",
-  "connector.discord.accessHostUpdate": "Atualize o zereight bot em {host} para escolher funções.",
+  "connector.discord.accessHostUpdate": "Atualize o OpenOwnBot em {host} para escolher funções.",
   "connector.telegram.title": "Telegram",
   "connector.telegram.description":
-    "Adicione o bot do zereight bot a um grupo do Telegram ou abra um chat direto com ele. O Orquestrador do Telegram consulta o agente certo e responde.",
+    "Adicione o bot do OpenOwnBot a um grupo do Telegram ou abra um chat direto com ele. O Orquestrador do Telegram consulta o agente certo e responde.",
   "connector.telegram.statusConnected": "Conectado",
   "connector.telegram.statusAttention": "Precisa de atenção",
   "connector.telegram.summaryConnected": {
@@ -271,29 +270,29 @@ export const messages = {
   "connector.telegram.groupDescription": "As pessoas mencionam o bot ou respondem às mensagens dele.",
   "connector.telegram.directDescription": "Todas as mensagens deste chat vão para o Orquestrador do Telegram.",
   "connector.telegram.helpRemoved":
-    "O bot do zereight bot não está mais neste chat. Desconecte o chat e adicione o bot novamente.",
+    "O bot do OpenOwnBot não está mais neste chat. Desconecte o chat e adicione o bot novamente.",
   "connector.telegram.helpRelayUnavailable":
-    "O zereight bot não consegue receber mensagens do Telegram neste computador. Entre na sua conta, dê um nome a este computador nas Configurações do servidor e mantenha o zereight bot aberto.",
+    "O OpenOwnBot não consegue receber mensagens do Telegram neste computador. Entre na sua conta, dê um nome a este computador nas Configurações do servidor e mantenha o OpenOwnBot aberto.",
   "connector.telegram.helpRelayUnavailableHost":
-    "O zereight bot em {host} não consegue receber mensagens do Telegram. Em {host}, entre na sua conta, dê um nome ao servidor nas Configurações do servidor e mantenha o zereight bot aberto.",
-  "connector.telegram.helpError": "O zereight bot não consegue acessar este chat. Reconecte ou desconecte o chat.",
-  "connector.telegram.retryAt": "O Telegram pediu para o zereight bot aguardar. Ele tentará novamente às {time}.",
+    "O OpenOwnBot em {host} não consegue receber mensagens do Telegram. Em {host}, entre na sua conta, dê um nome ao servidor nas Configurações do servidor e mantenha o OpenOwnBot aberto.",
+  "connector.telegram.helpError": "O OpenOwnBot não consegue acessar este chat. Reconecte ou desconecte o chat.",
+  "connector.telegram.retryAt": "O Telegram pediu para o OpenOwnBot aguardar. Ele tentará novamente às {time}.",
   "connector.telegram.pause": "Pausar",
   "connector.telegram.resume": "Retomar",
   "connector.telegram.reconnect": "Reconectar",
   "connector.telegram.disconnectChat": "Desconectar",
   "connector.telegram.disconnectAllTitle": "Desconectar Telegram",
   "connector.telegram.disconnectAllSummary":
-    "Todos os chats são desconectados. Ninguém poderá falar com seus agentes pelo bot do zereight bot.",
+    "Todos os chats são desconectados. Ninguém poderá falar com seus agentes pelo bot do OpenOwnBot.",
   "connector.telegram.disconnectAllSummaryOrchestrator":
-    "Todos os chats são desconectados. O Orquestrador do Telegram e as conversas dele são excluídos do zereight bot.",
+    "Todos os chats são desconectados. O Orquestrador do Telegram e as conversas dele são excluídos do OpenOwnBot.",
   "connector.telegram.rowAction": "{action}: {name}",
   "connector.telegram.linkChat": "Vincular um chat",
   "connector.telegram.addToGroup": "Adicionar a um grupo",
   "connector.telegram.openDirectChat": "Abrir um chat direto",
   "connector.telegram.orchestratorTitle": "Orquestrador do Telegram",
   "connector.telegram.orchestratorDescription":
-    "Este agente recebe as mensagens para o zereight bot de todos os seus chats do Telegram. Ele mesmo responde às curtas, encaminha o restante do trabalho ao agente certo e publica a resposta no chat.",
+    "Este agente recebe as mensagens para o OpenOwnBot de todos os seus chats do Telegram. Ele mesmo responde às curtas, encaminha o restante do trabalho ao agente certo e publica a resposta no chat.",
   "connector.telegram.orchestratorNone": "Nenhum agente responde ainda",
   "connector.telegram.orchestratorNoneDescription":
     "Adicione o Orquestrador do Telegram para que o Telegram receba respostas.",
@@ -303,34 +302,34 @@ export const messages = {
   "connector.telegram.stepAgent": "Agente",
   "connector.telegram.connectTitle": "Vincular um chat do Telegram",
   "connector.telegram.connectDescription":
-    "Adicione o bot do zereight bot a um grupo ou abra um chat direto com ele. Um único bot atende todos os seus chats.",
+    "Adicione o bot do OpenOwnBot a um grupo ou abra um chat direto com ele. Um único bot atende todos os seus chats.",
   "connector.telegram.connectStepBrowser": "O Telegram abre no seu navegador",
   "connector.telegram.connectStepPick": "Selecione o grupo ou clique em Iniciar no chat direto",
   "connector.telegram.connectStepReturn": "Esta janela continua quando o chat estiver vinculado",
   "connector.telegram.connectWaiting": "Aguardando o Telegram. Selecione o chat no Telegram.",
   "connector.telegram.agentStepTitle": "Adicionar o Orquestrador do Telegram",
   "connector.telegram.agentStepDescription":
-    "Este novo agente responde às mensagens para o zereight bot em {chat} e em cada chat que você vincular depois.",
+    "Este novo agente responde às mensagens para o OpenOwnBot em {chat} e em cada chat que você vincular depois.",
   "connector.telegram.orchestratorName": "Orquestrador do Telegram",
   "connector.telegram.orchestratorRole": "Responde no Telegram e consulta a equipe",
-  "connector.telegram.orchestratorDoesReceive": "Recebe primeiro todas as mensagens do Telegram para o zereight bot",
+  "connector.telegram.orchestratorDoesReceive": "Recebe primeiro todas as mensagens do Telegram para o OpenOwnBot",
   "connector.telegram.orchestratorDoesDelegate": "Atribui cada tarefa ao agente mais adequado",
   "connector.telegram.orchestratorDoesAnswer": "Publica a resposta no chat do Telegram",
   "connector.telegram.orchestratorModel": "Modelo",
-  "connector.telegram.doneTitle": "O zereight bot está em {chat}",
+  "connector.telegram.doneTitle": "O OpenOwnBot está em {chat}",
   "connector.telegram.done": "Concluir",
   "connector.telegram.disconnectTitle": "Desconectar {chat}?",
-  "connector.telegram.leaveDescription": "O bot do zereight bot sai de {chat} e o zereight bot para de responder lá.",
+  "connector.telegram.leaveDescription": "O bot do OpenOwnBot sai de {chat} e o OpenOwnBot para de responder lá.",
   "connector.telegram.disconnectEffect":
-    "As pessoas em {chat} não poderão mais acessar seus agentes por meio do bot do zereight bot.",
-  "connector.telegram.removeEffectKept": "As conversas e o Orquestrador do Telegram continuam no zereight bot.",
+    "As pessoas em {chat} não poderão mais acessar seus agentes por meio do bot do OpenOwnBot.",
+  "connector.telegram.removeEffectKept": "As conversas e o Orquestrador do Telegram continuam no OpenOwnBot.",
   "connector.telegram.removeEffectDeleted":
-    "Este é o último chat, então o Orquestrador do Telegram e as conversas dele são excluídos do zereight bot.",
+    "Este é o último chat, então o Orquestrador do Telegram e as conversas dele são excluídos do OpenOwnBot.",
   "connector.telegram.keep": "Manter conectado",
   "connector.telegram.close": "Fechar",
   "connector.onePassword.title": "1Password",
   "connector.onePassword.description":
-    "Compartilhe um cofre dedicado do 1Password com o zereight bot por meio de uma conta de serviço, para que os agentes possam entrar em sites no navegador do zereight bot.",
+    "Compartilhe um cofre dedicado do 1Password com o OpenOwnBot por meio de uma conta de serviço, para que os agentes possam entrar em sites no navegador do OpenOwnBot.",
   "connector.onePassword.howItWorks":
     "A conexão cria um cofre “Shared with OpenBot” na sua conta do 1Password e uma conta de serviço que só consegue ler esse cofre. O OpenBot preenche os logins salvos no navegador deste computador, então só os itens que você mover para esse cofre são compartilhados. Os agentes nunca veem uma senha.",
   "connector.onePassword.connect": "Conectar o 1Password",
@@ -342,14 +341,14 @@ export const messages = {
   "connector.onePassword.stepCliMissing":
     "O OpenBot baixa a CLI do 1Password para uma pasta própria. Não é preciso senha de administrador.",
   "connector.onePassword.stepCliManual":
-    "O zereight bot não consegue instalá-la neste computador. Instale-a pelo 1Password e volte a esta página.",
+    "O OpenOwnBot não consegue instalá-la neste computador. Instale-a pelo 1Password e volte a esta página.",
   "connector.onePassword.installCli": "Instalar",
   "connector.onePassword.stepAppTitle": "Ativar a integração com a CLI",
   "connector.onePassword.stepAppDescription":
     "No app do 1Password, abra Ajustes > Desenvolvedor e ative “Integrar com a CLI do 1Password”.",
   "connector.onePassword.stepAppReady": "O app do 1Password permite que a CLI crie o cofre compartilhado.",
   "connector.onePassword.openApp": "Abrir o 1Password",
-  "connector.onePassword.openAppFailed": "O zereight bot não conseguiu abrir o 1Password.",
+  "connector.onePassword.openAppFailed": "O OpenOwnBot não conseguiu abrir o 1Password.",
   "connector.onePassword.checkAgain": "Verificar de novo",
   "connector.onePassword.stepVaultTitle": "Criar o cofre compartilhado",
   "connector.onePassword.stepVaultDescription":
@@ -364,7 +363,7 @@ export const messages = {
   "connector.onePassword.cancel": "Cancelar",
   "connector.onePassword.chooseAccountTitle": "Escolha uma conta",
   "connector.onePassword.chooseAccountDescription":
-    "O zereight bot cria o cofre compartilhado na conta que você escolher.",
+    "O OpenOwnBot cria o cofre compartilhado na conta que você escolher.",
   "connector.onePassword.useAccount": "Usar esta conta",
   "connector.onePassword.vaultTitle": "Cofre compartilhado",
   "connector.onePassword.vaultDescription":
@@ -374,14 +373,14 @@ export const messages = {
   "connector.onePassword.disconnect": "Desconectar",
   "connector.onePassword.disconnectTitle": "Desconectar o 1Password",
   "connector.onePassword.disconnectSummary":
-    "O zereight bot esquece o token. O cofre e a conta de serviço continuam no 1Password; remova-os lá se não precisar mais deles.",
-  "connector.onePassword.actionFailed": "O zereight bot não conseguiu alterar a conexão com o 1Password.",
+    "O OpenOwnBot esquece o token. O cofre e a conta de serviço continuam no 1Password; remova-os lá se não precisar mais deles.",
+  "connector.onePassword.actionFailed": "O OpenOwnBot não conseguiu alterar a conexão com o 1Password.",
   "connector.onePassword.statusConnected": "Conectado",
   "connector.onePassword.statusConnecting": "Conectando",
   "connector.onePassword.descriptionHost":
-    "Compartilhe um cofre dedicado do 1Password com o zereight bot em {host} por meio de uma conta de serviço, para que os agentes em {host} possam entrar em sites no navegador dele.",
+    "Compartilhe um cofre dedicado do 1Password com o OpenOwnBot em {host} por meio de uma conta de serviço, para que os agentes em {host} possam entrar em sites no navegador dele.",
   "connector.onePassword.howItWorksHost":
-    "{host} se conecta com um token de conta de serviço. No 1Password.com, crie uma conta de serviço que possa ler apenas o cofre que você compartilha com o zereight bot e cole o token dela aqui. {host} verifica o token e o guarda; este computador não. Os agentes nunca veem uma senha.",
+    "{host} se conecta com um token de conta de serviço. No 1Password.com, crie uma conta de serviço que possa ler apenas o cofre que você compartilha com o OpenOwnBot e cole o token dela aqui. {host} verifica o token e o guarda; este computador não. Os agentes nunca veem uma senha.",
   "connector.onePassword.disconnectSummaryHost":
     "{host} esquece o token. O cofre e a conta de serviço continuam no 1Password; remova-os lá se não precisar mais deles.",
   "connector.bitwarden.title": "Bitwarden",
@@ -391,17 +390,17 @@ export const messages = {
   "connector.bitwarden.scope":
     "Todos os agentes deste computador podem usar logins correspondentes em Shared with OpenBot. O OpenBot usa origens HTTPS exatas. Ele não usa itens que exigem senha mestra ou regra personalizada de URI.",
   "connector.bitwarden.session":
-    "A chave de sessão fica na memória. Conecte de novo após 8 horas sem uso do cofre ou após o zereight bot fechar. Desconectar interrompe o acesso do zereight bot; não bloqueia outros clientes Bitwarden.",
+    "A chave de sessão fica na memória. Conecte de novo após 8 horas sem uso do cofre ou após o OpenOwnBot fechar. Desconectar interrompe o acesso do OpenOwnBot; não bloqueia outros clientes Bitwarden.",
   "connector.bitwarden.sessionKey": "Chave de sessão do Bitwarden",
   "connector.bitwarden.connect": "Conectar Bitwarden",
   "connector.bitwarden.disconnect": "Desconectar Bitwarden",
   "connector.bitwarden.disconnectAction": "Desconectar",
   "connector.bitwarden.disconnectSummary":
-    "O zereight bot esquece a chave de sessão. Os agentes não podem mais preencher logins do Bitwarden. Os outros clientes do Bitwarden continuam desbloqueados.",
+    "O OpenOwnBot esquece a chave de sessão. Os agentes não podem mais preencher logins do Bitwarden. Os outros clientes do Bitwarden continuam desbloqueados.",
   "connector.bitwarden.disconnectSummaryHost":
     "{host} remove a chave de API e a senha mestra. Os agentes em {host} não podem mais preencher logins do Bitwarden.",
   "connector.bitwarden.connected": "Conectado",
-  "connector.bitwarden.actionFailed": "O zereight bot não conseguiu alterar a conexão com o Bitwarden.",
+  "connector.bitwarden.actionFailed": "O OpenOwnBot não conseguiu alterar a conexão com o Bitwarden.",
   "connector.bitwarden.descriptionHost":
     "Preencha logins do navegador em {host} a partir do Bitwarden ou do Vaultwarden.",
   "connector.bitwarden.setupHost":

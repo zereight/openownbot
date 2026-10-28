@@ -17,11 +17,11 @@ export const messages = {
   "connector.github.connectedAs": "@{login} olarak bağlandı",
   "connector.github.repositoriesTitle": "Depolar",
   "connector.github.repositoriesDescription":
-    "Ajanlar yalnızca zereight bot GitHub Uygulamasının yüklü olduğu depoları kullanabilir.",
+    "Ajanlar yalnızca OpenOwnBot GitHub Uygulamasının yüklü olduğu depoları kullanabilir.",
   "connector.github.chooseRepositories": "Depoları seç",
   "connector.github.repositoriesLoading": "Depolar GitHub'dan okunuyor",
-  "connector.github.repositoriesFailed": "zereight bot depoları GitHub'dan okuyamadı.",
-  "connector.github.noRepositories": "zereight bot GitHub Uygulaması henüz bir depoya yüklenmedi.",
+  "connector.github.repositoriesFailed": "OpenOwnBot depoları GitHub'dan okuyamadı.",
+  "connector.github.noRepositories": "OpenOwnBot GitHub Uygulaması henüz bir depoya yüklenmedi.",
   // {count} bir sayıdır (örneğin 12).
   "connector.github.moreRepositories": {
     one: "Ve {count} depo daha",
@@ -35,7 +35,7 @@ export const messages = {
   "connector.github.expiredTitle": "GitHub bağlantısının süresi doldu",
   "connector.github.expiredDescription": "Ajanlara yeniden GitHub erişimi vermek için @{login} olarak tekrar bağlanın.",
   "connector.github.reconnect": "Yeniden bağlan",
-  "connector.github.actionFailed": "zereight bot GitHub bağlantısını değiştiremedi.",
+  "connector.github.actionFailed": "OpenOwnBot GitHub bağlantısını değiştiremedi.",
   // GitHub sayfasının üst kısmındaki adın yanındaki durum.
   "connector.github.statusConnected": "Bağlandı",
   "connector.github.statusConnecting": "Bağlanıyor",
@@ -52,7 +52,7 @@ export const messages = {
   // Bağlanma iletişim kutusu. Adımlar sayı olarak gösterilir; ekran okuyucular adları okur.
   "connector.github.stepSignIn": "Oturum aç",
   "connector.github.stepConnected": "Bağlandı",
-  "connector.github.requestingCode": "zereight bot GitHub'dan bir kod istiyor.",
+  "connector.github.requestingCode": "OpenOwnBot GitHub'dan bir kod istiyor.",
   // {code} GitHub'a yazılacak koddur (örneğin WDJB-MJHT).
   "connector.github.codeLabel": "Kod {code}",
   "connector.github.failedTitle": "GitHub bağlanamadı",
@@ -68,7 +68,7 @@ export const messages = {
   "connector.github.disconnectConfirmTitle": "GitHub bağlantısı kesilsin mi?",
   "connector.github.disconnectConfirmDescription": "Bağlantıyı kesmek @{login} oturumunu bu bilgisayardan kaldırır.",
   "connector.github.disconnectEffectTools": "Tüm ajanlar GitHub araçlarını, gh ve git erişimini kaybeder.",
-  "connector.github.disconnectEffectRevoke": "Ardından zereight bot yetkisini kaldırabileceğiniz GitHub açılır.",
+  "connector.github.disconnectEffectRevoke": "Ardından OpenOwnBot yetkisini kaldırabileceğiniz GitHub açılır.",
   "connector.github.disconnectEffectKept": "Sohbetler, dosyalar ve ajan belleği bu bilgisayarda kalır.",
   // The same text for the connection of a joined server. {host} is the server name, such as Studio.
   "connector.github.descriptionHost":
@@ -85,7 +85,7 @@ export const messages = {
   // Bir entegrasyon sayfasının onu kaldıran eylemi içeren son bölümü.
   "connector.dangerZone": "Tehlikeli bölge",
   "connector.statusUnknown": "Bilinmiyor",
-  "connector.readFailed": "zereight bot bu bağlantının durumunu okuyamadı.",
+  "connector.readFailed": "OpenOwnBot bu bağlantının durumunu okuyamadı.",
 
   // Sunucu ayarları > Bağlayıcılar: entegrasyonlar listesi. Her satır kendi sayfasını açar.
 
@@ -114,10 +114,10 @@ export const messages = {
   "connector.slack.disconnectAllSummary":
     "Tüm çalışma alanlarının bağlantısı kesilir. Kimse ajanlarınıza artık @OpenBot üzerinden ulaşamaz.",
   "connector.slack.disconnectAllSummaryOrchestrator":
-    "Tüm çalışma alanlarının bağlantısı kesilir. Slack Düzenleyicisi ve sohbetleri zereight bot'tan silinir.",
+    "Tüm çalışma alanlarının bağlantısı kesilir. Slack Düzenleyicisi ve sohbetleri OpenOwnBot'tan silinir.",
   "connector.slack.missingScopes":
-    "zereight bot Slack'te şu izinlere sahip değil: {scopes}. Çalışma alanı bağlantısını kesin, ardından tekrar bağlayın.",
-  "connector.slack.retryAt": "Slack zereight bot'tan beklemesini istedi. {time} saatinde tekrar deneyecek.",
+    "OpenOwnBot Slack'te şu izinlere sahip değil: {scopes}. Çalışma alanı bağlantısını kesin, ardından tekrar bağlayın.",
+  "connector.slack.retryAt": "Slack OpenOwnBot'tan beklemesini istedi. {time} saatinde tekrar deneyecek.",
   "connector.slack.reconnect": "Yeniden bağlan",
   "connector.slack.pause": "Duraklat",
   "connector.slack.resume": "Sürdür",
@@ -135,7 +135,7 @@ export const messages = {
   "connector.slack.stepAgent": "Ajan",
   "connector.slack.connectTitle": "Bir Slack çalışma alanına bağlanın",
   "connector.slack.connectDescription":
-    "zereight bot çalışma alanına zereight bot adında bir uygulama yükler ve her genel kanala katılır.",
+    "OpenOwnBot çalışma alanına OpenOwnBot adında bir uygulama yükler ve her genel kanala katılır.",
   "connector.slack.connectStepBrowser": "Slack tarayıcınızda açılır",
   "connector.slack.connectStepAllow": "Sağ üst köşeden çalışma alanını seçin, ardından İzin Ver'e tıklayın",
   "connector.slack.connectStepReturn": "Slack işlemi tamamlandığında bu iletişim kutusu devam eder",
@@ -150,17 +150,17 @@ export const messages = {
   "connector.slack.orchestratorDoesDelegate": "Her görevi en uygun ajana iletir",
   "connector.slack.orchestratorDoesAnswer": "Yanıtı Slack ileti dizisinde paylaşır",
   "connector.slack.orchestratorModel": "Model",
-  "connector.slack.doneTitle": "zereight bot {workspace} içinde",
+  "connector.slack.doneTitle": "OpenOwnBot {workspace} içinde",
   "connector.slack.doneDescription": "Herhangi bir genel kanalda @OpenBot'tan bahsedin veya doğrudan mesaj gönderin.",
   "connector.slack.done": "Bitti",
   "connector.slack.disconnectTitle": "{workspace} bağlantısı kesilsin mi?",
   "connector.slack.disconnectDescription":
-    "zereight bot {workspace} içinde yanıt vermeyi durdurur ve Slack belirtecini bu bilgisayardan kaldırır.",
+    "OpenOwnBot {workspace} içinde yanıt vermeyi durdurur ve Slack belirtecini bu bilgisayardan kaldırır.",
   "connector.slack.disconnectDescriptionHost":
-    "zereight bot {workspace} içinde yanıt vermeyi durdurur ve Slack belirtecini {host} sunucusundan kaldırır.",
+    "OpenOwnBot {workspace} içinde yanıt vermeyi durdurur ve Slack belirtecini {host} sunucusundan kaldırır.",
   "connector.slack.disconnectEffect": "{workspace} içindeki kişiler artık @OpenBot aracılığıyla ajanlarınıza ulaşamaz.",
-  "connector.slack.removeEffectKept": "Konuşmalar ve Slack Düzenleyicisi zereight bot'ta kalır.",
-  "connector.slack.removeEffectDeleted": "Slack Düzenleyicisi ve konuşmaları zereight bot'tan silinir.",
+  "connector.slack.removeEffectKept": "Konuşmalar ve Slack Düzenleyicisi OpenOwnBot'ta kalır.",
+  "connector.slack.removeEffectDeleted": "Slack Düzenleyicisi ve konuşmaları OpenOwnBot'tan silinir.",
   "connector.slack.keep": "Bağlı tut",
   "connector.slack.close": "Kapat",
   "connector.slack.addWorkspace": "Çalışma alanı ekle",
@@ -199,10 +199,10 @@ export const messages = {
   "connector.discord.disconnectAllSummary":
     "Tüm sunucuların bağlantısı kesilir. Kimse ajanlarınıza artık @OpenBot üzerinden ulaşamaz.",
   "connector.discord.disconnectAllSummaryOrchestrator":
-    "Tüm sunucuların bağlantısı kesilir. Discord Düzenleyicisi ve sohbetleri zereight bot'tan silinir.",
+    "Tüm sunucuların bağlantısı kesilir. Discord Düzenleyicisi ve sohbetleri OpenOwnBot'tan silinir.",
   "connector.discord.missingScopes":
-    "zereight bot Discord'da şu izinlere sahip değil: {scopes}. Discord sunucusu bağlantısını kesin, ardından tekrar bağlayın.",
-  "connector.discord.retryAt": "Discord zereight bot'tan beklemesini istedi. {time} saatinde tekrar deneyecek.",
+    "OpenOwnBot Discord'da şu izinlere sahip değil: {scopes}. Discord sunucusu bağlantısını kesin, ardından tekrar bağlayın.",
+  "connector.discord.retryAt": "Discord OpenOwnBot'tan beklemesini istedi. {time} saatinde tekrar deneyecek.",
   "connector.discord.reconnect": "Yeniden bağlan",
   "connector.discord.pause": "Duraklat",
   "connector.discord.resume": "Sürdür",
@@ -214,12 +214,12 @@ export const messages = {
   "connector.discord.orchestratorNone": "Henüz yanıt veren bir ajan yok",
   "connector.discord.orchestratorNoneDescription":
     "Discord Düzenleyicisini ekleyin, aksi takdirde Discord yanıt alamaz.",
-  "connector.discord.channelsNote": "zereight bot, rolünün görebildiği kanalları görür.",
+  "connector.discord.channelsNote": "OpenOwnBot, rolünün görebildiği kanalları görür.",
   // Bağlanma iletişim kutusu. Adımlar sayı olarak gösterilir; ekran okuyucular adları okur.
   "connector.discord.stepWorkspace": "Discord sunucusu",
   "connector.discord.stepAgent": "Ajan",
   "connector.discord.connectTitle": "Bir Discord sunucusuna bağlanın",
-  "connector.discord.connectDescription": "zereight bot, Discord sunucusuna zereight bot adında bir bot ekler.",
+  "connector.discord.connectDescription": "OpenOwnBot, Discord sunucusuna OpenOwnBot adında bir bot ekler.",
   "connector.discord.connectStepBrowser": "Discord tarayıcınızda açılır",
   "connector.discord.connectStepAllow": "Sunucuyu seçin, ardından Yetkilendir'e tıklayın",
   "connector.discord.connectStepReturn": "Discord işlemi tamamlandığında bu iletişim kutusu devam eder",
@@ -234,18 +234,18 @@ export const messages = {
   "connector.discord.orchestratorDoesDelegate": "Her görevi en uygun ajana iletir",
   "connector.discord.orchestratorDoesAnswer": "Yanıtı Discord kanalında verir",
   "connector.discord.orchestratorModel": "Model",
-  "connector.discord.doneTitle": "zereight bot {workspace} içinde",
+  "connector.discord.doneTitle": "OpenOwnBot {workspace} içinde",
   "connector.discord.doneDescription": "Bir kanalda @OpenBot'tan bahsedin. Devam etmek için OpenBot'a yanıt verin.",
   "connector.discord.done": "Bitti",
   "connector.discord.disconnectTitle": "{workspace} bağlantısı kesilsin mi?",
   "connector.discord.disconnectDescription":
-    "zereight bot {workspace} içinde yanıt vermeyi bırakır ve Discord bağlantısını bu bilgisayardan kaldırır.",
+    "OpenOwnBot {workspace} içinde yanıt vermeyi bırakır ve Discord bağlantısını bu bilgisayardan kaldırır.",
   "connector.discord.disconnectDescriptionHost":
-    "zereight bot {workspace} içinde yanıt vermeyi bırakır ve Discord bağlantısını {host} sunucusundan kaldırır.",
+    "OpenOwnBot {workspace} içinde yanıt vermeyi bırakır ve Discord bağlantısını {host} sunucusundan kaldırır.",
   "connector.discord.disconnectEffect":
     "{workspace} içindeki kişiler artık @OpenBot aracılığıyla ajanlarınıza ulaşamaz.",
-  "connector.discord.removeEffectKept": "Konuşmalar ve Discord Düzenleyicisi zereight bot'ta kalır.",
-  "connector.discord.removeEffectDeleted": "Discord Düzenleyicisi ve konuşmaları zereight bot'tan silinir.",
+  "connector.discord.removeEffectKept": "Konuşmalar ve Discord Düzenleyicisi OpenOwnBot'ta kalır.",
+  "connector.discord.removeEffectDeleted": "Discord Düzenleyicisi ve konuşmaları OpenOwnBot'tan silinir.",
   "connector.discord.keep": "Bağlı tut",
   "connector.discord.close": "Kapat",
   "connector.discord.addWorkspace": "Discord sunucusu ekle",
@@ -257,27 +257,27 @@ export const messages = {
     one: "{count} Discord sunucusu · Discord Düzenleyicisi yanıtlıyor",
     other: "{count} Discord sunucusu · Discord Düzenleyicisi yanıtlıyor",
   },
-  "connector.discord.accessTitle": "zereight bot'u kimler kullanabilir",
+  "connector.discord.accessTitle": "OpenOwnBot'u kimler kullanabilir",
   "connector.discord.accessDescription":
-    "zereight bot yalnızca bu kişilere yanıt verir. Diğerlerinin bahsetmelerini yok sayar.",
+    "OpenOwnBot yalnızca bu kişilere yanıt verir. Diğerlerinin bahsetmelerini yok sayar.",
   "connector.discord.accessEveryone": "Sunucudaki herkes",
   "connector.discord.accessEveryoneDescription":
-    "zereight bot'un gördüğü bir kanala yazabilen herkes ondan bahsedebilir.",
+    "OpenOwnBot'un gördüğü bir kanala yazabilen herkes ondan bahsedebilir.",
   "connector.discord.accessRoles": "{roles} rolüne sahip üyeler",
   "connector.discord.accessChoose": "Rolleri seç",
-  "connector.discord.accessDialogTitle": "{workspace} içinde zereight bot'u kimler kullanabilir?",
-  "connector.discord.accessDialogDescription": "Hiçbir rol seçilmezse herkes zereight bot'tan bahsedebilir.",
+  "connector.discord.accessDialogTitle": "{workspace} içinde OpenOwnBot'u kimler kullanabilir?",
+  "connector.discord.accessDialogDescription": "Hiçbir rol seçilmezse herkes OpenOwnBot'tan bahsedebilir.",
   "connector.discord.accessLoading": "Roller yükleniyor…",
   "connector.discord.accessLoadFailed": "Discord rolleri yüklenmedi",
   "connector.discord.accessNoRoles": "Bu sunucuda seçilecek rol yok.",
   "connector.discord.accessRoleDeleted": "{role} (silindi)",
   "connector.discord.accessSave": "Kaydet",
-  "connector.discord.accessHostUpdate": "Rol seçmek için {host} üzerindeki zereight bot'u güncelleyin.",
+  "connector.discord.accessHostUpdate": "Rol seçmek için {host} üzerindeki OpenOwnBot'u güncelleyin.",
   // Sunucu ayarları > Bağlayıcılar > Telegram: her sohbet tek OpenBot botunu ekler ve Telegram
   // Düzenleyicisi ajanı tüm sohbetlerin mesajlarını alır, ekibe sorar ve yanıtlar.
   "connector.telegram.title": "Telegram",
   "connector.telegram.description":
-    "zereight bot botunu bir Telegram grubuna ekleyin veya botla doğrudan bir sohbet açın. Telegram Düzenleyicisi doğru ajana sorar ve yanıtlar.",
+    "OpenOwnBot botunu bir Telegram grubuna ekleyin veya botla doğrudan bir sohbet açın. Telegram Düzenleyicisi doğru ajana sorar ve yanıtlar.",
   "connector.telegram.statusConnected": "Bağlandı",
   "connector.telegram.statusAttention": "Dikkat gerekiyor",
   // {count} bağlı Telegram sohbetlerinin sayısıdır.
@@ -301,23 +301,23 @@ export const messages = {
   "connector.telegram.groupDescription": "Kullanıcılar bottan bahseder veya mesajlarını yanıtlar.",
   "connector.telegram.directDescription": "Bu sohbetteki her mesaj Telegram Düzenleyicisine gider.",
   "connector.telegram.helpRemoved":
-    "zereight bot botu artık bu sohbette değil. Sohbetin bağlantısını kesin, sonra botu yeniden ekleyin.",
+    "OpenOwnBot botu artık bu sohbette değil. Sohbetin bağlantısını kesin, sonra botu yeniden ekleyin.",
   "connector.telegram.helpRelayUnavailable":
-    "zereight bot bu bilgisayarda Telegram mesajlarını alamıyor. Oturum açın, Sunucu ayarlarında bu bilgisayara bir ad verin ve zereight bot'u açık tutun.",
+    "OpenOwnBot bu bilgisayarda Telegram mesajlarını alamıyor. Oturum açın, Sunucu ayarlarında bu bilgisayara bir ad verin ve OpenOwnBot'u açık tutun.",
   "connector.telegram.helpRelayUnavailableHost":
-    "{host} üzerindeki zereight bot Telegram mesajlarını alamıyor. {host} üzerinde oturum açın, Sunucu ayarlarında sunucuya bir ad verin ve zereight bot'u açık tutun.",
+    "{host} üzerindeki OpenOwnBot Telegram mesajlarını alamıyor. {host} üzerinde oturum açın, Sunucu ayarlarında sunucuya bir ad verin ve OpenOwnBot'u açık tutun.",
   "connector.telegram.helpError":
-    "zereight bot bu sohbete ulaşamıyor. Yeniden bağlanın veya sohbetin bağlantısını kesin.",
-  "connector.telegram.retryAt": "Telegram zereight bot'tan beklemesini istedi. {time} saatinde tekrar deneyecek.",
+    "OpenOwnBot bu sohbete ulaşamıyor. Yeniden bağlanın veya sohbetin bağlantısını kesin.",
+  "connector.telegram.retryAt": "Telegram OpenOwnBot'tan beklemesini istedi. {time} saatinde tekrar deneyecek.",
   "connector.telegram.pause": "Duraklat",
   "connector.telegram.resume": "Sürdür",
   "connector.telegram.reconnect": "Yeniden bağlan",
   "connector.telegram.disconnectChat": "Bağlantıyı kes",
   "connector.telegram.disconnectAllTitle": "Telegram bağlantısını kes",
   "connector.telegram.disconnectAllSummary":
-    "Tüm sohbetlerin bağlantısı kesilir. Kimse ajanlarınıza artık zereight bot botu üzerinden ulaşamaz.",
+    "Tüm sohbetlerin bağlantısı kesilir. Kimse ajanlarınıza artık OpenOwnBot botu üzerinden ulaşamaz.",
   "connector.telegram.disconnectAllSummaryOrchestrator":
-    "Tüm sohbetlerin bağlantısı kesilir. Telegram Düzenleyicisi ve sohbetleri zereight bot'tan silinir.",
+    "Tüm sohbetlerin bağlantısı kesilir. Telegram Düzenleyicisi ve sohbetleri OpenOwnBot'tan silinir.",
   // {action} Pause gibi bir düğmedir; {name} sohbet adıdır.
   "connector.telegram.rowAction": "{action}: {name}",
   "connector.telegram.linkChat": "Sohbet bağla",
@@ -325,7 +325,7 @@ export const messages = {
   "connector.telegram.openDirectChat": "Doğrudan sohbet aç",
   "connector.telegram.orchestratorTitle": "Telegram Düzenleyicisi",
   "connector.telegram.orchestratorDescription":
-    "Bu ajan tüm Telegram sohbetlerinizden zereight bot'a gelen mesajları alır. Kısa olanları kendisi yanıtlar, diğer işleri doğru ajana iletir ve yanıtı sohbette paylaşır.",
+    "Bu ajan tüm Telegram sohbetlerinizden OpenOwnBot'a gelen mesajları alır. Kısa olanları kendisi yanıtlar, diğer işleri doğru ajana iletir ve yanıtı sohbette paylaşır.",
   "connector.telegram.orchestratorNone": "Henüz yanıt veren bir ajan yok",
   "connector.telegram.orchestratorNoneDescription":
     "Telegram Düzenleyicisini ekleyin, aksi takdirde Telegram yanıt alamaz.",
@@ -336,7 +336,7 @@ export const messages = {
   "connector.telegram.stepAgent": "Ajan",
   "connector.telegram.connectTitle": "Bir Telegram sohbeti bağlayın",
   "connector.telegram.connectDescription":
-    "zereight bot botunu bir gruba ekleyin veya botla doğrudan bir sohbet açın. Tek bir bot tüm sohbetlerinize hizmet eder.",
+    "OpenOwnBot botunu bir gruba ekleyin veya botla doğrudan bir sohbet açın. Tek bir bot tüm sohbetlerinize hizmet eder.",
   "connector.telegram.connectStepBrowser": "Telegram tarayıcınızda açılır",
   "connector.telegram.connectStepPick": "Grubu seçin veya doğrudan sohbette Başlat'a dokunun",
   "connector.telegram.connectStepReturn": "Sohbet bağlandığında bu iletişim kutusu devam eder",
@@ -344,28 +344,28 @@ export const messages = {
   "connector.telegram.agentStepTitle": "Telegram Düzenleyicisini ekleyin",
   // {chat} Telegram sohbetinin adıdır.
   "connector.telegram.agentStepDescription":
-    "Bu yeni ajan, {chat} içinde ve daha sonra bağladığınız her sohbette zereight bot'a gelen mesajları yanıtlar.",
+    "Bu yeni ajan, {chat} içinde ve daha sonra bağladığınız her sohbette OpenOwnBot'a gelen mesajları yanıtlar.",
   "connector.telegram.orchestratorName": "Telegram Düzenleyicisi",
   "connector.telegram.orchestratorRole": "Telegram'da yanıt verir ve ekibe sorar",
-  "connector.telegram.orchestratorDoesReceive": "zereight bot'a gelen her Telegram mesajını ilk olarak alır",
+  "connector.telegram.orchestratorDoesReceive": "OpenOwnBot'a gelen her Telegram mesajını ilk olarak alır",
   "connector.telegram.orchestratorDoesDelegate": "Her görevi en uygun ajana iletir",
   "connector.telegram.orchestratorDoesAnswer": "Yanıtı Telegram sohbetinde paylaşır",
   "connector.telegram.orchestratorModel": "Model",
-  "connector.telegram.doneTitle": "zereight bot {chat} içinde",
+  "connector.telegram.doneTitle": "OpenOwnBot {chat} içinde",
   "connector.telegram.done": "Bitti",
   "connector.telegram.disconnectTitle": "{chat} bağlantısı kesilsin mi?",
   "connector.telegram.leaveDescription":
-    "zereight bot botu {chat} sohbetinden ayrılır ve zereight bot orada yanıt vermeyi bırakır.",
+    "OpenOwnBot botu {chat} sohbetinden ayrılır ve OpenOwnBot orada yanıt vermeyi bırakır.",
   "connector.telegram.disconnectEffect":
-    "{chat} içindeki kişiler artık zereight bot botu aracılığıyla ajanlarınıza ulaşamaz.",
-  "connector.telegram.removeEffectKept": "Konuşmalar ve Telegram Düzenleyicisi zereight bot'ta kalır.",
+    "{chat} içindeki kişiler artık OpenOwnBot botu aracılığıyla ajanlarınıza ulaşamaz.",
+  "connector.telegram.removeEffectKept": "Konuşmalar ve Telegram Düzenleyicisi OpenOwnBot'ta kalır.",
   "connector.telegram.removeEffectDeleted":
-    "Bu son sohbet olduğundan Telegram Düzenleyicisi ve konuşmaları zereight bot'tan silinir.",
+    "Bu son sohbet olduğundan Telegram Düzenleyicisi ve konuşmaları OpenOwnBot'tan silinir.",
   "connector.telegram.keep": "Bağlı tut",
   "connector.telegram.close": "Kapat",
   "connector.onePassword.title": "1Password",
   "connector.onePassword.description":
-    "Ajanların zereight bot tarayıcısında sitelere oturum açabilmesi için özel bir 1Password kasasını bir hizmet hesabı aracılığıyla zereight bot ile paylaşın.",
+    "Ajanların OpenOwnBot tarayıcısında sitelere oturum açabilmesi için özel bir 1Password kasasını bir hizmet hesabı aracılığıyla OpenOwnBot ile paylaşın.",
   "connector.onePassword.howItWorks":
     "Bağlanma, 1Password hesabınızda “Shared with OpenBot” adlı bir kasa ve yalnızca bu kasayı okuyabilen bir hizmet hesabı oluşturur. OpenBot kayıtlı girişleri bu bilgisayardaki kendi tarayıcısında doldurur; bu nedenle yalnızca o kasaya taşıdığınız öğeler paylaşılır. Ajanlar hiçbir zaman parola görmez.",
   "connector.onePassword.connect": "1Password'e bağlan",
@@ -377,14 +377,14 @@ export const messages = {
   "connector.onePassword.stepCliMissing":
     "OpenBot bunu 1Password'den kendi klasörüne indirir. Yönetici parolası gerekmez.",
   "connector.onePassword.stepCliManual":
-    "zereight bot bunu bu bilgisayara yükleyemiyor. 1Password'den yükleyin, ardından bu sayfaya dönün.",
+    "OpenOwnBot bunu bu bilgisayara yükleyemiyor. 1Password'den yükleyin, ardından bu sayfaya dönün.",
   "connector.onePassword.installCli": "Yükle",
   "connector.onePassword.stepAppTitle": "CLI entegrasyonunu açın",
   "connector.onePassword.stepAppDescription":
     "1Password uygulamasında Settings > Developer bölümünü açın ve “Integrate with 1Password CLI” seçeneğini açın.",
   "connector.onePassword.stepAppReady": "1Password uygulaması, CLI'nin paylaşılan kasayı oluşturmasına izin veriyor.",
   "connector.onePassword.openApp": "1Password'ü aç",
-  "connector.onePassword.openAppFailed": "zereight bot, 1Password'ü açamadı.",
+  "connector.onePassword.openAppFailed": "OpenOwnBot, 1Password'ü açamadı.",
   "connector.onePassword.checkAgain": "Tekrar denetle",
   "connector.onePassword.stepVaultTitle": "Paylaşılan kasayı oluşturun",
   "connector.onePassword.stepVaultDescription":
@@ -398,7 +398,7 @@ export const messages = {
   "connector.onePassword.approveInApp": "İsteği 1Password uygulamasında onaylayın",
   "connector.onePassword.cancel": "İptal",
   "connector.onePassword.chooseAccountTitle": "Bir hesap seçin",
-  "connector.onePassword.chooseAccountDescription": "zereight bot paylaşılan kasayı seçtiğiniz hesapta oluşturur.",
+  "connector.onePassword.chooseAccountDescription": "OpenOwnBot paylaşılan kasayı seçtiğiniz hesapta oluşturur.",
   "connector.onePassword.useAccount": "Bu hesabı kullan",
   "connector.onePassword.vaultTitle": "Paylaşılan kasa",
   "connector.onePassword.vaultDescription":
@@ -411,14 +411,14 @@ export const messages = {
   "connector.onePassword.disconnect": "Bağlantıyı kes",
   "connector.onePassword.disconnectTitle": "1Password bağlantısını kes",
   "connector.onePassword.disconnectSummary":
-    "zereight bot belirteci unutur. Kasa ve hizmet hesabı 1Password'de kalır; artık gerekmiyorsa onları orada kaldırın.",
-  "connector.onePassword.actionFailed": "zereight bot 1Password bağlantısını değiştiremedi.",
+    "OpenOwnBot belirteci unutur. Kasa ve hizmet hesabı 1Password'de kalır; artık gerekmiyorsa onları orada kaldırın.",
+  "connector.onePassword.actionFailed": "OpenOwnBot 1Password bağlantısını değiştiremedi.",
   "connector.onePassword.statusConnected": "Bağlandı",
   "connector.onePassword.statusConnecting": "Bağlanıyor",
   "connector.onePassword.descriptionHost":
-    "Ayrı bir 1Password kasasını bir hizmet hesabıyla {host} üzerindeki zereight bot ile paylaşın; böylece {host} üzerindeki ajanlar onun tarayıcısında sitelere oturum açabilir.",
+    "Ayrı bir 1Password kasasını bir hizmet hesabıyla {host} üzerindeki OpenOwnBot ile paylaşın; böylece {host} üzerindeki ajanlar onun tarayıcısında sitelere oturum açabilir.",
   "connector.onePassword.howItWorksHost":
-    "{host} bir hizmet hesabı belirteciyle bağlanır. 1Password.com'da yalnızca zereight bot ile paylaştığınız kasayı okuyabilen bir hizmet hesabı oluşturun ve belirtecini buraya yapıştırın. {host} belirteci denetler ve saklar; bu bilgisayar saklamaz. Ajanlar hiçbir zaman parola görmez.",
+    "{host} bir hizmet hesabı belirteciyle bağlanır. 1Password.com'da yalnızca OpenOwnBot ile paylaştığınız kasayı okuyabilen bir hizmet hesabı oluşturun ve belirtecini buraya yapıştırın. {host} belirteci denetler ve saklar; bu bilgisayar saklamaz. Ajanlar hiçbir zaman parola görmez.",
   "connector.onePassword.disconnectSummaryHost":
     "{host} belirteci unutur. Kasa ve hizmet hesabı 1Password'de kalır; artık gerekmiyorsa onları orada kaldırın.",
   "connector.bitwarden.title": "Bitwarden",
@@ -428,17 +428,17 @@ export const messages = {
   "connector.bitwarden.scope":
     "Bu bilgisayardaki tüm ajanlar Shared with OpenBot içindeki eşleşen girişleri kullanabilir. OpenBot tam HTTPS kaynaklarını kullanır. Ana parola istemi veya özel URI eşleştirme kuralı gerektiren öğeleri kullanmaz.",
   "connector.bitwarden.session":
-    "Oturum anahtarı bellekte kalır. Kasa 8 saat kullanılmazsa veya zereight bot kapanırsa tekrar bağlanın. Bağlantıyı kesmek zereight bot erişimini durdurur; diğer Bitwarden istemcilerini kilitlemez.",
+    "Oturum anahtarı bellekte kalır. Kasa 8 saat kullanılmazsa veya OpenOwnBot kapanırsa tekrar bağlanın. Bağlantıyı kesmek OpenOwnBot erişimini durdurur; diğer Bitwarden istemcilerini kilitlemez.",
   "connector.bitwarden.sessionKey": "Bitwarden oturum anahtarı",
   "connector.bitwarden.connect": "Bitwarden'a bağlan",
   "connector.bitwarden.disconnect": "Bitwarden bağlantısını kes",
   "connector.bitwarden.disconnectAction": "Bağlantıyı kes",
   "connector.bitwarden.disconnectSummary":
-    "zereight bot oturum anahtarını unutur. Ajanlar artık Bitwarden'dan giriş bilgisi dolduramaz. Diğer Bitwarden istemcilerinin kilidi açık kalır.",
+    "OpenOwnBot oturum anahtarını unutur. Ajanlar artık Bitwarden'dan giriş bilgisi dolduramaz. Diğer Bitwarden istemcilerinin kilidi açık kalır.",
   "connector.bitwarden.disconnectSummaryHost":
     "{host} API anahtarını ve ana parolayı kaldırır. {host} üzerindeki ajanlar artık Bitwarden'dan giriş bilgisi dolduramaz.",
   "connector.bitwarden.connected": "Bağlandı",
-  "connector.bitwarden.actionFailed": "zereight bot Bitwarden bağlantısını değiştiremedi.",
+  "connector.bitwarden.actionFailed": "OpenOwnBot Bitwarden bağlantısını değiştiremedi.",
   "connector.bitwarden.descriptionHost":
     "{host} üzerindeki tarayıcı girişlerini Bitwarden veya Vaultwarden'dan doldurun.",
   "connector.bitwarden.setupHost":

@@ -16,7 +16,7 @@ export const messages = {
   "mobile.settings.about.privacy": "プライバシーポリシー",
   "mobile.settings.home.profile": "プロフィール",
   "mobile.settings.home.preferences": "環境設定",
-  "mobile.settings.home.about": "zereight bot について",
+  "mobile.settings.home.about": "OpenOwnBot について",
   "mobile.settings.home.support": "サポート",
   "mobile.settings.home.supportHint": "ヘルプとサポートログの保存",
   "mobile.settings.support.help": "ヘルプ",
@@ -31,7 +31,7 @@ export const messages = {
   "mobile.settings.support.clearTitle": "サポートログを消去しますか？",
   "mobile.settings.support.clearBody": "このスマートフォンのログから、すべてのイベントを削除します。",
   "mobile.settings.support.logFooter":
-    "ログはこのスマートフォンに保存され、zereight bot が送信することはありません。接続の手順、リクエスト、エラーを記録します。メッセージやファイルは記録せず、パスワードとトークンは伏せて記録します。共有する前にファイルの内容を確認してください。",
+    "ログはこのスマートフォンに保存され、OpenOwnBot が送信することはありません。接続の手順、リクエスト、エラーを記録します。メッセージやファイルは記録せず、パスワードとトークンは伏せて記録します。共有する前にファイルの内容を確認してください。",
   "mobile.settings.support.saveFailed": "ログファイルを保存できませんでした。もう一度お試しください。",
   "mobile.settings.support.sharingUnavailable": "このスマートフォンでは共有を利用できません。",
   "mobile.settings.support.recent": "最近のイベント",
@@ -92,24 +92,24 @@ export const messages = {
   "mobile.settings.feedback.retry": "触覚フィードバックの設定をもう一度保存",
   "mobile.settings.liveActivities.title": "ライブアクティビティ",
   "mobile.settings.liveActivities.footer":
-    "zereight bot の実行中、エージェントの作業、メッセージ、質問、承認をロック画面と Dynamic Island に表示します。",
+    "OpenOwnBot の実行中、エージェントの作業、メッセージ、質問、承認をロック画面と Dynamic Island に表示します。",
   "mobile.settings.liveActivities.toggle": "エージェントのアクティビティを表示",
   "mobile.settings.liveActivities.retry": "ライブアクティビティの設定をもう一度保存",
   "mobile.settings.notifications.title": "通知",
   "mobile.settings.notifications.toggle": "通知を許可",
   "mobile.settings.notifications.footer":
-    "エージェントが作業を終えたとき、エラーで止まったとき、または入力、承認、ブラウザーでの操作が必要なときに通知します。このアプリまたはデスクトップアプリで zereight bot を使っている間は通知しません。ライブアクティビティの表示中は、代わりにライブアクティビティに表示します。",
+    "エージェントが作業を終えたとき、エラーで止まったとき、または入力、承認、ブラウザーでの操作が必要なときに通知します。このアプリまたはデスクトップアプリで OpenOwnBot を使っている間は通知しません。ライブアクティビティの表示中は、代わりにライブアクティビティに表示します。",
   "mobile.settings.notifications.footerAndroid":
-    "エージェントが作業を終えたとき、エラーで止まったとき、または入力、承認、ブラウザーでの操作が必要なときに通知します。このアプリまたはデスクトップアプリで zereight bot を使っている間は通知しません。",
-  "mobile.settings.notifications.denied": "iOS の設定で zereight bot の通知がオフになっています。",
-  "mobile.settings.notifications.deniedAndroid": "Android の設定で zereight bot の通知がオフになっています。",
+    "エージェントが作業を終えたとき、エラーで止まったとき、または入力、承認、ブラウザーでの操作が必要なときに通知します。このアプリまたはデスクトップアプリで OpenOwnBot を使っている間は通知しません。",
+  "mobile.settings.notifications.denied": "iOS の設定で OpenOwnBot の通知がオフになっています。",
+  "mobile.settings.notifications.deniedAndroid": "Android の設定で OpenOwnBot の通知がオフになっています。",
   "mobile.settings.notifications.openSettings": "iOS の設定を開く",
   "mobile.settings.notifications.openSettingsAndroid": "Android の設定を開く",
   "mobile.settings.notifications.preview": "返信のプレビューを表示",
   "mobile.settings.notifications.previewFooter":
-    "返信の冒頭、質問、または承認が必要な操作を表示します。Apple と zereight bot アカウントサービスはこの内容を読めません。",
+    "返信の冒頭、質問、または承認が必要な操作を表示します。Apple と OpenOwnBot アカウントサービスはこの内容を読めません。",
   "mobile.settings.notifications.previewFooterAndroid":
-    "返信の冒頭、質問、または承認が必要な操作を表示します。Google と zereight bot アカウントサービスはこの内容を読めません。",
+    "返信の冒頭、質問、または承認が必要な操作を表示します。Google と OpenOwnBot アカウントサービスはこの内容を読めません。",
   "mobile.settings.notifications.sound": "サウンド",
   "mobile.settings.notifications.playSound": "サウンドを再生",
   "mobile.settings.notifications.sound.openbot": "OpenBot",
@@ -120,9 +120,9 @@ export const messages = {
   "mobile.settings.notifications.sound.default": "iOS のデフォルト",
   "mobile.settings.notifications.sound.defaultAndroid": "Android のデフォルト",
   "mobile.settings.notifications.soundFooter":
-    "通知とライブアクティビティはこのサウンドを再生します。ライブアクティビティは画面も点灯します。zereight bot のサウンドは、デスクトップアプリがタスク完了時に鳴らすサウンドです。その次の 4 つは、デスクトップアプリのサウンドテーマのサウンドです。",
+    "通知とライブアクティビティはこのサウンドを再生します。ライブアクティビティは画面も点灯します。OpenOwnBot のサウンドは、デスクトップアプリがタスク完了時に鳴らすサウンドです。その次の 4 つは、デスクトップアプリのサウンドテーマのサウンドです。",
   "mobile.settings.notifications.soundFooterAndroid":
-    "通知はこのサウンドを再生します。zereight bot のサウンドは、デスクトップアプリがタスク完了時に鳴らすサウンドです。その次の 4 つは、デスクトップアプリのサウンドテーマのサウンドです。",
+    "通知はこのサウンドを再生します。OpenOwnBot のサウンドは、デスクトップアプリがタスク完了時に鳴らすサウンドです。その次の 4 つは、デスクトップアプリのサウンドテーマのサウンドです。",
   "mobile.settings.notifications.notifyAbout": "通知する内容",
   "mobile.settings.notifications.level.all": "すべてのアクティビティ",
   "mobile.settings.notifications.level.needsMe": "自分が必要なときのみ",
@@ -139,7 +139,7 @@ export const messages = {
   "mobile.settings.notifications.serverFooter":
     "このサーバーのどのイベントをこのスマートフォンに通知するかを選びます。デスクトップアプリには別の設定があります。",
   "mobile.settings.notifications.serverUnsupported":
-    "このサーバーは通知を送信できません。サーバーを実行しているコンピューターで zereight bot をアップデートしてください。",
+    "このサーバーは通知を送信できません。サーバーを実行しているコンピューターで OpenOwnBot をアップデートしてください。",
   "mobile.settings.notifications.channel": "エージェントの通知（{sound}）",
   "mobile.settings.notifications.channelSilent": "エージェントの通知（サウンドなし）",
   "mobile.settings.privacy.title": "プライバシー",
@@ -164,6 +164,6 @@ export const messages = {
   "mobile.settings.profile.security": "セキュリティ",
   "mobile.settings.profile.accountSessions": "アカウントのセッション",
   "mobile.settings.profile.signOutTitle": "サインアウトしますか？",
-  "mobile.settings.profile.signOutBody": "デスクトップの zereight bot で新しいコードをスキャンして再接続してください。",
+  "mobile.settings.profile.signOutBody": "デスクトップの OpenOwnBot で新しいコードをスキャンして再接続してください。",
   "mobile.settings.profile.signOut": "サインアウト",
 } as const satisfies PartialTranslation<typeof source>;

@@ -2,7 +2,7 @@ import type { PartialTranslation } from "../../message";
 import type { messages as source } from "../en/conversation";
 
 export const messages = {
-  "conversation.globalSearch.title": "Buscar en zereight bot",
+  "conversation.globalSearch.title": "Buscar en OpenOwnBot",
   "conversation.globalSearch.filter": "Filtrar resultados",
   "conversation.globalSearch.tab.all": "Todo",
   "conversation.globalSearch.tab.messages": "Mensajes",

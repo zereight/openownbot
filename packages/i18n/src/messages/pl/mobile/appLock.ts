@@ -9,11 +9,11 @@ export const messages = {
   "mobile.appLock.method.phone": "Odblokowanie telefonu",
   "mobile.appLock.methods.title": "Odblokuj za pomocą",
   "mobile.appLock.methods.footer":
-    "Włącz PIN, {method} lub oba. zereight bot zablokuje się wtedy, gdy go opuścisz, i po powrocie poprosi o jedno z nich.",
+    "Włącz PIN, {method} lub oba. OpenOwnBot zablokuje się wtedy, gdy go opuścisz, i po powrocie poprosi o jedno z nich.",
   "mobile.appLock.methods.footerPinOnly":
-    "Włącz PIN. zereight bot zablokuje się wtedy, gdy go opuścisz, i po powrocie poprosi o PIN.",
+    "Włącz PIN. OpenOwnBot zablokuje się wtedy, gdy go opuścisz, i po powrocie poprosi o PIN.",
   "mobile.appLock.changePin": "Zmień PIN",
-  "mobile.appLock.lockAfter.title": "Blokuj zereight bot",
+  "mobile.appLock.lockAfter.title": "Blokuj OpenOwnBot",
   "mobile.appLock.lockAfter.immediately": "Natychmiast",
   "mobile.appLock.lockAfter.minutes": {
     one: "Po {count} minucie",
@@ -29,8 +29,8 @@ export const messages = {
   },
   "mobile.appLock.lockWithPhone": "Gdy telefon się zablokuje",
   "mobile.appLock.lockAfter.footer":
-    "Czas liczy się od opuszczenia zereight bot. zereight bot zawsze blokuje się po ponownym uruchomieniu.",
-  "mobile.appLock.device.turnOnPrompt": "Włącz {method} dla zereight bot",
+    "Czas liczy się od opuszczenia OpenOwnBot. OpenOwnBot zawsze blokuje się po ponownym uruchomieniu.",
+  "mobile.appLock.device.turnOnPrompt": "Włącz {method} dla OpenOwnBot",
   "mobile.appLock.device.failed": "Nie udało się potwierdzić przez {method}. Spróbuj ponownie.",
   "mobile.appLock.device.unavailable": "Najpierw ustaw kod blokady w telefonie.",
   "mobile.appLock.pinSetup.title": "Kod PIN",
@@ -38,10 +38,10 @@ export const messages = {
   "mobile.appLock.pinSetup.confirm": "Wpisz PIN ponownie",
   "mobile.appLock.pinSetup.mismatch": "Kody PIN się różnią. Spróbuj ponownie.",
   "mobile.appLock.pinSetup.saveFailed": "Nie udało się zapisać PIN-u. Spróbuj ponownie.",
-  "mobile.appLock.lock.title": "zereight bot jest zablokowany",
+  "mobile.appLock.lock.title": "OpenOwnBot jest zablokowany",
   "mobile.appLock.lock.confirmTitle": "Potwierdź, że to ty",
   "mobile.appLock.lock.enterPin": "Wpisz swój PIN",
-  "mobile.appLock.lock.unlockPrompt": "Odblokuj zereight bot",
+  "mobile.appLock.lock.unlockPrompt": "Odblokuj OpenOwnBot",
   "mobile.appLock.lock.useDevice": "Użyj: {method}",
   "mobile.appLock.lock.unlock": "Odblokuj",
   "mobile.appLock.lock.wrongPin": "Nieprawidłowy PIN.",
@@ -65,15 +65,15 @@ export const messages = {
   },
   "mobile.appLock.lock.checkFailed": "Nie udało się sprawdzić PIN-u. Spróbuj ponownie.",
   "mobile.appLock.lock.pinMissing":
-    "Ten telefon nie ma PIN-u dla zereight bot. Wyloguj się, aby zresetować blokadę aplikacji.",
+    "Ten telefon nie ma PIN-u dla OpenOwnBot. Wyloguj się, aby zresetować blokadę aplikacji.",
   "mobile.appLock.lock.loadFailed": "Nie udało się odczytać ustawień blokady aplikacji.",
   "mobile.appLock.lock.retry": "Ponów",
   "mobile.appLock.lock.forgotPin": "Nie pamiętasz PIN-u?",
   "mobile.appLock.lock.signOut": "Wyloguj się",
-  "mobile.appLock.lock.signOutTitle": "Wylogować się z zereight bot?",
+  "mobile.appLock.lock.signOutTitle": "Wylogować się z OpenOwnBot?",
   "mobile.appLock.lock.signOutBody":
-    "Spowoduje to usunięcie blokady aplikacji i wylogowanie na tym telefonie. Połącz się ponownie, skanując nowy kod z zereight bot na komputerze.",
-  "mobile.appLock.lock.signedOut": "Zbyt wiele nieprawidłowych PIN-ów. zereight bot wylogował cię na tym telefonie.",
+    "Spowoduje to usunięcie blokady aplikacji i wylogowanie na tym telefonie. Połącz się ponownie, skanując nowy kod z OpenOwnBot na komputerze.",
+  "mobile.appLock.lock.signedOut": "Zbyt wiele nieprawidłowych PIN-ów. OpenOwnBot wylogował cię na tym telefonie.",
   "mobile.appLock.lock.delete": "Usuń cyfrę",
   "mobile.appLock.lock.progress": {
     one: "Wpisano {count} z 4 cyfr",

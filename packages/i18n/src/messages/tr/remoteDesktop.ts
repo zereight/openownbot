@@ -9,7 +9,7 @@ export const messages = {
   "remoteDesktop.workspaceLabel": "Uzaktan kontrol",
   "remoteDesktop.displayLabel": "Uzak ekran",
   "remoteDesktop.selectDisplay": "Ekran seçin",
-  "remoteDesktop.backToOpenBot": "zereight bot'a dön",
+  "remoteDesktop.backToOpenBot": "OpenOwnBot'a dön",
   "remoteDesktop.disconnect": "Bağlantıyı kes",
   "remoteDesktop.viewerTitle": "Sunshine uzak masaüstü",
   "remoteDesktop.viewerLoadFailed": "Moonlight görüntüleyicisi yüklenemedi.",
@@ -40,7 +40,7 @@ export const messages = {
   "remoteDesktop.setup.startFailed": "Uzak masaüstü testi başlatılamadı.",
   "remoteDesktop.setup.connectionLost": "Test bağlantısı kesildi.",
   "remoteDesktop.setup.hostUpdateRequired":
-    "İzinleri kontrol etmek ve uzak masaüstünü test etmek için sunucudaki zereight bot'u güncelleyin.",
+    "İzinleri kontrol etmek ve uzak masaüstünü test etmek için sunucudaki OpenOwnBot'u güncelleyin.",
   "remoteDesktop.setup.permissions": "İzinler",
   "remoteDesktop.setup.checked": "Denetlendi",
   "remoteDesktop.setup.checkAgain": "Tekrar denetle",

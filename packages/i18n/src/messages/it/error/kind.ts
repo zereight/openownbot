@@ -6,7 +6,7 @@ export const messages = {
   "error.kind.timeout":
     "La richiesta ha richiesto troppo tempo. Controlla se l'azione è stata completata prima di riprovare.",
   "error.kind.storage":
-    "Lo spazio di archiviazione non è sufficiente. Libera spazio sul computer su cui gira zereight bot, poi riprova.",
+    "Lo spazio di archiviazione non è sufficiente. Libera spazio sul computer su cui gira OpenOwnBot, poi riprova.",
   "error.kind.filePermission":
     "OpenBot non ha il permesso di completare questa azione. Controlla i permessi del file o della cartella, poi riprova.",
   "error.kind.notFound":

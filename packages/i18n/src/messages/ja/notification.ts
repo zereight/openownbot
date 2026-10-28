@@ -16,7 +16,7 @@ export const messages = {
   "notification.channelMessage": "メッセージを送信しました。",
   "notification.usageLimit.title": "{provider} のアカウントが上限に達しました",
   "notification.usageLimit.body": {
-    other: "エージェント {count} 件が待機中です。zereight bot は後でもう一度試します。",
+    other: "エージェント {count} 件が待機中です。OpenOwnBot は後でもう一度試します。",
   },
   "notification.usageLimit.bodyResets": { other: "エージェント {count} 件が待機中です。{reset} にリセットされます。" },
   "notification.test": "通知は正常に動作しています。",

@@ -4,5 +4,5 @@ import type { messages as source } from "../../en/error/storage";
 export const messages = {
   "error.storage.unsupported": "Этот сервер не поддерживает хранилище.",
   "error.storage.agentMissing": "Агента не существует.",
-  "error.storage.unreadableFile": "zereight bot не может прочитать {path}. Файл повреждён.",
+  "error.storage.unreadableFile": "OpenOwnBot не может прочитать {path}. Файл повреждён.",
 } as const satisfies PartialTranslation<typeof source>;

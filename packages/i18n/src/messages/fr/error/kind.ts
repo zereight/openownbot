@@ -5,7 +5,7 @@ export const messages = {
   "error.kind.network": "Connexion impossible. Vérifiez votre connexion, puis réessayez.",
   "error.kind.timeout": "La requête a pris trop de temps. Vérifiez si l’action a abouti avant de réessayer.",
   "error.kind.storage":
-    "L’espace de stockage est insuffisant. Libérez de l’espace sur l’ordinateur qui exécute zereight bot, puis réessayez.",
+    "L’espace de stockage est insuffisant. Libérez de l’espace sur l’ordinateur qui exécute OpenOwnBot, puis réessayez.",
   "error.kind.filePermission":
     "OpenBot n’a pas l’autorisation d’effectuer cette action. Vérifiez les autorisations du fichier ou du dossier, puis réessayez.",
   "error.kind.notFound":

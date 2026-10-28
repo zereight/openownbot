@@ -6,7 +6,7 @@ export const messages = {
   "error.kind.timeout":
     "リクエストに時間がかかりすぎました。操作が完了したかどうかを確認してから、もう一度お試しください。",
   "error.kind.storage":
-    "ストレージの空き容量が不足しています。zereight bot を実行しているコンピューターの空き容量を増やしてから、もう一度お試しください。",
+    "ストレージの空き容量が不足しています。OpenOwnBot を実行しているコンピューターの空き容量を増やしてから、もう一度お試しください。",
   "error.kind.filePermission":
     "OpenBot にはこの操作を行う権限がありません。ファイルまたはフォルダーの権限を確認して、もう一度お試しください。",
   "error.kind.notFound":

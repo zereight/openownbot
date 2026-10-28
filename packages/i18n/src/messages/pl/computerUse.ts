@@ -3,14 +3,14 @@ import type { messages as source } from "../en/computerUse";
 
 export const messages = {
   "computerUse.permission.screenRecording.title": "Nagrywanie ekranu",
-  "computerUse.permission.screenRecording.description": "Pozwala zereight bot widzieć okna aplikacji.",
+  "computerUse.permission.screenRecording.description": "Pozwala OpenOwnBot widzieć okna aplikacji.",
   "computerUse.permission.screenRecording.pane": "Nagrywanie ekranu i dźwięku systemowego",
   "computerUse.permission.accessibility.title": "Dostępność",
-  "computerUse.permission.accessibility.description": "Pozwala zereight bot klikać i pisać.",
+  "computerUse.permission.accessibility.description": "Pozwala OpenOwnBot klikać i pisać.",
   "computerUse.permission.accessibility.pane": "Dostępność",
-  "computerUse.error.check": "zereight bot nie mógł sprawdzić Sterowania komputerem.",
+  "computerUse.error.check": "OpenOwnBot nie mógł sprawdzić Sterowania komputerem.",
   "computerUse.error.openSettings": "OpenBot nie mógł otworzyć Ustawień systemowych.",
-  "computerUse.error.startDriver": "zereight bot nie mógł uruchomić sterownika Sterowania komputerem.",
+  "computerUse.error.startDriver": "OpenOwnBot nie mógł uruchomić sterownika Sterowania komputerem.",
   "computerUse.checkAgain": "Sprawdź ponownie",
   "computerUse.checking": "Sprawdzanie Sterowania komputerem",
   "computerUse.unavailable.title": "Sterowanie komputerem nie jest jeszcze dostępne",
@@ -18,10 +18,10 @@ export const messages = {
   "computerUse.permissions.description": "Uprawnieniami zarządza macOS.",
   "computerUse.ready.title": "Sterowanie komputerem jest gotowe",
   "computerUse.ready.description":
-    "zereight bot widzi aplikacje na tym komputerze i może ich używać. Ten system nie wymaga dodatkowych uprawnień.",
+    "OpenOwnBot widzi aplikacje na tym komputerze i może ich używać. Ten system nie wymaga dodatkowych uprawnień.",
   "computerUse.openSettingsFailed.title": "Nie udało się otworzyć Ustawień systemowych",
   "computerUse.compact.title": "Włącz Sterowanie komputerem",
-  "computerUse.compact.description": "Pozwól zereight bot widzieć aplikacje na tym komputerze i ich używać.",
+  "computerUse.compact.description": "Pozwól OpenOwnBot widzieć aplikacje na tym komputerze i ich używać.",
   "computerUse.granted": "Przyznano",
   "computerUse.opening": "Otwieranie…",
   "computerUse.manage": "Zarządzaj",
@@ -38,5 +38,5 @@ export const messages = {
   "computerUse.help.showInFinder": "Pokaż w Finderze",
   "computerUse.help.revealFailed": "Nie udało się pokazać aplikacji w Finderze.",
   "computerUse.help.dragFailed": "Nie udało się przeciągnąć aplikacji.",
-  "computerUse.highlight.working": "zereight bot pracuje w: {title}",
+  "computerUse.highlight.working": "OpenOwnBot pracuje w: {title}",
 } as const satisfies PartialTranslation<typeof source>;

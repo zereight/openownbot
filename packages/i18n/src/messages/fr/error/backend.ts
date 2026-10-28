@@ -3,7 +3,7 @@ import type { messages as source } from "../../en/error/backend";
 
 export const messages = {
   "error.backend.eventsUnavailable": "Les événements ne sont pas disponibles sur cet hôte.",
-  "error.backend.databaseIntegrity": "La base de données zereight bot a échoué à la vérification d’intégrité.",
+  "error.backend.databaseIntegrity": "La base de données OpenOwnBot a échoué à la vérification d’intégrité.",
   "error.backend.webhookRouteLimit": "Un hôte peut avoir au plus {limit} routines webhook.",
   "error.backend.webhookSettingsInvalid": "Vérifiez les réglages du webhook et réessayez.",
   "error.backend.webhookRouteUnavailable":
@@ -13,8 +13,8 @@ export const messages = {
   "error.backend.browserViewLimit": "Trop de vues de navigateur sont ouvertes sur cet hôte.",
   "error.backend.browserViewEnded": "La vue en direct de cette page est terminée.",
   "error.backend.browserViewFailed": "La vue en direct de cette page a échoué.",
-  "error.backend.windowTemporarilyUnavailable": "La fenêtre zereight bot est temporairement indisponible.",
-  "error.backend.windowUnavailable": "La fenêtre zereight bot est indisponible.",
+  "error.backend.windowTemporarilyUnavailable": "La fenêtre OpenOwnBot est temporairement indisponible.",
+  "error.backend.windowUnavailable": "La fenêtre OpenOwnBot est indisponible.",
   "error.backend.sunshineApiHttp": "L’API Sunshine a échoué avec HTTP {status}.",
   "error.backend.sunshinePortsUnavailable":
     "Impossible de réserver une famille de ports Sunshine libre pour le Bureau à distance.",
@@ -32,7 +32,7 @@ export const messages = {
   "error.backend.moonlightRejectedPairing": "Moonlight a refusé l’appairage avec Sunshine.",
   "error.backend.moonlightNoPin": "Moonlight n’a pas renvoyé de code PIN d’appairage.",
   "error.backend.moonlightPairingIncomplete": "L’appairage Moonlight ne s’est pas terminé.",
-  "error.backend.moonlightWebNotEmbedded": "Moonlight Web n’est pas une version intégrée d’zereight bot.",
+  "error.backend.moonlightWebNotEmbedded": "Moonlight Web n’est pas une version intégrée d’OpenOwnBot.",
   "error.backend.moonlightEmptyResponse": "Moonlight a renvoyé une réponse vide.",
   "error.backend.remoteDesktopTimeout": "La demande de bureau à distance a expiré.",
   "error.backend.moonlightApiHttp": "L’API Moonlight a échoué avec HTTP {status}.",
@@ -50,8 +50,8 @@ export const messages = {
     "Cet hôte distant ne permet pas de prendre le contrôle d’un onglet du navigateur.",
   "error.backend.browserSignInUnsupported":
     "Cet hôte distant ne peut pas recevoir une connexion depuis cet ordinateur.",
-  "error.backend.browserSignInOpenFailed": "zereight bot n’a pas pu ouvrir la fenêtre de connexion.",
-  "error.backend.browserSignInReadFailed": "zereight bot n’a pas pu lire la connexion dans la fenêtre.",
+  "error.backend.browserSignInOpenFailed": "OpenOwnBot n’a pas pu ouvrir la fenêtre de connexion.",
+  "error.backend.browserSignInReadFailed": "OpenOwnBot n’a pas pu lire la connexion dans la fenêtre.",
   "error.backend.browserStopUnsupported": "Cet hôte distant ne peut pas arrêter le chargement d’une page.",
   "error.backend.sharedDataLocalOnly": "Les données partagées sont gérées sur l’ordinateur qui exécute ces agents.",
   "error.backend.browserUrlProtocol": "Seules les URL de navigateur HTTP(S) sont autorisées.",
@@ -59,7 +59,7 @@ export const messages = {
   "error.backend.sunshineNotReadyReason": "Sunshine n’est pas devenu prêt. {reason}",
   "error.backend.channelLeadModelUnavailable": "Le modèle du responsable du canal est indisponible.",
   "error.backend.sharedDataUnavailable": "Les données partagées sont indisponibles.",
-  "error.backend.shuttingDown": "zereight bot est en cours d’arrêt.",
+  "error.backend.shuttingDown": "OpenOwnBot est en cours d’arrêt.",
   "error.backend.channelUnconfirmedStart":
     "Le canal a un démarrage de tâche non confirmé. Vérifiez son résultat avant de le supprimer.",
   "error.backend.channelNotFound": "Canal introuvable.",
@@ -135,7 +135,7 @@ export const messages = {
   "error.backend.fileGone": "Le fichier n’existe pas ou a déjà été supprimé.",
   "error.backend.managedAttachmentChanged": "La pièce jointe gérée est manquante ou a changé : {name}",
   "error.backend.mailboxStateCorrupt":
-    "L’état de la messagerie est corrompu ou provient d’une version plus récente d’zereight bot ; il ne sera pas écrasé.",
+    "L’état de la messagerie est corrompu ou provient d’une version plus récente d’OpenOwnBot ; il ne sera pas écrasé.",
   "error.backend.recipientDeleting":
     "Le destinataire est en cours de suppression. Réessayez une fois la suppression terminée.",
   "error.backend.recipientHidden": "Cet agent est masqué. Restaurez-le pour envoyer des messages.",
@@ -143,7 +143,7 @@ export const messages = {
   "error.backend.attachmentNotFile": "La pièce jointe n’est pas un fichier : {path}",
   "error.backend.generatedImageTooLarge": "L’image générée dépasse la limite de 100 Mo.",
   "error.backend.attachmentNotRegularFile": "Seuls les fichiers ordinaires peuvent être joints : {name}",
-  "error.backend.attachmentCopyFailed": "zereight bot n’a pas pu copier {name}.",
+  "error.backend.attachmentCopyFailed": "OpenOwnBot n’a pas pu copier {name}.",
   "error.backend.routineNameRequired": "Un nom de routine est requis.",
   "error.backend.routineNameTooLong": "Le nom de la routine est trop long.",
   "error.backend.routineInstructionRequired": "Une instruction de routine est requise.",
@@ -168,13 +168,13 @@ export const messages = {
   "error.backend.routineRunStarting":
     "Cette exécution de routine est encore en cours de démarrage. Réessayez après le début de son tour.",
   "error.backend.routineRunNoSession":
-    "zereight bot ne peut pas interrompre l’exécution de routine active, car sa session de fournisseur est indisponible.",
+    "OpenOwnBot ne peut pas interrompre l’exécution de routine active, car sa session de fournisseur est indisponible.",
   "error.backend.interruptSelf": "Un agent ne peut pas s’interrompre lui-même.",
   "error.backend.interruptOtherWork":
     "Cet agent travaille sur une tâche que votre message n’a pas lancée. Seul l’utilisateur ou l’expéditeur de cette tâche peut l’arrêter.",
   "error.backend.interruptStarting": "Cet agent démarre encore un tour. Réessayez après le début du tour.",
   "error.backend.interruptNoSession":
-    "zereight bot ne peut pas interrompre cet agent, car sa session de fournisseur est indisponible.",
+    "OpenOwnBot ne peut pas interrompre cet agent, car sa session de fournisseur est indisponible.",
   "error.backend.memoryTextRequired": "Le texte du souvenir est requis.",
   "error.backend.memoryTextTooLong": "Le texte du souvenir est trop long.",
   "error.backend.mcpServerGone": "Ce serveur MCP n’existe plus.",
@@ -200,13 +200,13 @@ export const messages = {
   "error.backend.agentWaitRemoteUnsupported":
     "Les attentes ouvertes ne sont disponibles que pour les agents de cet ordinateur.",
   "error.backend.routineFlowHandoffFailed": "La routine n’a pas pu transmettre le travail à cet agent.",
-  "error.backend.mcpServerLimit": "zereight bot garde jusqu’à {limit} serveurs MCP.",
+  "error.backend.mcpServerLimit": "OpenOwnBot garde jusqu’à {limit} serveurs MCP.",
   "error.backend.mcpServerNameTaken": "Un serveur MCP nommé {name} existe déjà.",
   "error.backend.mcpServerNoAnswer": "Le serveur n’a pas répondu en {seconds} secondes.",
   "error.backend.mcpSignInNotAccepted": "Le serveur n’a pas accepté cette connexion.",
   "error.backend.mcpCommandNotFound": "Commande introuvable : {command}",
   "error.backend.mcpRegistrationRefused":
-    "Le serveur de connexion n’accepte pas encore zereight bot comme application. Votre compte n’en est pas la cause. Utilisez un autre moyen de connexion, par exemple un serveur MCP local.",
+    "Le serveur de connexion n’accepte pas encore OpenOwnBot comme application. Votre compte n’en est pas la cause. Utilisez un autre moyen de connexion, par exemple un serveur MCP local.",
   "error.backend.mcpSignInAbandonedGeneric": "La connexion a été abandonnée.",
   "error.backend.mcpSignInForgotten": "La connexion MCP a été oubliée pendant son exécution.",
   "error.backend.mcpSignInAbandoned": "La connexion MCP a été abandonnée.",
@@ -215,21 +215,21 @@ export const messages = {
   "error.backend.mcpSignInRequired":
     "Ce serveur demande une connexion. Choisissez « Se connecter » pour continuer dans votre navigateur.",
   "error.backend.mcpSignInOnHost":
-    "Ce serveur demande une connexion. Connectez-vous-y dans zereight bot sur l’ordinateur hôte.",
+    "Ce serveur demande une connexion. Connectez-vous-y dans OpenOwnBot sur l’ordinateur hôte.",
   "error.backend.mcpSignInNeedsHttps":
-    "Ce serveur demande une connexion, et zereight bot ne se connecte qu’en https. Remplacez l’URL par {url}.",
+    "Ce serveur demande une connexion, et OpenOwnBot ne se connecte qu’en https. Remplacez l’URL par {url}.",
   "error.backend.mcpSignInCancelled": "La connexion a été annulée.",
   "error.backend.mcpSignInTimedOut": "La connexion n’a pas été terminée dans le navigateur.",
   "error.backend.mcpSignInResponseTimedOut": "La réponse à la connexion n’est pas arrivée à temps.",
   "error.backend.mcpSignInMetadataUnreadable":
-    "zereight bot n’a pas pu lire les informations de connexion de ce serveur. Vérifiez l’adresse du serveur et réessayez.",
+    "OpenOwnBot n’a pas pu lire les informations de connexion de ce serveur. Vérifiez l’adresse du serveur et réessayez.",
   "error.backend.mcpServerExited":
     "Le serveur s’est arrêté avant de répondre. Exécutez la commande dans un terminal pour voir son erreur.",
   "error.backend.mcpOAuthProxyUnavailable":
-    "zereight bot n’a pas pu démarrer sa connexion locale de connexion pour ce serveur. Redémarrez zereight bot, puis réessayez.",
+    "OpenOwnBot n’a pas pu démarrer sa connexion locale de connexion pour ce serveur. Redémarrez OpenOwnBot, puis réessayez.",
   "error.backend.mcpOAuthSignInNeeded":
-    "La connexion à ce serveur MCP a pris fin. L’utilisateur doit se reconnecter dans zereight bot.",
-  "error.backend.mcpServerUnreachable": "zereight bot n’a pas pu joindre le serveur. Vérifiez l’URL et votre réseau.",
+    "La connexion à ce serveur MCP a pris fin. L’utilisateur doit se reconnecter dans OpenOwnBot.",
+  "error.backend.mcpServerUnreachable": "OpenOwnBot n’a pas pu joindre le serveur. Vérifiez l’URL et votre réseau.",
   "error.backend.mcpLocalServerOff":
     "Aucun serveur ne répond à {address} sur cet ordinateur. Démarrez le serveur ou activez-le dans l’app qui l’exécute, puis réessayez.",
   "error.backend.mcpServerBlocked":
@@ -237,7 +237,7 @@ export const messages = {
   "error.backend.mcpServerIncompatible":
     "Quelque chose a répondu à cette adresse, mais pas comme un serveur MCP en Streamable HTTP. Vérifiez l’URL et mettez à jour l’app qui exécute le serveur.",
   "error.backend.mcpRemoteBridge":
-    "{reason} Cette commande lance la passerelle mcp-remote. Choisissez plutôt Streamable HTTP avec l’URL {url}, et zereight bot vous connecte.",
+    "{reason} Cette commande lance la passerelle mcp-remote. Choisissez plutôt Streamable HTTP avec l’URL {url}, et OpenOwnBot vous connecte.",
   "error.backend.oauthNotHttps":
     "Le point de terminaison OAuth {origin} n’utilise pas https : les identifiants n’ont pas été envoyés.",
   "error.backend.oauthTooManyRedirects": "Le point de terminaison OAuth a effectué trop de redirections.",
@@ -285,7 +285,7 @@ export const messages = {
   "error.backend.approvalInactive": "Cette approbation n’est plus active.",
   "error.backend.takeoverInactive": "Cette prise de contrôle du navigateur n’est plus active.",
   "error.backend.authSubmitting": "L’envoi de l’authentification est déjà en cours.",
-  "error.backend.apiKeySaveFailed": "zereight bot n’a pas pu enregistrer la clé d’API. Réessayez.",
+  "error.backend.apiKeySaveFailed": "OpenOwnBot n’a pas pu enregistrer la clé d’API. Réessayez.",
   "error.backend.apiKeyNotAllowed": "Seul le propriétaire du serveur ou un administrateur peut saisir une clé d’API.",
   "error.backend.apiKeySaving": "La clé d’API est déjà en cours d’enregistrement.",
   "error.backend.authRequestInactive": "Cette demande d’authentification sécurisée n’est plus active.",
@@ -328,7 +328,7 @@ export const messages = {
   "error.backend.mcpSignInAppUrl": "L’app de connexion nécessite une URL de serveur valide.",
   "error.backend.mcpSignInAppClientId": "Saisissez l’ID client de l’app de connexion.",
   "error.backend.mcpSignInAppIssuerChanged":
-    "Le serveur de connexion de ce serveur MCP a changé : zereight bot ne lui a pas envoyé l’app de connexion. Si ce changement est correct, supprimez l’app de connexion et ajoutez-la à nouveau.",
+    "Le serveur de connexion de ce serveur MCP a changé : OpenOwnBot ne lui a pas envoyé l’app de connexion. Si ce changement est correct, supprimez l’app de connexion et ajoutez-la à nouveau.",
   "error.backend.mcpSignInAppNoServer":
     "Enregistrez ce serveur MCP comme serveur URL avant d’ajouter une app de connexion.",
   "error.backend.mcpSignInAppUnavailable": "Cet ordinateur ne peut pas conserver d’app de connexion.",
@@ -355,5 +355,5 @@ export const messages = {
   "error.backend.taskOpenLimitReached":
     "Cet agent a {count} tâches ouvertes. Fermez une tâche, puis lancez-en ou ouvrez-en une autre.",
   "error.backend.taskRemoteUnsupported": "Les tâches sont disponibles uniquement pour les agents de cet ordinateur.",
-  "error.backend.taskStartFailed": "zereight bot n’a pas pu lancer la tâche. Faites plutôt le travail dans ce tour.",
+  "error.backend.taskStartFailed": "OpenOwnBot n’a pas pu lancer la tâche. Faites plutôt le travail dans ce tour.",
 } as const satisfies PartialTranslation<typeof source>;

@@ -16,10 +16,10 @@ export const messages = {
   "notification.channelMessage": "Новое сообщение.",
   "notification.usageLimit.title": "Аккаунт {provider} достиг лимита",
   "notification.usageLimit.body": {
-    one: "Ждёт {count} агент. zereight bot попробует позже.",
-    few: "Ждут {count} агента. zereight bot попробует позже.",
-    many: "Ждут {count} агентов. zereight bot попробует позже.",
-    other: "Ждут {count} агента. zereight bot попробует позже.",
+    one: "Ждёт {count} агент. OpenOwnBot попробует позже.",
+    few: "Ждут {count} агента. OpenOwnBot попробует позже.",
+    many: "Ждут {count} агентов. OpenOwnBot попробует позже.",
+    other: "Ждут {count} агента. OpenOwnBot попробует позже.",
   },
   "notification.usageLimit.bodyResets": {
     one: "Ждёт {count} агент. Сброс {reset}.",
@@ -28,7 +28,7 @@ export const messages = {
     other: "Ждут {count} агента. Сброс {reset}.",
   },
   "notification.test": "Уведомления работают.",
-  "notification.welcome": "zereight bot сообщит здесь, когда вы понадобитесь агенту.",
+  "notification.welcome": "OpenOwnBot сообщит здесь, когда вы понадобитесь агенту.",
   "notification.toast.region": "Уведомления",
   "notification.toast.close": "Закрыть уведомление",
 } as const satisfies PartialTranslation<typeof source>;

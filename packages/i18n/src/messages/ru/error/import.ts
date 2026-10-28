@@ -3,9 +3,9 @@ import type { messages as source } from "../../en/error/import";
 
 export const messages = {
   "error.import.manifestNotJson": "{manifest} — некорректный JSON.",
-  "error.import.notAgentExport": "{manifest} — не экспорт агента zereight bot.",
+  "error.import.notAgentExport": "{manifest} — не экспорт агента OpenOwnBot.",
   "error.import.newerExportSkill":
-    "Этот экспорт создан более новым навыком экспорта. Обновите zereight bot и повторите попытку.",
+    "Этот экспорт создан более новым навыком экспорта. Обновите OpenOwnBot и повторите попытку.",
   "error.import.noAgents": "В экспорте нет агентов.",
   "error.import.tooManyAgents": "В экспорте больше {limit} агентов.",
   "error.import.tooManyChannels": "В экспорте больше {limit} каналов.",
@@ -46,9 +46,9 @@ export const messages = {
     "{name}: на сервере уже есть навык «{skill}», поэтому агент использует его. Попросите администратора обновить его.",
   "error.import.transferRemoteTooLarge":
     "Файл переноса для присоединённого сервера должен быть меньше 100 МБ. Выключите файлы рабочих пространств или экспортируйте меньше агентов.",
-  "error.import.transferNotFile": "Это не файл переноса zereight bot.",
+  "error.import.transferNotFile": "Это не файл переноса OpenOwnBot.",
   "error.import.transferNewer":
-    "Этот файл создан более новой версией zereight bot. Обновите zereight bot и повторите попытку.",
+    "Этот файл создан более новой версией OpenOwnBot. Обновите OpenOwnBot и повторите попытку.",
   "error.import.transferEmpty": "В файле нет ни агентов, ни настроек.",
   "error.import.transferTooLarge":
     "Файл переноса должен быть меньше 2 ГБ и содержать меньше 50 000 файлов. Выключите файлы рабочих пространств или экспортируйте меньше агентов.",

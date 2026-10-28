@@ -9,7 +9,7 @@ export const messages = {
   "server.connection.waking": "{name} başlatılıyor",
   "server.connection.startProgress": "{step} · {time}",
   "server.connection.providerLimit":
-    "Bulut sağlayıcısı şu anda yeni başlatmaları sınırlıyor. zereight bot kısa süre içinde yeniden deneyecek.",
+    "Bulut sağlayıcısı şu anda yeni başlatmaları sınırlıyor. OpenOwnBot kısa süre içinde yeniden deneyecek.",
   "server.connection.updating": "{name} güncelleniyor",
   "server.connection.loading": "{name} yükleniyor",
   "server.connection.connecting": "{name} sunucusuna bağlanılıyor",
@@ -29,13 +29,13 @@ export const messages = {
   "server.connection.details": "Ayrıntılar",
 
   "server.status.steps": "Bağlantı adımları",
-  "server.status.updateCause": "{name}, zereight bot {version} sürümünü yüklemek için yeniden başlıyor.",
-  "server.status.updateCauseNoVersion": "{name}, bir zereight bot güncellemesini yüklemek için yeniden başlıyor.",
-  "server.status.wakeCause": "{name} durdurulmuştu. zereight bot onu yeniden başlatıyor.",
+  "server.status.updateCause": "{name}, OpenOwnBot {version} sürümünü yüklemek için yeniden başlıyor.",
+  "server.status.updateCauseNoVersion": "{name}, bir OpenOwnBot güncellemesini yüklemek için yeniden başlıyor.",
+  "server.status.wakeCause": "{name} durdurulmuştu. OpenOwnBot onu yeniden başlatıyor.",
   "server.status.connectCause": "Bu uygulama {name} sunucusuna bağlanıyor.",
   "server.status.connectionCause": "Bu uygulamanın {name} ile bağlantısı kesildi. Otomatik olarak yeniden bağlanır.",
   "server.status.stepUpdate": "Güncellemeyi yükle",
-  "server.status.stepUpdateDetail": "zereight bot durur, güncellemeyi yükler ve yeniden başlar.",
+  "server.status.stepUpdateDetail": "OpenOwnBot durur, güncellemeyi yükler ve yeniden başlar.",
   "server.status.stepWake": "Sunucuyu başlat",
   "server.status.stepWakeDetail": "Bu birkaç dakika sürebilir.",
   "server.status.stepConnect": "Bağlan",
@@ -43,8 +43,8 @@ export const messages = {
   "server.status.stepLoad": "Çalışma alanını yükle",
   "server.status.stepLoadDetail": "Ajanlar ve sohbetler sunucudan yüklenir.",
   "server.status.elapsed": "Geçen süre: {time}",
-  "server.compatibility.updateClientTitle": "Bu zereight bot uygulamasını güncelleyin",
-  "server.compatibility.updateHostTitle": "{name} üzerindeki zereight bot'u güncelleyin",
+  "server.compatibility.updateClientTitle": "Bu OpenOwnBot uygulamasını güncelleyin",
+  "server.compatibility.updateHostTitle": "{name} üzerindeki OpenOwnBot'u güncelleyin",
   "server.compatibility.unsafeDataTitle": "Ana makine güvenli olmayan veri döndürdü",
   "server.compatibility.cannotConnectTitle": "{name} ile bağlantı kurulamıyor",
   "server.compatibility.updateClientDescription":
@@ -52,7 +52,7 @@ export const messages = {
   "server.compatibility.updateHostDescription":
     "Ana makine yalnızca bu uygulamadan daha eski protokolleri destekliyor. Ana makineyi güncelleyin, ardından tekrar deneyin.",
   "server.compatibility.unsafeDataDescription":
-    "Bilinen bir veri yükü geçersiz olduğu için zereight bot bu bağlantıyı durdurdu. Geçerli çalışma alanı verileriniz değiştirilmedi.",
+    "Bilinen bir veri yükü geçersiz olduğu için OpenOwnBot bu bağlantıyı durdurdu. Geçerli çalışma alanı verileriniz değiştirilmedi.",
   "server.compatibility.clientVersion": "İstemci sürümü",
   "server.compatibility.hostVersion": "Ana makine sürümü",
   "server.compatibility.negotiatedProtocol": "Anlaşılan protokol",
@@ -80,9 +80,9 @@ export const messages = {
   "server.join.emailBound": "Bu davet yalnızca e-posta alıcısı için geçerlidir.",
   "server.join.unknownDate": "Bilinmiyor",
   // Sunucu çubuğundaki artı düğmesinin açtığı iletişim kutusu. {price} "€20" gibi biçimlendirilmiş bir tutardır.
-  "server.add.title": "zereight bot'u harici bir sunucuda 7/24 çalıştırın",
+  "server.add.title": "OpenOwnBot'u harici bir sunucuda 7/24 çalıştırın",
   "server.add.description":
-    "zereight bot Sunucuları, bilgisayarınız kapalıyken bile ajanlarınızı ve rutinlerinizi çalışır durumda tutar. Altyapı ve bakımla biz ilgileniriz; sunucunuz teknik bir kurulum gerektirmeden kullanıma hazır olur.",
+    "OpenOwnBot Sunucuları, bilgisayarınız kapalıyken bile ajanlarınızı ve rutinlerinizi çalışır durumda tutar. Altyapı ve bakımla biz ilgileniriz; sunucunuz teknik bir kurulum gerektirmeden kullanıma hazır olur.",
   "server.add.billing.label": "Faturalandırma dönemi",
   "server.add.currency.label": "Para birimi",
   "server.add.billing.monthly": "Aylık",
@@ -121,14 +121,14 @@ export const messages = {
   "server.hosted.defaultName": "Bulut sunucusu",
   "server.hosted.defaultNameNumbered": "Bulut sunucusu {number}",
   "server.hosted.step.create": "Makineyi oluştur",
-  "server.hosted.step.start": "zereight bot'u başlat",
+  "server.hosted.step.start": "OpenOwnBot'u başlat",
   "server.hosted.step.connect": "Hesaba bağlan",
   "server.hosted.detail.create.reserve": "Özel bir makine ayrılıyor",
-  "server.hosted.detail.create.copy": "zereight bot makineye kopyalanıyor",
+  "server.hosted.detail.create.copy": "OpenOwnBot makineye kopyalanıyor",
   "server.hosted.detail.create.key": "Tek seferlik oturum açma anahtarı ekleniyor",
   "server.hosted.detail.start.boot": "Makine açılıyor",
   "server.hosted.detail.start.app": "OpenBot başlatılıyor",
-  "server.hosted.detail.start.wait": "zereight bot'un yanıt vermesi bekleniyor",
+  "server.hosted.detail.start.wait": "OpenOwnBot'un yanıt vermesi bekleniyor",
   "server.hosted.detail.connect.signIn": "Sizin adınıza oturum açılıyor",
   "server.hosted.detail.connect.publish": "Sunucu hesabınıza ekleniyor",
   "server.hosted.detail.connect.check": "Bağlantı kontrol ediliyor",
@@ -190,13 +190,13 @@ export const messages = {
   "server.settings.identityLocalOnly":
     "Bu sunucunun adı ve logosu yalnızca onu çalıştıran bilgisayarda değiştirilebilir.",
   "server.settings.publicationLocalOnly": "Yayımlama durumunu yalnızca yerel sunucu değiştirebilir.",
-  "server.compatibility.versionMismatchTitle": "{name} üzerinde farklı zereight bot sürümleri",
+  "server.compatibility.versionMismatchTitle": "{name} üzerinde farklı OpenOwnBot sürümleri",
   "server.compatibility.versionMismatchDescription":
     "Bağlantı {protocol} protokolünü kullanıyor. Bazı yeni özellikler kullanılamayabilir. İstemci {clientVersion}; ana makine {hostVersion}.",
   "server.compatibility.versionMismatchUpdateHostDescription":
-    "Tüm özellikleri kullanmak için {name} üzerindeki zereight bot'u güncelleyin. Bağlantı {protocol} protokolünü kullanıyor. İstemci {clientVersion}; ana makine {hostVersion}.",
+    "Tüm özellikleri kullanmak için {name} üzerindeki OpenOwnBot'u güncelleyin. Bağlantı {protocol} protokolünü kullanıyor. İstemci {clientVersion}; ana makine {hostVersion}.",
   "server.compatibility.versionMismatchUpdateClientDescription":
-    "Tüm özellikleri kullanmak için bu zereight bot uygulamasını güncelleyin. Bağlantı {protocol} protokolünü kullanıyor. İstemci {clientVersion}; ana makine {hostVersion}.",
+    "Tüm özellikleri kullanmak için bu OpenOwnBot uygulamasını güncelleyin. Bağlantı {protocol} protokolünü kullanıyor. İstemci {clientVersion}; ana makine {hostVersion}.",
   "server.connection.failedTitle": "Bağlantı başarısız oldu",
   "server.connection.failedDescription":
     "Bu sunucuya bağlanılamadı. Ana makinenin çevrim içi olduğunu kontrol edip tekrar deneyin.",
@@ -217,7 +217,7 @@ export const messages = {
   "server.settings.mcpDescription":
     "MCP sunucularını bağlayın ve bu sunucunun ajanlarının hangilerini kullanabileceğini seçin.",
   "server.settings.storageTitle": "Depolama",
-  "server.settings.storageDescription": "zereight bot'un bu sunucunun diskinde ne sakladığını ve boş alanı görün.",
+  "server.settings.storageDescription": "OpenOwnBot'un bu sunucunun diskinde ne sakladığını ve boş alanı görün.",
   "server.settings.hostedSitesTitle": "Siteler",
   "server.settings.hostedSitesDescription": "Bu sunucudaki ajanların openbot.site üzerinde yayımladığı statik siteler.",
   "server.settings.importTitle": "İçe aktar",
@@ -253,9 +253,9 @@ export const messages = {
   "server.settings.nameTooLong": "En fazla {limit} karakter kullanın.",
   "server.settings.actionFailedTitle": "Sunucu eylemi başarısız oldu",
   "server.settings.actionFailed": "Sunucu eylemi başarısız oldu.",
-  "server.settings.imageReadFailed": "zereight bot bu görseli okuyamadı.",
+  "server.settings.imageReadFailed": "OpenOwnBot bu görseli okuyamadı.",
   "server.settings.copyFailedTitle": "Kopyalama başarısız oldu",
-  "server.settings.copyFailed": "zereight bot bu değeri kopyalayamadı.",
+  "server.settings.copyFailed": "OpenOwnBot bu değeri kopyalayamadı.",
   "server.settings.unavailableTitle": "Sunucu ayarları kullanılamıyor",
   "server.settings.unsavedMcpChanges": "Kaydedilmemiş MCP değişiklikleri",
   "server.settings.reset": "Sıfırla",
@@ -333,7 +333,7 @@ export const messages = {
   "server.settings.restartTitle": "Yeniden başlat",
   "server.settings.restarting": "Yeniden başlatılıyor…",
   "server.settings.restartedTitle": "{name} yeniden başlatılıyor",
-  "server.settings.restartHiddenDescription": "Sunucu geri geldiğinde zereight bot otomatik olarak yeniden bağlanır.",
+  "server.settings.restartHiddenDescription": "Sunucu geri geldiğinde OpenOwnBot otomatik olarak yeniden bağlanır.",
   "server.settings.restartHide": "Gizle",
   "server.settings.restartProgressTitle": "{name} yeniden başlatılıyor",
   "server.settings.restartProgressDescription":
@@ -395,7 +395,7 @@ export const messages = {
     "Süresi asla dolmaz ve birçok kez kullanılabilir. Bu bağlantıya sahip olan herkes katılabilir; devre dışı bırakmak için iptal edin.",
   "server.invite.full": "Bu sunucu {limit} üye sınırına ulaştı. Yeni bir kişiyi davet etmek için bir üyeyi kaldırın.",
   "server.invite.qrLabel": "Davet QR kodu",
-  "server.invite.qrDescription": "Bu sunucuya katılmak için bu kodu zereight bot Mobile uygulamasında tarayın.",
+  "server.invite.qrDescription": "Bu sunucuya katılmak için bu kodu OpenOwnBot Mobile uygulamasında tarayın.",
   "server.invite.accepted": "Davet kabul edildi",
   "server.invite.expired": "Davetin süresi doldu",
   "server.invite.sent": "Davet gönderildi",
@@ -403,7 +403,7 @@ export const messages = {
   "server.invite.acceptedDescription":
     "Üye bu sunucuya katıldı. Başka birini davet etmek için yeni bir bağlantı oluşturun.",
   "server.invite.expiredDescription": "Birini davet etmek için yeni bir bağlantı oluşturun.",
-  "server.invite.linkReadyDescription": "Bağlantıyı paylaşın veya QR kodunu zereight bot Mobile uygulamasında tarayın.",
+  "server.invite.linkReadyDescription": "Bağlantıyı paylaşın veya QR kodunu OpenOwnBot Mobile uygulamasında tarayın.",
   "server.invite.pendingTitle": "Bekleyen davetler",
   "server.invite.pendingCount": "{total} bekliyor",
   "server.invite.noPending": "Bekleyen davet yok.",
@@ -430,7 +430,7 @@ export const messages = {
   "server.desktop.connectionUnavailable": "Bağlantı kullanılamıyor",
   "server.desktop.hostOffline": "Ana makine çevrim dışı",
   "server.desktop.hostOfflineDescription": "Masaüstünü açmadan önce ana makineye yeniden bağlanın.",
-  "server.desktop.hostUpdateDescription": "Uzaktan kontrolü kullanmak için ana makinedeki zereight bot'u güncelleyin.",
+  "server.desktop.hostUpdateDescription": "Uzaktan kontrolü kullanmak için ana makinedeki OpenOwnBot'u güncelleyin.",
   "server.desktop.serviceAvailable": "Hizmet kullanılabilir",
   "server.desktop.serviceAvailableDescription": "WebRTC kontrolü tüm etkin üyeler için kullanılabilir.",
   "server.desktop.serviceNotReady": "Hizmet hazır değil",
@@ -444,9 +444,9 @@ export const messages = {
   "server.settings.providersSwitch": "Bu sunucuya geç",
   // Sunucu Ayarları > Güncellemeler: Katılınan bir sunucunun ana makinesinin OpenBot güncellemesi. {name} sunucudur.
   "server.settings.updatesTitle": "Güncellemeler",
-  "server.settings.updatesDescription": "Bu sunucuyu çalıştıran bilgisayardaki zereight bot'u güncelleyin.",
-  "server.update.hostTitle": "{name} üzerinde zereight bot",
-  "server.update.version": "zereight bot {version}",
+  "server.settings.updatesDescription": "Bu sunucuyu çalıştıran bilgisayardaki OpenOwnBot'u güncelleyin.",
+  "server.update.hostTitle": "{name} üzerinde OpenOwnBot",
+  "server.update.version": "OpenOwnBot {version}",
   "server.update.status.idle": "En son sürümü bulmak için güncellemeleri denetleyin.",
   "server.update.status.checking": "Güncellemeler denetleniyor…",
   "server.update.status.available": "{version} sürümü mevcut.",
@@ -455,28 +455,28 @@ export const messages = {
   "server.update.status.downloadingUnknown": "{version} indiriliyor…",
   "server.update.status.ready": "{version} indirildi.",
   "server.update.status.installing": "{name}, güncellemeyi yüklemek için yeniden başlatılıyor.",
-  "server.update.status.upToDate": "{name} üzerinde zereight bot güncel.",
+  "server.update.status.upToDate": "{name} üzerinde OpenOwnBot güncel.",
   "server.update.status.checkFailed": "{name} güncellemeleri denetleyemedi. Tekrar deneyin.",
   "server.update.status.downloadFailed": "{name} güncellemeyi indiremedi. Tekrar deneyin.",
   "server.update.status.installFailed":
-    "{name} güncellemeyi yükleyemedi. O bilgisayarın başka hiçbir kullanıcısının zereight bot çalıştırmadığından emin olun, ardından tekrar deneyin.",
+    "{name} güncellemeyi yükleyemedi. O bilgisayarın başka hiçbir kullanıcısının OpenOwnBot çalıştırmadığından emin olun, ardından tekrar deneyin.",
   "server.update.releaseCheckFailed":
     "{name} sürüm akışını okuyamadı. Ana makinenin ağ bağlantısını kontrol edin, ardından tekrar deneyin.",
   "server.update.releaseUnavailable":
     "Bu derleme için sürüm denetimleri kullanılamıyor. Ana makine yöneticisinden uyumlu bir sürümü kontrol etmesini isteyin.",
   "server.update.externalTitle": "Kurulumu ana makine yönetir",
   "server.update.path.hostManager":
-    "zereight bot Host Manager, tüm kullanıcılar boştayken güncellemeleri yükler. Bir güncelleme başlamazsa ana makine yöneticisinden Host Manager durumunu kontrol etmesini isteyin.",
+    "OpenOwnBot Host Manager, tüm kullanıcılar boştayken güncellemeleri yükler. Bir güncelleme başlamazsa ana makine yöneticisinden Host Manager durumunu kontrol etmesini isteyin.",
   "server.update.path.hosted":
     "Barındırılan hizmet güncellemeleri arka planda indirir. İndirilen bir güncelleme, sunucu bir sonraki başlatılışında başlar. Sunucuyu durdurup sürdürmeden önce etkin çalışmanın bitmesini bekleyin. Sunucu eski bir sürümde kalırsa ana makine yöneticisiyle iletişime geçin.",
   "server.update.path.system":
-    "En son sürümü yüklemek için ana makinede sudo openbot update komutunu çalıştırın. Bu komut zereight bot'u durdurur. Önce etkin çalışmanın bitmesini bekleyin. Otomatik indirmeler bir sonraki önyüklemede yüklenir.",
+    "En son sürümü yüklemek için ana makinede sudo openbot update komutunu çalıştırın. Bu komut OpenOwnBot'u durdurur. Önce etkin çalışmanın bitmesini bekleyin. Otomatik indirmeler bir sonraki önyüklemede yüklenir.",
   "server.update.path.container":
-    "Docker ana makinesinde yeni zereight bot görüntüsünü çekin ve kapsayıcıyı aynı veri birimleriyle yeniden oluşturun. Önce etkin çalışmanın bitmesini bekleyin. Verilerinizi korumak için mevcut birimleri saklayın.",
+    "Docker ana makinesinde yeni OpenOwnBot görüntüsünü çekin ve kapsayıcıyı aynı veri birimleriyle yeniden oluşturun. Önce etkin çalışmanın bitmesini bekleyin. Verilerinizi korumak için mevcut birimleri saklayın.",
   "server.update.path.manual":
-    "Bu kurulum kendini değiştiremez. Ana makine yöneticisinden uyumlu sürümü github.com/nightly-labs/openbot/releases adresinden yüklemesini isteyin. Mevcut zereight bot verilerini saklayın.",
+    "Bu kurulum kendini değiştiremez. Ana makine yöneticisinden uyumlu sürümü github.com/nightly-labs/openbot/releases adresinden yüklemesini isteyin. Mevcut OpenOwnBot verilerini saklayın.",
   "server.update.path.unavailable":
-    "Bu bir geliştirme derlemesidir. Güncellemeleri denetlemek için yüklü bir zereight bot sürümü kullanın.",
+    "Bu bir geliştirme derlemesidir. Güncellemeleri denetlemek için yüklü bir OpenOwnBot sürümü kullanın.",
   "server.update.check": "Güncellemeleri denetle",
   "server.update.start": "Boşta olduğunda güncelle",
   "server.update.restartNow": "Şimdi yeniden başlat",
@@ -486,40 +486,39 @@ export const messages = {
   "server.update.requestedBy": "{member} bu güncellemeyi istedi.",
   "server.update.automatic": "{name} güncellemeleri otomatik olarak yükler.",
   "server.update.autoDownloadTitle": "Güncellemeleri otomatik olarak indir",
-  "server.update.autoDownloadDescription": "{name}, zereight bot'un her yeni sürümü çıktığında indirir.",
+  "server.update.autoDownloadDescription": "{name}, OpenOwnBot'un her yeni sürümü çıktığında indirir.",
   "server.update.autoInstallTitle": "Güncellemeleri otomatik olarak yükle",
   "server.update.autoInstallDescription":
     "{name}, ajanları boşta olduğunda indirilen güncellemeyle yeniden başlar. Üyelerin bağlantısı kısa bir süre için kesilir ve otomatik olarak tekrar bağlanır.",
   "server.update.waitingFor": "{reasons} bekleniyor.",
   "server.update.disabledTitle": "Uzaktan güncellemeler kapalı",
   "server.update.disabledDescription":
-    "{name} kullanıcısı sunucu üyelerinin güncelleme yapmasını kapattı. zereight bot uygulamasını güncellemesini veya ayarı açmasını isteyin.",
-  "server.update.managedTitle": "Güncellemeleri zereight bot Host Manager yönetiyor",
+    "{name} kullanıcısı sunucu üyelerinin güncelleme yapmasını kapattı. OpenOwnBot uygulamasını güncellemesini veya ayarı açmasını isteyin.",
+  "server.update.managedTitle": "Güncellemeleri OpenOwnBot Host Manager yönetiyor",
   "server.update.managedDescription":
-    "zereight bot Host Manager, {name} sunucusunu günceller. Ana makine yöneticisiyle iletişime geçin.",
+    "OpenOwnBot Host Manager, {name} sunucusunu günceller. Ana makine yöneticisiyle iletişime geçin.",
   "server.update.unsupportedTitle": "{name} kendini güncelleyemiyor",
   "server.update.unsupportedDescription":
-    "Bu zereight bot derlemesinde güncelleyici yok. {name} üzerine yeni bir sürüm yükleyin.",
+    "Bu OpenOwnBot derlemesinde güncelleyici yok. {name} üzerine yeni bir sürüm yükleyin.",
   "server.update.restarting": "Yeniden başlatılıyor…",
   "server.update.loadFailed": "{name} güncelleme durumu yüklenemedi.",
   "server.update.hostAction": "Ana makineyi güncelle",
   // Güncelleme iletişim kutusu: indirme, yeniden başlatma ve sunucunun tekrar çevrim içi olması.
-  "server.update.dialog.offerTitle": "{name} sunucusunu zereight bot {version} sürümüne güncelle",
+  "server.update.dialog.offerTitle": "{name} sunucusunu OpenOwnBot {version} sürümüne güncelle",
   "server.update.dialog.offerDescription":
-    "{name}, zereight bot {current} kullanıyor. Önce güncellemeyi indirir, ardından yeniden başlar.",
+    "{name}, OpenOwnBot {current} kullanıyor. Önce güncellemeyi indirir, ardından yeniden başlar.",
   "server.update.dialog.offerReadyDescription":
-    "{name}, zereight bot {current} kullanıyor. Güncelleme indirildi. {name}, güncellemeyi yüklemek için yeniden başlar.",
+    "{name}, OpenOwnBot {current} kullanıyor. Güncelleme indirildi. {name}, güncellemeyi yüklemek için yeniden başlar.",
   "server.update.dialog.progressTitle": "{name} güncelleniyor",
   "server.update.dialog.progressDescription": "{time} · Bu pencereyi gizleyebilirsiniz.",
-  "server.update.dialog.doneTitle": "{name}, zereight bot {version} sürümünde",
+  "server.update.dialog.doneTitle": "{name}, OpenOwnBot {version} sürümünde",
   "server.update.dialog.doneDescription": "Güncelleme {time} sürdü.",
   "server.update.dialog.failedTitle": "{name} güncellenmedi",
   "server.update.dialog.restartFailed":
     "{name} tekrar çevrim içi olmadı. Ana makineyi kontrol edin, ardından tekrar deneyin.",
-  "server.update.dialog.notInstalled":
-    "{name}, zereight bot {current} ile yeniden başladı. Güncellemeyi tekrar deneyin.",
+  "server.update.dialog.notInstalled": "{name}, OpenOwnBot {current} ile yeniden başladı. Güncellemeyi tekrar deneyin.",
   "server.update.dialog.steps": "Güncelleme adımları",
-  "server.update.dialog.downloadStep": "zereight bot {version} sürümünü indir",
+  "server.update.dialog.downloadStep": "OpenOwnBot {version} sürümünü indir",
   "server.update.dialog.downloadPending": "İndirme sırasında ajanlar çalışmaya devam eder.",
   "server.update.dialog.downloadPreparing": "İndirme hazırlanıyor…",
   "server.update.dialog.downloadRunning": "{progress} · Ajanlar çalışmaya devam ediyor.",
@@ -528,10 +527,10 @@ export const messages = {
   "server.update.dialog.restartPending": "Üyelerin bağlantısı yaklaşık bir dakika kesilir.",
   "server.update.dialog.restartWaiting": "Bitmesi beklenen işler: {reasons}.",
   "server.update.dialog.restartSoon": "Yeniden başlatma birazdan başlıyor.",
-  "server.update.dialog.restartRunning": "zereight bot {version} başlatılıyor…",
+  "server.update.dialog.restartRunning": "OpenOwnBot {version} başlatılıyor…",
   "server.update.dialog.onlineStep": "Tekrar çevrim içi",
   "server.update.dialog.onlinePending": "Üyeler otomatik olarak tekrar bağlanır.",
-  "server.update.dialog.onlineDone": "{time} sonra zereight bot {version} sürümünde.",
+  "server.update.dialog.onlineDone": "{time} sonra OpenOwnBot {version} sürümünde.",
   "server.update.dialog.waitIdle": "Ajanlar boşta olana kadar bekle",
   "server.update.dialog.waitIdleDescription":
     "Yeniden başlatma, ajan turlarının ve rutin çalıştırmalarının bitmesini bekler.",
@@ -559,15 +558,15 @@ export const messages = {
   "server.update.reason.fileTransfer": "bir dosya aktarımı",
   "server.update.reason.browserControl": "bir ajan tarafından tarayıcı kontrolü",
   "server.update.reason.updateOperation": "başka bir güncelleme adımı",
-  "server.update.reason.initialization": "zereight bot'un başlatılması",
+  "server.update.reason.initialization": "OpenOwnBot'un başlatılması",
   "server.update.reason.other": "diğer çalışmalar",
   // Katılınan bir sunucu bir güncellemeye yeniden başladığında her üyeye bir bildirim. {name} sunucudur.
   "server.restartNotice.waitingTitle": "{name}, bir güncellemeyi yüklemek için yeniden başlatılacak",
   "server.restartNotice.waitingVersionTitle":
-    "{name}, zereight bot {version} sürümünü yüklemek için yeniden başlatılacak",
+    "{name}, OpenOwnBot {version} sürümünü yüklemek için yeniden başlatılacak",
   "server.restartNotice.waitingDescription":
-    "Yeniden başlatma, ajanları boşta kalana kadar bekler. Kısa bir süre için bağlantınız kesilir, ardından zereight bot otomatik olarak tekrar bağlanır.",
+    "Yeniden başlatma, ajanları boşta kalana kadar bekler. Kısa bir süre için bağlantınız kesilir, ardından OpenOwnBot otomatik olarak tekrar bağlanır.",
   "server.restartNotice.restartingTitle": "{name}, güncellemeyi yüklemek için yeniden başlatılıyor",
-  "server.restartNotice.restartingDescription": "{name} geri geldiğinde zereight bot otomatik olarak tekrar bağlanır.",
+  "server.restartNotice.restartingDescription": "{name} geri geldiğinde OpenOwnBot otomatik olarak tekrar bağlanır.",
   "server.restartNotice.backTitle": "{name} tekrar çevrim içi",
 } as const satisfies PartialTranslation<typeof source>;

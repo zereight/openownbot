@@ -9,11 +9,10 @@ export const messages = {
   "mobile.server.drawer.editOrder": "Volgorde wijzigen",
   "mobile.server.drawer.leaveFailed": "Kan {name} niet verlaten",
   "mobile.server.drawer.removeFailed": "Kan {name} niet verwijderen",
-  "mobile.server.drawer.actionFailed": "zereight bot kan deze actie niet voltooien. Probeer het opnieuw.",
+  "mobile.server.drawer.actionFailed": "OpenOwnBot kan deze actie niet voltooien. Probeer het opnieuw.",
   "mobile.server.drawer.moveUp": "Omhoog",
   "mobile.server.drawer.moveDown": "Omlaag",
-  "mobile.server.drawer.orderHint":
-    "zereight bot opent op de eerste server. De volgorde wordt op dit apparaat bewaard.",
+  "mobile.server.drawer.orderHint": "OpenOwnBot opent op de eerste server. De volgorde wordt op dit apparaat bewaard.",
   "mobile.server.drawer.title": "Servers",
   "mobile.server.drawer.serverSettings": "Serverinstellingen",
   "mobile.server.drawer.serverListHint": "Toont of verbergt de servers",
@@ -26,8 +25,8 @@ export const messages = {
   "mobile.server.drawer.close": "Serverpaneel sluiten",
   "mobile.server.invite.noExpiry": "{role} · Verloopt niet",
   "mobile.server.invite.expires": "{role} · Verloopt {date}",
-  "mobile.server.invite.loadFailed": "zereight bot kan deze uitnodiging niet laden.",
-  "mobile.server.invite.joinFailed": "zereight bot kan geen lid worden van deze server.",
+  "mobile.server.invite.loadFailed": "OpenOwnBot kan deze uitnodiging niet laden.",
+  "mobile.server.invite.joinFailed": "OpenOwnBot kan geen lid worden van deze server.",
   "mobile.server.invite.checking": "Uitnodiging controleren…",
   "mobile.server.invite.unavailable": "Uitnodiging niet beschikbaar",
   "mobile.server.invite.verifying": "De identiteit van de server controleren.",
@@ -67,14 +66,14 @@ export const messages = {
   "mobile.server.hosted.join": "Word lid van een server",
   "mobile.server.hosted.intro.title": "Je agents, altijd aan",
   "mobile.server.hosted.intro.description":
-    "Een cloudserver voert je agents en routines uit als je computer uit staat. zereight bot zet hem op en houdt hem draaiende.",
+    "Een cloudserver voert je agents en routines uit als je computer uit staat. OpenOwnBot zet hem op en houdt hem draaiende.",
   "mobile.server.hosted.planFacts": "{members} · {storage} · {speed}",
   "mobile.server.hosted.computer.title": "Op je computer",
   "mobile.server.hosted.computer.add": "Cloudserver toevoegen",
   "mobile.server.hosted.computer.addHint":
-    "Open in zereight bot Instellingen → Gehoste servers en kies Server toevoegen.",
+    "Open in OpenOwnBot Instellingen → Gehoste servers en kies Server toevoegen.",
   "mobile.server.hosted.computer.change": "Abonnement wijzigen",
-  "mobile.server.hosted.computer.changeHint": "Open in zereight bot Instellingen → Facturering.",
+  "mobile.server.hosted.computer.changeHint": "Open in OpenOwnBot Instellingen → Facturering.",
   "mobile.server.hosted.yourServers": "Je servers",
   "mobile.server.hosted.plans": "Abonnementen",
   "mobile.server.hosted.currentPlan": "Je abonnement",
@@ -91,7 +90,7 @@ export const messages = {
   "mobile.server.hosted.paymentTitle": "Wacht op betaling",
   "mobile.server.hosted.paymentDescription": "De inrichting begint als de betaling is bevestigd.",
   "mobile.server.hosted.progressTitle": "{name} inrichten",
-  "mobile.server.hosted.progressDescription": "zereight bot maakt een privémachine voor je klaar.",
+  "mobile.server.hosted.progressDescription": "OpenOwnBot maakt een privémachine voor je klaar.",
   "mobile.server.hosted.closeHint":
     "Je kunt dit venster sluiten. De inrichting gaat door en de server verschijnt in je lijst als hij klaar is.",
   "mobile.server.hosted.readyTitle": "{name} is klaar",
@@ -100,21 +99,21 @@ export const messages = {
   "mobile.server.hosted.open": "Server openen",
   "mobile.server.hosted.failedTitle": "De server kan niet starten",
   "mobile.server.hosted.failedDescription":
-    "Probeer het opnieuw. Mislukt het weer, verwijder de server dan in Instellingen in zereight bot op je computer.",
+    "Probeer het opnieuw. Mislukt het weer, verwijder de server dan in Instellingen in OpenOwnBot op je computer.",
   "mobile.server.hosted.retrying": "Starten…",
   "mobile.server.hosted.expiredTitle": "De betaalpagina is verlopen",
   "mobile.server.hosted.expiredDescription": "De server is niet betaald en is daarom verwijderd.",
   "mobile.server.hosted.step.payment": "Bevestig de betaling",
   "mobile.server.hosted.step.create": "Maak de machine",
-  "mobile.server.hosted.step.start": "Start zereight bot",
+  "mobile.server.hosted.step.start": "Start OpenOwnBot",
   "mobile.server.hosted.step.connect": "Verbind met je account",
   "mobile.server.hosted.detail.payment": "Wachten op Stripe",
   "mobile.server.hosted.detail.reserve": "Een privémachine reserveren",
-  "mobile.server.hosted.detail.copy": "zereight bot naar de machine kopiëren",
+  "mobile.server.hosted.detail.copy": "OpenOwnBot naar de machine kopiëren",
   "mobile.server.hosted.detail.key": "Een eenmalige inlogsleutel toevoegen",
   "mobile.server.hosted.detail.boot": "De machine aanzetten",
   "mobile.server.hosted.detail.app": "OpenBot starten",
-  "mobile.server.hosted.detail.wait": "Wachten tot zereight bot antwoordt",
+  "mobile.server.hosted.detail.wait": "Wachten tot OpenOwnBot antwoordt",
   "mobile.server.hosted.detail.signIn": "Inloggen als jou",
   "mobile.server.hosted.detail.publish": "De server aan je account toevoegen",
   "mobile.server.hosted.detail.check": "De verbinding controleren",
@@ -122,7 +121,7 @@ export const messages = {
   "mobile.server.hosted.stepActive": "bezig",
   "mobile.server.hosted.stepPending": "niet gestart",
   "mobile.server.hosted.stepFailed": "mislukt",
-  "mobile.server.scan.notInvitation": "Deze QR-code is geen zereight bot-uitnodiging.",
+  "mobile.server.scan.notInvitation": "Deze QR-code is geen OpenOwnBot-uitnodiging.",
   "mobile.server.scan.title": "Scan uitnodiging",
   "mobile.server.role.owner": "eigenaar",
   "mobile.server.role.admin": "beheerder",
@@ -162,7 +161,7 @@ export const messages = {
   "mobile.server.routines.status.paused": "Gepauzeerd",
   "mobile.server.routines.status.failed": "Mislukt",
   "mobile.server.routines.status.completed": "Voltooid",
-  "mobile.server.tasks.unsupported": "Deze host ondersteunt geen taken. Werk zereight bot bij op de host.",
+  "mobile.server.tasks.unsupported": "Deze host ondersteunt geen taken. Werk OpenOwnBot bij op de host.",
   "mobile.server.tasks.ask": "Wat wil je laten doen?",
   "mobile.server.tasks.chooseAgent": "Geef de taak aan",
   "mobile.server.tasks.agentLabel": "Geef de taak aan {name}",
@@ -244,7 +243,7 @@ export const messages = {
   "mobile.server.settings.identityNotAllowed":
     "Alleen een eigenaar of beheerder kan de servernaam en het logo wijzigen.",
   "mobile.server.settings.identityUnsupported":
-    "Werk zereight bot bij op deze server om de naam en het logo hier te wijzigen.",
+    "Werk OpenOwnBot bij op deze server om de naam en het logo hier te wijzigen.",
   "mobile.server.settings.identityOffline": "Maak verbinding met deze server om de naam en het logo te wijzigen.",
   "mobile.server.route.cropLogo": "Logo bijsnijden",
   "mobile.server.members.remove": "Lid verwijderen",
@@ -298,7 +297,7 @@ export const messages = {
   "mobile.server.storage.category.caches": "Gecachete serverbestanden",
   "mobile.server.storage.category.runtimes": "Runtimes van aanbieders",
   "mobile.server.storage.category.logs": "Logs",
-  "mobile.server.storage.total": "zereight bot op {name}",
+  "mobile.server.storage.total": "OpenOwnBot op {name}",
   "mobile.server.storage.used": "Gebruikt",
   "mobile.server.storage.byType": "Opslag per type",
   "mobile.server.storage.free": "{size} vrij op deze schijf",
@@ -320,10 +319,10 @@ export const messages = {
   "mobile.server.storage.clearTitle.caches": "Gecachete serverbestanden wissen?",
   "mobile.server.storage.clearTitle.logs": "Logs wissen?",
   "mobile.server.storage.clearBody.caches":
-    "Kopieën van serverbestanden. zereight bot downloadt ze opnieuw als je ze opent.",
+    "Kopieën van serverbestanden. OpenOwnBot downloadt ze opnieuw als je ze opent.",
   "mobile.server.storage.clearBody.logs": "Diagnostische logs. Nieuwe logs beginnen direct.",
   "mobile.server.storage.clearFailed": "Kan de gegevens niet wissen",
-  "mobile.server.storage.clearFailedBody": "zereight bot kan deze gegevens op de server niet wissen.",
+  "mobile.server.storage.clearFailedBody": "OpenOwnBot kan deze gegevens op de server niet wissen.",
   "mobile.server.storage.noFiles": "Er zijn geen bestanden op deze server opgeslagen.",
   "mobile.server.route.providers": "Aanbieders",
   "mobile.server.route.provider": "Aanbieder",
@@ -371,18 +370,18 @@ export const messages = {
   "mobile.server.settings.timezoneSaveFailed": "Kan de tijdzone niet opslaan. Probeer het opnieuw.",
   "mobile.server.settings.timezoneUnavailable":
     "Maak verbinding met deze server als eigenaar of beheerder om de tijdzone te wijzigen.",
-  "mobile.server.settings.timezoneUnsupported": "Werk zereight bot bij op deze server om de tijdzone hier te wijzigen.",
+  "mobile.server.settings.timezoneUnsupported": "Werk OpenOwnBot bij op deze server om de tijdzone hier te wijzigen.",
   "mobile.server.settings.memoryLimit": "Herinneringen per agent",
   "mobile.server.settings.memoryLimitDescription": "Hoeveel herinneringen elke agent op deze server kan bewaren.",
   "mobile.server.settings.memoryLimitLoadFailed": "Kan de geheugenlimiet van deze server niet laden.",
   "mobile.server.settings.memoryLimitSaveFailed": "Kan de geheugenlimiet niet opslaan. Probeer het opnieuw.",
   "mobile.server.settings.memoryLimitUnsupported":
-    "Werk zereight bot bij op deze server om de geheugenlimiet hier te wijzigen.",
+    "Werk OpenOwnBot bij op deze server om de geheugenlimiet hier te wijzigen.",
   "mobile.server.route.connectors": "Connectors",
   "mobile.server.settings.connectors": "Connectors",
   "mobile.server.connectors.unavailable":
     "Maak verbinding met deze server als eigenaar of beheerder om de connectors te beheren.",
-  "mobile.server.connectors.unsupported": "Werk zereight bot bij op deze server om de connectors hier te beheren.",
+  "mobile.server.connectors.unsupported": "Werk OpenOwnBot bij op deze server om de connectors hier te beheren.",
   "mobile.server.connectors.loading": "Connectors laden…",
   "mobile.server.connectors.onServer": "Op {name}",
   "mobile.server.connectors.notSetUp": "Niet ingesteld",
@@ -412,7 +411,7 @@ export const messages = {
   "mobile.server.connectors.github.summary": "Repository’s, issues en pull requests voor elke agent",
   "mobile.server.connectors.github.description":
     "Elke agent op {host} kan je GitHub-repository’s, issues en pull requests gebruiken, en gh en git.",
-  "mobile.server.connectors.github.unavailable": "zereight bot op deze server kan GitHub niet verbinden.",
+  "mobile.server.connectors.github.unavailable": "OpenOwnBot op deze server kan GitHub niet verbinden.",
   "mobile.server.connectors.github.connect": "GitHub verbinden",
   "mobile.server.connectors.github.codeTitle": "Typ deze code op GitHub",
   "mobile.server.connectors.github.codeFooter":
@@ -422,12 +421,12 @@ export const messages = {
   "mobile.server.connectors.github.connectedAs": "Verbonden als @{login}",
   "mobile.server.connectors.github.chooseRepositories": "Kies repository’s",
   "mobile.server.connectors.github.repositoriesFooter":
-    "Agents kunnen alleen de repository’s gebruiken waarop de zereight bot GitHub App is geïnstalleerd.",
+    "Agents kunnen alleen de repository’s gebruiken waarop de OpenOwnBot GitHub App is geïnstalleerd.",
   "mobile.server.connectors.github.repositoriesTitle": "Repository’s",
   "mobile.server.connectors.github.repositoriesLoading": "Repository’s van GitHub lezen",
-  "mobile.server.connectors.github.repositoriesFailed": "zereight bot kan de repository’s van GitHub niet lezen.",
+  "mobile.server.connectors.github.repositoriesFailed": "OpenOwnBot kan de repository’s van GitHub niet lezen.",
   "mobile.server.connectors.github.noRepositories":
-    "De zereight bot GitHub App is nog niet op een repository geïnstalleerd.",
+    "De OpenOwnBot GitHub App is nog niet op een repository geïnstalleerd.",
   "mobile.server.connectors.github.moreRepositories": {
     one: "En nog {count} repository",
     other: "En nog {count} repository’s",
@@ -441,13 +440,13 @@ export const messages = {
   "mobile.server.connectors.github.disconnect": "GitHub ontkoppelen",
   "mobile.server.connectors.github.disconnectTitle": "GitHub ontkoppelen?",
   "mobile.server.connectors.github.disconnectBody":
-    "Hiermee verwijder je de login van @{login} van {host} en verliest elke agent de GitHub-tools, gh en git. Daarna opent GitHub, waar je zereight bot kunt intrekken.",
+    "Hiermee verwijder je de login van @{login} van {host} en verliest elke agent de GitHub-tools, gh en git. Daarna opent GitHub, waar je OpenOwnBot kunt intrekken.",
   "mobile.server.connectors.onePassword.title": "1Password",
-  "mobile.server.connectors.onePassword.summary": "Een gedeelde kluis voor logins in de zereight bot-browser",
+  "mobile.server.connectors.onePassword.summary": "Een gedeelde kluis voor logins in de OpenOwnBot-browser",
   "mobile.server.connectors.onePassword.description":
-    "Deel via een serviceaccount een aparte 1Password-kluis met zereight bot op {host}, zodat agents op {host} in de browser bij sites kunnen inloggen.",
+    "Deel via een serviceaccount een aparte 1Password-kluis met OpenOwnBot op {host}, zodat agents op {host} in de browser bij sites kunnen inloggen.",
   "mobile.server.connectors.onePassword.howItWorks":
-    "Maak op 1Password.com een serviceaccount dat alleen de kluis kan lezen die je met zereight bot deelt, en plak het token hier. {host} controleert het token en bewaart het; deze telefoon niet. Agents zien nooit een wachtwoord.",
+    "Maak op 1Password.com een serviceaccount dat alleen de kluis kan lezen die je met OpenOwnBot deelt, en plak het token hier. {host} controleert het token en bewaart het; deze telefoon niet. Agents zien nooit een wachtwoord.",
   "mobile.server.connectors.onePassword.token": "Serviceaccounttoken",
   "mobile.server.connectors.onePassword.tokenPlaceholder": "ops_…",
   "mobile.server.connectors.onePassword.connect": "1Password verbinden",
@@ -478,7 +477,7 @@ export const messages = {
   },
   "mobile.server.connectors.slack.connect": "Slack verbinden",
   "mobile.server.connectors.slack.connectFooter":
-    "Slack opent in een browser. Kies rechtsboven de werkruimte en daarna Toestaan. zereight bot installeert één app, zereight bot genaamd, en die wordt lid van elk openbaar kanaal.",
+    "Slack opent in een browser. Kies rechtsboven de werkruimte en daarna Toestaan. OpenOwnBot installeert één app, OpenOwnBot genaamd, en die wordt lid van elk openbaar kanaal.",
   "mobile.server.connectors.slack.add": "Werkruimte toevoegen",
   "mobile.server.connectors.slack.limit": {
     one: "Je kunt maximaal {count} werkruimte verbinden.",
@@ -487,14 +486,14 @@ export const messages = {
   "mobile.server.connectors.slack.workspaceTitle": "Werkruimte",
   "mobile.server.connectors.slack.workspaceDescription": "Mensen noemen @OpenBot of sturen een direct bericht.",
   "mobile.server.connectors.slack.missingScopes":
-    "zereight bot heeft deze machtigingen niet in Slack: {scopes}. Ontkoppel de werkruimte en verbind hem opnieuw.",
-  "mobile.server.connectors.slack.retryAt": "Slack vroeg zereight bot te wachten. Het probeert het opnieuw om {time}.",
+    "OpenOwnBot heeft deze machtigingen niet in Slack: {scopes}. Ontkoppel de werkruimte en verbind hem opnieuw.",
+  "mobile.server.connectors.slack.retryAt": "Slack vroeg OpenOwnBot te wachten. Het probeert het opnieuw om {time}.",
   "mobile.server.connectors.slack.helpInvalidToken":
-    "Slack accepteert zereight bot niet meer in deze werkruimte. Misschien is de app verwijderd. Verbind de werkruimte opnieuw.",
+    "Slack accepteert OpenOwnBot niet meer in deze werkruimte. Misschien is de app verwijderd. Verbind de werkruimte opnieuw.",
   "mobile.server.connectors.slack.helpSecretStorage":
-    "zereight bot kan de opgeslagen tokens op {host} niet lezen. Ontkoppel de werkruimte en verbind hem opnieuw.",
+    "OpenOwnBot kan de opgeslagen tokens op {host} niet lezen. Ontkoppel de werkruimte en verbind hem opnieuw.",
   "mobile.server.connectors.slack.helpRelay":
-    "zereight bot op {host} kan geen Slack-gebeurtenissen ontvangen. Log op {host} in, geef de server een naam in Serverinstellingen en houd zereight bot open.",
+    "OpenOwnBot op {host} kan geen Slack-gebeurtenissen ontvangen. Log op {host} in, geef de server een naam in Serverinstellingen en houd OpenOwnBot open.",
   "mobile.server.connectors.slack.orchestratorTitle": "Slack Orchestrator",
   "mobile.server.connectors.slack.orchestratorDescription":
     "Deze agent ontvangt elk verzoek uit Slack. Korte verzoeken beantwoordt hij zelf, ander werk geeft hij aan de juiste agent, en hij plaatst het antwoord in de thread.",
@@ -505,10 +504,10 @@ export const messages = {
     "OpenBot wordt zelf lid van elk openbaar kanaal, en van elk nieuw kanaal. Nodig hem uit voor een privékanaal: /invite @OpenBot.",
   "mobile.server.connectors.slack.disconnectTitle": "{workspace} ontkoppelen?",
   "mobile.server.connectors.slack.disconnectBody":
-    "zereight bot stopt met antwoorden in {workspace} en verwijdert zijn Slack-token van {host}.",
-  "mobile.server.connectors.slack.disconnectKept": "De gesprekken en de Slack Orchestrator blijven in zereight bot.",
+    "OpenOwnBot stopt met antwoorden in {workspace} en verwijdert zijn Slack-token van {host}.",
+  "mobile.server.connectors.slack.disconnectKept": "De gesprekken en de Slack Orchestrator blijven in OpenOwnBot.",
   "mobile.server.connectors.slack.disconnectDeleted":
-    "De Slack Orchestrator en zijn gesprekken worden uit zereight bot verwijderd.",
+    "De Slack Orchestrator en zijn gesprekken worden uit OpenOwnBot verwijderd.",
   "mobile.server.connectors.slack.agentPromptTitle": "De Slack Orchestrator toevoegen?",
   "mobile.server.connectors.slack.agentPromptBody":
     "Deze nieuwe agent beantwoordt alles wat mensen in {workspace} naar @OpenBot sturen.",
@@ -529,7 +528,7 @@ export const messages = {
   },
   "mobile.server.connectors.discord.connect": "Discord verbinden",
   "mobile.server.connectors.discord.connectFooter":
-    "Discord opent in een browser. Kies de Discord-server en daarna Autoriseren. zereight bot voegt één bot toe, zereight bot genaamd.",
+    "Discord opent in een browser. Kies de Discord-server en daarna Autoriseren. OpenOwnBot voegt één bot toe, OpenOwnBot genaamd.",
   "mobile.server.connectors.discord.add": "Discord-server toevoegen",
   "mobile.server.connectors.discord.limit": {
     one: "Je kunt maximaal {count} Discord-server verbinden.",
@@ -539,37 +538,36 @@ export const messages = {
   "mobile.server.connectors.discord.workspaceDescription":
     "Noem @OpenBot in een kanaal. Antwoord op OpenBot om verder te gaan.",
   "mobile.server.connectors.discord.missingScopes":
-    "zereight bot heeft deze machtigingen niet in Discord: {scopes}. Ontkoppel de Discord-server en verbind hem opnieuw.",
+    "OpenOwnBot heeft deze machtigingen niet in Discord: {scopes}. Ontkoppel de Discord-server en verbind hem opnieuw.",
   "mobile.server.connectors.discord.retryAt":
-    "Discord vroeg zereight bot te wachten. Het probeert het opnieuw om {time}.",
+    "Discord vroeg OpenOwnBot te wachten. Het probeert het opnieuw om {time}.",
   "mobile.server.connectors.discord.helpInvalidToken":
-    "Discord accepteert zereight bot niet meer in deze Discord-server. Misschien is de bot verwijderd. Verbind de Discord-server opnieuw.",
+    "Discord accepteert OpenOwnBot niet meer in deze Discord-server. Misschien is de bot verwijderd. Verbind de Discord-server opnieuw.",
   "mobile.server.connectors.discord.helpSecretStorage":
-    "zereight bot kan de opgeslagen tokens op {host} niet lezen. Ontkoppel de Discord-server en verbind hem opnieuw.",
+    "OpenOwnBot kan de opgeslagen tokens op {host} niet lezen. Ontkoppel de Discord-server en verbind hem opnieuw.",
   "mobile.server.connectors.discord.helpRelay":
-    "zereight bot op {host} kan geen Discord-gebeurtenissen ontvangen. Log op {host} in, geef de server een naam in Serverinstellingen en houd zereight bot open.",
+    "OpenOwnBot op {host} kan geen Discord-gebeurtenissen ontvangen. Log op {host} in, geef de server een naam in Serverinstellingen en houd OpenOwnBot open.",
   "mobile.server.connectors.discord.orchestratorTitle": "Discord Orchestrator",
   "mobile.server.connectors.discord.orchestratorDescription":
     "Deze agent ontvangt elk verzoek uit Discord. Korte verzoeken beantwoordt hij zelf, ander werk geeft hij aan de juiste agent, en hij antwoordt in het kanaal.",
   "mobile.server.connectors.discord.orchestratorNone":
     "Voeg de Discord Orchestrator toe, anders krijgt Discord geen antwoord.",
   "mobile.server.connectors.discord.addAgent": "Discord Orchestrator toevoegen",
-  "mobile.server.connectors.discord.note": "zereight bot ziet de kanalen die zijn rol kan bekijken.",
+  "mobile.server.connectors.discord.note": "OpenOwnBot ziet de kanalen die zijn rol kan bekijken.",
   "mobile.server.connectors.discord.disconnectTitle": "{workspace} ontkoppelen?",
   "mobile.server.connectors.discord.disconnectBody":
-    "zereight bot stopt met antwoorden in {workspace} en verwijdert de Discord-verbinding van {host}.",
-  "mobile.server.connectors.discord.disconnectKept":
-    "De gesprekken en de Discord Orchestrator blijven in zereight bot.",
+    "OpenOwnBot stopt met antwoorden in {workspace} en verwijdert de Discord-verbinding van {host}.",
+  "mobile.server.connectors.discord.disconnectKept": "De gesprekken en de Discord Orchestrator blijven in OpenOwnBot.",
   "mobile.server.connectors.discord.disconnectDeleted":
-    "De Discord Orchestrator en zijn gesprekken worden uit zereight bot verwijderd.",
+    "De Discord Orchestrator en zijn gesprekken worden uit OpenOwnBot verwijderd.",
   "mobile.server.connectors.discord.agentPromptTitle": "De Discord Orchestrator toevoegen?",
   "mobile.server.connectors.discord.agentPromptBody":
     "Deze nieuwe agent beantwoordt alles wat mensen in {workspace} naar @OpenBot sturen.",
   "mobile.server.connectors.discord.installFailed": "Discord heeft de autorisatie niet voltooid. Probeer het opnieuw.",
   "mobile.server.connectors.telegram.title": "Telegram",
-  "mobile.server.connectors.telegram.summary": "Voeg de zereight bot-bot toe aan een Telegram-chat",
+  "mobile.server.connectors.telegram.summary": "Voeg de OpenOwnBot-bot toe aan een Telegram-chat",
   "mobile.server.connectors.telegram.description":
-    "Voeg de zereight bot-bot toe aan een Telegram-groep of open een directe chat ermee. De Telegram Orchestrator vraagt het de juiste agent en antwoordt.",
+    "Voeg de OpenOwnBot-bot toe aan een Telegram-groep of open een directe chat ermee. De Telegram Orchestrator vraagt het de juiste agent en antwoordt.",
   "mobile.server.connectors.telegram.connected": {
     one: "{count} chat · Telegram Orchestrator antwoordt",
     other: "{count} chats · Telegram Orchestrator antwoordt",
@@ -587,13 +585,13 @@ export const messages = {
   "mobile.server.connectors.telegram.groupDescription": "Mensen noemen de bot of reageren op zijn berichten.",
   "mobile.server.connectors.telegram.directDescription": "Elk bericht in deze chat gaat naar de Telegram Orchestrator.",
   "mobile.server.connectors.telegram.helpRemoved":
-    "De zereight bot-bot zit niet meer in deze chat. Ontkoppel de chat en voeg de bot opnieuw toe.",
+    "De OpenOwnBot-bot zit niet meer in deze chat. Ontkoppel de chat en voeg de bot opnieuw toe.",
   "mobile.server.connectors.telegram.helpRelay":
-    "zereight bot op {host} kan geen Telegram-berichten ontvangen. Log op {host} in, geef de server een naam in Serverinstellingen en houd zereight bot open.",
+    "OpenOwnBot op {host} kan geen Telegram-berichten ontvangen. Log op {host} in, geef de server een naam in Serverinstellingen en houd OpenOwnBot open.",
   "mobile.server.connectors.telegram.helpError":
-    "zereight bot kan deze chat niet bereiken. Verbind opnieuw of ontkoppel de chat.",
+    "OpenOwnBot kan deze chat niet bereiken. Verbind opnieuw of ontkoppel de chat.",
   "mobile.server.connectors.telegram.retryAt":
-    "Telegram vroeg zereight bot te wachten. Het probeert het opnieuw om {time}.",
+    "Telegram vroeg OpenOwnBot te wachten. Het probeert het opnieuw om {time}.",
   "mobile.server.connectors.telegram.linkTitle": "Chat koppelen",
   "mobile.server.connectors.telegram.linkAnother": "Nog een chat koppelen",
   "mobile.server.connectors.telegram.linkFooter":
@@ -606,17 +604,17 @@ export const messages = {
   "mobile.server.connectors.telegram.openDirectChat": "Open een directe chat",
   "mobile.server.connectors.telegram.orchestratorTitle": "Telegram Orchestrator",
   "mobile.server.connectors.telegram.orchestratorDescription":
-    "Deze agent ontvangt de berichten voor zereight bot uit al je Telegram-chats. Korte berichten beantwoordt hij zelf, ander werk geeft hij aan de juiste agent, en hij plaatst het antwoord in de chat.",
+    "Deze agent ontvangt de berichten voor OpenOwnBot uit al je Telegram-chats. Korte berichten beantwoordt hij zelf, ander werk geeft hij aan de juiste agent, en hij plaatst het antwoord in de chat.",
   "mobile.server.connectors.telegram.orchestratorNone":
     "Voeg de Telegram Orchestrator toe, anders krijgt Telegram geen antwoord.",
   "mobile.server.connectors.telegram.addAgent": "Telegram Orchestrator toevoegen",
   "mobile.server.connectors.telegram.disconnectTitle": "{chat} ontkoppelen?",
   "mobile.server.connectors.telegram.disconnectBody":
-    "De zereight bot-bot verlaat {chat} en zereight bot stopt daar met antwoorden.",
+    "De OpenOwnBot-bot verlaat {chat} en OpenOwnBot stopt daar met antwoorden.",
   "mobile.server.connectors.telegram.disconnectKept":
-    "De gesprekken en de Telegram Orchestrator blijven in zereight bot.",
+    "De gesprekken en de Telegram Orchestrator blijven in OpenOwnBot.",
   "mobile.server.connectors.telegram.disconnectDeleted":
-    "Dit is de laatste chat, dus de Telegram Orchestrator en zijn gesprekken worden uit zereight bot verwijderd.",
+    "Dit is de laatste chat, dus de Telegram Orchestrator en zijn gesprekken worden uit OpenOwnBot verwijderd.",
   "mobile.server.settings.providers": "Aanbieders",
   "mobile.server.settings.providersConnected": { one: "{count} verbonden", other: "{count} verbonden" },
   "mobile.server.providers.description": "De AI-aanbieders van de computer waarop deze server draait.",
@@ -625,9 +623,9 @@ export const messages = {
   "mobile.server.providers.runtimesFailed": "Kan de downloads van deze server niet laden.",
   "mobile.server.providers.unavailable":
     "Maak verbinding met deze server als eigenaar of beheerder om de aanbieders te beheren.",
-  "mobile.server.providers.unsupported": "Werk zereight bot bij op deze server om de aanbieders hier te beheren.",
+  "mobile.server.providers.unsupported": "Werk OpenOwnBot bij op deze server om de aanbieders hier te beheren.",
   "mobile.server.providers.signInUnsupported": "Deze server kan deze aanbieder niet vanaf de telefoon laten inloggen.",
-  "mobile.server.providers.actionFailed": "zereight bot kan deze actie niet voltooien. Probeer het opnieuw.",
+  "mobile.server.providers.actionFailed": "OpenOwnBot kan deze actie niet voltooien. Probeer het opnieuw.",
   "mobile.server.providers.openFailed": "Kan de inlogpagina niet openen.",
   "mobile.server.providers.copyFailed": "Kan de code niet kopiëren.",
   "mobile.server.providers.onHost": "Deze aanbieder draait op de computer van deze server.",
@@ -640,16 +638,16 @@ export const messages = {
     "De server krijgt een login van de aanbieder. Je voltooit die op deze telefoon.",
   "mobile.server.providers.relayHint":
     "Je logt in op de pagina van de aanbieder op deze telefoon. De server krijgt de login.",
-  "mobile.server.providers.connectOnComputer": "Verbind deze aanbieder in zereight bot op een computer.",
+  "mobile.server.providers.connectOnComputer": "Verbind deze aanbieder in OpenOwnBot op een computer.",
   "mobile.server.providers.signIn": "Inloggen",
   "mobile.server.providers.starting": "De login op de server starten…",
   "mobile.server.providers.openPage": "Open inlogpagina",
   "mobile.server.providers.copy": "Kopiëren",
   "mobile.server.providers.copyCode": "Kopieer code",
   "mobile.server.providers.codeHint":
-    "Kopieer de code, open de pagina en voer de code in. zereight bot gaat vanzelf verder.",
+    "Kopieer de code, open de pagina en voer de code in. OpenOwnBot gaat vanzelf verder.",
   "mobile.server.providers.pasteHint": "Log in op de pagina en plak daarna de code die de pagina toont.",
-  "mobile.server.providers.linkHint": "Log in op de pagina. zereight bot gaat vanzelf verder.",
+  "mobile.server.providers.linkHint": "Log in op de pagina. OpenOwnBot gaat vanzelf verder.",
   "mobile.server.providers.relayWaiting": "Wachten op de inlogpagina van de server…",
   "mobile.server.providers.relayPasteHint":
     "Log in op de pagina. Daarna kan die niet laden. Tik op de adresbalk, kopieer het adres en plak het hier.",
@@ -700,7 +698,7 @@ export const messages = {
   "mobile.server.providers.status.checking": "Controleren",
   "mobile.server.settings.mcp": "MCP-servers",
   "mobile.server.settings.mcpCount": { one: "{count} server", other: "{count} servers" },
-  "mobile.server.mcp.unsupported": "Werk zereight bot bij op deze server om de MCP-servers hier te beheren.",
+  "mobile.server.mcp.unsupported": "Werk OpenOwnBot bij op deze server om de MCP-servers hier te beheren.",
   "mobile.server.mcp.unavailable":
     "Maak verbinding met deze server als eigenaar of beheerder om de MCP-servers te beheren.",
   "mobile.server.mcp.description":
@@ -719,7 +717,7 @@ export const messages = {
   "mobile.server.mcp.addConfirm": "Toevoegen",
   "mobile.server.mcp.name": "Naam",
   "mobile.server.mcp.namePlaceholder": "Naam van MCP-server",
-  "mobile.server.mcp.nameReserved": "zereight bot gebruikt de naam {name} al.",
+  "mobile.server.mcp.nameReserved": "OpenOwnBot gebruikt de naam {name} al.",
   "mobile.server.mcp.transport": "Transport",
   "mobile.server.mcp.stdio": "Opdracht (STDIO)",
   "mobile.server.mcp.http": "URL (HTTP)",
@@ -729,12 +727,12 @@ export const messages = {
   "mobile.server.mcp.command": "Opdracht",
   "mobile.server.mcp.commandHint": "Alleen het programma. Zet elk woord daarna in Argumenten.",
   "mobile.server.mcp.arguments": "Argumenten",
-  "mobile.server.mcp.argumentsHint": "zereight bot geeft elk argument als één woord aan het programma.",
+  "mobile.server.mcp.argumentsHint": "OpenOwnBot geeft elk argument als één woord aan het programma.",
   "mobile.server.mcp.addArgument": "Argument toevoegen",
   "mobile.server.mcp.argument": "Argument {position}",
   "mobile.server.mcp.removeArgument": "Argument {position} verwijderen",
   "mobile.server.mcp.environment": "Omgevingsvariabelen",
-  "mobile.server.mcp.environmentHint": "zereight bot geeft deze variabelen aan de MCP-server als die start.",
+  "mobile.server.mcp.environmentHint": "OpenOwnBot geeft deze variabelen aan de MCP-server als die start.",
   "mobile.server.mcp.addVariable": "Variabele toevoegen",
   "mobile.server.mcp.variableKey": "Naam van variabele {position}",
   "mobile.server.mcp.variableValue": "Waarde van variabele {position}",
@@ -749,7 +747,7 @@ export const messages = {
   "mobile.server.mcp.url": "Server-URL",
   "mobile.server.mcp.urlInvalid": "Voer een http- of https-adres in.",
   "mobile.server.mcp.headers": "Headers",
-  "mobile.server.mcp.headersHint": "zereight bot stuurt deze headers mee met elk verzoek.",
+  "mobile.server.mcp.headersHint": "OpenOwnBot stuurt deze headers mee met elk verzoek.",
   "mobile.server.mcp.addHeader": "Header toevoegen",
   "mobile.server.mcp.headerName": "Naam van header {position}",
   "mobile.server.mcp.headerValue": "Waarde van header {position}",
@@ -766,7 +764,7 @@ export const messages = {
   "mobile.server.mcp.testFailed": "De MCP-server antwoordde niet.",
   "mobile.server.mcp.connected": { one: "Verbonden · {count} tool", other: "Verbonden · {count} tools" },
   "mobile.server.mcp.signInOnComputer":
-    "Deze MCP-server vraagt je in te loggen. Log in vanuit zereight bot op een computer en test daarna opnieuw.",
+    "Deze MCP-server vraagt je in te loggen. Log in vanuit OpenOwnBot op een computer en test daarna opnieuw.",
   "mobile.server.mcp.signedInDescription": "{server} is ingelogd bij deze MCP-server.",
   "mobile.server.mcp.signOut": "Uitloggen",
   "mobile.server.mcp.saveFailed": "Kan de wijziging niet opslaan. Probeer het opnieuw.",
@@ -798,8 +796,8 @@ export const messages = {
   "mobile.server.settings.updates": "Updates",
   "mobile.server.settings.updateAvailable": "Update beschikbaar",
   "mobile.server.route.updates": "Updates",
-  "mobile.server.update.hostTitle": "zereight bot op {name}",
-  "mobile.server.update.version": "zereight bot {version}",
+  "mobile.server.update.hostTitle": "OpenOwnBot op {name}",
+  "mobile.server.update.version": "OpenOwnBot {version}",
   "mobile.server.update.status.idle": "Zoek naar updates om de nieuwste release te vinden.",
   "mobile.server.update.status.checking": "Zoeken naar updates…",
   "mobile.server.update.status.available": "{version} is beschikbaar.",
@@ -807,28 +805,28 @@ export const messages = {
   "mobile.server.update.status.downloadingUnknown": "{version} downloaden…",
   "mobile.server.update.status.ready": "{version} is gedownload.",
   "mobile.server.update.status.installing": "{name} herstart om de update te installeren.",
-  "mobile.server.update.status.upToDate": "zereight bot is up-to-date op {name}.",
+  "mobile.server.update.status.upToDate": "OpenOwnBot is up-to-date op {name}.",
   "mobile.server.update.status.checkFailed": "{name} kan niet zoeken naar updates. Probeer het opnieuw.",
   "mobile.server.update.status.downloadFailed": "{name} kan de update niet downloaden. Probeer het opnieuw.",
   "mobile.server.update.status.installFailed":
-    "{name} kan de update niet installeren. Zorg dat geen andere gebruiker van die computer zereight bot draait en probeer het opnieuw.",
+    "{name} kan de update niet installeren. Zorg dat geen andere gebruiker van die computer OpenOwnBot draait en probeer het opnieuw.",
   "mobile.server.update.releaseCheckFailed":
     "{name} kan de releasefeed niet lezen. Controleer de netwerkverbinding van de host en probeer het opnieuw.",
   "mobile.server.update.releaseUnavailable":
     "Releasecontroles zijn niet beschikbaar voor deze build. Vraag de hostbeheerder om te zoeken naar een compatibele release.",
   "mobile.server.update.externalTitle": "De host beheert de installatie",
   "mobile.server.update.path.hostManager":
-    "zereight bot Host Manager installeert updates als alle gebruikers inactief zijn. Vraag de hostbeheerder de status van Host Manager te controleren als een update niet start.",
+    "OpenOwnBot Host Manager installeert updates als alle gebruikers inactief zijn. Vraag de hostbeheerder de status van Host Manager te controleren als een update niet start.",
   "mobile.server.update.path.hosted":
     "De gehoste dienst downloadt updates op de achtergrond. Een gedownloade update start bij de volgende start van de server. Wacht tot actief werk klaar is voordat je de server stopt en hervat. Blijft hij op een oude versie, neem dan contact op met de hostbeheerder.",
   "mobile.server.update.path.system":
-    "Voer op de host sudo openbot update uit om de nieuwste release te installeren. Deze opdracht stopt zereight bot. Wacht eerst tot actief werk klaar is. Automatische downloads worden bij de volgende opstart geïnstalleerd.",
+    "Voer op de host sudo openbot update uit om de nieuwste release te installeren. Deze opdracht stopt OpenOwnBot. Wacht eerst tot actief werk klaar is. Automatische downloads worden bij de volgende opstart geïnstalleerd.",
   "mobile.server.update.path.container":
-    "Haal op de Docker-host de nieuwe zereight bot-image op en maak de container opnieuw met dezelfde datavolumes. Wacht eerst tot actief werk klaar is. Houd de bestaande volumes om je gegevens te bewaren.",
+    "Haal op de Docker-host de nieuwe OpenOwnBot-image op en maak de container opnieuw met dezelfde datavolumes. Wacht eerst tot actief werk klaar is. Houd de bestaande volumes om je gegevens te bewaren.",
   "mobile.server.update.path.manual":
-    "Deze installatie kan zichzelf niet vervangen. Vraag de hostbeheerder de compatibele release van github.com/nightly-labs/openbot/releases te installeren. Houd de bestaande zereight bot-gegevens.",
+    "Deze installatie kan zichzelf niet vervangen. Vraag de hostbeheerder de compatibele release van github.com/nightly-labs/openbot/releases te installeren. Houd de bestaande OpenOwnBot-gegevens.",
   "mobile.server.update.path.unavailable":
-    "Dit is een ontwikkelbuild. Gebruik een geïnstalleerde zereight bot-release om naar updates te zoeken.",
+    "Dit is een ontwikkelbuild. Gebruik een geïnstalleerde OpenOwnBot-release om naar updates te zoeken.",
   "mobile.server.update.check": "Zoek naar updates",
   "mobile.server.update.start": "Bijwerken bij inactiviteit",
   "mobile.server.update.restartNow": "Nu herstarten",
@@ -839,27 +837,27 @@ export const messages = {
   "mobile.server.update.automatic": "{name} installeert updates automatisch.",
   "mobile.server.update.autoDownloadTitle": "Updates automatisch downloaden",
   "mobile.server.update.autoDownloadDescription":
-    "{name} downloadt elke nieuwe versie van zereight bot zodra die uitkomt.",
+    "{name} downloadt elke nieuwe versie van OpenOwnBot zodra die uitkomt.",
   "mobile.server.update.autoInstallTitle": "Updates automatisch installeren",
   "mobile.server.update.autoInstallDescription":
     "{name} herstart met een gedownloade update als de agents inactief zijn. Leden worden kort losgekoppeld en maken automatisch opnieuw verbinding.",
   "mobile.server.update.waitingFor": "Wachten op {reasons}.",
   "mobile.server.update.disabledTitle": "Externe updates staan uit",
   "mobile.server.update.disabledDescription":
-    "De gebruiker van {name} heeft updates door serverleden uitgezet. Vraag deze persoon zereight bot bij te werken of de instelling aan te zetten.",
+    "De gebruiker van {name} heeft updates door serverleden uitgezet. Vraag deze persoon OpenOwnBot bij te werken of de instelling aan te zetten.",
   "mobile.server.update.managedTitle": "Een Host Manager beheert updates",
   "mobile.server.update.managedDescription":
-    "zereight bot Host Manager werkt {name} bij. Neem contact op met de hostbeheerder.",
+    "OpenOwnBot Host Manager werkt {name} bij. Neem contact op met de hostbeheerder.",
   "mobile.server.update.unsupportedTitle": "{name} kan zichzelf niet bijwerken",
   "mobile.server.update.unsupportedDescription":
-    "Deze zereight bot-build heeft geen updater. Installeer een nieuwe versie op {name}.",
+    "Deze OpenOwnBot-build heeft geen updater. Installeer een nieuwe versie op {name}.",
   "mobile.server.update.restarting": "Herstarten…",
   "mobile.server.update.loadFailed": "De updatestatus van {name} is niet geladen.",
-  "mobile.server.update.dialog.offerTitle": "{name} bijwerken naar zereight bot {version}",
+  "mobile.server.update.dialog.offerTitle": "{name} bijwerken naar OpenOwnBot {version}",
   "mobile.server.update.dialog.offerDescription":
-    "{name} gebruikt zereight bot {current}. Eerst wordt de update gedownload, daarna herstart de server.",
+    "{name} gebruikt OpenOwnBot {current}. Eerst wordt de update gedownload, daarna herstart de server.",
   "mobile.server.update.dialog.offerReadyDescription":
-    "{name} gebruikt zereight bot {current}. De update is gedownload. {name} herstart om hem te installeren.",
+    "{name} gebruikt OpenOwnBot {current}. De update is gedownload. {name} herstart om hem te installeren.",
   "mobile.server.update.dialog.waitIdleDescription": "De herstart wacht tot agentbeurten en routineruns klaar zijn.",
   "mobile.server.update.dialog.updateNow": "Nu bijwerken",
   "mobile.server.update.dialog.restartWhenIdle": "Herstarten bij inactiviteit",
@@ -874,10 +872,10 @@ export const messages = {
   "mobile.server.update.reason.fileTransfer": "een bestandsoverdracht",
   "mobile.server.update.reason.browserControl": "browserbesturing door een agent",
   "mobile.server.update.reason.updateOperation": "een andere updatestap",
-  "mobile.server.update.reason.initialization": "het opstarten van zereight bot",
+  "mobile.server.update.reason.initialization": "het opstarten van OpenOwnBot",
   "mobile.server.update.reason.other": "ander werk",
   "mobile.server.update.actionFailed": "De serveractie is mislukt.",
-  "mobile.server.update.unavailable": "Maak verbinding met deze server om de zereight bot-updates te zien.",
+  "mobile.server.update.unavailable": "Maak verbinding met deze server om de OpenOwnBot-updates te zien.",
   "mobile.server.update.loading": "Updates laden…",
   "mobile.server.route.sites": "Sites",
   "mobile.server.settings.sites": "Sites",
@@ -896,13 +894,13 @@ export const messages = {
   "mobile.server.sites.deleteDescription": "Dit adres geeft direct 410 Gone terug.",
   "mobile.server.sites.deleteFailed": "Kan de site niet verwijderen.",
   "mobile.server.sites.openFailed": "Kan de site niet openen.",
-  "mobile.server.sites.unsupported": "Werk zereight bot bij op deze server om de sites hier te zien.",
+  "mobile.server.sites.unsupported": "Werk OpenOwnBot bij op deze server om de sites hier te zien.",
   "mobile.server.sites.offline": "Maak verbinding met deze server om de sites te zien.",
   "mobile.server.route.roles": "Rollen",
   "mobile.server.route.role": "Rol",
   "mobile.server.roles.description":
     "Kies de agents die leden kunnen gebruiken. Eigenaren en beheerders kunnen alle agents gebruiken.",
-  "mobile.server.roles.unsupported": "Werk zereight bot bij op deze server om rollen te beheren.",
+  "mobile.server.roles.unsupported": "Werk OpenOwnBot bij op deze server om rollen te beheren.",
   "mobile.server.roles.unavailable": "Alleen een eigenaar of beheerder van een online server kan rollen beheren.",
   "mobile.server.roles.loading": "Rollen laden…",
   "mobile.server.roles.loadFailed": "Kan de rollen van deze server niet laden.",

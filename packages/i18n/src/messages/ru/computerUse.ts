@@ -3,14 +3,14 @@ import type { messages as source } from "../en/computerUse";
 
 export const messages = {
   "computerUse.permission.screenRecording.title": "Запись экрана",
-  "computerUse.permission.screenRecording.description": "Позволяет zereight bot видеть окна приложений.",
+  "computerUse.permission.screenRecording.description": "Позволяет OpenOwnBot видеть окна приложений.",
   "computerUse.permission.screenRecording.pane": "Запись экрана и системного звука",
   "computerUse.permission.accessibility.title": "Универсальный доступ",
-  "computerUse.permission.accessibility.description": "Позволяет zereight bot нажимать и печатать.",
+  "computerUse.permission.accessibility.description": "Позволяет OpenOwnBot нажимать и печатать.",
   "computerUse.permission.accessibility.pane": "Универсальный доступ",
-  "computerUse.error.check": "zereight bot не смог проверить управление компьютером.",
+  "computerUse.error.check": "OpenOwnBot не смог проверить управление компьютером.",
   "computerUse.error.openSettings": "OpenBot не смог открыть «Системные настройки».",
-  "computerUse.error.startDriver": "zereight bot не смог запустить драйвер управления компьютером.",
+  "computerUse.error.startDriver": "OpenOwnBot не смог запустить драйвер управления компьютером.",
   "computerUse.checkAgain": "Проверить снова",
   "computerUse.checking": "Проверка управления компьютером",
   "computerUse.unavailable.title": "Управление компьютером пока недоступно",
@@ -18,10 +18,10 @@ export const messages = {
   "computerUse.permissions.description": "Разрешениями управляет macOS.",
   "computerUse.ready.title": "Управление компьютером готово",
   "computerUse.ready.description":
-    "zereight bot может видеть приложения на этом компьютере и работать с ними. Эта система не запрашивает дополнительных разрешений.",
+    "OpenOwnBot может видеть приложения на этом компьютере и работать с ними. Эта система не запрашивает дополнительных разрешений.",
   "computerUse.openSettingsFailed.title": "Не удалось открыть «Системные настройки»",
   "computerUse.compact.title": "Включить управление компьютером",
-  "computerUse.compact.description": "Позвольте zereight bot видеть приложения на этом компьютере и работать с ними.",
+  "computerUse.compact.description": "Позвольте OpenOwnBot видеть приложения на этом компьютере и работать с ними.",
   "computerUse.granted": "Разрешено",
   "computerUse.opening": "Открывается…",
   "computerUse.manage": "Настроить",
@@ -38,5 +38,5 @@ export const messages = {
   "computerUse.help.showInFinder": "Показать в Finder",
   "computerUse.help.revealFailed": "Не удалось показать приложение в Finder.",
   "computerUse.help.dragFailed": "Не удалось перетащить приложение.",
-  "computerUse.highlight.working": "zereight bot работает в «{title}»",
+  "computerUse.highlight.working": "OpenOwnBot работает в «{title}»",
 } as const satisfies PartialTranslation<typeof source>;

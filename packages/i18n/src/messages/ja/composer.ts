@@ -54,8 +54,8 @@ export const messages = {
   "composer.voice.blocked":
     "マイクへのアクセスがブロックされています。システム設定で OpenBot にマイクの使用を許可してください。",
   "composer.voice.noMicrophone": "使用できるマイクがありません。",
-  "composer.voice.startFailed": "zereight bot は音声の録音を開始できませんでした。",
-  "composer.voice.transcribeFailed": "zereight bot はこの録音を文字起こしできませんでした。",
+  "composer.voice.startFailed": "OpenOwnBot は音声の録音を開始できませんでした。",
+  "composer.voice.transcribeFailed": "OpenOwnBot はこの録音を文字起こしできませんでした。",
   "composer.reply.toYou": "あなたのメッセージに返信しています",
   "composer.reply.toAgent": "エージェントに返信しています",
   "composer.reply.attachment": "添付ファイル",

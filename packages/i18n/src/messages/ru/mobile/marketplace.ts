@@ -55,12 +55,12 @@ export const messages = {
   "mobile.marketplace.facts.accessNone": "Без входа",
   "mobile.marketplace.permission.admin": "Устанавливать из каталога могут только владельцы и администраторы.",
   "mobile.marketplace.permission.unavailable":
-    "Этот сервер не в сети, или его версия zereight bot слишком старая для этого. Обновите zereight bot на компьютере, где он работает.",
-  "mobile.marketplace.error.agentUnsupported": "Обновите zereight bot на сервере, чтобы добавлять агентов из каталога.",
+    "Этот сервер не в сети, или его версия OpenOwnBot слишком старая для этого. Обновите OpenOwnBot на компьютере, где он работает.",
+  "mobile.marketplace.error.agentUnsupported": "Обновите OpenOwnBot на сервере, чтобы добавлять агентов из каталога.",
   "mobile.marketplace.error.agentUpdateUnsupported":
-    "Обновите zereight bot на сервере, чтобы обновлять агентов из каталога.",
+    "Обновите OpenOwnBot на сервере, чтобы обновлять агентов из каталога.",
   "mobile.marketplace.error.signInUnsupported":
-    "Обновите zereight bot на сервере, чтобы входить в приложения с телефона.",
+    "Обновите OpenOwnBot на сервере, чтобы входить в приложения с телефона.",
   "mobile.marketplace.agent.add": "Добавить агента",
   "mobile.marketplace.agent.adding": "Добавление агента",
   "mobile.marketplace.agent.update": "Обновить агента",

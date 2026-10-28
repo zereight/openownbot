@@ -3,16 +3,15 @@ import type { messages as source } from "../../en/status/messaging";
 
 export const messages = {
   "status.messaging.working": "Wird bearbeitet…",
-  "status.messaging.queued": "Wartet: zereight bot bearbeitet eine andere Anfrage. Die Antwort erscheint hier.",
+  "status.messaging.queued": "Wartet: OpenOwnBot bearbeitet eine andere Anfrage. Die Antwort erscheint hier.",
   "status.messaging.busy": "Zu viele Anfragen warten. Versuche es später erneut.",
-  "status.messaging.failed":
-    "zereight bot konnte diese Anfrage nicht abschließen. Der zereight bot-Host hat die Details.",
-  "status.messaging.noAnswer": "zereight bot wurde ohne schriftliche Antwort fertig.",
-  "status.messaging.noAgent": "Hier kann noch kein Agent antworten. Füge den Slack Orchestrator in zereight bot hinzu.",
+  "status.messaging.failed": "OpenOwnBot konnte diese Anfrage nicht abschließen. Der OpenOwnBot-Host hat die Details.",
+  "status.messaging.noAnswer": "OpenOwnBot wurde ohne schriftliche Antwort fertig.",
+  "status.messaging.noAgent": "Hier kann noch kein Agent antworten. Füge den Slack Orchestrator in OpenOwnBot hinzu.",
   "status.messaging.delegated": "Ein Teamkollege arbeitet daran. Die Antwort erscheint hier.",
   "status.messaging.stopped": "Gestoppt.",
   "status.messaging.stop": "Stoppen",
-  "status.messaging.approvalTitle": "zereight bot bittet um Genehmigung, um fortzufahren.",
+  "status.messaging.approvalTitle": "OpenOwnBot bittet um Genehmigung, um fortzufahren.",
   "status.messaging.approvalCommand": "Einen Befehl ausführen",
   "status.messaging.approvalFileChange": "Dateien ändern",
   "status.messaging.approvalPermissions": "Weitere Berechtigungen erhalten",
@@ -20,26 +19,25 @@ export const messages = {
   "status.messaging.deny": "Ablehnen",
   "status.messaging.approvedBy": "Von {user} genehmigt.",
   "status.messaging.deniedBy": "Von {user} abgelehnt.",
-  "status.messaging.answeredOnHost": "Auf dem zereight bot-Host beantwortet.",
+  "status.messaging.answeredOnHost": "Auf dem OpenOwnBot-Host beantwortet.",
   "status.messaging.requestInactive": "Diese Anfrage ist nicht mehr aktiv.",
-  "status.messaging.onlyRequester": "Nur {user} kann dies tun. Der zereight bot-Host kann ebenfalls antworten.",
-  "status.messaging.hostOnly": "Nur der zereight bot-Host kann diese Anfrage beantworten.",
+  "status.messaging.onlyRequester": "Nur {user} kann dies tun. Der OpenOwnBot-Host kann ebenfalls antworten.",
+  "status.messaging.hostOnly": "Nur der OpenOwnBot-Host kann diese Anfrage beantworten.",
   "status.messaging.filesSkipped": "Einige Dateien wurden nicht gesendet: {names}.",
   "status.messaging.orchestratorName": "Slack Orchestrator",
   "status.messaging.orchestratorTitle": "Antwortet in Slack und fragt das Team",
   "status.messaging.discordNoAgent":
-    "Hier kann noch kein Agent antworten. Füge den Discord Orchestrator in zereight bot hinzu.",
+    "Hier kann noch kein Agent antworten. Füge den Discord Orchestrator in OpenOwnBot hinzu.",
   "status.messaging.discordOrchestratorName": "Discord Orchestrator",
   "status.messaging.discordOrchestratorTitle": "Antwortet in Discord und fragt das Team",
   "status.messaging.integrationsSection": "Integrationen",
-  "status.messaging.signInReceived":
-    "zereight bot hat die Slack-Installation empfangen. Du kannst diesen Tab schließen.",
+  "status.messaging.signInReceived": "OpenOwnBot hat die Slack-Installation empfangen. Du kannst diesen Tab schließen.",
   "status.messaging.signInUnknown":
-    "zereight bot hat diese Slack-Installation nicht gestartet. Starte sie erneut in zereight bot.",
+    "OpenOwnBot hat diese Slack-Installation nicht gestartet. Starte sie erneut in OpenOwnBot.",
   "status.messaging.telegramNoAgent":
-    "Hier kann noch kein Agent antworten. Füge den Telegram-Orchestrator in zereight bot hinzu.",
+    "Hier kann noch kein Agent antworten. Füge den Telegram-Orchestrator in OpenOwnBot hinzu.",
   "status.messaging.telegramLinked":
-    "zereight bot ist mit diesem Chat verbunden. Erwähne {bot} oder antworte auf eine Nachricht von zereight bot, um die Agenten zu fragen.",
+    "OpenOwnBot ist mit diesem Chat verbunden. Erwähne {bot} oder antworte auf eine Nachricht von OpenOwnBot, um die Agenten zu fragen.",
   "status.messaging.telegramOrchestratorName": "Telegram-Orchestrator",
   "status.messaging.telegramOrchestratorTitle": "Antwortet in Telegram und fragt das Team",
 } as const satisfies PartialTranslation<typeof source>;

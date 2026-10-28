@@ -29,7 +29,7 @@ export const messages = {
   "marketplace.description.skills": "教助手完成某项任务或使用某个工具的指令。",
 
   // A plugin link.
-  "marketplace.plugins.missing": "zereight bot 目录中没有该插件。",
+  "marketplace.plugins.missing": "OpenOwnBot 目录中没有该插件。",
 
   // The agent page.
   "marketplace.agents.loadingDetail": "正在加载助手详情…",
@@ -41,7 +41,7 @@ export const messages = {
   // The skill page, and why Try is off.
   "marketplace.skill.loading": "正在加载技能",
   "marketplace.skill.update": "更新技能",
-  "marketplace.try.readFailed": "zereight bot 无法读取该助手的技能，请重试。",
+  "marketplace.try.readFailed": "OpenOwnBot 无法读取该助手的技能，请重试。",
   "marketplace.try.enable": "请在助手设置中启用该技能后再试用。",
   "marketplace.try.repair": "请在助手设置中修复该技能后再试用。",
   "marketplace.try.update": "请更新该技能后再试用该版本。",
@@ -180,7 +180,7 @@ export const messages = {
   "marketplace.plugin.figma.prompt.assets": "把营销图标按 2 倍导出，用于应用打包。",
   "marketplace.plugin.paper.tagline": "基于 HTML 与 CSS 的设计画布",
   "marketplace.plugin.paper.description":
-    "Paper 让助手读写 Paper Desktop 中打开的设计文件：检查画板、选区、计算样式、JSX 与 token，并创建或修改画框、文本和样式。请先安装 Paper Desktop，打开一次，并在开始前打开一个文件。zereight bot 会启动 Paper Desktop 安装的 Paper CLI。Paper 不需要密钥。写入类工具会改动当前文件，因此每次批准前请先核对。",
+    "Paper 让助手读写 Paper Desktop 中打开的设计文件：检查画板、选区、计算样式、JSX 与 token，并创建或修改画框、文本和样式。请先安装 Paper Desktop，打开一次，并在开始前打开一个文件。OpenOwnBot 会启动 Paper Desktop 安装的 Paper CLI。Paper 不需要密钥。写入类工具会改动当前文件，因此每次批准前请先核对。",
   "marketplace.plugin.paper.app":
     "通过 Paper CLI 转发的本地 MCP 服务器读写已打开的 Paper Desktop 文件。需要 Paper Desktop，并打开一个文件。",
   "marketplace.plugin.paper.prompt.implement": "按我们的代码规范，在这个代码库里实现选中的 Paper 画框。",

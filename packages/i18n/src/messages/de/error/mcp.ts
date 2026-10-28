@@ -5,21 +5,20 @@ export const messages = {
   "error.mcp.redirectByName": "Diese Adresse ist nicht über ihren Namen erreichbar.",
   "error.mcp.redirectGetOnly": "Diese Adresse beantwortet nur GET.",
   "error.mcp.redirectNotSignIn": "Diese Adresse gehört nicht zu einer Anmeldung.",
-  "error.mcp.redirectRefused": "Die Anmeldung wurde abgelehnt. Kehre zu zereight bot zurück und versuche es erneut.",
+  "error.mcp.redirectRefused": "Die Anmeldung wurde abgelehnt. Kehre zu OpenOwnBot zurück und versuche es erneut.",
   "error.mcp.redirectNoSignIn": "Keine Anmeldung wartet darauf. Sie wurde möglicherweise bereits beendet.",
-  "error.mcp.redirectSignedIn": "zereight bot ist angemeldet. Du kannst dieses Fenster schließen.",
+  "error.mcp.redirectSignedIn": "OpenOwnBot ist angemeldet. Du kannst dieses Fenster schließen.",
   "error.mcp.signInFileUnreadable": "Die MCP-Anmeldedatei ist nicht lesbar.",
   "error.mcp.signInFileTooLarge": "Die MCP-Anmeldedatei ist zu groß.",
   "error.mcp.unsupported": "Dieser Server unterstützt keine MCP-Server.",
-  "error.mcp.signInOnHost":
-    "Die Anmeldung bei einem MCP-Server funktioniert nur in zereight bot auf dem Host-Computer.",
+  "error.mcp.signInOnHost": "Die Anmeldung bei einem MCP-Server funktioniert nur in OpenOwnBot auf dem Host-Computer.",
   "error.mcp.signInAppUnsupported":
-    "Dieser Server unterstützt keine Anmelde-Apps. Aktualisiere zereight bot auf dem Host.",
+    "Dieser Server unterstützt keine Anmelde-Apps. Aktualisiere OpenOwnBot auf dem Host.",
   "error.mcp.redirectRelayed":
-    "zereight bot hat die Anmeldung an den Server gesendet. Du kannst dieses Fenster schließen.",
+    "OpenOwnBot hat die Anmeldung an den Server gesendet. Du kannst dieses Fenster schließen.",
   "error.mcp.relayEnded": "Diese Anmeldung ist beendet. Starte sie erneut.",
   "error.mcp.relayNoState":
-    "Die Anmeldeseite des Servers schützt ihre Rückkehradresse nicht, darum öffnet zereight bot sie nicht auf diesem Computer.",
+    "Die Anmeldeseite des Servers schützt ihre Rückkehradresse nicht, darum öffnet OpenOwnBot sie nicht auf diesem Computer.",
   "error.mcp.relayAddressInvalid":
     "Das ist nicht die Adresse am Ende dieser Anmeldung. Kopiere die vollständige Adresse aus dem Browser.",
 } as const satisfies PartialTranslation<typeof source>;

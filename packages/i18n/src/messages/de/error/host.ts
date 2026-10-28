@@ -11,15 +11,15 @@ export const messages = {
   "error.host.setupUnavailable": "Die Einrichtung der Berechtigungen ist nicht verfügbar.",
   "error.host.accountChangedDuringUpdate":
     "Das angemeldete Konto wurde während der Aktualisierung dieses Servers geändert.",
-  "error.host.nameBeforePublish": "Gib diesem zereight bot einen Namen, bevor du ihn veröffentlichst.",
+  "error.host.nameBeforePublish": "Gib diesem OpenOwnBot einen Namen, bevor du ihn veröffentlichst.",
   "error.host.memberNotFound": "Das Remote-Mitglied existiert nicht.",
-  "error.host.publishBeforeInvite": "Mache diesen zereight bot öffentlich, bevor du eine Einladung erstellst.",
+  "error.host.publishBeforeInvite": "Mache diesen OpenOwnBot öffentlich, bevor du eine Einladung erstellst.",
   "error.host.teamAccessUnavailable": "Dein Teamzugriff ist nicht verfügbar.",
   "error.host.ownerIdentityUnavailable": "Die Identität des Host-Eigentümers ist nicht verfügbar.",
   "error.host.reserveAddressFailed": "Die öffentliche Adresse konnte nicht reserviert werden.",
-  "error.host.publishFailed": "Dieser zereight bot konnte nicht veröffentlicht werden.",
+  "error.host.publishFailed": "Dieser OpenOwnBot konnte nicht veröffentlicht werden.",
   "error.host.mobileConnectPublishFailed":
-    "Dieser zereight bot konnte nicht für die Mobilverbindung veröffentlicht werden.",
+    "Dieser OpenOwnBot konnte nicht für die Mobilverbindung veröffentlicht werden.",
   "error.host.mobileConnectHostChanged": "Der Host der Mobilverbindung wurde geändert. Versuche es erneut.",
   "error.host.noServer": "Dieser Computer hat keinen Server, der geändert werden kann.",
   "error.host.identityLocalOnly":

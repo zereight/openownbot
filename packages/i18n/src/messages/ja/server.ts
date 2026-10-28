@@ -9,7 +9,7 @@ export const messages = {
   "server.connection.waking": "{name} を起動しています",
   "server.connection.startProgress": "{step} · {time}",
   "server.connection.providerLimit":
-    "クラウドプロバイダーが現在新しい起動を制限しています。zereight bot はまもなく再試行します。",
+    "クラウドプロバイダーが現在新しい起動を制限しています。OpenOwnBot はまもなく再試行します。",
   "server.connection.updating": "{name} を更新しています",
   "server.connection.loading": "{name} を読み込んでいます",
   "server.connection.connecting": "{name} に接続しています",
@@ -29,14 +29,13 @@ export const messages = {
   "server.connection.details": "詳細",
 
   "server.status.steps": "接続の手順",
-  "server.status.updateCause": "{name} は zereight bot {version} をインストールするために再起動しています。",
-  "server.status.updateCauseNoVersion":
-    "{name} は zereight bot のアップデートをインストールするために再起動しています。",
-  "server.status.wakeCause": "{name} は停止していました。zereight bot がもう一度起動します。",
+  "server.status.updateCause": "{name} は OpenOwnBot {version} をインストールするために再起動しています。",
+  "server.status.updateCauseNoVersion": "{name} は OpenOwnBot のアップデートをインストールするために再起動しています。",
+  "server.status.wakeCause": "{name} は停止していました。OpenOwnBot がもう一度起動します。",
   "server.status.connectCause": "このアプリは {name} に接続しています。",
   "server.status.connectionCause": "このアプリは {name} との接続を失いました。自動的に再接続します。",
   "server.status.stepUpdate": "アップデートをインストール",
-  "server.status.stepUpdateDetail": "zereight bot が停止し、アップデートをインストールして、もう一度起動します。",
+  "server.status.stepUpdateDetail": "OpenOwnBot が停止し、アップデートをインストールして、もう一度起動します。",
   "server.status.stepWake": "サーバーを起動",
   "server.status.stepWakeDetail": "数分かかることがあります。",
   "server.status.stepConnect": "接続",
@@ -44,8 +43,8 @@ export const messages = {
   "server.status.stepLoad": "ワークスペースを読み込む",
   "server.status.stepLoadDetail": "エージェントとチャットをサーバーから読み込みます。",
   "server.status.elapsed": "経過時間: {time}",
-  "server.compatibility.updateClientTitle": "この zereight bot アプリを更新してください",
-  "server.compatibility.updateHostTitle": "{name} の zereight bot を更新してください",
+  "server.compatibility.updateClientTitle": "この OpenOwnBot アプリを更新してください",
+  "server.compatibility.updateHostTitle": "{name} の OpenOwnBot を更新してください",
   "server.compatibility.unsafeDataTitle": "ホストが安全でないデータを返しました",
   "server.compatibility.cannotConnectTitle": "{name} に接続できません",
   "server.compatibility.updateClientDescription":
@@ -53,7 +52,7 @@ export const messages = {
   "server.compatibility.updateHostDescription":
     "ホストはこのアプリより古いプロトコルにのみ対応しています。ホストを更新してから、もう一度お試しください。",
   "server.compatibility.unsafeDataDescription":
-    "既知のペイロードが無効だったため、zereight bot はこの接続を停止しました。現在のワークスペースのデータは変更されていません。",
+    "既知のペイロードが無効だったため、OpenOwnBot はこの接続を停止しました。現在のワークスペースのデータは変更されていません。",
   "server.compatibility.clientVersion": "クライアントのバージョン",
   "server.compatibility.hostVersion": "ホストのバージョン",
   "server.compatibility.negotiatedProtocol": "ネゴシエートされたプロトコル",
@@ -80,9 +79,9 @@ export const messages = {
   "server.join.account": "アカウント",
   "server.join.emailBound": "この招待は、宛先のメールアドレスの受信者だけが使用できます。",
   "server.join.unknownDate": "不明",
-  "server.add.title": "外部サーバーで zereight bot を 24 時間 365 日実行",
+  "server.add.title": "外部サーバーで OpenOwnBot を 24 時間 365 日実行",
   "server.add.description":
-    "zereight bot サーバーは、コンピューターの電源が切れていてもエージェントとルーティンを動かし続けます。インフラと保守は私たちが担当するため、技術的な設定なしでサーバーをすぐに使えます。",
+    "OpenOwnBot サーバーは、コンピューターの電源が切れていてもエージェントとルーティンを動かし続けます。インフラと保守は私たちが担当するため、技術的な設定なしでサーバーをすぐに使えます。",
   "server.add.billing.label": "請求期間",
   "server.add.currency.label": "通貨",
   "server.add.billing.monthly": "月払い",
@@ -113,14 +112,14 @@ export const messages = {
   "server.hosted.defaultName": "クラウドサーバー",
   "server.hosted.defaultNameNumbered": "クラウドサーバー {number}",
   "server.hosted.step.create": "マシンを作成",
-  "server.hosted.step.start": "zereight bot を起動",
+  "server.hosted.step.start": "OpenOwnBot を起動",
   "server.hosted.step.connect": "アカウントに接続",
   "server.hosted.detail.create.reserve": "専用のマシンを確保しています",
-  "server.hosted.detail.create.copy": "zereight bot をマシンにコピーしています",
+  "server.hosted.detail.create.copy": "OpenOwnBot をマシンにコピーしています",
   "server.hosted.detail.create.key": "一度だけ使えるサインインキーを追加しています",
   "server.hosted.detail.start.boot": "マシンの電源を入れています",
   "server.hosted.detail.start.app": "OpenBot を起動しています",
-  "server.hosted.detail.start.wait": "zereight bot の応答を待っています",
+  "server.hosted.detail.start.wait": "OpenOwnBot の応答を待っています",
   "server.hosted.detail.connect.signIn": "あなたのアカウントでサインインしています",
   "server.hosted.detail.connect.publish": "サーバーをアカウントに追加しています",
   "server.hosted.detail.connect.check": "接続を確認しています",
@@ -181,13 +180,13 @@ export const messages = {
   "server.settings.identityLocalOnly":
     "このサーバーの名前とロゴは、サーバーを実行しているコンピューターでのみ変更できます。",
   "server.settings.publicationLocalOnly": "公開設定はローカルサーバーでのみ変更できます。",
-  "server.compatibility.versionMismatchTitle": "{name} の zereight bot のバージョンが異なります",
+  "server.compatibility.versionMismatchTitle": "{name} の OpenOwnBot のバージョンが異なります",
   "server.compatibility.versionMismatchDescription":
     "この接続はプロトコル {protocol} を使用しています。一部の新しい機能は使用できない場合があります。クライアント {clientVersion}、ホスト {hostVersion}。",
   "server.compatibility.versionMismatchUpdateHostDescription":
-    "すべての機能を使うには、{name} の zereight bot を更新してください。この接続はプロトコル {protocol} を使用しています。クライアント {clientVersion}、ホスト {hostVersion}。",
+    "すべての機能を使うには、{name} の OpenOwnBot を更新してください。この接続はプロトコル {protocol} を使用しています。クライアント {clientVersion}、ホスト {hostVersion}。",
   "server.compatibility.versionMismatchUpdateClientDescription":
-    "すべての機能を使うには、この zereight bot アプリを更新してください。この接続はプロトコル {protocol} を使用しています。クライアント {clientVersion}、ホスト {hostVersion}。",
+    "すべての機能を使うには、この OpenOwnBot アプリを更新してください。この接続はプロトコル {protocol} を使用しています。クライアント {clientVersion}、ホスト {hostVersion}。",
   "server.connection.failedTitle": "接続に失敗しました",
   "server.connection.failedDescription":
     "このサーバーに接続できませんでした。ホストがオンラインであることを確認して、もう一度お試しください。",
@@ -208,7 +207,7 @@ export const messages = {
   "server.settings.mcpDescription": "MCP サーバーを接続し、このサーバーのエージェントが使用できるものを選択します。",
   "server.settings.storageTitle": "ストレージ",
   "server.settings.storageDescription":
-    "zereight bot がこのサーバーのディスクに保存しているものを確認し、空き容量を増やします。",
+    "OpenOwnBot がこのサーバーのディスクに保存しているものを確認し、空き容量を増やします。",
   "server.settings.hostedSitesTitle": "サイト",
   "server.settings.hostedSitesDescription": "このサーバーのエージェントが openbot.site に公開した静的サイト。",
   "server.settings.importTitle": "インポート",
@@ -245,9 +244,9 @@ export const messages = {
   "server.settings.nameTooLong": "{limit} 文字以内で入力してください。",
   "server.settings.actionFailedTitle": "サーバーの操作に失敗しました",
   "server.settings.actionFailed": "サーバーの操作に失敗しました。",
-  "server.settings.imageReadFailed": "zereight bot はこの画像を読み込めませんでした。",
+  "server.settings.imageReadFailed": "OpenOwnBot はこの画像を読み込めませんでした。",
   "server.settings.copyFailedTitle": "コピーに失敗しました",
-  "server.settings.copyFailed": "zereight bot はこの値をコピーできませんでした。",
+  "server.settings.copyFailed": "OpenOwnBot はこの値をコピーできませんでした。",
   "server.settings.unavailableTitle": "サーバーの設定を利用できません",
   "server.settings.unsavedMcpChanges": "未保存の MCP の変更",
   "server.settings.reset": "リセット",
@@ -326,7 +325,7 @@ export const messages = {
   "server.settings.restartTitle": "再起動",
   "server.settings.restarting": "再起動中…",
   "server.settings.restartedTitle": "{name} を再起動しています",
-  "server.settings.restartHiddenDescription": "サーバーが戻ると、zereight bot は自動で再接続します。",
+  "server.settings.restartHiddenDescription": "サーバーが戻ると、OpenOwnBot は自動で再接続します。",
   "server.settings.restartHide": "隠す",
   "server.settings.restartProgressTitle": "{name} を再起動しています",
   "server.settings.restartProgressDescription": "{time} · 通常は約 1 分です。このウィンドウは隠せます。",
@@ -381,7 +380,7 @@ export const messages = {
   "server.invite.full":
     "このサーバーのメンバーは上限の {limit} 人です。新しい人を招待するには、メンバーを削除してください。",
   "server.invite.qrLabel": "招待の QR コード",
-  "server.invite.qrDescription": "zereight bot Mobile でこのコードをスキャンすると、このサーバーに参加できます。",
+  "server.invite.qrDescription": "OpenOwnBot Mobile でこのコードをスキャンすると、このサーバーに参加できます。",
   "server.invite.accepted": "招待が承諾されました",
   "server.invite.expired": "招待の期限が切れました",
   "server.invite.sent": "招待を送信しました",
@@ -389,7 +388,7 @@ export const messages = {
   "server.invite.acceptedDescription":
     "メンバーがこのサーバーに参加しました。別のユーザーを招待するには、新しいリンクを作成してください。",
   "server.invite.expiredDescription": "ユーザーを招待するには、新しいリンクを作成してください。",
-  "server.invite.linkReadyDescription": "リンクを共有するか、zereight bot Mobile で QR コードをスキャンしてください。",
+  "server.invite.linkReadyDescription": "リンクを共有するか、OpenOwnBot Mobile で QR コードをスキャンしてください。",
   "server.invite.pendingTitle": "保留中の招待",
   "server.invite.pendingCount": "保留中 {total} 件",
   "server.invite.noPending": "保留中の招待はありません。",
@@ -413,7 +412,7 @@ export const messages = {
   "server.desktop.connectionUnavailable": "接続を利用できません",
   "server.desktop.hostOffline": "ホストはオフラインです",
   "server.desktop.hostOfflineDescription": "デスクトップを開く前に、ホストに再接続してください。",
-  "server.desktop.hostUpdateDescription": "リモート操作を使用するには、ホストの zereight bot を更新してください。",
+  "server.desktop.hostUpdateDescription": "リモート操作を使用するには、ホストの OpenOwnBot を更新してください。",
   "server.desktop.serviceAvailable": "サービスを利用できます",
   "server.desktop.serviceAvailableDescription": "すべてのアクティブなメンバーが WebRTC による操作を使用できます。",
   "server.desktop.serviceNotReady": "サービスの準備ができていません",
@@ -426,10 +425,9 @@ export const messages = {
   "server.settings.providersSwitchNote": "AI プロバイダーを管理するには {name} に切り替えてください。",
   "server.settings.providersSwitch": "このサーバーに切り替える",
   "server.settings.updatesTitle": "アップデート",
-  "server.settings.updatesDescription":
-    "このサーバーを実行しているコンピューターの zereight bot をアップデートします。",
-  "server.update.hostTitle": "{name} の zereight bot",
-  "server.update.version": "zereight bot {version}",
+  "server.settings.updatesDescription": "このサーバーを実行しているコンピューターの OpenOwnBot をアップデートします。",
+  "server.update.hostTitle": "{name} の OpenOwnBot",
+  "server.update.version": "OpenOwnBot {version}",
   "server.update.status.idle": "アップデートを確認して最新のリリースを見つけます。",
   "server.update.status.checking": "アップデートを確認しています…",
   "server.update.status.available": "{version} を利用できます。",
@@ -437,29 +435,29 @@ export const messages = {
   "server.update.status.downloadingUnknown": "{version} をダウンロードしています…",
   "server.update.status.ready": "{version} をダウンロードしました。",
   "server.update.status.installing": "{name} はアップデートをインストールするため再起動しています。",
-  "server.update.status.upToDate": "{name} の zereight bot は最新です。",
+  "server.update.status.upToDate": "{name} の OpenOwnBot は最新です。",
   "server.update.status.checkFailed": "{name} はアップデートを確認できませんでした。もう一度お試しください。",
   "server.update.status.downloadFailed":
     "{name} はアップデートをダウンロードできませんでした。もう一度お試しください。",
   "server.update.status.installFailed":
-    "{name} はアップデートをインストールできませんでした。そのコンピューターで他のユーザーが zereight bot を実行していないことを確認してから、もう一度お試しください。",
+    "{name} はアップデートをインストールできませんでした。そのコンピューターで他のユーザーが OpenOwnBot を実行していないことを確認してから、もう一度お試しください。",
   "server.update.releaseCheckFailed":
     "{name} はリリースフィードを読み取れませんでした。ホストのネットワーク接続を確認してから、もう一度お試しください。",
   "server.update.releaseUnavailable":
     "このビルドではリリースを確認できません。互換性のあるリリースを確認するよう、ホストの管理者に依頼してください。",
   "server.update.externalTitle": "インストールはホストが管理します",
   "server.update.path.hostManager":
-    "zereight bot Host Manager は、すべてのユーザーがアイドル状態のときにアップデートをインストールします。アップデートが始まらない場合は、Host Manager の状態を確認するようホストの管理者に依頼してください。",
+    "OpenOwnBot Host Manager は、すべてのユーザーがアイドル状態のときにアップデートをインストールします。アップデートが始まらない場合は、Host Manager の状態を確認するようホストの管理者に依頼してください。",
   "server.update.path.hosted":
     "ホスティングサービスはバックグラウンドでアップデートをダウンロードします。ダウンロードしたアップデートは、次にサーバーが起動したときに適用されます。サーバーを停止して再開する前に、実行中の作業が終わるのを待ってください。古いバージョンのままの場合は、ホストの管理者に連絡してください。",
   "server.update.path.system":
-    "ホストで sudo openbot update を実行して、最新のリリースをインストールしてください。このコマンドは zereight bot を停止します。先に実行中の作業が終わるのを待ってください。自動ダウンロードされたアップデートは次回の起動時にインストールされます。",
+    "ホストで sudo openbot update を実行して、最新のリリースをインストールしてください。このコマンドは OpenOwnBot を停止します。先に実行中の作業が終わるのを待ってください。自動ダウンロードされたアップデートは次回の起動時にインストールされます。",
   "server.update.path.container":
-    "Docker ホストで新しい zereight bot イメージを pull し、同じデータボリュームでコンテナーを再作成してください。先に実行中の作業が終わるのを待ってください。データを保持するため、既存のボリュームはそのまま残してください。",
+    "Docker ホストで新しい OpenOwnBot イメージを pull し、同じデータボリュームでコンテナーを再作成してください。先に実行中の作業が終わるのを待ってください。データを保持するため、既存のボリュームはそのまま残してください。",
   "server.update.path.manual":
-    "このインストールは自分自身を置き換えられません。github.com/nightly-labs/openbot/releases から互換性のあるリリースをインストールするよう、ホストの管理者に依頼してください。既存の zereight bot のデータは残してください。",
+    "このインストールは自分自身を置き換えられません。github.com/nightly-labs/openbot/releases から互換性のあるリリースをインストールするよう、ホストの管理者に依頼してください。既存の OpenOwnBot のデータは残してください。",
   "server.update.path.unavailable":
-    "これは開発ビルドです。アップデートを確認するには、インストール済みの zereight bot リリースを使用してください。",
+    "これは開発ビルドです。アップデートを確認するには、インストール済みの OpenOwnBot リリースを使用してください。",
   "server.update.check": "アップデートを確認",
   "server.update.start": "アイドル時にアップデート",
   "server.update.restartNow": "今すぐ再起動",
@@ -470,39 +468,39 @@ export const messages = {
   "server.update.automatic": "{name} はアップデートを自動的にインストールします。",
   "server.update.autoDownloadTitle": "アップデートを自動的にダウンロードする",
   "server.update.autoDownloadDescription":
-    "{name} は zereight bot の新しいバージョンが公開されるたびにダウンロードします。",
+    "{name} は OpenOwnBot の新しいバージョンが公開されるたびにダウンロードします。",
   "server.update.autoInstallTitle": "アップデートを自動的にインストールする",
   "server.update.autoInstallDescription":
     "{name} は、エージェントがアイドル状態になると、ダウンロードしたアップデートを適用して再起動します。メンバーの接続は短時間切れ、自動的に再接続されます。",
   "server.update.waitingFor": "{reasons} を待っています。",
   "server.update.disabledTitle": "リモートアップデートはオフです",
   "server.update.disabledDescription":
-    "{name} のユーザーが、サーバーメンバーからのアップデートをオフにしました。zereight bot をアップデートするか、設定をオンにするよう依頼してください。",
+    "{name} のユーザーが、サーバーメンバーからのアップデートをオフにしました。OpenOwnBot をアップデートするか、設定をオンにするよう依頼してください。",
   "server.update.managedTitle": "アップデートは Host Manager が管理しています",
   "server.update.managedDescription":
-    "zereight bot Host Manager が {name} をアップデートします。ホストの管理者に連絡してください。",
+    "OpenOwnBot Host Manager が {name} をアップデートします。ホストの管理者に連絡してください。",
   "server.update.unsupportedTitle": "{name} は自身をアップデートできません",
   "server.update.unsupportedDescription":
-    "この zereight bot ビルドにはアップデーターがありません。{name} に新しいバージョンをインストールしてください。",
+    "この OpenOwnBot ビルドにはアップデーターがありません。{name} に新しいバージョンをインストールしてください。",
   "server.update.restarting": "再起動中…",
   "server.update.loadFailed": "{name} のアップデート状態を読み込めませんでした。",
   "server.update.hostAction": "ホストをアップデート",
-  "server.update.dialog.offerTitle": "{name} を zereight bot {version} にアップデート",
+  "server.update.dialog.offerTitle": "{name} を OpenOwnBot {version} にアップデート",
   "server.update.dialog.offerDescription":
-    "{name} は zereight bot {current} を使用しています。まずアップデートをダウンロードしてから再起動します。",
+    "{name} は OpenOwnBot {current} を使用しています。まずアップデートをダウンロードしてから再起動します。",
   "server.update.dialog.offerReadyDescription":
-    "{name} は zereight bot {current} を使用しています。アップデートはダウンロード済みです。{name} はインストールのため再起動します。",
+    "{name} は OpenOwnBot {current} を使用しています。アップデートはダウンロード済みです。{name} はインストールのため再起動します。",
   "server.update.dialog.progressTitle": "{name} をアップデートしています",
   "server.update.dialog.progressDescription": "{time} · このウィンドウは非表示にできます。",
-  "server.update.dialog.doneTitle": "{name} は zereight bot {version} になりました",
+  "server.update.dialog.doneTitle": "{name} は OpenOwnBot {version} になりました",
   "server.update.dialog.doneDescription": "アップデートには {time} かかりました。",
   "server.update.dialog.failedTitle": "{name} をアップデートできませんでした",
   "server.update.dialog.restartFailed":
     "{name} がオンラインに戻りません。ホストを確認してから、もう一度お試しください。",
   "server.update.dialog.notInstalled":
-    "{name} は zereight bot {current} のまま再起動しました。もう一度アップデートをお試しください。",
+    "{name} は OpenOwnBot {current} のまま再起動しました。もう一度アップデートをお試しください。",
   "server.update.dialog.steps": "アップデートの手順",
-  "server.update.dialog.downloadStep": "zereight bot {version} をダウンロード",
+  "server.update.dialog.downloadStep": "OpenOwnBot {version} をダウンロード",
   "server.update.dialog.downloadPending": "ダウンロード中もエージェントは作業を続けます。",
   "server.update.dialog.downloadPreparing": "ダウンロードを準備しています…",
   "server.update.dialog.downloadRunning": "{progress} · エージェントは作業を続けています。",
@@ -511,10 +509,10 @@ export const messages = {
   "server.update.dialog.restartPending": "メンバーの接続が約 1 分間切れます。",
   "server.update.dialog.restartWaiting": "{reasons} の完了を待っています。",
   "server.update.dialog.restartSoon": "まもなく再起動が始まります。",
-  "server.update.dialog.restartRunning": "zereight bot {version} を起動しています…",
+  "server.update.dialog.restartRunning": "OpenOwnBot {version} を起動しています…",
   "server.update.dialog.onlineStep": "オンラインに復帰",
   "server.update.dialog.onlinePending": "メンバーは自動的に再接続します。",
-  "server.update.dialog.onlineDone": "{time} 後に zereight bot {version} になりました。",
+  "server.update.dialog.onlineDone": "{time} 後に OpenOwnBot {version} になりました。",
   "server.update.dialog.waitIdle": "エージェントがアイドル状態になるまで待つ",
   "server.update.dialog.waitIdleDescription":
     "再起動は、エージェントのターンとルーティンの実行が終わるまで待機します。",
@@ -540,13 +538,13 @@ export const messages = {
   "server.update.reason.fileTransfer": "ファイル転送",
   "server.update.reason.browserControl": "エージェントによるブラウザー操作",
   "server.update.reason.updateOperation": "別のアップデート手順",
-  "server.update.reason.initialization": "zereight bot の起動",
+  "server.update.reason.initialization": "OpenOwnBot の起動",
   "server.update.reason.other": "その他の作業",
   "server.restartNotice.waitingTitle": "{name} はアップデートをインストールするため再起動します",
-  "server.restartNotice.waitingVersionTitle": "{name} は zereight bot {version} をインストールするため再起動します",
+  "server.restartNotice.waitingVersionTitle": "{name} は OpenOwnBot {version} をインストールするため再起動します",
   "server.restartNotice.waitingDescription":
-    "再起動は、エージェントがアイドル状態になるまで待ちます。接続は短時間切れ、その後 zereight bot が自動的に再接続します。",
+    "再起動は、エージェントがアイドル状態になるまで待ちます。接続は短時間切れ、その後 OpenOwnBot が自動的に再接続します。",
   "server.restartNotice.restartingTitle": "{name} はアップデートをインストールするため再起動しています",
-  "server.restartNotice.restartingDescription": "{name} が復帰すると、zereight bot が自動的に再接続します。",
+  "server.restartNotice.restartingDescription": "{name} が復帰すると、OpenOwnBot が自動的に再接続します。",
   "server.restartNotice.backTitle": "{name} がオンラインに戻りました",
 } as const satisfies PartialTranslation<typeof source>;

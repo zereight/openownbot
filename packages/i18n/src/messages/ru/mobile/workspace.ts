@@ -19,7 +19,7 @@ export const messages = {
   "mobile.workspace.error.removeOwnedServerOnly": "Удалить этот сервер может только владелец.",
   "mobile.workspace.error.agentNotOnHost": "Агента нет на этом хосте.",
   "mobile.workspace.error.filesUnsupported":
-    "Этот хост не поддерживает управление файлами. Обновите zereight bot на хосте.",
+    "Этот хост не поддерживает управление файлами. Обновите OpenOwnBot на хосте.",
   "mobile.workspace.error.agentUnavailableOnHost": "Агент недоступен на этом хосте.",
   "mobile.workspace.error.agentUnavailable": "Агент недоступен.",
   "mobile.workspace.error.formUnavailable": "Эта форма больше недоступна.",

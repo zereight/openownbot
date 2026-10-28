@@ -24,7 +24,7 @@ export const messages = {
   "marketplace.description.apps": "Koppel de tools en diensten waarmee je agents werken.",
   "marketplace.description.agents": "Kant-en-klare agents met eigen instructies en vaardigheden.",
   "marketplace.description.skills": "Instructies die een agent een taak of tool leren.",
-  "marketplace.plugins.missing": "Deze plug-in staat niet in de zereight bot-catalogus.",
+  "marketplace.plugins.missing": "Deze plug-in staat niet in de OpenOwnBot-catalogus.",
   "marketplace.agents.loadingDetail": "Agentgegevens laden…",
   "marketplace.agents.skills": "Vaardigheden",
   "marketplace.agents.routines": "Routines",
@@ -32,7 +32,7 @@ export const messages = {
   "marketplace.agents.routineInactive": "Inactief",
   "marketplace.skill.loading": "Vaardigheid laden",
   "marketplace.skill.update": "Vaardigheid bijwerken",
-  "marketplace.try.readFailed": "zereight bot kan de vaardigheden van deze agent niet lezen. Probeer het opnieuw.",
+  "marketplace.try.readFailed": "OpenOwnBot kan de vaardigheden van deze agent niet lezen. Probeer het opnieuw.",
   "marketplace.try.enable": "Schakel deze vaardigheid in bij de agentinstellingen om haar te proberen.",
   "marketplace.try.repair": "Herstel deze vaardigheid bij de agentinstellingen om haar te proberen.",
   "marketplace.try.update": "Werk deze vaardigheid bij om deze versie te proberen.",
@@ -175,7 +175,7 @@ export const messages = {
   "marketplace.plugin.figma.prompt.assets": "Exporteer de marketingiconen op 2x voor de app-bundel.",
   "marketplace.plugin.paper.tagline": "Ontwerpcanvas op basis van HTML en CSS",
   "marketplace.plugin.paper.description":
-    "Met Paper kunnen agents het ontwerpbestand lezen en schrijven dat open is in Paper Desktop: artboards, selecties, berekende stijlen, JSX en tokens inspecteren, en frames, tekst en stijlen maken of wijzigen. Installeer Paper Desktop, open het één keer en open een bestand voordat je begint. zereight bot start de Paper CLI die Paper Desktop installeert. Paper heeft geen sleutel nodig. Schrijftools wijzigen het open bestand, dus controleer elke wijziging voordat je die goedkeurt.",
+    "Met Paper kunnen agents het ontwerpbestand lezen en schrijven dat open is in Paper Desktop: artboards, selecties, berekende stijlen, JSX en tokens inspecteren, en frames, tekst en stijlen maken of wijzigen. Installeer Paper Desktop, open het één keer en open een bestand voordat je begint. OpenOwnBot start de Paper CLI die Paper Desktop installeert. Paper heeft geen sleutel nodig. Schrijftools wijzigen het open bestand, dus controleer elke wijziging voordat je die goedkeurt.",
   "marketplace.plugin.paper.app":
     "Leest en schrijft het open Paper Desktop-bestand, via de lokale MCP-server die de Paper CLI doorgeeft. Vereist Paper Desktop met een open bestand.",
   "marketplace.plugin.paper.prompt.implement":

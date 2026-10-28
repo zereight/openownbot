@@ -9,7 +9,7 @@ export const messages = {
   "remoteDesktop.workspaceLabel": "Controle remoto",
   "remoteDesktop.displayLabel": "Tela remota",
   "remoteDesktop.selectDisplay": "Selecionar tela",
-  "remoteDesktop.backToOpenBot": "Voltar ao zereight bot",
+  "remoteDesktop.backToOpenBot": "Voltar ao OpenOwnBot",
   "remoteDesktop.disconnect": "Desconectar",
   "remoteDesktop.viewerTitle": "Área de trabalho remota do Sunshine",
   "remoteDesktop.viewerLoadFailed": "Não foi possível carregar o visualizador Moonlight.",
@@ -41,7 +41,7 @@ export const messages = {
   "remoteDesktop.setup.startFailed": "Não foi possível iniciar o teste da área de trabalho remota.",
   "remoteDesktop.setup.connectionLost": "A conexão de teste foi perdida.",
   "remoteDesktop.setup.hostUpdateRequired":
-    "Atualize o zereight bot no servidor para verificar as permissões e testar a área de trabalho remota.",
+    "Atualize o OpenOwnBot no servidor para verificar as permissões e testar a área de trabalho remota.",
   "remoteDesktop.setup.permissions": "Permissões",
   "remoteDesktop.setup.checked": "Verificado",
   "remoteDesktop.setup.checkAgain": "Verificar novamente",

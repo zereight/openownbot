@@ -3,15 +3,15 @@ import type { messages as source } from "../en/messaging";
 
 export const messages = {
   "messaging.help.invalid_token":
-    "Slack akzeptiert zereight bot in diesem Arbeitsbereich nicht mehr. Es wurde möglicherweise deinstalliert. Verbinde den Arbeitsbereich erneut.",
+    "Slack akzeptiert OpenOwnBot in diesem Arbeitsbereich nicht mehr. Es wurde möglicherweise deinstalliert. Verbinde den Arbeitsbereich erneut.",
   "messaging.help.secret_storage_unavailable":
-    "zereight bot kann die gespeicherten Tokens auf diesem Computer nicht lesen. Trenne den Arbeitsbereich und verbinde ihn erneut.",
+    "OpenOwnBot kann die gespeicherten Tokens auf diesem Computer nicht lesen. Trenne den Arbeitsbereich und verbinde ihn erneut.",
   "messaging.help.relay_unavailable":
-    "zereight bot kann auf diesem Computer keine Slack-Ereignisse empfangen. Melde dich an, gib diesem Computer in den Servereinstellungen einen Namen und lass zereight bot geöffnet.",
+    "OpenOwnBot kann auf diesem Computer keine Slack-Ereignisse empfangen. Melde dich an, gib diesem Computer in den Servereinstellungen einen Namen und lass OpenOwnBot geöffnet.",
   "messaging.discordHelp.invalid_token":
-    "Discord akzeptiert zereight bot auf diesem Discord-Server nicht mehr. Es wurde möglicherweise entfernt. Verbinde den Discord-Server erneut.",
+    "Discord akzeptiert OpenOwnBot auf diesem Discord-Server nicht mehr. Es wurde möglicherweise entfernt. Verbinde den Discord-Server erneut.",
   "messaging.discordHelp.secret_storage_unavailable":
-    "zereight bot kann die gespeicherten Tokens auf diesem Computer nicht lesen. Trenne den Discord-Server und verbinde ihn erneut.",
+    "OpenOwnBot kann die gespeicherten Tokens auf diesem Computer nicht lesen. Trenne den Discord-Server und verbinde ihn erneut.",
   "messaging.discordHelp.relay_unavailable":
-    "zereight bot kann auf diesem Computer keine Discord-Ereignisse empfangen. Melde dich an, gib diesem Computer in den Servereinstellungen einen Namen und lass zereight bot geöffnet.",
+    "OpenOwnBot kann auf diesem Computer keine Discord-Ereignisse empfangen. Melde dich an, gib diesem Computer in den Servereinstellungen einen Namen und lass OpenOwnBot geöffnet.",
 } as const satisfies PartialTranslation<typeof source>;

@@ -10,12 +10,12 @@ export const messages = {
   "error.workflow.conditionBranch": "Elke verbinding vanuit een voorwaarde moet ja of nee zijn.",
   "error.workflow.duplicateEdge": "Deze twee stappen hebben deze verbinding al.",
   "error.workflow.serverTooOld":
-    "Deze server ondersteunt geen workflows. Werk zereight bot bij op de computer waarop de server draait.",
+    "Deze server ondersteunt geen workflows. Werk OpenOwnBot bij op de computer waarop de server draait.",
   "error.workflow.nodeUnsupported":
-    "Deze versie van zereight bot kan nog geen stappen voor afbeeldingen, bestanden en berichten uitvoeren.",
-  "error.workflow.interrupted": "zereight bot is gestopt terwijl deze stap liep. Voer hem opnieuw uit.",
+    "Deze versie van OpenOwnBot kan nog geen stappen voor afbeeldingen, bestanden en berichten uitvoeren.",
+  "error.workflow.interrupted": "OpenOwnBot is gestopt terwijl deze stap liep. Voer hem opnieuw uit.",
   "error.workflow.agentMissing": "Kies een agent voor deze stap.",
-  "error.workflow.handoffFailed": "zereight bot kon deze stap niet naar de agent sturen.",
+  "error.workflow.handoffFailed": "OpenOwnBot kon deze stap niet naar de agent sturen.",
   "error.workflow.agentStepEnded": "Het bericht van de agent voor deze stap is verwijderd voordat de agent antwoordde.",
   "error.workflow.conditionUnclear": "Het model antwoordde niet met ja of nee.",
   "error.workflow.modelFailed": "Het model kon niet antwoorden. Voer de stap opnieuw uit.",
@@ -29,7 +29,7 @@ export const messages = {
   "error.workflow.outputConnectionOff":
     "De berichtenverbinding van deze uitvoer staat uit of is verwijderd. Kies opnieuw een plek.",
   "error.workflow.outputNotRunning": "De berichtenverbinding draait nu niet. Probeer het opnieuw als hij draait.",
-  "error.workflow.outputRefused": "De plek heeft het bericht geweigerd. Zorg dat zereight bot daar mag posten.",
+  "error.workflow.outputRefused": "De plek heeft het bericht geweigerd. Zorg dat OpenOwnBot daar mag posten.",
   "error.workflow.outputUncertain":
     "Het bericht is onderweg gestopt. Een deel ervan kan op de plek staan. Kijk daar voordat je het opnieuw probeert.",
   "error.workflow.tooLarge":

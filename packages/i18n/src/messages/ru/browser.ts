@@ -58,8 +58,8 @@ export const messages = {
   "browser.pip.reattach": "Вернуть браузер в правую боковую панель",
   "browser.pip.reattachTitle": "Вернуть браузер",
   "browser.pip.close": "Закрыть окно браузера",
-  "browser.pip.reattachFailed": "zereight bot не удалось вернуть браузер в боковую панель.",
-  "browser.pip.closeFailed": "zereight bot не удалось закрыть окно браузера.",
+  "browser.pip.reattachFailed": "OpenOwnBot не удалось вернуть браузер в боковую панель.",
+  "browser.pip.closeFailed": "OpenOwnBot не удалось закрыть окно браузера.",
   "browser.popupBlocked.title": "Всплывающее окно заблокировано",
   "browser.popupBlocked.dismiss": "Скрыть сообщение о всплывающем окне",
   "browser.liveView.label": "Страница на сервере в реальном времени",
@@ -137,20 +137,20 @@ export const messages = {
   "browser.signIn.local": "Войти на этом компьютере",
   "browser.signIn.title": "Вход в {site}",
   "browser.signIn.description":
-    "Некоторые сайты отклоняют вход с сервера. Войдите на этом компьютере, и zereight bot отправит вход в {site} на {server}. Все агенты и участники на {server} смогут использовать его в браузере.",
+    "Некоторые сайты отклоняют вход с сервера. Войдите на этом компьютере, и OpenOwnBot отправит вход в {site} на {server}. Все агенты и участники на {server} смогут использовать его в браузере.",
   "browser.signIn.windowOpen":
-    "Войдите в открывшемся окне. zereight bot отправит вход, когда он будет выполнен. Если окно останется открытым, выберите «Готово».",
+    "Войдите в открывшемся окне. OpenOwnBot отправит вход, когда он будет выполнен. Если окно останется открытым, выберите «Готово».",
   "browser.signIn.windowClosed":
     "Окно входа закрыто. Выберите «Готово», чтобы отправить вход, или откройте окно снова.",
   "browser.signIn.reopen": "Открыть окно входа",
   "browser.signIn.sending": "Отправка на {server}…",
   "browser.signIn.sent": "Выполнен вход в {site} на {server}",
-  "browser.signIn.notFound": "zereight bot не нашёл вход в {site}. Войдите в окне, затем выберите «Готово».",
+  "browser.signIn.notFound": "OpenOwnBot не нашёл вход в {site}. Войдите в окне, затем выберите «Готово».",
   "browser.signIn.stillSignedOut": "{server} всё ещё показывает страницу входа в {site}. Завершите вход в окне.",
-  "browser.signIn.failed": "zereight bot не удалось отправить вход.",
+  "browser.signIn.failed": "OpenOwnBot не удалось отправить вход.",
   "browser.profiles.title": "Профили браузера",
   "browser.profiles.subtitle":
-    "Каждый профиль хранит свои входы в аккаунты, cookie и данные сайтов на компьютере, где работает zereight bot.",
+    "Каждый профиль хранит свои входы в аккаунты, cookie и данные сайтов на компьютере, где работает OpenOwnBot.",
   "browser.profiles.label": "Профили браузера",
   "browser.profiles.newName": "Имя профиля",
   "browser.profiles.create": "Добавить",
@@ -179,8 +179,8 @@ export const messages = {
   "browser.profiles.deleteDescription":
     "Это удалит входы в аккаунты, cookie и данные сайтов этого профиля. Его открытые вкладки закроются.",
   "browser.profiles.deleteAgents": "Эти агенты перейдут на общий профиль: {agents}.",
-  "browser.profiles.failed": "zereight bot не удалось изменить профили браузера.",
-  "browser.profiles.loadFailed": "zereight bot не удалось загрузить профили браузера.",
+  "browser.profiles.failed": "OpenOwnBot не удалось изменить профили браузера.",
+  "browser.profiles.loadFailed": "OpenOwnBot не удалось загрузить профили браузера.",
   "browser.profiles.tabLabel": "Профиль: {name}",
   "browser.profiles.agentTabLabel": "Собственный профиль агента",
 } as const satisfies PartialTranslation<typeof source>;

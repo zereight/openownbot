@@ -4,10 +4,10 @@ import type { messages as source } from "../../en/error/auth";
 export const messages = {
   // Errors from the OpenBot account service.
   "error.auth.serviceUnavailable":
-    "zereight bot n’a pas pu joindre le service de compte. Vérifiez que l’API fonctionne, puis réessayez.",
+    "OpenOwnBot n’a pas pu joindre le service de compte. Vérifiez que l’API fonctionne, puis réessayez.",
   "error.auth.networkBlocked":
-    "Un pare-feu ou un proxy de ce réseau a empêché zereight bot de joindre {host}. Demandez à votre administrateur réseau d’autoriser {host}, puis réessayez.",
-  "error.auth.signInFirst": "Connectez-vous d’abord à zereight bot.",
+    "Un pare-feu ou un proxy de ce réseau a empêché OpenOwnBot de joindre {host}. Demandez à votre administrateur réseau d’autoriser {host}, puis réessayez.",
+  "error.auth.signInFirst": "Connectez-vous d’abord à OpenOwnBot.",
   "error.auth.signInRequired": "Une connexion est requise.",
   "error.auth.accountChangedDuringRegister": "Le compte connecté a changé pendant l’enregistrement de ce serveur.",
   "error.auth.hostCredentialUnavailable":
@@ -15,15 +15,15 @@ export const messages = {
   "error.auth.codeNotVerified": "Impossible de vérifier le code de connexion.",
   "error.auth.serviceError": "Le service de compte a renvoyé une erreur.",
   "error.auth.serviceUnreachable":
-    "zereight bot n’a pas pu joindre le service de compte. Vérifiez votre connexion, puis réessayez.",
+    "OpenOwnBot n’a pas pu joindre le service de compte. Vérifiez votre connexion, puis réessayez.",
   "error.auth.serviceTimeout": "Le service de compte n’a pas répondu à temps. Réessayez.",
   "error.auth.serviceStatus": "Le service de compte a renvoyé une erreur ({status}). Réessayez plus tard.",
   "error.auth.invalidHostedServer": "Le service de compte a renvoyé un serveur hébergé invalide.",
-  "error.auth.codeNotSent": "zereight bot n’a pas pu envoyer le code de connexion.",
+  "error.auth.codeNotSent": "OpenOwnBot n’a pas pu envoyer le code de connexion.",
   "error.auth.deliveryTimeout":
-    "zereight bot n’a pas pu confirmer l’envoi à temps. Le code peut encore arriver ; vérifiez sa réception avant de le renvoyer.",
+    "OpenOwnBot n’a pas pu confirmer l’envoi à temps. Le code peut encore arriver ; vérifiez sa réception avant de le renvoyer.",
   "error.auth.deliveryInterrupted":
-    "La connexion s’est terminée avant qu’zereight bot confirme l’envoi. Vérifiez la réception pour ne pas envoyer un autre code.",
+    "La connexion s’est terminée avant qu’OpenOwnBot confirme l’envoi. Vérifiez la réception pour ne pas envoyer un autre code.",
   "error.auth.deliveryUnknown":
-    "zereight bot n’a pas pu confirmer si le code de connexion a été envoyé. Vérifiez sa réception avant de le renvoyer.",
+    "OpenOwnBot n’a pas pu confirmer si le code de connexion a été envoyé. Vérifiez sa réception avant de le renvoyer.",
 } as const satisfies PartialTranslation<typeof source>;

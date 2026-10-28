@@ -20,7 +20,7 @@ export const messages = {
   "status.remote.stageAgents": "Agents laden: {reason}",
   "status.remote.stageReads": "Leesstatus laden: {reason}",
   "status.remote.suspendedDetail":
-    "Werk zereight bot Mobile of de desktop-app bij voordat je verbinding maakt.\n{detail}",
+    "Werk OpenOwnBot Mobile of de desktop-app bij voordat je verbinding maakt.\n{detail}",
   "status.remote.cooldownDetail":
     "Verbinding mislukt na {limit} pogingen. Opnieuw proberen over {minutes}:{seconds}.\n{detail}",
   "status.remote.cooldown": "Verbinding mislukt na {limit} pogingen. Opnieuw proberen over {minutes}:{seconds}.",

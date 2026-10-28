@@ -10,7 +10,7 @@ export const messages = {
     "Nog geen tabellen. Een agent maakt er zelf een wanneer een taak records tussen beurten nodig heeft, en elke agent kan hem gebruiken.",
   "sharedTable.loadFailed": "Kan de tabellen niet laden.",
   "sharedTable.deleteFailed": "Kan dit niet verwijderen.",
-  "sharedTable.madeOutside": "Buiten zereight bot gemaakt · elke agent kan hem verwijderen",
+  "sharedTable.madeOutside": "Buiten OpenOwnBot gemaakt · elke agent kan hem verwijderen",
   "sharedTable.keptBy": "Bewaard door {name}",
   "sharedTable.keptByDeleted": "Bewaard door een agent die niet meer bestaat",
   "sharedTable.deleteName": "{name} verwijderen",

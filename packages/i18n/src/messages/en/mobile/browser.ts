@@ -40,7 +40,7 @@ export const messages = defineMessages("mobile.browser", {
   "mobile.browser.status.offline": "The server is not connected.",
   "mobile.browser.status.noTab": "{name} has no browser tab open.",
   "mobile.browser.status.unsupported":
-    "This server cannot show its browser on a phone. Update zereight bot on this server.",
+    "This server cannot show its browser on a phone. Update OpenOwnBot on this server.",
   "mobile.browser.status.off": "The browser is not available in this version of the app.",
   "mobile.browser.notice.copied": "Copied to your phone.",
   "mobile.browser.notice.nothingSelected": "Nothing is selected on the page.",

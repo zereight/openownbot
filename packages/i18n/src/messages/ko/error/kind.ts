@@ -4,7 +4,7 @@ import type { messages as source } from "../../en/error/kind";
 export const messages = {
   "error.kind.network": "연결할 수 없어요. 네트워크 연결을 확인한 후 다시 시도해 주세요.",
   "error.kind.timeout": "요청 시간이 너무 오래 걸렸어요. 다시 시도하기 전에 작업이 완료되었는지 확인해 주세요.",
-  "error.kind.storage": "저장 공간이 부족해요. zereight bot을 실행 중인 컴퓨터의 공간을 확보한 후 다시 시도해 주세요.",
+  "error.kind.storage": "저장 공간이 부족해요. OpenOwnBot을 실행 중인 컴퓨터의 공간을 확보한 후 다시 시도해 주세요.",
   "error.kind.filePermission":
     "OpenBot에 이 작업을 할 권한이 없어요. 파일 또는 폴더 권한을 확인한 후 다시 시도해 주세요.",
   "error.kind.notFound": "필요한 파일 또는 폴더를 찾을 수 없어요. 복원하거나 다른 항목을 선택한 후 다시 시도해 주세요.",

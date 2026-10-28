@@ -9,7 +9,7 @@ export const messages = {
   "remoteDesktop.workspaceLabel": "リモート操作",
   "remoteDesktop.displayLabel": "リモートディスプレイ",
   "remoteDesktop.selectDisplay": "ディスプレイを選択",
-  "remoteDesktop.backToOpenBot": "zereight bot に戻る",
+  "remoteDesktop.backToOpenBot": "OpenOwnBot に戻る",
   "remoteDesktop.disconnect": "切断",
   "remoteDesktop.viewerTitle": "Sunshine リモートデスクトップ",
   "remoteDesktop.viewerLoadFailed": "Moonlight ビューアーを読み込めませんでした。",
@@ -41,7 +41,7 @@ export const messages = {
   "remoteDesktop.setup.startFailed": "リモートデスクトップのテストを開始できませんでした。",
   "remoteDesktop.setup.connectionLost": "テスト接続が切れました。",
   "remoteDesktop.setup.hostUpdateRequired":
-    "権限を確認してリモートデスクトップをテストするには、サーバーの zereight bot をアップデートしてください。",
+    "権限を確認してリモートデスクトップをテストするには、サーバーの OpenOwnBot をアップデートしてください。",
   "remoteDesktop.setup.permissions": "権限",
   "remoteDesktop.setup.checked": "確認日時",
   "remoteDesktop.setup.checkAgain": "もう一度確認",

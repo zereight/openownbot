@@ -3,10 +3,10 @@ import type { messages as source } from "../../en/error/auth";
 
 export const messages = {
   "error.auth.serviceUnavailable":
-    "O zereight bot não conseguiu acessar o serviço de contas. Verifique se a API está em execução e tente novamente.",
+    "O OpenOwnBot não conseguiu acessar o serviço de contas. Verifique se a API está em execução e tente novamente.",
   "error.auth.networkBlocked":
-    "Um firewall ou proxy desta rede impediu o zereight bot de acessar {host}. Peça ao administrador da rede para permitir {host} e tente novamente.",
-  "error.auth.signInFirst": "Entre no zereight bot primeiro.",
+    "Um firewall ou proxy desta rede impediu o OpenOwnBot de acessar {host}. Peça ao administrador da rede para permitir {host} e tente novamente.",
+  "error.auth.signInFirst": "Entre no OpenOwnBot primeiro.",
   "error.auth.signInRequired": "É necessário entrar.",
   "error.auth.accountChangedDuringRegister": "A conta conectada mudou durante o registro deste servidor.",
   "error.auth.hostCredentialUnavailable":
@@ -14,15 +14,15 @@ export const messages = {
   "error.auth.codeNotVerified": "Não foi possível verificar o código de login.",
   "error.auth.serviceError": "O serviço de contas retornou um erro.",
   "error.auth.serviceUnreachable":
-    "O zereight bot não conseguiu acessar o serviço de contas. Verifique sua conexão e tente novamente.",
+    "O OpenOwnBot não conseguiu acessar o serviço de contas. Verifique sua conexão e tente novamente.",
   "error.auth.serviceTimeout": "O serviço de contas não respondeu a tempo. Tente novamente.",
   "error.auth.serviceStatus": "O serviço de contas retornou um erro ({status}). Tente novamente mais tarde.",
   "error.auth.invalidHostedServer": "O serviço de contas retornou um servidor hospedado inválido.",
-  "error.auth.codeNotSent": "O zereight bot não conseguiu enviar o código de login.",
+  "error.auth.codeNotSent": "O OpenOwnBot não conseguiu enviar o código de login.",
   "error.auth.deliveryTimeout":
-    "O zereight bot não conseguiu confirmar a entrega a tempo. O código ainda pode chegar; verifique a entrega antes de enviar novamente.",
+    "O OpenOwnBot não conseguiu confirmar a entrega a tempo. O código ainda pode chegar; verifique a entrega antes de enviar novamente.",
   "error.auth.deliveryInterrupted":
-    "A conexão terminou antes de o zereight bot confirmar a entrega. Verifique a entrega para evitar o envio de outro código.",
+    "A conexão terminou antes de o OpenOwnBot confirmar a entrega. Verifique a entrega para evitar o envio de outro código.",
   "error.auth.deliveryUnknown":
-    "O zereight bot não conseguiu confirmar se o código de login foi enviado. Verifique a entrega antes de enviar novamente.",
+    "O OpenOwnBot não conseguiu confirmar se o código de login foi enviado. Verifique a entrega antes de enviar novamente.",
 } as const satisfies PartialTranslation<typeof source>;

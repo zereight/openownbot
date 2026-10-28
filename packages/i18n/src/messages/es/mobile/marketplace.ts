@@ -56,13 +56,13 @@ export const messages = {
   "mobile.marketplace.permission.admin":
     "Solo los propietarios y administradores pueden instalar desde el marketplace.",
   "mobile.marketplace.permission.unavailable":
-    "Este servidor está sin conexión, o su zereight bot es demasiado antiguo para esto. Actualiza zereight bot en el ordenador que lo ejecuta.",
+    "Este servidor está sin conexión, o su OpenOwnBot es demasiado antiguo para esto. Actualiza OpenOwnBot en el ordenador que lo ejecuta.",
   "mobile.marketplace.error.agentUnsupported":
-    "Actualiza zereight bot en el servidor para añadir agentes desde el marketplace.",
+    "Actualiza OpenOwnBot en el servidor para añadir agentes desde el marketplace.",
   "mobile.marketplace.error.agentUpdateUnsupported":
-    "Actualiza zereight bot en el servidor para actualizar agentes del marketplace.",
+    "Actualiza OpenOwnBot en el servidor para actualizar agentes del marketplace.",
   "mobile.marketplace.error.signInUnsupported":
-    "Actualiza zereight bot en el servidor para iniciar sesión en apps desde el teléfono.",
+    "Actualiza OpenOwnBot en el servidor para iniciar sesión en apps desde el teléfono.",
   "mobile.marketplace.agent.add": "Añadir agente",
   "mobile.marketplace.agent.adding": "Añadiendo agente",
   "mobile.marketplace.agent.update": "Actualizar agente",

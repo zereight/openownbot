@@ -54,8 +54,8 @@ export const messages = {
   "composer.voice.blocked":
     "Доступ к микрофону заблокирован. Разрешите OpenBot использовать микрофон в системных настройках.",
   "composer.voice.noMicrophone": "Микрофон недоступен.",
-  "composer.voice.startFailed": "zereight bot не удалось начать запись голоса.",
-  "composer.voice.transcribeFailed": "zereight bot не удалось расшифровать эту запись.",
+  "composer.voice.startFailed": "OpenOwnBot не удалось начать запись голоса.",
+  "composer.voice.transcribeFailed": "OpenOwnBot не удалось расшифровать эту запись.",
   "composer.reply.toYou": "Ответ на ваше сообщение",
   "composer.reply.toAgent": "Ответ агенту",
   "composer.reply.attachment": "Вложение",

@@ -5,7 +5,7 @@ export const messages = {
   "error.kind.network": "Nie udało się połączyć. Sprawdź połączenie i spróbuj ponownie.",
   "error.kind.timeout": "Żądanie trwało zbyt długo. Sprawdź, czy działanie się zakończyło, zanim spróbujesz ponownie.",
   "error.kind.storage":
-    "Za mało miejsca na dysku. Zwolnij miejsce na komputerze, na którym działa zereight bot, a potem spróbuj ponownie.",
+    "Za mało miejsca na dysku. Zwolnij miejsce na komputerze, na którym działa OpenOwnBot, a potem spróbuj ponownie.",
   "error.kind.filePermission":
     "OpenBot nie ma uprawnień do wykonania tego działania. Sprawdź uprawnienia pliku lub folderu, a potem spróbuj ponownie.",
   "error.kind.notFound":

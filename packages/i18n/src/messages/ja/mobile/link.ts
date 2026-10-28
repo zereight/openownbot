@@ -2,27 +2,27 @@ import type { PartialTranslation } from "../../../message";
 import type { messages as source } from "../../en/mobile/link";
 
 export const messages = {
-  "mobile.link.connectFailed": "zereight bot は接続できませんでした。もう一度お試しください。",
+  "mobile.link.connectFailed": "OpenOwnBot は接続できませんでした。もう一度お試しください。",
   "mobile.link.invite.signInTitle": "サインインしてこのサーバーに参加",
   "mobile.link.invite.signInDescription":
-    "コンピューターの zereight bot に表示される QR コードをスキャンしてください。その後、招待を確認できます。",
+    "コンピューターの OpenOwnBot に表示される QR コードをスキャンしてください。その後、招待を確認できます。",
   "mobile.link.invite.cancel": "招待をキャンセル",
   "mobile.link.pairing.title": "このスマートフォンを接続",
   "mobile.link.pairing.alreadySignedIn":
     "すでにサインインしています。別のアカウントを接続する前に、設定でサインアウトしてください。",
   "mobile.link.pairing.description": "この Mobile Connect リンクをデスクトップから要求した場合にのみ続行してください。",
   "mobile.link.pairing.accountService":
-    "このリンクは zereight bot のアカウントサービスではなく、{origin} のアカウントサービスに接続します。",
+    "このリンクは OpenOwnBot のアカウントサービスではなく、{origin} のアカウントサービスに接続します。",
   "mobile.link.pairing.connect": "接続",
   "mobile.link.plugin.title": "プラグインのページを開く",
-  "mobile.link.plugin.description": "このプラグインを zereight bot の Web サイトで表示します。",
+  "mobile.link.plugin.description": "このプラグインを OpenOwnBot の Web サイトで表示します。",
   "mobile.link.plugin.openFailed": "プラグインのページを開けませんでした。",
   "mobile.link.plugin.view": "プラグインを表示",
   "mobile.link.unavailable.title": "リンクを使用できません",
   "mobile.link.unavailable.description": "このリンクは無効か、利用できなくなったか、モバイルでサポートされていません。",
   "mobile.link.template.signInTitle": "サインインしてこのエージェントを追加",
   "mobile.link.template.signInDescription":
-    "コンピューターの zereight bot に表示される QR コードをスキャンしてください。その後、追加する前にエージェントを確認できます。",
+    "コンピューターの OpenOwnBot に表示される QR コードをスキャンしてください。その後、追加する前にエージェントを確認できます。",
   "mobile.link.template.loading": "エージェントを読み込み中…",
   "mobile.link.template.creator": "作成者: {name}",
   "mobile.link.template.section.instructions": "指示",
@@ -35,7 +35,7 @@ export const messages = {
   "mobile.link.template.server.title": "追加先のサーバー",
   "mobile.link.template.server.footer": "オーナーまたは管理者であるサーバーのみが表示されます。",
   "mobile.link.template.server.updateRequired":
-    "共有エージェントを追加するには、このサーバーの zereight bot を更新してください。",
+    "共有エージェントを追加するには、このサーバーの OpenOwnBot を更新してください。",
   "mobile.link.template.server.none":
     "共有エージェントを追加するには、サーバーのオーナーまたは管理者である必要があります。",
   "mobile.link.template.install.action": "エージェントを追加",
@@ -46,5 +46,5 @@ export const messages = {
   "mobile.link.template.error.title": "エージェントを読み込めませんでした",
   "mobile.link.template.error.loadFailed": "共有エージェントを読み込めませんでした。もう一度お試しください。",
   "mobile.link.template.error.unsupported":
-    "このサーバーは共有エージェントを追加できません。サーバーを実行しているコンピューターの zereight bot を更新してください。",
+    "このサーバーは共有エージェントを追加できません。サーバーを実行しているコンピューターの OpenOwnBot を更新してください。",
 } as const satisfies PartialTranslation<typeof source>;

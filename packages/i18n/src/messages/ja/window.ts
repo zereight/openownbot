@@ -3,7 +3,7 @@ import type { messages as source } from "../en/window";
 
 export const messages = {
   // Native window titles.
-  "window.localHostTitle": "zereight bot ローカルホスト",
-  "window.localClientTitle": "zereight bot ローカルクライアント",
+  "window.localHostTitle": "OpenOwnBot ローカルホスト",
+  "window.localClientTitle": "OpenOwnBot ローカルクライアント",
   "window.computerUsePermissionTitle": "Computer Use をオンにする",
 } as const satisfies PartialTranslation<typeof source>;

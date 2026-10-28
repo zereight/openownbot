@@ -3,14 +3,14 @@ import type { messages as source } from "../en/computerUse";
 
 export const messages = {
   "computerUse.permission.screenRecording.title": "Schermopname",
-  "computerUse.permission.screenRecording.description": "Laat zereight bot appvensters zien.",
+  "computerUse.permission.screenRecording.description": "Laat OpenOwnBot appvensters zien.",
   "computerUse.permission.screenRecording.pane": "Scherm- en systeemaudio-opname",
   "computerUse.permission.accessibility.title": "Toegankelijkheid",
-  "computerUse.permission.accessibility.description": "Laat zereight bot klikken en typen.",
+  "computerUse.permission.accessibility.description": "Laat OpenOwnBot klikken en typen.",
   "computerUse.permission.accessibility.pane": "Toegankelijkheid",
-  "computerUse.error.check": "zereight bot kan Computerbesturing niet controleren.",
+  "computerUse.error.check": "OpenOwnBot kan Computerbesturing niet controleren.",
   "computerUse.error.openSettings": "OpenBot kan Systeeminstellingen niet openen.",
-  "computerUse.error.startDriver": "zereight bot kan het stuurprogramma voor Computerbesturing niet starten.",
+  "computerUse.error.startDriver": "OpenOwnBot kan het stuurprogramma voor Computerbesturing niet starten.",
   "computerUse.checkAgain": "Opnieuw controleren",
   "computerUse.checking": "Computerbesturing controleren",
   "computerUse.unavailable.title": "Computerbesturing is nog niet beschikbaar",
@@ -18,10 +18,10 @@ export const messages = {
   "computerUse.permissions.description": "macOS beheert de machtigingen.",
   "computerUse.ready.title": "Computerbesturing is klaar",
   "computerUse.ready.description":
-    "zereight bot kan apps op deze computer zien en bedienen. Dit systeem vraagt geen extra machtiging.",
+    "OpenOwnBot kan apps op deze computer zien en bedienen. Dit systeem vraagt geen extra machtiging.",
   "computerUse.openSettingsFailed.title": "Kan Systeeminstellingen niet openen",
   "computerUse.compact.title": "Computerbesturing inschakelen",
-  "computerUse.compact.description": "Laat zereight bot apps op deze computer zien en bedienen.",
+  "computerUse.compact.description": "Laat OpenOwnBot apps op deze computer zien en bedienen.",
   "computerUse.granted": "Verleend",
   "computerUse.opening": "Openen…",
   "computerUse.manage": "Beheren",
@@ -38,5 +38,5 @@ export const messages = {
   "computerUse.help.showInFinder": "Toon in Finder",
   "computerUse.help.revealFailed": "Kan de app niet tonen in Finder.",
   "computerUse.help.dragFailed": "Kan de app niet slepen.",
-  "computerUse.highlight.working": "zereight bot werkt in {title}",
+  "computerUse.highlight.working": "OpenOwnBot werkt in {title}",
 } as const satisfies PartialTranslation<typeof source>;

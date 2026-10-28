@@ -62,15 +62,15 @@ export const messages = {
   "error.agent.changedWhileDuplicating": "複製中にエージェントが変更されました。もう一度お試しください。",
   "error.agent.duplicatedAgentGone": "複製したエージェントはもう存在しません。",
   "error.agent.stateCorrupt":
-    "エージェントの状態が破損しているか、新しいバージョンの zereight bot のものです。上書きしません。",
+    "エージェントの状態が破損しているか、新しいバージョンの OpenOwnBot のものです。上書きしません。",
   "error.agent.oldRoleField":
-    "保存されたエージェントのプロフィールは古い role フィールドを使用しています。zereight bot を起動する前にデータを更新してください。",
+    "保存されたエージェントのプロフィールは古い role フィールドを使用しています。OpenOwnBot を起動する前にデータを更新してください。",
   "error.agent.duplicateIds": "エージェントの状態に重複したエージェント ID があります。上書きしません。",
-  "error.agent.copyNameFailed": "zereight bot はエージェントのコピーに固有の名前を作成できませんでした。",
+  "error.agent.copyNameFailed": "OpenOwnBot はエージェントのコピーに固有の名前を作成できませんでした。",
   "error.agent.endpointRemoved":
     "このエージェントが使用していたエンドポイントは削除されました。別のモデルを選択してください。",
   "error.agent.turnStalled":
-    "{provider} が応答しなくなったため、zereight bot はこのターンを終了しました。メッセージをもう一度送信するか、別のモデルを選択してください。",
+    "{provider} が応答しなくなったため、OpenOwnBot はこのターンを終了しました。メッセージをもう一度送信するか、別のモデルを選択してください。",
   "error.agent.selectedGone": "選択したエージェントはもう存在しません。",
   "error.agent.profileEndpointsChanged": "生成中にカスタムエンドポイントが変更されました。もう一度お試しください。",
   "error.agent.profileInvalid": "プロバイダーが無効なプロフィールを返しました。指示を修正してみてください。",
@@ -91,9 +91,9 @@ export const messages = {
   "error.agent.saveOtherAgent": "この保存は別のエージェントのものです。",
   "error.agent.savedGone": "保存したエージェントはもう存在しません。",
   "error.agent.storedProfileUnreadable":
-    "保存されたエージェントのプロフィールに読み取れない「{field}」の値があります。zereight bot を起動する前にデータを更新してください。",
+    "保存されたエージェントのプロフィールに読み取れない「{field}」の値があります。OpenOwnBot を起動する前にデータを更新してください。",
   "error.agent.storedProfileUnreadableId":
-    "保存されたエージェントのプロフィール {id} に読み取れない「{field}」の値があります。zereight bot を起動する前にデータを更新してください。",
+    "保存されたエージェントのプロフィール {id} に読み取れない「{field}」の値があります。OpenOwnBot を起動する前にデータを更新してください。",
   "error.agent.queueEditRejected": "キューの編集が拒否されました: {reason}",
   "error.agent.computerUseLocalOnly": "Computer Use は、エージェントを実行しているコンピューターでのみ変更できます。",
   "error.agent.automationLocalOnly":
@@ -123,7 +123,7 @@ export const messages = {
   "error.agent.lowMemoryServer":
     "このサーバーはメモリーが不足しています。メッセージはキューで待機し、メモリーが空くと開始します。",
   "error.agent.workspaceOnlyToolMissing":
-    "「ワークスペースのみ」には {tool} が必要ですが、zereight bot は見つけられませんでした。インストールするか、エージェントの設定で「フルアクセス」を選んでください。",
+    "「ワークスペースのみ」には {tool} が必要ですが、OpenOwnBot は見つけられませんでした。インストールするか、エージェントの設定で「フルアクセス」を選んでください。",
   "error.agent.screenCaptureOff":
     "このエージェントでは画面キャプチャがオフです。ユーザーはエージェントの設定で Computer Use をオンにできます。",
   "error.agent.screenCaptureUnavailable": "このコンピューターでは画面キャプチャを利用できません。",

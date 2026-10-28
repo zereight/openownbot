@@ -5,7 +5,7 @@ export const messages = {
   "error.kind.network": "Não foi possível conectar. Verifique sua conexão e tente novamente.",
   "error.kind.timeout": "A solicitação demorou demais. Verifique se a ação foi concluída antes de tentar novamente.",
   "error.kind.storage":
-    "Não há espaço de armazenamento suficiente. Libere espaço no computador que executa o zereight bot e tente novamente.",
+    "Não há espaço de armazenamento suficiente. Libere espaço no computador que executa o OpenOwnBot e tente novamente.",
   "error.kind.filePermission":
     "O OpenBot não tem permissão para concluir esta ação. Verifique as permissões do arquivo ou da pasta e tente novamente.",
   "error.kind.notFound":

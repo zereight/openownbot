@@ -21,7 +21,7 @@ export const messages = {
   "mobile.liveActivity.button.approve": "Approuver",
   "mobile.liveActivity.button.openDetails": "Voir les détails",
   "mobile.liveActivity.stale.label": "Pas à jour",
-  "mobile.liveActivity.stale.detail": "Ouvrez zereight bot pour voir l’état actuel.",
+  "mobile.liveActivity.stale.detail": "Ouvrez OpenOwnBot pour voir l’état actuel.",
   "mobile.liveActivity.confirm.title": "Approuver cette commande ?",
   "mobile.liveActivity.confirm.cancel": "Annuler",
   "mobile.liveActivity.confirm.approve": "Approuver",
@@ -36,7 +36,7 @@ export const messages = {
   "mobile.liveActivity.error.decisionFallback": "Ouvrez la demande sur l’ordinateur.",
   "mobile.liveActivity.island.taskWorking": "Traitement de votre demande",
   "mobile.liveActivity.island.questionHeader": "Question de votre agent",
-  "mobile.liveActivity.island.questionText": "Ouvrez zereight bot pour répondre à cette question.",
+  "mobile.liveActivity.island.questionText": "Ouvrez OpenOwnBot pour répondre à cette question.",
   "mobile.liveActivity.island.optionFallback": "Option {number}",
   "mobile.liveActivity.island.takeoverTitle": "Une étape du navigateur vous attend",
   "mobile.liveActivity.island.takeoverDetail":

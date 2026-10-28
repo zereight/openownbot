@@ -10,12 +10,12 @@ export const messages = {
   "error.workflow.conditionBranch": "Jede Verbindung einer Bedingung muss Ja oder Nein sein.",
   "error.workflow.duplicateEdge": "Diese zwei Schritte haben diese Verbindung bereits.",
   "error.workflow.serverTooOld":
-    "Dieser Server unterstützt keine Workflows. Aktualisiere zereight bot auf dem Computer, auf dem er läuft.",
+    "Dieser Server unterstützt keine Workflows. Aktualisiere OpenOwnBot auf dem Computer, auf dem er läuft.",
   "error.workflow.nodeUnsupported":
-    "Diese Version von zereight bot kann Bild-, Datei- und Nachrichtenschritte noch nicht ausführen.",
-  "error.workflow.interrupted": "zereight bot wurde beendet, während dieser Schritt lief. Führe ihn erneut aus.",
+    "Diese Version von OpenOwnBot kann Bild-, Datei- und Nachrichtenschritte noch nicht ausführen.",
+  "error.workflow.interrupted": "OpenOwnBot wurde beendet, während dieser Schritt lief. Führe ihn erneut aus.",
   "error.workflow.agentMissing": "Wähle einen Agenten für diesen Schritt.",
-  "error.workflow.handoffFailed": "zereight bot konnte diesen Schritt nicht an seinen Agenten senden.",
+  "error.workflow.handoffFailed": "OpenOwnBot konnte diesen Schritt nicht an seinen Agenten senden.",
   "error.workflow.agentStepEnded": "Die Nachricht an den Agenten wurde entfernt, bevor er antwortete.",
   "error.workflow.conditionUnclear": "Das Modell hat nicht mit Ja oder Nein geantwortet.",
   "error.workflow.modelFailed": "Das Modell konnte nicht antworten. Führe den Schritt erneut aus.",
@@ -29,8 +29,7 @@ export const messages = {
   "error.workflow.outputConnectionOff":
     "Die Messaging-Verbindung dieser Ausgabe ist aus oder entfernt. Wähle erneut einen Ort.",
   "error.workflow.outputNotRunning": "Die Messaging-Verbindung läuft gerade nicht. Versuche es erneut, wenn sie läuft.",
-  "error.workflow.outputRefused":
-    "Der Ort hat den Beitrag abgelehnt. Stelle sicher, dass zereight bot dort posten kann.",
+  "error.workflow.outputRefused": "Der Ort hat den Beitrag abgelehnt. Stelle sicher, dass OpenOwnBot dort posten kann.",
   "error.workflow.outputUncertain":
     "Der Beitrag wurde unterwegs unterbrochen. Ein Teil kann schon am Ort sein. Sieh dort nach, bevor du es erneut versuchst.",
   "error.workflow.tooLarge":

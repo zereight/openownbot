@@ -55,13 +55,13 @@ export const messages = {
   "mobile.marketplace.facts.accessNone": "サインイン不要",
   "mobile.marketplace.permission.admin": "マーケットプレイスからインストールできるのはオーナーと管理者のみです。",
   "mobile.marketplace.permission.unavailable":
-    "このサーバーはオフラインか、zereight bot が古すぎます。サーバーを実行しているコンピューターで zereight bot をアップデートしてください。",
+    "このサーバーはオフラインか、OpenOwnBot が古すぎます。サーバーを実行しているコンピューターで OpenOwnBot をアップデートしてください。",
   "mobile.marketplace.error.agentUnsupported":
-    "マーケットプレイスからエージェントを追加するには、サーバーの zereight bot をアップデートしてください。",
+    "マーケットプレイスからエージェントを追加するには、サーバーの OpenOwnBot をアップデートしてください。",
   "mobile.marketplace.error.agentUpdateUnsupported":
-    "マーケットプレイスからエージェントを更新するには、サーバーの zereight bot を更新してください。",
+    "マーケットプレイスからエージェントを更新するには、サーバーの OpenOwnBot を更新してください。",
   "mobile.marketplace.error.signInUnsupported":
-    "電話からアプリにサインインするには、サーバーの zereight bot をアップデートしてください。",
+    "電話からアプリにサインインするには、サーバーの OpenOwnBot をアップデートしてください。",
   "mobile.marketplace.agent.add": "エージェントを追加",
   "mobile.marketplace.agent.adding": "エージェントを追加中",
   "mobile.marketplace.agent.update": "エージェントをアップデート",

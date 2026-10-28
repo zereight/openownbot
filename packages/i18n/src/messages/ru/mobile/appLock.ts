@@ -9,11 +9,11 @@ export const messages = {
   "mobile.appLock.method.phone": "Разблокировка телефона",
   "mobile.appLock.methods.title": "Способ разблокировки",
   "mobile.appLock.methods.footer":
-    "Включите PIN-код, {method} или оба способа. Тогда zereight bot будет блокироваться, когда вы выходите из него, и при возвращении запросит один из них.",
+    "Включите PIN-код, {method} или оба способа. Тогда OpenOwnBot будет блокироваться, когда вы выходите из него, и при возвращении запросит один из них.",
   "mobile.appLock.methods.footerPinOnly":
-    "Включите PIN-код. Тогда zereight bot будет блокироваться, когда вы выходите из него, и при возвращении запросит PIN-код.",
+    "Включите PIN-код. Тогда OpenOwnBot будет блокироваться, когда вы выходите из него, и при возвращении запросит PIN-код.",
   "mobile.appLock.changePin": "Изменить PIN-код",
-  "mobile.appLock.lockAfter.title": "Блокировать zereight bot",
+  "mobile.appLock.lockAfter.title": "Блокировать OpenOwnBot",
   "mobile.appLock.lockAfter.immediately": "Сразу",
   "mobile.appLock.lockAfter.minutes": {
     one: "Через {count} минуту",
@@ -29,8 +29,8 @@ export const messages = {
   },
   "mobile.appLock.lockWithPhone": "При блокировке телефона",
   "mobile.appLock.lockAfter.footer":
-    "Отсчёт начинается, когда вы выходите из zereight bot. При каждом запуске zereight bot блокируется.",
-  "mobile.appLock.device.turnOnPrompt": "Включить для zereight bot: {method}",
+    "Отсчёт начинается, когда вы выходите из OpenOwnBot. При каждом запуске OpenOwnBot блокируется.",
+  "mobile.appLock.device.turnOnPrompt": "Включить для OpenOwnBot: {method}",
   "mobile.appLock.device.failed": "{method}: не удалось подтвердить. Повторите попытку.",
   "mobile.appLock.device.unavailable": "Сначала установите код-пароль на телефоне.",
   "mobile.appLock.pinSetup.title": "PIN-код",
@@ -38,10 +38,10 @@ export const messages = {
   "mobile.appLock.pinSetup.confirm": "Введите PIN-код ещё раз",
   "mobile.appLock.pinSetup.mismatch": "PIN-коды не совпадают. Повторите попытку.",
   "mobile.appLock.pinSetup.saveFailed": "Не удалось сохранить PIN-код. Повторите попытку.",
-  "mobile.appLock.lock.title": "zereight bot заблокирован",
+  "mobile.appLock.lock.title": "OpenOwnBot заблокирован",
   "mobile.appLock.lock.confirmTitle": "Подтвердите, что это вы",
   "mobile.appLock.lock.enterPin": "Введите PIN-код",
-  "mobile.appLock.lock.unlockPrompt": "Разблокировать zereight bot",
+  "mobile.appLock.lock.unlockPrompt": "Разблокировать OpenOwnBot",
   "mobile.appLock.lock.useDevice": "Использовать: {method}",
   "mobile.appLock.lock.unlock": "Разблокировать",
   "mobile.appLock.lock.wrongPin": "Неверный PIN-код.",
@@ -65,15 +65,15 @@ export const messages = {
   },
   "mobile.appLock.lock.checkFailed": "Не удалось проверить PIN-код. Повторите попытку.",
   "mobile.appLock.lock.pinMissing":
-    "На этом телефоне нет PIN-кода для zereight bot. Выйдите, чтобы сбросить блокировку приложения.",
+    "На этом телефоне нет PIN-кода для OpenOwnBot. Выйдите, чтобы сбросить блокировку приложения.",
   "mobile.appLock.lock.loadFailed": "Не удалось прочитать настройки блокировки приложения.",
   "mobile.appLock.lock.retry": "Повторить",
   "mobile.appLock.lock.forgotPin": "Забыли PIN-код?",
   "mobile.appLock.lock.signOut": "Выйти",
-  "mobile.appLock.lock.signOutTitle": "Выйти из zereight bot?",
+  "mobile.appLock.lock.signOutTitle": "Выйти из OpenOwnBot?",
   "mobile.appLock.lock.signOutBody":
-    "Блокировка приложения будет снята, и вы выйдете из аккаунта на этом телефоне. Чтобы подключиться снова, отсканируйте новый код в zereight bot на компьютере.",
-  "mobile.appLock.lock.signedOut": "Слишком много неверных PIN-кодов. zereight bot выполнил выход на этом телефоне.",
+    "Блокировка приложения будет снята, и вы выйдете из аккаунта на этом телефоне. Чтобы подключиться снова, отсканируйте новый код в OpenOwnBot на компьютере.",
+  "mobile.appLock.lock.signedOut": "Слишком много неверных PIN-кодов. OpenOwnBot выполнил выход на этом телефоне.",
   "mobile.appLock.lock.delete": "Удалить цифру",
   "mobile.appLock.lock.progress": {
     one: "Введена {count} цифра из 4",

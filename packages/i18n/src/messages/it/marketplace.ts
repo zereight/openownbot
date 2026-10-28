@@ -26,7 +26,7 @@ export const messages = {
   "marketplace.description.agents": "Agenti pronti all’uso, con istruzioni e skill proprie.",
   "marketplace.description.skills": "Istruzioni che insegnano a un agente un compito o uno strumento.",
 
-  "marketplace.plugins.missing": "Questo plugin non è nel catalogo di zereight bot.",
+  "marketplace.plugins.missing": "Questo plugin non è nel catalogo di OpenOwnBot.",
 
   "marketplace.agents.loadingDetail": "Caricamento dettagli agente…",
   "marketplace.agents.skills": "Skill",
@@ -36,7 +36,7 @@ export const messages = {
 
   "marketplace.skill.loading": "Caricamento skill",
   "marketplace.skill.update": "Aggiorna skill",
-  "marketplace.try.readFailed": "zereight bot non è riuscito a leggere le skill di questo agente. Riprova.",
+  "marketplace.try.readFailed": "OpenOwnBot non è riuscito a leggere le skill di questo agente. Riprova.",
   "marketplace.try.enable": "Attiva questa skill nelle impostazioni dell'agente per provarla.",
   "marketplace.try.repair": "Ripara questa skill nelle impostazioni dell'agente per provarla.",
   "marketplace.try.update": "Aggiorna questa skill per provare questa versione.",
@@ -187,7 +187,7 @@ export const messages = {
   "marketplace.plugin.figma.prompt.assets": "Estrai le icone di marketing a 2x per il bundle dell'app.",
   "marketplace.plugin.paper.tagline": "Tela di design basata su HTML e CSS",
   "marketplace.plugin.paper.description":
-    "Paper permette agli agenti di leggere e scrivere il file di design aperto in Paper Desktop: ispezionare artboard, selezioni, stili calcolati, JSX e token, e creare o modificare frame, testi e stili. Installa Paper Desktop, aprilo una volta e apri un file prima di iniziare. zereight bot avvia la CLI di Paper che Paper Desktop installa. Paper non richiede chiavi. I tool di scrittura modificano il file aperto, quindi controlla ogni scrittura prima di approvarla.",
+    "Paper permette agli agenti di leggere e scrivere il file di design aperto in Paper Desktop: ispezionare artboard, selezioni, stili calcolati, JSX e token, e creare o modificare frame, testi e stili. Installa Paper Desktop, aprilo una volta e apri un file prima di iniziare. OpenOwnBot avvia la CLI di Paper che Paper Desktop installa. Paper non richiede chiavi. I tool di scrittura modificano il file aperto, quindi controlla ogni scrittura prima di approvarla.",
   "marketplace.plugin.paper.app":
     "Legge e scrive il file aperto in Paper Desktop, tramite il server MCP locale che la CLI di Paper inoltra. Richiede Paper Desktop con un file aperto.",
   "marketplace.plugin.paper.prompt.implement":

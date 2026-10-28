@@ -88,7 +88,7 @@ export const messages = {
   "agentSettings.runtime.fullAccessNote":
     "De agent draait met volledige computertoegang vanuit zijn werkruimte en de gedeelde map.",
   "agentSettings.runtime.askNote":
-    "Hij vraagt het je voordat hij een zereight bot-tool gebruikt of een site publiceert, en als de aanbieder om goedkeuring vraagt.",
+    "Hij vraagt het je voordat hij een OpenOwnBot-tool gebruikt of een site publiceert, en als de aanbieder om goedkeuring vraagt.",
   "agentSettings.runtime.fullNote": "Hij handelt zonder te vragen, behalve bij vragen die hij aan jou stelt.",
   "agentSettings.access.workspace": "Alleen werkruimte",
   "agentSettings.access.ask": "Eerst vragen",
@@ -135,7 +135,7 @@ export const messages = {
   "agentSettings.runtime.workspaceEnforcedClaude":
     "Een bestandswijziging buiten vraagt het je eerst. Een opdracht kan niet buiten schrijven.",
   "agentSettings.runtime.workspaceUnlimited":
-    "Computerbesturing en de zereight bot-browser zijn niet beperkt; je kunt Computerbesturing hieronder uitzetten.",
+    "Computerbesturing en de OpenOwnBot-browser zijn niet beperkt; je kunt Computerbesturing hieronder uitzetten.",
   "agentSettings.computerUse.title": "Computerbesturing",
   "agentSettings.computerUse.description": "Laat deze agent apps op deze computer besturen",
   "agentSettings.automation.title": "Lokale scripts",

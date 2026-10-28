@@ -57,14 +57,14 @@ export const messages = {
   "error.agent.changedWhileDuplicating": "Ajan kopyalanırken değişti. Tekrar deneyin.",
   "error.agent.duplicatedAgentGone": "Kopyalanan ajan artık mevcut değil.",
   "error.agent.stateCorrupt":
-    "Ajan durumu bozuk veya daha yeni bir zereight bot sürümünden; üzerine yazılması reddedildi.",
+    "Ajan durumu bozuk veya daha yeni bir OpenOwnBot sürümünden; üzerine yazılması reddedildi.",
   "error.agent.oldRoleField":
-    "Kayıtlı ajan profilleri eski rol alanını kullanıyor; zereight bot'u başlatmadan önce verileri güncelleyin.",
+    "Kayıtlı ajan profilleri eski rol alanını kullanıyor; OpenOwnBot'u başlatmadan önce verileri güncelleyin.",
   "error.agent.duplicateIds": "Ajan durumu yinelenen ajan kimlikleri içeriyor; üzerine yazılması reddedildi.",
-  "error.agent.copyNameFailed": "zereight bot benzersiz bir ajan kopya adı oluşturamadı.",
+  "error.agent.copyNameFailed": "OpenOwnBot benzersiz bir ajan kopya adı oluşturamadı.",
   "error.agent.endpointRemoved": "Bu ajanın kullandığı uç nokta kaldırıldı. Ajan için başka bir model seçin.",
   "error.agent.turnStalled":
-    "{provider} yanıt vermeyi bıraktı, bu yüzden zereight bot bu turu bitirdi. Mesajı yeniden gönderin veya başka bir model seçin.",
+    "{provider} yanıt vermeyi bıraktı, bu yüzden OpenOwnBot bu turu bitirdi. Mesajı yeniden gönderin veya başka bir model seçin.",
   "error.agent.selectedGone": "Seçilen ajan artık mevcut değil.",
   "error.agent.profileEndpointsChanged": "Bu işlem oluşturulurken özel uç noktalar değişti. Tekrar deneyin.",
   "error.agent.profileInvalid": "Sağlayıcı geçersiz bir profil döndürdü. İsteminizi revize etmeyi deneyin.",
@@ -84,9 +84,9 @@ export const messages = {
   "error.agent.saveOtherAgent": "Bu kayıt başka bir ajana ait.",
   "error.agent.savedGone": "Kaydedilen ajan artık mevcut değil.",
   "error.agent.storedProfileUnreadable":
-    'Kayıtlı bir ajan profili okunamayan bir "{field}" değerine sahip; zereight bot\'u başlatmadan önce verileri güncelleyin.',
+    'Kayıtlı bir ajan profili okunamayan bir "{field}" değerine sahip; OpenOwnBot\'u başlatmadan önce verileri güncelleyin.',
   "error.agent.storedProfileUnreadableId":
-    '{id} kayıtlı ajan profili okunamayan bir "{field}" değerine sahip; zereight bot\'u başlatmadan önce verileri güncelleyin.',
+    '{id} kayıtlı ajan profili okunamayan bir "{field}" değerine sahip; OpenOwnBot\'u başlatmadan önce verileri güncelleyin.',
   // Written by `QueueEditRejectedError` in @openbot/contracts, which cannot import this package.
   "error.agent.queueEditRejected": "Kuyruk düzenlemesi reddedildi: {reason}",
   "error.agent.computerUseLocalOnly": "Bilgisayar Kullanımı yalnızca ajanı çalıştıran bilgisayarda değiştirilebilir.",
@@ -113,7 +113,7 @@ export const messages = {
   "error.agent.lowMemoryServer":
     "Bu sunucunun belleği azaldı. Mesajınız kuyrukta bekler ve bellek boşaldığında başlar.",
   "error.agent.workspaceOnlyToolMissing":
-    "“Yalnızca çalışma alanı” seçeneği, zereight bot'un bulamadığı {tool} aracına ihtiyaç duyar. Aracı yükleyin veya ajan ayarlarından Tam erişim'i seçin.",
+    "“Yalnızca çalışma alanı” seçeneği, OpenOwnBot'un bulamadığı {tool} aracına ihtiyaç duyar. Aracı yükleyin veya ajan ayarlarından Tam erişim'i seçin.",
   "error.agent.screenCaptureOff":
     "Bu ajan için ekran yakalama kapalı. Kullanıcı, ajan ayarlarında Bilgisayar Kullanımı'nı açabilir.",
   "error.agent.screenCaptureUnavailable": "Ekran yakalama bu bilgisayarda kullanılamıyor.",

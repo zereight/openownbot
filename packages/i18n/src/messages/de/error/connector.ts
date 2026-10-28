@@ -2,20 +2,20 @@ import type { PartialTranslation } from "../../../message";
 import type { messages as source } from "../../en/error/connector";
 
 export const messages = {
-  "error.connector.githubUnavailable": "Diese Version von zereight bot hat keine GitHub App.",
+  "error.connector.githubUnavailable": "Diese Version von OpenOwnBot hat keine GitHub App.",
   "error.connector.githubDenied": "Die GitHub-Anmeldung wurde abgelehnt.",
   "error.connector.githubCodeExpired": "Der GitHub-Code ist abgelaufen. Verbinde GitHub erneut.",
   "error.connector.githubDeviceFlowDisabled": "Die GitHub App erlaubt keine Geräteanmeldung.",
   "error.connector.githubClientUnknown": "GitHub kennt die Client ID dieser GitHub App nicht.",
   "error.connector.githubUnexpected": "GitHub hat eine unerwartete Antwort gesendet: {detail}",
-  "error.connector.githubUnreachable": "zereight bot kann GitHub nicht erreichen: {detail}",
+  "error.connector.githubUnreachable": "OpenOwnBot kann GitHub nicht erreichen: {detail}",
   "error.connector.githubExpired": "Die GitHub-Verbindung ist abgelaufen. Verbinde GitHub erneut.",
   "error.connector.githubFileUnreadable": "Die GitHub-Verbindungsdatei ist nicht lesbar.",
   "error.connector.githubFileTooLarge": "Die GitHub-Verbindungsdatei ist zu groß.",
   "error.connector.onePasswordCliMissing":
-    "zereight bot kann die 1Password CLI nicht finden. Installiere sie und aktiviere ihre Integration in der 1Password-App oder verwende ein Dienstkonto-Token.",
+    "OpenOwnBot kann die 1Password CLI nicht finden. Installiere sie und aktiviere ihre Integration in der 1Password-App oder verwende ein Dienstkonto-Token.",
   "error.connector.onePasswordCliInstallFailed":
-    "zereight bot konnte die 1Password CLI nicht installieren. Prüfe die Internetverbindung und versuche es erneut.",
+    "OpenOwnBot konnte die 1Password CLI nicht installieren. Prüfe die Internetverbindung und versuche es erneut.",
   "error.connector.onePasswordCliSignedOut":
     "Die 1Password CLI ist nicht angemeldet. Aktiviere ihre Integration in der 1Password-App und verbinde sie erneut.",
   "error.connector.onePasswordCliFailed": "Die 1Password CLI ist fehlgeschlagen: {detail}",

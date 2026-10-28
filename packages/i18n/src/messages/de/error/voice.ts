@@ -11,8 +11,8 @@ export const messages = {
   "error.voice.modelUnavailable": "Das Sprachmodell ist nicht verfügbar.",
   "error.voice.transcriptionTimedOut": "Die Zeit für die Sprachtranskription ist abgelaufen.",
   "error.voice.prepareRequired":
-    "Lokale Sprachtranskription ist nicht verfügbar. Führe `bun run voice:prepare` aus und starte zereight bot neu.",
-  "error.voice.transcriptionFailed": "zereight bot konnte diese Aufnahme nicht transkribieren.",
+    "Lokale Sprachtranskription ist nicht verfügbar. Führe `bun run voice:prepare` aus und starte OpenOwnBot neu.",
+  "error.voice.transcriptionFailed": "OpenOwnBot konnte diese Aufnahme nicht transkribieren.",
   "error.voice.cloud.keyRequired": "Füge deinen ElevenLabs-API-Schlüssel unter Einstellungen → Diktat hinzu.",
   "error.voice.cloud.keyRejected":
     "ElevenLabs hat den API-Schlüssel nicht akzeptiert. Prüfe den Schlüssel unter Einstellungen → Diktat.",
@@ -26,6 +26,6 @@ export const messages = {
   "error.voice.speech.runtimeUnavailable": "Lokale Sprachausgabe ist auf dieser Plattform nicht verfügbar.",
   "error.voice.speech.modelRequired": "Lade das Sprachausgabemodell unter Einstellungen → Diktat herunter.",
   "error.voice.speech.timedOut": "Das Vorlesen der Antwort hat zu lange gedauert.",
-  "error.voice.speech.failed": "zereight bot konnte die Antwort nicht vorlesen.",
-  "error.voice.recordingNotKept": "zereight bot konnte die Sprachaufnahme nicht speichern.",
+  "error.voice.speech.failed": "OpenOwnBot konnte die Antwort nicht vorlesen.",
+  "error.voice.recordingNotKept": "OpenOwnBot konnte die Sprachaufnahme nicht speichern.",
 } as const satisfies PartialTranslation<typeof source>;

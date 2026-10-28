@@ -3,9 +3,9 @@ import type { messages as source } from "../../en/error/import";
 
 export const messages = {
   "error.import.manifestNotJson": "{manifest} não é um JSON válido.",
-  "error.import.notAgentExport": "{manifest} não é uma exportação de agente do zereight bot.",
+  "error.import.notAgentExport": "{manifest} não é uma exportação de agente do OpenOwnBot.",
   "error.import.newerExportSkill":
-    "Esta exportação foi feita por uma habilidade de exportação mais recente. Atualize o zereight bot e tente novamente.",
+    "Esta exportação foi feita por uma habilidade de exportação mais recente. Atualize o OpenOwnBot e tente novamente.",
   "error.import.noAgents": "A exportação não contém agentes.",
   "error.import.tooManyAgents": "A exportação contém mais de {limit} agentes.",
   "error.import.tooManyChannels": "A exportação contém mais de {limit} canais.",
@@ -46,9 +46,9 @@ export const messages = {
     '{name}: o servidor já tem a habilidade "{skill}", por isso o agente usa essa habilidade. Peça a um administrador para atualizá-la.',
   "error.import.transferRemoteTooLarge":
     "Um arquivo de transferência para um servidor ao qual você se conectou deve ter menos de 100 MB. Desative os arquivos do espaço de trabalho ou exporte menos agentes.",
-  "error.import.transferNotFile": "Este arquivo não é um arquivo de transferência do zereight bot.",
+  "error.import.transferNotFile": "Este arquivo não é um arquivo de transferência do OpenOwnBot.",
   "error.import.transferNewer":
-    "Uma versão mais nova do zereight bot criou este arquivo. Atualize o zereight bot e tente de novo.",
+    "Uma versão mais nova do OpenOwnBot criou este arquivo. Atualize o OpenOwnBot e tente de novo.",
   "error.import.transferEmpty": "O arquivo não contém agentes nem configurações.",
   "error.import.transferTooLarge":
     "Um arquivo de transferência deve ter menos de 2 GB e de 50.000 arquivos. Desative os arquivos do espaço de trabalho ou exporte menos agentes.",
