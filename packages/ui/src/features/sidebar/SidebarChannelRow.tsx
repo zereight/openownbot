@@ -44,6 +44,8 @@ export function SidebarChannelRow(rowProps: { channel: ChannelSummary; waiting?:
    * carries both and the row keeps the height every other row in the list has. */
   const preview = () => {
     const text = rowProps.channel.lastMessage?.text ?? t("sidebar.channel.noMessages");
+    // Stopped work outranks running work: nothing of it moves until the user acts.
+    if ((rowProps.channel.pausedTasks ?? 0) > 0) return t("sidebar.channel.pausedPreview", { preview: text });
     return rowProps.channel.activeTasks > 0 ? t("sidebar.channel.workingPreview", { preview: text }) : text;
   };
   const row = (): JSX.Element => (

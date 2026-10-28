@@ -72,6 +72,7 @@ export const messages = {
   "sidebar.channelMenu.restore": "Ripristina canale",
   "sidebar.channel.noMessages": "Ancora nessun messaggio",
   "sidebar.channel.workingPreview": "Al lavoro · {preview}",
+  "sidebar.channel.pausedPreview": "Fermato · {preview}",
   "sidebar.channel.unread": { one: "{count} messaggio non letto", other: "{count} messaggi non letti" },
   "sidebar.people.online": "Online ora",
   "sidebar.people.offline": "Offline",

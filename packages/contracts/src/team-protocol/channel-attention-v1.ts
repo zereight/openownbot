@@ -13,6 +13,8 @@ import type { TeamProtocolV2Json } from "./v2";
  * - `openTasks` on each summary: the count of its `queued`, `waiting` and `running` tasks. The
  *   released `activeTasks` counts only `running` ones, so it is 0 while a task waits for others. A
  *   client notifies a reply only when this is 0;
+ * - `pausedTasks` on each summary: the count of its `paused` tasks, which stopped and wait for the
+ *   user. A client shows the channel as stopped, not as working;
  * - `author` on the `lastMessage` of each summary: `{ kind: "member" | "agent" | "coordinator", id }`,
  *   the same identity as the author of a channel message, without the name that `authorName` holds;
  * - `status` on the `lastMessage` of each summary: `"streaming" | "completed" | "failed" |
@@ -67,6 +69,7 @@ function withSummaryAttention(projected: TeamProtocolV2Json, source: unknown): T
   const result: { [key: string]: TeamProtocolV2Json } = { ...projected };
   if (source.threads !== undefined) result.threads = threads(source.threads);
   if (source.openTasks !== undefined) result.openTasks = taskCount(source.openTasks);
+  if (source.pausedTasks !== undefined) result.pausedTasks = taskCount(source.pausedTasks);
   const preview = source.lastMessage;
   if (!isDynamicRecord(result.lastMessage) || !isDynamicRecord(preview)) return result;
   const added: { [key: string]: TeamProtocolV2Json } = {};

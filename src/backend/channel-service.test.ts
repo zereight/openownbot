@@ -288,3 +288,31 @@ describe("ChannelService cancel", () => {
     }
   });
 });
+
+describe("ChannelService summary of stopped work", () => {
+  it("counts the paused tasks that wait for the user, apart from the running ones", async () => {
+    const { database, service } = await setupService();
+    try {
+      const channelId = randomUUID();
+      const channel = service.store.create(channelId, {
+        name: "paused-work",
+        title: "",
+        instructions: "",
+        members: [{ agentId: "lead" }],
+        leadAgentId: "lead",
+      });
+      service.store.update(channel, {
+        tasks: (["paused", "paused", "running", "completed"] as const).map((state, index) => ({
+          ...task(`task-${index}`, null, "lead", state),
+          channelId,
+          rootTaskId: `task-${index}`,
+        })),
+      });
+      const summary = service.store.list("owner").find((item) => item.id === channelId);
+      expect(summary?.pausedTasks).toBe(2);
+      expect(summary?.activeTasks).toBe(1);
+    } finally {
+      await stopService(database, service);
+    }
+  });
+});

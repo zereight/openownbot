@@ -72,6 +72,7 @@ export const messages = {
   "sidebar.channelMenu.restore": "恢复频道",
   "sidebar.channel.noMessages": "还没有消息",
   "sidebar.channel.workingPreview": "处理中 · {preview}",
+  "sidebar.channel.pausedPreview": "已停止 · {preview}",
   "sidebar.channel.unread": { one: "{count} 条未读消息", other: "{count} 条未读消息" },
   "sidebar.people.online": "在线",
   "sidebar.people.offline": "离线",

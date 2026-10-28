@@ -72,6 +72,7 @@ export const messages = {
   "sidebar.channelMenu.restore": "Восстановить канал",
   "sidebar.channel.noMessages": "Сообщений пока нет",
   "sidebar.channel.workingPreview": "Работает · {preview}",
+  "sidebar.channel.pausedPreview": "Остановлено · {preview}",
   "sidebar.channel.unread": {
     one: "{count} непрочитанное сообщение",
     few: "{count} непрочитанных сообщения",

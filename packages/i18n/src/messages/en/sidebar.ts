@@ -71,6 +71,7 @@ export const messages = defineMessages("sidebar", {
   "sidebar.channelMenu.restore": "Restore channel",
   "sidebar.channel.noMessages": "No messages yet",
   "sidebar.channel.workingPreview": "Working · {preview}",
+  "sidebar.channel.pausedPreview": "Stopped · {preview}",
   "sidebar.channel.unread": { one: "{count} unread message", other: "{count} unread messages" },
   "sidebar.people.online": "Online now",
   "sidebar.people.offline": "Offline",

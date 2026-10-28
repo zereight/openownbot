@@ -68,6 +68,39 @@ Additional goals:
 6. **Kind of work**: the indicator names the work (conversation turn, routine,
    workflow run, channel task, browser) and the current tool or step.
 
+## Third case (2026-10-28): the sidebar keeps "working" after a restart
+
+After the app restarted during work, the chat showed the stopped task with
+Continue and Reassign, but the sidebar row kept the "working" badge. The user
+noticed only by opening the chat.
+
+Checked, not yet explained:
+
+- The sidebar badge is `isAgentWorking` (`packages/ui/src/features/sidebar/sidebar-agent-states.ts`):
+  an active turn, a queue hold, or a delivery that is `starting` or `running`.
+  A channel row counts tasks in state `running` (`src/backend/channel-store.ts`).
+- `ChannelService.recover` marks an active assignment `interrupted` and its task
+  `paused`, which lifts the hold. It skips an assignment whose delivery is still
+  `starting` or `running`, as a live turn.
+- The dev database after the earlier restart had no stale row: 7 paused tasks
+  count as idle, and the one running task had a running assignment.
+
+Evidence from the dev database (2026-10-28, channel "[과제] 자체 성능 측정 메커니즘 구축 cc RUM",
+agent `agent-c78695df`): delivery `f8ed645a` was `running` while its assignment
+`652b12c8` was already `interrupted`. The sidebar reads deliveries
+(`isAgentWorking`), the chat reads the task state, so one showed "working" and the
+other showed the stopped card. A later Continue created assignment `28be15ce` with a
+new delivery, and `f8ed645a` is no longer `running`. Suspects: `complete()` with
+status `interrupted` (`channel-service.ts` near line 2014) and `recover`, which set the
+assignment state without settling the delivery in the same step.
+
+Next step: reproduce with a restart during a channel task, then compare the
+sidebar inputs (`activeTurns`, `queues`, `activeTasks`) with the stored rows.
+
+Goal 7 (channel row done 2026-10-28: `pausedTasks` in the channel summary and a
+"Stopped" preview prefix; the agent-name row is still open): a task that a restart stopped shows in the sidebar as stopped, with the
+same wording as the chat ("needs you"), and never as working.
+
 ## Where to look first
 
 - `src/backend/browser-host.ts`, `src/main/browser-view-gateway.ts`

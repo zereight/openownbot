@@ -89,6 +89,8 @@ export interface ChannelSummary extends Channel {
   activeTasks: number;
   /** Its queued, waiting and running tasks; `activeTasks` counts only running ones. Absent from a host without channel-attention-v1. */
   openTasks?: number;
+  /** Its paused tasks, which stopped and wait for the user to continue or reassign. Absent from a host without channel-attention-v1. */
+  pausedTasks?: number;
   lastMessage: ChannelPreview | null;
   /** One for each member agent that has worked here. Absent from a host without channel-attention-v1. */
   threads?: ChannelThread[];
@@ -304,6 +306,7 @@ function isChannelSummary(value: unknown): value is ChannelSummary {
     sequence(value.unreadCount) &&
     sequence(value.activeTasks) &&
     (value.openTasks === undefined || sequence(value.openTasks)) &&
+    (value.pausedTasks === undefined || sequence(value.pausedTasks)) &&
     (value.lastMessage === null || isChannelPreview(value.lastMessage)) &&
     (value.threads === undefined ||
       (Array.isArray(value.threads) &&

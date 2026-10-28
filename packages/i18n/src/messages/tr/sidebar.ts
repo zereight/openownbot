@@ -72,6 +72,7 @@ export const messages = {
   "sidebar.channelMenu.restore": "Kanalı geri yükle",
   "sidebar.channel.noMessages": "Henüz mesaj yok",
   "sidebar.channel.workingPreview": "Çalışıyor · {preview}",
+  "sidebar.channel.pausedPreview": "Durdu · {preview}",
   "sidebar.channel.unread": { one: "{count} okunmamış mesaj", other: "{count} okunmamış mesaj" },
   "sidebar.people.online": "Şu anda çevrim içi",
   "sidebar.people.offline": "Çevrim dışı",

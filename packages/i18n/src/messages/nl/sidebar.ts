@@ -72,6 +72,7 @@ export const messages = {
   "sidebar.channelMenu.restore": "Kanaal herstellen",
   "sidebar.channel.noMessages": "Nog geen berichten",
   "sidebar.channel.workingPreview": "Bezig · {preview}",
+  "sidebar.channel.pausedPreview": "Gestopt · {preview}",
   "sidebar.channel.unread": { one: "{count} ongelezen bericht", other: "{count} ongelezen berichten" },
   "sidebar.people.online": "Nu online",
   "sidebar.people.offline": "Offline",

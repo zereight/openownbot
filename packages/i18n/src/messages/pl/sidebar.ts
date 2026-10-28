@@ -72,6 +72,7 @@ export const messages = {
   "sidebar.channelMenu.restore": "Przywróć kanał",
   "sidebar.channel.noMessages": "Brak wiadomości",
   "sidebar.channel.workingPreview": "Pracuje · {preview}",
+  "sidebar.channel.pausedPreview": "Zatrzymano · {preview}",
   "sidebar.channel.unread": {
     one: "{count} nieprzeczytana wiadomość",
     few: "{count} nieprzeczytane wiadomości",
