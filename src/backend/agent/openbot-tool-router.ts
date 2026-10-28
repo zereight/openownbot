@@ -26,7 +26,7 @@ import {
   workspaceAccessEnforced,
 } from "@openbot/contracts/ipc";
 import { isString } from "@openbot/contracts/runtime-values";
-import { type AgentSquad, squadMayMessage } from "@openbot/contracts/squads";
+import { type AgentSquad, squadMayMessage, squadsOfAgent } from "@openbot/contracts/squads";
 import { isUiBlockId, normalizeUiBlockSpec } from "@openbot/contracts/ui-blocks";
 import { sourceText } from "@openbot/i18n/source";
 import { createOpenBotLogger, redactText } from "@openbot/logging";
@@ -890,6 +890,7 @@ export class OpenBotToolRouter {
       // A delivery that is starting holds no turn yet, and a channel turn runs on a thread of its own.
       const unresolved = new Set(this.#mailbox.unresolvedDeliveries().map(({ delivery }) => delivery.recipientAgentId));
       const openWaits = this.#waits.countByAgent();
+      const squads = this.#squads?.list() ?? [];
       // A hidden agent takes no new messages, so the list leaves it out.
       const agents = this.#hooks
         .listAgents()
@@ -915,6 +916,18 @@ export class OpenBotToolRouter {
             ...(working && startedAt !== null ? { turnStartedAt: new Date(startedAt).toISOString() } : {}),
             ...(lastActivity > 0 ? { lastActivityAt: new Date(lastActivity).toISOString() } : {}),
             ...(openWaits.has(agent.id) ? { openWaits: openWaits.get(agent.id) } : {}),
+            // Teams show only where the user made some, so a computer with none lists agents as before.
+            ...(squadsOfAgent(squads, agent.id).length > 0
+              ? {
+                  teams: squadsOfAgent(squads, agent.id).map((squad) => ({
+                    name: squad.name,
+                    role: squad.leadAgentId === agent.id ? "lead" : "member",
+                  })),
+                }
+              : {}),
+            ...(agent.id !== senderAgentId && !squadMayMessage(squads, senderAgentId, agent.id).ok
+              ? { canMessage: false }
+              : {}),
           };
         });
       return openBotToolResult({ agents });
