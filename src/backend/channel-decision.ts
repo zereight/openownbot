@@ -145,6 +145,26 @@ export function decisionOutcome(
   return { key: choice, probability };
 }
 
+/** Why `decisionOutcome` refused an answer, as a word that a log line can carry. */
+export function decisionRefusal(
+  response: unknown,
+  keys: readonly string[],
+): "shape" | "none" | "unknown-choice" | "bad-probability" | "below-threshold" | "not-top" {
+  const answered = isDynamicRecord(response) && isDynamicRecord(response.result) ? response.result : response;
+  if (!isDynamicRecord(answered) || !isDynamicRecord(answered.answers)) return "shape";
+  const answer = answered.answers[QUESTION_ID];
+  if (!isDynamicRecord(answer) || typeof answer.choice !== "string" || !isDynamicRecord(answer.probabilities))
+    return "shape";
+  const { choice, probabilities } = answer;
+  if (choice === NONE) return "none";
+  if (!keys.includes(choice)) return "unknown-choice";
+  const values = Object.values(probabilities);
+  if (values.some((value) => typeof value !== "number" || !Number.isFinite(value))) return "bad-probability";
+  const probability = probabilities[choice];
+  if (typeof probability !== "number" || probability < DECISION_THRESHOLD) return "below-threshold";
+  return "not-top";
+}
+
 export async function decideMember(
   backend: DecisionBackend,
   input: DecisionInput,
@@ -183,5 +203,5 @@ export async function decideMember(
   const member = index >= 0 ? input.members[index] : undefined;
   return outcome && member
     ? { ok: true, agentId: member.id, probability: outcome.probability }
-    : { ok: false, reason: "unsure" };
+    : { ok: false, reason: decisionRefusal(parsed, keys) };
 }

@@ -46,7 +46,7 @@ export interface SaveDecisionModelInput extends DecisionModelSettings {
 /** The answer of a trial request with sample members. `picked` is the sample member that was chosen. */
 export interface DecisionModelTestResult {
   ok: boolean;
-  /** Why no member was chosen: `not-set-up`, `timeout`, `network`, `http-401`, `unsure`, ... */
+  /** Why no member was chosen: `not-set-up`, `timeout`, `network`, `http-401`, `none`, `below-threshold`, ... */
   reason: string | null;
   picked: string | null;
   milliseconds: number;

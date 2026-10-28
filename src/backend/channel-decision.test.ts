@@ -4,6 +4,7 @@ import {
   type DecisionInput,
   decideMember,
   decisionOutcome,
+  decisionRefusal,
   decisionRequest,
 } from "./channel-decision";
 
@@ -141,12 +142,12 @@ describe("decideMember", () => {
     expect(await decideMember(jev, input, { fetch: slow, timeoutMs: 20 })).toEqual({ ok: false, reason: "timeout" });
   });
 
-  it("falls back when the model is unsure", async () => {
+  it("falls back, and says why, when the model is unsure", async () => {
     const outcome = await decideMember(jev, input, {
       fetch: reply(answer("m1", { m1: 0.5, m2: 0.5, none: 0 })),
       timeoutMs: 1000,
     });
-    expect(outcome).toEqual({ ok: false, reason: "unsure" });
+    expect(outcome).toEqual({ ok: false, reason: "below-threshold" });
   });
 
   it("does not ask when there is a single member: that is no decision", async () => {
@@ -161,5 +162,19 @@ describe("decideMember", () => {
       reason: "no-choice",
     });
     expect(asked).toBe(false);
+  });
+});
+
+describe("decisionRefusal", () => {
+  const keys = ["m1", "m2", "none"];
+
+  it("tells apart the ways an answer is not used", () => {
+    expect(decisionRefusal(answer("none", { m1: 0.1, m2: 0.1, none: 0.8 }), keys)).toBe("none");
+    expect(decisionRefusal(answer("m1", { m1: 0.55, m2: 0.4, none: 0.05 }), keys)).toBe("below-threshold");
+    expect(decisionRefusal(answer("m1", { m1: 0.7, m2: 0.75, none: 0 }), keys)).toBe("not-top");
+    expect(decisionRefusal(answer("m9", { m9: 0.9 }), keys)).toBe("unknown-choice");
+    expect(decisionRefusal(answer("m1", { m1: Number.NaN, m2: 0.1, none: 0 }), keys)).toBe("bad-probability");
+    expect(decisionRefusal({ answers: {} }, keys)).toBe("shape");
+    expect(decisionRefusal("text", keys)).toBe("shape");
   });
 });
