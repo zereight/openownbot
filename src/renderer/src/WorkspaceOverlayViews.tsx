@@ -20,7 +20,7 @@ import {
 } from "./features/servers/server-capabilities";
 import type { MarketplaceCalls } from "./features/settings/marketplace-calls";
 import type { MarketplaceAgentRow } from "./features/settings/marketplace-controller";
-import { MARKETPLACE_PLUGINS } from "./features/settings/marketplace-plugin-catalog";
+import { DISPLAYED_MARKETPLACE_PLUGINS } from "./features/settings/marketplace-plugin-icons";
 import {
   AgentTemplateInstall,
   GlobalSearch,
@@ -137,7 +137,7 @@ export function MarketplaceOverlay(props: {
               : undefined
           }
           onAgentInstalled={props.onAgentInstalled}
-          plugins={MARKETPLACE_PLUGINS}
+          plugins={DISPLAYED_MARKETPLACE_PLUGINS}
           initialPluginSlug={props.pluginSlug ?? undefined}
           initialPluginConnect={props.pluginConnect}
           onInitialPluginSlugConsumed={props.onPluginSlugConsumed}

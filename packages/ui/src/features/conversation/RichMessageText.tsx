@@ -1,5 +1,6 @@
 import { type ChatTagKind, chatTagReferences } from "@openbot/contracts/chat-tag-references";
 import type { AttachmentSummary } from "@openbot/contracts/ipc";
+import { LOCAL_ONLY } from "@openbot/contracts/local-only";
 import type { AppTextKey } from "@openbot/i18n";
 import { Blocks, Button, Puzzle, TextQuote } from "@openbot/ui";
 import { ReferenceChip } from "@openbot/ui/reference-chip";
@@ -297,7 +298,7 @@ export function MessageLink(props: {
   /** The native tooltip. Omit it when the link text already shows the URL. */
   title?: string | undefined;
   children: JSX.Element;
-  /** False keeps the request for the linked site's favicon from being made. */
+  /** False keeps the request for the linked site's favicon from being made; local-only mode does so always. */
   favicon?: boolean;
   onOpenLink: (url: string) => void;
 }) {
@@ -315,7 +316,9 @@ export function MessageLink(props: {
     >
       <span class="message-link-icon" aria-hidden="true">
         <LinkIcon />
-        <Show when={props.favicon !== false}>
+        {/* Local-only mode asks no linked site for its icon: a link in an agent's answer would otherwise
+            tell that site, as soon as the message is drawn, that this computer is reading it. */}
+        <Show when={props.favicon !== false && !LOCAL_ONLY}>
           <img
             src={faviconUrl(props.url)}
             alt=""
