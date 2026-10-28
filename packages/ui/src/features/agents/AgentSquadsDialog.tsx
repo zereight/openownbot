@@ -103,21 +103,21 @@ export function AgentSquadsDialog(props: AgentSquadsDialogProps) {
     if (saved) setDraft(null);
   }
 
+  // The close button and Escape both end here, so a form left open is never what the dialog shows next.
+  function changeOpen(open: boolean): void {
+    if (!open) setDraft(null);
+    props.onOpenChange(open);
+  }
+
   return (
-    <Dialog.Root
-      open={props.open}
-      onOpenChange={(open) => {
-        if (!open) setDraft(null);
-        props.onOpenChange(open);
-      }}
-    >
+    <Dialog.Root open={props.open} onOpenChange={changeOpen}>
       <Dialog.Portal>
         <Dialog.Overlay class="agent-template-backdrop">
           <Dialog.Content as="section" class="agent-template-dialog" aria-busy={busy() ? "true" : undefined}>
             <Dialog.Title class="sr-only">{t("agentTeam.manage.title")}</Dialog.Title>
             <Dialog.Description class="sr-only">{t("agentTeam.manage.description")}</Dialog.Description>
             <div class="agent-template-corner-actions">
-              <IconButton label={t("common.close")} variant="ghost" onClick={() => props.onOpenChange(false)}>
+              <IconButton label={t("common.close")} variant="ghost" onClick={() => changeOpen(false)}>
                 <X />
               </IconButton>
             </div>

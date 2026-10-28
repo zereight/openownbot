@@ -1,5 +1,6 @@
 import { AgentSquadsDialog } from "@openbot/ui/features/agents/AgentSquadsDialog";
 import { fireEvent, render, screen, waitFor } from "@solidjs/testing-library";
+import { createSignal } from "solid-js";
 import { describe, expect, it, vi } from "vitest";
 
 const IDS = ["a", "b", "c", "d"];
@@ -54,5 +55,27 @@ describe("AgentSquadsDialog", () => {
     const lead = screen.getByLabelText(/^lead$|^리드$/i);
     fireEvent.change(lead, { target: { value: "b" } });
     await waitFor(() => expect(rows().map((row) => row.textContent)).toEqual(["Agent a", "Agent c", "Agent d"]));
+  });
+
+  it("shows the list again when the dialog is closed from the form and opened again", async () => {
+    const [isOpen, setOpen] = createSignal(true);
+    const squad = { id: "s1", name: "Review", leadAgentId: "a", memberAgentIds: [] };
+    render(() => (
+      <AgentSquadsDialog
+        open={isOpen()}
+        onOpenChange={setOpen}
+        squads={[squad]}
+        agents={IDS.map((id) => ({ id, name: `Agent ${id}` }))}
+        onSave={vi.fn()}
+        onRemove={vi.fn()}
+      />
+    ));
+    fireEvent.click(screen.getByRole("button", { name: /new team|새 팀/i }));
+    await waitFor(() => expect(screen.getByLabelText(/team name|팀 이름/i)).toBeTruthy());
+    fireEvent.click(screen.getByRole("button", { name: /close|닫기/i }));
+    await waitFor(() => expect(screen.queryByRole("dialog")).toBeNull());
+    setOpen(true);
+    await waitFor(() => expect(screen.getByText("Review")).toBeTruthy());
+    expect(screen.queryByLabelText(/team name|팀 이름/i)).toBeNull();
   });
 });
