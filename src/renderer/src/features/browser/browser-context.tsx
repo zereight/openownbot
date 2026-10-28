@@ -1,5 +1,5 @@
 import type { BrowserControlState, BrowserDisplayState, BrowserTab, ServerSummary } from "@openbot/contracts/ipc";
-import { createSignal } from "solid-js";
+import { createSignal, onSettled } from "solid-js";
 import { desktopAnalytics } from "../../analytics";
 import { usePlatform } from "../../platform";
 import { createScopeGuard } from "../../scope-lifetime";
@@ -40,7 +40,7 @@ const BrowserTabs = createSimpleContext({
   name: "Browser tabs",
   init: () => {
     const { landingPreview } = usePlatform();
-    const { currentServerSelection } = useServers();
+    const { activeServer, currentServerSelection } = useServers();
     const { browserVisibilitySuspended: switchHidesBrowser } = useServerSwitch();
     const windowPage = useWindowPage();
     // The browser is a separate Electron view, so hiding renderer content leaves it painted
@@ -106,6 +106,19 @@ const BrowserTabs = createSimpleContext({
         })
         .catch(() => undefined);
     }
+
+    /**
+     * A `browser-changed` event can be lost while the window is out of sight, and nothing else corrects
+     * the list then. Coming back to the window reads it again, so a tab that main closed does not wait
+     * for the next press on it to fail.
+     */
+    onSettled(() => {
+      const resyncOnReturn = () => {
+        if (supportsBrowser(activeServer())) resyncBrowserTabs();
+      };
+      window.addEventListener("focus", resyncOnReturn);
+      return () => window.removeEventListener("focus", resyncOnReturn);
+    });
 
     function activateBrowserTab(tabId: string) {
       const analytics = desktopAnalytics.scope();
