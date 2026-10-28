@@ -1001,9 +1001,22 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
       decideMember: (input) => {
         const backend = this.#decisionBackend();
         if (!backend) return Effect.succeed(null);
+        const startedAt = Date.now();
         return Effect.promise(() =>
           decideMember(backend, input, { fetch: (url, init) => fetch(url, init), timeoutMs: DECISION_TIMEOUT_MS }),
-        ).pipe(Effect.map((result) => (result.ok ? result.agentId : null)));
+        ).pipe(
+          Effect.map((result) => {
+            // Never the request text or the key: only what is needed to see why the lead's model took over.
+            logger.info("Channel decision model answered.", {
+              backend: backend.kind,
+              ok: result.ok,
+              reason: result.ok ? undefined : result.reason,
+              probability: result.ok ? result.probability : undefined,
+              milliseconds: Date.now() - startedAt,
+            });
+            return result.ok ? result.agentId : null;
+          }),
+        );
       },
       generate: (lead, prompt) =>
         Effect.gen({ self: this }, function* () {

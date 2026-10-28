@@ -43,6 +43,15 @@ export interface SaveDecisionModelInput extends DecisionModelSettings {
   keys?: Partial<Record<DecisionModelKeyName, string | null>>;
 }
 
+/** The answer of a trial request with sample members. `picked` is the sample member that was chosen. */
+export interface DecisionModelTestResult {
+  ok: boolean;
+  /** Why no member was chosen: `not-set-up`, `timeout`, `network`, `http-401`, `unsure`, ... */
+  reason: string | null;
+  picked: string | null;
+  milliseconds: number;
+}
+
 export function isDecisionModelBackend(value: unknown): value is DecisionModelBackend {
   return isOneOf(DECISION_MODEL_BACKENDS, value);
 }

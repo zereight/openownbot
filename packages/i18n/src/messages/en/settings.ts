@@ -553,6 +553,9 @@ export const messages = defineMessages("settings", {
   "settings.decisionModel.fallback":
     "If the model fails, is slow or is unsure, the lead's model decides as before. Request text is sent to the provider you choose.",
   "settings.decisionModel.save": "Save",
+  "settings.decisionModel.test.action": "Test",
+  "settings.decisionModel.test.ok": "Works: chose {name} in {ms} ms.",
+  "settings.decisionModel.test.failed": "No answer ({reason}). The lead's model would decide.",
   "settings.decisionModel.saveFailed": "Could not save the decision model. Try again.",
   "settings.voice.speech.section": "Spoken replies",
   "settings.voice.speech.model.description": "Reads replies aloud on this computer, in 31 languages.",

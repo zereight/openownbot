@@ -133,6 +133,7 @@ import {
   decodeCustomProviderResult,
   decodeCustomProviders,
   decodeDecisionModelState,
+  decodeDecisionModelTestResult,
   decodeDetectedAcpAgents,
   decodeDetectedModelServers,
   decodeDiscoverModelsResult,
@@ -735,6 +736,7 @@ const openbotApi: OpenBotDesktopApi = {
   decisionModel: bridgeGroup(IPC_ENDPOINTS.decisionModel, {
     get: decodeDecisionModelState,
     save: decodeDecisionModelState,
+    test: decodeDecisionModelTestResult,
   }),
   voice: bridgeGroup(IPC_ENDPOINTS.voice, {
     getModelStatus: decodeVoiceModelStatus,

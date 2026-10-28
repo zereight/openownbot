@@ -1224,6 +1224,7 @@ export function createMockOpenBot(options: MockOpenBotOptions = {}): MockOpenBot
     openUrl: async () => undefined,
     decisionModel: {
       get: async () => clone(decisionModelState),
+      test: async () => ({ ok: true, reason: null, picked: "Joon", milliseconds: 420 }),
       save: async (input) => {
         const { keys, ...settings } = input;
         const saved = { ...decisionModelState.keys };

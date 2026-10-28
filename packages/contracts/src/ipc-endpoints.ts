@@ -246,7 +246,7 @@ import type {
   SaveCustomProviderInput,
   UpdateCustomProviderInput,
 } from "./ipc-custom-providers";
-import type { DecisionModelState, SaveDecisionModelInput } from "./ipc-decision-model";
+import type { DecisionModelState, DecisionModelTestResult, SaveDecisionModelInput } from "./ipc-decision-model";
 import type {
   DynamicIslandAction,
   DynamicIslandGeometry,
@@ -769,6 +769,8 @@ export const IPC_ENDPOINTS = {
     get: request<undefined, DecisionModelState>()("decision-model:get"),
     /** Saves the settings and the keys that the input names. Answers the state after the save. */
     save: request<SaveDecisionModelInput, DecisionModelState>()("decision-model:save"),
+    /** Sends one trial request with sample members to the saved model. Never rejects for a model failure. */
+    test: request<undefined, DecisionModelTestResult>()("decision-model:test"),
   },
   voice: {
     /** The status of the model in use. */

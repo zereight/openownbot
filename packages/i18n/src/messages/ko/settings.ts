@@ -524,6 +524,9 @@ export const messages = {
   "settings.decisionModel.fallback":
     "모델이 실패하거나 느리거나 확신하지 못하면 이전처럼 리드의 모델이 정해요. 요청 내용은 선택한 제공자에게 전송돼요.",
   "settings.decisionModel.save": "저장",
+  "settings.decisionModel.test.action": "시험",
+  "settings.decisionModel.test.ok": "정상이에요. {name}을(를) {ms}ms 만에 골랐어요.",
+  "settings.decisionModel.test.failed": "답을 받지 못했어요 ({reason}). 이 경우 리드의 모델이 정해요.",
   "settings.decisionModel.saveFailed": "결정 모델을 저장하지 못했어요. 다시 시도해 주세요.",
   "settings.voice.speech.section": "음성 답변",
   "settings.voice.speech.model.description": "이 컴퓨터에서 답변을 31개 언어로 소리 내어 읽어줘요.",

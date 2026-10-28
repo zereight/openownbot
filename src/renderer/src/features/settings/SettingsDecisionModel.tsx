@@ -5,6 +5,7 @@ import {
   type DecisionModelBackend,
   type DecisionModelKeyName,
   type DecisionModelState,
+  type DecisionModelTestResult,
   type SaveDecisionModelInput,
 } from "@openbot/contracts/ipc";
 import type { AppTextKey } from "@openbot/i18n";
@@ -51,6 +52,8 @@ interface DraftState {
   cloudflareModel: CloudflareDecisionModel;
   key: string;
   saving: boolean;
+  testing: boolean;
+  trial: DecisionModelTestResult | null;
 }
 
 function activeKeyName(backend: DecisionModelBackend): DecisionModelKeyName | null {
@@ -71,6 +74,8 @@ export function SettingsDecisionModel(props: { selectMount?: HTMLElement | undef
     cloudflareModel: "clef-flash",
     key: "",
     saving: false,
+    testing: false,
+    trial: null,
   });
 
   function apply(state: DecisionModelState): void {
@@ -122,6 +127,34 @@ export function SettingsDecisionModel(props: { selectMount?: HTMLElement | undef
       });
     }
   }
+
+  async function runTrial(): Promise<void> {
+    if (draft.testing) return;
+    setDraft((value) => {
+      value.testing = true;
+      value.trial = null;
+    });
+    try {
+      const result = await decisionModelPort().decisionModel.test();
+      setDraft((value) => {
+        value.trial = result;
+      });
+    } catch (error) {
+      fail(error);
+    } finally {
+      setDraft((value) => {
+        value.testing = false;
+      });
+    }
+  }
+
+  const trialText = (): string => {
+    const result = draft.trial;
+    if (!result) return "";
+    return result.ok
+      ? t("settings.decisionModel.test.ok", { name: result.picked ?? "", ms: String(result.milliseconds) })
+      : t("settings.decisionModel.test.failed", { reason: result.reason ?? "" });
+  };
 
   const keyName = () => activeKeyName(draft.backend);
   const keySaved = () => {
@@ -290,8 +323,18 @@ export function SettingsDecisionModel(props: { selectMount?: HTMLElement | undef
         <Item class="settings-modal-row">
           <ItemContent>
             <ItemDescription>{t("settings.decisionModel.fallback")}</ItemDescription>
+            <ItemDescription aria-live="polite">{trialText()}</ItemDescription>
           </ItemContent>
           <ItemActions>
+            <Button
+              variant="ghost"
+              size="sm"
+              type="button"
+              disabled={draft.testing || draft.saving || draft.backend === "off"}
+              onClick={() => void runTrial()}
+            >
+              {t("settings.decisionModel.test.action")}
+            </Button>
             <Button
               variant="outline"
               size="sm"

@@ -44,6 +44,7 @@ import {
   type CustomProviderSummary,
   DEFAULT_AGENT_DEFAULTS,
   type DecisionModelState,
+  type DecisionModelTestResult,
   type DetectedAcpAgent,
   type DetectedModelServer,
   type DiscoverModelsResult,
@@ -423,6 +424,13 @@ export function decodeDecisionModelState(value: unknown): DecisionModelState {
   if (!isDecisionModelState(value)) throw new Error("Invalid decision model state.");
   const { backend, openrouterModel, cloudflareAccountId, cloudflareModel, keys } = value;
   return { backend, openrouterModel, cloudflareAccountId, cloudflareModel, keys };
+}
+
+export function decodeDecisionModelTestResult(value: unknown): DecisionModelTestResult {
+  const result = decodeRecord(value, "decision model test");
+  const { ok, milliseconds } = result;
+  if (typeof ok !== "boolean" || !isNumber(milliseconds)) throw new Error("Invalid decision model test.");
+  return { ok, reason: nullableString(result, "reason"), picked: nullableString(result, "picked"), milliseconds };
 }
 
 export function decodeVoiceModelStatus(value: unknown): VoiceModelStatus {
