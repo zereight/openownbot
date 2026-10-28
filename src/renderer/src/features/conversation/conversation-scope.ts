@@ -285,6 +285,7 @@ export function createConversationViewScope(props: ConversationProps) {
     openSidebarFileBack,
     openSidebarFileExternally,
     downloadSidebarFile,
+    downloadMessageImageFile,
     revealSidebarFile,
     closeSidebarFilePreview,
   } = panels;
@@ -1805,6 +1806,7 @@ export function createConversationViewScope(props: ConversationProps) {
     openSharedFile,
     openSidebarFileExternally,
     downloadSidebarFile,
+    downloadMessageImageFile,
     revealSidebarFile,
     openWorkspaceFile,
     openWorkspaceFolder,

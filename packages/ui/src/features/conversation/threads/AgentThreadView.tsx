@@ -203,6 +203,7 @@ export function AgentThreadView(props: AgentThreadViewProps) {
                   onOpenLink={props.onOpenLink}
                   onPreview={props.onPreview}
                   onAttachmentAction={props.onAttachmentAction}
+                  onDownload={(attachment) => props.onAttachmentAction(attachment, "download")}
                   macWindowControls={props.macWindowControls}
                 />
               </div>
