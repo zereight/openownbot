@@ -19,6 +19,13 @@
 .app-frame.app-frame-page-open .app-frame-panes * {
   visibility: hidden;
 }
+
+/* A rule that sets `visibility: visible` on a part of the chat, such as the workflow top row, beats the
+ * rule above, and the clear window then shows that part under the page. Skipping the paint of the
+ * children hides every part. */
+.app-frame-page-open .app-frame-panes > * {
+  content-visibility: hidden;
+}
 .window-page {
   z-index: 1;
   min-height: 0;
