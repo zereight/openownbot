@@ -79,6 +79,7 @@ export const messages = {
   "error.agent.computerUseLocalOnly": "Computer Use 只能在运行该助手的电脑上更改。",
   "error.agent.automationLocalOnly": "本地脚本只能在运行该助手的电脑上允许。",
   "error.agent.newChatLocalOnly": "只有运行该助手的电脑才能让它开始新对话。",
+  "error.agent.mainAgentLocalOnly": "只有运行该助手的电脑才能将其设为主助手。",
   "error.agent.quickAcknowledgementLocalOnly": "只有运行该助手的电脑才能更改该设置。",
   "error.agent.sideQuestionBusy": "同时进行的旁问过多，请稍后重试。",
   "error.agent.sideQuestionFailed": "助手无法回答旁问，请重试。",

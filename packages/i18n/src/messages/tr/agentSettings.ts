@@ -178,6 +178,9 @@ export const messages = {
   "agentSettings.agentNewChat.title": "Ajan yeni sohbetler başlatır",
   "agentSettings.agentNewChat.description":
     "Sohbeti uzadığında ajanın yeni bir sohbet başlatmasına izin verir. Önce notlarını kaydeder.",
+  "agentSettings.mainAgent.title": "Ana ajan",
+  "agentSettings.mainAgent.description":
+    "Bu ajan bir isteği parçalara böler, parçaları takım arkadaşlarına verir ve cevaplarını birleştirir. Yalnızca bir ajan ana ajan olabilir.",
   "agentSettings.quickAcknowledgement.title": "Uzun görevlerden önce planı göster",
   "agentSettings.quickAcknowledgement.description":
     "Uzun bir görevden önce ajan planını gösterir. 10 sn sonra veya Başlat'a bastığınızda başlar.",

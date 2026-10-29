@@ -223,6 +223,9 @@ export const messages = {
   "agentSettings.agentNewChat.title": "Агент начинает новые чаты",
   "agentSettings.agentNewChat.description":
     "Агент может начать новый чат, когда его чат становится длинным. Сначала он сохраняет заметки.",
+  "agentSettings.mainAgent.title": "Главный агент",
+  "agentSettings.mainAgent.description":
+    "Этот агент делит запрос на части, передаёт их коллегам и объединяет их ответы. Главным может быть только один агент.",
   "agentSettings.quickAcknowledgement.title": "Показывать план перед долгими задачами",
   "agentSettings.quickAcknowledgement.description":
     "Перед долгой задачей агент показывает свой план. Он начинает через 10 с или когда вы нажимаете «Начать».",

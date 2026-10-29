@@ -109,6 +109,7 @@ export const messages = {
   "error.agent.automationLocalOnly":
     "Lokale Skripte können nur auf dem Computer erlaubt werden, auf dem der Agent läuft.",
   "error.agent.newChatLocalOnly": "Nur der Computer, auf dem der Agent läuft, kann ihm neue Chats erlauben.",
+  "error.agent.mainAgentLocalOnly": "Nur der Computer, auf dem der Agent läuft, kann ihn zum Hauptagenten machen.",
   "error.agent.quickAcknowledgementLocalOnly":
     "Nur der Computer, auf dem der Agent läuft, kann diese Einstellung ändern.",
   "error.agent.sideQuestionBusy": "Es laufen zu viele Nebenfragen. Versuche es gleich noch einmal.",

@@ -178,6 +178,9 @@ export const messages = {
   "agentSettings.agentNewChat.title": "Agent start nieuwe chats",
   "agentSettings.agentNewChat.description":
     "Laat de agent een nieuwe chat starten als de chat lang wordt. Hij slaat eerst notities op.",
+  "agentSettings.mainAgent.title": "Hoofdagent",
+  "agentSettings.mainAgent.description":
+    "Deze agent splitst een verzoek op, geeft de delen aan zijn teamgenoten en voegt hun antwoorden samen. Er is maar één hoofdagent.",
   "agentSettings.quickAcknowledgement.title": "Plan tonen vóór lange taken",
   "agentSettings.quickAcknowledgement.description":
     "Vóór een lange taak toont de agent zijn plan. Hij begint na 10 s, of als je op Starten drukt.",

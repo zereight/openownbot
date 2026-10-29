@@ -2183,6 +2183,7 @@ export function createMockOpenOwnBot(options: MockOpenOwnBotOptions = {}): MockO
           if (flag === null) delete updated[key];
           else if (flag !== undefined) updated[key] = flag;
         }
+        if (updated.mainAgent !== true) delete updated.mainAgent;
         if (backupModels === null) delete updated.backupModels;
         else if (backupModels) updated.backupModels = backupModels;
         if (providerAccountId === null || (updates.provider && !providerAccountId)) delete updated.providerAccountId;
@@ -2192,7 +2193,12 @@ export function createMockOpenOwnBot(options: MockOpenOwnBotOptions = {}): MockO
         else if (busyMessageMode) updated.busyMessageMode = busyMessageMode;
         if (taskLimit === null) delete updated.taskLimit;
         else if (taskLimit) updated.taskLimit = taskLimit;
-        agents = agents.map((agent) => (agent.id === updated.id ? updated : agent));
+        agents = agents.map((agent) => {
+          if (agent.id === updated.id) return updated;
+          if (!updated.mainAgent || !agent.mainAgent) return agent;
+          const { mainAgent: _former, ...rest } = agent;
+          return rest;
+        });
         emitAgentEvent({ type: "agents-changed", agents });
         emitTasks(updated.id);
         return clone(updated);

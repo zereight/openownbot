@@ -456,6 +456,9 @@ export function agentIpcHandlers({
           if (input.allowNewChat !== undefined) {
             throw new Error(sourceText("error.agent.newChatLocalOnly"));
           }
+          if (input.mainAgent !== undefined) {
+            throw new Error(sourceText("error.agent.mainAgentLocalOnly"));
+          }
           if (input.quickAcknowledgement !== undefined) {
             throw new Error(sourceText("error.agent.quickAcknowledgementLocalOnly"));
           }

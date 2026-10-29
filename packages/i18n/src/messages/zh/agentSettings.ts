@@ -172,6 +172,8 @@ export const messages = {
   "agentSettings.automation.description": "允许主机上的脚本发送消息、运行自动化任务、回答问题，以及接受或拒绝批准",
   "agentSettings.agentNewChat.title": "助手自行开始新对话",
   "agentSettings.agentNewChat.description": "对话变长时，让助手自行开始新对话。它会先保存笔记。",
+  "agentSettings.mainAgent.title": "主助手",
+  "agentSettings.mainAgent.description": "该助手会拆分请求，把各部分交给队友，并汇总他们的回答。只能有一个主助手。",
   "agentSettings.quickAcknowledgement.title": "长任务开始前显示计划",
   "agentSettings.quickAcknowledgement.description":
     "长任务开始前，助手会先显示计划。10 秒后或你点按“开始”时，任务开始。",

@@ -41,6 +41,11 @@ export function isAgentAccess(value: unknown): value is AgentAccess {
   return isOneOf(AGENT_ACCESS_MODES, value);
 }
 
+/** Whether the agent is the main agent of its host. Absent means off. */
+export function agentIsMain(agent: { mainAgent?: boolean | undefined }): boolean {
+  return agent.mainAgent === true;
+}
+
 /** Whether the agent may use Computer Use. Absent means on, as for every agent before the setting existed. */
 export function agentComputerUseEnabled(agent: { computerUse?: boolean | undefined }): boolean {
   return agent.computerUse !== false;
@@ -239,6 +244,12 @@ export interface AgentSummary {
    */
   allowNewChat?: boolean;
   /**
+   * Whether this is the main agent: the one that splits a request, delegates the parts to its
+   * teammates and merges the results. At most one agent on a host has it. Local-only, like `access`.
+   * Absent means off; see `agentIsMain`.
+   */
+  mainAgent?: boolean;
+  /**
    * Whether the agent shows its plan with the `acknowledge_request` tool before a long task.
    * Local-only, like `access`. Absent means the account default; see `agentQuickAcknowledgementEnabled`.
    */
@@ -339,6 +350,7 @@ function hasAgentSummaryFields(value: DynamicRecord): boolean {
     (value.computerUse === undefined || isBoolean(value.computerUse)) &&
     (value.allowAutomation === undefined || isBoolean(value.allowAutomation)) &&
     (value.allowNewChat === undefined || isBoolean(value.allowNewChat)) &&
+    (value.mainAgent === undefined || isBoolean(value.mainAgent)) &&
     (value.quickAcknowledgement === undefined || isBoolean(value.quickAcknowledgement)) &&
     (value.ownBrowserSession === undefined || isBoolean(value.ownBrowserSession)) &&
     (value.browserProfileId === undefined || isBrowserProfileId(value.browserProfileId)) &&
@@ -392,6 +404,8 @@ export interface UpdateAgentInput {
   /** `null` returns the agent to the account default, as for `allowNewChat` and `quickAcknowledgement`. */
   allowAutomation?: boolean | null;
   allowNewChat?: boolean | null;
+  /** `true` makes this the main agent and removes the flag from the previous one. `false` removes it. */
+  mainAgent?: boolean;
   quickAcknowledgement?: boolean | null;
   fastMode?: boolean;
   /** `null` returns the agent to the app default. */

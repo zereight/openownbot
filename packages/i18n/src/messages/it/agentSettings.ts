@@ -185,6 +185,9 @@ export const messages = {
   "agentSettings.agentNewChat.title": "L'agente avvia nuove chat",
   "agentSettings.agentNewChat.description":
     "L'agente può avviare una nuova chat quando la sua diventa lunga. Prima salva delle note.",
+  "agentSettings.mainAgent.title": "Agente principale",
+  "agentSettings.mainAgent.description":
+    "Questo agente divide una richiesta, affida le parti ai suoi compagni di squadra e unisce le loro risposte. Un solo agente è l'agente principale.",
   "agentSettings.quickAcknowledgement.title": "Mostra il piano prima delle attività lunghe",
   "agentSettings.quickAcknowledgement.description":
     "Prima di un'attività lunga, l'agente mostra il suo piano. Inizia dopo 10 s o quando premi Avvia.",

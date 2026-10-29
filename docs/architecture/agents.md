@@ -346,6 +346,24 @@ change, because the remote client cannot see it. The channel threads of the agen
 (`ChannelStore.contextThreadsForAgent`) are retired too, and their work steps are saved. A channel
 turn also carries its own self-contained context packet. The instance transfer file keeps `taskLimit`.
 
+## Main agent
+
+The user can mark one agent as the main agent (`mainAgent` in `agent_json`; no migration, and absent
+means off). Setting it on one agent removes it from the previous one in the same roster write
+(`AgentStore.updateAgent`), so a host has at most one. It is local-only, like `allowNewChat`: the Team
+API does not carry it, a remote update that names it is refused (`error.agent.mainAgentLocalOnly`),
+the agent profile tools do not accept it, and duplication does not copy it.
+
+The main agent has no new tool or protocol. `developerInstructions` adds one block
+(`MAIN_AGENT_INSTRUCTION`) to the shared teammate rules: split the request, send each independent
+part to its best teammate in one turn, end the turn, and merge the replies. The fan-in is the
+existing mailbox rule below: replies to a request that went to several teammates wait until the last
+copy ends. With no chosen agent, the desktop opens on the main agent (`activeAgent` in
+`agents-context.tsx`). The Slack, Telegram and Discord Orchestrators stay separate: a messaging
+reply returns to the chat only for a request to exactly one teammate (`MailboxStore`,
+`messagingReturn`), so a main agent that fans out would lose that return path. Remote clients
+(mobile, web) cannot see or change the flag; that needs a new capability.
+
 ## Agent communication policy
 
 The shared developer instructions keep routine teammate exchanges internal by default. Agents

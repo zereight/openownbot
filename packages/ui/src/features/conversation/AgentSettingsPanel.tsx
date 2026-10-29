@@ -17,6 +17,7 @@ import {
   agentAutomationAllowed,
   agentBrowserProfile,
   agentComputerUseEnabled,
+  agentIsMain,
   agentNewChatAllowed,
   agentNextProviderAccountId,
   agentPermissionLevel,
@@ -123,6 +124,8 @@ export interface AgentSettingsPanelProps {
   automationEditable?: boolean;
   /** Whether the agent can start a new chat. Local-only: the Team API does not carry it. */
   newChatEditable?: boolean;
+  /** Whether the agent is the main agent. Local-only: the Team API does not carry it. */
+  mainAgentEditable?: boolean;
   /** Whether the agent shows its plan before a long task. Local-only: the Team API does not carry it. */
   quickAcknowledgementEditable?: boolean;
   /** The browser profile of the agent's tabs. Left out when the host cannot change it. */
@@ -244,6 +247,7 @@ interface AgentSettingsDraft {
   computerUse: boolean;
   allowAutomation: boolean;
   allowNewChat: boolean;
+  mainAgent: boolean;
   quickAcknowledgement: boolean;
   browserProfile: BrowserProfileChoice;
   /** `default` follows the app setting. */
@@ -287,6 +291,7 @@ export default function AgentSettingsPanel(props: AgentSettingsPanelProps) {
     computerUse: true,
     allowAutomation: false,
     allowNewChat: false,
+    mainAgent: false,
     quickAcknowledgement: false,
     browserProfile: "shared",
     busyMessage: "default",
@@ -479,6 +484,7 @@ export default function AgentSettingsPanel(props: AgentSettingsPanelProps) {
           state.computerUse = agentComputerUseEnabled(agent);
           state.allowAutomation = agentAutomationAllowed(agent, agentDefaults());
           state.allowNewChat = agentNewChatAllowed(agent, agentDefaults());
+          state.mainAgent = agentIsMain(agent);
           state.quickAcknowledgement = agentQuickAcknowledgementEnabled(agent, agentDefaults());
           state.browserProfile = browserProfile;
           state.busyMessage = agent.busyMessageMode ?? "default";
@@ -915,6 +921,19 @@ export default function AgentSettingsPanel(props: AgentSettingsPanelProps) {
     if (!disposed && props.agent.id === agentId && draft.allowNewChat === next) {
       setDraft((state) => {
         state.allowNewChat = !next;
+      });
+    }
+  }
+
+  async function saveMainAgent(next: boolean): Promise<void> {
+    const agentId = props.agent.id;
+    setDraft((state) => {
+      state.mainAgent = next;
+    });
+    if (await saveAgentPatch({ mainAgent: next }, agentId)) return;
+    if (!disposed && props.agent.id === agentId && draft.mainAgent === next) {
+      setDraft((state) => {
+        state.mainAgent = !next;
       });
     }
   }
@@ -1552,6 +1571,20 @@ export default function AgentSettingsPanel(props: AgentSettingsPanelProps) {
                     aria-label={t("agentSettings.agentNewChat.title")}
                     checked={draft.allowNewChat}
                     onChange={(next) => void saveAllowNewChat(next)}
+                  />
+                </div>
+              </Show>
+              <Show when={props.mainAgentEditable}>
+                <div class="agent-settings-notifications">
+                  <div>
+                    <strong>{t("agentSettings.mainAgent.title")}</strong>
+                    <span>{t("agentSettings.mainAgent.description")}</span>
+                  </div>
+                  <Switch
+                    size="sm"
+                    aria-label={t("agentSettings.mainAgent.title")}
+                    checked={draft.mainAgent}
+                    onChange={(next) => void saveMainAgent(next)}
                   />
                 </div>
               </Show>

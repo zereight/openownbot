@@ -6,6 +6,7 @@ import type {
   HiddenAgent,
   UpdateAgentInput,
 } from "@openownbot/contracts/ipc";
+import { agentIsMain } from "@openownbot/contracts/ipc";
 import { PROVIDER_ACCOUNTS_CAPABILITY } from "@openownbot/contracts/team-protocol/provider-accounts-v1";
 import type { AgentProfile } from "@openownbot/ui/data";
 import { createFirstAgentDraft, type FirstAgentDraft } from "@openownbot/ui/features/agents/FirstAgentSetup";
@@ -180,7 +181,12 @@ const Agents = createSimpleContext({
 
     const activeAgent = createMemo(() => {
       if (activeDirectMember()) return undefined;
-      return agentList().find((agent) => agent.id === activeAgentId()) ?? agentList()[0];
+      // With no chosen agent, the main agent is the one the user meets first.
+      return (
+        agentList().find((agent) => agent.id === activeAgentId()) ??
+        agentList().find((agent) => agentIsMain(agent)) ??
+        agentList()[0]
+      );
     });
 
     function setActiveAgentId(value: string | ((current: string) => string)): void {
