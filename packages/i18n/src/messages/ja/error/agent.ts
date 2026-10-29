@@ -100,6 +100,8 @@ export const messages = {
     "ローカルスクリプトは、エージェントを実行しているコンピューターでのみ許可できます。",
   "error.agent.newChatLocalOnly":
     "新しいチャットの開始を許可できるのは、エージェントを実行しているコンピューターだけです。",
+  "error.agent.mainAgentLocalOnly":
+    "エージェントをメインエージェントにできるのは、そのエージェントを実行しているコンピュータだけです。",
   "error.agent.quickAcknowledgementLocalOnly":
     "この設定を変更できるのは、エージェントを実行しているコンピューターだけです。",
   "error.agent.sideQuestionBusy": "実行中のサイド質問が多すぎます。しばらくしてからもう一度お試しください。",

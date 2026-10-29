@@ -90,6 +90,7 @@ export const messages = {
   "error.agent.automationLocalOnly": "로컬 스크립트는 에이전트를 실행하는 컴퓨터에서만 허용할 수 있어요.",
   "error.agent.newChatLocalOnly":
     "에이전트가 새 채팅을 시작하도록 허용하는 것은 에이전트를 실행하는 컴퓨터에서만 할 수 있어요.",
+  "error.agent.mainAgentLocalOnly": "에이전트를 실행하는 컴퓨터에서만 메인 에이전트로 지정할 수 있어요.",
   "error.agent.quickAcknowledgementLocalOnly": "이 설정은 에이전트를 실행하는 컴퓨터에서만 변경할 수 있어요.",
   "error.agent.sideQuestionBusy": "곁다리 질문이 너무 많이 실행 중이에요. 잠시 후 다시 시도해 주세요.",
   "error.agent.sideQuestionFailed": "에이전트가 곁다리 질문에 답하지 못했어요. 다시 시도해 주세요.",

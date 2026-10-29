@@ -44,6 +44,7 @@ export function toAgentProfile(stored: ClientAgentSummary): AgentProfile {
     ...(stored.computerUse === undefined ? {} : { computerUse: stored.computerUse }),
     ...(stored.allowAutomation === undefined ? {} : { allowAutomation: stored.allowAutomation }),
     ...(stored.allowNewChat === undefined ? {} : { allowNewChat: stored.allowNewChat }),
+    ...(stored.mainAgent === undefined ? {} : { mainAgent: stored.mainAgent }),
     ...(stored.quickAcknowledgement === undefined ? {} : { quickAcknowledgement: stored.quickAcknowledgement }),
     ...(stored.fastMode === undefined ? {} : { fastMode: stored.fastMode }),
     ...(stored.ownBrowserSession === undefined ? {} : { ownBrowserSession: stored.ownBrowserSession }),
@@ -237,6 +238,7 @@ export function agentProfilesEqual(left: AgentProfile, right: AgentProfile): boo
     left.computerUse === right.computerUse &&
     left.allowAutomation === right.allowAutomation &&
     left.allowNewChat === right.allowNewChat &&
+    left.mainAgent === right.mainAgent &&
     left.quickAcknowledgement === right.quickAcknowledgement &&
     left.fastMode === right.fastMode &&
     left.ownBrowserSession === right.ownBrowserSession &&

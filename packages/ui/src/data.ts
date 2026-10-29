@@ -247,6 +247,8 @@ export interface AgentProfile {
   allowAutomation?: boolean | undefined;
   /** Absent means off. Absent for an agent on a remote host too, which does not share it. */
   allowNewChat?: boolean | undefined;
+  /** Absent means off. At most one agent has it. Absent for an agent on a remote host too, which does not share it. */
+  mainAgent?: boolean | undefined;
   /** Absent means off. Absent for an agent on a remote host too, which does not share it. */
   quickAcknowledgement?: boolean | undefined;
   /** Absent means off. Absent for an agent on a remote host too, which does not share it. */

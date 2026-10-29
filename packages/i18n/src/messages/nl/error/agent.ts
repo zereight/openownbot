@@ -100,6 +100,7 @@ export const messages = {
   "error.agent.computerUseLocalOnly": "Computerbesturing kun je alleen wijzigen op de computer waarop de agent draait.",
   "error.agent.automationLocalOnly": "Lokale scripts kun je alleen toestaan op de computer waarop de agent draait.",
   "error.agent.newChatLocalOnly": "Alleen de computer waarop de agent draait, kan de agent nieuwe chats laten starten.",
+  "error.agent.mainAgentLocalOnly": "Alleen de computer waarop de agent draait, kan de agent tot hoofdagent maken.",
   "error.agent.quickAcknowledgementLocalOnly":
     "Alleen de computer waarop de agent draait, kan deze instelling wijzigen.",
   "error.agent.sideQuestionBusy": "Er lopen te veel zijvragen. Probeer het zo opnieuw.",

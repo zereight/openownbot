@@ -183,6 +183,9 @@ export const messages = {
   "agentSettings.agentNewChat.title": "エージェントが新しいチャットを開始",
   "agentSettings.agentNewChat.description":
     "チャットが長くなったときに、エージェントが新しいチャットを開始できます。開始前にメモを保存します。",
+  "agentSettings.mainAgent.title": "メインエージェント",
+  "agentSettings.mainAgent.description":
+    "このエージェントは依頼を分割し、各部分をチームメイトに任せ、その回答をまとめます。メインエージェントにできるのは1つだけです。",
   "agentSettings.quickAcknowledgement.title": "長いタスクの前に計画を表示",
   "agentSettings.quickAcknowledgement.description":
     "長いタスクの前に、エージェントが計画を表示します。10 秒後、または開始を押すと始まります。",

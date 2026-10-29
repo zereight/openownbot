@@ -96,6 +96,7 @@ export const messages = {
     "Il Controllo del computer si può cambiare solo sul computer che esegue l'agente.",
   "error.agent.automationLocalOnly": "Gli script locali si possono consentire solo sul computer che esegue l'agente.",
   "error.agent.newChatLocalOnly": "Solo il computer che esegue l'agente può consentirgli di avviare nuove chat.",
+  "error.agent.mainAgentLocalOnly": "Solo il computer che esegue l'agente può renderlo l'agente principale.",
   "error.agent.quickAcknowledgementLocalOnly":
     "Solo il computer che esegue l'agente può modificare questa impostazione.",
   "error.agent.sideQuestionBusy": "Ci sono troppe domande a parte in corso. Riprova tra poco.",

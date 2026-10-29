@@ -92,6 +92,8 @@ type PersistedStoredAgent = Omit<StoredAgent, "avatarUrl" | "provider" | "access
   allowAutomation?: boolean;
   // Absent means the account default, which is off until the user changes it in Settings › Agents.
   allowNewChat?: boolean;
+  // Absent means off. At most one agent in the roster has it; see `updateAgent`.
+  mainAgent?: boolean;
   // Absent means the account default, which is off until the user changes it in Settings › Agents.
   quickAcknowledgement?: boolean;
   // Absent on every agent stored before the setting existed, which keeps its tabs in the shared browser session.
@@ -737,6 +739,11 @@ export class AgentStore {
         if (!isBoolean(input.allowNewChat)) throw new Error("Invalid new chat value.");
         next.allowNewChat = input.allowNewChat;
       }
+      if (input.mainAgent !== undefined) {
+        if (!isBoolean(input.mainAgent)) throw new Error("Invalid main agent value.");
+        if (input.mainAgent) next.mainAgent = true;
+        else delete next.mainAgent;
+      }
       if (input.quickAcknowledgement === null) delete next.quickAcknowledgement;
       else if (input.quickAcknowledgement !== undefined) {
         if (!isBoolean(input.quickAcknowledgement)) throw new Error("Invalid quick acknowledgement value.");
@@ -828,6 +835,12 @@ export class AgentStore {
               next: { provider: next.provider, model: next.model, reasoningEffort: next.reasoningEffort },
             }
           : undefined;
+      // One main agent per host: the new one takes the flag from the old one in the same write.
+      const formerMainAgents =
+        next.mainAgent === true
+          ? this.#state.agents.filter((candidate) => candidate.id !== agent.id && candidate.mainAgent === true)
+          : [];
+      for (const former of formerMainAgents) delete former.mainAgent;
       Object.assign(agent, next);
       // A copy cannot remove a field, and `null` above returned the agent to the app default or to
       // the provider's own sign-in, and an agent flag to the account default.
@@ -841,6 +854,7 @@ export class AgentStore {
       if (next.browserProfileId === undefined) delete agent.browserProfileId;
       if (next.allowAutomation === undefined) delete agent.allowAutomation;
       if (next.allowNewChat === undefined) delete agent.allowNewChat;
+      if (next.mainAgent === undefined) delete agent.mainAgent;
       if (next.quickAcknowledgement === undefined) delete agent.quickAcknowledgement;
       try {
         this.#persist(modelChange ? "agent.model-changed" : "agent.updated", modelChange);
@@ -856,6 +870,8 @@ export class AgentStore {
         if (previous.browserProfileId === undefined) delete agent.browserProfileId;
         if (previous.allowAutomation === undefined) delete agent.allowAutomation;
         if (previous.allowNewChat === undefined) delete agent.allowNewChat;
+        if (previous.mainAgent === undefined) delete agent.mainAgent;
+        for (const former of formerMainAgents) former.mainAgent = true;
         if (previous.quickAcknowledgement === undefined) delete agent.quickAcknowledgement;
         throw error;
       }
@@ -1862,6 +1878,7 @@ function isStoredAgent(value: unknown): value is PersistedStoredAgent {
     (record.computerUse === undefined || isBoolean(record.computerUse)) &&
     (record.allowAutomation === undefined || isBoolean(record.allowAutomation)) &&
     (record.allowNewChat === undefined || isBoolean(record.allowNewChat)) &&
+    (record.mainAgent === undefined || isBoolean(record.mainAgent)) &&
     (record.quickAcknowledgement === undefined || isBoolean(record.quickAcknowledgement)) &&
     (record.ownBrowserSession === undefined || isBoolean(record.ownBrowserSession)) &&
     (record.browserProfileId === undefined || isBrowserProfileId(record.browserProfileId)) &&
@@ -1940,6 +1957,8 @@ function readStoredAgent(value: unknown): ReadStoredAgent | UnreadableStoredAgen
     value.allowNewChat === undefined || isBoolean(value.allowNewChat)
       ? value.allowNewChat
       : reset("allowNewChat", undefined);
+  const mainAgent =
+    value.mainAgent === undefined || isBoolean(value.mainAgent) ? value.mainAgent : reset("mainAgent", undefined);
   const quickAcknowledgement =
     value.quickAcknowledgement === undefined || isBoolean(value.quickAcknowledgement)
       ? value.quickAcknowledgement
@@ -2028,6 +2047,7 @@ function readStoredAgent(value: unknown): ReadStoredAgent | UnreadableStoredAgen
     ...(computerUse === undefined ? {} : { computerUse }),
     ...(allowAutomation === undefined ? {} : { allowAutomation }),
     ...(allowNewChat === undefined ? {} : { allowNewChat }),
+    ...(mainAgent === true ? { mainAgent } : {}),
     ...(quickAcknowledgement === undefined ? {} : { quickAcknowledgement }),
     ...(ownBrowserSession === undefined ? {} : { ownBrowserSession }),
     ...(browserProfileId === undefined ? {} : { browserProfileId }),

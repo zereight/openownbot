@@ -215,6 +215,9 @@ export const messages = {
   "agentSettings.agentNewChat.title": "Agent rozpoczyna nowe czaty",
   "agentSettings.agentNewChat.description":
     "Agent może rozpocząć nowy czat, gdy jego czat staje się długi. Najpierw zapisuje notatki.",
+  "agentSettings.mainAgent.title": "Agent główny",
+  "agentSettings.mainAgent.description":
+    "Ten agent dzieli prośbę na części, przekazuje je swoim współpracownikom i łączy ich odpowiedzi. Agentem głównym może być tylko jeden agent.",
   "agentSettings.quickAcknowledgement.title": "Pokaż plan przed długimi zadaniami",
   "agentSettings.quickAcknowledgement.description":
     "Przed długim zadaniem agent pokazuje swój plan. Zaczyna po 10 s lub po naciśnięciu Start.",

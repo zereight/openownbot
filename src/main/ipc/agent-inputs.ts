@@ -660,6 +660,10 @@ export function parseUpdateAgent(value: unknown): UpdateAgentInput {
     if (value.allowNewChat !== null && !isBoolean(value.allowNewChat)) throw new Error("Invalid new chat value.");
     result.allowNewChat = value.allowNewChat;
   }
+  if (value.mainAgent !== undefined) {
+    if (!isBoolean(value.mainAgent)) throw new Error("Invalid main agent value.");
+    result.mainAgent = value.mainAgent;
+  }
   if (value.quickAcknowledgement !== undefined) {
     if (value.quickAcknowledgement !== null && !isBoolean(value.quickAcknowledgement))
       throw new Error("Invalid quick acknowledgement value.");

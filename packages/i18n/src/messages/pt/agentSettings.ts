@@ -178,6 +178,9 @@ export const messages = {
   "agentSettings.agentNewChat.title": "O agente inicia novos chats",
   "agentSettings.agentNewChat.description":
     "Permite que o agente inicie um novo chat quando o chat dele ficar longo. Ele salva notas antes.",
+  "agentSettings.mainAgent.title": "Agente principal",
+  "agentSettings.mainAgent.description":
+    "Este agente divide um pedido, entrega as partes aos colegas de equipe e combina as respostas. Só um agente é o agente principal.",
   "agentSettings.quickAcknowledgement.title": "Mostrar o plano antes de tarefas longas",
   "agentSettings.quickAcknowledgement.description":
     "Antes de uma tarefa longa, o agente mostra o plano. Ele começa após 10 s ou quando você toca em Iniciar.",
