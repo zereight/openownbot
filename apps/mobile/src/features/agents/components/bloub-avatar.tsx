@@ -1,4 +1,5 @@
 import { type AvatarMood, avatarMoodPresentation } from "@openownbot/brand/bloub-avatar-motion";
+import { padlockEyePath } from "@openownbot/brand/bloub-padlock-eye";
 import type { AvatarHue } from "@openownbot/contracts/ipc";
 import { memo, useMemo } from "react";
 import Animated, {
@@ -220,7 +221,7 @@ export const AvatarThumbnail = memo(function AvatarThumbnail({
       {(["left", "right"] as const).map((side) => {
         const eye = frame.eyes[side === "left" ? 0 : 1];
         return eye ? (
-          <Path key={side} d={eye.d} fill={AVATAR_PAPER} opacity={eye.alpha} transform={eye.matrix} />
+          <Path key={side} d={padlockEyePath(eye.d)} fill={AVATAR_PAPER} opacity={eye.alpha} transform={eye.matrix} />
         ) : null;
       })}
     </Svg>

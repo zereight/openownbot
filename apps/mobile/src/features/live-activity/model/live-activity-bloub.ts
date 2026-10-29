@@ -1,5 +1,6 @@
 import { BotEngine } from "@norbert_bodziony/bloub";
 import { type AvatarMood, avatarMoodPresentation } from "@openownbot/brand/bloub-avatar-motion";
+import { padlockEyePath } from "@openownbot/brand/bloub-padlock-eye";
 import type { AvatarHue } from "@openownbot/contracts/ipc";
 import { ImageFormat, Skia } from "@shopify/react-native-skia";
 import { bloubActivityGeometry, getBloubAvatarColor } from "@/features/agents/model/bloub-activity";
@@ -31,7 +32,7 @@ export function renderBloubAvatar(seed: string, hue: AvatarHue | null, mood: Ava
   const body = Skia.Path.MakeFromSVGString(frame.bodyPath);
   if (body) canvas.drawPath(body, fill(color, frame.bodyAlpha));
   for (const eye of frame.eyes) {
-    const path = Skia.Path.MakeFromSVGString(eye.d);
+    const path = Skia.Path.MakeFromSVGString(padlockEyePath(eye.d));
     const [a = 1, b = 0, c = 0, d = 1, e = 0, f = 0] = eye.matrix.slice(7, -1).split(",").map(Number);
     if (!path) continue;
     // Skia 2.14 paths are immutable, so the canvas applies the eye transform.

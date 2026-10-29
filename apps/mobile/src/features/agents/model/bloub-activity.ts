@@ -8,6 +8,7 @@ import {
 } from "@norbert_bodziony/bloub";
 import { bloubAvatarProfile } from "@openownbot/brand/bloub-avatar";
 import { type AvatarMood, avatarMoodPresentation } from "@openownbot/brand/bloub-avatar-motion";
+import { padlockEyePath } from "@openownbot/brand/bloub-padlock-eye";
 import type { AvatarHue } from "@openownbot/contracts/ipc";
 
 /**
@@ -44,7 +45,7 @@ function nativeFrame(frame: BotFrame) {
   return {
     body: { d: frame.bodyPath, opacity: frame.bodyAlpha },
     eyes: frame.eyes.map((eye) => ({
-      d: eye.d,
+      d: padlockEyePath(eye.d),
       opacity: eye.alpha,
       matrix: eye.matrix.slice(7, -1).split(",").map(Number),
     })),

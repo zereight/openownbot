@@ -1,4 +1,5 @@
 import { type Block, BloubBot, type BloubBotRef, type StateId } from "@norbert_bodziony/bloub";
+import { padlockEyePath } from "@openownbot/brand/bloub-padlock-eye";
 import type { AvatarHue } from "@openownbot/contracts/ipc";
 import type { AppTextKey } from "@openownbot/i18n";
 import type { JSX } from "@solidjs/web";
@@ -216,6 +217,7 @@ export function AppLoadingScreen(props: AppLoadingScreenProps) {
               <div class="app-loading-agent" style={{ "--app-loading-index": hopper.index }}>
                 <div class="app-loading-body">
                   <BloubBot
+                    eyePath={padlockEyePath}
                     size={100}
                     shape={hopper.profile.shape}
                     color={hopper.profile.color}
@@ -246,6 +248,7 @@ export function AppLoadingScreen(props: AppLoadingScreenProps) {
                 like a twitch. It keeps its first pose, and only its CSS breath moves it. */}
             <div class="app-loading-body">
               <BloubBot
+                eyePath={padlockEyePath}
                 size={100}
                 shape={SLEEPER.shape}
                 color={SLEEPER.color}
