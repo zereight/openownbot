@@ -128,11 +128,6 @@ export const messages = {
   "error.backend.mailboxStateCorrupt":
     "Posta kutusu durumu bozuk veya daha yeni bir OpenOwnBot sürümünden; üzerine yazılması reddedildi.",
   "error.backend.recipientDeleting": "Alıcı siliniyor. Silme işlemi tamamlandıktan sonra tekrar deneyin.",
-  "error.backend.squadLeaves":
-    "{squad} takımındasın ve takım dışındaki ajanlara yalnızca lider yazar. {squad} liderinden iletmesini iste veya kullanıcıya sor.",
-  "error.backend.squadEnters": "{agent}, {squad} takımında. {squad} lideri üzerinden ulaş veya kullanıcıya sor.",
-  "error.backend.squadSkipsRank":
-    "{agent}, {squad} takımında ulaşabileceğin rütbenin üstünde. Mesaj yalnızca senin rütbenin hemen üstündeki rütbeye gider. O rütbeden iletmesini iste veya kullanıcıya sor.",
   "error.backend.recipientHidden": "Bu ajan gizli. Mesaj göndermek için onu geri yükleyin.",
   "error.backend.attachBetween": "1 ila {limit} dosya ekleyin.",
   "error.backend.attachmentNotFile": "Ek bir dosya değil: {path}",

@@ -70,7 +70,6 @@
 @import "@openownbot/ui/features/browser/browser-profiles.css";
 @import "@openownbot/ui/features/vault/vault.css";
 @import "@openownbot/ui/features/agents/agent-template.css";
-@import "@openownbot/ui/features/agents/agent-squads.css";
 @import "@openownbot/ui/features/agents/agent-delete-undo-toast.css";
 @import "@openownbot/ui/features/updates/whats-new.css";
 @import "@openownbot/ui/features/billing/billing.css";

@@ -136,12 +136,6 @@ export const messages = {
   "error.backend.mailboxStateCorrupt":
     "O estado da caixa de mensagens está corrompido ou é de uma versão mais recente do OpenOwnBot; ele não será sobrescrito.",
   "error.backend.recipientDeleting": "O destinatário está sendo excluído. Tente novamente quando a exclusão terminar.",
-  "error.backend.squadLeaves":
-    "Você está na equipe {squad}, e só o líder dela escreve a agentes de fora. Peça ao líder de {squad} para repassar, ou pergunte ao usuário.",
-  "error.backend.squadEnters":
-    "{agent} está na equipe {squad}. Fale com ele pelo líder de {squad}, ou pergunte ao usuário.",
-  "error.backend.squadSkipsRank":
-    "{agent} está acima do nível que você pode alcançar na equipe {squad}. Uma mensagem sobe apenas ao nível imediatamente acima do seu. Peça a esse nível que repasse ou pergunte ao usuário.",
   "error.backend.recipientHidden": "Este agente está oculto. Restaure-o para enviar mensagens.",
   "error.backend.attachBetween": "Anexe de 1 a {limit} arquivos.",
   "error.backend.attachmentNotFile": "O anexo não é um arquivo: {path}",

@@ -26,7 +26,6 @@ import {
   workspaceAccessEnforced,
 } from "@openownbot/contracts/ipc";
 import { isString } from "@openownbot/contracts/runtime-values";
-import { type AgentSquad, squadMayMessage, squadsOfAgent } from "@openownbot/contracts/squads";
 import { isUiBlockId, normalizeUiBlockSpec } from "@openownbot/contracts/ui-blocks";
 import { sourceText } from "@openownbot/i18n/source";
 import { createOpenOwnBotLogger, redactText } from "@openownbot/logging";
@@ -59,7 +58,6 @@ import {
 } from "../openownbot-tools";
 import { type AppServerRequest, type DynamicToolCallParams, type DynamicToolResult, isRecord } from "../protocol";
 import { handleRoutineFlowTool, type RoutineFlowTools } from "../routine-flows/routine-flow-tools";
-import { squadRefusalText } from "../squad-refusal";
 import type { StoredStateFailure } from "../stored-state-effects";
 import { handleWorkflowTool, type WorkflowTools, type WorkflowToolTurn } from "../workflows/workflow-tools";
 import { AgentInterruptTool } from "./agent-interrupt-tool";
@@ -213,8 +211,6 @@ export interface OpenOwnBotToolRouterOptions {
   drain: DrainScheduler;
   tables: AgentTables | null;
   sidebarLayout: AgentSidebar | null;
-  /** The squads the user made; null where there are none to read. */
-  squads: { list(): AgentSquad[] } | null;
   localSkillTools?: (() => LocalSkillTools) | undefined;
   routineFlowTools?: (() => RoutineFlowTools) | undefined;
   /** Built after the service, so read when a tool call needs it. */
@@ -260,7 +256,6 @@ export class OpenOwnBotToolRouter {
   readonly #drain: DrainScheduler;
   readonly #tables: AgentTables | null;
   readonly #sidebarLayout: AgentSidebar | null;
-  readonly #squads: { list(): AgentSquad[] } | null;
   readonly #localSkillTools: (() => LocalSkillTools) | undefined;
   readonly #routineFlowTools: (() => RoutineFlowTools) | undefined;
   readonly #workflowTools: (() => WorkflowTools) | undefined;
@@ -297,7 +292,6 @@ export class OpenOwnBotToolRouter {
     this.#drain = options.drain;
     this.#tables = options.tables;
     this.#sidebarLayout = options.sidebarLayout;
-    this.#squads = options.squads;
     this.#localSkillTools = options.localSkillTools;
     this.#routineFlowTools = options.routineFlowTools;
     this.#workflowTools = options.workflowTools;
@@ -905,7 +899,6 @@ export class OpenOwnBotToolRouter {
       // A delivery that is starting holds no turn yet, and a channel turn runs on a thread of its own.
       const unresolved = new Set(this.#mailbox.unresolvedDeliveries().map(({ delivery }) => delivery.recipientAgentId));
       const openWaits = this.#waits.countByAgent();
-      const squads = this.#squads?.list() ?? [];
       // A hidden agent takes no new messages, so the list leaves it out.
       const agents = this.#hooks
         .listAgents()
@@ -931,18 +924,6 @@ export class OpenOwnBotToolRouter {
             ...(working && startedAt !== null ? { turnStartedAt: new Date(startedAt).toISOString() } : {}),
             ...(lastActivity > 0 ? { lastActivityAt: new Date(lastActivity).toISOString() } : {}),
             ...(openWaits.has(agent.id) ? { openWaits: openWaits.get(agent.id) } : {}),
-            // Teams show only where the user made some, so a computer with none lists agents as before.
-            ...(squadsOfAgent(squads, agent.id).length > 0
-              ? {
-                  teams: squadsOfAgent(squads, agent.id).map((squad) => ({
-                    name: squad.name,
-                    role: squad.leadAgentId === agent.id ? "lead" : "member",
-                  })),
-                }
-              : {}),
-            ...(agent.id !== senderAgentId && !squadMayMessage(squads, senderAgentId, agent.id).ok
-              ? { canMessage: false }
-              : {}),
           };
         });
       return openOwnBotToolResult({ agents });
@@ -1031,7 +1012,6 @@ export class OpenOwnBotToolRouter {
       senderAgentId,
       this.#routineFlowTools?.() ?? null,
       new Set(this.#hooks.listAgents().map((agent) => agent.id)),
-      this.#squads?.list() ?? [],
     );
     if (flowResult) return flowResult;
 
@@ -1789,16 +1769,6 @@ export class OpenOwnBotToolRouter {
           ?.trim()
           .replace(/^"(.*)"$/s, "$1")
           .trim() || null;
-      // A squad limits who may start a message to whom. An answer to a request that the recipient sent
-      // is not a new request, so it always goes through.
-      const squads = this.#squads?.list() ?? [];
-      if (squads.length > 0) {
-        for (const recipient of recipientValues) {
-          if (replyTo && this.#mailbox.isAnswerTo(senderAgentId, replyTo, recipient)) continue;
-          const check = squadMayMessage(squads, senderAgentId, recipient);
-          if (!check.ok) throw new Error(squadRefusalText(check, known.get(recipient)?.name ?? recipient));
-        }
-      }
       // An answer to a request from a side thread runs in that thread. When the thread is archived, the
       // answer goes to the recipient's own chat, so it is not lost.
       const answerTaskId = replyTo ? this.#mailbox.answerTaskId(senderAgentId, replyTo, recipientValues) : null;

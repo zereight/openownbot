@@ -7,7 +7,6 @@ import type {
   SidebarLayoutSnapshot,
   TeamPresenceMember,
 } from "@openownbot/contracts/ipc";
-import type { AgentSquad } from "@openownbot/contracts/squads";
 import type { JSX } from "@solidjs/web";
 import type { AvatarMood } from "../../bloub-avatar";
 import type { AgentProfile } from "../../data";
@@ -90,13 +89,6 @@ export interface SidebarProps {
   onExportSection?: ((sectionId: string) => Promise<void>) | undefined;
   /** Opens a team file to import. Without it, the sidebar menu has no import item. */
   onImportTeam?: (() => void) | undefined;
-  /** Opens the screen where the user makes teams. Without it, the sidebar menu has no teams item. */
-  onManageTeams?: (() => void) | undefined;
-  /** The teams the user made. With `groupByTeam` on, the list shows the agents under them instead of the sections. */
-  squads?: readonly AgentSquad[] | undefined;
-  groupByTeam?: boolean | undefined;
-  /** Without it, the menu has no item that switches between the sections and the teams. */
-  onGroupByTeamChange?: ((groupByTeam: boolean) => void) | undefined;
   onToggleSection: (sectionId: string) => void;
   pinnedItems: SidebarPinnedItem[];
   peopleOrder: string[];

@@ -1561,18 +1561,6 @@ export function createMockOpenOwnBot(options: MockOpenOwnBotOptions = {}): MockO
       saveCustomProvider: (input) => api.customProviders.save(input),
       deleteCustomProvider: (input) => api.customProviders.delete(input),
     },
-    squads: {
-      list: async () => [],
-      save: async (input) => ({
-        id: input.id ?? "squad-story",
-        name: input.name,
-        leadAgentId: input.leadAgentId,
-        memberAgentIds: input.memberAgentIds,
-        ranks: input.ranks,
-        memberRanks: input.memberRanks,
-      }),
-      remove: async () => undefined,
-    },
     agentTeams: {
       export: async () => null,
       choose: async () => null,
