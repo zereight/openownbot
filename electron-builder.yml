@@ -20,8 +20,8 @@ electronFuses:
   grantFileProtocolExtraPrivileges: false
 publish:
   provider: github
-  owner: nightly-labs
-  repo: openbot
+  owner: zereight
+  repo: openownbot
 files:
   - out/**/*
   - package.json
