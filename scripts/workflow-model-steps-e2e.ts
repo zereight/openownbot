@@ -6,12 +6,12 @@
 // row and not in an agent row.
 //
 // Run: bun scripts/workflow-model-steps-e2e.ts
-// Writes .openbot-build/workflow-model-steps-e2e/report.json and exits non-zero on a failure.
+// Writes .openownbot-build/workflow-model-steps-e2e/report.json and exits non-zero on a failure.
 import assert from "node:assert/strict";
 import { chmod, mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
-import { type AgentModelOption, analyticsRange, isAgentModel, WORKFLOWS_USAGE_ID } from "@openbot/contracts/ipc";
+import { type AgentModelOption, analyticsRange, isAgentModel, WORKFLOWS_USAGE_ID } from "@openownbot/contracts/ipc";
 import { Effect } from "effect";
 import { ProfileClients } from "../src/backend/agent/profile-clients";
 import { workflowUsageObserver } from "../src/backend/agent/usage-collection";
@@ -19,10 +19,10 @@ import { WarmGenerations } from "../src/backend/agent/warm-generations";
 import type { AgentClient } from "../src/backend/agent-client";
 import type { AgentCliInfo } from "../src/backend/cli";
 import { runCauseEffect } from "../src/backend/effect-boundary";
-import { OpenBotDatabase } from "../src/backend/openbot-database";
+import { OpenOwnBotDatabase } from "../src/backend/openownbot-database";
 import { NO_PROVIDER_CREDENTIALS, requireProviderDriver } from "../src/backend/provider-drivers";
 
-const OUT = resolve(import.meta.dirname, "../.openbot-build/workflow-model-steps-e2e");
+const OUT = resolve(import.meta.dirname, "../.openownbot-build/workflow-model-steps-e2e");
 
 // Logs each request with its process id. A prompt answers "ok" and 100 input, 10 output and 5
 // thought tokens; a prompt with "FAIL" in it gets a JSON-RPC error.
@@ -98,10 +98,10 @@ const check = (name: string, ok: boolean, detail?: unknown) => {
   report.checks.push(name);
 };
 
-const root = await mkdtemp(join(tmpdir(), "openbot-workflow-model-steps-e2e-"));
+const root = await mkdtemp(join(tmpdir(), "openownbot-workflow-model-steps-e2e-"));
 const log = join(root, "agy.jsonl");
 process.env.FAKE_AGY_LOG = log;
-const database = new OpenBotDatabase(join(root, "profile"));
+const database = new OpenOwnBotDatabase(join(root, "profile"));
 const clients: AgentClient[] = [];
 
 async function readLog(): Promise<LogEntry[]> {

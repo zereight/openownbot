@@ -39,7 +39,7 @@ export const messages = defineMessages("agentSettings", {
   "agentSettings.folders.inWorkspace": "{folder} is in the workspace, so {agent} can already change it",
   "agentSettings.folders.inShared": "{folder} is in the shared folder, so {agent} can already change it",
   "agentSettings.folders.inFolder": "{folder} is in {parent}, which is already added",
-  "agentSettings.folders.protected": "You cannot add {folder}: it holds OpenBot data or the files of other agents",
+  "agentSettings.folders.protected": "You cannot add {folder}: it holds OpenOwnBot data or the files of other agents",
   "agentSettings.folders.missing": "{folder} is not a folder on this computer",
   "agentSettings.folders.limit": {
     one: "You can add at most {count} folder",

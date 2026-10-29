@@ -6,10 +6,10 @@ import {
   type ProviderCodeLoginStart,
   type ProviderHostSignInStatus,
   type ProviderRelaySignInStatus,
-} from "@openbot/contracts/ipc";
-import type { ProviderCodeLoginState } from "@openbot/ui/components/ProviderCodeLoginDialog";
-import type { BrowserViewRuntime } from "@openbot/ui/features/browser/BrowserLiveView";
-import { currentText } from "@openbot/ui/text";
+} from "@openownbot/contracts/ipc";
+import type { ProviderCodeLoginState } from "@openownbot/ui/components/ProviderCodeLoginDialog";
+import type { BrowserViewRuntime } from "@openownbot/ui/features/browser/BrowserLiveView";
+import { currentText } from "@openownbot/ui/text";
 import { createEffect, createSignal, flush, onCleanup } from "solid-js";
 import { actionToast } from "../../action-toast";
 import type {
@@ -102,7 +102,7 @@ export interface ProviderConnectionOptions {
    */
   connectInBrowser?: (provider: AgentProviderId) => Promise<void>;
   openVerificationUrl: (url: string) => void;
-  /** Opens the page that downloads the OpenBot app, for a provider that only the app can sign in. */
+  /** Opens the page that downloads the OpenOwnBot app, for a provider that only the app can sign in. */
   openAppDownload?: () => void;
   /**
    * A connect attempt, for analytics: begun when a sign-in starts, failed through the function it

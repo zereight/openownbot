@@ -1,13 +1,13 @@
-import { ProviderLogo } from "@openbot/brand";
-import type { AgentProviderId } from "@openbot/contracts/ipc";
-import { Button, Progress, TOAST_DURATION, toast } from "@openbot/ui";
-import { createDigitRoll } from "@openbot/ui/digit-roll";
+import { ProviderLogo } from "@openownbot/brand";
+import type { AgentProviderId } from "@openownbot/contracts/ipc";
+import { Button, Progress, TOAST_DURATION, toast } from "@openownbot/ui";
+import { createDigitRoll } from "@openownbot/ui/digit-roll";
 import {
   type ProviderUpdate,
   type ProviderUpdatePresentation,
   presentProviderUpdate,
-} from "@openbot/ui/features/provider-updates/provider-update";
-import { currentText } from "@openbot/ui/text";
+} from "@openownbot/ui/features/provider-updates/provider-update";
+import { currentText } from "@openownbot/ui/text";
 import type { JSX } from "@solidjs/web";
 import { createEffect, createMemo, createSignal, createUniqueId, onSettled, Show, untrack } from "solid-js";
 import { createDetachedRoot } from "../../detached-root";

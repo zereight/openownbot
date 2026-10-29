@@ -1,7 +1,7 @@
-import type { AppVariant } from "@openbot/contracts/ipc";
-import { type AppLanguage, formatLocale, type TranslatedLocale } from "@openbot/i18n";
-import { LanguageWheel } from "@openbot/ui/features/account/LanguageWheel";
-import { TextProvider } from "@openbot/ui/text";
+import type { AppVariant } from "@openownbot/contracts/ipc";
+import { type AppLanguage, formatLocale, type TranslatedLocale } from "@openownbot/i18n";
+import { LanguageWheel } from "@openownbot/ui/features/account/LanguageWheel";
+import { TextProvider } from "@openownbot/ui/text";
 import { createSignal, onSettled } from "solid-js";
 import { desktopAnalytics } from "../../analytics";
 import { useI18n } from "../../i18n-context";

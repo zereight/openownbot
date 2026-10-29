@@ -5,9 +5,9 @@ import {
   AGENT_PROVIDER_DESCRIPTORS,
   agentProviderCliName,
   agentProviderDescriptor,
-} from "@openbot/contracts/agent-providers";
-import { type AgentSummary, type InstalledSkill, SKILL_DESCRIPTION_MAX_LENGTH } from "@openbot/contracts/ipc";
-import { sourceText } from "@openbot/i18n/source";
+} from "@openownbot/contracts/agent-providers";
+import { type AgentSummary, type InstalledSkill, SKILL_DESCRIPTION_MAX_LENGTH } from "@openownbot/contracts/ipc";
+import { sourceText } from "@openownbot/i18n/source";
 import { Effect } from "effect";
 import { HOME_SKILL_FOLDER, homeSkillTagId, listHomeSkills } from "../backend/home-skills";
 import { readSkillFrontmatter } from "../backend/skill-frontmatter";
@@ -26,7 +26,7 @@ const MAX_SKILLS_PER_FOLDER = 200;
 const MAX_SKILL_FILE_BYTES = 256 * 1024;
 
 /**
- * Lists the skills a user or an agent put in a workspace skill folder without OpenBot. OpenBot reads
+ * Lists the skills a user or an agent put in a workspace skill folder without OpenOwnBot. OpenOwnBot reads
  * these folders and never writes to them. `exclude` holds the folder names in the lock file, which
  * the installed list already shows.
  */
@@ -99,8 +99,8 @@ const skillFoldersEffect = Effect.fn("SkillFolder.skillFolders")(function* (
     }
     const names = entries
       .map((entry) => entry.name)
-      // `.openbot-stage-` and `.openbot-backup-` folders are an install in progress.
-      .filter((name) => !name.startsWith(".") && !name.includes(".openbot-") && !exclude.has(name))
+      // `.openownbot-stage-` and `.openownbot-backup-` folders are an install in progress.
+      .filter((name) => !name.startsWith(".") && !name.includes(".openownbot-") && !exclude.has(name))
       .sort()
       .slice(0, MAX_SKILLS_PER_FOLDER);
     for (const name of names) {

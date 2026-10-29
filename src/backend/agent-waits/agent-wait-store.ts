@@ -4,10 +4,10 @@
  * wait is deleted. It owns no events: the runtime says when something changed.
  */
 
-import { INPUT_LIMITS } from "@openbot/contracts/input-limits";
-import type { AgentWait } from "@openbot/contracts/ipc";
-import type { DynamicRecord } from "@openbot/contracts/runtime-values";
-import { sourceText } from "@openbot/i18n/source";
+import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
+import type { AgentWait } from "@openownbot/contracts/ipc";
+import type { DynamicRecord } from "@openownbot/contracts/runtime-values";
+import { sourceText } from "@openownbot/i18n/source";
 import {
   databaseRow,
   databaseRows,
@@ -15,7 +15,7 @@ import {
   requiredNumberColumn,
   requiredStringColumn,
 } from "../database/database-rows";
-import type { OpenBotDatabase } from "../openbot-database";
+import type { OpenOwnBotDatabase } from "../openownbot-database";
 
 /** A refusal the agent reads: the text is already a sentence for it. */
 export class AgentWaitError extends Error {}
@@ -24,7 +24,7 @@ export class AgentWaitError extends Error {}
 export class AgentWaitLimitError extends AgentWaitError {}
 
 export interface AgentWaitStoreOptions {
-  database: OpenBotDatabase;
+  database: OpenOwnBotDatabase;
   createId?: () => string;
   now?: () => Date;
 }
@@ -38,7 +38,7 @@ export interface OpenAgentWaitInput {
 }
 
 export class AgentWaitStore {
-  readonly #database: OpenBotDatabase;
+  readonly #database: OpenOwnBotDatabase;
   readonly #createId: () => string;
   readonly #now: () => Date;
 

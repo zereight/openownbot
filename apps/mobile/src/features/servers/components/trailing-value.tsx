@@ -5,7 +5,7 @@ import { useCSSVariable } from "uniwind";
 
 /** A value and the disclosure chevron at the end of a navigation row. */
 export function TrailingValue({ value, tone }: { value: string; tone?: "warning" }) {
-  const muted = String(useCSSVariable("--openbot-text-grouped-secondary"));
+  const muted = String(useCSSVariable("--openownbot-text-grouped-secondary"));
   return (
     <View className="shrink flex-row items-center gap-1" style={{ maxWidth: "60%" }}>
       <Typography.Paragraph

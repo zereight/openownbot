@@ -10,7 +10,7 @@ export const messages = {
   "remoteDesktop.workspaceLabel": "Fernsteuerung",
   "remoteDesktop.displayLabel": "Remote-Bildschirm",
   "remoteDesktop.selectDisplay": "Bildschirm auswählen",
-  "remoteDesktop.backToOpenBot": "Zurück zu OpenOwnBot",
+  "remoteDesktop.backToOpenOwnBot": "Zurück zu OpenOwnBot",
   "remoteDesktop.disconnect": "Trennen",
   "remoteDesktop.viewerTitle": "Sunshine-Remotedesktop",
   "remoteDesktop.viewerLoadFailed": "Der Moonlight-Viewer konnte nicht geladen werden.",
@@ -21,7 +21,7 @@ export const messages = {
   "remoteDesktop.openFailed": "Desktop konnte nicht geöffnet werden",
   "remoteDesktop.notSharingTitle": "{name} gibt seinen Bildschirm nicht frei",
   "remoteDesktop.notSharingDescription":
-    "Der Server verhindert, dass OpenBot seinen Bildschirm aufnimmt. Öffne auf diesem Server Systemeinstellungen → Datenschutz & Sicherheit → Bildschirmaufnahme, aktiviere OpenBot und versuche es hier erneut.",
+    "Der Server verhindert, dass OpenOwnBot seinen Bildschirm aufnimmt. Öffne auf diesem Server Systemeinstellungen → Datenschutz & Sicherheit → Bildschirmaufnahme, aktiviere OpenOwnBot und versuche es hier erneut.",
   "remoteDesktop.setup.check.screenRecording": "Bildschirmaufnahme",
   "remoteDesktop.setup.check.accessibility": "Bedienungshilfen",
   "remoteDesktop.setup.check.service": "Sunshine-Dienst",

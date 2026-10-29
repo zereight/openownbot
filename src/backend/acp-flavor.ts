@@ -8,7 +8,7 @@ import { isRecord } from "./protocol";
  * only for an observed agent version, and name that version where the hook is set.
  */
 export interface AcpFlavor {
-  /** The `clientInfo` that `initialize` sends. Absent: `OPENBOT_ACP_CLIENT_INFO`. */
+  /** The `clientInfo` that `initialize` sends. Absent: `OPENOWNBOT_ACP_CLIENT_INFO`. */
   clientInfo?: { name: string; title: string; version: string };
   /**
    * Whether an error names this missing session. `null` gives the decision to the protocol's
@@ -59,17 +59,17 @@ export interface AcpFlavor {
   thoughtsInsideAnswer?: true;
   /**
    * `session/prompt` stays open with no update while background tasks run, so a silent turn is not
-   * stalled and OpenBot does not end it (`ACP_TURN_STALL_MS`).
+   * stalled and OpenOwnBot does not end it (`ACP_TURN_STALL_MS`).
    */
   promptOpenForBackgroundTasks?: true;
   /**
    * The agent keeps one MCP server of each name for a directory, and a session that opens there
-   * replaces the server that the others in it use. Their OpenBot servers then share one token.
+   * replaces the server that the others in it use. Their OpenOwnBot servers then share one token.
    */
   mcpServersPerDirectory?: true;
-  /** OpenBot compacts by replacing the session, for an agent that reports `usage_update` and has no compact request. */
+  /** OpenOwnBot compacts by replacing the session, for an agent that reports `usage_update` and has no compact request. */
   contextCompaction?: "handoff";
-  /** A whole answer chunk that is the agent's own transport error, not answer text. OpenBot drops it. */
+  /** A whole answer chunk that is the agent's own transport error, not answer text. OpenOwnBot drops it. */
   noiseChunk?: RegExp;
 }
 

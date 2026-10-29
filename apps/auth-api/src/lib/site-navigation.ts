@@ -11,7 +11,7 @@ import { BRAND_ROUTE } from "./brand-page";
 import { CHANGELOG_ROUTE } from "./changelog";
 import { HEADER_COLLECTIONS } from "./content";
 import type { CollectionArticle, ContentCollection } from "./content-collection";
-import { OPENBOT_LINKS } from "./landing-links";
+import { OPENOWNBOT_LINKS } from "./landing-links";
 import { PLUGIN_INDEX_ROUTE, SITE_PLUGINS, type SitePlugin } from "./plugins";
 import { TEAMS_ROUTE } from "./teams-page";
 
@@ -50,7 +50,7 @@ export interface PluginNavigationSection {
 export type ResourceLink = {
   label: string;
   description: string;
-  /** "logo" draws the OpenBot mark. */
+  /** "logo" draws the OpenOwnBot mark. */
   icon: LandingIconName | "logo";
 } & ({ to: typeof CHANGELOG_ROUTE | typeof BRAND_ROUTE | "/download" } | { href: string });
 
@@ -69,8 +69,8 @@ export type SiteNavigationSection = ArticleNavigationSection | PluginNavigationS
 
 const COLLECTION_COPY: Record<HeaderCollectionId, { summary: string; indexLabel: string }> = {
   news: { summary: "What shipped, and why it matters.", indexLabel: "All news" },
-  guides: { summary: "Learn OpenBot one step at a time.", indexLabel: "All guides" },
-  compare: { summary: "How OpenBot differs from other agent apps.", indexLabel: "All comparisons" },
+  guides: { summary: "Learn OpenOwnBot one step at a time.", indexLabel: "All guides" },
+  compare: { summary: "How OpenOwnBot differs from other agent apps.", indexLabel: "All comparisons" },
 };
 
 export const SITE_NAVIGATION_SECTIONS: readonly SiteNavigationSection[] = [
@@ -103,20 +103,20 @@ export const SITE_NAVIGATION_SECTIONS: readonly SiteNavigationSection[] = [
     kind: "resources",
     id: "resources",
     label: "Resources",
-    summary: "OpenBot is open source.",
-    footer: { label: "Source code", href: OPENBOT_LINKS.repository },
+    summary: "OpenOwnBot is open source.",
+    footer: { label: "Source code", href: OPENOWNBOT_LINKS.repository },
     links: [
       { label: "Download", description: "macOS, Windows and Linux", icon: "download", to: "/download" },
       { label: "Changelog", description: "What changed in each version", icon: "refresh", to: CHANGELOG_ROUTE },
-      { label: "Community", description: "Talk with us on Discord", icon: "contact", href: OPENBOT_LINKS.discord },
+      { label: "Community", description: "Talk with us on Discord", icon: "contact", href: OPENOWNBOT_LINKS.discord },
       {
         label: "Documentation",
-        description: "Set up and use OpenBot",
+        description: "Set up and use OpenOwnBot",
         icon: "folder",
-        href: OPENBOT_LINKS.documentation,
+        href: OPENOWNBOT_LINKS.documentation,
       },
       { label: "Brand", description: "The logo as SVG and PNG", icon: "logo", to: BRAND_ROUTE },
-      { label: "Status", description: "Is the service up", icon: "cloud", href: OPENBOT_LINKS.status },
+      { label: "Status", description: "Is the service up", icon: "cloud", href: OPENOWNBOT_LINKS.status },
     ],
   },
 ];

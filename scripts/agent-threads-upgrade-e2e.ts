@@ -5,7 +5,7 @@
 // none is reported; every other table holds the same rows as before 47; every mailbox message that names
 // a task finds its thread; the integrity and foreign-key checks pass.
 //   bun scripts/agent-threads-upgrade-e2e.ts <openbot.db> [<openbot.db>...]
-// Writes .openbot-build/agent-threads-upgrade-e2e/report.json with counts only, no message text or titles.
+// Writes .openownbot-build/agent-threads-upgrade-e2e/report.json with counts only, no message text or titles.
 import assert from "node:assert/strict";
 import { execFileSync } from "node:child_process";
 import { createHash } from "node:crypto";
@@ -14,9 +14,9 @@ import { mkdir, mkdtemp, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import { DatabaseSync } from "node:sqlite";
-import { migrateOpenBotDatabase } from "../src/backend/openbot-database-schema";
+import { migrateOpenOwnBotDatabase } from "../src/backend/openownbot-database-schema";
 
-const OUT = resolve(import.meta.dirname, "../.openbot-build/agent-threads-upgrade-e2e");
+const OUT = resolve(import.meta.dirname, "../.openownbot-build/agent-threads-upgrade-e2e");
 const THREAD_VERSION = 47;
 const TASK_COLUMNS =
   "task_id, agent_id, thread_id, origin, title, outcome, error, created_at, updated_at, closed_at, last_event_sequence";
@@ -68,7 +68,7 @@ function migrateUpTo(db: DatabaseSync, last: number): void {
   db.exec(`CREATE TEMP TRIGGER stop_at_version BEFORE INSERT ON schema_migrations WHEN new.version > ${last}
     BEGIN SELECT RAISE(ABORT, 'upgrade smoke stop'); END;`);
   try {
-    assert.throws(() => migrateOpenBotDatabase(db), new RegExp(`migration to version ${last + 1} failed`));
+    assert.throws(() => migrateOpenOwnBotDatabase(db), new RegExp(`migration to version ${last + 1} failed`));
   } finally {
     db.exec("DROP TRIGGER stop_at_version");
   }
@@ -76,7 +76,7 @@ function migrateUpTo(db: DatabaseSync, last: number): void {
 
 async function upgrade(source: string, workDirectory: string, index: number): Promise<SourceReport> {
   const report: SourceReport = { source, passed: false };
-  const copy = join(workDirectory, `openbot-${index}.db`);
+  const copy = join(workDirectory, `openownbot-${index}.db`);
   // A WAL database opens read-only only with its `-shm` file. A running app holds both files, and
   // `.backup` copies under a read lock. A closed app removes them: `immutable=1` then reads with no lock
   // and no file of its own, which is safe because no one writes.
@@ -115,7 +115,7 @@ async function upgrade(source: string, workDirectory: string, index: number): Pr
     assert.deepEqual(tableHashes(db), before, "a failed migration 47 changed a table");
     report.rolledBack = true;
 
-    migrateOpenBotDatabase(db);
+    migrateOpenOwnBotDatabase(db);
     assert.equal(version(db), THREAD_VERSION);
     const names = tableNames(db);
     assert.ok(!names.includes("projection_agent_tasks"), "the task table is still there");

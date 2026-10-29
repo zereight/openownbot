@@ -1,4 +1,4 @@
-import { type GuardableScope, LOCAL_ONLY } from "@openbot/contracts/local-only";
+import { type GuardableScope, LOCAL_ONLY } from "@openownbot/contracts/local-only";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { GuardableSession } from "./local-only-guard";
 
@@ -31,12 +31,12 @@ vi.mock("electron", () => ({
 async function contractWithSwitch(localOnly: boolean) {
   vi.resetModules();
   vi.doMock("../../packages/contracts/src/local-only.json", () => ({ default: { localOnly } }));
-  return await import("@openbot/contracts/local-only");
+  return await import("@openownbot/contracts/local-only");
 }
 
 async function guardWithSwitch(localOnly: boolean) {
   await contractWithSwitch(localOnly);
-  return { guard: await import("./local-only-guard"), logging: await import("@openbot/logging") };
+  return { guard: await import("./local-only-guard"), logging: await import("@openownbot/logging") };
 }
 
 /** A session that keeps one `onBeforeRequest` listener, as Electron does: a repeat call replaces it. */
@@ -109,7 +109,7 @@ describe("the shipped switch", () => {
   });
 });
 
-describe("refusesOpenBotUrl", () => {
+describe("refusesOpenOwnBotUrl", () => {
   it.each([
     "https://x.openbot.run/v1",
     "https://OPENBOT.RUN./",
@@ -125,16 +125,16 @@ describe("refusesOpenBotUrl", () => {
     "https://nightly-labs.github.io/docs",
     "https://ghcr.io/v2/nightly-labs/openbot/manifests/latest",
   ])("refuses %s while the switch is on", async (url) => {
-    const { refusesOpenBotUrl } = await contractWithSwitch(true);
-    expect(refusesOpenBotUrl(url)).toBe(true);
-    expect(refusesOpenBotUrl(new URL(url))).toBe(true);
+    const { refusesOpenOwnBotUrl } = await contractWithSwitch(true);
+    expect(refusesOpenOwnBotUrl(url)).toBe(true);
+    expect(refusesOpenOwnBotUrl(new URL(url))).toBe(true);
   });
 
   it.each([
     "https://openbot.run.example.com",
     "https://notopenbot.run",
-    "https://github.com/zereight/openbot",
-    "https://api.github.com/repos/zereight/openbot/releases",
+    "https://github.com/zereight/openownbot",
+    "https://api.github.com/repos/zereight/openownbot/releases",
     "https://api.anthropic.com/v1/messages",
     "https://u.expo.dev/00000000-0000-0000-0000-000000000000",
     "https://u.expo.dev/eeec730f-c8f4-42c0-a750-64df8af14940-other",
@@ -145,18 +145,18 @@ describe("refusesOpenBotUrl", () => {
     "not a url",
     "",
   ])("lets %j through", async (url) => {
-    const { refusesOpenBotUrl } = await contractWithSwitch(true);
-    expect(refusesOpenBotUrl(url)).toBe(false);
+    const { refusesOpenOwnBotUrl } = await contractWithSwitch(true);
+    expect(refusesOpenOwnBotUrl(url)).toBe(false);
   });
 
   it("refuses nothing while the switch is off", async () => {
-    const { refusesOpenBotUrl } = await contractWithSwitch(false);
-    expect(refusesOpenBotUrl("https://x.openbot.run/v1")).toBe(false);
-    expect(refusesOpenBotUrl("https://github.com/nightly-labs/openbot")).toBe(false);
+    const { refusesOpenOwnBotUrl } = await contractWithSwitch(false);
+    expect(refusesOpenOwnBotUrl("https://x.openbot.run/v1")).toBe(false);
+    expect(refusesOpenOwnBotUrl("https://github.com/zereight/openownbot")).toBe(false);
   });
 });
 
-describe("mentionsOpenBotService", () => {
+describe("mentionsOpenOwnBotService", () => {
   it.each([
     "https://x.openbot.run/v1/ping",
     "see OpenBot.Run.",
@@ -165,8 +165,8 @@ describe("mentionsOpenBotService", () => {
     "https://demo.openbot.site/",
     "https://u.expo.dev/eeec730f-c8f4-42c0-a750-64df8af14940",
   ])("finds a service in %j", async (text) => {
-    const { mentionsOpenBotService } = await contractWithSwitch(true);
-    expect(mentionsOpenBotService(text)).toBe(true);
+    const { mentionsOpenOwnBotService } = await contractWithSwitch(true);
+    expect(mentionsOpenOwnBotService(text)).toBe(true);
   });
 
   it.each([
@@ -174,27 +174,27 @@ describe("mentionsOpenBotService", () => {
     "my-openbot.run",
     "https://openbot.run.example.com",
     "nightly-labs-fork",
-    "https://github.com/zereight/openbot",
+    "https://github.com/zereight/openownbot",
     "https://u.expo.dev/00000000-0000-0000-0000-000000000000",
     '"projectId": "eeec730f-c8f4-42c0-a750-64df8af14940"',
     "",
   ])("finds nothing in %j", async (text) => {
-    const { mentionsOpenBotService } = await contractWithSwitch(true);
-    expect(mentionsOpenBotService(text)).toBe(false);
+    const { mentionsOpenOwnBotService } = await contractWithSwitch(true);
+    expect(mentionsOpenOwnBotService(text)).toBe(false);
   });
 
   it("does not depend on the switch", async () => {
-    const { mentionsOpenBotService } = await contractWithSwitch(false);
-    expect(mentionsOpenBotService("https://x.openbot.run")).toBe(true);
+    const { mentionsOpenOwnBotService } = await contractWithSwitch(false);
+    expect(mentionsOpenOwnBotService("https://x.openbot.run")).toBe(true);
   });
 });
 
-describe("guardOpenBotEgress", () => {
+describe("guardOpenOwnBotEgress", () => {
   it("makes fetch reject with a TypeError and reports the origin without the path", async () => {
-    const { guardOpenBotEgress } = await contractWithSwitch(true);
+    const { guardOpenOwnBotEgress } = await contractWithSwitch(true);
     const { scope, fetched } = fakeScope();
     const reported: string[] = [];
-    guardOpenBotEgress(scope, (origin) => reported.push(origin));
+    guardOpenOwnBotEgress(scope, (origin) => reported.push(origin));
 
     await expect(scope.fetch("https://x.openbot.run/v1/tickets/secret?token=abc")).rejects.toBeInstanceOf(TypeError);
     await expect(scope.fetch(new URL("https://api.openbot.run/v1/account"))).rejects.toBeInstanceOf(TypeError);
@@ -207,10 +207,10 @@ describe("guardOpenBotEgress", () => {
   });
 
   it("makes the WebSocket constructor throw a TypeError for a refused URL", async () => {
-    const { guardOpenBotEgress } = await contractWithSwitch(true);
+    const { guardOpenOwnBotEgress } = await contractWithSwitch(true);
     const { scope, dialed } = fakeScope();
     const reported: string[] = [];
-    guardOpenBotEgress(scope, (origin) => reported.push(origin));
+    guardOpenOwnBotEgress(scope, (origin) => reported.push(origin));
     const GuardedWebSocket = scope.WebSocket;
     if (GuardedWebSocket === undefined) throw new Error("the guard removed WebSocket");
 
@@ -222,10 +222,10 @@ describe("guardOpenBotEgress", () => {
   });
 
   it("passes an allowed URL through to the original fetch and WebSocket", async () => {
-    const { guardOpenBotEgress } = await contractWithSwitch(true);
+    const { guardOpenOwnBotEgress } = await contractWithSwitch(true);
     const { scope, fetched, dialed } = fakeScope();
     const reported: string[] = [];
-    guardOpenBotEgress(scope, (origin) => reported.push(origin));
+    guardOpenOwnBotEgress(scope, (origin) => reported.push(origin));
     const GuardedWebSocket = scope.WebSocket;
     if (GuardedWebSocket === undefined) throw new Error("the guard removed WebSocket");
 
@@ -242,14 +242,14 @@ describe("guardOpenBotEgress", () => {
   });
 
   it("changes nothing on a second call", async () => {
-    const { guardOpenBotEgress } = await contractWithSwitch(true);
+    const { guardOpenOwnBotEgress } = await contractWithSwitch(true);
     const { scope } = fakeScope();
     const first: string[] = [];
     const second: string[] = [];
-    guardOpenBotEgress(scope, (origin) => first.push(origin));
+    guardOpenOwnBotEgress(scope, (origin) => first.push(origin));
     const { fetch: guardedFetch, WebSocket: guardedWebSocket } = scope;
 
-    guardOpenBotEgress(scope, (origin) => second.push(origin));
+    guardOpenOwnBotEgress(scope, (origin) => second.push(origin));
     await expect(scope.fetch("https://x.openbot.run/")).rejects.toBeInstanceOf(TypeError);
 
     expect(scope.fetch).toBe(guardedFetch);
@@ -259,10 +259,10 @@ describe("guardOpenBotEgress", () => {
   });
 
   it("leaves the scope alone while the switch is off", async () => {
-    const { guardOpenBotEgress } = await contractWithSwitch(false);
+    const { guardOpenOwnBotEgress } = await contractWithSwitch(false);
     const { scope, fetched } = fakeScope();
     const { fetch: originalFetch, WebSocket: originalWebSocket } = scope;
-    guardOpenBotEgress(scope);
+    guardOpenOwnBotEgress(scope);
 
     expect(scope.fetch).toBe(originalFetch);
     expect(scope.WebSocket).toBe(originalWebSocket);
@@ -271,10 +271,10 @@ describe("guardOpenBotEgress", () => {
   });
 
   it("guards a scope that has no WebSocket", async () => {
-    const { guardOpenBotEgress } = await contractWithSwitch(true);
+    const { guardOpenOwnBotEgress } = await contractWithSwitch(true);
     const { scope } = fakeScope();
     const withoutSocket: GuardableScope = { fetch: scope.fetch };
-    guardOpenBotEgress(withoutSocket);
+    guardOpenOwnBotEgress(withoutSocket);
 
     await expect(withoutSocket.fetch("https://x.openbot.run/")).rejects.toBeInstanceOf(TypeError);
     expect(withoutSocket.WebSocket).toBeUndefined();
@@ -282,7 +282,7 @@ describe("guardOpenBotEgress", () => {
 });
 
 describe("guardSession", () => {
-  it("cancels a request to an OpenBot service and reports the origin without the path", async () => {
+  it("cancels a request to an OpenOwnBot service and reports the origin without the path", async () => {
     const { guard } = await guardWithSwitch(true);
     const fake = new FakeSession();
     const reported: string[] = [];
@@ -303,13 +303,13 @@ describe("guardSession", () => {
 
     expect(fake.answer("https://api.anthropic.com/v1/messages")).toEqual({ cancel: false });
     expect(fake.answer("http://127.0.0.1:3100/v1/health")).toEqual({ cancel: false });
-    expect(fake.answer("https://github.com/zereight/openbot")).toEqual({ cancel: false });
+    expect(fake.answer("https://github.com/zereight/openownbot")).toEqual({ cancel: false });
     expect(reported).toEqual([]);
   });
 });
 
 describe("installLocalOnlyGuard", () => {
-  it("refuses an OpenBot fetch and WebSocket in this process and passes others to the originals", async () => {
+  it("refuses an OpenOwnBot fetch and WebSocket in this process and passes others to the originals", async () => {
     const fetched: string[] = [];
     vi.stubGlobal("fetch", async (input: string | URL | Request) => {
       fetched.push(String(input));

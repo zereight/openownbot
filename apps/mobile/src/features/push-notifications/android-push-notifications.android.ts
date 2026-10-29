@@ -1,11 +1,11 @@
-import { ANDROID_PUSH_TOKEN_PATTERN } from "@openbot/contracts/team-protocol/push-notifications-android-v1";
+import { ANDROID_PUSH_TOKEN_PATTERN } from "@openownbot/contracts/team-protocol/push-notifications-android-v1";
 import { File, Paths } from "expo-file-system";
 import * as Notifications from "expo-notifications";
 import type { NotificationPermission } from "@/features/settings/model/push-notifications";
 import { androidChannelId, createAndroidChannels } from "./android-notification-channels";
 import { type PushNotificationsNative, SOUND_PREVIEW_KEY } from "./push-notifications-native.types";
 
-/** `OpenBotMessagingService.kt` reads this file in the files folder of the app (`Paths.document`). */
+/** `OpenOwnBotMessagingService.kt` reads this file in the files folder of the app (`Paths.document`). */
 const KEYS_FILE = "push-notifications.json";
 
 /**

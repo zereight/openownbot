@@ -1,5 +1,5 @@
 import { createHash } from "node:crypto";
-import { INPUT_LIMITS } from "@openbot/contracts/input-limits";
+import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
 
 /**
  * The mailbox key that makes a retried tool call enqueue its message once.

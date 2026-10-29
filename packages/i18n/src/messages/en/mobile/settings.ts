@@ -109,7 +109,7 @@ export const messages = defineMessages("mobile.settings", {
     "Shows the start of a reply, a question, or the action to approve. Google and the OpenOwnBot account service cannot read it.",
   "mobile.settings.notifications.sound": "Sound",
   "mobile.settings.notifications.playSound": "Play sound",
-  "mobile.settings.notifications.sound.openbot": "OpenBot",
+  "mobile.settings.notifications.sound.openownbot": "OpenOwnBot",
   "mobile.settings.notifications.sound.warm": "Warm",
   "mobile.settings.notifications.sound.mech": "Mechanical",
   "mobile.settings.notifications.sound.bubble": "Bubbly",

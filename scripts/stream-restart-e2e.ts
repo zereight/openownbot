@@ -1,5 +1,5 @@
 // Run: bun scripts/stream-restart-e2e.ts
-// Report: .openbot-build/stream-restart-e2e.json
+// Report: .openownbot-build/stream-restart-e2e.json
 
 import assert from "node:assert/strict";
 import { EventEmitter } from "node:events";
@@ -148,9 +148,9 @@ async function checkWriting(directory: string, action: StreamAction): Promise<Sc
   }
 }
 
-const artifactDirectory = new URL("../.openbot-build/", import.meta.url);
+const artifactDirectory = new URL("../.openownbot-build/", import.meta.url);
 const report: StreamRestartReport = { status: "failed", scenarios: [] };
-const directory = await mkdtemp(join(tmpdir(), "openbot-stream-restart-"));
+const directory = await mkdtemp(join(tmpdir(), "openownbot-stream-restart-"));
 try {
   report.scenarios.push(await checkWriting(join(directory, "failure"), "failure"));
   report.scenarios.push(await checkWriting(join(directory, "stop"), "stop"));

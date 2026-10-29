@@ -89,7 +89,7 @@ export const messages = {
     "OpenOwnBot versleutelt de kluis met de geheimenopslag van het systeem. Stel een sleutelhanger in en open deze pagina daarna opnieuw.",
   "vault.unreadableTitle": "OpenOwnBot kan de kluis niet lezen",
   "vault.unreadableDescription":
-    "Het kluisbestand staat op deze computer, maar OpenBot kan het niet ontsleutelen. Dit kan gebeuren als de sleutelhanger van het systeem verandert. Reset de kluis om opnieuw te beginnen zonder items.",
+    "Het kluisbestand staat op deze computer, maar OpenOwnBot kan het niet ontsleutelen. Dit kan gebeuren als de sleutelhanger van het systeem verandert. Reset de kluis om opnieuw te beginnen zonder items.",
   "vault.reset": "Kluis resetten",
   "vault.resetTitle": "De kluis resetten?",
   "vault.resetDescription":

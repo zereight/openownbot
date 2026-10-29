@@ -1,10 +1,14 @@
-import type { CustomProvidersDesktopApi, OpenBotDesktopApi, ProviderAdminDesktopApi } from "@openbot/contracts/ipc";
+import type {
+  CustomProvidersDesktopApi,
+  OpenOwnBotDesktopApi,
+  ProviderAdminDesktopApi,
+} from "@openownbot/contracts/ipc";
 
 /**
  * What the custom providers context reaches in main: the endpoints the user named.
  */
 export interface CustomProvidersPort {
-  customProviders: OpenBotDesktopApi["customProviders"];
+  customProviders: OpenOwnBotDesktopApi["customProviders"];
 }
 
 /**
@@ -14,9 +18,9 @@ export interface CustomProvidersPort {
 export type CustomProvidersEndpointApi = Omit<CustomProvidersDesktopApi, "update"> &
   Partial<Pick<CustomProvidersDesktopApi, "update">>;
 
-/** Read on each call: tests and stories replace `window.openbot` per case. */
+/** Read on each call: tests and stories replace `window.openownbot` per case. */
 export function customProvidersPort(): CustomProvidersPort {
-  return window.openbot;
+  return window.openownbot;
 }
 
 /** The endpoints of a joined server's host, for an account that administers it. */
@@ -33,10 +37,10 @@ export function hostCustomProvidersApi(
 
 /** What the detection store reaches in main: the scans of this computer and their settings. */
 export interface ProviderDetectionPort {
-  providerDetection: OpenBotDesktopApi["providerDetection"];
+  providerDetection: OpenOwnBotDesktopApi["providerDetection"];
 }
 
 /** Read on each call, like `customProvidersPort`. */
 export function providerDetectionPort(): ProviderDetectionPort {
-  return window.openbot;
+  return window.openownbot;
 }

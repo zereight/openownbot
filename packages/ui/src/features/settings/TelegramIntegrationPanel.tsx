@@ -1,7 +1,7 @@
-import type { ConnectTelegramChatInput, MessagingConnection } from "@openbot/contracts/ipc";
-import { TELEGRAM_ORCHESTRATOR_AVATAR } from "@openbot/contracts/telegram-app";
-import type { AppTextKey } from "@openbot/i18n";
-import { Button, ExternalLink, ItemGroup, SettingsSection } from "@openbot/ui";
+import type { ConnectTelegramChatInput, MessagingConnection } from "@openownbot/contracts/ipc";
+import { TELEGRAM_ORCHESTRATOR_AVATAR } from "@openownbot/contracts/telegram-app";
+import type { AppTextKey } from "@openownbot/i18n";
+import { Button, ExternalLink, ItemGroup, SettingsSection } from "@openownbot/ui";
 import { createEffect, createSignal, For, Match, Switch } from "solid-js";
 import { useText } from "../../text";
 import { TelegramMark } from "./brand-marks";
@@ -135,7 +135,7 @@ export function telegramIntegrationState(
 type DialogStart = "chat" | "agent";
 
 /**
- * Marketplace > Apps > Telegram. Each chat adds the one OpenBot bot, and one Telegram
+ * Marketplace > Apps > Telegram. Each chat adds the one OpenOwnBot bot, and one Telegram
  * Orchestrator agent receives the messages of all chats, asks the team and answers. A chat links in
  * Telegram, so the chat list follows the connections that the caller reads again.
  */

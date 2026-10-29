@@ -1,21 +1,21 @@
 "use dom";
 
-import { guardOpenBotEgress } from "@openbot/contracts/local-only";
-import { isDynamicRecord, isString } from "@openbot/contracts/runtime-values";
-import { sourceText } from "@openbot/i18n/source";
+import { guardOpenOwnBotEgress } from "@openownbot/contracts/local-only";
+import { isDynamicRecord, isString } from "@openownbot/contracts/runtime-values";
+import { sourceText } from "@openownbot/i18n/source";
 import {
   createRemoteTeamPeer,
   decodeRemoteTeamCommand,
   type RemoteTeamCommandResult,
   type RemoteTeamPeerActions,
-} from "@openbot/team-client/remote-peer";
-import { createTeamRequestId } from "@openbot/team-client/request-id";
+} from "@openownbot/team-client/remote-peer";
+import { createTeamRequestId } from "@openownbot/team-client/request-id";
 import { type DOMImperativeFactory, useDOMImperativeHandle } from "expo/dom";
 import { type Ref, useEffect, useRef } from "react";
 import { type BrowserViewBridgeEvent, createBrowserViewBridge } from "@/features/browser/model/browser-view-bridge";
 
 // A DOM component runs in its own WebView, so the guard that `_layout.tsx` installs does not reach it.
-guardOpenBotEgress(globalThis);
+guardOpenOwnBotEgress(globalThis);
 
 type BridgeJson = Parameters<DOMImperativeFactory[string]>[0];
 

@@ -53,7 +53,7 @@ export const messages = {
     "Les liens des discussions, des pages de connexion et de facturation s’ouvrent ici.",
   // The two link targets. The saved value stays in English; only the label is translated.
   "settings.externalLinks.defaultBrowser": "Navigateur par défaut",
-  "settings.externalLinks.openbot": "OpenBot",
+  "settings.externalLinks.openownbot": "OpenOwnBot",
   "settings.externalLinks.defaultBrowserNamed": "Navigateur par défaut ({name})",
   "settings.externalLinks.otherApp": "Autre app…",
   "settings.externalLinks.command": "Commande…",
@@ -87,7 +87,7 @@ export const messages = {
     "Afficher dans les notifications le début de la réponse ou de la question de l’agent.",
   "settings.testNotification.title": "Notification de test",
   "settings.testNotification.description":
-    "En afficher une maintenant. Si elle n’apparaît pas, autorisez les notifications d’OpenBot dans les réglages du système.",
+    "En afficher une maintenant. Si elle n’apparaît pas, autorisez les notifications d’OpenOwnBot dans les réglages du système.",
   "settings.testNotification.action": "Envoyer un test",
   "settings.testNotification.failed": "Impossible d’afficher une notification.",
   "settings.testNotification.openSettings": "Ouvrir les réglages du système",
@@ -234,9 +234,9 @@ export const messages = {
   "settings.mobileConnect.route.title": "Connexion des appareils",
   "settings.mobileConnect.route.description":
     "Pour les téléphones, autres ordinateurs et membres de l’équipe qui se connectent à cet ordinateur.",
-  "settings.mobileConnect.route.openbot.title": "Via OpenBot",
-  "settings.mobileConnect.route.openbot.badge": "Recommandé",
-  "settings.mobileConnect.route.openbot.description":
+  "settings.mobileConnect.route.openownbot.title": "Via OpenOwnBot",
+  "settings.mobileConnect.route.openownbot.badge": "Recommandé",
+  "settings.mobileConnect.route.openownbot.description":
     "Fonctionne sur tout réseau. Les chats et fichiers sont chiffrés entre vos appareils.",
   "settings.mobileConnect.route.private.title": "Réseau privé",
   "settings.mobileConnect.route.private.tailscale": "Tailscale détecté",
@@ -292,7 +292,7 @@ export const messages = {
   "settings.profile.share.copied": "Image copiée",
   "settings.profile.share.copyFailed": "Impossible de copier l’image.",
   "settings.profile.share.createFailed": "Impossible de créer l’image.",
-  "settings.profile.share.fileName": "openbot-activity.png",
+  "settings.profile.share.fileName": "openownbot-activity.png",
   // The text in the image to share.
   "settings.profile.share.caption": "Mes six derniers mois avec OpenOwnBot",
   "settings.profile.activity.title": "Activité sur cet ordinateur",

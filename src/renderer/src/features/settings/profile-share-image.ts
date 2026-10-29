@@ -1,14 +1,14 @@
-import type { CentralAuthUser } from "@openbot/contracts/ipc";
-import { userInitials } from "@openbot/ui";
+import type { CentralAuthUser } from "@openownbot/contracts/ipc";
+import { userInitials } from "@openownbot/ui";
 import {
   heatLevel,
   heatmapMonths,
   heatmapWeeks,
   type ProfileDay,
   type ProfileStats,
-} from "@openbot/ui/features/settings/profile-stats";
-import { usageCompact } from "@openbot/ui/features/usage/usage-format";
-import { currentText } from "@openbot/ui/text";
+} from "@openownbot/ui/features/settings/profile-stats";
+import { usageCompact } from "@openownbot/ui/features/usage/usage-format";
+import { currentText } from "@openownbot/ui/text";
 import { drawLogo, ellipsize, FONT } from "../agent-templates/agent-template-card";
 
 /*
@@ -69,14 +69,14 @@ function shareColors(): ShareColors {
     return value;
   };
   return {
-    surface: token("--openbot-paper"),
-    text: token("--openbot-paper-text"),
-    muted: token("--openbot-paper-text-muted"),
-    border: token("--openbot-paper-border"),
-    accent: token("--openbot-accent"),
-    accentSoft: token("--openbot-accent-soft"),
-    logo: token("--openbot-logo-production"),
-    logoEye: token("--openbot-logo-production-eye"),
+    surface: token("--openownbot-paper"),
+    text: token("--openownbot-paper-text"),
+    muted: token("--openownbot-paper-text-muted"),
+    border: token("--openownbot-paper-border"),
+    accent: token("--openownbot-accent"),
+    accentSoft: token("--openownbot-accent-soft"),
+    logo: token("--openownbot-logo-production"),
+    logoEye: token("--openownbot-logo-production-eye"),
   };
 }
 

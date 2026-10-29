@@ -1,8 +1,8 @@
-import { INPUT_LIMITS } from "@openbot/contracts/input-limits";
-import type { ChannelMemory } from "@openbot/contracts/ipc";
-import { sourceText } from "@openbot/i18n/source";
+import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
+import type { ChannelMemory } from "@openownbot/contracts/ipc";
+import { sourceText } from "@openownbot/i18n/source";
 import { MemoryStore, type MemoryTables } from "./memory-store";
-import type { OpenBotDatabase } from "./openbot-database";
+import type { OpenOwnBotDatabase } from "./openownbot-database";
 
 const CHANNEL_MEMORY_TABLES: MemoryTables = {
   table: "projection_channel_memories",
@@ -15,7 +15,7 @@ const CHANNEL_MEMORY_TABLES: MemoryTables = {
 
 /** The channel twin of `AgentMemoryStore`: the same `MemoryStore`, with a channel for an owner. */
 export class ChannelMemoryStore extends MemoryStore {
-  constructor(database: OpenBotDatabase) {
+  constructor(database: OpenOwnBotDatabase) {
     super(database, CHANNEL_MEMORY_TABLES);
   }
 

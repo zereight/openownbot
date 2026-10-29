@@ -32,7 +32,7 @@ export const AIRTABLE_PLUGIN_GUIDE: PluginGuide = {
     {
       question: "Does the Airtable plugin need an API key?",
       answer:
-        "Yes. Make a personal access token in Airtable's tokens panel. Give it the schema.bases:read and data.records:read scopes, and add write scopes only if the agent must change data. Type the token in the OpenBot connect dialog. OpenBot gives it to the local server as AIRTABLE_API_KEY.",
+        "Yes. Make a personal access token in Airtable's tokens panel. Give it the schema.bases:read and data.records:read scopes, and add write scopes only if the agent must change data. Type the token in the OpenOwnBot connect dialog. OpenOwnBot gives it to the local server as AIRTABLE_API_KEY.",
     },
     {
       question: "What can an AI agent change in Airtable?",

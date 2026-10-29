@@ -1,23 +1,23 @@
 // Drives the agent MCP tools of issue #2673 on the real modules: the MCP tools, McpGateway, the
 // SQLite MCP store and the probe, against local MCP servers. The approval and the sign-in card are
 // recorded where the router would show them. No provider or account is used.
-// bun scripts/agent-mcp-tools-e2e.ts. Writes .openbot-build/agent-mcp-tools-e2e/report.json.
+// bun scripts/agent-mcp-tools-e2e.ts. Writes .openownbot-build/agent-mcp-tools-e2e/report.json.
 import assert from "node:assert/strict";
 import { mkdir, mkdtemp, rm, writeFile } from "node:fs/promises";
 import { createServer, type IncomingMessage, type Server, type ServerResponse } from "node:http";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
-import type { McpServerConfig } from "@openbot/contracts/ipc";
-import { createOpenBotLogger } from "@openbot/logging";
+import type { McpServerConfig } from "@openownbot/contracts/ipc";
+import { createOpenOwnBotLogger } from "@openownbot/logging";
 import { Effect } from "effect";
 import { McpGateway } from "../src/backend/agent/mcp-gateway";
 import { handleMcpServerTool, type McpServerToolName, mcpServersFromGateway } from "../src/backend/agent/mcp-tools";
 import { runCauseEffect } from "../src/backend/effect-boundary";
 import { McpServerStore } from "../src/backend/mcp-server-store";
-import { OpenBotDatabase } from "../src/backend/openbot-database";
+import { OpenOwnBotDatabase } from "../src/backend/openownbot-database";
 import { NO_PROVIDER_CREDENTIALS } from "../src/backend/provider-drivers";
 
-const OUT = resolve(import.meta.dirname, "../.openbot-build/agent-mcp-tools-e2e");
+const OUT = resolve(import.meta.dirname, "../.openownbot-build/agent-mcp-tools-e2e");
 const URL_SECRET = "url-secret-7f3a91";
 const HEADER_SECRET = "header-secret-2c8d40";
 
@@ -111,8 +111,8 @@ interface Call {
   signInCards: string[];
 }
 
-const root = await mkdtemp(join(tmpdir(), "openbot-agent-mcp-tools-"));
-const database = new OpenBotDatabase(root);
+const root = await mkdtemp(join(tmpdir(), "openownbot-agent-mcp-tools-"));
+const database = new OpenOwnBotDatabase(root);
 const servers: Record<Mode, { url: string; close: () => Promise<void> }> = {
   open: await mcpServer("open"),
   "sign-in": await mcpServer("sign-in"),
@@ -134,7 +134,7 @@ try {
     servers: store,
     credentials: NO_PROVIDER_CREDENTIALS,
     computerUseMcpServer: () => null,
-    logger: createOpenBotLogger("agent-service", () => undefined),
+    logger: createOpenOwnBotLogger("agent-service", () => undefined),
     hooks: {
       emitError: () => undefined,
       refreshAllAgentRuntimes: () =>
@@ -290,7 +290,7 @@ try {
   assert.equal(row("calendar"), undefined);
 
   const reserved = await call("a reserved name is refused", "save_mcp_server", {
-    name: "openbot",
+    name: "openownbot",
     url: servers.open.url,
   });
   assert.equal(reserved.success, false);

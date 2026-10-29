@@ -1,17 +1,17 @@
 // Runs turns end to end on the real OpenCode driver against a fake `opencode acp` that picks its key
 // as OpenCode 1.18.30 to 1.18.35 do: config `options.apiKey` first, then the `auth.json` key, then
-// `OPENCODE_API_KEY`. An old key in `auth.json` used to win over the key pasted into OpenBot (#2544).
+// `OPENCODE_API_KEY`. An old key in `auth.json` used to win over the key pasted into OpenOwnBot (#2544).
 // Checks that an expired key reads as the expired-key error, not "Internal error"; that a replaced
 // key reaches a new process and the same thread there, although `auth.json` still holds the old
 // key; that with no stored key the config names no key, so the user's own sign-in stays in use;
 // that a custom endpoint saved as `opencode-go` keeps its URL when a key is stored; and that a model
 // whose provider has no sign-in names that provider and its fix (#2746).
-// `bun run test:opencode-expired-key`. Writes .openbot-build/opencode-expired-key-e2e/report.json.
+// `bun run test:opencode-expired-key`. Writes .openownbot-build/opencode-expired-key-e2e/report.json.
 import assert from "node:assert/strict";
 import { mkdir, mkdtemp, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
-import { sourceText } from "@openbot/i18n/source";
+import { sourceText } from "@openownbot/i18n/source";
 import type { AgentClient } from "../src/backend/agent-client";
 import type { AgentCliInfo } from "../src/backend/cli";
 import { runCauseEffect } from "../src/backend/effect-boundary";
@@ -19,7 +19,7 @@ import type { CustomProviderConfig } from "../src/backend/opencode-config";
 import { NO_PROVIDER_CREDENTIALS, requireProviderDriver } from "../src/backend/provider-drivers";
 import { installFakeAgent, readJsonl, runTurn, startThread, stopClients } from "./provider-fakes/host";
 
-const OUT = resolve(import.meta.dirname, "../.openbot-build/opencode-expired-key-e2e");
+const OUT = resolve(import.meta.dirname, "../.openownbot-build/opencode-expired-key-e2e");
 
 interface LogEntry {
   event: "spawn" | "load" | "prompt";
@@ -39,7 +39,7 @@ interface Report {
   authRequired?: { error: string };
 }
 
-const root = await mkdtemp(join(tmpdir(), "openbot-opencode-expired-key-e2e-"));
+const root = await mkdtemp(join(tmpdir(), "openownbot-opencode-expired-key-e2e-"));
 const log = join(root, "opencode.jsonl");
 const report: Report = { passed: false };
 const clients: AgentClient[] = [];
@@ -99,7 +99,7 @@ try {
   assert.equal((await runTurn(third, ownThread)).error, null, "The turn on the user's own key succeeds.");
   const own = await readJsonl<LogEntry>(log);
   const spawn = own.find((entry) => entry.event === "spawn");
-  assert.equal(spawn?.configKey, null, "With no stored key, OpenBot sends no key in the config.");
+  assert.equal(spawn?.configKey, null, "With no stored key, OpenOwnBot sends no key in the config.");
   const ownPrompt = own.find((entry) => entry.event === "prompt");
   assert.equal(ownPrompt?.key, "own", "The user's own key is used.");
   report.noStoredKey = { configKey: spawn?.configKey ?? null, key: ownPrompt?.key ?? null };

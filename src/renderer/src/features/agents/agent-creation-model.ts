@@ -1,4 +1,4 @@
-import { developmentStartingModel } from "@openbot/contracts/development-defaults";
+import { developmentStartingModel } from "@openownbot/contracts/development-defaults";
 import {
   type AgentModelId,
   type AgentProviderId,
@@ -8,7 +8,7 @@ import {
   type ClientAgentModelOption,
   defaultProviderModel,
   PICKER_PROVIDERS,
-} from "@openbot/contracts/ipc";
+} from "@openownbot/contracts/ipc";
 
 /**
  * The provider, and the model, that a new agent starts on when the catalog lists them: the saved

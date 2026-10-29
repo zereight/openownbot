@@ -32,7 +32,7 @@ export const RENDER_PLUGIN_GUIDE: PluginGuide = {
     {
       question: "Which key does the Render plugin need?",
       answer:
-        "A Render API key, which you create in your Render Account settings. Type the key in the connect dialog in OpenBot. OpenBot sends it as a bearer token in the Authorization header. The key gives access to every workspace of your Render account. The plugin catalog holds no secret.",
+        "A Render API key, which you create in your Render Account settings. Type the key in the connect dialog in OpenOwnBot. OpenOwnBot sends it as a bearer token in the Authorization header. The key gives access to every workspace of your Render account. The plugin catalog holds no secret.",
     },
     {
       question: "What can the agent change in Render?",
@@ -42,7 +42,7 @@ export const RENDER_PLUGIN_GUIDE: PluginGuide = {
     {
       question: "What data does Render get?",
       answer:
-        "Render gets the requests that the agent sends, and the results go back to the agent. Render does not promise that secrets, such as database connection strings, stay out of the agent's context. Your workspaces, conversations and files stay on the computer that runs OpenBot.",
+        "Render gets the requests that the agent sends, and the results go back to the agent. Render does not promise that secrets, such as database connection strings, stay out of the agent's context. Your workspaces, conversations and files stay on the computer that runs OpenOwnBot.",
     },
   ],
   sources: [

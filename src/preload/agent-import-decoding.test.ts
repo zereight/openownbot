@@ -4,11 +4,11 @@ import {
   decodeAgentImportResult,
   decodeInstanceTransferResult,
   decodeRemoteInstanceTransferResult,
-} from "@openbot/contracts/ipc";
+} from "@openownbot/contracts/ipc";
 import { describe, expect, it } from "vitest";
 
 // The preload decodes these results with the same contracts decoders. A remote import or transfer
-// lists the host's agents, and a newer host can run an agent on a provider that this OpenBot does not
+// lists the host's agents, and a newer host can run an agent on a provider that this OpenOwnBot does not
 // know. The host has already done the import, so the result must still decode.
 
 const AGENT = {

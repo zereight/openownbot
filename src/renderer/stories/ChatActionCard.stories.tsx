@@ -1,5 +1,5 @@
-import { CalendarClock } from "@openbot/ui";
-import { ChatActionCard, type ChatActionCardProps } from "@openbot/ui/features/conversation/ChatActionCard";
+import { CalendarClock } from "@openownbot/ui";
+import { ChatActionCard, type ChatActionCardProps } from "@openownbot/ui/features/conversation/ChatActionCard";
 import { fn } from "storybook/test";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";
 
@@ -13,7 +13,7 @@ type CardArgs = Omit<ChatActionCardProps, "icon" | "children"> & { body?: string
 const meta = {
   title: "Conversation/Chat action card",
   render: (args) => (
-    <main style={{ width: "min(560px, 100vw)", padding: "var(--openbot-space-4)" }}>
+    <main style={{ width: "min(560px, 100vw)", padding: "var(--openownbot-space-4)" }}>
       <ChatActionCard {...args} icon={<CalendarClock />}>
         {args.body ? <p style={{ margin: 0 }}>{args.body}</p> : undefined}
       </ChatActionCard>

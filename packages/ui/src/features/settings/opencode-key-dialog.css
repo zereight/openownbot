@@ -8,64 +8,64 @@
  */
 
 .opencode-key-backdrop {
-  z-index: calc(var(--openbot-layer-dialog) + 1);
+  z-index: calc(var(--openownbot-layer-dialog) + 1);
 }
 
 .opencode-key-dialog {
   width: min(400px, 100%);
-  max-height: calc(100dvh - var(--openbot-space-6) * 2);
+  max-height: calc(100dvh - var(--openownbot-space-6) * 2);
   overflow-y: auto;
   outline: 0;
-  border-radius: var(--openbot-radius-xl);
-  background: var(--openbot-bg-control);
-  padding: var(--openbot-space-6);
-  color: var(--openbot-text-primary);
-  animation: opencode-key-dialog-in var(--openbot-duration-slow) var(--openbot-ease-out) both;
+  border-radius: var(--openownbot-radius-xl);
+  background: var(--openownbot-bg-control);
+  padding: var(--openownbot-space-6);
+  color: var(--openownbot-text-primary);
+  animation: opencode-key-dialog-in var(--openownbot-duration-slow) var(--openownbot-ease-out) both;
 }
 
 .opencode-key-header {
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  gap: var(--openbot-space-1);
+  gap: var(--openownbot-space-1);
 }
 
 .opencode-key-title {
   margin: 0;
-  font-size: var(--openbot-text-xl);
-  line-height: var(--openbot-leading-xl);
-  font-weight: var(--openbot-weight-semibold);
-  letter-spacing: var(--openbot-tracking-tight);
+  font-size: var(--openownbot-text-xl);
+  line-height: var(--openownbot-leading-xl);
+  font-weight: var(--openownbot-weight-semibold);
+  letter-spacing: var(--openownbot-tracking-tight);
 }
 
 .opencode-key-description {
   margin: 0;
-  color: var(--openbot-text-muted);
-  font-size: var(--openbot-text-md);
-  line-height: var(--openbot-leading-md);
+  color: var(--openownbot-text-muted);
+  font-size: var(--openownbot-text-md);
+  line-height: var(--openownbot-leading-md);
 }
 
 .opencode-key-status-dot {
   display: inline-block;
   width: 6px;
   height: 6px;
-  margin-right: var(--openbot-space-2);
-  border-radius: var(--openbot-radius-pill);
-  background: var(--openbot-success);
+  margin-right: var(--openownbot-space-2);
+  border-radius: var(--openownbot-radius-pill);
+  background: var(--openownbot-success);
 }
 
 .opencode-key-form {
   display: flex;
   flex-direction: column;
-  gap: var(--openbot-space-4);
-  margin: var(--openbot-space-4) 0 0;
+  gap: var(--openownbot-space-4);
+  margin: var(--openownbot-space-4) 0 0;
 }
 
 .opencode-key-actions {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-end;
-  gap: var(--openbot-space-2);
+  gap: var(--openownbot-space-2);
 }
 
 @keyframes opencode-key-dialog-in {

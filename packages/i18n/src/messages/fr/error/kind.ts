@@ -7,7 +7,7 @@ export const messages = {
   "error.kind.storage":
     "L’espace de stockage est insuffisant. Libérez de l’espace sur l’ordinateur qui exécute OpenOwnBot, puis réessayez.",
   "error.kind.filePermission":
-    "OpenBot n’a pas l’autorisation d’effectuer cette action. Vérifiez les autorisations du fichier ou du dossier, puis réessayez.",
+    "OpenOwnBot n’a pas l’autorisation d’effectuer cette action. Vérifiez les autorisations du fichier ou du dossier, puis réessayez.",
   "error.kind.notFound":
     "Un fichier ou un dossier nécessaire est introuvable. Restaurez-le ou choisissez-en un autre, puis réessayez.",
   "error.kind.readOnly":

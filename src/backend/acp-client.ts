@@ -19,12 +19,12 @@ import {
   type SessionConfigOption,
   type SessionNotification,
 } from "@agentclientprotocol/sdk";
-import { agentProviderName } from "@openbot/contracts/agent-providers";
-import { attachmentMimeTypeForName } from "@openbot/contracts/attachment-files";
-import type { AgentSessionSettingsSnapshot, AgentSessionSettingValue } from "@openbot/contracts/ipc";
-import { type DynamicRecord, isBoolean, isString } from "@openbot/contracts/runtime-values";
-import { sourceText } from "@openbot/i18n/source";
-import { redactText } from "@openbot/logging";
+import { agentProviderName } from "@openownbot/contracts/agent-providers";
+import { attachmentMimeTypeForName } from "@openownbot/contracts/attachment-files";
+import type { AgentSessionSettingsSnapshot, AgentSessionSettingValue } from "@openownbot/contracts/ipc";
+import { type DynamicRecord, isBoolean, isString } from "@openownbot/contracts/runtime-values";
+import { sourceText } from "@openownbot/i18n/source";
+import { redactText } from "@openownbot/logging";
 import { Deferred, Effect, Exit, Fiber, Scope, Semaphore } from "effect";
 import {
   AcpConfiguration,
@@ -91,7 +91,7 @@ const RESTORE_LIST_RETRY_MS = 500;
 /** How long the second `session/resume` waits while the new process still starts (OpenCode). */
 const RESTORE_START_RETRY_MS = 2_000;
 
-/** How many `session/list` pages OpenBot reads to find a session before it stops looking. */
+/** How many `session/list` pages OpenOwnBot reads to find a session before it stops looking. */
 const SESSION_LIST_PAGES = 50;
 
 /** Maximum replay work waiting for the storage consumer before the import fails safely. */
@@ -99,11 +99,11 @@ const ACP_HISTORY_REPLAY_QUEUE_LIMIT = 256;
 
 /**
  * How long a turn may send nothing, with no tool call open and no question to the user, before
- * OpenBot ends it. An OpenCode prompt can stay open for an hour with no update (#2858).
+ * OpenOwnBot ends it. An OpenCode prompt can stay open for an hour with no update (#2858).
  */
 const ACP_TURN_STALL_MS = 5 * 60_000;
 
-/** How long a stopped turn may take to end before OpenBot ends it itself. */
+/** How long a stopped turn may take to end before OpenOwnBot ends it itself. */
 const ACP_STOP_GRACE_MS = 10_000;
 
 interface ClientEvents {
@@ -152,7 +152,7 @@ interface AcpTurn {
   lastActivityAt: number;
   /** Questions and approvals that wait for the user. The turn is not stalled while one is open. */
   waitingOnUser: number;
-  /** OpenBot ended the turn because the agent did not. Its open tool calls get no more updates. */
+  /** OpenOwnBot ended the turn because the agent did not. Its open tool calls get no more updates. */
   abandoned: boolean;
   /** The session's total cost in USD at this turn's last `usage_update`, when the agent sends one. */
   reportedCost: number | null;
@@ -253,17 +253,17 @@ interface HistoryReplay {
 }
 
 /**
- * What OpenBot offers every ACP agent in `initialize`. One value, so the trial start that "Check
+ * What OpenOwnBot offers every ACP agent in `initialize`. One value, so the trial start that "Check
  * agent" makes (`acp-agent-check.ts`) and the real client cannot differ.
  */
-export const OPENBOT_ACP_CLIENT_CAPABILITIES = {
+export const OPENOWNBOT_ACP_CLIENT_CAPABILITIES = {
   fs: { readTextFile: false, writeTextFile: false },
   terminal: false,
   elicitation: { form: {} },
   session: { configOptions: { boolean: {} } },
 } as const;
 
-export const OPENBOT_ACP_CLIENT_INFO = { name: "openbot", title: "OpenBot", version: "0.1.0" } as const;
+export const OPENOWNBOT_ACP_CLIENT_INFO = { name: "openownbot", title: "OpenOwnBot", version: "0.1.0" } as const;
 
 export interface AcpProviderOptions {
   provider: AgentProvider;
@@ -321,7 +321,7 @@ export interface AcpProviderOptions {
    */
   servesModel?: ((modelId: string) => boolean) | undefined;
   /**
-   * The user's own MCP servers, read at spawn. OpenBot's bridge servers are appended after these,
+   * The user's own MCP servers, read at spawn. OpenOwnBot's bridge servers are appended after these,
    * so a configuration can never displace the tools the agent depends on.
    */
   mcpServers?: McpServerSource | undefined;
@@ -588,7 +588,7 @@ export class AcpAgentClient extends EventEmitter<ClientEvents> {
           ),
         );
       } catch (error) {
-        // A provider can delete an old session. Stored OpenBot history remains valid, so a read
+        // A provider can delete an old session. Stored OpenOwnBot history remains valid, so a read
         // reports the available fragments and leaves the caller to create a replacement session.
         if (error instanceof MissingAcpSessionError) {
           if (stored && durableReplay) yield* readStored(request);
@@ -687,7 +687,7 @@ export class AcpAgentClient extends EventEmitter<ClientEvents> {
 
   #publishSessionSettings(thread: AcpThread): void {
     this.emit("notification", {
-      method: "openbot/sessionSettings/updated",
+      method: "openownbot/sessionSettings/updated",
       params: { threadId: thread.id, ...sessionSettingsSnapshot(thread.configOptions) },
     });
   }
@@ -699,7 +699,7 @@ export class AcpAgentClient extends EventEmitter<ClientEvents> {
   #compacted(thread: AcpThread): void {
     thread.instructionsSent = null;
     this.emit("notification", {
-      method: "openbot/context-compaction",
+      method: "openownbot/context-compaction",
       params: { threadId: thread.id, status: "completed" },
     });
   }
@@ -987,7 +987,7 @@ export class AcpAgentClient extends EventEmitter<ClientEvents> {
         const threadId = yield* providerSync(() => requiredString(params, "threadId"));
         const turn = this.#threads.get(threadId)?.activeTurn;
         // A stopped turn drops the message, and an agent that has ended its turn starts the message
-        // as a turn of its own, which OpenBot did not start. The message then waits in the queue.
+        // as a turn of its own, which OpenOwnBot did not start. The message then waits in the queue.
         if (!turn || turn.id !== getString(params, "expectedTurnId") || turn.stopped || turn.completing)
           return yield* providerFailure(new Error(sourceText("error.backend.steerTurnChanged")));
         const blocks = yield* promptBlocksEffect(params);
@@ -1103,8 +1103,8 @@ export class AcpAgentClient extends EventEmitter<ClientEvents> {
     this.#initialization = yield* providerCall(() =>
       connection.initialize({
         protocolVersion: 1,
-        clientCapabilities: OPENBOT_ACP_CLIENT_CAPABILITIES,
-        clientInfo: this.#flavor.clientInfo ?? OPENBOT_ACP_CLIENT_INFO,
+        clientCapabilities: OPENOWNBOT_ACP_CLIENT_CAPABILITIES,
+        clientInfo: this.#flavor.clientInfo ?? OPENOWNBOT_ACP_CLIENT_INFO,
       }),
     ).pipe(
       Effect.timeoutOrElse({
@@ -1279,7 +1279,7 @@ export class AcpAgentClient extends EventEmitter<ClientEvents> {
             let id: string;
             let configOptions: SessionConfigOption[];
             let currentModelId: string | null;
-            // OpenBot's bridge servers last: all providers key MCP servers by name, so a user
+            // OpenOwnBot's bridge servers last: all providers key MCP servers by name, so a user
             // configuration that reached one of those names would take the agent's own tools away.
             const handoff = acpMcpServers(
               providerResult(
@@ -1375,7 +1375,7 @@ export class AcpAgentClient extends EventEmitter<ClientEvents> {
    *
    * OpenCode 2.1.1 can fail a `session/resume` in its first seconds with "Internal service failure"
    * and `ServiceUnavailableError`, because its plugins have not started yet (OpenCode issue #57204).
-   * The session is there, and a resume a few seconds later works, so OpenBot tries once more.
+   * The session is there, and a resume a few seconds later works, so OpenOwnBot tries once more.
    */
 
   readonly #restoreSessionEffect = Effect.fn("AcpAgentClient.restoreSession")(function* (
@@ -1738,7 +1738,7 @@ export class AcpAgentClient extends EventEmitter<ClientEvents> {
     ) {
       blocks.unshift({
         type: "text",
-        text: `<openbot-developer-instructions>\n${thread.developerInstructions}\n</openbot-developer-instructions>`,
+        text: `<openownbot-developer-instructions>\n${thread.developerInstructions}\n</openownbot-developer-instructions>`,
       });
       thread.instructionsSent = thread.developerInstructions;
       thread.promptsSinceInstructions = 1;
@@ -1809,7 +1809,7 @@ export class AcpAgentClient extends EventEmitter<ClientEvents> {
       // `promptId` names this result: a delivery that runs again keeps its turn ID.
       if (response.usage)
         this.emit("notification", {
-          method: "openbot/usage",
+          method: "openownbot/usage",
           params: {
             threadId: thread.id,
             turnId: turn.id,
@@ -1879,7 +1879,7 @@ export class AcpAgentClient extends EventEmitter<ClientEvents> {
     // A compaction replaces the prompt that carried the instructions with a summary. The context
     // shrinks, so a large drop counts as one when the agent sends no compaction update.
     // The update is also the context fill. Its cost is the session's total, which OpenCode sends
-    // before the prompt result. Antigravity sends the last one after a turn that OpenBot already ended.
+    // before the prompt result. Antigravity sends the last one after a turn that OpenOwnBot already ended.
     if (update.sessionUpdate === "usage_update") {
       if (thread.contextUsed !== null && update.used < thread.contextUsed * ACP_COMPACTION_CONTEXT_RATIO)
         this.#compacted(thread);
@@ -2319,7 +2319,7 @@ export class AcpAgentClient extends EventEmitter<ClientEvents> {
       .call("item/tool/call", params, signal)
       .pipe(toProviderClientOperationError);
     if (!isDynamicToolResult(result))
-      return yield* providerFailure(new Error("OpenBot returned an invalid dynamic tool result."));
+      return yield* providerFailure(new Error("OpenOwnBot returned an invalid dynamic tool result."));
     return yield* providerSync(() => result);
   });
 

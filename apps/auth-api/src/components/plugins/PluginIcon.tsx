@@ -1,4 +1,4 @@
-import { cx } from "@openbot/ui/utils";
+import { cx } from "@openownbot/ui/utils";
 import type { JSX } from "@solidjs/web";
 import { createSignal, Show } from "solid-js";
 import { pluginIconPath } from "../../lib/plugins";

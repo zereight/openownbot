@@ -43,7 +43,7 @@ export const messages = {
   "agentSettings.folders.inShared": "{folder}은(는) 공유 폴더 안에 있어서 {agent}이(가) 이미 변경할 수 있어요",
   "agentSettings.folders.inFolder": "{folder}은(는) 이미 추가된 {parent} 안에 있어요",
   "agentSettings.folders.protected":
-    "{folder}은(는) 추가할 수 없어요. OpenBot 데이터나 다른 에이전트의 파일이 들어 있어요",
+    "{folder}은(는) 추가할 수 없어요. OpenOwnBot 데이터나 다른 에이전트의 파일이 들어 있어요",
   "agentSettings.folders.missing": "{folder}은(는) 이 컴퓨터의 폴더가 아니에요",
   "agentSettings.folders.limit": { other: "폴더는 최대 {count}개까지 추가할 수 있어요" },
   "agentSettings.folders.failed": "폴더를 변경하지 못했어요",

@@ -1,9 +1,9 @@
-import { isOpenBillingStatus } from "@openbot/contracts/billing";
-import { DEFAULT_TEAM_MEMBER_LIMIT, INPUT_LIMITS } from "@openbot/contracts/input-limits";
-import type { InviteSummary, TeamInviteSummary, TeamPresenceMember, TeamRole } from "@openbot/contracts/ipc";
-import { LICENSE_MAX_USERS, type License, licenseAmount } from "@openbot/contracts/license";
-import { normalizeEmailAddress } from "@openbot/contracts/validation";
-import type { AppTextKey } from "@openbot/i18n";
+import { isOpenBillingStatus } from "@openownbot/contracts/billing";
+import { DEFAULT_TEAM_MEMBER_LIMIT, INPUT_LIMITS } from "@openownbot/contracts/input-limits";
+import type { InviteSummary, TeamInviteSummary, TeamPresenceMember, TeamRole } from "@openownbot/contracts/ipc";
+import { LICENSE_MAX_USERS, type License, licenseAmount } from "@openownbot/contracts/license";
+import { normalizeEmailAddress } from "@openownbot/contracts/validation";
+import type { AppTextKey } from "@openownbot/i18n";
 import {
   Alert,
   AlertContent,
@@ -42,12 +42,12 @@ import {
   Text,
   Trash2,
   UserRound,
-} from "@openbot/ui";
-import { formatLicenseMoney } from "@openbot/ui/features/billing/LicenseSection";
-import { MemberRoleMenu } from "@openbot/ui/features/servers/ServerRoles";
-import { teamMemberName } from "@openbot/ui/features/team/TeamPersonAvatar";
-import { useText } from "@openbot/ui/text";
-import { prefersReducedMotion } from "@openbot/ui/utils";
+} from "@openownbot/ui";
+import { formatLicenseMoney } from "@openownbot/ui/features/billing/LicenseSection";
+import { MemberRoleMenu } from "@openownbot/ui/features/servers/ServerRoles";
+import { teamMemberName } from "@openownbot/ui/features/team/TeamPersonAvatar";
+import { useText } from "@openownbot/ui/text";
+import { prefersReducedMotion } from "@openownbot/ui/utils";
 import type { JSX } from "@solidjs/web";
 import { createEffect, createMemo, createSignal, createStore, For, onCleanup, Show, untrack } from "solid-js";
 import { desktopAnalytics } from "../../analytics";

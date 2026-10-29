@@ -1,4 +1,4 @@
-// Measures the tokens of each turn that OpenBot starts, as the usage analytics record them. Runs the
+// Measures the tokens of each turn that OpenOwnBot starts, as the usage analytics record them. Runs the
 // real agent service on a temporary profile with the real Claude CLI and the user's Claude login, on
 // Claude Haiku. The agent does:
 //   1. a main chat of `--turns=<n>` short turns (20 when absent), one after the other,
@@ -7,22 +7,22 @@
 // Each turn records its uncached input, cache read, cache write and output tokens. The report shows if
 // a long chat sends its history again uncached, and what a routine and a Discord turn cost.
 // Costs about 25 Haiku turns. `bun run test:token-usage`; `--turns=<n>` sets the chat turns.
-// Writes .openbot-build/token-usage-e2e/report.json.
+// Writes .openownbot-build/token-usage-e2e/report.json.
 import assert from "node:assert/strict";
 import { mkdirSync, writeFileSync } from "node:fs";
 import { mkdtemp, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
-import { AGENT_PROVIDERS } from "@openbot/contracts/ipc";
+import { AGENT_PROVIDERS } from "@openownbot/contracts/ipc";
 import { Effect } from "effect";
 import type { AgentBrowserHost } from "../src/backend/agent/turn-lifecycle";
 import { AgentService } from "../src/backend/agent-service";
 import { AgentStore } from "../src/backend/agent-store";
 import { runCauseEffect } from "../src/backend/effect-boundary";
 import { MailboxStore } from "../src/backend/mailbox-store";
-import { OpenBotDatabase } from "../src/backend/openbot-database";
+import { OpenOwnBotDatabase } from "../src/backend/openownbot-database";
 
-const OUT = resolve(import.meta.dirname, "../.openbot-build/token-usage-e2e");
+const OUT = resolve(import.meta.dirname, "../.openownbot-build/token-usage-e2e");
 const MODEL = "claude-haiku-5-5";
 const PROMPT = "Reply with the single word OK. Do not use any tool.";
 const turnsArgument = process.argv.find((argument) => argument.startsWith("--turns="));
@@ -30,7 +30,7 @@ const CHAT_TURNS = turnsArgument ? Number(turnsArgument.slice("--turns=".length)
 assert.ok(Number.isInteger(CHAT_TURNS) && CHAT_TURNS >= 2, "--turns must be a whole number of 2 or more");
 
 // The workspace home is temporary. `process.env.HOME` stays, so the Claude CLI uses the user's login.
-const root = await mkdtemp(join(tmpdir(), "openbot-token-usage-"));
+const root = await mkdtemp(join(tmpdir(), "openownbot-token-usage-"));
 const userData = join(root, "user-data");
 const home = join(root, "home");
 mkdirSync(home, { recursive: true });
@@ -86,7 +86,7 @@ async function waitFor<T>(label: string, read: () => T | null | undefined | fals
   }
 }
 
-const database = new OpenBotDatabase(userData);
+const database = new OpenOwnBotDatabase(userData);
 const store = new AgentStore(userData, home, database);
 const mailbox = new MailboxStore(userData, store.sharedRoot, store.database);
 const agents = new AgentService({

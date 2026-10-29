@@ -102,7 +102,7 @@ export const messages = {
     "显示回复的开头、问题内容或待批准的操作。Google 与 OpenOwnBot 账号服务都无法读取。",
   "mobile.settings.notifications.sound": "提示音",
   "mobile.settings.notifications.playSound": "播放提示音",
-  "mobile.settings.notifications.sound.openbot": "OpenBot",
+  "mobile.settings.notifications.sound.openownbot": "OpenOwnBot",
   "mobile.settings.notifications.sound.warm": "温暖",
   "mobile.settings.notifications.sound.mech": "机械",
   "mobile.settings.notifications.sound.bubble": "气泡",

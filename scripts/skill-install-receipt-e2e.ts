@@ -1,5 +1,5 @@
 // Run: bun scripts/skill-install-receipt-e2e.ts
-// Report: .openbot-build/skill-install-receipt-e2e.json
+// Report: .openownbot-build/skill-install-receipt-e2e.json
 // Drives the real skill service with injected auth and runtime boundaries.
 
 import assert from "node:assert/strict";
@@ -7,7 +7,7 @@ import { createHash } from "node:crypto";
 import { mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import type { AgentSummary, InstalledSkill, MarketplaceSkillDetail } from "@openbot/contracts/ipc";
+import type { AgentSummary, InstalledSkill, MarketplaceSkillDetail } from "@openownbot/contracts/ipc";
 import { Effect, Exit, Result, Schema } from "effect";
 import { zipSync } from "fflate";
 import { AgentLifecycleFailed } from "../src/backend/agent-service";
@@ -107,7 +107,7 @@ const roots = [".agents/skills", ".claude/skills"];
 const report: { status: "running" | "pass" | "fail"; cases: CaseReport[] } = { status: "running", cases: [] };
 
 async function installedLock(workspace: string) {
-  const lock = decodeLock(await readFile(join(workspace, ".openbot/skills-lock.json"), "utf8"));
+  const lock = decodeLock(await readFile(join(workspace, ".openownbot/skills-lock.json"), "utf8"));
   assert.equal(lock.version, 1);
   assert.deepEqual(Object.keys(lock.skills), [detail.id]);
   const entry = lock.skills[detail.id];
@@ -128,7 +128,7 @@ async function installedLock(workspace: string) {
 }
 
 async function notInstalled(workspace: string): Promise<void> {
-  for (const path of [".openbot/skills-lock.json", ...roots.map((root) => `${root}/${detail.slug}`)]) {
+  for (const path of [".openownbot/skills-lock.json", ...roots.map((root) => `${root}/${detail.slug}`)]) {
     await assert.rejects(readFile(join(workspace, path)), isMissingFileError);
   }
 }
@@ -138,7 +138,7 @@ async function scenario(
   options: ScenarioOptions,
   check: (state: ScenarioState) => Promise<void>,
 ): Promise<void> {
-  const workspace = await mkdtemp(join(tmpdir(), "openbot-skill-receipt-"));
+  const workspace = await mkdtemp(join(tmpdir(), "openownbot-skill-receipt-"));
   const receipts: Receipt[] = [];
   const committedReceipts: string[] = [];
   let phase = "service setup";
@@ -300,7 +300,7 @@ await scenario(
 await scenario("local disk failure", { diskFailure: true, receiptAttempts: 0, refreshes: 0 }, async (state) => {
   assert.ok(Exit.isFailure(state.result));
   assert.ok(!Exit.hasDies(state.result));
-  await assert.rejects(readFile(join(state.workspace, ".openbot/skills-lock.json")), isMissingFileError);
+  await assert.rejects(readFile(join(state.workspace, ".openownbot/skills-lock.json")), isMissingFileError);
   assert.deepEqual(state.receipts, []);
 });
 await scenario("runtime refresh failure", { receiptFailure: true, refreshFailure: true }, async (state) => {
@@ -323,7 +323,7 @@ await scenario("receipt interruption", { receiptInterrupt: true, refreshes: 0 },
 });
 
 report.status = report.cases.every((item) => item.status === "pass") ? "pass" : "fail";
-await mkdir(".openbot-build", { recursive: true });
-await writeFile(".openbot-build/skill-install-receipt-e2e.json", `${JSON.stringify(report, null, 2)}\n`);
+await mkdir(".openownbot-build", { recursive: true });
+await writeFile(".openownbot-build/skill-install-receipt-e2e.json", `${JSON.stringify(report, null, 2)}\n`);
 process.stdout.write(`${JSON.stringify(report)}\n`);
 process.exitCode = report.status === "pass" ? 0 : 1;

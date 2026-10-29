@@ -145,7 +145,7 @@ export const messages = {
   "server.hosted.detail.create.copy": "머신에 OpenOwnBot을 복사하는 중",
   "server.hosted.detail.create.key": "일회용 로그인 키를 추가하는 중",
   "server.hosted.detail.start.boot": "머신을 켜는 중",
-  "server.hosted.detail.start.app": "OpenBot을 시작하는 중",
+  "server.hosted.detail.start.app": "OpenOwnBot을 시작하는 중",
   "server.hosted.detail.start.wait": "OpenOwnBot의 응답을 기다리는 중",
   "server.hosted.detail.connect.signIn": "내 계정으로 로그인하는 중",
   "server.hosted.detail.connect.publish": "내 계정에 서버를 추가하는 중",
@@ -235,7 +235,7 @@ export const messages = {
   "server.settings.storageTitle": "저장 공간",
   "server.settings.storageDescription": "OpenOwnBot이 이 서버의 디스크에 보관하는 항목을 확인하고 공간을 확보해요.",
   "server.settings.hostedSitesTitle": "사이트",
-  "server.settings.hostedSitesDescription": "이 서버의 에이전트가 openbot.site에 게시한 정적 사이트예요.",
+  "server.settings.hostedSitesDescription": "이 서버의 에이전트가 openownbot.site에 게시한 정적 사이트예요.",
   "server.settings.importTitle": "가져오기",
   "server.settings.importDescription": "Grok Bot이나 Hermes Agent의 에이전트를 이 서버로 옮겨요.",
   "server.settings.transferTitle": "이전",
@@ -472,7 +472,7 @@ export const messages = {
   "server.settings.providersDescription": "이 서버를 실행하는 컴퓨터의 AI 제공자를 관리해요.",
   "server.settings.providersSwitchNote": "{name}의 AI 제공자를 관리하려면 해당 서버로 전환하세요.",
   "server.settings.providersSwitch": "이 서버로 전환",
-  // Server Settings > Updates: the OpenBot update of a joined server's host. {name} is the server.
+  // Server Settings > Updates: the OpenOwnBot update of a joined server's host. {name} is the server.
   "server.settings.updatesTitle": "업데이트",
   "server.settings.updatesDescription": "이 서버를 실행하는 컴퓨터의 OpenOwnBot을 업데이트해요.",
   "server.update.hostTitle": "{name}의 OpenOwnBot",
@@ -501,11 +501,11 @@ export const messages = {
   "server.update.path.hosted":
     "호스팅 서비스가 백그라운드에서 업데이트를 다운로드해요. 다운로드한 업데이트는 서버가 다음에 시작될 때 적용돼요. 서버를 중지했다가 재개하기 전에 진행 중인 작업이 끝나기를 기다려 주세요. 계속 예전 버전이면 호스트 관리자에게 문의하세요.",
   "server.update.path.system":
-    "호스트에서 sudo openbot update를 실행해 최신 릴리스를 설치하세요. 이 명령은 OpenOwnBot을 중지해요. 먼저 진행 중인 작업이 끝나기를 기다려 주세요. 자동 다운로드는 다음 부팅 때 설치돼요.",
+    "호스트에서 sudo openownbot update를 실행해 최신 릴리스를 설치하세요. 이 명령은 OpenOwnBot을 중지해요. 먼저 진행 중인 작업이 끝나기를 기다려 주세요. 자동 다운로드는 다음 부팅 때 설치돼요.",
   "server.update.path.container":
     "Docker 호스트에서 새 OpenOwnBot 이미지를 가져온 후 같은 데이터 볼륨으로 컨테이너를 다시 만드세요. 먼저 진행 중인 작업이 끝나기를 기다려 주세요. 데이터를 보존하려면 기존 볼륨을 유지하세요.",
   "server.update.path.manual":
-    "이 설치본은 스스로 교체할 수 없어요. 호스트 관리자에게 github.com/nightly-labs/openbot/releases의 호환되는 릴리스를 설치해 달라고 요청하세요. 기존 OpenOwnBot 데이터는 유지하세요.",
+    "이 설치본은 스스로 교체할 수 없어요. 호스트 관리자에게 github.com/zereight/openownbot/releases의 호환되는 릴리스를 설치해 달라고 요청하세요. 기존 OpenOwnBot 데이터는 유지하세요.",
   "server.update.path.unavailable": "개발 빌드예요. 업데이트를 확인하려면 설치된 OpenOwnBot 릴리스를 사용하세요.",
   "server.update.check": "업데이트 확인",
   "server.update.start": "대기 상태일 때 업데이트",

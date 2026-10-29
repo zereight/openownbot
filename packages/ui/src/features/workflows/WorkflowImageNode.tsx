@@ -1,7 +1,7 @@
 /** An image step: an image that an image model makes from a description. */
 
-import { ProviderLogo } from "@openbot/brand";
-import type { AppTextKey, AppTranslate } from "@openbot/i18n";
+import { ProviderLogo } from "@openownbot/brand";
+import type { AppTextKey, AppTranslate } from "@openownbot/i18n";
 import {
   Button,
   buttonVariants,
@@ -15,7 +15,7 @@ import {
   Square,
   Textarea,
   Type,
-} from "@openbot/ui";
+} from "@openownbot/ui";
 import { createSignal, Show, untrack } from "solid-js";
 import { useText } from "../../text";
 import { ImageLightbox, type ImageLightboxOpening } from "../conversation/ImageLightbox";

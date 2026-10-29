@@ -1,7 +1,7 @@
 import { createSignal } from "solid-js";
 
 /** Dismissing the community card is a choice of this computer or browser, like the mobile app card. */
-const COMMUNITY_CARD_DISMISSED_STORAGE_KEY = "openbot:community-card-dismissed";
+const COMMUNITY_CARD_DISMISSED_STORAGE_KEY = "openownbot:community-card-dismissed";
 
 /** Reading `window.localStorage` throws when the browser blocks storage, so it is read inside the guard. */
 function readDismissed(): boolean {

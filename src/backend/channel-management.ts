@@ -1,4 +1,4 @@
-import { INPUT_LIMITS } from "@openbot/contracts/input-limits";
+import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
 import {
   type AgentAccessLevel,
   type AgentSummary,
@@ -12,10 +12,10 @@ import {
   type DeleteChannelRoutineInput,
   isReleasedRoutineSchedule,
   type UpdateChannelRoutineInput,
-} from "@openbot/contracts/ipc";
-import { type DynamicRecord, isBoolean, isString } from "@openbot/contracts/runtime-values";
-import { sourceText } from "@openbot/i18n/source";
-import { RoutineInputError } from "@openbot/team-client/routine-schedule";
+} from "@openownbot/contracts/ipc";
+import { type DynamicRecord, isBoolean, isString } from "@openownbot/contracts/runtime-values";
+import { sourceText } from "@openownbot/i18n/source";
+import { RoutineInputError } from "@openownbot/team-client/routine-schedule";
 import {
   routineToolArguments,
   routineToolPolicies,
@@ -129,7 +129,7 @@ export function channelDraftChange(
   if (tool === "channel_add_member") {
     if (member) throw new Error(`${name} is already a member of this channel.`);
     if (!agents.some((agent) => agent.id === agentId))
-      throw new Error("No agent has that id. Get the id from openbot.list_agents.");
+      throw new Error("No agent has that id. Get the id from openownbot.list_agents.");
     if (agentAccessRank(access.level(agentId)) < agentAccessRank("chat"))
       throw new Error(`The person who asked cannot chat with ${name}, so it stays out.`);
     if (access.hidden(agentId)) throw new Error(`${name} is hidden. Ask a person to show it again first.`);
@@ -171,7 +171,7 @@ export function channelRoutineTool(
     const parsed = routineToolSchedule(input);
     if (remotePerson && !isReleasedRoutineSchedule(parsed))
       throw new RoutineInputError(
-        "The person who asked uses OpenBot on another computer, which cannot show a one-time channel routine. Use a repeating schedule.",
+        "The person who asked uses OpenOwnBot on another computer, which cannot show a one-time channel routine. Use a repeating schedule.",
       );
     return parsed;
   };

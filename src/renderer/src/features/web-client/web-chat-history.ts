@@ -1,11 +1,11 @@
-import { type DynamicRecord, isDynamicRecord, isNumber, isString } from "@openbot/contracts/runtime-values";
+import { type DynamicRecord, isDynamicRecord, isNumber, isString } from "@openownbot/contracts/runtime-values";
 import { createEffect, onCleanup, untrack } from "solid-js";
 
 /** A chat that a browser history entry opens: an agent chat or a channel on one server. */
 export type WebChatHistoryEntry = { hostId: string; kind: "agent" | "channel"; id: string };
 
 /** The key of the chat in `history.state`. The site router keeps its own keys next to it. */
-const CHAT_STATE_KEY = "openbotChat";
+const CHAT_STATE_KEY = "openownbotChat";
 /** The entry index of the site router (`@tanstack/history`). A pop of one step must read as Back or Forward. */
 const ROUTER_INDEX_KEY = "__TSR_index";
 

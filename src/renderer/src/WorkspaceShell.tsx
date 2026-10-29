@@ -1,11 +1,11 @@
-import type { CentralAuthUser } from "@openbot/contracts/ipc";
+import type { CentralAuthUser } from "@openownbot/contracts/ipc";
 import {
   ConversationLoadNotice,
   ServerConnectionNotice,
   ServerPanelLoadNotice,
   serverWorkspacePhase,
-} from "@openbot/ui/features/servers/ServerConnectionNotice";
-import { useText } from "@openbot/ui/text";
+} from "@openownbot/ui/features/servers/ServerConnectionNotice";
+import { useText } from "@openownbot/ui/text";
 import { createEffect, createMemo, Show } from "solid-js";
 import { useAccountUsagePolling } from "./features/account/account-usage-polling";
 import { useAgents } from "./features/agents/agents-context";

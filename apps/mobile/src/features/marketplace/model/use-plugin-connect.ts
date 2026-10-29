@@ -1,5 +1,5 @@
-import { type McpServerConfig, relayCallbackQuery } from "@openbot/contracts/ipc";
-import { applyMcpFlow, type McpAuthValues } from "@openbot/contracts/mcp-connect-flows";
+import { type McpServerConfig, relayCallbackQuery } from "@openownbot/contracts/ipc";
+import { applyMcpFlow, type McpAuthValues } from "@openownbot/contracts/mcp-connect-flows";
 import { useQueryClient } from "@tanstack/react-query";
 import { useEffect, useRef, useState } from "react";
 import { Linking } from "react-native";

@@ -8,7 +8,7 @@ export const messages = {
   "error.kind.storage":
     "Er is niet genoeg opslagruimte. Maak ruimte vrij op de computer waarop OpenOwnBot draait en probeer het opnieuw.",
   "error.kind.filePermission":
-    "OpenBot heeft geen toestemming om deze actie uit te voeren. Controleer de rechten van het bestand of de map en probeer het opnieuw.",
+    "OpenOwnBot heeft geen toestemming om deze actie uit te voeren. Controleer de rechten van het bestand of de map en probeer het opnieuw.",
   "error.kind.notFound":
     "Een benodigd bestand of een benodigde map is niet gevonden. Zet het terug of kies een ander, en probeer het opnieuw.",
   "error.kind.readOnly": "Deze map is alleen-lezen. Kies een map waarin je kunt schrijven en probeer het opnieuw.",

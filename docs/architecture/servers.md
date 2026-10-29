@@ -45,7 +45,7 @@ capability shows no card.
 
 A hosted site belongs to the server that published it (`hosted_sites.server_id`, D1 `0024`). The user
 stays the accountable owner, for abuse reports, blocks and account deletion. The desktop sends
-`OpenBot-Host-Id` and `OpenBot-Host-Token` (the machine token of `/v2/remote/hosts/register`) on each
+`OpenOwnBot-Host-Id` and `OpenOwnBot-Host-Token` (the machine token of `/v2/remote/hosts/register`) on each
 `/v1/sites` request when it is a registered server. The Worker checks the hash and that the host owner
 is the request user; a wrong token is refused with 401, never counted as unlinked. The active-site
 limit comes from the server's plan (`siteLimitForPlan`: none 1, Starter 3, Standard 10, Pro 50). A
@@ -128,7 +128,7 @@ the web client uses the browser chooser and ships the export skill in its bundle
 
 ### Instance transfer with a joined server
 
-`instance-transfer-v1` moves a server's agents and server settings to or from an OpenBot transfer file
+`instance-transfer-v1` moves a server's agents and server settings to or from an OpenOwnBot transfer file
 (see [Instance transfer](agents.md#instance-transfer)). Only an owner or admin can use it: the file holds
 every agent's memories and files, and an import adds server settings. It is protocol 7 only. Every file
 that crosses the connection is at most 100 MB, the size of one WebRTC file transfer; a computer's own
@@ -395,7 +395,7 @@ host advertises a capability only when its `TeamApiAdmin` member exists.
 | `prompt-cache-ttl-v1` | Read and set how long Claude keeps the prompt cache of the host's agents | `hostAdmin` |
 | `provider-default-v1` | Read and set the provider that a new agent of the host starts on | none: only the mobile app sends it |
 | `agent-access-v1` | Read and set the roles that give members access to agents (see [Roles](#roles)) | `hostAdmin` |
-| `discord-access-v1` | Read and set which Discord roles can use OpenBot in a Discord server; list its roles | `messaging` |
+| `discord-access-v1` | Read and set which Discord roles can use OpenOwnBot in a Discord server; list its roles | `messaging` |
 | `events-v1` | Manage webhook routines, their secrets, and activity | `events` |
 | `routine-recovery-v1` | Read and set a routine's missed-run policy; read its runs with the missed occurrences | `events` |
 | `routine-results-v1` | List the messaging connections and their places; read and set where an agent routine sends its answers. Deliveries stay on the host | none: only the mobile app sends it |
@@ -465,7 +465,7 @@ The Cache section of the Claude page in Server settings → Providers sets it fo
 for a joined server.
 
 `provider-default-v1` reads and sets the provider, and the model beside it, that a new agent of the
-host starts on when its creator chooses none. It is the setup choice of the host (`openbot-setup`
+host starts on when its creator chooses none. It is the setup choice of the host (`openownbot-setup`
 file, `preferredProvider` and `preferredModel`): a set writes the file and calls
 `AgentService.setPreferredProvider`, as the local Settings save does. A read gives the provider that
 `AgentService.preferredProvider` uses now, so a host before its setup choice reads `codex`. A
@@ -538,7 +538,7 @@ source before the copy shows to clients, so a copy does not open memories that t
 each change it sends `agent-access-changed` and a new `agents-changed` to each connection, so the agent
 lists of members change without a reload.
 
-Server settings → Roles (`ServerRolesSection.tsx`, `@openbot/ui/features/servers/ServerRoles`) edits the
+Server settings → Roles (`ServerRolesSection.tsx`, `@openownbot/ui/features/servers/ServerRoles`) edits the
 set on desktop and web. The role menu of each member row on the Members page sets the server role
 (Member or Admin, through the same confirmation as before) and the custom roles. The tab shows for the
 local server and for a joined server whose host advertises the capability to an owner or admin.
@@ -577,19 +577,19 @@ Billing is per server. One account can pay for several servers; each server has 
 subscription. The Account Worker (`apps/auth-api/src/server/billing-service.ts`) talks to the Stripe
 REST API with `fetch`; there is no Stripe SDK. The plan catalog in `packages/contracts/src/billing.ts`
 holds the plan IDs, storage, member and site limits, relative speed and lookup keys, and no amounts. The amounts are six Stripe Prices with the lookup
-keys `openbot_{plan}_{interval}`. `bun run api:stripe:bootstrap` (`scripts/stripe-bootstrap.ts`)
+keys `openownbot_{plan}_{interval}`. `bun run api:stripe:bootstrap` (`scripts/stripe-bootstrap.ts`)
 creates them and the Customer Portal settings.
 
 - The add server dialog starts a plan. The hosting service
   (`apps/auth-api/src/server/hosted-billing.ts`) makes the Stripe customer before the Checkout, so
   two open Checkouts use one customer. The Checkout sets the subscription metadata
-  `openbot_user_id` and `openbot_server_id` (`BILLING_METADATA`). The billing service calls the
+  `openownbot_user_id` and `openownbot_server_id` (`BILLING_METADATA`). The billing service calls the
   `onSubscriptionSynced` hook after each subscription sync; the hosting side uses it to provision,
   stop and resume servers, so billing does not know about boat. See
   [hosted servers](../hosted-servers.md#lifecycle). The webhook links a new Stripe customer to the
-  account from `openbot_user_id`. It never moves a known
+  account from `openownbot_user_id`. It never moves a known
   customer to another account, and it skips a subscription that names no account.
-- Desktop Settings → Billing and the web Billing dialog render `@openbot/ui/features/billing`: one
+- Desktop Settings → Billing and the web Billing dialog render `@openownbot/ui/features/billing`: one
   row for each open plan, with the server name, the plan, its price, and its renewal controls.
   Hosted plans support cancellation that keeps data, Keep server, and explicit deletion now or
   after the paid period. A stored deletion date and subscription ID drive the cron; a fresh
@@ -621,7 +621,7 @@ another place.
 
 The license is a second Stripe product next to the server plans
 (`packages/contracts/src/license.ts`). One account has at most one open license. It is one monthly
-subscription with the lookup key `openbot_license_month` and a graduated price: the base covers 5
+subscription with the lookup key `openownbot_license_month` and a graduated price: the base covers 5
 users, then each extra user, up to 25. The amounts are in `LICENSE_PRICES` (EUR is the base
 currency; USD and PLN are `currency_options`). `stripe-bootstrap.ts` creates the price. The
 subscription quantity is the number of users.
@@ -647,7 +647,7 @@ subscription quantity is the number of users.
 - A Stripe customer pays in one currency, so a new license uses the currency of the account's open
   subscriptions. Checkout cannot buy fewer users than are in use. An increase is charged at once
   (`always_invoice`). A decrease starts at the next invoice and cannot go below the users in use or
-  below 5. The subscription metadata `openbot_paid_users` and `openbot_paid_period_end` keep the
+  below 5. The subscription metadata `openownbot_paid_users` and `openownbot_paid_period_end` keep the
   users paid in the current period, so an increase after a decrease charges only the users above
   that number.
 - Checkout keeps one open license page for each account. After it makes a page, it closes the
@@ -659,15 +659,15 @@ subscription quantity is the number of users.
   shows the extra price, then adds the user and creates the invite. At 25 users it shows "Contact
   us" and creates no invite. Admins get no step; the join tells the person that the license is full.
 - Desktop calls the `license` IPC group; the web client calls the browser routes. Both render
-  `@openbot/ui/features/billing/LicenseSection` in the license slot of `BillingPanel`.
+  `@openownbot/ui/features/billing/LicenseSection` in the license slot of `BillingPanel`.
 
 ## macOS Host Manager
 
 `scripts/macos-tenant-setup.swift` is a separate administrator command for new Standard accounts.
 It uses OpenDirectory directly, creates only new empty homes, and stores generated credentials
 in a new root-only file before account creation. It is not installed or called by the daemon.
-The Host PKG installs this as `create-tenants`, alongside the standalone `openbot-host` CLI.
-`openbot-host-service.ts` owns setup/verification sequencing; `openbot-host-macos.ts` owns OS
+The Host PKG installs this as `create-tenants`, alongside the standalone `openownbot-host` CLI.
+`openownbot-host-service.ts` owns setup/verification sequencing; `openownbot-host-macos.ts` owns OS
 operations. Passwords cross only the native helper's captured pipe and the administrator's tty,
 not the host protocol. The root-only recovery file is removed after successful presentation.
 `build-host-installer.ts` and `verify-host-installer.ts` own release packaging and the exact
@@ -689,7 +689,7 @@ See [multi-tenant hosting](../multi-tenant-hosting.md) for installation, permiss
 ## Hosted servers
 
 A hosted server is one [boat](https://boat.dev) sandbox for one account. It runs the Linux
-OpenBot build under Xvfb and is a normal Remote host after its first start. The account Worker
+OpenOwnBot build under Xvfb and is a normal Remote host after its first start. The account Worker
 owns the sandbox lifecycle: it creates, resumes and deletes sandboxes, and D1 keeps the desired
 and observed state. A server reports each minute while it is in use, and the Worker stops it after
 15 minutes with no report. boat also stops each sandbox at the end of a 2-hour lease that activity
@@ -701,8 +701,8 @@ turns while it is low and limits the turns that run at the same time. See
 [hosted servers](../hosted-servers.md) for the flow, the configuration, the memory guards and the template.
 
 A self-hosted server uses the same Linux build, scripts and units on the owner's own computer, with
-`/opt/OpenBot/hosted/mode` set to `self`. It has no claim: main starts in server mode
-(`src/main/server-mode.ts`, `OPENBOT_SERVER=1`), and the `openbot` terminal command signs it in over
+`/opt/OpenOwnBot/hosted/mode` set to `self`. It has no claim: main starts in server mode
+(`src/main/server-mode.ts`, `OPENOWNBOT_SERVER=1`), and the `openownbot` terminal command signs it in over
 a Unix socket in the 0700 runtime directory of the service user. Main publishes the host after each
 sign-in. See [self-hosted servers](../self-hosted-server.md).
 

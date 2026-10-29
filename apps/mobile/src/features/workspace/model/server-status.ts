@@ -1,10 +1,10 @@
-import type { MobileTextKey, MobileTranslate } from "@openbot/i18n/mobile";
+import type { MobileTextKey, MobileTranslate } from "@openownbot/i18n/mobile";
 import {
   type RemoteConnectionFailure,
   type RemoteRecoveryStatus,
   type RemoteTeamHost,
   remoteRecoveryMessage,
-} from "@openbot/team-client";
+} from "@openownbot/team-client";
 import { serverAccent } from "./server-order";
 import type { MobileServer, MobileServerState } from "./workspace-types";
 

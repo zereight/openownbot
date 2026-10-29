@@ -80,7 +80,7 @@ describe("lockHolderPid", () => {
   });
 
   function profileWithLock(target?: string): string {
-    const directory = mkdtempSync(join(tmpdir(), "openbot-lock-"));
+    const directory = mkdtempSync(join(tmpdir(), "openownbot-lock-"));
     directories.push(directory);
     if (target !== undefined) symlinkSync(target, join(directory, "SingletonLock"));
     return directory;
@@ -93,6 +93,6 @@ describe("lockHolderPid", () => {
   it("is null when no lock exists or the lock names no process", () => {
     expect(lockHolderPid(profileWithLock())).toBeNull();
     expect(lockHolderPid(profileWithLock("not-a-process"))).toBeNull();
-    expect(lockHolderPid(join(tmpdir(), "openbot-no-such-profile"))).toBeNull();
+    expect(lockHolderPid(join(tmpdir(), "openownbot-no-such-profile"))).toBeNull();
   });
 });

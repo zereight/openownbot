@@ -26,11 +26,11 @@ Rules for a new entry:
 - `http` servers take a `url`. `stdio` servers take a `command` and `args`.
   No `workingDirectory`: the provider drops such servers.
 - A `command` can start with `~/` to name a program that a desktop app installs
-  in the home folder, as the Paper listing does. OpenBot expands `~` on the
+  in the home folder, as the Paper listing does. OpenOwnBot expands `~` on the
   computer that runs the server, before any provider starts it.
-- Names must pass `mcpConfigErrors` and must not be reserved (`openbot`).
+- Names must pass `mcpConfigErrors` and must not be reserved (`openownbot`).
 - OAuth-only vendors install as a plain `http` server with a `link` flow, the
-  same shape the Canva listing uses. OpenBot signs in itself: the main process
+  same shape the Canva listing uses. OpenOwnBot signs in itself: the main process
   holds the MCP OAuth client, keeps the tokens in encrypted storage, and adds
   the `Authorization` header at hand-off. No bridge program is installed, and
   no listing may name one.
@@ -60,7 +60,7 @@ version. Move it only in a reviewed commit, after you check that the release
 keeps `OBSIDIAN_API_KEY` and the `http://127.0.0.1:27123` default. The server talks to the
 Local REST API community plugin in the Obsidian app
 (<https://github.com/coddingtonbear/obsidian-local-rest-api>). The user types the
-plugin's API key in the connect dialog, and OpenBot gives it to the server as
+plugin's API key in the connect dialog, and OpenOwnBot gives it to the server as
 `OBSIDIAN_API_KEY`.
 
 The server uses `http://127.0.0.1:27123` by default. A listing cannot set other
@@ -92,7 +92,7 @@ through AppleScript and needs no key. Its cloud mode needs
 Troubleshooting:
 
 - An error `-1743` ("not authorized to send Apple events"): the user refused
-  the Automation prompt. Turn OpenBot on for the app in System Settings ›
+  the Automation prompt. Turn OpenOwnBot on for the app in System Settings ›
   Privacy & Security › Automation, or run `tccutil reset AppleEvents` to get
   the prompts again.
 - Mail or Calendar tools time out: AppleScript is slow on large mailboxes and

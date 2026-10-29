@@ -6,10 +6,10 @@ import {
   type DecisionModelState,
   isDecisionModelSettings,
   type SaveDecisionModelInput,
-} from "@openbot/contracts/ipc";
-import { isDynamicRecord } from "@openbot/contracts/runtime-values";
-import { sourceText } from "@openbot/i18n/source";
-import { registerSecretValue } from "@openbot/logging";
+} from "@openownbot/contracts/ipc";
+import { isDynamicRecord } from "@openownbot/contracts/runtime-values";
+import { sourceText } from "@openownbot/i18n/source";
+import { registerSecretValue } from "@openownbot/logging";
 import { Effect, Result, Semaphore } from "effect";
 import type { DecisionBackend } from "../backend/channel-decision";
 import { isMissingFileError } from "../backend/file-errors";

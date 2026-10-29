@@ -1,5 +1,9 @@
-import type { AgentProviderId, AgentSessionSettingsSnapshot, AgentSessionSettingValue } from "@openbot/contracts/ipc";
-import { sourceText } from "@openbot/i18n/source";
+import type {
+  AgentProviderId,
+  AgentSessionSettingsSnapshot,
+  AgentSessionSettingValue,
+} from "@openownbot/contracts/ipc";
+import { sourceText } from "@openownbot/i18n/source";
 import type { Effect } from "effect";
 import type { AppServerNotification, AppServerRequest, RequestId, ResponseDecoder, RpcError } from "./protocol";
 import type { ProviderClientOperationError } from "./provider-client-effects";
@@ -16,7 +20,7 @@ export interface AgentClient {
   readonly provider: AgentProvider;
   /**
    * Explicit completion contract; missing capability means unsupported. `handoff`: the provider
-   * cannot compact on request, so OpenBot replaces the session with one that starts from the history
+   * cannot compact on request, so OpenOwnBot replaces the session with one that starts from the history
    * handoff.
    */
   readonly contextCompaction?: "events" | "request" | "native" | "handoff" | "unsupported";
@@ -75,7 +79,7 @@ export interface AgentClient {
   on(event: "request", listener: (request: AppServerRequest) => void): this;
   /**
    * `origin.duringStop` marks a stderr line of a process that `stop()` ended while it still ran: the
-   * shutdown that OpenBot started, not an error for the user. A line with no `origin` is reported.
+   * shutdown that OpenOwnBot started, not an error for the user. A line with no `origin` is reported.
    */
   on(event: "diagnostic", listener: (message: string, origin?: DiagnosticOrigin) => void): this;
   once(event: "exit", listener: (error: Error) => void): this;
@@ -134,7 +138,7 @@ export class MissingPiSessionError extends Error {
 const EXIT_DETAIL_LIMIT = 300;
 
 /**
- * The provider CLI ended while OpenBot waited for an answer. The message names how it ended.
+ * The provider CLI ended while OpenOwnBot waited for an answer. The message names how it ended.
  *
  * The last line the CLI wrote to stderr is usually the only cause a user can act on: a config the
  * CLI refuses, a CPU it cannot run on, a file it cannot open. It stays private, out of the message

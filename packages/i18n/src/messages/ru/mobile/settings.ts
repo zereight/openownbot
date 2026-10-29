@@ -115,7 +115,7 @@ export const messages = {
     "Показывает начало ответа, вопрос или действие, которое нужно подтвердить. Google и служба аккаунтов OpenOwnBot не могут его прочитать.",
   "mobile.settings.notifications.sound": "Звук",
   "mobile.settings.notifications.playSound": "Воспроизводить звук",
-  "mobile.settings.notifications.sound.openbot": "OpenBot",
+  "mobile.settings.notifications.sound.openownbot": "OpenOwnBot",
   "mobile.settings.notifications.sound.warm": "Тёплая",
   "mobile.settings.notifications.sound.mech": "Механическая",
   "mobile.settings.notifications.sound.bubble": "Пузырьковая",

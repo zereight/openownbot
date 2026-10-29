@@ -7,11 +7,11 @@ import { AIAgentsExamples } from "./ai-agents-examples";
 import { AIAgentsVsAgenticAI } from "./ai-agents-vs-agentic-ai";
 import { ImportGrokBotAgents } from "./import-grok-bot-agents";
 import { ImportHermesAgents } from "./import-hermes-agents";
-import { OpenBot101 } from "./openbot-101";
-import { OpenBotHostedServers } from "./openbot-hosted-servers";
-import { OpenBotMarketplace } from "./openbot-marketplace";
+import { OpenOwnBot101 } from "./openownbot-101";
+import { OpenOwnBotHostedServers } from "./openownbot-hosted-servers";
+import { OpenOwnBotMarketplace } from "./openownbot-marketplace";
 import { WhatAreAIAgents } from "./what-are-ai-agents";
-import { WtfIsOpenBot } from "./wtf-is-openbot";
+import { WtfIsOpenOwnBot } from "./wtf-is-openownbot";
 
 export const GUIDE_BODIES: Readonly<Record<string, ArticleBody>> = {
   "import-hermes-agents": ImportHermesAgents,
@@ -20,8 +20,8 @@ export const GUIDE_BODIES: Readonly<Record<string, ArticleBody>> = {
   "ai-agents-vs-agentic-ai": AIAgentsVsAgenticAI,
   "agentic-ai-definition": AgenticAIDefinition,
   "what-are-ai-agents": WhatAreAIAgents,
-  "openbot-101": OpenBot101,
-  "openbot-hosted-servers": OpenBotHostedServers,
-  "openbot-marketplace": OpenBotMarketplace,
-  "wtf-is-openbot": WtfIsOpenBot,
+  "openownbot-101": OpenOwnBot101,
+  "openownbot-hosted-servers": OpenOwnBotHostedServers,
+  "openownbot-marketplace": OpenOwnBotMarketplace,
+  "wtf-is-openownbot": WtfIsOpenOwnBot,
 };

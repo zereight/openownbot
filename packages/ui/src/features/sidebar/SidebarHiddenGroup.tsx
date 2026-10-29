@@ -5,7 +5,7 @@
  * state in the same per-scope storage as the collapsed sections.
  */
 
-import { Button, ChevronDown } from "@openbot/ui";
+import { Button, ChevronDown } from "@openownbot/ui";
 import { For, Show } from "solid-js";
 import { useText } from "../../text";
 import { SidebarAgentRow } from "./SidebarAgentRow";

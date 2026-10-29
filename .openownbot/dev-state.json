@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "defaults": {
+    "AUTH_EXPOSE_DEVELOPMENT_CODE": "true",
+    "EMAIL_SMTP_HOST": "",
+    "EMAIL_SMTP_PORT": "",
+    "EMAIL_SMTP_USERNAME": "",
+    "EMAIL_FROM": "",
+    "EMAIL_SMTP_PASSWORD": "",
+    "SKILLS_ADMIN_TOKEN": "f5a2707a58d4f2206026b43a4cd873028b72d7433aed5c43307a7259e14d5daf",
+    "SITE_REPORT_HASH_SECRET": "875565106dbe77e4d8a2e839ab8a229a3bc4a9477ed840e8f485fd1f525b14af",
+    "REMOTE_AUTH_WEBHOOK_SECRET": "f5015025fbc247b01bf4297a0761c9ef0d0a2ab3301fbc6d87302a976728242e",
+    "REMOTE_TICKET_PRIVATE_JWK": "{\"kty\":\"EC\",\"x\":\"zvADX6Yq5zmmnwTnZuHlzpsUMJOtsEIGFT4LCOOaIp0\",\"y\":\"rUSiM_q2Hq634X8IPX_sMrQut6yHomNoYAwtjJuexNM\",\"crv\":\"P-256\",\"d\":\"1JOGcTpcl4fFt_8BKVtamRd89UxFHRGDnDm5k1LVn_c\",\"kid\":\"openownbot-remote-1\",\"alg\":\"ES256\",\"use\":\"sig\"}",
+    "REMOTE_TICKET_PUBLIC_JWKS": "{\"keys\":[{\"kty\":\"EC\",\"x\":\"zvADX6Yq5zmmnwTnZuHlzpsUMJOtsEIGFT4LCOOaIp0\",\"y\":\"rUSiM_q2Hq634X8IPX_sMrQut6yHomNoYAwtjJuexNM\",\"crv\":\"P-256\",\"kid\":\"openownbot-remote-1\",\"alg\":\"ES256\",\"use\":\"sig\"}]}"
+  },
+  "overrides": {}
+}

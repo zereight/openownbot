@@ -1,9 +1,13 @@
-import { AppLogo } from "@openbot/brand";
-import { createWebAppInvitePath, OPENBOT_INVITE_ORIGIN, toOpenBotInviteUrl } from "@openbot/contracts/invite-links";
+import { AppLogo } from "@openownbot/brand";
+import {
+  createWebAppInvitePath,
+  OPENOWNBOT_INVITE_ORIGIN,
+  toOpenOwnBotInviteUrl,
+} from "@openownbot/contracts/invite-links";
 import { createSignal, onSettled, Show } from "solid-js";
 import { landingAnalytics } from "../../lib/analytics";
 import { detectDownloadPlatform } from "../../lib/download-platforms";
-import { OPENBOT_DOWNLOAD_LINKS } from "../../lib/landing-links";
+import { OPENOWNBOT_DOWNLOAD_LINKS } from "../../lib/landing-links";
 import type { JoinPageText } from "../transactional/page-text";
 import { TransactionalPage } from "../transactional/TransactionalPage";
 import { Button } from "../ui/button";
@@ -11,7 +15,7 @@ import { Button } from "../ui/button";
 export function JoinPage(props: { lang: string; text: JoinPageText }) {
   const [openUrl, setOpenUrl] = createSignal("");
   const [browserUrl, setBrowserUrl] = createSignal("");
-  const [downloadUrl, setDownloadUrl] = createSignal<string>(OPENBOT_DOWNLOAD_LINKS.macos);
+  const [downloadUrl, setDownloadUrl] = createSignal<string>(OPENOWNBOT_DOWNLOAD_LINKS.macos);
   const [mobile, setMobile] = createSignal(false);
   const [invalid, setInvalid] = createSignal(false);
   const [openAttempted, setOpenAttempted] = createSignal(false);
@@ -25,14 +29,14 @@ export function JoinPage(props: { lang: string; text: JoinPageText }) {
     let validInvite = true;
     try {
       const pageUrl = new URL(window.location.href);
-      const canonicalUrl = new URL(`${pageUrl.pathname}${pageUrl.search}`, OPENBOT_INVITE_ORIGIN);
-      setOpenUrl(toOpenBotInviteUrl(canonicalUrl.toString()));
+      const canonicalUrl = new URL(`${pageUrl.pathname}${pageUrl.search}`, OPENOWNBOT_INVITE_ORIGIN);
+      setOpenUrl(toOpenOwnBotInviteUrl(canonicalUrl.toString()));
       setBrowserUrl(createWebAppInvitePath(canonicalUrl.toString()));
     } catch {
       validInvite = false;
       setInvalid(true);
     }
-    setDownloadUrl(OPENBOT_DOWNLOAD_LINKS[platform]);
+    setDownloadUrl(OPENOWNBOT_DOWNLOAD_LINKS[platform]);
     const cleanup = landingAnalytics.startJoin(document, window.location.hostname, { validInvite, platform });
     return cleanup;
   });

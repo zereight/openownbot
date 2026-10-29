@@ -1,4 +1,4 @@
-import { type AgentSquad, squadLevels, squadMayMessage, squadsOfAgent } from "@openbot/contracts/squads";
+import { type AgentSquad, squadLevels, squadMayMessage, squadsOfAgent } from "@openownbot/contracts/squads";
 import { describe, expect, it } from "vitest";
 
 const review: AgentSquad = {

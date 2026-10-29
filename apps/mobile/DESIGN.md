@@ -1,12 +1,12 @@
-# OpenBot Mobile Design Guidelines
+# OpenOwnBot Mobile Design Guidelines
 
 These rules apply to design, implementation, review, and AI-generated mobile UI. They define which layer owns each part of the interface and prevent the app from drifting into multiple visual systems.
 
 ## Core rule
 
-HeroUI Native is the foundation for application content. It is already installed, its provider is mounted in `src/app/_layout.tsx`, and its theme aliases are mapped to OpenBot tokens in `global.css`.
+HeroUI Native is the foundation for application content. It is already installed, its provider is mounted in `src/app/_layout.tsx`, and its theme aliases are mapped to OpenOwnBot tokens in `global.css`.
 
-Use HeroUI Native for product UI such as buttons, cards, fields, alerts, chips, accordions, and other content rendered inside a screen. Reuse an existing OpenBot component first, then a HeroUI Native component. Do not recreate a component that either layer already provides.
+Use HeroUI Native for product UI such as buttons, cards, fields, alerts, chips, accordions, and other content rendered inside a screen. Reuse an existing OpenOwnBot component first, then a HeroUI Native component. Do not recreate a component that either layer already provides.
 
 HeroUI Native is a component source, not a requirement to decorate every screen. Start with the lightest useful composition. A focused screen may need only layout, `Typography`, and one `Button`; add `Card`, `Chip`, `Surface`, or `Alert` only when it expresses real grouping, state, interaction, or actionable information.
 
@@ -59,10 +59,10 @@ large title does not work under the custom scroll edge effect on iOS 27, and And
   solid under the bar and a 32 dp fade below it, as the top fade of the design,
   a 22 dp regular small title on the 72 dp line, and 48 dp icon buttons with a round ripple: a 40 dp glass circle on full screens, the plain icon in sheets.
 - Android has no Liquid Glass, and its blur does not work over a scroll view. The search field and the
-  bar buttons use `useChromeGlass()`: the solid glass of the design (`--openbot-bg-chrome-glass`, 94-96%
+  bar buttons use `useChromeGlass()`: the solid glass of the design (`--openownbot-bg-chrome-glass`, 94-96%
   opaque), a hairline edge, a soft shadow and the top light of `ChromeGlassSheen`. The home search
   field has a real blur on Android 12 and later: the home content is in a `BlurTargetView`, and the
-  field draws a `BlurView` of it (radius 24) under the lighter `--openbot-bg-chrome-blur` fill. While
+  field draws a `BlurView` of it (radius 24) under the lighter `--openownbot-bg-chrome-blur` fill. While
   the results are open, the field shows the solid glass over the blur, because the results are not in
   the target. iOS without Liquid Glass keeps the solid capsule.
   Stacks set `androidBackOptions` in `screenOptions`, so the back button of every inner page, in
@@ -138,7 +138,7 @@ a standalone sheet with a native title is:
 }
 ```
 
-Resolve `sheetBackground` from `--openbot-bg-sheet`, as in `src/app/(app)/_layout.tsx`.
+Resolve `sheetBackground` from `--openownbot-bg-sheet`, as in `src/app/(app)/_layout.tsx`.
 Keep `headerShadowVisible: false` from the parent stack. A headerless sheet uses
 `headerShown: false`; do not add a fake navigation bar. Full-height detents are appropriate for
 search or similarly large content, not the default for a short form.
@@ -289,7 +289,7 @@ saved name. Reserve a compact Cancel area so editing does not shift the page.
 Group the identity, action area and Profile photo section together instead of applying the
 standard section gap on both sides of the reserved area. Keep the email close to the name.
 
-About ends with a centered, interactive `AppLogo`, the OpenBot name and the app version, including
+About ends with a centered, interactive `AppLogo`, the OpenOwnBot name and the app version, including
 the build number when available. Reuse the logo's existing tap animation; do not create another
 mascot animation or add a marketing subtitle. Read version metadata from the app rather than
 hardcoding it.
@@ -316,9 +316,9 @@ The text colors must retain at least 4.5:1 contrast on the surfaces that use the
 Fixed colors in camera overlays, QR codes, SVG alpha masks and agent artwork serve their
 respective media or identity roles. Do not replace these with foreground/background theme colors.
 
-- `packages/brand/src/tokens.css` is the single source of truth for OpenBot color, typography, radius, shadow, and motion tokens, shared with the desktop and web apps; `tokens-native.css` beside it carries the light and dark values for the tokens mobile themes. `global.css` imports both and declares none of its own — it maps them to Tailwind utilities and HeroUI semantic aliases.
+- `packages/brand/src/tokens.css` is the single source of truth for OpenOwnBot color, typography, radius, shadow, and motion tokens, shared with the desktop and web apps; `tokens-native.css` beside it carries the light and dark values for the tokens mobile themes. `global.css` imports both and declares none of its own — it maps them to Tailwind utilities and HeroUI semantic aliases.
 - Use HeroUI semantic variants and existing utility classes. Do not add raw colors, arbitrary radii, or one-off shadows to a screen when a token or component variant can express the intent.
-- Extend OpenBot tokens only for a new semantic role that will be reused. Keep HeroUI aliases mapped to OpenBot tokens rather than creating a second palette.
+- Extend OpenOwnBot tokens only for a new semantic role that will be reused. Keep HeroUI aliases mapped to OpenOwnBot tokens rather than creating a second palette.
 - Support light and dark appearance, dynamic type, reduced motion, reduced transparency, and sufficient contrast.
 - Favor composition and shared variants over copying styled JSX between screens.
 - Keep status and instructional copy evidence-based. Do not introduce badges, alerts, or lifecycle requirements that cannot be derived from the actual session, connectivity, or persistence implementation.

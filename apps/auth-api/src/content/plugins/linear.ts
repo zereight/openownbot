@@ -31,12 +31,12 @@ export const LINEAR_PLUGIN_GUIDE: PluginGuide = {
     {
       question: "Does the Linear plugin need an API key?",
       answer:
-        "No. You sign in to your own Linear account in the browser. Linear's server uses OAuth 2.1 with dynamic client registration. OpenBot signs in itself, keeps the tokens in encrypted storage, and adds the Authorization header. The plugin catalog holds no secret.",
+        "No. You sign in to your own Linear account in the browser. Linear's server uses OAuth 2.1 with dynamic client registration. OpenOwnBot signs in itself, keeps the tokens in encrypted storage, and adds the Authorization header. The plugin catalog holds no secret.",
     },
     {
       question: "What data does Linear get?",
       answer:
-        "Linear gets the requests that the agent sends, such as issue searches, new issue text and status changes. The agent works with the access of the account that signed in. Your workspaces, conversations and files stay on the computer that runs OpenBot.",
+        "Linear gets the requests that the agent sends, such as issue searches, new issue text and status changes. The agent works with the access of the account that signed in. Your workspaces, conversations and files stay on the computer that runs OpenOwnBot.",
     },
     {
       question: "Does the Linear MCP server cost anything?",

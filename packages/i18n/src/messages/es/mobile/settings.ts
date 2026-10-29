@@ -115,7 +115,7 @@ export const messages = {
     "Muestra el inicio de una respuesta, una pregunta o la acción que hay que aprobar. Google y el servicio de cuentas de OpenOwnBot no pueden leerlo.",
   "mobile.settings.notifications.sound": "Sonido",
   "mobile.settings.notifications.playSound": "Reproducir sonido",
-  "mobile.settings.notifications.sound.openbot": "OpenBot",
+  "mobile.settings.notifications.sound.openownbot": "OpenOwnBot",
   "mobile.settings.notifications.sound.warm": "Cálido",
   "mobile.settings.notifications.sound.mech": "Mecánico",
   "mobile.settings.notifications.sound.bubble": "Burbujas",

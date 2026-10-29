@@ -1,4 +1,4 @@
-// Measures how much of each Claude request reads the prompt cache after the events that OpenBot
+// Measures how much of each Claude request reads the prompt cache after the events that OpenOwnBot
 // causes between turns. Runs the real Claude CLI with the user's Claude login, on Claude Haiku, in
 // a temporary git workspace. Each variant runs these turns in one session:
 //   1. the first turn of a new process,
@@ -17,7 +17,7 @@
 // the prefix that another session of the agent wrote, so the 1-hour cache is the better one for runs
 // less than an hour apart.
 // Costs a few Haiku turns. `bun run test:claude-cache`; `--variant=<name>` runs one variant.
-// Writes .openbot-build/claude-cache-e2e/report.json.
+// Writes .openownbot-build/claude-cache-e2e/report.json.
 import { execFileSync } from "node:child_process";
 import { mkdirSync, writeFileSync } from "node:fs";
 import { mkdtemp, readdir, readFile, realpath, rm, writeFile } from "node:fs/promises";
@@ -29,7 +29,7 @@ import { resolveClaudeCli } from "../src/backend/cli";
 import { runCauseEffect } from "../src/backend/effect-boundary";
 import { type AppServerNotification, getRecord, getString } from "../src/backend/protocol";
 
-const OUT = resolve(import.meta.dirname, "../.openbot-build/claude-cache-e2e");
+const OUT = resolve(import.meta.dirname, "../.openownbot-build/claude-cache-e2e");
 const MODEL = "claude-haiku-5-5";
 const PROMPT = "Reply with the single word OK. Do not use any tool.";
 
@@ -40,7 +40,7 @@ interface Variant {
 }
 
 const VARIANTS: Variant[] = [
-  { name: "current", description: "The options that OpenBot sends now.", options: (options) => options },
+  { name: "current", description: "The options that OpenOwnBot sends now.", options: (options) => options },
   {
     name: "snapshot-on",
     description: "`--system-prompt-snapshot on`: the CLI records the system prompt and resumes with it.",
@@ -86,7 +86,7 @@ const only = process.argv.find((arg) => arg.startsWith("--variant="))?.slice("--
 const variants = only ? VARIANTS.filter((variant) => variant.name === only) : VARIANTS;
 if (variants.length === 0) throw new Error(`Unknown variant: ${only}`);
 
-const root = await realpath(await mkdtemp(join(tmpdir(), "openbot-claude-cache-e2e-")));
+const root = await realpath(await mkdtemp(join(tmpdir(), "openownbot-claude-cache-e2e-")));
 const cli = await runCauseEffect(resolveClaudeCli());
 const report: {
   cli: { executable: string; version: string };
@@ -103,7 +103,7 @@ function startedThreadId(value: unknown): string {
 }
 
 function git(cwd: string, ...args: string[]): void {
-  execFileSync("git", ["-c", "user.name=OpenBot", "-c", "user.email=e2e@openbot.invalid", ...args], { cwd });
+  execFileSync("git", ["-c", "user.name=OpenOwnBot", "-c", "user.email=e2e@openbot.invalid", ...args], { cwd });
 }
 
 for (const variant of variants) {
@@ -256,7 +256,7 @@ for (const entry of await readdir(projects).catch(() => [])) {
     if (file.endsWith(".jsonl")) transcripts += await readFile(join(projects, entry, file), "utf8");
   await rm(join(projects, entry), { recursive: true, force: true });
 }
-report.teammatesBlockSent = transcripts.includes("<openbot_section_teammates>") && transcripts.includes("Cleo");
+report.teammatesBlockSent = transcripts.includes("<openownbot_section_teammates>") && transcripts.includes("Cleo");
 await rm(root, { recursive: true, force: true });
 
 mkdirSync(OUT, { recursive: true });

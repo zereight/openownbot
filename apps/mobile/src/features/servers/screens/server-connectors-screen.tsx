@@ -1,4 +1,4 @@
-import type { MessagingConnection, MessagingPlatform } from "@openbot/contracts/ipc";
+import type { MessagingConnection, MessagingPlatform } from "@openownbot/contracts/ipc";
 import { router, useLocalSearchParams } from "expo-router";
 import { Typography } from "heroui-native";
 import { ConnectorLogo } from "@/features/servers/components/connector-logo";

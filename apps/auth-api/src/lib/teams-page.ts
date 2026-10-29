@@ -1,4 +1,4 @@
-// The text of the /teams page: OpenBot for Teams, with its setups, benefits and
+// The text of the /teams page: OpenOwnBot for Teams, with its setups, benefits and
 // custom deployments. The landing page's Teams section links here.
 //
 // No JSX here, for the same reason `content-collection.ts` holds none.
@@ -11,15 +11,15 @@ export const TEAMS_ROUTE = "/teams";
 export const TEAMS_PAGE_UPDATED_AT = "2026-10-16";
 
 export const TEAMS_PAGE_META = {
-  title: "OpenBot for Teams",
+  title: "OpenOwnBot for Teams",
   description:
-    "Run OpenBot on managed infrastructure or let us design a custom deployment around your team, workflows and existing systems.",
+    "Run OpenOwnBot on managed infrastructure or let us design a custom deployment around your team, workflows and existing systems.",
 } as const;
 
 export const TEAMS_HERO = {
   heading: "Bring a team of AI coworkers into your company",
   intro:
-    "Run OpenBot on managed infrastructure or let us design a custom deployment around your team, workflows and existing systems.",
+    "Run OpenOwnBot on managed infrastructure or let us design a custom deployment around your team, workflows and existing systems.",
 } as const;
 
 /** Each setup has its own colour and icon, which the page sets for this id. */
@@ -44,14 +44,14 @@ export const TEAMS_SETUPS: readonly TeamsSetup[] = [
     id: "local",
     label: "Local",
     title: "Run it locally",
-    description: "Best for individual users who want to run OpenBot directly on their own infrastructure.",
+    description: "Best for individual users who want to run OpenOwnBot directly on their own infrastructure.",
   },
   {
     id: "managed",
     label: "Managed server",
     title: "Use a managed server",
     description:
-      "Keep OpenBot available without relying on a personal computer. We provide and maintain the server, so you can focus on your agents and workflows.",
+      "Keep OpenOwnBot available without relying on a personal computer. We provide and maintain the server, so you can focus on your agents and workflows.",
   },
   {
     id: "custom",
@@ -73,7 +73,7 @@ export const TEAMS_BENEFITS: readonly TeamsBenefit[] = [
     icon: "cloud",
     title: "Your agents work 24/7",
     description:
-      "Run OpenBot on managed infrastructure and give your team a shared environment where people, agents and automations work together.",
+      "Run OpenOwnBot on managed infrastructure and give your team a shared environment where people, agents and automations work together.",
   },
   {
     icon: "clock",
@@ -91,14 +91,14 @@ export const TEAMS_BENEFITS: readonly TeamsBenefit[] = [
     icon: "devices",
     title: "Access from anywhere",
     description:
-      "Connect to your OpenBot environment remotely and continue working from supported desktop or mobile devices.",
+      "Connect to your OpenOwnBot environment remotely and continue working from supported desktop or mobile devices.",
   },
 ];
 
 export const TEAMS_CUSTOM = {
-  heading: "OpenBot, adapted to your business",
+  heading: "OpenOwnBot, adapted to your business",
   intro:
-    "Getting a server is only the beginning. If your company needs a complete solution, we can help design and implement OpenBot around your actual processes.",
+    "Getting a server is only the beginning. If your company needs a complete solution, we can help design and implement OpenOwnBot around your actual processes.",
   items: [
     "Infrastructure setup and configuration",
     "Initial agent configuration",

@@ -1,10 +1,10 @@
-// Adapted from the reproduction in nightly-labs/openbot#1824.
-// A custom ACP agent whose interpreter is only on the user's login-shell PATH, with OpenBot started
+// Adapted from the reproduction in zereight/openownbot#1824.
+// A custom ACP agent whose interpreter is only on the user's login-shell PATH, with OpenOwnBot started
 // the way Finder, the Dock or a login item starts it: PATH=/usr/bin:/bin:/usr/sbin:/sbin.
 // Most ACP adapters are `#!/usr/bin/env node` scripts and Node comes from Homebrew, nvm or mise, so
 // this is the normal macOS setup. Both ways the agent starts must work: Check agent, and the `acp`
 // provider driver that lists its models. `bun run test:custom-agents:login-path`; exit 0 = both
-// worked. Writes .openbot-build/custom-acp-agent-login-path-e2e/report.json.
+// worked. Writes .openownbot-build/custom-acp-agent-login-path-e2e/report.json.
 import assert from "node:assert/strict";
 import { chmod, mkdir, mkdtemp, rm, symlink, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
@@ -20,7 +20,7 @@ import { stopClients, xorCipher } from "./provider-fakes/host";
 
 // The interpreter has a name no system folder holds, so the result does not depend on whether this
 // machine also has a `node` in /usr/bin.
-const INTERPRETER = "openbot-login-path-node";
+const INTERPRETER = "openownbot-login-path-node";
 
 const FAKE_AGENT = `#!/usr/bin/env ${INTERPRETER}
 const NL = String.fromCharCode(10);
@@ -51,10 +51,10 @@ function handle(message) {
 setInterval(() => {}, 1000);
 `;
 
-const OUT = resolve(import.meta.dirname, "../.openbot-build/custom-acp-agent-login-path-e2e");
+const OUT = resolve(import.meta.dirname, "../.openownbot-build/custom-acp-agent-login-path-e2e");
 const report: { passed: boolean; check?: unknown; models?: unknown; error?: string } = { passed: false };
 
-const root = await mkdtemp(join(tmpdir(), "openbot-login-path-e2e-"));
+const root = await mkdtemp(join(tmpdir(), "openownbot-login-path-e2e-"));
 const clients: AgentClient[] = [];
 let passed = false;
 
@@ -70,9 +70,9 @@ try {
   delete process.env.ZDOTDIR;
   if (process.platform !== "darwin") process.env.SHELL = "/bin/bash";
 
-  // OpenBot started from Finder, the Dock or a login item.
+  // OpenOwnBot started from Finder, the Dock or a login item.
   process.env.PATH = "/usr/bin:/bin:/usr/sbin:/sbin";
-  // Control run: the same agent with the tool folder on OpenBot's own PATH, as when started from a terminal.
+  // Control run: the same agent with the tool folder on OpenOwnBot's own PATH, as when started from a terminal.
   if (process.env.LOGIN_PATH_CONTROL) process.env.PATH = `${tools}:${process.env.PATH}`;
 
   const found = await runCauseEffect(runInLoginShell(`command -v ${INTERPRETER}`));

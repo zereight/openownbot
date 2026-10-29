@@ -129,7 +129,7 @@ export const messages = {
   "error.agent.screenCaptureRegionOutside":
     "Obszar nie mieści się w jednym wyświetlaczu. Użyj punktów pulpitu w granicach jednego wyświetlacza z list_capture_sources.",
   "error.agent.screenCapturePermissionMissing":
-    "OpenBot nie ma uprawnienia do nagrywania ekranu. Poproś użytkownika, aby otworzył Ustawienia systemowe > Prywatność i ochrona > Nagrywanie ekranu i dźwięku systemowego, włączył OpenBot, a potem zamknął i ponownie otworzył OpenBot.",
+    "OpenOwnBot nie ma uprawnienia do nagrywania ekranu. Poproś użytkownika, aby otworzył Ustawienia systemowe > Prywatność i ochrona > Nagrywanie ekranu i dźwięku systemowego, włączył OpenOwnBot, a potem zamknął i ponownie otworzył OpenOwnBot.",
   "error.agent.screenCaptureEmptyWindows":
     "Windows zwrócił pusty obraz. Poproś użytkownika, aby odblokował komputer i zamknął chronione treści. Przechwytywanie ekranu może też blokować zasada organizacji.",
   "error.agent.screenCaptureFailed": "Przechwycenie ekranu nie powiodło się. Spróbuj ponownie.",

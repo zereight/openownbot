@@ -1,8 +1,8 @@
-// Runs `resources/cli/openbot-cli.mjs` as a child process against the real `AutomationServer` on a
+// Runs `resources/cli/openownbot-cli.mjs` as a child process against the real `AutomationServer` on a
 // loopback port. The agent service behind the server is a small in-memory stand-in: a message gets a
 // delivery that moves from queued to running to its end each time the CLI reads it. The script checks
 // the CLI's output and exit codes for each outcome and that the token never reaches the output.
-// Writes .openbot-build/automation-cli-e2e/report.json. Run: `bun scripts/automation-cli-e2e.ts`.
+// Writes .openownbot-build/automation-cli-e2e/report.json. Run: `bun scripts/automation-cli-e2e.ts`.
 import assert from "node:assert/strict";
 import { spawn } from "node:child_process";
 import { mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
@@ -14,14 +14,14 @@ import {
   type QueueDelivery,
   type QueuedMessageReceipt,
   type UpdateAgentInput,
-} from "@openbot/contracts/ipc";
-import { ContextResetBusyError } from "@openbot/contracts/team-protocol/context-reset-v1";
+} from "@openownbot/contracts/ipc";
+import { ContextResetBusyError } from "@openownbot/contracts/team-protocol/context-reset-v1";
 import { Effect } from "effect";
 import { AgentSettingsRefused } from "../src/backend/agent/agent-settings-refused";
 import { AutomationServer, type UpdatedAgent } from "../src/main/automation-server";
 
-const OUT = resolve(import.meta.dirname, "../.openbot-build/automation-cli-e2e");
-const CLI = resolve(import.meta.dirname, "../resources/cli/openbot-cli.mjs");
+const OUT = resolve(import.meta.dirname, "../.openownbot-build/automation-cli-e2e");
+const CLI = resolve(import.meta.dirname, "../resources/cli/openownbot-cli.mjs");
 
 interface Check {
   name: string;
@@ -81,7 +81,7 @@ function deliveryState(
   delivery.reads += 1;
   const base = { recipientAgentId: delivery.agentId, turnId: delivery.reads > 1 ? `turn-${delivery.id}` : null };
   if (delivery.reads === 1 || delivery.outcome === "behind") return { ...base, status: "queued", error: null };
-  // OpenBot restarts while the CLI waits: the next read comes through a new port and token.
+  // OpenOwnBot restarts while the CLI waits: the next read comes through a new port and token.
   if (delivery.reads === 2 && delivery.outcome === "restart") restarted = restart();
   if (delivery.reads < 3 || delivery.outcome === "person" || delivery.outcome === "forever")
     return { ...base, status: "running", error: null };
@@ -89,7 +89,7 @@ function deliveryState(
   return { ...base, status: "completed", error: null };
 }
 
-const root = mkdtempSync(join(tmpdir(), "openbot-cli-e2e-"));
+const root = mkdtempSync(join(tmpdir(), "openownbot-cli-e2e-"));
 const options: ConstructorParameters<typeof AutomationServer>[0] = {
   root,
   listAgents: () => agents,
@@ -126,7 +126,7 @@ const options: ConstructorParameters<typeof AutomationServer>[0] = {
     return {
       prompts: [],
       approvals: [],
-      browserTakeovers: waiting ? [{ requestId: "takeover-1", requiresOpenBot: true }] : [],
+      browserTakeovers: waiting ? [{ requestId: "takeover-1", requiresOpenOwnBot: true }] : [],
     };
   },
   respondToLocalAttention: () => Effect.void,
@@ -173,7 +173,7 @@ function cli(args: string[], stdin?: string): Promise<Run> {
   return new Promise((done, fail) => {
     // The CLI is for Node, which is what users have; Bun runs only this script.
     const child = spawn("node", [CLI, ...args], {
-      env: { ...process.env, OPENBOT_AUTOMATION_DIR: root },
+      env: { ...process.env, OPENOWNBOT_AUTOMATION_DIR: root },
       stdio: ["pipe", "pipe", "pipe"],
     });
     let stdout = "";
@@ -265,7 +265,7 @@ try {
   await check("a wrong command line exits 2", ["run", "Ada"], 2, (run) => run.stderr.includes("Usage:"));
   const oldUrl = readFileSync(join(root, "url"), "utf8");
   await check(
-    "run --wait continues after OpenBot restarts",
+    "run --wait continues after OpenOwnBot restarts",
     ["run", "Ada", "restart", "--wait", "--json"],
     0,
     (run) => {
@@ -319,7 +319,7 @@ try {
   });
   busy = false;
   await Effect.runPromise(server.stop());
-  await check("a stopped app exits 5", ["list"], 5, (run) => run.stderr.includes("OpenBot is not running"));
+  await check("a stopped app exits 5", ["list"], 5, (run) => run.stderr.includes("OpenOwnBot is not running"));
   await check("a wrong command line exits 2 also when the app is stopped", ["agent", "foo", "Ada"], 2, (run) =>
     run.stderr.includes("Usage:"),
   );

@@ -1,18 +1,18 @@
-// Adapted from the report in nightly-labs/openbot#2686: "Codex CLI reports 'not found'".
-// OpenBot started the way Finder, the Dock or a login item starts it: PATH=/usr/bin:/bin:/usr/sbin:/sbin.
+// Adapted from the report in zereight/openownbot#2686: "Codex CLI reports 'not found'".
+// OpenOwnBot started the way Finder, the Dock or a login item starts it: PATH=/usr/bin:/bin:/usr/sbin:/sbin.
 // An npm Codex is a `#!/usr/bin/env node` script, so `codex --version` and the app-server process
 // must run with the login shell's folders, or with the folder that Codex was found in.
 // The stand-in Codex runs on a stand-in interpreter that is only in those folders. The login shell
 // is bash, set in $SHELL, and only `~/.bash_profile` adds the folder: zsh does not see it.
 // Bun reads HOME once, at start, so the cases run in a second process that starts with the stand-in
 // home. `bun run test:codex:login-path`; exit 0 = every case passed. Writes
-// .openbot-build/codex-login-path-e2e/report.json.
+// .openownbot-build/codex-login-path-e2e/report.json.
 import assert from "node:assert/strict";
 import { spawnSync } from "node:child_process";
 import { chmod, mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
-import { sourceText } from "@openbot/i18n/source";
+import { sourceText } from "@openownbot/i18n/source";
 import { Effect } from "effect";
 import { providerFailureStatus } from "../src/backend/agent/provider-status";
 import type { AgentClient } from "../src/backend/agent-client";
@@ -20,11 +20,11 @@ import { type CodexCliInfo, resolveCodexCli } from "../src/backend/cli";
 import { runCauseEffect } from "../src/backend/effect-boundary";
 import { NO_PROVIDER_CREDENTIALS, requireProviderDriver } from "../src/backend/provider-drivers";
 
-const OUT = resolve(import.meta.dirname, "../.openbot-build/codex-login-path-e2e");
-const ROOT_VARIABLE = "OPENBOT_CODEX_LOGIN_PATH_E2E_ROOT";
+const OUT = resolve(import.meta.dirname, "../.openownbot-build/codex-login-path-e2e");
+const ROOT_VARIABLE = "OPENOWNBOT_CODEX_LOGIN_PATH_E2E_ROOT";
 
 if (process.env[ROOT_VARIABLE] === undefined) {
-  const root = await mkdtemp(join(tmpdir(), "openbot-codex-login-path-e2e-"));
+  const root = await mkdtemp(join(tmpdir(), "openownbot-codex-login-path-e2e-"));
   const home = join(root, "home");
   await mkdir(home, { recursive: true });
   // Only bash's login profile adds the folder, as for a user whose shell is bash. It also leaves out
@@ -36,11 +36,11 @@ if (process.env[ROOT_VARIABLE] === undefined) {
     [ROOT_VARIABLE]: root,
     HOME: home,
     SHELL: "/bin/bash",
-    // OpenBot started from Finder, the Dock or a login item.
+    // OpenOwnBot started from Finder, the Dock or a login item.
     PATH: "/usr/bin:/bin:/usr/sbin:/sbin",
   };
   delete env.ZDOTDIR;
-  delete env.OPENBOT_CODEX_PATH;
+  delete env.OPENOWNBOT_CODEX_PATH;
   const child = spawnSync(process.execPath, [import.meta.filename], { stdio: "inherit", env });
   await rm(root, { recursive: true, force: true });
   process.exit(child.status ?? 1);
@@ -116,7 +116,7 @@ try {
 
   // 1. A Codex on the login shell's PATH, whose interpreter is only there.
   const loginRecorded = join(root, "login-path.txt");
-  const loginCodex = await writeStandIn(tools, "openbot-e2e-node", tools, loginRecorded);
+  const loginCodex = await writeStandIn(tools, "openownbot-e2e-node", tools, loginRecorded);
   const loginCli = await runCauseEffect(resolveCodexCli({ bundledExecutable: null }));
   assert.equal(loginCli.executable, loginCodex, "Codex is found on the login shell's PATH from $SHELL.");
   assert.equal(loginCli.version, "0.200.0", "`codex --version` runs with the login shell's PATH.");
@@ -128,7 +128,7 @@ try {
   await rm(loginCodex);
   const volta = join(home, ".volta", "bin");
   const voltaRecorded = join(root, "volta-path.txt");
-  const voltaCodex = await writeStandIn(volta, "openbot-e2e-volta-node", volta, voltaRecorded);
+  const voltaCodex = await writeStandIn(volta, "openownbot-e2e-volta-node", volta, voltaRecorded);
   const voltaCli = await runCauseEffect(resolveCodexCli({ bundledExecutable: null }));
   assert.equal(voltaCli.executable, voltaCodex, "Codex is found in the Volta fallback folder.");
   const voltaSession = await appServerPath(voltaCli, voltaRecorded);

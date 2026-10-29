@@ -4,7 +4,7 @@
   display: grid;
   width: 62px;
   height: 62px;
-  margin: var(--openbot-space-2) auto var(--openbot-space-4);
+  margin: var(--openownbot-space-2) auto var(--openownbot-space-4);
   place-items: center;
 }
 
@@ -16,7 +16,7 @@
   margin: 0;
   place-items: center;
   border: 0;
-  border-radius: var(--openbot-radius-pill);
+  border-radius: var(--openownbot-radius-pill);
   background: transparent;
 }
 
@@ -44,10 +44,10 @@
   width: 24px;
   height: 24px;
   place-items: center;
-  border: 3px solid var(--openbot-bg-canvas);
-  border-radius: var(--openbot-radius-pill);
-  background: var(--openbot-bg-control);
-  color: var(--openbot-text-primary);
+  border: 3px solid var(--openownbot-bg-canvas);
+  border-radius: var(--openownbot-radius-pill);
+  background: var(--openownbot-bg-control);
+  color: var(--openownbot-text-primary);
 }
 
 .agent-settings-avatar-badge-icon {
@@ -63,7 +63,7 @@
   bottom: 0;
   left: 0;
   overflow-y: auto;
-  background: var(--openbot-bg-canvas);
+  background: var(--openownbot-bg-canvas);
 }
 
 .agent-routines-settings {
@@ -95,18 +95,18 @@
   gap: 9px;
   align-items: center;
   border: 1px solid transparent;
-  border-radius: var(--openbot-radius-md);
+  border-radius: var(--openownbot-radius-md);
   background: transparent;
   padding: 5px 7px;
   text-align: left;
   transition:
-    border-color var(--openbot-duration-hover) ease,
-    background-color var(--openbot-duration-hover) ease;
+    border-color var(--openownbot-duration-hover) ease,
+    background-color var(--openownbot-duration-hover) ease;
 }
 
 .agent-routine-row:focus-visible {
-  border-color: var(--openbot-border-strong);
-  background: var(--openbot-hover);
+  border-color: var(--openownbot-border-strong);
+  background: var(--openownbot-hover);
 }
 
 .agent-routine-row > span:nth-child(2) {
@@ -123,15 +123,15 @@
 }
 
 .agent-routine-row strong {
-  color: var(--openbot-text-primary);
-  font-size: var(--openbot-text-md);
+  color: var(--openownbot-text-primary);
+  font-size: var(--openownbot-text-md);
   font-weight: 500;
 }
 
 .agent-routine-row small,
 .agent-routines-empty {
-  color: var(--openbot-text-muted);
-  font-size: var(--openbot-text-sm);
+  color: var(--openownbot-text-muted);
+  font-size: var(--openownbot-text-sm);
 }
 
 .agent-routine-action-buttons svg {
@@ -146,24 +146,24 @@
 }
 
 .agent-routine-status-icon-active {
-  color: var(--openbot-success);
+  color: var(--openownbot-success);
 }
 
 .agent-routine-status-icon-paused {
-  color: var(--openbot-text-muted);
+  color: var(--openownbot-text-muted);
 }
 
 .agent-routine-status-icon-active > svg,
 .agent-routine-status-icon-paused > svg {
   width: 14px;
   height: 14px;
-  stroke-width: var(--openbot-icon-stroke);
+  stroke-width: var(--openownbot-icon-stroke);
 }
 
 @media (hover: hover) and (pointer: fine) {
   .agent-routine-row:hover {
-    border-color: var(--openbot-border);
-    background: var(--openbot-hover);
+    border-color: var(--openownbot-border);
+    background: var(--openownbot-hover);
   }
 }
 
@@ -171,7 +171,7 @@
   display: grid;
   gap: 11px;
   margin-bottom: 20px;
-  border-bottom: 1px solid var(--openbot-border);
+  border-bottom: 1px solid var(--openownbot-border);
   padding-bottom: 16px;
 }
 
@@ -192,13 +192,13 @@
 }
 
 .agent-routine-active-toggle strong {
-  color: var(--openbot-text-primary);
-  font-size: var(--openbot-text-md);
+  color: var(--openownbot-text-primary);
+  font-size: var(--openownbot-text-md);
 }
 
 .agent-routine-active-toggle small {
-  color: var(--openbot-text-muted);
-  font-size: var(--openbot-text-sm);
+  color: var(--openownbot-text-muted);
+  font-size: var(--openownbot-text-sm);
 }
 
 .agent-routine-action-buttons {
@@ -210,17 +210,17 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  border: 1px solid var(--openbot-border);
-  border-radius: var(--openbot-radius-md);
-  background: var(--openbot-bg-control);
+  border: 1px solid var(--openownbot-border);
+  border-radius: var(--openownbot-radius-md);
+  background: var(--openownbot-bg-control);
   padding: 7px 9px;
-  color: var(--openbot-text-secondary);
-  font-size: var(--openbot-text-sm);
+  color: var(--openownbot-text-secondary);
+  font-size: var(--openownbot-text-sm);
 }
 
 .agent-routine-action-buttons button:hover:not(:disabled) {
-  background: var(--openbot-bg-control-hover);
-  color: var(--openbot-text-primary);
+  background: var(--openownbot-bg-control-hover);
+  color: var(--openownbot-text-primary);
 }
 
 .agent-routine-when,
@@ -229,7 +229,7 @@
 }
 
 .agent-routine-history {
-  border-top: 1px solid var(--openbot-border);
+  border-top: 1px solid var(--openownbot-border);
   padding-top: 20px;
 }
 
@@ -241,7 +241,7 @@
   display: grid;
   grid-template-columns: 8px minmax(0, 1fr) auto;
   gap: 9px;
-  border-bottom: 1px solid var(--openbot-border);
+  border-bottom: 1px solid var(--openownbot-border);
   padding: 9px 2px;
 }
 
@@ -267,7 +267,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: var(--openbot-space-0-5);
+  gap: var(--openownbot-space-0-5);
 }
 
 .agent-routines-body {
@@ -307,8 +307,8 @@
   align-items: center;
   justify-content: flex-start;
   gap: 8px;
-  color: var(--openbot-text-primary);
-  font-size: var(--openbot-text-sm);
+  color: var(--openownbot-text-primary);
+  font-size: var(--openownbot-text-sm);
 }
 
 /* The shared field puts the label first and fills the row. Here the switch comes first, beside its state word. */
@@ -319,7 +319,7 @@
 }
 
 .agent-routine-active-toggle .ui-switch-label {
-  font-size: var(--openbot-text-sm);
+  font-size: var(--openownbot-text-sm);
   font-weight: inherit;
 }
 
@@ -332,32 +332,32 @@
 
 .agent-routine-action-buttons button {
   min-height: 32px;
-  border-radius: var(--openbot-radius-md);
+  border-radius: var(--openownbot-radius-md);
   padding-inline: 11px;
-  font-size: var(--openbot-text-sm);
+  font-size: var(--openownbot-text-sm);
 }
 
 .agent-routine-action-buttons .ui-button-variant-destructive {
   border-color: transparent;
-  background: var(--openbot-danger-soft);
-  color: var(--openbot-danger);
+  background: var(--openownbot-danger-soft);
+  color: var(--openownbot-danger);
 }
 
 .agent-routine-action-buttons .ui-button-variant-default {
   border-color: transparent;
-  background: var(--openbot-surface-light);
-  color: var(--openbot-text-on-light);
+  background: var(--openownbot-surface-light);
+  color: var(--openownbot-text-on-light);
 }
 
 @media (hover: hover) and (pointer: fine) {
   .agent-routine-action-buttons .ui-button-variant-destructive:hover:not(:disabled):not([data-disabled]) {
-    background: var(--openbot-danger-soft-hover);
-    color: var(--openbot-danger);
+    background: var(--openownbot-danger-soft-hover);
+    color: var(--openownbot-danger);
   }
 
   .agent-routine-action-buttons .ui-button-variant-default:hover:not(:disabled):not([data-disabled]) {
-    background: color-mix(in srgb, var(--openbot-surface-light) 82%, transparent);
-    color: var(--openbot-text-on-light);
+    background: color-mix(in srgb, var(--openownbot-surface-light) 82%, transparent);
+    color: var(--openownbot-text-on-light);
   }
 }
 
@@ -379,7 +379,7 @@
 
 /* What a field misses, under its control, where the field limit goes. */
 .agent-routine-field-error {
-  margin: var(--openbot-space-1-5) 0 0 var(--openbot-space-2);
+  margin: var(--openownbot-space-1-5) 0 0 var(--openownbot-space-2);
 }
 
 /* Schedule or webhook: two equal choices above the trigger. */
@@ -387,26 +387,26 @@
   display: grid;
   min-width: 0;
   grid-template-columns: 1fr 1fr;
-  gap: var(--openbot-space-1);
-  margin: 0 0 var(--openbot-space-2);
-  border: 1px solid var(--openbot-border);
-  border-radius: var(--openbot-radius-md);
-  padding: var(--openbot-space-0-5);
+  gap: var(--openownbot-space-1);
+  margin: 0 0 var(--openownbot-space-2);
+  border: 1px solid var(--openownbot-border);
+  border-radius: var(--openownbot-radius-md);
+  padding: var(--openownbot-space-0-5);
 }
 
 .agent-routine-trigger-kind-icon {
-  width: var(--openbot-icon-sm);
-  height: var(--openbot-icon-sm);
+  width: var(--openownbot-icon-sm);
+  height: var(--openownbot-icon-sm);
 }
 
 /* The schedule and history are fields, so their headings match the field labels. */
 .agent-routine-when h3,
 .agent-routine-history h3 {
-  margin: 0 0 var(--openbot-space-1-5) var(--openbot-space-2);
-  color: var(--openbot-text-secondary);
-  font-size: var(--openbot-text-md);
+  margin: 0 0 var(--openownbot-space-1-5) var(--openownbot-space-2);
+  color: var(--openownbot-text-secondary);
+  font-size: var(--openownbot-text-md);
   font-weight: inherit;
-  line-height: var(--openbot-leading-md);
+  line-height: var(--openownbot-leading-md);
 }
 
 /* A pointer and value row in the webhook filters. A JSON Pointer is longer than its value. */
@@ -414,7 +414,7 @@
   display: grid;
   grid-template-columns: minmax(0, 3fr) minmax(0, 2fr) auto;
   align-items: center;
-  gap: var(--openbot-space-2);
+  gap: var(--openownbot-space-2);
 }
 
 .agent-routine-history {
@@ -437,10 +437,10 @@
   justify-content: space-between;
   gap: 12px;
   border: 0;
-  border-radius: var(--openbot-radius-sm);
-  padding: 5px var(--openbot-space-2);
-  color: var(--openbot-text-primary);
-  font-size: var(--openbot-text-sm);
+  border-radius: var(--openownbot-radius-sm);
+  padding: 5px var(--openownbot-space-2);
+  color: var(--openownbot-text-primary);
+  font-size: var(--openownbot-text-sm);
   text-align: left;
 }
 
@@ -454,20 +454,20 @@
   min-width: 0;
   flex: 1;
   flex-wrap: wrap;
-  gap: 0 var(--openbot-space-2);
+  gap: 0 var(--openownbot-space-2);
   white-space: nowrap;
 }
 
 .agent-routine-run-note {
   min-width: 0;
   overflow: hidden;
-  color: var(--openbot-text-muted);
+  color: var(--openownbot-text-muted);
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
 .agent-routine-history-error {
-  margin-bottom: var(--openbot-space-2);
+  margin-bottom: var(--openownbot-space-2);
 }
 
 /* A run whose answer went to a messaging place: the run row, then where the answer went. */
@@ -482,26 +482,26 @@
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  padding: 0 var(--openbot-space-2) 5px;
-  font-size: var(--openbot-text-sm);
+  padding: 0 var(--openownbot-space-2) 5px;
+  font-size: var(--openownbot-text-sm);
 }
 
 /* The reason is why the answer is missing from the place, so it wraps rather than cuts off. */
 .agent-routine-delivery-note {
   min-width: 0;
-  color: var(--openbot-text-muted);
+  color: var(--openownbot-text-muted);
   overflow-wrap: anywhere;
   white-space: normal;
 }
 
 .agent-routine-delivery-failed,
 .agent-routine-delivery-uncertain {
-  color: var(--openbot-warning);
+  color: var(--openownbot-warning);
 }
 
 @media (hover: hover) and (pointer: fine) {
   .ui-button.agent-routine-run-link:hover:not(:disabled) {
-    background: var(--openbot-bg-control-hover);
+    background: var(--openownbot-bg-control-hover);
   }
 }
 
@@ -511,42 +511,42 @@
   height: 18px;
   flex: 0 0 18px;
   place-items: center;
-  color: var(--openbot-text-muted);
+  color: var(--openownbot-text-muted);
 }
 
 .agent-routine-run-icon > svg {
   width: 16px;
   height: 16px;
-  stroke-width: var(--openbot-icon-stroke);
+  stroke-width: var(--openownbot-icon-stroke);
 }
 
 .agent-routine-run-icon-succeeded {
-  color: var(--openbot-success);
+  color: var(--openownbot-success);
 }
 
 .agent-routine-run-icon-failed {
-  color: var(--openbot-danger);
+  color: var(--openownbot-danger);
 }
 
 .agent-routine-run-icon-needs-attention {
-  color: var(--openbot-warning);
+  color: var(--openownbot-warning);
 }
 
 .agent-routine-run-icon-running,
 .agent-routine-run-icon-queued,
 .agent-routine-run-icon-interrupted,
 .agent-routine-run-icon-cancelled {
-  color: var(--openbot-text-muted);
+  color: var(--openownbot-text-muted);
 }
 
 /* The overlay fades out with the modal, which is not one of its children. */
 .agent-memories-overlay[data-closed] {
-  animation: agent-dialog-overlay-out var(--openbot-duration-dialog) ease;
+  animation: agent-dialog-overlay-out var(--openownbot-duration-dialog) ease;
 }
 
 .agent-memories-modal {
   position: fixed;
-  z-index: calc(var(--openbot-layer-dialog) + 1);
+  z-index: calc(var(--openownbot-layer-dialog) + 1);
   top: 50%;
   left: 50%;
   width: min(560px, calc(100vw - 48px));
@@ -556,8 +556,8 @@
   grid-template-rows: auto minmax(0, 1fr) auto;
   overflow: hidden;
   outline: 0;
-  background: var(--openbot-bg-control);
-  color: var(--openbot-text-primary);
+  background: var(--openownbot-bg-control);
+  color: var(--openownbot-text-primary);
   transform: translate(-50%, -50%);
   transform-origin: center;
 }
@@ -567,9 +567,9 @@
   min-height: 48px;
   align-items: center;
   justify-content: space-between;
-  gap: var(--openbot-space-3);
-  border-bottom: 1px solid var(--openbot-border);
-  padding: var(--openbot-space-2) var(--openbot-space-2) var(--openbot-space-2) var(--openbot-space-3);
+  gap: var(--openownbot-space-3);
+  border-bottom: 1px solid var(--openownbot-border);
+  padding: var(--openownbot-space-2) var(--openownbot-space-2) var(--openownbot-space-2) var(--openownbot-space-3);
 }
 
 .agent-memories-heading {
@@ -580,7 +580,7 @@
   display: flex;
   min-width: 0;
   align-items: center;
-  gap: var(--openbot-space-1);
+  gap: var(--openownbot-space-1);
 }
 
 .agent-skills-parent {
@@ -589,20 +589,20 @@
   overflow: hidden;
   border: 0;
   background: transparent;
-  color: var(--openbot-text-muted);
+  color: var(--openownbot-text-muted);
   padding: 0;
-  font-size: var(--openbot-text-lg);
-  font-weight: var(--openbot-weight-semibold);
-  line-height: var(--openbot-leading-lg);
+  font-size: var(--openownbot-text-lg);
+  font-weight: var(--openownbot-weight-semibold);
+  line-height: var(--openownbot-leading-lg);
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
 .agent-skills-crumb {
   flex: 0 0 auto;
-  width: var(--openbot-icon-sm);
-  height: var(--openbot-icon-sm);
-  color: var(--openbot-text-muted);
+  width: var(--openownbot-icon-sm);
+  height: var(--openownbot-icon-sm);
+  color: var(--openownbot-text-muted);
 }
 
 .agent-skills-heading h2 {
@@ -613,27 +613,27 @@
 
 .agent-memories-heading h2 {
   margin: 0;
-  color: var(--openbot-text-primary);
-  font-size: var(--openbot-text-lg);
-  font-weight: var(--openbot-weight-semibold);
-  line-height: var(--openbot-leading-lg);
+  color: var(--openownbot-text-primary);
+  font-size: var(--openownbot-text-lg);
+  font-weight: var(--openownbot-weight-semibold);
+  line-height: var(--openownbot-leading-lg);
 }
 
 .agent-memories-header-actions {
   display: flex;
   flex: 0 0 auto;
   align-items: center;
-  gap: var(--openbot-space-1);
+  gap: var(--openownbot-space-1);
 }
 
 .agent-memories-header-actions svg,
 .agent-memory-delete-button svg {
-  width: var(--openbot-icon-sm);
-  height: var(--openbot-icon-sm);
+  width: var(--openownbot-icon-sm);
+  height: var(--openownbot-icon-sm);
 }
 
 .agent-memories-add-button {
-  color: var(--openbot-text-secondary);
+  color: var(--openownbot-text-secondary);
 }
 
 .agent-memories-body {
@@ -641,25 +641,25 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  padding: var(--openbot-space-2);
+  padding: var(--openownbot-space-2);
 }
 
 .agent-memory-composer {
   display: grid;
-  gap: var(--openbot-space-2);
-  margin: 0 0 var(--openbot-space-3);
-  padding: var(--openbot-space-1) var(--openbot-space-1) 0;
+  gap: var(--openownbot-space-2);
+  margin: 0 0 var(--openownbot-space-3);
+  padding: var(--openownbot-space-1) var(--openownbot-space-1) 0;
 }
 
 .agent-memory-input {
   min-height: 64px;
   resize: none;
-  border-color: var(--openbot-border);
+  border-color: var(--openownbot-border);
   background: transparent;
 }
 
 .agent-memory-input:focus-visible {
-  border-color: var(--openbot-border-strong);
+  border-color: var(--openownbot-border-strong);
   outline: 0;
   box-shadow: none;
 }
@@ -668,7 +668,7 @@
 .agent-memory-editor-actions {
   display: flex;
   justify-content: flex-end;
-  gap: var(--openbot-space-1);
+  gap: var(--openownbot-space-1);
 }
 
 .agent-memory-inclusion-actions {
@@ -678,7 +678,7 @@
   min-width: 0;
   display: flex;
   flex-wrap: wrap;
-  gap: var(--openbot-space-1);
+  gap: var(--openownbot-space-1);
 }
 
 .agent-memory-list {
@@ -687,7 +687,7 @@
   grid-auto-rows: max-content;
   flex: 1;
   align-content: start;
-  gap: var(--openbot-space-0-5);
+  gap: var(--openownbot-space-0-5);
   overflow-y: auto;
   margin: 0;
   padding: 0;
@@ -698,21 +698,21 @@
 .agent-memory-row {
   min-height: 50px;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) calc(var(--openbot-control-md) + var(--openbot-space-2));
+  grid-template-columns: minmax(0, 1fr) calc(var(--openownbot-control-md) + var(--openownbot-space-2));
   align-items: stretch;
-  border-radius: var(--openbot-radius-md);
+  border-radius: var(--openownbot-radius-md);
   overflow: hidden;
   background: transparent;
 }
 
 @media (hover: hover) and (pointer: fine) {
   .agent-memory-row:hover {
-    background: var(--openbot-bg-control-hover);
+    background: var(--openownbot-bg-control-hover);
   }
 }
 
 .agent-memory-row:has(.agent-memory-row-main:focus-visible) {
-  background: var(--openbot-bg-control-active);
+  background: var(--openownbot-bg-control-active);
 }
 
 .agent-memory-row-main {
@@ -723,12 +723,12 @@
   align-content: center;
   justify-content: stretch;
   justify-items: start;
-  gap: var(--openbot-space-1);
+  gap: var(--openownbot-space-1);
   border: 0;
   border-radius: 0;
   outline: 0;
   background: transparent;
-  padding: var(--openbot-space-2) var(--openbot-space-3);
+  padding: var(--openownbot-space-2) var(--openownbot-space-3);
   color: inherit;
   font: inherit;
   text-align: left;
@@ -744,32 +744,32 @@
 
 .agent-memory-text {
   display: block;
-  color: var(--openbot-text-primary);
-  font-size: var(--openbot-text-md);
-  line-height: var(--openbot-leading-md);
+  color: var(--openownbot-text-primary);
+  font-size: var(--openownbot-text-md);
+  line-height: var(--openownbot-leading-md);
   white-space: pre-wrap;
 }
 
 .agent-memory-meta {
   display: block;
-  color: var(--openbot-text-secondary);
-  font-size: var(--openbot-text-sm);
-  line-height: var(--openbot-leading-sm);
+  color: var(--openownbot-text-secondary);
+  font-size: var(--openownbot-text-sm);
+  line-height: var(--openownbot-leading-sm);
 }
 
 .agent-memory-delete-button {
   align-self: center;
   align-items: center;
   justify-self: center;
-  color: var(--openbot-text-muted);
+  color: var(--openownbot-text-muted);
 }
 
 .agent-memory-editor {
   grid-column: 1 / -1;
   display: grid;
-  gap: var(--openbot-space-2);
+  gap: var(--openownbot-space-2);
   background: transparent;
-  padding: var(--openbot-space-1) var(--openbot-space-1) var(--openbot-space-2);
+  padding: var(--openownbot-space-1) var(--openownbot-space-1) var(--openownbot-space-2);
 }
 
 .agent-memory-row:has(.agent-memory-editor),
@@ -780,28 +780,28 @@
 .agent-memory-state,
 .agent-memory-limit,
 .agent-memory-error {
-  margin: var(--openbot-space-1);
-  border-radius: var(--openbot-radius-md);
-  padding: var(--openbot-space-3);
-  font-size: var(--openbot-text-sm);
+  margin: var(--openownbot-space-1);
+  border-radius: var(--openownbot-radius-md);
+  padding: var(--openownbot-space-3);
+  font-size: var(--openownbot-text-sm);
 }
 
 .agent-memory-state {
   min-height: 160px;
   display: grid;
   place-items: center;
-  color: var(--openbot-text-muted);
+  color: var(--openownbot-text-muted);
   text-align: center;
 }
 
 .agent-memory-limit {
-  background: var(--openbot-bg-surface);
-  color: var(--openbot-text-secondary);
+  background: var(--openownbot-bg-surface);
+  color: var(--openownbot-text-secondary);
 }
 
 .agent-memory-error {
-  background: var(--openbot-danger-soft);
-  color: var(--openbot-danger);
+  background: var(--openownbot-danger-soft);
+  color: var(--openownbot-danger);
 }
 
 /*
@@ -820,10 +820,10 @@
   overflow: hidden;
   pointer-events: none;
   user-select: none;
-  mask-image: linear-gradient(var(--openbot-text-primary) 45%, var(--openbot-transparent));
+  mask-image: linear-gradient(var(--openownbot-text-primary) 45%, var(--openownbot-transparent));
   transition:
-    opacity 700ms var(--openbot-ease-out),
-    filter 700ms var(--openbot-ease-out);
+    opacity 700ms var(--openownbot-ease-out),
+    filter 700ms var(--openownbot-ease-out);
 }
 
 .agent-memories-empty-list[data-clearing] {
@@ -835,8 +835,8 @@
 .agent-memories-empty-item {
   display: grid;
   grid-template-rows: 1fr;
-  animation: agent-memories-empty-open 520ms var(--openbot-ease-out) both;
-  transition: opacity 640ms var(--openbot-ease-out);
+  animation: agent-memories-empty-open 520ms var(--openownbot-ease-out) both;
+  transition: opacity 640ms var(--openownbot-ease-out);
 }
 
 .agent-memories-empty-item > *,
@@ -877,8 +877,8 @@
 .agent-memories-empty-fold {
   display: grid;
   transition:
-    grid-template-rows 640ms var(--openbot-ease-out),
-    opacity 640ms var(--openbot-ease-out);
+    grid-template-rows 640ms var(--openownbot-ease-out),
+    opacity 640ms var(--openownbot-ease-out);
 }
 
 .agent-memories-empty-fold-hand {
@@ -902,15 +902,15 @@
 
 /* Handwriting. The app has no hand font, so it uses the one of the system. */
 .agent-memories-hand {
-  color: var(--openbot-accent-text);
+  color: var(--openownbot-accent-text);
   font-family: "Bradley Hand", "Noteworthy", "Segoe Print", cursive;
-  font-weight: var(--openbot-weight-semibold);
+  font-weight: var(--openownbot-weight-semibold);
 }
 
 .agent-memories-empty-hand {
   display: grid;
-  padding-block: var(--openbot-space-0-5);
-  font-size: var(--openbot-text-xl);
+  padding-block: var(--openownbot-space-0-5);
+  font-size: var(--openownbot-text-xl);
   line-height: 1.3;
   transform: rotate(-0.6deg);
   transform-origin: left top;
@@ -932,7 +932,7 @@
 
 .agent-memories-empty-meta {
   opacity: 0;
-  animation: agent-memories-empty-show 360ms var(--openbot-ease-out) var(--agent-memories-empty-delay) forwards;
+  animation: agent-memories-empty-show 360ms var(--openownbot-ease-out) var(--agent-memories-empty-delay) forwards;
 }
 
 @keyframes agent-memories-empty-show {
@@ -945,23 +945,23 @@
   z-index: 1;
   display: grid;
   justify-items: center;
-  gap: var(--openbot-space-3);
-  padding: var(--openbot-space-3) var(--openbot-space-4);
+  gap: var(--openownbot-space-3);
+  padding: var(--openownbot-space-3) var(--openownbot-space-4);
   text-align: center;
 }
 
 .agent-memories-empty-title {
   display: grid;
   margin: 0;
-  color: var(--openbot-text-primary);
-  font-size: var(--openbot-text-3xl);
-  font-weight: var(--openbot-weight-semibold);
+  color: var(--openownbot-text-primary);
+  font-size: var(--openownbot-text-3xl);
+  font-weight: var(--openownbot-weight-semibold);
   letter-spacing: -0.01em;
   line-height: 1.2;
 }
 
 .agent-memories-empty-title > .agent-memories-empty-lead {
-  color: var(--openbot-text-muted);
+  color: var(--openownbot-text-muted);
 }
 
 /* The one handwritten word of the title. It writes itself once. */
@@ -975,13 +975,13 @@
 .agent-memories-empty-lines {
   display: grid;
   margin: 0;
-  color: var(--openbot-text-muted);
-  font-size: var(--openbot-text-lg);
-  line-height: var(--openbot-leading-lg);
+  color: var(--openownbot-text-muted);
+  font-size: var(--openownbot-text-lg);
+  line-height: var(--openownbot-leading-lg);
 }
 
 .agent-memories-empty-action {
-  margin-top: var(--openbot-space-1);
+  margin-top: var(--openownbot-space-1);
 }
 
 /* Less motion: one still frame with the full list. */
@@ -1008,7 +1008,7 @@
   display: grid;
   flex: 1;
   align-content: start;
-  gap: var(--openbot-space-0-5);
+  gap: var(--openownbot-space-0-5);
   overflow-y: auto;
   margin: 0;
   padding: 0;
@@ -1020,52 +1020,52 @@
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   align-items: start;
-  gap: var(--openbot-space-2);
-  border-radius: var(--openbot-radius-md);
-  padding: var(--openbot-space-2) var(--openbot-space-3);
+  gap: var(--openownbot-space-2);
+  border-radius: var(--openownbot-radius-md);
+  padding: var(--openownbot-space-2) var(--openownbot-space-3);
 }
 
 .shared-table-main {
   min-width: 0;
   display: grid;
-  gap: var(--openbot-space-1);
+  gap: var(--openownbot-space-1);
 }
 
 .shared-table-name {
   display: block;
-  color: var(--openbot-text-primary);
-  font-size: var(--openbot-text-md);
-  font-weight: var(--openbot-weight-semibold);
-  line-height: var(--openbot-leading-md);
+  color: var(--openownbot-text-primary);
+  font-size: var(--openownbot-text-md);
+  font-weight: var(--openownbot-weight-semibold);
+  line-height: var(--openownbot-leading-md);
 }
 
 .shared-table-confirm {
   grid-column: 1 / -1;
   display: grid;
-  gap: var(--openbot-space-2);
-  border-radius: var(--openbot-radius-md);
-  background: var(--openbot-bg-surface);
-  padding: var(--openbot-space-3);
+  gap: var(--openownbot-space-2);
+  border-radius: var(--openownbot-radius-md);
+  background: var(--openownbot-bg-surface);
+  padding: var(--openownbot-space-3);
 }
 
 .shared-table-confirm p {
   margin: 0;
-  color: var(--openbot-text-secondary);
-  font-size: var(--openbot-text-sm);
-  line-height: var(--openbot-leading-sm);
+  color: var(--openownbot-text-secondary);
+  font-size: var(--openownbot-text-sm);
+  line-height: var(--openownbot-leading-sm);
 }
 
 .shared-table-confirm-actions {
   display: flex;
   justify-content: flex-end;
-  gap: var(--openbot-space-1);
+  gap: var(--openownbot-space-1);
 }
 
 .agent-memories-footer {
   display: flex;
   min-height: 48px;
   align-items: center;
-  padding: var(--openbot-space-2) var(--openbot-space-3) var(--openbot-space-3);
+  padding: var(--openownbot-space-2) var(--openownbot-space-3) var(--openownbot-space-3);
 }
 
 .agent-skill-empty {
@@ -1073,7 +1073,7 @@
   display: grid;
   place-content: center;
   justify-items: center;
-  gap: var(--openbot-space-3);
+  gap: var(--openownbot-space-3);
 }
 
 .agent-skill-empty .agent-memory-state {
@@ -1091,10 +1091,10 @@
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto auto;
   align-items: center;
-  gap: var(--openbot-space-2);
+  gap: var(--openownbot-space-2);
   min-height: 56px;
-  padding: var(--openbot-space-1) var(--openbot-space-2);
-  border-radius: var(--openbot-radius-lg);
+  padding: var(--openownbot-space-1) var(--openownbot-space-2);
+  border-radius: var(--openownbot-radius-lg);
 }
 
 .agent-skill-open {
@@ -1105,8 +1105,8 @@
   justify-content: stretch;
   justify-items: stretch;
   align-items: center;
-  gap: var(--openbot-space-3);
-  padding: var(--openbot-space-1);
+  gap: var(--openownbot-space-3);
+  padding: var(--openownbot-space-1);
   color: inherit;
   text-align: left;
 }
@@ -1117,7 +1117,7 @@
 
 @media (hover: hover) and (pointer: fine) {
   .agent-skill-row:hover {
-    background: var(--openbot-bg-control-hover);
+    background: var(--openownbot-bg-control-hover);
   }
 }
 
@@ -1128,10 +1128,10 @@
   flex: 0 0 auto;
   place-items: center;
   overflow: hidden;
-  border: 1px solid var(--openbot-border);
-  border-radius: var(--openbot-radius-lg);
-  background: var(--openbot-bg-control);
-  color: var(--openbot-accent-text);
+  border: 1px solid var(--openownbot-border);
+  border-radius: var(--openownbot-radius-lg);
+  background: var(--openownbot-bg-control);
+  color: var(--openownbot-accent-text);
 }
 
 .agent-skill-icon img {
@@ -1155,15 +1155,15 @@
   display: flex;
   min-width: 0;
   align-items: baseline;
-  gap: var(--openbot-space-2);
+  gap: var(--openownbot-space-2);
 }
 
 .agent-skill-title strong {
   overflow: hidden;
-  color: var(--openbot-text-primary);
-  font-size: var(--openbot-text-md);
-  font-weight: var(--openbot-weight-medium);
-  line-height: var(--openbot-leading-md);
+  color: var(--openownbot-text-primary);
+  font-size: var(--openownbot-text-md);
+  font-weight: var(--openownbot-weight-medium);
+  line-height: var(--openownbot-leading-md);
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -1173,29 +1173,29 @@
 }
 
 .ui-button.agent-skill-update {
-  border-radius: var(--openbot-radius-pill);
-  background: var(--openbot-accent-soft);
-  color: var(--openbot-accent-text);
-  font-size: var(--openbot-text-sm);
+  border-radius: var(--openownbot-radius-pill);
+  background: var(--openownbot-accent-soft);
+  color: var(--openownbot-accent-text);
+  font-size: var(--openownbot-text-sm);
 }
 
 .ui-button.agent-skill-update:hover:not(:disabled):not([data-disabled]),
 .ui-button.agent-skill-update:focus-visible {
-  background: color-mix(in srgb, var(--openbot-accent-soft), var(--openbot-accent) 12%);
-  color: var(--openbot-accent-text);
+  background: color-mix(in srgb, var(--openownbot-accent-soft), var(--openownbot-accent) 12%);
+  color: var(--openownbot-accent-text);
 }
 
 .agent-skill-copy small {
   overflow: hidden;
-  color: var(--openbot-text-muted);
-  font-size: var(--openbot-text-sm);
-  line-height: var(--openbot-leading-sm);
+  color: var(--openownbot-text-muted);
+  font-size: var(--openownbot-text-sm);
+  line-height: var(--openownbot-leading-sm);
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
 .agent-skill-row-disabled .agent-skill-title strong {
-  color: var(--openbot-text-muted);
+  color: var(--openownbot-text-muted);
 }
 
 .agent-skill-more {
@@ -1205,16 +1205,16 @@
   width: 28px;
   height: 28px;
   border: 0;
-  border-radius: var(--openbot-radius-md);
-  background: var(--openbot-bg-control-active);
-  color: var(--openbot-text-secondary);
+  border-radius: var(--openownbot-radius-md);
+  background: var(--openownbot-bg-control-active);
+  color: var(--openownbot-text-secondary);
   opacity: 0;
   cursor: pointer;
 }
 
 .agent-skill-more svg {
-  width: var(--openbot-icon-sm);
-  height: var(--openbot-icon-sm);
+  width: var(--openownbot-icon-sm);
+  height: var(--openownbot-icon-sm);
 }
 
 .agent-skill-row:hover .agent-skill-more,
@@ -1224,15 +1224,15 @@
 }
 
 .agent-skill-menu {
-  z-index: calc(var(--openbot-layer-dialog) + var(--openbot-layer-popover) + 1);
+  z-index: calc(var(--openownbot-layer-dialog) + var(--openownbot-layer-popover) + 1);
 }
 
 .agent-skills-modal .ui-switch[data-checked] {
-  background: var(--openbot-accent);
+  background: var(--openownbot-accent);
 }
 
 .agent-skills-modal .ui-switch-thumb[data-checked] {
-  background: var(--openbot-text-primary);
+  background: var(--openownbot-text-primary);
 }
 
 .agent-local-library,
@@ -1240,9 +1240,9 @@
   min-height: 0;
   display: grid;
   align-content: start;
-  gap: var(--openbot-space-4);
+  gap: var(--openownbot-space-4);
   overflow: auto;
-  padding: var(--openbot-space-3);
+  padding: var(--openownbot-space-3);
   scrollbar-width: none;
 }
 
@@ -1252,11 +1252,11 @@
 }
 
 .agent-memories-modal[data-expanded] {
-  animation: agent-dialog-content-in var(--openbot-duration-dialog) ease;
+  animation: agent-dialog-content-in var(--openownbot-duration-dialog) ease;
 }
 
 .agent-memories-modal[data-closed] {
-  animation: agent-dialog-content-out var(--openbot-duration-dialog) ease;
+  animation: agent-dialog-content-out var(--openownbot-duration-dialog) ease;
 }
 
 @keyframes agent-dialog-overlay-out {
@@ -1286,7 +1286,7 @@
   }
 
   .agent-memories-header {
-    padding-left: var(--openbot-space-3);
+    padding-left: var(--openownbot-space-3);
   }
 }
 
@@ -1301,7 +1301,7 @@
 .agent-settings-page {
   display: flex;
   flex-direction: column;
-  gap: var(--openbot-space-4);
+  gap: var(--openownbot-space-4);
 }
 
 .agent-settings-page > .settings-field {
@@ -1314,8 +1314,8 @@
   min-height: 40px;
   align-items: center;
   justify-content: space-between;
-  gap: var(--openbot-space-2);
-  padding: 0 var(--openbot-space-3);
+  gap: var(--openownbot-space-2);
+  padding: 0 var(--openownbot-space-3);
 }
 
 .agent-settings-switch-row > .settings-link-label {
@@ -1331,8 +1331,8 @@
 .agent-session-setting-notes {
   display: grid;
   justify-items: start;
-  gap: var(--openbot-space-1);
-  padding: var(--openbot-space-2) var(--openbot-space-3);
+  gap: var(--openownbot-space-1);
+  padding: var(--openownbot-space-2) var(--openownbot-space-3);
 }
 
 .agent-session-setting > .agent-session-setting-notes {
@@ -1348,55 +1348,55 @@
   width: 100%;
   height: auto;
   min-height: 40px;
-  gap: var(--openbot-space-2);
+  gap: var(--openownbot-space-2);
   border: 0;
   border-radius: 0;
   background: transparent;
-  padding: 0 var(--openbot-space-3);
+  padding: 0 var(--openownbot-space-3);
   box-shadow: none;
-  font-size: var(--openbot-text-md);
+  font-size: var(--openownbot-text-md);
 }
 
 .agent-settings-runtime-rows .provider-model-trigger-field:hover:not(:disabled),
 .agent-settings-runtime-rows .provider-model-trigger-field[aria-expanded="true"],
 .agent-settings-runtime-rows .agent-settings-runtime-row[data-expanded] {
-  background: var(--openbot-hover);
+  background: var(--openownbot-hover);
 }
 
 .agent-settings-runtime-rows .provider-model-trigger-field:focus-visible,
 .agent-settings-runtime-rows .ui-select .agent-settings-runtime-row:focus-visible {
   outline: 0;
-  background: var(--openbot-hover);
-  box-shadow: inset 0 0 0 1px var(--openbot-border-focus);
+  background: var(--openownbot-hover);
+  box-shadow: inset 0 0 0 1px var(--openownbot-border-focus);
 }
 
 .agent-settings-runtime-rows .provider-model-trigger-field .provider-model-field-label,
 .agent-settings-runtime-label {
   flex: 1 1 auto;
   min-width: 0;
-  color: var(--openbot-text-primary);
-  font-size: var(--openbot-text-md);
-  font-weight: var(--openbot-weight-medium);
+  color: var(--openownbot-text-primary);
+  font-size: var(--openownbot-text-md);
+  font-weight: var(--openownbot-weight-medium);
   line-height: 18px;
   text-align: left;
 }
 
 .agent-settings-runtime-rows .provider-model-trigger-field .provider-model-trigger-name,
 .agent-settings-runtime-row .ui-select-value {
-  color: var(--openbot-text-muted);
-  font-size: var(--openbot-text-sm);
-  font-weight: var(--openbot-weight-regular);
+  color: var(--openownbot-text-muted);
+  font-size: var(--openownbot-text-sm);
+  font-weight: var(--openownbot-weight-regular);
 }
 
 .agent-settings-runtime-row .ui-select-trigger-icon {
-  width: var(--openbot-icon-sm);
-  height: var(--openbot-icon-sm);
+  width: var(--openownbot-icon-sm);
+  height: var(--openownbot-icon-sm);
 }
 
 @media (hover: hover) and (pointer: fine) {
   .agent-settings-runtime-rows .provider-model-trigger-field:hover .provider-model-trigger-name,
   .agent-settings-runtime-row:hover .ui-select-value {
-    color: var(--openbot-text-secondary);
+    color: var(--openownbot-text-secondary);
   }
 }
 
@@ -1408,12 +1408,12 @@
 .agent-settings-runtime-path {
   display: grid;
   gap: 2px;
-  padding: 11px var(--openbot-space-3);
+  padding: 11px var(--openownbot-space-3);
 }
 
 .agent-settings-runtime-path > span:last-child {
-  color: var(--openbot-text-muted);
-  font-size: var(--openbot-text-sm);
+  color: var(--openownbot-text-muted);
+  font-size: var(--openownbot-text-sm);
   line-height: 17px;
   overflow-wrap: anywhere;
   user-select: text;
@@ -1421,14 +1421,14 @@
 
 .agent-settings-runtime-note {
   margin: 0;
-  padding-inline: var(--openbot-space-1);
+  padding-inline: var(--openownbot-space-1);
   text-wrap: pretty;
 }
 
 .agent-settings-save-error {
-  margin: 0 var(--openbot-space-1);
-  color: var(--openbot-danger);
-  font-size: var(--openbot-text-sm);
+  margin: 0 var(--openownbot-space-1);
+  color: var(--openownbot-danger);
+  font-size: var(--openownbot-text-sm);
   line-height: 16px;
 }
 
@@ -1439,8 +1439,8 @@
   justify-content: space-between;
   gap: 12px;
   margin: 0;
-  border-radius: var(--openbot-radius-lg);
-  background: var(--openbot-border);
+  border-radius: var(--openownbot-radius-lg);
+  background: var(--openownbot-border);
   padding: 13px 12px;
 }
 
@@ -1454,8 +1454,8 @@
 }
 
 .agent-settings-notifications strong {
-  color: var(--openbot-text-primary);
-  font-size: var(--openbot-text-md);
+  color: var(--openownbot-text-primary);
+  font-size: var(--openownbot-text-md);
   font-weight: 500;
   line-height: 18px;
 }
@@ -1463,7 +1463,7 @@
 .agent-settings-notifications div > span {
   max-width: 194px;
   margin-top: 2px;
-  color: var(--openbot-text-secondary);
-  font-size: var(--openbot-text-sm);
+  color: var(--openownbot-text-secondary);
+  font-size: var(--openownbot-text-sm);
   line-height: 15px;
 }

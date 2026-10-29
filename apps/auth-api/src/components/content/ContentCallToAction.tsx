@@ -40,7 +40,7 @@ export function ContentCallToAction() {
         </p>
         <div class="post-cta-actions">
           <ButtonLink to="/download" variant="primary" size="lg" icon="download">
-            Download OpenBot
+            Download OpenOwnBot
           </ButtonLink>
           <ButtonLink to="/contact" variant="secondary" size="lg" icon="contact" class="landing-button-glass">
             Contact

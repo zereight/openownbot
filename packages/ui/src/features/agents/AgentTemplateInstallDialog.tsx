@@ -1,6 +1,6 @@
-import type { AgentTemplateDetail } from "@openbot/contracts/ipc";
-import { classifyFailure } from "@openbot/telemetry";
-import { Button, Dialog, Heading, IconButton, Text, toast, X } from "@openbot/ui";
+import type { AgentTemplateDetail } from "@openownbot/contracts/ipc";
+import { classifyFailure } from "@openownbot/telemetry";
+import { Button, Dialog, Heading, IconButton, Text, toast, X } from "@openownbot/ui";
 import { createSignal, Show } from "solid-js";
 import { useText } from "../../text";
 import { AgentAvatar } from "./AgentAvatar";
@@ -18,7 +18,7 @@ export interface AgentTemplateInstallDialogProps {
 }
 
 /**
- * What an `openbot://agents/<id>` link opens. It shows all of what the agent will follow before
+ * What an `openownbot://agents/<id>` link opens. It shows all of what the agent will follow before
  * anything is installed: a link alone never adds an agent.
  */
 export function AgentTemplateInstallDialog(props: AgentTemplateInstallDialogProps) {

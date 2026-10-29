@@ -1,40 +1,40 @@
 .backup-model-logo {
   display: inline-flex;
-  width: var(--openbot-icon-md);
-  height: var(--openbot-icon-md);
+  width: var(--openownbot-icon-md);
+  height: var(--openownbot-icon-md);
   flex: none;
   align-items: center;
   justify-content: center;
 }
 
 .backup-model-logo svg {
-  width: var(--openbot-icon-sm);
-  height: var(--openbot-icon-sm);
+  width: var(--openownbot-icon-sm);
+  height: var(--openownbot-icon-sm);
   overflow: visible;
-  fill: var(--openbot-provider-current);
+  fill: var(--openownbot-provider-current);
 }
 
 .backup-model-option {
   display: inline-flex;
   min-width: 0;
   align-items: center;
-  gap: var(--openbot-space-2);
+  gap: var(--openownbot-space-2);
 }
 
 .backup-models-page {
   display: flex;
   flex-direction: column;
-  gap: var(--openbot-space-4);
+  gap: var(--openownbot-space-4);
 }
 
 .backup-models-intro {
   margin: 0;
-  padding-inline: var(--openbot-space-1);
+  padding-inline: var(--openownbot-space-1);
 }
 
 .backup-models-empty {
   margin: 0;
-  padding: var(--openbot-space-2) var(--openbot-space-3);
+  padding: var(--openownbot-space-2) var(--openownbot-space-3);
 }
 
 .backup-models-list {
@@ -49,15 +49,15 @@
   display: flex;
   min-height: 40px;
   align-items: center;
-  gap: var(--openbot-space-2);
-  padding: var(--openbot-space-1) var(--openbot-space-2) var(--openbot-space-1) var(--openbot-space-3);
+  gap: var(--openownbot-space-2);
+  padding: var(--openownbot-space-1) var(--openownbot-space-2) var(--openownbot-space-1) var(--openownbot-space-3);
 }
 
 .backup-models-number {
-  width: var(--openbot-icon-sm);
+  width: var(--openownbot-icon-sm);
   flex: none;
-  color: var(--openbot-text-muted);
-  font-size: var(--openbot-text-sm);
+  color: var(--openownbot-text-muted);
+  font-size: var(--openownbot-text-sm);
   font-variant-numeric: tabular-nums;
   text-align: center;
 }
@@ -71,16 +71,16 @@
 
 .backup-models-name {
   overflow: hidden;
-  color: var(--openbot-text-primary);
-  font-size: var(--openbot-text-sm);
+  color: var(--openownbot-text-primary);
+  font-size: var(--openownbot-text-sm);
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
 .backup-models-state {
-  color: var(--openbot-text-muted);
-  font-size: var(--openbot-text-sm);
-  line-height: var(--openbot-leading-sm);
+  color: var(--openownbot-text-muted);
+  font-size: var(--openownbot-text-sm);
+  line-height: var(--openownbot-leading-sm);
 }
 
 /* The same dimming the provider picker uses for an unavailable provider. */
@@ -89,7 +89,7 @@
 }
 
 .backup-models-row:not([data-state="ready"]) .backup-models-name {
-  color: var(--openbot-text-muted);
+  color: var(--openownbot-text-muted);
   text-decoration: line-through;
 }
 
@@ -102,14 +102,14 @@
   display: flex;
   max-width: 560px;
   flex-direction: column;
-  gap: var(--openbot-space-3);
-  margin: var(--openbot-space-4) 0 0;
+  gap: var(--openownbot-space-3);
+  margin: var(--openownbot-space-4) 0 0;
 }
 
 .usage-limit-ask-body {
   margin: 0;
-  color: var(--openbot-text-secondary);
-  font-size: var(--openbot-text-md);
+  color: var(--openownbot-text-secondary);
+  font-size: var(--openownbot-text-md);
 }
 
 .usage-limit-ask-select {
@@ -119,20 +119,20 @@
 .usage-limit-ask-remember {
   display: inline-flex;
   align-items: center;
-  gap: var(--openbot-space-2);
-  color: var(--openbot-text-secondary);
-  font-size: var(--openbot-text-sm);
+  gap: var(--openownbot-space-2);
+  color: var(--openownbot-text-secondary);
+  font-size: var(--openownbot-text-sm);
   cursor: pointer;
 }
 
 .usage-limit-ask-error {
   margin: 0;
-  color: var(--openbot-danger);
-  font-size: var(--openbot-text-sm);
+  color: var(--openownbot-danger);
+  font-size: var(--openownbot-text-sm);
 }
 
 .usage-limit-ask-actions {
   display: flex;
   justify-content: flex-end;
-  gap: var(--openbot-space-2);
+  gap: var(--openownbot-space-2);
 }

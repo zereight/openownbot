@@ -93,7 +93,7 @@ invitation, so an admin who opens a member link becomes a member.
   - Lines 1121-1220, `changeMembership`: `revoke` sets `status = 'revoked'`, adds 1 to the epoch, ends the sessions. It does not touch `remote_invites`.
 - `packages/team-client/src/remote-directory.ts:110-119` — `DIRECTORY_ERROR_TEXT` maps service codes to localized text. `invite_invalid` is not in the map, so the client shows the service text, as it does today for an expired link. This plan adds no new error code, so this file does not change.
 - Error convention: `return yield* new RemoteControlPlaneError(status, code, message)`. Keep the codes that exist. Clients depend on them.
-- Test exemplar: `apps/auth-api/scripts/remote-auth-events-e2e.ts` (343 lines). It migrates an in-memory `node:sqlite` database from `apps/auth-api/migrations`, wraps it with `sqliteD1` from `apps/auth-api/scripts/sqlite-d1.ts`, makes an ECDSA P-256 key with `crypto.subtle.generateKey` and passes `REMOTE_TICKET_PRIVATE_JWK`, `REMOTE_TICKET_PUBLIC_JWKS` and `REMOTE_TICKET_KEY_ID` (lines 271-288), keeps `checks[]`, and writes `.openbot-build/remote-auth-events-e2e/report.json` (lines 338-343). The npm script is `"test:remote-auth-events": "bun apps/auth-api/scripts/remote-auth-events-e2e.ts"`, and `check:api` (package.json line 242) runs it in CI.
+- Test exemplar: `apps/auth-api/scripts/remote-auth-events-e2e.ts` (343 lines). It migrates an in-memory `node:sqlite` database from `apps/auth-api/migrations`, wraps it with `sqliteD1` from `apps/auth-api/scripts/sqlite-d1.ts`, makes an ECDSA P-256 key with `crypto.subtle.generateKey` and passes `REMOTE_TICKET_PRIVATE_JWK`, `REMOTE_TICKET_PUBLIC_JWKS` and `REMOTE_TICKET_KEY_ID` (lines 271-288), keeps `checks[]`, and writes `.openownbot-build/remote-auth-events-e2e/report.json` (lines 338-343). The npm script is `"test:remote-auth-events": "bun apps/auth-api/scripts/remote-auth-events-e2e.ts"`, and `check:api` (package.json line 242) runs it in CI.
 - `RemoteControlPlane` constructor (line 379): `new RemoteControlPlane(bindings, { fetch?, now?, schedule? })`. It throws `remote_not_configured` without the three ticket bindings. Without `REMOTE_AUTH_WEBHOOK_URL`, read the epoch and the queued events from the database, not from a fake Signal.
 
 ## Commands you will need
@@ -136,7 +136,7 @@ Do not run `bun run typecheck`, `bun run check:api`, builds or full suites. CI r
 Create `apps/auth-api/scripts/invite-acceptance-e2e.ts`. Copy the structure of
 `remote-auth-events-e2e.ts`: header comment, `checks[]`, `check()`,
 `migratedDatabase()`, a list of scenario functions in try/catch, the report at
-`.openbot-build/invite-acceptance-e2e/report.json`, and `process.exitCode = 1`
+`.openownbot-build/invite-acceptance-e2e/report.json`, and `process.exitCode = 1`
 on a failure.
 
 Setup for each scenario:
@@ -240,7 +240,7 @@ disconnects the server, and a removed member cannot rejoin with an old link."
 
 - One E2E script, `apps/auth-api/scripts/invite-acceptance-e2e.ts`, with the six
   scenarios of Step 1. It runs the real `RemoteControlPlane` on a migrated
-  SQLite database and writes `.openbot-build/invite-acceptance-e2e/report.json`.
+  SQLite database and writes `.openownbot-build/invite-acceptance-e2e/report.json`.
 - Pattern: `apps/auth-api/scripts/remote-auth-events-e2e.ts`.
 - No vitest file. This repository permits vitest only for migrations, the
   trust boundary, redaction and check-rule fixtures.
@@ -259,7 +259,7 @@ disconnects the server, and a removed member cannot rejoin with an old link."
 
 - The excerpts in "Current state" do not match the code.
 - The maintainer chose a policy that needs a new error code. A new code needs an
-  `@openbot/i18n` key and a `DIRECTORY_ERROR_TEXT` entry (read `docs/i18n.md`);
+  `@openownbot/i18n` key and a `DIRECTORY_ERROR_TEXT` entry (read `docs/i18n.md`);
   report back for a scope change.
 - A membership status other than `active` and `revoked` exists.
 - Another caller depends on the epoch bump in `acceptInvite` (search

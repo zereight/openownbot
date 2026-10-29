@@ -6,7 +6,7 @@ Current remote connections use Team API protocol v8 over three ordered WebRTC Da
 `events`, and `files`. A sandboxed hidden Chromium page owns each `RTCPeerConnection`. Electron main
 uses a `MessagePort` and transfers binary data as `ArrayBuffer`. Signal carries SDP and ICE only,
 except the Slack requests of an agent's Slack app (see [Messaging connections](channels-and-messaging.md#messaging-connections)).
-OpenBot Mobile uses the same ticket, authentication transcript, framing, RPC codec, and event stream.
+OpenOwnBot Mobile uses the same ticket, authentication transcript, framing, RPC codec, and event stream.
 In Expo Go, an Expo DOM component owns the browser `RTCPeerConnection` inside a hidden WebView and
 passes only serializable, validated commands and events to the native React UI; no native WebRTC
 module or development build is required.
@@ -151,15 +151,15 @@ The one exception is development builds: `bun run dev:mobile` opens the link wit
 and a `__DEV__` build redeems it without confirmation only when its account service is a loopback
 or private-network `http:` origin. Release builds always use the confirmed flow.
 Plugin links open their validated public page in the in-app browser. Unsupported links show a
-safe fallback. A share from another app opens `openbot://expo-sharing` (the iOS share extension or an
+safe fallback. A share from another app opens `openownbot://expo-sharing` (the iOS share extension or an
 Android share intent of `expo-sharing`); the share waits in native storage through sign-in. The share
 sheet moves its files into the app cache, the user chooses an agent, and that chat's composer gets the
 text and files, which follow the attachment rules above. The phone reads the response headers of a
 shared link; a link to an image of at most 10 MB is downloaded and comes as a file instead of the link. Permanent invitation metadata comes from the shared Team client; revocation stops
 new joins without removing existing members.
-iOS associates `https://openbot.run/join` and `https://openbot.run/agents/*` with `run.openbot.mobile`. Changes to associated
+iOS associates `https://openbot.run/join` and `https://openbot.run/agents/*` with `run.openownbot.mobile`. Changes to associated
 domains require a new native app build and deployment of the website association file. Android
-continues to open HTTPS invitations in the browser, whose button opens `openbot://join`. Enabling
+continues to open HTTPS invitations in the browser, whose button opens `openownbot://join`. Enabling
 verified Android App Links requires the release app-signing certificate's SHA-256 fingerprint,
 `/.well-known/assetlinks.json`, and a matching verified `/join` intent filter. No certificate
 fingerprint is stored in this repository yet.

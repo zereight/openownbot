@@ -1,4 +1,4 @@
-import { articleGradient } from "@openbot/brand/article-gradient";
+import { articleGradient } from "@openownbot/brand/article-gradient";
 import { useId, useMemo } from "react";
 import { StyleSheet } from "react-native";
 import Svg, { Defs, LinearGradient, RadialGradient, Rect, Stop } from "react-native-svg";

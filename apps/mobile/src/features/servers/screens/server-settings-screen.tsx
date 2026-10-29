@@ -1,6 +1,6 @@
-import { DEFAULT_TEAM_MEMBER_LIMIT, INPUT_LIMITS } from "@openbot/contracts/input-limits";
-import { canAdministerServer } from "@openbot/contracts/ipc";
-import { WAKE_RECONNECT_STATES } from "@openbot/team-client/hosted-server-wake";
+import { DEFAULT_TEAM_MEMBER_LIMIT, INPUT_LIMITS } from "@openownbot/contracts/input-limits";
+import { canAdministerServer } from "@openownbot/contracts/ipc";
+import { WAKE_RECONNECT_STATES } from "@openownbot/team-client/hosted-server-wake";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { router, useLocalSearchParams } from "expo-router";
 import { usePreventRemove } from "expo-router/react-navigation";
@@ -414,7 +414,7 @@ function ServerGeneralSettings({ serverId }: { serverId: string }) {
   );
 }
 
-/** Opens the OpenBot update of the host. The value is the version that runs there, or a new one. */
+/** Opens the OpenOwnBot update of the host. The value is the version that runs there, or a new one. */
 function ServerUpdatesRow({ serverId, update }: { serverId: string; update: ReturnType<typeof useServerUpdate> }) {
   const { t } = useText();
   const status = update.query.data?.status;

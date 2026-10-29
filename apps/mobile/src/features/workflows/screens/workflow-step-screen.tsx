@@ -1,5 +1,5 @@
-import type { AgentReasoningEffort, WorkflowNode } from "@openbot/contracts/ipc";
-import type { MobileTextKey } from "@openbot/i18n/mobile";
+import type { AgentReasoningEffort, WorkflowNode } from "@openownbot/contracts/ipc";
+import type { MobileTextKey } from "@openownbot/i18n/mobile";
 import { useQuery } from "@tanstack/react-query";
 import { router, Stack, useLocalSearchParams } from "expo-router";
 import { Typography } from "heroui-native";
@@ -75,7 +75,7 @@ function TextField({
 /** The agents of the server, one of which does an agent step. */
 function AgentChoice({ node, agents }: { node: WorkflowNode; agents: readonly MobileAgent[] }) {
   const { t } = useText();
-  const accent = String(useCSSVariable("--openbot-accent"));
+  const accent = String(useCSSVariable("--openownbot-accent"));
   const setFields = useWorkflowDraft((state) => state.setFields);
   const selected = text(node, "agentId");
   return (
@@ -188,7 +188,7 @@ function ModelChoice({ node, serverId }: { node: WorkflowNode; serverId: string 
 /** Where an output sends its result. The phone does not choose a messaging place: an admin sets it on desktop. */
 function OutputChoice({ node }: { node: WorkflowNode }) {
   const { t } = useText();
-  const accent = String(useCSSVariable("--openbot-accent"));
+  const accent = String(useCSSVariable("--openownbot-accent"));
   const setFields = useWorkflowDraft((state) => state.setFields);
   const target = text(node, "target");
   const channel = target === "channel";

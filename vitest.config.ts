@@ -90,7 +90,7 @@ export default defineConfig({
       ...configDefaults.exclude,
       "apps/auth-api/**",
       "tests/visual/**",
-      ".openbot-build/**",
+      ".openownbot-build/**",
       // Agent tools put git worktrees inside the checkout. The renderer project's
       // `**/*.dom.test.ts` include otherwise runs each nested copy's DOM tests too.
       "**/.worktrees/**",

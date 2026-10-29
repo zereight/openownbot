@@ -312,7 +312,7 @@
       "license": "GPL-3.0",
       "licenseSha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986",
       "patch": {
-        "path": "vendor/remote-desktop/patches/sunshine-v2026.516.143833-openbot.patch",
+        "path": "vendor/remote-desktop/patches/sunshine-v2026.516.143833-openownbot.patch",
         "sha256": "79185b9ce0374f99b80ca661954af8d1de17f7cc82e2eae39e1e59e438966ee2"
       },
       "overrides": [],
@@ -354,7 +354,7 @@
       "license": "GPL-3.0",
       "licenseSha256": "8b1ba204bb69a0ade2bfcf65ef294a920f6bb361b317dba43c7ef29d96332b9b",
       "patch": {
-        "path": "vendor/remote-desktop/patches/moonlight-web-stream-v2.10.0-openbot.patch",
+        "path": "vendor/remote-desktop/patches/moonlight-web-stream-v2.10.0-openownbot.patch",
         "sha256": "916fcf57ec3f3d5a7517d488d106d698dbc7f4c8c2d12acc6be9982510a05444"
       },
       "overrides": [],
@@ -385,7 +385,7 @@
       }
     },
     "artifactRelease": {
-      "repository": "nightly-labs/openbot",
+      "repository": "zereight/openownbot",
       "tag": "remote-desktop-runtime-0f10ee1a5ffb9cf64cc3459c3fe07c2b9786b9adfc7ecce4b59b635d60855848",
       "inputDigest": "0f10ee1a5ffb9cf64cc3459c3fe07c2b9786b9adfc7ecce4b59b635d60855848",
       "manifestAsset": "remote-desktop-runtime-manifest.json",

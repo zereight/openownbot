@@ -1,4 +1,4 @@
-import { Button, CalendarClock, Dialog } from "@openbot/ui";
+import { Button, CalendarClock, Dialog } from "@openownbot/ui";
 import { useText } from "../../text";
 
 export interface HostedServerUpsellDialogProps {

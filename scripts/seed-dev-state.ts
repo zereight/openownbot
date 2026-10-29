@@ -4,10 +4,10 @@ import { lstat, mkdir, mkdtemp, readFile, readlink, rename, rm, writeFile } from
 import { homedir } from "node:os";
 import { dirname, join, parse, resolve } from "node:path";
 import { pathToFileURL } from "node:url";
-import { serializeAttachmentReference } from "@openbot/contracts/attachment-references";
-import { serializeChatTagReference } from "@openbot/contracts/chat-tag-references";
-import { sortConversationMessages } from "@openbot/contracts/conversation-order";
-import { DEVELOPMENT_CLAUDE_DEFAULT, DEVELOPMENT_FREE_DEFAULT } from "@openbot/contracts/development-defaults";
+import { serializeAttachmentReference } from "@openownbot/contracts/attachment-references";
+import { serializeChatTagReference } from "@openownbot/contracts/chat-tag-references";
+import { sortConversationMessages } from "@openownbot/contracts/conversation-order";
+import { DEVELOPMENT_CLAUDE_DEFAULT, DEVELOPMENT_FREE_DEFAULT } from "@openownbot/contracts/development-defaults";
 import type {
   AgentModelId,
   AgentProviderId,
@@ -18,9 +18,9 @@ import type {
   ChannelTask,
   ConversationMessage,
   Routine,
-} from "@openbot/contracts/ipc";
-import { channelRoutingConversationEventItemType } from "@openbot/contracts/ipc";
-import { createOpenBotLogger, toLogValue } from "@openbot/logging";
+} from "@openownbot/contracts/ipc";
+import { channelRoutingConversationEventItemType } from "@openownbot/contracts/ipc";
+import { createOpenOwnBotLogger, toLogValue } from "@openownbot/logging";
 import { strToU8, zipSync } from "fflate";
 import { z } from "zod";
 import { agentNamesById, displayMessageReferences } from "../src/backend/agent/delivery-content";
@@ -45,7 +45,7 @@ import { NO_SCALE, parseSeedScale, type SeedScale, seedScale } from "./seed-dev-
 
 export const DEVELOPMENT_SEED_MANIFEST_FILE = "openbot-dev-seed-v1.json";
 
-const logger = createOpenBotLogger("seed-dev-state");
+const logger = createOpenOwnBotLogger("seed-dev-state");
 
 const TEAM_FILE = "openbot-team-server-v2.json";
 /** Read only, exactly as the app reads it: the file a build without accounts owns. */
@@ -105,7 +105,7 @@ async function claudeSignedIn(appDataRoot: string): Promise<boolean> {
 
 /**
  * Where the app's own Claude Code is: the runtime store this computer shares, which is where a CLI
- * the user downloaded in OpenBot is the only copy there is.
+ * the user downloaded in OpenOwnBot is the only copy there is.
  *
  * The store, not the status: the manager is read for the path it computes, and nothing here creates
  * a directory, downloads, or collects an old version.
@@ -119,10 +119,10 @@ function managedClaudeExecutable(appDataRoot: string): string | null {
 
 const GENERATED_DIRECTORY_PATTERN =
   /^generated\/[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/iu;
-const SHOWCASE_IMAGE_PATH = resolve(process.cwd(), "src", "renderer", "src", "assets", "openbot-logo-dev.png");
+const SHOWCASE_IMAGE_PATH = resolve(process.cwd(), "src", "renderer", "src", "assets", "openownbot-logo-dev.png");
 
 function previewPdf(): string {
-  const stream = "BT /F1 18 Tf 24 150 Td (OpenBot file preview) Tj ET";
+  const stream = "BT /F1 18 Tf 24 150 Td (OpenOwnBot file preview) Tj ET";
   const objects = [
     "<< /Type /Catalog /Pages 2 0 R >>",
     "<< /Type /Pages /Kids [3 0 R] /Count 1 >>",
@@ -279,7 +279,7 @@ export async function seedDevelopmentState(options: DevelopmentSeedOptions = {})
   );
   assertSafeAppDataRoot(appDataRoot);
   const targetProfile = resolve(appDataRoot, developmentUserDataName("app", options.instanceId ?? null));
-  if (dirname(targetProfile) !== appDataRoot) throw new Error(`Unsafe OpenBot dev profile path: ${targetProfile}`);
+  if (dirname(targetProfile) !== appDataRoot) throw new Error(`Unsafe OpenOwnBot dev profile path: ${targetProfile}`);
 
   const profileActive = await isDevelopmentProfileActive(targetProfile);
   const agentModel = options.agentModel ?? (await seededAgentModel(appDataRoot));
@@ -299,16 +299,16 @@ export async function seedDevelopmentState(options: DevelopmentSeedOptions = {})
   if (options.dryRun) return summary;
   if (options.ifMissing && (await pathExists(targetProfile))) return summary;
   if (profileActive) {
-    throw new Error("Quit the OpenBot dev app before you seed its local state.");
+    throw new Error("Quit the OpenOwnBot dev app before you seed its local state.");
   }
 
   await mkdir(appDataRoot, { recursive: true, mode: 0o700 });
-  const stagingProfile = await mkdtemp(join(appDataRoot, ".openbot-dev-seed-"));
+  const stagingProfile = await mkdtemp(join(appDataRoot, ".openownbot-dev-seed-"));
   const newTransferDirectories: string[] = [];
   try {
     await buildSeedProfile(stagingProfile, homeDirectory, newTransferDirectories, agentModel, scale);
     if (await isDevelopmentProfileActive(targetProfile)) {
-      throw new Error("Quit the OpenBot dev app before you seed its local state.");
+      throw new Error("Quit the OpenOwnBot dev app before you seed its local state.");
     }
     if (options.ifMissing && (await pathExists(targetProfile))) {
       await cleanupStagedSeed(stagingProfile, homeDirectory, newTransferDirectories);
@@ -427,7 +427,7 @@ function seedMemories(agentStore: AgentStore): void {
     },
     {
       agentId: "chief",
-      text: "The current priority is a traceable OpenBot launch plan.",
+      text: "The current priority is a traceable OpenOwnBot launch plan.",
       origin: "automatic" as const,
       sourceTurnId: "dev-seed-turn-chief-plan",
     },
@@ -466,7 +466,7 @@ function seedMemories(agentStore: AgentStore): void {
 }
 
 /** Not a ciphertext of any secret: the app cannot decrypt it, so the webhook stays closed until regenerated. */
-const SEED_WEBHOOK_SECRET_PLACEHOLDER = Buffer.from("openbot-dev-seed: regenerate this secret").toString("base64");
+const SEED_WEBHOOK_SECRET_PLACEHOLDER = Buffer.from("openownbot-dev-seed: regenerate this secret").toString("base64");
 
 async function seedRoutines(agentStore: AgentStore, mailbox: MailboxStore, clock: SeedClock): Promise<void> {
   const routines = new AgentRoutineStore(agentStore.database);
@@ -801,7 +801,7 @@ async function seedAttachments(
       bytes: bytes(`${JSON.stringify({ sources: 8, verified: 7, needsReview: 1 }, null, 2)}\n`),
     }),
     image: await store(launch, {
-      name: "openbot-launch-concept.png",
+      name: "openownbot-launch-concept.png",
       mimeType: "image/png",
       sourcePath: SHOWCASE_IMAGE_PATH,
     }),
@@ -908,7 +908,7 @@ async function seedConversations(
             `| Evidence | ${mention("research")} | In review |`,
             `| Release | ${mention("launch")} | Ready |`,
             "",
-            "Next: review the [OpenBot documentation](https://openbot.run/docs), then run:",
+            "Next: review the [OpenOwnBot documentation](https://openbot.run/docs), then run:",
             "",
             "```bash",
             "bun run check",
@@ -935,7 +935,7 @@ async function seedConversations(
         itemType: "image_generation",
         attachments: [attachments.image],
         imageGeneration: {
-          prompt: "A calm OpenBot launch command center at blue hour",
+          prompt: "A calm OpenOwnBot launch command center at blue hour",
           resolution: "1024 × 1024",
           aspectRatio: "square",
         },
@@ -1213,7 +1213,7 @@ async function seedLaunchRoom(
     {
       ...store.create(channelId, {
         name: "Launch room",
-        title: "Ship OpenBot 1.0",
+        title: "Ship OpenOwnBot 1.0",
         instructions:
           "Keep every decision traceable. Name the owner and the evidence in each result, and leave an unverified claim out.",
         members: [{ agentId: "chief" }, { agentId: "research" }, { agentId: "builder" }, { agentId: "launch" }],
@@ -1234,7 +1234,7 @@ async function seedLaunchRoom(
       mimeType: "text/markdown",
       bytes: bytes(
         [
-          "# OpenBot 1.0 release note (draft)",
+          "# OpenOwnBot 1.0 release note (draft)",
           "",
           "## What is new",
           "- Channels: several agents share one chat and one task list.",
@@ -1290,7 +1290,7 @@ async function seedLaunchRoom(
   const taskStandup = "channel-launch-task-standup";
   const taskRollback = "channel-launch-task-rollback";
   const releaseNoteText =
-    "Draft the release note for OpenBot 1.0. Keep the evidence with every claim and name an owner for each section.";
+    "Draft the release note for OpenOwnBot 1.0. Keep the evidence with every claim and name an owner for each section.";
   const evidenceText = "Verify the two performance claims in the draft and name a primary source for each.";
   const rollbackText = `Add the rollback owner to the release note. ${mentionAgent(agents, "builder")} should confirm the steps.`;
   const message = (input: SeedChannelMessage): ChannelMessage => channelMessage(channelId, clock, input);
@@ -1582,15 +1582,15 @@ async function seedTeam(profilePath: string, agentStore: AgentStore, clock: Seed
   const team = new TeamStore(join(profilePath, TEAM_FILE), join(profilePath, LEGACY_TEAM_FILE));
   await runCauseEffect(team.initialize());
   const owner = {
-    id: "openbot-dev-owner",
-    email: "openbot-dev-host@example.com",
+    id: "openownbot-dev-owner",
+    email: "openownbot-dev-host@example.com",
     name: "Dev Owner",
     avatarUrl: null,
   };
-  const teamIdentity = await runCauseEffect(team.configureWithAccount("OpenBot Dev Team", owner));
+  const teamIdentity = await runCauseEffect(team.configureWithAccount("OpenOwnBot Dev Team", owner));
   const joined = [];
   for (const member of [
-    { id: "openbot-dev-alice", email: "alice@example.com", name: "Alice Chen", role: "admin" as const },
+    { id: "openownbot-dev-alice", email: "alice@example.com", name: "Alice Chen", role: "admin" as const },
   ]) {
     const invite = await runCauseEffect(team.createInvite(member.role, member.email));
     joined.push(
@@ -1629,7 +1629,7 @@ async function seedTeam(profilePath: string, agentStore: AgentStore, clock: Seed
 }
 
 async function replaceDevelopmentProfile(target: string, staging: string, homeDirectory: string): Promise<void> {
-  const backup = resolve(dirname(target), `.openbot-dev-backup-${randomUUID()}`);
+  const backup = resolve(dirname(target), `.openownbot-dev-backup-${randomUUID()}`);
   const targetExists = await pathExists(target);
   if (targetExists) await rename(target, backup);
   try {
@@ -1791,9 +1791,9 @@ async function main(): Promise<void> {
     dryRun,
     ifMissing: parsed.values["if-missing"] ?? false,
     scale: parsed.values.scale === undefined ? undefined : parseSeedScale(parsed.values.scale),
-    instanceId: readDevelopmentInstanceId(process.env.OPENBOT_DEV_INSTANCE_ID),
+    instanceId: readDevelopmentInstanceId(process.env.OPENOWNBOT_DEV_INSTANCE_ID),
   });
-  logger.info(dryRun ? "OpenBot development seed dry run:" : "OpenBot development state seeded:");
+  logger.info(dryRun ? "OpenOwnBot development seed dry run:" : "OpenOwnBot development state seeded:");
   logger.info(`- profile: ${summary.targetProfile}`);
   logger.info(`- profile active: ${summary.profileActive ? "yes" : "no"}`);
   logger.info(`- agent model: ${summary.agentModel}`);

@@ -4,9 +4,9 @@
  * answer is simulated on a timer.
  */
 
-import type { AgentProfile } from "@openbot/ui/data";
-import { DiagramChatAgentPicker, DiagramChatPanel } from "@openbot/ui/features/diagrams/DiagramChatPanel";
-import type { DiagramChatMessage } from "@openbot/ui/features/diagrams/diagram-model";
+import type { AgentProfile } from "@openownbot/ui/data";
+import { DiagramChatAgentPicker, DiagramChatPanel } from "@openownbot/ui/features/diagrams/DiagramChatPanel";
+import type { DiagramChatMessage } from "@openownbot/ui/features/diagrams/diagram-model";
 import { createSignal, onCleanup, Show, untrack } from "solid-js";
 import { fn } from "storybook/test";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";
@@ -54,7 +54,7 @@ function ChatStage(props: { open: boolean; messages?: DiagramChatMessage[]; work
     );
   };
   return (
-    <div style={{ position: "relative", height: "520px", background: "var(--openbot-bg-frame)" }}>
+    <div style={{ position: "relative", height: "520px", background: "var(--openownbot-bg-frame)" }}>
       <Show when={agent()}>
         {(current) => (
           <div class="diagram-view-chat" data-placement="end">

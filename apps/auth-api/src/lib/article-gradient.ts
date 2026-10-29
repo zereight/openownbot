@@ -2,4 +2,4 @@ export {
   articleGradient,
   articleGradientCss,
   articleGradientUniforms,
-} from "@openbot/brand/article-gradient";
+} from "@openownbot/brand/article-gradient";

@@ -2,20 +2,20 @@
 // and that a final failure after it still does (#2559). Codex sends that warning when it changes
 // transport, and the same turn continues over HTTPS. Runs the real agent service on a temporary
 // profile with a fake Codex app-server. Two cases: the HTTPS attempt completes, and it fails.
-// `bun scripts/codex-transport-fallback-e2e.ts`. Writes .openbot-build/codex-transport-fallback-e2e/report.json.
+// `bun scripts/codex-transport-fallback-e2e.ts`. Writes .openownbot-build/codex-transport-fallback-e2e/report.json.
 import assert from "node:assert/strict";
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { mkdtemp, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
-import { AGENT_PROVIDERS } from "@openbot/contracts/ipc";
-import { teeLogLines } from "@openbot/logging";
+import { AGENT_PROVIDERS } from "@openownbot/contracts/ipc";
+import { teeLogLines } from "@openownbot/logging";
 import { Effect } from "effect";
 import type { AgentBrowserHost } from "../src/backend/agent/turn-lifecycle";
 import { getString, isRecord } from "../src/backend/protocol";
 
-const OUT = resolve(import.meta.dirname, "../.openbot-build/codex-transport-fallback-e2e");
-const root = await mkdtemp(join(tmpdir(), "openbot-transport-fallback-"));
+const OUT = resolve(import.meta.dirname, "../.openownbot-build/codex-transport-fallback-e2e");
+const root = await mkdtemp(join(tmpdir(), "openownbot-transport-fallback-"));
 const userData = join(root, "user-data");
 const home = join(root, "home");
 const logPath = join(root, "protocol.jsonl");
@@ -27,16 +27,16 @@ const FINAL_FAILURE = "stream disconnected before completion: Connection refused
 // Before the service modules load: the Codex process and the stores read the home folder.
 process.env.HOME = home;
 process.env.CODEX_HOME = join(home, ".codex");
-process.env.OPENBOT_CODEX_PATH = fakeCodex;
-process.env.OPENBOT_FAKE_CODEX_LOG = logPath;
-process.env.OPENBOT_FAKE_CODEX_CONTROL = controlPath;
+process.env.OPENOWNBOT_CODEX_PATH = fakeCodex;
+process.env.OPENOWNBOT_FAKE_CODEX_LOG = logPath;
+process.env.OPENOWNBOT_FAKE_CODEX_CONTROL = controlPath;
 mkdirSync(home, { recursive: true });
 
 const { AgentService } = await import("../src/backend/agent-service");
 const { AgentStore } = await import("../src/backend/agent-store");
 const { runCauseEffect } = await import("../src/backend/effect-boundary");
 const { MailboxStore } = await import("../src/backend/mailbox-store");
-const { OpenBotDatabase } = await import("../src/backend/openbot-database");
+const { OpenOwnBotDatabase } = await import("../src/backend/openownbot-database");
 
 /**
  * A Codex app-server with the methods that the service calls. Each turn sends the transport
@@ -49,8 +49,8 @@ if (process.argv.includes("--version")) {
   process.stdout.write("codex-cli 0.162.1\\n");
   process.exit(0);
 }
-const log = (entry) => fs.appendFileSync(process.env.OPENBOT_FAKE_CODEX_LOG, JSON.stringify(entry) + "\\n");
-const control = () => JSON.parse(fs.readFileSync(process.env.OPENBOT_FAKE_CODEX_CONTROL, "utf8"));
+const log = (entry) => fs.appendFileSync(process.env.OPENOWNBOT_FAKE_CODEX_LOG, JSON.stringify(entry) + "\\n");
+const control = () => JSON.parse(fs.readFileSync(process.env.OPENOWNBOT_FAKE_CODEX_CONTROL, "utf8"));
 const config = { config: { mcp_servers: {} }, layers: [{ name: { type: "user", file: "/fake/.codex/config.toml", profile: null }, version: "1", config: { mcp_servers: {} } }] };
 let buffer = "";
 let threads = 0;
@@ -153,7 +153,7 @@ const browser: AgentBrowserHost = {
   clearAgentSession: () => Effect.void,
 };
 
-/** The `turn/start` requests that OpenBot sent on a thread. */
+/** The `turn/start` requests that OpenOwnBot sent on a thread. */
 function turnStarts(threadId: string): number {
   return readFileSync(logPath, "utf8")
     .split("\n")
@@ -180,7 +180,7 @@ async function waitFor<T>(label: string, read: () => T | null | undefined | fals
 }
 
 await writeFile(fakeCodex, FAKE_CODEX, { mode: 0o755 });
-const database = new OpenBotDatabase(userData);
+const database = new OpenOwnBotDatabase(userData);
 const store = new AgentStore(userData, home, database);
 const mailbox = new MailboxStore(userData, store.sharedRoot, store.database);
 const agents = new AgentService({
@@ -239,7 +239,7 @@ try {
     };
     report.cases.push(result);
     assert.equal(result.finalStatus, entry.status, `${entry.name}: ${result.finalError ?? result.finalStatus}`);
-    assert.equal(result.turnStarts, 1, `${entry.name}: OpenBot started the turn again`);
+    assert.equal(result.turnStarts, 1, `${entry.name}: OpenOwnBot started the turn again`);
     assert.ok(
       result.errorEvents.every((event) => !event.message.includes(FALLBACK)),
       `${entry.name}: the transport warning reached the banner`,

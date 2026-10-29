@@ -4,18 +4,18 @@ import type {
   MarketplaceSkillQuery,
   MarketplaceSkillSummary,
   McpServerConfig,
-} from "@openbot/contracts/ipc";
-import type { McpConnectFlow } from "@openbot/contracts/mcp-connect-flows";
-import { CONNECTOR_LISTINGS } from "@openbot/ui/features/connectors/connector-catalog";
-import { Marketplace } from "@openbot/ui/features/marketplace/Marketplace";
-import type { MarketplaceApp, MarketplaceModel } from "@openbot/ui/features/marketplace/marketplace-model";
+} from "@openownbot/contracts/ipc";
+import type { McpConnectFlow } from "@openownbot/contracts/mcp-connect-flows";
+import { CONNECTOR_LISTINGS } from "@openownbot/ui/features/connectors/connector-catalog";
+import { Marketplace } from "@openownbot/ui/features/marketplace/Marketplace";
+import type { MarketplaceApp, MarketplaceModel } from "@openownbot/ui/features/marketplace/marketplace-model";
 import {
   createMarketplaceNavigation,
   type MarketplaceNavigation,
-} from "@openbot/ui/features/marketplace/marketplace-view";
-import { McpConnectDialog } from "@openbot/ui/features/settings/McpConnectDialog";
-import type { McpConnectSubject } from "@openbot/ui/features/settings/McpConnectShell";
-import { currentText } from "@openbot/ui/text";
+} from "@openownbot/ui/features/marketplace/marketplace-view";
+import { McpConnectDialog } from "@openownbot/ui/features/settings/McpConnectDialog";
+import type { McpConnectSubject } from "@openownbot/ui/features/settings/McpConnectShell";
+import { currentText } from "@openownbot/ui/text";
 import { createSignal, createStore, onSettled, Show, untrack } from "solid-js";
 import { fn } from "storybook/test";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";

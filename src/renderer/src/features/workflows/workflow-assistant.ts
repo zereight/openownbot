@@ -1,6 +1,6 @@
-import { graphAgentIds } from "@openbot/contracts/ipc";
-import { workflowChatReference } from "@openbot/contracts/workflow-chat-reference";
-import type { AgentProfile } from "@openbot/ui/data";
+import { graphAgentIds } from "@openownbot/contracts/ipc";
+import { workflowChatReference } from "@openownbot/contracts/workflow-chat-reference";
+import type { AgentProfile } from "@openownbot/ui/data";
 import { createMemo, createSignal, untrack } from "solid-js";
 import { desktopAgentChatPort } from "../../agent-chat-port";
 import { createCanvasAssistant } from "../../canvas-assistant";
@@ -8,7 +8,7 @@ import { readAgentSelection, writeAgentSelection } from "../agents/agent-selecti
 import type { createWorkflowsController } from "./workflows-controller";
 
 /** The agent last picked in the workflow chat for each server, kept apart from the chat agent. */
-const WORKFLOW_CHAT_AGENT_KEY = "openbot:workflow-chat-agent:v1";
+const WORKFLOW_CHAT_AGENT_KEY = "openownbot:workflow-chat-agent:v1";
 
 /**
  * The chat over the open workflow. A message goes into the picked agent's own conversation, under a

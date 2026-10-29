@@ -1,11 +1,11 @@
 import {
   EMPTY_VAULT,
-  type OpenBotDesktopApi,
+  type OpenOwnBotDesktopApi,
   type VaultItemSummary,
   type VaultSaveInput,
   type VaultSecretField,
   type VaultState,
-} from "@openbot/contracts/ipc";
+} from "@openownbot/contracts/ipc";
 
 function brandOf(number: string): "visa" | "mastercard" | "amex" | "discover" | null {
   if (number.startsWith("4")) return "visa";
@@ -19,7 +19,7 @@ function brandOf(number: string): "visa" | "mastercard" | "amex" | "discover" | 
  * An empty Vault kept in memory. The import adds one login, as if the user chose a CSV file. The
  * preview has one host, so the `host*` calls of every server use the same items.
  */
-export function createMockVault(): OpenBotDesktopApi["vault"] {
+export function createMockVault(): OpenOwnBotDesktopApi["vault"] {
   let state: VaultState = EMPTY_VAULT;
   const secrets = new Map<string, Partial<Record<VaultSecretField, string>>>();
   const listeners = new Set<(state: VaultState) => void>();

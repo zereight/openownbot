@@ -49,7 +49,7 @@ export function StorageRing({
   /** The text summary that a screen reader reads in place of the ring. */
   label: string;
 }) {
-  const background = String(useCSSVariable("--openbot-bg-grouped"));
+  const background = String(useCSSVariable("--openownbot-bg-grouped"));
   const reducedMotion = useReducedMotion();
   const progress = useSharedValue(reducedMotion ? 1 : 0);
   useEffect(() => {

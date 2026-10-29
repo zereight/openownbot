@@ -1,4 +1,4 @@
-import type { OpenBotDesktopApi } from "@openbot/contracts/ipc";
+import type { OpenOwnBotDesktopApi } from "@openownbot/contracts/ipc";
 import type {
   EventRoutine,
   EventRoutineOwner,
@@ -6,7 +6,7 @@ import type {
   EventStatus,
   ListEventRoutineRunsInput,
   SaveEventRoutineInput,
-} from "@openbot/contracts/ipc-events";
+} from "@openownbot/contracts/ipc-events";
 import { clone } from "./mock-support";
 
 function sameOwner(left: EventRoutineOwner, right: EventRoutineOwner): boolean {
@@ -24,7 +24,7 @@ function mockSecret(): string {
  */
 export function createMockEvents(
   listRuns: (input: ListEventRoutineRunsInput) => Promise<EventRoutineRun[]>,
-): OpenBotDesktopApi["events"] {
+): OpenOwnBotDesktopApi["events"] {
   let routines: EventRoutine[] = [];
   let sequence = 0;
   const status: EventStatus = { supported: true, connected: true };
@@ -50,7 +50,7 @@ export function createMockEvents(
         timezone: input.timezone,
         trigger:
           input.trigger.kind === "webhook"
-            ? { ...clone(input.trigger), url: `https://hooks.example.test/openbot/${id}` }
+            ? { ...clone(input.trigger), url: `https://hooks.example.test/openownbot/${id}` }
             : clone(input.trigger),
         ...(input.limitPolicy === undefined ? {} : { limitPolicy: input.limitPolicy }),
         ...(input.missedPolicy === undefined ? {} : { missedPolicy: input.missedPolicy }),

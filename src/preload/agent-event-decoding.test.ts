@@ -1,4 +1,4 @@
-import type { ScopedAgentEvent } from "@openbot/contracts/ipc";
+import type { ScopedAgentEvent } from "@openownbot/contracts/ipc";
 import { describe, expect, it } from "vitest";
 import { decodeScopedAgentEvent } from "./agent-event-decoding";
 

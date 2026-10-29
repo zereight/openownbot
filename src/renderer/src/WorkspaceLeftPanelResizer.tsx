@@ -1,5 +1,5 @@
-import { PanelResizer } from "@openbot/ui/components/PanelResizer";
-import { useText } from "@openbot/ui/text";
+import { PanelResizer } from "@openownbot/ui/components/PanelResizer";
+import { useText } from "@openownbot/ui/text";
 import { savePanelWidth } from "./components/panel-width-storage";
 import { useLayout } from "./layout";
 import {

@@ -3,8 +3,8 @@ import {
   type MessagingConnection,
   type MessagingOverview,
   type MessagingPlatform,
-} from "@openbot/contracts/ipc";
-import type { MessagingConnectorPage as HostPage } from "@openbot/team-client/team-admin-requests";
+} from "@openownbot/contracts/ipc";
+import type { MessagingConnectorPage as HostPage } from "@openownbot/team-client/team-admin-requests";
 import type { UseQueryResult } from "@tanstack/react-query";
 import { openAuthSessionAsync } from "expo-web-browser";
 import { Typography } from "heroui-native";
@@ -101,7 +101,7 @@ function isWorkspacePlatform(platform: MessagingPlatform): platform is Workspace
 
 /**
  * Opens the platform's page that the host named. A Slack or Discord install returns to an
- * `openbot://` link with a grant that is sealed to the host; the browser session gives it back here,
+ * `openownbot://` link with a grant that is sealed to the host; the browser session gives it back here,
  * and the phone sends it on. A Telegram link opens Telegram, and the chat shows when it is linked.
  * Resolves false when the user closed the browser.
  */
@@ -130,8 +130,8 @@ async function openHostPage(
 
 /**
  * Server settings › Connectors › Slack, Discord or Telegram of a joined server. A Slack workspace or a
- * Discord server installs the one OpenBot app, and its orchestrator agent receives every request.
- * Every Telegram chat adds the one OpenBot bot and shares one orchestrator. No token reaches the phone.
+ * Discord server installs the one OpenOwnBot app, and its orchestrator agent receives every request.
+ * Every Telegram chat adds the one OpenOwnBot bot and shares one orchestrator. No token reaches the phone.
  */
 export function MessagingConnectorPage({
   server,

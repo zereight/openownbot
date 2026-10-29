@@ -8,7 +8,7 @@ declare class QuickActionsModule extends NativeModule<{ onQuickAction: (event: {
 }
 
 /** `modules/quick-actions`. A build without it, such as Expo Go, has no quick actions. */
-const native = requireOptionalNativeModule<QuickActionsModule>("OpenBotQuickActions");
+const native = requireOptionalNativeModule<QuickActionsModule>("OpenOwnBotQuickActions");
 
 let listening = false;
 let navigate: ((target: QuickActionTarget) => void) | null = null;

@@ -10,7 +10,7 @@
 
 import { createServer, type Server } from "node:http";
 import type { Socket } from "node:net";
-import type { AppTextKey } from "@openbot/i18n";
+import type { AppTextKey } from "@openownbot/i18n";
 import type { LanguageService } from "./language-service";
 import { listenLoopback, listenLoopbackExact } from "./listen-loopback";
 
@@ -33,7 +33,7 @@ export interface LoopbackCallbackServerOptions {
   path: string;
   /**
    * Answers a callback that passed the checks. It is synchronous, so the browser does not wait for
-   * the network: the sign-in shows its own end in OpenBot.
+   * the network: the sign-in shows its own end in OpenOwnBot.
    */
   receive: (url: URL) => CallbackAnswer;
   /** Read on each request, so the page uses the language that is set at that time. */

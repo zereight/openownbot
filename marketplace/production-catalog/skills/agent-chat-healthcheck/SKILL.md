@@ -1,6 +1,6 @@
 ---
 name: "Agent Chat Healthcheck"
-description: "Audit the recent chats of local OpenBot agents for user friction, propose new skills, agents or routines from repeated corrections, or run the standing transcript-healthcheck routine."
+description: "Audit the recent chats of local OpenOwnBot agents for user friction, propose new skills, agents or routines from repeated corrections, or run the standing transcript-healthcheck routine."
 ---
 
 # Agent Chat Healthcheck

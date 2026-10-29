@@ -70,7 +70,7 @@ final class AppLockMonitor {
     guard watchPhoneLock, task == .invalid else { return }
     // iOS stops the app soon after it goes to the background, and the protected data closes later.
     // The short background time that iOS gives lets the app hear the lock that put it there.
-    task = UIApplication.shared.beginBackgroundTask(withName: "OpenBotAppLock") { [weak self] in
+    task = UIApplication.shared.beginBackgroundTask(withName: "OpenOwnBotAppLock") { [weak self] in
       self?.endTask()
     }
   }
@@ -125,7 +125,7 @@ private func bytes(hex: String) -> [UInt8]? {
 
 public class AppLockModule: Module {
   public func definition() -> ModuleDefinition {
-    Name("OpenBotAppLock")
+    Name("OpenOwnBotAppLock")
 
     /// Starts or stops the signals. The phone lock signal keeps the app awake for a short time after it leaves.
     AsyncFunction("configure") { (enabled: Bool, watchPhoneLock: Bool) in

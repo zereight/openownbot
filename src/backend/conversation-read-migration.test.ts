@@ -4,12 +4,12 @@ import { mkdtemp, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { DatabaseSync } from "node:sqlite";
-import type { ConversationSnapshot } from "@openbot/contracts/ipc";
+import type { ConversationSnapshot } from "@openownbot/contracts/ipc";
 import { afterEach, describe, expect, it } from "vitest";
 import { ConversationReadStore } from "./conversation-read-store";
 import { runCauseEffect } from "./effect-boundary";
-import { OpenBotDatabase } from "./openbot-database";
-import { migrateOpenBotDatabase } from "./openbot-database-schema";
+import { OpenOwnBotDatabase } from "./openownbot-database";
+import { migrateOpenOwnBotDatabase } from "./openownbot-database-schema";
 import { directThreadId, TeamChatStore } from "./team-chat-store";
 
 const roots: string[] = [];
@@ -20,7 +20,7 @@ afterEach(async () => {
 
 describe("conversation read-state migration", () => {
   it("baselines agent history that existed before the read-state migration", async () => {
-    const root = await mkdtemp(join(tmpdir(), "openbot-conversation-read-migration-"));
+    const root = await mkdtemp(join(tmpdir(), "openownbot-conversation-read-migration-"));
     roots.push(root);
     const legacy = legacyDatabase(join(root, "openbot.db"));
     legacy
@@ -85,12 +85,12 @@ describe("conversation read-state migration", () => {
         legacyDirectMessage.createdAt,
         JSON.stringify(legacyDirectMessage),
       );
-    migrateOpenBotDatabase(legacy, {
+    migrateOpenOwnBotDatabase(legacy, {
       appliedAt: "2026-08-19T10:00:00.000Z",
     });
     legacy.close();
 
-    const database = new OpenBotDatabase(root);
+    const database = new OpenOwnBotDatabase(root);
     await runCauseEffect(database.initialize());
     const reads = new ConversationReadStore(database);
     const legacySnapshot = snapshot([message("legacy-answer", "assistant")]);

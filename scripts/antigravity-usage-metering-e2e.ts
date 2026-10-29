@@ -7,19 +7,19 @@
 // before this change booked 0 for it), a larger third turn (it booked only the excess over the
 // largest turn), and a turn after the provider process starts again and resumes the session.
 // `bun scripts/antigravity-usage-metering-e2e.ts`. Writes
-// .openbot-build/antigravity-usage-metering-e2e/report.json.
+// .openownbot-build/antigravity-usage-metering-e2e/report.json.
 import assert from "node:assert/strict";
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { mkdir, mkdtemp, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import { DatabaseSync } from "node:sqlite";
-import { AGENT_PROVIDERS, decodeUsageTokens, type UsageTokens } from "@openbot/contracts/ipc";
+import { AGENT_PROVIDERS, decodeUsageTokens, type UsageTokens } from "@openownbot/contracts/ipc";
 import { Effect } from "effect";
 import type { AgentBrowserHost } from "../src/backend/agent/turn-lifecycle";
 
-const OUT = resolve(import.meta.dirname, "../.openbot-build/antigravity-usage-metering-e2e");
-const root = await mkdtemp(join(tmpdir(), "openbot-antigravity-metering-"));
+const OUT = resolve(import.meta.dirname, "../.openownbot-build/antigravity-usage-metering-e2e");
+const root = await mkdtemp(join(tmpdir(), "openownbot-antigravity-metering-"));
 const userData = join(root, "user-data");
 const home = join(root, "home");
 const install = join(root, "antigravity");
@@ -28,7 +28,7 @@ const logPath = join(root, "agy.jsonl");
 
 // Before the service modules load: the stores read the home folder.
 process.env.HOME = home;
-process.env.OPENBOT_ANTIGRAVITY_PATH = fakeAgy;
+process.env.OPENOWNBOT_ANTIGRAVITY_PATH = fakeAgy;
 process.env.FAKE_AGY_LOG = logPath;
 mkdirSync(home, { recursive: true });
 
@@ -36,7 +36,7 @@ const { AgentService } = await import("../src/backend/agent-service");
 const { AgentStore } = await import("../src/backend/agent-store");
 const { runCauseEffect } = await import("../src/backend/effect-boundary");
 const { MailboxStore } = await import("../src/backend/mailbox-store");
-const { OpenBotDatabase } = await import("../src/backend/openbot-database");
+const { OpenOwnBotDatabase } = await import("../src/backend/openownbot-database");
 
 /** An Antigravity ACP server with the methods that the service calls. `/usage` has no plan quota. */
 const FAKE_AGY = `#!/usr/bin/env node
@@ -158,7 +158,7 @@ function protocol(): LogEntry[] {
 await mkdir(join(install, "bin"), { recursive: true });
 await writeFile(join(install, "antigravity-package.json"), `${JSON.stringify({ version: "1.4.3" })}\n`);
 await writeFile(fakeAgy, FAKE_AGY, { mode: 0o755 });
-const database = new OpenBotDatabase(userData);
+const database = new OpenOwnBotDatabase(userData);
 const store = new AgentStore(userData, home, database);
 const mailbox = new MailboxStore(userData, store.sharedRoot, store.database);
 const agents = new AgentService({

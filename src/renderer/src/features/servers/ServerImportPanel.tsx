@@ -3,21 +3,21 @@ import type {
   AgentImportResult,
   AgentImportSkillSource,
   HermesImportPreview,
-  OpenBotDesktopApi,
-} from "@openbot/contracts/ipc";
-import { classifyFailure } from "@openbot/telemetry";
-import { AgentImportSources } from "@openbot/ui/features/import/AgentImportSources";
+  OpenOwnBotDesktopApi,
+} from "@openownbot/contracts/ipc";
+import { classifyFailure } from "@openownbot/telemetry";
+import { AgentImportSources } from "@openownbot/ui/features/import/AgentImportSources";
 import {
   type AgentImportPhase,
   type AgentImportSetup,
   AgentImportView,
-} from "@openbot/ui/features/import/AgentImportView";
+} from "@openownbot/ui/features/import/AgentImportView";
 import {
   type HermesImportPhase,
   type HermesImportSelection,
   HermesImportView,
-} from "@openbot/ui/features/import/HermesImportView";
-import { useText } from "@openbot/ui/text";
+} from "@openownbot/ui/features/import/HermesImportView";
+import { useText } from "@openownbot/ui/text";
 import { createEffect, createSignal, createStore, Match, onSettled, Switch } from "solid-js";
 import { actionToast } from "../../action-toast";
 
@@ -35,8 +35,8 @@ export interface ServerImportDetail {
 
 /** The way into each app this viewer chose last, so a user who set up the skill starts there. */
 const SETUP_STORAGE_KEYS = {
-  "grok-bot": "openbot.agent-import.setup",
-  "hermes-agent": "openbot.agent-import.hermes-setup",
+  "grok-bot": "openownbot.agent-import.setup",
+  "hermes-agent": "openownbot.agent-import.hermes-setup",
 } as const satisfies Record<AgentImportSkillSource, string>;
 
 /** The setups each app offers. Reading the Hermes folder needs this computer. */
@@ -58,25 +58,25 @@ function readSetup(source: AgentImportSkillSource, folder: boolean): AgentImport
 
 type HermesCall = "readHermes" | "chooseHermes" | "applyHermes" | "discardHermes";
 
-export type AgentImportCalls = Omit<OpenBotDesktopApi["agentImport"], HermesCall> & {
+export type AgentImportCalls = Omit<OpenOwnBotDesktopApi["agentImport"], HermesCall> & {
   /** Opens the ready export agent's Grok Bot page. */
   openExportAgent(): void;
   /** The Hermes folder calls, on desktop only: main reads the Hermes folder of this computer. */
-  hermes?: Pick<OpenBotDesktopApi["agentImport"], HermesCall>;
+  hermes?: Pick<OpenOwnBotDesktopApi["agentImport"], HermesCall>;
 };
 
 export interface ServerImportOptions {
   onOpenAgent: (agentId: string) => void;
   /** Closes the settings the panel is in. */
   onClose: () => void;
-  /** The calls of a client with no `window.openbot`, such as the web client. */
+  /** The calls of a client with no `window.openownbot`, such as the web client. */
   calls?: AgentImportCalls;
 }
 
 const desktopCalls = (): AgentImportCalls => ({
-  ...window.openbot.agentImport,
-  openExportAgent: () => void window.openbot.openExternal("grok-bot-export"),
-  hermes: window.openbot.agentImport,
+  ...window.openownbot.agentImport,
+  openExportAgent: () => void window.openownbot.openExternal("grok-bot-export"),
+  hermes: window.openownbot.agentImport,
 });
 
 interface ImportState {
@@ -95,7 +95,7 @@ interface HermesState {
 
 /**
  * Server settings > Import. The user chooses where the agents are now: Hermes Agent, Grok Bot, or
- * another OpenBot computer. An export file from Grok Bot or Hermes takes the same steps: main opens
+ * another OpenOwnBot computer. An export file from Grok Bot or Hermes takes the same steps: main opens
  * the file dialog and the host keeps the export under a token, so the panel holds the preview and
  * never a path. Hermes on this computer can also be read from its folder, item by item. A preview
  * left open when the panel closes is released.

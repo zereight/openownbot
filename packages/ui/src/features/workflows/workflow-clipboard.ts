@@ -13,7 +13,7 @@ export interface Clip {
 }
 
 /** The type that marks copied nodes on the system clipboard. */
-export const CLIP_TYPE = "application/x-openbot-workflow-nodes";
+export const CLIP_TYPE = "application/x-openownbot-workflow-nodes";
 
 /**
  * The last copied nodes, for every canvas on the page. The system clipboard holds only the key of the

@@ -89,7 +89,7 @@ export const messages = defineMessages("browser", {
   "browser.secret.saveHintLocal": "Agents on this computer can then sign in without asking you.",
   "browser.secret.saveHintRemote": "It is kept on {server}. Its agents can then sign in without asking you.",
   "browser.secret.saveBlockedRole": "Only the owner or an admin of {server} can save to its Vault.",
-  "browser.secret.saveBlockedVersion": "Update OpenBot on {server} to save passwords to its Vault.",
+  "browser.secret.saveBlockedVersion": "Update OpenOwnBot on {server} to save passwords to its Vault.",
   "browser.secret.signInPage": "Sign-in page",
   "browser.secret.openSignInPage": "Open sign-in page in browser",
   "browser.secret.openInBrowser": "Open in browser",

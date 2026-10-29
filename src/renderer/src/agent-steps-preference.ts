@@ -1,6 +1,6 @@
 import { createSignal } from "solid-js";
 
-const SHOW_AGENT_STEPS_STORAGE_KEY = "openbot:show-agent-steps";
+const SHOW_AGENT_STEPS_STORAGE_KEY = "openownbot:show-agent-steps";
 
 /** The choice for this page after the browser did not save it. It wins over an older saved value. */
 let unsavedPreference: boolean | undefined;

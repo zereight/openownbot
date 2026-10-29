@@ -1,4 +1,4 @@
-import type { CustomProviderRestart } from "@openbot/contracts/ipc";
+import type { CustomProviderRestart } from "@openownbot/contracts/ipc";
 import {
   Badge,
   Bot,
@@ -16,7 +16,7 @@ import {
   Spinner,
   Text,
   X,
-} from "@openbot/ui";
+} from "@openownbot/ui";
 import { createSignal, For, Show } from "solid-js";
 import { useText } from "../../text";
 import { DetectedProviderSetup } from "./DetectedProviderSetup";

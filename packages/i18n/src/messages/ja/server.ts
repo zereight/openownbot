@@ -118,7 +118,7 @@ export const messages = {
   "server.hosted.detail.create.copy": "OpenOwnBot をマシンにコピーしています",
   "server.hosted.detail.create.key": "一度だけ使えるサインインキーを追加しています",
   "server.hosted.detail.start.boot": "マシンの電源を入れています",
-  "server.hosted.detail.start.app": "OpenBot を起動しています",
+  "server.hosted.detail.start.app": "OpenOwnBot を起動しています",
   "server.hosted.detail.start.wait": "OpenOwnBot の応答を待っています",
   "server.hosted.detail.connect.signIn": "あなたのアカウントでサインインしています",
   "server.hosted.detail.connect.publish": "サーバーをアカウントに追加しています",
@@ -451,11 +451,11 @@ export const messages = {
   "server.update.path.hosted":
     "ホスティングサービスはバックグラウンドでアップデートをダウンロードします。ダウンロードしたアップデートは、次にサーバーが起動したときに適用されます。サーバーを停止して再開する前に、実行中の作業が終わるのを待ってください。古いバージョンのままの場合は、ホストの管理者に連絡してください。",
   "server.update.path.system":
-    "ホストで sudo openbot update を実行して、最新のリリースをインストールしてください。このコマンドは OpenOwnBot を停止します。先に実行中の作業が終わるのを待ってください。自動ダウンロードされたアップデートは次回の起動時にインストールされます。",
+    "ホストで sudo openownbot update を実行して、最新のリリースをインストールしてください。このコマンドは OpenOwnBot を停止します。先に実行中の作業が終わるのを待ってください。自動ダウンロードされたアップデートは次回の起動時にインストールされます。",
   "server.update.path.container":
     "Docker ホストで新しい OpenOwnBot イメージを pull し、同じデータボリュームでコンテナーを再作成してください。先に実行中の作業が終わるのを待ってください。データを保持するため、既存のボリュームはそのまま残してください。",
   "server.update.path.manual":
-    "このインストールは自分自身を置き換えられません。github.com/nightly-labs/openbot/releases から互換性のあるリリースをインストールするよう、ホストの管理者に依頼してください。既存の OpenOwnBot のデータは残してください。",
+    "このインストールは自分自身を置き換えられません。github.com/zereight/openownbot/releases から互換性のあるリリースをインストールするよう、ホストの管理者に依頼してください。既存の OpenOwnBot のデータは残してください。",
   "server.update.path.unavailable":
     "これは開発ビルドです。アップデートを確認するには、インストール済みの OpenOwnBot リリースを使用してください。",
   "server.update.check": "アップデートを確認",

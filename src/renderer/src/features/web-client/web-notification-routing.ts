@@ -1,7 +1,12 @@
-import type { AgentEvent, ChannelSummary, ClientAgentSummary, ServerNotificationLevel } from "@openbot/contracts/ipc";
-import { type AgentNotificationChannel, agentEventRequestThread } from "@openbot/team-client/agent-notifications";
-import { channelReplyNotifications } from "@openbot/team-client/channel-notifications";
-import type { TextValue } from "@openbot/ui/text";
+import type {
+  AgentEvent,
+  ChannelSummary,
+  ClientAgentSummary,
+  ServerNotificationLevel,
+} from "@openownbot/contracts/ipc";
+import { type AgentNotificationChannel, agentEventRequestThread } from "@openownbot/team-client/agent-notifications";
+import { channelReplyNotifications } from "@openownbot/team-client/channel-notifications";
+import type { TextValue } from "@openownbot/ui/text";
 import { onCleanup, untrack } from "solid-js";
 import { startActionSounds } from "../../action-sounds";
 import { playCompletionSoundForAgentEvent, unlockCompletionSound } from "../../completion-sound";

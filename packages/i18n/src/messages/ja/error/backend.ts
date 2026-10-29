@@ -133,6 +133,12 @@ export const messages = {
   "error.backend.mailboxStateCorrupt":
     "メールボックスの状態が破損しているか、新しいバージョンの OpenOwnBot のものです。上書きしません。",
   "error.backend.recipientDeleting": "受信者を削除中です。削除が終わってから再試行してください。",
+  "error.backend.squadLeaves":
+    "あなたはチーム {squad} に所属しており、チーム外のエージェントに書き込めるのはそのリードだけです。{squad} のリードに伝えてもらうか、ユーザーに尋ねてください。",
+  "error.backend.squadEnters":
+    "{agent} はチーム {squad} に所属しています。{squad} のリードを通して連絡するか、ユーザーに尋ねてください。",
+  "error.backend.squadSkipsRank":
+    "{agent} はチーム {squad} であなたが直接連絡できる役職より上です。上位へは、すぐ上の役職にだけメッセージを送れます。その役職に取り次いでもらうか、ユーザーに尋ねてください。",
   "error.backend.recipientHidden": "このエージェントは非表示です。メッセージを送るには元に戻してください。",
   "error.backend.attachBetween": "1 〜 {limit} 個のファイルを添付してください。",
   "error.backend.attachmentNotFile": "添付ファイルがファイルではありません: {path}",
@@ -183,7 +189,7 @@ export const messages = {
   "error.backend.routineFlowCycle": "この接続はループになります。",
   "error.backend.routineFlowLinkLimit": "1 つのルーティンの接続は最大 {limit} 個です。",
   "error.backend.agentWaitLimit":
-    "このエージェントにはすでに開いている待機が {count} 件あります。別の待機を開く前に、openbot.close_wait で待機を閉じてください。",
+    "このエージェントにはすでに開いている待機が {count} 件あります。別の待機を開く前に、openownbot.close_wait で待機を閉じてください。",
   "error.backend.agentWaitGone": "この待機は開いていません。エージェントが閉じたか、誰かがキャンセルしました。",
   "error.backend.agentWaitNoRequest": "待機を続行するにはメッセージが必要です。このターンにはメッセージがありません。",
   "error.backend.agentWaitOwnChatOnly":
@@ -191,7 +197,7 @@ export const messages = {
   "error.backend.agentWaitNoteRequired": "待機の目的を示す短いメモを入力してください。",
   "error.backend.agentWaitRoutineGone": "このエージェントにはこの ID のルーティンがありません。",
   "error.backend.agentWaitNoRoutine":
-    "待機を再開できるのは自分のルーティンの実行だけですが、ルーティンがありません。openbot.create_routine でルーティンを作成してから、待機を開いてください。",
+    "待機を再開できるのは自分のルーティンの実行だけですが、ルーティンがありません。openownbot.create_routine でルーティンを作成してから、待機を開いてください。",
   "error.backend.agentWaitRemoteUnsupported":
     "開いている待機は、このコンピューター上のエージェントでのみ使用できます。",
   "error.backend.routineFlowHandoffFailed": "ルーティンはこのエージェントに作業を渡せませんでした。",
@@ -345,10 +351,4 @@ export const messages = {
     "このエージェントには {count} 件の開いているタスクがあります。タスクを閉じてから、別のタスクを開始するか開いてください。",
   "error.backend.taskRemoteUnsupported": "タスクは、このコンピューター上のエージェントでのみ利用できます。",
   "error.backend.taskStartFailed": "OpenOwnBot はタスクを開始できませんでした。代わりにこのターンで作業してください。",
-  "error.backend.squadLeaves":
-    "あなたはチーム {squad} に所属しており、チーム外のエージェントに書き込めるのはそのリードだけです。{squad} のリードに伝えてもらうか、ユーザーに尋ねてください。",
-  "error.backend.squadEnters":
-    "{agent} はチーム {squad} に所属しています。{squad} のリードを通して連絡するか、ユーザーに尋ねてください。",
-  "error.backend.squadSkipsRank":
-    "{agent} はチーム {squad} であなたが直接連絡できる役職より上です。上位へは、すぐ上の役職にだけメッセージを送れます。その役職に取り次いでもらうか、ユーザーに尋ねてください。",
 } as const satisfies PartialTranslation<typeof source>;

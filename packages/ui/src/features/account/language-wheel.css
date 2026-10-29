@@ -4,24 +4,24 @@
   width: min(100%, 360px);
   min-height: 100%;
   margin-inline: auto;
-  padding: var(--openbot-space-8) var(--openbot-space-4);
+  padding: var(--openownbot-space-8) var(--openownbot-space-4);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: var(--openbot-space-3);
+  gap: var(--openownbot-space-3);
   -webkit-app-region: no-drag;
 }
 
 .language-wheel-shell .account-login-brand-lockup {
-  margin-bottom: var(--openbot-space-4);
+  margin-bottom: var(--openownbot-space-4);
 }
 
 .language-wheel-title {
   margin: 0;
-  color: var(--openbot-text-muted);
-  font-size: var(--openbot-text-md);
-  font-weight: var(--openbot-weight-medium);
+  color: var(--openownbot-text-muted);
+  font-size: var(--openownbot-text-md);
+  font-weight: var(--openownbot-weight-medium);
 }
 
 .language-wheel-frame {
@@ -33,16 +33,16 @@
 .language-wheel-arrows {
   position: absolute;
   top: 50%;
-  left: calc(100% + var(--openbot-space-2));
+  left: calc(100% + var(--openownbot-space-2));
   translate: 0 -50%;
   display: flex;
   flex-direction: column;
-  gap: var(--openbot-space-1);
+  gap: var(--openownbot-space-1);
 }
 
 .language-wheel-arrows svg {
-  width: var(--openbot-icon-lg);
-  height: var(--openbot-icon-lg);
+  width: var(--openownbot-icon-lg);
+  height: var(--openownbot-icon-lg);
 }
 
 .language-wheel {
@@ -57,8 +57,8 @@
   user-select: none;
   mask-image: linear-gradient(
     transparent,
-    var(--openbot-text-primary) 30%,
-    var(--openbot-text-primary) 70%,
+    var(--openownbot-text-primary) 30%,
+    var(--openownbot-text-primary) 70%,
     transparent
   );
 }
@@ -74,14 +74,14 @@
   inset-inline: 0;
   top: calc(var(--row) * 2);
   height: var(--row);
-  border-radius: var(--openbot-radius-lg);
-  background: var(--openbot-bg-grouped);
+  border-radius: var(--openownbot-radius-lg);
+  background: var(--openownbot-bg-grouped);
 }
 
 .language-wheel:has(:focus-visible)::before {
   box-shadow:
-    inset 0 0 0 1px var(--openbot-border-focus),
-    var(--openbot-focus-ring);
+    inset 0 0 0 1px var(--openownbot-border-focus),
+    var(--openownbot-focus-ring);
 }
 
 .language-wheel-track {
@@ -99,8 +99,8 @@
   /* Gone by the third row, where the row on the far side of the loop changes ends. */
   opacity: max(0, 1 - var(--distance) * 0.35);
   transition:
-    translate var(--openbot-duration-overlay) var(--openbot-ease-out),
-    opacity var(--openbot-duration-overlay) var(--openbot-ease-out);
+    translate var(--openownbot-duration-overlay) var(--openownbot-ease-out),
+    opacity var(--openownbot-duration-overlay) var(--openownbot-ease-out);
 }
 
 /* The whole row selects its language, at every size. */
@@ -109,9 +109,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--openbot-text-primary);
-  font-size: var(--openbot-text-3xl);
-  font-weight: var(--openbot-weight-semibold);
+  color: var(--openownbot-text-primary);
+  font-size: var(--openownbot-text-3xl);
+  font-weight: var(--openownbot-weight-semibold);
   letter-spacing: -0.03em;
   line-height: 1;
   cursor: inherit;
@@ -123,7 +123,7 @@
   align-items: center;
   gap: 0.4em;
   scale: max(0.6, 1 - var(--distance) * 0.2);
-  transition: scale var(--openbot-duration-overlay) var(--openbot-ease-out);
+  transition: scale var(--openownbot-duration-overlay) var(--openownbot-ease-out);
 }
 
 /* Following the pointer: no easing, or the wheel lags behind the finger. */
@@ -140,26 +140,26 @@
 .language-wheel-continue {
   width: min(100%, 288px);
   min-height: 44px;
-  margin-top: var(--openbot-space-2);
-  border-radius: var(--openbot-radius-pill);
+  margin-top: var(--openownbot-space-2);
+  border-radius: var(--openownbot-radius-pill);
 }
 
 .language-wheel-continue svg {
-  width: var(--openbot-icon-lg);
-  height: var(--openbot-icon-lg);
-  transition: translate var(--openbot-duration-normal) var(--openbot-ease-out);
+  width: var(--openownbot-icon-lg);
+  height: var(--openownbot-icon-lg);
+  transition: translate var(--openownbot-duration-normal) var(--openownbot-ease-out);
 }
 
 .language-wheel-continue:hover:not(:disabled) {
-  background: var(--openbot-surface-light);
+  background: var(--openownbot-surface-light);
 }
 
 .language-wheel-continue:is(:hover, :focus-visible):not(:disabled) svg {
-  translate: var(--openbot-space-1) 0;
+  translate: var(--openownbot-space-1) 0;
 }
 
 .language-wheel-continue:active:not(:disabled) svg {
-  translate: var(--openbot-space-2) 0;
+  translate: var(--openownbot-space-2) 0;
 }
 
 @media (prefers-reduced-motion: reduce) {

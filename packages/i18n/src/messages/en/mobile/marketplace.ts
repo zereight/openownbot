@@ -99,9 +99,9 @@ export const messages = defineMessages("mobile.marketplace", {
   "mobile.marketplace.app.connectFailed": "The app did not connect.",
   "mobile.marketplace.app.linkInvalid": "Use an https link on {hostname}.",
   "mobile.marketplace.app.docs": "Get a key",
-  "mobile.marketplace.app.local": "This app runs on the computer with OpenBot. Set it up on that computer.",
+  "mobile.marketplace.app.local": "This app runs on the computer with OpenOwnBot. Set it up on that computer.",
   "mobile.marketplace.app.relayUnsupported":
-    "This app needs a browser sign-in. Update OpenBot on the server, or connect the app on the computer.",
+    "This app needs a browser sign-in. Update OpenOwnBot on the server, or connect the app on the computer.",
   "mobile.marketplace.app.waiting": "Waiting for the sign-in page…",
   "mobile.marketplace.app.openAgain": "Open the sign-in page again",
   "mobile.marketplace.app.pasteHint":

@@ -2,9 +2,9 @@ import {
   DISCONNECTED_BITWARDEN_CONNECTOR,
   DISCONNECTED_ONEPASSWORD_CONNECTOR,
   type MessagingConnection,
-} from "@openbot/contracts/ipc";
-import type { ConnectorDetail } from "@openbot/ui/features/connectors/ConnectorDetailPanel";
-import type { SlackIntegrationAgent } from "@openbot/ui/features/settings/SlackIntegrationPanel";
+} from "@openownbot/contracts/ipc";
+import type { ConnectorDetail } from "@openownbot/ui/features/connectors/ConnectorDetailPanel";
+import type { SlackIntegrationAgent } from "@openownbot/ui/features/settings/SlackIntegrationPanel";
 import { fn } from "storybook/test";
 import type { ConnectorController } from "../src/features/connectors/connector-controller";
 import type { ConnectorSet } from "../src/features/connectors/connector-registry";
@@ -149,7 +149,7 @@ export const CONNECTED_CONNECTOR_DETAILS: readonly ConnectorDetail[] = STORY_CON
         ...detail,
         props: {
           ...detail.props,
-          status: { ...detail.props.status, state: "connected", vaultNames: ["Shared with OpenBot"], loginCount: 3 },
+          status: { ...detail.props.status, state: "connected", vaultNames: ["Shared with OpenOwnBot"], loginCount: 3 },
         },
       };
     case "bitwarden":

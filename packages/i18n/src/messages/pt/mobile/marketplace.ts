@@ -100,9 +100,9 @@ export const messages = {
   "mobile.marketplace.app.connectFailed": "Não foi possível conectar o app.",
   "mobile.marketplace.app.linkInvalid": "Use um link https em {hostname}.",
   "mobile.marketplace.app.docs": "Obter chave",
-  "mobile.marketplace.app.local": "Este app roda no computador com o OpenBot. Configure-o nesse computador.",
+  "mobile.marketplace.app.local": "Este app roda no computador com o OpenOwnBot. Configure-o nesse computador.",
   "mobile.marketplace.app.relayUnsupported":
-    "Este app precisa de login no navegador. Atualize o OpenBot no servidor ou conecte o app no computador.",
+    "Este app precisa de login no navegador. Atualize o OpenOwnBot no servidor ou conecte o app no computador.",
   "mobile.marketplace.app.waiting": "Aguardando a página de login…",
   "mobile.marketplace.app.openAgain": "Abrir a página de login de novo",
   "mobile.marketplace.app.pasteHint":

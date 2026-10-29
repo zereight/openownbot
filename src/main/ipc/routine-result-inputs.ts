@@ -7,7 +7,7 @@ import {
   type ResendRoutineResultInput,
   type RoutineResultRoutineInput,
   type SetRoutineResultDestinationInput,
-} from "@openbot/contracts/ipc";
+} from "@openownbot/contracts/ipc";
 
 export function parseRoutineResultRoutine(value: unknown): RoutineResultRoutineInput {
   if (!isRoutineResultRoutineInput(value)) throw new Error("Invalid routine result routine.");

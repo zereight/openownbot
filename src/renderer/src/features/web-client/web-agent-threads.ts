@@ -1,7 +1,7 @@
-import type { ConversationSnapshot } from "@openbot/contracts/ipc";
-import { AGENT_TASKS_CAPABILITY } from "@openbot/contracts/team-protocol/agent-tasks-v1";
-import { AGENT_THREADS_CAPABILITY } from "@openbot/contracts/team-protocol/agent-threads-v1";
-import { runTeamEffect } from "@openbot/team-client";
+import type { ConversationSnapshot } from "@openownbot/contracts/ipc";
+import { AGENT_TASKS_CAPABILITY } from "@openownbot/contracts/team-protocol/agent-tasks-v1";
+import { AGENT_THREADS_CAPABILITY } from "@openownbot/contracts/team-protocol/agent-threads-v1";
+import { runTeamEffect } from "@openownbot/team-client";
 import {
   agentTaskControl,
   deleteAgentThread,
@@ -12,7 +12,7 @@ import {
   startAgentTask,
   type TeamApiRequest,
   type TeamRequestError,
-} from "@openbot/team-client/team-api-requests";
+} from "@openownbot/team-client/team-api-requests";
 import { Effect } from "effect";
 import { onCleanup } from "solid-js";
 import type { AgentTasksPort } from "../agent-tasks/agent-tasks-port";

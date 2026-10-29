@@ -1,5 +1,5 @@
-import type { ConversationMemoryChange } from "@openbot/contracts/ipc";
-import { countConversationMemoryChanges } from "@openbot/contracts/ipc";
+import type { ConversationMemoryChange } from "@openownbot/contracts/ipc";
+import { countConversationMemoryChanges } from "@openownbot/contracts/ipc";
 import type { JSX } from "@solidjs/web";
 import { createEffect, createMemo, createSignal, createUniqueId, For, onSettled, Show } from "solid-js";
 import { Badge } from "../../badge";

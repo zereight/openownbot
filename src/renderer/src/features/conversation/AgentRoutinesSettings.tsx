@@ -3,8 +3,8 @@ import {
   eventFilterDraft,
   eventFilterDraftsValid,
   eventFiltersFromDrafts,
-} from "@openbot/contracts/event-filter-value";
-import { INPUT_LIMITS } from "@openbot/contracts/input-limits";
+} from "@openownbot/contracts/event-filter-value";
+import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
 import {
   ROUTINE_LIMIT_POLICIES,
   ROUTINE_MISSED_POLICIES,
@@ -15,9 +15,9 @@ import {
   type RoutineResultDestination,
   type RoutineRunFields,
   type RoutineSchedule,
-} from "@openbot/contracts/ipc";
-import type { RoutineWebhookTriggerInput, WebhookTestResult } from "@openbot/contracts/ipc-events";
-import type { AppTextKey } from "@openbot/i18n";
+} from "@openownbot/contracts/ipc";
+import type { RoutineWebhookTriggerInput, WebhookTestResult } from "@openownbot/contracts/ipc-events";
+import type { AppTextKey } from "@openownbot/i18n";
 import {
   Button,
   CircleCheck,
@@ -37,22 +37,22 @@ import {
   Textarea,
   toast,
   Webhook,
-} from "@openbot/ui";
-import { createScrollFades } from "@openbot/ui/components/createScrollFades";
-import { SettingsBackIcon, SettingsForwardIcon } from "@openbot/ui/components/SettingsPanel";
+} from "@openownbot/ui";
+import { createScrollFades } from "@openownbot/ui/components/createScrollFades";
+import { SettingsBackIcon, SettingsForwardIcon } from "@openownbot/ui/components/SettingsPanel";
 import {
   type RoutineResultChoice,
   RoutineResultDestinationField,
-} from "@openbot/ui/features/conversation/RoutineResultDestinationField";
-import { RoutineRunHistory } from "@openbot/ui/features/conversation/RoutineRunHistory";
-import { RoutineSchedulePicker } from "@openbot/ui/features/conversation/RoutineSchedulePicker";
-import { RoutineTriggerMenu } from "@openbot/ui/features/conversation/RoutineTriggerMenu";
-import { RoutineWebhookTrigger } from "@openbot/ui/features/conversation/RoutineWebhookTrigger";
+} from "@openownbot/ui/features/conversation/RoutineResultDestinationField";
+import { RoutineRunHistory } from "@openownbot/ui/features/conversation/RoutineRunHistory";
+import { RoutineSchedulePicker } from "@openownbot/ui/features/conversation/RoutineSchedulePicker";
+import { RoutineTriggerMenu } from "@openownbot/ui/features/conversation/RoutineTriggerMenu";
+import { RoutineWebhookTrigger } from "@openownbot/ui/features/conversation/RoutineWebhookTrigger";
 import {
   ROUTINE_EVERY_DAY,
   type RoutineScheduleDraft,
   switchDraftKind,
-} from "@openbot/ui/features/conversation/routine-schedule-draft";
+} from "@openownbot/ui/features/conversation/routine-schedule-draft";
 import {
   ROUTINE_LOCAL_DRAFT_KINDS,
   ROUTINE_SAVED_DRAFT_KINDS,
@@ -61,8 +61,8 @@ import {
   routineOncePassed,
   routineScheduleFromDraft,
   routineScheduleToDraft,
-} from "@openbot/ui/features/conversation/routine-schedule-saved";
-import { useText } from "@openbot/ui/text";
+} from "@openownbot/ui/features/conversation/routine-schedule-saved";
+import { useText } from "@openownbot/ui/text";
 import type { JSX } from "@solidjs/web";
 import { createEffect, createMemo, createSignal, createStore, For, onCleanup, Show, untrack } from "solid-js";
 import { actionToast } from "../../action-toast";
@@ -1155,7 +1155,7 @@ function routineCompleted(routine: RoutineEditorRecord): boolean {
 }
 
 /**
- * The draft with a new schedule. A switch to a one-time run also runs it when OpenBot opens after
+ * The draft with a new schedule. A switch to a one-time run also runs it when OpenOwnBot opens after
  * its time, so a reminder is not lost; the person can still choose to skip it.
  */
 function withSchedule(value: RoutineDraft, scheduleDraft: RoutineScheduleDraft): RoutineDraft {

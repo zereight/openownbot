@@ -1,8 +1,8 @@
 // The routines of this computer, for the in-app calendar and for the iCalendar feed.
 
-import type { RoutineCalendarOwner } from "@openbot/contracts/ipc";
-import type { AppTranslate } from "@openbot/i18n";
-import { buildRoutineCalendar, type RoutineCalendarSource } from "@openbot/team-client/routine-calendar";
+import type { RoutineCalendarOwner } from "@openownbot/contracts/ipc";
+import type { AppTranslate } from "@openownbot/i18n";
+import { buildRoutineCalendar, type RoutineCalendarSource } from "@openownbot/team-client/routine-calendar";
 import { Effect } from "effect";
 import type { AgentService } from "../backend/agent-service";
 import { routineFeedIcs } from "./routine-feed-ics";

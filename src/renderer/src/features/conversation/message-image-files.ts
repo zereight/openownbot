@@ -1,4 +1,4 @@
-import type { MessageImageFile } from "@openbot/ui/features/conversation/MarkdownMessageText";
+import type { MessageImageFile } from "@openownbot/ui/features/conversation/MarkdownMessageText";
 import { releaseFilePreviewPage } from "./conversation-port";
 import type { ConversationRuntime } from "./conversation-runtime";
 

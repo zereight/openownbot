@@ -98,9 +98,9 @@ export const messages = {
   "mobile.marketplace.app.connectFailed": "无法连接该应用。",
   "mobile.marketplace.app.linkInvalid": "请使用 {hostname} 上的 https 链接。",
   "mobile.marketplace.app.docs": "获取密钥",
-  "mobile.marketplace.app.local": "该应用运行在装有 OpenBot 的电脑上。请在那台电脑上设置。",
+  "mobile.marketplace.app.local": "该应用运行在装有 OpenOwnBot 的电脑上。请在那台电脑上设置。",
   "mobile.marketplace.app.relayUnsupported":
-    "该应用需要在浏览器中登录。请更新服务器上的 OpenBot，或在电脑上连接该应用。",
+    "该应用需要在浏览器中登录。请更新服务器上的 OpenOwnBot，或在电脑上连接该应用。",
   "mobile.marketplace.app.waiting": "正在等待登录页面…",
   "mobile.marketplace.app.openAgain": "重新打开登录页面",
   "mobile.marketplace.app.pasteHint": "最后，页面会打开一个无法加载的地址。请复制该地址并粘贴到下方。",

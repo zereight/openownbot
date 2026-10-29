@@ -2,7 +2,7 @@
 
 .channel-stack {
   display: grid;
-  gap: var(--openbot-space-0-5);
+  gap: var(--openownbot-space-0-5);
   justify-items: start;
 }
 
@@ -10,56 +10,56 @@
 
 .channel-checklist {
   display: grid;
-  gap: var(--openbot-space-2);
+  gap: var(--openownbot-space-2);
   margin: 0;
-  padding: var(--openbot-space-3) var(--openbot-space-4);
-  border-radius: var(--openbot-radius-lg);
-  background: var(--openbot-bg-surface);
+  padding: var(--openownbot-space-3) var(--openownbot-space-4);
+  border-radius: var(--openownbot-radius-lg);
+  background: var(--openownbot-bg-surface);
   list-style: none;
-  font-size: var(--openbot-text-sm);
+  font-size: var(--openownbot-text-sm);
 }
 
 .channel-checklist li {
   display: flex;
-  gap: var(--openbot-space-2);
+  gap: var(--openownbot-space-2);
   align-items: center;
 }
 
 .channel-checklist li[data-state="done"] {
-  color: var(--openbot-text-secondary);
+  color: var(--openownbot-text-secondary);
 }
 
 .channel-checklist li[data-state="done"] svg {
-  color: var(--openbot-success);
+  color: var(--openownbot-success);
 }
 
 .channel-checklist-dot {
   width: 14px;
   height: 14px;
-  border: 1px solid var(--openbot-border-strong);
-  border-radius: var(--openbot-radius-pill);
+  border: 1px solid var(--openownbot-border-strong);
+  border-radius: var(--openownbot-radius-pill);
 }
 
 .channel-waiting {
   display: flex;
-  gap: var(--openbot-space-2);
+  gap: var(--openownbot-space-2);
   align-items: center;
   justify-content: center;
 }
 
 .channel-orchestrator-card {
   display: flex;
-  gap: var(--openbot-space-3);
+  gap: var(--openownbot-space-3);
   align-items: center;
-  padding: var(--openbot-space-3);
-  border: 1px solid var(--openbot-border);
-  border-radius: var(--openbot-radius-lg);
-  background: var(--openbot-bg-surface);
+  padding: var(--openownbot-space-3);
+  border: 1px solid var(--openownbot-border);
+  border-radius: var(--openownbot-radius-lg);
+  background: var(--openownbot-bg-surface);
 }
 
 .channel-orchestrator-model {
   display: grid;
-  gap: var(--openbot-space-1);
+  gap: var(--openownbot-space-1);
 }
 
 /* ------------------------------------------------ Discord roles dialog */
@@ -68,25 +68,25 @@
   display: grid;
   max-height: 40vh;
   margin: 0;
-  padding: var(--openbot-space-1);
+  padding: var(--openownbot-space-1);
   overflow-y: auto;
-  border: 1px solid var(--openbot-border);
-  border-radius: var(--openbot-radius-lg);
-  background: var(--openbot-bg-surface);
+  border: 1px solid var(--openownbot-border);
+  border-radius: var(--openownbot-radius-lg);
+  background: var(--openownbot-bg-surface);
   list-style: none;
 }
 
 .discord-role-row {
   display: flex;
-  gap: var(--openbot-space-2);
+  gap: var(--openownbot-space-2);
   align-items: center;
-  padding: var(--openbot-space-1) var(--openbot-space-2);
-  border-radius: var(--openbot-radius-sm);
+  padding: var(--openownbot-space-1) var(--openownbot-space-2);
+  border-radius: var(--openownbot-radius-sm);
   cursor: pointer;
 }
 
 .discord-role-row:hover {
-  background: var(--openbot-bg-control-hover);
+  background: var(--openownbot-bg-control-hover);
 }
 
 .discord-role-name {

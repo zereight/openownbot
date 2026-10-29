@@ -20,7 +20,7 @@ The flow is: signed request → route → routine → run.
 | Route ID → host and owner account, link time, revoke time | Account service D1 | `webhook_routes` |
 | Route ID → ingress socket | Signal memory | `SignalService` |
 
-Schema v30 (`src/backend/openbot-database-schema.ts`) only adds these tables. Existing routines and
+Schema v30 (`src/backend/openownbot-database-schema.ts`) only adds these tables. Existing routines and
 runs do not change.
 
 - `RoutineStore` (`src/backend/routine-store.ts`) writes the trigger row with the routine, in the
@@ -167,8 +167,8 @@ Controls:
 - A removed trigger revokes its route in the same transaction, and the relay revocation retries
   until it succeeds.
 - Only the events surface, which needs a host administrator, can change, test, or delete a webhook
-  routine. An agent can create one with `openbot.create_webhook_routine`, and change its events,
-  name, instruction or active state with `openbot.update_webhook_routine`, but only in a turn that a
+  routine. An agent can create one with `openownbot.create_webhook_routine`, and change its events,
+  name, instruction or active state with `openownbot.update_webhook_routine`, but only in a turn that a
   person's message started: a routine run can carry a webhook body, which is untrusted. The tool saves through
   `HostEventsService`, so the route limit, the encryption and the relay sync are the same. The tool
   drops the first secret: the result goes to the model provider. The chat card makes a new secret

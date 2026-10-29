@@ -3,7 +3,7 @@
 import { mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { redactText } from "@openbot/logging";
+import { redactText } from "@openownbot/logging";
 import { Effect } from "effect";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { VaultService } from "./vault-service";
@@ -19,7 +19,7 @@ let directory: string;
 let path: string;
 
 beforeEach(async () => {
-  directory = await mkdtemp(join(tmpdir(), "openbot-vault-"));
+  directory = await mkdtemp(join(tmpdir(), "openownbot-vault-"));
   path = join(directory, "openbot-vault-v1.json");
 });
 

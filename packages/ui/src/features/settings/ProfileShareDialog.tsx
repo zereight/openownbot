@@ -1,4 +1,4 @@
-import { Button, Copy, Dialog, Download, IconButton, Text, toast, X } from "@openbot/ui";
+import { Button, Copy, Dialog, Download, IconButton, Text, toast, X } from "@openownbot/ui";
 import { createSignal, onCleanup, Show, untrack } from "solid-js";
 import { useText } from "../../text";
 

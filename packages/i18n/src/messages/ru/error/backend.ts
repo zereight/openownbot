@@ -128,6 +128,12 @@ export const messages = {
   "error.backend.mailboxStateCorrupt":
     "Состояние почтового ящика повреждено или создано более новой версией OpenOwnBot; перезапись отклонена.",
   "error.backend.recipientDeleting": "Получатель удаляется. Повторите попытку, когда удаление завершится.",
+  "error.backend.squadLeaves":
+    "Вы в команде {squad}, и агентам вне её пишет только её лидер. Попросите лидера {squad} передать это или спросите пользователя.",
+  "error.backend.squadEnters":
+    "{agent} состоит в команде {squad}. Свяжитесь через лидера {squad} или спросите пользователя.",
+  "error.backend.squadSkipsRank":
+    "{agent} в команде {squad} выше ранга, с которым вы можете связаться. Сообщение идёт вверх только к рангу, который стоит непосредственно над вашим. Попросите этот ранг передать его или спросите пользователя.",
   "error.backend.recipientHidden": "Этот агент скрыт. Восстановите его, чтобы отправлять сообщения.",
   "error.backend.attachBetween": "Прикрепите от 1 до {limit} файлов.",
   "error.backend.attachmentNotFile": "Вложение не является файлом: {path}",
@@ -177,7 +183,7 @@ export const messages = {
   "error.backend.routineFlowCycle": "Эта связь создаст цикл.",
   "error.backend.routineFlowLinkLimit": "У регулярной задачи может быть не больше {limit} связей.",
   "error.backend.agentWaitLimit":
-    "У этого агента уже открыто максимальное число ожиданий: {count}. Закройте ожидание с помощью openbot.close_wait, прежде чем открывать новое.",
+    "У этого агента уже открыто максимальное число ожиданий: {count}. Закройте ожидание с помощью openownbot.close_wait, прежде чем открывать новое.",
   "error.backend.agentWaitGone": "Это ожидание не открыто. Агент закрыл его, или кто-то его отменил.",
   "error.backend.agentWaitNoRequest": "Для продолжения ожиданию нужно сообщение. В этом ходе нет сообщения.",
   "error.backend.agentWaitOwnChatOnly":
@@ -185,7 +191,7 @@ export const messages = {
   "error.backend.agentWaitNoteRequired": "Кратко укажите, для чего это ожидание.",
   "error.backend.agentWaitRoutineGone": "У этого агента нет регулярной задачи с таким id.",
   "error.backend.agentWaitNoRoutine":
-    "Ожидание пробуждает только запуск одной из ваших регулярных задач, а у вас их нет. Создайте регулярную задачу с помощью openbot.create_routine, затем откройте ожидание.",
+    "Ожидание пробуждает только запуск одной из ваших регулярных задач, а у вас их нет. Создайте регулярную задачу с помощью openownbot.create_routine, затем откройте ожидание.",
   "error.backend.agentWaitRemoteUnsupported": "Открытые ожидания доступны только для агентов на этом компьютере.",
   "error.backend.routineFlowHandoffFailed": "Регулярной задаче не удалось передать работу этому агенту.",
   "error.backend.mcpServerLimit": "OpenOwnBot хранит не более {limit} серверов MCP.",
@@ -336,10 +342,4 @@ export const messages = {
     "У этого агента открыто задач: {count}. Закройте задачу, затем начните или откройте другую.",
   "error.backend.taskRemoteUnsupported": "Задачи доступны только для агентов на этом компьютере.",
   "error.backend.taskStartFailed": "OpenOwnBot не удалось запустить задачу. Выполните работу в этом ходе.",
-  "error.backend.squadLeaves":
-    "Вы в команде {squad}, и агентам вне её пишет только её лидер. Попросите лидера {squad} передать это или спросите пользователя.",
-  "error.backend.squadEnters":
-    "{agent} состоит в команде {squad}. Свяжитесь через лидера {squad} или спросите пользователя.",
-  "error.backend.squadSkipsRank":
-    "{agent} в команде {squad} выше ранга, с которым вы можете связаться. Сообщение идёт вверх только к рангу, который стоит непосредственно над вашим. Попросите этот ранг передать его или спросите пользователя.",
 } as const satisfies PartialTranslation<typeof source>;

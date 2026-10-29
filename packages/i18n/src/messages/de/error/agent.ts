@@ -148,7 +148,7 @@ export const messages = {
   "error.agent.screenCaptureRegionOutside":
     "Der Bereich liegt nicht innerhalb eines Bildschirms. Verwende Desktop-Punkte innerhalb der Grenzen eines Bildschirms aus list_capture_sources.",
   "error.agent.screenCapturePermissionMissing":
-    "OpenBot hat keine Berechtigung zur Bildschirmaufnahme. Bitte den Benutzer, Systemeinstellungen → Datenschutz & Sicherheit → Bildschirm- & Systemaudioaufnahme zu öffnen, OpenBot zu aktivieren und OpenBot dann zu beenden und neu zu öffnen.",
+    "OpenOwnBot hat keine Berechtigung zur Bildschirmaufnahme. Bitte den Benutzer, Systemeinstellungen → Datenschutz & Sicherheit → Bildschirm- & Systemaudioaufnahme zu öffnen, OpenOwnBot zu aktivieren und OpenOwnBot dann zu beenden und neu zu öffnen.",
   "error.agent.screenCaptureEmptyWindows":
     "Windows hat ein leeres Bild geliefert. Bitte den Benutzer, den Computer zu entsperren und geschützte Inhalte zu schließen. Auch eine Richtlinie der Organisation kann die Bildschirmaufnahme verhindern.",
   "error.agent.screenCaptureFailed": "Die Bildschirmaufnahme ist fehlgeschlagen. Versuche es erneut.",

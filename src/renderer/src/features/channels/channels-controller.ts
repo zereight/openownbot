@@ -1,7 +1,7 @@
-import type { ChannelCommand, ChannelPage, ChannelSummary } from "@openbot/contracts/ipc";
-import type { AppTextKey } from "@openbot/i18n";
-import type { AgentProfile } from "@openbot/ui/data";
-import { currentText } from "@openbot/ui/text";
+import type { ChannelCommand, ChannelPage, ChannelSummary } from "@openownbot/contracts/ipc";
+import type { AppTextKey } from "@openownbot/i18n";
+import type { AgentProfile } from "@openownbot/ui/data";
+import { currentText } from "@openownbot/ui/text";
 import { createEffect, createStore, flush, onSettled, reconcile, untrack } from "solid-js";
 import { actionToast } from "../../action-toast";
 import { type DesktopAnalyticsProperties, desktopAnalytics } from "../../analytics";

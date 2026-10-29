@@ -10,10 +10,10 @@
 // reply page (which the web client loads through `visualPage`), and Delete in the row menu of the host
 // owner. A member who cannot delete is not checked: the dev member is not in the account service.
 // It deletes its channel at the end.
-// Writes .openbot-build/web-channel-chat-e2e/report.json and screenshots.
+// Writes .openownbot-build/web-channel-chat-e2e/report.json and screenshots.
 import assert from "node:assert/strict";
 import { resolve } from "node:path";
-import { translateFor } from "@openbot/i18n";
+import { translateFor } from "@openownbot/i18n";
 import { type Browser, chromium, type Locator, type Page } from "playwright-core";
 import {
   argument,
@@ -25,9 +25,9 @@ import {
   writeReport,
 } from "./channel-e2e-support";
 
-const OUT = resolve(import.meta.dirname, "../.openbot-build/web-channel-chat-e2e");
+const OUT = resolve(import.meta.dirname, "../.openownbot-build/web-channel-chat-e2e");
 const UI_WAIT_MS = 30_000;
-const DEV_HOST_EMAIL = "openbot-dev-host@example.com";
+const DEV_HOST_EMAIL = "openownbot-dev-host@example.com";
 const VISUAL_PROMPT =
   "Call the html_render tool once with a small HTML page that shows the word OTTER in a heading. Then reply with DONE only.";
 const english = translateFor("en");

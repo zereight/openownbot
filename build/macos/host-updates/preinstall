@@ -17,10 +17,10 @@ for path in / /Library '/Library/Application Support' '/Library/Application Supp
   check_existing "$path"
   [ ! -e "$path" ] || [ -d "$path" ] || exit 1
 done
-for path in "$ROOT/host-manager" "$ROOT/openbot-host" "$ROOT/create-tenants" "$ROOT/openbot-relaunch.sh" \
+for path in "$ROOT/host-manager" "$ROOT/openownbot-host" "$ROOT/create-tenants" "$ROOT/openownbot-relaunch.sh" \
   "$ROOT/host-release.json" "$ROOT/config.json" "$ROOT/state.json" \
   /Library/LaunchAgents/app.openownbot.desktop.relaunch.plist \
-  /Library/LaunchDaemons/app.openownbot.host-manager.plist /usr/local/bin/openbot-host; do
+  /Library/LaunchDaemons/app.openownbot.host-manager.plist /usr/local/bin/openownbot-host; do
   check_existing "$path"
   [ ! -e "$path" ] || { [ -f "$path" ] && [ "$(stat -f %l "$path")" = 1 ]; } || exit 1
 done

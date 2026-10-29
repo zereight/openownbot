@@ -5,24 +5,24 @@
 // running machine has a time limit.
 //
 // Run: bun run test:hosted-start-wait
-// It writes .openbot-build/hosted-start-wait-e2e/report.json and exits non-zero on a failure.
+// It writes .openownbot-build/hosted-start-wait-e2e/report.json and exits non-zero on a failure.
 import assert from "node:assert/strict";
 import { mkdir, writeFile } from "node:fs/promises";
 import { join, resolve } from "node:path";
 import { DatabaseSync } from "node:sqlite";
-import { type HostedServerSummary, parseHostedServerSummary } from "@openbot/contracts/hosted-servers";
+import { type HostedServerSummary, parseHostedServerSummary } from "@openownbot/contracts/hosted-servers";
 import {
   createHostedServerWake,
   HOSTED_HOST_READY_LIMIT_MS,
   hostedStartStep,
   WAKE_RECONNECT_DELAY_MS,
-} from "@openbot/team-client/hosted-server-wake";
+} from "@openownbot/team-client/hosted-server-wake";
 import { Effect } from "effect";
 import { HostedServerService } from "../src/server/hosted-server-service";
 import { sqliteD1 } from "./sqlite-d1";
 
 const ROOT = resolve(import.meta.dirname, "../../..");
-const OUT = join(ROOT, ".openbot-build", "hosted-start-wait-e2e");
+const OUT = join(ROOT, ".openownbot-build", "hosted-start-wait-e2e");
 const MIGRATIONS = join(ROOT, "apps", "auth-api", "migrations");
 const SERVER_ID = "server-1";
 const SANDBOX_ID = "bx_1";
@@ -200,7 +200,7 @@ async function clientWaitsWhileServerStarts(template: HostedServerSummary) {
     "the start step follows the account server state",
     steps.waking === "machine" &&
       steps.rateLimited === "provider_limit" &&
-      steps.running === "openbot" &&
+      steps.running === "openownbot" &&
       steps.stopping === "machine" &&
       steps.stopped === "machine" &&
       steps.stoppedFailed === null &&

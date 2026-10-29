@@ -3,9 +3,9 @@ import {
   NOTIFICATION_SEALED_LIMIT,
   NOTIFICATION_SOUNDS,
   type NotificationSound,
-} from "@openbot/contracts/notification-relay";
-import { type DynamicRecord, isDynamicRecord, isString } from "@openbot/contracts/runtime-values";
-import { ANDROID_PUSH_TOKEN_PATTERN } from "@openbot/contracts/team-protocol/push-notifications-android-v1";
+} from "@openownbot/contracts/notification-relay";
+import { type DynamicRecord, isDynamicRecord, isString } from "@openownbot/contracts/runtime-values";
+import { ANDROID_PUSH_TOKEN_PATTERN } from "@openownbot/contracts/team-protocol/push-notifications-android-v1";
 import { Effect, Schema } from "effect";
 import { importPKCS8, SignJWT } from "jose";
 
@@ -157,7 +157,7 @@ export class FcmRelaySender {
 
 /**
  * A data message, so that Android gives it to the app also when the app does not run. The app opens
- * `sealed` (`OpenBotMessagingService.kt` in the mobile app) and plays `sound`. High priority lets
+ * `sealed` (`OpenOwnBotMessagingService.kt` in the mobile app) and plays `sound`. High priority lets
  * the app run at once also when the phone saves power.
  */
 function notificationMessage(push: AndroidNotificationRelayPush) {

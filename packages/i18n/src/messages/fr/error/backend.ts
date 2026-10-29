@@ -138,6 +138,12 @@ export const messages = {
     "L’état de la messagerie est corrompu ou provient d’une version plus récente d’OpenOwnBot ; il ne sera pas écrasé.",
   "error.backend.recipientDeleting":
     "Le destinataire est en cours de suppression. Réessayez une fois la suppression terminée.",
+  "error.backend.squadLeaves":
+    "Vous êtes dans l’équipe {squad}, et seul son responsable écrit aux agents extérieurs. Demandez au responsable de {squad} de transmettre, ou demandez à l’utilisateur.",
+  "error.backend.squadEnters":
+    "{agent} est dans l’équipe {squad}. Passez par le responsable de {squad}, ou demandez à l’utilisateur.",
+  "error.backend.squadSkipsRank":
+    "{agent} est au-dessus du rang que tu peux joindre dans l'équipe {squad}. Un message monte seulement au rang directement supérieur au tien. Demande à ce rang de le transmettre, ou demande à l'utilisateur.",
   "error.backend.recipientHidden": "Cet agent est masqué. Restaurez-le pour envoyer des messages.",
   "error.backend.attachBetween": "Joignez entre 1 et {limit} fichiers.",
   "error.backend.attachmentNotFile": "La pièce jointe n’est pas un fichier : {path}",
@@ -188,7 +194,7 @@ export const messages = {
   "error.backend.routineFlowCycle": "Cette liaison créerait une boucle.",
   "error.backend.routineFlowLinkLimit": "Une routine peut avoir au plus {limit} liaisons.",
   "error.backend.agentWaitLimit":
-    "Cet agent a déjà {count} attentes ouvertes. Fermez une attente avec openbot.close_wait avant d’en ouvrir une autre.",
+    "Cet agent a déjà {count} attentes ouvertes. Fermez une attente avec openownbot.close_wait avant d’en ouvrir une autre.",
   "error.backend.agentWaitGone": "Cette attente n’est pas ouverte. L’agent l’a fermée, ou quelqu’un l’a annulée.",
   "error.backend.agentWaitNoRequest": "Une attente a besoin d’un message pour continuer. Ce tour n’a pas de message.",
   "error.backend.agentWaitOwnChatOnly":
@@ -196,7 +202,7 @@ export const messages = {
   "error.backend.agentWaitNoteRequired": "Indiquez une courte note qui précise l’objet de l’attente.",
   "error.backend.agentWaitRoutineGone": "Cet agent n’a pas de routine avec cet identifiant.",
   "error.backend.agentWaitNoRoutine":
-    "Seule une exécution de l’une de vos routines réveille une attente, et vous n’avez aucune routine. Créez-en une avec openbot.create_routine, puis ouvrez l’attente.",
+    "Seule une exécution de l’une de vos routines réveille une attente, et vous n’avez aucune routine. Créez-en une avec openownbot.create_routine, puis ouvrez l’attente.",
   "error.backend.agentWaitRemoteUnsupported":
     "Les attentes ouvertes ne sont disponibles que pour les agents de cet ordinateur.",
   "error.backend.routineFlowHandoffFailed": "La routine n’a pas pu transmettre le travail à cet agent.",
@@ -356,10 +362,4 @@ export const messages = {
     "Cet agent a {count} tâches ouvertes. Fermez une tâche, puis lancez-en ou ouvrez-en une autre.",
   "error.backend.taskRemoteUnsupported": "Les tâches sont disponibles uniquement pour les agents de cet ordinateur.",
   "error.backend.taskStartFailed": "OpenOwnBot n’a pas pu lancer la tâche. Faites plutôt le travail dans ce tour.",
-  "error.backend.squadLeaves":
-    "Vous êtes dans l’équipe {squad}, et seul son responsable écrit aux agents extérieurs. Demandez au responsable de {squad} de transmettre, ou demandez à l’utilisateur.",
-  "error.backend.squadEnters":
-    "{agent} est dans l’équipe {squad}. Passez par le responsable de {squad}, ou demandez à l’utilisateur.",
-  "error.backend.squadSkipsRank":
-    "{agent} est au-dessus du rang que tu peux joindre dans l'équipe {squad}. Un message monte seulement au rang directement supérieur au tien. Demande à ce rang de le transmettre, ou demande à l'utilisateur.",
 } as const satisfies PartialTranslation<typeof source>;

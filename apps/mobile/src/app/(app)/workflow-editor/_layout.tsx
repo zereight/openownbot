@@ -14,7 +14,7 @@ export const unstable_settings = { anchor: "index" };
 /** The editor sheet: one sheet with the pages of the editor, which share one draft. */
 export default function WorkflowEditorLayout() {
   const { t } = useText();
-  const background = String(useCSSVariable("--openbot-bg-sheet"));
+  const background = String(useCSSVariable("--openownbot-bg-sheet"));
   // The draft lives while the sheet is open, so a closed sheet does not open on an old draft.
   useEffect(() => () => useWorkflowDraft.getState().clear(), []);
   return (

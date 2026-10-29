@@ -1,7 +1,7 @@
 import { defineMessages } from "../../../message";
 
 export const messages = defineMessages("error.auth", {
-  // Errors from the OpenBot account service.
+  // Errors from the OpenOwnBot account service.
   "error.auth.serviceUnavailable":
     "OpenOwnBot could not reach the account service. Check that the API is running, then try again.",
   "error.auth.networkBlocked":

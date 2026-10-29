@@ -1,4 +1,4 @@
-import { Clock3, MessageCircleQuestionMark, MousePointer2, ShieldCheck, Tooltip, X } from "@openbot/ui";
+import { Clock3, MessageCircleQuestionMark, MousePointer2, ShieldCheck, Tooltip, X } from "@openownbot/ui";
 import type { JSX } from "@solidjs/web";
 import { createEffect, createSignal, Show } from "solid-js";
 import type { AvatarMood } from "../../bloub-avatar";

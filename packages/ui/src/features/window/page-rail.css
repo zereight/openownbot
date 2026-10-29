@@ -1,6 +1,6 @@
 /* The page rail at the left of the window, on desktop and on the web. The window styles place it in
  * the window grid. The window buttons of macOS sit at the top of the rail, in the top row. Other
- * windows can show the OpenBot logo there. */
+ * windows can show the OpenOwnBot logo there. */
 .window-rail {
   position: relative;
   display: flex;
@@ -9,7 +9,7 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  padding: calc(var(--left-header-height, 38px) + var(--openbot-space-1)) 0 var(--openbot-space-3);
+  padding: calc(var(--left-header-height, 38px) + var(--openownbot-space-1)) 0 var(--openownbot-space-3);
   -webkit-app-region: drag;
 }
 
@@ -29,26 +29,26 @@
 
 .window-rail-logo .app-logo {
   display: block;
-  width: var(--openbot-icon-lg);
-  height: var(--openbot-icon-lg);
+  width: var(--openownbot-icon-lg);
+  height: var(--openownbot-icon-lg);
 }
 
 .window-rail-logo-link {
   display: flex;
-  border-radius: var(--openbot-radius-logo);
+  border-radius: var(--openownbot-radius-logo);
   -webkit-app-region: no-drag;
 }
 
 .window-rail-logo-link:focus-visible {
   outline: 0;
-  box-shadow: var(--openbot-focus-ring);
+  box-shadow: var(--openownbot-focus-ring);
 }
 
 .window-rail-group {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--openbot-space-1-5);
+  gap: var(--openownbot-space-1-5);
   /* The window swallows mouse events over a drag area. With the gaps between the buttons in the
    * drag area, the pointer left the group between two buttons, and the tooltip closed instead of
    * moving to the next button. */
@@ -58,15 +58,15 @@
 .window-rail-button {
   position: relative;
   display: flex;
-  width: var(--openbot-control-lg);
-  height: var(--openbot-control-lg);
+  width: var(--openownbot-control-lg);
+  height: var(--openownbot-control-lg);
   align-items: center;
   justify-content: center;
   border: 0;
-  border-radius: var(--openbot-radius-lg);
+  border-radius: var(--openownbot-radius-lg);
   background: transparent;
   padding: 0;
-  color: var(--openbot-text-muted);
+  color: var(--openownbot-text-muted);
   font: inherit;
   cursor: pointer;
   -webkit-app-region: no-drag;
@@ -74,36 +74,36 @@
 
 @media (hover: hover) and (pointer: fine) {
   .window-rail-button:hover {
-    background: var(--openbot-bg-control-hover);
-    color: var(--openbot-text-primary);
+    background: var(--openownbot-bg-control-hover);
+    color: var(--openownbot-text-primary);
   }
 }
 
 .window-rail-button[aria-current="page"],
 .window-rail-button[aria-current="page"]:hover:not(:disabled):not([data-disabled]) {
-  background: var(--openbot-bg-control-active);
-  color: var(--openbot-text-primary);
+  background: var(--openownbot-bg-control-active);
+  color: var(--openownbot-text-primary);
 }
 
 .window-rail-button:focus-visible {
   outline: 0;
-  box-shadow: var(--openbot-focus-ring);
+  box-shadow: var(--openownbot-focus-ring);
 }
 
 .window-rail-button svg {
-  width: var(--openbot-icon-lg);
-  height: var(--openbot-icon-lg);
+  width: var(--openownbot-icon-lg);
+  height: var(--openownbot-icon-lg);
 }
 
 /* The dot of a rail button that has a notice, such as an update. */
 .window-rail-notice {
   position: absolute;
-  top: var(--openbot-space-1-5);
-  right: var(--openbot-space-1-5);
-  width: var(--openbot-space-2);
-  height: var(--openbot-space-2);
-  border-radius: var(--openbot-radius-pill);
-  background: var(--openbot-badge-new);
+  top: var(--openownbot-space-1-5);
+  right: var(--openownbot-space-1-5);
+  width: var(--openownbot-space-2);
+  height: var(--openownbot-space-2);
+  border-radius: var(--openownbot-radius-pill);
+  background: var(--openownbot-badge-new);
 }
 
 /* The hover card of a usage ring shows the limits only. The usage page has the refresh. */
@@ -121,7 +121,7 @@
 /* Usage rings: the provider logo inside one ring per limit window. The hover fill is a circle around
  * the rings. */
 .window-rail-button.window-rail-usage {
-  border-radius: var(--openbot-radius-pill);
+  border-radius: var(--openownbot-radius-pill);
 }
 
 .window-rail-button .window-rail-usage-ring {
@@ -133,10 +133,10 @@
 }
 
 .window-rail-button .window-rail-usage-logo {
-  width: var(--openbot-icon-xs);
-  height: var(--openbot-icon-xs);
+  width: var(--openownbot-icon-xs);
+  height: var(--openownbot-icon-xs);
   overflow: visible;
-  fill: var(--openbot-provider-current);
+  fill: var(--openownbot-provider-current);
 }
 
 .window-rail-usage-track {
@@ -145,35 +145,35 @@
 }
 
 .window-rail-usage-arc {
-  stroke: var(--openbot-success);
+  stroke: var(--openownbot-success);
 }
 
 .window-rail-usage-arc[data-usage-tone="warning"] {
-  stroke: var(--openbot-warning);
+  stroke: var(--openownbot-warning);
 }
 
 .window-rail-usage-arc[data-usage-tone="critical"] {
-  stroke: var(--openbot-danger);
+  stroke: var(--openownbot-danger);
 }
 
 /* The usage of a custom agent: its logo with no ring, at the size of a rail icon. The hover card
  * shows the answer of the agent as it wrote it. */
 .window-rail-button .window-rail-agent-usage-logo {
-  width: var(--openbot-icon-md);
-  height: var(--openbot-icon-md);
+  width: var(--openownbot-icon-md);
+  height: var(--openownbot-icon-md);
 }
 
 .window-rail-agent-usage {
   display: grid;
-  padding-inline: var(--openbot-space-1);
-  gap: var(--openbot-space-1);
+  padding-inline: var(--openownbot-space-1);
+  gap: var(--openownbot-space-1);
 }
 
 .window-rail-agent-usage-text {
   margin: 0;
-  color: var(--openbot-text-secondary);
-  font-size: var(--openbot-text-sm);
-  line-height: var(--openbot-leading-sm);
+  color: var(--openownbot-text-secondary);
+  font-size: var(--openownbot-text-sm);
+  line-height: var(--openownbot-leading-sm);
   white-space: pre-wrap;
   overflow-wrap: anywhere;
 }
@@ -181,10 +181,10 @@
 /* A row of the More menu: the page, then its pin. */
 .window-rail-more-menu .window-rail-more-row {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) var(--openbot-control-md);
+  grid-template-columns: minmax(0, 1fr) var(--openownbot-control-md);
   align-items: center;
   border-radius: var(--ui-menu-item-radius);
-  transition: background-color var(--openbot-duration-hover) var(--openbot-ease-out);
+  transition: background-color var(--openownbot-duration-hover) var(--openownbot-ease-out);
 }
 
 /* The whole line highlights, for the page and for its pin. The items have no background of their own. */
@@ -233,7 +233,7 @@
   .window-rail-more-row:is(:hover, :has([data-highlighted]))
   > [role="menuitem"]
   > .agent-context-icon {
-  color: var(--openbot-text-primary);
+  color: var(--openownbot-text-primary);
 }
 
 .ui-action-menu.window-rail-more-menu

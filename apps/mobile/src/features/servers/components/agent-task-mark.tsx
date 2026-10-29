@@ -1,4 +1,4 @@
-import type { AgentTask } from "@openbot/contracts/ipc";
+import type { AgentTask } from "@openownbot/contracts/ipc";
 import Check from "lucide-react-native/icons/check";
 import Circle from "lucide-react-native/icons/circle";
 import X from "lucide-react-native/icons/x";
@@ -10,10 +10,10 @@ import { useCSSVariable } from "uniwind";
  * how its last turn ended. The state is in the text beside it, so the mark is hidden from VoiceOver.
  */
 export function AgentTaskMark({ task }: { task: AgentTask }) {
-  const muted = String(useCSSVariable("--openbot-text-grouped-secondary"));
-  const accent = String(useCSSVariable("--openbot-accent-text"));
-  const success = String(useCSSVariable("--openbot-success-text"));
-  const danger = String(useCSSVariable("--openbot-danger-text"));
+  const muted = String(useCSSVariable("--openownbot-text-grouped-secondary"));
+  const accent = String(useCSSVariable("--openownbot-accent-text"));
+  const success = String(useCSSVariable("--openownbot-success-text"));
+  const danger = String(useCSSVariable("--openownbot-danger-text"));
   return (
     <View
       className="size-4 items-center justify-center"

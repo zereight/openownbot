@@ -19,5 +19,5 @@ include <tunables/global>
 
 profile openownbot "/{home/*/{Applications,Desktop,Downloads,.local/bin},opt/OpenOwnBot}/OpenOwnBot*.AppImage" flags=(unconfined) {
   userns,
-  include if exists <local/openbot>
+  include if exists <local/openownbot>
 }

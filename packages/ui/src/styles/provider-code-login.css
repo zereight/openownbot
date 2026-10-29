@@ -10,20 +10,20 @@
  */
 
 .provider-code-login-backdrop {
-  z-index: calc(var(--openbot-layer-dialog) + 1);
+  z-index: calc(var(--openownbot-layer-dialog) + 1);
 }
 
 .provider-code-login-dialog {
   position: relative;
   width: min(420px, 100%);
-  max-height: calc(100dvh - var(--openbot-space-6) * 2);
+  max-height: calc(100dvh - var(--openownbot-space-6) * 2);
   overflow-y: auto;
   outline: 0;
-  border-radius: var(--openbot-radius-xl);
-  background: var(--openbot-bg-control);
-  padding: var(--openbot-space-6);
-  color: var(--openbot-text-primary);
-  animation: provider-code-login-dialog-in var(--openbot-duration-slow) var(--openbot-ease-out) both;
+  border-radius: var(--openownbot-radius-xl);
+  background: var(--openownbot-bg-control);
+  padding: var(--openownbot-space-6);
+  color: var(--openownbot-text-primary);
+  animation: provider-code-login-dialog-in var(--openownbot-duration-slow) var(--openownbot-ease-out) both;
 }
 
 /* The host's sign-in page needs the width of a browser window. */
@@ -34,40 +34,40 @@
 .provider-code-login-header {
   display: flex;
   flex-direction: column;
-  gap: var(--openbot-space-1);
+  gap: var(--openownbot-space-1);
   /* The close button sits in the corner the title would otherwise run into. */
-  padding-right: var(--openbot-space-8);
+  padding-right: var(--openownbot-space-8);
 }
 
 .provider-code-login-title {
   margin: 0;
-  font-size: var(--openbot-text-xl);
-  line-height: var(--openbot-leading-xl);
-  font-weight: var(--openbot-weight-semibold);
-  letter-spacing: var(--openbot-tracking-tight);
+  font-size: var(--openownbot-text-xl);
+  line-height: var(--openownbot-leading-xl);
+  font-weight: var(--openownbot-weight-semibold);
+  letter-spacing: var(--openownbot-tracking-tight);
 }
 
 .provider-code-login-description {
   margin: 0;
-  color: var(--openbot-text-muted);
-  font-size: var(--openbot-text-md);
-  line-height: var(--openbot-leading-md);
+  color: var(--openownbot-text-muted);
+  font-size: var(--openownbot-text-md);
+  line-height: var(--openownbot-leading-md);
 }
 
 .provider-code-login-body {
   display: flex;
   flex-direction: column;
-  margin-top: var(--openbot-space-6);
+  margin-top: var(--openownbot-space-6);
 }
 
-/* The two waits, which look the same because they are the same to the user: OpenBot is busy and
+/* The two waits, which look the same because they are the same to the user: OpenOwnBot is busy and
    there is nothing to do. */
 .provider-code-login-pending {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: var(--openbot-space-2);
-  padding: var(--openbot-space-8) 0;
+  gap: var(--openownbot-space-2);
+  padding: var(--openownbot-space-8) 0;
   text-align: center;
 }
 
@@ -75,19 +75,19 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--openbot-space-4);
+  gap: var(--openownbot-space-4);
 }
 
 .provider-code-login-steps {
   display: flex;
   flex-direction: column;
-  gap: var(--openbot-space-1);
+  gap: var(--openownbot-space-1);
   margin: 0;
-  padding-left: var(--openbot-space-4);
+  padding-left: var(--openownbot-space-4);
   list-style: decimal;
-  color: var(--openbot-text-secondary);
-  font-size: var(--openbot-text-md);
-  line-height: var(--openbot-leading-md);
+  color: var(--openownbot-text-secondary);
+  font-size: var(--openownbot-text-md);
+  line-height: var(--openownbot-leading-md);
   align-self: stretch;
 }
 
@@ -96,51 +96,51 @@
 .provider-code-login-url {
   display: inline-flex;
   height: auto;
-  gap: var(--openbot-space-1-5);
+  gap: var(--openownbot-space-1-5);
   padding: 0;
 }
 
 .provider-code-login-url > svg {
-  width: var(--openbot-icon-sm);
-  height: var(--openbot-icon-sm);
+  width: var(--openownbot-icon-sm);
+  height: var(--openownbot-icon-sm);
   flex: 0 0 auto;
-  stroke-width: var(--openbot-icon-stroke);
+  stroke-width: var(--openownbot-icon-stroke);
 }
 
 .provider-code-login-value {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: var(--openbot-space-3);
+  gap: var(--openownbot-space-3);
   align-self: stretch;
-  border: 1px solid var(--openbot-border);
-  border-radius: var(--openbot-radius-lg);
-  background: var(--openbot-bg-surface);
-  padding: var(--openbot-space-3) var(--openbot-space-4);
+  border: 1px solid var(--openownbot-border);
+  border-radius: var(--openownbot-radius-lg);
+  background: var(--openownbot-bg-surface);
+  padding: var(--openownbot-space-3) var(--openownbot-space-4);
 }
 
 /* The copy icon belongs to the label beside it, not to the code: the default icon size would make
    it the second largest thing in the row. */
 .provider-code-login-copy > svg {
-  width: var(--openbot-icon-sm);
-  height: var(--openbot-icon-sm);
+  width: var(--openownbot-icon-sm);
+  height: var(--openownbot-icon-sm);
   flex: 0 0 auto;
-  stroke-width: var(--openbot-icon-stroke);
+  stroke-width: var(--openownbot-icon-stroke);
 }
 
 .provider-code-login-digits {
-  font-family: var(--openbot-font-mono);
-  font-size: var(--openbot-text-2xl);
-  line-height: var(--openbot-leading-2xl);
-  font-weight: var(--openbot-weight-semibold);
-  letter-spacing: var(--openbot-tracking-wide);
+  font-family: var(--openownbot-font-mono);
+  font-size: var(--openownbot-text-2xl);
+  line-height: var(--openownbot-leading-2xl);
+  font-weight: var(--openownbot-weight-semibold);
+  letter-spacing: var(--openownbot-tracking-wide);
 }
 
 /* The pasted code and its button, full width under the steps. */
 .provider-code-login-paste {
   display: flex;
   flex-direction: column;
-  gap: var(--openbot-space-3);
+  gap: var(--openownbot-space-3);
   align-self: stretch;
 }
 
@@ -153,13 +153,13 @@
 .provider-use-app-actions {
   flex-direction: row;
   justify-content: flex-end;
-  gap: var(--openbot-space-2);
+  gap: var(--openownbot-space-2);
 }
 
 .provider-code-login-close {
   position: absolute;
-  top: var(--openbot-space-3);
-  right: var(--openbot-space-3);
+  top: var(--openownbot-space-3);
+  right: var(--openownbot-space-3);
 }
 
 @keyframes provider-code-login-dialog-in {

@@ -52,13 +52,13 @@ mock. The separate web preview implements the browser runtime with that same moc
   account's hosted site list/delete
   (`v1/sites`), which the web client no longer calls: sites are in Server settings > Sites, through
   the host's `hosted-sites-v1`. It is not a general account or host proxy.
-  Every write needs the same origin and `X-OpenBot-Browser: 1`; all send JSON except the avatar
+  Every write needs the same origin and `X-OpenOwnBot-Browser: 1`; all send JSON except the avatar
   upload, which sends the image bytes. A site delete also needs an `Idempotency-Key`. A host logo is
   given to a member of that host, for its current `logoKey` only.
 - The page rail is the same as on desktop: Agents, the pinned pages, More, Marketplace, Settings,
   and Help. More lists Routines and Tasks (when the host supports them), Schedule, and Usage, and
   each row has a pin that adds the page to the rail. Usage starts pinned. This browser keeps the
-  pins (`openbot:rail-pins`). Settings opens a page with the desktop Profile tab
+  pins (`openownbot:rail-pins`). Settings opens a page with the desktop Profile tab
   (with Sign out), Preferences (the interface language and the completion sound), and a Billing
   button below the tabs. The server menu opens the Server settings page of the connected host.
   This browser keeps both preferences, also before sign-in (`web-language-preference.ts`,
@@ -82,7 +82,7 @@ mock. The separate web preview implements the browser runtime with that same moc
 - The rail order is kept in this browser, per account. The server menu has Mute, Notification
   settings, Usage and Settings. Mute and notification level are kept in this browser, per account
   and host (`web-notification-preferences.ts`). They control browser notifications and the
-  completion sound, with the same rules as the desktop (`@openbot/team-client/agent-notifications`).
+  completion sound, with the same rules as the desktop (`@openownbot/team-client/agent-notifications`).
   A browser notification shows only while a tab is open and no tab of the app has focus; the tabs
   share the focused tab in local storage, because the tab that speaks for a host is often in the
   background. The browser asks for permission on the first prompt that the user sends, or when the

@@ -110,7 +110,7 @@ export const messages = {
     "Toont het begin van een antwoord, een vraag of de actie die je moet goedkeuren. Google en de accountdienst van OpenOwnBot kunnen dit niet lezen.",
   "mobile.settings.notifications.sound": "Geluid",
   "mobile.settings.notifications.playSound": "Geluid afspelen",
-  "mobile.settings.notifications.sound.openbot": "OpenBot",
+  "mobile.settings.notifications.sound.openownbot": "OpenOwnBot",
   "mobile.settings.notifications.sound.warm": "Warm",
   "mobile.settings.notifications.sound.mech": "Mechanisch",
   "mobile.settings.notifications.sound.bubble": "Bubbelend",

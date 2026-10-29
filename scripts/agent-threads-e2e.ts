@@ -11,17 +11,17 @@
 // reload. A second thread checks that a reload during the Undo time does not lose its delete.
 // Each turn is a real provider turn, so the prompts are short. A thread that it started and did not
 // delete is deleted at the end.
-// Writes .openbot-build/agent-threads-e2e/report.json and screenshots.
+// Writes .openownbot-build/agent-threads-e2e/report.json and screenshots.
 import assert from "node:assert/strict";
 import { mkdirSync } from "node:fs";
 import { resolve } from "node:path";
-import { agentProviderDescriptor, isAgentProvider } from "@openbot/contracts/agent-providers";
-import type { AgentTask, AgentTasksSnapshot, QueueSnapshot } from "@openbot/contracts/ipc";
-import { translateFor } from "@openbot/i18n";
+import { agentProviderDescriptor, isAgentProvider } from "@openownbot/contracts/agent-providers";
+import type { AgentTask, AgentTasksSnapshot, QueueSnapshot } from "@openownbot/contracts/ipc";
+import { translateFor } from "@openownbot/i18n";
 import type { Locator } from "playwright-core";
 import { argument, connectChannelE2e, LONG_PROMPT, SHORT_PROMPT, waitFor, writeReport } from "./channel-e2e-support";
 
-const OUT = resolve(import.meta.dirname, "../.openbot-build/agent-threads-e2e");
+const OUT = resolve(import.meta.dirname, "../.openownbot-build/agent-threads-e2e");
 mkdirSync(OUT, { recursive: true });
 const UI_WAIT_MS = 15_000;
 const english = translateFor("en");
@@ -65,11 +65,11 @@ const menuItem = (menu: Locator, name: string) => menu.getByRole("menuitem", { n
 const button = (name: string) => page.getByRole("button", { name, exact: true });
 
 function listTasks(): Promise<AgentTasksSnapshot> {
-  return page.evaluate((id) => window.openbot.agent.listTasks(id), agentId);
+  return page.evaluate((id) => window.openownbot.agent.listTasks(id), agentId);
 }
 
 function listQueue(): Promise<QueueSnapshot> {
-  return page.evaluate((id) => window.openbot.agent.listQueue(id), agentId);
+  return page.evaluate((id) => window.openownbot.agent.listQueue(id), agentId);
 }
 
 /** Whether a message of the agent's own chat waits or runs. */
@@ -117,7 +117,7 @@ async function openAgent(name: string): Promise<void> {
 }
 
 const agent = await page.evaluate(async (id) => {
-  const found = (await window.openbot.agent.listAgents()).find((candidate) => candidate.id === id);
+  const found = (await window.openownbot.agent.listAgents()).find((candidate) => candidate.id === id);
   if (!found) throw new Error(`Unknown agent: ${id}`);
   return { name: found.name, provider: found.provider };
 }, agentId);
@@ -199,7 +199,7 @@ try {
   assert.ok(report.restored.tabSelected);
 
   // 6. An archive on another device hides the open tab; a restore there shows it again.
-  await page.evaluate(({ agent, task }) => window.openbot.agent.closeTask({ agentId: agent, taskId: task }), {
+  await page.evaluate(({ agent, task }) => window.openownbot.agent.closeTask({ agentId: agent, taskId: task }), {
     agent: agentId,
     task: task.id,
   });
@@ -207,7 +207,7 @@ try {
   const threadView = page.getByRole("region", { name: english("conversation.threads.view.label", { title }) });
   // The agent's own chat takes the place of the thread view.
   await threadView.waitFor({ state: "detached", timeout: UI_WAIT_MS });
-  await page.evaluate(({ agent, task }) => window.openbot.agent.reopenTask({ agentId: agent, taskId: task }), {
+  await page.evaluate(({ agent, task }) => window.openownbot.agent.reopenTask({ agentId: agent, taskId: task }), {
     agent: agentId,
     task: task.id,
   });
@@ -228,7 +228,7 @@ try {
   await page.keyboard.press("Escape");
   const refusal = await page.evaluate(
     ({ agent, task }) =>
-      window.openbot.agent.deleteTask({ agentId: agent, taskId: task }).then(
+      window.openownbot.agent.deleteTask({ agentId: agent, taskId: task }).then(
         () => "",
         (error: unknown) => (error instanceof Error ? error.message : String(error)),
       ),
@@ -238,7 +238,7 @@ try {
   assert.ok(menuDisabled, "Delete is off while a turn runs.");
   assert.ok(report.deleteWhileRunning.refused, "The host refuses a delete while a turn runs.");
   await shot("7-running");
-  await page.evaluate(({ agent, task }) => window.openbot.agent.stopTask({ agentId: agent, taskId: task }), {
+  await page.evaluate(({ agent, task }) => window.openownbot.agent.stopTask({ agentId: agent, taskId: task }), {
     agent: agentId,
     task: task.id,
   });
@@ -274,10 +274,13 @@ try {
   // 11. Text typed in a new thread and not sent stays when a turn of the agent's own chat ends, after
   // the agent's own chat opens and the thread opens again, and after a reload (#3448).
   const unsent = `Unsent ${crypto.randomUUID().slice(0, 4)}`;
-  await page.evaluate((input) => window.openbot.agent.sendMessage({ ...input, clientMessageId: crypto.randomUUID() }), {
-    agentId,
-    text: LONG_PROMPT,
-  });
+  await page.evaluate(
+    (input) => window.openownbot.agent.sendMessage({ ...input, clientMessageId: crypto.randomUUID() }),
+    {
+      agentId,
+      text: LONG_PROMPT,
+    },
+  );
   await button(english("conversation.threads.new")).first().click();
   const unsentComposer = page.getByRole("textbox", {
     name: english("conversation.threads.view.newPlaceholder", { name: agent.name }),
@@ -308,7 +311,7 @@ try {
 
   // 12. A reload during the Undo time does not lose the delete: the next start finishes it.
   const second = await page.evaluate(
-    (input) => window.openbot.agent.startTask({ ...input, clientMessageId: crypto.randomUUID() }),
+    (input) => window.openownbot.agent.startTask({ ...input, clientMessageId: crypto.randomUUID() }),
     { agentId, text: SHORT_PROMPT },
   );
   threadId = second.id;
@@ -338,19 +341,19 @@ try {
   for (const delivery of (await listQueue().catch(() => null))?.deliveries ?? [])
     if (delivery.turnId && (delivery.status === "starting" || delivery.status === "running"))
       await page
-        .evaluate((input) => window.openbot.agent.interrupt(input), { agentId, turnId: delivery.turnId })
+        .evaluate((input) => window.openownbot.agent.interrupt(input), { agentId, turnId: delivery.turnId })
         .catch(() => undefined);
   if (threadId && !deleted) {
     const id = threadId;
     await page
-      .evaluate(({ agent, task }) => window.openbot.agent.stopTask({ agentId: agent, taskId: task }), {
+      .evaluate(({ agent, task }) => window.openownbot.agent.stopTask({ agentId: agent, taskId: task }), {
         agent: agentId,
         task: id,
       })
       .catch(() => undefined);
     await waitForTask("the cleanup stop", (current) => current?.state !== "running").catch(() => undefined);
     await page
-      .evaluate(({ agent, task }) => window.openbot.agent.deleteTask({ agentId: agent, taskId: task }), {
+      .evaluate(({ agent, task }) => window.openownbot.agent.deleteTask({ agentId: agent, taskId: task }), {
         agent: agentId,
         task: id,
       })

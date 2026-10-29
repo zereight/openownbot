@@ -1,7 +1,7 @@
 import { readdir, readFile, rm } from "node:fs/promises";
 import { join } from "node:path";
-import { sourceText } from "@openbot/i18n/source";
-import { registerSecretValue } from "@openbot/logging";
+import { sourceText } from "@openownbot/i18n/source";
+import { registerSecretValue } from "@openownbot/logging";
 import { Effect, Schema } from "effect";
 import { writeFileAtomically } from "./atomic-json-file";
 import { isMissingFileError } from "./file-errors";
@@ -27,7 +27,7 @@ const failed = () => new AgentApiKeyFailed({ cause: new Error(sourceText("error.
  * The API keys that the user entered for an agent through `request_api_key`. Each key is one file,
  * `<root>/<agentId>/<NAME>`, readable only by the user, outside every workspace. The agent gets the
  * path and reads the file in its own commands, so the value never travels in a tool argument or a
- * tool result. Each value is registered for redaction when it is saved and when OpenBot starts.
+ * tool result. Each value is registered for redaction when it is saved and when OpenOwnBot starts.
  */
 export class AgentApiKeys {
   readonly #root: string;

@@ -1,6 +1,6 @@
 ---
 name: "Agent Designer"
-description: "Design and create a new OpenBot agent. Ask a few preference questions, write a tight profile, call create_agent, then verify it with read_agent. Coding agents use pstack poteto-mode as the quality bar. On a fresh install, run Eggbot Getting Started first."
+description: "Design and create a new OpenOwnBot agent. Ask a few preference questions, write a tight profile, call create_agent, then verify it with read_agent. Coding agents use pstack poteto-mode as the quality bar. On a fresh install, run Eggbot Getting Started first."
 ---
 
 # Agent Designer

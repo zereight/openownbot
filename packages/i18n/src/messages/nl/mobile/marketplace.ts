@@ -105,9 +105,9 @@ export const messages = {
   "mobile.marketplace.app.connectFailed": "De app is niet verbonden.",
   "mobile.marketplace.app.linkInvalid": "Gebruik een https-link op {hostname}.",
   "mobile.marketplace.app.docs": "Vraag een sleutel aan",
-  "mobile.marketplace.app.local": "Deze app draait op de computer met OpenBot. Stel de app in op die computer.",
+  "mobile.marketplace.app.local": "Deze app draait op de computer met OpenOwnBot. Stel de app in op die computer.",
   "mobile.marketplace.app.relayUnsupported":
-    "Voor deze app moet je inloggen in een browser. Werk OpenBot bij op de server, of verbind de app op de computer.",
+    "Voor deze app moet je inloggen in een browser. Werk OpenOwnBot bij op de server, of verbind de app op de computer.",
   "mobile.marketplace.app.waiting": "Wachten op de inlogpagina…",
   "mobile.marketplace.app.openAgain": "Open de inlogpagina opnieuw",
   "mobile.marketplace.app.pasteHint":

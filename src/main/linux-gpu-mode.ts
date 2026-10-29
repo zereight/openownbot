@@ -11,14 +11,14 @@
 // Either file keeps software rendering on at each later start with the same Chromium major version.
 // A new Chromium major version tries the GPU again, because it can fix the driver problem. An Electron
 // patch release keeps the Chromium major version, so it does not make a failing computer stop again.
-// `OPENBOT_DISABLE_GPU=1` always uses software rendering. `OPENBOT_DISABLE_GPU=0` always uses the GPU.
-// A server (`OPENBOT_SERVER=1` or a hosted server) runs under a virtual display with no GPU, so it
+// `OPENOWNBOT_DISABLE_GPU=1` always uses software rendering. `OPENOWNBOT_DISABLE_GPU=0` always uses the GPU.
+// A server (`OPENOWNBOT_SERVER=1` or a hosted server) runs under a virtual display with no GPU, so it
 // always uses software rendering. The renderer sandbox stays on in all cases.
 
 import { mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
-import { isDynamicRecord, isString } from "@openbot/contracts/runtime-values";
-import { createOpenBotLogger, toLogValue } from "@openbot/logging";
+import { isDynamicRecord, isString } from "@openownbot/contracts/runtime-values";
+import { createOpenOwnBotLogger, toLogValue } from "@openownbot/logging";
 import { app, type Details } from "electron";
 import { isMissingFileError } from "../backend/file-errors";
 
@@ -36,7 +36,7 @@ const GPU_FAILURE_REASONS: ReadonlySet<Details["reason"]> = new Set([
 // context is lost (for example after suspend and resume), and Chromium starts it again.
 const GPU_EXIT_ON_CONTEXT_LOST = 34;
 
-const logger = createOpenBotLogger("linux-gpu");
+const logger = createOpenOwnBotLogger("linux-gpu");
 
 /** One GPU failure on this computer, with the Chromium major version that had it. */
 interface GpuFailureRecord {
@@ -60,7 +60,7 @@ export interface LinuxGpuMode {
 interface LinuxGpuModeInput {
   platform: NodeJS.Platform;
   server: boolean;
-  /** The value of `OPENBOT_DISABLE_GPU`. */
+  /** The value of `OPENOWNBOT_DISABLE_GPU`. */
   disableGpu: string | undefined;
   chromiumMajor: string;
   crash: GpuFailureRecord | undefined;
@@ -89,7 +89,7 @@ export interface ConfigureLinuxGpuOptions {
    * ready. It must not write the start file: it would never remove it.
    */
   ownsInstance: boolean;
-  /** `OPENBOT_SERVER=1` or a hosted server: a virtual display with no GPU. */
+  /** `OPENOWNBOT_SERVER=1` or a hosted server: a virtual display with no GPU. */
   server: boolean;
   startConfirmMs?: number;
 }
@@ -105,7 +105,7 @@ export function configureLinuxGpu(options: ConfigureLinuxGpuOptions): LinuxGpuMo
   const mode = resolveLinuxGpuMode({
     platform: process.platform,
     server: options.server,
-    disableGpu: process.env.OPENBOT_DISABLE_GPU,
+    disableGpu: process.env.OPENOWNBOT_DISABLE_GPU,
     chromiumMajor,
     crash: process.platform === "linux" ? readGpuFailure(crashPath) : undefined,
     unfinishedStart: process.platform === "linux" ? readGpuFailure(startPath) : undefined,
@@ -117,7 +117,7 @@ export function configureLinuxGpu(options: ConfigureLinuxGpuOptions): LinuxGpuMo
     if (options.ownsInstance && (mode.reason === "gpu-process-crash" || mode.reason === "unfinished-start")) {
       logger.warn(
         `Software rendering is on because the GPU failed before (${mode.reason}). ` +
-          `Remove ${mode.reason === "gpu-process-crash" ? crashPath : startPath} or set OPENBOT_DISABLE_GPU=0 to try the GPU again.`,
+          `Remove ${mode.reason === "gpu-process-crash" ? crashPath : startPath} or set OPENOWNBOT_DISABLE_GPU=0 to try the GPU again.`,
       );
     }
     return mode;

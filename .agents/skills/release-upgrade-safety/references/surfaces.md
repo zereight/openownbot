@@ -28,14 +28,14 @@ any of them before an upgrade. A renamed constant means the old file is never re
 | `remote/connection-<stack pid>.json` in the dev runtime directory | `developmentRemoteConnectionPath`, `src/main/development-runtime-directory.ts` | development only |
 | `bots.json` | `LEGACY_AGENTS_STATE_FILE`, `src/backend/agent-store.ts` | permanent name; imported once under command id `legacy-import:bots:v1` |
 | `mailbox.json` | `src/backend/mailbox-store.ts` | permanent name |
-| `sunshine-credentials.json`, `sunshine-state.json`, `sunshine-apps.json`, `moonlight-config.json`, `moonlight-data.json` | `src/main/sunshine-moonlight-runtime.ts` | written by the vendored runtimes, not by OpenBot |
+| `sunshine-credentials.json`, `sunshine-state.json`, `sunshine-apps.json`, `moonlight-config.json`, `moonlight-data.json` | `src/main/sunshine-moonlight-runtime.ts` | written by the vendored runtimes, not by OpenOwnBot |
 | `avatars/agents/`, `agent-duplications/` | `src/backend/agent-store.ts` | directories under `userData` |
 | `legacy-backup-v1/` | `DatabaseCore.backupLegacyFile` | one copy per named legacy file, `COPYFILE_EXCL`; **not** a general backup |
 
 `openbot-data.json` in `src/main/maintenance-service.ts` is the user-initiated export manifest, not
 persisted state.
 
-One versioned file lives outside `userData`: `.openbot/skills-lock.json` under each agent workspace,
+One versioned file lives outside `userData`: `.openownbot/skills-lock.json` under each agent workspace,
 written by `src/main/skill-marketplace-service.ts`, which accepts only `version === 1`. It records
 the marketplace skills installed into that workspace and is unrelated to the repository's own
 `.agents/skills/`.
@@ -51,15 +51,15 @@ use the key-inventory diff there instead. Derive the set rather than reading it 
 
 | Key | Owner |
 | --- | --- |
-| `openbot:sidebar-pins:v1` | `src/renderer/src/features/sidebar/sidebar-pins.ts` |
-| `openbot:sidebar-collapsed:v1` | `src/renderer/src/features/sidebar/sidebar-sections.ts` |
-| `openbot:sidebar-people-order:v1` | `src/renderer/src/features/sidebar/sidebar-people-order.ts` |
-| `openbot:left-panel-collapsed`, `openbot:left-panel-width` | `src/renderer/src/layout.tsx`, `layout-constants.ts` |
-| `openbot:browser-panel-width`, `openbot:browser-pip-native-bounds` | `src/renderer/src/features/conversation/FilePreviewPanel.tsx`, `conversation-controller.ts` |
-| `openbot:settings-panel-width` | `src/renderer/src/features/settings/settings-context.tsx` |
-| `openbot:completion-sound-enabled` | `src/renderer/src/completion-sound.ts` |
-| `openbot:analytics-app-version` | `src/renderer/src/App.tsx` |
-| `openbot:landing-preview-ready`, `openbot:landing-preview-start` | `packages/contracts/src/landing-preview-messages.ts` |
+| `openownbot:sidebar-pins:v1` | `src/renderer/src/features/sidebar/sidebar-pins.ts` |
+| `openownbot:sidebar-collapsed:v1` | `src/renderer/src/features/sidebar/sidebar-sections.ts` |
+| `openownbot:sidebar-people-order:v1` | `src/renderer/src/features/sidebar/sidebar-people-order.ts` |
+| `openownbot:left-panel-collapsed`, `openownbot:left-panel-width` | `src/renderer/src/layout.tsx`, `layout-constants.ts` |
+| `openownbot:browser-panel-width`, `openownbot:browser-pip-native-bounds` | `src/renderer/src/features/conversation/FilePreviewPanel.tsx`, `conversation-controller.ts` |
+| `openownbot:settings-panel-width` | `src/renderer/src/features/settings/settings-context.tsx` |
+| `openownbot:completion-sound-enabled` | `src/renderer/src/completion-sound.ts` |
+| `openownbot:analytics-app-version` | `src/renderer/src/App.tsx` |
+| `openownbot:landing-preview-ready`, `openownbot:landing-preview-start` | `packages/contracts/src/landing-preview-messages.ts` |
 
 The three `:v1` suffixes are the renderer's own version handling: bumping one to `:v2` abandons the
 old entry rather than migrating it, so it resets that state for every installed user.
@@ -75,11 +75,11 @@ cycle. Keys here are dot-separated, not colon-separated like the renderer's.
 
 | Key | Owner | Note |
 | --- | --- | --- |
-| `openbot.mobile.session.v1` | `apps/mobile/src/features/auth/api/mobile-auth.ts` | `SecureStore`; an undecodable session is **deleted** (`deleteItemAsync`), signing the user out |
-| `openbot.mobile.device-id.v1` | `apps/mobile/src/features/auth/api/mobile-auth.ts` | `SecureStore`; losing it abandons the device identity |
-| `openbot.host-key.v1.<scope>.<fingerprint>` | `apps/mobile/src/features/workspace/model/trusted-host-keys.ts` | `SecureStore`; host trust, so resetting it re-prompts for every host |
-| `openbot.workspace.v1.<scope>.<fingerprint>` | `packages/team-client/src/workspace-preferences.ts` | guards `value.version !== 1` |
-| `openbot.remote-desktop.signal.v1` | `packages/team-client/src/remote-peer.ts`, `src/renderer/src/features/team/team-webrtc.ts` | shared by the desktop renderer, not mobile-only |
+| `openownbot.mobile.session.v1` | `apps/mobile/src/features/auth/api/mobile-auth.ts` | `SecureStore`; an undecodable session is **deleted** (`deleteItemAsync`), signing the user out |
+| `openownbot.mobile.device-id.v1` | `apps/mobile/src/features/auth/api/mobile-auth.ts` | `SecureStore`; losing it abandons the device identity |
+| `openownbot.host-key.v1.<scope>.<fingerprint>` | `apps/mobile/src/features/workspace/model/trusted-host-keys.ts` | `SecureStore`; host trust, so resetting it re-prompts for every host |
+| `openownbot.workspace.v1.<scope>.<fingerprint>` | `packages/team-client/src/workspace-preferences.ts` | guards `value.version !== 1` |
+| `openownbot.remote-desktop.signal.v1` | `packages/team-client/src/remote-peer.ts`, `src/renderer/src/features/team/team-webrtc.ts` | shared by the desktop renderer, not mobile-only |
 
 The middle two are built with a template literal, so **no key-literal query returns them** — they are
 the standing reason gate B reads owner files as well as keys.
@@ -106,7 +106,7 @@ up on `EXDEV` or a permission error while the message paths have already been re
 
 ## Migration constants
 
-All in `src/backend/openbot-database-schema.ts`:
+All in `src/backend/openownbot-database-schema.ts`:
 
 | Constant | Value or meaning |
 | --- | --- |
@@ -118,8 +118,8 @@ All in `src/backend/openbot-database-schema.ts`:
 | `validateMigrationRegistry` | throws on a non-contiguous version |
 | `createLatestDatabase` | execs `LATEST_SCHEMA_SQL`, then stamps every `MIGRATIONS` entry as applied without running it |
 
-Tests: `src/backend/openbot-database-schema-parity.test.ts` (the two build paths must agree),
-`src/backend/openbot-database.test.ts` (including "rejects a database created by a newer
+Tests: `src/backend/openownbot-database-schema-parity.test.ts` (the two build paths must agree),
+`src/backend/openownbot-database.test.ts` (including "rejects a database created by a newer
 application").
 
 ## Team API protocol
@@ -152,10 +152,10 @@ untouched — they already spell the agent `agent` on both sides.
 | --- | --- |
 | `src/main/index.ts` and `src/main/ipc/` | the `handleTrusted` registrations, one file per domain |
 | `src/preload/index.ts` | the `invoke` calls the renderer reaches |
-| `src/renderer/src/preview/mock-openbot.ts` | the second implementation Storybook and the preview run against |
+| `src/renderer/src/preview/mock-openownbot.ts` | the second implementation Storybook and the preview run against |
 
 `src/main/ipc-channel-coverage.test.ts` links main and preload statically. The mock is covered by
-`tsc` in both directions because it is annotated `: OpenBotDesktopApi`.
+`tsc` in both directions because it is annotated `: OpenOwnBotDesktopApi`.
 
 ## Account Worker
 
@@ -179,7 +179,7 @@ deploy-race reasoning in gate E only holds while *both* keep that order.
 
 | Path | Fields that matter |
 | --- | --- |
-| `electron-builder.yml` | `appId` (`app.openbot.desktop`), `artifactName`, `electronUpdaterCompatibility`, `publish` owner/repo, `mac.extendInfo.ElectronTeamID` (`ZTRDTUL87R`), `extraResources` |
+| `electron-builder.yml` | `appId` (`app.openownbot.desktop`), `artifactName`, `electronUpdaterCompatibility`, `publish` owner/repo, `mac.extendInfo.ElectronTeamID` (`ZTRDTUL87R`), `extraResources` |
 | `src/main/update-service.ts` | the four `UpdateAdapter` behaviours, documented on the type |
 | `scripts/verify-update-artifacts.ts` | 700 MiB update artifact, 750 MiB DMG, manifest, blockmap, no voice model |
 | `.github/workflows/release.yml` | macOS ZIP must be under 800,000,000 bytes **and** smaller than the `v0.1.21` ZIP |

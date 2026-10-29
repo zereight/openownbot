@@ -1,4 +1,4 @@
-import { INPUT_LIMITS } from "@openbot/contracts/input-limits";
+import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
 import {
   type AvatarHue,
   agentPermissionLevel,
@@ -6,7 +6,7 @@ import {
   DEFAULT_PROVIDER_ACCOUNT_ID,
   type HostProviderAccounts,
   type UpdateAgentInput,
-} from "@openbot/contracts/ipc";
+} from "@openownbot/contracts/ipc";
 import { useQueryClient } from "@tanstack/react-query";
 import { router, useLocalSearchParams } from "expo-router";
 import { usePreventRemove } from "expo-router/react-navigation";

@@ -1,4 +1,4 @@
-import type { WorkflowSummary } from "@openbot/contracts/ipc";
+import type { WorkflowSummary } from "@openownbot/contracts/ipc";
 import { Stack, useLocalSearchParams } from "expo-router";
 import { Typography } from "heroui-native";
 import Plus from "lucide-react-native/icons/plus";

@@ -34,7 +34,7 @@ describe("Hermes import reader", () => {
   });
 
   it("keeps the names of secrets and never their values", async () => {
-    directory = await mkdtemp(join(tmpdir(), "openbot-hermes-"));
+    directory = await mkdtemp(join(tmpdir(), "openownbot-hermes-"));
     const root = join(directory, ".hermes");
     await write(join(root, ".env"), `OPENROUTER_API_KEY=${SECRETS[0]}\nexport GITHUB_TOKEN="${SECRETS[1]}"\n`);
     await write(join(root, "auth.json"), JSON.stringify({ access_token: SECRETS[2] }));

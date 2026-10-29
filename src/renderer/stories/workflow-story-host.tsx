@@ -14,15 +14,15 @@ import {
   WORKFLOW_TRIGGER_TYPES,
   type WorkflowRunPage,
   type WorkflowVersion,
-} from "@openbot/contracts/ipc";
-import { accountUsageProviderRows } from "@openbot/ui/features/account/account-usage-view";
-import { Sidebar } from "@openbot/ui/features/sidebar/Sidebar";
-import type { SidebarView } from "@openbot/ui/features/sidebar/sidebar-types";
-import { HelpMenu } from "@openbot/ui/features/updates/HelpMenu";
-import { PageRail, type PageRailPage } from "@openbot/ui/features/window/PageRail";
-import { WorkflowCanvas } from "@openbot/ui/features/workflows/WorkflowCanvas";
-import { WORKFLOW_FEATURES_V1, type WorkflowFeatures } from "@openbot/ui/features/workflows/workflow-model";
-import type { WorkflowRunView } from "@openbot/ui/features/workflows/workflow-run-view";
+} from "@openownbot/contracts/ipc";
+import { accountUsageProviderRows } from "@openownbot/ui/features/account/account-usage-view";
+import { Sidebar } from "@openownbot/ui/features/sidebar/Sidebar";
+import type { SidebarView } from "@openownbot/ui/features/sidebar/sidebar-types";
+import { HelpMenu } from "@openownbot/ui/features/updates/HelpMenu";
+import { PageRail, type PageRailPage } from "@openownbot/ui/features/window/PageRail";
+import { WorkflowCanvas } from "@openownbot/ui/features/workflows/WorkflowCanvas";
+import { WORKFLOW_FEATURES_V1, type WorkflowFeatures } from "@openownbot/ui/features/workflows/workflow-model";
+import type { WorkflowRunView } from "@openownbot/ui/features/workflows/workflow-run-view";
 import { createSignal, Show, untrack } from "solid-js";
 import { fn } from "storybook/test";
 import { defaultSidebarLayout } from "../src/features/sidebar/sidebar-sections";

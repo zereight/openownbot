@@ -1,8 +1,8 @@
-import type { AppTextKey } from "@openbot/i18n";
-import { classifyFailure } from "@openbot/telemetry";
-import type { ConnectorDetail } from "@openbot/ui/features/connectors/ConnectorDetailPanel";
-import type { ConnectorId } from "@openbot/ui/features/connectors/connectors";
-import { currentText } from "@openbot/ui/text";
+import type { AppTextKey } from "@openownbot/i18n";
+import { classifyFailure } from "@openownbot/telemetry";
+import type { ConnectorDetail } from "@openownbot/ui/features/connectors/ConnectorDetailPanel";
+import type { ConnectorId } from "@openownbot/ui/features/connectors/connectors";
+import { currentText } from "@openownbot/ui/text";
 import { createSignal, onCleanup } from "solid-js";
 import { actionToast } from "../../action-toast";
 import { type DesktopAnalyticsProperties, desktopAnalytics } from "../../analytics";
@@ -18,7 +18,7 @@ export interface ConnectorController {
   readonly id: ConnectorId;
   /** False until the first read, while the page has nothing to show. */
   ready: () => boolean;
-  /** False when this OpenBot build cannot use the connector, such as GitHub with no GitHub App. */
+  /** False when this OpenOwnBot build cannot use the connector, such as GitHub with no GitHub App. */
   available: () => boolean;
   busy: () => boolean;
   /** The page of the connector. Its props are getters, so the page follows the controller. */

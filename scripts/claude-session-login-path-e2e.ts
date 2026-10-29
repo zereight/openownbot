@@ -1,10 +1,10 @@
-// Adapted from the reproduction in nightly-labs/openbot#2464.
-// A Claude agent session with OpenBot started the way Finder, the Dock or a login item starts it:
+// Adapted from the reproduction in zereight/openownbot#2464.
+// A Claude agent session with OpenOwnBot started the way Finder, the Dock or a login item starts it:
 // PATH=/usr/bin:/bin:/usr/sbin:/sbin. The session's Bash tool and hooks run with the PATH the Claude
 // process starts with, so that process must get the login shell's folders, such as Homebrew's.
 // The real Claude Agent SDK starts a stand-in Claude executable that records its PATH.
 // `bun run test:claude:login-path`; exit 0 = the session got the login-shell folder. Writes
-// .openbot-build/claude-session-login-path-e2e/report.json.
+// .openownbot-build/claude-session-login-path-e2e/report.json.
 import assert from "node:assert/strict";
 import { chmod, mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
@@ -13,10 +13,10 @@ import { ClaudeAgentClient } from "../src/backend/claude-client";
 import { runInLoginShell } from "../src/backend/cli";
 import { runCauseEffect } from "../src/backend/effect-boundary";
 
-const OUT = resolve(import.meta.dirname, "../.openbot-build/claude-session-login-path-e2e");
+const OUT = resolve(import.meta.dirname, "../.openownbot-build/claude-session-login-path-e2e");
 const report: { passed: boolean; sessionPath?: string; error?: string } = { passed: false };
 
-const root = await mkdtemp(join(tmpdir(), "openbot-claude-login-path-e2e-"));
+const root = await mkdtemp(join(tmpdir(), "openownbot-claude-login-path-e2e-"));
 let client: ClaudeAgentClient | null = null;
 let passed = false;
 
@@ -31,7 +31,7 @@ try {
   delete process.env.ZDOTDIR;
   if (process.platform !== "darwin") process.env.SHELL = "/bin/bash";
 
-  // OpenBot started from Finder, the Dock or a login item.
+  // OpenOwnBot started from Finder, the Dock or a login item.
   process.env.PATH = "/usr/bin:/bin:/usr/sbin:/sbin";
 
   const shellPath = await runCauseEffect(runInLoginShell('printf %s "$PATH"'));

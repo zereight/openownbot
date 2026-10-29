@@ -6,31 +6,31 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: var(--openbot-space-1-5);
-  padding: var(--openbot-space-8) var(--openbot-space-4);
+  gap: var(--openownbot-space-1-5);
+  padding: var(--openownbot-space-8) var(--openownbot-space-4);
   text-align: center;
 }
 
 .side-question-empty > svg {
-  width: var(--openbot-icon-lg);
-  height: var(--openbot-icon-lg);
-  margin-bottom: var(--openbot-space-1);
-  color: var(--openbot-text-muted);
-  stroke-width: var(--openbot-icon-stroke);
+  width: var(--openownbot-icon-lg);
+  height: var(--openownbot-icon-lg);
+  margin-bottom: var(--openownbot-space-1);
+  color: var(--openownbot-text-muted);
+  stroke-width: var(--openownbot-icon-stroke);
 }
 
 .side-question-empty > strong {
-  color: var(--openbot-text-secondary);
-  font-size: var(--openbot-text-md);
+  color: var(--openownbot-text-secondary);
+  font-size: var(--openownbot-text-md);
   font-weight: 500;
 }
 
 .side-question-empty > p {
   max-width: 320px;
   margin: 0;
-  color: var(--openbot-text-muted);
-  font-size: var(--openbot-text-sm);
-  line-height: var(--openbot-leading-sm);
+  color: var(--openownbot-text-muted);
+  font-size: var(--openownbot-text-sm);
+  line-height: var(--openownbot-leading-sm);
 }
 
 /* The chat composer's compact row, without its attach button: the editor and the send button. */

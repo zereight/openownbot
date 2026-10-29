@@ -1,4 +1,4 @@
-import type { WorkflowSummary } from "@openbot/contracts/ipc";
+import type { WorkflowSummary } from "@openownbot/contracts/ipc";
 import { Typography } from "heroui-native";
 import ChevronRight from "lucide-react-native/icons/chevron-right";
 import Pin from "lucide-react-native/icons/pin";
@@ -46,10 +46,10 @@ export function WorkflowRow({
   const { t, format } = useText();
   const { theme } = useUniwind();
   const [muted, control, iconColor, iconBackground] = useCSSVariable([
-    "--openbot-text-grouped-secondary",
-    "--openbot-bg-control",
-    "--openbot-file-default",
-    "--openbot-file-default-soft",
+    "--openownbot-text-grouped-secondary",
+    "--openownbot-bg-control",
+    "--openownbot-file-default",
+    "--openownbot-file-default-soft",
   ]);
   const menu = useRef<MenuComponentRef | null>(null);
   // The iOS menu host takes the size of its content, so the row gets the width of its slot.

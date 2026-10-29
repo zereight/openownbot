@@ -1,7 +1,7 @@
-import { Archive, buttonVariants, ChevronDown, ChevronRight, DropdownMenu, MessageCirclePlus } from "@openbot/ui";
-import { createScrollFades } from "@openbot/ui/components/createScrollFades";
-import { sidebarMessageTime } from "@openbot/ui/features/sidebar/sidebar-filtering";
-import { useText } from "@openbot/ui/text";
+import { Archive, buttonVariants, ChevronDown, ChevronRight, DropdownMenu, MessageCirclePlus } from "@openownbot/ui";
+import { createScrollFades } from "@openownbot/ui/components/createScrollFades";
+import { sidebarMessageTime } from "@openownbot/ui/features/sidebar/sidebar-filtering";
+import { useText } from "@openownbot/ui/text";
 import { For, onSettled, Show } from "solid-js";
 import { ThreadStatusMark } from "./ThreadStatusMark";
 import type { ThreadHeaderProps, ThreadRowMode } from "./thread-types";

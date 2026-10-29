@@ -4,13 +4,13 @@
 // A driver that skips a case fails here. The fake differs per driver only where the real CLIs differ.
 // Codex, Claude, Pi, Inception, DeepSeek, OpenRouter and Muse speak other protocols and have no shared
 // fake yet; the report names them in `notCovered`.
-// `bun run test:provider-conformance`. Writes .openbot-build/provider-conformance-e2e/report.json.
+// `bun run test:provider-conformance`. Writes .openownbot-build/provider-conformance-e2e/report.json.
 import assert from "node:assert/strict";
 import { mkdir, mkdtemp, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
-import { AGENT_PROVIDERS } from "@openbot/contracts/agent-providers";
-import type { AgentProviderId } from "@openbot/contracts/ipc";
+import { AGENT_PROVIDERS } from "@openownbot/contracts/agent-providers";
+import type { AgentProviderId } from "@openownbot/contracts/ipc";
 import { isMissingProviderSessionError } from "../src/backend/agent/thread-items";
 import type { AgentClient } from "../src/backend/agent-client";
 import type { AgentCliInfo } from "../src/backend/cli";
@@ -24,7 +24,7 @@ import {
 import { CustomAgentStore } from "../src/main/custom-agent-store";
 import { installFakeAgent, readJsonl, runTurn, startThread, stopClients, xorCipher } from "./provider-fakes/host";
 
-const OUT = resolve(import.meta.dirname, "../.openbot-build/provider-conformance-e2e");
+const OUT = resolve(import.meta.dirname, "../.openownbot-build/provider-conformance-e2e");
 const NOT_COVERED = ["codex", "claude", "pi", "pi-bolt", "inception", "deepseek", "openrouter", "muse"] as const;
 
 interface DriverCase {
@@ -75,7 +75,7 @@ interface Report {
   failure?: string;
 }
 
-const root = await mkdtemp(join(tmpdir(), "openbot-provider-conformance-e2e-"));
+const root = await mkdtemp(join(tmpdir(), "openownbot-provider-conformance-e2e-"));
 const report: Report = { passed: false, drivers: [], notCovered: NOT_COVERED };
 const clients: AgentClient[] = [];
 

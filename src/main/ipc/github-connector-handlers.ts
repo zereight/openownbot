@@ -6,10 +6,10 @@ import {
   decodeHostGitHubConnectorStatus,
   githubPage,
   withoutGitHubPages,
-} from "@openbot/contracts/ipc";
-import { CONNECTORS_CAPABILITY, CONNECTORS_ROUTES } from "@openbot/contracts/team-protocol/connectors-v1";
-import type { TeamCurrentCapability } from "@openbot/contracts/team-protocol/current";
-import { sourceText } from "@openbot/i18n/source";
+} from "@openownbot/contracts/ipc";
+import { CONNECTORS_CAPABILITY, CONNECTORS_ROUTES } from "@openownbot/contracts/team-protocol/connectors-v1";
+import type { TeamCurrentCapability } from "@openownbot/contracts/team-protocol/current";
+import { sourceText } from "@openownbot/i18n/source";
 import type { Effect } from "effect";
 import { runCauseEffect } from "../../backend/effect-boundary";
 import type { GitHubConnectorService } from "../github-connector-service";

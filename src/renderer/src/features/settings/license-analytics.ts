@@ -1,4 +1,4 @@
-import type { LicenseStoreEvent } from "@openbot/ui/features/billing/license-store";
+import type { LicenseStoreEvent } from "@openownbot/ui/features/billing/license-store";
 import { desktopAnalytics } from "../../analytics";
 
 /** Sends a license store step. Desktop and web use the same event. */

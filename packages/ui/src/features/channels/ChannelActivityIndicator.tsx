@@ -1,4 +1,4 @@
-import type { AppFormat, AppTranslate } from "@openbot/i18n";
+import type { AppFormat, AppTranslate } from "@openownbot/i18n";
 import { createMemo, For } from "solid-js";
 import { avatarHeadColor } from "../../bloub-avatar";
 import type { AgentProfile } from "../../data";

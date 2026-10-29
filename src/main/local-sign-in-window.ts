@@ -2,8 +2,8 @@ import { randomUUID } from "node:crypto";
 import {
   type BrowserSignInCookie,
   browserSignInCookieFitsHost,
-} from "@openbot/contracts/team-protocol/browser-sign-in-v1";
-import { sourceText } from "@openbot/i18n/source";
+} from "@openownbot/contracts/team-protocol/browser-sign-in-v1";
+import { sourceText } from "@openownbot/i18n/source";
 import { Deferred, Effect, Exit, Schema } from "effect";
 import {
   BrowserWindow,
@@ -178,7 +178,7 @@ export class LocalSignInWindows {
   });
 
   #start(target: LocalSignInTarget, host: string): PendingSignIn {
-    const session = electronSession.fromPartition(`openbot-sign-in-${randomUUID()}`, { cache: false });
+    const session = electronSession.fromPartition(`openownbot-sign-in-${randomUUID()}`, { cache: false });
     session.setUserAgent(sessionBrowserUserAgent(session.getUserAgent()), preferredBrowserLanguageCodes());
     session.webRequest.onBeforeSendHeaders((details, callback) => {
       callback({ requestHeaders: browserRequestHeaders(details.url, details.requestHeaders) });

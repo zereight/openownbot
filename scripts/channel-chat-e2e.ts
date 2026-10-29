@@ -8,11 +8,11 @@
 // message shows at once and the agent's reply follows, that the activity row shows and Stop ends the
 // work, and that a deleted channel shows the preview notice and is in "Deleted channels" until a
 // restore. It makes its own channel and deletes it at the end.
-// Writes .openbot-build/channel-chat-e2e/report.json and screenshots.
+// Writes .openownbot-build/channel-chat-e2e/report.json and screenshots.
 import assert from "node:assert/strict";
 import { resolve } from "node:path";
-import type { CreateChannelRoutineInput } from "@openbot/contracts/ipc";
-import { translateFor } from "@openbot/i18n";
+import type { CreateChannelRoutineInput } from "@openownbot/contracts/ipc";
+import { translateFor } from "@openownbot/i18n";
 import type { Locator } from "playwright-core";
 import {
   ChannelClient,
@@ -23,7 +23,7 @@ import {
   writeReport,
 } from "./channel-e2e-support";
 
-const OUT = resolve(import.meta.dirname, "../.openbot-build/channel-chat-e2e");
+const OUT = resolve(import.meta.dirname, "../.openownbot-build/channel-chat-e2e");
 const UI_WAIT_MS = 15_000;
 const english = translateFor("en");
 
@@ -153,7 +153,7 @@ try {
     timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
     schedule: { kind: "hourly", minute: (new Date().getMinutes() + 30) % 60 },
   };
-  const routine = await page.evaluate((input) => window.openbot.agent.createChannelRoutine(input), routineInput);
+  const routine = await page.evaluate((input) => window.openownbot.agent.createChannelRoutine(input), routineInput);
   routineId = routine.id;
   await page.getByRole("button", { name: english("app.rail.schedule"), exact: true }).click();
   await page
@@ -243,7 +243,7 @@ try {
 } finally {
   if (routineId && report.channelId)
     await page
-      .evaluate((input) => window.openbot.agent.deleteChannelRoutine(input), {
+      .evaluate((input) => window.openownbot.agent.deleteChannelRoutine(input), {
         channelId: report.channelId,
         routineId,
       })

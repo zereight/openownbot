@@ -1,6 +1,6 @@
 // Runs issue #2897 end to end on the real `codex app-server`: a code-mode-only model, as Codex
-// describes GPT-6, and an OpenBot MCP server. Codex defers such a model's MCP tools into its `exec`
-// cell, and the prompt does not name them, so the model does not find them. OpenBot sends their
+// describes GPT-6, and an OpenOwnBot MCP server. Codex defers such a model's MCP tools into its `exec`
+// cell, and the prompt does not name them, so the model does not find them. OpenOwnBot sends their
 // namespaces as direct-only, beside its own. The payload is the one `codexDisabledServers`,
 // `codexMcpServers`, `codexThreadMcpServers` and `codexMcpNamespaces` build for a thread. A local
 // server that speaks the Responses API stands in for the model: it records the top-level namespaces
@@ -10,7 +10,7 @@
 // Issue #3265: a direct call gives the model the result's `structuredContent` alone when the server
 // sends it, and drops each image of `content`. A result without it keeps its images. The image steps
 // record this Codex behavior, so a Codex update that changes it fails here.
-// `bun scripts/codex-code-mode-mcp-e2e.ts`. Writes .openbot-build/codex-code-mode-mcp-e2e/report.json.
+// `bun scripts/codex-code-mode-mcp-e2e.ts`. Writes .openownbot-build/codex-code-mode-mcp-e2e/report.json.
 import assert from "node:assert/strict";
 import { mkdir, rm, writeFile } from "node:fs/promises";
 import { createServer, type Server as HttpServer } from "node:http";
@@ -19,7 +19,7 @@ import { Server } from "@modelcontextprotocol/sdk/server/index.js";
 import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
 import type { Transport } from "@modelcontextprotocol/sdk/shared/transport.js";
 import { CallToolRequestSchema, ListToolsRequestSchema } from "@modelcontextprotocol/sdk/types.js";
-import type { McpServerConfig } from "@openbot/contracts/ipc";
+import type { McpServerConfig } from "@openownbot/contracts/ipc";
 import { readCodexMcpConfig } from "../src/backend/agent/codex-mcp-config";
 import { VISIBLE_DYNAMIC_TOOLS } from "../src/backend/agent/tool-catalog";
 import { CodexAppServerClient } from "../src/backend/app-server-client";
@@ -36,7 +36,7 @@ import {
 } from "../src/backend/mcp-provider-shapes";
 import { decodeRecordResponse, getRecord, getString } from "../src/backend/protocol";
 
-const OUT = resolve(import.meta.dirname, "../.openbot-build/codex-code-mode-mcp-e2e");
+const OUT = resolve(import.meta.dirname, "../.openownbot-build/codex-code-mode-mcp-e2e");
 const NL = String.fromCharCode(10);
 const DEADLINE_MS = 60_000;
 const MODEL = "code-mode-model";
@@ -255,7 +255,7 @@ interface Case {
   /** The user's own entries, as TOML. */
   user?: string;
   rows: McpServerConfig[];
-  /** True sends the direct-only list as it was before the fix: OpenBot's own namespace alone. */
+  /** True sends the direct-only list as it was before the fix: OpenOwnBot's own namespace alone. */
   legacy?: boolean;
   /** True starts the thread with the fix, then resumes it in a new app-server. */
   resume?: boolean;
@@ -285,7 +285,7 @@ async function open(home: string) {
       client.request(
         "initialize",
         {
-          clientInfo: { name: "openbot_e2e", title: "OpenBot E2E", version: "0.0.0" },
+          clientInfo: { name: "openownbot_e2e", title: "OpenOwnBot E2E", version: "0.0.0" },
           capabilities: { experimentalApi: true },
         },
         decodeRecordResponse,
@@ -445,8 +445,8 @@ try {
       rows: [row("composio")],
     },
     (o) => {
-      assert.deepEqual(o.keys, ["openbot_composio"]);
-      assert.deepEqual(o.offered, ["mcp__openbot_composio"]);
+      assert.deepEqual(o.keys, ["openownbot_composio"]);
+      assert.deepEqual(o.offered, ["mcp__openownbot_composio"]);
       assert.ok(!o.directOnly.includes("mcp__composio"), "the user's turned-off server is direct-only");
       assert.deepEqual(o.calls, [TOOL]);
     },

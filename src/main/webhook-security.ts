@@ -1,10 +1,10 @@
 import { createHmac, timingSafeEqual } from "node:crypto";
-import { WEBHOOK_DELIVERY_BODY_BYTES_LIMIT } from "@openbot/contracts/signal-protocol/messages";
+import { WEBHOOK_DELIVERY_BODY_BYTES_LIMIT } from "@openownbot/contracts/signal-protocol/messages";
 import {
   WEBHOOK_DELIVERY_ID_PATTERN,
   WEBHOOK_MAX_CLOCK_SKEW_SECONDS,
   WEBHOOK_TIMESTAMP_PATTERN,
-} from "@openbot/contracts/signal-protocol/webhook-route";
+} from "@openownbot/contracts/signal-protocol/webhook-route";
 import { Schema } from "effect";
 
 /** Signatures outside this clock window are replays, even if the secret is valid. */
@@ -47,7 +47,7 @@ function signatureDigest(secret: string, timestamp: string, deliveryId: string, 
   return createHmac("sha256", secret).update(`${timestamp}.${deliveryId}.`).update(body).digest();
 }
 
-/** The `X-OpenBot-Signature` value that a sender with `secret` sends for these bytes. */
+/** The `X-OpenOwnBot-Signature` value that a sender with `secret` sends for these bytes. */
 export function signWebhookBody(secret: string, timestamp: string, deliveryId: string, body: Uint8Array): string {
   return `${WEBHOOK_SIGNATURE_PREFIX}${signatureDigest(secret, timestamp, deliveryId, body).toString("hex")}`;
 }

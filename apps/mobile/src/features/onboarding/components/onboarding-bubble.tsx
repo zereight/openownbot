@@ -96,7 +96,7 @@ export function SpeechBubble({
               type="h4"
               accessibilityRole="header"
               align={tail === "bottom" ? "center" : "start"}
-              className="tracking-openbot-tight"
+              className="tracking-openownbot-tight"
               style={ink ? { color: ink } : undefined}
             >
               {text}

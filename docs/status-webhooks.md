@@ -1,7 +1,7 @@
 # Status webhooks
 
 The status page at `status.openbot.run` can send its incidents and service changes to the tools of
-the OpenBot team, such as a Slack channel or an on-call service. These webhooks are for the team
+the OpenOwnBot team, such as a Slack channel or an on-call service. These webhooks are for the team
 only. The public way to follow the page is its feed, `https://status.openbot.run/feed.xml`.
 
 The `notify` job of the `status-page` workflow sends them. It runs after each run that publishes the
@@ -30,7 +30,7 @@ The subscriptions are in the `STATUS_WEBHOOKS` repository secret, as one JSON li
 | `paused` | No | `true` stops the deliveries. The waiting deliveries are removed. |
 
 To change the list, replace the whole secret:
-`gh secret set STATUS_WEBHOOKS -R nightly-labs/openbot < webhooks.json`. Then delete `webhooks.json`.
+`gh secret set STATUS_WEBHOOKS -R zereight/openownbot < webhooks.json`. Then delete `webhooks.json`.
 The secret is not in the log: the job masks each URL and secret before it does anything else. An
 error in the list names only the entry number, the field or the `id`. A list that is not valid stops
 the job, and the job sends nothing.
@@ -79,7 +79,7 @@ The meaning of a field does not change.
   "page": "https://status.openbot.run",
   "incident": {
     "id": 201,
-    "url": "https://github.com/nightly-labs/openbot/issues/201",
+    "url": "https://github.com/zereight/openownbot/issues/201",
     "title": "Invitation links fail",
     "kind": "incident",
     "impact": "partial",
@@ -109,13 +109,13 @@ nobody, even if the incident text contains `@everyone`.
 
 | Header | Value |
 | --- | --- |
-| `x-openbot-event` | The event type. |
-| `x-openbot-delivery-id` | 32 hexadecimal characters. The same for each try of one event to one subscription. |
-| `x-openbot-timestamp` | The send time, in Unix seconds. |
-| `x-openbot-signature` | `sha256=<hex>`, when the subscription has a secret. |
+| `x-openownbot-event` | The event type. |
+| `x-openownbot-delivery-id` | 32 hexadecimal characters. The same for each try of one event to one subscription. |
+| `x-openownbot-timestamp` | The send time, in Unix seconds. |
+| `x-openownbot-signature` | `sha256=<hex>`, when the subscription has a secret. |
 
 The signature is the HMAC-SHA256, with the secret as key, of `<timestamp>.<delivery>.<body>`. This
-is the same format as [OpenBot webhook routines](webhooks.md#headers-and-signature). A receiver must:
+is the same format as [OpenOwnBot webhook routines](webhooks.md#headers-and-signature). A receiver must:
 
 1. Calculate the signature from the raw body, and compare it in constant time.
 2. Refuse a timestamp that is not within 5 minutes of its clock.
@@ -126,10 +126,10 @@ is the same format as [OpenBot webhook routines](webhooks.md#headers-and-signatu
 import { createHmac, timingSafeEqual } from "node:crypto";
 
 function verify(headers: Headers, body: string, secret: string) {
-  const timestamp = headers.get("x-openbot-timestamp") ?? "";
-  const delivery = headers.get("x-openbot-delivery-id") ?? "";
+  const timestamp = headers.get("x-openownbot-timestamp") ?? "";
+  const delivery = headers.get("x-openownbot-delivery-id") ?? "";
   const expected = `sha256=${createHmac("sha256", secret).update(`${timestamp}.${delivery}.${body}`).digest("hex")}`;
-  const actual = headers.get("x-openbot-signature") ?? "";
+  const actual = headers.get("x-openownbot-signature") ?? "";
   const fresh = Math.abs(Date.now() / 1000 - Number(timestamp)) <= 300;
   return fresh && actual.length === expected.length && timingSafeEqual(Buffer.from(actual), Buffer.from(expected));
 }

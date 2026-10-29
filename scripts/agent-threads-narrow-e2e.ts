@@ -9,15 +9,15 @@
 // thread" and the thread list take a click, so no other control covers them. It records the space
 // between "New thread" and the next header control, and the lines of the composer hint, with a
 // screenshot; it does not assert layout. At the end it removes the emulation and deletes the thread.
-// Writes .openbot-build/agent-threads-narrow-e2e/report.json and screenshots.
+// Writes .openownbot-build/agent-threads-narrow-e2e/report.json and screenshots.
 import assert from "node:assert/strict";
 import { mkdirSync } from "node:fs";
 import { resolve } from "node:path";
-import type { AgentTask } from "@openbot/contracts/ipc";
-import { translateFor } from "@openbot/i18n";
+import type { AgentTask } from "@openownbot/contracts/ipc";
+import { translateFor } from "@openownbot/i18n";
 import { argument, connectChannelE2e, SHORT_PROMPT, waitFor, writeReport } from "./channel-e2e-support";
 
-const OUT = resolve(import.meta.dirname, "../.openbot-build/agent-threads-narrow-e2e");
+const OUT = resolve(import.meta.dirname, "../.openownbot-build/agent-threads-narrow-e2e");
 mkdirSync(OUT, { recursive: true });
 const UI_WAIT_MS = 15_000;
 const english = translateFor("en");
@@ -65,7 +65,7 @@ const literal = (text: string) => text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 const button = (name: string) => page.getByRole("button", { name, exact: true });
 
 async function readTask(): Promise<AgentTask | undefined> {
-  const snapshot = await page.evaluate((id) => window.openbot.agent.listTasks(id), agentId);
+  const snapshot = await page.evaluate((id) => window.openownbot.agent.listTasks(id), agentId);
   return snapshot.tasks.find((task) => task.id === taskId);
 }
 
@@ -88,7 +88,7 @@ function measure(newThreadLabel: string): Promise<{ gap: number | null; lines: n
 }
 
 const agent = await page.evaluate(async (id) => {
-  const found = (await window.openbot.agent.listAgents()).find((candidate) => candidate.id === id);
+  const found = (await window.openownbot.agent.listAgents()).find((candidate) => candidate.id === id);
   if (!found) throw new Error(`Unknown agent: ${id}`);
   return { name: found.name };
 }, agentId);
@@ -114,7 +114,7 @@ try {
 
   // A side thread, so the header has a thread row, with its tab open.
   const task = await page.evaluate(
-    (input) => window.openbot.agent.startTask({ ...input, clientMessageId: crypto.randomUUID() }),
+    (input) => window.openownbot.agent.startTask({ ...input, clientMessageId: crypto.randomUUID() }),
     { agentId, text: SHORT_PROMPT },
   );
   taskId = task.id;
@@ -172,11 +172,11 @@ try {
   if (taskId) {
     const id = taskId;
     await page
-      .evaluate((input) => window.openbot.agent.stopTask(input), { agentId, taskId: id })
+      .evaluate((input) => window.openownbot.agent.stopTask(input), { agentId, taskId: id })
       .catch(() => undefined);
     await waitFor(page, "the cleanup stop", readTask, (current) => current?.state !== "running").catch(() => undefined);
     await page
-      .evaluate((input) => window.openbot.agent.deleteTask(input), { agentId, taskId: id })
+      .evaluate((input) => window.openownbot.agent.deleteTask(input), { agentId, taskId: id })
       .catch(() => undefined);
   }
   writeReport("agent-threads-narrow-e2e", report);

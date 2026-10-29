@@ -27,22 +27,22 @@ export const RESEND_PLUGIN_GUIDE: PluginGuide = {
     {
       question: "Is the Resend MCP server official?",
       answer:
-        "Yes. Resend calls it its official MCP server. The code is open source and is on npm as resend-mcp. The OpenBot listing runs this package as a local server. Resend also hosts a remote server that runs the same code.",
+        "Yes. Resend calls it its official MCP server. The code is open source and is on npm as resend-mcp. The OpenOwnBot listing runs this package as a local server. Resend also hosts a remote server that runs the same code.",
     },
     {
       question: "Does the Resend plugin need an API key?",
       answer:
-        "Yes. Make an API key in the Resend dashboard, then type it in the OpenBot connect dialog. OpenBot gives the key to the local server as the RESEND_API_KEY environment variable. The plugin catalog holds no secret. Resend also tells you to verify your domain before you use the local server.",
+        "Yes. Make an API key in the Resend dashboard, then type it in the OpenOwnBot connect dialog. OpenOwnBot gives the key to the local server as the RESEND_API_KEY environment variable. The plugin catalog holds no secret. Resend also tells you to verify your domain before you use the local server.",
     },
     {
       question: "What data does Resend get?",
       answer:
-        "Your workspaces, conversations and files stay on the computer that runs OpenBot. Resend gets the requests that the agent sends, for example the text of an email, a contact to add or a domain to verify. These requests use your Resend account and your API key.",
+        "Your workspaces, conversations and files stay on the computer that runs OpenOwnBot. Resend gets the requests that the agent sends, for example the text of an email, a contact to add or a domain to verify. These requests use your Resend account and your API key.",
     },
     {
       question: "Does the Resend plugin cost anything?",
       answer:
-        "Installing the plugin in OpenBot is free. Resend has a free transactional plan with 3,000 emails per month and a limit of 100 emails per day. The paid plans are Pro, Scale and Enterprise. Your Resend plan limits apply to the email that the agent sends.",
+        "Installing the plugin in OpenOwnBot is free. Resend has a free transactional plan with 3,000 emails per month and a limit of 100 emails per day. The paid plans are Pro, Scale and Enterprise. Your Resend plan limits apply to the email that the agent sends.",
     },
   ],
   sources: [

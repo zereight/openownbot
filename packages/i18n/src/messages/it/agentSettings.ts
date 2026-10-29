@@ -41,7 +41,8 @@ export const messages = {
   "agentSettings.folders.inWorkspace": "{folder} è nel workspace, quindi {agent} può già modificarla",
   "agentSettings.folders.inShared": "{folder} è nella cartella condivisa, quindi {agent} può già modificarla",
   "agentSettings.folders.inFolder": "{folder} è in {parent}, che è già aggiunta",
-  "agentSettings.folders.protected": "Non puoi aggiungere {folder}: contiene dati di OpenBot o i file di altri agenti",
+  "agentSettings.folders.protected":
+    "Non puoi aggiungere {folder}: contiene dati di OpenOwnBot o i file di altri agenti",
   "agentSettings.folders.missing": "{folder} non è una cartella di questo computer",
   "agentSettings.folders.limit": {
     one: "Puoi aggiungere al massimo {count} cartella",

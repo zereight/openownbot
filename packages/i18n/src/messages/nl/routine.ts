@@ -307,7 +307,8 @@ export const messages = {
   "routine.webhook.stepSecretHint":
     "De afzender ondertekent elk verzoek met dit geheim. OpenOwnBot weigert een verzoek zonder geldige handtekening.",
   "routine.webhook.howToSign": "Een verzoek ondertekenen",
-  "routine.webhook.howToSignHint": "Bewaar het geheim in OPENBOT_WEBHOOK_SECRET bij de afzender. Zet het niet in code.",
+  "routine.webhook.howToSignHint":
+    "Bewaar het geheim in OPENOWNBOT_WEBHOOK_SECRET bij de afzender. Zet het niet in code.",
   "routine.webhook.stepTest": "Stuur een testevent",
   "routine.webhook.stepTestHint":
     "OpenOwnBot ondertekent een event dat bij deze routine past en ontvangt het als echt verzoek. De routine draait één keer.",

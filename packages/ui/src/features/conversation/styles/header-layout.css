@@ -25,31 +25,31 @@
   width: min(308px, calc(100% - 32px));
   height: 34px;
   align-items: center;
-  border: 1px solid var(--openbot-border-strong);
-  border-radius: var(--openbot-radius-lg);
-  background: var(--openbot-bg-control);
-  box-shadow: var(--openbot-shadow-raised);
-  color: var(--openbot-text-muted);
+  border: 1px solid var(--openownbot-border-strong);
+  border-radius: var(--openownbot-radius-lg);
+  background: var(--openownbot-bg-control);
+  box-shadow: var(--openownbot-shadow-raised);
+  color: var(--openownbot-text-muted);
 }
 
 .chat-search-icon {
-  width: var(--openbot-icon-md);
-  height: var(--openbot-icon-md);
+  width: var(--openownbot-icon-md);
+  height: var(--openownbot-icon-md);
   flex: 0 0 auto;
   margin-left: 11px;
-  stroke-width: var(--openbot-icon-stroke);
+  stroke-width: var(--openownbot-icon-stroke);
 }
 
 .chat-search .chat-search-input {
   min-width: 0;
-  height: var(--openbot-control-md);
+  height: var(--openownbot-control-md);
   flex: 1;
   border: 0;
   background: transparent;
   padding: 0 8px;
   box-shadow: none;
-  color: var(--openbot-text-primary);
-  font-size: var(--openbot-text-lg);
+  color: var(--openownbot-text-primary);
+  font-size: var(--openownbot-text-lg);
 }
 
 .chat-search .chat-search-input:focus {
@@ -64,8 +64,8 @@
 
 .chat-search-position {
   min-width: 38px;
-  color: var(--openbot-text-muted);
-  font-size: var(--openbot-text-md);
+  color: var(--openownbot-text-muted);
+  font-size: var(--openownbot-text-md);
   font-variant-numeric: tabular-nums;
   text-align: center;
 }
@@ -74,12 +74,12 @@
   width: 1px;
   height: 20px;
   flex: 0 0 auto;
-  background: var(--openbot-border);
+  background: var(--openownbot-border);
 }
 
 .chat-search .chat-search-button {
   width: 26px;
-  height: var(--openbot-control-md);
+  height: var(--openownbot-control-md);
   flex: 0 0 auto;
   border: 0;
   border-radius: inherit;
@@ -87,26 +87,26 @@
 }
 
 .chat-search-button svg {
-  width: var(--openbot-icon-md);
-  height: var(--openbot-icon-md);
-  stroke-width: var(--openbot-icon-stroke);
+  width: var(--openownbot-icon-md);
+  height: var(--openownbot-icon-md);
+  stroke-width: var(--openownbot-icon-stroke);
 }
 
 .chat-search .chat-search-close {
   margin-right: 3px;
 }
 
-::highlight(openbot-chat-search-results) {
-  background: var(--openbot-accent-soft);
+::highlight(openownbot-chat-search-results) {
+  background: var(--openownbot-accent-soft);
 }
 
-::highlight(openbot-chat-search-current) {
-  background: var(--openbot-warning);
-  color: var(--openbot-paper-text);
+::highlight(openownbot-chat-search-current) {
+  background: var(--openownbot-warning);
+  color: var(--openownbot-paper-text);
 }
 
 .conversation-title[aria-label="View agent settings"]:hover {
-  color: var(--openbot-text-primary);
+  color: var(--openownbot-text-primary);
 }
 
 .browser-panel {
@@ -118,10 +118,10 @@
   display: flex;
   width: var(--browser-panel-width, 380px);
   flex-direction: column;
-  border-left: 1px solid var(--openbot-border);
-  background: var(--openbot-bg-canvas);
-  color: var(--openbot-text-primary);
+  border-left: 1px solid var(--openownbot-border);
+  background: var(--openownbot-bg-canvas);
+  color: var(--openownbot-text-primary);
   transition:
-    border-color var(--openbot-duration-slow) ease,
-    box-shadow var(--openbot-duration-slow) ease;
+    border-color var(--openownbot-duration-slow) ease,
+    box-shadow var(--openownbot-duration-slow) ease;
 }

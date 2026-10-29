@@ -1,4 +1,4 @@
-import { PlatformLogo } from "@openbot/brand";
+import { PlatformLogo } from "@openownbot/brand";
 import { Link } from "@tanstack/solid-router";
 import { For, onSettled } from "solid-js";
 import { landingAnalytics } from "../../lib/analytics";

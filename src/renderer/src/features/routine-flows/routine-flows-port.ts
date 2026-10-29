@@ -1,4 +1,4 @@
-import type { OpenBotDesktopApi, TestRoutineInput, UpdateRoutineInput } from "@openbot/contracts/ipc";
+import type { OpenOwnBotDesktopApi, TestRoutineInput, UpdateRoutineInput } from "@openownbot/contracts/ipc";
 import { type AgentChatPort, desktopAgentChatPort } from "../../agent-chat-port";
 import { desktopEventRoutinesApi, type EventRoutinesApi } from "../conversation/routine-webhooks-api";
 
@@ -10,7 +10,7 @@ import { desktopEventRoutinesApi, type EventRoutinesApi } from "../conversation/
  */
 export interface RoutineFlowsHost extends AgentChatPort {
   /** Called without a server: the host already names one. */
-  flows: OpenBotDesktopApi["routineFlows"];
+  flows: OpenOwnBotDesktopApi["routineFlows"];
   routines: {
     update(input: UpdateRoutineInput): Promise<unknown>;
     test(input: TestRoutineInput): Promise<unknown>;
@@ -24,12 +24,12 @@ export interface RoutineFlowsHost extends AgentChatPort {
 }
 
 /**
- * The desktop adapter for one server. `window.openbot` is read on each call: tests and stories
+ * The desktop adapter for one server. `window.openownbot` is read on each call: tests and stories
  * replace it per case. `webhooks` is read when the canvas asks, so a role change reaches it.
  */
 export function desktopRoutineFlowsHost(serverId: string, webhooks: () => boolean): RoutineFlowsHost {
-  const flows = () => window.openbot.routineFlows;
-  const agent = () => window.openbot.agent;
+  const flows = () => window.openownbot.routineFlows;
+  const agent = () => window.openownbot.agent;
   return {
     flows: {
       canvas: (agentId) => flows().canvas(agentId, serverId),
@@ -47,6 +47,6 @@ export function desktopRoutineFlowsHost(serverId: string, webhooks: () => boolea
       return webhooks() ? desktopEventRoutinesApi(serverId) : undefined;
     },
     ...desktopAgentChatPort(serverId),
-    openUrl: (url) => window.openbot.openUrl(url),
+    openUrl: (url) => window.openownbot.openUrl(url),
   };
 }

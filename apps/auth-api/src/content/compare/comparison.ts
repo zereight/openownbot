@@ -1,14 +1,14 @@
-import type { ProviderLogoVariant } from "@openbot/brand";
-import { APP_LANGUAGES } from "@openbot/contracts/app-language";
+import type { ProviderLogoVariant } from "@openownbot/brand";
+import { APP_LANGUAGES } from "@openownbot/contracts/app-language";
 import type { RivalMarkName } from "../../components/compare/rival-mark-shapes";
 import type { LandingIconName } from "../../components/landing/LandingIcon";
 
 // One comparison page, as data. The page draws every part from it, and the FAQ
 // structured data is built from the same questions, so the two can not disagree.
-// There are three kinds: OpenBot against one rival, two other products against
+// There are three kinds: OpenOwnBot against one rival, two other products against
 // each other (a matchup), and a roundup of many apps.
 
-type ComparisonSide = "openbot" | "rival";
+type ComparisonSide = "openownbot" | "rival";
 type MatchupSide = "a" | "b";
 
 /** One row of the table: the text of each side, keyed by the side. */
@@ -34,8 +34,8 @@ export interface ComparisonSource {
   url: string;
 }
 
-/** A plan or a model that an OpenBot agent can run on. The same on every comparison. */
-export interface OpenBotPlan {
+/** A plan or a model that an OpenOwnBot agent can run on. The same on every comparison. */
+export interface OpenOwnBotPlan {
   /** The provider whose logo the page shows, or `custom` for a model server of your own. */
   provider: ProviderLogoVariant | "custom";
   name: string;
@@ -45,7 +45,7 @@ export interface OpenBotPlan {
 // The released providers (`packages/contracts/src/agent-providers.ts`), with the
 // sign-in each one uses (`src/backend/provider-drivers.ts`), and the custom
 // OpenAI-compatible provider that OpenCode runs.
-export const OPENBOT_PLANS: readonly OpenBotPlan[] = [
+export const OPENOWNBOT_PLANS: readonly OpenOwnBotPlan[] = [
   { provider: "codex", name: "ChatGPT", plan: "Your ChatGPT plan, through Codex." },
   { provider: "claude", name: "Claude", plan: "Your Claude plan, through Claude Code." },
   { provider: "antigravity", name: "Gemini", plan: "Your Google AI Pro or Ultra plan." },
@@ -54,33 +54,33 @@ export const OPENBOT_PLANS: readonly OpenBotPlan[] = [
   { provider: "opencode", name: "OpenCode", plan: "Free models, or an OpenCode Go key." },
   { provider: "cline", name: "Cline", plan: "Your Cline account, or a Cline API key." },
   { provider: "muse", name: "Muse Code", plan: "Your Meta account, or a Meta API key." },
-  { provider: "pi", name: "Pi", plan: "Included with OpenBot. Sign in to a provider with /login in Pi." },
+  { provider: "pi", name: "Pi", plan: "Included with OpenOwnBot. Sign in to a provider with /login in Pi." },
   { provider: "inception", name: "Inception", plan: "Mercury models, with an Inception API key." },
   { provider: "acp", name: "Custom agent", plan: "Any ACP agent, such as Goose, Qwen Code or GitHub Copilot." },
   { provider: "custom", name: "Your own model", plan: "Any OpenAI-compatible server, also one on your computer." },
 ];
 
 /** The app languages, without "system". From the contract, so a new language changes the pages. */
-export const OPENBOT_LANGUAGE_COUNT = APP_LANGUAGES.filter((language) => language !== "system").length;
+export const OPENOWNBOT_LANGUAGE_COUNT = APP_LANGUAGES.filter((language) => language !== "system").length;
 
-const OPENBOT_PLANS_TEXT =
-  "OpenBot runs the provider tools you already use, with the plans you already pay for: Codex with your ChatGPT plan, Claude Code with your Claude plan, Gemini with your Google AI Pro or Ultra plan, Grok CLI with your Grok account or an xAI API key, Cursor CLI with your Cursor plan or a Cursor API key, Cline with your Cline account, and Muse Code with your Meta account or a Meta API key. OpenCode runs free models, or your own model on any OpenAI-compatible server, also one on your computer. Pi runs the providers you sign in to with /login, and Inception's Mercury models run with an Inception API key. Any agent that speaks the Agent Client Protocol, such as Goose, Qwen Code or GitHub Copilot, runs as a custom agent. You choose the provider, the model and the reasoning effort for each agent.";
+const OPENOWNBOT_PLANS_TEXT =
+  "OpenOwnBot runs the provider tools you already use, with the plans you already pay for: Codex with your ChatGPT plan, Claude Code with your Claude plan, Gemini with your Google AI Pro or Ultra plan, Grok CLI with your Grok account or an xAI API key, Cursor CLI with your Cursor plan or a Cursor API key, Cline with your Cline account, and Muse Code with your Meta account or a Meta API key. OpenCode runs free models, or your own model on any OpenAI-compatible server, also one on your computer. Pi runs the providers you sign in to with /login, and Inception's Mercury models run with an Inception API key. Any agent that speaks the Agent Client Protocol, such as Goose, Qwen Code or GitHub Copilot, runs as a custom agent. You choose the provider, the model and the reasoning effort for each agent.";
 
 /**
- * The OpenBot side of the rows and sections that are the same on each "OpenBot vs" page. A page
- * writes its own text only where the rival changes what OpenBot must say. The claims come from the
+ * The OpenOwnBot side of the rows and sections that are the same on each "OpenOwnBot vs" page. A page
+ * writes its own text only where the rival changes what OpenOwnBot must say. The claims come from the
  * repository: `packages/contracts/src/agent-providers.ts` and the release notes in `CHANGELOG.md`.
  */
-export const OPENBOT_TEXT = {
+export const OPENOWNBOT_TEXT = {
   models:
     "Use the plans you already have: ChatGPT, Claude, Gemini, Grok, Cursor, Cline or Muse Code. Or run OpenCode's free models, Pi, Inception's Mercury models, your own model, or any agent that speaks the Agent Client Protocol. Choose one for each agent, and change it later.",
   offline:
-    "Agents keep working on the computer or server that runs OpenBot, and routines start them on a schedule. On macOS and Windows, Keep this computer awake stops sleep while it is on power. If you do not want to keep a computer on, use a hosted OpenBot server in the EU, from €20 or $25 a month.",
+    "Agents keep working on the computer or server that runs OpenOwnBot, and routines start them on a schedule. On macOS and Windows, Keep this computer awake stops sleep while it is on power. If you do not want to keep a computer on, use a hosted OpenOwnBot server in the EU, from €20 or $25 a month.",
   remote:
     "Apps for iPhone and Android, and a web app, connect from anywhere. Chats and files go over an encrypted connection between your devices, with no VPN, and no cloud stores them. Private network mode keeps them on Tailscale or your own Wi-Fi.",
   teams:
     "Each agent is a full coding agent with its own job. They give work to each other in shared channels. Coworkers join one team host, and roles set who can view, chat with or manage each agent.",
-  regions: `In any country: OpenBot has no region lock. The desktop app is in ${OPENBOT_LANGUAGE_COUNT} languages, from English, German and Spanish to Japanese, Korean and Turkish, and hosted servers run in the EU. Each AI provider sets the countries for its own plan.`,
+  regions: `In any country: OpenOwnBot has no region lock. The desktop app is in ${OPENOWNBOT_LANGUAGE_COUNT} languages, from English, German and Spanish to Japanese, Korean and Turkish, and hosted servers run in the EU. Each AI provider sets the countries for its own plan.`,
   apps: "macOS, Windows and Linux, mobile apps for iPhone and Android, and a web app.",
   backupModels:
     "When a plan reaches its limit, or a provider is overloaded or down, an agent can move to a backup model on another provider. It keeps its chat and workspace, and a note in the chat shows the switch.",
@@ -90,23 +90,23 @@ export const OPENBOT_TEXT = {
     "Dictate a message, or talk to an agent in the Voice pane and interrupt it by speaking. Local models turn your speech into text and read replies aloud in 31 languages, so only the text goes to the agent.",
   chatApps:
     "Agents answer in Slack, Discord and Telegram, and a routine can send its answers there. Connect more than one Slack workspace or Discord server.",
-  plansSection: `${OPENBOT_PLANS_TEXT} When a plan reaches its limit or a provider is down, the agent can move to a backup model. When you move an agent to a different provider, it keeps its role, workspace and conversation.`,
-  plansList: OPENBOT_PLANS_TEXT,
-  /** The OpenBot side of the "How agents work as a team" section. */
+  plansSection: `${OPENOWNBOT_PLANS_TEXT} When a plan reaches its limit or a provider is down, the agent can move to a backup model. When you move an agent to a different provider, it keeps its role, workspace and conversation.`,
+  plansList: OPENOWNBOT_PLANS_TEXT,
+  /** The OpenOwnBot side of the "How agents work as a team" section. */
   teamSection:
-    "In OpenBot, each agent is a full coding agent: Codex, Claude Code, Gemini, Grok CLI, Cursor CLI, Cline, OpenCode, Pi, Muse Code or an agent of your own, each with its own job and workspace. A lead agent can give parts of a task to other agents in a shared channel. You follow their work and step in when a decision needs you. For a team of people, one computer runs the host and the others join it; the chats and files stay on the host. Roles set which agents each member can view, chat with or manage.",
-  /** The answer to "Can I use my … subscription with OpenBot?". */
+    "In OpenOwnBot, each agent is a full coding agent: Codex, Claude Code, Gemini, Grok CLI, Cursor CLI, Cline, OpenCode, Pi, Muse Code or an agent of your own, each with its own job and workspace. A lead agent can give parts of a task to other agents in a shared channel. You follow their work and step in when a decision needs you. For a team of people, one computer runs the host and the others join it; the chats and files stay on the host. Roles set which agents each member can view, chat with or manage.",
+  /** The answer to "Can I use my … subscription with OpenOwnBot?". */
   plansFaq:
-    "Yes. OpenBot signs in to each provider tool with your own account: your ChatGPT plan for Codex, your Claude plan for Claude Code, and a Google AI Pro or Ultra plan for Gemini. Grok CLI uses your Grok account or an xAI API key, Cursor CLI your Cursor plan, Cline your Cline account, and Muse Code your Meta account. When a plan reaches its limit, an agent can move to a backup model on another provider. OpenBot adds no charge of its own.",
+    "Yes. OpenOwnBot signs in to each provider tool with your own account: your ChatGPT plan for Codex, your Claude plan for Claude Code, and a Google AI Pro or Ultra plan for Gemini. Grok CLI uses your Grok account or an xAI API key, Cursor CLI your Cursor plan, Cline your Cline account, and Muse Code your Meta account. When a plan reaches its limit, an agent can move to a backup model on another provider. OpenOwnBot adds no charge of its own.",
   workSection:
-    "OpenBot runs on the computer that hosts it. Agent workspaces, conversations and app data stay on that computer, so it must stay on while its agents work. Run it on a desktop or a server that stays on, and your agents keep working while your laptop is closed. On macOS and Windows, Keep this computer awake stops sleep while the computer is on power, so routines run on time. If you do not want to keep a computer on, use a hosted OpenBot server. It is a Linux server in the EU (Germany, Finland or France), from €20 or $25 a month, and it keeps the workspaces and chats of its agents. Local-first is not offline: an agent that uses a hosted provider still sends its requests to that provider.",
+    "OpenOwnBot runs on the computer that hosts it. Agent workspaces, conversations and app data stay on that computer, so it must stay on while its agents work. Run it on a desktop or a server that stays on, and your agents keep working while your laptop is closed. On macOS and Windows, Keep this computer awake stops sleep while the computer is on power, so routines run on time. If you do not want to keep a computer on, use a hosted OpenOwnBot server. It is a Linux server in the EU (Germany, Finland or France), from €20 or $25 a month, and it keeps the workspaces and chats of its agents. Local-first is not offline: an agent that uses a hosted provider still sends its requests to that provider.",
   phonesSection:
-    "The OpenBot apps for iPhone and Android, and the web app, connect to the computer that runs your agents. From anywhere, you chat with them, follow their progress, approve their actions and send files, and from the phone you can drive their browser. The connection goes directly between your devices when it can, it is encrypted, and no cloud stores your chats or files. You set up no VPN or tunnel. Turn on Private network, and devices connect only over Tailscale or the same Wi-Fi. The phone app locks with Face ID, Touch ID or a PIN. Agents can also answer in Slack, Discord and Telegram. Remote access needs an OpenBot account.",
+    "The OpenOwnBot apps for iPhone and Android, and the web app, connect to the computer that runs your agents. From anywhere, you chat with them, follow their progress, approve their actions and send files, and from the phone you can drive their browser. The connection goes directly between your devices when it can, it is encrypted, and no cloud stores your chats or files. You set up no VPN or tunnel. Turn on Private network, and devices connect only over Tailscale or the same Wi-Fi. The phone app locks with Face ID, Touch ID or a PIN. Agents can also answer in Slack, Discord and Telegram. Remote access needs an OpenOwnBot account.",
 } as const;
 
-/** OpenBot against one rival. The kind is optional, so the first pages need no edit. */
+/** OpenOwnBot against one rival. The kind is optional, so the first pages need no edit. */
 export interface Comparison {
-  kind?: "openbot";
+  kind?: "openownbot";
   rival: {
     /** The product's own spelling. */
     name: string;
@@ -114,9 +114,9 @@ export interface Comparison {
   };
   /** The one-sentence answer under the title. */
   answer: string;
-  chooseOpenBot: readonly string[];
+  chooseOpenOwnBot: readonly string[];
   chooseRival: readonly string[];
-  /** How the rival gets its models and how you pay for them, next to `OPENBOT_PLANS`. */
+  /** How the rival gets its models and how you pay for them, next to `OPENOWNBOT_PLANS`. */
   rivalPlans: string;
   rows: readonly ComparisonRow[];
   /** What the two have in common, before the differences. */
@@ -173,13 +173,13 @@ interface MatchupProduct {
   /** The product's own spelling. */
   name: string;
   mark: RivalMarkName;
-  /** The OpenBot plan that runs this product, which the page shows first. */
+  /** The OpenOwnBot plan that runs this product, which the page shows first. */
   provider: ProviderLogoVariant;
 }
 
 /**
- * Two products that OpenBot runs, against each other. Neither side is OpenBot, and
- * neither is recommended: the page compares them, then says that OpenBot runs both.
+ * Two products that OpenOwnBot runs, against each other. Neither side is OpenOwnBot, and
+ * neither is recommended: the page compares them, then says that OpenOwnBot runs both.
  */
 export interface MatchupComparison {
   kind: "matchup";
@@ -190,8 +190,8 @@ export interface MatchupComparison {
   chooseB: readonly string[];
   rows: readonly ComparisonRow<MatchupSide>[];
   intro: string;
-  /** How OpenBot runs both products, with the plans you have, as one team. */
-  bothInOpenBot: string;
+  /** How OpenOwnBot runs both products, with the plans you have, as one team. */
+  bothInOpenOwnBot: string;
   /** Not given when the benchmark does not test one of the two products. */
   benchmark?: Benchmark;
   sections: readonly ComparisonSection<MatchupSide>[];
@@ -203,7 +203,7 @@ export interface MatchupComparison {
 
 export interface RoundupApp {
   name: string;
-  mark: RivalMarkName | "openbot";
+  mark: RivalMarkName | "openownbot";
   /** The slugs of the comparisons that include this app. */
   comparisons: readonly string[];
   bestFor: string;
@@ -213,7 +213,7 @@ export interface RoundupApp {
   summary: string;
 }
 
-/** Many apps in one list, each with the comparisons that include it. OpenBot is first, and the page says who wrote it. */
+/** Many apps in one list, each with the comparisons that include it. OpenOwnBot is first, and the page says who wrote it. */
 export interface RoundupComparison {
   kind: "roundup";
   answer: string;
@@ -256,7 +256,7 @@ export function roundupAppAnchor(app: RoundupApp): string {
 
 /**
  * schema.org `ItemList` of a roundup, in the order the page shows. No rating or
- * review: OpenBot is on the list, and a maker does not review its own app.
+ * review: OpenOwnBot is on the list, and a maker does not review its own app.
  */
 export function roundupItemListStructuredData(
   roundup: RoundupComparison,

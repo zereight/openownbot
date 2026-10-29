@@ -1,4 +1,4 @@
-import { isString } from "@openbot/contracts/runtime-values";
+import { isString } from "@openownbot/contracts/runtime-values";
 import * as Notifications from "expo-notifications";
 import { useEffect, useRef } from "react";
 import { type NotificationTarget, SOUND_PREVIEW_KEY } from "./push-notifications-native.types";
@@ -17,7 +17,7 @@ let handled: string | null = null;
 
 /**
  * Opens the chat of a notification that the user taps, also when the tap starts the app. The
- * Notification Service Extension on iOS, and `OpenBotMessagingService.kt` on Android, put the agent
+ * Notification Service Extension on iOS, and `OpenOwnBotMessagingService.kt` on Android, put the agent
  * into the notification data when they open the seal.
  * While the app is on screen, a notification of the chat that shows is not shown again.
  */

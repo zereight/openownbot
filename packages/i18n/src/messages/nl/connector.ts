@@ -71,7 +71,7 @@ export const messages = {
 
   "connector.slack.title": "Slack",
   "connector.slack.description":
-    "Mensen noemen @OpenBot in Slack of sturen het een direct bericht. De Slack Orchestrator vraagt de juiste agent en antwoordt.",
+    "Mensen noemen @OpenOwnBot in Slack of sturen het een direct bericht. De Slack Orchestrator vraagt de juiste agent en antwoordt.",
   "connector.slack.statusConnected": "Verbonden",
   "connector.slack.statusAttention": "Aandacht nodig",
   "connector.slack.summaryConnected": "{workspace} · Slack Orchestrator antwoordt",
@@ -85,11 +85,11 @@ export const messages = {
   "connector.slack.addAgent": "Agent toevoegen",
   "connector.slack.actionFailed": "Slack heeft de wijziging niet geaccepteerd",
   "connector.slack.workspaceTitle": "Werkruimten",
-  "connector.slack.workspaceDescription": "Mensen noemen @OpenBot of sturen het een direct bericht.",
+  "connector.slack.workspaceDescription": "Mensen noemen @OpenOwnBot of sturen het een direct bericht.",
   "connector.slack.disconnectWorkspace": "Verbreken",
   "connector.slack.disconnectAllTitle": "Slack loskoppelen",
   "connector.slack.disconnectAllSummary":
-    "Elke werkruimte wordt losgekoppeld. Mensen kunnen je agents niet meer bereiken via @OpenBot.",
+    "Elke werkruimte wordt losgekoppeld. Mensen kunnen je agents niet meer bereiken via @OpenOwnBot.",
   "connector.slack.disconnectAllSummaryOrchestrator":
     "Elke werkruimte wordt losgekoppeld. De Slack Orchestrator en zijn gesprekken worden uit OpenOwnBot verwijderd.",
   "connector.slack.missingScopes":
@@ -105,7 +105,7 @@ export const messages = {
   "connector.slack.orchestratorNone": "Nog geen agent antwoordt",
   "connector.slack.orchestratorNoneDescription": "Voeg de Slack Orchestrator toe, anders krijgt Slack geen antwoord.",
   "connector.slack.inviteNote":
-    "OpenBot wordt zelf lid van elk openbaar kanaal, ook van elk nieuw kanaal. Nodig het uit voor een privékanaal: /invite @OpenBot.",
+    "OpenOwnBot wordt zelf lid van elk openbaar kanaal, ook van elk nieuw kanaal. Nodig het uit voor een privékanaal: /invite @OpenOwnBot.",
   "connector.slack.stepWorkspace": "Werkruimte",
   "connector.slack.stepAgent": "Agent",
   "connector.slack.connectTitle": "Verbind een Slack-werkruimte",
@@ -118,7 +118,7 @@ export const messages = {
   "connector.slack.connectWaiting": "Wachten op Slack. Rond de installatie af in je browser.",
   "connector.slack.agentStepTitle": "Voeg de Slack Orchestrator toe",
   "connector.slack.agentStepDescription":
-    "Deze nieuwe agent beantwoordt alles wat mensen naar @OpenBot sturen in {workspace}.",
+    "Deze nieuwe agent beantwoordt alles wat mensen naar @OpenOwnBot sturen in {workspace}.",
   "connector.slack.orchestratorName": "Slack Orchestrator",
   "connector.slack.orchestratorRole": "Antwoordt in Slack en vraagt het team",
   "connector.slack.orchestratorDoesReceive": "Ontvangt elk Slack-verzoek als eerste",
@@ -126,14 +126,14 @@ export const messages = {
   "connector.slack.orchestratorDoesAnswer": "Plaatst het antwoord in de Slack-thread",
   "connector.slack.orchestratorModel": "Model",
   "connector.slack.doneTitle": "OpenOwnBot zit in {workspace}",
-  "connector.slack.doneDescription": "Noem @OpenBot in een openbaar kanaal, of stuur het een direct bericht.",
+  "connector.slack.doneDescription": "Noem @OpenOwnBot in een openbaar kanaal, of stuur het een direct bericht.",
   "connector.slack.done": "Klaar",
   "connector.slack.disconnectTitle": "{workspace} loskoppelen?",
   "connector.slack.disconnectDescription":
     "OpenOwnBot antwoordt niet meer in {workspace} en verwijdert zijn Slack-token van deze computer.",
   "connector.slack.disconnectDescriptionHost":
     "OpenOwnBot antwoordt niet meer in {workspace} en verwijdert zijn Slack-token van {host}.",
-  "connector.slack.disconnectEffect": "Mensen in {workspace} kunnen je agents niet meer bereiken via @OpenBot.",
+  "connector.slack.disconnectEffect": "Mensen in {workspace} kunnen je agents niet meer bereiken via @OpenOwnBot.",
   "connector.slack.removeEffectKept": "De gesprekken en de Slack Orchestrator blijven in OpenOwnBot.",
   "connector.slack.removeEffectDeleted": "De Slack Orchestrator en zijn gesprekken worden uit OpenOwnBot verwijderd.",
   "connector.slack.keep": "Verbonden houden",
@@ -150,7 +150,7 @@ export const messages = {
 
   "connector.discord.title": "Discord",
   "connector.discord.description":
-    "Mensen noemen @OpenBot in een kanaal van een Discord-server. De Discord Orchestrator vraagt de juiste agent en antwoordt.",
+    "Mensen noemen @OpenOwnBot in een kanaal van een Discord-server. De Discord Orchestrator vraagt de juiste agent en antwoordt.",
   "connector.discord.statusConnected": "Verbonden",
   "connector.discord.statusAttention": "Aandacht nodig",
   "connector.discord.summaryConnected": "{workspace} · Discord Orchestrator antwoordt",
@@ -164,11 +164,11 @@ export const messages = {
   "connector.discord.addAgent": "Agent toevoegen",
   "connector.discord.actionFailed": "Discord heeft de wijziging niet geaccepteerd",
   "connector.discord.workspaceTitle": "Discord-servers",
-  "connector.discord.workspaceDescription": "Noem @OpenBot in een kanaal. Antwoord op OpenBot om verder te gaan.",
+  "connector.discord.workspaceDescription": "Noem @OpenOwnBot in een kanaal. Antwoord op OpenOwnBot om verder te gaan.",
   "connector.discord.disconnectWorkspace": "Verbreken",
   "connector.discord.disconnectAllTitle": "Discord loskoppelen",
   "connector.discord.disconnectAllSummary":
-    "Elke Discord-server wordt losgekoppeld. Mensen kunnen je agents niet meer bereiken via @OpenBot.",
+    "Elke Discord-server wordt losgekoppeld. Mensen kunnen je agents niet meer bereiken via @OpenOwnBot.",
   "connector.discord.disconnectAllSummaryOrchestrator":
     "Elke Discord-server wordt losgekoppeld. De Discord Orchestrator en zijn gesprekken worden uit OpenOwnBot verwijderd.",
   "connector.discord.missingScopes":
@@ -197,7 +197,7 @@ export const messages = {
   "connector.discord.connectWaiting": "Wachten op Discord. Rond de autorisatie af in je browser.",
   "connector.discord.agentStepTitle": "Voeg de Discord Orchestrator toe",
   "connector.discord.agentStepDescription":
-    "Deze nieuwe agent beantwoordt alles wat mensen naar @OpenBot sturen in {workspace}.",
+    "Deze nieuwe agent beantwoordt alles wat mensen naar @OpenOwnBot sturen in {workspace}.",
   "connector.discord.orchestratorName": "Discord Orchestrator",
   "connector.discord.orchestratorRole": "Antwoordt in Discord en vraagt het team",
   "connector.discord.orchestratorDoesReceive": "Ontvangt elk Discord-verzoek als eerste",
@@ -205,14 +205,14 @@ export const messages = {
   "connector.discord.orchestratorDoesAnswer": "Antwoordt in het Discord-kanaal",
   "connector.discord.orchestratorModel": "Model",
   "connector.discord.doneTitle": "OpenOwnBot zit in {workspace}",
-  "connector.discord.doneDescription": "Noem @OpenBot in een kanaal. Antwoord op OpenBot om verder te gaan.",
+  "connector.discord.doneDescription": "Noem @OpenOwnBot in een kanaal. Antwoord op OpenOwnBot om verder te gaan.",
   "connector.discord.done": "Klaar",
   "connector.discord.disconnectTitle": "{workspace} loskoppelen?",
   "connector.discord.disconnectDescription":
     "OpenOwnBot antwoordt niet meer in {workspace} en verwijdert de Discord-verbinding van deze computer.",
   "connector.discord.disconnectDescriptionHost":
     "OpenOwnBot antwoordt niet meer in {workspace} en verwijdert de Discord-verbinding van {host}.",
-  "connector.discord.disconnectEffect": "Mensen in {workspace} kunnen je agents niet meer bereiken via @OpenBot.",
+  "connector.discord.disconnectEffect": "Mensen in {workspace} kunnen je agents niet meer bereiken via @OpenOwnBot.",
   "connector.discord.removeEffectKept": "De gesprekken en de Discord Orchestrator blijven in OpenOwnBot.",
   "connector.discord.removeEffectDeleted":
     "De Discord Orchestrator en zijn gesprekken worden uit OpenOwnBot verwijderd.",
@@ -329,7 +329,7 @@ export const messages = {
   "connector.onePassword.description":
     "Deel een aparte 1Password-kluis met OpenOwnBot via een serviceaccount, zodat agents kunnen inloggen op sites in de OpenOwnBot-browser.",
   "connector.onePassword.howItWorks":
-    "Bij het verbinden worden in je 1Password-account een kluis “Shared with OpenBot” en een serviceaccount gemaakt dat alleen die kluis kan lezen. OpenBot vult opgeslagen logins in zijn browser op deze computer in, dus alleen de items die je naar die kluis verplaatst, worden ooit gedeeld. Agents zien nooit een wachtwoord.",
+    "Bij het verbinden worden in je 1Password-account een kluis “Shared with OpenOwnBot” en een serviceaccount gemaakt dat alleen die kluis kan lezen. OpenOwnBot vult opgeslagen logins in zijn browser op deze computer in, dus alleen de items die je naar die kluis verplaatst, worden ooit gedeeld. Agents zien nooit een wachtwoord.",
   "connector.onePassword.connect": "Verbind 1Password",
   "connector.onePassword.setupTitle": "Instellen",
   "connector.onePassword.stepCliTitle": "Installeer de 1Password CLI",
@@ -337,7 +337,7 @@ export const messages = {
   "connector.onePassword.stepCliInstalling": "De 1Password CLI downloaden van 1Password",
   "connector.onePassword.stepCliReady": "Versie {version} is geïnstalleerd.",
   "connector.onePassword.stepCliMissing":
-    "OpenBot downloadt hem van 1Password naar een eigen map. Er is geen beheerderswachtwoord nodig.",
+    "OpenOwnBot downloadt hem van 1Password naar een eigen map. Er is geen beheerderswachtwoord nodig.",
   "connector.onePassword.stepCliManual":
     "OpenOwnBot kan hem niet op deze computer installeren. Installeer hem via 1Password en kom dan terug naar deze pagina.",
   "connector.onePassword.installCli": "Installeren",
@@ -350,7 +350,7 @@ export const messages = {
   "connector.onePassword.checkAgain": "Opnieuw controleren",
   "connector.onePassword.stepVaultTitle": "Maak de gedeelde kluis",
   "connector.onePassword.stepVaultDescription":
-    "OpenBot maakt de kluis “Shared with OpenBot” en een serviceaccount dat hem alleen kan lezen. 1Password vraagt je om goedkeuring.",
+    "OpenOwnBot maakt de kluis “Shared with OpenOwnBot” en een serviceaccount dat hem alleen kan lezen. 1Password vraagt je om goedkeuring.",
   "connector.onePassword.useTokenDescription":
     "Plak in plaats van deze stappen een serviceaccounttoken van 1Password.com.",
   "connector.onePassword.useTokenAction": "Gebruik token",
@@ -383,9 +383,9 @@ export const messages = {
   "connector.bitwarden.title": "Bitwarden",
   "connector.bitwarden.description": "Vul browserlogins in vanuit Bitwarden.",
   "connector.bitwarden.setup":
-    "Installeer de Bitwarden CLI en log in met bw login. Maak een map met de naam Shared with OpenBot en zet daar alleen de logins in die agents mogen gebruiken. Voer bw unlock --raw uit en plak de sessiesleutel hieronder. Plak niet je hoofdwachtwoord.",
+    "Installeer de Bitwarden CLI en log in met bw login. Maak een map met de naam Shared with OpenOwnBot en zet daar alleen de logins in die agents mogen gebruiken. Voer bw unlock --raw uit en plak de sessiesleutel hieronder. Plak niet je hoofdwachtwoord.",
   "connector.bitwarden.scope":
-    "Alle agents op deze computer kunnen passende logins in Shared with OpenBot gebruiken. OpenBot gebruikt exacte HTTPS-origins. Het gebruikt geen items die om het hoofdwachtwoord vragen of een aangepaste URI-matchregel hebben.",
+    "Alle agents op deze computer kunnen passende logins in Shared with OpenOwnBot gebruiken. OpenOwnBot gebruikt exacte HTTPS-origins. Het gebruikt geen items die om het hoofdwachtwoord vragen of een aangepaste URI-matchregel hebben.",
   "connector.bitwarden.session":
     "De sessiesleutel blijft in het geheugen. Verbind opnieuw na 8 uur zonder kluisgebruik of nadat OpenOwnBot is afgesloten. Loskoppelen stopt de toegang van OpenOwnBot; andere Bitwarden-clients worden niet vergrendeld.",
   "connector.bitwarden.sessionKey": "Bitwarden-sessiesleutel",
@@ -400,16 +400,16 @@ export const messages = {
   "connector.bitwarden.actionFailed": "OpenOwnBot kan de Bitwarden-verbinding niet wijzigen.",
   "connector.bitwarden.descriptionHost": "Vul browserlogins op {host} in vanuit Bitwarden of Vaultwarden.",
   "connector.bitwarden.setupHost":
-    "{host} logt in met een eigen Bitwarden CLI. Maak in je kluis een map met de naam Shared with OpenBot en zet daar alleen de logins in die agents mogen gebruiken. Open in de webkluis Instellingen › Beveiliging › Sleutels en bekijk je API-sleutel. Voer hieronder het serveradres, client_id, client_secret en je hoofdwachtwoord in.",
+    "{host} logt in met een eigen Bitwarden CLI. Maak in je kluis een map met de naam Shared with OpenOwnBot en zet daar alleen de logins in die agents mogen gebruiken. Open in de webkluis Instellingen › Beveiliging › Sleutels en bekijk je API-sleutel. Voer hieronder het serveradres, client_id, client_secret en je hoofdwachtwoord in.",
   "connector.bitwarden.scopeHost":
-    "Alle agents op {host} kunnen passende logins in Shared with OpenBot gebruiken. OpenBot gebruikt exacte HTTPS-origins. Het gebruikt geen items die om het hoofdwachtwoord vragen of een aangepaste URI-matchregel hebben.",
+    "Alle agents op {host} kunnen passende logins in Shared with OpenOwnBot gebruiken. OpenOwnBot gebruikt exacte HTTPS-origins. Het gebruikt geen items die om het hoofdwachtwoord vragen of een aangepaste URI-matchregel hebben.",
   "connector.bitwarden.sessionHost":
     "{host} bewaart de API-sleutel en het hoofdwachtwoord versleuteld, zodat hij na een herstart weer kan ontgrendelen. Deze computer bewaart ze niet. Loskoppelen verwijdert ze van {host}. {host} moet het serveradres via HTTPS kunnen bereiken.",
   "connector.bitwarden.serverUrl": "Serveradres",
   "connector.bitwarden.folderTitle": "Gedeelde map",
   "connector.bitwarden.folderDescription":
     "Verplaats in Bitwarden een login naar deze map om agents ermee te laten inloggen. Verwijder hem om te stoppen.",
-  "connector.bitwarden.folderName": "Shared with OpenBot",
+  "connector.bitwarden.folderName": "Shared with OpenOwnBot",
   "connector.bitwarden.folderKind": "Map in Bitwarden",
   "connector.bitwarden.clientId": "client_id van API-sleutel",
   "connector.bitwarden.clientSecret": "client_secret van API-sleutel",

@@ -1,4 +1,4 @@
-import { registerSecretValue } from "@openbot/logging";
+import { registerSecretValue } from "@openownbot/logging";
 import { Effect, Result } from "effect";
 import { z } from "zod";
 import { McpOperationError } from "../backend/mcp-effects";

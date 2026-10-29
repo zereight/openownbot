@@ -119,6 +119,11 @@ export const messages = {
   "error.backend.managedAttachmentChanged": "受管理的附件缺失或已变更：{name}",
   "error.backend.mailboxStateCorrupt": "信箱状态已损坏或来自更新版本的 OpenOwnBot，拒绝覆盖它。",
   "error.backend.recipientDeleting": "该收件人正在删除中，请等删除完成后再试。",
+  "error.backend.squadLeaves":
+    "你属于团队 {squad}，只有它的负责人才能给团队以外的智能体发消息。请让 {squad} 的负责人转达，或询问用户。",
+  "error.backend.squadEnters": "{agent} 属于团队 {squad}。请通过 {squad} 的负责人联系，或询问用户。",
+  "error.backend.squadSkipsRank":
+    "在团队 {squad} 中，{agent} 的职级高于你可以直接联系的职级。消息只能发给紧邻你上一级的职级。请让该职级代为转达，或询问用户。",
   "error.backend.recipientHidden": "该助手已隐藏，请恢复它后再发送消息。",
   "error.backend.attachBetween": "请附加 1 到 {limit} 个文件。",
   "error.backend.attachmentNotFile": "附件不是文件：{path}",
@@ -161,14 +166,14 @@ export const messages = {
   "error.backend.routineFlowCycle": "该连接会形成环路。",
   "error.backend.routineFlowLinkLimit": "一个自动化任务最多可有 {limit} 个连接。",
   "error.backend.agentWaitLimit":
-    "该助手已有 {count} 个未关闭的等待。请先用 openbot.close_wait 关闭一个等待，再开启新的等待。",
+    "该助手已有 {count} 个未关闭的等待。请先用 openownbot.close_wait 关闭一个等待，再开启新的等待。",
   "error.backend.agentWaitGone": "该等待未开启：可能是助手自己关闭了，或被他人取消。",
   "error.backend.agentWaitNoRequest": "等待需要一条消息才能继续，而本轮对话没有消息。",
   "error.backend.agentWaitOwnChatOnly": "只能在自己的对话中开启等待。频道或消息任务无法等待。",
   "error.backend.agentWaitNoteRequired": "请用一句简短说明写清这个等待是为了什么。",
   "error.backend.agentWaitRoutineGone": "该助手没有这个 id 的自动化任务。",
   "error.backend.agentWaitNoRoutine":
-    "只有你自己的自动化任务运行才能唤醒等待，而你还没有自动化任务。请先用 openbot.create_routine 创建一个，再开启等待。",
+    "只有你自己的自动化任务运行才能唤醒等待，而你还没有自动化任务。请先用 openownbot.create_routine 创建一个，再开启等待。",
   "error.backend.agentWaitRemoteUnsupported": "未关闭的等待仅适用于本电脑上的助手。",
   "error.backend.routineFlowHandoffFailed": "自动化任务无法把工作交给该助手。",
   "error.backend.mcpServerLimit": "OpenOwnBot 最多保留 {limit} 个 MCP 服务器。",
@@ -300,9 +305,4 @@ export const messages = {
   "error.backend.taskOpenLimitReached": "该助手有 {count} 个未关闭的任务。请关闭一个任务，再启动或打开其他任务。",
   "error.backend.taskRemoteUnsupported": "任务仅适用于本电脑上的助手。",
   "error.backend.taskStartFailed": "OpenOwnBot 无法启动该任务，请改为在本轮对话中完成。",
-  "error.backend.squadLeaves":
-    "你属于团队 {squad}，只有它的负责人才能给团队以外的智能体发消息。请让 {squad} 的负责人转达，或询问用户。",
-  "error.backend.squadEnters": "{agent} 属于团队 {squad}。请通过 {squad} 的负责人联系，或询问用户。",
-  "error.backend.squadSkipsRank":
-    "在团队 {squad} 中，{agent} 的职级高于你可以直接联系的职级。消息只能发给紧邻你上一级的职级。请让该职级代为转达，或询问用户。",
 } as const satisfies PartialTranslation<typeof source>;

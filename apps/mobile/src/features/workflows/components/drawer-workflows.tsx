@@ -1,4 +1,4 @@
-import type { WorkflowSummary } from "@openbot/contracts/ipc";
+import type { WorkflowSummary } from "@openownbot/contracts/ipc";
 import type { Href } from "expo-router";
 import { Typography } from "heroui-native";
 import Play from "lucide-react-native/icons/play";
@@ -62,11 +62,11 @@ const PinnedWorkflowRow = memo(function PinnedWorkflowRow({
 }) {
   const { t, format } = useText();
   const [control, foreground, warning, warningSoft, secondary] = useCSSVariable([
-    "--openbot-bg-control",
-    "--openbot-text-primary",
-    "--openbot-warning-text",
-    "--openbot-file-orange-soft",
-    "--openbot-text-secondary",
+    "--openownbot-bg-control",
+    "--openownbot-text-primary",
+    "--openownbot-warning-text",
+    "--openownbot-file-orange-soft",
+    "--openownbot-text-secondary",
   ]);
   const commands = useWorkflowCommands(serverId);
   const [starting, setStarting] = useState(false);

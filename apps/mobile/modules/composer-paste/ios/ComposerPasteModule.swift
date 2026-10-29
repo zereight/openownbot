@@ -101,7 +101,7 @@ private enum PastedItem {
 
   static func copy(_ url: URL, name: String) -> [String: String]? {
     let target = FileManager.default.temporaryDirectory
-      .appendingPathComponent("openbot-paste-\(UUID().uuidString)")
+      .appendingPathComponent("openownbot-paste-\(UUID().uuidString)")
       .appendingPathExtension(url.pathExtension)
     do {
       try FileManager.default.copyItem(at: url, to: target)
@@ -166,7 +166,7 @@ private enum ComposerPaste {
 
 public class ComposerPasteModule: Module {
   public func definition() -> ModuleDefinition {
-    Name("OpenBotComposerPaste")
+    Name("OpenOwnBotComposerPaste")
 
     OnCreate {
       _ = ComposerPaste.installed

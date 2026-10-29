@@ -1,4 +1,4 @@
-import { attachmentMimeTypeForName } from "@openbot/contracts/attachment-files";
+import { attachmentMimeTypeForName } from "@openownbot/contracts/attachment-files";
 import { router, Stack, useNavigation } from "expo-router";
 import { StackActions } from "expo-router/react-navigation";
 import { Typography } from "heroui-native";
@@ -209,7 +209,7 @@ function AgentChoice({
   checked: boolean;
   onSelect: (agent: MobileAgent) => void;
 }) {
-  const accent = String(useCSSVariable("--openbot-accent"));
+  const accent = String(useCSSVariable("--openownbot-accent"));
   return (
     <SettingsRow
       checked={checked}

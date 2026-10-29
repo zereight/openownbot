@@ -1,6 +1,6 @@
 import { env, waitUntil } from "cloudflare:workers";
-import { HOSTING_DEVELOPER_KEY_HEADER } from "@openbot/contracts/hosted-servers";
-import { isDynamicRecord, isString } from "@openbot/contracts/runtime-values";
+import { HOSTING_DEVELOPER_KEY_HEADER } from "@openownbot/contracts/hosted-servers";
+import { isDynamicRecord, isString } from "@openownbot/contracts/runtime-values";
 import { Effect } from "effect";
 import { type AccountAnalytics, createAccountAnalytics } from "./account-analytics";
 import { AccountAttribution } from "./account-attribution";
@@ -145,7 +145,11 @@ export function requestGitHubInstallationTokens(): GitHubInstallationTokens {
   const clientId = bindings.GITHUB_APP_CLIENT_ID?.trim();
   const privateKey = bindings.GITHUB_APP_PRIVATE_KEY?.trim();
   if (!clientId || !privateKey) {
-    throw new GitHubInstallationTokensError(503, "github_app_unavailable", "The OpenBot GitHub App is not configured.");
+    throw new GitHubInstallationTokensError(
+      503,
+      "github_app_unavailable",
+      "The OpenOwnBot GitHub App is not configured.",
+    );
   }
   const key = `${clientId}\u0000${privateKey}`;
   if (githubInstallationTokens?.key !== key) {
@@ -161,7 +165,7 @@ export const enforceGitHubTokenRateLimit = Effect.fn("GitHub.enforceTokenRateLim
   const result = yield* Effect.tryPromise({
     try: () => requireWorkerBindings(env).GITHUB_TOKEN_RATE_LIMITER.limit({ key: `ip:${sourceIp}` }),
     catch: () =>
-      new GitHubInstallationTokensError(503, "github_app_unavailable", "The OpenBot GitHub App is unavailable."),
+      new GitHubInstallationTokensError(503, "github_app_unavailable", "The OpenOwnBot GitHub App is unavailable."),
   });
   if (!result.success) {
     return yield* new GitHubInstallationTokensError(
@@ -331,8 +335,8 @@ export function verifyRemoteServiceRequest(request: Request, body: string) {
   return verifyRemoteServiceSignature(
     secret,
     body,
-    request.headers.get("OpenBot-Timestamp") ?? "",
-    request.headers.get("OpenBot-Signature") ?? "",
+    request.headers.get("OpenOwnBot-Timestamp") ?? "",
+    request.headers.get("OpenOwnBot-Signature") ?? "",
   );
 }
 

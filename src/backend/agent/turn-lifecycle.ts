@@ -1,4 +1,4 @@
-import { INPUT_LIMITS } from "@openbot/contracts/input-limits";
+import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
 import {
   type AgentEvent,
   type AgentSummary,
@@ -22,11 +22,11 @@ import {
   countConversationMemoryChanges,
   isAgentContextCategories,
   latestTurnAnswer,
-} from "@openbot/contracts/ipc";
-import { type DynamicRecord, isString } from "@openbot/contracts/runtime-values";
-import { sourceText } from "@openbot/i18n/source";
-import { createOpenBotLogger } from "@openbot/logging";
-import { type CauseCode, classifyFailure } from "@openbot/telemetry";
+} from "@openownbot/contracts/ipc";
+import { type DynamicRecord, isString } from "@openownbot/contracts/runtime-values";
+import { sourceText } from "@openownbot/i18n/source";
+import { createOpenOwnBotLogger } from "@openownbot/logging";
+import { type CauseCode, classifyFailure } from "@openownbot/telemetry";
 import { Cause, Deferred, Effect, Exit, Schema, Scope } from "effect";
 import type { AgentClient } from "../agent-client";
 import type { AgentStore } from "../agent-store";
@@ -85,7 +85,7 @@ import { steerWasUnread } from "./unread-steers";
 import { collectProviderUsage } from "./usage-collection";
 import { USAGE_LIMIT_METHOD, type UsageLimitGate } from "./usage-limit-gate";
 
-const logger = createOpenBotLogger("turn-lifecycle");
+const logger = createOpenOwnBotLogger("turn-lifecycle");
 const ENDED_TURN_LIMIT = 256;
 /** How long before a turn's start its usage records can be, as in host analytics. */
 const TURN_USAGE_MARGIN_MS = 60 * 60 * 1_000;
@@ -246,7 +246,7 @@ export class TurnLifecycle {
    * `produced` is set by the first item or delta: a refused turn is run again only without one.
    * `acted` is narrower: a tool step or answer text, which a turn run again would repeat. Thinking
    * and the echo of the user's message do not count. `sentAt` (when the message that started the
-   * turn was sent) and `firstOutputAt` split a slow reply into OpenBot's wait and the provider's.
+   * turn was sent) and `firstOutputAt` split a slow reply into OpenOwnBot's wait and the provider's.
    */
   readonly #runningTurns = new Map<
     string,
@@ -333,7 +333,7 @@ export class TurnLifecycle {
     return earliest;
   }
 
-  /** When the provider last reported anything for this agent since OpenBot started. */
+  /** When the provider last reported anything for this agent since OpenOwnBot started. */
   lastEventAt(agentId: string): number | null {
     return this.#lastEventAt.get(agentId) ?? null;
   }
@@ -373,7 +373,7 @@ export class TurnLifecycle {
    * Ends each turn a client ran when the runtime stops it for a reason other than an exit: a
    * sign-out that an account refresh found, or a new client for the same provider. The stopped
    * process sends no `turn/completed` and `#handleExit` skips it, so without this its turns stay
-   * active, and its deliveries running, until OpenBot restarts.
+   * active, and its deliveries running, until OpenOwnBot restarts.
    *
    * `keepRecoverable` is for a client whose process exited. A turn with a message that is not settled
    * then stays for the delivery recovery, which reads the provider's history for its result and ends
@@ -461,7 +461,7 @@ export class TurnLifecycle {
     if (
       threadId &&
       agentId &&
-      ["turn/started", "thread/tokenUsage/updated", "openbot/usage", "model/rerouted"].includes(notification.method)
+      ["turn/started", "thread/tokenUsage/updated", "openownbot/usage", "model/rerouted"].includes(notification.method)
     ) {
       const agent = this.#store.list().find((entry) => entry.id === agentId);
       // A task or other side thread keeps its provider sessions under its own thread, not the agent's.
@@ -691,7 +691,7 @@ export class TurnLifecycle {
           );
         return;
       }
-      case "openbot/context-compaction": {
+      case "openownbot/context-compaction": {
         if (!threadId || !agentId || this.#conversation.loadedClientFor(threadId) !== source) return;
         const status = getString(params, "status");
         if (status !== "running" && status !== "completed" && status !== "failed") return;
@@ -857,7 +857,7 @@ export class TurnLifecycle {
       const reportedFailure = this.#reportedFailures.get(turnId);
       this.#reportedFailures.delete(turnId);
       if (running) {
-        // `waitMs` is OpenBot's part of a slow reply: the queue (a usage-limit hold included), the
+        // `waitMs` is OpenOwnBot's part of a slow reply: the queue (a usage-limit hold included), the
         // provider start, the session and its settings. `firstOutputMs` is the provider's: the time
         // to its first text, thinking or tool step.
         logger.info("A turn finished.", {

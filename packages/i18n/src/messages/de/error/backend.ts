@@ -139,6 +139,12 @@ export const messages = {
     "Der Postfachzustand ist beschädigt oder stammt aus einer neueren OpenOwnBot-Version. Er wird nicht überschrieben.",
   "error.backend.recipientDeleting":
     "Der Empfänger wird gelöscht. Versuche es nach Abschluss des Löschvorgangs erneut.",
+  "error.backend.squadLeaves":
+    "Du bist im Team {squad}, und nur sein Lead schreibt an Agenten außerhalb. Bitte den Lead von {squad}, es weiterzugeben, oder frag den Nutzer.",
+  "error.backend.squadEnters":
+    "{agent} ist im Team {squad}. Erreiche den Agenten über den Lead von {squad} oder frag den Nutzer.",
+  "error.backend.squadSkipsRank":
+    "{agent} steht im Team {squad} über dem Rang, den du erreichen darfst. Eine Nachricht geht nur an den Rang direkt über deinem. Bitte diesen Rang, sie weiterzugeben, oder frage den Nutzer.",
   "error.backend.recipientHidden": "Dieser Agent ist ausgeblendet. Stelle ihn wieder her, um Nachrichten zu senden.",
   "error.backend.attachBetween": "Hänge zwischen 1 und {limit} Dateien an.",
   "error.backend.attachmentNotFile": "Der Anhang ist keine Datei: {path}",
@@ -191,7 +197,7 @@ export const messages = {
   "error.backend.routineFlowCycle": "Diese Verbindung würde eine Schleife erzeugen.",
   "error.backend.routineFlowLinkLimit": "Eine Routine kann höchstens {limit} Verbindungen haben.",
   "error.backend.agentWaitLimit":
-    "Dieser Agent hat bereits {count} offene Wartevorgänge. Schließe einen Wartevorgang mit openbot.close_wait, bevor du einen neuen öffnest.",
+    "Dieser Agent hat bereits {count} offene Wartevorgänge. Schließe einen Wartevorgang mit openownbot.close_wait, bevor du einen neuen öffnest.",
   "error.backend.agentWaitGone":
     "Dieser Wartevorgang ist nicht offen. Der Agent hat ihn geschlossen, oder jemand hat ihn abgebrochen.",
   "error.backend.agentWaitNoRequest":
@@ -201,7 +207,7 @@ export const messages = {
   "error.backend.agentWaitNoteRequired": "Gib eine kurze Notiz an, wofür der Wartevorgang ist.",
   "error.backend.agentWaitRoutineGone": "Dieser Agent hat keine Routine mit dieser ID.",
   "error.backend.agentWaitNoRoutine":
-    "Nur eine Ausführung einer deiner Routinen weckt einen Wartevorgang, und du hast keine Routine. Erstelle eine mit openbot.create_routine und öffne dann den Wartevorgang.",
+    "Nur eine Ausführung einer deiner Routinen weckt einen Wartevorgang, und du hast keine Routine. Erstelle eine mit openownbot.create_routine und öffne dann den Wartevorgang.",
   "error.backend.agentWaitRemoteUnsupported":
     "Offene Wartevorgänge sind nur für Agenten auf diesem Computer verfügbar.",
   "error.backend.routineFlowHandoffFailed": "Die Routine konnte die Arbeit nicht an diesen Agenten übergeben.",
@@ -364,10 +370,4 @@ export const messages = {
   "error.backend.taskRemoteUnsupported": "Aufgaben sind nur für Agenten auf diesem Computer verfügbar.",
   "error.backend.taskStartFailed":
     "OpenOwnBot konnte die Aufgabe nicht starten. Erledige die Arbeit stattdessen in diesem Durchlauf.",
-  "error.backend.squadLeaves":
-    "Du bist im Team {squad}, und nur sein Lead schreibt an Agenten außerhalb. Bitte den Lead von {squad}, es weiterzugeben, oder frag den Nutzer.",
-  "error.backend.squadEnters":
-    "{agent} ist im Team {squad}. Erreiche den Agenten über den Lead von {squad} oder frag den Nutzer.",
-  "error.backend.squadSkipsRank":
-    "{agent} steht im Team {squad} über dem Rang, den du erreichen darfst. Eine Nachricht geht nur an den Rang direkt über deinem. Bitte diesen Rang, sie weiterzugeben, oder frage den Nutzer.",
 } as const satisfies PartialTranslation<typeof source>;

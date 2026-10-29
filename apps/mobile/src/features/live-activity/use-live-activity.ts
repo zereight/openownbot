@@ -1,12 +1,12 @@
-import type { AgentEvent, DynamicIslandAgentIdentity, TeamRealtimeEvent } from "@openbot/contracts/ipc";
-import { TEAM_API_ROUTES } from "@openbot/contracts/team-api-routes";
+import type { AgentEvent, DynamicIslandAgentIdentity, TeamRealtimeEvent } from "@openownbot/contracts/ipc";
+import { TEAM_API_ROUTES } from "@openownbot/contracts/team-api-routes";
 import {
   LIVE_ACTIVITY_PUSH_ROUTES,
   type LiveActivityPushRegistration,
-} from "@openbot/contracts/team-protocol/live-activity-push-v1";
-import type { TeamProtocolV2Json } from "@openbot/contracts/team-protocol/v2";
-import type { MobileTextKey, MobileTranslate } from "@openbot/i18n/mobile";
-import { DynamicIslandCoordinator } from "@openbot/team-client/dynamic-island-coordinator";
+} from "@openownbot/contracts/team-protocol/live-activity-push-v1";
+import type { TeamProtocolV2Json } from "@openownbot/contracts/team-protocol/v2";
+import type { MobileTextKey, MobileTranslate } from "@openownbot/i18n/mobile";
+import { DynamicIslandCoordinator } from "@openownbot/team-client/dynamic-island-coordinator";
 import {
   type AgentLiveActivityProps,
   fitLiveActivityProps,
@@ -18,8 +18,8 @@ import {
   liveActivityFileName,
   liveActivityIslandText,
   liveActivityView,
-} from "@openbot/team-client/live-activity-props";
-import { encodeLiveActivityBytes } from "@openbot/team-client/live-activity-seal";
+} from "@openownbot/team-client/live-activity-props";
+import { encodeLiveActivityBytes } from "@openownbot/team-client/live-activity-seal";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Alert } from "react-native";
 import { getBloubAvatarColor } from "@/features/agents/model/bloub-activity";

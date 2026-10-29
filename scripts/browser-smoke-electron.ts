@@ -3,8 +3,8 @@ import { mkdir, mkdtemp, open, readFile, rm, writeFile } from "node:fs/promises"
 import { createServer } from "node:http";
 import { tmpdir } from "node:os";
 import { basename, join } from "node:path";
-import type { BrowserBounds } from "@openbot/contracts/ipc";
-import { type DynamicRecord, isDynamicRecord, isNumber, isString } from "@openbot/contracts/runtime-values";
+import type { BrowserBounds } from "@openownbot/contracts/ipc";
+import { type DynamicRecord, isDynamicRecord, isNumber, isString } from "@openownbot/contracts/runtime-values";
 import { Effect } from "effect";
 import {
   app,
@@ -119,7 +119,7 @@ const server = createServer((request, response) => {
   if (url.pathname === "/download") {
     response.writeHead(200, {
       "content-type": "text/plain",
-      "content-disposition": 'attachment; filename="openbot-smoke.txt"',
+      "content-disposition": 'attachment; filename="openownbot-smoke.txt"',
     });
     response.end("local download");
     return;
@@ -130,7 +130,7 @@ const server = createServer((request, response) => {
     return;
   }
   if (url.pathname === "/cookie") {
-    if (url.searchParams.has("set")) response.setHeader("set-cookie", "openbot=shared; Path=/");
+    if (url.searchParams.has("set")) response.setHeader("set-cookie", "openownbot=shared; Path=/");
     response.setHeader("content-type", "text/html; charset=utf-8");
     response.end(`<main>cookie:${request.headers.cookie ?? "none"}</main><span data-load-environment></span><script>
       document.querySelector('[data-load-environment]').textContent = 'load-environment:' + innerWidth + ':' + (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') + ':' + (matchMedia('(prefers-reduced-motion: reduce)').matches ? 'reduce' : 'motion');
@@ -458,10 +458,10 @@ async function main(): Promise<void> {
   const configuredRoot = argumentValue("--smoke-root=");
   const persistencePhase = argumentValue("--persistence-phase=");
   const persistenceOrigin = argumentValue("--persistence-origin=");
-  const temporaryRoot = configuredRoot ?? (await mkdtemp(join(tmpdir(), "openbot-browser-smoke-")));
+  const temporaryRoot = configuredRoot ?? (await mkdtemp(join(tmpdir(), "openownbot-browser-smoke-")));
   const userDataPath = join(temporaryRoot, "user-data");
   await mkdir(userDataPath, { recursive: true });
-  app.setName("OpenBot");
+  app.setName("OpenOwnBot");
   app.setPath("userData", userDataPath);
   app.setPath("sessionData", userDataPath);
   // A backstop for a phase that hangs, not a performance budget -- and it has to stay clear of the
@@ -977,7 +977,10 @@ async function main(): Promise<void> {
       true,
     );
     await runCauseEffect(browser.snapshot(v2Tab.id));
-    const noDomRefs = await v2Contents.executeJavaScript("document.querySelector('[data-openbot-ref]') === null", true);
+    const noDomRefs = await v2Contents.executeJavaScript(
+      "document.querySelector('[data-openownbot-ref]') === null",
+      true,
+    );
     if (noDomRefs !== true) throw new Error("V2 snapshot mutated the page DOM.");
     await runControlActions(browser, v2Tab.id, v2Contents);
     await runKeyboardScenario(browser, origin, temporaryRoot);
@@ -1324,7 +1327,7 @@ async function main(): Promise<void> {
     // not run in the default flow: its millisecond dispatch budgets fail on a
     // loaded software-rendered runner for timing reasons, not product ones.
     await v2Contents.executeJavaScript(
-      "globalThis.__openbotSlowNoise = setInterval(() => document.body.toggleAttribute('data-slow-noise'), 10); setTimeout(() => { clearInterval(globalThis.__openbotSlowNoise); delete globalThis.__openbotSlowNoise; }, 1200); true",
+      "globalThis.__openownbotSlowNoise = setInterval(() => document.body.toggleAttribute('data-slow-noise'), 10); setTimeout(() => { clearInterval(globalThis.__openownbotSlowNoise); delete globalThis.__openownbotSlowNoise; }, 1200); true",
       true,
     );
     const patientQuietWait = await callBrowserTool(browser, "wait_for", {
@@ -1336,7 +1339,7 @@ async function main(): Promise<void> {
       throw new Error(`V2 DOM-quiet wait ignored the requested timeout: ${toolError(patientQuietWait)}`);
     }
     await v2Contents.executeJavaScript(
-      "globalThis.__openbotTransient = document.body.appendChild(Object.assign(document.createElement('span'), { textContent: 'transient quiet condition' })); setTimeout(() => { globalThis.__openbotTransient.remove(); delete globalThis.__openbotTransient; }, 100); true",
+      "globalThis.__openownbotTransient = document.body.appendChild(Object.assign(document.createElement('span'), { textContent: 'transient quiet condition' })); setTimeout(() => { globalThis.__openownbotTransient.remove(); delete globalThis.__openownbotTransient; }, 100); true",
       true,
     );
     const invalidatedQuietWait = await callBrowserTool(browser, "wait_for", {
@@ -1773,7 +1776,7 @@ async function main(): Promise<void> {
     await runCauseEffect(browser.open(`${origin}/cookie?set=1`, "smoke-thread"));
     const cookieTab = await runCauseEffect(browser.open(`${origin}/cookie`, "other-thread"));
     const cookieSnapshot = await runCauseEffect(browser.snapshot(cookieTab.id));
-    if (!cookieSnapshot.text.includes("openbot=shared")) throw new Error("Cookies were not shared.");
+    if (!cookieSnapshot.text.includes("openownbot=shared")) throw new Error("Cookies were not shared.");
     process.stdout.write("BrowserHost: shared cookies passed.\n");
 
     const firstCachedTab = await runCauseEffect(browser.open(`${origin}/cached`, "smoke-thread"));
@@ -1813,7 +1816,7 @@ async function main(): Promise<void> {
         ref: download.ref,
       }),
     );
-    await expectDownloadedFile(await firstDownload, join(downloadsRoot, "openbot-smoke.txt"), "first");
+    await expectDownloadedFile(await firstDownload, join(downloadsRoot, "openownbot-smoke.txt"), "first");
     const nextDownloadSnapshot = await runCauseEffect(browser.snapshot(downloadPage.id));
     const nextDownload = nextDownloadSnapshot.elements.find((element) => element.name === "Download");
     if (!nextDownload) throw new Error("Download link disappeared.");
@@ -1824,7 +1827,7 @@ async function main(): Promise<void> {
         ref: nextDownload.ref,
       }),
     );
-    await expectDownloadedFile(await secondDownload, join(downloadsRoot, "openbot-smoke (2).txt"), "second");
+    await expectDownloadedFile(await secondDownload, join(downloadsRoot, "openownbot-smoke (2).txt"), "second");
     process.stdout.write("BrowserHost: download passed.\n");
 
     const toolResult = await runCauseEffect(
@@ -1833,7 +1836,7 @@ async function main(): Promise<void> {
         turnId: "browser-smoke-turn",
         callId: "browser-smoke-call",
         ownerAgentId: "smoke-bot",
-        namespace: "openbot_browser",
+        namespace: "openownbot_browser",
         tool: "open",
         arguments: { url: `${origin}/cookie` },
       }),
@@ -2021,9 +2024,9 @@ async function runFocusScenario(browser: BrowserHost, origin: string): Promise<v
   );
   const closeKeptFocus = webContents.getFocusedWebContents() === focusSentinel.webContents;
   await runCauseEffect(browser.close(opener.id));
-  await mkdir(".openbot-build", { recursive: true });
+  await mkdir(".openownbot-build", { recursive: true });
   await writeFile(
-    ".openbot-build/browser-focus-report.json",
+    ".openownbot-build/browser-focus-report.json",
     JSON.stringify({ focusLosses, success: backgroundAction.success, popupKeptFocus, closeKeptFocus }, null, 2),
   );
   if (!popupKeptFocus)
@@ -2074,9 +2077,9 @@ async function runRedirectNavigationScenario(browser: BrowserHost, origin: strin
   } finally {
     await runCauseEffect(browser.close(tab.id));
   }
-  await mkdir(".openbot-build", { recursive: true });
+  await mkdir(".openownbot-build", { recursive: true });
   await writeFile(
-    ".openbot-build/browser-redirect-navigation-report.json",
+    ".openownbot-build/browser-redirect-navigation-report.json",
     JSON.stringify({ processAlive: true, attempts: outcomes.length, outcomes }, null, 2),
   );
   process.stdout.write(`BrowserHost: ${outcomes.length} redirecting navigations kept the process alive.\n`);
@@ -2157,7 +2160,7 @@ async function runWaitDeadlines(browser: BrowserHost, tabId: string, v2Contents:
     throw new Error("V2 bounded action point fixture was not available.");
   }
   await v2Contents.executeJavaScript(
-    "globalThis.__openbotNoise = setInterval(() => document.querySelector('output').toggleAttribute('data-noise'), 10); true",
+    "globalThis.__openownbotNoise = setInterval(() => document.querySelector('output').toggleAttribute('data-noise'), 10); true",
     true,
   );
   const actionTimeoutStarted = Date.now();
@@ -2186,7 +2189,7 @@ async function runWaitDeadlines(browser: BrowserHost, tabId: string, v2Contents:
     throw new Error("V2 DOM-quiet wait suppressed its timeout.");
   }
   await v2Contents.executeJavaScript(
-    "clearInterval(globalThis.__openbotNoise); delete globalThis.__openbotNoise; true",
+    "clearInterval(globalThis.__openownbotNoise); delete globalThis.__openownbotNoise; true",
     true,
   );
 }
@@ -2302,7 +2305,7 @@ async function runLiveViewScenario(browser: BrowserHost, tabId: string, contents
     })()`,
       true,
     );
-    const uploadRoot = await mkdtemp(join(tmpdir(), "openbot-live-view-upload-"));
+    const uploadRoot = await mkdtemp(join(tmpdir(), "openownbot-live-view-upload-"));
     try {
       const uploadPath = join(uploadRoot, "live-view-upload.txt");
       await writeFile(uploadPath, "live view upload");
@@ -2352,7 +2355,7 @@ async function runLiveViewScenario(browser: BrowserHost, tabId: string, contents
 /**
  * A member's paste, select-all, copy and cut in a live view. The text goes in as one insertion and
  * the selection comes back as text, and the host's own clipboard is neither read nor replaced. The
- * results go to `.openbot-build/browser-live-view-clipboard.json`.
+ * results go to `.openownbot-build/browser-live-view-clipboard.json`.
  */
 async function runLiveViewClipboard(browser: BrowserHost, tabId: string, contents: WebContents): Promise<void> {
   const pasted = "pasted by the member\nsecond line";
@@ -2510,7 +2513,7 @@ async function runLiveViewClipboard(browser: BrowserHost, tabId: string, content
   const hostClipboardHasMemberText = (await clipboard.readText()).includes(pasted);
   if (hostClipboardHasMemberText) throw new Error("A live view copy or paste wrote the host clipboard.");
 
-  const reportDirectory = join(process.cwd(), ".openbot-build");
+  const reportDirectory = join(process.cwd(), ".openownbot-build");
   await mkdir(reportDirectory, { recursive: true });
   await writeFile(
     join(reportDirectory, "browser-live-view-clipboard.json"),
@@ -3018,7 +3021,7 @@ async function runStagedUploadScenario(
         turnId: `browser-v2-${browserToolCall}`,
         callId: `browser-v2-call-${browserToolCall}`,
         ownerAgentId: "smoke-bot",
-        namespace: "openbot_browser",
+        namespace: "openownbot_browser",
         tool: "upload_files",
         arguments: { tabId, target, paths },
       }),
@@ -3180,7 +3183,7 @@ async function runToolBoundaryScenario(browser: BrowserHost, origin: string): Pr
         turnId: "browser-smoke-scope-turn",
         callId: "browser-smoke-scope-call",
         ownerAgentId: "smoke-bot",
-        namespace: "openbot_browser",
+        namespace: "openownbot_browser",
         tool: "list_tabs",
         arguments: {},
       }),
@@ -3201,7 +3204,7 @@ async function runToolBoundaryScenario(browser: BrowserHost, origin: string): Pr
         turnId: "browser-smoke-scope-turn",
         callId: "browser-smoke-cross-agent-call",
         ownerAgentId: "smoke-bot",
-        namespace: "openbot_browser",
+        namespace: "openownbot_browser",
         tool: "snapshot",
         arguments: { tabId: otherAgentTab.id },
       }),
@@ -3213,7 +3216,7 @@ async function runToolBoundaryScenario(browser: BrowserHost, origin: string): Pr
         turnId: "browser-smoke-cross-agent-close-turn",
         callId: "browser-smoke-cross-agent-close-call",
         ownerAgentId: "smoke-bot",
-        namespace: "openbot_browser",
+        namespace: "openownbot_browser",
         tool: "close_tab",
         arguments: { tabId: otherAgentTab.id },
       }),
@@ -3228,7 +3231,7 @@ async function runToolBoundaryScenario(browser: BrowserHost, origin: string): Pr
         turnId: "browser-smoke-close-turn-1",
         callId: "browser-smoke-close-call-1",
         ownerAgentId: "smoke-bot",
-        namespace: "openbot_browser",
+        namespace: "openownbot_browser",
         tool: "close_tab",
         arguments: { tabId: closableToolTab.id },
       }),
@@ -3239,7 +3242,7 @@ async function runToolBoundaryScenario(browser: BrowserHost, origin: string): Pr
         turnId: "browser-smoke-close-turn-2",
         callId: "browser-smoke-close-call-2",
         ownerAgentId: "smoke-bot",
-        namespace: "openbot_browser",
+        namespace: "openownbot_browser",
         tool: "close_tab",
         arguments: { tabId: closableToolTab.id },
       }),
@@ -3298,20 +3301,20 @@ async function checkOnePersistencePage(
     const cookie = getString(snapshot, "cookie") ?? "";
     const localStorageValue = getString(snapshot, "localStorage");
     const indexedDbValue = getString(snapshot, "indexedDb");
-    // The npm macOS Electron binary does not have OpenBot's production signature or cookie-encryption fuse.
+    // The npm macOS Electron binary does not have OpenOwnBot's production signature or cookie-encryption fuse.
     // Verify encrypted cookie persistence with the signed app; other platforms cover it in this process test.
     const requireCrossProcessCookie = phase !== "read" || process.platform !== "darwin";
     if (
       (expectedStored &&
         (localStorageValue !== "kept" ||
           indexedDbValue !== "kept" ||
-          (requireCrossProcessCookie && !cookie.includes("openbot_persistence=kept")))) ||
+          (requireCrossProcessCookie && !cookie.includes("openownbot_persistence=kept")))) ||
       (!expectedStored &&
-        (cookie.includes("openbot_persistence=kept") || localStorageValue !== null || indexedDbValue !== null))
+        (cookie.includes("openownbot_persistence=kept") || localStorageValue !== null || indexedDbValue !== null))
     ) {
       throw new Error(`Browser persistence phase ${phase} returned invalid state: ${JSON.stringify(snapshot)}`);
     }
-    if (expectedStored && !requireCrossProcessCookie && !cookie.includes("openbot_persistence=kept")) {
+    if (expectedStored && !requireCrossProcessCookie && !cookie.includes("openownbot_persistence=kept")) {
       process.stdout.write("BrowserHost: signed macOS app must verify encrypted cookie persistence.\n");
     }
   } finally {
@@ -3374,7 +3377,7 @@ async function runPopupScenario(browser: BrowserHost, origin: string): Promise<v
         .find((item) => item.getURL().endsWith("/popup-login") && !item.isLoading());
       if (!popupContents) throw new Error("Popup contents missing.");
       const shared = await popupContents.executeJavaScript(
-        "(location.hostname === 'localhost' || document.cookie.includes('popup_session=shared')) && !!opener && typeof window.openbot === 'undefined' && typeof require === 'undefined'",
+        "(location.hostname === 'localhost' || document.cookie.includes('popup_session=shared')) && !!opener && typeof window.openownbot === 'undefined' && typeof require === 'undefined'",
       );
       if (!shared) throw new Error("Popup lost session, opener, or isolation.");
       // Named-window reuse must not register another view or lose the live relationship on reload.
@@ -3468,7 +3471,7 @@ function callBrowserTool(
         turnId: `browser-v2-${browserToolCall}`,
         callId: `browser-v2-call-${browserToolCall}`,
         ownerAgentId: "smoke-bot",
-        namespace: "openbot_browser",
+        namespace: "openownbot_browser",
         tool,
         arguments: argumentsValue,
       },
@@ -3504,9 +3507,9 @@ async function runIdentityScenario(browser: BrowserHost, origin: string): Promis
   const secondTab = await runCauseEffect(browser.open(`${origin}/headers?source=second-tab`, "smoke-thread"));
   const second = await checkBrowserIdentity(browser, secondTab.id);
   await runIdentityFrameProbe(browser, origin);
-  await mkdir(".openbot-build", { recursive: true });
+  await mkdir(".openownbot-build", { recursive: true });
   await writeFile(
-    ".openbot-build/browser-identity.json",
+    ".openownbot-build/browser-identity.json",
     JSON.stringify({ initial, reloaded, navigated, second, requests: recordedIdentityAgents }, null, 2),
   );
   process.stdout.write("BrowserHost: matching page, reload, navigation, and second-tab identity passed.\n");
@@ -3527,7 +3530,7 @@ async function checkBrowserIdentity(browser: BrowserHost, tabId: string): Promis
   if (
     !navigatorUserAgent?.includes(`Chrome/${chromiumMajorVersion}`) ||
     navigatorUserAgent.includes("Electron/") ||
-    navigatorUserAgent.includes("OpenBot/") ||
+    navigatorUserAgent.includes("OpenOwnBot/") ||
     getString(identity.requestHeaders, "user-agent") !== navigatorUserAgent ||
     identity.navigatorWebdriver !== false ||
     getString(identity.requestHeaders, "sec-ch-ua-platform") !== `"${getString(identity, "navigatorPlatform")}"` ||
@@ -3535,7 +3538,7 @@ async function checkBrowserIdentity(browser: BrowserHost, tabId: string): Promis
     !navigatorBrands.some(
       (brand) => getString(brand, "brand") === "Chromium" && getString(brand, "version") === chromiumMajorVersion,
     ) ||
-    /Electron|OpenBot/u.test(clientHintBrands) ||
+    /Electron|OpenOwnBot/u.test(clientHintBrands) ||
     !clientHintBrands.includes(`"Chromium";v="${chromiumMajorVersion}"`)
   ) {
     throw new Error(`Browser identity headers are invalid: ${headerSnapshot.text}`);
@@ -3640,7 +3643,7 @@ async function runGoogleLiveProbe(browser: BrowserHost): Promise<void> {
     browser.act(googleTab.id, identifierPage.revision, {
       type: "type",
       ref: identifier.ref,
-      text: "openbot-google-probe@example.com",
+      text: "openownbot-google-probe@example.com",
       submit: true,
     }),
   );
@@ -3807,7 +3810,7 @@ async function runFramerLiveProbe(browser: BrowserHost, panelBounds: BrowserBoun
       browser.act(framerTab.id, page.revision, {
         type: "type",
         ref: email.ref,
-        text: "openbot-framer-probe@example.com",
+        text: "openownbot-framer-probe@example.com",
         submit: true,
       }),
     );

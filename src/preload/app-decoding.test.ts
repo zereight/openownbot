@@ -7,7 +7,7 @@ import type {
   MobileConnectedDevice,
   NotificationOpenedEvent,
   UpdateStatus,
-} from "@openbot/contracts/ipc";
+} from "@openownbot/contracts/ipc";
 import { describe, expect, it } from "vitest";
 import {
   decodeAccountSessions,
@@ -73,7 +73,7 @@ const valid: [string, (value: unknown) => unknown, unknown][] = [
   [
     "app info",
     decodeAppInfo,
-    { name: "OpenBot", version: "1.0.0", platform: "darwin", variant: "dev" } satisfies AppInfo,
+    { name: "OpenOwnBot", version: "1.0.0", platform: "darwin", variant: "dev" } satisfies AppInfo,
   ],
   [
     "setup state",
@@ -115,7 +115,7 @@ const valid: [string, (value: unknown) => unknown, unknown][] = [
     decodeCentralAuthState,
     { status: "error", issue: { code: "offline", message: "No network." } } satisfies CentralAuthState,
   ],
-  ["Mobile Connect ticket", decodeMobileConnectTicket, { qrData: "openbot://mobile-connect", expiresAt: 1 }],
+  ["Mobile Connect ticket", decodeMobileConnectTicket, { qrData: "openownbot://mobile-connect", expiresAt: 1 }],
   [
     "connected devices",
     decodeMobileConnectedDevices,
@@ -170,7 +170,7 @@ const malformed: [string, (value: unknown) => unknown, unknown][] = [
   [
     "app info on an unknown platform",
     decodeAppInfo,
-    { name: "OpenBot", version: "1", platform: "aix", variant: "dev" },
+    { name: "OpenOwnBot", version: "1", platform: "aix", variant: "dev" },
   ],
   [
     "setup state with an unknown provider",

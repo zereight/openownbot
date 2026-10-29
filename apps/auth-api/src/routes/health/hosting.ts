@@ -10,7 +10,7 @@ import { requireWorkerBindings } from "../../server/types";
  * A sandbox ID that does not exist. A 404 for it shows that boat answers and accepts the key,
  * and the read changes nothing.
  */
-const PROBE_SANDBOX_ID = "openbot-status-probe";
+const PROBE_SANDBOX_ID = "openownbot-status-probe";
 
 /** The status page checks every 5 minutes, but the route is public, so boat gets one call a minute at most. */
 const CACHE_SECONDS = 60;
@@ -18,7 +18,7 @@ const CACHE_SECONDS = 60;
 const hostingResponse = (healthy: boolean) =>
   Response.json(
     healthy
-      ? { service: "openbot-hosted-servers", status: "ok" }
+      ? { service: "openownbot-hosted-servers", status: "ok" }
       : { error: { code: "hosting_not_ready", message: "Hosted servers are not available." } },
     {
       status: healthy ? 200 : 503,

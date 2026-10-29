@@ -4,7 +4,7 @@
 // 2. A line of the `main` logger reaches `logs/main/main.log`.
 //
 // Run: bun scripts/exit-records-e2e.ts
-// It writes .openbot-build/exit-records-e2e/report.json and exits non-zero on a failure.
+// It writes .openownbot-build/exit-records-e2e/report.json and exits non-zero on a failure.
 import assert from "node:assert/strict";
 import { type ChildProcess, spawn, spawnSync } from "node:child_process";
 import { closeSync, existsSync, openSync, readdirSync, readFileSync } from "node:fs";
@@ -12,11 +12,11 @@ import { mkdir, mkdtemp, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import { setTimeout as sleep } from "node:timers/promises";
-import { isDynamicRecord } from "@openbot/contracts/runtime-values";
+import { isDynamicRecord } from "@openownbot/contracts/runtime-values";
 import { withoutElectronRuntimeFlags } from "./electron-spawn-env";
 
 const ROOT = resolve(import.meta.dirname, "..");
-const OUT = join(ROOT, ".openbot-build", "exit-records-e2e");
+const OUT = join(ROOT, ".openownbot-build", "exit-records-e2e");
 const STATE_TIMEOUT_MS = 30_000;
 // The resource monitor samples once a minute. The trace must have the exit long before that.
 const CRASH_RECORD_LIMIT_MS = 5_000;
@@ -30,7 +30,7 @@ const electronPath = join(
 );
 
 await mkdir(OUT, { recursive: true });
-const root = await mkdtemp(join(tmpdir(), "openbot-exit-records-"));
+const root = await mkdtemp(join(tmpdir(), "openownbot-exit-records-"));
 const bundle = join(root, "exit-records-electron.mjs");
 const userData = join(root, "user-data");
 let child: ChildProcess | undefined;

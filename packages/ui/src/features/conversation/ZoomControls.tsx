@@ -1,4 +1,4 @@
-import { Button, Minus, Plus } from "@openbot/ui";
+import { Button, Minus, Plus } from "@openownbot/ui";
 import { useText } from "../../text";
 
 /** The view of a zoomed image: its scale and its offset. */

@@ -4,9 +4,9 @@ import {
   type AgentModelOption,
   type AgentReasoningEffort,
   type AgentSummary,
-} from "@openbot/contracts/ipc";
-import { sourceText } from "@openbot/i18n/source";
-import { createOpenBotLogger } from "@openbot/logging";
+} from "@openownbot/contracts/ipc";
+import { sourceText } from "@openownbot/i18n/source";
+import { createOpenOwnBotLogger } from "@openownbot/logging";
 import { Deferred, Effect, Result, Schema } from "effect";
 import { type AgentProvider, ProviderTurnActiveError } from "../agent-client";
 import type { AgentStore } from "../agent-store";
@@ -45,7 +45,7 @@ import { checkAgentFolders, codexSandboxPolicy, workspaceWritableRoots } from ".
 /** Shown to the user when a message names a model of an endpoint that was taken out. */
 export const REMOVED_ENDPOINT_MESSAGE = sourceText("error.agent.endpointRemoved");
 
-const logger = createOpenBotLogger("drain-scheduler");
+const logger = createOpenOwnBotLogger("drain-scheduler");
 const CHANNEL_START_FAILED = "The provider could not start this assignment. Resume to try again.";
 /** How long messages wait for their turn after the provider did not confirm `turn/start` in time. */
 const TURN_START_GRACE_MS = 5 * 60_000;
@@ -901,7 +901,7 @@ export class DrainScheduler {
             this.#channels?.deliveryUncertain(delivery.id);
             this.#hooks.emitError(
               "delivery_start_unconfirmed",
-              `${error.providerName} did not confirm the turn start in time. OpenBot will wait for lifecycle events instead of retrying potentially duplicated work.`,
+              `${error.providerName} did not confirm the turn start in time. OpenOwnBot will wait for lifecycle events instead of retrying potentially duplicated work.`,
               delivery.recipientAgentId,
             );
             // The wait has a limit: a turn that never starts would keep these messages starting, and

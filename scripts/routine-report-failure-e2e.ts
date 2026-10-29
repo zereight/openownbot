@@ -1,13 +1,13 @@
 // Checks `routine_report_failure` (#2804): an agent marks its routine run failed when the task could
 // not be done. Runs the real agent service, tool router, routine flows and routine result store on a
-// temporary profile with a fake Codex app-server. The fake calls the OpenBot tools that a turn's input
+// temporary profile with a fake Codex app-server. The fake calls the OpenOwnBot tools that a turn's input
 // names in `<<CALLS[...]CALLS>>`, logs each result, and then answers. The check asserts that a called
 // run ends `failed` with the redacted reason while its delivery stays `completed` and its answer shows,
 // that a later queue change keeps it failed, that a run with no call succeeds, that a provider failure
 // still wins, that a failed script run is never quiet, that the tool fails outside a routine run, that
 // a flow skips the agents after a failed owner or linked step, and that a result destination gets the
 // answer of a reported failure but not of a provider failure.
-// `bun scripts/routine-report-failure-e2e.ts`. Writes .openbot-build/routine-report-failure-e2e/report.json.
+// `bun scripts/routine-report-failure-e2e.ts`. Writes .openownbot-build/routine-report-failure-e2e/report.json.
 import assert from "node:assert/strict";
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { mkdtemp, rm, writeFile } from "node:fs/promises";
@@ -19,12 +19,12 @@ import {
   latestTurnAnswer,
   type RoutineRun,
   routineRunConversationEvent,
-} from "@openbot/contracts/ipc";
+} from "@openownbot/contracts/ipc";
 import { Effect } from "effect";
 import type { AgentBrowserHost } from "../src/backend/agent/turn-lifecycle";
 
-const OUT = resolve(import.meta.dirname, "../.openbot-build/routine-report-failure-e2e");
-const root = await mkdtemp(join(tmpdir(), "openbot-routine-failure-"));
+const OUT = resolve(import.meta.dirname, "../.openownbot-build/routine-report-failure-e2e");
+const root = await mkdtemp(join(tmpdir(), "openownbot-routine-failure-"));
 const userData = join(root, "user-data");
 const home = join(root, "home");
 const fakeCodex = join(root, "codex");
@@ -33,7 +33,7 @@ const fakeLog = join(root, "codex.jsonl");
 // Before the service modules load: the Codex process and the stores read the home folder.
 process.env.HOME = home;
 process.env.CODEX_HOME = join(home, ".codex");
-process.env.OPENBOT_CODEX_PATH = fakeCodex;
+process.env.OPENOWNBOT_CODEX_PATH = fakeCodex;
 mkdirSync(home, { recursive: true });
 
 const { AgentService } = await import("../src/backend/agent-service");
@@ -41,7 +41,7 @@ const { AgentRoutineStore } = await import("../src/backend/agent-routine-store")
 const { AgentStore } = await import("../src/backend/agent-store");
 const { runCauseEffect } = await import("../src/backend/effect-boundary");
 const { MailboxStore } = await import("../src/backend/mailbox-store");
-const { OpenBotDatabase } = await import("../src/backend/openbot-database");
+const { OpenOwnBotDatabase } = await import("../src/backend/openownbot-database");
 const { routineFlowRoutines } = await import("../src/backend/routine-flows/routine-flow-routines");
 const { RoutineFlowStore } = await import("../src/backend/routine-flows/routine-flow-store");
 const { createRoutineFlows } = await import("../src/backend/routine-flows/routine-flows");
@@ -65,7 +65,7 @@ const noUpdate: FakeCall = { tool: "routine_no_update", arguments: {} };
 
 /**
  * A Codex app-server with the methods that the service calls. A turn calls, one at a time, the
- * OpenBot tools that its input (the task, for a routine prompt) names in `<<CALLS[...]CALLS>>`, logs each
+ * OpenOwnBot tools that its input (the task, for a routine prompt) names in `<<CALLS[...]CALLS>>`, logs each
  * result, then answers:
  * `FAILED_ANSWER` after a call, `Relay report <<CALLS...CALLS>>` for an input with `<<NEXT...NEXT>>`
  * (so the next agent of a flow gets the calls), and "All good." otherwise. An input with
@@ -108,7 +108,7 @@ const callNext = (turn) => {
   write({
     id,
     method: "item/tool/call",
-    params: { threadId: turn.threadId, turnId: turn.turnId, callId: "call-" + id, namespace: "openbot", tool: call.tool, arguments: call.arguments || {} },
+    params: { threadId: turn.threadId, turnId: turn.turnId, callId: "call-" + id, namespace: "openownbot", tool: call.tool, arguments: call.arguments || {} },
   });
 };
 const answer = (message) => {
@@ -238,7 +238,7 @@ function pass(name: string, condition: boolean, detail?: unknown) {
 }
 
 await writeFile(fakeCodex, FAKE_CODEX, { mode: 0o755 });
-const database = new OpenBotDatabase(userData);
+const database = new OpenOwnBotDatabase(userData);
 const store = new AgentStore(userData, home, database);
 const mailbox = new MailboxStore(userData, store.sharedRoot, store.database);
 const agents = new AgentService({

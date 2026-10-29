@@ -6,14 +6,14 @@
 // open, so a profile change closes nothing.
 // The agent service is not initialized, so no provider CLI starts.
 // Run: `bun scripts/browser-profile-agents-e2e.ts`.
-// Writes .openbot-build/browser-profile-agents-e2e/report.json.
+// Writes .openownbot-build/browser-profile-agents-e2e/report.json.
 
 import assert from "node:assert/strict";
 import { mkdirSync, writeFileSync } from "node:fs";
 import { mkdtemp, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
-import type { AgentBrowserProfile } from "@openbot/contracts/ipc";
+import type { AgentBrowserProfile } from "@openownbot/contracts/ipc";
 import { Effect } from "effect";
 import type { AgentBrowserHost } from "../src/backend/agent/turn-lifecycle";
 import { AgentService } from "../src/backend/agent-service";
@@ -21,11 +21,11 @@ import { AgentStore } from "../src/backend/agent-store";
 import { BrowserProfileStore } from "../src/backend/browser-profiles/browser-profile-store";
 import { runCauseEffect } from "../src/backend/effect-boundary";
 import { MailboxStore } from "../src/backend/mailbox-store";
-import { OpenBotDatabase } from "../src/backend/openbot-database";
+import { OpenOwnBotDatabase } from "../src/backend/openownbot-database";
 import { type BrowserProfileService, createBrowserProfileService } from "../src/main/browser-profile-service";
 
-const OUT = resolve(import.meta.dirname, "../.openbot-build/browser-profile-agents-e2e");
-const root = await mkdtemp(join(tmpdir(), "openbot-browser-profile-agents-"));
+const OUT = resolve(import.meta.dirname, "../.openownbot-build/browser-profile-agents-e2e");
+const root = await mkdtemp(join(tmpdir(), "openownbot-browser-profile-agents-"));
 const userData = join(root, "user-data");
 const home = join(root, "home");
 mkdirSync(home, { recursive: true });
@@ -60,7 +60,7 @@ const agentBrowser: AgentBrowserHost = {
 };
 
 interface Host {
-  database: OpenBotDatabase;
+  database: OpenOwnBotDatabase;
   store: AgentStore;
   agents: AgentService;
   profiles: BrowserProfileService;
@@ -68,7 +68,7 @@ interface Host {
 
 /** Starts the stores on the profile, as the app does at each launch. */
 async function startHost(): Promise<Host> {
-  const database = new OpenBotDatabase(userData);
+  const database = new OpenOwnBotDatabase(userData);
   const store = new AgentStore(userData, home, database);
   const mailbox = new MailboxStore(userData, store.sharedRoot, store.database);
   await runCauseEffect(store.initialize());

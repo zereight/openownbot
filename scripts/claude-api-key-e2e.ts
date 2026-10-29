@@ -6,13 +6,13 @@
 // process get the key; the key account gets the key in its own folder, and its row shows only while
 // the own sign-in has a login, and a sign-in or a peer removal on it is refused; an added account never
 // gets the key; no saved key keeps the login.
-// `bun scripts/claude-api-key-e2e.ts`. Writes .openbot-build/claude-api-key-e2e/report.json.
+// `bun scripts/claude-api-key-e2e.ts`. Writes .openownbot-build/claude-api-key-e2e/report.json.
 import assert from "node:assert/strict";
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { chmod, mkdtemp, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
-import { CLAUDE_API_KEY_ACCOUNT_ID } from "@openbot/contracts/team-protocol/claude-api-key-v1";
+import { CLAUDE_API_KEY_ACCOUNT_ID } from "@openownbot/contracts/team-protocol/claude-api-key-v1";
 import { Effect } from "effect";
 import { ProviderAccountStore } from "../src/backend/agent/provider-account-store";
 import { ProviderAccounts, type ProviderAccountsHost } from "../src/backend/agent/provider-accounts";
@@ -21,9 +21,9 @@ import { CLAUDE_API_KEY_ACCOUNT_TYPE } from "../src/backend/protocol";
 import { BUILT_IN_PROVIDER_DRIVERS, NO_PROVIDER_CREDENTIALS } from "../src/backend/provider-drivers";
 import { ProviderAccountsHost as PeerAccountsHost } from "../src/main/provider-accounts-host";
 
-const OUT = resolve(import.meta.dirname, "../.openbot-build/claude-api-key-e2e");
+const OUT = resolve(import.meta.dirname, "../.openownbot-build/claude-api-key-e2e");
 const KEY = "sk-ant-e2e-0f3c9a71";
-const root = await mkdtemp(join(tmpdir(), "openbot-claude-api-key-"));
+const root = await mkdtemp(join(tmpdir(), "openownbot-claude-api-key-"));
 const executable = join(root, "claude.cjs");
 const logPath = join(root, "claude.jsonl");
 // A key in the shell would reach the CLI in every case.

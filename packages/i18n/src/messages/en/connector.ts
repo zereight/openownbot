@@ -79,11 +79,11 @@ export const messages = defineMessages("connector", {
   "connector.statusUnknown": "Unknown",
   "connector.readFailed": "OpenOwnBot could not read the state of this connection.",
 
-  // Marketplace > Apps > Slack: a workspace installs the one OpenBot app, and the Slack
+  // Marketplace > Apps > Slack: a workspace installs the one OpenOwnBot app, and the Slack
   // Orchestrator agent receives each request, asks the team and answers.
   "connector.slack.title": "Slack",
   "connector.slack.description":
-    "People mention @OpenBot in Slack or send it a direct message. The Slack Orchestrator asks the right agent and answers.",
+    "People mention @OpenOwnBot in Slack or send it a direct message. The Slack Orchestrator asks the right agent and answers.",
   "connector.slack.statusConnected": "Connected",
   "connector.slack.statusAttention": "Needs attention",
   // {workspace} is the Slack workspace name.
@@ -98,11 +98,11 @@ export const messages = defineMessages("connector", {
   "connector.slack.addAgent": "Add agent",
   "connector.slack.actionFailed": "Slack did not accept the change",
   "connector.slack.workspaceTitle": "Workspaces",
-  "connector.slack.workspaceDescription": "People mention @OpenBot or send it a direct message.",
+  "connector.slack.workspaceDescription": "People mention @OpenOwnBot or send it a direct message.",
   "connector.slack.disconnectWorkspace": "Disconnect",
   "connector.slack.disconnectAllTitle": "Disconnect Slack",
   "connector.slack.disconnectAllSummary":
-    "Every workspace disconnects. People can no longer reach your agents through @OpenBot.",
+    "Every workspace disconnects. People can no longer reach your agents through @OpenOwnBot.",
   "connector.slack.disconnectAllSummaryOrchestrator":
     "Every workspace disconnects. The Slack Orchestrator and its conversations are deleted from OpenOwnBot.",
   "connector.slack.missingScopes":
@@ -119,7 +119,7 @@ export const messages = defineMessages("connector", {
   "connector.slack.orchestratorNone": "No agent answers yet",
   "connector.slack.orchestratorNoneDescription": "Add the Slack Orchestrator, or Slack gets no answer.",
   "connector.slack.inviteNote":
-    "OpenBot joins every public channel by itself, and each new one. For a private channel, invite it: /invite @OpenBot.",
+    "OpenOwnBot joins every public channel by itself, and each new one. For a private channel, invite it: /invite @OpenOwnBot.",
   // The connect dialog. The steps show as numbers; screen readers read the names.
   "connector.slack.stepWorkspace": "Workspace",
   "connector.slack.stepAgent": "Agent",
@@ -134,7 +134,7 @@ export const messages = defineMessages("connector", {
   "connector.slack.agentStepTitle": "Add the Slack Orchestrator",
   // {workspace} is the Slack workspace name.
   "connector.slack.agentStepDescription":
-    "This new agent answers everything that people send to @OpenBot in {workspace}.",
+    "This new agent answers everything that people send to @OpenOwnBot in {workspace}.",
   "connector.slack.orchestratorName": "Slack Orchestrator",
   "connector.slack.orchestratorRole": "Answers in Slack and asks the team",
   "connector.slack.orchestratorDoesReceive": "Receives every Slack request first",
@@ -142,14 +142,14 @@ export const messages = defineMessages("connector", {
   "connector.slack.orchestratorDoesAnswer": "Posts the answer in the Slack thread",
   "connector.slack.orchestratorModel": "Model",
   "connector.slack.doneTitle": "OpenOwnBot is in {workspace}",
-  "connector.slack.doneDescription": "Mention @OpenBot in any public channel, or send it a direct message.",
+  "connector.slack.doneDescription": "Mention @OpenOwnBot in any public channel, or send it a direct message.",
   "connector.slack.done": "Done",
   "connector.slack.disconnectTitle": "Disconnect {workspace}?",
   "connector.slack.disconnectDescription":
     "OpenOwnBot stops answering in {workspace} and removes its Slack token from this computer.",
   "connector.slack.disconnectDescriptionHost":
     "OpenOwnBot stops answering in {workspace} and removes its Slack token from {host}.",
-  "connector.slack.disconnectEffect": "People in {workspace} can no longer reach your agents through @OpenBot.",
+  "connector.slack.disconnectEffect": "People in {workspace} can no longer reach your agents through @OpenOwnBot.",
   "connector.slack.removeEffectKept": "The conversations and the Slack Orchestrator stay in OpenOwnBot.",
   "connector.slack.removeEffectDeleted": "The Slack Orchestrator and its conversations are deleted from OpenOwnBot.",
   "connector.slack.keep": "Keep connected",
@@ -166,12 +166,12 @@ export const messages = defineMessages("connector", {
     other: "{count} workspaces · Slack Orchestrator answers",
   },
 
-  // Marketplace > Apps > Discord: a Discord server (a guild) adds the one OpenBot bot, and
+  // Marketplace > Apps > Discord: a Discord server (a guild) adds the one OpenOwnBot bot, and
   // the Discord Orchestrator agent receives each request, asks the team and answers. Always write
-  // "Discord server": "server" alone is an OpenBot server.
+  // "Discord server": "server" alone is an OpenOwnBot server.
   "connector.discord.title": "Discord",
   "connector.discord.description":
-    "People mention @OpenBot in a channel of a Discord server. The Discord Orchestrator asks the right agent and answers.",
+    "People mention @OpenOwnBot in a channel of a Discord server. The Discord Orchestrator asks the right agent and answers.",
   "connector.discord.statusConnected": "Connected",
   "connector.discord.statusAttention": "Needs attention",
   // {workspace} is the Discord server name.
@@ -186,11 +186,11 @@ export const messages = defineMessages("connector", {
   "connector.discord.addAgent": "Add agent",
   "connector.discord.actionFailed": "Discord did not accept the change",
   "connector.discord.workspaceTitle": "Discord servers",
-  "connector.discord.workspaceDescription": "Mention @OpenBot in a channel. Reply to OpenBot to continue.",
+  "connector.discord.workspaceDescription": "Mention @OpenOwnBot in a channel. Reply to OpenOwnBot to continue.",
   "connector.discord.disconnectWorkspace": "Disconnect",
   "connector.discord.disconnectAllTitle": "Disconnect Discord",
   "connector.discord.disconnectAllSummary":
-    "Every server disconnects. People can no longer reach your agents through @OpenBot.",
+    "Every server disconnects. People can no longer reach your agents through @OpenOwnBot.",
   "connector.discord.disconnectAllSummaryOrchestrator":
     "Every server disconnects. The Discord Orchestrator and its conversations are deleted from OpenOwnBot.",
   "connector.discord.missingScopes":
@@ -220,7 +220,7 @@ export const messages = defineMessages("connector", {
   "connector.discord.agentStepTitle": "Add the Discord Orchestrator",
   // {workspace} is the Discord server name.
   "connector.discord.agentStepDescription":
-    "This new agent answers everything that people send to @OpenBot in {workspace}.",
+    "This new agent answers everything that people send to @OpenOwnBot in {workspace}.",
   "connector.discord.orchestratorName": "Discord Orchestrator",
   "connector.discord.orchestratorRole": "Answers in Discord and asks the team",
   "connector.discord.orchestratorDoesReceive": "Receives every Discord request first",
@@ -228,14 +228,14 @@ export const messages = defineMessages("connector", {
   "connector.discord.orchestratorDoesAnswer": "Replies with the answer in the Discord channel",
   "connector.discord.orchestratorModel": "Model",
   "connector.discord.doneTitle": "OpenOwnBot is in {workspace}",
-  "connector.discord.doneDescription": "Mention @OpenBot in a channel. Reply to OpenBot to continue.",
+  "connector.discord.doneDescription": "Mention @OpenOwnBot in a channel. Reply to OpenOwnBot to continue.",
   "connector.discord.done": "Done",
   "connector.discord.disconnectTitle": "Disconnect {workspace}?",
   "connector.discord.disconnectDescription":
     "OpenOwnBot stops answering in {workspace} and removes the Discord connection from this computer.",
   "connector.discord.disconnectDescriptionHost":
     "OpenOwnBot stops answering in {workspace} and removes the Discord connection from {host}.",
-  "connector.discord.disconnectEffect": "People in {workspace} can no longer reach your agents through @OpenBot.",
+  "connector.discord.disconnectEffect": "People in {workspace} can no longer reach your agents through @OpenOwnBot.",
   "connector.discord.removeEffectKept": "The conversations and the Discord Orchestrator stay in OpenOwnBot.",
   "connector.discord.removeEffectDeleted":
     "The Discord Orchestrator and its conversations are deleted from OpenOwnBot.",
@@ -251,7 +251,7 @@ export const messages = defineMessages("connector", {
     one: "{count} Discord server · Discord Orchestrator answers",
     other: "{count} Discord servers · Discord Orchestrator answers",
   },
-  // Who can use OpenBot in one Discord server: the members with one of the chosen Discord roles.
+  // Who can use OpenOwnBot in one Discord server: the members with one of the chosen Discord roles.
   "connector.discord.accessTitle": "Who can use OpenOwnBot",
   "connector.discord.accessDescription": "OpenOwnBot answers only these people. It ignores mentions from others.",
   "connector.discord.accessEveryone": "Everyone in the server",
@@ -272,7 +272,7 @@ export const messages = defineMessages("connector", {
   // {host} is the joined server's name.
   "connector.discord.accessHostUpdate": "Update OpenOwnBot on {host} to choose roles.",
 
-  // Marketplace > Apps > Telegram: each chat adds the one OpenBot bot, and the Telegram
+  // Marketplace > Apps > Telegram: each chat adds the one OpenOwnBot bot, and the Telegram
   // Orchestrator agent receives the messages of all chats, asks the team and answers.
   "connector.telegram.title": "Telegram",
   "connector.telegram.description":
@@ -358,12 +358,12 @@ export const messages = defineMessages("connector", {
     "This is the last chat, so the Telegram Orchestrator and its conversations are deleted from OpenOwnBot.",
   "connector.telegram.keep": "Keep connected",
   "connector.telegram.close": "Close",
-  // Marketplace > 1Password: a vault that the user shares with OpenBot through a service account.
+  // Marketplace > 1Password: a vault that the user shares with OpenOwnBot through a service account.
   "connector.onePassword.title": "1Password",
   "connector.onePassword.description":
     "Share a dedicated 1Password vault with OpenOwnBot through a service account, so agents can sign in to sites in the OpenOwnBot browser.",
   "connector.onePassword.howItWorks":
-    "Connecting sets up a “Shared with OpenBot” vault in your 1Password account and a service account that can read only that vault. OpenBot fills saved logins in its browser on this computer, so only the items you move into that vault are ever shared. Agents never see a password.",
+    "Connecting sets up a “Shared with OpenOwnBot” vault in your 1Password account and a service account that can read only that vault. OpenOwnBot fills saved logins in its browser on this computer, so only the items you move into that vault are ever shared. Agents never see a password.",
   "connector.onePassword.connect": "Connect 1Password",
   // The three setup steps before a connection, each with the one button it needs.
   "connector.onePassword.setupTitle": "Set up",
@@ -373,7 +373,7 @@ export const messages = defineMessages("connector", {
   // {version} is a version number, such as 2.39.0.
   "connector.onePassword.stepCliReady": "Version {version} is installed.",
   "connector.onePassword.stepCliMissing":
-    "OpenBot downloads it from 1Password into its own folder. It needs no administrator password.",
+    "OpenOwnBot downloads it from 1Password into its own folder. It needs no administrator password.",
   "connector.onePassword.stepCliManual":
     "OpenOwnBot cannot install it on this computer. Install it from 1Password, then come back to this page.",
   "connector.onePassword.installCli": "Install",
@@ -386,7 +386,7 @@ export const messages = defineMessages("connector", {
   "connector.onePassword.checkAgain": "Check again",
   "connector.onePassword.stepVaultTitle": "Create the shared vault",
   "connector.onePassword.stepVaultDescription":
-    "OpenBot creates the vault “Shared with OpenBot” and a service account that can only read it. 1Password asks you to approve.",
+    "OpenOwnBot creates the vault “Shared with OpenOwnBot” and a service account that can only read it. 1Password asks you to approve.",
   // The last row of the setup steps: the other way to connect, without the CLI.
   "connector.onePassword.useTokenDescription":
     "Instead of these steps, paste a service account token from 1Password.com.",
@@ -422,9 +422,9 @@ export const messages = defineMessages("connector", {
   "connector.bitwarden.title": "Bitwarden",
   "connector.bitwarden.description": "Fill browser logins from Bitwarden.",
   "connector.bitwarden.setup":
-    "Install the Bitwarden CLI and sign in with bw login. Create a folder named Shared with OpenBot and put only the logins that agents may use in it. Run bw unlock --raw and paste the session key below. Do not paste your master password.",
+    "Install the Bitwarden CLI and sign in with bw login. Create a folder named Shared with OpenOwnBot and put only the logins that agents may use in it. Run bw unlock --raw and paste the session key below. Do not paste your master password.",
   "connector.bitwarden.scope":
-    "All agents on this computer can use matching logins in Shared with OpenBot. OpenBot uses exact HTTPS origins. It does not use items that require a master password prompt or a custom URI match rule.",
+    "All agents on this computer can use matching logins in Shared with OpenOwnBot. OpenOwnBot uses exact HTTPS origins. It does not use items that require a master password prompt or a custom URI match rule.",
   "connector.bitwarden.session":
     "The session key stays in memory. Connect again after 8 hours without vault use or after OpenOwnBot exits. Disconnect stops OpenOwnBot access; it does not lock other Bitwarden clients.",
   "connector.bitwarden.sessionKey": "Bitwarden session key",
@@ -439,17 +439,17 @@ export const messages = defineMessages("connector", {
   "connector.bitwarden.actionFailed": "OpenOwnBot could not change the Bitwarden connection.",
   "connector.bitwarden.descriptionHost": "Fill browser logins on {host} from Bitwarden or Vaultwarden.",
   "connector.bitwarden.setupHost":
-    "{host} signs in with its own Bitwarden CLI. In your vault, create a folder named Shared with OpenBot and put only the logins that agents may use in it. In the web vault, open Settings › Security › Keys and view your API key. Enter the server address, client_id, client_secret and your master password below.",
+    "{host} signs in with its own Bitwarden CLI. In your vault, create a folder named Shared with OpenOwnBot and put only the logins that agents may use in it. In the web vault, open Settings › Security › Keys and view your API key. Enter the server address, client_id, client_secret and your master password below.",
   "connector.bitwarden.scopeHost":
-    "All agents on {host} can use matching logins in Shared with OpenBot. OpenBot uses exact HTTPS origins. It does not use items that require a master password prompt or a custom URI match rule.",
+    "All agents on {host} can use matching logins in Shared with OpenOwnBot. OpenOwnBot uses exact HTTPS origins. It does not use items that require a master password prompt or a custom URI match rule.",
   "connector.bitwarden.sessionHost":
     "{host} keeps the API key and the master password encrypted, so it can unlock again after a restart. This computer does not keep them. Disconnect removes them from {host}. {host} must reach the server address over HTTPS.",
   "connector.bitwarden.serverUrl": "Server address",
   "connector.bitwarden.folderTitle": "Shared folder",
   "connector.bitwarden.folderDescription":
     "Move a login into this folder in Bitwarden to let agents sign in with it. Remove it to stop.",
-  // The exact folder name that OpenBot looks for in the vault. Keep it in English.
-  "connector.bitwarden.folderName": "Shared with OpenBot",
+  // The exact folder name that OpenOwnBot looks for in the vault. Keep it in English.
+  "connector.bitwarden.folderName": "Shared with OpenOwnBot",
   "connector.bitwarden.folderKind": "Folder in Bitwarden",
   "connector.bitwarden.clientId": "API key client_id",
   "connector.bitwarden.clientSecret": "API key client_secret",

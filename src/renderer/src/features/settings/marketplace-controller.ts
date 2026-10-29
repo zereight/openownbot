@@ -9,14 +9,14 @@ import type {
   McpServerConfig,
   McpSignInRelayPage,
   McpSignInState,
-} from "@openbot/contracts/ipc";
-import { mcpConfigErrors } from "@openbot/contracts/ipc";
-import type { McpConnectFlow } from "@openbot/contracts/mcp-connect-flows";
-import { createPluginShareUrl } from "@openbot/contracts/plugin-links";
-import { connectorSummary } from "@openbot/ui/features/connectors/ConnectorDetailPanel";
-import { CONNECTOR_LISTINGS } from "@openbot/ui/features/connectors/connector-catalog";
-import { isConnectorId } from "@openbot/ui/features/connectors/connectors";
-import { safeBrowserUrl } from "@openbot/ui/features/conversation/RichMessageText";
+} from "@openownbot/contracts/ipc";
+import { mcpConfigErrors } from "@openownbot/contracts/ipc";
+import type { McpConnectFlow } from "@openownbot/contracts/mcp-connect-flows";
+import { createPluginShareUrl } from "@openownbot/contracts/plugin-links";
+import { connectorSummary } from "@openownbot/ui/features/connectors/ConnectorDetailPanel";
+import { CONNECTOR_LISTINGS } from "@openownbot/ui/features/connectors/connector-catalog";
+import { isConnectorId } from "@openownbot/ui/features/connectors/connectors";
+import { safeBrowserUrl } from "@openownbot/ui/features/conversation/RichMessageText";
 import type {
   AgentListingState,
   MarketplaceApp,
@@ -24,18 +24,18 @@ import type {
   MarketplaceAppStatus,
   MarketplaceModel,
   SkillRead,
-} from "@openbot/ui/features/marketplace/marketplace-model";
-import { serverAddress } from "@openbot/ui/features/marketplace/marketplace-view";
-import type { McpConnectSubject } from "@openbot/ui/features/settings/McpConnectShell";
+} from "@openownbot/ui/features/marketplace/marketplace-model";
+import { serverAddress } from "@openownbot/ui/features/marketplace/marketplace-view";
+import type { McpConnectSubject } from "@openownbot/ui/features/settings/McpConnectShell";
 import {
   isPluginAppConfig,
   type MarketplacePluginApp,
   type MarketplacePluginDetail,
   type MarketplacePluginPrompt,
-} from "@openbot/ui/features/settings/marketplace-plugins";
-import type { PluginUninstallPlan } from "@openbot/ui/features/settings/PluginUninstallDialog";
-import { useText } from "@openbot/ui/text";
-import { errorReference } from "@openbot/user-errors";
+} from "@openownbot/ui/features/settings/marketplace-plugins";
+import type { PluginUninstallPlan } from "@openownbot/ui/features/settings/PluginUninstallDialog";
+import { useText } from "@openownbot/ui/text";
+import { errorReference } from "@openownbot/user-errors";
 import { createEffect, createMemo, createSignal, createStore, onCleanup, untrack } from "solid-js";
 import { desktopAnalytics } from "../../analytics";
 import { writeClipboardText } from "../../clipboard";

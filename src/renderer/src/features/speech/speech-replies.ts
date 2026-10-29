@@ -1,6 +1,6 @@
-import { type AgentEvent, latestTurnAnswer, type SpeechLanguage } from "@openbot/contracts/ipc";
-import { toast } from "@openbot/ui";
-import { currentText } from "@openbot/ui/text";
+import { type AgentEvent, latestTurnAnswer, type SpeechLanguage } from "@openownbot/contracts/ipc";
+import { toast } from "@openownbot/ui";
+import { currentText } from "@openownbot/ui/text";
 import { desktopAnalytics } from "../../analytics";
 import { speechLanguageOf } from "./speech-language";
 import {

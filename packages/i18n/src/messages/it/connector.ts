@@ -70,7 +70,7 @@ export const messages = {
 
   "connector.slack.title": "Slack",
   "connector.slack.description":
-    "Le persone menzionano @OpenBot in Slack o gli mandano un messaggio diretto. Lo Slack Orchestrator interpella l'agente giusto e risponde.",
+    "Le persone menzionano @OpenOwnBot in Slack o gli mandano un messaggio diretto. Lo Slack Orchestrator interpella l'agente giusto e risponde.",
   "connector.slack.statusConnected": "Connesso",
   "connector.slack.statusAttention": "Richiede attenzione",
   "connector.slack.summaryConnected": "{workspace} · Lo Slack Orchestrator risponde",
@@ -84,11 +84,11 @@ export const messages = {
   "connector.slack.addAgent": "Aggiungi agente",
   "connector.slack.actionFailed": "Slack non ha accettato la modifica",
   "connector.slack.workspaceTitle": "Workspace",
-  "connector.slack.workspaceDescription": "Le persone menzionano @OpenBot o gli mandano un messaggio diretto.",
+  "connector.slack.workspaceDescription": "Le persone menzionano @OpenOwnBot o gli mandano un messaggio diretto.",
   "connector.slack.disconnectWorkspace": "Disconnetti",
   "connector.slack.disconnectAllTitle": "Disconnetti Slack",
   "connector.slack.disconnectAllSummary":
-    "Tutti i workspace vengono disconnessi. Nessuno potrà più raggiungere i tuoi agenti tramite @OpenBot.",
+    "Tutti i workspace vengono disconnessi. Nessuno potrà più raggiungere i tuoi agenti tramite @OpenOwnBot.",
   "connector.slack.disconnectAllSummaryOrchestrator":
     "Tutti i workspace vengono disconnessi. Lo Slack Orchestrator e le sue conversazioni vengono eliminati da OpenOwnBot.",
   "connector.slack.missingScopes":
@@ -105,7 +105,7 @@ export const messages = {
   "connector.slack.orchestratorNoneDescription":
     "Aggiungi lo Slack Orchestrator, altrimenti Slack non riceve risposta.",
   "connector.slack.inviteNote":
-    "OpenBot entra da solo in ogni canale pubblico, compresi i nuovi. In un canale privato invitalo: /invite @OpenBot.",
+    "OpenOwnBot entra da solo in ogni canale pubblico, compresi i nuovi. In un canale privato invitalo: /invite @OpenOwnBot.",
   "connector.slack.stepWorkspace": "Workspace",
   "connector.slack.stepAgent": "Agente",
   "connector.slack.connectTitle": "Connetti un workspace Slack",
@@ -118,7 +118,7 @@ export const messages = {
   "connector.slack.connectWaiting": "In attesa di Slack. Completa l'installazione nel browser.",
   "connector.slack.agentStepTitle": "Aggiungi lo Slack Orchestrator",
   "connector.slack.agentStepDescription":
-    "Questo nuovo agente risponde a tutto ciò che le persone mandano a @OpenBot in {workspace}.",
+    "Questo nuovo agente risponde a tutto ciò che le persone mandano a @OpenOwnBot in {workspace}.",
   "connector.slack.orchestratorName": "Slack Orchestrator",
   "connector.slack.orchestratorRole": "Risponde in Slack e interpella il team",
   "connector.slack.orchestratorDoesReceive": "Riceve per primo ogni richiesta di Slack",
@@ -127,7 +127,7 @@ export const messages = {
   "connector.slack.orchestratorModel": "Modello",
   "connector.slack.doneTitle": "OpenOwnBot è in {workspace}",
   "connector.slack.doneDescription":
-    "Menziona @OpenBot in un canale pubblico qualsiasi, oppure mandagli un messaggio diretto.",
+    "Menziona @OpenOwnBot in un canale pubblico qualsiasi, oppure mandagli un messaggio diretto.",
   "connector.slack.done": "Fine",
   "connector.slack.disconnectTitle": "Disconnettere {workspace}?",
   "connector.slack.disconnectDescription":
@@ -135,7 +135,7 @@ export const messages = {
   "connector.slack.disconnectDescriptionHost":
     "OpenOwnBot smette di rispondere in {workspace} e rimuove da {host} il suo token Slack.",
   "connector.slack.disconnectEffect":
-    "Le persone in {workspace} non possono più raggiungere i tuoi agenti tramite @OpenBot.",
+    "Le persone in {workspace} non possono più raggiungere i tuoi agenti tramite @OpenOwnBot.",
   "connector.slack.removeEffectKept": "Le conversazioni e lo Slack Orchestrator restano in OpenOwnBot.",
   "connector.slack.removeEffectDeleted":
     "Lo Slack Orchestrator e le sue conversazioni vengono eliminati da OpenOwnBot.",
@@ -153,7 +153,7 @@ export const messages = {
 
   "connector.discord.title": "Discord",
   "connector.discord.description":
-    "Le persone menzionano @OpenBot in un canale di un server Discord. Il Discord Orchestrator interpella l'agente giusto e risponde.",
+    "Le persone menzionano @OpenOwnBot in un canale di un server Discord. Il Discord Orchestrator interpella l'agente giusto e risponde.",
   "connector.discord.statusConnected": "Connesso",
   "connector.discord.statusAttention": "Richiede attenzione",
   "connector.discord.summaryConnected": "{workspace} · Il Discord Orchestrator risponde",
@@ -167,11 +167,11 @@ export const messages = {
   "connector.discord.addAgent": "Aggiungi agente",
   "connector.discord.actionFailed": "Discord non ha accettato la modifica",
   "connector.discord.workspaceTitle": "Server Discord",
-  "connector.discord.workspaceDescription": "Menziona @OpenBot in un canale. Rispondi a OpenBot per continuare.",
+  "connector.discord.workspaceDescription": "Menziona @OpenOwnBot in un canale. Rispondi a OpenOwnBot per continuare.",
   "connector.discord.disconnectWorkspace": "Disconnetti",
   "connector.discord.disconnectAllTitle": "Disconnetti Discord",
   "connector.discord.disconnectAllSummary":
-    "Tutti i server vengono disconnessi. Nessuno potrà più raggiungere i tuoi agenti tramite @OpenBot.",
+    "Tutti i server vengono disconnessi. Nessuno potrà più raggiungere i tuoi agenti tramite @OpenOwnBot.",
   "connector.discord.disconnectAllSummaryOrchestrator":
     "Tutti i server vengono disconnessi. Il Discord Orchestrator e le sue conversazioni vengono eliminati da OpenOwnBot.",
   "connector.discord.missingScopes":
@@ -199,7 +199,7 @@ export const messages = {
   "connector.discord.connectWaiting": "In attesa di Discord. Completa l'autorizzazione nel browser.",
   "connector.discord.agentStepTitle": "Aggiungi il Discord Orchestrator",
   "connector.discord.agentStepDescription":
-    "Questo nuovo agente risponde a tutto ciò che le persone mandano a @OpenBot in {workspace}.",
+    "Questo nuovo agente risponde a tutto ciò che le persone mandano a @OpenOwnBot in {workspace}.",
   "connector.discord.orchestratorName": "Discord Orchestrator",
   "connector.discord.orchestratorRole": "Risponde in Discord e interpella il team",
   "connector.discord.orchestratorDoesReceive": "Riceve per primo ogni richiesta di Discord",
@@ -207,7 +207,7 @@ export const messages = {
   "connector.discord.orchestratorDoesAnswer": "Risponde nel canale Discord",
   "connector.discord.orchestratorModel": "Modello",
   "connector.discord.doneTitle": "OpenOwnBot è in {workspace}",
-  "connector.discord.doneDescription": "Menziona @OpenBot in un canale. Rispondi a OpenBot per continuare.",
+  "connector.discord.doneDescription": "Menziona @OpenOwnBot in un canale. Rispondi a OpenOwnBot per continuare.",
   "connector.discord.done": "Fine",
   "connector.discord.disconnectTitle": "Disconnettere {workspace}?",
   "connector.discord.disconnectDescription":
@@ -215,7 +215,7 @@ export const messages = {
   "connector.discord.disconnectDescriptionHost":
     "OpenOwnBot smette di rispondere in {workspace} e rimuove da {host} la connessione a Discord.",
   "connector.discord.disconnectEffect":
-    "Le persone in {workspace} non possono più raggiungere i tuoi agenti tramite @OpenBot.",
+    "Le persone in {workspace} non possono più raggiungere i tuoi agenti tramite @OpenOwnBot.",
   "connector.discord.removeEffectKept": "Le conversazioni e il Discord Orchestrator restano in OpenOwnBot.",
   "connector.discord.removeEffectDeleted":
     "Il Discord Orchestrator e le sue conversazioni vengono eliminati da OpenOwnBot.",
@@ -333,7 +333,7 @@ export const messages = {
   "connector.onePassword.description":
     "Condividi con OpenOwnBot un vault 1Password dedicato tramite un account di servizio, così gli agenti possono accedere ai siti nel browser di OpenOwnBot.",
   "connector.onePassword.howItWorks":
-    "Connettendo, viene creato un vault «Condiviso con OpenBot» nel tuo account 1Password, insieme a un account di servizio che può leggere solo quel vault. OpenBot compila gli accessi salvati nel suo browser su questo computer, quindi vengono condivisi solo gli elementi che sposti in quel vault. Gli agenti non vedono mai una password.",
+    "Connettendo, viene creato un vault «Condiviso con OpenOwnBot» nel tuo account 1Password, insieme a un account di servizio che può leggere solo quel vault. OpenOwnBot compila gli accessi salvati nel suo browser su questo computer, quindi vengono condivisi solo gli elementi che sposti in quel vault. Gli agenti non vedono mai una password.",
   "connector.onePassword.connect": "Connetti 1Password",
   "connector.onePassword.setupTitle": "Configurazione",
   "connector.onePassword.stepCliTitle": "Installa la CLI di 1Password",
@@ -341,7 +341,7 @@ export const messages = {
   "connector.onePassword.stepCliInstalling": "Download della CLI di 1Password da 1Password",
   "connector.onePassword.stepCliReady": "La versione {version} è installata.",
   "connector.onePassword.stepCliMissing":
-    "OpenBot la scarica da 1Password nella sua cartella. Non serve la password di amministratore.",
+    "OpenOwnBot la scarica da 1Password nella sua cartella. Non serve la password di amministratore.",
   "connector.onePassword.stepCliManual":
     "OpenOwnBot non può installarla su questo computer. Installala da 1Password, poi torna in questa pagina.",
   "connector.onePassword.installCli": "Installa",
@@ -354,7 +354,7 @@ export const messages = {
   "connector.onePassword.checkAgain": "Ricontrolla",
   "connector.onePassword.stepVaultTitle": "Crea il vault condiviso",
   "connector.onePassword.stepVaultDescription":
-    "OpenBot crea il vault «Shared with OpenBot» e un account di servizio che può solo leggerlo. 1Password ti chiede di approvare.",
+    "OpenOwnBot crea il vault «Shared with OpenOwnBot» e un account di servizio che può solo leggerlo. 1Password ti chiede di approvare.",
   "connector.onePassword.useTokenDescription":
     "Invece di questi passaggi, incolla un token dell'account di servizio da 1Password.com.",
   "connector.onePassword.useTokenAction": "Usa token",
@@ -387,9 +387,9 @@ export const messages = {
   "connector.bitwarden.title": "Bitwarden",
   "connector.bitwarden.description": "Compila gli accessi del browser da Bitwarden.",
   "connector.bitwarden.setup":
-    "Installa la CLI di Bitwarden e accedi con bw login. Crea una cartella chiamata Shared with OpenBot e mettici solo gli accessi che gli agenti possono usare. Esegui bw unlock --raw e incolla qui sotto la chiave di sessione. Non incollare la tua password principale.",
+    "Installa la CLI di Bitwarden e accedi con bw login. Crea una cartella chiamata Shared with OpenOwnBot e mettici solo gli accessi che gli agenti possono usare. Esegui bw unlock --raw e incolla qui sotto la chiave di sessione. Non incollare la tua password principale.",
   "connector.bitwarden.scope":
-    "Tutti gli agenti su questo computer possono usare gli accessi corrispondenti in Shared with OpenBot. OpenBot usa origini HTTPS esatte. Non usa gli elementi che richiedono la password principale o una regola di corrispondenza URI personalizzata.",
+    "Tutti gli agenti su questo computer possono usare gli accessi corrispondenti in Shared with OpenOwnBot. OpenOwnBot usa origini HTTPS esatte. Non usa gli elementi che richiedono la password principale o una regola di corrispondenza URI personalizzata.",
   "connector.bitwarden.session":
     "La chiave di sessione resta in memoria. Connettiti di nuovo dopo 8 ore senza uso del vault o dopo l'uscita da OpenOwnBot. «Disconnetti» interrompe l'accesso di OpenOwnBot; non blocca gli altri client Bitwarden.",
   "connector.bitwarden.sessionKey": "Chiave di sessione Bitwarden",
@@ -404,16 +404,16 @@ export const messages = {
   "connector.bitwarden.actionFailed": "OpenOwnBot non è riuscito a cambiare la connessione a Bitwarden.",
   "connector.bitwarden.descriptionHost": "Compila gli accessi del browser su {host} da Bitwarden o Vaultwarden.",
   "connector.bitwarden.setupHost":
-    "{host} accede con la propria CLI di Bitwarden. Nella tua cassaforte, crea una cartella chiamata Shared with OpenBot e mettici solo gli accessi che gli agenti possono usare. Nella cassaforte web, apri Impostazioni › Sicurezza › Chiavi e mostra la tua chiave API. Inserisci qui sotto l’indirizzo del server, client_id, client_secret e la tua password principale.",
+    "{host} accede con la propria CLI di Bitwarden. Nella tua cassaforte, crea una cartella chiamata Shared with OpenOwnBot e mettici solo gli accessi che gli agenti possono usare. Nella cassaforte web, apri Impostazioni › Sicurezza › Chiavi e mostra la tua chiave API. Inserisci qui sotto l’indirizzo del server, client_id, client_secret e la tua password principale.",
   "connector.bitwarden.scopeHost":
-    "Tutti gli agenti su {host} possono usare gli accessi corrispondenti in Shared with OpenBot. OpenBot usa origini HTTPS esatte. Non usa elementi che chiedono la password principale o che hanno una regola di corrispondenza URI personalizzata.",
+    "Tutti gli agenti su {host} possono usare gli accessi corrispondenti in Shared with OpenOwnBot. OpenOwnBot usa origini HTTPS esatte. Non usa elementi che chiedono la password principale o che hanno una regola di corrispondenza URI personalizzata.",
   "connector.bitwarden.sessionHost":
     "{host} conserva la chiave API e la password principale cifrate, così può sbloccare di nuovo dopo un riavvio. Questo computer non le conserva. Disconnetti le rimuove da {host}. {host} deve raggiungere l’indirizzo del server tramite HTTPS.",
   "connector.bitwarden.serverUrl": "Indirizzo del server",
   "connector.bitwarden.folderTitle": "Cartella condivisa",
   "connector.bitwarden.folderDescription":
     "Sposta un accesso in questa cartella in Bitwarden per permettere agli agenti di usarlo. Rimuovilo per smettere.",
-  "connector.bitwarden.folderName": "Shared with OpenBot",
+  "connector.bitwarden.folderName": "Shared with OpenOwnBot",
   "connector.bitwarden.folderKind": "Cartella in Bitwarden",
   "connector.bitwarden.clientId": "client_id della chiave API",
   "connector.bitwarden.clientSecret": "client_secret della chiave API",

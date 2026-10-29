@@ -1,4 +1,4 @@
-import type { ChannelSummary } from "@openbot/contracts/ipc";
+import type { ChannelSummary } from "@openownbot/contracts/ipc";
 import * as Crypto from "expo-crypto";
 import { Link, useLocalSearchParams } from "expo-router";
 import { Typography } from "heroui-native";

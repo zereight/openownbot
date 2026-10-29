@@ -64,12 +64,12 @@ import {
   IPC_ENDPOINTS,
   type IpcEndpointGroup,
   LOCAL_SERVER_ID,
-  type OpenBotDesktopApi,
+  type OpenOwnBotDesktopApi,
   type RequestEndpoint,
   type ServerScope,
   type ServerSummary,
   type Untyped,
-} from "@openbot/contracts/ipc";
+} from "@openownbot/contracts/ipc";
 import {
   decodeEventActivity,
   decodeEventRoutineRuns,
@@ -78,8 +78,8 @@ import {
   decodeSaveEventRoutineResult,
   decodeWebhookSecret,
   decodeWebhookTestResult,
-} from "@openbot/contracts/ipc-events";
-import { decodeProviderEnvironmentState } from "@openbot/contracts/provider-environment";
+} from "@openownbot/contracts/ipc-events";
+import { decodeProviderEnvironmentState } from "@openownbot/contracts/provider-environment";
 import { contextBridge, ipcRenderer, webUtils } from "electron";
 import {
   decodeAccountUsageFromMain,
@@ -486,7 +486,7 @@ window.addEventListener("paste", (event) => {
 });
 window.addEventListener("change", (event) => {
   const input = event.target;
-  if (!(input instanceof HTMLInputElement) || input.dataset.openbotAttachmentPicker !== "true") return;
+  if (!(input instanceof HTMLInputElement) || input.dataset.openownbotAttachmentPicker !== "true") return;
   void importFiles([...(input.files ?? [])]);
 });
 
@@ -609,7 +609,7 @@ function selectJoinedServer(server: ServerSummary): ServerSummary {
   return server;
 }
 
-const openbotApi: OpenBotDesktopApi = {
+const openownbotApi: OpenOwnBotDesktopApi = {
   ...bridgeGroup(IPC_ENDPOINTS.app, {
     getAppInfo: decodeAppInfo,
     getSetupState: decodeAppSetupState,
@@ -1324,4 +1324,4 @@ const openbotApi: OpenBotDesktopApi = {
   }),
 };
 
-contextBridge.exposeInMainWorld("openbot", openbotApi);
+contextBridge.exposeInMainWorld("openownbot", openownbotApi);

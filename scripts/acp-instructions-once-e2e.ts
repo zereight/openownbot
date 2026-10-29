@@ -1,9 +1,9 @@
-// Runs the real `acp` provider driver over two fake agents to check that a session gets the OpenBot
+// Runs the real `acp` provider driver over two fake agents to check that a session gets the OpenOwnBot
 // instructions once and not with every prompt. The instructions are 20-30 k characters, so each
 // prompt that repeats them costs thousands of input tokens. The "context" agent reports its context
 // size as OpenCode does: the instructions must come again after a change, a compaction, a failed
 // prompt and a restart. The "silent" agent reports nothing: the instructions come every 10 prompts.
-// `bun run test:acp-instructions-once`. Writes .openbot-build/acp-instructions-once-e2e/report.json.
+// `bun run test:acp-instructions-once`. Writes .openownbot-build/acp-instructions-once-e2e/report.json.
 import assert from "node:assert/strict";
 import { mkdir, mkdtemp, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
@@ -14,11 +14,11 @@ import { requireProviderDriver } from "../src/backend/provider-drivers";
 import { CustomAgentStore } from "../src/main/custom-agent-store";
 import { installFakeAgent, readJsonl, runTurn, startThread, stopClients, xorCipher } from "./provider-fakes/host";
 
-const OUT = resolve(import.meta.dirname, "../.openbot-build/acp-instructions-once-e2e");
+const OUT = resolve(import.meta.dirname, "../.openownbot-build/acp-instructions-once-e2e");
 const MODES = ["context", "silent"] as const;
 type Mode = (typeof MODES)[number];
 
-const INSTRUCTIONS = "You are a teammate in OpenBot. Memory: the user likes short answers.";
+const INSTRUCTIONS = "You are a teammate in OpenOwnBot. Memory: the user likes short answers.";
 const CHANGED = `${INSTRUCTIONS} Memory: the user works in Kraków.`;
 
 interface Prompt {
@@ -39,7 +39,7 @@ interface Report {
   agents: Partial<Record<Mode, { steps: Step[]; prompts: Prompt[] }>>;
 }
 
-const root = await mkdtemp(join(tmpdir(), "openbot-acp-instructions-e2e-"));
+const root = await mkdtemp(join(tmpdir(), "openownbot-acp-instructions-e2e-"));
 const report: Report = { passed: false, agents: {} };
 const clients: AgentClient[] = [];
 

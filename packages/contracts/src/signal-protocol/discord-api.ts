@@ -1,4 +1,4 @@
-// What Signal and a host exchange for the OpenBot Discord app: the events Signal passes to a host,
+// What Signal and a host exchange for the OpenOwnBot Discord app: the events Signal passes to a host,
 // and the typed Discord calls a host asks Signal to make. Signal holds the bot token, so a host can
 // ask only for these operations, and only in the guilds routed to its `ingress` socket.
 //
@@ -8,8 +8,8 @@
 
 import { isBoolean, isDynamicRecord, isNumber, isOneOf, isString } from "../runtime-values";
 
-/** The prefix of the custom id of every button OpenBot posts: `openbot:<action>:<token>`. */
-export const DISCORD_CUSTOM_ID_PREFIX = "openbot:";
+/** The prefix of the custom id of every button OpenOwnBot posts: `openownbot:<action>:<token>`. */
+export const DISCORD_CUSTOM_ID_PREFIX = "openownbot:";
 
 /** Discord's limit for one message's text. */
 export const DISCORD_MESSAGE_TEXT_LIMIT = 2_000;
@@ -46,7 +46,7 @@ export interface DiscordInboundAttachment {
 
 /**
  * The message that a person's message replies to, when a person wrote it. Discord gives its text only
- * when the bot has the Message Content intent, or when that message mentions OpenBot.
+ * when the bot has the Message Content intent, or when that message mentions OpenOwnBot.
  */
 export interface DiscordInboundQuote {
   authorId: string;
@@ -63,7 +63,7 @@ export interface DiscordInboundQuote {
   forwarded: boolean;
 }
 
-/** One guild message that mentions OpenBot. */
+/** One guild message that mentions OpenOwnBot. */
 export interface DiscordInboundMessage {
   id: string;
   channelId: string;
@@ -78,8 +78,8 @@ export interface DiscordInboundMessage {
   content: string;
   /**
    * The message this one replies to. `rootId` is the message that the replied-to message itself
-   * replies to, when OpenBot wrote it: OpenBot replies to the first message of a conversation, so
-   * that names the conversation. `quote` is null when OpenBot wrote it, when Discord gave no text,
+   * replies to, when OpenOwnBot wrote it: OpenOwnBot replies to the first message of a conversation, so
+   * that names the conversation. `quote` is null when OpenOwnBot wrote it, when Discord gave no text,
    * or from an older Signal.
    */
   replyTo: {
@@ -92,7 +92,7 @@ export interface DiscordInboundMessage {
   sentAt: string;
 }
 
-/** A press of a button on an OpenBot message. Signal has already acknowledged it to Discord. */
+/** A press of a button on an OpenOwnBot message. Signal has already acknowledged it to Discord. */
 export interface DiscordInboundInteraction {
   id: string;
   channelId: string;
@@ -106,7 +106,7 @@ export interface DiscordInboundInteraction {
 export type DiscordDelivery =
   | { kind: "message"; message: DiscordInboundMessage }
   | { kind: "interaction"; interaction: DiscordInboundInteraction }
-  // OpenBot was removed from the guild. The host stops the connection; the user must connect again.
+  // OpenOwnBot was removed from the guild. The host stops the connection; the user must connect again.
   | { kind: "removed" };
 
 export type DiscordButtonStyle = "primary" | "secondary" | "success" | "danger";

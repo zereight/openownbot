@@ -6,10 +6,10 @@ import {
   type BillingInterval,
   type BillingPlanId,
   isBillingAmount,
-} from "@openbot/contracts/billing";
-import { HOSTED_SERVER_ENTRY_POINTS, type HostedServerEntryPoint } from "@openbot/contracts/hosted-servers";
-import { LICENSE_METADATA, LICENSE_METADATA_KIND } from "@openbot/contracts/license";
-import { isOneOf } from "@openbot/contracts/runtime-values";
+} from "@openownbot/contracts/billing";
+import { HOSTED_SERVER_ENTRY_POINTS, type HostedServerEntryPoint } from "@openownbot/contracts/hosted-servers";
+import { LICENSE_METADATA, LICENSE_METADATA_KIND } from "@openownbot/contracts/license";
+import { isOneOf } from "@openownbot/contracts/runtime-values";
 import { Effect, Schema } from "effect";
 import {
   type BillingProduct,
@@ -435,8 +435,8 @@ export class BillingSales {
         .first<CheckoutRow>(),
     );
     const metadata = recordValue(object.metadata);
-    const userId = row?.user_id ?? safeId(metadata?.openbot_user_id);
-    const serverId = row?.server_id ?? safeId(metadata?.openbot_server_id);
+    const userId = row?.user_id ?? safeId(metadata?.openownbot_user_id);
+    const serverId = row?.server_id ?? safeId(metadata?.openownbot_server_id);
     if (row) {
       yield* d1(this.#database, () =>
         this.#database
@@ -493,8 +493,8 @@ export class BillingSales {
         .first<CheckoutRow>(),
     );
     const metadata = recordValue(object.metadata);
-    const userId = row?.user_id ?? safeId(metadata?.openbot_user_id);
-    const serverId = row?.server_id ?? safeId(metadata?.openbot_server_id);
+    const userId = row?.user_id ?? safeId(metadata?.openownbot_user_id);
+    const serverId = row?.server_id ?? safeId(metadata?.openownbot_server_id);
     if (row) {
       yield* d1(this.#database, () =>
         this.#database
@@ -569,8 +569,8 @@ export class BillingSales {
           : null;
     const product: BillingProduct = license ? "license" : "server";
     const metadata = recordValue(object.metadata);
-    const userId = synced?.userId ?? stored?.user_id ?? license?.userId ?? safeId(metadata?.openbot_user_id);
-    const serverId = license ? null : (stored?.server_id ?? safeId(metadata?.openbot_server_id));
+    const userId = synced?.userId ?? stored?.user_id ?? license?.userId ?? safeId(metadata?.openownbot_user_id);
+    const serverId = license ? null : (stored?.server_id ?? safeId(metadata?.openownbot_server_id));
     const plan = license ? undefined : (syncedPlan?.plan ?? stored?.plan);
     const interval = license ? "month" : (syncedPlan?.interval ?? stored?.interval);
     const currency =
@@ -643,7 +643,7 @@ export class BillingSales {
       : synced?.product === "license"
         ? synced
         : yield* this.#storedLicense(payment.subscriptionId);
-    // A payment of a subscription that is not an OpenBot plan or license is not an OpenBot sale.
+    // A payment of a subscription that is not an OpenOwnBot plan or license is not an OpenOwnBot sale.
     if (!stored && !license) return;
     const syncedPlan = synced?.product === "license" ? null : synced;
     const attributes: FactAttributes = stored

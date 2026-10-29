@@ -8,7 +8,7 @@ export const messages = {
   "error.kind.storage":
     "Lo spazio di archiviazione non è sufficiente. Libera spazio sul computer su cui gira OpenOwnBot, poi riprova.",
   "error.kind.filePermission":
-    "OpenBot non ha il permesso di completare questa azione. Controlla i permessi del file o della cartella, poi riprova.",
+    "OpenOwnBot non ha il permesso di completare questa azione. Controlla i permessi del file o della cartella, poi riprova.",
   "error.kind.notFound":
     "Non è stato possibile trovare un file o una cartella necessari. Ripristinali o scegline un altro, poi riprova.",
   "error.kind.readOnly": "Questa cartella è di sola lettura. Scegli una cartella in cui puoi scrivere, poi riprova.",

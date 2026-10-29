@@ -1,4 +1,4 @@
-import type { ServerSummary } from "@openbot/contracts/ipc";
+import type { ServerSummary } from "@openownbot/contracts/ipc";
 import type {
   EventActivity,
   EventRoutine,
@@ -12,8 +12,8 @@ import type {
   SaveEventRoutineResult,
   WebhookSecret,
   WebhookTestResult,
-} from "@openbot/contracts/ipc-events";
-import { runTeamEffect } from "@openbot/team-client";
+} from "@openownbot/contracts/ipc-events";
+import { runTeamEffect } from "@openownbot/team-client";
 import {
   deleteEventRoutine,
   getEventStatus,
@@ -24,8 +24,8 @@ import {
   saveEventRoutine,
   sendEventRoutineTestEvent,
   testEventRoutine,
-} from "@openbot/team-client/team-admin-requests";
-import type { TeamApiRequest } from "@openbot/team-client/team-api-requests";
+} from "@openownbot/team-client/team-admin-requests";
+import type { TeamApiRequest } from "@openownbot/team-client/team-api-requests";
 import { Effect } from "effect";
 import { remoteRoutineRecovery, serverCanAdminister, serverSendsWebhookTests } from "../servers/server-capabilities";
 import type { ConversationRuntime } from "./conversation-runtime";
@@ -71,7 +71,7 @@ export function desktopChatEventRoutinesApi(
  * test event of a host that sends one.
  */
 export function desktopEventRoutinesApi(serverId: string, recovery = false, tests = false): EventRoutinesApi {
-  const events = window.openbot.events;
+  const events = window.openownbot.events;
   return {
     ...(recovery ? { listRuns: (input: ListEventRoutineRunsInput) => events.listRoutineRuns(input, serverId) } : {}),
     ...(tests ? { sendTestEvent: (input: EventRoutineRef) => events.sendTestEvent(input, serverId) } : {}),

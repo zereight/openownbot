@@ -1,5 +1,5 @@
-import { AGENT_PROVIDERS } from "@openbot/contracts/agent-providers";
-import { type DynamicRecord, isDynamicRecord } from "@openbot/contracts/runtime-values";
+import { AGENT_PROVIDERS } from "@openownbot/contracts/agent-providers";
+import { type DynamicRecord, isDynamicRecord } from "@openownbot/contracts/runtime-values";
 import { Option, Schema } from "effect";
 
 export const CauseCode = Schema.Literals([

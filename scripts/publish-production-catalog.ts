@@ -3,24 +3,24 @@ import { mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import { isDynamicRecord, isNumber, isString } from "@openbot/contracts/runtime-values";
-import { createOpenBotLogger, toLogValue } from "@openbot/logging";
+import { isDynamicRecord, isNumber, isString } from "@openownbot/contracts/runtime-values";
+import { createOpenOwnBotLogger, toLogValue } from "@openownbot/logging";
 import { buildProductionCatalog } from "./build-production-catalog";
 
-const logger = createOpenBotLogger("publish-production-catalog");
+const logger = createOpenOwnBotLogger("publish-production-catalog");
 
 const projectRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const authApiRoot = join(projectRoot, "apps", "auth-api");
 const executableSuffix = process.platform === "win32" ? ".exe" : "";
 const wrangler = join(projectRoot, "node_modules", ".bin", `wrangler${executableSuffix}`);
 const productionApiUrl = "https://api.openbot.run";
-const productionDatabase = "openbot-auth";
-const productionBucket = "openbot-skills";
+const productionDatabase = "openownbot-auth";
+const productionBucket = "openownbot-skills";
 const owner = {
-  id: "openbot-production-catalog",
-  identityKey: "openbot-production-catalog",
+  id: "openownbot-production-catalog",
+  identityKey: "openownbot-production-catalog",
   email: "catalog@openbot.run",
-  name: "OpenBot",
+  name: "OpenOwnBot",
   avatarUrl: "https://openbot.run/icon-192x192.png",
 } as const;
 
@@ -94,8 +94,8 @@ export async function publishProductionCatalog(
   target: "local" | "production" = "production",
 ): Promise<void> {
   const mode = target === "local" ? "--local" : "--remote";
-  const bucket = target === "local" ? "openbot-skills-test" : productionBucket;
-  const temporaryRoot = await mkdtemp(join(tmpdir(), "openbot-production-publish-"));
+  const bucket = target === "local" ? "openownbot-skills-test" : productionBucket;
+  const temporaryRoot = await mkdtemp(join(tmpdir(), "openownbot-production-publish-"));
   try {
     const artifactRoot = join(temporaryRoot, "artifacts");
     await buildProductionCatalog(artifactRoot);

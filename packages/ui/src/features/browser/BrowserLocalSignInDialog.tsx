@@ -1,5 +1,5 @@
-import { Button, ConfirmDialog, LogIn } from "@openbot/ui";
-import { useText } from "@openbot/ui/text";
+import { Button, ConfirmDialog, LogIn } from "@openownbot/ui";
+import { useText } from "@openownbot/ui/text";
 import { Show } from "solid-js";
 
 export interface BrowserLocalSignInDialogProps {
@@ -18,7 +18,7 @@ export interface BrowserLocalSignInDialogProps {
 
 /**
  * The step of a sign-in on this computer for a tab of a server's browser. The window on this computer
- * shows the site; this dialog stays in OpenBot until the person selects Done or Cancel.
+ * shows the site; this dialog stays in OpenOwnBot until the person selects Done or Cancel.
  */
 export default function BrowserLocalSignInDialog(props: BrowserLocalSignInDialogProps) {
   const { t } = useText();

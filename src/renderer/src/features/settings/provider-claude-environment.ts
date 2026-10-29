@@ -1,6 +1,6 @@
-import type { ProviderEnvironmentEntry, ProviderEnvironmentInput } from "@openbot/contracts/provider-environment";
-import type { ProviderEnvironmentEditor } from "@openbot/ui/features/settings/ProviderSettingsPage";
-import { useText } from "@openbot/ui/text";
+import type { ProviderEnvironmentEntry, ProviderEnvironmentInput } from "@openownbot/contracts/provider-environment";
+import type { ProviderEnvironmentEditor } from "@openownbot/ui/features/settings/ProviderSettingsPage";
+import { useText } from "@openownbot/ui/text";
 import { createEffect, createStore } from "solid-js";
 
 /**
@@ -18,7 +18,7 @@ export function createProviderClaudeEnvironment(enabled: () => boolean): () => P
 
   createEffect(enabled, (on) => {
     if (!on) return;
-    window.openbot.getClaudeEnvironment().then(
+    window.openownbot.getClaudeEnvironment().then(
       (next) =>
         setState((draft) => {
           draft.entries = next.entries;
@@ -37,7 +37,7 @@ export function createProviderClaudeEnvironment(enabled: () => boolean): () => P
       draft.error = null;
     });
     try {
-      const next = await window.openbot.setClaudeEnvironment(inputs);
+      const next = await window.openownbot.setClaudeEnvironment(inputs);
       setState((draft) => {
         draft.entries = next.entries;
       });

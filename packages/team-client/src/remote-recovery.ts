@@ -1,7 +1,7 @@
-import type { ConversationSnapshot } from "@openbot/contracts/ipc";
-import { TEAM_API_ROUTES } from "@openbot/contracts/team-api-routes";
-import { type SourceMessages, sourceText } from "@openbot/i18n/source";
-import { errorReference } from "@openbot/user-errors/reference";
+import type { ConversationSnapshot } from "@openownbot/contracts/ipc";
+import { TEAM_API_ROUTES } from "@openownbot/contracts/team-api-routes";
+import { type SourceMessages, sourceText } from "@openownbot/i18n/source";
+import { errorReference } from "@openownbot/user-errors/reference";
 import { Effect, Result, Schema } from "effect";
 import { runTeamEffect } from "./effect-boundary";
 

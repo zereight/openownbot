@@ -23,7 +23,7 @@ export const CONTEXT7_PLUGIN_GUIDE: PluginGuide = {
     {
       question: "Does the Context7 MCP server need an API key?",
       answer:
-        "No. The OpenBot listing uses Context7 with no account and no key. Context7 says that requests without a key get low rate limits. When an agent goes over the limit, Context7 returns an error and tells it when to try again.",
+        "No. The OpenOwnBot listing uses Context7 with no account and no key. Context7 says that requests without a key get low rate limits. When an agent goes over the limit, Context7 returns an error and tells it when to try again.",
     },
     {
       question: "What data does Context7 get?",
@@ -38,7 +38,7 @@ export const CONTEXT7_PLUGIN_GUIDE: PluginGuide = {
     {
       question: "Does Context7 cost anything?",
       answer:
-        "Context7 has a free plan with 1,000 API calls each month. The Pro plan costs $10 per seat each month and adds private repositories. The OpenBot listing uses no key, so the limits for requests without a key apply.",
+        "Context7 has a free plan with 1,000 API calls each month. The Pro plan costs $10 per seat each month and adds private repositories. The OpenOwnBot listing uses no key, so the limits for requests without a key apply.",
     },
   ],
   sources: [

@@ -1,6 +1,6 @@
 ---
 name: openpanel
-description: Query OpenBot product analytics (events, sessions, profiles, funnels, retention, active users, Search Console) from the self-hosted OpenPanel server, and make or change its dashboards and reports. Use when debugging with real usage data, checking whether an event fires, counting affected users, answering a product or growth question, or building a dashboard.
+description: Query OpenOwnBot product analytics (events, sessions, profiles, funnels, retention, active users, Search Console) from the self-hosted OpenPanel server, and make or change its dashboards and reports. Use when debugging with real usage data, checking whether an event fires, counting affected users, answering a product or growth question, or building a dashboard.
 ---
 
 # OpenPanel analytics
@@ -25,14 +25,14 @@ When the key is not in the shell, use the root `.env.keys` of the main checkout.
 
 ```sh
 MAIN="$(dirname "$(git rev-parse --path-format=absolute --git-common-dir)")"
-bunx dotenvx run -q -f apps/auth-api/.env.dev -fk "$MAIN/.env.keys" -- bun scripts/openpanel.ts call list_event_names '{"projectId":"openbot"}'
+bunx dotenvx run -q -f apps/auth-api/.env.dev -fk "$MAIN/.env.keys" -- bun scripts/openpanel.ts call list_event_names '{"projectId":"openownbot"}'
 ```
 
 If no key is available, stop and ask the developer. Never print the token, a key, or `.env.keys`.
 
 ## Use
 
-- Every tool needs `"projectId": "openbot"`. Nightly, Infeld and other products share the
+- Every tool needs `"projectId": "openownbot"`. Nightly, Infeld and other products share the
   organization, and the token can change their dashboards too: do not touch them.
 - Event names and properties are in [ANALYTICS.md](../../../ANALYTICS.md). Call `list_event_names`
   or `list_event_properties` when a name is not there.
@@ -47,7 +47,7 @@ If no key is available, stop and ask the developer. Never print the token, a key
 
 ## Rotate the token
 
-In OpenPanel, open the OpenBot project, then Settings, Clients. Make a new `root` client. Encrypt
+In OpenPanel, open the OpenOwnBot project, then Settings, Clients. Make a new `root` client. Encrypt
 `base64(<client id>:<client secret>)` as `OPENPANEL_MCP_TOKEN` into both `apps/auth-api/.env.dev`
 and `apps/auth-api/.env.production` with `dotenvx set ... -fk <main checkout>/.env.keys`. Then delete
 the old client.

@@ -1,5 +1,5 @@
-import { ComposerErrorBanner } from "@openbot/ui/features/conversation/ComposerErrorBanner";
-import { ComposerUsageLimitNotice } from "@openbot/ui/features/conversation/ComposerNotice";
+import { ComposerErrorBanner } from "@openownbot/ui/features/conversation/ComposerErrorBanner";
+import { ComposerUsageLimitNotice } from "@openownbot/ui/features/conversation/ComposerNotice";
 import type { JSX } from "@solidjs/web";
 import { createSignal, Show } from "solid-js";
 import { fn } from "storybook/test";

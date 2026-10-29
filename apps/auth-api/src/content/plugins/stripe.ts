@@ -31,7 +31,7 @@ export const STRIPE_PLUGIN_GUIDE: PluginGuide = {
     {
       question: "Does the Stripe plugin need an API key?",
       answer:
-        "No. Each user signs in to their own Stripe account through the browser. On Stripe's consent page, you choose the live mode accounts or sandboxes that the agent can use, and set permissions for each. OpenBot keeps the tokens in encrypted storage and adds the Authorization header itself.",
+        "No. Each user signs in to their own Stripe account through the browser. On Stripe's consent page, you choose the live mode accounts or sandboxes that the agent can use, and set permissions for each. OpenOwnBot keeps the tokens in encrypted storage and adds the Authorization header itself.",
     },
     {
       question: "Can the agent refund a payment by itself?",

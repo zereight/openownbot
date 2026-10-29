@@ -1,9 +1,9 @@
-import type { ServerSummary } from "@openbot/contracts/ipc";
-import { CONNECTORS, type ConnectorId } from "@openbot/ui/features/connectors/connectors";
+import type { ServerSummary } from "@openownbot/contracts/ipc";
+import { CONNECTORS, type ConnectorId } from "@openownbot/ui/features/connectors/connectors";
 import { remoteAdminServer } from "../servers/server-capabilities";
 
 /**
- * Where a server can use a connector. `local-only`: only the computer that runs OpenBot can connect
+ * Where a server can use a connector. `local-only`: only the computer that runs OpenOwnBot can connect
  * it, because its app or its browser runs there. `hidden`: this account does not manage the
  * server's connectors, or the host does not serve them.
  */

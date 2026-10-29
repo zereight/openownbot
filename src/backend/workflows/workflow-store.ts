@@ -27,9 +27,9 @@ import {
   type WorkflowVersion,
   type WorkflowVersionKind,
   workflowGraphProblem,
-} from "@openbot/contracts/ipc";
-import { type DynamicRecord, isOneOf } from "@openbot/contracts/runtime-values";
-import { sourceText } from "@openbot/i18n/source";
+} from "@openownbot/contracts/ipc";
+import { type DynamicRecord, isOneOf } from "@openownbot/contracts/runtime-values";
+import { sourceText } from "@openownbot/i18n/source";
 import { Schema } from "effect";
 import {
   checkedColumn,
@@ -39,7 +39,7 @@ import {
   requiredNumberColumn,
   requiredStringColumn,
 } from "../database/database-rows";
-import type { OpenBotDatabase } from "../openbot-database";
+import type { OpenOwnBotDatabase } from "../openownbot-database";
 import { triggerPlan, type WorkflowTriggerPlan, workflowGraphFits } from "./workflow-graph";
 import { workflowTransaction } from "./workflow-transaction";
 
@@ -86,14 +86,14 @@ export interface SaveGraphOptions {
 }
 
 export interface WorkflowStoreOptions {
-  database: OpenBotDatabase;
+  database: OpenOwnBotDatabase;
   createId?: () => string;
   /** The next occurrence of a schedule trigger, or null. The trigger service supplies it. */
   nextDueAt?: (schedule: RoutineSchedule, timezone: string | null, now: Date) => string | null;
 }
 
 export class WorkflowStore {
-  readonly #database: OpenBotDatabase;
+  readonly #database: OpenOwnBotDatabase;
   readonly #createId: () => string;
   readonly #nextDueAt: (schedule: RoutineSchedule, timezone: string | null, now: Date) => string | null;
 

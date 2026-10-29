@@ -1,6 +1,6 @@
-import { ONE_TIME_CODE_ALPHABET, ONE_TIME_CODE_LENGTH } from "@openbot/contracts/validation";
-import { Input } from "@openbot/ui";
-import { prefersReducedMotion } from "@openbot/ui/utils";
+import { ONE_TIME_CODE_ALPHABET, ONE_TIME_CODE_LENGTH } from "@openownbot/contracts/validation";
+import { Input } from "@openownbot/ui";
+import { prefersReducedMotion } from "@openownbot/ui/utils";
 import { createEffect, createMemo, createSignal, createUniqueId, For, flush, Show, untrack } from "solid-js";
 import { useText } from "../../text";
 
@@ -31,7 +31,7 @@ export function OtpInput(props: OtpInputProps) {
   const length = () => props.length ?? ONE_TIME_CODE_LENGTH;
   const alphabet = () => (props.numeric ? "0123456789" : ONE_TIME_CODE_ALPHABET);
   const groupAt = () => Math.ceil(length() / 2);
-  const inputId = `openbot-otp-${createUniqueId()}`;
+  const inputId = `openownbot-otp-${createUniqueId()}`;
   const messageId = `${inputId}-message`;
   const initialSlots = toSlots(untrack(() => props.value));
   const [slots, setSlots] = createSignal(initialSlots);

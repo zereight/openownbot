@@ -1,4 +1,4 @@
-import type { HostedSiteSummary } from "@openbot/contracts/ipc";
+import type { HostedSiteSummary } from "@openownbot/contracts/ipc";
 import { useLocalSearchParams } from "expo-router";
 import { Typography } from "heroui-native";
 import { useRef, useState } from "react";

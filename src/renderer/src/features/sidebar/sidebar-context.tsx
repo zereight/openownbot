@@ -1,5 +1,5 @@
-import type { ServerSummary, SidebarLayoutAction, SidebarLayoutSnapshot } from "@openbot/contracts/ipc";
-import { currentText } from "@openbot/ui/text";
+import type { ServerSummary, SidebarLayoutAction, SidebarLayoutSnapshot } from "@openownbot/contracts/ipc";
+import { currentText } from "@openownbot/ui/text";
 import { createMemo, createSignal } from "solid-js";
 import { createSimpleContext } from "../../simple-context";
 import { serverSupportsCapability } from "../servers/server-capabilities";

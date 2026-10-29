@@ -3,7 +3,7 @@
 
 .provider-settings-stack {
   display: grid;
-  gap: var(--openbot-space-6);
+  gap: var(--openownbot-space-6);
 }
 
 /* The select value is a block; the logo and the name center in it. */
@@ -15,7 +15,7 @@
 .provider-settings-select-option {
   display: flex;
   align-items: center;
-  gap: var(--openbot-space-2);
+  gap: var(--openownbot-space-2);
 }
 
 .provider-settings-logo-off {
@@ -23,11 +23,11 @@
 }
 
 .provider-settings-stack .ui-item-description.provider-settings-warning {
-  color: var(--openbot-warning-text);
+  color: var(--openownbot-warning-text);
 }
 
 .provider-settings-stack .ui-item-description.provider-settings-error {
-  color: var(--openbot-danger-text);
+  color: var(--openownbot-danger-text);
 }
 
 /* An account with two lines of text keeps its buttons on the title line. */
@@ -36,7 +36,7 @@
 }
 
 .provider-settings-account .ui-item-content {
-  gap: var(--openbot-space-1);
+  gap: var(--openownbot-space-1);
 }
 
 .provider-settings-account .provider-picker-account-rename {
@@ -47,14 +47,14 @@
 .provider-settings-usage-badge {
   cursor: pointer;
   font: inherit;
-  font-size: var(--openbot-text-sm);
+  font-size: var(--openownbot-text-sm);
   font-variant-numeric: tabular-nums;
-  font-weight: var(--openbot-weight-medium);
-  line-height: var(--openbot-leading-sm);
+  font-weight: var(--openownbot-weight-medium);
+  line-height: var(--openownbot-leading-sm);
 }
 
 .provider-settings-usage-badge:focus-visible {
-  outline: 2px solid var(--openbot-focus-ring);
+  outline: 2px solid var(--openownbot-focus-ring);
   outline-offset: 2px;
 }
 

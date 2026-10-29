@@ -58,7 +58,7 @@ export function GlassCapsule({
   // design over the blur. iOS without Liquid Glass, or with Reduce Transparency, keeps the solid capsule.
   const milky = useChromeGlass();
   const { theme } = useUniwind();
-  const blurFill = String(useCSSVariable("--openbot-bg-chrome-blur"));
+  const blurFill = String(useCSSVariable("--openownbot-bg-chrome-blur"));
   const blurs = ANDROID_BLUR && !liquidGlass && blurTarget !== undefined && !blurPaused;
   const fallback = isAndroid ? milky : { backgroundColor: String(fallbackBackground), boxShadow: CAPSULE_SHADOW };
   return (

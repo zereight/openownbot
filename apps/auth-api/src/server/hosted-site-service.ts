@@ -3,7 +3,7 @@ import {
   hostedSiteBlockKey,
   hostedSiteDeploymentPrefix,
   hostedSiteRouteKey,
-} from "@openbot/contracts/hosted-sites";
+} from "@openownbot/contracts/hosted-sites";
 import { Effect, Result } from "effect";
 import { sha256 } from "./crypto";
 import {

@@ -8,7 +8,7 @@
 // 4. With no Secret Service, encryption stays unavailable, so nothing is stored in plain text.
 //
 // Run on Linux with a display (CI uses xvfb-run): bun scripts/linux-password-store-e2e.ts
-// It writes .openbot-build/linux-password-store-e2e/report.json and exits non-zero on a failure.
+// It writes .openownbot-build/linux-password-store-e2e/report.json and exits non-zero on a failure.
 import assert from "node:assert/strict";
 import { spawn, spawnSync } from "node:child_process";
 import { closeSync, existsSync, openSync, readFileSync } from "node:fs";
@@ -16,11 +16,11 @@ import { mkdir, mkdtemp, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import { setTimeout as sleep } from "node:timers/promises";
-import { isDynamicRecord } from "@openbot/contracts/runtime-values";
+import { isDynamicRecord } from "@openownbot/contracts/runtime-values";
 import { withoutElectronRuntimeFlags } from "./electron-spawn-env";
 
 const ROOT = resolve(import.meta.dirname, "..");
-const OUT = join(ROOT, ".openbot-build", "linux-password-store-e2e");
+const OUT = join(ROOT, ".openownbot-build", "linux-password-store-e2e");
 const READY_TIMEOUT_MS = 30_000;
 const electronPath = join(
   ROOT,
@@ -75,7 +75,7 @@ interface Result {
 }
 
 await mkdir(OUT, { recursive: true });
-const root = await mkdtemp(join(tmpdir(), "openbot-linux-password-store-"));
+const root = await mkdtemp(join(tmpdir(), "openownbot-linux-password-store-"));
 const bundle = join(root, "linux-password-store-electron.mjs");
 const results: Result[] = [];
 let passed = false;
@@ -112,7 +112,7 @@ async function launch(index: number, item: Case): Promise<Result> {
   for (const name of DESKTOP_VARIABLES) delete base[name];
   // No session bus: the test must not reach a keyring of the computer that runs it. An unset address
   // is not enough, because GLib then finds $XDG_RUNTIME_DIR/bus.
-  base.DBUS_SESSION_BUS_ADDRESS = "unix:path=/nonexistent/openbot-e2e-bus";
+  base.DBUS_SESSION_BUS_ADDRESS = "unix:path=/nonexistent/openownbot-e2e-bus";
   const readyFile = join(root, `ready-${index}.json`);
   const log = openSync(join(OUT, `electron-${index}.log`), "w");
   const child = spawn(

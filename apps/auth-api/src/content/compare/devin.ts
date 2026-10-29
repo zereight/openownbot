@@ -1,5 +1,5 @@
-import { OPENBOT_LINKS } from "../../lib/landing-links";
-import { type Comparison, OPENBOT_TEXT } from "./comparison";
+import { OPENOWNBOT_LINKS } from "../../lib/landing-links";
+import { type Comparison, OPENOWNBOT_TEXT } from "./comparison";
 
 // Every statement about Devin here is taken from devin.ai, the Devin documentation,
 // cognition.com and Cognition's terms and Trust Center, and each page used is in
@@ -11,8 +11,8 @@ const DEVIN_DOCS = "https://docs.devin.ai";
 export const DEVIN_COMPARISON: Comparison = {
   rival: { name: "Devin", mark: "devin" },
   answer:
-    "Choose OpenBot if you want coding agents on your own computer that use the AI plans you already pay for, such as ChatGPT, Claude, Gemini or Grok: the app is free. Choose Devin if you want an autonomous software engineer that works in Cognition's cloud, with no computer of yours on, and starts from Slack, GitHub, Linear or Jira.",
-  chooseOpenBot: [
+    "Choose OpenOwnBot if you want coding agents on your own computer that use the AI plans you already pay for, such as ChatGPT, Claude, Gemini or Grok: the app is free. Choose Devin if you want an autonomous software engineer that works in Cognition's cloud, with no computer of yours on, and starts from Slack, GitHub, Linear or Jira.",
+  chooseOpenOwnBot: [
     "You already pay for ChatGPT, Claude, Gemini, Grok, Cursor, Cline or Muse Code, and want your agents to use that plan.",
     "Your code and chats must stay on your own computer, not in Cognition's cloud.",
     "You want no app vendor to keep your code or train models on it.",
@@ -29,160 +29,160 @@ export const DEVIN_COMPARISON: Comparison = {
     {
       icon: "cpu",
       topic: "Models and plans",
-      openbot: OPENBOT_TEXT.models,
+      openownbot: OPENOWNBOT_TEXT.models,
       rival:
         "Models from Anthropic, OpenAI, Google, Cognition and open-source labs, paid through your Devin plan. No own API keys. On paid plans, Devin Desktop can also run agents such as Codex CLI or Gemini CLI, billed by their provider.",
-      better: "openbot",
+      better: "openownbot",
     },
     {
       icon: "laptop",
       topic: "Where agents work",
-      openbot: "On the computer that runs OpenBot.",
+      openownbot: "On the computer that runs OpenOwnBot.",
       rival:
         "In virtual machines in Cognition's cloud, or on your computer with Devin Desktop or the Devin CLI. The agent's planning always runs in Cognition's cloud.",
     },
     {
       icon: "cloud",
       topic: "When your computer is off",
-      openbot: OPENBOT_TEXT.offline,
+      openownbot: OPENOWNBOT_TEXT.offline,
       rival:
         "Devin Cloud keeps working when you close your laptop. Automations start sessions on a schedule or from events.",
     },
     {
       icon: "phone",
       topic: "Remote access",
-      openbot: OPENBOT_TEXT.remote,
+      openownbot: OPENOWNBOT_TEXT.remote,
       rival:
         "A web app that you can install on your phone from the browser. Start sessions from Slack, Microsoft Teams, Linear, Jira or a GitHub comment. No iPhone or Android app is listed.",
     },
     {
       icon: "refresh",
       topic: "Backup models",
-      openbot: OPENBOT_TEXT.backupModels,
+      openownbot: OPENOWNBOT_TEXT.backupModels,
       rival:
         "You choose from Anthropic, OpenAI, Google, Cognition and open models, and the Adaptive router picks one for each task. Cognition describes no move when a provider is down. When your ChatGPT plan reaches its limit, a cloud session pauses.",
-      better: "openbot",
+      better: "openownbot",
     },
     {
       icon: "key",
       topic: "Logins and payments",
-      openbot: OPENBOT_TEXT.logins,
+      openownbot: OPENOWNBOT_TEXT.logins,
       rival:
         "You save a username and password, site cookies or 2FA codes as encrypted Secrets, and Devin types them in its browser. You can take over its browser for CAPTCHAs and 2FA. Cognition names no password manager and no payment cards.",
-      better: "openbot",
+      better: "openownbot",
     },
     {
       icon: "mic",
       topic: "Voice",
-      openbot: OPENBOT_TEXT.voice,
+      openownbot: OPENOWNBOT_TEXT.voice,
       rival:
         "Voice calls in the web app, on a live speech model, and you can interrupt Devin while it talks. Cognition does not say where it processes speech.",
     },
     {
       icon: "contact",
       topic: "Chat apps",
-      openbot: OPENBOT_TEXT.chatApps,
+      openownbot: OPENOWNBOT_TEXT.chatApps,
       rival:
         "Slack and Microsoft Teams: you tag @Devin to start a session. Cognition names no Discord, Telegram or WhatsApp.",
     },
     {
       icon: "users",
       topic: "Teams",
-      openbot: OPENBOT_TEXT.teams,
+      openownbot: OPENOWNBOT_TEXT.teams,
       rival:
         "Devin can hand parts of a task to managed Devins, each in its own virtual machine. The Teams plan takes up to 200 users, with no limit on parallel sessions.",
     },
     {
       icon: "lock",
       topic: "Your data",
-      openbot:
+      openownbot:
         "Workspaces, chats and files stay in a database on your computer. The provider you choose gets the requests you send. Product analytics, with no chat content, are on by default and linked to your account when you sign in; you can turn them off.",
       rival:
         "Code and sessions are processed in Cognition's cloud. By default, Cognition can use your data for model training; only paid plans can opt out.",
-      better: "openbot",
+      better: "openownbot",
     },
     {
       icon: "tag",
       topic: "Price and account",
-      openbot:
+      openownbot:
         "Free for noncommercial use; commercial use needs a license. Your agents use the plans you already pay for.",
       rival:
         "Free with a light quota. Pro $20 a month, Max $200 a month, and Teams $80 a month plus $40 for each full seat. Every app needs a Devin account.",
-      better: "openbot",
+      better: "openownbot",
     },
     {
       icon: "globe",
       topic: "Where you can use it",
-      openbot: OPENBOT_TEXT.regions,
+      openownbot: OPENOWNBOT_TEXT.regions,
       rival:
         "Cognition lists no countries; its terms exclude countries under a US embargo. Devin works in Cognition's cloud, and Cognition names no EU data region.",
     },
     {
       icon: "devices",
       topic: "Apps",
-      openbot: OPENBOT_TEXT.apps,
+      openownbot: OPENOWNBOT_TEXT.apps,
       rival:
         "Devin Desktop and the Devin CLI for macOS, Windows and Linux, a web app, and plugins for JetBrains IDEs. No native mobile app is listed.",
     },
     {
       icon: "code",
       topic: "Source code",
-      openbot: "On GitHub, under the PolyForm Noncommercial License 1.0.0.",
+      openownbot: "On GitHub, under the PolyForm Noncommercial License 1.0.0.",
       rival: "Proprietary. Cognition's terms prohibit reverse engineering.",
-      better: "openbot",
+      better: "openownbot",
     },
   ],
   intro:
-    "Devin is Cognition's autonomous AI software engineer: it can write, run and test code, and open the pull request. In 2025 Cognition acquired Windsurf, and in June 2026 Windsurf became Devin Desktop. Devin now has four parts: Devin Cloud, Devin Desktop, the Devin CLI and Devin Review. OpenBot's agents are coding agents too. The difference is where they run and whose plan pays for them. Devin works mainly in Cognition's cloud, paid through a Devin plan. OpenBot runs a team of agents on your own computer, with the AI plans you choose.",
+    "Devin is Cognition's autonomous AI software engineer: it can write, run and test code, and open the pull request. In 2025 Cognition acquired Windsurf, and in June 2026 Windsurf became Devin Desktop. Devin now has four parts: Devin Cloud, Devin Desktop, the Devin CLI and Devin Review. OpenOwnBot's agents are coding agents too. The difference is where they run and whose plan pays for them. Devin works mainly in Cognition's cloud, paid through a Devin plan. OpenOwnBot runs a team of agents on your own computer, with the AI plans you choose.",
   sections: [
     {
       title: "Models and the plans you pay for",
-      openbot: OPENBOT_TEXT.plansSection,
+      openownbot: OPENOWNBOT_TEXT.plansSection,
       rival:
         "Devin supports the latest models from Anthropic, OpenAI, Google and Cognition, and open-source models such as DeepSeek, Kimi and GLM. You choose a model in Devin Desktop and the CLI, and a mode in Devin Cloud. Cognition's own SWE-2 model is post-trained from Kimi K3. Devin does not take your own API keys: you pay through your Devin plan, and extra use is billed at API prices. On Pro, Max and Teams, Devin Desktop can also run third-party agents such as Codex CLI, Claude Agent, OpenCode and Gemini CLI; their provider bills you directly.",
-      better: "openbot",
+      better: "openownbot",
     },
     {
       title: "Where the work happens",
-      openbot: OPENBOT_TEXT.workSection,
+      openownbot: OPENOWNBOT_TEXT.workSection,
       rival:
         "Devin Cloud works in virtual machines in Cognition's cloud, and it keeps working when you close your laptop. Automations start sessions from a schedule, Slack, GitHub, Linear or a webhook. Devin Desktop and the Devin CLI run on your own computer. With Outposts, commands can run on machines that you operate. In every case, the agent's planning and inference run in Cognition's cloud; Enterprise can have a dedicated deployment.",
     },
     {
       title: "Phones and remote access",
-      openbot: OPENBOT_TEXT.phonesSection,
+      openownbot: OPENOWNBOT_TEXT.phonesSection,
       rival:
         "Devin's web app can be installed on a phone from the browser, as a Progressive Web App. You can also start sessions from Slack, Microsoft Teams, Linear or Jira, from a GitHub pull request with a /devin comment, or through the Devin API. The sessions themselves run in Cognition's cloud. We found no Devin app in the App Store or Google Play.",
     },
     {
       title: "How agents work as a team",
-      openbot: OPENBOT_TEXT.teamSection,
+      openownbot: OPENOWNBOT_TEXT.teamSection,
       rival:
         "Devin can give parts of a large task to a team of managed Devins that work in parallel, each in its own virtual machine, and the Devin CLI has subagents. Pro and Max run up to 10 sessions at the same time; Teams and Enterprise have no limit. The Teams plan takes up to 200 users, with shared work and an admin dashboard; Enterprise adds single sign-on and a dedicated deployment.",
     },
     {
       title: "Data and privacy",
-      openbot:
-        "OpenBot keeps workspaces, conversations, attachments and browser data in a SQLite database on the computer that runs it. OpenBot keeps no other copy. On a hosted OpenBot server, the database is on that server in the EU. An account holds your profile, team memberships, invitations, sign-in sessions, the settings that let devices find each other, and any agent templates that you publish. Product analytics, which never include chat content, are on by default and linked to your account when you sign in; you can turn them off in Settings.",
+      openownbot:
+        "OpenOwnBot keeps workspaces, conversations, attachments and browser data in a SQLite database on the computer that runs it. OpenOwnBot keeps no other copy. On a hosted OpenOwnBot server, the database is on that server in the EU. An account holds your profile, team memberships, invitations, sign-in sessions, the settings that let devices find each other, and any agent templates that you publish. Product analytics, which never include chat content, are on by default and linked to your account when you sign in; you can turn them off in Settings.",
       rival:
         "Devin processes your code and sessions in Cognition's cloud on AWS, and keeps the data for as long as you are a customer. By default, Cognition can use your data for model training; on a paid plan you can opt out, and on Enterprise it trains only with your written consent. Cognition is SOC 2 Type II certified. A deployment in your own cloud is only for Enterprise.",
-      better: "openbot",
+      better: "openownbot",
     },
   ],
   faq: [
     {
-      question: "Is OpenBot an alternative to Devin?",
+      question: "Is OpenOwnBot an alternative to Devin?",
       answer:
-        "Yes, if you want your coding agents on your own computer. Both give you agents that write, run and test code. OpenBot runs a team of agents on your computer with the AI plans you choose. Devin is an autonomous software engineer that works mainly in Cognition's cloud, paid through a Devin plan.",
+        "Yes, if you want your coding agents on your own computer. Both give you agents that write, run and test code. OpenOwnBot runs a team of agents on your computer with the AI plans you choose. Devin is an autonomous software engineer that works mainly in Cognition's cloud, paid through a Devin plan.",
     },
     {
-      question: "Why choose OpenBot over Devin?",
+      question: "Why choose OpenOwnBot over Devin?",
       answer:
-        "Your agents use the AI plans you already pay for, such as ChatGPT, Claude, Gemini or Grok, or your own model. OpenBot keeps your code, chats and files on your own computer, and OpenBot does not train models on them. It has native apps for iPhone and Android. The app is free, and its source code is on GitHub. Devin is the better fit when you want agents in the cloud that start from Slack, GitHub or Jira.",
+        "Your agents use the AI plans you already pay for, such as ChatGPT, Claude, Gemini or Grok, or your own model. OpenOwnBot keeps your code, chats and files on your own computer, and OpenOwnBot does not train models on them. It has native apps for iPhone and Android. The app is free, and its source code is on GitHub. Devin is the better fit when you want agents in the cloud that start from Slack, GitHub or Jira.",
     },
     {
-      question: "Can I use my ChatGPT, Claude or Gemini subscription with OpenBot?",
-      answer: OPENBOT_TEXT.plansFaq,
+      question: "Can I use my ChatGPT, Claude or Gemini subscription with OpenOwnBot?",
+      answer: OPENOWNBOT_TEXT.plansFaq,
     },
     {
       question: "Can I use my own API key or plan with Devin?",
@@ -197,17 +197,17 @@ export const DEVIN_COMPARISON: Comparison = {
     {
       question: "Does Devin train on my code?",
       answer:
-        "It can. Cognition's terms say that it may use customer data for model training, and that customers on a paid plan can opt out. On Enterprise, Cognition trains only with your written consent. OpenBot does not train models; your provider's own terms apply to the requests you send it.",
+        "It can. Cognition's terms say that it may use customer data for model training, and that customers on a paid plan can opt out. On Enterprise, Cognition trains only with your written consent. OpenOwnBot does not train models; your provider's own terms apply to the requests you send it.",
     },
     {
       question: "Do agents keep working when my laptop is closed?",
       answer:
-        "Yes, with both. Devin Cloud works in Cognition's cloud, so no computer of yours must stay on. OpenBot agents work on the computer or server that runs OpenBot: keep that computer on, or use a hosted OpenBot server, and connect from your laptop or phone.",
+        "Yes, with both. Devin Cloud works in Cognition's cloud, so no computer of yours must stay on. OpenOwnBot agents work on the computer or server that runs OpenOwnBot: keep that computer on, or use a hosted OpenOwnBot server, and connect from your laptop or phone.",
     },
     {
-      question: "How much do OpenBot and Devin cost?",
+      question: "How much do OpenOwnBot and Devin cost?",
       answer:
-        "OpenBot is free for noncommercial use, commercial use needs a separate license, and your agents use the plans you already pay for. Devin has a free plan with a light quota; Pro costs $20 a month, Max $200 a month, and Teams $80 a month plus $40 for each full seat. Extra use is billed at API prices.",
+        "OpenOwnBot is free for noncommercial use, commercial use needs a separate license, and your agents use the plans you already pay for. Devin has a free plan with a light quota; Pro costs $20 a month, Max $200 a month, and Teams $80 a month plus $40 for each full seat. Extra use is billed at API prices.",
     },
   ],
   sources: [
@@ -243,8 +243,8 @@ export const DEVIN_COMPARISON: Comparison = {
     { label: "Devin with your ChatGPT plan", url: "https://docs.devin.ai/admin/billing/chatgpt" },
     { label: "Devin secrets and site cookies", url: "https://docs.devin.ai/product-guides/secrets" },
     { label: "Devin voice mode", url: "https://docs.devin.ai/work-with-devin/voice-mode" },
-    { label: "OpenBot privacy notes", url: OPENBOT_LINKS.privacy },
-    { label: "OpenBot source code", url: OPENBOT_LINKS.repository },
+    { label: "OpenOwnBot privacy notes", url: OPENOWNBOT_LINKS.privacy },
+    { label: "OpenOwnBot source code", url: OPENOWNBOT_LINKS.repository },
   ],
   checkedAt: "2026-10-02",
 };

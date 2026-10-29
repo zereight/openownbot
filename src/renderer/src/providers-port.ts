@@ -1,30 +1,30 @@
-import type { OpenBotDesktopApi } from "@openbot/contracts/ipc";
+import type { OpenOwnBotDesktopApi } from "@openownbot/contracts/ipc";
 
 /**
  * What provider state reaches in main: connecting, signing in and refreshing providers, and the
- * runtimes OpenBot installs for them, on this computer or on a host the account administers.
+ * runtimes OpenOwnBot installs for them, on this computer or on a host the account administers.
  */
 export interface ProvidersPort {
-  cancelProviderCodeLogin: OpenBotDesktopApi["cancelProviderCodeLogin"];
-  connectProvider: OpenBotDesktopApi["connectProvider"];
-  cancelProviderSignIn: OpenBotDesktopApi["cancelProviderSignIn"];
-  refreshAgentProviders: OpenBotDesktopApi["refreshAgentProviders"];
-  setProviderOn: OpenBotDesktopApi["setProviderOn"];
-  restartProvider: OpenBotDesktopApi["restartProvider"];
-  cancelProviderRestart: OpenBotDesktopApi["cancelProviderRestart"];
-  startProviderCodeLogin: OpenBotDesktopApi["startProviderCodeLogin"];
-  providerRuntimes: OpenBotDesktopApi["providerRuntimes"];
-  connectProviderAccount: OpenBotDesktopApi["connectProviderAccount"];
-  cancelProviderAccountSignIn: OpenBotDesktopApi["cancelProviderAccountSignIn"];
-  renameProviderAccount: OpenBotDesktopApi["renameProviderAccount"];
-  removeProviderAccount: OpenBotDesktopApi["removeProviderAccount"];
-  providerUsageResets: OpenBotDesktopApi["providerUsageResets"];
-  resetProviderUsage: OpenBotDesktopApi["resetProviderUsage"];
+  cancelProviderCodeLogin: OpenOwnBotDesktopApi["cancelProviderCodeLogin"];
+  connectProvider: OpenOwnBotDesktopApi["connectProvider"];
+  cancelProviderSignIn: OpenOwnBotDesktopApi["cancelProviderSignIn"];
+  refreshAgentProviders: OpenOwnBotDesktopApi["refreshAgentProviders"];
+  setProviderOn: OpenOwnBotDesktopApi["setProviderOn"];
+  restartProvider: OpenOwnBotDesktopApi["restartProvider"];
+  cancelProviderRestart: OpenOwnBotDesktopApi["cancelProviderRestart"];
+  startProviderCodeLogin: OpenOwnBotDesktopApi["startProviderCodeLogin"];
+  providerRuntimes: OpenOwnBotDesktopApi["providerRuntimes"];
+  connectProviderAccount: OpenOwnBotDesktopApi["connectProviderAccount"];
+  cancelProviderAccountSignIn: OpenOwnBotDesktopApi["cancelProviderAccountSignIn"];
+  renameProviderAccount: OpenOwnBotDesktopApi["renameProviderAccount"];
+  removeProviderAccount: OpenOwnBotDesktopApi["removeProviderAccount"];
+  providerUsageResets: OpenOwnBotDesktopApi["providerUsageResets"];
+  resetProviderUsage: OpenOwnBotDesktopApi["resetProviderUsage"];
   /** The same, for the host of a joined server the account administers. */
-  providerAdmin: OpenBotDesktopApi["providerAdmin"];
+  providerAdmin: OpenOwnBotDesktopApi["providerAdmin"];
 }
 
-/** Read on each call: tests and stories replace `window.openbot` per case. */
+/** Read on each call: tests and stories replace `window.openownbot` per case. */
 export function providersPort(): ProvidersPort {
-  return window.openbot;
+  return window.openownbot;
 }

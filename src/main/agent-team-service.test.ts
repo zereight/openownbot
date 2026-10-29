@@ -1,4 +1,4 @@
-import type { AgentTemplateSnapshot, SidebarLayoutAction, SidebarLayoutSnapshot } from "@openbot/contracts/ipc";
+import type { AgentTemplateSnapshot, SidebarLayoutAction, SidebarLayoutSnapshot } from "@openownbot/contracts/ipc";
 import { Effect } from "effect";
 import { describe, expect, it } from "vitest";
 import { AgentTeamService, type TeamTemplates } from "./agent-team-service";

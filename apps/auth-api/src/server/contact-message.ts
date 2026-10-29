@@ -1,4 +1,4 @@
-import type { DynamicRecord } from "@openbot/contracts/runtime-values";
+import type { DynamicRecord } from "@openownbot/contracts/runtime-values";
 import { Effect, Schema } from "effect";
 import { CONTACT_LIMITS, contactTopicLabel } from "../lib/contact";
 import { AuthServiceError, emailDeliveryFailure, isEmailDeliveryFailure, normalizeEmail } from "./auth-service";
@@ -70,8 +70,8 @@ export const sendContactMessage = Effect.fn("ContactMessage.send")(function* (
     .pipe(
       Effect.mapError((error) =>
         isEmailDeliveryFailure(error)
-          ? emailDeliveryFailure(error.message, "OpenBot could not send the message.")
-          : new AuthServiceError(502, "email_delivery_failed", "OpenBot could not send the message."),
+          ? emailDeliveryFailure(error.message, "OpenOwnBot could not send the message.")
+          : new AuthServiceError(502, "email_delivery_failed", "OpenOwnBot could not send the message."),
       ),
     );
 });

@@ -16,30 +16,30 @@ function directive(policy: string, name: string): string | undefined {
   return policy.split("; ").find((candidate) => candidate.startsWith(`${name} `));
 }
 
-const CONNECT_WITHOUT_OPENBOT = "connect-src 'self' openbot-attachment: openbot-remote-attachment: ws://127.0.0.1:*";
-const CONNECT_WITH_OPENBOT =
+const CONNECT_WITHOUT_OPENOWNBOT = "connect-src 'self' openbot-attachment: openbot-remote-attachment: ws://127.0.0.1:*";
+const CONNECT_WITH_OPENOWNBOT =
   "connect-src 'self' openbot-attachment: openbot-remote-attachment: https://analytics.openbot.run ws://127.0.0.1:* wss://*.openbot.run";
-const FRAME_WITHOUT_OPENBOT =
-  "frame-src 'self' openbot-attachment: openbot-remote-attachment: openbot-visual: openbot-remote-visual: http://127.0.0.1:* http://localhost:*";
-const FRAME_WITH_OPENBOT =
-  "frame-src 'self' openbot-attachment: openbot-remote-attachment: openbot-visual: openbot-remote-visual: https://*.openbot.run http://127.0.0.1:* http://localhost:*";
+const FRAME_WITHOUT_OPENOWNBOT =
+  "frame-src 'self' openbot-attachment: openbot-remote-attachment: openownbot-visual: openownbot-remote-visual: http://127.0.0.1:* http://localhost:*";
+const FRAME_WITH_OPENOWNBOT =
+  "frame-src 'self' openbot-attachment: openbot-remote-attachment: openownbot-visual: openownbot-remote-visual: https://*.openbot.run http://127.0.0.1:* http://localhost:*";
 
 describe("buildContentSecurityPolicy", () => {
-  it("allows the analytics endpoint and the OpenBot hosts only while the switch is off", async () => {
+  it("allows the analytics endpoint and the OpenOwnBot hosts only while the switch is off", async () => {
     const build = await policyWithSwitch(false);
     const policy = build(true);
 
-    expect(directive(policy, "connect-src")).toBe(CONNECT_WITH_OPENBOT);
+    expect(directive(policy, "connect-src")).toBe(CONNECT_WITH_OPENOWNBOT);
     expect(directive(policy, "connect-src")).not.toContain("localhost");
-    expect(directive(build(false), "frame-src")).toBe(FRAME_WITH_OPENBOT);
-    expect(directive(policy, "frame-src")).toBe(FRAME_WITH_OPENBOT);
+    expect(directive(build(false), "frame-src")).toBe(FRAME_WITH_OPENOWNBOT);
+    expect(directive(policy, "frame-src")).toBe(FRAME_WITH_OPENOWNBOT);
   });
 
-  it.each([true, false])("allows no OpenBot host while the switch is on and packaged=%s", async (packaged) => {
+  it.each([true, false])("allows no OpenOwnBot host while the switch is on and packaged=%s", async (packaged) => {
     const build = await policyWithSwitch(true);
     const policy = build(packaged);
 
-    expect(directive(policy, "frame-src")).toBe(FRAME_WITHOUT_OPENBOT);
+    expect(directive(policy, "frame-src")).toBe(FRAME_WITHOUT_OPENOWNBOT);
     expect(policy).not.toContain("openbot.run");
     expect(policy).not.toContain("openbot.site");
   });
@@ -47,9 +47,9 @@ describe("buildContentSecurityPolicy", () => {
   it("keeps the loopback sockets and the self-hosted Signal while the switch is on", async () => {
     const build = await policyWithSwitch(true);
 
-    expect(directive(build(true), "connect-src")).toBe(CONNECT_WITHOUT_OPENBOT);
+    expect(directive(build(true), "connect-src")).toBe(CONNECT_WITHOUT_OPENOWNBOT);
     expect(directive(build(true, undefined, "wss://signal.example.com:8443"), "connect-src")).toBe(
-      `${CONNECT_WITHOUT_OPENBOT} wss://signal.example.com:8443`,
+      `${CONNECT_WITHOUT_OPENOWNBOT} wss://signal.example.com:8443`,
     );
   });
 
@@ -93,7 +93,7 @@ describe("buildContentSecurityPolicy", () => {
   });
 
   it.each([
-    [undefined, "wss://signal.example.com/v1/signal", "OPENBOT_REMOTE_SIGNAL_URL needs OPENBOT_AUTH_API_URL."],
+    [undefined, "wss://signal.example.com/v1/signal", "OPENOWNBOT_REMOTE_SIGNAL_URL needs OPENOWNBOT_AUTH_API_URL."],
     ["https://api.example.com", "ws://signal.example.com/v1/signal", "must be a wss: URL"],
     ["https://api.example.com", "https://signal.example.com/v1/signal", "must be a wss: URL"],
     ["https://api.example.com", "wss://user:pass@signal.example.com/v1/signal", "must be a wss: URL"],

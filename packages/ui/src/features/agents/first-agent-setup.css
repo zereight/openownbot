@@ -1,7 +1,7 @@
 .first-agent-setup-panel {
   height: 100%;
   min-height: 0;
-  color: var(--openbot-text-primary);
+  color: var(--openownbot-text-primary);
 }
 
 .first-agent-setup-header {
@@ -10,15 +10,15 @@
   flex: 0 0 auto;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid var(--openbot-border);
-  padding: 0 var(--openbot-space-3);
+  border-bottom: 1px solid var(--openownbot-border);
+  padding: 0 var(--openownbot-space-3);
 }
 
 .first-agent-header-identity {
   display: flex;
   min-width: 0;
   align-items: center;
-  gap: var(--openbot-space-1-5);
+  gap: var(--openownbot-space-1-5);
 }
 
 .first-agent-header-identity .agent-avatar {
@@ -31,10 +31,10 @@
 .first-agent-header-identity h1 {
   overflow: hidden;
   margin: 0;
-  color: var(--openbot-text-primary);
-  font-size: var(--openbot-text-md);
-  font-weight: var(--openbot-weight-regular);
-  line-height: var(--openbot-leading-md);
+  color: var(--openownbot-text-primary);
+  font-size: var(--openownbot-text-md);
+  font-weight: var(--openownbot-weight-regular);
+  line-height: var(--openownbot-leading-md);
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -53,8 +53,8 @@
   width: min(420px, calc(100% - 48px));
   align-content: center;
   justify-self: center;
-  gap: var(--openbot-space-3);
-  padding: var(--openbot-space-6) 0;
+  gap: var(--openownbot-space-3);
+  padding: var(--openownbot-space-6) 0;
 }
 
 .first-agent-live-avatar {
@@ -63,8 +63,8 @@
   height: 72px;
   place-items: center;
   justify-self: center;
-  margin-bottom: var(--openbot-space-1);
-  translate: 0 calc(0px - var(--openbot-space-2));
+  margin-bottom: var(--openownbot-space-1);
+  translate: 0 calc(0px - var(--openownbot-space-2));
 }
 
 .first-agent-live-avatar .agent-avatar {
@@ -84,11 +84,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: var(--openbot-space-1);
+  gap: var(--openownbot-space-1);
 }
 
 .first-agent-face-options {
-  gap: var(--openbot-space-0-5);
+  gap: var(--openownbot-space-0-5);
 }
 
 .ui-button.first-agent-color-choice,
@@ -100,7 +100,7 @@
   border-color: transparent;
   background: transparent;
   padding: 0;
-  border-radius: var(--openbot-radius-md);
+  border-radius: var(--openownbot-radius-md);
 }
 
 .ui-button.first-agent-face-choice {
@@ -113,26 +113,26 @@
 }
 
 .ui-button.first-agent-color-choice {
-  border-radius: var(--openbot-radius-pill);
+  border-radius: var(--openownbot-radius-pill);
 }
 
 .ui-button.first-agent-color-choice:hover:not(:disabled),
 .ui-button.first-agent-face-choice:hover:not(:disabled) {
-  background: var(--openbot-hover);
+  background: var(--openownbot-hover);
 }
 
 .first-agent-color-choice[aria-pressed="true"],
 .first-agent-face-choice[aria-pressed="true"] {
-  border-color: var(--openbot-accent-text);
-  box-shadow: 0 0 0 2px var(--openbot-accent-soft);
+  border-color: var(--openownbot-accent-text);
+  box-shadow: 0 0 0 2px var(--openownbot-accent-soft);
 }
 
 .first-agent-color-swatch {
   display: block;
   width: 18px;
   height: 18px;
-  border: 1px solid var(--openbot-border-strong);
-  border-radius: var(--openbot-radius-pill);
+  border: 1px solid var(--openownbot-border-strong);
+  border-radius: var(--openownbot-radius-pill);
 }
 
 .first-agent-face-choice .agent-avatar {
@@ -144,8 +144,8 @@
 
 .first-agent-fields {
   display: grid;
-  gap: var(--openbot-space-3);
-  margin-top: var(--openbot-space-1);
+  gap: var(--openownbot-space-3);
+  margin-top: var(--openownbot-space-1);
 }
 
 .first-agent-fields .ui-textarea {
@@ -164,16 +164,16 @@
  * border, radius and background, and no press-down scale, so opening it never moves it.
  */
 .first-agent-fields .provider-model-trigger-field {
-  border: 1px solid var(--openbot-border-strong);
-  border-radius: var(--openbot-radius-md);
-  background: var(--openbot-bg-control);
+  border: 1px solid var(--openownbot-border-strong);
+  border-radius: var(--openownbot-radius-md);
+  background: var(--openownbot-bg-control);
   box-shadow: none;
 }
 
 .first-agent-fields .provider-model-trigger-field:hover:not(:disabled),
 .first-agent-fields .provider-model-trigger-field[aria-expanded="true"] {
-  border-color: var(--openbot-border-strong);
-  background: var(--openbot-bg-control);
+  border-color: var(--openownbot-border-strong);
+  background: var(--openownbot-bg-control);
 }
 
 .first-agent-fields .provider-model-trigger-field:active:not(:disabled) {
@@ -181,35 +181,35 @@
 }
 
 .first-agent-fields .provider-model-trigger-field:focus-visible {
-  border-color: var(--openbot-border-focus);
+  border-color: var(--openownbot-border-focus);
   outline: none;
 }
 
 .first-agent-submit-actions {
   display: flex;
   justify-content: center;
-  margin-top: var(--openbot-space-1);
+  margin-top: var(--openownbot-space-1);
 }
 
 .first-agent-error {
   margin: 0;
-  color: var(--openbot-danger);
-  font-size: var(--openbot-text-sm);
-  line-height: var(--openbot-leading-sm);
+  color: var(--openownbot-danger);
+  font-size: var(--openownbot-text-sm);
+  line-height: var(--openownbot-leading-sm);
   text-align: center;
 }
 
 .first-agent-suggestions {
   min-width: 0;
-  padding: 0 var(--openbot-space-6) var(--openbot-space-4);
+  padding: 0 var(--openownbot-space-6) var(--openownbot-space-4);
 }
 
 .first-agent-suggestions > h2 {
-  margin: 0 0 var(--openbot-space-2);
-  color: var(--openbot-text-muted);
-  font-size: var(--openbot-text-sm);
-  font-weight: var(--openbot-weight-medium);
-  line-height: var(--openbot-leading-sm);
+  margin: 0 0 var(--openownbot-space-2);
+  color: var(--openownbot-text-muted);
+  font-size: var(--openownbot-text-sm);
+  font-weight: var(--openownbot-weight-medium);
+  line-height: var(--openownbot-leading-sm);
 }
 
 .first-agent-suggestion-viewport {
@@ -222,22 +222,22 @@
   position: absolute;
   z-index: 2;
   top: 0;
-  bottom: var(--openbot-space-1);
+  bottom: var(--openownbot-space-1);
   width: 48px;
   opacity: 0;
   pointer-events: none;
   content: "";
-  transition: opacity var(--openbot-duration-normal) var(--openbot-ease-out);
+  transition: opacity var(--openownbot-duration-normal) var(--openownbot-ease-out);
 }
 
 .first-agent-suggestion-viewport::before {
   left: 0;
-  background: linear-gradient(to right, var(--openbot-bg-canvas), transparent);
+  background: linear-gradient(to right, var(--openownbot-bg-canvas), transparent);
 }
 
 .first-agent-suggestion-viewport::after {
   right: 0;
-  background: linear-gradient(to left, var(--openbot-bg-canvas), transparent);
+  background: linear-gradient(to left, var(--openownbot-bg-canvas), transparent);
 }
 
 .first-agent-suggestion-viewport.can-scroll-back::before,
@@ -248,11 +248,11 @@
 .first-agent-suggestion-list {
   display: flex;
   min-width: 0;
-  gap: var(--openbot-space-3);
+  gap: var(--openownbot-space-3);
   overflow-x: auto;
   overscroll-behavior-x: contain;
   margin: 0;
-  padding: 1px 1px var(--openbot-space-1);
+  padding: 1px 1px var(--openownbot-space-1);
   list-style: none;
   scrollbar-width: none;
   cursor: grab;
@@ -274,27 +274,27 @@
   width: 100%;
   height: 112px;
   justify-content: flex-start;
-  gap: var(--openbot-space-4);
-  border-color: var(--openbot-border);
-  border-radius: var(--openbot-radius-lg);
+  gap: var(--openownbot-space-4);
+  border-color: var(--openownbot-border);
+  border-radius: var(--openownbot-radius-lg);
   background: transparent;
-  padding: var(--openbot-space-4);
+  padding: var(--openownbot-space-4);
   cursor: grab;
   text-align: left;
   white-space: normal;
   transition:
-    border-color var(--openbot-duration-hover) var(--openbot-ease-out),
-    background-color var(--openbot-duration-hover) var(--openbot-ease-out);
+    border-color var(--openownbot-duration-hover) var(--openownbot-ease-out),
+    background-color var(--openownbot-duration-hover) var(--openownbot-ease-out);
 }
 
 .ui-button.first-agent-suggestion-card:hover:not(:disabled) {
-  border-color: var(--openbot-border-strong);
-  background: var(--openbot-hover);
+  border-color: var(--openownbot-border-strong);
+  background: var(--openownbot-hover);
 }
 
 .first-agent-suggestion-card[aria-pressed="true"] {
-  border-color: var(--openbot-accent);
-  background: var(--openbot-accent-soft);
+  border-color: var(--openownbot-accent);
+  background: var(--openownbot-accent-soft);
 }
 
 .first-agent-suggestion-viewport.is-dragging,
@@ -312,7 +312,7 @@
 .first-agent-suggestion-card > span:last-child {
   display: grid;
   min-width: 0;
-  gap: var(--openbot-space-1);
+  gap: var(--openownbot-space-1);
 }
 
 .first-agent-suggestion-card strong,
@@ -321,23 +321,23 @@
 }
 
 .first-agent-suggestion-card strong {
-  color: var(--openbot-text-primary);
-  font-size: var(--openbot-text-xl);
-  font-weight: var(--openbot-weight-medium);
-  line-height: var(--openbot-leading-xl);
+  color: var(--openownbot-text-primary);
+  font-size: var(--openownbot-text-xl);
+  font-weight: var(--openownbot-weight-medium);
+  line-height: var(--openownbot-leading-xl);
 }
 
 .first-agent-suggestion-card small {
-  color: var(--openbot-text-muted);
-  font-size: var(--openbot-text-md);
-  font-weight: var(--openbot-weight-regular);
-  line-height: var(--openbot-leading-md);
+  color: var(--openownbot-text-muted);
+  font-size: var(--openownbot-text-md);
+  font-weight: var(--openownbot-weight-regular);
+  line-height: var(--openownbot-leading-md);
 }
 
 @media (max-width: 800px) {
   .first-agent-editor {
     width: min(400px, calc(100% - 32px));
-    padding-block: var(--openbot-space-4);
+    padding-block: var(--openownbot-space-4);
   }
 
   .first-agent-live-avatar,
@@ -347,12 +347,12 @@
   }
 
   .first-agent-face-options {
-    gap: var(--openbot-space-0-5);
+    gap: var(--openownbot-space-0-5);
     flex-wrap: wrap;
   }
 
   .first-agent-suggestions {
-    padding-inline: var(--openbot-space-4);
+    padding-inline: var(--openownbot-space-4);
   }
 
   .first-agent-suggestion-item {

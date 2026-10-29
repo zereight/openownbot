@@ -1,7 +1,7 @@
 /** A sticky note on the canvas. It has no ports, and a run skips it. */
 
-import type { AppTextKey } from "@openbot/i18n";
-import { Bold, Button, LabelTooltipTrigger, StickyNote, Textarea, UserRoundPen } from "@openbot/ui";
+import type { AppTextKey } from "@openownbot/i18n";
+import { Bold, Button, LabelTooltipTrigger, StickyNote, Textarea, UserRoundPen } from "@openownbot/ui";
 import { Show, untrack } from "solid-js";
 import { useText } from "../../text";
 import { Hint } from "./workflow-board";
@@ -36,8 +36,8 @@ import {
 /** The text colour of a note: the paper text, or a note colour darkened so that it reads on paper. */
 const noteInk = (color: CanvasColor) =>
   color === "ink"
-    ? "var(--openbot-paper-text)"
-    : `color-mix(in srgb, var(--openbot-file-${color}) 62%, var(--openbot-paper-text))`;
+    ? "var(--openownbot-paper-text)"
+    : `color-mix(in srgb, var(--openownbot-file-${color}) 62%, var(--openownbot-paper-text))`;
 
 type NoteSize = "lg" | "2xl" | "3xl" | "display";
 
@@ -84,7 +84,7 @@ export function NoteNode(props: { id: string; text?: string; tone?: NoteTone }) 
       icon={<StickyNote aria-hidden="true" />}
       kind="note"
       bare
-      style={{ "--wfn-note": `var(--openbot-file-${tone()})`, "--wfn-note-ink": noteInk(ink()) }}
+      style={{ "--wfn-note": `var(--openownbot-file-${tone()})`, "--wfn-note-ink": noteInk(ink()) }}
       toolbar={
         <NodeToolbar id={props.id} name={t("workflow.note.name")} locked={locked()} onLock={setLocked}>
           <Show when={!locked()}>

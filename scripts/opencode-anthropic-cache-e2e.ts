@@ -6,7 +6,7 @@
 // send `cache_control` breakpoints to `/v1/messages`, and the OpenAI-compatible adapter that such an
 // endpoint used before, which sends none to `/v1/chat/completions`.
 // `bun scripts/opencode-anthropic-cache-e2e.ts [<opencode binary>]`. Without an argument it uses
-// `OPENBOT_OPENCODE_PATH`. Writes .openbot-build/opencode-anthropic-cache-e2e/report.json.
+// `OPENOWNBOT_OPENCODE_PATH`. Writes .openownbot-build/opencode-anthropic-cache-e2e/report.json.
 import assert from "node:assert/strict";
 import { spawn } from "node:child_process";
 import { mkdirSync, writeFileSync } from "node:fs";
@@ -16,13 +16,13 @@ import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import { openCodeConfigEnv } from "../src/backend/opencode-config";
 
-const OUT = resolve(import.meta.dirname, "../.openbot-build/opencode-anthropic-cache-e2e");
-const binaryArgument = process.argv[2] ?? process.env.OPENBOT_OPENCODE_PATH;
-if (!binaryArgument) throw new Error("Give the OpenCode binary as the first argument or in OPENBOT_OPENCODE_PATH.");
+const OUT = resolve(import.meta.dirname, "../.openownbot-build/opencode-anthropic-cache-e2e");
+const binaryArgument = process.argv[2] ?? process.env.OPENOWNBOT_OPENCODE_PATH;
+if (!binaryArgument) throw new Error("Give the OpenCode binary as the first argument or in OPENOWNBOT_OPENCODE_PATH.");
 const binary: string = binaryArgument;
 
 const MODEL = "claude-sonnet-5-5";
-const root = await mkdtemp(join(tmpdir(), "openbot-opencode-anthropic-"));
+const root = await mkdtemp(join(tmpdir(), "openownbot-opencode-anthropic-"));
 
 interface CapturedRequest {
   readonly path: string;
@@ -98,7 +98,7 @@ const address = server.address();
 assert.ok(address && typeof address === "object", "the fake server has no port");
 const local = `http://127.0.0.1:${address.port}/v1`;
 
-/** The layer OpenBot sends for one endpoint, with only the base URL moved to the fake server. */
+/** The layer OpenOwnBot sends for one endpoint, with only the base URL moved to the fake server. */
 function configFor(baseUrl: string): { readonly npm: string; readonly baseURL: string; readonly content: string } {
   const env = openCodeConfigEnv(
     {},

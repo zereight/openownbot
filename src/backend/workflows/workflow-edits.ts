@@ -6,7 +6,7 @@
  * every writer.
  */
 
-import { INPUT_LIMITS } from "@openbot/contracts/input-limits";
+import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
 import {
   AGENT_REASONING_EFFORTS,
   isReasoningEffort,
@@ -21,7 +21,7 @@ import {
   type WorkflowNodeKind,
   type WorkflowPoint,
   type WorkflowPortType,
-} from "@openbot/contracts/ipc";
+} from "@openownbot/contracts/ipc";
 import { placeOutputs, triggerSignature } from "./workflow-graph";
 
 /**

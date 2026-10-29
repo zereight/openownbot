@@ -1,9 +1,9 @@
 /**
  * A self-hosted server: the packaged Linux build that `install-server.sh` installs on a computer
- * with no screen. systemd starts it with `OPENBOT_SERVER=1` under a virtual display, and it is a
+ * with no screen. systemd starts it with `OPENOWNBOT_SERVER=1` under a virtual display, and it is a
  * normal Remote host after its owner signs in.
  *
- * Nobody can use the window, so the `openbot` terminal command (`scripts/hosting/openbot`) talks to
+ * Nobody can use the window, so the `openownbot` terminal command (`scripts/hosting/openownbot`) talks to
  * this process over a Unix socket in the runtime directory that systemd makes for the service user
  * (mode 0700). Only that user and root can connect. Agents run as the same user and already have
  * full access to its files, so the socket gives them nothing new. The socket answers a closed list
@@ -20,10 +20,10 @@ import { chmod, lstat, unlink } from "node:fs/promises";
 import { createServer, type IncomingMessage, type Server, type ServerResponse } from "node:http";
 import type { Socket } from "node:net";
 import { dirname, isAbsolute, join } from "node:path";
-import { parseHostedServerName } from "@openbot/contracts/hosted-servers";
-import { INPUT_LIMITS } from "@openbot/contracts/input-limits";
-import type { CentralAuthState } from "@openbot/contracts/ipc";
-import { sourceText } from "@openbot/i18n/source";
+import { parseHostedServerName } from "@openownbot/contracts/hosted-servers";
+import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
+import type { CentralAuthState } from "@openownbot/contracts/ipc";
+import { sourceText } from "@openownbot/i18n/source";
 import { Deferred, Effect } from "effect";
 import QRCode from "qrcode";
 import { runCauseEffect } from "../backend/effect-boundary";
@@ -38,7 +38,7 @@ const CONTROL_SOCKET_FILE = "control.sock";
 const MAX_BODY_BYTES = 4096;
 const MAX_EMAIL_LENGTH = 254;
 /** The name of a server whose owner signed in without one. The same default as a mobile connect. */
-const DEFAULT_SERVER_NAME = "OpenBot";
+const DEFAULT_SERVER_NAME = "OpenOwnBot";
 
 export interface ServerModeEnvironment {
   controlSocketPath: string;
@@ -50,9 +50,9 @@ export function takeServerModeEnvironment(
   isPackaged: boolean,
   platform: NodeJS.Platform,
 ): ServerModeEnvironment | null {
-  if (!isPackaged || platform !== "linux" || environment.OPENBOT_SERVER !== "1") return null;
+  if (!isPackaged || platform !== "linux" || environment.OPENOWNBOT_SERVER !== "1") return null;
   // A hosted server signs in with its claim, not from a terminal.
-  if (environment.OPENBOT_HOSTED_SERVER === "1") return null;
+  if (environment.OPENOWNBOT_HOSTED_SERVER === "1") return null;
   const runtimeDirectory = environment.XDG_RUNTIME_DIR?.trim() ?? "";
   if (!isAbsolute(runtimeDirectory)) return null;
   return { controlSocketPath: join(runtimeDirectory, CONTROL_SOCKET_FILE) };

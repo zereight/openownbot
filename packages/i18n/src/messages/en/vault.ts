@@ -89,7 +89,7 @@ export const messages = defineMessages("vault", {
     "OpenOwnBot encrypts the Vault with the secret storage of the system. Set up a keyring, then open this page again.",
   "vault.unreadableTitle": "OpenOwnBot cannot read the Vault",
   "vault.unreadableDescription":
-    "The Vault file is on this computer, but OpenBot cannot decrypt it. This can occur when the system keychain changes. Reset the Vault to start again with no items.",
+    "The Vault file is on this computer, but OpenOwnBot cannot decrypt it. This can occur when the system keychain changes. Reset the Vault to start again with no items.",
   "vault.reset": "Reset Vault",
   "vault.resetTitle": "Reset the Vault?",
   "vault.resetDescription": "OpenOwnBot deletes the Vault file and all items in it. You cannot undo this.",

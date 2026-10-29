@@ -13,8 +13,8 @@ import {
   shapes,
   widgetURL,
 } from "@expo/ui/swift-ui/modifiers";
-import { isDynamicRecord } from "@openbot/contracts/runtime-values";
-import type { AgentLiveActivityProps } from "@openbot/team-client/live-activity-props";
+import { isDynamicRecord } from "@openownbot/contracts/runtime-values";
+import type { AgentLiveActivityProps } from "@openownbot/team-client/live-activity-props";
 import { Directory, File, Paths } from "expo-file-system";
 import {
   LiveActivity,

@@ -8,13 +8,13 @@ import assert from "node:assert/strict";
 import { mkdir, writeFile } from "node:fs/promises";
 import { createServer, type IncomingMessage, type Server, type ServerResponse } from "node:http";
 import { resolve } from "node:path";
-import type { McpServerConfig } from "@openbot/contracts/ipc";
+import type { McpServerConfig } from "@openownbot/contracts/ipc";
 import { Effect } from "effect";
 import { runCauseEffect } from "../src/backend/effect-boundary";
 import { McpOAuth, type McpOAuthRecord } from "../src/backend/mcp-oauth-provider";
 import { testMcpServer } from "../src/backend/mcp-probe";
 
-const out = resolve(import.meta.dirname, "../.openbot-build/mcp-sign-in-public-tools-e2e");
+const out = resolve(import.meta.dirname, "../.openownbot-build/mcp-sign-in-public-tools-e2e");
 const ACCESS_TOKEN = "e2e-access-token";
 const CLIENT_ID = "e2e-client";
 
@@ -254,7 +254,7 @@ async function main(): Promise<void> {
       check(
         unreadable,
         unreadable.result.error ===
-          "OpenBot could not read the sign-in information of this server. Check the server address and try again.",
+          "OpenOwnBot could not read the sign-in information of this server. Check the server address and try again.",
         `a sign-in with an unreadable metadata document reported: ${unreadable.result.error}`,
       );
       check(unreadable, unreadable.pagesOpened === 0, "a sign-in with an unreadable metadata document opened a page");

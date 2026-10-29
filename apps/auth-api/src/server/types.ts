@@ -1,5 +1,5 @@
-import type { AccountSession } from "@openbot/contracts/mobile-connect";
-import { isDynamicRecord, isFunction } from "@openbot/contracts/runtime-values";
+import type { AccountSession } from "@openownbot/contracts/mobile-connect";
+import { isDynamicRecord, isFunction } from "@openownbot/contracts/runtime-values";
 import type { Effect } from "effect";
 import type { AuthStoreError } from "./d1-auth-repository";
 import type { EmailDeliveryError } from "./email-delivery";
@@ -41,7 +41,7 @@ export interface WorkerBindings {
   /** Signs Slack route tickets. Its public key must also be in `REMOTE_TICKET_PUBLIC_JWKS`. */
   SLACK_ROUTE_PRIVATE_JWK?: string;
   SLACK_ROUTE_KEY_ID?: string;
-  /** The OpenBot Slack app, which every workspace installs. */
+  /** The OpenOwnBot Slack app, which every workspace installs. */
   SLACK_CLIENT_ID?: string;
   SLACK_CLIENT_SECRET?: string;
   /** Signs the OAuth `state` of the Slack install. At least 32 bytes. */
@@ -51,7 +51,7 @@ export interface WorkerBindings {
   /** Signs Discord route tickets. Its public key must also be in `REMOTE_TICKET_PUBLIC_JWKS`. */
   DISCORD_ROUTE_PRIVATE_JWK?: string;
   DISCORD_ROUTE_KEY_ID?: string;
-  /** The OpenBot Discord app, which every Discord server adds. Its bot token is only in Signal. */
+  /** The OpenOwnBot Discord app, which every Discord server adds. Its bot token is only in Signal. */
   DISCORD_CLIENT_ID?: string;
   DISCORD_CLIENT_SECRET?: string;
   /** Signs the OAuth `state` of the Discord install. At least 32 bytes. */
@@ -59,7 +59,7 @@ export interface WorkerBindings {
   /** Development only: the public origin of a local API, which Discord can send the browser back to. */
   DISCORD_DEV_PUBLIC_ORIGIN?: string;
   /**
-   * The OpenBot Telegram bot, which every chat adds: its ID (the part of the token before the colon)
+   * The OpenOwnBot Telegram bot, which every chat adds: its ID (the part of the token before the colon)
    * and its username. Not secret. Without them, the Telegram routes answer 503. The Telegram route
    * ticket uses the Slack route key.
    */
@@ -71,7 +71,7 @@ export interface WorkerBindings {
   HOSTED_SERVERS_ENABLED?: string;
   /** Comma-separated account IDs or emails that can create hosted servers. `*` allows each account. */
   HOSTED_SERVERS_ALLOWED_USER_IDS?: string;
-  /** A request with this key in `OpenBot-Hosting-Developer-Key` can create hosted servers. Test Worker only. */
+  /** A request with this key in `OpenOwnBot-Hosting-Developer-Key` can create hosted servers. Test Worker only. */
   HOSTED_SERVERS_DEVELOPER_KEY?: string;
   /** The boat named snapshot that new hosted servers start from. */
   HOSTED_SERVER_TEMPLATE?: string;
@@ -80,9 +80,9 @@ export interface WorkerBindings {
   /** An OpenPanel server client and its write-only secret, for account events. Set only in production. */
   OPENPANEL_CLIENT_ID?: string;
   OPENPANEL_CLIENT_SECRET?: string;
-  /** The public Client ID of the OpenBot GitHub App. */
+  /** The public Client ID of the OpenOwnBot GitHub App. */
   GITHUB_APP_CLIENT_ID?: string;
-  /** The private key of the OpenBot GitHub App as a PKCS #8 PEM. Without it, no installation token is issued. */
+  /** The private key of the OpenOwnBot GitHub App as a PKCS #8 PEM. Without it, no installation token is issued. */
   GITHUB_APP_PRIVATE_KEY?: string;
   /** The Apple Push Notification service key (`.p8`, PEM text). The Live Activity relay is off without it. */
   APNS_PRIVATE_KEY?: string;
@@ -151,7 +151,7 @@ export function requireWorkerBindings(value: unknown): WorkerBindings {
 export interface MobileAuthSessionResult {
   sessionToken: string;
   user: AuthUser;
-  host?: import("@openbot/contracts/mobile-connect").MobileConnectHostBinding;
+  host?: import("@openownbot/contracts/mobile-connect").MobileConnectHostBinding;
 }
 
 export interface AuthUser {
@@ -272,7 +272,7 @@ export interface AuthRepository {
     expiresAt: number;
   }): Effect.Effect<void, AuthStoreError>;
   replaceMobileAuthTicket(input: {
-    host?: import("@openbot/contracts/mobile-connect").MobileConnectHostBinding | undefined;
+    host?: import("@openownbot/contracts/mobile-connect").MobileConnectHostBinding | undefined;
     ticketHash: string;
     userId: string;
     serverId: string;
@@ -303,7 +303,7 @@ export interface AuthRepository {
     linkHash: string;
     desktopSessionToken: string;
     userId: string;
-    host: import("@openbot/contracts/mobile-connect").MobileConnectHostBinding;
+    host: import("@openownbot/contracts/mobile-connect").MobileConnectHostBinding;
     createdAt: number;
   }): Effect.Effect<boolean, AuthStoreError>;
   revokeMobileConnectLink(input: { userId: string; hostId: string; now: number }): Effect.Effect<void, AuthStoreError>;

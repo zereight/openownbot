@@ -1,4 +1,4 @@
-import { InstanceTransferView } from "@openbot/ui/features/transfer/InstanceTransferView";
+import { InstanceTransferView } from "@openownbot/ui/features/transfer/InstanceTransferView";
 import { createSignal } from "solid-js";
 import { fn } from "storybook/test";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";
@@ -79,7 +79,7 @@ export const ExportSaved: Story = {
   name: "Export: saved",
   render: () => (
     <Stage
-      args={viewArgs({ screen: "export", exportPhase: "saved", exportFileName: "openbot-transfer-2026-10-13.zip" })}
+      args={viewArgs({ screen: "export", exportPhase: "saved", exportFileName: "openownbot-transfer-2026-10-13.zip" })}
     />
   ),
 };

@@ -1,4 +1,8 @@
-import { type AgentTeamFileSection, buildAgentTeamFile, parseAgentTeamFile } from "@openbot/contracts/agent-team-file";
+import {
+  type AgentTeamFileSection,
+  buildAgentTeamFile,
+  parseAgentTeamFile,
+} from "@openownbot/contracts/agent-team-file";
 import type {
   AgentTeamPreview,
   AgentTemplateSnapshot,
@@ -6,7 +10,7 @@ import type {
   SetEnabledSkillInput,
   SidebarLayoutAction,
   SidebarLayoutSnapshot,
-} from "@openbot/contracts/ipc";
+} from "@openownbot/contracts/ipc";
 import { Effect, Schema } from "effect";
 import { maskTeamSecrets, planTeamImport } from "./agent-team-plan";
 

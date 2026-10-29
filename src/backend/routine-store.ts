@@ -1,5 +1,5 @@
 import { randomUUID } from "node:crypto";
-import { INPUT_LIMITS } from "@openbot/contracts/input-limits";
+import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
 import type {
   RoutineFields,
   RoutineLimitPolicy,
@@ -8,17 +8,17 @@ import type {
   RoutineRunSource,
   RoutineRunStatus,
   RoutineSchedule,
-} from "@openbot/contracts/ipc";
+} from "@openownbot/contracts/ipc";
 import {
   isRoutineSchedule,
   ROUTINE_LIMIT_POLICIES,
   ROUTINE_MISSED_COUNT_LIMIT,
   ROUTINE_MISSED_POLICIES,
   ROUTINE_RUN_SOURCES,
-} from "@openbot/contracts/ipc";
-import type { EventFilter, EventJsonValue, EventRoutineOwner } from "@openbot/contracts/ipc-events";
-import { type DynamicRecord, isDynamicRecord, isOneOf, isString } from "@openbot/contracts/runtime-values";
-import { sourceText } from "@openbot/i18n/source";
+} from "@openownbot/contracts/ipc";
+import type { EventFilter, EventJsonValue, EventRoutineOwner } from "@openownbot/contracts/ipc-events";
+import { type DynamicRecord, isDynamicRecord, isOneOf, isString } from "@openownbot/contracts/runtime-values";
+import { sourceText } from "@openownbot/i18n/source";
 import {
   nextRoutineOccurrence,
   nextValidRoutineOccurrence,
@@ -27,14 +27,14 @@ import {
   routineOnceInstant,
   validateRoutineSchedule,
   validateStoredRoutineSchedule,
-} from "@openbot/team-client/routine-schedule";
+} from "@openownbot/team-client/routine-schedule";
 import {
   databaseRows,
   optionalStringColumn,
   requiredNumberColumn,
   requiredStringColumn,
 } from "./database/database-rows";
-import type { OpenBotDatabase } from "./openbot-database";
+import type { OpenOwnBotDatabase } from "./openownbot-database";
 import { hasWebhookReceipt, insertWebhookReceipt, revokeRoutineWebhooks } from "./webhook-route-store";
 import { parseEventFilters, validateWebhookTrigger, webhookMismatch, webhookRunInstruction } from "./webhook-trigger";
 
@@ -167,7 +167,7 @@ export interface RoutineHoldWindow {
  */
 export class RoutineStore {
   constructor(
-    protected readonly database: OpenBotDatabase,
+    protected readonly database: OpenOwnBotDatabase,
     protected readonly tables: RoutineTables,
   ) {}
 
@@ -792,7 +792,7 @@ export class RoutineStore {
   }
 
   /**
-   * A one-time routine that came due while OpenBot was closed. A run that a crash left behind
+   * A one-time routine that came due while OpenOwnBot was closed. A run that a crash left behind
    * finishes it. Otherwise `run-once` keeps it due, so the scheduler runs it now, and `skip`
    * records the missed time and finishes it.
    */
@@ -956,7 +956,7 @@ export class RoutineStore {
   }
 
   #insertRun(
-    db: OpenBotDatabase["connection"],
+    db: OpenOwnBotDatabase["connection"],
     runId: string,
     routine: RunSource,
     triggerId: string | null,
@@ -1156,7 +1156,7 @@ export class RoutineStore {
   #mutateRun(
     runId: string,
     eventType: string,
-    mutate: (db: OpenBotDatabase["connection"], sequence: number, now: string) => void,
+    mutate: (db: OpenOwnBotDatabase["connection"], sequence: number, now: string) => void,
   ): OwnedRoutineRun {
     const current = this.#requireRun(runId);
     return this.database.dispatch(
@@ -1170,7 +1170,7 @@ export class RoutineStore {
   }
 
   #insertTrigger(
-    db: OpenBotDatabase["connection"],
+    db: OpenOwnBotDatabase["connection"],
     routineId: string,
     timezone: string,
     schedule: RoutineSchedule,
@@ -1292,7 +1292,7 @@ function limitPolicyFor(schedule: RoutineSchedule, requested: RoutineLimitPolicy
   return schedule.kind === "once" ? "wait" : (requested ?? "wait");
 }
 
-/** A one-time routine that came due while OpenBot was closed runs late by default; it has no next run. */
+/** A one-time routine that came due while OpenOwnBot was closed runs late by default; it has no next run. */
 function defaultMissedPolicy(schedule: RoutineSchedule): RoutineMissedPolicy {
   return schedule.kind === "once" ? "run-once" : "skip";
 }

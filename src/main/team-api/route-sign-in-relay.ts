@@ -2,13 +2,13 @@ import {
   PROVIDER_ACCOUNT_RELAY_CAPABILITY,
   PROVIDER_ACCOUNT_RELAY_PROVIDERS,
   PROVIDER_ACCOUNT_RELAY_ROUTES,
-} from "@openbot/contracts/team-protocol/provider-account-relay-v1";
+} from "@openownbot/contracts/team-protocol/provider-account-relay-v1";
 import {
   SIGN_IN_RELAY_CAPABILITY,
   SIGN_IN_RELAY_PROVIDERS,
   SIGN_IN_RELAY_ROUTES,
-} from "@openbot/contracts/team-protocol/sign-in-relay-v1";
-import { sourceText } from "@openbot/i18n/source";
+} from "@openownbot/contracts/team-protocol/sign-in-relay-v1";
+import { sourceText } from "@openownbot/i18n/source";
 import { runCauseEffect } from "../../backend/effect-boundary";
 import { parseTestMcpServer } from "../ipc/mcp-inputs";
 import type { TeamApiSignInRelay } from "./dependencies";

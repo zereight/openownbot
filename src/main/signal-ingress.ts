@@ -1,27 +1,27 @@
-import type { MessagingPlatform } from "@openbot/contracts/ipc";
-import { refusesOpenBotUrl } from "@openbot/contracts/local-only";
-import { decodeSignalServerMessage } from "@openbot/contracts/signal-protocol/decode";
-import { type DiscordApiRequest, decodeDiscordApiError } from "@openbot/contracts/signal-protocol/discord-api";
-import { DISCORD_API_PATH } from "@openbot/contracts/signal-protocol/discord-route";
+import type { MessagingPlatform } from "@openownbot/contracts/ipc";
+import { refusesOpenOwnBotUrl } from "@openownbot/contracts/local-only";
+import { decodeSignalServerMessage } from "@openownbot/contracts/signal-protocol/decode";
+import { type DiscordApiRequest, decodeDiscordApiError } from "@openownbot/contracts/signal-protocol/discord-api";
+import { DISCORD_API_PATH } from "@openownbot/contracts/signal-protocol/discord-route";
 import {
   INGRESS_QUEUE_CAPABILITY,
   openQueuedDelivery,
   type QueuedSignalMessage,
-} from "@openbot/contracts/signal-protocol/ingress-queue";
+} from "@openownbot/contracts/signal-protocol/ingress-queue";
 import {
   SIGNAL_PROTOCOL_VERSION,
   type SignalClientMessage,
   type SignalServerMessage,
   SLACK_DELIVERY_RESPONSE_BYTES_LIMIT,
   type WebhookDeliveryStatus,
-} from "@openbot/contracts/signal-protocol/messages";
+} from "@openownbot/contracts/signal-protocol/messages";
 import {
   TELEGRAM_CAPABILITY,
   type TelegramCallMethod,
   type TelegramCallParams,
   type TelegramCallResult,
-} from "@openbot/contracts/signal-protocol/telegram-route";
-import { createOpenBotLogger } from "@openbot/logging";
+} from "@openownbot/contracts/signal-protocol/telegram-route";
+import { createOpenOwnBotLogger } from "@openownbot/logging";
 import { Context, Deferred, Effect, Exit, Layer, ManagedRuntime, Option, Result, Scope, Semaphore } from "effect";
 import WebSocket from "ws";
 import {
@@ -39,7 +39,7 @@ import type { IngressQueueKey } from "./ingress-queue-key";
 import { type RemoteWorkflowError, remoteDecode } from "./remote-service-effects";
 import { downloadTelegramFile, signalHttpOrigin, uploadTelegramFile } from "./telegram-files";
 
-const logger = createOpenBotLogger("signal-ingress");
+const logger = createOpenOwnBotLogger("signal-ingress");
 
 /** The route of a kept delivery, as Signal keeps its order: one Slack team, Discord guild or Telegram chat. */
 function queuedRoute(message: QueuedSignalMessage): string {
@@ -95,7 +95,7 @@ class SignalIngressAccount extends Context.Service<
     webhookRoute(hostId: string): Effect.Effect<string, RemoteWorkflowError>;
     telegramRoute(hostId: string): Effect.Effect<string | null>;
   }
->()("openbot/main/SignalIngressAccount") {
+>()("openownbot/main/SignalIngressAccount") {
   static layer(options: SignalIngressOptions) {
     return Layer.succeed(
       SignalIngressAccount,
@@ -440,7 +440,7 @@ export class SignalIngress implements MessagingIngress {
     this.#webhookMissing = webhooks && webhookRoute === null;
     this.#telegramMissing = telegram && telegramRoute === null;
     if (telegram && telegramRoute !== null) this.#telegramBackoffMs = BACKOFF_START_MS;
-    if (refusesOpenBotUrl(bootstrap.signalUrl)) return this.#wait("unavailable");
+    if (refusesOpenOwnBotUrl(bootstrap.signalUrl)) return this.#wait("unavailable");
     const socket = new WebSocket(bootstrap.signalUrl);
     this.#socket = socket;
     // A socket that stalls before `ready` closes, so that the retry opens a new one.

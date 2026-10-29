@@ -1,11 +1,11 @@
 import { rm } from "node:fs/promises";
-import { parseApplyInstanceTransferInput, parseExportInstanceInput } from "@openbot/contracts/ipc";
+import { parseApplyInstanceTransferInput, parseExportInstanceInput } from "@openownbot/contracts/ipc";
 import {
   INSTANCE_TRANSFER_CAPABILITY,
   INSTANCE_TRANSFER_REMOTE_BYTES,
   INSTANCE_TRANSFER_ROUTES,
-} from "@openbot/contracts/team-protocol/instance-transfer-v1";
-import { sourceText } from "@openbot/i18n/source";
+} from "@openownbot/contracts/team-protocol/instance-transfer-v1";
+import { sourceText } from "@openownbot/i18n/source";
 import { Effect } from "effect";
 import { runCauseEffect } from "../../backend/effect-boundary";
 import type { TeamApiInstanceTransfer } from "./dependencies";
@@ -18,7 +18,7 @@ import { sendFile } from "./route-files";
 const ROUTES: ReadonlySet<string> = new Set(Object.values(INSTANCE_TRANSFER_ROUTES));
 
 /**
- * The server's agents and server settings to or from an OpenBot transfer file. Only an owner or an
+ * The server's agents and server settings to or from an OpenOwnBot transfer file. Only an owner or an
  * admin: an export holds every agent's memories and files, and an import adds server settings. The
  * token is the caller's own. Frozen by `instance-transfer-v1`.
  */
@@ -48,7 +48,7 @@ export async function routeInstanceTransfer(
         return await sendFile(response, path, null, (size) => ({
           "Content-Type": "application/zip",
           "Content-Length": String(size),
-          "Content-Disposition": "attachment; filename*=UTF-8''openbot-transfer.zip",
+          "Content-Disposition": "attachment; filename*=UTF-8''openownbot-transfer.zip",
           "X-Content-Type-Options": "nosniff",
         }));
       } finally {

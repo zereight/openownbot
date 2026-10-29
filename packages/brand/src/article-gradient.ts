@@ -8,44 +8,44 @@
 // not a var(), and this module is read by the build-time generator where no
 // document exists to resolve one. The same test pins them to tokens.css.
 
-/** `--openbot-logo-production` */
+/** `--openownbot-logo-production` */
 const LOGO_PRODUCTION = "#d6adf2";
-/** `--openbot-warning` */
+/** `--openownbot-warning` */
 const LOGO_DEV = "#ff9412";
-/** `--openbot-success` */
+/** `--openownbot-success` */
 const LOGO_PREVIEW = "#31cf76";
-/** `--openbot-accent` */
+/** `--openownbot-accent` */
 const ACCENT = "#007cf7";
-/** `--openbot-unread-surface` */
+/** `--openownbot-unread-surface` */
 const UNREAD = "#74b9ff";
-/** `--openbot-onboarding-desktop-indigo` */
+/** `--openownbot-onboarding-desktop-indigo` */
 const INDIGO = "#6f7de8";
-/** `--openbot-chart-series-grok` */
+/** `--openownbot-chart-series-grok` */
 const CYAN = "#6bc7d9";
-/** `--openbot-provider-claude` */
+/** `--openownbot-provider-claude` */
 const TERRACOTTA = "#d97757";
-/** `--openbot-danger-text` */
+/** `--openownbot-danger-text` */
 const CORAL = "#ff6069";
-/** `--openbot-badge-new` */
+/** `--openownbot-badge-new` */
 const MAGENTA = "#ff1e5e";
-/** `--openbot-text-dim` */
+/** `--openownbot-text-dim` */
 const DIM = "#6a6a6a";
-/** `--openbot-bg-canvas`, the page behind the card */
+/** `--openownbot-bg-canvas`, the page behind the card */
 const CANVAS = "#1a1a1a";
 
 export const ARTICLE_GRADIENT_BRAND_HEXES = {
-  "--openbot-logo-production": LOGO_PRODUCTION,
-  "--openbot-warning": LOGO_DEV,
-  "--openbot-success": LOGO_PREVIEW,
-  "--openbot-accent": ACCENT,
-  "--openbot-unread-surface": UNREAD,
-  "--openbot-onboarding-desktop-indigo": INDIGO,
-  "--openbot-chart-series-grok": CYAN,
-  "--openbot-provider-claude": TERRACOTTA,
-  "--openbot-danger-text": CORAL,
-  "--openbot-badge-new": MAGENTA,
-  "--openbot-text-dim": DIM,
-  "--openbot-bg-canvas": CANVAS,
+  "--openownbot-logo-production": LOGO_PRODUCTION,
+  "--openownbot-warning": LOGO_DEV,
+  "--openownbot-success": LOGO_PREVIEW,
+  "--openownbot-accent": ACCENT,
+  "--openownbot-unread-surface": UNREAD,
+  "--openownbot-onboarding-desktop-indigo": INDIGO,
+  "--openownbot-chart-series-grok": CYAN,
+  "--openownbot-provider-claude": TERRACOTTA,
+  "--openownbot-danger-text": CORAL,
+  "--openownbot-badge-new": MAGENTA,
+  "--openownbot-text-dim": DIM,
+  "--openownbot-bg-canvas": CANVAS,
 } as const;
 
 // Four deep anchors that are not brand tokens. Nothing in the product is this

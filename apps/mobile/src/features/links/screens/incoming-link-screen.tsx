@@ -1,5 +1,5 @@
-import { OPENBOT_CONTROL_PLANE_ORIGIN } from "@openbot/contracts/invite-links";
-import { parseMobileConnectUrl } from "@openbot/contracts/mobile-connect";
+import { OPENOWNBOT_CONTROL_PLANE_ORIGIN } from "@openownbot/contracts/invite-links";
+import { parseMobileConnectUrl } from "@openownbot/contracts/mobile-connect";
 import { Redirect, router, Stack, useLocalSearchParams } from "expo-router";
 import { usePreventRemove } from "expo-router/react-navigation";
 import { openBrowserAsync } from "expo-web-browser";
@@ -119,7 +119,7 @@ function IncomingLinkContent({ request }: { request?: string }) {
 
   // A link can name any account service. Show one that is not ours before the phone connects to it.
   const pairingService = link.kind === "pairing" && !session ? parseMobileConnectUrl(link.url)?.apiUrl : undefined;
-  const accountService = pairingService && pairingService !== OPENBOT_CONTROL_PLANE_ORIGIN ? pairingService : null;
+  const accountService = pairingService && pairingService !== OPENOWNBOT_CONTROL_PLANE_ORIGIN ? pairingService : null;
 
   return (
     <View className="flex-1 justify-center gap-5 bg-background px-6 py-safe-offset-6">

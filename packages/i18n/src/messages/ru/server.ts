@@ -123,7 +123,7 @@ export const messages = {
   "server.hosted.detail.create.copy": "Копирование OpenOwnBot на машину",
   "server.hosted.detail.create.key": "Добавление одноразового ключа входа",
   "server.hosted.detail.start.boot": "Включение машины",
-  "server.hosted.detail.start.app": "Запуск OpenBot",
+  "server.hosted.detail.start.app": "Запуск OpenOwnBot",
   "server.hosted.detail.start.wait": "Ожидание ответа OpenOwnBot",
   "server.hosted.detail.connect.signIn": "Вход от вашего имени",
   "server.hosted.detail.connect.publish": "Добавление сервера в ваш аккаунт",
@@ -475,11 +475,11 @@ export const messages = {
   "server.update.path.hosted":
     "Облачный сервис скачивает обновления в фоне. Скачанное обновление ставится при следующем запуске сервера. Дождитесь окончания текущей работы, прежде чем остановить и снова запустить сервер. Если версия не меняется, свяжитесь с администратором хоста.",
   "server.update.path.system":
-    "На хосте выполните sudo openbot update, чтобы поставить последний релиз. Команда останавливает OpenOwnBot, поэтому сначала дождитесь окончания текущей работы. Автоматически скачанные обновления ставятся при следующей загрузке.",
+    "На хосте выполните sudo openownbot update, чтобы поставить последний релиз. Команда останавливает OpenOwnBot, поэтому сначала дождитесь окончания текущей работы. Автоматически скачанные обновления ставятся при следующей загрузке.",
   "server.update.path.container":
     "На Docker-хосте скачайте новый образ OpenOwnBot и пересоздайте контейнер с теми же томами данных. Сначала дождитесь окончания текущей работы. Сохраните существующие тома, чтобы не потерять данные.",
   "server.update.path.manual":
-    "Эта установка не может обновить себя сама. Попросите администратора хоста поставить совместимый релиз с github.com/nightly-labs/openbot/releases. Сохраните существующие данные OpenOwnBot.",
+    "Эта установка не может обновить себя сама. Попросите администратора хоста поставить совместимый релиз с github.com/zereight/openownbot/releases. Сохраните существующие данные OpenOwnBot.",
   "server.update.path.unavailable":
     "Это сборка для разработки. Чтобы проверять обновления, используйте установленный релиз OpenOwnBot.",
   "server.update.check": "Проверить обновления",

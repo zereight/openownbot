@@ -1,7 +1,7 @@
-import type { MarketplaceSkillSummary } from "@openbot/contracts/ipc";
-import { skillExamplePrompt, skillInstructions } from "@openbot/ui/components/SkillPreview";
-import { MarkdownMessageText } from "@openbot/ui/features/conversation/MarkdownMessageText";
-import { useText } from "@openbot/ui/text";
+import type { MarketplaceSkillSummary } from "@openownbot/contracts/ipc";
+import { skillExamplePrompt, skillInstructions } from "@openownbot/ui/components/SkillPreview";
+import { MarkdownMessageText } from "@openownbot/ui/features/conversation/MarkdownMessageText";
+import { useText } from "@openownbot/ui/text";
 import { createEffect, Show } from "solid-js";
 import { useInstalls } from "./MarketplaceCards";
 import { SkillAction, skillAgents } from "./MarketplaceInstallSkill";

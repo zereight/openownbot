@@ -1,0 +1,11 @@
+# OpenOwnBot asks for an update now with an empty file in its runtime directory. This starts
+# openownbot-update-request.service as root, which removes the file and never reads it.
+[Unit]
+Description=Watch for an OpenOwnBot update request
+
+[Path]
+PathExists=/run/openownbot/update-stage
+PathExists=/run/openownbot/update-install
+
+[Install]
+WantedBy=paths.target

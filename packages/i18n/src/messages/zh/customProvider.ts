@@ -85,7 +85,7 @@ export const messages = {
   "customProvider.header.add": "添加请求头",
   "customProvider.submit": "提交",
 
-  // Model discovery. OpenBot asks the endpoint for its model list, and the user picks from it.
+  // Model discovery. OpenOwnBot asks the endpoint for its model list, and the user picks from it.
   "customProvider.discovery.find": "查找模型",
   "customProvider.discovery.refresh": "重新查找",
   "customProvider.discovery.loading": "正在向 {url} 请求模型列表。",
@@ -114,7 +114,7 @@ export const messages = {
   "customProvider.probe.checking": "检查中",
   "customProvider.probe.running": { one: "运行中 · {count} 个模型", other: "运行中 · {count} 个模型" },
 
-  // Automatic detection on the provider step and in Settings. OpenBot looks for local model servers
+  // Automatic detection on the provider step and in Settings. OpenOwnBot looks for local model servers
   // at their default addresses and for known ACP agent commands on the PATH.
   "customProvider.detected.title": "在这台电脑上发现",
   "customProvider.detected.scanning": "正在查找本地模型和助手。",
@@ -200,7 +200,7 @@ export const messages = {
   "customProvider.acp.error.usagePromptInvalid": "请填写一行，最多 {max} 个字符。",
   "customProvider.acp.error.agentIdPattern": "只能使用小写字母、数字或连字符，且以字母或数字开头，最多 40 个字符。",
 
-  // The user's own ACP agents in Settings. Each is a command that OpenBot starts on this computer.
+  // The user's own ACP agents in Settings. Each is a command that OpenOwnBot starts on this computer.
   "customProvider.agents.title": "自定义助手",
   "customProvider.agents.description": "OpenOwnBot 在这台电脑上启动的 ACP 助手。",
   "customProvider.agents.empty": "还没有自定义助手。",
