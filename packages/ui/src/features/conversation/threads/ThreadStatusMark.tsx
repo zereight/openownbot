@@ -1,9 +1,9 @@
-import type { AppTextKey } from "@openbot/i18n";
-import { Clock3, X } from "@openbot/ui";
-import { TypingDots } from "@openbot/ui/components/TypingDots";
-import { SidebarWaitIcon } from "@openbot/ui/features/sidebar/SidebarAgentIndicator";
-import type { SidebarWaitReason } from "@openbot/ui/features/sidebar/sidebar-types";
-import { type TextValue, useText } from "@openbot/ui/text";
+import type { AppTextKey } from "@openownbot/i18n";
+import { Clock3, X } from "@openownbot/ui";
+import { TypingDots } from "@openownbot/ui/components/TypingDots";
+import { SidebarWaitIcon } from "@openownbot/ui/features/sidebar/SidebarAgentIndicator";
+import type { SidebarWaitReason } from "@openownbot/ui/features/sidebar/sidebar-types";
+import { type TextValue, useText } from "@openownbot/ui/text";
 import { Show } from "solid-js";
 import type { ThreadStatus } from "./thread-types";
 

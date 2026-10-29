@@ -10,19 +10,19 @@
 // cost before the result, as OpenCode 2.1 does. Each turn books the difference from the last total,
 // also after a restart. A session from before costs were kept books its first total as the start.
 // `bun scripts/opencode-usage-metering-e2e.ts`. Writes
-// .openbot-build/opencode-usage-metering-e2e/report.json.
+// .openownbot-build/opencode-usage-metering-e2e/report.json.
 import assert from "node:assert/strict";
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { mkdtemp, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import { DatabaseSync } from "node:sqlite";
-import { AGENT_PROVIDERS, decodeUsageTokens, type UsageTokens } from "@openbot/contracts/ipc";
+import { AGENT_PROVIDERS, decodeUsageTokens, type UsageTokens } from "@openownbot/contracts/ipc";
 import { Effect } from "effect";
 import type { AgentBrowserHost } from "../src/backend/agent/turn-lifecycle";
 
-const OUT = resolve(import.meta.dirname, "../.openbot-build/opencode-usage-metering-e2e");
-const root = await mkdtemp(join(tmpdir(), "openbot-opencode-metering-"));
+const OUT = resolve(import.meta.dirname, "../.openownbot-build/opencode-usage-metering-e2e");
+const root = await mkdtemp(join(tmpdir(), "openownbot-opencode-metering-"));
 const userData = join(root, "user-data");
 const home = join(root, "home");
 const fakeOpenCode = join(root, "opencode");
@@ -30,7 +30,7 @@ const logPath = join(root, "opencode.jsonl");
 
 // Before the service modules load: the stores read the home folder.
 process.env.HOME = home;
-process.env.OPENBOT_OPENCODE_PATH = fakeOpenCode;
+process.env.OPENOWNBOT_OPENCODE_PATH = fakeOpenCode;
 process.env.FAKE_OPENCODE_LOG = logPath;
 mkdirSync(home, { recursive: true });
 
@@ -38,7 +38,7 @@ const { AgentService } = await import("../src/backend/agent-service");
 const { AgentStore } = await import("../src/backend/agent-store");
 const { runCauseEffect } = await import("../src/backend/effect-boundary");
 const { MailboxStore } = await import("../src/backend/mailbox-store");
-const { OpenBotDatabase } = await import("../src/backend/openbot-database");
+const { OpenOwnBotDatabase } = await import("../src/backend/openownbot-database");
 
 /** An OpenCode ACP server with the methods that the service calls. */
 const FAKE_OPENCODE = `#!/usr/bin/env node
@@ -170,7 +170,7 @@ function protocol(): LogEntry[] {
 }
 
 await writeFile(fakeOpenCode, FAKE_OPENCODE, { mode: 0o755 });
-const database = new OpenBotDatabase(userData);
+const database = new OpenOwnBotDatabase(userData);
 const store = new AgentStore(userData, home, database);
 const mailbox = new MailboxStore(userData, store.sharedRoot, store.database);
 const agents = new AgentService({

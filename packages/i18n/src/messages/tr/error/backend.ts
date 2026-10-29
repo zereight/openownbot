@@ -128,6 +128,11 @@ export const messages = {
   "error.backend.mailboxStateCorrupt":
     "Posta kutusu durumu bozuk veya daha yeni bir OpenOwnBot sürümünden; üzerine yazılması reddedildi.",
   "error.backend.recipientDeleting": "Alıcı siliniyor. Silme işlemi tamamlandıktan sonra tekrar deneyin.",
+  "error.backend.squadLeaves":
+    "{squad} takımındasın ve takım dışındaki ajanlara yalnızca lider yazar. {squad} liderinden iletmesini iste veya kullanıcıya sor.",
+  "error.backend.squadEnters": "{agent}, {squad} takımında. {squad} lideri üzerinden ulaş veya kullanıcıya sor.",
+  "error.backend.squadSkipsRank":
+    "{agent}, {squad} takımında ulaşabileceğin rütbenin üstünde. Mesaj yalnızca senin rütbenin hemen üstündeki rütbeye gider. O rütbeden iletmesini iste veya kullanıcıya sor.",
   "error.backend.recipientHidden": "Bu ajan gizli. Mesaj göndermek için onu geri yükleyin.",
   "error.backend.attachBetween": "1 ila {limit} dosya ekleyin.",
   "error.backend.attachmentNotFile": "Ek bir dosya değil: {path}",
@@ -173,7 +178,7 @@ export const messages = {
   "error.backend.routineFlowCycle": "Bu bağlantı bir döngü oluşturur.",
   "error.backend.routineFlowLinkLimit": "Bir rutinde en fazla {limit} bağlantı olabilir.",
   "error.backend.agentWaitLimit":
-    "Bu ajanın zaten {count} açık beklemesi var. Başka bir bekleme açmadan önce openbot.close_wait ile bir beklemeyi kapatın.",
+    "Bu ajanın zaten {count} açık beklemesi var. Başka bir bekleme açmadan önce openownbot.close_wait ile bir beklemeyi kapatın.",
   "error.backend.agentWaitGone": "Bu bekleme açık değil. Ajan onu kapattı veya biri iptal etti.",
   "error.backend.agentWaitNoRequest": "Beklemenin devam etmesi için bir mesaj gerekir. Bu turda mesaj yok.",
   "error.backend.agentWaitOwnChatOnly":
@@ -181,7 +186,7 @@ export const messages = {
   "error.backend.agentWaitNoteRequired": "Beklemenin ne için olduğunu belirten kısa bir not yazın.",
   "error.backend.agentWaitRoutineGone": "Bu ajanın bu kimliğe sahip bir rutini yok.",
   "error.backend.agentWaitNoRoutine":
-    "Bir beklemeyi yalnızca rutinlerinizden birinin çalıştırılması uyandırır ve hiç rutininiz yok. openbot.create_routine ile bir rutin oluşturun, ardından beklemeyi açın.",
+    "Bir beklemeyi yalnızca rutinlerinizden birinin çalıştırılması uyandırır ve hiç rutininiz yok. openownbot.create_routine ile bir rutin oluşturun, ardından beklemeyi açın.",
   "error.backend.agentWaitRemoteUnsupported": "Açık beklemeler yalnızca bu bilgisayardaki ajanlar için kullanılabilir.",
   "error.backend.routineFlowHandoffFailed": "Rutin işi bu ajana aktaramadı.",
   "error.backend.mcpServerLimit": "OpenOwnBot en fazla {limit} MCP sunucusu tutar.",
@@ -332,9 +337,4 @@ export const messages = {
     "Bu ajanın {count} açık görevi var. Bir görevi kapatın, ardından başka bir görev başlatın veya açın.",
   "error.backend.taskRemoteUnsupported": "Görevler yalnızca bu bilgisayardaki ajanlar için kullanılabilir.",
   "error.backend.taskStartFailed": "OpenOwnBot görevi başlatamadı. Bunun yerine işi bu turda yapın.",
-  "error.backend.squadLeaves":
-    "{squad} takımındasın ve takım dışındaki ajanlara yalnızca lider yazar. {squad} liderinden iletmesini iste veya kullanıcıya sor.",
-  "error.backend.squadEnters": "{agent}, {squad} takımında. {squad} lideri üzerinden ulaş veya kullanıcıya sor.",
-  "error.backend.squadSkipsRank":
-    "{agent}, {squad} takımında ulaşabileceğin rütbenin üstünde. Mesaj yalnızca senin rütbenin hemen üstündeki rütbeye gider. O rütbeden iletmesini iste veya kullanıcıya sor.",
 } as const satisfies PartialTranslation<typeof source>;

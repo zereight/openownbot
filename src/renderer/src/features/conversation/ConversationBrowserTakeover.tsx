@@ -1,5 +1,5 @@
-import { BrowserTakeoverCard } from "@openbot/ui/features/conversation/ConversationPrompts";
-import { useText } from "@openbot/ui/text";
+import { BrowserTakeoverCard } from "@openownbot/ui/features/conversation/ConversationPrompts";
+import { useText } from "@openownbot/ui/text";
 import { Loading, Show } from "solid-js";
 import { browserSecretVault } from "./browser-secret-vault";
 import { conversationRuntime } from "./conversation-runtime";

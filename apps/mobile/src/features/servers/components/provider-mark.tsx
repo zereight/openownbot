@@ -1,5 +1,5 @@
-import { providerLogoShape } from "@openbot/brand/provider-logo-shape";
-import type { AgentProviderId } from "@openbot/contracts/ipc";
+import { providerLogoShape } from "@openownbot/brand/provider-logo-shape";
+import type { AgentProviderId } from "@openownbot/contracts/ipc";
 import { useThemeColor } from "heroui-native/hooks";
 import Svg, { Path } from "react-native-svg";
 import { useCSSVariable } from "uniwind";
@@ -7,7 +7,7 @@ import { useCSSVariable } from "uniwind";
 /** The colour of a provider mark. Codex, Grok and the others draw in the text colour. */
 function useProviderColor(provider: AgentProviderId): string {
   const foreground = String(useThemeColor("foreground"));
-  const [claude, gemini] = useCSSVariable(["--openbot-provider-claude", "--openbot-provider-antigravity"]);
+  const [claude, gemini] = useCSSVariable(["--openownbot-provider-claude", "--openownbot-provider-antigravity"]);
   if (provider === "claude" && claude) return String(claude);
   if (provider === "antigravity" && gemini) return String(gemini);
   return foreground;

@@ -1,6 +1,6 @@
 // Team identity, membership and invitations, as a host or the account service sends them.
 
-import { inviteUseCount, isPermanentInvite } from "@openbot/contracts/invite-links";
+import { inviteUseCount, isPermanentInvite } from "@openownbot/contracts/invite-links";
 import type {
   InvitePreview,
   InviteSummary,
@@ -8,10 +8,10 @@ import type {
   TeamMemberSummary,
   TeamPresenceSnapshot,
   TeamRole,
-} from "@openbot/contracts/ipc";
-import { isTeamRealtimeEvent } from "@openbot/contracts/ipc";
-import { decodeRecord, nullableString, requiredBoolean, requiredString } from "@openbot/contracts/ipc-decoding";
-import { isOneOf } from "@openbot/contracts/runtime-values";
+} from "@openownbot/contracts/ipc";
+import { isTeamRealtimeEvent } from "@openownbot/contracts/ipc";
+import { decodeRecord, nullableString, requiredBoolean, requiredString } from "@openownbot/contracts/ipc-decoding";
+import { isOneOf } from "@openownbot/contracts/runtime-values";
 
 export function decodeJoinResult(value: unknown): { member: { role: TeamRole }; sessionToken: string } {
   const record = decodeRecord(value, "join response");

@@ -14,7 +14,7 @@ import type {
   RemoteNetworkRouteState,
   ServerSummary,
   UpdateStatus,
-} from "@openbot/contracts/ipc";
+} from "@openownbot/contracts/ipc";
 import {
   Alert,
   AlertActions,
@@ -25,20 +25,20 @@ import {
   ChevronRight,
   Tabs,
   TriangleAlert,
-} from "@openbot/ui";
-import { BillingPanel } from "@openbot/ui/features/billing/BillingPanel";
-import { createBillingStore } from "@openbot/ui/features/billing/billing-store";
-import { LicenseSection } from "@openbot/ui/features/billing/LicenseSection";
-import { createLicenseStore } from "@openbot/ui/features/billing/license-store";
-import type { GeneralSettingsValue } from "@openbot/ui/features/settings/app-settings";
-import { SettingsDialogShell, type SettingsPagePlacement } from "@openbot/ui/features/settings/SettingsDialogShell";
-import { SettingsMobileConnectTab } from "@openbot/ui/features/settings/SettingsMobileConnectTab";
-import { SettingsProfileTab } from "@openbot/ui/features/settings/SettingsProfileTab";
-import { SettingsUpdatesTab } from "@openbot/ui/features/settings/SettingsUpdatesTab";
-import { createSettingsHostedServersStore } from "@openbot/ui/features/settings/stores/hosted-servers-store";
-import { createSettingsMobileConnectStore } from "@openbot/ui/features/settings/stores/mobile-connect-store";
-import { createSettingsProfileStore } from "@openbot/ui/features/settings/stores/profile-store";
-import { createSettingsUpdatesStore } from "@openbot/ui/features/settings/stores/updates-store";
+} from "@openownbot/ui";
+import { BillingPanel } from "@openownbot/ui/features/billing/BillingPanel";
+import { createBillingStore } from "@openownbot/ui/features/billing/billing-store";
+import { LicenseSection } from "@openownbot/ui/features/billing/LicenseSection";
+import { createLicenseStore } from "@openownbot/ui/features/billing/license-store";
+import type { GeneralSettingsValue } from "@openownbot/ui/features/settings/app-settings";
+import { SettingsDialogShell, type SettingsPagePlacement } from "@openownbot/ui/features/settings/SettingsDialogShell";
+import { SettingsMobileConnectTab } from "@openownbot/ui/features/settings/SettingsMobileConnectTab";
+import { SettingsProfileTab } from "@openownbot/ui/features/settings/SettingsProfileTab";
+import { SettingsUpdatesTab } from "@openownbot/ui/features/settings/SettingsUpdatesTab";
+import { createSettingsHostedServersStore } from "@openownbot/ui/features/settings/stores/hosted-servers-store";
+import { createSettingsMobileConnectStore } from "@openownbot/ui/features/settings/stores/mobile-connect-store";
+import { createSettingsProfileStore } from "@openownbot/ui/features/settings/stores/profile-store";
+import { createSettingsUpdatesStore } from "@openownbot/ui/features/settings/stores/updates-store";
 import { createEffect, createSignal, Show, untrack } from "solid-js";
 import { useI18n } from "../../i18n-context";
 import { ComputerUseSetup } from "../computer-use/ComputerUseSetup";

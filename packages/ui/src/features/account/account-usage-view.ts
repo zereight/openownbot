@@ -8,14 +8,14 @@ import {
   DEFAULT_PROVIDER_ACCOUNT_ID,
   isAgentProvider,
   type ProviderAccountStatus,
-} from "@openbot/contracts/ipc";
+} from "@openownbot/contracts/ipc";
 import {
   type PlanLimitTone,
   planLimitWindowKind,
   reportedUsageWindows,
   usageRemainingPercent,
   usageTone,
-} from "@openbot/team-client/plan-limits";
+} from "@openownbot/team-client/plan-limits";
 import { isApiKeyAccount, providerAccountName } from "../../components/provider-accounts";
 import { currentText, type TextValue } from "../../text";
 

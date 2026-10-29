@@ -45,7 +45,7 @@ export const messages = {
   "settings.externalLinks.title": "外部リンクの開き方",
   "settings.externalLinks.description": "チャット、サインインページ、請求ページのリンクをここで開きます。",
   "settings.externalLinks.defaultBrowser": "既定のブラウザー",
-  "settings.externalLinks.openbot": "OpenBot",
+  "settings.externalLinks.openownbot": "OpenOwnBot",
   "settings.externalLinks.defaultBrowserNamed": "既定のブラウザー（{name}）",
   "settings.externalLinks.otherApp": "その他のアプリ…",
   "settings.externalLinks.command": "コマンド…",
@@ -77,7 +77,7 @@ export const messages = {
   "settings.notificationPreview.description": "通知にエージェントの返信や質問の冒頭を表示します。",
   "settings.testNotification.title": "テスト通知",
   "settings.testNotification.description":
-    "今すぐ通知を表示します。表示されない場合は、システム設定で OpenBot の通知を許可してください。",
+    "今すぐ通知を表示します。表示されない場合は、システム設定で OpenOwnBot の通知を許可してください。",
   "settings.testNotification.action": "テストを送信",
   "settings.testNotification.failed": "通知を表示できませんでした。",
   "settings.testNotification.openSettings": "システム設定を開く",
@@ -217,9 +217,9 @@ export const messages = {
   "settings.mobileConnect.route.title": "デバイスの接続方法",
   "settings.mobileConnect.route.description":
     "このコンピューターに接続するスマートフォン、ほかのコンピューター、チームメンバー向けです。",
-  "settings.mobileConnect.route.openbot.title": "OpenBot 経由",
-  "settings.mobileConnect.route.openbot.badge": "推奨",
-  "settings.mobileConnect.route.openbot.description":
+  "settings.mobileConnect.route.openownbot.title": "OpenOwnBot 経由",
+  "settings.mobileConnect.route.openownbot.badge": "推奨",
+  "settings.mobileConnect.route.openownbot.description":
     "どのネットワークでも使えます。チャットとファイルはデバイス間で暗号化されます。",
   "settings.mobileConnect.route.private.title": "プライベートネットワーク",
   "settings.mobileConnect.route.private.tailscale": "Tailscale を検出",
@@ -274,7 +274,7 @@ export const messages = {
   "settings.profile.share.copied": "画像をコピーしました",
   "settings.profile.share.copyFailed": "画像をコピーできませんでした。",
   "settings.profile.share.createFailed": "画像を作成できませんでした。",
-  "settings.profile.share.fileName": "openbot-activity.png",
+  "settings.profile.share.fileName": "openownbot-activity.png",
   // The text in the image to share.
   "settings.profile.share.caption": "OpenOwnBot と過ごした直近 6 か月",
   "settings.profile.activity.title": "このコンピューターでのアクティビティ",

@@ -1,7 +1,7 @@
-# OpenBot from its GitHub release: the AppImage on Linux and the app ZIP on macOS. `sources.json`
+# OpenOwnBot from its GitHub release: the AppImage on Linux and the app ZIP on macOS. `sources.json`
 # names the release and its hashes; `bun scripts/nix-sources.ts` writes it after each release.
 #
-# OpenBot does not update itself from the Nix store (`isNixStoreInstall` in
+# OpenOwnBot does not update itself from the Nix store (`isNixStoreInstall` in
 # src/main/update-service.ts). Nix replaces the whole package instead.
 {
   lib,
@@ -15,20 +15,20 @@
 }:
 
 let
-  pname = "openbot";
+  pname = "openownbot";
   inherit (sources) version;
   system = stdenvNoCC.hostPlatform.system;
-  asset = sources.assets.${system} or (throw "OpenBot has no release for ${system}");
+  asset = sources.assets.${system} or (throw "OpenOwnBot has no release for ${system}");
 
   src = fetchurl {
-    url = "https://github.com/nightly-labs/openbot/releases/download/v${version}/${asset.name}";
+    url = "https://github.com/zereight/openownbot/releases/download/v${version}/${asset.name}";
     inherit (asset) hash;
   };
 
   meta = {
     description = "Local-first multi-agent desktop workspace for Codex, Claude, Grok and other coding agents";
-    homepage = "https://github.com/nightly-labs/openbot";
-    changelog = "https://github.com/nightly-labs/openbot/releases/tag/v${version}";
+    homepage = "https://github.com/zereight/openownbot";
+    changelog = "https://github.com/zereight/openownbot/releases/tag/v${version}";
     license = {
       shortName = "polyform-nc-10";
       fullName = "PolyForm Noncommercial License 1.0.0";
@@ -39,17 +39,17 @@ let
     };
     sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
     platforms = builtins.attrNames sources.assets;
-    mainProgram = "openbot";
+    mainProgram = "openownbot";
   };
 
   # The AppImage's `AppRun` adds `--no-sandbox` when the system refuses an unprivileged user
-  # namespace, and its desktop entry passes `--no-sandbox` too. OpenBot must keep the Electron sandbox
+  # namespace, and its desktop entry passes `--no-sandbox` too. OpenOwnBot must keep the Electron sandbox
   # (build/linux/openownbot.apparmor), so the FHS environment starts the Electron binary directly.
   # Its libraries and the bundled cua-driver find the usual Linux paths there.
   contents = appimageTools.extract {
     inherit pname version src;
     # The bundled Sunshine needs the Ubuntu libraries of scripts/hosting/packages.txt, and this
-    # environment was not checked against them. Without the runtime directory, OpenBot shows remote
+    # environment was not checked against them. Without the runtime directory, OpenOwnBot shows remote
     # desktop as unavailable and does not try to start it.
     postExtract = ''
       rm -rf $out/resources/remote-desktop-runtime
@@ -61,13 +61,13 @@ let
     // {
       inherit pname version meta;
       targetPkgs = pkgs: appimageTools.defaultFhsEnvArgs.targetPkgs pkgs ++ [ pkgs.libsecret ];
-      runScript = "${contents}/openbot";
+      runScript = "${contents}/openownbot";
       extraInstallCommands = ''
-        install -Dm444 ${contents}/openbot.desktop $out/share/applications/openbot.desktop
-        substituteInPlace $out/share/applications/openbot.desktop \
-          --replace-fail 'Exec=AppRun --no-sandbox %U' 'Exec=openbot %U'
+        install -Dm444 ${contents}/openownbot.desktop $out/share/applications/openownbot.desktop
+        substituteInPlace $out/share/applications/openownbot.desktop \
+          --replace-fail 'Exec=AppRun --no-sandbox %U' 'Exec=openownbot %U'
         # The AppImage has only a 1600x1600 icon, a size that no icon theme lists.
-        install -Dm444 ${contents}/openbot.png $out/share/pixmaps/openbot.png
+        install -Dm444 ${contents}/openownbot.png $out/share/pixmaps/openownbot.png
       '';
     }
   );
@@ -95,8 +95,8 @@ let
     installPhase = ''
       runHook preInstall
       mkdir -p $out/Applications
-      cp -R OpenBot.app $out/Applications/
-      makeWrapper $out/Applications/OpenBot.app/Contents/MacOS/OpenBot $out/bin/openbot
+      cp -R OpenOwnBot.app $out/Applications/
+      makeWrapper $out/Applications/OpenOwnBot.app/Contents/MacOS/OpenOwnBot $out/bin/openownbot
       runHook postInstall
     '';
   };

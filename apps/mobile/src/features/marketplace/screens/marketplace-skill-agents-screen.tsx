@@ -46,7 +46,7 @@ export function MarketplaceSkillAgentsScreen() {
   const [chosen, setChosen] = useState<ReadonlySet<string>>(new Set());
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const accent = String(useCSSVariable("--openbot-accent-text"));
+  const accent = String(useCSSVariable("--openownbot-accent-text"));
   const lock = useRef(false);
   const [leaving, setLeaving] = useState(false);
   usePreventRemove(pending, () => undefined);

@@ -1,11 +1,11 @@
 import {
   createAgentTemplateShareUrl,
-  OPENBOT_AGENT_TEMPLATE_PATH_PREFIX,
+  OPENOWNBOT_AGENT_TEMPLATE_PATH_PREFIX,
   parseAgentTemplateUrl,
-} from "@openbot/contracts/agent-template-links";
-import { parseInviteUrl, selfHostedApiOrigin } from "@openbot/contracts/invite-links";
-import { parseMobileConnectUrl } from "@openbot/contracts/mobile-connect";
-import { createPluginShareUrl, parsePluginUrl } from "@openbot/contracts/plugin-links";
+} from "@openownbot/contracts/agent-template-links";
+import { parseInviteUrl, selfHostedApiOrigin } from "@openownbot/contracts/invite-links";
+import { parseMobileConnectUrl } from "@openownbot/contracts/mobile-connect";
+import { createPluginShareUrl, parsePluginUrl } from "@openownbot/contracts/plugin-links";
 
 export type IncomingLink =
   | { kind: "invite"; url: string }
@@ -36,7 +36,7 @@ function parseIncomingLink(value: string): IncomingLink {
 }
 
 /**
- * The session is not loaded when the system opens a link, so an `openbot://join` link for any
+ * The session is not loaded when the system opens a link, so an `openownbot://join` link for any
  * self-hosted account service counts as an invitation here. The add-server screen checks it again
  * with the service of the session, and refuses a link for another service.
  */
@@ -49,7 +49,7 @@ function isInviteLink(value: string): boolean {
   }
   try {
     const url = new URL(value);
-    if (url.protocol !== "openbot:") return false;
+    if (url.protocol !== "openownbot:") return false;
     parseInviteUrl(value, { selfHostedApiOrigin: selfHostedApiOrigin(url.searchParams.get("api") ?? undefined) });
     return true;
   } catch {
@@ -90,7 +90,7 @@ export function pendingSignInLinkId(): string | undefined {
 }
 
 export function redirectIncomingLink(path: string): string {
-  if (path === "openbot://" || path === "openbot:///" || path === "openbot:") return "/";
+  if (path === "openownbot://" || path === "openownbot:///" || path === "openownbot:") return "/";
   // Expo Go and ordinary internal routes retain Expo Router's normal behavior.
   if (/^exps?:\/\//u.test(path)) return path;
   if (path.startsWith("/") && !path.startsWith("//")) {
@@ -98,7 +98,7 @@ export function redirectIncomingLink(path: string): string {
     if (
       url.pathname !== "/join" &&
       !url.pathname.startsWith("/plugins/") &&
-      !url.pathname.startsWith(OPENBOT_AGENT_TEMPLATE_PATH_PREFIX)
+      !url.pathname.startsWith(OPENOWNBOT_AGENT_TEMPLATE_PATH_PREFIX)
     )
       return path;
     path = url.toString();

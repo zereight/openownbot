@@ -4,9 +4,9 @@ import {
   type DecisionModelKeyName,
   isDecisionModelSettings,
   type SaveDecisionModelInput,
-} from "@openbot/contracts/ipc";
-import { isDynamicRecord } from "@openbot/contracts/runtime-values";
-import { sourceText } from "@openbot/i18n/source";
+} from "@openownbot/contracts/ipc";
+import { isDynamicRecord } from "@openownbot/contracts/runtime-values";
+import { sourceText } from "@openownbot/i18n/source";
 
 /** The one place the decision model settings and keys from the renderer enter main. */
 export function parseSaveDecisionModel(input: unknown): SaveDecisionModelInput {

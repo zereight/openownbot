@@ -1,11 +1,16 @@
-import type { ChannelSummary, HiddenAgent, SidebarLayoutAction, SidebarLayoutSnapshot } from "@openbot/contracts/ipc";
-import type { AvatarMood } from "@openbot/ui/bloub-avatar";
-import { Sidebar } from "@openbot/ui/features/sidebar/Sidebar";
-import { SidebarCommunityCard } from "@openbot/ui/features/sidebar/SidebarCommunityCard";
-import { SidebarMobileAppCard } from "@openbot/ui/features/sidebar/SidebarMobileAppCard";
-import { SidebarStorageCard } from "@openbot/ui/features/sidebar/SidebarStorageCard";
-import { normalizeSidebarPinnedItems, type SidebarPinnedItem } from "@openbot/ui/features/sidebar/sidebar-pins";
-import { SIDEBAR_HIDDEN_GROUP_OPEN_ID, type SidebarAgentState } from "@openbot/ui/features/sidebar/sidebar-types";
+import type {
+  ChannelSummary,
+  HiddenAgent,
+  SidebarLayoutAction,
+  SidebarLayoutSnapshot,
+} from "@openownbot/contracts/ipc";
+import type { AvatarMood } from "@openownbot/ui/bloub-avatar";
+import { Sidebar } from "@openownbot/ui/features/sidebar/Sidebar";
+import { SidebarCommunityCard } from "@openownbot/ui/features/sidebar/SidebarCommunityCard";
+import { SidebarMobileAppCard } from "@openownbot/ui/features/sidebar/SidebarMobileAppCard";
+import { SidebarStorageCard } from "@openownbot/ui/features/sidebar/SidebarStorageCard";
+import { normalizeSidebarPinnedItems, type SidebarPinnedItem } from "@openownbot/ui/features/sidebar/sidebar-pins";
+import { SIDEBAR_HIDDEN_GROUP_OPEN_ID, type SidebarAgentState } from "@openownbot/ui/features/sidebar/sidebar-types";
 import { createSignal, untrack } from "solid-js";
 import { fn } from "storybook/test";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";
@@ -303,7 +308,7 @@ export const Populated: Story = {
   decorators: [(Story) => <div style={{ width: "280px", height: "100vh" }}>{Story()}</div>],
 };
 
-/** A joined server has a new OpenBot version. The header button opens its update. */
+/** A joined server has a new OpenOwnBot version. The header button opens its update. */
 export const ServerUpdate: Story = {
   args: { serverName: "Research server", serverUpdate: { version: "0.24.0", running: false, onOpen: fn() } },
   decorators: [(Story) => <div style={{ width: "280px", height: "100vh" }}>{Story()}</div>],

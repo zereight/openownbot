@@ -136,6 +136,12 @@ export const messages = {
   "error.backend.mailboxStateCorrupt":
     "O estado da caixa de mensagens está corrompido ou é de uma versão mais recente do OpenOwnBot; ele não será sobrescrito.",
   "error.backend.recipientDeleting": "O destinatário está sendo excluído. Tente novamente quando a exclusão terminar.",
+  "error.backend.squadLeaves":
+    "Você está na equipe {squad}, e só o líder dela escreve a agentes de fora. Peça ao líder de {squad} para repassar, ou pergunte ao usuário.",
+  "error.backend.squadEnters":
+    "{agent} está na equipe {squad}. Fale com ele pelo líder de {squad}, ou pergunte ao usuário.",
+  "error.backend.squadSkipsRank":
+    "{agent} está acima do nível que você pode alcançar na equipe {squad}. Uma mensagem sobe apenas ao nível imediatamente acima do seu. Peça a esse nível que repasse ou pergunte ao usuário.",
   "error.backend.recipientHidden": "Este agente está oculto. Restaure-o para enviar mensagens.",
   "error.backend.attachBetween": "Anexe de 1 a {limit} arquivos.",
   "error.backend.attachmentNotFile": "O anexo não é um arquivo: {path}",
@@ -185,7 +191,7 @@ export const messages = {
   "error.backend.routineFlowCycle": "Esta conexão criaria um loop.",
   "error.backend.routineFlowLinkLimit": "Uma rotina pode ter no máximo {limit} conexões.",
   "error.backend.agentWaitLimit":
-    "Este agente já tem {count} esperas abertas. Feche uma espera com openbot.close_wait antes de abrir outra.",
+    "Este agente já tem {count} esperas abertas. Feche uma espera com openownbot.close_wait antes de abrir outra.",
   "error.backend.agentWaitGone": "Esta espera não está aberta. O agente a fechou ou alguém a cancelou.",
   "error.backend.agentWaitNoRequest": "Uma espera precisa de uma mensagem para continuar. Este turno não tem mensagem.",
   "error.backend.agentWaitOwnChatOnly":
@@ -193,7 +199,7 @@ export const messages = {
   "error.backend.agentWaitNoteRequired": "Escreva uma nota curta que diga para que serve a espera.",
   "error.backend.agentWaitRoutineGone": "Este agente não tem nenhuma rotina com este id.",
   "error.backend.agentWaitNoRoutine":
-    "Somente uma execução de uma das suas rotinas desperta uma espera, e você não tem nenhuma rotina. Crie uma com openbot.create_routine e depois abra a espera.",
+    "Somente uma execução de uma das suas rotinas desperta uma espera, e você não tem nenhuma rotina. Crie uma com openownbot.create_routine e depois abra a espera.",
   "error.backend.agentWaitRemoteUnsupported": "As esperas abertas só estão disponíveis para agentes neste computador.",
   "error.backend.routineFlowHandoffFailed": "A rotina não conseguiu passar o trabalho para este agente.",
   "error.backend.mcpServerLimit": "O OpenOwnBot mantém até {limit} servidores MCP.",
@@ -346,10 +352,4 @@ export const messages = {
     "Este agente tem {count} tarefas abertas. Feche uma tarefa e depois inicie ou abra outra.",
   "error.backend.taskRemoteUnsupported": "As tarefas só estão disponíveis para agentes neste computador.",
   "error.backend.taskStartFailed": "O OpenOwnBot não conseguiu iniciar a tarefa. Faça o trabalho neste turno.",
-  "error.backend.squadLeaves":
-    "Você está na equipe {squad}, e só o líder dela escreve a agentes de fora. Peça ao líder de {squad} para repassar, ou pergunte ao usuário.",
-  "error.backend.squadEnters":
-    "{agent} está na equipe {squad}. Fale com ele pelo líder de {squad}, ou pergunte ao usuário.",
-  "error.backend.squadSkipsRank":
-    "{agent} está acima do nível que você pode alcançar na equipe {squad}. Uma mensagem sobe apenas ao nível imediatamente acima do seu. Peça a esse nível que repasse ou pergunte ao usuário.",
 } as const satisfies PartialTranslation<typeof source>;

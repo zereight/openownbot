@@ -9,7 +9,7 @@ export const messages = {
   "computerUse.permission.accessibility.description": "OpenOwnBot'un tıklamasını ve yazmasını sağlar.",
   "computerUse.permission.accessibility.pane": "Erişilebilirlik",
   "computerUse.error.check": "OpenOwnBot, Bilgisayar Kullanımını denetleyemedi.",
-  "computerUse.error.openSettings": "OpenBot, Sistem Ayarlarını açamadı.",
+  "computerUse.error.openSettings": "OpenOwnBot, Sistem Ayarlarını açamadı.",
   "computerUse.error.startDriver": "OpenOwnBot, Bilgisayar Kullanımı sürücüsünü başlatamadı.",
   "computerUse.checkAgain": "Tekrar kontrol et",
   "computerUse.checking": "Bilgisayar Kullanımı denetleniyor",

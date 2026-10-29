@@ -1,6 +1,6 @@
-import type { McpServerConfig } from "@openbot/contracts/ipc";
-import { McpSignInCard, type McpSignInCardState } from "@openbot/ui/features/conversation/McpSignInCard";
-import { useText } from "@openbot/ui/text";
+import type { McpServerConfig } from "@openownbot/contracts/ipc";
+import { McpSignInCard, type McpSignInCardState } from "@openownbot/ui/features/conversation/McpSignInCard";
+import { useText } from "@openownbot/ui/text";
 import { createSignal } from "solid-js";
 
 export interface McpSignInChatCardProps {

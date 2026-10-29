@@ -13,20 +13,20 @@
   max-height: calc(100dvh - 48px);
   overflow: hidden;
   outline: 0;
-  border-radius: var(--openbot-radius-xl);
-  background: var(--openbot-bg-sidebar);
-  color: var(--openbot-text-primary);
+  border-radius: var(--openownbot-radius-xl);
+  background: var(--openownbot-bg-sidebar);
+  color: var(--openownbot-text-primary);
   box-shadow:
-    0 0 0 1px var(--openbot-border-strong),
-    0 24px 64px var(--openbot-shadow-dialog);
+    0 0 0 1px var(--openownbot-border-strong),
+    0 24px 64px var(--openownbot-shadow-dialog);
 }
 
 .join-server-close {
   position: absolute;
-  top: var(--openbot-space-6);
-  right: var(--openbot-space-6);
+  top: var(--openownbot-space-6);
+  right: var(--openownbot-space-6);
   z-index: 2;
-  color: var(--openbot-text-muted);
+  color: var(--openownbot-text-muted);
 }
 
 .join-server-content {
@@ -46,7 +46,7 @@
 }
 
 .join-server-pages[data-reference] {
-  --join-server-reference: calc(var(--openbot-control-xs) + var(--openbot-space-0-5));
+  --join-server-reference: calc(var(--openownbot-control-xs) + var(--openownbot-space-0-5));
 }
 
 .join-server-pages[data-page="1"][data-preview-error] {
@@ -65,7 +65,7 @@
   min-width: 0;
   display: flex;
   flex-direction: column;
-  gap: calc(var(--openbot-space-4) + var(--openbot-space-1));
+  gap: calc(var(--openownbot-space-4) + var(--openownbot-space-1));
   margin: 0;
 }
 
@@ -78,51 +78,51 @@
 }
 
 .join-server-header-entry {
-  gap: var(--openbot-space-2);
-  padding-inline: calc(var(--openbot-space-4) + var(--openbot-space-1));
+  gap: var(--openownbot-space-2);
+  padding-inline: calc(var(--openownbot-space-4) + var(--openownbot-space-1));
 }
 
 .join-server-header-entry .ui-heading {
-  font-size: var(--openbot-text-3xl);
-  font-weight: var(--openbot-weight-bold);
-  line-height: var(--openbot-leading-3xl);
+  font-size: var(--openownbot-text-3xl);
+  font-weight: var(--openownbot-weight-bold);
+  line-height: var(--openownbot-leading-3xl);
 }
 
 .join-server-header-entry .ui-text {
-  font-size: var(--openbot-text-lg);
+  font-size: var(--openownbot-text-lg);
 }
 
 .join-server-header-verified {
-  gap: var(--openbot-space-2);
-  padding-inline: var(--openbot-space-2);
+  gap: var(--openownbot-space-2);
+  padding-inline: var(--openownbot-space-2);
 }
 
 .join-server-header .ui-text {
   max-width: 296px;
-  line-height: var(--openbot-leading-sm);
+  line-height: var(--openownbot-leading-sm);
 }
 
 .join-server-entry-logo {
-  --app-logo-background: var(--openbot-surface-light);
+  --app-logo-background: var(--openownbot-surface-light);
   width: 64px;
   height: 64px;
   flex: 0 0 auto;
-  margin-bottom: var(--openbot-space-4);
-  border-radius: var(--openbot-radius-xl);
+  margin-bottom: var(--openownbot-space-4);
+  border-radius: var(--openownbot-radius-xl);
   box-shadow:
-    0 12px 28px var(--openbot-shadow-dialog),
-    inset 0 1px 0 var(--openbot-border-strong);
+    0 12px 28px var(--openownbot-shadow-dialog),
+    inset 0 1px 0 var(--openownbot-border-strong);
 }
 
 .join-server-field {
-  gap: var(--openbot-space-2);
+  gap: var(--openownbot-space-2);
 }
 
 .join-server-link-input.ui-input {
-  height: var(--openbot-control-xl);
-  background: var(--openbot-bg-control);
-  font-family: var(--openbot-font-mono);
-  font-size: var(--openbot-text-sm);
+  height: var(--openownbot-control-xl);
+  background: var(--openownbot-bg-control);
+  font-family: var(--openownbot-font-mono);
+  font-size: var(--openownbot-text-sm);
 }
 
 .join-server-link-input.ui-input:focus-visible {
@@ -131,46 +131,46 @@
 }
 
 .join-server-link-input.ui-input.is-error {
-  border-color: var(--openbot-danger);
+  border-color: var(--openownbot-danger);
 }
 
 .join-server-field .ui-field-error {
-  min-height: var(--openbot-leading-sm);
+  min-height: var(--openownbot-leading-sm);
 }
 
 .join-server-identity-logo {
-  --app-logo-background: var(--openbot-surface-light);
+  --app-logo-background: var(--openownbot-surface-light);
   width: 88px;
   height: 88px;
   flex: 0 0 auto;
-  margin-bottom: var(--openbot-space-6);
-  border-radius: var(--openbot-radius-modal);
+  margin-bottom: var(--openownbot-space-6);
+  border-radius: var(--openownbot-radius-modal);
   box-shadow:
-    0 16px 36px var(--openbot-shadow-dialog),
-    inset 0 1px 0 var(--openbot-border-strong);
+    0 16px 36px var(--openownbot-shadow-dialog),
+    inset 0 1px 0 var(--openownbot-border-strong);
 }
 
 .join-server-invite-eyebrow {
   margin-bottom: 2px;
-  font-size: var(--openbot-text-lg);
+  font-size: var(--openownbot-text-lg);
 }
 
 .join-server-header-verified .ui-heading {
-  font-size: var(--openbot-text-3xl);
-  font-weight: var(--openbot-weight-bold);
-  line-height: var(--openbot-leading-3xl);
+  font-size: var(--openownbot-text-3xl);
+  font-weight: var(--openownbot-weight-bold);
+  line-height: var(--openownbot-leading-3xl);
 }
 
 .join-server-hostname.ui-text {
   max-width: 260px;
-  color: var(--openbot-text-muted);
-  font-family: var(--openbot-font-sans);
-  font-size: var(--openbot-text-lg);
+  color: var(--openownbot-text-muted);
+  font-family: var(--openownbot-font-sans);
+  font-size: var(--openownbot-text-lg);
 }
 
 .join-server-alert.ui-alert {
   align-self: start;
-  padding-block: var(--openbot-space-2);
+  padding-block: var(--openownbot-space-2);
 }
 
 .join-server-alert .ui-alert-description {
@@ -181,7 +181,7 @@
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  gap: var(--openbot-space-2);
+  gap: var(--openownbot-space-2);
   margin-top: auto;
 }
 
@@ -190,35 +190,35 @@
 }
 
 .join-server-actions-verified {
-  gap: var(--openbot-space-1);
+  gap: var(--openownbot-space-1);
 }
 
 .join-server-preview {
   display: grid;
-  gap: var(--openbot-space-3);
-  border: 1px solid var(--openbot-border);
-  border-radius: var(--openbot-radius-lg);
-  background: var(--openbot-bg-control);
-  padding: var(--openbot-space-4);
+  gap: var(--openownbot-space-3);
+  border: 1px solid var(--openownbot-border);
+  border-radius: var(--openownbot-radius-lg);
+  background: var(--openownbot-bg-control);
+  padding: var(--openownbot-space-4);
 }
 
 .join-server-preview-signal {
   display: flex;
   align-items: center;
-  gap: var(--openbot-space-2);
+  gap: var(--openownbot-space-2);
 }
 
 .join-server-preview-signal i,
 .join-server-preview-signal span {
   display: block;
-  border-radius: var(--openbot-radius-pill);
-  background: var(--openbot-success);
+  border-radius: var(--openownbot-radius-pill);
+  background: var(--openownbot-success);
 }
 
 .join-server-preview-signal i {
   width: 8px;
   height: 8px;
-  box-shadow: 0 0 0 4px var(--openbot-success-soft);
+  box-shadow: 0 0 0 4px var(--openownbot-success-soft);
 }
 
 .join-server-preview-signal span {
@@ -234,9 +234,9 @@
 }
 
 .join-server-verified {
-  color: var(--openbot-success);
-  font-size: var(--openbot-text-sm);
-  font-weight: var(--openbot-weight-medium);
+  color: var(--openownbot-success);
+  font-size: var(--openownbot-text-sm);
+  font-weight: var(--openownbot-weight-medium);
 }
 
 .join-server-preview-heading strong,
@@ -248,19 +248,19 @@
 }
 
 .join-server-preview-heading strong {
-  font-size: var(--openbot-text-lg);
+  font-size: var(--openownbot-text-lg);
 }
 
 .join-server-preview-heading small,
 .join-server-preview dt,
 .join-server-preview p {
-  color: var(--openbot-text-muted);
-  font-size: var(--openbot-text-sm);
+  color: var(--openownbot-text-muted);
+  font-size: var(--openownbot-text-sm);
 }
 
 .join-server-preview dl {
   display: grid;
-  gap: var(--openbot-space-2);
+  gap: var(--openownbot-space-2);
   margin: 0;
 }
 
@@ -268,18 +268,18 @@
   min-width: 0;
   display: grid;
   grid-template-columns: 58px minmax(0, 1fr);
-  gap: var(--openbot-space-2);
+  gap: var(--openownbot-space-2);
 }
 
 .join-server-preview dd {
   margin: 0;
-  color: var(--openbot-text-secondary);
-  font-size: var(--openbot-text-sm);
+  color: var(--openownbot-text-secondary);
+  font-size: var(--openownbot-text-sm);
 }
 
 .join-server-preview p {
   margin: 0;
-  line-height: var(--openbot-leading-sm);
+  line-height: var(--openownbot-leading-sm);
 }
 
 @keyframes join-server-backdrop-in {
@@ -296,7 +296,7 @@
 
 @media (max-width: 560px) {
   .join-server-backdrop {
-    padding: var(--openbot-space-3);
+    padding: var(--openownbot-space-3);
   }
 
   .join-server-dialog {
@@ -305,12 +305,12 @@
   }
 
   .join-server-close {
-    top: var(--openbot-space-3);
-    right: var(--openbot-space-3);
+    top: var(--openownbot-space-3);
+    right: var(--openownbot-space-3);
   }
 
   .join-server-content {
-    padding: var(--openbot-space-6);
+    padding: var(--openownbot-space-6);
   }
 
   .join-server-pages {

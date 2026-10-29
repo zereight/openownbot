@@ -1,4 +1,4 @@
-import { type AgentAnalyticsInput, analyticsRange } from "@openbot/contracts/ipc";
+import { type AgentAnalyticsInput, analyticsRange } from "@openownbot/contracts/ipc";
 import { useState } from "react";
 import { SettingsSection } from "@/features/settings/components/settings-content";
 import { useText } from "@/shared/lib/text";

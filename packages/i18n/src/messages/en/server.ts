@@ -148,7 +148,7 @@ export const messages = defineMessages("server", {
   "server.hosted.detail.create.copy": "Copying OpenOwnBot to the machine",
   "server.hosted.detail.create.key": "Adding a one-time sign-in key",
   "server.hosted.detail.start.boot": "Turning on the machine",
-  "server.hosted.detail.start.app": "Starting OpenBot",
+  "server.hosted.detail.start.app": "Starting OpenOwnBot",
   "server.hosted.detail.start.wait": "Waiting for OpenOwnBot to answer",
   "server.hosted.detail.connect.signIn": "Signing in as you",
   "server.hosted.detail.connect.publish": "Adding the server to your account",
@@ -482,7 +482,7 @@ export const messages = defineMessages("server", {
   "server.settings.providersDescription": "Manage the AI providers of the computer that runs this server.",
   "server.settings.providersSwitchNote": "Switch to {name} to manage its AI providers.",
   "server.settings.providersSwitch": "Switch to this server",
-  // Server Settings > Updates: the OpenBot update of a joined server's host. {name} is the server.
+  // Server Settings > Updates: the OpenOwnBot update of a joined server's host. {name} is the server.
   "server.settings.updatesTitle": "Updates",
   "server.settings.updatesDescription": "Update OpenOwnBot on the computer that runs this server.",
   "server.update.hostTitle": "OpenOwnBot on {name}",
@@ -511,11 +511,11 @@ export const messages = defineMessages("server", {
   "server.update.path.hosted":
     "The hosted service downloads updates in the background. A downloaded update starts when the server next starts. Wait for active work to finish before you stop and resume the server. If it stays on an old version, contact the host administrator.",
   "server.update.path.system":
-    "On the host, run sudo openbot update to install the latest release. This command stops OpenOwnBot. Wait for active work to finish first. Automatic downloads install at the next boot.",
+    "On the host, run sudo openownbot update to install the latest release. This command stops OpenOwnBot. Wait for active work to finish first. Automatic downloads install at the next boot.",
   "server.update.path.container":
     "On the Docker host, pull the new OpenOwnBot image and create the container again with the same data volumes. Wait for active work to finish first. Keep the existing volumes to preserve your data.",
   "server.update.path.manual":
-    "This installation cannot replace itself. Ask the host administrator to install the compatible release from github.com/nightly-labs/openbot/releases. Keep the existing OpenOwnBot data.",
+    "This installation cannot replace itself. Ask the host administrator to install the compatible release from github.com/zereight/openownbot/releases. Keep the existing OpenOwnBot data.",
   "server.update.path.unavailable":
     "This is a development build. Use an installed OpenOwnBot release to check for updates.",
   "server.update.check": "Check for updates",

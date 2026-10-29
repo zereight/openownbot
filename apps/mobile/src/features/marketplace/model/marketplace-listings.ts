@@ -4,8 +4,8 @@ import {
   type MarketplaceSkillSummary,
   SKILL_CATEGORIES,
   type SkillCategory,
-} from "@openbot/contracts/ipc";
-import type { MobileTextKey } from "@openbot/i18n/mobile";
+} from "@openownbot/contracts/ipc";
+import type { MobileTextKey } from "@openownbot/i18n/mobile";
 import { catalogImageUrl, pluginIconUrl } from "../api/marketplace-catalog";
 import { MOBILE_PLUGINS, type MobilePlugin } from "./plugin-catalog.generated";
 

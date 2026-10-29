@@ -110,7 +110,7 @@ export const messages = {
     "답변의 시작 부분, 질문, 승인할 작업을 표시해요. Google과 OpenOwnBot 계정 서비스는 이 내용을 읽을 수 없어요.",
   "mobile.settings.notifications.sound": "소리",
   "mobile.settings.notifications.playSound": "소리 재생",
-  "mobile.settings.notifications.sound.openbot": "OpenBot",
+  "mobile.settings.notifications.sound.openownbot": "OpenOwnBot",
   "mobile.settings.notifications.sound.warm": "따뜻한 소리",
   "mobile.settings.notifications.sound.mech": "기계음",
   "mobile.settings.notifications.sound.bubble": "뽀글뽀글",

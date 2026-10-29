@@ -1,17 +1,17 @@
 {
   "expo": {
-    "name": "OpenBot",
-    "slug": "openbot",
+    "name": "OpenOwnBot",
+    "slug": "openownbot",
     "platforms": ["ios", "android"],
     "version": "1.4.2",
     "orientation": "portrait",
     "icon": "./assets/icons/app-icon.png",
-    "scheme": "openbot",
+    "scheme": "openownbot",
     "userInterfaceStyle": "automatic",
     "ios": {
-      "bundleIdentifier": "dev.zereight.openbot",
+      "bundleIdentifier": "dev.zereight.openownbot",
       "infoPlist": {
-        "NSLocalNetworkUsageDescription": "Allow OpenBot to connect to your desktop during local development.",
+        "NSLocalNetworkUsageDescription": "Allow OpenOwnBot to connect to your desktop during local development.",
         "NSAppTransportSecurity": {
           "NSAllowsLocalNetworking": true
         },
@@ -20,7 +20,7 @@
       "icon": "./assets/icons/app-icon.icon"
     },
     "android": {
-      "package": "run.openbot.mobile",
+      "package": "run.openownbot.mobile",
       "icon": "./assets/icons/app-icon.png",
       "predictiveBackGestureEnabled": false,
       "permissions": ["android.permission.CAMERA"],
@@ -55,8 +55,8 @@
       [
         "expo-camera",
         {
-          "cameraPermission": "Allow OpenBot to use your camera to scan QR codes.",
-          "microphonePermission": "Allow OpenBot to use the microphone to dictate messages.",
+          "cameraPermission": "Allow OpenOwnBot to use your camera to scan QR codes.",
+          "microphonePermission": "Allow OpenOwnBot to use the microphone to dictate messages.",
           "recordAudioAndroid": false,
           "barcodeScannerEnabled": true
         }
@@ -64,16 +64,16 @@
       [
         "expo-image-picker",
         {
-          "photosPermission": "Allow OpenBot to access the photos you choose to share.",
-          "cameraPermission": "Allow OpenBot to use your camera to add photos.",
-          "microphonePermission": "Allow OpenBot to use the microphone to dictate messages."
+          "photosPermission": "Allow OpenOwnBot to access the photos you choose to share.",
+          "cameraPermission": "Allow OpenOwnBot to use your camera to add photos.",
+          "microphonePermission": "Allow OpenOwnBot to use the microphone to dictate messages."
         }
       ],
       [
         "expo-media-library",
         {
-          "photosPermission": "Allow OpenBot to access the photos you choose to share.",
-          "savePhotosPermission": "Allow OpenBot to save images and videos you download from a chat to your photo library.",
+          "photosPermission": "Allow OpenOwnBot to access the photos you choose to share.",
+          "savePhotosPermission": "Allow OpenOwnBot to save images and videos you download from a chat to your photo library.",
           "granularPermissions": ["photo"]
         }
       ],
@@ -89,11 +89,11 @@
         "./plugins/with-notification-sounds",
         {
           "sounds": [
-            "./assets/sounds/openbot-task.wav",
-            "./assets/sounds/openbot-warm.wav",
-            "./assets/sounds/openbot-mech.wav",
-            "./assets/sounds/openbot-bubble.wav",
-            "./assets/sounds/openbot-press.wav"
+            "./assets/sounds/openownbot-task.wav",
+            "./assets/sounds/openownbot-warm.wav",
+            "./assets/sounds/openownbot-mech.wav",
+            "./assets/sounds/openownbot-bubble.wav",
+            "./assets/sounds/openownbot-press.wav"
           ]
         }
       ],
@@ -101,7 +101,7 @@
       [
         "expo-local-authentication",
         {
-          "faceIDPermission": "Allow OpenBot to use Face ID to unlock the app."
+          "faceIDPermission": "Allow OpenOwnBot to use Face ID to unlock the app."
         }
       ],
       [
@@ -119,8 +119,8 @@
         {
           "ios": {
             "enabled": false,
-            "appGroupId": "group.dev.zereight.openbot",
-            "extensionBundleIdentifier": "dev.zereight.openbot.ShareExtension",
+            "appGroupId": "group.dev.zereight.openownbot",
+            "extensionBundleIdentifier": "dev.zereight.openownbot.ShareExtension",
             "activationRule": {
               "supportsText": true,
               "supportsWebUrlWithMaxCount": 1,
@@ -195,8 +195,8 @@
       [
         "expo-speech-recognition",
         {
-          "microphonePermission": "Allow OpenBot to use the microphone to dictate messages.",
-          "speechRecognitionPermission": "Allow OpenBot to turn your speech into message text."
+          "microphonePermission": "Allow OpenOwnBot to use the microphone to dictate messages.",
+          "speechRecognitionPermission": "Allow OpenOwnBot to turn your speech into message text."
         }
       ]
     ],
@@ -210,7 +210,7 @@
         "projectId": "eeec730f-c8f4-42c0-a750-64df8af14940"
       }
     },
-    "owner": "openbot",
+    "owner": "openownbot",
     "runtimeVersion": {
       "policy": "fingerprint"
     },

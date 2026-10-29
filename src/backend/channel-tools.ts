@@ -1,4 +1,4 @@
-import { INPUT_LIMITS } from "@openbot/contracts/input-limits";
+import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
 import { z } from "zod";
 import {
   routineInstructionZodSchema,
@@ -36,7 +36,7 @@ export const CHANNEL_TOOL_DEFINITIONS: readonly { name: string; description: str
   {
     name: "channel_assign",
     description:
-      "Assign one specific subtask to another channel member. You stay the owner: integrate the result and report to the user. End your turn while waiting for required results. Use only inside a channel task; for direct teammate work outside a channel use openbot.send_message.",
+      "Assign one specific subtask to another channel member. You stay the owner: integrate the result and report to the user. End your turn while waiting for required results. Use only inside a channel task; for direct teammate work outside a channel use openownbot.send_message.",
     shape: handoff,
   },
   {
@@ -65,7 +65,7 @@ export const CHANNEL_TOOL_DEFINITIONS: readonly { name: string; description: str
   },
   {
     name: "channel_add_member",
-    description: `Add an agent to this channel when a person asks for it. Get its id from openbot.list_agents. ${PERSON_ONLY}`,
+    description: `Add an agent to this channel when a person asks for it. Get its id from openownbot.list_agents. ${PERSON_ONLY}`,
     shape: { agentId: z.string().min(1).max(INPUT_LIMITS.identifier) },
   },
   {

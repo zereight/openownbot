@@ -8,7 +8,7 @@ import {
   type VoiceSettings,
   type VoiceTranscriptionInput,
   type VoiceTranscriptionResult,
-} from "@openbot/contracts/ipc";
+} from "@openownbot/contracts/ipc";
 import { describe, expect, it, vi } from "vitest";
 import { handler, payloadHandler, registerIpcGroup, unregisterIpcGroups } from "./define-ipc-group";
 import {
@@ -38,7 +38,7 @@ vi.mock("electron", () => ({
   },
 }));
 
-const TRUSTED_EVENT = { senderFrame: { url: "openbot-app://app/index.html" } };
+const TRUSTED_EVENT = { senderFrame: { url: "openownbot-app://app/index.html" } };
 const UNTRUSTED_EVENT = { senderFrame: { url: "https://evil.example/index.html" } };
 
 const READY: VoiceModelStatus = { modelId: "parakeet-tdt-0.6b-v3", phase: "ready", progress: null, message: null };
@@ -119,7 +119,7 @@ describe("IPC group registration", () => {
 });
 
 // Shutdown unregisters what registration bound: a renderer read that lands after the database
-// closed must reject in the renderer, not run against stopped services and log "OpenBot database
+// closed must reject in the renderer, not run against stopped services and log "OpenOwnBot database
 // is not initialized" from the main process on every restart.
 describe("IPC group unregistration", () => {
   it("removes every registered channel", () => {

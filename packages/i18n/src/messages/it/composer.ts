@@ -51,7 +51,7 @@ export const messages = {
   "composer.voice.transcribing": "Trascrizione del prompt vocale",
   "composer.voice.start": "Crea un prompt con la voce",
   "composer.voice.blocked":
-    "L'accesso al microfono è bloccato. Consenti a OpenBot di usare il microfono nelle impostazioni di sistema.",
+    "L'accesso al microfono è bloccato. Consenti a OpenOwnBot di usare il microfono nelle impostazioni di sistema.",
   "composer.voice.noMicrophone": "Nessun microfono disponibile.",
   "composer.voice.startFailed": "OpenOwnBot non è riuscito ad avviare la registrazione vocale.",
   "composer.voice.transcribeFailed": "OpenOwnBot non è riuscito a trascrivere questa registrazione.",

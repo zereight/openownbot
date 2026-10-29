@@ -3,23 +3,23 @@
 // service on a temporary profile with a fake Codex app-server that, like Codex 0.160.1, refuses
 // `turn/start` with `ActiveTurnNotSteerable { turn_kind: Compact }` while a compaction turn runs.
 // Four cases: a compaction that ends by itself, one that runs past the start deadline and ends by
-// itself (#3466), one that the run deadline stops, and one that does not stop, so that OpenBot sends
+// itself (#3466), one that the run deadline stops, and one that does not stop, so that OpenOwnBot sends
 // a turn that Codex refuses. Then a side thread: the runtime snapshot carries its context, and
 // `compactTaskContext` compacts its session and not the agent's own chat (#3503). Last, a usage
 // report that Codex sends while the stop ends it does not reach the closed database (#3808).
-// `bun scripts/codex-compaction-queue-e2e.ts`. Writes .openbot-build/codex-compaction-queue-e2e/report.json.
+// `bun scripts/codex-compaction-queue-e2e.ts`. Writes .openownbot-build/codex-compaction-queue-e2e/report.json.
 import assert from "node:assert/strict";
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { mkdtemp, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
-import { AGENT_PROVIDERS } from "@openbot/contracts/ipc";
+import { AGENT_PROVIDERS } from "@openownbot/contracts/ipc";
 import { Effect } from "effect";
 import type { AgentBrowserHost } from "../src/backend/agent/turn-lifecycle";
 import { getString, isRecord } from "../src/backend/protocol";
 
-const OUT = resolve(import.meta.dirname, "../.openbot-build/codex-compaction-queue-e2e");
-const root = await mkdtemp(join(tmpdir(), "openbot-compaction-queue-"));
+const OUT = resolve(import.meta.dirname, "../.openownbot-build/codex-compaction-queue-e2e");
+const root = await mkdtemp(join(tmpdir(), "openownbot-compaction-queue-"));
 const userData = join(root, "user-data");
 const home = join(root, "home");
 const logPath = join(root, "protocol.jsonl");
@@ -31,9 +31,9 @@ const COMPACTION_TIMEOUT_MS = 1_000;
 // Before the service modules load: the Codex process and the stores read the home folder.
 process.env.HOME = home;
 process.env.CODEX_HOME = join(home, ".codex");
-process.env.OPENBOT_CODEX_PATH = fakeCodex;
-process.env.OPENBOT_FAKE_CODEX_LOG = logPath;
-process.env.OPENBOT_FAKE_CODEX_CONTROL = controlPath;
+process.env.OPENOWNBOT_CODEX_PATH = fakeCodex;
+process.env.OPENOWNBOT_FAKE_CODEX_LOG = logPath;
+process.env.OPENOWNBOT_FAKE_CODEX_CONTROL = controlPath;
 mkdirSync(home, { recursive: true });
 
 const { AgentService } = await import("../src/backend/agent-service");
@@ -41,7 +41,7 @@ const { USAGE_CHANGE_DELAY_MS } = await import("../src/backend/agent/context-com
 const { AgentStore } = await import("../src/backend/agent-store");
 const { runCauseEffect } = await import("../src/backend/effect-boundary");
 const { MailboxStore } = await import("../src/backend/mailbox-store");
-const { OpenBotDatabase } = await import("../src/backend/openbot-database");
+const { OpenOwnBotDatabase } = await import("../src/backend/openownbot-database");
 
 /**
  * A Codex app-server with the methods that the service calls. Each normal turn reports 90% of the
@@ -54,8 +54,8 @@ if (process.argv.includes("--version")) {
   process.stdout.write("codex-cli 0.160.1\\n");
   process.exit(0);
 }
-const log = (entry) => fs.appendFileSync(process.env.OPENBOT_FAKE_CODEX_LOG, JSON.stringify(entry) + "\\n");
-const control = () => JSON.parse(fs.readFileSync(process.env.OPENBOT_FAKE_CODEX_CONTROL, "utf8"));
+const log = (entry) => fs.appendFileSync(process.env.OPENOWNBOT_FAKE_CODEX_LOG, JSON.stringify(entry) + "\\n");
+const control = () => JSON.parse(fs.readFileSync(process.env.OPENOWNBOT_FAKE_CODEX_CONTROL, "utf8"));
 const config = { config: { mcp_servers: {} }, layers: [{ name: { type: "user", file: "/fake/.codex/config.toml", profile: null }, version: "1", config: { mcp_servers: {} } }] };
 let buffer = "";
 let threads = 0;
@@ -67,7 +67,7 @@ process.stdout.on("error", (error) => {
   throw error;
 });
 const write = (message) => process.stdout.write(JSON.stringify(message) + "\\n");
-// Like a Codex in the middle of a turn, it can report usage while OpenBot stops it (#3808).
+// Like a Codex in the middle of a turn, it can report usage while OpenOwnBot stops it (#3808).
 process.on("SIGTERM", () => {
   if (!control().usageOnStop) process.exit(0);
   for (let thread = 1; thread <= threads; thread++) {
@@ -159,7 +159,7 @@ process.stdin.on("data", (chunk) => {
 });
 `;
 
-/** One line of the fake Codex log: a message that OpenBot sent, or a fact that the fake reports. */
+/** One line of the fake Codex log: a message that OpenOwnBot sent, or a fact that the fake reports. */
 interface ProtocolEntry {
   method: string | null;
   threadId: string | null;
@@ -245,7 +245,7 @@ async function waitFor<T>(label: string, read: () => T | null | undefined | fals
 }
 
 await writeFile(fakeCodex, FAKE_CODEX, { mode: 0o755 });
-const database = new OpenBotDatabase(userData);
+const database = new OpenOwnBotDatabase(userData);
 const store = new AgentStore(userData, home, database);
 const mailbox = new MailboxStore(userData, store.sharedRoot, store.database);
 const agents = new AgentService({
@@ -415,7 +415,7 @@ try {
   assert.ok(sideThread.mainContextUnchanged, "side thread: the agent's own context changed");
 
   // Codex reports usage while the stop ends it. The quit closes the database next, and a late
-  // usage snapshot then failed with "OpenBot database is not initialized." (#3808).
+  // usage snapshot then failed with "OpenOwnBot database is not initialized." (#3808).
   await writeFile(controlPath, JSON.stringify({ compactionMs: 200, ignoreInterrupt: false, usageOnStop: true }));
   const lateErrors: string[] = [];
   const collect = (error: unknown) => lateErrors.push(error instanceof Error ? error.message : String(error));

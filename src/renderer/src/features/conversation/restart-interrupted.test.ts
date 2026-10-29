@@ -1,4 +1,4 @@
-import { type QueueDelivery, RESTART_INTERRUPTED_REASON } from "@openbot/contracts/ipc";
+import { type QueueDelivery, RESTART_INTERRUPTED_REASON } from "@openownbot/contracts/ipc";
 import { describe, expect, it } from "vitest";
 import { restartInterruptedDelivery } from "./restart-interrupted";
 

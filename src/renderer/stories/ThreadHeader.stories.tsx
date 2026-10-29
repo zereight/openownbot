@@ -1,11 +1,11 @@
-import { ConversationHeader } from "@openbot/ui/features/conversation/ConversationHeader";
-import { ThreadHeader } from "@openbot/ui/features/conversation/threads/ThreadHeader";
+import { ConversationHeader } from "@openownbot/ui/features/conversation/ConversationHeader";
+import { ThreadHeader } from "@openownbot/ui/features/conversation/threads/ThreadHeader";
 import {
   DRAFT_THREAD_ID,
   MAIN_THREAD_ID,
   type ThreadItem,
   type ThreadStatus,
-} from "@openbot/ui/features/conversation/threads/thread-types";
+} from "@openownbot/ui/features/conversation/threads/thread-types";
 import { createStore } from "solid-js";
 import { fn } from "storybook/test";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";

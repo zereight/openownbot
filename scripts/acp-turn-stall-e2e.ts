@@ -7,13 +7,13 @@
 // - a stop of a prompt that ignores `session/cancel` ends the turn as interrupted;
 // - OpenCode answer text streams before the prompt answers;
 // - Antigravity, whose prompt stays open for background tasks, is not ended as stalled;
-// - an agent that cannot load a session keeps it after a stop that OpenBot ends.
-// `bun run test:acp-turn-stall`. Writes .openbot-build/acp-turn-stall-e2e/report.json.
+// - an agent that cannot load a session keeps it after a stop that OpenOwnBot ends.
+// `bun run test:acp-turn-stall`. Writes .openownbot-build/acp-turn-stall-e2e/report.json.
 import assert from "node:assert/strict";
 import { mkdir, mkdtemp, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
-import { sourceText } from "@openbot/i18n/source";
+import { sourceText } from "@openownbot/i18n/source";
 import { AcpAgentClient } from "../src/backend/acp-client";
 import { type AcpFlavor, DEFAULT_ACP_FLAVOR } from "../src/backend/acp-flavor";
 import { ANTIGRAVITY_ACP_FLAVOR } from "../src/backend/acp-flavor-antigravity";
@@ -23,7 +23,7 @@ import { runCauseEffect } from "../src/backend/effect-boundary";
 import type { AppServerNotification } from "../src/backend/protocol";
 import { installFakeAgent, readJsonl, runTurn, startThread, stopClients } from "./provider-fakes/host";
 
-const OUT = resolve(import.meta.dirname, "../.openbot-build/acp-turn-stall-e2e");
+const OUT = resolve(import.meta.dirname, "../.openownbot-build/acp-turn-stall-e2e");
 const STALL_MS = 1_500;
 const TOOL_MS = STALL_MS * 3;
 const CHUNK_GAP_MS = 500;
@@ -48,7 +48,7 @@ interface Report {
   failure?: string;
 }
 
-const root = await mkdtemp(join(tmpdir(), "openbot-acp-turn-stall-e2e-"));
+const root = await mkdtemp(join(tmpdir(), "openownbot-acp-turn-stall-e2e-"));
 const report: Report = { passed: false };
 const clients: AgentClient[] = [];
 
@@ -200,7 +200,7 @@ try {
   assert.equal(antigravityStalled, false, "A silent Antigravity prompt is not ended as stalled.");
   assert.equal(antigravityStop.status, "interrupted", "A stop still ends the Antigravity turn.");
 
-  // An agent with no session/load or resume cannot give a session back. A stop that OpenBot ends
+  // An agent with no session/load or resume cannot give a session back. A stop that OpenOwnBot ends
   // keeps the session, so the next turn does not replace it and lose its context.
   const noLoadLog = join(root, "no-load.jsonl");
   const noLoad = await open("cline", DEFAULT_ACP_FLAVOR, noLoadLog, { FAKE_NO_LOAD: "1" });
@@ -221,7 +221,7 @@ try {
   assert.equal(noLoadStop.status, "interrupted", "A stop ends the turn of an agent that cannot load sessions.");
   assert.equal(noLoadNext.status, "completed", "The next turn of that agent completes.");
   assert.equal(report.noLoad.sessionsOpened, 0, "The agent keeps its session.");
-  assert.equal(report.noLoad.loads, 0, "OpenBot does not try to open the session again.");
+  assert.equal(report.noLoad.loads, 0, "OpenOwnBot does not try to open the session again.");
 
   report.passed = true;
 } catch (error) {

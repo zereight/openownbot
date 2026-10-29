@@ -15,15 +15,15 @@ import { isBoolean, isDynamicRecord, isNumber, isString } from "./runtime-values
 /** The Grok Bot page of the ready export agent. */
 export const GROK_BOT_EXPORT_URL = "https://x.ai/bot/gI0XdhhDYPJeyQaqQBC0O";
 
-/** The apps OpenBot ships an export skill for. Each is also the `source.app` its export writes. */
+/** The apps OpenOwnBot ships an export skill for. Each is also the `source.app` its export writes. */
 export const AGENT_IMPORT_SKILL_SOURCES = ["grok-bot", "hermes-agent"] as const;
 export type AgentImportSkillSource = (typeof AGENT_IMPORT_SKILL_SOURCES)[number];
 
 /**
- * The export skill in OpenBot's own repository, as Hermes installs it from GitHub with
+ * The export skill in OpenOwnBot's own repository, as Hermes installs it from GitHub with
  * `/skills install`. The path is the skill folder on the default branch.
  */
-export const HERMES_EXPORT_SKILL_ID = "nightly-labs/openbot/resources/agent-import/hermes-agent";
+export const HERMES_EXPORT_SKILL_ID = "zereight/openownbot/resources/agent-import/hermes-agent";
 
 export const AGENT_IMPORT_LIMITS = {
   archiveBytes: 500 * 1024 * 1024,

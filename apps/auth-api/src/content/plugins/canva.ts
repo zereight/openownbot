@@ -26,12 +26,12 @@ export const CANVA_PLUGIN_GUIDE: PluginGuide = {
     {
       question: "Is the Canva MCP server official?",
       answer:
-        "Yes. Canva hosts a remote MCP server that gives an AI assistant access to Canva's design APIs. The OpenBot listing connects to this server. It is not the Canva Dev MCP server, which helps developers build Canva apps.",
+        "Yes. Canva hosts a remote MCP server that gives an AI assistant access to Canva's design APIs. The OpenOwnBot listing connects to this server. It is not the Canva Dev MCP server, which helps developers build Canva apps.",
     },
     {
       question: "How does the Canva plugin sign in?",
       answer:
-        "Canva requires each user to sign in individually with OAuth. OpenBot does the sign-in itself, keeps the tokens in encrypted storage, and adds the Authorization header. You do not need an API key. The agent can do only what your Canva account can do.",
+        "Canva requires each user to sign in individually with OAuth. OpenOwnBot does the sign-in itself, keeps the tokens in encrypted storage, and adds the Authorization header. You do not need an API key. The agent can do only what your Canva account can do.",
     },
     {
       question: "Which Canva plan does the plugin need?",

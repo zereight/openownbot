@@ -3,16 +3,16 @@
 // a paste of the same sign-in then must not say that the sign-in ended, must not send a second grant,
 // and the host's result must still arrive. A paste before the callback, and after the end, keep their
 // errors.
-// `bun run test:sign-in-relay-paste`. Writes .openbot-build/sign-in-relay-paste-e2e/report.json.
+// `bun run test:sign-in-relay-paste`. Writes .openownbot-build/sign-in-relay-paste-e2e/report.json.
 import assert from "node:assert/strict";
 import { mkdir, writeFile } from "node:fs/promises";
 import { join, resolve } from "node:path";
-import type { McpTestResult, SignInRelayStatus } from "@openbot/contracts/ipc";
-import { sourceText, translateFor } from "@openbot/i18n";
+import type { McpTestResult, SignInRelayStatus } from "@openownbot/contracts/ipc";
+import { sourceText, translateFor } from "@openownbot/i18n";
 import { Deferred, Effect } from "effect";
 import { SignInRelayClient, type SignInRelayRemote } from "../src/main/sign-in-relay-client";
 
-const OUT = resolve(import.meta.dirname, "../.openbot-build/sign-in-relay-paste-e2e");
+const OUT = resolve(import.meta.dirname, "../.openownbot-build/sign-in-relay-paste-e2e");
 
 const KEY = "server-1:codex";
 const STATE = "relay-state";

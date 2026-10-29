@@ -85,7 +85,7 @@ export const messages = {
 
   "connector.slack.title": "Slack",
   "connector.slack.description":
-    "Люди упоминают @OpenBot в Slack или пишут ему личным сообщением. Оркестратор Slack спрашивает нужного агента и отвечает.",
+    "Люди упоминают @OpenOwnBot в Slack или пишут ему личным сообщением. Оркестратор Slack спрашивает нужного агента и отвечает.",
   "connector.slack.statusConnected": "Подключено",
   "connector.slack.statusAttention": "Требует внимания",
   "connector.slack.summaryConnected": "{workspace} · отвечает Оркестратор Slack",
@@ -101,11 +101,11 @@ export const messages = {
   "connector.slack.addAgent": "Добавить агента",
   "connector.slack.actionFailed": "Slack не принял изменение",
   "connector.slack.workspaceTitle": "Рабочие пространства",
-  "connector.slack.workspaceDescription": "Люди упоминают @OpenBot или пишут ему личным сообщением.",
+  "connector.slack.workspaceDescription": "Люди упоминают @OpenOwnBot или пишут ему личным сообщением.",
   "connector.slack.disconnectWorkspace": "Отключить",
   "connector.slack.disconnectAllTitle": "Отключить Slack",
   "connector.slack.disconnectAllSummary":
-    "Все рабочие пространства будут отключены. Связаться с вашими агентами через @OpenBot будет нельзя.",
+    "Все рабочие пространства будут отключены. Связаться с вашими агентами через @OpenOwnBot будет нельзя.",
   "connector.slack.disconnectAllSummaryOrchestrator":
     "Все рабочие пространства будут отключены. Оркестратор Slack и его разговоры будут удалены из OpenOwnBot.",
   "connector.slack.missingScopes":
@@ -121,7 +121,7 @@ export const messages = {
   "connector.slack.orchestratorNone": "Пока никто не отвечает",
   "connector.slack.orchestratorNoneDescription": "Добавьте Оркестратора Slack, иначе Slack не получит ответа.",
   "connector.slack.inviteNote":
-    "OpenBot сам присоединяется ко всем публичным каналам и к каждому новому. В закрытый канал его нужно пригласить: /invite @OpenBot.",
+    "OpenOwnBot сам присоединяется ко всем публичным каналам и к каждому новому. В закрытый канал его нужно пригласить: /invite @OpenOwnBot.",
   "connector.slack.stepWorkspace": "Рабочее пространство",
   "connector.slack.stepAgent": "Агент",
   "connector.slack.connectTitle": "Подключение рабочего пространства Slack",
@@ -134,7 +134,7 @@ export const messages = {
   "connector.slack.connectWaiting": "Ожидание Slack. Завершите установку в браузере.",
   "connector.slack.agentStepTitle": "Добавьте Оркестратора Slack",
   "connector.slack.agentStepDescription":
-    "Этот новый агент отвечает на всё, что люди отправляют @OpenBot в {workspace}.",
+    "Этот новый агент отвечает на всё, что люди отправляют @OpenOwnBot в {workspace}.",
   "connector.slack.orchestratorName": "Оркестратор Slack",
   "connector.slack.orchestratorRole": "Отвечает в Slack и обращается к команде",
   "connector.slack.orchestratorDoesReceive": "Первым получает каждый запрос из Slack",
@@ -142,14 +142,16 @@ export const messages = {
   "connector.slack.orchestratorDoesAnswer": "Публикует ответ в ветке Slack",
   "connector.slack.orchestratorModel": "Модель",
   "connector.slack.doneTitle": "OpenOwnBot теперь в {workspace}",
-  "connector.slack.doneDescription": "Упомяните @OpenBot в любом публичном канале или напишите ему личным сообщением.",
+  "connector.slack.doneDescription":
+    "Упомяните @OpenOwnBot в любом публичном канале или напишите ему личным сообщением.",
   "connector.slack.done": "Готово",
   "connector.slack.disconnectTitle": "Отключить {workspace}?",
   "connector.slack.disconnectDescription":
     "OpenOwnBot перестанет отвечать в {workspace} и удалит свой токен Slack с этого компьютера.",
   "connector.slack.disconnectDescriptionHost":
     "OpenOwnBot перестанет отвечать в {workspace} и удалит свой токен Slack с {host}.",
-  "connector.slack.disconnectEffect": "Люди из {workspace} больше не смогут обращаться к вашим агентам через @OpenBot.",
+  "connector.slack.disconnectEffect":
+    "Люди из {workspace} больше не смогут обращаться к вашим агентам через @OpenOwnBot.",
   "connector.slack.removeEffectKept": "Диалоги и Оркестратор Slack останутся в OpenOwnBot.",
   "connector.slack.removeEffectDeleted": "Оркестратор Slack и его диалоги будут удалены из OpenOwnBot.",
   "connector.slack.keep": "Оставить подключённым",
@@ -170,7 +172,7 @@ export const messages = {
 
   "connector.discord.title": "Discord",
   "connector.discord.description":
-    "Люди упоминают @OpenBot в канале сервера Discord. Оркестратор Discord спрашивает нужного агента и отвечает.",
+    "Люди упоминают @OpenOwnBot в канале сервера Discord. Оркестратор Discord спрашивает нужного агента и отвечает.",
   "connector.discord.statusConnected": "Подключено",
   "connector.discord.statusAttention": "Требует внимания",
   "connector.discord.summaryConnected": "{workspace} · отвечает Оркестратор Discord",
@@ -186,11 +188,11 @@ export const messages = {
   "connector.discord.addAgent": "Добавить агента",
   "connector.discord.actionFailed": "Discord не принял изменение",
   "connector.discord.workspaceTitle": "Серверы Discord",
-  "connector.discord.workspaceDescription": "Упомяните @OpenBot в канале. Ответьте OpenBot, чтобы продолжить.",
+  "connector.discord.workspaceDescription": "Упомяните @OpenOwnBot в канале. Ответьте OpenOwnBot, чтобы продолжить.",
   "connector.discord.disconnectWorkspace": "Отключить",
   "connector.discord.disconnectAllTitle": "Отключить Discord",
   "connector.discord.disconnectAllSummary":
-    "Все серверы будут отключены. Связаться с вашими агентами через @OpenBot будет нельзя.",
+    "Все серверы будут отключены. Связаться с вашими агентами через @OpenOwnBot будет нельзя.",
   "connector.discord.disconnectAllSummaryOrchestrator":
     "Все серверы будут отключены. Оркестратор Discord и его разговоры будут удалены из OpenOwnBot.",
   "connector.discord.missingScopes":
@@ -217,7 +219,7 @@ export const messages = {
   "connector.discord.connectWaiting": "Ожидание Discord. Завершите авторизацию в браузере.",
   "connector.discord.agentStepTitle": "Добавьте Оркестратора Discord",
   "connector.discord.agentStepDescription":
-    "Этот новый агент отвечает на всё, что люди отправляют @OpenBot в {workspace}.",
+    "Этот новый агент отвечает на всё, что люди отправляют @OpenOwnBot в {workspace}.",
   "connector.discord.orchestratorName": "Оркестратор Discord",
   "connector.discord.orchestratorRole": "Отвечает в Discord и обращается к команде",
   "connector.discord.orchestratorDoesReceive": "Первым получает каждый запрос из Discord",
@@ -225,7 +227,7 @@ export const messages = {
   "connector.discord.orchestratorDoesAnswer": "Отвечает в канале Discord",
   "connector.discord.orchestratorModel": "Модель",
   "connector.discord.doneTitle": "OpenOwnBot теперь в {workspace}",
-  "connector.discord.doneDescription": "Упомяните @OpenBot в канале. Ответьте OpenBot, чтобы продолжить.",
+  "connector.discord.doneDescription": "Упомяните @OpenOwnBot в канале. Ответьте OpenOwnBot, чтобы продолжить.",
   "connector.discord.done": "Готово",
   "connector.discord.disconnectTitle": "Отключить {workspace}?",
   "connector.discord.disconnectDescription":
@@ -233,7 +235,7 @@ export const messages = {
   "connector.discord.disconnectDescriptionHost":
     "OpenOwnBot перестанет отвечать в {workspace} и удалит подключение к Discord с {host}.",
   "connector.discord.disconnectEffect":
-    "Люди из {workspace} больше не смогут обращаться к вашим агентам через @OpenBot.",
+    "Люди из {workspace} больше не смогут обращаться к вашим агентам через @OpenOwnBot.",
   "connector.discord.removeEffectKept": "Диалоги и Оркестратор Discord останутся в OpenOwnBot.",
   "connector.discord.removeEffectDeleted": "Оркестратор Discord и его диалоги будут удалены из OpenOwnBot.",
   "connector.discord.keep": "Оставить подключённым",
@@ -357,7 +359,7 @@ export const messages = {
   "connector.onePassword.description":
     "Дайте OpenOwnBot доступ к отдельному хранилищу 1Password через сервисный аккаунт, чтобы агенты могли входить на сайты в браузере OpenOwnBot.",
   "connector.onePassword.howItWorks":
-    "При подключении в вашем аккаунте 1Password создаётся хранилище «Shared with OpenBot» и сервисный аккаунт, который может читать только его. OpenBot подставляет сохранённые логины в своём браузере на этом компьютере, поэтому общими становятся только записи, которые вы переместите в это хранилище. Агенты никогда не видят пароль.",
+    "При подключении в вашем аккаунте 1Password создаётся хранилище «Shared with OpenOwnBot» и сервисный аккаунт, который может читать только его. OpenOwnBot подставляет сохранённые логины в своём браузере на этом компьютере, поэтому общими становятся только записи, которые вы переместите в это хранилище. Агенты никогда не видят пароль.",
   "connector.onePassword.connect": "Подключить 1Password",
   "connector.onePassword.setupTitle": "Настройка",
   "connector.onePassword.stepCliTitle": "Установите 1Password CLI",
@@ -365,7 +367,7 @@ export const messages = {
   "connector.onePassword.stepCliInstalling": "Загрузка 1Password CLI с сайта 1Password",
   "connector.onePassword.stepCliReady": "Установлена версия {version}.",
   "connector.onePassword.stepCliMissing":
-    "OpenBot скачает его с сайта 1Password в свою папку. Пароль администратора не нужен.",
+    "OpenOwnBot скачает его с сайта 1Password в свою папку. Пароль администратора не нужен.",
   "connector.onePassword.stepCliManual":
     "OpenOwnBot не может установить его на этом компьютере. Установите его с сайта 1Password и вернитесь на эту страницу.",
   "connector.onePassword.installCli": "Установить",
@@ -378,7 +380,7 @@ export const messages = {
   "connector.onePassword.checkAgain": "Проверить снова",
   "connector.onePassword.stepVaultTitle": "Создайте общее хранилище",
   "connector.onePassword.stepVaultDescription":
-    "OpenBot создаёт хранилище «Shared with OpenBot» и сервисный аккаунт, который может только читать его. 1Password попросит вас подтвердить.",
+    "OpenOwnBot создаёт хранилище «Shared with OpenOwnBot» и сервисный аккаунт, который может только читать его. 1Password попросит вас подтвердить.",
   "connector.onePassword.useTokenDescription": "Вместо этих шагов вставьте токен сервисного аккаунта с 1Password.com.",
   "connector.onePassword.useTokenAction": "Использовать токен",
   "connector.onePassword.tokenLabel": "Токен сервисного аккаунта",
@@ -415,9 +417,9 @@ export const messages = {
   "connector.bitwarden.title": "Bitwarden",
   "connector.bitwarden.description": "Подставлять логины в браузере из Bitwarden.",
   "connector.bitwarden.setup":
-    "Установите Bitwarden CLI и войдите командой bw login. Создайте папку Shared with OpenBot и положите в неё только те логины, которые разрешено использовать агентам. Выполните bw unlock --raw и вставьте ключ сессии ниже. Не вставляйте мастер-пароль.",
+    "Установите Bitwarden CLI и войдите командой bw login. Создайте папку Shared with OpenOwnBot и положите в неё только те логины, которые разрешено использовать агентам. Выполните bw unlock --raw и вставьте ключ сессии ниже. Не вставляйте мастер-пароль.",
   "connector.bitwarden.scope":
-    "Все агенты на этом компьютере могут использовать подходящие логины из Shared with OpenBot. OpenBot сопоставляет точные источники HTTPS. Записи, для которых нужен запрос мастер-пароля или особое правило сопоставления URI, не используются.",
+    "Все агенты на этом компьютере могут использовать подходящие логины из Shared with OpenOwnBot. OpenOwnBot сопоставляет точные источники HTTPS. Записи, для которых нужен запрос мастер-пароля или особое правило сопоставления URI, не используются.",
   "connector.bitwarden.session":
     "Ключ сессии хранится в памяти. Подключитесь снова, если хранилищем не пользовались 8 часов или OpenOwnBot был закрыт. Отключение прекращает доступ OpenOwnBot, но не блокирует другие клиенты Bitwarden.",
   "connector.bitwarden.sessionKey": "Ключ сессии Bitwarden",
@@ -432,16 +434,16 @@ export const messages = {
   "connector.bitwarden.actionFailed": "OpenOwnBot не удалось изменить подключение к Bitwarden.",
   "connector.bitwarden.descriptionHost": "Заполнять логины в браузере на {host} из Bitwarden или Vaultwarden.",
   "connector.bitwarden.setupHost":
-    "{host} входит через свой Bitwarden CLI. В хранилище создайте папку с именем Shared with OpenBot и положите в неё только логины, которые могут использовать агенты. В веб-хранилище откройте Настройки › Безопасность › Ключи и посмотрите ключ API. Ниже введите адрес сервера, client_id, client_secret и мастер-пароль.",
+    "{host} входит через свой Bitwarden CLI. В хранилище создайте папку с именем Shared with OpenOwnBot и положите в неё только логины, которые могут использовать агенты. В веб-хранилище откройте Настройки › Безопасность › Ключи и посмотрите ключ API. Ниже введите адрес сервера, client_id, client_secret и мастер-пароль.",
   "connector.bitwarden.scopeHost":
-    "Все агенты на {host} могут использовать подходящие логины из Shared with OpenBot. OpenBot использует точные HTTPS-источники. Он не использует элементы, которые запрашивают мастер-пароль, и элементы с собственным правилом сопоставления URI.",
+    "Все агенты на {host} могут использовать подходящие логины из Shared with OpenOwnBot. OpenOwnBot использует точные HTTPS-источники. Он не использует элементы, которые запрашивают мастер-пароль, и элементы с собственным правилом сопоставления URI.",
   "connector.bitwarden.sessionHost":
     "{host} хранит ключ API и мастер-пароль в зашифрованном виде, чтобы снова разблокировать хранилище после перезапуска. Этот компьютер их не хранит. Отключение удаляет их с {host}. {host} должен подключаться к адресу сервера по HTTPS.",
   "connector.bitwarden.serverUrl": "Адрес сервера",
   "connector.bitwarden.folderTitle": "Общая папка",
   "connector.bitwarden.folderDescription":
     "Переместите логин в эту папку в Bitwarden, чтобы агенты могли входить с его помощью. Уберите его оттуда, чтобы прекратить доступ.",
-  "connector.bitwarden.folderName": "Shared with OpenBot",
+  "connector.bitwarden.folderName": "Shared with OpenOwnBot",
   "connector.bitwarden.folderKind": "Папка в Bitwarden",
   "connector.bitwarden.clientId": "client_id ключа API",
   "connector.bitwarden.clientSecret": "client_secret ключа API",

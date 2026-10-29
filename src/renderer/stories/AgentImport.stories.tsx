@@ -1,7 +1,7 @@
-import type { AgentImportResult } from "@openbot/contracts/ipc";
-import { AgentImportSources } from "@openbot/ui/features/import/AgentImportSources";
-import { AgentImportView } from "@openbot/ui/features/import/AgentImportView";
-import { HermesImportView } from "@openbot/ui/features/import/HermesImportView";
+import type { AgentImportResult } from "@openownbot/contracts/ipc";
+import { AgentImportSources } from "@openownbot/ui/features/import/AgentImportSources";
+import { AgentImportView } from "@openownbot/ui/features/import/AgentImportView";
+import { HermesImportView } from "@openownbot/ui/features/import/HermesImportView";
 import type { JSX } from "@solidjs/web";
 import { createSignal } from "solid-js";
 import { fn } from "storybook/test";
@@ -169,7 +169,7 @@ const hermesArgs = (overrides: Partial<HermesArgs> = {}): HermesArgs => ({
   ...overrides,
 });
 
-/** The first screen: Hermes, Grok Bot, or another OpenBot computer. */
+/** The first screen: Hermes, Grok Bot, or another OpenOwnBot computer. */
 export const Sources: Story = {
   name: "Import: Sources",
   render: () => (

@@ -1,5 +1,5 @@
 // The network picture of the landing page: three agents pass one task through
-// OpenBot, then the network grows around them until it fills the frame. Some grown
+// OpenOwnBot, then the network grows around them until it fills the frame. Some grown
 // agents are large leads with a team of small agents around them. A click on an
 // agent of a complete network grows a new network from that agent, and a click on
 // the hub sends a signal through the network.
@@ -9,9 +9,9 @@
 // frame at second `t`. Playback, pause and reduced motion are only a choice of
 // `t`, so they cannot drift apart.
 
-import { APP_LOGO_CORNER, APP_LOGO_EYE_POINTS, APP_LOGO_SIZE } from "@openbot/brand/app-logo-shape";
+import { APP_LOGO_CORNER, APP_LOGO_EYE_POINTS, APP_LOGO_SIZE } from "@openownbot/brand/app-logo-shape";
 
-/** A node with no avatar is the OpenBot mark at the centre. */
+/** A node with no avatar is the OpenOwnBot mark at the centre. */
 const HUB = -1;
 
 interface NetworkNode {

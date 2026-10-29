@@ -76,7 +76,7 @@ export const messages = {
   // Marketplace > Apps > Slack.
   "connector.slack.title": "Slack",
   "connector.slack.description":
-    "Slack で @OpenBot をメンションするか、ダイレクトメッセージを送ります。Slack Orchestrator が適切なエージェントに依頼して回答します。",
+    "Slack で @OpenOwnBot をメンションするか、ダイレクトメッセージを送ります。Slack Orchestrator が適切なエージェントに依頼して回答します。",
   "connector.slack.statusConnected": "接続済み",
   "connector.slack.statusAttention": "対応が必要",
   "connector.slack.summaryConnected": "{workspace} · Slack Orchestrator が回答します",
@@ -89,11 +89,11 @@ export const messages = {
   "connector.slack.addAgent": "エージェントを追加",
   "connector.slack.actionFailed": "Slack は変更を受け付けませんでした",
   "connector.slack.workspaceTitle": "ワークスペース",
-  "connector.slack.workspaceDescription": "@OpenBot をメンションするか、ダイレクトメッセージを送ります。",
+  "connector.slack.workspaceDescription": "@OpenOwnBot をメンションするか、ダイレクトメッセージを送ります。",
   "connector.slack.disconnectWorkspace": "切断",
   "connector.slack.disconnectAllTitle": "Slack を切断",
   "connector.slack.disconnectAllSummary":
-    "すべてのワークスペースが切断されます。@OpenBot からエージェントに連絡できなくなります。",
+    "すべてのワークスペースが切断されます。@OpenOwnBot からエージェントに連絡できなくなります。",
   "connector.slack.disconnectAllSummaryOrchestrator":
     "すべてのワークスペースが切断されます。Slack Orchestrator とその会話は OpenOwnBot から削除されます。",
   "connector.slack.missingScopes":
@@ -110,7 +110,7 @@ export const messages = {
   "connector.slack.orchestratorNoneDescription":
     "Slack Orchestrator を追加してください。追加しないと、Slack に回答が届きません。",
   "connector.slack.inviteNote":
-    "OpenBot はすべての公開チャンネルと新しいチャンネルに自動で参加します。非公開チャンネルには招待してください: /invite @OpenBot",
+    "OpenOwnBot はすべての公開チャンネルと新しいチャンネルに自動で参加します。非公開チャンネルには招待してください: /invite @OpenOwnBot",
   "connector.slack.stepWorkspace": "ワークスペース",
   "connector.slack.stepAgent": "エージェント",
   "connector.slack.connectTitle": "Slack ワークスペースを接続",
@@ -123,7 +123,7 @@ export const messages = {
   "connector.slack.connectWaiting": "Slack を待っています。ブラウザーでインストールを完了してください。",
   "connector.slack.agentStepTitle": "Slack Orchestrator を追加",
   "connector.slack.agentStepDescription":
-    "この新しいエージェントは、{workspace} で @OpenBot に送られたすべてのメッセージに回答します。",
+    "この新しいエージェントは、{workspace} で @OpenOwnBot に送られたすべてのメッセージに回答します。",
   "connector.slack.orchestratorName": "Slack Orchestrator",
   "connector.slack.orchestratorRole": "Slack で回答し、チームに依頼します",
   "connector.slack.orchestratorDoesReceive": "Slack のすべてのリクエストを最初に受け取ります",
@@ -132,7 +132,7 @@ export const messages = {
   "connector.slack.orchestratorModel": "モデル",
   "connector.slack.doneTitle": "OpenOwnBot が {workspace} に参加しました",
   "connector.slack.doneDescription":
-    "公開チャンネルで @OpenBot をメンションするか、ダイレクトメッセージを送ってください。",
+    "公開チャンネルで @OpenOwnBot をメンションするか、ダイレクトメッセージを送ってください。",
   "connector.slack.done": "完了",
   "connector.slack.disconnectTitle": "{workspace} を切断しますか？",
   "connector.slack.disconnectDescription":
@@ -140,7 +140,7 @@ export const messages = {
   "connector.slack.disconnectDescriptionHost":
     "OpenOwnBot は {workspace} での回答を停止し、Slack のトークンを {host} から削除します。",
   "connector.slack.disconnectEffect":
-    "{workspace} のメンバーは、@OpenBot からあなたのエージェントに連絡できなくなります。",
+    "{workspace} のメンバーは、@OpenOwnBot からあなたのエージェントに連絡できなくなります。",
   "connector.slack.removeEffectKept": "会話と Slack Orchestrator は OpenOwnBot に残ります。",
   "connector.slack.removeEffectDeleted": "Slack Orchestrator とその会話は OpenOwnBot から削除されます。",
   "connector.slack.keep": "接続を維持",
@@ -154,10 +154,10 @@ export const messages = {
   },
 
   // Marketplace > Apps > Discord. Always write "Discord server": "server" alone is an
-  // OpenBot server.
+  // OpenOwnBot server.
   "connector.discord.title": "Discord",
   "connector.discord.description":
-    "Discord サーバーのチャンネルで @OpenBot をメンションします。Discord Orchestrator が適切なエージェントに依頼して回答します。",
+    "Discord サーバーのチャンネルで @OpenOwnBot をメンションします。Discord Orchestrator が適切なエージェントに依頼して回答します。",
   "connector.discord.statusConnected": "接続済み",
   "connector.discord.statusAttention": "対応が必要",
   "connector.discord.summaryConnected": "{workspace} · Discord Orchestrator が回答します",
@@ -171,11 +171,11 @@ export const messages = {
   "connector.discord.actionFailed": "Discord は変更を受け付けませんでした",
   "connector.discord.workspaceTitle": "Discord サーバー",
   "connector.discord.workspaceDescription":
-    "チャンネルで @OpenBot をメンションします。続けるには OpenBot に返信します。",
+    "チャンネルで @OpenOwnBot をメンションします。続けるには OpenOwnBot に返信します。",
   "connector.discord.disconnectWorkspace": "切断",
   "connector.discord.disconnectAllTitle": "Discord を切断",
   "connector.discord.disconnectAllSummary":
-    "すべてのサーバーが切断されます。@OpenBot からエージェントに連絡できなくなります。",
+    "すべてのサーバーが切断されます。@OpenOwnBot からエージェントに連絡できなくなります。",
   "connector.discord.disconnectAllSummaryOrchestrator":
     "すべてのサーバーが切断されます。Discord Orchestrator とその会話は OpenOwnBot から削除されます。",
   "connector.discord.missingScopes":
@@ -204,7 +204,7 @@ export const messages = {
   "connector.discord.connectWaiting": "Discord を待っています。ブラウザーで認証を完了してください。",
   "connector.discord.agentStepTitle": "Discord Orchestrator を追加",
   "connector.discord.agentStepDescription":
-    "この新しいエージェントは、{workspace} で @OpenBot に送られたすべてのメッセージに回答します。",
+    "この新しいエージェントは、{workspace} で @OpenOwnBot に送られたすべてのメッセージに回答します。",
   "connector.discord.orchestratorName": "Discord Orchestrator",
   "connector.discord.orchestratorRole": "Discord で回答し、チームに依頼します",
   "connector.discord.orchestratorDoesReceive": "Discord のすべてのリクエストを最初に受け取ります",
@@ -213,7 +213,7 @@ export const messages = {
   "connector.discord.orchestratorModel": "モデル",
   "connector.discord.doneTitle": "OpenOwnBot が {workspace} に参加しました",
   "connector.discord.doneDescription":
-    "チャンネルで @OpenBot をメンションしてください。続けるには OpenBot に返信してください。",
+    "チャンネルで @OpenOwnBot をメンションしてください。続けるには OpenOwnBot に返信してください。",
   "connector.discord.done": "完了",
   "connector.discord.disconnectTitle": "{workspace} を切断しますか？",
   "connector.discord.disconnectDescription":
@@ -221,7 +221,7 @@ export const messages = {
   "connector.discord.disconnectDescriptionHost":
     "OpenOwnBot は {workspace} での回答を停止し、Discord の接続を {host} から削除します。",
   "connector.discord.disconnectEffect":
-    "{workspace} のメンバーは、@OpenBot からあなたのエージェントに連絡できなくなります。",
+    "{workspace} のメンバーは、@OpenOwnBot からあなたのエージェントに連絡できなくなります。",
   "connector.discord.removeEffectKept": "会話と Discord Orchestrator は OpenOwnBot に残ります。",
   "connector.discord.removeEffectDeleted": "Discord Orchestrator とその会話は OpenOwnBot から削除されます。",
   "connector.discord.keep": "接続を維持",
@@ -332,12 +332,12 @@ export const messages = {
     "これが最後のチャットのため、Telegram Orchestrator とその会話は OpenOwnBot から削除されます。",
   "connector.telegram.keep": "接続を維持",
   "connector.telegram.close": "閉じる",
-  // Marketplace > 1Password: a vault that the user shares with OpenBot through a service account.
+  // Marketplace > 1Password: a vault that the user shares with OpenOwnBot through a service account.
   "connector.onePassword.title": "1Password",
   "connector.onePassword.description":
     "専用の 1Password 保管庫をサービスアカウント経由で OpenOwnBot と共有すると、エージェントが OpenOwnBot のブラウザーでサイトにサインインできます。",
   "connector.onePassword.howItWorks":
-    "接続すると、1Password アカウントに「Shared with OpenBot」保管庫と、その保管庫だけを読み取れるサービスアカウントが設定されます。OpenBot はこのコンピューターの自分のブラウザーで保存済みのログイン情報を入力するので、共有されるのはその保管庫に移動した項目だけです。エージェントがパスワードを見ることはありません。",
+    "接続すると、1Password アカウントに「Shared with OpenOwnBot」保管庫と、その保管庫だけを読み取れるサービスアカウントが設定されます。OpenOwnBot はこのコンピューターの自分のブラウザーで保存済みのログイン情報を入力するので、共有されるのはその保管庫に移動した項目だけです。エージェントがパスワードを見ることはありません。",
   "connector.onePassword.connect": "1Password を接続",
   "connector.onePassword.setupTitle": "設定",
   "connector.onePassword.stepCliTitle": "1Password CLI をインストール",
@@ -345,7 +345,7 @@ export const messages = {
   "connector.onePassword.stepCliInstalling": "1Password から 1Password CLI をダウンロードしています",
   "connector.onePassword.stepCliReady": "バージョン {version} がインストールされています。",
   "connector.onePassword.stepCliMissing":
-    "OpenBot は 1Password から専用のフォルダーにダウンロードします。管理者パスワードは不要です。",
+    "OpenOwnBot は 1Password から専用のフォルダーにダウンロードします。管理者パスワードは不要です。",
   "connector.onePassword.stepCliManual":
     "OpenOwnBot はこのコンピューターにインストールできません。1Password からインストールしてから、このページに戻ってください。",
   "connector.onePassword.installCli": "インストール",
@@ -358,7 +358,7 @@ export const messages = {
   "connector.onePassword.checkAgain": "再確認",
   "connector.onePassword.stepVaultTitle": "共有保管庫を作成",
   "connector.onePassword.stepVaultDescription":
-    "OpenBot は「Shared with OpenBot」保管庫と、それを読み取ることだけができるサービスアカウントを作成します。1Password から承認を求められます。",
+    "OpenOwnBot は「Shared with OpenOwnBot」保管庫と、それを読み取ることだけができるサービスアカウントを作成します。1Password から承認を求められます。",
   "connector.onePassword.useTokenDescription":
     "これらの手順の代わりに、1Password.com のサービスアカウントのトークンを貼り付けます。",
   "connector.onePassword.useTokenAction": "トークンを使う",
@@ -391,9 +391,9 @@ export const messages = {
   "connector.bitwarden.title": "Bitwarden",
   "connector.bitwarden.description": "Bitwarden のログイン情報をブラウザーに入力します。",
   "connector.bitwarden.setup":
-    "Bitwarden CLI をインストールし、bw login でサインインしてください。Shared with OpenBot という名前のフォルダーを作成し、エージェントに使わせてよいログイン情報だけを入れてください。bw unlock --raw を実行し、表示されたセッションキーを下に貼り付けてください。マスターパスワードは貼り付けないでください。",
+    "Bitwarden CLI をインストールし、bw login でサインインしてください。Shared with OpenOwnBot という名前のフォルダーを作成し、エージェントに使わせてよいログイン情報だけを入れてください。bw unlock --raw を実行し、表示されたセッションキーを下に貼り付けてください。マスターパスワードは貼り付けないでください。",
   "connector.bitwarden.scope":
-    "このコンピューターのすべてのエージェントが、Shared with OpenBot 内の一致するログイン情報を使えます。OpenBot は HTTPS のオリジンが完全に一致する場合にのみ使います。マスターパスワードの再入力が必要な項目や、カスタムの URI 一致ルールがある項目は使いません。",
+    "このコンピューターのすべてのエージェントが、Shared with OpenOwnBot 内の一致するログイン情報を使えます。OpenOwnBot は HTTPS のオリジンが完全に一致する場合にのみ使います。マスターパスワードの再入力が必要な項目や、カスタムの URI 一致ルールがある項目は使いません。",
   "connector.bitwarden.session":
     "セッションキーはメモリーにのみ保持されます。保管庫を 8 時間使わなかった場合や OpenOwnBot を終了した場合は、もう一度接続してください。切断すると OpenOwnBot のアクセスは停止しますが、他の Bitwarden クライアントはロックされません。",
   "connector.bitwarden.sessionKey": "Bitwarden のセッションキー",
@@ -409,16 +409,16 @@ export const messages = {
   "connector.bitwarden.descriptionHost":
     "{host} のブラウザーのログインを Bitwarden または Vaultwarden から入力します。",
   "connector.bitwarden.setupHost":
-    "{host} は自分の Bitwarden CLI でサインインします。保管庫に Shared with OpenBot という名前のフォルダーを作成し、エージェントが使ってよいログインだけを入れてください。ウェブ保管庫で 設定 › セキュリティ › キー を開き、API キーを表示します。下にサーバーのアドレス、client_id、client_secret、マスターパスワードを入力してください。",
+    "{host} は自分の Bitwarden CLI でサインインします。保管庫に Shared with OpenOwnBot という名前のフォルダーを作成し、エージェントが使ってよいログインだけを入れてください。ウェブ保管庫で 設定 › セキュリティ › キー を開き、API キーを表示します。下にサーバーのアドレス、client_id、client_secret、マスターパスワードを入力してください。",
   "connector.bitwarden.scopeHost":
-    "{host} のすべてのエージェントが Shared with OpenBot の一致するログインを使えます。OpenBot は完全に一致する HTTPS オリジンを使います。マスターパスワードの再入力が必要なアイテムや、カスタムの URI 一致ルールを持つアイテムは使いません。",
+    "{host} のすべてのエージェントが Shared with OpenOwnBot の一致するログインを使えます。OpenOwnBot は完全に一致する HTTPS オリジンを使います。マスターパスワードの再入力が必要なアイテムや、カスタムの URI 一致ルールを持つアイテムは使いません。",
   "connector.bitwarden.sessionHost":
     "{host} は API キーとマスターパスワードを暗号化して保存し、再起動の後にもう一度ロックを解除できます。このコンピューターには保存しません。切断すると {host} から削除されます。{host} は HTTPS でサーバーのアドレスに接続できる必要があります。",
   "connector.bitwarden.serverUrl": "サーバーのアドレス",
   "connector.bitwarden.folderTitle": "共有フォルダ",
   "connector.bitwarden.folderDescription":
     "エージェントにログイン情報でサインインさせるには、Bitwarden でそのログイン情報をこのフォルダに移動してください。やめるには削除してください。",
-  "connector.bitwarden.folderName": "Shared with OpenBot",
+  "connector.bitwarden.folderName": "Shared with OpenOwnBot",
   "connector.bitwarden.folderKind": "Bitwarden のフォルダー",
   "connector.bitwarden.clientId": "API キーの client_id",
   "connector.bitwarden.clientSecret": "API キーの client_secret",

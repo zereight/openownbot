@@ -1,7 +1,7 @@
-import type { MarketplaceSkillSummary } from "@openbot/contracts/ipc";
-import { Button, buttonVariants, Check, ChevronDown, DropdownMenu } from "@openbot/ui";
-import { AgentAvatar } from "@openbot/ui/features/agents/AgentAvatar";
-import { useText } from "@openbot/ui/text";
+import type { MarketplaceSkillSummary } from "@openownbot/contracts/ipc";
+import { Button, buttonVariants, Check, ChevronDown, DropdownMenu } from "@openownbot/ui";
+import { AgentAvatar } from "@openownbot/ui/features/agents/AgentAvatar";
+import { useText } from "@openownbot/ui/text";
 import { For, Show } from "solid-js";
 import { MenuCheck } from "./MarketplaceParts";
 import type { MarketplaceAgent } from "./marketplace-model";

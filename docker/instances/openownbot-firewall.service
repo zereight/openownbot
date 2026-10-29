@@ -1,0 +1,14 @@
+# Applies the firewall of the OpenOwnBot instances before Docker starts their containers.
+# `openownbot-instance setup` installs it. See docs/docker.md#several-instances-on-one-host.
+[Unit]
+Description=Firewall of the OpenOwnBot Docker instances
+After=ufw.service
+Before=docker.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/opt/openownbot-docker/instances/openownbot-firewall
+
+[Install]
+WantedBy=multi-user.target docker.service

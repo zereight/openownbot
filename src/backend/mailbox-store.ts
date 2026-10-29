@@ -1,9 +1,9 @@
 import { createHash, randomUUID } from "node:crypto";
 import { mkdir, readFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
-import { playableMediaKind } from "@openbot/contracts/attachment-files";
-import { rewriteAttachmentReferences } from "@openbot/contracts/attachment-references";
-import { INPUT_LIMITS } from "@openbot/contracts/input-limits";
+import { playableMediaKind } from "@openownbot/contracts/attachment-files";
+import { rewriteAttachmentReferences } from "@openownbot/contracts/attachment-references";
+import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
 import type {
   AgentReasoningEffort,
   AgentRuntimeWorkItem,
@@ -21,7 +21,7 @@ import type {
   QueuedMessageReceipt,
   QueueSnapshot,
   QueueSteerFallback,
-} from "@openbot/contracts/ipc";
+} from "@openownbot/contracts/ipc";
 import {
   AGENT_EXCHANGE_ITEM_TYPE,
   AGENT_RUNTIME_ATTENTION_LIMIT,
@@ -31,11 +31,11 @@ import {
   isMessageReaction,
   isReasoningEffort,
   QUEUE_STEER_FALLBACKS,
-} from "@openbot/contracts/ipc";
-import { type DynamicRecord, isNumber, isOneOf, isString } from "@openbot/contracts/runtime-values";
-import { QueueEditRejectedError } from "@openbot/contracts/team-protocol/queue-edit-v1";
-import { sourceText } from "@openbot/i18n/source";
-import { createOpenBotLogger, redactText } from "@openbot/logging";
+} from "@openownbot/contracts/ipc";
+import { type DynamicRecord, isNumber, isOneOf, isString } from "@openownbot/contracts/runtime-values";
+import { QueueEditRejectedError } from "@openownbot/contracts/team-protocol/queue-edit-v1";
+import { sourceText } from "@openownbot/i18n/source";
+import { createOpenOwnBotLogger, redactText } from "@openownbot/logging";
 import { Effect, Result } from "effect";
 import {
   AttachmentFiles,
@@ -53,13 +53,13 @@ export type { ExportedAttachmentFile, GeneratedAttachmentSource } from "./attach
 import { isEmptyStoredFile, parseStoredJson } from "./atomic-json-file";
 import { mailboxReactionRowKey } from "./database/mailbox-projection";
 import { MailboxDeliveryGate } from "./mailbox-delivery-gate";
-import { OpenBotDatabase } from "./openbot-database";
+import { OpenOwnBotDatabase } from "./openownbot-database";
 import { isRecord } from "./protocol";
 import { recordRestartActivity } from "./restart-activity";
 
 const MAX_ATTACHMENTS = INPUT_LIMITS.attachments;
 
-const logger = createOpenBotLogger("mailbox-store");
+const logger = createOpenOwnBotLogger("mailbox-store");
 
 /**
  * The external conversation a message came from. Such a message runs in the execution thread of
@@ -258,7 +258,7 @@ export const MAILBOX_CONVERSATION_MESSAGE_LIMIT = 100;
 export class MailboxStore {
   readonly #statePath: string;
   readonly #files: AttachmentFiles;
-  readonly #database: OpenBotDatabase;
+  readonly #database: OpenOwnBotDatabase;
   readonly #queueUpdates = new Set<string>();
   readonly #deliveryGate = new MailboxDeliveryGate();
   readonly #stagedGeneratedAttachments = new Map<string, StoredGeneratedAttachment>();
@@ -272,7 +272,7 @@ export class MailboxStore {
     reactionKeys: new Set<string>(),
   };
 
-  constructor(userDataPath: string, sharedRoot: string, database = new OpenBotDatabase(userDataPath)) {
+  constructor(userDataPath: string, sharedRoot: string, database = new OpenOwnBotDatabase(userDataPath)) {
     this.#statePath = join(userDataPath, "mailbox.json");
     this.#files = new AttachmentFiles({ userDataPath, sharedRoot });
     this.#database = database;

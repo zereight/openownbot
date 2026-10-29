@@ -3,7 +3,7 @@
 // field and refuses it on `session/new`, `session/load` and `session/resume`, so every new Grok
 // session failed. The fake "strict" agents answer as Grok does: one resumes with `session/resume`,
 // one with `session/load`. The "wide" agent advertises the field and must still get the roots.
-// `bun run test:acp-directories`. Writes .openbot-build/acp-additional-directories-e2e/report.json.
+// `bun run test:acp-directories`. Writes .openownbot-build/acp-additional-directories-e2e/report.json.
 import assert from "node:assert/strict";
 import { mkdir, mkdtemp, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
@@ -14,7 +14,7 @@ import { requireProviderDriver } from "../src/backend/provider-drivers";
 import { CustomAgentStore } from "../src/main/custom-agent-store";
 import { installFakeAgent, readJsonl, runTurn, startThread, stopClients, xorCipher } from "./provider-fakes/host";
 
-const OUT = resolve(import.meta.dirname, "../.openbot-build/acp-additional-directories-e2e");
+const OUT = resolve(import.meta.dirname, "../.openownbot-build/acp-additional-directories-e2e");
 
 const MODES = ["strict-resume", "strict-load", "wide"] as const;
 type Mode = (typeof MODES)[number];
@@ -37,7 +37,7 @@ interface Report {
   agents: Partial<Record<Mode, AgentResult>>;
 }
 
-const root = await mkdtemp(join(tmpdir(), "openbot-acp-directories-e2e-"));
+const root = await mkdtemp(join(tmpdir(), "openownbot-acp-directories-e2e-"));
 const report: Report = { passed: false, agents: {} };
 const clients: AgentClient[] = [];
 

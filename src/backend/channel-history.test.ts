@@ -4,8 +4,8 @@ import { randomUUID } from "node:crypto";
 import { mkdtemp, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import type { AgentSummary, ChannelMessage, ChannelTask } from "@openbot/contracts/ipc";
-import { sourceText } from "@openbot/i18n/source";
+import type { AgentSummary, ChannelMessage, ChannelTask } from "@openownbot/contracts/ipc";
+import { sourceText } from "@openownbot/i18n/source";
 import { Effect } from "effect";
 import { afterEach, describe, expect, it } from "vitest";
 import { channelFailure } from "./channel-effects";
@@ -13,7 +13,7 @@ import { ChannelHistory, type ChannelTextModel } from "./channel-history";
 import { ChannelMemoryStore } from "./channel-memory-store";
 import { ChannelStore } from "./channel-store";
 import { runCauseEffect } from "./effect-boundary";
-import { OpenBotDatabase } from "./openbot-database";
+import { OpenOwnBotDatabase } from "./openownbot-database";
 
 const roots: string[] = [];
 
@@ -29,7 +29,7 @@ const MESSAGE_COUNT = 14;
 async function setup(generate: ChannelTextModel) {
   const root = await mkdtemp(join(tmpdir(), "channel-history-test-"));
   roots.push(root);
-  const database = new OpenBotDatabase(root);
+  const database = new OpenOwnBotDatabase(root);
   await runCauseEffect(database.initialize());
   const store = new ChannelStore(database);
   const history = new ChannelHistory(store, generate, new ChannelMemoryStore(database));

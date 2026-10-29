@@ -1,7 +1,7 @@
 .account-login-screen,
 .initial-setup-screen {
   position: absolute;
-  z-index: var(--openbot-layer-dialog);
+  z-index: var(--openownbot-layer-dialog);
   inset: 0;
   min-height: 100vh;
   display: grid;
@@ -12,12 +12,12 @@
 
 .account-login-screen {
   padding: 32px 24px;
-  background: var(--openbot-bg-canvas);
+  background: var(--openownbot-bg-canvas);
 }
 
 .initial-setup-screen {
   padding: 52px 24px 32px;
-  background: radial-gradient(circle at 50% 18%, var(--openbot-hover), transparent 34%), var(--openbot-bg-canvas);
+  background: radial-gradient(circle at 50% 18%, var(--openownbot-hover), transparent 34%), var(--openownbot-bg-canvas);
 }
 
 .account-login-shell {
@@ -42,11 +42,11 @@
 }
 
 .account-login-wordmark {
-  color: var(--openbot-text-primary);
-  font-size: var(--openbot-text-display);
+  color: var(--openownbot-text-primary);
+  font-size: var(--openownbot-text-display);
   font-weight: 620;
   letter-spacing: -0.015em;
-  line-height: var(--openbot-leading-display);
+  line-height: var(--openownbot-leading-display);
 }
 
 .account-login {
@@ -59,8 +59,8 @@
 
 .account-login h1 {
   margin: 0;
-  color: var(--openbot-text-primary);
-  font-size: var(--openbot-text-3xl);
+  color: var(--openownbot-text-primary);
+  font-size: var(--openownbot-text-3xl);
   font-weight: 580;
   letter-spacing: -0.035em;
   line-height: 30px;
@@ -68,20 +68,20 @@
 
 .account-login-description {
   margin: 8px 0 0;
-  color: var(--openbot-text-secondary);
-  font-size: var(--openbot-text-lg);
+  color: var(--openownbot-text-secondary);
+  font-size: var(--openownbot-text-lg);
   line-height: 21px;
 }
 
 .account-login-description strong {
-  color: var(--openbot-text-primary);
+  color: var(--openownbot-text-primary);
   font-weight: 560;
 }
 
 .account-login-error {
   margin: 0;
-  color: var(--openbot-danger);
-  font-size: var(--openbot-text-sm);
+  color: var(--openownbot-danger);
+  font-size: var(--openownbot-text-sm);
   line-height: 17px;
   text-align: left;
 }
@@ -97,8 +97,8 @@
   justify-content: center;
   gap: 9px;
   margin-top: 28px;
-  color: var(--openbot-text-muted);
-  font-size: var(--openbot-text-md);
+  color: var(--openownbot-text-muted);
+  font-size: var(--openownbot-text-md);
 }
 
 .account-login-spinner,
@@ -106,9 +106,9 @@
   width: 14px;
   height: 14px;
   flex: 0 0 auto;
-  border: 1.5px solid var(--openbot-border-strong);
+  border: 1.5px solid var(--openownbot-border-strong);
   border-top-color: currentColor;
-  border-radius: var(--openbot-radius-pill);
+  border-radius: var(--openownbot-radius-pill);
   animation: account-login-spin 900ms linear infinite;
 }
 
@@ -124,16 +124,16 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
-  border: 1px solid var(--openbot-border-strong);
-  border-radius: var(--openbot-radius-md);
-  background: var(--openbot-surface-light);
-  color: var(--openbot-text-on-light);
-  font-size: var(--openbot-text-md);
+  border: 1px solid var(--openownbot-border-strong);
+  border-radius: var(--openownbot-radius-md);
+  background: var(--openownbot-surface-light);
+  color: var(--openownbot-text-on-light);
+  font-size: var(--openownbot-text-md);
   font-weight: 650;
   transition:
-    background-color var(--openbot-duration-hover) ease,
-    border-color var(--openbot-duration-hover) ease,
-    transform var(--openbot-duration-fast) cubic-bezier(0.23, 1, 0.32, 1);
+    background-color var(--openownbot-duration-hover) ease,
+    border-color var(--openownbot-duration-hover) ease,
+    transform var(--openownbot-duration-fast) cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 .account-login > .account-login-primary {
@@ -155,8 +155,8 @@
 
 .account-login-local-data {
   margin: 4px 0 0;
-  color: var(--openbot-text-muted);
-  font-size: var(--openbot-text-sm);
+  color: var(--openownbot-text-muted);
+  font-size: var(--openownbot-text-sm);
   line-height: 17px;
   text-align: center;
   text-wrap: balance;
@@ -177,38 +177,38 @@
 .account-login-form input:not(.otp-input-native) {
   width: 100%;
   height: 44px;
-  border: 1px solid var(--openbot-border-strong);
-  border-radius: var(--openbot-radius-md);
+  border: 1px solid var(--openownbot-border-strong);
+  border-radius: var(--openownbot-radius-md);
   outline: 0;
-  background: var(--openbot-bg-control);
+  background: var(--openownbot-bg-control);
   padding: 0 12px;
-  color: var(--openbot-text-primary);
-  font-size: var(--openbot-text-lg);
+  color: var(--openownbot-text-primary);
+  font-size: var(--openownbot-text-lg);
   transition:
-    border-color var(--openbot-duration-hover) ease,
-    background-color var(--openbot-duration-hover) ease,
-    box-shadow var(--openbot-duration-hover) ease;
+    border-color var(--openownbot-duration-hover) ease,
+    background-color var(--openownbot-duration-hover) ease,
+    box-shadow var(--openownbot-duration-hover) ease;
 }
 
 .account-login-form input:not(.otp-input-native):focus {
-  border-color: var(--openbot-border-focus);
-  background: var(--openbot-bg-surface);
+  border-color: var(--openownbot-border-focus);
+  background: var(--openownbot-bg-surface);
 }
 
 .account-login-form input:not(.otp-input-native)[aria-invalid="true"] {
-  border-color: var(--openbot-danger);
+  border-color: var(--openownbot-danger);
 }
 
 .account-login-form input:not(.otp-input-native)::placeholder {
-  color: var(--openbot-text-placeholder);
+  color: var(--openownbot-text-placeholder);
 }
 
 .account-login-field-error {
   height: 16px;
   overflow: hidden;
   margin: -2px 0 0;
-  color: var(--openbot-danger);
-  font-size: var(--openbot-text-sm);
+  color: var(--openownbot-danger);
+  font-size: var(--openownbot-text-sm);
   line-height: 16px;
   text-align: left;
   text-overflow: ellipsis;
@@ -216,7 +216,7 @@
 }
 
 .account-login-form input:not(.otp-input-native).t-input.is-error {
-  border-color: var(--openbot-danger);
+  border-color: var(--openownbot-danger);
 }
 
 .account-login-primary:disabled,
@@ -229,7 +229,7 @@
 
 .account-login-code-actions {
   width: 100%;
-  min-height: var(--openbot-control-sm);
+  min-height: var(--openownbot-control-sm);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -250,21 +250,21 @@
 
 .account-login-development-code {
   margin: 0;
-  color: var(--openbot-warning);
+  color: var(--openownbot-warning);
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-  font-size: var(--openbot-text-sm);
+  font-size: var(--openownbot-text-sm);
   line-height: 16px;
   text-align: left;
 }
 
 @media (hover: hover) and (pointer: fine) {
   .account-login-primary:hover:not(:disabled, [aria-disabled="true"]) {
-    background: var(--openbot-text-primary);
+    background: var(--openownbot-text-primary);
   }
 
   .account-login-form input:not(.otp-input-native):hover:not(:focus) {
-    border-color: var(--openbot-border-strong);
-    background: var(--openbot-bg-surface);
+    border-color: var(--openownbot-border-strong);
+    background: var(--openownbot-bg-surface);
   }
 }
 
@@ -299,8 +299,8 @@
   align-items: center;
   gap: 7px;
   overflow: hidden;
-  color: var(--openbot-text-muted);
-  font-size: var(--openbot-text-sm);
+  color: var(--openownbot-text-muted);
+  font-size: var(--openownbot-text-sm);
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -309,27 +309,27 @@
   width: 6px;
   height: 6px;
   flex: 0 0 auto;
-  border-radius: var(--openbot-radius-pill);
-  background: var(--openbot-success);
-  box-shadow: 0 0 0 3px var(--openbot-success-soft);
+  border-radius: var(--openownbot-radius-pill);
+  background: var(--openownbot-success);
+  box-shadow: 0 0 0 3px var(--openownbot-success-soft);
 }
 
 .initial-setup-signout,
 .initial-setup-back {
   border: 0;
   background: transparent;
-  color: var(--openbot-text-muted);
+  color: var(--openownbot-text-muted);
 }
 
 .initial-setup-signout {
   margin-left: 2px;
   padding: 5px 7px;
-  font-size: var(--openbot-text-sm);
+  font-size: var(--openownbot-text-sm);
 }
 
 .initial-setup-signout:hover,
 .initial-setup-back:hover {
-  color: var(--openbot-text-secondary);
+  color: var(--openownbot-text-secondary);
 }
 
 .initial-setup-back {
@@ -338,12 +338,12 @@
   display: grid;
   place-items: center;
   margin-right: 3px;
-  border-radius: var(--openbot-radius-pill);
+  border-radius: var(--openownbot-radius-pill);
   padding: 0;
 }
 
 .initial-setup-back:hover {
-  background: var(--openbot-hover);
+  background: var(--openownbot-hover);
 }
 
 .initial-setup-back svg {
@@ -352,13 +352,13 @@
   stroke: currentcolor;
   stroke-linecap: round;
   stroke-linejoin: round;
-  stroke-width: var(--openbot-icon-stroke);
+  stroke-width: var(--openownbot-icon-stroke);
 }
 
 .initial-setup-eyebrow {
   margin: 0 0 9px;
   color: var(--text-muted);
-  font-size: var(--openbot-text-sm);
+  font-size: var(--openownbot-text-sm);
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -367,7 +367,7 @@
 .initial-setup h1 {
   margin: 0;
   color: var(--text-primary);
-  font-size: var(--openbot-text-display);
+  font-size: var(--openownbot-text-display);
   font-weight: 560;
   letter-spacing: -0.035em;
   line-height: 1.1;
@@ -377,7 +377,7 @@
   max-width: 540px;
   margin: 12px 0 0;
   color: var(--text-secondary);
-  font-size: var(--openbot-text-lg);
+  font-size: var(--openownbot-text-lg);
   line-height: 1.55;
 }
 
@@ -396,27 +396,28 @@
   grid-template-columns: 48px minmax(0, 1fr) 20px;
   align-items: center;
   gap: 15px;
-  border: 1px solid var(--openbot-border);
-  border-radius: var(--openbot-radius-lg);
-  background: var(--openbot-bg-canvas);
+  border: 1px solid var(--openownbot-border);
+  border-radius: var(--openownbot-radius-lg);
+  background: var(--openownbot-bg-canvas);
   padding: 15px 17px;
-  color: var(--openbot-text-primary);
+  color: var(--openownbot-text-primary);
   text-align: left;
   transition:
-    border-color var(--openbot-duration-hover) ease,
-    background-color var(--openbot-duration-hover) ease,
-    transform var(--openbot-duration-hover) ease;
+    border-color var(--openownbot-duration-hover) ease,
+    background-color var(--openownbot-duration-hover) ease,
+    transform var(--openownbot-duration-hover) ease;
 }
 
 .setup-route-button:hover {
-  border-color: var(--openbot-text-dim);
-  background: var(--openbot-bg-sidebar);
+  border-color: var(--openownbot-text-dim);
+  background: var(--openownbot-bg-sidebar);
   transform: translateY(-1px);
 }
 
 .setup-route-button:active {
   transform: translateY(0);
-  transition-duration: var(--openbot-duration-hover), var(--openbot-duration-hover), var(--openbot-duration-fast);
+  transition-duration:
+    var(--openownbot-duration-hover), var(--openownbot-duration-hover), var(--openownbot-duration-fast);
 }
 
 .setup-route-icon {
@@ -425,10 +426,10 @@
   height: 46px;
   display: grid;
   place-items: center;
-  border: 1px solid var(--openbot-border);
-  border-radius: var(--openbot-radius-lg);
-  background: var(--openbot-hover);
-  color: var(--openbot-text-secondary);
+  border: 1px solid var(--openownbot-border);
+  border-radius: var(--openownbot-radius-lg);
+  background: var(--openownbot-hover);
+  color: var(--openownbot-text-secondary);
 }
 
 .setup-route-icon svg {
@@ -437,7 +438,7 @@
   stroke: currentcolor;
   stroke-linecap: round;
   stroke-linejoin: round;
-  stroke-width: var(--openbot-icon-stroke);
+  stroke-width: var(--openownbot-icon-stroke);
 }
 
 .setup-route-icon i {
@@ -446,13 +447,13 @@
   bottom: -2px;
   width: 9px;
   height: 9px;
-  border: 2px solid var(--openbot-bg-canvas);
-  border-radius: var(--openbot-radius-pill);
-  background: var(--openbot-accent);
+  border: 2px solid var(--openownbot-bg-canvas);
+  border-radius: var(--openownbot-radius-pill);
+  background: var(--openownbot-accent);
 }
 
 .setup-route-icon-local i {
-  background: var(--openbot-success);
+  background: var(--openownbot-success);
 }
 
 .setup-route-copy {
@@ -461,23 +462,23 @@
 }
 
 .setup-route-copy strong {
-  font-size: var(--openbot-text-lg);
+  font-size: var(--openownbot-text-lg);
   font-weight: 600;
 }
 
 .setup-route-copy small {
-  color: var(--openbot-text-muted);
-  font-size: var(--openbot-text-sm);
+  color: var(--openownbot-text-muted);
+  font-size: var(--openownbot-text-sm);
   line-height: 17px;
 }
 
 .setup-route-arrow {
   width: 19px;
   fill: none;
-  stroke: var(--openbot-text-muted);
+  stroke: var(--openownbot-text-muted);
   stroke-linecap: round;
   stroke-linejoin: round;
-  transition: transform var(--openbot-duration-hover) ease;
+  transition: transform var(--openownbot-duration-hover) ease;
 }
 
 .setup-route-button:hover .setup-route-arrow {
@@ -497,21 +498,21 @@
 .setup-remote-form label {
   display: grid;
   gap: 7px;
-  color: var(--openbot-text-secondary);
-  font-size: var(--openbot-text-sm);
+  color: var(--openownbot-text-secondary);
+  font-size: var(--openownbot-text-sm);
   font-weight: 560;
 }
 
 .setup-remote-form input,
 .setup-remote-form textarea {
   width: 100%;
-  border: 1px solid var(--openbot-border);
-  border-radius: var(--openbot-radius-lg);
+  border: 1px solid var(--openownbot-border);
+  border-radius: var(--openownbot-radius-lg);
   outline: 0;
-  background: var(--openbot-bg-canvas);
+  background: var(--openownbot-bg-canvas);
   padding: 11px 12px;
-  color: var(--openbot-text-primary);
-  font-size: var(--openbot-text-md);
+  color: var(--openownbot-text-primary);
+  font-size: var(--openownbot-text-md);
   line-height: 18px;
   resize: none;
 }
@@ -522,19 +523,19 @@
 
 .setup-remote-form input:focus,
 .setup-remote-form textarea:focus {
-  border-color: var(--openbot-text-dim);
-  background: var(--openbot-bg-sidebar);
+  border-color: var(--openownbot-text-dim);
+  background: var(--openownbot-bg-sidebar);
 }
 
 .setup-remote-form input::placeholder,
 .setup-remote-form textarea::placeholder {
-  color: var(--openbot-text-dim);
+  color: var(--openownbot-text-dim);
 }
 
 .setup-remote-note {
   margin: -2px 1px 0;
-  color: var(--openbot-text-muted);
-  font-size: var(--openbot-text-sm);
+  color: var(--openownbot-text-muted);
+  font-size: var(--openownbot-text-sm);
   line-height: 16px;
 }
 
@@ -543,12 +544,12 @@
   border: 0;
   background: transparent;
   padding: 0;
-  color: var(--openbot-text-muted);
-  font-size: var(--openbot-text-sm);
+  color: var(--openownbot-text-muted);
+  font-size: var(--openownbot-text-sm);
 }
 
 .setup-remote-change:hover:not(:disabled) {
-  color: var(--openbot-text-secondary);
+  color: var(--openownbot-text-secondary);
 }
 
 .provider-picker {
@@ -570,7 +571,7 @@
   margin-bottom: 7px;
   padding: 0;
   color: var(--text-secondary);
-  font-size: var(--openbot-text-sm);
+  font-size: var(--openownbot-text-sm);
   font-weight: 560;
 }
 
@@ -579,7 +580,7 @@
   min-height: 25px;
   align-items: center;
   justify-content: space-between;
-  gap: var(--openbot-space-2);
+  gap: var(--openownbot-space-2);
   margin-bottom: 7px;
 }
 
@@ -589,21 +590,21 @@
 
 .ui-button.provider-picker-refresh {
   min-height: 25px;
-  gap: var(--openbot-space-1);
-  border-radius: var(--openbot-radius-md);
-  color: var(--openbot-text-muted);
-  padding-inline: var(--openbot-space-2);
+  gap: var(--openownbot-space-1);
+  border-radius: var(--openownbot-radius-md);
+  color: var(--openownbot-text-muted);
+  padding-inline: var(--openownbot-space-2);
 }
 
 .ui-button.provider-picker-refresh:hover:not(:disabled, [aria-disabled="true"]) {
-  color: var(--openbot-text-primary);
+  color: var(--openownbot-text-primary);
 }
 
 .provider-picker-list {
   overflow: hidden;
-  border: 1px solid var(--openbot-border-strong);
-  border-radius: var(--openbot-radius-md);
-  background: var(--openbot-bg-sidebar);
+  border: 1px solid var(--openownbot-border-strong);
+  border-radius: var(--openownbot-radius-md);
+  background: var(--openownbot-bg-sidebar);
 }
 
 .provider-picker-option {
@@ -629,20 +630,20 @@
 /* The custom row follows the radio group rather than a radio, so the sibling rule cannot reach it. */
 .provider-picker-option + .provider-picker-option,
 .provider-picker-option-custom {
-  border-top: 1px solid var(--openbot-border);
+  border-top: 1px solid var(--openownbot-border);
 }
 
 .provider-picker-option:hover:not(.provider-picker-option-unavailable),
 .provider-picker-option:focus-within {
-  background: var(--openbot-hover);
+  background: var(--openownbot-hover);
 }
 
 .provider-picker-option-selected {
-  background: var(--openbot-hover);
+  background: var(--openownbot-hover);
 }
 
 .provider-picker-option-unavailable {
-  color: var(--openbot-text-muted);
+  color: var(--openownbot-text-muted);
 }
 
 .provider-picker-option-unavailable .provider-picker-option-selection {
@@ -654,14 +655,14 @@
 }
 
 .provider-picker-option-selectable-unavailable:hover {
-  background: var(--openbot-hover);
+  background: var(--openownbot-hover);
 }
 
 .provider-picker-option input {
   width: 14px;
   height: 14px;
   margin: 0;
-  accent-color: var(--openbot-text-primary);
+  accent-color: var(--openownbot-text-primary);
 }
 
 /* The actions share the grid cell the row reserves for them. In this variant the buttons carry
@@ -675,18 +676,18 @@
   min-width: 58px;
   min-height: 28px;
   margin-right: 8px;
-  border-radius: var(--openbot-radius-md);
+  border-radius: var(--openownbot-radius-md);
   padding-inline: 9px;
 }
 
 .ui-button.provider-picker-connect {
-  background: var(--openbot-accent);
-  color: var(--openbot-text-primary);
+  background: var(--openownbot-accent);
+  color: var(--openownbot-text-primary);
 }
 
 @media (hover: hover) and (pointer: fine) {
   .ui-button.provider-picker-connect:hover:not(:disabled):not([data-disabled]) {
-    background: var(--openbot-accent-hover);
+    background: var(--openownbot-accent-hover);
   }
 }
 
@@ -694,7 +695,7 @@
   width: 18px;
   height: 18px;
   overflow: visible;
-  fill: var(--openbot-provider-current);
+  fill: var(--openownbot-provider-current);
 }
 
 /* A custom endpoint has no brand mark, so a stroke icon takes the logo column. Until an endpoint
@@ -703,8 +704,8 @@
   width: 18px;
   height: 18px;
   grid-column: 2;
-  color: var(--openbot-text-secondary);
-  stroke-width: var(--openbot-icon-stroke);
+  color: var(--openownbot-text-secondary);
+  stroke-width: var(--openownbot-icon-stroke);
 }
 
 .provider-picker-option-unavailable .provider-picker-logo,
@@ -713,7 +714,7 @@
 }
 
 .provider-picker-option-runtime {
-  color: var(--openbot-text-primary);
+  color: var(--openownbot-text-primary);
 }
 
 .provider-picker-option-runtime .provider-picker-logo {
@@ -733,21 +734,21 @@
 }
 
 .provider-picker-name {
-  font-size: var(--openbot-text-md);
+  font-size: var(--openownbot-text-md);
   font-weight: 530;
   line-height: 18px;
 }
 
 .provider-picker-email {
   color: var(--text-muted);
-  font-size: var(--openbot-text-sm);
+  font-size: var(--openownbot-text-sm);
   line-height: 15px;
 }
 
 .provider-picker-check-error {
   overflow: hidden;
-  color: var(--openbot-warning);
-  font-size: var(--openbot-text-sm);
+  color: var(--openownbot-warning);
+  font-size: var(--openownbot-text-sm);
   line-height: 15px;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -771,14 +772,14 @@
 }
 
 .provider-picker-option-selected .provider-picker-email {
-  color: var(--openbot-text-readable);
+  color: var(--openownbot-text-readable);
 }
 
 /* The same icon size as the other small buttons of the row. */
 .provider-picker-add-account svg {
-  width: var(--openbot-icon-sm);
-  height: var(--openbot-icon-sm);
-  stroke-width: var(--openbot-icon-stroke);
+  width: var(--openownbot-icon-sm);
+  height: var(--openownbot-icon-sm);
+  stroke-width: var(--openownbot-icon-stroke);
 }
 
 /* The accounts of a provider, on lines of their own below its row and in line with its name. */
@@ -806,7 +807,7 @@
 }
 
 .provider-picker-account + .provider-picker-account {
-  border-top: 1px solid var(--openbot-border);
+  border-top: 1px solid var(--openownbot-border);
 }
 
 .provider-picker-account-copy {
@@ -840,7 +841,7 @@
 .provider-picker-version {
   overflow: hidden;
   color: var(--text-muted);
-  font-size: var(--openbot-text-sm);
+  font-size: var(--openownbot-text-sm);
   font-variant-numeric: tabular-nums;
   line-height: 16px;
   text-overflow: ellipsis;
@@ -848,7 +849,7 @@
 }
 
 .provider-picker-option-selected .provider-picker-version {
-  color: var(--openbot-text-readable);
+  color: var(--openownbot-text-readable);
 }
 
 .provider-picker-status {
@@ -856,7 +857,7 @@
   align-items: center;
   gap: 6px;
   color: var(--text-muted);
-  font-size: var(--openbot-text-sm);
+  font-size: var(--openownbot-text-sm);
   line-height: 16px;
   white-space: nowrap;
 }
@@ -865,7 +866,7 @@
    sits in the same cell and answers the same kind of question, but it reports no state. */
 .provider-picker-custom-count {
   color: var(--text-muted);
-  font-size: var(--openbot-text-sm);
+  font-size: var(--openownbot-text-sm);
   line-height: 16px;
   white-space: nowrap;
 }
@@ -875,68 +876,68 @@
 .ui-button.provider-picker-custom-count {
   min-height: 28px;
   margin-right: 8px;
-  border-radius: var(--openbot-radius-md);
+  border-radius: var(--openownbot-radius-md);
   padding-inline: 9px;
   color: var(--text-muted);
-  font-size: var(--openbot-text-sm);
+  font-size: var(--openownbot-text-sm);
 }
 
 .provider-picker-status-available {
-  color: var(--openbot-success);
+  color: var(--openownbot-success);
 }
 
 .provider-picker-status-sign-in-required,
 .provider-picker-status-outdated,
 .provider-picker-status-update-available {
-  color: var(--openbot-warning);
+  color: var(--openownbot-warning);
 }
 
 .provider-picker-status-ready {
-  color: var(--openbot-success);
+  color: var(--openownbot-success);
 }
 
 .provider-picker-status-download-error {
-  color: var(--openbot-danger);
+  color: var(--openownbot-danger);
 }
 
 .provider-picker-status-finishing {
-  color: var(--openbot-warning);
+  color: var(--openownbot-warning);
 }
 
 .provider-picker-status-not-installed,
 .provider-picker-status-checking,
 .provider-picker-status-error {
-  color: var(--openbot-text-muted);
+  color: var(--openownbot-text-muted);
 }
 
 .provider-picker-status i {
   width: 5px;
   height: 5px;
   flex: 0 0 auto;
-  border-radius: var(--openbot-radius-pill);
-  background: var(--openbot-text-dim);
+  border-radius: var(--openownbot-radius-pill);
+  background: var(--openownbot-text-dim);
 }
 
 .provider-picker-status-available i {
-  background: var(--openbot-success);
+  background: var(--openownbot-success);
 }
 
 .provider-picker-status-sign-in-required i,
 .provider-picker-status-outdated i,
 .provider-picker-status-update-available i {
-  background: var(--openbot-warning);
+  background: var(--openownbot-warning);
 }
 
 .provider-picker-status-not-installed i,
 .provider-picker-status-checking i,
 .provider-picker-status-error i {
-  background: var(--openbot-text-dim);
+  background: var(--openownbot-text-dim);
 }
 
 .provider-picker-hint {
   margin: 7px 0 0;
   color: var(--text-muted);
-  font-size: var(--openbot-text-sm);
+  font-size: var(--openownbot-text-sm);
   line-height: 16px;
 }
 
@@ -947,7 +948,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: var(--openbot-space-2);
+  gap: var(--openownbot-space-2);
   margin-top: 7px;
 }
 
@@ -957,9 +958,9 @@
 
 .ui-button.provider-picker-more {
   flex: 0 0 auto;
-  gap: var(--openbot-space-1-5);
+  gap: var(--openownbot-space-1-5);
   margin-inline-start: auto;
-  margin-inline-end: calc(var(--openbot-space-2) * -1);
+  margin-inline-end: calc(var(--openownbot-space-2) * -1);
 }
 
 .provider-picker-logo-stack {
@@ -974,9 +975,9 @@
   height: 20px;
   display: grid;
   place-items: center;
-  border-radius: var(--openbot-radius-pill);
-  background: var(--openbot-bg-control-active);
-  box-shadow: 0 0 0 2px var(--openbot-bg-canvas);
+  border-radius: var(--openownbot-radius-pill);
+  background: var(--openownbot-bg-control-active);
+  box-shadow: 0 0 0 2px var(--openownbot-bg-canvas);
 }
 
 .provider-picker-logo-stack-mark + .provider-picker-logo-stack-mark {
@@ -998,26 +999,26 @@
 
 .custom-provider-dialog.provider-more-dialog {
   width: min(400px, 100%);
-  max-height: min(600px, calc(100dvh - min(14vh, 120px) - var(--openbot-space-6)));
-  padding: var(--openbot-space-2);
+  max-height: min(600px, calc(100dvh - min(14vh, 120px) - var(--openownbot-space-6)));
+  padding: var(--openownbot-space-2);
 }
 
 .provider-more-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: var(--openbot-space-1) var(--openbot-space-1) var(--openbot-space-1) var(--openbot-space-3);
+  padding: var(--openownbot-space-1) var(--openownbot-space-1) var(--openownbot-space-1) var(--openownbot-space-3);
 }
 
 .provider-more-title {
   margin: 0;
-  font-size: var(--openbot-text-lg);
-  font-weight: var(--openbot-weight-semibold);
+  font-size: var(--openownbot-text-lg);
+  font-weight: var(--openownbot-weight-semibold);
 }
 
 .ui-input.provider-more-search {
   flex-shrink: 0;
-  margin: var(--openbot-space-1) 0 var(--openbot-space-2);
+  margin: var(--openownbot-space-1) 0 var(--openownbot-space-2);
 }
 
 .provider-more-search::-webkit-search-cancel-button {
@@ -1037,10 +1038,10 @@
   grid-template-columns: 18px minmax(0, 1fr);
   justify-content: stretch;
   align-items: center;
-  gap: var(--openbot-space-3);
-  padding: var(--openbot-space-2) var(--openbot-space-3);
+  gap: var(--openownbot-space-3);
+  padding: var(--openownbot-space-2) var(--openownbot-space-3);
   border: 0;
-  border-radius: var(--openbot-radius-md);
+  border-radius: var(--openownbot-radius-md);
   color: inherit;
   font: inherit;
   line-height: normal;
@@ -1049,7 +1050,7 @@
 }
 
 .ui-button.provider-more-row:focus-visible {
-  outline: 2px solid var(--openbot-border-focus);
+  outline: 2px solid var(--openownbot-border-focus);
   outline-offset: -2px;
 }
 
@@ -1059,22 +1060,22 @@
 
 .provider-more-divider {
   height: 1px;
-  margin: var(--openbot-space-1) var(--openbot-space-3);
+  margin: var(--openownbot-space-1) var(--openownbot-space-3);
   border: 0;
-  background: var(--openbot-border);
+  background: var(--openownbot-border);
 }
 
 .provider-more-empty {
   margin: 0;
-  padding: var(--openbot-space-2) var(--openbot-space-3);
-  color: var(--openbot-text-muted);
-  font-size: var(--openbot-text-sm);
+  padding: var(--openownbot-space-2) var(--openownbot-space-3);
+  color: var(--openownbot-text-muted);
+  font-size: var(--openownbot-text-sm);
 }
 
 .initial-setup-error {
   margin: 12px 2px 0;
-  color: var(--openbot-danger);
-  font-size: var(--openbot-text-md);
+  color: var(--openownbot-danger);
+  font-size: var(--openownbot-text-md);
   line-height: 1.45;
 }
 
@@ -1087,24 +1088,24 @@
 
 .initial-setup-save {
   min-height: 40px;
-  border: 1px solid var(--openbot-border-strong);
-  border-radius: var(--openbot-radius-md);
+  border: 1px solid var(--openownbot-border-strong);
+  border-radius: var(--openownbot-radius-md);
   padding: 12px 18px;
-  font-size: var(--openbot-text-md);
+  font-size: var(--openownbot-text-md);
   font-weight: 620;
 }
 
 .initial-setup-save {
   min-width: 180px;
-  background: var(--openbot-text-primary);
-  color: var(--openbot-bg-sidebar);
+  background: var(--openownbot-text-primary);
+  color: var(--openownbot-bg-sidebar);
   transition:
-    transform var(--openbot-duration-normal) ease,
-    background var(--openbot-duration-hover) ease;
+    transform var(--openownbot-duration-normal) ease,
+    background var(--openownbot-duration-hover) ease;
 }
 
 .initial-setup-save:hover:not(:disabled) {
-  background: var(--openbot-text-primary);
+  background: var(--openownbot-text-primary);
 }
 
 .initial-setup-save:disabled {
@@ -1164,17 +1165,17 @@
 @media (prefers-reduced-motion: no-preference) {
   .account-login,
   .initial-setup {
-    animation: setup-enter var(--openbot-duration-overlay) cubic-bezier(0.2, 0.8, 0.2, 1) both;
+    animation: setup-enter var(--openownbot-duration-overlay) cubic-bezier(0.2, 0.8, 0.2, 1) both;
   }
 
   .account-login[data-transition="forward"] .account-login-title,
   .account-login[data-transition="forward"] .account-login-description {
-    animation: account-login-copy-forward var(--openbot-duration-overlay) var(--openbot-ease-out) both;
+    animation: account-login-copy-forward var(--openownbot-duration-overlay) var(--openownbot-ease-out) both;
   }
 
   .account-login[data-transition="back"] .account-login-title,
   .account-login[data-transition="back"] .account-login-description {
-    animation: account-login-copy-back var(--openbot-duration-overlay) var(--openbot-ease-out) both;
+    animation: account-login-copy-back var(--openownbot-duration-overlay) var(--openownbot-ease-out) both;
   }
 
   .account-login[data-transition] .account-login-description {
@@ -1182,11 +1183,11 @@
   }
 
   .account-login[data-transition="forward"] .account-login-form[data-auth-panel="code"] {
-    animation: account-login-panel-forward var(--openbot-duration-overlay) 32ms var(--openbot-ease-out) both;
+    animation: account-login-panel-forward var(--openownbot-duration-overlay) 32ms var(--openownbot-ease-out) both;
   }
 
   .account-login[data-transition="back"] .account-login-form[data-auth-panel="email"] {
-    animation: account-login-panel-back var(--openbot-duration-overlay) 32ms var(--openbot-ease-out) both;
+    animation: account-login-panel-back var(--openownbot-duration-overlay) 32ms var(--openownbot-ease-out) both;
   }
 
   @keyframes setup-enter {
@@ -1249,12 +1250,12 @@ button {
 button:not(.ui-button):focus-visible,
 input:not(.ui-input):focus-visible,
 textarea:not(.ui-textarea):focus-visible {
-  outline: 2px solid var(--openbot-border-focus);
+  outline: 2px solid var(--openownbot-border-focus);
   outline-offset: 2px;
 }
 
 ::selection {
-  background: var(--openbot-accent-strong);
+  background: var(--openownbot-accent-strong);
 }
 
 /* No vertical scroll bar: the wheel, the trackpad and the keyboard still scroll. Horizontal bars
@@ -1269,8 +1270,8 @@ textarea:not(.ui-textarea):focus-visible {
 
 ::-webkit-scrollbar-thumb {
   border: 2px solid transparent;
-  border-radius: var(--openbot-radius-pill);
-  background: var(--openbot-border-strong);
+  border-radius: var(--openownbot-radius-pill);
+  background: var(--openownbot-border-strong);
   background-clip: padding-box;
 }
 
@@ -1278,28 +1279,28 @@ textarea:not(.ui-textarea):focus-visible {
   -webkit-mask-image: linear-gradient(
     to bottom,
     transparent 0,
-    var(--openbot-text-primary) 18px,
-    var(--openbot-text-primary) 100%
+    var(--openownbot-text-primary) 18px,
+    var(--openownbot-text-primary) 100%
   );
   mask-image: linear-gradient(
     to bottom,
     transparent 0,
-    var(--openbot-text-primary) 18px,
-    var(--openbot-text-primary) 100%
+    var(--openownbot-text-primary) 18px,
+    var(--openownbot-text-primary) 100%
   );
 }
 
 .scroll-fade-bottom:not(.scroll-fade-top) {
   -webkit-mask-image: linear-gradient(
     to bottom,
-    var(--openbot-text-primary) 0,
-    var(--openbot-text-primary) calc(100% - 18px),
+    var(--openownbot-text-primary) 0,
+    var(--openownbot-text-primary) calc(100% - 18px),
     transparent 100%
   );
   mask-image: linear-gradient(
     to bottom,
-    var(--openbot-text-primary) 0,
-    var(--openbot-text-primary) calc(100% - 18px),
+    var(--openownbot-text-primary) 0,
+    var(--openownbot-text-primary) calc(100% - 18px),
     transparent 100%
   );
 }
@@ -1308,15 +1309,15 @@ textarea:not(.ui-textarea):focus-visible {
   -webkit-mask-image: linear-gradient(
     to bottom,
     transparent 0,
-    var(--openbot-text-primary) 18px,
-    var(--openbot-text-primary) calc(100% - 18px),
+    var(--openownbot-text-primary) 18px,
+    var(--openownbot-text-primary) calc(100% - 18px),
     transparent 100%
   );
   mask-image: linear-gradient(
     to bottom,
     transparent 0,
-    var(--openbot-text-primary) 18px,
-    var(--openbot-text-primary) calc(100% - 18px),
+    var(--openownbot-text-primary) 18px,
+    var(--openownbot-text-primary) calc(100% - 18px),
     transparent 100%
   );
 }
@@ -1339,7 +1340,7 @@ body,
 .app-frame,
 .conversation-panel,
 .direct-conversation {
-  background: var(--openbot-bg-canvas);
+  background: var(--openownbot-bg-canvas);
 }
 
 .panel-edge,
@@ -1349,7 +1350,7 @@ body,
 .browser-panel,
 .remote-desktop-workspace,
 .provider-picker-list {
-  border-color: var(--openbot-border);
+  border-color: var(--openownbot-border);
 }
 
 .search-field,
@@ -1361,9 +1362,9 @@ body,
 .setup-remote-form input,
 .setup-remote-form textarea,
 .account-login-form input {
-  border-color: var(--openbot-border);
-  background: var(--openbot-bg-surface);
-  color: var(--openbot-text-primary);
+  border-color: var(--openownbot-border);
+  background: var(--openownbot-bg-surface);
+  color: var(--openownbot-text-primary);
 }
 
 .search-field:focus-within,
@@ -1375,8 +1376,8 @@ body,
 .setup-remote-form input:focus,
 .setup-remote-form textarea:focus,
 .account-login-form input:focus {
-  border-color: var(--openbot-border-focus);
-  background: var(--openbot-bg-surface-raised);
+  border-color: var(--openownbot-border-focus);
+  background: var(--openownbot-bg-surface-raised);
 }
 
 .search-field input::placeholder,
@@ -1387,86 +1388,86 @@ body,
 .setup-remote-form input::placeholder,
 .setup-remote-form textarea::placeholder,
 .account-login-form input::placeholder {
-  color: var(--openbot-text-placeholder);
+  color: var(--openownbot-text-placeholder);
 }
 
 .provider-picker-option-selected,
 .provider-model-option-selected {
-  border-color: var(--openbot-border-focus);
-  background: var(--openbot-accent-soft);
-  color: var(--openbot-text-primary);
+  border-color: var(--openownbot-border-focus);
+  background: var(--openownbot-accent-soft);
+  color: var(--openownbot-text-primary);
 }
 
 .provider-picker-option,
 .provider-model-option {
-  border-color: var(--openbot-border);
-  background: var(--openbot-bg-control);
-  color: var(--openbot-text-secondary);
+  border-color: var(--openownbot-border);
+  background: var(--openownbot-bg-control);
+  color: var(--openownbot-text-secondary);
 }
 
 .provider-picker-option:hover:not(.provider-picker-option-unavailable),
 .provider-picker-option:focus-within,
 .provider-model-option:hover,
 .provider-model-option:focus-visible {
-  background: var(--openbot-bg-control-hover);
-  color: var(--openbot-text-primary);
+  background: var(--openownbot-bg-control-hover);
+  color: var(--openownbot-text-primary);
 }
 
 .voice-button,
 .voice-button-active,
 .initial-setup-save,
 .account-login-primary {
-  background: var(--openbot-surface-light);
-  color: var(--openbot-text-on-light);
+  background: var(--openownbot-surface-light);
+  color: var(--openownbot-text-on-light);
 }
 
 .voice-button:hover,
 .voice-button-active:hover,
 .initial-setup-save:hover:not(:disabled),
 .account-login-primary:hover:not(:disabled, [aria-disabled="true"]) {
-  background: var(--openbot-text-primary);
-  color: var(--openbot-text-on-light);
+  background: var(--openownbot-text-primary);
+  color: var(--openownbot-text-on-light);
 }
 
 .remote-desktop-overlay > button,
 .remote-desktop-overlay > button:hover {
-  border-color: var(--openbot-border-strong);
-  background: var(--openbot-bg-control-hover);
-  color: var(--openbot-text-primary);
+  border-color: var(--openownbot-border-strong);
+  background: var(--openownbot-bg-control-hover);
+  color: var(--openownbot-text-primary);
 }
 
 .remote-desktop-overlay > button:hover {
-  background: var(--openbot-bg-control-active);
+  background: var(--openownbot-bg-control-active);
 }
 
 .account-login-error,
 .initial-setup-error {
-  border-color: var(--openbot-danger-soft);
-  background: var(--openbot-danger-soft);
-  color: var(--openbot-danger);
+  border-color: var(--openownbot-danger-soft);
+  background: var(--openownbot-danger-soft);
+  color: var(--openownbot-danger);
 }
 
 .setup-route-button,
 .setup-route-icon,
 .setup-remote-form input,
 .setup-remote-form textarea {
-  border-color: var(--openbot-border);
-  background: var(--openbot-bg-surface);
+  border-color: var(--openownbot-border);
+  background: var(--openownbot-bg-surface);
 }
 
 .setup-route-button:hover,
 .setup-route-button:focus-visible {
-  border-color: var(--openbot-border-focus);
-  background: var(--openbot-bg-surface-raised);
+  border-color: var(--openownbot-border-focus);
+  background: var(--openownbot-bg-surface-raised);
 }
 
 .setup-route-icon-local i,
 .provider-picker-status-available i {
-  color: var(--openbot-success);
+  color: var(--openownbot-success);
 }
 
 .account-login-development-code,
 .provider-picker-status-sign-in-required i,
 .provider-picker-status-outdated i {
-  color: var(--openbot-warning);
+  color: var(--openownbot-warning);
 }

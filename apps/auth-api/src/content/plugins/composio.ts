@@ -26,7 +26,7 @@ export const COMPOSIO_PLUGIN_GUIDE: PluginGuide = {
     {
       question: "Does the Composio plugin need an API key?",
       answer:
-        "Yes. Type the MCP URL and your consumer API key from your Composio account, in Settings > Sessions & API Key. OpenBot sends the key in the x-consumer-api-key header. If you regenerate the key, Composio stops the old key at once, so type the new key in OpenBot.",
+        "Yes. Type the MCP URL and your consumer API key from your Composio account, in Settings > Sessions & API Key. OpenOwnBot sends the key in the x-consumer-api-key header. If you regenerate the key, Composio stops the old key at once, so type the new key in OpenOwnBot.",
     },
     {
       question: "Which apps can the Composio MCP server reach?",
@@ -41,7 +41,7 @@ export const COMPOSIO_PLUGIN_GUIDE: PluginGuide = {
     {
       question: "What data does Composio get?",
       answer:
-        "Composio gets the tool calls that the agent sends, with their inputs, and runs them on the apps that you connected. Your app connections stay in your Composio account. Your OpenBot workspaces, conversations and files stay on the computer that runs OpenBot. Composio's own plan limits apply.",
+        "Composio gets the tool calls that the agent sends, with their inputs, and runs them on the apps that you connected. Your app connections stay in your Composio account. Your OpenOwnBot workspaces, conversations and files stay on the computer that runs OpenOwnBot. Composio's own plan limits apply.",
     },
   ],
   sources: [

@@ -1,4 +1,4 @@
-import { sortConversationMessages } from "@openbot/contracts/conversation-order";
+import { sortConversationMessages } from "@openownbot/contracts/conversation-order";
 import type {
   AgentEvent,
   AgentSummary,
@@ -6,11 +6,11 @@ import type {
   ConversationSnapshot,
   QueueHold,
   QueueSnapshot,
-} from "@openbot/contracts/ipc";
+} from "@openownbot/contracts/ipc";
 import { Effect, type Scope } from "effect";
 import { isMailboxMessageCopy } from "../conversation-snapshots";
 import type { MailboxStore } from "../mailbox-store";
-import type { OpenBotDatabase } from "../openbot-database";
+import type { OpenOwnBotDatabase } from "../openownbot-database";
 import type { ConversationRuntime } from "./conversation-runtime";
 import { conversationContentSignature } from "./delivery-content";
 import type { RoutineScheduler } from "./routine-scheduler";
@@ -23,7 +23,7 @@ export interface MailboxSyncHooks {
 }
 
 export interface MailboxSyncOptions {
-  database: OpenBotDatabase;
+  database: OpenOwnBotDatabase;
   mailbox: MailboxStore;
   conversation: ConversationRuntime;
   routines: RoutineScheduler;
@@ -41,7 +41,7 @@ export interface MailboxSyncOptions {
  * instead of reaching into the mailbox themselves.
  */
 export class MailboxSync {
-  readonly #database: OpenBotDatabase;
+  readonly #database: OpenOwnBotDatabase;
   readonly #mailbox: MailboxStore;
   readonly #conversation: ConversationRuntime;
   readonly #routines: RoutineScheduler;

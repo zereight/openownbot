@@ -3,8 +3,8 @@ import {
   isAgentProvider,
   PROVIDER_USAGE_RESET_OUTCOMES,
   type ProviderUsageResetOutcome,
-} from "@openbot/contracts/ipc";
-import { decodeRecord, requiredString } from "@openbot/contracts/ipc-decoding";
+} from "@openownbot/contracts/ipc";
+import { decodeRecord, requiredString } from "@openownbot/contracts/ipc-decoding";
 import {
   type DynamicRecord,
   isBoolean,
@@ -12,7 +12,7 @@ import {
   isNumber,
   isOneOf,
   isString,
-} from "@openbot/contracts/runtime-values";
+} from "@openownbot/contracts/runtime-values";
 
 export type RequestId = string | number;
 
@@ -271,7 +271,7 @@ export function decodeAccountLoginStartResult(value: unknown): AccountLoginStart
 export function decodeAccountDeviceCodeLoginStartResult(value: unknown): AccountDeviceCodeLoginStartResult {
   const record = decodeRecord(value, "account device login response");
   if (requiredString(record, "type") !== "chatgptDeviceCode") throw new Error("Unexpected Codex login type.");
-  // Held to the same rule as the browser login's URL: this is the address OpenBot shows the user
+  // Held to the same rule as the browser login's URL: this is the address OpenOwnBot shows the user
   // and offers to open, so a downgrade to plain HTTP is refused before it reaches the screen.
   const url = new URL(requiredString(record, "verificationUrl"));
   if (url.protocol !== "https:") throw new Error("Codex returned an unsafe login URL.");
@@ -452,7 +452,7 @@ function decodeRateLimitWindow(value: unknown): AccountRateLimitWindowResult | n
 }
 
 /**
- * Only the count: the credit rows are display text that OpenBot does not show. A count it cannot
+ * Only the count: the credit rows are display text that OpenOwnBot does not show. A count it cannot
  * read is unknown, so the usage reading that carries it still decodes.
  */
 function decodeRateLimitResetCredits(value: unknown): AccountRateLimitsReadResult["rateLimitResetCredits"] {
@@ -517,7 +517,7 @@ export function getRecord(record: unknown, key: string): DynamicRecord | null {
 /** The qualified name that a `tool_call` bridge item asks for. The model writes it, so check it before use. */
 export function bridgedToolName(item: ThreadItem): string | null {
   const tool = getString(item, "tool") ?? getString(item, "name");
-  if (tool !== "tool_call" && tool !== "mcp__openbot__tool_call") return null;
+  if (tool !== "tool_call" && tool !== "mcp__openownbot__tool_call") return null;
   return getString(getRecord(item, "arguments"), "name");
 }
 

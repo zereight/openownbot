@@ -256,7 +256,7 @@ export function VoiceOverlay({
     return { opacity: shown, transform: [{ translateY: 0 }, { scale: 1 }] };
   });
   const topVeilId = `voice-top-veil-${useId().replaceAll(":", "")}`;
-  const canvas = String(useCSSVariable("--openbot-bg-native-canvas"));
+  const canvas = String(useCSSVariable("--openownbot-bg-native-canvas"));
   return (
     <View
       // Absorbs touches, so the chat under it does not scroll or open a message.

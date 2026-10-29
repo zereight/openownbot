@@ -11,7 +11,7 @@
  * browse.
  */
 
-import { Alert, AlertDescription, Button, Field, Input, ShieldCheck, Text } from "@openbot/ui";
+import { Alert, AlertDescription, Button, Field, Input, ShieldCheck, Text } from "@openownbot/ui";
 import { createSignal, Show } from "solid-js";
 import { useText } from "../../text";
 import BrowserLiveView, { type BrowserViewRuntime } from "../browser/BrowserLiveView";

@@ -2,7 +2,7 @@ import { execFileSync } from "node:child_process";
 import { closeSync, existsSync, mkdirSync, openSync, realpathSync } from "node:fs";
 import { homedir, tmpdir } from "node:os";
 import { basename, dirname, join, resolve } from "node:path";
-import { sourceText } from "@openbot/i18n/source";
+import { sourceText } from "@openownbot/i18n/source";
 import { workspaceTemporaryPaths } from "./agent/workspace-sandbox";
 
 /**
@@ -10,7 +10,7 @@ import { workspaceTemporaryPaths } from "./agent/workspace-sandbox";
  * folders and the provider's state are added to them.
  *
  * Grok, OpenCode, Antigravity, Cursor and Cline take no sandbox per session, so a Workspace only
- * agent on them gets a provider process of its own, and OpenBot starts that process inside an
+ * agent on them gets a provider process of its own, and OpenOwnBot starts that process inside an
  * operating system sandbox. The whole process is confined: the file edit tools, the shell, and every
  * command and MCP server it starts. Nothing inside the process can take the sandbox away. Only macOS
  * has the sandbox now: on Linux and Windows the process does not start, and the user must choose
@@ -98,7 +98,7 @@ export function openCodeStatePaths(env: NodeJS.ProcessEnv = process.env, home = 
   };
 }
 
-const OPENCODE_CONFINED_CACHE = join(tmpdir(), "openbot-confined-cache");
+const OPENCODE_CONFINED_CACHE = join(tmpdir(), "openownbot-confined-cache");
 
 /**
  * The Antigravity server keeps its sign-in, sessions and harness files in `antigravity-acp` under
@@ -161,7 +161,7 @@ export function cursorStatePaths(env: NodeJS.ProcessEnv = process.env, home = ho
   };
 }
 
-const CURSOR_CONFINED_CACHE = join(tmpdir(), "openbot-confined-cursor-cache");
+const CURSOR_CONFINED_CACHE = join(tmpdir(), "openownbot-confined-cursor-cache");
 
 let keychainLockFile: string | undefined;
 
@@ -171,7 +171,7 @@ let keychainLockFile: string | undefined;
  * and Cursor 2026.10.22 answers each session with "Authentication required" although it is signed
  * in. Only the contents of the lock file are writable: the module directory beside it lists the
  * security modules that the user's other processes load. The confined process cannot create the
- * file, so OpenBot makes it when it is missing, as `security` would.
+ * file, so OpenOwnBot makes it when it is missing, as `security` would.
  */
 function keychainLockFiles(): string[] {
   if (process.platform !== "darwin") return [];
@@ -187,7 +187,7 @@ function keychainLockFiles(): string[] {
 
 /** The config folder of every confined Cursor process. Only confined processes read it. */
 function cursorConfinedConfig(home: string): string {
-  return join(home, ".cursor", "openbot-confined");
+  return join(home, ".cursor", "openownbot-confined");
 }
 
 /**
@@ -230,7 +230,7 @@ export function clineStatePaths(env: NodeJS.ProcessEnv = process.env, home = hom
 }
 
 /**
- * A custom agent keeps its state where it wants, and OpenBot cannot know where. A Workspace only
+ * A custom agent keeps its state where it wants, and OpenOwnBot cannot know where. A Workspace only
  * custom agent gets no state folder: an agent that must write in its home folder to run needs Full
  * access.
  */

@@ -6,11 +6,11 @@
   height: 32px;
   place-items: center;
   overflow: hidden;
-  border-radius: var(--openbot-radius-pill);
-  background: linear-gradient(135deg, var(--openbot-accent-strong), var(--openbot-onboarding-desktop-indigo));
-  color: var(--openbot-text-primary);
-  font-size: var(--openbot-text-sm);
-  font-weight: var(--openbot-weight-semibold);
+  border-radius: var(--openownbot-radius-pill);
+  background: linear-gradient(135deg, var(--openownbot-accent-strong), var(--openownbot-onboarding-desktop-indigo));
+  color: var(--openownbot-text-primary);
+  font-size: var(--openownbot-text-sm);
+  font-weight: var(--openownbot-weight-semibold);
 }
 
 .github-connector-avatar > img {
@@ -27,16 +27,16 @@
 
 .github-connector-search > svg {
   position: absolute;
-  left: var(--openbot-space-3);
-  width: var(--openbot-icon-sm);
-  height: var(--openbot-icon-sm);
-  color: var(--openbot-text-muted);
+  left: var(--openownbot-space-3);
+  width: var(--openownbot-icon-sm);
+  height: var(--openownbot-icon-sm);
+  color: var(--openownbot-text-muted);
   pointer-events: none;
 }
 
 .github-connector-search input {
   width: 100%;
-  padding-left: calc(var(--openbot-space-3) * 2 + var(--openbot-icon-sm));
+  padding-left: calc(var(--openownbot-space-3) * 2 + var(--openownbot-icon-sm));
 }
 
 /* A long list scrolls inside the card, so Disconnect stays near the top of the tab. The rows' hover fill goes past
@@ -44,7 +44,7 @@
 .github-connector-repository-list {
   display: grid;
   max-height: 260px;
-  margin: 0 calc(var(--openbot-space-2) * -1);
+  margin: 0 calc(var(--openownbot-space-2) * -1);
   padding: 0;
   overflow-y: auto;
   list-style: none;
@@ -52,18 +52,18 @@
 
 .github-connector-repository {
   display: flex;
-  gap: var(--openbot-space-2);
+  gap: var(--openownbot-space-2);
   align-items: center;
   justify-content: space-between;
   /* The same height with and without the Private badge. */
   min-height: 36px;
-  padding: 0 var(--openbot-space-2);
-  border-radius: var(--openbot-radius-md);
-  transition: background-color var(--openbot-duration-fast) var(--openbot-ease-out);
+  padding: 0 var(--openownbot-space-2);
+  border-radius: var(--openownbot-radius-md);
+  transition: background-color var(--openownbot-duration-fast) var(--openownbot-ease-out);
 }
 
 .github-connector-repository:hover {
-  background: var(--openbot-hover);
+  background: var(--openownbot-hover);
 }
 
 .github-connector-repository-name {
@@ -71,12 +71,12 @@
 }
 
 .github-connector-repository-owner {
-  color: var(--openbot-text-muted);
+  color: var(--openownbot-text-muted);
 }
 
 .github-connector-private {
   flex: none;
-  gap: var(--openbot-space-1);
+  gap: var(--openownbot-space-1);
 }
 
 /* ------------------------------------------------ connect dialog */
@@ -90,7 +90,7 @@
 /* The code is about to be typed on another screen, so each character has its own tile. */
 .github-connector-code {
   display: flex;
-  gap: var(--openbot-space-1-5);
+  gap: var(--openownbot-space-1-5);
   justify-content: center;
 }
 
@@ -99,35 +99,35 @@
   width: 36px;
   height: 48px;
   place-items: center;
-  border: 1px solid var(--openbot-border);
-  border-radius: var(--openbot-radius-md);
-  background: var(--openbot-bg-surface);
-  font-family: var(--openbot-font-mono);
-  font-size: var(--openbot-text-xl);
-  font-weight: var(--openbot-weight-semibold);
+  border: 1px solid var(--openownbot-border);
+  border-radius: var(--openownbot-radius-md);
+  background: var(--openownbot-bg-surface);
+  font-family: var(--openownbot-font-mono);
+  font-size: var(--openownbot-text-xl);
+  font-weight: var(--openownbot-weight-semibold);
 }
 
 .github-connector-code-char[data-separator="true"] {
   width: 12px;
-  border-color: var(--openbot-transparent);
-  background: var(--openbot-transparent);
-  color: var(--openbot-text-muted);
+  border-color: var(--openownbot-transparent);
+  background: var(--openownbot-transparent);
+  color: var(--openownbot-text-muted);
 }
 
 .github-connector-waiting {
   display: flex;
-  gap: var(--openbot-space-2);
+  gap: var(--openownbot-space-2);
   align-items: center;
   justify-content: center;
 }
 
 .github-connector-done {
   display: flex;
-  gap: var(--openbot-space-3);
+  gap: var(--openownbot-space-3);
   align-items: center;
-  padding: var(--openbot-space-3) var(--openbot-space-4);
-  border-radius: var(--openbot-radius-lg);
-  background: var(--openbot-success-wash);
+  padding: var(--openownbot-space-3) var(--openownbot-space-4);
+  border-radius: var(--openownbot-radius-lg);
+  background: var(--openownbot-success-wash);
 }
 
 .github-connector-done > div {

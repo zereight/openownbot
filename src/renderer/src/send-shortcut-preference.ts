@@ -5,12 +5,12 @@ import {
   type SendShortcutMode,
   sendShortcutAriaKey,
   sendShortcutHintKey,
-} from "@openbot/ui/features/conversation/send-shortcut";
+} from "@openownbot/ui/features/conversation/send-shortcut";
 import { createSignal } from "solid-js";
 
 export { sendShortcutAriaKey, sendShortcutHintKey };
 
-const SEND_SHORTCUT_STORAGE_KEY = "openbot:send-shortcut-mode";
+const SEND_SHORTCUT_STORAGE_KEY = "openownbot:send-shortcut-mode";
 
 export type { SendShortcutMode };
 

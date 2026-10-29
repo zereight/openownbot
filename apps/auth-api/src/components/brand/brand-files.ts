@@ -58,9 +58,9 @@ export async function saveBrandZip(): Promise<void> {
   const encoder = new TextEncoder();
   const files: Record<string, Uint8Array> = {};
   for (const asset of BRAND_ASSETS) {
-    files[`openbot-brand/svg/${asset.file}.svg`] = encoder.encode(asset.svg);
+    files[`openownbot-brand/svg/${asset.file}.svg`] = encoder.encode(asset.svg);
     const png = await pngBlob(asset);
-    if (png) files[`openbot-brand/png/${asset.file}.png`] = new Uint8Array(await png.arrayBuffer());
+    if (png) files[`openownbot-brand/png/${asset.file}.png`] = new Uint8Array(await png.arrayBuffer());
   }
   // `zipSync` types its buffer as ArrayBufferLike, and Blob takes only an ArrayBuffer, so copy it.
   saveBlob(new Blob([new Uint8Array(zipSync(files, { level: 6 }))], { type: "application/zip" }), BRAND_ZIP_FILE);

@@ -5,7 +5,7 @@
 // level and the mute are set on a real `RemoteServerManager` on a temporary profile. Only the local
 // server is used, so no remote host or account is needed.
 // Run: `bun scripts/desktop-notifications-e2e.ts`.
-// Writes .openbot-build/desktop-notifications-e2e/report.json.
+// Writes .openownbot-build/desktop-notifications-e2e/report.json.
 
 import assert from "node:assert/strict";
 import { EventEmitter } from "node:events";
@@ -18,8 +18,8 @@ import {
   LOCAL_SERVER_ID,
   type ServerNotificationLevel,
   type ServerSummary,
-} from "@openbot/contracts/ipc";
-import { createFormat, translateFor } from "@openbot/i18n";
+} from "@openownbot/contracts/ipc";
+import { createFormat, translateFor } from "@openownbot/i18n";
 import { plugin } from "bun";
 import { Effect } from "effect";
 import type { AgentBrowserHost } from "../src/backend/agent/turn-lifecycle";
@@ -27,11 +27,11 @@ import { AgentService } from "../src/backend/agent-service";
 import { AgentStore } from "../src/backend/agent-store";
 import { runCauseEffect } from "../src/backend/effect-boundary";
 import { MailboxStore } from "../src/backend/mailbox-store";
-import { OpenBotDatabase } from "../src/backend/openbot-database";
+import { OpenOwnBotDatabase } from "../src/backend/openownbot-database";
 import { SidebarLayoutStore } from "../src/backend/sidebar-layout-store";
 import type { NotificationRelayRequest } from "../src/main/push-notifications";
 
-const OUT = resolve(import.meta.dirname, "../.openbot-build/desktop-notifications-e2e");
+const OUT = resolve(import.meta.dirname, "../.openownbot-build/desktop-notifications-e2e");
 const APP_VERSION = "0.0.0-e2e";
 const STEP_DEADLINE_MS = 30_000;
 const OWNER_ID = "owner";
@@ -157,7 +157,7 @@ async function step<T>(name: string, run: () => Promise<T>): Promise<T> {
   }
 }
 
-const root = await mkdtemp(join(tmpdir(), "openbot-desktop-notifications-"));
+const root = await mkdtemp(join(tmpdir(), "openownbot-desktop-notifications-"));
 const userData = join(root, "user-data");
 const unused = () => Effect.die(new Error("Not used by this check."));
 const agentBrowser: AgentBrowserHost = {
@@ -183,7 +183,7 @@ const cipher = {
 };
 const centralAccount = { createTeamAuthTicket: unused, getEmail: () => "e2e@example.invalid" };
 
-const database = new OpenBotDatabase(userData);
+const database = new OpenOwnBotDatabase(userData);
 const agentStore = new AgentStore(userData, join(root, "home"), database);
 const mailbox = new MailboxStore(userData, agentStore.sharedRoot, agentStore.database);
 const sidebar = new SidebarLayoutStore(join(userData, "sidebar-layout.json"));

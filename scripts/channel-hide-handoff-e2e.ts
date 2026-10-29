@@ -8,10 +8,10 @@
 // keeps its queued task and does not start it until the restore, and that after a provider switch
 // the owner answers in the channel on the new provider, with the channel context. It makes its own
 // channels and deletes them, restores each agent it hides, and gives the agent its provider back.
-// Writes .openbot-build/channel-hide-handoff-e2e/report.json.
+// Writes .openownbot-build/channel-hide-handoff-e2e/report.json.
 import assert from "node:assert/strict";
-import { agentProviderDescriptor, isAgentProvider } from "@openbot/contracts/agent-providers";
-import type { AgentSummary, ChannelPage, ChannelTask } from "@openbot/contracts/ipc";
+import { agentProviderDescriptor, isAgentProvider } from "@openownbot/contracts/agent-providers";
+import type { AgentSummary, ChannelPage, ChannelTask } from "@openownbot/contracts/ipc";
 import {
   argument,
   ChannelClient,
@@ -123,7 +123,7 @@ try {
 
   // 3. After a provider switch the owner answers in the channel on the new provider.
   const providerId = argument("provider");
-  const models = await page.evaluate(() => window.openbot.agent.listModels());
+  const models = await page.evaluate(() => window.openownbot.agent.listModels());
   const target = models
     .flatMap((model) => (isAgentProvider(model.provider) ? [{ ...model, provider: model.provider }] : []))
     .find((model) => (providerId ? model.provider === providerId : model.provider !== c.provider));

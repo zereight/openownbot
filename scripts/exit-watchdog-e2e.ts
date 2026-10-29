@@ -7,7 +7,7 @@
 // 3. A launch after that takes the single-instance lock.
 //
 // Run: bun scripts/exit-watchdog-e2e.ts
-// It writes .openbot-build/exit-watchdog-e2e/report.json and exits non-zero on a failure.
+// It writes .openownbot-build/exit-watchdog-e2e/report.json and exits non-zero on a failure.
 import assert from "node:assert/strict";
 import { type ChildProcess, spawn, spawnSync } from "node:child_process";
 import { closeSync, existsSync, openSync, readFileSync } from "node:fs";
@@ -15,11 +15,11 @@ import { mkdir, mkdtemp, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import { setTimeout as sleep } from "node:timers/promises";
-import { isDynamicRecord } from "@openbot/contracts/runtime-values";
+import { isDynamicRecord } from "@openownbot/contracts/runtime-values";
 import { withoutElectronRuntimeFlags } from "./electron-spawn-env";
 
 const ROOT = resolve(import.meta.dirname, "..");
-const OUT = join(ROOT, ".openbot-build", "exit-watchdog-e2e");
+const OUT = join(ROOT, ".openownbot-build", "exit-watchdog-e2e");
 const STATE_TIMEOUT_MS = 30_000;
 // The watchdog limit is 10 s; the shell, `ps` and the kill get a few seconds more.
 const STUCK_EXIT_LIMIT_MS = 15_000;
@@ -49,7 +49,7 @@ if (process.platform === "win32") {
   process.stdout.write("SKIP: the exit watchdog does not run on Windows\n");
   process.exit(0);
 }
-const root = await mkdtemp(join(tmpdir(), "openbot-exit-watchdog-"));
+const root = await mkdtemp(join(tmpdir(), "openownbot-exit-watchdog-"));
 const bundle = join(root, "exit-watchdog-electron.mjs");
 const fifo = join(root, "approval.fifo");
 const children = new Set<ChildProcess>();

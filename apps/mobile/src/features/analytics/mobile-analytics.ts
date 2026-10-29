@@ -1,5 +1,5 @@
-import { LOCAL_ONLY } from "@openbot/contracts/local-only";
-import { ANALYTICS_GENERATIONS } from "@openbot/telemetry";
+import { LOCAL_ONLY } from "@openownbot/contracts/local-only";
+import { ANALYTICS_GENERATIONS } from "@openownbot/telemetry";
 import { OpenPanel, type TrackHandlerPayload } from "@openpanel/react-native";
 import * as Application from "expo-application";
 import { Platform } from "react-native";

@@ -14,8 +14,8 @@ import { PiAgentClient } from "../src/backend/pi-client";
 import { type AppServerNotification, getString, isRecord } from "../src/backend/protocol";
 import { requireProviderDriver } from "../src/backend/provider-drivers";
 
-const out = resolve(import.meta.dirname, "../.openbot-build/provider-image-mime-e2e");
-const root = await mkdtemp(join(tmpdir(), "openbot-image-mime-"));
+const out = resolve(import.meta.dirname, "../.openownbot-build/provider-image-mime-e2e");
+const root = await mkdtemp(join(tmpdir(), "openownbot-image-mime-"));
 const consumers = ["acp", "muse", "pi"] as const;
 type Consumer = (typeof consumers)[number];
 

@@ -3,7 +3,7 @@ import {
   providerEnvironmentInputIssue,
   providerEnvironmentIssue,
   readProviderEnvironment,
-} from "@openbot/contracts/provider-environment";
+} from "@openownbot/contracts/provider-environment";
 import { describe, expect, it } from "vitest";
 
 const none = new Set<string>();
@@ -15,7 +15,7 @@ describe("providerEnvironmentIssue", () => {
     expect(providerEnvironmentIssue("")).not.toBeNull();
   });
 
-  it("refuses the names that OpenBot owns", () => {
+  it("refuses the names that OpenOwnBot owns", () => {
     for (const name of [
       "ANTHROPIC_API_KEY",
       "PATH",
@@ -23,7 +23,7 @@ describe("providerEnvironmentIssue", () => {
       "CLAUDE_CONFIG_DIR",
       "NODE_OPTIONS",
       "CLAUDE_CODE_ENABLE_TODO_TOOLS",
-      "OPENBOT_AGENT_PROCESS",
+      "OPENOWNBOT_AGENT_PROCESS",
       "CLAUDE_AGENT_SDK_CLIENT_APP",
       "DYLD_INSERT_LIBRARIES",
       "LD_PRELOAD",

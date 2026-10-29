@@ -1,5 +1,9 @@
-import { serializeChatTagReference } from "@openbot/contracts/chat-tag-references";
-import { canAdministerServer, type MarketplaceAgentDetail, type MarketplaceSkillDetail } from "@openbot/contracts/ipc";
+import { serializeChatTagReference } from "@openownbot/contracts/chat-tag-references";
+import {
+  canAdministerServer,
+  type MarketplaceAgentDetail,
+  type MarketplaceSkillDetail,
+} from "@openownbot/contracts/ipc";
 import { useQuery } from "@tanstack/react-query";
 import * as Crypto from "expo-crypto";
 import { router, Stack, useLocalSearchParams } from "expo-router";

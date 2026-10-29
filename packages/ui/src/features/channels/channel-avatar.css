@@ -2,18 +2,18 @@
   display: inline-flex;
   align-items: center;
   flex-shrink: 0;
-  min-width: var(--openbot-space-8);
-  height: var(--openbot-space-8);
-  color: var(--openbot-text-muted);
+  min-width: var(--openownbot-space-8);
+  height: var(--openownbot-space-8);
+  color: var(--openownbot-text-muted);
 }
 .channel-avatar .agent-avatar {
   /* The optical lift paints a face's drawing like a positioned box. A photo has no drawing, so the
      face itself is positioned, and each face paints over the one before it in order. */
   position: relative;
-  width: var(--openbot-space-8);
-  height: var(--openbot-space-8);
+  width: var(--openownbot-space-8);
+  height: var(--openownbot-space-8);
   flex-shrink: 0;
-  border-radius: var(--openbot-radius-pill);
+  border-radius: var(--openownbot-radius-pill);
 }
 /*
  * The cluster holds the members in the square an agent avatar occupies, so a channel row keeps the
@@ -54,7 +54,7 @@
 /* The row layout overlaps its faces. `:where` keeps the cluster out at no weight, so a surface
    that sets its own overlap wins. */
 .channel-avatar:where(:not(.channel-avatar-cluster)) .agent-avatar + .agent-avatar {
-  margin-left: calc(-1 * var(--openbot-space-4));
+  margin-left: calc(-1 * var(--openownbot-space-4));
 }
 /* One member is the channel's whole face. Two sit side by side, and three read as a triangle; a
    count of two digits takes the third place. */
@@ -92,15 +92,15 @@
   height: calc(var(--channel-avatar-size) * 0.46);
   padding-inline: 1px;
   place-items: center;
-  border-radius: var(--openbot-radius-pill);
+  border-radius: var(--openownbot-radius-pill);
   outline: var(--agent-avatar-outline-width) solid var(--agent-avatar-outline, transparent);
-  background: var(--openbot-bg-control-active);
-  color: var(--openbot-text-secondary);
+  background: var(--openownbot-bg-control-active);
+  color: var(--openownbot-text-secondary);
   /* The count is type, so it takes a step off the type scale rather than a share of the square:
      the smallest step that stays legible on the disc at both cluster sizes. */
-  font-size: var(--openbot-text-sm);
+  font-size: var(--openownbot-text-sm);
   line-height: 1;
-  font-weight: var(--openbot-weight-semibold);
+  font-weight: var(--openownbot-weight-semibold);
   font-variant-numeric: tabular-nums;
   letter-spacing: -0.04em;
 }

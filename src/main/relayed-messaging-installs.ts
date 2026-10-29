@@ -1,9 +1,9 @@
 // The Slack and Discord installs that this computer opened for a joined server (`connectors-v1`).
-// Each install ends in an `openbot://` link to this computer. The link carries a grant that is sealed
+// Each install ends in an `openownbot://` link to this computer. The link carries a grant that is sealed
 // to a one-use key of the host, so this computer cannot open it and only sends it on.
 
-import { decodeRecord, requiredBoolean } from "@openbot/contracts/ipc-decoding";
-import { CONNECTORS_ROUTES } from "@openbot/contracts/team-protocol/connectors-v1";
+import { decodeRecord, requiredBoolean } from "@openownbot/contracts/ipc-decoding";
+import { CONNECTORS_ROUTES } from "@openownbot/contracts/team-protocol/connectors-v1";
 import { Effect } from "effect";
 import type { ResponseDecoder } from "./remote-host-decoding";
 import type { RemoteRequestInit } from "./remote-server-client";

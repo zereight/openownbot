@@ -1,5 +1,5 @@
 import { RequestError } from "@agentclientprotocol/sdk";
-import { type SourceMessages, sourceText } from "@openbot/i18n/source";
+import { type SourceMessages, sourceText } from "@openownbot/i18n/source";
 import { type AcpFlavor, shownFailureDetail } from "./acp-flavor";
 import { isUsageLimitDiagnostic } from "./agent/provider-diagnostics";
 import { isRecord } from "./protocol";
@@ -83,7 +83,7 @@ const OPENCODE_REQUEST_FAILURES = [
 /**
  * OpenCode retries a rate limit or a provider failure by itself. When it stops, it fails the prompt
  * with the provider's text behind `Internal error:`, so a billing refusal, a rate limit and an
- * offline computer all read as one failure of OpenBot, and the user could not tell whether
+ * offline computer all read as one failure of OpenOwnBot, and the user could not tell whether
  * waiting helps (#1163). The kind comes first; the provider's own text follows it.
  */
 function openCodeRequestFailure(
@@ -156,6 +156,6 @@ export const OPENCODE_ACP_FLAVOR: AcpFlavor = {
   // Ending the answer at each thought cut words in two, such as "B aca" (#3351).
   thoughtsInsideAnswer: true,
   // OpenCode 2.1.4 adds each session's MCP servers to the session's directory under their names. A
-  // second chat of the agent replaced the `openbot` token, and closing it left the first refused.
+  // second chat of the agent replaced the `openownbot` token, and closing it left the first refused.
   mcpServersPerDirectory: true,
 };

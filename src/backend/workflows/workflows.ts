@@ -21,8 +21,8 @@
  * did not start is sent then; one that was on its way fails as uncertain.
  */
 
-import { isAgentProvider } from "@openbot/contracts/agent-providers";
-import { INPUT_LIMITS } from "@openbot/contracts/input-limits";
+import { isAgentProvider } from "@openownbot/contracts/agent-providers";
+import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
 import {
   type AgentEvent,
   type AgentReasoningEffort,
@@ -51,10 +51,10 @@ import {
   type WorkflowSummary,
   type WorkflowVersion,
   type WorkflowVersionInput,
-} from "@openbot/contracts/ipc";
-import { sourceText } from "@openbot/i18n/source";
-import { createOpenBotLogger } from "@openbot/logging";
-import { RoutineInputError } from "@openbot/team-client/routine-schedule";
+} from "@openownbot/contracts/ipc";
+import { sourceText } from "@openownbot/i18n/source";
+import { createOpenOwnBotLogger } from "@openownbot/logging";
+import { RoutineInputError } from "@openownbot/team-client/routine-schedule";
 import { Cause, Context, Effect, Exit, Fiber, Layer, ManagedRuntime, Result, Schema, Scope, Semaphore } from "effect";
 import { isNoUpdateAnswer } from "../agent/routine-quiet-runs";
 import type { AgentProvider } from "../agent-client";
@@ -96,7 +96,7 @@ import {
   unsupportedNode,
 } from "./workflow-walk";
 
-const logger = createOpenBotLogger("workflows");
+const logger = createOpenOwnBotLogger("workflows");
 
 /** A model step or a condition gets this many tries, the first included. */
 const GENERATION_ATTEMPTS = 3;
@@ -291,7 +291,7 @@ interface WorkflowsShape {
   working(): boolean;
 }
 
-class Workflows extends Context.Service<Workflows, WorkflowsShape>()("openbot/backend/Workflows") {
+class Workflows extends Context.Service<Workflows, WorkflowsShape>()("openownbot/backend/Workflows") {
   static layer(dependencies: WorkflowsDependencies) {
     return Layer.effect(
       Workflows,

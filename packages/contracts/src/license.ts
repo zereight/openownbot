@@ -14,22 +14,22 @@ import { isBoolean, isDynamicRecord, isNumber, isOneOf, isString } from "./runti
  */
 
 /** The Stripe Price lookup key of the license. `stripe-bootstrap.ts` creates it. */
-export const LICENSE_LOOKUP_KEY = "openbot_license_month";
+export const LICENSE_LOOKUP_KEY = "openownbot_license_month";
 /** The Stripe Product of the license. */
-export const LICENSE_PRODUCT_ID = "openbot_license";
+export const LICENSE_PRODUCT_ID = "openownbot_license";
 /**
  * The subscription metadata of a license. It names the account with `BILLING_METADATA.userId` and has
  * no server id, so a Worker that knows only server plans ignores it.
  */
 export const LICENSE_METADATA = {
-  kind: "openbot_kind",
+  kind: "openownbot_kind",
   /**
    * The most users that Stripe invoiced in the period that ends at `paidPeriodEnd`. Fewer users apply
    * with no refund, so a later increase up to this count is already paid.
    */
-  paidUsers: "openbot_paid_users",
+  paidUsers: "openownbot_paid_users",
   /** The end of the period that `paidUsers` is for, in milliseconds since the epoch. */
-  paidPeriodEnd: "openbot_paid_period_end",
+  paidPeriodEnd: "openownbot_paid_period_end",
 } as const;
 export const LICENSE_METADATA_KIND = "license";
 

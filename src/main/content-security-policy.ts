@@ -1,5 +1,5 @@
-import { LOCAL_ONLY } from "@openbot/contracts/local-only";
-import { isMobileConnectDevelopmentHost } from "@openbot/contracts/mobile-connect";
+import { LOCAL_ONLY } from "@openownbot/contracts/local-only";
+import { isMobileConnectDevelopmentHost } from "@openownbot/contracts/mobile-connect";
 
 function unlessLocalOnly(source: string): string {
   return LOCAL_ONLY ? "" : source;
@@ -20,7 +20,7 @@ export function buildContentSecurityPolicy(
     "default-src 'self'",
     "script-src 'self'",
     "style-src 'self' 'unsafe-inline'",
-    `img-src 'self' data: openbot-attachment: openbot-remote-attachment: openbot-avatar: openbot-remote-avatar: openbot-server-logo: openbot-remote-server-logo: https:${developmentImageSources}`,
+    `img-src 'self' data: openbot-attachment: openbot-remote-attachment: openbot-avatar: openownbot-remote-avatar: openownbot-server-logo: openownbot-remote-server-logo: https:${developmentImageSources}`,
     "font-src 'self' data:",
     // The lightbox plays a recording from the attachment scheme, and the preview panel plays one
     // from an object URL of the bytes that the main process sent. Neither matches `default-src`.
@@ -28,14 +28,14 @@ export function buildContentSecurityPolicy(
     `connect-src 'self' openbot-attachment: openbot-remote-attachment:${unlessLocalOnly(" https://analytics.openbot.run")} ws://127.0.0.1:*${unlessLocalOnly(" wss://*.openbot.run")}${selfHostedSignalSource}${developmentSources}`,
     "object-src 'none'",
     // The remote desktop viewer uses a loopback proxy in packaged apps too.
-    `frame-src 'self' openbot-attachment: openbot-remote-attachment: openbot-visual: openbot-remote-visual:${unlessLocalOnly(" https://*.openbot.run")} http://127.0.0.1:* http://localhost:*`,
+    `frame-src 'self' openbot-attachment: openbot-remote-attachment: openownbot-visual: openownbot-remote-visual:${unlessLocalOnly(" https://*.openbot.run")} http://127.0.0.1:* http://localhost:*`,
     "base-uri 'none'",
   ].join("; ");
 }
 
 /**
  * The Signal origin of a self-hosted Account API. The Worker still chooses the URL in each ticket;
- * this only lets the peer window open it. It needs `OPENBOT_AUTH_API_URL`, because our Worker never
+ * this only lets the peer window open it. It needs `OPENOWNBOT_AUTH_API_URL`, because our Worker never
  * issues a ticket for another Signal.
  */
 export function readSelfHostedSignalOrigin(
@@ -43,10 +43,10 @@ export function readSelfHostedSignalOrigin(
   signalUrl: string | undefined,
 ): string | null {
   if (!signalUrl) return null;
-  if (!authApiUrl) throw new Error("OPENBOT_REMOTE_SIGNAL_URL needs OPENBOT_AUTH_API_URL.");
+  if (!authApiUrl) throw new Error("OPENOWNBOT_REMOTE_SIGNAL_URL needs OPENOWNBOT_AUTH_API_URL.");
   const url = new URL(signalUrl);
   if (url.protocol !== "wss:" || url.username !== "" || url.password !== "") {
-    throw new Error("OPENBOT_REMOTE_SIGNAL_URL must be a wss: URL without credentials.");
+    throw new Error("OPENOWNBOT_REMOTE_SIGNAL_URL must be a wss: URL without credentials.");
   }
   return url.origin;
 }

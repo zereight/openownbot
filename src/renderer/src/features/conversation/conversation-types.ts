@@ -28,17 +28,17 @@ import type {
   UpdateAgentAdminSettingsInput,
   UpdateAgentInput,
   WorkspaceDirectory,
-} from "@openbot/contracts/ipc";
-import type { ConversationUiBlock } from "@openbot/contracts/ui-blocks";
-import type { AgentMessage, AgentProfile } from "@openbot/ui/data";
-import type { BrowserViewRuntime } from "@openbot/ui/features/browser/BrowserLiveView";
-import type { ChannelWorker } from "@openbot/ui/features/channels/ChannelActivityIndicator";
-import type { AwaitingReplyItem } from "@openbot/ui/features/conversation/AwaitingReplies";
-import type { UsageLimitAskCardProps } from "@openbot/ui/features/conversation/BackupModels";
-import type { ChatMessageAuthor } from "@openbot/ui/features/conversation/ChatMessageRow";
-import type { UnloadedHistory } from "@openbot/ui/features/conversation/ChatScrollRail";
-import type { ThreadHeaderProps } from "@openbot/ui/features/conversation/threads/thread-types";
-import type { SidebarAgentWait } from "@openbot/ui/features/sidebar/sidebar-agent-states";
+} from "@openownbot/contracts/ipc";
+import type { ConversationUiBlock } from "@openownbot/contracts/ui-blocks";
+import type { AgentMessage, AgentProfile } from "@openownbot/ui/data";
+import type { BrowserViewRuntime } from "@openownbot/ui/features/browser/BrowserLiveView";
+import type { ChannelWorker } from "@openownbot/ui/features/channels/ChannelActivityIndicator";
+import type { AwaitingReplyItem } from "@openownbot/ui/features/conversation/AwaitingReplies";
+import type { UsageLimitAskCardProps } from "@openownbot/ui/features/conversation/BackupModels";
+import type { ChatMessageAuthor } from "@openownbot/ui/features/conversation/ChatMessageRow";
+import type { UnloadedHistory } from "@openownbot/ui/features/conversation/ChatScrollRail";
+import type { ThreadHeaderProps } from "@openownbot/ui/features/conversation/threads/thread-types";
+import type { SidebarAgentWait } from "@openownbot/ui/features/sidebar/sidebar-agent-states";
 import type { JSX } from "@solidjs/web";
 import type { ConnectorRegistry } from "../connectors/connector-registry";
 import type { ConversationRuntime } from "./conversation-runtime";
@@ -144,7 +144,7 @@ export interface ConversationProps {
   onOpenMcpSignIn?: ((mcpServerId: string, trigger: HTMLElement | null) => void) | undefined;
   /** Whether the server on screen holds a sign-in for an MCP row, as Server settings last read it. */
   mcpSignedIn?: ((mcpServerId: string) => boolean) | undefined;
-  platform?: import("@openbot/contracts/ipc").AppInfo["platform"] | undefined;
+  platform?: import("@openownbot/contracts/ipc").AppInfo["platform"] | undefined;
 
   agentStatus: AgentStatus;
   /** A joined server's agents are still on their way, so the composer says that it connects. */
@@ -171,7 +171,7 @@ export interface ConversationProps {
   /**
    * Take the user to the provider's sign-in. Separate from `onConnectProvider`, which is the
    * managed-download path and is withheld when downloads are unavailable: a signed-out provider
-   * needs a way in whether or not OpenBot manages its CLI.
+   * needs a way in whether or not OpenOwnBot manages its CLI.
    */
   onSignInProvider?: ((provider: AgentProviderId) => void | Promise<void>) | undefined;
   /** The code sign-in, for a provider that has one, when the browser sign-in is slow or fails. */
@@ -319,7 +319,7 @@ export interface ConversationProps {
   onUpdateAgentPermissions?: ((input: UpdateAgentAdminSettingsInput) => Promise<void>) | undefined;
   /** Starts a new chat with the agent. Absent when its host does not serve `context-reset-v1`. */
   onClearAgentContext?: (() => Promise<void>) | undefined;
-  /** Compacts the agent's context now. The context ring offers it only where OpenBot compacts. */
+  /** Compacts the agent's context now. The context ring offers it only where OpenOwnBot compacts. */
   onCompactAgentContext?: (() => Promise<void>) | undefined;
   onRespondToBrowserTakeover: (decision: "complete" | "cancel") => Promise<boolean>;
   onCancelQueuedMessage: (deliveryId: string) => void;
@@ -388,7 +388,7 @@ export type RightPanelMode =
   | "voice"
   | "subagent";
 
-export type { SidePanelPane } from "@openbot/ui/features/conversation/SidePanel";
+export type { SidePanelPane } from "@openownbot/ui/features/conversation/SidePanel";
 
 /**
  * The threads of the active agent. A side thread is a task of the host; the agent's own chat is the

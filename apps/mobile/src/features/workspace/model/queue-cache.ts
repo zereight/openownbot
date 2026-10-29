@@ -1,4 +1,4 @@
-import type { AgentEvent } from "@openbot/contracts/ipc";
+import type { AgentEvent } from "@openownbot/contracts/ipc";
 import type { QueryClient } from "@tanstack/react-query";
 import { queryKeys } from "@/features/workspace/model/query-keys";
 

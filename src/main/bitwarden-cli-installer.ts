@@ -1,10 +1,10 @@
-// Installs the Bitwarden CLI into a folder that OpenBot owns, so a server with no `bw` on its PATH,
+// Installs the Bitwarden CLI into a folder that OpenOwnBot owns, so a server with no `bw` on its PATH,
 // such as the Docker image, can connect Bitwarden or Vaultwarden.
 
 import { randomBytes } from "node:crypto";
 import { chmod, mkdir, rename, rm, stat } from "node:fs/promises";
 import { join } from "node:path";
-import { sourceText } from "@openbot/i18n/source";
+import { sourceText } from "@openownbot/i18n/source";
 import { Effect } from "effect";
 import { causeHelpers } from "../backend/effect-boundary";
 import { PasswordVaultError } from "../backend/password-vault";

@@ -53,7 +53,7 @@ export const messages = {
     "Папка {folder} находится в рабочем пространстве, поэтому {agent} уже может её изменять",
   "agentSettings.folders.inShared": "Папка {folder} находится в общей папке, поэтому {agent} уже может её изменять",
   "agentSettings.folders.inFolder": "Папка {folder} находится в уже добавленной папке {parent}",
-  "agentSettings.folders.protected": "Нельзя добавить папку {folder}: в ней данные OpenBot или файлы других агентов",
+  "agentSettings.folders.protected": "Нельзя добавить папку {folder}: в ней данные OpenOwnBot или файлы других агентов",
   "agentSettings.folders.missing": "На этом компьютере нет папки {folder}",
   "agentSettings.folders.limit": {
     one: "Можно добавить не больше {count} папки",

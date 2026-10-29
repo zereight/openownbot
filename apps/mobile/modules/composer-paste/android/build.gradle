@@ -3,11 +3,11 @@ plugins {
   id 'expo-module-gradle-plugin'
 }
 
-group = 'run.openbot'
+group = 'run.openownbot'
 version = '1.0.0'
 
 android {
-  namespace "run.openbot.composerpaste"
+  namespace "run.openownbot.composerpaste"
   defaultConfig {
     versionCode 1
     versionName '1.0.0'

@@ -1,25 +1,25 @@
-// Checks that an agent keeps its provider session when OpenBot's child processes stop under it.
+// Checks that an agent keeps its provider session when OpenOwnBot's child processes stop under it.
 // Runs the real agent service on a temporary profile with a fake Codex app-server (or a fake OpenCode
 // with `PROBE_PROVIDER=opencode`), and the real Computer Use runtime with a fake driver daemon.
 // 1. After one turn the fake provider gets SIGTERM, as it does when the operating system or a process
 //    supervisor stops the app's process group. The runtime starts it again, and the next turn must
 //    resume the same provider thread rather than start a new one, which would lose its own context.
-// 2. The same signal reaches the driver daemon while OpenBot quits. Its exit must not deactivate the
+// 2. The same signal reaches the driver daemon while OpenOwnBot quits. Its exit must not deactivate the
 //    stored sessions, which the next run resumes.
-// 3. Control: a daemon that dies while OpenBot keeps running still deactivates them, because the live
+// 3. Control: a daemon that dies while OpenOwnBot keeps running still deactivates them, because the live
 //    sessions then hold a tool set that is not the one they would be given now.
-// `bun run test:provider-exit-session`. Writes .openbot-build/provider-exit-session-e2e/report.json.
+// `bun run test:provider-exit-session`. Writes .openownbot-build/provider-exit-session-e2e/report.json.
 import { type ChildProcess, spawn } from "node:child_process";
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { mkdtemp, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
-import { AGENT_PROVIDERS } from "@openbot/contracts/ipc";
+import { AGENT_PROVIDERS } from "@openownbot/contracts/ipc";
 import { Effect } from "effect";
 import type { AgentBrowserHost } from "../src/backend/agent/turn-lifecycle";
 
-const OUT = resolve(import.meta.dirname, "../.openbot-build/provider-exit-session-e2e");
-const root = await mkdtemp(join(tmpdir(), "openbot-provider-exit-"));
+const OUT = resolve(import.meta.dirname, "../.openownbot-build/provider-exit-session-e2e");
+const root = await mkdtemp(join(tmpdir(), "openownbot-provider-exit-"));
 const userData = join(root, "user-data");
 const home = join(root, "home");
 const logPath = join(root, "protocol.jsonl");
@@ -27,15 +27,15 @@ const fakeCodex = join(root, "codex");
 const fakeOpenCode = join(root, "opencode");
 const fakeDriver = join(root, "cua-driver");
 // The socket path limit is 103 characters on macOS, and the temporary folder there is long.
-const driverRoot = await mkdtemp("/tmp/openbot-cua-");
+const driverRoot = await mkdtemp("/tmp/openownbot-cua-");
 const PROVIDER = process.env.PROBE_PROVIDER === "opencode" ? "opencode" : "codex";
 
 // Before the service modules load: the Codex process and the stores read the home folder.
 process.env.HOME = home;
 process.env.CODEX_HOME = join(home, ".codex");
-process.env.OPENBOT_CODEX_PATH = fakeCodex;
-process.env.OPENBOT_FAKE_CODEX_LOG = logPath;
-process.env.OPENBOT_OPENCODE_PATH = fakeOpenCode;
+process.env.OPENOWNBOT_CODEX_PATH = fakeCodex;
+process.env.OPENOWNBOT_FAKE_CODEX_LOG = logPath;
+process.env.OPENOWNBOT_OPENCODE_PATH = fakeOpenCode;
 mkdirSync(home, { recursive: true });
 
 const { AgentService } = await import("../src/backend/agent-service");
@@ -43,7 +43,7 @@ const { AgentStore } = await import("../src/backend/agent-store");
 const { CuaDriverRuntime } = await import("../src/main/cua-driver-runtime");
 const { runCauseEffect } = await import("../src/backend/effect-boundary");
 const { MailboxStore } = await import("../src/backend/mailbox-store");
-const { OpenBotDatabase } = await import("../src/backend/openbot-database");
+const { OpenOwnBotDatabase } = await import("../src/backend/openownbot-database");
 
 // A Codex app-server that keeps its threads in a file, as the real one keeps them on disk, so a
 // restarted process resumes a thread that the previous process started.
@@ -53,7 +53,7 @@ if (process.argv.includes("--version")) {
   process.stdout.write("codex-cli 0.160.1\\n");
   process.exit(0);
 }
-const log = (entry) => fs.appendFileSync(process.env.OPENBOT_FAKE_CODEX_LOG, JSON.stringify({ pid: process.pid, ...entry }) + "\\n");
+const log = (entry) => fs.appendFileSync(process.env.OPENOWNBOT_FAKE_CODEX_LOG, JSON.stringify({ pid: process.pid, ...entry }) + "\\n");
 log({ start: true });
 const config = { config: { mcp_servers: {} }, layers: [{ name: { type: "user", file: "/fake/.codex/config.toml", profile: null }, version: "1", config: { mcp_servers: {} } }] };
 let buffer = "";
@@ -115,7 +115,7 @@ const FAKE_OPENCODE = `#!/usr/bin/env node
 const fs = require("node:fs");
 const NL = String.fromCharCode(10);
 if (process.argv.includes("--version")) { process.stdout.write("1.19.3" + NL); process.exit(0); }
-const log = (entry) => fs.appendFileSync(process.env.OPENBOT_FAKE_CODEX_LOG, JSON.stringify({ pid: process.pid, ...entry }) + NL);
+const log = (entry) => fs.appendFileSync(process.env.OPENOWNBOT_FAKE_CODEX_LOG, JSON.stringify({ pid: process.pid, ...entry }) + NL);
 log({ start: true, argv: process.argv.slice(2) });
 const write = (message) => process.stdout.write(JSON.stringify({ jsonrpc: "2.0", ...message }) + NL);
 const MODEL = "opencode/big-pickle";
@@ -223,7 +223,7 @@ async function waitFor<T>(label: string, read: () => T | null | undefined | fals
 await writeFile(fakeCodex, FAKE_CODEX, { mode: 0o755 });
 await writeFile(fakeOpenCode, FAKE_OPENCODE, { mode: 0o755 });
 await writeFile(fakeDriver, FAKE_DRIVER, { mode: 0o755 });
-const database = new OpenBotDatabase(userData);
+const database = new OpenOwnBotDatabase(userData);
 const store = new AgentStore(userData, home, database);
 const mailbox = new MailboxStore(userData, store.sharedRoot, store.database);
 const agents = new AgentService({
@@ -242,7 +242,7 @@ function driverRuntime(name: string) {
     executable: fakeDriver,
     endpoint: { kind: "unix-socket", directory: join(driverRoot, name) },
     supported: true,
-    hostBundleId: "run.openbot.e2e",
+    hostBundleId: "run.openownbot.e2e",
     platform: "darwin",
     spawnProcess: (command, args, options) => {
       daemon.child = spawn(command, args, options);
@@ -334,7 +334,7 @@ try {
     turnThread: turn.threadId ?? null,
   };
 
-  // 3. OpenBot quits, and the same signal stops the driver daemon before the teardown does.
+  // 3. OpenOwnBot quits, and the same signal stops the driver daemon before the teardown does.
   atQuit.quit.started = true;
   await killDaemon(atQuit);
   report.driverExitAtQuit = {
@@ -342,7 +342,7 @@ try {
     sessionState: sessionState(agent.id, firstThread),
   };
 
-  // 4. Control: a daemon that dies while OpenBot runs still deactivates the session.
+  // 4. Control: a daemon that dies while OpenOwnBot runs still deactivates the session.
   await runCauseEffect(whileRunning.runtime.warmUp());
   await killDaemon(whileRunning);
   const deactivated = await waitFor("the session to be deactivated", () => {

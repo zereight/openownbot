@@ -6,27 +6,27 @@
   display: flex;
   max-width: 560px;
   flex-direction: column;
-  gap: var(--openbot-space-6);
+  gap: var(--openownbot-space-6);
 }
 
 .agent-import-intro {
   display: flex;
   flex-direction: column;
-  gap: var(--openbot-space-1-5);
+  gap: var(--openownbot-space-1-5);
 }
 
 .agent-import-heading {
   margin: 0;
-  color: var(--openbot-text-primary);
-  font-size: var(--openbot-text-xl);
-  font-weight: var(--openbot-weight-semibold);
+  color: var(--openownbot-text-primary);
+  font-size: var(--openownbot-text-xl);
+  font-weight: var(--openownbot-weight-semibold);
   letter-spacing: -0.01em;
 }
 
 .agent-import-lede {
   margin: 0;
-  color: var(--openbot-text-muted);
-  font-size: var(--openbot-text-md);
+  color: var(--openownbot-text-muted);
+  font-size: var(--openownbot-text-md);
   line-height: 1.5;
 }
 
@@ -43,8 +43,8 @@
   position: relative;
   display: grid;
   grid-template-columns: 24px minmax(0, 1fr);
-  column-gap: var(--openbot-space-4);
-  padding-bottom: var(--openbot-space-6);
+  column-gap: var(--openownbot-space-4);
+  padding-bottom: var(--openownbot-space-6);
 }
 
 .agent-import-step:last-child {
@@ -57,7 +57,7 @@
   bottom: 4px;
   left: 11.5px;
   width: 1px;
-  background: var(--openbot-border-grouped);
+  background: var(--openownbot-border-grouped);
   content: "";
 }
 
@@ -67,12 +67,12 @@
   height: 24px;
   align-items: center;
   justify-content: center;
-  border: 1px solid var(--openbot-border-strong);
-  border-radius: var(--openbot-radius-pill);
-  color: var(--openbot-text-secondary);
-  font-size: var(--openbot-text-sm);
+  border: 1px solid var(--openownbot-border-strong);
+  border-radius: var(--openownbot-radius-pill);
+  color: var(--openownbot-text-secondary);
+  font-size: var(--openownbot-text-sm);
   font-variant-numeric: tabular-nums;
-  font-weight: var(--openbot-weight-medium);
+  font-weight: var(--openownbot-weight-medium);
 }
 
 .agent-import-step-body {
@@ -80,21 +80,21 @@
   min-width: 0;
   flex-direction: column;
   align-items: flex-start;
-  gap: var(--openbot-space-2);
+  gap: var(--openownbot-space-2);
   padding-top: 2px;
 }
 
 .agent-import-step-title {
   margin: 0;
-  color: var(--openbot-text-primary);
-  font-size: var(--openbot-text-md);
-  font-weight: var(--openbot-weight-medium);
+  color: var(--openownbot-text-primary);
+  font-size: var(--openownbot-text-md);
+  font-weight: var(--openownbot-weight-medium);
 }
 
 .agent-import-step-note {
   margin: 0;
-  color: var(--openbot-text-muted);
-  font-size: var(--openbot-text-sm);
+  color: var(--openownbot-text-muted);
+  font-size: var(--openownbot-text-sm);
   line-height: 1.45;
 }
 
@@ -104,7 +104,7 @@
   width: 100%;
   flex-direction: column;
   align-items: flex-start;
-  gap: var(--openbot-space-3);
+  gap: var(--openownbot-space-3);
 }
 
 .agent-import-setup .ui-sliding-tabs-content-slot {
@@ -121,7 +121,7 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: var(--openbot-space-2);
+  gap: var(--openownbot-space-2);
 }
 
 /* One card per way in, the same shape in both panels, so step 2 stays where it is: the ready agent
@@ -130,19 +130,19 @@
   display: flex;
   width: 100%;
   align-items: center;
-  gap: var(--openbot-space-3);
-  padding: var(--openbot-space-2) var(--openbot-space-2) var(--openbot-space-2) var(--openbot-space-3);
-  border: 1px solid var(--openbot-border-grouped);
-  border-radius: var(--openbot-radius-md);
-  background: var(--openbot-bg-grouped);
+  gap: var(--openownbot-space-3);
+  padding: var(--openownbot-space-2) var(--openownbot-space-2) var(--openownbot-space-2) var(--openownbot-space-3);
+  border: 1px solid var(--openownbot-border-grouped);
+  border-radius: var(--openownbot-radius-md);
+  background: var(--openownbot-bg-grouped);
 }
 
 .agent-import-card-icon {
-  width: var(--openbot-icon-md);
-  height: var(--openbot-icon-md);
+  width: var(--openownbot-icon-md);
+  height: var(--openownbot-icon-md);
   flex: none;
-  color: var(--openbot-text-secondary);
-  stroke-width: var(--openbot-icon-stroke);
+  color: var(--openownbot-text-secondary);
+  stroke-width: var(--openownbot-icon-stroke);
 }
 
 .agent-import-card-copy {
@@ -153,15 +153,15 @@
 }
 
 .agent-import-card-name {
-  color: var(--openbot-text-primary);
-  font-size: var(--openbot-text-md);
-  font-weight: var(--openbot-weight-medium);
+  color: var(--openownbot-text-primary);
+  font-size: var(--openownbot-text-md);
+  font-weight: var(--openownbot-weight-medium);
 }
 
 .agent-import-card-meta {
   overflow: hidden;
-  color: var(--openbot-text-muted);
-  font-size: var(--openbot-text-sm);
+  color: var(--openownbot-text-muted);
+  font-size: var(--openownbot-text-sm);
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -171,33 +171,33 @@
   display: flex;
   width: 100%;
   align-items: center;
-  gap: var(--openbot-space-2);
-  padding: var(--openbot-space-1) var(--openbot-space-1) var(--openbot-space-1) var(--openbot-space-3);
-  border: 1px solid var(--openbot-border-grouped);
-  border-radius: var(--openbot-radius-md);
-  background: var(--openbot-bg-grouped);
+  gap: var(--openownbot-space-2);
+  padding: var(--openownbot-space-1) var(--openownbot-space-1) var(--openownbot-space-1) var(--openownbot-space-3);
+  border: 1px solid var(--openownbot-border-grouped);
+  border-radius: var(--openownbot-radius-md);
+  background: var(--openownbot-bg-grouped);
 }
 
 .agent-import-prompt-text {
   min-width: 0;
   flex: 1;
   overflow: hidden;
-  color: var(--openbot-text-primary);
-  font-size: var(--openbot-text-md);
+  color: var(--openownbot-text-primary);
+  font-size: var(--openownbot-text-md);
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
 .agent-import-prompt svg {
-  width: var(--openbot-icon-sm);
-  height: var(--openbot-icon-sm);
-  stroke-width: var(--openbot-icon-stroke);
+  width: var(--openownbot-icon-sm);
+  height: var(--openownbot-icon-sm);
+  stroke-width: var(--openownbot-icon-stroke);
 }
 
 .agent-import-card .ui-button svg {
-  width: var(--openbot-icon-sm);
-  height: var(--openbot-icon-sm);
-  stroke-width: var(--openbot-icon-stroke);
+  width: var(--openownbot-icon-sm);
+  height: var(--openownbot-icon-sm);
+  stroke-width: var(--openownbot-icon-stroke);
 }
 
 .agent-import-picker.ui-button {
@@ -207,44 +207,44 @@
   min-height: 64px;
   align-items: center;
   justify-content: flex-start;
-  gap: var(--openbot-space-3);
-  padding: var(--openbot-space-3) var(--openbot-space-4);
-  border: 1px solid var(--openbot-border-grouped);
-  border-radius: var(--openbot-radius-lg);
-  background: var(--openbot-bg-grouped);
+  gap: var(--openownbot-space-3);
+  padding: var(--openownbot-space-3) var(--openownbot-space-4);
+  border: 1px solid var(--openownbot-border-grouped);
+  border-radius: var(--openownbot-radius-lg);
+  background: var(--openownbot-bg-grouped);
   text-align: left;
-  font-weight: var(--openbot-weight-regular);
+  font-weight: var(--openownbot-weight-regular);
 }
 
 .agent-import-picker.ui-button:hover:not(:disabled, [aria-disabled="true"]) {
-  border-color: var(--openbot-border-strong);
-  background: var(--openbot-bg-control-hover);
+  border-color: var(--openownbot-border-strong);
+  background: var(--openownbot-bg-control-hover);
 }
 
 .agent-import-picker-icon {
-  width: var(--openbot-icon-lg);
-  height: var(--openbot-icon-lg);
+  width: var(--openownbot-icon-lg);
+  height: var(--openownbot-icon-lg);
   flex: 0 0 auto;
-  color: var(--openbot-text-secondary);
-  stroke-width: var(--openbot-icon-stroke);
+  color: var(--openownbot-text-secondary);
+  stroke-width: var(--openownbot-icon-stroke);
 }
 
 .agent-import-picker-copy {
   display: flex;
   min-width: 0;
   flex-direction: column;
-  gap: var(--openbot-space-0-5);
+  gap: var(--openownbot-space-0-5);
 }
 
 .agent-import-picker-title {
-  color: var(--openbot-text-primary);
-  font-size: var(--openbot-text-md);
-  font-weight: var(--openbot-weight-medium);
+  color: var(--openownbot-text-primary);
+  font-size: var(--openownbot-text-md);
+  font-weight: var(--openownbot-weight-medium);
 }
 
 .agent-import-picker-meta {
-  color: var(--openbot-text-muted);
-  font-size: var(--openbot-text-sm);
+  color: var(--openownbot-text-muted);
+  font-size: var(--openownbot-text-sm);
 }
 
 /* Review and result rows. */
@@ -253,8 +253,8 @@
   display: flex;
   min-height: 52px;
   align-items: center;
-  gap: var(--openbot-space-3);
-  padding: var(--openbot-space-3) var(--openbot-space-4);
+  gap: var(--openownbot-space-3);
+  padding: var(--openownbot-space-3) var(--openownbot-space-4);
 }
 
 label.agent-import-row {
@@ -262,7 +262,7 @@ label.agent-import-row {
 }
 
 label.agent-import-row:hover {
-  background: var(--openbot-hover);
+  background: var(--openownbot-hover);
 }
 
 label.agent-import-row:has(input:disabled) {
@@ -270,16 +270,16 @@ label.agent-import-row:has(input:disabled) {
 }
 
 .agent-import-row-note {
-  color: var(--openbot-text-muted);
-  font-size: var(--openbot-text-sm);
+  color: var(--openownbot-text-muted);
+  font-size: var(--openownbot-text-sm);
   line-height: 1.4;
 }
 
 .agent-import-notes {
   display: flex;
   flex-direction: column;
-  gap: var(--openbot-space-1);
-  margin: var(--openbot-space-1) 0 0;
+  gap: var(--openownbot-space-1);
+  margin: var(--openownbot-space-1) 0 0;
   padding: 0;
   list-style: none;
 }
@@ -287,26 +287,26 @@ label.agent-import-row:has(input:disabled) {
 .agent-import-done {
   display: flex;
   align-items: center;
-  gap: var(--openbot-space-2);
+  gap: var(--openownbot-space-2);
 }
 
 .agent-import-done-icon {
   width: 32px;
   height: 32px;
   flex: 0 0 auto;
-  color: var(--openbot-success-text);
-  stroke-width: var(--openbot-icon-stroke);
+  color: var(--openownbot-success-text);
+  stroke-width: var(--openownbot-icon-stroke);
 }
 
 .agent-import-skipped-icon {
-  color: var(--openbot-warning-text);
+  color: var(--openownbot-warning-text);
 }
 
 .agent-import-actions {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-end;
-  gap: var(--openbot-space-2);
+  gap: var(--openownbot-space-2);
 }
 
 /* The name and, for a name already on this server, the hint that the import adds another one. */
@@ -314,25 +314,25 @@ label.agent-import-row:has(input:disabled) {
   display: flex;
   min-width: 0;
   align-items: center;
-  gap: var(--openbot-space-1);
+  gap: var(--openownbot-space-1);
 }
 
 .agent-import-name-hint {
   display: inline-flex;
   flex: none;
-  color: var(--openbot-text-muted);
-  border-radius: var(--openbot-radius-sm);
+  color: var(--openownbot-text-muted);
+  border-radius: var(--openownbot-radius-sm);
 }
 
 .agent-import-name-hint:hover,
 .agent-import-name-hint:focus-visible {
-  color: var(--openbot-text-secondary);
+  color: var(--openownbot-text-secondary);
 }
 
 .agent-import-name-hint svg {
-  width: var(--openbot-icon-xs);
-  height: var(--openbot-icon-xs);
-  stroke-width: var(--openbot-icon-stroke);
+  width: var(--openownbot-icon-xs);
+  height: var(--openownbot-icon-xs);
+  stroke-width: var(--openownbot-icon-stroke);
 }
 
 /* A channel row shows up to three of its members, overlapped, where an agent row has one avatar. */
@@ -346,8 +346,8 @@ label.agent-import-row:has(input:disabled) {
   width: 22px;
   height: 22px;
   flex: none;
-  border-radius: var(--openbot-radius-pill);
-  box-shadow: 0 0 0 2px var(--openbot-bg-grouped);
+  border-radius: var(--openownbot-radius-pill);
+  box-shadow: 0 0 0 2px var(--openownbot-bg-grouped);
 }
 
 .agent-import-member-avatar + .agent-import-member-avatar {
@@ -356,17 +356,17 @@ label.agent-import-row:has(input:disabled) {
 
 .agent-import-channel-icon {
   width: 28px;
-  height: var(--openbot-icon-md);
+  height: var(--openownbot-icon-md);
   flex: none;
-  color: var(--openbot-text-secondary);
-  stroke-width: var(--openbot-icon-stroke);
+  color: var(--openownbot-text-secondary);
+  stroke-width: var(--openownbot-icon-stroke);
 }
 
 /* The first screen: one large button for each place the agents can be now. */
 .agent-import-sources {
   display: flex;
   flex-direction: column;
-  gap: var(--openbot-space-2);
+  gap: var(--openownbot-space-2);
   margin: 0;
   padding: 0;
   list-style: none;
@@ -377,10 +377,10 @@ label.agent-import-row:has(input:disabled) {
 }
 
 .agent-import-source-logo {
-  width: var(--openbot-icon-lg);
-  height: var(--openbot-icon-lg);
+  width: var(--openownbot-icon-lg);
+  height: var(--openownbot-icon-lg);
   flex: 0 0 auto;
-  color: var(--openbot-text-primary);
+  color: var(--openownbot-text-primary);
   fill: currentColor;
 }
 
@@ -389,40 +389,40 @@ label.agent-import-row:has(input:disabled) {
 }
 
 .agent-import-back.ui-button svg {
-  width: var(--openbot-icon-sm);
-  height: var(--openbot-icon-sm);
+  width: var(--openownbot-icon-sm);
+  height: var(--openownbot-icon-sm);
 }
 
 /* The Hermes app icon: a light tile on a dark theme and a dark one on a light theme, as Hermes ships both. */
 .hermes-logo-tile {
-  fill: var(--openbot-text-primary);
+  fill: var(--openownbot-text-primary);
 }
 
 .hermes-logo-mark {
-  fill: var(--openbot-bg-canvas);
+  fill: var(--openownbot-bg-canvas);
 }
 
 .agent-import-source-label {
   display: flex;
   align-items: center;
-  gap: var(--openbot-space-1-5);
+  gap: var(--openownbot-space-1-5);
 }
 
 .agent-import-source-label-logo {
-  width: var(--openbot-icon-sm);
-  height: var(--openbot-icon-sm);
+  width: var(--openownbot-icon-sm);
+  height: var(--openownbot-icon-sm);
   flex: 0 0 auto;
 }
 
 /* A Hermes profile: its head row, then every item it holds. */
 .agent-import-profile {
-  gap: var(--openbot-space-2);
+  gap: var(--openownbot-space-2);
 }
 
 .agent-import-profile-head {
   display: flex;
   align-items: center;
-  gap: var(--openbot-space-3);
+  gap: var(--openownbot-space-3);
 }
 
 .agent-import-profile-name {
@@ -430,8 +430,8 @@ label.agent-import-row:has(input:disabled) {
 }
 
 .agent-import-chevron {
-  width: var(--openbot-icon-sm);
-  height: var(--openbot-icon-sm);
+  width: var(--openownbot-icon-sm);
+  height: var(--openownbot-icon-sm);
 }
 
 .agent-import-chevron-open {
@@ -443,10 +443,10 @@ label.agent-import-row:has(input:disabled) {
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: var(--openbot-space-2);
-  padding: var(--openbot-space-2) var(--openbot-space-3);
-  border-radius: var(--openbot-radius-md);
-  background: var(--openbot-bg-grouped);
+  gap: var(--openownbot-space-2);
+  padding: var(--openownbot-space-2) var(--openownbot-space-3);
+  border-radius: var(--openownbot-radius-md);
+  background: var(--openownbot-bg-grouped);
 }
 
 .agent-import-items[data-muted="true"] {
@@ -461,16 +461,16 @@ label.agent-import-row:has(input:disabled) {
   display: inline-flex;
   flex: none;
   align-items: center;
-  gap: var(--openbot-space-1-5);
-  color: var(--openbot-text-secondary);
-  font-size: var(--openbot-text-sm);
+  gap: var(--openownbot-space-1-5);
+  color: var(--openownbot-text-secondary);
+  font-size: var(--openownbot-text-sm);
   cursor: pointer;
 }
 
 /* A command is the exact text to type, so it reads as code and wraps rather than hides its end. */
 .agent-import-command {
-  font-family: var(--openbot-font-mono);
-  font-size: var(--openbot-text-sm);
+  font-family: var(--openownbot-font-mono);
+  font-size: var(--openownbot-text-sm);
   overflow-wrap: anywhere;
   white-space: normal;
 }

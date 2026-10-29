@@ -1,15 +1,15 @@
 /*
- * The desktop startup splash. The logo fades in and each eye is drawn as one pen stroke. The logo then
+ * The desktop startup splash. The logo fades in and each padlock eye pops in. The logo then
  * blinks until the app is ready, and the splash fades out.
  */
 
 .startup-splash {
   position: absolute;
-  z-index: var(--openbot-layer-dialog);
+  z-index: var(--openownbot-layer-dialog);
   inset: 0;
   display: grid;
   place-items: center;
-  background: var(--openbot-bg-canvas);
+  background: var(--openownbot-bg-canvas);
   -webkit-app-region: drag;
 }
 
@@ -17,23 +17,21 @@
   display: block;
   width: 96px;
   height: 96px;
-  animation: startup-splash-in var(--openbot-duration-overlay) var(--openbot-ease-out) backwards;
+  animation: startup-splash-in var(--openownbot-duration-overlay) var(--openownbot-ease-out) backwards;
 }
 
 /* The fade also runs with reduced motion: its animationend removes the splash. */
 .startup-splash[data-phase="exit"] {
   pointer-events: none;
   -webkit-app-region: no-drag;
-  animation: startup-splash-exit var(--openbot-duration-overlay) var(--openbot-ease-in-out) forwards;
+  animation: startup-splash-exit var(--openownbot-duration-overlay) var(--openownbot-ease-in-out) forwards;
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  /* Both eyes use the longer stroke's length, so they draw at the same time. */
   .startup-splash-logo .app-logo-eye {
-    stroke-dasharray: var(--splash-eye-length) calc(var(--splash-eye-length) + 24px);
     animation:
-      startup-splash-eye-draw 480ms var(--openbot-ease-in-out) 160ms backwards,
-      app-logo-blink 4.8s var(--openbot-ease-in-out) 1s infinite;
+      startup-splash-eye-draw 480ms var(--openownbot-ease-in-out) 160ms backwards,
+      app-logo-blink 4.8s var(--openownbot-ease-in-out) 1s infinite;
   }
 }
 
@@ -45,10 +43,12 @@
 
 @keyframes startup-splash-eye-draw {
   from {
-    stroke-dashoffset: calc(var(--splash-eye-length) + 12px);
+    opacity: 0;
+    transform: scale(0.2);
   }
   to {
-    stroke-dashoffset: 0px;
+    opacity: 1;
+    transform: scale(1);
   }
 }
 

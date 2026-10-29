@@ -74,7 +74,7 @@ export const messages = {
   "error.agent.storedProfileUnreadable": "某个已保存的助手资料中“{field}”的值无法读取，请先更新数据再启动 OpenOwnBot。",
   "error.agent.storedProfileUnreadableId":
     "已保存的助手资料 {id} 中“{field}”的值无法读取，请先更新数据再启动 OpenOwnBot。",
-  // Written by `QueueEditRejectedError` in @openbot/contracts, which cannot import this package.
+  // Written by `QueueEditRejectedError` in @openownbot/contracts, which cannot import this package.
   "error.agent.queueEditRejected": "队列编辑被拒绝：{reason}",
   "error.agent.computerUseLocalOnly": "Computer Use 只能在运行该助手的电脑上更改。",
   "error.agent.automationLocalOnly": "本地脚本只能在运行该助手的电脑上允许。",
@@ -111,7 +111,7 @@ export const messages = {
   "error.agent.screenCaptureRegionOutside":
     "该区域不在任何单个显示器内，请使用某个显示器范围内的桌面坐标（来自 list_capture_sources）。",
   "error.agent.screenCapturePermissionMissing":
-    "OpenBot 没有屏幕录制权限。请让用户打开“系统设置 > 隐私与安全性 > 屏幕与系统音频录制”，允许 OpenBot，然后退出并重新打开 OpenBot。",
+    "OpenOwnBot 没有屏幕录制权限。请让用户打开“系统设置 > 隐私与安全性 > 屏幕与系统音频录制”，允许 OpenOwnBot，然后退出并重新打开 OpenOwnBot。",
   "error.agent.screenCaptureEmptyWindows":
     "Windows 返回了空图像。请让用户解锁电脑并关闭受保护的内容；组织策略也可能阻止截屏。",
   "error.agent.screenCaptureFailed": "截屏失败，请重试。",

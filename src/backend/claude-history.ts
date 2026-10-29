@@ -167,7 +167,7 @@ async function scanClaudeHistory(
   );
   if (!transcript) return;
   const indexRoot = options.indexDirectory ?? tmpdir();
-  const indexDirectory = join(indexRoot, "openbot-claude-history");
+  const indexDirectory = join(indexRoot, "openownbot-claude-history");
   await mkdir(indexDirectory, { recursive: true });
   const indexPath = join(indexDirectory, `${sanitizeProjectPath(request.threadId)}.sqlite`);
   await oneScanAtATime(indexPath, async () => {
@@ -986,7 +986,7 @@ function messageText(message: unknown): string {
       (block) =>
         block.type === "text" &&
         typeof block.text === "string" &&
-        // OpenBot's memory block is not text that the user wrote.
+        // OpenOwnBot's memory block is not text that the user wrote.
         !(message.role === "user" && isTurnContextBlock(block.text)),
     )
     .map((block) => String(block.text))

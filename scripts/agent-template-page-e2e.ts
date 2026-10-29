@@ -6,24 +6,24 @@
 // 3. Opens the page in Chrome at 1440 and 390 px and checks: the closed instructions are plain text,
 //    "Read more" shows headings and lists from the left edge, the raw HTML is text and never runs,
 //    an unsafe link is not a link, and the page description has no Markdown marks.
-// Writes .openbot-build/agent-template-page-e2e/report.json and the screenshots beside it.
+// Writes .openownbot-build/agent-template-page-e2e/report.json and the screenshots beside it.
 import assert from "node:assert/strict";
 import { type ChildProcess, execFile, spawn } from "node:child_process";
 import { mkdirSync, rmSync, writeFileSync } from "node:fs";
 import { createServer } from "node:net";
 import { resolve } from "node:path";
 import { promisify } from "node:util";
-import { isAgentTemplateSnapshot } from "@openbot/contracts/ipc";
-import { createOpenBotLogger } from "@openbot/logging";
+import { isAgentTemplateSnapshot } from "@openownbot/contracts/ipc";
+import { createOpenOwnBotLogger } from "@openownbot/logging";
 import { chromium } from "playwright-core";
 import { resolvePackageBin } from "./package-bin";
 
-const logger = createOpenBotLogger("agent-template-page-e2e");
+const logger = createOpenOwnBotLogger("agent-template-page-e2e");
 const run = promisify(execFile);
 
 const ROOT = resolve(import.meta.dirname, "..");
 const SITE = resolve(ROOT, "apps/auth-api");
-const OUT = resolve(ROOT, ".openbot-build/agent-template-page-e2e");
+const OUT = resolve(ROOT, ".openownbot-build/agent-template-page-e2e");
 const option = (name: string) => process.argv.find((arg) => arg.startsWith(`--${name}=`))?.slice(name.length + 3);
 const browserExecutable = option("browser-executable");
 
@@ -56,7 +56,7 @@ mkdirSync(OUT, { recursive: true });
 const sql = (value: string) => `'${value.replaceAll("'", "''")}'`;
 const wrangler = resolvePackageBin(ROOT, "wrangler");
 const d1 = (...args: string[]) =>
-  run(wrangler, ["d1", ...args, "openbot-auth", "--local"], { cwd: SITE, env: { ...process.env, CI: "1" } });
+  run(wrangler, ["d1", ...args, "openownbot-auth", "--local"], { cwd: SITE, env: { ...process.env, CI: "1" } });
 const removeRows = `DELETE FROM agent_templates WHERE id = ${sql(TEMPLATE_ID)}; DELETE FROM users WHERE id = ${sql(USER_ID)};`;
 
 const freePort = () =>

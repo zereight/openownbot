@@ -11,14 +11,14 @@
 // 5. a double-click zooms in, a click on the zoomed image keeps the viewer, and a second
 //    double-click fits;
 // 6. Escape closes the viewer.
-// It deletes its channel at the end. Writes .openbot-build/image-lightbox-zoom-e2e/report.json and screenshots.
+// It deletes its channel at the end. Writes .openownbot-build/image-lightbox-zoom-e2e/report.json and screenshots.
 import assert from "node:assert/strict";
 import { resolve } from "node:path";
-import { translateFor } from "@openbot/i18n";
+import { translateFor } from "@openownbot/i18n";
 import type { Locator } from "playwright-core";
 import { ChannelClient, connectChannelE2e, waitFor, writeReport } from "./channel-e2e-support";
 
-const OUT = resolve(import.meta.dirname, "../.openbot-build/image-lightbox-zoom-e2e");
+const OUT = resolve(import.meta.dirname, "../.openownbot-build/image-lightbox-zoom-e2e");
 const UI_WAIT_MS = 30_000;
 const IMAGE_NAME = "zoom-check.png";
 const IMAGE_WIDTH = 3200;
@@ -113,7 +113,7 @@ try {
       const blob = await new Promise<Blob | null>((done) => canvas.toBlob(done, "image/png"));
       if (!blob) throw new Error("The canvas made no PNG.");
       const bytes = new Uint8Array(await blob.arrayBuffer());
-      const drafts = await window.openbot.agent.importAttachmentData(
+      const drafts = await window.openownbot.agent.importAttachmentData(
         [{ name: fileName, mimeType: "image/png", bytes }],
         "local",
       );

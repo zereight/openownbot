@@ -1,6 +1,6 @@
 ---
 name: "Working With Teammate Agents"
-description: "Use when you reach out to or talk with another of the user's OpenBot agents: deciding whether to involve one, writing the handoff, reading its reply, answering a teammate, group chats, and stopping. Also a general guide to a warm, concise, careful assistant style."
+description: "Use when you reach out to or talk with another of the user's OpenOwnBot agents: deciding whether to involve one, writing the handoff, reading its reply, answering a teammate, group chats, and stopping. Also a general guide to a warm, concise, careful assistant style."
 ---
 
 # Working with teammate agents (and general assistant style)

@@ -134,6 +134,12 @@ export const messages = {
   "error.backend.mailboxStateCorrupt":
     "De status van de postbus is beschadigd of komt van een nieuwere versie van OpenOwnBot; OpenOwnBot overschrijft deze niet.",
   "error.backend.recipientDeleting": "De ontvanger wordt verwijderd. Probeer het opnieuw als dit klaar is.",
+  "error.backend.squadLeaves":
+    "Je zit in het team {squad}, en alleen de lead schrijft naar agenten daarbuiten. Vraag de lead van {squad} het door te geven, of vraag het de gebruiker.",
+  "error.backend.squadEnters":
+    "{agent} zit in het team {squad}. Bereik die via de lead van {squad}, of vraag het de gebruiker.",
+  "error.backend.squadSkipsRank":
+    "{agent} staat in het team {squad} boven de rang die je mag bereiken. Een bericht gaat alleen naar de rang direct boven de jouwe. Vraag die rang het door te geven, of vraag het de gebruiker.",
   "error.backend.recipientHidden": "Deze agent is verborgen. Herstel de agent om berichten te sturen.",
   "error.backend.attachBetween": "Voeg tussen 1 en {limit} bestanden toe.",
   "error.backend.attachmentNotFile": "Bijlage is geen bestand: {path}",
@@ -184,7 +190,7 @@ export const messages = {
   "error.backend.routineFlowCycle": "Deze verbinding zou een lus maken.",
   "error.backend.routineFlowLinkLimit": "Een routine kan maximaal {limit} verbindingen hebben.",
   "error.backend.agentWaitLimit":
-    "Deze agent heeft al {count} open wachtpunten. Sluit een wachtpunt met openbot.close_wait voordat je een nieuw opent.",
+    "Deze agent heeft al {count} open wachtpunten. Sluit een wachtpunt met openownbot.close_wait voordat je een nieuw opent.",
   "error.backend.agentWaitGone":
     "Dit wachtpunt is niet open. De agent heeft het gesloten, of iemand heeft het geannuleerd.",
   "error.backend.agentWaitNoRequest":
@@ -194,7 +200,7 @@ export const messages = {
   "error.backend.agentWaitNoteRequired": "Geef een korte notitie die zegt waarvoor het wachtpunt is.",
   "error.backend.agentWaitRoutineGone": "Deze agent heeft geen routine met deze id.",
   "error.backend.agentWaitNoRoutine":
-    "Alleen een run van een van je routines wekt een wachtpunt, en je hebt geen routine. Maak er een met openbot.create_routine en open dan het wachtpunt.",
+    "Alleen een run van een van je routines wekt een wachtpunt, en je hebt geen routine. Maak er een met openownbot.create_routine en open dan het wachtpunt.",
   "error.backend.agentWaitRemoteUnsupported": "Open wachtpunten zijn alleen beschikbaar voor agents op deze computer.",
   "error.backend.routineFlowHandoffFailed": "De routine kon het werk niet aan deze agent doorgeven.",
   "error.backend.mcpServerLimit": "OpenOwnBot bewaart maximaal {limit} MCP-servers.",
@@ -351,10 +357,4 @@ export const messages = {
     "Deze agent heeft {count} open taken. Sluit een taak en start of open dan een andere.",
   "error.backend.taskRemoteUnsupported": "Taken zijn alleen beschikbaar voor agents op deze computer.",
   "error.backend.taskStartFailed": "OpenOwnBot kon de taak niet starten. Doe het werk in plaats daarvan in deze beurt.",
-  "error.backend.squadLeaves":
-    "Je zit in het team {squad}, en alleen de lead schrijft naar agenten daarbuiten. Vraag de lead van {squad} het door te geven, of vraag het de gebruiker.",
-  "error.backend.squadEnters":
-    "{agent} zit in het team {squad}. Bereik die via de lead van {squad}, of vraag het de gebruiker.",
-  "error.backend.squadSkipsRank":
-    "{agent} staat in het team {squad} boven de rang die je mag bereiken. Een bericht gaat alleen naar de rang direct boven de jouwe. Vraag die rang het door te geven, of vraag het de gebruiker.",
 } as const satisfies PartialTranslation<typeof source>;

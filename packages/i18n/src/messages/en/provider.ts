@@ -71,7 +71,7 @@ export const messages = defineMessages("provider", {
   "provider.aria.codeFallback": "Log in to {name} with a code",
   "provider.aria.moreActions": "More actions for {name}",
 
-  // The switch that turns a provider on or off in OpenBot. While an agent uses the provider, the
+  // The switch that turns a provider on or off in OpenOwnBot. While an agent uses the provider, the
   // switch stays on and a toast names the agent, or counts the agents when there are more.
   "provider.aria.use": "Use {name} in OpenOwnBot",
   "provider.use.inUseOne": "{agent} uses {name}. Change the model of this agent, then turn {name} off.",
@@ -105,7 +105,7 @@ export const messages = defineMessages("provider", {
   "provider.codeLogin.pageOpening": "Opening the {name} sign-in page on {host}…",
   "provider.codeLogin.linkStep": "Log in to {name}. OpenOwnBot continues by itself.",
 
-  // A provider that only the OpenBot app can sign in, from a browser tab.
+  // A provider that only the OpenOwnBot app can sign in, from a browser tab.
   "provider.useApp.title": "Connect {name} in the OpenOwnBot app",
   "provider.useApp.description":
     "The {name} sign-in returns to the computer that started it, and a browser tab cannot receive it. Connect {name} in the OpenOwnBot app. The app finishes the sign-in by itself.",

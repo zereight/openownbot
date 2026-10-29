@@ -4,9 +4,9 @@
  * results strip. The control blocks share their choice pills, the toolbar menus and the colours.
  */
 
-import { isKnownAgentProvider } from "@openbot/contracts/agent-providers";
-import { isAgentProviderRef } from "@openbot/contracts/ipc";
-import type { AppFormat, AppTextKey, AppTranslate } from "@openbot/i18n";
+import { isKnownAgentProvider } from "@openownbot/contracts/agent-providers";
+import { isAgentProviderRef } from "@openownbot/contracts/ipc";
+import type { AppFormat, AppTextKey, AppTranslate } from "@openownbot/i18n";
 import {
   Button,
   buttonVariants,
@@ -35,7 +35,7 @@ import {
   Trash2,
   TriangleAlert,
   Type,
-} from "@openbot/ui";
+} from "@openownbot/ui";
 import type { JSX } from "@solidjs/web";
 import { children, createEffect, createSignal, createStore, For, onSettled, Show, untrack } from "solid-js";
 import type { AgentProfile } from "../../data";
@@ -847,7 +847,7 @@ export const translated = <T extends string>(t: AppTranslate, choices: readonly 
   choices.map((choice) => ({ value: choice.value, label: t(choice.label) }));
 
 export const colorVar = (color: CanvasColor) =>
-  color === "ink" ? "var(--openbot-text-primary)" : `var(--openbot-file-${color})`;
+  color === "ink" ? "var(--openownbot-text-primary)" : `var(--openownbot-file-${color})`;
 
 /** A round colour sample, for a toolbar button or a menu item. */
 export function Swatch(props: { color: CanvasColor }) {

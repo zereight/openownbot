@@ -9,7 +9,7 @@ export const messages = {
   "remoteDesktop.workspaceLabel": "远程控制",
   "remoteDesktop.displayLabel": "远程显示器",
   "remoteDesktop.selectDisplay": "选择显示器",
-  "remoteDesktop.backToOpenBot": "返回 OpenOwnBot",
+  "remoteDesktop.backToOpenOwnBot": "返回 OpenOwnBot",
   "remoteDesktop.disconnect": "断开连接",
   "remoteDesktop.viewerTitle": "Sunshine 远程桌面",
   "remoteDesktop.viewerLoadFailed": "Moonlight 查看器加载失败。",
@@ -19,7 +19,7 @@ export const messages = {
   "remoteDesktop.openFailed": "无法打开桌面",
   "remoteDesktop.notSharingTitle": "{name} 没有共享屏幕",
   "remoteDesktop.notSharingDescription":
-    "服务器阻止了 OpenBot 录制屏幕。请在那台服务器上打开“系统设置 → 隐私与安全性 → 屏幕录制”，开启 OpenBot，然后回到这里重试。",
+    "服务器阻止了 OpenOwnBot 录制屏幕。请在那台服务器上打开“系统设置 → 隐私与安全性 → 屏幕录制”，开启 OpenOwnBot，然后回到这里重试。",
   "remoteDesktop.setup.check.screenRecording": "屏幕录制",
   "remoteDesktop.setup.check.accessibility": "辅助功能",
   "remoteDesktop.setup.check.service": "Sunshine 服务",

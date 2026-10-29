@@ -3,7 +3,7 @@
 // OpenAI-compatible servers on this computer. A fake cipher replaces the operating system's secret
 // storage, which exists only in Electron. It also scans a folder that holds a file named like a known
 // agent, and proves that the scan never starts it.
-// `bun scripts/provider-detection-e2e.ts`. Writes .openbot-build/provider-detection-e2e/report.json.
+// `bun scripts/provider-detection-e2e.ts`. Writes .openownbot-build/provider-detection-e2e/report.json.
 import assert from "node:assert/strict";
 import { chmod, mkdir, mkdtemp, readFile, rm, stat, writeFile } from "node:fs/promises";
 import { createServer, type IncomingMessage, type Server } from "node:http";
@@ -16,7 +16,7 @@ import { probeModels } from "../src/main/model-server-probe";
 import { createProviderDetection } from "../src/main/provider-detection";
 import { ProviderDetectionSettingsStore } from "../src/main/provider-detection-settings-store";
 
-const OUT = resolve(import.meta.dirname, "../.openbot-build/provider-detection-e2e");
+const OUT = resolve(import.meta.dirname, "../.openownbot-build/provider-detection-e2e");
 const KEY = "sk-e2e-endpoint-key";
 const HEADER = { name: "X-Team", value: "e2e-header-value" };
 
@@ -84,7 +84,7 @@ const cipher: CustomProviderCipher = {
   decrypt: (value) => Buffer.from(value.map((byte) => byte ^ 0x5a)).toString("utf8"),
 };
 
-const root = await mkdtemp(join(tmpdir(), "openbot-provider-detection-e2e-"));
+const root = await mkdtemp(join(tmpdir(), "openownbot-provider-detection-e2e-"));
 const report: Report = { passed: false };
 const servers: FakeServer[] = [];
 

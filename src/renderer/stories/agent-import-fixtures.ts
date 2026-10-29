@@ -1,4 +1,4 @@
-import type { AgentImportPreview, HermesImportPreview } from "@openbot/contracts/ipc";
+import type { AgentImportPreview, HermesImportPreview } from "@openownbot/contracts/ipc";
 
 const MB = 1024 ** 2;
 
@@ -77,20 +77,20 @@ export const AGENT_IMPORT_WARNINGS = [
 
 /** The start of the export skill, as `agentImport.readSkill` answers it. */
 export const AGENT_IMPORT_SKILL = `---
-name: openbot-export
-description: Export the user's Grok Bot agents into one .zip file that OpenBot imports.
+name: openownbot-export
+description: Export the user's Grok Bot agents into one .zip file that OpenOwnBot imports.
 ---
 
-# Export agents for OpenBot
+# Export agents for OpenOwnBot
 `;
 
 /** The start of the Hermes export skill, as `agentImport.readSkill("hermes-agent")` answers it. */
 export const HERMES_EXPORT_SKILL = `---
-name: openbot-export
-description: Export the user's Hermes Agent profiles into one .zip file that OpenBot imports.
+name: openownbot-export
+description: Export the user's Hermes Agent profiles into one .zip file that OpenOwnBot imports.
 ---
 
-# Export Hermes profiles for OpenBot
+# Export Hermes profiles for OpenOwnBot
 `;
 
 /** Three Hermes profiles, as `agentImport.readHermes` answers them. */

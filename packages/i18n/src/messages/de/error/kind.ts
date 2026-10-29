@@ -8,7 +8,7 @@ export const messages = {
   "error.kind.storage":
     "Es ist nicht genug Speicherplatz vorhanden. Gib auf dem Computer, auf dem OpenOwnBot läuft, Speicherplatz frei und versuche es erneut.",
   "error.kind.filePermission":
-    "OpenBot hat keine Berechtigung, diese Aktion abzuschließen. Prüfe die Datei- oder Ordnerberechtigungen und versuche es erneut.",
+    "OpenOwnBot hat keine Berechtigung, diese Aktion abzuschließen. Prüfe die Datei- oder Ordnerberechtigungen und versuche es erneut.",
   "error.kind.notFound":
     "Eine erforderliche Datei oder ein Ordner wurde nicht gefunden. Stelle das Element wieder her oder wähle ein anderes und versuche es erneut.",
   "error.kind.readOnly":

@@ -11,7 +11,7 @@ import {
   SettingsSection,
   Text,
   Trash2,
-} from "@openbot/ui";
+} from "@openownbot/ui";
 import { For, Show } from "solid-js";
 import { useText } from "../../text";
 import type { SettingsHostedSitesStore } from "./stores/hosted-sites-store";

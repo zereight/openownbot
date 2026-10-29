@@ -1,6 +1,6 @@
-import { APP_APPEARANCES, type AppAppearance } from "@openbot/contracts/app-appearance";
-import type { AppTextKey } from "@openbot/i18n";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@openbot/ui";
+import { APP_APPEARANCES, type AppAppearance } from "@openownbot/contracts/app-appearance";
+import type { AppTextKey } from "@openownbot/i18n";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@openownbot/ui";
 import type { JSX } from "@solidjs/web";
 import { useText } from "../../text";
 

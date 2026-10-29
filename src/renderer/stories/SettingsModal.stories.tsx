@@ -1,6 +1,6 @@
-import type { AvatarImageInput, CentralAuthUser, MobileConnectedDevice, UpdateStatus } from "@openbot/contracts/ipc";
-import { Button, Toaster, toast } from "@openbot/ui";
-import { DEFAULT_GENERAL_SETTINGS, type GeneralSettingsValue } from "@openbot/ui/features/settings/app-settings";
+import type { AvatarImageInput, CentralAuthUser, MobileConnectedDevice, UpdateStatus } from "@openownbot/contracts/ipc";
+import { Button, Toaster, toast } from "@openownbot/ui";
+import { DEFAULT_GENERAL_SETTINGS, type GeneralSettingsValue } from "@openownbot/ui/features/settings/app-settings";
 import { createSignal, onCleanup } from "solid-js";
 import { fn } from "storybook/test";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";
@@ -9,7 +9,7 @@ import type { SettingsTab } from "../src/features/settings/settings-tabs";
 import { STORY_SERVERS } from "../src/preview/fixtures";
 import { createMockBilling } from "../src/preview/mock-billing";
 import type { MockVoiceOptions } from "../src/preview/mock-voice";
-import { createMockOpenBot } from "./mock-openbot";
+import { createMockOpenOwnBot } from "./mock-openownbot";
 import { SettingsPageStory } from "./settings-page-story";
 import { previewStorySoundSettings } from "./sound-feedback-fixture";
 
@@ -22,7 +22,7 @@ const storyGeneralSettings: GeneralSettingsValue = {
   keepAwakeOnBattery: false,
 };
 
-const storyAppInfo = { name: "OpenBot", version: "0.2.1", platform: "darwin", variant: "dev" } as const;
+const storyAppInfo = { name: "OpenOwnBot", version: "0.2.1", platform: "darwin", variant: "dev" } as const;
 const storyAccount: CentralAuthUser = {
   id: "user-1",
   email: "person@example.com",
@@ -52,14 +52,14 @@ function SettingsModalStory(props: {
   /** The downloaded dictation models and the saved voice setting. */
   voice?: MockVoiceOptions;
 }) {
-  const previousApi = window.openbot;
+  const previousApi = window.openownbot;
   const billingApi = createMockBilling();
-  const mock = createMockOpenBot(props.voice);
-  window.openbot = mock.api;
+  const mock = createMockOpenOwnBot(props.voice);
+  window.openownbot = mock.api;
   onCleanup(() => {
     mock.dispose();
     toast.dismiss();
-    window.openbot = previousApi;
+    window.openownbot = previousApi;
   });
   const hostedServersApi = {
     ...mock.api.hostedServers,
@@ -113,7 +113,7 @@ function SettingsModalStory(props: {
   async function createMobileConnect(): Promise<{ qrData: string; expiresAt: number }> {
     return {
       qrData:
-        "openbot://mobile-connect?api=https%3A%2F%2Fapi.openbot.run&ticket=storybook-mobile-ticket_1234567890abcdef",
+        "openownbot://mobile-connect?api=https%3A%2F%2Fapi.openbot.run&ticket=storybook-mobile-ticket_1234567890abcdef",
       expiresAt: Date.now() + 120_000,
     };
   }
@@ -190,7 +190,7 @@ const meta = {
     onUpdateAccountAvatar: fn(async () => undefined),
     onCreateMobileConnect: fn(async () => ({
       qrData:
-        "openbot://mobile-connect?api=https%3A%2F%2Fapi.openbot.run&ticket=storybook-mobile-ticket_1234567890abcdef",
+        "openownbot://mobile-connect?api=https%3A%2F%2Fapi.openbot.run&ticket=storybook-mobile-ticket_1234567890abcdef",
       expiresAt: Date.now() + 120_000,
     })),
   },

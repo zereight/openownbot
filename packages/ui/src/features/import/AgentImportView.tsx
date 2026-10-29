@@ -5,8 +5,8 @@ import {
   type AgentImportResult,
   type AgentImportSkillSource,
   HERMES_EXPORT_SKILL_ID,
-} from "@openbot/contracts/ipc";
-import type { AppFormat, AppTranslate } from "@openbot/i18n";
+} from "@openownbot/contracts/ipc";
+import type { AppFormat, AppTranslate } from "@openownbot/i18n";
 import {
   Button,
   Checkbox,
@@ -25,7 +25,7 @@ import {
   SlidingTabs,
   TriangleAlert,
   Upload,
-} from "@openbot/ui";
+} from "@openownbot/ui";
 import { createMemo, createSignal, createUniqueId, For, Show } from "solid-js";
 import { useText } from "../../text";
 import { AgentAvatar } from "../agents/AgentAvatar";
@@ -38,7 +38,7 @@ import { AgentAvatar } from "../agents/AgentAvatar";
 export type AgentImportPhase = "idle" | "reading" | "review" | "importing" | "done";
 
 /** What the user says to the export agent. It is also the copy button's value. */
-export const AGENT_IMPORT_PROMPT = "Export my agents for OpenBot";
+export const AGENT_IMPORT_PROMPT = "Export my agents for OpenOwnBot";
 
 /**
  * How the user starts the export. Grok Bot: `agent` installs the ready export agent from its link,
@@ -52,12 +52,12 @@ const SETUPS: readonly AgentImportSetup[] = ["agent", "skill", "folder", "comman
 
 /** What the user types in a Hermes chat to install the export skill, and then to run it. */
 export const HERMES_SKILL_COMMAND = `/skills install ${HERMES_EXPORT_SKILL_ID}`;
-const HERMES_EXPORT_PROMPT = "/openbot-export";
+const HERMES_EXPORT_PROMPT = "/openownbot-export";
 
 /** The name of the export agent on its Grok Bot page. */
-const EXPORT_AGENT_NAME = "OpenBot export";
+const EXPORT_AGENT_NAME = "OpenOwnBot export";
 const EXPORT_SKILL_FILE = "SKILL.md";
-const EXPORT_SKILL_ID = "openbot-export";
+const EXPORT_SKILL_ID = "openownbot-export";
 
 type CountKind = "agent" | "channel" | "skill" | "routine" | "memory" | "file";
 
@@ -214,7 +214,7 @@ function ImportGuide(props: {
                   fallback={
                     <SlidingTabs.Content value="agent" class="agent-import-setup-panel">
                       <div class="agent-import-card">
-                        <AgentAvatar seed="openbot-export" class="storage-row-avatar" />
+                        <AgentAvatar seed="openownbot-export" class="storage-row-avatar" />
                         <span class="agent-import-card-copy">
                           <span class="agent-import-card-name">{EXPORT_AGENT_NAME}</span>
                           <span class="agent-import-card-meta">{t("import.guide.agentMeta")}</span>

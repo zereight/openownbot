@@ -1,6 +1,9 @@
-import { createOpenBotAgentTemplateUrl, createWebAppAgentTemplatePath } from "@openbot/contracts/agent-template-links";
-import type { AgentTemplateDetail } from "@openbot/contracts/ipc";
-import { markdownPlainText, markdownPreviewText } from "@openbot/contracts/markdown-preview-text";
+import {
+  createOpenOwnBotAgentTemplateUrl,
+  createWebAppAgentTemplatePath,
+} from "@openownbot/contracts/agent-template-links";
+import type { AgentTemplateDetail } from "@openownbot/contracts/ipc";
+import { markdownPlainText, markdownPreviewText } from "@openownbot/contracts/markdown-preview-text";
 import { Link } from "@tanstack/solid-router";
 import { createMemo, createSignal, For, Loading, lazy, onSettled, Show } from "solid-js";
 import { agentTemplatePath } from "../../lib/agent-template-path";
@@ -13,12 +16,12 @@ import { PluginOpenButtons } from "../plugins/PluginOpenButtons";
 // its module loads, so the Worker must never import it. The page loads both parts in the browser
 // after hydration.
 const AgentAvatar = lazy(() =>
-  import("@openbot/ui/features/agents/AgentAvatar").then((module) => ({ default: module.AgentAvatar })),
+  import("@openownbot/ui/features/agents/AgentAvatar").then((module) => ({ default: module.AgentAvatar })),
 );
 // The instructions are Markdown. The renderer is the app's own, which builds elements from the parsed
 // text and never inserts HTML. It loads only when the reader opens the instructions.
 const MarkdownMessageText = lazy(() =>
-  import("@openbot/ui/features/conversation/MarkdownMessageText").then((module) => ({
+  import("@openownbot/ui/features/conversation/MarkdownMessageText").then((module) => ({
     default: module.MarkdownMessageText,
   })),
 );
@@ -31,7 +34,7 @@ export interface AgentTemplatePageProps {
  * One shared agent as a single card: the page a link on X or in a chat opens.
  *
  * The card is tinted with the agent's own avatar colour, so each shared agent looks like itself.
- * The button opens `openbot://agents/<id>`, built from the id, and the app then shows its own preview
+ * The button opens `openownbot://agents/<id>`, built from the id, and the app then shows its own preview
  * with Install; nothing here installs. The button below the card links `/app?agent=<id>`, where the
  * browser client shows the same preview.
  */
@@ -46,7 +49,7 @@ export function AgentTemplatePage(props: AgentTemplatePageProps) {
   let description: HTMLParagraphElement | undefined;
   onSettled(() => {
     setMounted(true);
-    void import("@openbot/brand/bloub-avatar").then(({ avatarHeadColor }) =>
+    void import("@openownbot/brand/bloub-avatar").then(({ avatarHeadColor }) =>
       setAccent(avatarHeadColor(props.template.avatarSeed, props.template.avatarHue)),
     );
     if (description) setClamped(description.scrollHeight > description.clientHeight + 1);
@@ -57,7 +60,7 @@ export function AgentTemplatePage(props: AgentTemplatePageProps) {
   // "Read more" is there also when the text fits but has headings, lists or other formatting.
   const preview = createMemo(() => markdownPreviewText(props.template.description));
   const hasMore = () => clamped() || preview() !== props.template.description.replace(/\s+/gu, " ").trim();
-  const openUrl = () => createOpenBotAgentTemplateUrl(props.template.id);
+  const openUrl = () => createOpenOwnBotAgentTemplateUrl(props.template.id);
   const counts = () =>
     [countLabel(props.template.skills.length, "skill"), countLabel(props.template.routines.length, "routine")].filter(
       (label): label is string => label !== null,
@@ -132,19 +135,19 @@ export function AgentTemplatePage(props: AgentTemplatePageProps) {
             </Show>
 
             <hr class="agent-share-divider" />
-            <p class="agent-share-notice">Made by another OpenBot user. It can act on your behalf once added.</p>
+            <p class="agent-share-notice">Made by another OpenOwnBot user. It can act on your behalf once added.</p>
             <div class="agent-share-action">
               <PluginOpenButtons
                 href={openUrl()}
-                label="Add to OpenBot"
-                downloadCopy={`${props.template.name} is added from inside OpenBot. Get the app, then open this link again.`}
+                label="Add to OpenOwnBot"
+                downloadCopy={`${props.template.name} is added from inside OpenOwnBot. Get the app, then open this link again.`}
               />
             </div>
           </div>
         </article>
 
         <p class="agent-share-fallback">
-          OpenBot didn't open? <Link to="/download">Download it</Link>, <a href={openUrl()}>open the app</a>, or{" "}
+          OpenOwnBot didn't open? <Link to="/download">Download it</Link>, <a href={openUrl()}>open the app</a>, or{" "}
           <a href={createWebAppAgentTemplatePath(props.template.id)}>open in browser</a>.
         </p>
       </main>

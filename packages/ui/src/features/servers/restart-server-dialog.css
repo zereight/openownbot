@@ -1,11 +1,11 @@
 .restart-server-steps {
   display: grid;
-  gap: var(--openbot-space-1);
+  gap: var(--openownbot-space-1);
   margin: 0;
-  padding: var(--openbot-space-2) var(--openbot-space-3);
-  border: 1px solid var(--openbot-border);
-  border-radius: var(--openbot-radius-lg);
-  background: var(--openbot-bg-control);
+  padding: var(--openownbot-space-2) var(--openownbot-space-3);
+  border: 1px solid var(--openownbot-border);
+  border-radius: var(--openownbot-radius-lg);
+  background: var(--openownbot-bg-control);
   list-style: none;
 }
 
@@ -13,29 +13,29 @@
   display: grid;
   grid-template-columns: auto minmax(0, 1fr);
   align-items: start;
-  gap: var(--openbot-space-3);
-  padding-block: var(--openbot-space-1-5);
+  gap: var(--openownbot-space-3);
+  padding-block: var(--openownbot-space-1-5);
 }
 
 .restart-server-step-icon {
   display: grid;
   place-items: center;
-  width: var(--openbot-icon-lg);
-  height: var(--openbot-leading-md);
-  color: var(--openbot-text-dim);
+  width: var(--openownbot-icon-lg);
+  height: var(--openownbot-leading-md);
+  color: var(--openownbot-text-dim);
 }
 
 .restart-server-step-icon svg {
-  width: var(--openbot-icon-md);
-  height: var(--openbot-icon-md);
+  width: var(--openownbot-icon-md);
+  height: var(--openownbot-icon-md);
 }
 
 .restart-server-step[data-status="done"] .restart-server-step-icon {
-  color: var(--openbot-success-text);
+  color: var(--openownbot-success-text);
 }
 
 .restart-server-step[data-status="failed"] .restart-server-step-icon {
-  color: var(--openbot-danger-text);
+  color: var(--openownbot-danger-text);
 }
 
 .restart-server-step-text {
@@ -45,20 +45,20 @@
 
 .restart-server-step-label {
   overflow-wrap: anywhere;
-  color: var(--openbot-text-primary);
-  font-size: var(--openbot-text-md);
-  font-weight: var(--openbot-weight-medium);
-  line-height: var(--openbot-leading-md);
+  color: var(--openownbot-text-primary);
+  font-size: var(--openownbot-text-md);
+  font-weight: var(--openownbot-weight-medium);
+  line-height: var(--openownbot-leading-md);
 }
 
 .restart-server-step[data-status="pending"] .restart-server-step-label,
 .restart-server-step-detail {
-  color: var(--openbot-text-muted);
+  color: var(--openownbot-text-muted);
 }
 
 .restart-server-step-detail {
-  font-size: var(--openbot-text-sm);
-  line-height: var(--openbot-leading-sm);
+  font-size: var(--openownbot-text-sm);
+  line-height: var(--openownbot-leading-sm);
 }
 
 .server-status-meta {
@@ -66,9 +66,9 @@
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: var(--openbot-space-2);
-  margin: var(--openbot-space-3) 0 0;
-  color: var(--openbot-text-muted);
-  font-size: var(--openbot-text-sm);
+  gap: var(--openownbot-space-2);
+  margin: var(--openownbot-space-3) 0 0;
+  color: var(--openownbot-text-muted);
+  font-size: var(--openownbot-text-sm);
   font-variant-numeric: tabular-nums;
 }

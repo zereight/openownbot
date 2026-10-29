@@ -1,6 +1,6 @@
-import { mcpFlowFields } from "@openbot/contracts/mcp-connect-flows";
-import { pluginLinkText } from "@openbot/contracts/plugin-links";
-import type { AppTextKey } from "@openbot/i18n";
+import { mcpFlowFields } from "@openownbot/contracts/mcp-connect-flows";
+import { pluginLinkText } from "@openownbot/contracts/plugin-links";
+import type { AppTextKey } from "@openownbot/i18n";
 import {
   Alert,
   AlertContent,
@@ -21,8 +21,8 @@ import {
   SettingsSection,
   Text,
   TriangleAlert,
-} from "@openbot/ui";
-import { useText } from "@openbot/ui/text";
+} from "@openownbot/ui";
+import { useText } from "@openownbot/ui/text";
 import { createSignal, For, Match, Show, Switch } from "solid-js";
 import { type ConnectorDetail, ConnectorDetailPanel, connectorDescription } from "../connectors/ConnectorDetailPanel";
 import type { ConnectorId } from "../connectors/connectors";

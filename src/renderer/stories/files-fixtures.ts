@@ -1,4 +1,4 @@
-import type { AttachmentKind, AttachmentPreviewKind } from "@openbot/contracts/ipc";
+import type { AttachmentKind, AttachmentPreviewKind } from "@openownbot/contracts/ipc";
 import type {
   AgentStorageRow,
   ConversationStorageRow,
@@ -6,7 +6,7 @@ import type {
   StoredFileRow,
   StoredFileSource,
   StoredFileStatus,
-} from "@openbot/ui/features/files/files-view";
+} from "@openownbot/ui/features/files/files-view";
 import { requireFixture, STORY_AGENTS } from "./fixtures";
 
 /** The fixed clock of every Files story, so "Today" and "Yesterday" do not move with the run date. */

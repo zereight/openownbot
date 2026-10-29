@@ -4,7 +4,7 @@ import type {
   ConversationPlan,
   ConversationPlanStep,
   ConversationSubagent,
-} from "@openbot/contracts/ipc";
+} from "@openownbot/contracts/ipc";
 import { LANDING_LEAD_AGENT_ID, landingAttachment } from "./landing-fixtures";
 
 export const LANDING_SCRIPT_MESSAGE_PREFIX = "landing-script:";

@@ -2,15 +2,15 @@
 // time at the mailbox boundary. No provider, account, network or model is started.
 //
 // Run: bun scripts/routine-due-revalidation-e2e.ts
-// It writes .openbot-build/routine-due-revalidation-e2e/report.json and exits non-zero on a failure.
+// It writes .openownbot-build/routine-due-revalidation-e2e/report.json and exits non-zero on a failure.
 import assert from "node:assert/strict";
 import { type ChildProcess, spawn } from "node:child_process";
 import { mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { homedir, tmpdir } from "node:os";
 import { join, resolve } from "node:path";
-import type { Routine, RoutineSchedule } from "@openbot/contracts/ipc";
-import { isDynamicRecord, isString } from "@openbot/contracts/runtime-values";
-import { redactText } from "@openbot/logging";
+import type { Routine, RoutineSchedule } from "@openownbot/contracts/ipc";
+import { isDynamicRecord, isString } from "@openownbot/contracts/runtime-values";
+import { redactText } from "@openownbot/logging";
 import { Deferred, Effect } from "effect";
 import { ConversationRuntime } from "../src/backend/agent/conversation-runtime";
 import { RoutineScheduler } from "../src/backend/agent/routine-scheduler";
@@ -20,17 +20,17 @@ import { AgentWaitStore } from "../src/backend/agent-waits/agent-wait-store";
 import { AgentWaits } from "../src/backend/agent-waits/agent-waits";
 import { runCauseEffect } from "../src/backend/effect-boundary";
 import { MailboxStore } from "../src/backend/mailbox-store";
-import { OpenBotDatabase } from "../src/backend/openbot-database";
+import { OpenOwnBotDatabase } from "../src/backend/openownbot-database";
 import { RoutineTimer } from "../src/backend/routine-timer";
 
 const ROOT = resolve(import.meta.dirname, "..");
-const OUT = join(ROOT, ".openbot-build", "routine-due-revalidation-e2e");
+const OUT = join(ROOT, ".openownbot-build", "routine-due-revalidation-e2e");
 const DEADLINE_MS = 10_000;
 const OUTPUT_BYTES = 256 * 1024;
 const CRASH_EXIT = 86;
 
 interface Fixture {
-  database: OpenBotDatabase;
+  database: OpenOwnBotDatabase;
   store: AgentStore;
   mailbox: MailboxStore;
   conversation: ConversationRuntime;
@@ -87,7 +87,7 @@ async function within<T>(operation: Promise<T>, name: string, milliseconds = DEA
 }
 
 async function openFixture(root: string): Promise<Fixture> {
-  const database = new OpenBotDatabase(join(root, "state"));
+  const database = new OpenOwnBotDatabase(join(root, "state"));
   const store = new AgentStore(join(root, "state"), join(root, "home"), database);
   const mailbox = new MailboxStore(join(root, "state"), store.sharedRoot, database);
   let conversation: ConversationRuntime | undefined;
@@ -414,7 +414,7 @@ function safe(value: string): string {
 }
 
 async function newRoot(): Promise<string> {
-  const root = await mkdtemp(join(tmpdir(), "openbot-routine-due-"));
+  const root = await mkdtemp(join(tmpdir(), "openownbot-routine-due-"));
   ownedRoots.push(root);
   return root;
 }

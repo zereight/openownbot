@@ -3,7 +3,7 @@ import {
   type BillingCurrency,
   type BillingSubscriptionStatus,
   isOpenBillingStatus,
-} from "@openbot/contracts/billing";
+} from "@openownbot/contracts/billing";
 import {
   LICENSE_INCLUDED_USERS,
   LICENSE_LOOKUP_KEY,
@@ -16,9 +16,9 @@ import {
   type LicenseState,
   type LicenseUser,
   licenseAmount,
-} from "@openbot/contracts/license";
-import { isOneOf } from "@openbot/contracts/runtime-values";
-import { sourceText } from "@openbot/i18n/source";
+} from "@openownbot/contracts/license";
+import { isOneOf } from "@openownbot/contracts/runtime-values";
+import { sourceText } from "@openownbot/i18n/source";
 import { Context, Effect, Layer } from "effect";
 import {
   type AccountAnalytics,
@@ -405,7 +405,7 @@ export class LicenseService {
         !Number.isSafeInteger(users) ||
         users < 1
       ) {
-        console.warn("billing: subscription is not an OpenBot license", { subscriptionId: subscription.id });
+        console.warn("billing: subscription is not an OpenOwnBot license", { subscriptionId: subscription.id });
         return null;
       }
       const cancelAtPeriodEnd = subscription.cancel_at_period_end || typeof subscription.cancel_at === "number";

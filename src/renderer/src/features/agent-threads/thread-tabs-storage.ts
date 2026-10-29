@@ -9,7 +9,7 @@ export interface AgentThreadTabs {
 /** Server id → agent id → tabs. */
 export type ThreadTabsByServer = Record<string, Record<string, AgentThreadTabs>>;
 
-const THREAD_TABS_STORAGE_KEY = "openbot:thread-tabs:v1";
+const THREAD_TABS_STORAGE_KEY = "openownbot:thread-tabs:v1";
 /** More tabs than this do not fit in a header. */
 const MAX_STORED_TABS = 50;
 
@@ -61,7 +61,7 @@ export interface PendingThreadDelete {
   restore: boolean;
 }
 
-const THREAD_DELETES_STORAGE_KEY = "openbot:thread-deletes:v1";
+const THREAD_DELETES_STORAGE_KEY = "openownbot:thread-deletes:v1";
 /** A device does not delete more threads than this in one Undo time. */
 const MAX_STORED_DELETES = 200;
 

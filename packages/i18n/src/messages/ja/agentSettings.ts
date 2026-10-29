@@ -43,7 +43,7 @@ export const messages = {
   "agentSettings.folders.inShared": "{folder} は共有フォルダー内にあるため、{agent} はすでに変更できます",
   "agentSettings.folders.inFolder": "{folder} は追加済みの {parent} 内にあります",
   "agentSettings.folders.protected":
-    "{folder} は追加できません。OpenBot のデータか他のエージェントのファイルが含まれています",
+    "{folder} は追加できません。OpenOwnBot のデータか他のエージェントのファイルが含まれています",
   "agentSettings.folders.missing": "{folder} はこのコンピューター上のフォルダーではありません",
   "agentSettings.folders.limit": { other: "追加できるフォルダーは最大 {count} 個です" },
   "agentSettings.folders.failed": "フォルダーを変更できませんでした",

@@ -5,30 +5,30 @@
 //
 // It runs the real Live Activity push service with a synthetic runtime snapshot and a local relay
 // adapter, and opens each push with the widget code. It sends nothing. Run it with
-// `bun scripts/live-activity-ice-away-e2e.ts`. Writes .openbot-build/live-activity-ice-away-e2e/report.json.
+// `bun scripts/live-activity-ice-away-e2e.ts`. Writes .openownbot-build/live-activity-ice-away-e2e/report.json.
 import assert from "node:assert/strict";
 import { randomBytes } from "node:crypto";
 import { EventEmitter } from "node:events";
 import { mkdirSync, writeFileSync } from "node:fs";
 import { join, resolve } from "node:path";
-import type { AgentEvent, AgentRuntimeSnapshot } from "@openbot/contracts/ipc";
-import type { LiveActivityRelayPush } from "@openbot/contracts/live-activity-relay";
-import { isDynamicRecord } from "@openbot/contracts/runtime-values";
-import { createOpenBotLogger } from "@openbot/logging";
+import type { AgentEvent, AgentRuntimeSnapshot } from "@openownbot/contracts/ipc";
+import type { LiveActivityRelayPush } from "@openownbot/contracts/live-activity-relay";
+import { isDynamicRecord } from "@openownbot/contracts/runtime-values";
+import { createOpenOwnBotLogger } from "@openownbot/logging";
 import {
   encodeLiveActivityBytes,
   LIVE_ACTIVITY_SECRET_BYTES,
   liveActivityKeys,
-} from "@openbot/team-client/live-activity-seal";
+} from "@openownbot/team-client/live-activity-seal";
 import { Effect } from "effect";
 import { openSealedLiveActivity } from "../apps/mobile/src/features/live-activity/model/live-activity-open";
 import { LiveActivityPushService } from "../src/main/live-activity-push";
 
-const OUT = resolve(import.meta.dirname, "../.openbot-build/live-activity-ice-away-e2e");
+const OUT = resolve(import.meta.dirname, "../.openownbot-build/live-activity-ice-away-e2e");
 const STEP_DEADLINE_MS = 10_000;
 const SESSION = "fixture-session";
 const AGENT = "fixture-agent";
-const logger = createOpenBotLogger("live-activity-ice-away-e2e");
+const logger = createOpenOwnBotLogger("live-activity-ice-away-e2e");
 
 const events = new EventEmitter<{ event: [AgentEvent] }>();
 const secret = randomBytes(LIVE_ACTIVITY_SECRET_BYTES);

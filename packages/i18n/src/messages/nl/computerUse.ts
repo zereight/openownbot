@@ -9,7 +9,7 @@ export const messages = {
   "computerUse.permission.accessibility.description": "Laat OpenOwnBot klikken en typen.",
   "computerUse.permission.accessibility.pane": "Toegankelijkheid",
   "computerUse.error.check": "OpenOwnBot kan Computerbesturing niet controleren.",
-  "computerUse.error.openSettings": "OpenBot kan Systeeminstellingen niet openen.",
+  "computerUse.error.openSettings": "OpenOwnBot kan Systeeminstellingen niet openen.",
   "computerUse.error.startDriver": "OpenOwnBot kan het stuurprogramma voor Computerbesturing niet starten.",
   "computerUse.checkAgain": "Opnieuw controleren",
   "computerUse.checking": "Computerbesturing controleren",

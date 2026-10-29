@@ -11,7 +11,7 @@ export const unstable_settings = { anchor: "index" };
 
 export default function ChannelInfoLayout() {
   const { t } = useText();
-  const background = String(useCSSVariable("--openbot-bg-sheet"));
+  const background = String(useCSSVariable("--openownbot-bg-sheet"));
   return (
     <Stack
       screenListeners={sheetBackHaptics}

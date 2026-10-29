@@ -1,6 +1,6 @@
-import type { AgentEvent, TeamRealtimeEvent } from "@openbot/contracts/ipc";
-import { type PlanLimits, withSignInUsage } from "@openbot/team-client/plan-limits";
-import { reconcilePendingRequests } from "@openbot/team-client/runtime-attention";
+import type { AgentEvent, TeamRealtimeEvent } from "@openownbot/contracts/ipc";
+import { type PlanLimits, withSignInUsage } from "@openownbot/team-client/plan-limits";
+import { reconcilePendingRequests } from "@openownbot/team-client/runtime-attention";
 import { type QueryClient, replaceEqualDeep } from "@tanstack/react-query";
 import { decodeMobileBrowserTabs } from "@/features/browser/model/browser-tabs";
 import type { LiveWorkspaceStore } from "./live-workspace-store";

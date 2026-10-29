@@ -9,20 +9,20 @@ import {
   isOpenableAttachmentName,
   isSupportedAttachmentNameFor,
   supportedAttachmentExtensions,
-} from "@openbot/contracts/attachment-files";
+} from "@openownbot/contracts/attachment-files";
 import { Effect } from "effect";
 import { unzipSync, zipSync } from "fflate";
 import { AttachmentFiles } from "../src/backend/attachment-files";
 
 const workspace = dirname(dirname(import.meta.filename));
-const artifactPath = join(workspace, ".openbot-build", "zip-attachment-e2e", "report.json");
+const artifactPath = join(workspace, ".openownbot-build", "zip-attachment-e2e", "report.json");
 
 function digest(bytes: Uint8Array): string {
   return createHash("sha256").update(bytes).digest("hex");
 }
 
 async function run() {
-  const root = await mkdtemp(join(tmpdir(), "openbot-zip-attachment-"));
+  const root = await mkdtemp(join(tmpdir(), "openownbot-zip-attachment-"));
   try {
     const sharedRoot = join(root, "shared");
     const files = new AttachmentFiles({ userDataPath: join(root, "user-data"), sharedRoot });

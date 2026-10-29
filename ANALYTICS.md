@@ -1,6 +1,6 @@
 # Product analytics
 
-OpenBot uses a self-hosted OpenPanel project for production product analytics. This document is the
+OpenOwnBot uses a self-hosted OpenPanel project for production product analytics. This document is the
 contract for event meaning, attribution, privacy, and reporting. Changes to an event name, property,
 or success definition require an analytics schema version bump and corresponding test updates.
 
@@ -99,7 +99,7 @@ off. Turning analytics off on any surface first sends one `analytics_preference_
 
 | Event | Product question | Success definition |
 |---|---|---|
-| `desktop_app_opened` | How many accounts/devices open OpenBot? | App state and identity have loaded |
+| `desktop_app_opened` | How many accounts/devices open OpenOwnBot? | App state and identity have loaded |
 | `app_updated` | Did an update actually take effect? | A new version is observed on the next launch |
 | `account_sign_in_started` | Can visitors start authentication? | A code was sent. Mobile from generation 3 adds `method: email`, `duration_ms` and `cause_code`; a resend sends it again |
 | `account_sign_in_completed` | Can visitors become verified accounts? | Verified signed-in state returned. Mobile from generation 3 adds `method: email` |
@@ -121,7 +121,7 @@ off. Turning analytics off on any surface first sends one `analytics_preference_
 | `system_routine_run` | Do routine runs succeed, and which schedules are used? | A routine run that this host saw running reached `succeeded`, `failed`, `needs-attention`, `interrupted`, or `cancelled` |
 | `system_workflow_run` | Do workflow runs succeed, how do they start, and which steps do they use? | From host generation 11, a workflow run that started after this host process started ended. `status` is `done`, `failed` or `stopped`; `source` is `manual`, `schedule` or `webhook`; `duration_ms` (at most 30 days, else not sent); `step_count` of the nodes that ran, and `agent_step_count`, `model_step_count` (model and condition steps), `approval_step_count` and `output_step_count`. A retry can end a run again: each outcome of a run is sent once. Titles, texts, node IDs, agents, addresses and places are never sent |
 | `system_inventory` | What have accounts set up? | At most once per local day: counts of agents, enabled routines, workflows (from host generation 11, `workflow_count`), custom MCP servers, local and community skills, and the slugs of catalog plugins, curated skills and curated agents |
-| `system_resources` | How much CPU and memory does OpenBot use, by computer class and provider? | At most once per local day, the summary of the last closed local day that has samples. A sample is taken once a minute while the computer is awake. Memory in MB rounded to 50 and CPU percent as integers, as the 95th percentile of the samples (`_p95`) or the largest sample (`_max`), for all processes (`total_`), each process group (`main`, `window`, `browser_tab`, `gpu`, `database_host`, `voice_host`, `utility_other`) and the process tree of each provider id (`provider_<id>_`, `provider_other_` for any other child process). `main_loop_delay_ms_p95` is the 95th percentile of each minute's p99 main event-loop delay; `_max` is the longest delay. `db_request_ms_*`, `db_request_count` and `db_slow_request_count` (over 100 ms) time agent database statements. `renderer_gone_count`, `child_gone_count` and `gone_<reason>_count` count processes that ended for a reason other than a clean exit, except in the minute before a quit; A utility process that OpenBot stops itself, such as the voice host after idle time or a database host at a statement deadline, is not counted. The peak active turns, browser tabs and provider processes; `ram_class`, `cpu_class`, `arch`, `host_kind` (`desktop` or `server`), `provider_tree_supported` (false on Windows, or when `ps` failed), and `sample_count`. A day that closes while analytics is off is dropped, never sent later |
+| `system_resources` | How much CPU and memory does OpenOwnBot use, by computer class and provider? | At most once per local day, the summary of the last closed local day that has samples. A sample is taken once a minute while the computer is awake. Memory in MB rounded to 50 and CPU percent as integers, as the 95th percentile of the samples (`_p95`) or the largest sample (`_max`), for all processes (`total_`), each process group (`main`, `window`, `browser_tab`, `gpu`, `database_host`, `voice_host`, `utility_other`) and the process tree of each provider id (`provider_<id>_`, `provider_other_` for any other child process). `main_loop_delay_ms_p95` is the 95th percentile of each minute's p99 main event-loop delay; `_max` is the longest delay. `db_request_ms_*`, `db_request_count` and `db_slow_request_count` (over 100 ms) time agent database statements. `renderer_gone_count`, `child_gone_count` and `gone_<reason>_count` count processes that ended for a reason other than a clean exit, except in the minute before a quit; A utility process that OpenOwnBot stops itself, such as the voice host after idle time or a database host at a statement deadline, is not counted. The peak active turns, browser tabs and provider processes; `ram_class`, `cpu_class`, `arch`, `host_kind` (`desktop` or `server`), `provider_tree_supported` (false on Windows, or when `ps` failed), and `sample_count`. A day that closes while analytics is off is dropped, never sent later |
 | `agent_input_action` | Can users resolve prompts and approvals? | Response IPC completed |
 | `queue_action` | Can users control queued work? | Queue operation completed |
 | `routine_action` | Are routines adopted and reliable? | Routine operation completed; `duration_ms` measures execution time |
@@ -163,7 +163,7 @@ off. Turning analytics off on any surface first sends one `analytics_preference_
 | `screen_view` | Which public website routes and articles are viewed in a session? | One safe view for `/`, `/join`, `/contact`, `/teams`, `/download`, a `/download/<os>` page, a collection index, or a published article path, with allowlisted campaign tags and no hash |
 | `landing_viewed` | How much qualified landing traffic arrives? | Non-automation production page view |
 | `landing_download_clicked` | Which safe channel/placement drives downloads? | Allowlisted download link clicked |
-| `landing_link_clicked` | Which public resources are useful? | Allowlisted public link clicked. From the release with the download pages, the Download link in the content-page header reports `destination: download_page`, not `download_section`. From the release with the contact form, `destination: contact` is a Contact link to `/contact`, and the X link reports `destination: x`. Before, both reported `contact` and opened X. From the release with the OpenBot for Teams section, its Contact us button reports `placement: teams_section`. From the release with the For Teams page, a link to `/teams` reports `destination: teams`, and a link inside that page reports `placement: teams_page` |
+| `landing_link_clicked` | Which public resources are useful? | Allowlisted public link clicked. From the release with the download pages, the Download link in the content-page header reports `destination: download_page`, not `download_section`. From the release with the contact form, `destination: contact` is a Contact link to `/contact`, and the X link reports `destination: x`. Before, both reported `contact` and opened X. From the release with the OpenOwnBot for Teams section, its Contact us button reports `placement: teams_section`. From the release with the For Teams page, a link to `/teams` reports `destination: teams`, and a link inside that page reports `placement: teams_page` |
 | `landing_download_selected` | Does the offered platform match the one taken? | The hero reports its detected platform once, then each manual change; `detected` separates the two |
 | `content_article_opened` | Which news article or guide does a reader choose, and from where? | A link to a published article was clicked; `placement` separates an index card from the related row |
 | `content_article_read` | Is an article read or abandoned? | The body reached `start`, `half`, or `end` in the viewport, at most once each per view. It measures position, not attention, and never elapsed time |
@@ -197,11 +197,11 @@ rather than passed through. Paths are followed by the allowlisted campaign tags 
 hash is ever included. Session replay and automatic interaction capture remain disabled.
 
 To check the desktop send paths, start the dev app with
-`OPENBOT_ANALYTICS_CAPTURE_URL=http://localhost:47321 bun run dev`, then run
+`OPENOWNBOT_ANALYTICS_CAPTURE_URL=http://localhost:47321 bun run dev`, then run
 `bun run test:analytics-redaction -- --allow-mutations`. The app sends its analytics and failure
 reports to that local capture server instead of OpenPanel. The script seeds a secret marker into an
 agent, an MCP server, a routine and browser addresses, and checks that no captured request holds it.
-It writes `.openbot-build/analytics-redaction-e2e/report.json`. A packaged build ignores the setting,
+It writes `.openownbot-build/analytics-redaction-e2e/report.json`. A packaged build ignores the setting,
 and only a loopback `http:` origin is accepted.
 
 ## Required dashboards
@@ -265,7 +265,7 @@ A campaign session ends before most visitors make an account or pay. To link a p
 visit, the website saves the first visit of each browser and the account service keeps it on the
 account.
 
-1. A production website page saves `openbot.first-touch.v1` in the browser's `localStorage` once:
+1. A production website page saves `openownbot.first-touch.v1` in the browser's `localStorage` once:
    the `acquisition_source`, the `source_platform`, the first screen path, the UTC day, and the
    allowlisted campaign tags of that visit. A later visit does not replace it. After 90 days it is not
    read, and the next visit replaces it.
@@ -298,7 +298,7 @@ Limits:
 
 The reporting team asked for these metrics. The events keep their released names; this table gives
 the OpenPanel event and filter for each one. `user_id` is always the OpenPanel `profileId`, which is
-the OpenBot account ID. Filter each row by its `surface` and that surface's current
+the OpenOwnBot account ID. Filter each row by its `surface` and that surface's current
 `event_schema_version`.
 
 | Metric | OpenPanel event and filter | Notes |
@@ -311,7 +311,7 @@ the OpenBot account ID. Filter each row by its `surface` and that surface's curr
 | First value action | First `system_turn_completed` with `origin = user` and `status = completed` for a `profileId` | The product metric |
 | Engagement work | `system_turn_completed`, `origin = user` | `status` gives success or failure |
 | `agent_action` | `agent_action` | `result` is `succeeded` or `failed`; `failure_code` on failure |
-| Trial started | None | OpenBot has no trial period |
+| Trial started | None | OpenOwnBot has no trial period |
 | Checkout started | `billing_action`, `action = checkout_started` | `product` is `server` or `license`; `entry_point` names where the plans were opened |
 | `subscription_started` | `billing_action`, `action = plan_started` | `reactivated = true` is a return after churn |
 | `subscription_canceled` | `billing_action`, `action = cancel_scheduled` | The plan stays open to the end of the period. `cancel_withdrawn` reverses it |

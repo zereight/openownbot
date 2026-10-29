@@ -1,4 +1,4 @@
-import type { MessagingPlatform } from "@openbot/contracts/ipc";
+import type { MessagingPlatform } from "@openownbot/contracts/ipc";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useIsFocused } from "expo-router";
 import { useRef } from "react";

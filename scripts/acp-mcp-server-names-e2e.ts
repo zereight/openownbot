@@ -2,14 +2,14 @@
 // character outside `[A-Za-z0-9_-]`, as Antigravity does. A server the user named "My Server" made
 // every Gemini task fail with `invalid params` (#2801). The session must start with each name changed
 // to that form. A changed name that another server has (`computer use` and Computer Use's
-// `computer_use`), one that becomes a name of OpenBot's own tools, and the second of two that become
+// `computer_use`), one that becomes a name of OpenOwnBot's own tools, and the second of two that become
 // the same name are reported as drops.
-// `bun run test:acp-mcp-names`. Writes .openbot-build/acp-mcp-server-names-e2e/report.json.
+// `bun run test:acp-mcp-names`. Writes .openownbot-build/acp-mcp-server-names-e2e/report.json.
 import assert from "node:assert/strict";
 import { mkdir, mkdtemp, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
-import type { McpServerConfig } from "@openbot/contracts/ipc";
+import type { McpServerConfig } from "@openownbot/contracts/ipc";
 import type { AgentClient } from "../src/backend/agent-client";
 import { runCauseEffect } from "../src/backend/effect-boundary";
 import type { McpServerDrop } from "../src/backend/mcp-provider-shapes";
@@ -17,7 +17,7 @@ import { requireProviderDriver } from "../src/backend/provider-drivers";
 import { CustomAgentStore } from "../src/main/custom-agent-store";
 import { installFakeAgent, readJsonl, runTurn, startThread, stopClients, xorCipher } from "./provider-fakes/host";
 
-const OUT = resolve(import.meta.dirname, "../.openbot-build/acp-mcp-server-names-e2e");
+const OUT = resolve(import.meta.dirname, "../.openownbot-build/acp-mcp-server-names-e2e");
 
 interface SessionRequest {
   method: string;
@@ -31,7 +31,7 @@ interface Report {
   reply?: string;
 }
 
-const root = await mkdtemp(join(tmpdir(), "openbot-acp-mcp-names-e2e-"));
+const root = await mkdtemp(join(tmpdir(), "openownbot-acp-mcp-names-e2e-"));
 const report: Report = { passed: false };
 const clients: AgentClient[] = [];
 
@@ -75,7 +75,7 @@ try {
   const servers = [
     server("spaced", "My Server"),
     server("underscored", "My_Server"),
-    server("bridge-like", "openbot browser"),
+    server("bridge-like", "openownbot browser"),
     server("computer-use-like", "computer use"),
     // Stands for the built-in Computer Use server, which `McpGateway.enabled` puts after the user's.
     server("computer-use", "computer_use"),
@@ -119,7 +119,7 @@ try {
     drops.map((drop) => [drop.name, drop.reason]),
     [
       ["My Server", "name_conflict"],
-      ["openbot browser", "name_conflict"],
+      ["openownbot browser", "name_conflict"],
       ["computer use", "name_conflict"],
       ["Home.Assistant", "name_conflict"],
     ],

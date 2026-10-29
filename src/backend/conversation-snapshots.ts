@@ -1,7 +1,7 @@
-import { sortConversationMessages } from "@openbot/contracts/conversation-order";
-import type { AgentProviderId, ConversationMessage, ConversationSnapshot } from "@openbot/contracts/ipc";
-import { isImageGenerationAspectRatio, ROUTINE_QUIET_ANSWER_ITEM_TYPE } from "@openbot/contracts/ipc";
-import { isString } from "@openbot/contracts/runtime-values";
+import { sortConversationMessages } from "@openownbot/contracts/conversation-order";
+import type { AgentProviderId, ConversationMessage, ConversationSnapshot } from "@openownbot/contracts/ipc";
+import { isImageGenerationAspectRatio, ROUTINE_QUIET_ANSWER_ITEM_TYPE } from "@openownbot/contracts/ipc";
+import { isString } from "@openownbot/contracts/runtime-values";
 import { displayMessageReferences, type TeammatePrompt, teammatePrompts } from "./agent/delivery-content";
 import { imageGenerationFailure, isImageGenerationItem } from "./agent/image-generation";
 import type { DeliveryContext } from "./mailbox-store";
@@ -15,7 +15,7 @@ export interface ThreadTurnMessageContext {
 }
 
 /**
- * Converts one bounded provider item page into OpenBot messages.
+ * Converts one bounded provider item page into OpenOwnBot messages.
  *
  * `itemOffset` keeps timestamps stable when a provider splits one turn over several pages. The
  * caller must release the item page after this function returns; this function keeps no provider

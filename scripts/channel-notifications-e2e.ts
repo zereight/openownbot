@@ -9,7 +9,7 @@
 // not, and that only the peer with the capability gets `threads`, the preview author and status and
 // the UI blocks, while the released peer reads its wire with the frozen channels-v1 codec.
 // Run: `bun scripts/channel-notifications-e2e.ts`.
-// Writes .openbot-build/channel-notifications-e2e/report.json.
+// Writes .openownbot-build/channel-notifications-e2e/report.json.
 
 import assert from "node:assert/strict";
 import { randomUUID } from "node:crypto";
@@ -26,19 +26,19 @@ import {
   IPC_ENDPOINTS,
   LOCAL_SERVER_ID,
   type NotificationOpenedEvent,
-} from "@openbot/contracts/ipc";
-import { isDynamicRecord } from "@openbot/contracts/runtime-values";
+} from "@openownbot/contracts/ipc";
+import { isDynamicRecord } from "@openownbot/contracts/runtime-values";
 import {
   TEAM_APP_VERSION_HEADER,
   TEAM_CAPABILITIES_HEADER,
   TEAM_CURRENT_CAPABILITIES,
   TEAM_PROTOCOL_V8,
   TEAM_PROTOCOL_VERSION_HEADER,
-} from "@openbot/contracts/team-protocol";
-import { CHANNEL_ROUTES, channelResponse } from "@openbot/contracts/team-protocol/channels-v1";
-import { TEAM_CHANNEL_ATTENTION_CAPABILITY } from "@openbot/contracts/team-protocol/current";
-import { teamSideRouteCodec } from "@openbot/contracts/team-protocol/side-routes";
-import { createFormat, translateFor } from "@openbot/i18n";
+} from "@openownbot/contracts/team-protocol";
+import { CHANNEL_ROUTES, channelResponse } from "@openownbot/contracts/team-protocol/channels-v1";
+import { TEAM_CHANNEL_ATTENTION_CAPABILITY } from "@openownbot/contracts/team-protocol/current";
+import { teamSideRouteCodec } from "@openownbot/contracts/team-protocol/side-routes";
+import { createFormat, translateFor } from "@openownbot/i18n";
 import { plugin } from "bun";
 import { Effect } from "effect";
 import type { AgentBrowserHost } from "../src/backend/agent/turn-lifecycle";
@@ -46,11 +46,11 @@ import { AgentService } from "../src/backend/agent-service";
 import { AgentStore } from "../src/backend/agent-store";
 import { runCauseEffect } from "../src/backend/effect-boundary";
 import { MailboxStore } from "../src/backend/mailbox-store";
-import { OpenBotDatabase } from "../src/backend/openbot-database";
+import { OpenOwnBotDatabase } from "../src/backend/openownbot-database";
 import { SidebarLayoutStore } from "../src/backend/sidebar-layout-store";
 import type { TeamApiBrowser } from "../src/main/team-api/dependencies";
 
-const OUT = resolve(import.meta.dirname, "../.openbot-build/channel-notifications-e2e");
+const OUT = resolve(import.meta.dirname, "../.openownbot-build/channel-notifications-e2e");
 const APP_VERSION = "0.0.0-e2e";
 const STEP_DEADLINE_MS = 30_000;
 const OWNER = { username: "owner-user", password: "owner-password-123" };
@@ -220,7 +220,7 @@ function lastOpened(): NotificationOpenedEvent {
   return event;
 }
 
-const root = await mkdtemp(join(tmpdir(), "openbot-channel-notifications-"));
+const root = await mkdtemp(join(tmpdir(), "openownbot-channel-notifications-"));
 const userData = join(root, "user-data");
 const unused = () => Effect.die(new Error("Not used by this check."));
 const agentBrowser: AgentBrowserHost = {
@@ -268,7 +268,7 @@ const cipher = {
 };
 const centralAccount = { createTeamAuthTicket: unused, getEmail: () => "e2e@example.invalid" };
 
-const database = new OpenBotDatabase(userData);
+const database = new OpenOwnBotDatabase(userData);
 const agentStore = new AgentStore(userData, join(root, "home"), database);
 const mailbox = new MailboxStore(userData, agentStore.sharedRoot, agentStore.database);
 const sidebar = new SidebarLayoutStore(join(userData, "sidebar-layout.json"));

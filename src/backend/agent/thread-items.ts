@@ -1,8 +1,12 @@
 import { RequestError } from "@agentclientprotocol/sdk";
-import { INPUT_LIMITS } from "@openbot/contracts/input-limits";
-import { agentProviderName, COMPUTER_USE_MCP_SERVER_NAME, DEFAULT_PROVIDER_ACCOUNT_ID } from "@openbot/contracts/ipc";
-import { type DynamicRecord, isString } from "@openbot/contracts/runtime-values";
-import { sourceText } from "@openbot/i18n/source";
+import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
+import {
+  agentProviderName,
+  COMPUTER_USE_MCP_SERVER_NAME,
+  DEFAULT_PROVIDER_ACCOUNT_ID,
+} from "@openownbot/contracts/ipc";
+import { type DynamicRecord, isString } from "@openownbot/contracts/runtime-values";
+import { sourceText } from "@openownbot/i18n/source";
 import {
   type AgentProvider,
   MissingClaudeSessionError,
@@ -10,7 +14,7 @@ import {
   RequestTimeoutError,
 } from "../agent-client";
 import { AppServerError } from "../app-server-client";
-import { OPENBOT_BROWSER_NAMESPACE } from "../browser-tools";
+import { OPENOWNBOT_BROWSER_NAMESPACE } from "../browser-tools";
 import {
   bridgedToolName,
   type DynamicToolCallParams,
@@ -88,7 +92,7 @@ export function isCodexCompactionRefusal(error: unknown): boolean {
  * The provider refused the session's own history. Grok keeps the `encrypted_content` of each
  * reasoning item in its session and sends it back on every request, and xAI accepts it only from
  * the caller it was issued to. After a sign-in to another account or a new API key, each turn of
- * that session fails the same way, so only a new session, given the OpenBot transcript, recovers.
+ * that session fails the same way, so only a new session, given the OpenOwnBot transcript, recovers.
  */
 function isForeignReasoningError(message: string): boolean {
   return /\bencrypted_content\b.*\bnot issued to this caller\b/i.test(message);
@@ -98,7 +102,7 @@ function isForeignReasoningError(message: string): boolean {
  * OpenCode's model gateway answers a request that it does not accept with one generic 400 that
  * names no field. A session that grew too long for its model, often after the agent moved to
  * another model on the same session, fails each turn this way, and OpenCode does not compact it
- * (#2351). Only a new session, given the OpenBot transcript, recovers.
+ * (#2351). Only a new session, given the OpenOwnBot transcript, recovers.
  */
 function isRejectedOpenCodeRequest(provider: AgentProvider, message: string): boolean {
   return provider === "opencode" && /\bthe request contains invalid parameters\b/i.test(message);
@@ -107,7 +111,7 @@ function isRejectedOpenCodeRequest(provider: AgentProvider, message: string): bo
 /**
  * Muse stores a failed MCP startup audit in the session, and `session/resume` cannot clear it. Each
  * later turn of that session fails in milliseconds, even after the failed server is removed
- * (#2369). Only a new session, given the OpenBot transcript, recovers.
+ * (#2369). Only a new session, given the OpenOwnBot transcript, recovers.
  */
 function isMuseMcpStartupFault(provider: AgentProvider, message: string): boolean {
   return provider === "muse" && /\bMCP startup audit failed\b/i.test(message);
@@ -195,7 +199,7 @@ type ToolUsageKind =
 
 /**
  * One finished tool step. `server` and `tool` are the provider's raw names, not yet safe to send:
- * the main process keeps them only for OpenBot's own servers and catalog plugins.
+ * the main process keeps them only for OpenOwnBot's own servers and catalog plugins.
  */
 export interface ToolUsage {
   kind: ToolUsageKind;
@@ -282,7 +286,7 @@ export function toolUsage(item: ThreadItem): ToolUsage | null {
   if (claudeKind) return { kind: claudeKind, failed };
   const mcp = /^mcp__(.+?)__(.+)$/u.exec(name);
   if (!mcp?.[1] || !mcp[2]) return { kind: "other", failed };
-  // A server name can contain `__`, so `mcp__openbot__acme__list` does not show where the server
+  // A server name can contain `__`, so `mcp__openownbot__acme__list` does not show where the server
   // name stops. Such a step keeps no names: a user's server must never pass as a built-in one.
   if (mcp[2].includes("__")) return { kind: "mcp", failed };
   return { kind: "mcp", server: mcp[1], tool: mcp[2], failed };
@@ -297,30 +301,30 @@ function bridgedTool(item: ThreadItem) {
 const TOOL_RESULT_PROGRESS = "Reviewing the latest tool result…";
 
 /**
- * The OpenBot tool that an item calls, or null for any other tool: a Codex, Pi or Muse item names
- * it, a Claude item names it `mcp__openbot__<tool>`, and a `tool_call` bridge item names it in its
- * arguments. A tool of another MCP server with the same name is not OpenBot's.
+ * The OpenOwnBot tool that an item calls, or null for any other tool: a Codex, Pi or Muse item names
+ * it, a Claude item names it `mcp__openownbot__<tool>`, and a `tool_call` bridge item names it in its
+ * arguments. A tool of another MCP server with the same name is not OpenOwnBot's.
  */
-function openBotTool(item: ThreadItem): string | null {
+function openOwnBotTool(item: ThreadItem): string | null {
   const bridged = bridgedToolName(item);
-  if (bridged) return bridged.startsWith("openbot.") ? bridged.slice("openbot.".length) : null;
-  if (item.type === "toolCall") return /^mcp__openbot__(.+)$/u.exec(getString(item, "name") ?? "")?.[1] ?? null;
-  if (item.type === "mcpToolCall" && getString(item, "server") !== "openbot") return null;
+  if (bridged) return bridged.startsWith("openownbot.") ? bridged.slice("openownbot.".length) : null;
+  if (item.type === "toolCall") return /^mcp__openownbot__(.+)$/u.exec(getString(item, "name") ?? "")?.[1] ?? null;
+  if (item.type === "mcpToolCall" && getString(item, "server") !== "openownbot") return null;
   return item.type === "dynamicToolCall" || item.type === "mcpToolCall" ? getString(item, "tool") : null;
 }
 
 /**
- * The OpenBot browser tool that an item calls, or null for any other tool: a `tool_call` bridge item
+ * The OpenOwnBot browser tool that an item calls, or null for any other tool: a `tool_call` bridge item
  * names it in its arguments, a Codex item names its namespace, and a Claude item names it
- * `mcp__openbot_browser__<tool>` (`claudeBridgedToolName`).
+ * `mcp__openownbot_browser__<tool>` (`claudeBridgedToolName`).
  */
 function browserTool(item: ThreadItem): string | null {
   const bridged = bridgedTool(item);
-  if (bridged) return bridged.namespace === OPENBOT_BROWSER_NAMESPACE ? bridged.tool : null;
+  if (bridged) return bridged.namespace === OPENOWNBOT_BROWSER_NAMESPACE ? bridged.tool : null;
   if (item.type === "toolCall") {
-    return /^mcp__openbot_browser__(.+)$/u.exec(getString(item, "name") ?? "")?.[1] ?? null;
+    return /^mcp__openownbot_browser__(.+)$/u.exec(getString(item, "name") ?? "")?.[1] ?? null;
   }
-  if (item.type !== "dynamicToolCall" || getString(item, "namespace") !== OPENBOT_BROWSER_NAMESPACE) return null;
+  if (item.type !== "dynamicToolCall" || getString(item, "namespace") !== OPENOWNBOT_BROWSER_NAMESPACE) return null;
   return getString(item, "tool");
 }
 
@@ -366,10 +370,10 @@ function messageRecipients(item: ThreadItem): string[] {
     .slice(0, INPUT_LIMITS.messageRecipients);
 }
 
-/** What the trace keeps of a tool step: its shell command, and the agents that an OpenBot message went to. */
+/** What the trace keeps of a tool step: its shell command, and the agents that an OpenOwnBot message went to. */
 export function toolTraceDetail(item: ThreadItem): { command: string | null; recipientAgentIds: string[] | null } {
   const command = getString(item, "command");
-  const recipients = openBotTool(item) === "send_message" ? messageRecipients(item) : [];
+  const recipients = openOwnBotTool(item) === "send_message" ? messageRecipients(item) : [];
   return { command, recipientAgentIds: recipients.length > 0 ? recipients : null };
 }
 
@@ -407,16 +411,17 @@ export function toolProgressText(item: ThreadItem, completed: boolean): string |
   if (getString(item, "server") === COMPUTER_USE_MCP_SERVER_NAME || descriptor.includes(COMPUTER_USE_MCP_SERVER_NAME)) {
     return sourceText(completed ? "status.computerUse.progressDeciding" : "status.computerUse.progressActing");
   }
-  // OpenBot's own memory and skill tools, before the generic words too. A memory search reports what
+  // OpenOwnBot's own memory and skill tools, before the generic words too. A memory search reports what
   // it found itself, while it runs, so its end adds no line.
-  const openBot = openBotTool(item);
-  if (openBot === "search_memories" || openBot === "list_memories") {
+  const openOwnBot = openOwnBotTool(item);
+  if (openOwnBot === "search_memories" || openOwnBot === "list_memories") {
     return completed ? null : sourceText("status.agent.memoriesSearching");
   }
-  if (openBot === "remember" || openBot === "forget_memory" || openBot === "set_memory_inclusion") {
+  if (openOwnBot === "remember" || openOwnBot === "forget_memory" || openOwnBot === "set_memory_inclusion") {
     return completed ? TOOL_RESULT_PROGRESS : sourceText("status.agent.memoriesUpdating");
   }
-  if (openBot === "read_local_skill") return completed ? TOOL_RESULT_PROGRESS : sourceText("status.agent.skillReading");
+  if (openOwnBot === "read_local_skill")
+    return completed ? TOOL_RESULT_PROGRESS : sourceText("status.agent.skillReading");
   const skill = getString(item, "name") === "Skill" ? getString(item, "skill") : null;
   if (skill) return completed ? TOOL_RESULT_PROGRESS : sourceText("status.agent.skillUsing", { name: skill });
   if (descriptor.includes("capture_screen")) {

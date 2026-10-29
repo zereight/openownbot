@@ -1,4 +1,4 @@
-import type { MobileTextKey } from "@openbot/i18n/mobile";
+import type { MobileTextKey } from "@openownbot/i18n/mobile";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { Button, Typography } from "heroui-native";
 import { type ReactNode, useEffect, useMemo, useRef, useState } from "react";

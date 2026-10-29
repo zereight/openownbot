@@ -4,13 +4,13 @@
  * not import `App.tsx` without closing an import cycle.
  */
 
-export const LEFT_PANEL_STORAGE_KEY = "openbot:left-panel-width";
-export const LEFT_PANEL_COLLAPSED_STORAGE_KEY = "openbot:left-panel-collapsed";
-export const SERVER_VIEW_STORAGE_KEY = "openbot:server-view";
+export const LEFT_PANEL_STORAGE_KEY = "openownbot:left-panel-width";
+export const LEFT_PANEL_COLLAPSED_STORAGE_KEY = "openownbot:left-panel-collapsed";
+export const SERVER_VIEW_STORAGE_KEY = "openownbot:server-view";
 /** Whether the middle shows the open agent's chat or its routines. */
-export const SIDEBAR_VIEW_STORAGE_KEY = "openbot:sidebar-view";
+export const SIDEBAR_VIEW_STORAGE_KEY = "openownbot:sidebar-view";
 /** The pages that the user pinned to the page rail or took off it: a JSON record of booleans. */
-export const RAIL_PINS_STORAGE_KEY = "openbot:rail-pins";
+export const RAIL_PINS_STORAGE_KEY = "openownbot:rail-pins";
 export const LEFT_PANEL_DEFAULT = 280;
 export const LEFT_PANEL_MIN = 128;
 export const LEFT_PANEL_MAX = 400;

@@ -14,16 +14,16 @@ export function AIAgentsVsAgenticAI() {
       </p>
 
       <p>
-        OpenBot makes the difference easy to see. You can create a named agent, give it instructions and keep its
+        OpenOwnBot makes the difference easy to see. You can create a named agent, give it instructions and keep its
         conversations and files in its own workspace. What happens after you assign a task shows how much of its work is
         agentic.
       </p>
 
-      <h2>One OpenBot task, two terms</h2>
+      <h2>One OpenOwnBot task, two terms</h2>
 
       <p>
-        Suppose you want to compare three project-management tools for your team. You ask an OpenBot research agent to
-        check their official pages and save a short comparison with links.
+        Suppose you want to compare three project-management tools for your team. You ask an OpenOwnBot research agent
+        to check their official pages and save a short comparison with links.
       </p>
 
       <p>The research agent is the AI agent. It has a role, instructions and a place to keep its work.</p>
@@ -54,16 +54,16 @@ export function AIAgentsVsAgenticAI() {
       </p>
 
       <p>
-        In OpenBot, the agent's workspace and conversation stay on the computer running OpenBot. A connected AI provider
-        may still receive the prompts needed to carry out the task, and the browser and other tools may use the network.
-        Those details matter more than whether a product calls itself “agentic.”
+        In OpenOwnBot, the agent's workspace and conversation stay on the computer running OpenOwnBot. A connected AI
+        provider may still receive the prompts needed to carry out the task, and the browser and other tools may use the
+        network. Those details matter more than whether a product calls itself “agentic.”
       </p>
 
       <h2>Do you need several agents?</h2>
 
       <p>
-        No. One OpenBot agent can research and save the comparison. If the work grows, you can ask a second agent to
-        review the evidence or turn the approved notes into a report. OpenBot supports messages, shared files and
+        No. One OpenOwnBot agent can research and save the comparison. If the work grows, you can ask a second agent to
+        review the evidence or turn the approved notes into a report. OpenOwnBot supports messages, shared files and
         handoffs between agents, but adding more agents does not automatically improve the answer.
       </p>
 
@@ -75,7 +75,7 @@ export function AIAgentsVsAgenticAI() {
       <h2>A small task to try</h2>
 
       <p>
-        Give one OpenBot agent a narrow request: “Compare these three approved product pages. Save a table with the
+        Give one OpenOwnBot agent a narrow request: “Compare these three approved product pages. Save a table with the
         price, team limit and a link for each fact. If a detail is missing, mark it as unknown. Do not send or publish
         the result.”
       </p>

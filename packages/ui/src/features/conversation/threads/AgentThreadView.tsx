@@ -5,23 +5,23 @@ import type {
   AttachmentSummary,
   DraftAttachment,
   InstalledSkill,
-} from "@openbot/contracts/ipc";
-import type { AppTextKey } from "@openbot/i18n";
-import { isAgentTaskActive } from "@openbot/team-client/agent-tasks";
-import { ArrowUp, Button, Image, Square } from "@openbot/ui";
-import { createScrollFades } from "@openbot/ui/components/createScrollFades";
-import type { AgentMessage, AgentProfile, ComposerMcpServer } from "@openbot/ui/data";
-import { AgentActivityIndicator, nextAgentActivityLabel } from "@openbot/ui/features/conversation/AgentActivity";
-import { type ChatMessageAuthor, ChatMessageRow } from "@openbot/ui/features/conversation/ChatMessageRow";
+} from "@openownbot/contracts/ipc";
+import type { AppTextKey } from "@openownbot/i18n";
+import { isAgentTaskActive } from "@openownbot/team-client/agent-tasks";
+import { ArrowUp, Button, Image, Square } from "@openownbot/ui";
+import { createScrollFades } from "@openownbot/ui/components/createScrollFades";
+import type { AgentMessage, AgentProfile, ComposerMcpServer } from "@openownbot/ui/data";
+import { AgentActivityIndicator, nextAgentActivityLabel } from "@openownbot/ui/features/conversation/AgentActivity";
+import { type ChatMessageAuthor, ChatMessageRow } from "@openownbot/ui/features/conversation/ChatMessageRow";
 import {
   ComposerEditor,
   type ComposerPasteResult,
   type ComposerSelection,
-} from "@openbot/ui/features/conversation/ComposerEditor";
-import { ComposerNotice } from "@openbot/ui/features/conversation/ComposerNotice";
-import { ContextUsageMeter, type ContextUsageView } from "@openbot/ui/features/conversation/ContextUsage";
-import { ApprovalCard } from "@openbot/ui/features/conversation/ConversationPrompts";
-import { type TextValue, useText } from "@openbot/ui/text";
+} from "@openownbot/ui/features/conversation/ComposerEditor";
+import { ComposerNotice } from "@openownbot/ui/features/conversation/ComposerNotice";
+import { ContextUsageMeter, type ContextUsageView } from "@openownbot/ui/features/conversation/ContextUsage";
+import { ApprovalCard } from "@openownbot/ui/features/conversation/ConversationPrompts";
+import { type TextValue, useText } from "@openownbot/ui/text";
 import type { JSX } from "@solidjs/web";
 import { children, createSignal, For, onSettled, Show } from "solid-js";
 

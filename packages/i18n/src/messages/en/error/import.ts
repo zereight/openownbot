@@ -53,7 +53,7 @@ export const messages = defineMessages("error.import", {
     "It has code that it did not have when the profiles were read. Read them again to allow it.",
   "error.import.hermesLinkNotSaved":
     "{name}: OpenOwnBot could not save which agent came from this profile, so the next import adds it as a new agent.",
-  // Instance transfer between two OpenBot computers.
+  // Instance transfer between two OpenOwnBot computers.
   "error.import.transferRemoteTooLarge":
     "A transfer file for a joined server must be under 100 MB. Turn off workspace files, or export fewer agents.",
   "error.import.transferNotFile": "This file is not an OpenOwnBot transfer file.",

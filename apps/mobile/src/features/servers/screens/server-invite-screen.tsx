@@ -1,7 +1,7 @@
-import { INPUT_LIMITS } from "@openbot/contracts/input-limits";
-import { PERMANENT_INVITE_EXPIRES_AT_MS } from "@openbot/contracts/invite-links";
-import { normalizeEmailAddress } from "@openbot/contracts/validation";
-import { runTeamEffect } from "@openbot/team-client";
+import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
+import { PERMANENT_INVITE_EXPIRES_AT_MS } from "@openownbot/contracts/invite-links";
+import { normalizeEmailAddress } from "@openownbot/contracts/validation";
+import { runTeamEffect } from "@openownbot/team-client";
 import * as Clipboard from "expo-clipboard";
 import { useLocalSearchParams } from "expo-router";
 import { Typography } from "heroui-native";
@@ -47,8 +47,8 @@ const EXPIRY_FORMAT = { month: "short", day: "numeric", hour: "numeric", minute:
 export function ServerInviteScreen() {
   const { t, format, errorMessage } = useText();
   const { theme } = useUniwind();
-  const muted = String(useCSSVariable("--openbot-text-grouped-secondary"));
-  const accent = String(useCSSVariable("--openbot-accent"));
+  const muted = String(useCSSVariable("--openownbot-text-grouped-secondary"));
+  const accent = String(useCSSVariable("--openownbot-accent"));
   const { serverId } = useLocalSearchParams<{ serverId: string }>();
   const {
     server,

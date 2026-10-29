@@ -1,5 +1,5 @@
-import type { AgentModelOption } from "@openbot/contracts/ipc";
-import { sourceText } from "@openbot/i18n/source";
+import type { AgentModelOption } from "@openownbot/contracts/ipc";
+import { sourceText } from "@openownbot/i18n/source";
 import { Effect, Fiber } from "effect";
 import type { AgentClient, AgentProvider } from "../agent-client";
 import type { ProfileClients } from "./profile-clients";

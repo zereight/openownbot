@@ -120,7 +120,7 @@ export const messages = {
   "server.hosted.detail.create.copy": "Copie d’OpenOwnBot sur la machine",
   "server.hosted.detail.create.key": "Ajout d’une clé de connexion à usage unique",
   "server.hosted.detail.start.boot": "Mise sous tension de la machine",
-  "server.hosted.detail.start.app": "Démarrage d’OpenBot",
+  "server.hosted.detail.start.app": "Démarrage d’OpenOwnBot",
   "server.hosted.detail.start.wait": "Attente de la réponse d’OpenOwnBot",
   "server.hosted.detail.connect.signIn": "Connexion en votre nom",
   "server.hosted.detail.connect.publish": "Ajout du serveur à votre compte",
@@ -463,11 +463,11 @@ export const messages = {
   "server.update.path.hosted":
     "Le service hébergé télécharge les mises à jour en arrière-plan. Une mise à jour téléchargée s’applique au prochain démarrage du serveur. Attendez la fin du travail en cours avant d’arrêter puis de reprendre le serveur. S’il reste sur une ancienne version, contactez l’administrateur de l’hôte.",
   "server.update.path.system":
-    "Sur l’hôte, exécutez sudo openbot update pour installer la dernière version. Cette commande arrête OpenOwnBot. Attendez d’abord la fin du travail en cours. Les téléchargements automatiques s’installent au prochain démarrage.",
+    "Sur l’hôte, exécutez sudo openownbot update pour installer la dernière version. Cette commande arrête OpenOwnBot. Attendez d’abord la fin du travail en cours. Les téléchargements automatiques s’installent au prochain démarrage.",
   "server.update.path.container":
     "Sur l’hôte Docker, récupérez la nouvelle image OpenOwnBot et recréez le conteneur avec les mêmes volumes de données. Attendez d’abord la fin du travail en cours. Conservez les volumes existants pour préserver vos données.",
   "server.update.path.manual":
-    "Cette installation ne peut pas se remplacer elle-même. Demandez à l’administrateur de l’hôte d’installer la version compatible depuis github.com/nightly-labs/openbot/releases. Conservez les données OpenOwnBot existantes.",
+    "Cette installation ne peut pas se remplacer elle-même. Demandez à l’administrateur de l’hôte d’installer la version compatible depuis github.com/zereight/openownbot/releases. Conservez les données OpenOwnBot existantes.",
   "server.update.path.unavailable":
     "Ceci est un build de développement. Utilisez une version installée d’OpenOwnBot pour rechercher des mises à jour.",
   "server.update.check": "Rechercher des mises à jour",

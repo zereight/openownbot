@@ -78,10 +78,10 @@ export const messages = {
 
   "connector.statusUnknown": "未知",
   "connector.readFailed": "OpenOwnBot 无法读取该连接的状态。",
-  // Marketplace > Apps > Slack: a workspace installs the one OpenBot app, and the Slack
+  // Marketplace > Apps > Slack: a workspace installs the one OpenOwnBot app, and the Slack
   // Orchestrator agent receives each request, asks the team and answers.
   "connector.slack.title": "Slack",
-  "connector.slack.description": "人们在 Slack 中提及 @OpenBot 或给它发私信，Slack 调度助手会找到合适的助手来回答。",
+  "connector.slack.description": "人们在 Slack 中提及 @OpenOwnBot 或给它发私信，Slack 调度助手会找到合适的助手来回答。",
   "connector.slack.statusConnected": "已连接",
   "connector.slack.statusAttention": "需要关注",
   // {workspace} is the Slack workspace name.
@@ -96,10 +96,10 @@ export const messages = {
   "connector.slack.addAgent": "添加助手",
   "connector.slack.actionFailed": "Slack 没有接受该更改",
   "connector.slack.workspaceTitle": "工作区",
-  "connector.slack.workspaceDescription": "人们提及 @OpenBot 或给它发私信。",
+  "connector.slack.workspaceDescription": "人们提及 @OpenOwnBot 或给它发私信。",
   "connector.slack.disconnectWorkspace": "断开连接",
   "connector.slack.disconnectAllTitle": "断开 Slack",
-  "connector.slack.disconnectAllSummary": "所有工作区都将断开，其他人无法再通过 @OpenBot 联系你的助手。",
+  "connector.slack.disconnectAllSummary": "所有工作区都将断开，其他人无法再通过 @OpenOwnBot 联系你的助手。",
   "connector.slack.disconnectAllSummaryOrchestrator":
     "所有工作区都将断开，Slack 调度助手及其对话将从 OpenOwnBot 中删除。",
   "connector.slack.missingScopes": "OpenOwnBot 在 Slack 中缺少这些权限：{scopes}。请断开该工作区后重新连接。",
@@ -115,7 +115,7 @@ export const messages = {
   "connector.slack.orchestratorNone": "还没有助手回答",
   "connector.slack.orchestratorNoneDescription": "请添加 Slack 调度助手，否则 Slack 中不会有人回答。",
   "connector.slack.inviteNote":
-    "OpenBot 会自动加入每个公开频道以及之后新建的公开频道。私有频道需要邀请：/invite @OpenBot。",
+    "OpenOwnBot 会自动加入每个公开频道以及之后新建的公开频道。私有频道需要邀请：/invite @OpenOwnBot。",
   // The connect dialog. The steps show as numbers; screen readers read the names.
   "connector.slack.stepWorkspace": "工作区",
   "connector.slack.stepAgent": "助手",
@@ -128,7 +128,7 @@ export const messages = {
   "connector.slack.connectWaiting": "正在等待 Slack，请在浏览器中完成安装。",
   "connector.slack.agentStepTitle": "添加 Slack 调度助手",
   // {workspace} is the Slack workspace name.
-  "connector.slack.agentStepDescription": "这个新助手会回答人们在 {workspace} 中发给 @OpenBot 的所有内容。",
+  "connector.slack.agentStepDescription": "这个新助手会回答人们在 {workspace} 中发给 @OpenOwnBot 的所有内容。",
   "connector.slack.orchestratorName": "Slack 调度助手",
   "connector.slack.orchestratorRole": "在 Slack 中回答并调度团队",
   "connector.slack.orchestratorDoesReceive": "优先接收所有 Slack 请求",
@@ -136,13 +136,13 @@ export const messages = {
   "connector.slack.orchestratorDoesAnswer": "把答案发到 Slack 话题中",
   "connector.slack.orchestratorModel": "模型",
   "connector.slack.doneTitle": "OpenOwnBot 已加入 {workspace}",
-  "connector.slack.doneDescription": "在任意公开频道中提及 @OpenBot，或给它发私信。",
+  "connector.slack.doneDescription": "在任意公开频道中提及 @OpenOwnBot，或给它发私信。",
   "connector.slack.done": "完成",
   "connector.slack.disconnectTitle": "断开 {workspace}？",
   "connector.slack.disconnectDescription": "OpenOwnBot 将停止在 {workspace} 中回答，并从这台电脑删除其 Slack 令牌。",
   "connector.slack.disconnectDescriptionHost":
     "OpenOwnBot 将停止在 {workspace} 中回答，并从 {host} 删除其 Slack 令牌。",
-  "connector.slack.disconnectEffect": "{workspace} 中的人将无法再通过 @OpenBot 联系你的助手。",
+  "connector.slack.disconnectEffect": "{workspace} 中的人将无法再通过 @OpenOwnBot 联系你的助手。",
   "connector.slack.removeEffectKept": "对话和 Slack 调度助手会保留在 OpenOwnBot 中。",
   "connector.slack.removeEffectDeleted": "Slack 调度助手及其对话将从 OpenOwnBot 中删除。",
   "connector.slack.keep": "保持连接",
@@ -153,12 +153,12 @@ export const messages = {
   "connector.slack.limitReached": { other: "最多可连接 {count} 个工作区。" },
   // {count} is the number of Slack workspaces: two or more.
   "connector.slack.summaryMany": { other: "{count} 个工作区 · 由 Slack 调度助手回答" },
-  // Marketplace > Apps > Discord: a Discord server (a guild) adds the one OpenBot bot, and
+  // Marketplace > Apps > Discord: a Discord server (a guild) adds the one OpenOwnBot bot, and
   // the Discord Orchestrator agent receives each request, asks the team and answers. Always write
-  // "Discord server": "server" alone is an OpenBot server.
+  // "Discord server": "server" alone is an OpenOwnBot server.
   "connector.discord.title": "Discord",
   "connector.discord.description":
-    "人们在 Discord 服务器的频道中提及 @OpenBot，Discord 调度助手会找到合适的助手来回答。",
+    "人们在 Discord 服务器的频道中提及 @OpenOwnBot，Discord 调度助手会找到合适的助手来回答。",
   "connector.discord.statusConnected": "已连接",
   "connector.discord.statusAttention": "需要关注",
   // {workspace} is the Discord server name.
@@ -173,10 +173,10 @@ export const messages = {
   "connector.discord.addAgent": "添加助手",
   "connector.discord.actionFailed": "Discord 没有接受该更改",
   "connector.discord.workspaceTitle": "Discord 服务器",
-  "connector.discord.workspaceDescription": "在频道中提及 @OpenBot，回复 OpenBot 可继续对话。",
+  "connector.discord.workspaceDescription": "在频道中提及 @OpenOwnBot，回复 OpenOwnBot 可继续对话。",
   "connector.discord.disconnectWorkspace": "断开连接",
   "connector.discord.disconnectAllTitle": "断开 Discord",
-  "connector.discord.disconnectAllSummary": "所有服务器都将断开，其他人无法再通过 @OpenBot 联系你的助手。",
+  "connector.discord.disconnectAllSummary": "所有服务器都将断开，其他人无法再通过 @OpenOwnBot 联系你的助手。",
   "connector.discord.disconnectAllSummaryOrchestrator":
     "所有服务器都将断开，Discord 调度助手及其对话将从 OpenOwnBot 中删除。",
   "connector.discord.missingScopes":
@@ -205,7 +205,7 @@ export const messages = {
   "connector.discord.connectWaiting": "正在等待 Discord，请在浏览器中完成授权。",
   "connector.discord.agentStepTitle": "添加 Discord 调度助手",
   // {workspace} is the Discord server name.
-  "connector.discord.agentStepDescription": "这个新助手会回答人们在 {workspace} 中发给 @OpenBot 的所有内容。",
+  "connector.discord.agentStepDescription": "这个新助手会回答人们在 {workspace} 中发给 @OpenOwnBot 的所有内容。",
   "connector.discord.orchestratorName": "Discord 调度助手",
   "connector.discord.orchestratorRole": "在 Discord 中回答并调度团队",
   "connector.discord.orchestratorDoesReceive": "优先接收所有 Discord 请求",
@@ -213,13 +213,13 @@ export const messages = {
   "connector.discord.orchestratorDoesAnswer": "在 Discord 频道中回复答案",
   "connector.discord.orchestratorModel": "模型",
   "connector.discord.doneTitle": "OpenOwnBot 已加入 {workspace}",
-  "connector.discord.doneDescription": "在频道中提及 @OpenBot，回复 OpenBot 可继续对话。",
+  "connector.discord.doneDescription": "在频道中提及 @OpenOwnBot，回复 OpenOwnBot 可继续对话。",
   "connector.discord.done": "完成",
   "connector.discord.disconnectTitle": "断开 {workspace}？",
   "connector.discord.disconnectDescription": "OpenOwnBot 将停止在 {workspace} 中回答，并从这台电脑移除 Discord 连接。",
   "connector.discord.disconnectDescriptionHost":
     "OpenOwnBot 将停止在 {workspace} 中回答，并从 {host} 移除 Discord 连接。",
-  "connector.discord.disconnectEffect": "{workspace} 中的人将无法再通过 @OpenBot 联系你的助手。",
+  "connector.discord.disconnectEffect": "{workspace} 中的人将无法再通过 @OpenOwnBot 联系你的助手。",
   "connector.discord.removeEffectKept": "对话和 Discord 调度助手会保留在 OpenOwnBot 中。",
   "connector.discord.removeEffectDeleted": "Discord 调度助手及其对话将从 OpenOwnBot 中删除。",
   "connector.discord.keep": "保持连接",
@@ -229,7 +229,7 @@ export const messages = {
   "connector.discord.limitReached": { other: "最多可连接 {count} 个 Discord 服务器。" },
   // {count} is the number of Discord servers: two or more.
   "connector.discord.summaryMany": { other: "{count} 个 Discord 服务器 · 由 Discord 调度助手回答" },
-  // Who can use OpenBot in one Discord server: the members with one of the chosen Discord roles.
+  // Who can use OpenOwnBot in one Discord server: the members with one of the chosen Discord roles.
   "connector.discord.accessTitle": "谁可以使用 OpenOwnBot",
   "connector.discord.accessDescription": "OpenOwnBot 只回答这些人。其他人的提及会被忽略。",
   "connector.discord.accessEveryone": "服务器中的所有人",
@@ -248,7 +248,7 @@ export const messages = {
   "connector.discord.accessSave": "保存",
   // {host} is the joined server's name.
   "connector.discord.accessHostUpdate": "请更新 {host} 上的 OpenOwnBot，以选择角色。",
-  // Marketplace > Apps > Telegram: each chat adds the one OpenBot bot, and the Telegram
+  // Marketplace > Apps > Telegram: each chat adds the one OpenOwnBot bot, and the Telegram
   // Orchestrator agent receives the messages of all chats, asks the team and answers.
   "connector.telegram.title": "Telegram",
   "connector.telegram.description":
@@ -330,12 +330,12 @@ export const messages = {
   "connector.telegram.removeEffectDeleted": "这是最后一个聊天，因此 Telegram 调度助手及其对话将从 OpenOwnBot 中删除。",
   "connector.telegram.keep": "保持连接",
   "connector.telegram.close": "关闭",
-  // Marketplace > 1Password: a vault that the user shares with OpenBot through a service account.
+  // Marketplace > 1Password: a vault that the user shares with OpenOwnBot through a service account.
   "connector.onePassword.title": "1Password",
   "connector.onePassword.description":
     "通过服务账号把一个专用的 1Password 保险库共享给 OpenOwnBot，让助手可以在 OpenOwnBot 浏览器中登录网站。",
   "connector.onePassword.howItWorks":
-    "连接时会在你的 1Password 账号中创建“Shared with OpenBot”保险库，以及一个只能读取该保险库的服务账号。OpenBot 在这台电脑的浏览器中填充已保存的登录信息，因此只会共享你移入该保险库的条目。助手永远看不到密码。",
+    "连接时会在你的 1Password 账号中创建“Shared with OpenOwnBot”保险库，以及一个只能读取该保险库的服务账号。OpenOwnBot 在这台电脑的浏览器中填充已保存的登录信息，因此只会共享你移入该保险库的条目。助手永远看不到密码。",
   "connector.onePassword.connect": "连接 1Password",
   // The three setup steps before a connection, each with the one button it needs.
   "connector.onePassword.setupTitle": "设置",
@@ -344,7 +344,7 @@ export const messages = {
   "connector.onePassword.stepCliInstalling": "正在从 1Password 下载 1Password CLI",
   // {version} is a version number, such as 2.39.0.
   "connector.onePassword.stepCliReady": "已安装版本 {version}。",
-  "connector.onePassword.stepCliMissing": "OpenBot 会从 1Password 下载到自己的文件夹，不需要管理员密码。",
+  "connector.onePassword.stepCliMissing": "OpenOwnBot 会从 1Password 下载到自己的文件夹，不需要管理员密码。",
   "connector.onePassword.stepCliManual": "OpenOwnBot 无法在这台电脑上安装它。请从 1Password 安装后再回到该页面。",
   "connector.onePassword.installCli": "安装",
   "connector.onePassword.stepAppTitle": "开启 CLI 集成",
@@ -355,7 +355,7 @@ export const messages = {
   "connector.onePassword.checkAgain": "重新检查",
   "connector.onePassword.stepVaultTitle": "创建共享保险库",
   "connector.onePassword.stepVaultDescription":
-    "OpenBot 会创建“Shared with OpenBot”保险库和一个只能读取它的服务账号。1Password 会请求你批准。",
+    "OpenOwnBot 会创建“Shared with OpenOwnBot”保险库和一个只能读取它的服务账号。1Password 会请求你批准。",
   "connector.onePassword.useTokenDescription": "不走这些步骤，改为粘贴 1Password.com 上的服务账号令牌。",
   "connector.onePassword.useTokenAction": "使用令牌",
   "connector.onePassword.tokenLabel": "服务账号令牌",
@@ -388,9 +388,9 @@ export const messages = {
   "connector.bitwarden.title": "Bitwarden",
   "connector.bitwarden.description": "用 Bitwarden 填充浏览器登录信息。",
   "connector.bitwarden.setup":
-    "请安装 Bitwarden CLI 并用 bw login 登录。创建一个名为 Shared with OpenBot 的文件夹，只把允许助手使用的登录信息放进去。运行 bw unlock --raw，把会话密钥粘贴到下方。请勿粘贴主密码。",
+    "请安装 Bitwarden CLI 并用 bw login 登录。创建一个名为 Shared with OpenOwnBot 的文件夹，只把允许助手使用的登录信息放进去。运行 bw unlock --raw，把会话密钥粘贴到下方。请勿粘贴主密码。",
   "connector.bitwarden.scope":
-    "这台电脑上的所有助手都可以使用 Shared with OpenBot 中匹配的登录信息。OpenBot 只按精确的 HTTPS 来源匹配，不会使用需要主密码提示或自定义 URI 匹配规则的条目。",
+    "这台电脑上的所有助手都可以使用 Shared with OpenOwnBot 中匹配的登录信息。OpenOwnBot 只按精确的 HTTPS 来源匹配，不会使用需要主密码提示或自定义 URI 匹配规则的条目。",
   "connector.bitwarden.session":
     "会话密钥只保存在内存中。连续 8 小时未使用保险库或 OpenOwnBot 退出后，需要重新连接。断开只停止 OpenOwnBot 的访问，不会锁定其他 Bitwarden 客户端。",
   "connector.bitwarden.sessionKey": "Bitwarden 会话密钥",
@@ -405,15 +405,15 @@ export const messages = {
   "connector.bitwarden.actionFailed": "OpenOwnBot 无法更改 Bitwarden 连接。",
   "connector.bitwarden.descriptionHost": "在 {host} 上用 Bitwarden 或 Vaultwarden 填充浏览器登录信息。",
   "connector.bitwarden.setupHost":
-    "{host} 使用自己的 Bitwarden CLI 登录。请在你的保险库中创建一个名为 Shared with OpenBot 的文件夹，只把允许助手使用的登录信息放进去。在网页版保险库中打开“设置 › 安全 › 密钥”，查看你的 API 密钥。然后在下方填写服务器地址、client_id、client_secret 和你的主密码。",
+    "{host} 使用自己的 Bitwarden CLI 登录。请在你的保险库中创建一个名为 Shared with OpenOwnBot 的文件夹，只把允许助手使用的登录信息放进去。在网页版保险库中打开“设置 › 安全 › 密钥”，查看你的 API 密钥。然后在下方填写服务器地址、client_id、client_secret 和你的主密码。",
   "connector.bitwarden.scopeHost":
-    "{host} 上的所有助手都可以使用 Shared with OpenBot 中匹配的登录信息。OpenBot 只按精确的 HTTPS 来源匹配，不会使用需要主密码提示或自定义 URI 匹配规则的条目。",
+    "{host} 上的所有助手都可以使用 Shared with OpenOwnBot 中匹配的登录信息。OpenOwnBot 只按精确的 HTTPS 来源匹配，不会使用需要主密码提示或自定义 URI 匹配规则的条目。",
   "connector.bitwarden.sessionHost":
     "{host} 会加密保存 API 密钥和主密码，因此重启后可以再次解锁。这台电脑不保存它们。断开连接会把它们从 {host} 上移除。{host} 必须能通过 HTTPS 访问该服务器地址。",
   "connector.bitwarden.serverUrl": "服务器地址",
   "connector.bitwarden.folderTitle": "共享文件夹",
   "connector.bitwarden.folderDescription": "在 Bitwarden 中把登录信息移入该文件夹，助手即可用它登录。移出后即停止。",
-  "connector.bitwarden.folderName": "Shared with OpenBot",
+  "connector.bitwarden.folderName": "Shared with OpenOwnBot",
   "connector.bitwarden.folderKind": "Bitwarden 中的文件夹",
   "connector.bitwarden.clientId": "API 密钥 client_id",
   "connector.bitwarden.clientSecret": "API 密钥 client_secret",

@@ -3,8 +3,8 @@ import {
   eventFilterDraft,
   eventFilterPointerValid,
   MASKED_WEBHOOK_SECRET,
-} from "@openbot/contracts/event-filter-value";
-import type { EventFilter } from "@openbot/contracts/ipc-events";
+} from "@openownbot/contracts/event-filter-value";
+import type { EventFilter } from "@openownbot/contracts/ipc-events";
 import * as Clipboard from "expo-clipboard";
 import { Button, Typography } from "heroui-native";
 import Check from "lucide-react-native/icons/check";
@@ -130,7 +130,7 @@ export function RoutineWebhookTrigger({
 }) {
   const { t } = useText();
   const { copied, copy } = useCopy();
-  const muted = String(useCSSVariable("--openbot-text-grouped-secondary"));
+  const muted = String(useCSSVariable("--openownbot-text-grouped-secondary"));
   const [eventsOpen, setEventsOpen] = useState(false);
   const update = (id: string, change: Partial<FilterDraft>) =>
     onFiltersChange(filters.map((item) => (item.id === id ? { ...item, ...change } : item)));

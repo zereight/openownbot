@@ -1,5 +1,5 @@
-import type { HostStatus, ServerConnectionIssueCode, ServerSummary } from "@openbot/contracts/ipc";
-import type { AppTextKey } from "@openbot/i18n";
+import type { HostStatus, ServerConnectionIssueCode, ServerSummary } from "@openownbot/contracts/ipc";
+import type { AppTextKey } from "@openownbot/i18n";
 import {
   Badge,
   Item,
@@ -12,8 +12,8 @@ import {
   Monitor,
   SettingsSection,
   Text,
-} from "@openbot/ui";
-import { useText } from "@openbot/ui/text";
+} from "@openownbot/ui";
+import { useText } from "@openownbot/ui/text";
 import { Show } from "solid-js";
 import { RemoteDesktopSetup } from "./RemoteDesktopSetup";
 import { serverSupportsCapability } from "./server-capabilities";
@@ -25,7 +25,7 @@ const ISSUE_TITLES = {
   authentication_required: "server.desktop.connectionUnavailable",
   network_unavailable: "server.desktop.connectionUnavailable",
 } as const satisfies Record<ServerConnectionIssueCode, AppTextKey>;
-const REMOTE_HOST_GATEWAY_NAME = "OpenBot Remote Host Gateway";
+const REMOTE_HOST_GATEWAY_NAME = "OpenOwnBot Remote Host Gateway";
 
 /** The Remote desktop section of the server settings. */
 export function ServerDesktopPanel(props: {

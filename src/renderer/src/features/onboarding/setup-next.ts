@@ -1,7 +1,7 @@
-import { isKeyOnlyProvider } from "@openbot/contracts/agent-providers";
-import type { AgentProviderId } from "@openbot/contracts/ipc";
-import { toast } from "@openbot/ui";
-import { useText } from "@openbot/ui/text";
+import { isKeyOnlyProvider } from "@openownbot/contracts/agent-providers";
+import type { AgentProviderId } from "@openownbot/contracts/ipc";
+import { toast } from "@openownbot/ui";
+import { useText } from "@openownbot/ui/text";
 import { createMemo } from "solid-js";
 import type { SetupProviders } from "./SetupProviderPicker";
 

@@ -39,10 +39,7 @@
           "opacity": 1,
           "position": {
             "scale": 0.206,
-            "translation-in-points": [
-              0,
-              -14
-            ]
+            "translation-in-points": [0, 11]
           }
         }
       ],

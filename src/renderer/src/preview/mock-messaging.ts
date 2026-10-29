@@ -3,8 +3,8 @@ import type {
   MessagingDesktopApi,
   MessagingPlatform,
   MessagingRole,
-} from "@openbot/contracts/ipc";
-import { sourceText } from "@openbot/i18n/source";
+} from "@openownbot/contracts/ipc";
+import { sourceText } from "@openownbot/i18n/source";
 import { clone } from "./mock-support";
 
 /** The platforms whose preview adds a workspace for each connect. Telegram has a chat for each link. */

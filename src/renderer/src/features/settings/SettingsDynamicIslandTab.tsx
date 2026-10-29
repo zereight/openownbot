@@ -7,7 +7,7 @@ import {
   IDLE_DYNAMIC_ISLAND_PRESENTATION,
   isDynamicIslandServerVisible,
   type ServerSummary,
-} from "@openbot/contracts/ipc";
+} from "@openownbot/contracts/ipc";
 import {
   Button,
   Item,
@@ -21,13 +21,13 @@ import {
   SliderField,
   Switch,
   SwitchField,
-} from "@openbot/ui";
+} from "@openownbot/ui";
 import {
-  OpenBotDynamicIsland,
-  openBotIdleCompactWidth,
-} from "@openbot/ui/features/dynamic-island/OpenBotDynamicIsland";
-import { ServerMark, serverStatusLabels } from "@openbot/ui/features/servers/ServerRail";
-import type { GeneralSettingsValue } from "@openbot/ui/features/settings/app-settings";
+  OpenOwnBotDynamicIsland,
+  openOwnBotIdleCompactWidth,
+} from "@openownbot/ui/features/dynamic-island/OpenOwnBotDynamicIsland";
+import { ServerMark, serverStatusLabels } from "@openownbot/ui/features/servers/ServerRail";
+import type { GeneralSettingsValue } from "@openownbot/ui/features/settings/app-settings";
 import type { JSX } from "@solidjs/web";
 import { createSignal, createUniqueId, For, onSettled, Show } from "solid-js";
 import { useI18n } from "../../i18n-context";
@@ -63,8 +63,12 @@ export function SettingsDynamicIslandTab(props: SettingsDynamicIslandTabProps) {
   const widthPercent = () => props.value.macBookNotchWidthPercent;
   const heightPercent = () => props.value.macBookNotchHeightPercent;
   const widestBuiltInWidth = () =>
-    openBotIdleCompactWidth("notch", builtInNotchSize(), DYNAMIC_ISLAND_SIZE_LIMITS.widthPercent.max);
-  const widestExternalWidth = openBotIdleCompactWidth("island", undefined, DYNAMIC_ISLAND_SIZE_LIMITS.widthPercent.max);
+    openOwnBotIdleCompactWidth("notch", builtInNotchSize(), DYNAMIC_ISLAND_SIZE_LIMITS.widthPercent.max);
+  const widestExternalWidth = openOwnBotIdleCompactWidth(
+    "island",
+    undefined,
+    DYNAMIC_ISLAND_SIZE_LIMITS.widthPercent.max,
+  );
   const builtInNotchSize = (): DynamicIslandNotchSize | undefined =>
     props.builtInDisplayGeometry === null ? undefined : (props.builtInDisplayGeometry ?? PREVIEW_NOTCH_SIZE);
   const isDefaultSize = () =>
@@ -181,7 +185,7 @@ export function SettingsDynamicIslandTab(props: SettingsDynamicIslandTabProps) {
           <div class="settings-dynamic-island-preview">
             <figure class="settings-dynamic-island-preview-display">
               <PreviewFit widestWidth={widestBuiltInWidth()}>
-                <OpenBotDynamicIsland
+                <OpenOwnBotDynamicIsland
                   presentation={IDLE_DYNAMIC_ISLAND_PRESENTATION}
                   state="compact"
                   displayMode="notch"
@@ -199,7 +203,7 @@ export function SettingsDynamicIslandTab(props: SettingsDynamicIslandTabProps) {
             </figure>
             <figure class="settings-dynamic-island-preview-display">
               <PreviewFit widestWidth={widestExternalWidth}>
-                <OpenBotDynamicIsland
+                <OpenOwnBotDynamicIsland
                   presentation={IDLE_DYNAMIC_ISLAND_PRESENTATION}
                   state="compact"
                   displayMode="island"

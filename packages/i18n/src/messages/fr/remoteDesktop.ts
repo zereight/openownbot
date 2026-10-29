@@ -9,7 +9,7 @@ export const messages = {
   "remoteDesktop.workspaceLabel": "Contrôle à distance",
   "remoteDesktop.displayLabel": "Écran distant",
   "remoteDesktop.selectDisplay": "Choisir l’écran",
-  "remoteDesktop.backToOpenBot": "Retour à OpenOwnBot",
+  "remoteDesktop.backToOpenOwnBot": "Retour à OpenOwnBot",
   "remoteDesktop.disconnect": "Déconnecter",
   "remoteDesktop.viewerTitle": "Bureau à distance Sunshine",
   "remoteDesktop.viewerLoadFailed": "Impossible de charger la visionneuse Moonlight.",
@@ -20,7 +20,7 @@ export const messages = {
   "remoteDesktop.openFailed": "Impossible d’ouvrir le bureau",
   "remoteDesktop.notSharingTitle": "{name} ne partage pas son écran",
   "remoteDesktop.notSharingDescription":
-    "Le serveur empêche OpenBot d’enregistrer son écran. Sur ce serveur, ouvrez Réglages Système → Confidentialité et sécurité → Enregistrement de l’écran, activez OpenBot, puis réessayez ici.",
+    "Le serveur empêche OpenOwnBot d’enregistrer son écran. Sur ce serveur, ouvrez Réglages Système → Confidentialité et sécurité → Enregistrement de l’écran, activez OpenOwnBot, puis réessayez ici.",
   "remoteDesktop.setup.check.screenRecording": "Enregistrement de l’écran",
   "remoteDesktop.setup.check.accessibility": "Accessibilité",
   "remoteDesktop.setup.check.service": "Service Sunshine",

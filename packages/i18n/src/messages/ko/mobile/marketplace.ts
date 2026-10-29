@@ -101,9 +101,9 @@ export const messages = {
   "mobile.marketplace.app.connectFailed": "앱을 연결하지 못했어요.",
   "mobile.marketplace.app.linkInvalid": "{hostname}의 https 링크를 사용해 주세요.",
   "mobile.marketplace.app.docs": "키 발급받기",
-  "mobile.marketplace.app.local": "이 앱은 OpenBot이 있는 컴퓨터에서 실행돼요. 그 컴퓨터에서 설정하세요.",
+  "mobile.marketplace.app.local": "이 앱은 OpenOwnBot이 있는 컴퓨터에서 실행돼요. 그 컴퓨터에서 설정하세요.",
   "mobile.marketplace.app.relayUnsupported":
-    "이 앱은 브라우저 로그인이 필요해요. 서버의 OpenBot을 업데이트하거나 컴퓨터에서 앱을 연결하세요.",
+    "이 앱은 브라우저 로그인이 필요해요. 서버의 OpenOwnBot을 업데이트하거나 컴퓨터에서 앱을 연결하세요.",
   "mobile.marketplace.app.waiting": "로그인 페이지를 기다리는 중…",
   "mobile.marketplace.app.openAgain": "로그인 페이지 다시 열기",
   "mobile.marketplace.app.pasteHint":

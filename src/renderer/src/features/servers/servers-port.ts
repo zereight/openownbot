@@ -1,4 +1,4 @@
-import type { OpenBotDesktopApi, ServerSummary } from "@openbot/contracts/ipc";
+import type { OpenOwnBotDesktopApi, ServerSummary } from "@openownbot/contracts/ipc";
 
 /**
  * What the servers domain reaches in main: the server list and selection, the account changes, the local host, the
@@ -7,7 +7,7 @@ import type { OpenBotDesktopApi, ServerSummary } from "@openbot/contracts/ipc";
  */
 export interface ServersPort {
   agent: Pick<
-    OpenBotDesktopApi["agent"],
+    OpenOwnBotDesktopApi["agent"],
     | "getStatus"
     | "listAgents"
     | "listConversationReads"
@@ -30,16 +30,16 @@ export interface ServersPort {
     | "saveMcpSignInApp"
     | "removeMcpSignInApp"
   >;
-  events: OpenBotDesktopApi["events"];
-  auth: Pick<OpenBotDesktopApi["auth"], "onEvent">;
-  browser: Pick<OpenBotDesktopApi["browser"], "setVisible">;
+  events: OpenOwnBotDesktopApi["events"];
+  auth: Pick<OpenOwnBotDesktopApi["auth"], "onEvent">;
+  browser: Pick<OpenOwnBotDesktopApi["browser"], "setVisible">;
   hostAdmin: Pick<
-    OpenBotDesktopApi["hostAdmin"],
+    OpenOwnBotDesktopApi["hostAdmin"],
     "cancelUpdate" | "getUpdateStatus" | "startUpdate" | "updateIdentity"
   >;
-  hostedServers: Pick<OpenBotDesktopApi["hostedServers"], "list" | "restart" | "wake">;
+  hostedServers: Pick<OpenOwnBotDesktopApi["hostedServers"], "list" | "restart" | "wake">;
   host: Pick<
-    OpenBotDesktopApi["host"],
+    OpenOwnBotDesktopApi["host"],
     | "configure"
     | "getStatus"
     | "onEvent"
@@ -49,13 +49,13 @@ export interface ServersPort {
     | "stop"
     | "updateIdentity"
   >;
-  notifications: Pick<OpenBotDesktopApi["notifications"], "onOpened">;
+  notifications: Pick<OpenOwnBotDesktopApi["notifications"], "onOpened">;
   remoteDesktop: Pick<
-    OpenBotDesktopApi["remoteDesktop"],
+    OpenOwnBotDesktopApi["remoteDesktop"],
     "checkSetup" | "connect" | "disconnect" | "list" | "openSetup" | "test"
   >;
   servers: Pick<
-    OpenBotDesktopApi["servers"],
+    OpenOwnBotDesktopApi["servers"],
     | "getPresenceFor"
     | "join"
     | "list"
@@ -71,9 +71,9 @@ export interface ServersPort {
   >;
 }
 
-/** Read on each call: tests and stories replace `window.openbot` per case. */
+/** Read on each call: tests and stories replace `window.openownbot` per case. */
 export function serversPort(): ServersPort {
-  return window.openbot;
+  return window.openownbot;
 }
 
 /**
@@ -81,26 +81,26 @@ export function serversPort(): ServersPort {
  * through `host`; a remote server answers them through `servers`, addressed by its id.
  */
 export type ServerAdminPort = Pick<
-  OpenBotDesktopApi["host"],
+  OpenOwnBotDesktopApi["host"],
   "getPresence" | "listMembers" | "listInvites" | "createInvite" | "updateMember" | "removeMember" | "revokeInvite"
 >;
 
 export function serverAdminPort(server: Pick<ServerSummary, "id" | "kind">): ServerAdminPort {
-  if (server.kind === "local") return window.openbot.host;
+  if (server.kind === "local") return window.openownbot.host;
   const serverId = server.id;
   return {
-    getPresence: () => window.openbot.servers.getPresenceFor(serverId),
-    listMembers: () => window.openbot.servers.listMembers(serverId),
-    listInvites: () => window.openbot.servers.listInvites(serverId),
-    createInvite: (input) => window.openbot.servers.createInvite(input, serverId),
-    updateMember: (input) => window.openbot.servers.updateMember(input, serverId),
-    removeMember: (memberId) => window.openbot.servers.removeMember(memberId, serverId),
-    revokeInvite: (inviteId) => window.openbot.servers.revokeInvite(inviteId, serverId),
+    getPresence: () => window.openownbot.servers.getPresenceFor(serverId),
+    listMembers: () => window.openownbot.servers.listMembers(serverId),
+    listInvites: () => window.openownbot.servers.listInvites(serverId),
+    createInvite: (input) => window.openownbot.servers.createInvite(input, serverId),
+    updateMember: (input) => window.openownbot.servers.updateMember(input, serverId),
+    removeMember: (memberId) => window.openownbot.servers.removeMember(memberId, serverId),
+    revokeInvite: (inviteId) => window.openownbot.servers.revokeInvite(inviteId, serverId),
   };
 }
 
 /** The server main marks active. A test teardown can remove the bridge while a join is pending. */
 export async function activeServerId(): Promise<string> {
-  if (!window.openbot) return "local";
-  return (await window.openbot.servers.list()).find((item) => item.active)?.id ?? "local";
+  if (!window.openownbot) return "local";
+  return (await window.openownbot.servers.list()).find((item) => item.active)?.id ?? "local";
 }

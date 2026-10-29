@@ -1,9 +1,9 @@
-import { supportedAttachmentExtensions } from "@openbot/contracts/attachment-files";
-import { canPreviewAttachment } from "@openbot/contracts/ipc";
-import { Input } from "@openbot/ui";
-import type { AgentMessage } from "@openbot/ui/data";
-import { contextUsageView } from "@openbot/ui/features/conversation/ContextUsage";
-import { AgentThreadView } from "@openbot/ui/features/conversation/threads/AgentThreadView";
+import { supportedAttachmentExtensions } from "@openownbot/contracts/attachment-files";
+import { canPreviewAttachment } from "@openownbot/contracts/ipc";
+import { Input } from "@openownbot/ui";
+import type { AgentMessage } from "@openownbot/ui/data";
+import { contextUsageView } from "@openownbot/ui/features/conversation/ContextUsage";
+import { AgentThreadView } from "@openownbot/ui/features/conversation/threads/AgentThreadView";
 import { createProjection, createSignal, Show } from "solid-js";
 import { toAgentMessages } from "../../app-message-projection";
 import { ConversationBrowserTakeover } from "./ConversationBrowserTakeover";
@@ -69,7 +69,7 @@ export function ConversationThread() {
               multiple
               hidden
               tabindex={-1}
-              data-openbot-attachment-picker="true"
+              data-openownbot-attachment-picker="true"
             />
           </Show>
           <AgentThreadView

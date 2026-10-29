@@ -1,0 +1,10 @@
+# Pulls the image of instance %i, and for an install makes the container again. `setup` replaces
+# /opt/openownbot-docker/instances/ with the folder of openownbot-instance.
+[Unit]
+Description=Update OpenOwnBot instance %i
+After=docker.service
+
+[Service]
+Type=oneshot
+ExecStart=/opt/openownbot-docker/instances/openownbot-instance update-request %i
+TimeoutStartSec=45min

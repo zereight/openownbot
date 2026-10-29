@@ -2,7 +2,7 @@ import type { PartialTranslation } from "../../../message";
 import type { messages as source } from "../../en/error/auth";
 
 export const messages = {
-  // Errors from the OpenBot account service.
+  // Errors from the OpenOwnBot account service.
   "error.auth.serviceUnavailable":
     "OpenOwnBot がアカウントサービスに接続できませんでした。API が動作していることを確認してから、再試行してください。",
   "error.auth.networkBlocked":

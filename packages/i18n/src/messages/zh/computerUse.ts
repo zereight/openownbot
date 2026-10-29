@@ -10,7 +10,7 @@ export const messages = {
   "computerUse.permission.accessibility.description": "让 OpenOwnBot 点击和输入。",
   "computerUse.permission.accessibility.pane": "辅助功能",
   "computerUse.error.check": "OpenOwnBot 无法检查 Computer Use。",
-  "computerUse.error.openSettings": "OpenBot 无法打开系统设置。",
+  "computerUse.error.openSettings": "OpenOwnBot 无法打开系统设置。",
   "computerUse.error.startDriver": "OpenOwnBot 无法启动 Computer Use 驱动。",
   "computerUse.checkAgain": "重新检查",
   "computerUse.checking": "正在检查 Computer Use",

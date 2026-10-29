@@ -131,6 +131,12 @@ export const messages = {
   "error.backend.mailboxStateCorrupt":
     "Stan skrzynki jest uszkodzony lub pochodzi z nowszej wersji OpenOwnBot; odmowa nadpisania.",
   "error.backend.recipientDeleting": "Odbiorca jest usuwany. Spróbuj ponownie po zakończeniu usuwania.",
+  "error.backend.squadLeaves":
+    "Jesteś w zespole {squad}, a do agentów spoza niego pisze tylko jego lider. Poproś lidera zespołu {squad} o przekazanie albo zapytaj użytkownika.",
+  "error.backend.squadEnters":
+    "{agent} jest w zespole {squad}. Skontaktuj się przez lidera zespołu {squad} albo zapytaj użytkownika.",
+  "error.backend.squadSkipsRank":
+    "{agent} jest w zespole {squad} powyżej rangi, do której możesz pisać. Wiadomość idzie w górę tylko do rangi bezpośrednio nad twoją. Poproś tę rangę o przekazanie albo zapytaj użytkownika.",
   "error.backend.recipientHidden": "Ten agent jest ukryty. Przywróć go, aby wysyłać wiadomości.",
   "error.backend.attachBetween": "Załącz od 1 do {limit} plików.",
   "error.backend.attachmentNotFile": "Załącznik nie jest plikiem: {path}",
@@ -178,7 +184,7 @@ export const messages = {
   "error.backend.routineFlowCycle": "To połączenie utworzyłoby pętlę.",
   "error.backend.routineFlowLinkLimit": "Rutyna może mieć maksymalnie {limit} połączeń.",
   "error.backend.agentWaitLimit":
-    "Ten agent ma już maksymalną liczbę otwartych oczekiwań: {count}. Zamknij oczekiwanie za pomocą openbot.close_wait, zanim otworzysz kolejne.",
+    "Ten agent ma już maksymalną liczbę otwartych oczekiwań: {count}. Zamknij oczekiwanie za pomocą openownbot.close_wait, zanim otworzysz kolejne.",
   "error.backend.agentWaitGone": "To oczekiwanie nie jest otwarte. Agent je zamknął albo ktoś je anulował.",
   "error.backend.agentWaitNoRequest": "Oczekiwanie potrzebuje wiadomości, aby kontynuować. Ta tura nie ma wiadomości.",
   "error.backend.agentWaitOwnChatOnly":
@@ -186,7 +192,7 @@ export const messages = {
   "error.backend.agentWaitNoteRequired": "Podaj krótką notatkę, na co jest to oczekiwanie.",
   "error.backend.agentWaitRoutineGone": "Ten agent nie ma rutyny o tym identyfikatorze.",
   "error.backend.agentWaitNoRoutine":
-    "Oczekiwanie budzi tylko uruchomienie jednej z twoich rutyn, a nie masz żadnej rutyny. Utwórz ją za pomocą openbot.create_routine, a potem otwórz oczekiwanie.",
+    "Oczekiwanie budzi tylko uruchomienie jednej z twoich rutyn, a nie masz żadnej rutyny. Utwórz ją za pomocą openownbot.create_routine, a potem otwórz oczekiwanie.",
   "error.backend.agentWaitRemoteUnsupported": "Otwarte oczekiwania są dostępne tylko dla agentów na tym komputerze.",
   "error.backend.routineFlowHandoffFailed": "Rutyna nie mogła przekazać pracy temu agentowi.",
   "error.backend.mcpServerLimit": "OpenOwnBot przechowuje maksymalnie {limit} serwerów MCP.",
@@ -337,10 +343,4 @@ export const messages = {
     "Liczba otwartych zadań tego agenta: {count}. Zamknij zadanie, a potem rozpocznij lub otwórz inne.",
   "error.backend.taskRemoteUnsupported": "Zadania są dostępne tylko dla agentów na tym komputerze.",
   "error.backend.taskStartFailed": "OpenOwnBot nie może rozpocząć zadania. Zamiast tego wykonaj pracę w tej turze.",
-  "error.backend.squadLeaves":
-    "Jesteś w zespole {squad}, a do agentów spoza niego pisze tylko jego lider. Poproś lidera zespołu {squad} o przekazanie albo zapytaj użytkownika.",
-  "error.backend.squadEnters":
-    "{agent} jest w zespole {squad}. Skontaktuj się przez lidera zespołu {squad} albo zapytaj użytkownika.",
-  "error.backend.squadSkipsRank":
-    "{agent} jest w zespole {squad} powyżej rangi, do której możesz pisać. Wiadomość idzie w górę tylko do rangi bezpośrednio nad twoją. Poproś tę rangę o przekazanie albo zapytaj użytkownika.",
 } as const satisfies PartialTranslation<typeof source>;

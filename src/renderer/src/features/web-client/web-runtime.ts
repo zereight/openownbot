@@ -2,8 +2,8 @@ import {
   assertSupportedAttachmentName,
   attachmentFileExtension,
   supportedAttachmentExtensions,
-} from "@openbot/contracts/attachment-files";
-import { isAvatarMimeType } from "@openbot/contracts/avatar-images";
+} from "@openownbot/contracts/attachment-files";
+import { isAvatarMimeType } from "@openownbot/contracts/avatar-images";
 import type {
   AccountUsage,
   AgentEvent,
@@ -47,7 +47,7 @@ import type {
   UpdateQueuedMessageInput,
   UpdateRoutineInput,
   WorkspaceDirectory,
-} from "@openbot/contracts/ipc";
+} from "@openownbot/contracts/ipc";
 import {
   canAdministerServer,
   decodeWorkspaceDirectory,
@@ -62,56 +62,56 @@ import {
   isQueueSnapshot,
   isSidebarLayoutSnapshot,
   isTeamPresenceSnapshot,
-} from "@openbot/contracts/ipc";
-import { guardedListDecoder, optionalHistoryExtent, requiredString } from "@openbot/contracts/ipc-decoding";
-import { isDynamicRecord, isNumber, isString } from "@openbot/contracts/runtime-values";
-import { TEAM_API_ROUTES } from "@openbot/contracts/team-api-routes";
+} from "@openownbot/contracts/ipc";
+import { guardedListDecoder, optionalHistoryExtent, requiredString } from "@openownbot/contracts/ipc-decoding";
+import { isDynamicRecord, isNumber, isString } from "@openownbot/contracts/runtime-values";
+import { TEAM_API_ROUTES } from "@openownbot/contracts/team-api-routes";
 import {
   BROWSER_PAGE_STATE_CAPABILITY,
   BROWSER_PAGE_STATE_ROUTES,
   decodeBrowserPageStateSnapshot,
-} from "@openbot/contracts/team-protocol/browser-page-state-v1";
+} from "@openownbot/contracts/team-protocol/browser-page-state-v1";
 import {
   BROWSER_USER_CONTROL_CAPABILITY,
   BROWSER_USER_CONTROL_ROUTES,
   decodeBrowserUserControlSnapshot,
-} from "@openbot/contracts/team-protocol/browser-user-control-v1";
+} from "@openownbot/contracts/team-protocol/browser-user-control-v1";
 import {
   decodeBrowserViewInputValue,
   TEAM_BROWSER_VIEW_CLIPBOARD_CAPABILITY,
   TEAM_BROWSER_VIEW_FRAME_POINT_CAPABILITY,
-} from "@openbot/contracts/team-protocol/browser-view-v1";
-import { TEAM_BROWSER_NAVIGATION_CAPABILITY } from "@openbot/contracts/team-protocol/current";
-import { FOCUS_USE_ROUTES } from "@openbot/contracts/team-protocol/focus-use-v1";
-import { PROVIDER_ACCOUNTS_CAPABILITY } from "@openbot/contracts/team-protocol/provider-accounts-v1";
-import { ROUTINE_FLOWS_CAPABILITY } from "@openbot/contracts/team-protocol/routine-flows-v1";
-import { type TeamProtocolSupportV1, teamProtocolUpdateDirection } from "@openbot/contracts/team-protocol/v1";
-import type { TeamProtocolV2Json } from "@openbot/contracts/team-protocol/v2";
-import { TEAM_PROTOCOL_V3 } from "@openbot/contracts/team-protocol/v3";
-import { decodeTeamProtocolSupportV7Base } from "@openbot/contracts/team-protocol/v7-base";
+} from "@openownbot/contracts/team-protocol/browser-view-v1";
+import { TEAM_BROWSER_NAVIGATION_CAPABILITY } from "@openownbot/contracts/team-protocol/current";
+import { FOCUS_USE_ROUTES } from "@openownbot/contracts/team-protocol/focus-use-v1";
+import { PROVIDER_ACCOUNTS_CAPABILITY } from "@openownbot/contracts/team-protocol/provider-accounts-v1";
+import { ROUTINE_FLOWS_CAPABILITY } from "@openownbot/contracts/team-protocol/routine-flows-v1";
+import { type TeamProtocolSupportV1, teamProtocolUpdateDirection } from "@openownbot/contracts/team-protocol/v1";
+import type { TeamProtocolV2Json } from "@openownbot/contracts/team-protocol/v2";
+import { TEAM_PROTOCOL_V3 } from "@openownbot/contracts/team-protocol/v3";
+import { decodeTeamProtocolSupportV7Base } from "@openownbot/contracts/team-protocol/v7-base";
 import {
   WORKSPACE_DIRECTORY_CAPABILITY,
   WORKSPACE_DIRECTORY_ROUTES,
-} from "@openbot/contracts/team-protocol/workspace-directory-v1";
-import { runTeamEffect } from "@openbot/team-client";
-import { bytesToBase64 } from "@openbot/team-client/base64";
-import { createRemoteBrowserView, type RemoteBrowserView } from "@openbot/team-client/browser-view";
-import { verifyEd25519Base64Url } from "@openbot/team-client/ed25519";
+} from "@openownbot/contracts/team-protocol/workspace-directory-v1";
+import { runTeamEffect } from "@openownbot/team-client";
+import { bytesToBase64 } from "@openownbot/team-client/base64";
+import { createRemoteBrowserView, type RemoteBrowserView } from "@openownbot/team-client/browser-view";
+import { verifyEd25519Base64Url } from "@openownbot/team-client/ed25519";
 import {
   RemoteDirectoryError,
   RemoteTeamDirectoryClient,
   type RemoteTeamHost,
   type RemoteTeamInvite,
   type RemoteTeamMember,
-} from "@openbot/team-client/remote-directory";
+} from "@openownbot/team-client/remote-directory";
 import {
   createRemoteTeamPeer,
   MOBILE_ATTACHMENT_BYTES,
   type RemoteFileUpload,
   type RemoteTeamConnectionUpdate,
-} from "@openbot/team-client/remote-peer";
-import { remoteWorkspaceReadTimeout } from "@openbot/team-client/remote-recovery";
-import { listHiddenAgents, setAgentHidden, setAgentProviderAccount } from "@openbot/team-client/team-admin-requests";
+} from "@openownbot/team-client/remote-peer";
+import { remoteWorkspaceReadTimeout } from "@openownbot/team-client/remote-recovery";
+import { listHiddenAgents, setAgentHidden, setAgentProviderAccount } from "@openownbot/team-client/team-admin-requests";
 import {
   cancelQueuedMessage,
   deleteAgent,
@@ -129,10 +129,10 @@ import {
   teamRoutineFlowsApi,
   updateQueuedMessage,
   uploadAttachmentDraft,
-} from "@openbot/team-client/team-api-requests";
-import type { BrowserViewRuntime } from "@openbot/ui/features/browser/BrowserLiveView";
-import { currentText } from "@openbot/ui/text";
-import { referenceFrom } from "@openbot/user-errors";
+} from "@openownbot/team-client/team-api-requests";
+import type { BrowserViewRuntime } from "@openownbot/ui/features/browser/BrowserLiveView";
+import { currentText } from "@openownbot/ui/text";
+import { referenceFrom } from "@openownbot/user-errors";
 import { Effect } from "effect";
 import type { ServerAdminPort } from "../servers/servers-port";
 import {
@@ -318,7 +318,7 @@ interface WebConnectionDependencies {
 
 /** Pin after directory validation and before connecting. Never silently replace a saved identity. */
 function pinWebHostKey(accountId: string, host: RemoteTeamHost): void {
-  const key = `openbot.web.host-key:${accountId}:${host.hostId}`;
+  const key = `openownbot.web.host-key:${accountId}:${host.hostId}`;
   const pinned = localStorage.getItem(key);
   if (pinned && pinned !== host.devicePublicKey) throw new WebHostConnectionError("identity_changed");
   localStorage.setItem(key, host.devicePublicKey);
@@ -342,8 +342,8 @@ export function createWebWorkspaceRuntime(
     inviteLinks: { allowLocalDevelopmentApiUrl: import.meta.env.DEV },
     verifyHostKeySignature: verifyEd25519Base64Url,
     hostKeys: {
-      get: async (id) => localStorage.getItem(`openbot.web.host-key:${accountId}:${id}`),
-      set: async (id, key) => localStorage.setItem(`openbot.web.host-key:${accountId}:${id}`, key),
+      get: async (id) => localStorage.getItem(`openownbot.web.host-key:${accountId}:${id}`),
+      set: async (id, key) => localStorage.setItem(`openownbot.web.host-key:${accountId}:${id}`, key),
     },
   });
   let sessionsEnded = false;
@@ -831,7 +831,7 @@ export function createWebWorkspaceRuntime(
       const response = await accountFetch(`/api/browser/v2/remote/hosts/${encodeURIComponent(hostId)}`, {
         method: "DELETE",
         credentials: "same-origin",
-        headers: { "X-OpenBot-Browser": "1", "Content-Type": "application/json" },
+        headers: { "X-OpenOwnBot-Browser": "1", "Content-Type": "application/json" },
         signal: AbortSignal.timeout(15_000),
       });
       if (!response.ok) throw new Error(currentText().t("server.settings.actionFailed"));

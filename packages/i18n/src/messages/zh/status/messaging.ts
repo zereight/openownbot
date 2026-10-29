@@ -2,8 +2,8 @@ import type { PartialTranslation } from "../../../message";
 import type { messages as source } from "../../en/status/messaging";
 
 export const messages = {
-  // Text that OpenBot posts in a Slack conversation. Slack users read it. It names no agent: in
-  // Slack, every answer comes from OpenBot.
+  // Text that OpenOwnBot posts in a Slack conversation. Slack users read it. It names no agent: in
+  // Slack, every answer comes from OpenOwnBot.
   "status.messaging.working": "正在处理…",
   "status.messaging.queued": "等待中：OpenOwnBot 正在处理另一个请求，回答会发到这里。",
   "status.messaging.busy": "等待中的请求太多，请稍后再试。",
@@ -26,19 +26,19 @@ export const messages = {
   "status.messaging.onlyRequester": "只有 {user} 可以操作，OpenOwnBot 主机也可以回答。",
   "status.messaging.hostOnly": "只有 OpenOwnBot 主机可以回答该请求。",
   "status.messaging.filesSkipped": "部分文件未发送：{names}。",
-  // The name and title of the agent that OpenBot adds to answer in Slack. The user can rename it.
+  // The name and title of the agent that OpenOwnBot adds to answer in Slack. The user can rename it.
   "status.messaging.orchestratorName": "Slack 调度助手",
   "status.messaging.orchestratorTitle": "在 Slack 中回答并调度团队",
   // The same texts for Discord. Discord users read the first one.
   "status.messaging.discordNoAgent": "这里还没有助手能回答。请在 OpenOwnBot 中添加 Discord 调度助手。",
   "status.messaging.discordOrchestratorName": "Discord 调度助手",
   "status.messaging.discordOrchestratorTitle": "在 Discord 中回答并调度团队",
-  // The sidebar section that OpenBot puts the Slack Orchestrator in. The user can rename it.
+  // The sidebar section that OpenOwnBot puts the Slack Orchestrator in. The user can rename it.
   "status.messaging.integrationsSection": "集成",
   // The page a development Slack install ends on.
   "status.messaging.signInReceived": "OpenOwnBot 已收到 Slack 安装请求，你可以关闭该标签页。",
   "status.messaging.signInUnknown": "该 Slack 安装不是由 OpenOwnBot 发起的，请在 OpenOwnBot 中重新开始。",
-  // Text that OpenBot posts in a Telegram chat, and the Telegram Orchestrator agent. Telegram users
+  // Text that OpenOwnBot posts in a Telegram chat, and the Telegram Orchestrator agent. Telegram users
   // read the posts. The user can rename the agent.
   "status.messaging.telegramNoAgent": "这里还没有助手能回答。请在 OpenOwnBot 中添加 Telegram 调度助手。",
   "status.messaging.telegramLinked": "OpenOwnBot 已连接到该聊天。提及 {bot} 或回复 OpenOwnBot 的消息即可向助手提问。",

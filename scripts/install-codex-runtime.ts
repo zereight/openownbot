@@ -2,7 +2,7 @@ import { execFileSync } from "node:child_process";
 import { mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
-import { createOpenBotLogger } from "@openbot/logging";
+import { createOpenOwnBotLogger } from "@openownbot/logging";
 import { z } from "zod";
 import { type AgentRuntimeLock, loadAgentRuntimeLock } from "./agent-runtime-lock";
 import { rejectNonRegularFiles, sha256 } from "./remote-desktop-runtime-release";
@@ -14,7 +14,7 @@ import {
   safeArchivePathParts,
 } from "./runtime-install";
 
-const logger = createOpenBotLogger("install-codex-runtime");
+const logger = createOpenOwnBotLogger("install-codex-runtime");
 
 export type CodexRuntimeTarget = "darwin-arm64" | "darwin-x64" | "linux-x64" | "linux-arm64" | "win32-x64";
 
@@ -66,7 +66,7 @@ export async function installCodexRuntime(
     throw new Error(`The ${target} Codex runtime archive checksum is invalid.`);
   }
 
-  const temporaryRoot = await mkdtemp(join(tmpdir(), "openbot-codex-install-"));
+  const temporaryRoot = await mkdtemp(join(tmpdir(), "openownbot-codex-install-"));
   try {
     const archive = join(temporaryRoot, artifact.asset);
     const extracted = join(temporaryRoot, "extracted");
@@ -87,7 +87,7 @@ export async function installCodexRuntime(
   return "installed";
 }
 
-/** The `target` the Codex package manifest carries for each runtime target OpenBot ships. */
+/** The `target` the Codex package manifest carries for each runtime target OpenOwnBot ships. */
 const CODEX_MANIFEST_TARGETS = {
   "darwin-arm64": "aarch64-apple-darwin",
   "darwin-x64": "x86_64-apple-darwin",

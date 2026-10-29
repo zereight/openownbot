@@ -5,7 +5,7 @@ import assert from "node:assert/strict";
 import { execFileSync } from "node:child_process";
 import { mkdirSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
-import { isAgentProvider } from "@openbot/contracts/agent-providers";
+import { isAgentProvider } from "@openownbot/contracts/agent-providers";
 import type {
   AgentSummary,
   Channel,
@@ -14,12 +14,12 @@ import type {
   ChannelPage,
   ChannelSummary,
   ClientAgentSummary,
-  OpenBotDesktopApi,
+  OpenOwnBotDesktopApi,
   QueueSnapshot,
   UpdateAgentInput,
-} from "@openbot/contracts/ipc";
-import { TEAM_PROTOCOL_V8, TEAM_PROTOCOL_VERSION_HEADER } from "@openbot/contracts/team-protocol";
-import { createOpenBotLogger } from "@openbot/logging";
+} from "@openownbot/contracts/ipc";
+import { TEAM_PROTOCOL_V8, TEAM_PROTOCOL_VERSION_HEADER } from "@openownbot/contracts/team-protocol";
+import { createOpenOwnBotLogger } from "@openownbot/logging";
 import type { Page } from "playwright-core";
 import { decodeTeamProtocolSupportV8Base } from "../packages/contracts/src/team-protocol/v8-base";
 import { assertMutationAllowed, connectToDevApp } from "./dev-automation/cdp-client";
@@ -27,7 +27,7 @@ import { type DevInstanceRecord, readDevInstanceRecords } from "./dev-automation
 
 declare global {
   interface Window {
-    openbot: OpenBotDesktopApi;
+    openownbot: OpenOwnBotDesktopApi;
   }
 }
 
@@ -59,7 +59,7 @@ export async function connectChannelE2e(command: string): Promise<ChannelE2e> {
     instanceNamed: true,
     target: instance.instanceId,
   });
-  const session = await connectToDevApp(instance.remoteDebuggingPort, createOpenBotLogger(command), {
+  const session = await connectToDevApp(instance.remoteDebuggingPort, createOpenOwnBotLogger(command), {
     expectedRendererPort: instance.rendererPort,
     ownerPid: instance.pid,
   });
@@ -67,7 +67,7 @@ export async function connectChannelE2e(command: string): Promise<ChannelE2e> {
 }
 
 export function writeReport(name: string, report: unknown): string {
-  const out = resolve(import.meta.dirname, `../.openbot-build/${name}`);
+  const out = resolve(import.meta.dirname, `../.openownbot-build/${name}`);
   mkdirSync(out, { recursive: true });
   const path = resolve(out, "report.json");
   writeFileSync(path, `${JSON.stringify(report, null, 2)}\n`);
@@ -97,14 +97,14 @@ export class ChannelClient {
   readonly chatted = new Set<string>();
   constructor(readonly page: Page) {}
 
-  /** The visible agents on a provider that this OpenBot knows. */
+  /** The visible agents on a provider that this OpenOwnBot knows. */
   async agents(): Promise<AgentSummary[]> {
-    const agents = await this.page.evaluate(() => window.openbot.agent.listAgents());
+    const agents = await this.page.evaluate(() => window.openownbot.agent.listAgents());
     return agents.filter((agent): agent is AgentSummary => isAgentProvider(agent.provider));
   }
 
   list(): Promise<ChannelSummary[]> {
-    return this.page.evaluate(() => window.openbot.agent.listChannels());
+    return this.page.evaluate(() => window.openownbot.agent.listChannels());
   }
 
   async summary(channelId: string): Promise<ChannelSummary> {
@@ -114,11 +114,11 @@ export class ChannelClient {
   }
 
   read(channelId: string): Promise<ChannelPage> {
-    return this.page.evaluate((id) => window.openbot.agent.readChannel({ channelId: id }), channelId);
+    return this.page.evaluate((id) => window.openownbot.agent.readChannel({ channelId: id }), channelId);
   }
 
   command(command: ChannelCommand): Promise<Channel> {
-    return this.page.evaluate((input) => window.openbot.agent.channelCommand(input), command);
+    return this.page.evaluate((input) => window.openownbot.agent.channelCommand(input), command);
   }
 
   async create(name: string, members: string[], leadAgentId: string | null): Promise<Channel> {
@@ -156,23 +156,23 @@ export class ChannelClient {
   }
 
   queue(agentId: string): Promise<QueueSnapshot> {
-    return this.page.evaluate((id) => window.openbot.agent.listQueue(id), agentId);
+    return this.page.evaluate((id) => window.openownbot.agent.listQueue(id), agentId);
   }
 
   sendToAgent(agentId: string, text: string) {
     this.chatted.add(agentId);
     return this.page.evaluate(
-      (input) => window.openbot.agent.sendMessage({ ...input, clientMessageId: crypto.randomUUID() }),
+      (input) => window.openownbot.agent.sendMessage({ ...input, clientMessageId: crypto.randomUUID() }),
       { agentId, text },
     );
   }
 
   setHidden(agentId: string, hidden: boolean) {
-    return this.page.evaluate((input) => window.openbot.agent.setAgentHidden(input), { agentId, hidden });
+    return this.page.evaluate((input) => window.openownbot.agent.setAgentHidden(input), { agentId, hidden });
   }
 
   update(agentId: string, change: Omit<UpdateAgentInput, "agentId">): Promise<ClientAgentSummary> {
-    return this.page.evaluate((input) => window.openbot.agent.updateAgent(input), { agentId, ...change });
+    return this.page.evaluate((input) => window.openownbot.agent.updateAgent(input), { agentId, ...change });
   }
 
   /** Stops the running turn of the agent's own chat. */
@@ -181,7 +181,7 @@ export class ChannelClient {
     for (const delivery of snapshot?.deliveries ?? [])
       if (delivery.turnId && (delivery.status === "starting" || delivery.status === "running"))
         await this.page
-          .evaluate((input) => window.openbot.agent.interrupt(input), { agentId, turnId: delivery.turnId })
+          .evaluate((input) => window.openownbot.agent.interrupt(input), { agentId, turnId: delivery.turnId })
           .catch(() => undefined);
   }
 
@@ -197,7 +197,7 @@ export class ChannelClient {
         if (task.state === "queued" || task.state === "running" || task.state === "waiting")
           await this.taskCommand("stop", channelId, task.id).catch(() => undefined);
       await this.command({ type: "archive", operationId: crypto.randomUUID(), channelId }).catch(() => undefined);
-      await this.page.evaluate((id) => window.openbot.agent.deleteChannel(id), channelId).catch(() => undefined);
+      await this.page.evaluate((id) => window.openownbot.agent.deleteChannel(id), channelId).catch(() => undefined);
     }
   }
 }

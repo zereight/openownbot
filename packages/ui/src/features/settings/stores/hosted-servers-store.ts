@@ -2,8 +2,8 @@ import type {
   HostedServerLifecycleInput,
   HostedServerState,
   HostedServerSummary,
-} from "@openbot/contracts/hosted-servers";
-import type { HostedServersDesktopApi } from "@openbot/contracts/ipc";
+} from "@openownbot/contracts/hosted-servers";
+import type { HostedServersDesktopApi } from "@openownbot/contracts/ipc";
 import { createEffect, createStore, untrack } from "solid-js";
 import { currentText } from "../../../text";
 

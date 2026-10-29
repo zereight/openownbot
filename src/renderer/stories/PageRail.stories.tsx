@@ -1,13 +1,13 @@
-import { accountUsageProviderRows } from "@openbot/ui/features/account/account-usage-view";
-import { HelpMenu } from "@openbot/ui/features/updates/HelpMenu";
+import { accountUsageProviderRows } from "@openownbot/ui/features/account/account-usage-view";
+import { HelpMenu } from "@openownbot/ui/features/updates/HelpMenu";
 import {
   type CustomAgentUsageRailRow,
   PageRail,
   type PageRailPage,
   type PageRailPinnablePage,
   type PageRailProps,
-} from "@openbot/ui/features/window/PageRail";
-import { useText } from "@openbot/ui/text";
+} from "@openownbot/ui/features/window/PageRail";
+import { useText } from "@openownbot/ui/text";
 import { createSignal } from "solid-js";
 import { fn } from "storybook/test";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";
@@ -125,7 +125,7 @@ export const SharedQuota: Story = {
   args: { usageRows: sharedQuotaRows },
 };
 
-/** The web client: no macOS window buttons, so the logo in the top row links to the OpenBot site. */
+/** The web client: no macOS window buttons, so the logo in the top row links to the OpenOwnBot site. */
 export const WebLogo: Story = {
   args: { logo: { variant: "production", href: "/" } },
 };

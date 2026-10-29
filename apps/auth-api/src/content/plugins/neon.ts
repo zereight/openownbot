@@ -32,12 +32,12 @@ export const NEON_PLUGIN_GUIDE: PluginGuide = {
     {
       question: "Does the Neon plugin need an API key?",
       answer:
-        "No. You sign in to your own Neon account in the browser. OpenBot signs in itself, keeps the tokens in encrypted storage, and adds the Authorization header. The plugin catalog holds no secret.",
+        "No. You sign in to your own Neon account in the browser. OpenOwnBot signs in itself, keeps the tokens in encrypted storage, and adds the Authorization header. The plugin catalog holds no secret.",
     },
     {
       question: "What can the agent change in Neon?",
       answer:
-        "With full access, the agent can run SQL that changes or deletes data, and create, reset or delete branches, databases and projects. When you authorize, you can choose read-only access. Then the agent can only run read queries and inspect schemas. Neon gets the requests that the agent sends. Your workspaces, conversations and files stay on the computer that runs OpenBot.",
+        "With full access, the agent can run SQL that changes or deletes data, and create, reset or delete branches, databases and projects. When you authorize, you can choose read-only access. Then the agent can only run read queries and inspect schemas. Neon gets the requests that the agent sends. Your workspaces, conversations and files stay on the computer that runs OpenOwnBot.",
     },
     {
       question: "Can I use the Neon plugin with a production database?",

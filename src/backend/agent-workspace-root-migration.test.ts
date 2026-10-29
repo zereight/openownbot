@@ -1,7 +1,7 @@
 // @vitest-environment node
 import { DatabaseSync } from "node:sqlite";
 import { afterEach, describe, expect, it } from "vitest";
-import { migrateOpenBotDatabase } from "./openbot-database-schema";
+import { migrateOpenOwnBotDatabase } from "./openownbot-database-schema";
 
 // Failure modes: migration 13 leaves a workspace root at `OpenBot/Bots` while it renames the leaf, misses the
 // Windows or the JSON-escaped form of a path, changes a path that only looks like the root (`Botsy`, a user's own
@@ -17,7 +17,7 @@ function databaseAt(version: number): DatabaseSync {
   db.exec(`CREATE TABLE schema_migrations(version INTEGER PRIMARY KEY, applied_at TEXT NOT NULL);
     CREATE TEMP TRIGGER stop_at_version BEFORE INSERT ON schema_migrations WHEN new.version > ${version}
     BEGIN SELECT RAISE(ABORT, 'fixture stop'); END;`);
-  expect(() => migrateOpenBotDatabase(db)).toThrow(`migration to version ${version + 1} failed`);
+  expect(() => migrateOpenOwnBotDatabase(db)).toThrow(`migration to version ${version + 1} failed`);
   db.exec("DROP TRIGGER stop_at_version");
   return db;
 }
@@ -95,7 +95,7 @@ describe("agent workspace root migration", () => {
   it("moves each stored root from OpenBot/Bots to OpenBot/Agents once, in every form", () => {
     const db = databaseAt(12);
     seed(db);
-    migrateOpenBotDatabase(db);
+    migrateOpenOwnBotDatabase(db);
 
     const posixAgent = `agent-${posixUuid}`;
     const windowsAgent = `agent-${windowsUuid}`;
@@ -131,13 +131,13 @@ describe("agent workspace root migration", () => {
     const before = contents(db);
     db.exec(`CREATE TEMP TRIGGER fail_marker BEFORE INSERT ON schema_migrations WHEN new.version = 13
       BEGIN SELECT RAISE(ABORT, 'late failure'); END;`);
-    expect(() => migrateOpenBotDatabase(db)).toThrow("migration to version 13 failed");
+    expect(() => migrateOpenOwnBotDatabase(db)).toThrow("migration to version 13 failed");
     expect(contents(db)).toEqual(before);
     expect(db.prepare("SELECT version FROM schema_migrations WHERE version = 13").all()).toEqual([]);
     expect(db.prepare("PRAGMA foreign_keys").get()).toEqual({ foreign_keys: 1 });
 
     db.exec("DROP TRIGGER fail_marker");
-    migrateOpenBotDatabase(db);
+    migrateOpenOwnBotDatabase(db);
     expect(workspacePaths(db)).toEqual([
       { agent_id: `agent-${posixUuid}`, path: `/Users/user/OpenBot/Agents/agent-${posixUuid}` },
       { agent_id: `agent-${windowsUuid}`, path: `C:\\Users\\user\\OpenBot\\Agents\\agent-${windowsUuid}` },

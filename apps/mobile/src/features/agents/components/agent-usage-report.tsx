@@ -5,8 +5,8 @@ import {
   agentProviderCliName,
   analyticsTokens,
   isAgentProvider,
-} from "@openbot/contracts/ipc";
-import { usageSeries, usageTotalSeries } from "@openbot/team-client/usage-series";
+} from "@openownbot/contracts/ipc";
+import { usageSeries, usageTotalSeries } from "@openownbot/team-client/usage-series";
 import { Typography } from "heroui-native";
 import { useMemo, useState } from "react";
 import { View } from "react-native";
@@ -16,7 +16,7 @@ import { UsageChart, useUsageSeriesColor } from "./usage-chart";
 import { UsageBar, UsageValue } from "./usage-motion";
 import { UsageSegments } from "./usage-segments";
 
-// A usage row names the provider the record carried, which is not always one OpenBot knows:
+// A usage row names the provider the record carried, which is not always one OpenOwnBot knows:
 // an unrecognised string is shown as it was stored rather than guessed at.
 const providerName = (value: string) => (isAgentProvider(value) ? agentProviderCliName(value) : value);
 

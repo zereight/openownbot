@@ -1,5 +1,5 @@
-import { AGENT_MEMORY_CONTEXT_BUDGET_BYTES, essentialMemoryBytes } from "@openbot/contracts/agent-memory-context";
-import { INPUT_LIMITS } from "@openbot/contracts/input-limits";
+import { AGENT_MEMORY_CONTEXT_BUDGET_BYTES, essentialMemoryBytes } from "@openownbot/contracts/agent-memory-context";
+import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
 import type {
   AgentEvent,
   AgentMemory,
@@ -9,10 +9,10 @@ import type {
   DeleteAgentMemoryInput,
   SetAgentMemoryInclusionInput,
   UpdateAgentMemoryInput,
-} from "@openbot/contracts/ipc";
-import { isString } from "@openbot/contracts/runtime-values";
-import { sourceText } from "@openbot/i18n/source";
-import { redactText } from "@openbot/logging";
+} from "@openownbot/contracts/ipc";
+import { isString } from "@openownbot/contracts/runtime-values";
+import { sourceText } from "@openownbot/i18n/source";
+import { redactText } from "@openownbot/logging";
 import {
   type AgentMemoryListPage,
   type AgentMemorySearchResult,
@@ -24,7 +24,7 @@ import { normalizeMemoryText } from "../memory-store";
 import { type DynamicToolCallParams, isRecord } from "../protocol";
 import type { ConversationRuntime } from "./conversation-runtime";
 import { listMemoriesInput, searchMemoriesInput, setMemoryInclusionInput } from "./memory-tool-inputs";
-import { type OpenBotToolResponse, openBotToolFailure, openBotToolResult } from "./routine-tools";
+import { type OpenOwnBotToolResponse, openOwnBotToolFailure, openOwnBotToolResult } from "./routine-tools";
 
 type PendingMemoryMutation =
   | {
@@ -171,13 +171,13 @@ export class AgentMemories {
     params: DynamicToolCallParams,
     senderAgentId: string,
     redact: (value: string) => string = redactText,
-  ): OpenBotToolResponse | null {
+  ): OpenOwnBotToolResponse | null {
     try {
       return this.#handleTool(params, senderAgentId, redact);
     } catch (error) {
       const message =
         error instanceof AgentMemorySelectionError ? error.message : sourceText("error.backend.memoryOperationFailed");
-      return openBotToolFailure(message);
+      return openOwnBotToolFailure(message);
     }
   }
 
@@ -185,10 +185,10 @@ export class AgentMemories {
     params: DynamicToolCallParams,
     senderAgentId: string,
     redact: (value: string) => string,
-  ): OpenBotToolResponse | null {
+  ): OpenOwnBotToolResponse | null {
     if (params.tool === "search_memories") {
       const parsed = searchMemoriesInput.safeParse(params.arguments);
-      if (!parsed.success) return openBotToolFailure(sourceText("error.backend.memorySearchQuery"));
+      if (!parsed.success) return openOwnBotToolFailure(sourceText("error.backend.memorySearchQuery"));
       const result = memoryRecallResult(
         this.#memories.search(senderAgentId, parsed.data.query, parsed.data.limit),
         redact,
@@ -198,14 +198,15 @@ export class AgentMemories {
     }
     if (params.tool === "list_memories") {
       const parsed = listMemoriesInput.safeParse(params.arguments);
-      if (!parsed.success) return openBotToolFailure("after must be a memory ID or null.");
+      if (!parsed.success) return openOwnBotToolFailure("after must be a memory ID or null.");
       const result = memoryRecallResult(this.#memories.listPage(senderAgentId, parsed.data.after ?? null), redact);
       this.#emitRecallProgress(params, senderAgentId, result.count);
       return result.response;
     }
     if (params.tool === "set_memory_inclusion") {
       const parsed = setMemoryInclusionInput.safeParse(params.arguments);
-      if (!parsed.success) return openBotToolFailure("Provide 1 to 25 memory selections with their current revisions.");
+      if (!parsed.success)
+        return openOwnBotToolFailure("Provide 1 to 25 memory selections with their current revisions.");
       const ids = new Set<string>();
       const planned = this.#plannedContext(senderAgentId, params.turnId, params.callId);
       const essentials = planned.essential;
@@ -213,15 +214,15 @@ export class AgentMemories {
         const selection = this.#memories.getSelection(senderAgentId, change.memoryId);
         const memory = this.#memories.get(senderAgentId, change.memoryId);
         if (!selection || !memory || selection.revision !== change.expectedRevision || ids.has(change.memoryId))
-          return openBotToolFailure(sourceText("error.backend.memorySelectionConflict"));
+          return openOwnBotToolFailure(sourceText("error.backend.memorySelectionConflict"));
         if (selection.userControlled)
-          return openBotToolFailure(sourceText("error.backend.memorySelectionUserControlled"));
+          return openOwnBotToolFailure(sourceText("error.backend.memorySelectionUserControlled"));
         ids.add(change.memoryId);
         if (change.inclusion === "essential") essentials.set(memory.id, planned.all.get(memory.id) ?? memory);
         else essentials.delete(memory.id);
       }
       if (essentialMemoryBytes([...essentials.values()]) > AGENT_MEMORY_CONTEXT_BUDGET_BYTES)
-        return openBotToolFailure(sourceText("error.backend.memoryEssentialBudget"));
+        return openOwnBotToolFailure(sourceText("error.backend.memoryEssentialBudget"));
       this.#stage(params.turnId, {
         callId: params.callId,
         type: "selection",
@@ -229,27 +230,27 @@ export class AgentMemories {
         epoch: this.#epoch(senderAgentId),
         changes: parsed.data.changes,
       });
-      return openBotToolResult({ status: "staged" });
+      return openOwnBotToolResult({ status: "staged" });
     }
     if (params.tool === "remember") {
       const args = params.arguments;
       if (!isRecord(args) || !isString(args.text))
-        return openBotToolFailure(sourceText("error.backend.memoryTextRequired"));
+        return openOwnBotToolFailure(sourceText("error.backend.memoryTextRequired"));
       const text = args.text.trim();
-      if (!text) return openBotToolFailure(sourceText("error.backend.memoryTextRequired"));
+      if (!text) return openOwnBotToolFailure(sourceText("error.backend.memoryTextRequired"));
       if (text.length > INPUT_LIMITS.agentMemoryText)
-        return openBotToolFailure(sourceText("error.backend.memoryTextTooLong"));
+        return openOwnBotToolFailure(sourceText("error.backend.memoryTextTooLong"));
       if (args.inclusion !== undefined && args.inclusion !== "essential" && args.inclusion !== "searchable")
-        return openBotToolFailure("inclusion must be essential or searchable.");
+        return openOwnBotToolFailure("inclusion must be essential or searchable.");
       const memoryId = args.memoryId;
       if (
         memoryId !== undefined &&
         (!isString(memoryId) || memoryId.length === 0 || memoryId.length > INPUT_LIMITS.identifier)
       ) {
-        return openBotToolFailure("memoryId is invalid.");
+        return openOwnBotToolFailure("memoryId is invalid.");
       }
       const current = memoryId ? this.#memories.get(senderAgentId, memoryId) : null;
-      if (memoryId && !current) return openBotToolFailure("This memory does not belong to the current agent.");
+      if (memoryId && !current) return openOwnBotToolFailure("This memory does not belong to the current agent.");
       const planned = this.#plannedContext(senderAgentId, params.turnId, params.callId);
       const duplicateEntry = [...planned.all].find(([key, memory]) => key !== memoryId && memory.text === text);
       const duplicate = duplicateEntry?.[1];
@@ -259,11 +260,11 @@ export class AgentMemories {
       const selectedKey = duplicateEntry?.[0] ?? current?.id;
       const selection = duplicateSelection ?? sourceSelection;
       if (duplicate && sourceSelection?.userControlled)
-        return openBotToolFailure(sourceText("error.backend.memorySelectionUserControlled"));
+        return openOwnBotToolFailure(sourceText("error.backend.memorySelectionUserControlled"));
       if (selection?.userControlled && args.inclusion !== undefined && args.inclusion !== selection.inclusion)
-        return openBotToolFailure(sourceText("error.backend.memorySelectionUserControlled"));
+        return openOwnBotToolFailure(sourceText("error.backend.memorySelectionUserControlled"));
       if (!current && duplicate && selection?.userControlled)
-        return openBotToolResult({ status: "unchanged", memoryId: duplicate.id, inclusion: selection.inclusion });
+        return openOwnBotToolResult({ status: "unchanged", memoryId: duplicate.id, inclusion: selection.inclusion });
       const plannedEssentials = planned.essential;
       const intendedInclusion =
         args.inclusion ??
@@ -284,7 +285,7 @@ export class AgentMemories {
         };
         if (essentialMemoryBytes([...others, candidate]) > AGENT_MEMORY_CONTEXT_BUDGET_BYTES) {
           if (current && sourceSelection?.inclusion === "essential")
-            return openBotToolFailure(sourceText("error.backend.memoryEssentialBudget"));
+            return openOwnBotToolFailure(sourceText("error.backend.memoryEssentialBudget"));
           inclusion = "searchable";
         }
       }
@@ -299,7 +300,7 @@ export class AgentMemories {
           // Over the limit only when the user lowered it. The agent must not delete memories for that.
           const key =
             saved > limit ? "error.backend.agentMemoryLimitExceeded" : "error.backend.agentMemoryLimitReached";
-          return openBotToolFailure(sourceText(key, { saved, limit }));
+          return openOwnBotToolFailure(sourceText(key, { saved, limit }));
         }
       }
       this.#stage(params.turnId, {
@@ -317,7 +318,7 @@ export class AgentMemories {
           : {}),
         inclusion,
       });
-      return openBotToolResult({
+      return openOwnBotToolResult({
         status: "staged",
         memoryId: memoryId ?? null,
         inclusion,
@@ -333,13 +334,13 @@ export class AgentMemories {
         args.memoryId.length === 0 ||
         args.memoryId.length > INPUT_LIMITS.identifier
       ) {
-        return openBotToolFailure("memoryId is required.");
+        return openOwnBotToolFailure("memoryId is required.");
       }
       const current = this.#memories.get(senderAgentId, args.memoryId);
-      if (!current) return openBotToolFailure("This memory does not belong to the current agent.");
+      if (!current) return openOwnBotToolFailure("This memory does not belong to the current agent.");
       const selection = this.#memories.getSelection(senderAgentId, current.id);
       if (selection?.userControlled)
-        return openBotToolFailure(sourceText("error.backend.memorySelectionUserControlled"));
+        return openOwnBotToolFailure(sourceText("error.backend.memorySelectionUserControlled"));
       this.#stage(params.turnId, {
         callId: params.callId,
         type: "forget",
@@ -349,7 +350,7 @@ export class AgentMemories {
         expectedUpdatedAt: current.updatedAt,
         expectedSelectionRevision: selection?.revision ?? -1,
       });
-      return openBotToolResult({ status: "staged", memoryId: current.id });
+      return openOwnBotToolResult({ status: "staged", memoryId: current.id });
     }
 
     return null;
@@ -702,7 +703,7 @@ export class AgentMemories {
 function memoryRecallResult(
   result: AgentMemorySearchResult | AgentMemoryListPage,
   redact: (value: string) => string,
-): { response: OpenBotToolResponse; count: number } {
+): { response: OpenOwnBotToolResponse; count: number } {
   while (
     Buffer.byteLength(redact(JSON.stringify(result)), "utf8") > AGENT_MEMORY_CONTEXT_BUDGET_BYTES &&
     result.memories.length > 0

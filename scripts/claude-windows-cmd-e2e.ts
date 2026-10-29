@@ -6,17 +6,17 @@
 //   - `other-wrapper`: any other `.cmd`. It starts through `cmd.exe`. The stand-in does not stop at
 //     the end of its input, so only a kill of the whole `cmd.exe` tree stops it.
 // Windows only. `bun run test:claude:windows-cmd`; exit 0 = each session started with the arguments
-// unchanged, and stop left no Claude process. Writes .openbot-build/claude-windows-cmd-e2e/report.json.
+// unchanged, and stop left no Claude process. Writes .openownbot-build/claude-windows-cmd-e2e/report.json.
 import assert from "node:assert/strict";
 import { execFileSync } from "node:child_process";
 import { mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
-import { isDynamicRecord, isNumber, isString } from "@openbot/contracts/runtime-values";
+import { isDynamicRecord, isNumber, isString } from "@openownbot/contracts/runtime-values";
 import { ClaudeAgentClient } from "../src/backend/claude-client";
 import { runCauseEffect } from "../src/backend/effect-boundary";
 
-const OUT = resolve(import.meta.dirname, "../.openbot-build/claude-windows-cmd-e2e");
+const OUT = resolve(import.meta.dirname, "../.openownbot-build/claude-windows-cmd-e2e");
 
 interface VariantReport {
   name: string;
@@ -114,7 +114,7 @@ function imageName(pid: number): string {
 
 async function runVariant(variant: Variant): Promise<VariantReport> {
   const report: VariantReport = { name: variant.name, passed: false };
-  const root = await mkdtemp(join(tmpdir(), `openbot-claude-windows-cmd-e2e-${variant.name}-`));
+  const root = await mkdtemp(join(tmpdir(), `openownbot-claude-windows-cmd-e2e-${variant.name}-`));
   let client: ClaudeAgentClient | null = null;
   let standInPid: number | null = null;
   try {

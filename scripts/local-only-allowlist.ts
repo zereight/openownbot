@@ -2,7 +2,7 @@
 // safe. A glob would admit files nobody reviewed, and a pattern that is not anchored would admit a
 // changed URL, so the check rejects both. An entry that matches nothing fails the check.
 
-/** Why a mention of an OpenBot service cannot send a request while LOCAL_ONLY is on. */
+/** Why a mention of an OpenOwnBot service cannot send a request while LOCAL_ONLY is on. */
 export type AllowReason =
   /** The code reads LOCAL_ONLY and does not run while it is on. */
   | "gated"
@@ -28,7 +28,7 @@ export type AllowEntry =
   | { readonly rule: "dynamic-dial"; readonly path: string; readonly note: string };
 
 /**
- * A config file that may name an OpenBot service only while code elsewhere keeps the service off.
+ * A config file that may name an OpenOwnBot service only while code elsewhere keeps the service off.
  * Native tooling reads these files, so no runtime guard can stop what they start.
  */
 export interface ConfigGate {
@@ -75,11 +75,11 @@ const PODSPEC_HOMEPAGE = /^s\.homepage\s+= 'https:\/\/openbot\.run'$/u;
 const ANALYTICS_API = /^https:\/\/analytics\.openbot\.run\/api$/u;
 
 const GLOBAL_WEBSOCKET =
-  "Uses the global WebSocket, which installLocalOnlyGuard replaces. The URL is a remote server that the user chose, and an OpenBot host is refused there.";
+  "Uses the global WebSocket, which installLocalOnlyGuard replaces. The URL is a remote server that the user chose, and an OpenOwnBot host is refused there.";
 const RENDERER_SIGNAL_SOCKET =
   "The signal URL comes from a team ticket. The page runs in an Electron session, and webRequest reports its sockets as `webSocket` requests, so the session guard sees them.";
 const LOCAL_SUNSHINE =
-  "Reaches the local Sunshine runtime on 127.0.0.1 only. That is not an OpenBot service, and a request to it needs no guard.";
+  "Reaches the local Sunshine runtime on 127.0.0.1 only. That is not an OpenOwnBot service, and a request to it needs no guard.";
 const LOCAL_SOCKET = "Connects to the local cua-driver daemon through a unix socket path. It never leaves the machine.";
 
 export const LOCAL_ONLY_ALLOWLIST: readonly AllowEntry[] = [
@@ -89,15 +89,20 @@ export const LOCAL_ONLY_ALLOWLIST: readonly AllowEntry[] = [
     "gated",
     "app.config.js turns updates off, and CONFIG_GATES checks that it still does.",
   ),
-  mention("apps/mobile/modules/app-lock/ios/OpenBotAppLock.podspec", PODSPEC_HOMEPAGE, "not-fetched", "Pod metadata."),
   mention(
-    "apps/mobile/modules/composer-paste/ios/OpenBotComposerPaste.podspec",
+    "apps/mobile/modules/app-lock/ios/OpenOwnBotAppLock.podspec",
     PODSPEC_HOMEPAGE,
     "not-fetched",
     "Pod metadata.",
   ),
   mention(
-    "apps/mobile/modules/quick-actions/ios/OpenBotQuickActions.podspec",
+    "apps/mobile/modules/composer-paste/ios/OpenOwnBotComposerPaste.podspec",
+    PODSPEC_HOMEPAGE,
+    "not-fetched",
+    "Pod metadata.",
+  ),
+  mention(
+    "apps/mobile/modules/quick-actions/ios/OpenOwnBotQuickActions.podspec",
     PODSPEC_HOMEPAGE,
     "not-fetched",
     "Pod metadata.",
@@ -111,16 +116,6 @@ export const LOCAL_ONLY_ALLOWLIST: readonly AllowEntry[] = [
   ),
   mention("apps/mobile/src/features/servers/screens/add-server-screen.tsx", INVITE_PLACEHOLDER, "not-fetched"),
   mention("apps/mobile/src/features/settings/screens/about-settings-screen.tsx", SITE, "user-opened"),
-  mention(
-    "apps/mobile/src/features/settings/screens/about-settings-screen.tsx",
-    /^https:\/\/github\.com\/nightly-labs\/openbot\/blob\/main\/PRIVACY\.md$/u,
-    "user-opened",
-  ),
-  mention(
-    "apps/mobile/src/features/settings/screens/support-settings-screen.tsx",
-    /^https:\/\/github\.com\/nightly-labs\/openbot\/issues\/new$/u,
-    "user-opened",
-  ),
   mention(
     "packages/contracts/src/agent-template-links.ts",
     SITE,
@@ -139,12 +134,6 @@ export const LOCAL_ONLY_ALLOWLIST: readonly AllowEntry[] = [
     /^https:\/\/api\.openbot\.run$/u,
     "refused",
     "The default account service of the mobile app. Signing in is a user action, and the mobile guard refuses it.",
-  ),
-  mention(
-    "packages/contracts/src/ipc-agent-import.ts",
-    /^nightly-labs\/openbot\/resources\/agent-import\/hermes-agent$/u,
-    "not-fetched",
-    "A skill id that the user pastes into Hermes. Hermes fetches it and this app does not.",
   ),
   mention("packages/contracts/src/ipc-conversation-events.ts", HOSTNAME_SUFFIX, "not-fetched", "Hostname validation."),
   mention(
@@ -220,20 +209,10 @@ export const LOCAL_ONLY_ALLOWLIST: readonly AllowEntry[] = [
   bypass("src/main/cua-driver-action-tap.ts", "net-connect", LOCAL_SOCKET),
   bypass("src/main/cua-driver-daemon-client.ts", "net-connect", LOCAL_SOCKET),
   bypass("src/main/cua-driver-runtime.ts", "net-connect", LOCAL_SOCKET),
-  mention(
-    "src/main/host-release-service.ts",
-    /^https:\/\/github\.com\/nightly-labs\/openbot\/releases\/latest\/download\/$/u,
-    "gated",
-  ),
   bypass(
     "src/main/index.ts",
     "electron-net",
     "Calls `net.isOnline()` only, which sends nothing. A `net.fetch` or `net.request` here needs a new review.",
-  ),
-  mention(
-    "src/main/ipc/app-handlers.ts",
-    /^https:\/\/github\.com\/nightly-labs\/openbot\/blob\/main\/docs\/TROUBLESHOOTING\.md$/u,
-    "user-opened",
   ),
   mention("src/main/ipc/app-handlers.ts", CHANGELOG, "user-opened"),
   mention("src/main/ipc/app-handlers.ts", GUIDES, "user-opened"),
@@ -243,24 +222,19 @@ export const LOCAL_ONLY_ALLOWLIST: readonly AllowEntry[] = [
     "on-before-request",
     "This is the guard. Electron keeps one listener per session, so any other file that sets one replaces it.",
   ),
-  mention(
-    "src/main/provider-runtime-releases.ts",
-    /^https:\/\/raw\.githubusercontent\.com\/nightly-labs\/openbot\/main\/provider-runtime-blocklist\.json$/u,
-    "gated",
-  ),
   bypass("src/main/remote-screen-gateway.ts", "http-request", LOCAL_SUNSHINE),
   dynamicDial("src/main/remote-server-event-stream.ts", GLOBAL_WEBSOCKET),
   mention("src/main/routine-feed-ics.ts", /^@routines\.openbot\.run$/u, "not-fetched", "The UID of a calendar event."),
   bypass(
     "src/main/signal-ingress.ts",
     "ws",
-    "The dial follows the refusesOpenBotUrl check on the signal URL, because ws skips the guarded WebSocket.",
+    "The dial follows the refusesOpenOwnBotUrl check on the signal URL, because ws skips the guarded WebSocket.",
   ),
   bypass("src/main/sunshine-moonlight-runtime.ts", "http-request", LOCAL_SUNSHINE),
   bypass(
     "src/main/voice-cloud-stream.ts",
     "ws",
-    "Dials the ElevenLabs speech-to-text URL, which is not an OpenBot service.",
+    "Dials the ElevenLabs speech-to-text URL, which is not an OpenOwnBot service.",
   ),
   dynamicDial("src/main/voice-cloud-stream.ts", "The URL is the ElevenLabs constant of this file."),
   mention("src/renderer/src/analytics.ts", ANALYTICS_API, "gated"),

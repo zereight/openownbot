@@ -177,7 +177,7 @@ export const messages = {
   "error.backend.routineFlowCycle": "이 연결은 순환을 만들어요.",
   "error.backend.routineFlowLinkLimit": "루틴 하나에는 연결을 최대 {limit}개까지 둘 수 있어요.",
   "error.backend.agentWaitLimit":
-    "이 에이전트에는 이미 대기가 {count}개 열려 있어요. 다른 대기를 열기 전에 openbot.close_wait로 대기 하나를 닫으세요.",
+    "이 에이전트에는 이미 대기가 {count}개 열려 있어요. 다른 대기를 열기 전에 openownbot.close_wait로 대기 하나를 닫으세요.",
   "error.backend.agentWaitGone": "이 대기는 열려 있지 않아요. 에이전트가 닫았거나 누군가 취소했어요.",
   "error.backend.agentWaitNoRequest": "대기를 이어가려면 메시지가 필요한데, 이 턴에는 메시지가 없어요.",
   "error.backend.agentWaitOwnChatOnly":
@@ -185,7 +185,7 @@ export const messages = {
   "error.backend.agentWaitNoteRequired": "대기 목적을 알려 주는 짧은 메모를 입력하세요.",
   "error.backend.agentWaitRoutineGone": "이 에이전트에는 이 ID의 루틴이 없어요.",
   "error.backend.agentWaitNoRoutine":
-    "대기를 깨우는 것은 내 루틴의 실행뿐인데, 루틴이 없어요. openbot.create_routine으로 루틴을 만든 후 대기를 여세요.",
+    "대기를 깨우는 것은 내 루틴의 실행뿐인데, 루틴이 없어요. openownbot.create_routine으로 루틴을 만든 후 대기를 여세요.",
   "error.backend.agentWaitRemoteUnsupported": "열린 대기는 이 컴퓨터의 에이전트에서만 사용할 수 있어요.",
   "error.backend.routineFlowHandoffFailed": "루틴이 이 에이전트에게 작업을 넘기지 못했어요.",
   "error.backend.mcpServerLimit": "OpenOwnBot은 MCP 서버를 최대 {limit}개까지 유지해요.",

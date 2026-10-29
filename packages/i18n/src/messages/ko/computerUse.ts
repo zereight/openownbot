@@ -10,7 +10,7 @@ export const messages = {
   "computerUse.permission.accessibility.description": "OpenOwnBot이 클릭하고 입력할 수 있어요.",
   "computerUse.permission.accessibility.pane": "손쉬운 사용",
   "computerUse.error.check": "OpenOwnBot이 컴퓨터 제어를 확인하지 못했어요.",
-  "computerUse.error.openSettings": "OpenBot이 시스템 설정을 열지 못했어요.",
+  "computerUse.error.openSettings": "OpenOwnBot이 시스템 설정을 열지 못했어요.",
   "computerUse.error.startDriver": "OpenOwnBot이 컴퓨터 제어 드라이버를 시작하지 못했어요.",
   "computerUse.checkAgain": "다시 확인",
   "computerUse.checking": "컴퓨터 제어 확인 중",

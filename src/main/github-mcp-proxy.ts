@@ -20,12 +20,12 @@ import {
   ListToolsRequestSchema,
   ReadResourceRequestSchema,
 } from "@modelcontextprotocol/sdk/types.js";
-import { isDynamicRecord, isString } from "@openbot/contracts/runtime-values";
-import { createOpenBotLogger, toLogValue } from "@openbot/logging";
+import { isDynamicRecord, isString } from "@openownbot/contracts/runtime-values";
+import { createOpenOwnBotLogger, toLogValue } from "@openownbot/logging";
 import { runCauseEffect } from "../backend/effect-boundary";
 import { readJsonBody } from "../backend/local-mcp-bridge";
 
-const logger = createOpenBotLogger("github-mcp-proxy");
+const logger = createOpenOwnBotLogger("github-mcp-proxy");
 
 /** A GitHub call rarely takes long. The limit only stops a call that GitHub never answers. */
 const UPSTREAM_TIMEOUT_MS = 5 * 60_000;
@@ -276,7 +276,7 @@ export class GitHubMcpProxy {
   ): Effect.fn.Return<Client, GitHubOperationError> {
     let upstream = this.#upstreams.get(token);
     if (!upstream) {
-      const client = new Client({ name: "openbot-github-proxy", version: "1.0.0" }, { capabilities: {} });
+      const client = new Client({ name: "openownbot-github-proxy", version: "1.0.0" }, { capabilities: {} });
       const transport = new StreamableHTTPClientTransport(new URL(this.#options.upstreamUrl), {
         requestInit: { headers: { Authorization: `Bearer ${token}` } },
       });

@@ -2,10 +2,10 @@ import {
   type AppAppearancePreference,
   DEFAULT_APP_APPEARANCE,
   DEFAULT_TRANSPARENT_WINDOW,
-} from "@openbot/contracts/app-appearance";
+} from "@openownbot/contracts/app-appearance";
 import { type BrowserWindow, nativeTheme } from "electron";
 
-/** The light canvas, `--openbot-bg-canvas` in `tokens-light.css`, so a light window opens without a dark frame. */
+/** The light canvas, `--openownbot-bg-canvas` in `tokens-light.css`, so a light window opens without a dark frame. */
 const LIGHT_WINDOW_BACKGROUND = "#f5f5f6";
 
 /** The macOS material behind a transparent main window. The page paints its own tint over it. */

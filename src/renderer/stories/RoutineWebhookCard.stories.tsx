@@ -1,5 +1,8 @@
-import type { EventFilterDraft } from "@openbot/contracts/event-filter-value";
-import { RoutineWebhookCard, type RoutineWebhookCardProps } from "@openbot/ui/features/conversation/RoutineWebhookCard";
+import type { EventFilterDraft } from "@openownbot/contracts/event-filter-value";
+import {
+  RoutineWebhookCard,
+  type RoutineWebhookCardProps,
+} from "@openownbot/ui/features/conversation/RoutineWebhookCard";
 import { createSignal } from "solid-js";
 import { fn } from "storybook/test";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";
@@ -46,7 +49,7 @@ function CardStage(props: RoutineWebhookCardProps) {
 const meta = {
   title: "Routines/Webhook card",
   render: (args) => (
-    <main style={{ width: "min(560px, 100vw)", padding: "var(--openbot-space-4)" }}>
+    <main style={{ width: "min(560px, 100vw)", padding: "var(--openownbot-space-4)" }}>
       <CardStage {...args} />
     </main>
   ),
@@ -86,7 +89,7 @@ export const UpdatedWithFilters: Story = {
   args: {
     action: "updated",
     eventType: "issues.opened",
-    filters: [{ pointer: "/repository/name", value: "openbot" }],
+    filters: [{ pointer: "/repository/name", value: "openownbot" }],
   },
 };
 

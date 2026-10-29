@@ -1,7 +1,7 @@
-import { isDynamicIslandServerVisible } from "@openbot/contracts/ipc";
-import { DynamicIslandCoordinator } from "@openbot/team-client/dynamic-island-coordinator";
-import type { DynamicIslandText } from "@openbot/team-client/dynamic-island-presentation";
-import { currentText } from "@openbot/ui/text";
+import { isDynamicIslandServerVisible } from "@openownbot/contracts/ipc";
+import { DynamicIslandCoordinator } from "@openownbot/team-client/dynamic-island-coordinator";
+import type { DynamicIslandText } from "@openownbot/team-client/dynamic-island-presentation";
+import { currentText } from "@openownbot/ui/text";
 import { createEffect, flush, onSettled, untrack } from "solid-js";
 import { usePlatform } from "../../platform";
 import { createSimpleContext } from "../../simple-context";

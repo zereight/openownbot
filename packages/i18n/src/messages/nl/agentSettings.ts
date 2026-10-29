@@ -43,7 +43,7 @@ export const messages = {
   "agentSettings.folders.inShared": "{folder} staat in de gedeelde map, dus {agent} kan de map al wijzigen",
   "agentSettings.folders.inFolder": "{folder} staat in {parent}, en die map is al toegevoegd",
   "agentSettings.folders.protected":
-    "Je kunt {folder} niet toevoegen: de map bevat OpenBot-gegevens of bestanden van andere agents",
+    "Je kunt {folder} niet toevoegen: de map bevat OpenOwnBot-gegevens of bestanden van andere agents",
   "agentSettings.folders.missing": "{folder} is geen map op deze computer",
   "agentSettings.folders.limit": {
     one: "Je kunt maximaal {count} map toevoegen",

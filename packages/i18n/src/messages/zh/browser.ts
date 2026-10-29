@@ -90,7 +90,7 @@ export const messages = {
   "browser.secret.saveHintLocal": "之后，这台电脑上的助手无需询问你即可登录。",
   "browser.secret.saveHintRemote": "密码保存在 {server} 上。之后，它的助手无需询问你即可登录。",
   "browser.secret.saveBlockedRole": "只有 {server} 的所有者或管理员可以保存到其保险库。",
-  "browser.secret.saveBlockedVersion": "请更新 {server} 上的 OpenBot，才能将密码保存到其保险库。",
+  "browser.secret.saveBlockedVersion": "请更新 {server} 上的 OpenOwnBot，才能将密码保存到其保险库。",
   "browser.secret.signInPage": "登录页面",
   "browser.secret.openSignInPage": "在浏览器中打开登录页面",
   "browser.secret.openInBrowser": "在浏览器中打开",

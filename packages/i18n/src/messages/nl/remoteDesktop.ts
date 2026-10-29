@@ -9,7 +9,7 @@ export const messages = {
   "remoteDesktop.workspaceLabel": "Bediening op afstand",
   "remoteDesktop.displayLabel": "Extern scherm",
   "remoteDesktop.selectDisplay": "Scherm kiezen",
-  "remoteDesktop.backToOpenBot": "Terug naar OpenOwnBot",
+  "remoteDesktop.backToOpenOwnBot": "Terug naar OpenOwnBot",
   "remoteDesktop.disconnect": "Verbreken",
   "remoteDesktop.viewerTitle": "Extern Sunshine-bureaublad",
   "remoteDesktop.viewerLoadFailed": "Kan de Moonlight-viewer niet laden.",
@@ -20,7 +20,7 @@ export const messages = {
   "remoteDesktop.openFailed": "Kan het bureaublad niet openen",
   "remoteDesktop.notSharingTitle": "{name} deelt zijn scherm niet",
   "remoteDesktop.notSharingDescription":
-    "De server staat niet toe dat OpenBot het scherm opneemt. Open op die server Systeeminstellingen → Privacy en beveiliging → Schermopname, zet OpenBot aan en probeer het hier opnieuw.",
+    "De server staat niet toe dat OpenOwnBot het scherm opneemt. Open op die server Systeeminstellingen → Privacy en beveiliging → Schermopname, zet OpenOwnBot aan en probeer het hier opnieuw.",
   "remoteDesktop.setup.check.screenRecording": "Schermopname",
   "remoteDesktop.setup.check.accessibility": "Toegankelijkheid",
   "remoteDesktop.setup.check.service": "Sunshine-dienst",

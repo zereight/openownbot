@@ -25,8 +25,8 @@ describe("remote network route preference", () => {
     expect(await routeAfterLoading(null)).toBe("private");
   });
 
-  it("reads a saved openbot route as private, because this fork has the relay route switched off", async () => {
-    expect(await routeAfterLoading('{"version":1,"route":"openbot"}')).toBe("private");
+  it("reads a saved openownbot route as private, because this fork has the relay route switched off", async () => {
+    expect(await routeAfterLoading('{"version":1,"route":"openownbot"}')).toBe("private");
   });
 
   it("keeps a saved private route", async () => {

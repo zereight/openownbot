@@ -1,4 +1,4 @@
-import { cx } from "@openbot/ui/utils";
+import { cx } from "@openownbot/ui/utils";
 import { Match, Switch } from "solid-js";
 import { pluginMonogram } from "../../lib/plugins";
 

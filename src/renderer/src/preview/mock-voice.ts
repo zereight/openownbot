@@ -2,7 +2,7 @@ import {
   DEFAULT_SPEECH_SETTINGS,
   DEFAULT_VOICE_SETTINGS,
   ELEVENLABS_VOICE_MODEL_ID,
-  type OpenBotDesktopApi,
+  type OpenOwnBotDesktopApi,
   SPEECH_MODEL_ID,
   type SpeechModelStatus,
   type SpeechSettings,
@@ -11,7 +11,7 @@ import {
   type VoiceModelStatus,
   type VoiceSettings,
   type VoiceStreamTranscript,
-} from "@openbot/contracts/ipc";
+} from "@openownbot/contracts/ipc";
 import { clone, type Listener, type MockRuntime } from "./mock-support";
 
 export interface MockVoiceOptions {
@@ -96,7 +96,7 @@ export function createMockVoice(options: MockVoiceOptions, { emit, schedule }: M
       schedule(() => advance(5), 200);
     });
 
-  const voice: OpenBotDesktopApi["voice"] = {
+  const voice: OpenOwnBotDesktopApi["voice"] = {
     getModelStatus: async () => status(settings.modelId),
     getModelStatuses: async () => VOICE_MODEL_IDS.map(status),
     prepareModel: () => download(settings.modelId),

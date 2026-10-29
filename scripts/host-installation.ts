@@ -5,14 +5,14 @@ export const HOST_TEAM_ID = "ZTRDTUL87R";
 export const HOST_PACKAGE_ID = "app.openownbot.host";
 export const HOST_DAEMON_PLIST = "/Library/LaunchDaemons/app.openownbot.host-manager.plist";
 export const HOST_AGENT_PLIST = "/Library/LaunchAgents/app.openownbot.desktop.relaunch.plist";
-export const HOST_EXECUTABLES = ["host-manager", "openbot-host", "create-tenants"] as const;
+export const HOST_EXECUTABLES = ["host-manager", "openownbot-host", "create-tenants"] as const;
 export const HOST_FILES = [
   ...HOST_EXECUTABLES.map((name) => `${HOST_MANAGER_DIRECTORY}/${name}`),
-  `${HOST_MANAGER_DIRECTORY}/openbot-relaunch.sh`,
+  `${HOST_MANAGER_DIRECTORY}/openownbot-relaunch.sh`,
   `${HOST_MANAGER_DIRECTORY}/host-release.json`,
   HOST_DAEMON_PLIST,
   HOST_AGENT_PLIST,
-  "/usr/local/bin/openbot-host",
+  "/usr/local/bin/openownbot-host",
 ] as const;
 export const hostReleaseSchema = z
   .object({

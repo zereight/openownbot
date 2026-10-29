@@ -2,21 +2,21 @@ import type {
   InstanceTransferPreview,
   InstanceTransferResult,
   InstanceTransferSummary,
-  OpenBotDesktopApi,
-} from "@openbot/contracts/ipc";
-import { toast } from "@openbot/ui";
+  OpenOwnBotDesktopApi,
+} from "@openownbot/contracts/ipc";
+import { toast } from "@openownbot/ui";
 import type {
   InstanceExportOptions,
   InstanceExportPhase,
   InstanceImportPhase,
   InstanceTransferScreen,
-} from "@openbot/ui/features/transfer/InstanceTransferView";
-import { currentText } from "@openbot/ui/text";
+} from "@openownbot/ui/features/transfer/InstanceTransferView";
+import { currentText } from "@openownbot/ui/text";
 import { createEffect, createStore } from "solid-js";
 import { desktopAnalytics } from "../../analytics";
 
 /** The transfer calls of one server. Main routes them to this computer or to a joined host. */
-export type ServerTransferCalls = OpenBotDesktopApi["instanceTransfer"];
+export type ServerTransferCalls = OpenOwnBotDesktopApi["instanceTransfer"];
 
 interface ServerTransferState {
   screen: InstanceTransferScreen;

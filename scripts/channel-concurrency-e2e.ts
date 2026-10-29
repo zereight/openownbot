@@ -8,10 +8,10 @@
 // and that channel work holds only the agent that does it: the agent's own chat waits and names the
 // channel, another agent's chat runs, and the agent's task runs beside its channel turn. It makes
 // its own two channels and deletes them at the end.
-// Writes .openbot-build/channel-concurrency-e2e/report.json.
+// Writes .openownbot-build/channel-concurrency-e2e/report.json.
 import assert from "node:assert/strict";
-import { agentProviderDescriptor } from "@openbot/contracts/agent-providers";
-import type { AgentTask, ChannelPage, ChannelTask } from "@openbot/contracts/ipc";
+import { agentProviderDescriptor } from "@openownbot/contracts/agent-providers";
+import type { AgentTask, ChannelPage, ChannelTask } from "@openownbot/contracts/ipc";
 import {
   ChannelClient,
   connectChannelE2e,
@@ -111,14 +111,14 @@ try {
 
   // 6. The agent's task runs beside its channel turn.
   const task: AgentTask = await page.evaluate(
-    (input) => window.openbot.agent.startTask({ ...input, clientMessageId: crypto.randomUUID() }),
+    (input) => window.openownbot.agent.startTask({ ...input, clientMessageId: crypto.randomUUID() }),
     { agentId: a.id, text: SHORT_PROMPT },
   );
   startedTasks.push({ agentId: a.id, taskId: task.id });
   const [tasks, channel] = await waitFor(
     page,
     "the agent's task starts during its channel turn",
-    () => Promise.all([page.evaluate((id) => window.openbot.agent.listTasks(id), a.id), client.read(first.id)]),
+    () => Promise.all([page.evaluate((id) => window.openownbot.agent.listTasks(id), a.id), client.read(first.id)]),
     ([snapshot]) => snapshot.tasks.find((item) => item.id === task.id)?.state !== "queued",
   );
   const started = tasks.tasks.find((item) => item.id === task.id);
@@ -133,8 +133,10 @@ try {
 } finally {
   await client.cleanup();
   for (const { agentId, taskId } of startedTasks) {
-    await page.evaluate((input) => window.openbot.agent.stopTask(input), { agentId, taskId }).catch(() => undefined);
-    await page.evaluate((input) => window.openbot.agent.closeTask(input), { agentId, taskId }).catch(() => undefined);
+    await page.evaluate((input) => window.openownbot.agent.stopTask(input), { agentId, taskId }).catch(() => undefined);
+    await page
+      .evaluate((input) => window.openownbot.agent.closeTask(input), { agentId, taskId })
+      .catch(() => undefined);
   }
   writeReport("channel-concurrency-e2e", report);
   await session.close();

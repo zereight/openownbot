@@ -6,16 +6,16 @@
 // instance does not stamp a provider that is off; and that a version another
 // instance stamped after this one is kept.
 // `bun scripts/provider-runtime-remove-e2e.ts`.
-// Writes .openbot-build/provider-runtime-remove-e2e/report.json.
+// Writes .openownbot-build/provider-runtime-remove-e2e/report.json.
 import assert from "node:assert/strict";
 import { chmod, mkdir, mkdtemp, rm, stat, utimes, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { basename, dirname, join, resolve } from "node:path";
-import type { AgentProviderId, ManagedProviderId } from "@openbot/contracts/agent-providers";
+import type { AgentProviderId, ManagedProviderId } from "@openownbot/contracts/agent-providers";
 import { runCauseEffect } from "../src/backend/effect-boundary";
 import { ProviderRuntimeManager } from "../src/main/provider-runtime-manager";
 
-const OUT = resolve(import.meta.dirname, "../.openbot-build/provider-runtime-remove-e2e");
+const OUT = resolve(import.meta.dirname, "../.openownbot-build/provider-runtime-remove-e2e");
 const DAY_MS = 24 * 60 * 60 * 1000;
 /** Off since long ago, with two versions, a partial download and a verification record. */
 const OFF: ManagedProviderId = "cursor";
@@ -27,9 +27,9 @@ const SIBLING: ManagedProviderId = "cline";
 const TURNED_OFF: ManagedProviderId = "grok";
 /** On at the start, then turned off; a sibling stamped it after this instance did. */
 const SHARED: ManagedProviderId = "antigravity";
-/** Off, and the user pointed OpenBot at a CLI of their own. */
+/** Off, and the user pointed OpenOwnBot at a CLI of their own. */
 const CONFIGURED: ManagedProviderId = "claude";
-const CONFIGURED_ENV = `OPENBOT_${CONFIGURED.toUpperCase()}_PATH`;
+const CONFIGURED_ENV = `OPENOWNBOT_${CONFIGURED.toUpperCase()}_PATH`;
 /** Off, but DeepSeek, which is on, runs on its CLI. */
 const PI: ManagedProviderId = "pi";
 /** Off, but its versions cannot be moved: a program holds them, as Windows does with an open CLI. */
@@ -54,7 +54,7 @@ interface Report {
   sharedKept?: boolean;
 }
 
-const root = await mkdtemp(join(tmpdir(), "openbot-provider-runtime-remove-e2e-"));
+const root = await mkdtemp(join(tmpdir(), "openownbot-provider-runtime-remove-e2e-"));
 const store = join(root, "provider-runtimes");
 const downloads = join(root, "downloads");
 const report: Report = { passed: false };

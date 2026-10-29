@@ -1,5 +1,5 @@
-import type { EventRoutineOwner, WebhookReceiptReason } from "@openbot/contracts/ipc-events";
-import type { MobileTextKey } from "@openbot/i18n/mobile";
+import type { EventRoutineOwner, WebhookReceiptReason } from "@openownbot/contracts/ipc-events";
+import type { MobileTextKey } from "@openownbot/i18n/mobile";
 import { useQuery } from "@tanstack/react-query";
 import { Typography } from "heroui-native";
 import { View } from "react-native";

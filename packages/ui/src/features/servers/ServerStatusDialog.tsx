@@ -1,5 +1,5 @@
-import type { HostedServerIssue } from "@openbot/contracts/ipc";
-import type { AppTextKey } from "@openbot/i18n";
+import type { HostedServerIssue } from "@openownbot/contracts/ipc";
+import type { AppTextKey } from "@openownbot/i18n";
 import type { JSX } from "@solidjs/web";
 import { createEffect, createMemo, createSignal, For, Show } from "solid-js";
 import { ConfirmDialog } from "../../confirm-dialog";
@@ -30,7 +30,7 @@ export interface ServerStatusDialogProps {
   phase: ServerWorkspacePhase;
   initial: boolean;
   issue?: HostedServerIssue | null;
-  /** The OpenBot version that the server restarts into. */
+  /** The OpenOwnBot version that the server restarts into. */
   updateVersion?: string | null;
   remainingSeconds?: number;
   detail?: string | null;

@@ -3,8 +3,8 @@ import { EventEmitter } from "node:events";
 import { createReadStream, existsSync } from "node:fs";
 import { mkdir, open, rename, rm, stat } from "node:fs/promises";
 import { join } from "node:path";
-import type { LocalVoiceModelId, SpeechModelId, VoiceModelStatus } from "@openbot/contracts/ipc";
-import { sourceText } from "@openbot/i18n/source";
+import type { LocalVoiceModelId, SpeechModelId, VoiceModelStatus } from "@openownbot/contracts/ipc";
+import { sourceText } from "@openownbot/i18n/source";
 import { Effect, Exit, Fiber, Result, Schema, Scope, Stream } from "effect";
 import { causeHelpers } from "../backend/effect-boundary";
 
@@ -181,7 +181,7 @@ const SUPERTONIC_MODEL_FILES: readonly VoiceModelFile[] = [
   },
 ];
 
-/** A model that OpenBot downloads: a dictation model or the speech model. */
+/** A model that OpenOwnBot downloads: a dictation model or the speech model. */
 type DownloadedModelId = LocalVoiceModelId | SpeechModelId;
 
 /** The files of each model. */

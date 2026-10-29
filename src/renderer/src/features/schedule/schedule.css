@@ -3,6 +3,6 @@
   height: 100%;
   min-height: 0;
   overflow-y: auto;
-  background: var(--openbot-bg-canvas);
-  padding: var(--openbot-space-4) var(--openbot-space-6) var(--openbot-space-6);
+  background: var(--openownbot-bg-canvas);
+  padding: var(--openownbot-space-4) var(--openownbot-space-6) var(--openownbot-space-6);
 }

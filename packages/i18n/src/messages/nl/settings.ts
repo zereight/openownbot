@@ -46,7 +46,7 @@ export const messages = {
   "settings.externalLinks.title": "Open externe links in",
   "settings.externalLinks.description": "Links in chats, inlogpagina’s en betaalpagina’s openen hier.",
   "settings.externalLinks.defaultBrowser": "Standaardbrowser",
-  "settings.externalLinks.openbot": "OpenBot",
+  "settings.externalLinks.openownbot": "OpenOwnBot",
   "settings.externalLinks.defaultBrowserNamed": "Standaard ({name})",
   "settings.externalLinks.otherApp": "Andere app…",
   "settings.externalLinks.command": "Opdracht…",
@@ -94,7 +94,7 @@ export const messages = {
   "settings.notificationPreview.description": "Toon het begin van het antwoord of de vraag van de agent in meldingen.",
   "settings.testNotification.title": "Testmelding",
   "settings.testNotification.description":
-    "Toon er nu een. Verschijnt hij niet, sta dan meldingen van OpenBot toe in je systeeminstellingen.",
+    "Toon er nu een. Verschijnt hij niet, sta dan meldingen van OpenOwnBot toe in je systeeminstellingen.",
   "settings.testNotification.action": "Test verzenden",
   "settings.testNotification.failed": "Kan geen melding tonen.",
   "settings.testNotification.openSettings": "Open systeeminstellingen",
@@ -239,9 +239,9 @@ export const messages = {
   "settings.mobileConnect.route.title": "Hoe apparaten verbinden",
   "settings.mobileConnect.route.description":
     "Voor telefoons, andere computers en teamleden die met deze computer verbinden.",
-  "settings.mobileConnect.route.openbot.title": "Via OpenBot",
-  "settings.mobileConnect.route.openbot.badge": "Aanbevolen",
-  "settings.mobileConnect.route.openbot.description":
+  "settings.mobileConnect.route.openownbot.title": "Via OpenOwnBot",
+  "settings.mobileConnect.route.openownbot.badge": "Aanbevolen",
+  "settings.mobileConnect.route.openownbot.description":
     "Werkt op elk netwerk. Chats en bestanden zijn versleuteld tussen je apparaten.",
   "settings.mobileConnect.route.private.title": "Privénetwerk",
   "settings.mobileConnect.route.private.tailscale": "Tailscale gevonden",
@@ -298,7 +298,7 @@ export const messages = {
   "settings.profile.share.copied": "Afbeelding gekopieerd",
   "settings.profile.share.copyFailed": "Kan de afbeelding niet kopiëren.",
   "settings.profile.share.createFailed": "Kan de afbeelding niet maken.",
-  "settings.profile.share.fileName": "openbot-activiteit.png",
+  "settings.profile.share.fileName": "openownbot-activiteit.png",
   "settings.profile.share.caption": "Mijn laatste zes maanden met OpenOwnBot",
   "settings.profile.activity.title": "Activiteit op deze computer",
   "settings.profile.activity.activeDays": {

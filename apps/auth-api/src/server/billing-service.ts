@@ -16,15 +16,15 @@ import {
   isBillingAmount,
   isOpenBillingStatus,
   parseBillingLookupKey,
-} from "@openbot/contracts/billing";
+} from "@openownbot/contracts/billing";
 import type {
   HostedServerCatalog,
   HostedServerCatalogPlan,
   HostedServerEntryPoint,
-} from "@openbot/contracts/hosted-servers";
-import { LICENSE_METADATA, LICENSE_METADATA_KIND } from "@openbot/contracts/license";
-import { isDynamicRecord, isOneOf, isString } from "@openbot/contracts/runtime-values";
-import { sourceText } from "@openbot/i18n/source";
+} from "@openownbot/contracts/hosted-servers";
+import { LICENSE_METADATA, LICENSE_METADATA_KIND } from "@openownbot/contracts/license";
+import { isDynamicRecord, isOneOf, isString } from "@openownbot/contracts/runtime-values";
+import { sourceText } from "@openownbot/i18n/source";
 import { Context, Effect, Layer } from "effect";
 import {
   type AccountAnalytics,
@@ -65,7 +65,7 @@ import {
 /** Stripe retries a webhook for up to 3 days, so older event ids are not needed to stop duplicates. */
 const WEBHOOK_EVENT_RETENTION_MS = 7 * 24 * 60 * 60_000;
 /** The key of an account's welcome email claim in `billing_webhook_events`. No Stripe event id has it. */
-const WELCOME_EMAIL_CLAIM_PREFIX = "openbot_welcome_email:";
+const WELCOME_EMAIL_CLAIM_PREFIX = "openownbot_welcome_email:";
 /** The Remote host id shape (`requiredIdentifier` in remote-control-plane.ts). Other values are stored as no server. */
 const SERVER_ID_PATTERN = /^[A-Za-z0-9:_-]{1,128}$/u;
 const LAPSED_PLAN_GRACE_MS = 24 * 60 * 60 * 1000;
@@ -269,7 +269,7 @@ export class BillingService {
       const created = yield* this.#stripeCall(() =>
         dependencies.stripe.createCustomer(
           { userId: user.id, email: user.email },
-          existing ? `openbot-customer-${user.id}-after-${existing}` : `openbot-customer-${user.id}`,
+          existing ? `openownbot-customer-${user.id}-after-${existing}` : `openownbot-customer-${user.id}`,
         ),
       );
       const now = dependencies.now();
@@ -825,10 +825,10 @@ export class BillingService {
     // A changed amount moves the lookup key to a new Price, and current subscriptions keep the old one.
     const key =
       parseBillingLookupKey(price?.lookup_key) ??
-      parseBillingLookupKey(`openbot_${price?.metadata.openbot_plan}_${price?.metadata.openbot_interval}`);
+      parseBillingLookupKey(`openownbot_${price?.metadata.openownbot_plan}_${price?.metadata.openownbot_interval}`);
     const currency = subscription.currency.toLowerCase();
     if (!key || !isBillingCurrency(currency) || !isOneOf(BILLING_SUBSCRIPTION_STATUSES, subscription.status)) {
-      console.warn("billing: subscription is not an OpenBot plan", { subscriptionId });
+      console.warn("billing: subscription is not an OpenOwnBot plan", { subscriptionId });
       return null;
     }
     const ownerId = yield* this.#subscriptionOwner(subscription, customerId);
@@ -1043,7 +1043,7 @@ export class BillingService {
         )
       : null;
     if (!user) {
-      console.warn("billing: subscription names no OpenBot account", { subscriptionId: subscription.id });
+      console.warn("billing: subscription names no OpenOwnBot account", { subscriptionId: subscription.id });
       return null;
     }
     const now = dependencies.now();

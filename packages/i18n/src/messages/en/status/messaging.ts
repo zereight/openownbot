@@ -1,8 +1,8 @@
 import { defineMessages } from "../../../message";
 
 export const messages = defineMessages("status.messaging", {
-  // Text that OpenBot posts in a Slack conversation. Slack users read it. It names no agent: in
-  // Slack, every answer comes from OpenBot.
+  // Text that OpenOwnBot posts in a Slack conversation. Slack users read it. It names no agent: in
+  // Slack, every answer comes from OpenOwnBot.
   "status.messaging.working": "Working on it…",
   "status.messaging.queued": "Waiting: OpenOwnBot is working on another request. The answer comes here.",
   "status.messaging.busy": "Too many requests are waiting. Try again later.",
@@ -25,19 +25,19 @@ export const messages = defineMessages("status.messaging", {
   "status.messaging.onlyRequester": "Only {user} can do this. The OpenOwnBot host can also answer.",
   "status.messaging.hostOnly": "Only the OpenOwnBot host can answer this request.",
   "status.messaging.filesSkipped": "Some files were not sent: {names}.",
-  // The name and title of the agent that OpenBot adds to answer in Slack. The user can rename it.
+  // The name and title of the agent that OpenOwnBot adds to answer in Slack. The user can rename it.
   "status.messaging.orchestratorName": "Slack Orchestrator",
   "status.messaging.orchestratorTitle": "Answers in Slack and asks the team",
   // The same texts for Discord. Discord users read the first one.
   "status.messaging.discordNoAgent": "No agent can answer here yet. Add the Discord Orchestrator in OpenOwnBot.",
   "status.messaging.discordOrchestratorName": "Discord Orchestrator",
   "status.messaging.discordOrchestratorTitle": "Answers in Discord and asks the team",
-  // The sidebar section that OpenBot puts the Slack Orchestrator in. The user can rename it.
+  // The sidebar section that OpenOwnBot puts the Slack Orchestrator in. The user can rename it.
   "status.messaging.integrationsSection": "Integrations",
   // The page a development Slack install ends on.
   "status.messaging.signInReceived": "OpenOwnBot received the Slack install. You can close this tab.",
   "status.messaging.signInUnknown": "OpenOwnBot did not start this Slack install. Start it again in OpenOwnBot.",
-  // Text that OpenBot posts in a Telegram chat, and the Telegram Orchestrator agent. Telegram users
+  // Text that OpenOwnBot posts in a Telegram chat, and the Telegram Orchestrator agent. Telegram users
   // read the posts. The user can rename the agent.
   "status.messaging.telegramNoAgent": "No agent can answer here yet. Add the Telegram Orchestrator in OpenOwnBot.",
   "status.messaging.telegramLinked":

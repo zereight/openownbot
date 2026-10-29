@@ -1,4 +1,4 @@
-import type { AgentProviderRef } from "@openbot/contracts/agent-providers";
+import type { AgentProviderRef } from "@openownbot/contracts/agent-providers";
 import type {
   AgentAccess,
   AgentExchangeSummary,
@@ -25,8 +25,8 @@ import type {
   RoutineConversationEvent,
   RoutineRunConversationEvent,
   SkillConversationEvent,
-} from "@openbot/contracts/ipc";
-import type { ConversationUiBlock } from "@openbot/contracts/ui-blocks";
+} from "@openownbot/contracts/ipc";
+import type { ConversationUiBlock } from "@openownbot/contracts/ui-blocks";
 
 /**
  * `error` is a message the renderer wrote itself, not one the provider sent: an action of the

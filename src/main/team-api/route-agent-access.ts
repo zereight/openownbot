@@ -1,6 +1,6 @@
-import { parseAgentAccessChange } from "@openbot/contracts/ipc";
-import { AGENT_ACCESS_CAPABILITY, AGENT_ACCESS_ROUTES } from "@openbot/contracts/team-protocol/agent-access-v1";
-import { sourceText } from "@openbot/i18n/source";
+import { parseAgentAccessChange } from "@openownbot/contracts/ipc";
+import { AGENT_ACCESS_CAPABILITY, AGENT_ACCESS_ROUTES } from "@openownbot/contracts/team-protocol/agent-access-v1";
+import { sourceText } from "@openownbot/i18n/source";
 import { Effect, Result } from "effect";
 import { agentAccessSnapshot } from "../agent-access-store";
 import type { TeamApiAgentAccess, TeamApiAgents } from "./dependencies";

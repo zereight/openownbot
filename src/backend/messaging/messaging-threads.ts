@@ -3,18 +3,18 @@ import type {
   ConversationMessage,
   MessagingPlatform,
   RoutineResultConnectionOption,
-} from "@openbot/contracts/ipc";
+} from "@openownbot/contracts/ipc";
 import {
   CONVERSATION_PLAN_ITEM_TYPE,
   CONVERSATION_SUBAGENTS_ITEM_TYPE,
   MESSAGING_LIMITS,
-} from "@openbot/contracts/ipc";
-import { sourceText } from "@openbot/i18n/source";
+} from "@openownbot/contracts/ipc";
+import { sourceText } from "@openownbot/i18n/source";
 import { Deferred, Effect, Result, Schema, type Scope } from "effect";
-import { type OpenBotToolResponse, openBotToolFailure, openBotToolResult } from "../agent/routine-tools";
+import { type OpenOwnBotToolResponse, openOwnBotToolFailure, openOwnBotToolResult } from "../agent/routine-tools";
 import { causeHelpers } from "../effect-boundary";
 import type { DeliveryContext, MailboxStore, MessagingOrigin } from "../mailbox-store";
-import type { OpenBotDatabase } from "../openbot-database";
+import type { OpenOwnBotDatabase } from "../openownbot-database";
 import { MessagingMemoryStore } from "./messaging-memory-store";
 import { type MessagingContextMessage, messagingPromptText } from "./messaging-prompt";
 import type { MessagingOperationFailed } from "./messaging-service";
@@ -154,7 +154,7 @@ export class MessagingThreads {
   readonly store: MessagingStore;
   /** The facts of each connection, which every prompt of its conversations shows. */
   readonly memories: MessagingMemoryStore;
-  readonly #database: OpenBotDatabase;
+  readonly #database: OpenOwnBotDatabase;
   readonly #mailbox: MailboxStore;
   readonly #hooks: MessagingThreadsHooks;
   readonly #listeners = new Set<(activity: MessagingActivity) => void>();
@@ -194,7 +194,7 @@ export class MessagingThreads {
     | null = null;
   #outbound: MessagingOutbound | null = null;
 
-  constructor(database: OpenBotDatabase, mailbox: MailboxStore, hooks: MessagingThreadsHooks) {
+  constructor(database: OpenOwnBotDatabase, mailbox: MailboxStore, hooks: MessagingThreadsHooks) {
     this.store = new MessagingStore(database);
     this.memories = new MessagingMemoryStore(database);
     this.#database = database;
@@ -243,12 +243,12 @@ export class MessagingThreads {
     this: MessagingThreads,
     tool: string,
     args: unknown,
-  ): Effect.fn.Return<OpenBotToolResponse> {
+  ): Effect.fn.Return<OpenOwnBotToolResponse> {
     const call = parseMessagingOutboundTool(tool, args);
-    if ("error" in call) return openBotToolFailure(call.error);
+    if ("error" in call) return openOwnBotToolFailure(call.error);
     const enabled = this.store.connections().filter((record) => record.enabled);
     if (call.tool === "messaging_list_places" && !call.connection)
-      return openBotToolResult({
+      return openOwnBotToolResult({
         connections: enabled.map((record) => ({
           connection: record.connectionId,
           platform: PLATFORM_NAMES[record.platform],
@@ -257,9 +257,11 @@ export class MessagingThreads {
       });
     const record = enabled.find((candidate) => candidate.connectionId === call.connection);
     if (!record)
-      return openBotToolFailure("No enabled connection has that id. Call openbot.messaging_list_places for the ids.");
+      return openOwnBotToolFailure(
+        "No enabled connection has that id. Call openownbot.messaging_list_places for the ids.",
+      );
     const outbound = this.#outbound;
-    if (!outbound) return openBotToolFailure(MESSAGING_NOT_RUNNING);
+    if (!outbound) return openOwnBotToolFailure(MESSAGING_NOT_RUNNING);
     // No deadline on a post: one that ended late could be sent again by the agent.
     const answer =
       call.tool === "messaging_list_places"
@@ -272,11 +274,11 @@ export class MessagingThreads {
             { platformChannelId: call.place, replyThreadId: call.replyTo },
             call.text,
           );
-    return "error" in answer ? openBotToolFailure(answer.error) : openBotToolResult(answer);
+    return "error" in answer ? openOwnBotToolFailure(answer.error) : openOwnBotToolResult(answer);
   });
 
   /**
-   * A post that OpenBot sends on its own, such as a routine's answer, to the top level of one place.
+   * A post that OpenOwnBot sends on its own, such as a routine's answer, to the top level of one place.
    * Only an enabled connection of this host can take it.
    */
   readonly deliver = Effect.fn("MessagingThreads.deliver")(function* (
@@ -333,13 +335,13 @@ export class MessagingThreads {
     callId: string,
     tool: string,
     args: unknown,
-  ): Effect.fn.Return<OpenBotToolResponse> {
+  ): Effect.fn.Return<OpenOwnBotToolResponse> {
     const call = parseMessagingTool(tool, args);
-    if ("error" in call) return openBotToolFailure(call.error);
+    if ("error" in call) return openOwnBotToolFailure(call.error);
     switch (call.tool) {
       case "messaging_remember": {
         if (link.isDirect)
-          return openBotToolFailure(
+          return openOwnBotToolFailure(
             "A direct message is private. Facts from it are not saved for the whole workspace.",
           );
         const saved = Result.try(() =>
@@ -351,8 +353,8 @@ export class MessagingThreads {
           }),
         );
         if (Result.isFailure(saved))
-          return openBotToolFailure(saved.failure instanceof Error ? saved.failure.message : String(saved.failure));
-        return openBotToolResult({
+          return openOwnBotToolFailure(saved.failure instanceof Error ? saved.failure.message : String(saved.failure));
+        return openOwnBotToolResult({
           accepted: true,
           memoryId: saved.success.id,
           count: this.memories.count(link.connectionId),
@@ -361,8 +363,8 @@ export class MessagingThreads {
       }
       case "messaging_forget_memory":
         return this.memories.delete(link.connectionId, call.memoryId)
-          ? openBotToolResult({ accepted: true })
-          : openBotToolResult({ accepted: false, reason: "No saved fact of this workspace has that memoryId." });
+          ? openOwnBotToolResult({ accepted: true })
+          : openOwnBotToolResult({ accepted: false, reason: "No saved fact of this workspace has that memoryId." });
       case "messaging_history": {
         const source = this.#historySource;
         const history = source
@@ -373,9 +375,9 @@ export class MessagingThreads {
             )
           : null;
         if (!history)
-          return openBotToolFailure("The platform did not answer, or it limits reads now. Try again in a minute.");
-        if (!history.value) return openBotToolFailure(MESSAGING_NOT_RUNNING);
-        return openBotToolResult({
+          return openOwnBotToolFailure("The platform did not answer, or it limits reads now. Try again in a minute.");
+        if (!history.value) return openOwnBotToolFailure(MESSAGING_NOT_RUNNING);
+        return openOwnBotToolResult({
           place: history.value.place,
           scope: call.scope,
           messages: boundedHistory(history.value.messages),

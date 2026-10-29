@@ -1,15 +1,15 @@
-import type { GitHubConnectorStatus, OpenBotDesktopApi } from "@openbot/contracts/ipc";
-import { sourceText } from "@openbot/i18n/source";
+import type { GitHubConnectorStatus, OpenOwnBotDesktopApi } from "@openownbot/contracts/ipc";
+import { sourceText } from "@openownbot/i18n/source";
 
 /** What the GitHub app page reaches: one GitHub connection, of this computer or of a joined server. */
 export type GitHubConnectorPort = Pick<
-  OpenBotDesktopApi["githubConnector"],
+  OpenOwnBotDesktopApi["githubConnector"],
   "status" | "connect" | "cancel" | "disconnect" | "repositories" | "openVerification" | "openInstall" | "onChanged"
 >;
 
-/** Read on each call: tests and stories replace `window.openbot` per case. */
+/** Read on each call: tests and stories replace `window.openownbot` per case. */
 export function githubConnectorPort(): GitHubConnectorPort {
-  return window.openbot.githubConnector;
+  return window.openownbot.githubConnector;
 }
 
 /** How often a joined server's connection is read while its sign-in waits for the user on GitHub. */
@@ -56,11 +56,11 @@ export function polledGitHubConnectorPort(actions: Omit<GitHubConnectorPort, "on
 /** The connection of the joined server that `serverId` names, through main. */
 export function hostGitHubConnectorPort(serverId: () => string | undefined): GitHubConnectorPort {
   const call =
-    <T>(method: (api: OpenBotDesktopApi["githubConnector"], serverId: string) => Promise<T>) =>
+    <T>(method: (api: OpenOwnBotDesktopApi["githubConnector"], serverId: string) => Promise<T>) =>
     () => {
       const id = serverId();
       if (!id) return Promise.reject(new Error(sourceText("error.team.connectorsUnsupported")));
-      return method(window.openbot.githubConnector, id);
+      return method(window.openownbot.githubConnector, id);
     };
   return polledGitHubConnectorPort({
     status: call((api, id) => api.hostStatus(id)),

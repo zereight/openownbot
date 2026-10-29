@@ -1,13 +1,13 @@
 // @vitest-environment node
 
-import { createFormat } from "@openbot/i18n/format";
+import { createFormat } from "@openownbot/i18n/format";
 import {
   type ComposerCommand,
   pickerOptionDescription,
   pickerOptionKey,
   pickerOptionName,
   slashQuery,
-} from "@openbot/ui/features/conversation/ComposerEditor";
+} from "@openownbot/ui/features/conversation/ComposerEditor";
 import { describe, expect, it } from "vitest";
 
 // Failure modes: a path or a URL in the middle of a message opens the command picker; the picker

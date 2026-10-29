@@ -23,7 +23,7 @@ import {
   type IpcEndpoints,
   type RequestEndpoint,
   type Untyped,
-} from "@openbot/contracts/ipc";
+} from "@openownbot/contracts/ipc";
 import type { IpcMainInvokeEvent } from "electron";
 import {
   type AuthorizeSender,
@@ -110,7 +110,7 @@ export type IpcGroupHandlers = { readonly [Group in keyof IpcEndpoints]: GroupHa
 
 // Every channel `bindGroup` bound, so shutdown can unbind exactly that set. A renderer read that
 // lands after the database closed must reject in the renderer with "No handler registered", not
-// run against stopped services and log "OpenBot database is not initialized" from the main
+// run against stopped services and log "OpenOwnBot database is not initialized" from the main
 // process on every restart.
 const boundChannels = new Set<string>();
 

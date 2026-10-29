@@ -41,7 +41,7 @@ export const messages = {
   "agentSettings.folders.inWorkspace": "{folder} 位于工作区中，{agent} 已可更改它",
   "agentSettings.folders.inShared": "{folder} 位于共享文件夹中，{agent} 已可更改它",
   "agentSettings.folders.inFolder": "{folder} 位于已添加的 {parent} 中",
-  "agentSettings.folders.protected": "无法添加 {folder}：其中包含 OpenBot 数据或其他助手的文件",
+  "agentSettings.folders.protected": "无法添加 {folder}：其中包含 OpenOwnBot 数据或其他助手的文件",
   "agentSettings.folders.missing": "{folder} 不是此电脑上的文件夹",
   "agentSettings.folders.limit": { one: "最多可添加 {count} 个文件夹", other: "最多可添加 {count} 个文件夹" },
   "agentSettings.folders.failed": "无法更改文件夹",

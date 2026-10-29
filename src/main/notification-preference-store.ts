@@ -1,5 +1,5 @@
-import type { NotificationPreference } from "@openbot/contracts/ipc";
-import { isBoolean, isDynamicRecord } from "@openbot/contracts/runtime-values";
+import type { NotificationPreference } from "@openownbot/contracts/ipc";
+import { isBoolean, isDynamicRecord } from "@openownbot/contracts/runtime-values";
 import { Effect, Result, Semaphore } from "effect";
 import { isMissingFileError } from "../backend/file-errors";
 import { type PreferenceFileFailure, readPreferenceFile, writePreferenceFile } from "./preference-file";
@@ -7,7 +7,7 @@ import { type PreferenceFileFailure, readPreferenceFile, writePreferenceFile } f
 const DEFAULT_PREFERENCE: NotificationPreference = { desktopNotifications: true, messagePreview: true };
 
 interface StoredNotificationPreference extends NotificationPreference {
-  /** Whether OpenBot has already shown the notification that makes macOS ask for permission. */
+  /** Whether OpenOwnBot has already shown the notification that makes macOS ask for permission. */
   permissionRequested: boolean;
 }
 

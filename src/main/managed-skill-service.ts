@@ -1,29 +1,29 @@
 import { lstat, mkdir, readdir, readFile, realpath, rename, unlink, writeFile } from "node:fs/promises";
 import { dirname, join, relative, resolve, sep } from "node:path";
-import { agentProviderDescriptor } from "@openbot/contracts/agent-providers";
-import type { AgentSummary, InstalledSkill } from "@openbot/contracts/ipc";
-import { isDynamicRecord } from "@openbot/contracts/runtime-values";
-import { createOpenBotLogger, toLogValue } from "@openbot/logging";
+import { agentProviderDescriptor } from "@openownbot/contracts/agent-providers";
+import type { AgentSummary, InstalledSkill } from "@openownbot/contracts/ipc";
+import { isDynamicRecord } from "@openownbot/contracts/runtime-values";
+import { createOpenOwnBotLogger, toLogValue } from "@openownbot/logging";
 import { Effect, Result, Schema } from "effect";
 import { parse as parseYaml } from "yaml";
 import { causeHelpers } from "../backend/effect-boundary";
 import { isMissingFileError } from "../backend/file-errors";
 import { isPathInside } from "../backend/path-containment";
 
-const MANAGED_SKILL_SLUG = "openbot-site-hosting";
-export const SKILL_CREATOR_SKILL_SLUG = "openbot-skill-creator";
-export const DATA_SKILL_SLUG = "openbot-data";
-/** The skills OpenBot writes into every agent workspace. Add a new managed skill here too. */
+const MANAGED_SKILL_SLUG = "openownbot-site-hosting";
+export const SKILL_CREATOR_SKILL_SLUG = "openownbot-skill-creator";
+export const DATA_SKILL_SLUG = "openownbot-data";
+/** The skills OpenOwnBot writes into every agent workspace. Add a new managed skill here too. */
 export const MANAGED_SKILL_SLUGS: ReadonlySet<string> = new Set([
   MANAGED_SKILL_SLUG,
   SKILL_CREATOR_SKILL_SLUG,
   DATA_SKILL_SLUG,
 ]);
 export const OWNERSHIP_MARKER = ".openbot-managed.json";
-/** The workspace skill folders OpenBot writes. Each provider reads at least one of them. */
+/** The workspace skill folders OpenOwnBot writes. Each provider reads at least one of them. */
 export const MANAGED_SKILL_FOLDERS = [".agents/skills", ".claude/skills"] as const;
 
-const logger = createOpenBotLogger("managed-skill-service");
+const logger = createOpenOwnBotLogger("managed-skill-service");
 
 interface SyncTargetsResult {
   collisions: string[];
@@ -36,10 +36,10 @@ export class ManagedSkillService {
   constructor(
     private readonly sourcePath: string,
     private readonly reportCollision: (target: string) => void = (target) => {
-      logger.warn(`OpenBot preserved an unowned managed-skill collision at ${target}.`);
+      logger.warn(`OpenOwnBot preserved an unowned managed-skill collision at ${target}.`);
     },
     private readonly reportFailure: (target: string, error: unknown) => void = (target, error) => {
-      logger.error(`OpenBot could not synchronize the managed skill at ${target}.`, toLogValue(error));
+      logger.error(`OpenOwnBot could not synchronize the managed skill at ${target}.`, toLogValue(error));
     },
     private readonly slug = MANAGED_SKILL_SLUG,
   ) {}
@@ -121,7 +121,7 @@ const syncTarget = Effect.fn("ManagedSkill.syncTarget")(function* (
   content: string,
   slug: string,
 ): Effect.fn.Return<"synced" | "collision", ManagedSkillFailure> {
-  const ownershipContent = `${JSON.stringify({ managedBy: "openbot", slug, version: 1 })}\n`;
+  const ownershipContent = `${JSON.stringify({ managedBy: "openownbot", slug, version: 1 })}\n`;
   const parent = dirname(target);
   yield* ensureSafeDirectory(workspaceRoot, parent);
   const marker = join(parent, OWNERSHIP_MARKER);
@@ -237,7 +237,7 @@ function isFileExistsError(error: unknown): boolean {
   return error instanceof Error && "code" in error && error.code === "EEXIST";
 }
 
-/** Read only OpenBot-owned skills from the active provider's skill folder. */
+/** Read only OpenOwnBot-owned skills from the active provider's skill folder. */
 export const listManagedSkillsForChat = Effect.fn("ManagedSkill.listForChat")(function* (agent: AgentSummary) {
   const root = yield* managedIO(() => realpath(agent.workspacePath));
   const reads = agentProviderDescriptor(agent.provider).skillFolders;
@@ -256,7 +256,7 @@ export const listManagedSkillsForChat = Effect.fn("ManagedSkill.listForChat")(fu
         yield* rejectSymlink(file);
         if (
           (yield* optionalText(marker)) !==
-          `${JSON.stringify({ managedBy: "openbot", slug: entry.name, version: 1 })}\n`
+          `${JSON.stringify({ managedBy: "openownbot", slug: entry.name, version: 1 })}\n`
         )
           return;
         const content = yield* managedIO(() => readFile(file, "utf8"));

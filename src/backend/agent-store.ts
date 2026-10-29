@@ -16,9 +16,9 @@ import {
   writeFile,
 } from "node:fs/promises";
 import { basename, dirname, isAbsolute, join, relative, resolve } from "node:path";
-import { avatarFileExtension, isAvatarMimeType, isValidAvatarImage } from "@openbot/contracts/avatar-images";
-import { INPUT_LIMITS } from "@openbot/contracts/input-limits";
-import type { AgentProfileDraft } from "@openbot/contracts/ipc";
+import { avatarFileExtension, isAvatarMimeType, isValidAvatarImage } from "@openownbot/contracts/avatar-images";
+import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
+import type { AgentProfileDraft } from "@openownbot/contracts/ipc";
 import {
   AGENT_FOLDER_LIMIT,
   AGENT_PROVIDERS,
@@ -63,17 +63,17 @@ import {
   type SaveAgentProfileResult,
   type SidebarLayoutSnapshot,
   type UpdateAgentInput,
-} from "@openbot/contracts/ipc";
-import { type DynamicRecord, isBoolean, isNumber, isOneOf, isString } from "@openbot/contracts/runtime-values";
-import { isGeneratedAgentId, isUuidV4, legacyAgentId } from "@openbot/contracts/validation";
-import { sourceText } from "@openbot/i18n/source";
-import { createOpenBotLogger, toLogValue } from "@openbot/logging";
+} from "@openownbot/contracts/ipc";
+import { type DynamicRecord, isBoolean, isNumber, isOneOf, isString } from "@openownbot/contracts/runtime-values";
+import { isGeneratedAgentId, isUuidV4, legacyAgentId } from "@openownbot/contracts/validation";
+import { sourceText } from "@openownbot/i18n/source";
+import { createOpenOwnBotLogger, toLogValue } from "@openownbot/logging";
 import { Effect, Result, Semaphore, Stream } from "effect";
 import { ProfileCreationRecovery } from "./agent/profile-creation-recovery";
 import { isEmptyStoredFile, parseStoredJson, writeFileAtomically } from "./atomic-json-file";
 import { automationRoot } from "./automation-command";
 import type { AgentModelChange } from "./database/agent-roster";
-import { OpenBotDatabase, type ProviderSession, stableThreadId } from "./openbot-database";
+import { OpenOwnBotDatabase, type ProviderSession, stableThreadId } from "./openownbot-database";
 import { isPathInside } from "./path-containment";
 import { isRecord } from "./protocol";
 import { StoredStateFailure, storedIO, storedSync } from "./stored-state-effects";
@@ -97,7 +97,7 @@ type PersistedStoredAgent = Omit<StoredAgent, "avatarUrl" | "provider" | "access
   // Absent on every agent stored before the setting existed, which keeps its tabs in the shared browser session.
   ownBrowserSession?: boolean;
   // Absent on every agent stored before named browser profiles existed. Stored with
-  // `ownBrowserSession: true`, so an older OpenBot opens the agent's own session instead.
+  // `ownBrowserSession: true`, so an older OpenOwnBot opens the agent's own session instead.
   browserProfileId?: string;
   // Absent on every agent stored before the setting existed, which leaves the service tier to Codex.
   fastMode?: boolean;
@@ -170,7 +170,7 @@ const LEGACY_AGENTS_STATE_FILE = "bots.json";
 const LEGACY_AGENTS_STATE_KEY = "bots";
 const LEGACY_AGENTS_IMPORT_COMMAND_ID = "legacy-import:bots:v1";
 
-const logger = createOpenBotLogger("agent-store");
+const logger = createOpenOwnBotLogger("agent-store");
 
 // Windows answers `EBUSY` or `EPERM` while a file in the tree is still open: a provider process that
 // is exiting after its session closed, an antivirus scan or the search indexer. Node retries these
@@ -189,7 +189,7 @@ export class AgentStore {
   readonly #duplicationsRoot: string;
   readonly #automationRoot: string;
   readonly #profileCreationRecovery: ProfileCreationRecovery;
-  readonly #database: OpenBotDatabase;
+  readonly #database: OpenOwnBotDatabase;
   #state: StoredState = { version: 2, examplesInitialized: false, agents: [] };
   readonly #avatarUpdateQueue = Semaphore.makeUnsafe(1);
   readonly #creationQueue = Semaphore.makeUnsafe(1);
@@ -199,15 +199,15 @@ export class AgentStore {
   constructor(
     userDataPath: string,
     homePath: string,
-    database = new OpenBotDatabase(userDataPath),
+    database = new OpenOwnBotDatabase(userDataPath),
     agentDefaults: () => AgentDefaults = () => DEFAULT_AGENT_DEFAULTS,
   ) {
-    const openbotRoot = join(homePath, "OpenBot");
+    const openownbotRoot = join(homePath, "OpenBot");
     this.#statePath = join(userDataPath, LEGACY_AGENTS_STATE_FILE);
-    this.#agentsRoot = join(openbotRoot, "Agents");
-    this.#legacyAgentsRoot = join(openbotRoot, "Bots");
-    this.#sharedRoot = join(openbotRoot, "Shared");
-    this.#downloadsRoot = join(openbotRoot, "Downloads");
+    this.#agentsRoot = join(openownbotRoot, "Agents");
+    this.#legacyAgentsRoot = join(openownbotRoot, "Bots");
+    this.#sharedRoot = join(openownbotRoot, "Shared");
+    this.#downloadsRoot = join(openownbotRoot, "Downloads");
     this.#avatarsRoot = join(userDataPath, "avatars", "agents");
     this.#duplicationsRoot = join(userDataPath, "agent-duplications");
     this.#automationRoot = automationRoot(userDataPath);
@@ -224,7 +224,7 @@ export class AgentStore {
     return this.#agentDefaults();
   }
 
-  get database(): OpenBotDatabase {
+  get database(): OpenOwnBotDatabase {
     return this.#database;
   }
 
@@ -417,9 +417,9 @@ export class AgentStore {
       record.avatarSeed = source.avatarSeed;
       record.avatarHue = source.avatarHue;
 
-      const stagedWorkspace = `${record.workspacePath}.openbot-stage`;
+      const stagedWorkspace = `${record.workspacePath}.openownbot-stage`;
       const avatarDirectory = join(this.#avatarsRoot, record.id);
-      const stagedAvatarDirectory = `${avatarDirectory}.openbot-stage`;
+      const stagedAvatarDirectory = `${avatarDirectory}.openownbot-stage`;
       const duplicationMarker = this.#duplicationMarkerPath(record.id);
       let stagedAvatarPath: string | null = null;
       {
@@ -977,9 +977,9 @@ export class AgentStore {
       const agent = this.#state.agents.find((candidate) => candidate.id === id);
       for (const path of [
         join(this.#avatarsRoot, id),
-        `${join(this.#avatarsRoot, id)}.openbot-stage`,
+        `${join(this.#avatarsRoot, id)}.openownbot-stage`,
         join(this.#agentsRoot, id),
-        `${join(this.#agentsRoot, id)}.openbot-stage`,
+        `${join(this.#agentsRoot, id)}.openownbot-stage`,
       ]) {
         yield* storedIO(() => rm(path, AGENT_FILES_REMOVAL));
       }
@@ -1277,7 +1277,7 @@ export class AgentStore {
     }
     const entries = listing.success;
     yield* Effect.forEach(
-      entries.filter((entry) => entry.endsWith(".openbot-stage")),
+      entries.filter((entry) => entry.endsWith(".openownbot-stage")),
       (entry) =>
         storedIO(() => rm(join(this.#legacyAgentsRoot, entry), { recursive: true, force: true })).pipe(
           Effect.catch(({ cause }) =>
@@ -1288,7 +1288,7 @@ export class AgentStore {
         ),
       { concurrency: "unbounded", discard: true },
     );
-    if (!entries.every((entry) => entry.endsWith(".openbot-stage"))) return;
+    if (!entries.every((entry) => entry.endsWith(".openownbot-stage"))) return;
     yield* storedIO(() => rmdir(this.#legacyAgentsRoot)).pipe(
       Effect.catch(({ cause }) =>
         Effect.sync(() => logger.warn("Could not remove the legacy workspace root.", toLogValue(cause))),
@@ -1337,7 +1337,7 @@ export class AgentStore {
             ...roots.flatMap((root) =>
               names.flatMap((name) => [
                 storedIO(() => rm(join(root, name), { recursive: true, force: true })),
-                storedIO(() => rm(`${join(root, name)}.openbot-stage`, { recursive: true, force: true })),
+                storedIO(() => rm(`${join(root, name)}.openownbot-stage`, { recursive: true, force: true })),
               ]),
             ),
             storedIO(() => rm(join(this.#duplicationsRoot, entry.name), { force: true })),
@@ -1500,7 +1500,7 @@ export class AgentStore {
 
   bindProviderSession(id: string, provider: AgentProviderId, externalSessionId: string): ProviderSession {
     const agent = this.#requireAgent(id);
-    if (!agent.threadId) throw new Error(`Agent ${id} does not have an OpenBot thread.`);
+    if (!agent.threadId) throw new Error(`Agent ${id} does not have an OpenOwnBot thread.`);
     return this.#database.bindProviderSession({
       threadId: agent.threadId,
       provider,

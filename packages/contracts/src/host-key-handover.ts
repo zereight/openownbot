@@ -36,7 +36,7 @@ export function hostKeyHandoverStatement(
   handover: Pick<HostKeyHandover, "hostId" | "issuedAt" | "previousPublicKey" | "publicKey">,
 ): string {
   return JSON.stringify([
-    "openbot-host-key-handover-v1",
+    "openownbot-host-key-handover-v1",
     handover.hostId,
     handover.issuedAt,
     handover.previousPublicKey,

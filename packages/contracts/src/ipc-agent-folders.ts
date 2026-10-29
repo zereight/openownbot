@@ -19,7 +19,7 @@ export interface AgentFolderCoverage {
 }
 
 /**
- * Why main refused a folder. `protected` is a folder that holds OpenBot data or other agents, the
+ * Why main refused a folder. `protected` is a folder that holds OpenOwnBot data or other agents, the
  * home folder or a disk root. `missing` is not an existing folder.
  */
 export const AGENT_FOLDER_REFUSALS = ["protected", "missing", "limit"] as const;

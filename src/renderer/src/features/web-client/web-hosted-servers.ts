@@ -5,10 +5,10 @@ import {
   parseHostedServerCheckout,
   parseHostedServerList,
   parseHostedServerSummary,
-} from "@openbot/contracts/hosted-servers";
-import type { HostedServersDesktopApi } from "@openbot/contracts/ipc";
-import { isDynamicRecord, isString } from "@openbot/contracts/runtime-values";
-import { currentText } from "@openbot/ui/text";
+} from "@openownbot/contracts/hosted-servers";
+import type { HostedServersDesktopApi } from "@openownbot/contracts/ipc";
+import { isDynamicRecord, isString } from "@openownbot/contracts/runtime-values";
+import { currentText } from "@openownbot/ui/text";
 import type { AddServerResume } from "../servers/AddServerOverlay";
 
 const REQUEST_TIMEOUT_MS = 15_000;
@@ -32,7 +32,7 @@ export function createWebHostedServerCalls(
       credentials: "same-origin",
       cache: "no-store",
       signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
-      headers: post ? { "Content-Type": "application/json", "X-OpenBot-Browser": "1", ...init.headers } : {},
+      headers: post ? { "Content-Type": "application/json", "X-OpenOwnBot-Browser": "1", ...init.headers } : {},
       ...(post ? { body: init.body } : {}),
     }).catch(() => {
       throw new Error(errorMessage(null));

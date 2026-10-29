@@ -1,6 +1,6 @@
 import { readFile } from "node:fs/promises";
-import { attachmentMimeTypeForName } from "@openbot/contracts/attachment-files";
-import { isString } from "@openbot/contracts/runtime-values";
+import { attachmentMimeTypeForName } from "@openownbot/contracts/attachment-files";
+import { isString } from "@openownbot/contracts/runtime-values";
 import { Effect } from "effect";
 import { getArray, getString, isRecord, type ThreadItem } from "./protocol";
 import { providerCall, providerFailure } from "./provider-client-effects";

@@ -1,5 +1,5 @@
-import { AGENT_ACCESS_LEVELS, AGENT_ACCESS_ROLE_NAME_LIMIT, type AgentAccessLevel } from "@openbot/contracts/ipc";
-import type { MobileTextKey } from "@openbot/i18n/mobile";
+import { AGENT_ACCESS_LEVELS, AGENT_ACCESS_ROLE_NAME_LIMIT, type AgentAccessLevel } from "@openownbot/contracts/ipc";
+import type { MobileTextKey } from "@openownbot/i18n/mobile";
 import { router, useLocalSearchParams } from "expo-router";
 import { usePreventRemove } from "expo-router/react-navigation";
 import { Typography } from "heroui-native";

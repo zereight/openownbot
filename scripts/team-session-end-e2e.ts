@@ -1,18 +1,18 @@
 // Checks that an HTTPS sign-out and an admin's session end close every part of that team session,
 // the live browser view too (plan 009). Runs the real Team API `routeTeam` handler with recording
 // stand-ins for the store, the remote screen and the browser view, on real Node request objects.
-// `bun scripts/team-session-end-e2e.ts`. Writes .openbot-build/team-session-end-e2e/report.json.
+// `bun scripts/team-session-end-e2e.ts`. Writes .openownbot-build/team-session-end-e2e/report.json.
 import { mkdirSync, writeFileSync } from "node:fs";
 import { IncomingMessage, ServerResponse } from "node:http";
 import { Socket } from "node:net";
 import { join, resolve } from "node:path";
-import type { TeamMemberSummary, TeamSessionSummary } from "@openbot/contracts/ipc";
-import { TEAM_API_ROUTES } from "@openbot/contracts/team-api-routes";
+import type { TeamMemberSummary, TeamSessionSummary } from "@openownbot/contracts/ipc";
+import { TEAM_API_ROUTES } from "@openownbot/contracts/team-api-routes";
 import { Effect } from "effect";
 import type { TeamApiRequestContext } from "../src/main/team-api/request-context";
 import { routeTeam, type TeamRouteDependencies } from "../src/main/team-api/route-team";
 
-const OUT = resolve(import.meta.dirname, "../.openbot-build/team-session-end-e2e");
+const OUT = resolve(import.meta.dirname, "../.openownbot-build/team-session-end-e2e");
 const ORIGIN = "https://host.test";
 
 const checks: { name: string; passed: boolean; detail?: unknown }[] = [];

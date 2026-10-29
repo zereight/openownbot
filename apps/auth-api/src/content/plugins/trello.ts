@@ -32,7 +32,7 @@ export const TRELLO_PLUGIN_GUIDE: PluginGuide = {
     {
       question: "Does the Trello plugin need an API key?",
       answer:
-        "No. Trello does not support API tokens for MCP connections. You sign in to your own Trello account in the browser, choose the workspaces on the consent screen, and approve read, write and search access. OpenBot does the sign-in itself, keeps the tokens in encrypted storage, and adds the Authorization header. The plugin catalog holds no secret.",
+        "No. Trello does not support API tokens for MCP connections. You sign in to your own Trello account in the browser, choose the workspaces on the consent screen, and approve read, write and search access. OpenOwnBot does the sign-in itself, keeps the tokens in encrypted storage, and adds the Authorization header. The plugin catalog holds no secret.",
     },
     {
       question: "What can the agent see and change in Trello?",
@@ -42,7 +42,7 @@ export const TRELLO_PLUGIN_GUIDE: PluginGuide = {
     {
       question: "What data does Trello get, and what can an admin control?",
       answer:
-        "Trello gets the requests that the agent sends, and the results go back to the agent. Your workspaces, conversations and files stay on the computer that runs OpenBot. The server works on every Trello plan, but some tools need a paid plan: focus time in Planner needs Premium or Enterprise. Enterprise admins can turn off read or write access, or block the connection, in Atlassian Administration.",
+        "Trello gets the requests that the agent sends, and the results go back to the agent. Your workspaces, conversations and files stay on the computer that runs OpenOwnBot. The server works on every Trello plan, but some tools need a paid plan: focus time in Planner needs Premium or Enterprise. Enterprise admins can turn off read or write access, or block the connection, in Atlassian Administration.",
     },
   ],
   sources: [

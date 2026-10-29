@@ -77,7 +77,7 @@ export const messages = {
   "billing.license.description": "회사 업무용이에요. 서버는 포함되지 않아요.",
   "billing.license.loadFailed": "라이선스를 불러올 수 없어요.",
   "billing.license.actionFailed": "라이선스를 변경할 수 없어요.",
-  "billing.license.contactSales": "자세한 내용은 licenses@openbot.run으로 문의해 주세요.",
+  "billing.license.contactSales": "자세한 내용은 licenses@openownbot.run으로 문의해 주세요.",
   "billing.license.saving": "저장 중…",
   "billing.license.personal.title": "개인용",
   "billing.license.personal.description": "개인 및 비상업적 용도로는 무료예요. 회사 업무에는 라이선스가 필요해요.",

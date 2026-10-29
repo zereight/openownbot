@@ -3,12 +3,12 @@
 // 1. A new session with an MCP server that writes no JSON-RPC: Muse stores an MCP startup fault.
 // 2. The same session resumed with no MCP server: the stored fault still refuses the turn.
 // 3. A new session with no MCP server: the turn completes.
-// The report records whether each refusal is one that OpenBot closes the session for.
+// The report records whether each refusal is one that OpenOwnBot closes the session for.
 import assert from "node:assert/strict";
 import { mkdir, mkdtemp, realpath, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
-import type { McpServerConfig } from "@openbot/contracts/ipc";
+import type { McpServerConfig } from "@openownbot/contracts/ipc";
 import { refusedSessionFailure } from "../src/backend/agent/thread-items";
 import { runCauseEffect } from "../src/backend/effect-boundary";
 import { MuseAgentClient } from "../src/backend/muse-client";
@@ -16,14 +16,14 @@ import { type AppServerNotification, getString, isRecord } from "../src/backend/
 
 const museArg = process.argv.slice(2).find((arg) => arg.startsWith("--muse="));
 const executable = museArg ? museArg.slice(7) : join(process.env.HOME ?? "", ".local/bin/muse");
-const out = resolve(import.meta.dirname, "../.openbot-build/muse-mcp-startup-fault-e2e");
+const out = resolve(import.meta.dirname, "../.openownbot-build/muse-mcp-startup-fault-e2e");
 const turnDeadlineMs = 180_000;
 
 interface Step {
   name: string;
   sessionId: string | null;
   status: string | null;
-  /** The `error` notification text: the only failure that OpenBot checks for a refused session. */
+  /** The `error` notification text: the only failure that OpenOwnBot checks for a refused session. */
   error: string | null;
   requestError: string | null;
   refusedFailure: string | null;
@@ -66,7 +66,7 @@ function brokenServer(): McpServerConfig {
     args: ["-c", "printf 'not json-rpc\\r\\n\\r\\n'; sleep 120"],
     env: [],
     envPassthrough: [],
-    // OpenBot does not send a stdio server with a working directory to Muse.
+    // OpenOwnBot does not send a stdio server with a working directory to Muse.
     workingDirectory: "",
     url: "",
     headers: [],
@@ -154,16 +154,16 @@ async function run(name: string, cwd: string, servers: McpServerConfig[], resume
 let root: string | undefined;
 try {
   // Muse accepts only canonical workspace roots, and the macOS temp folder is a symlink.
-  root = await realpath(await mkdtemp(join(tmpdir(), "openbot-muse-mcp-fault-")));
+  root = await realpath(await mkdtemp(join(tmpdir(), "openownbot-muse-mcp-fault-")));
   const cwd = join(root, "workspace");
   await mkdir(cwd);
   const faulted = await run("broken-mcp-start", cwd, [brokenServer()], null);
   assert.equal(faulted.status, "failed", "A session with a broken MCP server fails its turn.");
-  assert.ok(faulted.refusedFailure, `OpenBot closes the session for this error: ${faulted.error}`);
+  assert.ok(faulted.refusedFailure, `OpenOwnBot closes the session for this error: ${faulted.error}`);
   assert.ok(faulted.sessionId);
   const resumed = await run("resume-without-mcp", cwd, [], faulted.sessionId);
   assert.equal(resumed.status, "failed", "Muse keeps the fault in the session after a resume.");
-  assert.ok(resumed.refusedFailure, `OpenBot closes the session for this error: ${resumed.error}`);
+  assert.ok(resumed.refusedFailure, `OpenOwnBot closes the session for this error: ${resumed.error}`);
   const fresh = await run("new-session-without-mcp", cwd, [], null);
   assert.equal(fresh.status, "completed", "A new session answers.");
 } catch (error) {

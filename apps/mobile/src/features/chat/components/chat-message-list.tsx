@@ -1,10 +1,10 @@
 import { KeyboardAwareLegendList } from "@legendapp/list/keyboard";
 import type { AnchoredEndSpaceConfig } from "@legendapp/list/react-native";
-import { expandAttachmentReferences } from "@openbot/contracts/attachment-references";
-import { expandChatTagReferences } from "@openbot/contracts/chat-tag-references";
-import type { AttachmentSummary, BrowserTakeoverRequest } from "@openbot/contracts/ipc";
-import { markdownPlainText } from "@openbot/contracts/markdown-preview-text";
-import type { MobileTextKey } from "@openbot/i18n/mobile";
+import { expandAttachmentReferences } from "@openownbot/contracts/attachment-references";
+import { expandChatTagReferences } from "@openownbot/contracts/chat-tag-references";
+import type { AttachmentSummary, BrowserTakeoverRequest } from "@openownbot/contracts/ipc";
+import { markdownPlainText } from "@openownbot/contracts/markdown-preview-text";
+import type { MobileTextKey } from "@openownbot/i18n/mobile";
 import { useIsFocused } from "expo-router";
 import { Button, Typography } from "heroui-native";
 import type { LucideIcon } from "lucide-react-native";
@@ -368,7 +368,7 @@ function RoutineMarkerRow({
   muted: ViewStyle["backgroundColor"];
 }) {
   const { t } = useText();
-  const [success, danger] = useCSSVariable(["--openbot-success-text", "--openbot-danger-text"]);
+  const [success, danger] = useCSSVariable(["--openownbot-success-text", "--openownbot-danger-text"]);
   const Icon = ROUTINE_MARKER_ICONS[message.event];
   const color =
     message.event === "succeeded"
@@ -840,7 +840,7 @@ function messageCopyText(message: ChatBubbleMessage): string {
 /** Under a user message whose turn failed. A reason that is missing or not safe to show uses the fallback. */
 function TurnFailure({ reason }: { reason: string | undefined }) {
   const { t, errorMessage } = useText();
-  const [danger] = useCSSVariable(["--openbot-danger-text"]);
+  const [danger] = useCSSVariable(["--openownbot-danger-text"]);
   const text = errorMessage(reason, t("mobile.chat.failure.fallback"));
   return (
     <View
@@ -982,9 +982,9 @@ export const ChatMessageList = memo(function ChatMessageList({
     }
   }, [approvals, agentsById, target.name, t]);
   const [userForegroundColor, themeForegroundColor, themeMutedColor] = useCSSVariable([
-    "--openbot-text-on-light",
-    "--openbot-text-primary",
-    "--openbot-text-muted",
+    "--openownbot-text-on-light",
+    "--openownbot-text-primary",
+    "--openownbot-text-muted",
   ]);
   const userForeground = String(userForegroundColor);
   const themeForeground = String(themeForegroundColor);

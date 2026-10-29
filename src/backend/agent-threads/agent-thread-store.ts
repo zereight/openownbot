@@ -1,10 +1,10 @@
 import { randomUUID } from "node:crypto";
-import { INPUT_LIMITS } from "@openbot/contracts/input-limits";
-import { AGENT_TASK_OUTCOMES, type AgentTaskOutcome } from "@openbot/contracts/ipc";
-import { type DynamicRecord, isOneOf } from "@openbot/contracts/runtime-values";
+import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
+import { AGENT_TASK_OUTCOMES, type AgentTaskOutcome } from "@openownbot/contracts/ipc";
+import { type DynamicRecord, isOneOf } from "@openownbot/contracts/runtime-values";
 import { deleteAggregateHistory, deleteThreadAttachments } from "../database/database-core";
 import { databaseRow, databaseRows, optionalStringColumn, requiredStringColumn } from "../database/database-rows";
-import type { OpenBotDatabase } from "../openbot-database";
+import type { OpenOwnBotDatabase } from "../openownbot-database";
 
 const AGENT_THREAD_ORIGINS = ["user", "agent"] as const;
 export type AgentThreadOrigin = (typeof AGENT_THREAD_ORIGINS)[number];
@@ -52,9 +52,9 @@ const SELECT_THREAD = "SELECT *, COALESCE(legacy_task_id, thread_id) AS task_id 
  * does. Its event payload holds ids only: the event log is append-only and must not keep the title.
  */
 export class AgentThreadStore {
-  readonly #database: OpenBotDatabase;
+  readonly #database: OpenOwnBotDatabase;
 
-  constructor(database: OpenBotDatabase) {
+  constructor(database: OpenOwnBotDatabase) {
     this.#database = database;
   }
 
@@ -277,7 +277,7 @@ export class AgentThreadStore {
 
 const BY_TASK_ID = "(legacy_task_id = ? OR (legacy_task_id IS NULL AND thread_id = ?))";
 
-type Connection = OpenBotDatabase["connection"];
+type Connection = OpenOwnBotDatabase["connection"];
 
 /** The history of a migrated thread is also under its old task aggregate. The thread row takes the side-thread row. */
 function deleteThreadRows(db: Connection, threads: readonly AgentThreadRecord[]): void {

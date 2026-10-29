@@ -1,5 +1,5 @@
-import type { GitHubConnectorRepositories, GitHubConnectorStatus } from "@openbot/contracts/ipc";
-import type { AppTextKey } from "@openbot/i18n";
+import type { GitHubConnectorRepositories, GitHubConnectorStatus } from "@openownbot/contracts/ipc";
+import type { AppTextKey } from "@openownbot/i18n";
 import {
   Alert,
   AlertActions,
@@ -26,7 +26,7 @@ import {
   Text,
   TriangleAlert,
   UserAvatar,
-} from "@openbot/ui";
+} from "@openownbot/ui";
 import { createEffect, createMemo, createSignal, For, Match, Show, Switch } from "solid-js";
 import { useText } from "../../text";
 import { GitHubMark } from "./brand-marks";
@@ -78,7 +78,7 @@ export const GITHUB_STATUS = {
 } as const satisfies Record<GitHubConnectorStatus["state"], { status: IntegrationStatus; label: AppTextKey }>;
 
 /**
- * The GitHub page of one OpenBot computer. The token never reaches this component: the status holds
+ * The GitHub page of one OpenOwnBot computer. The token never reaches this component: the status holds
  * the account name and, during a sign-in, the code that the user types.
  *
  * Connect opens a dialog that follows the status: the wait for a code, the code, and the result.

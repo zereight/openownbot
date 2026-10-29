@@ -1,5 +1,5 @@
 {
-  "name": "@openbot/telemetry",
+  "name": "@openownbot/telemetry",
   "version": "0.0.0",
   "private": true,
   "type": "module",
@@ -13,7 +13,7 @@
     "typecheck": "bun ../../scripts/type-checker.ts --noEmit -p tsconfig.json"
   },
   "dependencies": {
-    "@openbot/contracts": "workspace:*",
+    "@openownbot/contracts": "workspace:*",
     "effect": "catalog:"
   },
   "devDependencies": {

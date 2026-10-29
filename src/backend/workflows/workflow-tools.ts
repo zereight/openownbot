@@ -1,23 +1,23 @@
 /**
- * The `openbot` tools that let an agent read and change the workflow that a chat is about. The
+ * The `openownbot` tools that let an agent read and change the workflow that a chat is about. The
  * workflow comes from the first line of the user's own message, which the Workflows page writes; the
  * model never names one. Both tools answer only in a turn that a person on this computer started in
  * the agent's own chat. A request the model can correct is a tool failure it reads; other errors are
  * faults.
  */
 
-import { INPUT_LIMITS } from "@openbot/contracts/input-limits";
+import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
 import {
   WORKFLOW_BRANCHES,
   WORKFLOW_MAX_COORDINATE,
   WORKFLOW_NODE_KINDS,
   WORKFLOW_PORT_TYPES,
   type WorkflowDetail,
-} from "@openbot/contracts/ipc";
-import { parseWorkflowChatReference } from "@openbot/contracts/workflow-chat-reference";
+} from "@openownbot/contracts/ipc";
+import { parseWorkflowChatReference } from "@openownbot/contracts/workflow-chat-reference";
 import { Effect } from "effect";
 import { z } from "zod";
-import { type OpenBotToolResponse, openBotToolFailure, openBotToolResult } from "../agent/routine-tools";
+import { type OpenOwnBotToolResponse, openOwnBotToolFailure, openOwnBotToolResult } from "../agent/routine-tools";
 import { ToolOperationFailed } from "../agent/tool-operation";
 import type { TurnRequester } from "../agent/turn-requester";
 import type { WorkflowEdit } from "./workflow-edits";
@@ -140,7 +140,7 @@ function modelView(detail: WorkflowDetail) {
   };
 }
 
-function staleFailure(current: WorkflowDetail): OpenBotToolResponse {
+function staleFailure(current: WorkflowDetail): OpenOwnBotToolResponse {
   return {
     success: false,
     contentItems: [
@@ -156,11 +156,11 @@ function staleFailure(current: WorkflowDetail): OpenBotToolResponse {
 }
 
 /** The workflow that every delivery of the turn names, or the failure the model reads. */
-function referencedWorkflow(texts: readonly string[]): { workflowId: string } | { failure: OpenBotToolResponse } {
+function referencedWorkflow(texts: readonly string[]): { workflowId: string } | { failure: OpenOwnBotToolResponse } {
   const ids = texts.map(parseWorkflowChatReference).filter((id) => id !== null);
   const [workflowId] = ids;
-  if (workflowId === undefined) return { failure: openBotToolFailure(NO_REFERENCE) };
-  if (ids.some((id) => id !== workflowId)) return { failure: openBotToolFailure(MANY_REFERENCES) };
+  if (workflowId === undefined) return { failure: openOwnBotToolFailure(NO_REFERENCE) };
+  if (ids.some((id) => id !== workflowId)) return { failure: openOwnBotToolFailure(MANY_REFERENCES) };
   return { workflowId };
 }
 
@@ -175,9 +175,9 @@ function unknownAgents(edits: readonly WorkflowEdit[], agentIds: ReadonlySet<str
 }
 
 /** A shape problem as one line the model can act on. */
-function shapeFailure(error: z.ZodError): OpenBotToolResponse {
+function shapeFailure(error: z.ZodError): OpenOwnBotToolResponse {
   const issues = error.issues.slice(0, 5).map((issue) => `${issue.path.join(".") || "input"}: ${issue.message}`);
-  return openBotToolFailure(`Invalid arguments. ${issues.join("; ")}.`);
+  return openOwnBotToolFailure(`Invalid arguments. ${issues.join("; ")}.`);
 }
 
 export const handleWorkflowTool = Effect.fn("WorkflowTools.handle")(function* (
@@ -189,7 +189,7 @@ export const handleWorkflowTool = Effect.fn("WorkflowTools.handle")(function* (
   if (!NAMES.has(tool)) return null;
   if (!workflows) return yield* new ToolOperationFailed({ cause: new Error("Workflows are unavailable.") });
   const turn = caller.turn();
-  if (turn.requester.kind !== "host-person") return openBotToolFailure(PERSON_ONLY);
+  if (turn.requester.kind !== "host-person") return openOwnBotToolFailure(PERSON_ONLY);
   if (RUN_TOOL_NAMES.has(tool)) return yield* handleWorkflowRunTool(tool, args, caller.turnId, workflows);
   const reference = referencedWorkflow(turn.texts);
   if ("failure" in reference) return reference.failure;
@@ -198,13 +198,13 @@ export const handleWorkflowTool = Effect.fn("WorkflowTools.handle")(function* (
     if (tool === "read_workflow") {
       const parsed = readSchema.safeParse(args ?? {});
       if (!parsed.success) return shapeFailure(parsed.error);
-      return openBotToolResult(modelView(yield* workflows.get(workflowId)));
+      return openOwnBotToolResult(modelView(yield* workflows.get(workflowId)));
     }
     const parsed = editInput.safeParse(args);
     if (!parsed.success) return shapeFailure(parsed.error);
     const edits: readonly WorkflowEdit[] = parsed.data.edits;
     const unknown = unknownAgents(edits, caller.agentIds());
-    if (unknown.length > 0) return openBotToolFailure(`Unknown agent: ${unknown.join(", ")}.`);
+    if (unknown.length > 0) return openOwnBotToolFailure(`Unknown agent: ${unknown.join(", ")}.`);
     const result = yield* workflows.edit({
       workflowId,
       revision: parsed.data.revision,
@@ -213,7 +213,7 @@ export const handleWorkflowTool = Effect.fn("WorkflowTools.handle")(function* (
     });
     switch (result.kind) {
       case "saved":
-        return openBotToolResult({
+        return openOwnBotToolResult({
           changed: true,
           revision: result.revision,
           created: result.created,
@@ -223,17 +223,17 @@ export const handleWorkflowTool = Effect.fn("WorkflowTools.handle")(function* (
             : "The graph from before this turn's first change is already in the version list.",
         });
       case "unchanged":
-        return openBotToolResult({ changed: false, revision: result.revision, note: "The edits changed nothing." });
+        return openOwnBotToolResult({ changed: false, revision: result.revision, note: "The edits changed nothing." });
       case "stale":
         return staleFailure(result.current);
       case "refused":
-        return openBotToolFailure(result.reason);
+        return openOwnBotToolFailure(result.reason);
     }
   });
   return yield* operation.pipe(
     Effect.catchTag("WorkflowFailed", (failure) =>
       failure.cause instanceof WorkflowStoreError
-        ? Effect.succeed(openBotToolFailure(failure.cause.message))
+        ? Effect.succeed(openOwnBotToolFailure(failure.cause.message))
         : Effect.fail(new ToolOperationFailed({ cause: failure.cause })),
     ),
   );
@@ -256,7 +256,7 @@ export const handleWorkflowRunTool = Effect.fn("WorkflowTools.handleRun")(functi
       const parsed = readSchema.safeParse(args ?? {});
       if (!parsed.success) return shapeFailure(parsed.error);
       const list = yield* workflows.list();
-      return openBotToolResult({
+      return openOwnBotToolResult({
         workflows: list.map(({ id, title, steps, lastRun }) => ({ id, title, steps, lastRun })),
       });
     }
@@ -269,12 +269,12 @@ export const handleWorkflowRunTool = Effect.fn("WorkflowTools.handleRun")(functi
         requestId: `agent:${turnId}:${workflowId}:${fromNodeId ?? ""}`,
         ...(fromNodeId === undefined ? {} : { fromNodeId }),
       });
-      return openBotToolResult({ runId: started.run.id, number: started.run.number, status: started.run.status });
+      return openOwnBotToolResult({ runId: started.run.id, number: started.run.number, status: started.run.status });
     }
     const parsed = runLookupInput.safeParse(args);
     if (!parsed.success) return shapeFailure(parsed.error);
     const { run, steps } = yield* workflows.run(parsed.data.runId);
-    return openBotToolResult({
+    return openOwnBotToolResult({
       runId: run.id,
       status: run.status,
       error: run.error,
@@ -286,7 +286,7 @@ export const handleWorkflowRunTool = Effect.fn("WorkflowTools.handleRun")(functi
   return yield* operation.pipe(
     Effect.catchTag("WorkflowFailed", (failure) =>
       failure.cause instanceof WorkflowStoreError
-        ? Effect.succeed(openBotToolFailure(failure.cause.message))
+        ? Effect.succeed(openOwnBotToolFailure(failure.cause.message))
         : Effect.fail(new ToolOperationFailed({ cause: failure.cause })),
     ),
   );

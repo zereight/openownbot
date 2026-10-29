@@ -5,7 +5,7 @@
  * runtime says when something changed.
  */
 
-import { INPUT_LIMITS } from "@openbot/contracts/input-limits";
+import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
 import {
   ROUTINE_FLOW_STEP_STATUSES,
   type RoutineFlowLink,
@@ -13,11 +13,11 @@ import {
   type RoutineFlowStep,
   type RoutineFlowStepStatus,
   type RoutineRunStatus,
-} from "@openbot/contracts/ipc";
-import { type DynamicRecord, isOneOf } from "@openbot/contracts/runtime-values";
-import { sourceText } from "@openbot/i18n/source";
+} from "@openownbot/contracts/ipc";
+import { type DynamicRecord, isOneOf } from "@openownbot/contracts/runtime-values";
+import { sourceText } from "@openownbot/i18n/source";
 import { databaseRow, databaseRows, placeholders } from "../database/database-rows";
-import type { OpenBotDatabase } from "../openbot-database";
+import type { OpenOwnBotDatabase } from "../openownbot-database";
 import { routineFlowConnectProblem, routineFlowDepths } from "./routine-flow-graph";
 
 /** A refusal the user reads: the text is already a sentence for them. */
@@ -38,7 +38,7 @@ export interface RoutineFlowRun {
 }
 
 export interface RoutineFlowStoreOptions {
-  database: OpenBotDatabase;
+  database: OpenOwnBotDatabase;
   createId?: () => string;
 }
 
@@ -59,7 +59,7 @@ const RUN_STATUSES = [
 ] as const satisfies readonly RoutineRunStatus[];
 
 export class RoutineFlowStore {
-  readonly #database: OpenBotDatabase;
+  readonly #database: OpenOwnBotDatabase;
   readonly #createId: () => string;
 
   constructor(options: RoutineFlowStoreOptions) {

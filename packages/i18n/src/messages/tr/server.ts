@@ -127,7 +127,7 @@ export const messages = {
   "server.hosted.detail.create.copy": "OpenOwnBot makineye kopyalanıyor",
   "server.hosted.detail.create.key": "Tek seferlik oturum açma anahtarı ekleniyor",
   "server.hosted.detail.start.boot": "Makine açılıyor",
-  "server.hosted.detail.start.app": "OpenBot başlatılıyor",
+  "server.hosted.detail.start.app": "OpenOwnBot başlatılıyor",
   "server.hosted.detail.start.wait": "OpenOwnBot'un yanıt vermesi bekleniyor",
   "server.hosted.detail.connect.signIn": "Sizin adınıza oturum açılıyor",
   "server.hosted.detail.connect.publish": "Sunucu hesabınıza ekleniyor",
@@ -442,7 +442,7 @@ export const messages = {
   "server.settings.providersDescription": "Bu sunucuyu çalıştıran bilgisayarın yapay zeka sağlayıcılarını yönetin.",
   "server.settings.providersSwitchNote": "Yapay zeka sağlayıcılarını yönetmek için {name} sunucusuna geçin.",
   "server.settings.providersSwitch": "Bu sunucuya geç",
-  // Sunucu Ayarları > Güncellemeler: Katılınan bir sunucunun ana makinesinin OpenBot güncellemesi. {name} sunucudur.
+  // Sunucu Ayarları > Güncellemeler: Katılınan bir sunucunun ana makinesinin OpenOwnBot güncellemesi. {name} sunucudur.
   "server.settings.updatesTitle": "Güncellemeler",
   "server.settings.updatesDescription": "Bu sunucuyu çalıştıran bilgisayardaki OpenOwnBot'u güncelleyin.",
   "server.update.hostTitle": "{name} üzerinde OpenOwnBot",
@@ -470,11 +470,11 @@ export const messages = {
   "server.update.path.hosted":
     "Barındırılan hizmet güncellemeleri arka planda indirir. İndirilen bir güncelleme, sunucu bir sonraki başlatılışında başlar. Sunucuyu durdurup sürdürmeden önce etkin çalışmanın bitmesini bekleyin. Sunucu eski bir sürümde kalırsa ana makine yöneticisiyle iletişime geçin.",
   "server.update.path.system":
-    "En son sürümü yüklemek için ana makinede sudo openbot update komutunu çalıştırın. Bu komut OpenOwnBot'u durdurur. Önce etkin çalışmanın bitmesini bekleyin. Otomatik indirmeler bir sonraki önyüklemede yüklenir.",
+    "En son sürümü yüklemek için ana makinede sudo openownbot update komutunu çalıştırın. Bu komut OpenOwnBot'u durdurur. Önce etkin çalışmanın bitmesini bekleyin. Otomatik indirmeler bir sonraki önyüklemede yüklenir.",
   "server.update.path.container":
     "Docker ana makinesinde yeni OpenOwnBot görüntüsünü çekin ve kapsayıcıyı aynı veri birimleriyle yeniden oluşturun. Önce etkin çalışmanın bitmesini bekleyin. Verilerinizi korumak için mevcut birimleri saklayın.",
   "server.update.path.manual":
-    "Bu kurulum kendini değiştiremez. Ana makine yöneticisinden uyumlu sürümü github.com/nightly-labs/openbot/releases adresinden yüklemesini isteyin. Mevcut OpenOwnBot verilerini saklayın.",
+    "Bu kurulum kendini değiştiremez. Ana makine yöneticisinden uyumlu sürümü github.com/zereight/openownbot/releases adresinden yüklemesini isteyin. Mevcut OpenOwnBot verilerini saklayın.",
   "server.update.path.unavailable":
     "Bu bir geliştirme derlemesidir. Güncellemeleri denetlemek için yüklü bir OpenOwnBot sürümü kullanın.",
   "server.update.check": "Güncellemeleri denetle",

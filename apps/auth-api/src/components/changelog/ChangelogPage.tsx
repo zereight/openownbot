@@ -1,6 +1,6 @@
-import { ANDROID_PLAY_STORE_URL } from "@openbot/ui/features/mobile-app/android-play-store";
-import { IOS_APP_STORE_URL } from "@openbot/ui/features/mobile-app/ios-app-store";
-import { prefersReducedMotion } from "@openbot/ui/utils";
+import { ANDROID_PLAY_STORE_URL } from "@openownbot/ui/features/mobile-app/android-play-store";
+import { IOS_APP_STORE_URL } from "@openownbot/ui/features/mobile-app/ios-app-store";
+import { prefersReducedMotion } from "@openownbot/ui/utils";
 import { createEffect, createSignal, For, onSettled, Show, untrack } from "solid-js";
 import { landingAnalytics } from "../../lib/analytics";
 import { CHANGELOG_ROUTE, type ChangelogPlatform, type ChangelogRelease as Release } from "../../lib/changelog";
@@ -18,7 +18,7 @@ import { ChangelogStores } from "./ChangelogStores";
 import { ChangelogSwap, createPlatformSwap } from "./ChangelogSwap";
 
 /** The seed for the hero's colours: the Sunset family, the one the featured article on /news uses. */
-const HERO_GRADIENT_SEED = "OpenBot releases";
+const HERO_GRADIENT_SEED = "OpenOwnBot releases";
 
 /** A release becomes current once its heading passes this share of the window's height. */
 const ACTIVE_LINE = 0.3;
@@ -36,8 +36,8 @@ interface ReleaseMonth {
 
 /** The name of the app in each release title. */
 const PRODUCT_NAMES: Record<ChangelogPlatform, string> = {
-  desktop: "OpenBot",
-  mobile: "OpenBot Mobile",
+  desktop: "OpenOwnBot",
+  mobile: "OpenOwnBot Mobile",
 };
 
 /** The index in months, so 57 rows read as a few short runs rather than one column of numbers. */
@@ -149,7 +149,7 @@ export function ChangelogPage(props: ChangelogPageProps) {
             <div class="changelog-hero-copy" data-enter="post-copy">
               <p class="changelog-eyebrow">Changelog</p>
               <h1 class="changelog-title" id="changelog-title">
-                What's new in OpenBot
+                What's new in OpenOwnBot
               </h1>
               <p class="changelog-lede">
                 New providers, new ways to work as a team, and the fixes that make each release steadier. Every release

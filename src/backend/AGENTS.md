@@ -1,6 +1,6 @@
 # `src/backend`
 
-The stores, the SQLite database (`openbot-database.ts` and the controllers under `database/`), the
+The stores, the SQLite database (`openownbot-database.ts` and the controllers under `database/`), the
 provider clients and `agent-service.ts`. The user's SQLite is the source of truth here, not a cache
 of something remote — which is what makes the first section below non-negotiable.
 
@@ -24,13 +24,13 @@ of something remote — which is what makes the first section below non-negotiab
 
 ### The two build paths
 
-`openbot-database-schema.ts` builds a database twice. `createLatestDatabase` execs
+`openownbot-database-schema.ts` builds a database twice. `createLatestDatabase` execs
 `LATEST_SCHEMA_SQL` and then stamps every entry in `MIGRATIONS` as applied **without running it**;
 an existing database runs them for real. A DDL migration that is not also mirrored by hand into
 `LATEST_SCHEMA_SQL` therefore ships new installs a database missing that column while upgraded
 installs get it, silently, on the user's machine.
 
-`openbot-database-schema-parity.test.ts` builds a database both ways and compares the normalised
+`openownbot-database-schema-parity.test.ts` builds a database both ways and compares the normalised
 `sqlite_master` SQL and `PRAGMA table_info` per table, so that divergence is a red test rather than a
 support ticket. Do not weaken it; a new DDL migration means editing `LATEST_SCHEMA_SQL` in the same
 change.
@@ -47,7 +47,7 @@ generated-attachment map in the store. Apply it to mailbox state only after the 
 and mailbox commit succeeds. Keep deletion-outbox completion in the store, after file removal.
 
 The two that used to be larger are both worth copying. `agent-service.ts` was split into one
-controller per concern, each constructed and owned by the service; `openbot-database.ts` was split
+controller per concern, each constructed and owned by the service; `openownbot-database.ts` was split
 into modules under `database/`, leaving a ~560-line facade that had to keep its class name, instance
 identity, constructor signature and public surface because callers reach past it into `connection`
 and `dispatch`. The shape in both: one class per file, kebab-case, `<Name>Options` + `<Name>`,

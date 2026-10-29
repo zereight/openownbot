@@ -1,5 +1,5 @@
-import type { AgentDefaultKey, AgentDefaults, ClientAgentSummary } from "@openbot/contracts/ipc";
-import type { AppTextKey } from "@openbot/i18n";
+import type { AgentDefaultKey, AgentDefaults, ClientAgentSummary } from "@openownbot/contracts/ipc";
+import type { AppTextKey } from "@openownbot/i18n";
 import {
   Alert,
   AlertContent,
@@ -25,7 +25,7 @@ import {
   SettingsSection,
   SwitchField,
   Text,
-} from "@openbot/ui";
+} from "@openownbot/ui";
 import { For, Show } from "solid-js";
 import { useText } from "../../text";
 import { AgentAvatar } from "../agents/AgentAvatar";

@@ -4,11 +4,11 @@ import {
   fileReferenceName,
   fileReferenceTone,
   isFileReference,
-} from "@openbot/brand/file-reference";
-import { chatMathStart } from "@openbot/contracts/chat-math";
-import { chatPreviewKind } from "@openbot/contracts/chat-preview";
-import { chatTagReferences } from "@openbot/contracts/chat-tag-references";
-import type { MobileTranslate } from "@openbot/i18n/mobile";
+} from "@openownbot/brand/file-reference";
+import { chatMathStart } from "@openownbot/contracts/chat-math";
+import { chatPreviewKind } from "@openownbot/contracts/chat-preview";
+import { chatTagReferences } from "@openownbot/contracts/chat-tag-references";
+import type { MobileTranslate } from "@openownbot/i18n/mobile";
 import * as Linking from "expo-linking";
 import { Typography } from "heroui-native";
 import { useThemeColor } from "heroui-native/hooks";
@@ -168,14 +168,14 @@ function sourceEntries<T>(values: T[], source: (value: T) => string) {
 
 /** The colour family of each file tone, as the desktop `data-file-tone` rules use them. */
 const FILE_TONE_COLORS: Record<FileReferenceTone, [string, string]> = {
-  source: ["--openbot-file-blue", "--openbot-file-blue-soft"],
-  script: ["--openbot-file-yellow", "--openbot-file-yellow-soft"],
-  markup: ["--openbot-file-orange", "--openbot-file-orange-soft"],
-  style: ["--openbot-file-teal", "--openbot-file-teal-soft"],
-  data: ["--openbot-file-green", "--openbot-file-green-soft"],
-  document: ["--openbot-file-red", "--openbot-file-red-soft"],
-  media: ["--openbot-file-pink", "--openbot-file-pink-soft"],
-  default: ["--openbot-file-default", "--openbot-file-default-soft"],
+  source: ["--openownbot-file-blue", "--openownbot-file-blue-soft"],
+  script: ["--openownbot-file-yellow", "--openownbot-file-yellow-soft"],
+  markup: ["--openownbot-file-orange", "--openownbot-file-orange-soft"],
+  style: ["--openownbot-file-teal", "--openownbot-file-teal-soft"],
+  data: ["--openownbot-file-green", "--openownbot-file-green-soft"],
+  document: ["--openownbot-file-red", "--openownbot-file-red-soft"],
+  media: ["--openownbot-file-pink", "--openownbot-file-pink-soft"],
+  default: ["--openownbot-file-default", "--openownbot-file-default-soft"],
 };
 
 /**

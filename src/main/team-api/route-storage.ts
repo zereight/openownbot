@@ -3,10 +3,10 @@ import {
   parseDeleteStoredFileInput,
   parseGetStorageUsageInput,
   STORAGE_CAPABILITY,
-} from "@openbot/contracts/ipc";
-import { STORAGE_DISK_CAPABILITY, STORAGE_DISK_ROUTES } from "@openbot/contracts/team-protocol/storage-disk-v1";
-import { STORAGE_ROUTES } from "@openbot/contracts/team-protocol/storage-v1";
-import { sourceText } from "@openbot/i18n/source";
+} from "@openownbot/contracts/ipc";
+import { STORAGE_DISK_CAPABILITY, STORAGE_DISK_ROUTES } from "@openownbot/contracts/team-protocol/storage-disk-v1";
+import { STORAGE_ROUTES } from "@openownbot/contracts/team-protocol/storage-v1";
+import { sourceText } from "@openownbot/i18n/source";
 import { runCauseEffect } from "../../backend/effect-boundary";
 import { StorageNotFoundError } from "../../backend/storage-usage";
 import type { TeamApiStorage } from "./dependencies";

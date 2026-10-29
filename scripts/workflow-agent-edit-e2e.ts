@@ -15,7 +15,7 @@
 // saves nothing; that a graph too large or against the port rules is refused while the stored graph
 // still reads back; and that an agent step takes one of the five efforts, refuses any other value with
 // a sentence the model reads, and lets a model step keep the value it always could.
-// `bun scripts/workflow-agent-edit-e2e.ts`. Writes .openbot-build/workflow-agent-edit-e2e/report.json.
+// `bun scripts/workflow-agent-edit-e2e.ts`. Writes .openownbot-build/workflow-agent-edit-e2e/report.json.
 import assert from "node:assert/strict";
 import { randomUUID } from "node:crypto";
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
@@ -30,14 +30,14 @@ import {
   type WorkflowGraph,
   type WorkflowNode,
   type WorkflowVersion,
-} from "@openbot/contracts/ipc";
-import { workflowChatReference } from "@openbot/contracts/workflow-chat-reference";
-import { sourceText } from "@openbot/i18n/source";
+} from "@openownbot/contracts/ipc";
+import { workflowChatReference } from "@openownbot/contracts/workflow-chat-reference";
+import { sourceText } from "@openownbot/i18n/source";
 import { Effect } from "effect";
 import type { AgentBrowserHost } from "../src/backend/agent/turn-lifecycle";
 
-const OUT = resolve(import.meta.dirname, "../.openbot-build/workflow-agent-edit-e2e");
-const root = await mkdtemp(join(tmpdir(), "openbot-workflow-edit-tool-"));
+const OUT = resolve(import.meta.dirname, "../.openownbot-build/workflow-agent-edit-e2e");
+const root = await mkdtemp(join(tmpdir(), "openownbot-workflow-edit-tool-"));
 const userData = join(root, "user-data");
 const home = join(root, "home");
 const fakeCodex = join(root, "codex");
@@ -47,14 +47,14 @@ const fakePrompts = join(root, "codex-prompts.jsonl");
 // Before the service modules load: the Codex process and the stores read the home folder.
 process.env.HOME = home;
 process.env.CODEX_HOME = join(home, ".codex");
-process.env.OPENBOT_CODEX_PATH = fakeCodex;
+process.env.OPENOWNBOT_CODEX_PATH = fakeCodex;
 mkdirSync(home, { recursive: true });
 
 const { AgentService } = await import("../src/backend/agent-service");
 const { AgentStore } = await import("../src/backend/agent-store");
 const { runCauseEffect } = await import("../src/backend/effect-boundary");
 const { MailboxStore } = await import("../src/backend/mailbox-store");
-const { OpenBotDatabase } = await import("../src/backend/openbot-database");
+const { OpenOwnBotDatabase } = await import("../src/backend/openownbot-database");
 const { WorkflowRunStore } = await import("../src/backend/workflows/workflow-run-store");
 const { WorkflowStore } = await import("../src/backend/workflows/workflow-store");
 const { handleWorkflowTool } = await import("../src/backend/workflows/workflow-tools");
@@ -68,7 +68,7 @@ const NODE_GAP = 360;
 /**
  * A Codex app-server with the methods that the service calls. A turn whose input has
  * `WORKFLOW-CALL <<ARGS{json}ARGS>>` (or `<<B64{base64 json}B64>>`, for a text that a tool argument
- * carries) calls the `openbot` tool that `__tool` names (default `read_workflow`) through `tool_call`,
+ * carries) calls the `openownbot` tool that `__tool` names (default `read_workflow`) through `tool_call`,
  * logs the result, and ends. `__calls` is a list of such calls for one turn, in order. A value
  * `{ "__repeat": [text, count] }` expands to that text repeated, so a large graph fits in a message.
  * Other turns answer "Done.".
@@ -127,9 +127,9 @@ const issue = (turn) => {
       threadId: turn.threadId,
       turnId: turn.turnId,
       callId: "call-" + turn.turnId + "-" + turn.index,
-      namespace: "openbot",
+      namespace: "openownbot",
       tool: "tool_call",
-      arguments: { name: "openbot." + __tool, arguments: args },
+      arguments: { name: "openownbot." + __tool, arguments: args },
     },
   });
 };
@@ -359,7 +359,7 @@ function packedCallText(reference: string, calls: SentCall[]): string {
 }
 
 await writeFile(fakeCodex, FAKE_CODEX, { mode: 0o755 });
-const database = new OpenBotDatabase(userData);
+const database = new OpenOwnBotDatabase(userData);
 const store = new AgentStore(userData, home, database);
 const mailbox = new MailboxStore(userData, store.sharedRoot, store.database);
 const changedIds: string[] = [];
@@ -928,7 +928,7 @@ try {
   );
   // A person who edits the queued message writes its words, so the stamp goes.
   const editRoot = join(root, "edit-profile");
-  const editMailbox = new MailboxStore(editRoot, join(root, "edit-shared"), new OpenBotDatabase(editRoot));
+  const editMailbox = new MailboxStore(editRoot, join(root, "edit-shared"), new OpenOwnBotDatabase(editRoot));
   await runCauseEffect(editMailbox.initialize());
   const written = await runCauseEffect(
     editMailbox.enqueue({

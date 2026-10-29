@@ -1,4 +1,4 @@
-import { INPUT_LIMITS } from "@openbot/contracts/input-limits";
+import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
 import {
   CONVERSATION_MEMORY_CHANGES_ITEM_TYPE,
   CONVERSATION_PLAN_ITEM_TYPE,
@@ -9,8 +9,8 @@ import {
   type ConversationTraceStep,
   type ConversationTraceStepKind,
   type ConversationTurnTrace,
-} from "@openbot/contracts/ipc";
-import { redactText } from "@openbot/logging";
+} from "@openownbot/contracts/ipc";
+import { redactText } from "@openownbot/logging";
 
 interface RunningTrace {
   startedAt: string;

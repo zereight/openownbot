@@ -43,7 +43,7 @@ export const messages = {
   "agentSettings.folders.inShared": "{folder} klasörü paylaşılan klasörde olduğu için {agent} onu zaten değiştirebilir",
   "agentSettings.folders.inFolder": "{folder} klasörü, zaten eklenmiş olan {parent} klasörünün içinde",
   "agentSettings.folders.protected":
-    "{folder} klasörü eklenemez: OpenBot verilerini veya diğer ajanların dosyalarını içeriyor",
+    "{folder} klasörü eklenemez: OpenOwnBot verilerini veya diğer ajanların dosyalarını içeriyor",
   "agentSettings.folders.missing": "{folder} bu bilgisayarda bir klasör değil",
   "agentSettings.folders.limit": {
     one: "En fazla {count} klasör ekleyebilirsiniz",

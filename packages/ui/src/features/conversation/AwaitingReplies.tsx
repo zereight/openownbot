@@ -1,4 +1,4 @@
-import { Button, IconButton, X } from "@openbot/ui";
+import { Button, IconButton, X } from "@openownbot/ui";
 import { createSignal, createUniqueId, For, Show, untrack } from "solid-js";
 import type { AgentProfile } from "../../data";
 import { useText } from "../../text";

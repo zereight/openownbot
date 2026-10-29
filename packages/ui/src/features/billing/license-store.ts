@@ -3,8 +3,8 @@ import type {
   LicenseRenewalRequest,
   LicenseState,
   LicenseUsersRequest,
-} from "@openbot/contracts/license";
-import { classifyFailure } from "@openbot/telemetry";
+} from "@openownbot/contracts/license";
+import { classifyFailure } from "@openownbot/telemetry";
 import { createStore } from "solid-js";
 import { currentText } from "../../text";
 import { toast } from "../../toast";

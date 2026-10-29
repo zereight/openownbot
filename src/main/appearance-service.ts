@@ -4,8 +4,8 @@ import {
   DEFAULT_TRANSPARENT_WINDOW,
   isAppAppearance,
   type SetAppAppearancePreferenceInput,
-} from "@openbot/contracts/ipc";
-import { isDynamicRecord } from "@openbot/contracts/runtime-values";
+} from "@openownbot/contracts/ipc";
+import { isDynamicRecord } from "@openownbot/contracts/runtime-values";
 import { Effect, Semaphore } from "effect";
 import { type PreferenceFileFailure, readPreferenceFile, writePreferenceFile } from "./preference-file";
 
@@ -36,7 +36,7 @@ const writeAppearancePreference = Effect.fn("AppearancePreference.write")(functi
 });
 
 /**
- * The light, dark or system appearance of OpenBot's own windows. Main holds it so every window
+ * The light, dark or system appearance of OpenOwnBot's own windows. Main holds it so every window
  * reads one choice, and it tells each window about a change through `subscribe`.
  */
 export class AppearanceService {

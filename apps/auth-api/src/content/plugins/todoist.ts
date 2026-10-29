@@ -32,12 +32,12 @@ export const TODOIST_PLUGIN_GUIDE: PluginGuide = {
     {
       question: "Does the Todoist plugin need an API key?",
       answer:
-        "No. You sign in to your own Todoist account in the browser and allow access. The assistant gets a token, not your password. OpenBot keeps the tokens in encrypted storage and adds the Authorization header. You can revoke access in Todoist under Settings > Integrations.",
+        "No. You sign in to your own Todoist account in the browser and allow access. The assistant gets a token, not your password. OpenOwnBot keeps the tokens in encrypted storage and adds the Authorization header. You can revoke access in Todoist under Settings > Integrations.",
     },
     {
       question: "What can the agent see and change in Todoist?",
       answer:
-        "The connection asks for read and write access. The agent can read, add, change, complete and delete your tasks, projects, sections, labels, comments and reminders. Todoist gets the requests that the agent sends. Your workspaces, conversations and files stay on the computer that runs OpenBot.",
+        "The connection asks for read and write access. The agent can read, add, change, complete and delete your tasks, projects, sections, labels, comments and reminders. Todoist gets the requests that the agent sends. Your workspaces, conversations and files stay on the computer that runs OpenOwnBot.",
     },
     {
       question: "Does my Todoist plan change what the agent can do?",

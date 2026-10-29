@@ -1,4 +1,4 @@
-// What Signal keeps from the OpenBot Discord bot's Gateway, and how it turns a Gateway event into a
+// What Signal keeps from the OpenOwnBot Discord bot's Gateway, and how it turns a Gateway event into a
 // delivery for a host. Everything here is pure and in memory: the Gateway adapter
 // (`./discord-gateway.ts`) gives it the events and does the actions it returns.
 //
@@ -15,7 +15,7 @@ import {
   type DiscordInboundInteraction,
   type DiscordInboundMessage,
   type DiscordInboundQuote,
-} from "@openbot/contracts/signal-protocol/discord-api";
+} from "@openownbot/contracts/signal-protocol/discord-api";
 import {
   GatewayDispatchEvents,
   type GatewayDispatchPayload,
@@ -24,7 +24,8 @@ import {
 } from "discord-api-types/v10";
 
 /** The text of the one reply to a direct message. */
-export const DISCORD_DIRECT_MESSAGE_REPLY = "OpenBot answers in Discord servers. Mention @OpenBot in a server channel.";
+export const DISCORD_DIRECT_MESSAGE_REPLY =
+  "OpenOwnBot answers in Discord servers. Mention @OpenOwnBot in a server channel.";
 
 /** Discord accepts follow-ups with an interaction token for 15 minutes. */
 const INTERACTION_TOKEN_TTL_MILLISECONDS = 15 * 60_000;

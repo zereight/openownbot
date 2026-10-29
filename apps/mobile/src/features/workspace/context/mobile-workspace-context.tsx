@@ -8,43 +8,43 @@ import {
   type SidebarLayoutSnapshot,
   type TeamRealtimeEvent,
   type UpdateAgentInput,
-} from "@openbot/contracts/ipc";
-import { TEAM_API_ROUTES } from "@openbot/contracts/team-api-routes";
-import { AGENT_ACCESS_CAPABILITY } from "@openbot/contracts/team-protocol/agent-access-v1";
-import { AGENT_ADMIN_CAPABILITY } from "@openbot/contracts/team-protocol/agent-admin-v1";
-import { AGENT_HOST_SETTINGS_CAPABILITY } from "@openbot/contracts/team-protocol/agent-host-settings-v1";
-import { AGENT_INSTALL_CAPABILITY } from "@openbot/contracts/team-protocol/agent-install-v1";
-import { AGENT_MEMORY_LIMIT_CAPABILITY } from "@openbot/contracts/team-protocol/agent-memory-limit-v1";
-import { AGENT_PUBLISH_CAPABILITY } from "@openbot/contracts/team-protocol/agent-publish-v1";
-import { AGENT_UPDATE_CAPABILITY } from "@openbot/contracts/team-protocol/agent-update-v1";
-import { BITWARDEN_CONNECTOR_CAPABILITY } from "@openbot/contracts/team-protocol/bitwarden-connector-v1";
-import { CONNECTORS_CAPABILITY } from "@openbot/contracts/team-protocol/connectors-v1";
-import { TEAM_AGENT_CREATE_MODEL_CAPABILITY } from "@openbot/contracts/team-protocol/current";
-import { EVENTS_CAPABILITY } from "@openbot/contracts/team-protocol/events-v1";
-import { FOCUS_USE_CAPABILITY, FOCUS_USE_ROUTES } from "@openbot/contracts/team-protocol/focus-use-v1";
-import { HOST_ADMIN_CAPABILITY } from "@openbot/contracts/team-protocol/host-admin-v1";
-import { HOST_MEMBER_UPDATE_CAPABILITY } from "@openbot/contracts/team-protocol/host-member-update-v1";
-import { HOST_RELEASE_CAPABILITY } from "@openbot/contracts/team-protocol/host-release-v1";
-import { HOST_TIMEZONE_CAPABILITY } from "@openbot/contracts/team-protocol/host-timezone-v1";
-import { HOST_UPDATE_CAPABILITY } from "@openbot/contracts/team-protocol/host-update-v1";
-import { HOSTED_SITES_CAPABILITY } from "@openbot/contracts/team-protocol/hosted-sites-v1";
-import { LIVE_ACTIVITY_PUSH_CAPABILITY } from "@openbot/contracts/team-protocol/live-activity-push-v1";
-import { ONEPASSWORD_CONNECTOR_CAPABILITY } from "@openbot/contracts/team-protocol/onepassword-connector-v1";
-import { PROVIDER_ACCOUNTS_CAPABILITY } from "@openbot/contracts/team-protocol/provider-accounts-v1";
-import { PROVIDERS_ADMIN_CAPABILITY } from "@openbot/contracts/team-protocol/providers-v1";
-import { ANDROID_PUSH_NOTIFICATIONS_CAPABILITY } from "@openbot/contracts/team-protocol/push-notifications-android-v1";
-import { PUSH_NOTIFICATIONS_CAPABILITY } from "@openbot/contracts/team-protocol/push-notifications-v1";
-import { ROUTINE_RECOVERY_CAPABILITY } from "@openbot/contracts/team-protocol/routine-recovery-v1";
-import { ROUTINE_RESULTS_CAPABILITY } from "@openbot/contracts/team-protocol/routine-results-v1";
-import { SHARED_TABLES_CAPABILITY } from "@openbot/contracts/team-protocol/shared-tables-v1";
-import { SIGN_IN_RELAY_CAPABILITY } from "@openbot/contracts/team-protocol/sign-in-relay-v1";
-import { SKILLS_ADMIN_CAPABILITY } from "@openbot/contracts/team-protocol/skills-admin-v1";
-import type { TeamProtocolV2Json } from "@openbot/contracts/team-protocol/v2";
-import { TEAM_PROTOCOL_V3 } from "@openbot/contracts/team-protocol/v3";
-import { decodeTeamProtocolSupportV7Base } from "@openbot/contracts/team-protocol/v7-base";
-import { VAULT_IMPORT_CAPABILITY } from "@openbot/contracts/team-protocol/vault-import-v1";
-import { VAULT_CAPABILITY } from "@openbot/contracts/team-protocol/vault-v1";
-import { sourceText } from "@openbot/i18n/source";
+} from "@openownbot/contracts/ipc";
+import { TEAM_API_ROUTES } from "@openownbot/contracts/team-api-routes";
+import { AGENT_ACCESS_CAPABILITY } from "@openownbot/contracts/team-protocol/agent-access-v1";
+import { AGENT_ADMIN_CAPABILITY } from "@openownbot/contracts/team-protocol/agent-admin-v1";
+import { AGENT_HOST_SETTINGS_CAPABILITY } from "@openownbot/contracts/team-protocol/agent-host-settings-v1";
+import { AGENT_INSTALL_CAPABILITY } from "@openownbot/contracts/team-protocol/agent-install-v1";
+import { AGENT_MEMORY_LIMIT_CAPABILITY } from "@openownbot/contracts/team-protocol/agent-memory-limit-v1";
+import { AGENT_PUBLISH_CAPABILITY } from "@openownbot/contracts/team-protocol/agent-publish-v1";
+import { AGENT_UPDATE_CAPABILITY } from "@openownbot/contracts/team-protocol/agent-update-v1";
+import { BITWARDEN_CONNECTOR_CAPABILITY } from "@openownbot/contracts/team-protocol/bitwarden-connector-v1";
+import { CONNECTORS_CAPABILITY } from "@openownbot/contracts/team-protocol/connectors-v1";
+import { TEAM_AGENT_CREATE_MODEL_CAPABILITY } from "@openownbot/contracts/team-protocol/current";
+import { EVENTS_CAPABILITY } from "@openownbot/contracts/team-protocol/events-v1";
+import { FOCUS_USE_CAPABILITY, FOCUS_USE_ROUTES } from "@openownbot/contracts/team-protocol/focus-use-v1";
+import { HOST_ADMIN_CAPABILITY } from "@openownbot/contracts/team-protocol/host-admin-v1";
+import { HOST_MEMBER_UPDATE_CAPABILITY } from "@openownbot/contracts/team-protocol/host-member-update-v1";
+import { HOST_RELEASE_CAPABILITY } from "@openownbot/contracts/team-protocol/host-release-v1";
+import { HOST_TIMEZONE_CAPABILITY } from "@openownbot/contracts/team-protocol/host-timezone-v1";
+import { HOST_UPDATE_CAPABILITY } from "@openownbot/contracts/team-protocol/host-update-v1";
+import { HOSTED_SITES_CAPABILITY } from "@openownbot/contracts/team-protocol/hosted-sites-v1";
+import { LIVE_ACTIVITY_PUSH_CAPABILITY } from "@openownbot/contracts/team-protocol/live-activity-push-v1";
+import { ONEPASSWORD_CONNECTOR_CAPABILITY } from "@openownbot/contracts/team-protocol/onepassword-connector-v1";
+import { PROVIDER_ACCOUNTS_CAPABILITY } from "@openownbot/contracts/team-protocol/provider-accounts-v1";
+import { PROVIDERS_ADMIN_CAPABILITY } from "@openownbot/contracts/team-protocol/providers-v1";
+import { ANDROID_PUSH_NOTIFICATIONS_CAPABILITY } from "@openownbot/contracts/team-protocol/push-notifications-android-v1";
+import { PUSH_NOTIFICATIONS_CAPABILITY } from "@openownbot/contracts/team-protocol/push-notifications-v1";
+import { ROUTINE_RECOVERY_CAPABILITY } from "@openownbot/contracts/team-protocol/routine-recovery-v1";
+import { ROUTINE_RESULTS_CAPABILITY } from "@openownbot/contracts/team-protocol/routine-results-v1";
+import { SHARED_TABLES_CAPABILITY } from "@openownbot/contracts/team-protocol/shared-tables-v1";
+import { SIGN_IN_RELAY_CAPABILITY } from "@openownbot/contracts/team-protocol/sign-in-relay-v1";
+import { SKILLS_ADMIN_CAPABILITY } from "@openownbot/contracts/team-protocol/skills-admin-v1";
+import type { TeamProtocolV2Json } from "@openownbot/contracts/team-protocol/v2";
+import { TEAM_PROTOCOL_V3 } from "@openownbot/contracts/team-protocol/v3";
+import { decodeTeamProtocolSupportV7Base } from "@openownbot/contracts/team-protocol/v7-base";
+import { VAULT_IMPORT_CAPABILITY } from "@openownbot/contracts/team-protocol/vault-import-v1";
+import { VAULT_CAPABILITY } from "@openownbot/contracts/team-protocol/vault-v1";
+import { sourceText } from "@openownbot/i18n/source";
 import {
   createRemoteAccountRefresh,
   createRemoteReadRefresh,
@@ -58,12 +58,12 @@ import {
   readAgentAnalytics,
   remoteRecoveryMessage,
   runTeamEffect,
-} from "@openbot/team-client";
-import { verifyEd25519Base64Url } from "@openbot/team-client/ed25519";
-import { createFocusUsePing } from "@openbot/team-client/focus-use";
-import { createHostedServerWake, WAKE_RECONNECT_DELAY_MS } from "@openbot/team-client/hosted-server-wake";
-import type { RemoteFileUpload } from "@openbot/team-client/remote-peer";
-import { updateHostIdentity } from "@openbot/team-client/team-admin-requests";
+} from "@openownbot/team-client";
+import { verifyEd25519Base64Url } from "@openownbot/team-client/ed25519";
+import { createFocusUsePing } from "@openownbot/team-client/focus-use";
+import { createHostedServerWake, WAKE_RECONNECT_DELAY_MS } from "@openownbot/team-client/hosted-server-wake";
+import type { RemoteFileUpload } from "@openownbot/team-client/remote-peer";
+import { updateHostIdentity } from "@openownbot/team-client/team-admin-requests";
 import {
   deleteAgent,
   discardAttachmentDraft,
@@ -73,7 +73,7 @@ import {
   respondToBrowserTakeover,
   type TeamApiRequest,
   uploadAttachmentDraft,
-} from "@openbot/team-client/team-api-requests";
+} from "@openownbot/team-client/team-api-requests";
 import { replaceEqualDeep, useQueryClient } from "@tanstack/react-query";
 import { Effect } from "effect";
 import * as Crypto from "expo-crypto";
@@ -197,7 +197,7 @@ const NO_AGENTS: MobileAgent[] = [];
 const OTHER_SERVERS_RETURN_DELAY_MS = 3_000;
 const EMPTY_SERVER: MobileServer = {
   id: "unavailable",
-  name: "OpenBot",
+  name: "OpenOwnBot",
   logoKey: null,
   kind: "local",
   state: "connecting",
@@ -754,7 +754,7 @@ export function MobileWorkspaceProvider({ children }: PropsWithChildren) {
       supportLog.add(
         "info",
         "connection",
-        `${serverId} host OpenBot ${compatibility.appVersion}, protocol ${compatibility.protocol.minimum}-${compatibility.protocol.maximum}, capabilities: ${compatibility.capabilities.join(" ")}`,
+        `${serverId} host OpenOwnBot ${compatibility.appVersion}, protocol ${compatibility.protocol.minimum}-${compatibility.protocol.maximum}, capabilities: ${compatibility.capabilities.join(" ")}`,
       );
       if (compatibility.protocol.minimum > TEAM_PROTOCOL_V3 || compatibility.protocol.maximum < TEAM_PROTOCOL_V3) {
         throw new Error(sourceText("error.remote.mobileUpdateRequired"));

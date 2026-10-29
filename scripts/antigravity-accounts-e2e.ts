@@ -6,13 +6,13 @@
 // account keeps the key, that a Reconnect signs the account out first, that Remove deletes the
 // folder, and that a new account stays when its usage reading fails after the sign-in.
 // `bun scripts/antigravity-accounts-e2e.ts`.
-// Writes .openbot-build/antigravity-accounts-e2e/report.json.
+// Writes .openownbot-build/antigravity-accounts-e2e/report.json.
 import assert from "node:assert/strict";
 import { chmod, mkdir, mkdtemp, readFile, rm, stat, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
-import type { ProviderAccountStatus } from "@openbot/contracts/ipc";
-import { sourceText } from "@openbot/i18n/source";
+import type { ProviderAccountStatus } from "@openownbot/contracts/ipc";
+import { sourceText } from "@openownbot/i18n/source";
 import { Cause, Effect, Exit } from "effect";
 import { ConversationRuntime } from "../src/backend/agent/conversation-runtime";
 import { ProviderAccountStore } from "../src/backend/agent/provider-account-store";
@@ -20,10 +20,10 @@ import { ProviderRuntime } from "../src/backend/agent/provider-runtime";
 import { AgentStore } from "../src/backend/agent-store";
 import { ANTIGRAVITY_MANIFEST } from "../src/backend/cli";
 import { runCauseEffect } from "../src/backend/effect-boundary";
-import { OpenBotDatabase } from "../src/backend/openbot-database";
+import { OpenOwnBotDatabase } from "../src/backend/openownbot-database";
 import { BUILT_IN_PROVIDER_DRIVERS, NO_PROVIDER_CREDENTIALS } from "../src/backend/provider-drivers";
 
-const OUT = resolve(import.meta.dirname, "../.openbot-build/antigravity-accounts-e2e");
+const OUT = resolve(import.meta.dirname, "../.openownbot-build/antigravity-accounts-e2e");
 const SAVED_KEY = "fake-gemini-key-for-the-first-account";
 const GOOGLE_PAGE = "https://accounts.google.com/o/oauth2/v2/auth?client_id=fake&state=fake";
 
@@ -119,7 +119,7 @@ interface Report {
   failedUsage?: { usagePrompts: number; stored: number; accountState: string | undefined };
 }
 
-const root = await mkdtemp(join(tmpdir(), "openbot-antigravity-accounts-e2e-"));
+const root = await mkdtemp(join(tmpdir(), "openownbot-antigravity-accounts-e2e-"));
 const log = join(root, "agy.jsonl");
 const approve = join(root, "approve");
 const usageFails = join(root, "usage-fails");
@@ -156,7 +156,7 @@ async function server(version: string): Promise<string> {
   return executable;
 }
 
-const database = new OpenBotDatabase(join(root, "profile"));
+const database = new OpenOwnBotDatabase(join(root, "profile"));
 const agents = new AgentStore(join(root, "profile"), join(root, "home"), database);
 
 /** The agents that run a turn now. */

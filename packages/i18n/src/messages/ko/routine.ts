@@ -311,7 +311,7 @@ export const messages = {
   "routine.webhook.stepSecretHint":
     "발신자는 이 시크릿으로 모든 요청에 서명해요. OpenOwnBot은 올바른 서명이 없는 요청을 거부해요.",
   "routine.webhook.howToSign": "요청에 서명하는 방법",
-  "routine.webhook.howToSignHint": "발신자의 OPENBOT_WEBHOOK_SECRET에 시크릿을 보관하세요. 코드에는 넣지 마세요.",
+  "routine.webhook.howToSignHint": "발신자의 OPENOWNBOT_WEBHOOK_SECRET에 시크릿을 보관하세요. 코드에는 넣지 마세요.",
   "routine.webhook.stepTest": "테스트 이벤트 보내기",
   "routine.webhook.stepTestHint":
     "OpenOwnBot이 이 루틴과 일치하는 이벤트에 서명하고 실제 요청처럼 받아요. 루틴은 한 번 실행돼요.",

@@ -20,13 +20,13 @@
 // No app, provider, account or network is started.
 //
 // Run: bun scripts/conversation-mailbox-rewrite-e2e.ts
-// Writes .openbot-build/conversation-mailbox-rewrite-e2e/report.json and exits non-zero on a failure.
+// Writes .openownbot-build/conversation-mailbox-rewrite-e2e/report.json and exits non-zero on a failure.
 import assert from "node:assert/strict";
 import { mkdirSync, writeFileSync } from "node:fs";
 import { mkdtemp, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
-import type { AgentEvent, ConversationMessage, ConversationSnapshot } from "@openbot/contracts/ipc";
+import type { AgentEvent, ConversationMessage, ConversationSnapshot } from "@openownbot/contracts/ipc";
 import { Effect, Exit, Scope } from "effect";
 import {
   CONVERSATION_CACHE_BYTES_LIMIT,
@@ -40,10 +40,10 @@ import { AgentWaitStore } from "../src/backend/agent-waits/agent-wait-store";
 import { AgentWaits } from "../src/backend/agent-waits/agent-waits";
 import { runCauseEffect } from "../src/backend/effect-boundary";
 import { MAILBOX_CONVERSATION_MESSAGE_LIMIT, MailboxStore } from "../src/backend/mailbox-store";
-import { OpenBotDatabase } from "../src/backend/openbot-database";
+import { OpenOwnBotDatabase } from "../src/backend/openownbot-database";
 import { RoutineTimer } from "../src/backend/routine-timer";
 
-const OUT = resolve(import.meta.dirname, "../.openbot-build/conversation-mailbox-rewrite-e2e");
+const OUT = resolve(import.meta.dirname, "../.openownbot-build/conversation-mailbox-rewrite-e2e");
 /** More than `CONVERSATION_SNAPSHOT_MESSAGE_LIMIT`, so the runtime keeps only part of the chat. */
 const SEEDED_TURNS = 120;
 const ROUNDS = 12;
@@ -118,8 +118,8 @@ function after(iso: string): string {
 
 /** The real runtime, mailbox and mailbox sync on a temporary profile. */
 async function startRuntime() {
-  const root = await mkdtemp(join(tmpdir(), "openbot-conversation-rewrite-"));
-  const database = new OpenBotDatabase(join(root, "state"));
+  const root = await mkdtemp(join(tmpdir(), "openownbot-conversation-rewrite-"));
+  const database = new OpenOwnBotDatabase(join(root, "state"));
   const store = new AgentStore(join(root, "state"), join(root, "home"), database);
   const mailbox = new MailboxStore(join(root, "state"), store.sharedRoot, database);
   const events: AgentEvent[] = [];

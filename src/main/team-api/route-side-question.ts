@@ -1,10 +1,10 @@
-import { parseAskSideQuestion } from "@openbot/contracts/ipc";
+import { parseAskSideQuestion } from "@openownbot/contracts/ipc";
 import {
   SIDE_QUESTION_CAPABILITY,
   SIDE_QUESTION_ROUTES,
   SIDE_QUESTION_TEXT_LIMIT,
-} from "@openbot/contracts/team-protocol/side-question-v1";
-import { isFixedSourceText, sourceText } from "@openbot/i18n/source";
+} from "@openownbot/contracts/team-protocol/side-question-v1";
+import { isFixedSourceText, sourceText } from "@openownbot/i18n/source";
 import { runCauseEffect } from "../../backend/effect-boundary";
 import type { TeamApiAgents } from "./dependencies";
 import { HttpError } from "./http-error";

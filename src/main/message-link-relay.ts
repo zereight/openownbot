@@ -6,18 +6,18 @@ import {
   type McpSignInRelayPage,
   type McpTestResult,
   relayableSignInLink,
-} from "@openbot/contracts/ipc";
-import type { TeamCurrentCapability } from "@openbot/contracts/team-protocol/current";
-import { SIGN_IN_RELAY_CAPABILITY, SIGN_IN_RELAY_ROUTES } from "@openbot/contracts/team-protocol/sign-in-relay-v1";
-import { sourceText } from "@openbot/i18n/source";
-import { createOpenBotLogger, toLogValue } from "@openbot/logging";
+} from "@openownbot/contracts/ipc";
+import type { TeamCurrentCapability } from "@openownbot/contracts/team-protocol/current";
+import { SIGN_IN_RELAY_CAPABILITY, SIGN_IN_RELAY_ROUTES } from "@openownbot/contracts/team-protocol/sign-in-relay-v1";
+import { sourceText } from "@openownbot/i18n/source";
+import { createOpenOwnBotLogger, toLogValue } from "@openownbot/logging";
 import { Cause, Effect, Fiber } from "effect";
 import type { ResponseDecoder } from "./remote-host-decoding";
 import type { RemoteRequestInit } from "./remote-server-client";
 import { RemoteWorkflowError, remoteCall, remoteDecode } from "./remote-service-effects";
 import { type SignInRelayClient, signInRelayRemote } from "./sign-in-relay-client";
 
-const logger = createOpenBotLogger("message-link-relay");
+const logger = createOpenOwnBotLogger("message-link-relay");
 
 /** Opens an http or https link in the user's browser. Any other scheme is refused. */
 export function openHttpLink(url: string, openExternal: (url: string) => Promise<void>): Promise<void> {

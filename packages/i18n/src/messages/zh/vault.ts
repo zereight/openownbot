@@ -88,7 +88,7 @@ export const messages = {
   "vault.unavailableDescription": "OpenOwnBot 使用系统的密钥存储来加密保险库。请先设置钥匙串，然后重新打开该页面。",
   "vault.unreadableTitle": "OpenOwnBot 无法读取保险库",
   "vault.unreadableDescription":
-    "保险库文件在这台电脑上，但 OpenBot 无法解密。系统钥匙串发生变化时可能出现这种情况。重置保险库后将从空白开始。",
+    "保险库文件在这台电脑上，但 OpenOwnBot 无法解密。系统钥匙串发生变化时可能出现这种情况。重置保险库后将从空白开始。",
   "vault.reset": "重置保险库",
   "vault.resetTitle": "重置保险库？",
   "vault.resetDescription": "OpenOwnBot 会删除保险库文件和其中的所有项目。该操作无法撤销。",

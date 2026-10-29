@@ -6,7 +6,7 @@
 // The stand-in holds its first turn's answer until the steer arrives. After both turns, the service
 // starts again and imports the session history. Before this change, the import added the steered
 // answer a second time: the live turn had a random id, and the history names the turn by the uuid.
-// `bun run test:claude-late-steer`. Writes .openbot-build/claude-late-steer-e2e/report.json.
+// `bun run test:claude-late-steer`. Writes .openownbot-build/claude-late-steer-e2e/report.json.
 import assert from "node:assert/strict";
 import { EventEmitter } from "node:events";
 import { existsSync, mkdirSync, writeFileSync } from "node:fs";
@@ -14,7 +14,7 @@ import { mkdtemp, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import { DatabaseSync } from "node:sqlite";
-import { AGENT_PROVIDERS, defaultProviderModel } from "@openbot/contracts/ipc";
+import { AGENT_PROVIDERS, defaultProviderModel } from "@openownbot/contracts/ipc";
 import { Effect } from "effect";
 import type { AgentBrowserHost } from "../src/backend/agent/turn-lifecycle";
 import type { AgentClient, DiagnosticOrigin } from "../src/backend/agent-client";
@@ -23,8 +23,8 @@ import type { AppServerNotification, AppServerRequest, RequestId, ResponseDecode
 import { providerSync } from "../src/backend/provider-client-effects";
 import type { ReadProviderHistory } from "../src/backend/provider-history";
 
-const OUT = resolve(import.meta.dirname, "../.openbot-build/claude-late-steer-e2e");
-const root = await mkdtemp(join(tmpdir(), "openbot-claude-late-steer-"));
+const OUT = resolve(import.meta.dirname, "../.openownbot-build/claude-late-steer-e2e");
+const root = await mkdtemp(join(tmpdir(), "openownbot-claude-late-steer-"));
 const userData = join(root, "user-data");
 const home = join(root, "home");
 const claudeConfig = join(home, ".claude");
@@ -39,7 +39,7 @@ const STEERED_MESSAGE = "Steered message.";
 // Before the service modules load: the stores and the CLI search read these. The history reader
 // finds the transcript in CLAUDE_CONFIG_DIR, as Bun's `homedir()` does not follow HOME.
 process.env.HOME = home;
-process.env.OPENBOT_CLAUDE_PATH = claudeExecutable;
+process.env.OPENOWNBOT_CLAUDE_PATH = claudeExecutable;
 process.env.CLAUDE_CONFIG_DIR = claudeConfig;
 mkdirSync(projectsDir, { recursive: true });
 
@@ -48,7 +48,7 @@ const { AgentStore } = await import("../src/backend/agent-store");
 const { ClaudeAgentClient } = await import("../src/backend/claude-client");
 const { runCauseEffect } = await import("../src/backend/effect-boundary");
 const { MailboxStore } = await import("../src/backend/mailbox-store");
-const { OpenBotDatabase } = await import("../src/backend/openbot-database");
+const { OpenOwnBotDatabase } = await import("../src/backend/openownbot-database");
 
 // The stand-in for the Claude CLI. It speaks enough of the stream-json protocol for a turn to end,
 // and saves each user and assistant entry as the CLI's session transcript does.
@@ -253,7 +253,7 @@ async function waitFor<T>(label: string, read: () => T | null | undefined | fals
 
 /** One run of the service on the profile, as one start of the app. */
 function startService() {
-  const database = new OpenBotDatabase(userData);
+  const database = new OpenOwnBotDatabase(userData);
   const store = new AgentStore(userData, home, database);
   const mailbox = new MailboxStore(userData, store.sharedRoot, store.database);
   const agents = new AgentService({

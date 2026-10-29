@@ -1,5 +1,5 @@
-import { VaultPanel } from "@openbot/ui/features/vault/VaultPanel";
-import { useText } from "@openbot/ui/text";
+import { VaultPanel } from "@openownbot/ui/features/vault/VaultPanel";
+import { useText } from "@openownbot/ui/text";
 import { onSettled, Show } from "solid-js";
 import { actionToast } from "../../action-toast";
 import type { VaultStore } from "./stores/vault-store";

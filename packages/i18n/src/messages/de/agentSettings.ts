@@ -43,7 +43,7 @@ export const messages = {
   "agentSettings.folders.inShared": "{folder} liegt im gemeinsamen Ordner, daher kann {agent} ihn bereits ändern",
   "agentSettings.folders.inFolder": "{folder} liegt im bereits hinzugefügten Ordner {parent}",
   "agentSettings.folders.protected":
-    "Du kannst {folder} nicht hinzufügen: Der Ordner enthält OpenBot-Daten oder Dateien anderer Agenten",
+    "Du kannst {folder} nicht hinzufügen: Der Ordner enthält OpenOwnBot-Daten oder Dateien anderer Agenten",
   "agentSettings.folders.missing": "{folder} ist kein Ordner auf diesem Computer",
   "agentSettings.folders.limit": {
     one: "Du kannst höchstens {count} Ordner hinzufügen",

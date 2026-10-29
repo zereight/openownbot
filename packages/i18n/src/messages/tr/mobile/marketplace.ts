@@ -103,9 +103,9 @@ export const messages = {
   "mobile.marketplace.app.linkInvalid": "{hostname} üzerinde bir https bağlantısı kullanın.",
   "mobile.marketplace.app.docs": "Anahtar al",
   "mobile.marketplace.app.local":
-    "Bu uygulama OpenBot'un çalıştığı bilgisayarda çalışır. Uygulamayı o bilgisayarda kurun.",
+    "Bu uygulama OpenOwnBot'un çalıştığı bilgisayarda çalışır. Uygulamayı o bilgisayarda kurun.",
   "mobile.marketplace.app.relayUnsupported":
-    "Bu uygulama tarayıcıda oturum açmayı gerektirir. Sunucudaki OpenBot'u güncelleyin veya uygulamayı bilgisayarda bağlayın.",
+    "Bu uygulama tarayıcıda oturum açmayı gerektirir. Sunucudaki OpenOwnBot'u güncelleyin veya uygulamayı bilgisayarda bağlayın.",
   "mobile.marketplace.app.waiting": "Oturum açma sayfası bekleniyor…",
   "mobile.marketplace.app.openAgain": "Oturum açma sayfasını yeniden aç",
   "mobile.marketplace.app.pasteHint":

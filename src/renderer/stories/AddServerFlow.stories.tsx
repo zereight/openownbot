@@ -1,8 +1,8 @@
-import type { ServerSummary } from "@openbot/contracts/ipc";
-import { Heading, Text } from "@openbot/ui";
-import { AddServerDialog, type HostedServerSetupStatus } from "@openbot/ui/features/servers/AddServerDialog";
-import { hostedServerPlansFromCatalog } from "@openbot/ui/features/servers/HostedServerPricing";
-import { ServerRail } from "@openbot/ui/features/servers/ServerRail";
+import type { ServerSummary } from "@openownbot/contracts/ipc";
+import { Heading, Text } from "@openownbot/ui";
+import { AddServerDialog, type HostedServerSetupStatus } from "@openownbot/ui/features/servers/AddServerDialog";
+import { hostedServerPlansFromCatalog } from "@openownbot/ui/features/servers/HostedServerPricing";
+import { ServerRail } from "@openownbot/ui/features/servers/ServerRail";
 import { createMemo, createSignal, onCleanup, Show } from "solid-js";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";
 import { MOCK_HOSTED_SERVER_CATALOG } from "../src/preview/mock-hosted-servers";
@@ -17,7 +17,7 @@ const STEP_MS = 5_000;
 interface FlowProps {
   /** Open the add-server dialog when the story loads. */
   startOpen?: boolean;
-  /** The fake setup stops with an error at the "Start OpenBot" step on the first try. */
+  /** The fake setup stops with an error at the "Start OpenOwnBot" step on the first try. */
   failFirstTry?: boolean;
   /** The account has this many servers, the maximum, so the plans are disabled. */
   serverLimit?: number;
@@ -179,7 +179,7 @@ export const DialogOpen: Story = {
   render: () => <AddServerFlow startOpen />,
 };
 
-/** The first setup stops at "Start OpenBot". "Try again" then succeeds. */
+/** The first setup stops at "Start OpenOwnBot". "Try again" then succeeds. */
 export const SetupFails: Story = {
   render: () => <AddServerFlow startOpen failFirstTry />,
 };

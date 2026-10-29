@@ -5,7 +5,7 @@
 // the free models with a "(free)" name, that a listed and a free model each reach the session through
 // the `model` option, that a free model moves the session to the `cline` provider, that a list that
 // cannot be read gives the last good one, then the bundled one, and that an empty free tier is kept.
-// `bun scripts/cline-free-models-e2e.ts`. Writes .openbot-build/cline-free-models-e2e/report.json.
+// `bun scripts/cline-free-models-e2e.ts`. Writes .openownbot-build/cline-free-models-e2e/report.json.
 import assert from "node:assert/strict";
 import { mkdir, mkdtemp, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
@@ -18,7 +18,7 @@ import { decodeModelListResponse, type ModelListResponse } from "../src/backend/
 import { NO_PROVIDER_CREDENTIALS, requireProviderDriver } from "../src/backend/provider-drivers";
 import { installFakeAgent, readJsonl, runTurn, startThread, stopClients } from "./provider-fakes/host";
 
-const OUT = resolve(import.meta.dirname, "../.openbot-build/cline-free-models-e2e");
+const OUT = resolve(import.meta.dirname, "../.openownbot-build/cline-free-models-e2e");
 
 // The shape of Cline's answer on 2026-10-19, with one id that `isAgentModel` refuses.
 const RECOMMENDED = {
@@ -50,7 +50,7 @@ interface Report {
   ended?: string[];
 }
 
-const root = await mkdtemp(join(tmpdir(), "openbot-cline-free-models-e2e-"));
+const root = await mkdtemp(join(tmpdir(), "openownbot-cline-free-models-e2e-"));
 const log = join(root, "cline.jsonl");
 const report: Report = { passed: false };
 const clients: AgentClient[] = [];
@@ -110,7 +110,7 @@ try {
     ],
     "The picker lists the CLI's models and Cline's valid free models.",
   );
-  assert.ok(requests.length > 0, "OpenBot reads Cline's recommended models.");
+  assert.ok(requests.length > 0, "OpenOwnBot reads Cline's recommended models.");
   for (const request of requests) {
     assert.deepEqual(request.headers, { accept: "application/json" }, "The request sends no account data.");
     assert.equal(request.credentials, null, "The request sends no credentials.");

@@ -32,23 +32,23 @@
   min-height: 0;
   height: 100%;
   flex-direction: column;
-  color: var(--openbot-text-primary);
-  background: var(--openbot-bg-canvas);
+  color: var(--openownbot-text-primary);
+  background: var(--openownbot-bg-canvas);
 }
 .agent-usage-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: var(--openbot-space-3);
-  padding: var(--openbot-space-4) var(--openbot-space-6);
-  border-bottom: 1px solid var(--openbot-border);
+  gap: var(--openownbot-space-3);
+  padding: var(--openownbot-space-4) var(--openownbot-space-6);
+  border-bottom: 1px solid var(--openownbot-border);
 }
 .agent-usage-identity,
 .agent-usage-controls {
   display: flex;
   align-items: center;
-  gap: var(--openbot-space-3);
+  gap: var(--openownbot-space-3);
   min-width: 0;
 }
 .agent-usage-identity {
@@ -57,16 +57,16 @@
 /* What lines up with the header's inset is the arrow, not the 32px hit area around it, so
    the button hangs its padding back into the header rather than pushing the glyph right. */
 .agent-usage-identity .ui-icon-button {
-  margin-left: calc(-1 * var(--openbot-space-2));
+  margin-left: calc(-1 * var(--openownbot-space-2));
 }
 .agent-usage-identity h2 {
   display: flex;
-  gap: var(--openbot-space-3);
-  font-size: var(--openbot-text-lg);
-  color: var(--openbot-text-muted);
+  gap: var(--openownbot-space-3);
+  font-size: var(--openownbot-text-lg);
+  color: var(--openownbot-text-muted);
 }
 .agent-usage-identity h2 span:last-child {
-  color: var(--openbot-text-primary);
+  color: var(--openownbot-text-primary);
   overflow-wrap: anywhere;
 }
 
@@ -76,50 +76,50 @@
   margin-left: auto;
   flex-wrap: wrap;
   justify-content: flex-end;
-  gap: var(--openbot-space-3);
+  gap: var(--openownbot-space-3);
 }
 .agent-usage-body {
   width: 100%;
   max-width: 1200px;
   margin-inline: auto;
-  padding: var(--openbot-space-6);
+  padding: var(--openownbot-space-6);
   overflow: auto;
   display: flex;
   flex-direction: column;
-  gap: var(--openbot-space-8);
+  gap: var(--openownbot-space-8);
 }
 .agent-usage h3 {
-  font-size: var(--openbot-text-xl);
+  font-size: var(--openownbot-text-xl);
   font-weight: 550;
 }
 .agent-usage-notice {
-  color: var(--openbot-text-secondary);
-  font-size: var(--openbot-text-md);
-  padding: var(--openbot-space-4);
-  background: var(--openbot-bg-surface);
-  border-radius: var(--openbot-radius-md);
+  color: var(--openownbot-text-secondary);
+  font-size: var(--openownbot-text-md);
+  padding: var(--openownbot-space-4);
+  background: var(--openownbot-bg-surface);
+  border-radius: var(--openownbot-radius-md);
 }
 .agent-usage-notice .ui-button {
-  margin-top: var(--openbot-space-3);
+  margin-top: var(--openownbot-space-3);
 }
 .agent-usage-loading {
-  color: var(--openbot-text-muted);
-  font-size: var(--openbot-text-md);
+  color: var(--openownbot-text-muted);
+  font-size: var(--openownbot-text-md);
 }
 .agent-usage-placeholder {
   height: 280px;
-  margin-top: var(--openbot-space-6);
-  border-radius: var(--openbot-radius-md);
-  background: var(--openbot-bg-surface);
+  margin-top: var(--openownbot-space-6);
+  border-radius: var(--openownbot-radius-md);
+  background: var(--openownbot-bg-surface);
 }
 @container (min-width: 850px) {
   .agent-usage-overview {
     grid-template-columns: minmax(260px, 0.8fr) minmax(0, 1.5fr);
-    gap: calc(var(--openbot-space-6) * 2);
+    gap: calc(var(--openownbot-space-6) * 2);
   }
   .agent-usage-body {
-    padding: var(--openbot-space-8) calc(var(--openbot-space-6) * 2);
-    gap: calc(var(--openbot-space-6) * 2);
+    padding: var(--openownbot-space-8) calc(var(--openownbot-space-6) * 2);
+    gap: calc(var(--openownbot-space-6) * 2);
   }
 }
 /* The drop order is the reading order reversed: message counts go before token
@@ -151,13 +151,13 @@
 }
 @container (max-width: 480px) {
   .agent-usage-hero {
-    font-size: var(--openbot-text-display);
+    font-size: var(--openownbot-text-display);
   }
   .agent-usage-body {
-    padding: var(--openbot-space-4);
+    padding: var(--openownbot-space-4);
   }
   .agent-usage-header {
-    padding: var(--openbot-space-3);
+    padding: var(--openownbot-space-3);
   }
   .agent-usage-controls {
     margin-left: 0;
@@ -177,11 +177,11 @@
 }
 .agent-usage-controls .ui-select-trigger {
   width: max-content;
-  border-color: var(--openbot-border);
-  background: var(--openbot-bg-control);
+  border-color: var(--openownbot-border);
+  background: var(--openownbot-bg-control);
   box-shadow: none;
-  font-size: var(--openbot-text-md);
-  font-weight: var(--openbot-weight-medium);
+  font-size: var(--openownbot-text-md);
+  font-weight: var(--openownbot-weight-medium);
 }
 
 .app-frame-panes.server-connection-workspace {

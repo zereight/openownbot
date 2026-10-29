@@ -12,15 +12,15 @@ import { NO_PROVIDER_CREDENTIALS, requireProviderDriver } from "./provider-drive
 // which carries build details after the Pi version, is not read; a missing command is reported as
 // installed; or an older Pi build is accepted.
 const folders: string[] = [];
-const saved = process.env.OPENBOT_PI_BOLT_PATH;
+const saved = process.env.OPENOWNBOT_PI_BOLT_PATH;
 afterEach(() => {
   for (const folder of folders.splice(0)) rmSync(folder, { recursive: true, force: true });
-  if (saved === undefined) delete process.env.OPENBOT_PI_BOLT_PATH;
-  else process.env.OPENBOT_PI_BOLT_PATH = saved;
+  if (saved === undefined) delete process.env.OPENOWNBOT_PI_BOLT_PATH;
+  else process.env.OPENOWNBOT_PI_BOLT_PATH = saved;
 });
 
 function fakeCommand(versionLine: string): string {
-  const folder = mkdtempSync(join(tmpdir(), "openbot-pi-bolt-"));
+  const folder = mkdtempSync(join(tmpdir(), "openownbot-pi-bolt-"));
   folders.push(folder);
   const path = join(folder, "pi-bolt");
   writeFileSync(path, `#!/bin/sh\necho '${versionLine}'\n`);
@@ -29,8 +29,8 @@ function fakeCommand(versionLine: string): string {
 }
 
 describe("Pi-Bolt command", () => {
-  it("reads the path from OPENBOT_PI_BOLT_PATH", () => {
-    process.env.OPENBOT_PI_BOLT_PATH = "/tmp/custom/pi-bolt";
+  it("reads the path from OPENOWNBOT_PI_BOLT_PATH", () => {
+    process.env.OPENOWNBOT_PI_BOLT_PATH = "/tmp/custom/pi-bolt";
     expect(configuredCliPath("pi-bolt")).toBe("/tmp/custom/pi-bolt");
   });
 
@@ -51,7 +51,7 @@ describe("Pi-Bolt command", () => {
 
   it("fails when no command exists", async () => {
     await expect(
-      Effect.runPromise(resolvePiBoltCli({ systemCandidates: ["/nonexistent/openbot-pi-bolt"] })),
+      Effect.runPromise(resolvePiBoltCli({ systemCandidates: ["/nonexistent/openownbot-pi-bolt"] })),
     ).rejects.toThrow();
   });
 

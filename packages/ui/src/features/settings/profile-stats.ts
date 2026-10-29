@@ -1,4 +1,4 @@
-import { analyticsTokens, type ClientAgentSummary, type HostAnalytics } from "@openbot/contracts/ipc";
+import { analyticsTokens, type ClientAgentSummary, type HostAnalytics } from "@openownbot/contracts/ipc";
 import { usageProviders } from "../usage/usage-format";
 
 const DAY_MS = 86_400_000;

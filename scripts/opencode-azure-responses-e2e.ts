@@ -7,7 +7,7 @@
 // with no key and another host, which keep the OpenAI-compatible adapter and `/chat/completions`.
 // No request may carry the `OPENAI_API_KEY` of the OpenCode environment.
 // `bun scripts/opencode-azure-responses-e2e.ts [<opencode binary>]`. Without an argument it uses
-// `OPENBOT_OPENCODE_PATH`. Writes .openbot-build/opencode-azure-responses-e2e/report.json.
+// `OPENOWNBOT_OPENCODE_PATH`. Writes .openownbot-build/opencode-azure-responses-e2e/report.json.
 import assert from "node:assert/strict";
 import { spawn } from "node:child_process";
 import { mkdirSync, writeFileSync } from "node:fs";
@@ -17,13 +17,13 @@ import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import { openCodeConfigEnv } from "../src/backend/opencode-config";
 
-const OUT = resolve(import.meta.dirname, "../.openbot-build/opencode-azure-responses-e2e");
-const binaryArgument = process.argv[2] ?? process.env.OPENBOT_OPENCODE_PATH;
-if (!binaryArgument) throw new Error("Give the OpenCode binary as the first argument or in OPENBOT_OPENCODE_PATH.");
+const OUT = resolve(import.meta.dirname, "../.openownbot-build/opencode-azure-responses-e2e");
+const binaryArgument = process.argv[2] ?? process.env.OPENOWNBOT_OPENCODE_PATH;
+if (!binaryArgument) throw new Error("Give the OpenCode binary as the first argument or in OPENOWNBOT_OPENCODE_PATH.");
 const binary: string = binaryArgument;
 
 const MODEL = "gpt-6-luna";
-const root = await mkdtemp(join(tmpdir(), "openbot-opencode-azure-"));
+const root = await mkdtemp(join(tmpdir(), "openownbot-opencode-azure-"));
 
 /** In the OpenCode environment, as a user's shell can have it. No request may carry it. */
 const ENV_OPENAI_KEY = "openai-env-key";
@@ -113,7 +113,7 @@ const address = server.address();
 assert.ok(address && typeof address === "object", "the fake server has no port");
 const local = `http://127.0.0.1:${address.port}/openai/v1`;
 
-/** The layer OpenBot sends for one endpoint, with only the base URL moved to the fake server. */
+/** The layer OpenOwnBot sends for one endpoint, with only the base URL moved to the fake server. */
 function configFor(
   baseUrl: string,
   apiKey: string | null,

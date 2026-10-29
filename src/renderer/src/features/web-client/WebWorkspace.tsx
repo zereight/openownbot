@@ -1,7 +1,7 @@
-import { isKnownAgentProvider } from "@openbot/contracts/agent-providers";
-import type { AppAppearance } from "@openbot/contracts/app-appearance";
-import type { AppLanguage } from "@openbot/contracts/app-language";
-import { HOSTED_SERVER_CONTACT_URL } from "@openbot/contracts/hosted-servers";
+import { isKnownAgentProvider } from "@openownbot/contracts/agent-providers";
+import type { AppAppearance } from "@openownbot/contracts/app-appearance";
+import type { AppLanguage } from "@openownbot/contracts/app-language";
+import { HOSTED_SERVER_CONTACT_URL } from "@openownbot/contracts/hosted-servers";
 import {
   type AddedAgent,
   type AgentProviderId,
@@ -16,28 +16,31 @@ import {
   decodeAgentTaskLimitSettings,
   type ServerConnectionState,
   type ServerSummary,
-} from "@openbot/contracts/ipc";
-import { AGENT_BACKUP_MODELS_ROUTES } from "@openbot/contracts/team-protocol/agent-backup-models-v1";
-import { AGENT_HOST_SETTINGS_ROUTES } from "@openbot/contracts/team-protocol/agent-host-settings-v1";
-import { AGENT_IMPORT_CAPABILITY } from "@openbot/contracts/team-protocol/agent-import-v1";
-import { AGENT_TASK_LIMIT_ROUTES } from "@openbot/contracts/team-protocol/agent-task-limit-v1";
-import { BROWSER_PROFILES_CAPABILITY } from "@openbot/contracts/team-protocol/browser-profiles-v1";
-import { CONNECTORS_CAPABILITY } from "@openbot/contracts/team-protocol/connectors-v1";
-import { CONTEXT_RESET_CAPABILITY } from "@openbot/contracts/team-protocol/context-reset-v1";
-import { AGENT_HIDDEN_CAPABILITY, TEAM_AGENT_CREATE_MODEL_CAPABILITY } from "@openbot/contracts/team-protocol/current";
-import { DISCORD_ACCESS_CAPABILITY } from "@openbot/contracts/team-protocol/discord-access-v1";
-import { EVENTS_CAPABILITY } from "@openbot/contracts/team-protocol/events-v1";
-import { HOST_RELEASE_CAPABILITY } from "@openbot/contracts/team-protocol/host-release-v1";
-import { HOSTED_SITES_CAPABILITY } from "@openbot/contracts/team-protocol/hosted-sites-v1";
-import { MCP_SIGN_IN_CAPABILITY } from "@openbot/contracts/team-protocol/mcp-sign-in-v1";
-import { ROUTINE_FLOWS_CAPABILITY } from "@openbot/contracts/team-protocol/routine-flows-v1";
-import { ROUTINE_RECOVERY_CAPABILITY } from "@openbot/contracts/team-protocol/routine-recovery-v1";
-import { SIDE_QUESTION_CAPABILITY } from "@openbot/contracts/team-protocol/side-question-v1";
-import { SIGN_IN_RELAY_CAPABILITY } from "@openbot/contracts/team-protocol/sign-in-relay-v1";
-import { VAULT_CAPABILITY } from "@openbot/contracts/team-protocol/vault-v1";
-import { WEBHOOK_TESTS_CAPABILITY } from "@openbot/contracts/team-protocol/webhook-tests-v1";
-import { runTeamEffect } from "@openbot/team-client";
-import { channelForThread } from "@openbot/team-client/channel-notifications";
+} from "@openownbot/contracts/ipc";
+import { AGENT_BACKUP_MODELS_ROUTES } from "@openownbot/contracts/team-protocol/agent-backup-models-v1";
+import { AGENT_HOST_SETTINGS_ROUTES } from "@openownbot/contracts/team-protocol/agent-host-settings-v1";
+import { AGENT_IMPORT_CAPABILITY } from "@openownbot/contracts/team-protocol/agent-import-v1";
+import { AGENT_TASK_LIMIT_ROUTES } from "@openownbot/contracts/team-protocol/agent-task-limit-v1";
+import { BROWSER_PROFILES_CAPABILITY } from "@openownbot/contracts/team-protocol/browser-profiles-v1";
+import { CONNECTORS_CAPABILITY } from "@openownbot/contracts/team-protocol/connectors-v1";
+import { CONTEXT_RESET_CAPABILITY } from "@openownbot/contracts/team-protocol/context-reset-v1";
+import {
+  AGENT_HIDDEN_CAPABILITY,
+  TEAM_AGENT_CREATE_MODEL_CAPABILITY,
+} from "@openownbot/contracts/team-protocol/current";
+import { DISCORD_ACCESS_CAPABILITY } from "@openownbot/contracts/team-protocol/discord-access-v1";
+import { EVENTS_CAPABILITY } from "@openownbot/contracts/team-protocol/events-v1";
+import { HOST_RELEASE_CAPABILITY } from "@openownbot/contracts/team-protocol/host-release-v1";
+import { HOSTED_SITES_CAPABILITY } from "@openownbot/contracts/team-protocol/hosted-sites-v1";
+import { MCP_SIGN_IN_CAPABILITY } from "@openownbot/contracts/team-protocol/mcp-sign-in-v1";
+import { ROUTINE_FLOWS_CAPABILITY } from "@openownbot/contracts/team-protocol/routine-flows-v1";
+import { ROUTINE_RECOVERY_CAPABILITY } from "@openownbot/contracts/team-protocol/routine-recovery-v1";
+import { SIDE_QUESTION_CAPABILITY } from "@openownbot/contracts/team-protocol/side-question-v1";
+import { SIGN_IN_RELAY_CAPABILITY } from "@openownbot/contracts/team-protocol/sign-in-relay-v1";
+import { VAULT_CAPABILITY } from "@openownbot/contracts/team-protocol/vault-v1";
+import { WEBHOOK_TESTS_CAPABILITY } from "@openownbot/contracts/team-protocol/webhook-tests-v1";
+import { runTeamEffect } from "@openownbot/team-client";
+import { channelForThread } from "@openownbot/team-client/channel-notifications";
 import {
   cancelHostUpdate,
   checkHostForUpdate,
@@ -61,41 +64,41 @@ import {
   setHostUpdateSettings,
   startHostUpdate,
   updateAgentAdminSettings,
-} from "@openbot/team-client/team-admin-requests";
-import { clearAgentContext, type TeamApiRequest } from "@openbot/team-client/team-api-requests";
-import { classifyFailure } from "@openbot/telemetry";
-import { hasVisibleToasts, toast } from "@openbot/ui";
-import { accountUsageProviderRows } from "@openbot/ui/features/account/account-usage-view";
-import { computeAgentAvatarMoods } from "@openbot/ui/features/agents/agent-avatar-mood";
-import { createFirstAgentDraft, type FirstAgentDraft } from "@openbot/ui/features/agents/FirstAgentSetup";
-import { BillingDialog } from "@openbot/ui/features/billing/BillingDialog";
-import { createBillingStore } from "@openbot/ui/features/billing/billing-store";
-import { LicenseSection } from "@openbot/ui/features/billing/LicenseSection";
-import { createLicenseStore } from "@openbot/ui/features/billing/license-store";
-import { unloadedHistory } from "@openbot/ui/features/conversation/ChatScrollRail";
-import type { DiagramModelChoice } from "@openbot/ui/features/diagrams/DiagramNewAgentCard";
-import { LeaveServerDialog } from "@openbot/ui/features/servers/LeaveServerDialog";
-import { RestartServerDialog } from "@openbot/ui/features/servers/RestartServerDialog";
-import type { ServerActionCallbacks } from "@openbot/ui/features/servers/ServerActionItems";
+} from "@openownbot/team-client/team-admin-requests";
+import { clearAgentContext, type TeamApiRequest } from "@openownbot/team-client/team-api-requests";
+import { classifyFailure } from "@openownbot/telemetry";
+import { hasVisibleToasts, toast } from "@openownbot/ui";
+import { accountUsageProviderRows } from "@openownbot/ui/features/account/account-usage-view";
+import { computeAgentAvatarMoods } from "@openownbot/ui/features/agents/agent-avatar-mood";
+import { createFirstAgentDraft, type FirstAgentDraft } from "@openownbot/ui/features/agents/FirstAgentSetup";
+import { BillingDialog } from "@openownbot/ui/features/billing/BillingDialog";
+import { createBillingStore } from "@openownbot/ui/features/billing/billing-store";
+import { LicenseSection } from "@openownbot/ui/features/billing/LicenseSection";
+import { createLicenseStore } from "@openownbot/ui/features/billing/license-store";
+import { unloadedHistory } from "@openownbot/ui/features/conversation/ChatScrollRail";
+import type { DiagramModelChoice } from "@openownbot/ui/features/diagrams/DiagramNewAgentCard";
+import { LeaveServerDialog } from "@openownbot/ui/features/servers/LeaveServerDialog";
+import { RestartServerDialog } from "@openownbot/ui/features/servers/RestartServerDialog";
+import type { ServerActionCallbacks } from "@openownbot/ui/features/servers/ServerActionItems";
 import {
   ConversationLoadNotice,
   ServerConnectionNotice,
   ServerPanelLoadNotice,
   serverWorkspacePhase,
-} from "@openbot/ui/features/servers/ServerConnectionNotice";
-import { ServerRail } from "@openbot/ui/features/servers/ServerRail";
-import type { SettingsPagePlacement } from "@openbot/ui/features/settings/SettingsDialogShell";
-import { createSettingsHostedServersStore } from "@openbot/ui/features/settings/stores/hosted-servers-store";
-import { Sidebar } from "@openbot/ui/features/sidebar/Sidebar";
-import { SidebarCommunityCard } from "@openbot/ui/features/sidebar/SidebarCommunityCard";
+} from "@openownbot/ui/features/servers/ServerConnectionNotice";
+import { ServerRail } from "@openownbot/ui/features/servers/ServerRail";
+import type { SettingsPagePlacement } from "@openownbot/ui/features/settings/SettingsDialogShell";
+import { createSettingsHostedServersStore } from "@openownbot/ui/features/settings/stores/hosted-servers-store";
+import { Sidebar } from "@openownbot/ui/features/sidebar/Sidebar";
+import { SidebarCommunityCard } from "@openownbot/ui/features/sidebar/SidebarCommunityCard";
 import {
   computeSidebarAgentStates,
   sidebarAgentWaits,
   sidebarChannelWaits,
-} from "@openbot/ui/features/sidebar/sidebar-agent-states";
-import type { SidebarView } from "@openbot/ui/features/sidebar/sidebar-types";
-import { PageRail, type PageRailPage } from "@openbot/ui/features/window/PageRail";
-import { useText } from "@openbot/ui/text";
+} from "@openownbot/ui/features/sidebar/sidebar-agent-states";
+import type { SidebarView } from "@openownbot/ui/features/sidebar/sidebar-types";
+import { PageRail, type PageRailPage } from "@openownbot/ui/features/window/PageRail";
+import { useText } from "@openownbot/ui/text";
 import { Effect } from "effect";
 import {
   createEffect,
@@ -229,11 +232,11 @@ const CONNECTING_STATUS: AgentStatus = {
  * What the web client reports as its build. The browser has no main process to ask, and the web frame
  * uses the macOS geometry.
  */
-const WEB_APP_INFO: AppInfo = { name: "OpenBot", version: "web", platform: "darwin", variant: "production" };
+const WEB_APP_INFO: AppInfo = { name: "OpenOwnBot", version: "web", platform: "darwin", variant: "production" };
 /** Below this width the web shows one pane at a time; see `web-client.css`. */
 const PHONE_QUERY = "(max-width: 720px)";
 /** The account whose queue edit the browser may hold under `QUEUE_EDIT_STORAGE_KEY`. */
-const QUEUE_EDIT_ACCOUNT_KEY = "openbot.web.queue-edit-account";
+const QUEUE_EDIT_ACCOUNT_KEY = "openownbot.web.queue-edit-account";
 
 function newAgentAvatar(): Pick<FirstAgentDraft, "avatarSeed" | "avatarHue"> {
   const { avatarSeed, avatarHue } = createFirstAgentDraft();
@@ -1145,7 +1148,7 @@ function WebWorkspaceFrame(props: WebWorkspaceProps) {
   };
   /**
    * A server with no agents shows the provider step before the first-agent form, for an account that
-   * can sign its host in. OpenBot includes no AI subscription, so an agent made first could not
+   * can sign its host in. OpenOwnBot includes no AI subscription, so an agent made first could not
    * answer. A member and an older host open the form as before.
    */
   const serverOnboarding = () =>
@@ -1809,7 +1812,7 @@ function WebWorkspaceFrame(props: WebWorkspaceProps) {
                   // The browser client does not know the unread counts of agent chats it has not opened.
                   hasUnread
                   view={layout.sidebarView()}
-                  serverName={workspace.state.host?.name ?? "OpenBot"}
+                  serverName={workspace.state.host?.name ?? "OpenOwnBot"}
                   serverUpdate={(() => {
                     const id = server()?.id;
                     const badge = id ? serverUpdateBadge(id) : null;

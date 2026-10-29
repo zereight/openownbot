@@ -1,12 +1,12 @@
 // Reading and writing `.zip` archives that carry agents: the Grok Bot agent import and the
-// OpenBot instance transfer share these checks, so both refuse the same unsafe entries.
+// OpenOwnBot instance transfer share these checks, so both refuse the same unsafe entries.
 
 import { createHash } from "node:crypto";
 import { mkdir, readFile, stat, writeFile } from "node:fs/promises";
 import { dirname, extname, isAbsolute, resolve } from "node:path";
-import { AVATAR_MIME_TYPES, isValidAvatarImage } from "@openbot/contracts/avatar-images";
-import { AGENT_IMPORT_LIMITS, type AvatarImageInput } from "@openbot/contracts/ipc";
-import { sourceText } from "@openbot/i18n/source";
+import { AVATAR_MIME_TYPES, isValidAvatarImage } from "@openownbot/contracts/avatar-images";
+import { AGENT_IMPORT_LIMITS, type AvatarImageInput } from "@openownbot/contracts/ipc";
+import { sourceText } from "@openownbot/i18n/source";
 import { Effect, Schema } from "effect";
 import { strFromU8, unzipSync } from "fflate";
 import { isPathInside } from "../backend/path-containment";
@@ -77,7 +77,7 @@ export function extract(bytes: Uint8Array, include: (name: string) => boolean): 
 }
 
 /**
- * The file entries whose Unix mode, from an OpenBot export or a Unix zip tool, is executable. `unzipSync`
+ * The file entries whose Unix mode, from an OpenOwnBot export or a Unix zip tool, is executable. `unzipSync`
  * does not give the attributes, so this reads the central directory as `unzipSync` does. It returns no
  * names for a ZIP64 archive; an archive below the import limits does not need ZIP64.
  */

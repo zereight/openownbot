@@ -1,13 +1,13 @@
-# OpenBot as a self-hosted server in Docker. See docs/docker.md.
+# OpenOwnBot as a self-hosted server in Docker. See docs/docker.md.
 #
-#   curl -fsSLO https://raw.githubusercontent.com/nightly-labs/openbot/main/docker/compose.yaml
-#   curl -fsSLO https://raw.githubusercontent.com/nightly-labs/openbot/main/docker/seccomp.json
+#   curl -fsSLO https://raw.githubusercontent.com/zereight/openownbot/main/docker/compose.yaml
+#   curl -fsSLO https://raw.githubusercontent.com/zereight/openownbot/main/docker/seccomp.json
 #   docker compose up -d
-#   docker compose exec openbot openbot login
+#   docker compose exec openownbot openownbot login
 services:
-  openbot:
-    # Use a version tag to choose when to upgrade. OpenBot never goes back to an older version.
-    image: ghcr.io/nightly-labs/openbot:latest
+  openownbot:
+    # Use a version tag to choose when to upgrade. OpenOwnBot never goes back to an older version.
+    image: ghcr.io/zereight/openownbot:latest
     restart: unless-stopped
     security_opt:
       # The Docker default profile, with user namespaces for the Electron sandbox.
@@ -15,11 +15,11 @@ services:
       - no-new-privileges:true
     # Chromium uses shared memory. The Docker default of 64 MB is too small.
     shm_size: 1g
-    # OpenBot stops its agents and closes the database before it exits.
+    # OpenOwnBot stops its agents and closes the database before it exits.
     stop_grace_period: 60s
     volumes:
-      - openbot-data:/data
-    # OpenBot only connects out. It needs no published port.
+      - openownbot-data:/data
+    # OpenOwnBot only connects out. It needs no published port.
     # On a local network or a Tailscale tailnet, host networking can let devices connect directly.
     # It removes the network isolation of the container. See "Network" in docs/docker.md.
     # network_mode: host
@@ -27,4 +27,4 @@ services:
     #   XAI_API_KEY: ${XAI_API_KEY}
 
 volumes:
-  openbot-data:
+  openownbot-data:

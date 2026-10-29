@@ -20,9 +20,9 @@ import { execFileSync } from "node:child_process";
 import { mkdirSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 
-// `openbotgit[bot]` is the OpenBot GitHub App. The account Worker gives its installation token only for
+// `openownbotgit[bot]` is the OpenOwnBot GitHub App. The account Worker gives its installation token only for
 // repositories where the signed-in user can push (`apps/auth-api/src/server/github-installation-tokens.ts`).
-const TRUSTED_BOTS = new Set(["infeld-ai[bot]", "dependabot[bot]", "openbotgit[bot]"]);
+const TRUSTED_BOTS = new Set(["infeld-ai[bot]", "dependabot[bot]", "openownbotgit[bot]"]);
 const TRUSTED_ASSOCIATIONS = new Set(["OWNER", "MEMBER", "COLLABORATOR"]);
 const TRUSTED_PERMISSIONS = new Set(["admin", "maintain", "write"]);
 const LABEL_EXTERNAL = "external";
@@ -35,7 +35,7 @@ const COMMENT_MARKER = "<!-- contribution-policy -->";
 const COMMENT_AUTHOR = "github-actions[bot]";
 const CLOSE_AFTER_DAYS = 7;
 const FORM_DIR = ".github/ISSUE_TEMPLATE";
-const REPORT_PATH = ".openbot-build/contribution-policy/report.json";
+const REPORT_PATH = ".openownbot-build/contribution-policy/report.json";
 
 const args = process.argv.slice(2);
 const dryRun = args.includes("--dry-run");
@@ -244,7 +244,7 @@ function loadPullRequest(number: number): PullRequest {
 
 function failureComment(author: string): string {
   return [
-    `@${author}, thank you for the pull request. A maintainer marked it as a feature or a change to how OpenBot works.`,
+    `@${author}, thank you for the pull request. A maintainer marked it as a feature or a change to how OpenOwnBot works.`,
     "",
     `Changes of this type need an issue with the \`${LABEL_APPROVED}\` label before we review code. To continue:`,
     "",

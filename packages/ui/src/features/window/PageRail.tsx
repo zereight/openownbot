@@ -1,4 +1,4 @@
-import { AppLogo, type AppLogoVariant, ProviderLogo } from "@openbot/brand";
+import { AppLogo, type AppLogoVariant, ProviderLogo } from "@openownbot/brand";
 import {
   Bot,
   Button,
@@ -12,10 +12,10 @@ import {
   Store,
   Waypoints,
   Workflow,
-} from "@openbot/ui";
-import { AccountUsageDetails } from "@openbot/ui/features/account/AccountUsageDetails";
-import { type AccountUsageProviderRow, accountUsageRowKey } from "@openbot/ui/features/account/account-usage-view";
-import { useText } from "@openbot/ui/text";
+} from "@openownbot/ui";
+import { AccountUsageDetails } from "@openownbot/ui/features/account/AccountUsageDetails";
+import { type AccountUsageProviderRow, accountUsageRowKey } from "@openownbot/ui/features/account/account-usage-view";
+import { useText } from "@openownbot/ui/text";
 import { Dynamic, type JSX } from "@solidjs/web";
 import { createMemo, createSignal, For, Show } from "solid-js";
 
@@ -137,7 +137,7 @@ function UsageRings(props: {
   );
 }
 
-/** The answer of one custom agent to its usage prompt. OpenBot cannot read a percent from it. */
+/** The answer of one custom agent to its usage prompt. OpenOwnBot cannot read a percent from it. */
 export interface CustomAgentUsageRailRow {
   id: string;
   name: string;
@@ -206,8 +206,8 @@ export interface PageRailProps {
   /** The Help menu, between Marketplace and Settings. */
   help: JSX.Element;
   /**
-   * The OpenBot logo in the top row, for a window that has no macOS window buttons there. With
-   * `href`, the logo is a link to the OpenBot site.
+   * The OpenOwnBot logo in the top row, for a window that has no macOS window buttons there. With
+   * `href`, the logo is a link to the OpenOwnBot site.
    */
   logo?: { variant: AppLogoVariant; href?: string | undefined } | undefined;
 }

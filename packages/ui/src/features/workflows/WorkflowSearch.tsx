@@ -1,7 +1,7 @@
 /** The canvas search: it finds a step by its name, its fields or its results, and shows the step. */
 
-import type { WorkflowNodeKind } from "@openbot/contracts/ipc";
-import { Button, Input, Search, X } from "@openbot/ui";
+import type { WorkflowNodeKind } from "@openownbot/contracts/ipc";
+import { Button, Input, Search, X } from "@openownbot/ui";
 import { For, Show } from "solid-js";
 import { useText } from "../../text";
 import { AddItemLabel, addItem } from "./WorkflowAddMenu";

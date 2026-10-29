@@ -21,11 +21,11 @@ export const supportedBunVersion = "1.4.2";
 // skips the command while the fingerprint is the same, which saves several seconds on each start.
 // The install stamp is in `node_modules`, so deleting `node_modules` installs again. The root
 // `postinstall` writes it too, so a plain `bun install` on another branch does not leave it stale.
-const INSTALL_STAMP = join("node_modules", ".openbot-install-stamp");
+const INSTALL_STAMP = join("node_modules", ".openownbot-install-stamp");
 // Wrangler's local D1 state. Without it the local database is empty, whatever the stamp says.
 const LOCAL_D1_STATE = join("apps", "auth-api", ".wrangler", "state", "v3", "d1");
 // Inside the D1 state, so a state directory made again also loses the stamp.
-const MIGRATION_STAMP = join(LOCAL_D1_STATE, ".openbot-migrate-local-stamp");
+const MIGRATION_STAMP = join(LOCAL_D1_STATE, ".openownbot-migrate-local-stamp");
 const MIGRATIONS_DIRECTORY = join("apps", "auth-api", "migrations");
 
 export interface DevelopmentPreparationInput {
@@ -166,7 +166,7 @@ export function prepareDevelopmentWorktree(input: DevelopmentPreparationInput = 
 
   run(executable, ["run", "dev:seed", "--if-missing"], {
     ...options,
-    env: { ...process.env, OPENBOT_DEV_INSTANCE_ID: instanceId },
+    env: { ...process.env, OPENOWNBOT_DEV_INSTANCE_ID: instanceId },
   });
   run(executable, ["run", "marketplace:seed:local"], options);
   return stateOutcome;
@@ -218,7 +218,7 @@ export function assertSupportedBunVersion(version: string): void {
   if (version === supportedBunVersion) return;
 
   throw new Error(
-    `Unsupported Bun ${version}. OpenBot development requires stable Bun ${supportedBunVersion}. Install the exact version with the command in https://github.com/nightly-labs/openbot#development, then retry.`,
+    `Unsupported Bun ${version}. OpenOwnBot development requires stable Bun ${supportedBunVersion}. Install the exact version with the command in https://github.com/zereight/openownbot#development, then retry.`,
   );
 }
 

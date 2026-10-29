@@ -28,7 +28,7 @@ export function AppLockSettingsScreen() {
   const { t } = useText();
   const { theme } = useUniwind();
   const dark = theme === "dark";
-  const accent = String(useCSSVariable("--openbot-accent"));
+  const accent = String(useCSSVariable("--openownbot-accent"));
   const status = useAppLock((state) => state.status);
   const config = useAppLock((state) => state.config);
   const enabled = appLockEnabled(config);

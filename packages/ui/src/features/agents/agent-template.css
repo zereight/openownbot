@@ -9,35 +9,35 @@
   flex-direction: column;
   overflow: hidden;
   outline: 0;
-  border: 1px solid var(--openbot-border);
-  border-radius: var(--openbot-radius-card);
-  background: var(--openbot-bg-sidebar);
-  color: var(--openbot-text-primary);
+  border: 1px solid var(--openownbot-border);
+  border-radius: var(--openownbot-radius-card);
+  background: var(--openownbot-bg-sidebar);
+  color: var(--openownbot-text-primary);
 }
 
 .agent-template-status {
   position: absolute;
   z-index: 1;
-  inset-block-start: var(--openbot-space-3);
-  inset-inline-start: var(--openbot-space-3);
+  inset-block-start: var(--openownbot-space-3);
+  inset-inline-start: var(--openownbot-space-3);
 }
 
 .agent-template-corner-actions {
   position: absolute;
   z-index: 1;
   display: flex;
-  gap: var(--openbot-space-1);
-  inset-block-start: var(--openbot-space-2);
-  inset-inline-end: var(--openbot-space-2);
-  color: var(--openbot-text-muted);
+  gap: var(--openownbot-space-1);
+  inset-block-start: var(--openownbot-space-2);
+  inset-inline-end: var(--openownbot-space-2);
+  color: var(--openownbot-text-muted);
 }
 
 .agent-template-body {
   display: flex;
   min-height: 0;
   flex-direction: column;
-  gap: var(--openbot-space-4);
-  padding: var(--openbot-space-6) var(--openbot-space-4) var(--openbot-space-4);
+  gap: var(--openownbot-space-4);
+  padding: var(--openownbot-space-6) var(--openownbot-space-4) var(--openownbot-space-4);
 }
 
 .agent-template-scroll {
@@ -48,14 +48,14 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--openbot-space-1);
+  gap: var(--openownbot-space-1);
   text-align: center;
 }
 
 .agent-template-avatar {
   width: 72px;
   height: 72px;
-  margin-block-end: var(--openbot-space-3);
+  margin-block-end: var(--openownbot-space-3);
 }
 
 .agent-template-name {
@@ -64,7 +64,7 @@
 
 .agent-template-description {
   display: -webkit-box;
-  margin-block-start: var(--openbot-space-1);
+  margin-block-start: var(--openownbot-space-1);
   overflow: hidden;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 4;
@@ -74,7 +74,7 @@
 .agent-template-rows {
   display: grid;
   overflow: hidden;
-  border-radius: var(--openbot-radius-grouped);
+  border-radius: var(--openownbot-radius-grouped);
 }
 
 .agent-template-row {
@@ -83,33 +83,33 @@
   height: auto;
   grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
-  gap: var(--openbot-space-3);
+  gap: var(--openownbot-space-3);
   border-radius: 0;
-  padding: var(--openbot-space-3) var(--openbot-space-4);
+  padding: var(--openownbot-space-3) var(--openownbot-space-4);
   text-align: start;
-  color: var(--openbot-text-muted);
+  color: var(--openownbot-text-muted);
 }
 
 .agent-template-row + .agent-template-row {
-  border-top: 1px solid var(--openbot-border-grouped);
+  border-top: 1px solid var(--openownbot-border-grouped);
 }
 
 .agent-template-row-copy {
   display: grid;
   min-width: 0;
-  gap: var(--openbot-space-0-5);
+  gap: var(--openownbot-space-0-5);
 }
 
 .agent-template-row-title {
-  color: var(--openbot-text-primary);
-  font-size: var(--openbot-text-md);
-  font-weight: var(--openbot-weight-medium);
+  color: var(--openownbot-text-primary);
+  font-size: var(--openownbot-text-md);
+  font-weight: var(--openownbot-weight-medium);
 }
 
 .agent-template-row-detail {
   overflow: hidden;
-  color: var(--openbot-text-grouped-secondary);
-  font-size: var(--openbot-text-sm);
+  color: var(--openownbot-text-grouped-secondary);
+  font-size: var(--openownbot-text-sm);
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -118,9 +118,9 @@
   display: flex;
   flex-shrink: 0;
   justify-content: flex-end;
-  gap: var(--openbot-space-2);
-  border-top: 1px solid var(--openbot-border);
-  padding: var(--openbot-space-3) var(--openbot-space-4);
+  gap: var(--openownbot-space-2);
+  border-top: 1px solid var(--openownbot-border);
+  padding: var(--openownbot-space-3) var(--openownbot-space-4);
 }
 
 .agent-template-copy {
@@ -130,47 +130,47 @@
 .agent-template-detail-header {
   display: flex;
   align-items: center;
-  gap: var(--openbot-space-2);
-  margin-block-start: calc(var(--openbot-space-2) * -1);
+  gap: var(--openownbot-space-2);
+  margin-block-start: calc(var(--openownbot-space-2) * -1);
 }
 
 .agent-template-detail {
   display: flex;
   min-height: 0;
   flex-direction: column;
-  gap: var(--openbot-space-4);
+  gap: var(--openownbot-space-4);
   overflow-y: auto;
 }
 
 .agent-template-section {
   display: flex;
   flex-direction: column;
-  gap: var(--openbot-space-1);
+  gap: var(--openownbot-space-1);
 }
 
 /* The instructions as Markdown, at the body size of the dialog. Headings stay below the agent's name. */
 .agent-template-prose {
-  color: var(--openbot-text-secondary);
-  font-size: var(--openbot-text-md);
-  line-height: var(--openbot-leading-md);
+  color: var(--openownbot-text-secondary);
+  font-size: var(--openownbot-text-md);
+  line-height: var(--openownbot-leading-md);
   overflow-wrap: anywhere;
 }
 
 .agent-template-prose .message-markdown-heading[data-level] {
-  color: var(--openbot-text-primary);
-  font-size: var(--openbot-text-lg);
-  line-height: var(--openbot-leading-lg);
+  color: var(--openownbot-text-primary);
+  font-size: var(--openownbot-text-lg);
+  line-height: var(--openownbot-leading-lg);
 }
 
 .agent-template-prose .message-markdown-heading:not([data-level="1"], [data-level="2"]) {
-  font-size: var(--openbot-text-md);
-  line-height: var(--openbot-leading-md);
+  font-size: var(--openownbot-text-md);
+  line-height: var(--openownbot-leading-md);
 }
 
 .agent-template-list {
   display: flex;
   flex-direction: column;
-  gap: var(--openbot-space-3);
+  gap: var(--openownbot-space-3);
   margin: 0;
   padding: 0;
   list-style: none;
@@ -179,24 +179,24 @@
 .agent-template-list > li {
   display: flex;
   flex-direction: column;
-  gap: var(--openbot-space-0-5);
+  gap: var(--openownbot-space-0-5);
 }
 
 .agent-template-skill-toggle {
   justify-content: flex-start;
   align-self: flex-start;
-  gap: var(--openbot-space-1);
-  margin-inline-start: calc(var(--openbot-space-2) * -1);
+  gap: var(--openownbot-space-1);
+  margin-inline-start: calc(var(--openownbot-space-2) * -1);
 }
 
 .agent-template-skill-text {
   max-height: 240px;
-  margin: var(--openbot-space-1) 0 0;
+  margin: var(--openownbot-space-1) 0 0;
   overflow: auto;
-  border-radius: var(--openbot-radius-md);
-  background: var(--openbot-bg-control);
-  padding: var(--openbot-space-3);
-  font-family: var(--openbot-font-mono);
-  font-size: var(--openbot-text-sm);
+  border-radius: var(--openownbot-radius-md);
+  background: var(--openownbot-bg-control);
+  padding: var(--openownbot-space-3);
+  font-family: var(--openownbot-font-mono);
+  font-size: var(--openownbot-text-sm);
   white-space: pre-wrap;
 }

@@ -88,7 +88,7 @@ export const messages = {
   "customProvider.header.add": "헤더 추가",
   "customProvider.submit": "제출",
 
-  // Model discovery. OpenBot asks the endpoint for its model list, and the user picks from it.
+  // Model discovery. OpenOwnBot asks the endpoint for its model list, and the user picks from it.
   "customProvider.discovery.find": "모델 찾기",
   "customProvider.discovery.refresh": "다시 찾기",
   "customProvider.discovery.loading": "{url}에 모델 목록을 요청하는 중이에요.",
@@ -116,7 +116,7 @@ export const messages = {
   "customProvider.probe.checking": "확인 중",
   "customProvider.probe.running": { other: "실행 중 · 모델 {count}개" },
 
-  // Automatic detection on the provider step and in Settings. OpenBot looks for local model servers
+  // Automatic detection on the provider step and in Settings. OpenOwnBot looks for local model servers
   // at their default addresses and for known ACP agent commands on the PATH.
   "customProvider.detected.title": "이 컴퓨터에서 찾았어요",
   "customProvider.detected.scanning": "로컬 모델과 에이전트를 찾는 중이에요.",
@@ -198,7 +198,7 @@ export const messages = {
   "customProvider.acp.error.agentIdPattern":
     "영문 소문자, 숫자, 하이픈을 사용하고 영문자 또는 숫자로 시작해야 해요. 최대 40자예요.",
 
-  // The user's own ACP agents in Settings. Each is a command that OpenBot starts on this computer.
+  // The user's own ACP agents in Settings. Each is a command that OpenOwnBot starts on this computer.
   "customProvider.agents.title": "사용자 지정 에이전트",
   "customProvider.agents.description": "OpenOwnBot이 이 컴퓨터에서 시작하는 ACP 에이전트예요.",
   "customProvider.agents.empty": "아직 사용자 지정 에이전트가 없어요.",

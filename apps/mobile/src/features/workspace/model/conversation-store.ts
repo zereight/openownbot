@@ -1,4 +1,4 @@
-import type { AgentEvent, ConversationMessage, ConversationPage } from "@openbot/contracts/ipc";
+import type { AgentEvent, ConversationMessage, ConversationPage } from "@openownbot/contracts/ipc";
 
 import { replaceEqualDeep } from "@tanstack/react-query";
 

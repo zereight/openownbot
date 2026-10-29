@@ -5,11 +5,11 @@ import {
   uiBlockAnswersFromResponse,
   uiBlockFallbackQuestions,
   uiBlockOutcomeText,
-} from "@openbot/contracts/ui-blocks";
-import type { AgentProfile } from "@openbot/ui/data";
-import { MarkdownMessageText } from "@openbot/ui/features/conversation/MarkdownMessageText";
-import { UiBlockingBlock } from "@openbot/ui/features/conversation/ui-blocks/UiBlockingBlock";
-import { useText } from "@openbot/ui/text";
+} from "@openownbot/contracts/ui-blocks";
+import type { AgentProfile } from "@openownbot/ui/data";
+import { MarkdownMessageText } from "@openownbot/ui/features/conversation/MarkdownMessageText";
+import { UiBlockingBlock } from "@openownbot/ui/features/conversation/ui-blocks/UiBlockingBlock";
+import { useText } from "@openownbot/ui/text";
 import { createSignal, onCleanup } from "solid-js";
 import type { PromptAnswerOptions } from "./conversation-types";
 
