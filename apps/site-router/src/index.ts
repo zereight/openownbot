@@ -233,7 +233,7 @@ function hasBody(object: R2Object | R2ObjectBody): object is R2ObjectBody {
 }
 
 function isHostedSiteHostname(hostname: string): boolean {
-  return /^[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.openownbot\.site$/u.test(hostname);
+  return /^[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.openbot\.site$/u.test(hostname);
 }
 
 function requestPath(pathname: string): string | null {

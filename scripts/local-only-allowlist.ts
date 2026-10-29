@@ -65,14 +65,14 @@ function dynamicDial(path: string, note: string): AllowEntry {
   return { rule: "dynamic-dial", path, note };
 }
 
-const SITE = /^https:\/\/openownbot\.run$/u;
-const CHANGELOG = /^https:\/\/openownbot\.run\/changelog$/u;
-const GUIDES = /^https:\/\/openownbot\.run\/guides$/u;
-const DISCORD = /^https:\/\/discord\.openownbot\.run$/u;
-const INVITE_PLACEHOLDER = /^https:\/\/openownbot\.run\/join\?…$/u;
-const HOSTNAME_SUFFIX = /^\.openownbot\.site$/u;
-const PODSPEC_HOMEPAGE = /^s\.homepage\s+= 'https:\/\/openownbot\.run'$/u;
-const ANALYTICS_API = /^https:\/\/analytics\.openownbot\.run\/api$/u;
+const SITE = /^https:\/\/openbot\.run$/u;
+const CHANGELOG = /^https:\/\/openbot\.run\/changelog$/u;
+const GUIDES = /^https:\/\/openbot\.run\/guides$/u;
+const DISCORD = /^https:\/\/discord\.openbot\.run$/u;
+const INVITE_PLACEHOLDER = /^https:\/\/openbot\.run\/join\?…$/u;
+const HOSTNAME_SUFFIX = /^\.openbot\.site$/u;
+const PODSPEC_HOMEPAGE = /^s\.homepage\s+= 'https:\/\/openbot\.run'$/u;
+const ANALYTICS_API = /^https:\/\/analytics\.openbot\.run\/api$/u;
 
 const GLOBAL_WEBSOCKET =
   "Uses the global WebSocket, which installLocalOnlyGuard replaces. The URL is a remote server that the user chose, and an OpenOwnBot host is refused there.";
@@ -122,7 +122,7 @@ export const LOCAL_ONLY_ALLOWLIST: readonly AllowEntry[] = [
     "not-fetched",
     "The origin of the share links that the app builds and recognises.",
   ),
-  mention("packages/contracts/src/hosted-servers.ts", /^mailto:hello@openownbot\.run\?subject=$/u, "user-opened"),
+  mention("packages/contracts/src/hosted-servers.ts", /^mailto:hello@openbot\.run\?subject=$/u, "user-opened"),
   mention(
     "packages/contracts/src/invite-links.ts",
     SITE,
@@ -131,20 +131,20 @@ export const LOCAL_ONLY_ALLOWLIST: readonly AllowEntry[] = [
   ),
   mention(
     "packages/contracts/src/invite-links.ts",
-    /^https:\/\/api\.openownbot\.run$/u,
+    /^https:\/\/api\.openbot\.run$/u,
     "refused",
     "The default account service of the mobile app. Signing in is a user action, and the mobile guard refuses it.",
   ),
   mention("packages/contracts/src/ipc-conversation-events.ts", HOSTNAME_SUFFIX, "not-fetched", "Hostname validation."),
   mention(
     "packages/contracts/src/local-only.ts",
-    /^openownbot\.run$/u,
+    /^openbot\.run$/u,
     "not-fetched",
     "The list of services that the guard refuses.",
   ),
   mention(
     "packages/contracts/src/local-only.ts",
-    /^openownbot\.site$/u,
+    /^openbot\.site$/u,
     "not-fetched",
     "The list of services that the guard refuses.",
   ),
@@ -163,27 +163,27 @@ export const LOCAL_ONLY_ALLOWLIST: readonly AllowEntry[] = [
   ),
   mention(
     "packages/team-client/src/remote-directory.ts",
-    /^https:\/\/api\.openownbot\.run$/u,
+    /^https:\/\/api\.openbot\.run$/u,
     "not-fetched",
     "Compared with the origin of an invite. The request goes to the configured API URL.",
   ),
   dynamicDial("packages/team-client/src/remote-peer.ts", RENDERER_SIGNAL_SOCKET),
   mention(
     "packages/telemetry/src/transport.ts",
-    /^https:\/\/analytics\.openownbot\.run\/api\/track$/u,
+    /^https:\/\/analytics\.openbot\.run\/api\/track$/u,
     "refused",
     "The default endpoint. Every caller is gated: application-services.ts, renderer error-reports.ts, the web build by its origin check, and mobile failure-reports.ts.",
   ),
   mention("packages/ui/src/features/servers/JoinServerDialog.tsx", INVITE_PLACEHOLDER, "not-fetched"),
   mention(
     "src/backend/agent/hosted-site-coordinator.ts",
-    /^ from openownbot\.site\.$/u,
+    /^ from openbot\.site\.$/u,
     "not-fetched",
     "The text of an approval prompt.",
   ),
   mention(
     "src/backend/agent/hosted-site-coordinator.ts",
-    /^ as a public site on openownbot\.site\.$/u,
+    /^ as a public site on openbot\.site\.$/u,
     "not-fetched",
     "The text of an approval prompt.",
   ),
@@ -191,7 +191,7 @@ export const LOCAL_ONLY_ALLOWLIST: readonly AllowEntry[] = [
   mention("src/backend/mcp-oauth-provider.ts", SITE, "gated", "The client metadata leaves the URLs out."),
   mention(
     "src/backend/mcp-oauth-provider.ts",
-    /^https:\/\/openownbot\.run\/icon-512x512\.png$/u,
+    /^https:\/\/openbot\.run\/icon-512x512\.png$/u,
     "gated",
     "The client metadata leaves the URLs out.",
   ),
@@ -201,11 +201,11 @@ export const LOCAL_ONLY_ALLOWLIST: readonly AllowEntry[] = [
     "gated",
     "HostAnalytics takes `enabled` from analyticsEnabled in application-services.ts.",
   ),
-  mention("src/main/application-services.ts", /^https:\/\/api\.openownbot\.run$/u, "gated"),
+  mention("src/main/application-services.ts", /^https:\/\/api\.openbot\.run$/u, "gated"),
   dynamicDial("src/main/browser-view-client.ts", GLOBAL_WEBSOCKET),
-  mention("src/main/content-security-policy.ts", /^ https:\/\/analytics\.openownbot\.run$/u, "gated"),
-  mention("src/main/content-security-policy.ts", /^ wss:\/\/\*\.openownbot\.run$/u, "gated"),
-  mention("src/main/content-security-policy.ts", /^ https:\/\/\*\.openownbot\.run$/u, "gated"),
+  mention("src/main/content-security-policy.ts", /^ https:\/\/analytics\.openbot\.run$/u, "gated"),
+  mention("src/main/content-security-policy.ts", /^ wss:\/\/\*\.openbot\.run$/u, "gated"),
+  mention("src/main/content-security-policy.ts", /^ https:\/\/\*\.openbot\.run$/u, "gated"),
   bypass("src/main/cua-driver-action-tap.ts", "net-connect", LOCAL_SOCKET),
   bypass("src/main/cua-driver-daemon-client.ts", "net-connect", LOCAL_SOCKET),
   bypass("src/main/cua-driver-runtime.ts", "net-connect", LOCAL_SOCKET),
@@ -224,7 +224,7 @@ export const LOCAL_ONLY_ALLOWLIST: readonly AllowEntry[] = [
   ),
   bypass("src/main/remote-screen-gateway.ts", "http-request", LOCAL_SUNSHINE),
   dynamicDial("src/main/remote-server-event-stream.ts", GLOBAL_WEBSOCKET),
-  mention("src/main/routine-feed-ics.ts", /^@routines\.openownbot\.run$/u, "not-fetched", "The UID of a calendar event."),
+  mention("src/main/routine-feed-ics.ts", /^@routines\.openbot\.run$/u, "not-fetched", "The UID of a calendar event."),
   bypass(
     "src/main/signal-ingress.ts",
     "ws",
@@ -252,13 +252,13 @@ export const LOCAL_ONLY_ALLOWLIST: readonly AllowEntry[] = [
   ),
   mention(
     "src/renderer/src/features/agent-templates/agent-template-card.tsx",
-    /^openownbot\.run$/u,
+    /^openbot\.run$/u,
     "not-fetched",
     "Drawn onto the share image.",
   ),
   mention(
     "src/renderer/src/features/settings/marketplace-plugin-catalog.ts",
-    /^https:\/\/openownbot\.run\/plugins\/[a-z0-9-]+$/u,
+    /^https:\/\/openbot\.run\/plugins\/[a-z0-9-]+$/u,
     "not-fetched",
     "The `shareUrl` of a catalog entry, which the user copies.",
   ),

@@ -114,7 +114,7 @@ describe("mention rule", () => {
 
   it("accepts a unit that an entry names and still reports another unit in the file", () => {
     const allowlist: AllowEntry[] = [
-      { rule: "mention", path: PLANTED_PATH, unit: /^https:\/\/x\.openownbot\.run\/v1\/ping$/u, reason: "refused" },
+      { rule: "mention", path: PLANTED_PATH, unit: /^https:\/\/x\.openbot\.run\/v1\/ping$/u, reason: "refused" },
     ];
     const text = 'fetch("https://x.openbot.run/v1/ping");\nfetch("https://x.openbot.run/v1/other");\n';
 
@@ -125,7 +125,7 @@ describe("mention rule", () => {
 
   it("does not let an entry for one path admit the same unit in another path", () => {
     const allowlist: AllowEntry[] = [
-      { rule: "mention", path: "src/main/other.ts", unit: /^https:\/\/x\.openownbot\.run$/u, reason: "refused" },
+      { rule: "mention", path: "src/main/other.ts", unit: /^https:\/\/x\.openbot\.run$/u, reason: "refused" },
     ];
 
     expect(checkFiles(plant('export const a = "https://x.openbot.run";'), allowlist, [])).toEqual([
@@ -142,7 +142,7 @@ describe("mention rule", () => {
 describe("stale entries", () => {
   it("fails an entry whose unit is gone from the file", () => {
     const allowlist: AllowEntry[] = [
-      { rule: "mention", path: PLANTED_PATH, unit: /^https:\/\/x\.openownbot\.run$/u, reason: "gated" },
+      { rule: "mention", path: PLANTED_PATH, unit: /^https:\/\/x\.openbot\.run$/u, reason: "gated" },
     ];
 
     expect(checkFiles(plant("export const a = 1;"), allowlist, [])).toEqual([
@@ -170,7 +170,7 @@ describe("stale entries", () => {
 
   it("reports the new URL and the old entry when a URL changes", () => {
     const allowlist: AllowEntry[] = [
-      { rule: "mention", path: PLANTED_PATH, unit: /^https:\/\/x\.openownbot\.run$/u, reason: "gated" },
+      { rule: "mention", path: PLANTED_PATH, unit: /^https:\/\/x\.openbot\.run$/u, reason: "gated" },
     ];
 
     expect(checkFiles(plant('export const a = "https://y.openbot.run";'), allowlist, [])).toEqual([
@@ -195,7 +195,7 @@ describe("stale entries", () => {
 describe("allowlist shape", () => {
   it("rejects a glob path", () => {
     const allowlist: AllowEntry[] = [
-      { rule: "mention", path: "src/main/*.ts", unit: /^https:\/\/x\.openownbot\.run$/u, reason: "gated" },
+      { rule: "mention", path: "src/main/*.ts", unit: /^https:\/\/x\.openbot\.run$/u, reason: "gated" },
     ];
 
     expect(checkFiles([], allowlist, [])).toContainEqual({
@@ -206,9 +206,9 @@ describe("allowlist shape", () => {
   });
 
   it.each([
-    ["a start anchor", /https:\/\/x\.openownbot\.run$/u],
-    ["an end anchor", /^https:\/\/x\.openownbot\.run/u],
-    ["both anchors", /openownbot\.run/u],
+    ["a start anchor", /https:\/\/x\.openbot\.run$/u],
+    ["an end anchor", /^https:\/\/x\.openbot\.run/u],
+    ["both anchors", /openbot\.run/u],
   ])("rejects a pattern without %s", (_name, unit) => {
     const allowlist: AllowEntry[] = [{ rule: "mention", path: PLANTED_PATH, unit, reason: "gated" }];
 
