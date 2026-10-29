@@ -33,7 +33,10 @@ export interface SettingsPort {
     OpenOwnBotDesktopApi["dynamicIsland"],
     "getBuiltInDisplayGeometry" | "getPreference" | "setPreference"
   >;
-  notifications: Pick<OpenOwnBotDesktopApi["notifications"], "getPreference" | "openSettings" | "setPreference" | "test">;
+  notifications: Pick<
+    OpenOwnBotDesktopApi["notifications"],
+    "getPreference" | "openSettings" | "setPreference" | "test"
+  >;
   update: Pick<OpenOwnBotDesktopApi["update"], "getPreference" | "onPreference" | "setPreference">;
 }
 

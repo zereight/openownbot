@@ -389,7 +389,10 @@ export class OpenOwnBotToolRouter {
               params = resolved;
             }
           }
-          if (params.namespace === "openownbot" && (params.tool === "history_search" || params.tool === "history_read")) {
+          if (
+            params.namespace === "openownbot" &&
+            (params.tool === "history_search" || params.tool === "history_read")
+          ) {
             const scope = this.#conversation.historyScope(params.threadId, client);
             if (!scope || this.#channels.store.channelForThread(scope.threadId)) {
               client.respond(request.id, openOwnBotToolFailure(sourceText("error.agent.historyUnavailable")));
@@ -691,7 +694,10 @@ export class OpenOwnBotToolRouter {
    * headers can hold secrets.
    */
 
-  readonly #readAgent = Effect.fn("OpenOwnBotToolRouter.readAgent")(function* (this: OpenOwnBotToolRouter, agentId: string) {
+  readonly #readAgent = Effect.fn("OpenOwnBotToolRouter.readAgent")(function* (
+    this: OpenOwnBotToolRouter,
+    agentId: string,
+  ) {
     const agent = yield* toolStep(() => this.#requireAgent(agentId));
     const computerUse = agentComputerUseEnabled(agent);
     let skills: unknown[] | undefined;
@@ -1189,7 +1195,8 @@ export class OpenOwnBotToolRouter {
     if (!parsed.success) return openOwnBotToolFailure(profileToolErrorMessage(parsed.error));
     const args = parsed.data;
     const preview = this.#visualPreview;
-    if (!preview) return openOwnBotToolFailure("This OpenOwnBot cannot draw a page. Call html_render without a preview.");
+    if (!preview)
+      return openOwnBotToolFailure("This OpenOwnBot cannot draw a page. Call html_render without a preview.");
     return yield* preview
       .capture({
         html: args.html,
@@ -1433,7 +1440,8 @@ export class OpenOwnBotToolRouter {
     const display = capture.displayId
       ? sources.displays.find(({ id }) => id === capture.displayId)
       : sources.displays.find(({ primary }) => primary);
-    if (capture.displayId && !display) return openOwnBotToolFailure(sourceText("error.agent.screenCaptureDisplayMissing"));
+    if (capture.displayId && !display)
+      return openOwnBotToolFailure(sourceText("error.agent.screenCaptureDisplayMissing"));
     return display?.name
       ? sourceText("status.agent.screenCaptureDisplay", { name: display.name })
       : sourceText("status.agent.screenCaptureScreen");

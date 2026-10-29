@@ -274,10 +274,13 @@ try {
   // 11. Text typed in a new thread and not sent stays when a turn of the agent's own chat ends, after
   // the agent's own chat opens and the thread opens again, and after a reload (#3448).
   const unsent = `Unsent ${crypto.randomUUID().slice(0, 4)}`;
-  await page.evaluate((input) => window.openownbot.agent.sendMessage({ ...input, clientMessageId: crypto.randomUUID() }), {
-    agentId,
-    text: LONG_PROMPT,
-  });
+  await page.evaluate(
+    (input) => window.openownbot.agent.sendMessage({ ...input, clientMessageId: crypto.randomUUID() }),
+    {
+      agentId,
+      text: LONG_PROMPT,
+    },
+  );
   await button(english("conversation.threads.new")).first().click();
   const unsentComposer = page.getByRole("textbox", {
     name: english("conversation.threads.view.newPlaceholder", { name: agent.name }),

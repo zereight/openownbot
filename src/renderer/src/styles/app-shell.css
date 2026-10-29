@@ -430,8 +430,8 @@
 /* A fast search ends before the delay, so the spinner does not flash. */
 .global-search-status {
   min-height: var(--openownbot-control-lg);
-  animation: global-search-fade-in var(--openownbot-duration-normal) var(--openownbot-ease-out) var(--openownbot-duration-fast)
-    both;
+  animation: global-search-fade-in var(--openownbot-duration-normal) var(--openownbot-ease-out)
+    var(--openownbot-duration-fast) both;
 }
 
 .global-search-empty,
@@ -2586,7 +2586,8 @@ textarea {
   font-size: var(--openownbot-text-sm);
   font-weight: 540;
   transition-property: scale, background-color, color;
-  transition-duration: var(--openownbot-duration-normal), var(--openownbot-duration-hover), var(--openownbot-duration-hover);
+  transition-duration:
+    var(--openownbot-duration-normal), var(--openownbot-duration-hover), var(--openownbot-duration-hover);
   transition-timing-function: ease-out;
 }
 
@@ -2709,7 +2710,8 @@ textarea {
   background: transparent;
   color: var(--openownbot-text-secondary);
   transition-property: scale, background-color, box-shadow;
-  transition-duration: var(--openownbot-duration-normal), var(--openownbot-duration-hover), var(--openownbot-duration-hover);
+  transition-duration:
+    var(--openownbot-duration-normal), var(--openownbot-duration-hover), var(--openownbot-duration-hover);
   transition-timing-function: ease-out;
 }
 

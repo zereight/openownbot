@@ -44,7 +44,10 @@ import {
   PROVIDERS_V5_RUNTIME_PROVIDERS,
 } from "@openownbot/contracts/team-protocol/providers-v5";
 import { PROVIDERS_V8_CAPABILITY, PROVIDERS_V8_ROUTES } from "@openownbot/contracts/team-protocol/providers-v8";
-import { SIGN_IN_RELAY_CAPABILITY, SIGN_IN_RELAY_PROVIDERS } from "@openownbot/contracts/team-protocol/sign-in-relay-v1";
+import {
+  SIGN_IN_RELAY_CAPABILITY,
+  SIGN_IN_RELAY_PROVIDERS,
+} from "@openownbot/contracts/team-protocol/sign-in-relay-v1";
 import type { MobileTextKey } from "@openownbot/i18n/mobile";
 import {
   cancelProviderCodeLogin,

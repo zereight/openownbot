@@ -3,7 +3,11 @@
 // from the contract; main rechecks on save, so a drifted copy would pass the form and fail save.
 
 import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
-import type { CustomProviderSummary, SaveCustomProviderInput, UpdateCustomProviderInput } from "@openownbot/contracts/ipc";
+import type {
+  CustomProviderSummary,
+  SaveCustomProviderInput,
+  UpdateCustomProviderInput,
+} from "@openownbot/contracts/ipc";
 import {
   AGENT_PROVIDERS,
   CUSTOM_PROVIDER_ID_PATTERN,

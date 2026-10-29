@@ -977,7 +977,10 @@ async function main(): Promise<void> {
       true,
     );
     await runCauseEffect(browser.snapshot(v2Tab.id));
-    const noDomRefs = await v2Contents.executeJavaScript("document.querySelector('[data-openownbot-ref]') === null", true);
+    const noDomRefs = await v2Contents.executeJavaScript(
+      "document.querySelector('[data-openownbot-ref]') === null",
+      true,
+    );
     if (noDomRefs !== true) throw new Error("V2 snapshot mutated the page DOM.");
     await runControlActions(browser, v2Tab.id, v2Contents);
     await runKeyboardScenario(browser, origin, temporaryRoot);

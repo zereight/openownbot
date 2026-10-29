@@ -1424,7 +1424,9 @@ export function ConversationTimeline() {
 }
 
 const ApprovalCard = lazy(() =>
-  import("@openownbot/ui/features/conversation/ConversationPrompts").then((module) => ({ default: module.ApprovalCard })),
+  import("@openownbot/ui/features/conversation/ConversationPrompts").then((module) => ({
+    default: module.ApprovalCard,
+  })),
 );
 const QuestionPromptBubble = lazy(() =>
   import("@openownbot/ui/components/QuestionPromptBubble").then((module) => ({ default: module.QuestionPromptBubble })),

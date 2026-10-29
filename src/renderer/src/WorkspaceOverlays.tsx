@@ -1,4 +1,9 @@
-import { type CentralAuthUser, LOCAL_SERVER_ID, type RoutineFields, type ServerSummary } from "@openownbot/contracts/ipc";
+import {
+  type CentralAuthUser,
+  LOCAL_SERVER_ID,
+  type RoutineFields,
+  type ServerSummary,
+} from "@openownbot/contracts/ipc";
 import { BROWSER_PROFILES_CAPABILITY } from "@openownbot/contracts/team-protocol/browser-profiles-v1";
 import { VAULT_CAPABILITY } from "@openownbot/contracts/team-protocol/vault-v1";
 import { classifyFailure } from "@openownbot/telemetry";

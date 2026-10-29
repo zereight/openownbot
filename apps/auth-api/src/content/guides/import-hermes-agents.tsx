@@ -11,19 +11,20 @@ export function ImportHermesAgents() {
     <>
       <p>
         You can move your Hermes Agent setup into OpenOwnBot without rebuilding every agent from scratch. Each Hermes
-        profile becomes an OpenOwnBot agent, with its own instructions, saved memories and custom skills where available.
+        profile becomes an OpenOwnBot agent, with its own instructions, saved memories and custom skills where
+        available.
       </p>
 
       <p>
-        OpenOwnBot shows you what it found before you import. You choose the profiles to bring over, check which items will
-        move and allow any optional items you want to include. Your original Hermes profiles stay where they are.
+        OpenOwnBot shows you what it found before you import. You choose the profiles to bring over, check which items
+        will move and allow any optional items you want to include. Your original Hermes profiles stay where they are.
       </p>
 
       <h2>Before you start</h2>
 
       <p>
-        Update OpenOwnBot and decide where your imported agents should live. For the folder method below, use the OpenOwnBot
-        desktop app on the same computer as Hermes and select that computer as your destination.
+        Update OpenOwnBot and decide where your imported agents should live. For the folder method below, use the
+        OpenOwnBot desktop app on the same computer as Hermes and select that computer as your destination.
       </p>
 
       <p>
@@ -85,8 +86,8 @@ export function ImportHermesAgents() {
       <h3>Option 1: Read this computer</h3>
 
       <p>
-        Select <strong>Read the Hermes folder</strong>. OpenOwnBot reads the profiles it finds without changing the Hermes
-        folder.
+        Select <strong>Read the Hermes folder</strong>. OpenOwnBot reads the profiles it finds without changing the
+        Hermes folder.
       </p>
       <ArticleImage
         src={readFolder}
@@ -109,8 +110,8 @@ export function ImportHermesAgents() {
       <h3>Option 2: Install with a command</h3>
 
       <p>
-        This option adds the OpenOwnBot export skill to Hermes. It is useful when Hermes runs on another computer, or when
-        you want to import through the browser or into a joined OpenOwnBot server.
+        This option adds the OpenOwnBot export skill to Hermes. It is useful when Hermes runs on another computer, or
+        when you want to import through the browser or into a joined OpenOwnBot server.
       </p>
 
       <p>
@@ -157,8 +158,8 @@ export function ImportHermesAgents() {
       </p>
 
       <p>
-        Save it at <code>~/.hermes/skills/openownbot-export/SKILL.md</code>. If your Hermes installation uses a different
-        home folder, put it in that folder under <code>skills/openownbot-export/SKILL.md</code>. Create the{" "}
+        Save it at <code>~/.hermes/skills/openownbot-export/SKILL.md</code>. If your Hermes installation uses a
+        different home folder, put it in that folder under <code>skills/openownbot-export/SKILL.md</code>. Create the{" "}
         <code>openownbot-export</code> folder if needed.
       </p>
 
@@ -204,9 +205,9 @@ export function ImportHermesAgents() {
       <h3>If you read the Hermes folder</h3>
 
       <p>
-        Use the checkbox beside each profile to choose which agents you want in OpenOwnBot. You can start with one profile
-        and bring over the others later. The default profile appears as <strong>Hermes</strong>; named profiles appear
-        separately.
+        Use the checkbox beside each profile to choose which agents you want in OpenOwnBot. You can start with one
+        profile and bring over the others later. The default profile appears as <strong>Hermes</strong>; named profiles
+        appear separately.
       </p>
 
       <p>
@@ -266,8 +267,8 @@ export function ImportHermesAgents() {
       </p>
 
       <p>
-        A ZIP import creates separate agents. If a name already exists, OpenOwnBot asks you to confirm the duplicate when
-        you start the import. It does not offer the folder method's linked-profile update.
+        A ZIP import creates separate agents. If a name already exists, OpenOwnBot asks you to confirm the duplicate
+        when you start the import. It does not offer the folder method's linked-profile update.
       </p>
 
       <h2>4. Import the selected agents</h2>
@@ -292,8 +293,8 @@ export function ImportHermesAgents() {
 
       <p>
         If you read the same Hermes folder again later, OpenOwnBot recognizes profiles it imported before.{" "}
-        <strong>Update it</strong> updates the linked agent while keeping its OpenOwnBot chats. <strong>Leave it</strong>{" "}
-        keeps that agent as it is.
+        <strong>Update it</strong> updates the linked agent while keeping its OpenOwnBot chats.{" "}
+        <strong>Leave it</strong> keeps that agent as it is.
       </p>
 
       <h2>5. Check the agent before its first task</h2>
@@ -331,13 +332,13 @@ export function ImportHermesAgents() {
       <h2>What stays in Hermes?</h2>
 
       <p>
-        Full chat history stays in Hermes. OpenOwnBot brings over saved memory entries, subject to its memory limits. Read
-        any warnings to see what could not be included.
+        Full chat history stays in Hermes. OpenOwnBot brings over saved memory entries, subject to its memory limits.
+        Read any warnings to see what could not be included.
       </p>
 
       <p>
-        Credential files and login sessions are not transferred. Reconnect providers and services in OpenOwnBot. Also check
-        any sensitive information you may have written into your own instructions or memories.
+        Credential files and login sessions are not transferred. Reconnect providers and services in OpenOwnBot. Also
+        check any sensitive information you may have written into your own instructions or memories.
       </p>
 
       <p>

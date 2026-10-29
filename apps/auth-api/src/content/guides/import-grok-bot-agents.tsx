@@ -8,8 +8,8 @@ export function ImportGrokBotAgents() {
     <>
       <p>
         You can bring your Grok Bot agents into OpenOwnBot without rebuilding their setup one by one. An export agent in
-        Grok Bot packs the agents you choose into a ZIP file. OpenOwnBot reads that file, shows a preview and creates the
-        selected agents.
+        Grok Bot packs the agents you choose into a ZIP file. OpenOwnBot reads that file, shows a preview and creates
+        the selected agents.
       </p>
 
       <p>
@@ -45,8 +45,8 @@ export function ImportGrokBotAgents() {
 
       <p>
         The page shows the export instructions and a card for <strong>OpenOwnBot export</strong>. Select{" "}
-        <strong>Open the export agent</strong>. This opens the Grok Bot page for <strong>Migrator by OpenOwnBot</strong>,
-        the agent prepared for this job.
+        <strong>Open the export agent</strong>. This opens the Grok Bot page for <strong>Migrator by OpenOwnBot</strong>
+        , the agent prepared for this job.
       </p>
 
       <p>
@@ -180,13 +180,13 @@ export function ImportGrokBotAgents() {
       <h2>If the import does not work</h2>
 
       <p>
-        If you cannot find the Grok Bot source, check that OpenOwnBot is up to date and that you opened the settings of the
-        intended server.
+        If you cannot find the Grok Bot source, check that OpenOwnBot is up to date and that you opened the settings of
+        the intended server.
       </p>
 
       <p>
-        If the ZIP is rejected, ask the export agent to rebuild it using the OpenOwnBot export skill. It needs the OpenOwnBot
-        import format; a general backup of the Grok Bot workspace is not the same file.
+        If the ZIP is rejected, ask the export agent to rebuild it using the OpenOwnBot export skill. It needs the
+        OpenOwnBot import format; a general backup of the Grok Bot workspace is not the same file.
       </p>
 
       <p>

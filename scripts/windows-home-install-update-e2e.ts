@@ -291,7 +291,10 @@ async function newInstallerMovesTheInstallation(): Promise<void> {
     result.registration.uninstallString?.includes(defaultFolder) === true,
     "The uninstall entry does not name the default folder.",
   );
-  check(result.loginItem === `"${join(defaultFolder, "OpenOwnBot.exe")}"`, "The login item does not name the new copy.");
+  check(
+    result.loginItem === `"${join(defaultFolder, "OpenOwnBot.exe")}"`,
+    "The login item does not name the new copy.",
+  );
 }
 
 let failure: unknown = null;

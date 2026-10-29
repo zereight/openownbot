@@ -91,7 +91,10 @@ export function agentFolderIpcHandlers({
    */
   async function isProtected(path: string, roots: readonly string[]): Promise<boolean> {
     // The shared folder is in the OpenOwnBot folder, beside the agent workspaces.
-    const [openownbot, userData] = await Promise.all([realFolder(dirname(service.sharedRoot)), realFolder(userDataPath)]);
+    const [openownbot, userData] = await Promise.all([
+      realFolder(dirname(service.sharedRoot)),
+      realFolder(userDataPath),
+    ]);
     return (
       parse(path).root === path ||
       folderInside(userData, path) ||

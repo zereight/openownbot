@@ -35,7 +35,11 @@ import { PROVIDERS_V8_ROUTES } from "@openownbot/contracts/team-protocol/provide
 // them through their own transport, so the path, body and decoding of each request are here once.
 // The host answers only an owner or admin; a member gets a refusal, which the transport rejects.
 
-import { type AgentProviderRef, isAgentProviderRef, type ManagedProviderId } from "@openownbot/contracts/agent-providers";
+import {
+  type AgentProviderRef,
+  isAgentProviderRef,
+  type ManagedProviderId,
+} from "@openownbot/contracts/agent-providers";
 import { parseHostedSiteList } from "@openownbot/contracts/hosted-sites";
 import {
   type AccountUsage,
@@ -214,7 +218,10 @@ import type { PROVIDERS_V4_ROUTES } from "@openownbot/contracts/team-protocol/pr
 import { ROUTINE_RECOVERY_ROUTES } from "@openownbot/contracts/team-protocol/routine-recovery-v1";
 import { ROUTINE_RESULTS_ROUTES } from "@openownbot/contracts/team-protocol/routine-results-v1";
 import { SHARED_TABLES_ROUTES } from "@openownbot/contracts/team-protocol/shared-tables-v1";
-import { type SIGN_IN_RELAY_PROVIDERS, SIGN_IN_RELAY_ROUTES } from "@openownbot/contracts/team-protocol/sign-in-relay-v1";
+import {
+  type SIGN_IN_RELAY_PROVIDERS,
+  SIGN_IN_RELAY_ROUTES,
+} from "@openownbot/contracts/team-protocol/sign-in-relay-v1";
 import { SKILLS_ADMIN_ROUTES } from "@openownbot/contracts/team-protocol/skills-admin-v1";
 import { STORAGE_ROUTES } from "@openownbot/contracts/team-protocol/storage-v1";
 import type { TeamProtocolV2Json } from "@openownbot/contracts/team-protocol/v2";

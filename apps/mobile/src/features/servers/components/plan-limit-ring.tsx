@@ -13,7 +13,11 @@ const SPACING_RATIO = 4.5 / 34;
 const LOGO_RATIO = 12 / 34;
 
 function useToneColors(): Record<PlanLimitTone, string> {
-  const [success, warning, danger] = useCSSVariable(["--openownbot-success", "--openownbot-warning", "--openownbot-danger"]);
+  const [success, warning, danger] = useCSSVariable([
+    "--openownbot-success",
+    "--openownbot-warning",
+    "--openownbot-danger",
+  ]);
   return { neutral: String(success), warning: String(warning), critical: String(danger) };
 }
 

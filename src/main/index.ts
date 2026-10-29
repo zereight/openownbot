@@ -215,7 +215,9 @@ const inviteLinkOptions = {
 const developmentRemoteDebuggingPort = !app.isPackaged
   ? readDevelopmentRemoteDebuggingPort(process.env.OPENOWNBOT_DEV_REMOTE_DEBUGGING_PORT)
   : null;
-const analyticsCaptureUrl = !app.isPackaged ? readAnalyticsCaptureUrl(process.env.OPENOWNBOT_ANALYTICS_CAPTURE_URL) : null;
+const analyticsCaptureUrl = !app.isPackaged
+  ? readAnalyticsCaptureUrl(process.env.OPENOWNBOT_ANALYTICS_CAPTURE_URL)
+  : null;
 // Electron exposes FedCM without an account chooser, so every request fails with a NetworkError.
 // Sites such as Google Sign-In use FedCM when it exists and fall back to their popup when it does not.
 app.commandLine.appendSwitch("disable-features", "FedCm");
