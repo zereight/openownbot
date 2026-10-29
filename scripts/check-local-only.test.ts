@@ -132,7 +132,7 @@ describe("mention rule", () => {
       {
         path: "src/main/other.ts",
         line: null,
-        message: "stale allowlist entry (mention /^https:\\/\\/x\\.openownbot\\.run$/u) matches nothing: delete it.",
+        message: "stale allowlist entry (mention /^https:\\/\\/x\\.openbot\\.run$/u) matches nothing: delete it.",
       },
       { path: PLANTED_PATH, line: 1, message: notAllowed("https://x.openbot.run") },
     ]);
@@ -149,7 +149,7 @@ describe("stale entries", () => {
       {
         path: PLANTED_PATH,
         line: null,
-        message: "stale allowlist entry (mention /^https:\\/\\/x\\.openownbot\\.run$/u) matches nothing: delete it.",
+        message: "stale allowlist entry (mention /^https:\\/\\/x\\.openbot\\.run$/u) matches nothing: delete it.",
       },
     ]);
   });
@@ -177,7 +177,7 @@ describe("stale entries", () => {
       {
         path: PLANTED_PATH,
         line: null,
-        message: "stale allowlist entry (mention /^https:\\/\\/x\\.openownbot\\.run$/u) matches nothing: delete it.",
+        message: "stale allowlist entry (mention /^https:\\/\\/x\\.openbot\\.run$/u) matches nothing: delete it.",
       },
       { path: PLANTED_PATH, line: 1, message: notAllowed("https://y.openbot.run") },
     ]);
