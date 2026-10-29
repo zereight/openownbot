@@ -397,7 +397,7 @@ const HERMES_IMPORT_LINKS_FILE = "openbot-hermes-imports-v1.json";
  * the Electron binary - which is also the name macOS shows in the Privacy & Security panes, and the
  * reason a dev grant does not carry over to a packaged build.
  */
-const PACKAGED_BUNDLE_IDENTIFIER = "app.openbot.desktop";
+const PACKAGED_BUNDLE_IDENTIFIER = "app.openownbot.desktop";
 const DEVELOPMENT_BUNDLE_IDENTIFIER = "com.github.Electron";
 
 const TEARDOWN_ORDER = {
@@ -2836,7 +2836,7 @@ export async function createApplicationServices({
     logDirectory: join(app.getPath("userData"), "logs", "update"),
     // Squirrel.Mac only. The path is meaningless under a Linux or Windows home directory.
     ...(process.platform === "darwin"
-      ? { shipItDirectory: join(homedir(), "Library", "Caches", "app.openbot.desktop.ShipIt") }
+      ? { shipItDirectory: join(homedir(), "Library", "Caches", "app.openownbot.desktop.ShipIt") }
       : {}),
     updaterCacheDirectory,
   });

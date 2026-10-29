@@ -238,7 +238,7 @@ if (commandLineUserDataDirectory) {
 }
 app.setName("OpenOwnBot");
 app.enableSandbox();
-if (process.platform === "win32") app.setAppUserModelId("app.openbot.desktop");
+if (process.platform === "win32") app.setAppUserModelId("app.openownbot.desktop");
 // In development this waits for the process holding the lock to quit while a restart replaces
 // it; a packaged second launch still exits at once. Either way a launch without the lock must not
 // write into the files of the instance that runs.

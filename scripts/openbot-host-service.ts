@@ -102,7 +102,7 @@ export async function verifyHost(ops: HostAdminOperations): Promise<HostVerifica
       return false;
     }
   };
-  await check("OpenBot.app signature, ownership and permissions", ops.verifyApplication);
+  await check("OpenOwnBot.app signature, ownership and permissions", ops.verifyApplication);
   await check("Host executables, signatures and launchd definitions", ops.verifyInstallation);
   await check("LaunchDaemon loaded and running", ops.verifyDaemon);
   const registered: number[] = [];
@@ -301,7 +301,7 @@ function summarize(report: Omit<HostStatusReport, "summary">): string {
     case "stopping":
       return `Every tenant was idle. OpenBot is quitting; installation starts when all ${report.remainingProcesses} remaining bundle processes have exited.`;
     case "installing":
-      return `Replacing OpenBot.app with ${report.pendingVersion ?? "the staged release"}. Do not interrupt.`;
+      return `Replacing OpenOwnBot.app with ${report.pendingVersion ?? "the staged release"}. Do not interrupt.`;
     case "released":
       return `Version ${report.stateVersion ?? "unknown"} is installed. Waiting for tenant health reports${
         blocked.length ? `: ${names}` : "."

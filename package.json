@@ -1,7 +1,7 @@
 {
   "name": "openbot",
-  "productName": "OpenBot",
-  "desktopName": "openbot.desktop",
+  "productName": "OpenOwnBot",
+  "desktopName": "openownbot.desktop",
   "version": "0.52.0",
   "description": "A local-first multi-agent desktop workspace for Codex, Claude, and Grok.",
   "author": {

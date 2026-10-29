@@ -44,7 +44,7 @@ let
 
   # The AppImage's `AppRun` adds `--no-sandbox` when the system refuses an unprivileged user
   # namespace, and its desktop entry passes `--no-sandbox` too. OpenBot must keep the Electron sandbox
-  # (build/linux/openbot.apparmor), so the FHS environment starts the Electron binary directly.
+  # (build/linux/openownbot.apparmor), so the FHS environment starts the Electron binary directly.
   # Its libraries and the bundled cua-driver find the usual Linux paths there.
   contents = appimageTools.extract {
     inherit pname version src;

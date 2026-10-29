@@ -168,15 +168,17 @@ if (!isString(packageJson.version)) throw new Error("package.json version is mis
 const packagedManifest = JSON.parse(await readAsarFile(asarPath, "package.json"));
 if (!isDynamicRecord(packagedManifest)) throw new Error("The packaged package.json is not a JSON object.");
 expectEqual(packagedManifest.name, "openbot", "packaged name");
-expectEqual(packagedManifest.productName, "OpenBot", "packaged product name");
+expectEqual(packagedManifest.productName, "OpenOwnBot", "packaged product name");
 expectEqual(packagedManifest.version, packageJson.version, "packaged version");
 
 await assertElfMachine(executablePath);
 
 const appImages = existsSync("dist") ? await findAppImages() : [];
 for (const appImage of appImages) {
-  if (!appImage.startsWith(`OpenBot-${packageJson.version}-`)) {
-    throw new Error(`Unexpected AppImage name: ${appImage} (expected OpenBot-${packageJson.version}-<arch>.AppImage)`);
+  if (!appImage.startsWith(`OpenOwnBot-${packageJson.version}-`)) {
+    throw new Error(
+      `Unexpected AppImage name: ${appImage} (expected OpenOwnBot-${packageJson.version}-<arch>.AppImage)`,
+    );
   }
 }
 

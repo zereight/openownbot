@@ -53,7 +53,7 @@ sync_profile() {
   local excluded=(SingletonLock SingletonCookie SingletonSocket DevToolsActivePort openbot-central-auth-v1.bin)
   [ -d "$source" ] || { echo "실제 프로필이 없음: $source" >&2; return 1; }
   # pgrep은 이 셸에서 설치된 앱을 못 보므로 ps로도 확인함.
-  if ps -axo command | grep -q "^/Applications/OpenBot.app/Contents/MacOS/OpenBot" || profile_in_use "$source"; then
+  if ps -axo command | grep -q "^/Applications/OpenOwnBot.app/Contents/MacOS/OpenOwnBot" || profile_in_use "$source"; then
     echo "실제 OpenBot이 실행 중임. 먼저 완전히 종료(⌘Q)한 뒤 다시 실행할 것." >&2
     return 1
   fi
