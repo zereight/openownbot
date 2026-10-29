@@ -28,6 +28,8 @@ async function main(): Promise<void> {
     executable = resolvePackageBin(projectRoot, "vite");
     args = ["dev", ...extra];
     cwd = join(projectRoot, "apps/auth-api");
+    // Vite warns about extensionless imports in the config. CI sets the same variable.
+    process.env.VITE_CONFIG_NATIVE_IGNORE_WARNING = "true";
   } else if (mode === "remote") {
     args = ["run", "--cwd", join(projectRoot, "remote/api"), "dev", ...extra];
   } else if (mode === "deploy-test") {
