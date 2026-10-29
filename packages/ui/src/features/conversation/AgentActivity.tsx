@@ -23,7 +23,22 @@ export const AGENT_ACTIVITY_LABELS = [
   "Tiny gears are turning…",
   "Consulting the inner council…",
   "Cooking up something useful…",
+  "Rummaging through my notes…",
+  "Stretching before the heavy lifting…",
+  "Squinting at the details…",
+  "Asking my rubber duck…",
+  "Brewing a fresh idea…",
+  "Untangling the spaghetti…",
+  "Doing the math, twice…",
+  "Pretending this is easy…",
+  "Almost there, probably…",
+  "Warming up the brain cells…",
+  "Flipping through the manual…",
+  "Chewing on it…",
 ] as const;
+
+/** A turn takes a playful line when the draw is at or above this, so half of the turns do. */
+const PLAYFUL_SHARE_FROM = 0.5;
 
 const FACTUAL_ACTIVITY_LABELS = AGENT_ACTIVITY_LABELS.slice(0, 7);
 const PLAYFUL_ACTIVITY_LABELS = AGENT_ACTIVITY_LABELS.slice(7);
@@ -41,6 +56,18 @@ const AGENT_ACTIVITY_LABEL_KEYS = {
   "Tiny gears are turning…": "chat.activity.tinyGears",
   "Consulting the inner council…": "chat.activity.innerCouncil",
   "Cooking up something useful…": "chat.activity.cookingUp",
+  "Rummaging through my notes…": "chat.activity.rummaging",
+  "Stretching before the heavy lifting…": "chat.activity.stretching",
+  "Squinting at the details…": "chat.activity.squinting",
+  "Asking my rubber duck…": "chat.activity.rubberDuck",
+  "Brewing a fresh idea…": "chat.activity.brewing",
+  "Untangling the spaghetti…": "chat.activity.spaghetti",
+  "Doing the math, twice…": "chat.activity.mathTwice",
+  "Pretending this is easy…": "chat.activity.pretendEasy",
+  "Almost there, probably…": "chat.activity.almostThere",
+  "Warming up the brain cells…": "chat.activity.warmingUp",
+  "Flipping through the manual…": "chat.activity.manual",
+  "Chewing on it…": "chat.activity.chewing",
 } as const satisfies Record<AgentActivityLabel, AppTextKey>;
 
 /** The catalog key that renders `label` in the interface language. */
@@ -214,6 +241,6 @@ function pickDifferent<T>(items: readonly T[], previous: T | undefined, random: 
 
 function pickActivityLabel(previous: AgentActivityLabel | undefined, random: () => number): AgentActivityLabel {
   const tone = random();
-  const pool = Number.isFinite(tone) && tone >= 0.7 ? PLAYFUL_ACTIVITY_LABELS : FACTUAL_ACTIVITY_LABELS;
+  const pool = Number.isFinite(tone) && tone >= PLAYFUL_SHARE_FROM ? PLAYFUL_ACTIVITY_LABELS : FACTUAL_ACTIVITY_LABELS;
   return pickDifferent(pool, previous, random);
 }
