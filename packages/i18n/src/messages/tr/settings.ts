@@ -69,7 +69,6 @@ export const messages = {
   "settings.keepRemoteSessions.title": "Sunuculara hızlı bağlantı",
   "settings.keepRemoteSessions.description":
     "Katıldığınız sunuculara olan bağlantıyı açılışlar arasında koruyun. OpenOwnBot yaklaşık bir saniye daha hızlı başlar. OpenOwnBot'tan çıktığınızda OpenOwnBot hizmeti bağlantıyı kapatmaz.",
-  "settings.permissions.title": "İzinler",
   "settings.notifications.title": "Bildirimler",
   "settings.alerts.title": "Uyarılar",
   "settings.desktopNotifications.title": "Masaüstü bildirimleri",
@@ -119,11 +118,6 @@ export const messages = {
   "settings.notch.size.height": "Yükseklik",
   "settings.notch.size.previewNotch": "Yerleşik ekran",
   "settings.notch.size.previewIsland": "Harici ekran",
-  "settings.analytics.title": "Ürün analizlerini paylaş",
-  "settings.analytics.description":
-    "Hesap kimliğiniz ve e-postanız ile birlikte kullanım ve güvenilirlik meta verilerini OpenOwnBot'un kendi barındırdığı analizlerine gönderin.",
-  "settings.analytics.webDescription":
-    "Hesap kimliğiniz ve e-postanız ile birlikte kullanım ve güvenilirlik meta verilerini OpenOwnBot'un kendi barındırdığı analizlerine gönderin. Bu ayar bu tarayıcı için geçerlidir.",
   "settings.tab.general.title": "Genel",
   "settings.tab.general.description": "OpenOwnBot'un bu bilgisayarda nasıl davranacağını kontrol edin.",
   "settings.tab.notifications.title": "Bildirimler",

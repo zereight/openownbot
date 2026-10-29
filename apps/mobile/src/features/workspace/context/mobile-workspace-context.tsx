@@ -80,8 +80,6 @@ import * as Crypto from "expo-crypto";
 import { type PropsWithChildren, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { View } from "react-native";
 import { showFailureAlert } from "@/features/analytics/failure-reports";
-import { mobileAnalytics } from "@/features/analytics/mobile-analytics";
-import { trackWorkspaceActions } from "@/features/analytics/workspace-actions";
 import { useMobileSession } from "@/features/auth/context/mobile-session-context";
 import { decodeMobileBrowserTabs } from "@/features/browser/model/browser-tabs";
 import { MobileChannelStore } from "@/features/channels/model/channel-store";
@@ -1160,15 +1158,10 @@ export function MobileWorkspaceProvider({ children }: PropsWithChildren) {
         return { ...current, [serverId]: hide ? [...ids, agentId] : ids.filter((id) => id !== agentId) };
       };
       setHostHidden((current) => change(current, hidden));
-      const action = hidden ? "hide" : "unhide";
       void writeHostAgentHidden(teamApi(serverId), { agentId, hidden }).then(
-        (agents) => {
-          applyHostHidden(serverId, agents);
-          mobileAnalytics.track("conversation_action", { action, result: "succeeded" });
-        },
+        (agents) => applyHostHidden(serverId, agents),
         (error: unknown) => {
           if (!removedServers.current.has(serverId)) setHostHidden((current) => change(current, !hidden));
-          mobileAnalytics.track("conversation_action", { action, result: "failed" });
           const text = currentText();
           showFailureAlert(
             error,
@@ -1234,7 +1227,7 @@ export function MobileWorkspaceProvider({ children }: PropsWithChildren) {
       serversRef.current.find((server) => server.id === activeServerIdRef.current) ?? EMPTY_SERVER;
     const currentPinnedAgentIds = () =>
       (activeServerIdRef.current ? preferencesRef.current[activeServerIdRef.current]?.pinned : null) ?? NO_IDS;
-    const workspace: MobileWorkspaceActions = {
+    return {
       ...workflows,
       openBrowserView: browser.openBrowserView,
       controlBrowserTab: browser.controlBrowserTab,
@@ -1495,17 +1488,16 @@ export function MobileWorkspaceProvider({ children }: PropsWithChildren) {
           if (!hostHiddenRef.current[serverId]?.includes(agentId)) changeHostHidden(serverId, agentId, true);
           return;
         }
-        const saved = updatePreferences(serverId, (current) => ({
+        updatePreferences(serverId, (current) => ({
           ...current,
           hidden: [...new Set([...current.hidden, agentId])],
           pinned: current.pinned.filter((id) => id !== agentId),
         }));
-        mobileAnalytics.track("conversation_action", { action: "hide", result: saved ? "succeeded" : "failed" });
       },
       unhideAgent: (agentId) => {
         const serverId = currentActiveServer().id;
         // Restore removes the local hide too, so the agent shows again on this phone.
-        const saved = updatePreferences(serverId, (current) => ({
+        updatePreferences(serverId, (current) => ({
           ...current,
           hidden: current.hidden.filter((id) => id !== agentId),
         }));
@@ -1514,9 +1506,7 @@ export function MobileWorkspaceProvider({ children }: PropsWithChildren) {
           hostHiddenRef.current[serverId]?.includes(agentId)
         ) {
           changeHostHidden(serverId, agentId, false);
-          return;
         }
-        mobileAnalytics.track("conversation_action", { action: "unhide", result: saved ? "succeeded" : "failed" });
       },
       markAgentRead,
       markAllRead: async () => {
@@ -1591,10 +1581,6 @@ export function MobileWorkspaceProvider({ children }: PropsWithChildren) {
           : "error";
       },
     };
-    return trackWorkspaceActions(workspace, () => ({
-      agents: agentsRef.current,
-      pinnedAgentIds: currentPinnedAgentIds(),
-    }));
   }, [
     browser,
     workflows,

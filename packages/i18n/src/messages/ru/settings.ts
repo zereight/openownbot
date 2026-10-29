@@ -70,7 +70,6 @@ export const messages = {
   "settings.keepRemoteSessions.title": "Быстрое подключение к серверам",
   "settings.keepRemoteSessions.description":
     "Сохранять подключение к серверам между запусками. OpenOwnBot запускается примерно на секунду быстрее. При выходе из OpenOwnBot сервис OpenOwnBot не закрывает подключение.",
-  "settings.permissions.title": "Разрешения",
   "settings.notifications.title": "Уведомления",
   "settings.alerts.title": "Оповещения",
   "settings.desktopNotifications.title": "Уведомления на рабочем столе",
@@ -120,11 +119,6 @@ export const messages = {
   "settings.notch.size.height": "Высота",
   "settings.notch.size.previewNotch": "Встроенный дисплей",
   "settings.notch.size.previewIsland": "Внешний дисплей",
-  "settings.analytics.title": "Делиться аналитикой продукта",
-  "settings.analytics.description":
-    "Отправлять метаданные об использовании и надёжности вместе с ID аккаунта и почтой в собственную аналитику OpenOwnBot.",
-  "settings.analytics.webDescription":
-    "Отправлять метаданные об использовании и надёжности вместе с ID аккаунта и почтой в собственную аналитику OpenOwnBot. Настройка действует для этого браузера.",
   "settings.tab.general.title": "Основные",
   "settings.tab.general.description": "Как OpenOwnBot ведёт себя на этом компьютере.",
   "settings.tab.notifications.title": "Уведомления",

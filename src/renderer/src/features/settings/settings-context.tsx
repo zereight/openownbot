@@ -11,18 +11,13 @@ import { createEffect, createSignal, onSettled } from "solid-js";
 import { isActionSoundEnabled, readActionSoundTheme, setActionSoundChoice } from "../../action-sounds";
 import { actionToast } from "../../action-toast";
 import { readShowAgentSteps, setShowAgentSteps, useShowAgentSteps } from "../../agent-steps-preference";
-import { desktopAnalytics } from "../../analytics";
 import { isCompletionSoundEnabled, setCompletionSoundEnabled } from "../../completion-sound";
 import { usePlatform } from "../../platform";
 import { readSendShortcutMode, setSendShortcutMode, useSendShortcutMode } from "../../send-shortcut-preference";
 import { createSimpleContext } from "../../simple-context";
-import { useAuth } from "../account/account-context";
-import { useSetup } from "../onboarding/onboarding-context";
 import { settingsPort } from "./settings-port";
 import { isOpenSettingsShortcut } from "./settings-shortcut";
 import type { SettingsTab } from "./settings-tabs";
-
-const ANALYTICS_APP_VERSION_STORAGE_KEY = "openownbot:analytics-app-version";
 
 function sameExternalLinkTarget(left: ExternalLinkTarget, right: ExternalLinkTarget): boolean {
   return left.kind === right.kind && (left.kind !== "app" || right.kind !== "app" || left.path === right.path);
@@ -43,11 +38,9 @@ function showSaveFailure(error: unknown): void {
  * settings page and the skills marketplace.
  *
  * Ungated - every preference has a default the app runs on, so nothing waits
- * for the three reads below. `analyticsPreferenceLoaded()` is `null` until the
- * first of them resolves, which is what keeps analytics silent rather than
- * opted-in-by-default during startup.
+ * for the reads below.
  *
- * Three preferences, three owners in main: analytics, the updater and the
+ * Two preferences, two owners in main: the updater and the
  * Dynamic Island each persist their own, so `updateGeneralSettings` diffs the
  * incoming value field by field and calls only the owners whose fields moved.
  * Each call sets optimistically and reverts its own fields on failure, which is
@@ -57,11 +50,7 @@ const Settings = createSimpleContext({
   name: "Settings",
   init: () => {
     const platform = usePlatform();
-    const { appInfo, landingPreview } = platform;
-    const { centralAuth } = useAuth();
-    const { setupState } = useSetup();
 
-    const [analyticsPreferenceLoaded, setAnalyticsPreferenceLoaded] = createSignal<boolean | null>(null);
     /**
      * The state of the preference reads below. "failed" when one or more reads failed: the rows of
      * that read show defaults, not the saved values, so the settings page tells the user and offers
@@ -130,8 +119,6 @@ const Settings = createSimpleContext({
       autoApproveOverrides: {},
     });
     let appSettingsRestoreTarget: HTMLElement | null = null;
-    let analyticsOpened = false;
-    let analyticsVersionRecorded = false;
     let autoDownloadUpdatesChanged = false;
     let allowRemoteUpdatesChanged = false;
     let autoInstallUpdatesChanged = false;
@@ -145,42 +132,6 @@ const Settings = createSimpleContext({
     let keepRunningInBackgroundChanged = false;
     let keepAwakeChanged = false;
     let keepAwakeOnBatteryChanged = false;
-
-    createEffect(
-      () => ({
-        info: appInfo(),
-        setup: setupState(),
-        auth: centralAuth(),
-        analyticsEnabled: analyticsPreferenceLoaded(),
-      }),
-      ({ info, setup, auth, analyticsEnabled }) => {
-        if (analyticsEnabled === null) return;
-        if (landingPreview) return;
-        desktopAnalytics.setTrackingEnabled(analyticsEnabled);
-        desktopAnalytics.setUser(auth.status === "signed_in" ? auth.user : null);
-        if (!platform.appInfoLoadedFromHost() || !info || !setup || auth.status === "loading") return;
-        if (!desktopAnalytics.configure(info)) return;
-        if (!analyticsVersionRecorded) {
-          analyticsVersionRecorded = true;
-          try {
-            const previousVersion = window.localStorage.getItem(ANALYTICS_APP_VERSION_STORAGE_KEY);
-            if (previousVersion && previousVersion !== info.version) {
-              desktopAnalytics.track("app_updated", { from_version: previousVersion, to_version: info.version });
-            }
-            window.localStorage.setItem(ANALYTICS_APP_VERSION_STORAGE_KEY, info.version);
-          } catch {
-            // Version attribution is optional and must not block startup.
-          }
-        }
-        // A chat window is not another start of the app.
-        if (analyticsOpened || platform.chatWindow) return;
-        analyticsOpened = true;
-        desktopAnalytics.track("desktop_app_opened", {
-          setup_completed: setup.completed,
-          signed_in: auth.status === "signed_in",
-        });
-      },
-    );
 
     let dynamicIslandSaveCount = 0;
 
@@ -211,23 +162,6 @@ const Settings = createSimpleContext({
       }
       if (previous.soundFeedback !== value.soundFeedback || previous.soundTheme !== value.soundTheme) {
         setActionSoundChoice(value.soundFeedback ? value.soundTheme : "off");
-      }
-      if (previous.productAnalytics !== value.productAnalytics) {
-        desktopAnalytics.setTrackingEnabled(value.productAnalytics, { recordOptOut: true });
-        setAnalyticsPreferenceLoaded(value.productAnalytics);
-        void settingsPort()
-          .setAnalyticsPreference({ enabled: value.productAnalytics })
-          .then((preference) => {
-            desktopAnalytics.setTrackingEnabled(preference.enabled);
-            setAnalyticsPreferenceLoaded(preference.enabled);
-            setGeneralSettings((current) => ({ ...current, productAnalytics: preference.enabled }));
-          })
-          .catch((error: unknown) => {
-            desktopAnalytics.setTrackingEnabled(previous.productAnalytics);
-            setAnalyticsPreferenceLoaded(previous.productAnalytics);
-            setGeneralSettings((current) => ({ ...current, productAnalytics: previous.productAnalytics }));
-            showSaveFailure(error);
-          });
       }
       if (previous.autoDownloadUpdates !== value.autoDownloadUpdates) {
         autoDownloadUpdatesChanged = true;
@@ -466,23 +400,6 @@ const Settings = createSimpleContext({
       setPreferencesLoad("loading");
       void Promise.allSettled([
         settingsPort()
-          .getAnalyticsPreference()
-          .then(
-            (preference) => {
-              setAnalyticsPreferenceLoaded(preference.enabled);
-              setGeneralSettings((current) => ({ ...current, productAnalytics: preference.enabled }));
-            },
-            (error: unknown) => {
-              // Analytics stays off until a read or the user turns it on. A retry that fails again
-              // keeps the value that is already shown.
-              if (analyticsPreferenceLoaded() === null) {
-                setAnalyticsPreferenceLoaded(false);
-                setGeneralSettings((current) => ({ ...current, productAnalytics: false }));
-              }
-              throw error;
-            },
-          ),
-        settingsPort()
           .update.getPreference()
           .then((preference) => {
             // A toggle made before this read resolves has already been persisted, so the older value
@@ -591,7 +508,6 @@ const Settings = createSimpleContext({
     const openNotificationSettings = () => settingsPort().notifications.openSettings();
 
     return {
-      analyticsPreferenceLoaded,
       preferencesLoadFailed: () => preferencesLoad() === "failed",
       reloadPreferences: loadPreferences,
       generalSettings,

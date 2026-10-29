@@ -8,7 +8,6 @@ import type {
 } from "@openownbot/contracts/ipc";
 import { currentText } from "@openownbot/ui/text";
 import { createEffect, createMemo, createSignal, flush, onSettled } from "solid-js";
-import { desktopAnalytics } from "../../analytics";
 import { usePlatform } from "../../platform";
 import { createScopeGuard } from "../../scope-lifetime";
 import { createSimpleContext } from "../../simple-context";
@@ -100,7 +99,7 @@ const DirectMessages = createSimpleContext({
     // read. A rail page, such as Usage or Settings, covers the workspace content, so a conversation under it is not visible
     // however focused the window is.
     const conversationVisible = () => appFocused() && !windowPage.conversationCovered();
-    const { activeServer, activeServerId, activeServerSupportsCapability } = useServers();
+    const { activeServerId, activeServerSupportsCapability } = useServers();
     const { currentTeamMember, directPeople } = usePresence();
     const scopeIsCurrent = createScopeGuard();
 
@@ -278,35 +277,12 @@ const DirectMessages = createSimpleContext({
     ): Promise<{ message: DirectMessage; readError?: string }> {
       const memberId = activeDirectMemberId();
       if (!memberId) throw new Error(currentText().t("conversation.direct.noPerson"));
-      const analytics = desktopAnalytics.scope();
-      const serverKind = activeServer()?.kind ?? "unknown";
-      let message: DirectMessage;
-      try {
-        message = await conversationPort().servers.sendDirectMessage({
-          memberId,
-          text,
-          clientMessageId,
-        });
-      } catch (error) {
-        analytics.track("message_send", {
-          channel: "direct",
-          attachment_count: 0,
-          is_reply: false,
-          result: "failed",
-          failure_code: "send_failed",
-          server_kind: serverKind,
-        });
-        throw error;
-      }
-      mergeDirectMessage(memberId, message);
-      analytics.track("message_send", {
-        channel: "direct",
-        attachment_count: 0,
-        is_reply: false,
-        result: "succeeded",
-        delivery_count: 1,
-        server_kind: serverKind,
+      const message = await conversationPort().servers.sendDirectMessage({
+        memberId,
+        text,
+        clientMessageId,
       });
+      mergeDirectMessage(memberId, message);
       let readError: string | undefined;
       try {
         await markDirectMessagesRead(memberId, message.sequence);

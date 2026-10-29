@@ -163,7 +163,7 @@ export function DynamicIslandBridge() {
       // flight, and being superseded is exactly why that selection returns
       // false. Clearing unconditionally would delete the newer intent before
       // its own switch lands.
-      if (!(await selectServer(action.serverId, false)) && pendingIslandAction() === action) {
+      if (!(await selectServer(action.serverId)) && pendingIslandAction() === action) {
         setPendingIslandAction(null);
       }
       return;

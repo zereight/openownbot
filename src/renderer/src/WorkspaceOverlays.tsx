@@ -13,11 +13,9 @@ import type { CustomAgentSettingsApi } from "@openownbot/ui/features/custom-prov
 import { providerDiagnosticsText } from "@openownbot/ui/features/provider-diagnostics/provider-diagnostics";
 import { LeaveServerDialog } from "@openownbot/ui/features/servers/LeaveServerDialog";
 import { RestartServerDialog } from "@openownbot/ui/features/servers/RestartServerDialog";
-import type { HostedSiteDeleteResult } from "@openownbot/ui/features/settings/stores/hosted-sites-store";
 import { currentText } from "@openownbot/ui/text";
 import { createEffect, createMemo, Loading, Show, untrack } from "solid-js";
 import { actionToast } from "./action-toast";
-import { desktopAnalytics } from "./analytics";
 import { appPort } from "./app-port";
 import { useAuth } from "./features/account/account-context";
 import { useAgents } from "./features/agents/agents-context";
@@ -297,9 +295,6 @@ function HostedUpsell(props: AccountProps) {
       host={upsellHost()}
       busy={(agentId) => Boolean(activeTurns()[agentId])}
       openPlans={() => setAddServerOpen(true, "upsell")}
-      track={(action, entryPoint) =>
-        desktopAnalytics.track("hosted_server_upsell", { action, entry_point: entryPoint })
-      }
     />
   );
 }
@@ -739,7 +734,6 @@ function ServerSettings() {
               ? {
                   api: appPort().hostedSites,
                   onOpenSite: (url) => void appPort().openUrl(url),
-                  trackDelete: trackHostedSiteDelete,
                 }
               : undefined
           }
@@ -782,18 +776,6 @@ function ServerSettings() {
       )}
     </Show>
   );
-}
-
-/** The account that starts a deletion gets its result event, as the scope is taken at the start. */
-function trackHostedSiteDelete(): (result: HostedSiteDeleteResult) => void {
-  const analytics = desktopAnalytics.scope();
-  return (result) =>
-    analytics.track("hosted_site_action", {
-      action: "delete",
-      entry_point: "settings",
-      result,
-      ...(result === "failed" ? { failure_code: "delete_failed" } : {}),
-    });
 }
 
 /**

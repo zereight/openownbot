@@ -86,7 +86,6 @@ export const messages = {
   "settings.keepRemoteSessions.title": "快速连接服务器",
   "settings.keepRemoteSessions.description":
     "在两次启动之间保持与已加入服务器的连接，OpenOwnBot 启动约快一秒。退出 OpenOwnBot 时，OpenOwnBot 服务不会关闭该连接。",
-  "settings.permissions.title": "权限",
   "settings.notifications.title": "通知",
   "settings.alerts.title": "提醒",
   "settings.desktopNotifications.title": "桌面通知",
@@ -134,11 +133,6 @@ export const messages = {
   "settings.notch.size.height": "高度",
   "settings.notch.size.previewNotch": "内置显示器",
   "settings.notch.size.previewIsland": "外接显示器",
-  "settings.analytics.title": "分享产品分析数据",
-  "settings.analytics.description":
-    "将使用情况和稳定性元数据，连同你的账号 ID 和邮箱发送到 OpenOwnBot 自建的分析服务。",
-  "settings.analytics.webDescription":
-    "将使用情况和可靠性元数据连同你的账号 ID 和邮箱发送到 OpenOwnBot 自托管的分析服务。该设置仅对该浏览器生效。",
   // The Settings window shell: its tab list, headers and save bar.
   "settings.tab.general.title": "通用",
   "settings.tab.general.description": "控制 OpenOwnBot 在这台电脑上的行为。",

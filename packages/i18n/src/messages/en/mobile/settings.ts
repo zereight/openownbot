@@ -139,11 +139,6 @@ export const messages = defineMessages("mobile.settings", {
     "This server cannot send notifications. Update OpenOwnBot on the computer that runs it.",
   "mobile.settings.notifications.channel": "Agent notifications ({sound})",
   "mobile.settings.notifications.channelSilent": "Agent notifications (no sound)",
-  "mobile.settings.privacy.title": "Privacy",
-  "mobile.settings.privacy.footer":
-    "Share feature use and connection results from this phone. Message contents and files are not sent.",
-  "mobile.settings.privacy.analytics": "Share product analytics",
-  "mobile.settings.privacy.retry": "Retry saving privacy setting",
   "mobile.settings.conversations.title": "Conversations",
   "mobile.settings.conversations.hiddenChats": "Hidden chats",
   "mobile.settings.profile.nameUnsafe": "Remove line breaks and control characters from your name.",

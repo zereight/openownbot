@@ -10,14 +10,12 @@ import { isDynamicRecord, isString } from "@openownbot/contracts/runtime-values"
 import { formatLocale, resolveLocale } from "@openownbot/i18n";
 import { sourceText } from "@openownbot/i18n/source";
 import { classifyFailure } from "@openownbot/telemetry";
-import { NotificationObserver, Toaster, toast } from "@openownbot/ui";
+import { Toaster, toast } from "@openownbot/ui";
 import { AccountLogin } from "@openownbot/ui/features/account/AccountLogin";
 import { AppLoadingScreen } from "@openownbot/ui/features/account/AppLoadingScreen";
 import { currentText } from "@openownbot/ui/text";
 import { Dynamic } from "@solidjs/web";
-import { createEffect, createSignal, createStore, onSettled, Show } from "solid-js";
-import type { DesktopAnalyticsProperties } from "../../analytics";
-import { configureWebReports, reportNotification } from "../../error-reports";
+import { createSignal, createStore, onSettled, Show } from "solid-js";
 import { StaticI18nProvider } from "../../i18n-context";
 import type { WebWorkspace } from "./WebWorkspace";
 import { createWebAppearancePreference } from "./web-appearance-preference";
@@ -85,21 +83,17 @@ function takePluginLink(): string | null {
   return slug;
 }
 
-type BillingReturn = DesktopAnalyticsProperties<"billing_return_viewed">;
-
 /**
  * A return from Stripe to Billing: `/app?billing=portal` from the Customer Portal, or
  * `/app?billing=license` from license Checkout, with `&cancelled=1` when the user went back. The
  * query is removed after it is read.
  */
-function takeBillingReturn(): BillingReturn | null {
+function takeBillingReturn(): boolean {
   const url = new URL(window.location.href);
-  const kind = url.searchParams.get(WEB_APP_BILLING_PARAM);
-  if (kind === null) return null;
-  const outcome = url.searchParams.get("cancelled") === "1" ? "cancelled" : "completed";
+  if (!url.searchParams.has(WEB_APP_BILLING_PARAM)) return false;
   for (const name of [WEB_APP_BILLING_PARAM, "cancelled"]) url.searchParams.delete(name);
   window.history.replaceState(window.history.state, "", url);
-  return kind === "license" || kind === "portal" ? { outcome, kind } : { outcome };
+  return true;
 }
 
 export function WebApp(props: { createRuntime?: WebRuntimeFactory } = {}) {
@@ -116,34 +110,12 @@ export function WebApp(props: { createRuntime?: WebRuntimeFactory } = {}) {
     login: { status: "signed_out" },
     resendAt: 0,
   });
-  createEffect(
-    () => ({ account: state.account, loaded: state.loaded }),
-    ({ account, loaded }) => {
-      if (!loaded) return;
-      configureWebReports(account);
-      // Analytics is optional. A failed import changes nothing in the app.
-      import("./web-analytics")
-        .then((module) => {
-          module.configureWebAnalytics(account);
-          if (!account || !billingReturnEvent) return;
-          module.trackBillingReturn(billingReturnEvent);
-          billingReturnEvent = null;
-        })
-        .catch(() => undefined);
-    },
-  );
   // Kept here, not in the workspace, so each link waits through sign-in.
   const [agentTemplateId, setAgentTemplateId] = createSignal(takeAgentTemplateLink());
   const [inviteUrl, setInviteUrl] = createSignal(takeInviteLink());
   const [pluginSlug, setPluginSlug] = createSignal(takePluginLink());
-  const initialBillingReturn = takeBillingReturn();
-  const initialHostingReturn = takeHostingReturn();
-  const [billingReturn, setBillingReturn] = createSignal(initialBillingReturn !== null);
-  const [hostingReturn, setHostingReturn] = createSignal(initialHostingReturn);
-  /** Sent once, when analytics has the account. */
-  let billingReturnEvent: BillingReturn | null =
-    initialBillingReturn ??
-    (initialHostingReturn ? { outcome: initialHostingReturn.paid ? "completed" : "cancelled", kind: "plan" } : null);
+  const [billingReturn, setBillingReturn] = createSignal(takeBillingReturn());
+  const [hostingReturn, setHostingReturn] = createSignal(takeHostingReturn());
   const [workspace, setWorkspace] = createSignal<typeof WebWorkspace>();
   /** Sets the account when the workspace code is ready to show it. */
   async function showAccount(account: CentralAuthUser) {
@@ -360,70 +332,68 @@ export function WebApp(props: { createRuntime?: WebRuntimeFactory } = {}) {
       locale={resolveLocale(languagePreference.language(), navigator.language)}
       formatLocale={formatLocale(languagePreference.language(), navigator.language)}
     >
-      <NotificationObserver onShown={reportNotification}>
-        <div class="web-app">
-          <Toaster onToastShown={reportNotification} />
-          <Show when={state.loaded}>
-            <Show
-              keyed
-              when={state.account?.id}
-              fallback={
-                <AccountLogin
-                  variant={variant}
-                  state={state.login}
-                  onRetry={checkSession}
-                  onRequestEmailCode={start}
-                  onVerifyEmailCode={verify}
-                  onReset={async () => {
-                    clearSession();
-                    setState((draft) => {
-                      draft.resendAt = 0;
-                    });
-                  }}
-                />
-              }
-            >
-              {(accountId) => (
-                <Dynamic
-                  component={workspace()}
-                  accountId={accountId}
-                  accountEmail={state.account?.email ?? ""}
-                  accountName={state.account?.name ?? null}
-                  accountAvatarUrl={state.account?.avatarUrl ?? null}
-                  accountFetch={accountFetch}
-                  onSessionCheck={checkSession}
-                  accountSessionEnded={() => sessionEnded}
-                  onLogout={logout}
-                  createRuntime={props.createRuntime}
-                  agentTemplateId={agentTemplateId()}
-                  onAgentTemplateClose={() => setAgentTemplateId(null)}
-                  inviteUrl={inviteUrl()}
-                  onInviteClose={() => setInviteUrl(null)}
-                  pluginSlug={pluginSlug()}
-                  onPluginSlugConsumed={() => setPluginSlug(null)}
-                  billingReturn={billingReturn()}
-                  onBillingReturnConsumed={() => setBillingReturn(false)}
-                  hostingReturn={hostingReturn()}
-                  onHostingReturnConsumed={() => setHostingReturn(null)}
-                  language={languagePreference.language()}
-                  onChangeLanguage={languagePreference.setLanguage}
-                  appearance={appearancePreference.appearance()}
-                  onChangeAppearance={appearancePreference.setAppearance}
-                />
-              )}
-            </Show>
+      <div class="web-app">
+        <Toaster />
+        <Show when={state.loaded}>
+          <Show
+            keyed
+            when={state.account?.id}
+            fallback={
+              <AccountLogin
+                variant={variant}
+                state={state.login}
+                onRetry={checkSession}
+                onRequestEmailCode={start}
+                onVerifyEmailCode={verify}
+                onReset={async () => {
+                  clearSession();
+                  setState((draft) => {
+                    draft.resendAt = 0;
+                  });
+                }}
+              />
+            }
+          >
+            {(accountId) => (
+              <Dynamic
+                component={workspace()}
+                accountId={accountId}
+                accountEmail={state.account?.email ?? ""}
+                accountName={state.account?.name ?? null}
+                accountAvatarUrl={state.account?.avatarUrl ?? null}
+                accountFetch={accountFetch}
+                onSessionCheck={checkSession}
+                accountSessionEnded={() => sessionEnded}
+                onLogout={logout}
+                createRuntime={props.createRuntime}
+                agentTemplateId={agentTemplateId()}
+                onAgentTemplateClose={() => setAgentTemplateId(null)}
+                inviteUrl={inviteUrl()}
+                onInviteClose={() => setInviteUrl(null)}
+                pluginSlug={pluginSlug()}
+                onPluginSlugConsumed={() => setPluginSlug(null)}
+                billingReturn={billingReturn()}
+                onBillingReturnConsumed={() => setBillingReturn(false)}
+                hostingReturn={hostingReturn()}
+                onHostingReturnConsumed={() => setHostingReturn(null)}
+                language={languagePreference.language()}
+                onChangeLanguage={languagePreference.setLanguage}
+                appearance={appearancePreference.appearance()}
+                onChangeAppearance={appearancePreference.setAppearance}
+              />
+            )}
           </Show>
-          <Show when={loadingShown()}>
-            <AppLoadingScreen
-              ready={state.loaded}
-              onExited={() => {
-                setLoadingShown(false);
-                void loadWorkspace().catch(() => undefined);
-              }}
-            />
-          </Show>
-        </div>
-      </NotificationObserver>
+        </Show>
+        <Show when={loadingShown()}>
+          <AppLoadingScreen
+            ready={state.loaded}
+            onExited={() => {
+              setLoadingShown(false);
+              void loadWorkspace().catch(() => undefined);
+            }}
+          />
+        </Show>
+      </div>
     </StaticI18nProvider>
   );
 }

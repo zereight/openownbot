@@ -8,7 +8,6 @@ import { AgentMemoriesEmpty } from "@openownbot/ui/features/conversation/AgentMe
 import { useText } from "@openownbot/ui/text";
 import { createEffect, createMemo, createSignal, For, onCleanup, onSettled, Show, untrack } from "solid-js";
 import { actionToast } from "../../action-toast";
-import { desktopAnalytics } from "../../analytics";
 import type { MemoriesPort } from "./memories-port";
 
 interface AgentMemoriesModalProps {
@@ -122,22 +121,15 @@ export function AgentMemoriesModal(props: AgentMemoriesModalProps) {
   async function createMemory(): Promise<void> {
     const text = newText().trim();
     if (!text || reachedLimit() !== null) return;
-    const analytics = desktopAnalytics.scope();
-    let operationSucceeded = false;
     setSavingId("new");
     setError(null);
     try {
       await props.port.create(text);
-      analytics.track("memory_action", { action: "create", result: "succeeded" });
-      operationSucceeded = true;
       setNewText("");
       // The composer closes after the reload, so the empty state does not show again for a moment.
       await loadMemories(false);
       setAddOpen(false);
     } catch (caught) {
-      if (!operationSucceeded) {
-        analytics.track("memory_action", { action: "create", result: "failed", failure_code: "create_failed" });
-      }
       setError(errorMessage(caught, t("memory.saveFailed")));
     } finally {
       setSavingId(null);
@@ -175,20 +167,13 @@ export function AgentMemoriesModal(props: AgentMemoriesModalProps) {
       setEditingId(null);
       return;
     }
-    const analytics = desktopAnalytics.scope();
-    let operationSucceeded = false;
     setSavingId(memory.id);
     setError(null);
     try {
       await props.port.update(memory.id, text);
-      analytics.track("memory_action", { action: "update", result: "succeeded" });
-      operationSucceeded = true;
       setEditingId(null);
       await loadMemories(false);
     } catch (caught) {
-      if (!operationSucceeded) {
-        analytics.track("memory_action", { action: "update", result: "failed", failure_code: "update_failed" });
-      }
       setError(errorMessage(caught, t("memory.updateFailed")));
     } finally {
       setSavingId(null);
@@ -202,7 +187,6 @@ export function AgentMemoriesModal(props: AgentMemoriesModalProps) {
   function deleteMemory(memory: MemoryEntry): void {
     if (pendingDeletes.has(memory.id)) return;
     const port = props.port;
-    const analytics = desktopAnalytics.scope();
     const toastId = `memory-delete-${port.ownerId}-${memory.id}`;
     if (editingId() === memory.id) setEditingId(null);
     setError(null);
@@ -228,14 +212,12 @@ export function AgentMemoriesModal(props: AgentMemoriesModalProps) {
       try {
         await port.remove(memory.id);
       } catch (caught) {
-        analytics.track("memory_action", { action: "delete", result: "failed", failure_code: "delete_failed" });
         setHidden(memory.id, false);
         const message = errorMessage(caught, t("memory.deleteFailed"));
         setError(message);
         actionToast.error(message);
         return;
       }
-      analytics.track("memory_action", { action: "delete", result: "succeeded" });
       await loadMemories(false);
     }
 
@@ -250,23 +232,16 @@ export function AgentMemoriesModal(props: AgentMemoriesModalProps) {
   }
 
   async function clearMemories(): Promise<void> {
-    const analytics = desktopAnalytics.scope();
-    let operationSucceeded = false;
     setSavingId("clear");
     setError(null);
     try {
       await props.port.clear();
-      analytics.track("memory_action", { action: "clear", result: "succeeded" });
-      operationSucceeded = true;
       // The clear removed the memories that wait for their undo time too, so nothing is left to delete.
       for (const pending of [...pendingDeletes.values()]) pending.settle();
       setClearConfirmation(false);
       setEditingId(null);
       await loadMemories(false);
     } catch (caught) {
-      if (!operationSucceeded) {
-        analytics.track("memory_action", { action: "clear", result: "failed", failure_code: "clear_failed" });
-      }
       setError(errorMessage(caught, t("memory.clearFailed")));
     } finally {
       setSavingId(null);

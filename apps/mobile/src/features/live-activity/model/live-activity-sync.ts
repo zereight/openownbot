@@ -22,7 +22,6 @@ export interface LiveActivityStarter<Props> {
 export class LiveActivitySync<Props> {
   readonly #starter: LiveActivityStarter<Props>;
   readonly #onPushToken: (token: string | null, startedAt: number | null) => void;
-  readonly #onChange: (change: "started" | "ended") => void;
   #activity: LiveActivityInstance<Props> | null = null;
   #stopWatch: (() => void) | null = null;
   /** The state the activity shows, or `null` when it is not known. */
@@ -31,16 +30,14 @@ export class LiveActivitySync<Props> {
 
   /**
    * `onPushToken` receives the token the host updates the activity with and the start of the activity,
-   * or `null` when there is no activity. `onChange` receives each start and end that the app makes.
+   * or `null` when there is no activity.
    */
   constructor(
     starter: LiveActivityStarter<Props>,
     onPushToken: (token: string | null, startedAt: number | null) => void = () => undefined,
-    onChange: (change: "started" | "ended") => void = () => undefined,
   ) {
     this.#starter = starter;
     this.#onPushToken = onPushToken;
-    this.#onChange = onChange;
     // An activity from an earlier launch shows old state. Keep one to update and end the others.
     const [current = null, ...extra] = starter.getInstances();
     this.#setActivity(current);
@@ -76,7 +73,6 @@ export class LiveActivitySync<Props> {
       this.#setActivity(null);
       if (!activity) return;
       await activity.end("immediate");
-      this.#onChange("ended");
       return;
     }
     if (activity) {
@@ -89,7 +85,6 @@ export class LiveActivitySync<Props> {
       }
     }
     this.#setActivity(this.#starter.start(props, staleDate));
-    this.#onChange("started");
   }
 
   #setActivity(activity: LiveActivityInstance<Props> | null): void {

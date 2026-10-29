@@ -84,7 +84,6 @@ export const messages = {
   "settings.keepRemoteSessions.title": "서버에 빠르게 연결",
   "settings.keepRemoteSessions.description":
     "참여 중인 서버와의 연결을 실행 사이에도 유지해요. OpenOwnBot이 약 1초 더 빨리 시작돼요. OpenOwnBot을 종료해도 OpenOwnBot 서비스가 연결을 닫지 않아요.",
-  "settings.permissions.title": "권한",
   "settings.notifications.title": "알림",
   "settings.alerts.title": "알림",
   "settings.desktopNotifications.title": "데스크톱 알림",
@@ -133,11 +132,6 @@ export const messages = {
   "settings.notch.size.height": "높이",
   "settings.notch.size.previewNotch": "내장 디스플레이",
   "settings.notch.size.previewIsland": "외부 디스플레이",
-  "settings.analytics.title": "제품 분석 공유",
-  "settings.analytics.description":
-    "계정 ID와 이메일이 포함된 사용 및 안정성 메타데이터를 OpenOwnBot의 자체 호스팅 분석 서비스로 보내요.",
-  "settings.analytics.webDescription":
-    "계정 ID와 이메일이 포함된 사용 및 안정성 메타데이터를 OpenOwnBot의 자체 호스팅 분석 서비스로 보내요. 이 설정은 이 브라우저에 적용돼요.",
   "settings.tab.general.title": "일반",
   "settings.tab.general.description": "이 컴퓨터에서 OpenOwnBot이 동작하는 방식을 설정해요.",
   "settings.tab.agents.title": "에이전트",

@@ -1,7 +1,6 @@
 import { type AgentEvent, latestTurnAnswer, type SpeechLanguage } from "@openownbot/contracts/ipc";
 import { toast } from "@openownbot/ui";
 import { currentText } from "@openownbot/ui/text";
-import { desktopAnalytics } from "../../analytics";
 import { speechLanguageOf } from "./speech-language";
 import {
   loadRecording,
@@ -42,7 +41,6 @@ interface DictatedMessage {
 }
 
 /** What started a reading: a voice conversation, a dictated message, or the Read aloud control. */
-type SpeechTrigger = "voice_conversation" | "dictation" | "read_aloud";
 
 /** An agent on one server. Agent ids repeat across servers. */
 export type SpeechAgent = Pick<SpeechSource, "serverId" | "agentId">;
@@ -193,19 +191,9 @@ async function readReply(agent: SpeechAgent, turnId: string, message: DictatedMe
     if (!loading.has(own)) return;
     loading.delete(own);
     const answer = latestTurnAnswer(page.messages, turnId);
-    await speak(
-      answer?.text ?? "",
-      { ...agent, messageId: answer?.id ?? null },
-      message.language,
-      message.always ? "voice_conversation" : "dictation",
-    );
+    await speak(answer?.text ?? "", { ...agent, messageId: answer?.id ?? null }, message.language);
   } catch (error) {
     if (!loading.has(own)) return;
-    desktopAnalytics.track("speech_reply", {
-      trigger: message.always ? "voice_conversation" : "dictation",
-      result: "failed",
-      failure_code: "load_failed",
-    });
     reportReadFailure(error);
   } finally {
     loading.delete(own);
@@ -219,7 +207,7 @@ export function toggleReadAloud(source: SpeechSource & { messageId: string }, ma
     stopSpokenReply();
     return;
   }
-  void speak(markdown, source, "en", "read_aloud");
+  void speak(markdown, source, "en");
 }
 
 /**
@@ -246,7 +234,7 @@ export function toggleRecording(messageId: string, url: string): void {
  */
 export function toggleSpokenReply(source: SpeechSource & { messageId: string }, markdown: string): void {
   if (pauseOrResumeSpeech(source.messageId)) return;
-  if (!playSpokenReply(source.messageId)) void speak(markdown, source, "en", "read_aloud");
+  if (!playSpokenReply(source.messageId)) void speak(markdown, source, "en");
 }
 
 /** Moves the kept audio of a reply to a position, in seconds, and plays it from there. */
@@ -281,29 +269,15 @@ function startRecording(messageId: string, url: string, from: number): void {
 }
 
 /** Reads a reply aloud. A failure shows a toast, because no control waits for the answer. */
-async function speak(
-  markdown: string,
-  source: SpeechSource,
-  fallback: SpeechLanguage,
-  trigger: SpeechTrigger,
-): Promise<void> {
+async function speak(markdown: string, source: SpeechSource, fallback: SpeechLanguage): Promise<void> {
   const own = { serverId: source.serverId, agentId: source.agentId };
-  const analytics = desktopAnalytics.scope();
   try {
     const text = markdown ? speechTextFromMarkdown(markdown) : "";
     const language = text ? speechLanguageOf(text, fallback) : null;
     if (!language) return;
     spoken = own;
-    const result = await readAloud(text, language, source);
-    analytics.track("speech_reply", {
-      trigger,
-      result: "succeeded",
-      completed: result.completed,
-      ...(result.firstAudioMs === null ? {} : { first_audio_ms: result.firstAudioMs }),
-      audio_duration_seconds: Math.round(result.seconds * 10) / 10,
-    });
+    await readAloud(text, language, source);
   } catch (error) {
-    analytics.track("speech_reply", { trigger, result: "failed", failure_code: "speech_failed" });
     reportReadFailure(error);
   } finally {
     if (spoken === own) spoken = undefined;

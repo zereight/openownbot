@@ -2,7 +2,6 @@ import { VOICE_AUDIO_LIMITS, VOICE_MODELS, VOICE_STREAM_LIMITS, type VoiceModelI
 import { VOICE_LIMIT_WARNING_SECONDS } from "@openownbot/ui/features/conversation/VoiceRecordingMorph";
 import { currentText } from "@openownbot/ui/text";
 import { onCleanup } from "solid-js";
-import { desktopAnalytics } from "../../../analytics";
 import { unlockCompletionSound } from "../../../completion-sound";
 import { playVoiceLimitStop, playVoiceLimitWarning } from "../../../voice-limit-sound";
 import { appendVoiceTranscript, encodePcm16, recordingToSamples, recordingToWav } from "../../../voice-recording";
@@ -429,9 +428,6 @@ export function createVoiceStore(deps: VoiceStoreDeps) {
       }
       return;
     }
-    const analytics = desktopAnalytics.scope();
-    const audioDurationSeconds = deps.voiceElapsedSeconds();
-    const startedAt = performance.now();
     try {
       // The voice host takes one request at a time; the live pass is at most a second of work.
       await resources.voiceLiveRequest;
@@ -453,11 +449,6 @@ export function createVoiceStore(deps: VoiceStoreDeps) {
         result = await voice.transcribe({ audio });
       }
       if (!result.text.trim()) throw new Error(currentText().t("composer.voice.noSpeechDetected"));
-      analytics.track("voice_transcription", {
-        result: "succeeded",
-        audio_duration_seconds: audioDurationSeconds,
-        duration_ms: Math.max(0, Math.round(performance.now() - startedAt)),
-      });
       if (resources.voiceDisposed) return;
       const recordingTarget = { agentId: targetAgentId, serverId: targetServerId };
       deps.clearConversationError(recordingTarget);
@@ -495,12 +486,6 @@ export function createVoiceStore(deps: VoiceStoreDeps) {
         }
       }
     } catch (error) {
-      analytics.track("voice_transcription", {
-        result: "failed",
-        audio_duration_seconds: audioDurationSeconds,
-        duration_ms: Math.max(0, Math.round(performance.now() - startedAt)),
-        failure_code: "transcription_failed",
-      });
       if (!resources.voiceDisposed) {
         const target = { agentId: targetAgentId, serverId: targetServerId };
         deps.setConversationErrors((current) => ({

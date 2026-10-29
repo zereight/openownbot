@@ -90,7 +90,6 @@ export const messages = defineMessages("settings", {
   "settings.keepRemoteSessions.title": "Fast connection to servers",
   "settings.keepRemoteSessions.description":
     "Keep the connection to your joined servers between launches. OpenOwnBot starts about a second faster. When you quit OpenOwnBot, the OpenOwnBot service does not close the connection.",
-  "settings.permissions.title": "Permissions",
   "settings.notifications.title": "Notifications",
   "settings.alerts.title": "Alerts",
   "settings.desktopNotifications.title": "Desktop notifications",
@@ -139,11 +138,6 @@ export const messages = defineMessages("settings", {
   "settings.notch.size.height": "Height",
   "settings.notch.size.previewNotch": "Built-in display",
   "settings.notch.size.previewIsland": "External display",
-  "settings.analytics.title": "Share product analytics",
-  "settings.analytics.description":
-    "Send usage and reliability metadata with your account ID and email to OpenOwnBot’s self-hosted analytics.",
-  "settings.analytics.webDescription":
-    "Send usage and reliability metadata with your account ID and email to OpenOwnBot’s self-hosted analytics. This setting applies to this browser.",
   // The Settings window shell: its tab list, headers and save bar.
   "settings.tab.general.title": "General",
   "settings.tab.general.description": "Control how OpenOwnBot behaves on this computer.",

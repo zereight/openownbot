@@ -50,12 +50,12 @@ browser also stores the chosen interface language and whether the completion sou
 no message content.
 Signing out revokes that credential's remote sessions and tells other open tabs to clear private
 state. Host identity pins remain so a later sign-in cannot silently trust a replacement host key.
-The web client records the product events that "Product analytics" describes. At sign-in it sends the saved first website visit
-of the browser, described in "Product analytics", to the account service. It does not send email codes, credentials,
-message content, file content, or search queries to telemetry.
+At sign-in the web client sends the saved first website visit of the browser, described in "Product analytics", to the account
+service. It does not record product events. It does not send email codes, credentials, message content, file content, or
+search queries to telemetry.
 
-Production builds of OpenOwnBot desktop, the browser client at `/app`, the configured mobile app, and the website use a
-self-hosted OpenPanel service for product analytics. Development builds, previews, tests, and Storybook do not send analytics.
+The OpenOwnBot desktop app, the browser client at `/app`, and the mobile app send no product analytics. Only the production
+website and the account service send events to a self-hosted OpenPanel service, as "Product analytics" describes.
 
 The production account service also sends OpenPanel an event when a paid plan or a hosted server
 changes: a Checkout starts or expires, a plan starts, changes, is cancelled or ends, a payment
@@ -68,7 +68,7 @@ Each event has your account ID and only fixed values: the action, whether it is 
 license, the plan, the number of license users, the billing period, the currency, the amount that
 Stripe reports, the place in the app where the plans were opened, the server size, the start reason
 and an error code. It has
-no email, name, Stripe ID or server ID. The desktop analytics setting does not stop these events,
+no email, name, Stripe ID or server ID. No app setting stops these events,
 because the account service sends them and not your computer.
 
 For each email that the account service sends from its mailbox (a sign-in code, an invitation, a contact
@@ -121,8 +121,7 @@ day, one row per model, one aggregate row per agent, identified by the agent's i
 row per day and provider with that provider's token count and cost estimate for the day. Agent
 names are not part of the analytics payload; the client shows them from the agent list it already
 reads. These records stay on the host and are not stored by the account service or Signal
-service. Product analytics sends only the token counts of each completed turn and of each
-provider and model in it, as "Product analytics" describes; it does not send the records, cost estimates or identifiers. Conversation clearing retains usage;
+service. Product analytics sends none of these records, cost estimates or identifiers. Conversation clearing retains usage;
 agent deletion removes it. A duplicate agent starts with no usage history.
 
 Authenticated members of a host team can also see that host's storage through the Team API: how
@@ -137,6 +136,10 @@ Costs are API-equivalent estimates in USD, not subscription charges. Missing usa
 and incomplete billing inputs remain marked as unavailable or partial.
 
 ## Product analytics
+
+The desktop app, the browser client at `/app`, and the mobile app do not send product analytics. They have no
+analytics setting, they send no account ID or email to an analytics service, and the local host sends no
+lifecycle, usage, resource or tool events. Agent and host token and cost reports remain local data.
 
 The production website records anonymous page views using only fixed paths: `/`, `/join`, the
 download pages, the news and guide indexes, and published articles. It also records download clicks,
@@ -160,52 +163,22 @@ send only lengths, times, counts, the chosen voice (for example `F1`), whether t
 remote, and whether speech recognition runs on the computer or in the cloud. They never send what
 the user said, the reply, a transcript, or audio.
 
-The production browser client at `/app` on `https://openbot.run` records the same product events
-as the desktop app, with the same limits, and labels them as web. Its **Share product analytics**
-setting in account settings controls these events and the error reports.
-
-The configured production mobile app records app opens and foreground returns, sign-in QR pairing
-and camera-permission outcomes, host connection attempts and losses, conversation-load outcomes,
-message and prompt-answer submissions, attachment operations, agent/routine/memory actions,
-server selection/join/leave, search result counts, pin/unpin, hide/unhide, Usage views and sign-out.
-It also records email sign-in steps, whether pairing started from a QR code or a link, hosted
-server plans views, setup steps, notification settings and the notification permission result,
-Live Activity starts and ends, voice conversation and spoken turn outcomes, agent template
-installs, and Marketplace installs (agent, skill or app, and the result; no listing name).
-
-The mobile Marketplace reads the public catalog and the plugin app icons from the account service,
-without account credentials. The phone sends no request to a plugin vendor until the user connects
-that vendor's app. A key the user types, or the grant of a browser sign-in, goes only to the user's
-own host over the encrypted Team channel.
-Mobile properties include app version/build, iOS or Android, result, timing, bounded connection stage,
-counts, coarse attachment size buckets, and provider/model/reasoning metadata where available.
-Mobile never sends scanned QR values, install-referrer URLs or route identifiers. It does not
-emit host lifecycle events again. Agent/host token and cost reports remain separate local data.
-
-Analytics events do not contain message or direct-message text, prompts, replies, generated content,
-search queries, embedded-browser URLs, paths or page titles, file names, local paths, commands, raw
-error messages, or local identifiers for agents, threads, turns, messages, servers, and team members.
-Website page views carry the five standard campaign tags `utm_source`, `utm_medium`, `utm_campaign`,
-`utm_content`, and `utm_term` when a visitor arrives through a campaign link. Each tag is sent only
-as a lowercase label of at most 64 characters made of letters, digits, dots, hyphens, and
+Website events do not contain the contact form message, name or email, search queries, file names or
+local identifiers. Website page views carry the five standard campaign tags `utm_source`, `utm_medium`,
+`utm_campaign`, `utm_content`, and `utm_term` when a visitor arrives through a campaign link. Each tag is sent
+only as a lowercase label of at most 64 characters made of letters, digits, dots, hyphens, and
 underscores; any other value is dropped rather than shortened. No other query parameter, hash, or
 invitation value is sent. Session replay and automatic interaction capture are disabled.
 
-When a user signs in, OpenPanel receives the OpenOwnBot account ID and normalized account email so UI
-actions can be associated with the account that started them. The email is stored on the OpenPanel
-profile and is not copied into individual event properties. Agent lifecycle events are emitted once
-by the local host and associated with the host owner's account; clients that observe a remote host do
-not emit the lifecycle again. Sign-in attempts and website activity remain anonymous until an account
-has been verified. Landing-page attribution includes an allowlisted source category, an allowlisted
+Landing-page attribution includes an allowlisted source category, an allowlisted
 platform name (or unknown), and the referring domain when available. A recognized utm_source tag
 takes precedence over the referring domain for platform classification; unrecognized tags are not
 sent. Attribution excludes referrer paths, query parameters, fragments, credentials, ports, and
 campaign URLs other than the allowlisted tags described above. Website page and article events carry
 the path of a news article, guide or comparison published on openbot.run, together with the collection name, the
 reading position reached (start, half, or end), and the section of the page a link was clicked in.
-That path is a published article address and nothing else: it is matched against the site's own list
-of articles, so no other part of a visited URL can be reported through it. Reading position is taken
-from where the article sits on screen, never from how long it was open. Referrals from openbot.run and its subdomains are omitted.
+Reading position is taken from where the article sits on screen, never from how long it was open.
+Referrals from openbot.run and its subdomains are omitted.
 The production website also saves the first visit of the browser in its `localStorage`: the source
 category, the platform name, the first website page, the day, and the allowlisted campaign tags.
 It saves no referrer, IP address or identifier. A later visit does not change it, and it is not used
@@ -216,72 +189,6 @@ browser, clear the site data of openbot.run. OpenPanel can also derive
 session, device, browser, operating-system, network, and approximate geographic metadata from a
 request. The analytics service runs on OpenOwnBot's self-hosted infrastructure and receives events
 through `analytics.openbot.run`.
-Analytics is enabled in production by default. Desktop users can disable it under **Settings →
-General → Permissions → Share product analytics**. The preference is stored locally and disables both UI
-analytics and lifecycle analytics emitted by the local host. Website analytics does not use the
-desktop preference. Mobile has its own phone-wide **Settings → Privacy → Share product analytics**
-preference, independent of desktop and host collection. It defaults to enabled in a
-configured production build, is read before collection starts, and remains disabled if the stored
-preference cannot be read. Disabling it drops pending mobile events; it does not remove previously
-received events or retract an in-flight request. There is no persistent offline analytics queue.
-When a user turns product analytics off on desktop, web or mobile, the app first sends one event
-that says analytics was turned off, then stops. Turning it on again sends nothing.
-Development and preview mobile builds do not collect product analytics. Mobile sign-in uses the
-same account ID and normalized email profile traits described above. Before mobile sign-in, up to
-100 sanitized events stay in process memory for at most 30 minutes from the first buffered event.
-They are sent once with their original timestamps after an account becomes available. Opt-out,
-expiry, and process exit discard unclaimed events. The oldest event is removed when the buffer is
-full. Sign-out ends the old account's operation scopes; later signed-out activity can be associated
-with the next account that signs in. No anonymous mobile event is sent before that association.
-
-The local host also records how the agents are used:
-
-- **Websites.** When a page in the embedded browser reaches a new registrable domain, the host sends
-  that domain (for example `linkedin.com` for `www.linkedin.com`) and whether the user or an agent
-  opened it. It never sends the subdomain, path, query, fragment or page title. A subdomain under a
-  shared suffix is reduced to that suffix, so `user.github.io` is sent as `github.io`. IP addresses,
-  single-label names, `localhost`, and names with no public suffix (for example `.local`, `.lan`,
-  `.internal` or `.home.arpa`) are not sent.
-- **Tools.** When a turn completes, the host sends one count per kind of tool the agent used (for
-  example command, file change, web search, browser, or MCP), how many of those calls failed (Claude
-  does not report failed tool calls, so its count is 0), and
-  the plugin: the slug of an OpenOwnBot catalog plugin, `builtin` for OpenOwnBot's own tools, or `custom`.
-  The tool name is sent only for OpenOwnBot's own tools and catalog plugins. The name, address and
-  command of a server the user added, the tool arguments and the tool results are not sent.
-- **Routine runs.** The host sends the outcome of a routine run, whether it was scheduled or manual,
-  and its schedule type (for example daily or weekly). The routine name and instruction are not
-  sent.
-- **Workflow runs.** When a workflow run ends, the host sends its outcome, how it started (for
-  example manual, schedule or webhook), its duration, and the count of steps that ran, by kind
-  (agent, model, approval, output). The workflow name, the step text and the IDs are not sent.
-- **Setup.** At most once a day, the host sends counts of agents, enabled routines, workflows,
-  custom MCP servers, local skills and community skills; the slugs of enabled catalog plugins and of
-  curated skills and agents; the providers in use; and whether Computer Use is enabled.
-- **Resource use.** At most once a day, the host sends a summary of the previous day: the memory and
-  CPU use of OpenOwnBot's process groups (main, windows, browser tabs, GPU, the database and voice
-  processes) and of each provider's CLI and its child processes, by provider id; the main process
-  responsiveness; agent database statement times and counts; counts of processes that stopped
-  unexpectedly, by reason; and the computer's memory and processor class, architecture, and whether
-  it is a server. Memory is rounded to 50 MB. Process IDs, program names, command lines and paths
-  are not sent. A day that ends while analytics is off is not sent.
-- **Token counts.** When a turn completes, the host sends the token counts that the provider
-  reported for that turn: uncached input, cached input, cache write, output, and their total. These
-  come from the same records as the Usage view. When the provider reported no usage, the host sends
-  that the usage is unknown, not a count of 0. A count that the provider did not report is not sent.
-  The host also sends the same counts for each provider and model that the turn used, with that
-  provider and model name. The turn's messages and the provider's raw response are not sent.
-- **Agent source.** Turn events say whether the agent came from a curated listing, a community
-  listing, or neither, and name only a curated listing. Marketplace events name only a curated
-  skill, agent or catalog plugin.
-- **Payment type.** Turn events say how the turn is paid for: a provider plan, a saved API key, a
-  free model, an endpoint that the user added, or unknown. The host reads this from the sign-in type
-  that the provider's CLI reports and from whether a key is saved. It does not send the key, the
-  account, or the name of the plan.
-
-Hosted Site analytics records only the operation, entry point, result, and bounded failure code. It
-does not contain the site's URL, hostname, title, source path, site ID, or content. A one-time
-backfill may update the email trait of an existing OpenPanel profile matched to a current account; it
-does not create profiles for accounts without existing analytics activity.
 
 OpenPanel event and profile data has no automatic retention limit. It remains stored until it is
 removed manually or the analytics project is deleted. OpenPanel analytics does not change where
@@ -829,10 +736,7 @@ in its local SQLite database. A run also keeps a copy of the graph and, for a we
 request body. Runs stay until the workflow is deleted. Nothing about a workflow goes to the account
 service, except the webhook route metadata above.
 
-When analytics is on, product analytics gets the kind of each workflow action (for example create,
-run, approve or restore), the kind of the step, the result, the duration and a coarse failure code,
-and the outcome, duration and step counts of each run. It never gets a workflow name, step text,
-graph, or ID.
+Product analytics gets nothing about workflows.
 
 - **Agent steps** send their input to the agent as a routine message. The agent's model provider
   gets it, as with other routine input.
@@ -1415,24 +1319,7 @@ machine access. Values pasted into ordinary chat are not covered by secure hando
 
 ## Error and warning reports
 
-Production desktop, browser app, and mobile clients report safe failure categories to the same
-self-hosted OpenPanel service. Reports can include the app version, platform, provider, model,
-operation, severity, and a fixed cause code. They also record whether a problem appeared as a
-toast, shared alert or chat banner, or native error/warning alert. These reports do not include displayed text,
-raw exceptions, stack traces, prompts, messages, file names, paths, commands, or credentials.
-A random report ID helps identify repeated delivery attempts; it is not a conversation or file ID.
-A reported cause describes the error observed by OpenOwnBot and might not explain its root cause.
-
-Validated reports wait in local files on the host and mobile, or IndexedDB in desktop and browser
-clients. Each queue is limited to 1,000 reports, 1 MiB, and seven days. Reports are removed after
-OpenPanel accepts them, when they expire, or when the queue reaches its limits. Network failures
-can cause retries and duplicate delivery. Queue failures do not block the application.
-
-Turning off analytics or changing accounts clears pending reports and cancels active sends.
-Requests already received by OpenPanel cannot be recalled. Anonymous error reports remain
-anonymous. The browser app has its own local analytics setting in account settings, separate
-from desktop and mobile. Collection is enabled by default; a malformed or unreadable setting
-keeps it disabled. Existing OpenPanel retention rules apply after delivery.
+The desktop app, its local host, the browser app, and the mobile app send no error or warning reports.
 
 ### Remote host release checks
 

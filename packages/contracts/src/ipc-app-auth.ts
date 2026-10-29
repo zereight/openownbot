@@ -10,8 +10,6 @@ export interface AppInfo {
   version: string;
   platform: DesktopPlatform;
   variant: AppVariant;
-  /** Set only in an unpackaged build that a local analytics capture server reads. */
-  analyticsCaptureUrl?: string;
 }
 
 /** The phase list is the source of truth: `UpdatePhase` is derived from it. */
@@ -188,14 +186,6 @@ export interface AppSetupState {
 export interface SaveSetupInput {
   preferredProvider: AgentProviderId;
   preferredModel: AgentModelId | null;
-}
-
-export interface AnalyticsPreference {
-  enabled: boolean;
-}
-
-export interface SetAnalyticsPreferenceInput {
-  enabled: boolean;
 }
 
 export interface CentralAuthUser {

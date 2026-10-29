@@ -69,7 +69,6 @@ export const messages = {
   "settings.keepRemoteSessions.title": "Szybkie połączenie z serwerami",
   "settings.keepRemoteSessions.description":
     "Zachowuj połączenie z dołączonymi serwerami między uruchomieniami. OpenOwnBot startuje około sekundy szybciej. Gdy zamkniesz OpenOwnBot, usługa OpenOwnBot nie zamyka połączenia.",
-  "settings.permissions.title": "Uprawnienia",
   "settings.notifications.title": "Powiadomienia",
   "settings.alerts.title": "Alerty",
   "settings.desktopNotifications.title": "Powiadomienia na pulpicie",
@@ -119,11 +118,6 @@ export const messages = {
   "settings.notch.size.height": "Wysokość",
   "settings.notch.size.previewNotch": "Wbudowany ekran",
   "settings.notch.size.previewIsland": "Ekran zewnętrzny",
-  "settings.analytics.title": "Udostępniaj analitykę produktu",
-  "settings.analytics.description":
-    "Wysyłaj metadane użycia i niezawodności wraz z ID konta i adresem e-mail do samodzielnie hostowanej analityki OpenOwnBot.",
-  "settings.analytics.webDescription":
-    "Wysyłaj metadane użycia i niezawodności wraz z ID konta i adresem e-mail do samodzielnie hostowanej analityki OpenOwnBot. To ustawienie dotyczy tej przeglądarki.",
   "settings.tab.general.title": "Ogólne",
   "settings.tab.general.description": "Określ, jak OpenOwnBot działa na tym komputerze.",
   "settings.tab.notifications.title": "Powiadomienia",

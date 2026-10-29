@@ -14,13 +14,11 @@ const KEYS_FILE = "push-notifications.json";
  * read. The keys open notifications only, and a new phone secret after sign-out makes them useless.
  */
 export const androidPushNotifications: PushNotificationsNative = {
-  async permission(asked) {
+  async permission() {
     await createAndroidChannels();
     const current = await Notifications.getPermissionsAsync();
     if (current.status !== "undetermined") return permissionOf(current);
-    const answer = permissionOf(await Notifications.requestPermissionsAsync());
-    asked?.(answer);
-    return answer;
+    return permissionOf(await Notifications.requestPermissionsAsync());
   },
   async deviceToken() {
     // A build without the Firebase file of the app has no token, and the promise rejects.

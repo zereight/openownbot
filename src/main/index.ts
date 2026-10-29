@@ -37,7 +37,6 @@ import { requestNotificationPermission, showRetainedNotification } from "./deskt
 import { guardDevelopmentOutput } from "./development-output";
 import {
   developmentUserDataName,
-  readAnalyticsCaptureUrl,
   readDevelopmentInstanceId,
   readDevelopmentProfile,
   readDevelopmentRemoteDebuggingPort,
@@ -215,9 +214,6 @@ const inviteLinkOptions = {
 const developmentRemoteDebuggingPort = !app.isPackaged
   ? readDevelopmentRemoteDebuggingPort(process.env.OPENOWNBOT_DEV_REMOTE_DEBUGGING_PORT)
   : null;
-const analyticsCaptureUrl = !app.isPackaged
-  ? readAnalyticsCaptureUrl(process.env.OPENOWNBOT_ANALYTICS_CAPTURE_URL)
-  : null;
 // Electron exposes FedCM without an account chooser, so every request fails with a NetworkError.
 // Sites such as Google Sign-In use FedCM when it exists and fall back to their popup when it does not.
 app.commandLine.appendSwitch("disable-features", "FedCm");
@@ -350,7 +346,6 @@ let services: ApplicationServices | null = null;
 let activeRemotePrincipalId: string | null = null;
 /** Counts account transitions, so queued work for a superseded one is dropped rather than applied. */
 let centralAuthGeneration = 0;
-let activeAnalyticsPrincipalId: string | null = null;
 const remoteAccountGate = Semaphore.makeUnsafe(1);
 const macHapticFeedback = new MacHapticFeedback();
 let isQuitting = false;
@@ -435,7 +430,6 @@ const {
   getChatWindows: () => windows.getChatWindows(),
   getAgentService: () => services?.service ?? null,
   getHostService: () => services?.host ?? null,
-  getHostAnalytics: () => services?.analytics ?? null,
   getRemoteServerManager: () => services?.remoteServers ?? null,
   showMainWindow,
   // An agent event cannot arrive before the services that raise it, so the fallback stands only so
@@ -591,7 +585,6 @@ function registerIpcHandlers({
   browserView,
   updater,
   setupFile,
-  analyticsPreferenceFile,
   updatePreferenceFile,
   requestedUpdate,
   idleRestart,
@@ -654,7 +647,6 @@ function registerIpcHandlers({
   dynamicIsland,
   cuaDriver,
   computerUsePermissionHelp,
-  analytics,
   storageUsage,
   trace,
   resourceMonitor,
@@ -678,7 +670,6 @@ function registerIpcHandlers({
       browser,
       updater,
       setupFile,
-      analyticsPreferenceFile,
       approvalAutomation,
       busyMessageMode,
       agentDefaults,
@@ -697,11 +688,9 @@ function registerIpcHandlers({
       interfaceSize,
       initializeAgent: () => runCauseEffect(agentInitialization.start()),
       appVariant,
-      analyticsCaptureUrl,
       getMainWindow: getDialogParent,
       openChatWindow: windows.openChatWindow,
       chatWindowTargets: windows.chatWindowTargets,
-      setAnalyticsTrackingEnabled: (enabled) => analytics.setTrackingEnabled(enabled),
       trace,
       resources: resourceMonitor,
     }),
@@ -888,19 +877,12 @@ function requestDesktopNotificationPermission(
   );
 }
 
-/** `null` for every state but a signed-in one, matching what the two principal trackers store. */
+/** `null` for every state but a signed-in one, matching what the principal tracker stores. */
 function centralAuthPrincipalId(state: CentralAuthState): string | null {
   return state.status === "signed_in" ? state.user.id : null;
 }
 
 function forwardCentralAuth(state: CentralAuthState): void {
-  if (state.status === "signed_in") {
-    if (activeAnalyticsPrincipalId && activeAnalyticsPrincipalId !== state.user.id) services?.analytics.clear();
-    activeAnalyticsPrincipalId = state.user.id;
-  } else if (state.status === "signed_out") {
-    if (activeAnalyticsPrincipalId) services?.analytics.clear();
-    activeAnalyticsPrincipalId = null;
-  }
   // The renderer is told about the new account at the end of this function, before the
   // queued work below can finish, so the host stops answering for the previous account now.
   // The file is left alone until `applySignedInAccount` records the switch.
@@ -960,7 +942,6 @@ function forwardCentralAuth(state: CentralAuthState): void {
             host.unbindChangedAccount(null);
             return;
           }
-          services?.analytics.flushPending();
         }
         if (services)
           yield* services.remoteServers
@@ -1172,7 +1153,6 @@ if (!hasSingleInstanceLock) {
         windows,
         appIconPath,
         appVariant,
-        analyticsCaptureUrl,
         developmentRemoteRole,
         developmentTestClientEnabled,
         hostedServer,
@@ -1192,14 +1172,13 @@ if (!hasSingleInstanceLock) {
       });
       services = built;
       performance.mark("openownbot:services-built");
-      // `forwardCentralAuth` reaches the host, the remote servers and analytics only through
+      // `forwardCentralAuth` reaches the host and the remote servers only through
       // `services`, so every account change announced during construction was dropped.
-      // `createApplicationServices` bound the local host to the one state it read and attributed the
-      // queued analytics to it, so adopt that as the active principal; then apply the current state
+      // `createApplicationServices` bound the local host to the one
+      // state it read, so adopt that as the active principal; then apply the current state
       // if the account moved on after that read - a sign-in settling while `remoteServers.initialize()`
       // awaits would otherwise leave the previous account's host selected, with nothing to replay it.
       const appliedAccount = built.appliedAccount;
-      activeAnalyticsPrincipalId = centralAuthPrincipalId(appliedAccount);
       activeRemotePrincipalId = centralAuthPrincipalId(appliedAccount);
       const currentAccount = built.centralAuth.getState();
       if (
@@ -1278,11 +1257,6 @@ if (!hasSingleInstanceLock) {
         built.centralAuth.off("changed", refreshWebhookRoutes);
         host.off("changed", onHostChanged);
       });
-      // Internal usage signals for analytics only. They are not agent events, so the renderer and
-      // Team API clients never receive them.
-      service.on("toolUsage", (usage) => built.analytics.handleToolUsage(usage));
-      service.on("workflowRun", (end) => built.analytics.handleWorkflowRun(end));
-      built.browser.onSiteVisited((visit) => built.analytics.handleSiteVisit(visit));
       sidebarLayout.on("changed", (layout) => forwardAgentEvent("local", { type: "sidebar-layout-changed", layout }));
       built.approvalAutomation.subscribe((preference) => {
         for (const window of BrowserWindow.getAllWindows()) {

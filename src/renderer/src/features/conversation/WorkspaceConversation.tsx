@@ -20,8 +20,7 @@ import {
 import { unloadedHistory } from "@openownbot/ui/features/conversation/ChatScrollRail";
 import { sidebarAgentWaits } from "@openownbot/ui/features/sidebar/sidebar-agent-states";
 import { useText } from "@openownbot/ui/text";
-import { createEffect, createMemo } from "solid-js";
-import { desktopAnalytics } from "../../analytics";
+import { createMemo } from "solid-js";
 import { ProviderSignInDialogs } from "../../components/ProviderSignInDialogs";
 import { useNavigation } from "../../navigation";
 import { usePlatform } from "../../platform";
@@ -420,7 +419,6 @@ export function WorkspaceConversation(props: { account: () => CentralAuthUser })
       return undefined;
     const agentId = agent.id;
     const reasoningEffort = agent.reasoningEffort;
-    const fromProvider = agent.provider;
     return {
       provider,
       resetsAt,
@@ -441,35 +439,12 @@ export function WorkspaceConversation(props: { account: () => CentralAuthUser })
           leaveUsageLimit: true,
           ...(remember ? { backupModels: rememberedBackupModels(option.choice, backupModels) } : {}),
         });
-        desktopAnalytics.track("usage_limit_action", {
-          action: "model_switched",
-          from_provider: fromProvider,
-          to_provider: option.choice.provider,
-          to_model: option.choice.model,
-        });
       },
       onWait: () => {
-        desktopAnalytics.track("usage_limit_action", { action: "waited", from_provider: fromProvider });
         setWaitedUsageLimits((current) => ({ ...current, [agentId]: resetsAt }));
       },
     };
   });
-  // One "shown" for each limit that asks, also when the user opens the agent again; a new reset time is a
-  // new limit.
-  const shownUsageLimits = new Set<string>();
-  createEffect(
-    () => {
-      const ask = usageLimitAsk();
-      return ask ? `${activeAgent()?.id ?? ""}:${ask.resetsAt ?? ""}` : null;
-    },
-    (key) => {
-      const ask = usageLimitAsk();
-      if (!key || !ask || shownUsageLimits.has(key)) return;
-      shownUsageLimits.add(key);
-      desktopAnalytics.track("usage_limit_action", { action: "shown", from_provider: ask.provider });
-    },
-  );
-
   return (
     <>
       <Conversation

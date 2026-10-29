@@ -11,7 +11,6 @@ import type {
 import { describe, expect, it } from "vitest";
 import {
   decodeAccountSessions,
-  decodeAnalyticsPreference,
   decodeAppAppearancePreference,
   decodeAppInfo,
   decodeAppLanguagePreference,
@@ -80,7 +79,6 @@ const valid: [string, (value: unknown) => unknown, unknown][] = [
     decodeAppSetupState,
     { completed: true, preferredProvider: "codex", preferredModel: null } satisfies AppSetupState,
   ],
-  ["analytics preference", decodeAnalyticsPreference, { enabled: false }],
   [
     "approval automation",
     decodeApprovalAutomationPreference,
@@ -177,7 +175,6 @@ const malformed: [string, (value: unknown) => unknown, unknown][] = [
     decodeAppSetupState,
     { completed: true, preferredProvider: "other", preferredModel: null },
   ],
-  ["analytics preference without a switch", decodeAnalyticsPreference, {}],
   ["approval automation without overrides", decodeApprovalAutomationPreference, { defaultAutoApprove: true }],
   ["language preference with an unknown tag", decodeAppLanguagePreference, { language: "xx" }],
   ["appearance preference with no transparent window", decodeAppAppearancePreference, { appearance: "dark" }],

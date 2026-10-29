@@ -18,7 +18,7 @@ function directive(policy: string, name: string): string | undefined {
 
 const CONNECT_WITHOUT_OPENOWNBOT = "connect-src 'self' openbot-attachment: openbot-remote-attachment: ws://127.0.0.1:*";
 const CONNECT_WITH_OPENOWNBOT =
-  "connect-src 'self' openbot-attachment: openbot-remote-attachment: https://analytics.openbot.run ws://127.0.0.1:* wss://*.openbot.run";
+  "connect-src 'self' openbot-attachment: openbot-remote-attachment: ws://127.0.0.1:* wss://*.openbot.run";
 const FRAME_WITHOUT_OPENOWNBOT =
   "frame-src 'self' openbot-attachment: openbot-remote-attachment: openownbot-visual: openownbot-remote-visual: http://127.0.0.1:* http://localhost:*";
 const FRAME_WITH_OPENOWNBOT =

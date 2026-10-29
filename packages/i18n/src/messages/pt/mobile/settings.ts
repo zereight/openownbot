@@ -142,11 +142,6 @@ export const messages = {
     "Este servidor não pode enviar notificações. Atualize o OpenOwnBot no computador que o executa.",
   "mobile.settings.notifications.channel": "Notificações dos agentes ({sound})",
   "mobile.settings.notifications.channelSilent": "Notificações dos agentes (sem som)",
-  "mobile.settings.privacy.title": "Privacidade",
-  "mobile.settings.privacy.footer":
-    "Compartilhe o uso de recursos e os resultados de conexão deste celular. O conteúdo das mensagens e os arquivos não são enviados.",
-  "mobile.settings.privacy.analytics": "Compartilhar análises do produto",
-  "mobile.settings.privacy.retry": "Tentar salvar a privacidade de novo",
   "mobile.settings.conversations.title": "Conversas",
   "mobile.settings.conversations.hiddenChats": "Chats ocultos",
   "mobile.settings.profile.nameUnsafe": "Remova quebras de linha e caracteres de controle do seu nome.",

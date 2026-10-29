@@ -9,7 +9,6 @@ import { duplicateSection as duplicateSectionWith } from "@openownbot/ui/feature
 import { currentText } from "@openownbot/ui/text";
 import { createSignal, onCleanup } from "solid-js";
 import { actionToast } from "../../action-toast";
-import { desktopAnalytics } from "../../analytics";
 import { toAgentProfile, withoutAgent } from "../../app-message-projection";
 import { createStoredProfile } from "../../app-stored-values";
 import { useNavigation } from "../../navigation";
@@ -63,7 +62,6 @@ const AgentActions = createSimpleContext({
       setActiveAgentId,
       setSettingsRequest,
       setUiErrors,
-      analyticsAgentProperties,
       hideAgent,
       forgetHiddenAgent,
       userHiddenAgents,
@@ -96,21 +94,11 @@ const AgentActions = createSimpleContext({
 
     /** An agent made from another view, such as the routine canvas: the user stays where they are. */
     async function createAgentInPlace(draft: Parameters<typeof requestNewAgent>[0]) {
-      const analytics = desktopAnalytics.scope();
-      try {
-        const newAgent = addNewAgent(await requestNewAgent(draft));
-        const properties = analyticsAgentProperties(newAgent.id);
-        analytics.track("agent_action", { action: "create", result: "succeeded", ...(properties ?? {}) });
-        return newAgent;
-      } catch (error) {
-        analytics.track("agent_action", { action: "create", result: "failed", failure_code: "create_failed" });
-        throw error;
-      }
+      return addNewAgent(await requestNewAgent(draft));
     }
 
     async function createAgent(draft: FirstAgentDraft = agentSetupDraft()) {
       if (creatingAgent()) return;
-      const analytics = desktopAnalytics.scope();
       const submitted = { ...draft };
       setCreatingAgent(true);
       setAgentSetupError(null);
@@ -119,10 +107,7 @@ const AgentActions = createSimpleContext({
         setAgentSetupOpen(false);
         clearDirectSelection();
         setActiveAgentId(newAgent.id);
-        const properties = analyticsAgentProperties(newAgent.id);
-        analytics.track("agent_action", { action: "create", result: "succeeded", ...(properties ?? {}) });
       } catch (error) {
-        analytics.track("agent_action", { action: "create", result: "failed", failure_code: "create_failed" });
         const { t, errorMessage } = currentText();
         setAgentSetupError(errorMessage(error, t("agent.error.createFailed")));
       } finally {
@@ -149,21 +134,12 @@ const AgentActions = createSimpleContext({
     async function duplicateAgent(agentId: string): Promise<void> {
       if (agentSetupOpen() && creatingAgent()) return;
       if (!activeServerSupportsCapability("agent-duplication") || duplicatingAgentIds().has(agentId)) return;
-      const analytics = desktopAnalytics.scope();
-      const properties = analyticsAgentProperties(agentId);
       setDuplicatingAgentIds((current) => new Set(current).add(agentId));
       try {
         const result = await copyAgent(agentId);
         if (!result) return;
         selectAgent(result.agent.id);
-        analytics.track("agent_action", { action: "duplicate", result: "succeeded", ...(properties ?? {}) });
       } catch (error) {
-        analytics.track("agent_action", {
-          action: "duplicate",
-          result: "failed",
-          failure_code: "duplicate_failed",
-          ...(properties ?? {}),
-        });
         const { t, errorMessage } = currentText();
         actionToast.error(t("agent.error.duplicateTitle"), {
           ...{
@@ -256,9 +232,6 @@ const AgentActions = createSimpleContext({
       const agent = agentList().find((candidate) => candidate.id === agentId);
       if (!agent) return;
       const serverId = activeServerId();
-      const analytics = desktopAnalytics.scope();
-      const properties = analyticsAgentProperties(agentId);
-      const marketplaceAgent = Boolean(agent.marketplaceSource);
       const wasActive = activeAgentId() === agentId;
       // Read before the roster changes: a read after a write returns the old value until the flush.
       const others = agentList().filter((candidate) => candidate.id !== agentId);
@@ -290,10 +263,6 @@ const AgentActions = createSimpleContext({
       }
 
       function forgetDeletedAgent(): void {
-        analytics.track("agent_action", { action: "delete", result: "succeeded", ...(properties ?? {}) });
-        if (marketplaceAgent) {
-          analytics.track("marketplace_action", { entity: "agent", action: "uninstall", result: "succeeded" });
-        }
         if (!scopeIsCurrent()) return;
         forgetHiddenAgent(agentId);
         threads.forgetAgent(agentId);
@@ -325,20 +294,6 @@ const AgentActions = createSimpleContext({
           if (!stillListed) {
             forgetDeletedAgent();
             return;
-          }
-          analytics.track("agent_action", {
-            action: "delete",
-            result: "failed",
-            failure_code: "delete_failed",
-            ...(properties ?? {}),
-          });
-          if (marketplaceAgent) {
-            analytics.track("marketplace_action", {
-              entity: "agent",
-              action: "uninstall",
-              result: "failed",
-              failure_code: "uninstall_failed",
-            });
           }
           if (scopeIsCurrent()) showAgent();
           const { t, errorMessage } = currentText();

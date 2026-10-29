@@ -140,11 +140,6 @@ export const messages = {
     "이 서버는 알림을 보낼 수 없어요. 서버가 실행되는 컴퓨터에서 OpenOwnBot을 업데이트해 주세요.",
   "mobile.settings.notifications.channel": "에이전트 알림 ({sound})",
   "mobile.settings.notifications.channelSilent": "에이전트 알림 (소리 없음)",
-  "mobile.settings.privacy.title": "개인정보 보호",
-  "mobile.settings.privacy.footer":
-    "이 휴대전화의 기능 사용 현황과 연결 결과를 공유해요. 메시지 내용과 파일은 전송하지 않아요.",
-  "mobile.settings.privacy.analytics": "제품 분석 공유",
-  "mobile.settings.privacy.retry": "개인정보 설정 다시 저장",
   "mobile.settings.conversations.title": "대화",
   "mobile.settings.conversations.hiddenChats": "숨긴 채팅",
   "mobile.settings.profile.nameUnsafe": "이름에서 줄바꿈과 제어 문자를 제거해 주세요.",
