@@ -1387,7 +1387,7 @@ export function createMockOpenBot(options: MockOpenBotOptions = {}): MockOpenBot
             baseUrl: input.baseUrl,
             hasApiKey: input.apiKey !== null,
             headerNames: input.headers.map((header) => header.name),
-            models: input.models.map((model) => ({ id: model.id, name: model.name })),
+            models: input.models.map((model) => ({ ...model })),
           },
         ];
         emitAgentEvent({ type: "status", status: clone(agentStatus) });
@@ -1424,7 +1424,7 @@ export function createMockOpenBot(options: MockOpenBotOptions = {}): MockOpenBot
                 baseUrl: input.baseUrl,
                 hasApiKey: input.apiKey !== undefined || keepsKey,
                 headerNames,
-                models: input.models.map((model) => ({ id: model.id, name: model.name })),
+                models: input.models.map((model) => ({ ...model })),
               }
             : provider,
         );
