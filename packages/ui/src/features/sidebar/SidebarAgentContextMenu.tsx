@@ -3,7 +3,17 @@
  * away is `SidebarMoveToSubmenu`, which the channel menu shows too; everything here is agent-only.
  */
 
-import { AppWindow, ContextMenu, Copy, MessageCirclePlus, Moon, Pin, PinOff, RotateCcw } from "@openownbot/ui";
+import {
+  AppWindow,
+  CheckCheck,
+  ContextMenu,
+  Copy,
+  MessageCirclePlus,
+  Moon,
+  Pin,
+  PinOff,
+  RotateCcw,
+} from "@openownbot/ui";
 import { Show } from "solid-js";
 import type { AgentProfile } from "../../data";
 import { useText } from "../../text";
@@ -67,6 +77,14 @@ export function SidebarAgentContextMenu(menuProps: { agent: AgentProfile; pinned
                 : t("sidebar.agentMenu.duplicate")}
             </span>
           </ContextMenu.Item>
+        </Show>
+        <Show when={props.onMarkAllRead}>
+          {(markAllRead) => (
+            <ContextMenu.Item disabled={!props.hasUnread} onSelect={() => markAllRead()()}>
+              <CheckCheck class="agent-context-icon size-4" aria-hidden="true" />
+              <span>{t("sidebar.markAllRead")}</span>
+            </ContextMenu.Item>
+          )}
         </Show>
         <Show when={!menuProps.userHidden && props.onHideAgent}>
           <ContextMenu.Item onSelectAfterClose={() => props.onHideAgent?.(menuProps.agent.id)}>
