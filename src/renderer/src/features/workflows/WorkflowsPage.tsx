@@ -8,7 +8,6 @@ import {
 } from "@openownbot/ui/features/workflows/workflow-model";
 import { useText } from "@openownbot/ui/text";
 import { createMemo, createSignal, Show, untrack } from "solid-js";
-import { desktopAnalytics } from "../../analytics";
 import { useNavigation } from "../../navigation";
 import { useAuth } from "../account/account-context";
 import { useAgents } from "../agents/agents-context";
@@ -67,10 +66,7 @@ function WorkflowsCanvas(props: { serverId: string; host: WorkflowHost; admin: b
   const { agentList, modelOptions } = useAgents();
   const { signedInAccount } = useAuth();
   // The keyed parent mounts a new canvas for each server, so the host does not change.
-  const workflows = createWorkflowsController(
-    untrack(() => props.host),
-    () => desktopAnalytics.scope(),
-  );
+  const workflows = createWorkflowsController(untrack(() => props.host));
   const catalogs: WorkflowCatalogs = {
     get agents() {
       return agentList();

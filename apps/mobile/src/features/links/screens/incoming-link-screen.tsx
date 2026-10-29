@@ -8,7 +8,6 @@ import Bot from "lucide-react-native/icons/bot";
 import UserPlus from "lucide-react-native/icons/user-plus";
 import { useEffect, useRef, useState } from "react";
 import { View } from "react-native";
-import { mobileAnalytics } from "@/features/analytics/mobile-analytics";
 import { redeemMobileConnectUrl } from "@/features/auth/api/mobile-auth";
 import { useMobileSession } from "@/features/auth/context/mobile-session-context";
 import { SignInScreen } from "@/features/auth/screens/sign-in-screen";
@@ -69,11 +68,7 @@ function IncomingLinkContent({ request }: { request?: string }) {
     setError(null);
     try {
       const url = link.url;
-      const next = await mobileAnalytics.operation(
-        "mobile_pairing_action",
-        { action: "redeem", entry_point: "link" },
-        () => redeemMobileConnectUrl(url),
-      );
+      const next = await redeemMobileConnectUrl(url);
       connect(next);
       forgetIncomingLink(request);
       void haptics.notification("success");

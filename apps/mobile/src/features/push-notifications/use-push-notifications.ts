@@ -10,7 +10,6 @@ import type { TeamProtocolV2Json } from "@openownbot/contracts/team-protocol/v2"
 import { encodeLiveActivityBytes } from "@openownbot/team-client/live-activity-seal";
 import { pushNotificationKeys } from "@openownbot/team-client/push-notification-seal";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { mobileAnalytics } from "@/features/analytics/mobile-analytics";
 import { useLiveActivityHost } from "@/features/live-activity/model/live-activity-host";
 import { liveActivityHostKeys, loadLiveActivitySecret } from "@/features/live-activity/model/live-activity-keys";
 import { useLiveActivitiesPreference } from "@/features/settings/model/live-activities";
@@ -97,9 +96,7 @@ export function usePushNotifications({ servers, foreground, post, supportsPush }
     if (!native || !enabled || !foreground) return;
     let current = true;
     void (async () => {
-      const permission = await native.permission((answer) =>
-        mobileAnalytics.track("notification_settings_action", { action: "permission_prompted", permission: answer }),
-      );
+      const permission = await native.permission();
       if (!current) return;
       setNotificationPermission(permission);
       if (permission !== "granted") return;

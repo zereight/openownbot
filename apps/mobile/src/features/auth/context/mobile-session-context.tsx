@@ -10,8 +10,6 @@ import {
   useRef,
   useState,
 } from "react";
-import { mobileAnalytics } from "@/features/analytics/mobile-analytics";
-import { loadAnalyticsPreference } from "@/features/analytics/preference";
 import {
   logoutMobileSession,
   type MobileProfileChange,
@@ -61,7 +59,6 @@ export function MobileSessionProvider({ children }: PropsWithChildren) {
       // The hosted server plans keep the last answer for the life of the app; a new session drops it.
       queryClient.removeQueries({ queryKey: queryKeys.hostedServerPlans() });
     }
-    mobileAnalytics.setUser(session?.user ?? null);
     sessionRef.current = session;
     setSessionState(session);
   }, []);
@@ -81,7 +78,6 @@ export function MobileSessionProvider({ children }: PropsWithChildren) {
   useEffect(() => {
     let active = true;
     const scope = sessionScope.current;
-    void untilForeground().then(loadAnalyticsPreference);
     const read = () =>
       readMobileSession().then((stored) => {
         if (active && scope === sessionScope.current) setCurrentSession(stored);
@@ -136,7 +132,7 @@ export function MobileSessionProvider({ children }: PropsWithChildren) {
   const signOut = useCallback(async () => {
     const current = sessionRef.current;
     if (!current) return;
-    await mobileAnalytics.operation("account_sign_out", {}, () => logoutMobileSession(current));
+    await logoutMobileSession(current);
     deleteAgentAvatars();
     if (sessionRef.current?.sessionToken === current.sessionToken && sessionRef.current?.apiUrl === current.apiUrl) {
       setCurrentSession(null);

@@ -145,11 +145,6 @@ export const messages = {
     "Этот сервер не может отправлять уведомления. Обновите OpenOwnBot на компьютере, где он работает.",
   "mobile.settings.notifications.channel": "Уведомления агентов ({sound})",
   "mobile.settings.notifications.channelSilent": "Уведомления агентов (без звука)",
-  "mobile.settings.privacy.title": "Конфиденциальность",
-  "mobile.settings.privacy.footer":
-    "Передавать данные об использовании функций и результатах подключения с этого телефона. Содержимое сообщений и файлы не отправляются.",
-  "mobile.settings.privacy.analytics": "Делиться аналитикой продукта",
-  "mobile.settings.privacy.retry": "Повторить сохранение настройки конфиденциальности",
   "mobile.settings.conversations.title": "Диалоги",
   "mobile.settings.conversations.hiddenChats": "Скрытые чаты",
   "mobile.settings.profile.nameUnsafe": "Уберите из имени переносы строк и управляющие символы.",

@@ -28,7 +28,6 @@ import type {
   RemoteSessionReusePreference,
   ReplaceHostedSiteInput,
   SaveSetupInput,
-  SetAnalyticsPreferenceInput,
   SetAppAppearancePreferenceInput,
   SetAppInterfaceSizePreferenceInput,
   SetAppLanguagePreferenceInput,
@@ -89,11 +88,6 @@ export function parseSetup(input: unknown): SaveSetupInput {
 export function parseProviderId(input: unknown): AgentProviderId {
   if (!isAgentProvider(input)) throw new Error("Unknown provider.");
   return input;
-}
-
-export function parseAnalyticsPreference(input: unknown): SetAnalyticsPreferenceInput {
-  if (!isDynamicRecord(input) || !isBoolean(input.enabled)) throw new Error("Analytics preference is required.");
-  return { enabled: input.enabled };
 }
 
 export function parseBusyMessageModePreference(input: unknown): BusyMessageModePreference {

@@ -3,7 +3,6 @@ import type { AgentModelId, AgentProviderId, AppSetupState, DesktopPlatform } fr
 import { Button, ErrorReference } from "@openownbot/ui";
 import { useText } from "@openownbot/ui/text";
 import { createEffect, createSignal, createStore, createUniqueId, For, Match, Show, Switch, untrack } from "solid-js";
-import { desktopAnalytics } from "../../analytics";
 import { ComputerUseSetup } from "../computer-use/ComputerUseSetup";
 import { FirstRunChoice } from "./FirstRunChoice";
 import { FirstRunLaunch } from "./FirstRunLaunch";
@@ -11,7 +10,6 @@ import { FirstRunPlanStep } from "./FirstRunPlanStep";
 import { firstRunTransition } from "./first-run-transition";
 import { OnboardingComputerVisual } from "./OnboardingComputerVisual";
 import { createOnboardingAvatarVariant, createOnboardingTeam, onboardingSessionSeed } from "./onboarding-avatars";
-import type { OnboardingJourney } from "./onboarding-context";
 import { FREE_PROVIDER } from "./onboarding-provider-rows";
 import { createSetupProviders, type SetupProviderProps } from "./SetupProviderPicker";
 import { createSetupNext } from "./setup-next";
@@ -23,7 +21,7 @@ export interface FirstRunFlowProps extends SetupProviderProps {
    * Records the choice. The model is `null` for a built-in provider, which keeps its own default, and
    * names the endpoint the user just described when they chose their own.
    */
-  onSave: (provider: AgentProviderId, model: AgentModelId | null, journey: OnboardingJourney) => Promise<void>;
+  onSave: (provider: AgentProviderId, model: AgentModelId | null) => Promise<void>;
   /** Runs when the provider step is shown. First run scans once, so the host ignores a repeat. */
   onProviderStepShown?: () => void;
   /** The logo colour of this build, for the splash that shows while the app opens. */
@@ -42,8 +40,6 @@ interface FirstRunState {
   saving: boolean;
   /** The user asked to open OpenOwnBot before the provider was ready, so setup ends when it is. */
   finishWhenReady: boolean;
-  /** The user left the plan step with "Start free instead". */
-  skipped: boolean;
 }
 
 /**
@@ -58,7 +54,6 @@ export function FirstRunFlow(props: FirstRunFlowProps) {
     path: null,
     saving: false,
     finishWhenReady: false,
-    skipped: false,
   });
   /**
    * The first-run screen sits on the dialog layer, so a row menu portalled to `body` would paint
@@ -151,15 +146,6 @@ export function FirstRunFlow(props: FirstRunFlowProps) {
     },
   );
 
-  /** Records an action on the step shown now, with the path the user chose. */
-  function trackStep(action: "viewed" | "next" | "back" | "skipped", path: FirstRunPath = state.path): void {
-    desktopAnalytics.track("onboarding_step", { step: state.step, action, ...(path ? { path } : {}) });
-  }
-  createEffect(
-    () => state.step,
-    () => untrack(() => trackStep("viewed")),
-  );
-
   function moveTo(step: FirstRunStep): void {
     providers.clearErrors();
     void firstRunTransition("step", () => {
@@ -171,12 +157,9 @@ export function FirstRunFlow(props: FirstRunFlowProps) {
 
   // A write shows in reads only after the next flush, so this reads no state that it writes.
   function startFree(): void {
-    const fromPlan = state.step === "plan";
-    trackStep(fromPlan ? "skipped" : "next", "free");
     providers.chooseProvider(FREE_PROVIDER);
     setState((current) => {
       current.path = "free";
-      if (fromPlan) current.skipped = true;
     });
     retryFree();
     // The step after the first question; the plan step's "Start free instead" also lands there.
@@ -195,7 +178,6 @@ export function FirstRunFlow(props: FirstRunFlowProps) {
 
   function usePlan(): void {
     if (providers.selectedProvider() === FREE_PROVIDER && !providers.customSelected()) providers.clearChoice();
-    trackStep("next", "plan");
     setState((current) => {
       current.path = "plan";
     });
@@ -210,7 +192,6 @@ export function FirstRunFlow(props: FirstRunFlowProps) {
       next.connectSelected();
       return;
     }
-    trackStep("next");
     if (following) moveTo(following);
     else openWhenReady();
   }
@@ -256,7 +237,6 @@ export function FirstRunFlow(props: FirstRunFlowProps) {
   function previousStep(): void {
     const previous = steps()[stepNumber() - 2];
     if (!previous) return;
-    trackStep("back");
     moveTo(previous);
   }
 
@@ -270,10 +250,7 @@ export function FirstRunFlow(props: FirstRunFlowProps) {
     providers.setError("");
     try {
       // A built-in provider keeps its own default model, so only the custom row sends one.
-      await props.onSave(provider, providers.customSelected() ? providers.customModel() : null, {
-        ...(state.path ? { path: state.path } : {}),
-        skipped: state.skipped,
-      });
+      await props.onSave(provider, providers.customSelected() ? providers.customModel() : null);
     } catch (cause) {
       providers.setError(errorMessage(cause, t("onboarding.error.finish")), cause);
       setState((current) => {

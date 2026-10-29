@@ -20,7 +20,6 @@ import {
   AGENT_DEFAULT_KEYS,
   type AgentDefaults,
   type AgentMemoryLimitPreference,
-  type AnalyticsPreference,
   type AppAppearancePreference,
   type AppBehaviorPreference,
   type AppInfo,
@@ -132,17 +131,14 @@ import { isBoolean, isNumber, isOneOf, isString } from "@openownbot/contracts/ru
 
 export function decodeAppInfo(value: unknown): AppInfo {
   const info = decodeRecord(value, "app info");
-  const { platform, variant, analyticsCaptureUrl } = info;
+  const { platform, variant } = info;
   if (!isOneOf(["darwin", "win32", "linux"] as const, platform)) throw new Error("Invalid platform.");
   if (!isOneOf(["production", "dev", "preview"] as const, variant)) throw new Error("Invalid variant.");
-  if (analyticsCaptureUrl !== undefined && !isString(analyticsCaptureUrl))
-    throw new Error("Invalid analytics capture URL.");
   return {
     name: requiredString(info, "name"),
     version: requiredString(info, "version"),
     platform,
     variant,
-    ...(analyticsCaptureUrl === undefined ? {} : { analyticsCaptureUrl }),
   };
 }
 
@@ -152,10 +148,6 @@ export function decodeAppSetupState(value: unknown): AppSetupState {
   if (preferredProvider !== null && !isAgentProvider(preferredProvider)) throw new Error("Invalid preferredProvider.");
   if (preferredModel !== null && !isAgentModel(preferredModel)) throw new Error("Invalid preferredModel.");
   return { completed: requiredBoolean(state, "completed"), preferredProvider, preferredModel };
-}
-
-export function decodeAnalyticsPreference(value: unknown): AnalyticsPreference {
-  return { enabled: requiredBoolean(decodeRecord(value, "analytics preference"), "enabled") };
 }
 
 export const decodeApprovalAutomationPreference: (value: unknown) => ApprovalAutomationPreference = guardedDecoder(

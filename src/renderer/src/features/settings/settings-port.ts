@@ -7,7 +7,6 @@ import type { OpenOwnBotDesktopApi } from "@openownbot/contracts/ipc";
 export interface SettingsPort {
   getAgentDefaults: OpenOwnBotDesktopApi["getAgentDefaults"];
   getAgentMemoryLimitPreference: OpenOwnBotDesktopApi["getAgentMemoryLimitPreference"];
-  getAnalyticsPreference: OpenOwnBotDesktopApi["getAnalyticsPreference"];
   getAppBehaviorPreference: OpenOwnBotDesktopApi["getAppBehaviorPreference"];
   getApprovalAutomation: OpenOwnBotDesktopApi["getApprovalAutomation"];
   getBusyMessageModePreference: OpenOwnBotDesktopApi["getBusyMessageModePreference"];
@@ -22,7 +21,6 @@ export interface SettingsPort {
   onOpenSettings: OpenOwnBotDesktopApi["onOpenSettings"];
   onOpenUpdateSettings: OpenOwnBotDesktopApi["onOpenUpdateSettings"];
   setAgentDefaults: OpenOwnBotDesktopApi["setAgentDefaults"];
-  setAnalyticsPreference: OpenOwnBotDesktopApi["setAnalyticsPreference"];
   setAppBehaviorPreference: OpenOwnBotDesktopApi["setAppBehaviorPreference"];
   setBusyMessageModePreference: OpenOwnBotDesktopApi["setBusyMessageModePreference"];
   setExternalLinkPreference: OpenOwnBotDesktopApi["setExternalLinkPreference"];

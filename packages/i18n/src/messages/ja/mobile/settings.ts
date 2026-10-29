@@ -142,11 +142,6 @@ export const messages = {
     "このサーバーは通知を送信できません。サーバーを実行しているコンピューターで OpenOwnBot をアップデートしてください。",
   "mobile.settings.notifications.channel": "エージェントの通知（{sound}）",
   "mobile.settings.notifications.channelSilent": "エージェントの通知（サウンドなし）",
-  "mobile.settings.privacy.title": "プライバシー",
-  "mobile.settings.privacy.footer":
-    "このスマートフォンの機能の使用状況と接続結果を共有します。メッセージの内容とファイルは送信されません。",
-  "mobile.settings.privacy.analytics": "製品の分析データを共有",
-  "mobile.settings.privacy.retry": "プライバシー設定をもう一度保存",
   "mobile.settings.conversations.title": "会話",
   "mobile.settings.conversations.hiddenChats": "非表示のチャット",
   "mobile.settings.profile.nameUnsafe": "名前から改行と制御文字を削除してください。",

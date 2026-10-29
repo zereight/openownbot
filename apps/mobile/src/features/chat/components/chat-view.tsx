@@ -18,9 +18,6 @@ import Animated, { useSharedValue } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { scheduleOnRN } from "react-native-worklets";
 import { getBloubAvatarColor } from "@/features/agents/model/bloub-activity";
-import { MobileConversationAnalytics } from "@/features/analytics/conversation";
-import { reportMobileNotification } from "@/features/analytics/failure-reports";
-import { mobileAnalytics } from "@/features/analytics/mobile-analytics";
 import { useBrowserFeature } from "@/features/browser/components/use-browser-feature";
 import { channelRecipient } from "@/features/channels/model/channel-draft";
 import type { ApprovalDecision } from "@/features/chat/components/chat-approval-card";
@@ -256,7 +253,6 @@ export function ChatView({
   }, [target, chatBrowserRequests, channelLeadAgentId]);
   const isFocused = useIsFocused();
   const foregroundVisit = useAppForeground();
-  const [conversationAnalytics] = useState(() => new MobileConversationAnalytics(mobileAnalytics));
   const [appActive, setAppActive] = useState(AppState.currentState === "active");
   const reducedTransparency = useReducedTransparency();
   const server = useMobileWorkspaceSelector((current) => current.servers.find((item) => item.id === target.serverId));
@@ -288,12 +284,6 @@ export function ChatView({
     () => (failureAgent ? { provider: failureAgent.provider, model: failureAgent.model } : {}),
     [failureAgent],
   );
-  const reportedError = useRef<typeof sendError>(null);
-  useEffect(() => {
-    if (!isFocused || !sendError || sendError.agentId !== target.id || reportedError.current === sendError) return;
-    reportedError.current = sendError;
-    reportMobileNotification({ code: sendError.cause }, "turn", "banner", sendError.context);
-  }, [isFocused, sendError, target.id]);
   const [sendRetryVersion, setSendRetryVersion] = useState(0);
   const queryClient = useQueryClient();
   // Use skill in the plus menu bumps it; the composer then writes `@` and offers the skills.
@@ -551,21 +541,6 @@ export function ChatView({
   );
   const palette = useMemo(() => voicePalette(voiceColors, dark), [voiceColors, dark]);
   const accent = useMemo(() => voiceAccent(palette), [palette]);
-  useEffect(() => {
-    conversationAnalytics.update(
-      isFocused && foregroundVisit,
-      ready,
-      historyLoadFailed || (!serverOnline && server?.initialConnectionPending === false),
-    );
-  }, [
-    conversationAnalytics,
-    isFocused,
-    foregroundVisit,
-    ready,
-    historyLoadFailed,
-    serverOnline,
-    server?.initialConnectionPending,
-  ]);
   useEffect(() => {
     const subscription = AppState.addEventListener("change", (state) => setAppActive(state === "active"));
     return () => subscription.remove();

@@ -1,5 +1,10 @@
 # Product analytics
 
+> **Scope.** The desktop app, the desktop host, the browser client at `/app`, and the mobile app send no
+> product analytics: the `desktop`, `desktop_host`, `web` and `mobile` surfaces are removed, and so is the
+> analytics setting. Only the `landing` and `account_api` surfaces remain. The sections below keep the
+> historical contract for existing OpenPanel data. Do not add an event to a removed surface.
+
 OpenOwnBot uses a self-hosted OpenPanel project for production product analytics. This document is the
 contract for event meaning, attribution, privacy, and reporting. Changes to an event name, property,
 or success definition require an analytics schema version bump and corresponding test updates.

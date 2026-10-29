@@ -4,7 +4,6 @@ import { AgentTemplateInstallDialog } from "@openownbot/ui/features/agents/Agent
 import { useText } from "@openownbot/ui/text";
 import { createEffect, createStore } from "solid-js";
 import { actionToast } from "../../action-toast";
-import { desktopAnalytics } from "../../analytics";
 import { type AgentTemplateInstallCalls, agentTemplatesPort } from "./agent-templates-port";
 
 interface InstallState {
@@ -79,20 +78,7 @@ export function AgentTemplateInstall(props: {
     const port = calls();
     const agent = await (server
       ? port.agent.addTemplateAgent(input, server.id)
-      : port.agentTemplates.install(input).then((installed) => installed.agent)
-    ).catch((error: unknown) => {
-      desktopAnalytics.track("agent_template_action", {
-        action: "installed",
-        result: "failed",
-        entry_point: "deep_link",
-      });
-      throw error;
-    });
-    desktopAnalytics.track("agent_template_action", {
-      action: "installed",
-      result: "succeeded",
-      entry_point: "deep_link",
-    });
+      : port.agentTemplates.install(input).then((installed) => installed.agent));
     props.onClose();
     actionToast.success(
       server

@@ -68,7 +68,6 @@ export const messages = {
   "settings.keepRemoteSessions.title": "サーバーへの高速接続",
   "settings.keepRemoteSessions.description":
     "参加しているサーバーへの接続を起動の間も維持します。OpenOwnBot の起動が約 1 秒速くなります。OpenOwnBot を終了しても、OpenOwnBot サービスは接続を閉じません。",
-  "settings.permissions.title": "権限",
   "settings.notifications.title": "通知",
   "settings.alerts.title": "アラート",
   "settings.desktopNotifications.title": "デスクトップ通知",
@@ -117,11 +116,6 @@ export const messages = {
   "settings.notch.size.height": "高さ",
   "settings.notch.size.previewNotch": "内蔵ディスプレイ",
   "settings.notch.size.previewIsland": "外部ディスプレイ",
-  "settings.analytics.title": "製品分析データを共有する",
-  "settings.analytics.description":
-    "利用状況と安定性のメタデータを、アカウント ID とメールアドレスとともに OpenOwnBot の自社運用の分析基盤に送信します。",
-  "settings.analytics.webDescription":
-    "利用状況と安定性のメタデータを、アカウント ID とメールアドレスとともに OpenOwnBot の自社運用の分析基盤に送信します。この設定はこのブラウザーに適用されます。",
   "settings.tab.general.title": "一般",
   "settings.tab.general.description": "このコンピューターでの OpenOwnBot の動作を設定します。",
   "settings.tab.notifications.title": "通知",

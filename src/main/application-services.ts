@@ -1,6 +1,4 @@
 import { isManagedRuntimeProvider } from "@openownbot/contracts/agent-providers";
-import { ANALYTICS_GENERATIONS, openPanelTransport, ReportQueue } from "@openownbot/telemetry";
-import { fileReportStorage } from "@openownbot/telemetry/node";
 import { Effect, Fiber } from "effect";
 import { toAgentRemovalFailed } from "../backend/agent/agent-removal";
 import { toHostedSiteOperationFailed } from "../backend/agent/hosted-site-coordinator";
@@ -140,11 +138,6 @@ import {
 } from "./agent-memory-limit-preference-store";
 import { AgentTeamService } from "./agent-team-service";
 import { AgentTemplateService } from "./agent-template-service";
-import { HostAnalytics } from "./analytics";
-import { analyticsInventoryDayStore, collectAnalyticsInventory } from "./analytics-inventory";
-import { catalogPluginSlug, isReportedMcpServerName, loadCatalogPluginServers } from "./analytics-plugin-catalog";
-import { readAnalyticsPreference } from "./analytics-preference-store";
-import { providerAuthKind } from "./analytics-provider-auth";
 import { AppBehaviorService } from "./app-behavior-service";
 import { AppearanceService } from "./appearance-service";
 import { ApprovalAutomation, readApprovalAutomation } from "./approval-automation-store";
@@ -333,8 +326,6 @@ import { startWorkflowLog } from "./workflow-log";
 
 const logger = createOpenOwnBotLogger("application-services");
 const SETUP_FILE = "openbot-setup-v2.json";
-const ANALYTICS_PREFERENCE_FILE = "openbot-analytics-preference-v1.json";
-const ANALYTICS_INVENTORY_FILE = "openbot-analytics-inventory-v1.json";
 const APPROVAL_AUTOMATION_FILE = "openbot-approval-automation-v3.json";
 const V2_APPROVAL_AUTOMATION_FILE = "openbot-approval-automation-v2.json";
 const ROUTINE_FEED_FILE = "openbot-routine-feed-v1.json";
@@ -459,7 +450,6 @@ const TEARDOWN_ORDER = {
   storageUsage: 109,
   service: 110,
   mcpOAuth: 111,
-  analytics: 112,
   // After all account consumers have stopped.
   centralAuth: 115,
   // After the service, so the turns that end while the services stop are still written.
@@ -484,8 +474,6 @@ export interface ApplicationServiceContext {
   windows: MainWindowController;
   appIconPath: string;
   appVariant: AppVariant;
-  /** A local server that receives analytics in an unpackaged build. See `readAnalyticsCaptureUrl`. */
-  analyticsCaptureUrl: string | null;
   developmentRemoteRole: DevelopmentRemoteRole | null;
   developmentTestClientEnabled: boolean;
   /** Set only in a hosted server VM. */
@@ -544,7 +532,6 @@ export interface ApplicationServices {
   /** The restart that the user of this computer asked for, when no work runs. */
   idleRestart: IdleRestart;
   setupFile: string;
-  analyticsPreferenceFile: string;
   updatePreferenceFile: string;
   approvalAutomation: ApprovalAutomation;
   agentAdminSettings: AgentAdminSettingsService;
@@ -606,7 +593,6 @@ export interface ApplicationServices {
   cuaDriver: CuaDriverRuntime;
   computerUseHighlight: ComputerUseHighlightController;
   computerUsePermissionHelp: ComputerUsePermissionHelpWindowController;
-  analytics: HostAnalytics;
   trace: TraceFile;
   resourceMonitor: ResourceMonitor;
   teamStore: TeamStore;
@@ -854,7 +840,6 @@ export async function createApplicationServices({
   windows,
   appIconPath,
   appVariant,
-  analyticsCaptureUrl,
   developmentRemoteRole,
   developmentTestClientEnabled,
   hostedServer,
@@ -1134,11 +1119,9 @@ export async function createApplicationServices({
   });
   browser.onChanged((tabs, activeTabId) => forwardBrowserDisplayState({ tabs, activeTabId }));
   const setupFile = join(app.getPath("userData"), SETUP_FILE);
-  const analyticsPreferenceFile = join(app.getPath("userData"), ANALYTICS_PREFERENCE_FILE);
   const updatePreferenceFile = join(app.getPath("userData"), UPDATE_PREFERENCE_FILE);
   const routineHoldFile = join(app.getPath("userData"), ROUTINE_HOLD_FILE);
   const setupState = await runCauseEffect(readSetupState(setupFile));
-  const analyticsPreference = await Effect.runPromise(readAnalyticsPreference(analyticsPreferenceFile));
   // Loaded before the first window and before the application menu is built, so every native
   // surface draws in the saved language on the first frame rather than switching after startup.
   const language = new LanguageService({
@@ -1490,7 +1473,7 @@ export async function createApplicationServices({
   teardown.push(TEARDOWN_ORDER.onePasswordConnector, "the 1Password connection", () =>
     runCauseEffect(onePasswordConnector.dispose()),
   );
-  // Read by the resource monitor, which starts after the analytics that needs the services.
+  // Read by the resource monitor.
   const statementTimings = new StatementTimings();
   const tables = new AgentTables({
     sharedRoot: store.sharedRoot,
@@ -2533,37 +2516,7 @@ export async function createApplicationServices({
     // service keeps its host, and the event listener settles it.
     await runCauseEffect(host.applySignedInAccount(null));
   }
-  const analyticsPlatform = process.platform;
-  if (analyticsPlatform !== "darwin" && analyticsPlatform !== "win32" && analyticsPlatform !== "linux") {
-    throw new Error(`Unsupported analytics platform: ${analyticsPlatform}`);
-  }
-  // Load the local catalog before telemetry starts so tool steps and inventory use the same names.
   performance.mark("openownbot:services.remote-desktop");
-  const catalogPluginServers = await Effect.runPromise(
-    loadCatalogPluginServers(
-      app.isPackaged
-        ? join(process.resourcesPath, "plugin-catalog")
-        : resolve(__dirname, "../../resources/plugin-catalog"),
-    ),
-  );
-  const analyticsEnabled =
-    (app.isPackaged && appVariant === "production" && !LOCAL_ONLY) || analyticsCaptureUrl !== null;
-  const failureReports = analyticsEnabled
-    ? new ReportQueue(
-        fileReportStorage(join(app.getPath("userData"), "openbot-error-reports-v1.json")),
-        openPanelTransport({
-          clientId: "6c989975-87ef-4f0c-857e-ab449a65b5c2",
-          origin: "openownbot-app://app",
-          ...(analyticsCaptureUrl ? { endpoint: `${analyticsCaptureUrl}/track` } : {}),
-        }),
-        {
-          surface: "desktop_host",
-          app_version: app.getVersion(),
-          platform: analyticsPlatform,
-          event_schema_version: ANALYTICS_GENERATIONS.desktop_host,
-        },
-      )
-    : undefined;
   const trace = new TraceFile({ directory: join(app.getPath("userData"), "logs") });
   teardown.push(TEARDOWN_ORDER.trace, "the trace file", () => Effect.runPromise(trace.close()));
   const resourceMonitor = new ResourceMonitor({
@@ -2577,66 +2530,7 @@ export async function createApplicationServices({
     Effect.runPromise(resourceMonitor.close()),
   );
   service.on("event", (event) => resourceMonitor.observeAgentEvent(event));
-  const analytics = new HostAnalytics({
-    ...(failureReports ? { reports: failureReports } : {}),
-    enabled: analyticsEnabled,
-    ...(analyticsCaptureUrl ? { apiUrl: analyticsCaptureUrl } : {}),
-    trackingEnabled: analyticsPreference.enabled,
-    appVersion: app.getVersion(),
-    platform: analyticsPlatform,
-    // A function for a lifetime reason, not an ordering one: the signed-in account changes
-    // while the app runs, and the analytics identity has to follow it.
-    resolveOwner: () => {
-      const state = centralAuth.getState();
-      if (state.status !== "signed_in") return null;
-      const storedOwner = teamStore.getOwnerAnalyticsIdentity();
-      if (storedOwner) return storedOwner.id === state.user.id ? storedOwner : null;
-      const ownerEmail = teamStore.getOwnerEmail();
-      return !teamStore.configured || ownerEmail?.trim().toLowerCase() === state.user.email.trim().toLowerCase()
-        ? state.user
-        : null;
-    },
-    resolveAgent: (agentId) => service.listAgents().find((agent) => agent.id === agentId) ?? null,
-    resolveProviderAuth: (agent) =>
-      providerAuthKind(agent, {
-        account: (provider) => service.getProviderAccountKind(provider),
-        hasApiKey: (provider) => providerCredentials.status(provider) === "saved",
-        customProviderIds: () => customProviders.list().map((provider) => provider.id),
-        envKey: (name) => Boolean(process.env[name]?.trim()),
-      }),
-    resolveTurnUsage: (agentId, turnId, since) => service.getTurnUsage(agentId, turnId, since),
-    resolveMcpServer: (name) => {
-      const configs = service.listMcpServers().filter((server) => isReportedMcpServerName(server.name, name));
-      if (configs.length === 0) return null;
-      const slugs = new Set(configs.map((config) => catalogPluginSlug(config, catalogPluginServers, homedir())));
-      const [slug] = slugs;
-      return { slug: slugs.size === 1 && slug ? slug : null };
-    },
-    resolveRoutineRun: (agentId, routineId, runId) => {
-      const run = service.listRoutineRuns({ agentId, routineId }).find((item) => item.id === runId);
-      const routine = service.listRoutines(agentId).find((item) => item.id === routineId);
-      return run && routine ? { runKind: run.kind, triggerType: routine.trigger.schedule.kind } : null;
-    },
-    resolveInventory: () =>
-      collectAnalyticsInventory({
-        agents: () => service.listAgents(),
-        routines: (agentId) => service.listRoutines(agentId),
-        workflowCount: () => workflowStore.list().length,
-        // The local read: `listInstalled` asks the marketplace for each skill's latest version.
-        skills: (agentId) => skills.listInstalledForChatTags(agentId),
-        mcpServers: () => service.listMcpServers(),
-        pluginSlug: (config) => catalogPluginSlug(config, catalogPluginServers, homedir()),
-        computerUseEnabled: () => cuaDriver.mcpServerForProviders() !== null,
-      }),
-    inventoryDay: analyticsInventoryDayStore(join(app.getPath("userData"), ANALYTICS_INVENTORY_FILE)),
-    resources: resourceMonitor,
-  });
-  teardown.push(TEARDOWN_ORDER.analytics, "host analytics", () => Effect.runPromise(analytics.close()));
-  // Immediately after construction: this attributes buffered events to the current owner rather
-  // than flushing a queue, so a later call would attribute them to nobody.
-  analytics.flushPending();
-  service.on("failure", (failure) => analytics.handleFailure(failure));
-  resourceMonitor.start(() => analytics.checkResources());
+  resourceMonitor.start();
   const connectTrace = new RemoteConnectTrace((span) => trace.record(span));
   const remoteServers = new RemoteServerManager(
     join(app.getPath("userData"), REMOTE_SERVERS_FILE),
@@ -3097,7 +2991,6 @@ export async function createApplicationServices({
     browserView,
     updater,
     setupFile,
-    analyticsPreferenceFile,
     updatePreferenceFile,
     approvalAutomation,
     agentAdminSettings,
@@ -3161,7 +3054,6 @@ export async function createApplicationServices({
     cuaDriver,
     computerUseHighlight,
     computerUsePermissionHelp,
-    analytics,
     trace,
     resourceMonitor,
     teamStore,

@@ -72,7 +72,6 @@ const DISCORD = /^https:\/\/discord\.openbot\.run$/u;
 const INVITE_PLACEHOLDER = /^https:\/\/openbot\.run\/join\?…$/u;
 const HOSTNAME_SUFFIX = /^\.openbot\.site$/u;
 const PODSPEC_HOMEPAGE = /^s\.homepage\s+= 'https:\/\/openbot\.run'$/u;
-const ANALYTICS_API = /^https:\/\/analytics\.openbot\.run\/api$/u;
 
 const GLOBAL_WEBSOCKET =
   "Uses the global WebSocket, which installLocalOnlyGuard replaces. The URL is a remote server that the user chose, and an OpenOwnBot host is refused there.";
@@ -107,7 +106,6 @@ export const LOCAL_ONLY_ALLOWLIST: readonly AllowEntry[] = [
     "not-fetched",
     "Pod metadata.",
   ),
-  mention("apps/mobile/src/features/analytics/mobile-analytics.ts", ANALYTICS_API, "gated"),
   mention(
     "apps/mobile/src/features/links/model/incoming-links.ts",
     SITE,
@@ -172,7 +170,7 @@ export const LOCAL_ONLY_ALLOWLIST: readonly AllowEntry[] = [
     "packages/telemetry/src/transport.ts",
     /^https:\/\/analytics\.openbot\.run\/api\/track$/u,
     "refused",
-    "The default endpoint. Every caller is gated: application-services.ts, renderer error-reports.ts, the web build by its origin check, and mobile failure-reports.ts.",
+    "The default endpoint. The mobile failure-reports.ts is the only caller, and nothing configures it.",
   ),
   mention("packages/ui/src/features/servers/JoinServerDialog.tsx", INVITE_PLACEHOLDER, "not-fetched"),
   mention(
@@ -195,15 +193,8 @@ export const LOCAL_ONLY_ALLOWLIST: readonly AllowEntry[] = [
     "gated",
     "The client metadata leaves the URLs out.",
   ),
-  mention(
-    "src/main/analytics.ts",
-    ANALYTICS_API,
-    "gated",
-    "HostAnalytics takes `enabled` from analyticsEnabled in application-services.ts.",
-  ),
   mention("src/main/application-services.ts", /^https:\/\/api\.openbot\.run$/u, "gated"),
   dynamicDial("src/main/browser-view-client.ts", GLOBAL_WEBSOCKET),
-  mention("src/main/content-security-policy.ts", /^ https:\/\/analytics\.openbot\.run$/u, "gated"),
   mention("src/main/content-security-policy.ts", /^ wss:\/\/\*\.openbot\.run$/u, "gated"),
   mention("src/main/content-security-policy.ts", /^ https:\/\/\*\.openbot\.run$/u, "gated"),
   bypass("src/main/cua-driver-action-tap.ts", "net-connect", LOCAL_SOCKET),
@@ -237,19 +228,6 @@ export const LOCAL_ONLY_ALLOWLIST: readonly AllowEntry[] = [
     "Dials the ElevenLabs speech-to-text URL, which is not an OpenOwnBot service.",
   ),
   dynamicDial("src/main/voice-cloud-stream.ts", "The URL is the ElevenLabs constant of this file."),
-  mention("src/renderer/src/analytics.ts", ANALYTICS_API, "gated"),
-  mention(
-    "src/renderer/src/analytics.ts",
-    SITE,
-    "not-fetched",
-    "The web client sends events only when the page itself is served from this origin.",
-  ),
-  mention(
-    "src/renderer/src/error-reports.ts",
-    SITE,
-    "not-fetched",
-    "The web client sends reports only when the page itself is served from this origin.",
-  ),
   mention(
     "src/renderer/src/features/agent-templates/agent-template-card.tsx",
     /^openbot\.run$/u,

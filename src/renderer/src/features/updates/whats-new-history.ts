@@ -38,7 +38,7 @@ export interface VersionStorage {
   setItem(key: string, value: string): void;
 }
 
-/** Read before Settings records analytics for this launch. Never write the old analytics key. */
+/** Falls back to the version key of older releases. Never write the old key. */
 export function readWhatsNewVersion(storage: VersionStorage): string | null {
   try {
     return releaseVersion(storage.getItem(WHATS_NEW_VERSION_KEY) ?? storage.getItem(LEGACY_VERSION_KEY));

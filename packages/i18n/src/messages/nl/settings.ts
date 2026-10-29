@@ -85,7 +85,6 @@ export const messages = {
   "settings.keepRemoteSessions.title": "Snelle verbinding met servers",
   "settings.keepRemoteSessions.description":
     "Houd de verbinding met de servers waaraan je deelneemt tussen starts open. OpenOwnBot start dan ongeveer een seconde sneller. Als je OpenOwnBot afsluit, sluit de OpenOwnBot-service de verbinding niet.",
-  "settings.permissions.title": "Machtigingen",
   "settings.notifications.title": "Meldingen",
   "settings.alerts.title": "Waarschuwingen",
   "settings.desktopNotifications.title": "Bureaubladmeldingen",
@@ -137,11 +136,6 @@ export const messages = {
   "settings.notch.size.height": "Hoogte",
   "settings.notch.size.previewNotch": "Ingebouwd scherm",
   "settings.notch.size.previewIsland": "Extern scherm",
-  "settings.analytics.title": "Deel productanalyse",
-  "settings.analytics.description":
-    "Stuur metadata over gebruik en betrouwbaarheid met je account-ID en e-mailadres naar de zelfgehoste analyse van OpenOwnBot.",
-  "settings.analytics.webDescription":
-    "Stuur metadata over gebruik en betrouwbaarheid met je account-ID en e-mailadres naar de zelfgehoste analyse van OpenOwnBot. Deze instelling geldt voor deze browser.",
   "settings.tab.general.title": "Algemeen",
   "settings.tab.general.description": "Bepaal hoe OpenOwnBot zich op deze computer gedraagt.",
   "settings.tab.agents.title": "Agents",

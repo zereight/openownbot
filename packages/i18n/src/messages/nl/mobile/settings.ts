@@ -140,11 +140,6 @@ export const messages = {
     "Deze server kan geen meldingen versturen. Werk OpenOwnBot bij op de computer waarop de server draait.",
   "mobile.settings.notifications.channel": "Agentmeldingen ({sound})",
   "mobile.settings.notifications.channelSilent": "Agentmeldingen (geen geluid)",
-  "mobile.settings.privacy.title": "Privacy",
-  "mobile.settings.privacy.footer":
-    "Deel functiegebruik en verbindingsresultaten van deze telefoon. Berichtinhoud en bestanden worden niet verstuurd.",
-  "mobile.settings.privacy.analytics": "Productanalyses delen",
-  "mobile.settings.privacy.retry": "Opslaan van privacyinstelling opnieuw proberen",
   "mobile.settings.conversations.title": "Gesprekken",
   "mobile.settings.conversations.hiddenChats": "Verborgen chats",
   "mobile.settings.profile.nameUnsafe": "Verwijder regeleinden en stuurtekens uit je naam.",

@@ -11,9 +11,7 @@ import * as DocumentPicker from "expo-document-picker";
 import { File } from "expo-file-system";
 import * as ImagePicker from "expo-image-picker";
 import { useMemo, useRef, useState } from "react";
-import { attachmentSizeBucket } from "@/features/analytics/events";
 import { showFailureAlert } from "@/features/analytics/failure-reports";
-import { mobileAnalytics } from "@/features/analytics/mobile-analytics";
 import { haptics } from "@/shared/lib/haptics";
 import { readFileBase64 } from "@/shared/lib/read-file-base64";
 import { useText } from "@/shared/lib/text";
@@ -122,20 +120,10 @@ export function useChatAttachments(
       ...(dimensions ? { dimensions } : {}),
     };
   }
-  function trackSelected(size: number) {
-    mobileAnalytics.track("attachment_action", {
-      action: "select",
-      result: "succeeded",
-      attachment_count: 1,
-      size_bucket: attachmentSizeBucket(size),
-    });
-  }
   function add(input: RemoteFileUpload & { uri?: string }) {
     if (itemsRef.current.length >= INPUT_LIMITS.attachments) throw new Error(limitMessage());
     const item = prepare(input);
-    const saved = persistItems([...itemsRef.current, item]);
-    trackSelected(item.size);
-    return saved;
+    return persistItems([...itemsRef.current, item]);
   }
   async function readFile(uri: string, name: string): Promise<RemoteFileUpload & { uri: string }> {
     const file = new File(uri);
@@ -171,21 +159,16 @@ export function useChatAttachments(
       const asset = result.canceled ? undefined : result.assets[0];
       if (asset) picked = { uri: asset.uri, name: asset.name };
     }
-    if (!picked) {
-      mobileAnalytics.track("attachment_action", { action: "select", result: "cancelled", attachment_count: 0 });
-      return;
-    }
+    if (!picked) return;
     const item = prepare(await readFile(picked.uri, picked.name));
     // The list can change while the picker is open; replace the file where it is now.
     const next = itemsRef.current.map((candidate) => (candidate.id === id ? item : candidate));
     if (!next.includes(item)) return;
     await persistItems(next);
-    trackSelected(item.size);
   }
   async function chooseFiles() {
     const result = await DocumentPicker.getDocumentAsync({ multiple: true, copyToCacheDirectory: true });
     if (!result.canceled) for (const asset of result.assets) await addFile(asset.uri, asset.name);
-    else mobileAnalytics.track("attachment_action", { action: "select", result: "cancelled", attachment_count: 0 });
   }
   // Answers whether the card may become the camera. It reports its own refusal
   // rather than throwing: the card stays open on a refusal, so there is nothing
@@ -196,11 +179,6 @@ export function useChatAttachments(
       if (!(await ImagePicker.requestCameraPermissionsAsync()).granted)
         throw new Error(t("mobile.chat.attachment.cameraPermission"));
     } catch (error) {
-      mobileAnalytics.track("attachment_action", {
-        action: "select",
-        result: "failed",
-        failure_code: "operation_failed",
-      });
       void haptics.notification("error");
       showFailureAlert(
         error,
@@ -221,9 +199,7 @@ export function useChatAttachments(
       preferredAssetRepresentationMode: ImagePicker.UIImagePickerPreferredAssetRepresentationMode.Compatible,
       selectionLimit: INPUT_LIMITS.attachments - itemsRef.current.length,
     });
-    if (result.canceled)
-      mobileAnalytics.track("attachment_action", { action: "select", result: "cancelled", attachment_count: 0 });
-    else for (const asset of result.assets) await addFile(asset.uri, photoName(asset));
+    if (!result.canceled) for (const asset of result.assets) await addFile(asset.uri, photoName(asset));
   }
   function pasteText(text: string, onText: (text: string) => void) {
     if (text.length > LARGE_TEXT_LENGTH)
@@ -235,11 +211,6 @@ export function useChatAttachments(
     onText(text);
   }
   function reportFailures(failures: unknown[]) {
-    mobileAnalytics.track("attachment_action", {
-      action: "select",
-      result: "failed",
-      failure_code: "operation_failed",
-    });
     void haptics.notification("error");
     showFailureAlert(
       failures[0],
@@ -317,7 +288,6 @@ export function useChatAttachments(
     addShared,
     remove: (id: string) => {
       void report(() => persistItems(itemsRef.current.filter((item) => item.id !== id)));
-      mobileAnalytics.track("attachment_action", { action: "remove", result: "succeeded", attachment_count: 1 });
     },
     clear: () => replace([]),
     /** Puts back the files of a message that the person takes back to edit, after any files chosen since. */

@@ -140,11 +140,6 @@ export const messages = {
     "Bu sunucu bildirim gönderemez. Sunucuyu çalıştıran bilgisayardaki OpenOwnBot'u güncelleyin.",
   "mobile.settings.notifications.channel": "Ajan bildirimleri ({sound})",
   "mobile.settings.notifications.channelSilent": "Ajan bildirimleri (sessiz)",
-  "mobile.settings.privacy.title": "Gizlilik",
-  "mobile.settings.privacy.footer":
-    "Bu telefondan özellik kullanımını ve bağlantı sonuçlarını paylaşın. Mesaj içerikleri ve dosyalar gönderilmez.",
-  "mobile.settings.privacy.analytics": "Ürün analizlerini paylaş",
-  "mobile.settings.privacy.retry": "Gizlilik ayarını kaydetmeyi tekrar dene",
   "mobile.settings.conversations.title": "Konuşmalar",
   "mobile.settings.conversations.hiddenChats": "Gizli sohbetler",
   "mobile.settings.profile.nameUnsafe": "Adınızdaki satır sonlarını ve kontrol karakterlerini kaldırın.",

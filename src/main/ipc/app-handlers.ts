@@ -1,5 +1,5 @@
-import { Effect, Semaphore } from "effect";
-// App identity, first-run setup, the analytics preference, external links and the data and
+import { Effect } from "effect";
+// App identity, first-run setup, external links and the data and
 // diagnostics exports.
 
 import { HOSTED_SERVER_CONTACT_URL } from "@openownbot/contracts/hosted-servers";
@@ -21,7 +21,6 @@ import type { BrowserHost } from "../../backend/browser-host";
 import type { MailboxStore } from "../../backend/mailbox-store";
 import type { AgentDefaultsPreferenceStore } from "../agent-defaults-preference-store";
 import type { AgentMemoryLimitSetting } from "../agent-memory-limit-preference-store";
-import { readAnalyticsPreference, writeAnalyticsPreference } from "../analytics-preference-store";
 import type { AppBehaviorService } from "../app-behavior-service";
 import type { AppearanceService } from "../appearance-service";
 import type { ApprovalAutomation } from "../approval-automation-store";
@@ -40,7 +39,6 @@ import { readSetupState, writeSetupState } from "../setup-store";
 import type { UpdateService } from "../update-service";
 import {
   parseAgentDefaults,
-  parseAnalyticsPreference,
   parseAppAppearancePreference,
   parseAppBehaviorPreferenceChange,
   parseAppInterfaceSizePreference,
@@ -96,7 +94,6 @@ export interface AppIpcDependencies {
   browser: BrowserHost;
   updater: UpdateService;
   setupFile: string;
-  analyticsPreferenceFile: string;
   approvalAutomation: ApprovalAutomation;
   busyMessageMode: BusyMessageModePreferenceStore;
   agentDefaults: AgentDefaultsPreferenceStore;
@@ -117,11 +114,9 @@ export interface AppIpcDependencies {
   interfaceSize: InterfaceSizeService;
   initializeAgent: () => Promise<void>;
   appVariant: AppVariant;
-  analyticsCaptureUrl: string | null;
   getMainWindow: () => BrowserWindow | null;
   openChatWindow: (target: ChatWindowTarget) => void;
   chatWindowTargets: () => ChatWindowTarget[];
-  setAnalyticsTrackingEnabled: (enabled: boolean) => void;
   trace: TraceFile;
   resources: ResourceMonitor;
 }
@@ -132,7 +127,6 @@ export function appIpcHandlers({
   browser,
   updater,
   setupFile,
-  analyticsPreferenceFile,
   approvalAutomation,
   busyMessageMode,
   agentDefaults,
@@ -151,16 +145,12 @@ export function appIpcHandlers({
   interfaceSize,
   initializeAgent,
   appVariant,
-  analyticsCaptureUrl,
   getMainWindow,
   openChatWindow,
   chatWindowTargets,
-  setAnalyticsTrackingEnabled,
   trace,
   resources,
 }: AppIpcDependencies): Pick<IpcGroupHandlers, "app" | "maintenance"> {
-  // One write at a time, so two quick toggles leave the file and the tracker at the last choice.
-  const analyticsPreferenceWrites = Semaphore.makeUnsafe(1);
   return {
     app: {
       getAppInfo: handler((): AppInfo => {
@@ -175,21 +165,9 @@ export function appIpcHandlers({
           version,
           platform,
           variant: appVariant,
-          ...(analyticsCaptureUrl ? { analyticsCaptureUrl } : {}),
         };
       }),
       getSetupState: handler(() => runCauseEffect(readSetupState(setupFile))),
-      getAnalyticsPreference: handler(() => Effect.runPromise(readAnalyticsPreference(analyticsPreferenceFile))),
-      setAnalyticsPreference: payloadHandler(parseAnalyticsPreference, (parsed) => {
-        return runCauseEffect(
-          analyticsPreferenceWrites.withPermit(
-            writeAnalyticsPreference(analyticsPreferenceFile, parsed.enabled).pipe(
-              Effect.tap((preference) => Effect.sync(() => setAnalyticsTrackingEnabled(preference.enabled))),
-              Effect.uninterruptible,
-            ),
-          ),
-        );
-      }),
       getApprovalAutomation: handler(() => approvalAutomation.current()),
       getBusyMessageModePreference: handler(() => busyMessageMode.get()),
       setBusyMessageModePreference: payloadHandler(parseBusyMessageModePreference, (parsed) =>

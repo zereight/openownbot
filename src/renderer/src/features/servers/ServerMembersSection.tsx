@@ -50,7 +50,6 @@ import { useText } from "@openownbot/ui/text";
 import { prefersReducedMotion } from "@openownbot/ui/utils";
 import type { JSX } from "@solidjs/web";
 import { createEffect, createMemo, createSignal, createStore, For, onCleanup, Show, untrack } from "solid-js";
-import { desktopAnalytics } from "../../analytics";
 import { ServerInvitesEmpty } from "./ServerInvitesEmpty";
 import type { ServerRolesSection } from "./ServerRolesSection";
 import { serverRoleCanAdminister } from "./server-capabilities";
@@ -185,19 +184,6 @@ export function createServerMembersSection(
     const limit = memberLimit();
     return limit !== null && activeMembers().length >= limit;
   };
-  createEffect(
-    () => membersFull() && canManage(),
-    (full) => {
-      if (full) desktopAnalytics.track("limit_reached", { kind: "members", action: "shown" });
-    },
-  );
-  const trackInvite = (action: "invite_link_copied" | "invite_qr_shown") =>
-    desktopAnalytics.track("team_action", {
-      action,
-      result: "succeeded",
-      server_kind: props.server.kind,
-      role: panels.invite.role,
-    });
   const membersCount = () => {
     const count = activeMembers().length;
     const limit = memberLimit();
@@ -320,7 +306,6 @@ export function createServerMembersSection(
       });
       if (check.full) {
         setLicenseStep({ ...check.full, error: null });
-        desktopAnalytics.track("limit_reached", { kind: "license_users", action: "shown", role: panels.invite.role });
         return;
       }
     }
@@ -647,7 +632,6 @@ export function createServerMembersSection(
                         copiedLabel={t("common.copied")}
                         size="sm"
                         variant="default"
-                        onCopy={() => trackInvite("invite_link_copied")}
                         onCopyError={host.showCopyError}
                       />
                       <Button
@@ -656,7 +640,6 @@ export function createServerMembersSection(
                         aria-label={t("server.invite.showQr")}
                         aria-expanded={panels.invite.showQr ? "true" : "false"}
                         onClick={() => {
-                          if (!panels.invite.showQr) trackInvite("invite_qr_shown");
                           setPanels((state) => {
                             state.invite.showQr = !state.invite.showQr;
                           });
@@ -1012,35 +995,18 @@ export function createServerMembersSection(
                 price() !== null ? t("billing.license.invite.confirm") : t("billing.license.contact.action")
               }
               error={step().error ?? undefined}
-              onCancel={() => {
-                setLicenseStep(null);
-                desktopAnalytics.track("limit_reached", { kind: "license_users", action: "dismissed" });
-              }}
+              onCancel={() => setLicenseStep(null)}
               onConfirm={async () => {
                 const calls = props.license;
                 if (price() === null) {
                   setLicenseStep(null);
-                  desktopAnalytics.track("limit_reached", { kind: "license_users", action: "contact_clicked" });
-                  desktopAnalytics.track("sales_contact_clicked", { entry_point: "members" });
                   props.onContactUs?.();
                   return;
                 }
-                desktopAnalytics.track("limit_reached", { kind: "license_users", action: "confirmed" });
                 if (calls) {
                   try {
                     await calls.setUsers({ users: users() });
-                    desktopAnalytics.track("license_action", {
-                      action: "users_change_requested",
-                      result: "succeeded",
-                      direction: "up",
-                    });
                   } catch (error) {
-                    desktopAnalytics.track("license_action", {
-                      action: "users_change_requested",
-                      result: "failed",
-                      direction: "up",
-                      failure_code: "update_failed",
-                    });
                     setLicenseStep({ ...step(), error: errorMessage(error, t("billing.license.actionFailed")) });
                     return;
                   }

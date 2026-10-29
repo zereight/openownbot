@@ -1,26 +1,5 @@
 # Analytics
 
-## Mobile product analytics
-
-`apps/mobile/src/features/analytics` owns the React Native OpenPanel client, typed event allowlists,
-account-scoped operations, the local SecureStore preference, and foreground/connection events.
-Before session creation, it buffers at most 100 sanitized events in memory for 30 minutes from the
-first buffered event. The next account claims this buffer; identify precedes ordered delivery with
-original timestamps. Reconnects do not replay it. Expiry, opt-out, and process exit discard it.
-Account changes invalidate prior operation scopes; the anonymous-to-account transition retains the
-pairing scope so its completion can be recorded. Mobile uses a write-only client in the existing
-Openownbot OpenPanel project shared with desktop and the website.
-Workspace command wrappers record outcomes once at the mobile caller; conversation availability is measured in
-the visible chat view, including cached reads, not from background broadcasts. The host remains the only source of turn lifecycle
-events. No Team API or database schema changes are required.
-
-Only native production builds with mobile write credentials initialize the client, after the
-preference is loaded. UI actions never await analytics transport. Account/consent generations
-reject late results; ordered identity changes preserve attribution of already accepted events.
-A final SDK filter replaces properties to remove SDK-added Android referrers and route paths.
-The SDK's optional persistent queue and screen tracking are not enabled. Configuration, event
-semantics and native verification steps are in [the mobile README](../../apps/mobile/README.md#openpanel-product-analytics).
-
 ## Website analytics
 
 Public website tracking lives in `apps/auth-api/src/lib/analytics.ts`. It runs only on the

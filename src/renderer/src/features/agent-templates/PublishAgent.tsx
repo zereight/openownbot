@@ -5,23 +5,9 @@ import { PublishAgentDialog } from "@openownbot/ui/features/agents/PublishAgentD
 import { currentText } from "@openownbot/ui/text";
 import { createStore } from "solid-js";
 import { actionToast } from "../../action-toast";
-import { type DesktopAnalyticsProperties, desktopAnalytics } from "../../analytics";
 import { writeClipboardText } from "../../clipboard";
 import { renderAgentTemplateCard } from "./agent-template-card";
 import { type AgentTemplatePublishCalls, agentTemplatesPort } from "./agent-templates-port";
-
-type TemplateAction = DesktopAnalyticsProperties<"agent_template_action">["action"];
-
-/** Runs a publish action and records its result. A failure still rejects for the dialog. */
-async function tracked(action: TemplateAction, run: () => Promise<void>): Promise<void> {
-  try {
-    await run();
-    desktopAnalytics.track("agent_template_action", { action, result: "succeeded", entry_point: "in_app" });
-  } catch (error) {
-    desktopAnalytics.track("agent_template_action", { action, result: "failed", entry_point: "in_app" });
-    throw error;
-  }
-}
 
 interface PublishState {
   open: boolean;
@@ -100,7 +86,7 @@ export function createPublishAgent(
     const preview = state.preview;
     if (!agentId || !preview) return;
     const update = preview.publication !== null;
-    await tracked(update ? "updated" : "published", () => publishTemplate(agentId, preview, update));
+    await publishTemplate(agentId, preview, update);
   }
 
   async function publishTemplate(agentId: string, preview: AgentTemplatePreview, update: boolean): Promise<void> {
@@ -124,7 +110,7 @@ export function createPublishAgent(
   async function unpublish(): Promise<void> {
     const agentId = state.agentId;
     if (!agentId) return;
-    await tracked("unpublished", () => calls().unpublish(agentId));
+    await calls().unpublish(agentId);
     if (state.agentId !== agentId) return;
     setState((draft) => {
       if (draft.preview) draft.preview.publication = null;
@@ -148,7 +134,7 @@ export function createPublishAgent(
       loading={state.loading}
       onPublish={publish}
       onUnpublish={unpublish}
-      onCopyLink={() => tracked("link_copied", copyLink)}
+      onCopyLink={copyLink}
       onOpenLink={openLink}
     />
   );

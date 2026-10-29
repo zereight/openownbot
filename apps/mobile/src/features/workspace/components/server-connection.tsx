@@ -10,8 +10,6 @@ import {
 } from "@openownbot/team-client";
 import { REMOTE_PEER_LOST_AFTER_MS, type RemoteTeamConnectionUpdate } from "@openownbot/team-client/remote-peer";
 import { memo, useCallback, useEffect, useRef, useState } from "react";
-import { MobileConnectionAnalytics } from "@/features/analytics/connection";
-import { mobileAnalytics } from "@/features/analytics/mobile-analytics";
 import { supportLog, supportLogValue } from "@/features/support/model/support-log";
 import { referencedError } from "@/features/workspace/model/referenced-error";
 import { RemoteTeamTransport, type RemoteTeamTransportRef } from "./remote-team-transport";
@@ -81,7 +79,6 @@ export const ServerConnection = memo(function ServerConnection({
   const activeRef = useRef(active);
   activeRef.current = active;
   const generation = useRef(0);
-  const [analytics] = useState(() => new MobileConnectionAnalytics(mobileAnalytics));
   const membershipRefreshPending = useRef(false);
   /** When this connection last became inactive, such as when the app went to the background. */
   const inactiveSince = useRef<number | null>(null);
@@ -118,7 +115,6 @@ export const ServerConnection = memo(function ServerConnection({
         `${hostId} ${update.state}${update.code ? ` (${update.code})` : ""}${update.message ? `: ${update.message}` : ""}${update.resync ? ", resync" : ""}`,
       );
       if (update.state === "offline") {
-        if (activeRef.current) analytics.lost();
         if (update.code === "session_revoked") {
           if (activeRef.current) void onMembershipChangedRef.current?.().catch(() => undefined);
           else membershipRefreshPending.current = true;
@@ -129,7 +125,7 @@ export const ServerConnection = memo(function ServerConnection({
       }
       if (update.resync) controller.current?.refresh();
     },
-    [hostId, analytics],
+    [hostId],
   );
 
   useEffect(() => {
@@ -145,17 +141,14 @@ export const ServerConnection = memo(function ServerConnection({
           stage: "connection",
           isCurrent: () => !disposed && activeRef.current && attempt === generation.current,
         };
-        const finish = analytics.attempt();
         const initiatingContext = context;
         const started = Date.now();
         supportLog.add("info", "connection", `${hostId} attempt ${attempt} started`);
         return load(hostId, publicKey, client, initiatingContext).then(
           () => {
-            if (initiatingContext.isCurrent()) finish("succeeded", initiatingContext.stage);
             supportLog.add("info", "connection", `${hostId} attempt ${attempt} loaded (${Date.now() - started} ms)`);
           },
           (error) => {
-            if (initiatingContext.isCurrent()) finish("failed", initiatingContext.stage);
             supportLog.add(
               "warn",
               "connection",
@@ -200,13 +193,12 @@ export const ServerConnection = memo(function ServerConnection({
       controller.current = null;
       register(hostId, null);
     };
-  }, [client, hostId, publicKey, register, load, onStatus, analytics]);
+  }, [client, hostId, publicKey, register, load, onStatus]);
 
   useEffect(() => {
     const returned = active && inactiveSince.current !== null;
     if (!active) {
       generation.current += 1;
-      analytics.background();
       inactiveSince.current ??= Date.now();
       // The workspace keeps the server as the user left it. The next return starts a new quiet time.
       resumeOnReturn.current ||= resuming.current || lastStatus.current?.status.phase === "online";
@@ -238,7 +230,7 @@ export const ServerConnection = memo(function ServerConnection({
       membershipRefreshPending.current = false;
       void onMembershipChanged?.().catch(() => undefined);
     }
-  }, [active, hostId, onMembershipChanged, analytics, endResume]);
+  }, [active, hostId, onMembershipChanged, endResume]);
 
   return (
     <RemoteTeamTransport

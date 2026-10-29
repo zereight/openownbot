@@ -395,11 +395,7 @@ export const ServerDrawerContent = memo(function ServerDrawerContent({
               color={mutedColor}
               fallbackVariant="filled"
               systemName="plus"
-              onPress={() =>
-                onNavigate(
-                  showsPlans ? { pathname: "/hosted-server", params: { entryPoint: "drawer" } } : "/add-server",
-                )
-              }
+              onPress={() => onNavigate(showsPlans ? "/hosted-server" : "/add-server")}
             >
               <Plus color={mutedColor} size={18} strokeWidth={2} />
             </ServerDrawerIconButton>

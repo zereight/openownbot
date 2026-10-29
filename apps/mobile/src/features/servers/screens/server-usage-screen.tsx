@@ -1,13 +1,12 @@
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useLocalSearchParams } from "expo-router";
 import { Button, Typography } from "heroui-native";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { View } from "react-native";
 import { useUniwind } from "uniwind";
 import { AgentUsageReport } from "@/features/agents/components/agent-usage-report";
 import { UsageLoading } from "@/features/agents/components/usage-motion";
 import { lastUsageDays, UsageRangePicker } from "@/features/agents/components/usage-range-picker";
-import { mobileAnalytics } from "@/features/analytics/mobile-analytics";
 import { useQueryScope } from "@/features/auth/context/mobile-session-context";
 import { SettingsNote, SettingsRow, SettingsSection } from "@/features/settings/components/settings-content";
 import { SettingsPicker } from "@/features/settings/components/settings-controls";
@@ -29,9 +28,6 @@ export function ServerUsageScreen() {
   const serverAgents = agents.filter((agent) => agent.serverId === serverId);
   const [range, setRange] = useState(() => lastUsageDays());
   const [agentId, setAgentId] = useState<string>();
-  useEffect(() => {
-    mobileAnalytics.track("usage_viewed", { scope: "server" });
-  }, []);
   const usage = useQuery({
     queryKey: queryKeys.serverUsage(queryScope, serverId, range, agentId),
     queryFn: () => loadHostAnalytics({ ...range, ...(agentId ? { agentId } : {}) }, serverId),

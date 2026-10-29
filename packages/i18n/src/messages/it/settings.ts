@@ -70,7 +70,6 @@ export const messages = {
   "settings.keepRemoteSessions.title": "Connessione rapida ai server",
   "settings.keepRemoteSessions.description":
     "Mantieni la connessione ai server a cui ti sei unito tra un avvio e l'altro. OpenOwnBot si avvia circa un secondo prima. Quando esci da OpenOwnBot, il servizio OpenOwnBot non chiude la connessione.",
-  "settings.permissions.title": "Permessi",
   "settings.notifications.title": "Notifiche",
   "settings.alerts.title": "Avvisi",
   "settings.desktopNotifications.title": "Notifiche sul desktop",
@@ -122,11 +121,6 @@ export const messages = {
   "settings.notch.size.height": "Altezza",
   "settings.notch.size.previewNotch": "Schermo integrato",
   "settings.notch.size.previewIsland": "Schermo esterno",
-  "settings.analytics.title": "Condividi le analisi del prodotto",
-  "settings.analytics.description":
-    "Invia metadati di utilizzo e affidabilità, con l'ID del tuo account e l'email, alle analisi self-hosted di OpenOwnBot.",
-  "settings.analytics.webDescription":
-    "Invia metadati di utilizzo e affidabilità, con l'ID del tuo account e l'email, alle analisi self-hosted di OpenOwnBot. Questa impostazione vale per questo browser.",
   "settings.tab.general.title": "Generali",
   "settings.tab.general.description": "Controlla come si comporta OpenOwnBot su questo computer.",
   "settings.tab.notifications.title": "Notifiche",

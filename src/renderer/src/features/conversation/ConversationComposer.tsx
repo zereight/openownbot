@@ -55,7 +55,6 @@ import { SpeakingBar } from "@openownbot/ui/features/conversation/SpeakingBar";
 import { VoiceRecordingMorph, voiceButtonLabel } from "@openownbot/ui/features/conversation/VoiceRecordingMorph";
 import { useText } from "@openownbot/ui/text";
 import { createEffect, createMemo, createSignal, createStore, For, Loading, lazy, Show } from "solid-js";
-import { reportErrorBanner, reportNotification } from "../../error-reports";
 import { deviceSendShortcut, sendShortcutAriaKey, sendShortcutHintKey } from "../../send-shortcut-preference";
 import { speechReading } from "../speech/speech-playback";
 import { stopSpokenReply } from "../speech/speech-replies";
@@ -572,16 +571,6 @@ export function ConversationComposer() {
             {(provider) => (
               <ComposerSignInNotice
                 provider={provider}
-                onShown={() =>
-                  reportNotification({
-                    operation: "provider",
-                    source: "provider",
-                    cause_code: "authentication",
-                    severity: "warning",
-                    presentation: "banner",
-                    provider,
-                  })
-                }
                 signingIn={signInRequired()?.connectionState === "connecting"}
                 onSignIn={(provider) => props.onSignInProvider?.(provider)}
                 onSignInWithCode={props.onSignInWithCodeProvider}
@@ -602,16 +591,6 @@ export function ConversationComposer() {
                   });
                   setComposerFocusRequest((current) => current + 1);
                 }}
-                onShown={() =>
-                  reportNotification({
-                    operation: "turn",
-                    source: "provider",
-                    cause_code: "usage_limit",
-                    severity: "error",
-                    presentation: "banner",
-                    provider: spent().provider,
-                  })
-                }
               />
             )}
           </Show>
@@ -682,7 +661,6 @@ export function ConversationComposer() {
                 title={currentChatErrorRun() ?? undefined}
                 tone={unreadableContent() ? "warning" : "danger"}
                 reference={currentChatErrorReference()}
-                onShown={() => reportErrorBanner(message(), "turn")}
                 conversationKey={currentChatConversationKey()}
                 onDismiss={() => {
                   dismissCurrentChatErrors();

@@ -2,8 +2,7 @@ import type { AppVariant } from "@openownbot/contracts/ipc";
 import { type AppLanguage, formatLocale, type TranslatedLocale } from "@openownbot/i18n";
 import { LanguageWheel } from "@openownbot/ui/features/account/LanguageWheel";
 import { TextProvider } from "@openownbot/ui/text";
-import { createSignal, onSettled } from "solid-js";
-import { desktopAnalytics } from "../../analytics";
+import { createSignal } from "solid-js";
 import { useI18n } from "../../i18n-context";
 
 /**
@@ -19,10 +18,7 @@ export function LanguageStep(props: { variant: AppVariant; onDone: () => void })
   // it keeps the main provider's value, which Continue then does not change.
   const formatLanguage = (): AppLanguage => (language() === i18n.locale() ? i18n.language() : language());
 
-  onSettled(() => desktopAnalytics.track("onboarding_step", { step: "language", action: "viewed" }));
-
   function finish(): void {
-    desktopAnalytics.track("onboarding_step", { step: "language", action: "next" });
     // The language already shown stays as it is saved, so "system" keeps following the computer.
     if (language() !== i18n.locale()) i18n.changeLanguage(language());
     props.onDone();

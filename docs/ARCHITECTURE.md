@@ -35,7 +35,6 @@ The architecture notes are in one file for each topic:
   - [Instance transfer](architecture/agents.md#instance-transfer)
   - [Agent templates](architecture/agents.md#agent-templates)
 - [Analytics](architecture/analytics.md)
-  - [Mobile product analytics](architecture/analytics.md#mobile-product-analytics)
   - [Website analytics](architecture/analytics.md#website-analytics)
   - [Agent usage analytics](architecture/analytics.md#agent-usage-analytics)
 - [Servers, storage, and billing](architecture/servers.md)

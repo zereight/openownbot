@@ -29,10 +29,8 @@ import { createSignal, onCleanup } from "solid-js";
 import { readActionSoundChoice, replayActionSoundChoice, setActionSoundChoice } from "../../action-sounds";
 import { setShowAgentSteps, useShowAgentSteps } from "../../agent-steps-preference";
 import { isCompletionSoundEnabled, setCompletionSoundEnabled } from "../../completion-sound";
-import { webReportsEnabled } from "../../error-reports";
 import { currentDevicePlatform, setSendShortcutMode, useSendShortcutMode } from "../../send-shortcut-preference";
 import type { WebAccountCalls } from "./web-account";
-import { setWebAnalyticsEnabled } from "./web-analytics";
 
 const TABS = ["profile", "preferences"] as const;
 type WebAccountSettingsTab = (typeof TABS)[number];
@@ -75,7 +73,6 @@ export interface WebAccountSettingsProps {
  * of their server.
  */
 export default function WebAccountSettings(props: WebAccountSettingsProps) {
-  const [reportsEnabled, setReportsEnabled] = createSignal(webReportsEnabled());
   const { t } = useText();
   const [activeTab, setActiveTab] = createSignal<WebAccountSettingsTab>("profile");
   const [completionSound, setCompletionSound] = createSignal(isCompletionSoundEnabled());
@@ -221,18 +218,6 @@ export default function WebAccountSettings(props: WebAccountSettingsProps) {
                   />
                 </ItemActions>
               </Item>
-            </ItemGroup>
-          </SettingsSection>
-          <SettingsSection title={t("settings.analytics.title")}>
-            <ItemGroup class="settings-modal-card">
-              <SwitchField
-                checked={reportsEnabled()}
-                onChange={(value) => {
-                  setReportsEnabled(setWebAnalyticsEnabled(value));
-                }}
-                label={t("settings.analytics.title")}
-                description={t("settings.analytics.webDescription")}
-              />
             </ItemGroup>
           </SettingsSection>
           <SettingsSection title={t("settings.notifications.title")}>
