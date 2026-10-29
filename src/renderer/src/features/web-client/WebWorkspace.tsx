@@ -1804,6 +1804,16 @@ function WebWorkspaceFrame(props: WebWorkspaceProps) {
                         }
                       : undefined
                   }
+                  onMarkAgentRead={
+                    workspace.state.status === "online"
+                      ? (agentId) =>
+                          void workspace.markAgentRead(agentId).catch(() =>
+                            actionToast.error(t("chat.unread.markReadFailed"), {
+                              report: { operation: "other", source: "action", cause_code: "unknown" },
+                            }),
+                          )
+                      : undefined
+                  }
                   // The browser client does not know the unread counts of agent chats it has not opened.
                   hasUnread
                   view={layout.sidebarView()}

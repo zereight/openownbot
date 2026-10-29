@@ -92,7 +92,7 @@ export function WorkspaceSidebar(props: { peopleEnabled: boolean }) {
   const hideAllowed = () =>
     activeServerSupportsCapability(AGENT_HIDDEN_CAPABILITY) && serverRoleCanAdminister(activeServer());
   const { activeTurns, queues, failedTurns, usageLimits, pendingPrompts, pendingApprovals, approvals } = useTurns();
-  const { unreadReplies, recentReplies, markAllAgentMessagesRead } = useConversation();
+  const { unreadReplies, recentReplies, markAgentChatRead, markAllAgentMessagesRead } = useConversation();
   const { directPeople } = usePresence();
   const { activeDirectMember, activeDirectMemberId, directThreads } = useDirectMessages();
   const { selectAgent, selectDirectMember, setGlobalSearchVisibility, chatHistory } = useNavigation();
@@ -229,6 +229,7 @@ export function WorkspaceSidebar(props: { peopleEnabled: boolean }) {
           void markAllAgentMessagesRead();
           void channels.markAllRead();
         }}
+        onMarkAgentRead={(agentId) => void markAgentChatRead(agentId)}
         hasUnread={
           agentList().some((agent) => !userHiddenAgentIds().has(agent.id) && (unreadReplies()[agent.id] ?? 0) > 0) ||
           channels.hasUnread()
