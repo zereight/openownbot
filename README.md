@@ -1,6 +1,6 @@
 # OpenOwnBot
 
-[![CI](https://github.com/zereight/openbot/actions/workflows/ci.yml/badge.svg)](https://github.com/zereight/openbot/actions/workflows/ci.yml)
+[![CI](https://github.com/zereight/openownbot/actions/workflows/ci.yml/badge.svg)](https://github.com/zereight/openownbot/actions/workflows/ci.yml)
 [![License](https://img.shields.io/badge/license-PolyForm_Noncommercial_1.0.0-blue.svg)](LICENSE)
 
 > [!NOTE]
@@ -46,19 +46,22 @@ visited pages use the network, and installed plugins may connect to their own se
 OpenOwnBot supports macOS 13 or newer on Apple silicon or Intel, Windows 10 or newer on x64 systems, and x64
 or arm64 Linux as an AppImage.
 
+No release has been published yet. Until the first one, build from source (see below). Packages are
+unsigned: see [docs/RELEASING-FORK.md](docs/RELEASING-FORK.md#install-notes-for-unsigned-builds).
+
 ### macOS
 
-1. Download the latest `OpenBot-*-arm64.dmg` (or `OpenBot-*-x64.dmg` on an Intel Mac) from [GitHub Releases](https://github.com/nightly-labs/openbot/releases).
+1. Download the latest `OpenOwnBot-*-arm64.dmg` (or `OpenOwnBot-*-x64.dmg` on an Intel Mac) from [GitHub Releases](https://github.com/zereight/openownbot/releases).
 2. Drag OpenOwnBot to Applications and open it.
 
 ### Windows
 
-1. Download the latest `OpenBot-*-x64.exe` from [GitHub Releases](https://github.com/nightly-labs/openbot/releases).
+1. Download the latest `OpenOwnBot-*-x64.exe` from [GitHub Releases](https://github.com/zereight/openownbot/releases).
 2. Run the installer and open OpenOwnBot.
 
 ### Linux
 
-1. Download the latest `OpenBot-*-x86_64.AppImage` (or `OpenBot-*-arm64.AppImage` on arm64) from [GitHub Releases](https://github.com/nightly-labs/openbot/releases).
+1. Download the latest `OpenOwnBot-*-x86_64.AppImage` (or `OpenOwnBot-*-arm64.AppImage` on arm64) from [GitHub Releases](https://github.com/zereight/openownbot/releases).
 2. Make it executable with `chmod +x OpenBot-*.AppImage`, then run it.
 
 The AppImage does not need libfuse2, so it also runs on Arch Linux and Omarchy. It mounts itself
@@ -238,7 +241,7 @@ iex "& {$(irm https://bun.com/install.ps1)} -Version 1.4.2"
 ```
 
 ```bash
-git clone https://github.com/nightly-labs/openbot.git
+git clone https://github.com/zereight/openownbot.git
 cd openbot
 bun install --frozen-lockfile
 bun run codex:doctor
