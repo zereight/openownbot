@@ -31,7 +31,6 @@ import {
   memoryContextUpdate,
   type SectionTeammates,
   sectionTeammatesUpdate,
-  type TeamBriefing,
 } from "./agent/developer-instructions";
 import {
   type ClaudePlanState,
@@ -2200,29 +2199,8 @@ function readSectionTeammates(value: unknown): SectionTeammates | null {
     (member): member is SectionTeammates["members"][number] =>
       isRecord(member) && isString(member.id) && isString(member.name) && isString(member.title),
   );
-  const teams = Array.isArray(value.teams) ? value.teams.flatMap(readTeamBriefing) : [];
-  if (members.length === 0 && teams.length === 0) return null;
-  return { name: value.name, members, ...(teams.length > 0 ? { teams } : {}) };
-}
-
-function readTeamBriefing(value: unknown): TeamBriefing[] {
-  if (
-    !isRecord(value) ||
-    !isString(value.team) ||
-    !isString(value.you) ||
-    !Array.isArray(value.members) ||
-    !Array.isArray(value.canMessage)
-  )
-    return [];
-  const members = value.members.filter(
-    (member): member is TeamBriefing["members"][number] =>
-      isRecord(member) &&
-      isString(member.id) &&
-      isString(member.name) &&
-      isString(member.title) &&
-      isString(member.rank),
-  );
-  return [{ team: value.team, you: value.you, members, canMessage: value.canMessage.filter(isString) }];
+  if (members.length === 0) return null;
+  return { name: value.name, members };
 }
 
 function parseAuthStatus(stdout: unknown): DynamicRecord | null {

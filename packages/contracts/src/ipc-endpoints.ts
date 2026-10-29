@@ -525,7 +525,6 @@ import type {
 import type { LicenseCheckoutRequest, LicenseRenewalRequest, LicenseState, LicenseUsersRequest } from "./license";
 import type { AccountSession, MobileConnectedDevice, MobileConnectLink, MobileConnectTicket } from "./mobile-connect";
 import type { ProviderEnvironmentInput, ProviderEnvironmentState } from "./provider-environment";
-import type { AgentSquad, SaveSquadInput } from "./squads";
 
 declare const payloadType: unique symbol;
 declare const resultType: unique symbol;
@@ -1234,11 +1233,6 @@ export const IPC_ENDPOINTS = {
   },
   // Link-only agent templates. `takePendingLink` and `openLink` carry an id from an
   // `openownbot://agents/<id>` link; there is no endpoint that installs from a link without the dialog.
-  squads: {
-    list: request<undefined, AgentSquad[]>()("squads:list"),
-    save: request<SaveSquadInput, AgentSquad>()("squads:save"),
-    remove: request<string, void>()("squads:remove"),
-  },
   agentTeams: {
     export: request<ExportAgentTeamInput, ExportAgentTeamResult | null>()("agent-teams:export"),
     choose: request<undefined, ChosenAgentTeam | null>()("agent-teams:choose"),
@@ -1829,7 +1823,6 @@ export const IPC_GROUP_PATHS = {
   hostedServers: "hostedServers",
   marketplaceAgents: "marketplaceAgents",
   agentTeams: "agentTeams",
-  squads: "squads",
   agentTemplates: "agentTemplates",
   auth: "auth",
   update: "update",

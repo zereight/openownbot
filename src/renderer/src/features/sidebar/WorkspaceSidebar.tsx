@@ -1,6 +1,5 @@
 import type { ChatWindowTarget } from "@openownbot/contracts/ipc";
 import { AGENT_HIDDEN_CAPABILITY } from "@openownbot/contracts/team-protocol/current";
-import { AgentSquadsDialog } from "@openownbot/ui/features/agents/AgentSquadsDialog";
 import { AgentTeamImportDialog } from "@openownbot/ui/features/agents/AgentTeamImportDialog";
 import { computeAgentAvatarMoods } from "@openownbot/ui/features/agents/agent-avatar-mood";
 import { Sidebar } from "@openownbot/ui/features/sidebar/Sidebar";
@@ -41,7 +40,6 @@ import { createStorageCard } from "./storage-card";
 /** Dismissing the mobile app card is a choice of this computer, like the sidebar width. The key is
  * new with the Android release, so a computer that dismissed the iPhone-only card sees it once more. */
 const MOBILE_APP_DISMISSED_STORAGE_KEY = "openownbot:mobile-app-card-dismissed";
-const GROUP_BY_TEAM_STORAGE_KEY = "openownbot:sidebar-group-by-team";
 
 /**
  * The list of Agents and people. It reads the most domains of any pane, and every
@@ -133,13 +131,6 @@ export function WorkspaceSidebar(props: { peopleEnabled: boolean }) {
   const [mobileAppDismissed, setMobileAppDismissed] = createSignal(
     window.localStorage.getItem(MOBILE_APP_DISMISSED_STORAGE_KEY) === "true",
   );
-  const [groupByTeam, setGroupByTeamState] = createSignal(
-    window.localStorage.getItem(GROUP_BY_TEAM_STORAGE_KEY) === "true",
-  );
-  function setGroupByTeam(value: boolean): void {
-    window.localStorage.setItem(GROUP_BY_TEAM_STORAGE_KEY, String(value));
-    setGroupByTeamState(value);
-  }
   const storageCard = createStorageCard(activeServer);
   // A clear in Server settings frees space, so the card reads the disk again when settings close.
   createEffect(serverSettingsOpen, (open, wasOpen) => {
@@ -208,9 +199,6 @@ export function WorkspaceSidebar(props: { peopleEnabled: boolean }) {
   const teams = createAgentTeamFlow(
     (sectionId) => sidebarLayout().sections.find((item) => item.id === sectionId)?.name,
   );
-  createEffect(teamFiles, (local) => {
-    if (local) void teams.refreshSquads();
-  });
 
   return (
     <>
@@ -285,10 +273,6 @@ export function WorkspaceSidebar(props: { peopleEnabled: boolean }) {
         onDuplicateSection={duplicateSection}
         onExportSection={teamFiles() ? teams.exportSection : undefined}
         onImportTeam={teamFiles() ? () => void teams.chooseFile() : undefined}
-        onManageTeams={teamFiles() ? () => void teams.openSquads() : undefined}
-        squads={teamFiles() ? teams.squads() : undefined}
-        groupByTeam={groupByTeam()}
-        onGroupByTeamChange={teamFiles() ? setGroupByTeam : undefined}
         onToggleSection={toggleSidebarSection}
         pinnedItems={pinnedSidebarItems()}
         peopleOrder={sidebarPeopleOrder()}
@@ -363,14 +347,6 @@ export function WorkspaceSidebar(props: { peopleEnabled: boolean }) {
               }
             : undefined
         }
-      />
-      <AgentSquadsDialog
-        open={teams.squadsOpen()}
-        onOpenChange={teams.setSquadsOpen}
-        squads={teams.squads()}
-        agents={agentList().map((agent) => ({ id: agent.id, name: agent.name }))}
-        onSave={teams.saveSquad}
-        onRemove={teams.removeSquad}
       />
       <AgentTeamImportDialog
         open={teams.preview() !== null}

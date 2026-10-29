@@ -27,27 +27,4 @@ export const messages = {
   "agentTeam.problem.marketplaceSkill":
     "O agente {name} usa uma habilidade do marketplace, que um arquivo de equipe não pode conter.",
   "agentTeam.problem.duplicate": "Dois agentes se chamam {name}.",
-  "agentTeam.manage.title": "Equipes",
-  "agentTeam.manage.description":
-    "Uma equipe tem um líder. Os membros conversam livremente entre si. Só o líder escreve a agentes de fora da equipe, e quem está fora chega à equipe pelo líder.",
-  "agentTeam.manage.empty": "Ainda não há equipes. Agentes que não estão em nenhuma equipe não têm limites.",
-  "agentTeam.manage.new": "Nova equipe",
-  "agentTeam.manage.edit": "Editar",
-  "agentTeam.manage.delete": "Excluir",
-  "agentTeam.manage.back": "Voltar",
-  "agentTeam.manage.name": "Nome da equipe",
-  "agentTeam.manage.lead": "Líder",
-  "agentTeam.manage.members": "Membros",
-  "agentTeam.manage.ranks": "Níveis",
-  "agentTeam.manage.ranksPlaceholder": "Sênior, Júnior, Estagiário",
-  "agentTeam.manage.ranksHint":
-    "O mais alto primeiro, separados por vírgulas. O líder fica acima de todos os níveis. Um membro escreve ao próprio nível e aos inferiores, e para cima apenas ao nível imediatamente acima.",
-  "agentTeam.manage.rankOf": "Nível de {agent}",
-  "agentTeam.manage.noRank": "Sem nível",
-  "agentTeam.manage.save": "Salvar",
-  "agentTeam.manage.saving": "Salvando…",
-  "agentTeam.manage.summary": "Líder: {lead}. Membros: {count}.",
-  "agentTeam.manage.saveFailed": "Não foi possível salvar a equipe.",
-  "agentTeam.manage.deleteFailed": "Não foi possível excluir a equipe.",
-  "agentTeam.manage.loadFailed": "Não foi possível carregar as equipes.",
 } as const satisfies PartialTranslation<typeof source>;

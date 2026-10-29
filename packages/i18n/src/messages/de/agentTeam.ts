@@ -28,27 +28,4 @@ export const messages = {
   "agentTeam.problem.marketplaceSkill":
     "Der Agent {name} nutzt einen Marketplace-Skill, den eine Team-Datei nicht enthalten kann.",
   "agentTeam.problem.duplicate": "Zwei Agenten heißen {name}.",
-  "agentTeam.manage.title": "Teams",
-  "agentTeam.manage.description":
-    "Ein Team hat einen Lead. Mitglieder sprechen frei miteinander. Nur der Lead schreibt an Agenten außerhalb des Teams, und Agenten außerhalb erreichen das Team über seinen Lead.",
-  "agentTeam.manage.empty": "Noch keine Teams. Agenten ohne Team sind nicht eingeschränkt.",
-  "agentTeam.manage.new": "Neues Team",
-  "agentTeam.manage.edit": "Bearbeiten",
-  "agentTeam.manage.delete": "Löschen",
-  "agentTeam.manage.back": "Zurück",
-  "agentTeam.manage.name": "Teamname",
-  "agentTeam.manage.lead": "Lead",
-  "agentTeam.manage.members": "Mitglieder",
-  "agentTeam.manage.ranks": "Ränge",
-  "agentTeam.manage.ranksPlaceholder": "Senior, Junior, Praktikant",
-  "agentTeam.manage.ranksHint":
-    "Der höchste zuerst, durch Kommas getrennt. Die Leitung steht über allen Rängen. Ein Mitglied schreibt an den eigenen Rang und darunter, nach oben nur an den Rang direkt darüber.",
-  "agentTeam.manage.rankOf": "Rang von {agent}",
-  "agentTeam.manage.noRank": "Kein Rang",
-  "agentTeam.manage.save": "Speichern",
-  "agentTeam.manage.saving": "Wird gespeichert…",
-  "agentTeam.manage.summary": "Lead: {lead}. Mitglieder: {count}.",
-  "agentTeam.manage.saveFailed": "Das Team konnte nicht gespeichert werden.",
-  "agentTeam.manage.deleteFailed": "Das Team konnte nicht gelöscht werden.",
-  "agentTeam.manage.loadFailed": "Die Teams konnten nicht geladen werden.",
 } as const satisfies PartialTranslation<typeof source>;

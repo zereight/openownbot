@@ -1,4 +1,4 @@
-import type { AgentSquad, AgentTeamPreview, ChosenAgentTeam, SaveSquadInput } from "@openownbot/contracts/ipc";
+import type { AgentTeamPreview, ChosenAgentTeam } from "@openownbot/contracts/ipc";
 import { classifyFailure } from "@openownbot/telemetry";
 import type { AgentTeamImportPreview } from "@openownbot/ui/features/agents/AgentTeamImportDialog";
 import { currentText } from "@openownbot/ui/text";
@@ -98,49 +98,7 @@ export function createAgentTeamFlow(sectionName: (sectionId: string) => string |
     actionToast.success(t("agentTeam.import.done", { count: result.agents }));
   }
 
-  const [squads, setSquads] = createSignal<AgentSquad[]>([]);
-  const [squadsOpen, setSquadsOpen] = createSignal(false);
-
-  async function openSquads(): Promise<void> {
-    try {
-      setSquads(await window.openownbot.squads.list());
-      setSquadsOpen(true);
-    } catch (error) {
-      const { t, errorMessage } = currentText();
-      actionToast.error(t("agentTeam.manage.loadFailed"), {
-        description: errorMessage(error, t("agentTeam.manage.loadFailed")),
-        report: { operation: "agent", source: "action", cause_code: classifyFailure(error) },
-      });
-    }
-  }
-
-  /** Reads the teams without opening the screen, for the sidebar's team view. A failure leaves the last list. */
-  async function refreshSquads(): Promise<void> {
-    try {
-      setSquads(await window.openownbot.squads.list());
-    } catch {
-      // The team view shows the agents without a team until the next read succeeds.
-    }
-  }
-
-  async function saveSquad(input: SaveSquadInput): Promise<void> {
-    await window.openownbot.squads.save(input);
-    setSquads(await window.openownbot.squads.list());
-  }
-
-  async function removeSquad(squadId: string): Promise<void> {
-    await window.openownbot.squads.remove(squadId);
-    setSquads(await window.openownbot.squads.list());
-  }
-
   return {
-    squads,
-    squadsOpen,
-    setSquadsOpen,
-    openSquads,
-    refreshSquads,
-    saveSquad,
-    removeSquad,
     exportSection,
     chooseFile,
     importChosen,

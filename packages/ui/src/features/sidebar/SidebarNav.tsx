@@ -4,7 +4,7 @@
  * the scroll fades in that order.
  */
 
-import { Bot, CheckCheck, ContextMenu, FolderPlus, Hash, Upload, UsersRound } from "@openownbot/ui";
+import { Bot, CheckCheck, ContextMenu, FolderPlus, Hash, Upload } from "@openownbot/ui";
 import { For, Show } from "solid-js";
 import { useText } from "../../text";
 import { SidebarChannelRow } from "./SidebarChannelRow";
@@ -12,7 +12,6 @@ import { SidebarEmptyState } from "./SidebarEmptyState";
 import { SidebarHiddenGroup } from "./SidebarHiddenGroup";
 import { SidebarPinnedGroup } from "./SidebarPinnedGroup";
 import { SidebarSectionList } from "./SidebarSectionList";
-import { SidebarTeamList } from "./SidebarTeamList";
 import { useSidebarScope } from "./sidebar-scope";
 
 export function SidebarNav() {
@@ -58,9 +57,7 @@ export function SidebarNav() {
           <SidebarEmptyState />
         </Show>
         <SidebarPinnedGroup />
-        <Show when={props.groupByTeam} fallback={<SidebarSectionList />}>
-          <SidebarTeamList />
-        </Show>
+        <SidebarSectionList />
         <SidebarHiddenGroup />
         <Show when={props.showingArchivedChannels}>
           <section class="sidebar-chat-group sidebar-section" aria-label={t("sidebar.deletedChannels.title")}>
@@ -109,18 +106,6 @@ export function SidebarNav() {
                 <ContextMenu.Item onSelect={() => props.onImportTeam?.()}>
                   <Upload class="agent-context-icon size-4" aria-hidden="true" />
                   <span>{t("sidebar.new.importTeam")}</span>
-                </ContextMenu.Item>
-              </Show>
-              <Show when={props.onManageTeams}>
-                <ContextMenu.Item onSelect={() => props.onManageTeams?.()}>
-                  <UsersRound class="agent-context-icon size-4" aria-hidden="true" />
-                  <span>{t("sidebar.new.manageTeams")}</span>
-                </ContextMenu.Item>
-              </Show>
-              <Show when={props.onGroupByTeamChange}>
-                <ContextMenu.Item onSelect={() => props.onGroupByTeamChange?.(!props.groupByTeam)}>
-                  <UsersRound class="agent-context-icon size-4" aria-hidden="true" />
-                  <span>{props.groupByTeam ? t("sidebar.view.bySection") : t("sidebar.view.byTeam")}</span>
                 </ContextMenu.Item>
               </Show>
               <Show when={props.onMarkAllRead}>
