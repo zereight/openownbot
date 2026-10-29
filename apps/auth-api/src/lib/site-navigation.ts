@@ -108,7 +108,6 @@ export const SITE_NAVIGATION_SECTIONS: readonly SiteNavigationSection[] = [
     links: [
       { label: "Download", description: "macOS, Windows and Linux", icon: "download", to: "/download" },
       { label: "Changelog", description: "What changed in each version", icon: "refresh", to: CHANGELOG_ROUTE },
-      { label: "Community", description: "Talk with us on Discord", icon: "contact", href: OPENOWNBOT_LINKS.discord },
       {
         label: "Documentation",
         description: "Set up and use OpenOwnBot",

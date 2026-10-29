@@ -9,7 +9,6 @@ import { LandingIcon } from "../landing/LandingIcon";
 import { SiteHeader } from "../landing/SiteHeader";
 
 const CONTACT_CHANNELS = [
-  { label: "Discord", detail: "Community and help", href: OPENOWNBOT_LINKS.discord },
   { label: "GitHub", detail: "Bugs and source code", href: `${OPENOWNBOT_LINKS.repository}/issues/new/choose` },
   { label: "X", detail: "News", href: OPENOWNBOT_LINKS.x },
   { label: "Email", detail: CONTACT_EMAIL, href: `mailto:${CONTACT_EMAIL}` },

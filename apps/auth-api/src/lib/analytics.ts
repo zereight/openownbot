@@ -104,7 +104,6 @@ type LandingDestination =
   | "contact"
   | "teams"
   | "x"
-  | "discord"
   | "repository"
   | "releases"
   | "license"
@@ -223,7 +222,6 @@ const LINK_DESTINATIONS = new Map<string, LandingDestination>([
   [OPENOWNBOT_LINKS.contact, "contact"],
   [TEAMS_ROUTE, "teams"],
   [OPENOWNBOT_LINKS.x, "x"],
-  [OPENOWNBOT_LINKS.discord, "discord"],
   [OPENOWNBOT_LINKS.repository, "repository"],
   [OPENOWNBOT_LINKS.releases, "releases"],
   // The same destination on this site: the release notes, reported under the name they had.

@@ -27,8 +27,6 @@ export const OPENOWNBOT_LINKS = {
   /** The contact form page. */
   contact: "/contact",
   x: "https://x.com/OpenOwnBot_",
-  /** A Redirect Rule in the openbot.run Cloudflare zone sends this to the current Discord invite. */
-  discord: "https://discord.openbot.run",
   download: "#download",
   news: "/news",
   guides: "/guides",
@@ -116,7 +114,6 @@ export const FOOTER_COLUMNS: readonly FooterColumn[] = [
       { label: "Contributing", external: true, href: OPENOWNBOT_LINKS.contributing },
       { label: "Codex", external: true, href: OPENOWNBOT_LINKS.codex },
       { label: "Claude Code", external: true, href: OPENOWNBOT_LINKS.claude },
-      { label: "Discord", external: true, href: OPENOWNBOT_LINKS.discord },
     ],
   },
   {
