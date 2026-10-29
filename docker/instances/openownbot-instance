@@ -39,7 +39,7 @@ LXCFS_FILES=(proc/cpuinfo proc/stat proc/meminfo proc/swaps)
 LXCFS_DROP_IN=/etc/systemd/system/lxcfs.service.d/openownbot.conf
 # The files without which a backup cannot open: the database and the keyring with its password.
 REQUIRED_FILES=(.config/OpenOwnBot/openbot.db .local/share/keyrings/login.keyring .config/openownbot-container/keyring-password)
-SHARED_DATABASE=OpenOwnBot/Shared/Data/agent-data.db
+SHARED_DATABASE=OpenBot/Shared/Data/agent-data.db
 
 fail() {
   echo "$*" >&2

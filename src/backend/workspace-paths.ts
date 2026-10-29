@@ -29,7 +29,7 @@ const LOCATION_SUFFIX = /(?::\d+(?::\d+)?|#L\d+(?:C\d+)?(?:-L?\d+(?:C\d+)?)?)$/u
 
 export function sharedPathFromInput(sharedRoot: string, inputPath: string): string {
   const normalized = inputPath.replaceAll("\\", "/");
-  for (const prefix of ["~/OpenBot/Shared/", "OpenOwnBot/Shared/", "Shared/"]) {
+  for (const prefix of ["~/OpenBot/Shared/", "OpenBot/Shared/", "Shared/"]) {
     if (normalized.startsWith(prefix)) return join(sharedRoot, normalized.slice(prefix.length));
   }
   return isAbsolute(inputPath) ? inputPath : join(sharedRoot, normalized);
@@ -49,9 +49,9 @@ export function workspacePathFromInput(workspaceRoot: string, agentId: string, i
   const legacyId = legacyAgentId(agentId);
   for (const prefix of [
     `~/OpenBot/Agents/${agentId}/`,
-    `OpenOwnBot/Agents/${agentId}/`,
+    `OpenBot/Agents/${agentId}/`,
     `~/OpenBot/Bots/${legacyId}/`,
-    `OpenOwnBot/Bots/${legacyId}/`,
+    `OpenBot/Bots/${legacyId}/`,
   ]) {
     if (normalized.startsWith(prefix)) return join(workspaceRoot, normalized.slice(prefix.length));
   }

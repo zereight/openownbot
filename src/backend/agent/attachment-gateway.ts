@@ -318,7 +318,7 @@ export class AttachmentGateway {
       ),
     );
     const normalized = value.replaceAll("\\", "/");
-    const sharedReference = ["~/OpenBot/Shared/", "OpenOwnBot/Shared/", "Shared/"].some((prefix) =>
+    const sharedReference = ["~/OpenBot/Shared/", "OpenBot/Shared/", "Shared/"].some((prefix) =>
       normalized.startsWith(prefix),
     );
     // An absolute path may be one the provider's own transcript still names under this agent's pre-rename

@@ -1105,7 +1105,7 @@ export class AgentStore {
    *
    * An id the application never minted -- `chief`, or one the user chose -- keeps its spelling, and that is
    * not the same as having nothing to do: the *root* moved as well, so its workspace is still sitting in
-   * `OpenOwnBot/Bots` under exactly this name. Nobody else can hold it, because ids are unique.
+   * `OpenBot/Bots` under exactly this name. Nobody else can hold it, because ids are unique.
    */
   #unclaimedLegacyId(id: string): string | null {
     const legacyId = legacyAgentId(id);
@@ -1117,7 +1117,7 @@ export class AgentStore {
    * Answers whether the agent's stored workspace path had to change, which is what has to be persisted.
    *
    * The destination is derived from the root and the id, never read from the stored path. An agent the
-   * user named themselves came out of the upgrade still recorded under `OpenOwnBot/Bots/<id>`, because
+   * user named themselves came out of the upgrade still recorded under `OpenBot/Bots/<id>`, because
    * migration v13 rewrites id values and that id did not change -- so trusting the stored path would find
    * the workspace already "at" its destination and leave it in the old root forever.
    */

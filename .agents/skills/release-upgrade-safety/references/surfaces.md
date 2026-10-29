@@ -100,7 +100,7 @@ Built in the `AgentStore` constructor, `src/backend/agent-store.ts`:
 | `~/OpenBot/Downloads` | |
 
 `src/backend/workspace-paths.ts` resolves four permanent prefixes — `~/OpenBot/Agents/<id>/`,
-`OpenOwnBot/Agents/<id>/`, `~/OpenBot/Bots/<legacy-id>/`, `OpenOwnBot/Bots/<legacy-id>/` — and
+`OpenBot/Agents/<id>/`, `~/OpenBot/Bots/<legacy-id>/`, `OpenBot/Bots/<legacy-id>/` — and
 `rebaseLegacyWorkspacePath` rebases in both directions, because migration v13's directory move gives
 up on `EXDEV` or a permission error while the message paths have already been rewritten.
 
