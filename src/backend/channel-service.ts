@@ -15,6 +15,7 @@ import {
   type ChannelMessage,
   type ChannelRoutingConversationEventAction,
   type ChannelTask,
+  type ChannelTaskWait,
   type ConversationSnapshot,
   type CreateChannelMemoryInput,
   channelRoutingConversationEventItemType,
@@ -46,6 +47,7 @@ import {
 } from "./channel-management";
 import { ChannelMemoryStore } from "./channel-memory-store";
 import { type ChannelAssignment, type ChannelContext, ChannelStore } from "./channel-store";
+import { channelTaskWaits } from "./channel-task-waits";
 import type { DeliveryContext, MailboxStore } from "./mailbox-store";
 import type { OpenBotDatabase } from "./openbot-database";
 import { extractJsonObject, StructuredOutputError } from "./structured-output";
@@ -1425,6 +1427,27 @@ export class ChannelService {
       channelName: reserving.channel.title.trim() || reserving.channel.name,
       agentId: reserving.assignment.agentId,
     };
+  }
+
+  /**
+   * What each queued task of the channel waits behind, for the channel to show. The owner of a task
+   * does one thing at a time across all its channels, so the work in front is often in another one.
+   */
+  taskWaits(channelId: string): Record<string, ChannelTaskWait> {
+    return channelTaskWaits(this.store.tasks(channelId), {
+      assignmentOf: (agentId) => {
+        const running = this.store.agentAssignment(agentId, ACTIVE_ASSIGNMENT_STATES);
+        if (!running) return null;
+        const task = this.store.tasks(running.channel.id).find((item) => item.id === running.assignment.taskId);
+        return {
+          taskId: running.assignment.taskId,
+          channelId: running.channel.id,
+          channelName: running.channel.title.trim() || running.channel.name,
+          instruction: task?.instruction ?? "",
+        };
+      },
+      chatBusy: (agentId) => this.hooks.busy(agentId),
+    });
   }
 
   deliveryFailed(deliveryId: string, reason: string): Effect.Effect<void, ChannelOperationError> {

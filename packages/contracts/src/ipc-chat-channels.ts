@@ -96,10 +96,43 @@ export interface ChannelSummary extends Channel {
   threads?: ChannelThread[];
 }
 
+/**
+ * What a queued task waits behind, so a channel can say why it has not started. The owner of a task
+ * works for every channel it is in, so a task can wait for the owner's work in another channel.
+ */
+export type ChannelTaskWait =
+  | {
+      kind: "channel-task";
+      /** The channel of the work in front. It is this channel when the owner works here on another task. */
+      channelId: string;
+      channelName: string;
+      /** The start of the instruction of the work in front, cut for a line of text. */
+      instruction: string;
+    }
+  | { kind: "chat" };
+
+export const CHANNEL_TASK_WAIT_INSTRUCTION_LIMIT = 120;
+
+export function isChannelTaskWait(value: unknown): value is ChannelTaskWait {
+  if (!isDynamicRecord(value)) return false;
+  if (value.kind === "chat") return true;
+  return (
+    value.kind === "channel-task" &&
+    isIdentifier(value.channelId) &&
+    isBoundedString(value.channelName, INPUT_LIMITS.agentTitle) &&
+    isBoundedString(value.instruction, CHANNEL_TASK_WAIT_INSTRUCTION_LIMIT * 2)
+  );
+}
+
 export interface ChannelPage {
   channel: Channel;
   messages: ChannelMessage[];
   tasks: ChannelTask[];
+  /**
+   * For each queued task, what it waits behind. A task that is not here waits for nothing that is
+   * known, such as a task that the lead has not routed yet. Absent from a remote host.
+   */
+  waits?: Record<string, ChannelTaskWait>;
   olderCursor: number | null;
   throughSequence: number;
   /** As in `ConversationPageInfo`: the unloaded length, for the scroll rail. Absent from a remote host. */
@@ -289,7 +322,17 @@ export function decodeChannelPage(value: unknown): ChannelPage {
     olderCursor: value.olderCursor,
     throughSequence: value.throughSequence,
     ...optionalHistoryExtent(value),
+    ...optionalWaits(value.waits),
   };
+}
+
+/** A wait that does not decode is dropped, not an error: the page reads without the hint. */
+function optionalWaits(value: unknown): { waits?: Record<string, ChannelTaskWait> } {
+  if (!isDynamicRecord(value)) return {};
+  const entries = Object.entries(value).filter((entry): entry is [string, ChannelTaskWait] =>
+    isChannelTaskWait(entry[1]),
+  );
+  return entries.length > 0 ? { waits: Object.fromEntries(entries) } : {};
 }
 
 export function decodeChannelSummaries(value: unknown): ChannelSummary[] {

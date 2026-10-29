@@ -242,6 +242,8 @@ export function createChannelConversation(env: ChannelConversationEnvironment) {
         tasks: current.tasks,
         agents: channels.agents(),
         name: (id) => (id ? agentName(id) : t("sidebar.section.unassigned")),
+        waits: current.waits,
+        channelId: current.channel.id,
       });
     },
     HeaderTitle: (props) => <ChannelHeaderTitle channelId={channelId} onOpenSettings={props.onOpenSettings} />,

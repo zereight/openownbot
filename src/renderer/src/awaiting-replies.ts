@@ -1,4 +1,10 @@
-import { type ChannelTask, isQueuedAgentReply, type QueueDelivery, type QueueSnapshot } from "@openbot/contracts/ipc";
+import {
+  type ChannelTask,
+  type ChannelTaskWait,
+  isQueuedAgentReply,
+  type QueueDelivery,
+  type QueueSnapshot,
+} from "@openbot/contracts/ipc";
 import { markdownPreviewText } from "@openbot/contracts/markdown-preview-text";
 import type { AgentMessage, AgentProfile } from "@openbot/ui/data";
 import type { AwaitingReplyItem, AwaitingReplyState } from "@openbot/ui/features/conversation/AwaitingReplies";
@@ -92,6 +98,19 @@ export interface ChannelAwaitingInput {
   agents: readonly AgentProfile[];
   /** The name of a task owner, with the channel's own fallback for a task that has none. */
   name: (agentId: string | null) => string;
+  /** What each queued task waits behind. Absent from a remote host. */
+  waits?: Readonly<Record<string, ChannelTaskWait>> | undefined;
+  /** The id of the channel on screen, so a wait for work in this channel does not name it. */
+  channelId?: string | undefined;
+}
+
+/** The note under a queued task: whose work its owner does first, or that it is busy in its own chat. */
+function waitDetail(wait: ChannelTaskWait, channelId: string | undefined): string {
+  const { t } = currentText();
+  if (wait.kind === "chat") return t("chat.awaiting.busyInChat");
+  return wait.channelId === channelId
+    ? t("chat.awaiting.busyHere", { instruction: wait.instruction })
+    : t("chat.awaiting.busyInChannel", { channel: wait.channelName, instruction: wait.instruction });
 }
 
 /** The sub-tasks of each channel task that waits for them. */
@@ -100,6 +119,19 @@ export function channelAwaitingReplies(input: ChannelAwaitingInput): AwaitingRep
   const waiting = new Map(input.tasks.filter((task) => task.state === "waiting").map((task) => [task.id, task]));
   return input.tasks.flatMap((task) => {
     const parent = task.parentTaskId ? waiting.get(task.parentTaskId) : undefined;
+    const wait = task.state === "queued" ? input.waits?.[task.id] : undefined;
+    // A queued task that waits behind other work of its owner has no row below a parent that waits.
+    if (!parent && wait)
+      return [
+        {
+          id: task.id,
+          agent: input.agents.find((candidate) => candidate.id === task.ownerAgentId),
+          name: input.name(task.ownerAgentId),
+          state: "asked" as const,
+          preview: previewText(task.instruction),
+          detail: waitDetail(wait, input.channelId),
+        },
+      ];
     if (!parent) return [];
     const state = channelTaskState(task.state);
     if (!state) return [];
@@ -112,7 +144,9 @@ export function channelAwaitingReplies(input: ChannelAwaitingInput): AwaitingRep
         preview: previewText(task.instruction),
         ...(state === "replied" && parent.ownerAgentId
           ? { detail: t("chat.awaiting.readsNext", { name: input.name(parent.ownerAgentId) }) }
-          : {}),
+          : wait
+            ? { detail: waitDetail(wait, input.channelId) }
+            : {}),
       },
     ];
   });

@@ -330,7 +330,11 @@ export function agentIpcHandlers({
           runCauseEffect(remoteServers.request(serverId, CHANNEL_ROUTES.list, decodeChannelSummaries)),
       }),
       readChannel: scopedHandler(parseChannelRead, {
-        local: (input) => service.channels.store.page(input.channelId, input.beforeSequence),
+        local: (input) => {
+          const page = service.channels.store.page(input.channelId, input.beforeSequence);
+          const waits = service.channels.taskWaits(input.channelId);
+          return Object.keys(waits).length > 0 ? { ...page, waits } : page;
+        },
         remote: (input, serverId) =>
           runCauseEffect(
             remoteServers.request(serverId, CHANNEL_ROUTES.read, decodeChannelPage, { method: "POST", body: input }),
