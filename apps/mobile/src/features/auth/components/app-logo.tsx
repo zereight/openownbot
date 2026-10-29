@@ -1,6 +1,6 @@
 import { Pressable, View } from "react-native";
 import Animated from "react-native-reanimated";
-import Svg, { Polyline, Rect } from "react-native-svg";
+import Svg, { Circle, Ellipse, G, Path, Rect } from "react-native-svg";
 import { useCSSVariable } from "uniwind";
 
 import { type AppLogoAnimation, useAppLogoMotion } from "@/features/auth/components/use-app-logo-motion";
@@ -13,13 +13,25 @@ export interface AppLogoProps {
 }
 
 const VIEWBOX_SIZE = 240;
-const LEFT_EYE_CENTER_X = 68.88;
-const RIGHT_EYE_CENTER_X = 170.88;
-const EYE_CENTER_Y = 117;
-const LEFT_EYE_POINTS =
-  "43.55 93.61 64.69 81.41 36.48 108.04 79.67 83.11 35.93 122.88 91.58 90.74 38.9 132.69 97.66 98.76 42.44 138.88 100.43 105.4 46.9 143.83 101.97 112.04 55.08 149.51 101.83 122.52 73.01 152.43 94.14 140.23";
-const RIGHT_EYE_POINTS =
-  "145.65 93.61 166.79 81.41 140.83 101.52 175.58 81.46 138.3 109.53 183.18 83.63 137.55 117.43 189.67 87.33 139.67 129.39 197.88 95.78 142.92 136.32 201.52 102.48 149.03 143.86 204.07 112.08 159.14 150.37 203.51 124.75 169.28 152.61 199.82 134.98";
+/** The face is drawn in a 64-unit square: `FACE_SCALE` maps it to the viewBox. */
+const FACE_SCALE = VIEWBOX_SIZE / 64;
+const LEFT_EYE_CENTER_X = 18.5 * FACE_SCALE;
+const RIGHT_EYE_CENTER_X = 45.5 * FACE_SCALE;
+const EYE_CENTER_Y = 31 * FACE_SCALE;
+const LOCK_Y = 27.5 * FACE_SCALE;
+const SHACKLE = "M-4 0V-4.5A4 4 0 0 1 4 -4.5V0";
+const BODY = "M-4.5 -1.5H4.5A3.5 3.5 0 0 1 8 2V5A6 6 0 0 1 2 11H-2A6 6 0 0 1 -8 5V2A3.5 3.5 0 0 1 -4.5 -1.5Z";
+const CHEEK_COLOR = "#ee8e78";
+
+function Padlock({ centerX, ink, hole }: { centerX: number; ink: string; hole: string }) {
+  return (
+    <G transform={`translate(${centerX} ${LOCK_Y}) scale(${FACE_SCALE})`}>
+      <Path d={SHACKLE} fill="none" stroke={ink} strokeLinecap="round" strokeWidth={3.4} />
+      <Path d={BODY} fill={ink} />
+      <Circle cx={0} cy={4.4} r={1.9} fill={hole} />
+    </G>
+  );
+}
 
 function resolveColor(value: string | number | undefined, fallback: string): string {
   return String(value ?? fallback);
@@ -46,6 +58,11 @@ export function AppLogo({ animation = "none", interactive = false, size = VIEWBO
     >
       <Svg width={size} height={size} viewBox={`0 0 ${VIEWBOX_SIZE} ${VIEWBOX_SIZE}`}>
         <Rect width={VIEWBOX_SIZE} height={VIEWBOX_SIZE} rx={50} ry={50} fill={backgroundColor} />
+        <G transform={`scale(${FACE_SCALE})`}>
+          <Ellipse cx={10.5} cy={41.5} rx={3.8} ry={2.2} fill={CHEEK_COLOR} opacity={0.75} />
+          <Ellipse cx={53.5} cy={41.5} rx={3.8} ry={2.2} fill={CHEEK_COLOR} opacity={0.75} />
+          <Path d="M28 44.5Q32 48.7 36 44.5" fill="none" stroke={eyeColor} strokeLinecap="round" strokeWidth={2.6} />
+        </G>
       </Svg>
 
       <Animated.View
@@ -57,14 +74,7 @@ export function AppLogo({ animation = "none", interactive = false, size = VIEWBO
         ]}
       >
         <Svg width={size} height={size} viewBox={`0 0 ${VIEWBOX_SIZE} ${VIEWBOX_SIZE}`}>
-          <Polyline
-            points={LEFT_EYE_POINTS}
-            fill="none"
-            stroke={eyeColor}
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={9.5}
-          />
+          <Padlock centerX={LEFT_EYE_CENTER_X} ink={eyeColor} hole={backgroundColor} />
         </Svg>
       </Animated.View>
 
@@ -77,14 +87,7 @@ export function AppLogo({ animation = "none", interactive = false, size = VIEWBO
         ]}
       >
         <Svg width={size} height={size} viewBox={`0 0 ${VIEWBOX_SIZE} ${VIEWBOX_SIZE}`}>
-          <Polyline
-            points={RIGHT_EYE_POINTS}
-            fill="none"
-            stroke={eyeColor}
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={9.5}
-          />
+          <Padlock centerX={RIGHT_EYE_CENTER_X} ink={eyeColor} hole={backgroundColor} />
         </Svg>
       </Animated.View>
     </View>

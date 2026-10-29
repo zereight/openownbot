@@ -1,5 +1,5 @@
 /*
- * The desktop startup splash. The logo fades in and each eye is drawn as one pen stroke. The logo then
+ * The desktop startup splash. The logo fades in and each padlock eye pops in. The logo then
  * blinks until the app is ready, and the splash fades out.
  */
 
@@ -28,9 +28,7 @@
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  /* Both eyes use the longer stroke's length, so they draw at the same time. */
   .startup-splash-logo .app-logo-eye {
-    stroke-dasharray: var(--splash-eye-length) calc(var(--splash-eye-length) + 24px);
     animation:
       startup-splash-eye-draw 480ms var(--openownbot-ease-in-out) 160ms backwards,
       app-logo-blink 4.8s var(--openownbot-ease-in-out) 1s infinite;
@@ -45,10 +43,12 @@
 
 @keyframes startup-splash-eye-draw {
   from {
-    stroke-dashoffset: calc(var(--splash-eye-length) + 12px);
+    opacity: 0;
+    transform: scale(0.2);
   }
   to {
-    stroke-dashoffset: 0px;
+    opacity: 1;
+    transform: scale(1);
   }
 }
 
