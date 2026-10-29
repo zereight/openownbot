@@ -1693,39 +1693,6 @@ textarea {
   width: 100%;
 }
 
-/* "Needs you" is not a section, so its heading is plain text with a count, and a rule ends it. */
-.sidebar-waiting-group {
-  border-bottom: 1px solid var(--openownbot-border);
-  padding-bottom: var(--openownbot-space-2);
-}
-
-.sidebar-waiting-group-name {
-  display: flex;
-  min-width: 0;
-  align-items: center;
-  gap: var(--openownbot-space-2);
-  margin: 0;
-  padding: 0 7px;
-  color: var(--openownbot-text-readable);
-  font-size: var(--openownbot-text-sm);
-  font-weight: 400;
-  line-height: 16px;
-  white-space: nowrap;
-}
-
-.sidebar-waiting-group-count {
-  display: inline-grid;
-  min-width: 16px;
-  height: 16px;
-  place-items: center;
-  border-radius: var(--openownbot-radius-pill);
-  background: var(--openownbot-warning);
-  padding: 0 4px;
-  color: var(--openownbot-bg-sidebar);
-  font-size: var(--openownbot-text-sm);
-  font-weight: 650;
-}
-
 .sidebar-hidden-group-count {
   margin-inline-start: var(--openownbot-space-1);
   font-variant-numeric: tabular-nums;
@@ -2914,16 +2881,6 @@ textarea {
 .sidebar:not(.sidebar-compact) .sidebar-section-body .agent-row {
   width: 100%;
   margin-inline: 0;
-}
-
-.sidebar:not(.sidebar-compact) .sidebar-waiting-group .agent-row {
-  width: 100%;
-  margin-inline: 0;
-}
-
-/* A waiting row does not drag, so it does not show the grab cursor. */
-.sidebar-waiting-group .sidebar-agent-item .agent-row {
-  cursor: default;
 }
 
 .sidebar:not(.sidebar-compact) .sidebar-pinned-row.agent-row {

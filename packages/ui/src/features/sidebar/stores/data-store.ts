@@ -79,32 +79,7 @@ export function createSidebarDataStore(deps: {
         !agentIsUserHidden(agent.id) && !pinnedKeys().has(sidebarPinnedItemKey({ kind: "agent", id: agent.id })),
     ),
   );
-  /**
-   * Agents and channels that wait for the user leave their section for the "Needs you" group, the
-   * same way a pinned chat leaves it for the pinned strip. The layout keeps their place, so a chat
-   * goes back to it when the wait ends. A pinned chat stays in its tile, which shows the same badge.
-   *
-   * The set is keyed by a string so that a badge change that keeps the same agents waiting stops
-   * here. Without it, each new reply would rebuild the chat items and remount every row.
-   *
-   * The set holds still during a drag. The drag engine measures the rows when the drag starts, so a
-   * row that moved to the group after that would make the drop land at an old position, and the
-   * dragged row itself would leave the DOM.
-   */
-  let heldWaitingKey = "";
-  const waitingKey = createMemo(() => {
-    const next = [
-      ...Object.keys(props.agentStates).filter((agentId) => props.agentStates[agentId]?.kind === "waiting"),
-      ...Object.keys(props.channelWaits ?? {}),
-    ]
-      .sort()
-      .join("\n");
-    if (!deps.dragActive()) heldWaitingKey = next;
-    return heldWaitingKey;
-  });
-  const waitingIds = createMemo(() => new Set(waitingKey() ? waitingKey().split("\n") : []));
-  const chatWaits = (chatId: string) => waitingIds().has(chatId);
-  const filteredAgents = createMemo(() => listedAgents().filter((agent) => !chatWaits(agent.id)));
+  const filteredAgents = listedAgents;
   /** The hidden agents, pinned ones included, in their layout order. They are not drag sources. */
   const userHiddenAgentList = createMemo(() =>
     sortByLayoutOrder(props.agents.filter((agent) => agentIsUserHidden(agent.id))),
@@ -112,7 +87,7 @@ export function createSidebarDataStore(deps: {
   const listedChannels = createMemo(() =>
     channels().filter((channel) => !pinnedKeys().has(sidebarPinnedItemKey({ kind: "channel", id: channel.id }))),
   );
-  const filteredChannels = createMemo(() => listedChannels().filter((channel) => !chatWaits(channel.id)));
+  const filteredChannels = listedChannels;
   function sortByLayoutOrder<T extends { id: string }>(items: T[]): T[] {
     const orderIndex = new Map(props.layout.agentOrder.map((chatId, index) => [chatId, index]));
     const naturalIndex = new Map(items.map((item, index) => [item.id, index]));
@@ -152,11 +127,6 @@ export function createSidebarDataStore(deps: {
     });
   }
   const filteredChats = createChatItems(() => ({ channels: filteredChannels(), agents: filteredAgents() }));
-  /** The "Needs you" group, in the order the chats have in the layout. */
-  const waitingChats = createChatItems(() => ({
-    channels: listedChannels().filter((channel) => chatWaits(channel.id)),
-    agents: listedAgents().filter((agent) => chatWaits(agent.id)),
-  }));
   const orderedPeople = createMemo(() => {
     const natural = [...props.people].sort((left, right) => {
       const leftThread = directThreadByMember().get(left.id);
@@ -281,6 +251,5 @@ export function createSidebarDataStore(deps: {
     userHiddenAgentList,
     userHiddenSince,
     visibleSectionIds,
-    waitingChats,
   };
 }
