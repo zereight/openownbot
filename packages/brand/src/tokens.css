@@ -174,8 +174,8 @@
   --openownbot-chart-storage-app: var(--openownbot-text-dim);
   --openownbot-logo-production: #d6adf2;
   --openownbot-logo-eye: #040007;
-  /* The eyes of the release logo. The logo color setting changes it with `--openownbot-logo-production`;
-     a dev or preview logo keeps `--openownbot-logo-eye`. */
+  /* The eyes of the logo. The logo color setting changes it with `--openownbot-logo-production`,
+     and a dev or preview build also changes its own logo color. */
   --openownbot-logo-production-eye: var(--openownbot-logo-eye);
   /* The build colors of the logo match the app icons in `build/icon-*.png`, so the Dock, the app
      and the Dynamic Island show one color for each build. They are brand colors, not status

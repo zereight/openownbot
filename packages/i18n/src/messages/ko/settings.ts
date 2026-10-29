@@ -18,7 +18,6 @@ export const messages = {
   "settings.interfaceSize.description": "OpenOwnBot의 텍스트와 컨트롤 크기예요.",
   "settings.logoColor.title": "로고 색상",
   "settings.logoColor.description": "Dock, 작업 표시줄, Dynamic Island에 표시돼요.",
-  "settings.logoColor.buildNote": "이 빌드는 자체 로고 색상을 유지해요. 선택한 색상은 릴리스 앱에 적용돼요.",
   "settings.logoColor.lavender": "라벤더",
   "settings.logoColor.green": "초록",
   "settings.logoColor.gold": "골드",

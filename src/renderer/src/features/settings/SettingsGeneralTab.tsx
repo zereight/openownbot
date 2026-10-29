@@ -1,4 +1,4 @@
-import { APP_INTERFACE_SIZES, type AppInterfaceSize, type AppVariant } from "@openownbot/contracts/ipc";
+import { APP_INTERFACE_SIZES, type AppInterfaceSize } from "@openownbot/contracts/ipc";
 import {
   Item,
   ItemActions,
@@ -34,7 +34,6 @@ interface SettingsGeneralTabProps {
   /** The device with the keyboard, naming ⌘ or Ctrl in the shortcut option. */
   platform?: "darwin" | "win32" | "linux" | undefined;
   /** A dev or preview build keeps its own logo color, so the logo color row says so. */
-  variant: AppVariant;
   /** The dialog element the Select popovers portal into, captured when the tab was created. */
   selectMount: HTMLElement | undefined;
   onUpdateSetting: <Key extends keyof GeneralSettingsValue>(key: Key, value: GeneralSettingsValue[Key]) => void;
@@ -111,9 +110,6 @@ export function SettingsGeneralTab(props: SettingsGeneralTabProps) {
             <ItemContent>
               <ItemTitle>{i18n.t("settings.logoColor.title")}</ItemTitle>
               <ItemDescription>{i18n.t("settings.logoColor.description")}</ItemDescription>
-              <Show when={props.variant !== "production"}>
-                <ItemDescription>{i18n.t("settings.logoColor.buildNote")}</ItemDescription>
-              </Show>
             </ItemContent>
             <LogoColorPicker value={logoColor.color()} onChange={logoColor.changeColor} />
           </Item>

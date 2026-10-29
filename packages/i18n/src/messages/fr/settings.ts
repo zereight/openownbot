@@ -21,8 +21,6 @@ export const messages = {
   "settings.interfaceSize.description": "La taille du texte et des commandes dans OpenOwnBot.",
   "settings.logoColor.title": "Couleur du logo",
   "settings.logoColor.description": "Affichée dans le Dock, la barre des tâches et l’îlot dynamique.",
-  "settings.logoColor.buildNote":
-    "Cette version garde sa propre couleur de logo. Le choix s’applique à l’application publiée.",
   "settings.logoColor.lavender": "Lavande",
   "settings.logoColor.green": "Vert",
   "settings.logoColor.gold": "Or",

@@ -471,13 +471,11 @@ let appIconColorImage: NativeImage | undefined;
 let backgroundTray: BackgroundTray | null = null;
 
 /**
- * Shows the chosen logo color on the Dock icon, or on each window icon where there is no Dock. A dev
- * or preview build keeps the icon of its build, so it is not mistaken for the release. macOS has no
- * alternate app icon API, so when the app is closed the Dock shows the icon inside the app bundle:
- * changing that file would break the code signature.
+ * Shows the chosen logo color on the Dock icon, or on each window icon where there is no Dock. Every
+ * build follows the choice. macOS has no alternate app icon API, so when the app is closed the Dock
+ * shows the icon inside the app bundle: changing that file would break the code signature.
  */
 function applyAppIconColor(color: AppLogoColor): void {
-  if (appVariant !== "production") return;
   const icon = nativeImage.createFromPath(
     resolveLogoColorIconPath({
       color,

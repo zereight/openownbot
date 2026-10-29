@@ -18,7 +18,6 @@ export const messages = {
   "settings.interfaceSize.description": "OpenOwnBot のテキストとコントロールのサイズです。",
   "settings.logoColor.title": "ロゴの色",
   "settings.logoColor.description": "Dock、タスクバー、Dynamic Island に表示されます。",
-  "settings.logoColor.buildNote": "このビルドは独自のロゴの色を使います。選択はリリース版のアプリに適用されます。",
   "settings.logoColor.lavender": "ラベンダー",
   "settings.logoColor.green": "グリーン",
   "settings.logoColor.gold": "ゴールド",

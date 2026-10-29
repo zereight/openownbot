@@ -275,7 +275,6 @@ export function SettingsModal(props: SettingsModalProps) {
           {preferencesLoadError()}
           <SettingsGeneralTab
             value={props.value}
-            variant={props.appInfo?.variant ?? "production"}
             platform={props.appInfo?.platform}
             onUpdateSetting={updateSetting}
             onUpdateSettings={updateSettings}

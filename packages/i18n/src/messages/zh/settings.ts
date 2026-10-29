@@ -19,7 +19,6 @@ export const messages = {
   "settings.interfaceSize.description": "OpenOwnBot 里文字和控件的大小。",
   "settings.logoColor.title": "标志颜色",
   "settings.logoColor.description": "显示在 Dock、任务栏和灵动岛中。",
-  "settings.logoColor.buildNote": "当前版本使用自己的标志颜色，该选项仅对正式版生效。",
   "settings.logoColor.lavender": "薰衣草紫",
   "settings.logoColor.green": "绿色",
   "settings.logoColor.gold": "金色",

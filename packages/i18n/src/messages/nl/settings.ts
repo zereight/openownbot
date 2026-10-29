@@ -18,7 +18,6 @@ export const messages = {
   "settings.interfaceSize.description": "De grootte van tekst en bedieningselementen in OpenOwnBot.",
   "settings.logoColor.title": "Logokleur",
   "settings.logoColor.description": "Te zien in het Dock, de taakbalk en het Dynamic Island.",
-  "settings.logoColor.buildNote": "Deze build houdt een eigen logokleur. De keuze geldt voor de release-app.",
   "settings.logoColor.lavender": "Lavendel",
   "settings.logoColor.green": "Groen",
   "settings.logoColor.gold": "Goud",

@@ -2,33 +2,35 @@ import {
   APP_LOGO_COLOR_HEX,
   APP_LOGO_EYE_HEX,
   type AppLogoColor,
+  type AppVariant,
   DEFAULT_APP_LOGO_COLOR,
 } from "@openownbot/contracts/ipc";
 import { createSignal, onSettled } from "solid-js";
 import { appPort } from "./app-port";
 
-/** Sets the release logo color and its eye color in this window. */
-function applyLogoColor(color: AppLogoColor): void {
-  document.documentElement.style.setProperty("--openownbot-logo-production", APP_LOGO_COLOR_HEX[color]);
-  document.documentElement.style.setProperty("--openownbot-logo-production-eye", APP_LOGO_EYE_HEX[color]);
+/** Sets the logo color and its eye color in this window, for the release logo and the logo of this build. */
+function applyLogoColor(color: AppLogoColor, variant: AppVariant): void {
+  const style = document.documentElement.style;
+  style.setProperty("--openownbot-logo-production", APP_LOGO_COLOR_HEX[color]);
+  style.setProperty("--openownbot-logo-production-eye", APP_LOGO_EYE_HEX[color]);
+  if (variant !== "production") style.setProperty(`--openownbot-logo-${variant}`, APP_LOGO_COLOR_HEX[color]);
 }
 
 /**
  * Keeps this window on the saved logo color. Every window runs it, the Dynamic Island too, because
- * the island has no Settings of its own and main broadcasts each change to every window. Only a
- * release build applies it: some logos draw the release variant in every build, and a dev or preview
- * build keeps its own color. The preview calls the returned function when it unmounts, so the next
- * story starts from the brand tokens.
+ * the island has no Settings of its own and main broadcasts each change to every window. A dev or
+ * preview build also changes the color of its own logo. The preview calls the returned function when
+ * it unmounts, so the next story starts from the brand tokens.
  */
 export function syncLogoColor(): () => void {
   let active = true;
-  const release = appPort()
+  const variant = appPort()
     .getAppInfo()
-    .then((info) => info.variant === "production")
-    .catch(() => false);
+    .then((info) => info.variant)
+    .catch(() => undefined);
   const apply = (color: AppLogoColor) => {
-    void release.then((isRelease) => {
-      if (active && isRelease) applyLogoColor(color);
+    void variant.then((appVariant) => {
+      if (active && appVariant) applyLogoColor(color, appVariant);
     });
   };
   void appPort()
@@ -41,6 +43,8 @@ export function syncLogoColor(): () => void {
     unsubscribe();
     document.documentElement.style.removeProperty("--openownbot-logo-production");
     document.documentElement.style.removeProperty("--openownbot-logo-production-eye");
+    document.documentElement.style.removeProperty("--openownbot-logo-dev");
+    document.documentElement.style.removeProperty("--openownbot-logo-preview");
   };
 }
 
