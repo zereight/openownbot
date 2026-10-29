@@ -125,6 +125,12 @@ import { trustSystemCertificates } from "./system-certificates";
 import { TeardownRegistry } from "./teardown-registry";
 import type { TraceFile } from "./trace-file";
 import { setIpcCallObserver } from "./trusted-ipc";
+import {
+  legacyUserDataDirectory,
+  migrateUserData,
+  nodeUserDataMigrationDependencies,
+  USER_DATA_NAME,
+} from "./user-data-migration";
 import { setWindowAppearance } from "./window-appearance";
 
 const logger = createOpenBotLogger("main");
@@ -211,8 +217,26 @@ if (commandLineUserDataDirectory) {
       ),
     ),
   );
+} else {
+  // A packaged app keeps its data under the product name; the folder of the name before OpenOwnBot is
+  // copied once, before anything reads `userData`.
+  const legacyDirectory = legacyUserDataDirectory(app.getPath("appData"));
+  app.setPath("userData", join(app.getPath("appData"), USER_DATA_NAME));
+  const migration = migrateUserData(
+    legacyDirectory,
+    app.getPath("userData"),
+    nodeUserDataMigrationDependencies(legacyDirectory),
+  );
+  if (migration === "migrated")
+    logger.info(`Copied the data folder "${legacyDirectory}" to "${app.getPath("userData")}".`);
+  else if (migration === "legacy-in-use" || migration === "failed") {
+    // An empty new folder would end the migration for good, so this run uses the old folder as it is and
+    // the copy is tried again at the next start.
+    logger.warn(`The data folder "${legacyDirectory}" was not copied (${migration}); using it where it is.`);
+    app.setPath("userData", legacyDirectory);
+  }
 }
-app.setName("OpenBot");
+app.setName("OpenOwnBot");
 app.enableSandbox();
 if (process.platform === "win32") app.setAppUserModelId("app.openbot.desktop");
 // In development this waits for the process holding the lock to quit while a restart replaces
