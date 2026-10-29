@@ -78,9 +78,9 @@ export function SidebarAgentContextMenu(menuProps: { agent: AgentProfile; pinned
             </span>
           </ContextMenu.Item>
         </Show>
-        <Show when={props.onMarkAllRead}>
-          {(markAllRead) => (
-            <ContextMenu.Item disabled={!props.hasUnread} onSelect={() => markAllRead()()}>
+        <Show when={props.onMarkAgentRead}>
+          {(markRead) => (
+            <ContextMenu.Item onSelect={() => markRead()(menuProps.agent.id)}>
               <CheckCheck class="agent-context-icon size-4" aria-hidden="true" />
               <span>{t("sidebar.markAllRead")}</span>
             </ContextMenu.Item>

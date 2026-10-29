@@ -902,27 +902,28 @@ const Conversation = createSimpleContext({
       }
     }
 
-    /** Marks each unread agent chat read through its newest message, which may not be loaded yet. */
-    async function markAllAgentMessagesRead(): Promise<void> {
+    /** Marks one agent chat read through its newest message, which may not be loaded yet. */
+    async function markAgentChatRead(agentId: string): Promise<void> {
       const serverId = activeServerId();
+      try {
+        const page = await conversationPort().agent.readConversationPage(
+          { agentId, anchor: { type: "latest" }, limit: 1 },
+          serverId,
+        );
+        const latestMessageId = page.messages.at(-1)?.id;
+        if (latestMessageId) await markAgentMessagesRead(agentId, latestMessageId, serverId);
+      } catch (error) {
+        appendUiError(agentId, error, currentText().t("chat.errorStatus.readState"), serverId);
+      }
+    }
+
+    /** Marks each unread agent chat read through its newest message. */
+    async function markAllAgentMessagesRead(): Promise<void> {
       // Only listed agents: a read of an id the host no longer knows creates that agent again.
       const unread = agentList()
         .map((agent) => agent.id)
         .filter((agentId) => (unreadReplies()[agentId] ?? 0) > 0);
-      await Promise.all(
-        unread.map(async (agentId) => {
-          try {
-            const page = await conversationPort().agent.readConversationPage(
-              { agentId, anchor: { type: "latest" }, limit: 1 },
-              serverId,
-            );
-            const latestMessageId = page.messages.at(-1)?.id;
-            if (latestMessageId) await markAgentMessagesRead(agentId, latestMessageId, serverId);
-          } catch (error) {
-            appendUiError(agentId, error, currentText().t("chat.errorStatus.readState"), serverId);
-          }
-        }),
-      );
+      await Promise.all(unread.map(markAgentChatRead));
     }
 
     function presentPromptResolution(agentId: string, turnId: string, requestId: string | number): void {
@@ -982,6 +983,7 @@ const Conversation = createSimpleContext({
       searchAgentMessages,
       sendMessage,
       markAgentMessagesRead,
+      markAgentChatRead,
       markAllAgentMessagesRead,
       presentPromptResolution,
       // See `AppProviders`: a chat window sends no typing state.

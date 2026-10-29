@@ -1429,6 +1429,26 @@ export function createWebWorkspace(
     readWrites.set(id, write);
     return write;
   }
+  /** Marks one agent read through its newest message, loaded or not. Writes for one agent run in order. */
+  function markAgentRead(id: string) {
+    const current = generation;
+    const write = (readWrites.get(id) ?? Promise.resolve())
+      .catch(() => undefined)
+      .then(async () => {
+        if (disposed || current !== generation) return;
+        const page = await runtime.conversation(id);
+        const latestMessageId = page.messages.at(-1)?.id;
+        if (!latestMessageId || disposed || current !== generation) return;
+        const readState = await runtime.markRead(id, latestMessageId);
+        if (disposed || current !== generation) return;
+        setState((draft) => {
+          const value = draft.conversations[id]?.page;
+          if (value?.threadId === page.threadId) value.readState = readState;
+        });
+      });
+    readWrites.set(id, write);
+    return write;
+  }
   /** Marks every agent with unread messages read through its newest one, loaded or not. */
   async function markAllRead() {
     if (state.status !== "online") return;
@@ -1438,25 +1458,7 @@ export function createWebWorkspace(
     const unread = Object.entries(reads)
       .filter(([, read]) => read.unreadCount > 0)
       .map(([id]) => id);
-    const writes = unread.map((id) => {
-      const write = (readWrites.get(id) ?? Promise.resolve())
-        .catch(() => undefined)
-        .then(async () => {
-          if (disposed || current !== generation) return;
-          const page = await runtime.conversation(id);
-          const latestMessageId = page.messages.at(-1)?.id;
-          if (!latestMessageId || disposed || current !== generation) return;
-          const readState = await runtime.markRead(id, latestMessageId);
-          if (disposed || current !== generation) return;
-          setState((draft) => {
-            const value = draft.conversations[id]?.page;
-            if (value?.threadId === page.threadId) value.readState = readState;
-          });
-        });
-      readWrites.set(id, write);
-      return write;
-    });
-    await Promise.all(writes);
+    await Promise.all(unread.map(markAgentRead));
   }
   /** The connected host and its connection, as the restart notices and the update dialog read them. */
   const hostViews = (): HostRestartView[] =>
@@ -1594,6 +1596,7 @@ export function createWebWorkspace(
       }
     },
     markRead,
+    markAgentRead,
     markAllRead,
     async mutateSidebarLayout(action: SidebarLayoutAction) {
       if (state.status !== "online" || !state.capabilities.includes("sidebar-layout")) {
