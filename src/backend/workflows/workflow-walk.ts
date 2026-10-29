@@ -254,3 +254,15 @@ export function conditionAnswer(text: string): "yes" | "no" | null {
   const word = /^[^a-z]*([a-z]+)/iu.exec(text.trim())?.[1]?.toLowerCase();
   return word === "yes" || word === "no" ? word : null;
 }
+
+const ANSWER_EXCERPT_LIMIT = 240;
+
+/**
+ * The start of what a model answered, on one line, for the step's error and the workflow log. A
+ * condition that is not yes or no is only worth fixing when the answer is known.
+ */
+export function answerExcerpt(text: string): string {
+  const line = text.replace(/\s+/gu, " ").trim();
+  if (!line) return "(empty)";
+  return line.length > ANSWER_EXCERPT_LIMIT ? `${line.slice(0, ANSWER_EXCERPT_LIMIT).trimEnd()}…` : line;
+}

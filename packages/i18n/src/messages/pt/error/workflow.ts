@@ -17,7 +17,7 @@ export const messages = {
   "error.workflow.agentMissing": "Escolha um agente para esta etapa.",
   "error.workflow.handoffFailed": "O OpenOwnBot não conseguiu enviar esta etapa ao agente.",
   "error.workflow.agentStepEnded": "A mensagem ao agente foi removida antes da resposta.",
-  "error.workflow.conditionUnclear": "O modelo não respondeu sim ou não.",
+  "error.workflow.conditionUnclearAnswer": "O modelo não respondeu sim ou não. Resposta: {answer}",
   "error.workflow.modelFailed": "O modelo não conseguiu responder. Execute a etapa novamente.",
   "error.workflow.modelBusy": "Outra solicitação ao modelo está em andamento. Execute a etapa novamente em breve.",
   "error.workflow.stepMissing": "Esta etapa não existe mais.",

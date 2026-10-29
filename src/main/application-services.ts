@@ -328,6 +328,7 @@ import { VoiceSpeechService } from "./voice-speech-service";
 import { spawnVoiceTranscriptionHost } from "./voice-transcription-host-process";
 import { VoiceTranscriptionService } from "./voice-transcription-service";
 import { WebhookRelay } from "./webhook-relay";
+import { startWorkflowLog } from "./workflow-log";
 
 const logger = createOpenBotLogger("application-services");
 const SETUP_FILE = "openbot-setup-v2.json";
@@ -877,6 +878,7 @@ export async function createApplicationServices({
   );
   teardown.push(TEARDOWN_ORDER.agentLog, "the agent log", startAgentLog(join(app.getPath("userData"), "logs")));
   teardown.push(TEARDOWN_ORDER.agentLog, "the channel log", startChannelLog(join(app.getPath("userData"), "logs")));
+  teardown.push(TEARDOWN_ORDER.agentLog, "the workflow log", startWorkflowLog(join(app.getPath("userData"), "logs")));
   teardown.push(TEARDOWN_ORDER.accountLog, "the account log", startAccountLog(join(app.getPath("userData"), "logs")));
   const externalLinkPreference = createExternalLinkPreferenceStore(
     join(app.getPath("userData"), EXTERNAL_LINK_PREFERENCE_FILE),

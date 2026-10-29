@@ -17,7 +17,7 @@ export const messages = {
   "error.workflow.agentMissing": "Scegli un agente per questo passaggio.",
   "error.workflow.handoffFailed": "OpenOwnBot non è riuscito a inviare questo passaggio al suo agente.",
   "error.workflow.agentStepEnded": "Il messaggio all’agente è stato rimosso prima della sua risposta.",
-  "error.workflow.conditionUnclear": "Il modello non ha risposto sì o no.",
+  "error.workflow.conditionUnclearAnswer": "Il modello non ha risposto sì o no. Ha risposto: {answer}",
   "error.workflow.modelFailed": "Il modello non ha potuto rispondere. Esegui di nuovo il passaggio.",
   "error.workflow.modelBusy": "È in corso un’altra richiesta al modello. Esegui di nuovo il passaggio tra poco.",
   "error.workflow.stepMissing": "Questo passaggio non esiste più.",

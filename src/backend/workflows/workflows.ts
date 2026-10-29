@@ -83,6 +83,7 @@ import { type WorkflowStore, WorkflowStoreError } from "./workflow-store";
 import { prepareWorkflowSchedules, type ScheduledWorkflowStart, workflowWebhookPayload } from "./workflow-triggers";
 import {
   agentStepText,
+  answerExcerpt,
   conditionAnswer,
   conditionPrompt,
   fieldText,
@@ -397,6 +398,24 @@ class Workflows extends Context.Service<Workflows, WorkflowsShape>()("openbot/ba
           return false;
         };
 
+        const stepLogFields = (step: StoredWorkflowStep) => ({
+          workflowId: step.workflowId,
+          runId: step.runId,
+          nodeId: step.nodeId,
+          stepId: step.id,
+        });
+
+        /** The error of a condition whose answer was not yes or no: it names the answer, and the log keeps it. */
+        const unclearAnswerError = (step: StoredWorkflowStep, answer: string): string => {
+          const excerpt = answerExcerpt(answer);
+          logger.warn("A workflow condition was not answered yes or no.", {
+            ...stepLogFields(step),
+            answerLength: answer.length,
+            answer: excerpt,
+          });
+          return sourceText("error.workflow.conditionUnclearAnswer", { answer: excerpt });
+        };
+
         /** Runs a model step or a condition in a fiber of its own; the pass does not wait for it. */
         const startGeneration = (step: StoredWorkflowStep, node: WorkflowNode): Effect.Effect<void> => {
           const condition = node.kind === "condition";
@@ -408,9 +427,18 @@ class Workflows extends Context.Service<Workflows, WorkflowsShape>()("openbot/ba
               ? conditionPrompt(fieldText(node, "rule"), step.input)
               : modelStepPrompt(fieldText(node, "system"), fieldText(node, "prompt"), step.input),
           };
+          const started = Date.now();
           const generate = Effect.gen(function* () {
             const result = yield* generationLock.withPermit(dependencies.generateText(request)).pipe(Effect.result);
             if (Result.isFailure(result)) {
+              logger.warn("A workflow step could not get an answer from its model.", {
+                ...stepLogFields(step),
+                kind: node.kind,
+                requestedProvider: request.provider,
+                requestedModel: request.model,
+                elapsedMs: Date.now() - started,
+                error: result.failure.message,
+              });
               settle(step, { status: "failed", error: result.failure.message });
             } else if (!condition) {
               settle(step, { status: "done", output: result.success });
@@ -421,7 +449,7 @@ class Workflows extends Context.Service<Workflows, WorkflowsShape>()("openbot/ba
                 step,
                 branch
                   ? { status: "done", output: step.input, branch }
-                  : { status: "failed", error: sourceText("error.workflow.conditionUnclear") },
+                  : { status: "failed", error: unclearAnswerError(step, result.success) },
               );
             }
             yield* requestSweep();
