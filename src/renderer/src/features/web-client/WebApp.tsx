@@ -332,70 +332,68 @@ export function WebApp(props: { createRuntime?: WebRuntimeFactory } = {}) {
       locale={resolveLocale(languagePreference.language(), navigator.language)}
       formatLocale={formatLocale(languagePreference.language(), navigator.language)}
     >
-      <>
-        <div class="web-app">
-          <Toaster />
-          <Show when={state.loaded}>
-            <Show
-              keyed
-              when={state.account?.id}
-              fallback={
-                <AccountLogin
-                  variant={variant}
-                  state={state.login}
-                  onRetry={checkSession}
-                  onRequestEmailCode={start}
-                  onVerifyEmailCode={verify}
-                  onReset={async () => {
-                    clearSession();
-                    setState((draft) => {
-                      draft.resendAt = 0;
-                    });
-                  }}
-                />
-              }
-            >
-              {(accountId) => (
-                <Dynamic
-                  component={workspace()}
-                  accountId={accountId}
-                  accountEmail={state.account?.email ?? ""}
-                  accountName={state.account?.name ?? null}
-                  accountAvatarUrl={state.account?.avatarUrl ?? null}
-                  accountFetch={accountFetch}
-                  onSessionCheck={checkSession}
-                  accountSessionEnded={() => sessionEnded}
-                  onLogout={logout}
-                  createRuntime={props.createRuntime}
-                  agentTemplateId={agentTemplateId()}
-                  onAgentTemplateClose={() => setAgentTemplateId(null)}
-                  inviteUrl={inviteUrl()}
-                  onInviteClose={() => setInviteUrl(null)}
-                  pluginSlug={pluginSlug()}
-                  onPluginSlugConsumed={() => setPluginSlug(null)}
-                  billingReturn={billingReturn()}
-                  onBillingReturnConsumed={() => setBillingReturn(false)}
-                  hostingReturn={hostingReturn()}
-                  onHostingReturnConsumed={() => setHostingReturn(null)}
-                  language={languagePreference.language()}
-                  onChangeLanguage={languagePreference.setLanguage}
-                  appearance={appearancePreference.appearance()}
-                  onChangeAppearance={appearancePreference.setAppearance}
-                />
-              )}
-            </Show>
+      <div class="web-app">
+        <Toaster />
+        <Show when={state.loaded}>
+          <Show
+            keyed
+            when={state.account?.id}
+            fallback={
+              <AccountLogin
+                variant={variant}
+                state={state.login}
+                onRetry={checkSession}
+                onRequestEmailCode={start}
+                onVerifyEmailCode={verify}
+                onReset={async () => {
+                  clearSession();
+                  setState((draft) => {
+                    draft.resendAt = 0;
+                  });
+                }}
+              />
+            }
+          >
+            {(accountId) => (
+              <Dynamic
+                component={workspace()}
+                accountId={accountId}
+                accountEmail={state.account?.email ?? ""}
+                accountName={state.account?.name ?? null}
+                accountAvatarUrl={state.account?.avatarUrl ?? null}
+                accountFetch={accountFetch}
+                onSessionCheck={checkSession}
+                accountSessionEnded={() => sessionEnded}
+                onLogout={logout}
+                createRuntime={props.createRuntime}
+                agentTemplateId={agentTemplateId()}
+                onAgentTemplateClose={() => setAgentTemplateId(null)}
+                inviteUrl={inviteUrl()}
+                onInviteClose={() => setInviteUrl(null)}
+                pluginSlug={pluginSlug()}
+                onPluginSlugConsumed={() => setPluginSlug(null)}
+                billingReturn={billingReturn()}
+                onBillingReturnConsumed={() => setBillingReturn(false)}
+                hostingReturn={hostingReturn()}
+                onHostingReturnConsumed={() => setHostingReturn(null)}
+                language={languagePreference.language()}
+                onChangeLanguage={languagePreference.setLanguage}
+                appearance={appearancePreference.appearance()}
+                onChangeAppearance={appearancePreference.setAppearance}
+              />
+            )}
           </Show>
-          <Show when={loadingShown()}>
-            <AppLoadingScreen
-              ready={state.loaded}
-              onExited={() => {
-                setLoadingShown(false);
-                void loadWorkspace().catch(() => undefined);
-              }}
-            />
-          </Show>
-        </div>
-      </>
+        </Show>
+        <Show when={loadingShown()}>
+          <AppLoadingScreen
+            ready={state.loaded}
+            onExited={() => {
+              setLoadingShown(false);
+              void loadWorkspace().catch(() => undefined);
+            }}
+          />
+        </Show>
+      </div>
     </StaticI18nProvider>
   );
 }
