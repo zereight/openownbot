@@ -250,6 +250,8 @@ import {
 } from "./workspace-paths";
 
 const logger = createOpenBotLogger("agent-service");
+/** Its own prefix, so the model failures of workflow steps reach `workflows.log`. */
+const workflowModelLogger = createOpenBotLogger("workflow-model");
 const decisionLogger = createOpenBotLogger("channel-decision");
 
 /**
@@ -2249,7 +2251,13 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
         )
         .pipe(
           Effect.tapError((failure) =>
-            Effect.sync(() => logger.warn("Could not answer a workflow step.", { provider, error: failure.cause })),
+            Effect.sync(() =>
+              workflowModelLogger.warn("Could not answer a workflow step.", {
+                provider,
+                model: model.id,
+                error: failure.cause,
+              }),
+            ),
           ),
           // The generation's own messages name a profile.
           Effect.mapError((failure) =>

@@ -16,7 +16,7 @@ export const messages = {
   "error.workflow.agentMissing": "Bu adım için bir ajan seçin.",
   "error.workflow.handoffFailed": "OpenOwnBot bu adımı ajanına gönderemedi.",
   "error.workflow.agentStepEnded": "Ajana giden mesaj, ajan yanıt vermeden kaldırıldı.",
-  "error.workflow.conditionUnclear": "Model evet ya da hayır yanıtı vermedi.",
+  "error.workflow.conditionUnclearAnswer": "Model evet ya da hayır diye yanıtlamadı. Yanıt: {answer}",
   "error.workflow.modelFailed": "Model yanıt veremedi. Adımı yeniden çalıştırın.",
   "error.workflow.modelBusy": "Başka bir model isteği çalışıyor. Adımı birazdan yeniden çalıştırın.",
   "error.workflow.stepMissing": "Bu adım artık yok.",

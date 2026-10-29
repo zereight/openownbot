@@ -16,7 +16,7 @@ export const messages = {
   "error.workflow.agentMissing": "이 단계의 에이전트를 선택하세요.",
   "error.workflow.handoffFailed": "OpenOwnBot이 이 단계를 에이전트에 보내지 못했어요.",
   "error.workflow.agentStepEnded": "에이전트가 답하기 전에 이 단계의 메시지가 삭제됐어요.",
-  "error.workflow.conditionUnclear": "모델이 ‘예’ 또는 ‘아니요’로 답하지 않았어요.",
+  "error.workflow.conditionUnclearAnswer": "모델이 ‘예’ 또는 ‘아니요’로 답하지 않았어요. 모델의 답변: {answer}",
   "error.workflow.modelFailed": "모델이 답할 수 없었어요. 단계를 다시 실행해 주세요.",
   "error.workflow.modelBusy": "다른 모델 요청이 실행 중이에요. 잠시 후 단계를 다시 실행해 주세요.",
   "error.workflow.stepMissing": "이 단계는 더 이상 존재하지 않아요.",

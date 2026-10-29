@@ -16,7 +16,7 @@ export const messages = defineMessages("error.workflow", {
   "error.workflow.agentMissing": "Choose an agent for this step.",
   "error.workflow.handoffFailed": "OpenOwnBot could not send this step to its agent.",
   "error.workflow.agentStepEnded": "The agent's message for this step was removed before it answered.",
-  "error.workflow.conditionUnclear": "The model did not answer yes or no.",
+  "error.workflow.conditionUnclearAnswer": "The model did not answer yes or no. It answered: {answer}",
   "error.workflow.modelFailed": "The model could not answer. Run the step again.",
   "error.workflow.modelBusy": "Another model request is running. Run the step again soon.",
   "error.workflow.stepMissing": "This step no longer exists.",

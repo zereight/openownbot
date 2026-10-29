@@ -17,7 +17,7 @@ export const messages = {
   "error.workflow.agentMissing": "このステップのエージェントを選択してください。",
   "error.workflow.handoffFailed": "OpenOwnBot はこのステップをエージェントに送信できませんでした。",
   "error.workflow.agentStepEnded": "エージェントが回答する前に、このステップのメッセージが削除されました。",
-  "error.workflow.conditionUnclear": "モデルが「はい」か「いいえ」で回答しませんでした。",
+  "error.workflow.conditionUnclearAnswer": "モデルは「はい」か「いいえ」で答えませんでした。回答: {answer}",
   "error.workflow.modelFailed": "モデルが回答できませんでした。ステップをもう一度実行してください。",
   "error.workflow.modelBusy": "別のモデルリクエストが実行中です。しばらくしてからステップを再実行してください。",
   "error.workflow.stepMissing": "このステップはもう存在しません。",

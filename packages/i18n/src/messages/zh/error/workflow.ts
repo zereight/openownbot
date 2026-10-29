@@ -15,7 +15,7 @@ export const messages = {
   "error.workflow.agentMissing": "为该步骤选择一个助手。",
   "error.workflow.handoffFailed": "OpenOwnBot 无法把该步骤发送给它的助手。",
   "error.workflow.agentStepEnded": "该步骤的助手消息在助手回答之前已被移除。",
-  "error.workflow.conditionUnclear": "模型没有回答“是”或“否”。",
+  "error.workflow.conditionUnclearAnswer": "模型没有回答“是”或“否”。它的回答：{answer}",
   "error.workflow.modelFailed": "模型无法回答，请再次运行该步骤。",
   "error.workflow.modelBusy": "另一个模型请求正在运行，请稍后再次运行该步骤。",
   "error.workflow.stepMissing": "该步骤已不存在。",

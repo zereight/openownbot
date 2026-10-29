@@ -17,7 +17,7 @@ export const messages = {
   "error.workflow.agentMissing": "Wybierz agenta dla tego kroku.",
   "error.workflow.handoffFailed": "OpenOwnBot nie mógł wysłać tego kroku do jego agenta.",
   "error.workflow.agentStepEnded": "Wiadomość do agenta została usunięta, zanim odpowiedział.",
-  "error.workflow.conditionUnclear": "Model nie odpowiedział tak ani nie.",
+  "error.workflow.conditionUnclearAnswer": "Model nie odpowiedział tak ani nie. Odpowiedź: {answer}",
   "error.workflow.modelFailed": "Model nie mógł odpowiedzieć. Uruchom krok ponownie.",
   "error.workflow.modelBusy": "Trwa inne zapytanie do modelu. Uruchom krok ponownie za chwilę.",
   "error.workflow.stepMissing": "Ten krok już nie istnieje.",
