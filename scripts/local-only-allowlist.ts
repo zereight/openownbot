@@ -122,12 +122,6 @@ export const LOCAL_ONLY_ALLOWLIST: readonly AllowEntry[] = [
     "user-opened",
   ),
   mention(
-    "electron-builder.yml",
-    /^owner: nightly-labs$/u,
-    "gated",
-    "The publish target of the updater. CONFIG_GATES checks that updates stay off.",
-  ),
-  mention(
     "packages/contracts/src/agent-template-links.ts",
     SITE,
     "not-fetched",

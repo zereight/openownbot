@@ -44,18 +44,19 @@ Until these are made, the process assumes the answer in bold.
    `package.json` changes every time the original project releases, and compatibility checks between
    the app, the host and the phone app may read the version. That risk was not checked.
 
-## One-time repository setup
+## Repository setup (done)
 
-1. Gate the original workflows to the original repository, as `cla.yml` already is: add
-   `if: github.repository == 'nightly-labs/openbot'` to the jobs of `release.yml`,
-   `release-android.yml`, `release-ios.yml`, `cloudflare-preview.yml`, `status-page.yml`,
-   `norbiai-review.yml`, `mobile-release-announcement.yml` and the others that need the original
-   project's secrets. Until this is done, do not enable Actions on the fork, and never push a `v*.*.*`
-   tag.
-2. Set `publish.owner` and `publish.repo` in `electron-builder.yml` to this repository, so that the
-   `app-update.yml` inside a package does not name `nightly-labs`. The update check is off, but the
-   file stays in the package and tells a reader that the package updates from the wrong place.
-3. Check that the repository has Issues enabled if you want reports there. It has them off now.
+1. The workflows of the original project are in `.github/upstream-workflows/`, where GitHub does not run
+   them. `.github/workflows/` has two workflows of this repository: `ci.yml` (lint, local-only check,
+   type check and tests on each push and pull request to `main`) and `release.yml`.
+2. `publish.owner` and `publish.repo` in `electron-builder.yml` name this repository.
+3. Issues are off on the new repository unless you turn them on.
+
+`release.yml` starts on a tag `oob-<version>-<number>`. It requires that the tag has this form and that
+its commit is on `main`, builds the unsigned packages on macOS, Windows and Linux, runs the package
+checks, names the files `OpenOwnBot-<version>-<number>-<arch>.<ext>`, writes `SHA256SUMS.txt` and
+creates a **draft** release, with `docs/release-notes/<tag>.md` as its notes when that file exists. It
+never publishes. The manual steps below (release notes, smoke test, publishing) stay yours.
 
 ## Before each release
 
