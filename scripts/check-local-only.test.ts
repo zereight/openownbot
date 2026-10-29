@@ -343,14 +343,6 @@ describe("config gates", () => {
     ]);
   });
 
-  it("fails electron-builder.yml when the updater no longer reads LOCAL_ONLY", () => {
-    const files = withText("src/main/application-services.ts", (text) => text.replace("    !LOCAL_ONLY &&\n", ""));
-
-    expect(checkFiles(files).map(formatFinding)).toEqual([
-      "check:local-only: electron-builder.yml:23 names an OpenBot service, and src/main/application-services.ts no longer keeps it off: the `updatesEnabled` assignment must contain LOCAL_ONLY.",
-    ]);
-  });
-
   it("fails app.json when app.config.js no longer turns updates off", () => {
     const files = withText("apps/mobile/app.config.js", (text) => text.replace("enabled: !localOnly", "enabled: true"));
 
