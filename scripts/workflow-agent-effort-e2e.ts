@@ -9,19 +9,19 @@
 // that fails once and is retried after its node is edited (a new effort, a new agent with a new effort,
 // the effort removed) starts the retried turn with what the node asks for now. A stored effort that this
 // build cannot read does not stop the mailbox from loading: the read drops it and warns once.
-// `bun scripts/workflow-agent-effort-e2e.ts`. Writes .openbot-build/workflow-agent-effort-e2e/report.json.
+// `bun scripts/workflow-agent-effort-e2e.ts`. Writes .openownbot-build/workflow-agent-effort-e2e/report.json.
 import assert from "node:assert/strict";
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { mkdtemp, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
-import { AGENT_PROVIDERS, type AgentEvent } from "@openbot/contracts/ipc";
-import { teeLogLines } from "@openbot/logging";
+import { AGENT_PROVIDERS, type AgentEvent } from "@openownbot/contracts/ipc";
+import { teeLogLines } from "@openownbot/logging";
 import { Effect } from "effect";
 import type { AgentBrowserHost } from "../src/backend/agent/turn-lifecycle";
 
-const OUT = resolve(import.meta.dirname, "../.openbot-build/workflow-agent-effort-e2e");
-const root = await mkdtemp(join(tmpdir(), "openbot-workflow-effort-"));
+const OUT = resolve(import.meta.dirname, "../.openownbot-build/workflow-agent-effort-e2e");
+const root = await mkdtemp(join(tmpdir(), "openownbot-workflow-effort-"));
 const userData = join(root, "user-data");
 const home = join(root, "home");
 const fakeCodex = join(root, "codex");
@@ -30,14 +30,14 @@ const fakeTurns = join(root, "codex-turns.jsonl");
 // Before the service modules load: the Codex process and the stores read the home folder.
 process.env.HOME = home;
 process.env.CODEX_HOME = join(home, ".codex");
-process.env.OPENBOT_CODEX_PATH = fakeCodex;
+process.env.OPENOWNBOT_CODEX_PATH = fakeCodex;
 mkdirSync(home, { recursive: true });
 
 const { AgentService } = await import("../src/backend/agent-service");
 const { AgentStore } = await import("../src/backend/agent-store");
 const { runCauseEffect } = await import("../src/backend/effect-boundary");
 const { MailboxStore } = await import("../src/backend/mailbox-store");
-const { OpenBotDatabase } = await import("../src/backend/openbot-database");
+const { OpenOwnBotDatabase } = await import("../src/backend/openownbot-database");
 const { WorkflowRunStore } = await import("../src/backend/workflows/workflow-run-store");
 const { WorkflowStore } = await import("../src/backend/workflows/workflow-store");
 const { workflowScheduleDueAt } = await import("../src/backend/workflows/workflow-triggers");
@@ -236,7 +236,7 @@ const stopWarnings = teeLogLines(["drain-scheduler", "mailbox-store"], (line) =>
   if (line.includes("asked for an effort")) report.warnings.push(line);
   if (line.includes("[mailbox-store]")) report.mailboxWarnings.push(line);
 });
-const database = new OpenBotDatabase(userData);
+const database = new OpenOwnBotDatabase(userData);
 const store = new AgentStore(userData, home, database);
 const mailbox = new MailboxStore(userData, store.sharedRoot, store.database);
 const agents = new AgentService({

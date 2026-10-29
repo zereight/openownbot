@@ -7,7 +7,7 @@ import { z } from "zod";
  * back often enough to be seen, but never as a repeat in one sitting.
  */
 
-const HOSTED_UPSELL_KEY_PREFIX = "openbot:hosted-server-upsell:v1:";
+const HOSTED_UPSELL_KEY_PREFIX = "openownbot:hosted-server-upsell:v1:";
 const DAY_MS = 24 * 60 * 60 * 1000;
 /** The modal after the first routine shows one time. An account that saw it before does not see it again. */
 const MODAL_LIMIT = 1;

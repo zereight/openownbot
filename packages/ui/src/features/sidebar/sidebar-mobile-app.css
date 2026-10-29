@@ -6,45 +6,45 @@
   display: flex;
   flex: 0 0 auto;
   flex-direction: column;
-  gap: var(--openbot-space-2);
-  margin: var(--openbot-space-2) var(--openbot-space-3);
-  border: 1px solid var(--openbot-border);
-  border-radius: var(--openbot-radius-lg);
-  background: var(--openbot-bg-surface);
-  padding: var(--openbot-space-3);
-  color: var(--openbot-text-primary);
-  font-size: var(--openbot-text-sm);
-  line-height: var(--openbot-leading-sm);
+  gap: var(--openownbot-space-2);
+  margin: var(--openownbot-space-2) var(--openownbot-space-3);
+  border: 1px solid var(--openownbot-border);
+  border-radius: var(--openownbot-radius-lg);
+  background: var(--openownbot-bg-surface);
+  padding: var(--openownbot-space-3);
+  color: var(--openownbot-text-primary);
+  font-size: var(--openownbot-text-sm);
+  line-height: var(--openownbot-leading-sm);
 }
 
 .sidebar-mobile-app-header {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr) auto;
   align-items: center;
-  gap: var(--openbot-space-2);
+  gap: var(--openownbot-space-2);
 }
 
 .sidebar-mobile-app-header > strong {
   overflow: hidden;
-  font-weight: var(--openbot-weight-semibold);
+  font-weight: var(--openownbot-weight-semibold);
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
 .sidebar-mobile-app-icon {
-  width: var(--openbot-icon-md);
-  height: var(--openbot-icon-md);
-  color: var(--openbot-text-secondary);
+  width: var(--openownbot-icon-md);
+  height: var(--openownbot-icon-md);
+  color: var(--openownbot-text-secondary);
 }
 
 .sidebar-mobile-app-dismiss {
-  margin-right: calc(var(--openbot-space-1) * -1);
-  color: var(--openbot-text-muted);
+  margin-right: calc(var(--openownbot-space-1) * -1);
+  color: var(--openownbot-text-muted);
 }
 
 .sidebar-mobile-app-body {
   margin: 0;
-  color: var(--openbot-text-muted);
+  color: var(--openownbot-text-muted);
 }
 
 .sidebar-mobile-app > .ui-button {
@@ -57,7 +57,7 @@
 /* The community invitation uses the same card. Discord takes the free width; X is an icon button. */
 .sidebar-community-actions {
   display: flex;
-  gap: var(--openbot-space-1-5);
+  gap: var(--openownbot-space-1-5);
 }
 
 .sidebar-community-actions > .ui-button:first-child {
@@ -67,21 +67,21 @@
 
 .sidebar-community-mark {
   flex: 0 0 auto;
-  width: var(--openbot-icon-sm);
-  height: var(--openbot-icon-sm);
+  width: var(--openownbot-icon-sm);
+  height: var(--openownbot-icon-sm);
 }
 
 /* The storage card uses the same card. At "full" the card uses the danger tone, and the ring follows the level. */
 .sidebar-storage[data-level="full"] {
-  border-color: var(--openbot-danger-border);
-  background: var(--openbot-danger-soft);
+  border-color: var(--openownbot-danger-border);
+  background: var(--openownbot-danger-soft);
 }
 
 .sidebar-storage-row {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr) auto;
   align-items: center;
-  gap: var(--openbot-space-3);
+  gap: var(--openownbot-space-3);
 }
 
 .sidebar-storage-row > .sidebar-mobile-app-dismiss {
@@ -93,18 +93,18 @@
 }
 
 .sidebar-storage-percent {
-  font-size: var(--openbot-text-sm);
+  font-size: var(--openownbot-text-sm);
   font-variant-numeric: tabular-nums;
-  font-weight: var(--openbot-weight-semibold);
+  font-weight: var(--openownbot-weight-semibold);
   line-height: 1;
 }
 
 .sidebar-storage-text {
   display: grid;
   min-width: 0;
-  gap: var(--openbot-space-0-5);
+  gap: var(--openownbot-space-0-5);
 }
 
 .sidebar-storage-text > strong {
-  font-weight: var(--openbot-weight-semibold);
+  font-weight: var(--openownbot-weight-semibold);
 }

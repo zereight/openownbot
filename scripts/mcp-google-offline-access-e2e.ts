@@ -4,13 +4,13 @@
 // shown and no grant is made. Writes a JSON report.
 import { mkdir, writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
-import type { McpServerConfig } from "@openbot/contracts/ipc";
+import type { McpServerConfig } from "@openownbot/contracts/ipc";
 import { Effect } from "effect";
 import { runCauseEffect } from "../src/backend/effect-boundary";
 import { McpOAuth, type McpOAuthRecord } from "../src/backend/mcp-oauth-provider";
 import { testMcpServer } from "../src/backend/mcp-probe";
 
-const out = resolve(import.meta.dirname, "../.openbot-build/mcp-google-offline-access-e2e");
+const out = resolve(import.meta.dirname, "../.openownbot-build/mcp-google-offline-access-e2e");
 const SERVER_URL = "https://calendarmcp.googleapis.com/mcp/v1";
 const CLIENT_ID = "000000000000-e2e.apps.googleusercontent.com";
 

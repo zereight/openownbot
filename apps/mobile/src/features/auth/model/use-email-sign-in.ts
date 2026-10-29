@@ -1,5 +1,5 @@
-import { normalizeEmailAddress } from "@openbot/contracts/validation";
-import { classifyFailure } from "@openbot/telemetry";
+import { normalizeEmailAddress } from "@openownbot/contracts/validation";
+import { classifyFailure } from "@openownbot/telemetry";
 import * as Crypto from "expo-crypto";
 import { useEffect, useRef, useState } from "react";
 import { Keyboard } from "react-native";

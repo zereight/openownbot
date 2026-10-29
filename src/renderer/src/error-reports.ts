@@ -1,5 +1,5 @@
-import type { AppInfo, CentralAuthUser } from "@openbot/contracts/ipc";
-import { LOCAL_ONLY } from "@openbot/contracts/local-only";
+import type { AppInfo, CentralAuthUser } from "@openownbot/contracts/ipc";
+import { LOCAL_ONLY } from "@openownbot/contracts/local-only";
 import {
   ANALYTICS_GENERATIONS,
   classifyFailure,
@@ -7,8 +7,8 @@ import {
   openPanelTransport,
   ReportQueue,
   safeProperties,
-} from "@openbot/telemetry";
-import { indexedReportStorage } from "@openbot/telemetry/browser";
+} from "@openownbot/telemetry";
+import { indexedReportStorage } from "@openownbot/telemetry/browser";
 import { Effect } from "effect";
 import { version } from "../../../package.json";
 
@@ -21,7 +21,7 @@ let configured = false;
 const startup: { properties: FailureProperties; timestamp: number }[] = [];
 let profileId: string | null = null;
 /** The web analytics preference. The key keeps its first name, so stored choices stay. */
-export const WEB_PREFERENCE = "openbot:web:error-reports-enabled";
+export const WEB_PREFERENCE = "openownbot:web:error-reports-enabled";
 
 export function configureDesktopReports(
   info: AppInfo,
@@ -31,7 +31,7 @@ export function configureDesktopReports(
   const capture = info.analyticsCaptureUrl;
   if (capture === undefined && (!import.meta.env.PROD || info.variant !== "production" || LOCAL_ONLY)) return;
   queue ??= new ReportQueue(
-    indexedReportStorage("openbot-desktop-error-reports-v1"),
+    indexedReportStorage("openownbot-desktop-error-reports-v1"),
     openPanelTransport({
       clientId: "6c989975-87ef-4f0c-857e-ab449a65b5c2",
       ...(capture === undefined ? {} : { endpoint: `${capture}/track` }),
@@ -79,7 +79,7 @@ export function webReportsEnabled(): boolean {
 export function configureWebReports(user: Pick<CentralAuthUser, "id" | "email"> | null): void {
   if (!import.meta.env.PROD || window.location.origin !== "https://openbot.run") return;
   queue ??= new ReportQueue(
-    indexedReportStorage("openbot-web-error-reports-v1"),
+    indexedReportStorage("openownbot-web-error-reports-v1"),
     openPanelTransport({ clientId: "6c989975-87ef-4f0c-857e-ab449a65b5c2" }),
     { surface: "web", platform: "web", app_version: version, event_schema_version: ANALYTICS_GENERATIONS.web },
   );

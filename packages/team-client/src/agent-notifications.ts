@@ -1,12 +1,12 @@
-import { agentProviderName } from "@openbot/contracts/agent-providers";
+import { agentProviderName } from "@openownbot/contracts/agent-providers";
 import type {
   AgentEvent,
   ClientAgentSummary,
   ServerNotificationLevel,
   TeamRealtimeEvent,
-} from "@openbot/contracts/ipc";
-import { markdownPreviewText } from "@openbot/contracts/markdown-preview-text";
-import type { AppFormat, AppTranslate } from "@openbot/i18n";
+} from "@openownbot/contracts/ipc";
+import { markdownPreviewText } from "@openownbot/contracts/markdown-preview-text";
+import type { AppFormat, AppTranslate } from "@openownbot/i18n";
 import { cleanAgentMessageText } from "./agent-message-text";
 
 export interface AgentNotificationContent {

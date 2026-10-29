@@ -128,7 +128,7 @@ export const messages = {
   "mobile.server.hosted.detail.copy": "Kopiowanie OpenOwnBot na maszynę",
   "mobile.server.hosted.detail.key": "Dodawanie jednorazowego klucza logowania",
   "mobile.server.hosted.detail.boot": "Włączanie maszyny",
-  "mobile.server.hosted.detail.app": "Uruchamianie OpenBot",
+  "mobile.server.hosted.detail.app": "Uruchamianie OpenOwnBot",
   "mobile.server.hosted.detail.wait": "Oczekiwanie na odpowiedź OpenOwnBot",
   "mobile.server.hosted.detail.signIn": "Logowanie na twoje konto",
   "mobile.server.hosted.detail.publish": "Dodawanie serwera do konta",
@@ -463,7 +463,7 @@ export const messages = {
   "mobile.server.connectors.bitwarden.description":
     "Wypełniaj loginy w przeglądarce na {host} z Bitwarden lub Vaultwarden.",
   "mobile.server.connectors.bitwarden.howItWorks":
-    "{host} loguje się własnym Bitwarden CLI. W sejfie utwórz folder o nazwie Shared with OpenBot i umieść w nim tylko loginy, których agenci mogą używać. W sejfie internetowym otwórz Ustawienia › Zabezpieczenia › Klucze i wyświetl klucz API.",
+    "{host} loguje się własnym Bitwarden CLI. W sejfie utwórz folder o nazwie Shared with OpenOwnBot i umieść w nim tylko loginy, których agenci mogą używać. W sejfie internetowym otwórz Ustawienia › Zabezpieczenia › Klucze i wyświetl klucz API.",
   "mobile.server.connectors.bitwarden.serverUrl": "Adres serwera",
   "mobile.server.connectors.bitwarden.serverUrlHint":
     "Bitwarden albo adres Twojego serwera Vaultwarden. {host} musi łączyć się z nim przez HTTPS.",
@@ -477,7 +477,7 @@ export const messages = {
   "mobile.server.connectors.bitwarden.connectingBody":
     "{host} loguje się do Bitwarden. Pierwsze logowanie może potrwać kilka minut.",
   "mobile.server.connectors.bitwarden.folderTitle": "Udostępniony folder",
-  "mobile.server.connectors.bitwarden.folderName": "Shared with OpenBot",
+  "mobile.server.connectors.bitwarden.folderName": "Shared with OpenOwnBot",
   "mobile.server.connectors.bitwarden.folderKind": "Folder w Bitwarden",
   "mobile.server.connectors.bitwarden.folderFooter":
     "Przenieś login do tego folderu w Bitwarden, aby agenci mogli się nim logować. Usuń go z folderu, aby cofnąć dostęp.",
@@ -547,9 +547,9 @@ export const messages = {
   "mobile.server.connectors.onePassword.disconnectBody":
     "{host} zapomina token. Sejf i konto usługi zostają w 1Password; usuń je tam, jeśli już ich nie potrzebujesz.",
   "mobile.server.connectors.slack.title": "Slack",
-  "mobile.server.connectors.slack.summary": "Ludzie oznaczają @OpenBot w Slacku",
+  "mobile.server.connectors.slack.summary": "Ludzie oznaczają @OpenOwnBot w Slacku",
   "mobile.server.connectors.slack.description":
-    "Ludzie oznaczają @OpenBot w Slacku lub wysyłają mu wiadomość prywatną. Slack Orchestrator pyta odpowiedniego agenta i odpowiada.",
+    "Ludzie oznaczają @OpenOwnBot w Slacku lub wysyłają mu wiadomość prywatną. Slack Orchestrator pyta odpowiedniego agenta i odpowiada.",
   "mobile.server.connectors.slack.connected": "{workspace} · odpowiada Slack Orchestrator",
   "mobile.server.connectors.slack.noAgent": "{workspace} · żaden agent jeszcze nie odpowiada",
   "mobile.server.connectors.slack.many": {
@@ -576,7 +576,7 @@ export const messages = {
   },
   "mobile.server.connectors.slack.workspaceTitle": "Obszar roboczy",
   "mobile.server.connectors.slack.workspaceDescription":
-    "Ludzie oznaczają @OpenBot lub wysyłają mu wiadomość prywatną.",
+    "Ludzie oznaczają @OpenOwnBot lub wysyłają mu wiadomość prywatną.",
   "mobile.server.connectors.slack.missingScopes":
     "OpenOwnBot nie ma tych uprawnień w Slacku: {scopes}. Odłącz obszar roboczy, a potem połącz go ponownie.",
   "mobile.server.connectors.slack.retryAt": "Slack poprosił OpenOwnBot o czekanie. Kolejna próba o {time}.",
@@ -592,7 +592,7 @@ export const messages = {
   "mobile.server.connectors.slack.orchestratorNone": "Dodaj Slack Orchestrator, inaczej Slack nie dostanie odpowiedzi.",
   "mobile.server.connectors.slack.addAgent": "Dodaj Slack Orchestrator",
   "mobile.server.connectors.slack.note":
-    "OpenBot sam dołącza do każdego publicznego kanału, także do nowych. Do kanału prywatnego zaproś go: /invite @OpenBot.",
+    "OpenOwnBot sam dołącza do każdego publicznego kanału, także do nowych. Do kanału prywatnego zaproś go: /invite @OpenOwnBot.",
   "mobile.server.connectors.slack.disconnectTitle": "Odłączyć {workspace}?",
   "mobile.server.connectors.slack.disconnectBody":
     "OpenOwnBot przestaje odpowiadać w obszarze roboczym {workspace} i usuwa swój token Slack z serwera {host}.",
@@ -601,12 +601,12 @@ export const messages = {
     "Slack Orchestrator i jego rozmowy zostaną usunięte z OpenOwnBot.",
   "mobile.server.connectors.slack.agentPromptTitle": "Dodać Slack Orchestrator?",
   "mobile.server.connectors.slack.agentPromptBody":
-    "Ten nowy agent odpowiada na wszystko, co ludzie wysyłają do @OpenBot w obszarze roboczym {workspace}.",
+    "Ten nowy agent odpowiada na wszystko, co ludzie wysyłają do @OpenOwnBot w obszarze roboczym {workspace}.",
   "mobile.server.connectors.slack.installFailed": "Slack nie ukończył instalacji. Spróbuj ponownie.",
   "mobile.server.connectors.discord.title": "Discord",
-  "mobile.server.connectors.discord.summary": "Ludzie oznaczają @OpenBot na serwerze Discord",
+  "mobile.server.connectors.discord.summary": "Ludzie oznaczają @OpenOwnBot na serwerze Discord",
   "mobile.server.connectors.discord.description":
-    "Ludzie oznaczają @OpenBot na kanale serwera Discord. Discord Orchestrator pyta odpowiedniego agenta i odpowiada.",
+    "Ludzie oznaczają @OpenOwnBot na kanale serwera Discord. Discord Orchestrator pyta odpowiedniego agenta i odpowiada.",
   "mobile.server.connectors.discord.connected": "{workspace} · odpowiada Discord Orchestrator",
   "mobile.server.connectors.discord.noAgent": "{workspace} · żaden agent jeszcze nie odpowiada",
   "mobile.server.connectors.discord.many": {
@@ -633,7 +633,7 @@ export const messages = {
   },
   "mobile.server.connectors.discord.workspaceTitle": "Serwer Discord",
   "mobile.server.connectors.discord.workspaceDescription":
-    "Oznacz @OpenBot na kanale. Odpowiedz na wiadomość OpenBot, aby kontynuować.",
+    "Oznacz @OpenOwnBot na kanale. Odpowiedz na wiadomość OpenOwnBot, aby kontynuować.",
   "mobile.server.connectors.discord.missingScopes":
     "OpenOwnBot nie ma tych uprawnień w Discordzie: {scopes}. Odłącz serwer Discord, a potem połącz go ponownie.",
   "mobile.server.connectors.discord.retryAt": "Discord poprosił OpenOwnBot o czekanie. Kolejna próba o {time}.",
@@ -658,7 +658,7 @@ export const messages = {
     "Discord Orchestrator i jego rozmowy zostaną usunięte z OpenOwnBot.",
   "mobile.server.connectors.discord.agentPromptTitle": "Dodać Discord Orchestrator?",
   "mobile.server.connectors.discord.agentPromptBody":
-    "Ten nowy agent odpowiada na wszystko, co ludzie wysyłają do @OpenBot w obszarze roboczym {workspace}.",
+    "Ten nowy agent odpowiada na wszystko, co ludzie wysyłają do @OpenOwnBot w obszarze roboczym {workspace}.",
   "mobile.server.connectors.discord.installFailed": "Discord nie ukończył autoryzacji. Spróbuj ponownie.",
   "mobile.server.connectors.telegram.title": "Telegram",
   "mobile.server.connectors.telegram.summary": "Dodaj bota OpenOwnBot do czatu Telegram",
@@ -946,11 +946,11 @@ export const messages = {
   "mobile.server.update.path.hosted":
     "Usługa hostingu pobiera aktualizacje w tle. Pobrana aktualizacja zostanie zastosowana przy następnym uruchomieniu serwera. Poczekaj na zakończenie aktywnej pracy, zanim zatrzymasz i wznowisz serwer. Jeśli serwer pozostaje na starej wersji, skontaktuj się z administratorem hosta.",
   "mobile.server.update.path.system":
-    "Na hoście uruchom sudo openbot update, aby zainstalować najnowsze wydanie. To polecenie zatrzymuje OpenOwnBot. Najpierw poczekaj na zakończenie aktywnej pracy. Automatycznie pobrane aktualizacje instalują się przy następnym rozruchu.",
+    "Na hoście uruchom sudo openownbot update, aby zainstalować najnowsze wydanie. To polecenie zatrzymuje OpenOwnBot. Najpierw poczekaj na zakończenie aktywnej pracy. Automatycznie pobrane aktualizacje instalują się przy następnym rozruchu.",
   "mobile.server.update.path.container":
     "Na hoście Docker pobierz nowy obraz OpenOwnBot i utwórz kontener ponownie z tymi samymi woluminami danych. Najpierw poczekaj na zakończenie aktywnej pracy. Zachowaj istniejące woluminy, aby nie stracić danych.",
   "mobile.server.update.path.manual":
-    "Ta instalacja nie może sama się zastąpić. Poproś administratora hosta o zainstalowanie zgodnego wydania z github.com/nightly-labs/openbot/releases. Zachowaj istniejące dane OpenOwnBot.",
+    "Ta instalacja nie może sama się zastąpić. Poproś administratora hosta o zainstalowanie zgodnego wydania z github.com/zereight/openownbot/releases. Zachowaj istniejące dane OpenOwnBot.",
   "mobile.server.update.path.unavailable":
     "To jest kompilacja deweloperska. Użyj zainstalowanego wydania OpenOwnBot, aby sprawdzać aktualizacje.",
   "mobile.server.update.check": "Sprawdź aktualizacje",

@@ -5,23 +5,23 @@
 // while it stopped ends stopped at the first sweep, and the sweep stops its delivery.
 //
 // Run: bun scripts/workflow-agent-step-e2e.ts
-// Writes .openbot-build/workflow-agent-step-e2e/report.json and exits non-zero on a failure.
+// Writes .openownbot-build/workflow-agent-step-e2e/report.json and exits non-zero on a failure.
 import assert from "node:assert/strict";
 import { mkdirSync, writeFileSync } from "node:fs";
 import { mkdtemp, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
-import type { WorkflowGraph, WorkflowRunDetail } from "@openbot/contracts/ipc";
-import { sourceText } from "@openbot/i18n/source";
+import type { WorkflowGraph, WorkflowRunDetail } from "@openownbot/contracts/ipc";
+import { sourceText } from "@openownbot/i18n/source";
 import { Effect } from "effect";
 import { runCauseEffect } from "../src/backend/effect-boundary";
-import { OpenBotDatabase } from "../src/backend/openbot-database";
+import { OpenOwnBotDatabase } from "../src/backend/openownbot-database";
 import { WorkflowRunStore } from "../src/backend/workflows/workflow-run-store";
 import { WorkflowStore } from "../src/backend/workflows/workflow-store";
 import { workflowScheduleDueAt } from "../src/backend/workflows/workflow-triggers";
 import { createWorkflows, type WorkflowsHandle } from "../src/backend/workflows/workflows";
 
-const OUT = resolve(import.meta.dirname, "../.openbot-build/workflow-agent-step-e2e");
+const OUT = resolve(import.meta.dirname, "../.openownbot-build/workflow-agent-step-e2e");
 const WAIT_MS = 5_000;
 
 interface Report {
@@ -47,8 +47,8 @@ const graphOf = (agentId: string): WorkflowGraph => ({
   strokes: [],
 });
 
-const directory = await mkdtemp(join(tmpdir(), "openbot-workflow-agent-step-"));
-let database = new OpenBotDatabase(directory);
+const directory = await mkdtemp(join(tmpdir(), "openownbot-workflow-agent-step-"));
+let database = new OpenOwnBotDatabase(directory);
 let service: WorkflowsHandle | null = null;
 
 async function open() {
@@ -154,7 +154,7 @@ try {
   const writerDelivery = report.handoffs.find((handoff) => handoff.agentId === "agent-writer")?.deliveryId;
   assert.ok(runs.setRunStatus(writer.runId, "stopping", null));
   await close();
-  database = new OpenBotDatabase(directory);
+  database = new OpenOwnBotDatabase(directory);
   ({ workflows } = await open());
   const cut = await runCauseEffect(workflows.run(writer.runId));
   check(

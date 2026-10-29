@@ -1,4 +1,4 @@
-import { AgentSquadsDialog } from "@openbot/ui/features/agents/AgentSquadsDialog";
+import { AgentSquadsDialog } from "@openownbot/ui/features/agents/AgentSquadsDialog";
 import { fireEvent, render, screen, waitFor } from "@solidjs/testing-library";
 import { createSignal } from "solid-js";
 import { describe, expect, it, vi } from "vitest";

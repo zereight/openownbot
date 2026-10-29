@@ -1,5 +1,5 @@
-import { chatTagReferences } from "@openbot/contracts/chat-tag-references";
-import type { AgentTask } from "@openbot/contracts/ipc";
+import { chatTagReferences } from "@openownbot/contracts/chat-tag-references";
+import type { AgentTask } from "@openownbot/contracts/ipc";
 
 /** The closed tasks that a task list shows before "Show all". */
 export const TASKS_CLOSED_SHOWN = 2;

@@ -1,4 +1,4 @@
-import type { RespondToPromptInput } from "@openbot/contracts/ipc";
+import type { RespondToPromptInput } from "@openownbot/contracts/ipc";
 import * as Crypto from "expo-crypto";
 import { useLocalSearchParams } from "expo-router";
 import { useCallback, useMemo, useRef, useState } from "react";

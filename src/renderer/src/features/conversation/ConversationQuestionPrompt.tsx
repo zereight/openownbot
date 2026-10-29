@@ -65,6 +65,6 @@ export function ConversationQuestionPrompt(props: { elementRef?: (element: HTMLE
 }
 
 const QuestionPromptBubble = lazy(() =>
-  import("@openbot/ui/components/QuestionPromptBubble").then((module) => ({ default: module.QuestionPromptBubble })),
+  import("@openownbot/ui/components/QuestionPromptBubble").then((module) => ({ default: module.QuestionPromptBubble })),
 );
 const UiBlockPrompt = lazy(() => import("./UiBlockPrompt").then((module) => ({ default: module.UiBlockPrompt })));

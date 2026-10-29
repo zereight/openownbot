@@ -1,4 +1,4 @@
-import type { AvatarHue, ChannelSummary } from "@openbot/contracts/ipc";
+import type { AvatarHue, ChannelSummary } from "@openownbot/contracts/ipc";
 import {
   createContext,
   type PropsWithChildren,

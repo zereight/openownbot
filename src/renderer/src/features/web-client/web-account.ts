@@ -1,6 +1,6 @@
-import type { AccountSession, AvatarImageInput } from "@openbot/contracts/ipc";
-import { isBoolean, isDynamicRecord, isNumber, isString } from "@openbot/contracts/runtime-values";
-import { currentText } from "@openbot/ui/text";
+import type { AccountSession, AvatarImageInput } from "@openownbot/contracts/ipc";
+import { isBoolean, isDynamicRecord, isNumber, isString } from "@openownbot/contracts/runtime-values";
+import { currentText } from "@openownbot/ui/text";
 
 /**
  * The desktop Settings > Profile calls for a signed-in browser. They use the
@@ -34,7 +34,7 @@ export function createWebAccountCalls(
           ? {}
           : {
               "Content-Type": init.contentType ?? "application/json",
-              "X-OpenBot-Browser": "1",
+              "X-OpenOwnBot-Browser": "1",
             },
       ...(init.body === undefined ? {} : { body: init.body }),
     }).catch(() => {

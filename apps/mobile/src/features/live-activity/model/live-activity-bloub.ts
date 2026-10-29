@@ -1,6 +1,6 @@
 import { BotEngine } from "@norbert_bodziony/bloub";
-import { type AvatarMood, avatarMoodPresentation } from "@openbot/brand/bloub-avatar-motion";
-import type { AvatarHue } from "@openbot/contracts/ipc";
+import { type AvatarMood, avatarMoodPresentation } from "@openownbot/brand/bloub-avatar-motion";
+import type { AvatarHue } from "@openownbot/contracts/ipc";
 import { ImageFormat, Skia } from "@shopify/react-native-skia";
 import { bloubActivityGeometry, getBloubAvatarColor } from "@/features/agents/model/bloub-activity";
 

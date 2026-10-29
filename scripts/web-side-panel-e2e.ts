@@ -6,14 +6,14 @@
 // button, and the tab row does not cover it.
 //
 // `bun scripts/web-side-panel-e2e.ts --storybook=<url> [--browser-executable=<path>]`
-// Writes .openbot-build/web-side-panel-e2e/report.json and a screenshot of each client, width and
+// Writes .openownbot-build/web-side-panel-e2e/report.json and a screenshot of each client, width and
 // state, and exits non-zero on a failure.
 import assert from "node:assert/strict";
 import { mkdirSync, writeFileSync } from "node:fs";
 import { join, resolve } from "node:path";
 import { type Browser, chromium, type Locator, type Page } from "playwright-core";
 
-const OUT = resolve(import.meta.dirname, "../.openbot-build/web-side-panel-e2e");
+const OUT = resolve(import.meta.dirname, "../.openownbot-build/web-side-panel-e2e");
 const STORIES = { web: "web-workspace--connected", desktop: "app--playground" } as const;
 type Client = keyof typeof STORIES;
 const DESKTOP_WIDTHS = [1280, 1024];

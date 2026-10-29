@@ -9,11 +9,11 @@
   right: 0;
   display: flex;
   align-items: center;
-  gap: var(--openbot-space-1);
+  gap: var(--openownbot-space-1);
   width: var(--side-panel-width, 380px);
   height: var(--left-header-height, 38px);
   min-width: 0;
-  padding: 0 var(--openbot-space-2);
+  padding: 0 var(--openownbot-space-2);
   container: side-panel-header / inline-size;
 }
 
@@ -23,9 +23,9 @@
   top: 50%;
   left: 0;
   width: 1px;
-  height: var(--openbot-icon-lg);
+  height: var(--openownbot-icon-lg);
   translate: 0 -50%;
-  background: var(--openbot-border-strong);
+  background: var(--openownbot-border-strong);
   content: "";
   pointer-events: none;
 }
@@ -34,7 +34,7 @@
   display: flex;
   flex: 1;
   align-items: center;
-  gap: var(--openbot-space-1);
+  gap: var(--openownbot-space-1);
   min-width: 0;
 }
 
@@ -42,13 +42,13 @@
   display: flex;
   flex: none;
   align-items: center;
-  gap: var(--openbot-space-0-5);
-  color: var(--openbot-text-muted);
+  gap: var(--openownbot-space-0-5);
+  color: var(--openownbot-text-muted);
 }
 
 .side-panel-actions svg {
-  width: var(--openbot-icon-sm);
-  height: var(--openbot-icon-sm);
+  width: var(--openownbot-icon-sm);
+  height: var(--openownbot-icon-sm);
 }
 
 /* A tab is the same chip as the other controls of the top row. */
@@ -57,33 +57,33 @@
   display: flex;
   flex: 0 1 auto;
   align-items: center;
-  gap: var(--openbot-space-1-5);
+  gap: var(--openownbot-space-1-5);
   min-width: 0;
-  height: var(--openbot-control-sm);
-  padding: 0 var(--openbot-space-2) 0 var(--openbot-space-1-5);
-  border-radius: var(--openbot-radius-md);
-  color: var(--openbot-text-secondary);
+  height: var(--openownbot-control-sm);
+  padding: 0 var(--openownbot-space-2) 0 var(--openownbot-space-1-5);
+  border-radius: var(--openownbot-radius-md);
+  color: var(--openownbot-text-secondary);
 }
 
 .side-panel-tab:hover {
-  background: var(--openbot-bg-control-hover);
-  color: var(--openbot-text-primary);
+  background: var(--openownbot-bg-control-hover);
+  color: var(--openownbot-text-primary);
 }
 
 .side-panel-tab[data-selected] {
-  background: var(--openbot-bg-control-active);
-  color: var(--openbot-text-primary);
+  background: var(--openownbot-bg-control-active);
+  color: var(--openownbot-text-primary);
 }
 
 /* Between two tabs, in the middle of their gap. It hides next to the selected or hovered tab. */
 .side-panel-tab + .side-panel-tab::before {
   position: absolute;
   top: 50%;
-  left: calc(var(--openbot-space-1) / -2 - 0.5px);
+  left: calc(var(--openownbot-space-1) / -2 - 0.5px);
   width: 1px;
-  height: var(--openbot-icon-lg);
+  height: var(--openownbot-icon-lg);
   translate: 0 -50%;
-  background: var(--openbot-border-strong);
+  background: var(--openownbot-border-strong);
   content: "";
   pointer-events: none;
 }
@@ -103,7 +103,7 @@
   background: transparent;
   color: inherit;
   font: inherit;
-  font-size: var(--openbot-text-sm);
+  font-size: var(--openownbot-text-sm);
   text-overflow: ellipsis;
   white-space: nowrap;
   border-radius: 0;
@@ -122,11 +122,11 @@
   display: grid;
   flex: none;
   place-items: center;
-  width: var(--openbot-icon-md);
-  height: var(--openbot-icon-md);
+  width: var(--openownbot-icon-md);
+  height: var(--openownbot-icon-md);
   padding: 0;
   border: 0;
-  border-radius: var(--openbot-radius-pill);
+  border-radius: var(--openownbot-radius-pill);
   background: transparent;
   color: inherit;
   cursor: pointer;
@@ -144,8 +144,8 @@
 
 .side-panel-tab-icon svg,
 .side-panel-tab-x {
-  width: var(--openbot-icon-sm);
-  height: var(--openbot-icon-sm);
+  width: var(--openownbot-icon-sm);
+  height: var(--openownbot-icon-sm);
 }
 
 .side-panel-tab-x {
@@ -153,7 +153,7 @@
 }
 
 .side-panel-tab:is(:hover, :focus-within) .side-panel-tab-close {
-  background: var(--openbot-bg-control-hover);
+  background: var(--openownbot-bg-control-hover);
 }
 
 .side-panel-tab:is(:hover, :focus-within) .side-panel-tab-icon {
@@ -165,12 +165,12 @@
 }
 
 .side-panel-tab-close:hover:not(:disabled):not([data-disabled]) {
-  background: var(--openbot-bg-control-active);
-  color: var(--openbot-text-primary);
+  background: var(--openownbot-bg-control-active);
+  color: var(--openownbot-text-primary);
 }
 
 .side-panel-tab-select:focus-visible {
-  box-shadow: var(--openbot-focus-ring);
+  box-shadow: var(--openownbot-focus-ring);
   outline: none;
 }
 
@@ -191,7 +191,7 @@
 
 @container style(--side-panel-tabs-compact: 1) {
   .side-panel-tab:not([data-selected]) {
-    padding: 0 var(--openbot-space-1-5);
+    padding: 0 var(--openownbot-space-1-5);
   }
 
   .side-panel-tab:not([data-selected]) .side-panel-tab-select {
@@ -250,16 +250,16 @@
 .side-panel-launcher {
   display: flex;
   flex-direction: column;
-  gap: var(--openbot-space-1-5);
+  gap: var(--openownbot-space-1-5);
   width: 100%;
   max-width: 320px;
   margin: 0 auto;
-  padding: var(--openbot-space-6);
+  padding: var(--openownbot-space-6);
 }
 
 .side-panel-launch {
   justify-content: flex-start;
-  gap: var(--openbot-space-3);
+  gap: var(--openownbot-space-3);
 }
 
 /* A maximized dock covers the chat and its header. */
@@ -279,7 +279,7 @@
 /* Pane icons have the size of the other menu and row icons. */
 :is(.side-panel-launch, .side-panel-menu-item) svg {
   flex: none;
-  width: var(--openbot-icon-sm);
-  height: var(--openbot-icon-sm);
-  color: var(--openbot-text-muted);
+  width: var(--openownbot-icon-sm);
+  height: var(--openownbot-icon-sm);
+  color: var(--openownbot-text-muted);
 }

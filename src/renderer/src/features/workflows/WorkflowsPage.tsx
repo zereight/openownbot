@@ -1,12 +1,12 @@
-import { WORKFLOWS_CAPABILITY } from "@openbot/contracts/team-protocol/workflows-v1";
-import { DiagramChatAgentPicker, DiagramChatPanel } from "@openbot/ui/features/diagrams/DiagramChatPanel";
-import { WorkflowCanvas } from "@openbot/ui/features/workflows/WorkflowCanvas";
+import { WORKFLOWS_CAPABILITY } from "@openownbot/contracts/team-protocol/workflows-v1";
+import { DiagramChatAgentPicker, DiagramChatPanel } from "@openownbot/ui/features/diagrams/DiagramChatPanel";
+import { WorkflowCanvas } from "@openownbot/ui/features/workflows/WorkflowCanvas";
 import {
   WORKFLOW_FEATURES_V1,
   type WorkflowCatalogs,
   type WorkflowFeatures,
-} from "@openbot/ui/features/workflows/workflow-model";
-import { useText } from "@openbot/ui/text";
+} from "@openownbot/ui/features/workflows/workflow-model";
+import { useText } from "@openownbot/ui/text";
 import { createMemo, createSignal, Show, untrack } from "solid-js";
 import { desktopAnalytics } from "../../analytics";
 import { useNavigation } from "../../navigation";
@@ -19,7 +19,7 @@ import { createWorkflowsController } from "./workflows-controller";
 import { desktopWorkflowHost, type WorkflowHost } from "./workflows-port";
 
 /**
- * The workflows of one server on a page that covers the agent list. A joined server whose OpenBot
+ * The workflows of one server on a page that covers the agent list. A joined server whose OpenOwnBot
  * does not serve `workflows-v1` shows a notice.
  */
 export function WorkflowsPage(props: { serverId: string }) {
@@ -168,7 +168,7 @@ function WorkflowChat(props: {
             onOpenChange={setOpen}
             onSend={assistant.send}
             onOpenConversation={() => selectAgent(agent().id)}
-            onOpenLink={(url) => void window.openbot.openUrl(url)}
+            onOpenLink={(url) => void window.openownbot.openUrl(url)}
             unavailable={unavailable()}
           />
         </div>

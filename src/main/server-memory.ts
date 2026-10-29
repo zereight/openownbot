@@ -13,7 +13,7 @@ const TURN_RESERVE_MS = 60_000;
 /** A low level goes back to "ok" only this far above the low threshold, so it does not flap. */
 const RECOVER_MARGIN_BYTES = 256 * MIB;
 /**
- * `openbot.service` starts main at -500, and a container starts it at 0. Each process that main starts
+ * `openownbot.service` starts main at -500, and a container starts it at 0. Each process that main starts
  * gets this value, so the OOM killer picks a provider CLI, an MCP server or an agent tool before main.
  */
 const CHILD_OOM_SCORE_ADJ = 500;
@@ -22,7 +22,7 @@ const PROC_READ_CONCURRENCY = 16;
  * Every process that a provider starts for an agent on a server has this variable, and keeps it when
  * it leaves main's tree. Xvfb, D-Bus and the keyring of a container start before main and do not.
  */
-export const AGENT_PROCESS_VARIABLE = "OPENBOT_AGENT_PROCESS";
+export const AGENT_PROCESS_VARIABLE = "OPENOWNBOT_AGENT_PROCESS";
 const AGENT_PROCESS_ENTRY = `\0${AGENT_PROCESS_VARIABLE}=1\0`;
 /** Agent processes run at this nice value, so main and the WebRTC host keep the CPU when builds fill it. */
 const AGENT_PROCESS_NICE = 10;
@@ -52,7 +52,7 @@ export interface StoppedAgentProcess {
 /**
  * The variables that each provider process on a server gets, and so every process an agent starts:
  * the marker of `AgentProcesses`, and `cpuLimitModule` (`resources/agent-runtime/cpu-limit.cjs`) in
- * NODE_OPTIONS after the options that OpenBot runs with. Node does not start when a `--require` file
+ * NODE_OPTIONS after the options that OpenOwnBot runs with. Node does not start when a `--require` file
  * is missing, so without the file NODE_OPTIONS stays as it is.
  */
 export function agentProcessEnvironment(

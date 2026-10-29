@@ -3,8 +3,8 @@
 //
 // No JSX here, for the same reason `content-collection.ts` holds none.
 
-import type { ProviderLogoVariant } from "@openbot/brand";
-import type { AvatarHue } from "@openbot/contracts/ipc";
+import type { ProviderLogoVariant } from "@openownbot/brand";
+import type { AvatarHue } from "@openownbot/contracts/ipc";
 import { RIVAL_MARK_SHAPES, type RivalMarkName } from "../components/compare/rival-mark-shapes";
 import { COMPARE_COLLECTION } from "./compare";
 
@@ -64,7 +64,7 @@ export const LANDING_FEATURES: readonly LandingFeature[] = [
     id: "local",
     title: "Stored on your computer",
     description:
-      "Workspaces, conversations, files and browser data stay on the computer that runs OpenBot, not on our servers.",
+      "Workspaces, conversations, files and browser data stay on the computer that runs OpenOwnBot, not on our servers.",
   },
   {
     id: "persist",
@@ -75,7 +75,7 @@ export const LANDING_FEATURES: readonly LandingFeature[] = [
   {
     id: "browser",
     title: "A built-in browser",
-    description: "Agents open, read and control pages in a browser that is built into OpenBot.",
+    description: "Agents open, read and control pages in a browser that is built into OpenOwnBot.",
   },
   {
     id: "queue",
@@ -133,7 +133,7 @@ export const LANDING_NETWORK_TITLE: readonly string[] = ["Your", "agents", "talk
 export const LANDING_NETWORK_DESCRIPTION =
   "They ask, hand off and review. Add agents, and the team grows around the work.";
 /** The name under the mark at the centre of the network picture. */
-export const LANDING_NETWORK_HUB = "OpenBot";
+export const LANDING_NETWORK_HUB = "OpenOwnBot";
 
 /** What the network says in its easter eggs. Each reaction chooses one line of its list at random. */
 export const LANDING_NETWORK_EGGS = {
@@ -191,7 +191,7 @@ export const LANDING_NETWORK_EGGS = {
   ],
 } satisfies Record<string, readonly string[]>;
 
-/** The channel the team picture shows, and the line OpenBot writes when the task changes owner. */
+/** The channel the team picture shows, and the line OpenOwnBot writes when the task changes owner. */
 export const LANDING_TEAM_CHANNEL = "launch";
 export const LANDING_TEAM_HANDOFF = "Ada gave the task to Linus";
 
@@ -241,7 +241,7 @@ export const LANDING_PERSIST_AFTER: LandingPersistReply = {
   text: "I continue from the billing migration. Next is its test.",
 };
 
-/** What stays on the computer that runs OpenBot. */
+/** What stays on the computer that runs OpenOwnBot. */
 export const LANDING_LOCAL_DATA: readonly string[] = ["Workspaces", "Conversations", "Files", "Browser data"];
 
 /**
@@ -304,7 +304,7 @@ function landingRank(slug: RivalMarkName): number {
 }
 
 /**
- * Every OpenBot comparison, labelled "OpenBot vs …": each title starts with
+ * Every OpenOwnBot comparison, labelled "OpenOwnBot vs …": each title starts with
  * that, and the part after the colon is too long for a card. The slug of each is
  * also the name of the compared product's mark. A matchup or the roundup has a
  * slug that names no mark, so it is not in this list.
@@ -324,7 +324,7 @@ export const LANDING_COMPARISON_LINKS: readonly LandingComparisonLink[] = COMPAR
   )
   .toSorted((left, right) => landingRank(left.mark) - landingRank(right.mark));
 
-/** Each offer of OpenBot for Teams has its own colour and icon, which the section sets for this id. */
+/** Each offer of OpenOwnBot for Teams has its own colour and icon, which the section sets for this id. */
 export type LandingTeamsOfferId = "servers" | "environments" | "integrations" | "support";
 
 export interface LandingTeamsOffer {
@@ -352,7 +352,7 @@ export const LANDING_TEAMS_OFFERS: readonly LandingTeamsOffer[] = [
     id: "integrations",
     label: "Custom integrations",
     title: "Your tools",
-    description: "We connect OpenBot to your systems, APIs and workflows.",
+    description: "We connect OpenOwnBot to your systems, APIs and workflows.",
   },
   {
     id: "support",

@@ -1,9 +1,9 @@
-import { parseBillingSessionUrl, parseBillingState } from "@openbot/contracts/billing";
-import { parseLicenseCheckoutUrl, parseLicenseState } from "@openbot/contracts/license";
-import { isDynamicRecord, isString } from "@openbot/contracts/runtime-values";
-import type { BillingCalls } from "@openbot/ui/features/billing/billing-store";
-import type { LicenseCalls } from "@openbot/ui/features/billing/license-store";
-import { currentText } from "@openbot/ui/text";
+import { parseBillingSessionUrl, parseBillingState } from "@openownbot/contracts/billing";
+import { parseLicenseCheckoutUrl, parseLicenseState } from "@openownbot/contracts/license";
+import { isDynamicRecord, isString } from "@openownbot/contracts/runtime-values";
+import type { BillingCalls } from "@openownbot/ui/features/billing/billing-store";
+import type { LicenseCalls } from "@openownbot/ui/features/billing/license-store";
+import { currentText } from "@openownbot/ui/text";
 
 const REQUEST_TIMEOUT_MS = 15_000;
 
@@ -70,7 +70,7 @@ function browserRequest(accountFetch: typeof fetch) {
       credentials: "same-origin",
       cache: "no-store",
       signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
-      headers: post ? { "Content-Type": "application/json", "X-OpenBot-Browser": "1" } : {},
+      headers: post ? { "Content-Type": "application/json", "X-OpenOwnBot-Browser": "1" } : {},
       ...(post ? { body } : {}),
     }).catch(() => {
       throw new Error(errorMessage(null));

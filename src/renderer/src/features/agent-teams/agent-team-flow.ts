@@ -1,7 +1,7 @@
-import type { AgentSquad, AgentTeamPreview, ChosenAgentTeam, SaveSquadInput } from "@openbot/contracts/ipc";
-import { classifyFailure } from "@openbot/telemetry";
-import type { AgentTeamImportPreview } from "@openbot/ui/features/agents/AgentTeamImportDialog";
-import { currentText } from "@openbot/ui/text";
+import type { AgentSquad, AgentTeamPreview, ChosenAgentTeam, SaveSquadInput } from "@openownbot/contracts/ipc";
+import { classifyFailure } from "@openownbot/telemetry";
+import type { AgentTeamImportPreview } from "@openownbot/ui/features/agents/AgentTeamImportDialog";
+import { currentText } from "@openownbot/ui/text";
 import { createSignal } from "solid-js";
 import { actionToast } from "../../action-toast";
 
@@ -52,7 +52,7 @@ export function createAgentTeamFlow(sectionName: (sectionId: string) => string |
     const name = sectionName(sectionId);
     if (!name) return;
     try {
-      const result = await window.openbot.agentTeams.export({ sectionIds: [sectionId], teamName: name });
+      const result = await window.openownbot.agentTeams.export({ sectionIds: [sectionId], teamName: name });
       if (!result) return;
       const { t } = currentText();
       actionToast.success(t("agentTeam.export.done", { count: result.agents, file: result.fileName }), {
@@ -69,7 +69,7 @@ export function createAgentTeamFlow(sectionName: (sectionId: string) => string |
 
   async function chooseFile(): Promise<void> {
     try {
-      const file = await window.openbot.agentTeams.choose();
+      const file = await window.openownbot.agentTeams.choose();
       if (!file) return;
       if (!file.preview.ok) {
         const { t } = currentText();
@@ -89,7 +89,7 @@ export function createAgentTeamFlow(sectionName: (sectionId: string) => string |
   async function importChosen(): Promise<void> {
     const file = chosen();
     if (!file) return;
-    const result = await window.openbot.agentTeams.import({
+    const result = await window.openownbot.agentTeams.import({
       text: file.text,
       timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
     });
@@ -103,7 +103,7 @@ export function createAgentTeamFlow(sectionName: (sectionId: string) => string |
 
   async function openSquads(): Promise<void> {
     try {
-      setSquads(await window.openbot.squads.list());
+      setSquads(await window.openownbot.squads.list());
       setSquadsOpen(true);
     } catch (error) {
       const { t, errorMessage } = currentText();
@@ -117,20 +117,20 @@ export function createAgentTeamFlow(sectionName: (sectionId: string) => string |
   /** Reads the teams without opening the screen, for the sidebar's team view. A failure leaves the last list. */
   async function refreshSquads(): Promise<void> {
     try {
-      setSquads(await window.openbot.squads.list());
+      setSquads(await window.openownbot.squads.list());
     } catch {
       // The team view shows the agents without a team until the next read succeeds.
     }
   }
 
   async function saveSquad(input: SaveSquadInput): Promise<void> {
-    await window.openbot.squads.save(input);
-    setSquads(await window.openbot.squads.list());
+    await window.openownbot.squads.save(input);
+    setSquads(await window.openownbot.squads.list());
   }
 
   async function removeSquad(squadId: string): Promise<void> {
-    await window.openbot.squads.remove(squadId);
-    setSquads(await window.openbot.squads.list());
+    await window.openownbot.squads.remove(squadId);
+    setSquads(await window.openownbot.squads.list());
   }
 
   return {

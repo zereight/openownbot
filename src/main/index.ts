@@ -1,16 +1,16 @@
 import { join, resolve } from "node:path";
-import { parseInviteUrl, selfHostedApiOrigin } from "@openbot/contracts/invite-links";
+import { parseInviteUrl, selfHostedApiOrigin } from "@openownbot/contracts/invite-links";
 import {
   type AgentEvent,
   type AppLogoColor,
   type CentralAuthState,
   type HostStatus,
   IPC_ENDPOINTS,
-} from "@openbot/contracts/ipc";
-import { createFormat, resolveLocale, translateFor } from "@openbot/i18n";
-import { localizeSourceText } from "@openbot/i18n/source";
-import { createOpenBotLogger, toLogValue } from "@openbot/logging";
-import { createRemoteDirectoryRefresh } from "@openbot/team-client/remote-directory";
+} from "@openownbot/contracts/ipc";
+import { createFormat, resolveLocale, translateFor } from "@openownbot/i18n";
+import { localizeSourceText } from "@openownbot/i18n/source";
+import { createOpenOwnBotLogger, toLogValue } from "@openownbot/logging";
+import { createRemoteDirectoryRefresh } from "@openownbot/team-client/remote-directory";
 import { Effect, Semaphore } from "effect";
 import {
   app,
@@ -136,7 +136,7 @@ import {
 } from "./user-data-migration";
 import { setWindowAppearance } from "./window-appearance";
 
-const logger = createOpenBotLogger("main");
+const logger = createOpenOwnBotLogger("main");
 
 // Electron keeps running after both events: an unhandled rejection only prints a warning, and a
 // monitor leaves the default exception handling in place, except after `hideExceptionErrorBox`. These
@@ -165,7 +165,7 @@ type ExitReason = "main_window_closed" | "signal" | "session_end" | "quit";
 let exitRecorded = false;
 
 /**
- * Records once why OpenBot quits, in the main log and in the trace, before the teardown closes the
+ * Records once why OpenOwnBot quits, in the main log and in the trace, before the teardown closes the
  * trace. The first reason wins: closing the window then also quits. A process that ends with no such
  * line and no crash dump stopped from outside, such as Task Manager.
  */
@@ -194,14 +194,14 @@ try {
 installLocalOnlyGuard();
 
 const commandLineUserDataDirectory = app.commandLine.getSwitchValue("user-data-dir").trim();
-const developmentProfile = !app.isPackaged ? readDevelopmentProfile(process.env.OPENBOT_DEV_PROFILE) : null;
+const developmentProfile = !app.isPackaged ? readDevelopmentProfile(process.env.OPENOWNBOT_DEV_PROFILE) : null;
 const developmentRemoteRole =
   !app.isPackaged &&
-  (process.env.OPENBOT_DEV_REMOTE_ROLE === "host" || process.env.OPENBOT_DEV_REMOTE_ROLE === "client")
-    ? process.env.OPENBOT_DEV_REMOTE_ROLE
+  (process.env.OPENOWNBOT_DEV_REMOTE_ROLE === "host" || process.env.OPENOWNBOT_DEV_REMOTE_ROLE === "client")
+    ? process.env.OPENOWNBOT_DEV_REMOTE_ROLE
     : null;
-const developmentTestClientEnabled = !app.isPackaged && process.env.OPENBOT_DEV_TEST_CLIENT_ENABLED === "1";
-// Before any child process starts: agents must not run as part of a Claude Code session that started OpenBot.
+const developmentTestClientEnabled = !app.isPackaged && process.env.OPENOWNBOT_DEV_TEST_CLIENT_ENABLED === "1";
+// Before any child process starts: agents must not run as part of a Claude Code session that started OpenOwnBot.
 removeClaudeCodeSessionEnvironment(process.env);
 // Before any child process starts: this removes the single-use claim from the environment they inherit.
 const hostedServer = takeHostedServerEnvironment(process.env, app.isPackaged, process.platform);
@@ -210,12 +210,12 @@ const serverMode = takeServerModeEnvironment(process.env, app.isPackaged, proces
 if (serverMode || hostedServer) hideExceptionErrorBox();
 const inviteLinkOptions = {
   allowLocalDevelopmentApiUrl: developmentRemoteRole !== null,
-  selfHostedApiOrigin: selfHostedApiOrigin(process.env.OPENBOT_AUTH_API_URL),
+  selfHostedApiOrigin: selfHostedApiOrigin(process.env.OPENOWNBOT_AUTH_API_URL),
 };
 const developmentRemoteDebuggingPort = !app.isPackaged
-  ? readDevelopmentRemoteDebuggingPort(process.env.OPENBOT_DEV_REMOTE_DEBUGGING_PORT)
+  ? readDevelopmentRemoteDebuggingPort(process.env.OPENOWNBOT_DEV_REMOTE_DEBUGGING_PORT)
   : null;
-const analyticsCaptureUrl = !app.isPackaged ? readAnalyticsCaptureUrl(process.env.OPENBOT_ANALYTICS_CAPTURE_URL) : null;
+const analyticsCaptureUrl = !app.isPackaged ? readAnalyticsCaptureUrl(process.env.OPENOWNBOT_ANALYTICS_CAPTURE_URL) : null;
 // Electron exposes FedCM without an account chooser, so every request fails with a NetworkError.
 // Sites such as Google Sign-In use FedCM when it exists and fall back to their popup when it does not.
 app.commandLine.appendSwitch("disable-features", "FedCm");
@@ -235,7 +235,7 @@ if (commandLineUserDataDirectory) {
       app.getPath("appData"),
       developmentUserDataName(
         developmentProfile ?? "app",
-        readDevelopmentInstanceId(process.env.OPENBOT_DEV_INSTANCE_ID),
+        readDevelopmentInstanceId(process.env.OPENOWNBOT_DEV_INSTANCE_ID),
       ),
     ),
   );
@@ -288,7 +288,7 @@ configureLinuxGpu({
   ownsInstance: hasSingleInstanceLock,
   server: hostedServer !== null || serverMode !== null,
 });
-const appVariant = readAppVariant(process.env.OPENBOT_APP_VARIANT, app.isPackaged);
+const appVariant = readAppVariant(process.env.OPENOWNBOT_APP_VARIANT, app.isPackaged);
 if (!app.isPackaged) guardDevelopmentOutput([process.stdout, process.stderr], () => app.quit());
 const appIconPath = resolveAppIconPath({
   variant: appVariant,
@@ -299,26 +299,26 @@ const appIconPath = resolveAppIconPath({
 });
 protocol.registerSchemesAsPrivileged([
   {
-    scheme: "openbot-app",
+    scheme: "openownbot-app",
     privileges: { standard: true, secure: true, supportFetchAPI: true },
   },
   // `stream` lets an <audio> or <video> element play a file from the scheme: without it the
   // element cannot make the range requests that playback needs.
   {
-    scheme: "openbot-attachment",
+    scheme: "openownbot-attachment",
     privileges: { standard: true, secure: true, supportFetchAPI: true, corsEnabled: true, stream: true },
   },
   {
-    scheme: "openbot-remote-attachment",
+    scheme: "openownbot-remote-attachment",
     privileges: { standard: true, secure: true, supportFetchAPI: true, corsEnabled: true, stream: true },
   },
   // A visual reply page. It needs no fetch or CORS support: only a frame loads it.
   {
-    scheme: "openbot-visual",
+    scheme: "openownbot-visual",
     privileges: { standard: true, secure: true },
   },
   {
-    scheme: "openbot-remote-visual",
+    scheme: "openownbot-remote-visual",
     privileges: { standard: true, secure: true },
   },
   {
@@ -326,15 +326,15 @@ protocol.registerSchemesAsPrivileged([
     privileges: { standard: true, secure: true, supportFetchAPI: true },
   },
   {
-    scheme: "openbot-remote-avatar",
+    scheme: "openownbot-remote-avatar",
     privileges: { standard: true, secure: true, supportFetchAPI: true },
   },
   {
-    scheme: "openbot-server-logo",
+    scheme: "openownbot-server-logo",
     privileges: { standard: true, secure: true, supportFetchAPI: true },
   },
   {
-    scheme: "openbot-remote-server-logo",
+    scheme: "openownbot-remote-server-logo",
     privileges: { standard: true, secure: true, supportFetchAPI: true },
   },
 ]);
@@ -358,7 +358,7 @@ let systemSessionEndFlushStarted = false;
 let relaunchRequested = false;
 /**
  * Set by a quit signal, by `before-quit` and by a Windows `session-end`, and never cleared. Not
- * `isQuitting`: a Windows session end that another app cancels also sets that, and then OpenBot
+ * `isQuitting`: a Windows session end that another app cancels also sets that, and then OpenOwnBot
  * keeps running.
  */
 let quitStarted = false;
@@ -381,7 +381,7 @@ const MAIN_WINDOW_STATE_FILE = "openbot-main-window-state-v1.json";
 
 // A server is stopped with SIGTERM (systemd, Docker). Without a handler, Electron ends at once and its
 // services do not stop. A hosted server's boat pre-stop hook stops it this way before the disk save
-// (`scripts/hosting/openbot-boat-pre-stop`).
+// (`scripts/hosting/openownbot-boat-pre-stop`).
 if (!app.isPackaged || hostedServer || serverMode) {
   const quitAfterSignal = () => {
     recordExit("signal");
@@ -507,19 +507,19 @@ function applyAppIconColor(color: AppLogoColor): void {
 }
 
 /**
- * Outside macOS, closing the main window ends OpenBot, unless the user chose to keep it running in
+ * Outside macOS, closing the main window ends OpenOwnBot, unless the user chose to keep it running in
  * the background. The window is then hidden, not closed, so this event does not come.
  *
  * `window-all-closed` cannot carry that on its own any more. The Computer Use overlays are hidden
  * between actions and closed only after a minute of idle, and a hidden window is still a window,
- * so the event may never arrive: the user would close the last window they can see and leave OpenBot
+ * so the event may never arrive: the user would close the last window they can see and leave OpenOwnBot
  * and the driver running with no way back to them.
  */
 function attachQuitOnMainWindowClose(window: BrowserWindow): void {
   if (process.platform === "darwin") return;
   window.on("closed", () => {
     recordExit("main_window_closed");
-    // `quit`, not a teardown of its own: `before-quit` below is what OpenBot shuts down through,
+    // `quit`, not a teardown of its own: `before-quit` below is what OpenOwnBot shuts down through,
     // and it already ignores a second request while the first one runs.
     app.quit();
   });
@@ -532,9 +532,9 @@ function attachQuitOnMainWindowClose(window: BrowserWindow): void {
  * registered when the first window is built, long before any service exists, which is why every
  * read below goes through `services?.`.
  *
- * Another app can cancel a session end after the query, and OpenBot then keeps running. Provider
+ * Another app can cancel a session end after the query, and OpenOwnBot then keeps running. Provider
  * runtimes stop only on `session-end`: a stopped manager does not start again, so stopping it on the
- * query left every later Download failing with "OpenBot is closing." (#2518).
+ * query left every later Download failing with "OpenOwnBot is closing." (#2518).
  */
 function attachWindowsSessionEndHandlers(window: BrowserWindow): void {
   if (process.platform !== "win32") return;
@@ -880,7 +880,7 @@ function requestDesktopNotificationPermission(
       preference,
       showWelcome: () => {
         if (!Notification.isSupported()) return;
-        showRetainedNotification(new Notification({ title: "OpenBot", body: translate("notification.welcome") }));
+        showRetainedNotification(new Notification({ title: "OpenOwnBot", body: translate("notification.welcome") }));
       },
     }),
   );
@@ -1129,7 +1129,7 @@ if (!hasSingleInstanceLock) {
     .whenReady()
     .then(async () => {
       // Startup marks for `dev:bench`, which reads them over the inspector. They change nothing.
-      performance.mark("openbot:when-ready");
+      performance.mark("openownbot:when-ready");
       // Set the Dock icon before `dock.show()` below. A development build runs the stock Electron.app,
       // so until this call its Dock tile shows the Electron logo.
       if (process.platform === "darwin") app.dock?.setIcon(appIconPath);
@@ -1147,8 +1147,8 @@ if (!hasSingleInstanceLock) {
       // (`build/installer.nsh`), and each start writes it again for installs from before that script.
       // A Windows development build does not register: the handler would be bare `electron.exe`.
       // A macOS development build does not register either: macOS ignores the path and arguments and
-      // names the `com.github.Electron` bundle, so the link took `openbot://` from an installed
-      // OpenBot and opened some worktree's bare Electron.app. `bun run dev:slack` has a loopback return.
+      // names the `com.github.Electron` bundle, so the link took `openownbot://` from an installed
+      // OpenOwnBot and opened some worktree's bare Electron.app. `bun run dev:slack` has a loopback return.
       await Effect.runPromise(
         installLinuxDesktopEntry({ platform: process.platform, environment: process.env, iconPath: appIconPath }),
       );
@@ -1156,8 +1156,8 @@ if (!hasSingleInstanceLock) {
         process.platform === "linux" ||
         ((process.platform === "darwin" || process.platform === "win32") && app.isPackaged)
       ) {
-        if (!app.setAsDefaultProtocolClient("openbot")) {
-          logger.warn("Unable to register the openbot:// scheme. Invitation links will not open OpenBot.");
+        if (!app.setAsDefaultProtocolClient("openownbot")) {
+          logger.warn("Unable to register the openownbot:// scheme. Invitation links will not open OpenOwnBot.");
         }
       }
       configureContentSecurityPolicy();
@@ -1189,7 +1189,7 @@ if (!hasSingleInstanceLock) {
         quitting: () => quitStarted,
       });
       services = built;
-      performance.mark("openbot:services-built");
+      performance.mark("openownbot:services-built");
       // `forwardCentralAuth` reaches the host, the remote servers and analytics only through
       // `services`, so every account change announced during construction was dropped.
       // `createApplicationServices` bound the local host to the one state it read and attributed the
@@ -1387,7 +1387,7 @@ if (!hasSingleInstanceLock) {
         logger.error("Unable to initialize Dynamic Island:", toLogValue(error)),
       );
       await windows.loadRenderer(mainWindow);
-      performance.mark("openbot:renderer-loaded");
+      performance.mark("openownbot:renderer-loaded");
       // `sendToRenderer` dropped the server changes made while the window loaded: the host list and
       // the connection of the selected server. The renderer can have read the list before them.
       forwardServers(remoteServers.list());
@@ -1441,7 +1441,7 @@ if (!hasSingleInstanceLock) {
         })
       ) {
         void runCauseEffect(built.centralAuthInitialization.pipe(Effect.flatMap(() => host.start()))).catch((error) =>
-          logger.error("Unable to republish this OpenBot:", toLogValue(error)),
+          logger.error("Unable to republish this OpenOwnBot:", toLogValue(error)),
         );
       }
       void runCauseEffect(built.agentInitialization.start()).catch((error) => {
@@ -1514,7 +1514,7 @@ if (!hasSingleInstanceLock) {
       }
       // The Windows error box ends the text at a NUL character, so control characters are replaced.
       const message = (error instanceof Error ? error.message : String(error)).replace(/[^\P{Cc}\n\t]/gu, "�");
-      logger.error("OpenBot failed to start:", toLogValue(error));
+      logger.error("OpenOwnBot failed to start:", toLogValue(error));
       // A server has nobody at its virtual display to close the box, and the box blocks the quit.
       if (!serverMode && !hostedServer) {
         // The services, and with them the saved language, may not exist yet. Then the system language applies.
@@ -1569,7 +1569,7 @@ const SHUTDOWN_DEADLINE_MS = 30_000;
 
 function forceExitAfterShutdownDeadline(): void {
   setTimeout(() => {
-    logger.error(`OpenBot did not quit within ${SHUTDOWN_DEADLINE_MS} ms and will exit now.`);
+    logger.error(`OpenOwnBot did not quit within ${SHUTDOWN_DEADLINE_MS} ms and will exit now.`);
     app.exit(0);
   }, SHUTDOWN_DEADLINE_MS);
 }

@@ -11,10 +11,10 @@ import { constants } from "node:fs";
 import { copyFile, mkdir, readFile, rm } from "node:fs/promises";
 import { basename, dirname, join } from "node:path";
 import { promisify } from "node:util";
-import { avatarFileExtension, isAvatarMimeType, isValidAvatarImage } from "@openbot/contracts/avatar-images";
-import { type HostKeyHandover, hostKeyHandoverStatement } from "@openbot/contracts/host-key-handover";
-import { DEFAULT_TEAM_MEMBER_LIMIT, INPUT_LIMITS } from "@openbot/contracts/input-limits";
-import { permanentInviteExpiresAt } from "@openbot/contracts/invite-links";
+import { avatarFileExtension, isAvatarMimeType, isValidAvatarImage } from "@openownbot/contracts/avatar-images";
+import { type HostKeyHandover, hostKeyHandoverStatement } from "@openownbot/contracts/host-key-handover";
+import { DEFAULT_TEAM_MEMBER_LIMIT, INPUT_LIMITS } from "@openownbot/contracts/input-limits";
+import { permanentInviteExpiresAt } from "@openownbot/contracts/invite-links";
 import type {
   AvatarImageInput,
   CentralAuthUser,
@@ -22,10 +22,10 @@ import type {
   TeamMemberSummary,
   TeamRole,
   TeamSessionSummary,
-} from "@openbot/contracts/ipc";
-import { isDynamicRecord, isString } from "@openbot/contracts/runtime-values";
-import { normalizeEmailAddress, slugifyTeamServerName } from "@openbot/contracts/validation";
-import { sourceText } from "@openbot/i18n/source";
+} from "@openownbot/contracts/ipc";
+import { isDynamicRecord, isString } from "@openownbot/contracts/runtime-values";
+import { normalizeEmailAddress, slugifyTeamServerName } from "@openownbot/contracts/validation";
+import { sourceText } from "@openownbot/i18n/source";
 import { Context, Deferred, Effect, Layer, Result, Schema } from "effect";
 import {
   isEmptyStoredFile,
@@ -50,7 +50,7 @@ class TeamStoreFiles extends Context.Service<
       options?: WriteJsonFileOptions,
     ): Effect.Effect<void, RemoteWorkflowError>;
   }
->()("openbot/main/TeamStoreFiles") {
+>()("openownbot/main/TeamStoreFiles") {
   static readonly layer = Layer.succeed(
     TeamStoreFiles,
     TeamStoreFiles.of({
@@ -133,7 +133,7 @@ interface StoredKeyRotation {
 }
 
 /**
- * The file holds one host per OpenBot account, so switching accounts cannot hand the
+ * The file holds one host per OpenOwnBot account, so switching accounts cannot hand the
  * new account the previous one's server. `hosts` is append-only - a host is never
  * removed when its owner signs out, because this file is user data with no backup.
  */

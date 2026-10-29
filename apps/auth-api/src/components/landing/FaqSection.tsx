@@ -1,4 +1,4 @@
-import { AppLogo } from "@openbot/brand";
+import { AppLogo } from "@openownbot/brand";
 import { Link } from "@tanstack/solid-router";
 import { For, Show } from "solid-js";
 import { COMPARE_COLLECTION } from "../../lib/compare";
@@ -60,7 +60,7 @@ export function FaqSection() {
           </div>
         </div>
         <nav class="landing-compare-links" aria-labelledby="landing-compare-title">
-          <h3 id="landing-compare-title">Compare OpenBot</h3>
+          <h3 id="landing-compare-title">Compare OpenOwnBot</h3>
           <ul>
             <For each={LANDING_COMPARISON_LINKS}>
               {(comparison, index) => {

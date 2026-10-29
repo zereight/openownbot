@@ -1,7 +1,7 @@
-import type { MessageReaction } from "@openbot/contracts/ipc";
-import type { AgentMessage } from "@openbot/ui/data";
-import { ChatMessageRow } from "@openbot/ui/features/conversation/ChatMessageRow";
-import { MessageActions, MessageMenu } from "@openbot/ui/features/conversation/MessageRendering";
+import type { MessageReaction } from "@openownbot/contracts/ipc";
+import type { AgentMessage } from "@openownbot/ui/data";
+import { ChatMessageRow } from "@openownbot/ui/features/conversation/ChatMessageRow";
+import { MessageActions, MessageMenu } from "@openownbot/ui/features/conversation/MessageRendering";
 import { createStore } from "solid-js";
 import { fn } from "storybook/test";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";

@@ -3,20 +3,20 @@ import {
   type DiscordInboundAttachment,
   type DiscordInboundInteraction,
   type DiscordInboundMessage,
-} from "@openbot/contracts/signal-protocol/discord-api";
+} from "@openownbot/contracts/signal-protocol/discord-api";
 import type { InboundAction, InboundFile, InboundMessage } from "../messaging-types";
 
-/** The actions of the buttons OpenBot posts, as the middle part of their custom id. */
+/** The actions of the buttons OpenOwnBot posts, as the middle part of their custom id. */
 const DISCORD_BUTTON_ACTIONS = ["accept", "decline", "stop"] as const;
 type DiscordButtonAction = (typeof DISCORD_BUTTON_ACTIONS)[number];
 
 /**
- * One guild message that mentions OpenBot, as a message for OpenBot. Signal passes on only such
- * messages, with OpenBot's own mention taken out.
+ * One guild message that mentions OpenOwnBot, as a message for OpenOwnBot. Signal passes on only such
+ * messages, with OpenOwnBot's own mention taken out.
  *
- * A conversation is a reply chain, named by its first message. OpenBot replies to that first
- * message with every post, so a reply to an OpenBot post names the first message as `rootId`. A
- * message that does not reply to OpenBot starts a new conversation.
+ * A conversation is a reply chain, named by its first message. OpenOwnBot replies to that first
+ * message with every post, so a reply to an OpenOwnBot post names the first message as `rootId`. A
+ * message that does not reply to OpenOwnBot starts a new conversation.
  */
 export function discordInboundMessage(message: DiscordInboundMessage): InboundMessage {
   const reply = message.replyTo;
@@ -74,7 +74,7 @@ export function inboundFile(attachment: DiscordInboundAttachment): InboundFile {
   };
 }
 
-/** One press of an OpenBot button, or null for a custom id that OpenBot did not make. */
+/** One press of an OpenOwnBot button, or null for a custom id that OpenOwnBot did not make. */
 export function discordInboundAction(interaction: DiscordInboundInteraction): InboundAction | null {
   if (!interaction.customId.startsWith(DISCORD_CUSTOM_ID_PREFIX)) return null;
   const [action, token, extra] = interaction.customId.slice(DISCORD_CUSTOM_ID_PREFIX.length).split(":");
@@ -90,7 +90,7 @@ export function discordInboundAction(interaction: DiscordInboundInteraction): In
   return { type: "approval", decision: action, ...common };
 }
 
-/** The custom id of one OpenBot button. */
+/** The custom id of one OpenOwnBot button. */
 export function discordCustomId(action: DiscordButtonAction, token: string): string {
   return `${DISCORD_CUSTOM_ID_PREFIX}${action}:${token}`;
 }

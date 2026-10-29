@@ -1,5 +1,5 @@
-import { AGENT_DEFAULT_KEYS, type AgentDefaults, DEFAULT_AGENT_DEFAULTS } from "@openbot/contracts/ipc";
-import { isBoolean, isDynamicRecord } from "@openbot/contracts/runtime-values";
+import { AGENT_DEFAULT_KEYS, type AgentDefaults, DEFAULT_AGENT_DEFAULTS } from "@openownbot/contracts/ipc";
+import { isBoolean, isDynamicRecord } from "@openownbot/contracts/runtime-values";
 import { PreferenceStore } from "./preference-file";
 
 /**

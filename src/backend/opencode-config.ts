@@ -1,4 +1,4 @@
-// The OpenCode config OpenBot hands to a spawned `opencode acp` process.
+// The OpenCode config OpenOwnBot hands to a spawned `opencode acp` process.
 //
 // OpenCode reads its own global and project config files first and then applies
 // `OPENCODE_CONFIG_CONTENT` as one more layer, so this is an overlay: it adds a provider without
@@ -8,7 +8,7 @@
 // This lives beside `provider-drivers.ts` rather than inside it because the driver table is a table:
 // the shape of one CLI's config is a concern of its own, and it is the half worth unit testing.
 
-import type { CustomProviderHeader, CustomProviderModel } from "@openbot/contracts/ipc";
+import type { CustomProviderHeader, CustomProviderModel } from "@openownbot/contracts/ipc";
 
 /** One endpoint, as the main process stores it. Carries the secrets, so it never crosses IPC. */
 export interface CustomProviderConfig {
@@ -59,7 +59,7 @@ interface OpenCodeProviderEntry {
  * The stored OpenCode Go key, under a built-in provider that `OPENCODE_API_KEY` also reaches.
  *
  * OpenCode applies the key from its own `auth.json` (`opencode auth login`) after the environment
- * key, so an old key saved there replaced the key pasted into OpenBot, and a new key could not fix
+ * key, so an old key saved there replaced the key pasted into OpenOwnBot, and a new key could not fix
  * an expired one (#2544). Config `options.apiKey` comes after both. Checked in OpenCode 1.18.30 to
  * 1.18.35: with both keys present, the request carried the config key.
  */
@@ -67,10 +67,10 @@ interface OpenCodeKeyEntry {
   readonly options: { readonly apiKey: string };
 }
 
-/** One rule per tool pattern, which is all OpenBot sends under `permission`. */
+/** One rule per tool pattern, which is all OpenOwnBot sends under `permission`. */
 type OpenCodePermissionLayer = Readonly<Record<string, "allow" | "ask" | "deny">>;
 
-/** The config layer OpenBot owns on `OPENCODE_CONFIG_CONTENT`. The user's own file is untouched. */
+/** The config layer OpenOwnBot owns on `OPENCODE_CONFIG_CONTENT`. The user's own file is untouched. */
 interface OpenCodeConfig {
   readonly permission?: OpenCodePermissionLayer;
   readonly provider?: Readonly<Record<string, OpenCodeProviderEntry | OpenCodeKeyEntry>>;

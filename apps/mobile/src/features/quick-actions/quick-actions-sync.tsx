@@ -1,4 +1,4 @@
-import type { RemoteWorkspacePreferences } from "@openbot/team-client";
+import type { RemoteWorkspacePreferences } from "@openownbot/team-client";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { supportLog, supportLogValue } from "@/features/support/model/support-log";
 import type { MobileAgent, MobileServer } from "@/features/workspace/model/workspace-types";

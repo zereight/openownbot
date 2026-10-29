@@ -1,11 +1,11 @@
 import { randomUUID } from "node:crypto";
 import type { DatabaseSync } from "node:sqlite";
-import { INPUT_LIMITS } from "@openbot/contracts/input-limits";
-import type { AgentMemoryOrigin, MemoryEntry } from "@openbot/contracts/ipc";
-import { type DynamicRecord, isString } from "@openbot/contracts/runtime-values";
-import { sourceText } from "@openbot/i18n/source";
+import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
+import type { AgentMemoryOrigin, MemoryEntry } from "@openownbot/contracts/ipc";
+import { type DynamicRecord, isString } from "@openownbot/contracts/runtime-values";
+import { sourceText } from "@openownbot/i18n/source";
 import { databaseRow, databaseRows, requiredStringColumn } from "./database/database-rows";
-import type { OpenBotDatabase } from "./openbot-database";
+import type { OpenOwnBotDatabase } from "./openownbot-database";
 
 /**
  * One owner column and one table name are the whole difference between an agent's memories, a
@@ -53,7 +53,7 @@ export class MemoryStore {
   readonly #columns: string;
 
   constructor(
-    readonly database: OpenBotDatabase,
+    readonly database: OpenOwnBotDatabase,
     protected readonly tables: MemoryTables,
   ) {
     this.#columns = `memory_id, text, origin, source_turn_id, created_at, updated_at`;

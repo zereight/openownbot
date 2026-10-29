@@ -4,6 +4,6 @@
     "modules": ["AppLockModule"]
   },
   "android": {
-    "modules": ["run.openbot.applock.AppLockModule"]
+    "modules": ["run.openownbot.applock.AppLockModule"]
   }
 }

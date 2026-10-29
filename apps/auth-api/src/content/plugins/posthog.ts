@@ -31,7 +31,7 @@ export const POSTHOG_PLUGIN_GUIDE: PluginGuide = {
     {
       question: "Which key does the PostHog plugin need?",
       answer:
-        "A personal API key. PostHog recommends the MCP Server preset, which scopes the key to one project. Type the key in the connect dialog in OpenBot. OpenBot sends it as a bearer token in the Authorization header. The plugin catalog holds no secret.",
+        "A personal API key. PostHog recommends the MCP Server preset, which scopes the key to one project. Type the key in the connect dialog in OpenOwnBot. OpenOwnBot sends it as a bearer token in the Authorization header. The plugin catalog holds no secret.",
     },
     {
       question: "Does the PostHog MCP server cost anything?",
@@ -41,7 +41,7 @@ export const POSTHOG_PLUGIN_GUIDE: PluginGuide = {
     {
       question: "What data does PostHog get?",
       answer:
-        "PostHog gets the requests that the agent sends. The server is a proxy and does not store your analytics data. Queries run on your PostHog project, and the results go back to the agent. Your workspaces, conversations and files stay on the computer that runs OpenBot.",
+        "PostHog gets the requests that the agent sends. The server is a proxy and does not store your analytics data. Queries run on your PostHog project, and the results go back to the agent. Your workspaces, conversations and files stay on the computer that runs OpenOwnBot.",
     },
   ],
   sources: [

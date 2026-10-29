@@ -2,11 +2,11 @@ import { createHash } from "node:crypto";
 import { createReadStream, existsSync } from "node:fs";
 import { readdir, readFile, stat } from "node:fs/promises";
 import { basename, join, resolve } from "node:path";
-import { isDynamicRecord, isNumber, isString } from "@openbot/contracts/runtime-values";
-import { createOpenBotLogger } from "@openbot/logging";
+import { isDynamicRecord, isNumber, isString } from "@openownbot/contracts/runtime-values";
+import { createOpenOwnBotLogger } from "@openownbot/logging";
 import { parse } from "yaml";
 
-const logger = createOpenBotLogger("verify-update-artifacts");
+const logger = createOpenOwnBotLogger("verify-update-artifacts");
 
 const MIB = 1024 * 1024;
 const platform = process.argv[2];

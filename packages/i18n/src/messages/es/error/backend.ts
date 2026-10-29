@@ -182,7 +182,7 @@ export const messages = {
   "error.backend.routineFlowCycle": "Esta conexión crearía un bucle.",
   "error.backend.routineFlowLinkLimit": "Una rutina puede tener un máximo de {limit} conexiones.",
   "error.backend.agentWaitLimit":
-    "Este agente ya tiene {count} esperas abiertas. Cierra una espera con openbot.close_wait antes de abrir otra.",
+    "Este agente ya tiene {count} esperas abiertas. Cierra una espera con openownbot.close_wait antes de abrir otra.",
   "error.backend.agentWaitGone": "Esta espera no está abierta. El agente la cerró o alguien la canceló.",
   "error.backend.agentWaitNoRequest":
     "Una espera necesita un mensaje para continuar. Este turno no tiene ningún mensaje.",
@@ -191,7 +191,7 @@ export const messages = {
   "error.backend.agentWaitNoteRequired": "Escribe una nota breve que diga para qué es la espera.",
   "error.backend.agentWaitRoutineGone": "Este agente no tiene ninguna rutina con este id.",
   "error.backend.agentWaitNoRoutine":
-    "Solo una ejecución de una de tus rutinas despierta una espera, y no tienes ninguna rutina. Crea una con openbot.create_routine y luego abre la espera.",
+    "Solo una ejecución de una de tus rutinas despierta una espera, y no tienes ninguna rutina. Crea una con openownbot.create_routine y luego abre la espera.",
   "error.backend.agentWaitRemoteUnsupported":
     "Las esperas abiertas solo están disponibles para agentes en este equipo.",
   "error.backend.routineFlowHandoffFailed": "La rutina no pudo pasar el trabajo a este agente.",

@@ -1,5 +1,5 @@
-import { SERVER_MUTE_DURATIONS_MS, type ServerNotificationLevel } from "@openbot/contracts/ipc";
-import type { MobileTextKey } from "@openbot/i18n/mobile";
+import { SERVER_MUTE_DURATIONS_MS, type ServerNotificationLevel } from "@openownbot/contracts/ipc";
+import type { MobileTextKey } from "@openownbot/i18n/mobile";
 import { Typography } from "heroui-native";
 import { useState } from "react";
 import { useUniwind } from "uniwind";

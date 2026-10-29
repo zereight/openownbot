@@ -1,5 +1,5 @@
-import type { SquadMessageCheck } from "@openbot/contracts/squads";
-import { sourceText } from "@openbot/i18n/source";
+import type { SquadMessageCheck } from "@openownbot/contracts/squads";
+import { sourceText } from "@openownbot/i18n/source";
 
 const KEYS = {
   leavesSquad: "error.backend.squadLeaves",

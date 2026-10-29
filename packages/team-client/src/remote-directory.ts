@@ -1,19 +1,19 @@
-import { type HostKeyHandover, optionalHostKeyHandovers } from "@openbot/contracts/host-key-handover";
+import { type HostKeyHandover, optionalHostKeyHandovers } from "@openownbot/contracts/host-key-handover";
 import {
   createInviteUrl,
   type InviteLinkOptions,
   inviteUseCount,
   isPermanentInvite,
-  OPENBOT_CONTROL_PLANE_ORIGIN,
-  OPENBOT_INVITE_ORIGIN,
+  OPENOWNBOT_CONTROL_PLANE_ORIGIN,
+  OPENOWNBOT_INVITE_ORIGIN,
   parseInviteUrl,
   selfHostedApiOrigin,
-} from "@openbot/contracts/invite-links";
-import type { MobileConnectHostBinding } from "@openbot/contracts/mobile-connect";
-import { decodeRemoteSession, decodeRemoteSessionTicket } from "@openbot/contracts/remote-control-plane";
-import { isBoolean, isDynamicRecord, isNumber, isString } from "@openbot/contracts/runtime-values";
-import { sourceText } from "@openbot/i18n/source";
-import { referenceFrom, safeReference } from "@openbot/user-errors/reference";
+} from "@openownbot/contracts/invite-links";
+import type { MobileConnectHostBinding } from "@openownbot/contracts/mobile-connect";
+import { decodeRemoteSession, decodeRemoteSessionTicket } from "@openownbot/contracts/remote-control-plane";
+import { isBoolean, isDynamicRecord, isNumber, isString } from "@openownbot/contracts/runtime-values";
+import { sourceText } from "@openownbot/i18n/source";
+import { referenceFrom, safeReference } from "@openownbot/user-errors/reference";
 import { Deferred, Effect, Schema, Semaphore } from "effect";
 import { runTeamEffect } from "./effect-boundary";
 import { followHostKeyHandovers, type HostKeySignatureCheck, remoteHostFingerprint } from "./host-key-handover";
@@ -408,8 +408,8 @@ export class RemoteTeamDirectoryClient {
    */
   #inviteApiUrl(): string {
     const url = new URL(this.#apiUrl);
-    return this.#authentication.kind === "browser" && url.origin === OPENBOT_INVITE_ORIGIN
-      ? new URL(OPENBOT_CONTROL_PLANE_ORIGIN).toString()
+    return this.#authentication.kind === "browser" && url.origin === OPENOWNBOT_INVITE_ORIGIN
+      ? new URL(OPENOWNBOT_CONTROL_PLANE_ORIGIN).toString()
       : url.toString();
   }
 
@@ -563,7 +563,7 @@ export class RemoteTeamDirectoryClient {
                     ? { Authorization: `Bearer ${this.#authentication.token}` }
                     : {}),
                   ...(browser
-                    ? { "X-OpenBot-Browser": "1", "Content-Type": "application/json" }
+                    ? { "X-OpenOwnBot-Browser": "1", "Content-Type": "application/json" }
                     : options.body
                       ? { "Content-Type": "application/json" }
                       : {}),

@@ -1,5 +1,5 @@
-import { ProviderLogo } from "@openbot/brand";
-import { prefersReducedMotion } from "@openbot/ui/utils";
+import { ProviderLogo } from "@openownbot/brand";
+import { prefersReducedMotion } from "@openownbot/ui/utils";
 import { createSignal, For, onSettled } from "solid-js";
 import {
   LANDING_NETWORK_AGENTS,
@@ -121,7 +121,7 @@ function standaloneMark(mark: SVGSVGElement): SVGSVGElement {
 
 /**
  * "Your agents talk to each other": Ada, Linus and Grace pass the Safari task
- * through OpenBot, then the network grows until it fills the frame. When it is
+ * through OpenOwnBot, then the network grows until it fills the frame. When it is
  * complete, a click on an agent grows a new network from that agent. At any time,
  * a click on the hub sends a signal, in one of the styles at random, through the
  * network. The picture is decorative; the heading and the sentence carry the message.
@@ -184,16 +184,16 @@ export function AgentNetworkSection() {
       marks: [],
       font: style.fontFamily,
       colors: {
-        hub: token("--openbot-logo-production"),
-        hubEye: token("--openbot-logo-production-eye"),
-        dot: token("--openbot-glass-border"),
-        badge: token("--openbot-bg-control-active"),
-        canvas: token("--openbot-bg-canvas"),
-        bubble: token("--openbot-bg-surface"),
-        bubbleBorder: token("--openbot-dialog-ring"),
-        bubbleText: token("--openbot-text-primary"),
-        label: token("--openbot-text-secondary"),
-        hubPulse: token("--openbot-text-primary"),
+        hub: token("--openownbot-logo-production"),
+        hubEye: token("--openownbot-logo-production-eye"),
+        dot: token("--openownbot-glass-border"),
+        badge: token("--openownbot-bg-control-active"),
+        canvas: token("--openownbot-bg-canvas"),
+        bubble: token("--openownbot-bg-surface"),
+        bubbleBorder: token("--openownbot-dialog-ring"),
+        bubbleText: token("--openownbot-text-primary"),
+        label: token("--openownbot-text-secondary"),
+        hubPulse: token("--openownbot-text-primary"),
       },
     };
 
@@ -342,7 +342,7 @@ export function AgentNetworkSection() {
       })
       .catch(() => {});
     // The avatar engine is too large for the first load of the home page, as in the features section.
-    void import("@openbot/ui/bloub-avatar")
+    void import("@openownbot/ui/bloub-avatar")
       .then(({ AVATAR_HUE_CHOICES, avatarHeadColor, createStaticAvatarSvg }) => {
         if (disposed) return;
         const seeds = [

@@ -86,7 +86,7 @@ export const messages = defineMessages("error.agent", {
     'A stored agent profile has an unreadable "{field}" value; update the data before starting OpenOwnBot.',
   "error.agent.storedProfileUnreadableId":
     'Stored agent profile {id} has an unreadable "{field}" value; update the data before starting OpenOwnBot.',
-  // Written by `QueueEditRejectedError` in @openbot/contracts, which cannot import this package.
+  // Written by `QueueEditRejectedError` in @openownbot/contracts, which cannot import this package.
   "error.agent.queueEditRejected": "Queue edit rejected: {reason}",
   "error.agent.computerUseLocalOnly": "Computer Use can only be changed on the computer that runs the agent.",
   "error.agent.automationLocalOnly": "Local scripts can only be allowed on the computer that runs the agent.",
@@ -131,7 +131,7 @@ export const messages = defineMessages("error.agent", {
   "error.agent.screenCaptureRegionOutside":
     "The region is not inside one display. Use desktop points inside the bounds of one display from list_capture_sources.",
   "error.agent.screenCapturePermissionMissing":
-    "OpenBot does not have the Screen Recording permission. Ask the user to open System Settings > Privacy & Security > Screen & System Audio Recording, turn on OpenBot, then quit and open OpenBot again.",
+    "OpenOwnBot does not have the Screen Recording permission. Ask the user to open System Settings > Privacy & Security > Screen & System Audio Recording, turn on OpenOwnBot, then quit and open OpenOwnBot again.",
   "error.agent.screenCaptureEmptyWindows":
     "Windows gave an empty image. Ask the user to unlock the computer and close protected content. A policy of the organization can also stop screen capture.",
   "error.agent.screenCaptureFailed": "The screen capture failed. Try again.",

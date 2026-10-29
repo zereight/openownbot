@@ -71,7 +71,7 @@ export function OutboxMessageMenu({
 export function ChatOutboxStatus({ status }: { status: OutboxRowStatus }) {
   const { t } = useText();
   const muted = useThemeColor("muted");
-  const [danger] = useCSSVariable(["--openbot-danger-text"]);
+  const [danger] = useCSSVariable(["--openownbot-danger-text"]);
   if (!status.showStatus) return null;
   const { message, online } = status;
   const failed = message.state === "failed";

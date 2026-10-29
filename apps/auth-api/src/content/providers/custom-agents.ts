@@ -11,9 +11,9 @@ export const CUSTOM_AGENTS_PROVIDER: ProviderPage = {
   provider: "acp",
   name: "Goose, Qwen Code or Copilot CLI",
   answer:
-    "OpenBot runs any agent that speaks the Agent Client Protocol as one agent of a team, such as Goose, Qwen Code or GitHub Copilot CLI. You get shared channels with agents on other providers, and an app on your phone.",
+    "OpenOwnBot runs any agent that speaks the Agent Client Protocol as one agent of a team, such as Goose, Qwen Code or GitHub Copilot CLI. You get shared channels with agents on other providers, and an app on your phone.",
   connect:
-    "Add a custom agent and type the command that starts it, or pick an agent that OpenBot finds on your computer or in the ACP registry. Check agent starts the command once to make sure that the agent answers. Each agent signs in with its own command.",
+    "Add a custom agent and type the command that starts it, or pick an agent that OpenOwnBot finds on your computer or in the ACP registry. Check agent starts the command once to make sure that the agent answers. Each agent signs in with its own command.",
   adds: [
     {
       icon: "puzzle",
@@ -23,12 +23,12 @@ export const CUSTOM_AGENTS_PROVIDER: ProviderPage = {
     {
       icon: "download",
       title: "The ACP registry",
-      text: "Search, install, update and remove agents from the ACP registry on the computer that runs OpenBot.",
+      text: "Search, install, update and remove agents from the ACP registry on the computer that runs OpenOwnBot.",
     },
     {
       icon: "lock",
       title: "Encrypted settings",
-      text: "OpenBot keeps the environment variables of each agent, such as an API key, encrypted.",
+      text: "OpenOwnBot keeps the environment variables of each agent, such as an API key, encrypted.",
     },
   ],
   vendor: "their makers",
@@ -62,9 +62,9 @@ export const CUSTOM_AGENTS_PROVIDER: ProviderPage = {
         "The Agent Client Protocol (ACP) is an open protocol between apps and coding agents. A local agent talks JSON-RPC over its standard input and output. Zed and JetBrains govern it.",
     },
     {
-      question: "Which agents work in OpenBot?",
+      question: "Which agents work in OpenOwnBot?",
       answer:
-        "Any agent that speaks ACP over standard input and output. OpenBot has presets for Goose, Qwen Code, GitHub Copilot CLI and Oh My Pi, and finds more in the ACP registry.",
+        "Any agent that speaks ACP over standard input and output. OpenOwnBot has presets for Goose, Qwen Code, GitHub Copilot CLI and Oh My Pi, and finds more in the ACP registry.",
     },
     {
       question: "Can I send a message while a custom agent works?",

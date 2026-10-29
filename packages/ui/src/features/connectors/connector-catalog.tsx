@@ -1,6 +1,6 @@
-import type { SkillCategory } from "@openbot/contracts/ipc";
-import type { AppTextKey } from "@openbot/i18n";
-import { Lock } from "@openbot/ui";
+import type { SkillCategory } from "@openownbot/contracts/ipc";
+import type { AppTextKey } from "@openownbot/i18n";
+import { Lock } from "@openownbot/ui";
 import type { JSX } from "@solidjs/web";
 import { DiscordMark, GitHubMark, OnePasswordMark, SlackMark, TelegramMark } from "../settings/brand-marks";
 import type { ConnectorId } from "./connectors";

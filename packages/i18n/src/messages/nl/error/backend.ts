@@ -184,7 +184,7 @@ export const messages = {
   "error.backend.routineFlowCycle": "Deze verbinding zou een lus maken.",
   "error.backend.routineFlowLinkLimit": "Een routine kan maximaal {limit} verbindingen hebben.",
   "error.backend.agentWaitLimit":
-    "Deze agent heeft al {count} open wachtpunten. Sluit een wachtpunt met openbot.close_wait voordat je een nieuw opent.",
+    "Deze agent heeft al {count} open wachtpunten. Sluit een wachtpunt met openownbot.close_wait voordat je een nieuw opent.",
   "error.backend.agentWaitGone":
     "Dit wachtpunt is niet open. De agent heeft het gesloten, of iemand heeft het geannuleerd.",
   "error.backend.agentWaitNoRequest":
@@ -194,7 +194,7 @@ export const messages = {
   "error.backend.agentWaitNoteRequired": "Geef een korte notitie die zegt waarvoor het wachtpunt is.",
   "error.backend.agentWaitRoutineGone": "Deze agent heeft geen routine met deze id.",
   "error.backend.agentWaitNoRoutine":
-    "Alleen een run van een van je routines wekt een wachtpunt, en je hebt geen routine. Maak er een met openbot.create_routine en open dan het wachtpunt.",
+    "Alleen een run van een van je routines wekt een wachtpunt, en je hebt geen routine. Maak er een met openownbot.create_routine en open dan het wachtpunt.",
   "error.backend.agentWaitRemoteUnsupported": "Open wachtpunten zijn alleen beschikbaar voor agents op deze computer.",
   "error.backend.routineFlowHandoffFailed": "De routine kon het werk niet aan deze agent doorgeven.",
   "error.backend.mcpServerLimit": "OpenOwnBot bewaart maximaal {limit} MCP-servers.",

@@ -1,5 +1,5 @@
-import type { OpenBotDesktopApi } from "@openbot/contracts/ipc";
-import { IPC_ENDPOINTS, LOCAL_SERVER_ID } from "@openbot/contracts/ipc";
+import type { OpenOwnBotDesktopApi } from "@openownbot/contracts/ipc";
+import { IPC_ENDPOINTS, LOCAL_SERVER_ID } from "@openownbot/contracts/ipc";
 import { beforeEach, expect, it, vi } from "vitest";
 
 // `bridgeGroup` builds these methods from `IPC_ENDPOINTS`, so no line of the preload names them.
@@ -9,7 +9,7 @@ import { beforeEach, expect, it, vi } from "vitest";
 const bridge = vi.hoisted(() => {
   // The main window: the preload reads its URL for the server of a chat window.
   vi.stubGlobal("window", { addEventListener: () => {}, location: { search: "" } });
-  const api: { current: OpenBotDesktopApi | null } = { current: null };
+  const api: { current: OpenOwnBotDesktopApi | null } = { current: null };
   return {
     api,
     invoke: vi.fn<(channel: string, ...args: unknown[]) => Promise<unknown>>(),
@@ -18,7 +18,7 @@ const bridge = vi.hoisted(() => {
 });
 vi.mock("electron", () => ({
   contextBridge: {
-    exposeInMainWorld: (_name: string, api: OpenBotDesktopApi) => {
+    exposeInMainWorld: (_name: string, api: OpenOwnBotDesktopApi) => {
       bridge.api.current = api;
     },
   },
@@ -37,7 +37,7 @@ vi.mock("electron", () => ({
 
 import "./index";
 
-function api(): OpenBotDesktopApi {
+function api(): OpenOwnBotDesktopApi {
   if (!bridge.api.current) throw new Error("The preload API was not exposed.");
   return bridge.api.current;
 }

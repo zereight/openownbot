@@ -1,5 +1,5 @@
 // Checks that an agent lists the provider accounts and reads and sets another agent's account and backup
-// models with `openbot.list_models`, `openbot.read_agent` and `openbot.update_profile`.
+// models with `openownbot.list_models`, `openownbot.read_agent` and `openownbot.update_profile`.
 // Runs the real agent service, tool router and provider account store on a temporary profile with a fake
 // Codex app-server and a second Codex account. The fake calls the tools through `tool_call`, as a model
 // does, and logs the tool result that it gets.
@@ -9,13 +9,13 @@
 // account and the backup models are written and read back, that an unknown account or model is a tool
 // failure that changes nothing, that a reset returns both to their defaults, and that a delete stops the
 // process that the agent runs on with the second account.
-// `bun scripts/agent-profile-accounts-e2e.ts`. Writes .openbot-build/agent-profile-accounts-e2e/report.json.
+// `bun scripts/agent-profile-accounts-e2e.ts`. Writes .openownbot-build/agent-profile-accounts-e2e/report.json.
 import assert from "node:assert/strict";
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { mkdtemp, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
-import { AGENT_PROVIDERS, type AgentSummary } from "@openbot/contracts/ipc";
+import { AGENT_PROVIDERS, type AgentSummary } from "@openownbot/contracts/ipc";
 import { Effect } from "effect";
 import type { z } from "zod";
 import type {
@@ -31,8 +31,8 @@ type ProfileToolArgs = z.input<typeof updateProfileToolSchema> &
   Pick<z.input<typeof createAgentToolSchema>, "initialMessage"> &
   z.input<typeof listModelsToolSchema>;
 
-const OUT = resolve(import.meta.dirname, "../.openbot-build/agent-profile-accounts-e2e");
-const root = await mkdtemp(join(tmpdir(), "openbot-profile-accounts-"));
+const OUT = resolve(import.meta.dirname, "../.openownbot-build/agent-profile-accounts-e2e");
+const root = await mkdtemp(join(tmpdir(), "openownbot-profile-accounts-"));
 const userData = join(root, "user-data");
 const home = join(root, "home");
 const accountsRoot = join(root, "provider-accounts");
@@ -42,7 +42,7 @@ const fakeLog = join(root, "codex.jsonl");
 // Before the service modules load: the Codex process and the stores read the home folder.
 process.env.HOME = home;
 process.env.CODEX_HOME = join(home, ".codex");
-process.env.OPENBOT_CODEX_PATH = fakeCodex;
+process.env.OPENOWNBOT_CODEX_PATH = fakeCodex;
 mkdirSync(home, { recursive: true });
 
 const { AgentService } = await import("../src/backend/agent-service");
@@ -50,7 +50,7 @@ const { AgentStore } = await import("../src/backend/agent-store");
 const { ProviderAccountStore } = await import("../src/backend/agent/provider-account-store");
 const { runCauseEffect } = await import("../src/backend/effect-boundary");
 const { MailboxStore } = await import("../src/backend/mailbox-store");
-const { OpenBotDatabase } = await import("../src/backend/openbot-database");
+const { OpenOwnBotDatabase } = await import("../src/backend/openownbot-database");
 
 const CALL_MARK = "PROFILE-CALL";
 const MODEL = "gpt-6-luna";
@@ -125,9 +125,9 @@ const answer = (message) => {
           threadId: params.threadId,
           turnId,
           callId: "call-" + turnId,
-          namespace: "openbot",
+          namespace: "openownbot",
           tool: "tool_call",
-          arguments: { name: "openbot." + __tool, arguments: args },
+          arguments: { name: "openownbot." + __tool, arguments: args },
         },
       });
     }
@@ -250,7 +250,7 @@ await runCauseEffect(accounts.load());
 const second = await runCauseEffect(accounts.create("codex"));
 assert.ok(second, "The second Codex account was not created.");
 await runCauseEffect(accounts.rename("codex", second.id, "Team B"));
-const database = new OpenBotDatabase(userData);
+const database = new OpenOwnBotDatabase(userData);
 const store = new AgentStore(userData, home, database);
 const mailbox = new MailboxStore(userData, store.sharedRoot, store.database);
 const agents = new AgentService({

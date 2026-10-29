@@ -1,6 +1,6 @@
 // @vitest-environment node
 
-import type { BrowserDockAction, BrowserDockFrame, BrowserDockPresentation } from "@openbot/contracts/ipc";
+import type { BrowserDockAction, BrowserDockFrame, BrowserDockPresentation } from "@openownbot/contracts/ipc";
 import { Effect } from "effect";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { BROWSER_DOCK_OVERLAY_WIDTH, browserDockLayout } from "../browser-dock-overlay";
@@ -58,7 +58,7 @@ const PRESENTATION: BrowserDockPresentation = {
 
 const FRAME: BrowserDockFrame = { seq: 1, height: 120, glass: [] };
 
-function event(senderId: number, url = "openbot-app://app/index.html") {
+function event(senderId: number, url = "openownbot-app://app/index.html") {
   return { senderFrame: { url }, sender: { id: senderId } };
 }
 

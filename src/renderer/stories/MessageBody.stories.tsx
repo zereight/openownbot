@@ -1,6 +1,6 @@
-import { Bubble, BubbleContent, type BubbleVariant } from "@openbot/ui";
-import type { AgentMessage } from "@openbot/ui/data";
-import { MessageBody } from "@openbot/ui/features/conversation/MessageRendering";
+import { Bubble, BubbleContent, type BubbleVariant } from "@openownbot/ui";
+import type { AgentMessage } from "@openownbot/ui/data";
+import { MessageBody } from "@openownbot/ui/features/conversation/MessageRendering";
 import { fn } from "storybook/test";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";
 import { STORY_AGENTS, STORY_ATTACHMENTS, STORY_REPLY_QUOTE_BODY } from "./fixtures";
@@ -348,7 +348,7 @@ export const DataTableLongText: Story = {
         "| --- | --- | --- | --- |",
         "| Migrate | Research | Copy every workspace to the new layout, then confirm that each conversation still opens with its attachments and its full history. | https://openbot.run/docs/guides/workspaces/migrating-an-existing-workspace-to-the-new-layout |",
         "| Verify | Review | Run the checks on a clean profile and compare the results with the previous release before you approve the change. | `bun run test:desktop -- src/renderer/src/features/conversation/MessageRendering.test.tsx` |",
-        "| Ship | Release | Write the release notes. | `OPENBOT_RELEASE_CHANNEL_OVERRIDE_FOR_INTERNAL_TESTING_ONLY` |",
+        "| Ship | Release | Write the release notes. | `OPENOWNBOT_RELEASE_CHANNEL_OVERRIDE_FOR_INTERNAL_TESTING_ONLY` |",
       ].join("\n"),
       status: undefined,
       attachments: [],

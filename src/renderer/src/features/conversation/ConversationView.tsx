@@ -1,7 +1,7 @@
-import { DEFAULT_AGENT_ACCESS } from "@openbot/contracts/ipc";
-import { AgentFolderDropOverlay, createAgentFolders } from "@openbot/ui/features/conversation/AgentFolders";
-import { MessageSelectionActions } from "@openbot/ui/features/conversation/SelectionActions";
-import { useText } from "@openbot/ui/text";
+import { DEFAULT_AGENT_ACCESS } from "@openownbot/contracts/ipc";
+import { AgentFolderDropOverlay, createAgentFolders } from "@openownbot/ui/features/conversation/AgentFolders";
+import { MessageSelectionActions } from "@openownbot/ui/features/conversation/SelectionActions";
+import { useText } from "@openownbot/ui/text";
 import { createEffect, Show } from "solid-js";
 import { currentDevicePlatform } from "../../send-shortcut-preference";
 import { agentFolderCalls } from "./agent-folders-port";

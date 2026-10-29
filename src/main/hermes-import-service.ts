@@ -10,7 +10,7 @@
 import { randomUUID } from "node:crypto";
 import { mkdir, readFile, realpath, rm, writeFile } from "node:fs/promises";
 import { join } from "node:path";
-import { INPUT_LIMITS } from "@openbot/contracts/input-limits";
+import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
 import {
   AGENT_IMPORT_LIMITS,
   type AgentImportResult,
@@ -24,9 +24,9 @@ import {
   type HermesImportProfile,
   type McpServerConfig,
   type UpdateAgentInput,
-} from "@openbot/contracts/ipc";
-import { isDynamicRecord, isString } from "@openbot/contracts/runtime-values";
-import { sourceText } from "@openbot/i18n/source";
+} from "@openownbot/contracts/ipc";
+import { isDynamicRecord, isString } from "@openownbot/contracts/runtime-values";
+import { sourceText } from "@openownbot/i18n/source";
 import { Effect, Result } from "effect";
 import { parseStoredJson, writeJsonFileAtomically } from "../backend/atomic-json-file";
 import { writeTreeEffect } from "./agent-archive";
@@ -42,7 +42,7 @@ import {
 } from "./hermes-import-reader";
 
 /** Skill folders are copied here, published to the local library, and removed again. */
-const SKILL_STAGING = ".openbot/import-skills";
+const SKILL_STAGING = ".openownbot/import-skills";
 /** A persona longer than the instructions keeps its full text here, in the agent's workspace. */
 const SOUL_COPY = ["imported", "hermes", "SOUL.md"] as const;
 const SOUL_POINTER = "\n\nThe full persona is in imported/hermes/SOUL.md. Read it before your first task.";

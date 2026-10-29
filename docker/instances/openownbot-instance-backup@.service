@@ -1,0 +1,10 @@
+# Backs up instance %i and verifies the backup. openownbot-instance-backup@%i.timer starts it. `setup`
+# replaces /opt/openownbot-docker/instances/ with the folder of openownbot-instance.
+[Unit]
+Description=Back up OpenOwnBot instance %i
+After=docker.service
+
+[Service]
+Type=oneshot
+ExecStart=/opt/openownbot-docker/instances/openownbot-instance backup %i --verify
+TimeoutStartSec=6h

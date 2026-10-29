@@ -10,22 +10,22 @@
  * A webhook trigger starts its run from `HostEventsService`, which verifies the request first.
  */
 
-import type { RoutineSchedule, WorkflowGraph } from "@openbot/contracts/ipc";
-import { createOpenBotLogger } from "@openbot/logging";
+import type { RoutineSchedule, WorkflowGraph } from "@openownbot/contracts/ipc";
+import { createOpenOwnBotLogger } from "@openownbot/logging";
 import {
   collapseMissedOccurrences,
   nextValidRoutineOccurrence,
   normalizeRoutineSchedule,
   RoutineInputError,
   validateRoutineSchedule,
-} from "@openbot/team-client/routine-schedule";
+} from "@openownbot/team-client/routine-schedule";
 import { Effect } from "effect";
 import type { ReceivedWebhookEvent } from "../routine-store";
 import type { RoutineDueSource } from "../routine-timer";
 import { nodeTimezone } from "./workflow-graph";
 import type { DueWorkflowTrigger, WorkflowStore } from "./workflow-store";
 
-const logger = createOpenBotLogger("workflow-triggers");
+const logger = createOpenOwnBotLogger("workflow-triggers");
 
 /** One occurrence of a schedule trigger that came. */
 export interface ScheduledWorkflowStart {

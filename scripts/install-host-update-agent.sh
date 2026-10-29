@@ -1,7 +1,7 @@
 #!/bin/sh
 # Administrator setup. Build the standalone helper as an unprivileged developer first:
-# bun build scripts/host-manager.ts --compile --outfile /tmp/openbot-host-manager
-# sudo scripts/install-host-update-agent.sh --managed /tmp/openbot-host-manager client-acme client-bravo
+# bun build scripts/host-manager.ts --compile --outfile /tmp/openownbot-host-manager
+# sudo scripts/install-host-update-agent.sh --managed /tmp/openownbot-host-manager client-acme client-bravo
 set -eu
 export PATH=/usr/bin:/bin:/usr/sbin:/sbin
 export LC_ALL=C
@@ -58,11 +58,11 @@ for tenant in "$@"; do
 done
 # The operator supplies trusted compiled code. Never compile repository hooks as root.
 [ -f "$HELPER" ] && [ ! -L "$HELPER" ] || exit 1
-for destination in "$ROOT/host-manager" "$ROOT/openbot-relaunch.sh" /Library/LaunchAgents/app.openownbot.desktop.relaunch.plist /Library/LaunchDaemons/app.openownbot.host-manager.plist; do
+for destination in "$ROOT/host-manager" "$ROOT/openownbot-relaunch.sh" /Library/LaunchAgents/app.openownbot.desktop.relaunch.plist /Library/LaunchDaemons/app.openownbot.host-manager.plist; do
   [ ! -e "$destination" ] && [ ! -L "$destination" ] || { echo "Existing installation asset: $destination" >&2; exit 1; }
 done
 install -o root -g wheel -m 755 "$HELPER" "$ROOT/host-manager"
-install -o root -g wheel -m 755 "$ASSETS/openbot-relaunch.sh" "$ROOT/openbot-relaunch.sh"
+install -o root -g wheel -m 755 "$ASSETS/openownbot-relaunch.sh" "$ROOT/openownbot-relaunch.sh"
 # UIDS contains only numbers returned by id above.
 # shellcheck disable=SC2086
 "$ROOT/host-manager" --setup $UIDS

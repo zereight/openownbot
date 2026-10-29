@@ -4,7 +4,7 @@
 // idle restart of the app away while it waits, installs when the turn ends without a restart of the
 // app, never runs two installs at once when it is asked for again while it waits, and that a cancel
 // ends the wait with nothing installed.
-// `bun scripts/provider-update-busy-e2e.ts`. Writes .openbot-build/provider-update-busy-e2e/report.json.
+// `bun scripts/provider-update-busy-e2e.ts`. Writes .openownbot-build/provider-update-busy-e2e/report.json.
 import assert from "node:assert/strict";
 import { chmod, mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
@@ -15,11 +15,11 @@ import { ProviderRuntime } from "../src/backend/agent/provider-runtime";
 import { AgentStore } from "../src/backend/agent-store";
 import { ANTIGRAVITY_MANIFEST } from "../src/backend/cli";
 import { runCauseEffect } from "../src/backend/effect-boundary";
-import { OpenBotDatabase } from "../src/backend/openbot-database";
+import { OpenOwnBotDatabase } from "../src/backend/openownbot-database";
 import { BUILT_IN_PROVIDER_DRIVERS, NO_PROVIDER_CREDENTIALS } from "../src/backend/provider-drivers";
 import { checkProviderAccountReload } from "./provider-account-reload-e2e";
 
-const OUT = resolve(import.meta.dirname, "../.openbot-build/provider-update-busy-e2e");
+const OUT = resolve(import.meta.dirname, "../.openownbot-build/provider-update-busy-e2e");
 const WAIT_MS = 15_000;
 const INSTALLED = "1.2.1";
 const NEWER = "1.2.2";
@@ -69,7 +69,7 @@ interface Report {
   cancelled?: { failure: string | undefined; installs: number; holdsNewTurns: boolean; resumed: number };
 }
 
-const root = await mkdtemp(join(tmpdir(), "openbot-provider-update-busy-e2e-"));
+const root = await mkdtemp(join(tmpdir(), "openownbot-provider-update-busy-e2e-"));
 const log = join(root, "agy.log");
 const report: Report = { passed: false };
 process.env.FAKE_AGY_LOG = log;
@@ -112,7 +112,7 @@ function install(executable: string, hold = false) {
     });
 }
 
-const store = new AgentStore(join(root, "profile"), join(root, "home"), new OpenBotDatabase(join(root, "profile")));
+const store = new AgentStore(join(root, "profile"), join(root, "home"), new OpenOwnBotDatabase(join(root, "profile")));
 const installedExecutable = await installVersion(INSTALLED);
 const newerExecutable = await installVersion(NEWER);
 const providers = new ProviderRuntime({

@@ -4,24 +4,24 @@
 // `--api` is the account service of the dev stack (default http://localhost:3100); the script signs
 // in to its `/app` as the dev host user, so the web client connects to the host over WebRTC.
 //
-// It selects "Through OpenBot" in Settings › Mobile Connect on the desktop, and the web client
+// It selects "Through OpenOwnBot" in Settings › Mobile Connect on the desktop, and the web client
 // connects. Then it selects "Private network". It checks that main saves each choice, that the host
 // closes the connected peer, that the web client connects again, that each candidate of the host is a `host` candidate on
 // a private address, and that the selected pair uses one of them. It puts back the route that was set
-// before it started. Writes .openbot-build/remote-network-route-e2e/report.json and a screenshot.
+// before it started. Writes .openownbot-build/remote-network-route-e2e/report.json and a screenshot.
 import assert from "node:assert/strict";
 import { mkdirSync } from "node:fs";
 import { resolve } from "node:path";
-import type { RemoteNetworkRoute } from "@openbot/contracts/ipc";
-import { translateFor } from "@openbot/i18n";
+import type { RemoteNetworkRoute } from "@openownbot/contracts/ipc";
+import { translateFor } from "@openownbot/i18n";
 import { type Browser, chromium, type Page } from "playwright-core";
 import { isPrivateNetworkAddress } from "../src/renderer/src/features/team/team-webrtc-private-network";
 import { argument, connectChannelE2e, WAIT_MS, waitFor, writeReport } from "./channel-e2e-support";
 
 const NAME = "remote-network-route-e2e";
-const OUT = resolve(import.meta.dirname, `../.openbot-build/${NAME}`);
+const OUT = resolve(import.meta.dirname, `../.openownbot-build/${NAME}`);
 const UI_WAIT_MS = 30_000;
-const DEV_HOST_EMAIL = "openbot-dev-host@example.com";
+const DEV_HOST_EMAIL = "openownbot-dev-host@example.com";
 const english = translateFor("en");
 const api = (argument("api") ?? "http://localhost:3100").replace(/\/$/, "");
 const browserExecutable = argument("browser-executable");
@@ -35,7 +35,7 @@ interface PeerState {
 
 interface Report {
   routeBefore?: RemoteNetworkRoute;
-  openbot?: PeerState;
+  openownbot?: PeerState;
   firstPeerAfterChange?: RTCPeerConnectionState;
   private?: PeerState;
   /** The state of each web client peer connection when a check fails. */
@@ -61,7 +61,7 @@ let web: Page | null = null;
 const literal = (text: string) => text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 const routes = desktop.getByRole("radiogroup", { name: english("settings.mobileConnect.route.title") });
 const routeNames = {
-  openbot: new RegExp(`^${literal(english("settings.mobileConnect.route.openbot.title"))}`),
+  openownbot: new RegExp(`^${literal(english("settings.mobileConnect.route.openownbot.title"))}`),
   private: new RegExp(`^${literal(english("settings.mobileConnect.route.private.title"))}`),
 } satisfies Record<RemoteNetworkRoute, RegExp>;
 
@@ -88,7 +88,7 @@ async function selectRoute(route: RemoteNetworkRoute): Promise<void> {
   await waitFor(
     desktop,
     `main saves the ${route} route`,
-    () => desktop.evaluate(() => window.openbot.getRemoteNetworkRoute()),
+    () => desktop.evaluate(() => window.openownbot.getRemoteNetworkRoute()),
     (state) => state.route === route,
     UI_WAIT_MS,
   );
@@ -146,9 +146,9 @@ async function connectedPeer(page: Page, fromIndex: number): Promise<PeerState> 
 }
 
 try {
-  report.routeBefore = (await desktop.evaluate(() => window.openbot.getRemoteNetworkRoute())).route;
+  report.routeBefore = (await desktop.evaluate(() => window.openownbot.getRemoteNetworkRoute())).route;
   await openRoutes();
-  await selectRoute("openbot");
+  await selectRoute("openownbot");
 
   // 1. The web client connects to the host through the default route.
   browser = await chromium.launch(browserExecutable ? { executablePath: browserExecutable } : { channel: "chrome" });
@@ -167,7 +167,7 @@ try {
   web = await context.newPage();
   web.on("pageerror", (error) => report.pageErrors.web.push(error.stack ?? error.message));
   await signIn(web);
-  report.openbot = await connectedPeer(web, 0);
+  report.openownbot = await connectedPeer(web, 0);
 
   // 2. The owner selects the private network on the desktop.
   await selectRoute("private");
@@ -177,12 +177,12 @@ try {
   report.screenshots.push(shot);
 
   // 3. The host drops the peer, and the web client connects again on the private network only.
-  report.private = await connectedPeer(web, report.openbot.index + 1);
+  report.private = await connectedPeer(web, report.openownbot.index + 1);
   report.firstPeerAfterChange = await web.evaluate(
     (at) => window.__routeE2ePeers?.[at]?.connectionState ?? "closed",
-    report.openbot.index,
+    report.openownbot.index,
   );
-  assert.equal(report.firstPeerAfterChange, "closed", "The host kept the peer that connected through OpenBot.");
+  assert.equal(report.firstPeerAfterChange, "closed", "The host kept the peer that connected through OpenOwnBot.");
   assert.ok(report.private.hostCandidates.length > 0, "The host sent no candidates on the private route.");
   for (const candidate of report.private.hostCandidates) {
     const [type, address = ""] = candidate.split(" ");
@@ -213,7 +213,9 @@ try {
   await browser?.close().catch(() => undefined);
   const before = report.routeBefore;
   if (before)
-    await desktop.evaluate((route) => window.openbot.setRemoteNetworkRoute({ route }), before).catch(() => undefined);
+    await desktop
+      .evaluate((route) => window.openownbot.setRemoteNetworkRoute({ route }), before)
+      .catch(() => undefined);
   writeReport(NAME, report);
   await session.close();
 }

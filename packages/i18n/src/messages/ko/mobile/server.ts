@@ -109,7 +109,7 @@ export const messages = {
   "mobile.server.hosted.detail.copy": "머신에 OpenOwnBot 복사 중",
   "mobile.server.hosted.detail.key": "일회용 로그인 키 추가 중",
   "mobile.server.hosted.detail.boot": "머신 켜는 중",
-  "mobile.server.hosted.detail.app": "OpenBot 시작 중",
+  "mobile.server.hosted.detail.app": "OpenOwnBot 시작 중",
   "mobile.server.hosted.detail.wait": "OpenOwnBot 응답 대기 중",
   "mobile.server.hosted.detail.signIn": "내 계정으로 로그인 중",
   "mobile.server.hosted.detail.publish": "계정에 서버 추가 중",
@@ -395,7 +395,7 @@ export const messages = {
   "mobile.server.connectors.bitwarden.description":
     "Bitwarden 또는 Vaultwarden에서 {host}의 브라우저 로그인 정보를 입력해요.",
   "mobile.server.connectors.bitwarden.howItWorks":
-    "{host}은(는) 자체 Bitwarden CLI로 로그인해요. 보관함에 Shared with OpenBot이라는 폴더를 만들고 에이전트가 사용해도 되는 로그인 정보만 넣으세요. 웹 보관함에서 설정 › 보안 › 키를 열어 API 키를 확인하세요.",
+    "{host}은(는) 자체 Bitwarden CLI로 로그인해요. 보관함에 Shared with OpenOwnBot이라는 폴더를 만들고 에이전트가 사용해도 되는 로그인 정보만 넣으세요. 웹 보관함에서 설정 › 보안 › 키를 열어 API 키를 확인하세요.",
   "mobile.server.connectors.bitwarden.serverUrl": "서버 주소",
   "mobile.server.connectors.bitwarden.serverUrlHint":
     "Bitwarden 또는 Vaultwarden 서버의 주소예요. {host}이(가) 이 주소에 HTTPS로 접근할 수 있어야 해요.",
@@ -409,7 +409,7 @@ export const messages = {
   "mobile.server.connectors.bitwarden.connectingBody":
     "{host}이(가) Bitwarden에 로그인하고 있어요. 처음 로그인할 때는 몇 분 걸릴 수 있어요.",
   "mobile.server.connectors.bitwarden.folderTitle": "공유 폴더",
-  "mobile.server.connectors.bitwarden.folderName": "Shared with OpenBot",
+  "mobile.server.connectors.bitwarden.folderName": "Shared with OpenOwnBot",
   "mobile.server.connectors.bitwarden.folderKind": "Bitwarden 폴더",
   "mobile.server.connectors.bitwarden.folderFooter":
     "에이전트가 로그인 정보를 사용하게 하려면 Bitwarden에서 이 폴더로 옮기세요. 사용을 멈추려면 폴더에서 제거하세요.",
@@ -470,9 +470,9 @@ export const messages = {
   "mobile.server.connectors.onePassword.disconnectBody":
     "{host}에서 토큰이 삭제돼요. 보관함과 서비스 계정은 1Password에 남아 있으니, 필요 없으면 1Password에서 삭제하세요.",
   "mobile.server.connectors.slack.title": "Slack",
-  "mobile.server.connectors.slack.summary": "Slack에서 @OpenBot을 멘션해요",
+  "mobile.server.connectors.slack.summary": "Slack에서 @OpenOwnBot을 멘션해요",
   "mobile.server.connectors.slack.description":
-    "Slack에서 @OpenBot을 멘션하거나 다이렉트 메시지를 보낼 수 있어요. Slack Orchestrator가 알맞은 에이전트에게 물어보고 답변해요.",
+    "Slack에서 @OpenOwnBot을 멘션하거나 다이렉트 메시지를 보낼 수 있어요. Slack Orchestrator가 알맞은 에이전트에게 물어보고 답변해요.",
   "mobile.server.connectors.slack.connected": "{workspace} · Slack Orchestrator가 답변해요",
   "mobile.server.connectors.slack.noAgent": "{workspace} · 답변하는 에이전트가 아직 없어요",
   "mobile.server.connectors.slack.many": {
@@ -489,7 +489,7 @@ export const messages = {
     other: "워크스페이스는 최대 {count}개까지 연결할 수 있어요.",
   },
   "mobile.server.connectors.slack.workspaceTitle": "워크스페이스",
-  "mobile.server.connectors.slack.workspaceDescription": "@OpenBot을 멘션하거나 다이렉트 메시지를 보내세요.",
+  "mobile.server.connectors.slack.workspaceDescription": "@OpenOwnBot을 멘션하거나 다이렉트 메시지를 보내세요.",
   "mobile.server.connectors.slack.missingScopes":
     "OpenOwnBot에 Slack에서 다음 권한이 없어요: {scopes}. 워크스페이스 연결을 해제한 다음 다시 연결해 주세요.",
   "mobile.server.connectors.slack.retryAt": "Slack이 OpenOwnBot에 대기를 요청했어요. {time}에 다시 시도해요.",
@@ -506,7 +506,7 @@ export const messages = {
     "Slack Orchestrator를 추가하지 않으면 Slack에서 답변을 받을 수 없어요.",
   "mobile.server.connectors.slack.addAgent": "Slack Orchestrator 추가",
   "mobile.server.connectors.slack.note":
-    "OpenBot은 모든 공개 채널과 새로 생기는 채널에 자동으로 참여해요. 비공개 채널에는 /invite @OpenBot으로 초대하세요.",
+    "OpenOwnBot은 모든 공개 채널과 새로 생기는 채널에 자동으로 참여해요. 비공개 채널에는 /invite @OpenOwnBot으로 초대하세요.",
   "mobile.server.connectors.slack.disconnectTitle": "{workspace} 연결을 해제할까요?",
   "mobile.server.connectors.slack.disconnectBody":
     "OpenOwnBot이 {workspace}에서 답변을 중지하고 {host}에서 Slack 토큰을 삭제해요.",
@@ -514,12 +514,12 @@ export const messages = {
   "mobile.server.connectors.slack.disconnectDeleted": "Slack Orchestrator와 해당 대화가 OpenOwnBot에서 삭제돼요.",
   "mobile.server.connectors.slack.agentPromptTitle": "Slack Orchestrator를 추가할까요?",
   "mobile.server.connectors.slack.agentPromptBody":
-    "이 새 에이전트가 {workspace}에서 @OpenBot에게 보내는 모든 요청에 답변해요.",
+    "이 새 에이전트가 {workspace}에서 @OpenOwnBot에게 보내는 모든 요청에 답변해요.",
   "mobile.server.connectors.slack.installFailed": "Slack 설치가 완료되지 않았어요. 다시 시도해 주세요.",
   "mobile.server.connectors.discord.title": "Discord",
-  "mobile.server.connectors.discord.summary": "Discord 서버에서 @OpenBot을 멘션해요",
+  "mobile.server.connectors.discord.summary": "Discord 서버에서 @OpenOwnBot을 멘션해요",
   "mobile.server.connectors.discord.description":
-    "Discord 서버의 채널에서 @OpenBot을 멘션할 수 있어요. Discord Orchestrator가 알맞은 에이전트에게 물어보고 답변해요.",
+    "Discord 서버의 채널에서 @OpenOwnBot을 멘션할 수 있어요. Discord Orchestrator가 알맞은 에이전트에게 물어보고 답변해요.",
   "mobile.server.connectors.discord.connected": "{workspace} · Discord Orchestrator가 답변해요",
   "mobile.server.connectors.discord.noAgent": "{workspace} · 답변하는 에이전트가 아직 없어요",
   "mobile.server.connectors.discord.many": {
@@ -537,7 +537,7 @@ export const messages = {
   },
   "mobile.server.connectors.discord.workspaceTitle": "Discord 서버",
   "mobile.server.connectors.discord.workspaceDescription":
-    "채널에서 @OpenBot을 멘션하세요. 이어가려면 OpenBot의 메시지에 답장하세요.",
+    "채널에서 @OpenOwnBot을 멘션하세요. 이어가려면 OpenOwnBot의 메시지에 답장하세요.",
   "mobile.server.connectors.discord.missingScopes":
     "OpenOwnBot에 Discord에서 다음 권한이 없어요: {scopes}. Discord 서버 연결을 해제한 다음 다시 연결해 주세요.",
   "mobile.server.connectors.discord.retryAt": "Discord가 OpenOwnBot에 대기를 요청했어요. {time}에 다시 시도해요.",
@@ -561,7 +561,7 @@ export const messages = {
   "mobile.server.connectors.discord.disconnectDeleted": "Discord Orchestrator와 해당 대화가 OpenOwnBot에서 삭제돼요.",
   "mobile.server.connectors.discord.agentPromptTitle": "Discord Orchestrator를 추가할까요?",
   "mobile.server.connectors.discord.agentPromptBody":
-    "이 새 에이전트가 {workspace}에서 @OpenBot에게 보내는 모든 요청에 답변해요.",
+    "이 새 에이전트가 {workspace}에서 @OpenOwnBot에게 보내는 모든 요청에 답변해요.",
   "mobile.server.connectors.discord.installFailed": "Discord 승인이 완료되지 않았어요. 다시 시도해 주세요.",
   "mobile.server.connectors.telegram.title": "Telegram",
   "mobile.server.connectors.telegram.summary": "Telegram 채팅에 OpenOwnBot 봇을 추가해요",
@@ -813,11 +813,11 @@ export const messages = {
   "mobile.server.update.path.hosted":
     "호스팅 서비스가 백그라운드에서 업데이트를 다운로드해요. 다운로드된 업데이트는 서버가 다음에 시작될 때 적용돼요. 서버를 중지했다가 재개하기 전에 진행 중인 작업이 끝나기를 기다리세요. 이전 버전에서 바뀌지 않으면 호스트 관리자에게 문의하세요.",
   "mobile.server.update.path.system":
-    "호스트에서 sudo openbot update를 실행해 최신 릴리스를 설치하세요. 이 명령은 OpenOwnBot을 중지해요. 먼저 진행 중인 작업이 끝나기를 기다리세요. 자동 다운로드는 다음 부팅 때 설치돼요.",
+    "호스트에서 sudo openownbot update를 실행해 최신 릴리스를 설치하세요. 이 명령은 OpenOwnBot을 중지해요. 먼저 진행 중인 작업이 끝나기를 기다리세요. 자동 다운로드는 다음 부팅 때 설치돼요.",
   "mobile.server.update.path.container":
     "Docker 호스트에서 새 OpenOwnBot 이미지를 가져오고 같은 데이터 볼륨으로 컨테이너를 다시 만드세요. 먼저 진행 중인 작업이 끝나기를 기다리세요. 데이터를 보존하려면 기존 볼륨을 유지하세요.",
   "mobile.server.update.path.manual":
-    "이 설치본은 스스로 교체할 수 없어요. 호스트 관리자에게 github.com/nightly-labs/openbot/releases에서 호환되는 릴리스를 설치해 달라고 요청하세요. 기존 OpenOwnBot 데이터는 유지하세요.",
+    "이 설치본은 스스로 교체할 수 없어요. 호스트 관리자에게 github.com/zereight/openownbot/releases에서 호환되는 릴리스를 설치해 달라고 요청하세요. 기존 OpenOwnBot 데이터는 유지하세요.",
   "mobile.server.update.path.unavailable":
     "개발 빌드예요. 업데이트를 확인하려면 설치된 OpenOwnBot 릴리스를 사용하세요.",
   "mobile.server.update.check": "업데이트 확인",

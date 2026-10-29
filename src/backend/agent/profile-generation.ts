@@ -6,8 +6,8 @@ import {
   decodeAgentProfileDraft,
   type GenerateAgentProfileInput,
   type SidebarSection,
-} from "@openbot/contracts/ipc";
-import { sourceText } from "@openbot/i18n/source";
+} from "@openownbot/contracts/ipc";
+import { sourceText } from "@openownbot/i18n/source";
 import { Effect, Fiber, Result, Schema } from "effect";
 import type { AgentClient } from "../agent-client";
 import { causeHelpers } from "../effect-boundary";
@@ -114,7 +114,7 @@ export const generateTextWithoutTools = Effect.fn("Agent.generateTextWithoutTool
 });
 
 /** A temporary directory for a client without tools to run in. */
-export const makeToollessDirectory = () => profileIo(() => mkdtemp(join(tmpdir(), "openbot-profile-")));
+export const makeToollessDirectory = () => profileIo(() => mkdtemp(join(tmpdir(), "openownbot-profile-")));
 
 /** Removes a directory that `makeToollessDirectory` made. */
 export const removeToollessDirectory = (cwd: string) => profileIo(() => rm(cwd, { recursive: true, force: true }));
@@ -126,7 +126,7 @@ export const startToolless = Effect.fnUntraced(function* (client: AgentClient) {
     .request(
       "initialize",
       {
-        clientInfo: { name: "openbot-profile", title: "OpenBot profile generation", version: "0.1.0" },
+        clientInfo: { name: "openownbot-profile", title: "OpenOwnBot profile generation", version: "0.1.0" },
         capabilities: { experimentalApi: true },
       },
       decodeRecordResponse,

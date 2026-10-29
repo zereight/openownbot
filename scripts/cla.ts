@@ -1,4 +1,4 @@
-// Checks the OpenBot Contributor Assignment Agreement (CLA.md) on one pull request.
+// Checks the OpenOwnBot Contributor Assignment Agreement (CLA.md) on one pull request.
 //
 //   bun scripts/cla.ts pr <number>   checks one open pull request
 //   --dry-run                        writes nothing to GitHub; the decisions go to REPORT_PATH
@@ -28,7 +28,7 @@ import { dirname } from "node:path";
 const TRUSTED_ASSOCIATIONS = new Set(["OWNER", "MEMBER"]);
 const TRUSTED_PERMISSIONS = new Set(["admin", "maintain", "write"]);
 const AGREEMENT_PATH = "CLA.md";
-const AGREEMENT_NAME = "OpenBot Contributor Assignment Agreement";
+const AGREEMENT_NAME = "OpenOwnBot Contributor Assignment Agreement";
 const SIGNATURES_BRANCH = "cla-signatures";
 const SIGNATURES_FILE = "signatures.json";
 const STATUS_CONTEXT = "CLA";
@@ -37,7 +37,7 @@ const COMMENT_AUTHOR = "github-actions[bot]";
 /** The pull request commits endpoint returns at most this number of commits. */
 const MAX_COMMITS = 250;
 const SAVE_ATTEMPTS = 3;
-const REPORT_PATH = ".openbot-build/cla/report.json";
+const REPORT_PATH = ".openownbot-build/cla/report.json";
 
 const args = process.argv.slice(2);
 const dryRun = args.includes("--dry-run");
@@ -471,7 +471,7 @@ function requestComment(
     const authorUnsigned = unsigned.some((person) => person.id === pr.author.id);
     const others = unsigned.filter((person) => person.id !== pr.author.id);
     lines.push(
-      `${unsigned.map((person) => `@${person.login}`).join(", ")}, thank you for the contribution. Before we can merge it, each author from outside the organization must sign the [OpenBot Contributor Assignment Agreement](${agreementUrl}) ${version}. The agreement assigns the copyright in your contributions to Synthetify Labs.`,
+      `${unsigned.map((person) => `@${person.login}`).join(", ")}, thank you for the contribution. Before we can merge it, each author from outside the organization must sign the [OpenOwnBot Contributor Assignment Agreement](${agreementUrl}) ${version}. The agreement assigns the copyright in your contributions to Synthetify Labs.`,
       "",
     );
     if (authorUnsigned) {
@@ -495,7 +495,7 @@ function requestComment(
       );
     }
     lines.push(
-      "You sign one time for each version of the agreement. The signature applies to all your contributions to OpenBot.",
+      "You sign one time for each version of the agreement. The signature applies to all your contributions to OpenOwnBot.",
     );
   }
   if (unlinked.length > 0) {

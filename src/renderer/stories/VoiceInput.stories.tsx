@@ -1,6 +1,6 @@
-import { Button, Heading } from "@openbot/ui";
-import type { VoicePhase } from "@openbot/ui/features/conversation/VoiceRecordingMorph";
-import { currentText } from "@openbot/ui/text";
+import { Button, Heading } from "@openownbot/ui";
+import type { VoicePhase } from "@openownbot/ui/features/conversation/VoiceRecordingMorph";
+import { currentText } from "@openownbot/ui/text";
 import { createSignal, For, onCleanup, onSettled } from "solid-js";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";
 import { createConversationController } from "../src/features/conversation/Conversation";
@@ -18,7 +18,7 @@ import type { ConversationProps } from "../src/features/conversation/conversatio
 import { VOICE_LEVEL_COUNT } from "../src/features/conversation/stores/voice-store";
 import { CONVERSATION_STORY_ARGS, StoryAppProviders } from "./conversation-story-support";
 import { STORY_AGENT_STATUS } from "./fixtures";
-import { createMockOpenBot } from "./mock-openbot";
+import { createMockOpenOwnBot } from "./mock-openownbot";
 
 /** A fixed stretch of speech, so the waveform looks the same in each screenshot. */
 const SPEECH_LEVELS = Array.from({ length: VOICE_LEVEL_COUNT }, (_, index) =>
@@ -115,18 +115,18 @@ function VoiceInputComposer(props: { state: VoiceInputState }) {
   );
 }
 
-function useMockOpenBot() {
-  const previousApi = window.openbot;
-  const mock = createMockOpenBot();
-  window.openbot = mock.api;
+function useMockOpenOwnBot() {
+  const previousApi = window.openownbot;
+  const mock = createMockOpenOwnBot();
+  window.openownbot = mock.api;
   onCleanup(() => {
     mock.dispose();
-    window.openbot = previousApi;
+    window.openownbot = previousApi;
   });
 }
 
 function VoiceInputStates() {
-  useMockOpenBot();
+  useMockOpenOwnBot();
   return (
     <main class="foundation-story">
       <StoryAppProviders>
@@ -191,7 +191,7 @@ function VoiceMorphLoop() {
 }
 
 function VoiceMorph() {
-  useMockOpenBot();
+  useMockOpenOwnBot();
   return (
     <main class="foundation-story">
       <StoryAppProviders>

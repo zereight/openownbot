@@ -2,10 +2,10 @@ import { spawn } from "node:child_process";
 import { existsSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { createOpenBotLogger, toLogValue } from "@openbot/logging";
+import { createOpenOwnBotLogger, toLogValue } from "@openownbot/logging";
 import { readFcmServiceAccount } from "../apps/auth-api/src/server/android-notification-relay";
 
-const logger = createOpenBotLogger("deploy-auth-api");
+const logger = createOpenOwnBotLogger("deploy-auth-api");
 
 const scriptsRoot = dirname(fileURLToPath(import.meta.url));
 const projectRoot = join(scriptsRoot, "..");
@@ -36,7 +36,7 @@ async function main(): Promise<void> {
   await putOptionalSecretSet("BOAT_API_KEY", "BOAT_WEBHOOK_SECRET");
   // Production releases own the template. Test deployments keep their separate setting.
   if (cloudflareEnvironment === "test") await putOptionalSecret("HOSTED_SERVER_TEMPLATE");
-  // Without the key, agents act on GitHub as the signed-in user and not as the OpenBot GitHub App.
+  // Without the key, agents act on GitHub as the signed-in user and not as the OpenOwnBot GitHub App.
   await putOptionalSecret("GITHUB_APP_PRIVATE_KEY");
   // Without the token, no one can make a server claim.
   await putOptionalSecret("SERVER_CLAIMS_ADMIN_TOKEN");
@@ -81,7 +81,7 @@ function assertLandingBeam(): void {
   const port = join(apiRoot, "src", "vendor", "laser-flow", "LandingLaserFlow.tsx");
   if (existsSync(port)) return;
   throw new Error(
-    "The home page beam is missing. Clone nightly-labs/openbot-laser-flow into apps/auth-api/src/vendor/laser-flow.",
+    "The home page beam is missing. Clone zereight/openownbot-laser-flow into apps/auth-api/src/vendor/laser-flow.",
   );
 }
 

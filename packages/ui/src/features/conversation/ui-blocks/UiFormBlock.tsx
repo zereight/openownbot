@@ -5,8 +5,8 @@ import {
   type UiBlockValue,
   type UiFormField,
   type UiFormBlock as UiFormSpec,
-} from "@openbot/contracts/ui-blocks";
-import { Button, Field, Input, NativeSelect, Spinner, Textarea } from "@openbot/ui";
+} from "@openownbot/contracts/ui-blocks";
+import { Button, Field, Input, NativeSelect, Spinner, Textarea } from "@openownbot/ui";
 import { createSignal, For, Match, Show, Switch } from "solid-js";
 import { useText } from "../../../text";
 import { cx } from "../../../utils";

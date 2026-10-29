@@ -2,24 +2,24 @@
 // that the router builds, the owner, a member and an admin answer it, and the real `AgentApiKeys` saves
 // the key in a temporary folder. It checks that the value reaches the file and the log redaction, and
 // no tool result, event or stored message. No provider or account is used.
-// `bun scripts/agent-api-keys-e2e.ts`. Writes .openbot-build/agent-api-keys-e2e/report.json.
+// `bun scripts/agent-api-keys-e2e.ts`. Writes .openownbot-build/agent-api-keys-e2e/report.json.
 import assert from "node:assert/strict";
 import { mkdir, mkdtemp, readFile, rm, stat, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
-import type { AgentEvent, ConversationSnapshot } from "@openbot/contracts/ipc";
-import { type UiBlockSpec, uiBlockAnswersFromResponse } from "@openbot/contracts/ui-blocks";
-import { redactText } from "@openbot/logging";
+import type { AgentEvent, ConversationSnapshot } from "@openownbot/contracts/ipc";
+import { type UiBlockSpec, uiBlockAnswersFromResponse } from "@openownbot/contracts/ui-blocks";
+import { redactText } from "@openownbot/logging";
 import { Effect } from "effect";
 import { AttentionRegistry, type PromptResponder } from "../src/backend/agent/attention-registry";
 import { API_KEY_FIELD_ID, apiKeyFormSpec } from "../src/backend/agent/prompts";
 import { AgentApiKeys } from "../src/backend/agent-api-keys";
 import { CodexAppServerClient } from "../src/backend/app-server-client";
 import { runCauseEffect } from "../src/backend/effect-boundary";
-import { requestApiKeyToolSchema } from "../src/backend/openbot-tools";
+import { requestApiKeyToolSchema } from "../src/backend/openownbot-tools";
 import type { RequestId } from "../src/backend/protocol";
 
-const OUT = resolve(import.meta.dirname, "../.openbot-build/agent-api-keys-e2e");
+const OUT = resolve(import.meta.dirname, "../.openownbot-build/agent-api-keys-e2e");
 const AGENT = "agent-1";
 const THREAD = "thread-1";
 const KEY = "e2e-key-value-4be1c0d7";
@@ -27,7 +27,7 @@ const NEW_KEY = "e2e-key-replaced-77c1a0b2";
 const MEMBER: PromptResponder = { sender: { id: "member-1", name: "Mia" }, privileged: false };
 const ADMIN: PromptResponder = { sender: { id: "admin-1", name: "Ada" }, privileged: true };
 
-/** Records what OpenBot answers to the agent, as raw JSON. The process never starts. */
+/** Records what OpenOwnBot answers to the agent, as raw JSON. The process never starts. */
 class RecordingClient extends CodexAppServerClient {
   readonly answers = new Map<RequestId, string>();
 
@@ -51,14 +51,14 @@ interface AgentAnswer {
 
 /** The JSON that the agent reads in a tool result. */
 function agentAnswer(raw: string | undefined): AgentAnswer {
-  assert.ok(raw, "OpenBot did not answer the agent");
+  assert.ok(raw, "OpenOwnBot did not answer the agent");
   const parsed: { contentItems?: Array<{ text?: string }> } = JSON.parse(raw);
   const text = parsed.contentItems?.[0]?.text;
   assert.ok(text, "the answer has no text");
   return JSON.parse(text);
 }
 
-const root = await mkdtemp(join(tmpdir(), "openbot-api-keys-e2e-"));
+const root = await mkdtemp(join(tmpdir(), "openownbot-api-keys-e2e-"));
 const apiKeys = new AgentApiKeys(join(root, "agent-api-keys"));
 const client = new RecordingClient("/nonexistent/codex");
 const snapshot: ConversationSnapshot = {
@@ -216,7 +216,7 @@ try {
     assert.deepEqual(names, ["OPENAI_API_KEY"]);
   });
 
-  await step("a key saved before a restart is masked once OpenBot registers the saved keys", async () => {
+  await step("a key saved before a restart is masked once OpenOwnBot registers the saved keys", async () => {
     const earlier = "e2e-key-saved-before-restart-91d2";
     await mkdir(join(root, "agent-api-keys", "agent-2"), { recursive: true, mode: 0o700 });
     await writeFile(join(root, "agent-api-keys", "agent-2", "ANTHROPIC_API_KEY"), earlier, { mode: 0o600 });

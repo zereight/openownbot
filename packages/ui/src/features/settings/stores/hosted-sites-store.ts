@@ -1,4 +1,4 @@
-import type { HostedSiteSummary, HostedSitesDesktopApi } from "@openbot/contracts/ipc";
+import type { HostedSiteSummary, HostedSitesDesktopApi } from "@openownbot/contracts/ipc";
 import { createEffect, createStore } from "solid-js";
 import { currentText } from "../../../text";
 

@@ -1,11 +1,11 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { homedir } from "node:os";
 import { join } from "node:path";
-import { createOpenBotLogger, toLogValue } from "@openbot/logging";
+import { createOpenOwnBotLogger, toLogValue } from "@openownbot/logging";
 import { Effect, Schema } from "effect";
 import { causeHelpers } from "../backend/effect-boundary";
 
-const logger = createOpenBotLogger("linux-desktop-entry");
+const logger = createOpenOwnBotLogger("linux-desktop-entry");
 
 /**
  * The file name has to stay `openownbot.desktop`: it is `desktopName` in package.json, which is what
@@ -17,7 +17,7 @@ const ICON_FILE_NAME = "openownbot.png";
 const WM_CLASS = "openownbot";
 
 /**
- * The desktop entry that makes an `openbot://` link reach the app.
+ * The desktop entry that makes an `openownbot://` link reach the app.
  *
  * `Exec` names the AppImage itself, because that is the only path that survives a restart, and `%U`
  * is what passes the invitation URL to it.
@@ -26,14 +26,14 @@ function linuxDesktopEntry(appImagePath: string, iconPath: string): string {
   return `${[
     "[Desktop Entry]",
     "Type=Application",
-    "Name=OpenBot",
+    "Name=OpenOwnBot",
     "Comment=A local-first multi-agent desktop workspace.",
     `Exec=${quoteExecutable(appImagePath)} %U`,
     `Icon=${iconPath}`,
     "Terminal=false",
     "Categories=Development;",
     `StartupWMClass=${WM_CLASS}`,
-    "MimeType=x-scheme-handler/openbot;",
+    "MimeType=x-scheme-handler/openownbot;",
   ].join("\n")}\n`;
 }
 
@@ -75,7 +75,7 @@ export const installLinuxDesktopEntry = Effect.fn("LinuxDesktopEntry.install")(f
   );
   if (result._tag === "Success") return result.success;
   logger.warn(
-    "Unable to install the desktop entry, so openbot:// links stay unregistered.",
+    "Unable to install the desktop entry, so openownbot:// links stay unregistered.",
     toLogValue(result.failure.cause),
   );
   return null;
@@ -87,7 +87,7 @@ export const installLinuxDesktopEntry = Effect.fn("LinuxDesktopEntry.install")(f
  * that can disappear is still better than no invitation links at all.
  *
  * An AppImage mounts its resources in a temporary directory that the runtime removes when the app
- * exits, so an entry that points there loses its icon as soon as OpenBot is not running. The entry
+ * exits, so an entry that points there loses its icon as soon as OpenOwnBot is not running. The entry
  * names the copy by absolute path, which the desktop entry specification allows, rather than by
  * icon theme name: one loose file under the data home is not a theme.
  */

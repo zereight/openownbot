@@ -1,8 +1,8 @@
 import { randomBytes } from "node:crypto";
 import { EventEmitter } from "node:events";
 import { dirname, join } from "node:path";
-import type { HostKeyHandover } from "@openbot/contracts/host-key-handover";
-import { createInviteUrl, selfHostedApiOrigin } from "@openbot/contracts/invite-links";
+import type { HostKeyHandover } from "@openownbot/contracts/host-key-handover";
+import { createInviteUrl, selfHostedApiOrigin } from "@openownbot/contracts/invite-links";
 import type {
   AgentEvent,
   AvatarImageInput,
@@ -34,12 +34,16 @@ import type {
   TeamSessionSummary,
   UpdateHostIdentityInput,
   UpdateTeamMemberInput,
-} from "@openbot/contracts/ipc";
-import { type AgentAccessLevel, conversationMessageSender, SIGNED_OUT_CHANNEL_MEMBER_ID } from "@openbot/contracts/ipc";
-import type { LiveActivityRelayPush } from "@openbot/contracts/live-activity-relay";
-import type { HostRestartState } from "@openbot/contracts/team-protocol/host-update-v1";
-import { sourceText } from "@openbot/i18n/source";
-import { createOpenBotLogger, toLogValue } from "@openbot/logging";
+} from "@openownbot/contracts/ipc";
+import {
+  type AgentAccessLevel,
+  conversationMessageSender,
+  SIGNED_OUT_CHANNEL_MEMBER_ID,
+} from "@openownbot/contracts/ipc";
+import type { LiveActivityRelayPush } from "@openownbot/contracts/live-activity-relay";
+import type { HostRestartState } from "@openownbot/contracts/team-protocol/host-update-v1";
+import { sourceText } from "@openownbot/i18n/source";
+import { createOpenOwnBotLogger, toLogValue } from "@openownbot/logging";
 import { Cause, Context, Deferred, Effect, Fiber, Layer, ManagedRuntime, Result, Semaphore } from "effect";
 import type { AgentService } from "../backend/agent-service";
 import type { ChannelService } from "../backend/channel-service";
@@ -63,9 +67,9 @@ import type { RemoteDirectoryMember, TeamIdentity, TeamStore } from "./team-stor
 import type { TeamWebRtcBridge } from "./team-webrtc-bridge";
 import { TeamWebRtcHostGateway } from "./team-webrtc-host-gateway";
 
-export const DEVELOPMENT_REMOTE_CLIENT_USERNAME = "openbot-dev-client";
+export const DEVELOPMENT_REMOTE_CLIENT_USERNAME = "openownbot-dev-client";
 
-const logger = createOpenBotLogger("host-service");
+const logger = createOpenOwnBotLogger("host-service");
 
 interface HostEvents {
   changed: [status: HostStatus];
@@ -225,7 +229,7 @@ class HostApiRuntime extends Context.Service<
   {
     start(): Effect.Effect<number, RemoteWorkflowError>;
   }
->()("openbot/main/HostApiRuntime") {}
+>()("openownbot/main/HostApiRuntime") {}
 
 export class HostService extends EventEmitter<HostEvents> {
   readonly #options: Required<Pick<HostServiceOptions, "localDevelopmentHost">> &
@@ -262,10 +266,10 @@ export class HostService extends EventEmitter<HostEvents> {
       platform: options.platform ?? normalizeRemoteDesktopPlatform(process.platform),
       unattended: options.unattended ?? false,
       runtimePaths: options.remoteDesktopRuntimePaths ?? null,
-      runtimeStateDirectory: options.remoteDesktopStateDirectory ?? ".openbot-remote-desktop",
+      runtimeStateDirectory: options.remoteDesktopStateDirectory ?? ".openownbot-remote-desktop",
       getRuntimeCredentials:
         options.getRemoteDesktopRuntimeCredentials ??
-        (() => Effect.succeed({ username: "openbot", password: "development-runtime-not-for-release" })),
+        (() => Effect.succeed({ username: "openownbot", password: "development-runtime-not-for-release" })),
       ...(options.getRemoteDesktopDisplays ? { getDisplays: options.getRemoteDesktopDisplays } : {}),
       getIceServers:
         options.getRemoteDesktopIceServers ??
@@ -442,7 +446,7 @@ export class HostService extends EventEmitter<HostEvents> {
           bridge: options.teamWebRtcBridge,
           store: options.store,
           appVersion: options.appVersion,
-          transferDirectory: join(options.logDirectory ?? ".openbot-remote", "transfers"),
+          transferDirectory: join(options.logDirectory ?? ".openownbot-remote", "transfers"),
           renewSignal: (hostId) =>
             Effect.gen(function* () {
               const issueTicket = options.issueRemoteHostTicket;
@@ -939,7 +943,7 @@ export class HostService extends EventEmitter<HostEvents> {
     function* (this: HostService): Effect.fn.Return<HostStatus, RemoteWorkflowError, HostApiRuntime> {
       if (!this.#options.store.configured)
         return yield* new RemoteWorkflowError({
-          cause: new Error("Name this OpenBot before starting local development."),
+          cause: new Error("Name this OpenOwnBot before starting local development."),
         });
       if (this.#status.phase === "online") return this.getStatus();
       const apiPort = yield* HostApiRuntime.use((api) => api.start());
@@ -980,7 +984,7 @@ export class HostService extends EventEmitter<HostEvents> {
       if (!identity || !apiUrl)
         return yield* new RemoteWorkflowError({ cause: new Error("The local development host is not ready.") });
       const username = DEVELOPMENT_REMOTE_CLIENT_USERNAME;
-      const password = "openbot-local-development-client";
+      const password = "openownbot-local-development-client";
       const authenticated = yield* this.#options.store.login(username, password).pipe(
         Effect.catch(() =>
           Effect.gen({ self: this }, function* () {
@@ -1719,7 +1723,7 @@ function initialHostStatus(identity: TeamIdentity | null, unattended: boolean): 
 }
 
 function serverLogoUrl(version: string): string {
-  return `openbot-server-logo://local/logo?v=${encodeURIComponent(version)}`;
+  return `openownbot-server-logo://local/logo?v=${encodeURIComponent(version)}`;
 }
 
 function normalizeRemoteDesktopPlatform(platform: NodeJS.Platform): "darwin" | "win32" | "linux" {

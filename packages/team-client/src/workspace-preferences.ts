@@ -1,4 +1,4 @@
-import { sourceText } from "@openbot/i18n/source";
+import { sourceText } from "@openownbot/i18n/source";
 import { Effect, Result, Schema } from "effect";
 import { remoteHostFingerprint } from "./host-key-handover";
 
@@ -23,7 +23,7 @@ export function createWorkspacePreferences(
   storage: { get(key: string): string | null; set(key: string, value: string): void },
 ) {
   const scope = remoteHostFingerprint(JSON.stringify([new URL(apiUrl).origin, userId]));
-  const key = (hostId: string) => `openbot.workspace.v1.${scope}.${remoteHostFingerprint(hostId)}`;
+  const key = (hostId: string) => `openownbot.workspace.v1.${scope}.${remoteHostFingerprint(hostId)}`;
   // Keep the cache in this store: mobile reads can otherwise make a Keychain call for every message.
   const cache = new Map<string, RemoteWorkspacePreferences>();
   const read = Effect.fn("WorkspacePreferences.read")(function* (hostId: string) {

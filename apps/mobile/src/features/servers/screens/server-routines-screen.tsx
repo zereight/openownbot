@@ -1,5 +1,5 @@
-import type { RoutineCalendarRoutine, RoutineCalendarRun, RoutineCalendarRunStatus } from "@openbot/contracts/ipc";
-import type { MobileTextKey } from "@openbot/i18n/mobile";
+import type { RoutineCalendarRoutine, RoutineCalendarRun, RoutineCalendarRunStatus } from "@openownbot/contracts/ipc";
+import type { MobileTextKey } from "@openownbot/i18n/mobile";
 import {
   addCalendarDays,
   type CalendarDay,
@@ -7,7 +7,7 @@ import {
   calendarDayOf,
   calendarDays,
   calendarWeekStart,
-} from "@openbot/team-client/routine-calendar-dates";
+} from "@openownbot/team-client/routine-calendar-dates";
 import { useQueries } from "@tanstack/react-query";
 import { router, Stack, useLocalSearchParams } from "expo-router";
 import { Typography } from "heroui-native";
@@ -94,7 +94,7 @@ function rangeAround(first: CalendarDay, last: CalendarDay) {
 export function ServerRoutinesScreen() {
   const { t, format } = useText();
   const { theme } = useUniwind();
-  const foreground = String(useCSSVariable("--openbot-text-primary"));
+  const foreground = String(useCSSVariable("--openownbot-text-primary"));
   const { serverId } = useLocalSearchParams<{ serverId: string }>();
   const queryScope = useQueryScope();
   const { servers, agents, loadRoutineCalendar } = useMobileWorkspace();
@@ -469,10 +469,10 @@ function AgentStack({ agents, serverId }: { agents: MobileAgent[]; serverId: str
 
 /** As on desktop: a dot for a planned run, and a mark for a paused, failed or completed one. */
 function StatusMark({ status }: { status: RunStatus }) {
-  const muted = String(useCSSVariable("--openbot-text-grouped-secondary"));
-  const accent = String(useCSSVariable("--openbot-accent-text"));
-  const success = String(useCSSVariable("--openbot-success-text"));
-  const danger = String(useCSSVariable("--openbot-danger-text"));
+  const muted = String(useCSSVariable("--openownbot-text-grouped-secondary"));
+  const accent = String(useCSSVariable("--openownbot-accent-text"));
+  const success = String(useCSSVariable("--openownbot-success-text"));
+  const danger = String(useCSSVariable("--openownbot-danger-text"));
   return (
     <View className="size-4 items-center justify-center">
       {status === "paused" ? (

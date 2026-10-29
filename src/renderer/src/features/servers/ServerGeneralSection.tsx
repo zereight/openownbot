@@ -1,6 +1,6 @@
-import { INPUT_LIMITS } from "@openbot/contracts/input-limits";
-import type { AvatarImageInput, ServerNotificationLevel } from "@openbot/contracts/ipc";
-import { SERVER_NOTIFICATION_LEVELS } from "@openbot/contracts/ipc";
+import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
+import type { AvatarImageInput, ServerNotificationLevel } from "@openownbot/contracts/ipc";
+import { SERVER_NOTIFICATION_LEVELS } from "@openownbot/contracts/ipc";
 import {
   Button,
   ConfirmDialog,
@@ -21,15 +21,15 @@ import {
   SettingsSection,
   SwitchField,
   Text,
-} from "@openbot/ui";
-import { avatarImageDataUrl, normalizeAvatarFile } from "@openbot/ui/avatar-image";
-import { LeaveServerDialog } from "@openbot/ui/features/servers/LeaveServerDialog";
+} from "@openownbot/ui";
+import { avatarImageDataUrl, normalizeAvatarFile } from "@openownbot/ui/avatar-image";
+import { LeaveServerDialog } from "@openownbot/ui/features/servers/LeaveServerDialog";
 import {
   SERVER_NOTIFICATION_LEVEL_LABELS,
   serverMuteDescription,
-} from "@openbot/ui/features/servers/ServerActionItems";
-import { ServerLogo } from "@openbot/ui/features/servers/ServerLogo";
-import { useText } from "@openbot/ui/text";
+} from "@openownbot/ui/features/servers/ServerActionItems";
+import { ServerLogo } from "@openownbot/ui/features/servers/ServerLogo";
+import { useText } from "@openownbot/ui/text";
 import type { JSX } from "@solidjs/web";
 import { type Accessor, createStore, Show, snapshot } from "solid-js";
 import { actionToast } from "../../action-toast";

@@ -54,7 +54,7 @@ A plugin is one developer's bundle. It contains:
   developer's website, privacy policy and terms links.
 
 The types in `packages/ui/src/features/settings/marketplace-plugins.ts` are the start shape.
-`@openbot/ui` owns them today, and the renderer imports them from there. They are not in
+`@openownbot/ui` owns them today, and the renderer imports them from there. They are not in
 `packages/contracts`.
 
 ## 2. Catalog delivery
@@ -87,7 +87,7 @@ correct: a change to the content gives a different URL.
 
 Each file has a `schemaVersion`. The index also has a `catalogVersion`, which always increases.
 If the `schemaVersion` is higher than the app knows, the app ignores the whole file and shows
-"Update OpenBot to see the newest plugins." The app must not read a part of a file it does not know.
+"Update OpenOwnBot to see the newest plugins." The app must not read a part of a file it does not know.
 
 ### 2.3 The detail shape
 
@@ -187,7 +187,7 @@ Two controls protect the catalog:
 
 There is **no signature**. The party that holds a signing key would also be the party that deploys
 the Worker that serves the file. Thus a signature would protect against nothing new. Add a signature
-only if the catalog moves to a host that OpenBot does not control.
+only if the catalog moves to a host that OpenOwnBot does not control.
 
 ### 2.6 Fetch and cache in the app
 
@@ -207,7 +207,7 @@ in.
 
 The renderer shows three failure states:
 
-- stale: "Showing the catalog from <time>. OpenBot could not reach openbot.run.";
+- stale: "Showing the catalog from <time>. OpenOwnBot could not reach openbot.run.";
 - cold and offline: "Plugins need a connection to openbot.run the first time.";
 - wrong hash: "This plugin listing did not match its checksum. Try again later."
 
@@ -219,7 +219,7 @@ does over `packages/contracts/src/ipc-mcp-servers.ts`.
 
 New channels: `plugins:list`, `plugins:get`, `plugins:install-state`, `plugins:install`,
 `plugins:uninstall`. Each one gets a decoder in `src/preload/index.ts` and a mirror in
-`src/renderer/src/preview/mock-openbot.ts`. `src/main/ipc-channel-coverage.test.ts` enforces the
+`src/renderer/src/preview/mock-openownbot.ts`. `src/main/ipc-channel-coverage.test.ts` enforces the
 mirror.
 
 ## 3. What "Install plugin" does
@@ -254,7 +254,7 @@ again from the store.
 `plugins:install-state` does not trust the receipt. For each plugin it tests:
 
 - the app is installed when the MCP record still exists. The user can delete it in settings;
-- a skill is installed when the agent's `<workspace>/.openbot/skills-lock.json` still lists it.
+- a skill is installed when the agent's `<workspace>/.openownbot/skills-lock.json` still lists it.
 
 A newer version in the index makes the button show "Update". If the receipt is lost, the app can
 find a probable install, but it then offers "Reinstall" and not a version.
@@ -328,13 +328,13 @@ there. Add one when you add a listing. Each statement in it needs a vendor page 
 listing with no guide still gets the generated "How to connect" section, but no uses, questions or
 sources, and nothing warns about it.
 
-The page has one main button, `Open in OpenBot`, and a second button, `Download OpenBot`.
+The page has one main button, `Open in OpenOwnBot`, and a second button, `Download OpenOwnBot`.
 
 ### 4.2 The link shapes
 
 ```
 https://openbot.run/plugins/<slug>    the link a person shares and the app copies
-openbot://plugins/<slug>              the link the page button opens
+openownbot://plugins/<slug>              the link the page button opens
 ```
 
 A new `packages/contracts/src/plugin-links.ts` holds these. `packages/contracts/src/invite-links.ts`
@@ -347,7 +347,7 @@ identifier, so a path segment is sufficient. A query form would invite growth, s
 
 The parser accepts a URL only when:
 
-- the protocol is `openbot:` with the host `plugins`, or the origin is exactly
+- the protocol is `openownbot:` with the host `plugins`, or the origin is exactly
   `https://openbot.run` with the path prefix `/plugins/`;
 - there is exactly one path segment after the prefix;
 - the search, the hash, the port, the user name and the password are empty;
@@ -364,10 +364,10 @@ export type DeepLink = { kind: "invite"; url: string } | { kind: "plugin"; slug:
 
 | Kind | Custom scheme | Effect |
 | --- | --- | --- |
-| `invite` | `openbot://join?…` | Opens the join dialog, as today. |
-| `plugin` | `openbot://plugins/<slug>` | Opens the marketplace listing. |
-| `agent-template` | `openbot://agents/<id>` | Opens the agent template preview. See [architecture/agents.md](architecture/agents.md#agent-templates). |
-| `mcp-auth`, `slack-workspace`, `discord-guild` | `openbot://mcp-auth?…`, `openbot://slack-workspace?…`, `openbot://discord-guild?…` | Returns an MCP sign-in or a Slack or Discord grant to the app. |
+| `invite` | `openownbot://join?…` | Opens the join dialog, as today. |
+| `plugin` | `openownbot://plugins/<slug>` | Opens the marketplace listing. |
+| `agent-template` | `openownbot://agents/<id>` | Opens the agent template preview. See [architecture/agents.md](architecture/agents.md#agent-templates). |
+| `mcp-auth`, `slack-workspace`, `discord-guild` | `openownbot://mcp-auth?…`, `openownbot://slack-workspace?…`, `openownbot://discord-guild?…` | Returns an MCP sign-in or a Slack or Discord grant to the app. |
 | other | — | The URL is dropped without a message, as today. |
 
 The invite parser runs first, so an invite URL never reaches the plugin parser. `src/main/index.ts`
@@ -390,9 +390,9 @@ the install button and choose an agent.
 When the slug is not in the copy of the catalog, the main process reads it. The renderer does not
 fetch, so the `connect-src` policy does not change. Two states follow:
 
-- `missing`: "This plugin is not in the OpenBot catalog." This is final, and gives a button back to
+- `missing`: "This plugin is not in the OpenOwnBot catalog." This is final, and gives a button back to
   the plugin list;
-- `offline`: "OpenBot cannot reach openbot.run. Check your connection." This gives "Try again".
+- `offline`: "OpenOwnBot cannot reach openbot.run. Check your connection." This gives "Try again".
 
 ### 4.5 Copy link
 
@@ -415,7 +415,7 @@ never opens a window. This design adds nothing to the navigation policy.
 | Attack | Control |
 | --- | --- |
 | A link installs a plugin without agreement | The link opens the listing only. The install is a separate press with an agent choice. A test enforces this. |
-| A path attack, such as `openbot://plugins/../join?…` | One path segment, and the slug pattern. The invite parser owns `join`. |
+| A path attack, such as `openownbot://plugins/../join?…` | One path segment, and the slug pattern. The invite parser owns `join`. |
 | Extra fields in the link, such as `?install=1` | The search and the hash must be empty. |
 | A similar host, such as `openbot.app` or `openbot.run.example.com` | The origin is compared as a whole string. No `endsWith` and no expression on the host name. |
 | A `javascript:` or `file:` URL in catalog data | `safeBrowserUrl` accepts `http:` and `https:` only, and the share URL is built and not read. |
@@ -459,7 +459,7 @@ Ordered by cost.
    order, or keep the numbers by hand and say so.
 6. One index file is sufficient for now. A larger catalog needs a split by category, which the
    `schemaVersion` permits.
-7. A version in the deep link (`openbot://plugins/<slug>@1.2.0`) is deferred. It needs an answer for
+7. A version in the deep link (`openownbot://plugins/<slug>@1.2.0`) is deferred. It needs an answer for
    a version that is no longer published.
 8. A social card for each plugin is deferred. Version 1 uses the site card.
 
@@ -489,7 +489,7 @@ Ordered by cost.
    Uninstall is done as well: see 3.3. The MCP settings panel and the agent's skills panel still
    remove one piece at a time, for a user who wants only one of them.
 8. ~~The deep-link router and the share link.~~ Done. `src/main/deep-link-router.ts` decides which
-   kind an `openbot://` link is, `openbot://plugins/<slug>` opens that app's page in the Apps tab
+   kind an `openownbot://` link is, `openownbot://plugins/<slug>` opens that app's page in the Apps tab
    and installs nothing, and `openbot.run/plugins/<slug>` now answers, so the detail page offers
    `Copy link` again. The public pages read the same catalog source as the tab, through the generated
    `apps/auth-api/src/lib/plugin-catalog.generated.ts`.

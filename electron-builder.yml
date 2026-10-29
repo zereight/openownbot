@@ -2,9 +2,9 @@ appId: app.openownbot.desktop
 productName: OpenOwnBot
 copyright: Copyright © 2026 Synthetify Labs spółka z ograniczoną odpowiedzialnością
 protocols:
-  - name: OpenBot invitations
+  - name: OpenOwnBot invitations
     schemes:
-      - openbot
+      - openownbot
 asar: true
 artifactName: ${productName}-${version}-${arch}.${ext}
 electronUpdaterCompatibility: ">=2.16"
@@ -45,7 +45,7 @@ extraResources:
     to: plugin-catalog
   - from: resources/agent-import
     to: agent-import
-  # `openbot-cli.mjs` runs tasks on agents through the Local scripts API; see docs/automation.md.
+  # `openownbot-cli.mjs` runs tasks on agents through the Local scripts API; see docs/automation.md.
   - from: resources/cli
     to: cli
   # `cpu-limit.cjs` makes os.cpus() follow the CPU limit for the Node programs of agents on a server.
@@ -108,14 +108,14 @@ mac:
     - from: build/icon-preview-macos-safe-area.png
       to: icons/icon-preview-macos-safe-area.png
     # The sherpa-onnx addon and its libraries. The dictation and speech models are downloaded on demand.
-    - from: .openbot-build/voice/runtime
+    - from: .openownbot-build/voice/runtime
       to: voice/runtime
     - from: build/remote-desktop-runtime
       to: remote-desktop-runtime
     - from: build/cua-driver/darwin/${arch}
       to: cua-driver/darwin/${arch}
   # The Computer Use driver arrives signed by Cua AI with the hardened runtime, a secure timestamp
-  # and `com.apple.security.automation.apple-events`. Re-signing it with OpenBot's inherited
+  # and `com.apple.security.automation.apple-events`. Re-signing it with OpenOwnBot's inherited
   # entitlements would drop that entitlement and break the driver's Automation route, so its own
   # Developer ID signature is kept. Notarization accepts a nested binary signed by another team.
   signIgnore:
@@ -127,7 +127,7 @@ mac:
     CFBundleIconName: Icon
     ElectronTeamID: ZTRDTUL87R
     NSMicrophoneUsageDescription: OpenOwnBot uses the microphone to transcribe voice prompts locally on this Mac.
-    # Computer Use runs the driver as a child process, so macOS asks for both grants in OpenBot's
+    # Computer Use runs the driver as a child process, so macOS asks for both grants in OpenOwnBot's
     # name and shows these sentences.
     NSScreenCaptureUsageDescription: OpenOwnBot captures the screen so an agent can see the app windows you ask it to control.
     NSAppleEventsUsageDescription: OpenOwnBot sends Automation events so an agent can control the apps you ask it to control.
@@ -143,7 +143,7 @@ mac:
 win:
   icon: build/icon-production.ico
   extraResources:
-    - from: .openbot-build/voice/runtime
+    - from: .openownbot-build/voice/runtime
       to: voice/runtime
     - from: build/remote-desktop-runtime
       to: remote-desktop-runtime
@@ -154,7 +154,7 @@ win:
       arch:
         - x64
 # The assisted installer lets the user choose the disk and folder. `build/installer.nsh` keeps it
-# per-user and moves the install into an `OpenBot` subfolder when the chosen folder holds other
+# per-user and moves the install into an `OpenOwnBot` subfolder when the chosen folder holds other
 # files, because the uninstaller deletes the whole folder. An update reads the folder from
 # `InstallLocation`. The app starts it silently (`src/main/update-service.ts`), so an update shows
 # no page.
@@ -175,7 +175,7 @@ linux:
         - "**/*"
         - "!*.ts"
     # The sherpa-onnx addon and its libraries. The dictation and speech models are downloaded on demand.
-    - from: .openbot-build/voice/runtime
+    - from: .openownbot-build/voice/runtime
       to: voice/runtime
     # Only the x64 build installs this runtime. For arm64 the directory does not exist, and
     # electron-builder skips a missing source with a warning.

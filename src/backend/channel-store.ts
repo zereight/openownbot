@@ -14,10 +14,10 @@ import {
   isChannelMessage,
   isChannelTask,
   SIGNED_OUT_CHANNEL_MEMBER_ID,
-} from "@openbot/contracts/ipc";
-import { markdownPreviewText } from "@openbot/contracts/markdown-preview-text";
-import { isDynamicRecord, isString } from "@openbot/contracts/runtime-values";
-import { sourceText } from "@openbot/i18n/source";
+} from "@openownbot/contracts/ipc";
+import { markdownPreviewText } from "@openownbot/contracts/markdown-preview-text";
+import { isDynamicRecord, isString } from "@openownbot/contracts/runtime-values";
+import { sourceText } from "@openownbot/i18n/source";
 import { deleteAggregateHistory, deleteThreadAttachments } from "./database/database-core";
 import {
   databaseRow,
@@ -26,7 +26,7 @@ import {
   requiredNumberColumn,
   requiredStringColumn,
 } from "./database/database-rows";
-import type { OpenBotDatabase } from "./openbot-database";
+import type { OpenOwnBotDatabase } from "./openownbot-database";
 import { revokeRoutineWebhooks } from "./webhook-route-store";
 
 export interface ChannelAssignment {
@@ -84,7 +84,7 @@ export class ChannelStore {
   /** By channel: how many times a message changed in place after it was complete, in this process. */
   readonly #completedMessageChanges = new Map<string, number>();
 
-  constructor(readonly database: OpenBotDatabase) {}
+  constructor(readonly database: OpenOwnBotDatabase) {}
 
   /** A packet built before this count changed can show a message as it was before. */
   completedMessageChanges(channelId: string): number {

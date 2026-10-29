@@ -1,4 +1,4 @@
-import { type AppLanguage, DEFAULT_APP_LANGUAGE } from "@openbot/contracts/app-language";
+import { type AppLanguage, DEFAULT_APP_LANGUAGE } from "@openownbot/contracts/app-language";
 import {
   type AppTranslate,
   formatLocale,
@@ -7,8 +7,8 @@ import {
   resolveLocale,
   type TranslatedLocale,
   translateFor,
-} from "@openbot/i18n";
-import { TextProvider } from "@openbot/ui/text";
+} from "@openownbot/i18n";
+import { TextProvider } from "@openownbot/ui/text";
 import type { JSX } from "@solidjs/web";
 import {
   createContext,
@@ -147,7 +147,7 @@ const I18nContext = createContext<I18nValue>(FALLBACK, { name: "I18n" });
 
 /**
  * The language setting and the text context shared components read (`useText` from
- * `@openbot/ui/text`). A screen reads text through `useText`; only the language setting itself
+ * `@openownbot/ui/text`). A screen reads text through `useText`; only the language setting itself
  * needs `useI18n`.
  */
 export function I18nProvider(props: ParentProps): JSX.Element {

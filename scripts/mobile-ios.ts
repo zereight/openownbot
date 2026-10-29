@@ -31,7 +31,7 @@ if (process.platform !== "darwin") throw new Error("The iOS simulator requires m
 
 // Expo opens a deep link with simctl openurl, which does not pass launch environment variables.
 // Supply the local framework path to prebuild; the Swift hook is simulator Debug only.
-delete process.env.OPENBOT_ROCKETSIM_FRAMEWORK;
+delete process.env.OPENOWNBOT_ROCKETSIM_FRAMEWORK;
 if (useRocketSim) {
   const app =
     process.env.ROCKETSIM_APP_PATH ??
@@ -43,13 +43,13 @@ if (useRocketSim) {
     );
   }
   run("open", ["-a", app]);
-  process.env.OPENBOT_ROCKETSIM_FRAMEWORK = framework;
+  process.env.OPENOWNBOT_ROCKETSIM_FRAMEWORK = framework;
 }
 
 // Keep the Xcode build in the ignored ios/ directory of this worktree. See mobile-ios-bin/xcodebuild.
 // Do not use ios/build: pod install writes codegen and autolinking output there, and removing the
 // Xcode build must not remove that output.
-process.env.OPENBOT_XCODE_DERIVED_DATA ??= join(mobileRoot, "ios/DerivedData");
+process.env.OPENOWNBOT_XCODE_DERIVED_DATA ??= join(mobileRoot, "ios/DerivedData");
 process.env.PATH = [fileURLToPath(new URL("mobile-ios-bin", import.meta.url)), process.env.PATH].join(delimiter);
 
 // run:ios skips prebuild when ios/ exists. Apply config plugins to existing projects too.

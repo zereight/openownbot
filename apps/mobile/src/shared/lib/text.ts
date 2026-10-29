@@ -1,4 +1,4 @@
-import { formatLocale, resolveLocale, type TranslatedLocale } from "@openbot/i18n/mobile";
+import { formatLocale, resolveLocale, type TranslatedLocale } from "@openownbot/i18n/mobile";
 import { useSyncExternalStore } from "react";
 import { AppState } from "react-native";
 import { useAppLanguage } from "@/features/settings/model/app-language";
@@ -17,7 +17,7 @@ const systemLocaleListeners = new Set<() => void>();
 /**
  * The phone's language. Each read is a synchronous call to the native module, and every row of a
  * list uses text, so it is read once for the app. The phone's language can change in its settings
- * while OpenBot is in the background, so it is read again each time the app becomes active.
+ * while OpenOwnBot is in the background, so it is read again each time the app becomes active.
  */
 function systemLocaleNow(): string {
   if (systemLocale === null) {

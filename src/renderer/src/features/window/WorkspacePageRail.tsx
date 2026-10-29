@@ -1,7 +1,7 @@
-import { isUpdateActivePhase } from "@openbot/contracts/ipc";
-import type { SidebarView } from "@openbot/ui/features/sidebar/sidebar-types";
-import { PageRail, type PageRailPage } from "@openbot/ui/features/window/PageRail";
-import { useText } from "@openbot/ui/text";
+import { isUpdateActivePhase } from "@openownbot/contracts/ipc";
+import type { SidebarView } from "@openownbot/ui/features/sidebar/sidebar-types";
+import { PageRail, type PageRailPage } from "@openownbot/ui/features/window/PageRail";
+import { useText } from "@openownbot/ui/text";
 import { appPort } from "../../app-port";
 import { useLayout } from "../../layout";
 import { usePlatform } from "../../platform";

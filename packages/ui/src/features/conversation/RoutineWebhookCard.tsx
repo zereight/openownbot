@@ -1,4 +1,4 @@
-import { Webhook } from "@openbot/ui";
+import { Webhook } from "@openownbot/ui";
 import { useText } from "../../text";
 import { ChatActionCard, type ChatActionCardStatus } from "./ChatActionCard";
 import { RoutineWebhookEndpoint, type RoutineWebhookEndpointProps } from "./RoutineWebhookEndpoint";

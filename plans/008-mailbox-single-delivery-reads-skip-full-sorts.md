@@ -95,10 +95,10 @@ There is no persistent index, so the 18 places that assign
   .map((delivery) => this.#publicDelivery(delivery, positions, this.#requireMessage(delivery.messageId, messages)))
   ```
 - `scripts/mailbox-queue-scale-e2e.ts` (153 lines): seeds 10,000 messages
-  through the real `MailboxStore` and `OpenBotDatabase` on a temporary profile;
+  through the real `MailboxStore` and `OpenOwnBotDatabase` on a temporary profile;
   2,000 deliveries go to `agent-a`, the first 1,000 are completed. It checks
   `listQueue` positions and times `listQueue` + `senderAgentIdsForRecipient`
-  (`timeQueueChanges`). It writes `.openbot-build/mailbox-queue-scale-e2e/report.json`.
+  (`timeQueueChanges`). It writes `.openownbot-build/mailbox-queue-scale-e2e/report.json`.
 
 ## Commands you will need
 
@@ -126,7 +126,7 @@ Do not run `bun run typecheck`, builds or full suites.
   Do not add a `deliveryStatus` method in this plan.
 - A persistent index or cache on `MailboxStore`. It would need invalidation at
   18 assignment sites and at each rollback; that is a separate decision.
-- `openbot-database.ts`, the mailbox SQL schema and migrations.
+- `openownbot-database.ts`, the mailbox SQL schema and migrations.
 - `forgetIdempotencyKeys` and `mailbox-projection.ts` (a separate finding).
 
 ## Git workflow

@@ -1,4 +1,4 @@
-import { INPUT_LIMITS } from "@openbot/contracts/input-limits";
+import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
 import type { JSX } from "@solidjs/web";
 import { Show } from "solid-js";
 import { useText } from "../../text";

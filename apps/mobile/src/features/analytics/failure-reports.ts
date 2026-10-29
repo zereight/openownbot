@@ -1,4 +1,4 @@
-import { LOCAL_ONLY } from "@openbot/contracts/local-only";
+import { LOCAL_ONLY } from "@openownbot/contracts/local-only";
 import {
   ANALYTICS_GENERATIONS,
   classifyFailure,
@@ -7,8 +7,8 @@ import {
   ReportQueue,
   type ReportStorage,
   telemetryIO,
-} from "@openbot/telemetry";
-import { errorReference } from "@openbot/user-errors";
+} from "@openownbot/telemetry";
+import { errorReference } from "@openownbot/user-errors";
 import { Effect } from "effect";
 import * as Application from "expo-application";
 import { randomUUID } from "expo-crypto";
@@ -32,7 +32,7 @@ const storage: ReportStorage = {
     telemetryIO(async () => {
       const { File, Paths } = await import("expo-file-system");
       const file = new File(Paths.document, "openbot-error-reports-v1.json");
-      const temporary = new File(Paths.document, "openbot-error-reports-v1.tmp");
+      const temporary = new File(Paths.document, "openownbot-error-reports-v1.tmp");
       await temporary.write(JSON.stringify(value));
       await temporary.move(file, { overwrite: true });
     }),

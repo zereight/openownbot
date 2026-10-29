@@ -127,7 +127,7 @@ Do not run `bun run typecheck`, builds or full suites.
 Create `scripts/team-session-end-e2e.ts`. Header comment: what it proves and
 `Run: bun scripts/team-session-end-e2e.ts`. Follow the shape of
 `scripts/mailbox-queue-scale-e2e.ts` (a `report` object, `try/finally`, write
-`.openbot-build/team-session-end-e2e/report.json`, `process.exitCode = 1` on failure).
+`.openownbot-build/team-session-end-e2e/report.json`, `process.exitCode = 1` on failure).
 
 The script calls the real `routeTeam` from `src/main/team-api/route-team.ts`
 with recording stand-ins:

@@ -4,7 +4,7 @@
 // not the running one, and a steer after the turn ended. A refused steer must fail alone: the running
 // turn goes on, so that the message can wait in the queue. Before the fix, Pi's refusal failed the
 // running turn while Pi went on working.
-// `bun run test:pi-steer`. Writes .openbot-build/pi-steer-e2e/report.json.
+// `bun run test:pi-steer`. Writes .openownbot-build/pi-steer-e2e/report.json.
 import assert from "node:assert/strict";
 import { mkdir, mkdtemp, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
@@ -15,7 +15,7 @@ import { type AppServerNotification, getRecord, getString, isRecord } from "../s
 import { requireProviderDriver } from "../src/backend/provider-drivers";
 import { installFakeAgent, readJsonl, startThread, stopClients } from "./provider-fakes/host";
 
-const OUT = resolve(import.meta.dirname, "../.openbot-build/pi-steer-e2e");
+const OUT = resolve(import.meta.dirname, "../.openownbot-build/pi-steer-e2e");
 const TURN_TIMEOUT_MS = 20_000;
 
 interface LogEntry {
@@ -37,7 +37,7 @@ interface Report {
   failure?: string;
 }
 
-const root = await mkdtemp(join(tmpdir(), "openbot-pi-steer-e2e-"));
+const root = await mkdtemp(join(tmpdir(), "openownbot-pi-steer-e2e-"));
 const report: Report = { passed: false };
 const clients: AgentClient[] = [];
 
@@ -177,7 +177,7 @@ try {
   };
 
   // Pi does not answer a steer in time, but queues it. The client removes it from Pi's queue, as the
-  // message also waits in OpenBot's queue. An earlier steer that Pi holds stays. The turn goes on.
+  // message also waits in OpenOwnBot's queue. An earlier steer that Pi holds stays. The turn goes on.
   const slow = await startWork(client, thread, log);
   const cleared = await count(log, "clear_queue");
   assert.equal(cleared, 0, "A refused steer queues nothing, so it must not clear Pi's queue.");

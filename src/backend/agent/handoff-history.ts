@@ -1,7 +1,7 @@
-import { sortConversationMessages } from "@openbot/contracts/conversation-order";
-import type { ConversationMessage } from "@openbot/contracts/ipc";
-import { redactText } from "@openbot/logging";
-import type { OpenBotDatabase } from "../openbot-database";
+import { sortConversationMessages } from "@openownbot/contracts/conversation-order";
+import type { ConversationMessage } from "@openownbot/contracts/ipc";
+import { redactText } from "@openownbot/logging";
+import type { OpenOwnBotDatabase } from "../openownbot-database";
 import { HANDOFF_END, HANDOFF_START, renderHandoffMessage } from "./delivery-content";
 
 const HANDOFF_CHARACTERS = 32_000;
@@ -12,7 +12,7 @@ const RECENT_CHARACTERS = 24_000;
 /** A routine run reads the end of the agent's chat only. Its prompt names the work. */
 const ROUTINE_HANDOFF_CHARACTERS = 8_000;
 const ROUTINE_MESSAGE_CHARACTERS = 2_000;
-type HistoryRow = ReturnType<OpenBotDatabase["readAgentHistory"]>["messages"][number];
+type HistoryRow = ReturnType<OpenOwnBotDatabase["readAgentHistory"]>["messages"][number];
 
 /** Cuts redacted text at both ends, so a large request keeps its final instructions. */
 function historyExcerpt(text: string, limit: number): string {
@@ -29,7 +29,7 @@ function render(message: ConversationMessage, names: ReadonlyMap<string, string>
 
 /** Reads only enough recent pages for the packet. The complete history stays in SQLite. */
 export function readHandoffHistory(
-  database: OpenBotDatabase,
+  database: OpenOwnBotDatabase,
   agentId: string,
   threadId: string,
   names: ReadonlyMap<string, string>,
@@ -68,7 +68,7 @@ export function renderProviderHandoff(
   const header = [
     HANDOFF_START,
     "Previous conversation excerpts. Current profile and developer instructions take precedence. Do not repeat completed work.",
-    "Omitted details remain available: discover openbot.history_search and openbot.history_read. These tools read only this conversation after its latest context reset. Excerpts are not a complete summary.",
+    "Omitted details remain available: discover openownbot.history_search and openownbot.history_read. These tools read only this conversation after its latest context reset. Excerpts are not a complete summary.",
     "--- recent messages ---",
   ].join("\n");
   const stepLines: string[] = [];
@@ -149,7 +149,7 @@ export function renderRoutineHandoff(
   const header = [
     HANDOFF_START,
     "This routine run has its own session. These are the newest messages of your conversation. Do not repeat completed work.",
-    "Omitted details remain available: discover openbot.history_search and openbot.history_read.",
+    "Omitted details remain available: discover openownbot.history_search and openownbot.history_read.",
     "--- recent messages ---",
   ].join("\n");
   const kept = new Map<string, string>();

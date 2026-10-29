@@ -10,10 +10,10 @@ import type {
   WorkflowRunDetail,
   WorkflowStep,
   WorkflowVersion,
-} from "@openbot/contracts/ipc";
-import { sourceText } from "@openbot/i18n/source";
-import type { WorkflowCatalogs } from "@openbot/ui/features/workflows/workflow-model";
-import type { WorkflowRunView } from "@openbot/ui/features/workflows/workflow-run-view";
+} from "@openownbot/contracts/ipc";
+import { sourceText } from "@openownbot/i18n/source";
+import type { WorkflowCatalogs } from "@openownbot/ui/features/workflows/workflow-model";
+import type { WorkflowRunView } from "@openownbot/ui/features/workflows/workflow-run-view";
 import { FILES_ROWS } from "./files-fixtures";
 import { STORY_AGENTS, STORY_MODELS, STORY_TEAM_MEMBERS } from "./fixtures";
 

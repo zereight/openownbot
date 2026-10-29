@@ -1,6 +1,6 @@
 /** An approval: a stop in the run that waits for the user. */
 
-import { Button, Check, CircleCheck, Textarea, UserCheck, X } from "@openbot/ui";
+import { Button, Check, CircleCheck, Textarea, UserCheck, X } from "@openownbot/ui";
 import { createSignal, Show, untrack } from "solid-js";
 import { useText } from "../../text";
 import { useBoard } from "./workflow-board";

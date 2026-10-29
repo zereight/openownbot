@@ -1,5 +1,5 @@
-import type { ChannelMember, ChannelTask } from "@openbot/contracts/ipc";
-import { Button, buttonVariants, ConfirmDialog, DropdownMenu } from "@openbot/ui";
+import type { ChannelMember, ChannelTask } from "@openownbot/contracts/ipc";
+import { Button, buttonVariants, ConfirmDialog, DropdownMenu } from "@openownbot/ui";
 import { createSignal, For, Show } from "solid-js";
 import { useText } from "../../text";
 

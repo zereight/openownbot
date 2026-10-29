@@ -1,9 +1,9 @@
-import type { SharedTable } from "@openbot/contracts/ipc";
-import type { AppTranslate } from "@openbot/i18n";
-import { Button, Dialog, IconButton, Trash2, X } from "@openbot/ui";
-import { createScrollFades } from "@openbot/ui/components/createScrollFades";
-import type { AgentProfile } from "@openbot/ui/data";
-import { useText } from "@openbot/ui/text";
+import type { SharedTable } from "@openownbot/contracts/ipc";
+import type { AppTranslate } from "@openownbot/i18n";
+import { Button, Dialog, IconButton, Trash2, X } from "@openownbot/ui";
+import { createScrollFades } from "@openownbot/ui/components/createScrollFades";
+import type { AgentProfile } from "@openownbot/ui/data";
+import { useText } from "@openownbot/ui/text";
 import { createEffect, createSignal, For, onSettled, Show } from "solid-js";
 import { conversationPort, type SharedTableCalls } from "./conversation-port";
 

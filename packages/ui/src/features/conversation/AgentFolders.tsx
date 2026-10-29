@@ -10,7 +10,7 @@ import {
   type AgentFolderCoverageReason,
   type AgentFolderList,
   agentFolderName,
-} from "@openbot/contracts/ipc";
+} from "@openownbot/contracts/ipc";
 import {
   Button,
   Folder,
@@ -23,8 +23,8 @@ import {
   toast,
   Upload,
   X,
-} from "@openbot/ui";
-import { SettingsLinkGroup, SettingsLinkRow } from "@openbot/ui/components/SettingsPanel";
+} from "@openownbot/ui";
+import { SettingsLinkGroup, SettingsLinkRow } from "@openownbot/ui/components/SettingsPanel";
 import { createSignal, createStore, For, onSettled, Show } from "solid-js";
 import { useText } from "../../text";
 

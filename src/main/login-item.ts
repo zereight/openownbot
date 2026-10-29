@@ -1,7 +1,7 @@
 import { readFile, rm } from "node:fs/promises";
 import { homedir } from "node:os";
 import { isAbsolute, join } from "node:path";
-import type { AppVariant } from "@openbot/contracts/ipc";
+import type { AppVariant } from "@openownbot/contracts/ipc";
 import { Effect, Schema } from "effect";
 import { app } from "electron";
 import { writeFileAtomically } from "../backend/atomic-json-file";
@@ -11,16 +11,16 @@ export class LoginItemFailure extends Schema.TaggedError<LoginItemFailure>()("Lo
   cause: Schema.Defect(),
 }) {}
 
-/** Whether the operating system opens OpenBot when the user signs in. The system holds the value. */
+/** Whether the operating system opens OpenOwnBot when the user signs in. The system holds the value. */
 export interface LoginItem {
   read: () => Effect.Effect<boolean, LoginItemFailure>;
   write: (enabled: boolean) => Effect.Effect<void, LoginItemFailure>;
-  /** Points an existing item at the running copy of OpenBot. Called once at start. */
+  /** Points an existing item at the running copy of OpenOwnBot. Called once at start. */
   refresh: () => Effect.Effect<void, LoginItemFailure>;
 }
 
 /**
- * Null where OpenBot must not open itself at login: a development run would register the Electron
+ * Null where OpenOwnBot must not open itself at login: a development run would register the Electron
  * binary with no app, and a server starts from its own service unit.
  */
 export function createLoginItem(options: { appVariant: AppVariant; server: boolean }): LoginItem | null {
@@ -30,7 +30,7 @@ export function createLoginItem(options: { appVariant: AppVariant; server: boole
   return linuxAutostartLoginItem({
     // The XDG Base Directory Specification ignores a relative path.
     configHome: configHome && isAbsolute(configHome) ? configHome : join(homedir(), ".config"),
-    fileName: options.appVariant === "production" ? "openbot.desktop" : `openbot-${options.appVariant}.desktop`,
+    fileName: options.appVariant === "production" ? "openownbot.desktop" : `openownbot-${options.appVariant}.desktop`,
     // The AppImage runtime names its own file here. `execPath` is inside the mount, which ends with the run.
     executablePath: process.env.APPIMAGE || process.execPath,
   });

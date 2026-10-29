@@ -4,14 +4,14 @@
 // It also checks the panels above the input: each panel goes under the next one, the lower panel
 // paints over the shared edge, and the top of each panel stays visible. The cards in the one stack
 // above the input sit flush, with one shared line between them, and fill the stack's width.
-// Writes .openbot-build/task-plan-e2e/report.json and one screenshot per story.
+// Writes .openownbot-build/task-plan-e2e/report.json and one screenshot per story.
 import assert from "node:assert/strict";
 import { mkdirSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
-import { translateFor } from "@openbot/i18n";
+import { translateFor } from "@openownbot/i18n";
 import { chromium, type Page } from "playwright-core";
 
-const OUT = resolve(import.meta.dirname, "../.openbot-build/task-plan-e2e");
+const OUT = resolve(import.meta.dirname, "../.openownbot-build/task-plan-e2e");
 const t = translateFor("en");
 const storybook = process.argv.find((arg) => arg.startsWith("--storybook="))?.slice("--storybook=".length);
 assert.ok(storybook, "Pass --storybook=<url> with the URL that `bun run storybook` reports.");

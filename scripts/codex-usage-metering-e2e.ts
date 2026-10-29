@@ -6,19 +6,19 @@
 // request of 250,000 input tokens (short-context price), one of 300,000 (long-context price), and a
 // chat session that the counter before this change counted (its first update records only its own
 // request).
-// `bun scripts/codex-usage-metering-e2e.ts`. Writes .openbot-build/codex-usage-metering-e2e/report.json.
+// `bun scripts/codex-usage-metering-e2e.ts`. Writes .openownbot-build/codex-usage-metering-e2e/report.json.
 import assert from "node:assert/strict";
 import { mkdirSync, writeFileSync } from "node:fs";
 import { mkdtemp, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import { DatabaseSync } from "node:sqlite";
-import { AGENT_PROVIDERS, decodeUsageTokens, type UsageTokens } from "@openbot/contracts/ipc";
+import { AGENT_PROVIDERS, decodeUsageTokens, type UsageTokens } from "@openownbot/contracts/ipc";
 import { Effect } from "effect";
 import type { AgentBrowserHost } from "../src/backend/agent/turn-lifecycle";
 
-const OUT = resolve(import.meta.dirname, "../.openbot-build/codex-usage-metering-e2e");
-const root = await mkdtemp(join(tmpdir(), "openbot-usage-metering-"));
+const OUT = resolve(import.meta.dirname, "../.openownbot-build/codex-usage-metering-e2e");
+const root = await mkdtemp(join(tmpdir(), "openownbot-usage-metering-"));
 const userData = join(root, "user-data");
 const home = join(root, "home");
 const fakeCodex = join(root, "codex");
@@ -26,14 +26,14 @@ const fakeCodex = join(root, "codex");
 // Before the service modules load: the Codex process and the stores read the home folder.
 process.env.HOME = home;
 process.env.CODEX_HOME = join(home, ".codex");
-process.env.OPENBOT_CODEX_PATH = fakeCodex;
+process.env.OPENOWNBOT_CODEX_PATH = fakeCodex;
 mkdirSync(home, { recursive: true });
 
 const { AgentService } = await import("../src/backend/agent-service");
 const { AgentStore } = await import("../src/backend/agent-store");
 const { runCauseEffect } = await import("../src/backend/effect-boundary");
 const { MailboxStore } = await import("../src/backend/mailbox-store");
-const { OpenBotDatabase } = await import("../src/backend/openbot-database");
+const { OpenOwnBotDatabase } = await import("../src/backend/openownbot-database");
 
 /**
  * A Codex app-server with the methods that the service calls. Each request reuses the prompt of the
@@ -201,7 +201,7 @@ async function waitFor<T>(label: string, read: () => T | null | undefined | fals
 }
 
 await writeFile(fakeCodex, FAKE_CODEX, { mode: 0o755 });
-const database = new OpenBotDatabase(userData);
+const database = new OpenOwnBotDatabase(userData);
 const store = new AgentStore(userData, home, database);
 const mailbox = new MailboxStore(userData, store.sharedRoot, store.database);
 const agents = new AgentService({

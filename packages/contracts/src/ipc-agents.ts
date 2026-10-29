@@ -252,12 +252,12 @@ export interface AgentSummary {
   /**
    * The named browser profile that the tabs of the agent use. Local-only, like `access`. It comes
    * before `ownBrowserSession`; see `agentBrowserProfile`. The agent store also sets
-   * `ownBrowserSession` with it, so an older OpenBot opens the agent's own session, never the shared one.
+   * `ownBrowserSession` with it, so an older OpenOwnBot opens the agent's own session, never the shared one.
    */
   browserProfileId?: string;
   /**
    * Whether the agent asks Codex for the fast service tier of its model. Local-only, like `access`.
-   * Absent means that OpenBot leaves the tier to Codex.
+   * Absent means that OpenOwnBot leaves the tier to Codex.
    */
   fastMode?: boolean;
   /**
@@ -314,7 +314,7 @@ export function isAgentSummary(value: unknown): value is AgentSummary {
 }
 
 /**
- * An agent that a client reads from a host. A newer host can run it on a provider that this OpenBot
+ * An agent that a client reads from a host. A newer host can run it on a provider that this OpenOwnBot
  * does not know; the agent stays listed, and its chat works because the host runs it.
  */
 export type ClientAgentSummary = Omit<AgentSummary, "provider"> & { provider: AgentProviderRef };

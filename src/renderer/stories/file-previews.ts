@@ -1,4 +1,4 @@
-import type { FilePreview } from "@openbot/contracts/ipc";
+import type { FilePreview } from "@openownbot/contracts/ipc";
 import { strToU8, zipSync } from "fflate";
 import { INLINE_SVG_CHART } from "./chat-visual-fixtures";
 
@@ -21,7 +21,7 @@ const filePreview = (
 
 const MARKDOWN = `# Release notes
 
-OpenBot keeps workspaces, conversations, and attachments on **your** computer.
+OpenOwnBot keeps workspaces, conversations, and attachments on **your** computer.
 
 ## What is new
 
@@ -94,7 +94,7 @@ const SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200" width
 // the cross-reference table must give the byte position of its object, so the table
 // is built after the objects. All bytes are ASCII: a string index is a byte offset.
 const buildPdf = () => {
-  const stream = "BT /F1 18 Tf 24 150 Td (OpenBot file preview) Tj ET";
+  const stream = "BT /F1 18 Tf 24 150 Td (OpenOwnBot file preview) Tj ET";
   const objects = [
     "<< /Type /Catalog /Pages 2 0 R >>",
     "<< /Type /Pages /Kids [3 0 R] /Count 1 >>",

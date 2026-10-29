@@ -14,16 +14,16 @@
 //   6. Analytics: each window's OpenPanel requests are captured. The pane, turn and spoken reply
 //      events arrive with their metadata, and no request holds what the user said.
 // Start the harness with the capture address, then run the script with `--allow-mutations`:
-//   OPENBOT_ANALYTICS_CAPTURE_URL=http://localhost:47322 bun run dev:test-client
+//   OPENOWNBOT_ANALYTICS_CAPTURE_URL=http://localhost:47322 bun run dev:test-client
 //   bun scripts/voice-pane-e2e.ts --allow-mutations
-// Writes .openbot-build/voice-pane/report.json and screenshots.
+// Writes .openownbot-build/voice-pane/report.json and screenshots.
 import assert from "node:assert/strict";
 import { mkdirSync, readdirSync, writeFileSync } from "node:fs";
 import { homedir } from "node:os";
 import { join, resolve } from "node:path";
-import type { OpenBotDesktopApi, StoredFileRow } from "@openbot/contracts/ipc";
-import { createOpenBotLogger } from "@openbot/logging";
-import { ANALYTICS_GENERATIONS } from "@openbot/telemetry";
+import type { OpenOwnBotDesktopApi, StoredFileRow } from "@openownbot/contracts/ipc";
+import { createOpenOwnBotLogger } from "@openownbot/logging";
+import { ANALYTICS_GENERATIONS } from "@openownbot/telemetry";
 import type { Page } from "playwright-core";
 import { z } from "zod";
 import { assertMutationAllowed, connectToDevApp } from "./dev-automation/cdp-client";
@@ -31,12 +31,12 @@ import { type DevInstanceRecord, readDevInstanceRecords } from "./dev-automation
 
 declare global {
   interface Window {
-    openbot: OpenBotDesktopApi;
+    openownbot: OpenOwnBotDesktopApi;
     voicePaneE2E?: { arm: (streams?: number) => void; calls: () => number; liveTracks: () => number };
   }
 }
 
-const OUT = resolve(import.meta.dirname, "../.openbot-build/voice-pane");
+const OUT = resolve(import.meta.dirname, "../.openownbot-build/voice-pane");
 const AGENT = "Chief";
 const AGENT_ID = "chief";
 const QUESTION = "What is two plus two? Answer in five words or fewer.";
@@ -65,7 +65,7 @@ for (const record of [hostRecord, clientRecord])
     target: record.instanceId,
   });
 
-const logger = createOpenBotLogger("voice-pane-e2e");
+const logger = createOpenOwnBotLogger("voice-pane-e2e");
 const connect = (record: DevInstanceRecord) =>
   connectToDevApp(record.remoteDebuggingPort, logger, {
     expectedRendererPort: record.rendererPort,
@@ -110,7 +110,7 @@ const check = (name: string, passed: boolean, detail: unknown = null) => {
 /** A fake microphone. `arm(n)` makes each of the next `n` streams say the question once; others are silent. */
 async function installMicrophone(page: Page): Promise<void> {
   await page.evaluate(async (text) => {
-    const speech = await window.openbot.voice.speak({ text, language: "en" });
+    const speech = await window.openownbot.voice.speak({ text, language: "en" });
     const context = new AudioContext();
     const samples = new Int16Array(speech.pcm.buffer, speech.pcm.byteOffset, speech.pcm.byteLength / 2);
     const buffer = context.createBuffer(1, samples.length, speech.sampleRate);
@@ -146,11 +146,11 @@ async function installMicrophone(page: Page): Promise<void> {
 
 /** Answers the window's OpenPanel requests in the page and keeps each event. */
 async function captureAnalytics(page: Page, window: AnalyticsEvent["window"]): Promise<void> {
-  const info = await page.evaluate(() => globalThis.window.openbot.getAppInfo());
+  const info = await page.evaluate(() => globalThis.window.openownbot.getAppInfo());
   assert.equal(
     info.analyticsCaptureUrl,
     ANALYTICS_URL,
-    `Start the harness with OPENBOT_ANALYTICS_CAPTURE_URL=${ANALYTICS_URL} bun run dev:test-client.`,
+    `Start the harness with OPENOWNBOT_ANALYTICS_CAPTURE_URL=${ANALYTICS_URL} bun run dev:test-client.`,
   );
   await page.route(`${ANALYTICS_URL}/**`, async (route) => {
     const body = route.request().postData() ?? "";
@@ -276,7 +276,7 @@ async function speakOneTurn(page: Page, name: string) {
 }
 
 async function hostFiles(): Promise<StoredFileRow[]> {
-  const usage = await host.evaluate(() => window.openbot.storage.getUsage({ scope: "host", force: true }, "local"));
+  const usage = await host.evaluate(() => window.openownbot.storage.getUsage({ scope: "host", force: true }, "local"));
   return usage?.files ?? [];
 }
 
@@ -352,11 +352,11 @@ try {
   );
 
   // 2. Remote.
-  const remote = (await client.evaluate(() => window.openbot.servers.list())).find(
+  const remote = (await client.evaluate(() => window.openownbot.servers.list())).find(
     (server) => server.kind === "remote" && server.state === "online",
   );
   assert.ok(remote, "The test client has no online remote server.");
-  await client.evaluate((id) => window.openbot.servers.select(id), remote.id);
+  await client.evaluate((id) => window.openownbot.servers.select(id), remote.id);
   await openAgent(client);
   const draftsBefore = draftEntries(clientRecord);
   await openVoicePane(client);
@@ -382,12 +382,12 @@ try {
     // A Storage row has a message id only for a thread placement, so find the message by its recording.
     const page = await host.evaluate(
       (id) =>
-        window.openbot.agent.readConversationPage({ agentId: id, anchor: { type: "latest" }, limit: 20 }, "local"),
+        window.openownbot.agent.readConversationPage({ agentId: id, anchor: { type: "latest" }, limit: 20 }, "local"),
       AGENT_ID,
     );
     const message = page.messages.find((candidate) => candidate.voiceRecording?.id === recording.id);
     check("storage: the recording belongs to the spoken message", message !== undefined, recording.id);
-    await host.evaluate((fileId) => window.openbot.storage.deleteFile({ fileId }, "local"), recording.id);
+    await host.evaluate((fileId) => window.openownbot.storage.deleteFile({ fileId }, "local"), recording.id);
     const listed = (await hostFiles()).some((file) => file.id === recording.id);
     check("storage: the deleted recording is no longer listed", !listed);
     const url = recording.previewUrl;
@@ -452,7 +452,7 @@ try {
   // through a local API port that a restarted host does not open again, so the client stays
   // disconnected after this case, and the return to online is not checked here.
   await client.getByText("Listening", { exact: true }).first().waitFor();
-  await host.evaluate(() => window.openbot.host.stop());
+  await host.evaluate(() => window.openownbot.host.stop());
   hostStopped = true;
   const offlineText = "The server is not connected. The conversation continues when it connects again.";
   await client.locator(".voice-panel-error", { hasText: offlineText }).waitFor({ timeout: 60_000 });
@@ -469,7 +469,7 @@ try {
     offline.phase === "Not connected" && offline.liveTracks === 0,
     offline,
   );
-  await host.evaluate(() => window.openbot.host.start());
+  await host.evaluate(() => window.openownbot.host.start());
   hostStopped = false;
   const later = await client.evaluate(() => ({
     calls: window.voicePaneE2E?.calls() ?? -1,
@@ -502,7 +502,7 @@ try {
     versions,
   );
 } finally {
-  if (hostStopped) await host.evaluate(() => window.openbot.host.start()).catch(() => undefined);
+  if (hostStopped) await host.evaluate(() => window.openownbot.host.start()).catch(() => undefined);
   writeFileSync(join(OUT, "report.json"), `${JSON.stringify(report, null, 2)}\n`);
   await hostSession.close();
   await clientSession.close();

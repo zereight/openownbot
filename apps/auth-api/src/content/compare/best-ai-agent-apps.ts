@@ -6,18 +6,18 @@ import { BENCHMARK_SOURCES, type RoundupComparison } from "./comparison";
 // official home or pricing page of each app. The benchmark numbers are read by hand
 // from the Artificial Analysis Coding Agent Index.
 
-const OPENBOT = "https://github.com/nightly-labs/openbot";
+const OPENOWNBOT = "https://github.com/zereight/openownbot";
 
 export const BEST_AI_AGENT_APPS: RoundupComparison = {
   kind: "roundup",
   answer:
-    "For one coding agent on one AI plan, pick Claude Code, Codex, Cursor or Antigravity. For an agent that keeps working with your computer off, pick a cloud agent like Devin, Manus, Claude Cowork or ChatGPT dots. If you want several of these agents working together on your own computer, with plans you already pay for, that's what we built OpenBot for.",
+    "For one coding agent on one AI plan, pick Claude Code, Codex, Cursor or Antigravity. For an agent that keeps working with your computer off, pick a cloud agent like Devin, Manus, Claude Cowork or ChatGPT dots. If you want several of these agents working together on your own computer, with plans you already pay for, that's what we built OpenOwnBot for.",
   intro:
-    "An AI agent app gives a model tools. It reads and writes files, runs commands, browses the web and keeps going until the task is done. The apps below differ in three ways: where the agent works (your computer or someone else's), which models it uses and who you pay for them, and how many agents can work together. After OpenBot, the list runs from coding agents to personal assistants. It's not a ranking.",
+    "An AI agent app gives a model tools. It reads and writes files, runs commands, browses the web and keeps going until the task is done. The apps below differ in three ways: where the agent works (your computer or someone else's), which models it uses and who you pay for them, and how many agents can work together. After OpenOwnBot, the list runs from coding agents to personal assistants. It's not a ranking.",
   apps: [
     {
-      name: "OpenBot",
-      mark: "openbot",
+      name: "OpenOwnBot",
+      mark: "openownbot",
       comparisons: [],
       bestFor: "A team of agents on your own computer, with the AI plans you already pay for.",
       runsOn: "Your computer. Apps for macOS, Windows, Linux, iPhone and Android, and a web app.",
@@ -25,7 +25,7 @@ export const BEST_AI_AGENT_APPS: RoundupComparison = {
         "Your ChatGPT, Claude, Gemini, Grok, Cursor, Cline or Muse Code plan, free models, Inception's Mercury models, your own model, or any ACP agent.",
       price: "Free for noncommercial use. Hosted EU server from €20 or $25 a month.",
       summary:
-        "OpenBot runs Codex, Claude Code, Antigravity, Grok CLI, Cursor CLI, Cline, OpenCode, Pi, Muse Code and custom ACP agents as one team on your computer. Each agent gets a job, and they pass work to each other in shared channels. When a plan hits its limit, an agent can move to a backup model on another provider. You follow along from the iPhone and Android apps or the web app, no VPN needed, and agents answer in Slack, Discord and Telegram too. Workspaces, chats and files stay in a database on your computer.",
+        "OpenOwnBot runs Codex, Claude Code, Antigravity, Grok CLI, Cursor CLI, Cline, OpenCode, Pi, Muse Code and custom ACP agents as one team on your computer. Each agent gets a job, and they pass work to each other in shared channels. When a plan hits its limit, an agent can move to a backup model on another provider. You follow along from the iPhone and Android apps or the web app, no VPN needed, and agents answer in Slack, Discord and Telegram too. Workspaces, chats and files stay in a database on your computer.",
     },
     {
       name: "Claude Code",
@@ -157,12 +157,12 @@ export const BEST_AI_AGENT_APPS: RoundupComparison = {
       models: "Muse Spark, Meta's own model.",
       price: "Free with a weekly limit. $20 or $100 a month.",
       summary:
-        "Meta's personal agent keeps working after you close the app. You reach it in its iPhone, Android and Mac apps, on the web, or in WhatsApp. It's only for adults (18+) in the US and Canada. OpenBot runs Muse Code, Meta's coding agent, not this app.",
+        "Meta's personal agent keeps working after you close the app. You reach it in its iPhone, Android and Mac apps, on the web, or in WhatsApp. It's only for adults (18+) in the US and Canada. OpenOwnBot runs Muse Code, Meta's coding agent, not this app.",
     },
   ],
   benchmark: {
     takeaway:
-      "Four apps on this list are coding agents that Artificial Analysis tests. The best runs of Claude Code, Codex and Devin land between 62 and 68. Antigravity gets 64 only with a model that isn't public yet, and 42 with its default. Cost per task varies far more than score: from $1.04 for Codex to $14.19 for Claude Code. OpenBot isn't on the index. It runs these agents rather than competing with them.",
+      "Four apps on this list are coding agents that Artificial Analysis tests. The best runs of Claude Code, Codex and Devin land between 62 and 68. Antigravity gets 64 only with a model that isn't public yet, and 42 with its default. Cost per task varies far more than score: from $1.04 for Codex to $14.19 for Claude Code. OpenOwnBot isn't on the index. It runs these agents rather than competing with them.",
     rows: [
       {
         agent: "claude-code",
@@ -206,25 +206,25 @@ export const BEST_AI_AGENT_APPS: RoundupComparison = {
     {
       question: "What is the best AI agent app?",
       answer:
-        "Depends where you want the agent to work and which AI plan you pay for. For coding with one model family, it's Claude Code, Codex, Cursor or Antigravity. On the Artificial Analysis index, Claude Code scores highest and Codex costs least per task. For an agent that works while your computer is off, Devin, Manus, Claude Cowork and ChatGPT dots run in the cloud. OpenBot runs several coding agents as one team on your own computer.",
+        "Depends where you want the agent to work and which AI plan you pay for. For coding with one model family, it's Claude Code, Codex, Cursor or Antigravity. On the Artificial Analysis index, Claude Code scores highest and Codex costs least per task. For an agent that works while your computer is off, Devin, Manus, Claude Cowork and ChatGPT dots run in the cloud. OpenOwnBot runs several coding agents as one team on your own computer.",
     },
     {
       question: "Which AI agent apps are free?",
       answer:
-        "OpenBot is free for noncommercial use, and OpenClaw and Hermes Agent are free under the MIT License. With all three, you still pay your model provider. Cursor, Antigravity, Devin, Manus and Muse have free plans. Codex comes with ChatGPT Free and Go, but only with GPT-6 Luna in the desktop app and no cloud tasks. Claude Code, Claude Cowork and ChatGPT dots need a paid plan.",
+        "OpenOwnBot is free for noncommercial use, and OpenClaw and Hermes Agent are free under the MIT License. With all three, you still pay your model provider. Cursor, Antigravity, Devin, Manus and Muse have free plans. Codex comes with ChatGPT Free and Go, but only with GPT-6 Luna in the desktop app and no cloud tasks. Claude Code, Claude Cowork and ChatGPT dots need a paid plan.",
     },
     {
       question: "Which AI agents run on my own computer?",
       answer:
-        "OpenBot, OpenClaw and Hermes Agent run on a computer you choose. Claude Code, Codex, Cursor and Antigravity run on your computer, and most also have a cloud option. ChatGPT dots, Manus, Muse, Grok Bot and Devin can use your computer too, but they work on a cloud computer by default.",
+        "OpenOwnBot, OpenClaw and Hermes Agent run on a computer you choose. Claude Code, Codex, Cursor and Antigravity run on your computer, and most also have a cloud option. ChatGPT dots, Manus, Muse, Grok Bot and Devin can use your computer too, but they work on a cloud computer by default.",
     },
     {
       question: "Can I use more than one AI agent at a time?",
       answer:
-        "Yes. In OpenBot, Codex, Claude Code, Antigravity, Grok CLI, Cursor CLI, Cline, OpenCode, Pi and Muse Code work as agents on one team. Each one uses your own plan for its provider, and they hand work to each other in shared channels.",
+        "Yes. In OpenOwnBot, Codex, Claude Code, Antigravity, Grok CLI, Cursor CLI, Cline, OpenCode, Pi and Muse Code work as agents on one team. Each one uses your own plan for its provider, and they hand work to each other in shared channels.",
     },
     {
-      question: "Why is OpenBot first on this list?",
+      question: "Why is OpenOwnBot first on this list?",
       answer:
         "Because we make it. Every other entry links to a comparison with its sources and the date we checked them.",
     },
@@ -247,8 +247,8 @@ export const BEST_AI_AGENT_APPS: RoundupComparison = {
     { label: "Grok Bot overview", url: "https://docs.x.ai/grok-bot/overview" },
     { label: "Meta: Introducing Muse", url: "https://about.fb.com/news/2026/09/introducing-muse-personal-ai-agent/" },
     { label: "Muse subscription plans", url: "https://www.meta.com/help/subscriptions/1021145227643680/" },
-    { label: "OpenBot privacy notes", url: `${OPENBOT}/blob/main/PRIVACY.md` },
-    { label: "OpenBot source code", url: OPENBOT },
+    { label: "OpenOwnBot privacy notes", url: `${OPENOWNBOT}/blob/main/PRIVACY.md` },
+    { label: "OpenOwnBot source code", url: OPENOWNBOT },
     ...BENCHMARK_SOURCES,
   ],
   checkedAt: "2026-10-03",

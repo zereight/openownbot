@@ -7,7 +7,7 @@ export const messages = {
   "error.kind.storage":
     "Za mało miejsca na dysku. Zwolnij miejsce na komputerze, na którym działa OpenOwnBot, a potem spróbuj ponownie.",
   "error.kind.filePermission":
-    "OpenBot nie ma uprawnień do wykonania tego działania. Sprawdź uprawnienia pliku lub folderu, a potem spróbuj ponownie.",
+    "OpenOwnBot nie ma uprawnień do wykonania tego działania. Sprawdź uprawnienia pliku lub folderu, a potem spróbuj ponownie.",
   "error.kind.notFound":
     "Nie znaleziono wymaganego pliku lub folderu. Przywróć go lub wybierz inny, a potem spróbuj ponownie.",
   "error.kind.readOnly": "Ten folder jest tylko do odczytu. Wybierz folder z prawem zapisu, a potem spróbuj ponownie.",

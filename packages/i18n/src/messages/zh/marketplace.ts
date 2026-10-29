@@ -188,7 +188,7 @@ export const messages = {
   "marketplace.plugin.paper.prompt.tokens": "列出打开的 Paper 文件中的设计 token，并与我们的主题对比。",
   "marketplace.plugin.appleApps.tagline": "Mac 上的邮件、日历等",
   "marketplace.plugin.appleApps.description":
-    "Apple apps 让助手使用这台 Mac 上的邮件、日历、通讯录、提醒事项、备忘录、信息和 Safari。它仅适用于 macOS。OpenBot 会启动 mcp-icloud，这是一个社区服务器，不是 Apple 或 OpenBot 制作的。该服务器在这台电脑上通过 AppleScript 控制这些应用，不需要账号和密钥。助手第一次使用某个应用时，macOS 会询问是否允许 OpenBot 控制它。如需之后更改，打开系统设置 › 隐私与安全性 › 自动化。助手可以发送邮件和 iMessage，并修改或删除日程、联系人和提醒事项，因此请在批准前检查每次写入。工具读取的内容（例如邮件正文）会发送给助手的模型提供商。",
+    "Apple apps 让助手使用这台 Mac 上的邮件、日历、通讯录、提醒事项、备忘录、信息和 Safari。它仅适用于 macOS。OpenOwnBot 会启动 mcp-icloud，这是一个社区服务器，不是 Apple 或 OpenOwnBot 制作的。该服务器在这台电脑上通过 AppleScript 控制这些应用，不需要账号和密钥。助手第一次使用某个应用时，macOS 会询问是否允许 OpenOwnBot 控制它。如需之后更改，打开系统设置 › 隐私与安全性 › 自动化。助手可以发送邮件和 iMessage，并修改或删除日程、联系人和提醒事项，因此请在批准前检查每次写入。工具读取的内容（例如邮件正文）会发送给助手的模型提供商。",
   "marketplace.plugin.appleApps.app":
     "通过本地 mcp-icloud 服务器使用邮件、日历、通讯录、提醒事项、备忘录、信息和 Safari。需要 macOS 和自动化权限。",
   "marketplace.plugin.appleApps.prompt.unread": "总结我今天在 Apple 邮件中的未读邮件。",

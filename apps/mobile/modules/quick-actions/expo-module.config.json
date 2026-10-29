@@ -5,6 +5,6 @@
     "appDelegateSubscribers": ["QuickActionsAppDelegateSubscriber"]
   },
   "android": {
-    "modules": ["run.openbot.quickactions.QuickActionsModule"]
+    "modules": ["run.openownbot.quickactions.QuickActionsModule"]
   }
 }

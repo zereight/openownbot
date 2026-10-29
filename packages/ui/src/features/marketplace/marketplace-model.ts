@@ -7,8 +7,8 @@ import type {
   MarketplaceSkillSummary,
   McpServerConfig,
   SkillCategory,
-} from "@openbot/contracts/ipc";
-import type { McpConnectFlow } from "@openbot/contracts/mcp-connect-flows";
+} from "@openownbot/contracts/ipc";
+import type { McpConnectFlow } from "@openownbot/contracts/mcp-connect-flows";
 import type { ConnectorDetail } from "../connectors/ConnectorDetailPanel";
 import type { ConnectorId } from "../connectors/connectors";
 import type {

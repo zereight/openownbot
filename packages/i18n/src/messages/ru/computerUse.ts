@@ -9,7 +9,7 @@ export const messages = {
   "computerUse.permission.accessibility.description": "Позволяет OpenOwnBot нажимать и печатать.",
   "computerUse.permission.accessibility.pane": "Универсальный доступ",
   "computerUse.error.check": "OpenOwnBot не смог проверить управление компьютером.",
-  "computerUse.error.openSettings": "OpenBot не смог открыть «Системные настройки».",
+  "computerUse.error.openSettings": "OpenOwnBot не смог открыть «Системные настройки».",
   "computerUse.error.startDriver": "OpenOwnBot не смог запустить драйвер управления компьютером.",
   "computerUse.checkAgain": "Проверить снова",
   "computerUse.checking": "Проверка управления компьютером",

@@ -26,7 +26,7 @@ export const COBRAIN_PLUGIN_GUIDE: PluginGuide = {
     {
       question: "Does the Cobrain MCP server need an API key?",
       answer:
-        "No. You sign in with your Cobrain account. Cobrain shows what OpenBot can read and write before you approve, and then gives an OAuth grant that expires and renews itself. OpenBot keeps the tokens in encrypted storage. You can revoke the connection on the Cobrain Connections page.",
+        "No. You sign in with your Cobrain account. Cobrain shows what OpenOwnBot can read and write before you approve, and then gives an OAuth grant that expires and renews itself. OpenOwnBot keeps the tokens in encrypted storage. You can revoke the connection on the Cobrain Connections page.",
     },
     {
       question: "What can an agent do in my Cobrain brain?",
@@ -36,7 +36,7 @@ export const COBRAIN_PLUGIN_GUIDE: PluginGuide = {
     {
       question: "Where does Cobrain keep my notes?",
       answer:
-        "Cobrain encrypts note text, versions and attachments with a key for each brain, held in AWS KMS. The data is in Ireland. Names, paths, tags and dates stay readable. Cobrain says this is not end-to-end encryption. Your OpenBot workspaces, conversations and files stay on the computer that runs OpenBot.",
+        "Cobrain encrypts note text, versions and attachments with a key for each brain, held in AWS KMS. The data is in Ireland. Names, paths, tags and dates stay readable. Cobrain says this is not end-to-end encryption. Your OpenOwnBot workspaces, conversations and files stay on the computer that runs OpenOwnBot.",
     },
     {
       question: "Does Cobrain cost anything?",

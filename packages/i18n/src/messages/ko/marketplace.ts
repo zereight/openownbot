@@ -178,7 +178,7 @@ export const messages = {
   "marketplace.plugin.paper.prompt.tokens": "열려 있는 Paper 파일의 디자인 토큰을 나열하고 우리 테마와 비교해 줘.",
   "marketplace.plugin.appleApps.tagline": "Mac의 Mail, 캘린더 등",
   "marketplace.plugin.appleApps.description":
-    "Apple apps를 사용하면 에이전트가 이 Mac의 Mail, 캘린더, 연락처, 미리 알림, 메모, 메시지, Safari를 사용할 수 있어요. macOS에서만 작동해요. OpenBot은 mcp-icloud를 시작해요. Apple이나 OpenBot이 만들지 않은 커뮤니티 서버예요. 서버는 이 컴퓨터에서 AppleScript로 앱을 제어하며, 계정이나 키가 필요 없어요. 에이전트가 앱을 처음 사용하면 macOS가 OpenBot이 그 앱을 제어해도 되는지 물어요. 나중에 바꾸려면 시스템 설정 › 개인정보 보호 및 보안 › 자동화를 여세요. 에이전트는 이메일과 iMessage를 보내고 이벤트, 연락처, 미리 알림을 변경하거나 삭제할 수 있으니, 승인하기 전에 각 쓰기를 확인하세요. 이메일 본문처럼 도구가 읽은 내용은 에이전트의 모델 제공자에게 전송돼요.",
+    "Apple apps를 사용하면 에이전트가 이 Mac의 Mail, 캘린더, 연락처, 미리 알림, 메모, 메시지, Safari를 사용할 수 있어요. macOS에서만 작동해요. OpenOwnBot은 mcp-icloud를 시작해요. Apple이나 OpenOwnBot이 만들지 않은 커뮤니티 서버예요. 서버는 이 컴퓨터에서 AppleScript로 앱을 제어하며, 계정이나 키가 필요 없어요. 에이전트가 앱을 처음 사용하면 macOS가 OpenOwnBot이 그 앱을 제어해도 되는지 물어요. 나중에 바꾸려면 시스템 설정 › 개인정보 보호 및 보안 › 자동화를 여세요. 에이전트는 이메일과 iMessage를 보내고 이벤트, 연락처, 미리 알림을 변경하거나 삭제할 수 있으니, 승인하기 전에 각 쓰기를 확인하세요. 이메일 본문처럼 도구가 읽은 내용은 에이전트의 모델 제공자에게 전송돼요.",
   "marketplace.plugin.appleApps.app":
     "Mail, 캘린더, 연락처, 미리 알림, 메모, 메시지, Safari를 로컬 mcp-icloud 서버로 사용해요. macOS와 자동화 권한이 필요해요.",
   "marketplace.plugin.appleApps.prompt.unread": "Apple Mail에서 오늘 읽지 않은 이메일을 요약해 줘.",

@@ -4,6 +4,6 @@
     "modules": ["ComposerPasteModule"]
   },
   "android": {
-    "modules": ["run.openbot.composerpaste.ComposerPasteModule"]
+    "modules": ["run.openownbot.composerpaste.ComposerPasteModule"]
   }
 }

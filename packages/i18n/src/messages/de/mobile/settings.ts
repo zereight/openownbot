@@ -115,7 +115,7 @@ export const messages = {
     "Zeigt den Anfang einer Antwort, eine Frage oder die zu genehmigende Aktion. Google und der OpenOwnBot-Kontodienst können sie nicht lesen.",
   "mobile.settings.notifications.sound": "Ton",
   "mobile.settings.notifications.playSound": "Ton abspielen",
-  "mobile.settings.notifications.sound.openbot": "OpenBot",
+  "mobile.settings.notifications.sound.openownbot": "OpenOwnBot",
   "mobile.settings.notifications.sound.warm": "Warm",
   "mobile.settings.notifications.sound.mech": "Mechanisch",
   "mobile.settings.notifications.sound.bubble": "Blubbernd",

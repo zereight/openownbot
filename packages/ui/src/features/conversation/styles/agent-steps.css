@@ -6,7 +6,7 @@
 .agent-activity-body {
   min-height: 0;
   overflow: clip;
-  overflow-clip-margin: var(--openbot-space-3);
+  overflow-clip-margin: var(--openownbot-space-3);
 }
 
 .agent-activity-entry[data-state="exiting"] .agent-activity-body {
@@ -21,7 +21,7 @@
 
 .agent-activity-content .agent-steps-toggle {
   flex: 0 0 auto;
-  color: var(--openbot-text-muted);
+  color: var(--openownbot-text-muted);
 }
 
 /* The open list is not a lit toggle, so the chevron has no fill. */
@@ -30,15 +30,15 @@
 }
 
 .agent-activity-steps {
-  padding: 0 0 var(--openbot-space-2) var(--openbot-space-6);
+  padding: 0 0 var(--openownbot-space-2) var(--openownbot-space-6);
 }
 
 .agent-steps-chevron {
-  width: var(--openbot-icon-xs);
-  height: var(--openbot-icon-xs);
+  width: var(--openownbot-icon-xs);
+  height: var(--openownbot-icon-xs);
   flex: 0 0 auto;
-  color: var(--openbot-text-muted);
-  transition: rotate var(--openbot-duration-fast) var(--openbot-ease-out);
+  color: var(--openownbot-text-muted);
+  transition: rotate var(--openownbot-duration-fast) var(--openownbot-ease-out);
 }
 
 .agent-steps-toggle[aria-expanded="true"] .agent-steps-chevron {
@@ -53,7 +53,7 @@
 .agent-steps {
   display: grid;
   justify-items: start;
-  margin-bottom: var(--openbot-space-1);
+  margin-bottom: var(--openownbot-space-1);
 }
 
 /* The row looks like the header of the subagents above it. */
@@ -63,14 +63,14 @@
   min-width: 0;
   max-width: 100%;
   align-items: center;
-  gap: var(--openbot-space-2);
-  margin-left: calc(-1 * var(--openbot-space-1-5));
-  border-radius: var(--openbot-radius-sm);
-  padding: var(--openbot-space-0-5) var(--openbot-space-1-5);
+  gap: var(--openownbot-space-2);
+  margin-left: calc(-1 * var(--openownbot-space-1-5));
+  border-radius: var(--openownbot-radius-sm);
+  padding: var(--openownbot-space-0-5) var(--openownbot-space-1-5);
   color: inherit;
-  font-size: var(--openbot-text-md);
-  font-weight: var(--openbot-weight-regular);
-  line-height: var(--openbot-leading-md);
+  font-size: var(--openownbot-text-md);
+  font-weight: var(--openownbot-weight-regular);
+  line-height: var(--openownbot-leading-md);
   text-align: left;
 }
 
@@ -81,29 +81,29 @@
 }
 
 .agent-step-icon {
-  width: var(--openbot-icon-xs);
-  height: var(--openbot-icon-xs);
+  width: var(--openownbot-icon-xs);
+  height: var(--openownbot-icon-xs);
   flex: 0 0 auto;
-  color: var(--openbot-text-muted);
+  color: var(--openownbot-text-muted);
 }
 
 .agent-steps-summary {
   overflow: hidden;
-  font-weight: var(--openbot-weight-medium);
+  font-weight: var(--openownbot-weight-medium);
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
 .agent-steps-failed {
   flex: 0 0 auto;
-  color: var(--openbot-danger-text);
+  color: var(--openownbot-danger-text);
   font-variant-numeric: tabular-nums;
 }
 
 .agent-steps-duration {
   flex: 0 0 auto;
-  color: var(--openbot-text-muted);
-  font-size: var(--openbot-text-sm);
+  color: var(--openownbot-text-muted);
+  font-size: var(--openownbot-text-sm);
   font-variant-numeric: tabular-nums;
 }
 
@@ -113,8 +113,8 @@
   grid-template-rows: 1fr;
   opacity: 1;
   transition:
-    grid-template-rows var(--openbot-duration-overlay) var(--openbot-ease-out),
-    opacity var(--openbot-duration-normal) var(--openbot-ease-out);
+    grid-template-rows var(--openownbot-duration-overlay) var(--openownbot-ease-out),
+    opacity var(--openownbot-duration-normal) var(--openownbot-ease-out);
 }
 
 /* The panel exists only while the row is open, so it opens from its first frame. */
@@ -128,8 +128,8 @@
 .agent-steps-viewport {
   max-height: 220px;
   overflow: hidden;
-  padding-left: var(--openbot-space-3);
-  border-left: 1px solid var(--openbot-border);
+  padding-left: var(--openownbot-space-3);
+  border-left: 1px solid var(--openownbot-border);
 }
 
 .agent-steps-viewport[data-scrolls] {
@@ -138,39 +138,39 @@
 
 .agent-steps-panel > .agent-steps-viewport {
   min-height: 0;
-  margin-left: var(--openbot-space-3);
+  margin-left: var(--openownbot-space-3);
 }
 
 .agent-steps-list {
   display: grid;
-  gap: var(--openbot-space-1);
+  gap: var(--openownbot-space-1);
   margin: 0;
-  padding: var(--openbot-space-1-5) 0;
+  padding: var(--openownbot-space-1-5) 0;
   list-style: none;
-  transition: transform var(--openbot-duration-overlay) var(--openbot-ease-out);
+  transition: transform var(--openownbot-duration-overlay) var(--openownbot-ease-out);
 }
 
 .agent-step {
   display: flex;
   align-items: flex-start;
-  gap: var(--openbot-space-2);
-  color: var(--openbot-text-secondary);
-  font-size: var(--openbot-text-sm);
-  line-height: var(--openbot-leading-sm);
+  gap: var(--openownbot-space-2);
+  color: var(--openownbot-text-secondary);
+  font-size: var(--openownbot-text-sm);
+  line-height: var(--openownbot-leading-sm);
   overflow-wrap: anywhere;
-  animation: message-in var(--openbot-duration-normal) var(--openbot-ease-out) both;
+  animation: message-in var(--openownbot-duration-normal) var(--openownbot-ease-out) both;
 }
 
 /* The step that the user picked in the trace lights up, then fades back. A colour change is not
  * motion, so it stays with reduced motion. */
 .agent-step[data-focused] {
-  border-radius: var(--openbot-radius-xs);
-  animation: agent-step-picked calc(var(--openbot-duration-overlay) * 6) var(--openbot-ease-out) both;
+  border-radius: var(--openownbot-radius-xs);
+  animation: agent-step-picked calc(var(--openownbot-duration-overlay) * 6) var(--openownbot-ease-out) both;
 }
 
 @keyframes agent-step-picked {
   from {
-    background: var(--openbot-hover);
+    background: var(--openownbot-hover);
   }
 
   to {
@@ -183,7 +183,7 @@
 }
 
 .agent-step[data-kind="thinking"] .agent-step-text {
-  color: var(--openbot-text-muted);
+  color: var(--openownbot-text-muted);
   font-style: italic;
 }
 
@@ -195,14 +195,14 @@
 .agent-step-memory {
   display: inline-flex;
   flex-wrap: wrap;
-  gap: 0 var(--openbot-space-2);
-  color: var(--openbot-text-primary);
+  gap: 0 var(--openownbot-space-2);
+  color: var(--openownbot-text-primary);
 }
 
 .agent-step-memory-action,
 .agent-step-memory-previous,
 .agent-step-memory[data-action="forgotten"] s {
-  color: var(--openbot-text-muted);
+  color: var(--openownbot-text-muted);
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -9,7 +9,7 @@ import { useCSSVariable } from "uniwind";
  * layout animations). Without the blur, the clear glass would show the rows through the field.
  */
 export function useChromeGlass(): ViewStyle {
-  const [fill, edge] = useCSSVariable(["--openbot-bg-chrome-glass", "--openbot-border-chrome-glass"]);
+  const [fill, edge] = useCSSVariable(["--openownbot-bg-chrome-glass", "--openownbot-border-chrome-glass"]);
   return useMemo(
     () => ({
       backgroundColor: String(fill),

@@ -4,7 +4,7 @@
   overflow-anchor: none;
   overflow-x: hidden;
   overflow-y: auto;
-  padding: 8px 12px var(--openbot-space-6);
+  padding: 8px 12px var(--openownbot-space-6);
 }
 
 .virtual-chat-list {
@@ -16,16 +16,16 @@
   position: absolute;
   inset: 0 0 auto;
   width: 100%;
-  padding-top: var(--openbot-chat-entry-gap);
+  padding-top: var(--openownbot-chat-entry-gap);
 }
 
 /* Rows the timeline marks as grouped (marker runs, same-sender messages) sit tighter. */
 .virtual-chat-row[data-grouped] {
-  padding-top: var(--openbot-chat-marker-gap);
+  padding-top: var(--openownbot-chat-marker-gap);
 }
 
 .virtual-chat-row > .chat-action-marker + .message-entry {
-  margin-top: var(--openbot-chat-marker-gap);
+  margin-top: var(--openownbot-chat-marker-gap);
 }
 
 .virtual-chat-list-static .virtual-chat-row {
@@ -45,16 +45,16 @@
 .virtual-chat-row[data-reply-flash]::before {
   position: absolute;
   z-index: -1;
-  inset: var(--openbot-chat-entry-gap) -12px 0;
-  background: var(--openbot-accent-soft);
+  inset: var(--openownbot-chat-entry-gap) -12px 0;
+  background: var(--openownbot-accent-soft);
   content: "";
   opacity: 0;
   pointer-events: none;
-  animation: reply-flash 1.6s var(--openbot-ease-out);
+  animation: reply-flash 1.6s var(--openownbot-ease-out);
 }
 
 .virtual-chat-row[data-grouped][data-reply-flash]::before {
-  top: var(--openbot-chat-marker-gap);
+  top: var(--openownbot-chat-marker-gap);
 }
 
 @keyframes reply-flash {
@@ -74,8 +74,8 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
-  color: var(--openbot-text-muted);
-  font-size: var(--openbot-text-sm);
+  color: var(--openownbot-text-muted);
+  font-size: var(--openownbot-text-sm);
 }
 
 /*
@@ -94,15 +94,15 @@
   height: 44px;
   align-items: center;
   margin-bottom: -44px;
-  border: 1px solid var(--openbot-border-strong);
-  border-radius: var(--openbot-radius-pill);
-  background: var(--openbot-bg-surface-raised);
+  border: 1px solid var(--openownbot-border-strong);
+  border-radius: var(--openownbot-radius-pill);
+  background: var(--openownbot-bg-surface-raised);
   box-shadow:
-    0 8px 24px var(--openbot-shadow-popover-ambient),
-    inset 0 0 0 1px var(--openbot-shadow-ring);
-  color: var(--openbot-text-primary);
+    0 8px 24px var(--openownbot-shadow-popover-ambient),
+    inset 0 0 0 1px var(--openownbot-shadow-ring);
+  color: var(--openownbot-text-primary);
   transform: translateX(-50%);
-  transition: background-color var(--openbot-duration-hover) ease;
+  transition: background-color var(--openownbot-duration-hover) ease;
 }
 
 /*
@@ -118,8 +118,8 @@
 
 .scroll-to-latest[data-new-messages] {
   border-color: transparent;
-  background: var(--openbot-unread-surface);
-  color: var(--openbot-unread-text);
+  background: var(--openownbot-unread-surface);
+  color: var(--openownbot-unread-text);
 }
 
 .scroll-to-latest-button {
@@ -132,8 +132,8 @@
   background: none;
   color: inherit;
   transition:
-    background-color var(--openbot-duration-hover) ease,
-    transform var(--openbot-duration-fast) cubic-bezier(0.23, 1, 0.32, 1);
+    background-color var(--openownbot-duration-hover) ease,
+    transform var(--openownbot-duration-fast) cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 /*
@@ -144,12 +144,12 @@
 .scroll-to-latest:is([data-new-messages], [data-reply-return]) .scroll-to-latest-button {
   width: auto;
   grid-auto-flow: column;
-  gap: var(--openbot-space-2);
-  padding-inline: var(--openbot-space-1-5) var(--openbot-space-2);
+  gap: var(--openownbot-space-2);
+  padding-inline: var(--openownbot-space-1-5) var(--openownbot-space-2);
 }
 
 .scroll-to-latest-count {
-  font-size: var(--openbot-text-sm);
+  font-size: var(--openownbot-text-sm);
   font-weight: 620;
   white-space: nowrap;
 }
@@ -165,9 +165,9 @@
   place-items: center;
   border: 0;
   background: none;
-  padding-inline: 0 var(--openbot-space-1-5);
+  padding-inline: 0 var(--openownbot-space-1-5);
   color: inherit;
-  transition: transform var(--openbot-duration-fast) cubic-bezier(0.23, 1, 0.32, 1);
+  transition: transform var(--openownbot-duration-fast) cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 .scroll-to-latest-button svg {
@@ -177,7 +177,7 @@
   stroke: currentColor;
   stroke-linecap: round;
   stroke-linejoin: round;
-  stroke-width: var(--openbot-icon-stroke);
+  stroke-width: var(--openownbot-icon-stroke);
 }
 
 /* The mark is as tall as the arrow, so one padding can hold both away from every edge. */
@@ -185,14 +185,14 @@
   box-sizing: content-box;
   width: 14px;
   height: 14px;
-  border-radius: var(--openbot-radius-pill);
-  padding: var(--openbot-space-1);
-  transition: background-color var(--openbot-duration-hover) ease;
+  border-radius: var(--openownbot-radius-pill);
+  padding: var(--openownbot-space-1);
+  transition: background-color var(--openownbot-duration-hover) ease;
 }
 
 /* The ring follows the pill: an offset ring would draw a circle around one half of it. */
 .scroll-to-latest-button:focus-visible {
-  outline: 2px solid var(--openbot-border-focus);
+  outline: 2px solid var(--openownbot-border-focus);
   outline-offset: -2px;
 }
 
@@ -202,15 +202,15 @@
 }
 
 .scroll-to-latest-dismiss:focus-visible svg {
-  outline: 2px solid var(--openbot-border-focus);
+  outline: 2px solid var(--openownbot-border-focus);
 }
 
 .scroll-to-latest[data-new-messages] .scroll-to-latest-button:focus-visible {
-  outline-color: var(--openbot-unread-text);
+  outline-color: var(--openownbot-unread-text);
 }
 
 .scroll-to-latest[data-new-messages] .scroll-to-latest-dismiss:focus-visible svg {
-  outline-color: var(--openbot-unread-text);
+  outline-color: var(--openownbot-unread-text);
 }
 
 /* The way back to a reply has a smaller arrow, so the label reads first. */
@@ -229,7 +229,7 @@
      a plain class. Each rule that has to replace it is matched at the same strength, or its own
      hover paints over the pill and repaints the text for a light background. */
   .scroll-to-latest-button:hover:not(:disabled):not([data-disabled]) {
-    background: var(--openbot-bg-control-active);
+    background: var(--openownbot-bg-control-active);
     color: inherit;
   }
 
@@ -240,7 +240,7 @@
   }
 
   .scroll-to-latest-dismiss:hover svg {
-    background: var(--openbot-bg-control-active);
+    background: var(--openownbot-bg-control-active);
   }
 
   /* The pill has one hover, on the dismiss icon. Its body is a wide target and needs no mark. */
@@ -250,7 +250,7 @@
   }
 
   .scroll-to-latest[data-new-messages] .scroll-to-latest-dismiss:hover svg {
-    background: color-mix(in srgb, var(--openbot-unread-text) 18%, transparent);
+    background: color-mix(in srgb, var(--openownbot-unread-text) 18%, transparent);
   }
 }
 
@@ -275,19 +275,19 @@
   flex: 0 0 auto;
   align-items: center;
   justify-content: space-between;
-  border-radius: 0 0 var(--openbot-radius-md) var(--openbot-radius-md);
-  background: var(--openbot-unread-surface);
+  border-radius: 0 0 var(--openownbot-radius-md) var(--openownbot-radius-md);
+  background: var(--openownbot-unread-surface);
   padding: 0 12px;
-  color: var(--openbot-unread-text);
-  font-size: var(--openbot-text-sm);
+  color: var(--openownbot-unread-text);
+  font-size: var(--openownbot-text-sm);
   font-weight: 620;
   line-height: 16px;
-  transition: background-color var(--openbot-duration-hover) var(--openbot-ease-out);
+  transition: background-color var(--openownbot-duration-hover) var(--openownbot-ease-out);
 }
 
 .unread-messages-banner button {
   border: 0;
-  border-radius: var(--openbot-radius-sm);
+  border-radius: var(--openownbot-radius-sm);
   background: transparent;
   color: inherit;
 }
@@ -297,7 +297,7 @@
   inset: 0;
   width: 100%;
   padding: 0 12px;
-  font-size: var(--openbot-text-sm);
+  font-size: var(--openownbot-text-sm);
   font-weight: 620;
   line-height: 16px;
   text-align: left;
@@ -308,41 +308,41 @@
   z-index: 1;
   margin-left: auto;
   padding: 0;
-  font-size: var(--openbot-text-sm);
+  font-size: var(--openownbot-text-sm);
   font-weight: 680;
   line-height: 14px;
   text-decoration: underline;
   text-underline-offset: 2px;
-  transition: transform var(--openbot-duration-fast) cubic-bezier(0.23, 1, 0.32, 1);
+  transition: transform var(--openownbot-duration-fast) cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 .unread-messages-mark-read-label {
   display: inline-flex;
   align-items: center;
-  border-radius: var(--openbot-radius-sm);
+  border-radius: var(--openownbot-radius-sm);
   padding: 3px 5px;
-  transition: background-color var(--openbot-duration-hover) var(--openbot-ease-out);
+  transition: background-color var(--openownbot-duration-hover) var(--openownbot-ease-out);
 }
 
 @media (hover: hover) and (pointer: fine) {
   .unread-messages-banner:hover {
-    background-color: color-mix(in srgb, var(--openbot-unread-surface) 88%, var(--openbot-unread-text));
+    background-color: color-mix(in srgb, var(--openownbot-unread-surface) 88%, var(--openownbot-unread-text));
   }
 
   .unread-messages-banner .ui-button:hover:not(:disabled):not([data-disabled]) {
     background: transparent;
-    color: var(--openbot-unread-text);
+    color: var(--openownbot-unread-text);
   }
 
   .unread-messages-banner
     .unread-messages-mark-read:hover:not(:disabled):not([data-disabled])
     .unread-messages-mark-read-label {
-    background: color-mix(in srgb, var(--openbot-unread-text) 12%, transparent);
+    background: color-mix(in srgb, var(--openownbot-unread-text) 12%, transparent);
   }
 }
 
 .unread-messages-banner button:focus-visible {
-  outline: 2px solid var(--openbot-unread-text);
+  outline: 2px solid var(--openownbot-unread-text);
   outline-offset: 1px;
 }
 
@@ -359,9 +359,9 @@
   width: 100%;
   align-items: center;
   gap: 8px;
-  margin: var(--openbot-space-1) 0 var(--openbot-space-2);
-  color: var(--openbot-unread-surface);
-  font-size: var(--openbot-text-sm);
+  margin: var(--openownbot-space-1) 0 var(--openownbot-space-2);
+  color: var(--openownbot-unread-surface);
+  font-size: var(--openownbot-text-sm);
   font-weight: 720;
   letter-spacing: 0.08em;
   line-height: 12px;
@@ -372,7 +372,7 @@
   height: 1px;
   flex: 1;
   border: 0;
-  background: var(--openbot-unread-surface);
+  background: var(--openownbot-unread-surface);
 }
 
 .unread-messages-divider span {
@@ -387,8 +387,8 @@
   height: 24px;
   margin: 0 auto;
   padding: 4px 0;
-  color: var(--openbot-text-muted);
-  font-size: var(--openbot-text-sm);
+  color: var(--openownbot-text-muted);
+  font-size: var(--openownbot-text-sm);
   line-height: 16px;
   text-align: center;
 }

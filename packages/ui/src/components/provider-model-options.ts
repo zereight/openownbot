@@ -1,4 +1,4 @@
-import type { AgentProviderId, ClientAgentModelOption, CustomProviderSummary } from "@openbot/contracts/ipc";
+import type { AgentProviderId, ClientAgentModelOption, CustomProviderSummary } from "@openownbot/contracts/ipc";
 import {
   agentProviderName,
   CUSTOM_AGENT_DEFAULT_MODEL,
@@ -6,8 +6,8 @@ import {
   isCustomProviderModelId,
   isFreeOpencodeModel,
   isKnownAgentProvider,
-} from "@openbot/contracts/ipc";
-import type { AppTextKey } from "@openbot/i18n";
+} from "@openownbot/contracts/ipc";
+import type { AppTextKey } from "@openownbot/i18n";
 import { currentText } from "../text";
 
 /** The efforts that have a name in the catalog. The other efforts show their id. */
@@ -35,7 +35,7 @@ export interface PickerModelGroup {
 }
 
 /**
- * How a provider id inside a custom agent reads in a group heading. An id that is also an OpenBot
+ * How a provider id inside a custom agent reads in a group heading. An id that is also an OpenOwnBot
  * provider takes its display name; a few other well-known ids keep their brand casing here; any
  * other id falls back to one capitalized word per `-`, `_` or space.
  */

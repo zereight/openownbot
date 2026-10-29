@@ -4,23 +4,23 @@
 // No app, provider, account or network is started.
 //
 // Run: bun scripts/roster-event-prune-e2e.ts
-// Writes .openbot-build/roster-event-prune-e2e/report.json and exits non-zero on a failure.
+// Writes .openownbot-build/roster-event-prune-e2e/report.json and exits non-zero on a failure.
 import assert from "node:assert/strict";
 import { randomUUID } from "node:crypto";
 import { mkdirSync, writeFileSync } from "node:fs";
 import { mkdtemp, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
-import { AGENT_REASONING_EFFORTS, type AgentSummary } from "@openbot/contracts/ipc";
+import { AGENT_REASONING_EFFORTS, type AgentSummary } from "@openownbot/contracts/ipc";
 import { AgentStore } from "../src/backend/agent-store";
 import type { AgentModelChange } from "../src/backend/database/agent-roster";
 import { databaseRows, requiredStringColumn } from "../src/backend/database/database-rows";
 import { runCauseEffect } from "../src/backend/effect-boundary";
-import { OpenBotDatabase } from "../src/backend/openbot-database";
+import { OpenOwnBotDatabase } from "../src/backend/openownbot-database";
 
-const OUT = resolve(import.meta.dirname, "../.openbot-build/roster-event-prune-e2e");
+const OUT = resolve(import.meta.dirname, "../.openownbot-build/roster-event-prune-e2e");
 const LEGACY_WRITES = 50;
-const root = await mkdtemp(join(tmpdir(), "openbot-roster-event-prune-"));
+const root = await mkdtemp(join(tmpdir(), "openownbot-roster-event-prune-"));
 const userData = join(root, "user-data");
 const home = join(root, "home");
 
@@ -41,8 +41,8 @@ interface Report {
 
 const report: Report = { passed: false };
 
-async function boot<T>(use: (store: AgentStore, database: OpenBotDatabase) => T | Promise<T>): Promise<T> {
-  const database = new OpenBotDatabase(userData);
+async function boot<T>(use: (store: AgentStore, database: OpenOwnBotDatabase) => T | Promise<T>): Promise<T> {
+  const database = new OpenOwnBotDatabase(userData);
   const store = new AgentStore(userData, home, database);
   await runCauseEffect(store.initialize());
   try {
@@ -52,7 +52,7 @@ async function boot<T>(use: (store: AgentStore, database: OpenBotDatabase) => T 
   }
 }
 
-function rosterEvents(database: OpenBotDatabase): RosterEvents & { types: string[]; commandIds: string[] } {
+function rosterEvents(database: OpenOwnBotDatabase): RosterEvents & { types: string[]; commandIds: string[] } {
   const rows = databaseRows(
     database.connection
       .prepare(
@@ -84,7 +84,7 @@ interface LegacyRosterPayload {
 
 /** Appends a roster event and its receipt as a build before #2282 did, without a prune. */
 function appendLegacyRosterEvent(
-  database: OpenBotDatabase,
+  database: OpenOwnBotDatabase,
   commandId: string,
   eventType: string,
   payload: LegacyRosterPayload,

@@ -27,12 +27,12 @@ export const BRAVE_SEARCH_PLUGIN_GUIDE: PluginGuide = {
     {
       question: "Is the Brave Search MCP server official?",
       answer:
-        "Yes. Brave links to the MCP server from its Search API page. The code is in Brave's GitHub organization and has an MIT license. The OpenBot listing runs this package as a local server.",
+        "Yes. Brave links to the MCP server from its Search API page. The code is in Brave's GitHub organization and has an MIT license. The OpenOwnBot listing runs this package as a local server.",
     },
     {
       question: "Does the Brave Search plugin need an API key?",
       answer:
-        "Yes. Sign up for the Brave Search API and make a key in its dashboard. Type the key in the OpenBot connect dialog. OpenBot gives it to the local server as BRAVE_API_KEY. The plugin catalog holds no secret.",
+        "Yes. Sign up for the Brave Search API and make a key in its dashboard. Type the key in the OpenOwnBot connect dialog. OpenOwnBot gives it to the local server as BRAVE_API_KEY. The plugin catalog holds no secret.",
     },
     {
       question: "Does Brave Search cost anything?",
@@ -42,7 +42,7 @@ export const BRAVE_SEARCH_PLUGIN_GUIDE: PluginGuide = {
     {
       question: "What data does Brave get?",
       answer:
-        "Brave gets the search queries that the agent sends. Brave says that it never shares queries or trains on them, and that each query stays on infrastructure that Brave operates. Your OpenBot workspaces, conversations and files stay on the computer that runs OpenBot.",
+        "Brave gets the search queries that the agent sends. Brave says that it never shares queries or trains on them, and that each query stays on infrastructure that Brave operates. Your OpenOwnBot workspaces, conversations and files stay on the computer that runs OpenOwnBot.",
     },
   ],
   sources: [

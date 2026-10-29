@@ -1,8 +1,8 @@
-import type { BrowserTab } from "@openbot/contracts/ipc";
-import { BROWSER_PROFILES_CAPABILITY } from "@openbot/contracts/team-protocol/browser-profiles-v1";
-import BrowserFullView from "@openbot/ui/features/browser/BrowserFullView";
-import BrowserLocalSignInDialog from "@openbot/ui/features/browser/BrowserLocalSignInDialog";
-import { BROWSER_NEW_TAB_URL } from "@openbot/ui/features/browser/browser-suggestions";
+import type { BrowserTab } from "@openownbot/contracts/ipc";
+import { BROWSER_PROFILES_CAPABILITY } from "@openownbot/contracts/team-protocol/browser-profiles-v1";
+import BrowserFullView from "@openownbot/ui/features/browser/BrowserFullView";
+import BrowserLocalSignInDialog from "@openownbot/ui/features/browser/BrowserLocalSignInDialog";
+import { BROWSER_NEW_TAB_URL } from "@openownbot/ui/features/browser/browser-suggestions";
 import { createEffect, createMemo, onCleanup, Show, untrack } from "solid-js";
 import { desktopBrowserProfileCalls } from "../browser/browser-profiles-port";
 import {

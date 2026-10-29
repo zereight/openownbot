@@ -15,7 +15,7 @@ declare class AppLockModule extends NativeModule {
 }
 
 /** `modules/app-lock`. A build without it, such as Expo Go, measures with the phone's clock and cannot see a phone lock. */
-const native = requireOptionalNativeModule<AppLockModule>("OpenBotAppLock");
+const native = requireOptionalNativeModule<AppLockModule>("OpenOwnBotAppLock");
 
 let fallbackAwaySince: number | null = null;
 if (!native) {

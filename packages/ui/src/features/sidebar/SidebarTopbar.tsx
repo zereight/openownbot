@@ -16,7 +16,7 @@ import {
   Puzzle,
   Upload,
   UsersRound,
-} from "@openbot/ui";
+} from "@openownbot/ui";
 import { Show } from "solid-js";
 import { useText } from "../../text";
 import { ServerMenu } from "../servers/ServerMenu";

@@ -2,15 +2,15 @@
 // The host makes the route ID when a routine gets a webhook trigger. The account service
 // stores only that ownership metadata and signs it into the short-lived ingress ticket.
 
-export const WEBHOOK_ROUTE_AUDIENCE = "openbot-webhook-route";
+export const WEBHOOK_ROUTE_AUDIENCE = "openownbot-webhook-route";
 
 export const WEBHOOK_EVENTS_PATH = "/v1/webhooks";
 
 // The relay forwards these values without normalizing them. Keep the names shared with the host
 // verifier so the public contract cannot drift between Signal and the desktop.
-export const WEBHOOK_TIMESTAMP_HEADER = "x-openbot-timestamp";
-export const WEBHOOK_DELIVERY_ID_HEADER = "x-openbot-delivery-id";
-export const WEBHOOK_SIGNATURE_HEADER = "x-openbot-signature";
+export const WEBHOOK_TIMESTAMP_HEADER = "x-openownbot-timestamp";
+export const WEBHOOK_DELIVERY_ID_HEADER = "x-openownbot-delivery-id";
+export const WEBHOOK_SIGNATURE_HEADER = "x-openownbot-signature";
 
 // The host refuses a signature whose timestamp is further than this from its clock: a replay.
 export const WEBHOOK_MAX_CLOCK_SKEW_SECONDS = 5 * 60;

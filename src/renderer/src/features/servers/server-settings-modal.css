@@ -1,28 +1,28 @@
 .server-settings-modal-shell .settings-modal-main {
-  background: var(--openbot-bg-canvas);
+  background: var(--openownbot-bg-canvas);
 }
 
 .server-settings-modal-shell .settings-modal-scroll-frame::before {
   background: linear-gradient(
     to bottom,
-    var(--openbot-bg-canvas) 0%,
-    var(--openbot-bg-canvas) 28%,
-    var(--openbot-bg-canvas-clear) 100%
+    var(--openownbot-bg-canvas) 0%,
+    var(--openownbot-bg-canvas) 28%,
+    var(--openownbot-bg-canvas-clear) 100%
   );
 }
 
 .server-settings-modal-shell .settings-modal-scroll-frame::after {
   background: linear-gradient(
     to top,
-    var(--openbot-bg-canvas) 0%,
-    var(--openbot-bg-canvas) 28%,
-    var(--openbot-bg-canvas-clear) 100%
+    var(--openownbot-bg-canvas) 0%,
+    var(--openownbot-bg-canvas) 28%,
+    var(--openownbot-bg-canvas-clear) 100%
   );
 }
 
 .server-settings-panel {
   width: 100%;
-  gap: var(--openbot-space-6);
+  gap: var(--openownbot-space-6);
   animation: none;
 }
 
@@ -33,13 +33,13 @@
   flex: 0 0 auto;
   place-items: center;
   overflow: hidden;
-  border: 1px solid var(--openbot-border-strong);
-  border-radius: var(--openbot-radius-md);
-  background: var(--openbot-bg-control-hover);
-  color: var(--openbot-text-secondary);
-  font-size: var(--openbot-text-sm);
-  font-weight: var(--openbot-weight-semibold);
-  letter-spacing: var(--openbot-tracking-wide);
+  border: 1px solid var(--openownbot-border-strong);
+  border-radius: var(--openownbot-radius-md);
+  background: var(--openownbot-bg-control-hover);
+  color: var(--openownbot-text-secondary);
+  font-size: var(--openownbot-text-sm);
+  font-weight: var(--openownbot-weight-semibold);
+  letter-spacing: var(--openownbot-tracking-wide);
 }
 
 .server-settings-logo img {
@@ -47,13 +47,13 @@
   height: 100%;
   display: block;
   object-fit: cover;
-  outline: 1px solid var(--openbot-image-outline);
+  outline: 1px solid var(--openownbot-image-outline);
   outline-offset: -1px;
 }
 
 .server-settings-logo-trigger {
-  border-radius: var(--openbot-radius-md);
-  color: var(--openbot-text-muted);
+  border-radius: var(--openownbot-radius-md);
+  color: var(--openownbot-text-muted);
 }
 
 .server-settings-logo-trigger .server-settings-logo {
@@ -65,12 +65,12 @@
 }
 
 .server-settings-logo-placeholder {
-  width: var(--openbot-icon-md);
-  height: var(--openbot-icon-md);
+  width: var(--openownbot-icon-md);
+  height: var(--openownbot-icon-md);
 }
 
 .server-settings-item-error {
-  color: var(--openbot-danger);
+  color: var(--openownbot-danger);
 }
 
 .server-settings-readonly-name.ui-item {
@@ -84,43 +84,43 @@
 
 .server-settings-publish-setting.ui-switch-field,
 .server-settings-mute-setting.ui-switch-field {
-  padding: var(--openbot-space-3) var(--openbot-space-4);
+  padding: var(--openownbot-space-3) var(--openownbot-space-4);
 }
 
 .server-settings-publish-setting.ui-switch-field,
 .server-settings-mute-setting.ui-switch-field {
   width: 100%;
   justify-content: space-between;
-  gap: var(--openbot-space-6);
+  gap: var(--openownbot-space-6);
 }
 
 .server-settings-readonly-value {
   min-width: 180px;
   max-width: 300px;
   overflow-wrap: anywhere;
-  color: var(--openbot-text-primary);
-  font-weight: var(--openbot-weight-medium);
+  color: var(--openownbot-text-primary);
+  font-weight: var(--openownbot-weight-medium);
   text-align: right;
   user-select: text;
 }
 
 .server-settings-error-toast {
   position: absolute;
-  right: var(--openbot-space-6);
-  bottom: var(--openbot-space-6);
-  left: var(--openbot-space-6);
+  right: var(--openownbot-space-6);
+  bottom: var(--openownbot-space-6);
+  left: var(--openownbot-space-6);
   z-index: 3;
-  box-shadow: 0 12px 32px var(--openbot-shadow-dialog);
+  box-shadow: 0 12px 32px var(--openownbot-shadow-dialog);
 }
 
 .server-settings-error-toast[data-with-save-bar] {
-  bottom: calc(60px + var(--openbot-space-3));
+  bottom: calc(60px + var(--openownbot-space-3));
 }
 
 .server-settings-members-title {
   display: inline-flex;
   align-items: center;
-  gap: var(--openbot-space-2);
+  gap: var(--openownbot-space-2);
 }
 
 .server-settings-search {
@@ -132,23 +132,23 @@
 .server-settings-search > svg {
   position: absolute;
   top: 50%;
-  left: var(--openbot-space-3);
+  left: var(--openownbot-space-3);
   z-index: 1;
-  width: var(--openbot-icon-sm);
-  height: var(--openbot-icon-sm);
-  color: var(--openbot-text-muted);
+  width: var(--openownbot-icon-sm);
+  height: var(--openownbot-icon-sm);
+  color: var(--openownbot-text-muted);
   pointer-events: none;
   transform: translateY(-50%);
 }
 
 .server-settings-search .ui-input {
-  padding-left: var(--openbot-space-8);
+  padding-left: var(--openownbot-space-8);
 }
 
 .server-settings-invite-card.ui-card {
   border: 0;
-  background: var(--openbot-bg-surface);
-  padding: var(--openbot-space-4);
+  background: var(--openownbot-bg-surface);
+  padding: var(--openownbot-space-4);
   box-shadow: none;
 }
 
@@ -156,7 +156,7 @@
   display: grid;
   grid-template-columns: minmax(0, 1fr) 112px auto;
   align-items: start;
-  gap: var(--openbot-space-2);
+  gap: var(--openownbot-space-2);
 }
 
 /* The hidden tab panels stay mounted for the slide animation, so without this the
@@ -195,12 +195,12 @@
 }
 
 .server-settings-invite-link-input.ui-input {
-  font-family: var(--openbot-font-mono);
+  font-family: var(--openownbot-font-mono);
   cursor: text;
 }
 
 .server-settings-invite-link-input.ui-input::placeholder {
-  font-family: var(--openbot-font-sans);
+  font-family: var(--openownbot-font-sans);
 }
 
 .server-settings-invite-copy > span {
@@ -212,15 +212,15 @@
 .server-settings-invite-new-link > svg,
 .server-settings-routine-feed-row .ui-button > svg,
 .server-settings-routine-feed-actions .ui-button > svg {
-  width: var(--openbot-icon-sm);
-  height: var(--openbot-icon-sm);
+  width: var(--openownbot-icon-sm);
+  height: var(--openownbot-icon-sm);
   flex: 0 0 auto;
-  stroke-width: var(--openbot-icon-stroke);
+  stroke-width: var(--openownbot-icon-stroke);
 }
 
 .server-settings-invite-hint {
   display: block;
-  margin-top: var(--openbot-space-2);
+  margin-top: var(--openownbot-space-2);
 }
 
 .server-settings-role-select {
@@ -229,12 +229,12 @@
 
 .server-settings-invite-result {
   border: 0;
-  background: var(--openbot-bg-surface-raised);
-  margin-top: var(--openbot-space-3);
+  background: var(--openownbot-bg-surface-raised);
+  margin-top: var(--openownbot-space-3);
 }
 
 .server-settings-member-row[data-disabled] {
-  background: var(--openbot-bg-control);
+  background: var(--openownbot-bg-control);
 }
 
 .server-settings-member-meta {
@@ -264,8 +264,8 @@
 }
 
 .server-settings-member-menu-trigger svg {
-  width: var(--openbot-icon-sm);
-  height: var(--openbot-icon-sm);
+  width: var(--openownbot-icon-sm);
+  height: var(--openownbot-icon-sm);
 }
 
 .server-settings-empty-row .ui-item-content {
@@ -276,15 +276,15 @@
   width: 40px;
   height: 40px;
   justify-content: center;
-  border: 1px solid var(--openbot-border);
-  border-radius: var(--openbot-radius-md);
-  background: var(--openbot-bg-control);
-  color: var(--openbot-text-secondary);
+  border: 1px solid var(--openownbot-border);
+  border-radius: var(--openownbot-radius-md);
+  background: var(--openownbot-bg-control);
+  color: var(--openownbot-text-secondary);
 }
 
 .server-settings-desktop-icon svg {
-  width: var(--openbot-icon-lg);
-  height: var(--openbot-icon-lg);
+  width: var(--openownbot-icon-lg);
+  height: var(--openownbot-icon-lg);
 }
 
 .server-settings-desktop-description {
@@ -298,7 +298,7 @@
   max-width: 260px;
   display: grid;
   justify-items: end;
-  gap: var(--openbot-space-1);
+  gap: var(--openownbot-space-1);
   text-align: right;
 }
 
@@ -308,7 +308,7 @@
 }
 
 .server-settings-desktop-status {
-  margin-top: var(--openbot-space-1);
+  margin-top: var(--openownbot-space-1);
 }
 
 @media (max-width: 720px) {
@@ -330,8 +330,8 @@
   }
 
   .server-settings-error-toast {
-    right: var(--openbot-space-4);
-    left: var(--openbot-space-4);
+    right: var(--openownbot-space-4);
+    left: var(--openownbot-space-4);
   }
 
   .server-settings-invite-composer {
@@ -397,17 +397,17 @@
 
 .server-settings-invite-share {
   display: flex;
-  gap: var(--openbot-space-1);
+  gap: var(--openownbot-space-1);
 }
 
 .server-settings-invite-share > .ui-button:last-child {
-  animation: server-settings-invite-qr-in var(--openbot-duration-normal) var(--openbot-ease-out);
+  animation: server-settings-invite-qr-in var(--openownbot-duration-normal) var(--openownbot-ease-out);
 }
 
 @keyframes server-settings-invite-qr-in {
   from {
     opacity: 0;
-    transform: translateX(calc(-1 * var(--openbot-space-4)));
+    transform: translateX(calc(-1 * var(--openownbot-space-4)));
   }
   to {
     opacity: 1;
@@ -416,13 +416,13 @@
 }
 
 .server-settings-invite-qr {
-  animation: server-settings-invite-panel-in var(--openbot-duration-normal) var(--openbot-ease-out);
+  animation: server-settings-invite-panel-in var(--openownbot-duration-normal) var(--openownbot-ease-out);
   transform-origin: top;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--openbot-space-3);
-  padding: var(--openbot-space-4);
+  gap: var(--openownbot-space-3);
+  padding: var(--openownbot-space-4);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -434,7 +434,7 @@
 @keyframes server-settings-invite-panel-in {
   from {
     opacity: 0;
-    transform: translateY(calc(-1 * var(--openbot-space-3))) scale(0.96);
+    transform: translateY(calc(-1 * var(--openownbot-space-3))) scale(0.96);
   }
   to {
     opacity: 1;
@@ -450,7 +450,7 @@
 .server-settings-routine-feed-row {
   display: flex;
   align-items: center;
-  gap: var(--openbot-space-2);
+  gap: var(--openownbot-space-2);
 }
 
 .server-settings-routine-feed-agent {
@@ -461,7 +461,7 @@
 .server-settings-routine-feed-row .ui-input {
   flex: 1;
   min-width: 0;
-  font-family: var(--openbot-font-mono);
+  font-family: var(--openownbot-font-mono);
   cursor: text;
 }
 
@@ -474,16 +474,16 @@
 .server-settings-routine-feed-actions {
   display: flex;
   justify-content: flex-end;
-  gap: var(--openbot-space-1);
+  gap: var(--openownbot-space-1);
 }
 
 /* The feed area before the first read answers. It fades in after a delay, so a fast answer does not flash it. */
 .server-settings-routine-feed-loading {
   display: grid;
   place-items: center;
-  padding: var(--openbot-space-6);
-  animation: server-settings-routine-feed-loading-in var(--openbot-duration-normal) var(--openbot-ease-out)
-    var(--openbot-loading-indicator-delay) both;
+  padding: var(--openownbot-space-6);
+  animation: server-settings-routine-feed-loading-in var(--openownbot-duration-normal) var(--openownbot-ease-out)
+    var(--openownbot-loading-indicator-delay) both;
 }
 
 @keyframes server-settings-routine-feed-loading-in {
@@ -496,7 +496,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: var(--openbot-space-2);
+  gap: var(--openownbot-space-2);
 }
 
 /* The empty pending list: sample invitations land behind the invite action. Both share one cell. */
@@ -517,17 +517,17 @@
   pointer-events: none;
   user-select: none;
   mask-image:
-    radial-gradient(ellipse 46% 72% at 50% 50%, var(--openbot-transparent) 58%, var(--openbot-text-primary) 100%),
-    linear-gradient(var(--openbot-text-primary) 70%, var(--openbot-transparent));
+    radial-gradient(ellipse 46% 72% at 50% 50%, var(--openownbot-transparent) 58%, var(--openownbot-text-primary) 100%),
+    linear-gradient(var(--openownbot-text-primary) 70%, var(--openownbot-transparent));
   mask-composite: intersect;
 }
 
 .server-invites-empty-row {
-  animation: server-invites-empty-land 560ms var(--openbot-ease-out) both;
+  animation: server-invites-empty-land 560ms var(--openownbot-ease-out) both;
 }
 
 .server-invites-empty-row > .ui-item {
-  padding: var(--openbot-space-3) var(--openbot-space-4);
+  padding: var(--openownbot-space-3) var(--openownbot-space-4);
 }
 
 .server-invites-empty-row + .server-invites-empty-row {
@@ -537,15 +537,15 @@
 .server-invites-empty-row + .server-invites-empty-row::before {
   position: absolute;
   top: 0;
-  right: var(--openbot-space-4);
-  left: var(--openbot-space-4);
+  right: var(--openownbot-space-4);
+  left: var(--openownbot-space-4);
   height: 1px;
-  background: var(--openbot-border);
+  background: var(--openownbot-border);
   content: "";
 }
 
 .server-invites-empty-board[data-leaving] .server-invites-empty-row {
-  animation: server-invites-empty-leave 700ms var(--openbot-ease-out) both;
+  animation: server-invites-empty-leave 700ms var(--openownbot-ease-out) both;
 }
 
 @keyframes server-invites-empty-land {
@@ -571,27 +571,27 @@
   display: grid;
   place-self: center;
   justify-items: center;
-  gap: var(--openbot-space-3);
-  padding: var(--openbot-space-8) var(--openbot-space-6);
+  gap: var(--openownbot-space-3);
+  padding: var(--openownbot-space-8) var(--openownbot-space-6);
   text-align: center;
 }
 
 .server-invites-empty-title {
   display: grid;
-  font-size: var(--openbot-text-3xl);
-  font-weight: var(--openbot-weight-semibold);
+  font-size: var(--openownbot-text-3xl);
+  font-weight: var(--openownbot-weight-semibold);
   letter-spacing: -0.01em;
   line-height: 1.25;
 }
 
 .server-invites-empty-quiet {
-  color: var(--openbot-text-muted);
+  color: var(--openownbot-text-muted);
 }
 
 /* The one handwritten word writes itself once. The app has no hand font, so it uses the system's. */
 .server-invites-empty-hand {
   display: inline-block;
-  color: var(--openbot-accent-text);
+  color: var(--openownbot-accent-text);
   font-family: "Bradley Hand", "Noteworthy", "Segoe Print", cursive;
   line-height: 1;
   clip-path: inset(-0.4em 100% -0.4em -0.2em);
@@ -607,8 +607,8 @@
 .server-invites-empty-action {
   width: 100%;
   max-width: 20rem;
-  height: var(--openbot-control-lg);
-  margin-top: var(--openbot-space-2);
+  height: var(--openownbot-control-lg);
+  margin-top: var(--openownbot-space-2);
 }
 
 @media (prefers-reduced-motion: reduce) {

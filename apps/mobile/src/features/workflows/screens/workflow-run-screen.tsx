@@ -1,4 +1,4 @@
-import type { WorkflowNode, WorkflowStep } from "@openbot/contracts/ipc";
+import type { WorkflowNode, WorkflowStep } from "@openownbot/contracts/ipc";
 import { useQueryClient } from "@tanstack/react-query";
 import { Stack, useLocalSearchParams } from "expo-router";
 import { Button, Typography } from "heroui-native";

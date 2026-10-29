@@ -6,7 +6,7 @@ import {
   parseGenerateAgentProfile,
   parseHostAnalyticsInput,
   parseSaveAgentProfile,
-} from "@openbot/contracts/ipc";
+} from "@openownbot/contracts/ipc";
 import { hiddenProviderAgentIds, isPeerHiddenProvider } from "./provider-visibility";
 // Agents: the collection, the sidebar that arranges them, and everything under one agent's id.
 //
@@ -21,18 +21,18 @@ import { hiddenProviderAgentIds, isPeerHiddenProvider } from "./provider-visibil
 // 400 on a malformed identifier into a 404 for some methods and not others.
 
 import { readFile } from "node:fs/promises";
-import { isAvatarMimeType } from "@openbot/contracts/avatar-images";
-import { AVATAR_IMAGE_LIMITS, INPUT_LIMITS } from "@openbot/contracts/input-limits";
-import { type CreateAgentInput, type DuplicateAgentResult, WORKFLOWS_USAGE_ID } from "@openbot/contracts/ipc";
-import { TEAM_API_ROUTES } from "@openbot/contracts/team-api-routes";
+import { isAvatarMimeType } from "@openownbot/contracts/avatar-images";
+import { AVATAR_IMAGE_LIMITS, INPUT_LIMITS } from "@openownbot/contracts/input-limits";
+import { type CreateAgentInput, type DuplicateAgentResult, WORKFLOWS_USAGE_ID } from "@openownbot/contracts/ipc";
+import { TEAM_API_ROUTES } from "@openownbot/contracts/team-api-routes";
 import {
   BROWSER_SECRET_VAULT_CAPABILITY,
   BROWSER_SECRET_VAULT_ROUTES,
-} from "@openbot/contracts/team-protocol/browser-secret-vault-v1";
-import { V5_AGENT_MODEL } from "@openbot/contracts/team-protocol/v5-adapter";
-import { V6_AGENT_MODEL } from "@openbot/contracts/team-protocol/v6-adapter";
-import { WORKFLOWS_CAPABILITY } from "@openbot/contracts/team-protocol/workflows-v1";
-import { sourceText } from "@openbot/i18n/source";
+} from "@openownbot/contracts/team-protocol/browser-secret-vault-v1";
+import { V5_AGENT_MODEL } from "@openownbot/contracts/team-protocol/v5-adapter";
+import { V6_AGENT_MODEL } from "@openownbot/contracts/team-protocol/v6-adapter";
+import { WORKFLOWS_CAPABILITY } from "@openownbot/contracts/team-protocol/workflows-v1";
+import { sourceText } from "@openownbot/i18n/source";
 import type { Effect } from "effect";
 import type { AgentDuplicationFailed } from "../../backend/agent/duplication-gate";
 import { ForbiddenAttentionAnswer, InactiveAttentionRequest } from "../../backend/agent/inactive-attention-request";

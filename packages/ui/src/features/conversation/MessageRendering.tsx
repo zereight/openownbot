@@ -1,8 +1,8 @@
-import { fileReferenceName } from "@openbot/brand/file-reference";
-import { chatPreviewKind } from "@openbot/contracts/chat-preview";
-import type { AttachmentSummary, InstalledSkill, MessageReaction } from "@openbot/contracts/ipc";
-import { canPreviewAttachment, MESSAGE_REACTIONS, MORE_MESSAGE_REACTIONS } from "@openbot/contracts/ipc";
-import { parseSelectionInstruction } from "@openbot/contracts/selection-instruction";
+import { fileReferenceName } from "@openownbot/brand/file-reference";
+import { chatPreviewKind } from "@openownbot/contracts/chat-preview";
+import type { AttachmentSummary, InstalledSkill, MessageReaction } from "@openownbot/contracts/ipc";
+import { canPreviewAttachment, MESSAGE_REACTIONS, MORE_MESSAGE_REACTIONS } from "@openownbot/contracts/ipc";
+import { parseSelectionInstruction } from "@openownbot/contracts/selection-instruction";
 import {
   AudioLines,
   type BubbleVariant,
@@ -12,8 +12,8 @@ import {
   DropdownMenu,
   Info,
   LoaderCircle,
-} from "@openbot/ui";
-import { prefersReducedMotion } from "@openbot/ui/utils";
+} from "@openownbot/ui";
+import { prefersReducedMotion } from "@openownbot/ui/utils";
 import {
   createEffect,
   createMemo,

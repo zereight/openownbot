@@ -81,7 +81,7 @@ function authRetentionOperations(now: number): AuthRetentionOperation[] {
 }
 
 class AuthRetentionDatabase extends Context.Service<AuthRetentionDatabase, D1Database>()(
-  "@openbot/auth-api/AuthRetentionDatabase",
+  "@openownbot/auth-api/AuthRetentionDatabase",
 ) {}
 
 class AuthRetentionError extends Schema.TaggedError<AuthRetentionError>()("AuthRetentionError", {

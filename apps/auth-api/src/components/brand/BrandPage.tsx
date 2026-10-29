@@ -1,4 +1,4 @@
-import { AppLogo } from "@openbot/brand";
+import { AppLogo } from "@openownbot/brand";
 import type { JSX } from "@solidjs/web";
 import { createSignal, For, onSettled } from "solid-js";
 import { landingAnalytics } from "../../lib/analytics";
@@ -33,7 +33,7 @@ export function BrandPage() {
             <div class="brand-hero-text">
               <h1 class="post-article-title brand-hero-title">Brand</h1>
               <p class="post-article-standfirst brand-hero-intro">
-                The OpenBot logo in each shape and color. Right-click a logo to save or copy it.
+                The OpenOwnBot logo in each shape and color. Right-click a logo to save or copy it.
               </p>
             </div>
             <DownloadAllButton />
@@ -141,7 +141,7 @@ function BrandAssetCard(props: { asset: BrandAsset }) {
         <img
           class="brand-card-image"
           src={brandAssetPath(props.asset)}
-          alt={`OpenBot ${props.asset.label}`}
+          alt={`OpenOwnBot ${props.asset.label}`}
           width={props.asset.width}
           height={props.asset.height}
         />

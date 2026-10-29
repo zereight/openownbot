@@ -2,7 +2,7 @@
 // is one finding of the cloud authorization audit, and it fails if that access comes back.
 //
 // Run: bun run test:cloud-authorization
-// It writes .openbot-build/cloud-authorization-e2e/report.json and exits non-zero on a failure.
+// It writes .openownbot-build/cloud-authorization-e2e/report.json and exits non-zero on a failure.
 import { mkdir, readdir, readFile, writeFile } from "node:fs/promises";
 import { join, resolve } from "node:path";
 import { DatabaseSync } from "node:sqlite";
@@ -15,7 +15,7 @@ import type { AuthUser } from "../src/server/types";
 import { sqliteD1 } from "./sqlite-d1";
 
 const ROOT = resolve(import.meta.dirname, "../../..");
-const OUT = join(ROOT, ".openbot-build", "cloud-authorization-e2e");
+const OUT = join(ROOT, ".openownbot-build", "cloud-authorization-e2e");
 const MIGRATIONS = join(ROOT, "apps", "auth-api", "migrations");
 const HOST_ID = "host-1";
 

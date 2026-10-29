@@ -11,7 +11,7 @@ import type {
   HostStatus,
   InviteSummary,
   JoinServerInput,
-  OpenBotDesktopApi,
+  OpenOwnBotDesktopApi,
   RemoteDesktopSession,
   SendDirectMessageInput,
   ServerSummary,
@@ -21,8 +21,8 @@ import type {
   TeamPresenceSnapshot,
   TeamSessionSummary,
   UpdateTeamMemberInput,
-} from "@openbot/contracts/ipc";
-import { sourceText } from "@openbot/i18n/source";
+} from "@openownbot/contracts/ipc";
+import { sourceText } from "@openownbot/i18n/source";
 import {
   STORY_DIRECT_SNAPSHOTS,
   STORY_DIRECT_THREADS,
@@ -129,7 +129,7 @@ export function createMockTeam(
     emit(remoteDesktopListeners, sessionsValue);
   }
 
-  const serversApi: OpenBotDesktopApi["servers"] = {
+  const serversApi: OpenOwnBotDesktopApi["servers"] = {
     setMuted: async ({ serverId, muted, durationMs }) => {
       if (!servers.some((server) => server.id === serverId)) throw new Error("Remote server not found.");
       const notificationsMutedUntil = muted && durationMs !== undefined ? Date.now() + durationMs : null;
@@ -342,7 +342,7 @@ export function createMockTeam(
     },
   };
 
-  const host: OpenBotDesktopApi["host"] = {
+  const host: OpenOwnBotDesktopApi["host"] = {
     getStatus: async () => clone(hostStatus),
     configure: async (input: ConfigureHostInput) => {
       hostStatus = {
@@ -419,11 +419,11 @@ export function createMockTeam(
     },
   };
 
-  const remoteDesktop: OpenBotDesktopApi["remoteDesktop"] = {
+  const remoteDesktop: OpenOwnBotDesktopApi["remoteDesktop"] = {
     checkSetup: async () => ({
       platform: "darwin",
       hostName: "Mac mini",
-      username: "openbot",
+      username: "openownbot",
       checkedAt: new Date().toISOString(),
       screenRecording: hostStatus.remoteDesktopScreenRecordingDenied ? "blocked" : "allowed",
       accessibility: "blocked",

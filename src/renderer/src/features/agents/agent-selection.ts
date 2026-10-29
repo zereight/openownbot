@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 /** The chat agent last opened on each server. */
-export const AGENT_SELECTION_STORAGE_KEY = "openbot:selected-agent:v1";
+export const AGENT_SELECTION_STORAGE_KEY = "openownbot:selected-agent:v1";
 
 type AgentSelectionStorage = Pick<Storage, "getItem" | "setItem">;
 

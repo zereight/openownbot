@@ -49,7 +49,7 @@ export const messages = defineMessages("settings", {
   "settings.externalLinks.description": "Links in chats, sign-in pages and billing pages open here.",
   // The two link targets. The saved value stays in English; only the label is translated.
   "settings.externalLinks.defaultBrowser": "Default browser",
-  "settings.externalLinks.openbot": "OpenBot",
+  "settings.externalLinks.openownbot": "OpenOwnBot",
   "settings.externalLinks.defaultBrowserNamed": "Default browser ({name})",
   "settings.externalLinks.otherApp": "Other app…",
   "settings.externalLinks.command": "Command…",
@@ -99,7 +99,7 @@ export const messages = defineMessages("settings", {
   "settings.notificationPreview.description": "Show the start of the agent's reply or question in notifications.",
   "settings.testNotification.title": "Test notification",
   "settings.testNotification.description":
-    "Show one now. If it does not appear, allow OpenBot notifications in your system settings.",
+    "Show one now. If it does not appear, allow OpenOwnBot notifications in your system settings.",
   "settings.testNotification.action": "Send test",
   "settings.testNotification.failed": "Could not show a notification.",
   "settings.testNotification.openSettings": "Open system settings",
@@ -247,9 +247,9 @@ export const messages = defineMessages("settings", {
   "settings.mobileConnect.route.title": "How devices connect",
   "settings.mobileConnect.route.description":
     "For phones, other computers and team members that connect to this computer.",
-  "settings.mobileConnect.route.openbot.title": "Through OpenBot",
-  "settings.mobileConnect.route.openbot.badge": "Recommended",
-  "settings.mobileConnect.route.openbot.description":
+  "settings.mobileConnect.route.openownbot.title": "Through OpenOwnBot",
+  "settings.mobileConnect.route.openownbot.badge": "Recommended",
+  "settings.mobileConnect.route.openownbot.description":
     "Works on any network. Chats and files are encrypted between your devices.",
   "settings.mobileConnect.route.private.title": "Private network",
   "settings.mobileConnect.route.private.tailscale": "Tailscale found",
@@ -305,7 +305,7 @@ export const messages = defineMessages("settings", {
   "settings.profile.share.copied": "Image copied",
   "settings.profile.share.copyFailed": "Could not copy the image.",
   "settings.profile.share.createFailed": "Could not make the image.",
-  "settings.profile.share.fileName": "openbot-activity.png",
+  "settings.profile.share.fileName": "openownbot-activity.png",
   // The text in the image to share.
   "settings.profile.share.caption": "My last six months with OpenOwnBot",
   "settings.profile.activity.title": "Activity on this computer",
@@ -363,7 +363,7 @@ export const messages = defineMessages("settings", {
   "settings.profile.sessions.disconnectConfirm.title": "Disconnect this session?",
   "settings.profile.sessions.disconnectConfirm.description":
     "This device is signed out of your account. It must sign in again to connect.",
-  // The Updates tab. {target} is "OpenBot v1.2.3" or settings.updates.target.latest.
+  // The Updates tab. {target} is "OpenOwnBot v1.2.3" or settings.updates.target.latest.
   "settings.updates.title": "OpenOwnBot updates",
   "settings.updates.track.title": "Update track",
   "settings.updates.track.description": "Stable receives tested OpenOwnBot releases.",
@@ -397,7 +397,7 @@ export const messages = defineMessages("settings", {
   "settings.updates.autoInstall.title": "Install updates automatically",
   "settings.updates.autoInstall.description":
     "OpenOwnBot restarts into a downloaded update when the agents are idle. Members of your servers are disconnected for a short time.",
-  // Restart OpenBot, or install a downloaded update, when no agent works.
+  // Restart OpenOwnBot, or install a downloaded update, when no agent works.
   "settings.updates.idleRestart.title": "Restart OpenOwnBot",
   "settings.updates.idleRestart.relaunchDescription":
     "OpenOwnBot restarts when no agent works. New routine runs wait until then.",

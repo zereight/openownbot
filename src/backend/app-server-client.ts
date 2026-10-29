@@ -1,7 +1,7 @@
 import { type ChildProcessWithoutNullStreams, spawn } from "node:child_process";
 import { EventEmitter } from "node:events";
-import { type DynamicRecord, isNumber, isString } from "@openbot/contracts/runtime-values";
-import { sourceText } from "@openbot/i18n/source";
+import { type DynamicRecord, isNumber, isString } from "@openownbot/contracts/runtime-values";
+import { sourceText } from "@openownbot/i18n/source";
 import { Effect, Fiber } from "effect";
 import { type AgentProvider, RequestTimeoutError } from "./agent-client";
 import { cliSpawnTarget } from "./cli";
@@ -162,7 +162,7 @@ export class CodexAppServerClient extends EventEmitter<ClientEvents> {
 
   /**
    * Moves a replaced thread out of the list that the Codex app and ChatGPT show. Without this, each
-   * replacement session adds a row that starts with the OpenBot handoff to the user's own Codex
+   * replacement session adds a row that starts with the OpenOwnBot handoff to the user's own Codex
    * history.
    *
    * `thread/archive` moves the rollout to `archived_sessions` and unloads the thread when it is

@@ -1,5 +1,5 @@
 // Composition adapted from https://zaidan.carere.dev/r/kobalte/chart-area-interactive.json (MIT).
-import type { HostAnalytics } from "@openbot/contracts/ipc";
+import type { HostAnalytics } from "@openownbot/contracts/ipc";
 import {
   Area,
   AreaChart,
@@ -10,7 +10,7 @@ import {
   type TooltipContentProps,
   XAxis,
   YAxis,
-} from "@openbot/ui/chart";
+} from "@openownbot/ui/chart";
 import { createMemo, For } from "solid-js";
 import { useText } from "../../text";
 import { UsageProviderMark } from "./UsageProviderMark";
@@ -49,14 +49,14 @@ export function UsageChart(props: { result: HostAnalytics; metric: UsageMetric }
         tabIndex={0}
         aria-label={props.metric === "cost" ? t("usage.chart.costLabel") : t("usage.chart.tokensLabel")}
       >
-        <CartesianGrid vertical={false} stroke="var(--openbot-border-strong)" />
+        <CartesianGrid vertical={false} stroke="var(--openownbot-border-strong)" />
         <XAxis
           dataKey="date"
           tickLine={false}
           axisLine={false}
           minTickGap={48}
           tickMargin={12}
-          stroke="var(--openbot-text-muted)"
+          stroke="var(--openownbot-text-muted)"
           // Uppercased here rather than in CSS: a .recharts-* rule is a class no component
           // names, which the dead-class scan in check:ui reports.
           tickFormatter={(value) => {
@@ -76,13 +76,13 @@ export function UsageChart(props: { result: HostAnalytics; metric: UsageMetric }
           // Every tick at its own grid line. The default fit moves the top label into the plot and then
           // drops the zero label, which it finds too close.
           interval={0}
-          stroke="var(--openbot-text-muted)"
+          stroke="var(--openownbot-text-muted)"
           tickFormatter={(value) =>
             props.metric === "cost" ? usageCost(Number(value), text) : usageCompact(Number(value), text)
           }
         />
         <ChartTooltip
-          cursor={{ stroke: "var(--openbot-text-muted)", strokeWidth: 1 }}
+          cursor={{ stroke: "var(--openownbot-text-muted)", strokeWidth: 1 }}
           content={(contentProps: TooltipContentProps) => (
             <ChartTooltipContent
               {...contentProps}

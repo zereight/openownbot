@@ -1,15 +1,15 @@
-// Sends malformed requests from the window of a running dev app through `window.openbot`, and checks
+// Sends malformed requests from the window of a running dev app through `window.openownbot`, and checks
 // that the main process refuses each one with the message of its input decoder. A compromised
 // renderer reaches main through these same channels, so the decoders in `src/main/ipc` are the
-// boundary. Writes .openbot-build/ipc-input-e2e/report.json. Needs `--allow-mutations`: each request
+// boundary. Writes .openownbot-build/ipc-input-e2e/report.json. Needs `--allow-mutations`: each request
 // is one that a broken decoder would let change the app.
 import assert from "node:assert/strict";
 import { mkdirSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
-import { INPUT_LIMITS } from "@openbot/contracts/input-limits";
-import type { OpenBotDesktopApi } from "@openbot/contracts/ipc";
-import { en } from "@openbot/i18n";
-import { createOpenBotLogger } from "@openbot/logging";
+import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
+import type { OpenOwnBotDesktopApi } from "@openownbot/contracts/ipc";
+import { en } from "@openownbot/i18n";
+import { createOpenOwnBotLogger } from "@openownbot/logging";
 import type { Page } from "playwright-core";
 import { assertMutationAllowed, connectToDevApp } from "./dev-automation/cdp-client";
 import { readDevInstanceRecords } from "./dev-automation/instance-registry";
@@ -17,16 +17,16 @@ import { readDevInstanceRecords } from "./dev-automation/instance-registry";
 // The page functions below run in the app window, where the preload bridge sets this.
 declare global {
   interface Window {
-    openbot: OpenBotDesktopApi;
+    openownbot: OpenOwnBotDesktopApi;
   }
 }
 
-const OUT = resolve(import.meta.dirname, "../.openbot-build/ipc-input-e2e");
+const OUT = resolve(import.meta.dirname, "../.openownbot-build/ipc-input-e2e");
 const TOO_LONG_ID = "x".repeat(INPUT_LIMITS.identifier + 1);
 
 interface Check {
   name: string;
-  /** The method on `window.openbot`, as a property path. */
+  /** The method on `window.openownbot`, as a property path. */
   method: readonly string[];
   args: readonly unknown[];
   /** Text that the refusal must contain. */
@@ -101,7 +101,7 @@ const CHECKS: readonly Check[] = [
  * page source, because the arguments are malformed on purpose and no TypeScript signature takes them.
  */
 async function refusal(page: Page, check: Check): Promise<string | null> {
-  const call = `window.openbot.${check.method.join(".")}(${check.args.map((arg) => JSON.stringify(arg)).join(", ")})`;
+  const call = `window.openownbot.${check.method.join(".")}(${check.args.map((arg) => JSON.stringify(arg)).join(", ")})`;
   const result = await page.evaluate(`(async () => {
     try {
       await ${call};
@@ -125,7 +125,7 @@ assertMutationAllowed({
   instanceNamed: true,
   target: instance.instanceId,
 });
-const logger = createOpenBotLogger("ipc-input-e2e");
+const logger = createOpenOwnBotLogger("ipc-input-e2e");
 const session = await connectToDevApp(instance.remoteDebuggingPort, logger, {
   expectedRendererPort: instance.rendererPort,
   ownerPid: instance.pid,
@@ -133,14 +133,14 @@ const session = await connectToDevApp(instance.remoteDebuggingPort, logger, {
 
 mkdirSync(OUT, { recursive: true });
 const page = session.page;
-const languageBefore = await page.evaluate(() => window.openbot.getAppLanguagePreference());
+const languageBefore = await page.evaluate(() => window.openownbot.getAppLanguagePreference());
 const results: { name: string; refusal: string | null; passed: boolean }[] = [];
 try {
   for (const check of CHECKS) {
     const message = await refusal(page, check);
     results.push({ name: check.name, refusal: message, passed: message?.includes(check.refusal) ?? false });
   }
-  const languageAfter = await page.evaluate(() => window.openbot.getAppLanguagePreference());
+  const languageAfter = await page.evaluate(() => window.openownbot.getAppLanguagePreference());
   results.push({
     name: "a refused language request leaves the saved language unchanged",
     refusal: null,

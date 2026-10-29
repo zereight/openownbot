@@ -32,7 +32,7 @@ export const SENTRY_PLUGIN_GUIDE: PluginGuide = {
     {
       question: "Does the Sentry plugin need an API key?",
       answer:
-        "No. Each user signs in to their own Sentry account through the browser. OpenBot does the sign-in itself, keeps the tokens in encrypted storage, and adds the Authorization header. The plugin catalog holds no secret.",
+        "No. Each user signs in to their own Sentry account through the browser. OpenOwnBot does the sign-in itself, keeps the tokens in encrypted storage, and adds the Authorization header. The plugin catalog holds no secret.",
     },
     {
       question: "What can an AI agent do with Sentry?",
@@ -42,7 +42,7 @@ export const SENTRY_PLUGIN_GUIDE: PluginGuide = {
     {
       question: "What data does Sentry get?",
       answer:
-        "Your workspaces, conversations and files stay on the computer that runs OpenBot. Sentry gets the requests that the agent sends, such as a search query or an issue update. The tools work on the organizations and projects that your Sentry account can access.",
+        "Your workspaces, conversations and files stay on the computer that runs OpenOwnBot. Sentry gets the requests that the agent sends, such as a search query or an issue update. The tools work on the organizations and projects that your Sentry account can access.",
     },
   ],
   sources: [

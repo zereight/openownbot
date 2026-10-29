@@ -10,15 +10,15 @@
 // the workspace file must name its absolute path and open the file again. Then the same links must
 // still open from the person's message in the agent's own chat. It deletes its channel and its two
 // files at the end.
-// Writes .openbot-build/channel-file-link-e2e/report.json and screenshots.
+// Writes .openownbot-build/channel-file-link-e2e/report.json and screenshots.
 import assert from "node:assert/strict";
 import { mkdirSync, rmSync, writeFileSync } from "node:fs";
 import { homedir } from "node:os";
 import { join, resolve } from "node:path";
-import { translateFor } from "@openbot/i18n";
+import { translateFor } from "@openownbot/i18n";
 import { ChannelClient, connectChannelE2e, WAIT_MS, waitFor, writeReport } from "./channel-e2e-support";
 
-const OUT = resolve(import.meta.dirname, "../.openbot-build/channel-file-link-e2e");
+const OUT = resolve(import.meta.dirname, "../.openownbot-build/channel-file-link-e2e");
 const UI_WAIT_MS = 15_000;
 const english = translateFor("en");
 

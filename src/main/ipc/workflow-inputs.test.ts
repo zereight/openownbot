@@ -1,6 +1,6 @@
 // @vitest-environment node
 
-import { INPUT_LIMITS } from "@openbot/contracts/input-limits";
+import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
 import { describe, expect, it } from "vitest";
 import {
   parseCreateWorkflow,

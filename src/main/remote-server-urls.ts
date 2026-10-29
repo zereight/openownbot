@@ -1,12 +1,12 @@
 // URLs and query strings the Team API client builds.
 //
-// The `openbot-remote-*` schemes are how a remote host's attachments, agent avatars and server logo
+// The `openownbot-remote-*` schemes are how a remote host's attachments, agent avatars and server logo
 // reach the renderer: the host's own URLs are not reachable from there, so `addRemotePreviewUrls`
 // rewrites them in place on a decoded payload before it leaves the main process. `src/main/index.ts`
 // registers the matching protocol handlers, and they parse exactly what these three builders emit.
 
-import type { ConversationPageAnchor, DirectConversationPageAnchor } from "@openbot/contracts/ipc";
-import { isDynamicRecord, isString } from "@openbot/contracts/runtime-values";
+import type { ConversationPageAnchor, DirectConversationPageAnchor } from "@openownbot/contracts/ipc";
+import { isDynamicRecord, isString } from "@openownbot/contracts/runtime-values";
 
 export function pageQuery(anchor: ConversationPageAnchor | DirectConversationPageAnchor, limit: number): string {
   const query = new URLSearchParams({ limit: String(limit) });
@@ -47,13 +47,13 @@ function remoteAttachmentPreviewUrl(serverId: string, attachmentId: string): str
 
 function remoteAgentAvatarUrl(serverId: string, agentId: string, sourceUrl: string): string {
   const source = new URL(sourceUrl);
-  const target = new URL(`openbot-remote-avatar://${encodeURIComponent(serverId)}/${encodeURIComponent(agentId)}`);
+  const target = new URL(`openownbot-remote-avatar://${encodeURIComponent(serverId)}/${encodeURIComponent(agentId)}`);
   target.search = source.search;
   return target.toString();
 }
 
 export function remoteServerLogoUrl(serverId: string, version: string): string {
-  const target = new URL(`openbot-remote-server-logo://${encodeURIComponent(serverId)}/logo`);
+  const target = new URL(`openownbot-remote-server-logo://${encodeURIComponent(serverId)}/logo`);
   target.searchParams.set("v", version);
   return target.toString();
 }

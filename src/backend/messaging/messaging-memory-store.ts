@@ -1,8 +1,8 @@
-import { INPUT_LIMITS } from "@openbot/contracts/input-limits";
-import type { MemoryEntry } from "@openbot/contracts/ipc";
-import { sourceText } from "@openbot/i18n/source";
+import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
+import type { MemoryEntry } from "@openownbot/contracts/ipc";
+import { sourceText } from "@openownbot/i18n/source";
 import { MemoryStore, type MemoryTables } from "../memory-store";
-import type { OpenBotDatabase } from "../openbot-database";
+import type { OpenOwnBotDatabase } from "../openownbot-database";
 
 const MESSAGING_MEMORY_TABLES: MemoryTables = {
   table: "projection_messaging_memories",
@@ -19,7 +19,7 @@ const MESSAGING_MEMORY_TABLES: MemoryTables = {
  * events, which keep ids only, a memory's events keep its text until the memory is deleted.
  */
 export class MessagingMemoryStore extends MemoryStore {
-  constructor(database: OpenBotDatabase) {
+  constructor(database: OpenOwnBotDatabase) {
     super(database, MESSAGING_MEMORY_TABLES);
   }
 

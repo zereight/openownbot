@@ -1,5 +1,5 @@
 import { ContextMenu } from "@kobalte/core/context-menu";
-import { AppLogo } from "@openbot/brand";
+import { AppLogo } from "@openownbot/brand";
 import { Link, useRouter } from "@tanstack/solid-router";
 import { BRAND_ROUTE } from "../../lib/brand-page";
 import { LandingIcon } from "../landing/LandingIcon";
@@ -59,9 +59,9 @@ export function SiteLogoLink() {
   return (
     <ContextMenu modal={false} onOpenChange={handleOpenChange}>
       <ContextMenu.Trigger as="span" ref={trigger} class="site-logo-trigger">
-        <Link ref={link} class="landing-brand" to="/" aria-label="OpenBot home" onKeyDown={handleKeyDown}>
+        <Link ref={link} class="landing-brand" to="/" aria-label="OpenOwnBot home" onKeyDown={handleKeyDown}>
           <AppLogo variant="production" class="landing-brand-logo" />
-          <span>OpenBot</span>
+          <span>OpenOwnBot</span>
         </Link>
       </ContextMenu.Trigger>
       <ContextMenu.Content class="site-logo-menu" aria-label="Logo">

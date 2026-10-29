@@ -1,4 +1,4 @@
-import type { BrowserSnapshot, BrowserTarget } from "@openbot/contracts/ipc";
+import type { BrowserSnapshot, BrowserTarget } from "@openownbot/contracts/ipc";
 import { Context, Deferred, Effect, Fiber } from "effect";
 import { type BrowserOperationError, browserFailure, browserSync } from "./browser-effects";
 import {
@@ -20,7 +20,7 @@ const OPERATION_DEADLINE_BACKSTOP_MS = 250;
  * Whether a person controls a tab. Only the agent tool paths provide it, so a person's own actions and
  * the host's internal work still run while the person holds the tab.
  */
-export const BrowserToolHold = Context.Reference<(tabId: string) => boolean>("openbot/BrowserToolHold", {
+export const BrowserToolHold = Context.Reference<(tabId: string) => boolean>("openownbot/BrowserToolHold", {
   defaultValue: () => () => false,
 });
 

@@ -1,11 +1,11 @@
 # Hosted servers
 
-A hosted server is an OpenBot server that runs in a [boat](https://boat.dev) sandbox, so it works
+A hosted server is an OpenOwnBot server that runs in a [boat](https://boat.dev) sandbox, so it works
 when the user's computer is off. Each server is one boat sandbox for one account. The sandbox runs
-the Linux build of OpenBot on the boat desktop. The server runs while it is in use. After 15 minutes with no
+the Linux build of OpenOwnBot on the boat desktop. The server runs while it is in use. After 15 minutes with no
 use, the Worker stops it and keeps its data. The next client starts it again, the Worker cron
 starts it before its next routine run, and Signal starts it for a Slack, Discord or Telegram message
-that addresses OpenBot (see [Connector events](#connector-events)). A connected client counts as use for 5 minutes after its
+that addresses OpenOwnBot (see [Connector events](#connector-events)). A connected client counts as use for 5 minutes after its
 last user action (`CLIENT_USE_WINDOW_MS`): a request that changes data, or a typing event. Reads and
 the requests that a client sends with no user action (polls, previews, mark-read) do not count
 (`src/main/team-api/client-use.ts`). An app that has focus (a focused desktop window, a visible and
@@ -67,25 +67,25 @@ when a server is idle or boat stops a sandbox; and `error` and `deleted`. The Wo
    `onSubscriptionSynced`. When the plan is open and the row waits for payment, the Worker makes
    the host ID claim (1 hour; it stores only the hash) and creates the sandbox from
    `HOSTED_SERVER_TEMPLATE` with `noEnv: true`, so no operator secret or repository goes into the
-   sandbox. The sandbox env holds only `OPENBOT_HOSTED_HOST_ID` and `OPENBOT_HOSTED_CLAIM`. The cron
+   sandbox. The sandbox env holds only `OPENOWNBOT_HOSTED_HOST_ID` and `OPENOWNBOT_HOSTED_CLAIM`. The cron
    provisions a paid row when the webhook call failed, and deletes an unpaid row after 24 hours
    (it has no sandbox, so no data is lost). Before that delete it closes the Checkout; a Checkout
    that is paid keeps the row for the webhook. A row that stays in `creating` with no sandbox for 10
    minutes (the Worker stopped during the create call) goes to `error`, and the setup retry below
    applies. When that create call returns later, the Worker deletes the sandbox that no row owns.
 
-   The Worker then names the sandbox `openbot-<plan>-<owner email>-<first 8 characters of the host
+   The Worker then names the sandbox `openownbot-<plan>-<owner email>-<first 8 characters of the host
    ID>` (`PATCH /sandboxes/:id`), so an operator can find it in the boat dashboard. The email is in
    lowercase, and each group of characters that are not letters or digits becomes one `-`. The name is only a label; a plan change
    renames the sandbox.
 3. **Env handoff.** boat puts the sandbox env in the setup script, not in systemd. The Worker sends
-   `setupScript: exec /opt/OpenBot/hosted/openbot-hosted-env`. That helper writes the two values to
-   `~/.config/openbot-hosted/env` (mode 0600). `openbot.service` waits for this file.
-4. **First boot.** OpenBot starts with `OPENBOT_HOSTED_SERVER=1`. It redeems the claim at
+   `setupScript: exec /opt/OpenOwnBot/hosted/openownbot-hosted-env`. That helper writes the two values to
+   `~/.config/openownbot-hosted/env` (mode 0600). `openownbot.service` waits for this file.
+4. **First boot.** OpenOwnBot starts with `OPENOWNBOT_HOSTED_SERVER=1`. It redeems the claim at
    `POST /v2/hosting/claims/redeem`, signs in as the owner, keeps the host ID, and publishes the
    host. `registerHost` refuses the host ID for any other account. This claim is not the operator's
    [server claim](self-hosted-server.md#sign-in-with-a-server-claim) of a self-hosted server.
-5. **In use.** OpenBot checks each minute whether the server is in use: an agent works, a remote
+5. **In use.** OpenOwnBot checks each minute whether the server is in use: an agent works, a remote
    desktop view is open, a file moves, or a remote client is connected (an open Team API event
    stream) and sent a user action, a typing event or a focus ping in the last 5 minutes. A key press or pointer
    input in a browser view is a user action. An open browser view with no input does not count,
@@ -127,7 +127,7 @@ when a server is idle or boat stops a sandbox; and `error` and `deleted`. The Wo
    **Scheduled start.** The cron starts an idle server when its `next_run_at` is less than 10 minutes
    away (one cron interval and the start time), with the wake reason `schedule`. It clears
    `next_run_at` in the same update, so a server that does not report again starts only once for
-   that run. After the start, OpenBot runs each routine that is due, and each run that it missed
+   that run. After the start, OpenOwnBot runs each routine that is due, and each run that it missed
    becomes one run.
 
    **Keep-alive start.** boat deletes the disk of a stopped sandbox 14 days after the stop (it
@@ -151,26 +151,26 @@ when a server is idle or boat stops a sandbox; and `error` and `deleted`. The Wo
 
    **Disk save at a stop.** boat saves the disk of a running server file by file, with no pause,
    and a file that changes during its copy is restored torn. A SQLite checkpoint during the save
-   gave a damaged database ("OpenBot database failed its integrity check"). Thus a hosted server
-   stops OpenBot before the save. boat runs `/home/user/.boat/pre-stop` as `user` when a stop
+   gave a damaged database ("OpenOwnBot database failed its integrity check"). Thus a hosted server
+   stops OpenOwnBot before the save. boat runs `/home/user/.boat/pre-stop` as `user` when a stop
    starts, waits for it to end (at most 60 seconds), and then saves the disk. boat supports this
-   hook, but its documentation does not show it yet. `openbot-hosted-update` installs `scripts/hosting/openbot-boat-pre-stop` there
+   hook, but its documentation does not show it yet. `openownbot-hosted-update` installs `scripts/hosting/openownbot-boat-pre-stop` there
    (`install_hosting`, and `trigger` at each start, so a server that an older release updated gets
-   it). The hook makes `/run/openbot-pre-stop` and runs `systemctl stop openbot.service`: OpenBot
+   it). The hook makes `/run/openownbot-pre-stop` and runs `systemctl stop openownbot.service`: OpenOwnBot
    gets `SIGTERM`, stops its services and closes `openbot.db` last. After 40 seconds the hook kills
    the unit, which leaves a database that SQLite recovers. The file makes the unit condition
-   `ConditionPathExists=!/run/openbot-pre-stop` fail, so `Restart=` and the end of an update request
-   do not start OpenBot during the save. `/run` is empty at each boot. boat can also keep a stopped
+   `ConditionPathExists=!/run/openownbot-pre-stop` fail, so `Restart=` and the end of an update request
+   do not start OpenOwnBot during the save. `/run` is empty at each boot. boat can also keep a stopped
    machine in memory and continue it at a resume with no boot: the resume answers `"status":
    "running"`, and the file stays. Then the Worker runs a command on the machine that removes the
-   file and starts `openbot.service` (`HELD_RESUME_START_COMMAND`). With no file the command does
-   nothing. If boat does not complete the stop after the hook, OpenBot stays stopped until the next
-   stop and resume. A hook that OpenBot did not write stays, and a self-hosted server gets no hook.
+   file and starts `openownbot.service` (`HELD_RESUME_START_COMMAND`). With no file the command does
+   nothing. If boat does not complete the stop after the hook, OpenOwnBot stays stopped until the next
+   stop and resume. A hook that OpenOwnBot did not write stays, and a self-hosted server gets no hook.
 
    **Check at a start.** `PRAGMA quick_check` reads every page of `openbot.db`: on a 15.7 GB file
    it stopped the main thread for 77 seconds to about 4 minutes. A clean close removes
-   `openbot.db-wal`. Thus OpenBot runs the check at a start only when that file is there (a crash,
-   a kill, or a save while OpenBot ran) or when a migration ran.
+   `openbot.db-wal`. Thus OpenOwnBot runs the check at a start only when that file is there (a crash,
+   a kill, or a save while OpenOwnBot ran) or when a migration ran.
 6. **Start after a failure.** A client that cannot reach the host first calls
    `GET /v2/hosting/servers/:id/status` (owner or member; 404 for a host that is not a hosted
    server). It returns `{serverId, state, error, sleeping}` and writes nothing, so it does not count
@@ -187,12 +187,12 @@ when a server is idle or boat stops a sandbox; and `error` and `deleted`. The Wo
    once a minute for each host, and wakes only the selected server while the app has focus. After a
    wake, it connects again every 5 seconds, and reads the status every 30 seconds to show the step:
    the machine starts (`waking`, `starting`, `stopping`, or `stopped` with no error, which also gets a
-   wake), OpenBot starts (`running`), or the provider refused the start (`waking` with
+   wake), OpenOwnBot starts (`running`), or the provider refused the start (`waking` with
    `provider_limit`). The client waits with no limit while the
    machine starts. When the machine is `running` and its host does not connect in 15 minutes, the
    client shows that the server did not start in time, as it does after 10 status reads in a row
    that fail. Restart is not available while the machine starts. It is available when the machine
-   runs and OpenBot does not answer. The web client does the same for its one server, and checks a
+   runs and OpenOwnBot does not answer. The web client does the same for its one server, and checks a
    sleeping server again every 5 minutes. The mobile app has no status check: it wakes the selected server while the app is in
    the foreground, with the same limit for a `running` server. A server whose plan ended answers
    `402 plan_required`.
@@ -241,7 +241,7 @@ when a server is idle or boat stops a sandbox; and `error` and `deleted`. The Wo
    does not charge that card again. In both cases
    the server stops with `plan_ended` and keeps its disk. The Worker finds the plan through the
    invoice of the PaymentIntent (`GET /v1/invoice_payments`). A refund or dispute of a payment that
-   is not an OpenBot plan invoice changes nothing. A refund that fails after it succeeded does not
+   is not an OpenOwnBot plan invoice changes nothing. A refund that fails after it succeeded does not
    start the plan again.
 8. **Plan change.** In the Customer Portal an upgrade is charged at once, and a downgrade or a
    shorter interval starts at the next period. The Worker copies the new plan, interval and currency
@@ -270,7 +270,7 @@ when a server is idle or boat stops a sandbox; and `error` and `deleted`. The Wo
 
 ## Providers
 
-OpenBot ships no AI subscription, so a new server has no provider connected. When its owner or an
+OpenOwnBot ships no AI subscription, so a new server has no provider connected. When its owner or an
 admin opens a server with no agent, the app shows a provider step before the first-agent form. The
 sandbox browser is on Xvfb, where nobody can see it, so each sign-in finishes on the user's own device
 over `providers-v3` and `providers-v4`: Codex, Grok and Cline show a device code, Claude shows a page
@@ -291,10 +291,10 @@ with `getServerEntitlement` when a member joins or is reactivated, and refuses a
   enterprise customer's, from 1 to 100. The row names the account that owns the server and applies
   only while that account owns it, as a plan does. The key is the server ID, so the row stays when
   the owner deletes the host and registers it again; it stops when the account is deleted. No route
-  writes it; add, change or delete it by hand (`openbot-auth-test` for the test Worker):
+  writes it; add, change or delete it by hand (`openownbot-auth-test` for the test Worker):
 
   ```sh
-  bunx wrangler d1 execute openbot-auth --cwd apps/auth-api --remote --command \
+  bunx wrangler d1 execute openownbot-auth --cwd apps/auth-api --remote --command \
     "INSERT INTO server_member_limits(server_id, owner_user_id, member_limit, created_at, updated_at)
      SELECT host_id, owner_user_id, 50, unixepoch() * 1000, unixepoch() * 1000
        FROM remote_hosts WHERE host_id = '<server id>'
@@ -325,7 +325,7 @@ value that you set by hand for these four is replaced. Set `DOTENV_PRIVATE_KEY_D
 
 | Name | Value |
 | --- | --- |
-| `HOSTED_SERVER_TEMPLATE` | The named snapshot from the template build, such as `openbot-server-0-9-0`. |
+| `HOSTED_SERVER_TEMPLATE` | The named snapshot from the template build, such as `openownbot-server-0-9-0`. |
 | `HOSTED_SERVERS_ALLOWED_USER_IDS` | Comma-separated account IDs or emails that can create servers. `api:deploy:test` sets it from `HOSTED_SERVERS_TEST_ALLOW_LIST` and refuses `*`: the test Worker is public, and it shares its boat account with production. |
 
 The `BOAT_API_KEY` in `.env.dev` is the development key of the boat test account. It also has
@@ -349,7 +349,7 @@ Worker, and all worktrees share it, so you sign in one time.
 Each developer who has `DOTENV_PRIVATE_KEY_DEV` can create a server with any account.
 The command decrypts
 `HOSTED_SERVERS_DEVELOPER_KEY` from `.env.dev`, and main sends it in the
-`OpenBot-Hosting-Developer-Key` header of each hosted server request. The test Worker has the same
+`OpenOwnBot-Hosting-Developer-Key` header of each hosted server request. The test Worker has the same
 key and lets the account create servers. A clone of the repository cannot decrypt the key. Main
 removes the key from its environment at the start, so agents do not get it, and a packaged build
 never sends it. To change the key, update `HOSTED_SERVERS_DEVELOPER_KEY` in `.env.dev` with a
@@ -451,7 +451,7 @@ snapshots automatically. For a separate test template, build one from a release:
 
 ```sh
 BOAT_TEMPLATE_API_KEY=... bun run hosting:template --version=0.9.0 \
-  --appimage-url=https://.../OpenBot-0.9.0-x86_64.AppImage --appimage-sha256=<hex> \
+  --appimage-url=https://.../OpenOwnBot-0.9.0-x86_64.AppImage --appimage-sha256=<hex> \
   --auth-api-url=https://<test Worker origin>
 ```
 
@@ -461,21 +461,21 @@ named snapshot access. The script:
 1. creates a builder sandbox with `noEnv`;
 2. uploads `scripts/hosting/` and runs `provision.sh` with `sudo`. It installs the packages in
    `packages.txt` (Xvfb, D-Bus, gnome-keyring, the Electron libraries and the remote desktop runtime
-   libraries), checks the AppImage SHA-256, unpacks the AppImage to `/opt/OpenBot/app`, adds an
-   AppArmor profile that lets Chromium make user namespaces, and enables `openbot.service` and the
+   libraries), checks the AppImage SHA-256, unpacks the AppImage to `/opt/OpenOwnBot/app`, adds an
+   AppArmor profile that lets Chromium make user namespaces, and enables `openownbot.service` and the
    [update](#updates) units;
-3. checks the installed version, that OpenBot did not start, and that no profile or claim exists;
-4. saves the builder as `openbot-server-<version>` (or `--name=<snapshot>`) and deletes the builder.
+3. checks the installed version, that OpenOwnBot did not start, and that no profile or claim exists;
+4. saves the builder as `openownbot-server-<version>` (or `--name=<snapshot>`) and deletes the builder.
 
-The builder never starts OpenBot, so the template has no host identity and no session. A retry
+The builder never starts OpenOwnBot, so the template has no host identity and no session. A retry
 reuses a ready snapshot with the same name or waits for a save in progress. It refuses a failed
 snapshot and never replaces an existing name. Automatic production releases reserve the prefix
-`openbot-server-production-` to avoid test snapshots in the same account. Keep each name tied to
+`openownbot-server-production-` to avoid test snapshots in the same account. Keep each name tied to
 one release and account-service origin; do not use that production prefix for manual test builds.
 
 The builder stops before creating an eleventh snapshot. This is our automation limit:
 [boat permits additional paid snapshots](https://docs.boat.dev/api/reference/snapshots/list-named-snapshots).
-Before each production build, the release job removes `openbot-server-production-` snapshots of
+Before each production build, the release job removes `openownbot-server-production-` snapshots of
 older releases and keeps the 3 newest releases, including the new one
 ([details](RELEASING.md#hosted-server-snapshots)). It never removes other names. Before removing a
 test snapshot by hand, check both Workers and pending server creation records
@@ -486,45 +486,45 @@ from a removed snapshot keep running.
 
 Server Settings > Updates has the same controls as on a computer that updates itself: download,
 **Update when idle**, **Restart now**, automatic updates, and the switch that lets members update.
-OpenBot runs as the service user from a release that root owns, so it asks root to do the work
+OpenOwnBot runs as the service user from a release that root owns, so it asks root to do the work
 (`src/main/hosted-update-adapter.ts`). It makes an empty file in its runtime directory:
-`/run/openbot/update-stage` to download, and `/run/openbot/update-install` to install.
-`openbot-update-request.path` then starts `openbot-update-request.service`, which runs
-`openbot-hosted-update request` as root. That removes the file without reading it and runs `stage`.
-For an install, it then stops OpenBot, runs `apply` and starts OpenBot again, also after a failure.
-A request that comes during a timer download waits for it while OpenBot runs. While a request runs,
-root writes the step to `/run/openbot-update.state` and changes its time every 5 seconds. OpenBot
+`/run/openownbot/update-stage` to download, and `/run/openownbot/update-install` to install.
+`openownbot-update-request.path` then starts `openownbot-update-request.service`, which runs
+`openownbot-hosted-update request` as root. That removes the file without reading it and runs `stage`.
+For an install, it then stops OpenOwnBot, runs `apply` and starts OpenOwnBot again, also after a failure.
+A request that comes during a timer download waits for it while OpenOwnBot runs. While a request runs,
+root writes the step to `/run/openownbot-update.state` and changes its time every 5 seconds. OpenOwnBot
 reads each change as download progress, so the download deadline finds a request that root never
 takes or that stops.
 
 The release that an older script moves into place has these units, but that script installs only
-the units it knows. So `openbot.service` runs `openbot-hosted-update trigger` as root before OpenBot
-starts; it installs and starts the request units when they are missing. OpenBot offers the controls
-only when `/etc/systemd/system/openbot-update-request.path` is there at its start. Otherwise, and on
+the units it knows. So `openownbot.service` runs `openownbot-hosted-update trigger` as root before OpenOwnBot
+starts; it installs and starts the request units when they are missing. OpenOwnBot offers the controls
+only when `/etc/systemd/system/openownbot-update-request.path` is there at its start. Otherwise, and on
 hosts older than this release, the panel checks the release (`host-release-v1`) and shows the
 host-managed update path. A container has no request units. A container of `docker/instances` uses
-the same `HostedUpdateAdapter` with folders that the host mounts in `/var/lib/openbot-update`; see
+the same `HostedUpdateAdapter` with folders that the host mounts in `/var/lib/openownbot-update`; see
 [Updates from the app](docker.md#updates-from-the-app).
 
 The Linux build contains `scripts/hosting/` (without the TypeScript files) in `resources/hosting`.
-On a server, root runs `openbot-hosted-update`:
+On a server, root runs `openownbot-hosted-update`:
 
-1. `openbot-update.timer` runs `stage` 5 to 10 minutes after each start of the timer and then
+1. `openownbot-update.timer` runs `stage` 5 to 10 minutes after each start of the timer and then
    about each 6 hours. It reads the `latest-linux.yml` (`latest-linux-arm64.yml` on arm64) of the
    latest GitHub release, the manifest that the Linux desktop updater reads. When that version is newer than the installed one, it downloads the
    AppImage, checks its SHA-512 against the manifest, unpacks it in `/var/tmp`, checks that it has
    all hosting files, installs the packages in the `packages.txt` of that release, and copies it
-   to `/opt/OpenBot/staged`.
-   `staged.ready` comes after the last file. OpenBot keeps running. The download and unpack use
+   to `/opt/OpenOwnBot/staged`.
+   `staged.ready` comes after the last file. OpenOwnBot keeps running. The download and unpack use
    idle CPU and disk priority.
 2. `apply` copies `staged` to `app`, and then installs the scripts, AppArmor profile and units of
    the new release. `.applying` and `staged` stay until all of this is complete, so after a stop or
    a failure the next start does it again, and `stage` does nothing until then.
-   `openbot-update-apply.service` runs `boot` before `openbot.service`. `boot` runs `apply` only on
-   a complete disk, or when `.applying` shows an interrupted copy. `openbot.service` does not
+   `openownbot-update-apply.service` runs `boot` before `openownbot.service`. `boot` runs `apply` only on
+   a complete disk, or when `.applying` shows an interrupted copy. `openownbot.service` does not
    require it, so it starts after a failure too: with the old release, or with a partial copy after
    a failed copy, until the next start. On a self-installed server, the new release starts at the
-   next boot. A hosted server installs it itself: when the release is staged, OpenBot asks root to
+   next boot. A hosted server installs it itself: when the release is staged, OpenOwnBot asks root to
    install it when idle, and when no connected client changed data or typed for 5 minutes and the
    start was 5 minutes ago. Reading is not use. Server Settings shows this wait as "other work",
    because `host-update-v1` has no reason for it. The automatic update switch of a hosted server
@@ -537,21 +537,21 @@ with a probe; not in boat documentation.]
 
 boat resumes a server on a machine that booted before, restores the disk lazily, and starts the
 units before the restore ends. The restore takes about 3.5 minutes. `stage` waits until it ends (at
-most 4 minutes), and OpenBot asks for `stage` before each install, so an install never stops
-OpenBot for the restore. `boot` waits only for an interrupted copy, because OpenBot starts after
+most 4 minutes), and OpenOwnBot asks for `stage` before each install, so an install never stops
+OpenOwnBot for the restore. `boot` waits only for an interrupted copy, because OpenOwnBot starts after
 it. During a restore it skips a staged release and recovers an incomplete one.
 
 boat starts the desktop (`lightdm`) about 8 s after the resume, and then the enabled units of
-`multi-user.target` again, about 16 s after it. `openbot.service` is also wanted by
-`lightdm.service`, so it starts with the desktop. The second start of `openbot-update-apply.service`
-does nothing: the unit stays active (`RemainAfterExit`), and `boot` does nothing while OpenBot runs
+`multi-user.target` again, about 16 s after it. `openownbot.service` is also wanted by
+`lightdm.service`, so it starts with the desktop. The second start of `openownbot-update-apply.service`
+does nothing: the unit stays active (`RemainAfterExit`), and `boot` does nothing while OpenOwnBot runs
 (after a failed `boot`). [Observed on a boat VM on 2026-10-11; not in boat
 documentation.]
 [Not confirmed in boat documentation: the `active` and `hydration-done` files in
 `/var/lib/ascii-lazy` that mark the restore. Observed on a boat VM.] `apply` never removes a staged
 release that is not complete.
 
-A server only moves to a newer version: an older OpenBot cannot open a database that a newer one
+A server only moves to a newer version: an older OpenOwnBot cannot open a database that a newer one
 migrated. `stage` stops when it cannot read the installed version, and `provision.sh` stops when the
 installed version is newer. A staged release that is no longer the latest one, for example a
 withdrawn release, is removed at the next `stage` run. A server that starts before that run applies
@@ -559,23 +559,23 @@ it. A release without all of its `resources/hosting` files cannot update a serve
 
 A server that has no updater, such as one made from a template before 0.26.0, needs one upgrade by
 hand. With a boat key that has command and file access: upload `scripts/hosting/` to
-`/tmp/openbot-upgrade`, run `sudo systemctl stop openbot.service`, run `sudo bash /tmp/openbot-upgrade/provision.sh user <AppImage URL> <SHA-256>
+`/tmp/openownbot-upgrade`, run `sudo systemctl stop openownbot.service`, run `sudo bash /tmp/openownbot-upgrade/provision.sh user <AppImage URL> <SHA-256>
 https://api.openbot.run` as a detached command, and start the service again. The data in the home
 folder and in `/srv` stays.
 
-On a server, `openbot-hosted-server` starts a D-Bus session, unlocks a gnome-keyring with a
-random password for each server (so `safeStorage` can keep the account session), and runs OpenBot
+On a server, `openownbot-hosted-server` starts a D-Bus session, unlocks a gnome-keyring with a
+random password for each server (so `safeStorage` can keep the account session), and runs OpenOwnBot
 with `--password-store=gnome-libsecret`. The agents use the boat desktop: the lightdm session of the
-sandbox user on `:0`, with openbox. So boat's desktop viewer and OpenBot remote desktop show the same
+sandbox user on `:0`, with openbox. So boat's desktop viewer and OpenOwnBot remote desktop show the same
 screen, and a click moves the keyboard focus to another window. After a resume, the script waits up
-to 2 minutes for that session. OpenBot shows its own windows on a 1280x800 Xvfb display that
+to 2 minutes for that session. OpenOwnBot shows its own windows on a 1280x800 Xvfb display that
 `xvfb-run` starts. `xvfb-run` adds the key of that display to `~/.Xauthority`, which has the key of
 `:0`, and lightdm keeps the other keys when it writes the file. The script names `:0` in
-`OPENBOT_AGENT_DISPLAY`, so an agent's screenshot and remote desktop do not show the OpenBot window
+`OPENOWNBOT_AGENT_DISPLAY`, so an agent's screenshot and remote desktop do not show the OpenOwnBot window
 (see [Computer Use and remote desktop](architecture/computer-use.md#agent-display-on-a-server)). With
 no desktop session, the server starts two Xvfb displays, as a
 [self-hosted server](self-hosted-server.md#how-it-works) does. The keyring files are in
-`/srv/openbot-hosted/keyrings`:
+`/srv/openownbot-hosted/keyrings`:
 
 - not in `~/.local/share/keyrings`: the boat image has a locked `default` keyring there, and a
   snapshot restore resets that folder after the service starts;
@@ -585,7 +585,7 @@ no desktop session, the server starts two Xvfb displays, as a
   them through the slow mount for 25 s. boat keeps changes in `/srv` (not in `/var/lib`), and `/srv`
   is on the disk before the service starts.
 
-OpenBot redeems the claim only when `safeStorage` works. After the first redeem the claim works
+OpenOwnBot redeems the claim only when `safeStorage` works. After the first redeem the claim works
 for 10 more minutes, so a server whose response was lost can redeem it again; each redeem revokes the
 session of the one before. After that, a session that is only in memory would leave the server
 signed out after its next start.
@@ -604,12 +604,12 @@ again with backoff (30 s to 10 min) and then publishes the host.
 
 ## Memory
 
-One systemd unit holds OpenBot, its browser tabs and every agent process: one `claude` process for
+One systemd unit holds OpenOwnBot, its browser tabs and every agent process: one `claude` process for
 each thread, and one set of MCP servers for each ACP session. A Starter server has 4 GB. The guards
 are on a hosted server, a [self-hosted server](self-hosted-server.md#memory) and a
 [container](docker.md#memory); the desktop app does not change.
 
-The unit (`openbot.service`):
+The unit (`openownbot.service`):
 
 - `MemoryMax=90%`: the unit can use at most 90% of the memory, so 10% stays for the desktop, sshd
   and the boat agent. The limit counts memory only, not swap. The boat image has a 2 GB swap file,
@@ -642,7 +642,7 @@ do not all pass the check before their processes grow. A start that fails counts
 
 Agent processes (`AgentProcesses` in `src/main/server-memory.ts`):
 
-- Each provider process gets `OPENBOT_AGENT_PROCESS=1`, so every program that an agent starts has
+- Each provider process gets `OPENOWNBOT_AGENT_PROCESS=1`, so every program that an agent starts has
   it too. A job that an agent detaches (`nohup`, `&`, a routine wake-up job), and the workers of a
   build whose parent the OOM killer stopped, leave main's tree: the kernel gives them to PID 1. The
   variable still finds them. Xvfb, D-Bus and the keyring start before main and do not have it.
@@ -700,11 +700,11 @@ holds it:
    waits at most 3 seconds. With `wake`, the server then starts in the background (`waitUntil`) as for
    a client (`last_wake_reason = 'message'`). A plan that ended starts nothing. Signal asks at most
    once a minute for each hosted route, and once in 10 minutes for another route.
-2. `wake` is true only for an event that addresses OpenBot: a Slack button press, mention, direct
+2. `wake` is true only for an event that addresses OpenOwnBot: a Slack button press, mention, direct
    message or thread reply from a person; a Discord mention or button press; a Telegram message or
    button press.
 3. For such an event and a server that starts, Signal keeps the delivery frame, sealed to the host's
-   queue key (`@openbot/contracts/signal-protocol/ingress-queue`), in memory for at most 10 minutes
+   queue key (`@openownbot/contracts/signal-protocol/ingress-queue`), in memory for at most 10 minutes
    (64 events and 192 KB for each host). Slack gets 200, so it does not send the event again. Because
    the start runs after the answer and can fail, Signal asks for the start again once a minute while
    the host has kept events. Signal
@@ -714,7 +714,7 @@ holds it:
    Telegram or Discord event is lost. This is accepted: it happens only to the events that arrive
    before the host connects again. Signal keeps the keys of at most 100,000 hosts.
 4. Another Slack event of a hosted server gets 200 and is dropped: the host keeps only messages that
-   address OpenBot, and joins the public channels again when its connection starts.
+   address OpenOwnBot, and joins the public channels again when its connection starts.
 5. When the host's socket connects again, Signal sends each kept event of the routes that the socket
    holds, in order, as `queued-delivery` with an `id`. The host opens it with its private key, handles
    it as a normal delivery, and sends `queued-delivery-ack`. Signal keeps the event until that ack, and
@@ -738,21 +738,21 @@ The `boat` scenario of `scripts/stripe-flows-e2e.ts` (see `apps/auth-api/README.
 
 - the builder user has passwordless `sudo`, and AppArmor is enabled in the boat VM;
 - boat runs `setupScript` for a sandbox created from a named snapshot, and systemd starts
-  `openbot.service` after a create;
-- OpenBot redeems its claim, publishes the host with the server name, and signs in again from the
+  `openownbot.service` after a create;
+- OpenOwnBot redeems its claim, publishes the host with the server name, and signs in again from the
   stored session after a restart (`safeStorage` with gnome-keyring under Xvfb);
 - a delete through the Worker removes the sandbox.
 
 A resume test on 2026-09-28 (one sandbox with the 0.24.0 AppImage, 6 resumes, each on another
-machine) confirmed that systemd starts `openbot.service` again after a resume, and that a keyring
-secret in `/srv` stays. From the resume call to the OpenBot start took 7 to 34 s; the keyring start
+machine) confirmed that systemd starts `openownbot.service` again after a resume, and that a keyring
+secret in `/srv` stays. From the resume call to the OpenOwnBot start took 7 to 34 s; the keyring start
 took 40 ms. Most of the time is boat: it restores the disk and then starts the enabled units, 5 to
 20 s after the sandbox is `idle`.
 
 A wake test on 2026-10-11 (one hosted server with 0.37.0) measured, from the resume call: boat
-ready at 4 s, `openbot.service` at 17 s and the host register at 22 s. A wake with a staged release
+ready at 4 s, `openownbot.service` at 17 s and the host register at 22 s. A wake with a staged release
 took 3 min 35 s, because `apply` waited for the restore. With the start at `lightdm`,
-`openbot.service` started at 8 s and the host registered at about 20 s: Electron starts slowly from
+`openownbot.service` started at 8 s and the host registered at about 20 s: Electron starts slowly from
 the lazily restored disk, and the desktop session holds the display until about 12 s.
 
 A resize test on 2026-09-28 (one plain sandbox with `noEnv`, `small → default → small`, each a stop
@@ -762,7 +762,7 @@ and an enabled systemd unit started again after each resume. The stop took 25 to
 sandbox was `idle` 3 to 6 s after the resume call.
 
 A memory test on 2026-09-30 (one `small` sandbox with `noEnv`, the scripts and the Linux AppImage of
-main, and a `ServerMemory` driver in a unit with the same limits as `openbot.service`)
+main, and a `ServerMemory` driver in a unit with the same limits as `openownbot.service`)
 confirmed:
 
 - boat VMs use cgroup v2 with the memory controller, and the unit gets `memory.max` = 90% (3.4 GiB);
@@ -803,7 +803,7 @@ sandbox) stopped the sandbox while a writer used SQLite in WAL mode in the home 
 - with an empty WAL and only small appends at the stop, 9 checks were healthy;
 - with no automatic checkpoint, the main file was not damaged, but in 3 of 6 restores the WAL
   header was torn, and SQLite ignored the full WAL. The rows of that run were lost;
-- with `openbot-boat-pre-stop` for the writer unit (`--mode=pre-stop`), each of 4 stops during
+- with `openownbot-boat-pre-stop` for the writer unit (`--mode=pre-stop`), each of 4 stops during
   writes gave a healthy database with every committed row, and no `/run` flag after the resume.
 
 A stop-order probe on the same day (a unit that records `SIGTERM` and writes each 200 ms) showed
@@ -812,12 +812,12 @@ that boat saves the disk while the processes run, about 3 seconds after the stop
 call, and the last write that the restore kept was from after the hook ended. Thus boat waits for
 the hook before it saves the disk.
 
-An install test on the same sandbox put the new `openbot-hosted-update`, `openbot.service` and hook
+An install test on the same sandbox put the new `openownbot-hosted-update`, `openownbot.service` and hook
 in place, as an older release does when it updates. At the next start, `trigger` installed the hook
-as `user` with mode 0755. It did not change a current hook, kept a hook that OpenBot did not write
-(a file, a link or a FIFO, with no wait), and replaced a changed OpenBot hook. At a stop of the real OpenBot, the hook
-stopped `openbot.service` in 0.3 seconds and ended with 0. After the resume (a new boot ID), the
-flag was gone, OpenBot ran, and `openbot.db` passed `quick_check`.
+as `user` with mode 0755. It did not change a current hook, kept a hook that OpenOwnBot did not write
+(a file, a link or a FIFO, with no wait), and replaced a changed OpenOwnBot hook. At a stop of the real OpenOwnBot, the hook
+stopped `openownbot.service` in 0.3 seconds and ended with 0. After the resume (a new boot ID), the
+flag was gone, OpenOwnBot ran, and `openbot.db` passed `quick_check`.
 
 ## Not confirmed
 
@@ -847,16 +847,16 @@ These were not tested on boat. Test them before a user gets access:
 - whether boat runs the pre-stop hook for a stop that it starts by itself: maintenance (the
   `updating` state) or the end of `ttlSeconds`. A crash of the machine restores the last periodic
   save, which also copies files while they change;
-- that OpenBot closes `openbot.db` at a `systemctl stop` on a server. The install test used a release
-  without the `SIGTERM` handler. The `ExecStop` of the unit stops OpenBot before its Xvfb displays
+- that OpenOwnBot closes `openbot.db` at a `systemctl stop` on a server. The install test used a release
+  without the `SIGTERM` handler. The `ExecStop` of the unit stops OpenOwnBot before its Xvfb displays
   (see [Computer Use](architecture/computer-use.md#agent-display-on-a-server)). This was tested in a
-  container with a stand-in for OpenBot, not with systemd. When OpenBot does not close the database,
+  container with a stand-in for OpenOwnBot, not with systemd. When OpenOwnBot does not close the database,
   it is as after a crash, which SQLite recovers, because the save starts after the stop;
 - the agent display on boat with a release build. On 2026-10-16 one boat server ran a 0.42.0 build
-  with this change, from `openbot.service`: OpenBot was on Xvfb `:99` at 1280x800, and `:0` had no
-  OpenBot window. In an agent turn, the agent shell and `cua-driver` had `DISPLAY=:0`, and Computer
+  with this change, from `openownbot.service`: OpenOwnBot was on Xvfb `:99` at 1280x800, and `:0` had no
+  OpenOwnBot window. In an agent turn, the agent shell and `cua-driver` had `DISPLAY=:0`, and Computer
   Use saw a 1920x1080 screen with only the panel and the dock. A local remote desktop session
-  captured `:0`. The session reported the size of the OpenBot display, 1280x800. The first start
+  captured `:0`. The session reported the size of the OpenOwnBot display, 1280x800. The first start
   after a resume, with this script in `/opt`, was not tested.
 
 

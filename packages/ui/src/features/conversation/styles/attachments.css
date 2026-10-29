@@ -12,37 +12,37 @@
   min-height: 56px;
   align-items: center;
   gap: 6px;
-  border: 1px solid var(--openbot-border);
-  border-radius: var(--openbot-radius-lg);
-  background: var(--openbot-bg-surface-raised);
+  border: 1px solid var(--openownbot-border);
+  border-radius: var(--openownbot-radius-lg);
+  background: var(--openownbot-bg-surface-raised);
   padding: 7px;
   transition:
-    background-color var(--openbot-duration-hover) ease,
-    border-color var(--openbot-duration-hover) ease;
+    background-color var(--openownbot-duration-hover) ease,
+    border-color var(--openownbot-duration-hover) ease;
 }
 
 [data-slot="bubble"]:not([data-variant="ghost"]) > [data-slot="bubble-content"] > .message-attachments:last-child {
-  margin-bottom: var(--openbot-space-1);
+  margin-bottom: var(--openownbot-space-1);
 }
 
 [data-slot="bubble"]:not([data-variant="ghost"])
   > [data-slot="bubble-content"]
   > .message-attachments-group:last-child {
-  margin-bottom: var(--openbot-space-1);
+  margin-bottom: var(--openownbot-space-1);
 }
 
 [data-slot="bubble"]:not([data-variant="ghost"])
   > [data-slot="bubble-content"]
   > .message-attachments:last-child
   .message-attachment {
-  border-radius: var(--openbot-radius-bubble-inset);
+  border-radius: var(--openownbot-radius-bubble-inset);
 }
 
 .message-attachments-group {
   display: grid;
   width: min(100%, 256px);
-  margin-top: var(--openbot-space-2);
-  gap: var(--openbot-space-1-5);
+  margin-top: var(--openownbot-space-2);
+  gap: var(--openownbot-space-1-5);
 }
 
 .message-attachments-group .message-attachments {
@@ -83,8 +83,8 @@
 
 .message-attachment strong {
   overflow: hidden;
-  color: var(--openbot-text-primary);
-  font-size: var(--openbot-text-md);
+  color: var(--openownbot-text-primary);
+  font-size: var(--openownbot-text-md);
   font-weight: 560;
   line-height: 17px;
   text-overflow: ellipsis;
@@ -92,8 +92,8 @@
 }
 
 .message-attachment small {
-  color: var(--openbot-text-readable);
-  font-size: var(--openbot-text-sm);
+  color: var(--openownbot-text-readable);
+  font-size: var(--openownbot-text-sm);
   line-height: 15px;
 }
 
@@ -103,29 +103,29 @@
   height: 40px;
   place-items: center;
   border: 0;
-  border-radius: var(--openbot-radius-md);
+  border-radius: var(--openownbot-radius-md);
   background: transparent;
   padding: 0;
-  color: var(--openbot-text-muted);
+  color: var(--openownbot-text-muted);
   transition:
-    background-color var(--openbot-duration-hover) ease,
-    color var(--openbot-duration-hover) ease,
-    transform var(--openbot-duration-normal) cubic-bezier(0.23, 1, 0.32, 1);
+    background-color var(--openownbot-duration-hover) ease,
+    color var(--openownbot-duration-hover) ease,
+    transform var(--openownbot-duration-normal) cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 .attachment-open-button svg {
-  width: var(--openbot-icon-sm);
-  height: var(--openbot-icon-sm);
+  width: var(--openownbot-icon-sm);
+  height: var(--openownbot-icon-sm);
   fill: none;
   stroke: currentColor;
   stroke-linecap: round;
   stroke-linejoin: round;
-  stroke-width: var(--openbot-icon-stroke);
+  stroke-width: var(--openownbot-icon-stroke);
 }
 
 .attachment-open-button:focus-visible,
 .attachment-preview-button:focus-visible {
-  outline: 2px solid var(--openbot-border-focus);
+  outline: 2px solid var(--openownbot-border-focus);
   outline-offset: 2px;
 }
 
@@ -135,13 +135,13 @@
 
 @media (hover: hover) and (pointer: fine) {
   .message-attachment:hover {
-    border-color: var(--openbot-border-strong);
-    background: var(--openbot-bg-control-hover);
+    border-color: var(--openownbot-border-strong);
+    background: var(--openownbot-bg-control-hover);
   }
 
   .attachment-open-button:hover {
-    background: var(--openbot-bg-control-active);
-    color: var(--openbot-text-primary);
+    background: var(--openownbot-bg-control-active);
+    color: var(--openownbot-text-primary);
   }
 }
 
@@ -159,18 +159,18 @@
   z-index: 10;
   overflow: visible;
   margin: 0 12px calc(-1 * var(--queue-composer-overlap));
-  border: 1px solid var(--openbot-queue-border);
-  border-radius: var(--openbot-radius-lg);
-  background: var(--openbot-queue-surface);
+  border: 1px solid var(--openownbot-queue-border);
+  border-radius: var(--openownbot-radius-lg);
+  background: var(--openownbot-queue-surface);
   padding-bottom: var(--queue-composer-overlap);
   box-shadow: none;
-  animation: queue-panel-in var(--openbot-duration-normal) cubic-bezier(0.23, 1, 0.32, 1) both;
+  animation: queue-panel-in var(--openownbot-duration-normal) cubic-bezier(0.23, 1, 0.32, 1) both;
 }
 
 .agent-queue-slot {
   display: grid;
   grid-template-rows: 1fr;
-  transition: grid-template-rows var(--openbot-duration-overlay) var(--openbot-ease-out);
+  transition: grid-template-rows var(--openownbot-duration-overlay) var(--openownbot-ease-out);
 }
 
 .agent-queue-slot[data-open="false"] {
@@ -193,8 +193,8 @@
 .agent-queue-hold {
   margin: 0;
   padding: var(--queue-row-gutter) var(--queue-row-inset-end) 0 var(--queue-row-inset-start);
-  color: var(--openbot-text-muted);
-  font-size: var(--openbot-text-sm);
+  color: var(--openownbot-text-muted);
+  font-size: var(--openownbot-text-sm);
   line-height: 16px;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -211,37 +211,37 @@
   display: block;
   width: 100%;
   min-width: 0;
-  border-radius: var(--openbot-radius-md);
+  border-radius: var(--openownbot-radius-md);
 }
 
 .message-attachment[data-media] {
-  grid-template-columns: minmax(0, 1fr) var(--openbot-control-sm) var(--openbot-control-sm);
-  gap: var(--openbot-space-2);
-  padding: var(--openbot-space-3);
+  grid-template-columns: minmax(0, 1fr) var(--openownbot-control-sm) var(--openownbot-control-sm);
+  gap: var(--openownbot-space-2);
+  padding: var(--openownbot-space-3);
 }
 
 .message-attachment[data-media] .attachment-file-visual {
-  width: var(--openbot-control-md);
-  height: var(--openbot-control-md);
-  background: var(--openbot-bg-control);
-  color: var(--openbot-text-muted);
+  width: var(--openownbot-control-md);
+  height: var(--openownbot-control-md);
+  background: var(--openownbot-bg-control);
+  color: var(--openownbot-text-muted);
 }
 
 .message-attachment[data-media] .attachment-file-visual svg {
-  width: var(--openbot-icon-md);
-  height: var(--openbot-icon-md);
+  width: var(--openownbot-icon-md);
+  height: var(--openownbot-icon-md);
 }
 
 .message-attachment[data-media] .attachment-open-button {
-  width: var(--openbot-control-sm);
-  height: var(--openbot-control-sm);
+  width: var(--openownbot-control-sm);
+  height: var(--openownbot-control-sm);
 }
 
 .message-attachment[data-media] .attachment-open-button svg {
-  width: var(--openbot-icon-md);
-  height: var(--openbot-icon-md);
+  width: var(--openownbot-icon-md);
+  height: var(--openownbot-icon-md);
 }
 
 .message-attachment[data-media="audio"] .attachment-media-player {
-  height: var(--openbot-control-xl);
+  height: var(--openownbot-control-xl);
 }

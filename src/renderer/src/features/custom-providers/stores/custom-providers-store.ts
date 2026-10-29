@@ -3,8 +3,8 @@ import type {
   CustomProviderSummary,
   SaveCustomProviderInput,
   UpdateCustomProviderInput,
-} from "@openbot/contracts/ipc";
-import { currentText } from "@openbot/ui/text";
+} from "@openownbot/contracts/ipc";
+import { currentText } from "@openownbot/ui/text";
 import { createStore } from "solid-js";
 import { desktopAnalytics } from "../../../analytics";
 import type { CustomProvidersEndpointApi } from "../custom-providers-port";
@@ -38,7 +38,7 @@ async function tracked<T>(
  * The endpoints the user named, as the renderer sees them: a list with no key in it.
  *
  * The API is taken as an accessor rather than as an object, because this store is built while the
- * context mounts and a test harness may install `window.openbot` around it. An absent group leaves
+ * context mounts and a test harness may install `window.openownbot` around it. An absent group leaves
  * the list empty and every mutation a no-op, which is what a build without the endpoints should look
  * like rather than a crash on the Settings tab.
  *

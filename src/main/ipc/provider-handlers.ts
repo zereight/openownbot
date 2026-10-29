@@ -2,7 +2,7 @@ import { Effect } from "effect";
 // Signing in to a provider, storing the optional provider API keys, and downloading the CLI
 // runtimes the providers need.
 
-import { isManagedRuntimeProvider, type ManagedProviderId } from "@openbot/contracts/agent-providers";
+import { isManagedRuntimeProvider, type ManagedProviderId } from "@openownbot/contracts/agent-providers";
 import {
   type AgentProviderId,
   type ConnectProviderAccountInput,
@@ -12,10 +12,10 @@ import {
   type RenameProviderAccountInput,
   type ResetProviderUsageInput,
   type SetProviderApiKeyInput,
-} from "@openbot/contracts/ipc";
-import type { ProviderEnvironmentInput } from "@openbot/contracts/provider-environment";
-import { isDynamicRecord, isString } from "@openbot/contracts/runtime-values";
-import { sourceText } from "@openbot/i18n/source";
+} from "@openownbot/contracts/ipc";
+import type { ProviderEnvironmentInput } from "@openownbot/contracts/provider-environment";
+import { isDynamicRecord, isString } from "@openownbot/contracts/runtime-values";
+import { sourceText } from "@openownbot/i18n/source";
 import { AgentLifecycleFailed, type AgentService } from "../../backend/agent-service";
 import { runCauseEffect } from "../../backend/effect-boundary";
 import type { ClaudeEnvironmentStore } from "../claude-environment-store";
@@ -176,7 +176,7 @@ export function parseProviderApiKeyInput(value: unknown): SetProviderApiKeyInput
 
 export function parseManagedProviderId(value: unknown): ManagedProviderId {
   const provider = parseProviderId(value);
-  if (!isManagedRuntimeProvider(provider)) throw new Error("OpenBot does not manage this provider's CLI.");
+  if (!isManagedRuntimeProvider(provider)) throw new Error("OpenOwnBot does not manage this provider's CLI.");
   return provider;
 }
 

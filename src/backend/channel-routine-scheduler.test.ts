@@ -1,6 +1,6 @@
 // @vitest-environment node
 
-import type { ChannelTask } from "@openbot/contracts/ipc";
+import type { ChannelTask } from "@openownbot/contracts/ipc";
 import { describe, expect, it } from "vitest";
 import { channelRunStatusForTasks } from "./channel-routine-scheduler";
 

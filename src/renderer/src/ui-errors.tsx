@@ -1,5 +1,5 @@
-import type { AgentMessage } from "@openbot/ui/data";
-import { currentText } from "@openbot/ui/text";
+import type { AgentMessage } from "@openownbot/ui/data";
+import { currentText } from "@openownbot/ui/text";
 import { createSignal } from "solid-js";
 import { formatMessageTime } from "./app-message-projection";
 import { agentConversationKey } from "./features/conversation/conversation-keys";

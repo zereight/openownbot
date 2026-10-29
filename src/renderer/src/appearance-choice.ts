@@ -4,7 +4,7 @@ import {
   DEFAULT_APP_APPEARANCE,
   DEFAULT_TRANSPARENT_WINDOW,
   isAppAppearance,
-} from "@openbot/contracts/app-appearance";
+} from "@openownbot/contracts/app-appearance";
 import { createSignal, onSettled } from "solid-js";
 import { appPort } from "./app-port";
 import { syncColorScheme } from "./color-scheme";
@@ -76,8 +76,8 @@ export function useAppearanceChoice() {
 }
 
 /** This window's copy of the choice, so the first paint after a launch has the saved colors. */
-const CACHED_APPEARANCE_KEY = "openbot.appearance";
-const CACHED_TRANSPARENT_WINDOW_KEY = "openbot.transparentWindow";
+const CACHED_APPEARANCE_KEY = "openownbot.appearance";
+const CACHED_TRANSPARENT_WINDOW_KEY = "openownbot.transparentWindow";
 
 /** Reading `window.localStorage` throws when the browser blocks storage, so it is read inside the guard. */
 function cachedPreference(): AppAppearancePreference {
@@ -104,7 +104,7 @@ export function syncAppearance(options: { windowGlass?: boolean } = {}): void {
   const scheme = syncColorScheme(() => preference.appearance);
   const showGlass = () => {
     if (options.windowGlass)
-      document.documentElement.toggleAttribute("data-openbot-window-glass", preference.transparentWindow);
+      document.documentElement.toggleAttribute("data-openownbot-window-glass", preference.transparentWindow);
   };
   showGlass();
   const apply = (next: AppAppearancePreference) => {

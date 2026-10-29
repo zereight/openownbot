@@ -6,18 +6,18 @@
 // 2. A process that answers nothing is ended, with the error that says why.
 // 3. With an MCP server configured, a delivery that meets a hung process fails with the timeout
 //    message, not with the `config.toml` guidance. The runtime starts a new process, and the next turn runs.
-// `bun run test:codex-hung-app-server`. Writes .openbot-build/codex-hung-app-server-e2e/report.json.
+// `bun run test:codex-hung-app-server`. Writes .openownbot-build/codex-hung-app-server-e2e/report.json.
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { mkdtemp, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
-import { AGENT_PROVIDERS, type McpServerConfig } from "@openbot/contracts/ipc";
-import { sourceText } from "@openbot/i18n/source";
+import { AGENT_PROVIDERS, type McpServerConfig } from "@openownbot/contracts/ipc";
+import { sourceText } from "@openownbot/i18n/source";
 import { Effect, Result } from "effect";
 import type { AgentBrowserHost } from "../src/backend/agent/turn-lifecycle";
 
-const OUT = resolve(import.meta.dirname, "../.openbot-build/codex-hung-app-server-e2e");
-const root = await mkdtemp(join(tmpdir(), "openbot-codex-hung-"));
+const OUT = resolve(import.meta.dirname, "../.openownbot-build/codex-hung-app-server-e2e");
+const root = await mkdtemp(join(tmpdir(), "openownbot-codex-hung-"));
 const userData = join(root, "user-data");
 const home = join(root, "home");
 const logPath = join(root, "protocol.jsonl");
@@ -28,9 +28,9 @@ const REQUEST_TIMEOUT_MS = 1_000;
 // Before the service modules load: the Codex process and the stores read the home folder.
 process.env.HOME = home;
 process.env.CODEX_HOME = join(home, ".codex");
-process.env.OPENBOT_CODEX_PATH = fakeCodex;
-process.env.OPENBOT_FAKE_CODEX_LOG = logPath;
-process.env.OPENBOT_FAKE_CODEX_MODES = modesPath;
+process.env.OPENOWNBOT_CODEX_PATH = fakeCodex;
+process.env.OPENOWNBOT_FAKE_CODEX_LOG = logPath;
+process.env.OPENOWNBOT_FAKE_CODEX_MODES = modesPath;
 mkdirSync(home, { recursive: true });
 
 const { AgentService } = await import("../src/backend/agent-service");
@@ -38,7 +38,7 @@ const { AgentStore } = await import("../src/backend/agent-store");
 const { CodexAppServerClient } = await import("../src/backend/app-server-client");
 const { runCauseEffect } = await import("../src/backend/effect-boundary");
 const { MailboxStore } = await import("../src/backend/mailbox-store");
-const { OpenBotDatabase } = await import("../src/backend/openbot-database");
+const { OpenOwnBotDatabase } = await import("../src/backend/openownbot-database");
 const { decodeRecordResponse } = await import("../src/backend/protocol");
 const { providerLabel } = await import("../src/backend/agent/thread-items");
 
@@ -51,9 +51,9 @@ if (process.argv.includes("--version")) {
   process.stdout.write("codex-cli 0.160.1\\n");
   process.exit(0);
 }
-const log = (entry) => fs.appendFileSync(process.env.OPENBOT_FAKE_CODEX_LOG, JSON.stringify({ pid: process.pid, ...entry }) + "\\n");
+const log = (entry) => fs.appendFileSync(process.env.OPENOWNBOT_FAKE_CODEX_LOG, JSON.stringify({ pid: process.pid, ...entry }) + "\\n");
 const mode = () => {
-  try { return JSON.parse(fs.readFileSync(process.env.OPENBOT_FAKE_CODEX_MODES, "utf8"))[process.pid] ?? null; } catch { return null; }
+  try { return JSON.parse(fs.readFileSync(process.env.OPENOWNBOT_FAKE_CODEX_MODES, "utf8"))[process.pid] ?? null; } catch { return null; }
 };
 log({ start: true });
 const config = { config: { mcp_servers: {} }, layers: [{ name: { type: "user", file: "/fake/.codex/config.toml", profile: null }, version: "1", config: { mcp_servers: {} } }] };
@@ -210,7 +210,7 @@ async function waitFor<T>(label: string, read: () => T | null | undefined | fals
 const lastStartPid = () => protocol().findLast((line) => line.start)?.pid ?? 0;
 
 await writeFile(fakeCodex, FAKE_CODEX, { mode: 0o755 });
-const database = new OpenBotDatabase(userData);
+const database = new OpenOwnBotDatabase(userData);
 const store = new AgentStore(userData, home, database);
 const mailbox = new MailboxStore(userData, store.sharedRoot, store.database);
 const agents = new AgentService({

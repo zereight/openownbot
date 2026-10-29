@@ -1,4 +1,4 @@
-import { VoicePanel } from "@openbot/ui/features/conversation/VoicePanel";
+import { VoicePanel } from "@openownbot/ui/features/conversation/VoicePanel";
 import { createSignal, untrack } from "solid-js";
 import { fn } from "storybook/test";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";
@@ -68,7 +68,7 @@ export const Speaking: Story = {
 };
 
 export const MicrophoneBlocked: Story = {
-  args: { muted: true, error: "OpenBot cannot use the microphone. Allow it in System Settings." },
+  args: { muted: true, error: "OpenOwnBot cannot use the microphone. Allow it in System Settings." },
 };
 
 export const ServerOffline: Story = {

@@ -1,6 +1,6 @@
 import { randomUUID } from "node:crypto";
-import { sortConversationMessages } from "@openbot/contracts/conversation-order";
-import { INPUT_LIMITS } from "@openbot/contracts/input-limits";
+import { sortConversationMessages } from "@openownbot/contracts/conversation-order";
+import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
 import type {
   AgentEvent,
   AgentReasoningEffort,
@@ -18,12 +18,12 @@ import type {
   RoutineRunConversationEventStatus,
   TestRoutineInput,
   UpdateRoutineInput,
-} from "@openbot/contracts/ipc";
-import { routineConversationEventItemType, routineRunConversationEventItemType } from "@openbot/contracts/ipc";
-import type { EventRoutine } from "@openbot/contracts/ipc-events";
-import { type DynamicRecord, isBoolean } from "@openbot/contracts/runtime-values";
-import { sourceText } from "@openbot/i18n/source";
-import { collapseMissedOccurrences, RoutineInputError } from "@openbot/team-client/routine-schedule";
+} from "@openownbot/contracts/ipc";
+import { routineConversationEventItemType, routineRunConversationEventItemType } from "@openownbot/contracts/ipc";
+import type { EventRoutine } from "@openownbot/contracts/ipc-events";
+import { type DynamicRecord, isBoolean } from "@openownbot/contracts/runtime-values";
+import { sourceText } from "@openownbot/i18n/source";
+import { collapseMissedOccurrences, RoutineInputError } from "@openownbot/team-client/routine-schedule";
 import { Effect, Schema } from "effect";
 import { AgentRoutineStore } from "../agent-routine-store";
 import { AGENT_PREVIEW_MAX_LENGTH, type AgentStore } from "../agent-store";
@@ -43,9 +43,9 @@ import { routineStatusForDelivery } from "./delivery-content";
 import { quietRoutineRun } from "./routine-quiet-runs";
 import {
   localTimezone,
-  type OpenBotToolResponse,
-  openBotToolFailure,
-  openBotToolResult,
+  type OpenOwnBotToolResponse,
+  openOwnBotToolFailure,
+  openOwnBotToolResult,
   routineToolAgentId,
   routineToolArguments,
   routineToolPolicies,
@@ -534,7 +534,7 @@ export class RoutineScheduler implements RoutineDueSource {
   }
 
   /**
-   * The eight `openbot` routine tools. Returns null when `tool` is not one of them.
+   * The eight `openownbot` routine tools. Returns null when `tool` is not one of them.
    *
    * A request the model can correct is a tool failure, not a throw: a throw becomes a provider error
    * toast, although the model's corrected retry then creates the routine. Other errors are faults
@@ -543,12 +543,12 @@ export class RoutineScheduler implements RoutineDueSource {
   handleTool(
     params: DynamicToolCallParams,
     senderAgentId: string,
-  ): Effect.Effect<OpenBotToolResponse | null, RoutineOperationFailed> {
+  ): Effect.Effect<OpenOwnBotToolResponse | null, RoutineOperationFailed> {
     return this.#handleTool(params, senderAgentId).pipe(
       Effect.catchDefect((cause) => Effect.fail(new RoutineOperationFailed({ cause }))),
       Effect.catch((failure) =>
         failure.cause instanceof RoutineInputError
-          ? Effect.succeed(openBotToolFailure(failure.cause.message))
+          ? Effect.succeed(openOwnBotToolFailure(failure.cause.message))
           : Effect.fail(failure),
       ),
     );
@@ -585,7 +585,7 @@ export class RoutineScheduler implements RoutineDueSource {
     if (params.tool === "list_routines") {
       const args = routineToolArguments(params.arguments, ["agentId"]);
       const agentId = this.#toolAgentId(args, senderAgentId);
-      return openBotToolResult({
+      return openOwnBotToolResult({
         routines: this.list(agentId),
         webhookRoutines: this.#routines
           .listRecords(agentId)
@@ -638,7 +638,7 @@ export class RoutineScheduler implements RoutineDueSource {
         },
         this.#toolMutationOptions(agentId, senderAgentId, params),
       );
-      return openBotToolResult(routine);
+      return openOwnBotToolResult(routine);
     }
 
     if (params.tool === CREATE_WEBHOOK_ROUTINE_TOOL) {
@@ -670,7 +670,7 @@ export class RoutineScheduler implements RoutineDueSource {
       // Only the caller's own chat shows the card with the secret: the card needs the turn.
       const turnId = agentId === senderAgentId ? params.turnId : undefined;
       const recorded = this.#recordWebhookEvent(agentId, "created", routine, turnId);
-      return openBotToolResult(webhookRoutineToolResult(routine, recorded && turnId !== undefined));
+      return openOwnBotToolResult(webhookRoutineToolResult(routine, recorded && turnId !== undefined));
     }
 
     if (params.tool === UPDATE_WEBHOOK_ROUTINE_TOOL) {
@@ -718,7 +718,7 @@ export class RoutineScheduler implements RoutineDueSource {
       });
       const turnId = agentId === senderAgentId ? params.turnId : undefined;
       const recorded = this.#recordWebhookEvent(agentId, "updated", routine, turnId);
-      return openBotToolResult(webhookRoutineToolResult(routine, recorded && turnId !== undefined, true));
+      return openOwnBotToolResult(webhookRoutineToolResult(routine, recorded && turnId !== undefined, true));
     }
 
     if (params.tool === "update_routine") {
@@ -762,7 +762,7 @@ export class RoutineScheduler implements RoutineDueSource {
         hasUpdate = true;
       }
       if (!hasUpdate) throw new RoutineInputError("At least one routine update is required.");
-      return openBotToolResult(this.update(input, this.#toolMutationOptions(input.agentId, senderAgentId, params)));
+      return openOwnBotToolResult(this.update(input, this.#toolMutationOptions(input.agentId, senderAgentId, params)));
     }
 
     if (params.tool === "delete_routine") {
@@ -775,7 +775,7 @@ export class RoutineScheduler implements RoutineDueSource {
         "routineId is required.",
       );
       yield* this.delete({ agentId, routineId }, agentId === senderAgentId ? { turnId: params.turnId } : {});
-      return openBotToolResult({ deleted: true, agentId, routineId });
+      return openOwnBotToolResult({ deleted: true, agentId, routineId });
     }
 
     if (params.tool === "test_routine") {
@@ -787,7 +787,7 @@ export class RoutineScheduler implements RoutineDueSource {
         INPUT_LIMITS.identifier,
         "routineId is required.",
       );
-      return openBotToolResult(yield* this.test({ agentId, routineId }));
+      return openOwnBotToolResult(yield* this.test({ agentId, routineId }));
     }
 
     return null;

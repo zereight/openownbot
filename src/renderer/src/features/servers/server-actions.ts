@@ -1,7 +1,7 @@
-import type { ServerSummary } from "@openbot/contracts/ipc";
-import { classifyFailure } from "@openbot/telemetry";
-import type { ServerActionCallbacks } from "@openbot/ui/features/servers/ServerActionItems";
-import { useText } from "@openbot/ui/text";
+import type { ServerSummary } from "@openownbot/contracts/ipc";
+import { classifyFailure } from "@openownbot/telemetry";
+import type { ServerActionCallbacks } from "@openownbot/ui/features/servers/ServerActionItems";
+import { useText } from "@openownbot/ui/text";
 import { actionToast } from "../../action-toast";
 import { usePlatform } from "../../platform";
 import { useSettings } from "../settings/settings-context";

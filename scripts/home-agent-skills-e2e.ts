@@ -1,17 +1,17 @@
-// Every provider can use the skills in `~/.agents/skills` (nightly-labs/openbot#3204).
+// Every provider can use the skills in `~/.agents/skills` (zereight/openownbot#3204).
 // A temporary HOME holds two skills; `npx skills` also linked one of them into `~/.claude/skills`.
 // - The real Claude Agent SDK starts a stand-in Claude executable that records its arguments: the
 //   session gets an `agents` plugin with the skill that Claude does not read already.
 // - The installed Claude CLI, when there is one, loads that plugin and lists `agents:<name>`.
 // - Antigravity gets the skills in its developer instructions; Codex, which reads the folder, does not.
 // - The `$` list adds the home skill, and its tag names the skill's SKILL.md for the provider only.
-// `bun run test:home-skills`; exit 0 = all pass. Writes .openbot-build/home-agent-skills-e2e/report.json.
+// `bun run test:home-skills`; exit 0 = all pass. Writes .openownbot-build/home-agent-skills-e2e/report.json.
 import assert from "node:assert/strict";
 import { spawnSync } from "node:child_process";
 import { chmod, mkdir, mkdtemp, readdir, readFile, readlink, rm, symlink, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
-import { type AgentSummary, DEFAULT_AGENT_DEFAULTS } from "@openbot/contracts/ipc";
+import { type AgentSummary, DEFAULT_AGENT_DEFAULTS } from "@openownbot/contracts/ipc";
 import { displayMessageReferences } from "../src/backend/agent/delivery-content";
 import { developerInstructions } from "../src/backend/agent/developer-instructions";
 import { ClaudeAgentClient } from "../src/backend/claude-client";
@@ -19,15 +19,20 @@ import { runCauseEffect } from "../src/backend/effect-boundary";
 import { listHomeSkills } from "../src/backend/home-skills";
 import { listHomeFolderSkills } from "../src/main/skill-folder-discovery";
 
-const OUT = resolve(import.meta.dirname, "../.openbot-build/home-agent-skills-e2e");
-const ROOT_VARIABLE = "OPENBOT_HOME_SKILLS_E2E_ROOT";
+const OUT = resolve(import.meta.dirname, "../.openownbot-build/home-agent-skills-e2e");
+const ROOT_VARIABLE = "OPENOWNBOT_HOME_SKILLS_E2E_ROOT";
 
 // `os.homedir()` reads HOME when the process starts, so the checks run in a child with the temporary HOME.
 if (!process.env[ROOT_VARIABLE]) {
-  const root = await mkdtemp(join(tmpdir(), "openbot-home-skills-e2e-"));
+  const root = await mkdtemp(join(tmpdir(), "openownbot-home-skills-e2e-"));
   const child = spawnSync(process.execPath, [import.meta.filename], {
     stdio: "inherit",
-    env: { ...process.env, HOME: join(root, "home"), OPENBOT_REAL_HOME: process.env.HOME ?? "", [ROOT_VARIABLE]: root },
+    env: {
+      ...process.env,
+      HOME: join(root, "home"),
+      OPENOWNBOT_REAL_HOME: process.env.HOME ?? "",
+      [ROOT_VARIABLE]: root,
+    },
   });
   await rm(root, { recursive: true, force: true });
   process.exit(child.status ?? 1);
@@ -44,7 +49,7 @@ interface Report {
   error?: string;
 }
 const report: Report = { passed: false, checks: {} };
-const realHome = process.env.OPENBOT_REAL_HOME;
+const realHome = process.env.OPENOWNBOT_REAL_HOME;
 const root = process.env[ROOT_VARIABLE] ?? "";
 let client: ClaudeAgentClient | null = null;
 

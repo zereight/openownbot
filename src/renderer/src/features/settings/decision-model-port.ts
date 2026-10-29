@@ -1,11 +1,11 @@
-import type { OpenBotDesktopApi } from "@openbot/contracts/ipc";
+import type { OpenOwnBotDesktopApi } from "@openownbot/contracts/ipc";
 
 /** What the decision model section reaches in main: its settings and keys. */
 export interface DecisionModelPort {
-  decisionModel: OpenBotDesktopApi["decisionModel"];
+  decisionModel: OpenOwnBotDesktopApi["decisionModel"];
 }
 
-/** Read on each call: tests and stories replace `window.openbot` per case. */
+/** Read on each call: tests and stories replace `window.openownbot` per case. */
 export function decisionModelPort(): DecisionModelPort {
-  return window.openbot;
+  return window.openownbot;
 }

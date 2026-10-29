@@ -1,4 +1,4 @@
-import type { HostedServerIssue, HostedServerSleep, HostedServerStart } from "@openbot/contracts/ipc";
+import type { HostedServerIssue, HostedServerSleep, HostedServerStart } from "@openownbot/contracts/ipc";
 import { createEffect, createSignal, Show, untrack } from "solid-js";
 import { Button } from "../../button";
 import { ErrorReference } from "../../error-reference";
@@ -52,7 +52,7 @@ export interface ServerConnectionNoticeProps {
   detail?: string | null;
   /** The code of the failure in `detail`, for a user to copy into a report. */
   reference?: string | null;
-  /** The OpenBot version that the server restarts into, while it updates. */
+  /** The OpenOwnBot version that the server restarts into, while it updates. */
   updateVersion?: string | null;
   /** Removes Details, for a notice that is not about the server connection. */
   hideDetails?: boolean;
@@ -109,7 +109,7 @@ export function ServerConnectionNotice(props: ServerConnectionNoticeProps) {
     const step =
       start.step === "provider_limit"
         ? t("server.connection.providerLimit")
-        : t(start.step === "openbot" ? "server.hosted.detail.start.app" : "server.hosted.detail.start.boot");
+        : t(start.step === "openownbot" ? "server.hosted.detail.start.app" : "server.hosted.detail.start.boot");
     const seconds = Math.max(0, Math.floor((now() - start.startedAt) / 1000));
     return t("server.connection.startProgress", { step, time: formatElapsed(seconds) });
   };

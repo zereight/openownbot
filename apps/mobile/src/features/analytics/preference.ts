@@ -2,7 +2,7 @@ import * as SecureStore from "expo-secure-store";
 import { create } from "zustand";
 import { mobileAnalytics } from "./mobile-analytics";
 
-const key = "openbot.mobile.analytics.v1";
+const key = "openownbot.mobile.analytics.v1";
 // The longest wait for the opt-out event before tracking stops. The opt-out must not wait for a slow network.
 const OPT_OUT_EVENT_LIMIT_MS = 2_000;
 export const useAnalyticsPreference = create<{ enabled: boolean; ready: boolean; saving: boolean }>(() => ({

@@ -14,7 +14,7 @@ export interface UserDataMigrationDependencies {
 }
 
 /**
- * Brings the data folder of the app under its old name (`OpenBot`) to the folder of the new name. The old
+ * Brings the data folder of the app under its old name (`OpenOwnBot`) to the folder of the new name. The old
  * folder is copied, never moved or deleted, so going back to the old app loses nothing. The copy is made
  * beside the target and renamed into place, so that a start cut off half way never leaves a folder that
  * looks complete.

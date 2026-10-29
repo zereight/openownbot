@@ -1,15 +1,15 @@
 import { readdir, realpath, stat } from "node:fs/promises";
 import { homedir } from "node:os";
 import { basename, dirname, isAbsolute, join, relative, sep } from "node:path";
-import { INPUT_LIMITS } from "@openbot/contracts/input-limits";
+import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
 import {
   type AgentSummary,
   WORKSPACE_DIRECTORY_LIMIT,
   type WorkspaceDirectory,
   type WorkspaceDirectoryEntry,
-} from "@openbot/contracts/ipc";
-import { legacyAgentId } from "@openbot/contracts/validation";
-import { sourceText } from "@openbot/i18n/source";
+} from "@openownbot/contracts/ipc";
+import { legacyAgentId } from "@openownbot/contracts/validation";
+import { sourceText } from "@openownbot/i18n/source";
 import { Effect } from "effect";
 import { type AttachmentOperationError, attachmentCall, attachmentFailure } from "./attachment-effects";
 import { isRecord } from "./protocol";
@@ -29,7 +29,7 @@ const LOCATION_SUFFIX = /(?::\d+(?::\d+)?|#L\d+(?:C\d+)?(?:-L?\d+(?:C\d+)?)?)$/u
 
 export function sharedPathFromInput(sharedRoot: string, inputPath: string): string {
   const normalized = inputPath.replaceAll("\\", "/");
-  for (const prefix of ["~/OpenBot/Shared/", "OpenBot/Shared/", "Shared/"]) {
+  for (const prefix of ["~/OpenBot/Shared/", "OpenOwnBot/Shared/", "Shared/"]) {
     if (normalized.startsWith(prefix)) return join(sharedRoot, normalized.slice(prefix.length));
   }
   return isAbsolute(inputPath) ? inputPath : join(sharedRoot, normalized);
@@ -49,9 +49,9 @@ export function workspacePathFromInput(workspaceRoot: string, agentId: string, i
   const legacyId = legacyAgentId(agentId);
   for (const prefix of [
     `~/OpenBot/Agents/${agentId}/`,
-    `OpenBot/Agents/${agentId}/`,
+    `OpenOwnBot/Agents/${agentId}/`,
     `~/OpenBot/Bots/${legacyId}/`,
-    `OpenBot/Bots/${legacyId}/`,
+    `OpenOwnBot/Bots/${legacyId}/`,
   ]) {
     if (normalized.startsWith(prefix)) return join(workspaceRoot, normalized.slice(prefix.length));
   }

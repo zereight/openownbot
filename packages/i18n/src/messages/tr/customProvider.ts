@@ -90,7 +90,7 @@ export const messages = {
   "customProvider.header.add": "Başlık ekle",
   "customProvider.submit": "Gönder",
 
-  // Model keşfi. OpenBot uç noktaya model listesini sorar ve kullanıcı listeden seçer.
+  // Model keşfi. OpenOwnBot uç noktaya model listesini sorar ve kullanıcı listeden seçer.
   "customProvider.discovery.find": "Modelleri bul",
   "customProvider.discovery.refresh": "Tekrar bul",
   "customProvider.discovery.loading": "{url} adresine modelleri soruluyor.",
@@ -122,7 +122,7 @@ export const messages = {
     other: "Çalışıyor · {count} model",
   },
 
-  // Sağlayıcı adımında ve Ayarlar'da otomatik algılama. OpenBot yerel model sunucularını
+  // Sağlayıcı adımında ve Ayarlar'da otomatik algılama. OpenOwnBot yerel model sunucularını
   // varsayılan adreslerinde ve PATH'teki bilinen ACP ajanı komutlarını arar.
   "customProvider.detected.title": "Bu bilgisayarda bulundu",
   "customProvider.detected.scanning": "Yerel modeller ve ajanlar aranıyor.",
@@ -211,7 +211,7 @@ export const messages = {
   "customProvider.acp.error.agentIdPattern":
     "Bir harf veya rakamla başlayan küçük harfler, rakamlar veya kısa çizgiler kullanın. En fazla 40 karakter kullanın.",
 
-  // Ayarlar'daki kullanıcının kendi ACP ajanları. Her biri OpenBot'un bu bilgisayarda başlattığı bir komuttur.
+  // Ayarlar'daki kullanıcının kendi ACP ajanları. Her biri OpenOwnBot'un bu bilgisayarda başlattığı bir komuttur.
   "customProvider.agents.title": "Özel ajanlar",
   "customProvider.agents.description": "OpenOwnBot'un bu bilgisayarda başlattığı ACP ajanları.",
   "customProvider.agents.empty": "Henüz özel ajan yok.",

@@ -1,8 +1,8 @@
-import type { AgentAccessLevels, OpenBotDesktopApi, ServerSummary } from "@openbot/contracts/ipc";
-import type { WorkflowPlace } from "@openbot/ui/features/workflows/workflow-model";
+import type { AgentAccessLevels, OpenOwnBotDesktopApi, ServerSummary } from "@openownbot/contracts/ipc";
+import type { WorkflowPlace } from "@openownbot/ui/features/workflows/workflow-model";
 import { serverRoleCanAdminister } from "../servers/server-capabilities";
 
-type WorkflowsApi = OpenBotDesktopApi["workflows"];
+type WorkflowsApi = OpenOwnBotDesktopApi["workflows"];
 /** Each method with its input only; `list` takes none. */
 type BoundWorkflowsApi = {
   [Name in Exclude<keyof WorkflowsApi, "list">]: (
@@ -30,11 +30,11 @@ export interface WorkflowHost {
 }
 
 /**
- * The desktop adapter for one server. `window.openbot` and `server` are read on each call: tests and
+ * The desktop adapter for one server. `window.openownbot` and `server` are read on each call: tests and
  * stories replace them per case, and a role can change.
  */
 export function desktopWorkflowHost(serverId: string, server: () => ServerSummary | undefined): WorkflowHost {
-  const api = () => window.openbot.workflows;
+  const api = () => window.openownbot.workflows;
   /** A server that has not loaded yet is this computer, as the page reads it. */
   const local = () => server()?.kind !== "remote";
   return {
@@ -59,12 +59,12 @@ export function desktopWorkflowHost(serverId: string, server: () => ServerSummar
       rotateWebhookSecret: (input) => api().rotateWebhookSecret(input, serverId),
     },
     onChanged(changed) {
-      const unsubscribe = window.openbot.agent.onScopedEvent((scoped) => {
+      const unsubscribe = window.openownbot.agent.onScopedEvent((scoped) => {
         if (scoped.serverId !== serverId) return;
         if (scoped.event.type === "workflows-changed") changed(scoped.event.workflowId);
         else if (scoped.event.type === "agent-access-changed") changed(null);
       });
-      const reconnect = window.openbot.servers.onEvent((servers) => {
+      const reconnect = window.openownbot.servers.onEvent((servers) => {
         if (servers.some((server) => server.id === serverId && server.state === "online")) changed(null);
       });
       return () => {
@@ -74,7 +74,7 @@ export function desktopWorkflowHost(serverId: string, server: () => ServerSummar
     },
     async places() {
       if (!local()) return [];
-      const connections = await window.openbot.routineResults.options();
+      const connections = await window.openownbot.routineResults.options();
       return connections.flatMap((connection) =>
         connection.places.map((place) => ({
           connectionId: connection.connectionId,
@@ -85,7 +85,7 @@ export function desktopWorkflowHost(serverId: string, server: () => ServerSummar
     },
     async agentLevels() {
       if (local() || serverRoleCanAdminister(server())) return null;
-      return (await window.openbot.hostAdmin.getAgentAccess(serverId)).mine;
+      return (await window.openownbot.hostAdmin.getAgentAccess(serverId)).mine;
     },
   };
 }

@@ -1,5 +1,5 @@
-import { INPUT_LIMITS } from "@openbot/contracts/input-limits";
-import { type AvatarHue, type ChannelDraft, type ChannelSummary, isChannelDraft } from "@openbot/contracts/ipc";
+import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
+import { type AvatarHue, type ChannelDraft, type ChannelSummary, isChannelDraft } from "@openownbot/contracts/ipc";
 import * as Crypto from "expo-crypto";
 import { router, Stack, useLocalSearchParams } from "expo-router";
 import { usePreventRemove } from "expo-router/react-navigation";
@@ -48,7 +48,7 @@ const MemberChoice = memo(function MemberChoice({
   disabled: boolean;
   onToggle: (id: string) => void;
 }) {
-  const accent = String(useCSSVariable("--openbot-accent"));
+  const accent = String(useCSSVariable("--openownbot-accent"));
   return (
     <Pressable
       accessibilityRole="checkbox"
@@ -123,7 +123,7 @@ function ChannelForm({
   const canManage = useMobileWorkspaceSelector(
     (current) => current.servers.find((server) => server.id === serverId)?.role !== "member",
   );
-  const accent = String(useCSSVariable("--openbot-accent"));
+  const accent = String(useCSSVariable("--openownbot-accent"));
   const [edits, setEdits] = useState<Partial<ChannelDraft>>({});
   const [saving, setSaving] = useState(false);
   const [finished, setFinished] = useState(false);

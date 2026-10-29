@@ -11,7 +11,7 @@
  * closed, and a frame round an empty slot would be a line over the input.
  */
 .composer-stack {
-  --composer-stack-inset: var(--openbot-space-3);
+  --composer-stack-inset: var(--openownbot-space-3);
 }
 
 /* A narrow pane gives the rows the width the side margins took. */
@@ -28,9 +28,9 @@
   z-index: 10;
   overflow: hidden;
   margin: 0 var(--composer-stack-inset) calc(-1 * var(--composer-stack-overlap));
-  border: 1px solid var(--openbot-queue-border);
-  border-radius: var(--openbot-radius-lg);
-  background: var(--openbot-queue-surface);
+  border: 1px solid var(--openownbot-queue-border);
+  border-radius: var(--openownbot-radius-lg);
+  background: var(--openownbot-queue-surface);
   padding-bottom: var(--composer-stack-overlap);
 }
 
@@ -38,7 +38,7 @@
   z-index: auto;
   margin: -1px 0 0;
   border: 0;
-  border-top: 1px solid var(--openbot-queue-border);
+  border-top: 1px solid var(--openownbot-queue-border);
   border-radius: 0;
   box-shadow: none;
 }
@@ -62,6 +62,7 @@
   .composer-stack:has(> .context-compaction-notice[data-leaving]):not(
     :has(> :not(.agent-queue-slot, [data-leaving]), > .agent-queue-slot > .agent-queue-slot-inner > *)
   ) {
-    animation: context-compaction-notice-out var(--openbot-duration-toast-exit) var(--openbot-ease-in-out) forwards;
+    animation: context-compaction-notice-out var(--openownbot-duration-toast-exit) var(--openownbot-ease-in-out)
+      forwards;
   }
 }

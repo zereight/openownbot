@@ -1,4 +1,4 @@
-import type { AgentTemplatePreview, AvatarImageInput } from "@openbot/contracts/ipc";
+import type { AgentTemplatePreview, AvatarImageInput } from "@openownbot/contracts/ipc";
 import { createSignal, onSettled, Show } from "solid-js";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";
 import { renderAgentTemplateCard } from "../src/features/agent-templates/agent-template-card";
@@ -26,10 +26,10 @@ function CardPreview(props: { preview: () => Promise<AgentTemplatePreview> }) {
     };
   });
   return (
-    <div style={{ padding: "24px", background: "var(--openbot-bg-notch)", "min-height": "100vh" }}>
+    <div style={{ padding: "24px", background: "var(--openownbot-bg-notch)", "min-height": "100vh" }}>
       <Show
         when={url()}
-        fallback={<p style={{ color: "var(--openbot-text-primary)" }}>{error() ?? "Drawing the card…"}</p>}
+        fallback={<p style={{ color: "var(--openownbot-text-primary)" }}>{error() ?? "Drawing the card…"}</p>}
       >
         {(src) => <img src={src()} alt="Agent share card" width={1200} height={630} style={{ display: "block" }} />}
       </Show>

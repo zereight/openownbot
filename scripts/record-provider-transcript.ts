@@ -1,5 +1,5 @@
 // Records a redacted transcript of one real provider CLI, for `provider-transcript-replay-e2e.ts`.
-// Runs OpenBot's own driver for the provider against the real CLI through `transcript-proxy.ts`:
+// Runs OpenOwnBot's own driver for the provider against the real CLI through `transcript-proxy.ts`:
 // one session in an empty temporary folder, and one short turn. Use a free model: the turn is real.
 // The CLI runs with an empty temporary home folder and only the variables in `KEPT_ENV`, so it sees
 // no account, saved key, token or settings of this computer, and the transcript lists only the
@@ -16,7 +16,7 @@ import { chmod, copyFile, mkdir, mkdtemp, readFile, rm, writeFile } from "node:f
 import { tmpdir } from "node:os";
 import { dirname, join, resolve } from "node:path";
 import { parseArgs } from "node:util";
-import { isAgentProvider } from "@openbot/contracts/agent-providers";
+import { isAgentProvider } from "@openownbot/contracts/agent-providers";
 import type { AgentClient } from "../src/backend/agent-client";
 import { NO_PROVIDER_CREDENTIALS, requireProviderDriver } from "../src/backend/provider-drivers";
 import { runTurn, startThread, stopClients } from "./provider-fakes/host";
@@ -40,7 +40,7 @@ if (!version) throw new Error(`${executable} --version printed no version.`);
 
 const out = resolve(import.meta.dirname, "provider-fakes/transcripts", `${provider}-${version}.jsonl`);
 const proxy = resolve(import.meta.dirname, "provider-fakes/transcript-proxy.ts");
-const root = await mkdtemp(join(tmpdir(), "openbot-transcript-"));
+const root = await mkdtemp(join(tmpdir(), "openownbot-transcript-"));
 const workspace = join(root, "workspace");
 const home = join(root, "home");
 const recording = join(root, "transcript.jsonl");

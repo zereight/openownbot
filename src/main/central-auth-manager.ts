@@ -2,8 +2,8 @@ import { randomUUID } from "node:crypto";
 import { EventEmitter } from "node:events";
 import { chmod, mkdir, readFile, rename, rm, writeFile } from "node:fs/promises";
 import { dirname } from "node:path";
-import type { HostKeyHandover } from "@openbot/contracts/host-key-handover";
-import { parseHostedServerClaim } from "@openbot/contracts/hosted-servers";
+import type { HostKeyHandover } from "@openownbot/contracts/host-key-handover";
+import { parseHostedServerClaim } from "@openownbot/contracts/hosted-servers";
 import type {
   AvatarImageInput,
   CentralAuthIssue,
@@ -12,30 +12,30 @@ import type {
   MobileConnectedDevice,
   MobileConnectLink,
   MobileConnectTicket,
-} from "@openbot/contracts/ipc";
-import { decodeRecord, requiredString } from "@openbot/contracts/ipc-decoding";
-import type { LiveActivityRelayPush } from "@openbot/contracts/live-activity-relay";
+} from "@openownbot/contracts/ipc";
+import { decodeRecord, requiredString } from "@openownbot/contracts/ipc-decoding";
+import type { LiveActivityRelayPush } from "@openownbot/contracts/live-activity-relay";
 import {
   createMobileConnectUrl,
   isMobileConnectHostBinding,
   type MobileConnectHostBinding,
-} from "@openbot/contracts/mobile-connect";
+} from "@openownbot/contracts/mobile-connect";
 import {
   decodeRemoteSession,
   decodeRemoteSessionTicket,
   type RemoteSession,
   type RemoteSessionTicket,
-} from "@openbot/contracts/remote-control-plane";
-import { isDynamicRecord, isNumber, isString } from "@openbot/contracts/runtime-values";
-import { TELEGRAM_LINK_CODE_PATTERN } from "@openbot/contracts/signal-protocol/telegram-route";
+} from "@openownbot/contracts/remote-control-plane";
+import { isDynamicRecord, isNumber, isString } from "@openownbot/contracts/runtime-values";
+import { TELEGRAM_LINK_CODE_PATTERN } from "@openownbot/contracts/signal-protocol/telegram-route";
 import {
   REMOTE_TICKET_AUDIENCE,
   type RemoteMemberRole,
   type RemoteTicketClaims,
-} from "@openbot/contracts/signal-protocol/ticket";
-import { sourceText } from "@openbot/i18n/source";
-import { createOpenBotLogger } from "@openbot/logging";
-import { referenceFrom, safeReference } from "@openbot/user-errors";
+} from "@openownbot/contracts/signal-protocol/ticket";
+import { sourceText } from "@openownbot/i18n/source";
+import { createOpenOwnBotLogger } from "@openownbot/logging";
+import { referenceFrom, safeReference } from "@openownbot/user-errors";
 import { Deferred, Effect, type Layer, Result, Schema, Semaphore } from "effect";
 import { createLocalJWKSet, jwtVerify } from "jose";
 import { z } from "zod";
@@ -94,7 +94,7 @@ interface StoredMobileConnectLink {
 
 const MOBILE_CONNECT_LINK_TOKEN = /^[A-Za-z0-9_-]{32,128}$/u;
 
-const logger = createOpenBotLogger("central-auth");
+const logger = createOpenOwnBotLogger("central-auth");
 
 /** The step of a session file read or write that failed, for the account log. */
 type StoredSessionStage = "read" | "decrypt" | "decode" | "encrypt" | "write";
@@ -141,7 +141,7 @@ const remoteTicketJwksSchema = z.object({
 });
 
 // The account API answers the same shape for a host credential and for a member session, so both
-// paths below decode it with the one function in `@openbot/contracts/remote-control-plane`.
+// paths below decode it with the one function in `@openownbot/contracts/remote-control-plane`.
 export type RemoteConnectionBootstrap = RemoteSessionTicket;
 
 // The claims this host reads off a client's ticket, derived from the contract the account API mints
@@ -816,7 +816,7 @@ export class CentralAuthManager extends EventEmitter<CentralAuthEvents> {
     (operation) => this.#owned(operation),
   ).bind(this);
 
-  /** A one-use code that links the next Telegram chat that adds the OpenBot bot to this host. */
+  /** A one-use code that links the next Telegram chat that adds the OpenOwnBot bot to this host. */
 
   readonly createTelegramLink = Effect.fn("CentralAuth.createTelegramLink")(
     function* (
@@ -1230,7 +1230,7 @@ export class CentralAuthManager extends EventEmitter<CentralAuthEvents> {
         `/v2/remote/hosts/${encodeURIComponent(hostId)}/logo`,
         {
           method: "PUT",
-          headers: { "Content-Type": image.mimeType, ...(version ? { "OpenBot-Logo-Version": version } : {}) },
+          headers: { "Content-Type": image.mimeType, ...(version ? { "OpenOwnBot-Logo-Version": version } : {}) },
           body: Buffer.from(image.bytes),
         },
         (value) => requiredString(decodeRecord(value, "remote host logo"), "logoKey"),
@@ -1934,7 +1934,7 @@ export function readCentralAuthApiUrl(value: string | undefined, fallback = "htt
   const url = new URL(value ?? fallback);
   const loopback = url.hostname === "127.0.0.1" || url.hostname === "localhost";
   if ((url.protocol !== "https:" && !(url.protocol === "http:" && loopback)) || url.pathname !== "/") {
-    throw new Error("OPENBOT_AUTH_API_URL must be HTTPS or an HTTP loopback origin.");
+    throw new Error("OPENOWNBOT_AUTH_API_URL must be HTTPS or an HTTP loopback origin.");
   }
   return url.origin;
 }

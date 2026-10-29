@@ -119,7 +119,7 @@ export const messages = {
   "server.hosted.detail.create.copy": "Copiando o OpenOwnBot para a máquina",
   "server.hosted.detail.create.key": "Adicionando uma chave de login de uso único",
   "server.hosted.detail.start.boot": "Ligando a máquina",
-  "server.hosted.detail.start.app": "Iniciando o OpenBot",
+  "server.hosted.detail.start.app": "Iniciando o OpenOwnBot",
   "server.hosted.detail.start.wait": "Aguardando a resposta do OpenOwnBot",
   "server.hosted.detail.connect.signIn": "Entrando com sua conta",
   "server.hosted.detail.connect.publish": "Adicionando o servidor à sua conta",
@@ -455,11 +455,11 @@ export const messages = {
   "server.update.path.hosted":
     "O serviço hospedado baixa atualizações em segundo plano. Uma atualização baixada inicia na próxima inicialização do servidor. Aguarde o trabalho ativo terminar antes de parar e retomar o servidor. Se ele continuar em uma versão antiga, contate o administrador do computador anfitrião.",
   "server.update.path.system":
-    "No computador anfitrião, execute sudo openbot update para instalar a versão mais recente. Este comando interrompe o OpenOwnBot. Aguarde o trabalho ativo terminar primeiro. Downloads automáticos são instalados na próxima inicialização.",
+    "No computador anfitrião, execute sudo openownbot update para instalar a versão mais recente. Este comando interrompe o OpenOwnBot. Aguarde o trabalho ativo terminar primeiro. Downloads automáticos são instalados na próxima inicialização.",
   "server.update.path.container":
     "No computador anfitrião do Docker, baixe a nova imagem do OpenOwnBot e crie o contêiner de novo com os mesmos volumes de dados. Aguarde o trabalho ativo terminar primeiro. Mantenha os volumes existentes para preservar seus dados.",
   "server.update.path.manual":
-    "Esta instalação não pode se substituir. Peça ao administrador do computador anfitrião para instalar a versão compatível de github.com/nightly-labs/openbot/releases. Mantenha os dados existentes do OpenOwnBot.",
+    "Esta instalação não pode se substituir. Peça ao administrador do computador anfitrião para instalar a versão compatível de github.com/zereight/openownbot/releases. Mantenha os dados existentes do OpenOwnBot.",
   "server.update.path.unavailable":
     "Esta é uma compilação de desenvolvimento. Use uma versão instalada do OpenOwnBot para verificar atualizações.",
   "server.update.check": "Buscar atualizações",

@@ -7,7 +7,7 @@
 // app, provider, account or network is started.
 //
 // Run: bun scripts/routine-flow-sweep-e2e.ts
-// Writes .openbot-build/routine-flow-sweep-e2e/report.json and exits non-zero on a failure.
+// Writes .openownbot-build/routine-flow-sweep-e2e/report.json and exits non-zero on a failure.
 import assert from "node:assert/strict";
 import { mkdirSync, writeFileSync } from "node:fs";
 import { mkdtemp, rm } from "node:fs/promises";
@@ -15,11 +15,11 @@ import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import { Effect } from "effect";
 import { runCauseEffect } from "../src/backend/effect-boundary";
-import { OpenBotDatabase } from "../src/backend/openbot-database";
+import { OpenOwnBotDatabase } from "../src/backend/openownbot-database";
 import { RoutineFlowStore } from "../src/backend/routine-flows/routine-flow-store";
 import { createRoutineFlows } from "../src/backend/routine-flows/routine-flows";
 
-const OUT = resolve(import.meta.dirname, "../.openbot-build/routine-flow-sweep-e2e");
+const OUT = resolve(import.meta.dirname, "../.openownbot-build/routine-flow-sweep-e2e");
 const QUARTER_HOUR_MS = 15 * 60 * 1000;
 /** A 15-minute routine runs 672 times in the 7 days a sweep looks back. */
 const SOLO_RUNS = 672;
@@ -48,7 +48,7 @@ const report: Report = {
   passed: false,
 };
 
-function seed(database: OpenBotDatabase): void {
+function seed(database: OpenOwnBotDatabase): void {
   const db = database.connection;
   const now = Date.now();
   const at = (ms: number) => new Date(ms).toISOString();
@@ -102,7 +102,7 @@ function seed(database: OpenBotDatabase): void {
  * The query plan of each statement that one sweep prepares. The sweep reads through the store, so the
  * statements come from the connection, not from a copy of their text here.
  */
-async function sweepPlans(database: OpenBotDatabase, sweep: () => Promise<void>): Promise<Record<string, string[]>> {
+async function sweepPlans(database: OpenOwnBotDatabase, sweep: () => Promise<void>): Promise<Record<string, string[]>> {
   const connection = database.connection;
   const prepare = connection.prepare.bind(connection);
   const statements = new Set<string>();
@@ -128,12 +128,12 @@ async function sweepPlans(database: OpenBotDatabase, sweep: () => Promise<void>)
   );
 }
 
-function count(database: OpenBotDatabase, sql: string): number {
+function count(database: OpenOwnBotDatabase, sql: string): number {
   return Number(database.connection.prepare(sql).get()?.count);
 }
 
-const root = await mkdtemp(join(tmpdir(), "openbot-routine-flow-sweep-"));
-const database = new OpenBotDatabase(join(root, "profile"));
+const root = await mkdtemp(join(tmpdir(), "openownbot-routine-flow-sweep-"));
+const database = new OpenOwnBotDatabase(join(root, "profile"));
 try {
   await runCauseEffect(database.initialize());
   const indexes = database.connection

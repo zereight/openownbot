@@ -5,19 +5,19 @@
 // The chat gets about 45,000 tokens of history, then a routine runs twice. The check asserts that
 // each run starts an ephemeral session and closes it, that its request stays small, that its answer
 // shows in the chat, that the chat keeps its session, and that the next chat turn reads the answers.
-// `bun scripts/routine-fresh-session-e2e.ts`. Writes .openbot-build/routine-fresh-session-e2e/report.json.
+// `bun scripts/routine-fresh-session-e2e.ts`. Writes .openownbot-build/routine-fresh-session-e2e/report.json.
 import assert from "node:assert/strict";
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { mkdtemp, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import { DatabaseSync } from "node:sqlite";
-import { AGENT_PROVIDERS, decodeUsageTokens } from "@openbot/contracts/ipc";
+import { AGENT_PROVIDERS, decodeUsageTokens } from "@openownbot/contracts/ipc";
 import { Effect } from "effect";
 import type { AgentBrowserHost } from "../src/backend/agent/turn-lifecycle";
 
-const OUT = resolve(import.meta.dirname, "../.openbot-build/routine-fresh-session-e2e");
-const root = await mkdtemp(join(tmpdir(), "openbot-routine-session-"));
+const OUT = resolve(import.meta.dirname, "../.openownbot-build/routine-fresh-session-e2e");
+const root = await mkdtemp(join(tmpdir(), "openownbot-routine-session-"));
 const userData = join(root, "user-data");
 const home = join(root, "home");
 const fakeCodex = join(root, "codex");
@@ -26,14 +26,14 @@ const fakeLog = join(root, "codex.jsonl");
 // Before the service modules load: the Codex process and the stores read the home folder.
 process.env.HOME = home;
 process.env.CODEX_HOME = join(home, ".codex");
-process.env.OPENBOT_CODEX_PATH = fakeCodex;
+process.env.OPENOWNBOT_CODEX_PATH = fakeCodex;
 mkdirSync(home, { recursive: true });
 
 const { AgentService } = await import("../src/backend/agent-service");
 const { AgentStore } = await import("../src/backend/agent-store");
 const { runCauseEffect } = await import("../src/backend/effect-boundary");
 const { MailboxStore } = await import("../src/backend/mailbox-store");
-const { OpenBotDatabase } = await import("../src/backend/openbot-database");
+const { OpenOwnBotDatabase } = await import("../src/backend/openownbot-database");
 
 /** Tokens that each session holds before its first request: the instructions and the tools. */
 const BASE_TOKENS = 3_000;
@@ -219,7 +219,7 @@ function pass(name: string, condition: boolean, detail?: string) {
 }
 
 await writeFile(fakeCodex, FAKE_CODEX, { mode: 0o755 });
-const database = new OpenBotDatabase(userData);
+const database = new OpenOwnBotDatabase(userData);
 const store = new AgentStore(userData, home, database);
 const mailbox = new MailboxStore(userData, store.sharedRoot, store.database);
 const agents = new AgentService({

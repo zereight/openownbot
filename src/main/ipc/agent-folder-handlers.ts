@@ -12,8 +12,8 @@ import {
   folderInside,
   parseAgentFolderInput,
   parseChooseAgentFolderInput,
-} from "@openbot/contracts/ipc";
-import type { AppTranslate } from "@openbot/i18n";
+} from "@openownbot/contracts/ipc";
+import type { AppTranslate } from "@openownbot/i18n";
 import { type BrowserWindow, dialog, type OpenDialogOptions } from "electron";
 import type { AgentService } from "../../backend/agent-service";
 import { runCauseEffect } from "../../backend/effect-boundary";
@@ -85,18 +85,18 @@ export function agentFolderIpcHandlers({
   }
 
   /**
-   * A folder in or around OpenBot's own data or the OpenBot folder, or one that holds this agent's
-   * workspace or the shared folder. The OpenBot folder holds the workspaces of the other agents; the
+   * A folder in or around OpenOwnBot's own data or the OpenOwnBot folder, or one that holds this agent's
+   * workspace or the shared folder. The OpenOwnBot folder holds the workspaces of the other agents; the
    * home folder and a disk root hold it too.
    */
   async function isProtected(path: string, roots: readonly string[]): Promise<boolean> {
-    // The shared folder is in the OpenBot folder, beside the agent workspaces.
-    const [openbot, userData] = await Promise.all([realFolder(dirname(service.sharedRoot)), realFolder(userDataPath)]);
+    // The shared folder is in the OpenOwnBot folder, beside the agent workspaces.
+    const [openownbot, userData] = await Promise.all([realFolder(dirname(service.sharedRoot)), realFolder(userDataPath)]);
     return (
       parse(path).root === path ||
       folderInside(userData, path) ||
-      folderInside(openbot, path) ||
-      [openbot, userData, ...roots].some((root) => folderInside(path, root))
+      folderInside(openownbot, path) ||
+      [openownbot, userData, ...roots].some((root) => folderInside(path, root))
     );
   }
 

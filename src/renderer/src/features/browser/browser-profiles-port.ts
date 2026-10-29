@@ -6,7 +6,7 @@ import type {
   ClearBrowserDataInput,
   UpdateAgentBrowserProfileInput,
   UpdateBrowserProfileInput,
-} from "@openbot/contracts/ipc";
+} from "@openownbot/contracts/ipc";
 
 /**
  * The browser profiles of one server, and the profile of each of its agents. Desktop reaches them
@@ -24,9 +24,9 @@ export interface BrowserProfileCalls {
   tabProfiles(): Promise<BrowserTabProfile[]>;
 }
 
-/** The desktop calls for one server. Reads `window.openbot` on each call: stories replace it per case. */
+/** The desktop calls for one server. Reads `window.openownbot` on each call: stories replace it per case. */
 export function desktopBrowserProfileCalls(serverId?: string): BrowserProfileCalls {
-  const agent = () => window.openbot.agent;
+  const agent = () => window.openownbot.agent;
   return {
     list: () => agent().listBrowserProfiles(serverId),
     create: (name) => agent().createBrowserProfile(name, serverId),

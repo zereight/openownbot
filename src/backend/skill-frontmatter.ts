@@ -1,5 +1,5 @@
-import { SKILL_DESCRIPTION_MAX_LENGTH } from "@openbot/contracts/ipc";
-import { isDynamicRecord, isString } from "@openbot/contracts/runtime-values";
+import { SKILL_DESCRIPTION_MAX_LENGTH } from "@openownbot/contracts/ipc";
+import { isDynamicRecord, isString } from "@openownbot/contracts/runtime-values";
 import { parse as parseYaml } from "yaml";
 
 /** Why a `SKILL.md` does not follow the Agent Skills specification. Each one is an `error.skill.*` key. */

@@ -1,14 +1,14 @@
 /**
  * The "More providers" dialog of the provider picker. The rows use the names of the provider
  * registry and the same description keys as the setup picker. A provider that is included with
- * OpenBot has no description.
+ * OpenOwnBot has no description.
  */
 
-import { agentProviderName, PICKER_PROVIDERS } from "@openbot/contracts/agent-providers";
-import type { AgentProviderId } from "@openbot/contracts/ipc";
-import type { AppTextKey } from "@openbot/i18n";
-import { MoreProvidersDialog } from "@openbot/ui/components/MoreProvidersDialog";
-import { useText } from "@openbot/ui/text";
+import { agentProviderName, PICKER_PROVIDERS } from "@openownbot/contracts/agent-providers";
+import type { AgentProviderId } from "@openownbot/contracts/ipc";
+import type { AppTextKey } from "@openownbot/i18n";
+import { MoreProvidersDialog } from "@openownbot/ui/components/MoreProvidersDialog";
+import { useText } from "@openownbot/ui/text";
 import { fn } from "storybook/test";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";
 

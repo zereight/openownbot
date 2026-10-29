@@ -3,7 +3,7 @@ import {
   hostedSiteBlockKey,
   hostedSiteDeploymentPrefix,
   hostedSiteRouteKey,
-} from "@openbot/contracts/hosted-sites";
+} from "@openownbot/contracts/hosted-sites";
 import { Effect, Result } from "effect";
 import { sha256 } from "./crypto";
 import {
@@ -628,7 +628,7 @@ export class HostedSiteService {
     function* (hostname: string, reason: string, details: string | null, sourceIp: string) {
       const { database } = yield* HostedSiteStorage;
 
-      if (!/^[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.openbot\.site$/u.test(hostname)) {
+      if (!/^[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.openownbot\.site$/u.test(hostname)) {
         return yield* new HostedSiteInputError(400, "invalid_hostname", "The hosted site address is invalid.");
       }
       if (!["abuse", "malware", "phishing", "copyright", "other"].includes(reason)) {

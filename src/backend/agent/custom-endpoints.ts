@@ -1,11 +1,11 @@
-import type { AgentModelOption, AgentReasoningEffort, AgentSummary, UpdateAgentInput } from "@openbot/contracts/ipc";
+import type { AgentModelOption, AgentReasoningEffort, AgentSummary, UpdateAgentInput } from "@openownbot/contracts/ipc";
 import {
   CUSTOM_AGENT_DEFAULT_MODEL,
   customAgentIdOfModel,
   defaultProviderModel,
   PICKER_PROVIDERS,
-} from "@openbot/contracts/ipc";
-import { sourceText } from "@openbot/i18n/source";
+} from "@openownbot/contracts/ipc";
+import { sourceText } from "@openownbot/i18n/source";
 import { Effect, Exit, Schema, Semaphore } from "effect";
 import type { AgentProvider } from "../agent-client";
 import { type AgentStore, DEFAULT_AGENT_PROVIDER } from "../agent-store";
@@ -519,7 +519,7 @@ function sameCustomAgent(model: string, agentModel: string): boolean {
  * The listed model and effort that a saved model ID names as `<model>-<effort>`.
  *
  * Antigravity 1.3.0 and later list `gemini-3.1-pro` with a Low and a High effort. Earlier versions of
- * OpenBot listed and saved each effort as a model of its own, `gemini-3.1-pro-high`. An agent saved on
+ * OpenOwnBot listed and saved each effort as a model of its own, `gemini-3.1-pro-high`. An agent saved on
  * one of these keeps its model and effort. Only an effort that the listed model offers matches.
  */
 function effortVariant(

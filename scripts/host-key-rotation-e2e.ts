@@ -13,7 +13,7 @@
 // clients: a client that trusts the first key reaches the last key, and a changed signature, a step of
 // another host or a key with no handover fails.
 // Run: `bun scripts/host-key-rotation-e2e.ts`.
-// Writes .openbot-build/host-key-rotation-e2e/report.json.
+// Writes .openownbot-build/host-key-rotation-e2e/report.json.
 import assert from "node:assert/strict";
 import { spawn } from "node:child_process";
 import { createHash, generateKeyPairSync } from "node:crypto";
@@ -21,14 +21,14 @@ import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { mkdtemp, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
-import { decodeHostKeyHandover, type HostKeyHandover } from "@openbot/contracts/host-key-handover";
-import { decodeRecord, requiredString } from "@openbot/contracts/ipc-decoding";
-import { verifyEd25519Base64Url } from "@openbot/team-client/ed25519";
-import { followHostKeyHandovers, remoteHostFingerprint } from "@openbot/team-client/host-key-handover";
+import { decodeHostKeyHandover, type HostKeyHandover } from "@openownbot/contracts/host-key-handover";
+import { decodeRecord, requiredString } from "@openownbot/contracts/ipc-decoding";
+import { verifyEd25519Base64Url } from "@openownbot/team-client/ed25519";
+import { followHostKeyHandovers, remoteHostFingerprint } from "@openownbot/team-client/host-key-handover";
 import { Effect } from "effect";
 import { verifyHostKeySignature } from "../src/main/remote-server-host-directory";
 
-const OUT = resolve(import.meta.dirname, "../.openbot-build/host-key-rotation-e2e");
+const OUT = resolve(import.meta.dirname, "../.openownbot-build/host-key-rotation-e2e");
 const HOST_LINE = "host-key-rotation ";
 const STEP_DEADLINE_MS = 30_000;
 
@@ -144,7 +144,7 @@ function hostFingerprint(publicKey: string): string {
 
 async function main(): Promise<void> {
   mkdirSync(OUT, { recursive: true });
-  const root = await mkdtemp(join(tmpdir(), "openbot-host-key-rotation-"));
+  const root = await mkdtemp(join(tmpdir(), "openownbot-host-key-rotation-"));
   const file = join(root, "openbot-team-server-v2.json");
   const checks: Record<string, boolean> = {};
   try {

@@ -6,11 +6,11 @@
 // It checks that a request in a channel of two members and no lead stops with the lead reason and
 // no owner, that a save that sets a lead starts it again with no Continue, that the lead routes it,
 // and that the member which does the work is told the lead's id. It makes its own channel and
-// deletes it. Writes .openbot-build/channel-lead-required-e2e/report.json.
+// deletes it. Writes .openownbot-build/channel-lead-required-e2e/report.json.
 import assert from "node:assert/strict";
-import { agentProviderDescriptor } from "@openbot/contracts/agent-providers";
-import type { ChannelPage, ChannelTask } from "@openbot/contracts/ipc";
-import { sourceText } from "@openbot/i18n/source";
+import { agentProviderDescriptor } from "@openownbot/contracts/agent-providers";
+import type { ChannelPage, ChannelTask } from "@openownbot/contracts/ipc";
+import { sourceText } from "@openownbot/i18n/source";
 import { ChannelClient, connectChannelE2e, waitFor, writeReport } from "./channel-e2e-support";
 
 const PROMPT =

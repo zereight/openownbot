@@ -6,7 +6,7 @@
 // the desktop must still revoke it.
 //
 // Run: bun run test:mobile-connected-devices
-// It writes .openbot-build/mobile-connected-devices-e2e/report.json and exits non-zero on a failure.
+// It writes .openownbot-build/mobile-connected-devices-e2e/report.json and exits non-zero on a failure.
 import { type ChildProcess, spawn } from "node:child_process";
 import { createHash, randomUUID } from "node:crypto";
 import { mkdir, mkdtemp, readdir, readFile, rm, writeFile } from "node:fs/promises";
@@ -14,13 +14,13 @@ import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import { createInterface } from "node:readline";
 import { DatabaseSync } from "node:sqlite";
-import { type MobileConnectHostBinding, parseMobileConnectUrl } from "@openbot/contracts/mobile-connect";
-import { isDynamicRecord, isNumber, isString } from "@openbot/contracts/runtime-values";
+import { type MobileConnectHostBinding, parseMobileConnectUrl } from "@openownbot/contracts/mobile-connect";
+import { isDynamicRecord, isNumber, isString } from "@openownbot/contracts/runtime-values";
 import { runCauseEffect } from "../src/backend/effect-boundary";
 import { CentralAuthManager } from "../src/main/central-auth-manager";
 
 const ROOT = resolve(import.meta.dirname, "..");
-const OUT = join(ROOT, ".openbot-build", "mobile-connected-devices-e2e");
+const OUT = join(ROOT, ".openownbot-build", "mobile-connected-devices-e2e");
 const MIGRATIONS = join(ROOT, "apps", "auth-api", "migrations");
 const SERVER = join(ROOT, "apps", "auth-api", "scripts", "mobile-connected-devices-server.ts");
 const START_LIMIT_MS = 20_000;
@@ -90,7 +90,7 @@ function startAccountServer(databasePath: string): Promise<{ child: ChildProcess
   });
 }
 
-const root = await mkdtemp(join(tmpdir(), "openbot-mobile-connected-devices-"));
+const root = await mkdtemp(join(tmpdir(), "openownbot-mobile-connected-devices-"));
 const databasePath = join(root, "auth.db");
 const database = new DatabaseSync(databasePath);
 database.exec("PRAGMA foreign_keys = ON");

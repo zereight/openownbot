@@ -2,7 +2,7 @@ import type { PartialTranslation } from "../../../message";
 import type { messages as source } from "../../en/mobile/liveActivity";
 
 export const messages = {
-  "mobile.liveActivity.appName": "OpenBot",
+  "mobile.liveActivity.appName": "OpenOwnBot",
   "mobile.liveActivity.badge.working": "작업 중",
   "mobile.liveActivity.badge.message": "메시지",
   "mobile.liveActivity.badge.question": "질문",

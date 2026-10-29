@@ -1,4 +1,4 @@
-import { useText } from "@openbot/ui/text";
+import { useText } from "@openownbot/ui/text";
 import { SetupProviderPicker, type SetupProviders } from "./SetupProviderPicker";
 
 export interface FirstRunPlanStepProps {

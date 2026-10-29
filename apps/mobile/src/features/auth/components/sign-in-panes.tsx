@@ -1,4 +1,4 @@
-import { ONE_TIME_CODE_LENGTH } from "@openbot/contracts/validation";
+import { ONE_TIME_CODE_LENGTH } from "@openownbot/contracts/validation";
 import { Button, Spinner, Typography } from "heroui-native";
 import type { LucideIcon } from "lucide-react-native";
 import ChevronDown from "lucide-react-native/icons/chevron-down";
@@ -309,7 +309,7 @@ export function OptionsPane({
         </PaneItem>
       ) : null}
       <PaneItem index={0} motion={motion}>
-        <Typography.Heading type="h1" accessibilityRole="header" className="tracking-openbot-tight">
+        <Typography.Heading type="h1" accessibilityRole="header" className="tracking-openownbot-tight">
           {t("mobile.auth.signIn.title")}
         </Typography.Heading>
       </PaneItem>
@@ -365,7 +365,7 @@ export function EmailPane({
   return (
     <View onLayout={({ nativeEvent: { layout } }) => onLayout(layout.height)}>
       <PaneItem index={0} motion={motion}>
-        <Typography.Heading type="h2" accessibilityRole="header" className="tracking-openbot-tight">
+        <Typography.Heading type="h2" accessibilityRole="header" className="tracking-openownbot-tight">
           {t("mobile.auth.email.title")}
         </Typography.Heading>
       </PaneItem>
@@ -471,7 +471,7 @@ export function CodePane({
   return (
     <View onLayout={({ nativeEvent: { layout } }) => onLayout(layout.height)}>
       <PaneItem index={0} motion={motion}>
-        <Typography.Heading type="h2" accessibilityRole="header" className="tracking-openbot-tight">
+        <Typography.Heading type="h2" accessibilityRole="header" className="tracking-openownbot-tight">
           {t("mobile.auth.email.codeTitle")}
         </Typography.Heading>
       </PaneItem>

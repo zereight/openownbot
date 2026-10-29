@@ -42,7 +42,7 @@ export const messages = {
   "agentSettings.folders.inShared": "{folder} está na pasta compartilhada, então {agent} já pode alterá-la",
   "agentSettings.folders.inFolder": "{folder} está em {parent}, que já foi adicionada",
   "agentSettings.folders.protected":
-    "Não é possível adicionar {folder}: ela contém dados do OpenBot ou arquivos de outros agentes",
+    "Não é possível adicionar {folder}: ela contém dados do OpenOwnBot ou arquivos de outros agentes",
   "agentSettings.folders.missing": "{folder} não é uma pasta neste computador",
   "agentSettings.folders.limit": {
     one: "Você pode adicionar no máximo {count} pasta",

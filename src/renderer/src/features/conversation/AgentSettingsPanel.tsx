@@ -3,20 +3,20 @@ import {
   agentAutomationAllowed,
   DEFAULT_AGENT_DEFAULTS,
   type FilePreview,
-} from "@openbot/contracts/ipc";
-import { BookMarked, CalendarClock, Folder, Gauge, Puzzle, Table2, Upload } from "@openbot/ui";
-import { SettingsLinkGroup, SettingsLinkRow } from "@openbot/ui/components/SettingsPanel";
-import type { AgentProfile } from "@openbot/ui/data";
+} from "@openownbot/contracts/ipc";
+import { BookMarked, CalendarClock, Folder, Gauge, Puzzle, Table2, Upload } from "@openownbot/ui";
+import { SettingsLinkGroup, SettingsLinkRow } from "@openownbot/ui/components/SettingsPanel";
+import type { AgentProfile } from "@openownbot/ui/data";
 import {
   AgentSessionSettings,
   type AgentSessionSettingsApi,
-} from "@openbot/ui/features/conversation/AgentSessionSettings";
+} from "@openownbot/ui/features/conversation/AgentSessionSettings";
 import SharedAgentSettingsPanel, {
   type AgentBrowserProfileOptions,
   type AgentSettingsPanelProps as SharedAgentSettingsPanelProps,
-} from "@openbot/ui/features/conversation/AgentSettingsPanel";
-import { agentFilesLinkValue } from "@openbot/ui/features/files/AgentFilesView";
-import { useText } from "@openbot/ui/text";
+} from "@openownbot/ui/features/conversation/AgentSettingsPanel";
+import { agentFilesLinkValue } from "@openownbot/ui/features/files/AgentFilesView";
+import { useText } from "@openownbot/ui/text";
 import { createEffect, createMemo, createSignal, createStore, Show, untrack } from "solid-js";
 import { actionToast } from "../../action-toast";
 import { createSettingsPanelWidth, saveSettingsPanelWidth } from "../../components/settings-panel-width";

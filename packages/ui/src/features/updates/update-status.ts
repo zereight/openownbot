@@ -1,6 +1,6 @@
-import type { UpdateStatus } from "@openbot/contracts/ipc";
-import { isUpdateActivePhase, isUpdateBusyPhase } from "@openbot/contracts/ipc";
-import type { AppTextKey } from "@openbot/i18n";
+import type { UpdateStatus } from "@openownbot/contracts/ipc";
+import { isUpdateActivePhase, isUpdateBusyPhase } from "@openownbot/contracts/ipc";
+import type { AppTextKey } from "@openownbot/i18n";
 import { currentText, type TextValue } from "../../text";
 
 export interface UpdateStatusPresentation {

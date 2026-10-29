@@ -9,7 +9,7 @@ first buffered event. The next account claims this buffer; identify precedes ord
 original timestamps. Reconnects do not replay it. Expiry, opt-out, and process exit discard it.
 Account changes invalidate prior operation scopes; the anonymous-to-account transition retains the
 pairing scope so its completion can be recorded. Mobile uses a write-only client in the existing
-Openbot OpenPanel project shared with desktop and the website.
+Openownbot OpenPanel project shared with desktop and the website.
 Workspace command wrappers record outcomes once at the mobile caller; conversation availability is measured in
 the visible chat view, including cached reads, not from background broadcasts. The host remains the only source of turn lifecycle
 events. No Team API or database schema changes are required.
@@ -48,7 +48,7 @@ OpenPanel reads campaign attribution from whichever event creates the session, a
 are sent concurrently.
 See [PRIVACY.md](../../PRIVACY.md) for the data boundary.
 
-`rememberLandingFirstTouch` saves the first visit in `localStorage` (`@openbot/contracts/first-touch`
+`rememberLandingFirstTouch` saves the first visit in `localStorage` (`@openownbot/contracts/first-touch`
 owns the shape, the parser and the 90-day age). The web client sends it with `email/verify`, and
 `/billing/return` sends it with the Checkout Session ID to `POST /api/browser/checkout-attribution`.
 `AccountAttribution` (`src/server/account-attribution.ts`) checks it again, keeps the first value
@@ -87,16 +87,16 @@ and ends between two samples, such as a short tool run, is not counted. The main
 Database time comes from `AgentDatabaseSupervisor`, from the send of a statement to its answer or to
 the end of the host; the host process is not changed. Renderer and child process exits other than a
 clean exit are written to the trace as `crash` spans at once, and counted at the next sample. A
-utility process with the reason `killed` is neither: OpenBot stops these processes itself. An exit in
+utility process with the reason `killed` is neither: OpenOwnBot stops these processes itself. An exit in
 the last minute before a quit is not counted: a stop signal can end the child processes before the
 main process starts its teardown. The trace still has it, after the `exit` span of that quit.
 
-`index.ts` writes one `exit` span and one line in `logs/main/main.log` when OpenBot starts to quit.
+`index.ts` writes one `exit` span and one line in `logs/main/main.log` when OpenOwnBot starts to quit.
 The name is the first reason: `main_window_closed` (Windows and Linux, where closing the main
 window quits), `signal`, `session_end` or `quit` (the menu, the tray, an update or a restart). The
 main log holds every line of the `main` logger, redacted, in two files of 1 MB. `crashReporter`
 keeps local crash dumps in `app.getPath("crashDumps")` and never uploads them. A process that ends
-with no `exit` span and no dump was stopped from outside OpenBot (#2675).
+with no `exit` span and no dump was stopped from outside OpenOwnBot (#2675).
 
 The pure part (`resource-summary.ts`) keeps each day as sparse histograms with two significant digits,
 peaks and counters, so p95 stays exact enough without a sample list. The summary file holds the
@@ -153,10 +153,10 @@ Desktop opens Usage from the server context menu. It keeps the previous workspac
 inert until Back, so conversation drafts and settings survive navigation. Agent settings opens
 the same report with an agent filter. Host changes clear the filter and stale responses are rejected.
 The iPhone app opens Usage from the server menu in a sheet. It reads the same route through
-`readHostAnalytics` in `@openbot/team-client` and shows the per-agent rows; a row or the header
+`readHostAnalytics` in `@openownbot/team-client` and shows the per-agent rows; a row or the header
 filter narrows the report to one agent. The agent Usage page reads the same route with the agent
 filter, so its chart has the provider split too; a host without `host-analytics` gets the
-agent-scoped route and one area. The series pivot is in `@openbot/team-client/usage-series`, which
+agent-scoped route and one area. The series pivot is in `@openownbot/team-client/usage-series`, which
 the desktop chart also reads.
 
 `host:get-analytics` and the optional `host-analytics` capability expose `GET /v1/analytics`.
@@ -173,4 +173,4 @@ is stored by the account service or Signal service.
 
 The desktop chart adapts Zaidan's chart and interactive area composition. The pinned
 `solid-recharts` dependency has a Solid 2 compatibility patch and uses the application's single
-Solid runtime. Chart colors use OpenBot tokens. Daily tables provide exact accessible values.
+Solid runtime. Chart colors use OpenOwnBot tokens. Daily tables provide exact accessible values.

@@ -9,7 +9,7 @@
 //   fixtures; the v7 decoder still refuses a provider that it does not know.
 // - v8 over WebRTC: a browser tab opened from an agent's panel keeps its owner agent.
 // Run: `bun scripts/team-api-legacy-clients-e2e.ts`.
-// Writes .openbot-build/team-api-legacy-clients-e2e/report.json.
+// Writes .openownbot-build/team-api-legacy-clients-e2e/report.json.
 import assert from "node:assert/strict";
 import { generateKeyPairSync, randomBytes, randomUUID, sign, verify } from "node:crypto";
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
@@ -42,7 +42,7 @@ import {
   TEAM_PROTOCOL_VERSION_HEADER,
   teamCapabilitiesForProtocol,
   teamProtocolV2AuthenticationTranscript,
-} from "@openbot/contracts/team-protocol";
+} from "@openownbot/contracts/team-protocol";
 import { plugin } from "bun";
 import { Effect } from "effect";
 import type { AgentBrowserHost } from "../src/backend/agent/turn-lifecycle";
@@ -50,12 +50,12 @@ import { AgentService } from "../src/backend/agent-service";
 import { AgentStore } from "../src/backend/agent-store";
 import { runCauseEffect } from "../src/backend/effect-boundary";
 import { MailboxStore } from "../src/backend/mailbox-store";
-import { OpenBotDatabase } from "../src/backend/openbot-database";
+import { OpenOwnBotDatabase } from "../src/backend/openownbot-database";
 import { SidebarLayoutStore } from "../src/backend/sidebar-layout-store";
 import type { TeamApiBrowser } from "../src/main/team-api/dependencies";
 import type { TeamWebRtcChannel } from "../src/main/team-webrtc-bridge";
 
-const OUT = resolve(import.meta.dirname, "../.openbot-build/team-api-legacy-clients-e2e");
+const OUT = resolve(import.meta.dirname, "../.openownbot-build/team-api-legacy-clients-e2e");
 const FIXTURES = resolve(import.meta.dirname, "../packages/contracts/src/team-protocol/fixtures");
 const HOST_VERSION = "0.0.0-e2e";
 const STEP_DEADLINE_MS = 30_000;
@@ -333,10 +333,10 @@ class LoopbackBridge extends TeamWebRtcBridge {
   }
 }
 
-const root = await mkdtemp(join(tmpdir(), "openbot-team-api-legacy-"));
+const root = await mkdtemp(join(tmpdir(), "openownbot-team-api-legacy-"));
 const userData = join(root, "user-data");
 const home = join(root, "home");
-const database = new OpenBotDatabase(userData);
+const database = new OpenOwnBotDatabase(userData);
 const agentStore = new AgentStore(userData, home, database);
 const mailbox = new MailboxStore(userData, agentStore.sharedRoot, agentStore.database);
 const sidebar = new SidebarLayoutStore(join(userData, "sidebar-layout.json"));
@@ -469,7 +469,7 @@ try {
   await step("v1 events: the released socket subprotocol, scope and `botId` events", async () => {
     const opened = new WebSocket(`ws://127.0.0.1:${port}/v1/events`, [
       TEAM_PROTOCOL_V1_WEBSOCKET,
-      `openbot-token.${member.token}`,
+      `openownbot-token.${member.token}`,
     ]);
     socket = opened;
     await new Promise<void>((resolveOpen, reject) => {

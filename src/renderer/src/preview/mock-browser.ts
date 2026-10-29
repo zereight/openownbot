@@ -6,8 +6,8 @@ import type {
   BrowserPictureInPictureEvent,
   BrowserPreview,
   BrowserTab,
-  OpenBotDesktopApi,
-} from "@openbot/contracts/ipc";
+  OpenOwnBotDesktopApi,
+} from "@openownbot/contracts/ipc";
 import browserTakeoverPreviewUrl from "../../stories/assets/browser-takeover-preview.svg";
 import { STORY_BROWSER_CONTROL, STORY_BROWSER_TABS } from "./fixtures";
 import { clone, type Listener, type MockRuntime } from "./mock-support";
@@ -47,7 +47,7 @@ export function createMockBrowser(
     emitAgentEvent({ type: "browser-changed", tabs: browserTabs, activeTabId: activeBrowserTabId });
   };
 
-  const browser: OpenBotDesktopApi["browser"] = {
+  const browser: OpenOwnBotDesktopApi["browser"] = {
     open: async (input: BrowserOpenInput) => {
       const tab: BrowserTab = {
         id: `browser-tab-${browserTabs.length + 1}`,

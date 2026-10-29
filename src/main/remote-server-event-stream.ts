@@ -1,6 +1,6 @@
-import type { HostRestartEvent } from "@openbot/contracts/team-protocol/host-update-v1";
-import { optionalTeamEvent, optionalTeamEventToCurrent } from "@openbot/contracts/team-protocol/optional-events";
-import { decodeTeamProtocolV8BaseCurrentEvent } from "@openbot/contracts/team-protocol/v8-base-adapter";
+import type { HostRestartEvent } from "@openownbot/contracts/team-protocol/host-update-v1";
+import { optionalTeamEvent, optionalTeamEventToCurrent } from "@openownbot/contracts/team-protocol/optional-events";
+import { decodeTeamProtocolV8BaseCurrentEvent } from "@openownbot/contracts/team-protocol/v8-base-adapter";
 import { Effect, Exit, Result, Scope } from "effect";
 import { RemoteWorkflowError, remoteDecode } from "./remote-service-effects";
 // The live event channel for HTTPS servers, and the reconnect policy both transports share.
@@ -31,18 +31,18 @@ import type {
   ServerCompatibility,
   ServerSummary,
   TeamPresenceSnapshot,
-} from "@openbot/contracts/ipc";
-import { decodeRecord } from "@openbot/contracts/ipc-decoding";
-import { isString } from "@openbot/contracts/runtime-values";
-import { TEAM_API_ROUTES } from "@openbot/contracts/team-api-routes";
-import { type TeamCurrentCapability, teamCapabilitiesForProtocol } from "@openbot/contracts/team-protocol/current";
-import { TEAM_PROTOCOL_V1_WEBSOCKET } from "@openbot/contracts/team-protocol/v1";
+} from "@openownbot/contracts/ipc";
+import { decodeRecord } from "@openownbot/contracts/ipc-decoding";
+import { isString } from "@openownbot/contracts/runtime-values";
+import { TEAM_API_ROUTES } from "@openownbot/contracts/team-api-routes";
+import { type TeamCurrentCapability, teamCapabilitiesForProtocol } from "@openownbot/contracts/team-protocol/current";
+import { TEAM_PROTOCOL_V1_WEBSOCKET } from "@openownbot/contracts/team-protocol/v1";
 import {
   encodeTeamProtocolV1CurrentClientEvent,
   type TeamProtocolV1CurrentClientEvent,
-} from "@openbot/contracts/team-protocol/v1-adapter";
-import { sourceText } from "@openbot/i18n/source";
-import { referenceFrom } from "@openbot/user-errors";
+} from "@openownbot/contracts/team-protocol/v1-adapter";
+import { sourceText } from "@openownbot/i18n/source";
+import { referenceFrom } from "@openownbot/user-errors";
 import { RemoteProtocolError, RemoteRequestError } from "./remote-server-errors";
 import { requestJson } from "./remote-server-http";
 import type { RemoteServerDirectory, StoredRemoteServerView } from "./remote-server-store";
@@ -62,8 +62,8 @@ const HOSTED_SERVER_START_RETRY_MS = 5_000;
 const REMOTE_EVENT_HEALTHY_MS = 30_000;
 const REMOTE_EVENT_PAYLOAD_LIMIT = 1024 * 1024;
 const REMOTE_EVENT_INITIAL_BUFFER_LIMIT = 1_000;
-const REMOTE_EVENT_PROTOCOL = "openbot-events";
-const REMOTE_EVENT_SNAPSHOT_PROTOCOL = "openbot-events-v2";
+const REMOTE_EVENT_PROTOCOL = "openownbot-events";
+const REMOTE_EVENT_SNAPSHOT_PROTOCOL = "openownbot-events-v2";
 
 // What the stream needs of the request client: the negotiated range, and the headers that carry it.
 export interface RemoteEventCompatibilitySource {
@@ -471,8 +471,8 @@ export class RemoteEventStream {
       const eventsUrl = new URL(TEAM_API_ROUTES.events, server.apiUrl);
       eventsUrl.protocol = eventsUrl.protocol === "https:" ? "wss:" : "ws:";
       const socketProtocols = this.#appVersion
-        ? [TEAM_PROTOCOL_V1_WEBSOCKET, `openbot-token.${this.#servers.token(server)}`]
-        : [REMOTE_EVENT_SNAPSHOT_PROTOCOL, REMOTE_EVENT_PROTOCOL, `openbot-token.${this.#servers.token(server)}`];
+        ? [TEAM_PROTOCOL_V1_WEBSOCKET, `openownbot-token.${this.#servers.token(server)}`]
+        : [REMOTE_EVENT_SNAPSHOT_PROTOCOL, REMOTE_EVENT_PROTOCOL, `openownbot-token.${this.#servers.token(server)}`];
       const socket = yield* remoteDecode(() => new WebSocket(eventsUrl, socketProtocols));
       let agentEventsReady = false;
       const bufferedAgentEvents: AgentEvent[] = [];

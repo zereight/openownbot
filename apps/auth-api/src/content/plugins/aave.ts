@@ -26,7 +26,7 @@ export const AAVE_PLUGIN_GUIDE: PluginGuide = {
     {
       question: "Is the Aave MCP server official?",
       answer:
-        "Yes. Aave announced the official Aave MCP server on its blog. The server covers Aave V3 and V4 markets, positions, governance and transaction preparation. The OpenBot listing connects to this server.",
+        "Yes. Aave announced the official Aave MCP server on its blog. The server covers Aave V3 and V4 markets, positions, governance and transaction preparation. The OpenOwnBot listing connects to this server.",
     },
     {
       question: "Does the Aave plugin need an API key?",
@@ -41,7 +41,7 @@ export const AAVE_PLUGIN_GUIDE: PluginGuide = {
     {
       question: "What data does Aave get?",
       answer:
-        "Aave gets the requests that the agent sends, for example a wallet address or a proposal to look up. Your OpenBot workspaces, conversations and files stay on the computer that runs OpenBot. Installing the plugin is free.",
+        "Aave gets the requests that the agent sends, for example a wallet address or a proposal to look up. Your OpenOwnBot workspaces, conversations and files stay on the computer that runs OpenOwnBot. Installing the plugin is free.",
     },
   ],
   sources: [

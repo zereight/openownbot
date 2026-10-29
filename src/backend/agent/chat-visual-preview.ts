@@ -1,4 +1,4 @@
-import type { ChatVisualAppearance } from "@openbot/contracts/chat-visual";
+import type { ChatVisualAppearance } from "@openownbot/contracts/chat-visual";
 import type { Effect } from "effect";
 import { Schema } from "effect";
 

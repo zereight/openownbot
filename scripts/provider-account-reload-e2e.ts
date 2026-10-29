@@ -1,12 +1,12 @@
 // Checks saved accounts through the real runtime, account store, and provider adapters with local CLI fixtures.
 // Run: bun scripts/provider-account-reload-e2e.ts
-// Report: .openbot-build/provider-update-busy-e2e/account-reload-report.json
+// Report: .openownbot-build/provider-update-busy-e2e/account-reload-report.json
 import assert from "node:assert/strict";
 import { EventEmitter } from "node:events";
 import { chmod, mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
-import type { ProviderAccountState, ProviderAccountStatus } from "@openbot/contracts/ipc";
+import type { ProviderAccountState, ProviderAccountStatus } from "@openownbot/contracts/ipc";
 import { Effect } from "effect";
 import { ConversationRuntime } from "../src/backend/agent/conversation-runtime";
 import { ProviderAccountStore } from "../src/backend/agent/provider-account-store";
@@ -15,19 +15,19 @@ import { AgentStore } from "../src/backend/agent-store";
 import { CodexAppServerClient } from "../src/backend/app-server-client";
 import { ClaudeAgentClient } from "../src/backend/claude-client";
 import { runCauseEffect } from "../src/backend/effect-boundary";
-import { OpenBotDatabase } from "../src/backend/openbot-database";
+import { OpenOwnBotDatabase } from "../src/backend/openownbot-database";
 import { BUILT_IN_PROVIDER_DRIVERS, NO_PROVIDER_CREDENTIALS } from "../src/backend/provider-drivers";
 
 export async function checkProviderAccountReload(): Promise<void> {
-  const OUT = resolve(import.meta.dirname, "../.openbot-build/provider-update-busy-e2e");
-  const root = await mkdtemp(join(tmpdir(), "openbot-account-reload-"));
+  const OUT = resolve(import.meta.dirname, "../.openownbot-build/provider-update-busy-e2e");
+  const root = await mkdtemp(join(tmpdir(), "openownbot-account-reload-"));
   const providersToCheck = ["codex", "claude"] as const;
   type Provider = (typeof providersToCheck)[number];
   const changes = new EventEmitter();
   const results: { name: string; passed: boolean }[] = [];
   const savedEnvironment = {
-    OPENBOT_CODEX_PATH: process.env.OPENBOT_CODEX_PATH,
-    OPENBOT_CLAUDE_PATH: process.env.OPENBOT_CLAUDE_PATH,
+    OPENOWNBOT_CODEX_PATH: process.env.OPENOWNBOT_CODEX_PATH,
+    OPENOWNBOT_CLAUDE_PATH: process.env.OPENOWNBOT_CLAUDE_PATH,
   };
 
   // Account status comes from a file in the selected account folder, never from a real sign-in.
@@ -82,7 +82,7 @@ require("node:readline").createInterface({ input: process.stdin }).on("line", (l
     return join(root, `default-${provider}`);
   }
 
-  const database = new OpenBotDatabase(join(root, "profile"));
+  const database = new OpenOwnBotDatabase(join(root, "profile"));
   const agents = new AgentStore(join(root, "profile"), join(root, "home"), database);
   const accountsPath = join(root, "accounts.json");
   const accountsRoot = join(root, "accounts");
@@ -194,7 +194,7 @@ require("node:readline").createInterface({ input: process.stdin }).on("line", (l
       const executable = join(root, `${provider}.cjs`);
       await writeFile(executable, FAKE_CLI);
       await chmod(executable, 0o755);
-      process.env[provider === "codex" ? "OPENBOT_CODEX_PATH" : "OPENBOT_CLAUDE_PATH"] = executable;
+      process.env[provider === "codex" ? "OPENOWNBOT_CODEX_PATH" : "OPENOWNBOT_CLAUDE_PATH"] = executable;
       await saveAccount(defaultHome(provider), `${provider}-default@example.invalid`);
     }
     const initial = new ProviderAccountStore(accountsPath, accountsRoot);
@@ -216,7 +216,7 @@ require("node:readline").createInterface({ input: process.stdin }).on("line", (l
           const executable = join(root, `${provider}-updated.cjs`);
           await writeFile(executable, FAKE_CLI);
           await chmod(executable, 0o755);
-          process.env[provider === "codex" ? "OPENBOT_CODEX_PATH" : "OPENBOT_CLAUDE_PATH"] = executable;
+          process.env[provider === "codex" ? "OPENOWNBOT_CODEX_PATH" : "OPENOWNBOT_CLAUDE_PATH"] = executable;
         }
       }
       const loaded = new ProviderAccountStore(accountsPath, accountsRoot);

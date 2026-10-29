@@ -1,15 +1,15 @@
-import type { OpenBotDesktopApi } from "@openbot/contracts/ipc";
+import type { OpenOwnBotDesktopApi } from "@openownbot/contracts/ipc";
 
 /**
  * What the sidebar reaches in main: the saved sidebar layout and its changes, and the free space
  * on the disk of a server for the storage card.
  */
 export interface SidebarPort {
-  agent: Pick<OpenBotDesktopApi["agent"], "getSidebarLayout" | "mutateSidebarLayout">;
-  storage: Pick<OpenBotDesktopApi["storage"], "getDisk">;
+  agent: Pick<OpenOwnBotDesktopApi["agent"], "getSidebarLayout" | "mutateSidebarLayout">;
+  storage: Pick<OpenOwnBotDesktopApi["storage"], "getDisk">;
 }
 
-/** Read on each call: tests and stories replace `window.openbot` per case. */
+/** Read on each call: tests and stories replace `window.openownbot` per case. */
 export function sidebarPort(): SidebarPort {
-  return window.openbot;
+  return window.openownbot;
 }

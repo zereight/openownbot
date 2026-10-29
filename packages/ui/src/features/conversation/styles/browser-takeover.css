@@ -1,16 +1,16 @@
 .browser-takeover-card {
   display: flex;
   width: min(540px, 100%);
-  margin: var(--openbot-space-3) 0 var(--openbot-space-6);
+  margin: var(--openownbot-space-3) 0 var(--openownbot-space-6);
   flex-direction: column;
-  gap: var(--openbot-space-4);
-  animation: browser-takeover-in var(--openbot-duration-slow) var(--openbot-ease-out) both;
+  gap: var(--openownbot-space-4);
+  animation: browser-takeover-in var(--openownbot-duration-slow) var(--openownbot-ease-out) both;
 }
 
 .browser-takeover-copy {
-  margin-top: calc(-1 * var(--openbot-space-2));
+  margin-top: calc(-1 * var(--openownbot-space-2));
   display: grid;
-  gap: var(--openbot-space-1);
+  gap: var(--openownbot-space-1);
 }
 
 .browser-takeover-copy p {
@@ -19,37 +19,37 @@
 
 .browser-takeover-copy p {
   max-width: 54ch;
-  color: var(--openbot-text-muted);
-  font-size: var(--openbot-text-sm);
-  line-height: var(--openbot-leading-md);
+  color: var(--openownbot-text-muted);
+  font-size: var(--openownbot-text-sm);
+  line-height: var(--openownbot-leading-md);
 }
 
 .browser-takeover-preview {
   min-width: 0;
   overflow: hidden;
   margin: 0;
-  border: 1px solid var(--openbot-border);
-  border-radius: var(--openbot-radius-md);
-  background: var(--openbot-bg-canvas);
+  border: 1px solid var(--openownbot-border);
+  border-radius: var(--openownbot-radius-md);
+  background: var(--openownbot-bg-canvas);
 }
 
 .browser-takeover-preview-bar {
   display: flex;
-  height: var(--openbot-control-sm);
+  height: var(--openownbot-control-sm);
   min-width: 0;
   align-items: center;
-  gap: var(--openbot-space-1-5);
-  border-bottom: 1px solid var(--openbot-border);
-  background: var(--openbot-bg-control);
-  padding: 0 var(--openbot-space-3);
-  color: var(--openbot-text-secondary);
+  gap: var(--openownbot-space-1-5);
+  border-bottom: 1px solid var(--openownbot-border);
+  background: var(--openownbot-bg-control);
+  padding: 0 var(--openownbot-space-3);
+  color: var(--openownbot-text-secondary);
 }
 
 .browser-takeover-preview-bar svg {
-  width: var(--openbot-icon-sm);
-  height: var(--openbot-icon-sm);
+  width: var(--openownbot-icon-sm);
+  height: var(--openownbot-icon-sm);
   flex: 0 0 auto;
-  stroke-width: var(--openbot-icon-stroke);
+  stroke-width: var(--openownbot-icon-stroke);
 }
 
 .browser-takeover-preview-bar span,
@@ -62,14 +62,14 @@
 .browser-takeover-preview-bar span {
   min-width: 0;
   flex: 1;
-  font-size: var(--openbot-text-sm);
-  font-weight: var(--openbot-weight-medium);
+  font-size: var(--openownbot-text-sm);
+  font-weight: var(--openownbot-weight-medium);
 }
 
 .browser-takeover-preview-bar small {
   max-width: 42%;
-  color: var(--openbot-text-readable);
-  font-size: var(--openbot-text-sm);
+  color: var(--openownbot-text-readable);
+  font-size: var(--openownbot-text-sm);
 }
 
 .browser-takeover-preview-viewport {
@@ -77,7 +77,7 @@
   aspect-ratio: 16 / 10;
   overflow: hidden;
   place-items: stretch;
-  background: var(--openbot-bg-control);
+  background: var(--openownbot-bg-control);
 }
 
 /* The viewport is the button that opens the page, so it keeps the frame it has as a plain
@@ -101,22 +101,22 @@
   align-items: center;
   justify-self: center;
   align-self: center;
-  gap: var(--openbot-space-1);
-  border-radius: var(--openbot-radius-pill);
-  background: var(--openbot-bg-canvas);
-  padding: var(--openbot-space-2) var(--openbot-space-3);
-  color: var(--openbot-text-primary);
-  font-size: var(--openbot-text-sm);
+  gap: var(--openownbot-space-1);
+  border-radius: var(--openownbot-radius-pill);
+  background: var(--openownbot-bg-canvas);
+  padding: var(--openownbot-space-2) var(--openownbot-space-3);
+  color: var(--openownbot-text-primary);
+  font-size: var(--openownbot-text-sm);
   line-height: 1;
   opacity: 0;
   pointer-events: none;
-  transition: opacity var(--openbot-duration-fast) var(--openbot-ease-out);
+  transition: opacity var(--openownbot-duration-fast) var(--openownbot-ease-out);
 }
 
 .browser-takeover-preview-open-label > svg {
-  width: var(--openbot-icon-xs);
-  height: var(--openbot-icon-xs);
-  stroke-width: var(--openbot-icon-stroke);
+  width: var(--openownbot-icon-xs);
+  height: var(--openownbot-icon-xs);
+  stroke-width: var(--openownbot-icon-stroke);
 }
 
 .browser-takeover-preview-open:hover .browser-takeover-preview-open-label,
@@ -141,25 +141,25 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  gap: var(--openbot-space-1);
-  color: var(--openbot-text-muted);
-  padding: var(--openbot-space-6);
+  gap: var(--openownbot-space-1);
+  color: var(--openownbot-text-muted);
+  padding: var(--openownbot-space-6);
   text-align: center;
 }
 
 .browser-takeover-preview-fallback svg {
-  width: var(--openbot-icon-lg);
-  height: var(--openbot-icon-lg);
-  margin-bottom: var(--openbot-space-1);
-  stroke-width: var(--openbot-icon-stroke);
+  width: var(--openownbot-icon-lg);
+  height: var(--openownbot-icon-lg);
+  margin-bottom: var(--openownbot-space-1);
+  stroke-width: var(--openownbot-icon-stroke);
 }
 
 .browser-takeover-preview-fallback strong {
   max-width: 100%;
   overflow: hidden;
-  color: var(--openbot-text-secondary);
-  font-size: var(--openbot-text-sm);
-  font-weight: var(--openbot-weight-medium);
+  color: var(--openownbot-text-secondary);
+  font-size: var(--openownbot-text-sm);
+  font-weight: var(--openownbot-weight-medium);
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -167,8 +167,8 @@
 .browser-takeover-preview-fallback span {
   max-width: 100%;
   overflow: hidden;
-  color: var(--openbot-text-readable);
-  font-size: var(--openbot-text-sm);
+  color: var(--openownbot-text-readable);
+  font-size: var(--openownbot-text-sm);
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -178,7 +178,7 @@
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: var(--openbot-space-2);
+  gap: var(--openownbot-space-2);
 }
 
 .browser-takeover-finish {
@@ -188,11 +188,11 @@
   flex-wrap: wrap;
   align-items: center;
   justify-content: flex-end;
-  gap: var(--openbot-space-2);
+  gap: var(--openownbot-space-2);
 }
 
 .browser-takeover-actions .ui-button {
-  transition: transform var(--openbot-duration-fast) var(--openbot-ease-out);
+  transition: transform var(--openownbot-duration-fast) var(--openownbot-ease-out);
 }
 
 .browser-takeover-actions .ui-button:active:not(:disabled) {
@@ -218,14 +218,14 @@
 
 .question-prompt-bubble > .ui-bubble-content {
   width: 100%;
-  border-color: var(--openbot-border);
-  background: var(--openbot-bg-canvas);
+  border-color: var(--openownbot-border);
+  background: var(--openownbot-bg-canvas);
 }
 
 .question-prompt-complete {
   min-width: 0;
   display: grid;
-  gap: var(--openbot-space-3);
+  gap: var(--openownbot-space-3);
 }
 
 .question-prompt-complete-header,
@@ -237,37 +237,37 @@
 .question-prompt-complete-header {
   min-width: 0;
   justify-content: space-between;
-  gap: var(--openbot-space-3);
+  gap: var(--openownbot-space-3);
   min-height: 24px;
 }
 
 .question-prompt-complete-status {
   min-width: 0;
-  gap: var(--openbot-space-2);
-  color: var(--openbot-text-primary);
+  gap: var(--openownbot-space-2);
+  color: var(--openownbot-text-primary);
 }
 
 .question-prompt-complete-status svg {
-  width: var(--openbot-icon-sm);
-  height: var(--openbot-icon-sm);
+  width: var(--openownbot-icon-sm);
+  height: var(--openownbot-icon-sm);
   flex: 0 0 auto;
-  color: var(--openbot-success);
-  stroke-width: var(--openbot-icon-stroke);
+  color: var(--openownbot-success);
+  stroke-width: var(--openownbot-icon-stroke);
 }
 
 .question-prompt-complete:not([data-state="answered"]) .question-prompt-complete-status svg {
-  color: var(--openbot-text-muted);
+  color: var(--openownbot-text-muted);
 }
 
 .question-prompt-complete-status strong {
-  font-size: var(--openbot-text-lg);
-  font-weight: var(--openbot-weight-medium);
-  line-height: var(--openbot-leading-lg);
-  letter-spacing: var(--openbot-tracking-tight);
+  font-size: var(--openownbot-text-lg);
+  font-weight: var(--openownbot-weight-medium);
+  line-height: var(--openownbot-leading-lg);
+  letter-spacing: var(--openownbot-tracking-tight);
 }
 
 .question-prompt-complete-answers.ui-item-group {
-  gap: var(--openbot-space-3);
+  gap: var(--openownbot-space-3);
   border: 0;
   border-radius: 0;
   background: transparent;
@@ -288,28 +288,28 @@
 }
 
 .question-prompt-complete-answers .ui-item-title {
-  font-weight: var(--openbot-weight-regular);
+  font-weight: var(--openownbot-weight-regular);
 }
 
 .question-prompt-header {
   min-width: 0;
-  min-height: var(--openbot-control-xs);
+  min-height: var(--openownbot-control-xs);
 }
 
 .question-prompt-header h2 {
   margin: 0;
-  padding-top: var(--openbot-space-0-5);
-  color: var(--openbot-text-primary);
-  font-size: var(--openbot-text-lg);
-  font-weight: var(--openbot-weight-medium);
-  line-height: var(--openbot-leading-lg);
-  letter-spacing: var(--openbot-tracking-tight);
+  padding-top: var(--openownbot-space-0-5);
+  color: var(--openownbot-text-primary);
+  font-size: var(--openownbot-text-lg);
+  font-weight: var(--openownbot-weight-medium);
+  line-height: var(--openownbot-leading-lg);
+  letter-spacing: var(--openownbot-tracking-tight);
 }
 
 .question-prompt-navigation {
   display: flex;
   align-items: center;
-  gap: var(--openbot-space-0-5);
+  gap: var(--openownbot-space-0-5);
 }
 
 .question-prompt-layout {
@@ -320,7 +320,7 @@
 .question-prompt-navigation-root.ui-questionnaire {
   display: flex;
   justify-content: flex-end;
-  margin-top: var(--openbot-space-4);
+  margin-top: var(--openownbot-space-4);
 }
 
 .question-prompt-navigation-button.ui-button {
@@ -328,45 +328,45 @@
   height: 22px;
   min-height: 22px;
   border: 0;
-  border-radius: var(--openbot-radius-pill);
+  border-radius: var(--openownbot-radius-pill);
   background: transparent;
   padding: 0;
-  color: var(--openbot-text-muted);
+  color: var(--openownbot-text-muted);
   transition: none;
 }
 
 .question-prompt-navigation-button.ui-button:hover:not(:disabled) {
-  background: var(--openbot-bg-control-hover);
-  color: var(--openbot-text-primary);
+  background: var(--openownbot-bg-control-hover);
+  color: var(--openownbot-text-primary);
 }
 
 .question-prompt-navigation-button.ui-button:focus-visible {
-  background: var(--openbot-bg-control-hover);
-  box-shadow: 0 0 0 1px var(--openbot-border-strong);
-  color: var(--openbot-text-primary);
+  background: var(--openownbot-bg-control-hover);
+  box-shadow: 0 0 0 1px var(--openownbot-border-strong);
+  color: var(--openownbot-text-primary);
 }
 
 .question-prompt-navigation-button.ui-button:disabled {
   background: transparent;
-  color: var(--openbot-text-dim);
+  color: var(--openownbot-text-dim);
   opacity: 0.52;
 }
 
 .question-prompt-navigation-button svg {
-  width: var(--openbot-icon-sm);
-  height: var(--openbot-icon-sm);
-  stroke-width: var(--openbot-icon-stroke);
+  width: var(--openownbot-icon-sm);
+  height: var(--openownbot-icon-sm);
+  stroke-width: var(--openownbot-icon-stroke);
 }
 
 .question-prompt-navigation .ui-questionnaire-progress {
   min-width: 48px;
-  padding-inline: var(--openbot-space-1);
-  font-family: var(--openbot-font-sans);
+  padding-inline: var(--openownbot-space-1);
+  font-family: var(--openownbot-font-sans);
   text-align: center;
 }
 
 .question-prompt-cancel {
-  margin-left: var(--openbot-space-1);
+  margin-left: var(--openownbot-space-1);
 }
 
 .question-prompt-stage {
@@ -378,7 +378,7 @@
 .question-prompt-stage .question-prompt-page {
   bottom: auto;
   display: grid;
-  gap: var(--openbot-space-3);
+  gap: var(--openownbot-space-3);
 }
 
 .question-prompt-stage:not([data-transitioning]) .question-prompt-page:not([aria-hidden="true"]) {
@@ -391,35 +391,35 @@
 }
 
 .question-prompt-options.ui-item-group {
-  border: 1px solid var(--openbot-border);
-  border-radius: var(--openbot-radius-md);
-  background: var(--openbot-bg-surface);
+  border: 1px solid var(--openownbot-border);
+  border-radius: var(--openownbot-radius-md);
+  background: var(--openownbot-bg-surface);
 }
 
 .question-prompt-options > :is(.ui-questionnaire-choice, .question-prompt-custom-row) {
   transition:
-    background-color var(--openbot-duration-hover) ease,
-    box-shadow var(--openbot-duration-hover) ease;
+    background-color var(--openownbot-duration-hover) ease,
+    box-shadow var(--openownbot-duration-hover) ease;
 }
 
 .question-prompt-options > .ui-questionnaire-choice:hover:not([data-disabled]) {
-  background: var(--openbot-bg-control-hover);
+  background: var(--openownbot-bg-control-hover);
 }
 
 .question-prompt-options > .ui-questionnaire-choice:focus-within {
-  outline: 1px solid var(--openbot-border-strong);
+  outline: 1px solid var(--openownbot-border-strong);
   outline-offset: -1px;
-  background: var(--openbot-bg-control-hover);
+  background: var(--openownbot-bg-control-hover);
 }
 
 .question-prompt-options > .ui-questionnaire-choice[data-checked] {
-  background: var(--openbot-bg-control-active);
+  background: var(--openownbot-bg-control-active);
 }
 
 .question-prompt-options .ui-item {
   min-height: 48px;
-  gap: var(--openbot-space-2);
-  padding: var(--openbot-space-2) var(--openbot-space-3);
+  gap: var(--openownbot-space-2);
+  padding: var(--openownbot-space-2) var(--openownbot-space-3);
 }
 
 .question-prompt-options .ui-item-title,
@@ -432,35 +432,35 @@
 .question-prompt-options .ui-kbd {
   width: 20px;
   min-width: 20px;
-  border-color: var(--openbot-border);
-  background: var(--openbot-hover);
-  color: var(--openbot-text-muted);
+  border-color: var(--openownbot-border);
+  background: var(--openownbot-hover);
+  color: var(--openownbot-text-muted);
 }
 
 .question-prompt-options > .ui-questionnaire-choice[data-checked] .ui-kbd {
-  border-color: var(--openbot-border-strong);
-  background: var(--openbot-bg-control-hover);
-  color: var(--openbot-text-secondary);
+  border-color: var(--openownbot-border-strong);
+  background: var(--openownbot-bg-control-hover);
+  color: var(--openownbot-text-secondary);
 }
 
 .question-prompt-choice-arrow {
-  width: var(--openbot-icon-sm);
-  height: var(--openbot-icon-sm);
+  width: var(--openownbot-icon-sm);
+  height: var(--openownbot-icon-sm);
   display: grid;
   flex: 0 0 auto;
   place-items: center;
-  color: var(--openbot-text-muted);
+  color: var(--openownbot-text-muted);
   opacity: 0;
   transform: translateX(-3px);
   transition:
-    opacity var(--openbot-duration-hover) ease,
-    transform var(--openbot-duration-hover) var(--openbot-ease-out);
+    opacity var(--openownbot-duration-hover) ease,
+    transform var(--openownbot-duration-hover) var(--openownbot-ease-out);
 }
 
 .question-prompt-choice-arrow svg {
   width: 100%;
   height: 100%;
-  stroke-width: var(--openbot-icon-stroke);
+  stroke-width: var(--openownbot-icon-stroke);
 }
 
 .question-prompt-options
@@ -476,16 +476,16 @@
   display: grid;
   grid-template-columns: 20px minmax(0, 1fr) auto;
   align-items: center;
-  gap: var(--openbot-space-2);
-  padding: var(--openbot-space-1-5) var(--openbot-space-3);
+  gap: var(--openownbot-space-2);
+  padding: var(--openownbot-space-1-5) var(--openownbot-space-3);
 }
 
 .question-prompt-custom-row[data-selected] {
-  background: var(--openbot-bg-control-active);
+  background: var(--openownbot-bg-control-active);
 }
 
 .question-prompt-custom-row:focus-within {
-  background: var(--openbot-bg-control-hover);
+  background: var(--openownbot-bg-control-hover);
   box-shadow: none;
 }
 
@@ -495,21 +495,21 @@
   display: grid;
   align-self: center;
   place-items: center;
-  border-radius: var(--openbot-radius-pill);
-  background: var(--openbot-hover);
-  color: var(--openbot-text-muted);
+  border-radius: var(--openownbot-radius-pill);
+  background: var(--openownbot-hover);
+  color: var(--openownbot-text-muted);
 }
 
 .question-prompt-pencil svg {
   display: block;
-  width: var(--openbot-icon-xs);
-  height: var(--openbot-icon-xs);
+  width: var(--openownbot-icon-xs);
+  height: var(--openownbot-icon-xs);
   transform: translateY(-0.5px);
 }
 
 .question-prompt-custom-row:focus-within .question-prompt-pencil {
-  background: var(--openbot-bg-control-active);
-  color: var(--openbot-text-secondary);
+  background: var(--openownbot-bg-control-active);
+  color: var(--openownbot-text-secondary);
 }
 
 .question-prompt-custom-row .ui-questionnaire-input {
@@ -519,13 +519,13 @@
   background: transparent;
   padding: 0;
   box-shadow: none;
-  color: var(--openbot-text-primary);
-  font-size: var(--openbot-text-md);
-  line-height: var(--openbot-leading-md);
+  color: var(--openownbot-text-primary);
+  font-size: var(--openownbot-text-md);
+  line-height: var(--openownbot-leading-md);
 }
 
 .question-prompt-custom-row .ui-questionnaire-input::placeholder {
-  color: var(--openbot-text-muted);
+  color: var(--openownbot-text-muted);
 }
 
 .question-prompt-custom-row .ui-questionnaire-input:focus {
@@ -540,56 +540,56 @@
 }
 
 .question-prompt-inline-actions {
-  gap: var(--openbot-space-2);
+  gap: var(--openownbot-space-2);
 }
 
 .question-prompt-sending {
-  gap: var(--openbot-space-1);
-  color: var(--openbot-text-muted);
-  font-size: var(--openbot-text-sm);
-  line-height: var(--openbot-leading-sm);
+  gap: var(--openownbot-space-1);
+  color: var(--openownbot-text-muted);
+  font-size: var(--openownbot-text-sm);
+  line-height: var(--openownbot-leading-sm);
   white-space: nowrap;
 }
 
 .question-prompt-inline-actions [data-slot="questionnaire-skip"] {
   min-height: 28px;
-  border: 1px solid var(--openbot-border);
-  border-radius: var(--openbot-radius-pill);
+  border: 1px solid var(--openownbot-border);
+  border-radius: var(--openownbot-radius-pill);
   background: transparent;
-  padding-inline: var(--openbot-space-2);
-  color: var(--openbot-text-secondary);
+  padding-inline: var(--openownbot-space-2);
+  color: var(--openownbot-text-secondary);
 }
 
 .question-prompt-inline-actions [data-slot="questionnaire-skip"]:hover:not(:disabled) {
-  border-color: var(--openbot-border-strong);
-  background: var(--openbot-bg-control-hover);
-  color: var(--openbot-text-primary);
+  border-color: var(--openownbot-border-strong);
+  background: var(--openownbot-bg-control-hover);
+  color: var(--openownbot-text-primary);
 }
 
 .question-prompt-inline-actions [data-slot="questionnaire-skip"]:focus-visible {
-  border-color: var(--openbot-border-strong);
-  background: var(--openbot-bg-control-hover);
-  box-shadow: 0 0 0 1px var(--openbot-border-strong);
-  color: var(--openbot-text-primary);
+  border-color: var(--openownbot-border-strong);
+  background: var(--openownbot-bg-control-hover);
+  box-shadow: 0 0 0 1px var(--openownbot-border-strong);
+  color: var(--openownbot-text-primary);
 }
 
 .question-prompt-empty {
   min-width: 0;
   display: grid;
-  gap: var(--openbot-space-0-5);
-  padding: var(--openbot-space-1);
+  gap: var(--openownbot-space-0-5);
+  padding: var(--openownbot-space-1);
 }
 
 .question-prompt-empty strong {
-  font-size: var(--openbot-text-md);
-  font-weight: var(--openbot-weight-medium);
-  line-height: var(--openbot-leading-md);
+  font-size: var(--openownbot-text-md);
+  font-weight: var(--openownbot-weight-medium);
+  line-height: var(--openownbot-leading-md);
 }
 
 .question-prompt-empty > span {
-  color: var(--openbot-text-muted);
-  font-size: var(--openbot-text-sm);
-  line-height: var(--openbot-leading-sm);
+  color: var(--openownbot-text-muted);
+  font-size: var(--openownbot-text-sm);
+  line-height: var(--openownbot-leading-sm);
 }
 
 .question-prompt-history-entry {
@@ -602,11 +602,11 @@
   }
 
   .question-prompt-bubble > .ui-bubble-content {
-    padding: var(--openbot-space-3);
+    padding: var(--openownbot-space-3);
   }
 
   .question-prompt-header {
-    gap: var(--openbot-space-2);
+    gap: var(--openownbot-space-2);
   }
 
   .question-prompt-navigation .ui-questionnaire-progress {
@@ -633,17 +633,17 @@
 .approval-card {
   display: flex;
   width: min(540px, 100%);
-  margin: var(--openbot-space-3) 0 var(--openbot-space-6);
+  margin: var(--openownbot-space-3) 0 var(--openownbot-space-6);
   flex-direction: column;
-  gap: var(--openbot-space-4);
-  animation: approval-card-in var(--openbot-duration-slow) var(--openbot-ease-out) both;
+  gap: var(--openownbot-space-4);
+  animation: approval-card-in var(--openownbot-duration-slow) var(--openownbot-ease-out) both;
 }
 
 .approval-card-footer {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  gap: var(--openbot-space-2);
+  gap: var(--openownbot-space-2);
 }
 
 .approval-card-footer > :last-child {
@@ -651,15 +651,15 @@
 }
 
 .approval-button {
-  border-radius: var(--openbot-radius-pill);
-  font-size: var(--openbot-text-lg);
-  font-weight: var(--openbot-weight-regular);
+  border-radius: var(--openownbot-radius-pill);
+  font-size: var(--openownbot-text-lg);
+  font-weight: var(--openownbot-weight-regular);
 }
 
 .approval-card-content {
   display: grid;
   min-width: 0;
-  gap: var(--openbot-space-3);
+  gap: var(--openownbot-space-3);
 }
 
 .approval-card-content:empty {
@@ -671,55 +671,55 @@
 .approval-permissions {
   min-width: 0;
   overflow: hidden;
-  border: 1px solid var(--openbot-border);
-  border-radius: var(--openbot-radius-md);
-  background: var(--openbot-bg-surface);
+  border: 1px solid var(--openownbot-border);
+  border-radius: var(--openownbot-radius-md);
+  background: var(--openownbot-bg-surface);
 }
 
 .approval-command-block code {
   display: block;
   overflow-x: auto;
-  padding: var(--openbot-space-3);
-  color: var(--openbot-text-secondary);
-  font-family: var(--openbot-font-mono);
-  font-size: var(--openbot-text-sm);
-  line-height: var(--openbot-leading-md);
+  padding: var(--openownbot-space-3);
+  color: var(--openownbot-text-secondary);
+  font-family: var(--openownbot-font-mono);
+  font-size: var(--openownbot-text-sm);
+  line-height: var(--openownbot-leading-md);
   white-space: pre-wrap;
   overflow-wrap: anywhere;
 }
 
 .approval-cwd {
-  border-bottom: 1px solid var(--openbot-border);
-  padding: var(--openbot-space-2) var(--openbot-space-3);
-  color: var(--openbot-text-muted);
-  font-family: var(--openbot-font-mono);
-  font-size: var(--openbot-text-sm);
+  border-bottom: 1px solid var(--openownbot-border);
+  padding: var(--openownbot-space-2) var(--openownbot-space-3);
+  color: var(--openownbot-text-muted);
+  font-family: var(--openownbot-font-mono);
+  font-size: var(--openownbot-text-sm);
   overflow-wrap: anywhere;
 }
 
 .approval-detail-row {
   display: grid;
-  gap: var(--openbot-space-1);
-  padding: var(--openbot-space-3);
+  gap: var(--openownbot-space-1);
+  padding: var(--openownbot-space-3);
 }
 
 .approval-detail-label {
-  color: var(--openbot-text-muted);
-  font-size: var(--openbot-text-sm);
+  color: var(--openownbot-text-muted);
+  font-size: var(--openownbot-text-sm);
 }
 
 .approval-detail-row strong {
-  color: var(--openbot-text-secondary);
-  font-family: var(--openbot-font-mono);
-  font-size: var(--openbot-text-sm);
-  font-weight: var(--openbot-weight-medium);
+  color: var(--openownbot-text-secondary);
+  font-family: var(--openownbot-font-mono);
+  font-size: var(--openownbot-text-sm);
+  font-weight: var(--openownbot-weight-medium);
   overflow-wrap: anywhere;
 }
 
 .approval-permissions {
   display: grid;
-  gap: var(--openbot-space-2);
-  padding: var(--openbot-space-3);
+  gap: var(--openownbot-space-2);
+  padding: var(--openownbot-space-3);
 }
 
 .approval-permissions:empty {
@@ -727,16 +727,16 @@
 }
 
 .approval-permissions span {
-  color: var(--openbot-text-secondary);
-  font-size: var(--openbot-text-sm);
+  color: var(--openownbot-text-secondary);
+  font-size: var(--openownbot-text-sm);
   overflow-wrap: anywhere;
 }
 
 .approval-reason {
-  margin: calc(-1 * var(--openbot-space-2)) 0 0;
-  color: var(--openbot-text-muted);
-  font-size: var(--openbot-text-lg);
-  line-height: var(--openbot-leading-lg);
+  margin: calc(-1 * var(--openownbot-space-2)) 0 0;
+  color: var(--openownbot-text-muted);
+  font-size: var(--openownbot-text-lg);
+  line-height: var(--openownbot-leading-lg);
   overflow-wrap: anywhere;
 }
 

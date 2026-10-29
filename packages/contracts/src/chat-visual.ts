@@ -19,7 +19,7 @@ export const CHAT_VISUAL_MAX_HEIGHT = 2000;
 export const CHAT_VISUAL_DEFAULT_HEIGHT = 240;
 
 /** The prefix of the URL fragment that gives the page its theme before its first paint. */
-export const CHAT_VISUAL_THEME_FRAGMENT = "openbot-theme=";
+export const CHAT_VISUAL_THEME_FRAGMENT = "openownbot-theme=";
 
 export const CHAT_VISUAL_SIZE_CHANGED = "ui/notifications/size-changed";
 export const CHAT_VISUAL_HOST_CONTEXT_CHANGED = "ui/notifications/host-context-changed";
@@ -27,9 +27,9 @@ export const CHAT_VISUAL_OPEN_LINK = "ui/open-link";
 export const CHAT_VISUAL_REQUEST_DISPLAY_MODE = "ui/request-display-mode";
 export const CHAT_VISUAL_MESSAGE = "ui/message";
 export const CHAT_VISUAL_UPDATE_MODEL_CONTEXT = "ui/update-model-context";
-/** OpenBot's own notifications: MCP Apps has no method for these. */
-export const CHAT_VISUAL_OPEN_IMAGE = "openbot/notifications/open-image";
-export const CHAT_VISUAL_KEY_DOWN = "openbot/notifications/keydown";
+/** OpenOwnBot's own notifications: MCP Apps has no method for these. */
+export const CHAT_VISUAL_OPEN_IMAGE = "openownbot/notifications/open-image";
+export const CHAT_VISUAL_KEY_DOWN = "openownbot/notifications/keydown";
 
 export type ChatVisualDisplayMode = "inline" | "fullscreen";
 const DISPLAY_MODES: readonly ChatVisualDisplayMode[] = ["inline", "fullscreen"];
@@ -89,7 +89,7 @@ export type ChatVisualTheme = Record<`--${string}`, string>;
 export type ChatVisualAppearance = "dark" | "light";
 
 /**
- * The app colours from `@openbot/brand` tokens, for a host that cannot read them from its own
+ * The app colours from `@openownbot/brand` tokens, for a host that cannot read them from its own
  * styles. The background is the chat canvas.
  */
 const APP_THEMES: Record<ChatVisualAppearance, ChatVisualTheme> = {
@@ -320,7 +320,7 @@ const BASE_STYLE = [
  * link is read as written: a `srcdoc` page has the app address as its base, so a resolved one would
  * look like an app link.
  *
- * It also gives the page `window.openbotPage`, which posts the MCP Apps requests: a message for the
+ * It also gives the page `window.openownbotPage`, which posts the MCP Apps requests: a message for the
  * user's message box, the page state for the agent, and full screen. It sends a click on an image,
  * so the app can show it large, and a key chord that the page did not use, so app shortcuts still
  * work while the page has focus. The app checks each message again. The key listener adds a second
@@ -355,7 +355,7 @@ pending.delete(data.id);
 if(data.error)waiting.reject(new Error(String(data.error.message||"Refused")));else waiting.resolve(data.result);
 });
 const text=(value)=>value===undefined||value===null||value===""?[]:[{type:"text",text:String(value)}];
-window.openbotPage=Object.freeze({
+window.openownbotPage=Object.freeze({
 sendMessage:(value)=>request("${CHAT_VISUAL_MESSAGE}",{role:"user",content:text(value)}),
 setContext:(value)=>request("${CHAT_VISUAL_UPDATE_MODEL_CONTEXT}",{content:text(value)}),
 requestFullscreen:()=>request("${CHAT_VISUAL_REQUEST_DISPLAY_MODE}",{mode:"fullscreen"}),
@@ -424,7 +424,7 @@ export interface ChatVisualDocumentOptions {
   appearance?: ChatVisualAppearance;
   /**
    * False for a host with no frame parent, such as a native web view. The page then gets no
-   * bootstrap script: its links load as links, and `window.openbotPage` does not exist.
+   * bootstrap script: its links load as links, and `window.openownbotPage` does not exist.
    */
   bootstrap?: boolean;
   /** More elements for the start of `<head>`, after the base style and before the page's own. */
@@ -444,9 +444,9 @@ function preamble(options: ChatVisualDocumentOptions): string {
   return [
     '<meta charset="utf-8">',
     '<meta name="viewport" content="width=device-width, initial-scale=1">',
-    `<style id="openbot-visual-base">${BASE_STYLE}${themeStyle(options)}</style>`,
+    `<style id="openownbot-visual-base">${BASE_STYLE}${themeStyle(options)}</style>`,
     options.head ?? "",
-    options.bootstrap === false ? "" : `<script id="openbot-visual-bootstrap">${BOOTSTRAP}</script>`,
+    options.bootstrap === false ? "" : `<script id="openownbot-visual-bootstrap">${BOOTSTRAP}</script>`,
   ].join("");
 }
 

@@ -1,18 +1,22 @@
-import type { BillingInterval } from "@openbot/contracts/billing";
-import type { HostedServerEntryPoint, HostedServerList, HostedServerSummary } from "@openbot/contracts/hosted-servers";
-import type { HostedServersDesktopApi, ServerSummary } from "@openbot/contracts/ipc";
-import { classifyFailure } from "@openbot/telemetry";
+import type { BillingInterval } from "@openownbot/contracts/billing";
+import type {
+  HostedServerEntryPoint,
+  HostedServerList,
+  HostedServerSummary,
+} from "@openownbot/contracts/hosted-servers";
+import type { HostedServersDesktopApi, ServerSummary } from "@openownbot/contracts/ipc";
+import { classifyFailure } from "@openownbot/telemetry";
 import type {
   CreatedHostedServer,
   CreateHostedServerInput,
   HostedServerSetupStatus,
-} from "@openbot/ui/features/servers/AddServerDialog";
+} from "@openownbot/ui/features/servers/AddServerDialog";
 import {
   HOSTED_BILLING_CURRENCY,
   type HostedServerPlan,
   hostedServerPlansFromCatalog,
-} from "@openbot/ui/features/servers/HostedServerPricing";
-import { currentText } from "@openbot/ui/text";
+} from "@openownbot/ui/features/servers/HostedServerPricing";
+import { currentText } from "@openownbot/ui/text";
 import { createEffect, createStore, Loading, Show, untrack } from "solid-js";
 import { actionToast } from "../../action-toast";
 import { type DesktopAnalyticsProperties, desktopAnalytics } from "../../analytics";

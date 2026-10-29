@@ -4,18 +4,18 @@
 // write after an email sign-in must still remove a file that holds the previous session.
 //
 // Run: bun scripts/central-auth-session-file-e2e.ts
-// It writes .openbot-build/central-auth-session-file-e2e/report.json and exits non-zero on a failure.
+// It writes .openownbot-build/central-auth-session-file-e2e/report.json and exits non-zero on a failure.
 import assert from "node:assert/strict";
 import { mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { createServer } from "node:http";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
-import { teeLogLines } from "@openbot/logging";
+import { teeLogLines } from "@openownbot/logging";
 import { runCauseEffect } from "../src/backend/effect-boundary";
 import { CentralAuthManager } from "../src/main/central-auth-manager";
 
 const ROOT = resolve(import.meta.dirname, "..");
-const OUT = join(ROOT, ".openbot-build", "central-auth-session-file-e2e");
+const OUT = join(ROOT, ".openownbot-build", "central-auth-session-file-e2e");
 const SESSION_TOKEN = "s".repeat(48);
 const NEW_SESSION_TOKEN = "n".repeat(48);
 const HOST_ID = "00000000-0000-4000-8000-000000000001";
@@ -49,7 +49,7 @@ const server = createServer((request, response) => {
 await new Promise<void>((done) => server.listen(0, "127.0.0.1", done));
 const address = server.address();
 assert.ok(address && typeof address === "object");
-const root = await mkdtemp(join(tmpdir(), "openbot-central-auth-file-"));
+const root = await mkdtemp(join(tmpdir(), "openownbot-central-auth-file-"));
 const storagePath = join(root, "session.bin");
 const stored = Buffer.from(JSON.stringify({ version: 2, sessionToken: SESSION_TOKEN })).toString("base64");
 const logLines: string[] = [];

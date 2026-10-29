@@ -1,6 +1,6 @@
 import { randomUUID } from "node:crypto";
-import { MESSAGING_PLATFORMS, type MessagingPlatform } from "@openbot/contracts/ipc";
-import { type DynamicRecord, isOneOf } from "@openbot/contracts/runtime-values";
+import { MESSAGING_PLATFORMS, type MessagingPlatform } from "@openownbot/contracts/ipc";
+import { type DynamicRecord, isOneOf } from "@openownbot/contracts/runtime-values";
 import { deleteAggregateHistory, deleteThreadAttachments } from "../database/database-core";
 import {
   databaseRow,
@@ -9,7 +9,7 @@ import {
   requiredNumberColumn,
   requiredStringColumn,
 } from "../database/database-rows";
-import type { OpenBotDatabase } from "../openbot-database";
+import type { OpenOwnBotDatabase } from "../openownbot-database";
 
 /** One workspace of a platform, where every agent of this computer can answer. */
 export interface MessagingConnectionRecord {
@@ -41,7 +41,7 @@ export interface MessagingLink {
   updatedAt: string;
 }
 
-/** A role whose members can use OpenBot in one connection, by the name the user chose it from. */
+/** A role whose members can use OpenOwnBot in one connection, by the name the user chose it from. */
 export interface MessagingAllowedRole {
   id: string;
   name: string;
@@ -68,9 +68,9 @@ const LINK_LIST_LIMIT = 200;
  * payload holds ids only: the event log is append-only and must not keep external text.
  */
 export class MessagingStore {
-  readonly #database: OpenBotDatabase;
+  readonly #database: OpenOwnBotDatabase;
 
-  constructor(database: OpenBotDatabase) {
+  constructor(database: OpenOwnBotDatabase) {
     this.#database = database;
   }
 
@@ -144,7 +144,7 @@ export class MessagingStore {
       );
   }
 
-  /** The roles whose members can use OpenBot here. Empty lets everyone. */
+  /** The roles whose members can use OpenOwnBot here. Empty lets everyone. */
   allowedRoles(connectionId: string): MessagingAllowedRole[] {
     return databaseRows(
       this.#database.connection

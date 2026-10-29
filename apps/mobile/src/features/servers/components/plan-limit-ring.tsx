@@ -1,4 +1,4 @@
-import type { PlanLimitRow, PlanLimitTone } from "@openbot/team-client/plan-limits";
+import type { PlanLimitRow, PlanLimitTone } from "@openownbot/team-client/plan-limits";
 import { useThemeColor } from "heroui-native/hooks";
 import { useId } from "react";
 import { View } from "react-native";
@@ -13,7 +13,7 @@ const SPACING_RATIO = 4.5 / 34;
 const LOGO_RATIO = 12 / 34;
 
 function useToneColors(): Record<PlanLimitTone, string> {
-  const [success, warning, danger] = useCSSVariable(["--openbot-success", "--openbot-warning", "--openbot-danger"]);
+  const [success, warning, danger] = useCSSVariable(["--openownbot-success", "--openownbot-warning", "--openownbot-danger"]);
   return { neutral: String(success), warning: String(warning), critical: String(danger) };
 }
 

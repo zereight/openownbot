@@ -1,6 +1,6 @@
 import type { ChildProcess } from "node:child_process";
-import type { AgentProviderStatus } from "@openbot/contracts/ipc";
-import { redactText } from "@openbot/logging";
+import type { AgentProviderStatus } from "@openownbot/contracts/ipc";
+import { redactText } from "@openownbot/logging";
 import { Effect, Schema } from "effect";
 import { type AgentProvider, RequestTimeoutError } from "../agent-client";
 import { CodexCliError } from "../cli";
@@ -53,12 +53,12 @@ export function providerFailureStatus(
     // A CLI that did not answer in time is not broken, so the message must not ask for a reinstall.
     if (error.code === "timeout") return { state: "error", version: version ?? null, message };
     // An app update can require a newer CLI than the one in the runtime store.
-    // Keep the version error so the user can update the provider in OpenBot.
+    // Keep the version error so the user can update the provider in OpenOwnBot.
     if (error.code === "outdated") {
       return { state: "outdated", version: version ?? null, message };
     }
     // A missing Codex or Claude keeps the state "error" that it always had. The message from the
-    // resolver says which copy failed, the user's own or OpenBot's download, and how to repair it.
+    // resolver says which copy failed, the user's own or OpenOwnBot's download, and how to repair it.
     if (error.code === "missing" && provider !== "codex" && provider !== "claude") {
       return { state: "not-installed", version: null, message };
     }

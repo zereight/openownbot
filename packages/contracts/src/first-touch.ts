@@ -43,7 +43,7 @@ export type FirstTouchSourcePlatform = (typeof FIRST_TOUCH_SOURCE_PLATFORMS)[num
 
 export const FIRST_TOUCH_CAMPAIGN_FIELDS = ["utmSource", "utmMedium", "utmCampaign", "utmContent", "utmTerm"] as const;
 
-export const FIRST_TOUCH_STORAGE_KEY = "openbot.first-touch.v1";
+export const FIRST_TOUCH_STORAGE_KEY = "openownbot.first-touch.v1";
 /** A visit older than this is not a source of a later account: the next visit replaces it. */
 export const FIRST_TOUCH_MAX_AGE_DAYS = 90;
 

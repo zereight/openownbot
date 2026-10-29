@@ -1,6 +1,6 @@
-import { MCP_SERVERS_CAPABILITY } from "@openbot/contracts/ipc";
-import { MCP_ROUTES, mcpRequest } from "@openbot/contracts/team-protocol/mcp-v1";
-import { sourceText } from "@openbot/i18n/source";
+import { MCP_SERVERS_CAPABILITY } from "@openownbot/contracts/ipc";
+import { MCP_ROUTES, mcpRequest } from "@openownbot/contracts/team-protocol/mcp-v1";
+import { sourceText } from "@openownbot/i18n/source";
 import { runCauseEffect } from "../../backend/effect-boundary";
 import {
   parseRemoveMcpServer,

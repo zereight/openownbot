@@ -1,21 +1,21 @@
 // The logo files of the /brand page, as SVG text. The page shows them, the Worker serves each one at
 // `/brand/<file>.svg`, and the browser draws the PNG files and the zip from the same text.
 //
-// The shapes come from `@openbot/brand`, and the layout of the logo with its name from the Figma
+// The shapes come from `@openownbot/brand`, and the layout of the logo with its name from the Figma
 // "Logo" board. No JSX and no DOM here: the Worker imports this module.
 
-import { APP_LOGO_CORNER, APP_LOGO_EYE_POINTS, APP_LOGO_SIZE } from "@openbot/brand/app-logo-shape";
-import { WORDMARK_PATHS, WORDMARK_WIDTH } from "@openbot/brand/wordmark-shape";
+import { APP_LOGO_CORNER, APP_LOGO_EYE_POINTS, APP_LOGO_SIZE } from "@openownbot/brand/app-logo-shape";
+import { WORDMARK_PATHS, WORDMARK_WIDTH } from "@openownbot/brand/wordmark-shape";
 import { BRAND_ROUTE } from "./brand-page";
 
-export const BRAND_ZIP_FILE = "openbot-brand.zip";
+export const BRAND_ZIP_FILE = "openownbot-brand.zip";
 
 type IconColor = "lilac" | "white" | "black";
 type IconShape = "rounded" | "square";
 type Ink = "dark" | "light";
 export type BrandSpace = "tight" | "safe";
 
-// The colors of the brand tokens in `@openbot/brand/tokens.css`. A file must not depend on a page's CSS.
+// The colors of the brand tokens in `@openownbot/brand/tokens.css`. A file must not depend on a page's CSS.
 const FILL: Record<IconColor, string> = { lilac: "#d6adf2", white: "#ffffff", black: "#040007" };
 const EYE: Record<IconColor, string> = { lilac: "#040007", white: "#040007", black: "#ffffff" };
 const INK: Record<Ink, string> = { dark: "#040007", light: "#ffffff" };
@@ -63,7 +63,7 @@ function svgDocument(width: number, height: number, body: string): string {
 
 function iconAsset(color: IconColor, shape: IconShape): BrandAsset {
   return {
-    file: shape === "rounded" ? `openbot-icon-${color}` : `openbot-icon-square-${color}`,
+    file: shape === "rounded" ? `openownbot-icon-${color}` : `openownbot-icon-square-${color}`,
     label: shape === "rounded" ? `${COLOR_NAME[color]} icon` : `${COLOR_NAME[color]} square`,
     svg: svgDocument(APP_LOGO_SIZE, APP_LOGO_SIZE, mark(color, shape, 0, 0)),
     width: APP_LOGO_SIZE,
@@ -77,7 +77,7 @@ function lockupAsset(color: IconColor, ink: Ink, space: BrandSpace): BrandAsset 
   const width = APP_LOGO_SIZE + LOCKUP_GAP + WORDMARK_WIDTH + pad * 2;
   const height = APP_LOGO_SIZE + pad * 2;
   return {
-    file: `openbot-logo-${color}-${ink}${space === "safe" ? "-clear-space" : ""}`,
+    file: `openownbot-logo-${color}-${ink}${space === "safe" ? "-clear-space" : ""}`,
     label: `${COLOR_NAME[color]} icon, ${ink} name`,
     svg: svgDocument(
       width,

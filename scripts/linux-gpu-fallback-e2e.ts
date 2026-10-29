@@ -1,15 +1,15 @@
 // Runs the real Electron with the Linux GPU mode of `src/main/linux-gpu-mode.ts` (#992):
 // 1. A first start uses the GPU. A crash of the real GPU process (SIGSEGV) writes `gpu-crash.json`.
-// 2. The next start uses software rendering. `OPENBOT_DISABLE_GPU=0` uses the GPU again.
+// 2. The next start uses software rendering. `OPENOWNBOT_DISABLE_GPU=0` uses the GPU again.
 // 3. A crash file from another Chromium major version does not count, and a clean quit removes the start file.
 //    A GPU process exit after a GPU context loss, which Chromium restarts, writes no crash file.
 // 4. A start that is killed before it is confirmed makes the next start use software rendering. A quit
 //    that starts confirms the start, also when the teardown is killed before it ends.
-// 5. `OPENBOT_DISABLE_GPU=1` uses software rendering and writes no start file.
-// 6. A server uses software rendering and writes no start file, also with `OPENBOT_DISABLE_GPU=0`.
+// 5. `OPENOWNBOT_DISABLE_GPU=1` uses software rendering and writes no start file.
+// 6. A server uses software rendering and writes no start file, also with `OPENOWNBOT_DISABLE_GPU=0`.
 //
 // Run on a Linux desktop with a working GPU: bun scripts/linux-gpu-fallback-e2e.ts
-// It writes .openbot-build/linux-gpu-fallback-e2e/report.json and exits non-zero on a failure.
+// It writes .openownbot-build/linux-gpu-fallback-e2e/report.json and exits non-zero on a failure.
 import assert from "node:assert/strict";
 import { type ChildProcess, spawn, spawnSync } from "node:child_process";
 import { closeSync, existsSync, openSync, readdirSync, readFileSync } from "node:fs";
@@ -20,7 +20,7 @@ import { setTimeout as sleep } from "node:timers/promises";
 import { withoutElectronRuntimeFlags } from "./electron-spawn-env";
 
 const ROOT = resolve(import.meta.dirname, "..");
-const OUT = join(ROOT, ".openbot-build", "linux-gpu-fallback-e2e");
+const OUT = join(ROOT, ".openownbot-build", "linux-gpu-fallback-e2e");
 const STATE_TIMEOUT_MS = 30_000;
 // The file names of `src/main/linux-gpu-mode.ts`, which imports Electron and cannot load in Bun.
 const GPU_START_FILE = "gpu-start.json";
@@ -59,7 +59,7 @@ interface Launch {
 }
 
 await mkdir(OUT, { recursive: true });
-const root = await mkdtemp(join(tmpdir(), "openbot-linux-gpu-"));
+const root = await mkdtemp(join(tmpdir(), "openownbot-linux-gpu-"));
 const bundle = join(root, "linux-gpu-fallback-electron.mjs");
 const steps: Step[] = [];
 const children: ChildProcess[] = [];
@@ -91,16 +91,16 @@ try {
   await until(() => existsSync(join(data, GPU_CRASH_FILE)), "the GPU crash writes the crash file");
   await quit(launch);
 
-  // 2. The next start uses software rendering, and OPENBOT_DISABLE_GPU=0 overrides it.
+  // 2. The next start uses software rendering, and OPENOWNBOT_DISABLE_GPU=0 overrides it.
   launch = await start(data, 1_000);
   assert.deepEqual(launch.ready.mode, { hardwareAcceleration: false, reason: "gpu-process-crash" });
   assert.equal(launch.ready.hardwareAccelerationEnabled, false);
   assert.equal(existsSync(join(data, GPU_START_FILE)), false, "a software start writes no start file");
   steps.push({ step: "after gpu crash", ready: launch.ready });
   await quit(launch);
-  launch = await start(data, 1_000, { OPENBOT_DISABLE_GPU: "0" });
+  launch = await start(data, 1_000, { OPENOWNBOT_DISABLE_GPU: "0" });
   assert.deepEqual(launch.ready.mode, { hardwareAcceleration: true, reason: "environment-on" });
-  steps.push({ step: "OPENBOT_DISABLE_GPU=0", ready: launch.ready });
+  steps.push({ step: "OPENOWNBOT_DISABLE_GPU=0", ready: launch.ready });
   await quit(launch);
 
   // 3. A crash with another Chromium major version does not count. A clean quit confirms the start.
@@ -140,17 +140,17 @@ try {
   steps.push({ step: "after a killed teardown", ready: launch.ready });
   await quit(launch);
 
-  // 5. OPENBOT_DISABLE_GPU=1 always uses software rendering.
+  // 5. OPENOWNBOT_DISABLE_GPU=1 always uses software rendering.
   const forced = join(root, "forced-software");
-  launch = await start(forced, 1_000, { OPENBOT_DISABLE_GPU: "1" });
+  launch = await start(forced, 1_000, { OPENOWNBOT_DISABLE_GPU: "1" });
   assert.deepEqual(launch.ready.mode, { hardwareAcceleration: false, reason: "environment-off" });
   assert.equal(existsSync(join(forced, GPU_START_FILE)), false);
-  steps.push({ step: "OPENBOT_DISABLE_GPU=1", ready: launch.ready });
+  steps.push({ step: "OPENOWNBOT_DISABLE_GPU=1", ready: launch.ready });
   await quit(launch);
 
   // 6. A server has no GPU: software rendering, and the environment value does not change it.
   const server = join(root, "server");
-  launch = await start(server, 1_000, { OPENBOT_DISABLE_GPU: "0" }, ["--server"]);
+  launch = await start(server, 1_000, { OPENOWNBOT_DISABLE_GPU: "0" }, ["--server"]);
   assert.deepEqual(launch.ready.mode, { hardwareAcceleration: false, reason: "server" });
   assert.equal(launch.ready.hardwareAccelerationEnabled, false);
   assert.equal(existsSync(join(server, GPU_START_FILE)), false, "a server writes no start file");
@@ -182,7 +182,7 @@ async function start(
   environment: Record<string, string> = {},
   extraArguments: string[] = [],
 ): Promise<Launch> {
-  const { OPENBOT_DISABLE_GPU: _inherited, ...base } = withoutElectronRuntimeFlags(process.env);
+  const { OPENOWNBOT_DISABLE_GPU: _inherited, ...base } = withoutElectronRuntimeFlags(process.env);
   launchCount += 1;
   const readyFile = join(root, `ready-${launchCount}.json`);
   const log = openSync(join(OUT, `electron-${launchCount}.log`), "w");

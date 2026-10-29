@@ -7,17 +7,24 @@
 import { type JSX, Portal } from "@solidjs/web";
 import { createStore, onSettled, Show, untrack } from "solid-js";
 import { App } from "../src/App";
-import { createMockOpenBot, type MockOpenBotControls, type MockOpenBotOptions } from "../src/preview/mock-openbot";
-import { OpenBotPlayground } from "../src/preview/OpenBotPlayground";
+import {
+  createMockOpenOwnBot,
+  type MockOpenOwnBotControls,
+  type MockOpenOwnBotOptions,
+} from "../src/preview/mock-openownbot";
+import { OpenOwnBotPlayground } from "../src/preview/OpenOwnBotPlayground";
 
 /** The real app on the preview mock. `setup` adds data to the mock before the app reads it. */
-export function PrototypeApp(props: { options?: MockOpenBotOptions; setup?: (mock: MockOpenBotControls) => void }) {
+export function PrototypeApp(props: {
+  options?: MockOpenOwnBotOptions;
+  setup?: (mock: MockOpenOwnBotControls) => void;
+}) {
   return (
-    <OpenBotPlayground
+    <OpenOwnBotPlayground
       options={props.options}
       dependencies={{
         createMock: (options) => {
-          const mock = createMockOpenBot(options);
+          const mock = createMockOpenOwnBot(options);
           untrack(() => props.setup)?.(mock);
           return mock;
         },

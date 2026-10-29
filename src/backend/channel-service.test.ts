@@ -4,13 +4,13 @@ import { randomUUID } from "node:crypto";
 import { mkdtemp, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import type { AgentSummary, ChannelTask } from "@openbot/contracts/ipc";
+import type { AgentSummary, ChannelTask } from "@openownbot/contracts/ipc";
 import { Effect } from "effect";
 import { afterEach, describe, expect, it } from "vitest";
 import { type ChannelHooks, ChannelService } from "./channel-service";
 import { runCauseEffect } from "./effect-boundary";
 import { MailboxStore } from "./mailbox-store";
-import { OpenBotDatabase } from "./openbot-database";
+import { OpenOwnBotDatabase } from "./openownbot-database";
 
 const roots: string[] = [];
 
@@ -21,7 +21,7 @@ afterEach(async () => {
 async function setupService(overrides: Partial<ChannelHooks> = {}) {
   const root = await mkdtemp(join(tmpdir(), "channel-service-test-"));
   roots.push(root);
-  const database = new OpenBotDatabase(root);
+  const database = new OpenOwnBotDatabase(root);
   await runCauseEffect(database.initialize());
   const mailbox = new MailboxStore(root, join(root, "shared"), database);
   const hooks: ChannelHooks = {
@@ -38,7 +38,7 @@ async function setupService(overrides: Partial<ChannelHooks> = {}) {
   return { database, service };
 }
 
-async function stopService(database: OpenBotDatabase, service: ChannelService) {
+async function stopService(database: OpenOwnBotDatabase, service: ChannelService) {
   await Effect.runPromise(service.stop());
   database.close();
 }

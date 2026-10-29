@@ -1,4 +1,4 @@
-import { Button, ErrorReference, SettingsSection, Text } from "@openbot/ui";
+import { Button, ErrorReference, SettingsSection, Text } from "@openownbot/ui";
 import { Portal } from "@solidjs/web";
 import { createMemo, createSignal, For, Show } from "solid-js";
 import { useText } from "../../text";

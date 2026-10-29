@@ -1,4 +1,4 @@
-// Checks that OpenBot keeps a provider session when nothing in it is out of date, so the provider
+// Checks that OpenOwnBot keeps a provider session when nothing in it is out of date, so the provider
 // keeps its history and its prompt cache. Runs the real agent service on a temporary profile with
 // stand-in provider executables. Cases:
 // - claude-refresh-resumes: a runtime refresh (an MCP or skill change) closes the Claude process and
@@ -7,7 +7,7 @@
 //   Codex session. A revoked approval still replaces it. Before, a grant also replaced it.
 // - antigravity-channel-delta: a channel member on Antigravity gets only the unread channel messages
 //   in its next turn on the same session. Before, each turn got the complete channel packet.
-// `bun scripts/provider-session-reuse-e2e.ts`. Writes .openbot-build/provider-session-reuse-e2e/report.json.
+// `bun scripts/provider-session-reuse-e2e.ts`. Writes .openownbot-build/provider-session-reuse-e2e/report.json.
 import assert from "node:assert/strict";
 import { randomUUID } from "node:crypto";
 import { EventEmitter } from "node:events";
@@ -21,7 +21,7 @@ import {
   type AgentProviderId,
   defaultProviderModel,
   type McpServerConfig,
-} from "@openbot/contracts/ipc";
+} from "@openownbot/contracts/ipc";
 import { Effect } from "effect";
 import type { AgentClientFactory } from "../src/backend/agent/provider-runtime";
 import type { AgentBrowserHost } from "../src/backend/agent/turn-lifecycle";
@@ -31,8 +31,8 @@ import type { AppServerNotification, AppServerRequest, RequestId, ResponseDecode
 import { providerSync } from "../src/backend/provider-client-effects";
 import type { ReadProviderHistory } from "../src/backend/provider-history";
 
-const OUT = resolve(import.meta.dirname, "../.openbot-build/provider-session-reuse-e2e");
-const root = await mkdtemp(join(tmpdir(), "openbot-session-reuse-"));
+const OUT = resolve(import.meta.dirname, "../.openownbot-build/provider-session-reuse-e2e");
+const root = await mkdtemp(join(tmpdir(), "openownbot-session-reuse-"));
 const home = join(root, "home");
 const claudeExecutable = join(root, "claude");
 const claudeSpawns = join(root, "claude-spawns.jsonl");
@@ -49,9 +49,9 @@ const CLAUDE_MODEL = defaultProviderModel("claude");
 // Before the service modules load: the stores and the CLI search read these.
 process.env.HOME = home;
 process.env.CODEX_HOME = join(home, ".codex");
-process.env.OPENBOT_CLAUDE_PATH = claudeExecutable;
-process.env.OPENBOT_CODEX_PATH = fakeCodex;
-process.env.OPENBOT_ANTIGRAVITY_PATH = fakeAgy;
+process.env.OPENOWNBOT_CLAUDE_PATH = claudeExecutable;
+process.env.OPENOWNBOT_CODEX_PATH = fakeCodex;
+process.env.OPENOWNBOT_ANTIGRAVITY_PATH = fakeAgy;
 mkdirSync(home, { recursive: true });
 
 const { AgentService } = await import("../src/backend/agent-service");
@@ -59,7 +59,7 @@ const { AgentStore } = await import("../src/backend/agent-store");
 const { ClaudeAgentClient } = await import("../src/backend/claude-client");
 const { runCauseEffect } = await import("../src/backend/effect-boundary");
 const { MailboxStore } = await import("../src/backend/mailbox-store");
-const { OpenBotDatabase } = await import("../src/backend/openbot-database");
+const { OpenOwnBotDatabase } = await import("../src/backend/openownbot-database");
 const { CODEX_PLACEHOLDER_COMMAND, codexMcpServerKey } = await import("../src/backend/mcp-provider-shapes");
 const { CURRENT_MESSAGE_SEPARATOR, HANDOFF_START } = await import("../src/backend/agent/delivery-content");
 
@@ -208,7 +208,7 @@ function handle(message) {
     const text = params.prompt.map((block) => block.text ?? "").join("");
     log({ sessionId: params.sessionId, length: text.length, text });
     // The context fill: a drop is a compaction that the agent does by itself, and a nearly full
-    // context makes OpenBot replace the session.
+    // context makes OpenOwnBot replace the session.
     const used = text.includes("usage-high") ? 900000 : text.includes("usage-drop") ? 1000 : 400000;
     write({ method: "session/update", params: { sessionId: params.sessionId, update: { sessionUpdate: "usage_update", used, size: 1000000 } } });
     write({ method: "session/update", params: { sessionId: params.sessionId, update: { sessionUpdate: "agent_message_chunk", content: { type: "text", text: "Done." } } } });
@@ -397,7 +397,7 @@ async function runCase(
 ): Promise<void> {
   const result: CaseReport = { name, passed: false, details: {} };
   report.cases.push(result);
-  const database = new OpenBotDatabase(join(root, `user-data-${name}`));
+  const database = new OpenOwnBotDatabase(join(root, `user-data-${name}`));
   const store = new AgentStore(database.userDataPath, home, database);
   const mailbox = new MailboxStore(database.userDataPath, store.sharedRoot, store.database);
   const agents = new AgentService({
@@ -535,7 +535,7 @@ try {
       url: "",
       headers: [],
     };
-    // The entry that Codex keeps for this server: OpenBot's disabled placeholder, with the approvals.
+    // The entry that Codex keeps for this server: OpenOwnBot's disabled placeholder, with the approvals.
     const key = codexMcpServerKey(server);
     const writeConfig = (tools: { echo: { approval_mode: "approve" | "prompt" } } | null) =>
       writeFileSync(
@@ -595,7 +595,7 @@ try {
     const SECOND = "second-channel-request-9b4d";
     // The agent compacts by itself during this turn, so the next packet is complete again.
     const THIRD = "third-channel-request-usage-drop-2f6a";
-    // The context is nearly full after this turn, so OpenBot replaces the channel session.
+    // The context is nearly full after this turn, so OpenOwnBot replaces the channel session.
     const FOURTH = "fourth-channel-request-usage-high-5d3c";
     const FIFTH = "fifth-channel-request-a81b";
     const prompts = () => entries<{ sessionId: string; length: number; text: string }>(agyLog);

@@ -1,6 +1,6 @@
-import { attachmentFileExtension, attachmentMimeTypeForName } from "@openbot/contracts/attachment-files";
-import { isChatVisualMimeType } from "@openbot/contracts/chat-visual";
-import { type AttachmentSummary, filePreviewKindForFile } from "@openbot/contracts/ipc";
+import { attachmentFileExtension, attachmentMimeTypeForName } from "@openownbot/contracts/attachment-files";
+import { isChatVisualMimeType } from "@openownbot/contracts/chat-visual";
+import { type AttachmentSummary, filePreviewKindForFile } from "@openownbot/contracts/ipc";
 import type { CodePreviewEntry } from "./code-preview-store";
 
 /** The preview screen kinds that show a whole file. Images, audio and video show in the chat. */

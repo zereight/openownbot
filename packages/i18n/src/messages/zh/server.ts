@@ -139,7 +139,7 @@ export const messages = {
   "server.hosted.detail.create.copy": "正在把 OpenOwnBot 复制到机器",
   "server.hosted.detail.create.key": "正在添加一次性登录密钥",
   "server.hosted.detail.start.boot": "正在开机",
-  "server.hosted.detail.start.app": "正在启动 OpenBot",
+  "server.hosted.detail.start.app": "正在启动 OpenOwnBot",
   "server.hosted.detail.start.wait": "正在等待 OpenOwnBot 响应",
   "server.hosted.detail.connect.signIn": "正在以你的身份登录",
   "server.hosted.detail.connect.publish": "正在把服务器加入你的账号",
@@ -460,7 +460,7 @@ export const messages = {
   "server.settings.providersDescription": "管理运行该服务器那台电脑的 AI 服务商。",
   "server.settings.providersSwitchNote": "切换到 {name} 以管理它的 AI 服务商。",
   "server.settings.providersSwitch": "切换到该服务器",
-  // Server Settings > Updates: the OpenBot update of a joined server's host. {name} is the server.
+  // Server Settings > Updates: the OpenOwnBot update of a joined server's host. {name} is the server.
   "server.settings.updatesTitle": "更新",
   "server.settings.updatesDescription": "更新运行该服务器那台电脑上的 OpenOwnBot。",
   "server.update.hostTitle": "{name} 上的 OpenOwnBot",
@@ -487,11 +487,11 @@ export const messages = {
   "server.update.path.hosted":
     "托管服务会在后台下载更新。已下载的更新会在服务器下次启动时生效。停止并恢复服务器前请先等待进行中的工作结束。如果版本一直停留在旧版，请联系主机管理员。",
   "server.update.path.system":
-    "在主机上运行 sudo openbot update 以安装最新版本。该命令会停止 OpenOwnBot，请先等待进行中的工作结束。自动下载的更新会在下次启动时安装。",
+    "在主机上运行 sudo openownbot update 以安装最新版本。该命令会停止 OpenOwnBot，请先等待进行中的工作结束。自动下载的更新会在下次启动时安装。",
   "server.update.path.container":
     "在 Docker 主机上拉取新的 OpenOwnBot 镜像，并使用相同的数据卷重新创建容器。请先等待进行中的工作结束。保留原有数据卷，以免数据丢失。",
   "server.update.path.manual":
-    "该安装方式无法自我更新。请联系主机管理员从 github.com/nightly-labs/openbot/releases 安装兼容版本，并保留现有的 OpenOwnBot 数据。",
+    "该安装方式无法自我更新。请联系主机管理员从 github.com/zereight/openownbot/releases 安装兼容版本，并保留现有的 OpenOwnBot 数据。",
   "server.update.path.unavailable": "这是开发构建。请使用已安装的 OpenOwnBot 正式版本检查更新。",
   "server.update.check": "检查更新",
   "server.update.start": "空闲时更新",

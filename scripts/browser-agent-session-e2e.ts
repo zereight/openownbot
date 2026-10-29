@@ -10,8 +10,8 @@ import { withoutElectronRuntimeFlags } from "./electron-spawn-env";
 class FixtureProcessTimeout extends Error {}
 
 const projectRoot = dirname(dirname(fileURLToPath(import.meta.url)));
-const buildRoot = await mkdtemp(join(tmpdir(), "openbot-agent-session-"));
-const reportPath = join(projectRoot, ".openbot-build/browser-agent-session-e2e/report.json");
+const buildRoot = await mkdtemp(join(tmpdir(), "openownbot-agent-session-"));
+const reportPath = join(projectRoot, ".openownbot-build/browser-agent-session-e2e/report.json");
 const runId = randomUUID();
 let sourceSha: string | undefined;
 try {

@@ -1,5 +1,5 @@
 // Run: bun scripts/transfer-upload-cleanup-e2e.ts
-// Report: .openbot-build/transfer-upload-cleanup-e2e.json
+// Report: .openownbot-build/transfer-upload-cleanup-e2e.json
 
 import assert from "node:assert/strict";
 import { spawnSync } from "node:child_process";
@@ -267,7 +267,7 @@ if (process.argv[2] === "--seed") {
   assert.ok(directory, "The seed directory is required.");
   process.stdout.write(JSON.stringify(await seed(directory)));
 } else {
-  const reportPath = fileURLToPath(new URL("../.openbot-build/transfer-upload-cleanup-e2e.json", import.meta.url));
+  const reportPath = fileURLToPath(new URL("../.openownbot-build/transfer-upload-cleanup-e2e.json", import.meta.url));
   const root = await mkdtemp(join(tmpdir(), "transfer-upload-cleanup-"));
   const report: Report = { status: "running", checks: [] };
   let activeCheck: string | undefined;

@@ -1,4 +1,4 @@
-import { type AgentProviderId, agentProviderDescriptor, type ServerSummary } from "@openbot/contracts/ipc";
+import { type AgentProviderId, agentProviderDescriptor, type ServerSummary } from "@openownbot/contracts/ipc";
 import {
   hostSignInProviders,
   localCodeSignInProviders,

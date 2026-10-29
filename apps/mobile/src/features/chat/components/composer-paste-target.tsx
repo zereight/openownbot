@@ -1,5 +1,5 @@
-import { ATTACHMENT_FILE_EXTENSIONS } from "@openbot/contracts/attachment-files";
-import { MOBILE_ATTACHMENT_BYTES } from "@openbot/team-client/remote-peer";
+import { ATTACHMENT_FILE_EXTENSIONS } from "@openownbot/contracts/attachment-files";
+import { MOBILE_ATTACHMENT_BYTES } from "@openownbot/team-client/remote-peer";
 import { requireNativeView, requireOptionalNativeModule } from "expo";
 import type { ReactNode } from "react";
 import type { NativeSyntheticEvent, ViewProps } from "react-native";
@@ -19,8 +19,8 @@ interface NativeProps extends ViewProps {
 }
 
 /** `modules/composer-paste`. A build without it, such as Expo Go, pastes text only. */
-const NativePasteTarget = requireOptionalNativeModule("OpenBotComposerPaste")
-  ? requireNativeView<NativeProps>("OpenBotComposerPaste")
+const NativePasteTarget = requireOptionalNativeModule("OpenOwnBotComposerPaste")
+  ? requireNativeView<NativeProps>("OpenOwnBotComposerPaste")
   : null;
 
 /**

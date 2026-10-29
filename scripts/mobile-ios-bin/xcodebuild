@@ -6,7 +6,7 @@
 for arg in "$@"; do
   if [ "$arg" = "-derivedDataPath" ]; then exec /usr/bin/xcodebuild "$@"; fi
 done
-if [ -n "$OPENBOT_XCODE_DERIVED_DATA" ]; then
-  exec /usr/bin/xcodebuild -derivedDataPath "$OPENBOT_XCODE_DERIVED_DATA" "$@"
+if [ -n "$OPENOWNBOT_XCODE_DERIVED_DATA" ]; then
+  exec /usr/bin/xcodebuild -derivedDataPath "$OPENOWNBOT_XCODE_DERIVED_DATA" "$@"
 fi
 exec /usr/bin/xcodebuild "$@"

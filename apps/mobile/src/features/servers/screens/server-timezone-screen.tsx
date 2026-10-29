@@ -25,7 +25,7 @@ const MATCH_LIMIT = 50;
  */
 export function ServerTimezoneScreen() {
   const { t, errorMessage } = useText();
-  const accent = String(useCSSVariable("--openbot-accent"));
+  const accent = String(useCSSVariable("--openownbot-accent"));
   const { serverId } = useLocalSearchParams<{ serverId: string }>();
   const { available, query, save } = useServerTimezone(serverId);
   const [search, setSearch] = useState("");

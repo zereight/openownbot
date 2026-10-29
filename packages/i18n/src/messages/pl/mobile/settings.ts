@@ -115,7 +115,7 @@ export const messages = {
     "Pokazuje początek odpowiedzi, pytanie albo działanie do zatwierdzenia. Google i usługa kont OpenOwnBot nie mogą go odczytać.",
   "mobile.settings.notifications.sound": "Dźwięk",
   "mobile.settings.notifications.playSound": "Odtwarzaj dźwięk",
-  "mobile.settings.notifications.sound.openbot": "OpenBot",
+  "mobile.settings.notifications.sound.openownbot": "OpenOwnBot",
   "mobile.settings.notifications.sound.warm": "Ciepły",
   "mobile.settings.notifications.sound.mech": "Mechaniczny",
   "mobile.settings.notifications.sound.bubble": "Bąbelkowy",

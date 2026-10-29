@@ -1,4 +1,4 @@
-import type { AgentSquad } from "@openbot/contracts/squads";
+import type { AgentSquad } from "@openownbot/contracts/squads";
 
 /** The small heading over a run of agents in a team. `none` is a run with no heading. */
 export type SidebarTeamHeading =

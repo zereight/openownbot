@@ -1,7 +1,7 @@
 // @vitest-environment node
 import { DatabaseSync } from "node:sqlite";
 import { afterEach, describe, expect, it } from "vitest";
-import { migrateOpenBotDatabase } from "./openbot-database-schema";
+import { migrateOpenOwnBotDatabase } from "./openownbot-database-schema";
 
 // Failure modes: a migration commits a database with a broken foreign key that it made; a broken foreign key from
 // before the upgrade stops a migration that does not touch it, or the upgrade deletes or changes its row; a failed
@@ -17,7 +17,7 @@ function databaseAt(version: number): DatabaseSync {
   db.exec(`CREATE TABLE schema_migrations(version INTEGER PRIMARY KEY, applied_at TEXT NOT NULL);
     CREATE TEMP TRIGGER stop_at_version BEFORE INSERT ON schema_migrations WHEN new.version > ${version}
     BEGIN SELECT RAISE(ABORT, 'fixture stop'); END;`);
-  expect(() => migrateOpenBotDatabase(db)).toThrow(`migration to version ${version + 1} failed`);
+  expect(() => migrateOpenOwnBotDatabase(db)).toThrow(`migration to version ${version + 1} failed`);
   db.exec("DROP TRIGGER stop_at_version");
   return db;
 }
@@ -25,7 +25,7 @@ function databaseAt(version: number): DatabaseSync {
 function latestDatabase(): DatabaseSync {
   const db = new DatabaseSync(":memory:");
   databases.push(db);
-  migrateOpenBotDatabase(db);
+  migrateOpenOwnBotDatabase(db);
   return db;
 }
 
@@ -76,7 +76,7 @@ describe("migration guards", () => {
       const violationsBefore = db.prepare("PRAGMA foreign_key_check").all();
       expect(violationsBefore).toHaveLength(2);
 
-      migrateOpenBotDatabase(db);
+      migrateOpenOwnBotDatabase(db);
 
       expect(versions(db)).toEqual(range(8, 47));
       // Migration 40 adds order columns to the message; every column the row had keeps its value.
@@ -101,12 +101,12 @@ describe("migration guards", () => {
     const threadsBefore = db.prepare("SELECT * FROM projection_threads").all();
     const schemaBefore = db.prepare("SELECT type, name, sql FROM sqlite_master ORDER BY type, name").all();
 
-    expect(() => migrateOpenBotDatabase(db)).toThrow(
+    expect(() => migrateOpenOwnBotDatabase(db)).toThrow(
       expect.objectContaining({
-        message: "OpenBot database migration to version 28 failed.",
+        message: "OpenOwnBot database migration to version 28 failed.",
         cause: expect.objectContaining({
           message:
-            "OpenBot database migration produced 1 foreign-key violation(s) in projection_turns -> projection_threads.",
+            "OpenOwnBot database migration produced 1 foreign-key violation(s) in projection_turns -> projection_threads.",
         }),
       }),
     );
@@ -117,11 +117,11 @@ describe("migration guards", () => {
     expect(db.prepare("PRAGMA foreign_keys").get()).toEqual({ foreign_keys: 1 });
 
     // The next start meets the same rows and stops again. It deletes nothing to get past them.
-    expect(() => migrateOpenBotDatabase(db)).toThrow("migration to version 28 failed");
+    expect(() => migrateOpenOwnBotDatabase(db)).toThrow("migration to version 28 failed");
     expect(contents(db)).toEqual(before);
 
     db.exec("DROP TRIGGER break_reference");
-    migrateOpenBotDatabase(db);
+    migrateOpenOwnBotDatabase(db);
     expect(versions(db)).toEqual(range(8, 47));
     expect(contents(db)).toMatchObject(before);
   });
@@ -131,8 +131,8 @@ describe("migration guards", () => {
     db.prepare("DELETE FROM schema_migrations WHERE version = ?").run(missing);
     const schemaBefore = db.prepare("SELECT type, name, sql FROM sqlite_master ORDER BY type, name").all();
 
-    expect(() => migrateOpenBotDatabase(db)).toThrow(
-      `OpenBot database migration history is missing version ${missing}.`,
+    expect(() => migrateOpenOwnBotDatabase(db)).toThrow(
+      `OpenOwnBot database migration history is missing version ${missing}.`,
     );
     expect(versions(db)).toEqual(range(8, 47).filter((version) => version !== missing));
     expect(db.prepare("SELECT type, name, sql FROM sqlite_master ORDER BY type, name").all()).toEqual(schemaBefore);

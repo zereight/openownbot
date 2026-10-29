@@ -1,4 +1,4 @@
-import { CHAT_MERMAID_FONT_FAMILY, mermaidImageUrl } from "@openbot/contracts/chat-preview";
+import { CHAT_MERMAID_FONT_FAMILY, mermaidImageUrl } from "@openownbot/contracts/chat-preview";
 import type { DocumentColorScheme } from "../../document-color-scheme";
 
 type Mermaid = typeof import("mermaid")["default"];
@@ -61,7 +61,7 @@ export function mermaidDiagram(source: string, scheme: DocumentColorScheme): Pro
   const cached = diagramCache.get(key);
   if (cached) return cached;
   diagramCount += 1;
-  const id = `openbot-mermaid-${diagramCount}`;
+  const id = `openownbot-mermaid-${diagramCount}`;
   const diagram = drawing.then(() => drawDiagram(id, key, source, scheme));
   drawing = diagram;
   if (diagramCache.size >= DIAGRAM_CACHE_LIMIT) {

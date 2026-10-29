@@ -3,8 +3,8 @@
 }
 
 .settings-modal {
-  --openbot-bg-surface: var(--openbot-bg-control);
-  --openbot-text-muted: var(--openbot-settings-text-muted);
+  --openownbot-bg-surface: var(--openownbot-bg-control);
+  --openownbot-text-muted: var(--openownbot-settings-text-muted);
   width: min(880px, calc(100vw - 48px));
   height: min(600px, calc(100dvh - 48px));
   min-width: 0;
@@ -13,50 +13,50 @@
   grid-template-columns: 220px minmax(0, 1fr);
   overflow: hidden;
   outline: none;
-  background: var(--openbot-bg-canvas);
-  color: var(--openbot-text-primary);
+  background: var(--openownbot-bg-canvas);
+  color: var(--openownbot-text-primary);
   transform-origin: center;
-  animation: settings-modal-in var(--openbot-duration-overlay) var(--openbot-ease-out) both;
+  animation: settings-modal-in var(--openownbot-duration-overlay) var(--openownbot-ease-out) both;
   will-change: transform, opacity;
 }
 
 .settings-modal-nav {
   display: grid;
-  gap: var(--openbot-space-1);
+  gap: var(--openownbot-space-1);
 }
 
 .settings-modal-nav-item {
   position: relative;
   width: 100%;
   height: auto;
-  min-height: var(--openbot-control-md);
+  min-height: var(--openownbot-control-md);
   display: grid;
-  grid-template-columns: var(--openbot-icon-md) minmax(0, 1fr) auto;
+  grid-template-columns: var(--openownbot-icon-md) minmax(0, 1fr) auto;
   align-items: center;
-  gap: var(--openbot-space-2);
+  gap: var(--openownbot-space-2);
   border: 0;
-  border-radius: var(--openbot-radius-md);
+  border-radius: var(--openownbot-radius-md);
   background: transparent;
-  padding: 0 var(--openbot-space-2);
-  color: var(--openbot-text-secondary);
+  padding: 0 var(--openownbot-space-2);
+  color: var(--openownbot-text-secondary);
   font: inherit;
-  font-size: var(--openbot-text-md);
+  font-size: var(--openownbot-text-md);
   text-align: left;
   transition:
-    background-color var(--openbot-duration-hover) ease,
-    color var(--openbot-duration-hover) ease;
+    background-color var(--openownbot-duration-hover) ease,
+    color var(--openownbot-duration-hover) ease;
 }
 
 .settings-modal-nav-item svg {
-  width: var(--openbot-icon-md);
-  height: var(--openbot-icon-md);
-  stroke-width: var(--openbot-icon-stroke);
+  width: var(--openownbot-icon-md);
+  height: var(--openownbot-icon-md);
+  stroke-width: var(--openownbot-icon-stroke);
 }
 
 .settings-modal-nav-item[aria-current="page"] {
-  background: var(--openbot-bg-control-hover);
-  color: var(--openbot-text-primary);
-  font-weight: var(--openbot-weight-medium);
+  background: var(--openownbot-bg-control-hover);
+  color: var(--openownbot-text-primary);
+  font-weight: var(--openownbot-weight-medium);
 }
 
 .settings-modal-nav-item {
@@ -65,13 +65,13 @@
 
 .settings-modal-nav-item:focus-visible {
   outline: 0;
-  box-shadow: var(--openbot-focus-ring);
+  box-shadow: var(--openownbot-focus-ring);
 }
 
 @media (hover: hover) and (pointer: fine) {
   .settings-modal-nav-item:not([aria-current]):hover {
-    background: var(--openbot-hover);
-    color: var(--openbot-text-primary);
+    background: var(--openownbot-hover);
+    color: var(--openownbot-text-primary);
   }
 }
 
@@ -81,7 +81,7 @@
   min-height: 0;
   display: grid;
   grid-template-rows: auto minmax(0, 1fr) auto;
-  background: var(--openbot-bg-canvas);
+  background: var(--openownbot-bg-canvas);
 }
 
 .settings-modal-footer {
@@ -92,23 +92,23 @@
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: var(--openbot-space-4);
-  padding: var(--openbot-space-6) var(--openbot-space-6) var(--openbot-space-4);
+  gap: var(--openownbot-space-4);
+  padding: var(--openownbot-space-6) var(--openownbot-space-6) var(--openownbot-space-4);
 }
 
 .settings-modal-title {
   margin: 0;
-  font-size: var(--openbot-text-2xl);
-  font-weight: var(--openbot-weight-semibold);
-  line-height: var(--openbot-leading-2xl);
-  letter-spacing: var(--openbot-tracking-tight);
+  font-size: var(--openownbot-text-2xl);
+  font-weight: var(--openownbot-weight-semibold);
+  line-height: var(--openownbot-leading-2xl);
+  letter-spacing: var(--openownbot-tracking-tight);
 }
 
 .settings-modal-description {
-  margin: var(--openbot-space-1) 0 0;
-  color: var(--openbot-text-muted);
-  font-size: var(--openbot-text-md);
-  line-height: var(--openbot-leading-md);
+  margin: var(--openownbot-space-1) 0 0;
+  color: var(--openownbot-text-muted);
+  font-size: var(--openownbot-text-md);
+  line-height: var(--openownbot-leading-md);
 }
 
 .settings-modal-scroll-frame {
@@ -120,13 +120,13 @@
 .settings-modal-scroll-frame::before,
 .settings-modal-scroll-frame::after {
   position: absolute;
-  right: var(--openbot-space-2);
+  right: var(--openownbot-space-2);
   left: 0;
   z-index: 1;
-  height: var(--openbot-space-8);
+  height: var(--openownbot-space-8);
   opacity: 0;
   pointer-events: none;
-  transition: opacity var(--openbot-duration-normal) ease;
+  transition: opacity var(--openownbot-duration-normal) ease;
   content: "";
 }
 
@@ -134,9 +134,9 @@
   top: 0;
   background: linear-gradient(
     to bottom,
-    var(--openbot-bg-canvas) 0%,
-    var(--openbot-bg-canvas) 28%,
-    var(--openbot-bg-canvas-clear) 100%
+    var(--openownbot-bg-canvas) 0%,
+    var(--openownbot-bg-canvas) 28%,
+    var(--openownbot-bg-canvas-clear) 100%
   );
 }
 
@@ -144,9 +144,9 @@
   bottom: 0;
   background: linear-gradient(
     to top,
-    var(--openbot-bg-canvas) 0%,
-    var(--openbot-bg-canvas) 28%,
-    var(--openbot-bg-canvas-clear) 100%
+    var(--openownbot-bg-canvas) 0%,
+    var(--openownbot-bg-canvas) 28%,
+    var(--openownbot-bg-canvas-clear) 100%
   );
 }
 
@@ -165,22 +165,22 @@
   min-height: 0;
   display: grid;
   align-content: start;
-  gap: var(--openbot-space-6);
+  gap: var(--openownbot-space-6);
   overflow-y: auto;
   /*
    * The inline padding stays a plain token so the panel text keeps the same left edge as the header
    * title. A gutter subtracted from the padding only lines up when the platform draws a classic
    * scrollbar; with overlay scrollbars it moved the whole panel inward.
    */
-  padding: 0 var(--openbot-space-6) calc(var(--openbot-space-6) + var(--settings-modal-floating-space, 0px));
+  padding: 0 var(--openownbot-space-6) calc(var(--openownbot-space-6) + var(--settings-modal-floating-space, 0px));
   scrollbar-gutter: stable;
 }
 
 .settings-modal-tab-panel {
   display: grid;
   align-content: start;
-  gap: var(--openbot-space-6);
-  animation: settings-modal-tab-in var(--openbot-duration-fast) var(--openbot-ease-out) both;
+  gap: var(--openownbot-space-6);
+  animation: settings-modal-tab-in var(--openownbot-duration-fast) var(--openownbot-ease-out) both;
   will-change: transform, opacity;
 }
 
@@ -193,18 +193,18 @@
   display: grid;
   overflow: hidden;
   border: 0;
-  border-radius: var(--openbot-radius-lg);
-  background: var(--openbot-bg-surface);
+  border-radius: var(--openownbot-radius-lg);
+  background: var(--openownbot-bg-surface);
   box-shadow: none;
 }
 
 .settings-modal-card.ui-card {
-  padding: 0 var(--openbot-space-4);
+  padding: 0 var(--openownbot-space-4);
 }
 
 .settings-modal-card > .ui-switch-field,
 .settings-modal-card > .ui-item {
-  padding: var(--openbot-space-3) var(--openbot-space-4);
+  padding: var(--openownbot-space-3) var(--openownbot-space-4);
 }
 
 .settings-modal-row {
@@ -214,7 +214,7 @@
 .settings-modal-card > .ui-switch-field {
   width: 100%;
   justify-content: space-between;
-  padding: var(--openbot-space-3) var(--openbot-space-4);
+  padding: var(--openownbot-space-3) var(--openownbot-space-4);
 }
 
 .settings-modal-card > :not(:first-child) {
@@ -225,10 +225,10 @@
 .settings-modal-card > :not(:first-child)::before {
   position: absolute;
   top: 0;
-  right: var(--openbot-space-4);
-  left: var(--openbot-space-4);
+  right: var(--openownbot-space-4);
+  left: var(--openownbot-space-4);
   height: 1px;
-  background: var(--openbot-border);
+  background: var(--openownbot-border);
   pointer-events: none;
   content: "";
 }
@@ -237,25 +237,25 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: var(--openbot-space-4);
+  gap: var(--openownbot-space-4);
 }
 
 .settings-modal-row-title {
-  color: var(--openbot-text-primary);
-  font-size: var(--openbot-text-lg);
-  font-weight: var(--openbot-weight-medium);
-  line-height: var(--openbot-leading-lg);
+  color: var(--openownbot-text-primary);
+  font-size: var(--openownbot-text-lg);
+  font-weight: var(--openownbot-weight-medium);
+  line-height: var(--openownbot-leading-lg);
 }
 
 .settings-modal :where(.ui-item-title, .ui-switch-label) {
-  font-size: var(--openbot-text-lg);
-  line-height: var(--openbot-leading-lg);
+  font-size: var(--openownbot-text-lg);
+  line-height: var(--openownbot-leading-lg);
 }
 
 .settings-modal :where(.ui-item-description, .ui-switch-description),
 .settings-modal :where(.ui-text)[data-variant="caption"] {
-  font-size: var(--openbot-text-md);
-  line-height: var(--openbot-leading-md);
+  font-size: var(--openownbot-text-md);
+  line-height: var(--openownbot-leading-md);
 }
 
 .settings-modal .ui-item-description {
@@ -265,44 +265,44 @@
 }
 
 .settings-modal :where(.ui-item-content, .ui-switch-copy) {
-  gap: var(--openbot-space-0-5);
+  gap: var(--openownbot-space-0-5);
 }
 
 .settings-modal :where(.ui-button, .ui-input, .ui-textarea, .ui-native-select) {
-  font-size: var(--openbot-text-lg);
-  line-height: var(--openbot-leading-lg);
+  font-size: var(--openownbot-text-lg);
+  line-height: var(--openownbot-leading-lg);
 }
 
 .settings-modal :where(.ui-button-variant-default) {
-  background: var(--openbot-accent);
-  color: var(--openbot-text-primary);
+  background: var(--openownbot-accent);
+  color: var(--openownbot-text-primary);
 }
 
 .settings-modal :where(.ui-button-variant-outline, .ui-button-variant-secondary) {
-  background: var(--openbot-bg-surface-raised);
+  background: var(--openownbot-bg-surface-raised);
 }
 
 .settings-modal :where(.ui-button-variant-destructive) {
-  background: var(--openbot-danger);
-  color: var(--openbot-text-primary);
+  background: var(--openownbot-danger);
+  color: var(--openownbot-text-primary);
 }
 
 .settings-modal .ui-switch[data-checked] {
-  background: var(--openbot-accent);
+  background: var(--openownbot-accent);
 }
 
 .settings-modal .ui-switch-thumb[data-checked] {
-  background: var(--openbot-text-primary);
+  background: var(--openownbot-text-primary);
 }
 
 @media (hover: hover) and (pointer: fine) {
   .settings-modal :where(.ui-button-variant-default):hover:not(:disabled):not([data-disabled]) {
-    background: var(--openbot-accent-hover);
+    background: var(--openownbot-accent-hover);
   }
 
   .settings-modal :where(.ui-button-variant-destructive):hover:not(:disabled):not([data-disabled]) {
-    background: var(--openbot-danger-hover);
-    color: var(--openbot-text-primary);
+    background: var(--openownbot-danger-hover);
+    color: var(--openownbot-text-primary);
   }
 }
 
@@ -310,31 +310,31 @@
   width: min(920px, calc(100vw - 48px));
   height: min(640px, calc(100dvh - 48px));
   grid-template-columns: 196px minmax(0, 1fr);
-  border-radius: var(--openbot-radius-card);
+  border-radius: var(--openownbot-radius-card);
   box-shadow:
-    var(--openbot-shadow-raised),
-    0 0 0 1px var(--openbot-dialog-ring);
+    var(--openownbot-shadow-raised),
+    0 0 0 1px var(--openownbot-dialog-ring);
 }
 
 :is(.app-settings-modal-shell, .server-settings-modal-shell) .settings-modal-nav {
-  gap: var(--openbot-space-1);
+  gap: var(--openownbot-space-1);
 }
 
 :is(.app-settings-modal-shell, .server-settings-modal-shell) .settings-modal-nav-item {
-  min-height: var(--openbot-control-md);
-  padding-inline: var(--openbot-space-3);
-  font-size: var(--openbot-text-lg);
+  min-height: var(--openownbot-control-md);
+  padding-inline: var(--openownbot-space-3);
+  font-size: var(--openownbot-text-lg);
 }
 
 :is(.app-settings-modal-shell, .server-settings-modal-shell) .settings-modal-nav-item[data-selected] {
-  background: var(--openbot-bg-control-hover);
-  color: var(--openbot-text-primary);
-  font-weight: var(--openbot-weight-medium);
+  background: var(--openownbot-bg-control-hover);
+  color: var(--openownbot-text-primary);
+  font-weight: var(--openownbot-weight-medium);
 }
 
 :is(.app-settings-modal-shell, .server-settings-modal-shell) .settings-modal-header {
   align-items: center;
-  padding: var(--openbot-space-4) var(--openbot-space-4) var(--openbot-space-6) var(--openbot-space-8);
+  padding: var(--openownbot-space-4) var(--openownbot-space-4) var(--openownbot-space-6) var(--openownbot-space-8);
 }
 
 :is(.app-settings-modal-shell, .server-settings-modal-shell) .settings-modal-description {
@@ -348,18 +348,18 @@
 }
 
 :is(.app-settings-modal-shell, .server-settings-modal-shell) .settings-modal-content {
-  gap: var(--openbot-space-6);
-  padding: 0 var(--openbot-space-8) calc(var(--openbot-space-8) + var(--settings-modal-floating-space, 0px));
+  gap: var(--openownbot-space-6);
+  padding: 0 var(--openownbot-space-8) calc(var(--openownbot-space-8) + var(--settings-modal-floating-space, 0px));
 }
 
 :is(.app-settings-modal-shell, .server-settings-modal-shell) .settings-modal-tab-panel {
-  gap: var(--openbot-space-6);
+  gap: var(--openownbot-space-6);
   animation: none;
   will-change: auto;
 }
 
 :is(.app-settings-modal-shell, .server-settings-modal-shell) .ui-settings-section {
-  gap: var(--openbot-space-2);
+  gap: var(--openownbot-space-2);
 }
 
 :is(.app-settings-modal-shell, .server-settings-modal-shell) .ui-settings-section-header {
@@ -367,8 +367,8 @@
 }
 
 :is(.app-settings-modal-shell, .server-settings-modal-shell) .ui-settings-section-heading {
-  font-size: var(--openbot-text-md);
-  line-height: var(--openbot-leading-md);
+  font-size: var(--openownbot-text-md);
+  line-height: var(--openownbot-leading-md);
 }
 
 .provider-picker-embedded {
@@ -378,8 +378,8 @@
 .provider-picker-embedded .provider-picker-list {
   overflow: hidden;
   border: 0;
-  border-radius: var(--openbot-radius-lg);
-  background: var(--openbot-bg-surface);
+  border-radius: var(--openownbot-radius-lg);
+  background: var(--openownbot-bg-surface);
 }
 
 .provider-picker-embedded .provider-picker-option {
@@ -387,23 +387,23 @@
   min-height: 64px;
   border: 0;
   background: transparent;
-  padding: 0 var(--openbot-space-4);
+  padding: 0 var(--openownbot-space-4);
 }
 
 .provider-picker-embedded .provider-picker-option-selection {
   min-height: 64px;
-  padding: var(--openbot-space-3) 0;
+  padding: var(--openownbot-space-3) 0;
 }
 
 /* The row has no inline padding of its own here, so the message moves left to stay under the name. */
 .provider-picker-embedded .provider-picker-check-error.provider-picker-used-by {
-  margin-top: calc(-1 * var(--openbot-space-4));
-  padding: 0 0 var(--openbot-space-3) 54px;
+  margin-top: calc(-1 * var(--openownbot-space-4));
+  padding: 0 0 var(--openownbot-space-3) 54px;
 }
 
 .provider-picker-embedded .provider-picker-accounts {
-  margin-top: calc(-1 * var(--openbot-space-2));
-  padding: 0 0 var(--openbot-space-2) 54px;
+  margin-top: calc(-1 * var(--openownbot-space-2));
+  padding: 0 0 var(--openownbot-space-2) 54px;
 }
 
 .provider-picker-embedded .provider-picker-option + .provider-picker-option,
@@ -415,10 +415,10 @@
 .provider-picker-embedded .provider-picker-option-custom::before {
   position: absolute;
   top: 0;
-  right: var(--openbot-space-4);
-  left: var(--openbot-space-4);
+  right: var(--openownbot-space-4);
+  left: var(--openownbot-space-4);
   height: 1px;
-  background: var(--openbot-border);
+  background: var(--openownbot-border);
   pointer-events: none;
   content: "";
 }
@@ -426,7 +426,7 @@
 /* The row pads its own inline edges here, so the button margin goes and the gap between two
    actions has to come from the wrapper instead. */
 .provider-picker-embedded .provider-picker-actions {
-  gap: var(--openbot-space-2);
+  gap: var(--openownbot-space-2);
 }
 
 .provider-picker-embedded .provider-picker-install,
@@ -437,8 +437,8 @@
 /* Row actions keep the onboarding colours: Download and Update stay light and only Connect takes
    the accent, so the modal's accent primary button does not repaint them. */
 .settings-modal .ui-button-variant-default.provider-picker-install:not(.provider-picker-connect) {
-  background: var(--openbot-surface-light);
-  color: var(--openbot-text-on-light);
+  background: var(--openownbot-surface-light);
+  color: var(--openownbot-text-on-light);
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -446,36 +446,36 @@
     .ui-button-variant-default.provider-picker-install:not(.provider-picker-connect):hover:not(:disabled):not(
       [data-disabled]
     ) {
-    background: color-mix(in srgb, var(--openbot-surface-light) 82%, transparent);
+    background: color-mix(in srgb, var(--openownbot-surface-light) 82%, transparent);
   }
 }
 
 .provider-picker-embedded .provider-picker-option:hover:not(.provider-picker-option-unavailable),
 .provider-picker-embedded .provider-picker-option:focus-within,
 .provider-picker-embedded .provider-picker-option-selected {
-  background: var(--openbot-bg-control-hover);
+  background: var(--openownbot-bg-control-hover);
 }
 
 .settings-modal .provider-picker-name {
-  font-size: var(--openbot-text-lg);
-  font-weight: var(--openbot-weight-medium);
-  line-height: var(--openbot-leading-lg);
+  font-size: var(--openownbot-text-lg);
+  font-weight: var(--openownbot-weight-medium);
+  line-height: var(--openownbot-leading-lg);
 }
 
 .settings-modal :where(.provider-picker-email, .provider-picker-check-error) {
-  font-size: var(--openbot-text-md);
-  line-height: var(--openbot-leading-md);
+  font-size: var(--openownbot-text-md);
+  line-height: var(--openownbot-leading-md);
 }
 
 /* An account line is one size below its provider. */
 .settings-modal .provider-picker-account .provider-picker-name {
-  font-size: var(--openbot-text-md);
-  line-height: var(--openbot-leading-md);
+  font-size: var(--openownbot-text-md);
+  line-height: var(--openownbot-leading-md);
 }
 
 .settings-modal .provider-picker-account .provider-picker-email {
-  font-size: var(--openbot-text-sm);
-  line-height: var(--openbot-leading-sm);
+  font-size: var(--openownbot-text-sm);
+  line-height: var(--openownbot-leading-sm);
 }
 
 .settings-modal .provider-picker-status {
@@ -493,8 +493,8 @@
 
 /* A line between the two fixed places and the browsers. */
 .ui-select-item.settings-modal-select-group-end {
-  margin-bottom: var(--openbot-space-1);
-  border-bottom: 1px solid var(--openbot-border);
+  margin-bottom: var(--openownbot-space-1);
+  border-bottom: 1px solid var(--openownbot-border);
 }
 
 /* The command field under the link list on Linux and Windows. */
@@ -503,12 +503,12 @@
   min-width: 0;
   flex: 1;
   align-items: center;
-  gap: var(--openbot-space-2);
+  gap: var(--openownbot-space-2);
 }
 
 .app-settings-modal-shell .settings-modal-select .ui-select-trigger {
-  background: var(--openbot-bg-surface-raised);
-  color: var(--openbot-text-secondary);
+  background: var(--openownbot-bg-surface-raised);
+  color: var(--openownbot-text-secondary);
 }
 
 .app-settings-modal-shell .settings-modal-update-track-select {
@@ -524,11 +524,11 @@
 }
 
 .app-settings-modal-shell .settings-modal-update-status-active {
-  color: var(--openbot-accent);
+  color: var(--openownbot-accent);
 }
 
 .app-settings-modal-shell .settings-modal-error {
-  color: var(--openbot-danger);
+  color: var(--openownbot-danger);
 }
 
 .settings-identity-name-row.ui-item,
@@ -540,12 +540,12 @@
   --settings-identity-error-duration: 280ms;
   position: relative;
   width: 220px;
-  height: var(--openbot-control-md);
+  height: var(--openownbot-control-md);
 }
 
 .settings-identity-name-input.ui-input {
   width: 100%;
-  transition: border-color var(--openbot-duration-normal) ease-out;
+  transition: border-color var(--openownbot-duration-normal) ease-out;
   will-change: transform;
 }
 
@@ -555,7 +555,7 @@
 
 .settings-identity-name-error {
   position: absolute;
-  top: calc(100% + var(--openbot-space-0-5));
+  top: calc(100% + var(--openownbot-space-0-5));
   right: 0;
   left: 0;
   opacity: 0;
@@ -574,7 +574,7 @@
 }
 
 .settings-identity-image-control {
-  gap: var(--openbot-space-2);
+  gap: var(--openownbot-space-2);
 }
 
 .settings-identity-image-picker {
@@ -584,8 +584,8 @@
 
 .settings-identity-image-trigger {
   position: relative;
-  width: calc(var(--openbot-control-xl) + var(--openbot-space-2));
-  height: calc(var(--openbot-control-xl) + var(--openbot-space-2));
+  width: calc(var(--openownbot-control-xl) + var(--openownbot-space-2));
+  height: calc(var(--openownbot-control-xl) + var(--openownbot-space-2));
   overflow: hidden;
 }
 
@@ -594,30 +594,30 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: var(--openbot-space-4);
-  border-top: 1px solid var(--openbot-border);
-  background: var(--openbot-bg-surface);
-  padding: var(--openbot-space-3) var(--openbot-space-6);
+  gap: var(--openownbot-space-4);
+  border-top: 1px solid var(--openownbot-border);
+  background: var(--openownbot-bg-surface);
+  padding: var(--openownbot-space-3) var(--openownbot-space-6);
 }
 
 .settings-modal-save-actions {
   display: flex;
   align-items: center;
-  gap: var(--openbot-space-1);
+  gap: var(--openownbot-space-1);
 }
 
 .settings-modal-readonly-value {
   min-width: 180px;
   max-width: 300px;
   overflow-wrap: anywhere;
-  color: var(--openbot-text-primary);
-  font-weight: var(--openbot-weight-medium);
+  color: var(--openownbot-text-primary);
+  font-weight: var(--openownbot-weight-medium);
   text-align: right;
   user-select: text;
 }
 
 .settings-modal-profile-photo-trigger {
-  border-radius: var(--openbot-radius-pill);
+  border-radius: var(--openownbot-radius-pill);
 }
 
 .settings-modal-avatar {
@@ -626,11 +626,11 @@
   display: grid;
   place-items: center;
   border: 0;
-  border-radius: var(--openbot-radius-pill);
-  background: var(--openbot-accent-soft);
-  color: var(--openbot-accent-hover);
-  font-size: var(--openbot-text-sm);
-  font-weight: var(--openbot-weight-semibold);
+  border-radius: var(--openownbot-radius-pill);
+  background: var(--openownbot-accent-soft);
+  color: var(--openownbot-accent-hover);
+  font-size: var(--openownbot-text-sm);
+  font-weight: var(--openownbot-weight-semibold);
 }
 
 .settings-modal-avatar > img {
@@ -638,7 +638,7 @@
   height: 100%;
   border-radius: inherit;
   object-fit: cover;
-  outline: 1px solid var(--openbot-image-outline);
+  outline: 1px solid var(--openownbot-image-outline);
   outline-offset: -1px;
 }
 
@@ -704,12 +704,12 @@
   }
 
   .settings-modal-header {
-    padding: var(--openbot-space-4);
+    padding: var(--openownbot-space-4);
   }
 
   .settings-modal-content {
-    gap: var(--openbot-space-4);
-    padding: 0 var(--openbot-space-4) calc(var(--openbot-space-4) + var(--settings-modal-floating-space, 0px));
+    gap: var(--openownbot-space-4);
+    padding: 0 var(--openownbot-space-4) calc(var(--openownbot-space-4) + var(--settings-modal-floating-space, 0px));
   }
 
   :is(.app-settings-modal-shell, .server-settings-modal-shell).settings-modal {
@@ -720,16 +720,16 @@
   }
 
   :is(.app-settings-modal-shell, .server-settings-modal-shell) .settings-modal-header {
-    padding: var(--openbot-space-4);
+    padding: var(--openownbot-space-4);
   }
 
   :is(.app-settings-modal-shell, .server-settings-modal-shell) .settings-modal-content,
   :is(.app-settings-modal-shell, .server-settings-modal-shell) .settings-modal-tab-panel {
-    gap: var(--openbot-space-6);
+    gap: var(--openownbot-space-6);
   }
 
   :is(.app-settings-modal-shell, .server-settings-modal-shell) .settings-modal-content {
-    padding: 0 var(--openbot-space-4) var(--openbot-space-4);
+    padding: 0 var(--openownbot-space-4) var(--openownbot-space-4);
   }
 
   .settings-identity-name-row,
@@ -745,9 +745,9 @@
     height: auto;
     display: grid;
     grid-template-columns: minmax(0, 1fr);
-    grid-template-rows: var(--openbot-control-md) var(--openbot-leading-sm);
+    grid-template-rows: var(--openownbot-control-md) var(--openownbot-leading-sm);
     align-items: stretch;
-    row-gap: var(--openbot-space-0-5);
+    row-gap: var(--openownbot-space-0-5);
   }
 
   .settings-identity-name-error {
@@ -768,7 +768,7 @@
   }
 
   .settings-modal-save-bar {
-    padding-inline: var(--openbot-space-4);
+    padding-inline: var(--openownbot-space-4);
   }
 }
 

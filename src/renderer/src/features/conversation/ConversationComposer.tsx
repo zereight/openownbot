@@ -1,5 +1,5 @@
-import { isKnownAgentProvider, providerSteersTurns } from "@openbot/contracts/agent-providers";
-import { supportedAttachmentExtensions } from "@openbot/contracts/attachment-files";
+import { isKnownAgentProvider, providerSteersTurns } from "@openownbot/contracts/agent-providers";
+import { supportedAttachmentExtensions } from "@openownbot/contracts/attachment-files";
 import {
   type AccountUsageLimit,
   type AgentWait,
@@ -8,14 +8,14 @@ import {
   DEFAULT_PROVIDER_ACCOUNT_ID,
   type QueueSnapshot,
   usageQuotaForModel,
-} from "@openbot/contracts/ipc";
+} from "@openownbot/contracts/ipc";
 import {
   TEAM_EML_ATTACHMENTS_CAPABILITY,
   TEAM_MEDIA_ATTACHMENTS_CAPABILITY,
   TEAM_MP4_ATTACHMENTS_CAPABILITY,
   TEAM_ZIP_ATTACHMENTS_CAPABILITY,
-} from "@openbot/contracts/team-protocol/current";
-import { sourceText } from "@openbot/i18n/source";
+} from "@openownbot/contracts/team-protocol/current";
+import { sourceText } from "@openownbot/i18n/source";
 import {
   ArrowUp,
   AudioLines,
@@ -31,29 +31,29 @@ import {
   Plus,
   Puzzle,
   toast,
-} from "@openbot/ui";
-import { fileBadge } from "@openbot/ui/features/conversation/AttachmentCards";
-import { attachmentReferenceTone } from "@openbot/ui/features/conversation/AttachmentReference";
-import { AwaitingReplies } from "@openbot/ui/features/conversation/AwaitingReplies";
-import { type ComposerCommand, ComposerEditor } from "@openbot/ui/features/conversation/ComposerEditor";
-import { ComposerErrorBanner } from "@openbot/ui/features/conversation/ComposerErrorBanner";
+} from "@openownbot/ui";
+import { fileBadge } from "@openownbot/ui/features/conversation/AttachmentCards";
+import { attachmentReferenceTone } from "@openownbot/ui/features/conversation/AttachmentReference";
+import { AwaitingReplies } from "@openownbot/ui/features/conversation/AwaitingReplies";
+import { type ComposerCommand, ComposerEditor } from "@openownbot/ui/features/conversation/ComposerEditor";
+import { ComposerErrorBanner } from "@openownbot/ui/features/conversation/ComposerErrorBanner";
 import {
   ComposerNotice,
   ComposerSignInNotice,
   ComposerUpdateNotice,
   ComposerUsageLimitNotice,
-} from "@openbot/ui/features/conversation/ComposerNotice";
+} from "@openownbot/ui/features/conversation/ComposerNotice";
 import {
   ComposerCompactionNotice,
   ContextUsageMeter,
   contextUsageView,
-} from "@openbot/ui/features/conversation/ContextUsage";
-import { CloseIcon, StopIcon } from "@openbot/ui/features/conversation/ConversationIcons";
-import { type OpenWaitItem, OpenWaits } from "@openbot/ui/features/conversation/OpenWaits";
-import { ReplyQuote } from "@openbot/ui/features/conversation/ReplyQuote";
-import { SpeakingBar } from "@openbot/ui/features/conversation/SpeakingBar";
-import { VoiceRecordingMorph, voiceButtonLabel } from "@openbot/ui/features/conversation/VoiceRecordingMorph";
-import { useText } from "@openbot/ui/text";
+} from "@openownbot/ui/features/conversation/ContextUsage";
+import { CloseIcon, StopIcon } from "@openownbot/ui/features/conversation/ConversationIcons";
+import { type OpenWaitItem, OpenWaits } from "@openownbot/ui/features/conversation/OpenWaits";
+import { ReplyQuote } from "@openownbot/ui/features/conversation/ReplyQuote";
+import { SpeakingBar } from "@openownbot/ui/features/conversation/SpeakingBar";
+import { VoiceRecordingMorph, voiceButtonLabel } from "@openownbot/ui/features/conversation/VoiceRecordingMorph";
+import { useText } from "@openownbot/ui/text";
 import { createEffect, createMemo, createSignal, createStore, For, Loading, lazy, Show } from "solid-js";
 import { reportErrorBanner, reportNotification } from "../../error-reports";
 import { deviceSendShortcut, sendShortcutAriaKey, sendShortcutHintKey } from "../../send-shortcut-preference";
@@ -183,7 +183,7 @@ export function ConversationComposer() {
     const value = context()?.compaction;
     return value && value.id !== dismissedCompactions()[currentChatConversationKey() ?? ""] ? value : null;
   };
-  /** The request that a restart of OpenBot cut off, until the user writes again or closes the notice. */
+  /** The request that a restart of OpenOwnBot cut off, until the user writes again or closes the notice. */
   const restartNotice = createMemo(() => {
     const agentId = props.agent?.id;
     const cut = agentId ? restartInterruptedDelivery(props.queue?.deliveries ?? [], agentId) : null;
@@ -817,7 +817,7 @@ export function ConversationComposer() {
               multiple
               hidden
               tabindex={-1}
-              data-openbot-attachment-picker={props.runtime ? undefined : "true"}
+              data-openownbot-attachment-picker={props.runtime ? undefined : "true"}
               onChange={(event) => {
                 if (props.runtime?.importFiles)
                   void props.runtime.importFiles(Array.from(event.currentTarget.files ?? []));
@@ -1008,5 +1008,5 @@ function openWaitItems(waits: readonly AgentWait[], queue: QueueSnapshot | undef
 }
 
 const QueuePanel = lazy(() =>
-  import("@openbot/ui/features/conversation/QueuePanel").then((module) => ({ default: module.QueuePanel })),
+  import("@openownbot/ui/features/conversation/QueuePanel").then((module) => ({ default: module.QueuePanel })),
 );

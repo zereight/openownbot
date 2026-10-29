@@ -10,9 +10,9 @@ export const MUSE_CODE_PROVIDER: ProviderPage = {
   provider: "muse",
   name: "Muse Code",
   answer:
-    "OpenBot runs Muse Code, Meta's coding agent, as one agent of a team, on macOS, Windows or Linux, with your Meta account or a Meta API key. You get shared channels with agents on other providers, and an app on your phone.",
+    "OpenOwnBot runs Muse Code, Meta's coding agent, as one agent of a team, on macOS, Windows or Linux, with your Meta account or a Meta API key. You get shared channels with agents on other providers, and an app on your phone.",
   connect:
-    "Choose Muse, and OpenBot downloads and pins its own copy of Muse Code. Sign in with your Meta account in the browser, or save a Meta API key.",
+    "Choose Muse, and OpenOwnBot downloads and pins its own copy of Muse Code. Sign in with your Meta account in the browser, or save a Meta API key.",
   adds: [
     {
       icon: "cpu",
@@ -43,12 +43,12 @@ export const MUSE_CODE_PROVIDER: ProviderPage = {
     {
       question: "Is Muse Code the same as the Muse app?",
       answer:
-        "No. Muse Code is Meta's coding agent for the terminal. The Muse app is Meta's personal agent on a cloud computer. OpenBot runs Muse Code, and OpenBot vs Muse compares OpenBot with the app.",
+        "No. Muse Code is Meta's coding agent for the terminal. The Muse app is Meta's personal agent on a cloud computer. OpenOwnBot runs Muse Code, and OpenOwnBot vs Muse compares OpenOwnBot with the app.",
     },
     {
       question: "Is there a GUI for Muse Code?",
       answer:
-        "Meta ships Muse Code for the terminal and as an SDK, with no desktop app. OpenBot is a desktop app that runs Muse Code as one agent of a team, with agents on other providers and an app on your phone.",
+        "Meta ships Muse Code for the terminal and as an SDK, with no desktop app. OpenOwnBot is a desktop app that runs Muse Code as one agent of a team, with agents on other providers and an app on your phone.",
     },
     {
       question: "How much does Muse Code cost?",

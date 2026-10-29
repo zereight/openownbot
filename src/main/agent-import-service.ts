@@ -8,12 +8,12 @@ import { type ArchiveOperationError, archiveCall, archiveFailure, archiveSync } 
 // Each agent is created through the same services the user reaches by hand. When one step fails,
 // that agent is deleted and reported, and the other agents continue. A workspace file that cannot
 // be written is a warning, not a failed step, so the agent still imports. Group chats become channels
-// after the agents, with the members that imported; a channel needs at least one, as in OpenBot.
+// after the agents, with the members that imported; a channel needs at least one, as in OpenOwnBot.
 
 import { randomUUID } from "node:crypto";
 import { mkdir, rm, writeFile } from "node:fs/promises";
 import { join } from "node:path";
-import { INPUT_LIMITS } from "@openbot/contracts/input-limits";
+import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
 import {
   AGENT_IMPORT_LIMITS,
   type AgentImportChannel,
@@ -29,8 +29,8 @@ import {
   type CreateChannelRoutineInput,
   type CreateRoutineInput,
   isChannelDraft,
-} from "@openbot/contracts/ipc";
-import { sourceText } from "@openbot/i18n/source";
+} from "@openownbot/contracts/ipc";
+import { sourceText } from "@openownbot/i18n/source";
 import { zipSync } from "fflate";
 import type { AgentService } from "../backend/agent-service";
 import type { ChannelService } from "../backend/channel-service";
@@ -58,8 +58,8 @@ import type { SkillMarketplaceFailure } from "./skill-marketplace-service";
 import { inspectArchive } from "./skill-package";
 
 /** Skill folders are copied here, published to the local library, and removed again. */
-const SKILL_STAGING = ".openbot/import-skills";
-/** Workspace files of an imported agent go under this folder, so they never replace OpenBot's own. */
+const SKILL_STAGING = ".openownbot/import-skills";
+/** Workspace files of an imported agent go under this folder, so they never replace OpenOwnBot's own. */
 const IMPORTED_FILES = "imported";
 /** Archive limits and the errors that name them. */
 const IMPORT_ARCHIVE: ArchiveLimits = {

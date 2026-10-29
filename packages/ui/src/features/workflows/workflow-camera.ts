@@ -85,14 +85,14 @@ export function glideCamera(
 ): () => void {
   const duration =
     motion === "step"
-      ? rendererDuration("--openbot-duration-slow", 200)
-      : rendererDuration("--openbot-duration-overlay", 240);
+      ? rendererDuration("--openownbot-duration-slow", 200)
+      : rendererDuration("--openownbot-duration-overlay", 240);
   if (duration === 0 || view.width === 0) {
     apply(to, true);
     return () => {};
   }
   // A step starts fast, so quick presses chain into one zoom. A flight starts and ends soft.
-  const ease = curve(motion === "step" ? "--openbot-ease-out" : "--openbot-ease-in-out");
+  const ease = curve(motion === "step" ? "--openownbot-ease-out" : "--openownbot-ease-in-out");
   const path = cameraPath(from, to, view);
   const start = performance.now();
   let frame = 0;

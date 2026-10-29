@@ -1,12 +1,12 @@
-import type { AgentProviderStatus, AgentStatus } from "@openbot/contracts/ipc";
-import { TEAM_API_ROUTES } from "@openbot/contracts/team-api-routes";
-import { AGENT_TASKS_CAPABILITY, AGENT_TASKS_ROUTES } from "@openbot/contracts/team-protocol/agent-tasks-v1";
-import { AGENT_THREADS_CAPABILITY, AGENT_THREADS_ROUTES } from "@openbot/contracts/team-protocol/agent-threads-v1";
-import { PROVIDERS_ADMIN_ROUTES } from "@openbot/contracts/team-protocol/providers-v1";
-import { PROVIDERS_RUNTIMES_V2_ROUTES } from "@openbot/contracts/team-protocol/providers-v2";
-import { PROVIDERS_SIGN_IN_V3_ROUTES } from "@openbot/contracts/team-protocol/providers-v3";
-import type { TeamApiRequest } from "@openbot/team-client/team-api-requests";
-import { Toaster } from "@openbot/ui";
+import type { AgentProviderStatus, AgentStatus } from "@openownbot/contracts/ipc";
+import { TEAM_API_ROUTES } from "@openownbot/contracts/team-api-routes";
+import { AGENT_TASKS_CAPABILITY, AGENT_TASKS_ROUTES } from "@openownbot/contracts/team-protocol/agent-tasks-v1";
+import { AGENT_THREADS_CAPABILITY, AGENT_THREADS_ROUTES } from "@openownbot/contracts/team-protocol/agent-threads-v1";
+import { PROVIDERS_ADMIN_ROUTES } from "@openownbot/contracts/team-protocol/providers-v1";
+import { PROVIDERS_RUNTIMES_V2_ROUTES } from "@openownbot/contracts/team-protocol/providers-v2";
+import { PROVIDERS_SIGN_IN_V3_ROUTES } from "@openownbot/contracts/team-protocol/providers-v3";
+import type { TeamApiRequest } from "@openownbot/team-client/team-api-requests";
+import { Toaster } from "@openownbot/ui";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";
 import { WebWorkspace } from "../src/features/web-client/WebWorkspace";
 import type { WebRuntimeFactory } from "../src/features/web-client/web-client-context";
@@ -14,7 +14,7 @@ import { WebHostIncompatibleError } from "../src/features/web-client/web-runtime
 import { createBenchWebRuntime } from "../src/preview/bench-web-runtime";
 import { mockAccountCatalogFetch } from "../src/preview/mock-account-catalog";
 import { MOCK_HOSTED_SERVER_CATALOG } from "../src/preview/mock-hosted-servers";
-import { createMockOpenBot } from "../src/preview/mock-openbot";
+import { createMockOpenOwnBot } from "../src/preview/mock-openownbot";
 import { createMockWebRuntime, mockWebRuntimeFor } from "../src/preview/mock-web-runtime";
 import { AGENT_ID, TABS_KEY, THREAD_OPTIONS } from "./agent-threads-fixtures";
 import "../src/features/web-client/web-client.css";
@@ -113,7 +113,7 @@ const NEW_SERVER_ID = "cloud-server";
  */
 const newServerRuntime: WebRuntimeFactory = (accountId, events, accountFetch) => {
   const base = createMockWebRuntime(accountId, events, accountFetch);
-  const team = createMockOpenBot();
+  const team = createMockOpenOwnBot();
   let status: AgentStatus = {
     phase: "blocked",
     cliVersion: null,
@@ -203,7 +203,7 @@ export const NewServer: Story = {
 
 /** A host with side threads: the agent-tasks routes, and rename and delete through `agent-threads-v1`. */
 const threadsRuntime: WebRuntimeFactory = (_accountId, events) => {
-  const mock = createMockOpenBot(THREAD_OPTIONS);
+  const mock = createMockOpenOwnBot(THREAD_OPTIONS);
   const base = mockWebRuntimeFor(mock, events);
   const agent = mock.api.agent;
   const answers: Record<string, (body: Record<string, string>) => Promise<unknown>> = {

@@ -13,15 +13,15 @@ import type {
   MessagingWorkspaceInput,
   SetDiscordAccessInput,
   SetMessagingEnabledInput,
-} from "@openbot/contracts/ipc";
+} from "@openownbot/contracts/ipc";
 import {
   isAgentModel,
   isAgentProvider,
   isReasoningEffort,
   MESSAGING_PLATFORMS,
   parseDiscordAllowedRoles,
-} from "@openbot/contracts/ipc";
-import { isBoolean, isOneOf } from "@openbot/contracts/runtime-values";
+} from "@openownbot/contracts/ipc";
+import { isBoolean, isOneOf } from "@openownbot/contracts/runtime-values";
 import { isObject, requireString } from "./validation";
 
 export function parseMessagingWorkspaceInput(value: unknown): MessagingWorkspaceInput {

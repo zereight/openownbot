@@ -27,7 +27,7 @@ export interface LandingBeamProps {
 }
 
 // The beam is a port of LaserFlow from React Bits. Its license does not let a public repository
-// contain it, so it is in the private `nightly-labs/openbot-laser-flow` repository. CI checks it out
+// contain it, so it is in the private `zereight/openownbot-laser-flow` repository. CI checks it out
 // into this ignored path. A build without it has no beam, and the hero shows as it does after the hit.
 const LaserFlow = Object.values(
   import.meta.glob<Component<LandingBeamProps>>("../../vendor/laser-flow/LandingLaserFlow.tsx", {

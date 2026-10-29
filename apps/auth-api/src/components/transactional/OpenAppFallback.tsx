@@ -8,7 +8,7 @@ import type { OpenAppFallbackText } from "./page-text";
 const OPEN_APP_HINT_DELAY_MS = 1200;
 
 export interface OpenAppFallback {
-  /** Starts the timer. Call it when the visitor presses a button that opens an `openbot://` link. */
+  /** Starts the timer. Call it when the visitor presses a button that opens an `openownbot://` link. */
   arm: () => void;
   open: Accessor<boolean>;
   close: () => void;

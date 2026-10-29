@@ -10,9 +10,9 @@ import {
   chatVisualReplyMessage,
   chatVisualThemeMessage,
   parseChatVisualMessage,
-} from "@openbot/contracts/chat-visual";
-import type { AttachmentSummary } from "@openbot/contracts/ipc";
-import { Button, Maximize2 } from "@openbot/ui";
+} from "@openownbot/contracts/chat-visual";
+import type { AttachmentSummary } from "@openownbot/contracts/ipc";
+import { Button, Maximize2 } from "@openownbot/ui";
 import { createEffect, createSignal, onSettled, Show, untrack } from "solid-js";
 import { documentColorScheme } from "../../document-color-scheme";
 import { useText } from "../../text";
@@ -22,25 +22,25 @@ import { safeBrowserUrl } from "./RichMessageText";
 
 /** The page variables and the app tokens that give their values. */
 const THEME_TOKENS: ReadonlyArray<readonly [`--${string}`, string]> = [
-  ["--foreground", "--openbot-text-primary"],
-  ["--muted-foreground", "--openbot-text-muted"],
-  ["--muted", "--openbot-bg-surface"],
-  ["--card", "--openbot-bg-surface"],
-  ["--card-foreground", "--openbot-text-primary"],
-  ["--border", "--openbot-border-strong"],
-  ["--accent", "--openbot-accent-text"],
-  ["--destructive", "--openbot-danger-text"],
-  ["--success", "--openbot-success-text"],
+  ["--foreground", "--openownbot-text-primary"],
+  ["--muted-foreground", "--openownbot-text-muted"],
+  ["--muted", "--openownbot-bg-surface"],
+  ["--card", "--openownbot-bg-surface"],
+  ["--card-foreground", "--openownbot-text-primary"],
+  ["--border", "--openownbot-border-strong"],
+  ["--accent", "--openownbot-accent-text"],
+  ["--destructive", "--openownbot-danger-text"],
+  ["--success", "--openownbot-success-text"],
   // The storage hues were checked together for colour-vision separation; the two series hues follow.
-  ["--chart-1", "--openbot-chart-storage-workspaces"],
-  ["--chart-2", "--openbot-chart-storage-files"],
-  ["--chart-3", "--openbot-chart-storage-chats"],
-  ["--chart-4", "--openbot-chart-storage-downloads"],
-  ["--chart-5", "--openbot-chart-series-codex"],
-  ["--chart-6", "--openbot-chart-series-grok"],
-  ["--radius", "--openbot-radius-lg"],
-  ["--font-sans", "--openbot-font-sans"],
-  ["--font-mono", "--openbot-font-mono"],
+  ["--chart-1", "--openownbot-chart-storage-workspaces"],
+  ["--chart-2", "--openownbot-chart-storage-files"],
+  ["--chart-3", "--openownbot-chart-storage-chats"],
+  ["--chart-4", "--openownbot-chart-storage-downloads"],
+  ["--chart-5", "--openownbot-chart-series-codex"],
+  ["--chart-6", "--openownbot-chart-series-grok"],
+  ["--radius", "--openownbot-radius-lg"],
+  ["--font-sans", "--openownbot-font-sans"],
+  ["--font-mono", "--openownbot-font-mono"],
 ];
 
 /** The theme at the place of an element. The page shows the chat through its transparent canvas. */

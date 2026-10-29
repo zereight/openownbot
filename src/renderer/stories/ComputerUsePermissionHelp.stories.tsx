@@ -1,8 +1,8 @@
-import type { ComputerUseState, MacPermissionId } from "@openbot/contracts/ipc";
+import type { ComputerUseState, MacPermissionId } from "@openownbot/contracts/ipc";
 import { onCleanup } from "solid-js";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";
 import { ComputerUsePermissionHelp } from "../src/features/computer-use/ComputerUsePermissionHelp";
-import { createMockOpenBot } from "./mock-openbot";
+import { createMockOpenOwnBot } from "./mock-openownbot";
 
 function state(granted: readonly MacPermissionId[]): ComputerUseState {
   return {
@@ -18,15 +18,15 @@ function MockedHelp(props: {
   app?: string | null;
   sunshine?: boolean;
 }) {
-  const previousApi = window.openbot;
-  const mock = createMockOpenBot();
+  const previousApi = window.openownbot;
+  const mock = createMockOpenOwnBot();
   mock.api.computerUse.getState = async () => state(props.granted ?? []);
   const name = props.app === undefined ? "Electron" : props.app;
   mock.api.computerUse.getPermissionApp = async () => (name ? { name, iconDataUrl: null } : null);
-  window.openbot = mock.api;
+  window.openownbot = mock.api;
   onCleanup(() => {
     mock.dispose();
-    window.openbot = previousApi;
+    window.openownbot = previousApi;
   });
   // The surface fills its own window, which is 340 by 322. Nothing wraps it here for the same
   // reason nothing wraps it there.

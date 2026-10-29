@@ -5,27 +5,27 @@
 // sends it. No provider, account or network is started: the user's request is a mailbox delivery
 // marked running for a synthetic turn.
 // Run: `bun scripts/agent-waits-tools-e2e.ts`.
-// Writes .openbot-build/agent-waits-tools-e2e/report.json.
+// Writes .openownbot-build/agent-waits-tools-e2e/report.json.
 
 import assert from "node:assert/strict";
 import { mkdirSync, writeFileSync } from "node:fs";
 import { mkdtemp, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
-import { INPUT_LIMITS } from "@openbot/contracts/input-limits";
-import type { AgentEvent } from "@openbot/contracts/ipc";
-import { type DynamicRecord, isDynamicRecord } from "@openbot/contracts/runtime-values";
+import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
+import type { AgentEvent } from "@openownbot/contracts/ipc";
+import { type DynamicRecord, isDynamicRecord } from "@openownbot/contracts/runtime-values";
 import { ConversationRuntime } from "../src/backend/agent/conversation-runtime";
-import type { OpenBotToolResponse } from "../src/backend/agent/routine-tools";
+import type { OpenOwnBotToolResponse } from "../src/backend/agent/routine-tools";
 import { AgentStore } from "../src/backend/agent-store";
 import { AgentWaitStore } from "../src/backend/agent-waits/agent-wait-store";
 import { AgentWaits, AWAIT_EVENT_TOOL, CLOSE_WAIT_TOOL, LIST_WAITS_TOOL } from "../src/backend/agent-waits/agent-waits";
 import { runCauseEffect } from "../src/backend/effect-boundary";
 import { MailboxStore } from "../src/backend/mailbox-store";
-import { OpenBotDatabase } from "../src/backend/openbot-database";
+import { OpenOwnBotDatabase } from "../src/backend/openownbot-database";
 
 const ROOT = resolve(import.meta.dirname, "..");
-const OUT = join(ROOT, ".openbot-build", "agent-waits-tools-e2e");
+const OUT = join(ROOT, ".openownbot-build", "agent-waits-tools-e2e");
 const TURN_ID = "agent-waits-e2e-turn";
 
 interface Step {
@@ -59,7 +59,7 @@ async function step<T>(name: string, run: () => Promise<T>): Promise<T> {
 }
 
 /** The JSON body of a tool answer. */
-function body(response: OpenBotToolResponse | null): { success: boolean; value: DynamicRecord } {
+function body(response: OpenOwnBotToolResponse | null): { success: boolean; value: DynamicRecord } {
   assert.ok(response, "AgentWaits answers the tool.");
   const item = response.contentItems[0];
   assert.ok(item && item.type === "inputText", "The answer is text.");
@@ -68,8 +68,8 @@ function body(response: OpenBotToolResponse | null): { success: boolean; value: 
   return { success: response.success, value };
 }
 
-const root = await mkdtemp(join(tmpdir(), "openbot-agent-waits-"));
-const database = new OpenBotDatabase(join(root, "state"));
+const root = await mkdtemp(join(tmpdir(), "openownbot-agent-waits-"));
+const database = new OpenOwnBotDatabase(join(root, "state"));
 const store = new AgentStore(join(root, "state"), join(root, "home"), database);
 const mailbox = new MailboxStore(join(root, "state"), store.sharedRoot, database);
 const conversation = new ConversationRuntime(
@@ -98,7 +98,7 @@ function call(agentId: string, tool: string, args: unknown) {
         threadId: `thread-${agentId}`,
         turnId: TURN_ID,
         callId: crypto.randomUUID(),
-        namespace: "openbot",
+        namespace: "openownbot",
         tool,
         arguments: args,
       },

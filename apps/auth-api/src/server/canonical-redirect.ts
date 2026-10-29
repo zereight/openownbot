@@ -1,7 +1,7 @@
-import { OPENBOT_SITE_URL } from "../lib/site-metadata";
+import { OPENOWNBOT_SITE_URL } from "../lib/site-metadata";
 
-const SITE_ORIGIN = new URL(OPENBOT_SITE_URL).origin;
-const SITE_HOST = new URL(OPENBOT_SITE_URL).hostname;
+const SITE_ORIGIN = new URL(OPENOWNBOT_SITE_URL).origin;
+const SITE_HOST = new URL(OPENOWNBOT_SITE_URL).hostname;
 
 /**
  * Sends `http://openbot.run` and `www.openbot.run` to `https://openbot.run`, so

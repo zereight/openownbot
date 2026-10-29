@@ -1,8 +1,8 @@
-import { attachmentMimeTypeForName, playableMediaKind } from "@openbot/contracts/attachment-files";
-import type { AttachmentSummary } from "@openbot/contracts/ipc";
-import { base64ToBytes } from "@openbot/team-client/base64";
-import { MOBILE_ATTACHMENT_BYTES } from "@openbot/team-client/remote-peer";
-import type { AttachmentMediaSource } from "@openbot/ui/features/conversation/AttachmentCards";
+import { attachmentMimeTypeForName, playableMediaKind } from "@openownbot/contracts/attachment-files";
+import type { AttachmentSummary } from "@openownbot/contracts/ipc";
+import { base64ToBytes } from "@openownbot/team-client/base64";
+import { MOBILE_ATTACHMENT_BYTES } from "@openownbot/team-client/remote-peer";
+import type { AttachmentMediaSource } from "@openownbot/ui/features/conversation/AttachmentCards";
 import { createSignal } from "solid-js";
 import type { WebWorkspaceRuntime } from "./web-runtime";
 

@@ -2,10 +2,10 @@ import { randomUUID } from "node:crypto";
 import { EventEmitter } from "node:events";
 import { access, writeFile } from "node:fs/promises";
 import { isAbsolute } from "node:path";
-import { agentProviderName, type KeyOnlyProviderId } from "@openbot/contracts/agent-providers";
-import { type DynamicRecord, isBoolean, isString } from "@openbot/contracts/runtime-values";
-import { sourceText } from "@openbot/i18n/source";
-import { redactText } from "@openbot/logging";
+import { agentProviderName, type KeyOnlyProviderId } from "@openownbot/contracts/agent-providers";
+import { type DynamicRecord, isBoolean, isString } from "@openownbot/contracts/runtime-values";
+import { sourceText } from "@openownbot/i18n/source";
+import { redactText } from "@openownbot/logging";
 import { Effect, Exit, Schema, Scope, Semaphore } from "effect";
 import { secretElicitationField } from "./agent/prompts";
 import { type AgentClient, type DiagnosticOrigin, MissingPiSessionError, RequestTimeoutError } from "./agent-client";
@@ -119,7 +119,7 @@ interface PiThread {
   closed: boolean;
   gate: Semaphore.Semaphore;
   /**
-   * Opened with the session settings of `thread/start` or `thread/resume`: OpenBot tools,
+   * Opened with the session settings of `thread/start` or `thread/resume`: OpenOwnBot tools,
    * instructions and access. A thread that a history read opened after a restart has none of them.
    */
   configured: boolean;
@@ -131,7 +131,7 @@ interface ClientEvents {
   diagnostic: [string, DiagnosticOrigin?];
 }
 
-/** Owns Pi's native sessions. The database owns OpenBot history and agent identity. */
+/** Owns Pi's native sessions. The database owns OpenOwnBot history and agent identity. */
 export class PiAgentClient extends EventEmitter<ClientEvents> implements AgentClient {
   readonly contextCompaction = "request";
   readonly provider: "pi" | "pi-bolt" | KeyOnlyProviderId;
@@ -420,7 +420,7 @@ export class PiAgentClient extends EventEmitter<ClientEvents> implements AgentCl
     if (resume && requestedId) {
       const live = this.#threads.get(requestedId);
       if (live && (live.configured || !configured)) return live;
-      // The live thread has no OpenBot tools, and its next prompt would remove them from the session
+      // The live thread has no OpenOwnBot tools, and its next prompt would remove them from the session
       // (#3343). An idle one is replaced by a thread with the session settings.
       if (live) {
         const replaced = yield* live.gate.withPermit(
@@ -647,7 +647,7 @@ export class PiAgentClient extends EventEmitter<ClientEvents> implements AgentCl
     params: unknown,
   ) {
     const turn = thread.turn;
-    // Pi starts a message for an ended turn as a run of its own, which OpenBot did not start.
+    // Pi starts a message for an ended turn as a run of its own, which OpenOwnBot did not start.
     // The message then waits in the queue.
     if (!turn || turn.id !== getString(params, "expectedTurnId") || turn.stopped || turn.finishing)
       return yield* providerFailure(new Error(sourceText("error.backend.steerTurnChanged")));
@@ -679,7 +679,7 @@ export class PiAgentClient extends EventEmitter<ClientEvents> implements AgentCl
       const index = steering.indexOf(message);
       if (index >= 0) steering.splice(index, 1);
       for (const text of steering) {
-        // A steer for an ended or stopped turn would start a Pi run that OpenBot did not start.
+        // A steer for an ended or stopped turn would start a Pi run that OpenOwnBot did not start.
         if (thread.turn !== turn || turn.stopped || turn.finishing) return;
         yield* thread.rpc
           .request({ type: "steer", message: text })
@@ -698,7 +698,7 @@ export class PiAgentClient extends EventEmitter<ClientEvents> implements AgentCl
 
   #notify(method: string, thread: PiThread, params: DynamicRecord): void {
     // Usage contains only validated numeric counters. Generic secret-name matching masks `*Tokens`.
-    const safe = method === "openbot/usage" ? params : redactMcpRecord(params, this.#secretValues());
+    const safe = method === "openownbot/usage" ? params : redactMcpRecord(params, this.#secretValues());
     this.emit("notification", {
       method,
       params: {
@@ -797,7 +797,7 @@ export class PiAgentClient extends EventEmitter<ClientEvents> implements AgentCl
       ),
       Effect.tap(({ stats, usage: { tokens } }) =>
         Effect.sync(() => {
-          this.#notify("openbot/usage", thread, {
+          this.#notify("openownbot/usage", thread, {
             usage: {
               inputTokens: tokens.input + tokens.cacheRead + tokens.cacheWrite,
               outputTokens: tokens.output,

@@ -1,4 +1,4 @@
-import type { AgentEvent, RoutineCalendar, RoutineCalendarInput, TeamRealtimeEvent } from "@openbot/contracts/ipc";
+import type { AgentEvent, RoutineCalendar, RoutineCalendarInput, TeamRealtimeEvent } from "@openownbot/contracts/ipc";
 
 /** What the schedule reads: the routine calendar of a server, and the changes that make it stale. */
 export interface ScheduleSource {
@@ -18,15 +18,15 @@ export function changesSchedule(event: AgentEvent | TeamRealtimeEvent): boolean 
   );
 }
 
-/** The schedule on desktop: main reads the calendar of any server. Read on each call: tests and stories replace `window.openbot` per case. */
+/** The schedule on desktop: main reads the calendar of any server. Read on each call: tests and stories replace `window.openownbot` per case. */
 export function desktopScheduleSource(): ScheduleSource {
   return {
-    calendar: (input, serverId) => window.openbot.agent.routineCalendar(input, serverId),
+    calendar: (input, serverId) => window.openownbot.agent.routineCalendar(input, serverId),
     onStale(serverId, stale) {
-      const unsubscribe = window.openbot.agent.onScopedEvent((scoped) => {
+      const unsubscribe = window.openownbot.agent.onScopedEvent((scoped) => {
         if (scoped.serverId === serverId && changesSchedule(scoped.event)) stale();
       });
-      const reconnect = window.openbot.servers.onEvent((servers) => {
+      const reconnect = window.openownbot.servers.onEvent((servers) => {
         if (servers.some((server) => server.id === serverId && server.state === "online")) stale();
       });
       return () => {

@@ -1,5 +1,5 @@
-import type { AgentEvent, ServerSummary } from "@openbot/contracts/ipc";
-import { agentEventCanNotify, agentEventNeedsUser } from "@openbot/team-client/agent-notifications";
+import type { AgentEvent, ServerSummary } from "@openownbot/contracts/ipc";
+import { agentEventCanNotify, agentEventNeedsUser } from "@openownbot/team-client/agent-notifications";
 import { Effect } from "effect";
 import type { Notification } from "electron";
 import type { NotificationPreferenceStore } from "./notification-preference-store";
@@ -56,7 +56,7 @@ export interface NotificationPermissionRequest {
 
 /**
  * macOS asks the user to allow notifications only when an app first shows one, and Electron has no
- * call that asks without showing. So OpenBot shows one welcome notification the first time it
+ * call that asks without showing. So OpenOwnBot shows one welcome notification the first time it
  * starts, rather than let the question interrupt the first agent that needs the user.
  *
  * The request is recorded before the notification is shown: a failed write then skips the welcome,
@@ -77,7 +77,7 @@ const NOTIFICATION_SETTINGS_URLS: Partial<Record<NodeJS.Platform, string>> = {
   win32: "ms-settings:notifications",
 };
 
-/** The operating system page where the user allows OpenBot notifications, or null where none exists. */
+/** The operating system page where the user allows OpenOwnBot notifications, or null where none exists. */
 export function notificationSettingsUrl(platform: NodeJS.Platform): string | null {
   return NOTIFICATION_SETTINGS_URLS[platform] ?? null;
 }

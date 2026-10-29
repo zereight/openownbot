@@ -2,12 +2,12 @@
 // the real app against the preview mock in a running Storybook. Read-only. Pass the Storybook URL
 // that `bun run storybook` reports: `bun scripts/schedule-server-switch-e2e.ts --storybook=http://localhost:6006`.
 // Each server's calendar names its routines after the server, so a routine from the previous
-// server on screen is stale data. Writes .openbot-build/schedule-server-switch-e2e/report.json
+// server on screen is stale data. Writes .openownbot-build/schedule-server-switch-e2e/report.json
 // and a screenshot.
 import assert from "node:assert/strict";
 import { mkdirSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
-import { translateFor } from "@openbot/i18n";
+import { translateFor } from "@openownbot/i18n";
 import { chromium, type Page } from "playwright-core";
 
 declare global {
@@ -16,7 +16,7 @@ declare global {
   }
 }
 
-const OUT = resolve(import.meta.dirname, "../.openbot-build/schedule-server-switch-e2e");
+const OUT = resolve(import.meta.dirname, "../.openownbot-build/schedule-server-switch-e2e");
 const t = translateFor("en");
 const storybook = process.argv.find((arg) => arg.startsWith("--storybook="))?.slice("--storybook=".length);
 assert.ok(storybook, "Pass --storybook=<url> with the URL that `bun run storybook` reports.");
@@ -61,7 +61,7 @@ try {
   // Each server has one routine named after it, with a run in the next hour. Each request is
   // recorded with the server it asked.
   await page.evaluate(() => {
-    const agent = window.openbot.agent;
+    const agent = window.openownbot.agent;
     window.scheduleCalendarRequests = [];
     agent.routineCalendar = async (_input, server) => {
       const serverId = typeof server === "string" ? server : "local";
@@ -83,7 +83,7 @@ try {
     };
   });
 
-  const servers = await page.evaluate(() => window.openbot.servers.list());
+  const servers = await page.evaluate(() => window.openownbot.servers.list());
   const from = servers.find((server) => server.active);
   const to = servers.find((server) => !server.active && server.state === "online");
   assert.ok(from && to, "The preview needs an active server and another online server.");

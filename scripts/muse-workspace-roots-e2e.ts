@@ -17,7 +17,7 @@ assert.ok(
   "Use --phase=before or --phase=after.",
 );
 // Keep artifacts inside the bounded scripts workspace, independent of the launch directory.
-const out = resolve(import.meta.dirname, ".openbot-build/muse-workspace-roots-e2e", phase.slice(8));
+const out = resolve(import.meta.dirname, ".openownbot-build/muse-workspace-roots-e2e", phase.slice(8));
 const deadlineMs = 8_000;
 
 // This fixture implements only the MSP surface used here. Unknown requests fail closed.
@@ -200,7 +200,7 @@ try {
     await readFile(resolve(import.meta.dirname, "../node_modules/@muse-code/sdk/package.json"), "utf8"),
   );
   report.sdkVersion = sdk.version;
-  root = await mkdtemp(join(tmpdir(), "openbot-muse-roots-e2e-"));
+  root = await mkdtemp(join(tmpdir(), "openownbot-muse-roots-e2e-"));
   const executable = join(root, "fixture.cjs");
   await writeFile(executable, fixture);
   await chmod(executable, 0o700);

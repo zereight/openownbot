@@ -1,6 +1,10 @@
-import type { BillingPlanId } from "@openbot/contracts/billing";
-import type { HostedServerCatalogPlan, HostedServerList, HostedServerSummary } from "@openbot/contracts/hosted-servers";
-import type { MobileTextKey } from "@openbot/i18n/mobile";
+import type { BillingPlanId } from "@openownbot/contracts/billing";
+import type {
+  HostedServerCatalogPlan,
+  HostedServerList,
+  HostedServerSummary,
+} from "@openownbot/contracts/hosted-servers";
+import type { MobileTextKey } from "@openownbot/i18n/mobile";
 import { skipToken, useQuery } from "@tanstack/react-query";
 import { router, useLocalSearchParams } from "expo-router";
 import { Button, Chip, Skeleton, Typography } from "heroui-native";
@@ -46,7 +50,7 @@ interface PlansData {
 /**
  * The plans of a hosted server and the servers of the account, with their plans. App store rules do
  * not allow a purchase outside the store, so this screen has no prices and no purchase: the user
- * buys and changes a plan in OpenBot on the computer.
+ * buys and changes a plan in OpenOwnBot on the computer.
  */
 export function HostedServerPlansScreen() {
   const { t, errorMessage } = useText();

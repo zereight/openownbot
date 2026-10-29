@@ -8,13 +8,13 @@ import {
   type ExternalLinkFallback,
   type ExternalLinkPreference,
   externalLinkAppName,
-} from "@openbot/contracts/ipc";
-import { isDynamicRecord } from "@openbot/contracts/runtime-values";
-import { createOpenBotLogger, toLogValue } from "@openbot/logging";
+} from "@openownbot/contracts/ipc";
+import { isDynamicRecord } from "@openownbot/contracts/runtime-values";
+import { createOpenOwnBotLogger, toLogValue } from "@openownbot/logging";
 import { Effect, Result, Schema } from "effect";
 import { PreferenceStore } from "./preference-file";
 
-const logger = createOpenBotLogger("external-links");
+const logger = createOpenOwnBotLogger("external-links");
 
 /** The program that opens web pages for the user. Main reads it for each page that it opens. */
 export type ExternalLinkPreferenceStore = PreferenceStore<ExternalLinkPreference>;
@@ -174,7 +174,7 @@ function decodeMacBrowsers(value: unknown): ExternalLinkBrowsers {
       ? { name: item.name.replace(/\.app$/, ""), path: item.path }
       : null;
   // A copy on a mounted disk image or in a hidden tool folder, such as a test Chrome, is not a
-  // browser that the user installed. OpenBot itself also opens https pages.
+  // browser that the user installed. OpenOwnBot itself also opens https pages.
   const bundleEnd = process.execPath.indexOf(".app/");
   const ownBundle = bundleEnd === -1 ? null : process.execPath.slice(0, bundleEnd + 4);
   const installed = (path: string) => !path.startsWith("/Volumes/") && !path.includes("/.") && path !== ownBundle;

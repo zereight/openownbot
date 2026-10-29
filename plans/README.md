@@ -38,7 +38,7 @@ Allowed states: `TODO`, `IN PROGRESS`, `DONE`, `BLOCKED: <reason>`,
   the OAuth question. Stages 1 to 4 are done in #635 (`87f488804`). Stage 4
   replaced `mcp-remote` with native MCP OAuth.
 - Plan 001 was written against a dirty working tree at commit `8229759`.
-  Uncommitted files of the OpenBot Remote feature are part of the input state.
+  Uncommitted files of the OpenOwnBot Remote feature are part of the input state.
   The implementer must preserve them and check them before making a change.
 
 - Plan 004 was written by the `improve-animations` skill on 2026-10-12 for the mobile search sheet. It

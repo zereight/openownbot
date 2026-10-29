@@ -67,7 +67,7 @@ export const messages = {
 
   "connector.slack.title": "Slack",
   "connector.slack.description":
-    "사람들이 Slack에서 @OpenBot을 멘션하거나 다이렉트 메시지를 보내면 Slack 오케스트레이터가 알맞은 에이전트에게 물어보고 답해요.",
+    "사람들이 Slack에서 @OpenOwnBot을 멘션하거나 다이렉트 메시지를 보내면 Slack 오케스트레이터가 알맞은 에이전트에게 물어보고 답해요.",
   "connector.slack.statusConnected": "연결됨",
   "connector.slack.statusAttention": "확인 필요",
   "connector.slack.summaryConnected": "{workspace} · Slack 오케스트레이터가 답변",
@@ -78,11 +78,11 @@ export const messages = {
   "connector.slack.addAgent": "에이전트 추가",
   "connector.slack.actionFailed": "Slack이 변경 사항을 받아들이지 않았어요",
   "connector.slack.workspaceTitle": "워크스페이스",
-  "connector.slack.workspaceDescription": "사람들이 @OpenBot을 멘션하거나 다이렉트 메시지를 보내요.",
+  "connector.slack.workspaceDescription": "사람들이 @OpenOwnBot을 멘션하거나 다이렉트 메시지를 보내요.",
   "connector.slack.disconnectWorkspace": "연결 해제",
   "connector.slack.disconnectAllTitle": "Slack 연결 해제",
   "connector.slack.disconnectAllSummary":
-    "모든 워크스페이스의 연결이 해제돼요. 더 이상 @OpenBot으로 에이전트에게 연락할 수 없어요.",
+    "모든 워크스페이스의 연결이 해제돼요. 더 이상 @OpenOwnBot으로 에이전트에게 연락할 수 없어요.",
   "connector.slack.disconnectAllSummaryOrchestrator":
     "모든 워크스페이스의 연결이 해제돼요. Slack 오케스트레이터와 그 대화가 OpenOwnBot에서 삭제돼요.",
   "connector.slack.missingScopes":
@@ -98,7 +98,7 @@ export const messages = {
   "connector.slack.orchestratorNone": "아직 답변하는 에이전트 없음",
   "connector.slack.orchestratorNoneDescription": "Slack 오케스트레이터를 추가하지 않으면 Slack에는 답변이 가지 않아요.",
   "connector.slack.inviteNote":
-    "OpenBot은 모든 공개 채널과 새로 생기는 채널에 스스로 참여해요. 비공개 채널에는 /invite @OpenBot으로 초대하세요.",
+    "OpenOwnBot은 모든 공개 채널과 새로 생기는 채널에 스스로 참여해요. 비공개 채널에는 /invite @OpenOwnBot으로 초대하세요.",
   "connector.slack.stepWorkspace": "워크스페이스",
   "connector.slack.stepAgent": "에이전트",
   "connector.slack.connectTitle": "Slack 워크스페이스 연결",
@@ -110,7 +110,7 @@ export const messages = {
   "connector.slack.connectInSlack": "Slack에서 연결",
   "connector.slack.connectWaiting": "Slack 대기 중이에요. 브라우저에서 설치를 마쳐 주세요.",
   "connector.slack.agentStepTitle": "Slack 오케스트레이터 추가",
-  "connector.slack.agentStepDescription": "이 새 에이전트가 {workspace}에서 @OpenBot에 보내는 모든 요청에 답해요.",
+  "connector.slack.agentStepDescription": "이 새 에이전트가 {workspace}에서 @OpenOwnBot에 보내는 모든 요청에 답해요.",
   "connector.slack.orchestratorName": "Slack 오케스트레이터",
   "connector.slack.orchestratorRole": "Slack에서 답하고 팀에 물어봐요",
   "connector.slack.orchestratorDoesReceive": "모든 Slack 요청을 가장 먼저 받아요",
@@ -118,14 +118,15 @@ export const messages = {
   "connector.slack.orchestratorDoesAnswer": "Slack 스레드에 답변을 올려요",
   "connector.slack.orchestratorModel": "모델",
   "connector.slack.doneTitle": "OpenOwnBot이 {workspace}에 들어왔어요",
-  "connector.slack.doneDescription": "공개 채널에서 @OpenBot을 멘션하거나 다이렉트 메시지를 보내 보세요.",
+  "connector.slack.doneDescription": "공개 채널에서 @OpenOwnBot을 멘션하거나 다이렉트 메시지를 보내 보세요.",
   "connector.slack.done": "완료",
   "connector.slack.disconnectTitle": "{workspace} 연결을 해제할까요?",
   "connector.slack.disconnectDescription":
     "OpenOwnBot이 {workspace}에서 더 이상 답하지 않고, 이 컴퓨터에서 Slack 토큰을 삭제해요.",
   "connector.slack.disconnectDescriptionHost":
     "OpenOwnBot이 {workspace}에서 더 이상 답하지 않고, {host}에서 Slack 토큰을 삭제해요.",
-  "connector.slack.disconnectEffect": "{workspace}의 사람들이 더 이상 @OpenBot으로 내 에이전트에게 연락할 수 없어요.",
+  "connector.slack.disconnectEffect":
+    "{workspace}의 사람들이 더 이상 @OpenOwnBot으로 내 에이전트에게 연락할 수 없어요.",
   "connector.slack.removeEffectKept": "대화와 Slack 오케스트레이터는 OpenOwnBot에 그대로 남아요.",
   "connector.slack.removeEffectDeleted": "Slack 오케스트레이터와 대화가 OpenOwnBot에서 삭제돼요.",
   "connector.slack.keep": "연결 유지",
@@ -136,7 +137,7 @@ export const messages = {
 
   "connector.discord.title": "Discord",
   "connector.discord.description":
-    "사람들이 Discord 서버의 채널에서 @OpenBot을 멘션하면 Discord 오케스트레이터가 알맞은 에이전트에게 물어보고 답해요.",
+    "사람들이 Discord 서버의 채널에서 @OpenOwnBot을 멘션하면 Discord 오케스트레이터가 알맞은 에이전트에게 물어보고 답해요.",
   "connector.discord.statusConnected": "연결됨",
   "connector.discord.statusAttention": "확인 필요",
   "connector.discord.summaryConnected": "{workspace} · Discord 오케스트레이터가 답변",
@@ -148,11 +149,11 @@ export const messages = {
   "connector.discord.actionFailed": "Discord가 변경 사항을 받아들이지 않았어요",
   "connector.discord.workspaceTitle": "Discord 서버",
   "connector.discord.workspaceDescription":
-    "채널에서 @OpenBot을 멘션하세요. 대화를 이어가려면 OpenBot의 메시지에 답장하세요.",
+    "채널에서 @OpenOwnBot을 멘션하세요. 대화를 이어가려면 OpenOwnBot의 메시지에 답장하세요.",
   "connector.discord.disconnectWorkspace": "연결 해제",
   "connector.discord.disconnectAllTitle": "Discord 연결 해제",
   "connector.discord.disconnectAllSummary":
-    "모든 서버의 연결이 해제돼요. 더 이상 @OpenBot으로 에이전트에게 연락할 수 없어요.",
+    "모든 서버의 연결이 해제돼요. 더 이상 @OpenOwnBot으로 에이전트에게 연락할 수 없어요.",
   "connector.discord.disconnectAllSummaryOrchestrator":
     "모든 서버의 연결이 해제돼요. Discord 오케스트레이터와 그 대화가 OpenOwnBot에서 삭제돼요.",
   "connector.discord.missingScopes":
@@ -179,7 +180,7 @@ export const messages = {
   "connector.discord.connectInDiscord": "Discord에서 연결",
   "connector.discord.connectWaiting": "Discord 대기 중이에요. 브라우저에서 승인을 마쳐 주세요.",
   "connector.discord.agentStepTitle": "Discord 오케스트레이터 추가",
-  "connector.discord.agentStepDescription": "이 새 에이전트가 {workspace}에서 @OpenBot에 보내는 모든 요청에 답해요.",
+  "connector.discord.agentStepDescription": "이 새 에이전트가 {workspace}에서 @OpenOwnBot에 보내는 모든 요청에 답해요.",
   "connector.discord.orchestratorName": "Discord 오케스트레이터",
   "connector.discord.orchestratorRole": "Discord에서 답하고 팀에 물어봐요",
   "connector.discord.orchestratorDoesReceive": "모든 Discord 요청을 가장 먼저 받아요",
@@ -188,14 +189,15 @@ export const messages = {
   "connector.discord.orchestratorModel": "모델",
   "connector.discord.doneTitle": "OpenOwnBot이 {workspace}에 들어왔어요",
   "connector.discord.doneDescription":
-    "채널에서 @OpenBot을 멘션하세요. 대화를 이어가려면 OpenBot의 메시지에 답장하세요.",
+    "채널에서 @OpenOwnBot을 멘션하세요. 대화를 이어가려면 OpenOwnBot의 메시지에 답장하세요.",
   "connector.discord.done": "완료",
   "connector.discord.disconnectTitle": "{workspace} 연결을 해제할까요?",
   "connector.discord.disconnectDescription":
     "OpenOwnBot이 {workspace}에서 더 이상 답하지 않고, 이 컴퓨터에서 Discord 연결을 삭제해요.",
   "connector.discord.disconnectDescriptionHost":
     "OpenOwnBot이 {workspace}에서 더 이상 답하지 않고, {host}에서 Discord 연결을 삭제해요.",
-  "connector.discord.disconnectEffect": "{workspace}의 사람들이 더 이상 @OpenBot으로 내 에이전트에게 연락할 수 없어요.",
+  "connector.discord.disconnectEffect":
+    "{workspace}의 사람들이 더 이상 @OpenOwnBot으로 내 에이전트에게 연락할 수 없어요.",
   "connector.discord.removeEffectKept": "대화와 Discord 오케스트레이터는 OpenOwnBot에 그대로 남아요.",
   "connector.discord.removeEffectDeleted": "Discord 오케스트레이터와 대화가 OpenOwnBot에서 삭제돼요.",
   "connector.discord.keep": "연결 유지",
@@ -297,7 +299,7 @@ export const messages = {
   "connector.onePassword.description":
     "서비스 계정을 통해 전용 1Password 보관함을 OpenOwnBot과 공유하면, 에이전트가 OpenOwnBot 브라우저에서 사이트에 로그인할 수 있어요.",
   "connector.onePassword.howItWorks":
-    "연결하면 1Password 계정에 “Shared with OpenBot” 보관함과 그 보관함만 읽을 수 있는 서비스 계정이 만들어져요. OpenBot은 이 컴퓨터의 브라우저에서 저장된 로그인 정보를 입력하므로, 그 보관함으로 옮긴 항목만 공유돼요. 에이전트는 비밀번호를 볼 수 없어요.",
+    "연결하면 1Password 계정에 “Shared with OpenOwnBot” 보관함과 그 보관함만 읽을 수 있는 서비스 계정이 만들어져요. OpenOwnBot은 이 컴퓨터의 브라우저에서 저장된 로그인 정보를 입력하므로, 그 보관함으로 옮긴 항목만 공유돼요. 에이전트는 비밀번호를 볼 수 없어요.",
   "connector.onePassword.connect": "1Password 연결",
   "connector.onePassword.setupTitle": "설정",
   "connector.onePassword.stepCliTitle": "1Password CLI 설치",
@@ -305,7 +307,7 @@ export const messages = {
   "connector.onePassword.stepCliInstalling": "1Password에서 1Password CLI를 다운로드하는 중",
   "connector.onePassword.stepCliReady": "버전 {version}이(가) 설치돼 있어요.",
   "connector.onePassword.stepCliMissing":
-    "OpenBot이 1Password에서 자체 폴더로 다운로드해요. 관리자 비밀번호는 필요 없어요.",
+    "OpenOwnBot이 1Password에서 자체 폴더로 다운로드해요. 관리자 비밀번호는 필요 없어요.",
   "connector.onePassword.stepCliManual":
     "OpenOwnBot이 이 컴퓨터에 설치할 수 없어요. 1Password에서 직접 설치한 뒤 이 페이지로 돌아오세요.",
   "connector.onePassword.installCli": "설치",
@@ -317,7 +319,7 @@ export const messages = {
   "connector.onePassword.checkAgain": "다시 확인",
   "connector.onePassword.stepVaultTitle": "공유 보관함 만들기",
   "connector.onePassword.stepVaultDescription":
-    "OpenBot이 “Shared with OpenBot” 보관함과 그 보관함만 읽을 수 있는 서비스 계정을 만들어요. 1Password에서 승인을 요청해요.",
+    "OpenOwnBot이 “Shared with OpenOwnBot” 보관함과 그 보관함만 읽을 수 있는 서비스 계정을 만들어요. 1Password에서 승인을 요청해요.",
   "connector.onePassword.useTokenDescription": "이 단계 대신 1Password.com의 서비스 계정 토큰을 붙여넣으세요.",
   "connector.onePassword.useTokenAction": "토큰 사용",
   "connector.onePassword.tokenLabel": "서비스 계정 토큰",
@@ -349,9 +351,9 @@ export const messages = {
   "connector.bitwarden.title": "Bitwarden",
   "connector.bitwarden.description": "Bitwarden에서 브라우저 로그인 정보를 입력해요.",
   "connector.bitwarden.setup":
-    "Bitwarden CLI를 설치하고 bw login으로 로그인하세요. Shared with OpenBot이라는 폴더를 만들고 에이전트가 사용해도 되는 로그인 정보만 넣으세요. bw unlock --raw를 실행하고 세션 키를 아래에 붙여넣으세요. 마스터 비밀번호는 붙여넣지 마세요.",
+    "Bitwarden CLI를 설치하고 bw login으로 로그인하세요. Shared with OpenOwnBot이라는 폴더를 만들고 에이전트가 사용해도 되는 로그인 정보만 넣으세요. bw unlock --raw를 실행하고 세션 키를 아래에 붙여넣으세요. 마스터 비밀번호는 붙여넣지 마세요.",
   "connector.bitwarden.scope":
-    "이 컴퓨터의 모든 에이전트가 Shared with OpenBot의 일치하는 로그인 정보를 사용할 수 있어요. OpenBot은 정확히 일치하는 HTTPS 출처만 사용해요. 마스터 비밀번호 확인이 필요한 항목이나 사용자 지정 URI 일치 규칙이 있는 항목은 사용하지 않아요.",
+    "이 컴퓨터의 모든 에이전트가 Shared with OpenOwnBot의 일치하는 로그인 정보를 사용할 수 있어요. OpenOwnBot은 정확히 일치하는 HTTPS 출처만 사용해요. 마스터 비밀번호 확인이 필요한 항목이나 사용자 지정 URI 일치 규칙이 있는 항목은 사용하지 않아요.",
   "connector.bitwarden.session":
     "세션 키는 메모리에만 보관돼요. 보관함을 8시간 동안 쓰지 않거나 OpenOwnBot이 종료되면 다시 연결하세요. 연결을 해제하면 OpenOwnBot의 접근이 중지되지만, 다른 Bitwarden 클라이언트는 잠기지 않아요.",
   "connector.bitwarden.sessionKey": "Bitwarden 세션 키",
@@ -366,16 +368,16 @@ export const messages = {
   "connector.bitwarden.actionFailed": "OpenOwnBot이 Bitwarden 연결을 변경하지 못했어요.",
   "connector.bitwarden.descriptionHost": "Bitwarden 또는 Vaultwarden에서 {host}의 브라우저 로그인 정보를 입력해요.",
   "connector.bitwarden.setupHost":
-    "{host}은(는) 자체 Bitwarden CLI로 로그인해요. 보관함에 Shared with OpenBot이라는 폴더를 만들고 에이전트가 사용해도 되는 로그인 정보만 넣으세요. 웹 보관함에서 설정 › 보안 › 키를 열어 API 키를 확인하세요. 아래에 서버 주소, client_id, client_secret, 마스터 비밀번호를 입력하세요.",
+    "{host}은(는) 자체 Bitwarden CLI로 로그인해요. 보관함에 Shared with OpenOwnBot이라는 폴더를 만들고 에이전트가 사용해도 되는 로그인 정보만 넣으세요. 웹 보관함에서 설정 › 보안 › 키를 열어 API 키를 확인하세요. 아래에 서버 주소, client_id, client_secret, 마스터 비밀번호를 입력하세요.",
   "connector.bitwarden.scopeHost":
-    "{host}의 모든 에이전트가 Shared with OpenBot의 일치하는 로그인 정보를 사용할 수 있어요. OpenBot은 정확히 일치하는 HTTPS 출처만 사용해요. 마스터 비밀번호 확인이 필요한 항목이나 사용자 지정 URI 일치 규칙이 있는 항목은 사용하지 않아요.",
+    "{host}의 모든 에이전트가 Shared with OpenOwnBot의 일치하는 로그인 정보를 사용할 수 있어요. OpenOwnBot은 정확히 일치하는 HTTPS 출처만 사용해요. 마스터 비밀번호 확인이 필요한 항목이나 사용자 지정 URI 일치 규칙이 있는 항목은 사용하지 않아요.",
   "connector.bitwarden.sessionHost":
     "{host}은(는) 재시작 후에도 다시 잠금 해제할 수 있도록 API 키와 마스터 비밀번호를 암호화해 보관해요. 이 컴퓨터에는 보관되지 않아요. 연결을 해제하면 {host}에서 삭제돼요. {host}이(가) 서버 주소에 HTTPS로 접근할 수 있어야 해요.",
   "connector.bitwarden.serverUrl": "서버 주소",
   "connector.bitwarden.folderTitle": "공유 폴더",
   "connector.bitwarden.folderDescription":
     "에이전트가 로그인 정보를 사용하게 하려면 Bitwarden에서 이 폴더로 옮기세요. 사용을 멈추려면 폴더에서 제거하세요.",
-  "connector.bitwarden.folderName": "Shared with OpenBot",
+  "connector.bitwarden.folderName": "Shared with OpenOwnBot",
   "connector.bitwarden.folderKind": "Bitwarden 폴더",
   "connector.bitwarden.clientId": "API 키 client_id",
   "connector.bitwarden.clientSecret": "API 키 client_secret",

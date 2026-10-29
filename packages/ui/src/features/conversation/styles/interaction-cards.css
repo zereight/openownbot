@@ -1,11 +1,11 @@
 .conversation-interaction-card {
   box-sizing: border-box;
   min-width: 0;
-  border: 1px solid var(--openbot-border);
-  border-radius: var(--openbot-radius-card);
-  background: var(--openbot-bg-canvas);
-  color: var(--openbot-text-primary);
-  padding: var(--openbot-space-4);
+  border: 1px solid var(--openownbot-border);
+  border-radius: var(--openownbot-radius-card);
+  background: var(--openownbot-bg-canvas);
+  color: var(--openownbot-text-primary);
+  padding: var(--openownbot-space-4);
 }
 
 .conversation-interaction-header {
@@ -13,32 +13,32 @@
   min-width: 0;
   align-items: flex-start;
   justify-content: space-between;
-  gap: var(--openbot-space-3);
+  gap: var(--openownbot-space-3);
 }
 
 .conversation-interaction-header > :is(strong, h2) {
   min-width: 0;
   margin: 0;
-  color: var(--openbot-text-secondary);
-  font-size: var(--openbot-text-lg);
-  font-weight: var(--openbot-weight-medium);
-  line-height: var(--openbot-leading-lg);
+  color: var(--openownbot-text-secondary);
+  font-size: var(--openownbot-text-lg);
+  font-weight: var(--openownbot-weight-medium);
+  line-height: var(--openownbot-leading-lg);
   overflow-wrap: anywhere;
 }
 
 .conversation-interaction-status[data-slot="badge"] {
   flex: 0 0 auto;
-  gap: var(--openbot-space-1-5);
-  border-radius: var(--openbot-radius-md);
-  font-size: var(--openbot-text-sm);
-  font-weight: var(--openbot-weight-medium);
+  gap: var(--openownbot-space-1-5);
+  border-radius: var(--openownbot-radius-md);
+  font-size: var(--openownbot-text-sm);
+  font-weight: var(--openownbot-weight-medium);
 }
 
 .conversation-interaction-status svg {
-  width: var(--openbot-icon-sm);
-  height: var(--openbot-icon-sm);
+  width: var(--openownbot-icon-sm);
+  height: var(--openownbot-icon-sm);
   flex: 0 0 auto;
-  stroke-width: var(--openbot-icon-stroke);
+  stroke-width: var(--openownbot-icon-stroke);
 }
 
 /* The badge says the card is waiting on the person, so its loader has to turn: a frozen spinner

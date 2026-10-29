@@ -8,9 +8,9 @@ import type {
   TeamInviteSummary,
   TeamPresenceMember,
   UpdateTeamMemberInput,
-} from "@openbot/contracts/ipc";
-import type { AppTextKey } from "@openbot/i18n";
-import { classifyFailure } from "@openbot/telemetry";
+} from "@openownbot/contracts/ipc";
+import type { AppTextKey } from "@openownbot/i18n";
+import { classifyFailure } from "@openownbot/telemetry";
 import {
   Alert,
   AlertActions,
@@ -36,20 +36,20 @@ import {
   Tabs,
   Text,
   UsersRound,
-} from "@openbot/ui";
-import type { LicenseCalls } from "@openbot/ui/features/billing/license-store";
-import type { ProviderSettingsDetail } from "@openbot/ui/features/settings/ProviderSettingsPage";
+} from "@openownbot/ui";
+import type { LicenseCalls } from "@openownbot/ui/features/billing/license-store";
+import type { ProviderSettingsDetail } from "@openownbot/ui/features/settings/ProviderSettingsPage";
 import {
   SaveBarDock,
   SettingsDialogShell,
   type SettingsPagePlacement,
-} from "@openbot/ui/features/settings/SettingsDialogShell";
-import { SettingsHostedSitesTab } from "@openbot/ui/features/settings/SettingsHostedSitesTab";
+} from "@openownbot/ui/features/settings/SettingsDialogShell";
+import { SettingsHostedSitesTab } from "@openownbot/ui/features/settings/SettingsHostedSitesTab";
 import {
   createSettingsHostedSitesStore,
   type HostedSiteDeleteResult,
-} from "@openbot/ui/features/settings/stores/hosted-sites-store";
-import { useText } from "@openbot/ui/text";
+} from "@openownbot/ui/features/settings/stores/hosted-sites-store";
+import { useText } from "@openownbot/ui/text";
 import { createEffect, createSignal, onCleanup, Show, untrack } from "solid-js";
 import { actionToast } from "../../action-toast";
 import { type ServerBrowserProfilesOptions, ServerBrowserProfilesPanel } from "../browser/ServerBrowserProfilesPanel";
@@ -116,7 +116,7 @@ export interface ServerSettingsModalProps {
    * The Remove section appears only when a caller supplies this.
    */
   onRemoveServer?: (() => Promise<void>) | undefined;
-  /** Opens the macOS pane that grants OpenBot screen recording, for the host that was refused it. */
+  /** Opens the macOS pane that grants OpenOwnBot screen recording, for the host that was refused it. */
   onOpenScreenRecordingSettings: () => Promise<void>;
   /** Asks the host to read the grant again, so the owner who gave it sees the warning go. */
   onRecheckScreenRecording: () => Promise<void>;

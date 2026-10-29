@@ -3,7 +3,7 @@
 // (#2228). Sign-in must retry after the block, not fail because its timers fired late.
 //
 // Run: bun scripts/central-auth-startup-stall-e2e.ts
-// It writes .openbot-build/central-auth-startup-stall-e2e/report.json and exits non-zero on a failure.
+// It writes .openownbot-build/central-auth-startup-stall-e2e/report.json and exits non-zero on a failure.
 import assert from "node:assert/strict";
 import { mkdir, mkdtemp, rm, writeFile } from "node:fs/promises";
 import { createServer } from "node:http";
@@ -13,7 +13,7 @@ import { runCauseEffect } from "../src/backend/effect-boundary";
 import { CentralAuthManager } from "../src/main/central-auth-manager";
 
 const ROOT = resolve(import.meta.dirname, "..");
-const OUT = join(ROOT, ".openbot-build", "central-auth-startup-stall-e2e");
+const OUT = join(ROOT, ".openownbot-build", "central-auth-startup-stall-e2e");
 const STARTUP_WINDOW_MS = 1_000;
 const REQUEST_TIMEOUT_MS = 300;
 const BLOCK_MS = 2_000;
@@ -35,7 +35,7 @@ const server = createServer((request, response) => {
 await new Promise<void>((done) => server.listen(0, "127.0.0.1", done));
 const address = server.address();
 assert.ok(address && typeof address === "object");
-const root = await mkdtemp(join(tmpdir(), "openbot-central-auth-stall-"));
+const root = await mkdtemp(join(tmpdir(), "openownbot-central-auth-stall-"));
 
 let passed = false;
 let error: string | undefined;

@@ -4,7 +4,7 @@
  * its key, its runtime and its use, each as a settings card with at most one button on a row.
  */
 
-import { ProviderLogo } from "@openbot/brand";
+import { ProviderLogo } from "@openownbot/brand";
 import {
   type AgentProviderId,
   type CustomProviderSummary,
@@ -16,9 +16,9 @@ import {
   type ProviderRuntimeDownload,
   type ProviderUsageResetOutcome,
   type ProviderUsageResets,
-} from "@openbot/contracts/ipc";
-import type { ProviderEnvironmentEntry, ProviderEnvironmentInput } from "@openbot/contracts/provider-environment";
-import type { AppTextKey } from "@openbot/i18n";
+} from "@openownbot/contracts/ipc";
+import type { ProviderEnvironmentEntry, ProviderEnvironmentInput } from "@openownbot/contracts/provider-environment";
+import type { AppTextKey } from "@openownbot/i18n";
 import {
   Badge,
   Button,
@@ -60,7 +60,7 @@ import {
   Trash2,
   UserRoundPlus,
   X,
-} from "@openbot/ui";
+} from "@openownbot/ui";
 import type { JSX } from "@solidjs/web";
 import { createEffect, createMemo, createSignal, createStore, For, onCleanup, Show } from "solid-js";
 import { ProviderAccountRenameField } from "../../components/ProviderAccountList";

@@ -5,11 +5,11 @@ import type {
   BrowserBounds,
   BrowserTab,
   MarketplaceSkillDetail,
-} from "@openbot/contracts/ipc";
-import { SETTINGS_PANEL_DEFAULT } from "@openbot/ui/components/SettingsPanel";
-import type { AgentActivityLabel } from "@openbot/ui/features/conversation/AgentActivity";
-import { currentText } from "@openbot/ui/text";
-import type { UserErrorDetails } from "@openbot/user-errors";
+} from "@openownbot/contracts/ipc";
+import { SETTINGS_PANEL_DEFAULT } from "@openownbot/ui/components/SettingsPanel";
+import type { AgentActivityLabel } from "@openownbot/ui/features/conversation/AgentActivity";
+import { currentText } from "@openownbot/ui/text";
+import type { UserErrorDetails } from "@openownbot/user-errors";
 import { createEffect, createSignal, createStore, onCleanup } from "solid-js";
 import type { ChatSearchMatch } from "./chat-search";
 import {
@@ -39,7 +39,7 @@ import type { SideQuestionState } from "./stores/side-question-store";
 import type { VoiceCloudStream } from "./stores/voice-store";
 
 const BROWSER_PANEL_DEFAULT = 380;
-const BROWSER_PIP_STORAGE_KEY = "openbot:browser-pip-native-bounds";
+const BROWSER_PIP_STORAGE_KEY = "openownbot:browser-pip-native-bounds";
 
 function readBrowserPipBounds(): BrowserBounds | null {
   const values = (window.localStorage.getItem(BROWSER_PIP_STORAGE_KEY) ?? "")

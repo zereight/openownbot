@@ -1,4 +1,4 @@
-import { legacyAgentId } from "@openbot/contracts/validation";
+import { legacyAgentId } from "@openownbot/contracts/validation";
 
 export type SidebarPinnedItem = Readonly<{
   kind: "agent" | "channel" | "person";

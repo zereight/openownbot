@@ -3,7 +3,7 @@
  * earlier node as the next pass (`workflowLoopEdges`), so the canvas marks the ones the run marks.
  */
 
-import { type WorkflowEdge, type WorkflowGraph, workflowLoopEdges } from "@openbot/contracts/ipc";
+import { type WorkflowEdge, type WorkflowGraph, workflowLoopEdges } from "@openownbot/contracts/ipc";
 
 export interface WorkflowLoop {
   /** The nodes that each pass runs again: from the node the loop goes back to, to the loop's start. */

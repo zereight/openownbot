@@ -9,7 +9,7 @@ export const messages = {
   "remoteDesktop.workspaceLabel": "Zdalne sterowanie",
   "remoteDesktop.displayLabel": "Zdalny ekran",
   "remoteDesktop.selectDisplay": "Wybierz ekran",
-  "remoteDesktop.backToOpenBot": "Wróć do OpenOwnBot",
+  "remoteDesktop.backToOpenOwnBot": "Wróć do OpenOwnBot",
   "remoteDesktop.disconnect": "Rozłącz",
   "remoteDesktop.viewerTitle": "Zdalny pulpit Sunshine",
   "remoteDesktop.viewerLoadFailed": "Nie udało się wczytać podglądu Moonlight.",
@@ -20,7 +20,7 @@ export const messages = {
   "remoteDesktop.openFailed": "Nie udało się otworzyć pulpitu",
   "remoteDesktop.notSharingTitle": "{name} nie udostępnia ekranu",
   "remoteDesktop.notSharingDescription":
-    "Serwer blokuje OpenBot przed nagrywaniem ekranu. Na tamtym serwerze otwórz Ustawienia systemowe → Prywatność i ochrona → Nagrywanie ekranu, włącz OpenBot, a potem spróbuj ponownie tutaj.",
+    "Serwer blokuje OpenOwnBot przed nagrywaniem ekranu. Na tamtym serwerze otwórz Ustawienia systemowe → Prywatność i ochrona → Nagrywanie ekranu, włącz OpenOwnBot, a potem spróbuj ponownie tutaj.",
   "remoteDesktop.setup.check.screenRecording": "Nagrywanie ekranu",
   "remoteDesktop.setup.check.accessibility": "Dostępność",
   "remoteDesktop.setup.check.service": "Usługa Sunshine",

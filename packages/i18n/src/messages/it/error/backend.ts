@@ -183,7 +183,7 @@ export const messages = {
   "error.backend.routineFlowCycle": "Questo collegamento creerebbe un ciclo.",
   "error.backend.routineFlowLinkLimit": "Una routine può avere al massimo {limit} collegamenti.",
   "error.backend.agentWaitLimit":
-    "Questo agente ha già {count} attese aperte. Chiudi un'attesa con openbot.close_wait prima di aprirne un'altra.",
+    "Questo agente ha già {count} attese aperte. Chiudi un'attesa con openownbot.close_wait prima di aprirne un'altra.",
   "error.backend.agentWaitGone": "Questa attesa non è aperta. L'agente l'ha chiusa, oppure qualcuno l'ha annullata.",
   "error.backend.agentWaitNoRequest":
     "Un'attesa ha bisogno di un messaggio per continuare. Questo turno non ha messaggi.",
@@ -192,7 +192,7 @@ export const messages = {
   "error.backend.agentWaitNoteRequired": "Scrivi una breve nota che spieghi a cosa serve l'attesa.",
   "error.backend.agentWaitRoutineGone": "Questo agente non ha una routine con questo id.",
   "error.backend.agentWaitNoRoutine":
-    "Solo un'esecuzione di una delle tue routine risveglia un'attesa, e non hai routine. Creane una con openbot.create_routine, poi apri l'attesa.",
+    "Solo un'esecuzione di una delle tue routine risveglia un'attesa, e non hai routine. Creane una con openownbot.create_routine, poi apri l'attesa.",
   "error.backend.agentWaitRemoteUnsupported":
     "Le attese aperte sono disponibili solo per gli agenti su questo computer.",
   "error.backend.routineFlowHandoffFailed": "La routine non è riuscita a passare il lavoro a questo agente.",

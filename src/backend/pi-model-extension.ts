@@ -1,6 +1,6 @@
 import { readFileSync } from "node:fs";
 import { isAbsolute, join, resolve } from "node:path";
-import { isString } from "@openbot/contracts/runtime-values";
+import { isString } from "@openownbot/contracts/runtime-values";
 import { isRecord } from "./protocol";
 
 /**

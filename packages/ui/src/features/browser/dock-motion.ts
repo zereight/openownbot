@@ -1,5 +1,5 @@
-import { type Spring, springKeyframes, springProgress } from "@openbot/ui/spring-motion";
-import { clamp, mix, motionDuration, prefersReducedMotion } from "@openbot/ui/utils";
+import { type Spring, springKeyframes, springProgress } from "@openownbot/ui/spring-motion";
+import { clamp, mix, motionDuration, prefersReducedMotion } from "@openownbot/ui/utils";
 
 /** The send motion: a spring with no visible bounce. It starts at rest, so a motion does not jump at its first frame. */
 const SEND_SPRING: Spring = { response: 0.43, dampingFraction: 0.78 };
@@ -65,7 +65,7 @@ function inertCopy(element: Element): HTMLElement | undefined {
 
 /** How long the field, or a queue row, takes to change into the island. */
 export function morphDuration(): number {
-  return motionDuration("--openbot-duration-overlay", 240) * 2.25;
+  return motionDuration("--openownbot-duration-overlay", 240) * 2.25;
 }
 
 /** The corner radius of an element in pixels; a pill radius is half of its height. */
