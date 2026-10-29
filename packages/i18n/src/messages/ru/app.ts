@@ -64,7 +64,6 @@ export const messages = {
   "app.help.whatsNew": "Что нового",
   "app.help.changelog": "Полный список изменений",
   "app.help.guides": "Руководства",
-  "app.help.discord": "Присоединиться к Discord",
   "app.rail.usageRings": "Использование {name}: {windows}. Открыть использование",
   "app.rail.customAgentUsage": "Использование {name}. Открыть использование",
   "app.settingsPage.title": "Настройки",
