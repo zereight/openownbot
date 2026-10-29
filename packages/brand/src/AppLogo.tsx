@@ -17,13 +17,14 @@ import {
 function Padlock(props: { side: "left" | "right" }) {
   const center = () => APP_LOGO_LOCK_CENTERS[props.side];
   return (
-    <g
-      class={`app-logo-eye app-logo-eye-${props.side}`}
-      transform={`translate(${center().x} ${center().y}) scale(${APP_LOGO_FACE_SCALE})`}
-    >
-      <path class="app-logo-lock-shackle" d={APP_LOGO_LOCK_SHACKLE} stroke-width={APP_LOGO_LOCK_SHACKLE_WIDTH} />
-      <path class="app-logo-lock-body" d={APP_LOGO_LOCK_BODY} />
-      <circle class="app-logo-lock-keyhole" {...APP_LOGO_LOCK_KEYHOLE} />
+    // A CSS `transform` replaces the `transform` attribute of the same element. The animated group
+    // has no attribute, and the inner group places the padlock.
+    <g class={`app-logo-eye app-logo-eye-${props.side}`}>
+      <g transform={`translate(${center().x} ${center().y}) scale(${APP_LOGO_FACE_SCALE})`}>
+        <path class="app-logo-lock-shackle" d={APP_LOGO_LOCK_SHACKLE} stroke-width={APP_LOGO_LOCK_SHACKLE_WIDTH} />
+        <path class="app-logo-lock-body" d={APP_LOGO_LOCK_BODY} />
+        <circle class="app-logo-lock-keyhole" {...APP_LOGO_LOCK_KEYHOLE} />
+      </g>
     </g>
   );
 }
