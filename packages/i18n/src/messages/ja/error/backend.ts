@@ -133,6 +133,12 @@ export const messages = {
   "error.backend.mailboxStateCorrupt":
     "メールボックスの状態が破損しているか、新しいバージョンの OpenOwnBot のものです。上書きしません。",
   "error.backend.recipientDeleting": "受信者を削除中です。削除が終わってから再試行してください。",
+  "error.backend.squadLeaves":
+    "あなたはチーム {squad} に所属しており、チーム外のエージェントに書き込めるのはそのリードだけです。{squad} のリードに伝えてもらうか、ユーザーに尋ねてください。",
+  "error.backend.squadEnters":
+    "{agent} はチーム {squad} に所属しています。{squad} のリードを通して連絡するか、ユーザーに尋ねてください。",
+  "error.backend.squadSkipsRank":
+    "{agent} はチーム {squad} であなたが直接連絡できる役職より上です。上位へは、すぐ上の役職にだけメッセージを送れます。その役職に取り次いでもらうか、ユーザーに尋ねてください。",
   "error.backend.recipientHidden": "このエージェントは非表示です。メッセージを送るには元に戻してください。",
   "error.backend.attachBetween": "1 〜 {limit} 個のファイルを添付してください。",
   "error.backend.attachmentNotFile": "添付ファイルがファイルではありません: {path}",
@@ -345,10 +351,4 @@ export const messages = {
     "このエージェントには {count} 件の開いているタスクがあります。タスクを閉じてから、別のタスクを開始するか開いてください。",
   "error.backend.taskRemoteUnsupported": "タスクは、このコンピューター上のエージェントでのみ利用できます。",
   "error.backend.taskStartFailed": "OpenOwnBot はタスクを開始できませんでした。代わりにこのターンで作業してください。",
-  "error.backend.squadLeaves":
-    "あなたはチーム {squad} に所属しており、チーム外のエージェントに書き込めるのはそのリードだけです。{squad} のリードに伝えてもらうか、ユーザーに尋ねてください。",
-  "error.backend.squadEnters":
-    "{agent} はチーム {squad} に所属しています。{squad} のリードを通して連絡するか、ユーザーに尋ねてください。",
-  "error.backend.squadSkipsRank":
-    "{agent} はチーム {squad} であなたが直接連絡できる役職より上です。上位へは、すぐ上の役職にだけメッセージを送れます。その役職に取り次いでもらうか、ユーザーに尋ねてください。",
 } as const satisfies PartialTranslation<typeof source>;
