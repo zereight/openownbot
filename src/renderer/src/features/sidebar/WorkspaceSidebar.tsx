@@ -4,7 +4,6 @@ import { AgentSquadsDialog } from "@openownbot/ui/features/agents/AgentSquadsDia
 import { AgentTeamImportDialog } from "@openownbot/ui/features/agents/AgentTeamImportDialog";
 import { computeAgentAvatarMoods } from "@openownbot/ui/features/agents/agent-avatar-mood";
 import { Sidebar } from "@openownbot/ui/features/sidebar/Sidebar";
-import { SidebarCommunityCard } from "@openownbot/ui/features/sidebar/SidebarCommunityCard";
 import { SidebarMobileAppCard } from "@openownbot/ui/features/sidebar/SidebarMobileAppCard";
 import { SidebarStorageCard } from "@openownbot/ui/features/sidebar/SidebarStorageCard";
 import { computeSidebarAgentStates, sidebarChannelWaits } from "@openownbot/ui/features/sidebar/sidebar-agent-states";
@@ -36,7 +35,6 @@ import { useServers } from "../servers/servers-context";
 import { useSettings } from "../settings/settings-context";
 import { usePresence } from "../team/team-context";
 import { SidebarUpdateIsland } from "../updates/SidebarUpdateIsland";
-import { createCommunityCardVisibility } from "./community-card";
 import { useSidebar } from "./sidebar-context";
 import { createStorageCard } from "./storage-card";
 
@@ -142,7 +140,6 @@ export function WorkspaceSidebar(props: { peopleEnabled: boolean }) {
     window.localStorage.setItem(GROUP_BY_TEAM_STORAGE_KEY, String(value));
     setGroupByTeamState(value);
   }
-  const communityCard = createCommunityCardVisibility();
   const storageCard = createStorageCard(activeServer);
   // A clear in Server settings frees space, so the card reads the disk again when settings close.
   createEffect(serverSettingsOpen, (open, wasOpen) => {
@@ -325,8 +322,7 @@ export function WorkspaceSidebar(props: { peopleEnabled: boolean }) {
         onOpenSearch={() => setGlobalSearchVisibility(true)}
         footer={
           <>
-            {/* One card at a time. A disk that is almost full comes first; the community card waits
-             * until the mobile app card is dismissed. */}
+            {/* One card at a time. A disk that is almost full comes first. */}
             <Show when={storageCard.card()}>
               {(card) => (
                 <SidebarStorageCard
@@ -346,17 +342,6 @@ export function WorkspaceSidebar(props: { peopleEnabled: boolean }) {
                   window.localStorage.setItem(MOBILE_APP_DISMISSED_STORAGE_KEY, "true");
                   setMobileAppDismissed(true);
                 }}
-              />
-            </Show>
-            <Show
-              when={
-                !platform.landingPreview && !storageCard.card() && mobileAppDismissed() && !communityCard.dismissed()
-              }
-            >
-              <SidebarCommunityCard
-                onJoinDiscord={() => void appPort().openExternal("discord")}
-                onFollowX={() => void appPort().openExternal("x")}
-                onDismiss={communityCard.dismiss}
               />
             </Show>
             <SidebarUpdateIsland />

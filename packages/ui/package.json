@@ -304,7 +304,6 @@
     "./features/sidebar/Sidebar": "./src/features/sidebar/Sidebar.tsx",
     "./features/mobile-app/android-play-store": "./src/features/mobile-app/android-play-store.ts",
     "./features/mobile-app/ios-app-store": "./src/features/mobile-app/ios-app-store.ts",
-    "./features/sidebar/SidebarCommunityCard": "./src/features/sidebar/SidebarCommunityCard.tsx",
     "./features/sidebar/SidebarMobileAppCard": "./src/features/sidebar/SidebarMobileAppCard.tsx",
     "./features/sidebar/sidebar-teams": "./src/features/sidebar/sidebar-teams.ts",
     "./features/sidebar/SidebarStorageCard": "./src/features/sidebar/SidebarStorageCard.tsx",

@@ -54,23 +54,6 @@
   white-space: nowrap;
 }
 
-/* The community invitation uses the same card. Discord takes the free width; X is an icon button. */
-.sidebar-community-actions {
-  display: flex;
-  gap: var(--openownbot-space-1-5);
-}
-
-.sidebar-community-actions > .ui-button:first-child {
-  flex: 1 1 auto;
-  min-width: 0;
-}
-
-.sidebar-community-mark {
-  flex: 0 0 auto;
-  width: var(--openownbot-icon-sm);
-  height: var(--openownbot-icon-sm);
-}
-
 /* The storage card uses the same card. At "full" the card uses the danger tone, and the ring follows the level. */
 .sidebar-storage[data-level="full"] {
   border-color: var(--openownbot-danger-border);

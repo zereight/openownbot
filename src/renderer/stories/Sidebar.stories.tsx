@@ -6,7 +6,6 @@ import type {
 } from "@openownbot/contracts/ipc";
 import type { AvatarMood } from "@openownbot/ui/bloub-avatar";
 import { Sidebar } from "@openownbot/ui/features/sidebar/Sidebar";
-import { SidebarCommunityCard } from "@openownbot/ui/features/sidebar/SidebarCommunityCard";
 import { SidebarMobileAppCard } from "@openownbot/ui/features/sidebar/SidebarMobileAppCard";
 import { SidebarStorageCard } from "@openownbot/ui/features/sidebar/SidebarStorageCard";
 import { normalizeSidebarPinnedItems, type SidebarPinnedItem } from "@openownbot/ui/features/sidebar/sidebar-pins";
@@ -330,11 +329,6 @@ export const ChatHistory: Story = {
 
 export const MobileAppCard: Story = {
   args: { footer: <SidebarMobileAppCard onOpenInstall={fn()} onDismiss={fn()} /> },
-  decorators: [(Story) => <div style={{ width: "280px", height: "100vh" }}>{Story()}</div>],
-};
-
-export const CommunityCard: Story = {
-  args: { footer: <SidebarCommunityCard onJoinDiscord={fn()} onFollowX={fn()} onDismiss={fn()} /> },
   decorators: [(Story) => <div style={{ width: "280px", height: "100vh" }}>{Story()}</div>],
 };
 

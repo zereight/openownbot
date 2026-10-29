@@ -90,7 +90,6 @@ import { ServerRail } from "@openownbot/ui/features/servers/ServerRail";
 import type { SettingsPagePlacement } from "@openownbot/ui/features/settings/SettingsDialogShell";
 import { createSettingsHostedServersStore } from "@openownbot/ui/features/settings/stores/hosted-servers-store";
 import { Sidebar } from "@openownbot/ui/features/sidebar/Sidebar";
-import { SidebarCommunityCard } from "@openownbot/ui/features/sidebar/SidebarCommunityCard";
 import {
   computeSidebarAgentStates,
   sidebarAgentWaits,
@@ -180,7 +179,6 @@ import {
   showServerUpdate,
 } from "../servers/server-update-flow";
 import type { HostPromptCacheTtlCalls } from "../settings/provider-prompt-cache";
-import { createCommunityCardVisibility } from "../sidebar/community-card";
 import { isReaderAuthor } from "../team/reader-identity";
 import type { ServerVaultOptions } from "../vault/ServerVaultPanel";
 import { createVaultStore } from "../vault/stores/vault-store";
@@ -568,7 +566,6 @@ function WebWorkspaceFrame(props: WebWorkspaceProps) {
         : null,
   });
   const [searchOpen, setSearchOpen] = createSignal(false);
-  const communityCard = createCommunityCardVisibility();
   const [messageFocusRequest, setMessageFocusRequest] = createSignal<{
     agentId: string;
     messageId: string;
@@ -1882,15 +1879,6 @@ function WebWorkspaceFrame(props: WebWorkspaceProps) {
                   onExpand={layout.expandSidebar}
                   onOpenSearch={() => setSearchOpen(true)}
                   onOpenMarketplace={openMarketplace}
-                  footer={
-                    <Show when={!communityCard.dismissed()}>
-                      <SidebarCommunityCard
-                        onJoinDiscord={() => void openWebDestination("discord")}
-                        onFollowX={() => void openWebDestination("x")}
-                        onDismiss={communityCard.dismiss}
-                      />
-                    </Show>
-                  }
                   emptyAction={
                     firstAgent()
                       ? {

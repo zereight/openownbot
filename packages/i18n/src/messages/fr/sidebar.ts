@@ -135,12 +135,6 @@ export const messages = {
   "sidebar.storage.used": "{percent} utilisés",
   "sidebar.storage.freeUpSpace": "Libérer de l’espace",
   "sidebar.storage.dismiss": "Masquer jusqu’à ce que le stockage soit plein",
-  "sidebar.community.title": "Installez-vous.",
-  "sidebar.community.body":
-    "Il y a une place pour vous dans le futur de l’IA. Rejoignez la communauté sur Discord et X.",
-  "sidebar.community.joinDiscord": "Rejoindre Discord",
-  "sidebar.community.followX": "Suivre OpenOwnBot sur X",
-  "sidebar.community.dismiss": "Masquer l’invitation à la communauté",
   "sidebar.new.importTeam": "Importer une équipe",
   "sidebar.section.exportTeam": "Exporter en fichier d’équipe",
   "sidebar.new.manageTeams": "Gérer les équipes",
