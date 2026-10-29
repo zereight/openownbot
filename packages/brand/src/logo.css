@@ -31,13 +31,33 @@
 }
 
 .app-logo-eye {
+  pointer-events: none;
+  transform-box: view-box;
+}
+
+.app-logo-lock-shackle {
   fill: none;
   stroke: var(--app-logo-eye);
   stroke-linecap: round;
-  stroke-linejoin: round;
-  stroke-width: 9.5px;
+}
+
+.app-logo-lock-body {
+  fill: var(--app-logo-eye);
+}
+
+.app-logo-lock-keyhole {
+  fill: var(--app-logo-background);
+}
+
+.app-logo-smile {
+  fill: none;
+  stroke: var(--app-logo-eye);
+  stroke-linecap: round;
   pointer-events: none;
-  transform-box: view-box;
+}
+
+.app-logo-face {
+  pointer-events: none;
 }
 
 .app-logo-eye-motion {
@@ -49,11 +69,11 @@
 }
 
 .app-logo-eye-left {
-  transform-origin: 28.7% 48.7%;
+  transform-origin: 28.9% 48.4%;
 }
 
 .app-logo-eye-right {
-  transform-origin: 71.2% 48.8%;
+  transform-origin: 71.1% 48.4%;
 }
 
 .app-logo[data-animation="blink"] .app-logo-eye {

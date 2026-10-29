@@ -1,5 +1,32 @@
 import { createEffect, createSignal, flush, onCleanup } from "solid-js";
-import { APP_LOGO_CORNER, APP_LOGO_EYE_POINTS, APP_LOGO_SIZE } from "./app-logo-shape";
+import {
+  APP_LOGO_CHEEK_COLOR,
+  APP_LOGO_CHEEKS,
+  APP_LOGO_CORNER,
+  APP_LOGO_FACE_SCALE,
+  APP_LOGO_LOCK_BODY,
+  APP_LOGO_LOCK_CENTERS,
+  APP_LOGO_LOCK_KEYHOLE,
+  APP_LOGO_LOCK_SHACKLE,
+  APP_LOGO_LOCK_SHACKLE_WIDTH,
+  APP_LOGO_SIZE,
+  APP_LOGO_SMILE,
+  APP_LOGO_SMILE_WIDTH,
+} from "./app-logo-shape";
+
+function Padlock(props: { side: "left" | "right" }) {
+  const center = () => APP_LOGO_LOCK_CENTERS[props.side];
+  return (
+    <g
+      class={`app-logo-eye app-logo-eye-${props.side}`}
+      transform={`translate(${center().x} ${center().y}) scale(${APP_LOGO_FACE_SCALE})`}
+    >
+      <path class="app-logo-lock-shackle" d={APP_LOGO_LOCK_SHACKLE} stroke-width={APP_LOGO_LOCK_SHACKLE_WIDTH} />
+      <path class="app-logo-lock-body" d={APP_LOGO_LOCK_BODY} />
+      <circle class="app-logo-lock-keyhole" {...APP_LOGO_LOCK_KEYHOLE} />
+    </g>
+  );
+}
 
 export type AppLogoAnimation = "none" | "blink" | "look-around" | "surprised";
 export type AppLogoVariant = "production" | "dev" | "preview";
@@ -157,11 +184,17 @@ export function AppLogo(props: AppLogoProps) {
         rx={APP_LOGO_CORNER}
         ry={APP_LOGO_CORNER}
       />
-      <g class="app-logo-eye-motion">
-        <polyline class="app-logo-eye app-logo-eye-left" points={APP_LOGO_EYE_POINTS.left} />
+      <g class="app-logo-face" transform={`scale(${APP_LOGO_FACE_SCALE})`}>
+        {APP_LOGO_CHEEKS.map((cheek) => (
+          <ellipse {...cheek} fill={APP_LOGO_CHEEK_COLOR} opacity="0.75" />
+        ))}
+        <path class="app-logo-smile" d={APP_LOGO_SMILE} stroke-width={APP_LOGO_SMILE_WIDTH} />
       </g>
       <g class="app-logo-eye-motion">
-        <polyline class="app-logo-eye app-logo-eye-right" points={APP_LOGO_EYE_POINTS.right} />
+        <Padlock side="left" />
+      </g>
+      <g class="app-logo-eye-motion">
+        <Padlock side="right" />
       </g>
     </svg>
   );
