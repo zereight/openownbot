@@ -106,49 +106,6 @@ when the picture adds information that the text does not.
 Use `OPENOWNBOT_LINKS` for external links and include useful `alt` text for every image. Do not paste bare URLs into a
 guide.
 
-### Answering the NorbiAI review
-
-Every push to a branch in this repository runs the automated reviewer, and it blocks the merge on
-an unresolved P0 or P1 finding. A pull request from a fork is the exception: GitHub gives a fork's
-push run a read-only token, so it could not publish a review even if it produced one. Ask a
-maintainer to add the `norbiai` label, or to comment `/norbiai review`. Both run this
-repository's own copy of the workflow, where the token can publish, and either can be repeated
-after a push — the label is removed once the review runs, so re-applying it asks again. Two ways
-past a finding:
-
-1. Fix it and push. The next review classifies the finding `[RESOLVED]`.
-2. Show it is wrong. Comment the concrete reason — the guard it misses, the line that already
-   handles it — and include `/norbiai review` anywhere in the same comment. The reviewer rechecks
-   that finding against your argument and marks it `[WITHDRAWN]`, which stops blocking and stays
-   recorded under `## Withdrawn Findings` so a later push does not raise it again.
-
-A rebuttal needs something checkable in it. "Intended", "out of scope", or a promise to fix it
-later leaves the finding `[REMAINS]`, and the reviewer says which part it could not verify. Only
-comments from someone who can merge the pull request are read — organization membership on its own
-is not enough, and on a fork that means the recheck has to be asked for by a maintainer rather than
-by you — and only those written after the review being answered, plus the comment that asked for
-the recheck whatever its timestamp says. That one is passed to the reviewer whole; the older
-responses share a size budget and are dropped from the oldest end. A label carries no argument of
-its own, so write the rebuttal as a comment first and label afterwards.
-
-### The reviewer
-
-Every review runs on `claude-opus-5-5` at `high` reasoning effort, on Claude Code with the Claude
-login on the runner mac. This is set in
-[`.github/workflows/norbiai-review.yml`](.github/workflows/norbiai-review.yml). A pull request, a
-review request or the changed files cannot choose another model or effort. A slow review on a very
-large diff can reach the job's time limit: split the pull request.
-
-A review after a push reads only the commits since the last successful review, and rechecks the
-earlier findings against the full current code. A rebuttal on an unchanged commit reads no new code.
-The first review, a review after a rebase or a merge of the base branch, and a review asked for with
-the `norbiai` label read the whole pull request. Add the label when a change since the last review
-needs the whole pull request read again.
-
-Claude Code can only read: it gets the Read, Grep and Glob tools and the `git diff`, `git show`,
-`git log` and `git ls-files` commands. It does not load the pull request's own settings, hooks,
-`CLAUDE.md` or MCP servers.
-
 ## Security-sensitive changes
 
 Preserve the following boundaries, and their tests where they exist:
