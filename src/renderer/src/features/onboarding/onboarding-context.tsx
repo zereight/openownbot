@@ -22,7 +22,6 @@ const Setup = createSimpleContext({
   init: () => {
     const [setupState, setSetupState] = createSignal<AppSetupState | null>(null);
     const [read, setRead] = createStore<SetupRead>({ loaded: false, failed: false, retrying: false, reference: null });
-    const [pendingInviteUrl, setPendingInviteUrl] = createSignal("");
 
     /**
      * A failed read ends the loading screen, but it is not "not configured yet": a brief IPC failure
@@ -101,10 +100,6 @@ const Setup = createSimpleContext({
       }
     }
 
-    async function previewInvite(input: { inviteUrl: string }) {
-      return onboardingPort().servers.previewInvite(input);
-    }
-
     return {
       setupState,
       setupLoaded: () => read.loaded,
@@ -113,10 +108,7 @@ const Setup = createSimpleContext({
       setupReadReference: () => read.reference,
       retrySetupRead,
       setUpAgain,
-      pendingInviteUrl,
-      setPendingInviteUrl,
       saveSetup,
-      previewInvite,
     };
   },
 });

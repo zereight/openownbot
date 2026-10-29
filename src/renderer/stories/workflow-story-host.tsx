@@ -142,7 +142,6 @@ function storyWorkflowHost(workflows: readonly StoryWorkflow[]): WorkflowHost {
       return () => listeners.delete(changed);
     },
     places: async () => [...STORY_CATALOGS.places],
-    agentLevels: async () => null,
   };
 }
 

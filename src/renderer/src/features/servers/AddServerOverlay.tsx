@@ -49,7 +49,6 @@ interface AddServerOverlayProps {
   onClose: () => void;
   onOpenServer: (serverId: string) => void;
   onContactUs?: (() => void) | undefined;
-  onJoinWithInvite?: (() => void) | undefined;
   /** Opens the list of the account's hosted servers, so that the user can delete one at the limit. */
   onManageServers?: (() => void) | undefined;
 }
@@ -308,12 +307,6 @@ function AddServerSession(
               props.onContactUs &&
               (() => {
                 props.onContactUs?.();
-              })
-            }
-            onJoinWithInvite={
-              props.onJoinWithInvite &&
-              (() => {
-                props.onJoinWithInvite?.();
               })
             }
             onCreate={create}

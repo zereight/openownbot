@@ -3,7 +3,6 @@ import {
   WEB_APP_AGENT_TEMPLATE_PARAM,
 } from "@openownbot/contracts/agent-template-links";
 import { type FirstTouch, readFirstTouch } from "@openownbot/contracts/first-touch";
-import { inviteUrlFromWebAppSearch, WEB_APP_INVITE_FIELDS } from "@openownbot/contracts/invite-links";
 import type { AppVariant, CentralAuthState, CentralAuthUser } from "@openownbot/contracts/ipc";
 import { pluginSlugFromWebAppSearch, WEB_APP_PLUGIN_PARAM } from "@openownbot/contracts/plugin-links";
 import { isDynamicRecord, isString } from "@openownbot/contracts/runtime-values";
@@ -59,20 +58,6 @@ function takeAgentTemplateLink(): string | null {
   return id;
 }
 
-/**
- * The invitation a `/app?api=…&server=…&fingerprint=…&invite=…` link names, as the `/join` page
- * passes it on. The fields are removed after they are read, so the secret does not stay in the
- * address bar or the history, and a reload does not open the dialog again.
- */
-function takeInviteLink(): string | null {
-  const url = new URL(window.location.href);
-  if (!WEB_APP_INVITE_FIELDS.some((field) => url.searchParams.has(field))) return null;
-  const inviteUrl = inviteUrlFromWebAppSearch(url.search, { allowLocalDevelopmentApiUrl: import.meta.env.DEV });
-  for (const field of WEB_APP_INVITE_FIELDS) url.searchParams.delete(field);
-  window.history.replaceState(window.history.state, "", url);
-  return inviteUrl;
-}
-
 /** The plugin listing a `/app?plugin=<slug>` link names. The query is removed after it is read. */
 function takePluginLink(): string | null {
   const url = new URL(window.location.href);
@@ -112,7 +97,6 @@ export function WebApp(props: { createRuntime?: WebRuntimeFactory } = {}) {
   });
   // Kept here, not in the workspace, so each link waits through sign-in.
   const [agentTemplateId, setAgentTemplateId] = createSignal(takeAgentTemplateLink());
-  const [inviteUrl, setInviteUrl] = createSignal(takeInviteLink());
   const [pluginSlug, setPluginSlug] = createSignal(takePluginLink());
   const [billingReturn, setBillingReturn] = createSignal(takeBillingReturn());
   const [hostingReturn, setHostingReturn] = createSignal(takeHostingReturn());
@@ -368,8 +352,6 @@ export function WebApp(props: { createRuntime?: WebRuntimeFactory } = {}) {
                 createRuntime={props.createRuntime}
                 agentTemplateId={agentTemplateId()}
                 onAgentTemplateClose={() => setAgentTemplateId(null)}
-                inviteUrl={inviteUrl()}
-                onInviteClose={() => setInviteUrl(null)}
                 pluginSlug={pluginSlug()}
                 onPluginSlugConsumed={() => setPluginSlug(null)}
                 billingReturn={billingReturn()}

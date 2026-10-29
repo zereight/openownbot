@@ -294,7 +294,6 @@ try {
       host,
       remoteDesktop: new RemoteDesktopManager(manager),
       remoteServers: manager,
-      takePendingInvite: () => null,
     }).servers.setMuted(channel);
   };
   bindHandler();

@@ -133,12 +133,6 @@ export const messages = {
     "El estado del buzón está dañado o pertenece a una versión más reciente de OpenOwnBot; no se sobrescribirá.",
   "error.backend.recipientDeleting":
     "El destinatario se está eliminando. Inténtalo de nuevo cuando termine la eliminación.",
-  "error.backend.squadLeaves":
-    "Estás en el equipo {squad} y solo su líder escribe a agentes de fuera. Pide al líder de {squad} que lo transmita, o pregunta al usuario.",
-  "error.backend.squadEnters":
-    "{agent} está en el equipo {squad}. Contáctalo a través del líder de {squad}, o pregunta al usuario.",
-  "error.backend.squadSkipsRank":
-    "{agent} está por encima del rango al que puedes escribir en el equipo {squad}. Un mensaje sube solo al rango inmediatamente superior al tuyo. Pídele que lo transmita o pregunta al usuario.",
   "error.backend.recipientHidden": "Este agente está oculto. Restáuralo para enviarle mensajes.",
   "error.backend.attachBetween": "Adjunta entre 1 y {limit} archivos.",
   "error.backend.attachmentNotFile": "El adjunto no es un archivo: {path}",

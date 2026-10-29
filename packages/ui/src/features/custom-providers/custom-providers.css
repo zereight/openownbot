@@ -1,5 +1,5 @@
 /* The dialog that describes an OpenAI-compatible endpoint. It sits on the same modal geometry as
- * join-server-dialog.css, but scrolls instead of paging: the repeatable model and header lists have
+ * the dialog styles, but scrolls instead of paging: the repeatable model and header lists have
  * no fixed height. */
 
 .custom-provider-dialog {

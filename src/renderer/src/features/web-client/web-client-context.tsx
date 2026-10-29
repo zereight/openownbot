@@ -250,7 +250,6 @@ export function createWebWorkspace(
    * neither is an error. An id stays until a list without its host arrives.
    */
   const leftHostIds = new Set<string>();
-  let acceptedInvite: { inviteUrl: string; host: RemoteTeamHost } | null = null;
   /** Set when a revoked session connects again by itself; cleared when the host is online. */
   let revokedReconnect = false;
   /** When the last full read of the open host ended. The events keep the state current after it. */
@@ -925,19 +924,6 @@ export function createWebWorkspace(
       await connect(host);
     }
   }
-  async function joinInvite(inviteUrl: string): Promise<void> {
-    const normalizedInviteUrl = inviteUrl.trim();
-    if (!normalizedInviteUrl) throw new Error(currentText().t("webClient.error.enterInvitation"));
-    const cached = acceptedInvite?.inviteUrl === normalizedInviteUrl ? acceptedInvite : null;
-    const host = cached?.host ?? (await runtime.acceptInvite(normalizedInviteUrl));
-    acceptedInvite = { inviteUrl: normalizedInviteUrl, host };
-    const hadHostSelection = hostId !== null;
-    await refreshHosts();
-    if (state.host?.hostId !== host.hostId || (state.status !== "online" && hadHostSelection)) await connect(host);
-    if (state.status !== "online" || state.host?.hostId !== host.hostId)
-      throw new Error(currentText().t("webClient.error.invitationOffline"));
-    acceptedInvite = null;
-  }
   async function connect(host: RemoteTeamHost) {
     recoveryBlocked = false;
     recovery.dispose();
@@ -1518,7 +1504,6 @@ export function createWebWorkspace(
       focusUse.dispose();
       document.removeEventListener("visibilitychange", visibility);
       window.removeEventListener("online", network);
-      acceptedInvite = null;
       window.removeEventListener("focus", focus);
       window.removeEventListener("blur", pageFocus);
       void runtime.dispose({ sessionsEnded: props.accountSessionEnded?.() ?? false }).catch(() => undefined);
@@ -1561,7 +1546,6 @@ export function createWebWorkspace(
     removeOwnedHost,
     retryHosts,
     reconnect,
-    joinInvite,
     connect,
     select,
     refresh,

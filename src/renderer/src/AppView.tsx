@@ -7,10 +7,9 @@ import { useSetup } from "./features/onboarding/onboarding-context";
 import { SetupReadError } from "./features/onboarding/SetupReadError";
 import { useSetupProviderProps } from "./features/onboarding/setup-provider-props";
 import { useServerScope } from "./features/servers/server-scope";
-import { useServerSelection } from "./features/servers/server-selection";
 import { StartupSplash } from "./features/startup/StartupSplash";
 import { WhatsNewOverlay } from "./features/updates/WhatsNewOverlay";
-import { AccountLogin, FirstRunFlow, InitialSetup, LanguageStep } from "./lazy-views";
+import { AccountLogin, FirstRunFlow, LanguageStep } from "./lazy-views";
 import { usePlatform } from "./platform";
 import { WorkspaceShell } from "./WorkspaceShell";
 
@@ -45,7 +44,6 @@ export function AppAccessGate() {
   // Setup actions run against this computer. The view waits for its first status before offering them.
   const setupProviders = useSetupProviderProps();
   const detection = useProviderDetection();
-  const { joinRemoteDuringSetup } = useServerSelection();
   const started = () => setup.setupLoaded() && platform.appInfo() !== null;
   const [splashShown, setSplashShown] = createSignal(true);
   const languageStep = createLanguageStep();
@@ -94,39 +92,18 @@ export function AppAccessGate() {
               fallback={
                 <Show when={scope.connection.hasContent} fallback={<WorkspaceShell account={account} />}>
                   <Show when={!setup.setupReadFailed()} fallback={<SetupReadError />}>
-                    <Show
-                      when={setup.pendingInviteUrl().trim()}
-                      fallback={
-                        <Loading fallback={<LoadingScreen />}>
-                          <FirstRunFlow
-                            {...setupProviders}
-                            state={
-                              setup.setupState() ?? { completed: false, preferredProvider: null, preferredModel: null }
-                            }
-                            platform={platform.appInfo()?.platform ?? "darwin"}
-                            onSave={setup.saveSetup}
-                            onProviderStepShown={detection.scanOnce}
-                            logoVariant={platform.appInfo()?.variant ?? "production"}
-                          />
-                        </Loading>
-                      }
-                    >
-                      <Loading fallback={<LoadingScreen />}>
-                        <InitialSetup
-                          {...setupProviders}
-                          state={
-                            setup.setupState() ?? { completed: false, preferredProvider: null, preferredModel: null }
-                          }
-                          platform={platform.appInfo()?.platform ?? "darwin"}
-                          accountEmail={account().email}
-                          inviteUrl={setup.pendingInviteUrl()}
-                          onSave={setup.saveSetup}
-                          onPreviewInvite={setup.previewInvite}
-                          onJoinRemote={joinRemoteDuringSetup}
-                          onLogout={auth.logoutCentralAccount}
-                        />
-                      </Loading>
-                    </Show>
+                    <Loading fallback={<LoadingScreen />}>
+                      <FirstRunFlow
+                        {...setupProviders}
+                        state={
+                          setup.setupState() ?? { completed: false, preferredProvider: null, preferredModel: null }
+                        }
+                        platform={platform.appInfo()?.platform ?? "darwin"}
+                        onSave={setup.saveSetup}
+                        onProviderStepShown={detection.scanOnce}
+                        logoVariant={platform.appInfo()?.variant ?? "production"}
+                      />
+                    </Loading>
                   </Show>
                 </Show>
               }

@@ -18,7 +18,7 @@ import { fn } from "storybook/test";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";
 import { createProviderRuntimeStore } from "../src/features/provider-updates/provider-runtime-store";
 import { ServerSettingsModal } from "../src/features/servers/ServerSettingsModal";
-import { STORY_HOST_STATUS, STORY_INVITES, STORY_PRESENCE, STORY_SERVERS } from "../src/preview/fixtures";
+import { STORY_HOST_STATUS, STORY_SERVERS } from "../src/preview/fixtures";
 import { createStoryDetection, STORY_DETECTED_PROVIDERS } from "./detected-providers-fixture";
 import { createMockOpenOwnBot } from "./mock-openownbot";
 import { createFakeConnection } from "./provider-connection-fixture";
@@ -256,17 +256,9 @@ function ServerProvidersStory(props: {
             platform="darwin"
             server={props.inactive ? { ...localServer, active: false } : localServer}
             hostStatus={STORY_HOST_STATUS}
-            members={STORY_PRESENCE.members}
-            invites={STORY_INVITES}
             onRetry={fn(async () => undefined)}
             onSaveIdentity={fn(async () => undefined)}
             onSetPublished={fn(async () => undefined)}
-            onCreateInvite={fn(async () => {
-              throw new Error("Not used in this story.");
-            })}
-            onUpdateMember={fn(async () => undefined)}
-            onRemoveMember={fn(async () => undefined)}
-            onRevokeInvite={fn(async () => undefined)}
             onOpenScreenRecordingSettings={fn(async () => undefined)}
             onRecheckScreenRecording={fn(async () => undefined)}
             initialSection="providers"

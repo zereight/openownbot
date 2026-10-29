@@ -3,15 +3,12 @@ import { runCauseEffect } from "../../backend/effect-boundary";
 import type { HostService } from "../host-service";
 import type { RemoteDesktopManager } from "../remote-desktop-manager";
 import type { RemoteServerManager } from "../remote-server-manager";
-import { agentRequest } from "./agent-inputs";
 import { handler, type IpcGroupHandlers, payloadHandler } from "./define-ipc-group";
 import { routeToServer } from "./route-to-server";
 import {
-  parseCreateTeamInvite,
   parseDirectTyping,
   parseHostConfig,
   parseHostIdentity,
-  parseJoinServer,
   parseLoginServer,
   parseMarkDirectRead,
   parseReadDirectConversationPage,
@@ -24,7 +21,6 @@ import {
   parseSetServerMuted,
   parseSetServerNotificationLevel,
   parseSetTeamTyping,
-  parseUpdateTeamMember,
 } from "./server-inputs";
 import { stringPayload } from "./validation";
 
@@ -32,14 +28,12 @@ interface TeamIpcDependencies {
   host: HostService;
   remoteDesktop: RemoteDesktopManager;
   remoteServers: RemoteServerManager;
-  takePendingInvite: () => string | null;
 }
 
 export function teamIpcHandlers({
   host,
   remoteDesktop,
   remoteServers,
-  takePendingInvite,
 }: TeamIpcDependencies): Pick<IpcGroupHandlers, "servers" | "host" | "remoteDesktop"> {
   return {
     servers: {
@@ -64,9 +58,6 @@ export function teamIpcHandlers({
           withLocalHostSummary(servers, host.getStatus()),
         ),
       ),
-      join: payloadHandler(parseJoinServer, (request) => runCauseEffect(remoteServers.join(request))),
-      previewInvite: payloadHandler(parseJoinServer, (request) => runCauseEffect(remoteServers.previewInvite(request))),
-      takePendingInvite: handler(takePendingInvite),
       login: payloadHandler(parseLoginServer, (request) => runCauseEffect(remoteServers.login(request))),
       retryConnection: payloadHandler(stringPayload("serverId"), (serverId) =>
         runCauseEffect(remoteServers.retryConnection(serverId)),
@@ -86,24 +77,6 @@ export function teamIpcHandlers({
       ),
       refreshIdentity: payloadHandler(stringPayload("serverId"), (serverId) =>
         runCauseEffect(remoteServers.refreshIdentity(serverId)),
-      ),
-      listMembers: payloadHandler(stringPayload("serverId"), (serverId) =>
-        runCauseEffect(remoteServers.listMembers(serverId)),
-      ),
-      updateMember: payloadHandler(agentRequest(parseUpdateTeamMember), ({ serverId, payload }) =>
-        runCauseEffect(remoteServers.updateMember(serverId, payload)),
-      ),
-      removeMember: payloadHandler(agentRequest(stringPayload("memberId")), ({ serverId, payload }) =>
-        runCauseEffect(remoteServers.removeMember(serverId, payload)),
-      ),
-      listInvites: payloadHandler(stringPayload("serverId"), (serverId) =>
-        runCauseEffect(remoteServers.listInvites(serverId)),
-      ),
-      revokeInvite: payloadHandler(agentRequest(stringPayload("inviteId")), ({ serverId, payload }) =>
-        runCauseEffect(remoteServers.revokeInvite(serverId, payload)),
-      ),
-      createInvite: payloadHandler(agentRequest(parseCreateTeamInvite), ({ serverId, payload }) =>
-        runCauseEffect(remoteServers.createInvite(serverId, payload)),
       ),
       setTyping: payloadHandler(parseSetTeamTyping, (parsed) =>
         routeToServer<void>(remoteServers.activeServerId, {
@@ -158,20 +131,10 @@ export function teamIpcHandlers({
       start: handler(() => runCauseEffect(host.start())),
       stop: handler(() => runCauseEffect(host.stop())),
       recheckScreenRecording: handler(() => runCauseEffect(host.recheckScreenRecording())),
-      listMembers: handler(() => runCauseEffect(host.listMembers())),
-      updateMember: payloadHandler(parseUpdateTeamMember, (update) => runCauseEffect(host.updateMember(update))),
-      removeMember: payloadHandler(stringPayload("memberId"), (memberId) =>
-        runCauseEffect(host.removeMember(memberId)),
-      ),
       listSessions: handler(() => host.listSessions()),
       revokeSession: payloadHandler(stringPayload("sessionId"), (sessionId) =>
         runCauseEffect(host.revokeSession(sessionId)),
       ),
-      listInvites: handler(() => runCauseEffect(host.listInvites())),
-      revokeInvite: payloadHandler(stringPayload("inviteId"), (inviteId) =>
-        runCauseEffect(host.revokeInvite(inviteId)),
-      ),
-      createInvite: payloadHandler(parseCreateTeamInvite, (invite) => runCauseEffect(host.createInvite(invite))),
     },
     remoteDesktop: {
       checkSetup: payloadHandler(stringPayload("serverId"), (serverId) =>

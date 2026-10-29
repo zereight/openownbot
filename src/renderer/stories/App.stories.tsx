@@ -71,7 +71,6 @@ export const EmptyWorkspace: Story = {
         servers: STORY_SERVERS.filter((server) => server.kind === "local"),
         presence: { serverId: "local", updatedAt: "2026-08-24T12:00:00.000Z", members: [] },
         directThreads: [],
-        teamMembers: [],
         browserTabs: [],
         remoteDesktopSessions: [],
       }}

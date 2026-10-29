@@ -1,7 +1,6 @@
 import type { Effect } from "effect";
 import type { ChannelService } from "../../backend/channel-service";
 import type { AcpRegistry } from "../acp-registry";
-import type { AgentAccessStore } from "../agent-access-store";
 import type { AgentAdminSettingsService } from "../agent-admin-settings";
 import type { AgentHostSettingsService } from "../agent-host-settings";
 import type { AgentMarketplaceService } from "../agent-marketplace-service";
@@ -12,7 +11,6 @@ import type { PeerCustomProviderChanges } from "../custom-provider-changes";
 import type { HostEventsApi } from "../host-events-api";
 import type { HostEventsService } from "../host-events-service";
 import type { HostReleaseService } from "../host-release-service";
-import type { HostService } from "../host-service";
 import type { PromptCacheTtlPreferenceStore } from "../prompt-cache-ttl-preference-store";
 import type { ProviderCredentialStore } from "../provider-credential-store";
 import type { ProviderRuntimeManager } from "../provider-runtime-manager";
@@ -467,8 +465,6 @@ export type TeamApiBitwardenConnector = Pick<BitwardenConnectorService, "status"
 /** `vault-v1`: the Vault of this host, for an owner or admin. The route uses no CSV import. */
 export type TeamApiVault = VaultService;
 
-export type TeamApiAgentAccess = Pick<AgentAccessStore, "copyAgent" | "get" | "levels" | "set" | "subscribe">;
-
 export interface TeamApiOptions {
   /** `events-v1`: admin-only event source and routine management. */
   events?: HostEventsApi | undefined;
@@ -492,8 +488,6 @@ export interface TeamApiOptions {
   routineFlows?: TeamApiRoutineFlows;
   workflows?: TeamApiWorkflows;
   hiddenAgents?: TeamApiHiddenAgents;
-  /** `agent-access-v1`: the roles that limit what a member can do with each agent. */
-  agentAccess?: TeamApiAgentAccess;
   agentTasks?: TeamApiAgentTasks;
   browserProfiles?: TeamApiBrowserProfiles;
   admin?: TeamApiAdmin;
@@ -519,13 +513,6 @@ export interface TeamApiOptions {
   chat?: TeamChatStore | undefined;
   onDirectMessage?: ((event: DirectMessageRealtimeEvent) => void) | undefined;
   onDirectTyping?: ((event: DirectTypingRealtimeEvent) => void) | undefined;
-  createInvite?: OmitThisParameter<HostService["createInvite"]> | undefined;
-  /**
-   * Changes and removes members as the desktop app does. With an OpenOwnBot account, the account
-   * directory holds the membership; a change only in the team file has no effect there.
-   */
-  updateMember?: OmitThisParameter<HostService["updateMember"]> | undefined;
-  removeMember?: OmitThisParameter<HostService["removeMember"]> | undefined;
   onSessionRevoked?: ((sessionId: string) => Effect.Effect<void, RemoteWorkflowError>) | undefined;
   /** Sends Live Activity updates to members' phones. Absent when this host has no account credential. */
   liveActivityPush?: LiveActivityPushService | undefined;

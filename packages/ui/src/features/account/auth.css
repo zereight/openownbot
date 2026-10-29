@@ -272,286 +272,6 @@
   transform: scale(0.98);
 }
 
-.initial-setup {
-  width: min(100%, 620px);
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  text-align: left;
-  -webkit-app-region: no-drag;
-}
-
-.initial-setup-header {
-  max-width: 560px;
-}
-
-.initial-setup-account-row {
-  min-height: 28px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 28px;
-}
-
-.initial-setup-account {
-  min-width: 0;
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  overflow: hidden;
-  color: var(--openownbot-text-muted);
-  font-size: var(--openownbot-text-sm);
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.initial-setup-account i {
-  width: 6px;
-  height: 6px;
-  flex: 0 0 auto;
-  border-radius: var(--openownbot-radius-pill);
-  background: var(--openownbot-success);
-  box-shadow: 0 0 0 3px var(--openownbot-success-soft);
-}
-
-.initial-setup-signout,
-.initial-setup-back {
-  border: 0;
-  background: transparent;
-  color: var(--openownbot-text-muted);
-}
-
-.initial-setup-signout {
-  margin-left: 2px;
-  padding: 5px 7px;
-  font-size: var(--openownbot-text-sm);
-}
-
-.initial-setup-signout:hover,
-.initial-setup-back:hover {
-  color: var(--openownbot-text-secondary);
-}
-
-.initial-setup-back {
-  width: 28px;
-  height: 28px;
-  display: grid;
-  place-items: center;
-  margin-right: 3px;
-  border-radius: var(--openownbot-radius-pill);
-  padding: 0;
-}
-
-.initial-setup-back:hover {
-  background: var(--openownbot-hover);
-}
-
-.initial-setup-back svg {
-  width: 18px;
-  fill: none;
-  stroke: currentcolor;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  stroke-width: var(--openownbot-icon-stroke);
-}
-
-.initial-setup-eyebrow {
-  margin: 0 0 9px;
-  color: var(--text-muted);
-  font-size: var(--openownbot-text-sm);
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.initial-setup h1 {
-  margin: 0;
-  color: var(--text-primary);
-  font-size: var(--openownbot-text-display);
-  font-weight: 560;
-  letter-spacing: -0.035em;
-  line-height: 1.1;
-}
-
-.initial-setup-intro {
-  max-width: 540px;
-  margin: 12px 0 0;
-  color: var(--text-secondary);
-  font-size: var(--openownbot-text-lg);
-  line-height: 1.55;
-}
-
-.setup-route-list {
-  display: grid;
-  gap: 10px;
-  margin-top: 30px;
-  padding: 0;
-  list-style: none;
-}
-
-.setup-route-button {
-  width: 100%;
-  min-height: 96px;
-  display: grid;
-  grid-template-columns: 48px minmax(0, 1fr) 20px;
-  align-items: center;
-  gap: 15px;
-  border: 1px solid var(--openownbot-border);
-  border-radius: var(--openownbot-radius-lg);
-  background: var(--openownbot-bg-canvas);
-  padding: 15px 17px;
-  color: var(--openownbot-text-primary);
-  text-align: left;
-  transition:
-    border-color var(--openownbot-duration-hover) ease,
-    background-color var(--openownbot-duration-hover) ease,
-    transform var(--openownbot-duration-hover) ease;
-}
-
-.setup-route-button:hover {
-  border-color: var(--openownbot-text-dim);
-  background: var(--openownbot-bg-sidebar);
-  transform: translateY(-1px);
-}
-
-.setup-route-button:active {
-  transform: translateY(0);
-  transition-duration:
-    var(--openownbot-duration-hover), var(--openownbot-duration-hover), var(--openownbot-duration-fast);
-}
-
-.setup-route-icon {
-  position: relative;
-  width: 46px;
-  height: 46px;
-  display: grid;
-  place-items: center;
-  border: 1px solid var(--openownbot-border);
-  border-radius: var(--openownbot-radius-lg);
-  background: var(--openownbot-hover);
-  color: var(--openownbot-text-secondary);
-}
-
-.setup-route-icon svg {
-  width: 23px;
-  fill: none;
-  stroke: currentcolor;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  stroke-width: var(--openownbot-icon-stroke);
-}
-
-.setup-route-icon i {
-  position: absolute;
-  right: -2px;
-  bottom: -2px;
-  width: 9px;
-  height: 9px;
-  border: 2px solid var(--openownbot-bg-canvas);
-  border-radius: var(--openownbot-radius-pill);
-  background: var(--openownbot-accent);
-}
-
-.setup-route-icon-local i {
-  background: var(--openownbot-success);
-}
-
-.setup-route-copy {
-  display: grid;
-  gap: 4px;
-}
-
-.setup-route-copy strong {
-  font-size: var(--openownbot-text-lg);
-  font-weight: 600;
-}
-
-.setup-route-copy small {
-  color: var(--openownbot-text-muted);
-  font-size: var(--openownbot-text-sm);
-  line-height: 17px;
-}
-
-.setup-route-arrow {
-  width: 19px;
-  fill: none;
-  stroke: var(--openownbot-text-muted);
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  transition: transform var(--openownbot-duration-hover) ease;
-}
-
-.setup-route-button:hover .setup-route-arrow {
-  transform: translateX(2px);
-}
-
-.setup-local-content {
-  margin-top: 28px;
-}
-
-.setup-remote-form {
-  display: grid;
-  gap: 15px;
-  margin-top: 28px;
-}
-
-.setup-remote-form label {
-  display: grid;
-  gap: 7px;
-  color: var(--openownbot-text-secondary);
-  font-size: var(--openownbot-text-sm);
-  font-weight: 560;
-}
-
-.setup-remote-form input,
-.setup-remote-form textarea {
-  width: 100%;
-  border: 1px solid var(--openownbot-border);
-  border-radius: var(--openownbot-radius-lg);
-  outline: 0;
-  background: var(--openownbot-bg-canvas);
-  padding: 11px 12px;
-  color: var(--openownbot-text-primary);
-  font-size: var(--openownbot-text-md);
-  line-height: 18px;
-  resize: none;
-}
-
-.setup-remote-form input {
-  min-height: 43px;
-}
-
-.setup-remote-form input:focus,
-.setup-remote-form textarea:focus {
-  border-color: var(--openownbot-text-dim);
-  background: var(--openownbot-bg-sidebar);
-}
-
-.setup-remote-form input::placeholder,
-.setup-remote-form textarea::placeholder {
-  color: var(--openownbot-text-dim);
-}
-
-.setup-remote-note {
-  margin: -2px 1px 0;
-  color: var(--openownbot-text-muted);
-  font-size: var(--openownbot-text-sm);
-  line-height: 16px;
-}
-
-.setup-remote-change {
-  width: fit-content;
-  border: 0;
-  background: transparent;
-  padding: 0;
-  color: var(--openownbot-text-muted);
-  font-size: var(--openownbot-text-sm);
-}
-
-.setup-remote-change:hover:not(:disabled) {
-  color: var(--openownbot-text-secondary);
-}
-
 .provider-picker {
   min-width: 0;
   margin: 0;
@@ -561,10 +281,6 @@
 
 .provider-picker-standalone {
   margin-top: 24px;
-}
-
-.setup-local-content .provider-picker-standalone {
-  margin-top: 0;
 }
 
 .provider-picker-label {
@@ -1072,51 +788,6 @@
   font-size: var(--openownbot-text-sm);
 }
 
-.initial-setup-error {
-  margin: 12px 2px 0;
-  color: var(--openownbot-danger);
-  font-size: var(--openownbot-text-md);
-  line-height: 1.45;
-}
-
-.initial-setup-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 9px;
-  margin-top: 20px;
-}
-
-.initial-setup-save {
-  min-height: 40px;
-  border: 1px solid var(--openownbot-border-strong);
-  border-radius: var(--openownbot-radius-md);
-  padding: 12px 18px;
-  font-size: var(--openownbot-text-md);
-  font-weight: 620;
-}
-
-.initial-setup-save {
-  min-width: 180px;
-  background: var(--openownbot-text-primary);
-  color: var(--openownbot-bg-sidebar);
-  transition:
-    transform var(--openownbot-duration-normal) ease,
-    background var(--openownbot-duration-hover) ease;
-}
-
-.initial-setup-save:hover:not(:disabled) {
-  background: var(--openownbot-text-primary);
-}
-
-.initial-setup-save:disabled {
-  cursor: default;
-  opacity: 0.48;
-}
-
-.initial-setup-save:active:not(:disabled) {
-  transform: scale(0.992);
-}
-
 @media (max-width: 620px) {
   .initial-setup-screen {
     place-items: start center;
@@ -1125,30 +796,6 @@
 
   .account-login-screen {
     padding-inline: 18px;
-  }
-
-  .initial-setup-actions,
-  .initial-setup-save {
-    width: 100%;
-  }
-
-  .initial-setup-actions {
-    flex-direction: column-reverse;
-  }
-
-  .setup-route-button {
-    grid-template-columns: 42px minmax(0, 1fr) 18px;
-    gap: 12px;
-    padding-inline: 13px;
-  }
-
-  .setup-route-icon {
-    width: 42px;
-    height: 42px;
-  }
-
-  .initial-setup-account {
-    max-width: 55vw;
   }
 }
 
@@ -1163,8 +810,7 @@
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .account-login,
-  .initial-setup {
+  .account-login {
     animation: setup-enter var(--openownbot-duration-overlay) cubic-bezier(0.2, 0.8, 0.2, 1) both;
   }
 
@@ -1359,8 +1005,6 @@ body,
 .settings-field input,
 .settings-field textarea,
 .settings-field select,
-.setup-remote-form input,
-.setup-remote-form textarea,
 .account-login-form input {
   border-color: var(--openownbot-border);
   background: var(--openownbot-bg-surface);
@@ -1373,8 +1017,6 @@ body,
 .settings-field input:focus,
 .settings-field textarea:focus,
 .settings-field select:focus,
-.setup-remote-form input:focus,
-.setup-remote-form textarea:focus,
 .account-login-form input:focus {
   border-color: var(--openownbot-border-focus);
   background: var(--openownbot-bg-surface-raised);
@@ -1385,8 +1027,6 @@ body,
 .direct-composer textarea::placeholder,
 .settings-field input::placeholder,
 .settings-field textarea::placeholder,
-.setup-remote-form input::placeholder,
-.setup-remote-form textarea::placeholder,
 .account-login-form input::placeholder {
   color: var(--openownbot-text-placeholder);
 }
@@ -1415,7 +1055,6 @@ body,
 
 .voice-button,
 .voice-button-active,
-.initial-setup-save,
 .account-login-primary {
   background: var(--openownbot-surface-light);
   color: var(--openownbot-text-on-light);
@@ -1423,7 +1062,6 @@ body,
 
 .voice-button:hover,
 .voice-button-active:hover,
-.initial-setup-save:hover:not(:disabled),
 .account-login-primary:hover:not(:disabled, [aria-disabled="true"]) {
   background: var(--openownbot-text-primary);
   color: var(--openownbot-text-on-light);
@@ -1440,28 +1078,12 @@ body,
   background: var(--openownbot-bg-control-active);
 }
 
-.account-login-error,
-.initial-setup-error {
+.account-login-error {
   border-color: var(--openownbot-danger-soft);
   background: var(--openownbot-danger-soft);
   color: var(--openownbot-danger);
 }
 
-.setup-route-button,
-.setup-route-icon,
-.setup-remote-form input,
-.setup-remote-form textarea {
-  border-color: var(--openownbot-border);
-  background: var(--openownbot-bg-surface);
-}
-
-.setup-route-button:hover,
-.setup-route-button:focus-visible {
-  border-color: var(--openownbot-border-focus);
-  background: var(--openownbot-bg-surface-raised);
-}
-
-.setup-route-icon-local i,
 .provider-picker-status-available i {
   color: var(--openownbot-success);
 }

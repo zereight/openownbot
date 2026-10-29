@@ -5,15 +5,12 @@ import type {
   DirectMessage,
   DirectThreadSummary,
   HostStatus,
-  InvitePreview,
-  InviteSummary,
   RemoteDesktopConnectResult,
   RemoteDesktopSession,
   ScopedDirectMessageEvent,
   ScopedDirectTypingEvent,
   ScopedTeamPresenceSnapshot,
   ServerSummary,
-  TeamInviteSummary,
   TeamMemberSummary,
   TeamPresenceSnapshot,
   TeamSessionSummary,
@@ -26,10 +23,6 @@ import {
   decodeDirectReadState,
   decodeDirectThreads,
   decodeHostStatus,
-  decodeInvitePreview,
-  decodeInviteSummary,
-  decodeInviteUrl,
-  decodePendingInvite,
   decodeRemoteDesktopConnectResult,
   decodeRemoteDesktopSessions,
   decodeScopedDirectMessage,
@@ -37,9 +30,6 @@ import {
   decodeScopedTeamPresence,
   decodeServer,
   decodeServers,
-  decodeTeamInvites,
-  decodeTeamMember,
-  decodeTeamMembers,
   decodeTeamPresenceSnapshot,
   decodeTeamSessions,
 } from "./team-decoding";
@@ -71,25 +61,11 @@ const member = {
   disabled: false,
 } satisfies TeamMemberSummary;
 
-const memberWithAvatar = { ...member, avatarUrl: "https://example.test/ada.png" } satisfies TeamMemberSummary;
-
 const presence = {
   serverId: null,
   members: [{ ...member, online: true, typingAgentId: null }],
   updatedAt: "2026-09-23T10:00:00.000Z",
 } satisfies TeamPresenceSnapshot;
-
-const teamInvite = {
-  id: "invite-1",
-  role: "member",
-  expiresAt: "2026-09-30T10:00:00.000Z",
-  usedAt: null,
-  email: null,
-  permanent: false,
-  useCount: 0,
-} satisfies TeamInviteSummary;
-
-const invite = { ...teamInvite, inviteUrl: "openownbot://join/invite-1" } satisfies InviteSummary;
 
 const session = {
   id: "session-1",
@@ -153,16 +129,6 @@ const remoteServer = {
   connectionSequence: 2,
 } satisfies ServerSummary;
 
-const invitePreview = {
-  serverId: "server-1",
-  serverName: "Studio",
-  apiHostname: "studio.example.test",
-  role: "member",
-  expiresAt: "2026-09-30T10:00:00.000Z",
-  emailBound: false,
-  permanent: true,
-} satisfies InvitePreview;
-
 const directMessage = {
   id: "message-1",
   threadId: "thread-1",
@@ -205,13 +171,8 @@ const typingEvent = {
 describe("team decoders", () => {
   it.each([
     ["host status", decodeHostStatus, hostStatus],
-    ["team member", decodeTeamMember, member],
-    ["team member with an avatar", decodeTeamMember, memberWithAvatar],
-    ["team member list", decodeTeamMembers, [member, memberWithAvatar]],
     ["team presence", decodeTeamPresenceSnapshot, presence],
     ["team session list", decodeTeamSessions, [session]],
-    ["team invite list", decodeTeamInvites, [teamInvite]],
-    ["created invite", decodeInviteSummary, invite],
     ["remote desktop session list", decodeRemoteDesktopSessions, [remoteSession]],
     [
       "connected remote desktop",
@@ -239,10 +200,6 @@ describe("team decoders", () => {
       { ...remoteServer, hostedSleep: "waking", hostedStart: { step: "provider_limit", startedAt: 1 } },
     ],
     ["server with no hosted start", decodeServer, { ...remoteServer, hostedStart: null }],
-    ["invite preview", decodeInvitePreview, invitePreview],
-    ["invite link", decodeInviteUrl, "openownbot://join/invite-1"],
-    ["pending invite", decodePendingInvite, "openownbot://join/invite-1"],
-    ["missing pending invite", decodePendingInvite, null],
     [
       "server presence",
       decodeScopedTeamPresence,
@@ -274,13 +231,8 @@ describe("team decoders", () => {
 
   it.each([
     ["host status with an unknown phase", decodeHostStatus, { ...hostStatus, phase: "sleeping" }],
-    ["team member with an unknown role", decodeTeamMember, { ...member, role: "guest" }],
-    ["team member with a numeric avatar", decodeTeamMember, { ...member, avatarUrl: 1 }],
-    ["team member list that is not an array", decodeTeamMembers, member],
     ["team presence without typing state", decodeTeamPresenceSnapshot, { ...presence, members: [member] }],
     ["team session without a member", decodeTeamSessions, [{ ...session, memberId: null }]],
-    ["team invite for an owner", decodeTeamInvites, [{ ...teamInvite, role: "owner" }]],
-    ["created invite without a link", decodeInviteSummary, teamInvite],
     [
       "remote desktop session with an unknown transport",
       decodeRemoteDesktopSessions,
@@ -312,9 +264,6 @@ describe("team decoders", () => {
       { ...remoteServer, hostedStart: { step: "<script>", startedAt: 1 } },
     ],
     ["server with a hosted start without a time", decodeServer, { ...remoteServer, hostedStart: { step: "machine" } }],
-    ["invite preview for an owner", decodeInvitePreview, { ...invitePreview, role: "owner" }],
-    ["invite link that is not text", decodeInviteUrl, 1],
-    ["pending invite that is not text", decodePendingInvite, undefined],
     ["server presence without a server", decodeScopedTeamPresence, { snapshot: presence }],
     ["direct thread without a last message", decodeDirectThreads, [{ threadId: "thread-1" }]],
     ["direct conversation with a malformed read state", decodeDirectConversation, { ...conversation, readState: {} }],

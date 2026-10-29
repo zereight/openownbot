@@ -1,4 +1,4 @@
-import type { AddedAgent, AgentProviderId, NotificationOpenedEvent, ServerSummary } from "@openownbot/contracts/ipc";
+import type { AddedAgent, NotificationOpenedEvent, ServerSummary } from "@openownbot/contracts/ipc";
 import { currentText } from "@openownbot/ui/text";
 import { onSettled } from "solid-js";
 import { actionToast } from "../../action-toast";
@@ -7,12 +7,11 @@ import { createSimpleContext } from "../../simple-context";
 import { useAgents } from "../agents/agents-context";
 import { useConversationController } from "../conversation/conversation-controller-context";
 import { useDirectMessages } from "../conversation/direct-messages-context";
-import { useSetup } from "../onboarding/onboarding-context";
 import { useRemoteDesktop } from "../remote-desktop/remote-desktop-context";
 import { useSettings } from "../settings/settings-context";
 import { useServerSwitch } from "./server-switch";
 import { useServers } from "./servers-context";
-import { activeServerId, serversPort } from "./servers-port";
+import { serversPort } from "./servers-port";
 
 /**
  * Switching the active server, and the two ways a new one arrives: joining from
@@ -37,7 +36,6 @@ const ServerSelection = createSimpleContext({
   name: "Server selection",
   init: () => {
     const { servers, setServers, beginServerSelection } = useServers();
-    const { setPendingInviteUrl, saveSetup } = useSetup();
     const { setSkillsMarketplaceOpen } = useSettings();
     const { disconnectRemoteDesktopWorkspace } = useRemoteDesktop();
     const {
@@ -148,21 +146,8 @@ const ServerSelection = createSimpleContext({
       }),
     );
 
-    async function joinServer(input: { inviteUrl: string }): Promise<void> {
-      await serversPort().servers.join(input);
-      setPendingInviteUrl("");
-      await selectServer(await activeServerId());
-    }
-
-    async function joinRemoteDuringSetup(input: { inviteUrl: string }, provider: AgentProviderId): Promise<void> {
-      await joinServer(input);
-      await saveSetup(provider);
-    }
-
     return {
       selectServer,
-      joinServer,
-      joinRemoteDuringSetup,
       openInstalledMarketplaceAgent,
     };
   },

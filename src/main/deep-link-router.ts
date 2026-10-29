@@ -6,9 +6,6 @@
  * `open-url`, `continue-activity`, a second instance's argv, and this process's own argv - and each
  * of them asks this module and then acts on the answer.
  *
- * The invite parser runs first. It owns the host `join`, it is the shipped behaviour, and asking it
- * first is what stops a later kind ever claiming one of its links.
- *
  * Three kinds never reach a renderer. `mcp-auth` carries an OAuth grant for an MCP server,
  * `slack-workspace` the sealed bot token of a Slack workspace that installed the OpenOwnBot app, and
  * `discord-guild` the sealed link of a Discord guild that installed it. Each is for the sign-in only, so `src/main/index.ts` hands it to the sign-in that is waiting for it and sends nothing on. They are classified here anyway, because the four entry
@@ -20,11 +17,9 @@
  */
 
 import { parseAgentTemplateUrl } from "@openownbot/contracts/agent-template-links";
-import { type InviteLinkOptions, parseInviteUrl } from "@openownbot/contracts/invite-links";
 import { parsePluginUrl } from "@openownbot/contracts/plugin-links";
 
 export type DeepLink =
-  | { kind: "invite"; url: string }
   | { kind: "plugin"; slug: string }
   | { kind: "agent-template"; id: string }
   | { kind: "mcp-auth"; state: string; code: string }
@@ -45,18 +40,11 @@ const MCP_OAUTH_HOST = "mcp-auth";
 const SLACK_WORKSPACE_HOST = "slack-workspace";
 const DISCORD_GUILD_HOST = "discord-guild";
 
-export function parseDeepLink(value: string, options: InviteLinkOptions = {}): DeepLink | null {
-  try {
-    parseInviteUrl(value, options);
-    return { kind: "invite", url: value };
-  } catch {
-    // Not an invitation. Most command-line arguments are not a link of any kind.
-  }
-
+export function parseDeepLink(value: string): DeepLink | null {
   try {
     return { kind: "plugin", slug: parsePluginUrl(value) };
   } catch {
-    // Not a plugin listing. A plugin link carries no query, so it can never be the link below.
+    // Not a plugin listing. Most command-line arguments are not a link of any kind. A plugin link carries no query, so it can never be the link below.
   }
 
   try {
@@ -119,9 +107,9 @@ function parseMcpAuthUrl(value: string): DeepLink | null {
 }
 
 /** The first argument that is a link. Used for a cold start and for a second instance's argv. */
-export function findDeepLink(values: string[], options: InviteLinkOptions = {}): DeepLink | null {
+export function findDeepLink(values: string[]): DeepLink | null {
   for (const value of values) {
-    const link = parseDeepLink(value, options);
+    const link = parseDeepLink(value);
     if (link) return link;
   }
   return null;

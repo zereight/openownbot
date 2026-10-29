@@ -882,70 +882,35 @@ try {
     );
   }
 
-  // ---- Join with an invitation and with an account ticket ----
-  const adminInvite = await runCauseEffect(store.createInvite("admin"));
-  const memberInvite = await runCauseEffect(store.createInvite("member"));
-  const ADA_PASSWORD = "ada-password-e2e-1";
-  const adaJoin = await call("POST", TEAM_API_ROUTES.join.server, {
-    json: { inviteToken: adminInvite.token, username: "ada", password: ADA_PASSWORD },
+  // ---- Two more devices of the owner ----
+  // A host has one owner and no other members, so every client below is a device of the owner.
+  const adaLogin = await call("POST", TEAM_API_ROUTES.auth.login, {
+    json: { username: "owner", password: OWNER_PASSWORD },
   });
-  const adaToken = field(adaJoin.body, "sessionToken");
-  const adaId = field(adaJoin.body, "member", "id");
-  check(
-    "join with an admin invitation gives 201 and an admin session",
-    adaJoin.status === 201 && typeof adaToken === "string" && field(adaJoin.body, "member", "role") === "admin",
-    { status: adaJoin.status, role: field(adaJoin.body, "member", "role") },
-  );
-  assert.ok(typeof adaToken === "string" && typeof adaId === "string", "ada did not join.");
-
-  const reuse = await call("POST", TEAM_API_ROUTES.join.server, {
-    json: { inviteToken: adminInvite.token, username: "ada2", password: ADA_PASSWORD },
+  const bobLogin = await call("POST", TEAM_API_ROUTES.auth.login, {
+    json: { username: "owner", password: OWNER_PASSWORD },
   });
+  const adaToken = field(adaLogin.body, "sessionToken");
+  const bobToken = field(bobLogin.body, "sessionToken");
+  const adaId = field(adaLogin.body, "member", "id");
+  const bobId = field(bobLogin.body, "member", "id");
   check(
-    "a used invitation is refused with inviteInvalid",
-    errorIs(reuse, 400, sourceText("error.team.inviteInvalid")),
-    summary(reuse),
+    "the owner signs in on a second and a third device, each with its own owner session",
+    adaLogin.status === 200 &&
+      bobLogin.status === 200 &&
+      typeof adaToken === "string" &&
+      typeof bobToken === "string" &&
+      adaToken !== bobToken &&
+      field(adaLogin.body, "member", "role") === "owner",
+    { second: adaLogin.status, third: bobLogin.status },
   );
-
-  const unknownTicket = await call("POST", TEAM_API_ROUTES.join.account, {
-    json: { inviteToken: memberInvite.token, accountTicket: "ticket-unknown" },
-  });
-  check(
-    "join with a ticket that the account service refuses gives 401 signInRequired",
-    errorIs(unknownTicket, 401, sourceText("error.team.signInRequired")),
-    summary(unknownTicket),
-  );
-  const bobJoin = await call("POST", TEAM_API_ROUTES.join.account, {
-    json: { inviteToken: memberInvite.token, accountTicket: "ticket-bob" },
-  });
-  const bobToken = field(bobJoin.body, "sessionToken");
-  const bobId = field(bobJoin.body, "member", "id");
-  check(
-    "join with an account ticket gives 201 and a member with the account email",
-    bobJoin.status === 201 &&
-      field(bobJoin.body, "member", "role") === "member" &&
-      field(bobJoin.body, "member", "email") === "bob@example.com",
-    { status: bobJoin.status, role: field(bobJoin.body, "member", "role") },
-  );
-  check(
-    "the ticket is redeemed for this server only",
-    redeemedServerIds.length > 0 && redeemedServerIds.every((id) => id === serverId),
-    { redeemedServerIds, serverId },
-  );
-  assert.ok(typeof bobToken === "string" && typeof bobId === "string", "bob did not join.");
-
-  const seatInvite = await runCauseEffect(store.createInvite("member"));
-  const fourth = await call("POST", TEAM_API_ROUTES.join.server, {
-    json: { inviteToken: seatInvite.token, username: "carol", password: "carol-password-e2e" },
-  });
-  check(
-    "a fourth member is refused with memberLimit",
-    errorIs(fourth, 400, sourceText("error.team.memberLimit", { limit: 3 })) && store.listMembers().length === 3,
-    summary(fourth),
-  );
+  assert.ok(typeof adaToken === "string" && typeof bobToken === "string", "A device did not sign in.");
+  assert.ok(typeof adaId === "string" && typeof bobId === "string", "A device has no owner id.");
 
   // ---- Sign-in, rate limit, account sign-in, logout ----
   {
+    // The two device sign-ins above count toward the limit of the owner's user name.
+    clock += 15 * 60 * 1_000 + 1;
     const results: number[] = [];
     for (let attempt = 0; attempt < 5; attempt += 1) {
       const wrong = await call("POST", TEAM_API_ROUTES.auth.login, {
@@ -963,14 +928,6 @@ try {
         field(blocked.body, "sessionToken") === undefined,
       { results, blocked: summary(blocked) },
     );
-    const otherUser = await call("POST", TEAM_API_ROUTES.auth.login, {
-      json: { username: "ada", password: ADA_PASSWORD },
-    });
-    check(
-      "the limit of one user name does not block another user name",
-      otherUser.status === 200 && typeof field(otherUser.body, "sessionToken") === "string",
-      { status: otherUser.status },
-    );
     clock += 15 * 60 * 1_000 + 1;
     const afterWindow = await call("POST", TEAM_API_ROUTES.auth.login, {
       json: { username: "owner", password: OWNER_PASSWORD },
@@ -981,8 +938,8 @@ try {
       { status: afterWindow.status },
     );
 
-    const adaSecond = field(otherUser.body, "sessionToken");
-    assert.ok(typeof adaSecond === "string", "ada has no second session.");
+    const adaSecond = field(afterWindow.body, "sessionToken");
+    assert.ok(typeof adaSecond === "string", "The owner has no second session.");
     const adaSecondSession = store.authenticateSession(adaSecond)?.sessionId;
     const logout = await call("POST", TEAM_API_ROUTES.auth.logout, { token: adaSecond, json: {} });
     const afterLogout = await call("GET", TEAM_API_ROUTES.me, { token: adaSecond });
@@ -1001,32 +958,6 @@ try {
       },
     );
   }
-
-  const bobSessionsBefore = new Set(store.listSessions().map((session) => session.id));
-  const accountLogin = await call("POST", TEAM_API_ROUTES.auth.account, { json: { accountTicket: "ticket-bob" } });
-  const bobSecond = field(accountLogin.body, "sessionToken");
-  check(
-    "account sign-in with a member ticket gives a session for that member",
-    accountLogin.status === 200 && field(accountLogin.body, "member", "id") === bobId && typeof bobSecond === "string",
-    { status: accountLogin.status },
-  );
-  assert.ok(typeof bobSecond === "string", "bob has no account session.");
-  const bobSecondSession = store
-    .listSessions()
-    .find((session) => !bobSessionsBefore.has(session.id) && session.memberId === bobId);
-  const stranger = await call("POST", TEAM_API_ROUTES.auth.account, { json: { accountTicket: "ticket-stranger" } });
-  check(
-    "account sign-in for an account that is not a member gives accountNotMember",
-    errorIs(stranger, 400, sourceText("error.team.accountNotMember")) &&
-      field(stranger.body, "sessionToken") === undefined,
-    summary(stranger),
-  );
-  const refusedTicket = await call("POST", TEAM_API_ROUTES.auth.account, { json: { accountTicket: "ticket-unknown" } });
-  check(
-    "account sign-in with a refused ticket gives 401 signInRequired",
-    errorIs(refusedTicket, 401, sourceText("error.team.signInRequired")),
-    summary(refusedTicket),
-  );
 
   // ---- Auth gate ----
   {
@@ -1051,7 +982,7 @@ try {
       "me returns the caller and no credential fields",
       me.status === 200 &&
         field(me.body, "id") === bobId &&
-        field(me.body, "role") === "member" &&
+        field(me.body, "role") === "owner" &&
         !/password|salt|hash|token/iu.test(objectKeys(me.body).join(",")),
       summary(me),
     );
@@ -1078,166 +1009,6 @@ try {
     );
   }
 
-  // ---- Admin-only routes: a member is refused and nothing changes ----
-  {
-    const adminRequired = sourceText("error.team.adminRequired");
-    const membersBefore = JSON.stringify(store.listMembers());
-    const invitesBefore = store.listInvites().length;
-    const sessionsBefore = store.listSessions().length;
-    const ownerSession = store.authenticateSession(owner.sessionToken)?.sessionId ?? "";
-    const memberAttempts = [
-      await call("GET", TEAM_API_ROUTES.team.members, { token: bobToken }),
-      await call("PATCH", TEAM_API_ROUTES.team.member(adaId), { token: bobToken, json: { disabled: true } }),
-      await call("DELETE", TEAM_API_ROUTES.team.member(adaId), { token: bobToken }),
-      await call("POST", TEAM_API_ROUTES.team.invites, { token: bobToken, json: { role: "admin" } }),
-      await call("GET", TEAM_API_ROUTES.team.invites, { token: bobToken }),
-      await call("DELETE", TEAM_API_ROUTES.team.invite(seatInvite.id), { token: bobToken }),
-      await call("GET", TEAM_API_ROUTES.team.sessions, { token: bobToken }),
-      await call("DELETE", TEAM_API_ROUTES.team.session(ownerSession), { token: bobToken }),
-    ];
-    check(
-      "a member gets 403 adminRequired on every member, invitation and session admin route",
-      memberAttempts.every((reply) => errorIs(reply, 403, adminRequired)),
-      memberAttempts.map((reply) => reply.status),
-    );
-    check(
-      "the refused admin requests changed no member, invitation or session",
-      JSON.stringify(store.listMembers()) === membersBefore &&
-        store.listInvites().length === invitesBefore &&
-        store.listSessions().length === sessionsBefore,
-      {
-        members: store.listMembers().length,
-        invites: store.listInvites().length,
-        sessions: store.listSessions().length,
-      },
-    );
-    const sessionsList = await call("GET", TEAM_API_ROUTES.team.sessions, { token: bobToken });
-    check(
-      "the refused session list does not include any session data",
-      !sessionsList.text.includes(ownerSession) && !sessionsList.text.includes(String(bobId)),
-      summary(sessionsList),
-    );
-
-    const members = await call("GET", TEAM_API_ROUTES.team.members, { token: adaToken });
-    check("an admin lists the three members", members.status === 200 && list(members.body).length === 3, {
-      status: members.status,
-      count: list(members.body).length,
-    });
-    const invite = await call("POST", TEAM_API_ROUTES.team.invites, { token: adaToken, json: { role: "member" } });
-    check(
-      "an invitation without the invite service gets 503 inviteServiceUnavailable",
-      errorIs(invite, 503, sourceText("error.team.inviteServiceUnavailable")),
-      summary(invite),
-    );
-    const ownerId = store.getOwnerMemberId() ?? "";
-    const changeOwner = await call("PATCH", TEAM_API_ROUTES.team.member(ownerId), {
-      token: adaToken,
-      json: { role: "member" },
-    });
-    const badRole = await call("PATCH", TEAM_API_ROUTES.team.member(bobId), {
-      token: adaToken,
-      json: { role: "owner" },
-    });
-    const badDisabled = await call("PATCH", TEAM_API_ROUTES.team.member(bobId), {
-      token: adaToken,
-      json: { disabled: "yes" },
-    });
-    check(
-      "an admin cannot change the owner and gets 400 for an invalid role or disabled value",
-      errorIs(changeOwner, 400, sourceText("error.team.ownerCannotChange")) &&
-        badRole.status === 400 &&
-        badDisabled.status === 400 &&
-        store.getMember(ownerId)?.role === "owner" &&
-        store.getMember(bobId)?.role === "member",
-      [summary(changeOwner), summary(badRole), summary(badDisabled)],
-    );
-    const revokeOwner = await call("DELETE", TEAM_API_ROUTES.team.session(ownerSession), { token: adaToken });
-    check(
-      "an admin cannot end a session of the owner",
-      errorIs(revokeOwner, 400, sourceText("error.team.ownerCannotChange")) &&
-        store.authenticateSession(owner.sessionToken) !== null,
-      summary(revokeOwner),
-    );
-    const revokeBob = await call("DELETE", TEAM_API_ROUTES.team.session(bobSecondSession?.id ?? "missing"), {
-      token: adaToken,
-    });
-    const revokedUse = await call("GET", TEAM_API_ROUTES.me, { token: bobSecond });
-    const bobFirst = await call("GET", TEAM_API_ROUTES.me, { token: bobToken });
-    check(
-      "an admin ends one session of a member; that token gets 401, the other session stays, and the browser control of that session is given back",
-      revokeBob.status === 204 &&
-        revokedUse.status === 401 &&
-        bobFirst.status === 200 &&
-        releasedSession(bobSecondSession?.id),
-      {
-        revoke: revokeBob.status,
-        revokedUse: revokedUse.status,
-        bobFirst: bobFirst.status,
-        released: releasedSession(bobSecondSession?.id),
-      },
-    );
-  }
-
-  // ---- Direct messages stay between the two members ----
-  {
-    const ownerId = store.getOwnerMemberId() ?? "";
-    const privateText = "owner to ada: private plan";
-    const sent = await call("POST", TEAM_API_ROUTES.direct.messages, {
-      token: owner.sessionToken,
-      json: { memberId: adaId, text: privateText, clientMessageId: "client-message-1" },
-    });
-    const adaView = await call("GET", TEAM_API_ROUTES.direct.conversation(ownerId), { token: adaToken });
-    check(
-      "a direct message reaches its recipient",
-      sent.status === 201 &&
-        adaView.status === 200 &&
-        list(field(adaView.body, "messages")).some((message) => field(message, "text") === privateText),
-      { sent: sent.status, adaView: adaView.status },
-    );
-    const bobThreads = await call("GET", TEAM_API_ROUTES.direct.threads, { token: bobToken });
-    const bobWithOwner = await call("GET", TEAM_API_ROUTES.direct.conversation(ownerId), { token: bobToken });
-    const bobWithAda = await call("GET", TEAM_API_ROUTES.direct.conversation(adaId), { token: bobToken });
-    const bobPage = await call("GET", TEAM_API_ROUTES.direct.conversationPage(ownerId), { token: bobToken });
-    check(
-      "a third member does not see the direct message in threads, conversations or pages",
-      [bobThreads, bobWithOwner, bobWithAda, bobPage].every(
-        (reply) => reply.status === 200 && !reply.text.includes(privateText),
-      ) && list(bobThreads.body).length === 0,
-      [bobThreads, bobWithOwner, bobWithAda, bobPage].map((reply) => reply.status),
-    );
-    const loggedBefore = logged.length;
-    const toSelf = await call("POST", TEAM_API_ROUTES.direct.messages, {
-      token: bobToken,
-      json: { memberId: bobId, text: "hello me", clientMessageId: "client-message-2" },
-    });
-    const toStranger = await call("POST", TEAM_API_ROUTES.direct.messages, {
-      token: bobToken,
-      json: { memberId: "not-a-member", text: "hello stranger", clientMessageId: "client-message-3" },
-    });
-    const withStranger = await call("GET", TEAM_API_ROUTES.direct.conversation("not-a-member"), { token: bobToken });
-    const threadsAfter = await call("GET", TEAM_API_ROUTES.direct.threads, { token: bobToken });
-    const unavailable = sourceText("error.team.directRecipientUnavailable");
-    check(
-      "a direct message to oneself gets 400; to someone not on the team, 404; nothing is stored",
-      errorIs(toSelf, 400, sourceText("error.team.directMessageSelf")) &&
-        errorIs(toStranger, 404, unavailable) &&
-        errorIs(withStranger, 404, unavailable) &&
-        threadsAfter.status === 200 &&
-        list(threadsAfter.body).length === 0,
-      {
-        toSelf: summary(toSelf),
-        toStranger: summary(toStranger),
-        withStranger: summary(withStranger),
-        threadsAfter: summary(threadsAfter),
-      },
-    );
-    check(
-      "the refused direct messages are client errors and write no error log line",
-      logged.slice(loggedBefore).every((line) => !line.includes("Team API request failed")),
-      { lines: logged.slice(loggedBefore) },
-    );
-  }
-
   // ---- Agents hidden from an older protocol ----
   {
     const notFound = sourceText("error.team.agentNotFound");
@@ -1258,12 +1029,36 @@ try {
     const hiddenBy = (protocol: number) =>
       AGENT_PROVIDERS.filter((provider) => isPeerHiddenProvider(provider, protocol));
     const expectedHidden: Record<number, readonly string[]> = {
-      1: ["opencode", "antigravity", "acp", "cursor", "cline", "pi", "muse", "inception", "deepseek", "openrouter"],
-      3: ["opencode", "antigravity", "acp", "cursor", "cline", "pi", "muse", "inception", "deepseek", "openrouter"],
-      4: ["antigravity", "acp", "cursor", "cline", "pi", "muse", "inception", "deepseek", "openrouter"],
-      5: ["cursor", "cline", "pi", "muse", "inception", "deepseek", "openrouter"],
-      6: ["pi", "muse", "inception", "deepseek", "openrouter"],
-      7: ["inception", "deepseek", "openrouter"],
+      1: [
+        "opencode",
+        "antigravity",
+        "acp",
+        "cursor",
+        "cline",
+        "pi",
+        "pi-bolt",
+        "muse",
+        "inception",
+        "deepseek",
+        "openrouter",
+      ],
+      3: [
+        "opencode",
+        "antigravity",
+        "acp",
+        "cursor",
+        "cline",
+        "pi",
+        "pi-bolt",
+        "muse",
+        "inception",
+        "deepseek",
+        "openrouter",
+      ],
+      4: ["antigravity", "acp", "cursor", "cline", "pi", "pi-bolt", "muse", "inception", "deepseek", "openrouter"],
+      5: ["cursor", "cline", "pi", "pi-bolt", "muse", "inception", "deepseek", "openrouter"],
+      6: ["pi", "pi-bolt", "muse", "inception", "deepseek", "openrouter"],
+      7: ["pi-bolt", "inception", "deepseek", "openrouter"],
       8: [],
       9: [],
     };
@@ -1313,16 +1108,6 @@ try {
       errorIs(unsupported, 400, sourceText("error.team.agentHideUnsupported")),
       summary(unsupported),
     );
-    const memberSet = await call("POST", AGENT_HIDDEN_ROUTES.set, {
-      token: bobToken,
-      json: { agentId: "agent-ada", hidden: true },
-    });
-    check(
-      "a member cannot hide an agent",
-      errorIs(memberSet, 403, sourceText("error.team.membersCannotHideAgents")) &&
-        callsOf("setAgentHidden").length === 0,
-      summary(memberSet),
-    );
     const adminSetHidden = await call("POST", AGENT_HIDDEN_ROUTES.set, {
       token: adaToken,
       json: { agentId: "agent-pi", hidden: false },
@@ -1343,14 +1128,6 @@ try {
         list(field(adminSet.body, "agents")).some((item) => field(item, "agentId") === "agent-ada") &&
         isDeepStrictEqual(callsOf("setAgentHidden").at(-1), [{ agentId: "agent-ada", hidden: true }]),
       summary(adminSet),
-    );
-
-    const memberDelete = await call("DELETE", TEAM_API_ROUTES.agent.one("agent-ada"), { token: bobToken });
-    check(
-      "a member cannot delete an agent",
-      errorIs(memberDelete, 403, sourceText("error.team.membersCannotDeleteAgents")) &&
-        callsOf("deleteAgent").length === 0,
-      summary(memberDelete),
     );
   }
 
@@ -1382,23 +1159,6 @@ try {
       "the backup-model routes without the capability get 400 agentSettingsUnsupported",
       errorIs(unsupported, 400, sourceText("error.team.agentSettingsUnsupported")),
       summary(unsupported),
-    );
-    const memberRead = await call("POST", AGENT_BACKUP_MODELS_ROUTES.settings, {
-      token: bobToken,
-      json: { agentId: "agent-ada" },
-      capabilities: backupCapabilities,
-    });
-    const memberSet = await call("POST", AGENT_BACKUP_MODELS_ROUTES.update, {
-      token: bobToken,
-      json: { agentId: "agent-ada", backupModels },
-      capabilities: backupCapabilities,
-    });
-    check(
-      "a member cannot read or set backup models",
-      errorIs(memberRead, 403, sourceText("error.team.adminRequired")) &&
-        errorIs(memberSet, 403, sourceText("error.team.adminRequired")) &&
-        callsOf("updateAgent").length === 0,
-      [summary(memberRead), summary(memberSet)],
     );
     const unknownProvider = await call("POST", AGENT_BACKUP_MODELS_ROUTES.update, {
       token: adaToken,
@@ -1496,23 +1256,6 @@ try {
       errorIs(unsupported, 400, sourceText("error.team.agentSettingsUnsupported")),
       summary(unsupported),
     );
-    const memberRead = await call("POST", AGENT_TASK_LIMIT_ROUTES.settings, {
-      token: bobToken,
-      json: { agentId: "agent-ada" },
-      capabilities: limitCapabilities,
-    });
-    const memberSet = await call("POST", AGENT_TASK_LIMIT_ROUTES.update, {
-      token: bobToken,
-      json: { agentId: "agent-ada", taskLimit: 3 },
-      capabilities: limitCapabilities,
-    });
-    check(
-      "a member cannot read or set the task limit",
-      errorIs(memberRead, 403, sourceText("error.team.adminRequired")) &&
-        errorIs(memberSet, 403, sourceText("error.team.adminRequired")) &&
-        callsOf("updateAgent").length === writes,
-      [summary(memberRead), summary(memberSet)],
-    );
     const tooHigh = await call("POST", AGENT_TASK_LIMIT_ROUTES.update, {
       token: adaToken,
       json: { agentId: "agent-ada", taskLimit: 5 },
@@ -1606,23 +1349,6 @@ try {
       summary(unsupported),
     );
     const writes = callsOf("setDefaultProvider").length;
-    const memberRead = await call("POST", PROVIDER_DEFAULT_ROUTES.settings, {
-      token: bobToken,
-      json: {},
-      capabilities,
-    });
-    const memberSet = await call("POST", PROVIDER_DEFAULT_ROUTES.update, {
-      token: bobToken,
-      json: { provider: "claude", model: null },
-      capabilities,
-    });
-    check(
-      "a member cannot read or set the default provider",
-      errorIs(memberRead, 403, sourceText("error.team.adminRequired")) &&
-        errorIs(memberSet, 403, sourceText("error.team.adminRequired")) &&
-        callsOf("setDefaultProvider").length === writes,
-      [summary(memberRead), summary(memberSet)],
-    );
     const unknownProvider = await call("POST", PROVIDER_DEFAULT_ROUTES.update, {
       token: adaToken,
       json: { provider: "not-a-provider", model: null },
@@ -1692,29 +1418,6 @@ try {
         errorIs(unsupportedTabs, 400, sourceText("error.team.agentSettingsUnsupported")),
       [summary(unsupported), summary(unsupportedTabs)],
     );
-    const memberList = await call("POST", BROWSER_PROFILES_ROUTES.list, {
-      token: bobToken,
-      json: {},
-      capabilities: profileCapabilities,
-    });
-    const memberCreate = await call("POST", BROWSER_PROFILES_ROUTES.create, {
-      token: bobToken,
-      json: { name: "Member profile" },
-      capabilities: profileCapabilities,
-    });
-    const memberAssign = await call("POST", BROWSER_PROFILES_ROUTES.updateAgent, {
-      token: bobToken,
-      json: { agentId: "agent-ada", profile: { kind: "agent" } },
-      capabilities: profileCapabilities,
-    });
-    check(
-      "a member cannot list, create or assign browser profiles",
-      errorIs(memberList, 403, sourceText("error.team.adminRequired")) &&
-        errorIs(memberCreate, 403, sourceText("error.team.adminRequired")) &&
-        errorIs(memberAssign, 403, sourceText("error.team.adminRequired")) &&
-        callsOf("updateAgentBrowserProfile").length === 0,
-      [summary(memberList), summary(memberCreate), summary(memberAssign)],
-    );
     const empty = await admin(BROWSER_PROFILES_ROUTES.list);
     check(
       "an admin lists no profile, and every agent in the shared profile",
@@ -1780,21 +1483,18 @@ try {
       { tabId: "tab-private", tabSession: { kind: "profile", profileId } },
     );
     const hue = field(created.body, "hue");
-    const memberTabs = await call("POST", BROWSER_PROFILES_ROUTES.tabs, {
-      token: bobToken,
-      json: {},
-      capabilities: profileCapabilities,
-    });
     const adminTabs = await admin(BROWSER_PROFILES_ROUTES.tabs);
     check(
-      "a member reads the profile label of the tabs they can see, and nothing of a private tab",
-      memberTabs.status === 200 &&
-        isDeepStrictEqual(memberTabs.body, { tabs: [{ tabId: "tab-open", name: "Client A", hue }] }) &&
+      "the owner reads the profile label of every tab, with the label of the profile",
+      adminTabs.status === 200 &&
+        list(field(adminTabs.body, "tabs")).every(
+          (tab) => field(tab, "name") === "Client A" && field(tab, "hue") === hue,
+        ) &&
         isDeepStrictEqual(
           list(field(adminTabs.body, "tabs")).map((tab) => field(tab, "tabId")),
           ["tab-open", "tab-private"],
         ),
-      [summary(memberTabs), summary(adminTabs)],
+      summary(adminTabs),
     );
     const renamed = await admin(BROWSER_PROFILES_ROUTES.update, { profileId, name: "Client B", hue: 150 });
     const badHue = await admin(BROWSER_PROFILES_ROUTES.update, { profileId, hue: 7 });
@@ -1913,15 +1613,10 @@ try {
       capabilities: [PROVIDERS_V5_CAPABILITY],
       json: { provider: "openrouter", key },
     });
-    const member = await call("POST", PROVIDERS_V8_ROUTES.apiKeySet, {
-      ...v8,
-      token: bobToken,
-      json: { provider: "openrouter", key },
-    });
     check(
-      "providers-v5 refuses a key-only provider's key, a member gets 403, and neither saves a key",
-      v5.status === 400 && member.status === 403 && callsOf("setProviderKey").length === 1,
-      [summary(v5), summary(member)],
+      "providers-v5 refuses a key-only provider's key and saves no key",
+      v5.status === 400 && callsOf("setProviderKey").length === 1,
+      summary(v5),
     );
     // No Pi process runs while Pi downloads, so a restart of the provider would fail on the missing CLI.
     const pending = await call("POST", PROVIDERS_V8_ROUTES.apiKeySet, { ...v8, json: { provider: "inception", key } });
@@ -1945,23 +1640,6 @@ try {
       "the usage reset routes without the capability get 400 providersUnsupported",
       errorIs(unsupported, 400, sourceText("error.team.providersUnsupported")),
       summary(unsupported),
-    );
-    const memberList = await call("POST", PROVIDER_USAGE_RESET_ROUTES.list, {
-      token: bobToken,
-      json: { provider: "codex" },
-      capabilities: resetCapabilities,
-    });
-    const memberReset = await call("POST", PROVIDER_USAGE_RESET_ROUTES.consume, {
-      token: bobToken,
-      json: { provider: "codex", accountId: "default" },
-      capabilities: resetCapabilities,
-    });
-    check(
-      "a member cannot read or spend usage reset credits",
-      errorIs(memberList, 403, sourceText("error.team.adminRequired")) &&
-        errorIs(memberReset, 403, sourceText("error.team.adminRequired")) &&
-        callsOf("resetProviderUsage").length === 0,
-      [summary(memberList), summary(memberReset)],
     );
     const adminList = await call("POST", PROVIDER_USAGE_RESET_ROUTES.list, {
       token: adaToken,
@@ -2010,19 +1688,6 @@ try {
       "the Bitwarden routes without the capability get 400 connectorsUnsupported",
       errorIs(unsupported, 400, sourceText("error.team.connectorsUnsupported")),
       summary(unsupported),
-    );
-    const memberConnect = await connectAs(bobToken, input);
-    const memberDisconnect = await call("POST", BITWARDEN_CONNECTOR_ROUTES.disconnect, {
-      token: bobToken,
-      json: {},
-      capabilities: bitwardenCapabilities,
-    });
-    check(
-      "a member cannot connect or disconnect the host's Bitwarden",
-      errorIs(memberConnect, 403, sourceText("error.team.adminRequired")) &&
-        errorIs(memberDisconnect, 403, sourceText("error.team.adminRequired")) &&
-        bitwardenCalls.length === 0,
-      [summary(memberConnect), summary(memberDisconnect)],
     );
     const plainHttp = await connectAs(adaToken, { ...input, serverUrl: "http://vault.example.com" });
     check(
@@ -2162,15 +1827,6 @@ try {
       errorIs(unsupported, 400, sourceText("error.team.vaultUnsupported")),
       summary(unsupported),
     );
-    const memberList = await vaultCall(bobToken, VAULT_ROUTES.list);
-    const memberSave = await vaultCall(bobToken, VAULT_ROUTES.save, login);
-    check(
-      "a member cannot list or change the host's Vault",
-      errorIs(memberList, 403, sourceText("error.team.adminRequired")) &&
-        errorIs(memberSave, 403, sourceText("error.team.adminRequired")) &&
-        vault.state().items.length === 0,
-      [summary(memberList), summary(memberSave)],
-    );
     const saved = await vaultCall(adaToken, VAULT_ROUTES.save, login);
     const items = field(saved.body, "items");
     const itemId = field(saved.body, "items", 0, "id");
@@ -2195,15 +1851,11 @@ try {
         !listed.text.includes(VAULT_PASSWORD),
       summary(listed),
     );
-    const memberReveal = await vaultCall(bobToken, VAULT_ROUTES.reveal, { id: itemId, field: "password" });
     const revealed = await vaultCall(adaToken, VAULT_ROUTES.reveal, { id: itemId, field: "password" });
     check(
-      "only an admin gets the saved password, and only from reveal",
-      errorIs(memberReveal, 403, sourceText("error.team.adminRequired")) &&
-        !memberReveal.text.includes(VAULT_PASSWORD) &&
-        revealed.status === 200 &&
-        isDeepStrictEqual(revealed.body, { value: VAULT_PASSWORD }),
-      [summary(memberReveal), { status: revealed.status }],
+      "the owner gets the saved password, and only from reveal",
+      revealed.status === 200 && isDeepStrictEqual(revealed.body, { value: VAULT_PASSWORD }),
+      { status: revealed.status },
     );
     const badCard = await vaultCall(adaToken, VAULT_ROUTES.save, {
       kind: "card",
@@ -2268,18 +1920,12 @@ try {
       json: answer,
       capabilities: [BROWSER_SECRET_VAULT_CAPABILITY],
     });
-    const member = await call("POST", BROWSER_SECRET_VAULT_ROUTES.respond, {
-      token: bobToken,
-      json: answer,
-      capabilities,
-    });
     check(
-      "a save without either capability gets 400, and a member gets 403; none reaches the agent",
+      "a save without either capability gets 400, and none reaches the agent",
       errorIs(unsupported, 400, sourceText("error.team.vaultUnsupported")) &&
         errorIs(noHandoff, 400, sourceText("error.team.secureAuthUnsupported")) &&
-        errorIs(member, 403, sourceText("error.team.adminRequired")) &&
         callsOf("respondToBrowserSecret").length === before,
-      [summary(unsupported), summary(noHandoff), summary(member)],
+      [summary(unsupported), summary(noHandoff)],
     );
     const saved = await call("POST", BROWSER_SECRET_VAULT_ROUTES.respond, {
       token: adaToken,
@@ -2310,13 +1956,10 @@ try {
       `http://old.example.com,ada,${csvPassword}`,
     ].join("\n");
     const unsupported = await importCall(adaToken, { csv }, [VAULT_CAPABILITY]);
-    const member = await importCall(bobToken, { csv });
     check(
-      "a CSV import needs vault-import-v1 and an owner or admin",
-      errorIs(unsupported, 400, sourceText("error.team.vaultUnsupported")) &&
-        errorIs(member, 403, sourceText("error.team.adminRequired")) &&
-        vault.state().items.length === 0,
-      [summary(unsupported), summary(member)],
+      "a CSV import needs vault-import-v1",
+      errorIs(unsupported, 400, sourceText("error.team.vaultUnsupported")) && vault.state().items.length === 0,
+      summary(unsupported),
     );
     const loggedBefore = logged.length;
     const imported = await importCall(adaToken, { csv });
@@ -2349,23 +1992,6 @@ try {
       "the routine result routes without the capability get 400 routineResultsUnsupported",
       errorIs(unsupported, 400, sourceText("error.team.routineResultsUnsupported")),
       summary(unsupported),
-    );
-    const memberOptions = await call("POST", ROUTINE_RESULTS_ROUTES.options, {
-      token: bobToken,
-      json: {},
-      capabilities: resultCapabilities,
-    });
-    const memberSet = await call("POST", ROUTINE_RESULTS_ROUTES.setDestination, {
-      token: bobToken,
-      json: { agentId: "agent-ada", routineId: "routine-ada", destination: chosen },
-      capabilities: resultCapabilities,
-    });
-    check(
-      "a member cannot read the places or set a destination",
-      errorIs(memberOptions, 403, sourceText("error.team.adminRequired")) &&
-        errorIs(memberSet, 403, sourceText("error.team.adminRequired")) &&
-        callsOf("setRoutineResultDestination").length === 0,
-      [summary(memberOptions), summary(memberSet)],
     );
     const options = await call("POST", ROUTINE_RESULTS_ROUTES.options, {
       token: adaToken,
@@ -2427,7 +2053,7 @@ try {
 
   // ---- Queue routes ----
   {
-    const bobSender = { id: bobId, name: "Bob" };
+    const bobSender = { id: bobId, name: "owner" };
     const queue = await call("GET", TEAM_API_ROUTES.agent.queue("agent-ada"), { token: bobToken });
     check(
       "the queue route returns the queue of the agent in the path",
@@ -2832,34 +2458,14 @@ try {
     );
   }
 
-  // ---- A direct message to a disabled member ----
-  // Last, because disabling Ada ends her sessions.
-  {
-    await Effect.runPromise(store.updateMember(adaId, { disabled: true }));
-    const loggedBefore = logged.length;
-    const toDisabled = await call("POST", TEAM_API_ROUTES.direct.messages, {
-      token: bobToken,
-      json: { memberId: adaId, text: "hello disabled", clientMessageId: "client-message-4" },
-    });
-    const threadsAfter = await call("GET", TEAM_API_ROUTES.direct.threads, { token: bobToken });
-    check(
-      "a direct message to a disabled member gets 404, is not stored and writes no error log line",
-      errorIs(toDisabled, 404, sourceText("error.team.directRecipientUnavailable")) &&
-        threadsAfter.status === 200 &&
-        list(threadsAfter.body).length === 0 &&
-        logged.slice(loggedBefore).every((line) => !line.includes("Team API request failed")),
-      { toDisabled: summary(toDisabled), threadsAfter: summary(threadsAfter) },
-    );
-  }
   check(
-    "no log line holds a session token, an invitation token or the fake secret",
+    "no log line holds a session token or the fake secret",
     logged.every(
       (line) =>
         !line.includes(FAKE_SECRET) &&
         !line.includes(owner.sessionToken) &&
         !line.includes(adaToken) &&
-        !line.includes(bobToken) &&
-        !line.includes(adminInvite.token),
+        !line.includes(bobToken),
     ),
     { lines: logged.length },
   );

@@ -44,12 +44,6 @@ export function mockWebRuntimeFor(mock: MockOpenOwnBotControls, events: WebRunti
     leaveHost: async () => {
       throw new Error("Leaving a host needs a connected account.");
     },
-    previewInvite: async () => {
-      throw new Error("No invitation in this fixture.");
-    },
-    acceptInvite: async () => {
-      throw new Error("Invitation acceptance needs a connected account.");
-    },
     connect: async () => {
       events.connection({ hostId: host.hostId, state: "online", message: null });
       return [

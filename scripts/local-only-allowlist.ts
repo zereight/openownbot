@@ -169,7 +169,6 @@ export const LOCAL_ONLY_ALLOWLIST: readonly AllowEntry[] = [
     "refused",
     "The default endpoint. The mobile failure-reports.ts is the only caller, and nothing configures it.",
   ),
-  mention("packages/ui/src/features/servers/JoinServerDialog.tsx", INVITE_PLACEHOLDER, "not-fetched"),
   mention(
     "src/backend/agent/hosted-site-coordinator.ts",
     /^ from openbot\.site\.$/u,

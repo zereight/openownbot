@@ -4,7 +4,6 @@ import type {
   AcpRegistryInstallInput,
   AcpRegistryOperation,
 } from "./ipc-acp-registry";
-import type { AgentAccessChange, AgentAccessSnapshot } from "./ipc-agent-access";
 import type {
   AgentSessionSettings,
   ResetAgentSessionSettingInput,
@@ -451,7 +450,6 @@ import type {
 } from "./ipc-storage";
 import type {
   ConfigureHostInput,
-  CreateTeamInviteInput,
   DirectConversationPage,
   DirectConversationReadState,
   DirectConversationSnapshot,
@@ -459,9 +457,6 @@ import type {
   DirectThreadSummary,
   DirectTypingInput,
   HostStatus,
-  InvitePreview,
-  InviteSummary,
-  JoinServerInput,
   LoginServerInput,
   MarkDirectReadInput,
   ReadDirectConversationPageInput,
@@ -478,12 +473,9 @@ import type {
   SetServerMutedInput,
   SetServerNotificationLevelInput,
   SetTeamTypingInput,
-  TeamInviteSummary,
-  TeamMemberSummary,
   TeamPresenceSnapshot,
   TeamSessionSummary,
   UpdateHostIdentityInput,
-  UpdateTeamMemberInput,
 } from "./ipc-team-host";
 import type { VaultImportResult, VaultSaveInput, VaultSecretRequest, VaultState } from "./ipc-vault";
 import type {
@@ -525,7 +517,6 @@ import type {
 import type { LicenseCheckoutRequest, LicenseRenewalRequest, LicenseState, LicenseUsersRequest } from "./license";
 import type { AccountSession, MobileConnectedDevice, MobileConnectLink, MobileConnectTicket } from "./mobile-connect";
 import type { ProviderEnvironmentInput, ProviderEnvironmentState } from "./provider-environment";
-import type { AgentSquad, SaveSquadInput } from "./squads";
 
 declare const payloadType: unique symbol;
 declare const resultType: unique symbol;
@@ -1102,9 +1093,6 @@ export const IPC_ENDPOINTS = {
     setPromptCacheTtl: scopedRequest<PromptCacheTtl, PromptCacheTtlSetting, "required">()(
       "host-admin:set-prompt-cache-ttl",
     ),
-    // The roles of the server and the level each gives for each agent. A member reads only `mine`.
-    getAgentAccess: scopedQuery<AgentAccessSnapshot, "required">()("host-admin:get-agent-access"),
-    setAgentAccess: scopedRequest<AgentAccessChange, AgentAccessSnapshot, "required">()("host-admin:set-agent-access"),
   },
   // The built-in GitHub connection of this computer. The token stays in main; every answer is the
   // status only. The `host*` endpoints reach the connection of a joined server (`connectors-v1`): the
@@ -1234,11 +1222,6 @@ export const IPC_ENDPOINTS = {
   },
   // Link-only agent templates. `takePendingLink` and `openLink` carry an id from an
   // `openownbot://agents/<id>` link; there is no endpoint that installs from a link without the dialog.
-  squads: {
-    list: request<undefined, AgentSquad[]>()("squads:list"),
-    save: request<SaveSquadInput, AgentSquad>()("squads:save"),
-    remove: request<string, void>()("squads:remove"),
-  },
   agentTeams: {
     export: request<ExportAgentTeamInput, ExportAgentTeamResult | null>()("agent-teams:export"),
     choose: request<undefined, ChosenAgentTeam | null>()("agent-teams:choose"),
@@ -1562,21 +1545,12 @@ export const IPC_ENDPOINTS = {
     reorder: request<ReorderServersInput, ServerSummary[]>()("servers:reorder"),
     setMuted: request<SetServerMutedInput, ServerSummary[]>()("servers:set-muted"),
     setNotificationLevel: request<SetServerNotificationLevelInput, ServerSummary[]>()("servers:set-notification-level"),
-    join: request<JoinServerInput, ServerSummary>()("servers:join"),
-    previewInvite: request<JoinServerInput, InvitePreview>()("servers:preview-invite"),
-    takePendingInvite: request<undefined, string | null>()("servers:take-pending-invite"),
     login: request<LoginServerInput, ServerSummary>()("servers:login"),
     retryConnection: request<string, ServerSummary>()("servers:retry-connection"),
     remove: request<string, void>()("servers:remove"),
     getPresence: request<undefined, TeamPresenceSnapshot>()("servers:get-presence"),
     getPresenceFor: request<string, TeamPresenceSnapshot>()("servers:get-presence-for"),
     refreshIdentity: request<string, ServerSummary>()("servers:refresh-identity"),
-    listMembers: request<string, TeamMemberSummary[]>()("servers:list-members"),
-    updateMember: scopedRequest<UpdateTeamMemberInput, TeamMemberSummary, "required">()("servers:update-member"),
-    removeMember: scopedRequest<string, void, "required">()("servers:remove-member"),
-    listInvites: request<string, TeamInviteSummary[]>()("servers:list-invites"),
-    revokeInvite: scopedRequest<string, void, "required">()("servers:revoke-invite"),
-    createInvite: scopedRequest<CreateTeamInviteInput, InviteSummary, "required">()("servers:create-invite"),
     setTyping: request<SetTeamTypingInput, void>()("servers:set-typing"),
     scopedPresence: event<ScopedTeamPresenceSnapshot>()("servers:presence"),
     listDirectThreads: request<undefined, DirectThreadSummary[]>()("servers:list-direct-threads"),
@@ -1590,7 +1564,6 @@ export const IPC_ENDPOINTS = {
     scopedDirectMessage: event<ScopedDirectMessageEvent>()("servers:direct-message"),
     scopedDirectTyping: event<ScopedDirectTypingEvent>()("servers:direct-typing"),
     event: event<ServerSummary[]>()("servers:event"),
-    invite: event<string>()("servers:invite"),
   },
   // Access and auto-approve of one agent, read and written on the computer that runs it. A joined
   // server answers only an owner or admin, and only when it advertises `agent-admin-v1`.
@@ -1752,12 +1725,6 @@ export const IPC_ENDPOINTS = {
      * the host owner who just gave the grant would keep reading that they had not.
      */
     recheckScreenRecording: request<undefined, HostStatus>()("host:recheck-screen-recording"),
-    listMembers: request<undefined, TeamMemberSummary[]>()("host:list-members"),
-    createInvite: request<CreateTeamInviteInput, InviteSummary>()("host:create-invite"),
-    listInvites: request<undefined, TeamInviteSummary[]>()("host:list-invites"),
-    revokeInvite: request<string, void>()("host:revoke-invite"),
-    updateMember: request<UpdateTeamMemberInput, TeamMemberSummary>()("host:update-member"),
-    removeMember: request<string, void>()("host:remove-member"),
     listSessions: request<undefined, TeamSessionSummary[]>()("host:list-sessions"),
     revokeSession: request<string, void>()("host:revoke-session"),
     event: event<HostStatus>()("host:event"),
@@ -1829,7 +1796,6 @@ export const IPC_GROUP_PATHS = {
   hostedServers: "hostedServers",
   marketplaceAgents: "marketplaceAgents",
   agentTeams: "agentTeams",
-  squads: "squads",
   agentTemplates: "agentTemplates",
   auth: "auth",
   update: "update",

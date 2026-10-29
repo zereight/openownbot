@@ -133,12 +133,6 @@ export const messages = {
   "error.backend.mailboxStateCorrupt":
     "Lo stato della casella è danneggiato o proviene da una versione più recente di OpenOwnBot; non viene sovrascritto.",
   "error.backend.recipientDeleting": "Il destinatario è in fase di eliminazione. Riprova al termine dell'eliminazione.",
-  "error.backend.squadLeaves":
-    "Sei nel team {squad} e solo il suo responsabile scrive agli agenti esterni. Chiedi al responsabile di {squad} di inoltrare, oppure chiedi all’utente.",
-  "error.backend.squadEnters":
-    "{agent} è nel team {squad}. Contattalo tramite il responsabile di {squad}, oppure chiedi all’utente.",
-  "error.backend.squadSkipsRank":
-    "{agent} è sopra il livello che puoi raggiungere nel team {squad}. Un messaggio sale solo al livello immediatamente superiore al tuo. Chiedi a quel livello di inoltrarlo o chiedi all'utente.",
   "error.backend.recipientHidden": "Questo agente è nascosto. Ripristinalo per inviare messaggi.",
   "error.backend.attachBetween": "Allega da 1 a {limit} file.",
   "error.backend.attachmentNotFile": "L'allegato non è un file: {path}",

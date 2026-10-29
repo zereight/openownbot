@@ -137,8 +137,4 @@ export const messages = {
   "sidebar.storage.dismiss": "Nascondi finché lo spazio non è esaurito",
   "sidebar.new.importTeam": "Importa team",
   "sidebar.section.exportTeam": "Esporta come file del team",
-  "sidebar.new.manageTeams": "Gestisci team",
-  "sidebar.view.byTeam": "Mostra per team",
-  "sidebar.view.bySection": "Mostra per sezione",
-  "sidebar.team.none": "Senza team",
 } as const satisfies PartialTranslation<typeof source>;

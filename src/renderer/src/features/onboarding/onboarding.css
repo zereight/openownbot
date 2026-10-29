@@ -452,29 +452,23 @@
 /* The OpenCode note sits outside the list, so the list lets it through and its first and last rows
    round their own corners instead of relying on the clip. The first run and the setup dialog both
    show the note; without the row as its containing block, it points at a different row. */
-:is(.onboarding-provider, .setup-local-content) .provider-picker-list {
+.onboarding-provider .provider-picker-list {
   overflow: visible;
 }
 
-:is(.onboarding-provider, .setup-local-content) .provider-picker-list > :first-child,
-:is(.onboarding-provider, .setup-local-content)
-  .provider-picker-list
-  > :first-child
-  > .provider-picker-option:first-child {
+.onboarding-provider .provider-picker-list > :first-child,
+.onboarding-provider .provider-picker-list > :first-child > .provider-picker-option:first-child {
   border-top-left-radius: calc(var(--openownbot-radius-md) - 1px);
   border-top-right-radius: calc(var(--openownbot-radius-md) - 1px);
 }
 
-:is(.onboarding-provider, .setup-local-content) .provider-picker-list > :last-child,
-:is(.onboarding-provider, .setup-local-content)
-  .provider-picker-list
-  > :last-child
-  > .provider-picker-option:last-child {
+.onboarding-provider .provider-picker-list > :last-child,
+.onboarding-provider .provider-picker-list > :last-child > .provider-picker-option:last-child {
   border-bottom-left-radius: calc(var(--openownbot-radius-md) - 1px);
   border-bottom-right-radius: calc(var(--openownbot-radius-md) - 1px);
 }
 
-:is(.onboarding-provider, .setup-local-content) .provider-picker-option-with-callout {
+.onboarding-provider .provider-picker-option-with-callout {
   position: relative;
 }
 
@@ -548,7 +542,7 @@
 
 /* The setup dialog is 620px wide, and a note needs 160px on each side of it. */
 @media (max-width: 960px) {
-  .setup-local-content .provider-picker-callout {
+  .onboarding-provider .provider-picker-callout {
     display: none;
   }
 }

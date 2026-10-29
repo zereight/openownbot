@@ -34,7 +34,6 @@ import { resolveClaudeCli } from "../src/backend/cli";
 import { runCauseEffect } from "../src/backend/effect-boundary";
 import { isMissingFileError } from "../src/backend/file-errors";
 import { MailboxStore } from "../src/backend/mailbox-store";
-import { TeamChatStore } from "../src/backend/team-chat-store";
 import { developmentUserDataName, readDevelopmentInstanceId } from "../src/main/development-profile";
 import { ProviderRuntimeManager, providerRuntimeRoot } from "../src/main/provider-runtime-manager";
 import { writeSetupState } from "../src/main/setup-store";
@@ -396,7 +395,7 @@ async function buildSeedProfile(
       now: clock.now.getTime(),
       transferDirectories,
     });
-    await seedTeam(profilePath, agentStore, clock);
+    await seedTeam(profilePath);
     // No model beside the provider, and the built-in provider: a seeded profile records no choice
     // of the developer's, which is what lets the app apply its own development default to an agent
     // created later. `AgentService` decides that one against the live catalog; this script cannot.
@@ -1578,7 +1577,7 @@ function mentionAgent(agents: Map<string, AgentSummary>, agentId: string): strin
   return serializeChatTagReference("agent", requireAgent(agents, agentId).name, agentId);
 }
 
-async function seedTeam(profilePath: string, agentStore: AgentStore, clock: SeedClock): Promise<void> {
+async function seedTeam(profilePath: string): Promise<void> {
   const team = new TeamStore(join(profilePath, TEAM_FILE), join(profilePath, LEGACY_TEAM_FILE));
   await runCauseEffect(team.initialize());
   const owner = {
@@ -1588,44 +1587,8 @@ async function seedTeam(profilePath: string, agentStore: AgentStore, clock: Seed
     avatarUrl: null,
   };
   const teamIdentity = await runCauseEffect(team.configureWithAccount("OpenOwnBot Dev Team", owner));
-  const joined = [];
-  for (const member of [
-    { id: "openownbot-dev-alice", email: "alice@example.com", name: "Alice Chen", role: "admin" as const },
-  ]) {
-    const invite = await runCauseEffect(team.createInvite(member.role, member.email));
-    joined.push(
-      await runCauseEffect(
-        team.acceptInviteWithAccount(invite.token, {
-          id: member.id,
-          email: member.email,
-          name: member.name,
-          avatarUrl: null,
-        }),
-      ),
-    );
-  }
-  await runCauseEffect(team.createInvite("member", "new-person@example.com"));
-  const ownerSession = await runCauseEffect(team.loginWithAccount(owner));
+  await runCauseEffect(team.loginWithAccount(owner));
   await runCauseEffect(team.setEnabledOnLaunch(teamIdentity.serverId, true));
-
-  // The owner and Alice leave the third seat of the default limit to the dev test client.
-  const [alice] = joined;
-  if (!alice) throw new Error("The development team members could not be created.");
-  const chat = new TeamChatStore(agentStore.database);
-  chat.sendMessage({
-    clientMessageId: "dev-seed-dm-owner-alice-1",
-    senderMemberId: ownerSession.member.id,
-    recipientMemberId: alice.member.id,
-    text: "I added the launch notes. Can you review the last section?",
-    createdAt: clock.at(3 * HOUR),
-  });
-  chat.sendMessage({
-    clientMessageId: "dev-seed-dm-alice-owner-1",
-    senderMemberId: alice.member.id,
-    recipientMemberId: ownerSession.member.id,
-    text: "The notes look good. I left one comment on the rollout section.",
-    createdAt: clock.at(2 * HOUR + 40 * MINUTE),
-  });
 }
 
 async function replaceDevelopmentProfile(target: string, staging: string, homeDirectory: string): Promise<void> {

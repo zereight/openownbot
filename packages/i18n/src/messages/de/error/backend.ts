@@ -139,12 +139,6 @@ export const messages = {
     "Der Postfachzustand ist beschädigt oder stammt aus einer neueren OpenOwnBot-Version. Er wird nicht überschrieben.",
   "error.backend.recipientDeleting":
     "Der Empfänger wird gelöscht. Versuche es nach Abschluss des Löschvorgangs erneut.",
-  "error.backend.squadLeaves":
-    "Du bist im Team {squad}, und nur sein Lead schreibt an Agenten außerhalb. Bitte den Lead von {squad}, es weiterzugeben, oder frag den Nutzer.",
-  "error.backend.squadEnters":
-    "{agent} ist im Team {squad}. Erreiche den Agenten über den Lead von {squad} oder frag den Nutzer.",
-  "error.backend.squadSkipsRank":
-    "{agent} steht im Team {squad} über dem Rang, den du erreichen darfst. Eine Nachricht geht nur an den Rang direkt über deinem. Bitte diesen Rang, sie weiterzugeben, oder frage den Nutzer.",
   "error.backend.recipientHidden": "Dieser Agent ist ausgeblendet. Stelle ihn wieder her, um Nachrichten zu senden.",
   "error.backend.attachBetween": "Hänge zwischen 1 und {limit} Dateien an.",
   "error.backend.attachmentNotFile": "Der Anhang ist keine Datei: {path}",

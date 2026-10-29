@@ -1,5 +1,4 @@
 import { join, resolve } from "node:path";
-import { parseInviteUrl, selfHostedApiOrigin } from "@openownbot/contracts/invite-links";
 import {
   type AgentEvent,
   type AppLogoColor,
@@ -92,7 +91,6 @@ import { routineIpcHandlers } from "./ipc/routine-handlers";
 import { routineResultIpcHandlers } from "./ipc/routine-result-handlers";
 import { sharedTableIpcHandlers } from "./ipc/shared-table-handlers";
 import { skillIpcHandlers } from "./ipc/skill-handlers";
-import { squadIpcHandlers } from "./ipc/squad-handlers";
 import { storageIpcHandlers } from "./ipc/storage-handlers";
 import { teamIpcHandlers } from "./ipc/team-handlers";
 import { updateIpcHandlers } from "./ipc/update-handlers";
@@ -207,10 +205,6 @@ const hostedServer = takeHostedServerEnvironment(process.env, app.isPackaged, pr
 const hostingDeveloperKey = takeHostingDeveloperKey(process.env, app.isPackaged);
 const serverMode = takeServerModeEnvironment(process.env, app.isPackaged, process.platform);
 if (serverMode || hostedServer) hideExceptionErrorBox();
-const inviteLinkOptions = {
-  allowLocalDevelopmentApiUrl: developmentRemoteRole !== null,
-  selfHostedApiOrigin: selfHostedApiOrigin(process.env.OPENOWNBOT_AUTH_API_URL),
-};
 const developmentRemoteDebuggingPort = !app.isPackaged
   ? readDevelopmentRemoteDebuggingPort(process.env.OPENOWNBOT_DEV_REMOTE_DEBUGGING_PORT)
   : null;
@@ -371,7 +365,7 @@ type RendererDeepLink = Exclude<DeepLink, { kind: "mcp-auth" | "slack-workspace"
 // One link at a time, of whichever kind: a second replaces the first, because what a user opened
 // last is what they meant. `deepLinkReceiverReady` says a window has asked for it, which is what
 // tells a link that arrives now to be sent rather than held.
-let pendingDeepLink: RendererDeepLink | null = takeRendererDeepLink(findDeepLink(process.argv, inviteLinkOptions));
+let pendingDeepLink: RendererDeepLink | null = takeRendererDeepLink(findDeepLink(process.argv));
 let deepLinkReceiverReady = false;
 
 const MAIN_WINDOW_STATE_FILE = "openbot-main-window-state-v1.json";
@@ -600,8 +594,6 @@ function registerIpcHandlers({
   busyMessageMode,
   agentDefaults,
   agentMemoryLimit,
-  agentAccess,
-  teamStore,
   serverTimezone,
   promptCacheTtl,
   claudeEnvironment,
@@ -637,7 +629,6 @@ function registerIpcHandlers({
   marketplaceAgents,
   agentTemplates,
   agentTeams,
-  squads,
   agentImport,
   hermesImport,
   instanceTransfer,
@@ -742,7 +733,6 @@ function registerIpcHandlers({
       agentTemplates,
       takePendingLink: () => takePendingDeepLink("agent-template"),
     }),
-    ...squadIpcHandlers({ squads, agentIds: () => new Set(service.listAgents().map((agent) => agent.id)) }),
     ...agentTeamIpcHandlers({ agentTeams, getMainWindow: getDialogParent, translate: language.translate }),
     ...agentImportIpcHandlers({
       agentImport,
@@ -771,7 +761,6 @@ function registerIpcHandlers({
       host,
       remoteDesktop,
       remoteServers,
-      takePendingInvite: () => takePendingDeepLink("invite"),
     }),
     ...pluginIpcHandlers({
       takePendingPluginSlug: () => takePendingDeepLink("plugin"),
@@ -799,9 +788,6 @@ function registerIpcHandlers({
       serverTimezone,
       agentMemoryLimit,
       promptCacheTtl,
-      agentAccess,
-      localServerId: () => teamStore.getIdentity()?.serverId,
-      localAgentIds: () => service.listAgents().map((agent) => agent.id),
     }),
     ...providerAdminIpcHandlers({
       service,
@@ -987,11 +973,9 @@ function acceptDeepLink(link: DeepLink): void {
   if (!window || window.isDestroyed() || !deepLinkReceiverReady) return;
   showMainWindow(window);
   const delivered =
-    link.kind === "invite"
-      ? sendToRenderer(window, IPC_ENDPOINTS.servers.invite, link.url)
-      : link.kind === "plugin"
-        ? sendToRenderer(window, IPC_ENDPOINTS.plugins.openListing, link.slug)
-        : sendToRenderer(window, IPC_ENDPOINTS.agentTemplates.openLink, link.id);
+    link.kind === "plugin"
+      ? sendToRenderer(window, IPC_ENDPOINTS.plugins.openListing, link.slug)
+      : sendToRenderer(window, IPC_ENDPOINTS.agentTemplates.openLink, link.id);
   if (delivered) pendingDeepLink = null;
 }
 
@@ -1004,7 +988,7 @@ function takePendingDeepLink(kind: RendererDeepLink["kind"]): string | null {
   const link = pendingDeepLink;
   if (link?.kind !== kind) return null;
   pendingDeepLink = null;
-  return link.kind === "invite" ? link.url : link.kind === "plugin" ? link.slug : link.id;
+  return link.kind === "plugin" ? link.slug : link.id;
 }
 
 /** A link of a kind a renderer can be sent, or null for one it cannot - which includes no link. */
@@ -1063,21 +1047,10 @@ function receiveMcpAuthorizationCode(state: string, code: string): void {
 }
 
 app.on("open-url", (event, url) => {
-  const link = parseDeepLink(url, inviteLinkOptions);
+  const link = parseDeepLink(url);
   if (!link) return;
   event.preventDefault();
   acceptDeepLink(link);
-});
-
-app.on("continue-activity", (event, type, _userInfo, details) => {
-  if (type !== "NSUserActivityTypeBrowsingWeb" || !details.webpageURL) return;
-  try {
-    parseInviteUrl(details.webpageURL, inviteLinkOptions);
-  } catch {
-    return;
-  }
-  event.preventDefault();
-  acceptDeepLink({ kind: "invite", url: details.webpageURL });
 });
 
 if (!hasSingleInstanceLock) {
@@ -1085,7 +1058,7 @@ if (!hasSingleInstanceLock) {
   process.exit(0);
 } else {
   app.on("second-instance", (_event, argv) => {
-    const deepLink = findDeepLink(argv, inviteLinkOptions);
+    const deepLink = findDeepLink(argv);
     if (deepLink) acceptDeepLink(deepLink);
     const window = windowHolder.current;
     const hasMainWindow = Boolean(window && !window.isDestroyed());
@@ -1101,7 +1074,7 @@ if (!hasSingleInstanceLock) {
     else if (response === "relaunch" && !relaunchRequested) {
       relaunchRequested = true;
       // The new instance takes this launch's link, not the one this process may have started with.
-      const isLink = (value: string) => parseDeepLink(value, inviteLinkOptions) !== null;
+      const isLink = (value: string) => parseDeepLink(value) !== null;
       const link = argv.find(isLink);
       const args = process.argv.slice(1).filter((value) => !isLink(value));
       app.relaunch({ args: link ? [...args, link] : args });
@@ -1154,7 +1127,6 @@ if (!hasSingleInstanceLock) {
         appIconPath,
         appVariant,
         developmentRemoteRole,
-        developmentTestClientEnabled,
         hostedServer,
         serverMode,
         hostingDeveloperKey,

@@ -131,12 +131,6 @@ export const messages = {
   "error.backend.mailboxStateCorrupt":
     "Stan skrzynki jest uszkodzony lub pochodzi z nowszej wersji OpenOwnBot; odmowa nadpisania.",
   "error.backend.recipientDeleting": "Odbiorca jest usuwany. Spróbuj ponownie po zakończeniu usuwania.",
-  "error.backend.squadLeaves":
-    "Jesteś w zespole {squad}, a do agentów spoza niego pisze tylko jego lider. Poproś lidera zespołu {squad} o przekazanie albo zapytaj użytkownika.",
-  "error.backend.squadEnters":
-    "{agent} jest w zespole {squad}. Skontaktuj się przez lidera zespołu {squad} albo zapytaj użytkownika.",
-  "error.backend.squadSkipsRank":
-    "{agent} jest w zespole {squad} powyżej rangi, do której możesz pisać. Wiadomość idzie w górę tylko do rangi bezpośrednio nad twoją. Poproś tę rangę o przekazanie albo zapytaj użytkownika.",
   "error.backend.recipientHidden": "Ten agent jest ukryty. Przywróć go, aby wysyłać wiadomości.",
   "error.backend.attachBetween": "Załącz od 1 do {limit} plików.",
   "error.backend.attachmentNotFile": "Załącznik nie jest plikiem: {path}",
