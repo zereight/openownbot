@@ -89,7 +89,6 @@ function RailPreview(props: {
               onOpenWhatsNew={fn()}
               onOpenChangelog={fn()}
               onOpenGuides={fn()}
-              onOpenDiscord={fn()}
               onSendFeedback={fn()}
             />
           }

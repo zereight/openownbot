@@ -66,7 +66,6 @@ export const messages = {
   "app.help.whatsNew": "新功能",
   "app.help.changelog": "完整更新日志",
   "app.help.guides": "指南",
-  "app.help.discord": "加入 Discord",
   "app.rail.usageRings": "{name} 用量：{windows}。打开用量",
   "app.rail.customAgentUsage": "{name} 用量。打开用量",
   "app.settingsPage.title": "设置",

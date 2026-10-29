@@ -66,9 +66,6 @@ function dynamicDial(path: string, note: string): AllowEntry {
 }
 
 const SITE = /^https:\/\/openbot\.run$/u;
-const CHANGELOG = /^https:\/\/openbot\.run\/changelog$/u;
-const GUIDES = /^https:\/\/openbot\.run\/guides$/u;
-const DISCORD = /^https:\/\/discord\.openbot\.run$/u;
 const INVITE_PLACEHOLDER = /^https:\/\/openbot\.run\/join\?…$/u;
 const HOSTNAME_SUFFIX = /^\.openbot\.site$/u;
 const PODSPEC_HOMEPAGE = /^s\.homepage\s+= 'https:\/\/openbot\.run'$/u;
@@ -205,9 +202,6 @@ export const LOCAL_ONLY_ALLOWLIST: readonly AllowEntry[] = [
     "electron-net",
     "Calls `net.isOnline()` only, which sends nothing. A `net.fetch` or `net.request` here needs a new review.",
   ),
-  mention("src/main/ipc/app-handlers.ts", CHANGELOG, "user-opened"),
-  mention("src/main/ipc/app-handlers.ts", GUIDES, "user-opened"),
-  mention("src/main/ipc/app-handlers.ts", DISCORD, "user-opened"),
   bypass(
     "src/main/local-only-guard.ts",
     "on-before-request",
@@ -241,8 +235,4 @@ export const LOCAL_ONLY_ALLOWLIST: readonly AllowEntry[] = [
     "The `shareUrl` of a catalog entry, which the user copies.",
   ),
   dynamicDial("src/renderer/src/features/team/team-webrtc.ts", RENDERER_SIGNAL_SOCKET),
-  mention("src/renderer/src/features/updates/WhatsNewOverlay.tsx", CHANGELOG, "user-opened"),
-  mention("src/renderer/src/features/web-client/web-provider-admin.ts", CHANGELOG, "user-opened"),
-  mention("src/renderer/src/features/web-client/web-provider-admin.ts", GUIDES, "user-opened"),
-  mention("src/renderer/src/features/web-client/web-provider-admin.ts", DISCORD, "user-opened"),
 ];

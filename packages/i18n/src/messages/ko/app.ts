@@ -63,7 +63,6 @@ export const messages = {
   "app.help.whatsNew": "새로운 기능",
   "app.help.changelog": "전체 변경 내역",
   "app.help.guides": "가이드",
-  "app.help.discord": "Discord 참여",
   "app.rail.usageRings": "{name} 사용량: {windows}. 사용량 열기",
   "app.settingsPage.title": "설정",
   "app.settingsPage.search": "설정 검색",

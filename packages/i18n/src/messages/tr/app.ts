@@ -64,7 +64,6 @@ export const messages = {
   "app.help.whatsNew": "Yenilikler",
   "app.help.changelog": "Tüm değişiklik günlüğü",
   "app.help.guides": "Kılavuzlar",
-  "app.help.discord": "Discord'a katıl",
   "app.rail.usageRings": "{name} kullanımı: {windows}. Kullanımı aç",
   "app.rail.customAgentUsage": "{name} kullanımı. Kullanımı aç",
   "app.settingsPage.title": "Ayarlar",
