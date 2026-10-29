@@ -18,7 +18,6 @@ export const messages = {
   "settings.interfaceSize.description": "OpenOwnBot'taki metin ve denetimlerin boyutu.",
   "settings.logoColor.title": "Logo rengi",
   "settings.logoColor.description": "Dock'ta, görev çubuğunda ve Dynamic Island'da gösterilir.",
-  "settings.logoColor.buildNote": "Bu derleme kendi logo rengini korur. Seçim, yayımlanan uygulamaya uygulanır.",
   "settings.logoColor.lavender": "Lavanta",
   "settings.logoColor.green": "Yeşil",
   "settings.logoColor.gold": "Altın",

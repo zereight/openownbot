@@ -18,12 +18,12 @@
 
 .app-logo[data-variant="dev"] {
   --app-logo-background: var(--openownbot-logo-dev);
-  --app-logo-eye: var(--openownbot-logo-eye);
+  --app-logo-eye: var(--openownbot-logo-production-eye);
 }
 
 .app-logo[data-variant="preview"] {
   --app-logo-background: var(--openownbot-logo-preview);
-  --app-logo-eye: var(--openownbot-logo-eye);
+  --app-logo-eye: var(--openownbot-logo-production-eye);
 }
 
 .app-logo-background {
