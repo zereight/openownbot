@@ -71,6 +71,37 @@ cannot follow a display connected after startup. Keeping cursor ownership in Ope
 highlight controller add, resize, and remove display overlays without restarting the daemon or
 changing provider sessions.
 
+### Fast path
+
+`computer_use_fast` is an OpenOwnBot tool for one small step in one window. A provider still owns the
+agent loop, so the fast path is a first try inside one tool call and never a second agent. The tool
+opens its own short-lived lease on the daemon (`cua-driver-tool-client.ts`, the only client that
+writes, separate from the rim's read-only one), and `computer-use-fast.ts` runs at most six steps:
+snapshot the window, send one request to the chosen decision model, check the answer, act.
+
+One request holds the operation head and the target heads, as the public Jev Ultrafast loop does, so
+a click costs one round trip. `computer-use-decision.ts` builds the request and checks the answer.
+It acts only when the operation and its target each reach 0.75 and are the most likely option.
+`DONE` is a claim that the agent checks: a driver click reports `effect: "unverifiable"`, and some
+applications keep their display out of the accessibility tree.
+
+Everything else returns `fallback` with the current elements: no model chosen, a model that is
+unsure or says `BLOCKED`, a slow or failed request (3 s), a refused action, the step limit, or a
+driver that is not ready. The agent then continues with the driver tools. A decision model alone
+solved about a third of the tasks of a public benchmark, and the same model with a fallback to a
+visual agent solved nearly all of them, so the fallback is the design and not an error path.
+
+Settings keeps the choice of model (`DecisionModelStore`, also used for channel routing) and a
+separate switch, off by default, because this path sends control names to a service. A server on this
+computer accepts only a loopback address. Secure fields and fields whose label names a secret are
+sent with no value and are never typed into. The router asks the user for each call, asks in a
+channel even with Full access, and refuses in a conversation that a Slack, Discord or Telegram link
+shares.
+
+`bun scripts/computer-use-fast-e2e.ts` drives the real daemon and Calculator with a local oracle in
+place of the model. It checks the loop and the fallbacks and writes
+`.openownbot-build/computer-use-fast-e2e.json`. It does not measure how well a model chooses.
+
 ### Agent display on a server
 
 A self-hosted server and the container start two Xvfb displays, and name the agent display in

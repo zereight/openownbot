@@ -533,6 +533,20 @@ export const messages = defineMessages("settings", {
   "settings.decisionModel.backend.jev": "Jev (TypeSafe)",
   "settings.decisionModel.backend.openrouter": "Jev via OpenRouter",
   "settings.decisionModel.backend.cloudflare": "Clef (Cloudflare Workers AI)",
+  "settings.decisionModel.computerUse.title": "Try this model first in Computer Use",
+  "settings.decisionModel.computerUse.description":
+    "For simple steps, the model presses, types and scrolls first. It reads the names of the controls in one window and sends them to the service above. When it is unsure or fails, the agent's own model continues. Off by default.",
+  "settings.decisionModel.backend.local": "Local server (experimental)",
+  "settings.decisionModel.key.local": "Access key (optional)",
+  "settings.decisionModel.key.localOptional": "No key is saved. A local server usually needs none.",
+  "settings.decisionModel.localUrl.title": "Local server address",
+  "settings.decisionModel.localUrl.description":
+    "A decision server that runs on this computer. Install and start one in a terminal, then paste its address here. Only addresses on this computer are accepted, and the default is http://127.0.0.1:8000. A free model is often unsure, and then the lead's model decides.",
+  "settings.decisionModel.localUrl.install": 'pip install "laya[serve]"',
+  "settings.decisionModel.localUrl.start": "LAYA_HOST=127.0.0.1 LAYA_MODELS=english laya-serve",
+  "settings.decisionModel.localModel.title": "Local model name",
+  "settings.decisionModel.localModel.description":
+    "The model the server is asked for. Laya names are english, multilingual and typed-decisions.",
   "settings.decisionModel.key.jev": "TypeSafe API key",
   "settings.decisionModel.key.openrouter": "OpenRouter API key",
   "settings.decisionModel.key.cloudflare": "Cloudflare API token",

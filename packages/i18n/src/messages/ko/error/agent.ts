@@ -118,6 +118,12 @@ export const messages = {
   "error.agent.screenCaptureUnavailable": "이 컴퓨터에서는 화면 캡처를 사용할 수 없어요.",
   "error.agent.screenCaptureShared":
     "Slack, Discord, Telegram 대화에서는 다른 사람도 파일을 받으므로 화면 캡처를 사용할 수 없어요.",
+  "error.agent.fastComputerUseOff":
+    "이 에이전트는 빠른 경로를 쓸 수 없어요. 사용자가 에이전트 설정에서 컴퓨터 제어를 켤 수 있어요.",
+  "error.agent.fastComputerUseShared":
+    "Slack, Discord, Telegram 대화에서는 빠른 경로를 쓸 수 없어요. 컨트롤 이름이 이 컴퓨터 밖으로 나가기 때문이에요. 컴퓨터 제어 드라이버 도구를 사용해 주세요.",
+  "error.agent.fastComputerUseDeclined":
+    "사용자가 빠른 경로를 허용하지 않았어요. 아무것도 누르지 않았어요. 컴퓨터 제어 드라이버 도구를 사용해 주세요.",
   "error.agent.screenCaptureDeclined": "사용자가 이 화면 캡처를 허용하지 않았어요. 캡처된 내용은 없어요.",
   "error.agent.mcpServerDeclined": "사용자가 이 MCP 서버 변경을 허용하지 않았어요. 변경된 내용은 없어요.",
   "error.agent.mcpServerNotSaved": "MCP 서버가 응답하지 않아 저장하지 않았어요. {error}",

@@ -186,6 +186,7 @@ import {
   ExternalLinkOpener,
   type ExternalLinkPreferenceStore,
 } from "./external-link-opener";
+import { createFastComputerUseHost } from "./fast-computer-use-host";
 import { githubAppConfig } from "./github-connector-config";
 import { GitHubConnectorService } from "./github-connector-service";
 import { GitHubConnectorStore } from "./github-connector-store";
@@ -1648,6 +1649,12 @@ export async function createApplicationServices({
           primaryDisplayId: () => screen.getPrimaryDisplay().id,
           getSources: (options) => desktopCapturer.getSources(options),
         }),
+    fastComputerUse: createFastComputerUseHost({
+      backend: () => decisionModel.resolveForComputerUse(),
+      // The same condition as the entry that agents are handed: no tools while a grant is missing.
+      socketPath: () => (cuaDriver.mcpServerForProviders() ? cuaDriver.socketPath() : null),
+      fetch: (url, init) => fetch(url, init),
+    }),
     hostMemory,
     requestTimeoutMs: 30_000,
     offProviders: providerUse.off(),

@@ -108,6 +108,8 @@ export const messages = {
   "error.provider.localOnly": "제공자는 에이전트를 실행하는 컴퓨터에서만 변경할 수 있어요.",
   "error.provider.keyRequired": "제공자 키가 필요해요.",
   "error.provider.keyTooLong": "제공자 키가 너무 길어요.",
+  "error.provider.decisionLocalUrlInvalid":
+    "로컬 서버 주소는 http://127.0.0.1:8000 형태여야 해요. 이 컴퓨터의 주소만 쓸 수 있어요.",
   "error.provider.keyInvalidCharacters": "제공자 키에 공백이나 키에 쓸 수 없는 문자가 있어요.",
   "error.provider.noModel": "선택한 제공자에 사용할 수 있는 모델이 없어요.",
   "error.provider.noModelNamed": "{provider}에 사용할 수 있는 모델이 없어요.",

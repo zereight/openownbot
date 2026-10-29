@@ -3,6 +3,7 @@ import {
   DECISION_MODEL_KEY_NAMES,
   type DecisionModelKeyName,
   isDecisionModelSettings,
+  localDecisionOrigin,
   type SaveDecisionModelInput,
 } from "@openownbot/contracts/ipc";
 import { isDynamicRecord } from "@openownbot/contracts/runtime-values";
@@ -10,10 +11,25 @@ import { sourceText } from "@openownbot/i18n/source";
 
 /** The one place the decision model settings and keys from the renderer enter main. */
 export function parseSaveDecisionModel(input: unknown): SaveDecisionModelInput {
+  if (
+    isDynamicRecord(input) &&
+    typeof input.localUrl === "string" &&
+    input.localUrl.trim() !== "" &&
+    localDecisionOrigin(input.localUrl) === null
+  )
+    throw new Error(sourceText("error.provider.decisionLocalUrlInvalid"));
   if (!isDynamicRecord(input) || !isDecisionModelSettings(input))
     throw new Error("The decision model settings are not valid.");
-  const { backend, openrouterModel, cloudflareAccountId, cloudflareModel } = input;
-  const settings = { backend, openrouterModel, cloudflareAccountId, cloudflareModel };
+  const { backend, openrouterModel, cloudflareAccountId, cloudflareModel, localUrl, localModel, computerUse } = input;
+  const settings = {
+    backend,
+    openrouterModel,
+    cloudflareAccountId,
+    cloudflareModel,
+    localUrl,
+    localModel,
+    computerUse,
+  };
   if (input.keys === undefined) return settings;
   if (!isDynamicRecord(input.keys)) throw new Error("The decision model keys are not valid.");
   const keys: Partial<Record<DecisionModelKeyName, string | null>> = {};

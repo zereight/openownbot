@@ -9,7 +9,9 @@ import { isDynamicRecord } from "@openownbot/contracts/runtime-values";
 export type DecisionBackend =
   | { kind: "jev"; apiKey: string }
   | { kind: "openrouter"; apiKey: string; model: string }
-  | { kind: "cloudflare"; accountId: string; apiToken: string; model: "clef" | "clef-flash" };
+  | { kind: "cloudflare"; accountId: string; apiToken: string; model: "clef" | "clef-flash" }
+  /** A server on this computer that speaks the same request shape, such as `laya-serve`. The key is optional. */
+  | { kind: "local"; baseUrl: string; apiKey: string | null; model: string };
 
 export interface DecisionMember {
   id: string;
@@ -100,27 +102,46 @@ function body(model: string, input: DecisionInput): DecisionBody {
   };
 }
 
-export function decisionRequest(backend: DecisionBackend, input: DecisionInput): DecisionRequest {
+/** Where a backend is asked, and with which credentials. The model name is the one the service knows. */
+export function decisionEndpoint(backend: DecisionBackend): {
+  url: string;
+  headers: Record<string, string>;
+  model: string;
+} {
   switch (backend.kind) {
     case "jev":
       return {
         url: "https://api.typesafe.ai/v1/systemone",
         headers: { Authorization: `Bearer ${backend.apiKey}`, "Content-Type": "application/json" },
-        body: body("jev-latest", input),
+        model: "jev-latest",
       };
     case "openrouter":
       return {
         url: "https://openrouter.ai/api/alpha/decisions",
         headers: { Authorization: `Bearer ${backend.apiKey}`, "Content-Type": "application/json" },
-        body: body(backend.model, input),
+        model: backend.model,
       };
     case "cloudflare":
       return {
         url: `https://api.cloudflare.com/client/v4/accounts/${encodeURIComponent(backend.accountId)}/ai/run/@cf/cloudflare/${backend.model}`,
         headers: { Authorization: `Bearer ${backend.apiToken}`, "Content-Type": "application/json" },
-        body: body(backend.model, input),
+        model: backend.model,
+      };
+    case "local":
+      return {
+        url: `${backend.baseUrl}/v1/systemone`,
+        headers: {
+          ...(backend.apiKey ? { Authorization: `Bearer ${backend.apiKey}` } : {}),
+          "Content-Type": "application/json",
+        },
+        model: backend.model,
       };
   }
+}
+
+export function decisionRequest(backend: DecisionBackend, input: DecisionInput): DecisionRequest {
+  const { url, headers, model } = decisionEndpoint(backend);
+  return { url, headers, body: body(model, input) };
 }
 
 /**

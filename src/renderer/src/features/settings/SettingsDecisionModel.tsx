@@ -2,6 +2,8 @@ import {
   CLOUDFLARE_DECISION_MODELS,
   type CloudflareDecisionModel,
   DECISION_MODEL_BACKENDS,
+  DEFAULT_LOCAL_DECISION_MODEL,
+  DEFAULT_LOCAL_DECISION_URL,
   type DecisionModelBackend,
   type DecisionModelKeyName,
   type DecisionModelState,
@@ -24,6 +26,7 @@ import {
   SelectTrigger,
   SelectValue,
   SettingsSection,
+  SwitchField,
 } from "@openownbot/ui";
 import { currentText, useText } from "@openownbot/ui/text";
 import type { JSX } from "@solidjs/web";
@@ -36,12 +39,14 @@ const BACKEND_LABEL: Record<DecisionModelBackend, AppTextKey> = {
   jev: "settings.decisionModel.backend.jev",
   openrouter: "settings.decisionModel.backend.openrouter",
   cloudflare: "settings.decisionModel.backend.cloudflare",
+  local: "settings.decisionModel.backend.local",
 };
 
 const KEY_LABEL: Record<DecisionModelKeyName, AppTextKey> = {
   jev: "settings.decisionModel.key.jev",
   openrouter: "settings.decisionModel.key.openrouter",
   cloudflare: "settings.decisionModel.key.cloudflare",
+  local: "settings.decisionModel.key.local",
 };
 
 interface DraftState {
@@ -50,6 +55,9 @@ interface DraftState {
   openrouterModel: string;
   cloudflareAccountId: string;
   cloudflareModel: CloudflareDecisionModel;
+  localUrl: string;
+  localModel: string;
+  computerUse: boolean;
   key: string;
   saving: boolean;
   testing: boolean;
@@ -72,6 +80,9 @@ export function SettingsDecisionModel(props: { selectMount?: HTMLElement | undef
     openrouterModel: "",
     cloudflareAccountId: "",
     cloudflareModel: "clef-flash",
+    localUrl: DEFAULT_LOCAL_DECISION_URL,
+    localModel: DEFAULT_LOCAL_DECISION_MODEL,
+    computerUse: false,
     key: "",
     saving: false,
     testing: false,
@@ -85,6 +96,9 @@ export function SettingsDecisionModel(props: { selectMount?: HTMLElement | undef
       value.openrouterModel = state.openrouterModel;
       value.cloudflareAccountId = state.cloudflareAccountId;
       value.cloudflareModel = state.cloudflareModel;
+      value.localUrl = state.localUrl;
+      value.localModel = state.localModel;
+      value.computerUse = state.computerUse;
       value.key = "";
     });
   }
@@ -116,6 +130,9 @@ export function SettingsDecisionModel(props: { selectMount?: HTMLElement | undef
           openrouterModel: draft.openrouterModel.trim(),
           cloudflareAccountId: draft.cloudflareAccountId.trim(),
           cloudflareModel: draft.cloudflareModel,
+          localUrl: draft.localUrl.trim(),
+          localModel: draft.localModel.trim(),
+          computerUse: draft.computerUse,
           ...(keys ? { keys } : {}),
         }),
       );
@@ -231,6 +248,53 @@ export function SettingsDecisionModel(props: { selectMount?: HTMLElement | undef
           </Item>
         </Show>
 
+        <Show when={draft.backend === "local"}>
+          <Item class="settings-modal-row">
+            <ItemContent>
+              <ItemTitle>{t("settings.decisionModel.localUrl.title")}</ItemTitle>
+              <ItemDescription>{t("settings.decisionModel.localUrl.description")}</ItemDescription>
+              <ItemDescription>
+                <code>{t("settings.decisionModel.localUrl.install")}</code>
+              </ItemDescription>
+              <ItemDescription>
+                <code>{t("settings.decisionModel.localUrl.start")}</code>
+              </ItemDescription>
+              <div class="settings-voice-key">
+                <Input
+                  size="sm"
+                  autocomplete="off"
+                  spellcheck={false}
+                  aria-label={t("settings.decisionModel.localUrl.title")}
+                  placeholder={DEFAULT_LOCAL_DECISION_URL}
+                  value={draft.localUrl}
+                  onValueChange={(value) =>
+                    setDraft((state) => {
+                      state.localUrl = value;
+                    })
+                  }
+                />
+              </div>
+              <ItemTitle>{t("settings.decisionModel.localModel.title")}</ItemTitle>
+              <ItemDescription>{t("settings.decisionModel.localModel.description")}</ItemDescription>
+              <div class="settings-voice-key">
+                <Input
+                  size="sm"
+                  autocomplete="off"
+                  spellcheck={false}
+                  aria-label={t("settings.decisionModel.localModel.title")}
+                  placeholder={DEFAULT_LOCAL_DECISION_MODEL}
+                  value={draft.localModel}
+                  onValueChange={(value) =>
+                    setDraft((state) => {
+                      state.localModel = value;
+                    })
+                  }
+                />
+              </div>
+            </ItemContent>
+          </Item>
+        </Show>
+
         <Show when={draft.backend === "cloudflare"}>
           <Item class="settings-modal-row">
             <ItemContent>
@@ -280,7 +344,13 @@ export function SettingsDecisionModel(props: { selectMount?: HTMLElement | undef
               <ItemContent>
                 <ItemTitle>{t(KEY_LABEL[name()])}</ItemTitle>
                 <ItemDescription aria-live="polite">
-                  {keySaved() ? t("settings.decisionModel.key.saved") : t("settings.decisionModel.key.missing")}
+                  {keySaved()
+                    ? t("settings.decisionModel.key.saved")
+                    : t(
+                        name() === "local"
+                          ? "settings.decisionModel.key.localOptional"
+                          : "settings.decisionModel.key.missing",
+                      )}
                 </ItemDescription>
                 <div class="settings-voice-key">
                   <Input
@@ -318,6 +388,21 @@ export function SettingsDecisionModel(props: { selectMount?: HTMLElement | undef
               </ItemActions>
             </Item>
           )}
+        </Show>
+
+        <Show when={draft.backend !== "off"}>
+          <SwitchField
+            data-settings-row="settings.decisionModel.computerUse.title"
+            checked={draft.computerUse}
+            disabled={draft.saving}
+            onChange={(checked) =>
+              setDraft((state) => {
+                state.computerUse = checked;
+              })
+            }
+            label={t("settings.decisionModel.computerUse.title")}
+            description={t("settings.decisionModel.computerUse.description")}
+          />
         </Show>
 
         <Item class="settings-modal-row">

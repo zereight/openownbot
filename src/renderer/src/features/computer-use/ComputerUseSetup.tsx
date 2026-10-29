@@ -66,6 +66,9 @@ export function ComputerUseSetup(props: ComputerUseSetupProps) {
   const [loading, setLoading] = createSignal(false);
   const [busyPermission, setBusyPermission] = createSignal<MacPermissionId | null>(null);
   const [error, setError] = createSignal<string | null>(null);
+  // Counts the retries that still found Computer Use unavailable. The first alert already says
+  // what is wrong, so the guide appears only once a retry did not help.
+  const [failedRetries, setFailedRetries] = createSignal(0);
   let disposed = false;
 
   const permissions = () => state()?.permissions ?? [];
@@ -105,6 +108,14 @@ export function ComputerUseSetup(props: ComputerUseSetupProps) {
     if (showPermissions()) void loadState();
   };
   window.addEventListener("focus", recheckOnReturn);
+
+  // Only a retry the user asked for counts toward the guide, so the first check and the focus
+  // re-check never show it.
+  async function retry(): Promise<void> {
+    if (loading()) return;
+    await loadState();
+    if (!disposed && (unavailable() || error() !== null)) setFailedRetries((count) => count + 1);
+  }
 
   onSettled(() => void loadState());
   onCleanup(() => {
@@ -180,9 +191,12 @@ export function ComputerUseSetup(props: ComputerUseSetupProps) {
             <AlertDescription>
               {errorMessage(state()?.message ?? error(), t("computerUse.error.startDriver"))}
             </AlertDescription>
+            <Show when={failedRetries() > 0}>
+              <AlertDescription>{t("computerUse.unavailable.guide")}</AlertDescription>
+            </Show>
           </AlertContent>
           <AlertActions>
-            <Button type="button" variant="outline" size="sm" loading={loading()} onClick={() => void loadState()}>
+            <Button type="button" variant="outline" size="sm" loading={loading()} onClick={() => void retry()}>
               <RefreshCw aria-hidden="true" />
               {t("common.tryAgain")}
             </Button>

@@ -14,6 +14,8 @@ export const messages = {
   "computerUse.checkAgain": "Tekrar kontrol et",
   "computerUse.checking": "Bilgisayar Kullanımı denetleniyor",
   "computerUse.unavailable.title": "Bilgisayar Kullanımı henüz mevcut değil",
+  "computerUse.unavailable.guide":
+    "Hâlâ çalışmıyor mu? OpenOwnBot’u tamamen kapatıp yeniden açın. İleti sürerse en son OpenOwnBot sürümünü yeniden kurun ve burada tekrar kontrol edin.",
   "computerUse.permissions.title": "Sistem izinleri",
   "computerUse.permissions.description": "İzinler macOS tarafından yönetilir.",
   "computerUse.ready.title": "Bilgisayar Kullanımı hazır",

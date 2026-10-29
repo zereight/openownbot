@@ -4,7 +4,7 @@ import { isDynamicRecord, isOneOf } from "./runtime-values";
  * The fast decision model that picks the member for a channel request that names none. `off` leaves it to
  * the lead's own model, which is also what every other choice does when the model fails or is unsure.
  */
-export const DECISION_MODEL_BACKENDS = ["off", "jev", "openrouter", "cloudflare"] as const;
+export const DECISION_MODEL_BACKENDS = ["off", "jev", "openrouter", "cloudflare", "local"] as const;
 export type DecisionModelBackend = (typeof DECISION_MODEL_BACKENDS)[number];
 
 export const CLOUDFLARE_DECISION_MODELS = ["clef-flash", "clef"] as const;
@@ -12,6 +12,9 @@ export type CloudflareDecisionModel = (typeof CLOUDFLARE_DECISION_MODELS)[number
 
 export const DEFAULT_OPENROUTER_DECISION_MODEL = "typesafe/jev-1.14";
 export const DECISION_MODEL_FIELD_LIMIT = 200;
+/** What `laya-serve` listens on when it is started with no port. */
+export const DEFAULT_LOCAL_DECISION_URL = "http://127.0.0.1:8000";
+export const DEFAULT_LOCAL_DECISION_MODEL = "english";
 export const DECISION_MODEL_KEY_LIMIT = 500;
 export const CLOUDFLARE_ACCOUNT_ID_PATTERN = /^[a-f0-9]{32}$/;
 
@@ -21,6 +24,15 @@ export interface DecisionModelSettings {
   /** The 32 hexadecimal characters of a Cloudflare account, or empty. It is no secret. */
   cloudflareAccountId: string;
   cloudflareModel: CloudflareDecisionModel;
+  /** Where a decision server on this computer listens. Empty until set; only a loopback address is valid. */
+  localUrl: string;
+  /** The model name that the local server is asked for. */
+  localModel: string;
+  /**
+   * Whether Computer Use may try this model first. Off by default: the fast path sends the names of
+   * the controls in a window to the service, which a user must choose.
+   */
+  computerUse: boolean;
 }
 
 export const DEFAULT_DECISION_MODEL_SETTINGS: DecisionModelSettings = {
@@ -28,9 +40,12 @@ export const DEFAULT_DECISION_MODEL_SETTINGS: DecisionModelSettings = {
   openrouterModel: DEFAULT_OPENROUTER_DECISION_MODEL,
   cloudflareAccountId: "",
   cloudflareModel: "clef-flash",
+  localUrl: DEFAULT_LOCAL_DECISION_URL,
+  localModel: DEFAULT_LOCAL_DECISION_MODEL,
+  computerUse: false,
 };
 
-export const DECISION_MODEL_KEY_NAMES = ["jev", "openrouter", "cloudflare"] as const;
+export const DECISION_MODEL_KEY_NAMES = ["jev", "openrouter", "cloudflare", "local"] as const;
 export type DecisionModelKeyName = (typeof DECISION_MODEL_KEY_NAMES)[number];
 
 /** What the renderer reads: the settings, and for each key only whether one is saved. */
@@ -52,6 +67,26 @@ export interface DecisionModelTestResult {
   milliseconds: number;
 }
 
+/**
+ * The origin of a decision server that runs on this computer, or null.
+ *
+ * Only http on a loopback name is accepted, and no credentials or path. The screen of this computer
+ * is what a Computer Use step sends, so a "local" address that points at another machine would
+ * quietly move it there: a server on the network is a deliberate choice that this setting does not make.
+ */
+export function localDecisionOrigin(value: string): string | null {
+  let url: URL;
+  try {
+    url = new URL(value.trim());
+  } catch {
+    return null;
+  }
+  const loopback = url.hostname === "127.0.0.1" || url.hostname === "localhost" || url.hostname === "[::1]";
+  if (url.protocol !== "http:" || !loopback || url.username || url.password) return null;
+  if (url.pathname !== "/" || url.search || url.hash) return null;
+  return url.origin;
+}
+
 export function isDecisionModelBackend(value: unknown): value is DecisionModelBackend {
   return isOneOf(DECISION_MODEL_BACKENDS, value);
 }
@@ -68,7 +103,13 @@ export function isDecisionModelSettings(value: unknown): value is DecisionModelS
     value.openrouterModel.length <= DECISION_MODEL_FIELD_LIMIT &&
     typeof value.cloudflareAccountId === "string" &&
     (value.cloudflareAccountId === "" || CLOUDFLARE_ACCOUNT_ID_PATTERN.test(value.cloudflareAccountId)) &&
-    isCloudflareDecisionModel(value.cloudflareModel)
+    isCloudflareDecisionModel(value.cloudflareModel) &&
+    typeof value.localUrl === "string" &&
+    value.localUrl.length <= DECISION_MODEL_FIELD_LIMIT &&
+    (value.localUrl === "" || localDecisionOrigin(value.localUrl) !== null) &&
+    typeof value.localModel === "string" &&
+    value.localModel.length <= DECISION_MODEL_FIELD_LIMIT &&
+    typeof value.computerUse === "boolean"
   );
 }
 

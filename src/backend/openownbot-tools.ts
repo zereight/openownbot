@@ -11,6 +11,7 @@ import { z } from "zod";
 import { advertisedJsonSchema } from "./agent/advertised-json-schema";
 import { interruptAgentToolSchema } from "./agent/agent-interrupt-tool";
 import { DATA_TOOL_DEFINITIONS } from "./agent/data-tools";
+import { fastComputerUseToolShape } from "./agent/fast-computer-use";
 import { HISTORY_TOOL_DEFINITIONS } from "./agent/history-tools";
 import { MCP_SERVER_TOOL_DEFINITIONS } from "./agent/mcp-tools";
 import { MEMORY_RECALL_TOOL_DEFINITIONS } from "./agent/memory-tool-inputs";
@@ -353,6 +354,12 @@ export const OPENOWNBOT_TOOL_DEFINITIONS: readonly OpenOwnBotToolDefinition[] = 
     description:
       "Capture one display, one window, or a region of one display of this computer, and get the image. The user approves each capture first, and sees the image in this conversation. In a channel, each member who reads the channel sees it. Call list_capture_sources first to get ids and bounds. A region uses desktop points.",
     shape: captureScreenToolShape,
+  },
+  {
+    name: "computer_use_fast",
+    description:
+      "Try one small step in a window of this computer with a fast decision model before you use the Computer Use driver tools: it reads the controls of the window, then presses, types or scrolls by itself, up to six times. The result is `done` or `fallback`. `done` only means the model thinks the step is finished: read `elements` and check the window yourself. `fallback` means the model was unsure, was not set up or failed: carry on with the driver tools, starting from `elements`. The user approves each call. It does not work in a Slack, Discord or Telegram conversation.",
+    shape: fastComputerUseToolShape,
   },
   {
     name: "list_sections",

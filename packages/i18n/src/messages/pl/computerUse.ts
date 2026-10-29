@@ -14,6 +14,8 @@ export const messages = {
   "computerUse.checkAgain": "Sprawdź ponownie",
   "computerUse.checking": "Sprawdzanie Sterowania komputerem",
   "computerUse.unavailable.title": "Sterowanie komputerem nie jest jeszcze dostępne",
+  "computerUse.unavailable.guide":
+    "Nadal nie działa? Zamknij OpenOwnBot całkowicie i uruchom go ponownie. Jeśli komunikat nie znika, zainstaluj ponownie najnowszą wersję OpenOwnBot i sprawdź tutaj jeszcze raz.",
   "computerUse.permissions.title": "Uprawnienia systemowe",
   "computerUse.permissions.description": "Uprawnieniami zarządza macOS.",
   "computerUse.ready.title": "Sterowanie komputerem jest gotowe",

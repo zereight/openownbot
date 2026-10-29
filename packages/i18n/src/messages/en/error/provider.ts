@@ -109,6 +109,8 @@ export const messages = defineMessages("error.provider", {
   "error.provider.localOnly": "Providers can only be changed on the computer that runs the agents.",
   "error.provider.keyRequired": "A provider key is required.",
   "error.provider.keyTooLong": "The provider key is too long.",
+  "error.provider.decisionLocalUrlInvalid":
+    "The local server address must look like http://127.0.0.1:8000. Only an address on this computer works.",
   "error.provider.keyInvalidCharacters": "The provider key contains a space or a character that a key cannot contain.",
   "error.provider.noModel": "The selected provider has no available model.",
   "error.provider.noModelNamed": "{provider} has no model available.",

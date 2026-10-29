@@ -14,6 +14,8 @@ export const messages = defineMessages("computerUse", {
   "computerUse.checkAgain": "Check again",
   "computerUse.checking": "Checking Computer Use",
   "computerUse.unavailable.title": "Computer Use isn’t available yet",
+  "computerUse.unavailable.guide":
+    "Still not working? Quit OpenOwnBot completely and open it again. If this message stays, reinstall the latest OpenOwnBot, then check again here.",
   "computerUse.permissions.title": "System permissions",
   "computerUse.permissions.description": "Permissions are managed by macOS.",
   "computerUse.ready.title": "Computer Use is ready",

@@ -504,6 +504,20 @@ export const messages = {
   "settings.decisionModel.backend.jev": "Jev (TypeSafe)",
   "settings.decisionModel.backend.openrouter": "OpenRouter의 Jev",
   "settings.decisionModel.backend.cloudflare": "Clef (Cloudflare Workers AI)",
+  "settings.decisionModel.computerUse.title": "컴퓨터 제어에서 이 모델을 먼저 사용",
+  "settings.decisionModel.computerUse.description":
+    "단순한 단계는 이 모델이 먼저 클릭, 입력, 스크롤을 해요. 창 하나에 있는 컨트롤 이름을 읽어서 위에서 고른 서비스로 보내요. 모델이 확신하지 못하거나 실패하면 에이전트의 모델이 이어서 진행해요. 기본값은 꺼짐이에요.",
+  "settings.decisionModel.backend.local": "로컬 서버 (실험적)",
+  "settings.decisionModel.key.local": "접근 키 (선택)",
+  "settings.decisionModel.key.localOptional": "저장된 키가 없어요. 로컬 서버는 보통 키가 필요하지 않아요.",
+  "settings.decisionModel.localUrl.title": "로컬 서버 주소",
+  "settings.decisionModel.localUrl.description":
+    "이 컴퓨터에서 실행되는 결정 서버예요. 터미널에서 아래 명령으로 설치하고 실행한 뒤, 서버 주소를 여기에 입력해 주세요. 이 컴퓨터의 주소만 쓸 수 있고, 기본 주소는 http://127.0.0.1:8000이에요. 무료 모델은 확신하지 못하는 경우가 많고, 그때는 리드의 모델이 정해요.",
+  "settings.decisionModel.localUrl.install": 'pip install "laya[serve]"',
+  "settings.decisionModel.localUrl.start": "LAYA_HOST=127.0.0.1 LAYA_MODELS=english laya-serve",
+  "settings.decisionModel.localModel.title": "로컬 모델 이름",
+  "settings.decisionModel.localModel.description":
+    "서버에 요청할 모델이에요. Laya는 english, multilingual, typed-decisions를 쓸 수 있어요.",
   "settings.decisionModel.key.jev": "TypeSafe API 키",
   "settings.decisionModel.key.openrouter": "OpenRouter API 키",
   "settings.decisionModel.key.cloudflare": "Cloudflare API 토큰",

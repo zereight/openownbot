@@ -414,8 +414,18 @@ const VOICE_MODEL_PHASES: readonly VoiceModelStatus["phase"][] = ["missing", "do
 
 export function decodeDecisionModelState(value: unknown): DecisionModelState {
   if (!isDecisionModelState(value)) throw new Error("Invalid decision model state.");
-  const { backend, openrouterModel, cloudflareAccountId, cloudflareModel, keys } = value;
-  return { backend, openrouterModel, cloudflareAccountId, cloudflareModel, keys };
+  const { backend, openrouterModel, cloudflareAccountId, cloudflareModel, localUrl, localModel, computerUse, keys } =
+    value;
+  return {
+    backend,
+    openrouterModel,
+    cloudflareAccountId,
+    cloudflareModel,
+    localUrl,
+    localModel,
+    computerUse,
+    keys,
+  };
 }
 
 export function decodeDecisionModelTestResult(value: unknown): DecisionModelTestResult {

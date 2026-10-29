@@ -412,7 +412,7 @@ export function createMockOpenOwnBot(options: MockOpenOwnBotOptions = {}): MockO
   let agentMemoryLimit: AgentMemoryLimitPreference = { limit: DEFAULT_AGENT_MEMORY_LIMIT };
   let decisionModelState: DecisionModelState = {
     ...DEFAULT_DECISION_MODEL_SETTINGS,
-    keys: { jev: false, openrouter: false, cloudflare: false },
+    keys: { jev: false, openrouter: false, cloudflare: false, local: false },
   };
   let promptCacheTtl: PromptCacheTtlSetting = { ...DEFAULT_PROMPT_CACHE_TTL };
   let claudeEnvironment: ProviderEnvironmentEntry[] = [];
