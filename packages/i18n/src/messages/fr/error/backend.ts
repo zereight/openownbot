@@ -138,6 +138,12 @@ export const messages = {
     "L’état de la messagerie est corrompu ou provient d’une version plus récente d’OpenOwnBot ; il ne sera pas écrasé.",
   "error.backend.recipientDeleting":
     "Le destinataire est en cours de suppression. Réessayez une fois la suppression terminée.",
+  "error.backend.squadLeaves":
+    "Vous êtes dans l’équipe {squad}, et seul son responsable écrit aux agents extérieurs. Demandez au responsable de {squad} de transmettre, ou demandez à l’utilisateur.",
+  "error.backend.squadEnters":
+    "{agent} est dans l’équipe {squad}. Passez par le responsable de {squad}, ou demandez à l’utilisateur.",
+  "error.backend.squadSkipsRank":
+    "{agent} est au-dessus du rang que tu peux joindre dans l'équipe {squad}. Un message monte seulement au rang directement supérieur au tien. Demande à ce rang de le transmettre, ou demande à l'utilisateur.",
   "error.backend.recipientHidden": "Cet agent est masqué. Restaurez-le pour envoyer des messages.",
   "error.backend.attachBetween": "Joignez entre 1 et {limit} fichiers.",
   "error.backend.attachmentNotFile": "La pièce jointe n’est pas un fichier : {path}",
@@ -356,10 +362,4 @@ export const messages = {
     "Cet agent a {count} tâches ouvertes. Fermez une tâche, puis lancez-en ou ouvrez-en une autre.",
   "error.backend.taskRemoteUnsupported": "Les tâches sont disponibles uniquement pour les agents de cet ordinateur.",
   "error.backend.taskStartFailed": "OpenOwnBot n’a pas pu lancer la tâche. Faites plutôt le travail dans ce tour.",
-  "error.backend.squadLeaves":
-    "Vous êtes dans l’équipe {squad}, et seul son responsable écrit aux agents extérieurs. Demandez au responsable de {squad} de transmettre, ou demandez à l’utilisateur.",
-  "error.backend.squadEnters":
-    "{agent} est dans l’équipe {squad}. Passez par le responsable de {squad}, ou demandez à l’utilisateur.",
-  "error.backend.squadSkipsRank":
-    "{agent} est au-dessus du rang que tu peux joindre dans l'équipe {squad}. Un message monte seulement au rang directement supérieur au tien. Demande à ce rang de le transmettre, ou demande à l'utilisateur.",
 } as const satisfies PartialTranslation<typeof source>;

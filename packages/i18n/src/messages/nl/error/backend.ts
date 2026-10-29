@@ -134,6 +134,12 @@ export const messages = {
   "error.backend.mailboxStateCorrupt":
     "De status van de postbus is beschadigd of komt van een nieuwere versie van OpenOwnBot; OpenOwnBot overschrijft deze niet.",
   "error.backend.recipientDeleting": "De ontvanger wordt verwijderd. Probeer het opnieuw als dit klaar is.",
+  "error.backend.squadLeaves":
+    "Je zit in het team {squad}, en alleen de lead schrijft naar agenten daarbuiten. Vraag de lead van {squad} het door te geven, of vraag het de gebruiker.",
+  "error.backend.squadEnters":
+    "{agent} zit in het team {squad}. Bereik die via de lead van {squad}, of vraag het de gebruiker.",
+  "error.backend.squadSkipsRank":
+    "{agent} staat in het team {squad} boven de rang die je mag bereiken. Een bericht gaat alleen naar de rang direct boven de jouwe. Vraag die rang het door te geven, of vraag het de gebruiker.",
   "error.backend.recipientHidden": "Deze agent is verborgen. Herstel de agent om berichten te sturen.",
   "error.backend.attachBetween": "Voeg tussen 1 en {limit} bestanden toe.",
   "error.backend.attachmentNotFile": "Bijlage is geen bestand: {path}",
@@ -351,10 +357,4 @@ export const messages = {
     "Deze agent heeft {count} open taken. Sluit een taak en start of open dan een andere.",
   "error.backend.taskRemoteUnsupported": "Taken zijn alleen beschikbaar voor agents op deze computer.",
   "error.backend.taskStartFailed": "OpenOwnBot kon de taak niet starten. Doe het werk in plaats daarvan in deze beurt.",
-  "error.backend.squadLeaves":
-    "Je zit in het team {squad}, en alleen de lead schrijft naar agenten daarbuiten. Vraag de lead van {squad} het door te geven, of vraag het de gebruiker.",
-  "error.backend.squadEnters":
-    "{agent} zit in het team {squad}. Bereik die via de lead van {squad}, of vraag het de gebruiker.",
-  "error.backend.squadSkipsRank":
-    "{agent} staat in het team {squad} boven de rang die je mag bereiken. Een bericht gaat alleen naar de rang direct boven de jouwe. Vraag die rang het door te geven, of vraag het de gebruiker.",
 } as const satisfies PartialTranslation<typeof source>;

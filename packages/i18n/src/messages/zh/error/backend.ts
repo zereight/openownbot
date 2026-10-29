@@ -119,6 +119,11 @@ export const messages = {
   "error.backend.managedAttachmentChanged": "受管理的附件缺失或已变更：{name}",
   "error.backend.mailboxStateCorrupt": "信箱状态已损坏或来自更新版本的 OpenOwnBot，拒绝覆盖它。",
   "error.backend.recipientDeleting": "该收件人正在删除中，请等删除完成后再试。",
+  "error.backend.squadLeaves":
+    "你属于团队 {squad}，只有它的负责人才能给团队以外的智能体发消息。请让 {squad} 的负责人转达，或询问用户。",
+  "error.backend.squadEnters": "{agent} 属于团队 {squad}。请通过 {squad} 的负责人联系，或询问用户。",
+  "error.backend.squadSkipsRank":
+    "在团队 {squad} 中，{agent} 的职级高于你可以直接联系的职级。消息只能发给紧邻你上一级的职级。请让该职级代为转达，或询问用户。",
   "error.backend.recipientHidden": "该助手已隐藏，请恢复它后再发送消息。",
   "error.backend.attachBetween": "请附加 1 到 {limit} 个文件。",
   "error.backend.attachmentNotFile": "附件不是文件：{path}",
@@ -300,9 +305,4 @@ export const messages = {
   "error.backend.taskOpenLimitReached": "该助手有 {count} 个未关闭的任务。请关闭一个任务，再启动或打开其他任务。",
   "error.backend.taskRemoteUnsupported": "任务仅适用于本电脑上的助手。",
   "error.backend.taskStartFailed": "OpenOwnBot 无法启动该任务，请改为在本轮对话中完成。",
-  "error.backend.squadLeaves":
-    "你属于团队 {squad}，只有它的负责人才能给团队以外的智能体发消息。请让 {squad} 的负责人转达，或询问用户。",
-  "error.backend.squadEnters": "{agent} 属于团队 {squad}。请通过 {squad} 的负责人联系，或询问用户。",
-  "error.backend.squadSkipsRank":
-    "在团队 {squad} 中，{agent} 的职级高于你可以直接联系的职级。消息只能发给紧邻你上一级的职级。请让该职级代为转达，或询问用户。",
 } as const satisfies PartialTranslation<typeof source>;
