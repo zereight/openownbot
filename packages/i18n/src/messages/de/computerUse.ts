@@ -14,6 +14,8 @@ export const messages = {
   "computerUse.checkAgain": "Erneut prüfen",
   "computerUse.checking": "Computersteuerung wird geprüft",
   "computerUse.unavailable.title": "Computersteuerung ist noch nicht verfügbar",
+  "computerUse.unavailable.guide":
+    "Funktioniert es weiterhin nicht? Beende OpenOwnBot vollständig und starte es neu. Bleibt die Meldung bestehen, installiere die neueste OpenOwnBot-Version neu und prüfe hier erneut.",
   "computerUse.permissions.title": "Systemberechtigungen",
   "computerUse.permissions.description": "macOS verwaltet die Berechtigungen.",
   "computerUse.ready.title": "Die Computersteuerung ist bereit",

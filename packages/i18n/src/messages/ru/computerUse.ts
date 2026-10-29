@@ -14,6 +14,8 @@ export const messages = {
   "computerUse.checkAgain": "Проверить снова",
   "computerUse.checking": "Проверка управления компьютером",
   "computerUse.unavailable.title": "Управление компьютером пока недоступно",
+  "computerUse.unavailable.guide":
+    "Всё ещё не работает? Полностью закройте OpenOwnBot и откройте снова. Если сообщение не исчезло, переустановите последнюю версию OpenOwnBot и проверьте здесь ещё раз.",
   "computerUse.permissions.title": "Системные разрешения",
   "computerUse.permissions.description": "Разрешениями управляет macOS.",
   "computerUse.ready.title": "Управление компьютером готово",

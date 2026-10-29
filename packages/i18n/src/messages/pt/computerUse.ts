@@ -14,6 +14,8 @@ export const messages = {
   "computerUse.checkAgain": "Verificar de novo",
   "computerUse.checking": "Verificando o Uso do computador",
   "computerUse.unavailable.title": "O Uso do computador ainda não está disponível",
+  "computerUse.unavailable.guide":
+    "Ainda não funciona? Feche o OpenOwnBot por completo e abra-o de novo. Se a mensagem continuar, reinstale a versão mais recente do OpenOwnBot e verifique aqui outra vez.",
   "computerUse.permissions.title": "Permissões do sistema",
   "computerUse.permissions.description": "As permissões são gerenciadas pelo macOS.",
   "computerUse.ready.title": "O Uso do computador está pronto",

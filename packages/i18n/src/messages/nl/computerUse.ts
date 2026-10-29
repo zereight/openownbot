@@ -14,6 +14,8 @@ export const messages = {
   "computerUse.checkAgain": "Opnieuw controleren",
   "computerUse.checking": "Computerbesturing controleren",
   "computerUse.unavailable.title": "Computerbesturing is nog niet beschikbaar",
+  "computerUse.unavailable.guide":
+    "Werkt het nog steeds niet? Sluit OpenOwnBot helemaal af en open het opnieuw. Blijft deze melding staan, installeer dan de nieuwste OpenOwnBot opnieuw en controleer hier opnieuw.",
   "computerUse.permissions.title": "Systeemmachtigingen",
   "computerUse.permissions.description": "macOS beheert de machtigingen.",
   "computerUse.ready.title": "Computerbesturing is klaar",

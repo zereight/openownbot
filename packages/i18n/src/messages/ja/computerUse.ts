@@ -15,6 +15,8 @@ export const messages = {
   "computerUse.checkAgain": "もう一度確認",
   "computerUse.checking": "Computer Use を確認しています",
   "computerUse.unavailable.title": "Computer Use はまだ利用できません",
+  "computerUse.unavailable.guide":
+    "解決しない場合は、OpenOwnBot を完全に終了してからもう一度開いてください。それでもこのメッセージが出る場合は、最新の OpenOwnBot を再インストールし、ここでもう一度確認してください。",
   "computerUse.permissions.title": "システムの権限",
   "computerUse.permissions.description": "権限は macOS が管理します。",
   "computerUse.ready.title": "Computer Use の準備ができました",
