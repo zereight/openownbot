@@ -16,6 +16,12 @@ export const messages = {
   "status.agent.channelRoutineCreated": "{agent} 에이전트가 루틴 {routine}을(를) 만들었어요. {person} 님이 요청했어요.",
   "status.agent.channelRoutineUpdated": "{agent} 에이전트가 루틴 {routine}을(를) 변경했어요. {person} 님이 요청했어요.",
   "status.agent.channelRoutineDeleted": "{agent} 에이전트가 루틴 {routine}을(를) 삭제했어요. {person} 님이 요청했어요.",
+  "status.agent.fastComputerUse":
+    "빠른 결정 모델이 창 하나에서 클릭, 입력, 스크롤을 하도록 허용해요. 창에 있는 컨트롤 이름을 읽어서 {service}로 보내요.",
+  "status.agent.fastComputerUseJev": "TypeSafe (Jev)",
+  "status.agent.fastComputerUseOpenrouter": "OpenRouter",
+  "status.agent.fastComputerUseCloudflare": "Cloudflare Workers AI",
+  "status.agent.fastComputerUseLocal": "이 컴퓨터의 서버",
   "status.agent.screenCaptureScreen": "메인 화면을 캡처해서 이미지를 에이전트의 모델에 보내요.",
   "status.agent.screenCaptureChannel":
     "이미지가 {channel} 채널에 표시되고, 이 채널을 읽는 서버의 모든 멤버가 볼 수 있어요.",

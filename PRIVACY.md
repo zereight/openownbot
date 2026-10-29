@@ -1128,6 +1128,32 @@ process, and are not in a screen, log, data export, or diagnostics report; the d
 them under `scope.excludes`. Custom agents stay on this computer: OpenOwnBot does not show them to
 team members.
 
+## Fast decision model
+
+Settings › Agents can choose a fast decision model: TypeSafe Jev (`api.typesafe.ai`), Jev through
+OpenRouter (`openrouter.ai`), Clef on Cloudflare Workers AI (`api.cloudflare.com`), or a server on this
+computer. The default is off, and nothing is sent. OpenOwnBot encrypts the key with the system cipher,
+keeps it in the main process, shows the renderer only whether a key is saved, and redacts it from logs.
+A server on this computer needs no key, and OpenOwnBot accepts only a loopback address for it
+(`127.0.0.1`, `localhost` or `::1`), so a setting for this computer cannot send data to another one.
+
+- **Channel routing.** For a channel request that names no member, OpenOwnBot sends the channel name,
+  its instructions (the first 1,000 characters), the recent messages (author and the last 600
+  characters of each), the request (the first 2,000 characters), and the name, title and description
+  of each member. The service answers with a probability for each member. When it is unsure or fails,
+  the lead's own model decides.
+- **Computer Use, when the user turns on "Try this model first in Computer Use".** For each step of
+  `computer_use_fast`, OpenOwnBot sends the goal that the agent wrote (the first 500 characters) and,
+  for each control of one window, its role, its label and its value, as the accessibility tree gives
+  them. It does not send screenshots, and it does not send the text that the agent will type. It sends
+  no value for a password field or for a control whose label names a password, a code, a token, a key
+  or a card number, and it never types into one. The user approves each call, and the call is
+  refused in a conversation that a Slack, Discord or Telegram link shares. The step limit is six, and
+  the service answers with a probability for each control.
+
+TypeSafe, OpenRouter and Cloudflare keep the requests under their own terms. OpenOwnBot does not store
+the answers.
+
 ## Shared desktop channels
 
 Channel names, purposes, participating agents, linked conversation references, messages, tasks,

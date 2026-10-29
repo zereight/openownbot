@@ -200,6 +200,7 @@ export const LOCAL_ONLY_ALLOWLIST: readonly AllowEntry[] = [
   bypass("src/main/cua-driver-action-tap.ts", "net-connect", LOCAL_SOCKET),
   bypass("src/main/cua-driver-daemon-client.ts", "net-connect", LOCAL_SOCKET),
   bypass("src/main/cua-driver-runtime.ts", "net-connect", LOCAL_SOCKET),
+  bypass("src/main/cua-driver-tool-client.ts", "net-connect", LOCAL_SOCKET),
   bypass(
     "src/main/index.ts",
     "electron-net",

@@ -74,6 +74,7 @@ import type { ConversationRuntime } from "./conversation-runtime";
 import { handleDataTool } from "./data-tools";
 import { responseAttachmentMessageId, visualReplyFileName, visualReplyMessageId } from "./delivery-content";
 import type { DrainScheduler } from "./drain-scheduler";
+import { type FastComputerUseHost, fastComputerUseToolSchema } from "./fast-computer-use";
 import { HistoryTools } from "./history-tools";
 import type { HostedSiteCoordinator } from "./hosted-site-coordinator";
 import { isHostedSiteMutationTool } from "./hosted-site-events";
@@ -147,6 +148,20 @@ const MARKETPLACE_APP_IDS: readonly string[] = [
 ];
 
 /** The reason says what to grant or to correct, and holds no screen content. */
+const NOT_SET_UP_RESULT = {
+  status: "fallback",
+  reason: "no-backend",
+  steps: [],
+  elements: [],
+} as const;
+
+const FAST_SERVICE_NAME = {
+  jev: "status.agent.fastComputerUseJev",
+  openrouter: "status.agent.fastComputerUseOpenrouter",
+  cloudflare: "status.agent.fastComputerUseCloudflare",
+  local: "status.agent.fastComputerUseLocal",
+} as const;
+
 function captureFailure(failure: ScreenCaptureFailed) {
   return openOwnBotToolFailure(failure.reason);
 }
@@ -226,6 +241,8 @@ export interface OpenOwnBotToolRouterOptions {
   visualPreview?: ChatVisualPreviewHost | null | undefined;
   /** Captures the desktop for `capture_screen`; null where this process has no desktop. */
   screenCapture?: ScreenCaptureHost | null | undefined;
+  /** The fast path of Computer Use for `computer_use_fast`; null where nothing can run it. */
+  fastComputerUse?: FastComputerUseHost | null | undefined;
   /** The MCP servers of this OpenOwnBot server, for the MCP tools; null where nothing holds them. */
   mcpServers?: AgentMcpServers | null | undefined;
   /** The API keys that users saved for agents; null where nothing can save them. */
@@ -268,6 +285,7 @@ export class OpenOwnBotToolRouter {
   readonly #approvalAutomation: ApprovalAutomationPolicy;
   readonly #visualPreview: ChatVisualPreviewHost | null;
   readonly #screenCapture: ScreenCaptureHost | null;
+  readonly #fastComputerUse: FastComputerUseHost | null;
   readonly #mcpServers: AgentMcpServers | null;
   readonly #apiKeys: AgentApiKeys | null;
   readonly #hooks: OpenOwnBotToolRouterHooks;
@@ -305,6 +323,7 @@ export class OpenOwnBotToolRouter {
     this.#approvalAutomation = options.approvalAutomation ?? NO_APPROVAL_AUTOMATION;
     this.#visualPreview = options.visualPreview ?? null;
     this.#screenCapture = options.screenCapture ?? null;
+    this.#fastComputerUse = options.fastComputerUse ?? null;
     this.#mcpServers = options.mcpServers ?? null;
     this.#apiKeys = options.apiKeys ?? null;
     this.#hooks = options.hooks;
@@ -501,6 +520,11 @@ export class OpenOwnBotToolRouter {
             }
             if (toolRequest.params.tool === "capture_screen" || toolRequest.params.tool === "list_capture_sources") {
               const result = yield* this.#screenCaptureTool(client, toolRequest, toolRequest.params);
+              if (!toolRequest.signal?.aborted && client.running) client.respond(toolRequest.id, result);
+              return;
+            }
+            if (toolRequest.params.tool === "computer_use_fast") {
+              const result = yield* this.#fastComputerUseTool(client, toolRequest, toolRequest.params);
               if (!toolRequest.signal?.aborted && client.running) client.respond(toolRequest.id, result);
               return;
             }
@@ -1280,6 +1304,57 @@ export class OpenOwnBotToolRouter {
     const image = yield* Effect.result(host.capture(capture));
     if (Result.isFailure(image)) return captureFailure(image.failure);
     return yield* this.#showCapture(agent.id, threadId, params, messageId, image.success);
+  });
+
+  /**
+   * `computer_use_fast`. The agent's Computer Use setting allows it, and each call waits for the
+   * user's approval, because the names of the controls in the window go to the decision service.
+   *
+   * It is refused in a conversation that a Slack, Discord or Telegram link shares: the elements of a
+   * window on this computer must not follow a message to another service. A channel asks every time,
+   * with Full access too, as a capture does.
+   */
+  readonly #fastComputerUseTool = Effect.fn("OpenOwnBotToolRouter.fastComputerUseTool")(function* (
+    this: OpenOwnBotToolRouter,
+    client: AgentClient,
+    request: AppServerRequest,
+    params: DynamicToolCallParams,
+  ) {
+    const agentId = this.#conversation.agentForThread(params.threadId);
+    const agent = agentId ? this.#hooks.listAgents().find((candidate) => candidate.id === agentId) : undefined;
+    if (!agent) return openOwnBotToolFailure(sourceText("error.agent.toolRequestInvalid"));
+    if (!agentComputerUseEnabled(agent)) return openOwnBotToolFailure(sourceText("error.agent.fastComputerUseOff"));
+    const parsed = fastComputerUseToolSchema.safeParse(params.arguments, { reportInput: true });
+    if (!parsed.success) return openOwnBotToolFailure(profileToolErrorMessage(parsed.error));
+    const host = this.#fastComputerUse;
+    const service = host?.service() ?? null;
+    // Not set up is not an error: it is the way back to the ordinary tools, and it asks nothing of the user.
+    if (!host || service === null) return openOwnBotToolResult(NOT_SET_UP_RESULT);
+    const threadId = this.#conversation.publicThreadId(agent.id, params.threadId);
+    if (this.#messaging.store.linkForThread(threadId)) {
+      return openOwnBotToolFailure(sourceText("error.agent.fastComputerUseShared"));
+    }
+    const channelId = this.#channels.store.channelForThread(threadId);
+    const decision = yield* this.#attention.awaitToolApproval(
+      client,
+      request,
+      {
+        requestId: request.id,
+        agentId: agent.id,
+        threadId,
+        turnId: params.turnId,
+        kind: "permissions",
+        command: null,
+        cwd: null,
+        reason: sourceText("status.agent.fastComputerUse", { service: sourceText(FAST_SERVICE_NAME[service]) }),
+        grantRoot: null,
+        permissions: null,
+      },
+      { alwaysAsk: channelId !== null },
+    );
+    if (decision !== "accept") return openOwnBotToolFailure(sourceText("error.agent.fastComputerUseDeclined"));
+    const outcome = yield* host.run(parsed.data);
+    return openOwnBotToolResult(outcome);
   });
 
   /**

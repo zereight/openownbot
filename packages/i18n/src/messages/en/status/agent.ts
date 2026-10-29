@@ -15,6 +15,12 @@ export const messages = defineMessages("status.agent", {
   "status.agent.channelRoutineCreated": "{agent} created the routine {routine}. {person} asked for it.",
   "status.agent.channelRoutineUpdated": "{agent} changed the routine {routine}. {person} asked for it.",
   "status.agent.channelRoutineDeleted": "{agent} deleted the routine {routine}. {person} asked for it.",
+  "status.agent.fastComputerUse":
+    "Let a fast decision model press, type and scroll in one window. It reads the names of the controls in the window and sends them to {service}.",
+  "status.agent.fastComputerUseJev": "TypeSafe (Jev)",
+  "status.agent.fastComputerUseOpenrouter": "OpenRouter",
+  "status.agent.fastComputerUseCloudflare": "Cloudflare Workers AI",
+  "status.agent.fastComputerUseLocal": "a server on this computer",
   "status.agent.screenCaptureScreen": "Capture the main screen and send the image to the agent's model.",
   "status.agent.screenCaptureChannel":
     "The image shows in the channel {channel}, and each member of this server who reads the channel can see it.",

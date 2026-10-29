@@ -119,6 +119,12 @@ export const messages = defineMessages("error.agent", {
   "error.agent.screenCaptureUnavailable": "Screen capture is not available on this computer.",
   "error.agent.screenCaptureShared":
     "Screen capture does not work in a Slack, Discord or Telegram conversation, because other people get its files.",
+  "error.agent.fastComputerUseOff":
+    "The fast path is off for this agent. The user can turn on Computer Use in the agent settings.",
+  "error.agent.fastComputerUseShared":
+    "The fast path does not work in a Slack, Discord or Telegram conversation, because the names of the controls would leave this computer. Use the Computer Use driver tools.",
+  "error.agent.fastComputerUseDeclined":
+    "The user did not allow the fast path. Nothing was pressed. Use the Computer Use driver tools.",
   "error.agent.screenCaptureDeclined": "The user did not allow this screen capture. Nothing was captured.",
   "error.agent.mcpServerDeclined": "The user did not allow this MCP server change. Nothing changed.",
   "error.agent.mcpServerNotSaved": "The MCP server did not answer, so it was not saved. {error}",

@@ -1,8 +1,9 @@
 // @vitest-environment node
 
-import { mkdtemp, readFile, rm } from "node:fs/promises";
+import { mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
+import { isDecisionModelSettings } from "@openownbot/contracts/ipc";
 import { Effect } from "effect";
 import { afterEach, describe, expect, it } from "vitest";
 import { DecisionModelStore } from "./decision-model-store";
@@ -43,8 +44,9 @@ async function setup(persist = true) {
 
 /** The settings of the state, without the keys: what the settings form sends. */
 function settingsOf(store: DecisionModelStore) {
-  const { backend, openrouterModel, cloudflareAccountId, cloudflareModel } = store.state();
-  return { backend, openrouterModel, cloudflareAccountId, cloudflareModel };
+  const { backend, openrouterModel, cloudflareAccountId, cloudflareModel, localUrl, localModel, computerUse } =
+    store.state();
+  return { backend, openrouterModel, cloudflareAccountId, cloudflareModel, localUrl, localModel, computerUse };
 }
 
 const account = "0123456789abcdef0123456789abcdef";
@@ -52,7 +54,10 @@ const account = "0123456789abcdef0123456789abcdef";
 describe("DecisionModelStore", () => {
   it("starts off, with no key saved, and picks no backend", async () => {
     const { store } = await setup();
-    expect(store.state()).toMatchObject({ backend: "off", keys: { jev: false, openrouter: false, cloudflare: false } });
+    expect(store.state()).toMatchObject({
+      backend: "off",
+      keys: { jev: false, openrouter: false, cloudflare: false, local: false },
+    });
     expect(store.resolve()).toBeNull();
   });
 
@@ -62,7 +67,7 @@ describe("DecisionModelStore", () => {
       store.save({ ...settingsOf(store), backend: "jev", keys: { jev: "secret-jev-key" } }),
     );
     expect(state.backend).toBe("jev");
-    expect(state.keys).toEqual({ jev: true, openrouter: false, cloudflare: false });
+    expect(state.keys).toEqual({ jev: true, openrouter: false, cloudflare: false, local: false });
     expect(JSON.stringify(state)).not.toContain("secret-jev-key");
     expect(store.resolve()).toEqual({ kind: "jev", apiKey: "secret-jev-key" });
   });
@@ -138,5 +143,56 @@ describe("DecisionModelStore", () => {
     await Effect.runPromise(broken.load());
     expect(broken.state().keys.jev).toBe(false);
     expect(broken.resolve()).toBeNull();
+  });
+
+  it("keeps what a user chose in a file saved before the local server existed", async () => {
+    const { root } = await setup();
+    await writeFile(
+      join(root, "decision-model.json"),
+      JSON.stringify({
+        version: 1,
+        settings: {
+          backend: "openrouter",
+          openrouterModel: "typesafe/jev-1.14",
+          cloudflareAccountId: "",
+          cloudflareModel: "clef",
+        },
+      }),
+    );
+    const store = await open(root);
+    expect(store.state()).toMatchObject({
+      backend: "openrouter",
+      cloudflareModel: "clef",
+      localUrl: "http://127.0.0.1:8000",
+      localModel: "english",
+      computerUse: false,
+    });
+  });
+
+  it("resolves a local server with no key, and refuses an address that is not on this computer", async () => {
+    const { store } = await setup();
+    await Effect.runPromise(store.save({ ...settingsOf(store), backend: "local" }));
+    expect(store.resolve()).toEqual({
+      kind: "local",
+      baseUrl: "http://127.0.0.1:8000",
+      apiKey: null,
+      model: "english",
+    });
+    await Effect.runPromise(store.save({ ...settingsOf(store), backend: "local", localUrl: "http://localhost:9000" }));
+    expect(store.resolve()).toMatchObject({ baseUrl: "http://localhost:9000" });
+    await Effect.runPromise(store.save({ ...settingsOf(store), backend: "local", localUrl: "" }));
+    expect(store.resolve()).toBeNull();
+    expect(isDecisionModelSettings({ ...settingsOf(store), localUrl: "http://192.168.0.5:8000" })).toBe(false);
+    expect(isDecisionModelSettings({ ...settingsOf(store), localUrl: "http://127.0.0.1.evil.com" })).toBe(false);
+    expect(isDecisionModelSettings({ ...settingsOf(store), localUrl: "http://user:pw@127.0.0.1:8000" })).toBe(false);
+  });
+
+  it("offers a backend to Computer Use only when the user turned it on", async () => {
+    const { store } = await setup();
+    await Effect.runPromise(store.save({ ...settingsOf(store), backend: "jev", keys: { jev: "k" } }));
+    expect(store.resolve()).toMatchObject({ kind: "jev" });
+    expect(store.resolveForComputerUse()).toBeNull();
+    await Effect.runPromise(store.save({ ...settingsOf(store), computerUse: true }));
+    expect(store.resolveForComputerUse()).toMatchObject({ kind: "jev" });
   });
 });

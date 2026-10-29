@@ -5,6 +5,7 @@ import {
   type DecisionModelSettings,
   type DecisionModelState,
   isDecisionModelSettings,
+  localDecisionOrigin,
   type SaveDecisionModelInput,
 } from "@openownbot/contracts/ipc";
 import { isDynamicRecord } from "@openownbot/contracts/runtime-values";
@@ -52,9 +53,18 @@ export class DecisionModelStore {
     return Effect.gen({ self: this }, function* () {
       const settings = yield* Effect.result(
         readPreferenceFile(this.#settingsPath, (parsed): DecisionModelSettings | null =>
-          isDynamicRecord(parsed) && parsed.version === 1 && isDecisionModelSettings(parsed.settings)
-            ? parsed.settings
-            : null,
+          // A file saved before the local server existed has no address or model for it: those take
+          // their defaults, and everything the user chose stays.
+          {
+            if (!isDynamicRecord(parsed) || parsed.version !== 1 || !isDynamicRecord(parsed.settings)) return null;
+            const upgraded = {
+              localUrl: DEFAULT_DECISION_MODEL_SETTINGS.localUrl,
+              localModel: DEFAULT_DECISION_MODEL_SETTINGS.localModel,
+              computerUse: DEFAULT_DECISION_MODEL_SETTINGS.computerUse,
+              ...parsed.settings,
+            };
+            return isDecisionModelSettings(upgraded) ? upgraded : null;
+          },
         ),
       );
       if (Result.isFailure(settings)) {
@@ -89,13 +99,23 @@ export class DecisionModelStore {
   state(): DecisionModelState {
     return {
       ...this.#settings,
-      keys: { jev: !!this.#keys.jev, openrouter: !!this.#keys.openrouter, cloudflare: !!this.#keys.cloudflare },
+      keys: {
+        jev: !!this.#keys.jev,
+        openrouter: !!this.#keys.openrouter,
+        cloudflare: !!this.#keys.cloudflare,
+        local: !!this.#keys.local,
+      },
     };
+  }
+
+  /** The backend for the fast path of Computer Use: the chosen one, and only when the user allowed it. */
+  resolveForComputerUse(): DecisionBackend | null {
+    return this.#settings.computerUse ? this.resolve() : null;
   }
 
   /** The backend to ask, or null when none is chosen or the chosen one lacks what it needs. */
   resolve(): DecisionBackend | null {
-    const { backend, openrouterModel, cloudflareAccountId, cloudflareModel } = this.#settings;
+    const { backend, openrouterModel, cloudflareAccountId, cloudflareModel, localUrl, localModel } = this.#settings;
     switch (backend) {
       case "jev":
         return this.#keys.jev ? { kind: "jev", apiKey: this.#keys.jev } : null;
@@ -112,6 +132,12 @@ export class DecisionModelStore {
               model: cloudflareModel,
             }
           : null;
+      case "local": {
+        const baseUrl = localDecisionOrigin(localUrl);
+        return baseUrl
+          ? { kind: "local", baseUrl, apiKey: this.#keys.local ?? null, model: localModel.trim() || "english" }
+          : null;
+      }
       case "off":
         return null;
     }
