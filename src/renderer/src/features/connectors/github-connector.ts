@@ -2,8 +2,8 @@ import {
   DISCONNECTED_GITHUB_CONNECTOR,
   type GitHubConnectorRepositories,
   type GitHubConnectorStatus,
-} from "@openbot/contracts/ipc";
-import { currentText } from "@openbot/ui/text";
+} from "@openownbot/contracts/ipc";
+import { currentText } from "@openownbot/ui/text";
 import { createEffect, createSignal, onCleanup, onSettled } from "solid-js";
 import {
   type ConnectorAnalyticsAction,

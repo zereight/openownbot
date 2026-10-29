@@ -1,42 +1,45 @@
-import type { OpenBotDesktopApi } from "@openbot/contracts/ipc";
+import type { OpenOwnBotDesktopApi } from "@openownbot/contracts/ipc";
 
 /**
  * What the settings context reaches in main: the app-wide preferences, the switches for updates,
  * notifications and the Dynamic Island, and the local agents of the Agents tab.
  */
 export interface SettingsPort {
-  getAgentDefaults: OpenBotDesktopApi["getAgentDefaults"];
-  getAgentMemoryLimitPreference: OpenBotDesktopApi["getAgentMemoryLimitPreference"];
-  getAnalyticsPreference: OpenBotDesktopApi["getAnalyticsPreference"];
-  getAppBehaviorPreference: OpenBotDesktopApi["getAppBehaviorPreference"];
-  getApprovalAutomation: OpenBotDesktopApi["getApprovalAutomation"];
-  getBusyMessageModePreference: OpenBotDesktopApi["getBusyMessageModePreference"];
-  getExternalLinkPreference: OpenBotDesktopApi["getExternalLinkPreference"];
-  listExternalLinkBrowsers: OpenBotDesktopApi["listExternalLinkBrowsers"];
-  chooseExternalLinkApp: OpenBotDesktopApi["chooseExternalLinkApp"];
-  onExternalLinkFallback: OpenBotDesktopApi["onExternalLinkFallback"];
-  getRemoteNetworkRoute: OpenBotDesktopApi["getRemoteNetworkRoute"];
-  getRemoteSessionReusePreference: OpenBotDesktopApi["getRemoteSessionReusePreference"];
-  onAgentMemoryLimitPreference: OpenBotDesktopApi["onAgentMemoryLimitPreference"];
-  onApprovalAutomation: OpenBotDesktopApi["onApprovalAutomation"];
-  onOpenSettings: OpenBotDesktopApi["onOpenSettings"];
-  setAgentDefaults: OpenBotDesktopApi["setAgentDefaults"];
-  setAnalyticsPreference: OpenBotDesktopApi["setAnalyticsPreference"];
-  setAppBehaviorPreference: OpenBotDesktopApi["setAppBehaviorPreference"];
-  setBusyMessageModePreference: OpenBotDesktopApi["setBusyMessageModePreference"];
-  setExternalLinkPreference: OpenBotDesktopApi["setExternalLinkPreference"];
-  setRemoteNetworkRoute: OpenBotDesktopApi["setRemoteNetworkRoute"];
-  setRemoteSessionReusePreference: OpenBotDesktopApi["setRemoteSessionReusePreference"];
-  agent: Pick<OpenBotDesktopApi["agent"], "listAgents" | "updateAgent">;
+  getAgentDefaults: OpenOwnBotDesktopApi["getAgentDefaults"];
+  getAgentMemoryLimitPreference: OpenOwnBotDesktopApi["getAgentMemoryLimitPreference"];
+  getAnalyticsPreference: OpenOwnBotDesktopApi["getAnalyticsPreference"];
+  getAppBehaviorPreference: OpenOwnBotDesktopApi["getAppBehaviorPreference"];
+  getApprovalAutomation: OpenOwnBotDesktopApi["getApprovalAutomation"];
+  getBusyMessageModePreference: OpenOwnBotDesktopApi["getBusyMessageModePreference"];
+  getExternalLinkPreference: OpenOwnBotDesktopApi["getExternalLinkPreference"];
+  listExternalLinkBrowsers: OpenOwnBotDesktopApi["listExternalLinkBrowsers"];
+  chooseExternalLinkApp: OpenOwnBotDesktopApi["chooseExternalLinkApp"];
+  onExternalLinkFallback: OpenOwnBotDesktopApi["onExternalLinkFallback"];
+  getRemoteNetworkRoute: OpenOwnBotDesktopApi["getRemoteNetworkRoute"];
+  getRemoteSessionReusePreference: OpenOwnBotDesktopApi["getRemoteSessionReusePreference"];
+  onAgentMemoryLimitPreference: OpenOwnBotDesktopApi["onAgentMemoryLimitPreference"];
+  onApprovalAutomation: OpenOwnBotDesktopApi["onApprovalAutomation"];
+  onOpenSettings: OpenOwnBotDesktopApi["onOpenSettings"];
+  setAgentDefaults: OpenOwnBotDesktopApi["setAgentDefaults"];
+  setAnalyticsPreference: OpenOwnBotDesktopApi["setAnalyticsPreference"];
+  setAppBehaviorPreference: OpenOwnBotDesktopApi["setAppBehaviorPreference"];
+  setBusyMessageModePreference: OpenOwnBotDesktopApi["setBusyMessageModePreference"];
+  setExternalLinkPreference: OpenOwnBotDesktopApi["setExternalLinkPreference"];
+  setRemoteNetworkRoute: OpenOwnBotDesktopApi["setRemoteNetworkRoute"];
+  setRemoteSessionReusePreference: OpenOwnBotDesktopApi["setRemoteSessionReusePreference"];
+  agent: Pick<OpenOwnBotDesktopApi["agent"], "listAgents" | "updateAgent">;
   dynamicIsland: Pick<
-    OpenBotDesktopApi["dynamicIsland"],
+    OpenOwnBotDesktopApi["dynamicIsland"],
     "getBuiltInDisplayGeometry" | "getPreference" | "setPreference"
   >;
-  notifications: Pick<OpenBotDesktopApi["notifications"], "getPreference" | "openSettings" | "setPreference" | "test">;
-  update: Pick<OpenBotDesktopApi["update"], "getPreference" | "onPreference" | "setPreference">;
+  notifications: Pick<
+    OpenOwnBotDesktopApi["notifications"],
+    "getPreference" | "openSettings" | "setPreference" | "test"
+  >;
+  update: Pick<OpenOwnBotDesktopApi["update"], "getPreference" | "onPreference" | "setPreference">;
 }
 
-/** Read on each call: tests and stories replace `window.openbot` per case. */
+/** Read on each call: tests and stories replace `window.openownbot` per case. */
 export function settingsPort(): SettingsPort {
-  return window.openbot;
+  return window.openownbot;
 }

@@ -313,7 +313,7 @@ export const messages = {
   "routine.webhook.stepSecret": "把签名密钥添加到发送方",
   "routine.webhook.stepSecretHint": "发送方用该密钥为每个请求签名。没有有效签名的请求会被 OpenOwnBot 拒绝。",
   "routine.webhook.howToSign": "如何为请求签名",
-  "routine.webhook.howToSignHint": "在发送方把密钥保存在 OPENBOT_WEBHOOK_SECRET 中，不要写进代码。",
+  "routine.webhook.howToSignHint": "在发送方把密钥保存在 OPENOWNBOT_WEBHOOK_SECRET 中，不要写进代码。",
   "routine.webhook.stepTest": "发送测试事件",
   "routine.webhook.stepTestHint":
     "OpenOwnBot 会为匹配该自动化任务的事件签名，并像真实请求一样接收它。自动化任务会运行一次。",

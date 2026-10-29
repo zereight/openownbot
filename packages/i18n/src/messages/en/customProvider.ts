@@ -84,7 +84,7 @@ export const messages = defineMessages("customProvider", {
   "customProvider.header.add": "Add header",
   "customProvider.submit": "Submit",
 
-  // Model discovery. OpenBot asks the endpoint for its model list, and the user picks from it.
+  // Model discovery. OpenOwnBot asks the endpoint for its model list, and the user picks from it.
   "customProvider.discovery.find": "Find models",
   "customProvider.discovery.refresh": "Find again",
   "customProvider.discovery.loading": "Asking {url} for its models.",
@@ -113,7 +113,7 @@ export const messages = defineMessages("customProvider", {
   "customProvider.probe.checking": "Checking",
   "customProvider.probe.running": { one: "Running · {count} model", other: "Running · {count} models" },
 
-  // Automatic detection on the provider step and in Settings. OpenBot looks for local model servers
+  // Automatic detection on the provider step and in Settings. OpenOwnBot looks for local model servers
   // at their default addresses and for known ACP agent commands on the PATH.
   "customProvider.detected.title": "Found on this computer",
   "customProvider.detected.scanning": "Looking for local models and agents.",
@@ -201,7 +201,7 @@ export const messages = defineMessages("customProvider", {
   "customProvider.acp.error.agentIdPattern":
     "Use lowercase letters, numbers or hyphens, starting with a letter or number. Use at most 40 characters.",
 
-  // The user's own ACP agents in Settings. Each is a command that OpenBot starts on this computer.
+  // The user's own ACP agents in Settings. Each is a command that OpenOwnBot starts on this computer.
   "customProvider.agents.title": "Custom agents",
   "customProvider.agents.description": "ACP agents that OpenOwnBot starts on this computer.",
   "customProvider.agents.empty": "No custom agents yet.",

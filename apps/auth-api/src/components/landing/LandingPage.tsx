@@ -1,4 +1,4 @@
-import { AppLogo, PlatformLogo, ProviderLogo } from "@openbot/brand";
+import { AppLogo, PlatformLogo, ProviderLogo } from "@openownbot/brand";
 import { onSettled } from "solid-js";
 import { landingAnalytics } from "../../lib/analytics";
 import { ContentCallToAction } from "../content/ContentCallToAction";
@@ -92,9 +92,9 @@ export function LandingPage() {
 
             <h1 id="landing-title" class="landing-title landing-hero-line" style={{ "--landing-hero-line": 1 }}>
               {/* The spaces do not render in the flex row. They keep the words apart in
-                  the text that search engines read, which was "MeetOpenBot". */}
+                  the text that search engines read, which was "MeetOpenOwnBot". */}
               <span>Meet</span> <AppLogo variant="production" animation="blink" interactive class="landing-hero-logo" />{" "}
-              <span>OpenBot</span>
+              <span>OpenOwnBot</span>
             </h1>
 
             <p class="landing-description landing-hero-line" style={{ "--landing-hero-line": 2 }}>

@@ -6,7 +6,7 @@
 // host's Vault (`vault-v1`, and the CSV import of `vault-import-v1`) over the real service and store,
 // direct-message isolation, agents hidden from an older
 // protocol, the queue routes, the attachment and file routes with their size limits, and the error
-// codes. Writes .openbot-build/team-api-routes-e2e/report.json.
+// codes. Writes .openownbot-build/team-api-routes-e2e/report.json.
 // Run: `bun run test:team-api-routes` (the preload gives the server's import graph an `electron`).
 import assert from "node:assert/strict";
 import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
@@ -14,7 +14,7 @@ import { request as httpRequest } from "node:http";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import { isDeepStrictEqual } from "node:util";
-import { ATTACHMENT_LIMITS, INPUT_LIMITS } from "@openbot/contracts/input-limits";
+import { ATTACHMENT_LIMITS, INPUT_LIMITS } from "@openownbot/contracts/input-limits";
 import {
   AGENT_PROVIDERS,
   type AgentProviderId,
@@ -28,54 +28,54 @@ import {
   type QueueSnapshot,
   type RoutineResultConnectionOption,
   type RoutineResultDestination,
-} from "@openbot/contracts/ipc";
-import { TEAM_API_ROUTES } from "@openbot/contracts/team-api-routes";
+} from "@openownbot/contracts/ipc";
+import { TEAM_API_ROUTES } from "@openownbot/contracts/team-api-routes";
 import {
   AGENT_BACKUP_MODELS_CAPABILITY,
   AGENT_BACKUP_MODELS_ROUTES,
-} from "@openbot/contracts/team-protocol/agent-backup-models-v1";
-import { AGENT_HIDDEN_CAPABILITY, AGENT_HIDDEN_ROUTES } from "@openbot/contracts/team-protocol/agent-hidden-v1";
+} from "@openownbot/contracts/team-protocol/agent-backup-models-v1";
+import { AGENT_HIDDEN_CAPABILITY, AGENT_HIDDEN_ROUTES } from "@openownbot/contracts/team-protocol/agent-hidden-v1";
 import {
   AGENT_TASK_LIMIT_CAPABILITY,
   AGENT_TASK_LIMIT_ROUTES,
-} from "@openbot/contracts/team-protocol/agent-task-limit-v1";
+} from "@openownbot/contracts/team-protocol/agent-task-limit-v1";
 import {
   BITWARDEN_CONNECTOR_CAPABILITY,
   BITWARDEN_CONNECTOR_ROUTES,
-} from "@openbot/contracts/team-protocol/bitwarden-connector-v1";
+} from "@openownbot/contracts/team-protocol/bitwarden-connector-v1";
 import {
   BROWSER_PROFILES_CAPABILITY,
   BROWSER_PROFILES_ROUTES,
-} from "@openbot/contracts/team-protocol/browser-profiles-v1";
+} from "@openownbot/contracts/team-protocol/browser-profiles-v1";
 import {
   PROVIDER_USAGE_RESET_CAPABILITY,
   PROVIDER_USAGE_RESET_ROUTES,
-} from "@openbot/contracts/team-protocol/provider-usage-reset-v1";
-import { PROVIDERS_V5_CAPABILITY, PROVIDERS_V5_ROUTES } from "@openbot/contracts/team-protocol/providers-v5";
-import { PROVIDERS_V8_CAPABILITY, PROVIDERS_V8_ROUTES } from "@openbot/contracts/team-protocol/providers-v8";
-import { QueueEditRejectedError, TEAM_QUEUE_EDIT_CAPABILITY } from "@openbot/contracts/team-protocol/queue-edit-v1";
+} from "@openownbot/contracts/team-protocol/provider-usage-reset-v1";
+import { PROVIDERS_V5_CAPABILITY, PROVIDERS_V5_ROUTES } from "@openownbot/contracts/team-protocol/providers-v5";
+import { PROVIDERS_V8_CAPABILITY, PROVIDERS_V8_ROUTES } from "@openownbot/contracts/team-protocol/providers-v8";
+import { QueueEditRejectedError, TEAM_QUEUE_EDIT_CAPABILITY } from "@openownbot/contracts/team-protocol/queue-edit-v1";
 import {
   ROUTINE_RESULTS_CAPABILITY,
   ROUTINE_RESULTS_ROUTES,
-} from "@openbot/contracts/team-protocol/routine-results-v1";
-import { SIDE_QUESTION_CAPABILITY, SIDE_QUESTION_ROUTES } from "@openbot/contracts/team-protocol/side-question-v1";
-import { STORAGE_DISK_CAPABILITY, STORAGE_DISK_ROUTES } from "@openbot/contracts/team-protocol/storage-disk-v1";
+} from "@openownbot/contracts/team-protocol/routine-results-v1";
+import { SIDE_QUESTION_CAPABILITY, SIDE_QUESTION_ROUTES } from "@openownbot/contracts/team-protocol/side-question-v1";
+import { STORAGE_DISK_CAPABILITY, STORAGE_DISK_ROUTES } from "@openownbot/contracts/team-protocol/storage-disk-v1";
 import {
   TEAM_APP_VERSION_HEADER,
   TEAM_CAPABILITIES_HEADER,
   TEAM_PROTOCOL_VERSION_HEADER,
-} from "@openbot/contracts/team-protocol/v1";
-import { VAULT_IMPORT_CAPABILITY, VAULT_IMPORT_ROUTES } from "@openbot/contracts/team-protocol/vault-import-v1";
-import { VAULT_CAPABILITY, VAULT_ROUTES } from "@openbot/contracts/team-protocol/vault-v1";
-import { sourceText } from "@openbot/i18n/source";
-import { createOpenBotLogger } from "@openbot/logging";
+} from "@openownbot/contracts/team-protocol/v1";
+import { VAULT_IMPORT_CAPABILITY, VAULT_IMPORT_ROUTES } from "@openownbot/contracts/team-protocol/vault-import-v1";
+import { VAULT_CAPABILITY, VAULT_ROUTES } from "@openownbot/contracts/team-protocol/vault-v1";
+import { sourceText } from "@openownbot/i18n/source";
+import { createOpenOwnBotLogger } from "@openownbot/logging";
 import { Effect } from "effect";
 import { SteerUnsupportedError } from "../src/backend/agent/queue-controls";
 import { AgentLifecycleFailed } from "../src/backend/agent-service";
 import { BrowserProfileStore } from "../src/backend/browser-profiles/browser-profile-store";
 import type { BrowserTabSession } from "../src/backend/browser-state";
 import { runCauseEffect } from "../src/backend/effect-boundary";
-import { OpenBotDatabase } from "../src/backend/openbot-database";
+import { OpenOwnBotDatabase } from "../src/backend/openownbot-database";
 import { RoutineResultError } from "../src/backend/routine-results/routine-results";
 import { TeamChatStore } from "../src/backend/team-chat-store";
 import { createAgentHostSettings } from "../src/main/agent-host-settings";
@@ -89,7 +89,7 @@ import { TeamStore } from "../src/main/team-store";
 import { VaultService } from "../src/main/vault-service";
 import { VaultStore } from "../src/main/vault-store";
 
-const OUT = resolve(import.meta.dirname, "../.openbot-build/team-api-routes-e2e");
+const OUT = resolve(import.meta.dirname, "../.openownbot-build/team-api-routes-e2e");
 const APP_VERSION = "0.43.0";
 const MIB = 1024 * 1024;
 
@@ -129,7 +129,7 @@ interface RecordedCall {
 }
 
 mkdirSync(OUT, { recursive: true });
-const root = mkdtempSync(join(tmpdir(), "openbot-team-api-routes-"));
+const root = mkdtempSync(join(tmpdir(), "openownbot-team-api-routes-"));
 const checks: Check[] = [];
 const calls: RecordedCall[] = [];
 const logged: string[] = [];
@@ -508,7 +508,7 @@ const fakeBitwardenCli: BitwardenCliRunner = async (_executable, args, env) => {
   };
   if (command === "sync") return "Syncing complete.";
   if (command === "list" && target === "folders")
-    return JSON.stringify([{ id: "shared", name: "Shared with OpenBot" }]);
+    return JSON.stringify([{ id: "shared", name: "Shared with OpenOwnBot" }]);
   if (command === "list" && target === "items") return JSON.stringify([item]);
   if (command === "get" && target === "item") return JSON.stringify(item);
   throw new Error(`Unexpected bw call: ${command}`);
@@ -548,7 +548,7 @@ function bitwardenSettled(connector: BitwardenConnectorService): Promise<Bitward
 }
 
 const store = new TeamStore(join(root, "team.json"));
-const database = new OpenBotDatabase(join(root, "user-data"));
+const database = new OpenOwnBotDatabase(join(root, "user-data"));
 let server: TeamApiServer | null = null;
 
 try {
@@ -736,7 +736,7 @@ try {
         return accountUsers[ticket] ?? null;
       }),
     now: () => clock,
-    logger: createOpenBotLogger("team-api-e2e", (line) => logged.push(line)),
+    logger: createOpenOwnBotLogger("team-api-e2e", (line) => logged.push(line)),
   });
   const port = await Effect.runPromise(server.start());
   const base = `http://127.0.0.1:${port}`;
@@ -1759,7 +1759,7 @@ try {
       capabilities: diskCapabilities,
     });
     check(
-      "the disk route ignores a path in the body and reads the disk of the OpenBot data",
+      "the disk route ignores a path in the body and reads the disk of the OpenOwnBot data",
       withBody.status === 200 && isDeepStrictEqual(withBody.body, expected) && callsOf("disk").length === 3,
       summary(withBody),
     );

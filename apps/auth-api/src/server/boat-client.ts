@@ -1,4 +1,4 @@
-import { isDynamicRecord, isString } from "@openbot/contracts/runtime-values";
+import { isDynamicRecord, isString } from "@openownbot/contracts/runtime-values";
 import { Context, Effect, Layer, Schema } from "effect";
 import { hexToBytes, importHmacSha256Key } from "./crypto";
 
@@ -6,10 +6,10 @@ const BOAT_API_URL = "https://boat.dev/api/v1";
 const REQUEST_TIMEOUT_MS = 15_000;
 /**
  * boat gives the sandbox `env` to its tool environment and to the create-time setup script, not to
- * systemd. The template's helper copies the two hosted variables to a file that the OpenBot service
- * waits for. See `scripts/hosting/openbot-hosted-env`.
+ * systemd. The template's helper copies the two hosted variables to a file that the OpenOwnBot service
+ * waits for. See `scripts/hosting/openownbot-hosted-env`.
  */
-const HOSTED_SERVER_SETUP_SCRIPT = "exec /opt/OpenBot/hosted/openbot-hosted-env\n";
+const HOSTED_SERVER_SETUP_SCRIPT = "exec /opt/OpenOwnBot/hosted/openownbot-hosted-env\n";
 
 export type BoatSandboxType = "small" | "default" | "large";
 
@@ -56,7 +56,7 @@ class BoatTransport extends Context.Service<
     apiKey: string;
     baseUrl: string;
   }
->()("@openbot/auth-api/BoatTransport") {}
+>()("@openownbot/auth-api/BoatTransport") {}
 
 const boatRequest = Effect.fn("BoatClient.request")(function* (
   method: string,

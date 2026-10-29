@@ -53,7 +53,7 @@ export const messages = {
   "composer.voice.transcribing": "Sesli istem metne dönüştürülüyor",
   "composer.voice.start": "Sesle istem oluştur",
   "composer.voice.blocked":
-    "Mikrofon erişimi engellendi. Sistem ayarlarından OpenBot'un mikrofonu kullanmasına izin verin.",
+    "Mikrofon erişimi engellendi. Sistem ayarlarından OpenOwnBot'un mikrofonu kullanmasına izin verin.",
   "composer.voice.noMicrophone": "Kullanılabilir mikrofon yok.",
   "composer.voice.startFailed": "OpenOwnBot ses kaydını başlatamadı.",
   "composer.voice.transcribeFailed": "OpenOwnBot bu kaydı metne dönüştüremedi.",

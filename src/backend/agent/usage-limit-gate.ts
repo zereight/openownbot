@@ -1,5 +1,5 @@
-import { INPUT_LIMITS } from "@openbot/contracts/input-limits";
-import type { AccountUsage, AgentEvent, AgentRuntimeSnapshot } from "@openbot/contracts/ipc";
+import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
+import type { AccountUsage, AgentEvent, AgentRuntimeSnapshot } from "@openownbot/contracts/ipc";
 import { Effect, Exit, Schema, Scope } from "effect";
 import type { AgentProvider } from "../agent-client";
 import type { AgentStore } from "../agent-store";
@@ -7,7 +7,7 @@ import { causeHelpers } from "../effect-boundary";
 import { agentProviderAccount as accountOf, providerForAgent } from "./thread-items";
 
 /** A provider client's report that the plan refused this turn, with the reset in epoch seconds when it gave one. */
-export const USAGE_LIMIT_METHOD = "openbot/usageLimit";
+export const USAGE_LIMIT_METHOD = "openownbot/usageLimit";
 
 /** How often a limit with no reported reset is read again. A usage read is one request, not a turn. */
 const USAGE_LIMIT_RECHECK_MS = 15 * 60_000;

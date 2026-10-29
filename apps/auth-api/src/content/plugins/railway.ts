@@ -31,17 +31,17 @@ export const RAILWAY_PLUGIN_GUIDE: PluginGuide = {
     {
       question: "Does the Railway plugin need an API key?",
       answer:
-        "No. Each user signs in to their own Railway account through the browser and chooses the workspaces and projects that agents can use. The server does not accept project tokens. OpenBot does the sign-in itself, keeps the tokens in encrypted storage, and adds the Authorization header. You can revoke the access in your Railway account settings. The plugin catalog holds no secret.",
+        "No. Each user signs in to their own Railway account through the browser and chooses the workspaces and projects that agents can use. The server does not accept project tokens. OpenOwnBot does the sign-in itself, keeps the tokens in encrypted storage, and adds the Authorization header. You can revoke the access in your Railway account settings. The plugin catalog holds no secret.",
     },
     {
       question: "What can the agent change in Railway?",
       answer:
-        "In the workspaces and projects that you choose, the agent can create projects, redeploy services, deploy staged changes, and change or delete feature flags. Through the Railway Agent, it can also change services, variables, databases and networking. Railway gets the requests that the agent sends. Your workspaces, conversations and files stay on the computer that runs OpenBot.",
+        "In the workspaces and projects that you choose, the agent can create projects, redeploy services, deploy staged changes, and change or delete feature flags. Through the Railway Agent, it can also change services, variables, databases and networking. Railway gets the requests that the agent sends. Your workspaces, conversations and files stay on the computer that runs OpenOwnBot.",
     },
     {
       question: "Does the Railway plugin cost anything?",
       answer:
-        "Installing the plugin in OpenBot is free. You need a Railway account. Railway bills the work of the Railway Agent by the LLM tokens that it uses, with no markup.",
+        "Installing the plugin in OpenOwnBot is free. You need a Railway account. Railway bills the work of the Railway Agent by the LLM tokens that it uses, with no markup.",
     },
   ],
   sources: [

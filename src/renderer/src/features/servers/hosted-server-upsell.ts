@@ -7,7 +7,7 @@ import { z } from "zod";
  * sitting.
  */
 
-const HOSTED_UPSELL_KEY_PREFIX = "openbot:hosted-server-upsell:v1:";
+const HOSTED_UPSELL_KEY_PREFIX = "openownbot:hosted-server-upsell:v1:";
 const DAY_MS = 24 * 60 * 60 * 1000;
 /** The modal after a new routine: at most once in this time, and at most this many times. */
 const MODAL_INTERVAL_MS = 30 * DAY_MS;

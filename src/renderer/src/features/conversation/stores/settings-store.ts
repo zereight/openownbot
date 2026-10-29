@@ -1,10 +1,10 @@
-import { isKnownAgentProvider } from "@openbot/contracts/agent-providers";
-import type { AgentModelId, AgentProviderId, AgentReasoningEffort, UpdateAgentInput } from "@openbot/contracts/ipc";
+import { isKnownAgentProvider } from "@openownbot/contracts/agent-providers";
+import type { AgentModelId, AgentProviderId, AgentReasoningEffort, UpdateAgentInput } from "@openownbot/contracts/ipc";
 import type {
   AgentRuntimeSettings,
   AgentRuntimeSettingsPatch,
-} from "@openbot/ui/features/conversation/AgentSettingsPanel";
-import { currentText } from "@openbot/ui/text";
+} from "@openownbot/ui/features/conversation/AgentSettingsPanel";
+import { currentText } from "@openownbot/ui/text";
 import { agentConversationKey } from "../conversation-keys";
 import type { ConversationProps, ConversationTarget } from "../conversation-types";
 

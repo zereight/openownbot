@@ -2,7 +2,7 @@ import { execFile } from "node:child_process";
 import { cpus, totalmem } from "node:os";
 import { join } from "node:path";
 import { monitorEventLoopDelay } from "node:perf_hooks";
-import type { AgentEvent } from "@openbot/contracts/ipc";
+import type { AgentEvent } from "@openownbot/contracts/ipc";
 import { Effect, Exit, Option, Scope, Semaphore } from "effect";
 import {
   app,
@@ -57,9 +57,9 @@ const LOOP_RESOLUTION_MS = 20;
 // The `serviceName` that `agent-database-host-process.ts` and the voice `*-host-process.ts` files
 // give `utilityProcess.fork`. Electron reports it as the metric's `name`.
 const UTILITY_GROUPS = new Map<string, ProcessGroup>([
-  ["OpenBot databases", "database_host"],
-  ["OpenBot voice transcription", "voice_host"],
-  ["OpenBot speech", "voice_host"],
+  ["OpenOwnBot databases", "database_host"],
+  ["OpenOwnBot voice transcription", "voice_host"],
+  ["OpenOwnBot speech", "voice_host"],
 ]);
 
 export interface ResourceMonitorOptions {
@@ -84,7 +84,7 @@ interface ResourceSample {
 }
 
 /**
- * Samples the CPU and memory of OpenBot's own processes and of the provider CLIs it starts, once a
+ * Samples the CPU and memory of OpenOwnBot's own processes and of the provider CLIs it starts, once a
  * minute, and keeps a summary for each local day. The summary goes into the diagnostics export, and
  * analytics sends the summary of the last closed day once. A failed sample is skipped: this must not
  * become the failure it would have recorded.
@@ -239,7 +239,7 @@ export class ResourceMonitor implements AnalyticsResourceSource {
 
   readonly #rendererGone = (_event: Event, _contents: WebContents, details: RenderProcessGoneDetails) =>
     this.#recordGone("renderer", details.reason);
-  // OpenBot starts and stops its utility processes itself, such as the voice host after idle time.
+  // OpenOwnBot starts and stops its utility processes itself, such as the voice host after idle time.
   readonly #childGone = (_event: Event, details: Details) => {
     if (details.type === "Utility" && details.reason === "killed") return;
     this.#recordGone("child", details.reason);

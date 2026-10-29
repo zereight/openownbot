@@ -4,8 +4,8 @@ import {
   type AgentAccessLevel,
   type AgentAccessLevels,
   type AgentAccessRole,
-} from "@openbot/contracts/ipc";
-import type { AppTextKey } from "@openbot/i18n";
+} from "@openownbot/contracts/ipc";
+import type { AppTextKey } from "@openownbot/i18n";
 import {
   Button,
   buttonVariants,
@@ -31,7 +31,7 @@ import {
   ShieldCheck,
   Text,
   UsersRound,
-} from "@openbot/ui";
+} from "@openownbot/ui";
 import type { JSX } from "@solidjs/web";
 import { createSignal, For, Show } from "solid-js";
 import type { AgentProfile } from "../../data";

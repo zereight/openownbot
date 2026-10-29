@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/solid-router";
 import { TeamsPage } from "../components/teams/TeamsPage";
-import { OPENBOT_SOCIAL_IMAGE_ALT, OPENBOT_SOCIAL_IMAGE_URL, OPENBOT_X_HANDLE } from "../lib/site-metadata";
+import { OPENOWNBOT_SOCIAL_IMAGE_ALT, OPENOWNBOT_SOCIAL_IMAGE_URL, OPENOWNBOT_X_HANDLE } from "../lib/site-metadata";
 import { TEAMS_PAGE_META, TEAMS_ROUTE } from "../lib/teams-page";
 
 export const Route = createFileRoute("/teams")({
@@ -12,19 +12,19 @@ export const Route = createFileRoute("/teams")({
         { title },
         { name: "description", content: description },
         { property: "og:type", content: "website" },
-        { property: "og:site_name", content: "OpenBot" },
+        { property: "og:site_name", content: "OpenOwnBot" },
         { property: "og:locale", content: "en_US" },
         { property: "og:url", content: url },
         { property: "og:title", content: title },
         { property: "og:description", content: description },
-        { property: "og:image", content: OPENBOT_SOCIAL_IMAGE_URL },
-        { property: "og:image:alt", content: OPENBOT_SOCIAL_IMAGE_ALT },
+        { property: "og:image", content: OPENOWNBOT_SOCIAL_IMAGE_URL },
+        { property: "og:image:alt", content: OPENOWNBOT_SOCIAL_IMAGE_ALT },
         { name: "twitter:card", content: "summary_large_image" },
-        { name: "twitter:site", content: OPENBOT_X_HANDLE },
+        { name: "twitter:site", content: OPENOWNBOT_X_HANDLE },
         { name: "twitter:title", content: title },
         { name: "twitter:description", content: description },
-        { name: "twitter:image", content: OPENBOT_SOCIAL_IMAGE_URL },
-        { name: "twitter:image:alt", content: OPENBOT_SOCIAL_IMAGE_ALT },
+        { name: "twitter:image", content: OPENOWNBOT_SOCIAL_IMAGE_URL },
+        { name: "twitter:image:alt", content: OPENOWNBOT_SOCIAL_IMAGE_ALT },
       ],
       links: [{ rel: "canonical", href: url }],
     };

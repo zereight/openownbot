@@ -7,8 +7,8 @@ import {
   agentAccessRank,
   parseAgentAccessChange,
   type TeamMemberSummary,
-} from "@openbot/contracts/ipc";
-import { isDynamicRecord, isNumber } from "@openbot/contracts/runtime-values";
+} from "@openownbot/contracts/ipc";
+import { isDynamicRecord, isNumber } from "@openownbot/contracts/runtime-values";
 import { Effect, Result, Schema, Semaphore } from "effect";
 import { isMissingFileError } from "../backend/file-errors";
 import { type PreferenceFileFailure, readPreferenceFile, writePreferenceFile } from "./preference-file";

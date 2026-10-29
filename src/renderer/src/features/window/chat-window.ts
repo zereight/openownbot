@@ -1,4 +1,4 @@
-import type { ChatWindowTarget } from "@openbot/contracts/ipc";
+import type { ChatWindowTarget } from "@openownbot/contracts/ipc";
 
 /**
  * The chat that this window shows alone (#2964), or null in the main window. Main opens a chat

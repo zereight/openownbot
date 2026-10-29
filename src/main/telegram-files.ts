@@ -1,14 +1,14 @@
-// The files of the OpenBot Telegram bot, over HTTPS to Signal: Signal holds the bot token, so it
+// The files of the OpenOwnBot Telegram bot, over HTTPS to Signal: Signal holds the bot token, so it
 // fetches a file from Telegram, and posts a document to Telegram, for a token it signed. Nothing here
 // logs a token or a file.
 
 import { open, readFile, rm } from "node:fs/promises";
-import { isDynamicRecord, isNumber, isString } from "@openbot/contracts/runtime-values";
+import { isDynamicRecord, isNumber, isString } from "@openownbot/contracts/runtime-values";
 import {
   TELEGRAM_FILE_BYTES_LIMIT,
   TELEGRAM_FILES_PATH,
   TELEGRAM_UPLOADS_PATH,
-} from "@openbot/contracts/signal-protocol/telegram-route";
+} from "@openownbot/contracts/signal-protocol/telegram-route";
 import { Effect } from "effect";
 import { MessagingAdapterError, TelegramCallError } from "../backend/messaging/messaging-types";
 

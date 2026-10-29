@@ -40,7 +40,7 @@ Widen the first query's pathspec to include `'apps/mobile/src/*.ts'` and
 guard `value.version !== 1`. Then run the key inventory as a second derived list:
 
 ```bash
-keys() { git grep -hoE '"openbot[.:][a-zA-Z0-9.:_-]+"' "$1" -- \
+keys() { git grep -hoE '"openownbot[.:][a-zA-Z0-9.:_-]+"' "$1" -- \
   'src/renderer/src/**' 'apps/mobile/src/**' 'packages/team-client/src/**' \
   ':(exclude)*.test.ts' ':(exclude)*.test.tsx' | sort -u; }
 diff <(keys <tag>) <(keys HEAD)
@@ -48,19 +48,19 @@ diff <(keys <tag>) <(keys HEAD)
 
 Process substitution rather than two files in `/tmp`: several agents work in worktrees on this
 machine at once, and a fixed temporary name lets one audit read another range's inventory and call
-a renamed key clean. **`openbot[.:]` covers both spellings** — the renderer uses colons
-(`openbot:sidebar-pins:v1`), mobile and team-client use dots (`openbot.mobile.session.v1`), and a
+a renamed key clean. **`openownbot[.:]` covers both spellings** — the renderer uses colons
+(`openownbot:sidebar-pins:v1`), mobile and team-client use dots (`openownbot.mobile.session.v1`), and a
 pattern written for one silently returns half the set. It still only sees string literals, and two
 keys are built in templates and never appear at all — `workspace-preferences.ts` composes
-`openbot.workspace.v1.${scope}.${fingerprint}` and `trusted-host-keys.ts` composes
-`openbot.host-key.v1.${scope}.${fingerprint}`, the second holding per-host trust. Widen the pattern
+`openownbot.workspace.v1.${scope}.${fingerprint}` and `trusted-host-keys.ts` composes
+`openownbot.host-key.v1.${scope}.${fingerprint}`, the second holding per-host trust. Widen the pattern
 when you meet a third spelling rather than trusting this one, and treat the key diff as necessary
 rather than sufficient.
 
 A key that disappears from the tag side is these surfaces' version of a renamed filename constant:
 the old entry is never read again, never cleaned up, and the user's state is silently back to
-defaults. Several keys carry their own version suffix — `openbot:sidebar-pins:v1`,
-`openbot.mobile.session.v1`, `openbot.mobile.device-id.v1` — so bumping one is a deliberate reset
+defaults. Several keys carry their own version suffix — `openownbot:sidebar-pins:v1`,
+`openownbot.mobile.session.v1`, `openownbot.mobile.device-id.v1` — so bumping one is a deliberate reset
 needing the same justification as a `userData` version bump, plus a `CHANGELOG.md` note under gate G.
 
 **An unchanged key list is not a clean result — read the owners too.** The value under a key can
@@ -69,7 +69,7 @@ an enum member renamed, an id format rewritten. Derive the owners the same way, 
 revisions, and read the hunks of any that the release touched:
 
 ```bash
-git grep -lE '"openbot[.:]|localStorage|SecureStore|AsyncStorage' <tag> HEAD -- \
+git grep -lE '"openownbot[.:]|localStorage|SecureStore|AsyncStorage' <tag> HEAD -- \
   'src/renderer/src/**' 'apps/mobile/src/**' 'packages/team-client/src/**' \
   ':(exclude)*.test.ts' ':(exclude)*.test.tsx' | sed 's/^[^:]*://' | sort -u
 ```
@@ -84,7 +84,7 @@ is missing from all three, the patterns are what is broken.
 Expect this list to churn when files move between directories while the key list stays still — it is
 the *hunks* that matter here, not the paths. `sidebar-pins.ts` is the worked example, and it is the
 reason this paragraph exists: the release that renamed the product concept left
-`openbot:sidebar-pins:v1` and its Zod schema untouched and added `reownSidebarPinnedItems`, which
+`openownbot:sidebar-pins:v1` and its Zod schema untouched and added `reownSidebarPinnedItems`, which
 rewrites every stored `bot-<uuid>` pin to the matching `agent-<uuid>`. All of the migration lived
 inside the value. Had it been forgotten, every user's pins would point at ids the app no longer
 knows and would be dropped on the next read — and the key diff above would still print nothing.

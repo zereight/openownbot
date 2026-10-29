@@ -140,7 +140,7 @@ export const messages = {
   "server.hosted.detail.create.copy": "OpenOwnBot naar de machine kopiëren",
   "server.hosted.detail.create.key": "Eenmalige inlogsleutel toevoegen",
   "server.hosted.detail.start.boot": "Machine aanzetten",
-  "server.hosted.detail.start.app": "OpenBot starten",
+  "server.hosted.detail.start.app": "OpenOwnBot starten",
   "server.hosted.detail.start.wait": "Wachten tot OpenOwnBot antwoordt",
   "server.hosted.detail.connect.signIn": "Inloggen als jou",
   "server.hosted.detail.connect.publish": "Server aan je account toevoegen",
@@ -509,11 +509,11 @@ export const messages = {
   "server.update.path.hosted":
     "De hostingdienst downloadt updates op de achtergrond. Een gedownloade update start de volgende keer dat de server start. Wacht tot actief werk klaar is voordat je de server stopt en hervat. Blijft hij op een oude versie, neem dan contact op met de beheerder van de host.",
   "server.update.path.system":
-    "Voer op de host sudo openbot update uit om de nieuwste release te installeren. Deze opdracht stopt OpenOwnBot. Wacht eerst tot actief werk klaar is. Automatische downloads worden bij de volgende opstart geïnstalleerd.",
+    "Voer op de host sudo openownbot update uit om de nieuwste release te installeren. Deze opdracht stopt OpenOwnBot. Wacht eerst tot actief werk klaar is. Automatische downloads worden bij de volgende opstart geïnstalleerd.",
   "server.update.path.container":
     "Haal op de Docker-host de nieuwe OpenOwnBot-image op en maak de container opnieuw met dezelfde datavolumes. Wacht eerst tot actief werk klaar is. Behoud de bestaande volumes om je gegevens te bewaren.",
   "server.update.path.manual":
-    "Deze installatie kan zichzelf niet vervangen. Vraag de beheerder van de host om de compatibele release te installeren vanaf github.com/nightly-labs/openbot/releases. Behoud de bestaande OpenOwnBot-gegevens.",
+    "Deze installatie kan zichzelf niet vervangen. Vraag de beheerder van de host om de compatibele release te installeren vanaf github.com/zereight/openownbot/releases. Behoud de bestaande OpenOwnBot-gegevens.",
   "server.update.path.unavailable":
     "Dit is een ontwikkelbuild. Gebruik een geïnstalleerde OpenOwnBot-release om naar updates te zoeken.",
   "server.update.check": "Zoek naar updates",

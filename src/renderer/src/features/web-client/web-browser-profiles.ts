@@ -3,9 +3,9 @@ import {
   decodeBrowserProfileList,
   decodeBrowserProfileSummary,
   decodeHostBrowserTabProfiles,
-} from "@openbot/contracts/ipc";
-import { BROWSER_PROFILES_ROUTES } from "@openbot/contracts/team-protocol/browser-profiles-v1";
-import type { TeamApiRequest } from "@openbot/team-client/team-api-requests";
+} from "@openownbot/contracts/ipc";
+import { BROWSER_PROFILES_ROUTES } from "@openownbot/contracts/team-protocol/browser-profiles-v1";
+import type { TeamApiRequest } from "@openownbot/team-client/team-api-requests";
 import type { BrowserProfileCalls } from "../browser/browser-profiles-port";
 
 const ignoreResponse = (): void => {};

@@ -131,7 +131,7 @@ export function ReadyStep({
         </Animated.View>
       </View>
       <Animated.View entering={popEntering(motion, full ? STAMP_DELAY_MS : 0)} className="items-center gap-2">
-        <Typography.Heading type="h2" align="center" accessibilityRole="header" className="tracking-openbot-tight">
+        <Typography.Heading type="h2" align="center" accessibilityRole="header" className="tracking-openownbot-tight">
           {t("mobile.onboarding.ready.title", { name })}
         </Typography.Heading>
         {roleTitle ? (

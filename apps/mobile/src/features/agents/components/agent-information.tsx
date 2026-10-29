@@ -1,5 +1,5 @@
-import { analyticsRange, canAdministerServer } from "@openbot/contracts/ipc";
-import type { MobileTextKey } from "@openbot/i18n/mobile";
+import { analyticsRange, canAdministerServer } from "@openownbot/contracts/ipc";
+import type { MobileTextKey } from "@openownbot/i18n/mobile";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { router, useLocalSearchParams } from "expo-router";
 import { Button, Typography } from "heroui-native";

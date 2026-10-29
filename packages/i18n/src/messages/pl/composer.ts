@@ -51,7 +51,7 @@ export const messages = {
   "composer.voice.transcribing": "Transkrypcja promptu głosowego",
   "composer.voice.start": "Utwórz prompt głosem",
   "composer.voice.blocked":
-    "Dostęp do mikrofonu jest zablokowany. Pozwól OpenBot używać mikrofonu w ustawieniach systemowych.",
+    "Dostęp do mikrofonu jest zablokowany. Pozwól OpenOwnBot używać mikrofonu w ustawieniach systemowych.",
   "composer.voice.noMicrophone": "Brak dostępnego mikrofonu.",
   "composer.voice.startFailed": "OpenOwnBot nie mógł rozpocząć nagrywania głosu.",
   "composer.voice.transcribeFailed": "OpenOwnBot nie mógł przetranskrybować tego nagrania.",

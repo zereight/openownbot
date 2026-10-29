@@ -6,7 +6,7 @@
 // the turn must stop with DeepSeek's answer, not with the sandbox. The last part runs commands in the
 // same sandbox to check that only the lock folders became writable.
 // `PI_CLI=<path to pi> bun scripts/pi-workspace-only-smoke.ts`. Needs the network.
-// Writes .openbot-build/pi-workspace-only-smoke/report.json.
+// Writes .openownbot-build/pi-workspace-only-smoke/report.json.
 import assert from "node:assert/strict";
 import { spawnSync } from "node:child_process";
 import { existsSync } from "node:fs";
@@ -20,7 +20,7 @@ import { getArray, getString } from "../src/backend/protocol";
 import { requireProviderDriver } from "../src/backend/provider-drivers";
 import { runTurn, startThread, stopClients } from "./provider-fakes/host";
 
-const OUT = resolve(import.meta.dirname, "../.openbot-build/pi-workspace-only-smoke");
+const OUT = resolve(import.meta.dirname, "../.openownbot-build/pi-workspace-only-smoke");
 const SANDBOX_FAILURE = /Credential store read failed|EPERM|Operation not permitted|\.lock/u;
 
 interface TurnCase {
@@ -70,7 +70,7 @@ async function runPi(turn: TurnCase): Promise<void> {
   const client = requireProviderDriver("deepseek").createClient(
     cli,
     60_000,
-    { apiKey: () => "sk-openbot-smoke-not-valid", customProviders: () => [], mcpServers: () => [] },
+    { apiKey: () => "sk-openownbot-smoke-not-valid", customProviders: () => [], mcpServers: () => [] },
     confinement,
   );
   clients.push(client);
@@ -106,7 +106,7 @@ try {
   process.env.PI_CODING_AGENT_DIR = agentDirectory;
   // As in the issue: Pi ran with Full access before, so `auth.json` exists and is empty.
   await runPi({ authJson: "{}", errors: [] });
-  // A user who never ran Pi with Full access has no `auth.json`. OpenBot makes it before the start.
+  // A user who never ran Pi with Full access has no `auth.json`. OpenOwnBot makes it before the start.
   await runPi({ authJson: null, errors: [] });
 
   // The same sandbox, with commands in place of Pi.

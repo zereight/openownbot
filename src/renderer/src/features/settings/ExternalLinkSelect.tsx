@@ -4,8 +4,8 @@ import {
   type ExternalLinkTarget,
   externalLinkAppName,
   isExternalLinkAppPath,
-} from "@openbot/contracts/ipc";
-import { Button, Input, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@openbot/ui";
+} from "@openownbot/contracts/ipc";
+import { Button, Input, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@openownbot/ui";
 import { createMemo, createSignal, createStore, onSettled, Show } from "solid-js";
 import { useI18n } from "../../i18n-context";
 import { settingsPort } from "./settings-port";
@@ -19,7 +19,7 @@ function optionKey(target: ExternalLinkTarget): string {
 }
 
 function optionTarget(key: string): ExternalLinkTarget {
-  if (key === "default" || key === "openbot") return { kind: key };
+  if (key === "default" || key === "openownbot") return { kind: key };
   return { kind: "app", path: key.slice(APP_PREFIX.length) };
 }
 
@@ -27,9 +27,9 @@ function sameKeys(before: string[], after: string[]): boolean {
   return before.length === after.length && before.every((key, index) => key === after[index]);
 }
 
-/** The line under "OpenBot" ends the two fixed places. */
+/** The line under "OpenOwnBot" ends the two fixed places. */
 function groupClass(key: string) {
-  if (key === "openbot") return "settings-modal-select-group-end";
+  if (key === "openownbot") return "settings-modal-select-group-end";
   return undefined;
 }
 
@@ -42,7 +42,7 @@ interface ExternalLinkSelectProps {
 }
 
 /**
- * One list: the default browser, OpenBot, each browser that macOS knows, and "Other app…" for the
+ * One list: the default browser, OpenOwnBot, each browser that macOS knows, and "Other app…" for the
  * file dialog. Linux and Windows do not list browsers, so "Command…" opens a field under the list.
  */
 export function ExternalLinkSelect(props: ExternalLinkSelectProps) {
@@ -72,7 +72,7 @@ export function ExternalLinkSelect(props: ExternalLinkSelectProps) {
       const listed = found().browsers.map((browser) => `${APP_PREFIX}${browser.path}`);
       const saved = optionKey(props.target);
       const extra = props.target.kind === "app" && !listed.includes(saved) ? [saved] : [];
-      return ["default", "openbot", ...listed, ...extra, OTHER];
+      return ["default", "openownbot", ...listed, ...extra, OTHER];
     },
     { equals: sameKeys },
   );
@@ -85,7 +85,7 @@ export function ExternalLinkSelect(props: ExternalLinkSelectProps) {
 
   const label = (key: string): string => {
     if (key === OTHER) return i18n.t(mac() ? "settings.externalLinks.otherApp" : "settings.externalLinks.command");
-    if (key === "openbot") return i18n.t("settings.externalLinks.openbot");
+    if (key === "openownbot") return i18n.t("settings.externalLinks.openownbot");
     if (key === "default") {
       const current = found().defaultBrowser;
       if (!current) return i18n.t("settings.externalLinks.defaultBrowser");

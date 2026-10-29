@@ -13,8 +13,8 @@
 import { randomUUID } from "node:crypto";
 import { lstat, mkdir, open, readdir, readFile, rename, rm, stat, writeFile } from "node:fs/promises";
 import { basename, dirname, join, relative, resolve, sep } from "node:path";
-import type { AgentProviderId } from "@openbot/contracts/agent-providers";
-import { INPUT_LIMITS } from "@openbot/contracts/input-limits";
+import type { AgentProviderId } from "@openownbot/contracts/agent-providers";
+import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
 import {
   AGENT_IMPORT_LIMITS,
   type AgentImportPreviewAgent,
@@ -47,9 +47,9 @@ import {
   type SidebarLayoutAction,
   type SidebarLayoutSnapshot,
   type UpdateAgentInput,
-} from "@openbot/contracts/ipc";
-import { INSTANCE_TRANSFER_REMOTE_BYTES } from "@openbot/contracts/team-protocol/instance-transfer-v1";
-import { sourceText } from "@openbot/i18n/source";
+} from "@openownbot/contracts/ipc";
+import { INSTANCE_TRANSFER_REMOTE_BYTES } from "@openownbot/contracts/team-protocol/instance-transfer-v1";
+import { sourceText } from "@openownbot/i18n/source";
 import { Deferred, Effect, Exit, Result } from "effect";
 import { Zip, ZipPassThrough, zipSync } from "fflate";
 import { isMissingFileError } from "../backend/file-errors";
@@ -109,9 +109,9 @@ const LOCAL_OWNER = "local";
 /** A file that a member sent and nobody applied is removed after this. */
 const UPLOAD_TTL_MS = 30 * 60_000;
 /** Skill folders are copied here, published to the local library, and removed again. */
-const SKILL_STAGING = ".openbot/import-skills";
-/** Workspace folders an export leaves out: OpenBot's own state and the installed skills, which travel as skills. */
-const WORKSPACE_SKIPPED = [".openbot", ...MANAGED_SKILL_FOLDERS];
+const SKILL_STAGING = ".openownbot/import-skills";
+/** Workspace folders an export leaves out: OpenOwnBot's own state and the installed skills, which travel as skills. */
+const WORKSPACE_SKIPPED = [".openownbot", ...MANAGED_SKILL_FOLDERS];
 const AVATAR_EXTENSIONS: Record<AvatarImageInput["mimeType"], string> = {
   "image/png": "png",
   "image/jpeg": "jpg",
@@ -959,7 +959,7 @@ export class InstanceTransferService {
 
 /**
  * The files an export carries from one folder: no link, nothing `isUnsafeArchivePath` refuses on
- * import (`.git`, `node_modules`, `.env*`, private keys, nested archives), and not OpenBot's own
+ * import (`.git`, `node_modules`, `.env*`, private keys, nested archives), and not OpenOwnBot's own
  * workspace folders.
  */
 const workspaceFiles = Effect.fn("InstanceTransfer.workspaceFiles")(function* (
@@ -968,9 +968,9 @@ const workspaceFiles = Effect.fn("InstanceTransfer.workspaceFiles")(function* (
   return yield* walk(root, isWorkspaceSkipped);
 });
 
-/** OpenBot's own workspace folders: an export leaves them out, and an import never writes them. */
+/** OpenOwnBot's own workspace folders: an export leaves them out, and an import never writes them. */
 function isWorkspaceSkipped(name: string): boolean {
-  // A disk that ignores case writes `.OpenBot/` into `.openbot/`, so the check ignores case too.
+  // A disk that ignores case writes `.OpenOwnBot/` into `.openownbot/`, so the check ignores case too.
   const lower = name.toLowerCase();
   return WORKSPACE_SKIPPED.some((skipped) => lower === skipped || lower.startsWith(`${skipped}/`));
 }
@@ -1007,7 +1007,7 @@ const walk = Effect.fn("InstanceTransfer.walk")(function* (
   return files.sort((a, b) => a.name.localeCompare(b.name));
 });
 
-/** The skills a user or a marketplace installed. OpenBot's own skills are installed again on import. */
+/** The skills a user or a marketplace installed. OpenOwnBot's own skills are installed again on import. */
 const skillFolders = Effect.fn("InstanceTransfer.skillFolders")(function* (
   workspace: string,
 ): Effect.fn.Return<Array<{ slug: string; files: FileEntry[] }>, ArchiveOperationError> {

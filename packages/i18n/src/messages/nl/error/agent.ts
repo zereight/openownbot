@@ -142,7 +142,7 @@ export const messages = {
   "error.agent.screenCaptureRegionOutside":
     "Het gebied valt niet binnen één beeldscherm. Gebruik bureaubladpunten binnen de grenzen van één beeldscherm uit list_capture_sources.",
   "error.agent.screenCapturePermissionMissing":
-    "OpenBot heeft geen toestemming voor schermopname. Vraag de gebruiker om Systeeminstellingen > Privacy en beveiliging > Scherm- en systeemaudio-opname te openen, OpenBot aan te zetten en OpenBot daarna te stoppen en opnieuw te openen.",
+    "OpenOwnBot heeft geen toestemming voor schermopname. Vraag de gebruiker om Systeeminstellingen > Privacy en beveiliging > Scherm- en systeemaudio-opname te openen, OpenOwnBot aan te zetten en OpenOwnBot daarna te stoppen en opnieuw te openen.",
   "error.agent.screenCaptureEmptyWindows":
     "Windows gaf een leeg beeld. Vraag de gebruiker om de computer te ontgrendelen en beschermde inhoud te sluiten. Ook een beleid van de organisatie kan schermopname blokkeren.",
   "error.agent.screenCaptureFailed": "De schermopname is mislukt. Probeer het opnieuw.",

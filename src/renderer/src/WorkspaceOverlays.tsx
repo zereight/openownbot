@@ -1,15 +1,15 @@
-import type { CentralAuthUser, RoutineFields, ServerSummary } from "@openbot/contracts/ipc";
-import { BROWSER_PROFILES_CAPABILITY } from "@openbot/contracts/team-protocol/browser-profiles-v1";
-import { VAULT_CAPABILITY } from "@openbot/contracts/team-protocol/vault-v1";
-import { classifyFailure } from "@openbot/telemetry";
-import { isAgentAccount } from "@openbot/ui/components/provider-accounts";
-import type { AcpRegistrySettingsApi } from "@openbot/ui/features/custom-providers/AcpRegistrySettings";
-import type { CustomAgentSettingsApi } from "@openbot/ui/features/custom-providers/CustomAgentSettings";
-import { providerDiagnosticsText } from "@openbot/ui/features/provider-diagnostics/provider-diagnostics";
-import { LeaveServerDialog } from "@openbot/ui/features/servers/LeaveServerDialog";
-import { RestartServerDialog } from "@openbot/ui/features/servers/RestartServerDialog";
-import type { HostedSiteDeleteResult } from "@openbot/ui/features/settings/stores/hosted-sites-store";
-import { currentText } from "@openbot/ui/text";
+import type { CentralAuthUser, RoutineFields, ServerSummary } from "@openownbot/contracts/ipc";
+import { BROWSER_PROFILES_CAPABILITY } from "@openownbot/contracts/team-protocol/browser-profiles-v1";
+import { VAULT_CAPABILITY } from "@openownbot/contracts/team-protocol/vault-v1";
+import { classifyFailure } from "@openownbot/telemetry";
+import { isAgentAccount } from "@openownbot/ui/components/provider-accounts";
+import type { AcpRegistrySettingsApi } from "@openownbot/ui/features/custom-providers/AcpRegistrySettings";
+import type { CustomAgentSettingsApi } from "@openownbot/ui/features/custom-providers/CustomAgentSettings";
+import { providerDiagnosticsText } from "@openownbot/ui/features/provider-diagnostics/provider-diagnostics";
+import { LeaveServerDialog } from "@openownbot/ui/features/servers/LeaveServerDialog";
+import { RestartServerDialog } from "@openownbot/ui/features/servers/RestartServerDialog";
+import type { HostedSiteDeleteResult } from "@openownbot/ui/features/settings/stores/hosted-sites-store";
+import { currentText } from "@openownbot/ui/text";
 import { createEffect, createMemo, Loading, Show, untrack } from "solid-js";
 import { actionToast } from "./action-toast";
 import { desktopAnalytics } from "./analytics";
@@ -166,7 +166,7 @@ export function SkillsMarketplace() {
 }
 
 /**
- * A shared agent from an `openbot://agents/<id>` link. It is added where a marketplace agent is: on
+ * A shared agent from an `openownbot://agents/<id>` link. It is added where a marketplace agent is: on
  * the selected joined server when this account administers it, otherwise on this computer.
  */
 function SharedAgentInstall() {

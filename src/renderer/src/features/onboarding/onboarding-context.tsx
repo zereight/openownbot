@@ -1,5 +1,5 @@
-import type { AgentModelId, AgentProviderId, AppSetupState } from "@openbot/contracts/ipc";
-import { errorReference } from "@openbot/user-errors";
+import type { AgentModelId, AgentProviderId, AppSetupState } from "@openownbot/contracts/ipc";
+import { errorReference } from "@openownbot/user-errors";
 import { createSignal, createStore, onSettled } from "solid-js";
 import { type DesktopAnalyticsProperties, desktopAnalytics } from "../../analytics";
 import { createSimpleContext } from "../../simple-context";

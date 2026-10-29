@@ -52,13 +52,13 @@ async function build(): Promise<void> {
     ])
   ).trim();
   if (appVersion !== version) throw new Error("OpenOwnBot.app and Host package versions differ.");
-  const temp = await mkdtemp(join(tmpdir(), "openbot-host-build-"));
+  const temp = await mkdtemp(join(tmpdir(), "openownbot-host-build-"));
   const payload = join(temp, "payload");
   const installerScripts = join(temp, "scripts");
-  const destination = resolve(`dist/OpenBot-Host-${version}-arm64.pkg`);
+  const destination = resolve(`dist/OpenOwnBot-Host-${version}-arm64.pkg`);
   try {
     await mkdir(join(payload, HOST_MANAGER_DIRECTORY), { recursive: true });
-    for (const name of ["host-manager", "openbot-host"]) {
+    for (const name of ["host-manager", "openownbot-host"]) {
       await command("bun", [
         "build",
         `scripts/${name}.ts`,
@@ -106,8 +106,8 @@ async function build(): Promise<void> {
       ]);
     }
     for (const [source, target] of [
-      ["openbot-host", "/usr/local/bin/openbot-host"],
-      ["openbot-relaunch.sh", `${HOST_MANAGER_DIRECTORY}/openbot-relaunch.sh`],
+      ["openownbot-host", "/usr/local/bin/openownbot-host"],
+      ["openownbot-relaunch.sh", `${HOST_MANAGER_DIRECTORY}/openownbot-relaunch.sh`],
       ["app.openownbot.host-manager.plist", "/Library/LaunchDaemons/app.openownbot.host-manager.plist"],
       ["app.openownbot.desktop.relaunch.plist", "/Library/LaunchAgents/app.openownbot.desktop.relaunch.plist"],
     ] as const) {

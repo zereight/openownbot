@@ -1,6 +1,6 @@
-import { AppLogo } from "@openbot/brand";
-import { readFirstTouch } from "@openbot/contracts/first-touch";
-import { isDynamicRecord, isOneOf } from "@openbot/contracts/runtime-values";
+import { AppLogo } from "@openownbot/brand";
+import { readFirstTouch } from "@openownbot/contracts/first-touch";
+import { isDynamicRecord, isOneOf } from "@openownbot/contracts/runtime-values";
 import { createFileRoute } from "@tanstack/solid-router";
 import { onSettled, Show } from "solid-js";
 import { billingReturnText } from "../../components/transactional/page-text";
@@ -56,7 +56,7 @@ function sendCheckoutAttribution(): void {
     keepalive: true,
     // The page has no referrer; the account service still needs the Origin header of this site.
     referrerPolicy: "same-origin",
-    headers: { "Content-Type": "application/json", "X-OpenBot-Browser": "1" },
+    headers: { "Content-Type": "application/json", "X-OpenOwnBot-Browser": "1" },
     body: JSON.stringify({ sessionId, firstTouch }),
   }).catch(() => undefined);
 }

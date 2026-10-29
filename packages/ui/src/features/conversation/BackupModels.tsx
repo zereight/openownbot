@@ -1,5 +1,5 @@
-import { ProviderLogo } from "@openbot/brand";
-import { agentProviderName, isKnownAgentProvider } from "@openbot/contracts/agent-providers";
+import { ProviderLogo } from "@openownbot/brand";
+import { agentProviderName, isKnownAgentProvider } from "@openownbot/contracts/agent-providers";
 import {
   AGENT_BACKUP_MODEL_LIMIT,
   type AgentBackupModels,
@@ -9,7 +9,7 @@ import {
   type ClientAgentModelOption,
   DEFAULT_PROVIDER_ACCOUNT_ID,
   sameAgentModelChoice,
-} from "@openbot/contracts/ipc";
+} from "@openownbot/contracts/ipc";
 import {
   ArrowLeftRight,
   Badge,
@@ -29,9 +29,9 @@ import {
   Switch,
   Text,
   Trash2,
-} from "@openbot/ui";
-import { SettingsLinkGroup } from "@openbot/ui/components/SettingsPanel";
-import { errorReference } from "@openbot/user-errors";
+} from "@openownbot/ui";
+import { SettingsLinkGroup } from "@openownbot/ui/components/SettingsPanel";
+import { errorReference } from "@openownbot/user-errors";
 import { createSignal, createUniqueId, For, Show } from "solid-js";
 import { providerAccountName } from "../../components/provider-accounts";
 import { currentText, useText } from "../../text";

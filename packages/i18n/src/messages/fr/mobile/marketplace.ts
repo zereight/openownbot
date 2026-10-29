@@ -106,9 +106,9 @@ export const messages = {
   "mobile.marketplace.app.linkInvalid": "Utilisez un lien https sur {hostname}.",
   "mobile.marketplace.app.docs": "Obtenir une clé",
   "mobile.marketplace.app.local":
-    "Cette app s’exécute sur l’ordinateur avec OpenBot. Configurez-la sur cet ordinateur.",
+    "Cette app s’exécute sur l’ordinateur avec OpenOwnBot. Configurez-la sur cet ordinateur.",
   "mobile.marketplace.app.relayUnsupported":
-    "Cette app demande une connexion dans le navigateur. Mettez à jour OpenBot sur le serveur ou connectez l’app sur l’ordinateur.",
+    "Cette app demande une connexion dans le navigateur. Mettez à jour OpenOwnBot sur le serveur ou connectez l’app sur l’ordinateur.",
   "mobile.marketplace.app.waiting": "En attente de la page de connexion…",
   "mobile.marketplace.app.openAgain": "Rouvrir la page de connexion",
   "mobile.marketplace.app.pasteHint":

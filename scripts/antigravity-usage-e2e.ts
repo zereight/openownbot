@@ -6,12 +6,12 @@
 // API key sign-in and a 1.3.0 server give no reading, that 1.3.0 is never sent
 // `/usage`, that the answer reaches no thread, and that later reads reuse the first session: each
 // new Antigravity session leaves a conversation database on disk.
-// `bun scripts/antigravity-usage-e2e.ts`. Writes .openbot-build/antigravity-usage-e2e/report.json.
+// `bun scripts/antigravity-usage-e2e.ts`. Writes .openownbot-build/antigravity-usage-e2e/report.json.
 import assert from "node:assert/strict";
 import { chmod, mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
-import { type AccountUsage, isAccountUsage, usageGroupForModel, usageQuotaForModel } from "@openbot/contracts/ipc";
+import { type AccountUsage, isAccountUsage, usageGroupForModel, usageQuotaForModel } from "@openownbot/contracts/ipc";
 import { normalizeAccountUsage } from "../src/backend/agent/account-usage";
 import type { AgentClient } from "../src/backend/agent-client";
 import type { AgentCliInfo } from "../src/backend/cli";
@@ -19,7 +19,7 @@ import { runCauseEffect } from "../src/backend/effect-boundary";
 import { type AccountRateLimitsReadResult, decodeAccountRateLimitsReadResult } from "../src/backend/protocol";
 import { NO_PROVIDER_CREDENTIALS, requireProviderDriver } from "../src/backend/provider-drivers";
 
-const OUT = resolve(import.meta.dirname, "../.openbot-build/antigravity-usage-e2e");
+const OUT = resolve(import.meta.dirname, "../.openownbot-build/antigravity-usage-e2e");
 
 /** The answer of Antigravity 1.4.1's `format_usage_message` for a Google sign-in. */
 const GOOGLE_ANSWER = [
@@ -127,7 +127,7 @@ interface Report {
   olderRuntime?: UsageCase;
 }
 
-const root = await mkdtemp(join(tmpdir(), "openbot-antigravity-usage-e2e-"));
+const root = await mkdtemp(join(tmpdir(), "openownbot-antigravity-usage-e2e-"));
 const log = join(root, "agy.jsonl");
 const report: Report = { passed: false };
 const clients: AgentClient[] = [];

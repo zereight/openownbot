@@ -1,4 +1,4 @@
-import { JoinServerDialog } from "@openbot/ui/features/servers/JoinServerDialog";
+import { JoinServerDialog } from "@openownbot/ui/features/servers/JoinServerDialog";
 import { fn } from "storybook/test";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";
 
@@ -58,7 +58,7 @@ export const ErrorState: Story = {
   args: {
     inviteUrl: "",
     onPreview: async () => {
-      throw new Error("The OpenBot invitation link is invalid.");
+      throw new Error("The OpenOwnBot invitation link is invalid.");
     },
   },
 };
@@ -72,7 +72,7 @@ export const Joining: Story = {
 export const JoinError: Story = {
   args: {
     onJoin: async () => {
-      throw new Error("OpenBot could not connect to this host.");
+      throw new Error("OpenOwnBot could not connect to this host.");
     },
   },
 };

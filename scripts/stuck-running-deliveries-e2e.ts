@@ -10,19 +10,19 @@
 // (g) a delivery that runs again under the same turn id, after its session was refused, runs to its end (#2468);
 // (h) a turn row that stays `running` although no thread names it as its active turn is closed at restart,
 //     in the agent's own chat, a task thread and a channel thread.
-// `bun scripts/stuck-running-deliveries-e2e.ts`. Writes .openbot-build/stuck-running-deliveries-e2e/report.json.
+// `bun scripts/stuck-running-deliveries-e2e.ts`. Writes .openownbot-build/stuck-running-deliveries-e2e/report.json.
 import { randomUUID } from "node:crypto";
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { mkdtemp, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
-import { AGENT_PROVIDERS, type AgentEvent } from "@openbot/contracts/ipc";
+import { AGENT_PROVIDERS, type AgentEvent } from "@openownbot/contracts/ipc";
 import { Effect } from "effect";
 import type { AgentBrowserHost } from "../src/backend/agent/turn-lifecycle";
 import { getRecord, getString, isRecord } from "../src/backend/protocol";
 
-const OUT = resolve(import.meta.dirname, "../.openbot-build/stuck-running-deliveries-e2e");
-const root = await mkdtemp(join(tmpdir(), "openbot-stuck-deliveries-"));
+const OUT = resolve(import.meta.dirname, "../.openownbot-build/stuck-running-deliveries-e2e");
+const root = await mkdtemp(join(tmpdir(), "openownbot-stuck-deliveries-"));
 const userData = join(root, "user-data");
 const home = join(root, "home");
 const logPath = join(root, "protocol.jsonl");
@@ -34,9 +34,9 @@ const SETTLE_MS = 10_000;
 // Before the service modules load: the Codex process and the stores read the home folder.
 process.env.HOME = home;
 process.env.CODEX_HOME = join(home, ".codex");
-process.env.OPENBOT_CODEX_PATH = fakeCodex;
-process.env.OPENBOT_FAKE_CODEX_LOG = logPath;
-process.env.OPENBOT_FAKE_CODEX_CONTROL = controlPath;
+process.env.OPENOWNBOT_CODEX_PATH = fakeCodex;
+process.env.OPENOWNBOT_FAKE_CODEX_LOG = logPath;
+process.env.OPENOWNBOT_FAKE_CODEX_CONTROL = controlPath;
 mkdirSync(home, { recursive: true });
 
 const { AgentService } = await import("../src/backend/agent-service");
@@ -44,7 +44,7 @@ const { AgentThreadStore } = await import("../src/backend/agent-threads/agent-th
 const { AgentStore } = await import("../src/backend/agent-store");
 const { runCauseEffect } = await import("../src/backend/effect-boundary");
 const { MailboxStore } = await import("../src/backend/mailbox-store");
-const { OpenBotDatabase } = await import("../src/backend/openbot-database");
+const { OpenOwnBotDatabase } = await import("../src/backend/openownbot-database");
 const { StoredStateFailure } = await import("../src/backend/stored-state-effects");
 
 /**
@@ -62,8 +62,8 @@ if (process.argv.includes("--version")) {
   process.stdout.write("codex-cli 0.160.1\\n");
   process.exit(0);
 }
-const log = (entry) => fs.appendFileSync(process.env.OPENBOT_FAKE_CODEX_LOG, JSON.stringify(entry) + "\\n");
-const control = () => JSON.parse(fs.readFileSync(process.env.OPENBOT_FAKE_CODEX_CONTROL, "utf8"));
+const log = (entry) => fs.appendFileSync(process.env.OPENOWNBOT_FAKE_CODEX_LOG, JSON.stringify(entry) + "\\n");
+const control = () => JSON.parse(fs.readFileSync(process.env.OPENOWNBOT_FAKE_CODEX_CONTROL, "utf8"));
 const config = { config: { mcp_servers: {} }, layers: [{ name: { type: "user", file: "/fake/.codex/config.toml", profile: null }, version: "1", config: { mcp_servers: {} } }] };
 const prefix = "p" + process.pid + "-";
 let buffer = "";
@@ -155,7 +155,7 @@ process.stdin.on("data", (chunk) => {
 });
 `;
 
-type Database = InstanceType<typeof OpenBotDatabase>;
+type Database = InstanceType<typeof OpenOwnBotDatabase>;
 type Mailbox = InstanceType<typeof MailboxStore>;
 type Store = InstanceType<typeof AgentStore>;
 type Service = InstanceType<typeof AgentService>;
@@ -246,7 +246,7 @@ async function control(value: {
 }
 
 async function start(): Promise<Instance> {
-  const database = new OpenBotDatabase(userData);
+  const database = new OpenOwnBotDatabase(userData);
   const store = new AgentStore(userData, home, database);
   const mailbox = new MailboxStore(userData, store.sharedRoot, store.database);
   const agents = new AgentService({
@@ -347,7 +347,7 @@ await writeFile(fakeCodex, FAKE_CODEX, { mode: 0o755 });
 let current: Instance | null = null;
 
 try {
-  // (a) Three agents with a turn that runs when OpenBot stops, and a second message in each queue.
+  // (a) Three agents with a turn that runs when OpenOwnBot stops, and a second message in each queue.
   await control({ holdTurns: true, turnMs: 0 });
   const first = await start();
   current = first;

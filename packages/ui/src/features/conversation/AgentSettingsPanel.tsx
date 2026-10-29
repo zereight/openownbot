@@ -1,5 +1,5 @@
-import { agentProviderDescriptor, agentProviderName, foreignProvider } from "@openbot/contracts/agent-providers";
-import { INPUT_LIMITS } from "@openbot/contracts/input-limits";
+import { agentProviderDescriptor, agentProviderName, foreignProvider } from "@openownbot/contracts/agent-providers";
+import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
 import {
   AGENT_TASK_LIMIT_DEFAULT,
   AGENT_TASK_LIMIT_MAX,
@@ -35,8 +35,8 @@ import {
   type UpdateAgentAdminSettingsInput,
   type UpdateAgentInput,
   widensAgentPermission,
-} from "@openbot/contracts/ipc";
-import type { AppTextKey } from "@openbot/i18n";
+} from "@openownbot/contracts/ipc";
+import type { AppTextKey } from "@openownbot/i18n";
 import {
   ArrowLeftRight,
   Bell,
@@ -61,10 +61,10 @@ import {
   Switch,
   Text,
   Textarea,
-} from "@openbot/ui";
-import { normalizeAvatarFile } from "@openbot/ui/avatar-image";
-import { AVATAR_HUE_OPTIONS, avatarCandidateSeeds, avatarHueSwatch } from "@openbot/ui/bloub-avatar";
-import { ProviderModelPicker, reasoningLabel } from "@openbot/ui/components/ProviderModelPicker";
+} from "@openownbot/ui";
+import { normalizeAvatarFile } from "@openownbot/ui/avatar-image";
+import { AVATAR_HUE_OPTIONS, avatarCandidateSeeds, avatarHueSwatch } from "@openownbot/ui/bloub-avatar";
+import { ProviderModelPicker, reasoningLabel } from "@openownbot/ui/components/ProviderModelPicker";
 import {
   SettingsField,
   SettingsLinkGroup,
@@ -72,12 +72,12 @@ import {
   SettingsPanel,
   SettingsPanelContent,
   SettingsPanelHeader,
-} from "@openbot/ui/components/SettingsPanel";
-import type { AgentProfile } from "@openbot/ui/data";
-import { AgentAvatar } from "@openbot/ui/features/agents/AgentAvatar";
-import { InstructionsLimit, instructionsTooLong } from "@openbot/ui/features/agents/InstructionsLimit";
-import { type BrowserProfileChoice, BrowserProfileSelect } from "@openbot/ui/features/browser/BrowserProfileSelect";
-import { errorReference } from "@openbot/user-errors";
+} from "@openownbot/ui/components/SettingsPanel";
+import type { AgentProfile } from "@openownbot/ui/data";
+import { AgentAvatar } from "@openownbot/ui/features/agents/AgentAvatar";
+import { InstructionsLimit, instructionsTooLong } from "@openownbot/ui/features/agents/InstructionsLimit";
+import { type BrowserProfileChoice, BrowserProfileSelect } from "@openownbot/ui/features/browser/BrowserProfileSelect";
+import { errorReference } from "@openownbot/user-errors";
 import type { JSX } from "@solidjs/web";
 import {
   createEffect,

@@ -4,7 +4,7 @@ import {
   ONEPASSWORD_MARK_PATH,
   SLACK_MARK_PATH,
   TELEGRAM_MARK_PATH,
-} from "@openbot/brand/connector-mark-shape";
+} from "@openownbot/brand/connector-mark-shape";
 import { useThemeColor } from "heroui-native/hooks";
 import Lock from "lucide-react-native/icons/lock";
 import { View } from "react-native";

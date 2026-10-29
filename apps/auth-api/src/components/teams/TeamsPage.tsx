@@ -22,7 +22,7 @@ import { ButtonLink } from "../ui/button";
 
 // Loaded after the page is in the browser, as in `FeaturesSection`: the avatar engine is large.
 const AgentAvatar = lazy(() =>
-  import("@openbot/ui/features/agents/AgentAvatar").then((module) => ({ default: module.AgentAvatar })),
+  import("@openownbot/ui/features/agents/AgentAvatar").then((module) => ({ default: module.AgentAvatar })),
 );
 
 const SETUP_ICONS: Record<TeamsSetupId, LandingIconName> = {
@@ -151,7 +151,7 @@ function RevealSection(props: { id: string; labelledBy?: string; children: JSX.E
 /** "Bring a team of AI coworkers …": the avatars go after "of". */
 const [titleLead, titleRest] = TEAMS_HERO.heading.split(" of ");
 
-/** As the home hero puts the logo in "Meet OpenBot", this title holds the team. Their eyes follow the pointer. */
+/** As the home hero puts the logo in "Meet OpenOwnBot", this title holds the team. Their eyes follow the pointer. */
 function TeamsHero() {
   return (
     <section class="landing-hero teams-hero" aria-labelledby="teams-title">
@@ -164,7 +164,7 @@ function TeamsHero() {
           <span class="teams-pill-dots" aria-hidden="true">
             <For each={TEAMS_SETUPS}>{(setup) => <span data-setup={setup.id} />}</For>
           </span>
-          <span class="teams-pill-label">OpenBot for Teams</span>
+          <span class="teams-pill-label">OpenOwnBot for Teams</span>
         </p>
         <h1 id="teams-title" class="teams-title landing-hero-line" style={{ "--landing-hero-line": 1 }}>
           <span>{titleLead}</span>{" "}

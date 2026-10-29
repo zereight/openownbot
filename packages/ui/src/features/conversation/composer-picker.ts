@@ -1,5 +1,5 @@
-import type { DraftAttachment } from "@openbot/contracts/ipc";
-import { Bot, File, Folder, Minimize2, Plug, type Puzzle, ShieldCheck, Store } from "@openbot/ui";
+import type { DraftAttachment } from "@openownbot/contracts/ipc";
+import { Bot, File, Folder, Minimize2, Plug, type Puzzle, ShieldCheck, Store } from "@openownbot/ui";
 import type { ComposerAgent, ComposerMcpServer, ComposerSkill } from "../../data";
 import type { TextValue } from "../../text";
 

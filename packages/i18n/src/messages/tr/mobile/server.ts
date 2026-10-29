@@ -111,7 +111,7 @@ export const messages = {
   "mobile.server.hosted.detail.copy": "OpenOwnBot makineye kopyalanıyor",
   "mobile.server.hosted.detail.key": "Tek seferlik giriş anahtarı ekleniyor",
   "mobile.server.hosted.detail.boot": "Makine açılıyor",
-  "mobile.server.hosted.detail.app": "OpenBot başlatılıyor",
+  "mobile.server.hosted.detail.app": "OpenOwnBot başlatılıyor",
   "mobile.server.hosted.detail.wait": "OpenOwnBot'un yanıt vermesi bekleniyor",
   "mobile.server.hosted.detail.signIn": "Sizin adınıza oturum açılıyor",
   "mobile.server.hosted.detail.publish": "Sunucu hesabınıza ekleniyor",
@@ -413,7 +413,7 @@ export const messages = {
   "mobile.server.connectors.bitwarden.description":
     "{host} üzerindeki tarayıcı girişlerini Bitwarden veya Vaultwarden'dan doldurun.",
   "mobile.server.connectors.bitwarden.howItWorks":
-    "{host} kendi Bitwarden CLI'si ile oturum açar. Kasanızda Shared with OpenBot adlı bir klasör oluşturun ve içine yalnızca ajanların kullanabileceği girişleri koyun. Web kasasında Ayarlar › Güvenlik › Anahtarlar'ı açın ve API anahtarınızı görüntüleyin.",
+    "{host} kendi Bitwarden CLI'si ile oturum açar. Kasanızda Shared with OpenOwnBot adlı bir klasör oluşturun ve içine yalnızca ajanların kullanabileceği girişleri koyun. Web kasasında Ayarlar › Güvenlik › Anahtarlar'ı açın ve API anahtarınızı görüntüleyin.",
   "mobile.server.connectors.bitwarden.serverUrl": "Sunucu adresi",
   "mobile.server.connectors.bitwarden.serverUrlHint":
     "Bitwarden veya Vaultwarden sunucunuzun adresi. {host} bu adrese HTTPS ile ulaşabilmelidir.",
@@ -427,7 +427,7 @@ export const messages = {
   "mobile.server.connectors.bitwarden.connectingBody":
     "{host} Bitwarden'da oturum açıyor. İlk oturum açma birkaç dakika sürebilir.",
   "mobile.server.connectors.bitwarden.folderTitle": "Paylaşılan klasör",
-  "mobile.server.connectors.bitwarden.folderName": "Shared with OpenBot",
+  "mobile.server.connectors.bitwarden.folderName": "Shared with OpenOwnBot",
   "mobile.server.connectors.bitwarden.folderKind": "Bitwarden'daki klasör",
   "mobile.server.connectors.bitwarden.folderFooter":
     "Ajanların bir girişle oturum açmasına izin vermek için girişi Bitwarden'da bu klasöre taşıyın. Durdurmak için kaldırın.",
@@ -489,9 +489,9 @@ export const messages = {
   "mobile.server.connectors.onePassword.disconnectBody":
     "{host} belirteci unutur. Kasa ve hizmet hesabı 1Password'de kalır; artık gerekmiyorsa onları orada kaldırın.",
   "mobile.server.connectors.slack.title": "Slack",
-  "mobile.server.connectors.slack.summary": "Kullanıcılar Slack'te @OpenBot'tan bahseder",
+  "mobile.server.connectors.slack.summary": "Kullanıcılar Slack'te @OpenOwnBot'tan bahseder",
   "mobile.server.connectors.slack.description":
-    "Kullanıcılar Slack'te @OpenBot'tan bahseder veya doğrudan mesaj gönderir. Slack Düzenleyicisi doğru ajana sorar ve yanıtlar.",
+    "Kullanıcılar Slack'te @OpenOwnBot'tan bahseder veya doğrudan mesaj gönderir. Slack Düzenleyicisi doğru ajana sorar ve yanıtlar.",
   "mobile.server.connectors.slack.connected": "{workspace} · Slack Düzenleyicisi yanıtlıyor",
   "mobile.server.connectors.slack.noAgent": "{workspace} · Henüz yanıt veren bir ajan yok",
   "mobile.server.connectors.slack.many": {
@@ -512,7 +512,7 @@ export const messages = {
   },
   "mobile.server.connectors.slack.workspaceTitle": "Çalışma alanı",
   "mobile.server.connectors.slack.workspaceDescription":
-    "Kullanıcılar @OpenBot'tan bahseder veya doğrudan mesaj gönderir.",
+    "Kullanıcılar @OpenOwnBot'tan bahseder veya doğrudan mesaj gönderir.",
   "mobile.server.connectors.slack.missingScopes":
     "OpenOwnBot Slack'te şu izinlere sahip değil: {scopes}. Çalışma alanı bağlantısını kesin, ardından tekrar bağlayın.",
   "mobile.server.connectors.slack.retryAt":
@@ -529,7 +529,7 @@ export const messages = {
   "mobile.server.connectors.slack.orchestratorNone": "Slack Düzenleyicisini ekleyin, aksi takdirde Slack yanıt alamaz.",
   "mobile.server.connectors.slack.addAgent": "Slack Düzenleyicisini ekle",
   "mobile.server.connectors.slack.note":
-    "OpenBot her genel kanala ve her yeni kanala kendiliğinden katılır. Özel bir kanal için onu davet edin: /invite @OpenBot.",
+    "OpenOwnBot her genel kanala ve her yeni kanala kendiliğinden katılır. Özel bir kanal için onu davet edin: /invite @OpenOwnBot.",
   "mobile.server.connectors.slack.disconnectTitle": "{workspace} bağlantısı kesilsin mi?",
   "mobile.server.connectors.slack.disconnectBody":
     "OpenOwnBot {workspace} içinde yanıt vermeyi durdurur ve Slack belirtecini {host} sunucusundan kaldırır.",
@@ -537,12 +537,12 @@ export const messages = {
   "mobile.server.connectors.slack.disconnectDeleted": "Slack Düzenleyicisi ve konuşmaları OpenOwnBot'tan silinir.",
   "mobile.server.connectors.slack.agentPromptTitle": "Slack Düzenleyicisi eklensin mi?",
   "mobile.server.connectors.slack.agentPromptBody":
-    "Bu yeni ajan, {workspace} içinde @OpenBot'a gönderilen her şeyi yanıtlar.",
+    "Bu yeni ajan, {workspace} içinde @OpenOwnBot'a gönderilen her şeyi yanıtlar.",
   "mobile.server.connectors.slack.installFailed": "Slack yüklemeyi tamamlamadı. Tekrar deneyin.",
   "mobile.server.connectors.discord.title": "Discord",
-  "mobile.server.connectors.discord.summary": "Kullanıcılar bir Discord sunucusunda @OpenBot'tan bahseder",
+  "mobile.server.connectors.discord.summary": "Kullanıcılar bir Discord sunucusunda @OpenOwnBot'tan bahseder",
   "mobile.server.connectors.discord.description":
-    "Kullanıcılar bir Discord sunucusunun kanalında @OpenBot'tan bahseder. Discord Düzenleyicisi doğru ajana sorar ve yanıtlar.",
+    "Kullanıcılar bir Discord sunucusunun kanalında @OpenOwnBot'tan bahseder. Discord Düzenleyicisi doğru ajana sorar ve yanıtlar.",
   "mobile.server.connectors.discord.connected": "{workspace} · Discord Düzenleyicisi yanıtlıyor",
   "mobile.server.connectors.discord.noAgent": "{workspace} · Henüz yanıt veren bir ajan yok",
   "mobile.server.connectors.discord.many": {
@@ -563,7 +563,7 @@ export const messages = {
   },
   "mobile.server.connectors.discord.workspaceTitle": "Discord sunucusu",
   "mobile.server.connectors.discord.workspaceDescription":
-    "Bir kanalda @OpenBot'tan bahsedin. Devam etmek için OpenBot'a yanıt verin.",
+    "Bir kanalda @OpenOwnBot'tan bahsedin. Devam etmek için OpenOwnBot'a yanıt verin.",
   "mobile.server.connectors.discord.missingScopes":
     "OpenOwnBot Discord'da şu izinlere sahip değil: {scopes}. Discord sunucusu bağlantısını kesin, ardından tekrar bağlayın.",
   "mobile.server.connectors.discord.retryAt":
@@ -588,7 +588,7 @@ export const messages = {
   "mobile.server.connectors.discord.disconnectDeleted": "Discord Düzenleyicisi ve konuşmaları OpenOwnBot'tan silinir.",
   "mobile.server.connectors.discord.agentPromptTitle": "Discord Düzenleyicisi eklensin mi?",
   "mobile.server.connectors.discord.agentPromptBody":
-    "Bu yeni ajan, {workspace} içinde @OpenBot'a gönderilen her şeyi yanıtlar.",
+    "Bu yeni ajan, {workspace} içinde @OpenOwnBot'a gönderilen her şeyi yanıtlar.",
   "mobile.server.connectors.discord.installFailed": "Discord yetkilendirmeyi tamamlamadı. Tekrar deneyin.",
   "mobile.server.connectors.telegram.title": "Telegram",
   "mobile.server.connectors.telegram.summary": "OpenOwnBot botunu bir Telegram sohbetine ekleyin",
@@ -840,11 +840,11 @@ export const messages = {
   "mobile.server.update.path.hosted":
     "Barındırılan hizmet güncellemeleri arka planda indirir. İndirilen bir güncelleme, sunucu bir sonraki başlatılışında başlar. Sunucuyu durdurup sürdürmeden önce etkin çalışmanın bitmesini bekleyin. Sunucu eski bir sürümde kalırsa ana makine yöneticisiyle iletişime geçin.",
   "mobile.server.update.path.system":
-    "En son sürümü yüklemek için ana makinede sudo openbot update komutunu çalıştırın. Bu komut OpenOwnBot'u durdurur. Önce etkin çalışmanın bitmesini bekleyin. Otomatik indirmeler bir sonraki önyüklemede yüklenir.",
+    "En son sürümü yüklemek için ana makinede sudo openownbot update komutunu çalıştırın. Bu komut OpenOwnBot'u durdurur. Önce etkin çalışmanın bitmesini bekleyin. Otomatik indirmeler bir sonraki önyüklemede yüklenir.",
   "mobile.server.update.path.container":
     "Docker ana makinesinde yeni OpenOwnBot görüntüsünü çekin ve kapsayıcıyı aynı veri birimleriyle yeniden oluşturun. Önce etkin çalışmanın bitmesini bekleyin. Verilerinizi korumak için mevcut birimleri saklayın.",
   "mobile.server.update.path.manual":
-    "Bu kurulum kendini değiştiremez. Ana makine yöneticisinden uyumlu sürümü github.com/nightly-labs/openbot/releases adresinden yüklemesini isteyin. Mevcut OpenOwnBot verilerini saklayın.",
+    "Bu kurulum kendini değiştiremez. Ana makine yöneticisinden uyumlu sürümü github.com/zereight/openownbot/releases adresinden yüklemesini isteyin. Mevcut OpenOwnBot verilerini saklayın.",
   "mobile.server.update.path.unavailable":
     "Bu bir geliştirme derlemesidir. Güncellemeleri denetlemek için yüklü bir OpenOwnBot sürümü kullanın.",
   "mobile.server.update.check": "Güncellemeleri denetle",

@@ -1,7 +1,7 @@
-import type { BrowserPreview, BrowserTab } from "@openbot/contracts/ipc";
-import { Button, ChevronRight, Maximize2, Monitor, Plus, Skeleton, X } from "@openbot/ui";
-import { PanelResizer } from "@openbot/ui/components/PanelResizer";
-import { useText } from "@openbot/ui/text";
+import type { BrowserPreview, BrowserTab } from "@openownbot/contracts/ipc";
+import { Button, ChevronRight, Maximize2, Monitor, Plus, Skeleton, X } from "@openownbot/ui";
+import { PanelResizer } from "@openownbot/ui/components/PanelResizer";
+import { useText } from "@openownbot/ui/text";
 import { createEffect, createMemo, createSignal, createStore, For, onSettled, Show, untrack } from "solid-js";
 
 const BROWSER_PANEL_MIN = 220;

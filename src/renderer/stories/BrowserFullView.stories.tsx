@@ -3,10 +3,10 @@ import type {
   BrowserDockIsland,
   BrowserLiveViewEvent,
   BrowserTab,
-} from "@openbot/contracts/ipc";
-import { BrowserDock } from "@openbot/ui/features/browser/BrowserDock";
-import BrowserFullView from "@openbot/ui/features/browser/BrowserFullView";
-import type { BrowserViewRuntime } from "@openbot/ui/features/browser/BrowserLiveView";
+} from "@openownbot/contracts/ipc";
+import { BrowserDock } from "@openownbot/ui/features/browser/BrowserDock";
+import BrowserFullView from "@openownbot/ui/features/browser/BrowserFullView";
+import type { BrowserViewRuntime } from "@openownbot/ui/features/browser/BrowserLiveView";
 import { createSignal } from "solid-js";
 import { fn } from "storybook/test";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";
@@ -16,7 +16,7 @@ const chief = requireFixture(STORY_AGENTS[0], "Story agent 0");
 
 const tab: BrowserTab = {
   id: "tab-docs",
-  title: "OpenBot documentation",
+  title: "OpenOwnBot documentation",
   url: "https://openbot.run/docs",
   loading: false,
   ownerThreadId: "thread-chief",
@@ -58,8 +58,8 @@ const meta = {
     tabs,
     activeTab: tab,
     history: [
-      { url: "https://openbot.run/docs", title: "OpenBot documentation", visits: 3 },
-      { url: "https://openbot.run/docs/browser", title: "Browser · OpenBot documentation", visits: 1 },
+      { url: "https://openbot.run/docs", title: "OpenOwnBot documentation", visits: 3 },
+      { url: "https://openbot.run/docs/browser", title: "Browser · OpenOwnBot documentation", visits: 1 },
     ],
     canReopen: true,
     controlForTab: () => undefined,
@@ -254,9 +254,9 @@ function remoteLiveViewRuntime(): BrowserViewRuntime {
       const context = canvas.getContext("2d");
       const theme = getComputedStyle(document.documentElement);
       if (context) {
-        context.fillStyle = theme.getPropertyValue("--openbot-bg-surface");
+        context.fillStyle = theme.getPropertyValue("--openownbot-bg-surface");
         context.fillRect(0, 0, width, height);
-        context.fillStyle = theme.getPropertyValue("--openbot-text-primary");
+        context.fillStyle = theme.getPropertyValue("--openownbot-text-primary");
         context.font = "48px sans-serif";
         context.fillText("Page on the host", 64, 128);
       }

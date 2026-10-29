@@ -1,10 +1,10 @@
 // Runs issue #2851 end to end on the real `codex app-server`: a server in the user's own
-// `config.toml` and an OpenBot server with the same name. Codex merges the two entries, so a stdio
+// `config.toml` and an OpenOwnBot server with the same name. Codex merges the two entries, so a stdio
 // `command` and an http `url` under one key stop it from loading its configuration. The payload is
 // the one `readCodexMcpConfig`, `codexDisabledServers`, `codexMcpServers` and `codexThreadMcpServers`
 // build for a thread. A local server that speaks the Responses API stands in for the model and
 // records the MCP namespaces Codex offers, so no account or key is used.
-// `bun scripts/codex-mcp-name-clash-e2e.ts`. Writes .openbot-build/codex-mcp-name-clash-e2e/report.json.
+// `bun scripts/codex-mcp-name-clash-e2e.ts`. Writes .openownbot-build/codex-mcp-name-clash-e2e/report.json.
 import assert from "node:assert/strict";
 import { mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import { createServer, type Server as HttpServer } from "node:http";
@@ -13,7 +13,7 @@ import { Server } from "@modelcontextprotocol/sdk/server/index.js";
 import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
 import type { Transport } from "@modelcontextprotocol/sdk/shared/transport.js";
 import { CallToolRequestSchema, ListToolsRequestSchema } from "@modelcontextprotocol/sdk/types.js";
-import type { McpServerConfig } from "@openbot/contracts/ipc";
+import type { McpServerConfig } from "@openownbot/contracts/ipc";
 import { Effect, Result } from "effect";
 import { readCodexMcpConfig } from "../src/backend/agent/codex-mcp-config";
 import { CodexAppServerClient } from "../src/backend/app-server-client";
@@ -29,7 +29,7 @@ import {
 } from "../src/backend/mcp-provider-shapes";
 import { decodeRecordResponse, getRecord, getString } from "../src/backend/protocol";
 
-const OUT = resolve(import.meta.dirname, "../.openbot-build/codex-mcp-name-clash-e2e");
+const OUT = resolve(import.meta.dirname, "../.openownbot-build/codex-mcp-name-clash-e2e");
 const NL = String.fromCharCode(10);
 const DEADLINE_MS = 60_000;
 
@@ -220,7 +220,7 @@ async function run(executable: string, modelPort: number, test: Case): Promise<O
     await runCauseEffect(
       client.request(
         "initialize",
-        { clientInfo: { name: "openbot_e2e", title: "OpenBot E2E", version: "0.0.0" }, capabilities: {} },
+        { clientInfo: { name: "openownbot_e2e", title: "OpenOwnBot E2E", version: "0.0.0" }, capabilities: {} },
         decodeRecordResponse,
       ),
     );
@@ -299,11 +299,11 @@ const http = await startHttpMcp();
 const httpUrl = `http://127.0.0.1:${http.port}/mcp`;
 const userStdio = `[mcp_servers.github]${NL}command = "node"${NL}args = ["${script}"]${NL}enabled = true${NL}`;
 const userHttp = `[mcp_servers.github]${NL}url = "${httpUrl}"${NL}enabled = true${NL}`;
-const connector = row("github", { id: "openbot-github", transport: "http", url: httpUrl });
+const connector = row("github", { id: "openownbot-github", transport: "http", url: httpUrl });
 
 try {
   await step(
-    "before the fix: OpenBot's http github over the user's stdio github stops Codex",
+    "before the fix: OpenOwnBot's http github over the user's stdio github stops Codex",
     { name: "legacy", user: userStdio, rows: [connector], legacy: true },
     (o) => {
       assert.equal(o.started, false, "Codex started the thread");
@@ -311,24 +311,24 @@ try {
     },
   );
   await step(
-    "http connector, user stdio github: the connector travels as openbot_github",
+    "http connector, user stdio github: the connector travels as openownbot_github",
     { name: "http-over-stdio", user: userStdio, rows: [connector] },
     (o) => {
       assert.equal(o.started, true, o.error ?? "");
-      assert.deepEqual(o.keys, ["openbot_github"]);
-      assert.ok(o.offered.includes("mcp__openbot_github"), `offered ${o.offered.join(", ")}`);
+      assert.deepEqual(o.keys, ["openownbot_github"]);
+      assert.ok(o.offered.includes("mcp__openownbot_github"), `offered ${o.offered.join(", ")}`);
       assert.ok(!o.offered.includes("mcp__github"), "the user's turned-off server was offered");
       assert.deepEqual(table(o.file, "github"), ['command = "node"', `args = ["${script}"]`, "enabled = true"]);
-      assert.deepEqual(table(o.file, "openbot_github"), ['url = "http://127.0.0.1:1"', "enabled = false"]);
+      assert.deepEqual(table(o.file, "openownbot_github"), ['url = "http://127.0.0.1:1"', "enabled = false"]);
     },
   );
   await step(
-    "stdio row, user http github: the row travels as openbot_github",
+    "stdio row, user http github: the row travels as openownbot_github",
     { name: "stdio-over-http", user: userHttp, rows: [row("github", { command: "node", args: [script] })] },
     (o) => {
       assert.equal(o.started, true, o.error ?? "");
-      assert.deepEqual(o.keys, ["openbot_github"]);
-      assert.ok(o.offered.includes("mcp__openbot_github"), `offered ${o.offered.join(", ")}`);
+      assert.deepEqual(o.keys, ["openownbot_github"]);
+      assert.ok(o.offered.includes("mcp__openownbot_github"), `offered ${o.offered.join(", ")}`);
       assert.deepEqual(table(o.file, "github"), [`url = "${httpUrl}"`, "enabled = true"]);
     },
   );
@@ -339,7 +339,7 @@ try {
       assert.equal(o.started, true, o.error ?? "");
       assert.deepEqual(o.keys, ["github"]);
       assert.ok(o.offered.includes("mcp__github"), `offered ${o.offered.join(", ")}`);
-      assert.deepEqual(table(o.file, "openbot_github"), []);
+      assert.deepEqual(table(o.file, "openownbot_github"), []);
     },
   );
   await step("no clash: the connector keeps the github key", { name: "no-clash", user: "", rows: [connector] }, (o) => {
@@ -353,15 +353,15 @@ try {
     {
       name: "computer-use",
       user: `[mcp_servers.computer_use]${NL}url = "${httpUrl}"${NL}enabled = true${NL}`,
-      rows: [row("computer_use", { id: "openbot-computer-use", command: "node", args: [script] })],
+      rows: [row("computer_use", { id: "openownbot-computer-use", command: "node", args: [script] })],
     },
     (o) => {
       assert.deepEqual(o.keys, ["computer_use"]);
-      assert.deepEqual(table(o.file, "openbot_computer_use"), []);
+      assert.deepEqual(table(o.file, "openownbot_computer_use"), []);
     },
   );
   await step(
-    "a rename onto OpenBot's browser tools: the row is left out, and the chat starts",
+    "a rename onto OpenOwnBot's browser tools: the row is left out, and the chat starts",
     {
       name: "reserved",
       user: `[mcp_servers.browser]${NL}url = "${httpUrl}"${NL}enabled = true${NL}`,
@@ -370,8 +370,8 @@ try {
     (o) => {
       assert.equal(o.started, true, o.error ?? "");
       assert.deepEqual(o.keys, []);
-      assert.ok(!o.offered.includes("mcp__openbot_browser"), `offered ${o.offered.join(", ")}`);
-      assert.deepEqual(table(o.file, "openbot_browser"), []);
+      assert.ok(!o.offered.includes("mcp__openownbot_browser"), `offered ${o.offered.join(", ")}`);
+      assert.deepEqual(table(o.file, "openownbot_browser"), []);
     },
   );
 

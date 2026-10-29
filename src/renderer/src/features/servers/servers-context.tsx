@@ -1,10 +1,10 @@
-import type { HostedServerEntryPoint } from "@openbot/contracts/hosted-servers";
-import type { HostStatus, ServerNotificationLevel, ServerSummary } from "@openbot/contracts/ipc";
-import type { TeamCurrentCapability } from "@openbot/contracts/team-protocol/current";
-import { WAKE_RECONNECT_STATES } from "@openbot/team-client/hosted-server-wake";
-import { classifyFailure } from "@openbot/telemetry";
-import { toast } from "@openbot/ui";
-import { currentText } from "@openbot/ui/text";
+import type { HostedServerEntryPoint } from "@openownbot/contracts/hosted-servers";
+import type { HostStatus, ServerNotificationLevel, ServerSummary } from "@openownbot/contracts/ipc";
+import type { TeamCurrentCapability } from "@openownbot/contracts/team-protocol/current";
+import { WAKE_RECONNECT_STATES } from "@openownbot/team-client/hosted-server-wake";
+import { classifyFailure } from "@openownbot/telemetry";
+import { toast } from "@openownbot/ui";
+import { currentText } from "@openownbot/ui/text";
 import { createEffect, createMemo, createSignal, flush, onSettled, untrack } from "solid-js";
 import { actionToast } from "../../action-toast";
 import { FALLBACK_HOST_STATUS } from "../../app-defaults";

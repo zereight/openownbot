@@ -1,5 +1,5 @@
-import type { BrowserTakeoverRequest, CentralAuthUser } from "@openbot/contracts/ipc";
-import { hasVisibleToasts } from "@openbot/ui";
+import type { BrowserTakeoverRequest, CentralAuthUser } from "@openownbot/contracts/ipc";
+import { hasVisibleToasts } from "@openownbot/ui";
 import { createMemo, Show } from "solid-js";
 import { useNavigation } from "../../navigation";
 import { usePlatform } from "../../platform";
@@ -114,7 +114,7 @@ function DesktopChannelConversation(props: { channelId: string; account: () => C
       currentUserEmail={props.account().email}
       isOwnSender={isOwnSender}
       browserEnabled={!platform.landingPreview && activeServerSupportsCapability("browser-control")}
-      openLinksInBrowser={generalSettings().externalLinkTarget.kind === "openbot"}
+      openLinksInBrowser={generalSettings().externalLinkTarget.kind === "openownbot"}
       remoteDesktopSessionActive={Boolean(activeRemoteDesktopSession())}
       remoteDesktopVisible={remoteDesktopWorkspaceVisible()}
       remoteDesktopEnabled={!platform.landingPreview && activeServerSupportsCapability("remote-desktop")}

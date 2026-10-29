@@ -113,7 +113,7 @@ export const messages = {
     "Affiche le début d’une réponse, une question ou l’action à approuver. Google et le service de compte OpenOwnBot ne peuvent pas le lire.",
   "mobile.settings.notifications.sound": "Son",
   "mobile.settings.notifications.playSound": "Jouer un son",
-  "mobile.settings.notifications.sound.openbot": "OpenBot",
+  "mobile.settings.notifications.sound.openownbot": "OpenOwnBot",
   "mobile.settings.notifications.sound.warm": "Chaleureux",
   "mobile.settings.notifications.sound.mech": "Mécanique",
   "mobile.settings.notifications.sound.bubble": "Pétillant",

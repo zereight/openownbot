@@ -1,4 +1,4 @@
-import type { GetStorageUsageInput, StorageDesktopApi, StorageUsage } from "@openbot/contracts/ipc";
+import type { GetStorageUsageInput, StorageDesktopApi, StorageUsage } from "@openownbot/contracts/ipc";
 import {
   FILES_AGENT_USAGE,
   FILES_BREAKDOWN,

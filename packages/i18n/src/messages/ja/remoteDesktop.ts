@@ -9,7 +9,7 @@ export const messages = {
   "remoteDesktop.workspaceLabel": "リモート操作",
   "remoteDesktop.displayLabel": "リモートディスプレイ",
   "remoteDesktop.selectDisplay": "ディスプレイを選択",
-  "remoteDesktop.backToOpenBot": "OpenOwnBot に戻る",
+  "remoteDesktop.backToOpenOwnBot": "OpenOwnBot に戻る",
   "remoteDesktop.disconnect": "切断",
   "remoteDesktop.viewerTitle": "Sunshine リモートデスクトップ",
   "remoteDesktop.viewerLoadFailed": "Moonlight ビューアーを読み込めませんでした。",
@@ -20,7 +20,7 @@ export const messages = {
   "remoteDesktop.openFailed": "デスクトップを開けませんでした",
   "remoteDesktop.notSharingTitle": "{name} は画面を共有していません",
   "remoteDesktop.notSharingDescription":
-    "サーバーが OpenBot による画面収録をブロックしています。そのサーバーで「システム設定」→「プライバシーとセキュリティ」→「画面収録」を開き、OpenBot をオンにしてから、ここでもう一度お試しください。",
+    "サーバーが OpenOwnBot による画面収録をブロックしています。そのサーバーで「システム設定」→「プライバシーとセキュリティ」→「画面収録」を開き、OpenOwnBot をオンにしてから、ここでもう一度お試しください。",
   "remoteDesktop.setup.check.screenRecording": "画面収録",
   "remoteDesktop.setup.check.accessibility": "アクセシビリティ",
   "remoteDesktop.setup.check.service": "Sunshine サービス",

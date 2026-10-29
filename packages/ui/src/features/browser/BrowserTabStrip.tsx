@@ -1,7 +1,7 @@
-import type { BrowserTabProfile } from "@openbot/contracts/ipc";
-import { Button, buttonVariants, ChevronDown, ContextMenu, DropdownMenu, Tabs, X } from "@openbot/ui";
-import { useText } from "@openbot/ui/text";
-import { clamp, motionDuration, prefersReducedMotion } from "@openbot/ui/utils";
+import type { BrowserTabProfile } from "@openownbot/contracts/ipc";
+import { Button, buttonVariants, ChevronDown, ContextMenu, DropdownMenu, Tabs, X } from "@openownbot/ui";
+import { useText } from "@openownbot/ui/text";
+import { clamp, motionDuration, prefersReducedMotion } from "@openownbot/ui/utils";
 import { createEffect, createSignal, createStore, For, onSettled, Show } from "solid-js";
 import { browserProfileColor } from "./BrowserProfileColor";
 import { BrowserTabIcon, useBrowserTabTitle } from "./BrowserTabIcon";
@@ -63,8 +63,9 @@ function createChipMotion(chips: () => HTMLElement[]) {
       places = read();
       if (before.size === 0 || prefersReducedMotion() || elements.some((el) => !el.isConnected)) return;
       const timing = {
-        duration: motionDuration("--openbot-duration-normal", 160),
-        easing: getComputedStyle(document.documentElement).getPropertyValue("--openbot-ease-out").trim() || "ease-out",
+        duration: motionDuration("--openownbot-duration-normal", 160),
+        easing:
+          getComputedStyle(document.documentElement).getPropertyValue("--openownbot-ease-out").trim() || "ease-out",
       };
       for (const el of elements) {
         const id = el.dataset.tabId ?? "";

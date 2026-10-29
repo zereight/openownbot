@@ -17,7 +17,7 @@ import {
 import { DOWNLOAD_PAGE_ORDER, DOWNLOAD_PAGES_UPDATED_AT, downloadPageUrl } from "../lib/download-pages";
 import { PLUGINS_UPDATED_AT, pluginIndexUrl, pluginUrl, SITE_PLUGINS } from "../lib/plugins";
 import { PRIVACY_POLICY_ROUTE, PRIVACY_POLICY_UPDATED_AT } from "../lib/privacy-policy";
-import { OPENBOT_SITE_TITLE, OPENBOT_SITE_URL } from "../lib/site-metadata";
+import { OPENOWNBOT_SITE_TITLE, OPENOWNBOT_SITE_URL } from "../lib/site-metadata";
 import { TEAMS_PAGE_UPDATED_AT, TEAMS_ROUTE } from "../lib/teams-page";
 
 /**
@@ -55,7 +55,7 @@ function latestSiteModifiedAt(): string {
 
 function contentSitemapXml(): string {
   const entries = [
-    { loc: OPENBOT_SITE_URL, lastmod: latestSiteModifiedAt() },
+    { loc: OPENOWNBOT_SITE_URL, lastmod: latestSiteModifiedAt() },
     { loc: downloadPageUrl("hub"), lastmod: DOWNLOAD_PAGES_UPDATED_AT },
     ...DOWNLOAD_PAGE_ORDER.map((platform) => ({
       loc: downloadPageUrl(platform),
@@ -73,9 +73,9 @@ function contentSitemapXml(): string {
     { loc: pluginIndexUrl(), lastmod: PLUGINS_UPDATED_AT },
     ...SITE_PLUGINS.map((plugin) => ({ loc: pluginUrl(plugin.slug), lastmod: PLUGINS_UPDATED_AT })),
     { loc: changelogUrl(), lastmod: CHANGELOG_UPDATED_AT },
-    { loc: new URL(TEAMS_ROUTE, OPENBOT_SITE_URL).toString(), lastmod: TEAMS_PAGE_UPDATED_AT },
-    { loc: new URL(BRAND_ROUTE, OPENBOT_SITE_URL).toString(), lastmod: BRAND_PAGE_UPDATED_AT },
-    { loc: new URL(PRIVACY_POLICY_ROUTE, OPENBOT_SITE_URL).toString(), lastmod: PRIVACY_POLICY_UPDATED_AT },
+    { loc: new URL(TEAMS_ROUTE, OPENOWNBOT_SITE_URL).toString(), lastmod: TEAMS_PAGE_UPDATED_AT },
+    { loc: new URL(BRAND_ROUTE, OPENOWNBOT_SITE_URL).toString(), lastmod: BRAND_PAGE_UPDATED_AT },
+    { loc: new URL(PRIVACY_POLICY_ROUTE, OPENOWNBOT_SITE_URL).toString(), lastmod: PRIVACY_POLICY_UPDATED_AT },
   ];
 
   const urls = entries
@@ -115,7 +115,7 @@ function contentRssXml(collection: ContentCollection): string {
     '<?xml version="1.0" encoding="UTF-8"?>',
     '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">',
     "  <channel>",
-    `    <title>${escapeXml(`${collection.feedTitle} — ${OPENBOT_SITE_TITLE}`)}</title>`,
+    `    <title>${escapeXml(`${collection.feedTitle} — ${OPENOWNBOT_SITE_TITLE}`)}</title>`,
     `    <link>${escapeXml(collectionIndexUrl(collection))}</link>`,
     `    <description>${escapeXml(collection.indexDescription)}</description>`,
     "    <language>en-us</language>",

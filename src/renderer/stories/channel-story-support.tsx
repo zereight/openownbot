@@ -1,16 +1,16 @@
 /**
  * The channel chat as the app shows it: the conversation view with a channel source. The source
  * is written out here rather than built from the channels store, which needs the account, server and
- * turns contexts and a channel-aware `window.openbot` behind it. `ChannelConversation.stories.tsx`
+ * turns contexts and a channel-aware `window.openownbot` behind it. `ChannelConversation.stories.tsx`
  * builds its variants on it, and the diagram workspace story shows it when a channel is open.
  */
 
-import { Button } from "@openbot/ui";
-import type { AgentMessage } from "@openbot/ui/data";
-import type { ChannelWorker } from "@openbot/ui/features/channels/ChannelActivityIndicator";
-import { ChannelAvatar } from "@openbot/ui/features/channels/ChannelAvatar";
-import { ChannelStoppedTasks } from "@openbot/ui/features/channels/ChannelStoppedTasks";
-import type { AwaitingReplyItem } from "@openbot/ui/features/conversation/AwaitingReplies";
+import { Button } from "@openownbot/ui";
+import type { AgentMessage } from "@openownbot/ui/data";
+import type { ChannelWorker } from "@openownbot/ui/features/channels/ChannelActivityIndicator";
+import { ChannelAvatar } from "@openownbot/ui/features/channels/ChannelAvatar";
+import { ChannelStoppedTasks } from "@openownbot/ui/features/channels/ChannelStoppedTasks";
+import type { AwaitingReplyItem } from "@openownbot/ui/features/conversation/AwaitingReplies";
 import { fn } from "storybook/test";
 import type { ConversationChannelSource } from "../src/features/conversation/conversation-types";
 import { StoryConversation } from "./conversation-story-support";

@@ -1,17 +1,17 @@
-import { normalizeEmailAddress } from "@openbot/contracts/validation";
+import { normalizeEmailAddress } from "@openownbot/contracts/validation";
 import type { JSX } from "@solidjs/web";
 import { createSignal, createUniqueId, For, onSettled, Show } from "solid-js";
 import { landingAnalytics } from "../../lib/analytics";
 import { CONTACT_EMAIL, CONTACT_LIMITS, CONTACT_ROUTE, CONTACT_TOPICS } from "../../lib/contact";
-import { EXTERNAL_LINK_REL, OPENBOT_LINKS } from "../../lib/landing-links";
+import { EXTERNAL_LINK_REL, OPENOWNBOT_LINKS } from "../../lib/landing-links";
 import { LandingFooter } from "../landing/LandingFooter";
 import { LandingIcon } from "../landing/LandingIcon";
 import { SiteHeader } from "../landing/SiteHeader";
 
 const CONTACT_CHANNELS = [
-  { label: "Discord", detail: "Community and help", href: OPENBOT_LINKS.discord },
-  { label: "GitHub", detail: "Bugs and source code", href: `${OPENBOT_LINKS.repository}/issues/new/choose` },
-  { label: "X", detail: "News", href: OPENBOT_LINKS.x },
+  { label: "Discord", detail: "Community and help", href: OPENOWNBOT_LINKS.discord },
+  { label: "GitHub", detail: "Bugs and source code", href: `${OPENOWNBOT_LINKS.repository}/issues/new/choose` },
+  { label: "X", detail: "News", href: OPENOWNBOT_LINKS.x },
   { label: "Email", detail: CONTACT_EMAIL, href: `mailto:${CONTACT_EMAIL}` },
 ] as const;
 
@@ -175,7 +175,7 @@ function SubmitRow(props: { status: ContactStatus }) {
         fallback={
           <p class="contact-privacy">
             We use your email only to answer you.{" "}
-            <a href={OPENBOT_LINKS.privacy} target="_blank" rel={EXTERNAL_LINK_REL}>
+            <a href={OPENOWNBOT_LINKS.privacy} target="_blank" rel={EXTERNAL_LINK_REL}>
               Privacy
             </a>
           </p>
@@ -222,7 +222,7 @@ export function ContactPage() {
             <div class="landing-faq-layout">
               <header class="landing-section-heading landing-faq-heading">
                 <h1 id="contact-title">Talk to the team</h1>
-                <p>Tell us what you need. A person on the OpenBot team reads each message.</p>
+                <p>Tell us what you need. A person on the OpenOwnBot team reads each message.</p>
                 <ul class="contact-channels">
                   <For each={CONTACT_CHANNELS}>
                     {(channel) => (

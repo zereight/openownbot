@@ -1,15 +1,15 @@
-import type { AgentApproval, AgentTask, AgentTaskHold, AttachmentSummary } from "@openbot/contracts/ipc";
-import type { AppTextKey } from "@openbot/i18n";
-import { isAgentTaskActive } from "@openbot/team-client/agent-tasks";
-import { ArrowUp, Button, Square } from "@openbot/ui";
-import { createScrollFades } from "@openbot/ui/components/createScrollFades";
-import type { AgentMessage, AgentProfile } from "@openbot/ui/data";
-import { AgentActivityIndicator, nextAgentActivityLabel } from "@openbot/ui/features/conversation/AgentActivity";
-import { type ChatMessageAuthor, ChatMessageRow } from "@openbot/ui/features/conversation/ChatMessageRow";
-import { ComposerEditor } from "@openbot/ui/features/conversation/ComposerEditor";
-import { ComposerNotice } from "@openbot/ui/features/conversation/ComposerNotice";
-import { ApprovalCard } from "@openbot/ui/features/conversation/ConversationPrompts";
-import { type TextValue, useText } from "@openbot/ui/text";
+import type { AgentApproval, AgentTask, AgentTaskHold, AttachmentSummary } from "@openownbot/contracts/ipc";
+import type { AppTextKey } from "@openownbot/i18n";
+import { isAgentTaskActive } from "@openownbot/team-client/agent-tasks";
+import { ArrowUp, Button, Square } from "@openownbot/ui";
+import { createScrollFades } from "@openownbot/ui/components/createScrollFades";
+import type { AgentMessage, AgentProfile } from "@openownbot/ui/data";
+import { AgentActivityIndicator, nextAgentActivityLabel } from "@openownbot/ui/features/conversation/AgentActivity";
+import { type ChatMessageAuthor, ChatMessageRow } from "@openownbot/ui/features/conversation/ChatMessageRow";
+import { ComposerEditor } from "@openownbot/ui/features/conversation/ComposerEditor";
+import { ComposerNotice } from "@openownbot/ui/features/conversation/ComposerNotice";
+import { ApprovalCard } from "@openownbot/ui/features/conversation/ConversationPrompts";
+import { type TextValue, useText } from "@openownbot/ui/text";
 import { createEffect, createSignal, For, onSettled, Show } from "solid-js";
 
 const HOLD_TEXT = {

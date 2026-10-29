@@ -1,24 +1,24 @@
-import { createScrollFades } from "@openbot/ui/components/createScrollFades";
-import type { AgentMessage } from "@openbot/ui/data";
-import type { RoutineRunToggleMarkerModel } from "@openbot/ui/features/conversation/ChatActionMarker";
+import { createScrollFades } from "@openownbot/ui/components/createScrollFades";
+import type { AgentMessage } from "@openownbot/ui/data";
+import type { RoutineRunToggleMarkerModel } from "@openownbot/ui/features/conversation/ChatActionMarker";
 import {
   calculateChatScrollMargin,
   chatHistoryBoundaryReached,
   createChatVirtualizer,
-} from "@openbot/ui/features/conversation/createChatVirtualizer";
-import { scrollToLatestMessage } from "@openbot/ui/features/conversation/MessageNavigation";
+} from "@openownbot/ui/features/conversation/createChatVirtualizer";
+import { scrollToLatestMessage } from "@openownbot/ui/features/conversation/MessageNavigation";
 import {
   anchorNewMessages,
   countableTimelineMessage,
   type NewMessageTally,
   silentAgentAnswer,
   tallyNewMessages,
-} from "@openbot/ui/features/conversation/new-message-tally";
+} from "@openownbot/ui/features/conversation/new-message-tally";
 import {
   scrollToUnreadBoundary,
   unreadMessagesDividerIsVisible,
-} from "@openbot/ui/features/conversation/UnreadMessages";
-import { currentText } from "@openbot/ui/text";
+} from "@openownbot/ui/features/conversation/UnreadMessages";
+import { currentText } from "@openownbot/ui/text";
 import type { VirtualItem } from "@tanstack/virtual-core";
 import { createEffect, createMemo, createSignal, onCleanup, untrack } from "solid-js";
 import { groupAgentMessageMarkers, markOpenAgentMessages } from "../agent-message-timeline";

@@ -1,4 +1,4 @@
-import type { MobileTranslate } from "@openbot/i18n/mobile";
+import type { MobileTranslate } from "@openownbot/i18n/mobile";
 import type { Href } from "expo-router";
 import { Typography } from "heroui-native";
 import type { LucideIcon } from "lucide-react-native";
@@ -652,7 +652,7 @@ const DrawerRow = memo(function DrawerRow({
   href: Href;
   onNavigate: (href: Href) => void;
 }) {
-  const [secondary, control] = useCSSVariable(["--openbot-text-secondary", "--openbot-bg-control"]);
+  const [secondary, control] = useCSSVariable(["--openownbot-text-secondary", "--openownbot-bg-control"]);
   return (
     <Pressable
       accessibilityRole="button"

@@ -9,7 +9,7 @@ export const messages = {
   "remoteDesktop.workspaceLabel": "Controle remoto",
   "remoteDesktop.displayLabel": "Tela remota",
   "remoteDesktop.selectDisplay": "Selecionar tela",
-  "remoteDesktop.backToOpenBot": "Voltar ao OpenOwnBot",
+  "remoteDesktop.backToOpenOwnBot": "Voltar ao OpenOwnBot",
   "remoteDesktop.disconnect": "Desconectar",
   "remoteDesktop.viewerTitle": "Área de trabalho remota do Sunshine",
   "remoteDesktop.viewerLoadFailed": "Não foi possível carregar o visualizador Moonlight.",
@@ -20,7 +20,7 @@ export const messages = {
   "remoteDesktop.openFailed": "Não foi possível abrir a área de trabalho",
   "remoteDesktop.notSharingTitle": "{name} não está compartilhando a tela",
   "remoteDesktop.notSharingDescription":
-    "O servidor impede o OpenBot de gravar a tela. Nesse servidor, abra Ajustes do Sistema → Privacidade e Segurança → Gravação de Tela, ative o OpenBot e tente novamente aqui.",
+    "O servidor impede o OpenOwnBot de gravar a tela. Nesse servidor, abra Ajustes do Sistema → Privacidade e Segurança → Gravação de Tela, ative o OpenOwnBot e tente novamente aqui.",
   "remoteDesktop.setup.check.screenRecording": "Gravação de Tela",
   "remoteDesktop.setup.check.accessibility": "Acessibilidade",
   "remoteDesktop.setup.check.service": "Serviço Sunshine",

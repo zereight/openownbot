@@ -9,15 +9,15 @@
  *
  * The Worker must run with `HOSTED_SERVERS_ALLOWED_USER_IDS` set to the IDs that `--print-user-ids`
  * prints, and `stripe listen` must forward to it. The `portal` scenario prints two Customer Portal
- * pages and waits until someone uses them. The report goes to `.openbot-build/stripe-flows-e2e.json`.
+ * pages and waits until someone uses them. The report goes to `.openownbot-build/stripe-flows-e2e.json`.
  *
  * The `boat` scenario runs only when named. It makes a real VM: the Worker needs the real `BOAT_API_KEY`
  * and `HOSTED_SERVER_TEMPLATE`, and the template must know a public origin of this Worker. It waits
- * until OpenBot in the VM redeems its claim and publishes its host. Then it keeps a focused web client
+ * until OpenOwnBot in the VM redeems its claim and publishes its host. Then it keeps a focused web client
  * open with no input for 20 minutes and checks that the server stays on, waits for the idle stop
  * (about 15 minutes), starts the server, changes the plan, ends it, renews it, and deletes the server.
  * `--checkout` pays each Checkout page with a test card in the local Chrome. The web client then
- * connects to the server over Signal, and the screenshots go to `.openbot-build/`.
+ * connects to the server over Signal, and the screenshots go to `.openownbot-build/`.
  * `--remote-d1` reads the D1 of the deployed `test` Worker; pass its origin as `--api`.
  *
  * The `license-*` scenarios check the commercial license: its tiered Price, Checkout, users, the count
@@ -30,21 +30,21 @@ import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { setTimeout as sleep } from "node:timers/promises";
 import { fileURLToPath } from "node:url";
-import { BILLING_CURRENCIES, type BillingPortalRequest } from "@openbot/contracts/billing";
+import { BILLING_CURRENCIES, type BillingPortalRequest } from "@openownbot/contracts/billing";
 import {
   LICENSE_PRICES,
   type LicenseCheckoutRequest,
   type LicenseRenewalRequest,
   type LicenseUsersRequest,
   licenseAmount,
-} from "@openbot/contracts/license";
+} from "@openownbot/contracts/license";
 import { type Browser, chromium } from "playwright-core";
 import { z } from "zod";
 import { STRIPE_API_VERSION } from "../apps/auth-api/src/server/stripe-client";
 import { developmentChildEnvironment, loadSharedDevelopmentEnvironment } from "./development-environment";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
-const REPORT = join(ROOT, ".openbot-build", "stripe-flows-e2e.json");
+const REPORT = join(ROOT, ".openownbot-build", "stripe-flows-e2e.json");
 const SCENARIOS = [
   "renewal",
   "failed-renewal",
@@ -73,7 +73,7 @@ const SCENARIOS = [
 type Scenario = (typeof SCENARIOS)[number];
 const DAY = 86_400;
 /** `WELCOME_EMAIL_CLAIM_PREFIX` of `billing-service.ts`. That module needs the Worker types. */
-const WELCOME_EMAIL_CLAIM_PREFIX = "openbot_welcome_email:";
+const WELCOME_EMAIL_CLAIM_PREFIX = "openownbot_welcome_email:";
 
 const stepSchema = z.object({
   scenario: z.enum(SCENARIOS),
@@ -274,7 +274,7 @@ const REMOTE_D1 = process.argv.includes("--remote-d1");
 const REAL_CHECKOUT = process.argv.includes("--checkout");
 
 function d1<T>(sql: string, schema: z.ZodType<T>): T[] {
-  const target = REMOTE_D1 ? ["openbot-auth-test", "--remote", "--env", "test"] : ["openbot-auth", "--local"];
+  const target = REMOTE_D1 ? ["openownbot-auth-test", "--remote", "--env", "test"] : ["openownbot-auth", "--local"];
   const env = developmentChildEnvironment(process.env, "app");
   if (REMOTE_D1) delete env.CLOUDFLARE_API_TOKEN;
   const result = spawnSync(
@@ -344,7 +344,7 @@ class Account {
     );
     const clock = await stripe("POST", "/v1/test_helpers/test_clocks", idSchema, {
       frozen_time: String(Math.floor(now / 1_000)),
-      name: `openbot ${this.scenario}`,
+      name: `openownbot ${this.scenario}`,
     });
     this.clock = clock.id;
     const customer = await stripe("POST", "/v1/customers", idSchema, {
@@ -352,7 +352,7 @@ class Account {
       test_clock: this.clock,
       payment_method: "pm_card_visa",
       "invoice_settings[default_payment_method]": "pm_card_visa",
-      "metadata[openbot_user_id]": this.id,
+      "metadata[openownbot_user_id]": this.id,
     });
     this.customer = customer.id;
     // The Worker makes a customer without a test clock, so the account gets this one before its first Checkout.
@@ -374,8 +374,10 @@ class Account {
     const response = await fetch(`${this.api}/api/browser/${path}`, {
       method,
       headers: {
-        Cookie: `__Host-openbot-web=${token}`,
-        ...(method === "GET" ? {} : { Origin: this.api, "X-OpenBot-Browser": "1", "Content-Type": "application/json" }),
+        Cookie: `__Host-openownbot-web=${token}`,
+        ...(method === "GET"
+          ? {}
+          : { Origin: this.api, "X-OpenOwnBot-Browser": "1", "Content-Type": "application/json" }),
         ...headers,
       },
       ...(body ? { body: JSON.stringify(body) } : {}),
@@ -447,8 +449,8 @@ class Account {
       customer: this.customer,
       "items[0][price]": await priceId("standard", "month"),
       currency: "eur",
-      "metadata[openbot_user_id]": this.id,
-      "metadata[openbot_server_id]": serverId,
+      "metadata[openownbot_user_id]": this.id,
+      "metadata[openownbot_server_id]": serverId,
       payment_behavior: "error_if_incomplete",
     });
     return subscription.id;
@@ -476,8 +478,8 @@ class Account {
       "items[0][price]": await priceId("license", "month"),
       "items[0][quantity]": String(users),
       currency,
-      "metadata[openbot_user_id]": this.id,
-      "metadata[openbot_kind]": "license",
+      "metadata[openownbot_user_id]": this.id,
+      "metadata[openownbot_kind]": "license",
       payment_behavior: "error_if_incomplete",
     });
     return created.id;
@@ -604,7 +606,7 @@ async function payCheckout(url: string, returnOrigin: string, screenshot: string
       if (await card.isVisible()) await card.check({ force: true });
       await page.fill("#cardNumber", "4242424242424242");
     } catch (error) {
-      await page.screenshot({ path: join(ROOT, ".openbot-build", `failed-${screenshot}`), fullPage: true });
+      await page.screenshot({ path: join(ROOT, ".openownbot-build", `failed-${screenshot}`), fullPage: true });
       throw error;
     }
     await page.fill("#cardExpiry", "12 / 34");
@@ -616,7 +618,7 @@ async function payCheckout(url: string, returnOrigin: string, screenshot: string
     if ((await zip.count()) && (await zip.isVisible())) await zip.fill("00-001");
     const save = page.locator("#enableStripePass");
     if ((await save.count()) && (await save.isChecked())) await save.dispatchEvent("click");
-    await page.screenshot({ path: join(ROOT, ".openbot-build", screenshot) });
+    await page.screenshot({ path: join(ROOT, ".openownbot-build", screenshot) });
     await page.getByTestId("hosted-payment-submit-button").dispatchEvent("click");
     await page.waitForURL((current) => current.origin === returnOrigin, { timeout: 90_000 });
     return new URL(page.url()).pathname;
@@ -672,7 +674,7 @@ async function connectWeb(account: Account, serverId: string, name: string, scre
   const context = await (await browser()).newContext();
   try {
     await context.addCookies([
-      { name: "__Host-openbot-web", value: account.token, url: `${account.api}/`, secure: true, httpOnly: true },
+      { name: "__Host-openownbot-web", value: account.token, url: `${account.api}/`, secure: true, httpOnly: true },
     ]);
     await context.addInitScript(PEER_TRACE);
     const page = await context.newPage();
@@ -683,7 +685,7 @@ async function connectWeb(account: Account, serverId: string, name: string, scre
     const start = Date.now();
     await page.goto(`${account.api}/app`);
     const fail = async (error: unknown) => {
-      await page.screenshot({ path: join(ROOT, ".openbot-build", `failed-${screenshot}`), fullPage: true });
+      await page.screenshot({ path: join(ROOT, ".openownbot-build", `failed-${screenshot}`), fullPage: true });
       const snapshot = await page.locator("body").ariaSnapshot();
       process.stdout.write(`page: ${page.url()}\n${snapshot}\nconsole:\n${consoleLines.join("\n")}\n`);
       throw error;
@@ -701,7 +703,7 @@ async function connectWeb(account: Account, serverId: string, name: string, scre
       120_000,
     ).catch(fail);
     const connectedAt = Date.now();
-    await page.screenshot({ path: join(ROOT, ".openbot-build", screenshot) });
+    await page.screenshot({ path: join(ROOT, ".openownbot-build", screenshot) });
     const reported = await waitFor(
       "activity report",
       async () => {
@@ -735,7 +737,7 @@ async function connectWeb(account: Account, serverId: string, name: string, scre
 
 const priceIds = new Map<string, string>();
 async function priceId(plan: string, interval: string): Promise<string> {
-  const key = `openbot_${plan}_${interval}`;
+  const key = `openownbot_${plan}_${interval}`;
   const cached = priceIds.get(key);
   if (cached) return cached;
   const list = await stripe("GET", "/v1/prices", z.object({ data: z.array(idSchema) }), {
@@ -920,7 +922,7 @@ async function openLicensePages(account: Account) {
     status: "open",
     limit: "100",
   });
-  return listed.data.filter((session) => session.metadata?.openbot_kind === "license").map((session) => session.id);
+  return listed.data.filter((session) => session.metadata?.openownbot_kind === "license").map((session) => session.id);
 }
 
 async function expireCheckout(url: string) {
@@ -1456,7 +1458,8 @@ const scenarios: Record<Scenario, (account: Account) => Promise<void>> = {
       );
     const serviceActive = async (sandboxId: string) => {
       const response = await boat("POST", `/sandboxes/${sandboxId}/commands`, {
-        command: "systemctl is-active openbot.service; sudo -n journalctl -u openbot.service --no-pager -n 30 -o cat",
+        command:
+          "systemctl is-active openownbot.service; sudo -n journalctl -u openownbot.service --no-pager -n 30 -o cat",
         timeoutSeconds: 60,
       });
       return commandSchema.safeParse(response.body).data?.stdout ?? "";
@@ -1496,26 +1499,26 @@ const scenarios: Record<Scenario, (account: Account) => Promise<void>> = {
       );
       record(
         "boat",
-        "OpenBot in the VM redeems its claim and publishes the host with the server name",
+        "OpenOwnBot in the VM redeems its claim and publishes the host with the server name",
         host.host_name === name,
         host,
       );
       const output = await serviceActive(sandboxId);
-      record("boat", "openbot.service is active in the VM", output.startsWith("active"), output.split("\n"));
+      record("boat", "openownbot.service is active in the VM", output.startsWith("active"), output.split("\n"));
       // The claim works one time, so a server that did not store its session cannot sign in again. The
       // app signs in before it starts the host, so 60 seconds of a clean log is a complete start.
       const restart = await boat("POST", `/sandboxes/${sandboxId}/commands`, {
         command: [
-          'test -s "$HOME/.config/OpenBot/openbot-central-auth-v1.bin" || { echo "no stored session"; exit 1; }',
-          "sudo -n systemctl restart openbot.service",
-          "id=$(systemctl show -p InvocationID --value openbot.service)",
+          'test -s "$HOME/.config/OpenOwnBot/openbot-central-auth-v1.bin" || { echo "no stored session"; exit 1; }',
+          "sudo -n systemctl restart openownbot.service",
+          "id=$(systemctl show -p InvocationID --value openownbot.service)",
           "for _ in $(seq 1 30); do",
           '  if sudo -n journalctl "_SYSTEMD_INVOCATION_ID=$id" -o cat --no-pager | grep -q "could not sign in"; then',
           '    echo "sign-in failed"; exit 1',
           "  fi",
           "  sleep 2",
           "done",
-          "systemctl is-active openbot.service",
+          "systemctl is-active openownbot.service",
         ].join("\n"),
         timeoutSeconds: 120,
       });
@@ -1749,7 +1752,7 @@ const scenarios: Record<Scenario, (account: Account) => Promise<void>> = {
       opened.status === 200 &&
         new URL(url).host === "checkout.stripe.com" &&
         line?.quantity === 7 &&
-        line.price.lookup_key === "openbot_license_month" &&
+        line.price.lookup_key === "openownbot_license_month" &&
         session?.currency === "eur",
       { status: opened.status, code: opened.code, session: session && { status: session.status, line } },
     );
@@ -2185,7 +2188,7 @@ async function main(args: string[]) {
   // Deleting a test clock deletes its customers and subscriptions.
   for (const clock of clocks)
     await stripe("DELETE", `/v1/test_helpers/test_clocks/${clock}`, idSchema).catch(() => null);
-  mkdirSync(join(ROOT, ".openbot-build"), { recursive: true });
+  mkdirSync(join(ROOT, ".openownbot-build"), { recursive: true });
   const kept = previousSteps().filter((step) => !run.includes(step.scenario));
   writeFileSync(
     REPORT,

@@ -3,8 +3,8 @@ import { chmod, mkdir, mkdtemp, rm, stat, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { basename, join } from "node:path";
 import { pipeline } from "node:stream/promises";
-import { ATTACHMENT_LIMITS } from "@openbot/contracts/input-limits";
-import { createOpenBotLogger, redactText } from "@openbot/logging";
+import { ATTACHMENT_LIMITS } from "@openownbot/contracts/input-limits";
+import { createOpenOwnBotLogger, redactText } from "@openownbot/logging";
 import { Effect, Exit, Fiber, Scope } from "effect";
 import {
   type AttachmentOperationError,
@@ -87,14 +87,14 @@ const removeUploadRoot = Effect.fn("BrowserUploads.removeRoot")((path: string) =
   ),
 );
 
-const logger = createOpenBotLogger("browser-uploads");
+const logger = createOpenOwnBotLogger("browser-uploads");
 
 const MAX_BROWSER_UPLOAD_INPUTS_PER_TAB = 10;
 const MAX_BROWSER_UPLOAD_BYTES_PER_TAB = ATTACHMENT_LIMITS.totalBytes;
 const MAX_BROWSER_UPLOAD_BYTES_TOTAL = ATTACHMENT_LIMITS.totalBytes * 2;
 
 /**
- * Staging for `openbot_browser.upload_files`.
+ * Staging for `openownbot_browser.upload_files`.
  *
  * A tab keeps a file input's selection until the page navigates, and a page can keep the `File` objects
  * it took from an earlier selection for just as long, so the files behind both have to outlive the tool
@@ -195,7 +195,7 @@ export class BrowserUploads {
             yield* attachmentSync(() => this.#reserve(tabId, reservationId, currentReservation));
             // Node cannot cancel this allocation. Record its path before interruption can run cleanup.
             yield* Effect.gen(function* () {
-              stagingRoot = yield* attachmentCall(() => mkdtemp(join(tmpdir(), "openbot-browser-upload-")));
+              stagingRoot = yield* attachmentCall(() => mkdtemp(join(tmpdir(), "openownbot-browser-upload-")));
               currentReservation.root = stagingRoot;
             }).pipe(Effect.uninterruptible);
             if (reservation.invalidated)

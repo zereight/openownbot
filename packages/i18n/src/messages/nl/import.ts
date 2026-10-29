@@ -41,7 +41,7 @@ export const messages = {
   "import.guide.hermesStepFolder": "Lees de Hermes-map",
   "import.guide.hermesStep1": "Voeg de exportvaardigheid toe aan Hermes",
   "import.guide.readFolder": "Hermes-map lezen",
-  "import.guide.readFolderMeta": "OpenBot leest ~/.hermes en verandert er niets in.",
+  "import.guide.readFolderMeta": "OpenOwnBot leest ~/.hermes en verandert er niets in.",
   "import.guide.readFolderNote":
     "Je ziet elk onderdeel van elk profiel voordat er iets verandert. MCP-servers komen ook mee, uitgeschakeld.",
   "import.guide.copyCommand": "Opdracht kopiëren",
@@ -49,7 +49,7 @@ export const messages = {
   "import.guide.commandNote":
     "Typ deze in een Hermes-chat. Voer in een terminal hermes skills install uit met dezelfde naam. Hermes scant de vaardigheid voordat hij die installeert.",
   "import.guide.hermesSkillNote":
-    "Sla het op als ~/.hermes/skills/openbot-export/SKILL.md. Hermes vindt het in de volgende chat. De export laat het weg.",
+    "Sla het op als ~/.hermes/skills/openownbot-export/SKILL.md. Hermes vindt het in de volgende chat. De export laat het weg.",
   "import.guide.hermesMessageNote":
     "Hij vraagt welke profielen hij moet exporteren en slaat het .zip-bestand daarna op in Downloads. Sleutels en MCP-servers blijven in Hermes.",
   "import.review.title": "Export van {source}",

@@ -2,7 +2,7 @@ import { randomUUID } from "node:crypto";
 import { existsSync } from "node:fs";
 import { isIP } from "node:net";
 import { basename, extname, join } from "node:path";
-import { INPUT_LIMITS } from "@openbot/contracts/input-limits";
+import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
 import type {
   AgentBrowserProfile,
   BrowserBounds,
@@ -18,20 +18,20 @@ import type {
   BrowserTarget,
   BrowserViewTarget,
   BrowserVisibilityInput,
-} from "@openbot/contracts/ipc";
-import { isNumber, isString } from "@openbot/contracts/runtime-values";
+} from "@openownbot/contracts/ipc";
+import { isNumber, isString } from "@openownbot/contracts/runtime-values";
 import {
   type BrowserSignInCookie,
   browserSignInCookieFitsHost,
-} from "@openbot/contracts/team-protocol/browser-sign-in-v1";
+} from "@openownbot/contracts/team-protocol/browser-sign-in-v1";
 import {
   BROWSER_VIEW_CONTEXT_MENU_URL_MAX_LENGTH,
   type BrowserViewContextMenu,
   type BrowserViewCursor,
   type BrowserViewViewport,
-} from "@openbot/contracts/team-protocol/browser-view-v1";
-import { sourceText } from "@openbot/i18n/source";
-import { createOpenBotLogger, redactText, toLogValue } from "@openbot/logging";
+} from "@openownbot/contracts/team-protocol/browser-view-v1";
+import { sourceText } from "@openownbot/i18n/source";
+import { createOpenOwnBotLogger, redactText, toLogValue } from "@openownbot/logging";
 import { Deferred, Effect, Exit, Fiber, Scope, Semaphore } from "effect";
 import {
   app,
@@ -239,7 +239,7 @@ interface BrowserConsoleMessageDetails {
   sourceId: string;
 }
 
-const logger = createOpenBotLogger("browser-host");
+const logger = createOpenOwnBotLogger("browser-host");
 const BROWSER_WEB_PREFERENCES = {
   sandbox: true,
   contextIsolation: true,
@@ -383,7 +383,7 @@ export class BrowserHost {
     this.#profileExists = options.profileExists ?? (() => false);
     this.#downloadsRoot = downloadsRoot;
     this.#statePath = statePath;
-    this.#session = session.fromPartition("persist:openbot-browser", { cache: true });
+    this.#session = session.fromPartition("persist:openownbot-browser", { cache: true });
     this.#recorder = new BrowserRecorder(
       downloadsRoot,
       (tabId, recording) => {
@@ -693,7 +693,7 @@ export class BrowserHost {
     this: BrowserHost,
     url: string,
   ): Effect.fn.Return<BrowserTab, BrowserOperationError> {
-    const privateSession = session.fromPartition(`openbot-private-${randomUUID()}`, { cache: false });
+    const privateSession = session.fromPartition(`openownbot-private-${randomUUID()}`, { cache: false });
     this.#configureSession(privateSession);
     return yield* this.#open(url, null, null, false, privateSession);
   }).bind(this);

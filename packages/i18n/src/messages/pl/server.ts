@@ -123,7 +123,7 @@ export const messages = {
   "server.hosted.detail.create.copy": "Kopiowanie OpenOwnBot na maszynę",
   "server.hosted.detail.create.key": "Dodawanie jednorazowego klucza logowania",
   "server.hosted.detail.start.boot": "Włączanie maszyny",
-  "server.hosted.detail.start.app": "Uruchamianie OpenBot",
+  "server.hosted.detail.start.app": "Uruchamianie OpenOwnBot",
   "server.hosted.detail.start.wait": "Oczekiwanie na odpowiedź OpenOwnBot",
   "server.hosted.detail.connect.signIn": "Logowanie na twoje konto",
   "server.hosted.detail.connect.publish": "Dodawanie serwera do twojego konta",
@@ -470,11 +470,11 @@ export const messages = {
   "server.update.path.hosted":
     "Usługa hostingu pobiera aktualizacje w tle. Pobrana aktualizacja zostanie zastosowana przy następnym uruchomieniu serwera. Poczekaj na zakończenie aktywnej pracy, zanim zatrzymasz i wznowisz serwer. Jeśli serwer pozostaje na starej wersji, skontaktuj się z administratorem hosta.",
   "server.update.path.system":
-    "Na hoście uruchom sudo openbot update, aby zainstalować najnowsze wydanie. To polecenie zatrzymuje OpenOwnBot. Najpierw poczekaj na zakończenie aktywnej pracy. Automatycznie pobrane aktualizacje instalują się przy następnym rozruchu.",
+    "Na hoście uruchom sudo openownbot update, aby zainstalować najnowsze wydanie. To polecenie zatrzymuje OpenOwnBot. Najpierw poczekaj na zakończenie aktywnej pracy. Automatycznie pobrane aktualizacje instalują się przy następnym rozruchu.",
   "server.update.path.container":
     "Na hoście Docker pobierz nowy obraz OpenOwnBot i utwórz kontener ponownie z tymi samymi woluminami danych. Najpierw poczekaj na zakończenie aktywnej pracy. Zachowaj istniejące woluminy, aby nie stracić danych.",
   "server.update.path.manual":
-    "Ta instalacja nie może sama się zastąpić. Poproś administratora hosta o zainstalowanie zgodnego wydania z github.com/nightly-labs/openbot/releases. Zachowaj istniejące dane OpenOwnBot.",
+    "Ta instalacja nie może sama się zastąpić. Poproś administratora hosta o zainstalowanie zgodnego wydania z github.com/zereight/openownbot/releases. Zachowaj istniejące dane OpenOwnBot.",
   "server.update.path.unavailable":
     "To jest kompilacja deweloperska. Użyj zainstalowanego wydania OpenOwnBot, aby sprawdzać aktualizacje.",
   "server.update.check": "Sprawdź aktualizacje",

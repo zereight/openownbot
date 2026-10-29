@@ -33,17 +33,17 @@ import type {
   TeamPresenceSnapshot,
   TeamSessionSummary,
   UpdateStatus,
-} from "@openbot/contracts/ipc";
+} from "@openownbot/contracts/ipc";
 import {
   CONVERSATION_PLAN_ITEM_TYPE,
   conversationPlanText,
   isAgentStatus,
   isForeignProviderId,
   isKnownAgentProvider,
-} from "@openbot/contracts/ipc";
-import type { AgentProfile } from "@openbot/ui/data";
-import type { AgentRuntimeSettings } from "@openbot/ui/features/conversation/AgentSettingsPanel";
-import type { MarketplacePluginDetail } from "@openbot/ui/features/settings/marketplace-plugins";
+} from "@openownbot/contracts/ipc";
+import type { AgentProfile } from "@openownbot/ui/data";
+import type { AgentRuntimeSettings } from "@openownbot/ui/features/conversation/AgentSettingsPanel";
+import type { MarketplacePluginDetail } from "@openownbot/ui/features/settings/marketplace-plugins";
 import type { McpServerConfig } from "../features/servers/mcp-servers";
 
 const STORY_NOW = "2026-08-19T10:00:00.000Z";
@@ -647,7 +647,7 @@ export const STORY_SERVERS: [ServerSummary, ...ServerSummary[]] = [
   },
   {
     id: "team",
-    name: "OpenBot team",
+    name: "OpenOwnBot team",
     logoUrl: null,
     notificationsMuted: false,
     notificationsMutedUntil: null,
@@ -682,7 +682,7 @@ export const STORY_SERVERS: [ServerSummary, ...ServerSummary[]] = [
 export const STORY_BROWSER_TABS: BrowserTab[] = [
   {
     id: "browser-tab-docs",
-    title: "OpenBot documentation",
+    title: "OpenOwnBot documentation",
     url: "https://openbot.run/docs",
     loading: false,
     ownerThreadId: "thread-chief",
@@ -723,7 +723,7 @@ export const STORY_HOST_STATUS: HostStatus = {
   configured: true,
   enabledOnLaunch: true,
   serverId: "team",
-  serverName: "OpenBot team",
+  serverName: "OpenOwnBot team",
   logoUrl: null,
   apiUrl: "https://team.example.com",
   apiOnline: true,
@@ -793,7 +793,7 @@ export const STORY_UPDATE_STATUS: UpdateStatus = {
 };
 
 export const STORY_APP_INFO = {
-  name: "OpenBot",
+  name: "OpenOwnBot",
   version: "0.1.11",
   platform: "darwin" as const,
   variant: "production" as const,
@@ -801,7 +801,7 @@ export const STORY_APP_INFO = {
 
 /**
  * The marketplace surfaces. Storybook and the preview both reach the modal through
- * `mock-openbot.ts`, so an empty list here reads as "the marketplace is empty" rather than "the
+ * `mock-openownbot.ts`, so an empty list here reads as "the marketplace is empty" rather than "the
  * preview never wired this up" — which is what the three stubs it replaced looked like.
  */
 // Self-contained sample artwork keeps preview icons available without network requests.
@@ -818,7 +818,7 @@ export const STORY_MARKETPLACE_SKILLS: MarketplaceSkillSummary[] = [
     name: "Release notes",
     description: "Turns a range of commits into a changelog a reader outside the team can follow.",
     category: "documents",
-    creatorName: "OpenBot",
+    creatorName: "OpenOwnBot",
     version: 4,
     installs: 1_284,
     featured: true,
@@ -870,7 +870,7 @@ export const STORY_MARKETPLACE_SKILLS: MarketplaceSkillSummary[] = [
     name: "Source check",
     description: "Follows every citation in a draft and flags the ones that do not say what is claimed.",
     category: "research",
-    creatorName: "OpenBot",
+    creatorName: "OpenOwnBot",
     version: 3,
     installs: 209,
     featured: false,
@@ -932,10 +932,10 @@ export const STORY_MARKETPLACE_SKILL_DETAILS: Record<string, MarketplaceSkillDet
 export const STORY_INSTALLED_SKILLS: Record<string, InstalledSkill[]> = {
   chief: [
     {
-      skillId: "openbot-skill-creator",
-      slug: "openbot-skill-creator",
-      name: "openbot-skill-creator",
-      description: "Create or revise a reusable local OpenBot skill.",
+      skillId: "openownbot-skill-creator",
+      slug: "openownbot-skill-creator",
+      name: "openownbot-skill-creator",
+      description: "Create or revise a reusable local OpenOwnBot skill.",
       installedVersion: 1,
       availableVersion: 1,
       state: "installed",
@@ -943,9 +943,9 @@ export const STORY_INSTALLED_SKILLS: Record<string, InstalledSkill[]> = {
       origin: "managed",
     },
     {
-      skillId: "openbot-site-hosting",
-      slug: "openbot-site-hosting",
-      name: "openbot-site-hosting",
+      skillId: "openownbot-site-hosting",
+      slug: "openownbot-site-hosting",
+      name: "openownbot-site-hosting",
       installedVersion: 1,
       availableVersion: 1,
       state: "installed",
@@ -1112,7 +1112,7 @@ export const STORY_MARKETPLACE_AGENTS: MarketplaceAgentSummary[] = [
     name: "Release Manager",
     title: "Ships the release",
     description: "Cuts the tag, writes the notes, and watches the rollout until it is green.",
-    creatorName: "OpenBot",
+    creatorName: "OpenOwnBot",
     version: 6,
     installs: 731,
     featured: true,
@@ -1310,7 +1310,7 @@ export const STORY_MARKETPLACE_AGENTS: MarketplaceAgentSummary[] = [
     name: "Contract Reader",
     title: "Finds the clause that matters",
     description: "Reads a long agreement and reports the dates, the duties, and the ways out.",
-    creatorName: "OpenBot",
+    creatorName: "OpenOwnBot",
     version: 3,
     installs: 245,
     featured: false,

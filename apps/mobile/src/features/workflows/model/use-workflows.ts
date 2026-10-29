@@ -1,4 +1,4 @@
-import type { WorkflowRunDetail } from "@openbot/contracts/ipc";
+import type { WorkflowRunDetail } from "@openownbot/contracts/ipc";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { useQueryScope } from "@/features/auth/context/mobile-session-context";

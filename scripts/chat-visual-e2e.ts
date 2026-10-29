@@ -11,23 +11,23 @@
 // 3. "Pick B" puts its text in the composer, with no reply block, and sends nothing;
 // 4. the context shows as a quote chip in the composer, and the sent message starts with it;
 // 5. Cmd+K (Ctrl+K off macOS) in the page opens the global search.
-// It deletes its channel at the end. Writes .openbot-build/chat-visual-e2e/report.json and screenshots.
+// It deletes its channel at the end. Writes .openownbot-build/chat-visual-e2e/report.json and screenshots.
 import assert from "node:assert/strict";
 import { resolve } from "node:path";
-import { isAgentProvider } from "@openbot/contracts/agent-providers";
-import type { AgentSummary } from "@openbot/contracts/ipc";
-import { translateFor } from "@openbot/i18n";
+import { isAgentProvider } from "@openownbot/contracts/agent-providers";
+import type { AgentSummary } from "@openownbot/contracts/ipc";
+import { translateFor } from "@openownbot/i18n";
 import type { FrameLocator, Locator, Page } from "playwright-core";
 import { argument, ChannelClient, connectChannelE2e, WAIT_MS, waitFor, writeReport } from "./channel-e2e-support";
 
 declare global {
   interface Window {
     /** The helper that the page gets from the app. */
-    openbotPage?: { displayMode: "inline" | "fullscreen" };
+    openownbotPage?: { displayMode: "inline" | "fullscreen" };
   }
 }
 
-const OUT = resolve(import.meta.dirname, "../.openbot-build/chat-visual-e2e");
+const OUT = resolve(import.meta.dirname, "../.openownbot-build/chat-visual-e2e");
 const UI_WAIT_MS = 30_000;
 const TITLE = "Plan picker";
 const PICK_TEXT = "I pick plan B.";
@@ -45,8 +45,8 @@ const draw = canvas.getContext("2d");
 draw.fillStyle = "gray"; draw.fillRect(20, 40, 60, 80); draw.fillRect(110, 10, 60, 110);
 document.getElementById("chart").src = canvas.toDataURL("image/png");
 document.getElementById("count").onclick = (event) => { count += 1; event.currentTarget.textContent = "Count: " + count; };
-document.getElementById("pick").onclick = () => openbotPage.sendMessage(${JSON.stringify(PICK_TEXT)});
-document.getElementById("context").onclick = () => openbotPage.setContext("The counter shows " + count + ".");
+document.getElementById("pick").onclick = () => openownbotPage.sendMessage(${JSON.stringify(PICK_TEXT)});
+document.getElementById("context").onclick = () => openownbotPage.setContext("The counter shows " + count + ".");
 </script></body></html>`;
 const VISUAL_PROMPT = `Call the html_render tool once with the title "${TITLE}" and exactly this HTML, with no change: ${PAGE} Then reply with DONE only.`;
 const english = translateFor("en");
@@ -134,7 +134,7 @@ try {
   assert.ok(agent, agentId ? `No visible agent has the id ${agentId}.` : "This check needs one visible agent.");
   const providerId = argument("provider");
   if (providerId && providerId !== agent.provider) {
-    const models = await desktop.evaluate(() => window.openbot.agent.listModels());
+    const models = await desktop.evaluate(() => window.openownbot.agent.listModels());
     const target = models.find((model) => model.provider === providerId);
     assert.ok(target && isAgentProvider(target.provider), `No model of ${providerId} is available. Sign in first.`);
     restore = agent;
@@ -173,7 +173,7 @@ try {
     "the page has the full-screen size",
     () =>
       counter.evaluate(() => {
-        return window.openbotPage?.displayMode === "fullscreen" && window.innerWidth > 720;
+        return window.openownbotPage?.displayMode === "fullscreen" && window.innerWidth > 720;
       }),
     Boolean,
     UI_WAIT_MS,

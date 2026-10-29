@@ -1,6 +1,6 @@
-import { isManagedRuntimeProvider } from "@openbot/contracts/agent-providers";
-import { ANALYTICS_GENERATIONS, openPanelTransport, ReportQueue } from "@openbot/telemetry";
-import { fileReportStorage } from "@openbot/telemetry/node";
+import { isManagedRuntimeProvider } from "@openownbot/contracts/agent-providers";
+import { ANALYTICS_GENERATIONS, openPanelTransport, ReportQueue } from "@openownbot/telemetry";
+import { fileReportStorage } from "@openownbot/telemetry/node";
 import { Effect, Fiber } from "effect";
 import { toAgentRemovalFailed } from "../backend/agent/agent-removal";
 import { toHostedSiteOperationFailed } from "../backend/agent/hosted-site-coordinator";
@@ -65,7 +65,7 @@ import { existsSync } from "node:fs";
 import { readdir, rm } from "node:fs/promises";
 import { homedir, hostname, tmpdir } from "node:os";
 import { join, resolve } from "node:path";
-import { selfHostedApiOrigin } from "@openbot/contracts/invite-links";
+import { selfHostedApiOrigin } from "@openownbot/contracts/invite-links";
 import type {
   AgentStatus,
   AppVariant,
@@ -77,7 +77,7 @@ import type {
   SpeechModelStatus,
   VoiceModelStatus,
   VoiceStreamTranscript,
-} from "@openbot/contracts/ipc";
+} from "@openownbot/contracts/ipc";
 import {
   agentBrowserProfile,
   IPC_ENDPOINTS,
@@ -85,12 +85,12 @@ import {
   isUpdateBusyPhase,
   LOCAL_SERVER_ID,
   latestTurnAnswer,
-} from "@openbot/contracts/ipc";
-import { decodeRecord, requiredString } from "@openbot/contracts/ipc-decoding";
-import { LOCAL_ONLY } from "@openbot/contracts/local-only";
-import { sourceText } from "@openbot/i18n/source";
-import { createOpenBotLogger, toLogValue } from "@openbot/logging";
-import { REMOTE_ACCOUNT_CHECK_INTERVAL_MS } from "@openbot/team-client";
+} from "@openownbot/contracts/ipc";
+import { decodeRecord, requiredString } from "@openownbot/contracts/ipc-decoding";
+import { LOCAL_ONLY } from "@openownbot/contracts/local-only";
+import { sourceText } from "@openownbot/i18n/source";
+import { createOpenOwnBotLogger, toLogValue } from "@openownbot/logging";
+import { REMOTE_ACCOUNT_CHECK_INTERVAL_MS } from "@openownbot/team-client";
 import {
   app,
   BrowserWindow,
@@ -118,7 +118,7 @@ import { discordDriver } from "../backend/messaging/discord/discord-driver";
 import { MessagingOperationFailed, MessagingService } from "../backend/messaging/messaging-service";
 import { slackDriver } from "../backend/messaging/slack/slack-driver";
 import { telegramDriver } from "../backend/messaging/telegram/telegram-driver";
-import { OpenBotDatabase } from "../backend/openbot-database";
+import { OpenOwnBotDatabase } from "../backend/openownbot-database";
 import { passwordVaultRouter } from "../backend/password-vault-router";
 import { sweepProviderTemp } from "../backend/provider-temp";
 import { SidebarLayoutStore } from "../backend/sidebar-layout-store";
@@ -310,7 +310,7 @@ import {
   type UpdateAdapter,
   UpdateService,
 } from "./update-service";
-import { listSiblingOpenBotInstances } from "./update-sibling-instances";
+import { listSiblingOpenOwnBotInstances } from "./update-sibling-instances";
 import { VaultService } from "./vault-service";
 import { VaultStore } from "./vault-store";
 import { VoiceApiKeyStore } from "./voice-api-key-store";
@@ -330,7 +330,7 @@ import { VoiceTranscriptionService } from "./voice-transcription-service";
 import { WebhookRelay } from "./webhook-relay";
 import { startWorkflowLog } from "./workflow-log";
 
-const logger = createOpenBotLogger("application-services");
+const logger = createOpenOwnBotLogger("application-services");
 const SETUP_FILE = "openbot-setup-v2.json";
 const ANALYTICS_PREFERENCE_FILE = "openbot-analytics-preference-v1.json";
 const ANALYTICS_INVENTORY_FILE = "openbot-analytics-inventory-v1.json";
@@ -681,7 +681,7 @@ async function createMessagingServices({
   const messagingCredentialLoadError = await Effect.runPromise(messagingCredentials.load());
   if (messagingCredentialLoadError)
     logger.warn(
-      `OpenBot could not read the messaging token file (${messagingCredentialLoadError.name}). It was left unchanged.`,
+      `OpenOwnBot could not read the messaging token file (${messagingCredentialLoadError.name}). It was left unchanged.`,
     );
   // The Signal socket that brings the events of the Slack workspaces, Discord guilds and Telegram chats
   // linked to this host, and makes its Discord and Telegram calls.
@@ -706,8 +706,8 @@ async function createMessagingServices({
     Effect.runPromise(signalIngress.dispose()),
   );
   // Development only: `bun run dev:slack` names this loopback port, so a Slack install returns to this
-  // dev app and not to an installed OpenBot that owns `openbot://`.
-  const developmentSlackCallbackPort = app.isPackaged ? 0 : Number(process.env.OPENBOT_DEV_SLACK_CALLBACK_PORT ?? 0);
+  // dev app and not to an installed OpenOwnBot that owns `openownbot://`.
+  const developmentSlackCallbackPort = app.isPackaged ? 0 : Number(process.env.OPENOWNBOT_DEV_SLACK_CALLBACK_PORT ?? 0);
   const messaging = new MessagingService({
     threads: service.messaging,
     agents: {
@@ -836,7 +836,7 @@ async function createMessagingServices({
   );
   teardown.push(TEARDOWN_ORDER.messaging, "the messaging connections", () => Effect.runPromise(messaging.stop()));
   if (developmentSlackCallbackPort > 0) {
-    // As `openbot://` does for a packaged build, a finished install brings OpenBot to the front.
+    // As `openownbot://` does for a packaged build, a finished install brings OpenOwnBot to the front.
     const callback = await startSlackDevCallbackServer(developmentSlackCallbackPort, async (nonce, grant) => {
       const received = await runCauseEffect(messaging.completeSlackWorkspace(nonce, grant));
       if (received) app.focus({ steal: true });
@@ -930,12 +930,12 @@ export async function createApplicationServices({
   });
   teardown.push(TEARDOWN_ORDER.dynamicIsland, "the Dynamic Island", () => dynamicIsland.destroy());
   const centralAuthApiUrl = readCentralAuthApiUrl(
-    process.env.OPENBOT_AUTH_API_URL,
+    process.env.OPENOWNBOT_AUTH_API_URL,
     app.isPackaged && !LOCAL_ONLY ? "https://api.openbot.run" : "http://127.0.0.1:3100",
   );
   const centralAuth = new CentralAuthManager({
     apiUrl: centralAuthApiUrl,
-    mobileConnectApiUrl: readMobileConnectApiUrl(process.env.OPENBOT_MOBILE_AUTH_API_URL, centralAuthApiUrl),
+    mobileConnectApiUrl: readMobileConnectApiUrl(process.env.OPENOWNBOT_MOBILE_AUTH_API_URL, centralAuthApiUrl),
     storagePath: join(app.getPath("userData"), CENTRAL_AUTH_FILE),
     ...safeStorageCipher("error.app.macSecureStorageUnavailable"),
   });
@@ -992,34 +992,37 @@ export async function createApplicationServices({
     join(app.getPath("userData"), AGENT_DEFAULTS_PREFERENCE_FILE),
   );
   await runCauseEffect(agentDefaults.load());
-  const store = new AgentStore(app.getPath("userData"), homedir(), new OpenBotDatabase(app.getPath("userData")), () =>
-    agentDefaults.get(),
+  const store = new AgentStore(
+    app.getPath("userData"),
+    homedir(),
+    new OpenOwnBotDatabase(app.getPath("userData")),
+    () => agentDefaults.get(),
   );
   // Phase marks for `dev:bench`, so a slow start shows which group of awaits it waited on. They
   // change nothing.
-  performance.mark("openbot:services.pre-store");
+  performance.mark("openownbot:services.pre-store");
   await runCauseEffect(store.initialize());
-  performance.mark("openbot:services.store");
+  performance.mark("openownbot:services.store");
   // Closing copies the write-ahead log into the database file and removes it. A step that passed its
   // limit, such as a slow agent stop, still writes, so the close waits a short time for it.
   teardown.push(TEARDOWN_ORDER.database, "the database", () => store.database.close(), { afterAbandonedSteps: true });
   const managedSkills = new ManagedSkillService(
     app.isPackaged
-      ? join(process.resourcesPath, "managed-skills", "openbot-site-hosting", "SKILL.md")
-      : resolve(__dirname, "../../resources/managed-skills/openbot-site-hosting/SKILL.md"),
+      ? join(process.resourcesPath, "managed-skills", "openownbot-site-hosting", "SKILL.md")
+      : resolve(__dirname, "../../resources/managed-skills/openownbot-site-hosting/SKILL.md"),
   );
   const skillCreator = new ManagedSkillService(
     app.isPackaged
-      ? join(process.resourcesPath, "managed-skills", "openbot-skill-creator", "SKILL.md")
-      : resolve(__dirname, "../../resources/managed-skills/openbot-skill-creator/SKILL.md"),
+      ? join(process.resourcesPath, "managed-skills", "openownbot-skill-creator", "SKILL.md")
+      : resolve(__dirname, "../../resources/managed-skills/openownbot-skill-creator/SKILL.md"),
     undefined,
     undefined,
     SKILL_CREATOR_SKILL_SLUG,
   );
   const dataSkill = new ManagedSkillService(
     app.isPackaged
-      ? join(process.resourcesPath, "managed-skills", "openbot-data", "SKILL.md")
-      : resolve(__dirname, "../../resources/managed-skills/openbot-data/SKILL.md"),
+      ? join(process.resourcesPath, "managed-skills", "openownbot-data", "SKILL.md")
+      : resolve(__dirname, "../../resources/managed-skills/openownbot-data/SKILL.md"),
     undefined,
     undefined,
     DATA_SKILL_SLUG,
@@ -1027,7 +1030,7 @@ export async function createApplicationServices({
   await Effect.runPromise(managedSkills.syncAll(store.list()));
   await Effect.runPromise(skillCreator.syncAll(store.list()));
   await Effect.runPromise(dataSkill.syncAll(store.list()));
-  performance.mark("openbot:services.skills");
+  performance.mark("openownbot:services.skills");
   const hostedSites = new HostedSiteDesktopService(centralAuth, () => {
     // Read at request time: the team store is created later, and the server can register after launch.
     const hostId = teamStore.getIdentity()?.serverId;
@@ -1056,13 +1059,13 @@ export async function createApplicationServices({
   const developmentUrl = process.env.ELECTRON_RENDERER_URL;
   const teamWebRtcBridge = new TeamWebRtcBridge({
     developmentUrl: developmentUrl ?? null,
-    iceTransportPolicy: developmentUrl && process.env.OPENBOT_DEV_ICE_TRANSPORT_POLICY === "relay" ? "relay" : "all",
+    iceTransportPolicy: developmentUrl && process.env.OPENOWNBOT_DEV_ICE_TRANSPORT_POLICY === "relay" ? "relay" : "all",
   });
   teamWebRtcBridge.on("accountProfileChanged", refreshAccountProfile);
   teardown.push(TEARDOWN_ORDER.teamWebRtcBridge, "the team WebRTC bridge", () =>
     runCauseEffect(teamWebRtcBridge.stop()),
   );
-  // Only a hosted, self-hosted or container server: one unit or container holds OpenBot and every
+  // Only a hosted, self-hosted or container server: one unit or container holds OpenOwnBot and every
   // agent process. The desktop app does not hold turns for memory.
   const hostMemory =
     hostedServer || serverModeEnvironment
@@ -1096,7 +1099,7 @@ export async function createApplicationServices({
   });
   teardown.push(TEARDOWN_ORDER.browser, "the browser", () => runCauseEffect(browser.destroy()));
   await runCauseEffect(browser.restore(store.list().map((agent) => ({ id: agent.id, threadId: agent.threadId }))));
-  performance.mark("openbot:services.browser");
+  performance.mark("openownbot:services.browser");
   const browserPictureInPicture = new BrowserPictureInPicture({
     // A value, deliberately: the window this is docked to is the one that exists now. The event
     // callback below is the opposite case and re-reads, because it fires long after a macOS window
@@ -1227,9 +1230,9 @@ export async function createApplicationServices({
    * The installed CLIs are the computer's, the partial downloads are this profile's.
    *
    * Development gives every renderer port and every `--isolated` worktree a `userData` of its own,
-   * so a store kept there started empty each time: OpenBot fell back to the user's own CLI, offered
+   * so a store kept there started empty each time: OpenOwnBot fell back to the user's own CLI, offered
    * the pinned version against it, and downloaded 144 MB again for a profile that would be replaced
-   * by the next port. The packaged app's `userData` is `appData/OpenBot` already, so the shared
+   * by the next port. The packaged app's `userData` is `appData/OpenOwnBot` already, so the shared
    * store is the path it always used. The switch is read here rather than imported from the entry
    * point, which this file may not reach into; both readers read the same immutable value.
    */
@@ -1302,7 +1305,7 @@ export async function createApplicationServices({
   const providerDetectionSettings = new ProviderDetectionSettingsStore(
     join(app.getPath("userData"), PROVIDER_DETECTION_SETTINGS_FILE),
   );
-  performance.mark("openbot:services.preferences");
+  performance.mark("openownbot:services.preferences");
   await runCauseEffect(providerDetectionSettings.load());
   const providerDetection = await Effect.runPromise(
     createProviderDetection({
@@ -1326,14 +1329,16 @@ export async function createApplicationServices({
   // An unreadable key file is reported, not fatal: the app starts, OpenCode runs on the free models,
   // and Settings tells the user to save the key again. Only the error's class is logged, because a
   // parse message quotes the file.
-  performance.mark("openbot:services.provider-detection");
+  performance.mark("openownbot:services.provider-detection");
   const credentialLoadError = await Effect.runPromise(providerCredentials.load());
   if (credentialLoadError) {
-    logger.warn(`OpenBot could not read the provider key file (${credentialLoadError.name}). It was left unchanged.`);
+    logger.warn(
+      `OpenOwnBot could not read the provider key file (${credentialLoadError.name}). It was left unchanged.`,
+    );
   }
   /*
    * The MCP sign-ins, in their own file with the same cipher. `mcp-remote` used to keep these where
-   * OpenBot could not redact them; here they are covered by the same rule as every other secret.
+   * OpenOwnBot could not redact them; here they are covered by the same rule as every other secret.
    *
    * Unreadable is not fatal, for the same reason as the keys above: every signed-in server asks for
    * a sign-in again, and nothing else on this machine stops working.
@@ -1341,7 +1346,7 @@ export async function createApplicationServices({
   const mcpOAuthStore = new McpOAuthStore(join(app.getPath("userData"), MCP_OAUTH_FILE), secretCipher);
   const mcpOAuthLoadError = await Effect.runPromise(mcpOAuthStore.load());
   if (mcpOAuthLoadError) {
-    logger.warn(`OpenBot could not read the MCP sign-in file (${mcpOAuthLoadError.name}). It was left unchanged.`);
+    logger.warn(`OpenOwnBot could not read the MCP sign-in file (${mcpOAuthLoadError.name}). It was left unchanged.`);
   }
   // The OAuth proxy port, so a Codex session resumed after a restart reaches the same address.
   const mcpOAuthProxySettings = new McpOAuthProxySettingsFile(
@@ -1351,13 +1356,13 @@ export async function createApplicationServices({
   const mcpOAuthProxyLoadError = await Effect.runPromise(mcpOAuthProxySettings.load());
   if (mcpOAuthProxyLoadError) {
     logger.warn(
-      `OpenBot could not read the MCP sign-in proxy file (${mcpOAuthProxyLoadError.name}). A new port is used.`,
+      `OpenOwnBot could not read the MCP sign-in proxy file (${mcpOAuthProxyLoadError.name}). A new port is used.`,
     );
   }
   /*
    * Where a returning grant lands. The loopback listener is the address RFC 8252 gives a native
-   * app and the only one some authorization servers accept - Canva refuses `openbot://mcp-auth`
-   * on its own authorization page, where OpenBot cannot see the failure or explain it.
+   * app and the only one some authorization servers accept - Canva refuses `openownbot://mcp-auth`
+   * on its own authorization page, where OpenOwnBot cannot see the failure or explain it.
    *
    * A port that cannot be bound is not fatal: the deep link is still registered with the
    * operating system, and the servers that accept it keep working. It is logged because it
@@ -1378,7 +1383,7 @@ export async function createApplicationServices({
         ? { port: Number(new URL(mcpOAuthRedirect.redirectUrl).port), path: MCP_OAUTH_REDIRECT_PATH }
         : null,
   });
-  performance.mark("openbot:services.mcp-sign-in-file");
+  performance.mark("openownbot:services.mcp-sign-in-file");
   const mcpOAuthRedirect = await startMcpOAuthRedirectServer({
     language,
     preferredPort: MCP_OAUTH_REDIRECT_PORT,
@@ -1396,7 +1401,7 @@ export async function createApplicationServices({
     },
   }).catch((error: unknown) => {
     logger.warn(
-      "OpenBot could not listen for MCP sign-ins on this machine, so the openbot:// link is used instead. Servers that refuse it cannot be signed in to:",
+      "OpenOwnBot could not listen for MCP sign-ins on this machine, so the openownbot:// link is used instead. Servers that refuse it cannot be signed in to:",
       toLogValue(error),
     );
     return null;
@@ -1408,7 +1413,7 @@ export async function createApplicationServices({
     storage: mcpOAuthStore,
     openExternal: openLink,
     redirectUrl: mcpOAuthRedirect?.redirectUrl ?? MCP_OAUTH_REDIRECT_URL,
-    logger: createOpenBotLogger("mcp-oauth"),
+    logger: createOpenOwnBotLogger("mcp-oauth"),
   });
   mcpOAuthAuthority = mcpOAuth;
   teardown.push(TEARDOWN_ORDER.mcpOAuth, "MCP token refresh", () => Effect.runPromise(mcpOAuth.close()));
@@ -1430,7 +1435,7 @@ export async function createApplicationServices({
   );
   /*
    * The Bitwarden connection. A host connection's API key and master password are stored, so the
-   * host unlocks again after a restart; its CLI data and OpenBot's copy of `bw` stay outside every
+   * host unlocks again after a restart; its CLI data and OpenOwnBot's copy of `bw` stay outside every
    * root an agent can write.
    */
   const bitwardenCliTarget = runtimeTarget(process.platform, process.arch);
@@ -1479,7 +1484,7 @@ export async function createApplicationServices({
     openExternal: openLink,
   });
   await runCauseEffect(onePasswordConnector.load());
-  performance.mark("openbot:services.connectors");
+  performance.mark("openownbot:services.connectors");
   teardown.push(TEARDOWN_ORDER.onePasswordConnector, "the 1Password connection", () =>
     runCauseEffect(onePasswordConnector.dispose()),
   );
@@ -1492,7 +1497,7 @@ export async function createApplicationServices({
       onStatementSettled: (durationMs) => statementTimings.record(durationMs),
     }),
   });
-  // Looked up again on demand, because a user may install the driver while OpenBot runs, and the
+  // Looked up again on demand, because a user may install the driver while OpenOwnBot runs, and the
   // panel's "Check again" has to see it.
   const resolveCuaDriverExecutable = () => {
     const installDirectory = process.env.CUA_DRIVER_RS_INSTALL_DIR ?? process.env.CUA_DRIVER_BIN_DIR;
@@ -1505,7 +1510,7 @@ export async function createApplicationServices({
       architecture: process.arch,
       homeDirectory: homedir(),
       pathVariable: process.env.PATH ?? null,
-      overrides: [process.env.OPENBOT_CUA_DRIVER_PATH, process.env.CUA_DRIVER_PATH],
+      overrides: [process.env.OPENOWNBOT_CUA_DRIVER_PATH, process.env.CUA_DRIVER_PATH],
       ...(installDirectory === undefined ? {} : { installDirectory }),
       ...(localAppDataDirectory === undefined ? {} : { localAppDataDirectory }),
       applicationsDirectory: "/Applications",
@@ -1542,11 +1547,11 @@ export async function createApplicationServices({
   // daemon: stopping it first would leave them reading a socket nothing answers.
   teardown.push(TEARDOWN_ORDER.cuaDriver, "the Computer Use driver", () => runCauseEffect(cuaDriver.stop()));
   /*
-   * The rim OpenBot draws over the window an agent works in.
+   * The rim OpenOwnBot draws over the window an agent works in.
    *
    * It asks the daemon two read-only questions over a connection of its own: whether any agent
    * holds a live session, and where every window is. Both answers come from the daemon's own view,
-   * which an MCP client of OpenBot's could not see: the tools report only the sessions of the lease
+   * which an MCP client of OpenOwnBot's could not see: the tools report only the sessions of the lease
    * that asks, and the agent's lease is its own.
    */
   const computerUseReads = new CuaDriverDaemonClient(() =>
@@ -1557,7 +1562,7 @@ export async function createApplicationServices({
     loadWindow: loadComputerUseHighlightRenderer,
     place: sendComputerUseHighlightPlacement,
     displays: computerUseDisplays,
-    // The driver's own cursor on one screen, OpenBot's inside this overlay on more than one. The
+    // The driver's own cursor on one screen, OpenOwnBot's inside this overlay on more than one. The
     // runtime answers `null` for the screen it draws itself, so only one cursor is ever drawn.
     readPointer: () => {
       const pointer = cuaDriver.lastPointer(COMPUTER_USE_CURSOR_MAX_AGE_MS);
@@ -1595,7 +1600,7 @@ export async function createApplicationServices({
     computerUseHighlight.destroy();
     await Effect.runPromise(computerUseReads.close());
   });
-  // The overlays are OpenBot windows, so they can mark only the display OpenBot is on. With an agent
+  // The overlays are OpenOwnBot windows, so they can mark only the display OpenOwnBot is on. With an agent
   // display of its own, the driver works where they cannot be drawn.
   const drawsComputerUseHighlight = !hasSeparateAgentDisplay(process.platform);
   const computerUsePermissionHelp = new ComputerUsePermissionHelpWindowController({
@@ -1627,7 +1632,7 @@ export async function createApplicationServices({
   // tree stop ends every command it started, so none outlives its folder. Elsewhere the system
   // folder stays: a macOS path in userData has a space and is too long for a Unix socket.
   const providerTempDirectory = join(app.getPath("userData"), "provider-temp");
-  performance.mark("openbot:services.computer-use");
+  performance.mark("openownbot:services.computer-use");
   if (process.platform === "win32") await Effect.runPromise(sweepProviderTemp(providerTempDirectory));
   // Outside every workspace. Each saved key is masked in the logs before the first agent starts.
   const agentApiKeys = new AgentApiKeys(join(app.getPath("userData"), "agent-api-keys"));
@@ -1647,8 +1652,8 @@ export async function createApplicationServices({
         ensureToolRuntimesReady: () => providerRuntimes.ensureToolRuntimesReady(),
         toolRuntimes: () => providerRuntimes.mcpToolRuntimes(),
       }),
-    // `desktopCapturer` captures the display OpenBot is on. With an agent display of its own, that
-    // is only the OpenBot window, so agents take their screenshots with the Computer Use driver.
+    // `desktopCapturer` captures the display OpenOwnBot is on. With an agent display of its own, that
+    // is only the OpenOwnBot window, so agents take their screenshots with the Computer Use driver.
     screenCapture: hasSeparateAgentDisplay(process.platform)
       ? null
       : new ScreenCapturer({
@@ -1731,7 +1736,7 @@ export async function createApplicationServices({
     passwordVault: passwordVaultRouter([
       { prefix: "", vault: onePasswordConnector },
       { prefix: "bitwarden:", vault: bitwardenConnector },
-      { prefix: "openbot:", vault: vault.logins },
+      { prefix: "openownbot:", vault: vault.logins },
     ]),
     vaultItems: vault.items,
     agentApiKeys,
@@ -1901,7 +1906,7 @@ export async function createApplicationServices({
   // The host id is read when the Signal socket opens, and the team store is built further down, so
   // it starts as "no name yet".
   let ingressHostId: () => string | null = () => null;
-  performance.mark("openbot:services.routines");
+  performance.mark("openownbot:services.routines");
   const { messaging, signalIngress } = await createMessagingServices({
     teardown,
     secretCipher,
@@ -1926,7 +1931,7 @@ export async function createApplicationServices({
   cuaDriver.onStateChanged((state) => service.setComputerUseCapability(computerUseCapability(state)));
   // Only when a live session would hold the wrong tool set: this deactivates every agent's stored
   // provider session, so the driver stays quiet for a grant, for the warm-up below, and from the
-  // moment OpenBot quits, where the sessions are being left for the next run.
+  // moment OpenOwnBot quits, where the sessions are being left for the next run.
   cuaDriver.onMcpServerChanged(() => {
     void runCauseEffect(service.notifyComputerUseChanged()).catch((error) =>
       logger.warn("Provider tools did not refresh.", toLogValue(error)),
@@ -1965,7 +1970,7 @@ export async function createApplicationServices({
   );
   /*
    * Where the decision put the download: onboarding, which is the screen this start is about to
-   * show. A user who finished onboarding before OpenBot downloaded a runtime at all is asked for
+   * show. A user who finished onboarding before OpenOwnBot downloaded a runtime at all is asked for
    * one here too, but only when this machine already has an MCP server to start.
    *
    * Nothing waits for it and nothing reports it. MCP is optional, so a failed download must not
@@ -1975,7 +1980,7 @@ export async function createApplicationServices({
     Effect.runFork(providerRuntimes.ensureToolRuntimes());
   // After `new AgentService`, which owns the channels: the layout files channels beside agents, and
   // reconciling against the agents alone would read every channel as gone and drop where it sits.
-  performance.mark("openbot:services.messaging");
+  performance.mark("openownbot:services.messaging");
   await runCauseEffect(sidebarLayout.reconcileAgents(service.sidebarChatIds()));
   await runCauseEffect(squadStore.reconcile(new Set(service.listAgents().map((agent) => agent.id))));
 
@@ -2081,7 +2086,7 @@ export async function createApplicationServices({
     join(app.getPath("userData"), TEAM_FILE),
   );
   await runCauseEffect(teamStore.initialize());
-  performance.mark("openbot:services.team");
+  performance.mark("openownbot:services.team");
   ingressHostId = () => teamStore.getIdentity()?.serverId ?? null;
   signalIngress.reconnect();
   const webhookRelay = new WebhookRelay({
@@ -2142,7 +2147,7 @@ export async function createApplicationServices({
   }
 
   const teamChatStore = new TeamChatStore(store.database);
-  performance.mark("openbot:services.hosted");
+  performance.mark("openownbot:services.hosted");
   const remoteDesktopRuntime = await Effect.runPromise(
     resolveRemoteDesktopRuntime({
       isPackaged: app.isPackaged,
@@ -2150,9 +2155,9 @@ export async function createApplicationServices({
       sourceRoot: resolve(__dirname, "../.."),
       platform: process.platform === "darwin" || process.platform === "win32" ? process.platform : "linux",
       architecture: process.arch,
-      ...(process.env.OPENBOT_REMOTE_DESKTOP_RUNTIME_PATH === undefined
+      ...(process.env.OPENOWNBOT_REMOTE_DESKTOP_RUNTIME_PATH === undefined
         ? {}
-        : { overrideRoot: process.env.OPENBOT_REMOTE_DESKTOP_RUNTIME_PATH }),
+        : { overrideRoot: process.env.OPENOWNBOT_REMOTE_DESKTOP_RUNTIME_PATH }),
     }),
   );
   const agentAdminSettings = createAgentAdminSettings({ agents: service, approvalAutomation });
@@ -2508,7 +2513,7 @@ export async function createApplicationServices({
     throw new Error(`Unsupported analytics platform: ${analyticsPlatform}`);
   }
   // Load the local catalog before telemetry starts so tool steps and inventory use the same names.
-  performance.mark("openbot:services.remote-desktop");
+  performance.mark("openownbot:services.remote-desktop");
   const catalogPluginServers = await Effect.runPromise(
     loadCatalogPluginServers(
       app.isPackaged
@@ -2523,7 +2528,7 @@ export async function createApplicationServices({
         fileReportStorage(join(app.getPath("userData"), "openbot-error-reports-v1.json")),
         openPanelTransport({
           clientId: "6c989975-87ef-4f0c-857e-ab449a65b5c2",
-          origin: "openbot-app://app",
+          origin: "openownbot-app://app",
           ...(analyticsCaptureUrl ? { endpoint: `${analyticsCaptureUrl}/track` } : {}),
         }),
         {
@@ -2659,9 +2664,9 @@ export async function createApplicationServices({
   // account check and its coalescing; this only forwards the notice to it.
   teamWebRtcBridge.on("accountServersChanged", () => void Effect.runPromise(remoteServers.invalidateDirectory()));
   teardown.push(TEARDOWN_ORDER.remoteServers, "the remote servers", () => runCauseEffect(remoteServers.stop()));
-  performance.mark("openbot:services.plugin-catalog");
+  performance.mark("openownbot:services.plugin-catalog");
   await runCauseEffect(remoteServers.initialize());
-  performance.mark("openbot:services.remote-servers");
+  performance.mark("openownbot:services.remote-servers");
   criticalActionTargets = { agents: service, host, remoteServers };
   // After `remoteServers.initialize()`. The client half polls for the host's connection file and
   // throws when it never appears, before any window is shown - see the module it lives in. It reads
@@ -2713,19 +2718,19 @@ export async function createApplicationServices({
   });
   await runCauseEffect(voiceApiKeys.load());
   const voice = new VoiceTranscriptionService({
-    resourcesRoot: app.isPackaged ? join(process.resourcesPath, "voice") : resolve(".openbot-build/voice"),
-    // `voice:prepare` puts Parakeet in `.openbot-build/voice/model` for development. In development
-    // the other models download to `.openbot-build/voice` when you select them.
+    resourcesRoot: app.isPackaged ? join(process.resourcesPath, "voice") : resolve(".openownbot-build/voice"),
+    // `voice:prepare` puts Parakeet in `.openownbot-build/voice/model` for development. In development
+    // the other models download to `.openownbot-build/voice` when you select them.
     modelDirectories: {
       "parakeet-tdt-0.6b-v3": app.isPackaged
         ? join(app.getPath("userData"), "runtimes", PARAKEET_MODEL_DIRECTORY)
-        : resolve(".openbot-build/voice/model"),
+        : resolve(".openownbot-build/voice/model"),
       "bark-3.0-plus": app.isPackaged
         ? join(app.getPath("userData"), "runtimes", BARK_PLUS_MODEL_DIRECTORY)
-        : resolve(".openbot-build/voice", BARK_PLUS_MODEL_DIRECTORY),
+        : resolve(".openownbot-build/voice", BARK_PLUS_MODEL_DIRECTORY),
       "whisper-turbo": app.isPackaged
         ? join(app.getPath("userData"), "runtimes", WHISPER_TURBO_MODEL_DIRECTORY)
-        : resolve(".openbot-build/voice", WHISPER_TURBO_MODEL_DIRECTORY),
+        : resolve(".openownbot-build/voice", WHISPER_TURBO_MODEL_DIRECTORY),
     },
     preferences: voicePreferences,
     apiKeys: voiceApiKeys,
@@ -2744,10 +2749,10 @@ export async function createApplicationServices({
   const speechPreferences = new SpeechPreferenceStore(join(app.getPath("userData"), "speech-preference.json"));
   await runCauseEffect(speechPreferences.load());
   const speech = new VoiceSpeechService({
-    resourcesRoot: app.isPackaged ? join(process.resourcesPath, "voice") : resolve(".openbot-build/voice"),
+    resourcesRoot: app.isPackaged ? join(process.resourcesPath, "voice") : resolve(".openownbot-build/voice"),
     modelDirectory: app.isPackaged
       ? join(app.getPath("userData"), "runtimes", SUPERTONIC_MODEL_DIRECTORY)
-      : resolve(".openbot-build/voice", SUPERTONIC_MODEL_DIRECTORY),
+      : resolve(".openownbot-build/voice", SUPERTONIC_MODEL_DIRECTORY),
     preferences: speechPreferences,
     spawnHost: spawnVoiceSpeechHost,
   });
@@ -2757,7 +2762,7 @@ export async function createApplicationServices({
   // Skip the file check in dev: unpacked runs never enable updates, so avoid touching resourcesPath.
   const updateMetadataAvailable = app.isPackaged && existsSync(join(process.resourcesPath, "app-update.yml"));
   // A hosted or self-installed server runs a release that root owns. Root installs updates for it
-  // when openbot-hosted-update has installed its request units. A container of openbot-instance asks
+  // when openownbot-hosted-update has installed its request units. A container of openownbot-instance asks
   // the host instead, which pulls the image. Other containers have neither.
   const containerInstaller =
     app.isPackaged &&
@@ -2768,7 +2773,7 @@ export async function createApplicationServices({
     containerInstaller ||
     (app.isPackaged &&
       process.platform === "linux" &&
-      (process.env.OPENBOT_HOSTED_SERVER === "1" || installationMode === "self") &&
+      (process.env.OPENOWNBOT_HOSTED_SERVER === "1" || installationMode === "self") &&
       existsSync(HOSTED_UPDATE_TRIGGER));
   const updatesEnabled =
     app.isPackaged &&
@@ -2777,7 +2782,9 @@ export async function createApplicationServices({
     (hostedInstaller || (supportsInstalledUpdates(process.platform) && updateMetadataAvailable)) &&
     isValidSemver(currentVersion);
   if (app.isPackaged && updateMetadataAvailable && !isValidSemver(currentVersion)) {
-    logger.warn(`OpenBot updates are disabled because the application version is not valid SemVer: ${currentVersion}`);
+    logger.warn(
+      `OpenOwnBot updates are disabled because the application version is not valid SemVer: ${currentVersion}`,
+    );
   }
   let updateAdapter: UpdateAdapter = createDisabledUpdateAdapter();
   let updaterEnabled = updatesEnabled;
@@ -2794,14 +2801,14 @@ export async function createApplicationServices({
       const realAdapter = updaterModule.autoUpdater ?? updaterModule.default?.autoUpdater ?? updaterModule.default;
       if (realAdapter) {
         updateAdapter = realAdapter;
-        updaterCacheDirectory = join(electronUpdaterCacheRoot(), "openbot-updater");
+        updaterCacheDirectory = join(electronUpdaterCacheRoot(), "openownbot-updater");
       } else {
         updaterEnabled = false;
-        logger.warn("OpenBot updates are disabled: electron-updater did not export autoUpdater");
+        logger.warn("OpenOwnBot updates are disabled: electron-updater did not export autoUpdater");
       }
     } catch {
       updaterEnabled = false;
-      logger.warn("OpenBot updates are disabled: electron-updater failed to load");
+      logger.warn("OpenOwnBot updates are disabled: electron-updater failed to load");
     }
   }
   const updater = new UpdateService(updateAdapter, {
@@ -2810,13 +2817,13 @@ export async function createApplicationServices({
     autoDownload: updatePreference.autoDownload,
     beforeInstall: prepareForUpdateInstall,
     // Packaged runs share one application bundle across macOS users. Installing while another
-    // login session runs OpenBot from that bundle would replace it underneath that session, so
+    // login session runs OpenOwnBot from that bundle would replace it underneath that session, so
     // the service refuses the install until every sibling session stopped. Unpackaged runs never
     // enable updates, so there is nothing to guard there.
     ...(app.isPackaged
       ? {
           checkSiblingInstances: () =>
-            listSiblingOpenBotInstances({
+            listSiblingOpenOwnBotInstances({
               executablePath: app.getPath("exe"),
               currentPid: process.pid,
               platform: process.platform,
@@ -2826,7 +2833,7 @@ export async function createApplicationServices({
                   if (siblings.length === 0) return;
                   const list = siblings.map(({ pid, uid }) => `pid ${pid} (uid ${uid})`).join(", ");
                   logger.warn(
-                    `OpenBot update install refused: other OpenBot processes run from this application: ${list}`,
+                    `OpenOwnBot update install refused: other OpenOwnBot processes run from this application: ${list}`,
                   );
                 }),
               ),
@@ -2853,7 +2860,7 @@ export async function createApplicationServices({
       yield* routineFlowRuntime.sweep();
       // Ends the workflow steps a restart cut off, and moves the runs on.
       yield* workflowRuntime.sweep();
-      // Marks the posts a restart cut off, and sends the answers that ended while OpenBot was closed.
+      // Marks the posts a restart cut off, and sends the answers that ended while OpenOwnBot was closed.
       yield* routineResultRuntime.recover();
     }),
   );
@@ -3009,9 +3016,9 @@ export async function createApplicationServices({
       await Effect.runPromise(serverMode.close());
     });
   }
-  performance.mark("openbot:services.updates");
+  performance.mark("openownbot:services.updates");
   await runCauseEffect(hostUpdateCoordinator.tick());
-  performance.mark("openbot:services.host-update");
+  performance.mark("openownbot:services.host-update");
   hostUpdateCoordinator.start();
   teardown.push(TEARDOWN_ORDER.hostUpdateCoordinator, "the host update coordinator", () =>
     Effect.runPromise(hostUpdateCoordinator.stop()),

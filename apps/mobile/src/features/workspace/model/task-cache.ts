@@ -1,4 +1,9 @@
-import type { AgentEvent, AgentTasksSnapshot, ConversationSnapshot, TeamRealtimeEvent } from "@openbot/contracts/ipc";
+import type {
+  AgentEvent,
+  AgentTasksSnapshot,
+  ConversationSnapshot,
+  TeamRealtimeEvent,
+} from "@openownbot/contracts/ipc";
 import type { QueryClient } from "@tanstack/react-query";
 import { type QueryScope, queryKeys } from "./query-keys";
 

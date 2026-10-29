@@ -2,7 +2,7 @@
 // the sub-word tokens of one answer, as OpenCode does for such an endpoint (#3351). Checks that the
 // answer stays one item with whole words, and that a harness error report still ends the partial
 // answer, so the retried answer replaces it (#1471).
-// `bun run test:opencode-thought-interleave`. Writes .openbot-build/opencode-thought-interleave-e2e/report.json.
+// `bun run test:opencode-thought-interleave`. Writes .openownbot-build/opencode-thought-interleave-e2e/report.json.
 import assert from "node:assert/strict";
 import { mkdir, mkdtemp, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
@@ -13,7 +13,7 @@ import { getString, isRecord } from "../src/backend/protocol";
 import { NO_PROVIDER_CREDENTIALS, requireProviderDriver } from "../src/backend/provider-drivers";
 import { installFakeAgent, runTurn, startThread, stopClients } from "./provider-fakes/host";
 
-const OUT = resolve(import.meta.dirname, "../.openbot-build/opencode-thought-interleave-e2e");
+const OUT = resolve(import.meta.dirname, "../.openownbot-build/opencode-thought-interleave-e2e");
 
 interface CompletedItem {
   phase: string | null;
@@ -25,7 +25,7 @@ interface Report {
   turns: Record<string, CompletedItem[]>;
 }
 
-const root = await mkdtemp(join(tmpdir(), "openbot-opencode-thought-interleave-e2e-"));
+const root = await mkdtemp(join(tmpdir(), "openownbot-opencode-thought-interleave-e2e-"));
 const report: Report = { passed: false, turns: {} };
 const clients: AgentClient[] = [];
 

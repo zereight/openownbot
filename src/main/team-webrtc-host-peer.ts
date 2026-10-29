@@ -2,9 +2,9 @@ import { createHash, randomBytes, verify } from "node:crypto";
 import { openAsBlob } from "node:fs";
 import { createRequire } from "node:module";
 import { dirname, join } from "node:path";
-import { isDynamicRecord, isString } from "@openbot/contracts/runtime-values";
-import { TEAM_API_ROUTES } from "@openbot/contracts/team-api-routes";
-import { browserViewStreamSessionId } from "@openbot/contracts/team-protocol/browser-view-v1";
+import { isDynamicRecord, isString } from "@openownbot/contracts/runtime-values";
+import { TEAM_API_ROUTES } from "@openownbot/contracts/team-api-routes";
+import { browserViewStreamSessionId } from "@openownbot/contracts/team-protocol/browser-view-v1";
 import {
   BROWSER_SIGN_IN_CAPABILITY,
   supportsTeamSemanticTags,
@@ -15,10 +15,10 @@ import {
   TEAM_PROMPT_MULTI_SELECT_CAPABILITY,
   TEAM_SUBAGENTS_CAPABILITY,
   TEAM_UI_BLOCKS_CAPABILITY,
-} from "@openbot/contracts/team-protocol/current";
-import { optionalTeamEvent } from "@openbot/contracts/team-protocol/optional-events";
-import { teamSideRouteCodec } from "@openbot/contracts/team-protocol/side-routes";
-import { encodeTeamProtocolV1ClientEvent } from "@openbot/contracts/team-protocol/v1";
+} from "@openownbot/contracts/team-protocol/current";
+import { optionalTeamEvent } from "@openownbot/contracts/team-protocol/optional-events";
+import { teamSideRouteCodec } from "@openownbot/contracts/team-protocol/side-routes";
+import { encodeTeamProtocolV1ClientEvent } from "@openownbot/contracts/team-protocol/v1";
 import {
   decodeTeamProtocolV2AuthFrame,
   decodeTeamProtocolV2EventFrame,
@@ -28,43 +28,43 @@ import {
   type TeamProtocolV2Json,
   type TeamProtocolV2RpcFrame,
   teamProtocolV2AuthenticationTranscript,
-} from "@openbot/contracts/team-protocol/v2";
-import { createTeamProtocolV2Event } from "@openbot/contracts/team-protocol/v2-adapter";
+} from "@openownbot/contracts/team-protocol/v2";
+import { createTeamProtocolV2Event } from "@openownbot/contracts/team-protocol/v2-adapter";
 import {
   decodeTeamProtocolV3WebRtcHttpRequest,
   encodeTeamProtocolV3WebRtcHttpResponse,
   isTeamProtocolV3OnlyRoute,
-} from "@openbot/contracts/team-protocol/v3-webrtc-adapter";
+} from "@openownbot/contracts/team-protocol/v3-webrtc-adapter";
 import {
   createTeamProtocolV4Event,
   decodeTeamProtocolV4WebRtcHttpRequest,
   encodeTeamProtocolV4WebRtcHttpResponse,
-} from "@openbot/contracts/team-protocol/v4-webrtc-adapter";
-import { TEAM_LOCAL_PROVIDERS_CAPABILITY } from "@openbot/contracts/team-protocol/v5";
+} from "@openownbot/contracts/team-protocol/v4-webrtc-adapter";
+import { TEAM_LOCAL_PROVIDERS_CAPABILITY } from "@openownbot/contracts/team-protocol/v5";
 import {
   createTeamProtocolV5Event,
   decodeTeamProtocolV5WebRtcHttpRequest,
   encodeTeamProtocolV5WebRtcHttpResponse,
-} from "@openbot/contracts/team-protocol/v5-webrtc-adapter";
-import { TEAM_CURSOR_CLINE_CAPABILITY } from "@openbot/contracts/team-protocol/v6";
+} from "@openownbot/contracts/team-protocol/v5-webrtc-adapter";
+import { TEAM_CURSOR_CLINE_CAPABILITY } from "@openownbot/contracts/team-protocol/v6";
 import {
   createTeamProtocolV6Event,
   decodeTeamProtocolV6WebRtcHttpRequest,
   encodeTeamProtocolV6WebRtcHttpResponse,
-} from "@openbot/contracts/team-protocol/v6-webrtc-adapter";
-import { TEAM_PI_MUSE_CAPABILITY } from "@openbot/contracts/team-protocol/v7";
+} from "@openownbot/contracts/team-protocol/v6-webrtc-adapter";
+import { TEAM_PI_MUSE_CAPABILITY } from "@openownbot/contracts/team-protocol/v7";
 import {
   createTeamProtocolV7Event,
   decodeTeamProtocolV7WebRtcHttpRequest,
   encodeTeamProtocolV7WebRtcHttpResponse,
-} from "@openbot/contracts/team-protocol/v7-webrtc-adapter";
-import { TEAM_OPEN_PROVIDERS_CAPABILITY } from "@openbot/contracts/team-protocol/v8";
+} from "@openownbot/contracts/team-protocol/v7-webrtc-adapter";
+import { TEAM_OPEN_PROVIDERS_CAPABILITY } from "@openownbot/contracts/team-protocol/v8";
 import {
   createTeamProtocolV8Event,
   decodeTeamProtocolV8WebRtcHttpRequest,
   encodeTeamProtocolV8WebRtcHttpResponse,
-} from "@openbot/contracts/team-protocol/v8-webrtc-adapter";
-import { sourceText } from "@openbot/i18n/source";
+} from "@openownbot/contracts/team-protocol/v8-webrtc-adapter";
+import { sourceText } from "@openownbot/i18n/source";
 import { Context, Deferred, Effect, Exit, Fiber, Layer, ManagedRuntime } from "effect";
 import type * as Ws from "ws";
 import type { VerifiedRemoteSessionTicket } from "./central-auth-manager";
@@ -114,7 +114,7 @@ class HostPeerTransport extends Context.Service<
     send(...args: Parameters<TeamWebRtcBridge["send"]>): Effect.Effect<void, RemoteWorkflowError>;
     fetch(input: URL, init: RequestInit): Effect.Effect<Response, RemoteWorkflowError>;
   }
->()("openbot/main/HostPeerTransport") {}
+>()("openownbot/main/HostPeerTransport") {}
 
 export class TeamWebRtcHostPeer {
   readonly #bridge: TeamWebRtcBridge;
@@ -663,7 +663,7 @@ export class TeamWebRtcHostPeer {
                         : "1",
             "OpenBot-App-Version": this.#appVersion,
             "OpenBot-Capabilities": [...this.#peerCapabilities].join(","),
-            ...(this.#localSessionId ? { "X-OpenBot-WebRTC-Session": this.#localSessionId } : {}),
+            ...(this.#localSessionId ? { "X-OpenOwnBot-WebRTC-Session": this.#localSessionId } : {}),
           },
           ...(requestBody === undefined ? {} : { body: requestBody }),
         }),
@@ -748,7 +748,7 @@ export class TeamWebRtcHostPeer {
     this.#eventsSocket?.close();
     const socket = new webSockets.WebSocket(`ws://127.0.0.1:${this.#localApiPort}${TEAM_API_ROUTES.events}`, [
       "openbot-team-v1",
-      `openbot-token.${token}`,
+      `openownbot-token.${token}`,
     ]);
     this.#eventsSocket = socket;
     socket.once("open", () => {
@@ -960,7 +960,7 @@ export class TeamWebRtcHostPeer {
     this.#closeDesktopSocket(streamId);
     const sessionId = this.#localSessionId ?? "";
     const socket = yield* remoteDecode(
-      () => new webSockets.WebSocket(url, { headers: { "X-OpenBot-WebRTC-Session": sessionId } }),
+      () => new webSockets.WebSocket(url, { headers: { "X-OpenOwnBot-WebRTC-Session": sessionId } }),
     );
     this.#desktopSockets.set(streamId, socket);
     socket.once("open", () => {

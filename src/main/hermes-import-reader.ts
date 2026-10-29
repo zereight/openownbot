@@ -9,16 +9,16 @@
 import { lstat, readdir, readFile, stat } from "node:fs/promises";
 import { homedir } from "node:os";
 import { basename, dirname, join, sep } from "node:path";
-import { INPUT_LIMITS } from "@openbot/contracts/input-limits";
+import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
 import {
   HERMES_IMPORT_LIMITS,
   HERMES_PROFILE_KEY,
   type HermesImportReason,
   type McpServerConfig,
   type RoutineSchedule,
-} from "@openbot/contracts/ipc";
-import { isDynamicRecord, isString } from "@openbot/contracts/runtime-values";
-import { sourceText } from "@openbot/i18n/source";
+} from "@openownbot/contracts/ipc";
+import { isDynamicRecord, isString } from "@openownbot/contracts/runtime-values";
+import { sourceText } from "@openownbot/i18n/source";
 import { Effect, Result } from "effect";
 import { parse as parseYaml } from "yaml";
 import { type ArchiveOperationError, archiveCall, archiveFailure } from "./archive-effects";
@@ -34,12 +34,12 @@ const UNSAFE_FILE_PREFIX = sourceText("error.skill.unsafeFile", { name: "" });
 const MAX_TEXT_BYTES = 256 * 1024;
 const MAX_SKILLS = 200;
 const MAX_JOBS = 200;
-/** OpenBot's own export skill, which a user adds to Hermes. It is never imported back. */
-const EXPORT_SKILL_NAME = "openbot-export";
+/** OpenOwnBot's own export skill, which a user adds to Hermes. It is never imported back. */
+const EXPORT_SKILL_NAME = "openownbot-export";
 /** Files a skill can run: anything in `scripts/` or `bin/`, and source files anywhere in the skill. */
 const SKILL_CODE =
   /^(?:scripts|bin)\/|\.(?:sh|bash|zsh|fish|py|js|mjs|cjs|ts|rb|pl|php|ps1|bat|cmd|exe|go|rs|lua|jar)$/iu;
-/** Where the routine runs: platforms Hermes delivers to that OpenBot cannot reach on its own. */
+/** Where the routine runs: platforms Hermes delivers to that OpenOwnBot cannot reach on its own. */
 const LOCAL_DELIVERY = new Set(["", "local", "origin"]);
 
 interface HermesSkill {
@@ -55,7 +55,7 @@ interface HermesRoutine {
   name: string;
   instruction: string;
   active: boolean;
-  /** The Hermes `schedule`. It becomes an OpenBot schedule when the import runs, so a time is never stale. */
+  /** The Hermes `schedule`. It becomes an OpenOwnBot schedule when the import runs, so a time is never stale. */
   source: unknown;
 }
 
@@ -219,7 +219,7 @@ function terminalBackend(value: unknown): string | null {
   return backend && backend !== "local" ? backend.slice(0, HERMES_IMPORT_LIMITS.name) : null;
 }
 
-/** Each server as OpenBot stores it: turned off, with every value that can hold a secret removed. */
+/** Each server as OpenOwnBot stores it: turned off, with every value that can hold a secret removed. */
 function mcpServers(value: unknown): McpServerConfig[] {
   if (!isDynamicRecord(value)) return [];
   const redact = createRedaction();
@@ -307,7 +307,7 @@ export function hasSkillCode(paths: readonly string[]): boolean {
   return paths.some((path) => SKILL_CODE.test(path));
 }
 
-/** A skill folder as OpenBot checks a skill package. Unsafe files and an invalid SKILL.md fail it. */
+/** A skill folder as OpenOwnBot checks a skill package. Unsafe files and an invalid SKILL.md fail it. */
 function readSkillPackage(directory: string) {
   return archiveDirectory(directory).pipe(
     Effect.mapError((failure): unknown => failure.cause),

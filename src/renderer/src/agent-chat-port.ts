@@ -1,4 +1,4 @@
-import type { AgentEvent, ConversationPage, TeamRealtimeEvent } from "@openbot/contracts/ipc";
+import type { AgentEvent, ConversationPage, TeamRealtimeEvent } from "@openownbot/contracts/ipc";
 
 /**
  * The part of a host that a canvas chat reaches: the open agent's own conversation and the events of
@@ -15,9 +15,9 @@ export interface AgentChatPort {
   onEvent(listener: (event: AgentEvent | TeamRealtimeEvent) => void): () => void;
 }
 
-/** The desktop adapter for one server. `window.openbot` is read on each call: tests and stories replace it per case. */
+/** The desktop adapter for one server. `window.openownbot` is read on each call: tests and stories replace it per case. */
 export function desktopAgentChatPort(serverId: string): AgentChatPort {
-  const agent = () => window.openbot.agent;
+  const agent = () => window.openownbot.agent;
   return {
     conversation: {
       send: async ({ agentId, text, clientMessageId }) => {

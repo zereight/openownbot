@@ -8,11 +8,11 @@ import {
   type ProviderRuntimeSnapshot,
   type ServerSummary,
   type UpdateCustomProviderInput,
-} from "@openbot/contracts/ipc";
-import { Toaster, toast } from "@openbot/ui";
-import type { ProviderAccountActions } from "@openbot/ui/components/provider-accounts";
-import type { ProviderDetection } from "@openbot/ui/features/custom-providers/detected-providers";
-import type { ProviderDetectionSettingsValue } from "@openbot/ui/features/custom-providers/ProviderDetectionSettings";
+} from "@openownbot/contracts/ipc";
+import { Toaster, toast } from "@openownbot/ui";
+import type { ProviderAccountActions } from "@openownbot/ui/components/provider-accounts";
+import type { ProviderDetection } from "@openownbot/ui/features/custom-providers/detected-providers";
+import type { ProviderDetectionSettingsValue } from "@openownbot/ui/features/custom-providers/ProviderDetectionSettings";
 import { createSignal, onCleanup } from "solid-js";
 import { fn } from "storybook/test";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";
@@ -20,7 +20,7 @@ import { createProviderRuntimeStore } from "../src/features/provider-updates/pro
 import { ServerSettingsModal } from "../src/features/servers/ServerSettingsModal";
 import { STORY_HOST_STATUS, STORY_INVITES, STORY_PRESENCE, STORY_SERVERS } from "../src/preview/fixtures";
 import { createStoryDetection, STORY_DETECTED_PROVIDERS } from "./detected-providers-fixture";
-import { createMockOpenBot } from "./mock-openbot";
+import { createMockOpenOwnBot } from "./mock-openownbot";
 import { createFakeConnection } from "./provider-connection-fixture";
 import { SettingsPageStory } from "./settings-page-story";
 
@@ -170,8 +170,8 @@ function ServerProvidersStory(props: {
   usageReset?: boolean;
 }) {
   const usageResetAccounts = props.usageReset ? createUsageResetAccounts() : undefined;
-  const previousApi = window.openbot;
-  const mock = createMockOpenBot({
+  const previousApi = window.openownbot;
+  const mock = createMockOpenOwnBot({
     ...(props.providerUpdate
       ? {
           providerRuntimeSnapshot: {
@@ -184,11 +184,11 @@ function ServerProvidersStory(props: {
     ...(props.providerUpdateFailure ? { providerRuntimeFailure: true } : {}),
   });
   const runtimes = createProviderRuntimeStore(() => (props.providerUpdate ? mock.api.providerRuntimes : undefined));
-  window.openbot = mock.api;
+  window.openownbot = mock.api;
   onCleanup(() => {
     mock.dispose();
     toast.dismiss();
-    window.openbot = previousApi;
+    window.openownbot = previousApi;
   });
   const [preference, setPreference] = createSignal<AppSetupState>({
     completed: true,

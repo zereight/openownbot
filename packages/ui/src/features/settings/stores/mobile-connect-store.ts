@@ -4,7 +4,7 @@ import type {
   MobileConnectTicket,
   RemoteNetworkRoute,
   RemoteNetworkRouteState,
-} from "@openbot/contracts/ipc";
+} from "@openownbot/contracts/ipc";
 import { createEffect, createMemo, createSignal, createStore, onCleanup, untrack } from "solid-js";
 import { currentText } from "../../../text";
 

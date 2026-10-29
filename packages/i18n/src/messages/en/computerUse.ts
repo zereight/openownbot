@@ -9,7 +9,7 @@ export const messages = defineMessages("computerUse", {
   "computerUse.permission.accessibility.description": "Lets OpenOwnBot click and type.",
   "computerUse.permission.accessibility.pane": "Accessibility",
   "computerUse.error.check": "OpenOwnBot could not check Computer Use.",
-  "computerUse.error.openSettings": "OpenBot could not open System Settings.",
+  "computerUse.error.openSettings": "OpenOwnBot could not open System Settings.",
   "computerUse.error.startDriver": "OpenOwnBot could not start the Computer Use driver.",
   "computerUse.checkAgain": "Check again",
   "computerUse.checking": "Checking Computer Use",

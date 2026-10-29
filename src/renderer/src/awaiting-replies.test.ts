@@ -1,4 +1,4 @@
-import type { ChannelTask, ChannelTaskWait } from "@openbot/contracts/ipc";
+import type { ChannelTask, ChannelTaskWait } from "@openownbot/contracts/ipc";
 import { describe, expect, it } from "vitest";
 import { channelAwaitingReplies } from "./awaiting-replies";
 

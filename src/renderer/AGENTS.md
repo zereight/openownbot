@@ -27,7 +27,7 @@ skills for the component patterns, not the imports.
   together. `bun run dev:api` is for API-only debugging.
 - `bun run storybook` verifies isolated components. CI builds it; do not run `build-storybook`.
 - `bun run check:ui` is the design-system guard for this directory: shared primitives over native
-  controls, Kobalte and Lucide only inside `@openbot/ui`, and palette tokens instead of colour,
+  controls, Kobalte and Lucide only inside `@openownbot/ui`, and palette tokens instead of colour,
   size, radius and transition literals. The pre-commit hook runs it on each commit that stages
   code, so do not run it by hand — its budgets only ever go down. All of them sit at zero.
 - Nothing here imports `src/main`, `src/backend` or `src/preload`. `biome.json` rejects it by path,
@@ -40,11 +40,11 @@ skills for the component patterns, not the imports.
 
 App-specific domains live in `src/renderer/src/features/<domain>/`, flat except for `stores/`.
 Shared feature components live in `packages/ui/src/features/<domain>/`; see
-[shared UI instructions](../../packages/ui/AGENTS.md). Import them from `@openbot/ui` package
+[shared UI instructions](../../packages/ui/AGENTS.md). Import them from `@openownbot/ui` package
 subpaths. Keep application contexts, persistence, and platform adapters in the renderer.
 Its context, its DOM-free logic, its pane, its components, its tests and its stylesheet are
 siblings, so "fix the pin ordering" is answerable by opening one path. There is no barrel —
-`packages/ui/src/index.ts` is still the only one — and feature-local imports stay relative. Import shared primitives from `@openbot/ui`.
+`packages/ui/src/index.ts` is still the only one — and feature-local imports stay relative. Import shared primitives from `@openownbot/ui`.
 
 ```
 features/<domain>/
@@ -63,12 +63,12 @@ are the same filename on case-insensitive APFS. That breaks the `Check` job on `
 while every ubuntu job stays green, so the suffix is uniform rather than applied where a collision
 happens to exist today.
 
-**Outside a feature:** `@openbot/ui` (the shared patched-Kobalte layer), the app shell and its
+**Outside a feature:** `@openownbot/ui` (the shared patched-Kobalte layer), the app shell and its
 wiring (`App.tsx`, `AppView.tsx`, `app-providers.tsx`, `app-bootstrap.tsx`, `WorkspaceShell.tsx`,
 `WorkspaceOverlays.tsx`, `WorkspaceOverlayViews.tsx`, `lazy-views.ts`), the cross-domain modules every feature reads and none
 owns (`navigation.tsx`, `layout.tsx`, `turns.tsx`, `providers.tsx`,
 `simple-context.tsx`, `scope-lifetime.ts`), `preview/` — whose mocks are the second implementation
-of the IPC surface and belong beside `mock-openbot.ts` — and the base stylesheets in `styles/`
+of the IPC surface and belong beside `mock-openownbot.ts` — and the base stylesheets in `styles/`
 (`base.css`, `transitions.css`; `action-menu.css` and `sliding-tabs.css` are now in
 `packages/ui/src/styles/`, and `otp-input.css` is in `packages/ui/src/features/account/`) —
 plus `styles/app-shell.css`, which ends in a theme layer that assigns the palette across every domain
@@ -111,7 +111,7 @@ reusable. The [Zaidan catalog](https://zaidan.carere.dev/docs/components) is a s
 *patterns*, not a dependency — it is not installed here; adapt its source to this repository's
 SolidJS conventions, tokens, typography, spacing, icons and accessibility requirements.
 
-A story that shows a feature in context renders the real `App` (`OpenBotPlayground`, or
+A story that shows a feature in context renders the real `App` (`OpenOwnBotPlayground`, or
 `PrototypeApp` from `stories/prototype-support.tsx`) or the real container, such as
 `ServerSettingsStory` from `stories/server-settings-story.tsx` or `StoryConversation`. Do not
 hand-build the shell, a header, a sidebar, a settings menu, or a composer: a copy keeps the old
@@ -122,7 +122,7 @@ design when the app changes. Delete a concept or prototype story when its decisi
 Use `lucide-solid` icons, and reuse a suitable one before adding an inline SVG or a local icon
 component — document the exception next to any custom icon. The `:root` properties in
 `packages/brand/src/tokens.css` are the palette, shared with the web and mobile apps: use the
-closest semantic `--openbot-*` token, including opacity variants, instead of a colour literal, and
+closest semantic `--openownbot-*` token, including opacity variants, instead of a colour literal, and
 add a token only for a new semantic role — there, not in a renderer stylesheet. A token whose dark
 value does not read on a light canvas also needs a value in `tokens-light.css`; a surface that stays
 light in both themes uses the `paper-*` tokens, not the inverted `*-on-light` ones. Keep compatibility

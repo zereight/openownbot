@@ -7,7 +7,7 @@ import { Effect } from "effect";
 import { afterEach, describe, expect, it } from "vitest";
 import { runCauseEffect } from "./effect-boundary";
 import { MailboxStore } from "./mailbox-store";
-import { OpenBotDatabase } from "./openbot-database";
+import { OpenOwnBotDatabase } from "./openownbot-database";
 
 const roots: string[] = [];
 
@@ -18,7 +18,7 @@ afterEach(async () => {
 async function setup() {
   const root = await mkdtemp(join(tmpdir(), "mailbox-answer-test-"));
   roots.push(root);
-  const database = new OpenBotDatabase(root);
+  const database = new OpenOwnBotDatabase(root);
   await runCauseEffect(database.initialize());
   return new MailboxStore(root, join(root, "shared"), database);
 }

@@ -59,11 +59,11 @@ export function TeamsSection() {
       <div class="landing-section-inner landing-teams-layout">
         <header class="landing-section-heading landing-teams-aside">
           <h2 id="teams-title" class="landing-teams-title">
-            OpenBot for Teams
+            OpenOwnBot for Teams
           </h2>
           <p class="landing-teams-statement">AI coworkers for your whole company.</p>
           <p class="landing-teams-description">
-            We run OpenBot on managed servers and set it up around your team and tools.
+            We run OpenOwnBot on managed servers and set it up around your team and tools.
           </p>
           <div class="landing-teams-actions">
             <ButtonLink to="/contact" variant="primary" size="lg" icon="contact">

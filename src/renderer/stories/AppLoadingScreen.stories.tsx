@@ -1,5 +1,9 @@
-import { APP_LOADING_FPS, APP_LOADING_LOOP_S, AppLoadingScreen } from "@openbot/ui/features/account/AppLoadingScreen";
-import { ServerConnectionNotice } from "@openbot/ui/features/servers/ServerConnectionNotice";
+import {
+  APP_LOADING_FPS,
+  APP_LOADING_LOOP_S,
+  AppLoadingScreen,
+} from "@openownbot/ui/features/account/AppLoadingScreen";
+import { ServerConnectionNotice } from "@openownbot/ui/features/servers/ServerConnectionNotice";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";
 import { SplashPlayground } from "./splash-story-support";
 
@@ -51,13 +55,13 @@ export const Scrub: StoryObj<{ at: number }> = {
 export const StartingServer: Story = {
   render: () => <ServerConnectionNotice name="My server" phase="waking" initial onRetry={() => {}} />,
 };
-/** The machine runs and OpenBot on it starts. The time counts from the wake. */
-export const StartingOpenBot: Story = {
+/** The machine runs and OpenOwnBot on it starts. The time counts from the wake. */
+export const StartingOpenOwnBot: Story = {
   render: () => (
     <ServerConnectionNotice
       name="My server"
       phase="waking"
-      start={{ step: "openbot", startedAt: Date.now() - 4 * 60_000 }}
+      start={{ step: "openownbot", startedAt: Date.now() - 4 * 60_000 }}
       initial
       onRetry={() => {}}
     />

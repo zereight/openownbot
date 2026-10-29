@@ -6,7 +6,7 @@
 // tokens. Turns: two in a new process, an idle release of the process, then two in the resumed one.
 // Before this change, the first turn after the resume booked the whole session again. The SDK cost of
 // that turn is not known, so it gets the list-price estimate of its own tokens.
-// `bun run test:claude-usage-resume`. Writes .openbot-build/claude-usage-resume-e2e/report.json.
+// `bun run test:claude-usage-resume`. Writes .openownbot-build/claude-usage-resume-e2e/report.json.
 import assert from "node:assert/strict";
 import { EventEmitter } from "node:events";
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
@@ -14,7 +14,7 @@ import { mkdtemp, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import { DatabaseSync } from "node:sqlite";
-import { AGENT_PROVIDERS, decodeUsageTokens, defaultProviderModel, type UsageTokens } from "@openbot/contracts/ipc";
+import { AGENT_PROVIDERS, decodeUsageTokens, defaultProviderModel, type UsageTokens } from "@openownbot/contracts/ipc";
 import { Effect } from "effect";
 import type { AgentBrowserHost } from "../src/backend/agent/turn-lifecycle";
 import type { AgentClient, DiagnosticOrigin } from "../src/backend/agent-client";
@@ -23,8 +23,8 @@ import type { AppServerNotification, AppServerRequest, RequestId, ResponseDecode
 import { providerSync } from "../src/backend/provider-client-effects";
 import type { ReadProviderHistory } from "../src/backend/provider-history";
 
-const OUT = resolve(import.meta.dirname, "../.openbot-build/claude-usage-resume-e2e");
-const root = await mkdtemp(join(tmpdir(), "openbot-claude-usage-resume-"));
+const OUT = resolve(import.meta.dirname, "../.openownbot-build/claude-usage-resume-e2e");
+const root = await mkdtemp(join(tmpdir(), "openownbot-claude-usage-resume-"));
 const userData = join(root, "user-data");
 const home = join(root, "home");
 const sessionsDir = join(root, "claude-sessions");
@@ -41,7 +41,7 @@ const REQUEST_COST = 0.01;
 
 // Before the service modules load: the stores and the CLI search read these.
 process.env.HOME = home;
-process.env.OPENBOT_CLAUDE_PATH = claudeExecutable;
+process.env.OPENOWNBOT_CLAUDE_PATH = claudeExecutable;
 mkdirSync(home, { recursive: true });
 mkdirSync(sessionsDir, { recursive: true });
 
@@ -50,7 +50,7 @@ const { AgentStore } = await import("../src/backend/agent-store");
 const { ClaudeAgentClient } = await import("../src/backend/claude-client");
 const { runCauseEffect } = await import("../src/backend/effect-boundary");
 const { MailboxStore } = await import("../src/backend/mailbox-store");
-const { OpenBotDatabase } = await import("../src/backend/openbot-database");
+const { OpenOwnBotDatabase } = await import("../src/backend/openownbot-database");
 const { estimateUsageCost } = await import("../src/backend/agent/usage-pricing");
 
 // The stand-in for the Claude CLI. It speaks enough of the stream-json protocol for a turn to end.
@@ -278,7 +278,7 @@ function sum(entries: UsageTokens[]): UsageTokens {
 }
 
 await writeFile(claudeExecutable, STAND_IN_CLAUDE, { mode: 0o755 });
-const database = new OpenBotDatabase(userData);
+const database = new OpenOwnBotDatabase(userData);
 const store = new AgentStore(userData, home, database);
 const mailbox = new MailboxStore(userData, store.sharedRoot, store.database);
 const claudeClients: ClaudeStandIn[] = [];

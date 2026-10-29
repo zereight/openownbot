@@ -1,4 +1,4 @@
-import { OPENBOT_LINKS } from "../../lib/landing-links";
+import { OPENOWNBOT_LINKS } from "../../lib/landing-links";
 import { SiteLogoLink } from "../brand/SiteLogoLink";
 import { Button, ButtonLink } from "../ui/button";
 import { SiteMobileMenu } from "./SiteMobileMenu";
@@ -22,7 +22,7 @@ export function SiteHeader(props: SiteHeaderProps) {
   const actions = (downloadRef?: (element: HTMLElement) => void) => (
     <>
       {props.page === "landing" ? (
-        <Button ref={downloadRef} href={OPENBOT_LINKS.download} variant="primary" size="sm" icon="download">
+        <Button ref={downloadRef} href={OPENOWNBOT_LINKS.download} variant="primary" size="sm" icon="download">
           Download
         </Button>
       ) : (

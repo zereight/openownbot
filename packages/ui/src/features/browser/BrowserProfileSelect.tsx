@@ -1,5 +1,15 @@
-import { type AvatarHue, BROWSER_PROFILE_NAME_MAX, type BrowserProfileSummary } from "@openbot/contracts/ipc";
-import { Button, Input, Plus, Select, SelectContent, SelectItem, SelectTrigger, SelectValue, Text } from "@openbot/ui";
+import { type AvatarHue, BROWSER_PROFILE_NAME_MAX, type BrowserProfileSummary } from "@openownbot/contracts/ipc";
+import {
+  Button,
+  Input,
+  Plus,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+  Text,
+} from "@openownbot/ui";
 import { createStore, Show } from "solid-js";
 import { useText } from "../../text";
 import { BrowserProfileDot } from "./BrowserProfileColor";

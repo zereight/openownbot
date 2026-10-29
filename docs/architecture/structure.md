@@ -5,12 +5,12 @@
 ```text
 apps/
   auth-api/          Public web and /app browser entry, accounts, memberships, connection tickets, and billing
-  discord-app/       Developer Portal settings of the OpenBot Discord app (no code)
+  discord-app/       Developer Portal settings of the OpenOwnBot Discord app (no code)
   mobile/            Expo React Native client for remote team hosts
   site-router/       Cloudflare Worker that serves published sites from private R2 storage
-  slack-app/         Slack CLI projects with the OpenBot Slack app manifests (production, development)
+  slack-app/         Slack CLI projects with the OpenOwnBot Slack app manifests (production, development)
   status/            Public status page on GitHub Pages, and the check and webhook scripts of its workflow
-  telegram-app/      BotFather settings of the OpenBot Telegram bot (no code)
+  telegram-app/      BotFather settings of the OpenOwnBot Telegram bot (no code)
 packages/
   ui/                Shared SolidJS controls and primitive styles for desktop, web, and Storybook
   brand/             Shared logos, avatars, and design tokens
@@ -42,7 +42,7 @@ second version source and add package-signing risk without adding a useful runti
 Dependencies point toward stable boundaries:
 
 ```text
-renderer ──► @openbot/contracts ◄── preload ◄── main ──► backend
+renderer ──► @openownbot/contracts ◄── preload ◄── main ──► backend
                         ▲                             │
                         └──────── auth-api ──────────┘
 ```
@@ -64,7 +64,7 @@ SolidJS, provider, Cloudflare, and application code; and the account server to d
 
 ## State ownership
 
-- `openbot.db` is the source of truth for OpenBot agents, conversations, queues, reactions,
+- `openbot.db` is the source of truth for OpenOwnBot agents, conversations, queues, reactions,
   attachments, and provider-session bindings.
 - `RoutineStore` saves a routine and its webhook trigger in one transaction. `WebhookRouteStore`
   owns route IDs, encrypted secrets, receipts, and route revocations. `RoutineRecords` gives main one
@@ -81,19 +81,19 @@ SolidJS, provider, Cloudflare, and application code; and the account server to d
 - `src/backend/provider-history.ts` defines the internal fragment reader. Provider adapters own
   pagination and decoding. `provider-history-import.ts` commits normalized message pages without
   deleting messages absent from a page. SQLite stores incomplete turns and import progress.
-  ACP replay records without stable OpenBot message IDs remain provider records for handoff and
+  ACP replay records without stable OpenOwnBot message IDs remain provider records for handoff and
   recovery. They do not create a second copy of messages already saved by the live turn.
 - `ConversationRuntime` keeps active work and a bounded recent cache. Released full-history APIs
   build their responses from SQLite for each request. They do not set the working cache.
 - `~/.codex`, `~/.claude`, `~/.grok`, `~/.gemini`, `~/.cursor`, `~/.cline`, `~/.pi`, and the OpenCode
-  and Muse XDG folders are provider-owned login and resume state. They are not OpenBot
+  and Muse XDG folders are provider-owned login and resume state. They are not OpenOwnBot
   conversation storage.
 - D1 is the source of truth for central accounts, remote membership, invitations, and logical sessions.
 - Stripe is the source of truth for paid plans. D1 `billing_subscriptions` is a copy that the Stripe
   webhook keeps current; see [Billing](servers.md#billing).
 - A local team host owns conversations, files, agents, and the local member projection used by Team API.
 - `openbot-approval-automation-v3.json` holds which agents have Full access: the `autoApprove` half of
-  each agent's Permissions level (Workspace only, Ask first, Full access). OpenBot reads an older
+  each agent's Permissions level (Workspace only, Ask first, Full access). OpenOwnBot reads an older
   `-v2` or `-v1` file when no v3 file exists and leaves it in place for a downgrade; Turbo mode on in
   such a file gives every agent Full access. It belongs to the computer that runs the agent and never crosses the Team API, whose released
   adapters freeze an approval response to `accept` or `decline`: a remote host that has automation
@@ -105,7 +105,7 @@ SolidJS, provider, Cloudflare, and application code; and the account server to d
   (`AttentionRegistry.answerGrantedRequests`). The registry also accepts, once, Codex's consent to run
   an MCP tool (`_meta.codex_approval_kind` `mcp_tool_call`, a tool set to ask every time included), and
   saves nothing: "Always allow" stays the user's choice, which Codex keeps per server and tool. A
-  Workspace only agent keeps its card; a Computer Use tool does not. OpenBot keeps Codex's `approvalPolicy`
+  Workspace only agent keeps its card; a Computer Use tool does not. OpenOwnBot keeps Codex's `approvalPolicy`
   at `on-request`, because `never` denies MCP tool calls and rejects elicitations. Other questions, MCP
   forms and sign-in requests, and browser takeovers remain interactive.
 - `browser-tabs.json` is the embedded browser's own durable state, outside `openbot.db` and outside the
@@ -122,7 +122,7 @@ SolidJS, provider, Cloudflare, and application code; and the account server to d
   rule does not depend on reading the model's SQL. The agents own these schemas, so nothing copies
   or migrates them before a release, and a table stays when the agent that made it is deleted. The
   user deletes one from agent settings, which is the only way to remove a table whose owner is gone.
-  The guidance the agents read ships as the managed skill `resources/managed-skills/openbot-data`,
+  The guidance the agents read ships as the managed skill `resources/managed-skills/openownbot-data`,
   beside site hosting and the skill creator, so the always-on prompt only names the tools.
 - Renderer signals and stores are projections for the current screen only. They are not durable
   state, and one concern is one record - a row of parallel signals over its fields lets a screen
@@ -135,28 +135,28 @@ SolidJS, provider, Cloudflare, and application code; and the account server to d
 
 ## Shared UI package
 
-`@openbot/ui` owns the existing SolidJS primitives and their primitive stylesheet. Desktop,
+`@openownbot/ui` owns the existing SolidJS primitives and their primitive stylesheet. Desktop,
 web, and Storybook import this workspace directly. It has no dependency on the renderer,
-Electron, account sessions, or host connections. Import `@openbot/ui/styles.css` after brand
+Electron, account sessions, or host connections. Import `@openownbot/ui/styles.css` after brand
 tokens and include the package source in Tailwind scanning. App-specific styles remain in
 the application. The desktop TypeScript project includes the package source for CI checks.
 
 The package also owns prop-driven feature UI: the complete sidebar and its scoped interaction
 stores, account login, server rail and invitation dialog, message rendering, composer
 editor, attachment cards, preview renderers, agent setup, and reusable settings panels. Feature
-exports use explicit subpaths such as `@openbot/ui/features/sidebar/Sidebar`. Shared display
-models live at `@openbot/ui/data`. Source files are moved, not copied or re-exported from the
+exports use explicit subpaths such as `@openownbot/ui/features/sidebar/Sidebar`. Shared display
+models live at `@openownbot/ui/data`. Source files are moved, not copied or re-exported from the
 renderer. Tests remain in the renderer test harness and import the package directly.
 
 The browser panel and live canvas also live in this package. Their typed `BrowserViewRuntime`
 is required; the renderer supplies the desktop preload adapter or the web host adapter.
 Shared sidebar activity and avatar mood functions use caller-supplied state. The conversation
-stylesheet is exported as `@openbot/ui/features/conversation/conversation.css`; applications
+stylesheet is exported as `@openownbot/ui/features/conversation/conversation.css`; applications
 import it in the same cascade position as the former renderer stylesheet. This file is an ordered
 manifest of component styles in `features/conversation/styles/`. Preserve import order: later
 surface and responsive rules override earlier component rules.
 
-`@openbot/ui/features/marketplace/*` renders the Marketplace window: the Agents, Apps and Skills
+`@openownbot/ui/features/marketplace/*` renders the Marketplace window: the Agents, Apps and Skills
 tabs, and a page for each listing. It reads a typed `MarketplaceModel` and holds no data of its
 own. The renderer's `marketplace-controller.ts` builds the model on the injected `MarketplaceCalls`,
 and `MarketplaceModal` adds the connect and uninstall dialogs. `ConnectorsProvider` creates the

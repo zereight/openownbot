@@ -3,7 +3,7 @@
 // Cases: a steer with text and an image, a steer for a turn that is not the running one, a steer
 // after the turn ended, and a Grok without the method. Each refused steer must send nothing to the
 // agent and must not stop the running turn, so the message can wait in the queue.
-// `bun run test:grok-steer`. Writes .openbot-build/grok-steer-e2e/report.json.
+// `bun run test:grok-steer`. Writes .openownbot-build/grok-steer-e2e/report.json.
 import assert from "node:assert/strict";
 import { mkdir, mkdtemp, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
@@ -14,7 +14,7 @@ import { type AppServerNotification, getRecord, getString, isRecord } from "../s
 import { NO_PROVIDER_CREDENTIALS, requireProviderDriver } from "../src/backend/provider-drivers";
 import { installFakeAgent, readJsonl, startThread, stopClients } from "./provider-fakes/host";
 
-const OUT = resolve(import.meta.dirname, "../.openbot-build/grok-steer-e2e");
+const OUT = resolve(import.meta.dirname, "../.openownbot-build/grok-steer-e2e");
 const TURN_TIMEOUT_MS = 20_000;
 /** A 1x1 transparent PNG. */
 const PNG = Buffer.from(
@@ -40,7 +40,7 @@ interface Report {
   failure?: string;
 }
 
-const root = await mkdtemp(join(tmpdir(), "openbot-grok-steer-e2e-"));
+const root = await mkdtemp(join(tmpdir(), "openownbot-grok-steer-e2e-"));
 const report: Report = { passed: false };
 const clients: AgentClient[] = [];
 

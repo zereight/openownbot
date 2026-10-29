@@ -1,14 +1,14 @@
-import type { BillingPlanId, BillingServerPlan } from "@openbot/contracts/billing";
-import type { HostedServerSummary } from "@openbot/contracts/hosted-servers";
-import { Button, SettingsSection, Text } from "@openbot/ui";
-import { BillingDialog } from "@openbot/ui/features/billing/BillingDialog";
+import type { BillingPlanId, BillingServerPlan } from "@openownbot/contracts/billing";
+import type { HostedServerSummary } from "@openownbot/contracts/hosted-servers";
+import { Button, SettingsSection, Text } from "@openownbot/ui";
+import { BillingDialog } from "@openownbot/ui/features/billing/BillingDialog";
 import {
   BillingServerLifecycle,
   type BillingServerLifecycleAction,
-} from "@openbot/ui/features/billing/BillingServerLifecycle";
-import { createBillingStore } from "@openbot/ui/features/billing/billing-store";
-import { createSettingsHostedServersStore } from "@openbot/ui/features/settings/stores/hosted-servers-store";
-import { useText } from "@openbot/ui/text";
+} from "@openownbot/ui/features/billing/BillingServerLifecycle";
+import { createBillingStore } from "@openownbot/ui/features/billing/billing-store";
+import { createSettingsHostedServersStore } from "@openownbot/ui/features/settings/stores/hosted-servers-store";
+import { useText } from "@openownbot/ui/text";
 import { createStore, For, untrack } from "solid-js";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";
 import { createMockHostedServers } from "../src/preview/mock-hosted-servers";

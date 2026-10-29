@@ -41,7 +41,7 @@ import {
   isRoutineFlowCanvas,
   isRoutineFlowLink,
   isRoutineRun,
-  type OpenBotDesktopApi,
+  type OpenOwnBotDesktopApi,
   type QueuedMessageReceipt,
   type RemoteAgentImportResult,
   type RenameAgentTaskInput,
@@ -54,23 +54,23 @@ import {
   type StartAgentTaskInput,
   type SteerQueuedMessageInput,
   type UpdateQueuedMessageInput,
-} from "@openbot/contracts/ipc";
-import { guardedDecoder, guardedListDecoder } from "@openbot/contracts/ipc-decoding";
-import { isDynamicRecord, isString } from "@openbot/contracts/runtime-values";
-import { TEAM_API_ROUTES } from "@openbot/contracts/team-api-routes";
-import { AGENT_IMPORT_ROUTES, AGENT_IMPORT_UPLOAD_BYTES } from "@openbot/contracts/team-protocol/agent-import-v1";
+} from "@openownbot/contracts/ipc";
+import { guardedDecoder, guardedListDecoder } from "@openownbot/contracts/ipc-decoding";
+import { isDynamicRecord, isString } from "@openownbot/contracts/runtime-values";
+import { TEAM_API_ROUTES } from "@openownbot/contracts/team-api-routes";
+import { AGENT_IMPORT_ROUTES, AGENT_IMPORT_UPLOAD_BYTES } from "@openownbot/contracts/team-protocol/agent-import-v1";
 import {
   AGENT_MEMORIES_PAGE_ROUTE,
   AGENT_MEMORIES_PAGE_SIZE,
   AGENT_MEMORY_INCLUSION_ROUTE,
   AGENT_MEMORY_SELECTION_PAGE_ROUTE,
-} from "@openbot/contracts/team-protocol/agent-memories-v1";
-import { AGENT_TASKS_ROUTES } from "@openbot/contracts/team-protocol/agent-tasks-v1";
-import { AGENT_THREADS_ROUTES } from "@openbot/contracts/team-protocol/agent-threads-v1";
-import { CHANNEL_ROUTES } from "@openbot/contracts/team-protocol/channels-v1";
-import { CONTEXT_RESET_ROUTES } from "@openbot/contracts/team-protocol/context-reset-v1";
-import { ROUTINE_FLOWS_ROUTES } from "@openbot/contracts/team-protocol/routine-flows-v1";
-import { decodeTeamProtocolV2Json, type TeamProtocolV2Json } from "@openbot/contracts/team-protocol/v2";
+} from "@openownbot/contracts/team-protocol/agent-memories-v1";
+import { AGENT_TASKS_ROUTES } from "@openownbot/contracts/team-protocol/agent-tasks-v1";
+import { AGENT_THREADS_ROUTES } from "@openownbot/contracts/team-protocol/agent-threads-v1";
+import { CHANNEL_ROUTES } from "@openownbot/contracts/team-protocol/channels-v1";
+import { CONTEXT_RESET_ROUTES } from "@openownbot/contracts/team-protocol/context-reset-v1";
+import { ROUTINE_FLOWS_ROUTES } from "@openownbot/contracts/team-protocol/routine-flows-v1";
+import { decodeTeamProtocolV2Json, type TeamProtocolV2Json } from "@openownbot/contracts/team-protocol/v2";
 import type { RemoteFileUpload } from "./file-upload";
 
 export class TeamRequestError extends Schema.TaggedError<TeamRequestError>()("TeamRequestError", {
@@ -315,7 +315,7 @@ export const respondToBrowserSecret = Effect.fn("TeamClient.respondToBrowserSecr
 
 /** The channel calls of the desktop IPC surface, which a remote desktop sends to the host the same way. */
 export type TeamChannelsApi = Pick<
-  OpenBotDesktopApi["agent"],
+  OpenOwnBotDesktopApi["agent"],
   | "listChannels"
   | "readChannel"
   | "channelCommand"
@@ -361,7 +361,7 @@ const decodeRoutineRuns = guardedListDecoder(isRoutineRun, "routine run list");
 
 /** The agent routine calls of the desktop IPC surface, which a remote desktop sends to the host the same way. */
 export type TeamAgentRoutinesApi = Pick<
-  OpenBotDesktopApi["agent"],
+  OpenOwnBotDesktopApi["agent"],
   "listRoutines" | "createRoutine" | "updateRoutine" | "deleteRoutine" | "testRoutine" | "listRoutineRuns"
 >;
 
@@ -388,7 +388,7 @@ export function teamAgentRoutinesApi(request: TeamApiRequest): TeamAgentRoutines
 }
 
 /** The routine canvas calls of the desktop IPC surface. Send them only to a host that serves `routine-flows-v1`. */
-export type TeamRoutineFlowsApi = OpenBotDesktopApi["routineFlows"];
+export type TeamRoutineFlowsApi = OpenOwnBotDesktopApi["routineFlows"];
 
 const decodeRoutineFlowCanvas = guardedDecoder(isRoutineFlowCanvas, "routine flow canvas");
 const decodeRoutineFlowLink = guardedDecoder(isRoutineFlowLink, "routine flow link");

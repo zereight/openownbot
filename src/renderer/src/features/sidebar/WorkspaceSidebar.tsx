@@ -1,15 +1,15 @@
-import type { ChatWindowTarget } from "@openbot/contracts/ipc";
-import { AGENT_HIDDEN_CAPABILITY } from "@openbot/contracts/team-protocol/current";
-import { AgentSquadsDialog } from "@openbot/ui/features/agents/AgentSquadsDialog";
-import { AgentTeamImportDialog } from "@openbot/ui/features/agents/AgentTeamImportDialog";
-import { computeAgentAvatarMoods } from "@openbot/ui/features/agents/agent-avatar-mood";
-import { Sidebar } from "@openbot/ui/features/sidebar/Sidebar";
-import { SidebarCommunityCard } from "@openbot/ui/features/sidebar/SidebarCommunityCard";
-import { SidebarMobileAppCard } from "@openbot/ui/features/sidebar/SidebarMobileAppCard";
-import { SidebarStorageCard } from "@openbot/ui/features/sidebar/SidebarStorageCard";
-import { computeSidebarAgentStates, sidebarChannelWaits } from "@openbot/ui/features/sidebar/sidebar-agent-states";
-import { teamMemberName } from "@openbot/ui/features/team/TeamPersonAvatar";
-import { useText } from "@openbot/ui/text";
+import type { ChatWindowTarget } from "@openownbot/contracts/ipc";
+import { AGENT_HIDDEN_CAPABILITY } from "@openownbot/contracts/team-protocol/current";
+import { AgentSquadsDialog } from "@openownbot/ui/features/agents/AgentSquadsDialog";
+import { AgentTeamImportDialog } from "@openownbot/ui/features/agents/AgentTeamImportDialog";
+import { computeAgentAvatarMoods } from "@openownbot/ui/features/agents/agent-avatar-mood";
+import { Sidebar } from "@openownbot/ui/features/sidebar/Sidebar";
+import { SidebarCommunityCard } from "@openownbot/ui/features/sidebar/SidebarCommunityCard";
+import { SidebarMobileAppCard } from "@openownbot/ui/features/sidebar/SidebarMobileAppCard";
+import { SidebarStorageCard } from "@openownbot/ui/features/sidebar/SidebarStorageCard";
+import { computeSidebarAgentStates, sidebarChannelWaits } from "@openownbot/ui/features/sidebar/sidebar-agent-states";
+import { teamMemberName } from "@openownbot/ui/features/team/TeamPersonAvatar";
+import { useText } from "@openownbot/ui/text";
 import { createEffect, createMemo, createSignal, onSettled, Show } from "solid-js";
 import { appPort } from "../../app-port";
 import { type ChatHistoryEntry, chatHistoryKeys } from "../../chat-history";
@@ -42,8 +42,8 @@ import { createStorageCard } from "./storage-card";
 
 /** Dismissing the mobile app card is a choice of this computer, like the sidebar width. The key is
  * new with the Android release, so a computer that dismissed the iPhone-only card sees it once more. */
-const MOBILE_APP_DISMISSED_STORAGE_KEY = "openbot:mobile-app-card-dismissed";
-const GROUP_BY_TEAM_STORAGE_KEY = "openbot:sidebar-group-by-team";
+const MOBILE_APP_DISMISSED_STORAGE_KEY = "openownbot:mobile-app-card-dismissed";
+const GROUP_BY_TEAM_STORAGE_KEY = "openownbot:sidebar-group-by-team";
 
 /**
  * The list of Agents and people. It reads the most domains of any pane, and every

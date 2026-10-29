@@ -3,7 +3,7 @@
  * the dirty check, and the badge text and variant.
  *
  * The types and the rules the main process also applies - validation, normalization, the id - live
- * in `@openbot/contracts/ipc` so that a saved row can never hold something the form never previewed.
+ * in `@openownbot/contracts/ipc` so that a saved row can never hold something the form never previewed.
  */
 
 import {
@@ -12,16 +12,16 @@ import {
   type McpSignInState,
   normalizeMcpConfig,
   type ProviderRuntimeStatus,
-} from "@openbot/contracts/ipc";
-import { type AppTextKey, type AppTranslate, matchingSourceKeys } from "@openbot/i18n";
-import { currentText } from "@openbot/ui/text";
+} from "@openownbot/contracts/ipc";
+import { type AppTextKey, type AppTranslate, matchingSourceKeys } from "@openownbot/i18n";
+import { currentText } from "@openownbot/ui/text";
 
 export type {
   McpServerConfig,
   McpSignInState,
   McpTestResult,
-} from "@openbot/contracts/ipc";
-export { mcpConfigErrors, mcpConfigIsValid, normalizeMcpConfig } from "@openbot/contracts/ipc";
+} from "@openownbot/contracts/ipc";
+export { mcpConfigErrors, mcpConfigIsValid, normalizeMcpConfig } from "@openownbot/contracts/ipc";
 
 /** The badge variants this panel uses, narrowed from the shared `Badge` set. */
 export type McpStatusVariant = "success-light" | "destructive-light" | "warning-light" | "secondary";
@@ -82,7 +82,7 @@ export function isMcpSignInCancelled(sourceText: string): boolean {
 /**
  * What the panel knows about one server's test, for as long as the panel is open.
  *
- * A test is a question the user asked once, not a state the app keeps: OpenBot connects only when
+ * A test is a question the user asked once, not a state the app keeps: OpenOwnBot connects only when
  * asked, and an answer from a minute ago is not a claim about now. Leaving the panel drops these.
  */
 export type McpTestState =
@@ -171,7 +171,7 @@ export function isMcpHttpAddress(value: string): boolean {
 }
 
 /**
- * The badge on a row. Without a test it says only what the user set, because that is all OpenBot
+ * The badge on a row. Without a test it says only what the user set, because that is all OpenOwnBot
  * knows: a server is offered to this server's agents, or it is not. A test answers for itself, and
  * that answer is shown even on a server that is turned off, because the user asked for it.
  */

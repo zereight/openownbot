@@ -1,14 +1,14 @@
 import { randomUUID } from "node:crypto";
-import { INPUT_LIMITS } from "@openbot/contracts/input-limits";
+import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
 import type {
   AgentApprovalPermissions,
   AgentPromptQuestion,
   AgentPromptResolution,
   RespondToBrowserTakeoverInput,
-} from "@openbot/contracts/ipc";
-import { COMPUTER_USE_MCP_SERVER_NAME } from "@openbot/contracts/ipc";
-import { type DynamicRecord, isString } from "@openbot/contracts/runtime-values";
-import { normalizeUiBlockSpec, type UiBlockResponse, type UiBlockSpec } from "@openbot/contracts/ui-blocks";
+} from "@openownbot/contracts/ipc";
+import { COMPUTER_USE_MCP_SERVER_NAME } from "@openownbot/contracts/ipc";
+import { type DynamicRecord, isString } from "@openownbot/contracts/runtime-values";
+import { normalizeUiBlockSpec, type UiBlockResponse, type UiBlockSpec } from "@openownbot/contracts/ui-blocks";
 import type { SavedApiKey } from "../agent-api-keys";
 import { type DynamicToolResult, getArray, getRecord, getString, isRecord } from "../protocol";
 
@@ -389,7 +389,7 @@ export function browserUserControlResult(): DynamicToolResult {
 }
 
 export function browserTakeoverError(
-  message = "OpenBot could not create a browser takeover request.",
+  message = "OpenOwnBot could not create a browser takeover request.",
 ): DynamicToolResult {
   return {
     success: false,

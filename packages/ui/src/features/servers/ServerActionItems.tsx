@@ -1,6 +1,6 @@
-import { canAdministerServer, type ServerNotificationLevel, type ServerSummary } from "@openbot/contracts/ipc";
-import type { AppFormat, AppTextKey, AppTranslate } from "@openbot/i18n";
-import { Bell, BellOff, Check, ChevronRight, type ContextMenu, LogOut, RotateCcw, Trash2 } from "@openbot/ui";
+import { canAdministerServer, type ServerNotificationLevel, type ServerSummary } from "@openownbot/contracts/ipc";
+import type { AppFormat, AppTextKey, AppTranslate } from "@openownbot/i18n";
+import { Bell, BellOff, Check, ChevronRight, type ContextMenu, LogOut, RotateCcw, Trash2 } from "@openownbot/ui";
 import { For, Show } from "solid-js";
 import { useText } from "../../text";
 
@@ -89,12 +89,12 @@ export function ServerActionItems(
     props.server.role === "owner" &&
     Boolean(props.canRemove?.(props.server.id));
   // A restart while the machine starts would stop it and begin the start again. A running machine whose
-  // OpenBot does not answer can restart.
+  // OpenOwnBot does not answer can restart.
   const canRestart = () =>
     Boolean(props.onRestart) &&
     props.server.kind === "remote" &&
     canAdministerServer(props.server.role) &&
-    !(props.server.hostedSleep === "waking" && props.server.hostedStart?.step !== "openbot") &&
+    !(props.server.hostedSleep === "waking" && props.server.hostedStart?.step !== "openownbot") &&
     (props.server.hosted === true || Boolean(props.canRestart?.(props.server.id)));
   // A component, so the JSX below can use it as a tag. The menu does not change after render.
   const Menu = props.menu;

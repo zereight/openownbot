@@ -39,7 +39,7 @@ export const messages = {
   "import.guide.hermesStepFolder": "读取 Hermes 文件夹",
   "import.guide.hermesStep1": "把导出技能添加到 Hermes",
   "import.guide.readFolder": "读取 Hermes 文件夹",
-  "import.guide.readFolderMeta": "OpenBot 会读取 ~/.hermes，不会改动其中任何内容。",
+  "import.guide.readFolderMeta": "OpenOwnBot 会读取 ~/.hermes，不会改动其中任何内容。",
   "import.guide.readFolderNote":
     "在改动任何内容之前，你可以先看到每个配置文件的所有项目。MCP 服务器也会一并带入，但处于关闭状态。",
   "import.guide.copyCommand": "复制命令",
@@ -47,7 +47,7 @@ export const messages = {
   "import.guide.commandNote":
     "在 Hermes 对话中输入它。在终端中，用同样的名称运行 hermes skills install。Hermes 会在安装前扫描该技能。",
   "import.guide.hermesSkillNote":
-    "把它保存为 ~/.hermes/skills/openbot-export/SKILL.md。Hermes 会在下一次对话中找到它。导出内容不包含它本身。",
+    "把它保存为 ~/.hermes/skills/openownbot-export/SKILL.md。Hermes 会在下一次对话中找到它。导出内容不包含它本身。",
   "import.guide.hermesMessageNote":
     "它会询问要导出哪些配置文件，然后把 .zip 文件保存到“下载”。密钥和 MCP 服务器会留在 Hermes 中。",
   "import.review.title": "{source} 导出",

@@ -4,7 +4,7 @@
 [![License](https://img.shields.io/badge/license-PolyForm_Noncommercial_1.0.0-blue.svg)](LICENSE)
 
 > [!NOTE]
-> This is OpenOwnBot, a noncommercial fork of [OpenBot](https://github.com/nightly-labs/openbot) by
+> This is OpenOwnBot, a noncommercial fork of [OpenOwnBot](https://github.com/zereight/openownbot) by
 > Synthetify Labs. It is not affiliated with or supported by Synthetify Labs. The source is available
 > under the PolyForm Noncommercial License 1.0.0 (see [License and attribution](#license-and-attribution)):
 > it is not an OSI open-source license, and commercial use is not allowed.
@@ -62,7 +62,7 @@ unsigned: see [docs/RELEASING-FORK.md](docs/RELEASING-FORK.md#install-notes-for-
 ### Linux
 
 1. Download the latest `OpenOwnBot-*-x86_64.AppImage` (or `OpenOwnBot-*-arm64.AppImage` on arm64) from [GitHub Releases](https://github.com/zereight/openownbot/releases).
-2. Make it executable with `chmod +x OpenBot-*.AppImage`, then run it.
+2. Make it executable with `chmod +x OpenOwnBot-*.AppImage`, then run it.
 
 The AppImage does not need libfuse2, so it also runs on Arch Linux and Omarchy. It mounts itself
 with `fusermount3` from the `fuse3` package.
@@ -71,16 +71,16 @@ On Ubuntu 23.10 or newer and on Debian 13, unprivileged user namespaces are rest
 and OpenOwnBot exits during launch until you install an AppArmor profile:
 
 ```bash
-sudo install -m 0644 build/linux/openbot.apparmor /etc/apparmor.d/openbot
+sudo install -m 0644 build/linux/openownbot.apparmor /etc/apparmor.d/openownbot
 sudo systemctl reload apparmor
 ```
 
-The same file ships inside the AppImage at `resources/linux/openbot.apparmor`. Edit the attachment
+The same file ships inside the AppImage at `resources/linux/openownbot.apparmor`. Edit the attachment
 path in the profile if you keep the AppImage outside the usual locations. Do not start OpenOwnBot with
 `--no-sandbox`: that removes the boundary between a renderer and the rest of the computer.
 
-On the first start from an AppImage, OpenOwnBot writes `~/.local/share/applications/openbot.desktop`
-and `~/.local/share/icons/openbot.png`, which is what lets an `openbot://` link - an invitation, or
+On the first start from an AppImage, OpenOwnBot writes `~/.local/share/applications/openownbot.desktop`
+and `~/.local/share/icons/openownbot.png`, which is what lets an `openownbot://` link - an invitation, or
 a plugin listing - open the app and gives the launcher an icon that stays after the app exits. Delete the two files to undo it.
 
 Remote desktop works on Linux x64 in an X11 session,
@@ -97,12 +97,12 @@ To run OpenOwnBot as an always-on server of your account on a VPS or home server
 26.04 with systemd), install it from a terminal and sign in with an email code:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/nightly-labs/openbot/main/scripts/install-server.sh | sudo bash
-sudo openbot login
+curl -fsSL https://raw.githubusercontent.com/zereight/openownbot/main/scripts/install-server.sh | sudo bash
+sudo openownbot login
 ```
 
 Then use it from the desktop app, the iPhone app or `openbot.run/app`. See
-[self-hosted servers](docs/self-hosted-server.md) for the options and the `openbot` commands.
+[self-hosted servers](docs/self-hosted-server.md) for the options and the `openownbot` commands.
 
 #### Docker
 
@@ -110,12 +110,12 @@ The same server runs as a container (`linux/amd64` and `linux/arm64`). The secco
 Electron sandbox stay on:
 
 ```bash
-curl -fsSLO https://raw.githubusercontent.com/nightly-labs/openbot/main/docker/seccomp.json
-docker run -d --name openbot --restart unless-stopped \
+curl -fsSLO https://raw.githubusercontent.com/zereight/openownbot/main/docker/seccomp.json
+docker run -d --name openownbot --restart unless-stopped \
   --security-opt seccomp=seccomp.json --security-opt no-new-privileges:true \
-  --shm-size 1g --stop-timeout 60 -v openbot-data:/data \
-  ghcr.io/nightly-labs/openbot:latest
-docker exec -it openbot openbot login
+  --shm-size 1g --stop-timeout 60 -v openownbot-data:/data \
+  ghcr.io/zereight/openownbot:latest
+docker exec -it openownbot openownbot login
 ```
 
 See [Docker](docs/docker.md) for Compose, the data volume, upgrades and the security limits. For Amazon ECS,
@@ -126,12 +126,12 @@ see [AWS ECS](docs/aws-ecs.md).
 The flake installs the desktop app from the latest release on x64 or arm64 Linux and on Apple silicon:
 
 ```bash
-nix run github:nightly-labs/openbot
-nix profile install github:nightly-labs/openbot
+nix run github:zereight/openownbot
+nix profile install github:zereight/openownbot
 ```
 
-`overlays.default` adds `pkgs.openbot`. OpenOwnBot is not free software, so your nixpkgs must allow it,
-for example with `nixpkgs.config.allowUnfreePredicate = pkg: lib.getName pkg == "openbot";`.
+`overlays.default` adds `pkgs.openownbot`. OpenOwnBot is not free software, so your nixpkgs must allow it,
+for example with `nixpkgs.config.allowUnfreePredicate = pkg: lib.getName pkg == "openownbot";`.
 Nix installs OpenOwnBot updates. OpenOwnBot does not update itself from the Nix store. On Linux, the Nix
 package does not include the remote desktop runtime, because nixpkgs does not have a library that it
 needs.
@@ -144,7 +144,7 @@ needs.
 ### Agent setup
 
 OpenOwnBot can download a supported provider runtime when you select `Download` in onboarding,
-Settings, agent setup, or the model picker. OpenOwnBot prefers its managed CLI. Explicit `OPENBOT_*_PATH` overrides take precedence; a compatible
+Settings, agent setup, or the model picker. OpenOwnBot prefers its managed CLI. Explicit `OPENOWNBOT_*_PATH` overrides take precedence; a compatible
 system CLI is used when no managed copy is available. OpenOwnBot checks for a newer provider CLI
 release at startup and every hour, and `Check for updates` in a provider's actions menu checks at
 once. Updates install the latest upstream release without changing the user’s system CLI; the
@@ -176,7 +176,7 @@ Go key does not buy stay out of the picker. Models with the Free label in the mo
 sign-in. Other models need a sign-in with their provider: a Go key for the `opencode-go/` models, or
 `opencode auth login` in a terminal for OpenCode Zen and third-party providers. Without it, the turn
 fails with an error that names the provider. If you installed OpenCode yourself, OpenOwnBot
-keeps that install and offers no download. Set `OPENBOT_OPENCODE_PATH` to select an executable
+keeps that install and offers no download. Set `OPENOWNBOT_OPENCODE_PATH` to select an executable
 outside your shell's search path. Remote OpenCode agents require Team API v4; older clients do not
 show these agents.
 
@@ -184,7 +184,7 @@ Gemini uses a Google AI Pro or Ultra plan. OpenOwnBot downloads Google's Antigra
 this computer when you select Download on the Gemini row, because Google's license does not let
 OpenOwnBot include it. Sign in opens Google's sign-in page in your browser. OpenOwnBot never uses an
 `antigravity` command on your search path, because the Antigravity editor installs a command with
-that name. Set `OPENBOT_ANTIGRAVITY_PATH` to select a server executable yourself. Put it in a
+that name. Set `OPENOWNBOT_ANTIGRAVITY_PATH` to select a server executable yourself. Put it in a
 `bin/` folder, and put an `antigravity-package.json` file with its `version` in the folder above
 `bin/`. Keep `localharness_external` beside the server. When that path is set, OpenOwnBot uses
 only it. Connect remains available in the host's local Settings > Providers screen. Remote
@@ -197,7 +197,7 @@ Cursor uses a Cursor plan or a Cursor API key. OpenOwnBot downloads and pins the
 `cursor-agent acp`. Sign in opens Cursor's sign-in page in your browser. You can also set
 `CURSOR_API_KEY` in the environment used to launch OpenOwnBot. If you installed `cursor-agent`
 yourself, OpenOwnBot uses it until a download exists. OpenOwnBot never uses the `cursor` command, which
-starts the Cursor editor. Set `OPENBOT_CURSOR_PATH` to select an executable yourself. Cursor
+starts the Cursor editor. Set `OPENOWNBOT_CURSOR_PATH` to select an executable yourself. Cursor
 agents stay on this computer: team members do not see them.
 
 Cline uses a Cline account, which has free models with limits for each model. The provider of a
@@ -205,7 +205,7 @@ free model can use your prompts to train models. OpenOwnBot downloads and pins t
 select Download on the Cline row in More providers, and starts it with `cline --acp`. Sign in opens
 Cline's sign-in page in your browser. You can also set `CLINE_API_KEY` in the environment used to
 launch OpenOwnBot. If you installed `cline` 3.0.68 or newer yourself, OpenOwnBot uses it until a download
-exists. Set `OPENBOT_CLINE_PATH` to select an executable yourself. Cline agents stay on this
+exists. Set `OPENOWNBOT_CLINE_PATH` to select an executable yourself. Cline agents stay on this
 computer: team members do not see them.
 
 On Windows, install the native CLI and make sure `codex`, `claude`, or `grok` is available in PowerShell.
@@ -242,7 +242,7 @@ iex "& {$(irm https://bun.com/install.ps1)} -Version 1.4.2"
 
 ```bash
 git clone https://github.com/zereight/openownbot.git
-cd openbot
+cd openownbot
 bun install --frozen-lockfile
 bun run codex:doctor
 bun run dev
@@ -256,7 +256,7 @@ lists from the main checkout when they are missing, installs dependencies, migra
 and seeds the isolated profile. Set it as the worktree setup command of your agent harness.
 
 On macOS, a worktree's `node_modules` uses almost no new disk space. Bun clones packages from its
-cache, and the root `postinstall` clones Electron from `~/Library/Caches/OpenBot/electron-dist`.
+cache, and the root `postinstall` clones Electron from `~/Library/Caches/OpenOwnBot/electron-dist`.
 `du` still shows the full size of each clone.
 The first install of an Electron version extracts it once and saves it there. Delete the directory
 to clear the cache; an entry that nobody used for 30 days is removed by the next save.
@@ -266,11 +266,11 @@ To reset only the local development state, quit the dev app and test client, the
 The command deletes the app and test-client development profiles plus the legacy host profile,
 including `openbot.db` and its WAL files. It prints each profile before it deletes it, and it
 deletes nothing while a dev app has one of them open. It does not change the production profile,
-the worktree profiles that `bun run dev` opens (`OpenBot Dev wt-<hash>`), agent workspaces,
+the worktree profiles that `bun run dev` opens (`OpenOwnBot Dev wt-<hash>`), agent workspaces,
 `~/.codex`, or `~/.claude`.
 
 `bun run dev` seeds a development profile it creates, so a first start already shows this data.
-`bun run dev:seed` replaces the shared `OpenBot Dev` profile. To use it, quit the dev app, then run:
+`bun run dev:seed` replaces the shared `OpenOwnBot Dev` profile. To use it, quit the dev app, then run:
 
 ```bash
 bun run dev:seed
@@ -311,7 +311,7 @@ Ask an agent to create a skill from a reusable workflow. It prepares a folder wi
 
 Agents can use `list_local_skills`, `read_local_skill`, `revise_skill`, and `install_local_skill`. Revisions require the version read by the agent and retain previous versions. Updating a library skill does not update installed copies: use the Update chip or install an exact revision. Modified installed files are protected. To publish a local skill, submit its folder separately through the marketplace.
 
-Optional scripts, references, and assets follow the Codex skill folder structure. A PNG at `assets/icon.png` supplies the local preview logo. The built-in `openbot-skill-creator` guide explains the format and validation limits. Registration does not run scripts.
+Optional scripts, references, and assets follow the Codex skill folder structure. A PNG at `assets/icon.png` supplies the local preview logo. The built-in `openownbot-skill-creator` guide explains the format and validation limits. Registration does not run scripts.
 
 ## Import agents from Grok Bot
 
@@ -329,7 +329,7 @@ See [web client delivery](docs/web-client.md) for the release gate and focused c
 
 | Command | Purpose |
 | --- | --- |
-| `bun run dev` | Start the local Auth API, Signal service, and Electron client with renderer HMR on its app profile. Ports are allocated through the dev registry, so a sibling worktree never takes one this stack won. It refuses a second stack in the same worktree unless you pass `--force`. Each worktree opens a profile of its own, keyed to its path; `--shared` opens the shared `OpenBot Dev` profile instead. `--isolated` is still accepted and changes nothing. A profile that you used before stays on disk unchanged. `--hosting=test` signs the app in to the `test` account Worker, on a profile that all worktrees share, so that a hosted server is a real VM; see [docs/hosted-servers.md](docs/hosted-servers.md#real-servers-from-a-development-build). A profile that does not exist yet is seeded with the showcase data of `bun run dev:seed` before the client starts, so a first start never opens an empty app; an existing profile is left as it is. An isolated profile still shares the computer's provider CLI store, so it does not download the pinned CLIs again. Before it starts, it runs `bun install --frozen-lockfile` and `bun run api:migrate:local` only when `bun.lock`, a workspace `package.json`, a patch, or a migration changed since their last successful run. The stamps are in `node_modules` and `apps/auth-api/.wrangler/state/v3/d1`, and each `bun install` writes the install stamp too; delete one to run its step again. |
+| `bun run dev` | Start the local Auth API, Signal service, and Electron client with renderer HMR on its app profile. Ports are allocated through the dev registry, so a sibling worktree never takes one this stack won. It refuses a second stack in the same worktree unless you pass `--force`. Each worktree opens a profile of its own, keyed to its path; `--shared` opens the shared `OpenOwnBot Dev` profile instead. `--isolated` is still accepted and changes nothing. A profile that you used before stays on disk unchanged. `--hosting=test` signs the app in to the `test` account Worker, on a profile that all worktrees share, so that a hosted server is a real VM; see [docs/hosted-servers.md](docs/hosted-servers.md#real-servers-from-a-development-build). A profile that does not exist yet is seeded with the showcase data of `bun run dev:seed` before the client starts, so a first start never opens an empty app; an existing profile is left as it is. An isolated profile still shares the computer's provider CLI store, so it does not download the pinned CLIs again. Before it starts, it runs `bun install --frozen-lockfile` and `bun run api:migrate:local` only when `bun.lock`, a workspace `package.json`, a patch, or a migration changed since their last successful run. The stamps are in `node_modules` and `apps/auth-api/.wrangler/state/v3/d1`, and each `bun install` writes the install stamp too; delete one to run its step again. |
 | `bun run preview` | Preview the built Electron client with the green preview icon. |
 | `bun run mobile:go` | Start the mobile app in Expo Go and clear the Metro cache. |
 | `bun mobile:ios` | Build and launch the iOS simulator app without RocketSim. |
@@ -349,35 +349,35 @@ See [web client delivery](docs/web-client.md) for the release gate and focused c
 | `bun run hosting:setup --target=production\|test` | Set up the Stripe catalog, the Customer Portal, and the Stripe and boat webhooks of one account server, and store the webhook signing secrets: production in the `cloudflare-production` GitHub Environment, test in the encrypted `apps/auth-api/.env.dev`. See [hosted servers](docs/hosted-servers.md#production). |
 | `bun run hosting:template` | Build the boat named snapshot that new hosted servers start from. Needs `BOAT_TEMPLATE_API_KEY` and `--version`, `--appimage-url`, `--appimage-sha256` and `--auth-api-url`. See [hosted servers](docs/hosted-servers.md). |
 | `bun run status:build` | Build the public status page in `apps/status/dist`. The `status-page` workflow adds `status.json` and `feed.xml` and publishes it to GitHub Pages at `status.openbot.run`. |
-| `bun run status:smoke` | Run the status page smoke test: update runs against a local fake service, the status webhooks against a local receiver, one read-only run against the live checks, and the built page in Chrome. It writes `.openbot-build/status-page/report.json`. |
+| `bun run status:smoke` | Run the status page smoke test: update runs against a local fake service, the status webhooks against a local receiver, one read-only run against the live checks, and the built page in Chrome. It writes `.openownbot-build/status-page/report.json`. |
 | `bun run remote:up` | Build and start the self-hosted Signal, coturn, and ACME stack. |
 | `bun run remote:check` | Check the Remote API and both Docker Compose configurations. |
 | `bun run remote:check:compose` | Validate both Docker Compose configurations alone, without a running daemon. |
 | `bun run remote:update` | Update Signal, then drain and update the single coturn instance. |
 | `bun run dev:all` | Start the Auth API, Signal service, and single local Electron instance. |
-| `bun run dev:slack` | Start the same stack as `bun run dev`, with two `cloudflared` quick tunnels, one to Signal and one to the local account API, so that Slack can send the development Slack app's events and install return to the agents on this computer. It reads `OPENBOT_DEV_SLACK_SIGNING_SECRET` from the ignored `.env.slack-dev`, and needs `SLACK_ROUTE_PRIVATE_JWK` and `SLACK_ROUTE_KEY_ID` in the shell environment. Takes the same options as `bun run dev`, such as `--shared`. See [docs/messaging.md](docs/messaging.md#test-slack-locally). |
+| `bun run dev:slack` | Start the same stack as `bun run dev`, with two `cloudflared` quick tunnels, one to Signal and one to the local account API, so that Slack can send the development Slack app's events and install return to the agents on this computer. It reads `OPENOWNBOT_DEV_SLACK_SIGNING_SECRET` from the ignored `.env.slack-dev`, and needs `SLACK_ROUTE_PRIVATE_JWK` and `SLACK_ROUTE_KEY_ID` in the shell environment. Takes the same options as `bun run dev`, such as `--shared`. See [docs/messaging.md](docs/messaging.md#test-slack-locally). |
 | `bun run dev:test-client` | Start the Auth API, Signal service, local instance, and an isolated second client for team testing. |
 | `bun run dev:seed` | Replace only the app development profile with durable showcase data. `--if-missing` keeps an existing profile, which is how `bun run dev` seeds a first start. `--scale=agents:N,messages:M,channels:C,channelMessages:K,attachments:A` adds generated agents, chat history, channel history and large images to the showcase data, for memory and CPU measurements. |
 | `bun run dev:reset` | Delete the local app, test-client, and legacy host development state. It refuses while a dev app has one of these profiles open. |
-| `bun run dev:status` | Print, as JSON, every dev stack and dev app instance live on this machine: services, ports, pids, which of them belong to this worktree, and which are orphaned - a supervisor that is gone with its children still holding the ports. Each recorded process carries the state a stop command acts on: `live`, `gone` with `groupLive` for a survivor of a dead leader, and `unverified` for a pid this machine cannot date. `registryDirectory` is the directory it read: `~/Library/Caches/OpenBot/dev` on macOS, `$XDG_RUNTIME_DIR/openbot-dev` (else `~/.cache/openbot/dev`) on Linux, `%LOCALAPPDATA%\OpenBot\openbot-dev-instances` on Windows, or `OPENBOT_DEV_REGISTRY_DIR` when set. It does not depend on `TMPDIR`. |
+| `bun run dev:status` | Print, as JSON, every dev stack and dev app instance live on this machine: services, ports, pids, which of them belong to this worktree, and which are orphaned - a supervisor that is gone with its children still holding the ports. Each recorded process carries the state a stop command acts on: `live`, `gone` with `groupLive` for a survivor of a dead leader, and `unverified` for a pid this machine cannot date. `registryDirectory` is the directory it read: `~/Library/Caches/OpenOwnBot/dev` on macOS, `$XDG_RUNTIME_DIR/openownbot-dev` (else `~/.cache/openownbot/dev`) on Linux, `%LOCALAPPDATA%\OpenOwnBot\openownbot-dev-instances` on Windows, or `OPENOWNBOT_DEV_REGISTRY_DIR` when set. It does not depend on `TMPDIR`. |
 | `bun run dev:verify` | Print a stable JSON verification plan for this worktree: `ready`/`reasons` for safe checks, setup state, changed files and affected surfaces, nearby tests, runtime state, `qa.required`/`qa.ready`/`qa.reasons`, the renderer QA loop, safe `runnableCommands`, and all suggested `commands`. Add `--run` to execute only the safe non-mutating checks in the plan. Renderer QA follows `snapshot → action with --wait-for → snapshot → screenshot` when appearance matters. |
 | `bun run dev:stop` | Stop this worktree's dev stack, children included, using the pids in the registry rather than a process-name pattern. It signals only a pid whose start time still matches the record, so a recycled pid is never sent SIGTERM; anything it cannot confirm is reported, left running and kept in the registry, and the command exits non-zero. `--pid=<supervisor pid>` stops one other stack, `--all` stops every stack on the machine. |
 | `bun run dev:forget` | Drop this worktree's stack record without signalling anything, for the one case `dev:stop` refuses to resolve on its own. It is also the only command that reads a dead record: nothing else deletes one, because a reader that removes what it judged can remove a record the supervisor rewrote in between. Takes the same `--pid=` and `--all`. |
-| `bun run storybook` | Start Storybook on a port allocated through the same registry, so two worktrees never announce one port. `OPENBOT_STORYBOOK_PORT` moves where the search starts; `--port` is refused. |
-| `bun run build-storybook` | Build static Storybook. CI sets `OPENBOT_STORYBOOK_CHECK=true` to skip automatic prop documentation during its build check. |
+| `bun run storybook` | Start Storybook on a port allocated through the same registry, so two worktrees never announce one port. `OPENOWNBOT_STORYBOOK_PORT` moves where the search starts; `--port` is refused. |
+| `bun run build-storybook` | Build static Storybook. CI sets `OPENOWNBOT_STORYBOOK_CHECK=true` to skip automatic prop documentation during its build check. |
 | `bun run dev:automation` | Drive the running dev app over CDP: `instances`, `pages`, `snapshot`, `screenshot`, `click`/`type` by accessible role. `--page=<target-id\|url-substring>` aims at any window, including embedded browser views; `--wait-for=<role>,<name>` settles on an accessible target instead of polling; mutations need `--allow-mutations` and a named instance (this worktree's record, `--instance=<id>` or `--port=`). |
-| `bun run dev:cpu` | Measure idle CPU on the running dev app, per process kind and per page. `--duration=<ms>` (default 60000), `--interval=<ms>` (default 5000), `--label=<name>`, `--out=<name>.json` (always under `.openbot-build/dev-automation/cpu/`, and refused if it would leave that directory or pass through a symbolic link) and `--compare=<file>` for a before/after delta. Read-only. Take a baseline before a change and a second run after it: only the difference between two runs on the same machine is a result, because a dev build carries the Vite server and the source maps as well. |
-| `bun run dev:memory` | Measure the running dev app's memory once: resident memory per process kind (main, renderer, GPU, provider CLIs and their MCP servers), with the dev tooling kept out of the app total, plus JS heap and DOM counters per page. `--label=<name>`, `--out=<name>.json` (always under `.openbot-build/dev-automation/memory/`) and `--heap-snapshot=<target-id\|url-substring>` to also write a V8 heap snapshot of one page to that directory. Read-only. |
-| `bun run dev:bench` | Run repeatable RAM and CPU scenarios on the built app (`bun run build` first). Each run seeds a bench profile of its own, starts the built app, samples the process tree every second (resident memory, macOS physical footprint and CPU per process kind, provider memory per CLI) with the main-process and page heaps, drives the scenario, and reads a settled state after garbage collection. `--scenario=<id\|prefix\|all>` (required; without it the command lists the scenarios), `--runs=<n>` (default 3; the report shows the median and range), `--label=<name>`, `--compare=<report.json>`, `--cpu-profile` (records the app window's JavaScript for 15 s after the first run settles, as a `.cpuprofile` for DevTools), `--frames` (counts frames slower than 17 ms and 50 ms while the scenario runs; the loop keeps the renderer drawing, so CPU readings rise) and `--call-counts` (V8 call counts per function while the scenario runs, top 25 in a `-call-counts.json` file; slows JavaScript). Every run also reports the startup marks (`startup.*`, ms) and the app window's layout and style recalculation counts, script and task time, and long tasks (`render.*`). Reports go to `.openbot-build/dev-automation/bench/`. Turn scenarios (`s5` to `s9`) use the real claude, opencode and grok CLIs and spend model quota. It never touches a dev instance or your own profile, and `bun run dev:stop` stops an app a failed run left behind. |
+| `bun run dev:cpu` | Measure idle CPU on the running dev app, per process kind and per page. `--duration=<ms>` (default 60000), `--interval=<ms>` (default 5000), `--label=<name>`, `--out=<name>.json` (always under `.openownbot-build/dev-automation/cpu/`, and refused if it would leave that directory or pass through a symbolic link) and `--compare=<file>` for a before/after delta. Read-only. Take a baseline before a change and a second run after it: only the difference between two runs on the same machine is a result, because a dev build carries the Vite server and the source maps as well. |
+| `bun run dev:memory` | Measure the running dev app's memory once: resident memory per process kind (main, renderer, GPU, provider CLIs and their MCP servers), with the dev tooling kept out of the app total, plus JS heap and DOM counters per page. `--label=<name>`, `--out=<name>.json` (always under `.openownbot-build/dev-automation/memory/`) and `--heap-snapshot=<target-id\|url-substring>` to also write a V8 heap snapshot of one page to that directory. Read-only. |
+| `bun run dev:bench` | Run repeatable RAM and CPU scenarios on the built app (`bun run build` first). Each run seeds a bench profile of its own, starts the built app, samples the process tree every second (resident memory, macOS physical footprint and CPU per process kind, provider memory per CLI) with the main-process and page heaps, drives the scenario, and reads a settled state after garbage collection. `--scenario=<id\|prefix\|all>` (required; without it the command lists the scenarios), `--runs=<n>` (default 3; the report shows the median and range), `--label=<name>`, `--compare=<report.json>`, `--cpu-profile` (records the app window's JavaScript for 15 s after the first run settles, as a `.cpuprofile` for DevTools), `--frames` (counts frames slower than 17 ms and 50 ms while the scenario runs; the loop keeps the renderer drawing, so CPU readings rise) and `--call-counts` (V8 call counts per function while the scenario runs, top 25 in a `-call-counts.json` file; slows JavaScript). Every run also reports the startup marks (`startup.*`, ms) and the app window's layout and style recalculation counts, script and task time, and long tasks (`render.*`). Reports go to `.openownbot-build/dev-automation/bench/`. Turn scenarios (`s5` to `s9`) use the real claude, opencode and grok CLIs and spend model quota. It never touches a dev instance or your own profile, and `bun run dev:stop` stops an app a failed run left behind. |
 | `bun run check` | Run Biome, both typechecks, offline tests, the browser smoke test, and the production build. |
 | `bun run typecheck` | Check all 15 projects in parallel with a separate incremental cache for each project in this worktree. |
 | `bun run knip:check` | Find unused files, exports, and types, unused or unlisted dependencies, and unresolved imports in all workspaces. CI runs it. |
-| `bun run check:ui` | Check the renderer against the design system: shared primitives, Kobalte and Lucide confined to `@openbot/ui`, palette tokens instead of colour, size, radius and transition literals. Checks renderer and shared UI source. |
+| `bun run check:ui` | Check the renderer against the design system: shared primitives, Kobalte and Lucide confined to `@openownbot/ui`, palette tokens instead of colour, size, radius and transition literals. Checks renderer and shared UI source. |
 | `bun run check:assets` | Fail when a tracked image or video file is outside the product asset directories. Pull request screenshots go in the pull request body. |
 | `bun run check:doc-links` | Fail when a link in a tracked Markdown file names a Markdown file that does not exist, or an anchor that the file does not have. |
 | `bun run verify:preload` | After `bun run build`, run the built preload with a fake Electron. Fail when it loads a module that a sandboxed preload cannot load, uses `import()`, or exposes a method that `IPC_ENDPOINTS` does not name. |
 | `bun run types:ratchet` | Hold each TypeScript option in `tools/typescript/type-baseline.json` to its error count per file in every project that extends `tsconfig.base.json`. A new error fails. Add `--write` after a fix to lower the baseline, or `--add=<option>` to start an option at its current counts. |
-| `bun run i18n:check` | Check the translation catalogs: key prefixes, placeholders, plural forms, ambiguous source text, and unused keys. `--fix` puts translated keys in the English order. `--json` writes `.openbot-build/i18n-report.json`. See [docs/i18n.md](docs/i18n.md). |
+| `bun run i18n:check` | Check the translation catalogs: key prefixes, placeholders, plural forms, ambiguous source text, and unused keys. `--fix` puts translated keys in the English order. `--json` writes `.openownbot-build/i18n-report.json`. See [docs/i18n.md](docs/i18n.md). |
 | `bun run test:backend` | Run backend tests only. |
 | `bun run test:changed` | Run, on one worker, only the desktop and mobile test files that import a file changed since `origin/main`, including staged, unstaged and untracked files. It stops with an error when `origin/main` is missing. A change to a vitest config, a setup file or `package.json` selects no test. See [docs/development-checks.md](docs/development-checks.md#focused-tests). |
 | `bun run test:related -- <source>...` | Run, on one worker, only the test files that import the named source files. |
@@ -386,7 +386,7 @@ See [web client delivery](docs/web-client.md) for the release gate and focused c
 | `bun run test:browser` | Run the complete local embedded-browser smoke test, including cross-process persistence. Use `--scenario=controls`, `--scenario=tool-boundary`, `--scenario=evaluation`, `--scenario=wait-deadlines`, or `--scenario=popups` for one isolated scenario. |
 | `bun run test:codex` | Probe the real CLI handshake and account without starting a paid turn. |
 | `bun run test:durations` | Re-record how long each desktop test file takes. CI splits its shards by this table, so run it when the two shards stop finishing together. |
-| `bun run cua-driver:doctor` | Print, as JSON, which `cua-driver` binary OpenOwnBot would use for Computer Use, and the driver's own `doctor` report. Read-only, and it starts no daemon. `OPENBOT_CUA_DRIVER_PATH` selects a different binary in a checkout; an installed application runs only the driver it was released with. |
+| `bun run cua-driver:doctor` | Print, as JSON, which `cua-driver` binary OpenOwnBot would use for Computer Use, and the driver's own `doctor` report. Read-only, and it starts no daemon. `OPENOWNBOT_CUA_DRIVER_PATH` selects a different binary in a checkout; an installed application runs only the driver it was released with. |
 | `bun run prepare:cua-driver` | Write the pinned Computer Use driver to `build/cua-driver/<platform>/<arch>`, verifying every SHA-256 in `native-runtime.lock.json`. Name another target with `bun scripts/install-cua-driver.ts <platform> <arch>`. Every packaging command runs this first. |
 | `bun run pin:cua-driver <version>` | Print a new `cuaDriver` block for `native-runtime.lock.json` from a published `cua-driver` release. Downloads the release assets of all five targets and hashes each shipped file. |
 | `bun run package` | Build an unpacked local application for the architecture of this Mac. |
@@ -396,7 +396,7 @@ See [web client delivery](docs/web-client.md) for the release gate and focused c
 | `bun run package:linux` | Build an unpacked local Linux x64 application on Linux. |
 | `bun run package:linux:arm64` | Build an unpacked local Linux arm64 application on arm64 Linux. |
 | `bun run package:linux:verify` | Build and verify the Linux x64 application on Linux. Run it under `xvfb-run -a` without a display. |
-| `bun scripts/create-github-app.ts [--org <org>]` | Create the OpenOwnBot GitHub App from `scripts/github-app/manifest.json` with the manifest flow. Prints the Client ID for `src/main/github-connector-config.ts` and writes the app secrets to `~/.config/openbot/github-app-<slug>.json` (mode 0600). Enable Device Flow in the app settings after the run. |
+| `bun scripts/create-github-app.ts [--org <org>]` | Create the OpenOwnBot GitHub App from `scripts/github-app/manifest.json` with the manifest flow. Prints the Client ID for `src/main/github-connector-config.ts` and writes the app secrets to `~/.config/openownbot/github-app-<slug>.json` (mode 0600). Enable Device Flow in the app settings after the run. |
 | `bun run release:preflight` | Verify version, Git state, and GitHub release secrets before tagging. |
 | `bun run dist:mac` | Build unsigned local DMG and ZIP update artifacts for this Mac. |
 | `bun run dist:win` | Build an unsigned Windows x64 NSIS installer on Windows. |
@@ -405,14 +405,14 @@ See [web client delivery](docs/web-client.md) for the release gate and focused c
 | `bun run release:patch` | Create the next patch version commit and tag. |
 | `bun run mobile:release:patch` | Move the iPhone app notes from `apps/mobile/changelog.d` into `apps/mobile/CHANGELOG.md` and set the next patch version in `app.json`. Also `mobile:release:minor` and `mobile:release:major`. |
 | `bun run mobile:release:published <ios\|android\|both>` | Write today's date for a store that made the mobile build available. `/changelog` shows each store, and a store that still reviews the build as "In review". Add `--version x.y.z` for a version that is not in `app.json`. |
-| `bun run test:acp-directories` | Run three fake ACP agents through the `acp` provider driver: new, load and resume requests carry the workspace roots as `additionalDirectories` only when the agent advertises them. Offline; writes `.openbot-build/acp-additional-directories-e2e/report.json`. |
-| `bun run test:custom-agents` | Run two fake ACP agents through the agent store, Check agent (with its model list) and the `acp` provider router: equal session ids, restart and resume, switch, and delete. Offline; writes `.openbot-build/custom-acp-agent-e2e/report.json`. |
-| `bun run test:mcp-tool-consent` | Run the real Codex app-server with a fake model, a real MCP server and the real attention registry: tool consent at Ask first and Full access, Always allow and a restart, refusals, and the requests that stay with the user (forms, sign-in, look-alikes). Needs a Codex CLI; offline; writes `.openbot-build/mcp-tool-consent-e2e/report.json`. |
-| `bun run test:ui-blocks` | Run the real attention registry and Team API codecs on `ask_ui` blocks: answers from the owner, an admin, a member and a released client, the member refusal for privileged actions, a secret form value that is never stored, skip and expiry, and the `ui-blocks-v1` wire on protocols 6 and 7. Offline; writes `.openbot-build/ui-blocks-e2e/report.json`. |
+| `bun run test:acp-directories` | Run three fake ACP agents through the `acp` provider driver: new, load and resume requests carry the workspace roots as `additionalDirectories` only when the agent advertises them. Offline; writes `.openownbot-build/acp-additional-directories-e2e/report.json`. |
+| `bun run test:custom-agents` | Run two fake ACP agents through the agent store, Check agent (with its model list) and the `acp` provider router: equal session ids, restart and resume, switch, and delete. Offline; writes `.openownbot-build/custom-acp-agent-e2e/report.json`. |
+| `bun run test:mcp-tool-consent` | Run the real Codex app-server with a fake model, a real MCP server and the real attention registry: tool consent at Ask first and Full access, Always allow and a restart, refusals, and the requests that stay with the user (forms, sign-in, look-alikes). Needs a Codex CLI; offline; writes `.openownbot-build/mcp-tool-consent-e2e/report.json`. |
+| `bun run test:ui-blocks` | Run the real attention registry and Team API codecs on `ask_ui` blocks: answers from the owner, an admin, a member and a released client, the member refusal for privileged actions, a secret form value that is never stored, skip and expiry, and the `ui-blocks-v1` wire on protocols 6 and 7. Offline; writes `.openownbot-build/ui-blocks-e2e/report.json`. |
 | `bun run test:filesystem` | **Online/manual:** run real full-access Codex and Claude filesystem turns across private and shared workspaces. |
 | `bun run test:imagegen` | **Online/manual:** run a real full-access image-generation turn. |
-| `bun run test:workspace-only` | **Online/manual:** run real Workspace only Codex, Claude, Grok and OpenCode turns that try to write outside; writes a JSON report per provider to `.openbot-build/workspace-only-smoke/`. Add `--provider <id>` for one, and `--model <id>` to choose its model. |
-| `bun run test:provider-detection` | Run local detection, Load models and endpoint Edit against fake OpenAI-compatible servers on this computer: no key in a scan, no redirect, the stored key only to its own origin. Offline; writes `.openbot-build/provider-detection-e2e/report.json`. |
+| `bun run test:workspace-only` | **Online/manual:** run real Workspace only Codex, Claude, Grok and OpenCode turns that try to write outside; writes a JSON report per provider to `.openownbot-build/workspace-only-smoke/`. Add `--provider <id>` for one, and `--model <id>` to choose its model. |
+| `bun run test:provider-detection` | Run local detection, Load models and endpoint Edit against fake OpenAI-compatible servers on this computer: no key in a scan, no redirect, the stored key only to its own origin. Offline; writes `.openownbot-build/provider-detection-e2e/report.json`. |
 | `bun run test:storage-live` | **Online/manual:** verify isolated Codex and Claude turns in a temporary SQLite database. |
 
 Publishing never creates a second OpenOwnBot instance. The host keeps its Team API on loopback. A hidden,
@@ -431,7 +431,7 @@ Production mobile analytics setup and required OpenPanel credentials are documen
 `mobile:go:tunnel` exposes only the Expo development server. It does not expose the local account
 API, Signal, or TURN. A phone on 5G cannot use the default LAN addresses. For a test across networks,
 use a VPN that connects both devices, or provide HTTPS and WSS endpoints that forward to this dev
-stack's account API and Signal ports. Set `OPENBOT_MOBILE_AUTH_API_URL` to the reachable account API
+stack's account API and Signal ports. Set `OPENOWNBOT_MOBILE_AUTH_API_URL` to the reachable account API
 origin and `REMOTE_SIGNAL_URL` to the reachable Signal URL, including `/v1/signal`, before starting
 `bun run dev`. Use the ports reported by `bun run dev:status`; they can differ between worktrees.
 If direct WebRTC cannot connect, `TURN_HOST` must name a reachable coturn service and
@@ -444,16 +444,16 @@ only the credential in secure storage for revocation retries at startup, on retu
 and on the next connection attempt. Remote revocation completes when the account API is reachable.
 
 For manual team testing, `bun run dev:test-client` starts a complete two-client harness. The second
-client uses the `OpenBot Dev Test Client wt-<hash>` profile of this worktree (`OpenBot Dev Test Client`
+client uses the `OpenOwnBot Dev Test Client wt-<hash>` profile of this worktree (`OpenOwnBot Dev Test Client`
 with `--shared`) and renderer port 5174. `dev:reset` removes the shared one and the legacy
-`OpenBot Dev Host` profile. It does not remove the downloaded
+`OpenOwnBot Dev Host` profile. It does not remove the downloaded
 provider CLIs, which the whole computer shares. Press `Ctrl+C` in the runner terminal
 to stop only the processes started by that runner, or run `bun run dev:stop` from the worktree once
 that terminal is gone. Never stop a dev stack with `pkill -f electron` or `pkill -f bun`: on a
 machine running several worktrees those kill the other checkouts' work mid-write, which is what
 `dev:status` and `dev:stop` exist to make unnecessary.
 
-Set `OPENBOT_DEV_ICE_TRANSPORT_POLICY=relay` before this command to force Team API traffic through
+Set `OPENOWNBOT_DEV_ICE_TRANSPORT_POLICY=relay` before this command to force Team API traffic through
 coturn. This test option works only with the development renderer. Production always starts with `all`.
 
 The normal `check` command is offline and uses a fake App Server. Manual smoke scripts may use the
@@ -510,7 +510,7 @@ Cloudflare Workers
 
 - `src/main` owns the Electron lifecycle, window security, local protocol, and IPC registration.
 - `src/backend` owns provider adapters, persistence, message scheduling, transfers, and the browser host.
-- `src/preload` exposes only the typed `window.openbot` API.
+- `src/preload` exposes only the typed `window.openownbot` API.
 - `src/renderer` contains the SolidJS interface.
 - `apps/auth-api` contains the TanStack Start account API, one-time email codes, rate limits, and D1 migrations. It also serves the public site: the landing page, `/news`, `/guides`, and the plugin pages at `/plugins` and `/plugins/<slug>`.
 - `apps/status` contains the public status page at `status.openbot.run`, the script that the `status-page` workflow runs to check the services, and the script that sends the [status webhooks](docs/status-webhooks.md) of the team. GitHub hosts it, so it stays up when Cloudflare does not.
@@ -534,7 +534,7 @@ MP4 video uses the same limits and rules as MOV. Remote hosts must also advertis
 
 ZIP archives use the same limits. OpenOwnBot does not extract or inspect an archive: the agent gets the
 original file and extracts it with its own tools. An agent sends a ZIP archive back with
-`openbot.attach_files_to_response`, and the user downloads it from the chat. Open shows a ZIP
+`openownbot.attach_files_to_response`, and the user downloads it from the chat. Open shows a ZIP
 archive in the file manager instead of opening it. Remote hosts must advertise the `zip-attachments`
 capability.
 
@@ -561,7 +561,7 @@ capability.
 - `~/.gemini` (or `$GEMINI_HOME`) — login and session history managed exclusively by the
   Antigravity ACP server that Gemini uses.
 - `~/.cursor` — login and session history managed exclusively by the Cursor CLI. A confined Cursor
-  process keeps its settings in `~/.cursor/openbot-confined`, so it never changes yours.
+  process keeps its settings in `~/.cursor/openownbot-confined`, so it never changes yours.
 - `~/.cline` (or `$CLINE_DIR`) — login and session history managed exclusively by the Cline CLI.
 
 Deleting an agent removes its workspace, owned generated attachments, and deliveries addressed only
@@ -578,7 +578,7 @@ without a custom native development build. The account flow connects to
 the configured HTTPS Cloudflare API. The client stores only an encrypted OpenOwnBot session token. One-time codes expire after
 10 minutes and are stored only as hashes. A daily maintenance task removes expired or consumed
 authentication records from D1. The embedded browser uses a separate sandboxed Electron session and
-cannot access `window.openbot` or managed local attachments.
+cannot access `window.openownbot` or managed local attachments.
 
 To run your own account service, Signal and TURN, see [Self-hosted remote access](docs/self-hosting.md).
 
@@ -601,7 +601,7 @@ Releases are tag-driven. `bun run release:patch`, `release:minor`, or `release:m
 version and changelog. After review, commit, preflight, and tag the release; pushing the tag builds a
 signed and notarized macOS ARM64 and x64 release, a signed Windows x64 release, and unsigned Linux x64
 and arm64 AppImages in GitHub Actions. After the release is published, the workflow pushes the Docker
-image to `ghcr.io/nightly-labs/openbot`.
+image to `ghcr.io/zereight/openownbot`.
 Installed builds check GitHub Releases for updates and expose download/restart controls in the account
 popover. Release signing secrets and the complete procedure are documented in
 [docs/RELEASING.md](docs/RELEASING.md).
@@ -614,7 +614,7 @@ original project's and does not apply to this fork. Community behavior is govern
 
 ## Network use
 
-No requests go to OpenBot's own servers (`openbot.run` and others), and telemetry and automatic update
+No requests go to OpenOwnBot's own servers (`openbot.run` and others), and telemetry and automatic update
 checks are off. The network is used only for:
 
 - the model providers you connect,
@@ -627,14 +627,14 @@ that site sees the request. And the provider programs that OpenOwnBot starts (su
 Code) make their own network connections, which OpenOwnBot does not control.
 
 How this is kept: `packages/contracts/src/local-only.json` has `"localOnly": true`. The app then refuses
-every request to an OpenBot service (`src/main/local-only-guard.ts`), the telemetry and update code stays
+every request to an OpenOwnBot service (`src/main/local-only-guard.ts`), the telemetry and update code stays
 off, and `bun run check:local-only` stops a change that names such a service. The plugin marketplace and
 chat links do not ask other sites for icons while the switch is on. A measured list of the connections
 an idle app makes is planned and not written yet.
 
 ## License and attribution
 
-OpenOwnBot is a fork of OpenBot. The changes in this fork are Copyright 2026 zereight. The original
+OpenOwnBot is a fork of OpenOwnBot. The changes in this fork are Copyright 2026 zereight. The original
 code is Copyright 2026 Synthetify Labs spółka z ograniczoną odpowiedzialnością, and its license does
 not allow anyone to license it again under other terms, so the whole fork stays under the same
 license. Both copyright notices stay in [LICENSE](LICENSE) and [NOTICE](NOTICE). The paragraphs below
@@ -657,9 +657,9 @@ respective products and services.
 ### Shared macOS hosts
 
 For one native Standard user per tenant, install the normal OpenOwnBot DMG and the optional
-`OpenBot-Host-<VERSION>-arm64.pkg` from the same release. The Host package provides
-`sudo openbot-host setup --create-user client-acme --create-user client-bravo` and
-`sudo openbot-host verify`. `sudo openbot-host status [--json]` and `sudo openbot-host watch`
+`OpenOwnBot-Host-<VERSION>-arm64.pkg` from the same release. The Host package provides
+`sudo openownbot-host setup --create-user client-acme --create-user client-bravo` and
+`sudo openownbot-host verify`. `sudo openownbot-host status [--json]` and `sudo openownbot-host watch`
 show the update phase, the staged version, and each tenant's work state. No Git checkout, Bun,
 or compilation is required on the host.
 Normal desktop users need only the DMG. See the [host deployment guide](docs/multi-tenant-hosting.md)

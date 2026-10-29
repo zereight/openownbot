@@ -1,4 +1,4 @@
-import { type DraftAttachment, filePreviewKindForFile } from "@openbot/contracts/ipc";
+import { type DraftAttachment, filePreviewKindForFile } from "@openownbot/contracts/ipc";
 import type { DesktopAnalyticsProperties } from "../../analytics";
 
 type AttachmentKind = NonNullable<DesktopAnalyticsProperties<"message_send">["attachment_kinds"]>[number];

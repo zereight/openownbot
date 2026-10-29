@@ -1,4 +1,4 @@
-// Stops a change that adds a call to a service that OpenBot operates, before it is committed or
+// Stops a change that adds a call to a service that OpenOwnBot operates, before it is committed or
 // merged. The runtime guard refuses such a call anyway; this check keeps it from reaching the
 // guard unseen, and names each place that was reviewed.
 //
@@ -14,10 +14,10 @@
 // each line that is not a comment. A file is parsed only when it has a marker.
 //
 // Rules:
-//   mention       A unit that names an OpenBot service needs an allowlist entry for that exact path.
+//   mention       A unit that names an OpenOwnBot service needs an allowlist entry for that exact path.
 //   bypass        A way out that skips the guarded fetch and WebSocket needs an entry.
 //   dynamic-dial  `new WebSocket(x)` with an `x` that is not a plain string needs an entry, unless the
-//                 file asks `refusesOpenBotUrl(` first.
+//                 file asks `refusesOpenOwnBotUrl(` first.
 //   stale         An entry that matches nothing fails, so a deleted URL cannot return under it.
 //   gate          A config file that names a service needs the code that keeps it off (CONFIG_GATES).
 //
@@ -28,7 +28,7 @@
 import { execFileSync } from "node:child_process";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
-import { mentionsOpenBotService } from "@openbot/contracts/local-only";
+import { mentionsOpenOwnBotService } from "@openownbot/contracts/local-only";
 import ts from "@typescript/typescript6";
 import {
   type AllowEntry,
@@ -255,11 +255,11 @@ function jsonFacts(text: string): Facts {
 function factsOf(file: SourceFile): Facts {
   const extension = extensionOf(file.path);
   if (CODE_EXTENSIONS.has(extension)) {
-    return mentionsOpenBotService(file.text) || BYPASS_HINT.test(file.text)
+    return mentionsOpenOwnBotService(file.text) || BYPASS_HINT.test(file.text)
       ? codeFacts(file)
       : { units: [], bypasses: [], dials: [] };
   }
-  if (!mentionsOpenBotService(file.text)) return { units: [], bypasses: [], dials: [] };
+  if (!mentionsOpenOwnBotService(file.text)) return { units: [], bypasses: [], dials: [] };
   return extension === ".json" ? jsonFacts(file.text) : lineFacts(file.text);
 }
 
@@ -289,14 +289,14 @@ function matches(entry: AllowEntry, path: string, text: string): boolean {
 function gateProblem(gate: ConfigGate, files: readonly SourceFile[], line: number): Finding | null {
   const source = files.find((file) => file.path === gate.gateFile);
   if (source === undefined) {
-    return { path: gate.path, line, message: `names an OpenBot service, and ${gate.gateFile} is not in the scan.` };
+    return { path: gate.path, line, message: `names an OpenOwnBot service, and ${gate.gateFile} is not in the scan.` };
   }
   return gate.holds(source.text)
     ? null
     : {
         path: gate.path,
         line,
-        message: `names an OpenBot service, and ${gate.gateFile} no longer keeps it off: ${gate.requirement}.`,
+        message: `names an OpenOwnBot service, and ${gate.gateFile} no longer keeps it off: ${gate.requirement}.`,
       };
 }
 
@@ -312,7 +312,7 @@ export function checkFiles(
 
   for (const file of files.filter((candidate) => isScanned(candidate.path))) {
     const facts = factsOf(file);
-    for (const unit of facts.units.filter((candidate) => mentionsOpenBotService(candidate.text))) {
+    for (const unit of facts.units.filter((candidate) => mentionsOpenOwnBotService(candidate.text))) {
       const entry = allowlist.find((candidate) => matches(candidate, file.path, unit.text));
       if (entry) {
         used.add(entry);
@@ -322,7 +322,7 @@ export function checkFiles(
         findings.push({
           path: file.path,
           line: unit.line,
-          message: `${quote(unit.text)} names an OpenBot service and is not on the allowlist.`,
+          message: `${quote(unit.text)} names an OpenOwnBot service and is not on the allowlist.`,
         });
       }
     }
@@ -339,7 +339,7 @@ export function checkFiles(
           message: `${BYPASS_TEXT[use.primitive]}, and is not on the allowlist.`,
         });
     }
-    if (facts.dials.length > 0 && !file.text.includes("refusesOpenBotUrl(")) {
+    if (facts.dials.length > 0 && !file.text.includes("refusesOpenOwnBotUrl(")) {
       const entry = allowlist.find((candidate) => candidate.rule === "dynamic-dial" && candidate.path === file.path);
       if (entry) used.add(entry);
       else {
@@ -348,7 +348,7 @@ export function checkFiles(
             path: file.path,
             line,
             message:
-              "dials a WebSocket with a URL that is not a plain string: ask refusesOpenBotUrl() first, or add a dynamic-dial entry.",
+              "dials a WebSocket with a URL that is not a plain string: ask refusesOpenOwnBotUrl() first, or add a dynamic-dial entry.",
           });
         }
       }

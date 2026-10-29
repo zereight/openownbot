@@ -1,7 +1,7 @@
 // The user's own model endpoints: what is on disk, and every write that changes it.
 //
 // An endpoint carries an API key, and often a header that is a credential as well, so this file is
-// the only place either exists outside the OpenCode process OpenBot spawns. The renderer is given
+// the only place either exists outside the OpenCode process OpenOwnBot spawns. The renderer is given
 // `list()`, which cannot carry a secret; the backend is given `configs()`, which is what a spawn
 // needs. Nothing else reads the file.
 //
@@ -14,9 +14,9 @@ import type {
   CustomProviderSummary,
   SaveCustomProviderInput,
   UpdateCustomProviderInput,
-} from "@openbot/contracts/ipc";
-import { sameCustomProviderOrigin } from "@openbot/contracts/ipc";
-import { sourceText } from "@openbot/i18n/source";
+} from "@openownbot/contracts/ipc";
+import { sameCustomProviderOrigin } from "@openownbot/contracts/ipc";
+import { sourceText } from "@openownbot/i18n/source";
 import { Effect, Schema, Semaphore } from "effect";
 import { z } from "zod";
 import { writeFileAtomically } from "../backend/atomic-json-file";

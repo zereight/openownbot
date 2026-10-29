@@ -3,16 +3,16 @@ import {
   type HostedServerState,
   parseHostedServerStatus,
   parseHostedServerSummary,
-} from "@openbot/contracts/hosted-servers";
-import type { HostedServerStartStep } from "@openbot/contracts/ipc";
-import { isDynamicRecord } from "@openbot/contracts/runtime-values";
+} from "@openownbot/contracts/hosted-servers";
+import type { HostedServerStartStep } from "@openownbot/contracts/ipc";
+import { isDynamicRecord } from "@openownbot/contracts/runtime-values";
 import { Deferred, Effect, Schema } from "effect";
 
 class HostedServerWakeError extends Schema.TaggedError<HostedServerWakeError>()("HostedServerWakeError", {}) {}
 
 /**
  * A hosted server in one of these states comes online without a user action, so the client reconnects.
- * A `running` server whose host is offline is still starting OpenBot, or it restarts. A wake reply is
+ * A `running` server whose host is offline is still starting OpenOwnBot, or it restarts. A wake reply is
  * `stopping` only for a server that must run (a restart, a resize, or a provider stop): the account
  * server starts it again after the stop.
  */
@@ -25,7 +25,7 @@ export const WAKE_RECONNECT_STATES: ReadonlySet<HostedServerState> = new Set([
 ]);
 /**
  * How long a client waits for the host of a `running` server to connect. The account server sees only the
- * machine, not OpenBot on it, and the host retries its own sign-in for longer than 5 minutes
+ * machine, not OpenOwnBot on it, and the host retries its own sign-in for longer than 5 minutes
  * (`src/main/hosted-server-start-retry.ts`). A machine that still starts has no limit.
  */
 export const HOSTED_HOST_READY_LIMIT_MS = 15 * 60_000;
@@ -51,7 +51,7 @@ export function hostedStartStep(server: {
 }): HostedServerStartStep | null {
   if (server.state === "stopped") return server.error === null ? "machine" : null;
   if (!WAKE_RECONNECT_STATES.has(server.state) || server.error === "plan_ended") return null;
-  if (server.state === "running") return "openbot";
+  if (server.state === "running") return "openownbot";
   return server.state === "waking" && server.error === "provider_limit" ? "provider_limit" : "machine";
 }
 /** The delay between a wake reply and the next connection attempt. */

@@ -1,13 +1,13 @@
 // Run: bun scripts/routine-dst-order-e2e.ts
-// Report: .openbot-build/routine-dst-order-e2e.json
+// Report: .openownbot-build/routine-dst-order-e2e.json
 
 import { mkdir, mkdtemp, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { dirname, join, resolve } from "node:path";
-import type { RoutineSchedule } from "@openbot/contracts/ipc";
+import type { RoutineSchedule } from "@openownbot/contracts/ipc";
 import { Effect } from "effect";
 import { AgentRoutineStore } from "../src/backend/agent-routine-store";
-import { OpenBotDatabase } from "../src/backend/openbot-database";
+import { OpenOwnBotDatabase } from "../src/backend/openownbot-database";
 
 interface ScheduleCase {
   name: string;
@@ -162,9 +162,9 @@ const cases: ScheduleCase[] = [
   },
 ];
 
-const artifactDirectory = resolve(dirname(import.meta.filename), "../.openbot-build");
-const temporaryDirectory = await mkdtemp(join(tmpdir(), "openbot-routine-dst-order-"));
-const database = new OpenBotDatabase(temporaryDirectory);
+const artifactDirectory = resolve(dirname(import.meta.filename), "../.openownbot-build");
+const temporaryDirectory = await mkdtemp(join(tmpdir(), "openownbot-routine-dst-order-"));
+const database = new OpenOwnBotDatabase(temporaryDirectory);
 const results: {
   name: string;
   timezone: string;

@@ -1,14 +1,14 @@
 import setting from "./local-only.json";
 
 /**
- * On in this fork: no request goes to a service that OpenBot operates. Set `localOnly` in
+ * On in this fork: no request goes to a service that OpenOwnBot operates. Set `localOnly` in
  * `local-only.json` to false and rebuild to get the upstream behaviour back. The JSON import types
  * it as `boolean`, so `!LOCAL_ONLY && x` is not a constant condition.
  */
 export const LOCAL_ONLY: boolean = setting.localOnly;
 
-/** How OpenBot reaches the app. Private: callers ask the functions below and never iterate. */
-type OpenBotService =
+/** How OpenOwnBot reaches the app. Private: callers ask the functions below and never iterate. */
+type OpenOwnBotService =
   /** The domain and every subdomain. */
   | { readonly kind: "domain"; readonly domain: string }
   /** A namespace on a GitHub host: releases, raw files, the API, packages and Pages. */
@@ -16,7 +16,7 @@ type OpenBotService =
   /** One path prefix on a host that other projects share. */
   | { readonly kind: "path"; readonly host: string; readonly prefix: `/${string}` };
 
-const OPENBOT_SERVICES: readonly OpenBotService[] = [
+const OPENOWNBOT_SERVICES: readonly OpenOwnBotService[] = [
   { kind: "domain", domain: "openbot.run" },
   { kind: "domain", domain: "openbot.site" },
   { kind: "github-owner", owner: "nightly-labs" },
@@ -54,7 +54,7 @@ function githubNamespace(url: URL, host: string): string | null {
 }
 
 /** The view that decides a request: does `url` belong to `service`? */
-function matchesUrl(service: OpenBotService, url: URL): boolean {
+function matchesUrl(service: OpenOwnBotService, url: URL): boolean {
   const host = hostnameOf(url);
   switch (service.kind) {
     case "domain":
@@ -75,7 +75,7 @@ function escapeRegExp(text: string): string {
 }
 
 /** The view that decides a source line: does a text name `service`? Boundaries keep `notopenbot.run` out. */
-function mentionPattern(service: OpenBotService): string {
+function mentionPattern(service: OpenOwnBotService): string {
   switch (service.kind) {
     case "domain":
       return `(?<![a-z0-9-])(?:[a-z0-9-]+\\.)*${escapeRegExp(service.domain)}(?![a-z0-9-]|\\.[a-z0-9])`;
@@ -88,7 +88,7 @@ function mentionPattern(service: OpenBotService): string {
   }
 }
 
-const MENTION = new RegExp(OPENBOT_SERVICES.map(mentionPattern).join("|"), "i");
+const MENTION = new RegExp(OPENOWNBOT_SERVICES.map(mentionPattern).join("|"), "i");
 
 function parseUrl(url: string | URL): URL | null {
   if (url instanceof URL) return url;
@@ -103,17 +103,17 @@ function parseUrl(url: string | URL): URL | null {
 function refusedOrigin(url: string | URL): string | null {
   if (!LOCAL_ONLY) return null;
   const parsed = parseUrl(url);
-  if (parsed === null || !OPENBOT_SERVICES.some((service) => matchesUrl(service, parsed))) return null;
+  if (parsed === null || !OPENOWNBOT_SERVICES.some((service) => matchesUrl(service, parsed))) return null;
   return `${parsed.protocol}//${hostnameOf(parsed)}`;
 }
 
-/** True when LOCAL_ONLY is on and `url` belongs to an OpenBot service. An unparsable URL is not refused. */
-export function refusesOpenBotUrl(url: string | URL): boolean {
+/** True when LOCAL_ONLY is on and `url` belongs to an OpenOwnBot service. An unparsable URL is not refused. */
+export function refusesOpenOwnBotUrl(url: string | URL): boolean {
   return refusedOrigin(url) !== null;
 }
 
-/** For scripts/check-local-only.ts: whether `text` names an OpenBot service. It ignores LOCAL_ONLY. */
-export function mentionsOpenBotService(text: string): boolean {
+/** For scripts/check-local-only.ts: whether `text` names an OpenOwnBot service. It ignores LOCAL_ONLY. */
+export function mentionsOpenOwnBotService(text: string): boolean {
   return MENTION.test(text);
 }
 
@@ -128,7 +128,7 @@ export interface GuardableScope {
 const guardedScopes = new WeakSet<GuardableScope>();
 
 function refusal(origin: string): TypeError {
-  return new TypeError(`fetch failed: ${origin} is an OpenBot service and local-only mode is on`);
+  return new TypeError(`fetch failed: ${origin} is an OpenOwnBot service and local-only mode is on`);
 }
 
 /**
@@ -137,7 +137,7 @@ function refusal(origin: string): TypeError {
  * `onRefused` with the origin only. Does nothing while LOCAL_ONLY is off, and a second call for the
  * same scope changes nothing.
  */
-export function guardOpenBotEgress(scope: GuardableScope, onRefused?: (origin: string) => void): void {
+export function guardOpenOwnBotEgress(scope: GuardableScope, onRefused?: (origin: string) => void): void {
   if (!LOCAL_ONLY || guardedScopes.has(scope)) return;
   guardedScopes.add(scope);
 

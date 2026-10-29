@@ -1,6 +1,6 @@
 import { randomUUID } from "node:crypto";
-import { CHAT_VISUAL_PAGE_LIMIT, isChatVisualMimeType } from "@openbot/contracts/chat-visual";
-import { isFilePreviewPageUrl } from "@openbot/contracts/ipc";
+import { CHAT_VISUAL_PAGE_LIMIT, isChatVisualMimeType } from "@openownbot/contracts/chat-visual";
+import { isFilePreviewPageUrl } from "@openownbot/contracts/ipc";
 import { chatVisualResponse } from "./chat-visual-protocol";
 
 const FILE_PREVIEW_PAGE_CAPACITY = 8;
@@ -35,7 +35,7 @@ export class FilePreviewPages {
       this.#pages.size >= this.capacity
     )
       return undefined;
-    const address = `openbot-visual://preview/${randomUUID()}`;
+    const address = `openownbot-visual://preview/${randomUUID()}`;
     this.#pages.set(address, bytes.slice());
     return address;
   }

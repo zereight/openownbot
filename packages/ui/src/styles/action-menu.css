@@ -1,17 +1,17 @@
 /* The menu panel sits on the same color as the sidebar and the conversation panel. A light edge, a
  * top highlight and a deep shadow lift it from them. */
 :root {
-  --ui-menu-radius: var(--openbot-radius-card);
-  --ui-menu-padding: var(--openbot-space-1-5);
-  --ui-menu-item-radius: calc(var(--ui-menu-radius) - var(--ui-menu-padding) + var(--openbot-space-0-5));
-  --ui-menu-inset: calc(var(--openbot-space-2) + var(--openbot-space-0-5));
-  --ui-menu-bg: var(--openbot-bg-sheet);
-  --ui-menu-edge: color-mix(in srgb, var(--openbot-text-primary) 11%, transparent);
-  --ui-menu-highlight: color-mix(in srgb, var(--openbot-text-primary) 5%, transparent);
-  --ui-menu-shadow: var(--openbot-shadow-menu);
-  --ui-menu-item-hover: color-mix(in srgb, var(--openbot-text-primary) 6%, transparent);
+  --ui-menu-radius: var(--openownbot-radius-card);
+  --ui-menu-padding: var(--openownbot-space-1-5);
+  --ui-menu-item-radius: calc(var(--ui-menu-radius) - var(--ui-menu-padding) + var(--openownbot-space-0-5));
+  --ui-menu-inset: calc(var(--openownbot-space-2) + var(--openownbot-space-0-5));
+  --ui-menu-bg: var(--openownbot-bg-sheet);
+  --ui-menu-edge: color-mix(in srgb, var(--openownbot-text-primary) 11%, transparent);
+  --ui-menu-highlight: color-mix(in srgb, var(--openownbot-text-primary) 5%, transparent);
+  --ui-menu-shadow: var(--openownbot-shadow-menu);
+  --ui-menu-item-hover: color-mix(in srgb, var(--openownbot-text-primary) 6%, transparent);
   /* The highlighted row as one opaque color, for the parts of an icon that are cut out of its fill. */
-  --ui-menu-row-highlight: color-mix(in srgb, var(--openbot-text-primary) 6%, var(--ui-menu-bg));
+  --ui-menu-row-highlight: color-mix(in srgb, var(--openownbot-text-primary) 6%, var(--ui-menu-bg));
   --ui-menu-panel-shadow:
     inset 0 1px 0 var(--ui-menu-highlight), 0 0 0 1px var(--ui-menu-edge), 0 4px 6px -1px var(--ui-menu-shadow),
     0 2px 4px -2px var(--ui-menu-shadow);
@@ -19,27 +19,27 @@
   --ui-menu-duration: 150ms;
   /* A submenu opens and closes slower than the root menu, on a softer curve. */
   --ui-submenu-ease: cubic-bezier(0.32, 0.72, 0, 1);
-  --ui-submenu-duration: var(--openbot-duration-slow);
+  --ui-submenu-duration: var(--openownbot-duration-slow);
 }
 
 .ui-popover-menu-surface {
   border: 0;
-  border-radius: var(--openbot-radius-md);
+  border-radius: var(--openownbot-radius-md);
   outline: 0;
-  background: var(--openbot-bg-control);
+  background: var(--openownbot-bg-control);
   box-shadow:
-    0 0 0 1px var(--openbot-border),
-    0 4px 6px -1px var(--openbot-shadow-popover-ambient),
-    0 2px 4px -2px var(--openbot-shadow-popover-ambient);
-  color: var(--openbot-text-primary);
+    0 0 0 1px var(--openownbot-border),
+    0 4px 6px -1px var(--openownbot-shadow-popover-ambient),
+    0 2px 4px -2px var(--openownbot-shadow-popover-ambient);
+  color: var(--openownbot-text-primary);
 }
 
 .ui-action-menu {
   position: relative;
-  z-index: var(--openbot-layer-popover);
+  z-index: var(--openownbot-layer-popover);
   width: max-content;
   min-width: 192px;
-  max-width: min(288px, calc(100vw - var(--openbot-space-4)));
+  max-width: min(288px, calc(100vw - var(--openownbot-space-4)));
   overflow: hidden;
   border: 0;
   border-radius: var(--ui-menu-radius);
@@ -47,7 +47,7 @@
   background: var(--ui-menu-bg);
   box-shadow: var(--ui-menu-panel-shadow);
   padding: var(--ui-menu-padding);
-  color: var(--openbot-text-primary);
+  color: var(--openownbot-text-primary);
   transform-origin: var(--kb-menu-content-transform-origin, var(--kb-popover-content-transform-origin));
   animation: ui-menu-in var(--ui-menu-duration) var(--ui-menu-ease) both;
 }
@@ -68,25 +68,25 @@
   :is([role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"]) {
   display: flex;
   width: 100%;
-  height: var(--openbot-control-md);
-  min-height: var(--openbot-control-md);
+  height: var(--openownbot-control-md);
+  min-height: var(--openownbot-control-md);
   align-items: center;
   justify-content: flex-start;
-  gap: var(--openbot-space-2);
+  gap: var(--openownbot-space-2);
   border: 0;
   border-radius: var(--ui-menu-item-radius);
   outline: 0;
   background: transparent;
-  padding: var(--openbot-space-1-5) var(--ui-menu-inset);
-  color: var(--openbot-text-primary);
-  font-size: var(--openbot-text-lg);
-  font-weight: var(--openbot-weight-regular);
-  line-height: var(--openbot-leading-lg);
+  padding: var(--openownbot-space-1-5) var(--ui-menu-inset);
+  color: var(--openownbot-text-primary);
+  font-size: var(--openownbot-text-lg);
+  font-weight: var(--openownbot-weight-regular);
+  line-height: var(--openownbot-leading-lg);
   text-align: left;
   white-space: nowrap;
   transition:
-    background-color var(--openbot-duration-hover) var(--openbot-ease-out),
-    color var(--openbot-duration-hover) var(--openbot-ease-out);
+    background-color var(--openownbot-duration-hover) var(--openownbot-ease-out),
+    color var(--openownbot-duration-hover) var(--openownbot-ease-out);
 }
 
 /* A long translated label ends with an ellipsis instead of a hard cut. */
@@ -106,12 +106,12 @@
     [aria-expanded="true"]
   ) {
   background: var(--ui-menu-item-hover);
-  color: var(--openbot-text-primary);
+  color: var(--openownbot-text-primary);
 }
 
 .ui-action-menu:not([data-menu-layout="grid"])
   :is([role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"])[data-disabled] {
-  color: var(--openbot-text-muted);
+  color: var(--openownbot-text-muted);
   cursor: default;
   opacity: 0.45;
 }
@@ -119,8 +119,8 @@
 .ui-action-menu:not([data-menu-layout="grid"])
   :is([role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"])
   > svg {
-  width: var(--openbot-icon-md);
-  height: var(--openbot-icon-md);
+  width: var(--openownbot-icon-md);
+  height: var(--openownbot-icon-md);
   flex: 0 0 auto;
   /* fill and stroke belong here beside the colour and the weight: this rule owns how a
    * menu icon paints. Lucide sets both as attributes, so every menu built out of the
@@ -128,7 +128,7 @@
    * the SVG defaults instead, painting itself as an opaque filled shape with no outline. */
   fill: none;
   stroke: currentColor;
-  color: var(--openbot-text-secondary);
+  color: var(--openownbot-text-secondary);
   stroke-linecap: round;
   stroke-linejoin: round;
 }
@@ -140,7 +140,7 @@
 .ui-action-menu:not([data-menu-layout="grid"])
   :is([role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"])
   > svg:not(.ui-glyph-20, .ui-glyph-16) {
-  stroke-width: var(--openbot-icon-stroke);
+  stroke-width: var(--openownbot-icon-stroke);
 }
 
 /* The separator runs to both edges of the panel. */
@@ -149,7 +149,7 @@
   height: 1px;
   margin: var(--ui-menu-padding) calc(var(--ui-menu-padding) * -1);
   border: 0;
-  background: var(--openbot-border);
+  background: var(--openownbot-border);
 }
 
 .ui-action-menu:not([data-menu-layout="grid"])
@@ -157,7 +157,7 @@
 .ui-action-menu:not([data-menu-layout="grid"])
   :is([role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"]).ui-action-menu-danger
   > svg {
-  color: var(--openbot-danger);
+  color: var(--openownbot-danger);
 }
 
 .ui-action-menu:not([data-menu-layout="grid"])
@@ -166,27 +166,27 @@
     :focus-visible,
     [data-highlighted]
   ) {
-  background: var(--openbot-danger-soft);
-  color: var(--openbot-danger);
+  background: var(--openownbot-danger-soft);
+  color: var(--openownbot-danger);
 }
 
 /* A heading inside a menu. Each item still names itself, so the heading is aria-hidden. */
 .ui-menu-label {
-  padding: var(--openbot-space-1-5) var(--ui-menu-inset);
-  color: var(--openbot-text-muted);
-  font-size: var(--openbot-text-sm);
-  line-height: var(--openbot-leading-sm);
+  padding: var(--openownbot-space-1-5) var(--ui-menu-inset);
+  color: var(--openownbot-text-muted);
+  font-size: var(--openownbot-text-sm);
+  line-height: var(--openownbot-leading-sm);
 }
 
 /* The check of a selected item: a filled circle on the left, an empty ring when not selected. */
 .ui-menu-check {
   display: grid;
-  width: var(--openbot-icon-md);
-  height: var(--openbot-icon-md);
+  width: var(--openownbot-icon-md);
+  height: var(--openownbot-icon-md);
   flex: 0 0 auto;
   place-items: center;
-  border: 1px solid color-mix(in srgb, var(--openbot-text-primary) 22%, transparent);
-  border-radius: var(--openbot-radius-pill);
+  border: 1px solid color-mix(in srgb, var(--openownbot-text-primary) 22%, transparent);
+  border-radius: var(--openownbot-radius-pill);
   transition:
     background-color var(--ui-menu-duration) ease-out,
     border-color var(--ui-menu-duration) ease-out;
@@ -194,15 +194,15 @@
 
 .ui-menu-check[data-checked] {
   border-color: transparent;
-  background: var(--openbot-text-primary);
+  background: var(--openownbot-text-primary);
 }
 
 .ui-action-menu:not([data-menu-layout="grid"])
   :is([role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"])
   > .ui-menu-check
   > svg {
-  width: var(--openbot-icon-sm);
-  height: var(--openbot-icon-sm);
+  width: var(--openownbot-icon-sm);
+  height: var(--openownbot-icon-sm);
   stroke: var(--ui-menu-bg);
   stroke-width: 2.5;
 }
@@ -210,21 +210,21 @@
 /* A value or a shortcut at the end of an item. */
 .ui-menu-trailing {
   margin-left: auto;
-  color: var(--openbot-text-muted);
-  font-size: var(--openbot-text-sm);
+  color: var(--openownbot-text-muted);
+  font-size: var(--openownbot-text-sm);
 }
 
 .ui-action-menu:not([data-menu-layout="grid"])
   :is([role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"])
   > svg.ui-menu-trailing {
-  color: var(--openbot-text-muted);
+  color: var(--openownbot-text-muted);
 }
 
 /* Item icons are muted outlines at rest. On the highlighted row they take the text color and fill in.
  * The swap has no transition. Only the closed shapes fill: open lines stay outlines, and details
  * take the row color, so they are cut out of the fill as in a solid icon set. */
 .ui-action-menu .agent-context-icon {
-  color: var(--openbot-text-muted);
+  color: var(--openownbot-text-muted);
 }
 
 .ui-action-menu .agent-context-icon > * {
@@ -241,7 +241,7 @@
 }
 
 .ui-action-menu :is(:hover, [data-highlighted], [aria-expanded="true"]) > .agent-context-icon {
-  color: var(--openbot-text-primary);
+  color: var(--openownbot-text-primary);
 }
 
 .ui-action-menu :is(:hover, [data-highlighted], [aria-expanded="true"]) > .agent-context-icon > * {
@@ -265,7 +265,7 @@
 }
 
 .ui-motion-tooltip {
-  z-index: var(--openbot-layer-tooltip);
+  z-index: var(--openownbot-layer-tooltip);
   transform-origin: var(--kb-tooltip-content-transform-origin);
   animation: ui-menu-in var(--ui-submenu-duration) var(--ui-submenu-ease) both;
 }
@@ -282,15 +282,15 @@
 /* A tooltip that is a label, such as the name of a rail button, on the surface of a menu panel. */
 .ui-motion-tooltip-label {
   overflow: hidden;
-  max-width: min(240px, calc(100vw - var(--openbot-space-4)));
-  border-radius: var(--openbot-radius-md);
+  max-width: min(240px, calc(100vw - var(--openownbot-space-4)));
+  border-radius: var(--openownbot-radius-md);
   background: var(--ui-menu-bg);
   box-shadow: var(--ui-menu-panel-shadow);
-  padding: var(--openbot-space-1-5) var(--openbot-space-2);
-  color: var(--openbot-text-primary);
-  font-size: var(--openbot-text-sm);
-  font-weight: var(--openbot-weight-medium);
-  line-height: var(--openbot-leading-sm);
+  padding: var(--openownbot-space-1-5) var(--openownbot-space-2);
+  color: var(--openownbot-text-primary);
+  font-size: var(--openownbot-text-sm);
+  font-weight: var(--openownbot-weight-medium);
+  line-height: var(--openownbot-leading-sm);
   overflow-wrap: anywhere;
   pointer-events: none;
 }

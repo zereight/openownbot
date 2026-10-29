@@ -1,11 +1,11 @@
-import { type AgentProviderId, agentProviderName } from "@openbot/contracts/agent-providers";
+import { type AgentProviderId, agentProviderName } from "@openownbot/contracts/agent-providers";
 import type {
   AgentImportPreviewAgent,
   InstanceTransferPreview,
   InstanceTransferResult,
   InstanceTransferSummary,
-} from "@openbot/contracts/ipc";
-import type { AppFormat, AppTranslate } from "@openbot/i18n";
+} from "@openownbot/contracts/ipc";
+import type { AppFormat, AppTranslate } from "@openownbot/i18n";
 import {
   ArrowRight,
   Bot,
@@ -25,7 +25,7 @@ import {
   SwitchField,
   TriangleAlert,
   Upload,
-} from "@openbot/ui";
+} from "@openownbot/ui";
 import type { JSX } from "@solidjs/web";
 import { createMemo, createSignal, createUniqueId, For, Show } from "solid-js";
 import { useText } from "../../text";
@@ -68,7 +68,7 @@ export interface InstanceTransferViewProps {
 }
 
 /**
- * Settings > Transfer: move this computer's agents and app settings to another OpenBot computer.
+ * Settings > Transfer: move this computer's agents and app settings to another OpenOwnBot computer.
  * The first screen asks which computer this is, so each direction is one focused screen.
  */
 export function InstanceTransferView(props: InstanceTransferViewProps) {

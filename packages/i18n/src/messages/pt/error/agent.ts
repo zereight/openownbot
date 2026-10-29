@@ -129,7 +129,7 @@ export const messages = {
   "error.agent.screenCaptureRegionOutside":
     "A região não está dentro de um único monitor. Use pontos da área de trabalho dentro dos limites de um monitor de list_capture_sources.",
   "error.agent.screenCapturePermissionMissing":
-    "O OpenBot não tem a permissão de Gravação de Tela. Peça ao usuário para abrir Ajustes do Sistema > Privacidade e Segurança > Gravação de Tela e Áudio do Sistema, ativar o OpenBot e depois sair e abrir o OpenBot de novo.",
+    "O OpenOwnBot não tem a permissão de Gravação de Tela. Peça ao usuário para abrir Ajustes do Sistema > Privacidade e Segurança > Gravação de Tela e Áudio do Sistema, ativar o OpenOwnBot e depois sair e abrir o OpenOwnBot de novo.",
   "error.agent.screenCaptureEmptyWindows":
     "O Windows retornou uma imagem vazia. Peça ao usuário para desbloquear o computador e fechar o conteúdo protegido. Uma política da organização também pode impedir a captura de tela.",
   "error.agent.screenCaptureFailed": "A captura de tela falhou. Tente de novo.",

@@ -1,8 +1,8 @@
-import { type AppLanguage, DEFAULT_APP_LANGUAGE, isAppLanguage } from "@openbot/contracts/app-language";
-import { loadLocale, resolveLocale } from "@openbot/i18n";
+import { type AppLanguage, DEFAULT_APP_LANGUAGE, isAppLanguage } from "@openownbot/contracts/app-language";
+import { loadLocale, resolveLocale } from "@openownbot/i18n";
 import { createSignal, onCleanup } from "solid-js";
 
-const STORAGE_KEY = "openbot.web.language";
+const STORAGE_KEY = "openownbot.web.language";
 
 type LanguageStorage = Pick<Storage, "getItem" | "setItem">;
 

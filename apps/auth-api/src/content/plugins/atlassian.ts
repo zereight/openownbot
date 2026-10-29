@@ -32,17 +32,17 @@ export const ATLASSIAN_PLUGIN_GUIDE: PluginGuide = {
     {
       question: "Does the Atlassian plugin need an API token?",
       answer:
-        "No. Each user signs in to their own Atlassian account through the browser and approves the access on a consent screen. OpenBot does the sign-in itself, keeps the tokens in encrypted storage, and adds the Authorization header. The plugin catalog holds no secret.",
+        "No. Each user signs in to their own Atlassian account through the browser and approves the access on a consent screen. OpenOwnBot does the sign-in itself, keeps the tokens in encrypted storage, and adds the Authorization header. The plugin catalog holds no secret.",
     },
     {
       question: "What can the agent see and change in Atlassian?",
       answer:
-        "The agent has the same permissions as your Atlassian account. It finds a tool with the discover tool, then runs it with executeRead, executeWrite or executeDestructive. Write tools change work items, pages, page permissions and public links, and merge pull requests. The tools that delete Jira data or manage Jira projects stay off until an organization admin turns them on. Atlassian gets the requests that the agent sends. Your workspaces, conversations and files stay on the computer that runs OpenBot.",
+        "The agent has the same permissions as your Atlassian account. It finds a tool with the discover tool, then runs it with executeRead, executeWrite or executeDestructive. Write tools change work items, pages, page permissions and public links, and merge pull requests. The tools that delete Jira data or manage Jira projects stay off until an organization admin turns them on. Atlassian gets the requests that the agent sends. Your workspaces, conversations and files stay on the computer that runs OpenOwnBot.",
     },
     {
       question: "What can an Atlassian admin control, and what does it cost?",
       answer:
-        "Organization admins control the server in Atlassian Administration. By default, Atlassian allows its supported domains, and the list includes localhost and 127.0.0.1, which OpenBot uses for sign-in. IP allowlists also apply to tool calls. Each tool call uses Rovo credits from the pool of the organization. Jira and Confluence Standard, Premium and Enterprise plans include a monthly credit allowance for each user.",
+        "Organization admins control the server in Atlassian Administration. By default, Atlassian allows its supported domains, and the list includes localhost and 127.0.0.1, which OpenOwnBot uses for sign-in. IP allowlists also apply to tool calls. Each tool call uses Rovo credits from the pool of the organization. Jira and Confluence Standard, Premium and Enterprise plans include a monthly credit allowance for each user.",
     },
   ],
   sources: [

@@ -1,20 +1,20 @@
-import { isKnownAgentProvider, providerDisplayName } from "@openbot/contracts/agent-providers";
+import { isKnownAgentProvider, providerDisplayName } from "@openownbot/contracts/agent-providers";
 import {
   type FileQuoteTarget,
   fileQuoteId,
   fileQuoteTarget,
   limitedQuoteText,
-} from "@openbot/contracts/chat-tag-references";
+} from "@openownbot/contracts/chat-tag-references";
 import {
   customProviderOfModel,
   type McpSignInRelayPage,
   relayableSignInLink,
   type UpdateAgentInput,
-} from "@openbot/contracts/ipc";
-import type { QuoteRequest } from "@openbot/ui/features/conversation/ComposerEditor";
-import { currentText } from "@openbot/ui/text";
-import { usesTouchLayout } from "@openbot/ui/utils";
-import { errorReference } from "@openbot/user-errors";
+} from "@openownbot/contracts/ipc";
+import type { QuoteRequest } from "@openownbot/ui/features/conversation/ComposerEditor";
+import { currentText } from "@openownbot/ui/text";
+import { usesTouchLayout } from "@openownbot/ui/utils";
+import { errorReference } from "@openownbot/user-errors";
 import {
   createContext,
   createEffect,

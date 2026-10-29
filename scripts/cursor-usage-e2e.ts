@@ -5,7 +5,7 @@
 // gives one window, that a merged plan gives the total alone and names Grok as sharing its quota, that
 // a plan info that fails to read keeps the split, and that a rejected token and a missing sign-in give
 // no reading.
-// `bun scripts/cursor-usage-e2e.ts`. Writes .openbot-build/cursor-usage-e2e/report.json.
+// `bun scripts/cursor-usage-e2e.ts`. Writes .openownbot-build/cursor-usage-e2e/report.json.
 //
 // On macOS the reader asks the login Keychain first. With the Cursor CLI signed in there, the
 // local server sees a token that is not the fake one and the run fails: sign the CLI out first.
@@ -21,7 +21,7 @@ import { runCauseEffect } from "../src/backend/effect-boundary";
 import { type AccountRateLimitsReadResult, decodeAccountRateLimitsReadResult } from "../src/backend/protocol";
 import { NO_PROVIDER_CREDENTIALS, requireProviderDriver } from "../src/backend/provider-drivers";
 
-const OUT = resolve(import.meta.dirname, "../.openbot-build/cursor-usage-e2e");
+const OUT = resolve(import.meta.dirname, "../.openownbot-build/cursor-usage-e2e");
 const FAKE_TOKEN = "fake-cursor-access-token";
 const USAGE_PATH = "/aiserver.v1.DashboardService/GetCurrentPeriodUsage";
 const PLAN_INFO_PATH = "/aiserver.v1.DashboardService/GetPlanInfo";
@@ -84,7 +84,7 @@ interface Report {
   noSignIn?: UsageCase;
 }
 
-const root = await mkdtemp(join(tmpdir(), "openbot-cursor-usage-e2e-"));
+const root = await mkdtemp(join(tmpdir(), "openownbot-cursor-usage-e2e-"));
 const report: Report = { passed: false };
 const clients: AgentClient[] = [];
 interface Answer {

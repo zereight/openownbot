@@ -9,9 +9,9 @@ import {
   isReservedMcpServerName,
   type McpServerConfig,
   type McpTransport,
-} from "@openbot/contracts/ipc";
-import { type DynamicRecord, isDynamicRecord } from "@openbot/contracts/runtime-values";
-import { sourceText } from "@openbot/i18n/source";
+} from "@openownbot/contracts/ipc";
+import { type DynamicRecord, isDynamicRecord } from "@openownbot/contracts/runtime-values";
+import { sourceText } from "@openownbot/i18n/source";
 import { Deferred, Effect, Schema } from "effect";
 import { isWindowsRunnable, runInLoginShell } from "./cli";
 import { causeHelpers } from "./effect-boundary";
@@ -24,7 +24,7 @@ const execFileAsync = promisify(execFile);
 export type McpServerSource = () => readonly McpServerConfig[];
 
 /**
- * What OpenBot can lend a machine that does not have it: the `bin` directories of the tool runtimes
+ * What OpenOwnBot can lend a machine that does not have it: the `bin` directories of the tool runtimes
  * it downloaded, and the command words it can answer itself.
  *
  * Both are a floor, never a choice. The directories are appended *after* the user's own `PATH`, so
@@ -48,10 +48,10 @@ export const NO_MCP_TOOL_RUNTIMES: McpToolRuntimes = { binDirectories: [], comma
 export type McpToolRuntimeSource = () => McpToolRuntimes;
 
 /**
- * Where one http server is reached, and the bearer OpenBot adds, asked at each spawn.
+ * Where one http server is reached, and the bearer OpenOwnBot adds, asked at each spawn.
  *
  * The bearer is never stored on the row: a value in the configuration would be a credential the
- * panel shows, the Team API carries and a user edits. A server OpenBot signed in to is reached
+ * panel shows, the Team API carries and a user edits. A server OpenOwnBot signed in to is reached
  * through the loopback OAuth proxy (`McpOAuthProxy`): `url` is then the proxy route, `authorization`
  * is that route's own bearer, and the OAuth token never leaves this process. Asked per
  * configuration rather than per URL, because two rows on one URL are two routes.
@@ -127,7 +127,7 @@ export type UsableMcpServer =
       path: string | null;
       /** Where an http server is reached: its own URL, or a route of the OAuth proxy. `""` for stdio. */
       url: string;
-      /** The bearer OpenBot adds at hand-off. `null` for all others. */
+      /** The bearer OpenOwnBot adds at hand-off. `null` for all others. */
       authorization: string | null;
       /** See `McpEndpoint.proxied`. */
       proxied: boolean;
@@ -488,7 +488,7 @@ export function claudeMcpServers(servers: readonly UsableMcpServer[]): McpHandof
  * **Names travel as `providerMcpServerName`.** Antigravity refuses `session/new` with `invalid
  * params` when one name has a space, so a server the user named "My Server" failed every Gemini
  * task (#2801). A changed name that another server already has, such as "computer use", or that is
- * one of OpenBot's own, is reported as a drop. So is the second of two names that become the same.
+ * one of OpenOwnBot's own, is reported as a drop. So is the second of two names that become the same.
  */
 export type AcpMcpServer =
   | { name: string; command: string; args: string[]; env: Array<{ name: string; value: string }> }
@@ -559,7 +559,7 @@ export function acpMcpServers(servers: readonly UsableMcpServer[]): McpHandoff<A
  * and gave a Codex agent no tools. Two names that become the same key keep the first; the second is
  * reported as a drop.
  *
- * **A key Codex's own files use with the other transport travels as `openbot_<key>`.** See
+ * **A key Codex's own files use with the other transport travels as `openownbot_<key>`.** See
  * `codexMcpServerKey`.
  */
 export type CodexMcpServer =
@@ -567,13 +567,13 @@ export type CodexMcpServer =
   | { url: string; http_headers: Record<string, string> };
 
 /**
- * The disabled placeholders OpenBot saves in the Codex user file for its own servers, so Codex can
+ * The disabled placeholders OpenOwnBot saves in the Codex user file for its own servers, so Codex can
  * keep their tool approvals. They are not the user's entries.
  */
-export const CODEX_PLACEHOLDER_COMMAND = "openbot-mcp";
+export const CODEX_PLACEHOLDER_COMMAND = "openownbot-mcp";
 export const CODEX_PLACEHOLDER_URL = "http://127.0.0.1:1";
 
-/** The transport of each server that Codex's own files declare, without OpenBot's placeholders. */
+/** The transport of each server that Codex's own files declare, without OpenOwnBot's placeholders. */
 export type CodexOwnTransports = Readonly<Record<string, McpTransport>>;
 
 /** What Codex declares in its own files: each name turned off, and the transport each one uses. */
@@ -623,7 +623,7 @@ export function providerMcpServerName(name: string): string {
 /**
  * The key one server travels under to Codex. Codex merges a thread entry with the entry of the same
  * key in its own files. A stdio `command` and an http `url` under one key stop Codex from loading
- * its configuration at all, and the chat cannot start. The server then travels as `openbot_<key>`,
+ * its configuration at all, and the chat cannot start. The server then travels as `openownbot_<key>`,
  * and the user's own entry stays as written, turned off. A clash with the same transport keeps the
  * key.
  *
@@ -632,11 +632,11 @@ export function providerMcpServerName(name: string): string {
 export function codexMcpServerKey(config: McpServerConfig, own: CodexOwnTransports = {}): string {
   const name = providerMcpServerName(config.name);
   return config.id !== COMPUTER_USE_MCP_SERVER_ID && Object.hasOwn(own, name) && own[name] !== config.transport
-    ? `openbot_${name}`
+    ? `openownbot_${name}`
     : name;
 }
 
-/** Whether a key from `codexMcpServerKey` is taken by another server, or a renamed key by OpenBot's own tools. */
+/** Whether a key from `codexMcpServerKey` is taken by another server, or a renamed key by OpenOwnBot's own tools. */
 function codexMcpServerKeyTaken(
   key: string,
   config: McpServerConfig,
@@ -649,7 +649,7 @@ function codexMcpServerKeyTaken(
 }
 
 /**
- * The thread's `mcp_servers`: every name from Codex's own files turned off, then OpenBot's servers
+ * The thread's `mcp_servers`: every name from Codex's own files turned off, then OpenOwnBot's servers
  * turned on. A name in both resolves to the one the panel shows, with the approvals Codex saved.
  */
 export function codexThreadMcpServers(
@@ -664,7 +664,7 @@ export function codexThreadMcpServers(
 }
 
 /**
- * The namespace Codex gives the tools of each server OpenBot turns on. For a code-mode-only model,
+ * The namespace Codex gives the tools of each server OpenOwnBot turns on. For a code-mode-only model,
  * such as GPT-6, Codex otherwise defers MCP tools into `exec` without naming them, and the model
  * does not find them. These join the direct-only list, so the request names the tools. The keys are
  * the ones `codexMcpServers` chose, renamed keys included; a name Codex's own files declare is turned
@@ -753,18 +753,18 @@ function secretDigest(config: McpServerConfig): string {
 }
 
 /**
- * The headers one http server is handed, with OpenBot's bearer added here and only here.
+ * The headers one http server is handed, with OpenOwnBot's bearer added here and only here.
  *
  * The bearer is never written to the row: a credential written into `McpServerConfig.headers`
  * would be one the panel shows, the Team API carries to a remote administrator, and a user can edit
- * into something OpenBot then refreshes over. Added at the hand-off, it is a value `McpHandoffLog`
+ * into something OpenOwnBot then refreshes over. Added at the hand-off, it is a value `McpHandoffLog`
  * has already seen, so every log, export and send path removes it.
  *
  * A proxied server is handed the proxy bearer alone. The proxy adds the row's own headers upstream,
  * so a key the user typed beside a sign-in stays in this process too.
  *
  * A header the user typed wins otherwise. Someone who pasted their own `Authorization` has said
- * which credential this server takes, and silently replacing it would be OpenBot overruling them
+ * which credential this server takes, and silently replacing it would be OpenOwnBot overruling them
  * with an account they did not choose. Such a row is never proxied: see `McpGateway.endpoint`.
  */
 export function mcpHandoffHeaders(server: ResolvedMcpServer): Record<string, string> {

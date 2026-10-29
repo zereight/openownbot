@@ -31,12 +31,12 @@ export const NOTION_PLUGIN_GUIDE: PluginGuide = {
     {
       question: "Does the Notion plugin need an API key?",
       answer:
-        "No. You sign in to your own Notion account in the browser. OpenBot signs in itself, keeps the tokens in encrypted storage, and adds the Authorization header. The plugin catalog holds no secret.",
+        "No. You sign in to your own Notion account in the browser. OpenOwnBot signs in itself, keeps the tokens in encrypted storage, and adds the Authorization header. The plugin catalog holds no secret.",
     },
     {
       question: "What can the agent see in Notion?",
       answer:
-        "The agent can read and update the content that you can access in Notion. Workspace owners can manage which clients connect, and on the Enterprise plan they can limit them. Notion gets the requests that the agent sends. Your workspaces, conversations and files stay on the computer that runs OpenBot.",
+        "The agent can read and update the content that you can access in Notion. Workspace owners can manage which clients connect, and on the Enterprise plan they can limit them. Notion gets the requests that the agent sends. Your workspaces, conversations and files stay on the computer that runs OpenOwnBot.",
     },
     {
       question: "Do all Notion MCP tools work on every plan?",

@@ -3,14 +3,14 @@
  * board, so the list has the models that the host can run.
  */
 
-import { ProviderLogo } from "@openbot/brand";
+import { ProviderLogo } from "@openownbot/brand";
 import {
   type AgentModelId,
   type AgentReasoningEffort,
   agentProviderName,
   type ClientAgentModelOption,
-} from "@openbot/contracts/ipc";
-import type { AppTextKey, AppTranslate } from "@openbot/i18n";
+} from "@openownbot/contracts/ipc";
+import type { AppTextKey, AppTranslate } from "@openownbot/i18n";
 import {
   Bot,
   buttonVariants,
@@ -24,7 +24,7 @@ import {
   Search,
   Tabs,
   Zap,
-} from "@openbot/ui";
+} from "@openownbot/ui";
 import { createSignal, For, Show, untrack } from "solid-js";
 import { useText } from "../../text";
 import { type PickerChip, PickerMenu, type PickerOption, PickerRow, pickerMatches } from "./WorkflowPicker";

@@ -1,12 +1,12 @@
-import { canAdministerServer, type RoutineSchedule, type WorkflowTriggerType } from "@openbot/contracts/ipc";
-import type { MobileTextKey } from "@openbot/i18n/mobile";
+import { canAdministerServer, type RoutineSchedule, type WorkflowTriggerType } from "@openownbot/contracts/ipc";
+import type { MobileTextKey } from "@openownbot/i18n/mobile";
 import {
   type RoutineScheduleDraft,
   routineDraftProblemCode,
   routineScheduleFromDraft,
   routineScheduleToDraft,
   switchDraftKind,
-} from "@openbot/team-client/routine-schedule-draft";
+} from "@openownbot/team-client/routine-schedule-draft";
 import * as Clipboard from "expo-clipboard";
 import { useLocalSearchParams } from "expo-router";
 import { Typography } from "heroui-native";
@@ -45,7 +45,7 @@ const CHOICES = [
 export function WorkflowTriggerScreen() {
   const { t } = useText();
   const { nodeId } = useLocalSearchParams<{ nodeId: string }>();
-  const accent = String(useCSSVariable("--openbot-accent"));
+  const accent = String(useCSSVariable("--openownbot-accent"));
   const draft = useWorkflowDraft((state) => state.draft);
   const { setFields, setSchedule, setTriggerProblem } = useWorkflowDraft.getState();
   const node = draft?.graph.nodes.find((item) => item.id === nodeId);

@@ -46,7 +46,7 @@ export const messages = {
   "settings.externalLinks.description":
     "Sohbetlerdeki, oturum açma ve faturalandırma sayfalarındaki bağlantılar burada açılır.",
   "settings.externalLinks.defaultBrowser": "Varsayılan tarayıcı",
-  "settings.externalLinks.openbot": "OpenBot",
+  "settings.externalLinks.openownbot": "OpenOwnBot",
   "settings.externalLinks.defaultBrowserNamed": "Varsayılan tarayıcı ({name})",
   "settings.externalLinks.otherApp": "Başka uygulama…",
   "settings.externalLinks.command": "Komut…",
@@ -78,7 +78,7 @@ export const messages = {
   "settings.notificationPreview.description": "Bildirimlerde ajanın yanıtının veya sorusunun başını gösterin.",
   "settings.testNotification.title": "Test bildirimi",
   "settings.testNotification.description":
-    "Şimdi bir tane gösterin. Görünmezse, sistem ayarlarınızda OpenBot bildirimlerine izin verin.",
+    "Şimdi bir tane gösterin. Görünmezse, sistem ayarlarınızda OpenOwnBot bildirimlerine izin verin.",
   "settings.testNotification.action": "Test gönder",
   "settings.testNotification.failed": "Bildirim gösterilemedi.",
   "settings.testNotification.openSettings": "Sistem ayarlarını aç",
@@ -218,9 +218,9 @@ export const messages = {
   "settings.mobileConnect.route.title": "Cihazlar nasıl bağlanır",
   "settings.mobileConnect.route.description":
     "Bu bilgisayara bağlanan telefonlar, diğer bilgisayarlar ve ekip üyeleri için.",
-  "settings.mobileConnect.route.openbot.title": "OpenBot üzerinden",
-  "settings.mobileConnect.route.openbot.badge": "Önerilen",
-  "settings.mobileConnect.route.openbot.description":
+  "settings.mobileConnect.route.openownbot.title": "OpenOwnBot üzerinden",
+  "settings.mobileConnect.route.openownbot.badge": "Önerilen",
+  "settings.mobileConnect.route.openownbot.description":
     "Her ağda çalışır. Sohbetler ve dosyalar cihazlarınız arasında şifrelenir.",
   "settings.mobileConnect.route.private.title": "Özel ağ",
   "settings.mobileConnect.route.private.tailscale": "Tailscale bulundu",
@@ -275,7 +275,7 @@ export const messages = {
   "settings.profile.share.copied": "Görüntü kopyalandı",
   "settings.profile.share.copyFailed": "Görüntü kopyalanamadı.",
   "settings.profile.share.createFailed": "Görüntü oluşturulamadı.",
-  "settings.profile.share.fileName": "openbot-activity.png",
+  "settings.profile.share.fileName": "openownbot-activity.png",
   // The text in the image to share.
   "settings.profile.share.caption": "OpenOwnBot ile son altı ayım",
   "settings.profile.activity.title": "Bu bilgisayardaki etkinlik",
@@ -367,7 +367,7 @@ export const messages = {
   "settings.updates.autoInstall.title": "Güncellemeleri otomatik yükle",
   "settings.updates.autoInstall.description":
     "Ajanlar boştayken OpenOwnBot yeniden başlar ve indirilen güncellemeyi yükler. Sunucularınızın üyelerinin bağlantısı kısa bir süre kesilir.",
-  // Ajan çalışmadığında OpenBot'u yeniden başlatın veya indirilmiş bir güncellemeyi yükleyin.
+  // Ajan çalışmadığında OpenOwnBot'u yeniden başlatın veya indirilmiş bir güncellemeyi yükleyin.
   "settings.updates.idleRestart.title": "OpenOwnBot'u yeniden başlat",
   "settings.updates.idleRestart.relaunchDescription":
     "OpenOwnBot hiçbir ajan çalışmadığında yeniden başlatılır. Yeni rutin çalıştırmaları o zamana kadar bekler.",

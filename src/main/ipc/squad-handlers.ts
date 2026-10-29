@@ -1,8 +1,8 @@
 // The teams the user makes: who leads, who belongs. Only these handlers write the store, and no agent tool
 // reaches it, so an agent cannot change its own team.
 
-import { INPUT_LIMITS } from "@openbot/contracts/input-limits";
-import { type SaveSquadInput, SQUAD_LIMITS } from "@openbot/contracts/ipc";
+import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
+import { type SaveSquadInput, SQUAD_LIMITS } from "@openownbot/contracts/ipc";
 import { runCauseEffect } from "../../backend/effect-boundary";
 import type { SquadStore } from "../../backend/squad-store";
 import { handler, type IpcGroupHandlers, payloadHandler } from "./define-ipc-group";

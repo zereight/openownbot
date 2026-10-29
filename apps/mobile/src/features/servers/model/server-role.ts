@@ -1,5 +1,5 @@
-import type { TeamRole } from "@openbot/contracts/ipc";
-import type { MobileTextKey } from "@openbot/i18n/mobile";
+import type { TeamRole } from "@openownbot/contracts/ipc";
+import type { MobileTextKey } from "@openownbot/i18n/mobile";
 
 /** The role word inside a sentence, such as "Your role: owner". */
 export const SERVER_ROLE_KEYS = {

@@ -29,10 +29,10 @@
 // 13. B steers busy messages and runs a turn in a new own chat when A asks it. The request goes into
 //    that running turn, not into a new one. It needs a provider that steers natively.
 // At the end it stops and deletes each thread that it started.
-// Writes .openbot-build/agent-threads-messaging-e2e/report.json.
+// Writes .openownbot-build/agent-threads-messaging-e2e/report.json.
 import assert from "node:assert/strict";
-import { agentProviderDescriptor, isAgentProvider } from "@openbot/contracts/agent-providers";
-import type { AgentTask, ConversationMessage, ConversationSnapshot } from "@openbot/contracts/ipc";
+import { agentProviderDescriptor, isAgentProvider } from "@openownbot/contracts/agent-providers";
+import type { AgentTask, ConversationMessage, ConversationSnapshot } from "@openownbot/contracts/ipc";
 import { argument, connectChannelE2e, waitFor, writeReport } from "./channel-e2e-support";
 
 const fromArgument = argument("from");
@@ -75,30 +75,30 @@ const started: Array<{ agentId: string; taskId: string }> = [];
 const bridge = {
   agent: (id: string) =>
     page.evaluate(async (agentId) => {
-      const found = (await window.openbot.agent.listAgents()).find((candidate) => candidate.id === agentId);
+      const found = (await window.openownbot.agent.listAgents()).find((candidate) => candidate.id === agentId);
       if (!found) throw new Error(`Unknown agent: ${agentId}`);
       return { name: found.name, provider: found.provider };
     }, id),
   tasks: (id: string): Promise<AgentTask[]> =>
-    page.evaluate((agentId) => window.openbot.agent.listTasks(agentId).then((snapshot) => snapshot.tasks), id),
+    page.evaluate((agentId) => window.openownbot.agent.listTasks(agentId).then((snapshot) => snapshot.tasks), id),
   main: (id: string): Promise<ConversationSnapshot> =>
-    page.evaluate((agentId) => window.openbot.agent.readConversation(agentId), id),
+    page.evaluate((agentId) => window.openownbot.agent.readConversation(agentId), id),
   side: (agentId: string, taskId: string): Promise<ConversationSnapshot> =>
-    page.evaluate((input) => window.openbot.agent.readTask(input), { agentId, taskId }),
+    page.evaluate((input) => window.openownbot.agent.readTask(input), { agentId, taskId }),
   send: (agentId: string, text: string) =>
-    page.evaluate((input) => window.openbot.agent.sendMessage({ ...input, clientMessageId: crypto.randomUUID() }), {
+    page.evaluate((input) => window.openownbot.agent.sendMessage({ ...input, clientMessageId: crypto.randomUUID() }), {
       agentId,
       text,
     }),
   stop: (agentId: string, taskId: string) =>
-    page.evaluate((input) => window.openbot.agent.stopTask(input), { agentId, taskId }),
+    page.evaluate((input) => window.openownbot.agent.stopTask(input), { agentId, taskId }),
   close: (agentId: string, taskId: string) =>
-    page.evaluate((input) => window.openbot.agent.closeTask(input), { agentId, taskId }),
+    page.evaluate((input) => window.openownbot.agent.closeTask(input), { agentId, taskId }),
   reopen: (agentId: string, taskId: string) =>
-    page.evaluate((input) => window.openbot.agent.reopenTask(input), { agentId, taskId }),
+    page.evaluate((input) => window.openownbot.agent.reopenTask(input), { agentId, taskId }),
   startTask: async (agentId: string, text: string): Promise<AgentTask> => {
     const task = await page.evaluate(
-      (input) => window.openbot.agent.startTask({ ...input, clientMessageId: crypto.randomUUID() }),
+      (input) => window.openownbot.agent.startTask({ ...input, clientMessageId: crypto.randomUUID() }),
       { agentId, text },
     );
     started.push({ agentId, taskId: task.id });
@@ -137,7 +137,7 @@ async function step(name: string, body: (details: Details) => Promise<void>): Pr
 
 const ask = (word: string, question: string, toName: string) =>
   [
-    `Use openbot.send_message to send ${toName} (agent id "${to}") this message, with expectsReply true:`,
+    `Use openownbot.send_message to send ${toName} (agent id "${to}") this message, with expectsReply true:`,
     `"${word}: ${question} Answer with only the number."`,
     "Then end your turn and reply with the single word SENT. Do not wait for the answer.",
   ].join("\n");
@@ -303,7 +303,7 @@ try {
     const pong = `PONG${run}`;
     await bridge.send(
       from,
-      `Call openbot.start_task with the title "${title}" and the brief "Reply with the single word ${pong}. Do not use tools." Then reply with the single word STARTED.`,
+      `Call openownbot.start_task with the title "${title}" and the brief "Reply with the single word ${pong}. Do not use tools." Then reply with the single word STARTED.`,
     );
     const created = await waitFor(
       page,
@@ -332,7 +332,7 @@ try {
     const brief = (m: ConversationMessage) => m.text.startsWith(`Reply with the single word ${pong}`);
     details.mainHasThreadAnswer = has(main, answerWith(pong));
     details.mainHasBrief = has(main, brief);
-    await page.evaluate((input) => window.openbot.agent.deleteTask(input), { agentId: from, taskId: created.id });
+    await page.evaluate((input) => window.openownbot.agent.deleteTask(input), { agentId: from, taskId: created.id });
     started.splice(
       started.findIndex((entry) => entry.taskId === created.id),
       1,
@@ -351,8 +351,8 @@ try {
       from,
       [
         "Call each tool once, in order, and do not retry. Then reply with the exact result text of each call, one per line.",
-        `1. openbot.start_task with the title "${title}" and the brief "Reply ok."`,
-        "2. openbot.start_new_chat with no arguments.",
+        `1. openownbot.start_task with the title "${title}" and the brief "Reply ok."`,
+        "2. openownbot.start_new_chat with no arguments.",
       ].join("\n"),
     );
     details.taskId = side.id;
@@ -433,7 +433,7 @@ try {
       const side = await bridge.startTask(
         from,
         [
-          `Use openbot.send_message once, with recipientAgentIds ["${to}", "${alsoId}"] (${toAgentInfo.name} and ${alsoInfo.name}) and expectsReply true, to send:`,
+          `Use openownbot.send_message once, with recipientAgentIds ["${to}", "${alsoId}"] (${toAgentInfo.name} and ${alsoInfo.name}) and expectsReply true, to send:`,
           `"${word}: What is 9+9? Answer with only the number."`,
           "Then end your turn and reply with the single word SENT. Do not wait for the answers.",
         ].join("\n"),
@@ -486,7 +486,7 @@ try {
     const sent = (s: ConversationSnapshot) =>
       s.messages.slice(s.messages.findIndex(fromAgent(from, word)) + 1).some((m) => m.text.includes("16"));
     details.recipientAnsweredBefore = has(recipientBefore, fromAgent(from, word)) && sent(recipientBefore);
-    await page.evaluate((input) => window.openbot.agent.deleteTask(input), { agentId: from, taskId: side.id });
+    await page.evaluate((input) => window.openownbot.agent.deleteTask(input), { agentId: from, taskId: side.id });
     started.splice(
       started.findIndex((entry) => entry.taskId === side.id),
       1,
@@ -585,7 +585,7 @@ try {
     const side = await bridge.startTask(
       from,
       [
-        `Use openbot.send_message to send ${toAgentInfo.name} (agent id "${to}") this message, with expectsReply true:`,
+        `Use openownbot.send_message to send ${toAgentInfo.name} (agent id "${to}") this message, with expectsReply true:`,
         `"${word}: What is 9+3? Answer with only the number."`,
         `Then ${busyFor(120)}, and then reply DONE.`,
         `When the answer comes, reply with ${got} and the number.`,
@@ -629,7 +629,7 @@ try {
     const side = await bridge.startTask(
       from,
       [
-        `Use openbot.send_message to send ${toAgentInfo.name} (agent id "${to}") this message, with expectsReply true:`,
+        `Use openownbot.send_message to send ${toAgentInfo.name} (agent id "${to}") this message, with expectsReply true:`,
         `"${word}: What is 9+4? Answer with only the number."`,
         `Then ${busyFor(120)}, and then reply DONE.`,
       ].join("\n"),
@@ -665,15 +665,15 @@ try {
     }
     const word = `M13${run}`;
     const slept = `SLEPT13${run}`;
-    const settings = await page.evaluate((agentId) => window.openbot.agent.getAgentHostSettings(agentId), to);
+    const settings = await page.evaluate((agentId) => window.openownbot.agent.getAgentHostSettings(agentId), to);
     const mode = (busyMessageMode: "steer" | "queue" | null) =>
-      page.evaluate((input) => window.openbot.agent.updateAgentHostSettings(input), {
+      page.evaluate((input) => window.openownbot.agent.updateAgentHostSettings(input), {
         agentId: to,
         busyMessageMode,
       });
     // A new chat, so a wait that B refused earlier in its own chat does not make it refuse this one.
     await waitFor(page, "B's own chat is idle", () => bridge.main(to), idle, TURN_MS);
-    await page.evaluate((agentId) => window.openbot.agent.clearContext(agentId), to);
+    await page.evaluate((agentId) => window.openownbot.agent.clearContext(agentId), to);
     await mode("steer");
     try {
       await bridge.send(to, `First ${busyFor(60)}, then reply with the single word ${slept}.`);
@@ -690,7 +690,7 @@ try {
         page,
         "the request leaves B's queue",
         async () => {
-          const queue = await page.evaluate((agentId) => window.openbot.agent.listQueue(agentId), to);
+          const queue = await page.evaluate((agentId) => window.openownbot.agent.listQueue(agentId), to);
           return queue.deliveries.find((entry) => entry.sender.kind === "agent" && entry.text.includes(word)) ?? null;
         },
         (entry) => entry !== null && entry.status !== "queued",
@@ -710,7 +710,7 @@ try {
   report.passed = report.steps.every((entry) => entry.passed);
 } finally {
   for (const { agentId, taskId } of started.reverse()) {
-    await page.evaluate((input) => window.openbot.agent.stopTask(input), { agentId, taskId }).catch(() => undefined);
+    await page.evaluate((input) => window.openownbot.agent.stopTask(input), { agentId, taskId }).catch(() => undefined);
     await waitFor(
       page,
       "the cleanup stop",
@@ -718,7 +718,9 @@ try {
       (entry) => entry?.state !== "running",
       30_000,
     ).catch(() => undefined);
-    await page.evaluate((input) => window.openbot.agent.deleteTask(input), { agentId, taskId }).catch(() => undefined);
+    await page
+      .evaluate((input) => window.openownbot.agent.deleteTask(input), { agentId, taskId })
+      .catch(() => undefined);
   }
   writeReport("agent-threads-messaging-e2e", report);
   await session.close();

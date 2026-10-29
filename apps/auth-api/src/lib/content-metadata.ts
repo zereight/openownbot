@@ -26,13 +26,13 @@ import {
   type SitePlugin,
 } from "./plugins";
 import {
-  OPENBOT_LOGO_URL,
-  OPENBOT_SITE_TITLE,
-  OPENBOT_SITE_URL,
-  OPENBOT_SOCIAL_IMAGE_ALT,
-  OPENBOT_SOCIAL_IMAGE_META,
-  OPENBOT_SOCIAL_IMAGE_URL,
-  OPENBOT_X_HANDLE,
+  OPENOWNBOT_LOGO_URL,
+  OPENOWNBOT_SITE_TITLE,
+  OPENOWNBOT_SITE_URL,
+  OPENOWNBOT_SOCIAL_IMAGE_ALT,
+  OPENOWNBOT_SOCIAL_IMAGE_META,
+  OPENOWNBOT_SOCIAL_IMAGE_URL,
+  OPENOWNBOT_X_HANDLE,
 } from "./site-metadata";
 
 /** The generated social cards. Matches what `content-images.ts` writes. */
@@ -61,7 +61,7 @@ function searchDescription(text: string): string {
 }
 
 function articleOgImageAlt(title: string): string {
-  return `${title} — OpenBot`;
+  return `${title} — OpenOwnBot`;
 }
 
 export function collectionIndexHead(collection: ContentCollection, siteUrl: string) {
@@ -74,18 +74,18 @@ export function collectionIndexHead(collection: ContentCollection, siteUrl: stri
       { name: "description", content: collection.indexDescription },
       { "script:ld+json": collectionStructuredData(collection, siteUrl) },
       { property: "og:type", content: "website" },
-      { property: "og:site_name", content: "OpenBot" },
+      { property: "og:site_name", content: "OpenOwnBot" },
       { property: "og:locale", content: "en_US" },
       { property: "og:url", content: url },
       { property: "og:title", content: collection.indexTitle },
       { property: "og:description", content: collection.indexDescription },
-      ...OPENBOT_SOCIAL_IMAGE_META,
+      ...OPENOWNBOT_SOCIAL_IMAGE_META,
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:site", content: OPENBOT_X_HANDLE },
+      { name: "twitter:site", content: OPENOWNBOT_X_HANDLE },
       { name: "twitter:title", content: collection.indexTitle },
       { name: "twitter:description", content: collection.indexDescription },
-      { name: "twitter:image", content: OPENBOT_SOCIAL_IMAGE_URL },
-      { name: "twitter:image:alt", content: OPENBOT_SOCIAL_IMAGE_ALT },
+      { name: "twitter:image", content: OPENOWNBOT_SOCIAL_IMAGE_URL },
+      { name: "twitter:image:alt", content: OPENOWNBOT_SOCIAL_IMAGE_ALT },
     ],
     links: [
       { rel: "canonical", href: url },
@@ -117,7 +117,7 @@ export function articleHead(
   const url = articleUrl(collection, article.slug, siteUrl);
   const image = articleOgImageUrl(collection, article.slug, siteUrl);
   const alt = articleOgImageAlt(article.title);
-  const title = `${article.title} — OpenBot`;
+  const title = `${article.title} — OpenOwnBot`;
 
   return {
     meta: [
@@ -127,7 +127,7 @@ export function articleHead(
       { "script:ld+json": articleStructuredData(collection, article, siteUrl) },
       { "script:ld+json": articleBreadcrumbData(collection, article, siteUrl) },
       { property: "og:type", content: "article" },
-      { property: "og:site_name", content: "OpenBot" },
+      { property: "og:site_name", content: "OpenOwnBot" },
       { property: "og:locale", content: "en_US" },
       { property: "og:url", content: url },
       { property: "og:title", content: title },
@@ -142,7 +142,7 @@ export function articleHead(
       { property: "article:author", content: article.author },
       { property: "article:section", content: collection.name },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:site", content: OPENBOT_X_HANDLE },
+      { name: "twitter:site", content: OPENOWNBOT_X_HANDLE },
       { name: "twitter:title", content: title },
       { name: "twitter:description", content: article.description },
       { name: "twitter:image", content: image },
@@ -180,9 +180,9 @@ function articleStructuredData(collection: ContentCollection, article: Collectio
     author: { "@type": "Person", name: article.author },
     publisher: {
       "@type": "Organization",
-      name: "OpenBot",
-      url: OPENBOT_SITE_URL,
-      logo: { "@type": "ImageObject", url: OPENBOT_LOGO_URL, width: 512, height: 512 },
+      name: "OpenOwnBot",
+      url: OPENOWNBOT_SITE_URL,
+      logo: { "@type": "ImageObject", url: OPENOWNBOT_LOGO_URL, width: 512, height: 512 },
     },
     mainEntityOfPage: { "@type": "WebPage", "@id": url },
     isAccessibleForFree: true,
@@ -193,7 +193,7 @@ function articleStructuredData(collection: ContentCollection, article: Collectio
 /** Home › collection › article, which search results show in place of the bare URL. */
 function articleBreadcrumbData(collection: ContentCollection, article: CollectionArticle, siteUrl: string) {
   const trail = [
-    { name: "OpenBot", url: siteUrl },
+    { name: "OpenOwnBot", url: siteUrl },
     { name: collection.name, url: collectionIndexUrl(collection, siteUrl) },
     { name: article.title, url: articleUrl(collection, article.slug, siteUrl) },
   ];
@@ -229,7 +229,7 @@ function collectionStructuredData(collection: ContentCollection, siteUrl: string
   return {
     "@context": "https://schema.org",
     "@type": "Blog",
-    name: `${collection.name} — ${OPENBOT_SITE_TITLE}`,
+    name: `${collection.name} — ${OPENOWNBOT_SITE_TITLE}`,
     description: collection.indexDescription,
     url: collectionIndexUrl(collection, siteUrl),
     blogPost: collection.articles.map((article) => ({
@@ -257,18 +257,18 @@ export function pluginsIndexHead(siteUrl: string) {
       { name: "description", content: PLUGINS_DESCRIPTION },
       { "script:ld+json": pluginsIndexStructuredData(url, siteUrl) },
       { property: "og:type", content: "website" },
-      { property: "og:site_name", content: "OpenBot" },
+      { property: "og:site_name", content: "OpenOwnBot" },
       { property: "og:locale", content: "en_US" },
       { property: "og:url", content: url },
       { property: "og:title", content: PLUGINS_TITLE },
       { property: "og:description", content: PLUGINS_DESCRIPTION },
-      ...OPENBOT_SOCIAL_IMAGE_META,
+      ...OPENOWNBOT_SOCIAL_IMAGE_META,
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:site", content: OPENBOT_X_HANDLE },
+      { name: "twitter:site", content: OPENOWNBOT_X_HANDLE },
       { name: "twitter:title", content: PLUGINS_TITLE },
       { name: "twitter:description", content: PLUGINS_DESCRIPTION },
-      { name: "twitter:image", content: OPENBOT_SOCIAL_IMAGE_URL },
-      { name: "twitter:image:alt", content: OPENBOT_SOCIAL_IMAGE_ALT },
+      { name: "twitter:image", content: OPENOWNBOT_SOCIAL_IMAGE_URL },
+      { name: "twitter:image:alt", content: OPENOWNBOT_SOCIAL_IMAGE_ALT },
     ],
     links: [{ rel: "canonical", href: url }],
   };
@@ -293,7 +293,7 @@ function pluginsIndexStructuredData(url: string, siteUrl: string) {
 
 export function pluginHead(plugin: SitePlugin, siteUrl: string) {
   const url = pluginUrl(plugin.slug, siteUrl);
-  const title = `${plugin.name} MCP Plugin for AI Agents — OpenBot`;
+  const title = `${plugin.name} MCP Plugin for AI Agents — OpenOwnBot`;
   const description = searchDescription(plugin.description);
 
   return {
@@ -302,18 +302,18 @@ export function pluginHead(plugin: SitePlugin, siteUrl: string) {
       { name: "description", content: description },
       { "script:ld+json": pluginStructuredData(plugin, siteUrl) },
       { property: "og:type", content: "website" },
-      { property: "og:site_name", content: "OpenBot" },
+      { property: "og:site_name", content: "OpenOwnBot" },
       { property: "og:locale", content: "en_US" },
       { property: "og:url", content: url },
       { property: "og:title", content: title },
       { property: "og:description", content: description },
-      ...OPENBOT_SOCIAL_IMAGE_META,
+      ...OPENOWNBOT_SOCIAL_IMAGE_META,
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:site", content: OPENBOT_X_HANDLE },
+      { name: "twitter:site", content: OPENOWNBOT_X_HANDLE },
       { name: "twitter:title", content: title },
       { name: "twitter:description", content: description },
-      { name: "twitter:image", content: OPENBOT_SOCIAL_IMAGE_URL },
-      { name: "twitter:image:alt", content: OPENBOT_SOCIAL_IMAGE_ALT },
+      { name: "twitter:image", content: OPENOWNBOT_SOCIAL_IMAGE_URL },
+      { name: "twitter:image:alt", content: OPENOWNBOT_SOCIAL_IMAGE_ALT },
     ],
     links: [{ rel: "canonical", href: url }],
   };
@@ -333,7 +333,7 @@ function pluginStructuredData(plugin: SitePlugin, siteUrl: string) {
     applicationCategory: "DeveloperApplication",
     softwareVersion: plugin.version,
     author: { "@type": "Organization", name: plugin.creatorName },
-    isPartOf: { "@type": "SoftwareApplication", name: "OpenBot", url: OPENBOT_SITE_URL },
+    isPartOf: { "@type": "SoftwareApplication", name: "OpenOwnBot", url: OPENOWNBOT_SITE_URL },
     mainEntityOfPage: { "@type": "WebPage", "@id": pluginUrl(plugin.slug, siteUrl) },
     url: pluginUrl(plugin.slug, siteUrl),
   };

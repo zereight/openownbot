@@ -1,6 +1,6 @@
-import type { MobilePlatformLogoVariant } from "@openbot/brand";
-import { ANDROID_PLAY_STORE_URL } from "@openbot/ui/features/mobile-app/android-play-store";
-import { IOS_APP_STORE_URL } from "@openbot/ui/features/mobile-app/ios-app-store";
+import type { MobilePlatformLogoVariant } from "@openownbot/brand";
+import { ANDROID_PLAY_STORE_URL } from "@openownbot/ui/features/mobile-app/android-play-store";
+import { IOS_APP_STORE_URL } from "@openownbot/ui/features/mobile-app/ios-app-store";
 import type { PlatformNavigator } from "./download-platforms";
 
 export type MobilePlatform = MobilePlatformLogoVariant;

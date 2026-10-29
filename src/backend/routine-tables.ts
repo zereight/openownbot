@@ -1,5 +1,5 @@
-import { INPUT_LIMITS } from "@openbot/contracts/input-limits";
-import { sourceText } from "@openbot/i18n/source";
+import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
+import { sourceText } from "@openownbot/i18n/source";
 import type { RoutineTables } from "./routine-store";
 
 /**

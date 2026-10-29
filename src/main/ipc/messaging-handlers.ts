@@ -12,13 +12,16 @@ import {
   isDiscordRoleList,
   type MessagingPlatform,
   messagingPage,
-} from "@openbot/contracts/ipc";
-import { decodeRecord, nullableString } from "@openbot/contracts/ipc-decoding";
-import { CONNECTORS_CAPABILITY, CONNECTORS_ROUTES } from "@openbot/contracts/team-protocol/connectors-v1";
-import type { TeamCurrentCapability } from "@openbot/contracts/team-protocol/current";
-import { DISCORD_ACCESS_CAPABILITY, DISCORD_ACCESS_ROUTES } from "@openbot/contracts/team-protocol/discord-access-v1";
-import type { TeamProtocolV2Json } from "@openbot/contracts/team-protocol/v2";
-import { sourceText } from "@openbot/i18n/source";
+} from "@openownbot/contracts/ipc";
+import { decodeRecord, nullableString } from "@openownbot/contracts/ipc-decoding";
+import { CONNECTORS_CAPABILITY, CONNECTORS_ROUTES } from "@openownbot/contracts/team-protocol/connectors-v1";
+import type { TeamCurrentCapability } from "@openownbot/contracts/team-protocol/current";
+import {
+  DISCORD_ACCESS_CAPABILITY,
+  DISCORD_ACCESS_ROUTES,
+} from "@openownbot/contracts/team-protocol/discord-access-v1";
+import type { TeamProtocolV2Json } from "@openownbot/contracts/team-protocol/v2";
+import { sourceText } from "@openownbot/i18n/source";
 import { Effect } from "effect";
 import { runCauseEffect } from "../../backend/effect-boundary";
 import type { MessagingService } from "../../backend/messaging/messaging-service";

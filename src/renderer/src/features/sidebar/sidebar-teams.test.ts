@@ -1,4 +1,4 @@
-import { groupAgentsByTeam } from "@openbot/ui/features/sidebar/sidebar-teams";
+import { groupAgentsByTeam } from "@openownbot/ui/features/sidebar/sidebar-teams";
 import { describe, expect, it } from "vitest";
 
 const agents = ["lead", "a", "b", "c", "solo"].map((id) => ({ id }));

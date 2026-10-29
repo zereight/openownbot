@@ -6,8 +6,8 @@ import {
   type FirstTouchSourcePlatform,
   firstTouchDay,
   rememberFirstTouch,
-} from "@openbot/contracts/first-touch";
-import { isBoolean, isOneOf } from "@openbot/contracts/runtime-values";
+} from "@openownbot/contracts/first-touch";
+import { isBoolean, isOneOf } from "@openownbot/contracts/runtime-values";
 import { OpenPanel, OpenPanelBase, type OpenPanelOptions, type TrackProperties } from "@openpanel/web";
 import { BRAND_ROUTE } from "./brand-page";
 import { COMMERCIAL_LICENSE_ROUTE } from "./commercial-license";
@@ -16,10 +16,10 @@ import { CONTENT_COLLECTIONS } from "./content";
 import { type CollectionId, type ContentCollection, findArticle } from "./content-collection";
 import { DOWNLOAD_PLATFORM_ORDER, type DownloadPlatform } from "./download-platforms";
 import {
-  OPENBOT_ALTERNATE_DOWNLOAD_LINKS,
-  OPENBOT_DOWNLOAD_LINKS,
-  OPENBOT_DOWNLOAD_PAGE_LINKS,
-  OPENBOT_LINKS,
+  OPENOWNBOT_ALTERNATE_DOWNLOAD_LINKS,
+  OPENOWNBOT_DOWNLOAD_LINKS,
+  OPENOWNBOT_DOWNLOAD_PAGE_LINKS,
+  OPENOWNBOT_LINKS,
 } from "./landing-links";
 import { MOBILE_APPS } from "./mobile-apps";
 import { PRIVACY_POLICY_ROUTE } from "./privacy-policy";
@@ -117,7 +117,7 @@ type LandingDestination =
   | "claude";
 
 type CollectionIndexRoute = ContentCollection["indexRoute"];
-type DownloadPagePath = (typeof OPENBOT_DOWNLOAD_PAGE_LINKS)[keyof typeof OPENBOT_DOWNLOAD_PAGE_LINKS];
+type DownloadPagePath = (typeof OPENOWNBOT_DOWNLOAD_PAGE_LINKS)[keyof typeof OPENOWNBOT_DOWNLOAD_PAGE_LINKS];
 /**
  * The screens a report may name. Article paths carry the slug so one article can be told from
  * another, and `safeScreenPath` keeps the set closed at runtime as well as in the type.
@@ -145,7 +145,7 @@ const FIXED_SCREEN_PATHS = [
   PRIVACY_POLICY_ROUTE,
   TERMS_ROUTE,
   COMMERCIAL_LICENSE_ROUTE,
-  ...Object.values(OPENBOT_DOWNLOAD_PAGE_LINKS),
+  ...Object.values(OPENOWNBOT_DOWNLOAD_PAGE_LINKS),
   "/news",
   "/guides",
   "/compare",
@@ -206,37 +206,37 @@ function createOpenPanelClient(options: OpenPanelOptions): OpenPanelClient {
 
 /** The download routes of each platform, reversed so a click can name the platform it asked for. */
 const DOWNLOAD_PLATFORMS_BY_HREF = new Map<string, LandingDownloadPlatform>([
-  [OPENBOT_DOWNLOAD_LINKS.macos, "macos"],
-  [OPENBOT_DOWNLOAD_LINKS.windows, "windows"],
-  [OPENBOT_DOWNLOAD_LINKS.linux, "linux"],
-  [OPENBOT_ALTERNATE_DOWNLOAD_LINKS.macos, "macos"],
-  [OPENBOT_ALTERNATE_DOWNLOAD_LINKS.linux, "linux"],
+  [OPENOWNBOT_DOWNLOAD_LINKS.macos, "macos"],
+  [OPENOWNBOT_DOWNLOAD_LINKS.windows, "windows"],
+  [OPENOWNBOT_DOWNLOAD_LINKS.linux, "linux"],
+  [OPENOWNBOT_ALTERNATE_DOWNLOAD_LINKS.macos, "macos"],
+  [OPENOWNBOT_ALTERNATE_DOWNLOAD_LINKS.linux, "linux"],
   [MOBILE_APPS.ios.href, "ios"],
   [MOBILE_APPS.android.href, "android"],
 ]);
 
 const LINK_DESTINATIONS = new Map<string, LandingDestination>([
-  [OPENBOT_LINKS.download, "download_section"],
-  ...Object.values(OPENBOT_DOWNLOAD_PAGE_LINKS).map((path) => [path, "download_page"] as const),
-  [OPENBOT_LINKS.news, "news"],
-  [OPENBOT_LINKS.guides, "guides"],
-  [OPENBOT_LINKS.contact, "contact"],
+  [OPENOWNBOT_LINKS.download, "download_section"],
+  ...Object.values(OPENOWNBOT_DOWNLOAD_PAGE_LINKS).map((path) => [path, "download_page"] as const),
+  [OPENOWNBOT_LINKS.news, "news"],
+  [OPENOWNBOT_LINKS.guides, "guides"],
+  [OPENOWNBOT_LINKS.contact, "contact"],
   [TEAMS_ROUTE, "teams"],
-  [OPENBOT_LINKS.x, "x"],
-  [OPENBOT_LINKS.discord, "discord"],
-  [OPENBOT_LINKS.repository, "repository"],
-  [OPENBOT_LINKS.releases, "releases"],
+  [OPENOWNBOT_LINKS.x, "x"],
+  [OPENOWNBOT_LINKS.discord, "discord"],
+  [OPENOWNBOT_LINKS.repository, "repository"],
+  [OPENOWNBOT_LINKS.releases, "releases"],
   // The same destination on this site: the release notes, reported under the name they had.
-  [OPENBOT_LINKS.changelog, "releases"],
-  [OPENBOT_LINKS.license, "license"],
-  [OPENBOT_LINKS.privacy, "privacy"],
+  [OPENOWNBOT_LINKS.changelog, "releases"],
+  [OPENOWNBOT_LINKS.license, "license"],
+  [OPENOWNBOT_LINKS.privacy, "privacy"],
   [PRIVACY_POLICY_ROUTE, "privacy"],
-  [OPENBOT_LINKS.documentation, "documentation"],
-  [OPENBOT_LINKS.troubleshooting, "troubleshooting"],
-  [OPENBOT_LINKS.architecture, "architecture"],
-  [OPENBOT_LINKS.contributing, "contributing"],
-  [OPENBOT_LINKS.codex, "codex"],
-  [OPENBOT_LINKS.claude, "claude"],
+  [OPENOWNBOT_LINKS.documentation, "documentation"],
+  [OPENOWNBOT_LINKS.troubleshooting, "troubleshooting"],
+  [OPENOWNBOT_LINKS.architecture, "architecture"],
+  [OPENOWNBOT_LINKS.contributing, "contributing"],
+  [OPENOWNBOT_LINKS.codex, "codex"],
+  [OPENOWNBOT_LINKS.claude, "claude"],
 ]);
 
 const EVENT_PROPERTY_ALLOWLIST = {
@@ -328,12 +328,12 @@ class LandingAnalytics {
     const handleClick = (event: MouseEvent) => {
       const target = event.target;
       const link = target instanceof Element ? target.closest<HTMLAnchorElement>("a[href]") : null;
-      if (link?.getAttribute("href")?.startsWith("openbot://")) {
+      if (link?.getAttribute("href")?.startsWith("openownbot://")) {
         this.#track("join_page_action", { action: "open_app" });
         return;
       }
       const href = link?.getAttribute("href");
-      const platform = DOWNLOAD_PLATFORM_ORDER.find((id) => OPENBOT_DOWNLOAD_LINKS[id] === href);
+      const platform = DOWNLOAD_PLATFORM_ORDER.find((id) => OPENOWNBOT_DOWNLOAD_LINKS[id] === href);
       if (platform) this.#track("join_page_action", { action: "download", platform });
     };
     return this.#replaceClickListener(document, handleClick, "/join");

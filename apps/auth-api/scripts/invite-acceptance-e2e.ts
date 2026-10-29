@@ -5,7 +5,7 @@
 // them at the same time.
 //
 // Run: bun run test:invite-acceptance
-// It writes .openbot-build/invite-acceptance-e2e/report.json and exits non-zero on a failure.
+// It writes .openownbot-build/invite-acceptance-e2e/report.json and exits non-zero on a failure.
 import { randomUUID } from "node:crypto";
 import { mkdir, readdir, readFile, writeFile } from "node:fs/promises";
 import { join, resolve } from "node:path";
@@ -16,7 +16,7 @@ import type { AuthUser } from "../src/server/types";
 import { sqliteD1 } from "./sqlite-d1";
 
 const ROOT = resolve(import.meta.dirname, "../../..");
-const OUT = join(ROOT, ".openbot-build", "invite-acceptance-e2e");
+const OUT = join(ROOT, ".openownbot-build", "invite-acceptance-e2e");
 const MIGRATIONS = join(ROOT, "apps", "auth-api", "migrations");
 const HOST_ID = "host-1";
 const HOUR = 60 * 60 * 1000;

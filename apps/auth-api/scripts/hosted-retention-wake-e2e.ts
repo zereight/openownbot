@@ -7,7 +7,7 @@
 // ended must not start.
 //
 // Run: bun run test:hosted-retention-wake
-// It writes .openbot-build/hosted-retention-wake-e2e/report.json and exits non-zero on a failure.
+// It writes .openownbot-build/hosted-retention-wake-e2e/report.json and exits non-zero on a failure.
 import { readdirSync, readFileSync } from "node:fs";
 import { mkdir, writeFile } from "node:fs/promises";
 import { join, resolve } from "node:path";
@@ -18,7 +18,7 @@ import { HostedServerService } from "../src/server/hosted-server-service";
 import { sqliteD1 } from "./sqlite-d1";
 
 const ROOT = resolve(import.meta.dirname, "../../..");
-const OUT = join(ROOT, ".openbot-build", "hosted-retention-wake-e2e");
+const OUT = join(ROOT, ".openownbot-build", "hosted-retention-wake-e2e");
 const MIGRATIONS = join(ROOT, "apps", "auth-api", "migrations");
 const OWNER = { id: "owner", email: "owner@example.test" };
 const MINUTE = 60_000;

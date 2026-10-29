@@ -1,0 +1,8 @@
+# Rotates the container logs of the OpenOwnBot instances. openownbot-logrotate.timer starts it.
+# `openownbot-instance setup` installs it. See docs/docker.md#logs.
+[Unit]
+Description=Rotate the container logs of the OpenOwnBot instances
+
+[Service]
+Type=oneshot
+ExecStart=/usr/sbin/logrotate --state /var/lib/logrotate/openownbot-docker.status /etc/openownbot-docker/logrotate.conf

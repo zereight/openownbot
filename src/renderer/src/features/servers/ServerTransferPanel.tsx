@@ -1,5 +1,5 @@
-import type { AgentProviderId } from "@openbot/contracts/agent-providers";
-import { InstanceTransferView } from "@openbot/ui/features/transfer/InstanceTransferView";
+import type { AgentProviderId } from "@openownbot/contracts/agent-providers";
+import { InstanceTransferView } from "@openownbot/ui/features/transfer/InstanceTransferView";
 import { createServerTransferStore, type ServerTransferCalls } from "./server-transfer-store";
 
 export interface ServerTransferOptions {
@@ -10,7 +10,7 @@ export interface ServerTransferOptions {
 
 /** Server settings > Transfer: the shared view, for one server. */
 export function ServerTransferPanel(props: ServerTransferOptions & { serverId: string }) {
-  const store = createServerTransferStore(props.serverId, props.calls ?? window.openbot.instanceTransfer);
+  const store = createServerTransferStore(props.serverId, props.calls ?? window.openownbot.instanceTransfer);
   return (
     <InstanceTransferView
       screen={store.state.screen}

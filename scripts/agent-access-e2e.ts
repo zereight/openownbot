@@ -5,31 +5,31 @@
 // revision, tell the member's event socket about each change, and keep the roles after a restart.
 // The agent service is not initialized, so no provider CLI starts.
 // Run: `bun scripts/agent-access-e2e.ts`.
-// Writes .openbot-build/agent-access-e2e/report.json.
+// Writes .openownbot-build/agent-access-e2e/report.json.
 
 import assert from "node:assert/strict";
 import { mkdirSync, writeFileSync } from "node:fs";
 import { mkdtemp, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
-import { type AgentAccessChange, type AgentAccessSnapshot, decodeAgentAccessSnapshot } from "@openbot/contracts/ipc";
-import { TEAM_API_ROUTES } from "@openbot/contracts/team-api-routes";
+import { type AgentAccessChange, type AgentAccessSnapshot, decodeAgentAccessSnapshot } from "@openownbot/contracts/ipc";
+import { TEAM_API_ROUTES } from "@openownbot/contracts/team-api-routes";
 import {
   TEAM_APP_VERSION_HEADER,
   TEAM_CAPABILITIES_HEADER,
   TEAM_PROTOCOL_V1_WEBSOCKET,
   TEAM_PROTOCOL_VERSION_HEADER,
-} from "@openbot/contracts/team-protocol";
+} from "@openownbot/contracts/team-protocol";
 import {
   AGENT_ACCESS_CAPABILITY,
   AGENT_ACCESS_CODECS,
   AGENT_ACCESS_ROUTES,
   agentAccessEvent,
-} from "@openbot/contracts/team-protocol/agent-access-v1";
-import { AGENT_MEMORY_INCLUSION_ROUTE } from "@openbot/contracts/team-protocol/agent-memories-v1";
-import { TEAM_CURRENT_CAPABILITIES } from "@openbot/contracts/team-protocol/current";
-import { TEAM_PROTOCOL_V7 } from "@openbot/contracts/team-protocol/v7";
-import { sourceText } from "@openbot/i18n/source";
+} from "@openownbot/contracts/team-protocol/agent-access-v1";
+import { AGENT_MEMORY_INCLUSION_ROUTE } from "@openownbot/contracts/team-protocol/agent-memories-v1";
+import { TEAM_CURRENT_CAPABILITIES } from "@openownbot/contracts/team-protocol/current";
+import { TEAM_PROTOCOL_V7 } from "@openownbot/contracts/team-protocol/v7";
+import { sourceText } from "@openownbot/i18n/source";
 import { plugin } from "bun";
 import { Effect } from "effect";
 import type { AgentBrowserHost } from "../src/backend/agent/turn-lifecycle";
@@ -37,11 +37,11 @@ import { AgentService } from "../src/backend/agent-service";
 import { AgentStore } from "../src/backend/agent-store";
 import { runCauseEffect } from "../src/backend/effect-boundary";
 import { MailboxStore } from "../src/backend/mailbox-store";
-import { OpenBotDatabase } from "../src/backend/openbot-database";
+import { OpenOwnBotDatabase } from "../src/backend/openownbot-database";
 import { SidebarLayoutStore } from "../src/backend/sidebar-layout-store";
 import type { TeamApiBrowser } from "../src/main/team-api/dependencies";
 
-const OUT = resolve(import.meta.dirname, "../.openbot-build/agent-access-e2e");
+const OUT = resolve(import.meta.dirname, "../.openownbot-build/agent-access-e2e");
 const HOST_VERSION = "0.0.0-e2e";
 const OWNER = { username: "owner-user", password: "owner-password-123" };
 const MEMBER = { username: "member-user", password: "member-password-123" };
@@ -179,12 +179,12 @@ const teamBrowser: TeamApiBrowser = {
   importSignIn: unused,
 };
 
-const root = await mkdtemp(join(tmpdir(), "openbot-agent-access-"));
+const root = await mkdtemp(join(tmpdir(), "openownbot-agent-access-"));
 const userData = join(root, "user-data");
 const home = join(root, "home");
 
 interface Host {
-  database: OpenBotDatabase;
+  database: OpenOwnBotDatabase;
   agents: AgentService;
   server: InstanceType<typeof TeamApiServer>;
   team: InstanceType<typeof TeamStore>;
@@ -197,7 +197,7 @@ const sockets: WebSocket[] = [];
 
 /** Starts the host on the profile, as the app does at each launch. The stores keep their files. */
 async function startHost(): Promise<Host> {
-  const database = new OpenBotDatabase(userData);
+  const database = new OpenOwnBotDatabase(userData);
   const agentStore = new AgentStore(userData, home, database);
   const mailbox = new MailboxStore(userData, agentStore.sharedRoot, agentStore.database);
   const sidebar = new SidebarLayoutStore(join(userData, "sidebar-layout.json"));
@@ -302,7 +302,7 @@ function refusal(body: unknown): string {
 async function openEvents(token: string): Promise<WebSocket> {
   const socket = new WebSocket(`ws://127.0.0.1:${current().port}${TEAM_API_ROUTES.events}`, [
     TEAM_PROTOCOL_V1_WEBSOCKET,
-    `openbot-token.${token}`,
+    `openownbot-token.${token}`,
   ]);
   sockets.push(socket);
   await new Promise<void>((resolveOpen, reject) => {

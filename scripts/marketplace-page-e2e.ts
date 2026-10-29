@@ -1,13 +1,13 @@
 // Exercises an existing local dev app. Opens and closes the Marketplace page; installs nothing.
-// Writes .openbot-build/marketplace-page-e2e/report.json and marketplace.png.
+// Writes .openownbot-build/marketplace-page-e2e/report.json and marketplace.png.
 import assert from "node:assert/strict";
 import { mkdirSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
-import { createOpenBotLogger } from "@openbot/logging";
+import { createOpenOwnBotLogger } from "@openownbot/logging";
 import { assertMutationAllowed, connectToDevApp } from "./dev-automation/cdp-client";
 import { readDevInstanceRecords } from "./dev-automation/instance-registry";
 
-const OUT = resolve(import.meta.dirname, "../.openbot-build/marketplace-page-e2e");
+const OUT = resolve(import.meta.dirname, "../.openownbot-build/marketplace-page-e2e");
 const instances = readDevInstanceRecords().filter(
   (record) => record.service === "app" && resolve(record.projectRoot) === resolve(process.cwd()),
 );
@@ -20,7 +20,7 @@ assertMutationAllowed({
   instanceNamed: true,
   target: instance.instanceId,
 });
-const logger = createOpenBotLogger("marketplace-page-e2e");
+const logger = createOpenOwnBotLogger("marketplace-page-e2e");
 const session = await connectToDevApp(instance.remoteDebuggingPort, logger, {
   expectedRendererPort: instance.rendererPort,
   ownerPid: instance.pid,

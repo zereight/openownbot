@@ -1,16 +1,16 @@
 // Checks numbered-list editing in a running Storybook, which renders the real shared composer.
 // Pass the URL that `bun run storybook` reports:
 // `bun scripts/composer-markdown-lists-e2e.ts --storybook=http://localhost:6006`.
-// Writes .openbot-build/composer-markdown-lists-e2e/report.json.
+// Writes .openownbot-build/composer-markdown-lists-e2e/report.json.
 import assert from "node:assert/strict";
 import { mkdirSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
-import { serializeChatTagReference } from "@openbot/contracts/chat-tag-references";
+import { serializeChatTagReference } from "@openownbot/contracts/chat-tag-references";
 import { chromium, type Locator } from "playwright-core";
 import { mentionDraft } from "../apps/mobile/src/features/chat/model/chat-mentions";
 import { applyMarkdownListEdit, markdownListReturn } from "../apps/mobile/src/features/chat/model/composer-lists";
 
-const OUT = resolve(import.meta.dirname, "../.openbot-build/composer-markdown-lists-e2e");
+const OUT = resolve(import.meta.dirname, "../.openownbot-build/composer-markdown-lists-e2e");
 const storybook = process.argv.find((arg) => arg.startsWith("--storybook="))?.slice("--storybook=".length);
 const browserExecutable = process.argv
   .find((arg) => arg.startsWith("--browser-executable="))

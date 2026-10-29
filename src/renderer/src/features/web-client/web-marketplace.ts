@@ -1,6 +1,6 @@
-import { sourceText } from "@openbot/i18n";
-import { runTeamEffect } from "@openbot/team-client";
-import { createMarketplaceCatalog } from "@openbot/team-client/marketplace-catalog";
+import { sourceText } from "@openownbot/i18n";
+import { runTeamEffect } from "@openownbot/team-client";
+import { createMarketplaceCatalog } from "@openownbot/team-client/marketplace-catalog";
 import {
   cancelMcpSignIn,
   installAgentSkill,
@@ -14,15 +14,15 @@ import {
   setAgentSkillEnabled,
   testMcpServer,
   uninstallAgentSkill,
-} from "@openbot/team-client/team-admin-requests";
-import type { TeamApiRequest } from "@openbot/team-client/team-api-requests";
-import { currentText } from "@openbot/ui/text";
+} from "@openownbot/team-client/team-admin-requests";
+import type { TeamApiRequest } from "@openownbot/team-client/team-api-requests";
+import { currentText } from "@openownbot/ui/text";
 import { Effect } from "effect";
 import type { AgentTemplateInstallCalls } from "../agent-templates/agent-templates-port";
 import type { MarketplaceCalls } from "../settings/marketplace-calls";
 import { webMcpRelay } from "./web-mcp-relay";
 
-/** No server id: the account is a member, or the host runs an OpenBot without agent-install-v1. */
+/** No server id: the account is a member, or the host runs an OpenOwnBot without agent-install-v1. */
 const noAgentInstall = () => currentText().t("webClient.error.agentInstallNotAllowed");
 
 /**

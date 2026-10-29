@@ -1,5 +1,5 @@
-import { AGENT_CONTEXT_CATEGORIES, type AgentContextCategory } from "@openbot/contracts/ipc";
-import type { AppTextKey } from "@openbot/i18n";
+import { AGENT_CONTEXT_CATEGORIES, type AgentContextCategory } from "@openownbot/contracts/ipc";
+import type { AppTextKey } from "@openownbot/i18n";
 import {
   Button,
   CircleCheck,
@@ -12,8 +12,8 @@ import {
   RadialProgress,
   type RadialProgressTone,
   TriangleAlert,
-} from "@openbot/ui";
-import { ContentExitMotion } from "@openbot/ui/menu-motion";
+} from "@openownbot/ui";
+import { ContentExitMotion } from "@openownbot/ui/menu-motion";
 import { createEffect, createSignal, For, Match, Show, Switch } from "solid-js";
 import type { AgentProfile } from "../../data";
 import { useText } from "../../text";
@@ -75,7 +75,7 @@ function meterLevel(usage: ContextUsageView): "quiet" | "normal" | RadialProgres
 /**
  * The composer's context ring and the popover it opens. It shows how full the agent's provider
  * thread is and when it compacts. `newChat` adds the New chat action, which asks first. `compact`
- * adds the Compact action, for a thread that OpenBot compacts (`autoCompactAt` is set).
+ * adds the Compact action, for a thread that OpenOwnBot compacts (`autoCompactAt` is set).
  */
 export function ContextUsageMeter(props: {
   usage: ContextUsageView;

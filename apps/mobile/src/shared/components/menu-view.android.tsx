@@ -105,7 +105,7 @@ const ICONS: Partial<Record<string, LucideIcon>> = {
 };
 
 /**
- * OpenBot colors for the menu. HeroUI's `--muted`, `--danger`, `--separator` and `--default` keep the
+ * OpenOwnBot colors for the menu. HeroUI's `--muted`, `--danger`, `--separator` and `--default` keep the
  * HeroUI palette, because uniwind ignores the `:root` aliases in `global.css`.
  */
 type MenuColors = { text: string; muted: string; danger: string; separator: string; pressed: string };
@@ -274,11 +274,11 @@ function OpenedMenu({
   takePendingOpen,
 }: OpenedMenuProps) {
   const tokens = useCSSVariable([
-    "--openbot-text-primary",
-    "--openbot-text-muted",
-    "--openbot-danger-text",
-    "--openbot-border-grouped",
-    "--openbot-bg-control-active",
+    "--openownbot-text-primary",
+    "--openownbot-text-muted",
+    "--openownbot-danger-text",
+    "--openownbot-border-grouped",
+    "--openownbot-bg-control-active",
   ]);
   const colors: MenuColors = {
     text: String(tokens[0]),

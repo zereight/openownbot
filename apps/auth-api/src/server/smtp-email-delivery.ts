@@ -1,6 +1,6 @@
-import { INPUT_LIMITS } from "@openbot/contracts/input-limits";
-import { isCanonicalInviteUrl } from "@openbot/contracts/invite-links";
-import { isValidHostname as isSharedValidHostname } from "@openbot/contracts/validation";
+import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
+import { isCanonicalInviteUrl } from "@openownbot/contracts/invite-links";
+import { isValidHostname as isSharedValidHostname } from "@openownbot/contracts/validation";
 import { Effect, Fiber, Option, Result, Schema } from "effect";
 import {
   type ContactMessageEmailInput,
@@ -425,10 +425,10 @@ class SmtpResponseReader {
 // the relay supports. `Auto-Submitted` (RFC 3834) and `X-Auto-Response-Suppress` (Exchange and
 // Outlook) stop vacation and out-of-office replies to the sending mailbox.
 function createMimeMessage(from: string, message: PreparedEmailMessage): string {
-  const boundary = `openbot-${crypto.randomUUID()}`;
+  const boundary = `openownbot-${crypto.randomUUID()}`;
   return dotStuff(
     [
-      `From: OpenBot <${from}>`,
+      `From: OpenOwnBot <${from}>`,
       `To: <${message.email}>`,
       ...(message.replyTo ? [`Reply-To: <${message.replyTo}>`] : []),
       `Subject: ${encodeHeaderValue(message.content.subject)}`,

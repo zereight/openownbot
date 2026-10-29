@@ -7,14 +7,14 @@
  * could show a key would carry it into every screenshot and crash report that follows.
  */
 
-import { isKeyOnlyProvider } from "@openbot/contracts/agent-providers";
+import { isKeyOnlyProvider } from "@openownbot/contracts/agent-providers";
 import type {
   AgentProviderId,
   ExternalDestination,
   ProviderApiKeyState,
   ProviderApiKeyStatus,
-} from "@openbot/contracts/ipc";
-import type { AppTextKey } from "@openbot/i18n";
+} from "@openownbot/contracts/ipc";
+import type { AppTextKey } from "@openownbot/i18n";
 import {
   Alert,
   AlertContent,
@@ -26,7 +26,7 @@ import {
   Field,
   Input,
   OctagonX,
-} from "@openbot/ui";
+} from "@openownbot/ui";
 import { createSignal, onSettled, Show } from "solid-js";
 import { useText } from "../../text";
 

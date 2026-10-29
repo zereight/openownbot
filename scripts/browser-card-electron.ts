@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import { mkdir, writeFile } from "node:fs/promises";
 import { createServer } from "node:http";
 import { dirname, join } from "node:path";
-import { redactText } from "@openbot/logging";
+import { redactText } from "@openownbot/logging";
 import { Effect } from "effect";
 import { app, BrowserWindow, type WebContents, type WebFrameMain, webContents } from "electron";
 import { z } from "zod";
@@ -151,7 +151,7 @@ async function main(): Promise<void> {
     await runCauseEffect(host.close(seed.id));
 
     const params = (tool: string, args: DynamicToolCallParams["arguments"]): DynamicToolCallParams => ({
-      namespace: "openbot_browser",
+      namespace: "openownbot_browser",
       tool,
       arguments: args,
       ownerAgentId: "card-agent",

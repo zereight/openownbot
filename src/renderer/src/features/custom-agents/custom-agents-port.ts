@@ -1,14 +1,14 @@
-import type { OpenBotDesktopApi } from "@openbot/contracts/ipc";
+import type { OpenOwnBotDesktopApi } from "@openownbot/contracts/ipc";
 
 /**
  * What the custom agents context reaches in main: the ACP agents the user added. This computer
  * only: the Team API has no route to them, because an agent is a command that runs here.
  */
 export interface CustomAgentsPort {
-  customAgents: OpenBotDesktopApi["customAgents"];
+  customAgents: OpenOwnBotDesktopApi["customAgents"];
 }
 
-/** Read on each call: tests and stories replace `window.openbot` per case. */
+/** Read on each call: tests and stories replace `window.openownbot` per case. */
 export function customAgentsPort(): CustomAgentsPort {
-  return window.openbot;
+  return window.openownbot;
 }

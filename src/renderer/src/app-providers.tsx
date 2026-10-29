@@ -1,4 +1,4 @@
-import type { ChatWindowTarget } from "@openbot/contracts/ipc";
+import type { ChatWindowTarget } from "@openownbot/contracts/ipc";
 import type { JSX } from "@solidjs/web";
 import { type ParentProps, Show } from "solid-js";
 import { AnsweredPromptsProvider } from "./answered-prompts";
@@ -51,7 +51,7 @@ import { UiErrorsProvider } from "./ui-errors";
 /**
  * How the renderer is mounted, as opposed to anything it later loads. Both
  * flags are fixed for the life of a mount: `index.tsx` passes neither, and
- * `preview/OpenBotPlayground.tsx` passes `landingPreview`. `index.tsx` passes
+ * `preview/OpenOwnBotPlayground.tsx` passes `landingPreview`. `index.tsx` passes
  * `chatWindow` in a window that main opened for one chat.
  */
 export interface AppProps {

@@ -2,13 +2,13 @@
 // the real shared message body and the real conversation composer.
 // Pass the URL that `bun run storybook` reports:
 // `bun scripts/reply-quote-markdown-e2e.ts --storybook=http://localhost:6006`.
-// Writes .openbot-build/reply-quote-markdown-e2e/report.json and screenshots.
+// Writes .openownbot-build/reply-quote-markdown-e2e/report.json and screenshots.
 import assert from "node:assert/strict";
 import { mkdirSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { chromium, type Locator, type Page } from "playwright-core";
 
-const OUT = resolve(import.meta.dirname, "../.openbot-build/reply-quote-markdown-e2e");
+const OUT = resolve(import.meta.dirname, "../.openownbot-build/reply-quote-markdown-e2e");
 const storybook = process.argv.find((arg) => arg.startsWith("--storybook="))?.slice("--storybook=".length);
 const browserExecutable = process.argv
   .find((arg) => arg.startsWith("--browser-executable="))

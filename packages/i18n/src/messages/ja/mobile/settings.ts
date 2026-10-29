@@ -112,7 +112,7 @@ export const messages = {
     "返信の冒頭、質問、または承認が必要な操作を表示します。Google と OpenOwnBot アカウントサービスはこの内容を読めません。",
   "mobile.settings.notifications.sound": "サウンド",
   "mobile.settings.notifications.playSound": "サウンドを再生",
-  "mobile.settings.notifications.sound.openbot": "OpenBot",
+  "mobile.settings.notifications.sound.openownbot": "OpenOwnBot",
   "mobile.settings.notifications.sound.warm": "あたたか",
   "mobile.settings.notifications.sound.mech": "メカニカル",
   "mobile.settings.notifications.sound.bubble": "バブル",

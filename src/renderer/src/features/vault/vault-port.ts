@@ -1,4 +1,4 @@
-import type { VaultImportResult, VaultSaveInput, VaultSecretRequest, VaultState } from "@openbot/contracts/ipc";
+import type { VaultImportResult, VaultSaveInput, VaultSecretRequest, VaultState } from "@openownbot/contracts/ipc";
 
 /**
  * The Vault of one server. Desktop reaches this computer's Vault and a joined server's through main;
@@ -17,9 +17,9 @@ export interface VaultCalls {
   onChanged(listener: (state: VaultState) => void): () => void;
 }
 
-/** The desktop calls. Reads `window.openbot` on each call: stories replace it per case. */
+/** The desktop calls. Reads `window.openownbot` on each call: stories replace it per case. */
 export function desktopVaultCalls(): VaultCalls {
-  const vault = () => window.openbot.vault;
+  const vault = () => window.openownbot.vault;
   return {
     list: () => vault().list(),
     save: (input) => vault().save(input),
@@ -71,7 +71,7 @@ export function remoteVaultCalls(
  * window. A change on the host, or a connection that comes back, reads the list again.
  */
 export function hostVaultCalls(serverId: string): VaultCalls {
-  const vault = () => window.openbot.vault;
+  const vault = () => window.openownbot.vault;
   return remoteVaultCalls(
     {
       list: () => vault().hostList(serverId),
@@ -82,11 +82,11 @@ export function hostVaultCalls(serverId: string): VaultCalls {
       reset: () => vault().hostReset(serverId),
     },
     (read) => {
-      const unsubscribe = window.openbot.agent.onScopedEvent((scoped) => {
+      const unsubscribe = window.openownbot.agent.onScopedEvent((scoped) => {
         if (scoped.serverId === serverId && scoped.event.type === "vault-changed") read();
       });
       let online = true;
-      const reconnect = window.openbot.servers.onEvent((servers) => {
+      const reconnect = window.openownbot.servers.onEvent((servers) => {
         const now = servers.some((server) => server.id === serverId && server.state === "online");
         if (now && !online) read();
         online = now;

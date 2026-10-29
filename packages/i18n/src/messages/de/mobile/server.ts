@@ -114,7 +114,7 @@ export const messages = {
   "mobile.server.hosted.detail.copy": "OpenOwnBot wird auf die Maschine kopiert",
   "mobile.server.hosted.detail.key": "Einmaliger Anmeldeschlüssel wird hinzugefügt",
   "mobile.server.hosted.detail.boot": "Maschine wird eingeschaltet",
-  "mobile.server.hosted.detail.app": "OpenBot wird gestartet",
+  "mobile.server.hosted.detail.app": "OpenOwnBot wird gestartet",
   "mobile.server.hosted.detail.wait": "Warten auf eine Antwort von OpenOwnBot",
   "mobile.server.hosted.detail.signIn": "Anmeldung mit deinem Konto läuft",
   "mobile.server.hosted.detail.publish": "Server wird deinem Konto hinzugefügt",
@@ -422,7 +422,7 @@ export const messages = {
   "mobile.server.connectors.bitwarden.description":
     "Browser-Anmeldungen auf {host} aus Bitwarden oder Vaultwarden ausfüllen.",
   "mobile.server.connectors.bitwarden.howItWorks":
-    "{host} meldet sich mit seiner eigenen Bitwarden CLI an. Erstelle in deinem Tresor einen Ordner mit dem Namen Shared with OpenBot und lege nur die Anmeldungen hinein, die Agenten verwenden dürfen. Öffne im Web-Tresor Einstellungen › Sicherheit › Schlüssel und zeige deinen API-Schlüssel an.",
+    "{host} meldet sich mit seiner eigenen Bitwarden CLI an. Erstelle in deinem Tresor einen Ordner mit dem Namen Shared with OpenOwnBot und lege nur die Anmeldungen hinein, die Agenten verwenden dürfen. Öffne im Web-Tresor Einstellungen › Sicherheit › Schlüssel und zeige deinen API-Schlüssel an.",
   "mobile.server.connectors.bitwarden.serverUrl": "Serveradresse",
   "mobile.server.connectors.bitwarden.serverUrlHint":
     "Bitwarden oder die Adresse deines Vaultwarden-Servers. {host} muss sie über HTTPS erreichen.",
@@ -436,7 +436,7 @@ export const messages = {
   "mobile.server.connectors.bitwarden.connectingBody":
     "{host} meldet sich bei Bitwarden an. Die erste Anmeldung kann einige Minuten dauern.",
   "mobile.server.connectors.bitwarden.folderTitle": "Geteilter Ordner",
-  "mobile.server.connectors.bitwarden.folderName": "Shared with OpenBot",
+  "mobile.server.connectors.bitwarden.folderName": "Shared with OpenOwnBot",
   "mobile.server.connectors.bitwarden.folderKind": "Ordner in Bitwarden",
   "mobile.server.connectors.bitwarden.folderFooter":
     "Verschiebe Anmeldedaten in diesen Ordner in Bitwarden, damit Agenten sie verwenden können. Entferne sie, um die Nutzung zu beenden.",
@@ -499,9 +499,9 @@ export const messages = {
   "mobile.server.connectors.onePassword.disconnectBody":
     "{host} vergisst das Token. Der Tresor und das Dienstkonto bleiben in 1Password; entferne sie dort, wenn du sie nicht mehr brauchst.",
   "mobile.server.connectors.slack.title": "Slack",
-  "mobile.server.connectors.slack.summary": "Personen erwähnen @OpenBot in Slack",
+  "mobile.server.connectors.slack.summary": "Personen erwähnen @OpenOwnBot in Slack",
   "mobile.server.connectors.slack.description":
-    "Personen erwähnen @OpenBot in Slack oder senden ihm eine Direktnachricht. Der Slack Orchestrator fragt den passenden Agenten und antwortet.",
+    "Personen erwähnen @OpenOwnBot in Slack oder senden ihm eine Direktnachricht. Der Slack Orchestrator fragt den passenden Agenten und antwortet.",
   "mobile.server.connectors.slack.connected": "{workspace} · Slack Orchestrator antwortet",
   "mobile.server.connectors.slack.noAgent": "{workspace} · Noch kein Agent antwortet",
   "mobile.server.connectors.slack.many": {
@@ -522,7 +522,7 @@ export const messages = {
   },
   "mobile.server.connectors.slack.workspaceTitle": "Arbeitsbereich",
   "mobile.server.connectors.slack.workspaceDescription":
-    "Personen erwähnen @OpenBot oder senden ihm eine Direktnachricht.",
+    "Personen erwähnen @OpenOwnBot oder senden ihm eine Direktnachricht.",
   "mobile.server.connectors.slack.missingScopes":
     "OpenOwnBot hat diese Berechtigungen in Slack nicht: {scopes}. Trenne den Arbeitsbereich und verbinde ihn erneut.",
   "mobile.server.connectors.slack.retryAt":
@@ -540,7 +540,7 @@ export const messages = {
     "Füge den Slack Orchestrator hinzu, sonst erhält Slack keine Antwort.",
   "mobile.server.connectors.slack.addAgent": "Slack Orchestrator hinzufügen",
   "mobile.server.connectors.slack.note":
-    "OpenBot tritt allen öffentlichen Kanälen und jedem neuen Kanal automatisch bei. Lade ihn in einen privaten Kanal ein: /invite @OpenBot.",
+    "OpenOwnBot tritt allen öffentlichen Kanälen und jedem neuen Kanal automatisch bei. Lade ihn in einen privaten Kanal ein: /invite @OpenOwnBot.",
   "mobile.server.connectors.slack.disconnectTitle": "{workspace} trennen?",
   "mobile.server.connectors.slack.disconnectBody":
     "OpenOwnBot antwortet nicht mehr in {workspace} und entfernt sein Slack-Token von {host}.",
@@ -550,12 +550,12 @@ export const messages = {
     "Der Slack Orchestrator und seine Unterhaltungen werden aus OpenOwnBot gelöscht.",
   "mobile.server.connectors.slack.agentPromptTitle": "Slack Orchestrator hinzufügen?",
   "mobile.server.connectors.slack.agentPromptBody":
-    "Dieser neue Agent beantwortet alles, was Personen in {workspace} an @OpenBot senden.",
+    "Dieser neue Agent beantwortet alles, was Personen in {workspace} an @OpenOwnBot senden.",
   "mobile.server.connectors.slack.installFailed": "Slack hat die Installation nicht abgeschlossen. Versuche es erneut.",
   "mobile.server.connectors.discord.title": "Discord",
-  "mobile.server.connectors.discord.summary": "Personen erwähnen @OpenBot auf einem Discord-Server",
+  "mobile.server.connectors.discord.summary": "Personen erwähnen @OpenOwnBot auf einem Discord-Server",
   "mobile.server.connectors.discord.description":
-    "Personen erwähnen @OpenBot in einem Kanal eines Discord-Servers. Der Discord Orchestrator fragt den passenden Agenten und antwortet.",
+    "Personen erwähnen @OpenOwnBot in einem Kanal eines Discord-Servers. Der Discord Orchestrator fragt den passenden Agenten und antwortet.",
   "mobile.server.connectors.discord.connected": "{workspace} · Discord Orchestrator antwortet",
   "mobile.server.connectors.discord.noAgent": "{workspace} · Noch kein Agent antwortet",
   "mobile.server.connectors.discord.many": {
@@ -576,7 +576,7 @@ export const messages = {
   },
   "mobile.server.connectors.discord.workspaceTitle": "Discord-Server",
   "mobile.server.connectors.discord.workspaceDescription":
-    "Erwähne @OpenBot in einem Kanal. Antworte OpenBot, um fortzufahren.",
+    "Erwähne @OpenOwnBot in einem Kanal. Antworte OpenOwnBot, um fortzufahren.",
   "mobile.server.connectors.discord.missingScopes":
     "OpenOwnBot hat diese Berechtigungen in Discord nicht: {scopes}. Trenne den Discord-Server und verbinde ihn erneut.",
   "mobile.server.connectors.discord.retryAt":
@@ -603,7 +603,7 @@ export const messages = {
     "Der Discord Orchestrator und seine Unterhaltungen werden aus OpenOwnBot gelöscht.",
   "mobile.server.connectors.discord.agentPromptTitle": "Discord Orchestrator hinzufügen?",
   "mobile.server.connectors.discord.agentPromptBody":
-    "Dieser neue Agent beantwortet alles, was Personen in {workspace} an @OpenBot senden.",
+    "Dieser neue Agent beantwortet alles, was Personen in {workspace} an @OpenOwnBot senden.",
   "mobile.server.connectors.discord.installFailed":
     "Discord hat die Autorisierung nicht abgeschlossen. Versuche es erneut.",
   "mobile.server.connectors.telegram.title": "Telegram",
@@ -867,11 +867,11 @@ export const messages = {
   "mobile.server.update.path.hosted":
     "Der gehostete Dienst lädt Updates im Hintergrund herunter. Ein heruntergeladenes Update startet beim nächsten Serverstart. Warte, bis aktive Aufgaben beendet sind, bevor du den Server stoppst und fortsetzt. Bleibt er bei einer alten Version, kontaktiere den Host-Administrator.",
   "mobile.server.update.path.system":
-    "Führe auf dem Host sudo openbot update aus, um die neueste Version zu installieren. Dieser Befehl beendet OpenOwnBot. Warte zuerst, bis aktive Aufgaben beendet sind. Automatische Downloads werden beim nächsten Systemstart installiert.",
+    "Führe auf dem Host sudo openownbot update aus, um die neueste Version zu installieren. Dieser Befehl beendet OpenOwnBot. Warte zuerst, bis aktive Aufgaben beendet sind. Automatische Downloads werden beim nächsten Systemstart installiert.",
   "mobile.server.update.path.container":
     "Lade auf dem Docker-Host das neue OpenOwnBot-Image herunter und erstelle den Container mit denselben Datenvolumes neu. Warte zuerst, bis aktive Aufgaben beendet sind. Behalte die vorhandenen Volumes, um deine Daten zu erhalten.",
   "mobile.server.update.path.manual":
-    "Diese Installation kann sich nicht selbst ersetzen. Bitte den Host-Administrator, die kompatible Version von github.com/nightly-labs/openbot/releases zu installieren. Behalte die vorhandenen OpenOwnBot-Daten.",
+    "Diese Installation kann sich nicht selbst ersetzen. Bitte den Host-Administrator, die kompatible Version von github.com/zereight/openownbot/releases zu installieren. Behalte die vorhandenen OpenOwnBot-Daten.",
   "mobile.server.update.path.unavailable":
     "Dies ist eine Entwicklungsversion. Verwende eine installierte OpenOwnBot-Version, um nach Updates zu suchen.",
   "mobile.server.update.check": "Nach Updates suchen",

@@ -58,7 +58,7 @@ export function MarketplaceSearchBar({
   const liquidGlass = useLiquidGlass();
   const reduced = useReducedMotion();
   const [foreground, muted, fieldBackground] = useThemeColor(["foreground", "muted", "default"]);
-  const accent = String(useCSSVariable("--openbot-accent-text"));
+  const accent = String(useCSSVariable("--openownbot-accent-text"));
   // As home search: iOS sets the field into the home indicator area; Android stays above the handle.
   const bottomGap = isAndroid ? insets.bottom + 8 : Math.max(insets.bottom - 8, 12);
   const { height: keyboardHeight } = useReanimatedKeyboardAnimation();

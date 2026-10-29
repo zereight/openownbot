@@ -8,7 +8,7 @@ export const messages = defineMessages("remoteDesktop", {
   "remoteDesktop.workspaceLabel": "Remote control",
   "remoteDesktop.displayLabel": "Remote display",
   "remoteDesktop.selectDisplay": "Select display",
-  "remoteDesktop.backToOpenBot": "Back to OpenOwnBot",
+  "remoteDesktop.backToOpenOwnBot": "Back to OpenOwnBot",
   "remoteDesktop.disconnect": "Disconnect",
   "remoteDesktop.viewerTitle": "Sunshine remote desktop",
   "remoteDesktop.viewerLoadFailed": "The Moonlight viewer could not load.",
@@ -19,7 +19,7 @@ export const messages = defineMessages("remoteDesktop", {
   "remoteDesktop.openFailed": "Could not open the desktop",
   "remoteDesktop.notSharingTitle": "{name} is not sharing its screen",
   "remoteDesktop.notSharingDescription":
-    "The server blocks OpenBot from recording its screen. On that server, open System Settings → Privacy & Security → Screen Recording, turn on OpenBot, then try again here.",
+    "The server blocks OpenOwnBot from recording its screen. On that server, open System Settings → Privacy & Security → Screen Recording, turn on OpenOwnBot, then try again here.",
   "remoteDesktop.setup.check.screenRecording": "Screen Recording",
   "remoteDesktop.setup.check.accessibility": "Accessibility",
   "remoteDesktop.setup.check.service": "Sunshine service",

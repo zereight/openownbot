@@ -1,20 +1,20 @@
 import { mkdirSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
-import { type AgentModelOption, type AgentSummary, DEFAULT_AGENT_DEFAULTS } from "@openbot/contracts/ipc";
+import { type AgentModelOption, type AgentSummary, DEFAULT_AGENT_DEFAULTS } from "@openownbot/contracts/ipc";
 import { developerInstructions } from "../src/backend/agent/developer-instructions";
 import { listModelsPayload } from "../src/backend/agent/model-tools";
 import { BUILTIN_TOOL_CATALOG, VISIBLE_DYNAMIC_TOOLS } from "../src/backend/agent/tool-catalog";
 import { toolGuidance } from "../src/backend/agent/tool-guidance";
 import { runDebtRatchet } from "./debt-ratchet";
 
-// Holds the text that OpenBot adds to an agent's context to the byte counts in
+// Holds the text that OpenOwnBot adds to an agent's context to the byte counts in
 // tools/agent-context/budget.json. `scripts/debt-ratchet.ts` has the rules of the baseline: more bytes
 // fail, fewer bytes fail until `--write` lowers the baseline. The fixture agent has no user data, so
-// the counts measure only OpenBot's own text. Not measured: the schema that the Claude Agent SDK makes
+// the counts measure only OpenOwnBot's own text. Not measured: the schema that the Claude Agent SDK makes
 // from the raw Zod shapes of its visible tools (`claude-client.ts`).
 
 const ROOT = resolve(import.meta.dirname, "..");
-const OUT = resolve(ROOT, ".openbot-build/agent-context-budget");
+const OUT = resolve(ROOT, ".openownbot-build/agent-context-budget");
 
 const agent: AgentSummary = {
   id: "agent-1",

@@ -32,12 +32,12 @@ export const HUGGINGFACE_PLUGIN_GUIDE: PluginGuide = {
     {
       question: "Does the Hugging Face plugin need an account or a key?",
       answer:
-        "No. The OpenBot listing connects with no sign-in. Hugging Face answers requests without a token with its anonymous set of tools. The server tells the agent that anonymous use has rate limits. A Hugging Face account gives higher limits.",
+        "No. The OpenOwnBot listing connects with no sign-in. Hugging Face answers requests without a token with its anonymous set of tools. The server tells the agent that anonymous use has rate limits. A Hugging Face account gives higher limits.",
     },
     {
       question: "What can the agent see and change on Hugging Face?",
       answer:
-        "The agent reads public Hub data: models, datasets, Spaces, collections, papers and documentation. The anonymous tools only read, so the agent cannot change anything on the Hub. Hugging Face gets the requests that the agent sends. Your workspaces, conversations and files stay on the computer that runs OpenBot.",
+        "The agent reads public Hub data: models, datasets, Spaces, collections, papers and documentation. The anonymous tools only read, so the agent cannot change anything on the Hub. Hugging Face gets the requests that the agent sends. Your workspaces, conversations and files stay on the computer that runs OpenOwnBot.",
     },
     {
       question: "Can the agent create repositories or run jobs?",

@@ -3,13 +3,13 @@
   container-type: inline-size;
   display: grid;
   min-width: 0;
-  gap: var(--openbot-space-4);
-  color: var(--openbot-text-primary);
+  gap: var(--openownbot-space-4);
+  color: var(--openownbot-text-primary);
 }
 
 .routine-planner-header {
   display: grid;
-  gap: var(--openbot-space-3);
+  gap: var(--openownbot-space-3);
 }
 
 .routine-planner-title {
@@ -18,35 +18,35 @@
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: var(--openbot-space-3);
+  gap: var(--openownbot-space-3);
 }
 
 .routine-planner-identity {
   display: flex;
   min-width: 0;
   align-items: center;
-  gap: var(--openbot-space-2);
+  gap: var(--openownbot-space-2);
 }
 
 /* The arrow lines up with the content edge, not its hit area. */
 .routine-planner-identity .ui-icon-button {
-  margin-left: calc(-1 * var(--openbot-space-2));
+  margin-left: calc(-1 * var(--openownbot-space-2));
 }
 
 .routine-planner-title h2 {
-  font-size: var(--openbot-text-lg);
-  font-weight: var(--openbot-weight-semibold);
+  font-size: var(--openownbot-text-lg);
+  font-weight: var(--openownbot-weight-semibold);
 }
 
 .routine-planner-title h2 span {
-  color: var(--openbot-text-muted);
-  font-weight: var(--openbot-weight-regular);
+  color: var(--openownbot-text-muted);
+  font-weight: var(--openownbot-weight-regular);
 }
 
 .routine-planner-title p,
 .routine-planner-note {
-  color: var(--openbot-text-muted);
-  font-size: var(--openbot-text-sm);
+  color: var(--openownbot-text-muted);
+  font-size: var(--openownbot-text-sm);
 }
 
 .routine-planner-toolbar {
@@ -55,30 +55,30 @@
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: var(--openbot-space-2);
+  gap: var(--openownbot-space-2);
 }
 
 .routine-planner-nav {
   display: flex;
   min-width: 0;
   align-items: center;
-  gap: var(--openbot-space-1);
+  gap: var(--openownbot-space-1);
 }
 
 .routine-planner-range {
-  margin-left: var(--openbot-space-2);
-  font-size: var(--openbot-text-md);
-  font-weight: var(--openbot-weight-medium);
+  margin-left: var(--openownbot-space-2);
+  font-size: var(--openownbot-text-md);
+  font-weight: var(--openownbot-weight-medium);
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
 }
 
 .routine-planner-clock-change {
-  border-radius: var(--openbot-radius-md);
-  background: var(--openbot-warning-soft);
-  padding: var(--openbot-space-1-5) var(--openbot-space-3);
-  color: var(--openbot-warning-text);
-  font-size: var(--openbot-text-sm);
+  border-radius: var(--openownbot-radius-md);
+  background: var(--openownbot-warning-soft);
+  padding: var(--openownbot-space-1-5) var(--openownbot-space-3);
+  color: var(--openownbot-warning-text);
+  font-size: var(--openownbot-text-sm);
 }
 
 .routine-planner-body {
@@ -86,26 +86,26 @@
   min-width: 0;
   grid-template-columns: minmax(0, 1fr) minmax(0, 17rem);
   align-items: start;
-  gap: var(--openbot-space-4);
+  gap: var(--openownbot-space-4);
 }
 
 .routine-planner-grid {
   display: grid;
   min-width: 0;
-  gap: var(--openbot-space-1);
+  gap: var(--openownbot-space-1);
 }
 
 .routine-planner-weekdays {
   display: grid;
   grid-template-columns: repeat(7, minmax(0, 1fr));
-  gap: var(--openbot-space-1);
-  color: var(--openbot-text-muted);
-  font-size: var(--openbot-text-sm);
+  gap: var(--openownbot-space-1);
+  color: var(--openownbot-text-muted);
+  font-size: var(--openownbot-text-sm);
 }
 
 /* The day cell's border and padding, so that each head starts where its day starts. */
 .routine-planner-weekdays > * {
-  padding-inline: calc(1px + var(--openbot-space-1-5));
+  padding-inline: calc(1px + var(--openownbot-space-1-5));
 }
 
 /* Each day is a list, not a time grid: runs at the same minute stack and stay readable. */
@@ -113,7 +113,7 @@
   display: grid;
   min-width: 0;
   grid-template-columns: repeat(7, minmax(0, 1fr));
-  gap: var(--openbot-space-1);
+  gap: var(--openownbot-space-1);
 }
 
 .routine-planner-day {
@@ -121,43 +121,43 @@
   min-width: 0;
   min-height: 12rem;
   align-content: start;
-  gap: var(--openbot-space-1);
-  border: 1px solid var(--openbot-border-strong);
-  border-radius: var(--openbot-radius-lg);
-  background: var(--openbot-bg-surface);
-  padding: var(--openbot-space-1-5);
+  gap: var(--openownbot-space-1);
+  border: 1px solid var(--openownbot-border-strong);
+  border-radius: var(--openownbot-radius-lg);
+  background: var(--openownbot-bg-surface);
+  padding: var(--openownbot-space-1-5);
 }
 
 .routine-planner-day[data-past] {
-  background: var(--openbot-transparent);
+  background: var(--openownbot-transparent);
 }
 
 .routine-planner-day[aria-current="date"] {
-  border-color: var(--openbot-accent-strong);
+  border-color: var(--openownbot-accent-strong);
 }
 
 .routine-planner-day-button.ui-button {
   width: 100%;
   justify-content: flex-start;
-  gap: var(--openbot-space-1-5);
-  color: var(--openbot-text-muted);
+  gap: var(--openownbot-space-1-5);
+  color: var(--openownbot-text-muted);
 }
 
 .routine-planner-day-button strong {
-  color: var(--openbot-text-primary);
-  font-weight: var(--openbot-weight-semibold);
+  color: var(--openownbot-text-primary);
+  font-weight: var(--openownbot-weight-semibold);
   font-variant-numeric: tabular-nums;
 }
 
 .routine-planner-day[aria-current="date"] .routine-planner-day-button strong {
-  color: var(--openbot-accent-text);
+  color: var(--openownbot-accent-text);
 }
 
 .routine-planner-runs,
 .routine-planner-entries {
   display: grid;
   min-width: 0;
-  gap: var(--openbot-space-0-5);
+  gap: var(--openownbot-space-0-5);
   margin: 0;
   padding: 0;
   list-style: none;
@@ -165,34 +165,34 @@
 
 .routine-planner-status {
   display: grid;
-  width: var(--openbot-space-4);
-  height: var(--openbot-space-4);
+  width: var(--openownbot-space-4);
+  height: var(--openownbot-space-4);
   place-items: center;
 }
 
 .routine-planner-status > svg {
-  width: var(--openbot-space-3);
-  height: var(--openbot-space-3);
+  width: var(--openownbot-space-3);
+  height: var(--openownbot-space-3);
   stroke-width: 2;
 }
 
 .routine-planner-status-dot {
-  width: var(--openbot-space-2);
-  height: var(--openbot-space-2);
-  border-radius: var(--openbot-radius-pill);
-  background: var(--openbot-accent);
+  width: var(--openownbot-space-2);
+  height: var(--openownbot-space-2);
+  border-radius: var(--openownbot-radius-pill);
+  background: var(--openownbot-accent);
 }
 
 .routine-planner-status[data-status="paused"] {
-  color: var(--openbot-text-muted);
+  color: var(--openownbot-text-muted);
 }
 
 .routine-planner-status[data-status="failed"] {
-  color: var(--openbot-danger-text);
+  color: var(--openownbot-danger-text);
 }
 
 .routine-planner-status[data-status="completed"] {
-  color: var(--openbot-success-text);
+  color: var(--openownbot-success-text);
 }
 
 .routine-planner-avatars {
@@ -200,30 +200,30 @@
 }
 
 .routine-planner-avatar.agent-avatar {
-  width: var(--openbot-space-4);
-  height: var(--openbot-space-4);
+  width: var(--openownbot-space-4);
+  height: var(--openownbot-space-4);
 }
 
 .routine-planner-avatars .routine-planner-avatar + .routine-planner-avatar {
-  margin-left: calc(var(--openbot-space-1-5) * -1);
+  margin-left: calc(var(--openownbot-space-1-5) * -1);
 }
 
 .routine-planner-run.ui-button {
   display: grid;
   width: 100%;
   height: auto;
-  min-height: var(--openbot-control-sm);
+  min-height: var(--openownbot-control-sm);
   grid-template-columns: auto minmax(0, 1fr) auto;
   grid-template-areas:
     "mark time avatars"
     "name name name";
   align-items: center;
-  gap: var(--openbot-space-0-5) var(--openbot-space-1);
-  border-radius: var(--openbot-radius-sm);
-  background: var(--openbot-bg-control);
-  padding: var(--openbot-space-1) var(--openbot-space-1-5);
+  gap: var(--openownbot-space-0-5) var(--openownbot-space-1);
+  border-radius: var(--openownbot-radius-sm);
+  background: var(--openownbot-bg-control);
+  padding: var(--openownbot-space-1) var(--openownbot-space-1-5);
   text-align: left;
-  font-size: var(--openbot-text-sm);
+  font-size: var(--openownbot-text-sm);
 }
 
 .routine-planner-run .routine-planner-status {
@@ -232,7 +232,7 @@
 
 .routine-planner-run-time {
   grid-area: time;
-  color: var(--openbot-text-muted);
+  color: var(--openownbot-text-muted);
   font-variant-numeric: tabular-nums;
 }
 
@@ -260,22 +260,22 @@
 }
 
 .routine-planner-run[data-status="paused"] {
-  outline: 1px dashed var(--openbot-border-grouped);
+  outline: 1px dashed var(--openownbot-border-grouped);
   outline-offset: -1px;
-  background: var(--openbot-transparent);
+  background: var(--openownbot-transparent);
 }
 
 .routine-planner-run[data-status="failed"] {
-  background: var(--openbot-danger-soft);
+  background: var(--openownbot-danger-soft);
 }
 
 .routine-planner-run[data-status="completed"] .routine-planner-run-name {
-  color: var(--openbot-text-muted);
+  color: var(--openownbot-text-muted);
 }
 
 .routine-planner-more.ui-button {
   justify-self: start;
-  color: var(--openbot-text-muted);
+  color: var(--openownbot-text-muted);
 }
 
 /* A month has up to six rows of days: a run is one line, and the column heads name the weekdays. */
@@ -305,13 +305,13 @@
 
 /* Days of the months before and after only fill the rows. */
 .routine-planner-day[data-outside] {
-  border-color: var(--openbot-border);
-  background: var(--openbot-transparent);
+  border-color: var(--openownbot-border);
+  background: var(--openownbot-transparent);
 }
 
 .routine-planner-day[data-outside] .routine-planner-day-button strong {
-  color: var(--openbot-text-muted);
-  font-weight: var(--openbot-weight-regular);
+  color: var(--openownbot-text-muted);
+  font-weight: var(--openownbot-weight-regular);
 }
 
 .routine-planner-upcoming,
@@ -319,33 +319,33 @@
   display: grid;
   min-width: 0;
   align-content: start;
-  gap: var(--openbot-space-2);
+  gap: var(--openownbot-space-2);
 }
 
 .routine-planner-upcoming {
-  border: 1px solid var(--openbot-border-strong);
-  border-radius: var(--openbot-radius-lg);
-  padding: var(--openbot-space-3);
+  border: 1px solid var(--openownbot-border-strong);
+  border-radius: var(--openownbot-radius-lg);
+  padding: var(--openownbot-space-3);
 }
 
 .routine-planner-upcoming h3,
 .routine-planner-hour h3 {
-  color: var(--openbot-text-muted);
-  font-size: var(--openbot-text-sm);
-  font-weight: var(--openbot-weight-medium);
+  color: var(--openownbot-text-muted);
+  font-size: var(--openownbot-text-sm);
+  font-weight: var(--openownbot-weight-medium);
 }
 
 .routine-planner-hour {
   display: grid;
   grid-template-columns: 4rem minmax(0, 1fr);
   align-items: start;
-  gap: var(--openbot-space-2);
-  border-top: 1px solid var(--openbot-border-strong);
-  padding-top: var(--openbot-space-2);
+  gap: var(--openownbot-space-2);
+  border-top: 1px solid var(--openownbot-border-strong);
+  padding-top: var(--openownbot-space-2);
 }
 
 .routine-planner-hour h3 {
-  padding-top: var(--openbot-space-2);
+  padding-top: var(--openownbot-space-2);
   font-variant-numeric: tabular-nums;
 }
 
@@ -353,7 +353,7 @@
   display: flex;
   min-width: 0;
   align-items: center;
-  gap: var(--openbot-space-1);
+  gap: var(--openownbot-space-1);
 }
 
 .routine-planner-entry-main.ui-button {
@@ -363,9 +363,9 @@
   flex: 1 1 auto;
   align-items: center;
   justify-content: flex-start;
-  gap: var(--openbot-space-2);
-  border-radius: var(--openbot-radius-md);
-  padding: var(--openbot-space-1-5) var(--openbot-space-2);
+  gap: var(--openownbot-space-2);
+  border-radius: var(--openownbot-radius-md);
+  padding: var(--openownbot-space-1-5) var(--openownbot-space-2);
   text-align: left;
 }
 
@@ -382,17 +382,17 @@
 }
 
 .routine-planner-entry-name {
-  font-size: var(--openbot-text-md);
+  font-size: var(--openownbot-text-md);
 }
 
 .routine-planner-entry-meta {
-  color: var(--openbot-text-muted);
-  font-size: var(--openbot-text-sm);
-  font-weight: var(--openbot-weight-regular);
+  color: var(--openownbot-text-muted);
+  font-size: var(--openownbot-text-sm);
+  font-weight: var(--openownbot-weight-regular);
 }
 
 .routine-planner-entry[data-status="failed"] .routine-planner-entry-meta {
-  color: var(--openbot-danger-text);
+  color: var(--openownbot-danger-text);
 }
 
 .routine-planner-entry-agents {
@@ -401,8 +401,8 @@
 }
 
 .routine-planner-agent .routine-planner-avatar.agent-avatar {
-  width: var(--openbot-control-xs);
-  height: var(--openbot-control-xs);
+  width: var(--openownbot-control-xs);
+  height: var(--openownbot-control-xs);
 }
 
 /*
@@ -436,17 +436,17 @@
 /* Only hairlines. They clear behind the pitch and fade towards every edge. */
 .routine-planner-empty-cells {
   mask-image:
-    radial-gradient(ellipse 36% 36% at 50% 50%, var(--openbot-transparent) 68%, var(--openbot-text-primary) 100%),
-    radial-gradient(ellipse 72% 78% at 50% 50%, var(--openbot-text-primary) 50%, var(--openbot-transparent) 100%);
+    radial-gradient(ellipse 36% 36% at 50% 50%, var(--openownbot-transparent) 68%, var(--openownbot-text-primary) 100%),
+    radial-gradient(ellipse 72% 78% at 50% 50%, var(--openownbot-text-primary) 50%, var(--openownbot-transparent) 100%);
   mask-composite: intersect;
 }
 
 .routine-planner-empty-cell {
-  border-top: 1px solid var(--openbot-border);
-  border-left: 1px solid var(--openbot-border);
-  padding: var(--openbot-space-2) var(--openbot-space-3);
-  color: var(--openbot-text-dim);
-  font-size: var(--openbot-text-md);
+  border-top: 1px solid var(--openownbot-border);
+  border-left: 1px solid var(--openownbot-border);
+  padding: var(--openownbot-space-2) var(--openownbot-space-3);
+  color: var(--openownbot-text-dim);
+  font-size: var(--openownbot-text-md);
 }
 
 .routine-planner-empty-cell[data-outside] {
@@ -454,8 +454,8 @@
 }
 
 .routine-planner-empty-cell[data-today] {
-  color: var(--openbot-text-primary);
-  font-weight: var(--openbot-weight-semibold);
+  color: var(--openownbot-text-primary);
+  font-weight: var(--openownbot-weight-semibold);
 }
 
 /* A run lands, writes its note, holds, then fades. The animation is `LIFE` steps of `STEP_MS`. */
@@ -464,12 +464,12 @@
   min-width: 0;
   align-self: start;
   justify-items: start;
-  gap: var(--openbot-space-2);
+  gap: var(--openownbot-space-2);
   grid-row: var(--routine-planner-empty-row);
   grid-column: var(--routine-planner-empty-column);
-  margin-top: calc(var(--openbot-space-8) + var(--openbot-space-1));
-  padding-inline: var(--openbot-space-2);
-  animation: routine-planner-empty-life var(--routine-planner-empty-life) var(--openbot-ease-out) both;
+  margin-top: calc(var(--openownbot-space-8) + var(--openownbot-space-1));
+  padding-inline: var(--openownbot-space-2);
+  animation: routine-planner-empty-life var(--routine-planner-empty-life) var(--openownbot-ease-out) both;
 }
 
 .routine-planner-empty-run > .routine-planner-run {
@@ -484,7 +484,7 @@
   stroke-dasharray: 24;
   stroke-dashoffset: 24;
   opacity: 0;
-  animation: routine-planner-empty-draw 420ms var(--openbot-ease-out) 380ms forwards;
+  animation: routine-planner-empty-draw 420ms var(--openownbot-ease-out) 380ms forwards;
 }
 
 @keyframes routine-planner-empty-life {
@@ -521,16 +521,16 @@
 
 /* Handwriting. The app has no hand font, so it uses the one of the system. */
 .routine-planner-hand {
-  color: var(--openbot-accent-text);
+  color: var(--openownbot-accent-text);
   font-family: "Bradley Hand", "Noteworthy", "Segoe Print", cursive;
-  font-weight: var(--openbot-weight-semibold);
+  font-weight: var(--openownbot-weight-semibold);
 }
 
 .routine-planner-empty-note {
   display: grid;
   width: fit-content;
-  padding-inline: var(--openbot-space-1);
-  font-size: var(--openbot-text-xl);
+  padding-inline: var(--openownbot-space-1);
+  font-size: var(--openownbot-text-xl);
   line-height: 1.3;
   transform: rotate(-1.5deg);
   transform-origin: left top;
@@ -551,7 +551,7 @@
 
 .routine-planner-empty-underline {
   width: 100%;
-  height: var(--openbot-space-2);
+  height: var(--openownbot-space-2);
   overflow: visible;
 }
 
@@ -564,7 +564,7 @@
   opacity: 0;
   stroke-width: 1.5;
   vector-effect: non-scaling-stroke;
-  animation: routine-planner-empty-draw 520ms var(--openbot-ease-out) var(--routine-planner-empty-delay) forwards;
+  animation: routine-planner-empty-draw 520ms var(--openownbot-ease-out) var(--routine-planner-empty-delay) forwards;
 }
 
 .routine-planner-empty-pitch {
@@ -573,21 +573,21 @@
   max-width: 34rem;
   place-self: center;
   justify-items: center;
-  gap: var(--openbot-space-4);
-  padding: var(--openbot-space-6);
+  gap: var(--openownbot-space-4);
+  padding: var(--openownbot-space-6);
   text-align: center;
 }
 
 .routine-planner-empty-title {
   display: grid;
-  font-size: var(--openbot-text-display);
-  font-weight: var(--openbot-weight-semibold);
+  font-size: var(--openownbot-text-display);
+  font-weight: var(--openownbot-weight-semibold);
   letter-spacing: -0.01em;
   line-height: 1.2;
 }
 
 .routine-planner-empty-title > .routine-planner-empty-lead {
-  color: var(--openbot-text-muted);
+  color: var(--openownbot-text-muted);
 }
 
 /* The one handwritten word of the title. It writes itself once. */
@@ -599,16 +599,16 @@
 
 .routine-planner-empty-lines {
   display: grid;
-  color: var(--openbot-text-muted);
-  font-size: var(--openbot-text-xl);
+  color: var(--openownbot-text-muted);
+  font-size: var(--openownbot-text-xl);
   line-height: 1.5;
 }
 
 .routine-planner-empty-action.ui-button {
   width: 100%;
   max-width: 22rem;
-  height: var(--openbot-control-lg);
-  margin-top: var(--openbot-space-2);
+  height: var(--openownbot-control-lg);
+  margin-top: var(--openownbot-space-2);
 }
 
 .routine-planner-empty-menu {
@@ -633,11 +633,11 @@
 }
 
 .routine-planner-skeleton-heading {
-  height: var(--openbot-control-xs);
+  height: var(--openownbot-control-xs);
 }
 
 .routine-planner-skeleton-run {
-  height: var(--openbot-control-md);
+  height: var(--openownbot-control-md);
 }
 
 /* Seven day columns need the full width: the next runs move below the week. */
@@ -695,11 +695,11 @@
   }
 
   .routine-planner-empty-title {
-    font-size: var(--openbot-text-3xl);
+    font-size: var(--openownbot-text-3xl);
   }
 
   .routine-planner-empty-lines {
-    font-size: var(--openbot-text-lg);
+    font-size: var(--openownbot-text-lg);
   }
 
   .routine-planner-empty-cells {
@@ -722,11 +722,11 @@
 
   .routine-planner-empty-day {
     display: block;
-    color: var(--openbot-text-dim);
-    font-size: var(--openbot-text-sm);
+    color: var(--openownbot-text-dim);
+    font-size: var(--openownbot-text-sm);
   }
 
   .routine-planner-empty-note {
-    font-size: var(--openbot-text-lg);
+    font-size: var(--openownbot-text-lg);
   }
 }

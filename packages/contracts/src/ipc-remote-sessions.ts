@@ -12,14 +12,14 @@ export interface RemoteSessionReusePreference {
 export const DEFAULT_REMOTE_SESSION_REUSE_PREFERENCE: RemoteSessionReusePreference = { keepBetweenRuns: true };
 
 /**
- * How devices that connect to this computer send chats and files. `openbot` uses a direct path when
- * one works and the OpenBot relay when it does not. `private` uses only a local network or a
- * Tailscale tailnet: sign-in and connection setup still go through OpenBot, but chats and files do not.
+ * How devices that connect to this computer send chats and files. `openownbot` uses a direct path when
+ * one works and the OpenOwnBot relay when it does not. `private` uses only a local network or a
+ * Tailscale tailnet: sign-in and connection setup still go through OpenOwnBot, but chats and files do not.
  */
-export const REMOTE_NETWORK_ROUTES = ["openbot", "private"] as const;
+export const REMOTE_NETWORK_ROUTES = ["openownbot", "private"] as const;
 export type RemoteNetworkRoute = (typeof REMOTE_NETWORK_ROUTES)[number];
-// The `openbot` relay route is switched off in this fork. The default is `private`, and the route
-// store reads a saved `openbot` as `private`.
+// The `openownbot` relay route is switched off in this fork. The default is `private`, and the route
+// store reads a saved `openownbot` as `private`.
 export const DEFAULT_REMOTE_NETWORK_ROUTE: RemoteNetworkRoute = "private";
 
 export function isRemoteNetworkRoute(value: unknown): value is RemoteNetworkRoute {

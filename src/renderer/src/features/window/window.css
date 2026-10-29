@@ -3,10 +3,10 @@
  * one L around the card. */
 .app-window {
   /* The frame is darker than the card, so the card comes forward. */
-  --window-frame: var(--openbot-bg-frame);
+  --window-frame: var(--openownbot-bg-frame);
   /* The thin frame at the right and the bottom of the card */
-  --window-edge: var(--openbot-space-1);
-  --window-hairline-height: var(--openbot-icon-lg);
+  --window-edge: var(--openownbot-space-1);
+  --window-hairline-height: var(--openownbot-icon-lg);
   display: grid;
   width: 100%;
   height: 100%;
@@ -39,7 +39,7 @@
   > :is(.web-app-frame, .app-frame:not(.app-frame-platform-darwin)):not(.app-frame-with-server-rail)
   > .sidebar:not(.sidebar-compact)
   .sidebar-topbar {
-  padding-left: var(--openbot-space-3);
+  padding-left: var(--openownbot-space-3);
 }
 
 @media (min-width: 721px) {
@@ -54,7 +54,7 @@
     > .app-frame-platform-darwin:not(.app-frame-with-server-rail)
     > .sidebar:not(.sidebar-compact)
     .sidebar-topbar {
-    padding-left: var(--openbot-space-6);
+    padding-left: var(--openownbot-space-6);
   }
 
   /* One card holds the sidebar, the chat and the side panel, below the top row. The frame draws the
@@ -71,9 +71,9 @@
     position: absolute;
     z-index: -1;
     inset: calc(var(--left-header-height) - 1px) var(--window-edge) var(--window-edge) 0;
-    border: 1px solid var(--openbot-border);
-    border-radius: var(--openbot-radius-card);
-    background: var(--openbot-bg-canvas);
+    border: 1px solid var(--openownbot-border);
+    border-radius: var(--openownbot-radius-card);
+    background: var(--openownbot-bg-canvas);
     content: "";
     pointer-events: none;
   }
@@ -103,7 +103,7 @@
     width: 1px;
     border: 0;
     border-radius: 0;
-    background: var(--openbot-border);
+    background: var(--openownbot-border);
   }
 
   .app-window > .app-frame-edge > .sidebar:not(.sidebar-compact) .sidebar-topbar::after,
@@ -116,7 +116,7 @@
     width: 1px;
     height: var(--window-hairline-height);
     translate: 0 -50%;
-    background: var(--openbot-border-strong);
+    background: var(--openownbot-border-strong);
     content: "";
     pointer-events: none;
   }
@@ -135,7 +135,7 @@
     width: 1px;
     border: 0;
     border-radius: 0;
-    background: var(--openbot-border);
+    background: var(--openownbot-border);
   }
 
   .app-window
@@ -169,44 +169,44 @@
   /* A maximized pane covers the hidden chat. A chat preview frame keeps its own visibility, so the
    * pane paints the card under it. */
   .app-window > .app-frame-edge .side-panel-maximized > :is(.settings-panel, .browser-panel) {
-    border-bottom-right-radius: calc(var(--openbot-radius-card) - 1px);
-    background: var(--openbot-bg-canvas);
+    border-bottom-right-radius: calc(var(--openownbot-radius-card) - 1px);
+    background: var(--openownbot-bg-canvas);
   }
 
   /* The routine canvas fills the card, so its board follows the card's rounded corner. */
   .app-window > .app-frame-edge .diagram-view-body {
     border-top: 0;
     border-right: 0;
-    border-radius: 0 0 calc(var(--openbot-radius-card) - 1px) 0;
+    border-radius: 0 0 calc(var(--openownbot-radius-card) - 1px) 0;
   }
 
   /* The top row controls are flat: one height and one radius, with no line. A control fills on hover,
    * and an open control keeps a stronger fill. */
   .app-window > .app-frame-edge .conversation-header-actions {
-    gap: var(--openbot-space-2);
+    gap: var(--openownbot-space-2);
   }
 
   .app-window > .app-frame-edge .conversation-header :is(.provider-model-trigger, .header-panel-toggle) {
-    height: var(--openbot-control-sm);
+    height: var(--openownbot-control-sm);
     border-color: transparent;
-    border-radius: var(--openbot-radius-md);
+    border-radius: var(--openownbot-radius-md);
     background: transparent;
     box-shadow: none;
-    color: var(--openbot-text-secondary);
+    color: var(--openownbot-text-secondary);
   }
 
   .app-window > .app-frame-edge .conversation-header .header-panel-toggle {
-    width: var(--openbot-control-sm);
-    min-width: var(--openbot-control-sm);
+    width: var(--openownbot-control-sm);
+    min-width: var(--openownbot-control-sm);
     padding: 0;
-    color: var(--openbot-text-muted);
+    color: var(--openownbot-text-muted);
   }
 
   @media (hover: hover) and (pointer: fine) {
     .app-window > .app-frame-edge .conversation-header :is(.provider-model-trigger, .header-panel-toggle):hover {
       border-color: transparent;
-      background: var(--openbot-bg-control-hover);
-      color: var(--openbot-text-primary);
+      background: var(--openownbot-bg-control-hover);
+      color: var(--openownbot-text-primary);
     }
   }
 
@@ -218,25 +218,25 @@
       .side-panel-toggle
     ) {
     border-color: transparent;
-    background: var(--openbot-bg-control-active);
-    color: var(--openbot-text-primary);
+    background: var(--openownbot-bg-control-active);
+    color: var(--openownbot-text-primary);
   }
 
   /* A short line between the model and the side panel button */
   .app-window > .app-frame-edge .conversation-header-actions > .side-panel-toggle {
     position: relative;
-    margin-left: calc(var(--openbot-space-2) + 1px);
+    margin-left: calc(var(--openownbot-space-2) + 1px);
     overflow: visible;
   }
 
   .app-window > .app-frame-edge .conversation-header-actions > .side-panel-toggle::before {
     position: absolute;
     top: 50%;
-    left: calc(-1 * var(--openbot-space-2) - 1px);
+    left: calc(-1 * var(--openownbot-space-2) - 1px);
     width: 1px;
     height: var(--window-hairline-height);
     translate: 0 -50%;
-    background: var(--openbot-border-strong);
+    background: var(--openownbot-border-strong);
     content: "";
     pointer-events: none;
   }
@@ -253,7 +253,7 @@
     flex: none;
     height: var(--left-header-height);
     flex-wrap: nowrap;
-    padding: 0 var(--openbot-space-3);
+    padding: 0 var(--openownbot-space-3);
     border-bottom: 0;
     -webkit-app-region: drag;
   }
@@ -264,7 +264,7 @@
     :is(.agent-usage-header, .routine-planner-title)
     > :is(.agent-usage-identity, .agent-usage-controls, .routine-planner-identity, p) {
     flex-wrap: nowrap;
-    gap: var(--openbot-space-2);
+    gap: var(--openownbot-space-2);
     -webkit-app-region: no-drag;
   }
 
@@ -273,11 +273,11 @@
   }
 
   .app-window > .app-frame-edge > .window-page :is(.agent-usage-identity, .routine-planner-title) h2 {
-    gap: var(--openbot-space-2);
-    font-size: var(--openbot-text-md);
-    font-weight: var(--openbot-weight-medium);
+    gap: var(--openownbot-space-2);
+    font-size: var(--openownbot-text-md);
+    font-weight: var(--openownbot-weight-medium);
     white-space: nowrap;
-    color: var(--openbot-text-primary);
+    color: var(--openownbot-text-primary);
   }
 
   /* In a narrow window, the title gets shorter and the controls keep their size. */
@@ -295,16 +295,16 @@
     > .window-page
     :is(.agent-usage-header, .routine-planner-title)
     :is(.ui-select-trigger, .ui-icon-button) {
-    height: var(--openbot-control-sm);
+    height: var(--openownbot-control-sm);
     border-color: transparent;
-    border-radius: var(--openbot-radius-md);
+    border-radius: var(--openownbot-radius-md);
     background: transparent;
     box-shadow: none;
-    color: var(--openbot-text-secondary);
+    color: var(--openownbot-text-secondary);
   }
 
   .app-window > .app-frame-edge > .window-page :is(.agent-usage-header, .routine-planner-title) .ui-icon-button {
-    width: var(--openbot-control-sm);
+    width: var(--openownbot-control-sm);
   }
 
   @media (hover: hover) {
@@ -313,8 +313,8 @@
       > .window-page
       :is(.agent-usage-header, .routine-planner-title)
       :is(.ui-select-trigger, .ui-icon-button):hover {
-      background: var(--openbot-bg-control-hover);
-      color: var(--openbot-text-primary);
+      background: var(--openownbot-bg-control-hover);
+      color: var(--openownbot-text-primary);
     }
   }
 
@@ -335,13 +335,13 @@
   }
 
   .app-window > .app-frame-edge > .window-page .routine-planner-toolbar {
-    padding: var(--openbot-space-4) var(--openbot-space-6) 0;
+    padding: var(--openownbot-space-4) var(--openownbot-space-6) 0;
   }
 
   .app-window > .app-frame-edge > .window-page .routine-planner-body {
     min-height: 0;
     overflow-y: auto;
-    padding: var(--openbot-space-4) var(--openbot-space-6) var(--openbot-space-6);
+    padding: var(--openownbot-space-4) var(--openownbot-space-6) var(--openownbot-space-6);
   }
 
   /* The empty month fills the card and clips at its bottom edge, so the pitch stays in the middle of
@@ -442,7 +442,7 @@
 
   .app-window > .app-frame-edge > .window-page .skills-marketplace-topbar {
     min-height: 0;
-    padding: 0 var(--openbot-space-3);
+    padding: 0 var(--openownbot-space-3);
     border-bottom: 0;
     -webkit-app-region: drag;
   }
@@ -453,8 +453,8 @@
   }
 
   .app-window > .app-frame-edge > .window-page .skills-marketplace-topbar .marketplace-title {
-    font-size: var(--openbot-text-md);
-    font-weight: var(--openbot-weight-medium);
+    font-size: var(--openownbot-text-md);
+    font-weight: var(--openownbot-weight-medium);
     white-space: nowrap;
   }
 
@@ -482,10 +482,10 @@
   min-width: 0;
   min-height: 0;
   flex-direction: column;
-  gap: var(--openbot-space-1);
+  gap: var(--openownbot-space-1);
   overflow: hidden;
-  border-right: 1px solid var(--openbot-border);
-  padding: var(--openbot-space-4) var(--openbot-space-3) 0;
+  border-right: 1px solid var(--openownbot-border);
+  padding: var(--openownbot-space-4) var(--openownbot-space-3) 0;
 }
 
 /* The title and the search stay at the top. The list below them scrolls. */
@@ -494,16 +494,16 @@
   min-height: 0;
   flex: 1 1 auto;
   overflow-y: auto;
-  padding-bottom: var(--openbot-space-3);
+  padding-bottom: var(--openownbot-space-3);
 }
 
 .settings-page-title {
-  margin: 0 0 var(--openbot-space-3);
-  padding: 0 var(--openbot-space-2);
-  color: var(--openbot-text-primary);
-  font-size: var(--openbot-text-lg);
-  font-weight: var(--openbot-weight-semibold);
-  line-height: var(--openbot-leading-lg);
+  margin: 0 0 var(--openownbot-space-3);
+  padding: 0 var(--openownbot-space-2);
+  color: var(--openownbot-text-primary);
+  font-size: var(--openownbot-text-lg);
+  font-weight: var(--openownbot-weight-semibold);
+  line-height: var(--openownbot-leading-lg);
 }
 
 /* The heading takes the focus when the page opens, only so a screen reader reads it. */
@@ -514,14 +514,14 @@
 /* A capsule search field */
 .settings-page-search {
   flex: none;
-  border-radius: var(--openbot-radius-pill);
-  padding: 0 var(--openbot-space-3);
+  border-radius: var(--openownbot-radius-pill);
+  padding: 0 var(--openownbot-space-3);
 }
 
 .settings-page-search > svg {
   flex: none;
-  width: var(--openbot-icon-sm);
-  height: var(--openbot-icon-sm);
+  width: var(--openownbot-icon-sm);
+  height: var(--openownbot-icon-sm);
 }
 
 .settings-page-search input {
@@ -535,10 +535,10 @@
 
 /* The text that shows when no setting matches the search */
 .settings-page-empty {
-  margin: var(--openbot-space-4) 0 var(--openbot-space-1);
-  padding: 0 var(--openbot-space-2);
-  color: var(--openbot-text-muted);
-  font-size: var(--openbot-text-sm);
+  margin: var(--openownbot-space-4) 0 var(--openownbot-space-1);
+  padding: 0 var(--openownbot-space-2);
+  color: var(--openownbot-text-muted);
+  font-size: var(--openownbot-text-sm);
 }
 
 /* The server mark and name, as the server menu shows them */
@@ -546,30 +546,30 @@
   display: flex;
   min-width: 0;
   align-items: center;
-  gap: var(--openbot-space-2);
+  gap: var(--openownbot-space-2);
 }
 
 .settings-page-server .server-menu-mark {
-  width: var(--openbot-icon-md);
-  height: var(--openbot-icon-md);
+  width: var(--openownbot-icon-md);
+  height: var(--openownbot-icon-md);
 }
 
 .settings-page-nav-group .settings-modal-nav-item {
-  padding-inline: var(--openbot-space-3);
+  padding-inline: var(--openownbot-space-3);
 }
 
 .settings-page-nav-group .settings-modal-nav-item[data-selected] {
-  background: var(--openbot-bg-control-hover);
-  color: var(--openbot-text-primary);
-  font-weight: var(--openbot-weight-medium);
+  background: var(--openownbot-bg-control-hover);
+  color: var(--openownbot-text-primary);
+  font-weight: var(--openownbot-weight-medium);
 }
 
 /* A search result: the section with its icon, and below it the matching row title */
 .settings-page-results {
   display: flex;
   flex-direction: column;
-  gap: var(--openbot-space-0-5);
-  margin: var(--openbot-space-2) 0 0;
+  gap: var(--openownbot-space-0-5);
+  margin: var(--openownbot-space-2) 0 0;
   padding-inline: 0;
   list-style: none;
 }
@@ -580,12 +580,12 @@
   height: auto;
   flex-direction: column;
   align-items: stretch;
-  gap: var(--openbot-space-0-5);
+  gap: var(--openownbot-space-0-5);
   border: 0;
-  border-radius: var(--openbot-radius-md);
+  border-radius: var(--openownbot-radius-md);
   background: transparent;
-  padding: var(--openbot-space-1-5) var(--openbot-space-2);
-  color: var(--openbot-text-primary);
+  padding: var(--openownbot-space-1-5) var(--openownbot-space-2);
+  color: var(--openownbot-text-primary);
   font: inherit;
   text-align: left;
   cursor: pointer;
@@ -593,32 +593,32 @@
 
 @media (hover: hover) and (pointer: fine) {
   .settings-page-result:hover {
-    background: var(--openbot-bg-control-hover);
+    background: var(--openownbot-bg-control-hover);
   }
 }
 
 .settings-page-result:focus-visible {
   outline: 0;
-  box-shadow: var(--openbot-focus-ring);
+  box-shadow: var(--openownbot-focus-ring);
 }
 
 .settings-page-result-section {
   display: flex;
   align-items: center;
-  gap: var(--openbot-space-2);
-  color: var(--openbot-text-muted);
-  font-size: var(--openbot-text-sm);
+  gap: var(--openownbot-space-2);
+  color: var(--openownbot-text-muted);
+  font-size: var(--openownbot-text-sm);
 }
 
 .settings-page-result-section svg {
-  width: var(--openbot-icon-sm);
-  height: var(--openbot-icon-sm);
+  width: var(--openownbot-icon-sm);
+  height: var(--openownbot-icon-sm);
 }
 
 .settings-page-result-title {
   overflow: hidden;
-  padding-left: calc(var(--openbot-icon-sm) + var(--openbot-space-2));
-  font-size: var(--openbot-text-md);
+  padding-left: calc(var(--openownbot-icon-sm) + var(--openownbot-space-2));
+  font-size: var(--openownbot-text-md);
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -654,8 +654,8 @@
 
 /* The row that a search result opened */
 .settings-page-content [data-search-match] {
-  border-radius: var(--openbot-radius-md);
-  background: var(--openbot-bg-control-active);
+  border-radius: var(--openownbot-radius-md);
+  background: var(--openownbot-bg-control-active);
 }
 
 /* A narrow window stacks the page: the heading and the sections above the panel. */
@@ -667,18 +667,18 @@
 
   .settings-page-nav {
     border-right: 0;
-    border-bottom: 1px solid var(--openbot-border);
-    padding: var(--openbot-space-3) var(--openbot-space-3) 0;
+    border-bottom: 1px solid var(--openownbot-border);
+    padding: var(--openownbot-space-3) var(--openownbot-space-3) 0;
   }
 
   .settings-page-title {
-    margin-bottom: var(--openbot-space-2);
+    margin-bottom: var(--openownbot-space-2);
   }
 
   .settings-page-sections,
   .settings-page-results {
     max-height: 40dvh;
-    padding-bottom: var(--openbot-space-2);
+    padding-bottom: var(--openownbot-space-2);
   }
 }
 

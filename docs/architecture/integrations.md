@@ -1,10 +1,10 @@
 # Integrations and sign-in
 
-This guide tells you how a sign-in reaches OpenBot, how a joined server signs in through the
+This guide tells you how a sign-in reaches OpenOwnBot, how a joined server signs in through the
 computer of its user, and how to add a provider, an application or a connector. Each section has a
 working example with real file paths.
 
-- [How a sign-in reaches OpenBot](#how-a-sign-in-reaches-openbot)
+- [How a sign-in reaches OpenOwnBot](#how-a-sign-in-reaches-openownbot)
 - [Remote sign-in: the callback relay](#remote-sign-in-the-callback-relay)
 - [Add a provider](#add-a-provider)
 - [Add an application](#add-an-application)
@@ -13,19 +13,19 @@ working example with real file paths.
 - [Test a sign-in through a joined server](#test-a-sign-in-through-a-joined-server)
 - [What cannot be relayed](#what-cannot-be-relayed)
 
-## How a sign-in reaches OpenBot
+## How a sign-in reaches OpenOwnBot
 
-The computer that runs OpenBot keeps every grant. On a joined server, this is the host, not the
+The computer that runs OpenOwnBot keeps every grant. On a joined server, this is the host, not the
 computer of the user who signs in. A sign-in uses one of these kinds:
 
 | Kind | Example | On this computer | On a joined server |
 | --- | --- | --- | --- |
 | Loopback callback | URL MCP servers (`McpOAuth`), Codex browser sign-in, a page that an agent's CLI prints | The page sends the browser to `http://127.0.0.1:<port>/...`. The MCP listener uses port 28417 and path `/mcp-auth` ([`mcp-oauth-redirect-server.ts`](../../src/main/mcp-oauth-redirect-server.ts)). | The [callback relay](#remote-sign-in-the-callback-relay) (`sign-in-relay-v1`). MCP on an older host: the host's live view (`mcp-sign-in-v1`). |
-| Device code | Codex (`codex-device`), Grok, Cline, Muse, the GitHub connector | The user types a short code on the provider's page. Nothing comes back to OpenBot. | The host starts it and the client shows the code (`providers-v1` to `providers-v5`). Muse: the relay opens its device page with no callback. GitHub: `connectors-v1`. |
-| Pasted code | Claude on Linux (`cli` / `paste`), Cursor (`cli` / `link`) | The page shows a code, and the user pastes it into OpenBot. | The host starts it and the client takes the code (`providers-v3` to `providers-v5`). |
+| Device code | Codex (`codex-device`), Grok, Cline, Muse, the GitHub connector | The user types a short code on the provider's page. Nothing comes back to OpenOwnBot. | The host starts it and the client shows the code (`providers-v1` to `providers-v5`). Muse: the relay opens its device page with no callback. GitHub: `connectors-v1`. |
+| Pasted code | Claude on Linux (`cli` / `paste`), Cursor (`cli` / `link`) | The page shows a code, and the user pastes it into OpenOwnBot. | The host starts it and the client takes the code (`providers-v3` to `providers-v5`). |
 | CLI-owned browser login | Claude (`auth login`), Codex, Gemini (`acp-authenticate`) | The provider's CLI opens the browser and takes its own callback. | The relay (`provider/start`): the host captures the page, and the client sends the callback query to the CLI's listener on the host. Grok, Cursor and Cline: a code kind. |
-| Deep link | Slack, Discord (`openbot://slack-workspace`, `openbot://discord-guild`), MCP fallback (`openbot://mcp-auth`) | A hosted page ends in an `openbot://` link, which reaches only the computer that opened it. | Slack and Discord: `connectors-v1`. The client sends the sealed grant on to the host that started the install. The browser client gets the grant from a return page of its own origin (`web-messaging-install.ts`). |
-| Terminal | Pi | OpenBot opens the CLI in a terminal on the host ([`provider-terminal-login.ts`](../../src/backend/provider-terminal-login.ts)). | Sign in on the host. |
+| Deep link | Slack, Discord (`openownbot://slack-workspace`, `openownbot://discord-guild`), MCP fallback (`openownbot://mcp-auth`) | A hosted page ends in an `openownbot://` link, which reaches only the computer that opened it. | Slack and Discord: `connectors-v1`. The client sends the sealed grant on to the host that started the install. The browser client gets the grant from a return page of its own origin (`web-messaging-install.ts`). |
+| Terminal | Pi | OpenOwnBot opens the CLI in a terminal on the host ([`provider-terminal-login.ts`](../../src/backend/provider-terminal-login.ts)). | Sign in on the host. |
 | Key or local session | API keys, 1Password, Bitwarden | The user types a key or gives a CLI session. | Keys go to the host over the encrypted channel. Vault approval stays on the host. A Bitwarden session key works only on the computer that made it; a joined server gets an API key and the master password. |
 
 The sign-in kinds of providers are in `ProviderSignIn` and `ProviderCodeSignIn` in
@@ -50,7 +50,7 @@ A dropped token is not handed to an agent: `accessToken` answers `null`. The IPC
 `McpSignInState.needsSignIn` tells the panel to show the sign-in badge and the Sign in button with
 no test. The frozen `mcp-sign-in-v1` wire keeps only `mcpServerId` and `signedIn`.
 
-Sign-out and removal delete the local tokens first. Then OpenBot sends one best-effort RFC 7009
+Sign-out and removal delete the local tokens first. Then OpenOwnBot sends one best-effort RFC 7009
 request per token, refresh token first, to the `revocation_endpoint` of the authorization server.
 The request goes through `secureOAuthFetch`, with the client authentication of the registration and
 a 5-second limit. A failure is logged with the origin and the status only, and is not shown.
@@ -102,7 +102,7 @@ MCP server.
 The user is connected to a joined server, for example a cloud server. The host starts the sign-in,
 but the sign-in page opens in the browser of the user's own computer. The user's browser keeps their
 passwords, passkeys and sessions. After the user signs in, the page sends the browser back to a
-loopback address. The user's OpenBot takes that callback and sends it to the host. The host finishes
+loopback address. The user's OpenOwnBot takes that callback and sends it to the host. The host finishes
 the sign-in and keeps the grant.
 
 The optional Team API capability `sign-in-relay-v1` carries the relay. The frozen contract is
@@ -162,7 +162,7 @@ The client tries these, in this order:
 
 1. **Its own MCP listener.** The callback names port 28417 and path `/mcp-auth`, and the client's
    own MCP grant listener has that port. The listener gives a `state` that no local sign-in started
-   to `SignInRelayClient.deliver`. The `openbot://mcp-auth` link does the same.
+   to `SignInRelayClient.deliver`. The `openownbot://mcp-auth` link does the same.
 2. **The exact port.** The client binds `127.0.0.1:<port>` for the time of the sign-in with
    `listenLoopbackExact`. It never takes another port, because the page sends the browser to the
    host's port.
@@ -248,7 +248,7 @@ other places.
 3. **Backend.** `resolve<X>Cli` in `src/backend/cli.ts`, the state paths in
    `src/backend/process-confinement.ts`, `providerLabel` in `src/backend/agent/thread-items.ts` and
    `src/backend/agent/provider-diagnostics.ts`.
-4. **Managed runtime** (when OpenBot installs the CLI): `native-runtime.lock.json`,
+4. **Managed runtime** (when OpenOwnBot installs the CLI): `native-runtime.lock.json`,
    `scripts/agent-runtime-lock.ts`, and `src/main/provider-runtime-descriptors.ts`,
    `provider-runtime-releases.ts` and `provider-runtime-manager.ts`.
 5. **Contracts and preload.** The `AgentAuthState` arm in `ipc-agent-status.ts`, then
@@ -298,7 +298,7 @@ is one folder per plugin in [`marketplace/plugin-catalog/`](../../marketplace/pl
    URLs. The types are in [`scripts/build-plugin-catalog.ts`](../../scripts/build-plugin-catalog.ts).
 2. Each app has a `server`: `http` with a `url`, or `stdio` with a `command` and `args`. Its `auth`
    names how the user connects:
-   - `link`: a browser sign-in. OpenBot is the OAuth client (`McpOAuth` in
+   - `link`: a browser sign-in. OpenOwnBot is the OAuth client (`McpOAuth` in
      [`mcp-oauth-provider.ts`](../../src/backend/mcp-oauth-provider.ts)): discovery, dynamic
      registration, PKCE and refresh. The tokens stay in encrypted storage. No bridge program.
    - `key`: one or two fields that go into a `header` (http) or an `env` value (stdio).
@@ -316,7 +316,7 @@ is one folder per plugin in [`marketplace/plugin-catalog/`](../../marketplace/pl
    leaves out the vendor icon addresses: the phone loads icons from `/plugins/icon/<slug>?app=<id>`.
 5. For an `http` server, run `bun run test:mcp-catalog`
    ([`mcp-catalog-smoke.ts`](../../scripts/mcp-catalog-smoke.ts)). It connects to the live servers
-   with no account and writes `.openbot-build/mcp-catalog-smoke/report.json`. It needs the network,
+   with no account and writes `.openownbot-build/mcp-catalog-smoke/report.json`. It needs the network,
    so it is a manual run and not a CI gate.
 
 The smoke checks an `http` server with no `auth` or with a `link` flow. It skips `stdio` servers and
@@ -332,7 +332,7 @@ A `link` server with no `registration_endpoint` fails: each user would have to r
 first. Use a `key` flow for it, or leave it out. The smoke reads metadata only. It never registers a
 client and never sends a credential.
 
-A server that does not register OpenBot by itself needs a **sign-in app**: an OAuth app that the
+A server that does not register OpenOwnBot by itself needs a **sign-in app**: an OAuth app that the
 admin registers with the provider. The user enters its client ID in the "Sign-in app" section of the
 MCP server ([`McpSignInAppSection.tsx`](../../src/renderer/src/features/servers/McpSignInAppSection.tsx)).
 The callback URL is `http://127.0.0.1:28417/mcp-auth`. On a joined server, the host keeps the app
@@ -363,7 +363,7 @@ page opens in this computer's browser through the relay.
 
 ## Add a connector
 
-A connector links OpenBot to an outside account for all agents. Each one has a main-process
+A connector links OpenOwnBot to an outside account for all agents. Each one has a main-process
 service, an IPC contract, a renderer controller and a panel. Marketplace › Apps, the chat
 suggestion card and the browser client read one list, so a connector shows the same
 state on each of them.
@@ -371,8 +371,8 @@ state on each of them.
 | Connector | Service | Sign-in | Contract |
 | --- | --- | --- | --- |
 | GitHub | [`github-connector-service.ts`](../../src/main/github-connector-service.ts), `github-device-flow.ts` | Device flow of a GitHub App with only the public client ID | `ipc-github-connector.ts`; joined server: `connectors-v1` GitHub routes |
-| Slack | `src/backend/messaging/slack/` | Hosted OAuth in the account Worker, which ends in `openbot://slack-workspace` with a sealed grant | `slack-workspace-grant.ts`, `ipc-messaging.ts` |
-| Discord | `src/backend/messaging/discord/` | The same, with `openbot://discord-guild` | `discord-guild-grant.ts`, `ipc-messaging.ts` |
+| Slack | `src/backend/messaging/slack/` | Hosted OAuth in the account Worker, which ends in `openownbot://slack-workspace` with a sealed grant | `slack-workspace-grant.ts`, `ipc-messaging.ts` |
+| Discord | `src/backend/messaging/discord/` | The same, with `openownbot://discord-guild` | `discord-guild-grant.ts`, `ipc-messaging.ts` |
 | Telegram | `src/backend/messaging/telegram/` | A one-use link code in a `t.me` link. No OAuth | `telegram-app.ts`, `ipc-messaging.ts` |
 | 1Password | [`onepassword-connector-service.ts`](../../src/main/onepassword-connector-service.ts) | The user's `op` session creates a read-only service account, or the user pastes a token | `ipc-onepassword-connector.ts`; joined server: `onepassword-connector-v1` (token only) |
 | Bitwarden | [`bitwarden-connector-service.ts`](../../src/main/bitwarden-connector-service.ts) | A `bw` session key, kept in memory only; a joined server signs in with an API key and the master password | `ipc-bitwarden-connector.ts`; joined server: `bitwarden-connector-v1` |
@@ -385,7 +385,7 @@ To add a connector:
 2. Add the service in `src/main/<name>-connector-service.ts`. Keep its secret in encrypted storage,
    and call `registerSecretValue` on every token before the first log line.
 3. Prefer a device code: it works on any computer and through any joined server. A deep link
-   (`openbot://...`) reaches only the computer that opened the page. Add its kind to
+   (`openownbot://...`) reaches only the computer that opened the page. Add its kind to
    [`deep-link-router.ts`](../../src/main/deep-link-router.ts), and keep a grant out of the renderer.
 4. Add the id to `CONNECTOR_IDS` and its entry to `CONNECTORS` in
    [`connectors.ts`](../../packages/ui/src/features/connectors/connectors.ts). `server` is the capability that
@@ -419,7 +419,7 @@ and Telegram:
 - **GitHub**: the host runs the device flow. The client shows `userCode` and opens
   `verificationUri`. The host sees the sign-in by itself.
 - **Slack and Discord**: the host answers the install page and a `nonce`, and opens nothing. The
-  client opens the page. The install ends in an `openbot://` link on the client, with a grant that is
+  client opens the page. The install ends in an `openownbot://` link on the client, with a grant that is
   sealed to a one-use key of the host. `RelayedMessagingInstalls`
   ([`relayed-messaging-installs.ts`](../../src/main/relayed-messaging-installs.ts)) sends the grant
   with `messagingComplete` only to the server whose install this computer opened, and only once. The
@@ -433,7 +433,7 @@ is frozen once it ships.
 The optional capability `discord-access-v1`
 ([`discord-access-v1.ts`](../../packages/contracts/src/team-protocol/discord-access-v1.ts), host route
 [`route-discord-access.ts`](../../src/main/team-api/route-discord-access.ts)) reads and sets which
-Discord roles can use OpenBot in each Discord server of the host, and lists the server's roles through
+Discord roles can use OpenOwnBot in each Discord server of the host, and lists the server's roles through
 Signal (`listRoles`). The host keeps the list in `projection_messaging_allowed_roles`. An empty list
 lets everyone. With a list, `MessagingService` ignores a mention from a member who has none of the
 roles, before it reacts or posts. Signal passes the author's role IDs with each mention; a mention
@@ -458,7 +458,7 @@ address, the personal API key and the master password in Marketplace › Apps �
 once, in `connect`; no answer carries them. `connect` answers `connecting` at once, because the
 first sign-in can download `bw` and sync the vault for longer than the 15-second request limit. The
 client reads `status` every 2 seconds until the state changes. The host stores the record only after
-it unlocks the vault and finds the folder `Shared with OpenBot`, and unlocks again from it after a
+it unlocks the vault and finds the folder `Shared with OpenOwnBot`, and unlocks again from it after a
 restart. The host must reach the server address over HTTPS; the instance firewall of
 [several instances on one host](../docker.md#several-instances-on-one-host) blocks private
 addresses. A host older than this capability hides Bitwarden.
@@ -502,7 +502,7 @@ Team API adapters are permanent (see [Team API compatibility](team-api.md)). Wor
    [`team-admin-requests.ts`](../../packages/team-client/src/team-admin-requests.ts), and gate them
    on the host's capabilities in the web client.
 8. **Bootstrap.** Make sure that the capability is not in bootstrap.
-9. **Text.** Error messages use `sourceText(key)` with keys in all languages of `@openbot/i18n`.
+9. **Text.** Error messages use `sourceText(key)` with keys in all languages of `@openownbot/i18n`.
 
 ## Test a sign-in through a joined server
 

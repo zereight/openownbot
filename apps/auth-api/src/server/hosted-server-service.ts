@@ -6,7 +6,7 @@ import {
   type BillingInterval,
   type BillingPlanId,
   isOpenBillingStatus,
-} from "@openbot/contracts/billing";
+} from "@openownbot/contracts/billing";
 import {
   HOSTED_PLAN_SIZE,
   HOSTED_SERVER_ENTRY_POINTS,
@@ -23,10 +23,10 @@ import {
   type HostedServerStatus,
   type HostedServerSummary,
   parseHostedServerName,
-} from "@openbot/contracts/hosted-servers";
-import { isDynamicRecord, isOneOf, isString } from "@openbot/contracts/runtime-values";
-import type { RouteHostState } from "@openbot/contracts/signal-protocol/ingress-queue";
-import { sourceText } from "@openbot/i18n/source";
+} from "@openownbot/contracts/hosted-servers";
+import { isDynamicRecord, isOneOf, isString } from "@openownbot/contracts/runtime-values";
+import type { RouteHostState } from "@openownbot/contracts/signal-protocol/ingress-queue";
+import { sourceText } from "@openownbot/i18n/source";
 import { Context, Effect, Layer, Result, Schema } from "effect";
 import { type AccountAnalytics, type AccountAnalyticsEvent, NO_ACCOUNT_ANALYTICS } from "./account-analytics";
 import { getServerEntitlement } from "./billing-entitlement";
@@ -100,12 +100,12 @@ const LEASE_TTL_SECONDS = 2 * 60 * 60;
 const LEASE_EXTEND_BEFORE_MS = 60 * 60_000;
 /**
  * boat can keep a stopped machine in memory and continue it at a resume, with no boot. Then `/run` keeps
- * the flag of the pre-stop hook (`scripts/hosting/openbot-boat-pre-stop`), the condition of
- * `openbot.service` fails, and OpenBot does not start. This command removes the flag and starts OpenBot.
+ * the flag of the pre-stop hook (`scripts/hosting/openownbot-boat-pre-stop`), the condition of
+ * `openownbot.service` fails, and OpenOwnBot does not start. This command removes the flag and starts OpenOwnBot.
  * With no flag it does nothing, so it does not change a machine that boat started with a boot.
  */
 const HELD_RESUME_START_COMMAND =
-  "if [ -e /run/openbot-pre-stop ]; then sudo -n rm -f /run/openbot-pre-stop && sudo -n systemctl start --no-block openbot.service && echo started; fi";
+  "if [ -e /run/openownbot-pre-stop ]; then sudo -n rm -f /run/openownbot-pre-stop && sudo -n systemctl start --no-block openownbot.service && echo started; fi";
 const HELD_RESUME_START_TIMEOUT_SECONDS = 10;
 /**
  * The cron starts an idle server this long before its next routine run: one cron interval (5 minutes)
@@ -2421,7 +2421,7 @@ export class HostedServerService {
     const ticketKey = this.#ticketKey;
     if (!ticketKey) return null;
     const privateValue = yield* hostedValidate(() => ticketPrivateValue(ticketKey));
-    this.#claimSecret ??= yield* deriveSecret(privateValue, "openbot-hosted-claim-key:v1").pipe(
+    this.#claimSecret ??= yield* deriveSecret(privateValue, "openownbot-hosted-claim-key:v1").pipe(
       Effect.mapError(hostedFailure),
     );
     return this.#claimSecret;
@@ -2502,7 +2502,7 @@ function summary(row: HostedServerRow): HostedServerSummary {
   };
 }
 
-/** `openbot-{plan}-{email}-{first 8 characters of the server ID}`, in the characters of a boat name. */
+/** `openownbot-{plan}-{email}-{first 8 characters of the server ID}`, in the characters of a boat name. */
 /**
  * The claim of a server is the same on each call, so a create retry sends the same request body and
  * boat returns the sandbox that it made. The Worker stores only its hash, and accepts it only while
@@ -2514,7 +2514,7 @@ function createRequest(row: HostedServerRow, from: string, claim: string) {
     type: row.size,
     from,
     // The claim is the only secret that the VM gets. It works for a short time after its first use, and expires.
-    env: { OPENBOT_HOSTED_CLAIM: claim, OPENBOT_HOSTED_HOST_ID: row.server_id },
+    env: { OPENOWNBOT_HOSTED_CLAIM: claim, OPENOWNBOT_HOSTED_HOST_ID: row.server_id },
     ttlSeconds: LEASE_TTL_SECONDS,
     idempotencyKey: row.server_id,
   };
@@ -2537,7 +2537,7 @@ function isDeveloperKey(expected: string | undefined, provided: string | null | 
 }
 
 function hostedClaim(secret: string, serverId: string) {
-  return hmacSha256(secret, `openbot-hosted-claim:v1:${serverId}`);
+  return hmacSha256(secret, `openownbot-hosted-claim:v1:${serverId}`);
 }
 
 function sandboxName(plan: BillingPlanId, email: string, serverId: string): string {
@@ -2546,7 +2546,7 @@ function sandboxName(plan: BillingPlanId, email: string, serverId: string): stri
       .toLowerCase()
       .replace(/[^a-z0-9]+/gu, "-")
       .replace(/^-+|-+$/gu, "");
-  const prefix = `openbot-${plan}-`;
+  const prefix = `openownbot-${plan}-`;
   const suffix = `-${slug(serverId).slice(0, 8)}`;
   const owner = slug(email)
     .slice(0, SANDBOX_NAME_MAX_LENGTH - prefix.length - suffix.length)
@@ -2605,7 +2605,7 @@ function rateLimitRetryAt(row: HostedServerRow): number {
   return row.updated_at + Math.min(RATE_LIMIT_RETRY_MAX_MS, Math.max(RATE_LIMIT_RETRY_MIN_MS, waited));
 }
 
-/** A failure does not change the wake. OpenBot then stays stopped until the next stop and resume. */
+/** A failure does not change the wake. OpenOwnBot then stays stopped until the next stop and resume. */
 const startAfterHeldResume = Effect.fn("HostedServerService.startAfterHeldResume")(function* (
   boat: BoatClient,
   serverId: string,

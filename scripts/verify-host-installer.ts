@@ -90,8 +90,8 @@ export async function verifyHostPayload(expanded: string, version: string): Prom
       throw new Error("Installer script does not match release source.");
   }
   for (const [source, destination] of [
-    ["openbot-host", "/usr/local/bin/openbot-host"],
-    ["openbot-relaunch.sh", `${HOST_MANAGER_DIRECTORY}/openbot-relaunch.sh`],
+    ["openownbot-host", "/usr/local/bin/openownbot-host"],
+    ["openownbot-relaunch.sh", `${HOST_MANAGER_DIRECTORY}/openownbot-relaunch.sh`],
     ["app.openownbot.host-manager.plist", "/Library/LaunchDaemons/app.openownbot.host-manager.plist"],
     ["app.openownbot.desktop.relaunch.plist", "/Library/LaunchAgents/app.openownbot.desktop.relaunch.plist"],
   ] as const) {
@@ -129,7 +129,7 @@ export async function verifyHostInstaller(pkg: string, version: string, requireN
     await command("/usr/sbin/spctl", ["--assess", "--type", "install", "--verbose=2", pkg]);
     await command("/usr/bin/xcrun", ["stapler", "validate", pkg]);
   }
-  const temp = await mkdtemp(join(tmpdir(), "openbot-host-package-"));
+  const temp = await mkdtemp(join(tmpdir(), "openownbot-host-package-"));
   const expanded = join(temp, "expanded");
   try {
     await command("/usr/sbin/pkgutil", ["--expand-full", resolve(pkg), expanded]);

@@ -1,7 +1,7 @@
 /* Server Settings > Roles, and the role menu of a member row. */
 
 .server-roles-icon {
-  color: var(--openbot-text-secondary);
+  color: var(--openownbot-text-secondary);
 }
 
 .server-roles-member-count {
@@ -16,7 +16,7 @@
 .server-roles-name-row {
   display: flex;
   align-items: center;
-  gap: var(--openbot-space-2);
+  gap: var(--openownbot-space-2);
 }
 
 .server-roles-member-trigger {

@@ -1,5 +1,5 @@
-import { agentProviderDescriptor } from "@openbot/contracts/agent-providers";
-import { INPUT_LIMITS } from "@openbot/contracts/input-limits";
+import { agentProviderDescriptor } from "@openownbot/contracts/agent-providers";
+import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
 import type {
   AgentModelId,
   AgentProviderId,
@@ -10,9 +10,9 @@ import type {
   CustomAgentSummary,
   CustomProviderSummary,
   ProviderRuntimeStatus,
-} from "@openbot/contracts/ipc";
-import type { AppTextKey, AppTranslate } from "@openbot/i18n";
-import { Button, Field, Input, Textarea } from "@openbot/ui";
+} from "@openownbot/contracts/ipc";
+import type { AppTextKey, AppTranslate } from "@openownbot/i18n";
+import { Button, Field, Input, Textarea } from "@openownbot/ui";
 import { createSignal, For, onSettled, Show } from "solid-js";
 import { AVATAR_HUE_CHOICES, avatarCandidateSeeds, avatarHeadColor, avatarHueSwatch } from "../../bloub-avatar";
 import { ProviderModelPicker } from "../../components/ProviderModelPicker";

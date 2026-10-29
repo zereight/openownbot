@@ -1,5 +1,5 @@
-import { type BrowserProfileSummary, nextBrowserProfileHue } from "@openbot/contracts/ipc";
-import AgentSettingsPanel from "@openbot/ui/features/conversation/AgentSettingsPanel";
+import { type BrowserProfileSummary, nextBrowserProfileHue } from "@openownbot/contracts/ipc";
+import AgentSettingsPanel from "@openownbot/ui/features/conversation/AgentSettingsPanel";
 import { createStore } from "solid-js";
 import { fn } from "storybook/test";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";

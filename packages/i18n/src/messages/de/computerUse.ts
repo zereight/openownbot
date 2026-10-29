@@ -9,7 +9,7 @@ export const messages = {
   "computerUse.permission.accessibility.description": "Erlaubt OpenOwnBot, zu klicken und zu tippen.",
   "computerUse.permission.accessibility.pane": "Bedienungshilfen",
   "computerUse.error.check": "OpenOwnBot konnte die Computersteuerung nicht prüfen.",
-  "computerUse.error.openSettings": "OpenBot konnte die Systemeinstellungen nicht öffnen.",
+  "computerUse.error.openSettings": "OpenOwnBot konnte die Systemeinstellungen nicht öffnen.",
   "computerUse.error.startDriver": "OpenOwnBot konnte den Treiber für die Computersteuerung nicht starten.",
   "computerUse.checkAgain": "Erneut prüfen",
   "computerUse.checking": "Computersteuerung wird geprüft",

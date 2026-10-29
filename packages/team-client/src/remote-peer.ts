@@ -1,13 +1,13 @@
-import type { AgentEvent, TeamRealtimeEvent } from "@openbot/contracts/ipc";
-import { isDynamicRecord, isNumber, isString } from "@openbot/contracts/runtime-values";
-import { decodeSignalServerMessage } from "@openbot/contracts/signal-protocol/decode";
+import type { AgentEvent, TeamRealtimeEvent } from "@openownbot/contracts/ipc";
+import { isDynamicRecord, isNumber, isString } from "@openownbot/contracts/runtime-values";
+import { decodeSignalServerMessage } from "@openownbot/contracts/signal-protocol/decode";
 import {
   SIGNAL_PROTOCOL_VERSION,
   SIGNAL_TURN_REFRESH_INTERVAL_MS,
   type SignalClientMessage,
   type SignalServerMessage,
-} from "@openbot/contracts/signal-protocol/messages";
-import { TEAM_API_ROUTES } from "@openbot/contracts/team-api-routes";
+} from "@openownbot/contracts/signal-protocol/messages";
+import { TEAM_API_ROUTES } from "@openownbot/contracts/team-api-routes";
 import {
   decodeTeamProtocolV2AuthFrame,
   decodeTeamProtocolV2EventFrame,
@@ -22,16 +22,16 @@ import {
   type TeamProtocolV2Json,
   teamCapabilitiesForProtocol,
   teamProtocolV2AuthenticationTranscript,
-} from "@openbot/contracts/team-protocol";
-import { optionalTeamEvent, optionalTeamEventToCurrent } from "@openbot/contracts/team-protocol/optional-events";
-import { teamSideRouteCodec } from "@openbot/contracts/team-protocol/side-routes";
+} from "@openownbot/contracts/team-protocol";
+import { optionalTeamEvent, optionalTeamEventToCurrent } from "@openownbot/contracts/team-protocol/optional-events";
+import { teamSideRouteCodec } from "@openownbot/contracts/team-protocol/side-routes";
 import {
   type TeamProtocolV1CurrentEventControl,
   toWireTeamProtocolV1ClientEvent,
-} from "@openbot/contracts/team-protocol/v1-adapter";
-import { decodeTeamProtocolSupportV7Base } from "@openbot/contracts/team-protocol/v7-base";
-import { sourceText } from "@openbot/i18n/source";
-import { errorReference, referenceFrom } from "@openbot/user-errors/reference";
+} from "@openownbot/contracts/team-protocol/v1-adapter";
+import { decodeTeamProtocolSupportV7Base } from "@openownbot/contracts/team-protocol/v7-base";
+import { sourceText } from "@openownbot/i18n/source";
+import { errorReference, referenceFrom } from "@openownbot/user-errors/reference";
 import { Context, Deferred, Effect, Exit, Layer, ManagedRuntime, Result, Schema, Scope, Semaphore } from "effect";
 import { base64UrlToBytes, bytesToBase64Url } from "./base64";
 import { createEd25519Identity, type Ed25519Identity, signEd25519, verifyEd25519Pem } from "./ed25519";
@@ -377,7 +377,7 @@ class RemotePeerIO extends Context.Service<
     connectionUpdate(update: RemoteTeamConnectionUpdate): Effect.Effect<void, RemotePeerError>;
     teamEvent(hostId: string, event: AgentEvent | TeamRealtimeEvent): Effect.Effect<void, RemotePeerError>;
   }
->()("@openbot/team-client/RemotePeerIO") {
+>()("@openownbot/team-client/RemotePeerIO") {
   static layer(actions: ActionsRef) {
     return Layer.succeed(
       RemotePeerIO,
@@ -1894,7 +1894,7 @@ export function createRemoteTeamPeer(actions: ActionsRef, options: { waitForHost
   }
 
   function channelLabel(kind: ChannelKind): string {
-    if (kind === "desktop") return "openbot.remote-desktop.signal.v1";
+    if (kind === "desktop") return "openownbot.remote-desktop.signal.v1";
     return TEAM_PROTOCOL_V2_CHANNELS[kind];
   }
 
@@ -1902,7 +1902,7 @@ export function createRemoteTeamPeer(actions: ActionsRef, options: { waitForHost
     if (label === TEAM_PROTOCOL_V2_CHANNELS.rpc) return "rpc";
     if (label === TEAM_PROTOCOL_V2_CHANNELS.events) return "events";
     if (label === TEAM_PROTOCOL_V2_CHANNELS.files) return "files";
-    if (label === "openbot.remote-desktop.signal.v1") return "desktop";
+    if (label === "openownbot.remote-desktop.signal.v1") return "desktop";
     return null;
   }
 

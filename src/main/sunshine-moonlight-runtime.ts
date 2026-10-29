@@ -13,8 +13,8 @@ import type {
   RemoteDesktopIceServer,
   RemoteDesktopSetupStatus,
   RemoteDesktopTestStatus,
-} from "@openbot/contracts/ipc";
-import { sourceText } from "@openbot/i18n/source";
+} from "@openownbot/contracts/ipc";
+import { sourceText } from "@openownbot/i18n/source";
 import { Effect, Result, Schema } from "effect";
 import { runCauseEffect } from "../backend/effect-boundary";
 import { agentDisplayEnvironment } from "./agent-display";
@@ -51,7 +51,7 @@ export class RemoteRuntimeStartError extends Error {
 
 const MOONLIGHT_STREAMER_SLOTS = 4;
 // First candidate for Sunshine's base port. Sunshine derives its whole port family from this one
-// `port` value, so every OpenBot instance must claim a disjoint family: two macOS users share one
+// `port` value, so every OpenOwnBot instance must claim a disjoint family: two macOS users share one
 // network namespace, and a second Sunshine bound to the same ports fails to start.
 const SUNSHINE_DEFAULT_BASE_PORT = 47_989;
 // Offsets Sunshine applies to the base port (GameStream HTTPS, HTTP, Web UI HTTPS, video, control,
@@ -355,10 +355,10 @@ export class SunshineMoonlightRuntime {
   #moonlight: ChildProcess | null = null;
   #iceServer: Server | null = null;
   #iceToken = "";
-  readonly #pairingName = `openbot-remote-${randomBytes(16).toString("hex")}`;
+  readonly #pairingName = `openownbot-remote-${randomBytes(16).toString("hex")}`;
   #state: SunshineMoonlightRuntimeState | null = null;
   #screenCaptureDenied = false;
-  readonly #moonlightHeader = `X-OpenBot-Remote-${randomBytes(32).toString("hex")}`;
+  readonly #moonlightHeader = `X-OpenOwnBot-Remote-${randomBytes(32).toString("hex")}`;
   #selectedDisplayId: string | null = null;
   readonly #lifecycle = new LifecycleGate<SunshineMoonlightRuntimeState, RemoteDesktopOperationError>();
   /** Set by a stop that arrives while a start runs. The start then opens nothing more and fails. */
@@ -422,7 +422,7 @@ export class SunshineMoonlightRuntime {
   > {
     return yield* sunshineJsonEffect(
       yield* desktopSync(() => this.#requireSunshineHttpsPort()),
-      "/api/openbot/setup",
+      "/api/openownbot/setup",
       this.#options.credentials,
       join(this.#options.stateDirectory, "sunshine-cert.pem"),
       sunshineSetupSchema,
@@ -438,14 +438,14 @@ export class SunshineMoonlightRuntime {
     if (action !== "status")
       yield* sunshineRequestEffect(
         port,
-        "/api/openbot/test",
+        "/api/openownbot/test",
         this.#options.credentials,
         certificate,
         JSON.stringify({ action, displayId: this.#selectedDisplayId ?? "" }),
       );
     return yield* sunshineJsonEffect(
       port,
-      "/api/openbot/test",
+      "/api/openownbot/test",
       this.#options.credentials,
       certificate,
       sunshineTestSchema,
@@ -586,7 +586,7 @@ export class SunshineMoonlightRuntime {
           },
           this.#moonlight,
         ).pipe(Effect.mapError(this.#failStart("moonlight")));
-        this.#options.onDiagnostic?.("moonlight", "OpenBot: Moonlight Web is ready.\n");
+        this.#options.onDiagnostic?.("moonlight", "OpenOwnBot: Moonlight Web is ready.\n");
         const paired = yield* this.#bootstrapMoonlightEffect(moonlightPort).pipe(
           Effect.mapError(this.#failStart("pairing")),
         );
@@ -642,10 +642,10 @@ export class SunshineMoonlightRuntime {
     const basePort = this.#sunshineBasePort;
     if (basePort === null) return yield* desktopFailure(new Error("Sunshine ports have not been allocated yet."));
     const values = [
-      "sunshine_name = OpenBot Remote Desktop",
+      "sunshine_name = OpenOwnBot Remote Desktop",
       // The base port: every other Sunshine port (GameStream HTTP/HTTPS, Web UI HTTPS, video,
       // audio, control, RTSP setup) is offset from this one, so a per-instance base keeps the
-      // whole family disjoint from other OpenBot instances on this machine.
+      // whole family disjoint from other OpenOwnBot instances on this machine.
       `port = ${basePort}`,
       "upnp = disabled",
       "stream_audio = disabled",
@@ -693,7 +693,7 @@ export class SunshineMoonlightRuntime {
         ice_servers: [],
         ice_server_script: join(
           this.#options.stateDirectory,
-          this.#options.platform === "win32" ? "openbot-ice-helper.cmd" : "openbot-ice-helper.sh",
+          this.#options.platform === "win32" ? "openownbot-ice-helper.cmd" : "openownbot-ice-helper.sh",
         ),
         port_range: { min: webRtcRange.min, max: webRtcRange.max },
         nat_1to1: null,
@@ -732,12 +732,12 @@ export class SunshineMoonlightRuntime {
   ): Effect.fn.Return<void, RemoteDesktopOperationError> {
     const path = join(
       this.#options.stateDirectory,
-      this.#options.platform === "win32" ? "openbot-ice-helper.cmd" : "openbot-ice-helper.sh",
+      this.#options.platform === "win32" ? "openownbot-ice-helper.cmd" : "openownbot-ice-helper.sh",
     );
     const contents =
       this.#options.platform === "win32"
-        ? "@powershell.exe -NoProfile -NonInteractive -Command \"Invoke-RestMethod -Headers @{Authorization=('Bearer ' + $env:OPENBOT_ICE_HELPER_TOKEN)} -Uri $env:OPENBOT_ICE_HELPER_URL | ConvertTo-Json -Compress\"\r\n"
-        : `#!/bin/sh\nprintf 'header = "Authorization: Bearer %s"\\nurl = "%s"\\n' "$OPENBOT_ICE_HELPER_TOKEN" "$OPENBOT_ICE_HELPER_URL" | /usr/bin/curl --fail --silent --show-error --config -\n`;
+        ? "@powershell.exe -NoProfile -NonInteractive -Command \"Invoke-RestMethod -Headers @{Authorization=('Bearer ' + $env:OPENOWNBOT_ICE_HELPER_TOKEN)} -Uri $env:OPENOWNBOT_ICE_HELPER_URL | ConvertTo-Json -Compress\"\r\n"
+        : `#!/bin/sh\nprintf 'header = "Authorization: Bearer %s"\\nurl = "%s"\\n' "$OPENOWNBOT_ICE_HELPER_TOKEN" "$OPENOWNBOT_ICE_HELPER_URL" | /usr/bin/curl --fail --silent --show-error --config -\n`;
     yield* desktopCall(() => writeFile(path, contents, { mode: 0o700 }));
     if (this.#options.platform !== "win32") yield* desktopCall(() => chmod(path, 0o700));
   });
@@ -795,7 +795,7 @@ export class SunshineMoonlightRuntime {
     this.#sunshine = yield* desktopSync(() =>
       this.#spawn(this.#options.paths.sunshine, [join(this.#options.stateDirectory, "sunshine.conf")], {
         cwd: dirname(this.#options.paths.sunshine),
-        env: { ...process.env, ...agentDisplayEnvironment(this.#options.platform), OPENBOT_REMOTE_SETUP: "1" },
+        env: { ...process.env, ...agentDisplayEnvironment(this.#options.platform), OPENOWNBOT_REMOTE_SETUP: "1" },
         stdio: ["ignore", "pipe", "pipe"],
         windowsHide: true,
       }),
@@ -825,8 +825,8 @@ export class SunshineMoonlightRuntime {
         cwd: dirname(this.#options.paths.moonlightWebServer),
         env: {
           ...process.env,
-          OPENBOT_ICE_HELPER_URL: iceEndpoint,
-          OPENBOT_ICE_HELPER_TOKEN: this.#iceToken,
+          OPENOWNBOT_ICE_HELPER_URL: iceEndpoint,
+          OPENOWNBOT_ICE_HELPER_TOKEN: this.#iceToken,
         },
         stdio: ["ignore", "pipe", "pipe"],
         windowsHide: true,
@@ -861,7 +861,7 @@ export class SunshineMoonlightRuntime {
       )).hosts;
       this.#options.onDiagnostic?.(
         "moonlight",
-        `OpenBot: found ${hosts.length} local Moonlight hosts for streamer slot ${slot}.\n`,
+        `OpenOwnBot: found ${hosts.length} local Moonlight hosts for streamer slot ${slot}.\n`,
       );
       // Stored hosts keep their original port. Recreate the managed endpoint before pairing,
       // including when another user claimed this runtime's previous port after restart.
@@ -896,7 +896,7 @@ export class SunshineMoonlightRuntime {
       if (host.paired !== "Paired") {
         this.#options.onDiagnostic?.(
           "moonlight",
-          `OpenBot: pairing local host ${host.host_id} for streamer slot ${slot}.\n`,
+          `OpenOwnBot: pairing local host ${host.host_id} for streamer slot ${slot}.\n`,
         );
         yield* this.#pairMoonlightEffect(baseUrl, host.host_id, user);
       }
@@ -926,7 +926,7 @@ export class SunshineMoonlightRuntime {
   ): Effect.fn.Return<RemoteDesktopDisplay[], RemoteDesktopOperationError> {
     const native = yield* sunshineJsonEffect(
       yield* desktopSync(() => this.#requireSunshineHttpsPort()),
-      "/api/openbot/displays",
+      "/api/openownbot/displays",
       this.#options.credentials,
       join(this.#options.stateDirectory, "sunshine-cert.pem"),
       sunshineDisplaysSchema,
@@ -1019,16 +1019,16 @@ export class SunshineMoonlightRuntime {
                 Effect.mapError(desktopFailure),
               );
               if (typeof message === "object" && "Pin" in message) {
-                this.#options.onDiagnostic?.("moonlight", "OpenBot: received local pairing PIN.\n");
+                this.#options.onDiagnostic?.("moonlight", "OpenOwnBot: received local pairing PIN.\n");
                 const pairingId = yield* this.#waitForPairingRequestEffect();
                 yield* sunshineRequestEffect(
                   yield* desktopSync(() => this.#requireSunshineHttpsPort()),
                   "/api/pin",
                   this.#options.credentials,
                   join(this.#options.stateDirectory, "sunshine-cert.pem"),
-                  JSON.stringify({ pairing_id: pairingId, pin: message.Pin, name: "OpenBot Remote Desktop" }),
+                  JSON.stringify({ pairing_id: pairingId, pin: message.Pin, name: "OpenOwnBot Remote Desktop" }),
                 );
-                this.#options.onDiagnostic?.("moonlight", "OpenBot: submitted local pairing PIN.\n");
+                this.#options.onDiagnostic?.("moonlight", "OpenOwnBot: submitted local pairing PIN.\n");
                 pinSubmitted = true;
                 continue;
               }
@@ -1119,7 +1119,10 @@ export class SunshineMoonlightRuntime {
       // A stop clears the field before it waits. A start in progress fails its own readiness wait.
       if ((source === "sunshine" ? this.#sunshine : this.#moonlight) !== child || !this.#state) return;
       this.#state = null;
-      this.#options.onDiagnostic?.(source, `OpenBot: ${source} exited unexpectedly (${signal ?? `code ${code}`}).\n`);
+      this.#options.onDiagnostic?.(
+        source,
+        `OpenOwnBot: ${source} exited unexpectedly (${signal ?? `code ${code}`}).\n`,
+      );
       this.#options.onExit?.(source);
     });
   }
@@ -1435,7 +1438,7 @@ function arrayUrls(urls: string | string[]): string[] {
 }
 
 function moonlightSlotUser(slot: number): string {
-  return `openbot-remote-slot-${slot}`;
+  return `openownbot-remote-slot-${slot}`;
 }
 
 /** Pinned Sunshine http::save_user_creds / util::Hex encoding. */

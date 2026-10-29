@@ -1,4 +1,4 @@
-import { RESTART_INTERRUPTED_REASON } from "@openbot/contracts/ipc";
+import { RESTART_INTERRUPTED_REASON } from "@openownbot/contracts/ipc";
 import { Cause, Effect, Schema } from "effect";
 import type { AgentProvider } from "../agent-client";
 import type { AgentStore } from "../agent-store";
@@ -54,10 +54,10 @@ export interface BootRecoveryOptions {
  *   provider what really happened to each orphaned delivery instead of
  *   assuming, and conservatively keeps `interrupted` on any doubt — never
  *   repeats uncertain side effects. A delivery is orphaned when the process
- *   that ran it is gone: the previous OpenBot run, or a provider CLI that
+ *   that ran it is gone: the previous OpenOwnBot run, or a provider CLI that
  *   exited. Any other unsettled delivery is a live turn of this run.
  * - `backfillProviderHistory` merges provider-side turns that happened while
- *   OpenBot was down into the persisted conversation.
+ *   OpenOwnBot was down into the persisted conversation.
  *
  * Reads the store/mailbox/provider and writes the database plus in-memory
  * snapshots; delivery to the renderer goes through `mailboxSync` and

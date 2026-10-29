@@ -43,7 +43,7 @@ Issue labels do not change this workflow. Do not add or remove labels.
    - **Expected**: what the reporter expects.
    - **Surface**: desktop renderer, main process, backend, mobile, public
      web, Signal, Team API, provider, or plugin.
-   - **Version**: the OpenBot version or commit, and the provider CLI version.
+   - **Version**: the OpenOwnBot version or commit, and the provider CLI version.
 4. When the issue does not give enough data to reproduce or to find a code
    path, go to Step 2 with the verdict `needs info`.
 
@@ -61,7 +61,7 @@ an issue, a `path:line`, or a command output.
 | `already fixed` | A commit on `origin/main` that fixes it, from `git log origin/main --grep` or `git log -S`. Give the first release tag that holds it: `git tag --contains <sha> --list 'v*' --sort=v:refname \| head -n 1`. |
 | `works as intended` | The code, a test, or a doc that defines the current behavior as correct. |
 | `out of scope` | A product constraint or a non-negotiable rule in `AGENTS.md` that the requested change breaks. Example: chats or files that leave the user's computer, or a change to a released Team API meaning. |
-| `environment` | The cause is outside OpenBot: provider CLI version, OS setting, network, or a third-party service. |
+| `environment` | The cause is outside OpenOwnBot: provider CLI version, OS setting, network, or a third-party service. |
 | `feature request` | The issue asks for new behavior, not a fix for broken behavior. |
 | `needs info` | The data that is missing, and why you cannot get it from the code or the history. |
 | `valid` | None of the above holds. Continue to Step 3. |
@@ -78,7 +78,7 @@ Do not implement it in this skill.
 Find the root cause, not only the place where the symptom shows.
 
 1. Find the code path from the symptom. Start from the UI text (an
-   `@openbot/i18n` key), the IPC channel, the error code, or the log line
+   `@openownbot/i18n` key), the IPC channel, the error code, or the log line
    in the issue. Use an `Explore` agent for a broad search.
 2. Write the hypothesis in one sentence: "X fails because Y at `path:line`".
 3. Prove it. Use the cheapest proof that is conclusive:
@@ -116,7 +116,7 @@ Otherwise, continue:
    over new code. Do not fix nearby problems in the same change; list them
    in the report.
 2. Obey `AGENTS.md`: non-negotiable rules, Effect rules, shared UI,
-   `@openbot/i18n` text, and terms.
+   `@openownbot/i18n` text, and terms.
 3. Add a test only when `AGENTS.md` asks for one: data loss, released
    protocol, trust boundary, secret leak, or a bug that came back. A
    migration always needs its tests. Delete temporary tests from Step 3

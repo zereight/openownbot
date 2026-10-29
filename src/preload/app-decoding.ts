@@ -4,8 +4,8 @@
 // Each decoder checks every field the contract type requires and keeps each optional field it
 // carries, so a value the renderer reads always has the shape its type says.
 
-import { isAgentTemplateId } from "@openbot/contracts/agent-template-links";
-import { type BillingState, parseBillingState } from "@openbot/contracts/billing";
+import { isAgentTemplateId } from "@openownbot/contracts/agent-template-links";
+import { type BillingState, parseBillingState } from "@openownbot/contracts/billing";
 import {
   type HostedServerCatalog,
   type HostedServerList,
@@ -13,8 +13,8 @@ import {
   parseHostedServerCatalog,
   parseHostedServerList,
   parseHostedServerSummary,
-} from "@openbot/contracts/hosted-servers";
-import { parseHostedSiteList, parseHostedSiteSummary } from "@openbot/contracts/hosted-sites";
+} from "@openownbot/contracts/hosted-servers";
+import { parseHostedSiteList, parseHostedSiteSummary } from "@openownbot/contracts/hosted-sites";
 import {
   type AccountSession,
   AGENT_DEFAULT_KEYS,
@@ -113,7 +113,7 @@ import {
   type VoiceStream,
   type VoiceStreamTranscript,
   type VoiceTranscriptionResult,
-} from "@openbot/contracts/ipc";
+} from "@openownbot/contracts/ipc";
 import {
   decodeList,
   decodeRecord,
@@ -125,10 +125,10 @@ import {
   requiredBoolean,
   requiredNumber,
   requiredString,
-} from "@openbot/contracts/ipc-decoding";
-import { type LicenseState, parseLicenseState } from "@openbot/contracts/license";
-import { isPluginSlug } from "@openbot/contracts/plugin-links";
-import { isBoolean, isNumber, isOneOf, isString } from "@openbot/contracts/runtime-values";
+} from "@openownbot/contracts/ipc-decoding";
+import { type LicenseState, parseLicenseState } from "@openownbot/contracts/license";
+import { isPluginSlug } from "@openownbot/contracts/plugin-links";
+import { isBoolean, isNumber, isOneOf, isString } from "@openownbot/contracts/runtime-values";
 
 export function decodeAppInfo(value: unknown): AppInfo {
   const info = decodeRecord(value, "app info");

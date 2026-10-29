@@ -8,17 +8,17 @@
   flex: none;
   grid-template-columns: auto minmax(0, 1fr);
   align-items: start;
-  margin-top: var(--openbot-space-3);
-  padding: var(--openbot-space-3);
+  margin-top: var(--openownbot-space-3);
+  padding: var(--openownbot-space-3);
 }
 
 .hosted-upsell-notice .ui-alert-icon {
-  width: var(--openbot-space-8);
-  height: var(--openbot-space-8);
-  padding: var(--openbot-space-1-5);
-  border-radius: var(--openbot-radius-md);
-  background: linear-gradient(135deg, var(--openbot-beam-blue), var(--openbot-beam-pink));
-  color: var(--openbot-text-on-accent);
+  width: var(--openownbot-space-8);
+  height: var(--openownbot-space-8);
+  padding: var(--openownbot-space-1-5);
+  border-radius: var(--openownbot-radius-md);
+  background: linear-gradient(135deg, var(--openownbot-beam-blue), var(--openownbot-beam-pink));
+  color: var(--openownbot-text-on-accent);
 }
 
 .hosted-upsell-notice .ui-alert-title {
@@ -27,7 +27,7 @@
 
 .hosted-upsell-notice .ui-alert-actions {
   justify-content: flex-start;
-  margin-top: var(--openbot-space-2);
+  margin-top: var(--openownbot-space-2);
 }
 
 /*
@@ -44,8 +44,12 @@
   position: relative;
   border-color: transparent;
   background:
-    radial-gradient(120% 140% at 0% 0%, color-mix(in srgb, var(--openbot-beam-blue) 12%, transparent), transparent 60%),
-    var(--openbot-bg-surface-raised);
+    radial-gradient(
+      120% 140% at 0% 0%,
+      color-mix(in srgb, var(--openownbot-beam-blue) 12%, transparent),
+      transparent 60%
+    ),
+    var(--openownbot-bg-surface-raised);
 }
 
 /* The sharp line: the gradient, masked to a 1px ring. */
@@ -66,19 +70,19 @@
   padding: 1px;
   background: conic-gradient(
     from var(--hosted-upsell-beam-angle),
-    color-mix(in srgb, var(--openbot-beam-blue) 18%, transparent) 0deg,
-    color-mix(in srgb, var(--openbot-beam-blue) 18%, transparent) 180deg,
-    var(--openbot-beam-teal) 240deg,
-    var(--openbot-beam-blue) 290deg,
-    var(--openbot-beam-pink) 330deg,
-    color-mix(in srgb, var(--openbot-beam-blue) 18%, transparent) 360deg
+    color-mix(in srgb, var(--openownbot-beam-blue) 18%, transparent) 0deg,
+    color-mix(in srgb, var(--openownbot-beam-blue) 18%, transparent) 180deg,
+    var(--openownbot-beam-teal) 240deg,
+    var(--openownbot-beam-blue) 290deg,
+    var(--openownbot-beam-pink) 330deg,
+    color-mix(in srgb, var(--openownbot-beam-blue) 18%, transparent) 360deg
   );
 }
 
 /* The glow: a wider ring of the beam colours, blurred by its parent, so the mask does not cut the blur. */
 .hosted-upsell-beam-glow {
   position: absolute;
-  inset: calc(-1 * var(--openbot-space-3));
+  inset: calc(-1 * var(--openownbot-space-3));
   border-radius: inherit;
   filter: blur(6px);
   opacity: 0.5;
@@ -86,15 +90,15 @@
 }
 
 .hosted-upsell-beam-glow > span {
-  inset: var(--openbot-space-3);
+  inset: var(--openownbot-space-3);
   padding: 2px;
   background: conic-gradient(
     from var(--hosted-upsell-beam-angle),
     transparent 0deg,
     transparent 210deg,
-    var(--openbot-beam-teal) 250deg,
-    var(--openbot-beam-blue) 290deg,
-    var(--openbot-beam-pink) 330deg,
+    var(--openownbot-beam-teal) 250deg,
+    var(--openownbot-beam-blue) 290deg,
+    var(--openownbot-beam-pink) 330deg,
     transparent 360deg
   );
 }
@@ -116,62 +120,62 @@
 .hosted-upsell-modal {
   width: min(420px, 100%);
   display: grid;
-  gap: var(--openbot-space-2);
-  padding: var(--openbot-space-6);
-  border: 1px solid var(--openbot-border);
-  border-radius: var(--openbot-radius-modal);
+  gap: var(--openownbot-space-2);
+  padding: var(--openownbot-space-6);
+  border: 1px solid var(--openownbot-border);
+  border-radius: var(--openownbot-radius-modal);
   outline: 0;
-  color: var(--openbot-text-primary);
-  background: var(--openbot-bg-sidebar);
+  color: var(--openownbot-text-primary);
+  background: var(--openownbot-bg-sidebar);
 }
 
 .hosted-upsell-modal .hosted-upsell-modal-title {
   margin: 0;
-  font-size: var(--openbot-text-lg);
-  font-weight: var(--openbot-weight-semibold);
-  line-height: var(--openbot-leading-lg);
+  font-size: var(--openownbot-text-lg);
+  font-weight: var(--openownbot-weight-semibold);
+  line-height: var(--openownbot-leading-lg);
   text-wrap: balance;
 }
 
 .hosted-upsell-modal .hosted-upsell-modal-description {
   margin: 0;
-  color: var(--openbot-text-secondary);
-  font-size: var(--openbot-text-sm);
-  line-height: var(--openbot-leading-sm);
+  color: var(--openownbot-text-secondary);
+  font-size: var(--openownbot-text-sm);
+  line-height: var(--openownbot-leading-sm);
   text-wrap: pretty;
 }
 
 .hosted-upsell-modal .hosted-upsell-modal-actions {
   display: flex;
   justify-content: flex-end;
-  gap: var(--openbot-space-2);
-  margin-top: var(--openbot-space-3);
+  gap: var(--openownbot-space-2);
+  margin-top: var(--openownbot-space-3);
 }
 
 /* The picture: a laptop and a server, drawn with plain lines. */
 .hosted-upsell-modal .hosted-upsell-scene {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  margin-bottom: var(--openbot-space-4);
-  padding: var(--openbot-space-6) var(--openbot-space-2) var(--openbot-space-4);
-  border-radius: var(--openbot-radius-lg);
-  background: var(--openbot-bg-surface);
+  margin-bottom: var(--openownbot-space-4);
+  padding: var(--openownbot-space-6) var(--openownbot-space-2) var(--openownbot-space-4);
+  border-radius: var(--openownbot-radius-lg);
+  background: var(--openownbot-bg-surface);
 }
 
 .hosted-upsell-modal .hosted-upsell-device {
   display: grid;
   justify-items: center;
   align-content: end;
-  gap: var(--openbot-space-3);
+  gap: var(--openownbot-space-3);
   margin: 0;
 }
 
 .hosted-upsell-modal .hosted-upsell-device figcaption {
   display: grid;
   justify-items: center;
-  gap: var(--openbot-space-1-5);
-  color: var(--openbot-text-secondary);
-  font-size: var(--openbot-text-sm);
+  gap: var(--openownbot-space-1-5);
+  color: var(--openownbot-text-secondary);
+  font-size: var(--openownbot-text-sm);
 }
 
 .hosted-upsell-modal .hosted-upsell-laptop {
@@ -183,9 +187,9 @@
   width: 88px;
   height: 58px;
   padding: 4px;
-  border: 2px solid var(--openbot-border-strong);
+  border: 2px solid var(--openownbot-border-strong);
   border-bottom: 0;
-  border-radius: var(--openbot-radius-sm) var(--openbot-radius-sm) 0 0;
+  border-radius: var(--openownbot-radius-sm) var(--openownbot-radius-sm) 0 0;
   transform-origin: bottom;
   animation: hosted-upsell-lid 5s ease-in-out infinite;
 }
@@ -195,22 +199,22 @@
   height: 100%;
   display: grid;
   place-items: center;
-  border-radius: var(--openbot-radius-xs);
-  color: var(--openbot-text-secondary);
-  background: var(--openbot-bg-control);
+  border-radius: var(--openownbot-radius-xs);
+  color: var(--openownbot-text-secondary);
+  background: var(--openownbot-bg-control);
 }
 
 .hosted-upsell-modal .hosted-upsell-laptop-screen svg {
-  width: var(--openbot-icon-md);
-  height: var(--openbot-icon-md);
+  width: var(--openownbot-icon-md);
+  height: var(--openownbot-icon-md);
   animation: hosted-upsell-shown-open 5s ease-in-out infinite;
 }
 
 .hosted-upsell-modal .hosted-upsell-laptop-base {
   width: 108px;
   height: 6px;
-  border-radius: 0 0 var(--openbot-radius-sm) var(--openbot-radius-sm);
-  background: var(--openbot-border-strong);
+  border-radius: 0 0 var(--openownbot-radius-sm) var(--openownbot-radius-sm);
+  background: var(--openownbot-border-strong);
 }
 
 .hosted-upsell-modal .hosted-upsell-rack {
@@ -222,8 +226,8 @@
 .hosted-upsell-modal .hosted-upsell-rack span {
   position: relative;
   height: 18px;
-  border: 2px solid var(--openbot-border-strong);
-  border-radius: var(--openbot-radius-sm);
+  border: 2px solid var(--openownbot-border-strong);
+  border-radius: var(--openownbot-radius-sm);
 }
 
 /* One light on each unit; the lights stay on. */
@@ -233,8 +237,8 @@
   right: 6px;
   width: 5px;
   height: 5px;
-  border-radius: var(--openbot-radius-pill);
-  background: var(--openbot-success);
+  border-radius: var(--openownbot-radius-pill);
+  background: var(--openownbot-success);
   transform: translateY(-50%);
   animation: hosted-upsell-light 1.6s ease-in-out infinite;
   content: "";
@@ -252,24 +256,24 @@
 .hosted-upsell-modal .hosted-upsell-status {
   display: grid;
   justify-items: center;
-  font-weight: var(--openbot-weight-medium);
+  font-weight: var(--openownbot-weight-medium);
 }
 
 .hosted-upsell-modal .hosted-upsell-status > span {
   grid-area: 1 / 1;
-  padding: 2px var(--openbot-space-2);
-  border-radius: var(--openbot-radius-pill);
+  padding: 2px var(--openownbot-space-2);
+  border-radius: var(--openownbot-radius-pill);
   white-space: nowrap;
 }
 
 .hosted-upsell-modal .hosted-upsell-status .hosted-upsell-status-on {
-  color: var(--openbot-success-text);
-  background: color-mix(in srgb, var(--openbot-success) 16%, transparent);
+  color: var(--openownbot-success-text);
+  background: color-mix(in srgb, var(--openownbot-success) 16%, transparent);
 }
 
 .hosted-upsell-modal .hosted-upsell-status .hosted-upsell-status-off {
-  color: var(--openbot-warning-text);
-  background: color-mix(in srgb, var(--openbot-warning-text) 14%, transparent);
+  color: var(--openownbot-warning-text);
+  background: color-mix(in srgb, var(--openownbot-warning-text) 14%, transparent);
 }
 
 .hosted-upsell-modal .hosted-upsell-status-flip .hosted-upsell-status-on {
@@ -359,10 +363,10 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: var(--openbot-space-2);
-  margin: var(--openbot-space-1) 0 0;
-  color: var(--openbot-text-secondary);
-  font-size: var(--openbot-text-sm);
+  gap: var(--openownbot-space-2);
+  margin: var(--openownbot-space-1) 0 0;
+  color: var(--openownbot-text-secondary);
+  font-size: var(--openownbot-text-sm);
 }
 
 .app-loading .hosted-upsell-offline {

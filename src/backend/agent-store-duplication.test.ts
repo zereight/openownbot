@@ -6,7 +6,7 @@ import { join } from "node:path";
 import { afterEach, describe, expect, it } from "vitest";
 import { AgentStore } from "./agent-store";
 import { runCauseEffect } from "./effect-boundary";
-import { OpenBotDatabase } from "./openbot-database";
+import { OpenOwnBotDatabase } from "./openownbot-database";
 
 const roots: string[] = [];
 
@@ -15,10 +15,10 @@ afterEach(async () => {
 });
 
 async function createStore(): Promise<AgentStore> {
-  const userData = await mkdtemp(join(tmpdir(), "openbot-userdata-"));
-  const home = await mkdtemp(join(tmpdir(), "openbot-home-"));
+  const userData = await mkdtemp(join(tmpdir(), "openownbot-userdata-"));
+  const home = await mkdtemp(join(tmpdir(), "openownbot-home-"));
   roots.push(userData, home);
-  const database = new OpenBotDatabase(userData);
+  const database = new OpenOwnBotDatabase(userData);
   await runCauseEffect(database.initialize());
   const store = new AgentStore(userData, home, database);
   await runCauseEffect(store.initialize());

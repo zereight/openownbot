@@ -1,11 +1,11 @@
 // Run against an existing Storybook with installed Chrome:
 // bun scripts/code-language-e2e.ts --storybook=http://localhost:6006 --phase=before
-// Each phase keeps its own report and screenshots under .openbot-build/code-language-e2e/.
+// Each phase keeps its own report and screenshots under .openownbot-build/code-language-e2e/.
 import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
-import { translateFor } from "@openbot/i18n";
+import { translateFor } from "@openownbot/i18n";
 import { type Browser, chromium, type Locator, type Page } from "playwright-core";
 
 const ROOT = resolve(import.meta.dirname, "..");
@@ -102,7 +102,7 @@ async function main() {
   assert.ok(phase === "before" || phase === "after", "Pass --phase=before or --phase=after.");
   const base = new URL(storybook);
   assert.ok(base.protocol === "http:" || base.protocol === "https:", "Storybook must use HTTP or HTTPS.");
-  const out = resolve(ROOT, ".openbot-build/code-language-e2e", phase);
+  const out = resolve(ROOT, ".openownbot-build/code-language-e2e", phase);
   mkdirSync(out, { recursive: true });
   const report: Report = {
     phase,

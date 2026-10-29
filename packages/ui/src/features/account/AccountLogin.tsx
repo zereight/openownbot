@@ -1,9 +1,9 @@
-import { AppLogo } from "@openbot/brand";
-import { INPUT_LIMITS } from "@openbot/contracts/input-limits";
-import type { AppVariant, CentralAuthIssue, CentralAuthState } from "@openbot/contracts/ipc";
-import { normalizeEmailAddress, normalizeOneTimeCode } from "@openbot/contracts/validation";
-import { ArrowLeft, Button, ErrorReference, Input, Lock, RefreshCw } from "@openbot/ui";
-import { errorReference, type UserErrorDetails } from "@openbot/user-errors";
+import { AppLogo } from "@openownbot/brand";
+import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
+import type { AppVariant, CentralAuthIssue, CentralAuthState } from "@openownbot/contracts/ipc";
+import { normalizeEmailAddress, normalizeOneTimeCode } from "@openownbot/contracts/validation";
+import { ArrowLeft, Button, ErrorReference, Input, Lock, RefreshCw } from "@openownbot/ui";
+import { errorReference, type UserErrorDetails } from "@openownbot/user-errors";
 import { createEffect, createMemo, createSignal, onCleanup, Show, untrack } from "solid-js";
 import { useText } from "../../text";
 import { OtpInput, type OtpInputStatus } from "./OtpInput";
@@ -34,7 +34,7 @@ const UNCERTAIN_EMAIL_DELIVERY_ISSUES = new Set([
   "email_delivery_unknown",
 ]);
 
-const PRODUCT_NAME = "OpenBot";
+const PRODUCT_NAME = "OpenOwnBot";
 const EMAIL_PLACEHOLDER = "you@example.com";
 const EMAIL_MARKER = "\u0000";
 

@@ -3,8 +3,8 @@ import { mkdir, writeFile } from "node:fs/promises";
 import { createServer } from "node:http";
 import { dirname, join } from "node:path";
 import { performance } from "node:perf_hooks";
-import type { BrowserTab } from "@openbot/contracts/ipc";
-import { redactText } from "@openbot/logging";
+import type { BrowserTab } from "@openownbot/contracts/ipc";
+import { redactText } from "@openownbot/logging";
 import { Deferred, Effect, Fiber } from "effect";
 import { app, BrowserWindow, type WebContents, webContents } from "electron";
 import { z } from "zod";
@@ -122,7 +122,7 @@ async function main(): Promise<void> {
       args: DynamicToolCallParams["arguments"],
       owner = "fixture-agent",
     ): DynamicToolCallParams => ({
-      namespace: "openbot_browser",
+      namespace: "openownbot_browser",
       tool,
       arguments: args,
       ownerAgentId: owner,

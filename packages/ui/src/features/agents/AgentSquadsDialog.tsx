@@ -1,6 +1,6 @@
-import type { AgentSquad, SaveSquadInput } from "@openbot/contracts/ipc";
-import { classifyFailure } from "@openbot/telemetry";
-import { Button, Checkbox, Dialog, Heading, IconButton, Input, NativeSelect, Text, toast, X } from "@openbot/ui";
+import type { AgentSquad, SaveSquadInput } from "@openownbot/contracts/ipc";
+import { classifyFailure } from "@openownbot/telemetry";
+import { Button, Checkbox, Dialog, Heading, IconButton, Input, NativeSelect, Text, toast, X } from "@openownbot/ui";
 import { createMemo, createSignal, For, Show } from "solid-js";
 import { useText } from "../../text";
 

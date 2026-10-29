@@ -3,7 +3,7 @@
 // restart, `session/load` fails. The exact omp error for this session and the protocol's `-32002`
 // error must replace the session for both commands. An internal error, also omp's error for another
 // session, must keep it.
-// `bun run test:acp-flavors`. Writes .openbot-build/acp-flavor-e2e/report.json.
+// `bun run test:acp-flavors`. Writes .openownbot-build/acp-flavor-e2e/report.json.
 import assert from "node:assert/strict";
 import { mkdir, mkdtemp, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
@@ -15,7 +15,7 @@ import { requireProviderDriver } from "../src/backend/provider-drivers";
 import { CustomAgentStore } from "../src/main/custom-agent-store";
 import { installFakeAgent, readJsonl, startThread, stopClients, xorCipher } from "./provider-fakes/host";
 
-const OUT = resolve(import.meta.dirname, "../.openbot-build/acp-flavor-e2e");
+const OUT = resolve(import.meta.dirname, "../.openownbot-build/acp-flavor-e2e");
 
 const COMMANDS = ["omp", "other-agent"] as const;
 /** Each `session/load` error, and whether it names a missing session. */
@@ -39,7 +39,7 @@ interface Report {
   cases: CaseResult[];
 }
 
-const root = await mkdtemp(join(tmpdir(), "openbot-acp-flavor-e2e-"));
+const root = await mkdtemp(join(tmpdir(), "openownbot-acp-flavor-e2e-"));
 const report: Report = { passed: false, cases: [] };
 const clients: AgentClient[] = [];
 

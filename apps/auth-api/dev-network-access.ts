@@ -36,7 +36,7 @@ function publicListingPath(rest: string[], image: string): boolean {
 
 export function developmentNetworkRequestAllowed(remoteAddress: string | undefined, requestUrl: string): boolean {
   if (remoteAddress === "127.0.0.1" || remoteAddress === "::1" || remoteAddress === "::ffff:127.0.0.1") return true;
-  const pathname = new URL(requestUrl, "http://openbot.local").pathname;
+  const pathname = new URL(requestUrl, "http://openownbot.local").pathname;
   if (MOBILE_LAN_PATHS.has(pathname)) return true;
   const segments = pathname.split("/").filter(Boolean);
   if (segments.length === 3 && segments[0] === "v1" && segments[1] === "avatars" && segments[2]) return true;

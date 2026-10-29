@@ -4,29 +4,33 @@ import type {
   ExternalDestination,
   ProviderAdminDesktopApi,
   ServerSummary,
-} from "@openbot/contracts/ipc";
-import { decodeRegistryEntries, decodeRegistryInstallResult, decodeRegistryOperations } from "@openbot/contracts/ipc";
-import { ACP_REGISTRY_ROUTES } from "@openbot/contracts/team-protocol/acp-registry-v1";
-import { CLAUDE_API_KEY_CAPABILITY } from "@openbot/contracts/team-protocol/claude-api-key-v1";
+} from "@openownbot/contracts/ipc";
+import {
+  decodeRegistryEntries,
+  decodeRegistryInstallResult,
+  decodeRegistryOperations,
+} from "@openownbot/contracts/ipc";
+import { ACP_REGISTRY_ROUTES } from "@openownbot/contracts/team-protocol/acp-registry-v1";
+import { CLAUDE_API_KEY_CAPABILITY } from "@openownbot/contracts/team-protocol/claude-api-key-v1";
 import {
   PROVIDER_ACCOUNT_RELAY_CAPABILITY,
   PROVIDER_ACCOUNT_RELAY_PROVIDERS,
-} from "@openbot/contracts/team-protocol/provider-account-relay-v1";
-import { PROVIDER_ACCOUNTS_CAPABILITY } from "@openbot/contracts/team-protocol/provider-accounts-v1";
-import { PROVIDER_USAGE_RESET_CAPABILITY } from "@openbot/contracts/team-protocol/provider-usage-reset-v1";
-import { PROVIDERS_ADMIN_ROUTES } from "@openbot/contracts/team-protocol/providers-v1";
+} from "@openownbot/contracts/team-protocol/provider-account-relay-v1";
+import { PROVIDER_ACCOUNTS_CAPABILITY } from "@openownbot/contracts/team-protocol/provider-accounts-v1";
+import { PROVIDER_USAGE_RESET_CAPABILITY } from "@openownbot/contracts/team-protocol/provider-usage-reset-v1";
+import { PROVIDERS_ADMIN_ROUTES } from "@openownbot/contracts/team-protocol/providers-v1";
 import {
   PROVIDERS_RUNTIMES_V2_CAPABILITY,
   PROVIDERS_RUNTIMES_V2_ROUTES,
-} from "@openbot/contracts/team-protocol/providers-v2";
+} from "@openownbot/contracts/team-protocol/providers-v2";
 import {
   PROVIDERS_SIGN_IN_V3_CAPABILITY,
   PROVIDERS_SIGN_IN_V3_ROUTES,
-} from "@openbot/contracts/team-protocol/providers-v3";
-import { PROVIDERS_V4_CAPABILITY, PROVIDERS_V4_ROUTES } from "@openbot/contracts/team-protocol/providers-v4";
-import { PROVIDERS_V5_CAPABILITY, PROVIDERS_V5_ROUTES } from "@openbot/contracts/team-protocol/providers-v5";
-import { PROVIDERS_V8_CAPABILITY, PROVIDERS_V8_ROUTES } from "@openbot/contracts/team-protocol/providers-v8";
-import { runTeamEffect } from "@openbot/team-client";
+} from "@openownbot/contracts/team-protocol/providers-v3";
+import { PROVIDERS_V4_CAPABILITY, PROVIDERS_V4_ROUTES } from "@openownbot/contracts/team-protocol/providers-v4";
+import { PROVIDERS_V5_CAPABILITY, PROVIDERS_V5_ROUTES } from "@openownbot/contracts/team-protocol/providers-v5";
+import { PROVIDERS_V8_CAPABILITY, PROVIDERS_V8_ROUTES } from "@openownbot/contracts/team-protocol/providers-v8";
+import { runTeamEffect } from "@openownbot/team-client";
 import {
   cancelProviderAccountSignIn,
   cancelProviderCodeLogin,
@@ -55,14 +59,14 @@ import {
   startProviderCodeLogin,
   startProviderHostSignIn,
   submitProviderCodeLogin,
-} from "@openbot/team-client/team-admin-requests";
-import type { TeamApiRequest } from "@openbot/team-client/team-api-requests";
-import type { ProviderAccountActions } from "@openbot/ui/components/provider-accounts";
-import { isAgentAccount } from "@openbot/ui/components/provider-accounts";
-import type { AgentProfile } from "@openbot/ui/data";
-import type { BrowserViewRuntime } from "@openbot/ui/features/browser/BrowserLiveView";
-import type { AcpRegistrySettingsApi } from "@openbot/ui/features/custom-providers/AcpRegistrySettings";
-import { currentText } from "@openbot/ui/text";
+} from "@openownbot/team-client/team-admin-requests";
+import type { TeamApiRequest } from "@openownbot/team-client/team-api-requests";
+import type { ProviderAccountActions } from "@openownbot/ui/components/provider-accounts";
+import { isAgentAccount } from "@openownbot/ui/components/provider-accounts";
+import type { AgentProfile } from "@openownbot/ui/data";
+import type { BrowserViewRuntime } from "@openownbot/ui/features/browser/BrowserLiveView";
+import type { AcpRegistrySettingsApi } from "@openownbot/ui/features/custom-providers/AcpRegistrySettings";
+import { currentText } from "@openownbot/ui/text";
 import { Effect } from "effect";
 import { createEffect, createMemo } from "solid-js";
 import { createHostAccounts, withHostAccounts, withHostProfileAccount } from "../agents/host-provider-accounts";
@@ -85,12 +89,12 @@ const CODE_LOGIN_POLL_MS = 3000;
  */
 const WEB_EXTERNAL_DESTINATIONS: Partial<Record<ExternalDestination, string>> = {
   "opencode-auth": "https://opencode.ai/auth",
-  feedback: "https://x.com/intent/post?text=Feedback%20for%20OpenBot%20%40norbertbodziony%3A%20",
+  feedback: "https://x.com/intent/post?text=Feedback%20for%20OpenOwnBot%20%40norbertbodziony%3A%20",
   message: "https://x.com/norbertbodziony",
   changelog: "https://openbot.run/changelog",
   guides: "https://openbot.run/guides",
   discord: "https://discord.openbot.run",
-  x: "https://x.com/OpenBot_",
+  x: "https://x.com/OpenOwnBot_",
 };
 
 export function openWebDestination(destination: ExternalDestination): Promise<void> {

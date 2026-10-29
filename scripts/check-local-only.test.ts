@@ -24,7 +24,7 @@ function scan(text: string, path = PLANTED_PATH): Finding[] {
 }
 
 function notAllowed(text: string): string {
-  return `${JSON.stringify(text)} names an OpenBot service and is not on the allowlist.`;
+  return `${JSON.stringify(text)} names an OpenOwnBot service and is not on the allowlist.`;
 }
 
 describe("mention rule", () => {
@@ -47,8 +47,8 @@ describe("mention rule", () => {
     ["a line comment", '// fetch("https://x.openbot.run/v1/ping");\nexport const a = 1;'],
     ["a block comment", '/* fetch("https://x.openbot.run/v1/ping"); */\nexport const a = 1;'],
     ["a doc comment", "/**\n * Posts to https://x.openbot.run/v1/ping.\n */\nexport const a = 1;"],
-    ["an identifier", "export const openbotRun = 1;\nexport const nightlyLabs = 2;"],
-  ])("ignores an OpenBot service in %s", (_name, text) => {
+    ["an identifier", "export const openownbotRun = 1;\nexport const nightlyLabs = 2;"],
+  ])("ignores an OpenOwnBot service in %s", (_name, text) => {
     expect(scan(text)).toEqual([]);
   });
 
@@ -70,7 +70,7 @@ describe("mention rule", () => {
   it.each([
     ["nightly-labs", 'export const owner = "nightly-labs";'],
     ["the Expo update URL", 'export const url = "https://u.expo.dev/eeec730f-c8f4-42c0-a750-64df8af14940";'],
-    ["a GitHub URL of the owner", 'export const url = "https://github.com/nightly-labs/openbot";'],
+    ["a GitHub URL of the owner", 'export const url = "https://github.com/zereight/openownbot";'],
   ])("reports %s", (_name, text) => {
     expect(scan(text)).toHaveLength(1);
   });
@@ -84,7 +84,7 @@ describe("mention rule", () => {
   });
 
   it("reports owner: nightly-labs in a YAML file and not in a YAML comment", () => {
-    expect(scan("provider: github\nowner: nightly-labs\nrepo: openbot\n", "resources/release.yml")).toEqual([
+    expect(scan("provider: github\nowner: nightly-labs\nrepo: openownbot\n", "resources/release.yml")).toEqual([
       { path: "resources/release.yml", line: 2, message: notAllowed("owner: nightly-labs") },
     ]);
     expect(scan("provider: github\n# owner: nightly-labs\n", "resources/release.yml")).toEqual([]);
@@ -132,7 +132,7 @@ describe("mention rule", () => {
       {
         path: "src/main/other.ts",
         line: null,
-        message: "stale allowlist entry (mention /^https:\\/\\/x\\.openbot\\.run$/u) matches nothing: delete it.",
+        message: "stale allowlist entry (mention /^https:\\/\\/x\\.openownbot\\.run$/u) matches nothing: delete it.",
       },
       { path: PLANTED_PATH, line: 1, message: notAllowed("https://x.openbot.run") },
     ]);
@@ -149,7 +149,7 @@ describe("stale entries", () => {
       {
         path: PLANTED_PATH,
         line: null,
-        message: "stale allowlist entry (mention /^https:\\/\\/x\\.openbot\\.run$/u) matches nothing: delete it.",
+        message: "stale allowlist entry (mention /^https:\\/\\/x\\.openownbot\\.run$/u) matches nothing: delete it.",
       },
     ]);
   });
@@ -177,7 +177,7 @@ describe("stale entries", () => {
       {
         path: PLANTED_PATH,
         line: null,
-        message: "stale allowlist entry (mention /^https:\\/\\/x\\.openbot\\.run$/u) matches nothing: delete it.",
+        message: "stale allowlist entry (mention /^https:\\/\\/x\\.openownbot\\.run$/u) matches nothing: delete it.",
       },
       { path: PLANTED_PATH, line: 1, message: notAllowed("https://y.openbot.run") },
     ]);
@@ -276,7 +276,7 @@ describe("bypass rule", () => {
 
   it("accepts only the primitive that an entry names", () => {
     const allowlist: AllowEntry[] = [
-      { rule: "bypass", path: PLANTED_PATH, primitive: "ws", note: "Dials a host that is not an OpenBot service." },
+      { rule: "bypass", path: PLANTED_PATH, primitive: "ws", note: "Dials a host that is not an OpenOwnBot service." },
     ];
     const text = 'import WebSocket from "ws";\nimport { request } from "node:https";\n';
 
@@ -293,7 +293,7 @@ describe("bypass rule", () => {
 
 describe("dynamic-dial rule", () => {
   const DIAL_MESSAGE =
-    "dials a WebSocket with a URL that is not a plain string: ask refusesOpenBotUrl() first, or add a dynamic-dial entry.";
+    "dials a WebSocket with a URL that is not a plain string: ask refusesOpenOwnBotUrl() first, or add a dynamic-dial entry.";
 
   it("reports a dial with a variable and no predicate, at its line", () => {
     expect(scan("export const open = (url: string) => {\n  return new WebSocket(url);\n};\n")).toEqual([
@@ -311,8 +311,8 @@ describe("dynamic-dial rule", () => {
     ["a string literal", 'new WebSocket("wss://example.com/live");'],
     ["a template without a substitution", "new WebSocket(`wss://example.com/live`);"],
     [
-      "a file that asks refusesOpenBotUrl first",
-      "if (refusesOpenBotUrl(url)) throw new Error(url);\nnew WebSocket(url);\n",
+      "a file that asks refusesOpenOwnBotUrl first",
+      "if (refusesOpenOwnBotUrl(url)) throw new Error(url);\nnew WebSocket(url);\n",
     ],
   ])("accepts a dial with %s", (_name, text) => {
     expect(scan(text)).toEqual([]);
@@ -347,7 +347,7 @@ describe("config gates", () => {
     const files = withText("apps/mobile/app.config.js", (text) => text.replace("enabled: !localOnly", "enabled: true"));
 
     expect(checkFiles(files).map(formatFinding)).toEqual([
-      "check:local-only: apps/mobile/app.json:218 names an OpenBot service, and apps/mobile/app.config.js no longer keeps it off: app.config.js must read local-only.json and set `updates.enabled` from it.",
+      "check:local-only: apps/mobile/app.json:218 names an OpenOwnBot service, and apps/mobile/app.config.js no longer keeps it off: app.config.js must read local-only.json and set `updates.enabled` from it.",
     ]);
   });
 
@@ -355,7 +355,7 @@ describe("config gates", () => {
     const files = tracked.filter((file) => file.path !== "apps/mobile/app.config.js");
 
     expect(checkFiles(files).map(formatFinding)).toContain(
-      "check:local-only: apps/mobile/app.json:218 names an OpenBot service, and apps/mobile/app.config.js is not in the scan.",
+      "check:local-only: apps/mobile/app.json:218 names an OpenOwnBot service, and apps/mobile/app.config.js is not in the scan.",
     );
   });
 });
@@ -367,7 +367,7 @@ describe("isScanned", () => {
     "packages/contracts/src/invite-links.ts",
     "apps/mobile/app.json",
     "apps/mobile/app.config.js",
-    "apps/mobile/modules/app-lock/ios/OpenBotAppLock.podspec",
+    "apps/mobile/modules/app-lock/ios/OpenOwnBotAppLock.podspec",
     "electron-builder.yml",
     "resources/release.yml",
   ])("scans %s", (path) => {
@@ -382,7 +382,7 @@ describe("isScanned", () => {
     "packages/i18n/src/messages/en.ts",
     "apps/auth-api/src/index.ts",
     ".github/workflows/ci.yml",
-    "scripts/openbot-dev.sh",
+    "scripts/openownbot-dev.sh",
     "README.md",
   ])("skips %s", (path) => {
     expect(isScanned(path)).toBe(false);

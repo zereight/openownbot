@@ -1,5 +1,5 @@
 {
-  "name": "openbot",
+  "name": "openownbot",
   "productName": "OpenOwnBot",
   "desktopName": "openownbot.desktop",
   "version": "0.52.0",
@@ -11,12 +11,12 @@
   "license": "PolyForm-Noncommercial-1.0.0",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nightly-labs/openbot.git"
+    "url": "git+https://github.com/zereight/openownbot.git"
   },
   "bugs": {
-    "url": "https://github.com/nightly-labs/openbot/issues"
+    "url": "https://github.com/zereight/openownbot/issues"
   },
-  "homepage": "https://github.com/nightly-labs/openbot#readme",
+  "homepage": "https://github.com/zereight/openownbot#readme",
   "keywords": [
     "ai-agents",
     "bun",
@@ -89,8 +89,8 @@
     "hosting:setup": "bun scripts/hosting/setup-account-server.ts",
     "api:deploy:test": "bun run --cwd apps/auth-api deploy:test",
     "sites:deploy": "bun run --cwd apps/site-router deploy",
-    "sites:bucket:create": "bunx wrangler r2 bucket create openbot-sites --storage-class Standard",
-    "sites:lifecycle": "bunx wrangler r2 bucket lifecycle set openbot-sites --file apps/site-router/r2-lifecycle.json --force",
+    "sites:bucket:create": "bunx wrangler r2 bucket create openownbot-sites --storage-class Standard",
+    "sites:lifecycle": "bunx wrangler r2 bucket lifecycle set openownbot-sites --file apps/site-router/r2-lifecycle.json --force",
     "api:migrate:local": "bun run --cwd apps/auth-api db:migrate:local",
     "api:migrate:remote": "bun run --cwd apps/auth-api db:migrate:remote",
     "api:stripe:bootstrap": "bun run --cwd apps/auth-api stripe:bootstrap",
@@ -111,7 +111,7 @@
     "dev:apns-key": "bun scripts/dev-apns-key.ts",
     "dev:test-client": "bun scripts/dev-services.ts test-client",
     "dev:all": "bun scripts/dev-services.ts all",
-    "openbot-dev": "scripts/openbot-dev.sh",
+    "openownbot-dev": "scripts/openownbot-dev.sh",
     "mobile": "bun run --cwd apps/mobile start",
     "mobile:go": "bun run --cwd apps/mobile start:go",
     "mobile:go:tunnel": "bun run --cwd apps/mobile start:go:tunnel",
@@ -363,14 +363,14 @@
     "@muse-code/sdk": "1.4.12",
     "@noble/hashes": "catalog:",
     "@norbert_bodziony/bloub": "catalog:",
-    "@openbot/brand": "workspace:*",
-    "@openbot/contracts": "workspace:*",
-    "@openbot/i18n": "workspace:*",
-    "@openbot/logging": "workspace:*",
-    "@openbot/team-client": "workspace:*",
-    "@openbot/telemetry": "workspace:*",
-    "@openbot/ui": "workspace:*",
-    "@openbot/user-errors": "workspace:*",
+    "@openownbot/brand": "workspace:*",
+    "@openownbot/contracts": "workspace:*",
+    "@openownbot/i18n": "workspace:*",
+    "@openownbot/logging": "workspace:*",
+    "@openownbot/team-client": "workspace:*",
+    "@openownbot/telemetry": "workspace:*",
+    "@openownbot/ui": "workspace:*",
+    "@openownbot/user-errors": "workspace:*",
     "@openpanel/web": "catalog:",
     "@paper-design/shaders": "catalog:",
     "@solidjs/web": "catalog:",

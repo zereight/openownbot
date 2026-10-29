@@ -1,6 +1,6 @@
 /** A prompt step: a text input for the steps after it. */
 
-import { CopyButton, LabelTooltipTrigger, Textarea } from "@openbot/ui";
+import { CopyButton, LabelTooltipTrigger, Textarea } from "@openownbot/ui";
 import { untrack } from "solid-js";
 import { useText } from "../../text";
 import { Hint } from "./workflow-board";

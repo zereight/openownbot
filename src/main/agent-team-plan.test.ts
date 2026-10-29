@@ -1,5 +1,5 @@
-import { buildAgentTeamFile } from "@openbot/contracts/agent-team-file";
-import type { AgentTemplateSnapshot, MarketplaceAgentRoutine } from "@openbot/contracts/ipc";
+import { buildAgentTeamFile } from "@openownbot/contracts/agent-team-file";
+import type { AgentTemplateSnapshot, MarketplaceAgentRoutine } from "@openownbot/contracts/ipc";
 import { describe, expect, it } from "vitest";
 import { maskTeamSecrets, planTeamImport, uniqueName } from "./agent-team-plan";
 

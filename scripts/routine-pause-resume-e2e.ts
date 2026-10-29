@@ -4,7 +4,7 @@
 // Each scheduler pass gets an explicit clock, so no timer races it. No provider, account or network
 // is started: a queued delivery is cancelled to end its run, as a user does in the queue.
 // Run: `bun scripts/routine-pause-resume-e2e.ts`.
-// Writes .openbot-build/routine-pause-resume-e2e/report.json.
+// Writes .openownbot-build/routine-pause-resume-e2e/report.json.
 
 import { setSystemTime } from "bun:test";
 import assert from "node:assert/strict";
@@ -12,7 +12,7 @@ import { mkdirSync, writeFileSync } from "node:fs";
 import { mkdtemp, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
-import type { AgentEvent, Routine, UpdateRoutineInput } from "@openbot/contracts/ipc";
+import type { AgentEvent, Routine, UpdateRoutineInput } from "@openownbot/contracts/ipc";
 import { Effect } from "effect";
 import { ConversationRuntime } from "../src/backend/agent/conversation-runtime";
 import { RoutineScheduler } from "../src/backend/agent/routine-scheduler";
@@ -22,18 +22,18 @@ import { AgentWaitStore } from "../src/backend/agent-waits/agent-wait-store";
 import { AgentWaits } from "../src/backend/agent-waits/agent-waits";
 import { runCauseEffect } from "../src/backend/effect-boundary";
 import { MailboxStore } from "../src/backend/mailbox-store";
-import { OpenBotDatabase } from "../src/backend/openbot-database";
+import { OpenOwnBotDatabase } from "../src/backend/openownbot-database";
 import { RoutineTimer } from "../src/backend/routine-timer";
 import { parseCreateRoutine, parseUpdateRoutine } from "../src/main/ipc/agent-inputs";
 
 const ROOT = resolve(import.meta.dirname, "..");
-const OUT = join(ROOT, ".openbot-build", "routine-pause-resume-e2e");
+const OUT = join(ROOT, ".openownbot-build", "routine-pause-resume-e2e");
 const STEP_DEADLINE_MS = 15_000;
 const DAY = "2031-03-03";
 const at = (time: string) => new Date(`${DAY}T${time}:00.000Z`);
 
 interface Fixture {
-  database: OpenBotDatabase;
+  database: OpenOwnBotDatabase;
   mailbox: MailboxStore;
   scheduler: RoutineScheduler;
   runs: AgentRoutineStore;
@@ -44,7 +44,7 @@ interface Fixture {
 }
 
 async function openFixture(root: string): Promise<Fixture> {
-  const database = new OpenBotDatabase(join(root, "state"));
+  const database = new OpenOwnBotDatabase(join(root, "state"));
   const store = new AgentStore(join(root, "state"), join(root, "home"), database);
   const mailbox = new MailboxStore(join(root, "state"), store.sharedRoot, database);
   let conversation: ConversationRuntime | undefined;
@@ -151,7 +151,7 @@ async function step<T>(name: string, run: () => Promise<T>): Promise<T> {
   }
 }
 
-const root = await mkdtemp(join(tmpdir(), "openbot-routine-pause-"));
+const root = await mkdtemp(join(tmpdir(), "openownbot-routine-pause-"));
 let fixture: Fixture | undefined;
 
 function current(): Fixture {

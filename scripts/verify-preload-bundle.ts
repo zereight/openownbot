@@ -8,13 +8,13 @@ import {
   IPC_GROUP_PATHS,
   type IpcEndpoint,
   type IpcGroupName,
-} from "@openbot/contracts/ipc";
-import { createOpenBotLogger } from "@openbot/logging";
+} from "@openownbot/contracts/ipc";
+import { createOpenOwnBotLogger } from "@openownbot/logging";
 
 // Runs the built preload bundles in a VM with a fake Electron, after `bun run build`. The types
 // describe the source; this reads what the renderer really gets. It fails when the bundle:
 // - loads a module that a sandboxed preload cannot load, or loads code with `import()`;
-// - exposes a world other than `openbot`, or a value other than a function or a method group;
+// - exposes a world other than `openownbot`, or a value other than a function or a method group;
 // - exposes a method that `IPC_ENDPOINTS` at its `IPC_GROUP_PATHS` place and the hand-written list
 //   below do not name, or omits one;
 // - sends a method to a channel other than the channel of its endpoint, or with the wrong operation:
@@ -37,7 +37,7 @@ const nodeRequire = createRequire(import.meta.url);
 
 const PRELOAD_DIRECTORY = resolve(import.meta.dirname, "../out/preload");
 
-// Every method of `window.openbot` takes a payload or a listener first.
+// Every method of `window.openownbot` takes a payload or a listener first.
 type BridgeMethod = (payloadOrListener: unknown) => unknown;
 
 interface IpcCall {
@@ -55,7 +55,7 @@ interface PreloadRun {
   readonly calls: IpcCall[];
 }
 
-const logger = createOpenBotLogger("verify-preload-bundle");
+const logger = createOpenOwnBotLogger("verify-preload-bundle");
 const failures: string[] = [];
 
 const main = runPreload("index.cjs");
@@ -65,17 +65,17 @@ for (const [path, endpoint] of HAND_WRITTEN_METHODS) {
 }
 const exposed = new Map<string, BridgeMethod>();
 for (const world of main.worlds.keys()) {
-  if (world !== "openbot") failures.push(`index.cjs exposes window.${world}; only window.openbot is allowed.`);
+  if (world !== "openownbot") failures.push(`index.cjs exposes window.${world}; only window.openownbot is allowed.`);
 }
-if (main.worlds.has("openbot")) collectMethods(main.worlds.get("openbot"), "", exposed);
-else failures.push("index.cjs does not expose window.openbot.");
+if (main.worlds.has("openownbot")) collectMethods(main.worlds.get("openownbot"), "", exposed);
+else failures.push("index.cjs does not expose window.openownbot.");
 for (const path of exposed.keys()) {
   if (!expected.has(path) && !HAND_WRITTEN_METHODS.has(path)) {
-    failures.push(`window.openbot.${path} is exposed, but no endpoint names it.`);
+    failures.push(`window.openownbot.${path} is exposed, but no endpoint names it.`);
   }
 }
 for (const path of [...expected.keys(), ...HAND_WRITTEN_METHODS.keys()]) {
-  if (!exposed.has(path)) failures.push(`window.openbot.${path} is not exposed.`);
+  if (!exposed.has(path)) failures.push(`window.openownbot.${path} is not exposed.`);
 }
 for (const [path, endpoint] of expected) {
   const method = exposed.get(path);
@@ -168,7 +168,7 @@ function collectMethods(value: unknown, path: string, into: Map<string, BridgeMe
     return;
   }
   if (!isPlainObject(value)) {
-    failures.push(`window.openbot${path ? `.${path}` : ""} is not a function or a method group.`);
+    failures.push(`window.openownbot${path ? `.${path}` : ""} is not a function or a method group.`);
     return;
   }
   for (const [key, child] of Object.entries(value)) collectMethods(child, path ? `${path}.${key}` : key, into);
@@ -180,7 +180,7 @@ function checkCall(run: PreloadRun, path: string, method: BridgeMethod, expected
     // A request method takes the listener as its payload, and an event method subscribes it.
     method(() => undefined);
   } catch (error) {
-    failures.push(`window.openbot.${path} threw: ${error instanceof Error ? error.message : String(error)}.`);
+    failures.push(`window.openownbot.${path} threw: ${error instanceof Error ? error.message : String(error)}.`);
     return;
   }
   const sent = run.calls.slice(start);
@@ -189,7 +189,7 @@ function checkCall(run: PreloadRun, path: string, method: BridgeMethod, expected
   const operationMatches = expected.kind === "request" ? call?.method === "invoke" : call?.method !== "invoke";
   if (call?.channel !== expected.channel || !operationMatches) {
     const used = sent.map((c) => `${c.method} ${c.channel}`).join(", ") || "no channel";
-    failures.push(`window.openbot.${path} must call ${operation} on ${expected.channel}; it used: ${used}.`);
+    failures.push(`window.openownbot.${path} must call ${operation} on ${expected.channel}; it used: ${used}.`);
   }
 }
 

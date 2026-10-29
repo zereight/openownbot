@@ -7,13 +7,13 @@ import {
   type WorkflowSaveResult,
   type WorkflowSummary,
   type WorkflowVersion,
-} from "@openbot/contracts/ipc";
-import type { AppTextKey } from "@openbot/i18n";
-import { toast } from "@openbot/ui";
-import type { WorkflowCanvasProps } from "@openbot/ui/features/workflows/WorkflowCanvas";
-import type { WorkflowPlace } from "@openbot/ui/features/workflows/workflow-model";
-import { EMPTY_WORKFLOW_RUN_VIEW, type WorkflowRunView } from "@openbot/ui/features/workflows/workflow-run-view";
-import { useText } from "@openbot/ui/text";
+} from "@openownbot/contracts/ipc";
+import type { AppTextKey } from "@openownbot/i18n";
+import { toast } from "@openownbot/ui";
+import type { WorkflowCanvasProps } from "@openownbot/ui/features/workflows/WorkflowCanvas";
+import type { WorkflowPlace } from "@openownbot/ui/features/workflows/workflow-model";
+import { EMPTY_WORKFLOW_RUN_VIEW, type WorkflowRunView } from "@openownbot/ui/features/workflows/workflow-run-view";
+import { useText } from "@openownbot/ui/text";
 import { createEffect, createMemo, createSignal, onSettled, untrack } from "solid-js";
 import type { DesktopAnalyticsScope, WorkflowAnalyticsAction } from "../../analytics";
 import type { WorkflowHost } from "./workflows-port";

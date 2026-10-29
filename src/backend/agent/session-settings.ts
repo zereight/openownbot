@@ -1,4 +1,4 @@
-import { customAgentIdOfModel } from "@openbot/contracts/agent-providers";
+import { customAgentIdOfModel } from "@openownbot/contracts/agent-providers";
 import type {
   AgentSessionSettings,
   AgentSessionSettingsSnapshot,
@@ -6,8 +6,8 @@ import type {
   AgentSummary,
   ResetAgentSessionSettingInput,
   SetAgentSessionSettingInput,
-} from "@openbot/contracts/ipc";
-import { sourceText } from "@openbot/i18n/source";
+} from "@openownbot/contracts/ipc";
+import { sourceText } from "@openownbot/i18n/source";
 import { Effect, Schema } from "effect";
 import type { AgentClient } from "../agent-client";
 import type { AgentStore } from "../agent-store";

@@ -1,8 +1,8 @@
 import { randomUUID } from "node:crypto";
-import { isDynamicRecord } from "@openbot/contracts/runtime-values";
-import { AGENT_INSTALL_CAPABILITY, AGENT_INSTALL_ROUTES } from "@openbot/contracts/team-protocol/agent-install-v1";
-import { AGENT_UPDATE_CAPABILITY, AGENT_UPDATE_ROUTES } from "@openbot/contracts/team-protocol/agent-update-v1";
-import { sourceText } from "@openbot/i18n/source";
+import { isDynamicRecord } from "@openownbot/contracts/runtime-values";
+import { AGENT_INSTALL_CAPABILITY, AGENT_INSTALL_ROUTES } from "@openownbot/contracts/team-protocol/agent-install-v1";
+import { AGENT_UPDATE_CAPABILITY, AGENT_UPDATE_ROUTES } from "@openownbot/contracts/team-protocol/agent-update-v1";
+import { sourceText } from "@openownbot/i18n/source";
 import type { Effect } from "effect";
 import { runCauseEffect } from "../../backend/effect-boundary";
 import type { AgentMarketplaceFailure } from "../agent-marketplace-service";

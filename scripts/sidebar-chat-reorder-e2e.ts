@@ -4,24 +4,24 @@
 // `assign`, as "Move to" and agent creation do, so the layout has no order for them yet.
 // The agent service is not initialized, so no provider CLI starts.
 // Run: `bun scripts/sidebar-chat-reorder-e2e.ts`.
-// Writes .openbot-build/sidebar-chat-reorder-e2e/report.json.
+// Writes .openownbot-build/sidebar-chat-reorder-e2e/report.json.
 
 import assert from "node:assert/strict";
 import { mkdirSync, writeFileSync } from "node:fs";
 import { mkdtemp, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
-import type { SidebarLayoutAction } from "@openbot/contracts/ipc";
+import type { SidebarLayoutAction } from "@openownbot/contracts/ipc";
 import { Effect } from "effect";
 import type { AgentBrowserHost } from "../src/backend/agent/turn-lifecycle";
 import { AgentService } from "../src/backend/agent-service";
 import { AgentStore } from "../src/backend/agent-store";
 import { runCauseEffect } from "../src/backend/effect-boundary";
 import { MailboxStore } from "../src/backend/mailbox-store";
-import { OpenBotDatabase } from "../src/backend/openbot-database";
+import { OpenOwnBotDatabase } from "../src/backend/openownbot-database";
 import { SidebarLayoutStore } from "../src/backend/sidebar-layout-store";
 
-const OUT = resolve(import.meta.dirname, "../.openbot-build/sidebar-chat-reorder-e2e");
+const OUT = resolve(import.meta.dirname, "../.openownbot-build/sidebar-chat-reorder-e2e");
 
 interface Step {
   name: string;
@@ -69,11 +69,11 @@ const agentBrowser: AgentBrowserHost = {
   clearAgentSession: () => Effect.void,
 };
 
-const root = await mkdtemp(join(tmpdir(), "openbot-sidebar-chat-reorder-"));
+const root = await mkdtemp(join(tmpdir(), "openownbot-sidebar-chat-reorder-"));
 const userData = join(root, "user-data");
 const home = join(root, "home");
 
-const database = new OpenBotDatabase(userData);
+const database = new OpenOwnBotDatabase(userData);
 const agentStore = new AgentStore(userData, home, database);
 const mailbox = new MailboxStore(userData, agentStore.sharedRoot, agentStore.database);
 const sidebar = new SidebarLayoutStore(join(userData, "sidebar-layout.json"));

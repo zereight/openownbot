@@ -1,6 +1,6 @@
-import { Bubble, BubbleContent } from "@openbot/ui";
-import type { AgentMessage } from "@openbot/ui/data";
-import { MessageBody } from "@openbot/ui/features/conversation/MessageRendering";
+import { Bubble, BubbleContent } from "@openownbot/ui";
+import type { AgentMessage } from "@openownbot/ui/data";
+import { MessageBody } from "@openownbot/ui/features/conversation/MessageRendering";
 import { createEffect, createSignal, For, Show, untrack } from "solid-js";
 import { fn } from "storybook/test";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";

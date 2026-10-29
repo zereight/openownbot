@@ -81,7 +81,7 @@ export function ListingRow({
 }) {
   const { t } = useText();
   const subtitle = useListingSubtitle()(listing, showKind);
-  const success = String(useCSSVariable("--openbot-success-text"));
+  const success = String(useCSSVariable("--openownbot-success-text"));
   return (
     <SettingsRow
       leading={<ListingIcon listing={listing} size={40} />}
@@ -120,7 +120,7 @@ export function AgentCard({
   onPress: () => void;
 }) {
   const { t, format } = useText();
-  const success = String(useCSSVariable("--openbot-success-text"));
+  const success = String(useCSSVariable("--openownbot-success-text"));
   const meta = [
     listing.category ? t(CATEGORY_LABELS[listing.category]) : null,
     listing.kind === "app"
@@ -181,7 +181,7 @@ export function AppTile({
   onPress: () => void;
 }) {
   const { t } = useText();
-  const success = String(useCSSVariable("--openbot-success-text"));
+  const success = String(useCSSVariable("--openownbot-success-text"));
   const [background] = useThemeColor(["background"]);
   return (
     <Pressable

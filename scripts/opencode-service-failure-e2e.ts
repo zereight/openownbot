@@ -1,25 +1,25 @@
 // Runs a turn on the real OpenCode driver against a fake `opencode acp` that fails the prompt as
 // OpenCode 2.1.3 does: `-32603` "Internal error: Internal service failure" (#2850). Checks that the
 // failed turn reads as OpenCode's service failure, with its fix, not the generic text.
-// `bun run test:opencode-service-failure`. Writes .openbot-build/opencode-service-failure-e2e/report.json.
+// `bun run test:opencode-service-failure`. Writes .openownbot-build/opencode-service-failure-e2e/report.json.
 import assert from "node:assert/strict";
 import { mkdir, mkdtemp, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
-import { sourceText } from "@openbot/i18n/source";
+import { sourceText } from "@openownbot/i18n/source";
 import type { AgentClient } from "../src/backend/agent-client";
 import type { AgentCliInfo } from "../src/backend/cli";
 import { NO_PROVIDER_CREDENTIALS, requireProviderDriver } from "../src/backend/provider-drivers";
 import { installFakeAgent, runTurn, startThread, stopClients } from "./provider-fakes/host";
 
-const OUT = resolve(import.meta.dirname, "../.openbot-build/opencode-service-failure-e2e");
+const OUT = resolve(import.meta.dirname, "../.openownbot-build/opencode-service-failure-e2e");
 
 interface Report {
   passed: boolean;
   turn?: { error: string };
 }
 
-const root = await mkdtemp(join(tmpdir(), "openbot-opencode-service-failure-e2e-"));
+const root = await mkdtemp(join(tmpdir(), "openownbot-opencode-service-failure-e2e-"));
 const report: Report = { passed: false };
 const clients: AgentClient[] = [];
 

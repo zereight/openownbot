@@ -2,8 +2,8 @@ import assert from "node:assert/strict";
 import { mkdir, writeFile } from "node:fs/promises";
 import { createServer } from "node:http";
 import { dirname, join } from "node:path";
-import type { AgentEvent, BrowserTab } from "@openbot/contracts/ipc";
-import { redactText } from "@openbot/logging";
+import type { AgentEvent, BrowserTab } from "@openownbot/contracts/ipc";
+import { redactText } from "@openownbot/logging";
 import { Effect, Exit } from "effect";
 import { app, BrowserWindow, type WebContents, webContents } from "electron";
 import { z } from "zod";
@@ -67,7 +67,7 @@ async function main(): Promise<void> {
     browser = new BrowserHost(window, join(fixtureRoot, "downloads"), join(fixtureRoot, "tabs.json"));
     const host = browser;
     const params = (tool: string, args: DynamicToolCallParams["arguments"]): DynamicToolCallParams => ({
-      namespace: "openbot_browser",
+      namespace: "openownbot_browser",
       tool,
       arguments: args,
       ownerAgentId: "fixture-agent",
@@ -75,7 +75,7 @@ async function main(): Promise<void> {
       turnId: "fixture-turn",
       callId: `user-control-${++sequence}`,
     });
-    // The same composition as the browser branch of `OpenBotToolRouter`: a held tab waits before the
+    // The same composition as the browser branch of `OpenOwnBotToolRouter`: a held tab waits before the
     // call, a call that the hold reaches in the tab queue waits through the hook, and the turn's
     // cancellation interrupts either wait.
     const routed = (

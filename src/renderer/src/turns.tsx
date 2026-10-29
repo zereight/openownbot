@@ -6,8 +6,8 @@ import type {
   AgentWaitsSnapshot,
   QueueSnapshot,
   RoutineFields,
-} from "@openbot/contracts/ipc";
-import { currentText } from "@openbot/ui/text";
+} from "@openownbot/contracts/ipc";
+import { currentText } from "@openownbot/ui/text";
 import { createEffect, createMemo, createSignal, untrack } from "solid-js";
 import { desktopAnalytics } from "./analytics";
 import { useAnsweredPrompts } from "./answered-prompts";

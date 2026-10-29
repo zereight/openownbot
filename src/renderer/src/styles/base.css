@@ -13,8 +13,8 @@ body,
 }
 
 body {
-  background: var(--openbot-bg-canvas);
-  color: var(--openbot-text-primary);
+  background: var(--openownbot-bg-canvas);
+  color: var(--openownbot-text-primary);
   -webkit-font-smoothing: antialiased;
 }
 

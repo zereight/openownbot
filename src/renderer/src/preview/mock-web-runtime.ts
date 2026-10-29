@@ -1,15 +1,15 @@
-import { CHANNEL_CHATS_CAPABILITY } from "@openbot/contracts/ipc";
-import { ROUTINE_FLOWS_CAPABILITY } from "@openbot/contracts/team-protocol/routine-flows-v1";
+import { CHANNEL_CHATS_CAPABILITY } from "@openownbot/contracts/ipc";
+import { ROUTINE_FLOWS_CAPABILITY } from "@openownbot/contracts/team-protocol/routine-flows-v1";
 import type { WebRuntimeFactory } from "../features/web-client/web-client-context";
 import type { WebRuntimeEvents, WebWorkspaceRuntime } from "../features/web-client/web-runtime";
-import { createMockOpenBot, type MockOpenBotControls } from "./mock-openbot";
+import { createMockOpenOwnBot, type MockOpenOwnBotControls } from "./mock-openownbot";
 
 /** Use the desktop preview's data and actions for the browser composition too. */
 export const createMockWebRuntime: WebRuntimeFactory = (_accountId, events) =>
-  mockWebRuntimeFor(createMockOpenBot(), events);
+  mockWebRuntimeFor(createMockOpenOwnBot(), events);
 
 /** The browser composition over a given mock host, for a fixture that also drives that host. */
-export function mockWebRuntimeFor(mock: MockOpenBotControls, events: WebRuntimeEvents): WebWorkspaceRuntime {
+export function mockWebRuntimeFor(mock: MockOpenOwnBotControls, events: WebRuntimeEvents): WebWorkspaceRuntime {
   const agent = mock.api.agent;
   const host = {
     hostId: "preview-host",
@@ -102,9 +102,13 @@ export function mockWebRuntimeFor(mock: MockOpenBotControls, events: WebRuntimeE
     },
     cancelUpload: async () => {},
     discard: (id) => agent.discardDraftAttachment(id),
-    download: async () => ({ name: "preview.txt", mimeType: "text/plain", base64: btoa("OpenBot file preview") }),
-    sharedFile: async () => ({ name: "preview.txt", mimeType: "text/plain", base64: btoa("OpenBot file preview") }),
-    workspaceFile: async () => ({ name: "preview.txt", mimeType: "text/plain", base64: btoa("OpenBot file preview") }),
+    download: async () => ({ name: "preview.txt", mimeType: "text/plain", base64: btoa("OpenOwnBot file preview") }),
+    sharedFile: async () => ({ name: "preview.txt", mimeType: "text/plain", base64: btoa("OpenOwnBot file preview") }),
+    workspaceFile: async () => ({
+      name: "preview.txt",
+      mimeType: "text/plain",
+      base64: btoa("OpenOwnBot file preview"),
+    }),
     workspaceDirectory: (agentId, path) => agent.listWorkspaceDirectory({ agentId, path }),
     routineFlows: mock.api.routineFlows,
     updateRoutine: (input) => agent.updateRoutine(input),

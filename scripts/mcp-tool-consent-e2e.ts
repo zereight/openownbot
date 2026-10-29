@@ -2,12 +2,12 @@
 // client, a real MCP server over stdio, the real `AttentionRegistry` and the real `ApprovalAutomation`
 // policy. A local server that speaks the Responses API stands in for the model, so no account or key is
 // used. The fake model calls the tool that each turn names.
-// `bun scripts/mcp-tool-consent-e2e.ts`. Writes .openbot-build/mcp-tool-consent-e2e/report.json.
+// `bun scripts/mcp-tool-consent-e2e.ts`. Writes .openownbot-build/mcp-tool-consent-e2e/report.json.
 import assert from "node:assert/strict";
 import { mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import { createServer } from "node:http";
 import { join, resolve } from "node:path";
-import type { AgentEvent, AgentPromptQuestion, ConversationSnapshot } from "@openbot/contracts/ipc";
+import type { AgentEvent, AgentPromptQuestion, ConversationSnapshot } from "@openownbot/contracts/ipc";
 import { Effect } from "effect";
 import { AttentionRegistry } from "../src/backend/agent/attention-registry";
 import { CodexAppServerClient } from "../src/backend/app-server-client";
@@ -23,7 +23,7 @@ import {
 } from "../src/backend/protocol";
 import { ApprovalAutomation } from "../src/main/approval-automation-store";
 
-const OUT = resolve(import.meta.dirname, "../.openbot-build/mcp-tool-consent-e2e");
+const OUT = resolve(import.meta.dirname, "../.openownbot-build/mcp-tool-consent-e2e");
 const DECISION = "mcp-elicitation-decision";
 const NL = String.fromCharCode(10);
 
@@ -167,7 +167,7 @@ interface Card {
 
 interface Outcome {
   cards: Card[];
-  /** What OpenBot answered to Codex, in order. The tool consent comes first. */
+  /** What OpenOwnBot answered to Codex, in order. The tool consent comes first. */
   responses: Array<{ action: string; persist: unknown; contentKeys: string[] }>;
   toolText: string | null;
   toolStatus: string | null;
@@ -180,7 +180,7 @@ const allowOnce: Choose = () => ({ [DECISION]: ["Allow once"] });
 const allowAlways: Choose = () => ({ [DECISION]: ["Always allow"] });
 const deny: Choose = () => ({ [DECISION]: ["Don't allow"] });
 
-/** Records what OpenBot answers to Codex, so a step can check the answer and not only the outcome. */
+/** Records what OpenOwnBot answers to Codex, so a step can check the answer and not only the outcome. */
 class RecordingClient extends CodexAppServerClient {
   readonly responses: Outcome["responses"] = [];
 
@@ -287,7 +287,7 @@ class Rig {
       this.#client.request(
         "initialize",
         {
-          clientInfo: { name: "openbot_e2e", title: "OpenBot E2E", version: "0.0.0" },
+          clientInfo: { name: "openownbot_e2e", title: "OpenOwnBot E2E", version: "0.0.0" },
           capabilities: { experimentalApi: true, mcpServerOpenaiFormElicitation: true },
         },
         decodeRecordResponse,
@@ -296,7 +296,7 @@ class Rig {
     this.#client.notify("initialized");
   }
 
-  /** The thread settings are the ones OpenBot sends: `on-request`, and full access unless sandboxed. */
+  /** The thread settings are the ones OpenOwnBot sends: `on-request`, and full access unless sandboxed. */
   async thread(agentId: string): Promise<string> {
     const existing = this.#threads.get(agentId);
     if (existing) return existing;

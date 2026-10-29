@@ -1,9 +1,9 @@
-import { chatVisualDocument } from "@openbot/contracts/chat-visual";
-import logoUrl from "../src/assets/openbot-logo-production.png?inline";
+import { chatVisualDocument } from "@openownbot/contracts/chat-visual";
+import logoUrl from "../src/assets/openownbot-logo-production.png?inline";
 import takeoverUrl from "./assets/browser-takeover-preview.svg?inline";
 import macMockUrl from "./assets/remote-desktop-mac-mock.png?inline";
 
-const PAGES_ROUTE = "/__openbot/chat-visual";
+const PAGES_ROUTE = "/__openownbot/chat-visual";
 
 /** Publishes a page to the Storybook server (`.storybook/chat-visual-pages.ts`) and gives its URL. */
 export async function publishChatVisualPage(html: string): Promise<string> {
@@ -165,7 +165,7 @@ export const IMAGE_COLLAGE = `<!doctype html>
 <div class="grid">
   <figure class="wide"><img src="${macMockUrl}" alt="Remote desktop on a Mac"><figcaption>Remote desktop, full screen</figcaption></figure>
   <figure><img src="${takeoverUrl}" alt="Browser takeover"><figcaption>Browser takeover</figcaption></figure>
-  <figure><img src="${logoUrl}" alt="OpenBot logo" style="object-fit: contain"><figcaption>App logo</figcaption></figure>
+  <figure><img src="${logoUrl}" alt="OpenOwnBot logo" style="object-fit: contain"><figcaption>App logo</figcaption></figure>
 </div>
 </body></html>`;
 
@@ -202,15 +202,15 @@ export const INTERACTIVE_CHOICE = `<!doctype html>
   document.getElementById("chart").src = canvas.toDataURL("image/png");
   let count = 0;
   for (const button of document.querySelectorAll("[data-plan]")) {
-    button.addEventListener("click", () => openbotPage.sendMessage("I pick plan " + button.dataset.plan + "."));
+    button.addEventListener("click", () => openownbotPage.sendMessage("I pick plan " + button.dataset.plan + "."));
   }
   document.getElementById("count").addEventListener("click", (event) => {
     count += 1;
     event.currentTarget.textContent = "Count: " + count;
-    openbotPage.setContext("The counter shows " + count + ".");
+    openownbotPage.setContext("The counter shows " + count + ".");
   });
   document.getElementById("large").addEventListener("click", () =>
-    openbotPage.displayMode === "fullscreen" ? openbotPage.exitFullscreen() : openbotPage.requestFullscreen(),
+    openownbotPage.displayMode === "fullscreen" ? openownbotPage.exitFullscreen() : openownbotPage.requestFullscreen(),
   );
 </script>
 </body></html>`;

@@ -6,9 +6,9 @@ export const PROVIDER_ENVIRONMENT_LIMITS = { variables: 32, valueLength: 4096 } 
 const NAME = /^[A-Za-z_][A-Za-z0-9_]{0,127}$/;
 
 /**
- * Names that a person cannot set, since each would break something OpenBot owns: the keys and the
+ * Names that a person cannot set, since each would break something OpenOwnBot owns: the keys and the
  * sign-in of a provider, where programs and the config are found, what runs before a program starts,
- * and the variables that OpenBot sets for its own processes.
+ * and the variables that OpenOwnBot sets for its own processes.
  */
 const REFUSED_NAMES: ReadonlySet<string> = new Set([
   "ANTHROPIC_API_KEY",
@@ -24,7 +24,7 @@ const REFUSED_NAMES: ReadonlySet<string> = new Set([
   "NODE_PATH",
   "ELECTRON_RUN_AS_NODE",
 ]);
-const REFUSED_PREFIXES = ["OPENBOT_", "CLAUDE_AGENT_SDK_", "DYLD_", "LD_"] as const;
+const REFUSED_PREFIXES = ["OPENOWNBOT_", "CLAUDE_AGENT_SDK_", "DYLD_", "LD_"] as const;
 
 export type ProviderEnvironment = Readonly<Record<string, string>>;
 
@@ -51,7 +51,7 @@ export function providerEnvironmentIssue(name: string): string | null {
   if (!NAME.test(name)) return "The name may hold only letters, digits and _, and cannot start with a digit.";
   const upper = name.toUpperCase();
   if (REFUSED_NAMES.has(upper) || REFUSED_PREFIXES.some((prefix) => upper.startsWith(prefix))) {
-    return `${name} is set by OpenBot and cannot be changed here.`;
+    return `${name} is set by OpenOwnBot and cannot be changed here.`;
   }
   return null;
 }

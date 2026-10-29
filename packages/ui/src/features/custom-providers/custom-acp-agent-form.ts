@@ -1,8 +1,8 @@
-// Form side of a user-named ACP agent: a command that OpenBot starts on this computer and talks to
+// Form side of a user-named ACP agent: a command that OpenOwnBot starts on this computer and talks to
 // over the Agent Client Protocol on stdio. The dialog hands the trimmed draft to its host, which
 // turns it into the IPC input with `customAgentInput`.
 
-import { INPUT_LIMITS } from "@openbot/contracts/input-limits";
+import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
 import {
   type AcpAgentPreset,
   type CheckCustomAgentInput,
@@ -13,8 +13,8 @@ import {
   isCustomAgentUsagePrompt,
   isNewCustomAgentId,
   type SaveCustomAgentInput,
-} from "@openbot/contracts/ipc";
-import type { AppTranslate } from "@openbot/i18n";
+} from "@openownbot/contracts/ipc";
+import type { AppTranslate } from "@openownbot/i18n";
 import { currentText } from "../../text";
 
 export interface CustomAcpEnvDraft {
@@ -46,7 +46,7 @@ export interface CustomAcpAgentErrors {
   envRows: (string | undefined)[];
 }
 
-/** The state of one trial start: OpenBot runs the command, asks it what it is, then stops it. */
+/** The state of one trial start: OpenOwnBot runs the command, asks it what it is, then stops it. */
 export type AcpAgentCheck =
   | { status: "idle" }
   | { status: "checking" }

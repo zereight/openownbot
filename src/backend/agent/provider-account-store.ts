@@ -1,13 +1,13 @@
 import { randomBytes } from "node:crypto";
 import { chmod, mkdir, readFile, rm } from "node:fs/promises";
 import { join } from "node:path";
-import { AGENT_PROVIDERS, type AgentProviderId } from "@openbot/contracts/agent-providers";
+import { AGENT_PROVIDERS, type AgentProviderId } from "@openownbot/contracts/agent-providers";
 import {
   DEFAULT_PROVIDER_ACCOUNT_ID,
   MAX_PROVIDER_ACCOUNTS,
   PROVIDER_ACCOUNT_LABEL_MAX_LENGTH,
-} from "@openbot/contracts/ipc";
-import { sourceText } from "@openbot/i18n/source";
+} from "@openownbot/contracts/ipc";
+import { sourceText } from "@openownbot/i18n/source";
 import { Effect, Schema, Semaphore } from "effect";
 import { writeJsonFileAtomically } from "../atomic-json-file";
 import { causeHelpers } from "../effect-boundary";

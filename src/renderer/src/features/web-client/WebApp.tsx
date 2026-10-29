@@ -1,16 +1,19 @@
-import { agentTemplateIdFromWebAppSearch, WEB_APP_AGENT_TEMPLATE_PARAM } from "@openbot/contracts/agent-template-links";
-import { type FirstTouch, readFirstTouch } from "@openbot/contracts/first-touch";
-import { inviteUrlFromWebAppSearch, WEB_APP_INVITE_FIELDS } from "@openbot/contracts/invite-links";
-import type { AppVariant, CentralAuthState, CentralAuthUser } from "@openbot/contracts/ipc";
-import { pluginSlugFromWebAppSearch, WEB_APP_PLUGIN_PARAM } from "@openbot/contracts/plugin-links";
-import { isDynamicRecord, isString } from "@openbot/contracts/runtime-values";
-import { formatLocale, resolveLocale } from "@openbot/i18n";
-import { sourceText } from "@openbot/i18n/source";
-import { classifyFailure } from "@openbot/telemetry";
-import { NotificationObserver, Toaster, toast } from "@openbot/ui";
-import { AccountLogin } from "@openbot/ui/features/account/AccountLogin";
-import { AppLoadingScreen } from "@openbot/ui/features/account/AppLoadingScreen";
-import { currentText } from "@openbot/ui/text";
+import {
+  agentTemplateIdFromWebAppSearch,
+  WEB_APP_AGENT_TEMPLATE_PARAM,
+} from "@openownbot/contracts/agent-template-links";
+import { type FirstTouch, readFirstTouch } from "@openownbot/contracts/first-touch";
+import { inviteUrlFromWebAppSearch, WEB_APP_INVITE_FIELDS } from "@openownbot/contracts/invite-links";
+import type { AppVariant, CentralAuthState, CentralAuthUser } from "@openownbot/contracts/ipc";
+import { pluginSlugFromWebAppSearch, WEB_APP_PLUGIN_PARAM } from "@openownbot/contracts/plugin-links";
+import { isDynamicRecord, isString } from "@openownbot/contracts/runtime-values";
+import { formatLocale, resolveLocale } from "@openownbot/i18n";
+import { sourceText } from "@openownbot/i18n/source";
+import { classifyFailure } from "@openownbot/telemetry";
+import { NotificationObserver, Toaster, toast } from "@openownbot/ui";
+import { AccountLogin } from "@openownbot/ui/features/account/AccountLogin";
+import { AppLoadingScreen } from "@openownbot/ui/features/account/AppLoadingScreen";
+import { currentText } from "@openownbot/ui/text";
 import { Dynamic } from "@solidjs/web";
 import { createEffect, createSignal, createStore, onSettled, Show } from "solid-js";
 import type { DesktopAnalyticsProperties } from "../../analytics";
@@ -192,7 +195,7 @@ export function WebApp(props: { createRuntime?: WebRuntimeFactory } = {}) {
       method: body ? "POST" : "GET",
       credentials: "same-origin",
       cache: "no-store",
-      headers: body ? { "Content-Type": "application/json", "X-OpenBot-Browser": "1" } : {},
+      headers: body ? { "Content-Type": "application/json", "X-OpenOwnBot-Browser": "1" } : {},
       ...(body ? { body: JSON.stringify(body) } : {}),
     });
     const value = await response.json();
@@ -331,7 +334,7 @@ export function WebApp(props: { createRuntime?: WebRuntimeFactory } = {}) {
     channel?.postMessage("session-changed");
   }
   onSettled(() => {
-    channel = new BroadcastChannel("openbot.web.session");
+    channel = new BroadcastChannel("openownbot.web.session");
     channel.onmessage = () => {
       clearSession();
       void checkSession();

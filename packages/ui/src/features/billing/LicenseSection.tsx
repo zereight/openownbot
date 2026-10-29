@@ -1,4 +1,8 @@
-import { type BillingCurrency, type BillingSubscriptionStatus, isOpenBillingStatus } from "@openbot/contracts/billing";
+import {
+  type BillingCurrency,
+  type BillingSubscriptionStatus,
+  isOpenBillingStatus,
+} from "@openownbot/contracts/billing";
 import {
   LICENSE_INCLUDED_USERS,
   LICENSE_MAX_USERS,
@@ -7,8 +11,8 @@ import {
   type LicenseState,
   type LicenseUser,
   licenseAmount,
-} from "@openbot/contracts/license";
-import type { AppFormat, AppTextKey } from "@openbot/i18n";
+} from "@openownbot/contracts/license";
+import type { AppFormat, AppTextKey } from "@openownbot/i18n";
 import {
   Alert,
   AlertActions,
@@ -42,7 +46,7 @@ import {
   Text,
   TriangleAlert,
   UsersRound,
-} from "@openbot/ui";
+} from "@openownbot/ui";
 import type { JSX } from "@solidjs/web";
 import { createEffect, createSignal, For, Match, Show, Switch, untrack } from "solid-js";
 import { useText } from "../../text";

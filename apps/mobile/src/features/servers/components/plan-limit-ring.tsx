@@ -1,6 +1,6 @@
-import { providerLogoShape } from "@openbot/brand/provider-logo-shape";
-import type { AgentProviderId } from "@openbot/contracts/ipc";
-import type { PlanLimitRow, PlanLimitTone } from "@openbot/team-client/plan-limits";
+import { providerLogoShape } from "@openownbot/brand/provider-logo-shape";
+import type { AgentProviderId } from "@openownbot/contracts/ipc";
+import type { PlanLimitRow, PlanLimitTone } from "@openownbot/team-client/plan-limits";
 import { useThemeColor } from "heroui-native/hooks";
 import { useId } from "react";
 import { View } from "react-native";
@@ -16,7 +16,7 @@ const LOGO_RATIO = 12 / 34;
 /** The colour of a provider mark. Codex, Grok and the others draw in the text colour. */
 function useProviderColor(provider: AgentProviderId): string {
   const foreground = String(useThemeColor("foreground"));
-  const [claude, gemini] = useCSSVariable(["--openbot-provider-claude", "--openbot-provider-antigravity"]);
+  const [claude, gemini] = useCSSVariable(["--openownbot-provider-claude", "--openownbot-provider-antigravity"]);
   if (provider === "claude" && claude) return String(claude);
   if (provider === "antigravity" && gemini) return String(gemini);
   return foreground;
@@ -41,7 +41,11 @@ function ProviderMark({ provider, size }: { provider: AgentProviderId; size: num
 }
 
 function useToneColors(): Record<PlanLimitTone, string> {
-  const [success, warning, danger] = useCSSVariable(["--openbot-success", "--openbot-warning", "--openbot-danger"]);
+  const [success, warning, danger] = useCSSVariable([
+    "--openownbot-success",
+    "--openownbot-warning",
+    "--openownbot-danger",
+  ]);
   return { neutral: String(success), warning: String(warning), critical: String(danger) };
 }
 

@@ -44,8 +44,8 @@ export const messages = {
   "mobile.server.join.inviteLink": "邀请链接",
   "mobile.server.join.joining": "正在加入…",
   "mobile.server.join.submit": "加入服务器",
-  // The cloud server that OpenBot runs for the user, with a paid plan. The phone shows the plans and
-  // the servers of the account; the purchase is in OpenBot on the computer.
+  // The cloud server that OpenOwnBot runs for the user, with a paid plan. The phone shows the plans and
+  // the servers of the account; the purchase is in OpenOwnBot on the computer.
   "mobile.server.hosted.loading": "正在加载套餐…",
   "mobile.server.hosted.loadFailed": "无法加载套餐，请重试。",
   "mobile.server.hosted.wakeFailed": "无法启动服务器，请重试。",
@@ -114,7 +114,7 @@ export const messages = {
   "mobile.server.hosted.detail.copy": "正在把 OpenOwnBot 复制到机器",
   "mobile.server.hosted.detail.key": "正在添加一次性登录密钥",
   "mobile.server.hosted.detail.boot": "正在开机",
-  "mobile.server.hosted.detail.app": "正在启动 OpenBot",
+  "mobile.server.hosted.detail.app": "正在启动 OpenOwnBot",
   "mobile.server.hosted.detail.wait": "等待 OpenOwnBot 响应",
   "mobile.server.hosted.detail.signIn": "正在以你的身份登录",
   "mobile.server.hosted.detail.publish": "正在把服务器加入你的账号",
@@ -398,7 +398,7 @@ export const messages = {
   "mobile.server.connectors.bitwarden.hostSummary": "用 Bitwarden 或 Vaultwarden 填充浏览器登录信息",
   "mobile.server.connectors.bitwarden.description": "在 {host} 上用 Bitwarden 或 Vaultwarden 填充浏览器登录信息。",
   "mobile.server.connectors.bitwarden.howItWorks":
-    "{host} 使用自己的 Bitwarden CLI 登录。请在你的保险库中创建一个名为 Shared with OpenBot 的文件夹，只把允许助手使用的登录信息放进去。在网页版保险库中打开“设置 › 安全 › 密钥”，查看你的 API 密钥。",
+    "{host} 使用自己的 Bitwarden CLI 登录。请在你的保险库中创建一个名为 Shared with OpenOwnBot 的文件夹，只把允许助手使用的登录信息放进去。在网页版保险库中打开“设置 › 安全 › 密钥”，查看你的 API 密钥。",
   "mobile.server.connectors.bitwarden.serverUrl": "服务器地址",
   "mobile.server.connectors.bitwarden.serverUrlHint":
     "Bitwarden，或你的 Vaultwarden 服务器地址。{host} 必须能通过 HTTPS 访问它。",
@@ -411,7 +411,7 @@ export const messages = {
   "mobile.server.connectors.bitwarden.connecting": "正在连接…",
   "mobile.server.connectors.bitwarden.connectingBody": "{host} 正在登录 Bitwarden。首次登录可能需要几分钟。",
   "mobile.server.connectors.bitwarden.folderTitle": "共享文件夹",
-  "mobile.server.connectors.bitwarden.folderName": "Shared with OpenBot",
+  "mobile.server.connectors.bitwarden.folderName": "Shared with OpenOwnBot",
   "mobile.server.connectors.bitwarden.folderKind": "Bitwarden 中的文件夹",
   "mobile.server.connectors.bitwarden.folderFooter":
     "在 Bitwarden 中把登录信息移入该文件夹，助手即可用它登录。移出后即停止。",
@@ -468,12 +468,12 @@ export const messages = {
   "mobile.server.connectors.onePassword.disconnectTitle": "断开 1Password？",
   "mobile.server.connectors.onePassword.disconnectBody":
     "{host} 会忘记该令牌。保险库和服务账号仍保留在 1Password 中；如果不再需要，请在那里删除。",
-  // Slack: a workspace installs the one OpenBot app, and the Slack Orchestrator agent answers.
+  // Slack: a workspace installs the one OpenOwnBot app, and the Slack Orchestrator agent answers.
   // {workspace} is the Slack workspace name.
   "mobile.server.connectors.slack.title": "Slack",
-  "mobile.server.connectors.slack.summary": "人们在 Slack 中提及 @OpenBot",
+  "mobile.server.connectors.slack.summary": "人们在 Slack 中提及 @OpenOwnBot",
   "mobile.server.connectors.slack.description":
-    "人们在 Slack 中提及 @OpenBot 或给它发私信。Slack 调度助手会找到合适的助手来回答。",
+    "人们在 Slack 中提及 @OpenOwnBot 或给它发私信。Slack 调度助手会找到合适的助手来回答。",
   "mobile.server.connectors.slack.connected": "{workspace} · 由 Slack 调度助手回答",
   "mobile.server.connectors.slack.noAgent": "{workspace} · 还没有助手回答",
   "mobile.server.connectors.slack.many": { other: "{count} 个工作区 · 由 Slack 调度助手回答" },
@@ -484,7 +484,7 @@ export const messages = {
   "mobile.server.connectors.slack.add": "添加工作区",
   "mobile.server.connectors.slack.limit": { other: "最多可连接 {count} 个工作区。" },
   "mobile.server.connectors.slack.workspaceTitle": "工作区",
-  "mobile.server.connectors.slack.workspaceDescription": "人们提及 @OpenBot 或给它发私信。",
+  "mobile.server.connectors.slack.workspaceDescription": "人们提及 @OpenOwnBot 或给它发私信。",
   // {scopes} lists Slack permissions, such as "chat:write and users:read".
   "mobile.server.connectors.slack.missingScopes":
     "OpenOwnBot 在 Slack 中缺少这些权限：{scopes}。请断开该工作区后重新连接。",
@@ -502,21 +502,22 @@ export const messages = {
   "mobile.server.connectors.slack.orchestratorNone": "请添加 Slack 调度助手，否则 Slack 中不会有人回答。",
   "mobile.server.connectors.slack.addAgent": "添加 Slack 调度助手",
   "mobile.server.connectors.slack.note":
-    "OpenBot 会自动加入所有公开频道，包括之后新建的。私有频道需要邀请它：/invite @OpenBot。",
+    "OpenOwnBot 会自动加入所有公开频道，包括之后新建的。私有频道需要邀请它：/invite @OpenOwnBot。",
   "mobile.server.connectors.slack.disconnectTitle": "断开 {workspace}？",
   "mobile.server.connectors.slack.disconnectBody":
     "OpenOwnBot 将停止在 {workspace} 中回答，并从 {host} 删除其 Slack 令牌。",
   "mobile.server.connectors.slack.disconnectKept": "对话和 Slack 调度助手会保留在 OpenOwnBot 中。",
   "mobile.server.connectors.slack.disconnectDeleted": "Slack 调度助手及其对话将从 OpenOwnBot 中删除。",
   "mobile.server.connectors.slack.agentPromptTitle": "添加 Slack 调度助手？",
-  "mobile.server.connectors.slack.agentPromptBody": "这个新助手会回答人们在 {workspace} 中发给 @OpenBot 的所有消息。",
+  "mobile.server.connectors.slack.agentPromptBody":
+    "这个新助手会回答人们在 {workspace} 中发给 @OpenOwnBot 的所有消息。",
   "mobile.server.connectors.slack.installFailed": "Slack 未完成安装，请重试。",
-  // Discord: a Discord server adds the one OpenBot bot. Always write "Discord server": "server" alone
-  // is an OpenBot server. {workspace} is the Discord server name.
+  // Discord: a Discord server adds the one OpenOwnBot bot. Always write "Discord server": "server" alone
+  // is an OpenOwnBot server. {workspace} is the Discord server name.
   "mobile.server.connectors.discord.title": "Discord",
-  "mobile.server.connectors.discord.summary": "人们在 Discord 服务器中提及 @OpenBot",
+  "mobile.server.connectors.discord.summary": "人们在 Discord 服务器中提及 @OpenOwnBot",
   "mobile.server.connectors.discord.description":
-    "人们在 Discord 服务器的频道中提及 @OpenBot。Discord 调度助手会找到合适的助手来回答。",
+    "人们在 Discord 服务器的频道中提及 @OpenOwnBot。Discord 调度助手会找到合适的助手来回答。",
   "mobile.server.connectors.discord.connected": "{workspace} · 由 Discord 调度助手回答",
   "mobile.server.connectors.discord.noAgent": "{workspace} · 还没有助手回答",
   "mobile.server.connectors.discord.many": { other: "{count} 个 Discord 服务器 · 由 Discord 调度助手回答" },
@@ -527,7 +528,7 @@ export const messages = {
   "mobile.server.connectors.discord.add": "添加 Discord 服务器",
   "mobile.server.connectors.discord.limit": { other: "最多可连接 {count} 个 Discord 服务器。" },
   "mobile.server.connectors.discord.workspaceTitle": "Discord 服务器",
-  "mobile.server.connectors.discord.workspaceDescription": "在频道中提及 @OpenBot，回复 OpenBot 可继续对话。",
+  "mobile.server.connectors.discord.workspaceDescription": "在频道中提及 @OpenOwnBot，回复 OpenOwnBot 可继续对话。",
   // {scopes} lists Discord permissions.
   "mobile.server.connectors.discord.missingScopes":
     "OpenOwnBot 在 Discord 中缺少这些权限：{scopes}。请断开该 Discord 服务器后重新连接。",
@@ -551,9 +552,10 @@ export const messages = {
   "mobile.server.connectors.discord.disconnectKept": "对话和 Discord 调度助手会保留在 OpenOwnBot 中。",
   "mobile.server.connectors.discord.disconnectDeleted": "Discord 调度助手及其对话将从 OpenOwnBot 中删除。",
   "mobile.server.connectors.discord.agentPromptTitle": "添加 Discord 调度助手？",
-  "mobile.server.connectors.discord.agentPromptBody": "这个新助手会回答人们在 {workspace} 中发给 @OpenBot 的所有消息。",
+  "mobile.server.connectors.discord.agentPromptBody":
+    "这个新助手会回答人们在 {workspace} 中发给 @OpenOwnBot 的所有消息。",
   "mobile.server.connectors.discord.installFailed": "Discord 未完成授权，请重试。",
-  // Telegram: each chat adds the one OpenBot bot, and the Telegram Orchestrator answers all chats.
+  // Telegram: each chat adds the one OpenOwnBot bot, and the Telegram Orchestrator answers all chats.
   // {chat} is the Telegram chat name.
   "mobile.server.connectors.telegram.title": "Telegram",
   "mobile.server.connectors.telegram.summary": "把 OpenOwnBot 机器人加入 Telegram 聊天",
@@ -760,7 +762,7 @@ export const messages = {
   "mobile.server.planLimits.window.fiveHour": "5 小时",
   "mobile.server.planLimits.window.hours": { other: "{count} 小时" },
   "mobile.server.planLimits.window.minutes": "{minutes} 分钟",
-  // Server settings > Updates: the OpenBot update of the server's host. {name} is the server.
+  // Server settings > Updates: the OpenOwnBot update of the server's host. {name} is the server.
   "mobile.server.settings.updates": "更新",
   "mobile.server.settings.updateAvailable": "有可用更新",
   "mobile.server.route.updates": "更新",
@@ -786,11 +788,11 @@ export const messages = {
   "mobile.server.update.path.hosted":
     "托管服务会在后台下载更新。已下载的更新会在服务器下次启动时生效。停止并恢复服务器前请先等待进行中的工作结束。如果版本一直停留在旧版，请联系主机管理员。",
   "mobile.server.update.path.system":
-    "在主机上运行 sudo openbot update 以安装最新版本。该命令会停止 OpenOwnBot，请先等待进行中的工作结束。自动下载的更新会在下次启动时安装。",
+    "在主机上运行 sudo openownbot update 以安装最新版本。该命令会停止 OpenOwnBot，请先等待进行中的工作结束。自动下载的更新会在下次启动时安装。",
   "mobile.server.update.path.container":
     "在 Docker 主机上拉取新的 OpenOwnBot 镜像，并使用相同的数据卷重新创建容器。请先等待进行中的工作结束。保留原有数据卷，以免数据丢失。",
   "mobile.server.update.path.manual":
-    "该安装方式无法自我更新。请联系主机管理员从 github.com/nightly-labs/openbot/releases 安装兼容版本，并保留现有的 OpenOwnBot 数据。",
+    "该安装方式无法自我更新。请联系主机管理员从 github.com/zereight/openownbot/releases 安装兼容版本，并保留现有的 OpenOwnBot 数据。",
   "mobile.server.update.path.unavailable": "这是开发构建。请使用已安装的 OpenOwnBot 正式版本检查更新。",
   "mobile.server.update.check": "检查更新",
   "mobile.server.update.start": "空闲时更新",

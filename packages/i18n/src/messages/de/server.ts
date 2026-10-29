@@ -122,7 +122,7 @@ export const messages = {
   "server.hosted.detail.create.copy": "OpenOwnBot wird auf die Maschine kopiert",
   "server.hosted.detail.create.key": "Einmaliger Anmeldeschlüssel wird hinzugefügt",
   "server.hosted.detail.start.boot": "Maschine wird eingeschaltet",
-  "server.hosted.detail.start.app": "OpenBot wird gestartet",
+  "server.hosted.detail.start.app": "OpenOwnBot wird gestartet",
   "server.hosted.detail.start.wait": "Warten auf eine Antwort von OpenOwnBot",
   "server.hosted.detail.connect.signIn": "Anmeldung mit deinem Konto läuft",
   "server.hosted.detail.connect.publish": "Server wird deinem Konto hinzugefügt",
@@ -471,11 +471,11 @@ export const messages = {
   "server.update.path.hosted":
     "Der gehostete Dienst lädt Updates im Hintergrund herunter. Ein heruntergeladenes Update startet beim nächsten Serverstart. Warte, bis aktive Aufgaben beendet sind, bevor du den Server stoppst und fortsetzt. Bleibt er bei einer alten Version, kontaktiere den Host-Administrator.",
   "server.update.path.system":
-    "Führe auf dem Host sudo openbot update aus, um die neueste Version zu installieren. Dieser Befehl beendet OpenOwnBot. Warte zuerst, bis aktive Aufgaben beendet sind. Automatische Downloads werden beim nächsten Systemstart installiert.",
+    "Führe auf dem Host sudo openownbot update aus, um die neueste Version zu installieren. Dieser Befehl beendet OpenOwnBot. Warte zuerst, bis aktive Aufgaben beendet sind. Automatische Downloads werden beim nächsten Systemstart installiert.",
   "server.update.path.container":
     "Lade auf dem Docker-Host das neue OpenOwnBot-Image herunter und erstelle den Container mit denselben Datenvolumes neu. Warte zuerst, bis aktive Aufgaben beendet sind. Behalte die vorhandenen Volumes, um deine Daten zu erhalten.",
   "server.update.path.manual":
-    "Diese Installation kann sich nicht selbst ersetzen. Bitte den Host-Administrator, die kompatible Version von github.com/nightly-labs/openbot/releases zu installieren. Behalte die vorhandenen OpenOwnBot-Daten.",
+    "Diese Installation kann sich nicht selbst ersetzen. Bitte den Host-Administrator, die kompatible Version von github.com/zereight/openownbot/releases zu installieren. Behalte die vorhandenen OpenOwnBot-Daten.",
   "server.update.path.unavailable":
     "Dies ist eine Entwicklungsversion. Verwende eine installierte OpenOwnBot-Version, um nach Updates zu suchen.",
   "server.update.check": "Nach Updates suchen",

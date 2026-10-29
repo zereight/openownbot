@@ -26,7 +26,7 @@ export const FIGMA_PLUGIN_GUIDE: PluginGuide = {
     {
       question: "Does the Figma MCP server need an API key?",
       answer:
-        "No. OpenBot connects to the desktop MCP server in the Figma desktop app on your computer. Sign in to the app, open a design file, and turn on the desktop MCP server. Keep Figma open while agents use it.",
+        "No. OpenOwnBot connects to the desktop MCP server in the Figma desktop app on your computer. Sign in to the app, open a design file, and turn on the desktop MCP server. Keep Figma open while agents use it.",
     },
     {
       question: "Which Figma plan does the plugin need?",
@@ -36,12 +36,12 @@ export const FIGMA_PLUGIN_GUIDE: PluginGuide = {
     {
       question: "Can an agent edit my Figma designs?",
       answer:
-        "Not with this plugin. Figma says that the desktop server does not support writing to the canvas. Write to canvas works only with Figma's remote server. The OpenBot listing reads layout, code context, variables and screenshots.",
+        "Not with this plugin. Figma says that the desktop server does not support writing to the canvas. Write to canvas works only with Figma's remote server. The OpenOwnBot listing reads layout, code context, variables and screenshots.",
     },
     {
       question: "Is the Figma MCP server official?",
       answer:
-        "Yes. Figma makes the MCP server. The desktop server runs locally in the Figma desktop app. Figma also has a remote server, which it recommends for most users, but this OpenBot listing uses the desktop server.",
+        "Yes. Figma makes the MCP server. The desktop server runs locally in the Figma desktop app. Figma also has a remote server, which it recommends for most users, but this OpenOwnBot listing uses the desktop server.",
     },
   ],
   sources: [

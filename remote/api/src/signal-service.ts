@@ -1,21 +1,21 @@
 import { createHash, randomBytes } from "node:crypto";
-import type { DiscordDelivery } from "@openbot/contracts/signal-protocol/discord-api";
-import { DISCORD_ROUTE_TTL_SECONDS, type DiscordRouteGuild } from "@openbot/contracts/signal-protocol/discord-route";
+import type { DiscordDelivery } from "@openownbot/contracts/signal-protocol/discord-api";
+import { DISCORD_ROUTE_TTL_SECONDS, type DiscordRouteGuild } from "@openownbot/contracts/signal-protocol/discord-route";
 import {
   INGRESS_QUEUE_CAPABILITY,
   type IngressRoute,
   isIngressQueueKey,
   type QueuedSignalMessage,
-} from "@openbot/contracts/signal-protocol/ingress-queue";
-import { SLACK_ROUTE_TTL_SECONDS, type SlackRouteTeam } from "@openbot/contracts/signal-protocol/slack-route";
+} from "@openownbot/contracts/signal-protocol/ingress-queue";
+import { SLACK_ROUTE_TTL_SECONDS, type SlackRouteTeam } from "@openownbot/contracts/signal-protocol/slack-route";
 import {
   TELEGRAM_CAPABILITY,
   TELEGRAM_ROUTE_TTL_SECONDS,
   type TelegramCallResult,
   type TelegramRouteChat,
   telegramRouteChatKey,
-} from "@openbot/contracts/signal-protocol/telegram-route";
-import { WEBHOOK_ROUTE_TTL_SECONDS, type WebhookRoute } from "@openbot/contracts/signal-protocol/webhook-route";
+} from "@openownbot/contracts/signal-protocol/telegram-route";
+import { WEBHOOK_ROUTE_TTL_SECONDS, type WebhookRoute } from "@openownbot/contracts/signal-protocol/webhook-route";
 import { Context, Effect, Fiber, Layer, Result } from "effect";
 import { IngressQueue, queueRouteKey, type RouteWaker } from "./ingress-queue";
 import {
@@ -87,7 +87,7 @@ export interface RemoteTokenProvider {
 }
 
 export class SignalTokens extends Context.Service<SignalTokens, RemoteTokenProvider>()(
-  "@openbot/remote-api/SignalTokens",
+  "@openownbot/remote-api/SignalTokens",
 ) {
   static layer(provider: RemoteTokenProvider) {
     return Layer.succeed(SignalTokens, provider);
@@ -191,7 +191,7 @@ export interface SlackDelivery {
   retryNum: number | null;
   retryReason: string | null;
   body: Uint8Array;
-  /** The request addresses OpenBot: a mention, a direct message, a thread reply or a button press. */
+  /** The request addresses OpenOwnBot: a mention, a direct message, a thread reply or a button press. */
   wakes: boolean;
 }
 
@@ -721,7 +721,7 @@ export class SignalService {
    * Passes one signed Slack request to the `ingress` socket of the workspace's host and waits for
    * its answer. It resolves 503 when no host holds the workspace, the host is too busy, or it does
    * not answer in time: Slack then sends the request again. For a hosted server that sleeps it
-   * resolves 200, and keeps the request when it addresses OpenBot (`IngressQueue`).
+   * resolves 200, and keeps the request when it addresses OpenOwnBot (`IngressQueue`).
    */
   readonly deliverSlack = Effect.fn("Signal.deliverSlack")((appId: string, teamId: string, delivery: SlackDelivery) => {
     const route = slackRouteKey(appId, teamId);
@@ -1710,7 +1710,7 @@ function slackRouteKey(appId: string, teamId: string): string {
   return `${appId}:${teamId}`;
 }
 
-/** One OpenBot bot in one chat. The production and development bots can share a chat. */
+/** One OpenOwnBot bot in one chat. The production and development bots can share a chat. */
 function telegramRouteKey(botId: string, chatId: string): string {
   return `${botId}:${chatId}`;
 }

@@ -1,5 +1,5 @@
-import type { AgentTask } from "@openbot/contracts/ipc";
-import { isAgentTaskActive, isAgentTaskOpen } from "@openbot/team-client/agent-tasks";
+import type { AgentTask } from "@openownbot/contracts/ipc";
+import { isAgentTaskActive, isAgentTaskOpen } from "@openownbot/team-client/agent-tasks";
 import { useQuery } from "@tanstack/react-query";
 import { router } from "expo-router";
 import { Spinner, Typography } from "heroui-native";
@@ -56,7 +56,7 @@ export function useOpenAgentTasks(serverId: string, agentId: string): AgentTask[
 export function ChatTaskRows({ tasks, serverId }: { tasks: readonly AgentTask[]; serverId: string }) {
   const { t } = useText();
   const muted = useThemeColor("muted");
-  const accent = useCSSVariable("--openbot-accent-text");
+  const accent = useCSSVariable("--openownbot-accent-text");
   const workspace = useMobileWorkspaceReader();
   const [closing, setClosing] = useState<ReadonlySet<string>>(() => new Set());
   if (tasks.length === 0) return null;

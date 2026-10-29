@@ -1,4 +1,4 @@
-import { ProviderLogo } from "@openbot/brand";
+import { ProviderLogo } from "@openownbot/brand";
 import type {
   AgentModelId,
   AgentProviderId,
@@ -11,7 +11,7 @@ import type {
   ForeignProviderId,
   ProviderAccountStatus,
   ProviderRuntimeStatus,
-} from "@openbot/contracts/ipc";
+} from "@openownbot/contracts/ipc";
 import {
   agentProviderCliName,
   agentProviderName,
@@ -21,8 +21,8 @@ import {
   isCustomProviderModelId,
   PICKER_PROVIDERS,
   providerDisplayName,
-} from "@openbot/contracts/ipc";
-import type { AppTextKey, AppTranslate } from "@openbot/i18n";
+} from "@openownbot/contracts/ipc";
+import type { AppTextKey, AppTranslate } from "@openownbot/i18n";
 import {
   Button,
   Input,
@@ -41,9 +41,9 @@ import {
   Tabs,
   Tooltip,
   Zap,
-} from "@openbot/ui";
-import { ContentExitMotion } from "@openbot/ui/menu-motion";
-import { cx } from "@openbot/ui/utils";
+} from "@openownbot/ui";
+import { ContentExitMotion } from "@openownbot/ui/menu-motion";
+import { cx } from "@openownbot/ui/utils";
 import type { JSX } from "@solidjs/web";
 import { createEffect, createMemo, createSignal, For, onCleanup, onSettled, Show, untrack } from "solid-js";
 import { currentText, type TextValue, useText } from "../text";
@@ -99,7 +99,7 @@ interface ProviderModelPickerProps {
   providerAccountId?: string | null | undefined;
   /**
    * The agent's provider when this build does not know it. The host still runs the agent, so the
-   * picker shows its model, and it cannot open until OpenBot is updated.
+   * picker shows its model, and it cannot open until OpenOwnBot is updated.
    */
   foreignProvider?: ForeignProviderId | undefined;
   /** `accountId` is passed only with `accountChoice`, for a provider with more than one account: null for its own sign-in. */
@@ -704,7 +704,7 @@ export function ProviderModelPicker(props: ProviderModelPickerProps) {
                     if (effort) props.onReasoningEffortChange?.(effort);
                   }
                 }
-                // The provider the tab's status is for: a custom agent has no runtime OpenBot downloads.
+                // The provider the tab's status is for: a custom agent has no runtime OpenOwnBot downloads.
                 const runtime = () => {
                   const value = props.runtimeStatuses?.[status().id];
                   if (

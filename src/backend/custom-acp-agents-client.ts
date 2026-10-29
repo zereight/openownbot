@@ -17,10 +17,14 @@
 
 import { createHash } from "node:crypto";
 import { EventEmitter } from "node:events";
-import { CUSTOM_AGENT_DEFAULT_MODEL, customAgentIdOfModel } from "@openbot/contracts/agent-providers";
-import { type AgentSessionSettingsSnapshot, type AgentSessionSettingValue, isAgentModel } from "@openbot/contracts/ipc";
-import type { DynamicRecord } from "@openbot/contracts/runtime-values";
-import { sourceText } from "@openbot/i18n/source";
+import { CUSTOM_AGENT_DEFAULT_MODEL, customAgentIdOfModel } from "@openownbot/contracts/agent-providers";
+import {
+  type AgentSessionSettingsSnapshot,
+  type AgentSessionSettingValue,
+  isAgentModel,
+} from "@openownbot/contracts/ipc";
+import type { DynamicRecord } from "@openownbot/contracts/runtime-values";
+import { sourceText } from "@openownbot/i18n/source";
 import { Deferred, Effect, Exit } from "effect";
 import { assertAgentArgs, assertWindowsScriptArgs, resolveAgentCommand } from "./acp-agent-command";
 import type { AcpHistoryPersistence } from "./acp-client";
@@ -62,7 +66,7 @@ export type CustomAgentSource = () => readonly CustomAgentConfig[];
 /**
  * Builds the ACP client of one agent, on the file its command resolved to, for the sessions of one
  * working folder. `null` is the process that lists the agent's models. `launchPath` is the `PATH`
- * the process starts with, or null to leave the `PATH` of OpenBot unchanged.
+ * the process starts with, or null to leave the `PATH` of OpenOwnBot unchanged.
  */
 export type CustomAgentChildFactory = (
   config: CustomAgentConfig,

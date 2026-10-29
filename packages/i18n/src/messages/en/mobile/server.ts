@@ -43,8 +43,8 @@ export const messages = defineMessages("mobile.server", {
   "mobile.server.join.inviteLink": "Invite link",
   "mobile.server.join.joining": "Joining…",
   "mobile.server.join.submit": "Join server",
-  // The cloud server that OpenBot runs for the user, with a paid plan. The phone shows the plans and
-  // the servers of the account; the purchase is in OpenBot on the computer.
+  // The cloud server that OpenOwnBot runs for the user, with a paid plan. The phone shows the plans and
+  // the servers of the account; the purchase is in OpenOwnBot on the computer.
   "mobile.server.hosted.loading": "Loading plans…",
   "mobile.server.hosted.loadFailed": "Could not load the plans. Try again.",
   "mobile.server.hosted.wakeFailed": "Could not start the server. Try again.",
@@ -115,7 +115,7 @@ export const messages = defineMessages("mobile.server", {
   "mobile.server.hosted.detail.copy": "Copying OpenOwnBot to the machine",
   "mobile.server.hosted.detail.key": "Adding a one-time sign-in key",
   "mobile.server.hosted.detail.boot": "Turning on the machine",
-  "mobile.server.hosted.detail.app": "Starting OpenBot",
+  "mobile.server.hosted.detail.app": "Starting OpenOwnBot",
   "mobile.server.hosted.detail.wait": "Waiting for OpenOwnBot to answer",
   "mobile.server.hosted.detail.signIn": "Signing in as you",
   "mobile.server.hosted.detail.publish": "Adding the server to your account",
@@ -503,11 +503,11 @@ export const messages = defineMessages("mobile.server", {
   "mobile.server.connectors.bitwarden.title": "Bitwarden",
   "mobile.server.connectors.bitwarden.summary": "Fills browser logins from Bitwarden. Set it up in the desktop app.",
   // Bitwarden of a joined server that signs in with its own Bitwarden CLI. Keep "Shared with
-  // OpenBot" as the folder name that the user creates in Bitwarden.
+  // OpenOwnBot" as the folder name that the user creates in Bitwarden.
   "mobile.server.connectors.bitwarden.hostSummary": "Fills browser logins from Bitwarden or Vaultwarden",
   "mobile.server.connectors.bitwarden.description": "Fill browser logins on {host} from Bitwarden or Vaultwarden.",
   "mobile.server.connectors.bitwarden.howItWorks":
-    "{host} signs in with its own Bitwarden CLI. In your vault, create a folder named Shared with OpenBot and put only the logins that agents may use in it. In the web vault, open Settings › Security › Keys and view your API key.",
+    "{host} signs in with its own Bitwarden CLI. In your vault, create a folder named Shared with OpenOwnBot and put only the logins that agents may use in it. In the web vault, open Settings › Security › Keys and view your API key.",
   "mobile.server.connectors.bitwarden.serverUrl": "Server address",
   "mobile.server.connectors.bitwarden.serverUrlHint":
     "Bitwarden, or the address of your Vaultwarden server. {host} must reach it over HTTPS.",
@@ -521,7 +521,7 @@ export const messages = defineMessages("mobile.server", {
   "mobile.server.connectors.bitwarden.connectingBody":
     "{host} is signing in to Bitwarden. The first sign-in can take a few minutes.",
   "mobile.server.connectors.bitwarden.folderTitle": "Shared folder",
-  "mobile.server.connectors.bitwarden.folderName": "Shared with OpenBot",
+  "mobile.server.connectors.bitwarden.folderName": "Shared with OpenOwnBot",
   "mobile.server.connectors.bitwarden.folderKind": "Folder in Bitwarden",
   "mobile.server.connectors.bitwarden.folderFooter":
     "Move a login into this folder in Bitwarden to let agents sign in with it. Remove it to stop.",
@@ -583,12 +583,12 @@ export const messages = defineMessages("mobile.server", {
   "mobile.server.connectors.onePassword.disconnectTitle": "Disconnect 1Password?",
   "mobile.server.connectors.onePassword.disconnectBody":
     "{host} forgets the token. The vault and the service account stay in 1Password; remove them there if you no longer need them.",
-  // Slack: a workspace installs the one OpenBot app, and the Slack Orchestrator agent answers.
+  // Slack: a workspace installs the one OpenOwnBot app, and the Slack Orchestrator agent answers.
   // {workspace} is the Slack workspace name.
   "mobile.server.connectors.slack.title": "Slack",
-  "mobile.server.connectors.slack.summary": "People mention @OpenBot in Slack",
+  "mobile.server.connectors.slack.summary": "People mention @OpenOwnBot in Slack",
   "mobile.server.connectors.slack.description":
-    "People mention @OpenBot in Slack or send it a direct message. The Slack Orchestrator asks the right agent and answers.",
+    "People mention @OpenOwnBot in Slack or send it a direct message. The Slack Orchestrator asks the right agent and answers.",
   "mobile.server.connectors.slack.connected": "{workspace} · Slack Orchestrator answers",
   "mobile.server.connectors.slack.noAgent": "{workspace} · No agent answers yet",
   "mobile.server.connectors.slack.many": {
@@ -608,7 +608,7 @@ export const messages = defineMessages("mobile.server", {
     other: "You can connect a maximum of {count} workspaces.",
   },
   "mobile.server.connectors.slack.workspaceTitle": "Workspace",
-  "mobile.server.connectors.slack.workspaceDescription": "People mention @OpenBot or send it a direct message.",
+  "mobile.server.connectors.slack.workspaceDescription": "People mention @OpenOwnBot or send it a direct message.",
   // {scopes} lists Slack permissions, such as "chat:write and users:read".
   "mobile.server.connectors.slack.missingScopes":
     "OpenOwnBot does not have these permissions in Slack: {scopes}. Disconnect the workspace, then connect it again.",
@@ -626,7 +626,7 @@ export const messages = defineMessages("mobile.server", {
   "mobile.server.connectors.slack.orchestratorNone": "Add the Slack Orchestrator, or Slack gets no answer.",
   "mobile.server.connectors.slack.addAgent": "Add Slack Orchestrator",
   "mobile.server.connectors.slack.note":
-    "OpenBot joins every public channel by itself, and each new one. For a private channel, invite it: /invite @OpenBot.",
+    "OpenOwnBot joins every public channel by itself, and each new one. For a private channel, invite it: /invite @OpenOwnBot.",
   "mobile.server.connectors.slack.disconnectTitle": "Disconnect {workspace}?",
   "mobile.server.connectors.slack.disconnectBody":
     "OpenOwnBot stops answering in {workspace} and removes its Slack token from {host}.",
@@ -635,14 +635,14 @@ export const messages = defineMessages("mobile.server", {
     "The Slack Orchestrator and its conversations are deleted from OpenOwnBot.",
   "mobile.server.connectors.slack.agentPromptTitle": "Add the Slack Orchestrator?",
   "mobile.server.connectors.slack.agentPromptBody":
-    "This new agent answers everything that people send to @OpenBot in {workspace}.",
+    "This new agent answers everything that people send to @OpenOwnBot in {workspace}.",
   "mobile.server.connectors.slack.installFailed": "Slack did not finish the install. Try again.",
-  // Discord: a Discord server adds the one OpenBot bot. Always write "Discord server": "server" alone
-  // is an OpenBot server. {workspace} is the Discord server name.
+  // Discord: a Discord server adds the one OpenOwnBot bot. Always write "Discord server": "server" alone
+  // is an OpenOwnBot server. {workspace} is the Discord server name.
   "mobile.server.connectors.discord.title": "Discord",
-  "mobile.server.connectors.discord.summary": "People mention @OpenBot in a Discord server",
+  "mobile.server.connectors.discord.summary": "People mention @OpenOwnBot in a Discord server",
   "mobile.server.connectors.discord.description":
-    "People mention @OpenBot in a channel of a Discord server. The Discord Orchestrator asks the right agent and answers.",
+    "People mention @OpenOwnBot in a channel of a Discord server. The Discord Orchestrator asks the right agent and answers.",
   "mobile.server.connectors.discord.connected": "{workspace} · Discord Orchestrator answers",
   "mobile.server.connectors.discord.noAgent": "{workspace} · No agent answers yet",
   "mobile.server.connectors.discord.many": {
@@ -663,7 +663,7 @@ export const messages = defineMessages("mobile.server", {
   },
   "mobile.server.connectors.discord.workspaceTitle": "Discord server",
   "mobile.server.connectors.discord.workspaceDescription":
-    "Mention @OpenBot in a channel. Reply to OpenBot to continue.",
+    "Mention @OpenOwnBot in a channel. Reply to OpenOwnBot to continue.",
   // {scopes} lists Discord permissions.
   "mobile.server.connectors.discord.missingScopes":
     "OpenOwnBot does not have these permissions in Discord: {scopes}. Disconnect the Discord server, then connect it again.",
@@ -690,9 +690,9 @@ export const messages = defineMessages("mobile.server", {
     "The Discord Orchestrator and its conversations are deleted from OpenOwnBot.",
   "mobile.server.connectors.discord.agentPromptTitle": "Add the Discord Orchestrator?",
   "mobile.server.connectors.discord.agentPromptBody":
-    "This new agent answers everything that people send to @OpenBot in {workspace}.",
+    "This new agent answers everything that people send to @OpenOwnBot in {workspace}.",
   "mobile.server.connectors.discord.installFailed": "Discord did not finish the authorization. Try again.",
-  // Telegram: each chat adds the one OpenBot bot, and the Telegram Orchestrator answers all chats.
+  // Telegram: each chat adds the one OpenOwnBot bot, and the Telegram Orchestrator answers all chats.
   // {chat} is the Telegram chat name.
   "mobile.server.connectors.telegram.title": "Telegram",
   "mobile.server.connectors.telegram.summary": "Add the OpenOwnBot bot to a Telegram chat",
@@ -921,7 +921,7 @@ export const messages = defineMessages("mobile.server", {
   "mobile.server.planLimits.window.fiveHour": "5-hour",
   "mobile.server.planLimits.window.hours": { one: "{count}-hour", other: "{count}-hour" },
   "mobile.server.planLimits.window.minutes": "{minutes} min",
-  // Server settings > Updates: the OpenBot update of the server's host. {name} is the server.
+  // Server settings > Updates: the OpenOwnBot update of the server's host. {name} is the server.
   "mobile.server.settings.updates": "Updates",
   "mobile.server.settings.updateAvailable": "Update available",
   "mobile.server.route.updates": "Updates",
@@ -949,11 +949,11 @@ export const messages = defineMessages("mobile.server", {
   "mobile.server.update.path.hosted":
     "The hosted service downloads updates in the background. A downloaded update starts when the server next starts. Wait for active work to finish before you stop and resume the server. If it stays on an old version, contact the host administrator.",
   "mobile.server.update.path.system":
-    "On the host, run sudo openbot update to install the latest release. This command stops OpenOwnBot. Wait for active work to finish first. Automatic downloads install at the next boot.",
+    "On the host, run sudo openownbot update to install the latest release. This command stops OpenOwnBot. Wait for active work to finish first. Automatic downloads install at the next boot.",
   "mobile.server.update.path.container":
     "On the Docker host, pull the new OpenOwnBot image and create the container again with the same data volumes. Wait for active work to finish first. Keep the existing volumes to preserve your data.",
   "mobile.server.update.path.manual":
-    "This installation cannot replace itself. Ask the host administrator to install the compatible release from github.com/nightly-labs/openbot/releases. Keep the existing OpenOwnBot data.",
+    "This installation cannot replace itself. Ask the host administrator to install the compatible release from github.com/zereight/openownbot/releases. Keep the existing OpenOwnBot data.",
   "mobile.server.update.path.unavailable":
     "This is a development build. Use an installed OpenOwnBot release to check for updates.",
   "mobile.server.update.check": "Check for updates",

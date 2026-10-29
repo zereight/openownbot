@@ -1,4 +1,4 @@
-import type { HostTimezoneSettings, OpenBotDesktopApi } from "@openbot/contracts/ipc";
+import type { HostTimezoneSettings, OpenOwnBotDesktopApi } from "@openownbot/contracts/ipc";
 import {
   Item,
   ItemActions,
@@ -10,15 +10,15 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@openbot/ui";
-import { useText } from "@openbot/ui/text";
+} from "@openownbot/ui";
+import { useText } from "@openownbot/ui/text";
 import { createEffect, createSignal, Show, untrack } from "solid-js";
 
 /** The timezone calls of one server's host. The desktop reaches them through main. */
-export type HostTimezoneCalls = Pick<OpenBotDesktopApi["hostAdmin"], "getTimezone" | "setTimezone">;
+export type HostTimezoneCalls = Pick<OpenOwnBotDesktopApi["hostAdmin"], "getTimezone" | "setTimezone">;
 
 export interface ServerTimezoneOptions {
-  /** The calls of a client with no `window.openbot`, such as the web client. */
+  /** The calls of a client with no `window.openownbot`, such as the web client. */
   calls?: HostTimezoneCalls;
 }
 
@@ -38,7 +38,7 @@ export function ServerTimezoneSetting(
   },
 ) {
   const { t, errorMessage } = useText();
-  const calls = (): HostTimezoneCalls => props.calls ?? window.openbot.hostAdmin;
+  const calls = (): HostTimezoneCalls => props.calls ?? window.openownbot.hostAdmin;
   const [settings, setSettings] = createSignal<HostTimezoneSettings | null>(null);
   const [loadError, setLoadError] = createSignal<string | null>(null);
   /** Bumped for each server, so an answer for an earlier one is dropped. */

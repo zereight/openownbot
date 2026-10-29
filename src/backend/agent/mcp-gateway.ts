@@ -9,10 +9,10 @@ import type {
   SetMcpServerEnabledInput,
   SignOutMcpServerInput,
   TestMcpServerInput,
-} from "@openbot/contracts/ipc";
-import { GITHUB_CONNECTOR_MCP_SERVER_ID, mcpConfigErrors, normalizeMcpConfig } from "@openbot/contracts/ipc";
-import { sourceText } from "@openbot/i18n/source";
-import { type Logger, toLogValue } from "@openbot/logging";
+} from "@openownbot/contracts/ipc";
+import { GITHUB_CONNECTOR_MCP_SERVER_ID, mcpConfigErrors, normalizeMcpConfig } from "@openownbot/contracts/ipc";
+import { sourceText } from "@openownbot/i18n/source";
+import { type Logger, toLogValue } from "@openownbot/logging";
 import { Effect, Result, Schema } from "effect";
 import type { AgentProvider } from "../agent-client";
 import { causeHelpers } from "../effect-boundary";
@@ -91,7 +91,7 @@ export class McpGateway {
   readonly #computerUseMcpServer: () => McpServerConfig | null;
   readonly #githubConnector: GitHubConnectorSource | null;
   /**
-   * What OpenBot downloaded for the MCP servers, read at each use. It travels with the credentials
+   * What OpenOwnBot downloaded for the MCP servers, read at each use. It travels with the credentials
    * because both are the main process's knowledge of this machine, and because the clients already
    * take that object; this field is only for the two readers that are not a client: the Test button
    * and the Codex thread configuration.
@@ -241,7 +241,7 @@ export class McpGateway {
   /**
    * The MCP servers this machine holds.
    *
-   * Configurations only: OpenBot holds no connection of its own to report. A connection is made
+   * Configurations only: OpenOwnBot holds no connection of its own to report. A connection is made
    * when the user asks for a test, and when an agent starts - and the second is the provider's own.
    */
   list(): McpServerConfig[] {
@@ -443,7 +443,7 @@ export class McpGateway {
     return this.signInApp(input);
   }, Effect.uninterruptible);
 
-  /** Drops the sign-in app and the tokens it earned. The next sign-in registers OpenBot again. */
+  /** Drops the sign-in app and the tokens it earned. The next sign-in registers OpenOwnBot again. */
   readonly removeSignInApp = Effect.fn("McpGateway.removeSignInApp")(function* (
     this: McpGateway,
     input: McpSignInAppInput,

@@ -1,4 +1,4 @@
-name: openbot-remote-dev
+name: openownbot-remote-dev
 
 services:
   remote-api:

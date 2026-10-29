@@ -3,10 +3,10 @@ import {
   type AgentTeamFile,
   type AgentTeamFileSection,
   buildAgentTeamFile,
-} from "@openbot/contracts/agent-team-file";
-import { INPUT_LIMITS } from "@openbot/contracts/input-limits";
-import type { AgentTemplateSnapshot } from "@openbot/contracts/ipc";
-import { redactText } from "@openbot/logging";
+} from "@openownbot/contracts/agent-team-file";
+import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
+import type { AgentTemplateSnapshot } from "@openownbot/contracts/ipc";
+import { redactText } from "@openownbot/logging";
 
 /**
  * The name, or the name with the first free number after it. Names are compared without case,

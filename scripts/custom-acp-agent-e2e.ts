@@ -3,12 +3,12 @@
 // stdio and give the same session id, so the router must keep them apart. A usage prompt goes to the
 // model list process of its agent, and its answer comes back redacted. A fake cipher replaces the
 // operating system's secret storage, which exists only in Electron.
-// `bun scripts/custom-acp-agent-e2e.ts`. Writes .openbot-build/custom-acp-agent-e2e/report.json.
+// `bun scripts/custom-acp-agent-e2e.ts`. Writes .openownbot-build/custom-acp-agent-e2e/report.json.
 import assert from "node:assert/strict";
 import { mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
-import { CUSTOM_AGENT_DEFAULT_MODEL } from "@openbot/contracts/ipc";
+import { CUSTOM_AGENT_DEFAULT_MODEL } from "@openownbot/contracts/ipc";
 import { Effect } from "effect";
 import { checkAcpAgent } from "../src/backend/acp-agent-check";
 import { isMissingProviderSessionError } from "../src/backend/agent/thread-items";
@@ -18,7 +18,7 @@ import { requireProviderDriver } from "../src/backend/provider-drivers";
 import { CustomAgentStore } from "../src/main/custom-agent-store";
 import { installFakeAgent, readJsonl, runTurn, startThread, stopClients, xorCipher } from "./provider-fakes/host";
 
-const OUT = resolve(import.meta.dirname, "../.openbot-build/custom-acp-agent-e2e");
+const OUT = resolve(import.meta.dirname, "../.openownbot-build/custom-acp-agent-e2e");
 const SECRET = "sk-e2e-agent-secret";
 // A routed thread id is `<agent>:<folder tag>:<session>`; the folder tag is 12 hex digits.
 const ROUTED_THREAD = (agent: string) => new RegExp(`^${agent}:[0-9a-f]{12}:s-\\d+$`);
@@ -44,7 +44,7 @@ interface Report {
   delete?: { refused: string };
 }
 
-const root = await mkdtemp(join(tmpdir(), "openbot-custom-agent-e2e-"));
+const root = await mkdtemp(join(tmpdir(), "openownbot-custom-agent-e2e-"));
 const report: Report = { passed: false };
 const clients: AgentClient[] = [];
 

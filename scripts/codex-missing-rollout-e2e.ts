@@ -10,17 +10,17 @@
 // 3. Control: a session with a rollout is read again after each provider start.
 // 4. The next message to the agent of case 1 cannot resume its session (`no rollout found`), so it
 //    starts a new session and runs, rather than fail each time.
-// `bun run test:codex-missing-rollout`. Writes .openbot-build/codex-missing-rollout-e2e/report.json.
+// `bun run test:codex-missing-rollout`. Writes .openownbot-build/codex-missing-rollout-e2e/report.json.
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { mkdtemp, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
-import { AGENT_PROVIDERS } from "@openbot/contracts/ipc";
+import { AGENT_PROVIDERS } from "@openownbot/contracts/ipc";
 import { Effect } from "effect";
 import type { AgentBrowserHost } from "../src/backend/agent/turn-lifecycle";
 
-const OUT = resolve(import.meta.dirname, "../.openbot-build/codex-missing-rollout-e2e");
-const root = await mkdtemp(join(tmpdir(), "openbot-codex-rollout-"));
+const OUT = resolve(import.meta.dirname, "../.openownbot-build/codex-missing-rollout-e2e");
+const root = await mkdtemp(join(tmpdir(), "openownbot-codex-rollout-"));
 const userData = join(root, "user-data");
 const home = join(root, "home");
 const logPath = join(root, "protocol.jsonl");
@@ -31,9 +31,9 @@ const defaultHome = join(home, ".codex");
 // Before the service modules load: the Codex process and the stores read the home folder.
 process.env.HOME = home;
 process.env.CODEX_HOME = defaultHome;
-process.env.OPENBOT_CODEX_PATH = fakeCodex;
-process.env.OPENBOT_FAKE_CODEX_LOG = logPath;
-process.env.OPENBOT_FAKE_CODEX_CONTROL = controlPath;
+process.env.OPENOWNBOT_CODEX_PATH = fakeCodex;
+process.env.OPENOWNBOT_FAKE_CODEX_LOG = logPath;
+process.env.OPENOWNBOT_FAKE_CODEX_CONTROL = controlPath;
 mkdirSync(defaultHome, { recursive: true });
 
 const { AgentService } = await import("../src/backend/agent-service");
@@ -41,7 +41,7 @@ const { AgentStore } = await import("../src/backend/agent-store");
 const { ProviderAccountStore } = await import("../src/backend/agent/provider-account-store");
 const { runCauseEffect } = await import("../src/backend/effect-boundary");
 const { MailboxStore } = await import("../src/backend/mailbox-store");
-const { OpenBotDatabase } = await import("../src/backend/openbot-database");
+const { OpenOwnBotDatabase } = await import("../src/backend/openownbot-database");
 
 // A Codex app-server that saves a rollout in its `CODEX_HOME` when a turn completes, and answers
 // `thread/turns/list` as Codex 0.163.0 does: from the rollout, or from a thread loaded in this
@@ -58,8 +58,8 @@ const rolloutsPath = path.join(codexHome, "fake-rollouts.json");
 // The saved turns, as { threadId, turnId }.
 const rollouts = () => { try { return JSON.parse(fs.readFileSync(rolloutsPath, "utf8")); } catch { return []; } };
 const hasRollout = (threadId) => rollouts().some((turn) => turn.threadId === threadId);
-const control = () => { try { return JSON.parse(fs.readFileSync(process.env.OPENBOT_FAKE_CODEX_CONTROL, "utf8")); } catch { return {}; } };
-const log = (entry) => fs.appendFileSync(process.env.OPENBOT_FAKE_CODEX_LOG, JSON.stringify({ pid: process.pid, codexHome, ...entry }) + "\\n");
+const control = () => { try { return JSON.parse(fs.readFileSync(process.env.OPENOWNBOT_FAKE_CODEX_CONTROL, "utf8")); } catch { return {}; } };
+const log = (entry) => fs.appendFileSync(process.env.OPENOWNBOT_FAKE_CODEX_LOG, JSON.stringify({ pid: process.pid, codexHome, ...entry }) + "\\n");
 log({ start: true });
 const config = { config: { mcp_servers: {} }, layers: [{ name: { type: "user", file: "/fake/.codex/config.toml", profile: null }, version: "1", config: { mcp_servers: {} } }] };
 const loaded = new Set();
@@ -205,7 +205,7 @@ const accountsRoot = join(userData, "provider-accounts");
 
 /** One run of the app on the profile: the service and the stores it owns. */
 async function startApp() {
-  const database = new OpenBotDatabase(userData);
+  const database = new OpenOwnBotDatabase(userData);
   const store = new AgentStore(userData, home, database);
   const mailbox = new MailboxStore(userData, store.sharedRoot, store.database);
   const providerAccounts = new ProviderAccountStore(accountsPath, accountsRoot);

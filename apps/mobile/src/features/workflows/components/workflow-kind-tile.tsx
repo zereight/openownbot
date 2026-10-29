@@ -1,4 +1,4 @@
-import type { WorkflowNodeKind, WorkflowTriggerType } from "@openbot/contracts/ipc";
+import type { WorkflowNodeKind, WorkflowTriggerType } from "@openownbot/contracts/ipc";
 import type { LucideIcon } from "lucide-react-native";
 import Bot from "lucide-react-native/icons/bot";
 import Clock from "lucide-react-native/icons/clock";
@@ -66,7 +66,7 @@ export function WorkflowKindTile({
   size?: number;
 }) {
   const tint = KIND_TINT[kind];
-  const [color, background] = useCSSVariable([`--openbot-file-${tint}`, `--openbot-file-${tint}-soft`]);
+  const [color, background] = useCSSVariable([`--openownbot-file-${tint}`, `--openownbot-file-${tint}-soft`]);
   const Icon = kind === "trigger" && trigger ? TRIGGER_ICON[trigger] : KIND_ICON[kind];
   return (
     <View

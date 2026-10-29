@@ -9,7 +9,7 @@ import { Effect } from "effect";
 import { AttachmentFiles } from "../src/backend/attachment-files";
 
 const workspace = dirname(dirname(import.meta.filename));
-const artifactPath = join(workspace, ".openbot-build", "attachment-collision-e2e.json");
+const artifactPath = join(workspace, ".openownbot-build", "attachment-collision-e2e.json");
 
 interface AttachmentSource {
   name: string;
@@ -37,7 +37,7 @@ async function filenameCollision(root: string, first: string, second: string): P
 }
 
 async function run() {
-  const root = await mkdtemp(join(tmpdir(), "openbot-attachment-collision-"));
+  const root = await mkdtemp(join(tmpdir(), "openownbot-attachment-collision-"));
   try {
     const sharedRoot = join(root, "shared");
     const files = new AttachmentFiles({ userDataPath: join(root, "user-data"), sharedRoot });

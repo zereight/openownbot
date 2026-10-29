@@ -1,5 +1,5 @@
-import { OPENBOT_LINKS } from "../../lib/landing-links";
-import { type Comparison, OPENBOT_TEXT } from "./comparison";
+import { OPENOWNBOT_LINKS } from "../../lib/landing-links";
+import { type Comparison, OPENOWNBOT_TEXT } from "./comparison";
 
 // Every statement about Manus here is taken from manus.im, its documentation, help
 // center, Trust Center, terms and privacy policy, and each page used is in `sources`.
@@ -12,8 +12,8 @@ const MANUS_HELP = "https://help.manus.im/en/articles";
 export const MANUS_COMPARISON: Comparison = {
   rival: { name: "Manus", mark: "manus" },
   answer:
-    "Choose OpenBot if you want your agents on your own computer, with the AI plans you already pay for, such as ChatGPT, Claude, Gemini or Grok: the app is free. Choose Manus if you want a general agent that works in its own cloud computer, keeps working with no computer of yours on, and chooses the model for you.",
-  chooseOpenBot: [
+    "Choose OpenOwnBot if you want your agents on your own computer, with the AI plans you already pay for, such as ChatGPT, Claude, Gemini or Grok: the app is free. Choose Manus if you want a general agent that works in its own cloud computer, keeps working with no computer of yours on, and chooses the model for you.",
+  chooseOpenOwnBot: [
     "You already pay for ChatGPT, Claude, Gemini, Grok, Cursor, Cline or Muse Code, or you run your own model.",
     "Your files and chats must stay on your own computer, not in a cloud in the US or Singapore.",
     "You want a team of coding agents that give work to each other, each with its own job.",
@@ -30,161 +30,161 @@ export const MANUS_COMPARISON: Comparison = {
     {
       icon: "cpu",
       topic: "Models and plans",
-      openbot: OPENBOT_TEXT.models,
+      openownbot: OPENOWNBOT_TEXT.models,
       rival:
         "Manus chooses the model for each task. You choose Manus 2.0 Lite, Manus 2.0 or Manus 2.0 Max. Manus states no way to use your own AI plan, API key or model.",
-      better: "openbot",
+      better: "openownbot",
     },
     {
       icon: "laptop",
       topic: "Where agents work",
-      openbot: "On the computer that runs OpenBot.",
+      openownbot: "On the computer that runs OpenOwnBot.",
       rival:
         "In a cloud sandbox that Manus runs, by default. With the desktop app, Manus can also run commands in the folders that you allow on your Mac or Windows PC.",
-      better: "openbot",
+      better: "openownbot",
     },
     {
       icon: "cloud",
       topic: "When your computer is off",
-      openbot: OPENBOT_TEXT.offline,
+      openownbot: OPENOWNBOT_TEXT.offline,
       rival:
         "Cloud tasks keep working after you close the app, and scheduled tasks run while you are offline. Tasks on your own computer need it on.",
     },
     {
       icon: "phone",
       topic: "Remote access",
-      openbot: OPENBOT_TEXT.remote,
+      openownbot: OPENOWNBOT_TEXT.remote,
       rival:
         "Apps for iPhone and Android and a web app. You can also give tasks in Telegram, WhatsApp Business, LINE, Slack or email. The tasks and their files stay in Manus's cloud.",
     },
     {
       icon: "refresh",
       topic: "Backup models",
-      openbot: OPENBOT_TEXT.backupModels,
+      openownbot: OPENOWNBOT_TEXT.backupModels,
       rival:
         "Manus chooses the model for each task. With Manus Flex, you can use your own API key. Manus states no move to a backup model.",
-      better: "openbot",
+      better: "openownbot",
     },
     {
       icon: "key",
       topic: "Logins and payments",
-      openbot: OPENBOT_TEXT.logins,
+      openownbot: OPENOWNBOT_TEXT.logins,
       rival:
         "You sign in to sites yourself in Manus's cloud browser, and Manus keeps the session but not your password. You take over the browser for codes and CAPTCHAs. Manus states no password manager or saved cards.",
-      better: "openbot",
+      better: "openownbot",
     },
     {
       icon: "mic",
       topic: "Voice",
-      openbot: OPENBOT_TEXT.voice,
+      openownbot: OPENOWNBOT_TEXT.voice,
       rival:
         "You can give a voice command in the phone app, and Manus writes out the voice messages that you send in chat apps. Manus states no reading of replies aloud.",
-      better: "openbot",
+      better: "openownbot",
     },
     {
       icon: "contact",
       topic: "Chat apps",
-      openbot: OPENBOT_TEXT.chatApps,
+      openownbot: OPENOWNBOT_TEXT.chatApps,
       rival: "Slack, Telegram, LINE and email. Cue, its app for personal agents, also connects to iMessage.",
     },
     {
       icon: "users",
       topic: "Teams",
-      openbot: OPENBOT_TEXT.teams,
+      openownbot: OPENOWNBOT_TEXT.teams,
       rival:
         "Wide Research runs many agents in parallel on one task. Up to 50 people can work in one task, and the Team plan pools credits across seats.",
     },
     {
       icon: "lock",
       topic: "Your data",
-      openbot:
+      openownbot:
         "Workspaces, chats and files stay in a database on your computer. The provider you choose gets the requests you send. Product analytics, with no chat content, are on by default and linked to your account when you sign in; you can turn them off.",
       rival:
         "Tasks, files and the commands the agent runs are stored in Manus's cloud, in the US and Singapore. Its terms give Manus a permanent license to use your content, in aggregate, to improve the service.",
-      better: "openbot",
+      better: "openownbot",
     },
     {
       icon: "tag",
       topic: "Price and account",
-      openbot:
+      openownbot:
         "Free for noncommercial use; commercial use needs a license. Your agents use the plans you already pay for.",
       rival:
         "Free with 300 credits a day. Pro plans from $20 to $200 a month, and the Team plan from $20 a seat. Needs an account, and is for people aged 18 or more.",
-      better: "openbot",
+      better: "openownbot",
     },
     {
       icon: "globe",
       topic: "Where you can use it",
-      openbot: OPENBOT_TEXT.regions,
+      openownbot: OPENOWNBOT_TEXT.regions,
       rival:
         "Worldwide, except countries under a US embargo, for people 18 and over. Its data is stored in the US and Singapore. The website is in 17 languages.",
     },
     {
       icon: "devices",
       topic: "Apps",
-      openbot: OPENBOT_TEXT.apps,
+      openownbot: OPENOWNBOT_TEXT.apps,
       rival: "macOS and Windows, apps for iPhone and Android, and the web. A Linux desktop app: not stated by Manus.",
     },
     {
       icon: "code",
       topic: "Source code",
-      openbot: "On GitHub, under the PolyForm Noncommercial License 1.0.0.",
+      openownbot: "On GitHub, under the PolyForm Noncommercial License 1.0.0.",
       rival: "Closed source. Its terms prohibit reverse engineering.",
-      better: "openbot",
+      better: "openownbot",
     },
   ],
   intro:
-    "Manus is a general AI agent from Butterfly Effect, a company in Singapore. Meta acquired Manus in December 2025, and Manus resumed independent operations on 1 September 2026. Both products give you agents that do the work, not only answers. The difference is where the agents run and which model does the thinking. Manus works in its own cloud computer and chooses the model for you. OpenBot runs a team of agents on your own computer, with the AI plans you choose.",
+    "Manus is a general AI agent from Butterfly Effect, a company in Singapore. Meta acquired Manus in December 2025, and Manus resumed independent operations on 1 September 2026. Both products give you agents that do the work, not only answers. The difference is where the agents run and which model does the thinking. Manus works in its own cloud computer and chooses the model for you. OpenOwnBot runs a team of agents on your own computer, with the AI plans you choose.",
   sections: [
     {
       title: "Models and the plans you pay for",
-      openbot: OPENBOT_TEXT.plansSection,
+      openownbot: OPENOWNBOT_TEXT.plansSection,
       rival:
         "Manus says it is LLM-agnostic: it chooses the right model for each task, so you do not have to. It does not name the models. You choose only between its own tiers: the free plan gets Manus 2.0 Lite in Agent mode, and paid plans also get Manus 2.0 and Manus 2.0 Max. You pay Manus in credits, and a plan that you already pay for at another AI company does not apply.",
-      better: "openbot",
+      better: "openownbot",
     },
     {
       title: "Where the work happens",
-      openbot: OPENBOT_TEXT.workSection,
+      openownbot: OPENOWNBOT_TEXT.workSection,
       rival:
         "By default, each Manus task works in a temporary sandbox: a virtual computer with internet access in Manus's cloud. A Cloud Computer that stays on costs $30 or $50 a month more. Cloud tasks and scheduled tasks keep running while you are offline. Since March 2026, the desktop app for macOS and Windows can also let Manus run commands in the folders that you allow on your own computer; those tasks need that computer on.",
-      better: "openbot",
+      better: "openownbot",
     },
     {
       title: "Phones and remote access",
-      openbot: OPENBOT_TEXT.phonesSection,
+      openownbot: OPENOWNBOT_TEXT.phonesSection,
       rival:
         "Manus has apps for iPhone and Android and a web app. You can also give it tasks in Telegram, WhatsApp Business, LINE or Slack, or by email; one messaging app at a time for each workspace. The work itself happens in Manus's cloud, or on your computer when you use the desktop app.",
     },
     {
       title: "How agents work as a team",
-      openbot: OPENBOT_TEXT.teamSection,
+      openownbot: OPENOWNBOT_TEXT.teamSection,
       rival:
         "Manus is one agent that can split a large task: Wide Research starts hundreds of independent agents that work in parallel. Paid plans run up to 20 tasks at the same time. Up to 50 people can work in one task, and only the owner of the task pays the credits. The Team plan pools credits and adds single sign-on; the owner of a team can see all the session data of its members.",
     },
     {
       title: "Data and privacy",
-      openbot:
-        "OpenBot keeps workspaces, conversations, attachments and browser data in a SQLite database on the computer that runs it. OpenBot keeps no other copy. On a hosted OpenBot server, the database is on that server in the EU. An account holds your profile, team memberships, invitations, sign-in sessions, the settings that let devices find each other, and any agent templates that you publish. Product analytics, which never include chat content, are on by default and linked to your account when you sign in; you can turn them off in Settings.",
+      openownbot:
+        "OpenOwnBot keeps workspaces, conversations, attachments and browser data in a SQLite database on the computer that runs it. OpenOwnBot keeps no other copy. On a hosted OpenOwnBot server, the database is on that server in the EU. An account holds your profile, team memberships, invitations, sign-in sessions, the settings that let devices find each other, and any agent templates that you publish. Product analytics, which never include chat content, are on by default and linked to your account when you sign in; you can turn them off in Settings.",
       rival:
         "Manus stores your data in the US and Singapore. Its privacy policy says that it collects the files of each task, the shell commands the agent runs and their output, and the code. Manus says its model providers do not train on your data. For individual plans, it states no training opt-out, and its terms give Manus a permanent license to use your content, in aggregate, to improve the service. The Team plan says Manus does not train models on your data.",
-      better: "openbot",
+      better: "openownbot",
     },
   ],
   faq: [
     {
-      question: "Is OpenBot an alternative to Manus?",
+      question: "Is OpenOwnBot an alternative to Manus?",
       answer:
-        "Yes, if you want your agents on your own computer. Both give you AI agents that do the work. OpenBot runs a team of agents on your computer with the AI plans you choose. Manus is a general agent that works in a cloud computer that Manus runs, with models that Manus chooses.",
+        "Yes, if you want your agents on your own computer. Both give you AI agents that do the work. OpenOwnBot runs a team of agents on your computer with the AI plans you choose. Manus is a general agent that works in a cloud computer that Manus runs, with models that Manus chooses.",
     },
     {
-      question: "Why choose OpenBot over Manus?",
+      question: "Why choose OpenOwnBot over Manus?",
       answer:
-        "Your agents use the AI plans you already pay for, such as ChatGPT, Claude, Gemini or Grok, or your own model. OpenBot keeps your workspaces, chats and files on your own computer, it runs a team of coding agents, and it has desktop apps for macOS, Windows and Linux. The app is free, and its source code is on GitHub. Manus is the better fit when you want an agent with no computer of yours to keep on.",
+        "Your agents use the AI plans you already pay for, such as ChatGPT, Claude, Gemini or Grok, or your own model. OpenOwnBot keeps your workspaces, chats and files on your own computer, it runs a team of coding agents, and it has desktop apps for macOS, Windows and Linux. The app is free, and its source code is on GitHub. Manus is the better fit when you want an agent with no computer of yours to keep on.",
     },
     {
-      question: "Can I use my ChatGPT, Claude or Gemini subscription with OpenBot?",
-      answer: OPENBOT_TEXT.plansFaq,
+      question: "Can I use my ChatGPT, Claude or Gemini subscription with OpenOwnBot?",
+      answer: OPENOWNBOT_TEXT.plansFaq,
     },
     {
       question: "Can I use my own AI plan or model with Manus?",
@@ -209,12 +209,12 @@ export const MANUS_COMPARISON: Comparison = {
     {
       question: "Do agents keep working when my laptop is closed?",
       answer:
-        "Yes, with both. Manus works in its cloud, so no computer of yours must stay on. OpenBot agents work on the computer or server that runs OpenBot: keep that computer on, or use a hosted OpenBot server, and connect from your laptop or phone.",
+        "Yes, with both. Manus works in its cloud, so no computer of yours must stay on. OpenOwnBot agents work on the computer or server that runs OpenOwnBot: keep that computer on, or use a hosted OpenOwnBot server, and connect from your laptop or phone.",
     },
     {
-      question: "How much do OpenBot and Manus cost?",
+      question: "How much do OpenOwnBot and Manus cost?",
       answer:
-        "OpenBot is free for noncommercial use, commercial use needs a separate license, and your agents use the plans you already pay for. Manus is free with 300 credits a day; Pro plans cost $20 to $200 a month and the Team plan starts at $20 a seat. Manus payments are not refundable.",
+        "OpenOwnBot is free for noncommercial use, commercial use needs a separate license, and your agents use the plans you already pay for. Manus is free with 300 credits a day; Pro plans cost $20 to $200 a month and the Team plan starts at $20 a seat. Manus payments are not refundable.",
     },
   ],
   sources: [
@@ -270,8 +270,8 @@ export const MANUS_COMPARISON: Comparison = {
       label: "Cue messaging apps",
       url: "https://help.manus.im/en/articles/14178640-can-i-connect-multiple-messaging-agents-at-once-in-cue",
     },
-    { label: "OpenBot privacy notes", url: OPENBOT_LINKS.privacy },
-    { label: "OpenBot source code", url: OPENBOT_LINKS.repository },
+    { label: "OpenOwnBot privacy notes", url: OPENOWNBOT_LINKS.privacy },
+    { label: "OpenOwnBot source code", url: OPENOWNBOT_LINKS.repository },
   ],
   checkedAt: "2026-10-02",
 };

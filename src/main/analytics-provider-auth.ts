@@ -1,5 +1,5 @@
-import { type AgentSummary, DEFAULT_PROVIDER_ACCOUNT_ID, isFreeOpencodeModel } from "@openbot/contracts/ipc";
-import { CLAUDE_API_KEY_ACCOUNT_ID } from "@openbot/contracts/team-protocol/claude-api-key-v1";
+import { type AgentSummary, DEFAULT_PROVIDER_ACCOUNT_ID, isFreeOpencodeModel } from "@openownbot/contracts/ipc";
+import { CLAUDE_API_KEY_ACCOUNT_ID } from "@openownbot/contracts/team-protocol/claude-api-key-v1";
 import { CLAUDE_API_KEY_ACCOUNT_TYPE } from "../backend/protocol";
 
 /** How an agent's turns are paid for. `custom` is an endpoint the user added, local or remote. */

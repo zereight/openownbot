@@ -5,12 +5,12 @@
 // its publication, so a scheduled run finds a broken release before many users install it. Add the
 // version to `provider-runtime-blocklist.json` to stop the offer.
 // The run uses a new home folder, so it never reads the account of the person who runs it.
-// `bun run test:provider-cli-canary [-- opencode]`. Writes .openbot-build/provider-cli-canary/report.json.
+// `bun run test:provider-cli-canary [-- opencode]`. Writes .openownbot-build/provider-cli-canary/report.json.
 import assert from "node:assert/strict";
 import { mkdir, mkdtemp, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
-import { MANAGED_RUNTIME_PROVIDERS, type ManagedProviderId } from "@openbot/contracts/ipc";
+import { MANAGED_RUNTIME_PROVIDERS, type ManagedProviderId } from "@openownbot/contracts/ipc";
 import { Effect } from "effect";
 import lockValue from "../native-runtime.lock.json";
 import { isMissingProviderSessionError } from "../src/backend/agent/thread-items";
@@ -29,7 +29,7 @@ import {
 import { parseAgentRuntimeLock } from "./agent-runtime-lock";
 import { runTurn, startThread, stopClients } from "./provider-fakes/host";
 
-const OUT = resolve(import.meta.dirname, "../.openbot-build/provider-cli-canary");
+const OUT = resolve(import.meta.dirname, "../.openownbot-build/provider-cli-canary");
 const REQUEST_TIMEOUT_MS = 120_000;
 const TARGETS: readonly RuntimeTarget[] = ["darwin-arm64", "darwin-x64", "linux-x64", "linux-arm64", "win32-x64"];
 
@@ -81,7 +81,7 @@ function requestedProviders(): ManagedProviderId[] {
   return known.filter((provider) => names.includes(provider));
 }
 
-const root = await mkdtemp(join(tmpdir(), "openbot-provider-cli-canary-"));
+const root = await mkdtemp(join(tmpdir(), "openownbot-provider-cli-canary-"));
 const report: Report = { passed: false, releases: {}, results: [], failure: null, notCovered: NOT_COVERED };
 const clients: AgentClient[] = [];
 
@@ -200,7 +200,7 @@ async function canary(manager: ProviderRuntimeManager, provider: ManagedProvider
   const resumed = await runTurn(client, thread, { model, text: "Reply with the single word: ok" });
   assert.equal(resumed.status, "completed", `${provider} ${version}: a turn on the restored session completes.`);
 
-  const gone = thread.replace(/[^:]+$/u, "ses_openbotcanarymissing");
+  const gone = thread.replace(/[^:]+$/u, "ses_openownbotcanarymissing");
   const missingSession = await runCauseEffect(
     client.request("thread/resume", { threadId: gone, cwd: workspace, model }, (value) => value),
   ).then(

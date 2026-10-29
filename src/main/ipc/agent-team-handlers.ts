@@ -2,9 +2,9 @@
 
 import { readFile, writeFile } from "node:fs/promises";
 import { basename, join } from "node:path";
-import { INPUT_LIMITS } from "@openbot/contracts/input-limits";
-import type { ExportAgentTeamInput, ImportAgentTeamInput } from "@openbot/contracts/ipc";
-import type { AppTranslate } from "@openbot/i18n";
+import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
+import type { ExportAgentTeamInput, ImportAgentTeamInput } from "@openownbot/contracts/ipc";
+import type { AppTranslate } from "@openownbot/i18n";
 import { app, type BrowserWindow, dialog, type OpenDialogOptions, type SaveDialogOptions } from "electron";
 import { runCauseEffect } from "../../backend/effect-boundary";
 import type { AgentTeamService } from "../agent-team-service";

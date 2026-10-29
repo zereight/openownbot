@@ -4,13 +4,13 @@
 .billing-panel {
   display: flex;
   flex-direction: column;
-  gap: var(--openbot-space-4);
+  gap: var(--openownbot-space-4);
 }
 
 .billing-loading {
   display: grid;
   place-items: center;
-  padding: var(--openbot-space-8);
+  padding: var(--openownbot-space-8);
 }
 
 .billing-toolbar {
@@ -18,7 +18,7 @@
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: var(--openbot-space-3);
+  gap: var(--openownbot-space-3);
   min-height: 32px;
 }
 
@@ -29,27 +29,27 @@
 }
 
 .billing-empty {
-  padding: var(--openbot-space-6) var(--openbot-space-4);
-  border: 1px dashed var(--openbot-border);
-  border-radius: var(--openbot-radius-card);
+  padding: var(--openownbot-space-6) var(--openownbot-space-4);
+  border: 1px dashed var(--openownbot-border);
+  border-radius: var(--openownbot-radius-card);
   text-align: center;
 }
 
 .billing-server-logo {
   width: 32px;
   height: 32px;
-  border-radius: var(--openbot-radius-md);
+  border-radius: var(--openownbot-radius-md);
 }
 
 .billing-server-title {
   display: flex;
   min-width: 0;
   align-items: center;
-  gap: var(--openbot-space-2);
+  gap: var(--openownbot-space-2);
 }
 
 .billing-server .ui-item-actions {
-  gap: var(--openbot-space-2);
+  gap: var(--openownbot-space-2);
 }
 
 .billing-server-price {
@@ -59,35 +59,35 @@
 
 /* The web client's Billing dialog. */
 .billing-dialog-backdrop {
-  background: var(--openbot-bg-overlay);
+  background: var(--openownbot-bg-overlay);
 }
 
 .billing-dialog {
   position: relative;
   display: flex;
   width: min(640px, 100%);
-  max-height: calc(100dvh - 2 * var(--openbot-space-6));
+  max-height: calc(100dvh - 2 * var(--openownbot-space-6));
   flex-direction: column;
   overflow: hidden;
   outline: 0;
-  border-radius: var(--openbot-radius-modal);
-  background: var(--openbot-bg-sidebar);
-  color: var(--openbot-text-primary);
+  border-radius: var(--openownbot-radius-modal);
+  background: var(--openownbot-bg-sidebar);
+  color: var(--openownbot-text-primary);
 }
 
 .billing-dialog-close {
   position: absolute;
   z-index: 1;
-  inset-block-start: var(--openbot-space-3);
-  inset-inline-end: var(--openbot-space-3);
-  color: var(--openbot-text-muted);
+  inset-block-start: var(--openownbot-space-3);
+  inset-inline-end: var(--openownbot-space-3);
+  color: var(--openownbot-text-muted);
 }
 
 .billing-dialog-header {
   display: flex;
   flex-direction: column;
-  gap: var(--openbot-space-1);
-  padding: var(--openbot-space-6) var(--openbot-space-6) var(--openbot-space-4);
+  gap: var(--openownbot-space-1);
+  padding: var(--openownbot-space-6) var(--openownbot-space-6) var(--openownbot-space-4);
 }
 
 .billing-dialog-header p {
@@ -96,15 +96,15 @@
 
 .billing-dialog-title {
   margin: 0;
-  font-size: var(--openbot-text-2xl);
-  font-weight: var(--openbot-weight-bold);
-  line-height: var(--openbot-leading-2xl);
+  font-size: var(--openownbot-text-2xl);
+  font-weight: var(--openownbot-weight-bold);
+  line-height: var(--openownbot-leading-2xl);
 }
 
 .billing-dialog-body {
   min-height: 0;
   overflow-y: auto;
-  padding: 0 var(--openbot-space-6) var(--openbot-space-6);
+  padding: 0 var(--openownbot-space-6) var(--openownbot-space-6);
 }
 
 /* The License part above the server plans. The buy form is the lower part of the license card. */
@@ -113,7 +113,7 @@
   container-type: inline-size;
   display: flex;
   flex-direction: column;
-  gap: var(--openbot-space-3);
+  gap: var(--openownbot-space-3);
 }
 
 /* The button goes under the text, so that a long button label does not cover the text. */
@@ -134,9 +134,9 @@
   width: 32px;
   height: 32px;
   place-items: center;
-  border-radius: var(--openbot-radius-md);
-  background: var(--openbot-bg-control);
-  color: var(--openbot-text-secondary);
+  border-radius: var(--openownbot-radius-md);
+  background: var(--openownbot-bg-control);
+  color: var(--openownbot-text-secondary);
 }
 
 .billing-license-icon svg {
@@ -145,14 +145,14 @@
 }
 
 .billing-license-row .ui-item-actions {
-  gap: var(--openbot-space-2);
+  gap: var(--openownbot-space-2);
 }
 
 .billing-license-buy {
   display: flex;
   flex-direction: column;
-  gap: var(--openbot-space-3);
-  padding: var(--openbot-space-3) var(--openbot-space-4);
+  gap: var(--openownbot-space-3);
+  padding: var(--openownbot-space-3) var(--openownbot-space-4);
 }
 
 .billing-license-buy-line {
@@ -160,14 +160,14 @@
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: var(--openbot-space-3);
+  gap: var(--openownbot-space-3);
 }
 
 .billing-license-buy-users,
 .billing-license-buy-total {
   display: flex;
   align-items: center;
-  gap: var(--openbot-space-3);
+  gap: var(--openownbot-space-3);
 }
 
 .billing-license-buy-price {
@@ -180,7 +180,7 @@
   display: flex;
   min-width: 0;
   align-items: center;
-  gap: var(--openbot-space-2);
+  gap: var(--openownbot-space-2);
   margin: 0;
   border: 0;
   padding: 0;
@@ -188,7 +188,7 @@
 
 .billing-license-stepper-value {
   min-width: 3ch;
-  font-weight: var(--openbot-weight-semibold);
+  font-weight: var(--openownbot-weight-semibold);
   text-align: center;
   font-variant-numeric: tabular-nums;
 }
@@ -196,7 +196,7 @@
 .billing-license-actions {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--openbot-space-2);
+  gap: var(--openownbot-space-2);
 }
 
 .billing-license-link.ui-button {
@@ -206,56 +206,56 @@
 
 .billing-license-divider {
   width: 100%;
-  margin: var(--openbot-space-2) 0;
+  margin: var(--openownbot-space-2) 0;
   border: 0;
-  border-top: 1px solid var(--openbot-border);
+  border-top: 1px solid var(--openownbot-border);
 }
 
 .billing-license-change {
   display: flex;
   flex-direction: column;
-  gap: var(--openbot-space-3);
+  gap: var(--openownbot-space-3);
 }
 
 .billing-license-quote {
   display: flex;
   flex-direction: column;
-  gap: var(--openbot-space-2);
-  border-top: 1px solid var(--openbot-border);
-  padding-top: var(--openbot-space-3);
+  gap: var(--openownbot-space-2);
+  border-top: 1px solid var(--openownbot-border);
+  padding-top: var(--openownbot-space-3);
 }
 
 .billing-license-lines {
   display: flex;
   flex-direction: column;
-  gap: var(--openbot-space-1);
+  gap: var(--openownbot-space-1);
   margin: 0;
-  color: var(--openbot-text-secondary);
-  font-size: var(--openbot-text-sm);
+  color: var(--openownbot-text-secondary);
+  font-size: var(--openownbot-text-sm);
 }
 
 .billing-license-lines div {
   display: flex;
   justify-content: space-between;
-  gap: var(--openbot-space-3);
+  gap: var(--openownbot-space-3);
 }
 
 .billing-license-lines dd {
   margin: 0;
-  color: var(--openbot-text-primary);
+  color: var(--openownbot-text-primary);
   font-variant-numeric: tabular-nums;
 }
 
 .billing-license-total {
   display: flex;
   align-items: baseline;
-  gap: var(--openbot-space-2);
+  gap: var(--openownbot-space-2);
   margin: 0;
 }
 
 .billing-license-total-amount {
-  font-size: var(--openbot-text-2xl);
-  font-weight: var(--openbot-weight-bold);
+  font-size: var(--openownbot-text-2xl);
+  font-weight: var(--openownbot-weight-bold);
   font-variant-numeric: tabular-nums;
 }
 

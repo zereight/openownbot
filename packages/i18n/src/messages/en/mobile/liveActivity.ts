@@ -1,7 +1,7 @@
 import { defineMessages } from "../../../message";
 
 export const messages = defineMessages("mobile.liveActivity", {
-  "mobile.liveActivity.appName": "OpenBot",
+  "mobile.liveActivity.appName": "OpenOwnBot",
   "mobile.liveActivity.badge.working": "Working",
   "mobile.liveActivity.badge.message": "Message",
   "mobile.liveActivity.badge.question": "Questions",

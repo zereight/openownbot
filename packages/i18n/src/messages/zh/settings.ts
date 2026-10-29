@@ -47,7 +47,7 @@ export const messages = {
   "settings.externalLinks.description": "聊天、登录页面和账单页面中的链接在这里打开。",
   // The two link targets. The saved value stays in English; only the label is translated.
   "settings.externalLinks.defaultBrowser": "默认浏览器",
-  "settings.externalLinks.openbot": "OpenBot",
+  "settings.externalLinks.openownbot": "OpenOwnBot",
   "settings.externalLinks.defaultBrowserNamed": "默认浏览器（{name}）",
   "settings.externalLinks.otherApp": "其他应用…",
   "settings.externalLinks.command": "命令…",
@@ -94,7 +94,7 @@ export const messages = {
   "settings.notificationPreview.title": "显示消息预览",
   "settings.notificationPreview.description": "在通知中显示助手回复或提问的开头部分。",
   "settings.testNotification.title": "测试通知",
-  "settings.testNotification.description": "立即发一条。如果没有出现，请在系统设置中允许 OpenBot 发送通知。",
+  "settings.testNotification.description": "立即发一条。如果没有出现，请在系统设置中允许 OpenOwnBot 发送通知。",
   "settings.testNotification.action": "发送测试",
   "settings.testNotification.failed": "无法显示通知。",
   "settings.testNotification.openSettings": "打开系统设置",
@@ -234,9 +234,9 @@ export const messages = {
   "settings.mobileConnect.devices.refreshing": "正在刷新…",
   "settings.mobileConnect.route.title": "设备连接方式",
   "settings.mobileConnect.route.description": "适用于连接到这台电脑的手机、其他电脑和团队成员。",
-  "settings.mobileConnect.route.openbot.title": "通过 OpenBot",
-  "settings.mobileConnect.route.openbot.badge": "推荐",
-  "settings.mobileConnect.route.openbot.description": "在任何网络上都能使用。对话和文件在你的设备之间加密传输。",
+  "settings.mobileConnect.route.openownbot.title": "通过 OpenOwnBot",
+  "settings.mobileConnect.route.openownbot.badge": "推荐",
+  "settings.mobileConnect.route.openownbot.description": "在任何网络上都能使用。对话和文件在你的设备之间加密传输。",
   "settings.mobileConnect.route.private.title": "专用网络",
   "settings.mobileConnect.route.private.tailscale": "已发现 Tailscale",
   "settings.mobileConnect.route.private.description":
@@ -291,7 +291,7 @@ export const messages = {
   "settings.profile.share.copied": "图片已复制",
   "settings.profile.share.copyFailed": "无法复制图片。",
   "settings.profile.share.createFailed": "无法生成图片。",
-  "settings.profile.share.fileName": "openbot-activity.png",
+  "settings.profile.share.fileName": "openownbot-activity.png",
   // The text in the image to share.
   "settings.profile.share.caption": "我与 OpenOwnBot 的过去六个月",
   "settings.profile.activity.title": "这台电脑上的活动",
@@ -341,7 +341,7 @@ export const messages = {
   "settings.profile.sessions.disconnectFailed": "无法断开该会话，请重试。",
   "settings.profile.sessions.disconnectConfirm.title": "断开该会话？",
   "settings.profile.sessions.disconnectConfirm.description": "这台设备将退出你的账号登录，必须重新登录才能连接。",
-  // The Updates tab. {target} is "OpenBot v1.2.3" or settings.updates.target.latest.
+  // The Updates tab. {target} is "OpenOwnBot v1.2.3" or settings.updates.target.latest.
   "settings.updates.title": "OpenOwnBot 更新",
   "settings.updates.track.title": "更新通道",
   "settings.updates.track.description": "稳定版只接收经过测试的 OpenOwnBot 版本。",
@@ -375,7 +375,7 @@ export const messages = {
   "settings.updates.autoInstall.title": "自动安装更新",
   "settings.updates.autoInstall.description":
     "助手空闲时，OpenOwnBot 会重启并应用已下载的更新。你的服务器成员会短暂断开连接。",
-  // Restart OpenBot, or install a downloaded update, when no agent works.
+  // Restart OpenOwnBot, or install a downloaded update, when no agent works.
   "settings.updates.idleRestart.title": "重启 OpenOwnBot",
   "settings.updates.idleRestart.relaunchDescription": "助手空闲时 OpenOwnBot 会重启。新的自动化任务会等到那时再运行。",
   "settings.updates.idleRestart.updateDescription":

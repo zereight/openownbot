@@ -14,7 +14,7 @@ import {
   Download,
   Pencil,
   Trash2,
-} from "@openbot/ui";
+} from "@openownbot/ui";
 import { Show } from "solid-js";
 import { useText } from "../../text";
 import { SidebarSectionEditor } from "./SidebarSectionEditor";

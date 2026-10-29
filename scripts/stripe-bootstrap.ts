@@ -4,7 +4,7 @@ import {
   type BillingInterval,
   type BillingPlanId,
   billingLookupKey,
-} from "@openbot/contracts/billing";
+} from "@openownbot/contracts/billing";
 import {
   LICENSE_INCLUDED_USERS,
   LICENSE_LOOKUP_KEY,
@@ -12,13 +12,13 @@ import {
   LICENSE_METADATA_KIND,
   LICENSE_PRICES,
   LICENSE_PRODUCT_ID,
-} from "@openbot/contracts/license";
-import { createOpenBotLogger, toLogValue } from "@openbot/logging";
+} from "@openownbot/contracts/license";
+import { createOpenOwnBotLogger, toLogValue } from "@openownbot/logging";
 import { z } from "zod";
 
 /**
  * Creates the Stripe catalog that the account server reads: one Product for each plan, and one Price
- * for each plan and interval with the lookup key `openbot_{plan}_{interval}`. It also creates the
+ * for each plan and interval with the lookup key `openownbot_{plan}_{interval}`. It also creates the
  * license Product and its tiered monthly Price, and sets the Customer Portal features. Run it again at any time: it changes only what differs.
  *
  *   STRIPE_SECRET_KEY=sk_test_... bun scripts/stripe-bootstrap.ts [--live] [--webhook-url <url>]
@@ -29,7 +29,7 @@ import { z } from "zod";
  * `bootstrapStripe` and stores the secret itself.
  */
 
-const logger = createOpenBotLogger("stripe-bootstrap");
+const logger = createOpenOwnBotLogger("stripe-bootstrap");
 const STRIPE_API_VERSION = "2025-03-31.basil";
 
 /**
@@ -134,15 +134,15 @@ class StripeAdmin {
 }
 
 function productId(plan: BillingPlanId): string {
-  return `openbot_${plan}`;
+  return `openownbot_${plan}`;
 }
 
 async function ensureProduct(stripe: StripeAdmin, plan: BillingPlanId): Promise<void> {
   const id = productId(plan);
   const body = new URLSearchParams({
-    name: `OpenBot ${PLAN_NAME[plan]}`,
+    name: `OpenOwnBot ${PLAN_NAME[plan]}`,
     active: "true",
-    "metadata[openbot_plan]": plan,
+    "metadata[openownbot_plan]": plan,
   });
   const existing = await stripe.findProduct(id);
   if (existing) {
@@ -192,8 +192,8 @@ async function ensurePrice(
     transfer_lookup_key: "true",
     "currency_options[usd][unit_amount]": String(amounts.usd),
     "currency_options[pln][unit_amount]": String(amounts.pln),
-    "metadata[openbot_plan]": plan,
-    "metadata[openbot_interval]": interval,
+    "metadata[openownbot_plan]": plan,
+    "metadata[openownbot_interval]": interval,
   });
   const created = await stripe.request("POST", "/v1/prices", body, priceSchema);
   logger.info(`${current ? "Replaced" : "Created"} price ${lookupKey}.`);
@@ -209,7 +209,7 @@ function licensePriceSignature(): string {
 
 async function ensureLicenseProduct(stripe: StripeAdmin): Promise<void> {
   const body = new URLSearchParams({
-    name: "OpenBot commercial license",
+    name: "OpenOwnBot commercial license",
     active: "true",
     [`metadata[${LICENSE_METADATA.kind}]`]: LICENSE_METADATA_KIND,
   });
@@ -236,7 +236,7 @@ async function ensureLicensePrice(stripe: StripeAdmin, existing: readonly Price[
     current.product === LICENSE_PRODUCT_ID &&
     current.currency === "eur" &&
     current.recurring?.interval === "month" &&
-    current.metadata?.openbot_license_prices === signature
+    current.metadata?.openownbot_license_prices === signature
   ) {
     logger.info(`Price ${LICENSE_LOOKUP_KEY} is up to date.`);
     return current.id;
@@ -250,7 +250,7 @@ async function ensureLicensePrice(stripe: StripeAdmin, existing: readonly Price[
     lookup_key: LICENSE_LOOKUP_KEY,
     transfer_lookup_key: "true",
     [`metadata[${LICENSE_METADATA.kind}]`]: LICENSE_METADATA_KIND,
-    "metadata[openbot_license_prices]": signature,
+    "metadata[openownbot_license_prices]": signature,
   });
   for (const [currency, price] of Object.entries(LICENSE_PRICES)) {
     const prefix = currency === "eur" ? "tiers" : `currency_options[${currency}][tiers]`;
@@ -284,7 +284,7 @@ async function defaultPortalConfiguration(stripe: StripeAdmin): Promise<string> 
   const customer = await stripe.request(
     "POST",
     "/v1/customers",
-    new URLSearchParams({ description: "OpenBot bootstrap: creates the default Customer Portal configuration" }),
+    new URLSearchParams({ description: "OpenOwnBot bootstrap: creates the default Customer Portal configuration" }),
     z.object({ id: z.string() }),
   );
   try {
@@ -342,7 +342,7 @@ async function ensureWebhookEndpoint(stripe: StripeAdmin, url: string, replace: 
   if (parsed.protocol !== "https:" || !parsed.pathname.endsWith("/v1/stripe/webhook")) {
     throw new Error("--webhook-url must be an https URL that ends with /v1/stripe/webhook.");
   }
-  const body = new URLSearchParams({ url: parsed.href, description: "OpenBot account server" });
+  const body = new URLSearchParams({ url: parsed.href, description: "OpenOwnBot account server" });
   for (const event of BILLING_WEBHOOK_EVENTS) body.append("enabled_events[]", event);
   let current: { id: string } | null = null;
   let startingAfter: string | null = null;

@@ -5,7 +5,7 @@
 // what it shows. The manager restarts on the same file, and the clock moves past a timed mute.
 // Only the local server is used, so no remote host or account is needed.
 // Run: `bun scripts/server-mute-e2e.ts`.
-// Writes .openbot-build/server-mute-e2e/report.json.
+// Writes .openownbot-build/server-mute-e2e/report.json.
 
 import { setSystemTime } from "bun:test";
 import assert from "node:assert/strict";
@@ -13,8 +13,13 @@ import { mkdirSync, writeFileSync } from "node:fs";
 import { mkdtemp, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
-import { IPC_ENDPOINTS, LOCAL_SERVER_ID, SERVER_MUTE_DURATIONS_MS, type ServerSummary } from "@openbot/contracts/ipc";
-import { createFormat, translateFor } from "@openbot/i18n";
+import {
+  IPC_ENDPOINTS,
+  LOCAL_SERVER_ID,
+  SERVER_MUTE_DURATIONS_MS,
+  type ServerSummary,
+} from "@openownbot/contracts/ipc";
+import { createFormat, translateFor } from "@openownbot/i18n";
 import { plugin } from "bun";
 import { Effect } from "effect";
 import type { AgentBrowserHost } from "../src/backend/agent/turn-lifecycle";
@@ -22,13 +27,13 @@ import { AgentService } from "../src/backend/agent-service";
 import { AgentStore } from "../src/backend/agent-store";
 import { runCauseEffect } from "../src/backend/effect-boundary";
 import { MailboxStore } from "../src/backend/mailbox-store";
-import { OpenBotDatabase } from "../src/backend/openbot-database";
+import { OpenOwnBotDatabase } from "../src/backend/openownbot-database";
 import { SidebarLayoutStore } from "../src/backend/sidebar-layout-store";
 import type { TeamApiBrowser } from "../src/main/team-api/dependencies";
 
-const OUT = resolve(import.meta.dirname, "../.openbot-build/server-mute-e2e");
+const OUT = resolve(import.meta.dirname, "../.openownbot-build/server-mute-e2e");
 const APP_VERSION = "0.0.0-e2e";
-const TRUSTED_SENDER = { senderFrame: { url: "openbot-app://app/index.html" } };
+const TRUSTED_SENDER = { senderFrame: { url: "openownbot-app://app/index.html" } };
 const UNTRUSTED_SENDER = { senderFrame: { url: "https://example.com/" } };
 const STEP_DEADLINE_MS = 30_000;
 const FIFTEEN_MINUTES = 15 * 60_000;
@@ -154,7 +159,7 @@ async function step<T>(name: string, run: () => Promise<T>): Promise<T> {
   }
 }
 
-const root = await mkdtemp(join(tmpdir(), "openbot-server-mute-"));
+const root = await mkdtemp(join(tmpdir(), "openownbot-server-mute-"));
 const userData = join(root, "user-data");
 const serversPath = join(userData, "remote-servers.json");
 const unused = () => Effect.die(new Error("Not used by this check."));
@@ -203,7 +208,7 @@ const cipher = {
 };
 const centralAccount = { createTeamAuthTicket: unused, getEmail: () => "e2e@example.invalid" };
 
-const database = new OpenBotDatabase(userData);
+const database = new OpenOwnBotDatabase(userData);
 const agentStore = new AgentStore(userData, join(root, "home"), database);
 const mailbox = new MailboxStore(userData, agentStore.sharedRoot, agentStore.database);
 const sidebar = new SidebarLayoutStore(join(userData, "sidebar-layout.json"));

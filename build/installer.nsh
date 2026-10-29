@@ -1,14 +1,14 @@
 ; electron-builder includes this file in the NSIS installer. Its `protocols` setting registers the
-; openbot:// scheme only on macOS and Linux, so the installer writes the Windows key itself.
+; openownbot:// scheme only on macOS and Linux, so the installer writes the Windows key itself.
 ; The application writes the same key at each start (`src/main/index.ts`).
 
-; A chosen folder such as D:\OpenBot inherits Modify rights for "Authenticated Users" from the drive
-; root, so another account could replace OpenBot.exe. Give access only to this user, SYSTEM and
+; A chosen folder such as D:\OpenOwnBot inherits Modify rights for "Authenticated Users" from the drive
+; root, so another account could replace OpenOwnBot.exe. Give access only to this user, SYSTEM and
 ; Administrators, as %LOCALAPPDATA% does, and reset the files to inherit it. This runs before the
 ; files are copied at each install and update, because an update deletes the folder. The installer
 ; makes the folder, so this user owns it and icacls can change it. On a drive with no ACLs, such as
 ; exFAT, icacls fails and the install continues.
-!macro openBotRestrictInstallDirectory
+!macro openOwnBotRestrictInstallDirectory
   Push $0
   Push $1
   ReadEnvStr $0 USERDOMAIN
@@ -34,14 +34,14 @@
     Quit
   ${endIf}
   CreateDirectory "$INSTDIR"
-  !insertmacro openBotRestrictInstallDirectory
+  !insertmacro openOwnBotRestrictInstallDirectory
 !macroend
 
 !macro customInstall
-  WriteRegStr SHCTX "Software\Classes\openbot" "" "URL:OpenBot invitations"
-  WriteRegStr SHCTX "Software\Classes\openbot" "URL Protocol" ""
-  WriteRegStr SHCTX "Software\Classes\openbot\DefaultIcon" "" "$appExe,0"
-  WriteRegStr SHCTX "Software\Classes\openbot\shell\open\command" "" '"$appExe" "%1"'
+  WriteRegStr SHCTX "Software\Classes\openownbot" "" "URL:OpenOwnBot invitations"
+  WriteRegStr SHCTX "Software\Classes\openownbot" "URL Protocol" ""
+  WriteRegStr SHCTX "Software\Classes\openownbot\DefaultIcon" "" "$appExe,0"
+  WriteRegStr SHCTX "Software\Classes\openownbot\shell\open\command" "" '"$appExe" "%1"'
 !macroend
 
 ; An update runs the old uninstaller first. Keep the key then, so that links work during the update.
@@ -49,32 +49,32 @@
 !macro customUnInstall
   ${ifNot} ${isUpdated}
     Push $0
-    ReadRegStr $0 SHCTX "Software\Classes\openbot\shell\open\command" ""
+    ReadRegStr $0 SHCTX "Software\Classes\openownbot\shell\open\command" ""
     ${if} $0 == '"$INSTDIR\${APP_EXECUTABLE_FILENAME}" "%1"'
-      DeleteRegKey SHCTX "Software\Classes\openbot"
+      DeleteRegKey SHCTX "Software\Classes\openownbot"
     ${endIf}
     Pop $0
   ${endIf}
 !macroend
 
-; OpenBot installs for the current user only. The application writes the openbot:// key in HKCU at
+; OpenOwnBot installs for the current user only. The application writes the openownbot:// key in HKCU at
 ; each start, and an update finds only one installation. This skips the "All users" page.
 !macro customInstallMode
   StrCpy $isForceCurrentInstall "1"
 !macroend
 
 ; The uninstaller and each update delete the whole installation folder. electron-builder adds an
-; OpenBot subfolder only when the chosen path does not contain "OpenBot", so a choice such as
-; %USERPROFILE%\OpenBot (the agent workspaces) or %APPDATA%\OpenBot (the user data) would be
+; OpenOwnBot subfolder only when the chosen path does not contain "OpenOwnBot", so a choice such as
+; %USERPROFILE%\OpenOwnBot (the agent workspaces) or %APPDATA%\OpenOwnBot (the user data) would be
 ; deleted. Another account can also make a folder first and keep its rights on it. Use only a folder
-; that does not exist or that holds this user's earlier installation. Until then, add an OpenBot
+; that does not exist or that holds this user's earlier installation. Until then, add an OpenOwnBot
 ; subfolder. The page shows nothing; Abort skips it.
 !macro customPageAfterChangeDir
   !include FileFunc.nsh
 
-  Page custom openBotSafeInstallDirectory
+  Page custom openOwnBotSafeInstallDirectory
 
-  Function openBotSafeInstallDirectory
+  Function openOwnBotSafeInstallDirectory
     Push $0
     Push $1
     ReadRegStr $1 HKCU "${INSTALL_REGISTRY_KEY}" InstallLocation

@@ -72,7 +72,7 @@ export const messages = {
   "provider.aria.codeFallback": "用验证码登录 {name}",
   "provider.aria.moreActions": "{name} 的更多操作",
 
-  // The switch that turns a provider on or off in OpenBot. While an agent uses the provider, the
+  // The switch that turns a provider on or off in OpenOwnBot. While an agent uses the provider, the
   // switch stays on and a toast names the agent, or counts the agents when there are more.
   "provider.aria.use": "在 OpenOwnBot 中使用 {name}",
   "provider.use.inUseOne": "{agent} 正在使用 {name}。请先更改该助手的模型，再关闭 {name}。",
@@ -105,7 +105,7 @@ export const messages = {
   "provider.codeLogin.pageOpening": "正在 {host} 上打开 {name} 登录页面…",
   "provider.codeLogin.linkStep": "登录 {name}，OpenOwnBot 会自动继续。",
 
-  // A provider that only the OpenBot app can sign in, from a browser tab.
+  // A provider that only the OpenOwnBot app can sign in, from a browser tab.
   "provider.useApp.title": "在 OpenOwnBot 应用中连接 {name}",
   "provider.useApp.description":
     "{name} 的登录结果会返回发起登录的电脑，浏览器标签页无法接收。请在 OpenOwnBot 应用中连接 {name}，应用会自动完成登录。",

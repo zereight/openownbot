@@ -102,11 +102,11 @@ rule, adapted to its cursor pagination.
   Storybook story `Web/Workspace/LongConversation` (`src/renderer/stories/WebWorkspace.stories.tsx:46`).
   It seeds 160 messages (`SEEDED_MESSAGES`) into the first agent, user messages
   read `Question <index>: ...`, counts host calls in `calls`, and installs
-  `globalThis.openbotWebBench` with `ready`, `calls`, `resetCalls`, `idle` and `stream`.
+  `globalThis.openownbotWebBench` with `ready`, `calls`, `resetCalls`, `idle` and `stream`.
 - `scripts/web-client-perf-e2e.ts` — `bun run perf:web`. Its runtime phase
   (lines 349-436) opens the story at
   `${storybook}/iframe.html?id=web-workspace--long-conversation&viewMode=story`
-  with `playwright-core`, waits for `globalThis.openbotWebBench`, and reads calls.
+  with `playwright-core`, waits for `globalThis.openownbotWebBench`, and reads calls.
   Copy its browser setup for the new script.
 - Store rules (`src/renderer/AGENTS.md`): stores hold plain values; never put a
   `Map` or `Set` in a store.
@@ -159,9 +159,9 @@ Do not run `bun run typecheck`, `check:ui` in full, builds or full suites.
    proves, and `bun scripts/web-client-conversation-trim-e2e.ts --storybook=<url>`.
    Copy the Chromium launch and the story open from `web-client-perf-e2e.ts`.
    Steps of the script:
-   - Open the story; wait for `openbotWebBench.ready` and for the text `Question 158:`.
+   - Open the story; wait for `openownbotWebBench.ready` and for the text `Question 158:`.
    - Scroll the conversation to the top until `Question 0:` is visible (use
-     `page.mouse.wheel(0, -4000)` in a loop with `openbotWebBench.idle()` between,
+     `page.mouse.wheel(0, -4000)` in a loop with `openownbotWebBench.idle()` between,
      and a limit of 40 rounds). Record `conversationOlder` (expect 3 or more).
    - Click the other agent by `agentNames.other` in the sidebar, `idle()`, then
      click back to `agentNames.open`, `idle()`, and wait for `Question 158:`.
@@ -170,7 +170,7 @@ Do not run `bun run typecheck`, `check:ui` in full, builds or full suites.
      were released and read again); (b) `Question 0:` is visible at the end (the
      history is complete, no gap); (c) `Question 100:` is visible during the second
      scroll (a middle page loads).
-   - Write `.openbot-build/web-client-conversation-trim-e2e/report.json` with
+   - Write `.openownbot-build/web-client-conversation-trim-e2e/report.json` with
      `{ passed, checks }` and exit non-zero on a failure.
    Wait for state (`idle()`, `waitFor` on text), never for a fixed time.
 

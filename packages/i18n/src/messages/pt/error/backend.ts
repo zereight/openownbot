@@ -185,7 +185,7 @@ export const messages = {
   "error.backend.routineFlowCycle": "Esta conexão criaria um loop.",
   "error.backend.routineFlowLinkLimit": "Uma rotina pode ter no máximo {limit} conexões.",
   "error.backend.agentWaitLimit":
-    "Este agente já tem {count} esperas abertas. Feche uma espera com openbot.close_wait antes de abrir outra.",
+    "Este agente já tem {count} esperas abertas. Feche uma espera com openownbot.close_wait antes de abrir outra.",
   "error.backend.agentWaitGone": "Esta espera não está aberta. O agente a fechou ou alguém a cancelou.",
   "error.backend.agentWaitNoRequest": "Uma espera precisa de uma mensagem para continuar. Este turno não tem mensagem.",
   "error.backend.agentWaitOwnChatOnly":
@@ -193,7 +193,7 @@ export const messages = {
   "error.backend.agentWaitNoteRequired": "Escreva uma nota curta que diga para que serve a espera.",
   "error.backend.agentWaitRoutineGone": "Este agente não tem nenhuma rotina com este id.",
   "error.backend.agentWaitNoRoutine":
-    "Somente uma execução de uma das suas rotinas desperta uma espera, e você não tem nenhuma rotina. Crie uma com openbot.create_routine e depois abra a espera.",
+    "Somente uma execução de uma das suas rotinas desperta uma espera, e você não tem nenhuma rotina. Crie uma com openownbot.create_routine e depois abra a espera.",
   "error.backend.agentWaitRemoteUnsupported": "As esperas abertas só estão disponíveis para agentes neste computador.",
   "error.backend.routineFlowHandoffFailed": "A rotina não conseguiu passar o trabalho para este agente.",
   "error.backend.mcpServerLimit": "O OpenOwnBot mantém até {limit} servidores MCP.",

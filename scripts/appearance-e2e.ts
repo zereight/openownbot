@@ -5,16 +5,20 @@
 // On macOS it then turns on Transparent window: the page background is clear, and while it is on,
 // `prefers-color-scheme` follows Light and Dark, because the blur takes its shade from it. It captures
 // the window with the blur, then turns the switch off and checks that the window is solid again.
-// Restores the saved preference at the end. Writes .openbot-build/appearance/report.json and Settings and
+// Restores the saved preference at the end. Writes .openownbot-build/appearance/report.json and Settings and
 // workspace screenshots per theme. Needs `--allow-mutations`, because it changes the theme setting.
 import assert from "node:assert/strict";
 import { execFileSync } from "node:child_process";
 import { mkdirSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
-import { type AppAppearance, type AppAppearancePreference, isAppAppearance } from "@openbot/contracts/app-appearance";
-import type { OpenBotDesktopApi } from "@openbot/contracts/ipc";
-import { en } from "@openbot/i18n";
-import { createOpenBotLogger } from "@openbot/logging";
+import {
+  type AppAppearance,
+  type AppAppearancePreference,
+  isAppAppearance,
+} from "@openownbot/contracts/app-appearance";
+import type { OpenOwnBotDesktopApi } from "@openownbot/contracts/ipc";
+import { en } from "@openownbot/i18n";
+import { createOpenOwnBotLogger } from "@openownbot/logging";
 import type { Page } from "playwright-core";
 import { assertMutationAllowed, connectToDevApp } from "./dev-automation/cdp-client";
 import { readDevInstanceRecords } from "./dev-automation/instance-registry";
@@ -22,11 +26,11 @@ import { readDevInstanceRecords } from "./dev-automation/instance-registry";
 // The page functions below run in the app window, where the preload bridge sets this.
 declare global {
   interface Window {
-    openbot: OpenBotDesktopApi;
+    openownbot: OpenOwnBotDesktopApi;
   }
 }
 
-const OUT = resolve(import.meta.dirname, "../.openbot-build/appearance");
+const OUT = resolve(import.meta.dirname, "../.openownbot-build/appearance");
 // The canvas of each palette, as tokens.css and tokens-light.css give it.
 const CANVAS = { dark: "#1a1a1a", light: "#f5f5f6" } as const;
 const LABEL = {
@@ -47,14 +51,14 @@ assertMutationAllowed({
   instanceNamed: true,
   target: instance.instanceId,
 });
-const logger = createOpenBotLogger("appearance-e2e");
+const logger = createOpenOwnBotLogger("appearance-e2e");
 const session = await connectToDevApp(instance.remoteDebuggingPort, logger, {
   expectedRendererPort: instance.rendererPort,
   ownerPid: instance.pid,
 });
 
 async function savedPreference(page: Page): Promise<AppAppearancePreference> {
-  const preference = await page.evaluate(() => window.openbot.getAppAppearancePreference());
+  const preference = await page.evaluate(() => window.openownbot.getAppAppearancePreference());
   assert.ok(isAppAppearance(preference.appearance));
   return preference;
 }
@@ -89,7 +93,7 @@ async function chooseAppearance(page: Page, next: AppAppearance) {
   await themeButton(page).click();
   await page.getByRole("option", { name: LABEL[next], exact: true }).click();
   await page.waitForFunction(
-    async (expected) => (await window.openbot.getAppAppearancePreference()).appearance === expected,
+    async (expected) => (await window.openownbot.getAppAppearancePreference()).appearance === expected,
     next,
   );
 }
@@ -101,11 +105,11 @@ async function chooseTransparentWindow(page: Page, next: boolean) {
   if ((await toggle.isChecked()) !== next)
     await page.getByText(en["settings.appearance.transparentWindow.title"], { exact: true }).click();
   await page.waitForFunction(
-    async (expected) => (await window.openbot.getAppAppearancePreference()).transparentWindow === expected,
+    async (expected) => (await window.openownbot.getAppAppearancePreference()).transparentWindow === expected,
     next,
   );
   await page.waitForFunction(
-    (expected) => document.documentElement.hasAttribute("data-openbot-window-glass") === expected,
+    (expected) => document.documentElement.hasAttribute("data-openownbot-window-glass") === expected,
     next,
   );
 }
@@ -124,8 +128,8 @@ function shownPalette(page: Page) {
     const root = document.documentElement;
     const style = getComputedStyle(root);
     return {
-      attribute: root.dataset.openbotColorScheme ?? null,
-      canvas: style.getPropertyValue("--openbot-bg-canvas").trim(),
+      attribute: root.dataset.openownbotColorScheme ?? null,
+      canvas: style.getPropertyValue("--openownbot-bg-canvas").trim(),
       colorScheme: style.colorScheme,
       bodyBackground: getComputedStyle(document.body).backgroundColor,
       systemLight: matchMedia("(prefers-color-scheme: light)").matches,
@@ -134,7 +138,7 @@ function shownPalette(page: Page) {
 }
 
 async function waitForScheme(page: Page, scheme: "light" | "dark") {
-  await page.waitForFunction((expected) => document.documentElement.dataset.openbotColorScheme === expected, scheme);
+  await page.waitForFunction((expected) => document.documentElement.dataset.openownbotColorScheme === expected, scheme);
   const shown = await shownPalette(page);
   assert.equal(shown.canvas, CANVAS[scheme], `The canvas token is not the ${scheme} canvas.`);
   assert.equal(shown.colorScheme, scheme, `The root color-scheme is not ${scheme}.`);
@@ -156,7 +160,7 @@ const glass = [];
 try {
   // Transparent window changes `prefers-color-scheme`, so the theme checks start with it off.
   if (original.transparentWindow)
-    await page.evaluate(() => window.openbot.setAppAppearancePreference({ transparentWindow: false }));
+    await page.evaluate(() => window.openownbot.setAppAppearancePreference({ transparentWindow: false }));
   for (const appearance of ["light", "dark"] as const) {
     await chooseAppearance(page, appearance);
     const shown = await waitForScheme(page, appearance);
@@ -182,7 +186,7 @@ try {
   }
   await page.emulateMedia({ colorScheme: null });
 
-  const { platform } = await page.evaluate(() => window.openbot.getAppInfo());
+  const { platform } = await page.evaluate(() => window.openownbot.getAppInfo());
   if (platform === "darwin") {
     const computerLight = light?.shown.systemLight;
     for (const appearance of ["light", "dark"] as const) {
@@ -225,7 +229,7 @@ try {
   }
 } finally {
   await page.emulateMedia({ colorScheme: null });
-  await page.evaluate((preference) => window.openbot.setAppAppearancePreference(preference), original);
+  await page.evaluate((preference) => window.openownbot.setAppAppearancePreference(preference), original);
   writeFileSync(resolve(OUT, "report.json"), `${JSON.stringify({ original, results, glass }, null, 2)}\n`);
   await session.close();
 }

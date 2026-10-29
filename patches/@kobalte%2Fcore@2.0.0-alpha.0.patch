@@ -981,7 +981,7 @@ index fde40e7..f8ae7e0 100644
  	}, { preventDefault: false });
 -	onSettled(() => {
 -		if (!ref$1()) return;
-+	// OpenBot patch: register the layer when the ref is set. Under Solid 2.0.0-rc.18 a dialog's
++	// OpenOwnBot patch: register the layer when the ref is set. Under Solid 2.0.0-rc.18 a dialog's
 +	// onSettled can run before its ref is set, so the layer was never added and Escape did nothing.
 +	createEffect(() => ({
 +		node: ref$1(),
@@ -1028,7 +1028,7 @@ index 725bd17..c9f9d4b 100644
  	}, { preventDefault: false });
 -	onSettled(() => {
 -		if (!ref()) return;
-+	// OpenBot patch: register the layer when the ref is set. Under Solid 2.0.0-rc.18 a dialog's
++	// OpenOwnBot patch: register the layer when the ref is set. Under Solid 2.0.0-rc.18 a dialog's
 +	// onSettled can run before its ref is set, so the layer was never added and Escape did nothing.
 +	createEffect(() => ({
 +		node: ref(),

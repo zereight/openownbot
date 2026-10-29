@@ -49,121 +49,121 @@
     {
       "slug": "change-review",
       "category": "coding",
-      "source": "openbot",
+      "source": "openownbot",
       "featured": true
     },
     {
       "slug": "bug-triage",
       "category": "coding",
-      "source": "openbot",
+      "source": "openownbot",
       "featured": false
     },
     {
       "slug": "interface-critique",
       "category": "design",
-      "source": "openbot",
+      "source": "openownbot",
       "featured": false
     },
     {
       "slug": "evidence-brief",
       "category": "research",
-      "source": "openbot",
+      "source": "openownbot",
       "featured": true
     },
     {
       "slug": "competitor-comparison",
       "category": "research",
-      "source": "openbot",
+      "source": "openownbot",
       "featured": false
     },
     {
       "slug": "launch-notes",
       "category": "documents",
-      "source": "openbot",
+      "source": "openownbot",
       "featured": true
     },
     {
       "slug": "meeting-actions",
       "category": "productivity",
-      "source": "openbot",
+      "source": "openownbot",
       "featured": true
     },
     {
       "slug": "project-plan",
       "category": "productivity",
-      "source": "openbot",
+      "source": "openownbot",
       "featured": false
     },
     {
       "slug": "support-reply",
       "category": "documents",
-      "source": "openbot",
+      "source": "openownbot",
       "featured": false
     },
     {
       "slug": "account-brief",
       "category": "research",
-      "source": "openbot",
+      "source": "openownbot",
       "featured": false
     },
     {
       "slug": "outreach-draft",
       "category": "documents",
-      "source": "openbot",
+      "source": "openownbot",
       "featured": false
     },
     {
       "slug": "campaign-analysis",
       "category": "data-analytics",
-      "source": "openbot",
+      "source": "openownbot",
       "featured": false
     },
     {
       "slug": "data-quality-review",
       "category": "data-analytics",
-      "source": "openbot",
+      "source": "openownbot",
       "featured": false
     },
     {
       "slug": "workflow-playbook",
       "category": "automation",
-      "source": "openbot",
+      "source": "openownbot",
       "featured": false
     },
     {
       "slug": "hiring-scorecard",
       "category": "other",
-      "source": "openbot",
+      "source": "openownbot",
       "featured": false
     },
     {
       "slug": "agent-designer",
       "category": "automation",
-      "source": "openbot",
+      "source": "openownbot",
       "featured": false
     },
     {
       "slug": "eggbot-getting-started",
       "category": "automation",
-      "source": "openbot",
+      "source": "openownbot",
       "featured": false
     },
     {
       "slug": "routine-healthcheck",
       "category": "automation",
-      "source": "openbot",
+      "source": "openownbot",
       "featured": false
     },
     {
       "slug": "agent-chat-healthcheck",
       "category": "automation",
-      "source": "openbot",
+      "source": "openownbot",
       "featured": false
     },
     {
       "slug": "working-with-teammate-agents",
       "category": "automation",
-      "source": "openbot",
+      "source": "openownbot",
       "featured": false
     }
   ],
@@ -330,7 +330,7 @@
       "name": "Dr. Eggbot",
       "title": "Designs focused agents, skills and routines",
       "category": "automation",
-      "description": "You are Dr. Eggbot. Your one job: design high-quality OpenBot agents. Ask a few preference questions, then create the agent with create_agent and verify it with read_agent. Coding agents get the pstack poteto-mode bar: one job, unslopped, verified (laziness, subtract before add, experience first, prove it works). Non-coding agents get the same tightness: one job, one voice, explicit anti-jobs (a mentions scout does not post, a drafter does not send), no leftover tools, and quiet when there is nothing to say. The design rubric is in the Agent Designer skill. On the first real conversation, use Eggbot Getting Started once. pstack is installed with you. Two standing healthchecks are installed paused: transcript-healthcheck (weekday mornings, friction scan, Agent Chat Healthcheck skill) and routine-healthcheck (Monday mornings, routine waste audit, Routine Healthcheck skill). Both stay quiet when there is nothing to propose. Do not create skills, agents or routines from a report until the user picks. Do not change another agent's routines unless the user says to. When an agent you create stages its own public template, its template description must be the full live persona, not a one-line summary. Voice: casual, a little mad-scientist, short lowercase. Bias to act once the job is clear. Do not default to shareable templates.",
+      "description": "You are Dr. Eggbot. Your one job: design high-quality OpenOwnBot agents. Ask a few preference questions, then create the agent with create_agent and verify it with read_agent. Coding agents get the pstack poteto-mode bar: one job, unslopped, verified (laziness, subtract before add, experience first, prove it works). Non-coding agents get the same tightness: one job, one voice, explicit anti-jobs (a mentions scout does not post, a drafter does not send), no leftover tools, and quiet when there is nothing to say. The design rubric is in the Agent Designer skill. On the first real conversation, use Eggbot Getting Started once. pstack is installed with you. Two standing healthchecks are installed paused: transcript-healthcheck (weekday mornings, friction scan, Agent Chat Healthcheck skill) and routine-healthcheck (Monday mornings, routine waste audit, Routine Healthcheck skill). Both stay quiet when there is nothing to propose. Do not create skills, agents or routines from a report until the user picks. Do not change another agent's routines unless the user says to. When an agent you create stages its own public template, its template description must be the full live persona, not a one-line summary. Voice: casual, a little mad-scientist, short lowercase. Bias to act once the job is clear. Do not default to shareable templates.",
       "avatarHue": 55,
       "skills": [
         "agent-designer",

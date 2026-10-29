@@ -10,7 +10,7 @@
 //   4. read_agent shows the backup model, and the model to go back to with the provider error as cause.
 //   5. After a restart, the agent goes back to its own model, with a note.
 // Also checks continuation after a usage limit interrupts partial work.
-// `bun run test:backup-model-failover`. Writes .openbot-build/backup-model-failover-e2e/report.json.
+// `bun run test:backup-model-failover`. Writes .openownbot-build/backup-model-failover-e2e/report.json.
 import assert from "node:assert/strict";
 import { randomUUID } from "node:crypto";
 import { EventEmitter } from "node:events";
@@ -25,9 +25,9 @@ import {
   type AgentModelId,
   defaultProviderModel,
   MODEL_SWITCH_ITEM_TYPES,
-} from "@openbot/contracts/ipc";
-import { isDynamicRecord } from "@openbot/contracts/runtime-values";
-import { sourceText } from "@openbot/i18n/source";
+} from "@openownbot/contracts/ipc";
+import { isDynamicRecord } from "@openownbot/contracts/runtime-values";
+import { sourceText } from "@openownbot/i18n/source";
 import { Effect } from "effect";
 import type { AgentBrowserHost } from "../src/backend/agent/turn-lifecycle";
 import type { AgentClient, DiagnosticOrigin } from "../src/backend/agent-client";
@@ -36,8 +36,8 @@ import type { AppServerNotification, AppServerRequest, RequestId, ResponseDecode
 import { providerSync } from "../src/backend/provider-client-effects";
 import type { ReadProviderHistory } from "../src/backend/provider-history";
 
-const OUT = resolve(import.meta.dirname, "../.openbot-build/backup-model-failover-e2e");
-const root = await mkdtemp(join(tmpdir(), "openbot-backup-model-failover-"));
+const OUT = resolve(import.meta.dirname, "../.openownbot-build/backup-model-failover-e2e");
+const root = await mkdtemp(join(tmpdir(), "openownbot-backup-model-failover-"));
 const userData = join(root, "user-data");
 const home = join(root, "home");
 const turnLog = join(root, "claude-turns.jsonl");
@@ -55,9 +55,9 @@ const PROVIDER_ERROR =
 
 // Before the service modules load: the stores and the CLI search read these.
 process.env.HOME = home;
-process.env.OPENBOT_CLAUDE_PATH = claudeExecutable;
+process.env.OPENOWNBOT_CLAUDE_PATH = claudeExecutable;
 process.env.CLAUDE_CONFIG_DIR = join(home, ".claude");
-process.env.OPENBOT_CODEX_PATH = codexExecutable;
+process.env.OPENOWNBOT_CODEX_PATH = codexExecutable;
 process.env.CODEX_HOME = join(home, ".codex");
 mkdirSync(home, { recursive: true });
 
@@ -67,7 +67,7 @@ const { ClaudeAgentClient } = await import("../src/backend/claude-client");
 const { CodexAppServerClient } = await import("../src/backend/app-server-client");
 const { runCauseEffect } = await import("../src/backend/effect-boundary");
 const { MailboxStore } = await import("../src/backend/mailbox-store");
-const { OpenBotDatabase } = await import("../src/backend/openbot-database");
+const { OpenOwnBotDatabase } = await import("../src/backend/openownbot-database");
 const { importProviderHistory } = await import("../src/backend/provider-history-import");
 
 // The stand-in for the Claude CLI. It speaks enough of the stream-json protocol for a turn to end,
@@ -427,7 +427,7 @@ interface CodexTurn {
 await writeFile(claudeExecutable, STAND_IN_CLAUDE, { mode: 0o755 });
 await writeFile(codexExecutable, STAND_IN_CODEX, { mode: 0o755 });
 failing([]);
-const database = new OpenBotDatabase(userData);
+const database = new OpenOwnBotDatabase(userData);
 const clients: ClaudeStandIn[] = [];
 const events: AgentEvent[] = [];
 
@@ -488,7 +488,7 @@ async function markers(agentId: string, itemType: string) {
   return snapshot.messages.filter((message) => message.itemType === itemType).map((message) => message.text);
 }
 
-/** Calls an OpenBot tool from the thread of the last turn, as its provider would, and returns the answer. */
+/** Calls an OpenOwnBot tool from the thread of the last turn, as its provider would, and returns the answer. */
 let toolCalls = 0;
 async function callTool(tool: string, args: unknown) {
   const client = clients.at(-1);
@@ -499,7 +499,7 @@ async function callTool(tool: string, args: unknown) {
   client.emit("request", {
     id,
     method: "item/tool/call",
-    params: { threadId: thread, turnId: "e2e-turn", callId: id, namespace: "openbot", tool, arguments: args },
+    params: { threadId: thread, turnId: "e2e-turn", callId: id, namespace: "openownbot", tool, arguments: args },
   });
   const answer = await waitFor(`${tool} to answer`, () => client.toolAnswers.get(id));
   assert.ok(isDynamicRecord(answer) && Array.isArray(answer.contentItems), `${tool} answers with content.`);

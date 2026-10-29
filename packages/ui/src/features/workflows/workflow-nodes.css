@@ -7,32 +7,32 @@
  */
 
 :where(.wfn-stage, .wfn-menu, .wfn-popover) {
-  --wfn-card: var(--openbot-bg-canvas);
-  --wfn-field: var(--openbot-bg-surface-raised);
-  --wfn-ring: color-mix(in srgb, var(--openbot-text-primary) 6%, transparent);
-  --wfn-ring-strong: color-mix(in srgb, var(--openbot-text-primary) 10%, transparent);
-  --wfn-hover: color-mix(in srgb, var(--openbot-text-primary) 6%, transparent);
-  --wfn-port: color-mix(in srgb, var(--openbot-text-primary) 10%, var(--openbot-bg-canvas));
-  --wfn-glass: color-mix(in srgb, var(--openbot-bg-surface-raised) 75%, transparent);
+  --wfn-card: var(--openownbot-bg-canvas);
+  --wfn-field: var(--openownbot-bg-surface-raised);
+  --wfn-ring: color-mix(in srgb, var(--openownbot-text-primary) 6%, transparent);
+  --wfn-ring-strong: color-mix(in srgb, var(--openownbot-text-primary) 10%, transparent);
+  --wfn-hover: color-mix(in srgb, var(--openownbot-text-primary) 6%, transparent);
+  --wfn-port: color-mix(in srgb, var(--openownbot-text-primary) 10%, var(--openownbot-bg-canvas));
+  --wfn-glass: color-mix(in srgb, var(--openownbot-bg-surface-raised) 75%, transparent);
   --wfn-glass-blur: blur(40px) saturate(1.4);
-  --wfn-radius-card: calc(var(--openbot-radius-lg) + var(--openbot-space-1));
-  --wfn-small: calc(var(--openbot-text-sm) - 1px);
+  --wfn-radius-card: calc(var(--openownbot-radius-lg) + var(--openownbot-space-1));
+  --wfn-small: calc(var(--openownbot-text-sm) - 1px);
   /* Ten pixels: one step over the control radius, so a row sits concentric in its menu. */
-  --wfn-radius-row: calc(var(--openbot-radius-sm) + var(--openbot-space-1));
-  --wfn-radius-run: calc(var(--openbot-radius-md) + 2px);
+  --wfn-radius-row: calc(var(--openownbot-radius-sm) + var(--openownbot-space-1));
+  --wfn-radius-run: calc(var(--openownbot-radius-md) + 2px);
   /* The Title size: 40px, one step over the display size. */
-  --wfn-text-title: calc(var(--openbot-text-display) * 1.25);
+  --wfn-text-title: calc(var(--openownbot-text-display) * 1.25);
   /* Focus is a neutral 1px ring, not the accent halo of the shared token. */
-  --openbot-focus-ring: 0 0 0 1px var(--openbot-text-muted);
+  --openownbot-focus-ring: 0 0 0 1px var(--openownbot-text-muted);
 }
 
 /*
  * The light palette puts a raised surface only a little above the canvas, so a field on a card
  * almost disappears. There the card is the light surface, and a field is one step darker.
  */
-:root[data-openbot-color-scheme="light"] :where(.wfn-stage, .wfn-menu, .wfn-popover) {
-  --wfn-card: var(--openbot-bg-surface);
-  --wfn-field: var(--openbot-bg-control-hover);
+:root[data-openownbot-color-scheme="light"] :where(.wfn-stage, .wfn-menu, .wfn-popover) {
+  --wfn-card: var(--openownbot-bg-surface);
+  --wfn-field: var(--openownbot-bg-control-hover);
 }
 
 /* ---------------------------------------------------------------- Node */
@@ -40,9 +40,9 @@
 .wfn-node {
   position: relative;
   display: grid;
-  gap: var(--openbot-space-1-5);
+  gap: var(--openownbot-space-1-5);
   width: var(--wfn-width);
-  transition: width var(--openbot-duration-slow) var(--openbot-ease-out);
+  transition: width var(--openownbot-duration-slow) var(--openownbot-ease-out);
 }
 
 .wfn-node[data-kind="prompt"] {
@@ -65,31 +65,31 @@
 
 .wfn-label {
   display: flex;
-  gap: var(--openbot-space-1);
+  gap: var(--openownbot-space-1);
   align-items: center;
-  color: var(--openbot-text-muted);
+  color: var(--openownbot-text-muted);
   font-size: var(--wfn-small);
-  font-weight: var(--openbot-weight-semibold);
-  line-height: var(--openbot-leading-sm);
+  font-weight: var(--openownbot-weight-semibold);
+  line-height: var(--openownbot-leading-sm);
   user-select: none;
 }
 
 .wfn-label svg {
-  width: var(--openbot-icon-xs);
-  height: var(--openbot-icon-xs);
+  width: var(--openownbot-icon-xs);
+  height: var(--openownbot-icon-xs);
 }
 
 .wfn-card {
   position: relative;
   display: grid;
-  gap: var(--openbot-space-2);
+  gap: var(--openownbot-space-2);
   align-content: start;
   min-height: var(--wfn-height, auto);
-  padding: var(--openbot-space-2);
+  padding: var(--openownbot-space-2);
   border-radius: var(--wfn-radius-card);
   background: var(--wfn-card);
   box-shadow: 0 0 0 1px var(--wfn-ring);
-  transition: box-shadow var(--openbot-duration-hover) var(--openbot-ease-out);
+  transition: box-shadow var(--openownbot-duration-hover) var(--openownbot-ease-out);
 }
 
 .wfn-card[data-media] {
@@ -102,11 +102,11 @@
 
 .wfn-field {
   display: grid;
-  gap: var(--openbot-space-2);
-  padding: var(--openbot-space-3);
-  border-radius: var(--openbot-radius-md);
+  gap: var(--openownbot-space-2);
+  padding: var(--openownbot-space-3);
+  border-radius: var(--openownbot-radius-md);
   background: var(--wfn-field);
-  transition: box-shadow var(--openbot-duration-hover) var(--openbot-ease-out);
+  transition: box-shadow var(--openownbot-duration-hover) var(--openownbot-ease-out);
 }
 
 .wfn-field:focus-within {
@@ -114,7 +114,7 @@
 }
 
 .wfn-field-fill {
-  min-height: calc(var(--wfn-height) - var(--openbot-space-4));
+  min-height: calc(var(--wfn-height) - var(--openownbot-space-4));
 }
 
 .wfn-field-task {
@@ -129,16 +129,16 @@
   border-radius: 0;
   background: transparent;
   box-shadow: none;
-  color: var(--openbot-text-primary);
-  font-size: var(--openbot-text-sm);
-  line-height: var(--openbot-leading-sm);
+  color: var(--openownbot-text-primary);
+  font-size: var(--openownbot-text-sm);
+  line-height: var(--openownbot-leading-sm);
   resize: none;
   field-sizing: content;
 }
 
 .wfn-stage .wfn-input::placeholder,
 .wfn-stage .wfn-text-input::placeholder {
-  color: var(--openbot-text-muted);
+  color: var(--openownbot-text-muted);
 }
 
 /* The field box shows the focus, so the shared accent outline goes. */
@@ -153,7 +153,7 @@
 
 .wfn-field-foot {
   display: flex;
-  gap: var(--openbot-space-2);
+  gap: var(--openownbot-space-2);
   align-items: center;
   justify-content: space-between;
   min-width: 0;
@@ -163,53 +163,53 @@
   max-height: 120px;
   margin: 0;
   overflow-y: auto;
-  color: var(--openbot-text-secondary);
-  font-size: var(--openbot-text-sm);
-  line-height: var(--openbot-leading-sm);
+  color: var(--openownbot-text-secondary);
+  font-size: var(--openownbot-text-sm);
+  line-height: var(--openownbot-leading-sm);
 }
 
 /* Why a failed run stopped, in place of its result. The Failed mark and the results carry the colour. */
 .wfn-field-result p[data-failed] {
-  color: var(--openbot-text-muted);
+  color: var(--openownbot-text-muted);
 }
 
 .wfn-field-head {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: calc(var(--openbot-space-1) * -1) 0;
-  color: var(--openbot-text-muted);
+  margin: calc(var(--openownbot-space-1) * -1) 0;
+  color: var(--openownbot-text-muted);
   font-size: var(--wfn-small);
-  font-weight: var(--openbot-weight-semibold);
+  font-weight: var(--openownbot-weight-semibold);
 }
 
 /* A pill in a field: an agent, a model. Flat until hover, as the Higgsfield model button. */
 .wfn-stage .wfn-pill {
-  gap: var(--openbot-space-1-5);
+  gap: var(--openownbot-space-1-5);
   min-width: 0;
   height: 20px;
-  padding: 0 var(--openbot-space-1);
+  padding: 0 var(--openownbot-space-1);
   border: 0;
-  border-radius: var(--openbot-radius-pill);
+  border-radius: var(--openownbot-radius-pill);
   background: transparent;
-  color: var(--openbot-text-primary);
-  font-size: var(--openbot-text-sm);
-  font-weight: var(--openbot-weight-medium);
+  color: var(--openownbot-text-primary);
+  font-size: var(--openownbot-text-sm);
+  font-weight: var(--openownbot-weight-medium);
 }
 
 .wfn-stage .wfn-field-foot .provider-model-trigger {
-  gap: var(--openbot-space-1);
+  gap: var(--openownbot-space-1);
   height: 20px;
-  padding: 0 var(--openbot-space-1);
+  padding: 0 var(--openownbot-space-1);
   border: 0;
   background: transparent;
   box-shadow: none;
 }
 
 .wfn-stage .wfn-field-foot .provider-model-trigger-name {
-  font-size: var(--openbot-text-sm);
-  font-weight: var(--openbot-weight-medium);
-  line-height: var(--openbot-leading-sm);
+  font-size: var(--openownbot-text-sm);
+  font-weight: var(--openownbot-weight-medium);
+  line-height: var(--openownbot-leading-sm);
 }
 
 .wfn-stage .wfn-field-foot .provider-model-trigger:is(:hover, [aria-expanded="true"]),
@@ -230,22 +230,22 @@
 
 /* A pill that shows what the step takes from its agent, such as an effort that the step does not hold. */
 .wfn-stage .wfn-pill[data-inherited] {
-  color: var(--openbot-text-muted);
+  color: var(--openownbot-text-muted);
 }
 
 .wfn-pill > svg {
-  width: var(--openbot-icon-xs);
-  height: var(--openbot-icon-xs);
-  color: var(--openbot-text-muted);
+  width: var(--openownbot-icon-xs);
+  height: var(--openownbot-icon-xs);
+  color: var(--openownbot-text-muted);
 }
 
 /* A provider logo is a filled mark, so it overrides the outline paint of the menu icons. */
 .wfn-pill > svg.wfn-model-logo,
 .wfn-menu.ui-action-menu [role="menuitem"] > svg.wfn-model-logo {
   flex: none;
-  width: var(--openbot-icon-sm);
-  height: var(--openbot-icon-sm);
-  color: var(--openbot-text-primary);
+  width: var(--openownbot-icon-sm);
+  height: var(--openownbot-icon-sm);
+  color: var(--openownbot-text-primary);
   fill: currentcolor;
   stroke: none;
 }
@@ -259,9 +259,9 @@
 }
 
 .wfn-stage .wfn-run {
-  height: var(--openbot-control-lg);
+  height: var(--openownbot-control-lg);
   border-radius: var(--wfn-radius-run);
-  font-weight: var(--openbot-weight-semibold);
+  font-weight: var(--openownbot-weight-semibold);
 }
 
 /* --------------------------------------------------------------- Ports */
@@ -275,11 +275,11 @@
 }
 
 .wfn-ports[data-side="in"] {
-  right: calc(100% + var(--openbot-space-3));
+  right: calc(100% + var(--openownbot-space-3));
 }
 
 .wfn-ports[data-side="out"] {
-  left: calc(100% + var(--openbot-space-3));
+  left: calc(100% + var(--openownbot-space-3));
 }
 
 .wfn-port-slot {
@@ -288,22 +288,22 @@
 }
 
 .wfn-stage .wfn-port {
-  width: var(--openbot-control-sm);
-  height: var(--openbot-control-sm);
-  border-radius: var(--openbot-radius-pill);
+  width: var(--openownbot-control-sm);
+  height: var(--openownbot-control-sm);
+  border-radius: var(--openownbot-radius-pill);
   background: var(--wfn-port);
   box-shadow: 0 0 0 1px var(--wfn-ring);
-  color: var(--openbot-text-secondary);
+  color: var(--openownbot-text-secondary);
   opacity: 0;
   transition:
-    opacity var(--openbot-duration-fast) var(--openbot-ease-out),
-    scale var(--openbot-duration-fast) var(--openbot-ease-out),
-    background-color var(--openbot-duration-hover) var(--openbot-ease-out);
+    opacity var(--openownbot-duration-fast) var(--openownbot-ease-out),
+    scale var(--openownbot-duration-fast) var(--openownbot-ease-out),
+    background-color var(--openownbot-duration-hover) var(--openownbot-ease-out);
 }
 
 .wfn-port svg {
-  width: var(--openbot-icon-sm);
-  height: var(--openbot-icon-sm);
+  width: var(--openownbot-icon-sm);
+  height: var(--openownbot-icon-sm);
 }
 
 .wfn-node:is(:hover, :focus-within, [data-selected]) .wfn-port {
@@ -311,8 +311,8 @@
 }
 
 .wfn-stage .wfn-port:hover {
-  background: var(--openbot-text-primary);
-  color: var(--openbot-bg-canvas);
+  background: var(--openownbot-text-primary);
+  color: var(--openownbot-bg-canvas);
 }
 
 /*
@@ -323,28 +323,28 @@
 .wfn-port-chip {
   position: absolute;
   top: 50%;
-  padding: calc((1lh - 1cap) / 2 + 2px) var(--openbot-space-2);
+  padding: calc((1lh - 1cap) / 2 + 2px) var(--openownbot-space-2);
   text-box: trim-both cap alphabetic;
-  border-radius: var(--openbot-radius-sm);
+  border-radius: var(--openownbot-radius-sm);
   background: var(--wfn-card);
   box-shadow: 0 0 0 1px var(--wfn-ring-strong);
-  color: var(--openbot-text-primary);
-  font-size: var(--openbot-text-sm);
-  font-weight: var(--openbot-weight-medium);
-  line-height: var(--openbot-leading-sm);
+  color: var(--openownbot-text-primary);
+  font-size: var(--openownbot-text-sm);
+  font-weight: var(--openownbot-weight-medium);
+  line-height: var(--openownbot-leading-sm);
   white-space: nowrap;
   opacity: 0;
   pointer-events: none;
   translate: 0 -50%;
-  transition: opacity var(--openbot-duration-hover) var(--openbot-ease-out);
+  transition: opacity var(--openownbot-duration-hover) var(--openownbot-ease-out);
 }
 
 .wfn-port-slot[data-side="out"] .wfn-port-chip {
-  left: calc(100% + var(--openbot-space-2));
+  left: calc(100% + var(--openownbot-space-2));
 }
 
 .wfn-port-slot[data-side="in"] .wfn-port-chip {
-  right: calc(100% + var(--openbot-space-2));
+  right: calc(100% + var(--openownbot-space-2));
 }
 
 .wfn-port-slot:has(.wfn-port:is(:hover, :focus-visible)) .wfn-port-chip {
@@ -360,14 +360,14 @@
  */
 .wfn-toolbar {
   position: absolute;
-  bottom: calc(100% + var(--openbot-space-3) / var(--wfn-scale, 1));
+  bottom: calc(100% + var(--openownbot-space-3) / var(--wfn-scale, 1));
   left: round(50%, 1px);
   z-index: 2;
   display: flex;
-  gap: var(--openbot-space-0-5);
+  gap: var(--openownbot-space-0-5);
   align-items: center;
-  padding: var(--openbot-space-1);
-  border-radius: var(--openbot-radius-pill);
+  padding: var(--openownbot-space-1);
+  border-radius: var(--openownbot-radius-pill);
   white-space: nowrap;
   background: var(--wfn-glass);
   box-shadow: 0 0 0 1px var(--wfn-ring-strong);
@@ -383,48 +383,48 @@
  * results strip when the node shows one: 8px gap, 52px strip, 8px gap, as the canvas measures it.
  */
 .wfn-toolbar[data-side="below"] {
-  top: calc(100% + var(--openbot-space-3) / var(--wfn-scale, 1));
+  top: calc(100% + var(--openownbot-space-3) / var(--wfn-scale, 1));
   bottom: auto;
   transform-origin: top center;
 }
 
 .wfn-toolbar[data-side="below"][data-strip] {
-  top: calc(100% + (8px + 52px + var(--openbot-space-2)) / var(--wfn-scale, 1));
+  top: calc(100% + (8px + 52px + var(--openownbot-space-2)) / var(--wfn-scale, 1));
 }
 
 /* The fill shows the focus, as the hover does, so the toolbar has no focus ring. */
 .wfn-stage .wfn-toolbar :is(.ui-button, .wfn-toolbar-select) {
-  border-radius: var(--openbot-radius-pill);
+  border-radius: var(--openownbot-radius-pill);
   box-shadow: none;
-  color: var(--openbot-text-secondary);
+  color: var(--openownbot-text-secondary);
 }
 
 .wfn-stage .wfn-toolbar :is(.ui-button, .wfn-toolbar-select):is(:hover, :focus-visible, [aria-pressed="true"]) {
   background: var(--wfn-hover);
-  color: var(--openbot-text-primary);
+  color: var(--openownbot-text-primary);
 }
 
 .wfn-stage .wfn-toolbar .wfn-tool-action {
-  width: var(--openbot-control-md);
-  height: var(--openbot-control-md);
+  width: var(--openownbot-control-md);
+  height: var(--openownbot-control-md);
   padding: 0;
 }
 
 .wfn-stage .wfn-toolbar .wfn-tool-action svg {
-  width: var(--openbot-icon-md);
-  height: var(--openbot-icon-md);
+  width: var(--openownbot-icon-md);
+  height: var(--openownbot-icon-md);
 }
 
 /* Delete takes the danger colour under the pointer or the focus, as are the nodes and the lines that it removes. */
 .wfn-stage .wfn-toolbar .wfn-tool-action[data-tone="danger"]:is(:hover, :focus-visible) {
-  background: color-mix(in srgb, var(--openbot-danger) 16%, transparent);
-  color: var(--openbot-danger-text);
+  background: color-mix(in srgb, var(--openownbot-danger) 16%, transparent);
+  color: var(--openownbot-danger-text);
 }
 
 .wfn-toolbar-separator {
   width: 1px;
   height: 16px;
-  margin: 0 var(--openbot-space-1);
+  margin: 0 var(--openownbot-space-1);
   background: var(--wfn-ring-strong);
 }
 
@@ -434,16 +434,16 @@
 }
 
 .wfn-stage .wfn-toolbar-select {
-  gap: var(--openbot-space-1);
-  height: var(--openbot-control-md);
-  padding-inline: var(--openbot-space-2);
-  font-size: var(--openbot-text-sm);
+  gap: var(--openownbot-space-1);
+  height: var(--openownbot-control-md);
+  padding-inline: var(--openownbot-space-2);
+  font-size: var(--openownbot-text-sm);
 }
 
 .wfn-toolbar-select svg {
-  width: var(--openbot-icon-xs);
-  height: var(--openbot-icon-xs);
-  color: var(--openbot-text-muted);
+  width: var(--openownbot-icon-xs);
+  height: var(--openownbot-icon-xs);
+  color: var(--openownbot-text-muted);
 }
 
 /* ---------------------------------------------------------------- Text */
@@ -455,34 +455,34 @@
 
 .wfn-stage .wfn-text-input {
   min-height: 0;
-  padding: var(--openbot-space-1) var(--openbot-space-1-5);
+  padding: var(--openownbot-space-1) var(--openownbot-space-1-5);
   border: 0;
-  border-radius: var(--openbot-radius-sm);
+  border-radius: var(--openownbot-radius-sm);
   background: transparent;
   box-shadow: none;
-  color: var(--wfn-text-ink, var(--openbot-text-primary));
-  font-size: var(--openbot-text-lg);
+  color: var(--wfn-text-ink, var(--openownbot-text-primary));
+  font-size: var(--openownbot-text-lg);
   line-height: 1.4;
   resize: none;
   field-sizing: content;
 }
 
 .wfn-stage .wfn-text-input[data-font="mono"] {
-  font-family: var(--openbot-font-mono);
+  font-family: var(--openownbot-font-mono);
 }
 
 .wfn-stage .wfn-text-input[data-text-size="lg"] {
-  font-size: var(--openbot-text-3xl);
-  letter-spacing: var(--openbot-tracking-tight);
+  font-size: var(--openownbot-text-3xl);
+  letter-spacing: var(--openownbot-tracking-tight);
 }
 
 .wfn-stage .wfn-text-input[data-text-size="xl"] {
   font-size: var(--wfn-text-title);
-  letter-spacing: var(--openbot-tracking-tight);
+  letter-spacing: var(--openownbot-tracking-tight);
 }
 
 .wfn-stage .wfn-text-input[data-bold] {
-  font-weight: var(--openbot-weight-bold);
+  font-weight: var(--openownbot-weight-bold);
 }
 
 .wfn-stage .wfn-text-input:focus-visible {
@@ -510,7 +510,7 @@
   display: grid;
   place-items: center;
   height: 100%;
-  color: color-mix(in srgb, var(--openbot-text-primary) 14%, transparent);
+  color: color-mix(in srgb, var(--openownbot-text-primary) 14%, transparent);
 }
 
 .wfn-media-empty svg {
@@ -529,14 +529,14 @@
   inset: auto 0 0;
   display: grid;
   grid-template-rows: auto minmax(0, 1fr);
-  gap: var(--openbot-space-1);
+  gap: var(--openownbot-space-1);
   max-height: 100%;
-  padding: var(--openbot-space-2);
+  padding: var(--openownbot-space-2);
   opacity: 0;
   translate: 0 4px;
   transition:
-    opacity var(--openbot-duration-normal) var(--openbot-ease-out),
-    translate var(--openbot-duration-normal) var(--openbot-ease-out);
+    opacity var(--openownbot-duration-normal) var(--openownbot-ease-out),
+    translate var(--openownbot-duration-normal) var(--openownbot-ease-out);
 }
 
 .wfn-node:is(:hover, :focus-within, [data-selected]) .wfn-overlay {
@@ -546,68 +546,68 @@
 
 .wfn-overlay-bar {
   display: flex;
-  gap: var(--openbot-space-1);
+  gap: var(--openownbot-space-1);
   align-items: center;
 }
 
 .wfn-stage .wfn-chip {
   display: inline-flex;
-  gap: var(--openbot-space-1);
+  gap: var(--openownbot-space-1);
   align-items: center;
-  height: var(--openbot-control-xs);
-  padding: 0 var(--openbot-space-1-5);
+  height: var(--openownbot-control-xs);
+  padding: 0 var(--openownbot-space-1-5);
   border: 0;
-  border-radius: var(--openbot-radius-sm);
+  border-radius: var(--openownbot-radius-sm);
   background: var(--wfn-glass);
   box-shadow: inset 0 0 0 1px var(--wfn-ring-strong);
-  color: var(--openbot-text-primary);
+  color: var(--openownbot-text-primary);
   font-size: var(--wfn-small);
-  font-weight: var(--openbot-weight-medium);
+  font-weight: var(--openownbot-weight-medium);
   backdrop-filter: var(--wfn-glass-blur);
   cursor: pointer;
 }
 
 .wfn-chip svg {
-  width: var(--openbot-icon-xs);
-  height: var(--openbot-icon-xs);
+  width: var(--openownbot-icon-xs);
+  height: var(--openownbot-icon-xs);
 }
 
 .wfn-stage .wfn-collapse {
   margin-left: auto;
-  border-radius: var(--openbot-radius-sm);
-  color: var(--openbot-text-primary);
+  border-radius: var(--openownbot-radius-sm);
+  color: var(--openownbot-text-primary);
 }
 
 .wfn-panel {
   display: grid;
   grid-template-rows: minmax(0, 1fr) auto;
-  gap: var(--openbot-space-2);
+  gap: var(--openownbot-space-2);
   min-height: 0;
   padding: 10px;
-  border-radius: var(--openbot-radius-md);
+  border-radius: var(--openownbot-radius-md);
   background: var(--wfn-glass);
   box-shadow: inset 0 0 0 1px var(--wfn-ring);
   backdrop-filter: var(--wfn-glass-blur);
 }
 
 .wfn-panel .wfn-input {
-  max-height: calc(var(--openbot-leading-sm) * 3);
+  max-height: calc(var(--openownbot-leading-sm) * 3);
   overflow-y: auto;
-  font-weight: var(--openbot-weight-medium);
+  font-weight: var(--openownbot-weight-medium);
   scrollbar-width: none;
 }
 
 .wfn-stage .wfn-run-pill {
-  gap: var(--openbot-space-1);
-  height: var(--openbot-control-xs);
-  padding: 0 10px 0 var(--openbot-space-1-5);
-  border-radius: var(--openbot-radius-pill);
-  font-size: var(--openbot-text-sm);
+  gap: var(--openownbot-space-1);
+  height: var(--openownbot-control-xs);
+  padding: 0 10px 0 var(--openownbot-space-1-5);
+  border-radius: var(--openownbot-radius-pill);
+  font-size: var(--openownbot-text-sm);
 }
 
 .wfn-run-pill svg {
-  width: var(--openbot-icon-xs);
-  height: var(--openbot-icon-xs);
+  width: var(--openownbot-icon-xs);
+  height: var(--openownbot-icon-xs);
 }
 
 /* The spinner takes the place of the play icon, so the pill keeps its width. */
@@ -623,7 +623,7 @@
   min-height: 120px;
   padding: 0;
   border: 0;
-  border-radius: var(--openbot-radius-md);
+  border-radius: var(--openownbot-radius-md);
   background: var(--wfn-field);
   color: inherit;
   font: inherit;
@@ -654,7 +654,7 @@
 
 .wfn-asset-trigger:focus-visible {
   outline: 0;
-  box-shadow: 0 0 0 1px var(--openbot-text-muted);
+  box-shadow: 0 0 0 1px var(--openownbot-text-muted);
 }
 
 /* A file from the computer over the card: the card takes the hover fill. */
@@ -664,12 +664,12 @@
 
 .wfn-asset-empty {
   display: grid;
-  gap: var(--openbot-space-2);
+  gap: var(--openownbot-space-2);
   place-content: center;
   justify-items: center;
-  color: var(--openbot-text-primary);
-  font-size: var(--openbot-text-sm);
-  font-weight: var(--openbot-weight-medium);
+  color: var(--openownbot-text-primary);
+  font-size: var(--openownbot-text-sm);
+  font-weight: var(--openownbot-weight-medium);
 }
 
 .wfn-asset-icon {
@@ -677,15 +677,15 @@
   place-items: center;
   width: 40px;
   height: 40px;
-  border-radius: var(--openbot-radius-pill);
+  border-radius: var(--openownbot-radius-pill);
   background: var(--wfn-hover);
   box-shadow: inset 0 0 0 1px var(--wfn-ring-strong);
-  transition: background-color var(--openbot-duration-hover) var(--openbot-ease-out);
+  transition: background-color var(--openownbot-duration-hover) var(--openownbot-ease-out);
 }
 
 .wfn-asset-icon svg {
-  width: var(--openbot-icon-md);
-  height: var(--openbot-icon-md);
+  width: var(--openownbot-icon-md);
+  height: var(--openownbot-icon-md);
 }
 
 .wfn-asset-trigger:is(:hover, [data-dropping]) .wfn-asset-icon {
@@ -694,9 +694,9 @@
 
 .wfn-asset-caption {
   position: absolute;
-  bottom: var(--openbot-space-2);
-  left: var(--openbot-space-2);
-  max-width: calc(100% - var(--openbot-space-4));
+  bottom: var(--openownbot-space-2);
+  left: var(--openownbot-space-2);
+  max-width: calc(100% - var(--openownbot-space-4));
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -704,10 +704,10 @@
 
 .wfn-asset-file {
   display: flex;
-  gap: var(--openbot-space-3);
+  gap: var(--openownbot-space-3);
   align-items: center;
   min-width: 0;
-  padding: var(--openbot-space-3);
+  padding: var(--openownbot-space-3);
   text-align: left;
 }
 
@@ -718,25 +718,25 @@
   place-items: center;
   width: 40px;
   height: 48px;
-  border-radius: var(--openbot-radius-sm);
+  border-radius: var(--openownbot-radius-sm);
   background: var(--wfn-hover);
   box-shadow: inset 0 0 0 1px var(--wfn-ring-strong);
-  color: var(--openbot-text-muted);
+  color: var(--openownbot-text-muted);
 }
 
 .wfn-asset-glyph svg {
-  width: var(--openbot-icon-md);
-  height: var(--openbot-icon-md);
+  width: var(--openownbot-icon-md);
+  height: var(--openownbot-icon-md);
   translate: 0 -4px;
 }
 
 .wfn-asset-glyph span {
   position: absolute;
-  bottom: var(--openbot-space-1);
-  color: var(--openbot-text-secondary);
-  font-size: var(--openbot-glyph-sm);
-  font-weight: var(--openbot-weight-bold);
-  letter-spacing: var(--openbot-tracking-wide);
+  bottom: var(--openownbot-space-1);
+  color: var(--openownbot-text-secondary);
+  font-size: var(--openownbot-glyph-sm);
+  font-weight: var(--openownbot-weight-bold);
+  letter-spacing: var(--openownbot-tracking-wide);
 }
 
 .wfn-asset-text {
@@ -746,17 +746,17 @@
 
 .wfn-asset-name {
   overflow: hidden;
-  font-size: var(--openbot-text-sm);
-  font-weight: var(--openbot-weight-medium);
-  line-height: var(--openbot-leading-sm);
+  font-size: var(--openownbot-text-sm);
+  font-weight: var(--openownbot-weight-medium);
+  line-height: var(--openownbot-leading-sm);
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
 .wfn-asset-meta {
-  color: var(--openbot-text-muted);
+  color: var(--openownbot-text-muted);
   font-size: var(--wfn-small);
-  line-height: var(--openbot-leading-sm);
+  line-height: var(--openownbot-leading-sm);
 }
 
 /* ------------------------------------------------------ Menus, library */
@@ -765,7 +765,7 @@
   --ui-menu-bg: var(--wfn-glass);
   --ui-menu-panel-shadow: 0 0 0 1px var(--wfn-ring-strong);
   --ui-menu-item-hover: var(--wfn-hover);
-  --ui-menu-radius: var(--openbot-radius-lg);
+  --ui-menu-radius: var(--openownbot-radius-lg);
 
   backdrop-filter: var(--wfn-glass-blur);
 }
@@ -783,7 +783,7 @@
   display: flex;
   flex-direction: column;
   min-width: 232px;
-  max-width: min(320px, calc(100vw - var(--openbot-space-4)));
+  max-width: min(320px, calc(100vw - var(--openownbot-space-4)));
   max-height: min(440px, var(--kb-popper-content-available-height, 440px));
   padding: 0;
 }
@@ -792,32 +792,32 @@
   display: flex;
   flex: none;
   align-items: center;
-  gap: var(--openbot-space-2);
-  padding: 0 var(--openbot-space-3);
+  gap: var(--openownbot-space-2);
+  padding: 0 var(--openownbot-space-3);
   border-bottom: 1px solid var(--wfn-ring-strong);
 }
 
 .wfn-picker.ui-action-menu .wfn-picker-search > svg {
   flex: none;
-  width: var(--openbot-icon-sm);
-  height: var(--openbot-icon-sm);
-  color: var(--openbot-text-muted);
+  width: var(--openownbot-icon-sm);
+  height: var(--openownbot-icon-sm);
+  color: var(--openownbot-text-muted);
 }
 
 .wfn-picker .wfn-picker-field {
   flex: 1;
   min-width: 0;
-  height: var(--openbot-control-lg);
+  height: var(--openownbot-control-lg);
   padding: 0;
   border: 0;
   background: transparent;
   box-shadow: none;
-  color: var(--openbot-text-primary);
-  font-size: var(--openbot-text-sm);
+  color: var(--openownbot-text-primary);
+  font-size: var(--openownbot-text-sm);
 }
 
 .wfn-picker .wfn-picker-field::placeholder {
-  color: var(--openbot-text-muted);
+  color: var(--openownbot-text-muted);
 }
 
 /* The divider under the field shows where typing goes, so the shared outline goes. */
@@ -827,13 +827,13 @@
 }
 
 .wfn-picker-search:has(.wfn-picker-field:focus-visible) {
-  border-bottom-color: var(--openbot-border-focus);
+  border-bottom-color: var(--openownbot-border-focus);
 }
 
 .wfn-picker-list {
   flex: 1 1 auto;
   min-height: 0;
-  padding: var(--openbot-space-1-5);
+  padding: var(--openownbot-space-1-5);
   overflow-y: auto;
   overscroll-behavior: contain;
   scrollbar-width: thin;
@@ -848,32 +848,32 @@ fieldset.wfn-picker-group {
 }
 
 .wfn-picker-group + .wfn-picker-group {
-  margin-top: var(--openbot-space-1-5);
+  margin-top: var(--openownbot-space-1-5);
 }
 
 .wfn-picker-heading {
   display: flex;
   align-items: center;
-  gap: var(--openbot-space-1-5);
-  padding: var(--openbot-space-1-5) var(--openbot-space-2) var(--openbot-space-1);
-  color: var(--openbot-text-muted);
+  gap: var(--openownbot-space-1-5);
+  padding: var(--openownbot-space-1-5) var(--openownbot-space-2) var(--openownbot-space-1);
+  color: var(--openownbot-text-muted);
   font-size: var(--wfn-small);
-  font-weight: var(--openbot-weight-medium);
-  line-height: var(--openbot-leading-sm);
+  font-weight: var(--openownbot-weight-medium);
+  line-height: var(--openownbot-leading-sm);
 }
 
 .wfn-picker.ui-action-menu .wfn-picker-heading > svg {
   flex: none;
-  width: var(--openbot-icon-xs);
-  height: var(--openbot-icon-xs);
+  width: var(--openownbot-icon-xs);
+  height: var(--openownbot-icon-xs);
   fill: currentcolor;
 }
 
 .wfn-picker.ui-action-menu .wfn-picker-row:is([role^="menuitem"]) {
   height: auto;
-  min-height: calc(var(--openbot-control-md) + var(--openbot-space-2));
-  gap: calc(var(--openbot-space-2) + var(--openbot-space-0-5));
-  padding: var(--openbot-space-1) var(--openbot-space-2) var(--openbot-space-1) var(--openbot-space-1);
+  min-height: calc(var(--openownbot-control-md) + var(--openownbot-space-2));
+  gap: calc(var(--openownbot-space-2) + var(--openownbot-space-0-5));
+  padding: var(--openownbot-space-1) var(--openownbot-space-2) var(--openownbot-space-1) var(--openownbot-space-1);
   border-radius: var(--wfn-radius-row);
   white-space: normal;
 }
@@ -892,14 +892,14 @@ fieldset.wfn-picker-group {
   display: grid;
   flex: none;
   place-items: center;
-  width: var(--openbot-control-md);
-  height: var(--openbot-control-md);
+  width: var(--openownbot-control-md);
+  height: var(--openownbot-control-md);
   overflow: hidden;
-  border-radius: var(--openbot-radius-sm);
+  border-radius: var(--openownbot-radius-sm);
   background: var(--wfn-field);
   box-shadow: inset 0 0 0 1px var(--wfn-ring);
-  color: var(--openbot-text-secondary);
-  transition: color var(--openbot-duration-fast) var(--openbot-ease-out);
+  color: var(--openownbot-text-secondary);
+  transition: color var(--openownbot-duration-fast) var(--openownbot-ease-out);
 }
 
 /*
@@ -907,10 +907,10 @@ fieldset.wfn-picker-group {
  * twelve kinds fit in short rows. A kind with no colour of its own has a neutral icon.
  */
 .wfn-picker-tile[data-kind] {
-  --wfn-kind: var(--openbot-text-secondary);
+  --wfn-kind: var(--openownbot-text-secondary);
 
-  width: var(--openbot-icon-md);
-  height: var(--openbot-icon-md);
+  width: var(--openownbot-icon-md);
+  height: var(--openownbot-icon-md);
   background: none;
   box-shadow: none;
   color: var(--wfn-kind);
@@ -922,21 +922,21 @@ fieldset.wfn-picker-group {
 }
 
 .wfn-picker.ui-action-menu .wfn-picker-row:has(> .wfn-picker-tile[data-kind]) {
-  min-height: var(--openbot-control-md);
-  gap: var(--openbot-space-2);
-  padding: var(--openbot-space-1) var(--openbot-space-2);
-  border-radius: var(--openbot-radius-md);
+  min-height: var(--openownbot-control-md);
+  gap: var(--openownbot-space-2);
+  padding: var(--openownbot-space-1) var(--openownbot-space-2);
+  border-radius: var(--openownbot-radius-md);
 }
 
 .wfn-picker-row[data-checked] .wfn-picker-tile {
   box-shadow: inset 0 0 0 1px var(--wfn-ring-strong);
-  color: var(--openbot-text-primary);
+  color: var(--openownbot-text-primary);
 }
 
 :is(.wfn-picker.ui-action-menu, .wfn-drop-menu) .wfn-picker-tile > svg {
-  width: var(--openbot-icon-md);
-  height: var(--openbot-icon-md);
-  stroke-width: var(--openbot-icon-stroke);
+  width: var(--openownbot-icon-md);
+  height: var(--openownbot-icon-md);
+  stroke-width: var(--openownbot-icon-stroke);
 }
 
 /* A provider logo is a filled mark. */
@@ -947,8 +947,8 @@ fieldset.wfn-picker-group {
 }
 
 .wfn-picker-tile > .wfn-swatch {
-  width: var(--openbot-icon-md);
-  height: var(--openbot-icon-md);
+  width: var(--openownbot-icon-md);
+  height: var(--openownbot-icon-md);
 }
 
 /* An avatar has its own shape, so it has no tile box. The offset centres the face, as elsewhere. */
@@ -960,48 +960,48 @@ fieldset.wfn-picker-group {
 }
 
 .wfn-picker-tile > .agent-avatar {
-  --agent-avatar-optical-offset: calc(var(--openbot-control-sm) * -0.14);
+  --agent-avatar-optical-offset: calc(var(--openownbot-control-sm) * -0.14);
 
-  width: var(--openbot-control-sm);
-  height: var(--openbot-control-sm);
+  width: var(--openownbot-control-sm);
+  height: var(--openownbot-control-sm);
 }
 
 .wfn-picker-tile > .wfn-font-sample {
-  font-size: var(--openbot-text-lg);
+  font-size: var(--openownbot-text-lg);
 }
 
 /* A text size shows "Aa" at a size that grows with the choice. */
 .wfn-picker-tile > .wfn-font-sample[data-step="1"] {
-  font-size: var(--openbot-text-sm);
+  font-size: var(--openownbot-text-sm);
 }
 
 .wfn-picker-tile > .wfn-font-sample[data-step="3"] {
-  font-size: var(--openbot-text-2xl);
+  font-size: var(--openownbot-text-2xl);
 }
 
 .wfn-picker-tile > .wfn-font-sample[data-step="4"] {
-  font-size: var(--openbot-text-3xl);
+  font-size: var(--openownbot-text-3xl);
 }
 
 /* An aspect ratio shows its frame. The longer side is one icon long. */
 .wfn-picker-aspect {
-  width: calc(var(--openbot-icon-md) * var(--wfn-aspect-w));
-  height: calc(var(--openbot-icon-md) * var(--wfn-aspect-h));
+  width: calc(var(--openownbot-icon-md) * var(--wfn-aspect-w));
+  height: calc(var(--openownbot-icon-md) * var(--wfn-aspect-h));
   border: 1.5px solid currentcolor;
-  border-radius: var(--openbot-radius-xs);
+  border-radius: var(--openownbot-radius-xs);
 }
 
 /* An effort shows five bars. The bars up to the level are lit. */
 .wfn-picker-meter {
   display: flex;
   align-items: flex-end;
-  gap: var(--openbot-space-0-5);
-  height: var(--openbot-icon-md);
+  gap: var(--openownbot-space-0-5);
+  height: var(--openownbot-icon-md);
 }
 
 .wfn-picker-meter > i {
   width: 3px;
-  border-radius: var(--openbot-radius-pill);
+  border-radius: var(--openownbot-radius-pill);
   background: var(--wfn-ring-strong);
 }
 
@@ -1032,15 +1032,15 @@ fieldset.wfn-picker-group {
 .wfn-picker-body {
   display: grid;
   flex: 1;
-  gap: var(--openbot-space-1);
+  gap: var(--openownbot-space-1);
   min-width: 0;
 }
 
 .wfn-picker-name {
   overflow: hidden;
-  font-size: var(--openbot-text-sm);
-  font-weight: var(--openbot-weight-medium);
-  line-height: var(--openbot-leading-sm);
+  font-size: var(--openownbot-text-sm);
+  font-weight: var(--openownbot-weight-medium);
+  line-height: var(--openownbot-leading-sm);
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -1048,19 +1048,19 @@ fieldset.wfn-picker-group {
 .wfn-picker-chips {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--openbot-space-1);
+  gap: var(--openownbot-space-1);
 }
 
 .wfn-picker-chip {
   display: inline-flex;
   align-items: center;
-  gap: var(--openbot-space-1);
+  gap: var(--openownbot-space-1);
   height: 18px;
-  padding: 0 var(--openbot-space-1-5);
-  border-radius: var(--openbot-radius-xs);
+  padding: 0 var(--openownbot-space-1-5);
+  border-radius: var(--openownbot-radius-xs);
   background: var(--wfn-hover);
   /* Muted text on the chip's own fill is under 4.5:1 in the light theme. */
-  color: var(--openbot-text-secondary);
+  color: var(--openownbot-text-secondary);
   font-size: var(--wfn-small);
   font-variant-numeric: tabular-nums;
   line-height: 1;
@@ -1069,22 +1069,22 @@ fieldset.wfn-picker-group {
 
 .wfn-picker.ui-action-menu .wfn-picker-chip > svg {
   flex: none;
-  width: var(--openbot-icon-xs);
-  height: var(--openbot-icon-xs);
+  width: var(--openownbot-icon-xs);
+  height: var(--openownbot-icon-xs);
 }
 
 .wfn-picker.ui-action-menu .wfn-picker-row > svg.wfn-picker-check {
-  width: var(--openbot-icon-sm);
-  height: var(--openbot-icon-sm);
+  width: var(--openownbot-icon-sm);
+  height: var(--openownbot-icon-sm);
   margin-left: auto;
-  color: var(--openbot-text-primary);
+  color: var(--openownbot-text-primary);
 }
 
 .wfn-picker-empty {
   margin: 0;
-  padding: var(--openbot-space-4) var(--openbot-space-3);
-  color: var(--openbot-text-muted);
-  font-size: var(--openbot-text-sm);
+  padding: var(--openownbot-space-4) var(--openownbot-space-3);
+  color: var(--openownbot-text-muted);
+  font-size: var(--openownbot-text-sm);
   text-align: center;
 }
 
@@ -1093,7 +1093,7 @@ fieldset.wfn-picker-group {
  * on the left, and the panel of the chosen provider. The panel has the picker style.
  */
 .wfn-model-picker.wfn-picker.ui-action-menu {
-  width: min(360px, calc(100vw - var(--openbot-space-4)));
+  width: min(360px, calc(100vw - var(--openownbot-space-4)));
   max-width: none;
 }
 
@@ -1108,8 +1108,8 @@ fieldset.wfn-picker-group {
   flex: none;
   flex-direction: column;
   align-items: center;
-  gap: var(--openbot-space-1);
-  padding: var(--openbot-space-2);
+  gap: var(--openownbot-space-1);
+  padding: var(--openownbot-space-2);
   border-right: 1px solid var(--wfn-ring-strong);
 }
 
@@ -1121,16 +1121,16 @@ fieldset.wfn-picker-group {
 .wfn-model-tab {
   display: grid;
   place-items: center;
-  width: var(--openbot-control-lg);
-  height: var(--openbot-control-lg);
+  width: var(--openownbot-control-lg);
+  height: var(--openownbot-control-lg);
   padding: 0;
   border: 0;
-  border-radius: var(--openbot-radius-md);
+  border-radius: var(--openownbot-radius-md);
   outline: 0;
   background: transparent;
-  color: var(--openbot-text-primary);
+  color: var(--openownbot-text-primary);
   cursor: pointer;
-  transition: background-color var(--openbot-duration-hover) var(--openbot-ease-out);
+  transition: background-color var(--openownbot-duration-hover) var(--openownbot-ease-out);
 }
 
 .wfn-model-tab:hover {
@@ -1145,15 +1145,15 @@ fieldset.wfn-picker-group {
 /* The shared accent focus outline goes; a neutral ring inside the tab shows the focus. */
 .wfn-model-picker .wfn-model-tab:focus-visible {
   outline: none;
-  box-shadow: inset 0 0 0 1px var(--openbot-text-muted);
+  box-shadow: inset 0 0 0 1px var(--openownbot-text-muted);
 }
 
 .wfn-model-tab > .wfn-model-mark {
-  width: var(--openbot-icon-lg);
-  height: var(--openbot-icon-lg);
+  width: var(--openownbot-icon-lg);
+  height: var(--openownbot-icon-lg);
   fill: currentcolor;
   opacity: 0.48;
-  transition: opacity var(--openbot-duration-hover) var(--openbot-ease-out);
+  transition: opacity var(--openownbot-duration-hover) var(--openownbot-ease-out);
 }
 
 .wfn-model-tab:hover > .wfn-model-mark {
@@ -1174,10 +1174,10 @@ fieldset.wfn-picker-group {
 
 .wfn-model-heading {
   overflow: hidden;
-  padding: var(--openbot-space-3) var(--openbot-space-3) var(--openbot-space-1);
-  font-size: var(--openbot-text-md);
-  font-weight: var(--openbot-weight-semibold);
-  line-height: var(--openbot-leading-md);
+  padding: var(--openownbot-space-3) var(--openownbot-space-3) var(--openownbot-space-1);
+  font-size: var(--openownbot-text-md);
+  font-weight: var(--openownbot-weight-semibold);
+  line-height: var(--openownbot-leading-md);
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -1190,15 +1190,15 @@ fieldset.wfn-picker-group {
 .wfn-model-list .wfn-picker-row[role="option"] {
   display: flex;
   align-items: center;
-  gap: var(--openbot-space-2);
-  min-height: calc(var(--openbot-control-md) + var(--openbot-space-2));
+  gap: var(--openownbot-space-2);
+  min-height: calc(var(--openownbot-control-md) + var(--openownbot-space-2));
   /* With the list padding, the name starts on the line of the heading and the search icon. */
-  padding: var(--openbot-space-1) var(--openbot-space-2) var(--openbot-space-1) var(--openbot-space-1-5);
+  padding: var(--openownbot-space-1) var(--openownbot-space-2) var(--openownbot-space-1) var(--openownbot-space-1-5);
   border-radius: var(--wfn-radius-row);
   outline: 0;
-  color: var(--openbot-text-primary);
+  color: var(--openownbot-text-primary);
   cursor: pointer;
-  transition: background-color var(--openbot-duration-hover) var(--openbot-ease-out);
+  transition: background-color var(--openownbot-duration-hover) var(--openownbot-ease-out);
 }
 
 .wfn-model-list .wfn-picker-row[role="option"]:is(:hover, [data-highlighted], [data-selected]) {
@@ -1211,9 +1211,9 @@ fieldset.wfn-picker-group {
 
 .ui-popover-menu-surface.wfn-popover {
   display: grid;
-  gap: var(--openbot-space-3);
+  gap: var(--openownbot-space-3);
   width: 344px;
-  padding: var(--openbot-space-3);
+  padding: var(--openownbot-space-3);
   border-radius: var(--wfn-radius-card);
   background: var(--wfn-glass);
   box-shadow: 0 0 0 1px var(--wfn-ring-strong);
@@ -1223,26 +1223,26 @@ fieldset.wfn-picker-group {
 /* The title of a popover, with one action at the end, such as Upload. */
 .wfn-popover-head {
   display: flex;
-  gap: var(--openbot-space-2);
+  gap: var(--openownbot-space-2);
   align-items: center;
   justify-content: space-between;
-  margin-block: calc(var(--openbot-space-1) * -1);
+  margin-block: calc(var(--openownbot-space-1) * -1);
 }
 
 /* The action has the size of the title text. */
 .wfn-popover-head .ui-button {
-  font-size: var(--openbot-text-sm);
+  font-size: var(--openownbot-text-sm);
 }
 
 .wfn-popover-title {
   margin: 0;
-  font-size: var(--openbot-text-sm);
-  font-weight: var(--openbot-weight-semibold);
+  font-size: var(--openownbot-text-sm);
+  font-weight: var(--openownbot-weight-semibold);
 }
 
 .wfn-library {
   display: grid;
-  gap: var(--openbot-space-3);
+  gap: var(--openownbot-space-3);
 }
 
 /* Filter pills, as the Higgsfield library: a full pill, light text at half strength until active. */
@@ -1252,26 +1252,26 @@ fieldset.wfn-picker-group {
 }
 
 .wfn-popover .wfn-library-tabs .ui-sliding-tabs-trigger {
-  border-radius: var(--openbot-radius-pill);
-  font-size: var(--openbot-text-sm);
+  border-radius: var(--openownbot-radius-pill);
+  font-size: var(--openownbot-text-sm);
 }
 
 .wfn-popover .wfn-library-tabs .ui-sliding-tabs-pill {
   top: 0;
-  border-radius: var(--openbot-radius-pill);
+  border-radius: var(--openownbot-radius-pill);
   background: var(--wfn-ring-strong);
 }
 
 /* The search field: the quiet fill of the node fields, and the same 1px ring on focus. */
 .wfn-library-search {
   display: flex;
-  gap: var(--openbot-space-1-5);
+  gap: var(--openownbot-space-1-5);
   align-items: center;
-  height: var(--openbot-control-md);
-  padding: 0 var(--openbot-space-2);
-  border-radius: var(--openbot-radius-md);
+  height: var(--openownbot-control-md);
+  padding: 0 var(--openownbot-space-2);
+  border-radius: var(--openownbot-radius-md);
   background: var(--wfn-field);
-  transition: box-shadow var(--openbot-duration-hover) var(--openbot-ease-out);
+  transition: box-shadow var(--openownbot-duration-hover) var(--openownbot-ease-out);
 }
 
 .wfn-library-search:focus-within {
@@ -1280,9 +1280,9 @@ fieldset.wfn-picker-group {
 
 .wfn-library-search > svg {
   flex: none;
-  width: var(--openbot-icon-sm);
-  height: var(--openbot-icon-sm);
-  color: var(--openbot-text-muted);
+  width: var(--openownbot-icon-sm);
+  height: var(--openownbot-icon-sm);
+  color: var(--openownbot-text-muted);
 }
 
 .wfn-popover .wfn-library-search .ui-input {
@@ -1293,7 +1293,7 @@ fieldset.wfn-picker-group {
   border: 0;
   background: transparent;
   box-shadow: none;
-  font-size: var(--openbot-text-sm);
+  font-size: var(--openownbot-text-sm);
 }
 
 .wfn-popover .wfn-library-search .ui-input:focus-visible {
@@ -1320,14 +1320,14 @@ fieldset.wfn-picker-group {
 .wfn-library-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: var(--openbot-space-2);
+  gap: var(--openownbot-space-2);
 }
 
 .wfn-library-empty {
   margin: 0;
-  padding: var(--openbot-space-6) var(--openbot-space-2);
-  color: var(--openbot-text-muted);
-  font-size: var(--openbot-text-sm);
+  padding: var(--openownbot-space-6) var(--openownbot-space-2);
+  color: var(--openownbot-text-muted);
+  font-size: var(--openownbot-text-sm);
   text-align: center;
   text-wrap: pretty;
 }
@@ -1336,22 +1336,22 @@ fieldset.wfn-picker-group {
 .wfn-scroll-track {
   position: absolute;
   top: 0;
-  right: calc(-1 * var(--openbot-space-3));
+  right: calc(-1 * var(--openownbot-space-3));
   bottom: 0;
-  width: var(--openbot-space-3);
+  width: var(--openownbot-space-3);
 }
 
 .wfn-scroll-thumb {
   position: absolute;
   top: 0;
   left: 50%;
-  width: var(--openbot-space-1);
-  border-radius: var(--openbot-radius-pill);
-  background: color-mix(in srgb, var(--openbot-text-primary) 24%, transparent);
+  width: var(--openownbot-space-1);
+  border-radius: var(--openownbot-radius-pill);
+  background: color-mix(in srgb, var(--openownbot-text-primary) 24%, transparent);
   opacity: 0;
   transition-property: opacity, width, background-color;
-  transition-duration: var(--openbot-duration-fast);
-  transition-timing-function: var(--openbot-ease-out);
+  transition-duration: var(--openownbot-duration-fast);
+  transition-timing-function: var(--openownbot-ease-out);
 }
 
 .wfn-scroll:is(:hover, :focus-within) .wfn-scroll-thumb,
@@ -1361,8 +1361,8 @@ fieldset.wfn-picker-group {
 
 .wfn-scroll-track:hover .wfn-scroll-thumb,
 .wfn-scroll-track[data-dragging] .wfn-scroll-thumb {
-  width: var(--openbot-space-1-5);
-  background: color-mix(in srgb, var(--openbot-text-primary) 40%, transparent);
+  width: var(--openownbot-space-1-5);
+  background: color-mix(in srgb, var(--openownbot-text-primary) 40%, transparent);
 }
 
 /* One full column: a short name must not shrink the thumb. */
@@ -1370,25 +1370,25 @@ fieldset.wfn-picker-group {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   align-content: start;
-  gap: var(--openbot-space-1);
+  gap: var(--openownbot-space-1);
   height: auto;
-  padding: var(--openbot-space-1);
-  border-radius: var(--openbot-radius-md);
+  padding: var(--openownbot-space-1);
+  border-radius: var(--openownbot-radius-md);
   text-align: left;
 }
 
 .wfn-popover .wfn-library-tile[aria-pressed="true"] {
-  box-shadow: inset 0 0 0 1px var(--openbot-text-primary);
+  box-shadow: inset 0 0 0 1px var(--openownbot-text-primary);
 }
 
 /* An inset ring, so the scroll area does not clip it, in the text colour and not the accent. */
 .wfn-popover .wfn-library-tile:focus-visible {
   outline: none;
-  box-shadow: inset 0 0 0 2px color-mix(in srgb, var(--openbot-text-primary) 40%, transparent);
+  box-shadow: inset 0 0 0 2px color-mix(in srgb, var(--openownbot-text-primary) 40%, transparent);
 }
 
 .wfn-popover .wfn-library-tile[aria-pressed="true"]:focus-visible {
-  box-shadow: inset 0 0 0 2px var(--openbot-text-primary);
+  box-shadow: inset 0 0 0 2px var(--openownbot-text-primary);
 }
 
 .wfn-library-thumb {
@@ -1396,15 +1396,15 @@ fieldset.wfn-picker-group {
   place-items: center;
   aspect-ratio: 1;
   overflow: hidden;
-  border-radius: var(--openbot-radius-sm);
+  border-radius: var(--openownbot-radius-sm);
   background: var(--wfn-hover);
 }
 
 .wfn-library-name {
   overflow: hidden;
-  color: var(--openbot-text-secondary);
+  color: var(--openownbot-text-secondary);
   font-size: var(--wfn-small);
-  font-weight: var(--openbot-weight-regular);
+  font-weight: var(--openownbot-weight-regular);
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -1432,26 +1432,26 @@ fieldset.wfn-picker-group {
 }
 
 .wfn-edge {
-  --wfn-edge: color-mix(in srgb, var(--openbot-text-primary) 32%, transparent);
+  --wfn-edge: color-mix(in srgb, var(--openownbot-text-primary) 32%, transparent);
 
   color: var(--wfn-edge);
 }
 
 .wfn-edge[data-tone="done"] {
-  --wfn-edge: color-mix(in srgb, var(--openbot-text-primary) 60%, transparent);
+  --wfn-edge: color-mix(in srgb, var(--openownbot-text-primary) 60%, transparent);
 }
 
 .wfn-edge[data-tone="run"] {
-  --wfn-edge: color-mix(in srgb, var(--openbot-text-primary) 72%, transparent);
+  --wfn-edge: color-mix(in srgb, var(--openownbot-text-primary) 72%, transparent);
 }
 
 /* A selected edge is solid and bright, like the selected node ring. */
 .wfn-edge[data-selected] {
-  --wfn-edge: var(--openbot-text-primary);
+  --wfn-edge: var(--openownbot-text-primary);
 }
 
 .wfn-edge[data-removing] {
-  --wfn-edge: var(--openbot-danger);
+  --wfn-edge: var(--openownbot-danger);
 }
 
 .wfn-edge-line,
@@ -1466,7 +1466,7 @@ fieldset.wfn-picker-group {
 .wfn-edge-line {
   stroke-width: 1.5;
   stroke-dasharray: 5 5;
-  transition: color var(--openbot-duration-hover) var(--openbot-ease-out);
+  transition: color var(--openownbot-duration-hover) var(--openownbot-ease-out);
 }
 
 .wfn-edge:is([data-tone="done"], [data-selected]) .wfn-edge-line {
@@ -1489,10 +1489,10 @@ fieldset.wfn-picker-group {
 
 /* The comet carries the answer of a done step into the step that runs now. */
 .wfn-edge-comet {
-  stroke: var(--openbot-text-primary);
+  stroke: var(--openownbot-text-primary);
   stroke-width: 3;
   stroke-dasharray: 0.12 1;
-  animation: wfn-comet 1.1s var(--openbot-ease-out) infinite;
+  animation: wfn-comet 1.1s var(--openownbot-ease-out) infinite;
 }
 
 @keyframes wfn-comet {
@@ -1514,25 +1514,25 @@ fieldset.wfn-picker-group {
 }
 
 .wfn-edge-draft {
-  color: var(--openbot-text-muted);
+  color: var(--openownbot-text-muted);
   stroke-width: 2;
   stroke-dasharray: 5 5;
-  transition: color var(--openbot-duration-hover) var(--openbot-ease-out);
+  transition: color var(--openownbot-duration-hover) var(--openownbot-ease-out);
 }
 
 /* On a port that can take it, the line snaps to the port and turns solid. */
 .wfn-edge-draft[data-state="ok"] {
-  color: var(--openbot-text-primary);
+  color: var(--openownbot-text-primary);
   stroke-dasharray: none;
 }
 
 .wfn-edge-draft[data-state="refused"] {
-  color: var(--openbot-danger);
+  color: var(--openownbot-danger);
 }
 
 /* A line back to an earlier node can end here too: it makes a loop. */
 .wfn-edge-draft[data-state="loop"] {
-  color: var(--openbot-warning);
+  color: var(--openownbot-warning);
   stroke-dasharray: none;
 }
 
@@ -1543,12 +1543,12 @@ fieldset.wfn-picker-group {
 .wfn-draft-reason {
   position: absolute;
   z-index: 3;
-  padding: 2px var(--openbot-space-2);
-  border-radius: var(--openbot-radius-sm);
+  padding: 2px var(--openownbot-space-2);
+  border-radius: var(--openownbot-radius-sm);
   background: var(--wfn-card);
-  box-shadow: 0 0 0 1px var(--openbot-danger-border);
-  color: var(--openbot-danger-text);
-  font-size: var(--openbot-text-sm);
+  box-shadow: 0 0 0 1px var(--openownbot-danger-border);
+  color: var(--openownbot-danger-text);
+  font-size: var(--openownbot-text-sm);
   white-space: nowrap;
   pointer-events: none;
   transform-origin: 0 0;
@@ -1557,8 +1557,8 @@ fieldset.wfn-picker-group {
 }
 
 .wfn-draft-reason[data-tone="loop"] {
-  box-shadow: 0 0 0 1px color-mix(in srgb, var(--openbot-warning) 45%, transparent);
-  color: var(--openbot-warning-text);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--openownbot-warning) 45%, transparent);
+  color: var(--openownbot-warning-text);
 }
 
 /*
@@ -1575,20 +1575,20 @@ fieldset.wfn-picker-group {
 }
 
 .wfn-stage .wfn-edge-actions .wfn-edge-remove {
-  border-radius: var(--openbot-radius-pill);
-  background: color-mix(in srgb, var(--openbot-danger) 14%, var(--wfn-card));
-  box-shadow: 0 0 0 1px var(--openbot-danger-border);
-  color: var(--openbot-danger-text);
+  border-radius: var(--openownbot-radius-pill);
+  background: color-mix(in srgb, var(--openownbot-danger) 14%, var(--wfn-card));
+  box-shadow: 0 0 0 1px var(--openownbot-danger-border);
+  color: var(--openownbot-danger-text);
   opacity: 1;
   scale: 1;
   transition-property: opacity, scale, background-color;
-  transition-duration: var(--openbot-duration-fast);
-  transition-timing-function: var(--openbot-ease-out);
+  transition-duration: var(--openownbot-duration-fast);
+  transition-timing-function: var(--openownbot-ease-out);
 }
 
 .wfn-stage .wfn-edge-actions .wfn-edge-remove:hover {
-  background: color-mix(in srgb, var(--openbot-danger) 28%, var(--wfn-card));
-  color: var(--openbot-danger-text);
+  background: color-mix(in srgb, var(--openownbot-danger) 28%, var(--wfn-card));
+  color: var(--openownbot-danger-text);
 }
 
 @starting-style {
@@ -1610,8 +1610,8 @@ fieldset.wfn-picker-group {
 }
 
 .wfn-stage .wfn-port:is([data-armed], [data-target]) {
-  background: var(--openbot-text-primary);
-  color: var(--openbot-bg-canvas);
+  background: var(--openownbot-text-primary);
+  color: var(--openownbot-bg-canvas);
   opacity: 1;
 }
 
@@ -1620,8 +1620,8 @@ fieldset.wfn-picker-group {
 }
 
 .wfn-stage .wfn-port[data-refused] {
-  background: var(--openbot-danger);
-  color: var(--openbot-text-primary);
+  background: var(--openownbot-danger);
+  color: var(--openownbot-text-primary);
   opacity: 1;
 }
 
@@ -1637,7 +1637,7 @@ fieldset.wfn-picker-group {
  * goes along an edge. The arc is a conic gradient in a 1px frame over the ring; it has no glow.
  */
 .wfn-node[data-status="running"] .wfn-card {
-  box-shadow: 0 0 0 1px color-mix(in srgb, var(--openbot-text-primary) 16%, transparent);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--openownbot-text-primary) 16%, transparent);
 }
 
 .wfn-node[data-status="running"] .wfn-card-frame::before {
@@ -1652,14 +1652,14 @@ fieldset.wfn-picker-group {
   background: conic-gradient(
     from var(--wfn-sweep),
     transparent 0turn 0.45turn,
-    color-mix(in srgb, var(--openbot-text-primary) 24%, transparent) 0.72turn,
-    color-mix(in srgb, var(--openbot-text-primary) 72%, transparent) 0.9turn,
-    var(--openbot-text-primary) 0.985turn,
+    color-mix(in srgb, var(--openownbot-text-primary) 24%, transparent) 0.72turn,
+    color-mix(in srgb, var(--openownbot-text-primary) 72%, transparent) 0.9turn,
+    var(--openownbot-text-primary) 0.985turn,
     transparent 1turn
   );
   mask:
-    linear-gradient(var(--openbot-text-primary) 0 0) content-box,
-    linear-gradient(var(--openbot-text-primary) 0 0);
+    linear-gradient(var(--openownbot-text-primary) 0 0) content-box,
+    linear-gradient(var(--openownbot-text-primary) 0 0);
   mask-composite: exclude;
   pointer-events: none;
   animation: wfn-sweep 1.6s linear infinite;
@@ -1680,13 +1680,13 @@ fieldset.wfn-picker-group {
 /* The time of the run, at the end of the label row. When the run ends, it fades out after a moment. */
 .wfn-run-time {
   display: inline-flex;
-  gap: var(--openbot-space-1);
+  gap: var(--openownbot-space-1);
   align-items: center;
   margin-inline-start: auto;
-  color: var(--openbot-text-secondary);
-  font-weight: var(--openbot-weight-medium);
+  color: var(--openownbot-text-secondary);
+  font-weight: var(--openownbot-weight-medium);
   font-variant-numeric: tabular-nums;
-  transition: opacity var(--openbot-duration-hover) var(--openbot-ease-out);
+  transition: opacity var(--openownbot-duration-hover) var(--openownbot-ease-out);
 
   @starting-style {
     opacity: 0;
@@ -1694,13 +1694,13 @@ fieldset.wfn-picker-group {
 }
 
 .wfn-run-time[data-done] {
-  color: var(--openbot-success-text);
-  animation: wfn-run-time-out 1.8s var(--openbot-ease-out) forwards;
+  color: var(--openownbot-success-text);
+  animation: wfn-run-time-out 1.8s var(--openownbot-ease-out) forwards;
 }
 
 /* A failed step keeps its mark until it runs again. */
 .wfn-run-time[data-failed] {
-  color: var(--openbot-danger-text);
+  color: var(--openownbot-danger-text);
 }
 
 @keyframes wfn-run-time-out {
@@ -1719,13 +1719,13 @@ fieldset.wfn-picker-group {
    the card. */
 .wfn-result-pending {
   display: grid;
-  gap: var(--openbot-space-2);
-  padding-block: var(--openbot-space-1);
+  gap: var(--openownbot-space-2);
+  padding-block: var(--openownbot-space-1);
 }
 
 .wfn-result-pending .ui-skeleton {
-  min-height: var(--openbot-space-2);
-  background: color-mix(in srgb, var(--openbot-text-primary) 9%, transparent);
+  min-height: var(--openownbot-space-2);
+  background: color-mix(in srgb, var(--openownbot-text-primary) 9%, transparent);
 }
 
 .wfn-result-pending .ui-skeleton:nth-child(2) {
@@ -1762,12 +1762,12 @@ fieldset.wfn-picker-group {
   background: linear-gradient(
     100deg,
     transparent 30%,
-    color-mix(in srgb, var(--openbot-text-primary) 12%, transparent) 50%,
+    color-mix(in srgb, var(--openownbot-text-primary) 12%, transparent) 50%,
     transparent 70%
   );
   background-size: 250% 100%;
   pointer-events: none;
-  animation: wfn-sheen 1.4s var(--openbot-ease-in-out) infinite;
+  animation: wfn-sheen 1.4s var(--openownbot-ease-in-out) infinite;
 }
 
 @keyframes wfn-sheen {
@@ -1788,7 +1788,7 @@ fieldset.wfn-picker-group {
   transform-box: fill-box;
   transform-origin: 50% 50%;
   transition-property: rotate, translate, scale, opacity;
-  transition-duration: var(--openbot-duration-slow);
+  transition-duration: var(--openownbot-duration-slow);
   transition-timing-function: var(--wfn-art-spring);
 }
 
@@ -1805,7 +1805,7 @@ fieldset.wfn-picker-group {
 }
 
 .wfn-art-gloss {
-  fill: color-mix(in srgb, var(--openbot-paper) 55%, transparent);
+  fill: color-mix(in srgb, var(--openownbot-paper) 55%, transparent);
 }
 
 .wfn-art-wood {
@@ -1813,15 +1813,15 @@ fieldset.wfn-picker-group {
 }
 
 .wfn-art-wood-shade {
-  fill: color-mix(in srgb, var(--wfn-art-wood-color) 84%, var(--openbot-paper-text));
+  fill: color-mix(in srgb, var(--wfn-art-wood-color) 84%, var(--openownbot-paper-text));
 }
 
 .wfn-art-rubber {
-  fill: var(--openbot-file-pink);
+  fill: var(--openownbot-file-pink);
 }
 
 .wfn-art-rubber-shade {
-  fill: color-mix(in srgb, var(--openbot-file-pink) 80%, var(--openbot-paper-text));
+  fill: color-mix(in srgb, var(--openownbot-file-pink) 80%, var(--openownbot-paper-text));
 }
 
 .wfn-art-metal {
@@ -1829,7 +1829,7 @@ fieldset.wfn-picker-group {
 }
 
 .wfn-art-metal-groove {
-  fill: color-mix(in srgb, var(--wfn-art-metal-color) 70%, var(--openbot-paper-text));
+  fill: color-mix(in srgb, var(--wfn-art-metal-color) 70%, var(--openownbot-paper-text));
 }
 
 .wfn-art-tint-back {
@@ -1853,7 +1853,7 @@ fieldset.wfn-picker-group {
 }
 
 .wfn-art-stop-edge {
-  stop-color: color-mix(in srgb, var(--openbot-paper) 70%, transparent);
+  stop-color: color-mix(in srgb, var(--openownbot-paper) 70%, transparent);
 }
 
 .wfn-art-stop-clear {
@@ -1862,7 +1862,7 @@ fieldset.wfn-picker-group {
 
 /* A cut in the bar colour around each layer keeps the layers apart without a shadow. */
 .wfn-art-cut {
-  stroke: color-mix(in srgb, var(--openbot-bg-surface-raised) 75%, var(--wfn-card));
+  stroke: color-mix(in srgb, var(--openownbot-bg-surface-raised) 75%, var(--wfn-card));
   stroke-width: 2;
   stroke-linejoin: round;
   paint-order: stroke;
@@ -1897,7 +1897,7 @@ fieldset.wfn-picker-group {
 
 .wfn-menu :is([role="menuitem"], [role="menuitemcheckbox"]) .wfn-keys {
   margin-left: auto;
-  padding-left: var(--openbot-space-4);
+  padding-left: var(--openownbot-space-4);
 }
 
 /* ------------------------------------------------------------ Minimap */
@@ -1914,26 +1914,26 @@ fieldset.wfn-picker-group {
   height: 18px;
   border: 0;
   background: var(--wfn-hover);
-  color: var(--openbot-text-muted);
+  color: var(--openownbot-text-muted);
   font-family: inherit;
   font-size: var(--wfn-small);
 }
 
 .wfn-hint {
   display: inline-flex;
-  gap: var(--openbot-space-2);
+  gap: var(--openownbot-space-2);
   align-items: center;
 }
 
 /* The canvas tooltips have the 1px ring of the HUD and no shadow. */
 .ui-tooltip.wfn-tooltip {
-  border-radius: var(--openbot-radius-md);
-  box-shadow: 0 0 0 1px var(--openbot-border-strong);
-  font-weight: var(--openbot-weight-medium);
+  border-radius: var(--openownbot-radius-md);
+  box-shadow: 0 0 0 1px var(--openownbot-border-strong);
+  font-weight: var(--openownbot-weight-medium);
 }
 
 .ui-tooltip.wfn-tooltip:has(.wfn-keys) {
-  padding-right: var(--openbot-space-1-5);
+  padding-right: var(--openownbot-space-1-5);
 }
 
 /* The results of the selected step, oldest first, under its card, as on the Higgsfield canvas. The
@@ -1947,13 +1947,13 @@ fieldset.wfn-picker-group {
   scale: calc(1 / var(--wfn-scale, 1));
   z-index: 2;
   display: flex;
-  gap: var(--openbot-space-1);
+  gap: var(--openownbot-space-1);
   align-items: center;
   min-inline-size: 0;
   margin: 0;
   padding: 0;
   border: 0;
-  color: var(--openbot-text-secondary);
+  color: var(--openownbot-text-secondary);
   translate: calc(round(-50%, 1px) + var(--wfn-snap-x, 0px) / var(--wfn-scale, 1))
     calc(var(--wfn-snap-y, 0px) / var(--wfn-scale, 1));
 }
@@ -1961,12 +1961,12 @@ fieldset.wfn-picker-group {
 /* Seven results fit. More scroll, and the arrows move through all of them. */
 .wfn-strip-list {
   display: flex;
-  gap: var(--openbot-space-1-5);
+  gap: var(--openownbot-space-1-5);
   align-items: center;
-  max-width: calc(7 * 36px + 6 * var(--openbot-space-1-5) + 16px);
+  max-width: calc(7 * 36px + 6 * var(--openownbot-space-1-5) + 16px);
   height: 52px;
   overflow-x: auto;
-  padding: 0 var(--openbot-space-1);
+  padding: 0 var(--openownbot-space-1);
   scrollbar-width: none;
 }
 
@@ -1981,29 +1981,29 @@ fieldset.wfn-picker-group {
   overflow: hidden;
   padding: 2px;
   border: 2px solid color-mix(in srgb, var(--wfn-kind) 40%, transparent);
-  border-radius: var(--openbot-radius-pill);
+  border-radius: var(--openownbot-radius-pill);
   background: var(--wfn-glass);
-  color: var(--openbot-text-secondary);
+  color: var(--openownbot-text-secondary);
   font-size: var(--wfn-small);
   font-variant-numeric: tabular-nums;
-  font-weight: var(--openbot-weight-semibold);
+  font-weight: var(--openownbot-weight-semibold);
   cursor: pointer;
   backdrop-filter: var(--wfn-glass-blur);
   transition-property: width, height, border-color, color, scale;
-  transition-duration: var(--openbot-duration-fast);
-  transition-timing-function: var(--openbot-ease-out);
+  transition-duration: var(--openownbot-duration-fast);
+  transition-timing-function: var(--openownbot-ease-out);
 }
 
 .wfn-strip-item:hover {
   border-color: color-mix(in srgb, var(--wfn-kind) 72%, transparent);
-  color: var(--openbot-text-primary);
+  color: var(--openownbot-text-primary);
 }
 
 .wfn-strip-item[aria-pressed="true"] {
   --wfn-strip-size: 44px;
 
   border-color: var(--wfn-kind);
-  color: var(--openbot-text-primary);
+  color: var(--openownbot-text-primary);
 }
 
 .wfn-strip-item:active {
@@ -2011,55 +2011,55 @@ fieldset.wfn-picker-group {
 }
 
 .wfn-strip-item:focus-visible {
-  outline: 2px solid color-mix(in srgb, var(--openbot-text-primary) 40%, transparent);
+  outline: 2px solid color-mix(in srgb, var(--openownbot-text-primary) 40%, transparent);
   outline-offset: 1px;
 }
 
 .wfn-strip-item img {
   width: 100%;
   height: 100%;
-  border-radius: var(--openbot-radius-pill);
+  border-radius: var(--openownbot-radius-pill);
   object-fit: cover;
 }
 
 /* A failed run has no result, so its item shows a cross in place of an image or a number. */
 .wfn-strip-item[data-failed] {
-  color: var(--openbot-danger-text);
+  color: var(--openownbot-danger-text);
 }
 
 .wfn-strip-failed {
-  width: var(--openbot-icon-sm);
-  height: var(--openbot-icon-sm);
+  width: var(--openownbot-icon-sm);
+  height: var(--openownbot-icon-sm);
 }
 
 :is(.wfn-menu-icon, .wfn-picker-tile, .wfn-node, .wfn-minimap-node)[data-kind="text"] {
-  --wfn-kind: var(--openbot-file-teal);
+  --wfn-kind: var(--openownbot-file-teal);
 }
 
 :is(.wfn-menu-icon, .wfn-picker-tile, .wfn-node, .wfn-minimap-node)[data-kind="prompt"] {
-  --wfn-kind: var(--openbot-file-blue);
+  --wfn-kind: var(--openownbot-file-blue);
 }
 
 :is(.wfn-menu-icon, .wfn-picker-tile, .wfn-node, .wfn-minimap-node)[data-kind="asset"] {
-  --wfn-kind: var(--openbot-file-orange);
+  --wfn-kind: var(--openownbot-file-orange);
 }
 
 :is(.wfn-menu-icon, .wfn-picker-tile, .wfn-node, .wfn-minimap-node)[data-kind="llm"] {
-  --wfn-kind: var(--openbot-chart-storage-downloads);
+  --wfn-kind: var(--openownbot-chart-storage-downloads);
 }
 
 :is(.wfn-menu-icon, .wfn-picker-tile, .wfn-node, .wfn-minimap-node)[data-kind="agent"] {
-  --wfn-kind: var(--openbot-file-green);
+  --wfn-kind: var(--openownbot-file-green);
 }
 
 :is(.wfn-menu-icon, .wfn-picker-tile, .wfn-node, .wfn-minimap-node)[data-kind="image"] {
-  --wfn-kind: var(--openbot-file-pink);
+  --wfn-kind: var(--openownbot-file-pink);
 }
 
 @media (prefers-reduced-motion: reduce) {
   /* The arc stops and becomes a full ring; the light on an image stays at the centre. */
   .wfn-node[data-status="running"] .wfn-card-frame::before {
-    background: color-mix(in srgb, var(--openbot-text-primary) 56%, transparent);
+    background: color-mix(in srgb, var(--openownbot-text-primary) 56%, transparent);
     animation: none;
   }
 
@@ -2096,9 +2096,9 @@ fieldset.wfn-picker-group {
   outline-offset: var(--wfn-select-gap);
   transition-property: box-shadow, outline-color, min-height, height;
   transition-duration:
-    var(--openbot-duration-hover), var(--openbot-duration-hover), var(--openbot-duration-slow),
-    var(--openbot-duration-slow);
-  transition-timing-function: var(--openbot-ease-out);
+    var(--openownbot-duration-hover), var(--openownbot-duration-hover), var(--openownbot-duration-slow),
+    var(--openownbot-duration-slow);
+  transition-timing-function: var(--openownbot-ease-out);
 }
 
 .wfn-node:not([data-selected]) .wfn-card-frame:hover .wfn-card {
@@ -2106,7 +2106,7 @@ fieldset.wfn-picker-group {
 }
 
 .wfn-node[data-selected] .wfn-card {
-  outline-color: color-mix(in srgb, var(--openbot-text-primary) 40%, transparent);
+  outline-color: color-mix(in srgb, var(--openownbot-text-primary) 40%, transparent);
 }
 
 .wfn-text {
@@ -2115,7 +2115,7 @@ fieldset.wfn-picker-group {
 }
 
 .wfn-text[data-selected] .wfn-text-input {
-  outline: var(--wfn-select-line) solid color-mix(in srgb, var(--openbot-text-primary) 32%, transparent);
+  outline: var(--wfn-select-line) solid color-mix(in srgb, var(--openownbot-text-primary) 32%, transparent);
   outline-offset: var(--wfn-select-gap);
 }
 
@@ -2138,7 +2138,7 @@ fieldset.wfn-picker-group {
   box-sizing: border-box;
   width: var(--wfn-grip-size);
   height: var(--wfn-grip-size);
-  transition: border-color var(--openbot-duration-fast) var(--openbot-ease-out);
+  transition: border-color var(--openownbot-duration-fast) var(--openownbot-ease-out);
 }
 
 /* A larger target than the arc. */
@@ -2220,17 +2220,17 @@ fieldset.wfn-picker-group {
 .wfn-text .wfn-grip {
   --wfn-grip-size: calc(12px / var(--wfn-scale, 1));
   --wfn-grip-line: calc(2px / var(--wfn-scale, 1));
-  --wfn-grip-radius: calc(var(--openbot-radius-sm) + var(--wfn-grip-out));
+  --wfn-grip-radius: calc(var(--openownbot-radius-sm) + var(--wfn-grip-out));
 }
 
 .wfn-node:is(:hover, [data-selected]) .wfn-grip {
-  --wfn-grip-color: color-mix(in srgb, var(--openbot-text-primary) 32%, transparent);
+  --wfn-grip-color: color-mix(in srgb, var(--openownbot-text-primary) 32%, transparent);
 }
 
 .wfn-node[data-selected] .wfn-grip,
 .wfn-node[data-resizing] .wfn-grip,
 .wfn-grip:hover {
-  --wfn-grip-color: var(--openbot-text-primary);
+  --wfn-grip-color: var(--openownbot-text-primary);
 }
 
 /*
@@ -2238,16 +2238,16 @@ fieldset.wfn-picker-group {
  * ring, and their connections take it too.
  */
 .wfn-node[data-doomed] .wfn-card {
-  outline-color: var(--openbot-danger);
+  outline-color: var(--openownbot-danger);
 }
 
 .wfn-text[data-doomed] .wfn-text-input {
-  outline: var(--wfn-select-line) solid var(--openbot-danger);
+  outline: var(--wfn-select-line) solid var(--openownbot-danger);
   outline-offset: var(--wfn-select-gap);
 }
 
 .wfn-node[data-doomed] .wfn-grip {
-  --wfn-grip-color: var(--openbot-danger);
+  --wfn-grip-color: var(--openownbot-danger);
 }
 
 .wfn-grip[data-cursor="ew"] {
@@ -2278,12 +2278,12 @@ fieldset.wfn-picker-group {
 
 .wfn-lock-badge {
   display: inline-flex;
-  color: var(--openbot-text-muted);
+  color: var(--openownbot-text-muted);
 }
 
 .wfn-lock-badge svg {
-  width: var(--openbot-icon-xs);
-  height: var(--openbot-icon-xs);
+  width: var(--openownbot-icon-xs);
+  height: var(--openownbot-icon-xs);
 }
 
 .wfn-text[data-sized] .wfn-text-input {
@@ -2296,7 +2296,7 @@ fieldset.wfn-picker-group {
 }
 
 .wfn-node:not(.wfn-text):focus-visible:not([data-selected]) .wfn-card {
-  outline-color: color-mix(in srgb, var(--openbot-text-primary) 40%, transparent);
+  outline-color: color-mix(in srgb, var(--openownbot-text-primary) 40%, transparent);
 }
 
 /* ------------------------------------------------------------ Run status */
@@ -2354,14 +2354,14 @@ fieldset.wfn-picker-group {
 
 .wfn-node :is(textarea, .wfn-field-result p),
 .wfn-strip-list {
-  --wfn-fade-size: var(--openbot-space-4);
+  --wfn-fade-size: var(--openownbot-space-4);
   --wfn-fade-side: to bottom;
 
   mask-image: linear-gradient(
     var(--wfn-fade-side),
     transparent,
-    var(--openbot-text-primary) var(--wfn-fade-start),
-    var(--openbot-text-primary) calc(100% - var(--wfn-fade-end)),
+    var(--openownbot-text-primary) var(--wfn-fade-start),
+    var(--openownbot-text-primary) calc(100% - var(--wfn-fade-end)),
     transparent
   );
   animation:
@@ -2374,7 +2374,7 @@ fieldset.wfn-picker-group {
 }
 
 .wfn-strip-list {
-  --wfn-fade-size: var(--openbot-space-6);
+  --wfn-fade-size: var(--openownbot-space-6);
   --wfn-fade-side: to right;
 
   animation-timeline: scroll(self inline), scroll(self inline);
@@ -2422,53 +2422,53 @@ fieldset.wfn-picker-group {
 .wfn-node[data-kind="shape"] {
   --wfn-width: 208px;
   --wfn-height: 128px;
-  --wfn-radius-card: var(--openbot-radius-md);
+  --wfn-radius-card: var(--openownbot-radius-md);
 }
 
 /* --------------------------------------------------------------- Kinds */
 
 :is(.wfn-menu-icon, .wfn-picker-tile, .wfn-node, .wfn-minimap-node)[data-kind="trigger"] {
-  --wfn-kind: var(--openbot-file-yellow);
+  --wfn-kind: var(--openownbot-file-yellow);
 }
 
 :is(.wfn-menu-icon, .wfn-picker-tile, .wfn-node, .wfn-minimap-node)[data-kind="condition"] {
-  --wfn-kind: var(--openbot-chart-series-codex);
+  --wfn-kind: var(--openownbot-chart-series-codex);
 }
 
 :is(.wfn-menu-icon, .wfn-picker-tile, .wfn-node, .wfn-minimap-node)[data-kind="output"] {
-  --wfn-kind: var(--openbot-chart-storage-workspaces);
+  --wfn-kind: var(--openownbot-chart-storage-workspaces);
 }
 
 :is(.wfn-menu-icon, .wfn-picker-tile, .wfn-node, .wfn-minimap-node)[data-kind="approval"] {
-  --wfn-kind: var(--openbot-chart-storage-files);
+  --wfn-kind: var(--openownbot-chart-storage-files);
 }
 
 :is(.wfn-menu-icon, .wfn-picker-tile, .wfn-node, .wfn-minimap-node)[data-kind="note"] {
-  --wfn-kind: var(--openbot-file-yellow);
+  --wfn-kind: var(--openownbot-file-yellow);
 }
 
 :is(.wfn-menu-icon, .wfn-picker-tile, .wfn-node, .wfn-minimap-node)[data-kind="shape"] {
-  --wfn-kind: var(--openbot-text-secondary);
+  --wfn-kind: var(--openownbot-text-secondary);
 }
 
 /* -------------------------------------------------------------- Fields */
 
 .wfn-block-meta {
   display: inline-flex;
-  gap: var(--openbot-space-1);
+  gap: var(--openownbot-space-1);
   align-items: center;
   min-width: 0;
   overflow: hidden;
-  color: var(--openbot-text-muted);
+  color: var(--openownbot-text-muted);
   font-size: var(--wfn-small);
-  line-height: var(--openbot-leading-sm);
+  line-height: var(--openownbot-leading-sm);
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
 .wfn-block-copy {
   display: flex;
-  gap: var(--openbot-space-1);
+  gap: var(--openownbot-space-1);
   align-items: center;
   min-width: 0;
 }
@@ -2477,8 +2477,8 @@ fieldset.wfn-picker-group {
   flex: 1;
   min-width: 0;
   overflow: hidden;
-  color: var(--openbot-text-secondary);
-  font-family: var(--openbot-font-mono);
+  color: var(--openownbot-text-secondary);
+  font-family: var(--openownbot-font-mono);
   font-size: var(--wfn-small);
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -2500,7 +2500,7 @@ fieldset.wfn-picker-group {
 .wfn-block-actions {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: var(--openbot-space-2);
+  gap: var(--openownbot-space-2);
 }
 
 /* ------------------------------------------------------------ Branches */
@@ -2509,16 +2509,16 @@ fieldset.wfn-picker-group {
 .wfn-branch {
   position: relative;
   display: flex;
-  gap: var(--openbot-space-2);
+  gap: var(--openownbot-space-2);
   align-items: center;
-  min-height: var(--openbot-control-sm);
-  padding: 0 var(--openbot-space-3);
-  border-radius: var(--openbot-radius-md);
+  min-height: var(--openownbot-control-sm);
+  padding: 0 var(--openownbot-space-3);
+  border-radius: var(--openownbot-radius-md);
   background: var(--wfn-field);
-  color: var(--openbot-text-primary);
-  font-size: var(--openbot-text-sm);
-  font-weight: var(--openbot-weight-medium);
-  transition: opacity var(--openbot-duration-hover) var(--openbot-ease-out);
+  color: var(--openownbot-text-primary);
+  font-size: var(--openownbot-text-sm);
+  font-weight: var(--openownbot-weight-medium);
+  transition: opacity var(--openownbot-duration-hover) var(--openownbot-ease-out);
 }
 
 .wfn-branch[data-skipped] {
@@ -2528,18 +2528,18 @@ fieldset.wfn-picker-group {
 .wfn-branch-check {
   display: inline-grid;
   margin-left: auto;
-  color: var(--openbot-success);
+  color: var(--openownbot-success);
 }
 
 .wfn-branch-check svg {
-  width: var(--openbot-icon-sm);
-  height: var(--openbot-icon-sm);
+  width: var(--openownbot-icon-sm);
+  height: var(--openownbot-icon-sm);
 }
 
 .wfn-branch-port {
   position: absolute;
   top: 50%;
-  left: calc(100% + var(--openbot-space-2) + 6px);
+  left: calc(100% + var(--openownbot-space-2) + 6px);
   translate: 0 -50%;
 }
 
@@ -2547,14 +2547,14 @@ fieldset.wfn-picker-group {
 .wfn-edge-label {
   position: absolute;
   z-index: 1;
-  padding: 0 var(--openbot-space-1-5);
-  border-radius: var(--openbot-radius-pill);
+  padding: 0 var(--openownbot-space-1-5);
+  border-radius: var(--openownbot-radius-pill);
   background: var(--wfn-card);
   box-shadow: 0 0 0 1px var(--wfn-ring-strong);
-  color: var(--openbot-text-secondary);
+  color: var(--openownbot-text-secondary);
   font-size: var(--wfn-small);
-  font-weight: var(--openbot-weight-medium);
-  line-height: var(--openbot-leading-sm);
+  font-weight: var(--openownbot-weight-medium);
+  line-height: var(--openownbot-leading-sm);
   text-transform: capitalize;
   pointer-events: none;
   translate: -50% -50%;
@@ -2569,15 +2569,15 @@ fieldset.wfn-picker-group {
   z-index: 1;
   display: inline-flex;
   align-items: center;
-  gap: var(--openbot-space-1);
-  padding: 0 var(--openbot-space-2) 0 var(--openbot-space-1-5);
-  border-radius: var(--openbot-radius-pill);
+  gap: var(--openownbot-space-1);
+  padding: 0 var(--openownbot-space-2) 0 var(--openownbot-space-1-5);
+  border-radius: var(--openownbot-radius-pill);
   background: var(--wfn-card);
   box-shadow: 0 0 0 1px var(--wfn-ring-strong);
-  color: var(--openbot-text-secondary);
+  color: var(--openownbot-text-secondary);
   font-size: var(--wfn-small);
-  font-weight: var(--openbot-weight-medium);
-  line-height: var(--openbot-leading-sm);
+  font-weight: var(--openownbot-weight-medium);
+  line-height: var(--openownbot-leading-sm);
   white-space: nowrap;
   pointer-events: none;
   translate: -50% -50%;
@@ -2590,9 +2590,9 @@ fieldset.wfn-picker-group {
 
 .wfn-edge-loop[data-endless] {
   /* The soft warning is translucent, so the card under it hides the line. */
-  background: linear-gradient(var(--openbot-warning-soft) 0 0), var(--wfn-card);
-  box-shadow: 0 0 0 1px color-mix(in srgb, var(--openbot-warning) 45%, transparent);
-  color: var(--openbot-warning-text);
+  background: linear-gradient(var(--openownbot-warning-soft) 0 0), var(--wfn-card);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--openownbot-warning) 45%, transparent);
+  color: var(--openownbot-warning-text);
 }
 
 /* ---------------------------------------------------------------- Note */
@@ -2611,7 +2611,7 @@ fieldset.wfn-picker-group {
   grid-template-rows: minmax(0, 1fr) auto;
   align-content: stretch;
   height: var(--wfn-height);
-  padding: var(--openbot-space-4) var(--openbot-space-4) var(--openbot-space-3);
+  padding: var(--openownbot-space-4) var(--openownbot-space-4) var(--openownbot-space-3);
   background: var(--wfn-note-paper);
   box-shadow: 0 0 0 1px var(--wfn-note-edge);
 }
@@ -2620,8 +2620,8 @@ fieldset.wfn-picker-group {
   height: 100%;
   overflow-y: auto;
   color: var(--wfn-note-ink);
-  font-size: var(--openbot-text-2xl);
-  font-weight: var(--openbot-weight-medium);
+  font-size: var(--openownbot-text-2xl);
+  font-weight: var(--openownbot-weight-medium);
   line-height: 1.35;
   text-wrap: pretty;
   field-sizing: fixed;
@@ -2629,38 +2629,38 @@ fieldset.wfn-picker-group {
 }
 
 .wfn-stage .wfn-note-input::placeholder {
-  color: var(--openbot-paper-text-dim);
+  color: var(--openownbot-paper-text-dim);
 }
 
 .wfn-stage .wfn-note-input[data-font="mono"] {
-  font-family: var(--openbot-font-mono);
+  font-family: var(--openownbot-font-mono);
 }
 
 .wfn-stage .wfn-note-input[data-text-size="lg"] {
-  font-size: var(--openbot-text-lg);
+  font-size: var(--openownbot-text-lg);
 }
 
 .wfn-stage .wfn-note-input[data-text-size="3xl"] {
-  font-size: var(--openbot-text-3xl);
-  letter-spacing: var(--openbot-tracking-tight);
+  font-size: var(--openownbot-text-3xl);
+  letter-spacing: var(--openownbot-tracking-tight);
 }
 
 .wfn-stage .wfn-note-input[data-text-size="display"] {
-  font-size: var(--openbot-text-display);
+  font-size: var(--openownbot-text-display);
   line-height: 1.2;
-  letter-spacing: var(--openbot-tracking-tight);
+  letter-spacing: var(--openownbot-tracking-tight);
 }
 
 .wfn-stage .wfn-note-input[data-bold] {
-  font-weight: var(--openbot-weight-bold);
+  font-weight: var(--openownbot-weight-bold);
 }
 
 .wfn-note-author {
   overflow: hidden;
-  color: var(--openbot-paper-text-muted);
-  font-size: var(--openbot-text-sm);
-  font-weight: var(--openbot-weight-medium);
-  line-height: var(--openbot-leading-sm);
+  color: var(--openownbot-paper-text-muted);
+  font-size: var(--openownbot-text-sm);
+  font-weight: var(--openownbot-weight-medium);
+  line-height: var(--openownbot-leading-sm);
   white-space: nowrap;
   text-overflow: ellipsis;
   user-select: none;
@@ -2668,20 +2668,20 @@ fieldset.wfn-picker-group {
 
 /* The font menu shows each font in itself. */
 .wfn-font-sample {
-  font-size: var(--openbot-text-md);
-  font-weight: var(--openbot-weight-semibold);
+  font-size: var(--openownbot-text-md);
+  font-weight: var(--openownbot-weight-semibold);
   line-height: 1;
 }
 
 .wfn-font-sample[data-font="mono"] {
-  font-family: var(--openbot-font-mono);
+  font-family: var(--openownbot-font-mono);
 }
 
 .wfn-swatch {
   flex: none;
-  width: var(--openbot-icon-sm);
-  height: var(--openbot-icon-sm);
-  border-radius: var(--openbot-radius-pill);
+  width: var(--openownbot-icon-sm);
+  height: var(--openownbot-icon-sm);
+  border-radius: var(--openownbot-radius-pill);
   background: var(--wfn-swatch);
   box-shadow: inset 0 0 0 1px var(--wfn-ring-strong);
 }
@@ -2690,21 +2690,21 @@ fieldset.wfn-picker-group {
 
 .wfn-alert {
   display: flex;
-  gap: var(--openbot-space-2);
+  gap: var(--openownbot-space-2);
   align-items: center;
   min-width: 0;
   margin: 0;
-  padding: var(--openbot-space-1-5) var(--openbot-space-2) var(--openbot-space-1-5) var(--openbot-space-3);
-  border-radius: var(--openbot-radius-md);
-  font-size: var(--openbot-text-sm);
-  line-height: var(--openbot-leading-sm);
-  transition: opacity var(--openbot-duration-hover) var(--openbot-ease-out);
+  padding: var(--openownbot-space-1-5) var(--openownbot-space-2) var(--openownbot-space-1-5) var(--openownbot-space-3);
+  border-radius: var(--openownbot-radius-md);
+  font-size: var(--openownbot-text-sm);
+  line-height: var(--openownbot-leading-sm);
+  transition: opacity var(--openownbot-duration-hover) var(--openownbot-ease-out);
 }
 
 .wfn-alert > svg {
   flex: none;
-  width: var(--openbot-icon-sm);
-  height: var(--openbot-icon-sm);
+  width: var(--openownbot-icon-sm);
+  height: var(--openownbot-icon-sm);
 }
 
 .wfn-alert-text {
@@ -2718,18 +2718,18 @@ fieldset.wfn-picker-group {
 }
 
 .wfn-alert[data-tone="danger"] {
-  background: var(--openbot-danger-soft);
-  color: var(--openbot-danger-text);
+  background: var(--openownbot-danger-soft);
+  color: var(--openownbot-danger-text);
 }
 
 .wfn-alert[data-tone="warning"] {
-  background: var(--openbot-warning-soft);
-  color: var(--openbot-warning-text);
+  background: var(--openownbot-warning-soft);
+  color: var(--openownbot-warning-text);
 }
 
 .wfn-alert[data-tone="success"] {
-  background: var(--openbot-success-soft);
-  color: var(--openbot-success-text);
+  background: var(--openownbot-success-soft);
+  color: var(--openownbot-success-text);
 }
 
 /* The last answer stays in its place while the step runs again, so the card does not change size. */
@@ -2744,9 +2744,9 @@ fieldset.wfn-picker-group {
 
 .wfn-alert[data-pending] .ui-skeleton {
   width: 64%;
-  min-height: var(--openbot-space-2);
-  margin-block: var(--openbot-space-1);
-  background: color-mix(in srgb, var(--openbot-text-primary) 9%, transparent);
+  min-height: var(--openownbot-space-2);
+  margin-block: var(--openownbot-space-1);
+  background: color-mix(in srgb, var(--openownbot-text-primary) 9%, transparent);
 }
 
 .wfn-stage .wfn-alert .ui-button {
@@ -2755,20 +2755,20 @@ fieldset.wfn-picker-group {
 }
 
 .wfn-node[data-status="approval"] .wfn-card {
-  box-shadow: 0 0 0 1px color-mix(in srgb, var(--openbot-warning) 64%, transparent);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--openownbot-warning) 64%, transparent);
 }
 
 /* A required input with no line stays visible in the warning colour. */
 .wfn-stage .wfn-port[data-missing]:not([data-target], [data-armed]) {
-  background: var(--openbot-warning-soft);
-  box-shadow: 0 0 0 1px color-mix(in srgb, var(--openbot-warning) 64%, transparent);
-  color: var(--openbot-warning-text);
+  background: var(--openownbot-warning-soft);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--openownbot-warning) 64%, transparent);
+  color: var(--openownbot-warning-text);
   opacity: 1;
 }
 
 /* An agent that the user deleted. */
 .wfn-stage .wfn-pill[data-missing] {
-  color: var(--openbot-warning-text);
+  color: var(--openownbot-warning-text);
 }
 
 .wfn-stage .wfn-pill[data-missing] > svg:first-child {
@@ -2776,7 +2776,7 @@ fieldset.wfn-picker-group {
 }
 
 .wfn-pill-action {
-  color: var(--openbot-text-muted);
+  color: var(--openownbot-text-muted);
 }
 
 /* ----------------------------------------------------------- Long text */
@@ -2810,7 +2810,7 @@ fieldset.wfn-picker-group {
   position: absolute;
   bottom: 100%;
   left: 0;
-  margin-bottom: var(--openbot-space-1-5);
+  margin-bottom: var(--openownbot-space-1-5);
 }
 
 .wfn-stage .wfn-node[data-kind="shape"] .wfn-card {
@@ -2818,7 +2818,7 @@ fieldset.wfn-picker-group {
   align-content: center;
   place-items: center;
   height: var(--wfn-height);
-  padding: var(--openbot-space-3);
+  padding: var(--openownbot-space-3);
   background: transparent;
   box-shadow: none;
 }
@@ -2844,7 +2844,7 @@ span.wfn-shape-surface {
 }
 
 span.wfn-shape-surface:is([data-shape="circle"], [data-shape="oval"]) {
-  border-radius: var(--openbot-radius-pill);
+  border-radius: var(--openownbot-radius-pill);
 }
 
 svg.wfn-shape-surface {
@@ -2855,12 +2855,12 @@ svg.wfn-shape-surface {
 }
 
 /* In the light theme, ink is near the darkest tone. A Default shape takes a soft fill and a thinner edge there. */
-:root[data-openbot-color-scheme="light"] span.wfn-shape-surface[data-color="ink"] {
+:root[data-openownbot-color-scheme="light"] span.wfn-shape-surface[data-color="ink"] {
   background: color-mix(in srgb, var(--wfn-shape) 5%, transparent);
   box-shadow: inset 0 0 0 1.5px var(--wfn-shape);
 }
 
-:root[data-openbot-color-scheme="light"] svg.wfn-shape-surface[data-color="ink"] {
+:root[data-openownbot-color-scheme="light"] svg.wfn-shape-surface[data-color="ink"] {
   fill: color-mix(in srgb, var(--wfn-shape) 5%, transparent);
   stroke-width: 1.5;
 }
@@ -2871,23 +2871,23 @@ svg.wfn-shape-surface {
   width: 100%;
   max-height: 100%;
   overflow: hidden;
-  font-size: var(--openbot-text-md);
-  font-weight: var(--openbot-weight-medium);
-  line-height: var(--openbot-leading-md);
+  font-size: var(--openownbot-text-md);
+  font-weight: var(--openownbot-weight-medium);
+  line-height: var(--openownbot-leading-md);
   text-align: center;
   field-sizing: content;
 }
 
 .wfn-shape-icon {
   flex: none;
-  width: var(--openbot-icon-sm);
-  height: var(--openbot-icon-sm);
+  width: var(--openownbot-icon-sm);
+  height: var(--openownbot-icon-sm);
 }
 
 .wfn-stage .wfn-toolbar-select :is(.wfn-shape-icon, .wfn-swatch) {
-  width: var(--openbot-icon-sm);
-  height: var(--openbot-icon-sm);
-  color: var(--openbot-text-primary);
+  width: var(--openownbot-icon-sm);
+  height: var(--openownbot-icon-sm);
+  color: var(--openownbot-text-primary);
 }
 
 @media (prefers-reduced-motion: reduce) {

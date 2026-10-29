@@ -27,7 +27,7 @@ export function AgentTemplateNotSharedPage() {
                 Back to home
               </ButtonLink>
               <ButtonLink to="/download" variant="secondary" size="lg" icon="download">
-                Download OpenBot
+                Download OpenOwnBot
               </ButtonLink>
             </div>
           </div>

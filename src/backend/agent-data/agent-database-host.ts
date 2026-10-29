@@ -1,4 +1,4 @@
-// The child process that is the only thing in OpenBot allowed to open the shared agent database.
+// The child process that is the only thing in OpenOwnBot allowed to open the shared agent database.
 //
 // It is separate from the main process for one measured reason: a runaway statement cannot be
 // interrupted. `sqlite3_step` never returns to JavaScript, so V8 never reaches an interrupt point,
@@ -312,7 +312,7 @@ function databaseCall<A>(request: AgentDatabaseStatement, operation: () => A): E
 class AgentDatabaseHost extends Context.Service<
   AgentDatabaseHost,
   { execute(request: AgentDatabaseRequest): Effect.Effect<AgentDatabaseRows, HostFailure> }
->()("openbot/agent-data/AgentDatabaseHost") {
+>()("openownbot/agent-data/AgentDatabaseHost") {
   static readonly layer = Layer.effect(
     AgentDatabaseHost,
     Effect.gen(function* () {

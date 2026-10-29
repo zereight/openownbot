@@ -32,12 +32,12 @@ export const NETLIFY_PLUGIN_GUIDE: PluginGuide = {
     {
       question: "Does the Netlify plugin need an API key?",
       answer:
-        "No. You sign in with your own Netlify account in the browser. OpenBot signs in itself, keeps the tokens in encrypted storage, and adds the Authorization header. The plugin catalog holds no secret.",
+        "No. You sign in with your own Netlify account in the browser. OpenOwnBot signs in itself, keeps the tokens in encrypted storage, and adds the Authorization header. The plugin catalog holds no secret.",
     },
     {
       question: "What can the agent change in Netlify?",
       answer:
-        "The agent has the same access as your Netlify account. It can create projects, deploy code, rename projects, and change environment variables, forms and visitor access. It can install or remove extensions. It can also delete form submissions and environment variables, and Netlify cannot undo these deletes. Netlify gets the requests that the agent sends. Your workspaces, conversations and files stay on the computer that runs OpenBot.",
+        "The agent has the same access as your Netlify account. It can create projects, deploy code, rename projects, and change environment variables, forms and visitor access. It can install or remove extensions. It can also delete form submissions and environment variables, and Netlify cannot undo these deletes. Netlify gets the requests that the agent sends. Your workspaces, conversations and files stay on the computer that runs OpenOwnBot.",
     },
     {
       question: "How far back can the agent read request logs?",

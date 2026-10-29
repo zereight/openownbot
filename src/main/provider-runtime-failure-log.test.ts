@@ -3,8 +3,8 @@
 import { mkdtemp, rm } from "node:fs/promises";
 import { homedir, tmpdir } from "node:os";
 import { join } from "node:path";
-import type { ProviderRuntimeSnapshot } from "@openbot/contracts/ipc";
-import { teeLogLines } from "@openbot/logging";
+import type { ProviderRuntimeSnapshot } from "@openownbot/contracts/ipc";
+import { teeLogLines } from "@openownbot/logging";
 import { afterEach, describe, expect, it } from "vitest";
 import { runCauseEffect } from "../backend/effect-boundary";
 import { ProviderRuntimeManager } from "./provider-runtime-manager";
@@ -17,7 +17,7 @@ afterEach(async () => {
 
 describe("provider runtime failure log", () => {
   it("names the stage and version, and keeps secrets and the home directory out of the line", async () => {
-    const root = await mkdtemp(join(tmpdir(), "openbot-runtime-failure-log-"));
+    const root = await mkdtemp(join(tmpdir(), "openownbot-runtime-failure-log-"));
     cleanups.push(() => rm(root, { recursive: true, force: true }));
     const lines: string[] = [];
     cleanups.push(teeLogLines(["provider-runtimes"], (line) => lines.push(line)));

@@ -46,7 +46,7 @@ export function StepHeader({ title, body, motion }: { title: string; body?: stri
   return (
     <View className="gap-2">
       <Animated.View entering={popEntering(motion, STAGGER_MS)}>
-        <Typography.Heading type="h2" accessibilityRole="header" className="tracking-openbot-tight">
+        <Typography.Heading type="h2" accessibilityRole="header" className="tracking-openownbot-tight">
           {title}
         </Typography.Heading>
       </Animated.View>

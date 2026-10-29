@@ -1,9 +1,9 @@
 import { createHash } from "node:crypto";
 import { readFile } from "node:fs/promises";
-import { INPUT_LIMITS } from "@openbot/contracts/input-limits";
-import { type BrowserBounds, type BrowserEnvironment, isBrowserProfileId } from "@openbot/contracts/ipc";
-import { isBoolean, isNumber, isString } from "@openbot/contracts/runtime-values";
-import { legacyAgentId } from "@openbot/contracts/validation";
+import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
+import { type BrowserBounds, type BrowserEnvironment, isBrowserProfileId } from "@openownbot/contracts/ipc";
+import { isBoolean, isNumber, isString } from "@openownbot/contracts/runtime-values";
+import { legacyAgentId } from "@openownbot/contracts/validation";
 import { Effect } from "effect";
 import { browserCall, browserSync } from "./browser-effects";
 import type { BrowserToolArguments } from "./browser-tools";
@@ -32,8 +32,8 @@ export type BrowserTabSession = { kind: "agent"; key: string } | { kind: "profil
 /** The directory name of a session under `Partitions`. Its partition is `persist:` and this name. */
 export function browserTabPartition(tabSession: BrowserTabSession): string {
   return tabSession.kind === "agent"
-    ? `openbot-browser-agent-${tabSession.key}`
-    : `openbot-browser-profile-${tabSession.profileId}`;
+    ? `openownbot-browser-agent-${tabSession.key}`
+    : `openownbot-browser-profile-${tabSession.profileId}`;
 }
 
 /** The session of a saved tab. Undefined: the shared session. */

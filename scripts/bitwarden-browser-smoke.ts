@@ -33,7 +33,7 @@ export async function runBitwardenBrowserSmoke(browser: BrowserHost): Promise<vo
       if (args[1] === "folders")
         return JSON.stringify([
           { id: null, name: "No Folder" },
-          { id: "shared", name: "Shared with OpenBot" },
+          { id: "shared", name: "Shared with OpenOwnBot" },
         ]);
       if (args[1] === "totp") return CODE;
       const item = {
@@ -75,7 +75,7 @@ export async function runBitwardenBrowserSmoke(browser: BrowserHost): Promise<vo
         await waitForPresentedFrame(contents);
         const prepared = await runCauseEffect(
           browser.prepareSecret({
-            namespace: "openbot_browser",
+            namespace: "openownbot_browser",
             tool: "submit_secret",
             threadId: "secret-thread",
             ownerAgentId: "secret-agent",
@@ -110,7 +110,7 @@ export async function runBitwardenBrowserSmoke(browser: BrowserHost): Promise<vo
     if (await runCauseEffect(vault.secretFor(login.id, ORIGIN, "password")))
       throw new Error("Disconnected vault returned a password.");
     checks.push("disconnect blocks further reads");
-    const directory = join(process.cwd(), ".openbot-build", "bitwarden");
+    const directory = join(process.cwd(), ".openownbot-build", "bitwarden");
     await mkdir(directory, { recursive: true });
     await writeFile(
       join(directory, "browser-smoke.json"),

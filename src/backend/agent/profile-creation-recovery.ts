@@ -1,9 +1,9 @@
 import { mkdir, readdir, rm, writeFile } from "node:fs/promises";
 import { join } from "node:path";
-import { decodeSaveAgentProfileResult } from "@openbot/contracts/ipc";
-import { isGeneratedAgentId, isUuidV4 } from "@openbot/contracts/validation";
+import { decodeSaveAgentProfileResult } from "@openownbot/contracts/ipc";
+import { isGeneratedAgentId, isUuidV4 } from "@openownbot/contracts/validation";
 import { Effect } from "effect";
-import type { OpenBotDatabase } from "../openbot-database";
+import type { OpenOwnBotDatabase } from "../openownbot-database";
 import { StoredStateFailure, storedIO, storedSync } from "../stored-state-effects";
 
 /** A marker precedes every profile-created row, so a crash cannot orphan an executable agent. */
@@ -29,7 +29,7 @@ export class ProfileCreationRecovery {
 
   recover = Effect.fn("ProfileCreationRecovery.recover")(function* (
     this: ProfileCreationRecovery,
-    database: OpenBotDatabase,
+    database: OpenOwnBotDatabase,
     removeAgent: (agentId: string) => Effect.Effect<void, StoredStateFailure>,
   ) {
     yield* storedIO(() => mkdir(this.root, { recursive: true, mode: 0o700 }));

@@ -1,4 +1,4 @@
-# OpenBot site hosting deployment
+# OpenOwnBot site hosting deployment
 
 This Worker is the public, read-only application path for `*.openbot.site`. The Auth API is the only application component that writes or deletes site objects. Do not enable an R2 public development URL or a custom R2 domain.
 
@@ -6,7 +6,7 @@ This Worker is the public, read-only application path for `*.openbot.site`. The 
 
 1. Use the same Cloudflare account as `openbot.site`.
 2. Create the private Standard bucket with `bun run sites:bucket:create`.
-3. Create `openbot-sites-test` for preview and test deployments.
+3. Create `openownbot-sites-test` for preview and test deployments.
 4. Add a proxied wildcard `AAAA` record. Use name `*` and placeholder value `100::`.
 5. Confirm that Universal SSL covers `*.openbot.site`.
 6. Apply the lifecycle rule with `bun run sites:lifecycle`.
@@ -26,7 +26,7 @@ R2 bindings do not have a per-binding read-only mode. The router has no mutation
 8. Replace one site and confirm that its hostname stays the same.
 9. Delete one site and confirm `410 Gone` and `X-Robots-Tag: noindex, nofollow`.
 
-`ACCOUNT_ORIGIN` in `wrangler.jsonc` is the account service origin. `/_openbot/report` redirects to `<ACCOUNT_ORIGIN>/report-site?hostname=<hostname>`, and error pages link to it. For local `wrangler dev`, set your own origin in `.dev.vars`. Without a valid value, the report route returns `503`. Error responses are plain text. A request whose `Accept` header lists `text/html` gets a small HTML page with the same status and cache headers and a strict `Content-Security-Policy`.
+`ACCOUNT_ORIGIN` in `wrangler.jsonc` is the account service origin. `/_openownbot/report` redirects to `<ACCOUNT_ORIGIN>/report-site?hostname=<hostname>`, and error pages link to it. For local `wrangler dev`, set your own origin in `.dev.vars`. Without a valid value, the report route returns `503`. Error responses are plain text. A request whose `Accept` header lists `text/html` gets a small HTML page with the same status and cache headers and a strict `Content-Security-Policy`.
 
 Set the three launch switches as protected production Worker variables in Cloudflare. Production deploys use `--keep-vars`, so later releases do not overwrite these values with repository defaults. An absent value remains disabled. Set `SITE_PUBLISH_ENABLED` to `false` on the Auth API to stop new uploads and activations. Set `SITE_SERVE_ENABLED` to `false` on the router to stop public serving. The admin endpoint `POST /v1/sites/admin/:siteId/block` blocks one site. `DELETE` on the same endpoint removes the block when the deployment is still valid. A block writes the route object and the block marker at once. If that write fails, the Auth API cron repairs it, and that cron runs each 5 minutes.
 

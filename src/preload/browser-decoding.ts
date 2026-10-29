@@ -18,7 +18,7 @@ import type {
   BrowserPreview,
   BrowserTab,
   BrowserViewport,
-} from "@openbot/contracts/ipc";
+} from "@openownbot/contracts/ipc";
 import {
   decodeList,
   decodeRecord,
@@ -26,8 +26,8 @@ import {
   requiredBoolean,
   requiredNumber,
   requiredString,
-} from "@openbot/contracts/ipc-decoding";
-import { type DynamicRecord, isBoolean, isNumber, isOneOf, isString } from "@openbot/contracts/runtime-values";
+} from "@openownbot/contracts/ipc-decoding";
+import { type DynamicRecord, isBoolean, isNumber, isOneOf, isString } from "@openownbot/contracts/runtime-values";
 
 const CONTROL_ACTIONS: readonly BrowserControlAction[] = [
   "open",

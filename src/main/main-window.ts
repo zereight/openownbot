@@ -18,8 +18,8 @@ import {
   IPC_ENDPOINTS,
   LOCAL_SERVER_ID,
   type MacPermissionId,
-} from "@openbot/contracts/ipc";
-import type { AppTranslate } from "@openbot/i18n";
+} from "@openownbot/contracts/ipc";
+import type { AppTranslate } from "@openownbot/i18n";
 import {
   app,
   BrowserWindow,
@@ -187,7 +187,7 @@ export function createMainWindowController({
     followWindowGlass(window, MAIN_WINDOW_DARK_BACKGROUND);
 
     window.once("ready-to-show", () => {
-      performance.mark("openbot:window-ready");
+      performance.mark("openownbot:window-ready");
       if (
         shouldShowDevelopmentWindow({
           remoteRole: developmentRemoteRole,
@@ -558,7 +558,7 @@ export function createComputerUseHighlightWindow(bounds: Rectangle): BrowserWind
   // application's full screen. One overlay on every Space is what lets the rim follow it there
   // without a second window and without pulling the user out of the Space they are on. The
   // overlays are built again after each idle period, and without `skipTransformProcessType` each
-  // build would hide the Dock icon and every OpenBot window for a moment.
+  // build would hide the Dock icon and every OpenOwnBot window for a moment.
   window.setVisibleOnAllWorkspaces(true, { visibleOnFullScreen: true, skipTransformProcessType: true });
   // Nothing on this surface may be pressed, and it covers another application's whole window, so
   // every event is handed straight on to the window below it.
@@ -575,7 +575,7 @@ export function createComputerUseHighlightWindow(bounds: Rectangle): BrowserWind
 /**
  * The small window that stands beside the System Settings pane a permission is granted in.
  *
- * System Settings opens in front of everything and covers OpenBot, so the panel that asked for the
+ * System Settings opens in front of everything and covers OpenOwnBot, so the panel that asked for the
  * grant is no longer on screen at the moment the user has to act. This window carries the steps
  * there: it floats, it is small enough to leave the pane readable, and it reports the grant landing
  * so the user knows they are done without going back to look.
@@ -631,7 +631,7 @@ export function createComputerUsePermissionHelpWindow(translate: AppTranslate): 
 
 /** The entry that loads `App`: the main window, and a chat window with its query. */
 function appRendererUrl(developmentUrl: string | undefined): URL {
-  return developmentUrl ? new URL(developmentUrl) : new URL("openbot-app://app/index.html");
+  return developmentUrl ? new URL(developmentUrl) : new URL("openownbot-app://app/index.html");
 }
 
 function chatWindowKey(target: ChatWindowTarget): string {
@@ -640,7 +640,7 @@ function chatWindowKey(target: ChatWindowTarget): string {
 
 /** The entry for the helper windows. It does not load `App`, so each window uses less memory. */
 function helperRendererUrl(developmentUrl: string | undefined): URL {
-  return developmentUrl ? new URL("helper.html", `${developmentUrl}/`) : new URL("openbot-app://app/helper.html");
+  return developmentUrl ? new URL("helper.html", `${developmentUrl}/`) : new URL("openownbot-app://app/helper.html");
 }
 
 export function loadComputerUsePermissionHelpRenderer(
@@ -694,7 +694,7 @@ export function computerUseDesktopRect(rect: Rectangle): Rectangle {
 }
 
 /**
- * The driver ids of OpenBot's windows that cover the rim, such as the conversation.
+ * The driver ids of OpenOwnBot's windows that cover the rim, such as the conversation.
  *
  * The overlays - the rim's own and the dynamic island - can never take focus, and every window the
  * user reads can. The id in a media source id is the one the driver lists a window by: the
@@ -863,8 +863,8 @@ export function configureApplicationMenu(
           { role: "togglefullscreen" },
         ],
       },
-      // Windows and Linux: the default Close item takes Ctrl+W. With "Keep OpenBot running in the
-      // background" off, closing the main window quits OpenBot, so a Ctrl+W that no browser tab took
+      // Windows and Linux: the default Close item takes Ctrl+W. With "Keep OpenOwnBot running in the
+      // background" off, closing the main window quits OpenOwnBot, so a Ctrl+W that no browser tab took
       // ended the app with no question (#2675). The item keeps the key the system closes with.
       process.platform === "darwin"
         ? { role: "windowMenu" }

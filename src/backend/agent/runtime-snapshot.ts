@@ -1,4 +1,4 @@
-import { CHAT_VISUAL_ITEM_TYPE_PREFIX } from "@openbot/contracts/chat-visual";
+import { CHAT_VISUAL_ITEM_TYPE_PREFIX } from "@openownbot/contracts/chat-visual";
 import {
   AGENT_RUNTIME_PERMISSION_PATHS_LIMIT,
   AGENT_RUNTIME_QUESTION_DESCRIPTION_LIMIT,
@@ -12,9 +12,9 @@ import {
   CONVERSATION_PLAN_ITEM_TYPE,
   CONVERSATION_SUBAGENTS_ITEM_TYPE,
   ROUTINE_QUIET_ANSWER_ITEM_TYPE,
-} from "@openbot/contracts/ipc";
+} from "@openownbot/contracts/ipc";
 import type { MailboxStore } from "../mailbox-store";
-import type { OpenBotDatabase } from "../openbot-database";
+import type { OpenOwnBotDatabase } from "../openownbot-database";
 import type { AttentionRegistry } from "./attention-registry";
 import type { ConversationRuntime } from "./conversation-runtime";
 import type { TurnLifecycle } from "./turn-lifecycle";
@@ -141,7 +141,7 @@ export interface RuntimeSnapshotSources {
   contextStates?: AgentRuntimeSnapshot["contextStates"];
   agents: AgentSummary[];
   conversation: Pick<ConversationRuntime, "loadedSnapshot">;
-  database: Pick<OpenBotDatabase, "readConversationRuntime">;
+  database: Pick<OpenOwnBotDatabase, "readConversationRuntime">;
   mailbox: Pick<MailboxStore, "listRuntimeWork">;
   turn: Pick<TurnLifecycle, "failedTurns">;
   attention: Pick<AttentionRegistry, "runtimeAttention">;

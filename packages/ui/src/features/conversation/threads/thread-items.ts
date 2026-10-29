@@ -1,4 +1,4 @@
-import type { AgentTask } from "@openbot/contracts/ipc";
+import type { AgentTask } from "@openownbot/contracts/ipc";
 import { DRAFT_THREAD_ID, MAIN_THREAD_ID, type ThreadItem, type ThreadStatus } from "./thread-types";
 
 /** What a side thread does now. A turn that waits for an approval waits for the user. */

@@ -1,9 +1,9 @@
 // Runs the real LocalMcpBridge with the MCP SDK client that OpenCode uses. OpenCode 2.1.4 keeps one
-// `openbot` server for a directory, so a second chat of an agent replaced the first chat's token,
-// and closing the second chat left every OpenBot tool call of the first refused with 401. Sessions in
+// `openownbot` server for a directory, so a second chat of an agent replaced the first chat's token,
+// and closing the second chat left every OpenOwnBot tool call of the first refused with 401. Sessions in
 // one directory must get one token that lasts until the last of them closes, and a call must reach
 // the session in a turn. A session with no directory keeps a token of its own.
-// `bun run test:acp-mcp-shared-token`. Writes .openbot-build/acp-mcp-shared-token-e2e/report.json.
+// `bun run test:acp-mcp-shared-token`. Writes .openownbot-build/acp-mcp-shared-token-e2e/report.json.
 import assert from "node:assert/strict";
 import { mkdir, writeFile } from "node:fs/promises";
 import { join, resolve } from "node:path";
@@ -15,7 +15,7 @@ import { runCauseEffect } from "../src/backend/effect-boundary";
 import { type DynamicToolNamespace, LocalMcpBridge, type LocalMcpSession } from "../src/backend/local-mcp-bridge";
 import { isRecord } from "../src/backend/protocol";
 
-const OUT = resolve(import.meta.dirname, "../.openbot-build/acp-mcp-shared-token-e2e");
+const OUT = resolve(import.meta.dirname, "../.openownbot-build/acp-mcp-shared-token-e2e");
 
 interface Report {
   passed: boolean;
@@ -25,7 +25,7 @@ interface Report {
 
 const namespace: DynamicToolNamespace = {
   type: "namespace",
-  name: "openbot",
+  name: "openownbot",
   tools: [{ type: "function", name: "whoami", inputSchema: { type: "object", properties: {} } }],
 };
 
@@ -138,7 +138,7 @@ try {
   turns.set("thread-first", null);
   turns.set("thread-second", null);
 
-  // The second chat goes idle and OpenBot releases it. OpenCode still holds the shared token.
+  // The second chat goes idle and OpenOwnBot releases it. OpenCode still holds the shared token.
   second.close();
   turns.set("thread-first", "turn-3");
   assert.equal(await whoami(first), "thread-first", "The first chat's tools still work after the second closes.");

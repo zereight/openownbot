@@ -1,6 +1,6 @@
-import { AppLogo } from "@openbot/brand";
-import type { WebMessagingInstallPlatform } from "@openbot/contracts/web-messaging-install";
-import { DiscordMark, SlackMark } from "@openbot/ui/features/settings/brand-marks";
+import { AppLogo } from "@openownbot/brand";
+import type { WebMessagingInstallPlatform } from "@openownbot/contracts/web-messaging-install";
+import { DiscordMark, SlackMark } from "@openownbot/ui/features/settings/brand-marks";
 import type { JSX } from "@solidjs/web";
 import { createSignal, onSettled, Show } from "solid-js";
 import { handOffToWebClient } from "../landing/web-messaging-handoff";
@@ -23,7 +23,7 @@ export type FailureKind =
 interface MessagingProvider {
   /** The provider's logo, from the shared integration settings. */
   mark: () => JSX.Element;
-  /** The `openbot://` host that takes the sealed grant. `src/main/deep-link-router.ts` owns these. */
+  /** The `openownbot://` host that takes the sealed grant. `src/main/deep-link-router.ts` owns these. */
   deepLinkHost: string;
   /** The page's own code when the fragment has no grant and no error. */
   failedCode: string;
@@ -74,7 +74,7 @@ const MESSAGING_PROVIDERS: Record<WebMessagingInstallPlatform, MessagingProvider
  * nonce and the server's public key. So this page cannot start it again. "Try again" brings the
  * visitor back to the app or to the browser client, where the connect button is.
  */
-const APP_URL = "openbot://";
+const APP_URL = "openownbot://";
 const WEB_CLIENT_URL = "/app";
 
 /** The code comes from the address bar, so only the map's own keys count, not `constructor` and others. */
@@ -85,13 +85,13 @@ function failureKind(provider: MessagingProvider, code: string): FailureKind {
 function deepLink(provider: MessagingProvider, fragment: URLSearchParams): string | null {
   const nonce = fragment.get("nonce");
   const grant = fragment.get("grant");
-  return nonce && grant ? `openbot://${provider.deepLinkHost}?${new URLSearchParams({ nonce, grant })}` : null;
+  return nonce && grant ? `openownbot://${provider.deepLinkHost}?${new URLSearchParams({ nonce, grant })}` : null;
 }
 
 /**
  * The page that returns a Slack or Discord install to the desktop app, or to the browser client tab
  * that started it. The install callback redirects here with a sealed grant, or an error code, in the
- * fragment. The page only builds the `openbot://` link or passes the grant on: only the server can
+ * fragment. The page only builds the `openownbot://` link or passes the grant on: only the server can
  * open the grant.
  */
 export function MessagingConnectPage(props: {
@@ -136,7 +136,7 @@ export function MessagingConnectPage(props: {
   );
 }
 
-/** The page's card: the link back to OpenBot, or why the install did not finish and how to try again. */
+/** The page's card: the link back to OpenOwnBot, or why the install did not finish and how to try again. */
 export function MessagingConnectView(props: {
   provider: WebMessagingInstallPlatform;
   /** The language of `text`. */

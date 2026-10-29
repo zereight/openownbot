@@ -1,14 +1,14 @@
-import type { AgentSummary } from "@openbot/contracts/ipc";
-import { sourceText } from "@openbot/i18n/source";
+import type { AgentSummary } from "@openownbot/contracts/ipc";
+import { sourceText } from "@openownbot/i18n/source";
 import { z } from "zod";
-import { BROWSER_DYNAMIC_TOOLS, OPENBOT_BROWSER_NAMESPACE } from "../browser-tools";
-import { OPENBOT_DYNAMIC_TOOLS, OPENBOT_TOOL_DEFINITIONS } from "../openbot-tools";
+import { BROWSER_DYNAMIC_TOOLS, OPENOWNBOT_BROWSER_NAMESPACE } from "../browser-tools";
+import { OPENOWNBOT_DYNAMIC_TOOLS, OPENOWNBOT_TOOL_DEFINITIONS } from "../openownbot-tools";
 import type { DynamicToolCallParams } from "../protocol";
 import { advertisedJsonSchema } from "./advertised-json-schema";
 import { toolGuidance } from "./tool-guidance";
 
 /** Discovery changes visibility only. Original definitions and execution owners stay authoritative. */
-export const BUILTIN_TOOL_CATALOG = [OPENBOT_DYNAMIC_TOOLS, ...BROWSER_DYNAMIC_TOOLS].flatMap((namespace) =>
+export const BUILTIN_TOOL_CATALOG = [OPENOWNBOT_DYNAMIC_TOOLS, ...BROWSER_DYNAMIC_TOOLS].flatMap((namespace) =>
   namespace.tools.map((tool) => ({
     namespace: namespace.name,
     tool: tool.name,
@@ -53,7 +53,7 @@ const describeSchema = z.strictObject(describeShape);
 const callSchema = z.strictObject(callShape);
 
 export const VISIBLE_TOOL_DEFINITIONS = [
-  ...OPENBOT_TOOL_DEFINITIONS.filter((tool) => DIRECT_NAMES.has(tool.name)),
+  ...OPENOWNBOT_TOOL_DEFINITIONS.filter((tool) => DIRECT_NAMES.has(tool.name)),
   {
     name: "tool_search",
     description: `Find built-in tools by keywords or qualified name. Pass queries (an array) or query (one string). Returns names and short descriptions, default 5, maximum 10. The strongest matches also include inputSchema and guidance, ready for tool_call. Describe other results before first use. Catalog: ${INITIAL_TOOL_CATALOG}`,
@@ -75,9 +75,9 @@ export const VISIBLE_TOOL_DEFINITIONS = [
 export const VISIBLE_DYNAMIC_TOOLS = [
   {
     type: "namespace" as const,
-    name: "openbot",
+    name: "openownbot",
     description:
-      "OpenBot tools. Search, then call other built-in and browser capabilities. Describe a result that has no inputSchema.",
+      "OpenOwnBot tools. Search, then call other built-in and browser capabilities. Describe a result that has no inputSchema.",
     tools: VISIBLE_TOOL_DEFINITIONS.map((definition) => ({
       type: "function" as const,
       name: definition.name,
@@ -88,11 +88,11 @@ export const VISIBLE_DYNAMIC_TOOLS = [
 ];
 
 /**
- * Claude names a bridge call `mcp__openbot__tool_call`. Readers of its items get the name of the tool it
+ * Claude names a bridge call `mcp__openownbot__tool_call`. Readers of its items get the name of the tool it
  * calls, in the form Claude gives a direct tool. A name outside the catalog is model text and stays out.
  */
 export function claudeBridgedToolName(name: string, input: unknown): string {
-  if (name !== "mcp__openbot__tool_call" || typeof input !== "object" || input === null || !("name" in input))
+  if (name !== "mcp__openownbot__tool_call" || typeof input !== "object" || input === null || !("name" in input))
     return name;
   const entry = BUILTIN_TOOL_CATALOG.find((tool) => tool.name === input.name);
   return entry ? `mcp__${entry.namespace}__${entry.tool}` : name;
@@ -103,7 +103,7 @@ export function claudeBridgedToolName(name: string, input: unknown): string {
  * finds no browser tool. Without this note the agent reports that it has no tool for that service.
  */
 const BROWSER_SEARCH_NOTE =
-  "No browser tool is in these results. A website or web app with no dedicated tool, such as mail or a calendar, is reached through openbot_browser. Call openbot_browser.list_tabs first: your signed-in tabs stay open across sessions.";
+  "No browser tool is in these results. A website or web app with no dedicated tool, such as mail or a calendar, is reached through openownbot_browser. Call openownbot_browser.list_tabs first: your signed-in tabs stay open across sessions.";
 
 function words(text: string): string[] {
   return text
@@ -171,7 +171,7 @@ export function discoverTools(params: DynamicToolCallParams, agent: AgentSummary
     );
     const guidance = toolGuidanceFor([...ready], agent);
     const result = guidance.length > 0 ? { tools, guidance } : { tools };
-    return found.some(({ entry }) => entry.namespace === OPENBOT_BROWSER_NAMESPACE)
+    return found.some(({ entry }) => entry.namespace === OPENOWNBOT_BROWSER_NAMESPACE)
       ? result
       : { ...result, note: BROWSER_SEARCH_NOTE };
   }

@@ -1,5 +1,5 @@
-import type { AgentTask } from "@openbot/contracts/ipc";
-import { taskTone } from "@openbot/team-client/agent-tasks";
+import type { AgentTask } from "@openownbot/contracts/ipc";
+import { taskTone } from "@openownbot/team-client/agent-tasks";
 import { Typography } from "heroui-native";
 import { Pressable, View } from "react-native";
 import { useCSSVariable } from "uniwind";
@@ -42,7 +42,7 @@ export function TaskListRow({
     : t("mobile.server.tasks.rowMetaTimeOnly", { status: STATUS_MARK, when });
   const [before = "", after = ""] = line.split(STATUS_MARK);
   const tone = taskTone(task);
-  const [success, danger] = useCSSVariable(["--openbot-success-text", "--openbot-danger-text"]);
+  const [success, danger] = useCSSVariable(["--openownbot-success-text", "--openownbot-danger-text"]);
   // `taskTone` says "attention" for an answer and "danger" for a failure or a stop.
   const mark = tone === "attention" ? String(success) : tone === "danger" ? String(danger) : null;
   return (

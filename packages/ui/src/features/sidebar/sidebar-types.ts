@@ -6,8 +6,8 @@ import type {
   SidebarLayoutAction,
   SidebarLayoutSnapshot,
   TeamPresenceMember,
-} from "@openbot/contracts/ipc";
-import type { AgentSquad } from "@openbot/contracts/squads";
+} from "@openownbot/contracts/ipc";
+import type { AgentSquad } from "@openownbot/contracts/squads";
 import type { JSX } from "@solidjs/web";
 import type { AvatarMood } from "../../bloub-avatar";
 import type { AgentProfile } from "../../data";
@@ -63,7 +63,7 @@ export interface SidebarProps {
    * it is set. `back` and `forward` name the chat that each arrow opens, or are null when there is none.
    */
   chatHistory?: SidebarChatHistory | undefined;
-  /** A new OpenBot version of the server. The header shows a button that opens its update. */
+  /** A new OpenOwnBot version of the server. The header shows a button that opens its update. */
   serverUpdate?: { version: string; running: boolean; onOpen: () => void } | undefined;
   agents: AgentProfile[];
   activeAgentId: string;

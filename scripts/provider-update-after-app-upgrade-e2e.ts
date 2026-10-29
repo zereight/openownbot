@@ -5,18 +5,18 @@
 // gets no offer until it is turned on, and loses it when it is turned off again (#3319). Also checks
 // that the stored app version that decides "upgrade" is read back.
 // `bun scripts/provider-update-after-app-upgrade-e2e.ts`.
-// Writes .openbot-build/provider-update-after-app-upgrade-e2e/report.json.
+// Writes .openownbot-build/provider-update-after-app-upgrade-e2e/report.json.
 import assert from "node:assert/strict";
 import { mkdir, mkdtemp, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { basename, dirname, join, resolve } from "node:path";
-import type { ManagedProviderId } from "@openbot/contracts/agent-providers";
-import type { ProviderRuntimeSnapshot } from "@openbot/contracts/ipc";
+import type { ManagedProviderId } from "@openownbot/contracts/agent-providers";
+import type { ProviderRuntimeSnapshot } from "@openownbot/contracts/ipc";
 import { runCauseEffect } from "../src/backend/effect-boundary";
 import { createProviderCliAppVersionStore } from "../src/main/provider-cli-app-version-store";
 import { ProviderRuntimeManager } from "../src/main/provider-runtime-manager";
 
-const OUT = resolve(import.meta.dirname, "../.openbot-build/provider-update-after-app-upgrade-e2e");
+const OUT = resolve(import.meta.dirname, "../.openownbot-build/provider-update-after-app-upgrade-e2e");
 const WAIT_MS = 15_000;
 const OLD_VERSION = "0.0.1";
 /** Managed copy, updated after an upgrade. */
@@ -43,7 +43,7 @@ interface Report {
   };
 }
 
-const root = await mkdtemp(join(tmpdir(), "openbot-provider-update-after-app-upgrade-e2e-"));
+const root = await mkdtemp(join(tmpdir(), "openownbot-provider-update-after-app-upgrade-e2e-"));
 const report: Report = { passed: false };
 /** Whether the user turned `OFF` on, as the provider switch file says. */
 let offTurnedOn = false;

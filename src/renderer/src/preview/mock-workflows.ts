@@ -6,7 +6,7 @@
 import {
   isWorkflowStepKind,
   nodeAgentId,
-  type OpenBotDesktopApi,
+  type OpenOwnBotDesktopApi,
   WORKFLOW_AUTO_VERSION_INTERVAL_MS,
   WORKFLOW_MAX_VERSIONS,
   type WorkflowDetail,
@@ -18,9 +18,9 @@ import {
   type WorkflowSummary,
   type WorkflowTriggerState,
   type WorkflowVersion,
-} from "@openbot/contracts/ipc";
-import { sourceText } from "@openbot/i18n/source";
-import { nextValidRoutineOccurrence } from "@openbot/team-client/routine-schedule";
+} from "@openownbot/contracts/ipc";
+import { sourceText } from "@openownbot/i18n/source";
+import { nextValidRoutineOccurrence } from "@openownbot/team-client/routine-schedule";
 
 const PREVIEW_HOOKS = "https://hooks.openbot.run/wf";
 
@@ -75,7 +75,7 @@ function mockAnswer(node: WorkflowNode, input: string): string {
 export function mockWorkflows(
   seeds: readonly MockWorkflowSeed[],
   emit: (workflowId: string) => void,
-): OpenBotDesktopApi["workflows"] {
+): OpenOwnBotDesktopApi["workflows"] {
   const records = new Map<string, MockWorkflowRecord>();
   const stamp = () => new Date().toISOString();
   /** The webhook triggers that have a secret, as `<workflowId>/<nodeId>`. The host makes a route only then. */

@@ -13,9 +13,9 @@ import {
   writeFile,
 } from "node:fs/promises";
 import { join } from "node:path";
-import type { ManagedRuntimeId } from "@openbot/contracts/ipc";
-import { isDynamicRecord } from "@openbot/contracts/runtime-values";
-import { sourceText } from "@openbot/i18n/source";
+import type { ManagedRuntimeId } from "@openownbot/contracts/ipc";
+import { isDynamicRecord } from "@openownbot/contracts/runtime-values";
+import { sourceText } from "@openownbot/i18n/source";
 import { Effect } from "effect";
 import type { AgentRuntimeLock } from "../../scripts/agent-runtime-lock";
 import {
@@ -642,9 +642,9 @@ const PROVIDER_RUNTIME_DESCRIPTORS: Record<ManagedRuntimeId, ProviderRuntimeDesc
         });
       }
     }),
-    // The server takes no `--version`: it starts and waits for ACP on stdin. OpenBot writes the
+    // The server takes no `--version`: it starts and waits for ACP on stdin. OpenOwnBot writes the
     // manifest at install. `verify` hashes only the programs, so the version check compares the
-    // manifest with the version that OpenBot wrote, not with the programs.
+    // manifest with the version that OpenOwnBot wrote, not with the programs.
     versionFile: ANTIGRAVITY_MANIFEST,
     parseVersion: parseAntigravityVersion,
   },
@@ -667,7 +667,7 @@ const PROVIDER_RUNTIME_DESCRIPTORS: Record<ManagedRuntimeId, ProviderRuntimeDesc
     },
     // The launcher starts the Node.js runtime and the script beside it, so the whole folder goes to
     // `bin/`. The archive has no licence file; the manifest names the terms Cursor publishes instead.
-    // GNU tar on Linux reads no zip, so the Windows zip is read by OpenBot.
+    // GNU tar on Linux reads no zip, so the Windows zip is read by OpenOwnBot.
     stage: Effect.fn("ProviderRuntime.cursor.stage")(function* ({
       spec,
       downloadedPath,
@@ -710,7 +710,7 @@ const PROVIDER_RUNTIME_DESCRIPTORS: Record<ManagedRuntimeId, ProviderRuntimeDesc
       }
     }),
     // The Windows launcher is a `.cmd` file, which `execFile` cannot start, so the version comes from
-    // the manifest that OpenBot wrote, as for Antigravity.
+    // the manifest that OpenOwnBot wrote, as for Antigravity.
     versionFile: CURSOR_MANIFEST,
     parseVersion: parseCursorManifestVersion,
   },

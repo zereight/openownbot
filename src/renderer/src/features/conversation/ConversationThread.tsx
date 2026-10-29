@@ -1,5 +1,5 @@
-import type { AgentMessage } from "@openbot/ui/data";
-import { AgentThreadView } from "@openbot/ui/features/conversation/threads/AgentThreadView";
+import type { AgentMessage } from "@openownbot/ui/data";
+import { AgentThreadView } from "@openownbot/ui/features/conversation/threads/AgentThreadView";
 import { createProjection, Show } from "solid-js";
 import { toAgentMessages } from "../../app-message-projection";
 import { useConversationViewScope } from "./conversation-scope";

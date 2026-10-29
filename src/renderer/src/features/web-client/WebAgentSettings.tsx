@@ -1,13 +1,13 @@
-import { isKnownAgentProvider } from "@openbot/contracts/agent-providers";
-import type { AgentStatus, ClientAgentModelOption, CustomProviderSummary } from "@openbot/contracts/ipc";
-import { TEAM_AGENT_CREATE_MODEL_CAPABILITY } from "@openbot/contracts/team-protocol/current";
+import { isKnownAgentProvider } from "@openownbot/contracts/agent-providers";
+import type { AgentStatus, ClientAgentModelOption, CustomProviderSummary } from "@openownbot/contracts/ipc";
+import { TEAM_AGENT_CREATE_MODEL_CAPABILITY } from "@openownbot/contracts/team-protocol/current";
 import {
   createFirstAgentDraft,
   FIRST_AGENT_SUGGESTIONS,
   type FirstAgentDraft,
   FirstAgentSetup,
-} from "@openbot/ui/features/agents/FirstAgentSetup";
-import { useText } from "@openbot/ui/text";
+} from "@openownbot/ui/features/agents/FirstAgentSetup";
+import { useText } from "@openownbot/ui/text";
 import { createEffect, createStore, onSettled } from "solid-js";
 import { type CreationPreference, resolveCreationModel } from "../agents/agent-creation-model";
 import { createAgentInitialMessage } from "../agents/agent-initial-message";

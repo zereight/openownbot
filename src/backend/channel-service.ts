@@ -1,7 +1,7 @@
 import { randomUUID } from "node:crypto";
 import { realpathSync } from "node:fs";
 import { basename, dirname, isAbsolute, join, normalize, sep } from "node:path";
-import { INPUT_LIMITS } from "@openbot/contracts/input-limits";
+import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
 import {
   type AgentAccessLevel,
   type AgentEvent,
@@ -22,9 +22,9 @@ import {
   type DeleteChannelMemoryInput,
   type QueueHold,
   type UpdateChannelMemoryInput,
-} from "@openbot/contracts/ipc";
-import { type DynamicRecord, isDynamicRecord, isString } from "@openbot/contracts/runtime-values";
-import { isFixedSourceText, matchingSourceKeys, sourceText } from "@openbot/i18n/source";
+} from "@openownbot/contracts/ipc";
+import { type DynamicRecord, isDynamicRecord, isString } from "@openownbot/contracts/runtime-values";
+import { isFixedSourceText, matchingSourceKeys, sourceText } from "@openownbot/i18n/source";
 import { Deferred, Effect, Exit, Fiber, Result, Schema, Scope } from "effect";
 import type { DecisionInput } from "./channel-decision";
 import { type ChannelOperationError, channelFailure, channelResult, channelSync } from "./channel-effects";
@@ -49,7 +49,7 @@ import { ChannelMemoryStore } from "./channel-memory-store";
 import { type ChannelAssignment, type ChannelContext, ChannelStore } from "./channel-store";
 import { channelTaskWaits } from "./channel-task-waits";
 import type { DeliveryContext, MailboxStore } from "./mailbox-store";
-import type { OpenBotDatabase } from "./openbot-database";
+import type { OpenOwnBotDatabase } from "./openownbot-database";
 import { extractJsonObject, StructuredOutputError } from "./structured-output";
 
 export interface ChannelHooks {
@@ -186,7 +186,7 @@ export class ChannelService {
   readonly #preparedChanges = new Map<string, number>();
 
   constructor(
-    database: OpenBotDatabase,
+    database: OpenOwnBotDatabase,
     readonly mailbox: MailboxStore,
     readonly hooks: ChannelHooks,
   ) {

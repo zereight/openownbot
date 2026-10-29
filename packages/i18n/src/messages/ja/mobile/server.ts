@@ -111,7 +111,7 @@ export const messages = {
   "mobile.server.hosted.detail.copy": "OpenOwnBot をマシンにコピーしています",
   "mobile.server.hosted.detail.key": "一度だけ使えるサインインキーを追加しています",
   "mobile.server.hosted.detail.boot": "マシンの電源を入れています",
-  "mobile.server.hosted.detail.app": "OpenBot を起動しています",
+  "mobile.server.hosted.detail.app": "OpenOwnBot を起動しています",
   "mobile.server.hosted.detail.wait": "OpenOwnBot の応答を待っています",
   "mobile.server.hosted.detail.signIn": "あなたとしてサインインしています",
   "mobile.server.hosted.detail.publish": "サーバーをアカウントに追加しています",
@@ -407,7 +407,7 @@ export const messages = {
   "mobile.server.connectors.bitwarden.description":
     "{host} のブラウザーのログインを Bitwarden または Vaultwarden から入力します。",
   "mobile.server.connectors.bitwarden.howItWorks":
-    "{host} は自分の Bitwarden CLI でサインインします。保管庫に Shared with OpenBot という名前のフォルダーを作成し、エージェントが使ってよいログインだけを入れてください。ウェブ保管庫で 設定 › セキュリティ › キー を開き、API キーを表示します。",
+    "{host} は自分の Bitwarden CLI でサインインします。保管庫に Shared with OpenOwnBot という名前のフォルダーを作成し、エージェントが使ってよいログインだけを入れてください。ウェブ保管庫で 設定 › セキュリティ › キー を開き、API キーを表示します。",
   "mobile.server.connectors.bitwarden.serverUrl": "サーバーのアドレス",
   "mobile.server.connectors.bitwarden.serverUrlHint":
     "Bitwarden、または Vaultwarden サーバーのアドレスです。{host} は HTTPS でこのアドレスに接続できる必要があります。",
@@ -421,7 +421,7 @@ export const messages = {
   "mobile.server.connectors.bitwarden.connectingBody":
     "{host} が Bitwarden にサインインしています。最初のサインインには数分かかることがあります。",
   "mobile.server.connectors.bitwarden.folderTitle": "共有フォルダ",
-  "mobile.server.connectors.bitwarden.folderName": "Shared with OpenBot",
+  "mobile.server.connectors.bitwarden.folderName": "Shared with OpenOwnBot",
   "mobile.server.connectors.bitwarden.folderKind": "Bitwarden のフォルダー",
   "mobile.server.connectors.bitwarden.folderFooter":
     "エージェントにログイン情報でサインインさせるには、Bitwarden でそのログイン情報をこのフォルダに移動してください。やめるには削除してください。",
@@ -481,9 +481,9 @@ export const messages = {
   "mobile.server.connectors.onePassword.disconnectBody":
     "{host} はトークンを削除します。保管庫とサービスアカウントは 1Password に残ります。不要になった場合は 1Password で削除してください。",
   "mobile.server.connectors.slack.title": "Slack",
-  "mobile.server.connectors.slack.summary": "Slack で @OpenBot をメンションします",
+  "mobile.server.connectors.slack.summary": "Slack で @OpenOwnBot をメンションします",
   "mobile.server.connectors.slack.description":
-    "Slack で @OpenBot をメンションするか、ダイレクトメッセージを送ります。Slack Orchestrator が適切なエージェントに依頼して回答します。",
+    "Slack で @OpenOwnBot をメンションするか、ダイレクトメッセージを送ります。Slack Orchestrator が適切なエージェントに依頼して回答します。",
   "mobile.server.connectors.slack.connected": "{workspace} · Slack Orchestrator が回答します",
   "mobile.server.connectors.slack.noAgent": "{workspace} · 回答するエージェントはまだいません",
   "mobile.server.connectors.slack.many": { other: "ワークスペース {count} 件 · Slack Orchestrator が回答します" },
@@ -495,7 +495,7 @@ export const messages = {
   "mobile.server.connectors.slack.limit": { other: "接続できるワークスペースは最大 {count} 件です。" },
   "mobile.server.connectors.slack.workspaceTitle": "ワークスペース",
   "mobile.server.connectors.slack.workspaceDescription":
-    "@OpenBot をメンションするか、ダイレクトメッセージを送ります。",
+    "@OpenOwnBot をメンションするか、ダイレクトメッセージを送ります。",
   "mobile.server.connectors.slack.missingScopes":
     "OpenOwnBot には Slack で次の権限がありません: {scopes}。ワークスペースを切断してから、もう一度接続してください。",
   "mobile.server.connectors.slack.retryAt": "Slack から待機するよう求められました。{time} に再試行します。",
@@ -512,7 +512,7 @@ export const messages = {
     "Slack Orchestrator を追加してください。追加しないと、Slack に回答が届きません。",
   "mobile.server.connectors.slack.addAgent": "Slack Orchestrator を追加",
   "mobile.server.connectors.slack.note":
-    "OpenBot はすべての公開チャンネルと新しいチャンネルに自動で参加します。非公開チャンネルには招待してください: /invite @OpenBot",
+    "OpenOwnBot はすべての公開チャンネルと新しいチャンネルに自動で参加します。非公開チャンネルには招待してください: /invite @OpenOwnBot",
   "mobile.server.connectors.slack.disconnectTitle": "{workspace} を切断しますか？",
   "mobile.server.connectors.slack.disconnectBody":
     "OpenOwnBot は {workspace} での回答を停止し、Slack のトークンを {host} から削除します。",
@@ -520,12 +520,12 @@ export const messages = {
   "mobile.server.connectors.slack.disconnectDeleted": "Slack Orchestrator とその会話は OpenOwnBot から削除されます。",
   "mobile.server.connectors.slack.agentPromptTitle": "Slack Orchestrator を追加しますか？",
   "mobile.server.connectors.slack.agentPromptBody":
-    "この新しいエージェントは、{workspace} で @OpenBot に送られたすべてのメッセージに回答します。",
+    "この新しいエージェントは、{workspace} で @OpenOwnBot に送られたすべてのメッセージに回答します。",
   "mobile.server.connectors.slack.installFailed": "Slack でインストールが完了しませんでした。もう一度お試しください。",
   "mobile.server.connectors.discord.title": "Discord",
-  "mobile.server.connectors.discord.summary": "Discord サーバーで @OpenBot をメンションします",
+  "mobile.server.connectors.discord.summary": "Discord サーバーで @OpenOwnBot をメンションします",
   "mobile.server.connectors.discord.description":
-    "Discord サーバーのチャンネルで @OpenBot をメンションします。Discord Orchestrator が適切なエージェントに依頼して回答します。",
+    "Discord サーバーのチャンネルで @OpenOwnBot をメンションします。Discord Orchestrator が適切なエージェントに依頼して回答します。",
   "mobile.server.connectors.discord.connected": "{workspace} · Discord Orchestrator が回答します",
   "mobile.server.connectors.discord.noAgent": "{workspace} · 回答するエージェントはまだいません",
   "mobile.server.connectors.discord.many": { other: "Discord サーバー {count} 件 · Discord Orchestrator が回答します" },
@@ -537,7 +537,7 @@ export const messages = {
   "mobile.server.connectors.discord.limit": { other: "接続できる Discord サーバーは最大 {count} 件です。" },
   "mobile.server.connectors.discord.workspaceTitle": "Discord サーバー",
   "mobile.server.connectors.discord.workspaceDescription":
-    "チャンネルで @OpenBot をメンションします。続けるには OpenBot に返信します。",
+    "チャンネルで @OpenOwnBot をメンションします。続けるには OpenOwnBot に返信します。",
   "mobile.server.connectors.discord.missingScopes":
     "OpenOwnBot には Discord で次の権限がありません: {scopes}。Discord サーバーを切断してから、もう一度接続してください。",
   "mobile.server.connectors.discord.retryAt": "Discord から待機するよう求められました。{time} に再試行します。",
@@ -562,7 +562,7 @@ export const messages = {
     "Discord Orchestrator とその会話は OpenOwnBot から削除されます。",
   "mobile.server.connectors.discord.agentPromptTitle": "Discord Orchestrator を追加しますか？",
   "mobile.server.connectors.discord.agentPromptBody":
-    "この新しいエージェントは、{workspace} で @OpenBot に送られたすべてのメッセージに回答します。",
+    "この新しいエージェントは、{workspace} で @OpenOwnBot に送られたすべてのメッセージに回答します。",
   "mobile.server.connectors.discord.installFailed": "Discord で認証が完了しませんでした。もう一度お試しください。",
   "mobile.server.connectors.telegram.title": "Telegram",
   "mobile.server.connectors.telegram.summary": "OpenOwnBot ボットを Telegram チャットに追加します",
@@ -809,11 +809,11 @@ export const messages = {
   "mobile.server.update.path.hosted":
     "ホスティングサービスはバックグラウンドでアップデートをダウンロードします。ダウンロードしたアップデートは、次にサーバーが起動したときに適用されます。サーバーを停止して再開する前に、実行中の作業が終わるのを待ってください。古いバージョンのままの場合は、ホストの管理者に連絡してください。",
   "mobile.server.update.path.system":
-    "ホストで sudo openbot update を実行して、最新のリリースをインストールしてください。このコマンドは OpenOwnBot を停止します。先に実行中の作業が終わるのを待ってください。自動ダウンロードされたアップデートは次回の起動時にインストールされます。",
+    "ホストで sudo openownbot update を実行して、最新のリリースをインストールしてください。このコマンドは OpenOwnBot を停止します。先に実行中の作業が終わるのを待ってください。自動ダウンロードされたアップデートは次回の起動時にインストールされます。",
   "mobile.server.update.path.container":
     "Docker ホストで新しい OpenOwnBot イメージを pull し、同じデータボリュームでコンテナーを再作成してください。先に実行中の作業が終わるのを待ってください。データを保持するため、既存のボリュームはそのまま残してください。",
   "mobile.server.update.path.manual":
-    "このインストールは自分自身を置き換えられません。github.com/nightly-labs/openbot/releases から互換性のあるリリースをインストールするよう、ホストの管理者に依頼してください。既存の OpenOwnBot のデータは残してください。",
+    "このインストールは自分自身を置き換えられません。github.com/zereight/openownbot/releases から互換性のあるリリースをインストールするよう、ホストの管理者に依頼してください。既存の OpenOwnBot のデータは残してください。",
   "mobile.server.update.path.unavailable":
     "これは開発ビルドです。アップデートを確認するには、インストール済みの OpenOwnBot リリースを使用してください。",
   "mobile.server.update.check": "アップデートを確認",

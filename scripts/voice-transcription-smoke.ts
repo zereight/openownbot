@@ -7,7 +7,7 @@
 // A Bun parent and an Electron child share only JSON messages, so the PCM bytes go as an array of
 // numbers, and a listener that runs before the host's listener makes them a `Uint8Array` again.
 //
-// Writes `report.json` to `.openbot-build/voice-transcription-smoke/`.
+// Writes `report.json` to `.openownbot-build/voice-transcription-smoke/`.
 // Run `bun run voice:prepare-runtime` first. macOS only.
 //
 //   bun scripts/voice-transcription-smoke.ts [model id...]   (default: bark-3.0-plus)
@@ -16,8 +16,8 @@ import { execFileSync, fork } from "node:child_process";
 import { mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
-import { isLocalVoiceModelId, type LocalVoiceModelId } from "@openbot/contracts/ipc";
-import { createOpenBotLogger } from "@openbot/logging";
+import { isLocalVoiceModelId, type LocalVoiceModelId } from "@openownbot/contracts/ipc";
+import { createOpenOwnBotLogger } from "@openownbot/logging";
 import { Effect } from "effect";
 import { VoiceApiKeyStore } from "../src/main/voice-api-key-store";
 import { openScribeSocket } from "../src/main/voice-cloud-stream";
@@ -30,8 +30,8 @@ import type {
 } from "../src/main/voice-transcription-protocol";
 import { VoiceTranscriptionService } from "../src/main/voice-transcription-service";
 
-const RESOURCES_ROOT = resolve(".openbot-build/voice");
-const OUTPUT = resolve(".openbot-build/voice-transcription-smoke");
+const RESOURCES_ROOT = resolve(".openownbot-build/voice");
+const OUTPUT = resolve(".openownbot-build/voice-transcription-smoke");
 const HOST = resolve("src/main/voice-transcription-host.ts");
 const ELECTRON = resolve("node_modules/electron/dist/Electron.app/Contents/MacOS/Electron");
 /** The same directories as the dev app in `application-services.ts`. */
@@ -46,7 +46,7 @@ const MAXIMUM_WORD_ERROR_RATE = 0.15;
 const PCM_FROM_JSON = `data:text/javascript,process.prependListener("message",(m)=>{if(m&&typeof m==="object"&&Array.isArray(m.pcm))m.pcm=Uint8Array.from(m.pcm)});`;
 const FAILURES: readonly VoiceTranscriptionFailure[] = ["runtime-unavailable", "model-load-failed", "inference-failed"];
 
-const logger = createOpenBotLogger("voice-transcription-smoke");
+const logger = createOpenOwnBotLogger("voice-transcription-smoke");
 
 /** Each sample starts with a short word: a model that loses the first word fails here. */
 const SAMPLES: readonly { name: string; text: string }[] = [
@@ -163,7 +163,7 @@ async function main(): Promise<void> {
   const unknown = modelIds.find((modelId) => !isLocalVoiceModelId(modelId));
   if (unknown) throw new Error(`Not a local dictation model: ${unknown}`);
   await mkdir(OUTPUT, { recursive: true });
-  const temporary = await mkdtemp(join(tmpdir(), "openbot-transcription-smoke-"));
+  const temporary = await mkdtemp(join(tmpdir(), "openownbot-transcription-smoke-"));
   const voice = new VoiceTranscriptionService({
     resourcesRoot: RESOURCES_ROOT,
     modelDirectories: MODEL_DIRECTORIES,

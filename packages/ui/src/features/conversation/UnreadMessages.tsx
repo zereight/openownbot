@@ -1,4 +1,4 @@
-import { Button } from "@openbot/ui";
+import { Button } from "@openownbot/ui";
 import { useText } from "../../text";
 import { newMessagesLabel, preferredMessageScrollBehavior } from "./MessageNavigation";
 

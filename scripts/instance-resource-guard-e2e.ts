@@ -3,7 +3,7 @@
 // - `resources/agent-runtime/cpu-limit.cjs` makes os.cpus() follow the CPU limit of a container, for
 //   CommonJS and for ESM imports, in a real Node 24 container with `--cpus 2`.
 // - `ServerMemory` from src/main/server-memory.ts runs as "main" in a Bun container with a 1 GiB
-//   memory limit and no swap, behind docker-init as PID 1, as OpenBot runs behind tini. It must give
+//   memory limit and no swap, behind docker-init as PID 1, as OpenOwnBot runs behind tini. It must give
 //   marked agent processes nice 10 and an OOM value of 500, also after they leave its tree; leave an
 //   unmarked orphan (as Xvfb is) and itself alone; and when a marked detached job fills the memory,
 //   stop the job's largest leaf with SIGTERM before the kernel OOM killer acts, so the shell of the
@@ -12,7 +12,7 @@
 //   bun scripts/instance-resource-guard-e2e.ts
 //
 // It needs Docker and network access for the images. The report is
-// `.openbot-build/instance-resource-guard-e2e/report.json`.
+// `.openownbot-build/instance-resource-guard-e2e/report.json`.
 
 import { type ChildProcess, spawn, spawnSync } from "node:child_process";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
@@ -23,9 +23,9 @@ import { Effect } from "effect";
 const NODE_IMAGE = "node:24-slim";
 const BUN_IMAGE = "oven/bun:1.4.2";
 const root = resolve(import.meta.dirname, "..");
-const reportRoot = join(root, ".openbot-build/instance-resource-guard-e2e");
+const reportRoot = join(root, ".openownbot-build/instance-resource-guard-e2e");
 const INSIDE = "--inside";
-const WAKE_FILE = "/tmp/openbot-e2e-wake";
+const WAKE_FILE = "/tmp/openownbot-e2e-wake";
 interface CheckResult {
   name: string;
   ok: boolean;

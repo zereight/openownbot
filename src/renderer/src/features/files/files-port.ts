@@ -1,17 +1,17 @@
-import type { OpenBotDesktopApi } from "@openbot/contracts/ipc";
+import type { OpenOwnBotDesktopApi } from "@openownbot/contracts/ipc";
 
 /**
  * What the storage panels reach in main: the stored files of a server, and the agent names that
  * label them.
  */
 export interface FilesPort {
-  agent: Pick<OpenBotDesktopApi["agent"], "listAgents">;
+  agent: Pick<OpenOwnBotDesktopApi["agent"], "listAgents">;
   /** The old provider CLI versions are optional: a client with no store of its own, such as the web client, has none. */
-  storage: Pick<OpenBotDesktopApi["storage"], "clear" | "deleteFile" | "getUsage" | "openFile"> &
-    Partial<Pick<OpenBotDesktopApi["storage"], "getOldRuntimeVersions" | "removeOldRuntimeVersions">>;
+  storage: Pick<OpenOwnBotDesktopApi["storage"], "clear" | "deleteFile" | "getUsage" | "openFile"> &
+    Partial<Pick<OpenOwnBotDesktopApi["storage"], "getOldRuntimeVersions" | "removeOldRuntimeVersions">>;
 }
 
-/** Read on each call: tests and stories replace `window.openbot` per case. */
+/** Read on each call: tests and stories replace `window.openownbot` per case. */
 export function filesPort(): FilesPort {
-  return window.openbot;
+  return window.openownbot;
 }

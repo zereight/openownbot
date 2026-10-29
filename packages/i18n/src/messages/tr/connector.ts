@@ -89,11 +89,11 @@ export const messages = {
 
   // Sunucu ayarları > Bağlayıcılar: entegrasyonlar listesi. Her satır kendi sayfasını açar.
 
-  // Sunucu ayarları > Bağlayıcılar > Slack: bir çalışma alanı tek OpenBot uygulamasını yükler ve Slack
+  // Sunucu ayarları > Bağlayıcılar > Slack: bir çalışma alanı tek OpenOwnBot uygulamasını yükler ve Slack
   // Düzenleyicisi ajanı her isteği alır, ekibe sorar ve yanıtlar.
   "connector.slack.title": "Slack",
   "connector.slack.description":
-    "Kullanıcılar Slack'te @OpenBot'tan bahseder veya doğrudan mesaj gönderir. Slack Düzenleyicisi doğru ajana sorar ve yanıtlar.",
+    "Kullanıcılar Slack'te @OpenOwnBot'tan bahseder veya doğrudan mesaj gönderir. Slack Düzenleyicisi doğru ajana sorar ve yanıtlar.",
   "connector.slack.statusConnected": "Bağlandı",
   "connector.slack.statusAttention": "Dikkat gerekiyor",
   // {workspace} Slack çalışma alanı adıdır.
@@ -108,11 +108,11 @@ export const messages = {
   "connector.slack.addAgent": "Ajan ekle",
   "connector.slack.actionFailed": "Slack değişikliği kabul etmedi",
   "connector.slack.workspaceTitle": "Çalışma alanları",
-  "connector.slack.workspaceDescription": "Kullanıcılar @OpenBot'tan bahseder veya doğrudan mesaj gönderir.",
+  "connector.slack.workspaceDescription": "Kullanıcılar @OpenOwnBot'tan bahseder veya doğrudan mesaj gönderir.",
   "connector.slack.disconnectWorkspace": "Bağlantıyı kes",
   "connector.slack.disconnectAllTitle": "Slack bağlantısını kes",
   "connector.slack.disconnectAllSummary":
-    "Tüm çalışma alanlarının bağlantısı kesilir. Kimse ajanlarınıza artık @OpenBot üzerinden ulaşamaz.",
+    "Tüm çalışma alanlarının bağlantısı kesilir. Kimse ajanlarınıza artık @OpenOwnBot üzerinden ulaşamaz.",
   "connector.slack.disconnectAllSummaryOrchestrator":
     "Tüm çalışma alanlarının bağlantısı kesilir. Slack Düzenleyicisi ve sohbetleri OpenOwnBot'tan silinir.",
   "connector.slack.missingScopes":
@@ -129,7 +129,7 @@ export const messages = {
   "connector.slack.orchestratorNone": "Henüz yanıt veren bir ajan yok",
   "connector.slack.orchestratorNoneDescription": "Slack Düzenleyicisini ekleyin, aksi takdirde Slack yanıt alamaz.",
   "connector.slack.inviteNote":
-    "OpenBot her genel kanala ve her yeni kanala kendiliğinden katılır. Özel bir kanal için onu davet edin: /invite @OpenBot.",
+    "OpenOwnBot her genel kanala ve her yeni kanala kendiliğinden katılır. Özel bir kanal için onu davet edin: /invite @OpenOwnBot.",
   // Bağlanma iletişim kutusu. Adımlar sayı olarak gösterilir; ekran okuyucular adları okur.
   "connector.slack.stepWorkspace": "Çalışma alanı",
   "connector.slack.stepAgent": "Ajan",
@@ -143,7 +143,8 @@ export const messages = {
   "connector.slack.connectWaiting": "Slack bekleniyor. Kurulumu tarayıcınızda tamamlayın.",
   "connector.slack.agentStepTitle": "Slack Düzenleyicisini ekleyin",
   // {workspace} Slack çalışma alanı adıdır.
-  "connector.slack.agentStepDescription": "Bu yeni ajan, {workspace} içinde @OpenBot'a gönderilen her şeyi yanıtlar.",
+  "connector.slack.agentStepDescription":
+    "Bu yeni ajan, {workspace} içinde @OpenOwnBot'a gönderilen her şeyi yanıtlar.",
   "connector.slack.orchestratorName": "Slack Düzenleyicisi",
   "connector.slack.orchestratorRole": "Slack'te yanıt verir ve ekibe sorar",
   "connector.slack.orchestratorDoesReceive": "Her Slack isteğini ilk olarak alır",
@@ -151,14 +152,16 @@ export const messages = {
   "connector.slack.orchestratorDoesAnswer": "Yanıtı Slack ileti dizisinde paylaşır",
   "connector.slack.orchestratorModel": "Model",
   "connector.slack.doneTitle": "OpenOwnBot {workspace} içinde",
-  "connector.slack.doneDescription": "Herhangi bir genel kanalda @OpenBot'tan bahsedin veya doğrudan mesaj gönderin.",
+  "connector.slack.doneDescription":
+    "Herhangi bir genel kanalda @OpenOwnBot'tan bahsedin veya doğrudan mesaj gönderin.",
   "connector.slack.done": "Bitti",
   "connector.slack.disconnectTitle": "{workspace} bağlantısı kesilsin mi?",
   "connector.slack.disconnectDescription":
     "OpenOwnBot {workspace} içinde yanıt vermeyi durdurur ve Slack belirtecini bu bilgisayardan kaldırır.",
   "connector.slack.disconnectDescriptionHost":
     "OpenOwnBot {workspace} içinde yanıt vermeyi durdurur ve Slack belirtecini {host} sunucusundan kaldırır.",
-  "connector.slack.disconnectEffect": "{workspace} içindeki kişiler artık @OpenBot aracılığıyla ajanlarınıza ulaşamaz.",
+  "connector.slack.disconnectEffect":
+    "{workspace} içindeki kişiler artık @OpenOwnBot aracılığıyla ajanlarınıza ulaşamaz.",
   "connector.slack.removeEffectKept": "Konuşmalar ve Slack Düzenleyicisi OpenOwnBot'ta kalır.",
   "connector.slack.removeEffectDeleted": "Slack Düzenleyicisi ve konuşmaları OpenOwnBot'tan silinir.",
   "connector.slack.keep": "Bağlı tut",
@@ -173,11 +176,11 @@ export const messages = {
     other: "{count} çalışma alanı · Slack Düzenleyicisi yanıtlıyor",
   },
 
-  // Sunucu ayarları > Bağlayıcılar > Discord: bir Discord sunucusu tek OpenBot botunu ekler ve Discord
+  // Sunucu ayarları > Bağlayıcılar > Discord: bir Discord sunucusu tek OpenOwnBot botunu ekler ve Discord
   // Düzenleyicisi ajanı her isteği alır, ekibe sorar ve yanıtlar. Her zaman "Discord sunucusu" yazın.
   "connector.discord.title": "Discord",
   "connector.discord.description":
-    "Kullanıcılar bir Discord sunucusunun kanalında @OpenBot'tan bahseder. Discord Düzenleyicisi doğru ajana sorar ve yanıtlar.",
+    "Kullanıcılar bir Discord sunucusunun kanalında @OpenOwnBot'tan bahseder. Discord Düzenleyicisi doğru ajana sorar ve yanıtlar.",
   "connector.discord.statusConnected": "Bağlandı",
   "connector.discord.statusAttention": "Dikkat gerekiyor",
   // {workspace} Discord sunucusunun adıdır.
@@ -193,11 +196,11 @@ export const messages = {
   "connector.discord.actionFailed": "Discord değişikliği kabul etmedi",
   "connector.discord.workspaceTitle": "Discord sunucuları",
   "connector.discord.workspaceDescription":
-    "Bir kanalda @OpenBot'tan bahsedin. Devam etmek için OpenBot'a yanıt verin.",
+    "Bir kanalda @OpenOwnBot'tan bahsedin. Devam etmek için OpenOwnBot'a yanıt verin.",
   "connector.discord.disconnectWorkspace": "Bağlantıyı kes",
   "connector.discord.disconnectAllTitle": "Discord bağlantısını kes",
   "connector.discord.disconnectAllSummary":
-    "Tüm sunucuların bağlantısı kesilir. Kimse ajanlarınıza artık @OpenBot üzerinden ulaşamaz.",
+    "Tüm sunucuların bağlantısı kesilir. Kimse ajanlarınıza artık @OpenOwnBot üzerinden ulaşamaz.",
   "connector.discord.disconnectAllSummaryOrchestrator":
     "Tüm sunucuların bağlantısı kesilir. Discord Düzenleyicisi ve sohbetleri OpenOwnBot'tan silinir.",
   "connector.discord.missingScopes":
@@ -227,7 +230,8 @@ export const messages = {
   "connector.discord.connectWaiting": "Discord bekleniyor. Yetkilendirmeyi tarayıcınızda tamamlayın.",
   "connector.discord.agentStepTitle": "Discord Düzenleyicisini ekleyin",
   // {workspace} Discord sunucusunun adıdır.
-  "connector.discord.agentStepDescription": "Bu yeni ajan, {workspace} içinde @OpenBot'a gönderilen her şeyi yanıtlar.",
+  "connector.discord.agentStepDescription":
+    "Bu yeni ajan, {workspace} içinde @OpenOwnBot'a gönderilen her şeyi yanıtlar.",
   "connector.discord.orchestratorName": "Discord Düzenleyicisi",
   "connector.discord.orchestratorRole": "Discord'da yanıt verir ve ekibe sorar",
   "connector.discord.orchestratorDoesReceive": "Her Discord isteğini ilk olarak alır",
@@ -235,7 +239,8 @@ export const messages = {
   "connector.discord.orchestratorDoesAnswer": "Yanıtı Discord kanalında verir",
   "connector.discord.orchestratorModel": "Model",
   "connector.discord.doneTitle": "OpenOwnBot {workspace} içinde",
-  "connector.discord.doneDescription": "Bir kanalda @OpenBot'tan bahsedin. Devam etmek için OpenBot'a yanıt verin.",
+  "connector.discord.doneDescription":
+    "Bir kanalda @OpenOwnBot'tan bahsedin. Devam etmek için OpenOwnBot'a yanıt verin.",
   "connector.discord.done": "Bitti",
   "connector.discord.disconnectTitle": "{workspace} bağlantısı kesilsin mi?",
   "connector.discord.disconnectDescription":
@@ -243,7 +248,7 @@ export const messages = {
   "connector.discord.disconnectDescriptionHost":
     "OpenOwnBot {workspace} içinde yanıt vermeyi bırakır ve Discord bağlantısını {host} sunucusundan kaldırır.",
   "connector.discord.disconnectEffect":
-    "{workspace} içindeki kişiler artık @OpenBot aracılığıyla ajanlarınıza ulaşamaz.",
+    "{workspace} içindeki kişiler artık @OpenOwnBot aracılığıyla ajanlarınıza ulaşamaz.",
   "connector.discord.removeEffectKept": "Konuşmalar ve Discord Düzenleyicisi OpenOwnBot'ta kalır.",
   "connector.discord.removeEffectDeleted": "Discord Düzenleyicisi ve konuşmaları OpenOwnBot'tan silinir.",
   "connector.discord.keep": "Bağlı tut",
@@ -273,7 +278,7 @@ export const messages = {
   "connector.discord.accessRoleDeleted": "{role} (silindi)",
   "connector.discord.accessSave": "Kaydet",
   "connector.discord.accessHostUpdate": "Rol seçmek için {host} üzerindeki OpenOwnBot'u güncelleyin.",
-  // Sunucu ayarları > Bağlayıcılar > Telegram: her sohbet tek OpenBot botunu ekler ve Telegram
+  // Sunucu ayarları > Bağlayıcılar > Telegram: her sohbet tek OpenOwnBot botunu ekler ve Telegram
   // Düzenleyicisi ajanı tüm sohbetlerin mesajlarını alır, ekibe sorar ve yanıtlar.
   "connector.telegram.title": "Telegram",
   "connector.telegram.description":
@@ -367,7 +372,7 @@ export const messages = {
   "connector.onePassword.description":
     "Ajanların OpenOwnBot tarayıcısında sitelere oturum açabilmesi için özel bir 1Password kasasını bir hizmet hesabı aracılığıyla OpenOwnBot ile paylaşın.",
   "connector.onePassword.howItWorks":
-    "Bağlanma, 1Password hesabınızda “Shared with OpenBot” adlı bir kasa ve yalnızca bu kasayı okuyabilen bir hizmet hesabı oluşturur. OpenBot kayıtlı girişleri bu bilgisayardaki kendi tarayıcısında doldurur; bu nedenle yalnızca o kasaya taşıdığınız öğeler paylaşılır. Ajanlar hiçbir zaman parola görmez.",
+    "Bağlanma, 1Password hesabınızda “Shared with OpenOwnBot” adlı bir kasa ve yalnızca bu kasayı okuyabilen bir hizmet hesabı oluşturur. OpenOwnBot kayıtlı girişleri bu bilgisayardaki kendi tarayıcısında doldurur; bu nedenle yalnızca o kasaya taşıdığınız öğeler paylaşılır. Ajanlar hiçbir zaman parola görmez.",
   "connector.onePassword.connect": "1Password'e bağlan",
   "connector.onePassword.setupTitle": "Kurulum",
   "connector.onePassword.stepCliTitle": "1Password CLI'yi yükleyin",
@@ -375,7 +380,7 @@ export const messages = {
   "connector.onePassword.stepCliInstalling": "1Password CLI, 1Password'den indiriliyor",
   "connector.onePassword.stepCliReady": "{version} sürümü yüklü.",
   "connector.onePassword.stepCliMissing":
-    "OpenBot bunu 1Password'den kendi klasörüne indirir. Yönetici parolası gerekmez.",
+    "OpenOwnBot bunu 1Password'den kendi klasörüne indirir. Yönetici parolası gerekmez.",
   "connector.onePassword.stepCliManual":
     "OpenOwnBot bunu bu bilgisayara yükleyemiyor. 1Password'den yükleyin, ardından bu sayfaya dönün.",
   "connector.onePassword.installCli": "Yükle",
@@ -388,7 +393,7 @@ export const messages = {
   "connector.onePassword.checkAgain": "Tekrar denetle",
   "connector.onePassword.stepVaultTitle": "Paylaşılan kasayı oluşturun",
   "connector.onePassword.stepVaultDescription":
-    "OpenBot, “Shared with OpenBot” kasasını ve yalnızca onu okuyabilen bir hizmet hesabı oluşturur. 1Password sizden onay ister.",
+    "OpenOwnBot, “Shared with OpenOwnBot” kasasını ve yalnızca onu okuyabilen bir hizmet hesabı oluşturur. 1Password sizden onay ister.",
   "connector.onePassword.useTokenDescription":
     "Bu adımlar yerine 1Password.com'dan bir hizmet hesabı belirteci yapıştırın.",
   "connector.onePassword.useTokenAction": "Belirteç kullan",
@@ -424,9 +429,9 @@ export const messages = {
   "connector.bitwarden.title": "Bitwarden",
   "connector.bitwarden.description": "Tarayıcı girişlerini Bitwarden'dan doldurun.",
   "connector.bitwarden.setup":
-    "Bitwarden CLI'yi yükleyin ve bw login ile oturum açın. Shared with OpenBot adlı bir klasör oluşturun ve içine yalnızca ajanların kullanabileceği girişleri koyun. bw unlock --raw komutunu çalıştırın ve oturum anahtarını aşağıya yapıştırın. Ana parolanızı yapıştırmayın.",
+    "Bitwarden CLI'yi yükleyin ve bw login ile oturum açın. Shared with OpenOwnBot adlı bir klasör oluşturun ve içine yalnızca ajanların kullanabileceği girişleri koyun. bw unlock --raw komutunu çalıştırın ve oturum anahtarını aşağıya yapıştırın. Ana parolanızı yapıştırmayın.",
   "connector.bitwarden.scope":
-    "Bu bilgisayardaki tüm ajanlar Shared with OpenBot içindeki eşleşen girişleri kullanabilir. OpenBot tam HTTPS kaynaklarını kullanır. Ana parola istemi veya özel URI eşleştirme kuralı gerektiren öğeleri kullanmaz.",
+    "Bu bilgisayardaki tüm ajanlar Shared with OpenOwnBot içindeki eşleşen girişleri kullanabilir. OpenOwnBot tam HTTPS kaynaklarını kullanır. Ana parola istemi veya özel URI eşleştirme kuralı gerektiren öğeleri kullanmaz.",
   "connector.bitwarden.session":
     "Oturum anahtarı bellekte kalır. Kasa 8 saat kullanılmazsa veya OpenOwnBot kapanırsa tekrar bağlanın. Bağlantıyı kesmek OpenOwnBot erişimini durdurur; diğer Bitwarden istemcilerini kilitlemez.",
   "connector.bitwarden.sessionKey": "Bitwarden oturum anahtarı",
@@ -442,16 +447,16 @@ export const messages = {
   "connector.bitwarden.descriptionHost":
     "{host} üzerindeki tarayıcı girişlerini Bitwarden veya Vaultwarden'dan doldurun.",
   "connector.bitwarden.setupHost":
-    "{host} kendi Bitwarden CLI'si ile oturum açar. Kasanızda Shared with OpenBot adlı bir klasör oluşturun ve içine yalnızca ajanların kullanabileceği girişleri koyun. Web kasasında Ayarlar › Güvenlik › Anahtarlar'ı açın ve API anahtarınızı görüntüleyin. Aşağıya sunucu adresini, client_id, client_secret ve ana parolanızı girin.",
+    "{host} kendi Bitwarden CLI'si ile oturum açar. Kasanızda Shared with OpenOwnBot adlı bir klasör oluşturun ve içine yalnızca ajanların kullanabileceği girişleri koyun. Web kasasında Ayarlar › Güvenlik › Anahtarlar'ı açın ve API anahtarınızı görüntüleyin. Aşağıya sunucu adresini, client_id, client_secret ve ana parolanızı girin.",
   "connector.bitwarden.scopeHost":
-    "{host} üzerindeki tüm ajanlar Shared with OpenBot içindeki eşleşen girişleri kullanabilir. OpenBot tam HTTPS kaynaklarını kullanır. Ana parola isteyen öğeleri veya özel URI eşleşme kuralı olan öğeleri kullanmaz.",
+    "{host} üzerindeki tüm ajanlar Shared with OpenOwnBot içindeki eşleşen girişleri kullanabilir. OpenOwnBot tam HTTPS kaynaklarını kullanır. Ana parola isteyen öğeleri veya özel URI eşleşme kuralı olan öğeleri kullanmaz.",
   "connector.bitwarden.sessionHost":
     "{host}, yeniden başlatmadan sonra kilidi tekrar açabilmek için API anahtarını ve ana parolayı şifreli olarak saklar. Bu bilgisayar bunları saklamaz. Bağlantıyı kesmek bunları {host} üzerinden kaldırır. {host} sunucu adresine HTTPS ile ulaşabilmelidir.",
   "connector.bitwarden.serverUrl": "Sunucu adresi",
   "connector.bitwarden.folderTitle": "Paylaşılan klasör",
   "connector.bitwarden.folderDescription":
     "Ajanların bir girişle oturum açmasına izin vermek için girişi Bitwarden'da bu klasöre taşıyın. Durdurmak için kaldırın.",
-  "connector.bitwarden.folderName": "Shared with OpenBot",
+  "connector.bitwarden.folderName": "Shared with OpenOwnBot",
   "connector.bitwarden.folderKind": "Bitwarden'daki klasör",
   "connector.bitwarden.clientId": "API anahtarı client_id",
   "connector.bitwarden.clientSecret": "API anahtarı client_secret",

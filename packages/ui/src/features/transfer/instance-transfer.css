@@ -5,7 +5,7 @@
   display: flex;
   max-width: 720px;
   flex-direction: column;
-  gap: var(--openbot-space-4);
+  gap: var(--openownbot-space-4);
 }
 
 .instance-transfer-start {
@@ -23,11 +23,11 @@
 }
 
 .instance-transfer-chip {
-  padding: 0 var(--openbot-space-1-5);
-  border: 1px solid var(--openbot-border-grouped);
-  border-radius: var(--openbot-radius-pill);
-  color: var(--openbot-text-muted);
-  font-size: var(--openbot-text-sm);
+  padding: 0 var(--openownbot-space-1-5);
+  border: 1px solid var(--openownbot-border-grouped);
+  border-radius: var(--openownbot-radius-pill);
+  color: var(--openownbot-text-muted);
+  font-size: var(--openownbot-text-sm);
   white-space: nowrap;
 }
 
@@ -35,11 +35,11 @@
 .instance-transfer-flow {
   display: flex;
   align-items: center;
-  gap: var(--openbot-space-3);
+  gap: var(--openownbot-space-3);
   margin: 0;
-  padding: var(--openbot-space-3) var(--openbot-space-4);
-  border: 1px solid var(--openbot-border-grouped);
-  border-radius: var(--openbot-radius-lg);
+  padding: var(--openownbot-space-3) var(--openownbot-space-4);
+  border: 1px solid var(--openownbot-border-grouped);
+  border-radius: var(--openownbot-radius-lg);
   list-style: none;
 }
 
@@ -48,29 +48,29 @@
   flex: 1 1 0;
   flex-direction: column;
   align-items: center;
-  gap: var(--openbot-space-1-5);
-  color: var(--openbot-text-secondary);
-  font-size: var(--openbot-text-sm);
+  gap: var(--openownbot-space-1-5);
+  color: var(--openownbot-text-secondary);
+  font-size: var(--openownbot-text-sm);
   text-align: center;
 }
 
 .instance-transfer-flow-icon {
-  width: var(--openbot-icon-md);
-  height: var(--openbot-icon-md);
-  color: var(--openbot-text-primary);
+  width: var(--openownbot-icon-md);
+  height: var(--openownbot-icon-md);
+  color: var(--openownbot-text-primary);
 }
 
 .instance-transfer-flow-arrow {
-  width: var(--openbot-icon-sm);
-  height: var(--openbot-icon-sm);
+  width: var(--openownbot-icon-sm);
+  height: var(--openownbot-icon-sm);
   flex: none;
-  color: var(--openbot-text-muted);
+  color: var(--openownbot-text-muted);
 }
 
 .instance-transfer-tiles {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--openbot-space-3);
+  gap: var(--openownbot-space-3);
 }
 
 .instance-transfer-tile {
@@ -78,35 +78,35 @@
   height: auto;
   flex-direction: column;
   align-items: flex-start;
-  gap: var(--openbot-space-1);
-  padding: var(--openbot-space-4);
+  gap: var(--openownbot-space-1);
+  padding: var(--openownbot-space-4);
   text-align: left;
   white-space: normal;
 }
 
 .instance-transfer-tile-icon {
-  width: var(--openbot-icon-md);
-  height: var(--openbot-icon-md);
-  margin-bottom: var(--openbot-space-2);
+  width: var(--openownbot-icon-md);
+  height: var(--openownbot-icon-md);
+  margin-bottom: var(--openownbot-space-2);
 }
 
 .instance-transfer-tile-title {
-  color: var(--openbot-text-primary);
-  font-size: var(--openbot-text-md);
-  font-weight: var(--openbot-weight-medium);
+  color: var(--openownbot-text-primary);
+  font-size: var(--openownbot-text-md);
+  font-weight: var(--openownbot-weight-medium);
 }
 
 .instance-transfer-tile-text {
-  color: var(--openbot-text-muted);
-  font-size: var(--openbot-text-sm);
-  font-weight: var(--openbot-weight-regular);
+  color: var(--openownbot-text-muted);
+  font-size: var(--openownbot-text-sm);
+  font-weight: var(--openownbot-weight-regular);
 }
 
 /* What moves, as counts with icons. */
 .instance-transfer-summary {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: var(--openbot-space-3);
+  gap: var(--openownbot-space-3);
   margin: 0;
   padding: 0;
   list-style: none;
@@ -115,31 +115,31 @@
 .instance-transfer-summary-item {
   display: flex;
   align-items: center;
-  gap: var(--openbot-space-2);
-  color: var(--openbot-text-primary);
-  font-size: var(--openbot-text-md);
+  gap: var(--openownbot-space-2);
+  color: var(--openownbot-text-primary);
+  font-size: var(--openownbot-text-md);
 }
 
 .instance-transfer-summary-icon {
-  width: var(--openbot-icon-sm);
-  height: var(--openbot-icon-sm);
+  width: var(--openownbot-icon-sm);
+  height: var(--openownbot-icon-sm);
   flex: none;
-  color: var(--openbot-text-muted);
+  color: var(--openownbot-text-muted);
 }
 
 .instance-transfer-not-moved {
   display: flex;
   align-items: flex-start;
-  gap: var(--openbot-space-2);
+  gap: var(--openownbot-space-2);
   margin: 0;
-  color: var(--openbot-text-muted);
-  font-size: var(--openbot-text-sm);
+  color: var(--openownbot-text-muted);
+  font-size: var(--openownbot-text-sm);
   line-height: 1.45;
 }
 
 .instance-transfer-not-moved-icon {
-  width: var(--openbot-icon-xs);
-  height: var(--openbot-icon-xs);
+  width: var(--openownbot-icon-xs);
+  height: var(--openownbot-icon-xs);
   flex: none;
   margin-top: 2px;
 }

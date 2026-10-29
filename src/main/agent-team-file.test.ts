@@ -3,8 +3,8 @@ import {
   AGENT_TEAM_FILE_LIMITS,
   buildAgentTeamFile,
   parseAgentTeamFile,
-} from "@openbot/contracts/agent-team-file";
-import type { AgentTemplateSnapshot } from "@openbot/contracts/ipc";
+} from "@openownbot/contracts/agent-team-file";
+import type { AgentTemplateSnapshot } from "@openownbot/contracts/ipc";
 import { describe, expect, it } from "vitest";
 
 const agent = (name: string, extra: Partial<AgentTemplateSnapshot> = {}): AgentTemplateSnapshot => ({

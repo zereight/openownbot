@@ -3,17 +3,17 @@
 // runs past its box, or wraps to a second line. Opens each menu and list trigger once, so the items
 // of a closed menu are measured too. Pass the URL that `bun run storybook` reports:
 // `bun scripts/i18n-fit-e2e.ts --storybook=http://localhost:6006 [--locales=de,pl] [--stories=sidebar,dialog]`.
-// Writes .openbot-build/i18n-fit/report.json and one screenshot per failure that English does not have.
-// `--out=<name>` writes to .openbot-build/<name> instead, so a second run keeps the first report.
+// Writes .openownbot-build/i18n-fit/report.json and one screenshot per failure that English does not have.
+// `--out=<name>` writes to .openownbot-build/<name> instead, so a second run keeps the first report.
 import assert from "node:assert/strict";
 import { mkdirSync, rmSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
-import { type AppTextKey, en, TRANSLATED_LOCALES, type TranslatedLocale, translateFor } from "@openbot/i18n";
-import { createOpenBotLogger } from "@openbot/logging";
+import { type AppTextKey, en, TRANSLATED_LOCALES, type TranslatedLocale, translateFor } from "@openownbot/i18n";
+import { createOpenOwnBotLogger } from "@openownbot/logging";
 import { type Browser, chromium, type Page } from "playwright-core";
 import { type FitProblem, measureFit } from "./i18n-fit-probe";
 
-const logger = createOpenBotLogger("i18n-fit-e2e");
+const logger = createOpenOwnBotLogger("i18n-fit-e2e");
 
 /** The Storybook preview API that switches a global, such as the locale, without a reload. */
 interface StorybookPreview {
@@ -32,7 +32,7 @@ function option(name: string): string | undefined {
 
 const outName = option("out") ?? "i18n-fit";
 assert.match(outName, /^\w[\w.-]*$/, "--out takes a folder name, not a path.");
-const OUT = resolve(import.meta.dirname, "../.openbot-build", outName);
+const OUT = resolve(import.meta.dirname, "../.openownbot-build", outName);
 const SHOTS = resolve(OUT, "screenshots");
 
 const storybook = option("storybook")?.replace(/\/$/, "");
@@ -301,7 +301,7 @@ const browser: Browser = await chromium.launch(
   browserExecutable ? { executablePath: browserExecutable } : { channel: "chrome" },
 );
 const newPage = () => browser.newPage({ viewport: { width: 1280, height: 800 } });
-// A story that navigates away, such as a "Return to OpenBot" page, can leave an evaluate that never
+// A story that navigates away, such as a "Return to OpenOwnBot" page, can leave an evaluate that never
 // settles, and a story can close its own window. The deadline and the closed-page check give the worker
 // a new page, so one story cannot stop the run.
 const STORY_DEADLINE_MS = 120_000;

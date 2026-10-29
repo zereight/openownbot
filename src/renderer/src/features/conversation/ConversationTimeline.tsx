@@ -1,32 +1,32 @@
-import { chatVisualReply } from "@openbot/contracts/chat-visual";
-import type { ConversationMessageSender, MessageReaction } from "@openbot/contracts/ipc";
-import type { ConversationUiBlock } from "@openbot/contracts/ui-blocks";
-import { Button } from "@openbot/ui";
-import type { AgentMessage, ChatActionMarkerModel } from "@openbot/ui/data";
-import { ChannelActivityIndicator } from "@openbot/ui/features/channels/ChannelActivityIndicator";
-import { AgentActivityIndicator } from "@openbot/ui/features/conversation/AgentActivity";
-import { AgentChatEmptyState } from "@openbot/ui/features/conversation/AgentChatEmptyState";
-import { AgentStepsDisclosure, type AgentStepsTrace } from "@openbot/ui/features/conversation/AgentSteps";
-import { AttachmentCards } from "@openbot/ui/features/conversation/AttachmentCards";
-import { UsageLimitAskCard } from "@openbot/ui/features/conversation/BackupModels";
-import { ChatActionMarker } from "@openbot/ui/features/conversation/ChatActionMarker";
-import { type ChatMessageAuthor, ChatMessageRow } from "@openbot/ui/features/conversation/ChatMessageRow";
-import { ChatRowBoundary } from "@openbot/ui/features/conversation/ChatRowBoundary";
-import { ChatScrollRail, createChatScrollRail } from "@openbot/ui/features/conversation/ChatScrollRail";
-import { ChatSearch } from "@openbot/ui/features/conversation/ChatSearch";
-import { ChatVisual } from "@openbot/ui/features/conversation/ChatVisual";
-import { ContextCompactionMarker, type ContextCompactionView } from "@openbot/ui/features/conversation/ContextUsage";
-import { BrowserTakeoverCard } from "@openbot/ui/features/conversation/ConversationPrompts";
-import { dayMarkerLabel } from "@openbot/ui/features/conversation/chat-day-markers";
-import { ReplyReturnButton, ScrollToLatestButton } from "@openbot/ui/features/conversation/MessageNavigation";
-import { MessageActions, MessageMenu } from "@openbot/ui/features/conversation/MessageRendering";
-import { PendingSendStatus } from "@openbot/ui/features/conversation/PendingSendStatus";
-import { SubagentGroup } from "@openbot/ui/features/conversation/Subagents";
-import { TaskList } from "@openbot/ui/features/conversation/TaskList";
-import { UnreadMessagesBanner, UnreadMessagesDivider } from "@openbot/ui/features/conversation/UnreadMessages";
-import { VoicePlayer } from "@openbot/ui/features/conversation/VoicePlayer";
-import { teamMemberName } from "@openbot/ui/features/team/TeamPersonAvatar";
-import { useText } from "@openbot/ui/text";
+import { chatVisualReply } from "@openownbot/contracts/chat-visual";
+import type { ConversationMessageSender, MessageReaction } from "@openownbot/contracts/ipc";
+import type { ConversationUiBlock } from "@openownbot/contracts/ui-blocks";
+import { Button } from "@openownbot/ui";
+import type { AgentMessage, ChatActionMarkerModel } from "@openownbot/ui/data";
+import { ChannelActivityIndicator } from "@openownbot/ui/features/channels/ChannelActivityIndicator";
+import { AgentActivityIndicator } from "@openownbot/ui/features/conversation/AgentActivity";
+import { AgentChatEmptyState } from "@openownbot/ui/features/conversation/AgentChatEmptyState";
+import { AgentStepsDisclosure, type AgentStepsTrace } from "@openownbot/ui/features/conversation/AgentSteps";
+import { AttachmentCards } from "@openownbot/ui/features/conversation/AttachmentCards";
+import { UsageLimitAskCard } from "@openownbot/ui/features/conversation/BackupModels";
+import { ChatActionMarker } from "@openownbot/ui/features/conversation/ChatActionMarker";
+import { type ChatMessageAuthor, ChatMessageRow } from "@openownbot/ui/features/conversation/ChatMessageRow";
+import { ChatRowBoundary } from "@openownbot/ui/features/conversation/ChatRowBoundary";
+import { ChatScrollRail, createChatScrollRail } from "@openownbot/ui/features/conversation/ChatScrollRail";
+import { ChatSearch } from "@openownbot/ui/features/conversation/ChatSearch";
+import { ChatVisual } from "@openownbot/ui/features/conversation/ChatVisual";
+import { ContextCompactionMarker, type ContextCompactionView } from "@openownbot/ui/features/conversation/ContextUsage";
+import { BrowserTakeoverCard } from "@openownbot/ui/features/conversation/ConversationPrompts";
+import { dayMarkerLabel } from "@openownbot/ui/features/conversation/chat-day-markers";
+import { ReplyReturnButton, ScrollToLatestButton } from "@openownbot/ui/features/conversation/MessageNavigation";
+import { MessageActions, MessageMenu } from "@openownbot/ui/features/conversation/MessageRendering";
+import { PendingSendStatus } from "@openownbot/ui/features/conversation/PendingSendStatus";
+import { SubagentGroup } from "@openownbot/ui/features/conversation/Subagents";
+import { TaskList } from "@openownbot/ui/features/conversation/TaskList";
+import { UnreadMessagesBanner, UnreadMessagesDivider } from "@openownbot/ui/features/conversation/UnreadMessages";
+import { VoicePlayer } from "@openownbot/ui/features/conversation/VoicePlayer";
+import { teamMemberName } from "@openownbot/ui/features/team/TeamPersonAvatar";
+import { useText } from "@openownbot/ui/text";
 import { createMemo, createSignal, For, Loading, lazy, onCleanup, Show, untrack } from "solid-js";
 import { useShowAgentSteps } from "../../agent-steps-preference";
 import { planItems, planTitle } from "../../app-message-projection";
@@ -542,7 +542,7 @@ export function ConversationTimeline() {
   const sampleRoutinePrompt = () =>
     props.routines?.find((routine) => routine.active && routine.instruction.trim())?.instruction ??
     props.routines?.find((routine) => routine.instruction.trim())?.instruction;
-  // A skill of the agent's own: every agent has the managed OpenBot skills.
+  // A skill of the agent's own: every agent has the managed OpenOwnBot skills.
   const sampleSkillName = () =>
     installedSkills().find((skill) => skill.enabled !== false && skill.origin !== "managed")?.name;
   return (
@@ -1505,9 +1505,11 @@ export function ConversationTimeline() {
 }
 
 const ApprovalCard = lazy(() =>
-  import("@openbot/ui/features/conversation/ConversationPrompts").then((module) => ({ default: module.ApprovalCard })),
+  import("@openownbot/ui/features/conversation/ConversationPrompts").then((module) => ({
+    default: module.ApprovalCard,
+  })),
 );
 const QuestionPromptBubble = lazy(() =>
-  import("@openbot/ui/components/QuestionPromptBubble").then((module) => ({ default: module.QuestionPromptBubble })),
+  import("@openownbot/ui/components/QuestionPromptBubble").then((module) => ({ default: module.QuestionPromptBubble })),
 );
 const UiBlockPrompt = lazy(() => import("./UiBlockPrompt").then((module) => ({ default: module.UiBlockPrompt })));

@@ -6,17 +6,17 @@ import type {
   MessagingOverview,
   MessagingPlatform,
   MessagingRole,
-} from "@openbot/contracts/ipc";
-import { sourceText } from "@openbot/i18n/source";
-import type { AgentProfile } from "@openbot/ui/data";
+} from "@openownbot/contracts/ipc";
+import { sourceText } from "@openownbot/i18n/source";
+import type { AgentProfile } from "@openownbot/ui/data";
 import type {
   DiscordAccessControl,
   SlackOrchestratorChoice,
   SlackOrchestratorModels,
   WorkspacePlatform,
-} from "@openbot/ui/features/settings/SlackIntegrationPanel";
-import type { TelegramChatPlace } from "@openbot/ui/features/settings/TelegramIntegrationPanel";
-import { currentText } from "@openbot/ui/text";
+} from "@openownbot/ui/features/settings/SlackIntegrationPanel";
+import type { TelegramChatPlace } from "@openownbot/ui/features/settings/TelegramIntegrationPanel";
+import { currentText } from "@openownbot/ui/text";
 import { createSignal, createStore, untrack } from "solid-js";
 import {
   type ConnectorAnalyticsAction,
@@ -41,15 +41,17 @@ export interface MessagingApi {
     target: MessagingOrchestratorTarget,
     choice: SlackOrchestratorChoice | null,
   ) => Promise<AddMessagingOrchestratorResult>;
-  /** Who can use OpenBot in a Discord server. */
+  /** Who can use OpenOwnBot in a Discord server. */
   discordAccess: (workspaceId: string) => Promise<DiscordAccess>;
   /** The roles of a Discord server to choose from. */
   discordRoles: (workspaceId: string) => Promise<DiscordRoleList>;
   setDiscordAccess: (workspaceId: string, allowedRoles: MessagingRole[]) => Promise<DiscordAccess>;
 }
 
-/** The connections of this computer, through main. Read on each call: tests and stories replace `window.openbot`. */
-export function localMessagingApi(messaging: () => MessagingDesktopApi = () => window.openbot.messaging): MessagingApi {
+/** The connections of this computer, through main. Read on each call: tests and stories replace `window.openownbot`. */
+export function localMessagingApi(
+  messaging: () => MessagingDesktopApi = () => window.openownbot.messaging,
+): MessagingApi {
   return {
     overview: (platform) =>
       platform === "slack"
@@ -152,7 +154,7 @@ export function createMessagingConnector(
   /** Each read replaces the one before it, so a slow answer never overwrites a newer one. */
   let reads = 0;
 
-  /** Who can use OpenBot in each Discord server of one server. Discord only. */
+  /** Who can use OpenOwnBot in each Discord server of one server. Discord only. */
   const [access, setAccess] = createStore<{
     serverId: string | undefined;
     allowed: Record<string, MessagingRole[]>;

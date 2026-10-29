@@ -26,12 +26,12 @@ import {
   type SpeechModelStatus,
   type VoiceModelStatus,
   type VoiceStreamTranscript,
-} from "@openbot/contracts/ipc";
-import { TEAM_API_ROUTES } from "@openbot/contracts/team-api-routes";
-import { CHANNEL_ROUTES } from "@openbot/contracts/team-protocol/channels-v1";
-import { TEAM_CHANNEL_ATTENTION_CAPABILITY } from "@openbot/contracts/team-protocol/current";
-import type { AppFormat, AppTranslate } from "@openbot/i18n";
-import { redactText } from "@openbot/logging";
+} from "@openownbot/contracts/ipc";
+import { TEAM_API_ROUTES } from "@openownbot/contracts/team-api-routes";
+import { CHANNEL_ROUTES } from "@openownbot/contracts/team-protocol/channels-v1";
+import { TEAM_CHANNEL_ATTENTION_CAPABILITY } from "@openownbot/contracts/team-protocol/current";
+import type { AppFormat, AppTranslate } from "@openownbot/i18n";
+import { redactText } from "@openownbot/logging";
 import {
   type AgentNotificationChannel,
   agentEventCanNotify,
@@ -39,12 +39,12 @@ import {
   notificationForAgentEvent,
   notificationForUsageLimit,
   notificationRequestKey,
-} from "@openbot/team-client/agent-notifications";
+} from "@openownbot/team-client/agent-notifications";
 import {
   channelForThread,
   channelReplyNotifications,
   newChannelReplies,
-} from "@openbot/team-client/channel-notifications";
+} from "@openownbot/team-client/channel-notifications";
 import { BrowserWindow, Notification } from "electron";
 import { isNoUpdateAnswer } from "../backend/agent/routine-quiet-runs";
 import type { AgentService } from "../backend/agent-service";
@@ -423,11 +423,11 @@ export function createRendererForwarders({
     }
   }
 
-  function forwardUpdateStatus(status: import("@openbot/contracts/ipc").UpdateStatus): void {
+  function forwardUpdateStatus(status: import("@openownbot/contracts/ipc").UpdateStatus): void {
     for (const window of appWindows()) sendToRenderer(window, IPC_ENDPOINTS.update.event, status);
   }
 
-  function forwardUpdatePreference(preference: import("@openbot/contracts/ipc").UpdatePreference): void {
+  function forwardUpdatePreference(preference: import("@openownbot/contracts/ipc").UpdatePreference): void {
     for (const window of appWindows()) sendToRenderer(window, IPC_ENDPOINTS.update.preference, preference);
   }
 
@@ -443,29 +443,29 @@ export function createRendererForwarders({
     for (const window of appWindows()) sendToRenderer(window, IPC_ENDPOINTS.voice.streamTranscript, transcript);
   }
 
-  function forwardProviderRuntimeStatus(snapshot: import("@openbot/contracts/ipc").ProviderRuntimeSnapshot): void {
+  function forwardProviderRuntimeStatus(snapshot: import("@openownbot/contracts/ipc").ProviderRuntimeSnapshot): void {
     for (const window of appWindows()) sendToRenderer(window, IPC_ENDPOINTS.providerRuntimes.event, snapshot);
   }
 
-  function forwardGitHubConnectorStatus(status: import("@openbot/contracts/ipc").GitHubConnectorStatus): void {
+  function forwardGitHubConnectorStatus(status: import("@openownbot/contracts/ipc").GitHubConnectorStatus): void {
     for (const window of appWindows()) sendToRenderer(window, IPC_ENDPOINTS.githubConnector.changed, status);
   }
 
   function forwardOnePasswordConnectorStatus(
-    status: import("@openbot/contracts/ipc").OnePasswordConnectorStatus,
+    status: import("@openownbot/contracts/ipc").OnePasswordConnectorStatus,
   ): void {
     for (const window of appWindows()) sendToRenderer(window, IPC_ENDPOINTS.onePasswordConnector.changed, status);
   }
 
-  function forwardBitwardenConnectorStatus(status: import("@openbot/contracts/ipc").BitwardenConnectorStatus): void {
+  function forwardBitwardenConnectorStatus(status: import("@openownbot/contracts/ipc").BitwardenConnectorStatus): void {
     for (const window of appWindows()) sendToRenderer(window, IPC_ENDPOINTS.bitwardenConnector.changed, status);
   }
 
-  function forwardVaultState(state: import("@openbot/contracts/ipc").VaultState): void {
+  function forwardVaultState(state: import("@openownbot/contracts/ipc").VaultState): void {
     for (const window of appWindows()) sendToRenderer(window, IPC_ENDPOINTS.vault.changed, state);
   }
 
-  function forwardHostStatus(status: import("@openbot/contracts/ipc").HostStatus): void {
+  function forwardHostStatus(status: import("@openownbot/contracts/ipc").HostStatus): void {
     const remoteServers = getRemoteServerManager();
     const servers = remoteServers ? withLocalHostSummary(remoteServers.list(), status) : null;
     for (const target of appWindows()) {
@@ -474,13 +474,13 @@ export function createRendererForwarders({
     }
   }
 
-  function forwardRemoteDesktopSessions(sessions: import("@openbot/contracts/ipc").RemoteDesktopSession[]): void {
+  function forwardRemoteDesktopSessions(sessions: import("@openownbot/contracts/ipc").RemoteDesktopSession[]): void {
     const window = getMainWindow();
     if (!window || window.isDestroyed()) return;
     sendToRenderer(window, IPC_ENDPOINTS.remoteDesktop.event, sessions);
   }
 
-  function forwardServers(servers: import("@openbot/contracts/ipc").ServerSummary[]): void {
+  function forwardServers(servers: import("@openownbot/contracts/ipc").ServerSummary[]): void {
     const host = getHostService();
     const summaries = host ? withLocalHostSummary(servers, host.getStatus()) : servers;
     for (const target of appWindows()) sendToRenderer(target, IPC_ENDPOINTS.servers.event, summaries);
@@ -488,7 +488,7 @@ export function createRendererForwarders({
 
   function forwardTeamPresence(
     serverId: string,
-    snapshot: import("@openbot/contracts/ipc").TeamPresenceSnapshot,
+    snapshot: import("@openownbot/contracts/ipc").TeamPresenceSnapshot,
   ): void {
     for (const target of appWindows()) {
       sendToRenderer(target, IPC_ENDPOINTS.servers.scopedPresence, { serverId, snapshot });
@@ -497,7 +497,7 @@ export function createRendererForwarders({
 
   function forwardDirectMessage(
     serverId: string,
-    event: import("@openbot/contracts/ipc").DirectMessageRealtimeEvent,
+    event: import("@openownbot/contracts/ipc").DirectMessageRealtimeEvent,
   ): void {
     const window = getMainWindow();
     if (!window || window.isDestroyed()) return;
@@ -506,7 +506,7 @@ export function createRendererForwarders({
 
   function forwardDirectTyping(
     serverId: string,
-    event: import("@openbot/contracts/ipc").DirectTypingRealtimeEvent,
+    event: import("@openownbot/contracts/ipc").DirectTypingRealtimeEvent,
   ): void {
     const window = getMainWindow();
     if (!window || window.isDestroyed()) return;

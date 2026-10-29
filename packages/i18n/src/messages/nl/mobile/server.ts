@@ -112,7 +112,7 @@ export const messages = {
   "mobile.server.hosted.detail.copy": "OpenOwnBot naar de machine kopiëren",
   "mobile.server.hosted.detail.key": "Een eenmalige inlogsleutel toevoegen",
   "mobile.server.hosted.detail.boot": "De machine aanzetten",
-  "mobile.server.hosted.detail.app": "OpenBot starten",
+  "mobile.server.hosted.detail.app": "OpenOwnBot starten",
   "mobile.server.hosted.detail.wait": "Wachten tot OpenOwnBot antwoordt",
   "mobile.server.hosted.detail.signIn": "Inloggen als jou",
   "mobile.server.hosted.detail.publish": "De server aan je account toevoegen",
@@ -462,9 +462,9 @@ export const messages = {
   "mobile.server.connectors.onePassword.disconnectBody":
     "{host} vergeet het token. De kluis en het serviceaccount blijven in 1Password; verwijder ze daar als je ze niet meer nodig hebt.",
   "mobile.server.connectors.slack.title": "Slack",
-  "mobile.server.connectors.slack.summary": "Mensen noemen @OpenBot in Slack",
+  "mobile.server.connectors.slack.summary": "Mensen noemen @OpenOwnBot in Slack",
   "mobile.server.connectors.slack.description":
-    "Mensen noemen @OpenBot in Slack of sturen een direct bericht. De Slack Orchestrator vraagt het de juiste agent en antwoordt.",
+    "Mensen noemen @OpenOwnBot in Slack of sturen een direct bericht. De Slack Orchestrator vraagt het de juiste agent en antwoordt.",
   "mobile.server.connectors.slack.connected": "{workspace} · Slack Orchestrator antwoordt",
   "mobile.server.connectors.slack.noAgent": "{workspace} · Nog geen agent die antwoordt",
   "mobile.server.connectors.slack.many": {
@@ -484,7 +484,7 @@ export const messages = {
     other: "Je kunt maximaal {count} werkruimten verbinden.",
   },
   "mobile.server.connectors.slack.workspaceTitle": "Werkruimte",
-  "mobile.server.connectors.slack.workspaceDescription": "Mensen noemen @OpenBot of sturen een direct bericht.",
+  "mobile.server.connectors.slack.workspaceDescription": "Mensen noemen @OpenOwnBot of sturen een direct bericht.",
   "mobile.server.connectors.slack.missingScopes":
     "OpenOwnBot heeft deze machtigingen niet in Slack: {scopes}. Ontkoppel de werkruimte en verbind hem opnieuw.",
   "mobile.server.connectors.slack.retryAt": "Slack vroeg OpenOwnBot te wachten. Het probeert het opnieuw om {time}.",
@@ -501,7 +501,7 @@ export const messages = {
     "Voeg de Slack Orchestrator toe, anders krijgt Slack geen antwoord.",
   "mobile.server.connectors.slack.addAgent": "Slack Orchestrator toevoegen",
   "mobile.server.connectors.slack.note":
-    "OpenBot wordt zelf lid van elk openbaar kanaal, en van elk nieuw kanaal. Nodig hem uit voor een privékanaal: /invite @OpenBot.",
+    "OpenOwnBot wordt zelf lid van elk openbaar kanaal, en van elk nieuw kanaal. Nodig hem uit voor een privékanaal: /invite @OpenOwnBot.",
   "mobile.server.connectors.slack.disconnectTitle": "{workspace} ontkoppelen?",
   "mobile.server.connectors.slack.disconnectBody":
     "OpenOwnBot stopt met antwoorden in {workspace} en verwijdert zijn Slack-token van {host}.",
@@ -510,12 +510,12 @@ export const messages = {
     "De Slack Orchestrator en zijn gesprekken worden uit OpenOwnBot verwijderd.",
   "mobile.server.connectors.slack.agentPromptTitle": "De Slack Orchestrator toevoegen?",
   "mobile.server.connectors.slack.agentPromptBody":
-    "Deze nieuwe agent beantwoordt alles wat mensen in {workspace} naar @OpenBot sturen.",
+    "Deze nieuwe agent beantwoordt alles wat mensen in {workspace} naar @OpenOwnBot sturen.",
   "mobile.server.connectors.slack.installFailed": "Slack heeft de installatie niet voltooid. Probeer het opnieuw.",
   "mobile.server.connectors.discord.title": "Discord",
-  "mobile.server.connectors.discord.summary": "Mensen noemen @OpenBot in een Discord-server",
+  "mobile.server.connectors.discord.summary": "Mensen noemen @OpenOwnBot in een Discord-server",
   "mobile.server.connectors.discord.description":
-    "Mensen noemen @OpenBot in een kanaal van een Discord-server. De Discord Orchestrator vraagt het de juiste agent en antwoordt.",
+    "Mensen noemen @OpenOwnBot in een kanaal van een Discord-server. De Discord Orchestrator vraagt het de juiste agent en antwoordt.",
   "mobile.server.connectors.discord.connected": "{workspace} · Discord Orchestrator antwoordt",
   "mobile.server.connectors.discord.noAgent": "{workspace} · Nog geen agent die antwoordt",
   "mobile.server.connectors.discord.many": {
@@ -536,7 +536,7 @@ export const messages = {
   },
   "mobile.server.connectors.discord.workspaceTitle": "Discord-server",
   "mobile.server.connectors.discord.workspaceDescription":
-    "Noem @OpenBot in een kanaal. Antwoord op OpenBot om verder te gaan.",
+    "Noem @OpenOwnBot in een kanaal. Antwoord op OpenOwnBot om verder te gaan.",
   "mobile.server.connectors.discord.missingScopes":
     "OpenOwnBot heeft deze machtigingen niet in Discord: {scopes}. Ontkoppel de Discord-server en verbind hem opnieuw.",
   "mobile.server.connectors.discord.retryAt":
@@ -562,7 +562,7 @@ export const messages = {
     "De Discord Orchestrator en zijn gesprekken worden uit OpenOwnBot verwijderd.",
   "mobile.server.connectors.discord.agentPromptTitle": "De Discord Orchestrator toevoegen?",
   "mobile.server.connectors.discord.agentPromptBody":
-    "Deze nieuwe agent beantwoordt alles wat mensen in {workspace} naar @OpenBot sturen.",
+    "Deze nieuwe agent beantwoordt alles wat mensen in {workspace} naar @OpenOwnBot sturen.",
   "mobile.server.connectors.discord.installFailed": "Discord heeft de autorisatie niet voltooid. Probeer het opnieuw.",
   "mobile.server.connectors.telegram.title": "Telegram",
   "mobile.server.connectors.telegram.summary": "Voeg de OpenOwnBot-bot toe aan een Telegram-chat",
@@ -820,11 +820,11 @@ export const messages = {
   "mobile.server.update.path.hosted":
     "De gehoste dienst downloadt updates op de achtergrond. Een gedownloade update start bij de volgende start van de server. Wacht tot actief werk klaar is voordat je de server stopt en hervat. Blijft hij op een oude versie, neem dan contact op met de hostbeheerder.",
   "mobile.server.update.path.system":
-    "Voer op de host sudo openbot update uit om de nieuwste release te installeren. Deze opdracht stopt OpenOwnBot. Wacht eerst tot actief werk klaar is. Automatische downloads worden bij de volgende opstart geïnstalleerd.",
+    "Voer op de host sudo openownbot update uit om de nieuwste release te installeren. Deze opdracht stopt OpenOwnBot. Wacht eerst tot actief werk klaar is. Automatische downloads worden bij de volgende opstart geïnstalleerd.",
   "mobile.server.update.path.container":
     "Haal op de Docker-host de nieuwe OpenOwnBot-image op en maak de container opnieuw met dezelfde datavolumes. Wacht eerst tot actief werk klaar is. Houd de bestaande volumes om je gegevens te bewaren.",
   "mobile.server.update.path.manual":
-    "Deze installatie kan zichzelf niet vervangen. Vraag de hostbeheerder de compatibele release van github.com/nightly-labs/openbot/releases te installeren. Houd de bestaande OpenOwnBot-gegevens.",
+    "Deze installatie kan zichzelf niet vervangen. Vraag de hostbeheerder de compatibele release van github.com/zereight/openownbot/releases te installeren. Houd de bestaande OpenOwnBot-gegevens.",
   "mobile.server.update.path.unavailable":
     "Dit is een ontwikkelbuild. Gebruik een geïnstalleerde OpenOwnBot-release om naar updates te zoeken.",
   "mobile.server.update.check": "Zoek naar updates",

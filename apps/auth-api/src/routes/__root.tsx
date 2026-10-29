@@ -2,8 +2,8 @@ import interLatinFont from "@fontsource-variable/inter/files/inter-latin-wght-no
 import type { JSX } from "@solidjs/web";
 import { createRootRoute, type ErrorComponentProps, HeadContent, Outlet, Scripts } from "@tanstack/solid-router";
 import { createSignal, onSettled, Show } from "solid-js";
-import "@openbot/brand/logo.css";
-import { installPointerFocusGuard } from "@openbot/ui/pointer-focus";
+import "@openownbot/brand/logo.css";
+import { installPointerFocusGuard } from "@openownbot/ui/pointer-focus";
 import "../styles.css";
 import { NotFoundPage } from "../components/landing/NotFoundPage";
 import { PageError } from "../components/landing/PageError";
@@ -11,9 +11,9 @@ import { type RootPageText, rootPageText } from "../components/transactional/pag
 import { loadPageText, type PageText } from "../lib/page-text";
 import { requestLocale } from "../lib/request-locale";
 import { servingSiteUrl } from "../lib/serving-site-url";
-import { OPENBOT_SECURITY_HEADERS, openBotRootHead } from "../lib/site-metadata";
+import { OPENOWNBOT_SECURITY_HEADERS, openOwnBotRootHead } from "../lib/site-metadata";
 
-const NOT_FOUND_TITLE = "Page not found · OpenBot";
+const NOT_FOUND_TITLE = "Page not found · OpenOwnBot";
 
 export const Route = createRootRoute({
   beforeLoad: () => ({ siteUrl: servingSiteUrl(), locale: requestLocale() }),
@@ -25,12 +25,12 @@ export const Route = createRootRoute({
   // its own, so the root head gives it its title. A child route's own title still wins. The 404 page
   // is English only, so its title is English too.
   head: ({ matches }) => {
-    const head = openBotRootHead(interLatinFont);
+    const head = openOwnBotRootHead(interLatinFont);
     if (!matches.some((match) => match._notFound)) return head;
     return { ...head, meta: head.meta.map((tag) => ("title" in tag ? { title: NOT_FOUND_TITLE } : tag)) };
   },
   // The HTML holds catalog text in the language of `Accept-Language`, so a cache must keep it apart.
-  headers: () => ({ ...OPENBOT_SECURITY_HEADERS, Vary: "Accept-Language" }),
+  headers: () => ({ ...OPENOWNBOT_SECURITY_HEADERS, Vary: "Accept-Language" }),
   component: RootComponent,
   shellComponent: RootDocument,
   errorComponent: RootError,

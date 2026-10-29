@@ -1,5 +1,5 @@
-import { HOSTED_SERVER_ENTRY_POINTS } from "@openbot/contracts/hosted-servers";
-import { isDynamicRecord, isOneOf } from "@openbot/contracts/runtime-values";
+import { HOSTED_SERVER_ENTRY_POINTS } from "@openownbot/contracts/hosted-servers";
+import { isDynamicRecord, isOneOf } from "@openownbot/contracts/runtime-values";
 import { Effect, Schema } from "effect";
 import {
   ACCOUNT_ANALYTICS_SCHEMA_VERSION,
@@ -280,7 +280,7 @@ export class SalesAnalyticsDelivery {
           "content-type": "application/json",
           "openpanel-client-id": clientId,
           "openpanel-client-secret": clientSecret,
-          "openpanel-sdk-name": "openbot-account-api",
+          "openpanel-sdk-name": "openownbot-account-api",
         },
         body: JSON.stringify({ type: "track", payload }),
         signal: AbortSignal.timeout(SEND_TIMEOUT_MS),

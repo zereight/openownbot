@@ -31,12 +31,12 @@ export const PRISMA_PLUGIN_GUIDE: PluginGuide = {
     {
       question: "Does the Prisma plugin need an API key?",
       answer:
-        "No. You sign in to your own Prisma account in the browser, select a workspace and approve access. OpenBot signs in itself, keeps the tokens in encrypted storage, and adds the Authorization header. The plugin catalog holds no secret.",
+        "No. You sign in to your own Prisma account in the browser, select a workspace and approve access. OpenOwnBot signs in itself, keeps the tokens in encrypted storage, and adds the Authorization header. The plugin catalog holds no secret.",
     },
     {
       question: "What can the agent change in Prisma?",
       answer:
-        "The agent has full access to the workspace that you select. It can run SQL that changes or deletes data, update schemas, and delete databases, connection strings, buckets and access keys. It can also start, stop, roll back or delete Compute deployments, and set environment variables. Prisma warns that these tools can cause data loss or interrupt live traffic. Prisma gets the requests that the agent sends. Your workspaces, conversations and files stay on the computer that runs OpenBot.",
+        "The agent has full access to the workspace that you select. It can run SQL that changes or deletes data, update schemas, and delete databases, connection strings, buckets and access keys. It can also start, stop, roll back or delete Compute deployments, and set environment variables. Prisma warns that these tools can cause data loss or interrupt live traffic. Prisma gets the requests that the agent sends. Your workspaces, conversations and files stay on the computer that runs OpenOwnBot.",
     },
   ],
   sources: [

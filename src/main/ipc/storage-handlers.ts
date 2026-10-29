@@ -16,12 +16,12 @@ import {
   parseOpenStorageLocationInput,
   parseOpenStoredFileInput,
   STORAGE_CAPABILITY,
-} from "@openbot/contracts/ipc";
-import { isDynamicRecord } from "@openbot/contracts/runtime-values";
-import type { TeamCurrentCapability } from "@openbot/contracts/team-protocol/current";
-import { STORAGE_DISK_CAPABILITY, STORAGE_DISK_ROUTES } from "@openbot/contracts/team-protocol/storage-disk-v1";
-import { STORAGE_ROUTES } from "@openbot/contracts/team-protocol/storage-v1";
-import { sourceText } from "@openbot/i18n/source";
+} from "@openownbot/contracts/ipc";
+import { isDynamicRecord } from "@openownbot/contracts/runtime-values";
+import type { TeamCurrentCapability } from "@openownbot/contracts/team-protocol/current";
+import { STORAGE_DISK_CAPABILITY, STORAGE_DISK_ROUTES } from "@openownbot/contracts/team-protocol/storage-disk-v1";
+import { STORAGE_ROUTES } from "@openownbot/contracts/team-protocol/storage-v1";
+import { sourceText } from "@openownbot/i18n/source";
 import { runCauseEffect } from "../../backend/effect-boundary";
 import type { StorageAgent, StorageUsageService } from "../../backend/storage-usage";
 import type { ProviderRuntimeManager } from "../provider-runtime-manager";

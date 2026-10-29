@@ -1,4 +1,4 @@
-// Runs OpenBot's own provider driver against each recorded transcript of a real CLI in
+// Runs OpenOwnBot's own provider driver against each recorded transcript of a real CLI in
 // `scripts/provider-fakes/transcripts/`, replayed by `agents/replay.ts`. A fake that we write
 // ourselves agrees with the driver by construction; a recording shows what the released CLI really
 // sends. Checks that a thread starts and a turn completes with the recorded answer, and that the
@@ -6,19 +6,19 @@
 // sends a request the CLI never answered, or skips one, fails here before it reaches users.
 //
 // A deliberate driver change records the transcript again: `record-provider-transcript.ts`.
-// `bun run test:provider-transcript-replay`. Writes .openbot-build/provider-transcript-replay-e2e/report.json.
+// `bun run test:provider-transcript-replay`. Writes .openownbot-build/provider-transcript-replay-e2e/report.json.
 import assert from "node:assert/strict";
 import { mkdir, mkdtemp, readdir, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
-import { isAgentProvider } from "@openbot/contracts/agent-providers";
+import { isAgentProvider } from "@openownbot/contracts/agent-providers";
 import type { AgentClient } from "../src/backend/agent-client";
 import { NO_PROVIDER_CREDENTIALS, requireProviderDriver } from "../src/backend/provider-drivers";
 import { installFakeAgent, readJsonl, runTurn, startThread, stopClients } from "./provider-fakes/host";
 import type { TranscriptLine } from "./provider-fakes/transcript-proxy";
 import { REDACTED } from "./provider-fakes/transcript-redaction";
 
-const OUT = resolve(import.meta.dirname, "../.openbot-build/provider-transcript-replay-e2e");
+const OUT = resolve(import.meta.dirname, "../.openownbot-build/provider-transcript-replay-e2e");
 const TRANSCRIPTS = resolve(import.meta.dirname, "provider-fakes/transcripts");
 
 interface Header {
@@ -41,7 +41,7 @@ interface Result {
 }
 
 const report: { passed: boolean; results: Result[]; error?: string } = { passed: false, results: [] };
-const root = await mkdtemp(join(tmpdir(), "openbot-transcript-replay-e2e-"));
+const root = await mkdtemp(join(tmpdir(), "openownbot-transcript-replay-e2e-"));
 const clients: AgentClient[] = [];
 
 try {

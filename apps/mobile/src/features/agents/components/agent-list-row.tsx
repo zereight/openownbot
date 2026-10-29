@@ -1,4 +1,4 @@
-import { markdownPreviewText } from "@openbot/contracts/markdown-preview-text";
+import { markdownPreviewText } from "@openownbot/contracts/markdown-preview-text";
 import MaskedView from "@react-native-masked-view/masked-view";
 import { BlurView } from "expo-blur";
 import { Link } from "expo-router";

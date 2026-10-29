@@ -1,9 +1,9 @@
-import type { BrowserControlSession, BrowserPreview, BrowserTab } from "@openbot/contracts/ipc";
-import { TEAM_BROWSER_NAVIGATION_CAPABILITY } from "@openbot/contracts/team-protocol/current";
-import { toast } from "@openbot/ui";
-import type { AgentProfile } from "@openbot/ui/data";
-import { browserAddressUrl } from "@openbot/ui/features/browser/browser-suggestions";
-import { currentText } from "@openbot/ui/text";
+import type { BrowserControlSession, BrowserPreview, BrowserTab } from "@openownbot/contracts/ipc";
+import { TEAM_BROWSER_NAVIGATION_CAPABILITY } from "@openownbot/contracts/team-protocol/current";
+import { toast } from "@openownbot/ui";
+import type { AgentProfile } from "@openownbot/ui/data";
+import { browserAddressUrl } from "@openownbot/ui/features/browser/browser-suggestions";
+import { currentText } from "@openownbot/ui/text";
 import { createEffect, createMemo, createSignal, untrack } from "solid-js";
 import { desktopAnalytics } from "../../../analytics";
 import { serverSupportsCapability } from "../../servers/server-capabilities";

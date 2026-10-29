@@ -1,6 +1,6 @@
 ---
 name: "Routine Healthcheck"
-description: "Audit the routines of all local OpenBot agents for token waste, offer a fleet checkup after install, decide routine cadence, or run the standing routine-healthcheck routine."
+description: "Audit the routines of all local OpenOwnBot agents for token waste, offer a fleet checkup after install, decide routine cadence, or run the standing routine-healthcheck routine."
 ---
 
 # Routine Healthcheck

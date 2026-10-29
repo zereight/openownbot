@@ -3,8 +3,8 @@ import { existsSync } from "node:fs";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { createServer } from "node:http";
 import { dirname, join } from "node:path";
-import type { AgentBrowserProfile } from "@openbot/contracts/ipc";
-import { redactText } from "@openbot/logging";
+import type { AgentBrowserProfile } from "@openownbot/contracts/ipc";
+import { redactText } from "@openownbot/logging";
 import { app, BrowserWindow, session, type WebContents, webContents } from "electron";
 import { z } from "zod";
 import { BrowserHost } from "../src/backend/browser-host";
@@ -163,7 +163,7 @@ async function main(): Promise<void> {
         url: page("malformed"),
         ownerThreadId: "thread-a",
         ownerAgentId: "agent-a",
-        agentSession: "../openbot-browser",
+        agentSession: "../openownbot-browser",
       },
     );
     await writeFile(statePath, `${JSON.stringify(saved, null, 2)}\n`);
@@ -194,7 +194,7 @@ async function main(): Promise<void> {
 
     phase("clear");
     const partitionCookies = (agentId: string) =>
-      session.fromPartition(`persist:openbot-browser-agent-${agentBrowserSessionKey(agentId)}`).cookies.get({});
+      session.fromPartition(`persist:openownbot-browser-agent-${agentBrowserSessionKey(agentId)}`).cookies.get({});
     // A tab that is still open keeps its session, and the call says so.
     await assert.rejects(runCauseEffect(second.clearAgentSession("agent-b")));
     assert.equal((await partitionCookies("agent-b")).length, 1);
@@ -205,13 +205,14 @@ async function main(): Promise<void> {
     assert.deepEqual(await readValues(contentsFor(page("shared-restored"))), values("c"));
     recordCases("clear-agent-session-clears-only-that-agent");
     const partitionDirectory = (agentId: string) =>
-      join(fixtureRoot, "session", "Partitions", `openbot-browser-agent-${agentBrowserSessionKey(agentId)}`);
+      join(fixtureRoot, "session", "Partitions", `openownbot-browser-agent-${agentBrowserSessionKey(agentId)}`);
     assert(existsSync(partitionDirectory("agent-a")), "The agent partition is not where the host looks for it.");
     await runCauseEffect(second.clearAgentSession("agent-c"));
     assert(!existsSync(partitionDirectory("agent-c")), "Clearing created a partition for an agent without one.");
     recordCases("clear-agent-session-creates-no-partition");
     const clientOne = { kind: "profile", profileId: CLIENT_ONE } as const;
-    const profileCookies = () => session.fromPartition(`persist:openbot-browser-profile-${CLIENT_ONE}`).cookies.get({});
+    const profileCookies = () =>
+      session.fromPartition(`persist:openownbot-browser-profile-${CLIENT_ONE}`).cookies.get({});
     await assert.rejects(runCauseEffect(second.clearTabSession(clientOne)));
     assert.deepEqual([...second.tabIdsInSession(clientOne)].sort(), [d.id, e.id].sort());
     await runCauseEffect(second.close(d.id));

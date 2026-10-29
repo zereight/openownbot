@@ -1,4 +1,4 @@
-import { INPUT_LIMITS } from "@openbot/contracts/input-limits";
+import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
 import {
   Archive,
   ArrowRightToLine,
@@ -9,8 +9,8 @@ import {
   SlidingTabs,
   Trash2,
   X,
-} from "@openbot/ui";
-import { useText } from "@openbot/ui/text";
+} from "@openownbot/ui";
+import { useText } from "@openownbot/ui/text";
 import { createSignal, For, flush, onSettled, Show } from "solid-js";
 import { ThreadStatusMark, threadAttention } from "./ThreadStatusMark";
 import { MAIN_THREAD_ID, type ThreadHeaderProps, type ThreadItem, threadBusy } from "./thread-types";

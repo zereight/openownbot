@@ -3,7 +3,7 @@ import { WEB_APPEARANCE_BOOT_SCRIPT } from "../../../../src/renderer/src/feature
 
 export const Route = createFileRoute("/app")({
   head: () => ({
-    meta: [{ title: "OpenBot web" }, { name: "robots", content: "noindex, nofollow" }],
+    meta: [{ title: "OpenOwnBot web" }, { name: "robots", content: "noindex, nofollow" }],
     scripts: [{ children: WEB_APPEARANCE_BOOT_SCRIPT }],
   }),
   headers: () => ({

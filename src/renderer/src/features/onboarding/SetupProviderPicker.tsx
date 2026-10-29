@@ -8,26 +8,29 @@ import {
   isLocalOnlyProvider,
   type ProviderRuntimeStatus,
   type SaveCustomProviderInput,
-} from "@openbot/contracts/ipc";
-import type { AppTextKey } from "@openbot/i18n";
+} from "@openownbot/contracts/ipc";
+import type { AppTextKey } from "@openownbot/i18n";
 import {
   type ProviderConnection,
   ProviderPicker,
   type ProviderPickerOption,
-} from "@openbot/ui/components/ProviderPicker";
-import { freeModelsReady } from "@openbot/ui/components/provider-row";
-import { CustomProviderDialog } from "@openbot/ui/features/custom-providers/CustomProviderDialog";
-import { CustomProviderListDialog } from "@openbot/ui/features/custom-providers/CustomProviderListDialog";
-import { DetectedProviders } from "@openbot/ui/features/custom-providers/DetectedProviders";
-import type { DetectedProviderApi, ProviderDetection } from "@openbot/ui/features/custom-providers/detected-providers";
+} from "@openownbot/ui/components/ProviderPicker";
+import { freeModelsReady } from "@openownbot/ui/components/provider-row";
+import { CustomProviderDialog } from "@openownbot/ui/features/custom-providers/CustomProviderDialog";
+import { CustomProviderListDialog } from "@openownbot/ui/features/custom-providers/CustomProviderListDialog";
+import { DetectedProviders } from "@openownbot/ui/features/custom-providers/DetectedProviders";
+import type {
+  DetectedProviderApi,
+  ProviderDetection,
+} from "@openownbot/ui/features/custom-providers/detected-providers";
 import {
   isKeyDialogProvider,
   type KeyDialogProvider,
   OpenCodeKeyDialog,
   type ProviderKeyApi,
-} from "@openbot/ui/features/settings/OpenCodeKeyDialog";
-import { useText } from "@openbot/ui/text";
-import { errorReference, type UserErrorDetails } from "@openbot/user-errors";
+} from "@openownbot/ui/features/settings/OpenCodeKeyDialog";
+import { useText } from "@openownbot/ui/text";
+import { errorReference, type UserErrorDetails } from "@openownbot/user-errors";
 import { createEffect, createMemo, createSignal, onCleanup, Show, untrack } from "solid-js";
 import { ProviderSignInDialogs } from "../../components/ProviderSignInDialogs";
 import type { ProviderConnectionApi } from "../../components/provider-connection-api";
@@ -104,7 +107,7 @@ export interface SetupProviderChoice {
 
 // The line that the plan providers share. It tells nothing about one row, so those rows show their
 // version there.
-const INCLUDED_DESCRIPTION = "Included with OpenBot";
+const INCLUDED_DESCRIPTION = "Included with OpenOwnBot";
 
 // A custom agent is not a first provider: it is added from the detected list or in Settings.
 const SETUP_PROVIDERS: Array<{ id: AgentProviderId; name: string; description: string | null }> =
@@ -424,7 +427,7 @@ export function createSetupProviders(
         focusRefreshTimer = setTimeout(synchronize, 250);
         return;
       }
-      // A refresh cancels a sign-in that OpenBot runs, such as Gemini's Google sign-in. The browser
+      // A refresh cancels a sign-in that OpenOwnBot runs, such as Gemini's Google sign-in. The browser
       // takes focus, so the user often comes back before the sign-in is complete. That sign-in
       // reports its own result.
       const signingIn = props.agentStatus.providers?.some(

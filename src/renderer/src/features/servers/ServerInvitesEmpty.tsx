@@ -5,10 +5,10 @@
  * is still and full.
  */
 
-import type { TeamInviteSummary } from "@openbot/contracts/ipc";
-import { Button, Heading } from "@openbot/ui";
-import { useText } from "@openbot/ui/text";
-import { prefersReducedMotion } from "@openbot/ui/utils";
+import type { TeamInviteSummary } from "@openownbot/contracts/ipc";
+import { Button, Heading } from "@openownbot/ui";
+import { useText } from "@openownbot/ui/text";
+import { prefersReducedMotion } from "@openownbot/ui/utils";
 import type { JSX } from "@solidjs/web";
 import { createMemo, createSignal, For, onSettled } from "solid-js";
 

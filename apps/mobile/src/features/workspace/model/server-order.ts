@@ -1,8 +1,8 @@
-import { isString } from "@openbot/contracts/runtime-values";
-import { remoteHostFingerprint } from "@openbot/team-client";
+import { isString } from "@openownbot/contracts/runtime-values";
+import { remoteHostFingerprint } from "@openownbot/team-client";
 
-// Categorical hues shared with the desktop server rail (--openbot-file-blue/-orange/-teal/-pink and
-// --openbot-success). @openbot/brand ships tokens as CSS only, so JS keeps a copy.
+// Categorical hues shared with the desktop server rail (--openownbot-file-blue/-orange/-teal/-pink and
+// --openownbot-success). @openownbot/brand ships tokens as CSS only, so JS keeps a copy.
 const SERVER_ACCENTS = ["#74b9ff", "#f0a06a", "#6bc7d9", "#d98ac9", "#31cf76"] as const;
 
 /** The accent follows the server, so a move, join, or leave does not recolor other servers. */
@@ -13,7 +13,7 @@ export function serverAccent(serverId: string): string {
 }
 
 export function serverOrderKey(apiUrl: string, userId: string): string {
-  return `openbot.server-order.v1.${remoteHostFingerprint(JSON.stringify([new URL(apiUrl).origin, userId]))}`;
+  return `openownbot.server-order.v1.${remoteHostFingerprint(JSON.stringify([new URL(apiUrl).origin, userId]))}`;
 }
 
 export function decodeServerOrder(stored: string | null): string[] {
@@ -27,7 +27,7 @@ export function decodeServerOrder(stored: string | null): string[] {
 }
 
 export function defaultServerKey(apiUrl: string, userId: string): string {
-  return `openbot.default-server.v1.${remoteHostFingerprint(JSON.stringify([new URL(apiUrl).origin, userId]))}`;
+  return `openownbot.default-server.v1.${remoteHostFingerprint(JSON.stringify([new URL(apiUrl).origin, userId]))}`;
 }
 
 /** With no saved choice, the paired host is the default, as before. A saved `null` means no default. */

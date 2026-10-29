@@ -1,13 +1,13 @@
-import type { LocalBrowserSecretResponse, QueueDelivery, QueueHold } from "@openbot/contracts/ipc";
-import { ArrowUp, Button } from "@openbot/ui";
-import type { ComposerAgent, ComposerMcpServer, ComposerSkill } from "@openbot/ui/data";
-import { AgentAvatar } from "@openbot/ui/features/agents/AgentAvatar";
-import { ComposerEditor } from "@openbot/ui/features/conversation/ComposerEditor";
-import { StopIcon } from "@openbot/ui/features/conversation/ConversationIcons";
-import { QueuePanel } from "@openbot/ui/features/conversation/QueuePanel";
-import type { SendShortcut } from "@openbot/ui/features/conversation/send-shortcut";
-import { useText } from "@openbot/ui/text";
-import { prefersReducedMotion } from "@openbot/ui/utils";
+import type { LocalBrowserSecretResponse, QueueDelivery, QueueHold } from "@openownbot/contracts/ipc";
+import { ArrowUp, Button } from "@openownbot/ui";
+import type { ComposerAgent, ComposerMcpServer, ComposerSkill } from "@openownbot/ui/data";
+import { AgentAvatar } from "@openownbot/ui/features/agents/AgentAvatar";
+import { ComposerEditor } from "@openownbot/ui/features/conversation/ComposerEditor";
+import { StopIcon } from "@openownbot/ui/features/conversation/ConversationIcons";
+import { QueuePanel } from "@openownbot/ui/features/conversation/QueuePanel";
+import type { SendShortcut } from "@openownbot/ui/features/conversation/send-shortcut";
+import { useText } from "@openownbot/ui/text";
+import { prefersReducedMotion } from "@openownbot/ui/utils";
 import { createEffect, createSignal, flush, onSettled, Show, untrack } from "solid-js";
 import { type BrowserIslandContent, BrowserIslandFace, browserIslandKey } from "./BrowserIsland";
 import {

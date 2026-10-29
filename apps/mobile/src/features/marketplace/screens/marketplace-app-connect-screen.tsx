@@ -1,4 +1,4 @@
-import { type McpAuthValues, mcpFlowComplete } from "@openbot/contracts/mcp-connect-flows";
+import { type McpAuthValues, mcpFlowComplete } from "@openownbot/contracts/mcp-connect-flows";
 import { router, Stack, useLocalSearchParams } from "expo-router";
 import { usePreventRemove } from "expo-router/react-navigation";
 import { Button, Spinner, Typography } from "heroui-native";
@@ -28,7 +28,7 @@ import { usePluginConnect } from "../model/use-plugin-connect";
 export function MarketplaceAppConnectScreen() {
   const { t } = useText();
   const [muted] = useThemeColor(["muted"]);
-  const actionForeground = String(useCSSVariable("--openbot-action-foreground"));
+  const actionForeground = String(useCSSVariable("--openownbot-action-foreground"));
   const { serverId, slug } = useLocalSearchParams<{ serverId: string; slug: string }>();
   const { session } = useMobileSession();
   const listing = session?.apiUrl ? appListings(session.apiUrl).find((item) => item.id === slug) : undefined;

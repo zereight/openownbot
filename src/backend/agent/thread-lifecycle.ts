@@ -10,10 +10,10 @@ import {
   COMPUTER_USE_MCP_SERVER_ID,
   type McpServerConfig,
   workspaceAccessEnforced,
-} from "@openbot/contracts/ipc";
-import { type DynamicRecord, isDynamicRecord } from "@openbot/contracts/runtime-values";
-import { sourceText } from "@openbot/i18n/source";
-import { createOpenBotLogger } from "@openbot/logging";
+} from "@openownbot/contracts/ipc";
+import { type DynamicRecord, isDynamicRecord } from "@openownbot/contracts/runtime-values";
+import { sourceText } from "@openownbot/i18n/source";
+import { createOpenOwnBotLogger } from "@openownbot/logging";
 import { Effect, Result, Schema } from "effect";
 import type { AgentClient, AgentProvider } from "../agent-client";
 import type { AgentStore } from "../agent-store";
@@ -69,7 +69,7 @@ import { isArchivedThreadError, isMissingProviderSessionError, providerLabel } f
 import { VISIBLE_DYNAMIC_TOOLS } from "./tool-catalog";
 import { codexSandboxConfig, codexSandboxMode, workspaceWritableRoots } from "./workspace-sandbox";
 
-const logger = createOpenBotLogger("thread-lifecycle");
+const logger = createOpenOwnBotLogger("thread-lifecycle");
 
 /**
  * What the Codex adapter sends, versioned. Codex ignores MCP configuration on resume, so a
@@ -156,7 +156,7 @@ export interface ThreadLifecycleOptions {
   passwordVaultConnected?: () => boolean;
   /** What the Vault holds, read at each start and resume of a session. */
   vaultItems?: () => VaultContents;
-  /** OpenBot runs on a server. The prompt then names the sign-in on the user's computer. */
+  /** OpenOwnBot runs on a server. The prompt then names the sign-in on the user's computer. */
   serverHost?: boolean;
   /** The other agents in an agent's sidebar section, read at each start and resume of a session. */
   sectionTeammates?: (agentId: string) => SectionTeammates | null;
@@ -589,7 +589,7 @@ export class ThreadLifecycle {
         yield* this.#homeSkills(agent, client),
         this.#conversation.isTaskThread(publicThreadId),
       ),
-      serviceName: "openbot",
+      serviceName: "openownbot",
       dynamicTools: VISIBLE_DYNAMIC_TOOLS,
     };
     return { agent, mcpServers, toolRuntimes, own, environment, section, proxy, params };
@@ -743,7 +743,7 @@ export class ThreadLifecycle {
    * `codexMcpServers`. Every other provider gets nothing here.
    *
    * The user's own `~/.codex/config.toml` entries are turned off in the same record, so the MCP
-   * panel is the only door to an agent's tools. OpenBot's entries are spread last: a name in both
+   * panel is the only door to an agent's tools. OpenOwnBot's entries are spread last: a name in both
    * places resolves to the one the panel shows.
    *
    * The agent environment goes in as one dotted key for each variable. Codex applies a dotted key
@@ -845,7 +845,7 @@ export class ThreadLifecycle {
    * secret values to a digest first, so the file this string is written to holds none of them.
    *
    * The names swept out of `~/.codex/config.toml` are folded in as well, and they are the reason
-   * this is not OpenBot's set alone: a user who edits that file changes what the agent is given
+   * this is not OpenOwnBot's set alone: a user who edits that file changes what the agent is given
    * while the stored set is untouched, and a loaded session would keep the old tools with the
    * panel saying otherwise.
    *
@@ -1144,7 +1144,7 @@ export class ThreadLifecycle {
 
   /**
    * Closes one provider session that the provider refuses, and keeps the public thread. The next
-   * turn opens a new session, and `startProviderThread` gives it the OpenBot transcript.
+   * turn opens a new session, and `startProviderThread` gives it the OpenOwnBot transcript.
    */
   readonly dropRefusedProviderSession = Effect.fn("ThreadLifecycle.dropRefusedProviderSession")(function* (
     this: ThreadLifecycle,

@@ -1,6 +1,6 @@
 /*
  * Files and storage (issue 496). The storage bar takes its hues from the
- * `--openbot-chart-storage-*` tokens in a fixed order; everything else uses the
+ * `--openownbot-chart-storage-*` tokens in a fixed order; everything else uses the
  * shared text, surface and space tokens.
  */
 
@@ -9,26 +9,26 @@
 .storage-usage {
   display: flex;
   flex-direction: column;
-  gap: var(--openbot-space-4);
+  gap: var(--openownbot-space-4);
 }
 
 .storage-usage [data-group="workspaces"] {
-  --storage-color: var(--openbot-chart-storage-workspaces);
+  --storage-color: var(--openownbot-chart-storage-workspaces);
 }
 .storage-usage [data-group="files"] {
-  --storage-color: var(--openbot-chart-storage-files);
+  --storage-color: var(--openownbot-chart-storage-files);
 }
 .storage-usage [data-group="chats"] {
-  --storage-color: var(--openbot-chart-storage-chats);
+  --storage-color: var(--openownbot-chart-storage-chats);
 }
 .storage-usage [data-group="downloads"] {
-  --storage-color: var(--openbot-chart-storage-downloads);
+  --storage-color: var(--openownbot-chart-storage-downloads);
 }
 .storage-usage [data-group="runtimes"] {
-  --storage-color: var(--openbot-chart-storage-runtimes);
+  --storage-color: var(--openownbot-chart-storage-runtimes);
 }
 .storage-usage [data-group="app"] {
-  --storage-color: var(--openbot-chart-storage-app);
+  --storage-color: var(--openownbot-chart-storage-app);
 }
 
 /* A 2px surface gap between segments; each segment keeps a minimum width so a
@@ -36,15 +36,15 @@
 .storage-usage-bar {
   display: flex;
   height: 10px;
-  gap: var(--openbot-space-0-5);
+  gap: var(--openownbot-space-0-5);
 }
 
 .storage-usage-segment {
   min-width: 4px;
   flex-basis: 0;
-  border-radius: var(--openbot-radius-xs);
+  border-radius: var(--openownbot-radius-xs);
   background: var(--storage-color);
-  transition: opacity var(--openbot-duration-fast) ease;
+  transition: opacity var(--openownbot-duration-fast) ease;
 }
 
 .storage-usage[data-hovering="true"] :is(.storage-usage-segment, .storage-usage-legend-row):not([data-active]) {
@@ -54,7 +54,7 @@
 .storage-usage-legend {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: var(--openbot-space-1) var(--openbot-space-6);
+  gap: var(--openownbot-space-1) var(--openownbot-space-6);
   margin: 0;
   padding: 0;
   list-style: none;
@@ -64,36 +64,36 @@
   display: grid;
   grid-template-columns: auto minmax(0, 1fr) auto auto;
   align-items: baseline;
-  gap: var(--openbot-space-2);
-  padding: var(--openbot-space-1) 0;
-  font-size: var(--openbot-text-md);
-  transition: opacity var(--openbot-duration-fast) ease;
+  gap: var(--openownbot-space-2);
+  padding: var(--openownbot-space-1) 0;
+  font-size: var(--openownbot-text-md);
+  transition: opacity var(--openownbot-duration-fast) ease;
 }
 
 .storage-usage-swatch {
-  width: var(--openbot-space-2);
-  height: var(--openbot-space-2);
+  width: var(--openownbot-space-2);
+  height: var(--openownbot-space-2);
   align-self: center;
-  border-radius: var(--openbot-radius-pill);
+  border-radius: var(--openownbot-radius-pill);
   background: var(--storage-color);
 }
 
 .storage-usage-legend-label {
   overflow: hidden;
-  color: var(--openbot-text-secondary);
+  color: var(--openownbot-text-secondary);
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
 .storage-usage-legend-value {
-  color: var(--openbot-text-primary);
+  color: var(--openownbot-text-primary);
   font-variant-numeric: tabular-nums;
 }
 
 .storage-usage-legend-percent {
   min-width: 4ch;
-  color: var(--openbot-text-muted);
-  font-size: var(--openbot-text-sm);
+  color: var(--openownbot-text-muted);
+  font-size: var(--openownbot-text-sm);
   font-variant-numeric: tabular-nums;
   text-align: right;
 }
@@ -105,14 +105,14 @@
   display: flex;
   min-width: 0;
   flex-direction: column;
-  gap: var(--openbot-space-8);
-  color: var(--openbot-text-primary);
+  gap: var(--openownbot-space-8);
+  color: var(--openownbot-text-primary);
 }
 
 .storage-summary {
   display: flex;
   flex-direction: column;
-  gap: var(--openbot-space-4);
+  gap: var(--openownbot-space-4);
 }
 
 .storage-summary-heading {
@@ -120,20 +120,20 @@
   align-items: flex-start;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: var(--openbot-space-3);
+  gap: var(--openownbot-space-3);
 }
 
 .storage-summary-label {
   margin: 0;
-  color: var(--openbot-text-muted);
-  font-size: var(--openbot-text-md);
-  font-weight: var(--openbot-weight-medium);
+  color: var(--openownbot-text-muted);
+  font-size: var(--openownbot-text-md);
+  font-weight: var(--openownbot-weight-medium);
 }
 
 .storage-summary-total {
-  margin: var(--openbot-space-1) 0;
-  font-size: var(--openbot-text-display);
-  font-weight: var(--openbot-weight-semibold);
+  margin: var(--openownbot-space-1) 0;
+  font-size: var(--openownbot-text-display);
+  font-weight: var(--openownbot-weight-semibold);
   font-variant-numeric: tabular-nums;
   letter-spacing: -0.03em;
   line-height: 1.1;
@@ -142,23 +142,23 @@
 .storage-summary-total-skeleton {
   width: 140px;
   height: 36px;
-  margin: var(--openbot-space-1) 0;
+  margin: var(--openownbot-space-1) 0;
 }
 
 .storage-summary-caption {
   margin: 0;
-  color: var(--openbot-text-muted);
-  font-size: var(--openbot-text-sm);
+  color: var(--openownbot-text-muted);
+  font-size: var(--openownbot-text-sm);
 }
 
 .storage-message {
   display: flex;
   align-items: flex-start;
-  gap: var(--openbot-space-3);
-  padding: var(--openbot-space-3) var(--openbot-space-4);
-  border: 1px solid var(--openbot-border-grouped);
-  border-radius: var(--openbot-radius-lg);
-  background: var(--openbot-bg-grouped);
+  gap: var(--openownbot-space-3);
+  padding: var(--openownbot-space-3) var(--openownbot-space-4);
+  border: 1px solid var(--openownbot-border-grouped);
+  border-radius: var(--openownbot-radius-lg);
+  background: var(--openownbot-bg-grouped);
 }
 
 .storage-message-icon {
@@ -166,49 +166,49 @@
   height: 18px;
   flex: 0 0 auto;
   margin-top: 1px;
-  color: var(--openbot-text-muted);
-  stroke-width: var(--openbot-icon-stroke);
+  color: var(--openownbot-text-muted);
+  stroke-width: var(--openownbot-icon-stroke);
 }
 
 .storage-message[role="alert"] .storage-message-icon {
-  color: var(--openbot-danger-text);
+  color: var(--openownbot-danger-text);
 }
 
 .storage-message-title {
   margin: 0;
-  font-size: var(--openbot-text-md);
-  font-weight: var(--openbot-weight-medium);
+  font-size: var(--openownbot-text-md);
+  font-weight: var(--openownbot-weight-medium);
 }
 
 .storage-message-description {
-  margin: var(--openbot-space-0-5) 0 0;
-  color: var(--openbot-text-muted);
-  font-size: var(--openbot-text-sm);
+  margin: var(--openownbot-space-0-5) 0 0;
+  color: var(--openownbot-text-muted);
+  font-size: var(--openownbot-text-sm);
 }
 
 .storage-section {
   display: flex;
   flex-direction: column;
-  gap: var(--openbot-space-2);
+  gap: var(--openownbot-space-2);
 }
 
 .storage-section-heading-row {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
-  gap: var(--openbot-space-3);
+  gap: var(--openownbot-space-3);
 }
 
 .storage-section-heading {
   margin: 0;
-  color: var(--openbot-text-secondary);
-  font-size: var(--openbot-text-md);
-  font-weight: var(--openbot-weight-semibold);
+  color: var(--openownbot-text-secondary);
+  font-size: var(--openownbot-text-md);
+  font-weight: var(--openownbot-weight-semibold);
 }
 
 .storage-section-aside {
-  color: var(--openbot-text-muted);
-  font-size: var(--openbot-text-sm);
+  color: var(--openownbot-text-muted);
+  font-size: var(--openownbot-text-sm);
 }
 
 .storage-rows {
@@ -217,14 +217,14 @@
   margin: 0;
   padding: 0;
   overflow: hidden;
-  border: 1px solid var(--openbot-border-grouped);
-  border-radius: var(--openbot-radius-lg);
-  background: var(--openbot-bg-grouped);
+  border: 1px solid var(--openownbot-border-grouped);
+  border-radius: var(--openownbot-radius-lg);
+  background: var(--openownbot-bg-grouped);
   list-style: none;
 }
 
 .storage-rows > li + li {
-  border-top: 1px solid var(--openbot-border-grouped);
+  border-top: 1px solid var(--openownbot-border-grouped);
 }
 
 .storage-row.ui-button {
@@ -234,11 +234,11 @@
   min-height: 52px;
   align-items: center;
   justify-content: flex-start;
-  gap: var(--openbot-space-3);
-  padding: var(--openbot-space-2) var(--openbot-space-4);
+  gap: var(--openownbot-space-3);
+  padding: var(--openownbot-space-2) var(--openownbot-space-4);
   border-radius: 0;
   text-align: left;
-  font-weight: var(--openbot-weight-regular);
+  font-weight: var(--openownbot-weight-regular);
 }
 
 .storage-row-avatar {
@@ -252,22 +252,22 @@
   min-width: 0;
   flex: 1;
   flex-direction: column;
-  gap: var(--openbot-space-0-5);
+  gap: var(--openownbot-space-0-5);
 }
 
 .storage-row-title {
   overflow: hidden;
-  color: var(--openbot-text-primary);
-  font-size: var(--openbot-text-md);
-  font-weight: var(--openbot-weight-medium);
+  color: var(--openownbot-text-primary);
+  font-size: var(--openownbot-text-md);
+  font-weight: var(--openownbot-weight-medium);
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
 .storage-row-meta {
   overflow: hidden;
-  color: var(--openbot-text-muted);
-  font-size: var(--openbot-text-sm);
+  color: var(--openownbot-text-muted);
+  font-size: var(--openownbot-text-sm);
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -279,16 +279,16 @@
   height: 6px;
   flex: 0 0 auto;
   overflow: hidden;
-  border-radius: var(--openbot-radius-pill);
-  background: var(--openbot-hover);
+  border-radius: var(--openownbot-radius-pill);
+  background: var(--openownbot-hover);
 }
 
 .storage-row-share-fill {
   display: block;
   height: 100%;
   min-width: 4px;
-  border-radius: var(--openbot-radius-pill);
-  background: var(--openbot-text-muted);
+  border-radius: var(--openownbot-radius-pill);
+  background: var(--openownbot-text-muted);
 }
 
 .storage-row-size {
@@ -297,29 +297,29 @@
   flex: 0 0 auto;
   flex-direction: column;
   align-items: flex-end;
-  color: var(--openbot-text-primary);
-  font-size: var(--openbot-text-md);
+  color: var(--openownbot-text-primary);
+  font-size: var(--openownbot-text-md);
   font-variant-numeric: tabular-nums;
 }
 
 .storage-row-percent {
-  color: var(--openbot-text-muted);
-  font-size: var(--openbot-text-sm);
+  color: var(--openownbot-text-muted);
+  font-size: var(--openownbot-text-sm);
 }
 
 .storage-row-chevron {
   width: 16px;
   height: 16px;
   flex: 0 0 auto;
-  color: var(--openbot-text-dim);
-  stroke-width: var(--openbot-icon-stroke);
+  color: var(--openownbot-text-dim);
+  stroke-width: var(--openownbot-icon-stroke);
 }
 
 .storage-cleanup-row {
   display: flex;
   align-items: center;
-  gap: var(--openbot-space-3);
-  padding: var(--openbot-space-2) var(--openbot-space-4);
+  gap: var(--openownbot-space-3);
+  padding: var(--openownbot-space-2) var(--openownbot-space-4);
 }
 
 .storage-cleanup-row .storage-row-meta {
@@ -329,19 +329,19 @@
 .storage-subview-header {
   display: flex;
   align-items: center;
-  gap: var(--openbot-space-2);
+  gap: var(--openownbot-space-2);
 }
 
 /* The same size as the back icon in the settings panel header. */
 .storage-subview-back > svg {
-  width: var(--openbot-icon-md);
-  height: var(--openbot-icon-md);
+  width: var(--openownbot-icon-md);
+  height: var(--openownbot-icon-md);
 }
 
 .storage-subview-header h3 {
   margin: 0;
-  font-size: var(--openbot-text-lg);
-  font-weight: var(--openbot-weight-semibold);
+  font-size: var(--openownbot-text-lg);
+  font-weight: var(--openownbot-weight-semibold);
 }
 
 @container (max-width: 520px) {
@@ -356,13 +356,13 @@
   display: flex;
   min-width: 0;
   flex-direction: column;
-  gap: var(--openbot-space-3);
+  gap: var(--openownbot-space-3);
 }
 
 .file-list-toolbar {
   display: flex;
   align-items: center;
-  gap: var(--openbot-space-2);
+  gap: var(--openownbot-space-2);
 }
 
 .file-list-search {
@@ -374,18 +374,18 @@
 .file-list-search-icon {
   position: absolute;
   top: 50%;
-  left: var(--openbot-space-2);
+  left: var(--openownbot-space-2);
   width: 14px;
   height: 14px;
-  color: var(--openbot-text-muted);
+  color: var(--openownbot-text-muted);
   pointer-events: none;
-  stroke-width: var(--openbot-icon-stroke);
+  stroke-width: var(--openownbot-icon-stroke);
   transform: translateY(-50%);
 }
 
 .file-list-search .file-list-search-input {
   width: 100%;
-  padding-left: calc(var(--openbot-space-2) + 14px + var(--openbot-space-1-5));
+  padding-left: calc(var(--openownbot-space-2) + 14px + var(--openownbot-space-1-5));
 }
 
 .file-list-toolbar > .ui-select {
@@ -408,7 +408,7 @@
   padding: 0;
   border: 0;
   flex-wrap: wrap;
-  gap: var(--openbot-space-1);
+  gap: var(--openownbot-space-1);
 }
 
 .file-list[data-compact="true"] .file-list-filters {
@@ -419,53 +419,53 @@
 
 .file-list-filter.ui-button {
   flex: 0 0 auto;
-  gap: var(--openbot-space-1-5);
-  border-radius: var(--openbot-radius-pill);
-  color: var(--openbot-text-muted);
+  gap: var(--openownbot-space-1-5);
+  border-radius: var(--openownbot-radius-pill);
+  color: var(--openownbot-text-muted);
 }
 
 .file-list-filter.ui-button[aria-pressed="true"] {
-  background: var(--openbot-bg-control-active);
-  color: var(--openbot-text-primary);
+  background: var(--openownbot-bg-control-active);
+  color: var(--openownbot-text-primary);
 }
 
 .file-list-filter-count {
-  color: var(--openbot-text-muted);
+  color: var(--openownbot-text-muted);
   font-variant-numeric: tabular-nums;
 }
 
 .file-list-filter[aria-pressed="true"] .file-list-filter-count {
-  color: var(--openbot-text-secondary);
+  color: var(--openownbot-text-secondary);
 }
 
 .file-list-summary {
   margin: 0;
-  color: var(--openbot-text-muted);
-  font-size: var(--openbot-text-sm);
+  color: var(--openownbot-text-muted);
+  font-size: var(--openownbot-text-sm);
 }
 
 .file-list-group {
   display: flex;
   flex-direction: column;
-  gap: var(--openbot-space-1);
+  gap: var(--openownbot-space-1);
 }
 
 .file-list-group + .file-list-group {
-  margin-top: var(--openbot-space-2);
+  margin-top: var(--openownbot-space-2);
 }
 
 .file-list-group-heading {
   margin: 0;
-  padding: 0 var(--openbot-space-1);
-  color: var(--openbot-text-muted);
-  font-size: var(--openbot-text-sm);
-  font-weight: var(--openbot-weight-medium);
+  padding: 0 var(--openownbot-space-1);
+  color: var(--openownbot-text-muted);
+  font-size: var(--openownbot-text-sm);
+  font-weight: var(--openownbot-weight-medium);
 }
 
 .file-list-rows {
   display: flex;
   flex-direction: column;
-  gap: var(--openbot-space-0-5);
+  gap: var(--openownbot-space-0-5);
   margin: 0;
   padding: 0;
   list-style: none;
@@ -473,50 +473,50 @@
 
 .file-list-skeleton {
   height: 48px;
-  border-radius: var(--openbot-radius-md);
+  border-radius: var(--openownbot-radius-md);
 }
 
 .file-list-message {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--openbot-space-2);
-  padding: var(--openbot-space-8) var(--openbot-space-4);
+  gap: var(--openownbot-space-2);
+  padding: var(--openownbot-space-8) var(--openownbot-space-4);
   text-align: center;
 }
 
 .file-list-message-icon {
   width: 20px;
   height: 20px;
-  color: var(--openbot-danger-text);
-  stroke-width: var(--openbot-icon-stroke);
+  color: var(--openownbot-danger-text);
+  stroke-width: var(--openownbot-icon-stroke);
 }
 
 .file-list-message-title {
   margin: 0;
-  color: var(--openbot-text-secondary);
-  font-size: var(--openbot-text-md);
-  font-weight: var(--openbot-weight-medium);
+  color: var(--openownbot-text-secondary);
+  font-size: var(--openownbot-text-md);
+  font-weight: var(--openownbot-weight-medium);
 }
 
 .file-list-message-description {
   max-width: 320px;
   margin: 0;
-  color: var(--openbot-text-muted);
-  font-size: var(--openbot-text-sm);
+  color: var(--openownbot-text-muted);
+  font-size: var(--openownbot-text-sm);
 }
 
 .file-row {
   display: flex;
   align-items: center;
-  gap: var(--openbot-space-1);
-  padding-right: var(--openbot-space-1);
-  border-radius: var(--openbot-radius-md);
+  gap: var(--openownbot-space-1);
+  padding-right: var(--openownbot-space-1);
+  border-radius: var(--openownbot-radius-md);
 }
 
 .file-row:hover,
 .file-row:focus-within {
-  background: var(--openbot-hover);
+  background: var(--openownbot-hover);
 }
 
 .file-row-main.ui-button {
@@ -526,10 +526,10 @@
   flex: 1;
   align-items: center;
   justify-content: flex-start;
-  gap: var(--openbot-space-3);
-  padding: var(--openbot-space-1-5) var(--openbot-space-2);
+  gap: var(--openownbot-space-3);
+  padding: var(--openownbot-space-1-5) var(--openownbot-space-2);
   text-align: left;
-  font-weight: var(--openbot-weight-regular);
+  font-weight: var(--openownbot-weight-regular);
 }
 
 .file-row-main.ui-button:hover {
@@ -543,8 +543,8 @@
 }
 
 .files-file-visual {
-  --file-reference-color: var(--openbot-file-default);
-  --file-reference-soft: var(--openbot-file-default-soft);
+  --file-reference-color: var(--openownbot-file-default);
+  --file-reference-soft: var(--openownbot-file-default-soft);
 
   display: grid;
   width: 36px;
@@ -552,18 +552,18 @@
   flex: 0 0 auto;
   place-items: center;
   overflow: hidden;
-  border-radius: var(--openbot-radius-md);
+  border-radius: var(--openownbot-radius-md);
   background: var(--file-reference-soft);
   color: var(--file-reference-color);
-  font-family: var(--openbot-font-mono);
-  font-size: var(--openbot-text-sm);
-  font-weight: var(--openbot-weight-semibold);
+  font-family: var(--openownbot-font-mono);
+  font-size: var(--openownbot-text-sm);
+  font-weight: var(--openownbot-weight-semibold);
   letter-spacing: 0.02em;
 }
 
 /* The shared danger colour is too dark for 12px text on its soft fill. */
 .files-file-visual[data-file-tone="document"] {
-  color: var(--openbot-danger-text);
+  color: var(--openownbot-danger-text);
 }
 
 .files-file-visual[data-status="missing"],
@@ -582,29 +582,29 @@
   min-width: 0;
   flex: 1;
   flex-direction: column;
-  gap: var(--openbot-space-0-5);
+  gap: var(--openownbot-space-0-5);
 }
 
 .file-row-name {
   overflow: hidden;
-  color: var(--openbot-text-primary);
-  font-size: var(--openbot-text-md);
+  color: var(--openownbot-text-primary);
+  font-size: var(--openownbot-text-md);
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
 .file-row[data-status="missing"] .file-row-name {
-  color: var(--openbot-text-muted);
+  color: var(--openownbot-text-muted);
   text-decoration: line-through;
-  text-decoration-color: var(--openbot-text-dim);
+  text-decoration-color: var(--openownbot-text-dim);
 }
 
 .file-row-meta {
   display: flex;
   min-width: 0;
   overflow: hidden;
-  color: var(--openbot-text-muted);
-  font-size: var(--openbot-text-sm);
+  color: var(--openownbot-text-muted);
+  font-size: var(--openownbot-text-sm);
   white-space: pre;
 }
 
@@ -625,26 +625,26 @@
 
 /* The chat panel surface is lighter than the page; the shared danger colour is too dark on it at 12px. */
 .file-row-status.z-badge-variant-destructive-light {
-  color: var(--openbot-danger-text);
+  color: var(--openownbot-danger-text);
 }
 
 .file-row-menu-trigger {
   flex: 0 0 auto;
-  color: var(--openbot-text-muted);
+  color: var(--openownbot-text-muted);
 }
 
 .file-row-menu-trigger > svg {
-  width: var(--openbot-icon-md);
-  height: var(--openbot-icon-md);
-  stroke-width: var(--openbot-icon-stroke);
+  width: var(--openownbot-icon-md);
+  height: var(--openownbot-icon-md);
+  stroke-width: var(--openownbot-icon-stroke);
 }
 
 /* Icons next to button text: the ui-button leaves lucide at its 24px default. */
 .files-button-icon {
-  width: var(--openbot-icon-sm);
-  height: var(--openbot-icon-sm);
+  width: var(--openownbot-icon-sm);
+  height: var(--openownbot-icon-sm);
   flex: 0 0 auto;
-  stroke-width: var(--openbot-icon-stroke);
+  stroke-width: var(--openownbot-icon-stroke);
 }
 
 /* Agent settings > Files ------------------------------------------------- */
@@ -655,7 +655,7 @@
   inset: 0;
   display: flex;
   flex-direction: column;
-  background: var(--openbot-bg-canvas);
+  background: var(--openownbot-bg-canvas);
 }
 
 .agent-files-body {
@@ -664,28 +664,28 @@
   min-height: 0;
   flex: 1;
   flex-direction: column;
-  gap: var(--openbot-space-6);
+  gap: var(--openownbot-space-6);
   overflow-y: auto;
-  padding: var(--openbot-space-4);
+  padding: var(--openownbot-space-4);
 }
 
 .agent-files-summary {
   display: flex;
   flex-direction: column;
-  gap: var(--openbot-space-3);
+  gap: var(--openownbot-space-3);
 }
 
 .agent-files-total-label {
   margin: 0;
-  color: var(--openbot-text-muted);
-  font-size: var(--openbot-text-sm);
-  font-weight: var(--openbot-weight-medium);
+  color: var(--openownbot-text-muted);
+  font-size: var(--openownbot-text-sm);
+  font-weight: var(--openownbot-weight-medium);
 }
 
 .agent-files-total {
-  margin: var(--openbot-space-0-5) 0 0;
-  font-size: var(--openbot-text-3xl);
-  font-weight: var(--openbot-weight-semibold);
+  margin: var(--openownbot-space-0-5) 0 0;
+  font-size: var(--openownbot-text-3xl);
+  font-weight: var(--openownbot-weight-semibold);
   font-variant-numeric: tabular-nums;
   letter-spacing: -0.02em;
 }
@@ -693,7 +693,7 @@
 .agent-files-total-skeleton {
   width: 96px;
   height: 28px;
-  margin-top: var(--openbot-space-0-5);
+  margin-top: var(--openownbot-space-0-5);
 }
 
 /* One grouped card with a label and a value per row: the settings panel is too narrow for
@@ -703,9 +703,9 @@
   flex-direction: column;
   margin: 0;
   overflow: hidden;
-  border: 1px solid var(--openbot-border-grouped);
-  border-radius: var(--openbot-radius-lg);
-  background: var(--openbot-bg-grouped);
+  border: 1px solid var(--openownbot-border-grouped);
+  border-radius: var(--openownbot-radius-lg);
+  background: var(--openownbot-bg-grouped);
 }
 
 .agent-files-tile {
@@ -713,21 +713,21 @@
   min-height: 36px;
   align-items: center;
   justify-content: space-between;
-  gap: var(--openbot-space-3);
-  padding: var(--openbot-space-2) var(--openbot-space-3);
+  gap: var(--openownbot-space-3);
+  padding: var(--openownbot-space-2) var(--openownbot-space-3);
 }
 
 .agent-files-tile + .agent-files-tile {
-  border-top: 1px solid var(--openbot-border-grouped);
+  border-top: 1px solid var(--openownbot-border-grouped);
 }
 
 .agent-files-tile dt {
   display: flex;
   min-width: 0;
   align-items: center;
-  gap: var(--openbot-space-1);
-  color: var(--openbot-text-secondary);
-  font-size: var(--openbot-text-md);
+  gap: var(--openownbot-space-1);
+  color: var(--openownbot-text-secondary);
+  font-size: var(--openownbot-text-md);
 }
 
 .agent-files-tile-label {
@@ -738,16 +738,16 @@
 
 .agent-files-tile dd {
   margin: 0;
-  color: var(--openbot-text-primary);
-  font-size: var(--openbot-text-md);
+  color: var(--openownbot-text-primary);
+  font-size: var(--openownbot-text-md);
   font-variant-numeric: tabular-nums;
 }
 
 /* The row keeps its height: the button overlaps the row padding, not the text. */
 .agent-files-tile-action {
   flex: 0 0 auto;
-  margin-block: calc(var(--openbot-space-1) * -1);
-  color: var(--openbot-text-muted);
+  margin-block: calc(var(--openownbot-space-1) * -1);
+  color: var(--openownbot-text-muted);
 }
 
 .agent-files-tile-skeleton {
@@ -758,15 +758,15 @@
 .agent-files-section {
   display: flex;
   flex-direction: column;
-  gap: var(--openbot-space-2);
+  gap: var(--openownbot-space-2);
 }
 
 /* Chat > Files panel ------------------------------------------------------ */
 
 .conversation-files-summary {
   flex: 0 0 auto;
-  color: var(--openbot-text-muted);
-  font-size: var(--openbot-text-sm);
+  color: var(--openownbot-text-muted);
+  font-size: var(--openownbot-text-sm);
   font-variant-numeric: tabular-nums;
 }
 
@@ -774,5 +774,5 @@
   min-height: 0;
   flex: 1;
   overflow-y: auto;
-  padding: var(--openbot-space-3);
+  padding: var(--openownbot-space-3);
 }

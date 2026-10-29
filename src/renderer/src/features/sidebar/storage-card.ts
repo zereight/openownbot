@@ -1,6 +1,6 @@
-import type { ServerSummary, StorageDisk } from "@openbot/contracts/ipc";
-import { STORAGE_DISK_CAPABILITY } from "@openbot/contracts/team-protocol/storage-disk-v1";
-import type { SidebarStorageLevel } from "@openbot/ui/features/sidebar/SidebarStorageCard";
+import type { ServerSummary, StorageDisk } from "@openownbot/contracts/ipc";
+import { STORAGE_DISK_CAPABILITY } from "@openownbot/contracts/team-protocol/storage-disk-v1";
+import type { SidebarStorageLevel } from "@openownbot/ui/features/sidebar/SidebarStorageCard";
 import { createMemo, createSignal, untrack } from "solid-js";
 import { createUsageRefreshPoll } from "../account/usage-refresh-poll";
 import { canManageStorage } from "../files/storage-usage";
@@ -10,7 +10,7 @@ import { sidebarPort } from "./sidebar-port";
 const GB = 1024 ** 3;
 
 /** A closed "low" card stays closed on this computer, per server. "full" shows it again. */
-const DISMISSED_KEY_PREFIX = "openbot:storage-card-dismissed:";
+const DISMISSED_KEY_PREFIX = "openownbot:storage-card-dismissed:";
 
 /**
  * "low" under 10% free, "full" under 2% free. A large disk uses 5 GB and 1 GB instead, so that a

@@ -1,5 +1,5 @@
 import { randomUUID } from "node:crypto";
-import type { AgentContextCategoryUsage, AgentContextState } from "@openbot/contracts/ipc";
+import type { AgentContextCategoryUsage, AgentContextState } from "@openownbot/contracts/ipc";
 import { Effect, Schema } from "effect";
 import type { AgentClient } from "../agent-client";
 import type { AgentStore } from "../agent-store";
@@ -25,7 +25,7 @@ const CONTEXT_COMPACTION_TIMEOUT_MS = 120_000;
 const USAGE_CHANGE_DELAY_MS = 250;
 
 export interface ContextCompactionOptions {
-  /** How long a compaction runs before OpenBot stops it. Tests make it short. */
+  /** How long a compaction runs before OpenOwnBot stops it. Tests make it short. */
   timeoutMs?: number | undefined;
   store: AgentStore;
   providers: ProviderPort;
@@ -44,7 +44,7 @@ export interface ContextCompactionOptions {
   compacted?(threadId: string): void;
 }
 
-/** Whether OpenBot can ask for a compaction of this client, automatically or for the user. */
+/** Whether OpenOwnBot can ask for a compaction of this client, automatically or for the user. */
 export function compactsOnRequest(mode: AgentClient["contextCompaction"]): boolean {
   return mode === "events" || mode === "request" || mode === "handoff";
 }

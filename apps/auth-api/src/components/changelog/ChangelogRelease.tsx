@@ -21,7 +21,7 @@ function groupLabel(group: ChangelogGroup): string {
 
 export interface ChangelogReleaseProps {
   release: Release;
-  /** The app the release is of, such as "OpenBot". */
+  /** The app the release is of, such as "OpenOwnBot". */
   product: string;
   latest: boolean;
 }

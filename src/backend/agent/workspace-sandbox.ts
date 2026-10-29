@@ -1,5 +1,5 @@
 import { tmpdir } from "node:os";
-import { type AgentSummary, workspaceAccessEnforced } from "@openbot/contracts/ipc";
+import { type AgentSummary, workspaceAccessEnforced } from "@openownbot/contracts/ipc";
 
 type SandboxedAgent = Pick<AgentSummary, "access" | "provider" | "workspacePath">;
 

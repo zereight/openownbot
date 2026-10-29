@@ -1,10 +1,10 @@
-import { AppLogo } from "@openbot/brand";
-import { Button, ErrorReference } from "@openbot/ui";
-import { useText } from "@openbot/ui/text";
+import { AppLogo } from "@openownbot/brand";
+import { Button, ErrorReference } from "@openownbot/ui";
+import { useText } from "@openownbot/ui/text";
 import { usePlatform } from "../../platform";
 import { useSetup } from "./onboarding-context";
 
-const PRODUCT_NAME = "OpenBot";
+const PRODUCT_NAME = "OpenOwnBot";
 
 /**
  * Shown in place of first-run setup when the saved setup could not be read. A configured user

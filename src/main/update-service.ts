@@ -7,17 +7,17 @@ import type {
   UpdateBusyPhase,
   UpdateFailureCode,
   UpdateStatus,
-} from "@openbot/contracts/ipc";
-import { isUpdateBusyPhase } from "@openbot/contracts/ipc";
-import { sourceText } from "@openbot/i18n/source";
-import { createOpenBotLogger, toLogValue } from "@openbot/logging";
+} from "@openownbot/contracts/ipc";
+import { isUpdateBusyPhase } from "@openownbot/contracts/ipc";
+import { sourceText } from "@openownbot/i18n/source";
+import { createOpenOwnBotLogger, toLogValue } from "@openownbot/logging";
 import { Cause, Deferred, Effect, Result, Schema, Scope, Semaphore } from "effect";
 import type { ProgressInfo, UpdateInfo } from "electron-updater";
 import type { HostUpdateState } from "../../packages/contracts/src/host-manager";
 import { causeHelpers } from "../backend/effect-boundary";
-import type { OpenBotSiblingInstance, SiblingScanFailed } from "./update-sibling-instances";
+import type { OpenOwnBotSiblingInstance, SiblingScanFailed } from "./update-sibling-instances";
 
-const logger = createOpenBotLogger("update");
+const logger = createOpenOwnBotLogger("update");
 
 /** Only the part of electron-updater's cancellation token this service depends on. */
 export type UpdateCancellationToken = {
@@ -93,7 +93,7 @@ interface UpdateServiceOptions {
   enabled: boolean;
   autoDownload: boolean;
   beforeInstall: () => Promise<void>;
-  checkSiblingInstances?: (() => Effect.Effect<readonly OpenBotSiblingInstance[], SiblingScanFailed>) | undefined;
+  checkSiblingInstances?: (() => Effect.Effect<readonly OpenOwnBotSiblingInstance[], SiblingScanFailed>) | undefined;
   /** The uid of this process. It tells a refusal in this account apart from another account. */
   currentUid?: number | undefined;
   platform?: NodeJS.Platform;
@@ -115,7 +115,7 @@ export interface UpdateDiagnosticEvent {
 }
 
 // One manifest request every four minutes: a small GET while the app sits idle, and a user who
-// leaves OpenBot open picks up a release within minutes instead of hours. The loop skips the request
+// leaves OpenOwnBot open picks up a release within minutes instead of hours. The loop skips the request
 // while a download or an install runs, and keeps checking while a downloaded update waits for its
 // restart, because releases ship often enough to supersede it before the user restarts.
 const DEFAULT_CHECK_INTERVAL = 4 * 60 * 1_000;
@@ -555,7 +555,7 @@ export class UpdateService extends EventEmitter<UpdateServiceEvents> {
     return Effect.gen({ self: this }, function* () {
       this.#pendingInstallRequests += 1;
       const siblings = yield* Effect.suspend(
-        () => this.#options.checkSiblingInstances?.() ?? Effect.succeed<readonly OpenBotSiblingInstance[]>([]),
+        () => this.#options.checkSiblingInstances?.() ?? Effect.succeed<readonly OpenOwnBotSiblingInstance[]>([]),
       ).pipe(
         Effect.mapError(({ cause }) => new UpdateOperationFailure({ cause })),
         Effect.ensuring(
@@ -603,7 +603,7 @@ export class UpdateService extends EventEmitter<UpdateServiceEvents> {
    * the generic message keeps applying. An unknown uid cannot tell them apart, so it also keeps
    * the generic message.
    */
-  #siblingSessionMessage(siblings: readonly OpenBotSiblingInstance[]): string {
+  #siblingSessionMessage(siblings: readonly OpenOwnBotSiblingInstance[]): string {
     const currentUid = this.#options.currentUid;
     if (currentUid !== undefined && siblings.every((sibling) => sibling.uid === currentUid)) {
       return sourceText("error.update.siblingSessionSameAccount");
