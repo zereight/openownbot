@@ -1,5 +1,6 @@
 import { BloubBot } from "@norbert_bodziony/bloub";
 import { bloubAvatarProfile } from "@openownbot/brand/bloub-avatar";
+import { padlockEyePath } from "@openownbot/brand/bloub-padlock-eye";
 import type { AvatarHue } from "@openownbot/contracts/ipc";
 import { render } from "@solidjs/web";
 import { flush } from "solid-js";
@@ -50,6 +51,7 @@ function mountStaticAvatar(host: HTMLElement, seed: string, hue: AvatarHue | nul
   const dispose = render(
     () => (
       <BloubBot
+        eyePath={padlockEyePath}
         size={100}
         shape={profile.shape}
         color={profile.color}

@@ -14,6 +14,7 @@ import {
   avatarMoodPresentation,
   type ShapeSafeStateId,
 } from "@openownbot/brand/bloub-avatar-motion";
+import { padlockEyePath } from "@openownbot/brand/bloub-padlock-eye";
 import type { AvatarHue } from "@openownbot/contracts/ipc";
 import { prefersReducedMotion } from "@openownbot/ui/utils";
 import type { JSX } from "@solidjs/web";
@@ -352,6 +353,7 @@ function GeneratedAvatar(props: {
 
   const avatar = () => (
     <BloubBot
+      eyePath={padlockEyePath}
       size={100}
       shape={appearance().shape}
       color={appearance().color}
@@ -386,6 +388,7 @@ function GeneratedAvatar(props: {
             <Show when={appearance()} keyed>
               {(frozen) => (
                 <BloubBot
+                  eyePath={padlockEyePath}
                   size={100}
                   shape={frozen.shape}
                   color={frozen.color}
