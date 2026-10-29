@@ -6,10 +6,9 @@ import { lazy } from "solid-js";
  * `lazy()` returns a component that owns the load state of its chunk, so
  * wrapping the same import twice makes two components that load the same module
  * independently - two `Loading` fallbacks, two `preload()` handles that do not
- * know about each other. Two of these are read from more than one place after
- * the view split (`InitialSetup` by the access gate and the overlays,
- * `DirectConversation` by the sidebar that preloads it and the pane that renders
- * it), so the wrappers live here and each chunk has exactly one.
+ * know about each other. One of these is read from more than one place after
+ * the view split (`DirectConversation` by the sidebar that preloads it and the
+ * pane that renders it), so the wrappers live here and each chunk has exactly one.
  */
 export const AgentTemplateInstall = lazy(() =>
   import("./features/agent-templates/AgentTemplateInstall").then((module) => ({
@@ -30,14 +29,8 @@ export const DirectConversation = lazy(() =>
 export const GlobalSearch = lazy(() =>
   import("@openownbot/ui/components/GlobalSearch").then((module) => ({ default: module.GlobalSearch })),
 );
-export const InitialSetup = lazy(() =>
-  import("./features/onboarding/InitialSetup").then((module) => ({ default: module.InitialSetup })),
-);
 export const AddServerDialog = lazy(() =>
   import("@openownbot/ui/features/servers/AddServerDialog").then((module) => ({ default: module.AddServerDialog })),
-);
-export const JoinServerDialog = lazy(() =>
-  import("@openownbot/ui/features/servers/JoinServerDialog").then((module) => ({ default: module.JoinServerDialog })),
 );
 export const FirstRunFlow = lazy(() =>
   import("./features/onboarding/FirstRunFlow").then((module) => ({ default: module.FirstRunFlow })),

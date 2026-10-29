@@ -49,7 +49,6 @@ import {
   deleteHostedSite,
   deleteStoredFile,
   getAgentAdminSettings,
-  getHostAgentAccess,
   getHostAgentMemoryLimit,
   getHostPromptCacheTtl,
   getHostReleaseStatus,
@@ -57,7 +56,6 @@ import {
   getHostUpdateStatus,
   getStorageUsage,
   listHostedSites,
-  setHostAgentAccess,
   setHostAgentMemoryLimit,
   setHostPromptCacheTtl,
   setHostTimezone,
@@ -126,7 +124,6 @@ import { WorkspaceFrame } from "../../WorkspaceFrame";
 import {
   ChannelCreateOverlay,
   GlobalSearchOverlay,
-  JoinServerOverlay,
   MarketplaceOverlay,
   ServerSettingsOverlay,
   SharedAgentInstallOverlay,
@@ -161,7 +158,6 @@ import type { ScheduleRoutine } from "../schedule/SchedulePanel";
 import { AddServerOverlay, type AddServerResume } from "../servers/AddServerOverlay";
 import { createHostedUpsellOffline, HostedServerUpsell } from "../servers/hosted-server-upsell-controller";
 import type { HostMemoryLimitCalls } from "../servers/ServerMemoryLimitSetting";
-import type { HostAgentAccessCalls } from "../servers/ServerRolesSection";
 import type { ServerHostedSitesOptions, ServerSettingsSection } from "../servers/ServerSettingsModal";
 import type { HostTimezoneCalls } from "../servers/ServerTimezoneSetting";
 import type { HostUpdateCalls } from "../servers/ServerUpdatePanel";
@@ -257,8 +253,6 @@ type WebWorkspaceProps = {
   agentTemplateId?: string | null;
   onAgentTemplateClose?: () => void;
   /** An invitation that a `/app` link named. The join dialog opens on it and still asks before it joins. */
-  inviteUrl?: string | null;
-  onInviteClose?: () => void;
   /** A plugin listing that a `/app?plugin=<slug>` link named. The marketplace opens on it. */
   pluginSlug?: string | null;
   onPluginSlugConsumed?: () => void;
@@ -409,13 +403,11 @@ function WebWorkspaceFrame(props: WebWorkspaceProps) {
       controller.setEditingDeliveryId(null);
     },
   );
-  const [joinOpen, setJoinOpen] = createSignal(false);
   const hostedServers = createWebHostedServers({
     accountFetch: props.accountFetch,
     hosts: () => workspace.state.hosts,
     hostingReturn: () => props.hostingReturn,
     onHostingReturnConsumed: () => props.onHostingReturnConsumed?.(),
-    onJoin: () => setJoinOpen(true),
   });
   const [creating, setCreating] = createSignal(false);
   /** The new agent form's avatar. The first-agent row in an empty sidebar shows it. */
@@ -738,7 +730,6 @@ function WebWorkspaceFrame(props: WebWorkspaceProps) {
   const serverSettings = createWebServerSettings({
     server,
     admin: () => workspace.runtime.admin,
-    presence: () => workspace.state.presence,
     refreshHosts: () => workspace.refreshHosts(),
     relaySupported: () => workspace.state.capabilities.includes(SIGN_IN_RELAY_CAPABILITY),
   });
@@ -818,12 +809,6 @@ function WebWorkspaceFrame(props: WebWorkspaceProps) {
     if (open) connectors.reload();
   });
   // A link opens its overlay once it has arrived, which can be after sign-in.
-  createEffect(
-    () => props.inviteUrl,
-    (inviteUrl) => {
-      if (inviteUrl) setJoinOpen(true);
-    },
-  );
   createEffect(
     () => props.pluginSlug,
     (slug) => {
@@ -974,12 +959,6 @@ function WebWorkspaceFrame(props: WebWorkspaceProps) {
       runTeamEffect(getHostPromptCacheTtl(hostRequest(serverId)).pipe(Effect.mapError((error) => error.cause))),
     setPromptCacheTtl: async (ttl, serverId) =>
       runTeamEffect(setHostPromptCacheTtl(hostRequest(serverId), ttl).pipe(Effect.mapError((error) => error.cause))),
-  };
-  const hostAgentAccessCalls: HostAgentAccessCalls = {
-    getAgentAccess: async (serverId) =>
-      runTeamEffect(getHostAgentAccess(hostRequest(serverId)).pipe(Effect.mapError((error) => error.cause))),
-    setAgentAccess: async (change, serverId) =>
-      runTeamEffect(setHostAgentAccess(hostRequest(serverId), change).pipe(Effect.mapError((error) => error.cause))),
   };
   const [serverSettingsSection, setServerSettingsSection] = createSignal<ServerSettingsSection | null>(null);
   /** Set when the Marketplace asked for the form that adds an MCP server, until the MCP section opens it. */
@@ -1933,22 +1912,7 @@ function WebWorkspaceFrame(props: WebWorkspaceProps) {
                     selectServer(serverId);
                   }}
                   onContactUs={() => window.location.assign(HOSTED_SERVER_CONTACT_URL)}
-                  onJoinWithInvite={() => {
-                    hostedServers.closeAddServer();
-                    setJoinOpen(true);
-                  }}
                   onManageServers={() => setBillingOpen(true)}
-                />
-                <JoinServerOverlay
-                  open={joinOpen()}
-                  inviteUrl={props.inviteUrl ?? ""}
-                  accountEmail={props.accountEmail ?? ""}
-                  onClose={() => {
-                    setJoinOpen(false);
-                    props.onInviteClose?.();
-                  }}
-                  onPreview={({ inviteUrl }) => workspace.runtime.previewInvite(inviteUrl)}
-                  onJoin={({ inviteUrl }) => workspace.joinInvite(inviteUrl)}
                 />
                 <Show when={accountSettingsLoaded()}>
                   <Loading>
@@ -1986,8 +1950,6 @@ function WebWorkspaceFrame(props: WebWorkspaceProps) {
                       remoteDesktopSupported={false}
                       server={target()}
                       hostStatus={null}
-                      members={serverSettings.state.members}
-                      invites={serverSettings.state.invites}
                       loading={serverSettings.state.loading}
                       loadError={serverSettings.state.error}
                       onRetry={serverSettings.refresh}
@@ -1996,12 +1958,8 @@ function WebWorkspaceFrame(props: WebWorkspaceProps) {
                       onSetNotificationLevel={async (level) => setNotificationLevel(target().id, level)}
                       // Publication and screen recording belong to the computer that runs the server.
                       onSetPublished={unavailable}
-                      onCreateInvite={serverSettings.createInvite}
                       license={licenseCalls}
                       onContactUs={() => window.location.assign(HOSTED_SERVER_CONTACT_URL)}
-                      onUpdateMember={serverSettings.updateMember}
-                      onRemoveMember={serverSettings.removeMember}
-                      onRevokeInvite={serverSettings.revokeInvite}
                       onOpenScreenRecordingSettings={unavailable}
                       onRecheckScreenRecording={unavailable}
                       mcpServers={serverSettings.state.mcp}
@@ -2077,7 +2035,6 @@ function WebWorkspaceFrame(props: WebWorkspaceProps) {
                       hostTimezone={{ calls: hostTimezoneCalls }}
                       hostMemoryLimit={{ calls: hostMemoryLimitCalls }}
                       hostPromptCacheTtl={{ calls: hostPromptCacheTtlCalls }}
-                      agentAccess={{ calls: hostAgentAccessCalls, listAgents: () => workspace.runtime.listAgents() }}
                       browserProfiles={browserProfileSettings()}
                       vault={vaultSettings()}
                       // Any member imports into a host with `agent-import-v1`.
@@ -2234,11 +2191,7 @@ function WebWorkspaceFrame(props: WebWorkspaceProps) {
                       skillsMarketplaceOpen={marketplaceOpen()}
                       mcpSettingsOpen={serverSettings.state.open || marketplaceOpen()}
                       globalOverlayOpen={
-                        joinOpen() ||
-                        serverSettings.state.open ||
-                        searchOpen() ||
-                        marketplaceOpen() ||
-                        hasVisibleToasts()
+                        serverSettings.state.open || searchOpen() || marketplaceOpen() || hasVisibleToasts()
                       }
                       settingsRequest={channelView.settingsRequest()}
                       messageFocusRequest={messageFocusRequest()}
@@ -2308,7 +2261,6 @@ function WebWorkspaceFrame(props: WebWorkspaceProps) {
                 loading={workspace.state.hostsLoading}
                 failed={Boolean(workspace.state.hostsError)}
                 reference={workspace.state.hostsError?.reference ?? null}
-                onJoin={() => setJoinOpen(true)}
                 onCreateServer={
                   // An account with a hosted server that is not a host yet, such as one that waits for payment,
                   // must not buy a second one from here.
@@ -2388,9 +2340,7 @@ function WebWorkspaceFrame(props: WebWorkspaceProps) {
                 turnStepLines={workspace.stepLines()}
                 skillsMarketplaceOpen={marketplaceOpen()}
                 mcpSettingsOpen={serverSettings.state.open || marketplaceOpen()}
-                globalOverlayOpen={
-                  joinOpen() || serverSettings.state.open || searchOpen() || marketplaceOpen() || hasVisibleToasts()
-                }
+                globalOverlayOpen={serverSettings.state.open || searchOpen() || marketplaceOpen() || hasVisibleToasts()}
                 settingsRequest={settingsRequest()}
                 messageFocusRequest={messageFocusRequest()}
                 queue={workspace.state.selectedId ? workspace.state.queues[workspace.state.selectedId] : undefined}

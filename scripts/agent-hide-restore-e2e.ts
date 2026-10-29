@@ -1,7 +1,7 @@
 // Checks hide and restore of an agent through the released agent-hidden-v1 Team API contract. A
 // real `TeamApiServer` runs on loopback with the real team, agent, mailbox and sidebar stores on a
-// temporary profile. The owner and a member send what a current desktop client sends, and the
-// frozen agent-hidden-v1 codec reads each reply. A member's event socket must receive each change.
+// temporary profile. The owner signs in on two devices and sends what a current desktop client sends, and the
+// frozen agent-hidden-v1 codec reads each reply. The second device's event socket must receive each change.
 // The agent service is not initialized, so no provider CLI starts and its routine timer never arms;
 // the clock moves with `setSystemTime` to make a routine occurrence come due while the agent is hidden.
 // Run: `bun scripts/agent-hide-restore-e2e.ts`.
@@ -44,7 +44,6 @@ import type { TeamApiBrowser } from "../src/main/team-api/dependencies";
 const OUT = resolve(import.meta.dirname, "../.openownbot-build/agent-hide-restore-e2e");
 const HOST_VERSION = "0.0.0-e2e";
 const OWNER = { username: "owner-user", password: "owner-password-123" };
-const MEMBER = { username: "member-user", password: "member-password-123" };
 const STEP_DEADLINE_MS = 30_000;
 const DAY = "2031-05-05";
 const at = (time: string) => new Date(`${DAY}T${time}:00.000Z`);
@@ -285,7 +284,7 @@ async function login(credentials: { username: string; password: string }): Promi
   return text(record(response.body, "login").sessionToken, "session token");
 }
 
-/** Opens a member's event socket that declares agent-hidden-v1, and waits for its first snapshot. */
+/** Opens an event socket that declares agent-hidden-v1, and waits for its first snapshot. */
 async function openEvents(token: string): Promise<WebSocket> {
   const socket = new WebSocket(`ws://127.0.0.1:${current().port}${TEAM_API_ROUTES.events}`, [
     TEAM_PROTOCOL_V1_WEBSOCKET,
@@ -340,7 +339,7 @@ try {
   const ownerToken = await login(OWNER);
 
   const setup = await step(
-    "setup: an owner, a member with an event socket, and an agent with a routine",
+    "setup: an owner on two devices, and an agent with a routine",
     async () => {
       const { agents } = current();
       const agent = await runCauseEffect(
@@ -351,11 +350,6 @@ try {
           avatarHue: null,
         }),
       );
-      const invite = await runCauseEffect(current().team.createInvite("member"));
-      const joined = await call("POST", TEAM_API_ROUTES.join.server, {
-        body: { inviteToken: invite.token, ...MEMBER },
-      });
-      assert.equal(joined.status, 201, `Join returned ${joined.status}.`);
       const routine = agents.createRoutine(
         {
           agentId: agent.id,
@@ -369,28 +363,17 @@ try {
         { recordConversationEvent: false },
       );
       assert.equal(routine.trigger.nextRunAt, at("10:00").toISOString());
-      const memberToken = await login(MEMBER);
-      const read = await hidden(AGENT_HIDDEN_ROUTES.read, memberToken, {});
+      const deviceToken = await login(OWNER);
+      const read = await hidden(AGENT_HIDDEN_ROUTES.read, deviceToken, {});
       assert.equal(read.status, 200);
       assert.deepEqual(hiddenIds(read.body), []);
-      return { agentId: agent.id, routineId: routine.id, memberToken };
+      return { agentId: agent.id, routineId: routine.id, deviceToken };
     },
     ({ agentId, routineId }) => ({ agentId, routineId }),
   );
-  let socket = await openEvents(setup.memberToken);
+  let socket = await openEvents(setup.deviceToken);
 
-  await step("member: cannot hide an agent, and the request changes nothing", async () => {
-    const refused = await hidden(AGENT_HIDDEN_ROUTES.set, setup.memberToken, { agentId: setup.agentId, hidden: true });
-    assert.equal(refused.status, 403);
-    assert.ok(
-      JSON.stringify(refused.body).includes(sourceText("error.team.membersCannotHideAgents")),
-      "The refusal does not name the reason.",
-    );
-    assert.deepEqual(snapshotIds(current().agents.listHiddenAgents()), []);
-    return { status: refused.status };
-  });
-
-  await step("owner: hide reaches the member's socket and the host's events", async () => {
+  await step("owner: hide reaches the other device's socket and the host's events", async () => {
     const before = current().events.length;
     const event = nextHiddenEvent(socket);
     const response = await hidden(AGENT_HIDDEN_ROUTES.set, ownerToken, { agentId: setup.agentId, hidden: true });
@@ -405,13 +388,13 @@ try {
       .events.slice(before)
       .map((entry) => entry.type);
     assert.ok(types.includes("hidden-agents-changed") && types.includes("agents-changed"));
-    const read = await hidden(AGENT_HIDDEN_ROUTES.read, setup.memberToken, {});
-    assert.deepEqual(hiddenIds(read.body), [setup.agentId], "The member does not read the hidden agent.");
+    const read = await hidden(AGENT_HIDDEN_ROUTES.read, setup.deviceToken, {});
+    assert.deepEqual(hiddenIds(read.body), [setup.agentId], "The other device does not read the hidden agent.");
     return { hiddenAt: received.agents[0]?.hiddenAt, hostEvents: types };
   });
 
   await step("hidden: the agent keeps its data and refuses new messages", async () => {
-    const listed = await call("GET", TEAM_API_ROUTES.agents.all, { token: setup.memberToken });
+    const listed = await call("GET", TEAM_API_ROUTES.agents.all, { token: setup.deviceToken });
     assert.equal(listed.status, 200);
     assert.ok(Array.isArray(listed.body));
     assert.ok(
@@ -420,7 +403,7 @@ try {
     );
     assert.equal(current().agents.listRoutines(setup.agentId).length, 1, "A hidden agent lost its routine.");
     const sent = await call("POST", TEAM_API_ROUTES.agent.messages(setup.agentId), {
-      token: setup.memberToken,
+      token: setup.deviceToken,
       body: { text: "Are you there?" },
     });
     assert.ok(sent.status >= 400, `A hidden agent accepted a message: ${sent.status}.`);
@@ -454,11 +437,11 @@ try {
     host = await startHost();
     const { agents } = current();
     assert.deepEqual(snapshotIds(agents.listHiddenAgents()), [setup.agentId]);
-    const read = await hidden(AGENT_HIDDEN_ROUTES.read, setup.memberToken, {});
-    assert.equal(read.status, 200, "The member's session did not survive the restart.");
+    const read = await hidden(AGENT_HIDDEN_ROUTES.read, setup.deviceToken, {});
+    assert.equal(read.status, 200, "The other device's session did not survive the restart.");
     assert.deepEqual(hiddenIds(read.body), [setup.agentId]);
     assert.equal(agents.listRoutines(setup.agentId)[0]?.trigger.nextRunAt, at("10:00").toISOString());
-    socket = await openEvents(setup.memberToken);
+    socket = await openEvents(setup.deviceToken);
     return { hidden: hiddenIds(read.body) };
   });
 
@@ -489,7 +472,7 @@ try {
     await stopHost();
     host = await startHost();
     assert.deepEqual(snapshotIds(current().agents.listHiddenAgents()), []);
-    const read = await hidden(AGENT_HIDDEN_ROUTES.read, setup.memberToken, {});
+    const read = await hidden(AGENT_HIDDEN_ROUTES.read, setup.deviceToken, {});
     assert.deepEqual(hiddenIds(read.body), []);
     return { hidden: [] };
   });

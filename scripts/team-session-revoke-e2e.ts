@@ -1,9 +1,10 @@
-// Checks the reverse actions of team access on a real host: revoke and sign in again, revoke an
-// invitation, disable and enable a member, and remove a member who then joins again. The last event
+// Checks the reverse actions of device access on a real host: revoke a device and sign in again, and
+// restart the host with the revocation kept. A host has one owner, and every client is a device of
+// that owner. The last event
 // socket of a session that closes gives back the browser control of that session. A real
 // `TeamApiServer` runs on loopback with the real team store on a temporary profile, in a child
 // process of this script. An owner client makes each change through the released `/v1/team/*`
-// routes, and a member client checks that its token, its event socket and its sign-in follow. The
+// routes, and a second device checks that its token, its event socket and its sign-in follow. The
 // host process then restarts on the same files, and each change must still hold.
 // Run: `bun scripts/team-session-revoke-e2e.ts`.
 // Writes .openownbot-build/team-session-revoke-e2e/report.json.
@@ -12,7 +13,6 @@ import { mkdirSync, writeFileSync } from "node:fs";
 import { mkdtemp, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
-import { createInviteUrl, parseInviteUrl } from "@openownbot/contracts/invite-links";
 import { TEAM_API_ROUTES } from "@openownbot/contracts/team-api-routes";
 import {
   TEAM_APP_VERSION_HEADER,
@@ -31,12 +31,11 @@ import { runCauseEffect } from "../src/backend/effect-boundary";
 import { MailboxStore } from "../src/backend/mailbox-store";
 import { OpenOwnBotDatabase } from "../src/backend/openownbot-database";
 import { SidebarLayoutStore } from "../src/backend/sidebar-layout-store";
-import type { TeamApiBrowser, TeamApiOptions } from "../src/main/team-api/dependencies";
+import type { TeamApiBrowser } from "../src/main/team-api/dependencies";
 
 const OUT = resolve(import.meta.dirname, "../.openownbot-build/team-session-revoke-e2e");
 const HOST_VERSION = "0.0.0-e2e";
 const OWNER = { username: "owner-user", password: "owner-password-123" };
-const MEMBER = { username: "member-user", password: "member-password-123" };
 const STEP_DEADLINE_MS = 30_000;
 
 /** A line that the host process writes to its standard output, after `HOST_LINE`. */
@@ -141,35 +140,6 @@ async function runHost(root: string, configure: boolean): Promise<void> {
   if (configure) await runCauseEffect(team.configure("E2E Host", OWNER.username, OWNER.password));
   const agents = new AgentService({ store: agentStore, mailbox, browser: agentBrowser, sidebarLayout: sidebar });
   let port = 0;
-  // The local-development host path of `HostService.createInvite`: a link to this host's own API.
-  const createInvite: TeamApiOptions["createInvite"] = (input) =>
-    Effect.gen(function* () {
-      const identity = team.getIdentity();
-      assert.ok(identity, "The host has no identity.");
-      const invite = yield* team.createInvite(
-        input.role,
-        input.email,
-        input.permanent === undefined ? {} : { permanent: input.permanent },
-      );
-      return {
-        id: invite.id,
-        role: input.role,
-        expiresAt: invite.expiresAt,
-        usedAt: null,
-        inviteUrl: createInviteUrl(
-          {
-            apiUrl: `http://localhost:${port}`,
-            serverId: identity.serverId,
-            fingerprint: identity.fingerprint,
-            token: invite.token,
-          },
-          { allowLocalDevelopmentApiUrl: true },
-        ),
-        email: invite.email,
-        permanent: invite.permanent,
-        useCount: invite.useCount,
-      };
-    });
   const server = new TeamApiServer({
     store: team,
     agents,
@@ -177,7 +147,6 @@ async function runHost(root: string, configure: boolean): Promise<void> {
     browser: teamBrowser,
     sidebarLayout: sidebar,
     appVersion: HOST_VERSION,
-    createInvite,
     // The WebRTC gateway ends a revoked session through this callback.
     onSessionRevoked: (sessionId) => Effect.sync(() => send({ type: "revoked", sessionId })),
   });
@@ -256,11 +225,6 @@ function record(value: unknown, label: string): JsonObject {
 function text(value: unknown, label: string): string {
   assert.equal(typeof value, "string", `${label} is not text.`);
   return String(value);
-}
-
-/** A 4xx reply: the host refused the client, and did not fail. */
-function assertRefused(status: number, label: string): void {
-  assert.ok(status >= 400 && status < 500, `${label} returned ${status}, not a refusal.`);
 }
 
 const root = await mkdtemp(join(tmpdir(), "openownbot-team-revoke-"));
@@ -372,7 +336,7 @@ async function sessionIds(ownerToken: string): Promise<string[]> {
 /** Signs in a new device, and finds its session in the owner's list. */
 async function loginDevice(ownerToken: string): Promise<{ token: string; sessionId: string }> {
   const before = new Set(await sessionIds(ownerToken));
-  const token = await login(MEMBER);
+  const token = await login(OWNER);
   const added = (await sessionIds(ownerToken)).filter((id) => !before.has(id));
   assert.equal(added.length, 1, "Sign-in did not add exactly one session.");
   return { token, sessionId: added[0] ?? "" };
@@ -398,38 +362,21 @@ async function openEvents(token: string): Promise<{ closed: Promise<number>; clo
   return { closed, close: () => socket.close() };
 }
 
-/** The owner creates an invitation through the Team API, and the member reads its link. */
-async function inviteMember(ownerToken: string): Promise<{ id: string; token: string }> {
-  const created = await call("POST", TEAM_API_ROUTES.team.invites, { token: ownerToken, body: { role: "member" } });
-  assert.equal(created.status, 201, `Invite creation returned ${created.status}.`);
-  const invite = record(created.body, "invite");
-  const link = parseInviteUrl(text(invite.inviteUrl, "invite link"), { allowLocalDevelopmentApiUrl: true });
-  assert.equal(new URL(link.apiUrl).port, String(port));
-  return { id: text(invite.id, "invite id"), token: link.token };
-}
-
 try {
   await startHost(true);
-  let ownerToken = await login(OWNER);
+  const ownerToken = await login(OWNER);
 
   const member = await step(
-    "setup: a member joins by link and signs in on two devices",
+    "setup: the owner signs in on two more devices",
     async () => {
-      const invite = await inviteMember(ownerToken);
-      const joined = await call("POST", TEAM_API_ROUTES.join.server, {
-        body: { inviteToken: invite.token, ...MEMBER },
-      });
-      assert.equal(joined.status, 201);
-      const id = text(record(record(joined.body, "join").member, "member").id, "member id");
       const laptop = await loginDevice(ownerToken);
       const phone = await loginDevice(ownerToken);
       assert.equal(await meStatus(laptop.token), 200);
       assert.equal(await meStatus(phone.token), 200);
-      return { id, laptop, phone };
+      return { laptop, phone };
     },
-    ({ id }) => ({ memberId: id, devices: 2 }),
+    () => ({ devices: 2 }),
   );
-  const memberId = member.id;
 
   await step("client goes away: the last event socket of a session gives back its browser control", async () => {
     const phoneSession = member.phone.sessionId;
@@ -450,10 +397,6 @@ try {
   await step("revoke session: one device loses access at once, the other keeps it", async () => {
     const laptopSession = member.laptop.sessionId;
     const laptopEvents = (await openEvents(member.laptop.token)).closed;
-    const memberAttempt = await call("DELETE", TEAM_API_ROUTES.team.session(laptopSession), {
-      token: member.phone.token,
-    });
-    assert.equal(memberAttempt.status, 403, "A member without admin role revoked a session.");
     const gateway = nextRevokedForGateway();
     const revoked = await call("DELETE", TEAM_API_ROUTES.team.session(laptopSession), { token: ownerToken });
     assert.equal(revoked.status, 204);
@@ -462,7 +405,7 @@ try {
     assert.equal(await meStatus(member.phone.token), 200, "Revoking one session ended another.");
     assert.equal(await gateway, laptopSession, "The WebRTC gateway was not told to end the session.");
     assert.ok(!(await sessionIds(ownerToken)).includes(laptopSession), "A revoked session is listed.");
-    return { revokedSession: laptopSession, memberRevokeStatus: memberAttempt.status, socketClose: 1008 };
+    return { revokedSession: laptopSession, socketClose: 1008 };
   });
 
   const relogin = await step(
@@ -477,118 +420,14 @@ try {
     () => ({ signedIn: true, eventsOpen: true }),
   );
 
-  const revokedInvite = await step(
-    "revoke invitation: the link stops working before anyone joins",
-    async () => {
-      const invite = await inviteMember(ownerToken);
-      const preview = await call("POST", TEAM_API_ROUTES.join.invitationPreview, {
-        body: { inviteToken: invite.token },
-      });
-      assert.equal(preview.status, 200);
-      const revoked = await call("DELETE", TEAM_API_ROUTES.team.invite(invite.id), { token: ownerToken });
-      assert.equal(revoked.status, 204);
-      const listed = await call("GET", TEAM_API_ROUTES.team.invites, { token: ownerToken });
-      assert.ok(Array.isArray(listed.body));
-      assert.ok(
-        !listed.body.some((value) => record(value, "invite").id === invite.id),
-        "A revoked invitation is listed.",
-      );
-      const afterPreview = await call("POST", TEAM_API_ROUTES.join.invitationPreview, {
-        body: { inviteToken: invite.token },
-      });
-      assertRefused(afterPreview.status, "Preview of a revoked invitation");
-      const join = await call("POST", TEAM_API_ROUTES.join.server, {
-        body: { inviteToken: invite.token, username: "late-user", password: MEMBER.password },
-      });
-      assertRefused(join.status, "Join with a revoked invitation");
-      return {
-        inviteId: invite.id,
-        inviteToken: invite.token,
-        previewStatus: afterPreview.status,
-        joinStatus: join.status,
-      };
-    },
-    ({ inviteToken: _secret, ...summary }) => summary,
-  );
-
-  await step("disable member: every session ends and sign-in is refused", async () => {
-    const disabled = await call("PATCH", TEAM_API_ROUTES.team.member(memberId), {
-      token: ownerToken,
-      body: { disabled: true },
-    });
-    assert.equal(disabled.status, 200);
-    assert.equal(record(disabled.body, "member").disabled, true);
-    assert.equal(await relogin.events, 1008, "A disabled member kept the event socket.");
-    assert.equal(await meStatus(relogin.token), 401);
-    assert.equal(await meStatus(member.phone.token), 401);
-    const attempt = await call("POST", TEAM_API_ROUTES.auth.login, { body: MEMBER });
-    assertRefused(attempt.status, "Sign-in of a disabled member");
-    const members = await call("GET", TEAM_API_ROUTES.team.members, { token: ownerToken });
-    assert.ok(Array.isArray(members.body));
-    const owner = members.body.map((value) => record(value, "member")).find((value) => value.role === "owner");
-    const ownerAttempt = await call("PATCH", TEAM_API_ROUTES.team.member(text(owner?.id, "owner id")), {
-      token: ownerToken,
-      body: { disabled: true },
-    });
-    assertRefused(ownerAttempt.status, "Disabling the owner");
-    return { signInStatus: attempt.status, disableOwnerStatus: ownerAttempt.status };
-  });
-
-  await step("restart while disabled: the host keeps every revocation", async () => {
+  await step("restart: the host keeps every revocation", async () => {
     const previousPort = port;
     await stopHost();
     await startHost(false);
-    ownerToken = await login(OWNER);
     assert.equal(await meStatus(member.laptop.token), 401, "A revoked session came back after restart.");
-    assert.equal(await meStatus(member.phone.token), 401, "A session of a disabled member came back after restart.");
-    const attempt = await call("POST", TEAM_API_ROUTES.auth.login, { body: MEMBER });
-    assertRefused(attempt.status, "Sign-in of a disabled member after restart");
-    const preview = await call("POST", TEAM_API_ROUTES.join.invitationPreview, {
-      body: { inviteToken: revokedInvite.inviteToken },
-    });
-    assertRefused(preview.status, "A revoked invitation after restart");
-    const listed = await call("GET", TEAM_API_ROUTES.team.members, { token: ownerToken });
-    assert.ok(Array.isArray(listed.body));
-    const stored = listed.body.map((value) => record(value, "member")).find((value) => value.id === memberId);
-    assert.equal(stored?.disabled, true);
-    return { previousPort, port, memberDisabled: true };
-  });
-
-  // The sign-in limit counts every attempt for a name, also one that succeeds. The steps after the
-  // restart share this session so that they stay below it.
-  const enabledToken = await step(
-    "enable member: the same account signs in again and keeps its identity",
-    async () => {
-      const enabled = await call("PATCH", TEAM_API_ROUTES.team.member(memberId), {
-        token: ownerToken,
-        body: { disabled: false },
-      });
-      assert.equal(enabled.status, 200);
-      assert.equal(record(enabled.body, "member").disabled, false);
-      const token = await login(MEMBER);
-      const me = await call("GET", TEAM_API_ROUTES.me, { token });
-      assert.equal(me.status, 200);
-      assert.equal(record(me.body, "me").id, memberId, "Enabling made a new member.");
-      return token;
-    },
-    () => ({ memberId, sameIdentity: true }),
-  );
-
-  await step("remove member: access ends, and a new invitation lets the person join again", async () => {
-    const token = enabledToken;
-    const { closed: events } = await openEvents(token);
-    const removed = await call("DELETE", TEAM_API_ROUTES.team.member(memberId), { token: ownerToken });
-    assert.equal(removed.status, 204);
-    assert.equal(await events, 1008, "A removed member kept the event socket.");
-    assert.equal(await meStatus(token), 401);
-    const attempt = await call("POST", TEAM_API_ROUTES.auth.login, { body: MEMBER });
-    assertRefused(attempt.status, "Sign-in of a removed member");
-    const invite = await inviteMember(ownerToken);
-    const joined = await call("POST", TEAM_API_ROUTES.join.server, { body: { inviteToken: invite.token, ...MEMBER } });
-    assert.equal(joined.status, 201, "A removed member cannot join again with a new invitation.");
-    const newId = text(record(record(joined.body, "join").member, "member").id, "member id");
-    assert.equal(await meStatus(await login(MEMBER)), 200);
-    return { removedId: memberId, rejoinedId: newId, signInStatusWhileRemoved: attempt.status };
+    assert.equal(await meStatus(member.phone.token), 200, "A session that was not revoked ended after restart.");
+    assert.equal(await meStatus(relogin.token), 200, "The new session ended after restart.");
+    return { previousPort, port, revokedSessionStaysRevoked: true };
   });
 
   report.passed = report.steps.every((entry) => entry.passed);

@@ -37,7 +37,6 @@ export type MobileSearchSettingId =
   | "support"
   | "about"
   | "serverOptions"
-  | "serverMembers"
   | "serverRoutines"
   | "serverUsage";
 

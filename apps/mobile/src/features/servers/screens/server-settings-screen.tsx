@@ -1,4 +1,4 @@
-import { DEFAULT_TEAM_MEMBER_LIMIT, INPUT_LIMITS } from "@openownbot/contracts/input-limits";
+import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
 import { canAdministerServer } from "@openownbot/contracts/ipc";
 import { WAKE_RECONNECT_STATES } from "@openownbot/team-client/hosted-server-wake";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
@@ -45,7 +45,6 @@ export function ServerSettingsScreen() {
   const { serverId } = useLocalSearchParams<{ serverId: string }>();
   const {
     servers,
-    memberCountByServer,
     leaveServer,
     removeServer,
     refreshServer,
@@ -58,7 +57,6 @@ export function ServerSettingsScreen() {
     canManageProviders,
     canManageMcpServers,
     canViewHostedSites,
-    canManageServerRoles,
   } = useMobileWorkspace();
   const server = useLiveServerRecovery(servers.find((item) => item.id === serverId));
   const update = useServerUpdate(serverId, { poll: false });
@@ -114,8 +112,6 @@ export function ServerSettingsScreen() {
         <SettingsNote>{t("mobile.server.unavailable")}</SettingsNote>
       </SettingsContent>
     );
-  const memberCount = memberCountByServer[serverId];
-  const memberLimit = server.memberLimit ?? DEFAULT_TEAM_MEMBER_LIMIT;
   const connectors =
     canManageConnectors(serverId) || canManageOnePasswordConnector(serverId) || canManageBitwardenConnector(serverId);
   return (
@@ -135,23 +131,6 @@ export function ServerSettingsScreen() {
         >
           <Typography.Paragraph>{t("mobile.server.settings.yourRole")}</Typography.Paragraph>
         </SettingsRow>
-        <SettingsRow
-          trailing={
-            memberCount === undefined ? undefined : (
-              <TrailingValue
-                value={t("mobile.server.settings.memberCount", { count: memberCount, limit: memberLimit })}
-              />
-            )
-          }
-          onPress={() => router.push({ pathname: "/server-settings/members", params: { serverId } })}
-        >
-          <Typography.Paragraph>{t("mobile.server.settings.members")}</Typography.Paragraph>
-        </SettingsRow>
-        {canManageServerRoles(serverId) ? (
-          <SettingsRow onPress={() => router.push({ pathname: "/server-settings/roles", params: { serverId } })}>
-            <Typography.Paragraph>{t("mobile.server.route.roles")}</Typography.Paragraph>
-          </SettingsRow>
-        ) : null}
       </SettingsSection>
       <ServerGeneralSettings serverId={serverId} />
       {/* A section shows only when the host serves one of its pages to this role. */}

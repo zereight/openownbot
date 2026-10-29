@@ -1,15 +1,5 @@
 import { AppLogo } from "@openownbot/brand";
-import {
-  Button,
-  buttonVariants,
-  Download,
-  ErrorReference,
-  Heading,
-  Link2,
-  RefreshCw,
-  Server,
-  Text,
-} from "@openownbot/ui";
+import { Button, buttonVariants, Download, ErrorReference, Heading, RefreshCw, Server, Text } from "@openownbot/ui";
 import { useText } from "@openownbot/ui/text";
 import { Show } from "solid-js";
 
@@ -19,7 +9,6 @@ export function WebConnectComputer(props: {
   failed: boolean;
   /** The code of the failed host list read. */
   reference?: string | null;
-  onJoin: () => void;
   /**
    * Opens the hosted server plans. Leave it out when the account cannot create a hosted server. With
    * it, the hosted server is the first action, because it needs no install.
@@ -83,10 +72,6 @@ export function WebConnectComputer(props: {
               <Download aria-hidden="true" />
               {t("webClient.notice.download")}
             </a>
-            <Button variant="outline" onClick={() => props.onJoin()}>
-              <Link2 aria-hidden="true" />
-              {t("webClient.notice.join")}
-            </Button>
           </div>
           <Button
             class="web-connect-refresh"

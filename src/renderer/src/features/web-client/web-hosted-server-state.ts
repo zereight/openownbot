@@ -10,8 +10,6 @@ export interface WebHostedServersOptions {
   /** The add server dialog to open again after the hosting checkout. */
   hostingReturn: () => AddServerResume | null | undefined;
   onHostingReturnConsumed?: (() => void) | undefined;
-  /** Opens the join dialog. The plus button opens it when the account cannot create hosted servers. */
-  onJoin: () => void;
 }
 
 /** The hosted servers of the browser account, and the add server dialog that creates them. */
@@ -68,13 +66,12 @@ export function createWebHostedServers(options: WebHostedServersOptions) {
     addServer,
     closeAddServer: () => setAddServer(null),
     /**
-     * The plus button opens the add server dialog when the account can create hosted servers, else the
-     * join dialog. It uses the last answer, so the click does not wait for the network; the read after it
-     * is for the next click.
+     * The plus button opens the add server dialog when the account can create hosted servers. It uses
+     * the last answer, so the click does not wait for the network; the read after it is for the next
+     * click.
      */
     openAddServer(entryPoint: HostedServerEntryPoint): void {
       if (available()) setAddServer({ resume: null, entryPoint });
-      else options.onJoin();
       void refresh();
     },
   };

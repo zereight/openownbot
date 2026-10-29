@@ -1,4 +1,4 @@
-import type { OpenOwnBotDesktopApi, ServerSummary } from "@openownbot/contracts/ipc";
+import type { OpenOwnBotDesktopApi } from "@openownbot/contracts/ipc";
 
 /**
  * What the servers domain reaches in main: the server list and selection, the account changes, the local host, the
@@ -57,7 +57,6 @@ export interface ServersPort {
   servers: Pick<
     OpenOwnBotDesktopApi["servers"],
     | "getPresenceFor"
-    | "join"
     | "list"
     | "onEvent"
     | "onPresence"
@@ -74,33 +73,4 @@ export interface ServersPort {
 /** Read on each call: tests and stories replace `window.openownbot` per case. */
 export function serversPort(): ServersPort {
   return window.openownbot;
-}
-
-/**
- * The member and invite calls for one server. This computer answers them for the local server
- * through `host`; a remote server answers them through `servers`, addressed by its id.
- */
-export type ServerAdminPort = Pick<
-  OpenOwnBotDesktopApi["host"],
-  "getPresence" | "listMembers" | "listInvites" | "createInvite" | "updateMember" | "removeMember" | "revokeInvite"
->;
-
-export function serverAdminPort(server: Pick<ServerSummary, "id" | "kind">): ServerAdminPort {
-  if (server.kind === "local") return window.openownbot.host;
-  const serverId = server.id;
-  return {
-    getPresence: () => window.openownbot.servers.getPresenceFor(serverId),
-    listMembers: () => window.openownbot.servers.listMembers(serverId),
-    listInvites: () => window.openownbot.servers.listInvites(serverId),
-    createInvite: (input) => window.openownbot.servers.createInvite(input, serverId),
-    updateMember: (input) => window.openownbot.servers.updateMember(input, serverId),
-    removeMember: (memberId) => window.openownbot.servers.removeMember(memberId, serverId),
-    revokeInvite: (inviteId) => window.openownbot.servers.revokeInvite(inviteId, serverId),
-  };
-}
-
-/** The server main marks active. A test teardown can remove the bridge while a join is pending. */
-export async function activeServerId(): Promise<string> {
-  if (!window.openownbot) return "local";
-  return (await window.openownbot.servers.list()).find((item) => item.active)?.id ?? "local";
 }

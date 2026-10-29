@@ -296,6 +296,7 @@ export const messages = defineMessages("server", {
   "server.settings.addLogo": "Add server logo",
   "server.settings.removeLogo": "Remove server logo",
   "server.settings.access": "Access",
+  "server.settings.accessDescription": "Choose whether your other devices can reach this computer.",
   "server.settings.publish": "Publish this server",
   "server.settings.published": "Server is published",
   "server.settings.setUpDesktopTitle": "Set up remote desktop",

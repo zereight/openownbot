@@ -1,6 +1,5 @@
-import type { AgentAccessLevels, OpenOwnBotDesktopApi, ServerSummary } from "@openownbot/contracts/ipc";
+import type { OpenOwnBotDesktopApi, ServerSummary } from "@openownbot/contracts/ipc";
 import type { WorkflowPlace } from "@openownbot/ui/features/workflows/workflow-model";
-import { serverRoleCanAdminister } from "../servers/server-capabilities";
 
 type WorkflowsApi = OpenOwnBotDesktopApi["workflows"];
 /** Each method with its input only; `list` takes none. */
@@ -20,13 +19,11 @@ export interface WorkflowHost {
   workflows: BoundWorkflowsApi;
   /**
    * Calls `changed` with the workflow that changed, or null when all can be stale: the server came
-   * back, or the agent levels changed.
+   * back.
    */
   onChanged(changed: (workflowId: string | null) => void): () => void;
   /** Only this computer keeps messaging places; a joined server gives none. */
   places(): Promise<WorkflowPlace[]>;
-  /** The level of this account on each agent that it sees, or null when it manages all of them. */
-  agentLevels(): Promise<AgentAccessLevels | null>;
 }
 
 /**
@@ -82,10 +79,6 @@ export function desktopWorkflowHost(serverId: string, server: () => ServerSummar
           label: `${connection.connectionName} · ${place.name}`,
         })),
       );
-    },
-    async agentLevels() {
-      if (local() || serverRoleCanAdminister(server())) return null;
-      return (await window.openownbot.hostAdmin.getAgentAccess(serverId)).mine;
     },
   };
 }

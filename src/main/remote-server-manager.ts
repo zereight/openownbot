@@ -2,7 +2,6 @@ import { randomUUID } from "node:crypto";
 import { EventEmitter } from "node:events";
 import { basename } from "node:path";
 import { isValidAvatarImage } from "@openownbot/contracts/avatar-images";
-import { type InviteLinkOptions, type InviteLinkPayload, parseInviteUrl } from "@openownbot/contracts/invite-links";
 import type {
   AgentEvent,
   AgentImportPreview,
@@ -28,9 +27,6 @@ import type {
   HostedServerIssue,
   HostedServerStartStep,
   InstanceTransferPreview,
-  InvitePreview,
-  InviteSummary,
-  JoinServerInput,
   LoginServerInput,
   MarkConversationReadInput,
   MarkDirectReadInput,
@@ -39,12 +35,8 @@ import type {
   ServerNotificationLevel,
   ServerSummary,
   SetTeamTypingInput,
-  TeamInviteSummary,
-  TeamMemberSummary,
   TeamPresenceSnapshot,
   TeamRealtimeEvent,
-  TeamRole,
-  UpdateTeamMemberInput,
 } from "@openownbot/contracts/ipc";
 import {
   decodeRemoteAgentImportPreview,
@@ -64,7 +56,6 @@ import { INSTANCE_TRANSFER_ROUTES } from "@openownbot/contracts/team-protocol/in
 import { decodeTeamProtocolV1CurrentHttpResponse } from "@openownbot/contracts/team-protocol/v1-adapter";
 import { sourceText } from "@openownbot/i18n/source";
 import { createFocusUsePing } from "@openownbot/team-client/focus-use";
-import { followHostKeyHandovers } from "@openownbot/team-client/host-key-handover";
 import {
   HOSTED_HOST_READY_LIMIT_MS,
   HOSTED_START_FAILED_READS,
@@ -99,13 +90,12 @@ import { RemoteServerConnections } from "./remote-server-connections";
 import { RemoteProtocolError, RemoteRequestError } from "./remote-server-errors";
 import { RemoteEventRefresh } from "./remote-server-event-refresh";
 import { RemoteEventStream } from "./remote-server-event-stream";
-import { followedHostKeyHandovers, reconcileWebRtcHosts, verifyHostKeySignature } from "./remote-server-host-directory";
+import { followedHostKeyHandovers, reconcileWebRtcHosts } from "./remote-server-host-directory";
 import { requestJson, throwRemoteResponseError } from "./remote-server-http";
 import { RemotePresenceCache } from "./remote-server-presence";
 import { RemoteServerStore, type TokenCipher } from "./remote-server-store";
-import type { StoredRemoteServer } from "./remote-server-stored-shape";
 import { remoteServerSummaries } from "./remote-server-summaries";
-import { addRemotePreviewUrls, isLocalDevelopmentApi, pageQuery } from "./remote-server-urls";
+import { addRemotePreviewUrls, pageQuery } from "./remote-server-urls";
 import {
   RemoteRequest,
   RemoteWorkflowError,
@@ -113,10 +103,8 @@ import {
   remoteDecode,
   toRemoteWorkflowError,
 } from "./remote-service-effects";
-import { decodeInvitePreview, decodeJoinResult, decodeTeamPresenceSnapshot } from "./remote-team-decoding";
-import { RemoteTeamDirectory } from "./remote-team-directory";
+import { decodeJoinResult, decodeTeamPresenceSnapshot } from "./remote-team-decoding";
 import { RemoteViewerProxy } from "./remote-viewer-proxy";
-import { fingerprint } from "./team-store";
 import {
   TEAM_WEBRTC_REMOTE_REQUEST_TIMEOUT_MILLISECONDS,
   type TeamWebRtcClientTransport,
@@ -145,7 +133,6 @@ interface CentralAccountSession {
 interface RemoteServerManagerOptions {
   allowLocalDevelopmentInvites?: boolean;
   /** The origin of the self-hosted account service that this app is configured to use. */
-  selfHostedApiOrigin?: string | undefined;
   appVersion?: string;
   webrtcTransport?: TeamWebRtcClientTransport;
   getLocalHostId?: () => string | null;
@@ -172,18 +159,6 @@ export interface HostedServerWakeHooks {
   status: OmitThisParameter<HostedServerDesktopService["status"]>;
 }
 
-export interface DevelopmentRemoteServerConnection {
-  serverId: string;
-  serverName: string;
-  apiUrl: string;
-  fingerprint: string;
-  publicKey: string;
-  username: string;
-  sessionToken: string;
-  /** The role that the host gives the technical member. A file from an older host has none. */
-  role?: TeamRole | undefined;
-}
-
 const REMOTE_DUPLICATION_TIMEOUT_MS = TEAM_WEBRTC_REMOTE_REQUEST_TIMEOUT_MILLISECONDS;
 /** An export of up to 100 MB goes up and is read in one request, and apply creates many agents. */
 export const AGENT_IMPORT_UPLOAD_TIMEOUT_MS = TEAM_WEBRTC_REMOTE_REQUEST_TIMEOUT_MILLISECONDS;
@@ -204,10 +179,8 @@ export class RemoteServerManager extends EventEmitter<RemoteServerEvents> {
   readonly #events: RemoteEventStream;
   readonly #presence: RemotePresenceCache;
   readonly #attachments = new RemoteAttachmentCache();
-  readonly #team: RemoteTeamDirectory;
   readonly #centralAccount: CentralAccountSession;
   readonly #allowLocalDevelopmentInvites: boolean;
-  readonly #inviteLinks: InviteLinkOptions;
   readonly #appVersion: string | null;
   #duplicateOperationIds = new Map<string, string>();
   /** When Signal first missed each host that restarts into an update. */
@@ -262,10 +235,6 @@ export class RemoteServerManager extends EventEmitter<RemoteServerEvents> {
     });
     this.#centralAccount = centralAccount;
     this.#allowLocalDevelopmentInvites = options.allowLocalDevelopmentInvites ?? false;
-    this.#inviteLinks = {
-      allowLocalDevelopmentApiUrl: this.#allowLocalDevelopmentInvites,
-      selfHostedApiOrigin: options.selfHostedApiOrigin,
-    };
     this.#webrtcTransport = options.webrtcTransport ?? null;
     this.#getLocalHostId = options.getLocalHostId ?? (() => null);
     this.#hostedServers = options.hostedServers ?? null;
@@ -292,16 +261,6 @@ export class RemoteServerManager extends EventEmitter<RemoteServerEvents> {
     this.#presence = new RemotePresenceCache({
       fetchSnapshot: (serverId) => this.request(serverId, TEAM_API_ROUTES.team.presence, decodeTeamPresenceSnapshot),
       onSnapshot: (serverId, snapshot) => this.emit("presence", serverId, snapshot),
-    });
-    this.#team = new RemoteTeamDirectory({
-      servers: this.#store,
-      request: (serverId, path, decoder, init) => this.#client.request(serverId, path, decoder, init),
-      transport: this.#webrtcTransport,
-      sendInviteEmail: (input) => {
-        if (!this.#centralAccount.sendTeamInviteEmail)
-          throw new Error(sourceText("error.remote.emailDeliveryUnavailable"));
-        return this.#centralAccount.sendTeamInviteEmail(input);
-      },
     });
     this.#events = new RemoteEventStream({
       appVersion: this.#appVersion,
@@ -402,26 +361,6 @@ export class RemoteServerManager extends EventEmitter<RemoteServerEvents> {
       if (!this.#connections.reportTransportError(serverId, code, message)) this.#events.scheduleReconnect(serverId);
       if (code === "session_revoked") this.emit("directoryInvalidated");
     });
-  }
-
-  /**
-   * What "reconnecting is pointless" costs. Suspending the event stream ends an HTTPS server's
-   * socket with it, but a WebRTC host has no socket there: its events arrive on a data channel the
-   * transport owns, so without this it keeps pushing them from a host the app has just decided it
-   * cannot understand. The suspension is recorded first, so the `disconnected` event this raises
-   * finds the pause already in place and does not schedule a reconnect around it.
-   */
-  /**
-   * A self-hosted account service gets the token of each invitation that this app previews or
-   * accepts, so it must not see the token of an invitation for another service.
-   */
-  #parseInvite(inviteUrl: string): InviteLinkPayload {
-    const invite = parseInviteUrl(inviteUrl, this.#inviteLinks);
-    const service = this.#inviteLinks.selfHostedApiOrigin;
-    if (service && new URL(invite.apiUrl).origin !== service) {
-      throw new Error(sourceText("error.remote.inviteOtherService"));
-    }
-    return invite;
   }
 
   #suspendServer(serverId: string): void {
@@ -698,207 +637,6 @@ export class RemoteServerManager extends EventEmitter<RemoteServerEvents> {
     ): Effect.fn.Return<ServerSummary[], RemoteWorkflowError, RemoteRequest> {
       if (yield* this.#store.reorder(serverIds)) this.#emitChanged();
       return this.list();
-    },
-    (operation) => this.#owned(operation),
-  ).bind(this);
-
-  readonly join = Effect.fn("RemoteManager.join")(
-    function* (
-      this: RemoteServerManager,
-      input: JoinServerInput,
-    ): Effect.fn.Return<ServerSummary, RemoteWorkflowError, RemoteRequest> {
-      const transport = this.#webrtcTransport;
-
-      const invite = yield* remoteDecode(() => this.#parseInvite(input.inviteUrl));
-      if (transport && !isLocalDevelopmentApi(invite.apiUrl)) {
-        const preview = yield* transport.previewInvite(invite.token);
-        if (preview.hostId !== invite.serverId)
-          return yield* new RemoteWorkflowError({ cause: new Error(sourceText("error.remote.inviteHostMismatch")) });
-        const publicKey = preview.devicePublicKey;
-        const hostFingerprint = publicKey ? yield* remoteDecode(() => fingerprint(publicKey)) : "";
-        // The invitation names the key that the host had when it made the invitation. A signed handover
-        // chain from that key to the current one keeps the invitation valid after a key rotation.
-        if (
-          !publicKey ||
-          (hostFingerprint !== invite.fingerprint &&
-            !(yield* followHostKeyHandovers({
-              hostId: invite.serverId,
-              trustedFingerprint: invite.fingerprint,
-              advertisedPublicKey: publicKey,
-              handovers: preview.keyHandovers,
-              verify: verifyHostKeySignature,
-            })))
-        ) {
-          return yield* new RemoteWorkflowError({
-            cause: new Error(sourceText("error.remote.inviteIdentityMismatch")),
-          });
-        }
-        const accepted = yield* transport.acceptInvite(invite.token);
-        if (accepted.hostId !== invite.serverId)
-          return yield* new RemoteWorkflowError({
-            cause: new Error(sourceText("error.remote.inviteAcceptedOtherHost")),
-          });
-        yield* this.#store.unhideHost(accepted.hostId);
-        yield* this.#syncWebRtcHosts();
-        const synchronized = this.#store.find(accepted.hostId);
-        if (!synchronized || synchronized.fingerprint !== hostFingerprint) {
-          return yield* new RemoteWorkflowError({
-            cause: new Error(sourceText("error.remote.inviteIdentityChanged")),
-          });
-        }
-        // The identity checked out, so an entry for this host that this build could not read is now
-        // superseded. `#syncWebRtcHosts` above deliberately kept it -- reconciliation is not a join.
-        yield* this.#store.retireUnreadable(accepted.hostId);
-        this.#store.setActiveServerId(accepted.hostId);
-        this.#connections.setState(accepted.hostId, "connecting");
-        yield* this.#store.persist();
-        yield* transport.connect(accepted.hostId);
-        this.#emitChanged();
-        return yield* remoteDecode(() => requiredServerSummary(this.list(), accepted.hostId));
-      }
-      const verifiedIdentity = yield* this.#client.verifyIdentity(invite.apiUrl, invite.serverId, invite.fingerprint);
-      const accountTicket = yield* this.#centralAccount
-        .createTeamAuthTicket(invite.serverId)
-        .pipe(toRemoteWorkflowError);
-      const result = yield* requestJson(invite.apiUrl, TEAM_API_ROUTES.join.account, decodeJoinResult, {
-        method: "POST",
-        body: {
-          inviteToken: invite.token,
-          accountTicket,
-        },
-        ...this.#client.requestProtocol(verifiedIdentity.compatibility),
-      }).pipe(
-        Effect.mapError(
-          (failure) =>
-            new RemoteWorkflowError({
-              cause:
-                failure instanceof RemoteRequestError || failure instanceof RemoteProtocolError
-                  ? failure
-                  : failure.cause,
-            }),
-        ),
-      );
-      const stored: StoredRemoteServer = {
-        id: invite.serverId,
-        name: verifiedIdentity.serverName,
-        apiUrl: invite.apiUrl,
-        fingerprint: invite.fingerprint,
-        publicKey: verifiedIdentity.publicKey,
-        username: this.#centralAccount.getEmail().trim().toLowerCase(),
-        encryptedToken: yield* remoteDecode(() => this.#store.sealToken(result.sessionToken)),
-        remoteDesktopAvailable: false,
-        logoVersion: verifiedIdentity.logoVersion,
-        role: result.member.role,
-      };
-      this.#connections.setCompatibility(stored.id, verifiedIdentity.compatibility);
-      this.#connections.clearIssue(stored.id);
-      this.#connections.setState(stored.id, "online");
-      // Probed before the server is stored, not after: a probe that fails outright now leaves the list
-      // as it was, instead of an entry that is in memory but was never written.
-      stored.remoteDesktopAvailable = yield* this.#client.probeRemoteDesktop(stored);
-      yield* this.#store.adopt(stored);
-      this.#events.syncScopes();
-      this.#emitChanged();
-      yield* this.#events.restart(stored.id, true);
-      return yield* remoteDecode(() => requiredServerSummary(this.list(), stored.id));
-    },
-    (operation) => this.#owned(operation),
-  ).bind(this);
-
-  readonly connectDevelopmentServer = Effect.fn("RemoteManager.connectDevelopmentServer")(
-    function* (
-      this: RemoteServerManager,
-      input: DevelopmentRemoteServerConnection,
-    ): Effect.fn.Return<ServerSummary, RemoteWorkflowError, RemoteRequest> {
-      // A published dev host answers over WebRTC, and that membership belongs to an account the
-      // control plane keeps across restarts. The technical member this connection carries does not:
-      // publishing reconciles it away, so adopting an HTTP entry over the WebRTC one -- same host, so
-      // same id -- would replace a working server with one the host answers 401 to. The host role
-      // writes the file either way; which of the two connections wins is decided here.
-      const adopted = this.#store.find(input.serverId);
-      if (adopted?.transport === "webrtc-v2")
-        return yield* remoteDecode(() => requiredServerSummary(this.list(), input.serverId));
-      const verifiedIdentity = yield* this.#client.verifyIdentity(input.apiUrl, input.serverId, input.fingerprint);
-      if (verifiedIdentity.publicKey !== input.publicKey || verifiedIdentity.serverName !== input.serverName) {
-        return yield* new RemoteWorkflowError({ cause: new Error("The local development server identity changed.") });
-      }
-      const stored: StoredRemoteServer = {
-        id: input.serverId,
-        name: input.serverName,
-        apiUrl: input.apiUrl,
-        fingerprint: input.fingerprint,
-        publicKey: input.publicKey,
-        username: input.username,
-        encryptedToken: yield* remoteDecode(() => this.#store.sealToken(input.sessionToken)),
-        remoteDesktopAvailable: false,
-        logoVersion: verifiedIdentity.logoVersion,
-        role: input.role ?? "member",
-      };
-      this.#connections.setCompatibility(stored.id, verifiedIdentity.compatibility);
-      this.#connections.clearIssue(stored.id);
-      this.#connections.setState(stored.id, "online");
-      // Probed before the server is stored, not after: a probe that fails outright now leaves the list
-      // as it was, instead of an entry that is in memory but was never written.
-      stored.remoteDesktopAvailable = yield* this.#client.probeRemoteDesktop(stored);
-      yield* this.#store.adopt(stored);
-      this.#events.syncScopes();
-      this.#emitChanged();
-      yield* this.#events.restart(stored.id, true);
-      return yield* remoteDecode(() => requiredServerSummary(this.list(), stored.id));
-    },
-    (operation) => this.#owned(operation),
-  ).bind(this);
-
-  readonly previewInvite = Effect.fn("RemoteManager.previewInvite")(
-    function* (
-      this: RemoteServerManager,
-      input: JoinServerInput,
-    ): Effect.fn.Return<InvitePreview, RemoteWorkflowError, RemoteRequest> {
-      const transport = this.#webrtcTransport;
-
-      const invite = yield* remoteDecode(() => this.#parseInvite(input.inviteUrl));
-      if (transport && !isLocalDevelopmentApi(invite.apiUrl)) {
-        const preview = yield* transport.previewInvite(invite.token);
-        if (preview.hostId !== invite.serverId)
-          return yield* new RemoteWorkflowError({ cause: new Error(sourceText("error.remote.inviteHostMismatch")) });
-        const publicKey = preview.devicePublicKey;
-        if (!publicKey || (yield* remoteDecode(() => fingerprint(publicKey))) !== invite.fingerprint) {
-          return yield* new RemoteWorkflowError({
-            cause: new Error(sourceText("error.remote.inviteIdentityMismatch")),
-          });
-        }
-        return {
-          serverId: preview.hostId,
-          serverName: preview.hostName,
-          apiHostname: new URL(invite.apiUrl).hostname,
-          role: preview.role,
-          expiresAt: new Date(preview.expiresAt).toISOString(),
-          emailBound: preview.emailBound,
-          permanent: preview.permanent,
-        };
-      }
-      const identity = yield* this.#client.verifyIdentity(invite.apiUrl, invite.serverId, invite.fingerprint);
-      const preview = yield* requestJson(invite.apiUrl, TEAM_API_ROUTES.join.invitationPreview, decodeInvitePreview, {
-        method: "POST",
-        body: { inviteToken: invite.token },
-        ...this.#client.requestProtocol(identity.compatibility),
-      }).pipe(
-        Effect.mapError(
-          (failure) =>
-            new RemoteWorkflowError({
-              cause:
-                failure instanceof RemoteRequestError || failure instanceof RemoteProtocolError
-                  ? failure
-                  : failure.cause,
-            }),
-        ),
-      );
-      return {
-        serverId: invite.serverId,
-        serverName: identity.serverName,
-        apiHostname: new URL(invite.apiUrl).hostname,
-        ...preview,
-      };
     },
     (operation) => this.#owned(operation),
   ).bind(this);
@@ -1420,33 +1158,6 @@ export class RemoteServerManager extends EventEmitter<RemoteServerEvents> {
     },
     (operation) => this.#owned(operation),
   ).bind(this);
-
-  listMembers(serverId: string): Effect.Effect<TeamMemberSummary[], RemoteWorkflowError> {
-    return this.#owned(this.#team.listMembers(serverId));
-  }
-
-  updateMember(serverId: string, input: UpdateTeamMemberInput): Effect.Effect<TeamMemberSummary, RemoteWorkflowError> {
-    return this.#owned(this.#team.updateMember(serverId, input));
-  }
-
-  removeMember(serverId: string, memberId: string): Effect.Effect<void, RemoteWorkflowError> {
-    return this.#owned(this.#team.removeMember(serverId, memberId));
-  }
-
-  listInvites(serverId: string): Effect.Effect<TeamInviteSummary[], RemoteWorkflowError> {
-    return this.#owned(this.#team.listInvites(serverId));
-  }
-
-  revokeInvite(serverId: string, inviteId: string): Effect.Effect<void, RemoteWorkflowError> {
-    return this.#owned(this.#team.revokeInvite(serverId, inviteId));
-  }
-
-  createInvite(
-    serverId: string,
-    input: { role: "admin" | "member"; email?: string; permanent?: boolean },
-  ): Effect.Effect<InviteSummary, RemoteWorkflowError> {
-    return this.#owned(this.#team.createInvite(serverId, input));
-  }
 
   readonly setTyping = Effect.fn("RemoteManager.setTyping")(function* (
     this: RemoteServerManager,

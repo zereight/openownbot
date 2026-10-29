@@ -1,6 +1,5 @@
 import type {
   AvatarImageInput,
-  InviteSummary,
   McpServerConfig,
   McpSignInAppState,
   McpSignInRelayPage,
@@ -8,10 +7,6 @@ import type {
   McpTestResult,
   SaveMcpSignInAppInput,
   ServerSummary,
-  TeamInviteSummary,
-  TeamPresenceMember,
-  TeamPresenceSnapshot,
-  UpdateTeamMemberInput,
 } from "@openownbot/contracts/ipc";
 import { runTeamEffect } from "@openownbot/team-client";
 import {
@@ -34,14 +29,12 @@ import { currentText } from "@openownbot/ui/text";
 import { Effect } from "effect";
 import { createEffect, createStore, untrack } from "solid-js";
 import { mcpSignInRecord } from "../servers/mcp-servers";
-import { serverCanAdminister, serverRoleCanAdminister } from "../servers/server-capabilities";
+import { serverCanAdminister } from "../servers/server-capabilities";
 import { webMcpRelay } from "./web-mcp-relay";
 import type { WebAdminRuntime } from "./web-runtime";
 
 interface WebServerSettingsState {
   open: boolean;
-  members: TeamPresenceMember[];
-  invites: TeamInviteSummary[];
   loading: boolean;
   error: string | null;
   mcp: McpServerConfig[];
@@ -67,15 +60,12 @@ const MCP_SIGN_IN_POLL_MS = 1_000;
 export function createWebServerSettings(options: {
   server: () => ServerSummary | undefined;
   admin: () => WebAdminRuntime | undefined;
-  presence: () => TeamPresenceSnapshot | null;
   refreshHosts: () => Promise<void>;
   /** Whether the host relays sign-ins (`sign-in-relay-v1`), so the page opens in this browser. */
   relaySupported: () => boolean;
 }) {
   const [state, setState] = createStore<WebServerSettingsState>({
     open: false,
-    members: [],
-    invites: [],
     loading: false,
     error: null,
     mcp: [],
@@ -104,23 +94,7 @@ export function createWebServerSettings(options: {
     return { server, admin };
   }
 
-  // Typing updates do not read the account service again. Membership and online changes are enough
-  // to show an accepted invitation.
-  let previousPresence = "";
-  createEffect(
-    () => (state.open ? options.presence() : null),
-    (presence) => {
-      if (!presence) return;
-      const signature = untrack(() =>
-        JSON.stringify(presence.members.map((member) => [member.id, member.role, member.disabled, member.online])),
-      );
-      if (signature === previousPresence) return;
-      previousPresence = signature;
-      void untrack(refresh);
-    },
-  );
-
-  // A member change revokes every session on the host, this one too. Load again after it reconnects.
+  // Load again after the host connection returns.
   let previousState: ServerSummary["state"] | undefined;
   createEffect(
     () => (state.open ? options.server()?.state : undefined),
@@ -138,23 +112,7 @@ export function createWebServerSettings(options: {
       draft.error = null;
     });
     try {
-      const { server, admin } = requireAdmin();
-      const canManage = serverRoleCanAdminister(server);
-      const [presence, members, invites] = await Promise.all([
-        admin.team.getPresence(),
-        canManage ? admin.team.listMembers() : Promise.resolve(null),
-        canManage ? admin.team.listInvites() : Promise.resolve([]),
-      ]);
-      if (current !== request) return;
-      const presenceById = new Map(presence.members.map((member) => [member.id, member]));
-      setState((draft) => {
-        draft.members = (members ?? presence.members).map((member) => ({
-          ...member,
-          online: presenceById.get(member.id)?.online ?? false,
-          typingAgentId: presenceById.get(member.id)?.typingAgentId ?? null,
-        }));
-        draft.invites = invites;
-      });
+      requireAdmin();
     } catch (error) {
       if (current === request)
         setState((draft) => {
@@ -172,11 +130,8 @@ export function createWebServerSettings(options: {
     request += 1;
     mcpRequest += 1;
     restoreTarget = trigger;
-    previousPresence = "";
     setState((draft) => {
       draft.open = true;
-      draft.members = [];
-      draft.invites = [];
       draft.mcp = [];
       draft.mcpError = null;
       draft.error = null;
@@ -197,12 +152,6 @@ export function createWebServerSettings(options: {
     await runTeamEffect(updateHostIdentity(admin.request, input).pipe(Effect.mapError((error) => error.cause)));
     await options.refreshHosts();
     await refresh();
-  }
-
-  async function mutateTeam<T>(mutate: (admin: WebAdminRuntime) => Promise<T>): Promise<T> {
-    const result = await mutate(requireAdmin().admin);
-    await refresh();
-    return result;
   }
 
   async function refreshMcp(): Promise<void> {
@@ -306,13 +255,6 @@ export function createWebServerSettings(options: {
     setOpen,
     refresh,
     saveIdentity,
-    createInvite: (input: { role: "admin" | "member"; email?: string; permanent?: boolean }): Promise<InviteSummary> =>
-      mutateTeam((admin) => admin.team.createInvite(input)),
-    updateMember: async (input: UpdateTeamMemberInput): Promise<void> => {
-      await mutateTeam((admin) => admin.team.updateMember(input));
-    },
-    removeMember: (memberId: string): Promise<void> => mutateTeam((admin) => admin.team.removeMember(memberId)),
-    revokeInvite: (inviteId: string): Promise<void> => mutateTeam((admin) => admin.team.revokeInvite(inviteId)),
     refreshMcp,
     saveMcpServer: (config: McpServerConfig) =>
       mutateMcp((admin) =>

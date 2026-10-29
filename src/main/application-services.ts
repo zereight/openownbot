@@ -63,7 +63,7 @@ import { existsSync } from "node:fs";
 import { readdir, rm } from "node:fs/promises";
 import { homedir, hostname, tmpdir } from "node:os";
 import { join, resolve } from "node:path";
-import { selfHostedApiOrigin } from "@openownbot/contracts/invite-links";
+
 import type {
   AgentStatus,
   AppVariant,
@@ -122,7 +122,6 @@ import { sweepProviderTemp } from "../backend/provider-temp";
 import { SidebarLayoutStore } from "../backend/sidebar-layout-store";
 import { StorageUsageScanner, StorageUsageService } from "../backend/storage-usage";
 import { TeamChatStore } from "../backend/team-chat-store";
-import { AGENT_ACCESS_FILE, AgentAccessStore } from "./agent-access-store";
 import {
   type AgentDefaultsPreferenceStore,
   createAgentDefaultsPreferenceStore,
@@ -474,7 +473,6 @@ export interface ApplicationServiceContext {
   appIconPath: string;
   appVariant: AppVariant;
   developmentRemoteRole: DevelopmentRemoteRole | null;
-  developmentTestClientEnabled: boolean;
   /** Set only in a hosted server VM. */
   hostedServer: HostedServerEnvironment | null;
   /** Set only in a self-hosted server that `install-server.sh` installed. */
@@ -544,7 +542,6 @@ export interface ApplicationServices {
   busyMessageMode: BusyMessageModePreferenceStore;
   agentDefaults: AgentDefaultsPreferenceStore;
   agentMemoryLimit: AgentMemoryLimitSetting;
-  agentAccess: AgentAccessStore;
   serverTimezone: ServerTimezonePreferenceStore;
   promptCacheTtl: PromptCacheTtlPreferenceStore;
   claudeEnvironment: ClaudeEnvironmentStore;
@@ -839,7 +836,6 @@ export async function createApplicationServices({
   appIconPath,
   appVariant,
   developmentRemoteRole,
-  developmentTestClientEnabled,
   hostedServer,
   serverMode: serverModeEnvironment,
   hostingDeveloperKey,
@@ -1150,9 +1146,6 @@ export async function createApplicationServices({
     join(app.getPath("userData"), AGENT_MEMORY_LIMIT_PREFERENCE_FILE),
   );
   await runCauseEffect(agentMemoryLimit.load());
-  const agentAccess = new AgentAccessStore(join(app.getPath("userData"), AGENT_ACCESS_FILE));
-  if (!(await runCauseEffect(agentAccess.load())))
-    logger.warn("The roles file did not load. Members get no access to agents until an admin saves the roles.");
   const serverTimezone = new ServerTimezonePreferenceStore(
     join(app.getPath("userData"), SERVER_TIMEZONE_PREFERENCE_FILE),
   );
@@ -2103,7 +2096,6 @@ export async function createApplicationServices({
     await runCauseEffect(
       applyDevelopmentRemoteAccount({
         role: developmentRemoteRole,
-        testClientEnabled: developmentTestClientEnabled,
         centralAuth,
         teamStore,
         setupFile,
@@ -2328,7 +2320,6 @@ export async function createApplicationServices({
     // Present, so the host advertises `agent-hidden-v1`. Any member can hide or restore an agent that they can see.
     hiddenAgents: service,
     // Present, so the host advertises `agent-access-v1`. Only owners and admins change the roles.
-    agentAccess,
     // Present, so the host advertises `agent-tasks-v1`. Any member who can send a message to the agent.
     agentTasks: service,
     // Present, so the host advertises `browser-profiles-v1`. Only owners and admins change profiles;
@@ -2542,7 +2533,6 @@ export async function createApplicationServices({
     },
     {
       allowLocalDevelopmentInvites: developmentRemoteRole !== null,
-      selfHostedApiOrigin: selfHostedApiOrigin(centralAuthApiUrl),
       appVersion: app.getVersion(),
       connectTrace,
       accountReady: centralAuthInitialization,
@@ -2595,7 +2585,6 @@ export async function createApplicationServices({
     await runCauseEffect(
       startDevelopmentRemoteRole({
         role: developmentRemoteRole,
-        testClientEnabled: developmentTestClientEnabled,
         host,
         remoteServers,
       }),
@@ -3004,7 +2993,6 @@ export async function createApplicationServices({
     busyMessageMode,
     agentDefaults,
     agentMemoryLimit: agentMemoryLimitSetting,
-    agentAccess,
     serverTimezone,
     promptCacheTtl,
     claudeEnvironment,

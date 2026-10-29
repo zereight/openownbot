@@ -22,11 +22,9 @@
 @import "./styles/app-shell.css";
 @import "@openownbot/ui/features/sidebar/sidebar-views.css";
 @import "./features/account/account-update-island.css";
-@import "@openownbot/ui/features/servers/join-server-dialog.css";
 @import "@openownbot/ui/features/servers/add-server-dialog.css";
 @import "@openownbot/ui/features/servers/hosted-server-upsell.css";
 @import "@openownbot/ui/features/servers/restart-server-dialog.css";
-@import "@openownbot/ui/features/servers/server-roles.css";
 @import "@openownbot/ui/features/servers/server-update-dialog.css";
 @import "@openownbot/ui/styles/settings-panel.css";
 @import "@openownbot/ui/styles/provider-code-login.css";

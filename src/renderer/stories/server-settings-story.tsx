@@ -2,7 +2,7 @@ import type { HostReleaseStatus, HostUpdateStatus } from "@openownbot/contracts/
 import { onSettled, snapshot } from "solid-js";
 import { fn } from "storybook/test";
 import { ServerSettingsModal, type ServerSettingsModalProps } from "../src/features/servers/ServerSettingsModal";
-import { STORY_HOST_STATUS, STORY_INVITES, STORY_PRESENCE, STORY_SERVERS } from "../src/preview/fixtures";
+import { STORY_HOST_STATUS, STORY_SERVERS } from "../src/preview/fixtures";
 import { createMockOpenOwnBot } from "./mock-openownbot";
 import { SettingsPageStory } from "./settings-page-story";
 
@@ -22,27 +22,12 @@ export const serverSettingsArgs = () =>
     platform: "darwin",
     server: STORY_LOCAL_SERVER,
     hostStatus: STORY_HOST_STATUS,
-    members: STORY_PRESENCE.members,
-    invites: STORY_INVITES,
     loading: false,
     loadError: null,
     onRetry: fn(async () => undefined),
     onSaveIdentity: fn(async () => undefined),
     onSetPublished: fn(async () => undefined),
     onSetMuted: fn(async () => undefined),
-    onCreateInvite: fn(async (input) => ({
-      id: "invite-story",
-      inviteUrl: "https://team.example.com/invite/story",
-      expiresAt: "2026-08-29T10:00:00.000Z",
-      role: input.role,
-      usedAt: null,
-      email: input.email ?? null,
-      permanent: input.permanent ?? false,
-      useCount: 0,
-    })),
-    onUpdateMember: fn(async () => undefined),
-    onRemoveMember: fn(async () => undefined),
-    onRevokeInvite: fn(async () => undefined),
     onOpenScreenRecordingSettings: fn(async () => undefined),
     onRecheckScreenRecording: fn(async () => undefined),
   }) satisfies Omit<ServerSettingsModalProps, "page">;

@@ -432,12 +432,7 @@ export function agentIpcHandlers({
           ),
       }),
       duplicateAgent: scopedHandler(parseAgentId, {
-        local: (agentId) =>
-          runCauseEffect(
-            duplicateAgentIntoLayout(service, sidebarLayout, agentId, undefined, (copyId) =>
-              host.copyAgentAccess(agentId, copyId),
-            ),
-          ),
+        local: (agentId) => runCauseEffect(duplicateAgentIntoLayout(service, sidebarLayout, agentId)),
         remote: (agentId, serverId) => runCauseEffect(remoteServers.duplicateAgent(agentId, serverId)),
       }),
       updateAgent: scopedHandler(parseUpdateAgent, {

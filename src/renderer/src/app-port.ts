@@ -36,7 +36,6 @@ export interface AppPort {
   routineFeed: OpenOwnBotDesktopApi["routineFeed"];
   events: OpenOwnBotDesktopApi["events"];
   plugins: Pick<OpenOwnBotDesktopApi["plugins"], "onOpenListing" | "takePendingListing">;
-  servers: Pick<OpenOwnBotDesktopApi["servers"], "onInvite" | "takePendingInvite">;
 }
 
 /** Read on each call: tests and stories replace `window.openownbot` per case. */

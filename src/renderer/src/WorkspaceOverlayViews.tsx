@@ -21,13 +21,7 @@ import {
 import type { MarketplaceCalls } from "./features/settings/marketplace-calls";
 import type { MarketplaceAgentRow } from "./features/settings/marketplace-controller";
 import { DISPLAYED_MARKETPLACE_PLUGINS } from "./features/settings/marketplace-plugin-icons";
-import {
-  AgentTemplateInstall,
-  GlobalSearch,
-  JoinServerDialog,
-  MarketplaceModal,
-  ServerSettingsModal,
-} from "./lazy-views";
+import { AgentTemplateInstall, GlobalSearch, MarketplaceModal, ServerSettingsModal } from "./lazy-views";
 
 /**
  * The overlays that the desktop shell and the web client both raise over the workspace, as views that
@@ -37,18 +31,6 @@ import {
  *
  * They read only the contexts that both clients provide: the conversation controller and channels.
  */
-
-/** Joining a team server from an invite link. */
-export function JoinServerOverlay(props: { open: boolean } & ComponentProps<typeof JoinServerDialog>) {
-  const dialog = omit(props, "open");
-  return (
-    <Show when={props.open}>
-      <Loading>
-        <JoinServerDialog {...dialog} />
-      </Loading>
-    </Show>
-  );
-}
 
 /**
  * Skills and marketplace agents, which install into an Agent's workspace on the host. The picker

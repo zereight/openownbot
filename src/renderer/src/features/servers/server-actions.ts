@@ -20,7 +20,6 @@ export function useServerActions() {
     servers,
     setServerMuted,
     setServerNotificationLevel,
-    setJoinServerOpen,
     setAddServerOpen,
     hostedServersAvailable,
     hostedServerIds,
@@ -53,14 +52,12 @@ export function useServerActions() {
   }
 
   /**
-   * Opens the hosted server plans when the account can create a hosted server, otherwise the invite
-   * dialog. It uses the last answer, so the click does not wait for the network; the read after it is
+   * Opens the hosted server plans when the account can create a hosted server, otherwise nothing. It uses the last answer, so the click does not wait for the network; the read after it is
    * for the next click.
    */
   function add(): void {
     if (platform.landingPreview) return;
     if (hostedServersAvailable()) setAddServerOpen(true, "server_rail");
-    else setJoinServerOpen(true);
     void refreshHostedServersAvailable();
   }
 

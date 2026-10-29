@@ -51,11 +51,6 @@ function recorder() {
     logout: (token) => record("store.logout", token),
     changePassword: unused,
     resolveLogo: () => null,
-    listMembers: () => [OWNER, MEMBER],
-    updateMember: unused,
-    removeMember: unused,
-    listInvites: () => [],
-    revokeInvite: unused,
     listSessions: () => [SESSION_B],
     revokeSession: (sessionId) => record("store.revokeSession", sessionId),
   };

@@ -3,7 +3,6 @@ import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
 import type {
   AvatarImageInput,
   CentralAuthUser,
-  InviteSummary,
   McpServerConfig,
   McpSignInAppState,
   McpSignInRelayPage,
@@ -11,19 +10,16 @@ import type {
   McpTestResult,
   SaveMcpSignInAppInput,
   ServerSummary,
-  TeamInviteSummary,
-  TeamPresenceMember,
-  UpdateTeamMemberInput,
 } from "@openownbot/contracts/ipc";
 import { currentText } from "@openownbot/ui/text";
-import { createEffect, createMemo, createSignal, flush, onCleanup } from "solid-js";
+import { createEffect, createMemo, createSignal, onCleanup } from "solid-js";
 import { createSimpleContext } from "../../simple-context";
 import { useAuth } from "../account/account-context";
 import { mcpSignInRecord } from "./mcp-servers";
 import type { ServerSettingsSection } from "./ServerSettingsModal";
-import { serverCanAdminister, serverRoleCanAdminister, serverSupportsCapability } from "./server-capabilities";
+import { serverCanAdminister, serverSupportsCapability } from "./server-capabilities";
 import { useServers } from "./servers-context";
-import { serverAdminPort, serversPort } from "./servers-port";
+import { serversPort } from "./servers-port";
 
 /**
  * The settings page for one server: its identity, whether it is published,
@@ -81,8 +77,6 @@ const ServerSettings = createSimpleContext({
     const [serverSettingsOpen, setServerSettingsOpen] = createSignal(false);
     /** Counts each open request, so the settings page can tell a new request for the open server. */
     const [serverSettingsOpenRequest, setServerSettingsOpenRequest] = createSignal(0);
-    const [serverSettingsMembers, setServerSettingsMembers] = createSignal<TeamPresenceMember[]>([]);
-    const [serverSettingsInvites, setServerSettingsInvites] = createSignal<TeamInviteSummary[]>([]);
     const [serverSettingsLoading, setServerSettingsLoading] = createSignal(false);
     const [serverSettingsError, setServerSettingsError] = createSignal<string | null>(null);
     const [serverSettingsMcp, setServerSettingsMcp] = createSignal<McpServerConfig[]>([]);
@@ -138,25 +132,6 @@ const ServerSettings = createSimpleContext({
       },
     );
 
-    createEffect(
-      () => ({ open: serverSettingsOpen(), id: serverSettingsTargetId() }),
-      ({ open, id }) => {
-        if (!open || !id) return;
-        let previous = "";
-        return serversPort().servers.onPresence((presence) => {
-          // Typing updates must not read the account API again. Membership and
-          // online changes are enough to refresh an accepted invitation.
-          const signature = JSON.stringify(
-            presence.members.map((member) => [member.id, member.role, member.disabled, member.online]),
-          );
-          if (signature === previous) return;
-          previous = signature;
-          flush(() => setServerSettingsMembers(presence.members));
-          void refreshServerSettings(id);
-        }, id);
-      },
-    );
-
     async function refreshServerSettings(serverId = serverSettingsTargetId()): Promise<void> {
       if (!serverId) return;
       const request = ++serverSettingsRequest;
@@ -176,24 +151,7 @@ const ServerSettings = createSimpleContext({
             identityError = text.errorMessage(error, text.t("server.settings.identityRefreshFailed"));
           }
         }
-        const canManage = server.kind === "local" ? hostStatus().configured : serverRoleCanAdminister(server);
-        const canUseNetwork = server.kind === "local" || server.state === "online";
-        const admin = serverAdminPort(server);
-        const [presence, members, invites] = await Promise.all([
-          admin.getPresence(),
-          canManage && canUseNetwork ? admin.listMembers() : Promise.resolve(null),
-          canManage && canUseNetwork ? admin.listInvites() : Promise.resolve([]),
-        ]);
         if (request !== serverSettingsRequest || serverSettingsTargetId() !== serverId) return;
-        const presenceById = new Map(presence.members.map((member) => [member.id, member]));
-        setServerSettingsMembers(
-          (members ?? presence.members).map((member) => ({
-            ...member,
-            online: presenceById.get(member.id)?.online ?? false,
-            typingAgentId: presenceById.get(member.id)?.typingAgentId ?? null,
-          })),
-        );
-        setServerSettingsInvites(invites);
         if (identityError) setServerSettingsError(identityError);
       } catch (error) {
         if (request === serverSettingsRequest && serverSettingsTargetId() === serverId) {
@@ -217,8 +175,6 @@ const ServerSettings = createSimpleContext({
       setServerSettingsTargetId(serverId);
       setServerSettingsOpen(true);
       setServerSettingsOpenRequest((count) => count + 1);
-      setServerSettingsMembers([]);
-      setServerSettingsInvites([]);
       setServerSettingsMcp([]);
       setServerSettingsMcpError(null);
       setServerSettingsMcpSignIns({});
@@ -292,39 +248,6 @@ const ServerSettings = createSimpleContext({
       setHostStatus(status);
       setServers(await serversPort().servers.list());
       if (serverSettingsTargetId() === server.id) await refreshServerSettings(server.id);
-    }
-
-    async function createServerInvite(input: {
-      role: "admin" | "member";
-      email?: string;
-      permanent?: boolean;
-    }): Promise<InviteSummary> {
-      const server = serverSettingsTarget();
-      if (!server) throw new Error(currentText().t("server.settings.unavailable"));
-      const invite = await serverAdminPort(server).createInvite(input);
-      await refreshServerSettings(server.id);
-      return invite;
-    }
-
-    async function updateServerMember(input: UpdateTeamMemberInput): Promise<void> {
-      const server = serverSettingsTarget();
-      if (!server) throw new Error(currentText().t("server.settings.unavailable"));
-      await serverAdminPort(server).updateMember(input);
-      await refreshServerSettings(server.id);
-    }
-
-    async function removeServerMember(memberId: string): Promise<void> {
-      const server = serverSettingsTarget();
-      if (!server) throw new Error(currentText().t("server.settings.unavailable"));
-      await serverAdminPort(server).removeMember(memberId);
-      await refreshServerSettings(server.id);
-    }
-
-    async function revokeServerInvite(inviteId: string): Promise<void> {
-      const server = serverSettingsTarget();
-      if (!server) throw new Error(currentText().t("server.settings.unavailable"));
-      await serverAdminPort(server).revokeInvite(inviteId);
-      await refreshServerSettings(server.id);
     }
 
     /**
@@ -561,8 +484,6 @@ const ServerSettings = createSimpleContext({
       setServerSettingsOpen,
       serverSettingsOpenRequest,
       serverSettingsRestoreTarget: () => serverSettingsRestoreTarget,
-      serverSettingsMembers,
-      serverSettingsInvites,
       serverSettingsLoading,
       serverSettingsError,
       openServerSettings,
@@ -572,10 +493,6 @@ const ServerSettings = createSimpleContext({
       rotateHostKey,
       setServerPublished,
       publishLocalServer: () => setLocalServerPublished(true),
-      createServerInvite,
-      updateServerMember,
-      removeServerMember,
-      revokeServerInvite,
       leaveServer,
       leaveConfirmServer,
       leaveRestoreTarget: () => leaveRequest()?.trigger ?? null,

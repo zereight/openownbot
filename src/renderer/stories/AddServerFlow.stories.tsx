@@ -32,7 +32,6 @@ function AddServerFlow(props: FlowProps) {
   const [servers, setServers] = createSignal<ServerSummary[]>(STORY_SERVERS);
   const [addOpen, setAddOpen] = createSignal(props.startOpen ?? false);
   const [contactNote, setContactNote] = createSignal(false);
-  const [joinNote, setJoinNote] = createSignal(false);
   const [manageNote, setManageNote] = createSignal(false);
   const [setupStatus, setSetupStatus] = createSignal<HostedServerSetupStatus | null>(null);
   const [pending, setPending] = createSignal({ id: "", name: "" });
@@ -96,9 +95,6 @@ function AddServerFlow(props: FlowProps) {
         <Show when={manageNote()}>
           <Text tone="muted">"Manage servers" was clicked. The app opens the list of hosted servers here.</Text>
         </Show>
-        <Show when={joinNote()}>
-          <Text tone="muted">"Join a server" was clicked. The app opens the invite dialog here.</Text>
-        </Show>
       </main>
 
       <Show when={addOpen()}>
@@ -110,10 +106,6 @@ function AddServerFlow(props: FlowProps) {
           onManageServers={() => setManageNote(true)}
           onClose={() => setAddOpen(false)}
           onContactUs={() => setContactNote(true)}
-          onJoinWithInvite={() => {
-            setAddOpen(false);
-            setJoinNote(true);
-          }}
           onCreate={async () => {
             await new Promise((resolve) => window.setTimeout(resolve, 700));
             const count = servers().filter((server) => server.id.startsWith("hosted-")).length;

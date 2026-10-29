@@ -147,7 +147,6 @@ import { runCauseEffect } from "../backend/effect-boundary";
 import { McpServerError } from "../backend/mcp-server-store";
 import { StoredStateFailure } from "../backend/stored-state-effects";
 import type { TeamChatStore } from "../backend/team-chat-store";
-import { agentAccessLevel } from "./agent-access-store";
 import { LifecycleGate } from "./lifecycle-gate";
 import { listenLoopback } from "./listen-loopback";
 import { RemoteScreenError } from "./remote-screen-gateway";
@@ -174,7 +173,6 @@ import {
   stringField,
 } from "./team-api/request-helpers";
 import { routeAcpRegistry } from "./team-api/route-acp-registry";
-import { routeAgentAccess } from "./team-api/route-agent-access";
 import {
   routeAgentAdmin,
   routeAgentBackupModels,
@@ -336,7 +334,6 @@ export class TeamApiServer {
   readonly #sessionFocus = new Map<string, { since: number; at: number }>();
   #agentListener: ((event: AgentEvent) => void) | null = null;
   #sidebarLayoutListener: ((layout: SidebarLayoutSnapshot) => void) | null = null;
-  #stopAgentAccessListener: (() => void) | null = null;
   #localTypingAgentId: string | null = null;
   readonly #reportedUnrepresentableAgents = new Set<string>();
   #nextRateLimitSweepAt = 0;
@@ -430,8 +427,6 @@ export class TeamApiServer {
     this.#options.agents.on("event", this.#agentListener);
     this.#sidebarLayoutListener = (layout) => this.#broadcastAgentEvent({ type: "sidebar-layout-changed", layout });
     this.#options.sidebarLayout.on("changed", this.#sidebarLayoutListener);
-    // A change from Settings on this computer and one from a joined admin both arrive here.
-    this.#stopAgentAccessListener = this.#options.agentAccess?.subscribe(() => this.agentAccessChanged()) ?? null;
     this.#heartbeat = setInterval(() => {
       for (const [client, connection] of this.#eventClients) {
         if (!this.#options.store.authenticate(connection.token)) {
@@ -451,8 +446,6 @@ export class TeamApiServer {
     this.#agentListener = null;
     if (this.#sidebarLayoutListener) this.#options.sidebarLayout.off("changed", this.#sidebarLayoutListener);
     this.#sidebarLayoutListener = null;
-    this.#stopAgentAccessListener?.();
-    this.#stopAgentAccessListener = null;
     yield* Scope.close(this.#legacyConversationScope, Exit.void);
     this.#legacyConversationScope = Scope.makeUnsafe();
     for (const [client, connection] of this.#eventClients) {
@@ -723,49 +716,6 @@ export class TeamApiServer {
           challenge ? this.#options.store.getIdentityProof(challenge) : this.#options.store.getIdentity(),
         );
       }
-      if (method === "POST" && url.pathname === TEAM_API_ROUTES.join.invitationPreview) {
-        const body = await readJson(request);
-        return this.#json(
-          response,
-          200,
-          this.#options.store.previewInvite(stringField(body, "inviteToken", false, INPUT_LIMITS.identifier)),
-        );
-      }
-      if (method === "POST" && url.pathname === TEAM_API_ROUTES.join.server) {
-        const body = await readJson(request);
-        this.#checkRate(request, stringField(body, "username", false, 64));
-        const result = await runCauseEffect(
-          this.#options.store.acceptInvite(
-            stringField(body, "inviteToken", false, INPUT_LIMITS.identifier),
-            stringField(body, "username", false, 64),
-            stringField(body, "password", false, 256),
-          ),
-        );
-        return this.#json(response, 201, result);
-      }
-      if (method === "POST" && url.pathname === TEAM_API_ROUTES.join.account) {
-        const body = await readJson(request);
-        const identity = this.#options.store.getIdentity();
-        const user = identity
-          ? await (this.#options.redeemCentralTicket
-              ? runCauseEffect(
-                  this.#options.redeemCentralTicket(
-                    stringField(body, "accountTicket", false, INPUT_LIMITS.identifier),
-                    identity.serverId,
-                  ),
-                )
-              : undefined)
-          : null;
-        if (!user) return this.#json(response, 401, { error: sourceText("error.team.signInRequired") });
-        this.#checkRate(request, user.email);
-        const result = await runCauseEffect(
-          this.#options.store.acceptInviteWithAccount(
-            stringField(body, "inviteToken", false, INPUT_LIMITS.identifier),
-            user,
-          ),
-        );
-        return this.#json(response, 201, result);
-      }
       if (method === "POST" && url.pathname === TEAM_API_ROUTES.auth.login) {
         const body = await readJson(request);
         this.#checkRate(request, stringField(body, "username", false, 64));
@@ -809,7 +759,7 @@ export class TeamApiServer {
         await runCauseEffect(this.#options.agentsReady());
       }
       // A member also gets the agents that the roles close to them as hidden.
-      const hidden = this.hiddenAgentIds(context.protocol, context.capabilities, context.member);
+      const hidden = this.hiddenAgentIds(context.protocol, context.capabilities);
       // Every protocol gets the projection, also with no hidden agent: a provider status row, a
       // model or an auth state of a local-only provider can be in the response.
       const responseRoute = this.#responseRoutes.get(response);
@@ -889,16 +839,6 @@ export class TeamApiServer {
       if ((await routeAgentMemoryLimit(context, this.#options.admin)) === "handled") return;
       if ((await routePromptCacheTtl(context, this.#options.admin)) === "handled") return;
       if ((await routeProviderDefault(context, this.#options.admin)) === "handled") return;
-      if (
-        (await routeAgentAccess(
-          context,
-          this.#options.agentAccess,
-          this.#options.agents,
-          this.#options.store.getIdentity()?.serverId,
-          hidden,
-        )) === "handled"
-      )
-        return;
       if ((await routeContextReset(context, this.#options.agents, hidden)) === "handled") return;
       if ((await routeAgentMemoryPage(context, this.#options.agents, hidden)) === "handled") return;
       if ((await routeWorkspaceDirectory(context, this.#options.agents, hidden)) === "handled") return;
@@ -913,7 +853,7 @@ export class TeamApiServer {
       if (
         // The ID, not the member: the registration outlives a role change.
         (await routeLiveActivityPush(context, this.#options.liveActivityPush, () =>
-          this.hiddenAgentIds(context.protocol, context.capabilities, context.member.id),
+          this.hiddenAgentIds(context.protocol, context.capabilities),
         )) === "handled"
       )
         return;
@@ -960,15 +900,12 @@ export class TeamApiServer {
   // One method per module, so the dispatcher above reads as a list of domains and the wiring of
   // each narrow `*RouteDependencies` sits next to nothing else.
   #routeTeam(context: TeamApiRequestContext): Promise<RouteOutcome> {
-    const { remoteScreen, browserView, createInvite, updateMember, removeMember, onSessionRevoked } = this.#options;
+    const { remoteScreen, browserView, onSessionRevoked } = this.#options;
     return routeTeam(context, {
       store: this.#options.store,
       browser: this.#options.browser,
       ...(remoteScreen === undefined ? {} : { remoteScreen }),
       ...(browserView === undefined ? {} : { browserView }),
-      ...(createInvite === undefined ? {} : { createInvite }),
-      ...(updateMember === undefined ? {} : { updateMember }),
-      ...(removeMember === undefined ? {} : { removeMember }),
       ...(onSessionRevoked === undefined ? {} : { onSessionRevoked }),
       getPresence: () => this.getPresence(),
       refreshPresence: () => this.refreshPresence(),
@@ -1223,7 +1160,7 @@ export class TeamApiServer {
       if (event.type === "queue-changed" && supportsRuntimeSnapshots && !connection.includeConversationEvents) {
         continue;
       }
-      const { member, blocked, key: blockedKey } = accessFor(connection);
+      const { blocked, key: blockedKey } = accessFor(connection);
       // An event this client's protocol cannot describe is skipped for this client only. Thrown
       // out of the loop, it would stop the event for every client after this one.
       const encodeEvent = (event: AgentEvent, options = {}) => {
@@ -1282,7 +1219,7 @@ export class TeamApiServer {
                 type: optional.type,
                 ...visibleSnapshot(
                   optional,
-                  this.hiddenAgentIds(eventProtocol(connection.capabilities), connection.capabilities, member),
+                  this.hiddenAgentIds(eventProtocol(connection.capabilities), connection.capabilities),
                 ),
               }
             : optional,
@@ -1711,7 +1648,6 @@ export class TeamApiServer {
         this.#options.sidebarLayout,
         sourceAgentId,
         operationId,
-        (agentId) => this.copyAgentAccess(sourceAgentId, agentId),
       ).pipe(
         Effect.onExit((exit) => {
           this.#duplicateRequests.delete(operationId);
@@ -1804,9 +1740,8 @@ export class TeamApiServer {
 
   /**
    * The agents this client cannot see: a provider its protocol does not know, or one it cannot describe.
-   * With a member, also the agents that the roles close to that member.
    */
-  hiddenAgentIds(protocol: number, capabilities: ReadonlySet<string>, member?: AccessMember | string): Set<string> {
+  hiddenAgentIds(protocol: number, capabilities: ReadonlySet<string>): Set<string> {
     const agents = this.#options.agents.listAgents();
     const hidden = hiddenProviderAgentIds(agents, protocol);
     for (const id of this.#unrepresentableAgentIds(
@@ -1815,71 +1750,21 @@ export class TeamApiServer {
       capabilities,
     ))
       hidden.add(id);
-    if (member !== undefined) for (const id of this.#blockedAgentIds(member)) hidden.add(id);
     return hidden;
   }
 
-  /** Gives a duplicated agent the levels of its source. The copy exists either way, so a failed write only logs. */
-  copyAgentAccess(sourceAgentId: string, agentId: string): Effect.Effect<void> {
-    const access = this.#options.agentAccess;
-    const serverId = this.#options.store.getIdentity()?.serverId;
-    if (!access || !serverId) return Effect.void;
-    return access
-      .copyAgent(serverId, sourceAgentId, agentId)
-      .pipe(
-        Effect.catch((error) =>
-          Effect.sync(() => logger.warn("The duplicated agent's roles did not save.", toLogValue(error))),
-        ),
-      );
-  }
-
-  /** The level of `member` for `agentId` under the roles of this host. Without roles, `manage`. */
-  agentLevel(member: AccessMember | string, agentId: string): AgentAccessLevel {
-    const access = this.#options.agentAccess;
-    const serverId = this.#options.store.getIdentity()?.serverId;
-    if (!access || !serverId) return "manage";
-    return agentAccessLevel(access.levels(serverId), this.#accessMember(member), agentId);
-  }
-
-  /** The agents at `none` for `member`. */
-  #blockedAgentIds(member: AccessMember | string): Set<string> {
-    const blocked = new Set<string>();
-    const resolved = this.#accessMember(member);
-    const access = this.#options.agentAccess;
-    const serverId = this.#options.store.getIdentity()?.serverId;
-    if (!access || !serverId || canAdministerServer(resolved.role)) return blocked;
-    const levels = access.levels(serverId);
-    for (const agent of this.#options.agents.listAgents())
-      if (agentAccessLevel(levels, resolved, agent.id) === "none") blocked.add(agent.id);
-    return blocked;
-  }
-
-  // A push or a socket has only a member ID. A member that the store does not know gets the
-  // levels of a plain member, so an unknown ID does not get more than the roles give.
-  #accessMember(member: AccessMember | string): AccessMember {
-    if (typeof member !== "string") return member;
-    const { store } = this.#options;
-    const known = store.getMember(member) ?? store.listMembers().find((candidate) => candidate.id === member);
-    return known ?? { id: member, role: "member" };
+  /** Every authenticated client is an owner of this host, so every agent is at `manage`. */
+  agentLevel(_member: AccessMember | string, _agentId: string): AgentAccessLevel {
+    return "manage";
   }
 
   #connectionMember(connection: EventClientState): AccessMember {
     return this.#options.store.authenticate(connection.token) ?? { id: connection.memberId, role: "member" };
   }
 
-  /**
-   * Tells each client that the roles changed, then sends again what the roles filter: the agent list,
-   * the runtime and the presence. A client of an older build gets only the agent list.
-   */
-  agentAccessChanged(): void {
-    const serverId = this.#options.store.getIdentity()?.serverId;
-    if (!this.#options.agentAccess || !serverId) return;
-    const revision = this.#options.agentAccess.get(serverId).revision;
-    this.#broadcastAgentEventToClients({ type: "agent-access-changed", revision });
-    this.#broadcastAgentEventToClients({ type: "agents-changed", agents: this.#options.agents.listAgents() });
-    for (const [client, connection] of this.#eventClients)
-      if (connection.capabilities.has("agent-runtime-snapshots")) this.#sendRuntimeSnapshot(client, connection, false);
-    this.#publishPresence();
+  /** No role closes an agent to a client: the clients of a host are devices of its owner. */
+  #blockedAgentIds(_member: AccessMember | string): Set<string> {
+    return new Set();
   }
 
   #protocolSupport(expanded = false): TeamProtocolSupportV1 {
@@ -1955,7 +1840,6 @@ export class TeamApiServer {
         if (capability === AGENT_MEMORY_LIMIT_CAPABILITY) return this.#options.admin?.memoryLimit !== undefined;
         if (capability === PROMPT_CACHE_TTL_CAPABILITY) return this.#options.admin?.promptCacheTtl !== undefined;
         if (capability === PROVIDER_DEFAULT_CAPABILITY) return this.#options.admin?.defaultProvider !== undefined;
-        if (capability === AGENT_ACCESS_CAPABILITY) return this.#options.agentAccess !== undefined;
         if (capability === HOST_UPDATE_CAPABILITY || capability === HOST_MEMBER_UPDATE_CAPABILITY)
           return this.#options.admin?.update !== undefined;
         if (capability === EVENTS_CAPABILITY) return this.#options.events !== undefined;

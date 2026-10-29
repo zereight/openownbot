@@ -25,8 +25,8 @@ import type {
   DuplicateAgentResult,
   EditQueuedMessageInput,
   HiddenAgentsSnapshot,
-  InvitePreview,
   LocalBrowserSecretResponse,
+  OpenOwnBotDesktopApi,
   QueueSnapshot,
   ReorderQueueInput,
   RespondToApprovalInput,
@@ -39,8 +39,6 @@ import type {
   SidebarLayoutAction,
   SidebarLayoutSnapshot,
   SteerQueuedMessageInput,
-  TeamInviteSummary,
-  TeamMemberSummary,
   TeamRealtimeEvent,
   TestRoutineInput,
   UpdateAgentInput,
@@ -101,8 +99,6 @@ import {
   RemoteDirectoryError,
   RemoteTeamDirectoryClient,
   type RemoteTeamHost,
-  type RemoteTeamInvite,
-  type RemoteTeamMember,
 } from "@openownbot/team-client/remote-directory";
 import {
   createRemoteTeamPeer,
@@ -134,7 +130,6 @@ import type { BrowserViewRuntime } from "@openownbot/ui/features/browser/Browser
 import { currentText } from "@openownbot/ui/text";
 import { referenceFrom } from "@openownbot/user-errors";
 import { Effect } from "effect";
-import type { ServerAdminPort } from "../servers/servers-port";
 import {
   createWebHostConnections,
   type WebHostConnections,
@@ -157,7 +152,7 @@ import {
  */
 export interface WebAdminRuntime {
   request: TeamApiRequest;
-  team: ServerAdminPort;
+  team: Pick<OpenOwnBotDesktopApi["host"], "getPresence">;
 }
 
 export interface WebFile {
@@ -194,8 +189,6 @@ export interface WebWorkspaceRuntime {
   /** Ends this account's membership of a host. The account service refuses the owner. */
   leaveHost(hostId: string, membershipId: string): Promise<void>;
   removeOwnedHost?: (hostId: string) => Promise<void>;
-  previewInvite(url: string): Promise<InvitePreview>;
-  acceptInvite(url: string): Promise<RemoteTeamHost>;
   connect(host: RemoteTeamHost): Promise<string[]>;
   disconnect(): Promise<void>;
   listAgents(): Promise<ClientAgentSummary[]>;
@@ -528,13 +521,6 @@ export function createWebWorkspaceRuntime(
   ): Promise<T> {
     return decode(await request(method, path, body, upload));
   }
-  function requireHost(): RemoteTeamHost {
-    if (!connectedHost) throw new Error(currentText().t("webClient.error.hostNotConnected"));
-    return connectedHost;
-  }
-  async function listMembers(): Promise<TeamMemberSummary[]> {
-    return (await runTeamEffect(directory.listMembers(requireHost().hostId))).map(toTeamMember);
-  }
   const admin: WebAdminRuntime = {
     request: teamApi,
     team: {
@@ -543,45 +529,6 @@ export function createWebWorkspaceRuntime(
         if (!isTeamPresenceSnapshot(value)) throw new Error(currentText().t("error.remote.invalidData"));
         return value;
       },
-      listMembers,
-      async listInvites() {
-        return (await runTeamEffect(directory.listInvites(requireHost().hostId)))
-          .filter((invite) => invite.revokedAt === null)
-          .map(toTeamInvite);
-      },
-      async createInvite(input) {
-        const host = requireHost();
-        const invite = input.email
-          ? await runTeamEffect(directory.sendInviteEmail(host, { role: input.role, email: input.email }))
-          : await runTeamEffect(directory.createInvite(host, input));
-        return {
-          id: invite.inviteId,
-          role: input.role,
-          expiresAt: new Date(invite.expiresAt).toISOString(),
-          usedAt: null,
-          email: input.email ?? null,
-          permanent: input.permanent ?? false,
-          useCount: 0,
-          inviteUrl: invite.inviteUrl,
-        };
-      },
-      // The account service returns nothing useful, so the member is read back. The read before the
-      // change refuses an owner, as the desktop does.
-      async updateMember(input) {
-        const hostId = requireHost().hostId;
-        const current = (await listMembers()).find((member) => member.id === input.memberId);
-        if (!current || current.role === "owner") throw new Error(currentText().t("webClient.error.memberNotFound"));
-        if (input.disabled) await runTeamEffect(directory.leaveHost(hostId, input.memberId));
-        else
-          await runTeamEffect(
-            directory.updateMember(hostId, input.memberId, input.role ?? current.role, input.disabled === false),
-          );
-        const updated = (await listMembers()).find((member) => member.id === input.memberId);
-        if (!updated) throw new Error(currentText().t("webClient.error.memberNotFound"));
-        return updated;
-      },
-      removeMember: (memberId) => runTeamEffect(directory.leaveHost(requireHost().hostId, memberId)),
-      revokeInvite: (inviteId) => runTeamEffect(directory.revokeInvite(inviteId)),
     },
   };
   const channels = teamChannelsApi(teamApi);
@@ -836,19 +783,6 @@ export function createWebWorkspaceRuntime(
       });
       if (!response.ok) throw new Error(currentText().t("server.settings.actionFailed"));
     },
-    async previewInvite(url) {
-      const value = await runTeamEffect(directory.previewInvite(url));
-      return {
-        serverId: value.hostId,
-        serverName: value.hostName,
-        apiHostname: new URL(url).hostname,
-        role: value.role,
-        expiresAt: new Date(value.expiresAt).toISOString(),
-        emailBound: value.emailBound,
-        permanent: value.expiresAt === 0,
-      };
-    },
-    acceptInvite: (url) => runTeamEffect(directory.acceptInvite(url)),
     async connect(host) {
       // An attempt that waits for an offline host has no deadline, so another host replaces it.
       if (connecting && waitingHostId !== null && waitingHostId !== host.hostId) {
@@ -1167,31 +1101,6 @@ function hostRefusal(status: number | undefined, body: unknown): string | null {
   if (!isDynamicRecord(body) || !isString(body.error) || !body.error.trim()) return null;
   const text = body.error.trim();
   return text.length > 300 ? `${text.slice(0, 299)}…` : text;
-}
-
-function toTeamMember(member: RemoteTeamMember): TeamMemberSummary {
-  return {
-    id: member.membershipId,
-    username: member.email,
-    email: member.email,
-    name: member.name,
-    avatarUrl: member.avatarUrl ?? null,
-    role: member.role,
-    createdAt: new Date(member.createdAt ?? 0).toISOString(),
-    disabled: member.status !== "active",
-  };
-}
-
-function toTeamInvite(invite: RemoteTeamInvite): TeamInviteSummary {
-  return {
-    id: invite.inviteId,
-    role: invite.role,
-    expiresAt: new Date(invite.expiresAt).toISOString(),
-    usedAt: invite.usedAt === null ? null : new Date(invite.usedAt).toISOString(),
-    email: invite.email,
-    permanent: invite.permanent,
-    useCount: invite.useCount,
-  };
 }
 
 function queueSnapshot(agentId: string, value: unknown): QueueSnapshot {

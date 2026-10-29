@@ -13,12 +13,10 @@ import { basename, dirname, join } from "node:path";
 import { promisify } from "node:util";
 import { avatarFileExtension, isAvatarMimeType, isValidAvatarImage } from "@openownbot/contracts/avatar-images";
 import { type HostKeyHandover, hostKeyHandoverStatement } from "@openownbot/contracts/host-key-handover";
-import { DEFAULT_TEAM_MEMBER_LIMIT, INPUT_LIMITS } from "@openownbot/contracts/input-limits";
-import { permanentInviteExpiresAt } from "@openownbot/contracts/invite-links";
+import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
 import type {
   AvatarImageInput,
   CentralAuthUser,
-  TeamInviteSummary,
   TeamMemberSummary,
   TeamRole,
   TeamSessionSummary,
@@ -68,7 +66,6 @@ class TeamStoreFiles extends Context.Service<
 }
 
 const scrypt = promisify(scryptCallback);
-const INVITE_TTL_MS = 24 * 60 * 60 * 1_000;
 const SESSION_TTL_MS = 30 * 24 * 60 * 60 * 1_000;
 
 export class TeamStoreError extends Schema.TaggedError<TeamStoreError>()("TeamStoreError", { message: Schema.String }) {
@@ -1029,18 +1026,6 @@ export class TeamStore {
     return member ? publicMember(member) : null;
   }
 
-  listInvites(): TeamInviteSummary[] {
-    return this.#requireState().invites.map((invite) => ({
-      id: invite.id,
-      role: invite.role,
-      expiresAt: invite.expiresAt,
-      usedAt: invite.usedAt,
-      email: invite.email ?? null,
-      permanent: invite.permanent ?? false,
-      useCount: invite.useCount ?? 0,
-    }));
-  }
-
   listSessions(): TeamSessionSummary[] {
     const state = this.#requireState();
     const persisted = state.sessions.map((session) => ({
@@ -1068,127 +1053,6 @@ export class TeamStore {
     return [...persisted, ...remote];
   }
 
-  readonly createInvite = Effect.fn("TeamStore.createInvite")(
-    function* (
-      this: TeamStore,
-      role: Exclude<TeamRole, "owner">,
-      emailInput?: string,
-      options?: { permanent?: boolean | undefined },
-    ): Effect.fn.Return<CreatedInvite, RemoteWorkflowError, TeamStoreFiles> {
-      if (role !== "admin" && role !== "member")
-        return yield* new RemoteWorkflowError({ cause: new TeamStoreError("Invalid invite role.") });
-      const permanent = options?.permanent ?? false;
-      const email = emailInput?.trim() ? yield* remoteDecode(() => normalizeEmail(emailInput)) : null;
-      // A permanent link is a shareable URL, never an addressed message: binding it to an
-      // email would promise a restriction the token cannot enforce.
-      if (permanent && email)
-        return yield* new RemoteWorkflowError({
-          cause: new TeamStoreError(sourceText("error.team.permanentInviteEmail")),
-        });
-      const state = yield* remoteDecode(() => this.#requireState());
-      if (permanent) {
-        const permanentInvites = state.invites.filter((invite) => invite.permanent === true).length;
-        if (permanentInvites >= INPUT_LIMITS.maxPermanentInvites) {
-          return yield* new RemoteWorkflowError({
-            cause: new TeamStoreError(
-              sourceText("error.team.permanentInviteLimit", { limit: INPUT_LIMITS.maxPermanentInvites }),
-            ),
-          });
-        }
-      } else {
-        const activeInvites = state.invites.filter(
-          (invite) => invite.permanent !== true && invite.usedAt === null && Date.parse(invite.expiresAt) > Date.now(),
-        ).length;
-        if (activeInvites >= INPUT_LIMITS.activeInvites) {
-          return yield* new RemoteWorkflowError({
-            cause: new TeamStoreError(
-              sourceText("error.team.activeInviteLimit", { limit: INPUT_LIMITS.activeInvites }),
-            ),
-          });
-        }
-      }
-      const token = randomBytes(32).toString("base64url");
-      const invite: StoredInvite = {
-        id: randomUUID(),
-        tokenHash: hashToken(token),
-        role,
-        expiresAt: permanent ? permanentInviteExpiresAt() : new Date(Date.now() + INVITE_TTL_MS).toISOString(),
-        usedAt: null,
-        email,
-        permanent,
-        useCount: 0,
-      };
-      state.invites.push(invite);
-      yield* this.#persistEffect();
-      return { id: invite.id, role, token, expiresAt: invite.expiresAt, email, permanent, useCount: 0 };
-    },
-    Effect.provide(TeamStoreFiles.layer),
-    Effect.uninterruptible,
-  ).bind(this);
-
-  previewInvite(token: string): TeamInvitePreview {
-    const invite = this.#findUsableInvite(token);
-    if (!invite) throw new TeamStoreError(sourceText("error.team.inviteInvalid"));
-    return {
-      role: invite.role,
-      expiresAt: invite.expiresAt,
-      emailBound: Boolean(invite.email),
-      permanent: invite.permanent ?? false,
-    };
-  }
-
-  readonly acceptInviteWithAccount = Effect.fn("TeamStore.acceptInviteWithAccount")(
-    function* (
-      this: TeamStore,
-      token: string,
-      user: CentralAuthUser,
-    ): Effect.fn.Return<AuthenticatedMember, RemoteWorkflowError, TeamStoreFiles> {
-      const state = yield* remoteDecode(() => this.#requireState());
-      const email = yield* remoteDecode(() => normalizeEmail(user.email));
-      const invite = yield* remoteDecode(() => this.#findUsableInvite(token));
-      if (!invite)
-        return yield* new RemoteWorkflowError({ cause: new TeamStoreError(sourceText("error.team.inviteInvalid")) });
-      if (invite.email && invite.email !== email) {
-        return yield* new RemoteWorkflowError({
-          cause: new TeamStoreError(sourceText("error.team.inviteEmailMismatch")),
-        });
-      }
-      const existingMember = state.members.find((member) => member.email === email || member.username === email);
-      if (existingMember) {
-        if (existingMember.disabled)
-          return yield* new RemoteWorkflowError({ cause: new TeamStoreError(sourceText("error.team.memberDisabled")) });
-        existingMember.email = email;
-        existingMember.accountId = user.id;
-        existingMember.username = email;
-        existingMember.name = yield* remoteDecode(() => normalizeName(user.name));
-        existingMember.avatarUrl = yield* remoteDecode(() => normalizeAvatarUrl(user.avatarUrl));
-        this.#consumeInvite(invite);
-        const result = yield* remoteDecode(() => this.#createSession(existingMember));
-        yield* this.#persistEffect();
-        return result;
-      }
-      yield* remoteDecode(() => requireNewMemberSeat(state));
-      const member: StoredMember = {
-        id: randomUUID(),
-        accountId: user.id,
-        username: email,
-        email,
-        name: yield* remoteDecode(() => normalizeName(user.name)),
-        avatarUrl: yield* remoteDecode(() => normalizeAvatarUrl(user.avatarUrl)),
-        role: invite.role,
-        disabled: false,
-        createdAt: new Date().toISOString(),
-      };
-      this.#consumeInvite(invite);
-      state.members.push(member);
-      const result = yield* remoteDecode(() => this.#createSession(member));
-      yield* this.#persistEffect();
-      return result;
-    },
-    Effect.provide(TeamStoreFiles.layer),
-    Effect.uninterruptible,
-  ).bind(this);
-
   readonly loginWithAccount = Effect.fn("TeamStore.loginWithAccount")(
     function* (
       this: TeamStore,
@@ -1206,53 +1070,6 @@ export class TeamStore {
       member.username = email;
       member.name = yield* remoteDecode(() => normalizeName(user.name));
       member.avatarUrl = yield* remoteDecode(() => normalizeAvatarUrl(user.avatarUrl));
-      const result = yield* remoteDecode(() => this.#createSession(member));
-      yield* this.#persistEffect();
-      return result;
-    },
-    Effect.provide(TeamStoreFiles.layer),
-    Effect.uninterruptible,
-  ).bind(this);
-
-  readonly acceptInvite = Effect.fn("TeamStore.acceptInvite")(
-    function* (
-      this: TeamStore,
-      token: string,
-      username: string,
-      password: string,
-    ): Effect.fn.Return<AuthenticatedMember, RemoteWorkflowError, TeamStoreFiles> {
-      yield* remoteDecode(() => validateUsername(username));
-      yield* remoteDecode(() => validatePassword(password));
-      const state = yield* remoteDecode(() => this.#requireState());
-      const normalizedUsername = username.trim().toLowerCase();
-      const requireJoin = () => {
-        if (state.members.some((member) => member.username === normalizedUsername)) {
-          throw new TeamStoreError(sourceText("error.team.usernameTaken"));
-        }
-        const invite = this.#findUsableInvite(token);
-        if (!invite) throw new TeamStoreError(sourceText("error.team.inviteInvalid"));
-        if (invite.email) throw new TeamStoreError(sourceText("error.team.inviteRequiresAccount"));
-        requireNewMemberSeat(state);
-        return invite;
-      };
-      requireJoin();
-      const credentials = yield* hashPasswordEffect(password);
-      yield* remoteDecode(() => this.#requireUnchangedState(state));
-      // A concurrent join can take the username, the invitation or the last seat during the hash.
-      const invite = requireJoin();
-      const member: StoredMember = {
-        id: randomUUID(),
-        username: normalizedUsername,
-        email: null,
-        name: null,
-        avatarUrl: null,
-        role: invite.role,
-        disabled: false,
-        createdAt: new Date().toISOString(),
-        ...credentials,
-      };
-      this.#consumeInvite(invite);
-      state.members.push(member);
       const result = yield* remoteDecode(() => this.#createSession(member));
       yield* this.#persistEffect();
       return result;
@@ -1336,70 +1153,11 @@ export class TeamStore {
     Effect.uninterruptible,
   ).bind(this);
 
-  readonly updateMember = Effect.fn("TeamStore.updateMember")(
-    function* (
-      this: TeamStore,
-      memberId: string,
-      patch: { role?: Exclude<TeamRole, "owner">; disabled?: boolean },
-    ): Effect.fn.Return<TeamMemberSummary, RemoteWorkflowError, TeamStoreFiles> {
-      const state = yield* remoteDecode(() => this.#requireState());
-      const member = state.members.find((candidate) => candidate.id === memberId);
-      if (!member)
-        return yield* new RemoteWorkflowError({ cause: new TeamStoreError(sourceText("error.team.memberNotFound")) });
-      if (member.role === "owner")
-        return yield* new RemoteWorkflowError({
-          cause: new TeamStoreError(sourceText("error.team.ownerCannotChange")),
-        });
-      if (patch.disabled === false && member.disabled) yield* remoteDecode(() => requireMemberSeat(state));
-      if (patch.role !== undefined) {
-        if (patch.role !== "admin" && patch.role !== "member")
-          return yield* new RemoteWorkflowError({ cause: new TeamStoreError("Invalid role.") });
-        member.role = patch.role;
-      }
-      if (patch.disabled !== undefined) member.disabled = patch.disabled;
-      if (member.disabled) {
-        state.sessions = state.sessions.filter((session) => session.memberId !== member.id);
-      }
-      yield* this.#persistEffect();
-      return publicMember(member);
-    },
-    Effect.provide(TeamStoreFiles.layer),
-    Effect.uninterruptible,
-  ).bind(this);
-
-  readonly removeMember = Effect.fn("TeamStore.removeMember")(
-    function* (this: TeamStore, memberId: string): Effect.fn.Return<void, RemoteWorkflowError, TeamStoreFiles> {
-      const state = yield* remoteDecode(() => this.#requireState());
-      const member = state.members.find((candidate) => candidate.id === memberId);
-      if (!member)
-        return yield* new RemoteWorkflowError({ cause: new TeamStoreError(sourceText("error.team.memberNotFound")) });
-      if (member.role === "owner")
-        return yield* new RemoteWorkflowError({
-          cause: new TeamStoreError(sourceText("error.team.ownerCannotRemove")),
-        });
-      state.members = state.members.filter((candidate) => candidate.id !== memberId);
-      state.sessions = state.sessions.filter((session) => session.memberId !== memberId);
-      yield* this.#persistEffect();
-    },
-    Effect.provide(TeamStoreFiles.layer),
-    Effect.uninterruptible,
-  ).bind(this);
-
   readonly revokeSession = Effect.fn("TeamStore.revokeSession")(
     function* (this: TeamStore, sessionId: string): Effect.fn.Return<void, RemoteWorkflowError, TeamStoreFiles> {
       const state = yield* remoteDecode(() => this.#requireState());
       state.sessions = state.sessions.filter((session) => session.id !== sessionId);
       this.closeRemoteSession(sessionId);
-      yield* this.#persistEffect();
-    },
-    Effect.provide(TeamStoreFiles.layer),
-    Effect.uninterruptible,
-  ).bind(this);
-
-  readonly revokeInvite = Effect.fn("TeamStore.revokeInvite")(
-    function* (this: TeamStore, inviteId: string): Effect.fn.Return<void, RemoteWorkflowError, TeamStoreFiles> {
-      const state = yield* remoteDecode(() => this.#requireState());
-      state.invites = state.invites.filter((invite) => invite.id !== inviteId);
       yield* this.#persistEffect();
     },
     Effect.provide(TeamStoreFiles.layer),
@@ -1466,29 +1224,6 @@ export class TeamStore {
       createdAt: new Date().toISOString(),
     });
     return { member: publicMember(member), sessionToken, sessionExpiresAt };
-  }
-
-  #findUsableInvite(token: string): StoredInvite | undefined {
-    return this.#requireState().invites.find(
-      (candidate) =>
-        // A permanent link stays usable after joins; only expiry (never, by construction)
-        // or revocation (deletion) retires it.
-        (candidate.permanent === true || candidate.usedAt === null) &&
-        Date.parse(candidate.expiresAt) > Date.now() &&
-        safeTextEqual(candidate.tokenHash, hashToken(token)),
-    );
-  }
-
-  /**
-   * Records one join against an invitation. Single-use links burn; permanent links
-   * count the join and stay usable.
-   */
-  #consumeInvite(invite: StoredInvite): void {
-    if (invite.permanent === true) {
-      invite.useCount = (invite.useCount ?? 0) + 1;
-      return;
-    }
-    invite.usedAt = new Date().toISOString();
   }
 
   #requireState(): StoredTeam {
@@ -1689,21 +1424,6 @@ function identityOf(host: StoredTeam): TeamIdentity {
     enabledOnLaunch: host.enabledOnLaunch,
     logoVersion: host.serverLogo?.version ?? null,
   };
-}
-
-/** A new member needs a stored record and a seat. */
-function requireNewMemberSeat(host: StoredTeam): void {
-  if (host.members.length >= INPUT_LIMITS.teamMembers) {
-    throw new TeamStoreError(sourceText("error.team.memberLimit", { limit: INPUT_LIMITS.teamMembers }));
-  }
-  requireMemberSeat(host);
-}
-
-/** Disabled members keep their record but not their seat, so a remote revoke frees one. */
-function requireMemberSeat(host: StoredTeam): void {
-  if (host.members.filter((member) => !member.disabled).length >= DEFAULT_TEAM_MEMBER_LIMIT) {
-    throw new TeamStoreError(sourceText("error.team.memberLimit", { limit: DEFAULT_TEAM_MEMBER_LIMIT }));
-  }
 }
 
 function hostOwner(host: StoredTeam): StoredMember | undefined {

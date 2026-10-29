@@ -10,7 +10,6 @@ import {
   type AccountUsage,
   AGENT_DEFAULT_KEYS,
   AGENT_FOLDER_LIMIT,
-  type AgentAccessChange,
   type AgentBrowserProfile,
   type AgentDefaults,
   type AgentEvent,
@@ -105,7 +104,6 @@ import {
   type PromptCacheTtlSetting,
   type ProviderAccountStatus,
   type ProviderDetectionSettings,
-  parseAgentAccessChange,
   type QueueDelivery,
   type QueuedMessageReceipt,
   type QueueSnapshot,
@@ -336,7 +334,6 @@ export interface MockOpenOwnBotControls {
   emitPresence: (snapshot: TeamPresenceSnapshot) => void;
   emitDirectMessage: (event: DirectMessageRealtimeEvent) => void;
   emitDirectTyping: (event: DirectTypingRealtimeEvent) => void;
-  emitInvite: (inviteUrl: string) => void;
   emitHostStatus: (status: HostStatus) => void;
   emitRemoteDesktopSessions: (sessions: RemoteDesktopSession[]) => void;
   dispose: () => void;
@@ -416,7 +413,6 @@ export function createMockOpenOwnBot(options: MockOpenOwnBotOptions = {}): MockO
   };
   let promptCacheTtl: PromptCacheTtlSetting = { ...DEFAULT_PROMPT_CACHE_TTL };
   let claudeEnvironment: ProviderEnvironmentEntry[] = [];
-  let agentAccess: AgentAccessChange = { revision: 0, everyone: {}, roles: [] };
   const agentMemoryLimitListeners = new Set<(preference: AgentMemoryLimitPreference) => void>();
   let remoteSessionReuse: RemoteSessionReusePreference = { ...DEFAULT_REMOTE_SESSION_REUSE_PREFERENCE };
   let externalLinks: ExternalLinkPreference = clone(DEFAULT_EXTERNAL_LINK_PREFERENCE);
@@ -2903,20 +2899,6 @@ export function createMockOpenOwnBot(options: MockOpenOwnBotOptions = {}): MockO
         promptCacheTtl = { ttl };
         return clone(promptCacheTtl);
       },
-      // Preview has one host, and its user owns it, so `mine` gives every agent.
-      getAgentAccess: async () => ({
-        ...clone(agentAccess),
-        mine: Object.fromEntries(agents.map((agent) => [agent.id, "manage" as const])),
-      }),
-      setAgentAccess: async (input) => {
-        const change = parseAgentAccessChange(input);
-        if (change.revision !== agentAccess.revision) throw new Error(sourceText("error.team.agentAccessStale"));
-        agentAccess = { ...change, revision: change.revision + 1 };
-        return {
-          ...clone(agentAccess),
-          mine: Object.fromEntries(agents.map((agent) => [agent.id, "manage" as const])),
-        };
-      },
     },
     storage: createMockStorage(),
     agentImport: {
@@ -3049,7 +3031,6 @@ export function createMockOpenOwnBot(options: MockOpenOwnBotOptions = {}): MockO
     emitPresence: mockTeam.emitPresence,
     emitDirectMessage: mockTeam.emitDirectMessage,
     emitDirectTyping: mockTeam.emitDirectTyping,
-    emitInvite: mockTeam.emitInvite,
     emitHostStatus: mockTeam.emitHostStatus,
     emitRemoteDesktopSessions: mockTeam.emitRemoteDesktopSessions,
     dispose: () => {

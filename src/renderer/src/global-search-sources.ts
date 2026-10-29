@@ -176,7 +176,7 @@ export function useGlobalSearchSources(open: () => boolean) {
             detail: server.name,
             group: "settings",
             icon: UsersRound,
-            run: () => openServerSettings(server.id, globalSearchOpener(), "members"),
+            run: () => openServerSettings(server.id, globalSearchOpener(), "access"),
           },
         );
         // General shows the row only to an admin of a host that can set it, and only while it is online.

@@ -1,11 +1,9 @@
-import {
-  type AgentAccessLevels,
-  graphAgentIds,
-  type WorkflowDetail,
-  type WorkflowGraph,
-  type WorkflowSaveResult,
-  type WorkflowSummary,
-  type WorkflowVersion,
+import type {
+  WorkflowDetail,
+  WorkflowGraph,
+  WorkflowSaveResult,
+  WorkflowSummary,
+  WorkflowVersion,
 } from "@openownbot/contracts/ipc";
 import type { AppTextKey } from "@openownbot/i18n";
 import { toast } from "@openownbot/ui";
@@ -49,7 +47,6 @@ export function createWorkflowsController(host: WorkflowHost) {
   const [summaries, setSummaries] = createSignal<readonly WorkflowSummary[]>([]);
   const [places, setPlaces] = createSignal<readonly WorkflowPlace[]>([]);
   /** Null while this account manages every agent of the host. */
-  const [levels, setLevels] = createSignal<AgentAccessLevels | null>(null);
   const [preview, setPreview] = createSignal<{ versionId: string; graph: WorkflowGraph }>();
   const [resetKey, setResetKey] = createSignal(0);
   const [resetView, setResetView] = createSignal<"fit" | "keep">("fit");
@@ -179,11 +176,6 @@ export function createWorkflowsController(host: WorkflowHost) {
     write(() => load(workflowId));
   };
 
-  const readLevels = () => {
-    host.agentLevels().then((next) => {
-      if (!disposed) setLevels(next);
-    }, report);
-  };
   const readPlaces = () => {
     host.places().then((next) => {
       if (!disposed) setPlaces(next);
@@ -194,7 +186,6 @@ export function createWorkflowsController(host: WorkflowHost) {
     read(workflowId ?? current).catch(report);
     if (workflowId !== null) return;
     readPlaces();
-    readLevels();
   };
 
   onSettled(() => {
@@ -210,7 +201,6 @@ export function createWorkflowsController(host: WorkflowHost) {
   // The host reads the server role once for each call; a change event reads again.
   untrack(() => {
     readPlaces();
-    readLevels();
   });
   write(async () => {
     const list = await host.workflows.list();
@@ -220,16 +210,12 @@ export function createWorkflowsController(host: WorkflowHost) {
 
   /**
    * Why the open workflow is read-only, or undefined when this account may change it: it has steps
-   * that only a newer app knows, or an agent that this account does not manage. The host checks again.
+   * that only a newer app knows.
    */
   const lock = createMemo((): AppTextKey | undefined => {
     const detail = stored()?.detail;
     if (!detail) return undefined;
-    if (detail.needsNewerApp) return "workflow.page.needsNewerApp";
-    const known = levels();
-    return known && graphAgentIds(detail.graph).some((agentId) => known[agentId] !== "manage")
-      ? "workflow.page.manageOnly"
-      : undefined;
+    return detail.needsNewerApp ? "workflow.page.needsNewerApp" : undefined;
   });
   // The reason shows once each time a workflow opens read-only. The memo stops a read of the same
   // workflow: an effect runs on each change of what its compute function reads.

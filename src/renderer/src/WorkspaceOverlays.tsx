@@ -61,7 +61,6 @@ import { useTurns } from "./turns";
 import {
   ChannelCreateOverlay,
   GlobalSearchOverlay,
-  JoinServerOverlay,
   MarketplaceOverlay,
   ServerSettingsOverlay,
   SharedAgentInstallOverlay,
@@ -99,7 +98,6 @@ export function WorkspaceOverlays(props: AccountProps) {
   return (
     <>
       <SharedAgentInstall />
-      <JoinServer account={props.account} />
       <AddServer />
       <HostedUpsell account={props.account} />
       <LeaveServer />
@@ -189,30 +187,9 @@ function SharedAgentInstall() {
   );
 }
 
-/** Joining a team server from an invite link. */
-function JoinServer(props: AccountProps) {
-  const setup = useSetup();
-  const { joinServerOpen, setJoinServerOpen } = useServers();
-  const { joinServer } = useServerSelection();
-
-  return (
-    <JoinServerOverlay
-      open={joinServerOpen()}
-      inviteUrl={setup.pendingInviteUrl()}
-      accountEmail={props.account().email}
-      onClose={() => {
-        setJoinServerOpen(false);
-        setup.setPendingInviteUrl("");
-      }}
-      onPreview={setup.previewInvite}
-      onJoin={joinServer}
-    />
-  );
-}
-
 /** A hosted server: the plans, the payment, then the setup. */
 function AddServer() {
-  const { servers, addServerOpen, addServerEntryPoint, setAddServerOpen, setJoinServerOpen } = useServers();
+  const { servers, addServerOpen, addServerEntryPoint, setAddServerOpen } = useServers();
   const { select } = useServerActions();
   const { openAppSettings } = useSettings();
 
@@ -228,10 +205,6 @@ function AddServer() {
         void select(serverId);
       }}
       onContactUs={() => void appPort().openExternal("hosted-server-contact")}
-      onJoinWithInvite={() => {
-        setAddServerOpen(false);
-        setJoinServerOpen(true);
-      }}
       onManageServers={() => openAppSettings(null, "hosted-servers")}
     />
   );
@@ -402,8 +375,6 @@ function ServerSettings() {
     serverSettingsOpen,
     setServerSettingsOpen,
     serverSettingsRestoreTarget,
-    serverSettingsMembers,
-    serverSettingsInvites,
     serverSettingsLoading,
     serverSettingsError,
     refreshServerSettings,
@@ -411,11 +382,7 @@ function ServerSettings() {
     recheckScreenRecording,
     rotateHostKey,
     setServerPublished,
-    createServerInvite,
-    updateServerMember,
-    removeServerMember,
     leaveServer,
-    revokeServerInvite,
     serverSettingsMcp,
     serverSettingsMcpError,
     serverSettingsMcpSignIns,
@@ -653,8 +620,6 @@ function ServerSettings() {
           platform={platform.appInfo()?.platform ?? "darwin"}
           server={server()}
           hostStatus={server().kind === "local" ? hostStatus() : null}
-          members={serverSettingsMembers()}
-          invites={serverSettingsInvites()}
           loading={serverSettingsLoading()}
           loadError={serverSettingsError()}
           onRetry={() => refreshServerSettings(server().id)}
@@ -663,12 +628,8 @@ function ServerSettings() {
           onRotateHostKey={server().kind === "local" ? rotateHostKey : undefined}
           onSetMuted={(muted) => setServerMuted(server().id, muted)}
           onSetNotificationLevel={(level) => setServerNotificationLevel(server().id, level)}
-          onCreateInvite={createServerInvite}
           license={appPort().license}
           onContactUs={() => void appPort().openExternal("hosted-server-contact")}
-          onUpdateMember={updateServerMember}
-          onRemoveMember={removeServerMember}
-          onRevokeInvite={revokeServerInvite}
           onLeaveServer={leaveServer}
           // Billing deletes a hosted server, so its owner does not remove it here.
           onRemoveServer={hostedServersLoaded() && !hostedServerIds().has(server().id) ? leaveServer : undefined}
@@ -741,7 +702,6 @@ function ServerSettings() {
           hostTimezone={{}}
           hostMemoryLimit={{}}
           hostPromptCacheTtl={{}}
-          agentAccess={{ listAgents: () => appPort().agent.listAgents(server().id) }}
           initialSection={serverSettingsSection()}
           // Any member imports into this computer or a remote host with `agent-import-v1`.
           agentImport={

@@ -2,37 +2,29 @@ import type {
   AgentEvent,
   ClientAgentSummary,
   ConfigureHostInput,
-  CreateTeamInviteInput,
   DirectConversationSnapshot,
   DirectMessage,
   DirectMessageRealtimeEvent,
   DirectThreadSummary,
   DirectTypingRealtimeEvent,
   HostStatus,
-  InviteSummary,
-  JoinServerInput,
   OpenOwnBotDesktopApi,
   RemoteDesktopSession,
   SendDirectMessageInput,
   ServerSummary,
   SetTeamTypingInput,
-  TeamInviteSummary,
-  TeamMemberSummary,
   TeamPresenceSnapshot,
   TeamSessionSummary,
-  UpdateTeamMemberInput,
 } from "@openownbot/contracts/ipc";
 import { sourceText } from "@openownbot/i18n/source";
 import {
   STORY_DIRECT_SNAPSHOTS,
   STORY_DIRECT_THREADS,
   STORY_HOST_STATUS,
-  STORY_INVITES,
   STORY_PRESENCE,
   STORY_REMOTE_DESKTOP_SESSION,
   STORY_SERVERS,
   STORY_SESSIONS,
-  STORY_TEAM_MEMBERS,
 } from "./fixtures";
 import { clone, type Listener, type MockRuntime } from "./mock-support";
 
@@ -42,8 +34,6 @@ export interface MockTeamOptions {
   directThreads?: DirectThreadSummary[];
   directSnapshots?: Record<string, DirectConversationSnapshot>;
   hostStatus?: HostStatus;
-  teamMembers?: TeamMemberSummary[];
-  invites?: TeamInviteSummary[];
   sessions?: TeamSessionSummary[];
   remoteDesktopSessions?: RemoteDesktopSession[];
 }
@@ -63,8 +53,6 @@ export function createMockTeam(
   let directThreads = clone(options.directThreads ?? STORY_DIRECT_THREADS);
   const directSnapshots = clone(options.directSnapshots ?? STORY_DIRECT_SNAPSHOTS);
   let hostStatus = clone(options.hostStatus ?? STORY_HOST_STATUS);
-  let teamMembers = clone(options.teamMembers ?? STORY_TEAM_MEMBERS);
-  let invites = clone(options.invites ?? STORY_INVITES);
   let sessions = clone(options.sessions ?? STORY_SESSIONS);
   let remoteDesktopSessions = clone(options.remoteDesktopSessions ?? [STORY_REMOTE_DESKTOP_SESSION]);
   let directMessageCounter = 10;
@@ -72,7 +60,6 @@ export function createMockTeam(
   const presenceListeners = new Set<Listener<TeamPresenceSnapshot>>();
   const directMessageListeners = new Set<Listener<DirectMessageRealtimeEvent>>();
   const directTypingListeners = new Set<Listener<DirectTypingRealtimeEvent>>();
-  const inviteListeners = new Set<Listener<string>>();
   const hostListeners = new Set<Listener<HostStatus>>();
   const remoteDesktopListeners = new Set<Listener<RemoteDesktopSession[]>>();
   const latestDirectConversationListeners = new Set<Listener<string>>();
@@ -113,10 +100,6 @@ export function createMockTeam(
     snapshot.revision += 1;
     directSnapshots[memberId] = snapshot;
     return readDirectConversationSnapshot(memberId);
-  }
-
-  function emitInvite(inviteUrl: string): void {
-    emit(inviteListeners, inviteUrl);
   }
 
   function emitHostStatus(status: HostStatus): void {
@@ -160,34 +143,6 @@ export function createMockTeam(
       ];
       return clone(servers);
     },
-    join: async (input: JoinServerInput) => {
-      const server: ServerSummary = {
-        id: `server-${servers.length + 1}`,
-        name: "Joined workspace",
-        logoUrl: null,
-        notificationsMuted: false,
-        notificationsMutedUntil: null,
-        notificationLevel: "all",
-        kind: "remote",
-        state: "online",
-        apiUrl: input.inviteUrl,
-        remoteDesktopAvailable: false,
-        role: "member",
-        active: false,
-      };
-      servers = [...servers, server];
-      return clone(server);
-    },
-    previewInvite: async () => ({
-      serverId: "00000000-0000-4000-8000-000000000000",
-      serverName: "Joined workspace",
-      apiHostname: "story-host.openbot.run",
-      role: "member",
-      expiresAt: "2026-09-19T10:00:00.000Z",
-      emailBound: false,
-      permanent: false,
-    }),
-    takePendingInvite: async () => null,
     login: async (input) => {
       const server = servers.find((candidate) => candidate.id === input.serverId);
       if (!server) throw new Error("Server not found");
@@ -218,31 +173,6 @@ export function createMockTeam(
       if (!server) throw new Error("Server not found");
       return clone(server);
     },
-    listMembers: async () => clone(teamMembers),
-    updateMember: async (input: UpdateTeamMemberInput) => {
-      const member = teamMembers.find((candidate) => candidate.id === input.memberId);
-      if (!member) throw new Error("Member not found");
-      const updated = { ...member, ...input };
-      teamMembers = teamMembers.map((candidate) => (candidate.id === updated.id ? updated : candidate));
-      return clone(updated);
-    },
-    removeMember: async (memberId) => {
-      teamMembers = teamMembers.filter((member) => member.id !== memberId);
-    },
-    listInvites: async () => clone(invites),
-    revokeInvite: async (inviteId) => {
-      invites = invites.filter((invite) => invite.id !== inviteId);
-    },
-    createInvite: async (input: CreateTeamInviteInput): Promise<InviteSummary> => ({
-      id: `invite-${invites.length + 1}`,
-      inviteUrl: "https://team.example.com/invite/story-invite",
-      expiresAt: "2026-09-19T10:00:00.000Z",
-      role: input.role,
-      usedAt: null,
-      email: input.email ?? null,
-      permanent: input.permanent ?? false,
-      useCount: 0,
-    }),
     setTyping: async (_input: SetTeamTypingInput) => undefined,
     onPresence: (listener, serverId) => {
       const receive = (snapshot: TeamPresenceSnapshot) => {
@@ -336,10 +266,6 @@ export function createMockTeam(
       serverListeners.add(listener);
       return () => serverListeners.delete(listener);
     },
-    onInvite: (listener) => {
-      inviteListeners.add(listener);
-      return () => inviteListeners.delete(listener);
-    },
   };
 
   const host: OpenOwnBotDesktopApi["host"] = {
@@ -384,35 +310,10 @@ export function createMockTeam(
       emitHostStatus(hostStatus);
       return clone(hostStatus);
     },
-    listMembers: async () => clone(teamMembers),
-    updateMember: async (input: UpdateTeamMemberInput) => {
-      const member = teamMembers.find((candidate) => candidate.id === input.memberId);
-      if (!member) throw new Error("Member not found");
-      const updated = { ...member, ...input };
-      teamMembers = teamMembers.map((candidate) => (candidate.id === updated.id ? updated : candidate));
-      return clone(updated);
-    },
-    removeMember: async (memberId) => {
-      teamMembers = teamMembers.filter((member) => member.id !== memberId);
-    },
     listSessions: async () => clone(sessions),
     revokeSession: async (sessionId) => {
       sessions = sessions.filter((session) => session.id !== sessionId);
     },
-    listInvites: async () => clone(invites),
-    revokeInvite: async (inviteId) => {
-      invites = invites.filter((invite) => invite.id !== inviteId);
-    },
-    createInvite: async (input: CreateTeamInviteInput): Promise<InviteSummary> => ({
-      id: `invite-${invites.length + 1}`,
-      role: input.role,
-      expiresAt: "2026-09-19T10:00:00.000Z",
-      usedAt: null,
-      inviteUrl: "https://openbot.run/join?invite=mock-invite",
-      email: input.email ?? null,
-      permanent: input.permanent ?? false,
-      useCount: 0,
-    }),
     onEvent: (listener) => {
       hostListeners.add(listener);
       return () => hostListeners.delete(listener);
@@ -473,7 +374,6 @@ export function createMockTeam(
     emitPresence,
     emitDirectMessage,
     emitDirectTyping,
-    emitInvite,
     emitHostStatus,
     emitRemoteDesktopSessions,
     readDirectConversationSnapshot,
@@ -486,7 +386,6 @@ export function createMockTeam(
       presenceListeners.clear();
       directMessageListeners.clear();
       directTypingListeners.clear();
-      inviteListeners.clear();
       hostListeners.clear();
       remoteDesktopListeners.clear();
       latestDirectConversationListeners.clear();
