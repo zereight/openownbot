@@ -13,7 +13,6 @@ import { SidebarHiddenGroup } from "./SidebarHiddenGroup";
 import { SidebarPinnedGroup } from "./SidebarPinnedGroup";
 import { SidebarSectionList } from "./SidebarSectionList";
 import { SidebarTeamList } from "./SidebarTeamList";
-import { SidebarWaitingGroup } from "./SidebarWaitingGroup";
 import { useSidebarScope } from "./sidebar-scope";
 
 export function SidebarNav() {
@@ -33,7 +32,6 @@ export function SidebarNav() {
     startCreateSection,
     updateSidebarNativeDrag,
     userHiddenAgentList,
-    waitingChats,
   } = useSidebarScope();
   const { t } = useText();
   return (
@@ -51,7 +49,6 @@ export function SidebarNav() {
         <Show
           when={
             resolvedPinnedItems().length === 0 &&
-            waitingChats().length === 0 &&
             filteredChats().length === 0 &&
             userHiddenAgentList().length === 0 &&
             (props.showPeople === false || orderedPeople().length === 0) &&
@@ -61,7 +58,6 @@ export function SidebarNav() {
           <SidebarEmptyState />
         </Show>
         <SidebarPinnedGroup />
-        <SidebarWaitingGroup />
         <Show when={props.groupByTeam} fallback={<SidebarSectionList />}>
           <SidebarTeamList />
         </Show>

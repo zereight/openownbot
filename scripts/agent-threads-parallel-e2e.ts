@@ -5,10 +5,10 @@
 // `bun scripts/agent-threads-parallel-e2e.ts --allow-mutations --agent=<agent id>`.
 //
 // The agent gets Workspace only access, so a write outside its workspace asks the user. The agent's own
-// chat asks first, then the side thread asks. Checks: each approval has its own thread; the agent is in
-// "Needs you"; the side thread's tab shows its approval, and Deny there leaves no file; after that the
-// agent is still in "Needs you" and its own chat still shows its approval; Deny there leaves no file and
-// takes the agent out of "Needs you". At the end it deletes the thread and the files and gives the agent
+// chat asks first, then the side thread asks. Checks: each approval has its own thread; the agent
+// shows an approval wait in the sidebar; the side thread's tab shows its approval, and Deny there leaves no file; after that the
+// agent still shows the wait and its own chat still shows its approval; Deny there leaves no file and
+// clears the wait. At the end it deletes the thread and the files and gives the agent
 // its access back.
 // Writes .openownbot-build/agent-threads-parallel-e2e/report.json and screenshots.
 import assert from "node:assert/strict";
@@ -40,9 +40,9 @@ interface Report {
   provider?: string;
   mainApproval?: { threadId: string; ownThread: boolean };
   sideApproval?: { taskId: string; threadId: string; ownThread: boolean };
-  bothWaiting?: { inNeedsYou: boolean; sideCardInThreadView: boolean };
-  sideDenied?: { cardGone: boolean; fileExists: boolean; stillInNeedsYou: boolean; mainCardShown: boolean };
-  mainDenied?: { cardGone: boolean; fileExists: boolean; leftNeedsYou: boolean };
+  bothWaiting?: { waitShown: boolean; sideCardInThreadView: boolean };
+  sideDenied?: { cardGone: boolean; fileExists: boolean; stillWaiting: boolean; mainCardShown: boolean };
+  mainDenied?: { cardGone: boolean; fileExists: boolean; waitCleared: boolean };
   restored?: { access: string };
   pageErrors: string[];
   passed: boolean;
@@ -62,7 +62,7 @@ const tab = (title: string) =>
     .getByRole("tab", { name: new RegExp(`^${literal(title)}`) })
     .first();
 const approvalCard = () => page.getByRole("region", { name: english("prompt.approval.label"), exact: true });
-const needsYou = () => page.getByRole("region", { name: new RegExp(`^${literal(english("sidebar.waiting.title"))}`) });
+const sidebarNav = () => page.getByRole("navigation", { name: english("sidebar.nav.label") });
 
 function writePrompt(): string {
   const file = join(homedir(), `openbot-thread-approval-${randomUUID()}.txt`);
@@ -102,9 +102,11 @@ assert.ok(
   `${before.provider} runs one turn at a time. Choose an agent on another provider.`,
 );
 const originalAccess = before.access ?? DEFAULT_AGENT_ACCESS;
-const agentInNeedsYou = () =>
-  needsYou()
-    .getByRole("button", { name: new RegExp(`^${literal(before.name)}[,.]`) })
+const agentWaitsForApproval = () =>
+  sidebarNav()
+    .getByRole("button", {
+      name: new RegExp(`^${literal(before.name)}[,.].*${literal(english("sidebar.state.waitingApproval"))}`),
+    })
     .count()
     .then((count) => count > 0);
 
@@ -165,8 +167,8 @@ try {
   };
   assert.ok(report.sideApproval.ownThread, "The second approval is not of the side thread.");
 
-  // 3. Both wait: the agent is in "Needs you", and the side thread's tab shows its approval.
-  await waitFor(page, "the agent shows in Needs you", agentInNeedsYou, Boolean, UI_WAIT_MS);
+  // 3. Both wait: the agent shows its wait, and the side thread's tab shows its approval.
+  await waitFor(page, "the agent shows its approval wait", agentWaitsForApproval, Boolean, UI_WAIT_MS);
   const current = await readTask();
   assert.ok(current);
   // A thread that the bridge starts has no tab yet; the thread list opens one.
@@ -181,14 +183,14 @@ try {
   });
   const sideCard = threadView.getByRole("region", { name: english("prompt.approval.label"), exact: true });
   await sideCard.waitFor({ timeout: WAIT_MS });
-  report.bothWaiting = { inNeedsYou: true, sideCardInThreadView: true };
+  report.bothWaiting = { waitShown: true, sideCardInThreadView: true };
   await page.screenshot({ path: resolve(OUT, "3-both-waiting.png") });
 
   // 4. Deny in the side thread. The agent's own chat still waits.
   await sideCard.getByRole("button", { name: english("prompt.approval.deny"), exact: true }).click();
   await sideCard.waitFor({ state: "detached", timeout: WAIT_MS });
   await waitFor(page, "the side turn ends", readTask, (latest) => latest?.state !== "running");
-  const stillInNeedsYou = await agentInNeedsYou();
+  const stillWaiting = await agentWaitsForApproval();
   await tab(before.name).click();
   await threadView.waitFor({ state: "detached", timeout: UI_WAIT_MS });
   const mainCard = approvalCard().first();
@@ -199,23 +201,23 @@ try {
   report.sideDenied = {
     cardGone: true,
     fileExists: existsSync(files[1] ?? ""),
-    stillInNeedsYou,
+    stillWaiting,
     mainCardShown,
   };
   await page.screenshot({ path: resolve(OUT, "4-side-denied.png") });
   assert.equal(report.sideDenied.fileExists, false, "Deny in the side thread still wrote the file.");
-  assert.ok(stillInNeedsYou, "The answer in the side thread took the agent out of Needs you.");
+  assert.ok(stillWaiting, "The answer in the side thread took the wait off the agent.");
   assert.ok(mainCardShown, "The agent's own chat lost its approval.");
 
   // 5. Deny in the agent's own chat.
   await mainCard.getByRole("button", { name: english("prompt.approval.deny"), exact: true }).click();
   await mainCard.waitFor({ state: "detached", timeout: WAIT_MS });
-  const left = await waitFor(page, "the agent leaves Needs you", agentInNeedsYou, (shown) => !shown, UI_WAIT_MS)
+  const left = await waitFor(page, "the agent stops waiting", agentWaitsForApproval, (shown) => !shown, UI_WAIT_MS)
     .then(() => true)
     .catch(() => false);
-  report.mainDenied = { cardGone: true, fileExists: existsSync(files[0] ?? ""), leftNeedsYou: left };
+  report.mainDenied = { cardGone: true, fileExists: existsSync(files[0] ?? ""), waitCleared: left };
   assert.equal(report.mainDenied.fileExists, false, "Deny in the agent's own chat still wrote the file.");
-  assert.ok(left, "The agent stays in Needs you with no approval.");
+  assert.ok(left, "The agent still shows a wait with no approval.");
   report.passed = true;
 } finally {
   if (taskId) {
