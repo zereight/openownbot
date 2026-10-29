@@ -62,6 +62,7 @@ import { coalescedPasses } from "../coalesced-passes";
 import type { MessagingPostFailure } from "../messaging/messaging-threads";
 import { resultText } from "../routine-results/routine-results";
 import type { ReceivedWebhookEvent } from "../routine-store";
+import { withGenerationRetry } from "./generation-retry";
 import {
   applyWorkflowEdits,
   armingChanges,
@@ -96,6 +97,10 @@ import {
 } from "./workflow-walk";
 
 const logger = createOpenBotLogger("workflows");
+
+/** A model step or a condition gets this many tries, the first included. */
+const GENERATION_ATTEMPTS = 3;
+const GENERATION_RETRY_DELAY_MS = 2_000;
 
 class WorkflowFailed extends Schema.TaggedError<WorkflowFailed>()("WorkflowFailed", {
   cause: Schema.Defect(),
@@ -429,7 +434,22 @@ class Workflows extends Context.Service<Workflows, WorkflowsShape>()("openbot/ba
           };
           const started = Date.now();
           const generate = Effect.gen(function* () {
-            const result = yield* generationLock.withPermit(dependencies.generateText(request)).pipe(Effect.result);
+            const result = yield* withGenerationRetry(
+              () => generationLock.withPermit(dependencies.generateText(request)),
+              {
+                attempts: GENERATION_ATTEMPTS,
+                delayMs: GENERATION_RETRY_DELAY_MS,
+                // Only the plain failure of the call: a usage limit, a busy model or a shutdown stay as they are.
+                retryable: (message) => message === sourceText("error.workflow.modelFailed"),
+                onRetry: (failedAttempt, message) =>
+                  logger.warn("A workflow step is trying its model again.", {
+                    ...stepLogFields(step),
+                    kind: node.kind,
+                    failedAttempt,
+                    error: message,
+                  }),
+              },
+            ).pipe(Effect.result);
             if (Result.isFailure(result)) {
               logger.warn("A workflow step could not get an answer from its model.", {
                 ...stepLogFields(step),
@@ -437,6 +457,7 @@ class Workflows extends Context.Service<Workflows, WorkflowsShape>()("openbot/ba
                 requestedProvider: request.provider,
                 requestedModel: request.model,
                 elapsedMs: Date.now() - started,
+                attempts: GENERATION_ATTEMPTS,
                 error: result.failure.message,
               });
               settle(step, { status: "failed", error: result.failure.message });
