@@ -70,7 +70,7 @@ describe("mention rule", () => {
   it.each([
     ["nightly-labs", 'export const owner = "nightly-labs";'],
     ["the Expo update URL", 'export const url = "https://u.expo.dev/eeec730f-c8f4-42c0-a750-64df8af14940";'],
-    ["a GitHub URL of the owner", 'export const url = "https://github.com/zereight/openownbot";'],
+    ["a GitHub URL of the owner", 'export const url = "https://github.com/nightly-labs/openbot";'],
   ])("reports %s", (_name, text) => {
     expect(scan(text)).toHaveLength(1);
   });

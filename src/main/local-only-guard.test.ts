@@ -112,18 +112,18 @@ describe("the shipped switch", () => {
 describe("refusesOpenOwnBotUrl", () => {
   it.each([
     "https://x.openbot.run/v1",
-    "https://OPENOWNBOT.RUN./",
+    "https://OPENBOT.RUN./",
     "https://demo.openbot.site",
-    "https://github.com/zereight/openownbot/releases",
-    "https://api.github.com/repos/zereight/openownbot/releases",
-    "https://raw.githubusercontent.com/zereight/openownbot/main/x.json",
+    "https://github.com/Nightly-Labs/openbot/releases",
+    "https://api.github.com/repos/nightly-labs/openbot/releases",
+    "https://raw.githubusercontent.com/nightly-labs/openbot/main/x.json",
     "turn:turn.openbot.run:3478",
-    "turns:TURN.OpenOwnBot.run:5349?transport=tcp",
+    "turns:TURN.OpenBot.run:5349?transport=tcp",
     "wss://signal.openbot.run/v1/signal",
     "https://u.expo.dev/eeec730f-c8f4-42c0-a750-64df8af14940",
     "https://u.expo.dev/EEEC730F-c8f4-42c0-a750-64df8af14940/manifest",
     "https://nightly-labs.github.io/docs",
-    "https://ghcr.io/v2/zereight/openownbot/manifests/latest",
+    "https://ghcr.io/v2/nightly-labs/openbot/manifests/latest",
   ])("refuses %s while the switch is on", async (url) => {
     const { refusesOpenOwnBotUrl } = await contractWithSwitch(true);
     expect(refusesOpenOwnBotUrl(url)).toBe(true);
@@ -159,7 +159,7 @@ describe("refusesOpenOwnBotUrl", () => {
 describe("mentionsOpenOwnBotService", () => {
   it.each([
     "https://x.openbot.run/v1/ping",
-    "see OpenOwnBot.Run.",
+    "see OpenBot.Run.",
     "wss://*.openbot.run",
     "owner: nightly-labs",
     "https://demo.openbot.site/",
@@ -198,7 +198,7 @@ describe("guardOpenOwnBotEgress", () => {
 
     await expect(scope.fetch("https://x.openbot.run/v1/tickets/secret?token=abc")).rejects.toBeInstanceOf(TypeError);
     await expect(scope.fetch(new URL("https://api.openbot.run/v1/account"))).rejects.toBeInstanceOf(TypeError);
-    await expect(scope.fetch(new Request("https://github.com/zereight/openownbot/releases"))).rejects.toBeInstanceOf(
+    await expect(scope.fetch(new Request("https://github.com/nightly-labs/openbot/releases"))).rejects.toBeInstanceOf(
       TypeError,
     );
 
@@ -291,7 +291,7 @@ describe("guardSession", () => {
     expect(fake.filter).toEqual({ urls: ["<all_urls>"] });
     expect(fake.answer("https://api.openbot.run/v1/tickets/secret?token=abc")).toEqual({ cancel: true });
     expect(fake.answer("wss://signal.openbot.run/v1/signal")).toEqual({ cancel: true });
-    expect(fake.answer("https://github.com/zereight/openownbot/releases/latest")).toEqual({ cancel: true });
+    expect(fake.answer("https://github.com/nightly-labs/openbot/releases/latest")).toEqual({ cancel: true });
     expect(reported).toEqual(["https://api.openbot.run", "wss://signal.openbot.run", "https://github.com"]);
   });
 
