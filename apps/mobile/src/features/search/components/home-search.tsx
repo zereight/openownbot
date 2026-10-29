@@ -19,7 +19,6 @@ import Search from "lucide-react-native/icons/search";
 import Settings from "lucide-react-native/icons/settings";
 import SlidersHorizontal from "lucide-react-native/icons/sliders-horizontal";
 import SquareCheck from "lucide-react-native/icons/square-check";
-import UsersRound from "lucide-react-native/icons/users-round";
 import {
   type ComponentProps,
   type PropsWithChildren,
@@ -1059,12 +1058,6 @@ function HomeSearchIdle({ onLeave, canUseTasks }: { onLeave: () => void; canUseT
               label: t("mobile.app.route.usage"),
               icon: ChartColumn,
               href: { pathname: "/server-usage", params: { serverId } } as const,
-            },
-            {
-              id: "members",
-              label: t("mobile.app.route.members"),
-              icon: UsersRound,
-              href: { pathname: "/server-settings/members", params: { serverId } } as const,
             },
             {
               id: "server",

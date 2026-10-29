@@ -76,7 +76,6 @@ function useSearchSettings(channelsSupported: boolean): MobileSearchSetting[] {
       { id: "support", title: t("mobile.settings.home.support"), detail: app },
       { id: "about", title: t("mobile.settings.home.about"), detail: app },
       { id: "serverOptions", title: t("mobile.app.route.serverOptions"), detail: serverName },
-      { id: "serverMembers", title: t("mobile.app.route.members"), detail: serverName },
       { id: "serverRoutines", title: t("mobile.server.drawer.routines"), detail: serverName },
       { id: "serverUsage", title: t("mobile.server.drawer.usage"), detail: serverName },
     );

@@ -19,7 +19,6 @@ import Server from "lucide-react-native/icons/server";
 import Sparkles from "lucide-react-native/icons/sparkles";
 import Trash2 from "lucide-react-native/icons/trash";
 import UserRound from "lucide-react-native/icons/user-round";
-import UsersRound from "lucide-react-native/icons/users-round";
 import Vibrate from "lucide-react-native/icons/vibrate";
 import { type ReactNode, useContext, useMemo } from "react";
 import { Pressable, View } from "react-native";
@@ -144,7 +143,6 @@ const SETTING_ICON = {
   support: LifeBuoy,
   about: Info,
   serverOptions: Server,
-  serverMembers: UsersRound,
   serverRoutines: CalendarClock,
   serverUsage: ChartColumn,
 } as const satisfies Record<MobileSearchSettingId, LucideIcon>;
@@ -178,8 +176,6 @@ function openSetting(id: MobileSearchSettingId, serverId: string) {
       return router.push("/settings/about");
     case "serverOptions":
       return router.push({ pathname: "/server-settings", params: { serverId } });
-    case "serverMembers":
-      return router.push({ pathname: "/server-settings/members", params: { serverId } });
     case "serverRoutines":
       return router.push({ pathname: "/server-routines", params: { serverId } });
     case "serverUsage":
