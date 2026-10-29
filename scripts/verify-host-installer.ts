@@ -92,8 +92,8 @@ export async function verifyHostPayload(expanded: string, version: string): Prom
   for (const [source, destination] of [
     ["openbot-host", "/usr/local/bin/openbot-host"],
     ["openbot-relaunch.sh", `${HOST_MANAGER_DIRECTORY}/openbot-relaunch.sh`],
-    ["app.openbot.host-manager.plist", "/Library/LaunchDaemons/app.openbot.host-manager.plist"],
-    ["app.openbot.desktop.relaunch.plist", "/Library/LaunchAgents/app.openbot.desktop.relaunch.plist"],
+    ["app.openownbot.host-manager.plist", "/Library/LaunchDaemons/app.openownbot.host-manager.plist"],
+    ["app.openownbot.desktop.relaunch.plist", "/Library/LaunchAgents/app.openownbot.desktop.relaunch.plist"],
   ] as const) {
     if (
       (await readFile(join(root, destination), "utf8")) !==

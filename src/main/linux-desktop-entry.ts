@@ -8,13 +8,13 @@ import { causeHelpers } from "../backend/effect-boundary";
 const logger = createOpenBotLogger("linux-desktop-entry");
 
 /**
- * The file name has to stay `openbot.desktop`: it is `desktopName` in package.json, which is what
+ * The file name has to stay `openownbot.desktop`: it is `desktopName` in package.json, which is what
  * Electron uses as the application id it hands to `xdg-settings`, and what electron-builder writes
  * into `StartupWMClass` so a window groups with this entry.
  */
-const DESKTOP_FILE_NAME = "openbot.desktop";
-const ICON_FILE_NAME = "openbot.png";
-const WM_CLASS = "openbot";
+const DESKTOP_FILE_NAME = "openownbot.desktop";
+const ICON_FILE_NAME = "openownbot.png";
+const WM_CLASS = "openownbot";
 
 /**
  * The desktop entry that makes an `openbot://` link reach the app.

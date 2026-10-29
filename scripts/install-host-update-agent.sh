@@ -58,7 +58,7 @@ for tenant in "$@"; do
 done
 # The operator supplies trusted compiled code. Never compile repository hooks as root.
 [ -f "$HELPER" ] && [ ! -L "$HELPER" ] || exit 1
-for destination in "$ROOT/host-manager" "$ROOT/openbot-relaunch.sh" /Library/LaunchAgents/app.openbot.desktop.relaunch.plist /Library/LaunchDaemons/app.openbot.host-manager.plist; do
+for destination in "$ROOT/host-manager" "$ROOT/openbot-relaunch.sh" /Library/LaunchAgents/app.openownbot.desktop.relaunch.plist /Library/LaunchDaemons/app.openownbot.host-manager.plist; do
   [ ! -e "$destination" ] && [ ! -L "$destination" ] || { echo "Existing installation asset: $destination" >&2; exit 1; }
 done
 install -o root -g wheel -m 755 "$HELPER" "$ROOT/host-manager"
@@ -66,13 +66,13 @@ install -o root -g wheel -m 755 "$ASSETS/openbot-relaunch.sh" "$ROOT/openbot-rel
 # UIDS contains only numbers returned by id above.
 # shellcheck disable=SC2086
 "$ROOT/host-manager" --setup $UIDS
-install -o root -g wheel -m 644 "$ASSETS/app.openbot.desktop.relaunch.plist" /Library/LaunchAgents/app.openbot.desktop.relaunch.plist
-install -o root -g wheel -m 644 "$ASSETS/app.openbot.host-manager.plist" /Library/LaunchDaemons/app.openbot.host-manager.plist
-launchctl bootstrap system /Library/LaunchDaemons/app.openbot.host-manager.plist
+install -o root -g wheel -m 644 "$ASSETS/app.openownbot.desktop.relaunch.plist" /Library/LaunchAgents/app.openownbot.desktop.relaunch.plist
+install -o root -g wheel -m 644 "$ASSETS/app.openownbot.host-manager.plist" /Library/LaunchDaemons/app.openownbot.host-manager.plist
+launchctl bootstrap system /Library/LaunchDaemons/app.openownbot.host-manager.plist
 for tenant in "$@"; do
   tenant_uid=$(id -u "$tenant")
-  if ! launchctl bootstrap "gui/$tenant_uid" /Library/LaunchAgents/app.openbot.desktop.relaunch.plist; then
+  if ! launchctl bootstrap "gui/$tenant_uid" /Library/LaunchAgents/app.openownbot.desktop.relaunch.plist; then
     echo "LaunchAgent for $tenant will load at the next GUI login."
   fi
 done
-ls -ld /Applications/OpenBot.app "$ROOT"
+ls -ld /Applications/OpenOwnBot.app "$ROOT"

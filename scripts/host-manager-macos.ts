@@ -8,11 +8,11 @@ import type { HostManagerOperations } from "../src/main/host-manager";
 import { HOST_MANAGER_DIRECTORY, verifyHostDirectory } from "../src/main/host-update-files";
 
 const exec = promisify(execFile);
-export const SHARED_APP = "/Applications/OpenBot.app";
+export const SHARED_APP = "/Applications/OpenOwnBot.app";
 const STAGING = "/Applications/.openbot-host-stage";
 const PRIVATE = join(HOST_MANAGER_DIRECTORY, "private");
 const SIGNING_REQUIREMENT =
-  '=anchor apple generic and identifier "app.openbot.desktop" and certificate leaf[subject.OU] = "ZTRDTUL87R"';
+  '=anchor apple generic and identifier "app.openownbot.desktop" and certificate leaf[subject.OU] = "ZTRDTUL87R"';
 const releaseSchema = z.object({
   tag_name: z.string().regex(/^v?\d+\.\d+\.\d+$/),
   draft: z.literal(false),
@@ -195,11 +195,11 @@ export function macHostOperations(): HostManagerOperations {
       await ensureHostDirectory(mount, 0o700);
       await command("/usr/bin/hdiutil", ["attach", dmg, "-readonly", "-nobrowse", "-noautoopen", "-mountpoint", mount]);
       try {
-        const source = join(mount, "OpenBot.app");
+        const source = join(mount, "OpenOwnBot.app");
         await verifyBundleTree(source, false);
         await verifySignature(source);
         if ((await bundleVersion(source)) !== version) throw new Error("Downloaded version mismatch.");
-        const staged = join(STAGING, "OpenBot.app");
+        const staged = join(STAGING, "OpenOwnBot.app");
         await rm(staged, { recursive: true, force: true });
         await command("/usr/bin/ditto", ["--noqtn", source, staged], 180_000);
         await command("/usr/sbin/chown", ["-Rh", "root:wheel", staged]);
@@ -216,7 +216,7 @@ export function macHostOperations(): HostManagerOperations {
     install: async (version) => {
       await verifySharedAppParent();
       await verifyHostPath(STAGING);
-      const staged = join(STAGING, "OpenBot.app");
+      const staged = join(STAGING, "OpenOwnBot.app");
       await verifyBundleTree(staged, true);
       await verifySignature(staged);
       if ((await bundleVersion(staged)) !== version) throw new Error("Staged version mismatch.");

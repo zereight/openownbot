@@ -1,5 +1,5 @@
-appId: app.openbot.desktop
-productName: OpenBot
+appId: app.openownbot.desktop
+productName: OpenOwnBot
 copyright: Copyright © 2026 Synthetify Labs spółka z ograniczoną odpowiedzialnością
 protocols:
   - name: OpenBot invitations
@@ -126,11 +126,11 @@ mac:
   extendInfo:
     CFBundleIconName: Icon
     ElectronTeamID: ZTRDTUL87R
-    NSMicrophoneUsageDescription: OpenBot uses the microphone to transcribe voice prompts locally on this Mac.
+    NSMicrophoneUsageDescription: OpenOwnBot uses the microphone to transcribe voice prompts locally on this Mac.
     # Computer Use runs the driver as a child process, so macOS asks for both grants in OpenBot's
     # name and shows these sentences.
-    NSScreenCaptureUsageDescription: OpenBot captures the screen so an agent can see the app windows you ask it to control.
-    NSAppleEventsUsageDescription: OpenBot sends Automation events so an agent can control the apps you ask it to control.
+    NSScreenCaptureUsageDescription: OpenOwnBot captures the screen so an agent can see the app windows you ask it to control.
+    NSAppleEventsUsageDescription: OpenOwnBot sends Automation events so an agent can control the apps you ask it to control.
     NSUserActivityTypes:
       - NSUserActivityTypeBrowsingWeb
   # No `arch` here: a target's own `arch` list replaces the one given on the command line, so
@@ -166,8 +166,8 @@ linux:
   icon: build/icon-production.png
   synopsis: A local-first multi-agent desktop workspace.
   extraResources:
-    - from: build/linux/openbot.apparmor
-      to: linux/openbot.apparmor
+    - from: build/linux/openownbot.apparmor
+      to: linux/openownbot.apparmor
     # A hosted server installs the packages, scripts and units of the release that it updates to.
     - from: scripts/hosting
       to: hosting

@@ -37,10 +37,10 @@ const architecture = process.arch === "arm64" ? "arm64" : process.arch === "x64"
 if (!architecture) throw new Error(`OpenBot does not ship for macOS ${process.arch}.`);
 const machOArchitecture = architecture === "arm64" ? "arm64" : "x86_64";
 const appPath = resolve(
-  process.argv[2] ?? (architecture === "arm64" ? "dist/mac-arm64/OpenBot.app" : "dist/mac/OpenBot.app"),
+  process.argv[2] ?? (architecture === "arm64" ? "dist/mac-arm64/OpenOwnBot.app" : "dist/mac/OpenOwnBot.app"),
 );
 const contentsPath = resolve(appPath, "Contents");
-const executablePath = resolve(contentsPath, "MacOS/OpenBot");
+const executablePath = resolve(contentsPath, "MacOS/OpenOwnBot");
 const resourcesPath = resolve(contentsPath, "Resources");
 const packagedIconPath = resolve(resourcesPath, "icon.icns");
 const sourceIconPath = resolve("build/icon-production.icns");
@@ -115,9 +115,9 @@ await assertAbsent(
 
 const plist = JSON.parse(run("plutil", ["-convert", "json", "-o", "-", plistPath]));
 if (!isDynamicRecord(plist)) throw new Error("Info.plist is not a JSON object.");
-expectEqual(plist.CFBundleDisplayName, "OpenBot", "display name");
-expectEqual(plist.CFBundleExecutable, "OpenBot", "executable name");
-expectEqual(plist.CFBundleIdentifier, "app.openbot.desktop", "bundle identifier");
+expectEqual(plist.CFBundleDisplayName, "OpenOwnBot", "display name");
+expectEqual(plist.CFBundleExecutable, "OpenOwnBot", "executable name");
+expectEqual(plist.CFBundleIdentifier, "app.openownbot.desktop", "bundle identifier");
 expectEqual(plist.CFBundleIconFile, "icon.icns", "application icon");
 expectEqual(plist.CFBundleIconName, "Icon", "macOS 26 application icon");
 expectEqual(plist.LSMinimumSystemVersion, "13.0", "minimum macOS version");
@@ -128,7 +128,7 @@ if (!Array.isArray(plist.NSUserActivityTypes) || !plist.NSUserActivityTypes.incl
 if (!plist.ElectronAsarIntegrity) throw new Error("ASAR integrity metadata is missing.");
 expectEqual(
   plist.NSMicrophoneUsageDescription,
-  "OpenBot uses the microphone to transcribe voice prompts locally on this Mac.",
+  "OpenOwnBot uses the microphone to transcribe voice prompts locally on this Mac.",
   "microphone usage description",
 );
 
