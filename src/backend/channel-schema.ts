@@ -52,9 +52,7 @@ export const CHANNEL_SCHEMA_SQL = `
   );
 `;
 
-// Shared by migration v19 and the separate new-database schema. A separate constant, and a new
-// version rather than an edit to CHANNEL_SCHEMA_SQL: a database that already ran 18 - every
-// development profile on this branch - would otherwise never meet these tables.
+// The settings of a channel: memories, routines and their runs.
 //
 // Every table mirrors its agent twin in the v8 baseline column for column, because one store
 // implementation serves both owners. The two UNIQUE constraints on the run table are what make one
@@ -83,7 +81,9 @@ export const CHANNEL_SETTINGS_SCHEMA_SQL = `
     timezone TEXT NOT NULL,
     created_at TEXT NOT NULL,
     updated_at TEXT NOT NULL,
-    last_event_sequence INTEGER NOT NULL
+    last_event_sequence INTEGER NOT NULL,
+    limit_policy TEXT NOT NULL DEFAULT 'wait' CHECK(limit_policy IN ('wait', 'skip')),
+    missed_policy TEXT NOT NULL DEFAULT 'skip' CHECK(missed_policy IN ('skip', 'run-once'))
   );
   CREATE INDEX IF NOT EXISTS channel_routines_channel
     ON projection_channel_routines(channel_id, updated_at DESC, routine_id);
@@ -116,6 +116,9 @@ export const CHANNEL_SETTINGS_SCHEMA_SQL = `
     created_at TEXT NOT NULL,
     updated_at TEXT NOT NULL,
     last_event_sequence INTEGER NOT NULL,
+    missed_count INTEGER CHECK(missed_count IS NULL OR missed_count >= 1),
+    missed_until TEXT,
+    run_source TEXT CHECK(run_source IS NULL OR run_source IN ('test', 'script', 'webhook')),
     UNIQUE(trigger_id, scheduled_for)
   );
   CREATE INDEX IF NOT EXISTS channel_routine_runs_routine

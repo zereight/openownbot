@@ -1,46 +1,22 @@
 # `src/backend`
 
-> [Plan 012](../../plans/012-in-place-rewrite.md) removes the compatibility rules below. Until phase 1
-> deletes this section, follow plan 012 where they conflict.
-
 The stores, the SQLite database (`openownbot-database.ts` and the controllers under `database/`), the
 provider clients and `agent-service.ts`. The user's SQLite is the source of truth here, not a cache
-of something remote — which is what makes the first section below non-negotiable.
+of something remote.
 
-## Database migrations
+## Database schema
 
-- Nothing copies `openbot.db` before an upgrade. Every migration is an irreversible production data
-  operation: preserve all user data, support every shipped source schema, never depend on a backup.
-- Keep each schema change and its `schema_migrations` marker in one transaction. Roll back on any
-  error, restore foreign-key enforcement in `finally`, and run the integrity checks before startup
-  continues.
-- Never edit or delete a migration that may have shipped, including the frozen version 8 baseline.
-  Append the next contiguous version and update the separate latest schema for new databases.
-  Add the new version to `openbot-database-schema-history.json`: the parity test fails and prints
-  the entry to add. A red test on a recorded version means a shipped migration changed. Change the
-  migration back; do not change its entry.
-- A migration change needs data-preservation fixtures for every affected released schema, plus
-  failure, rollback, retry, downgrade, missing-version, foreign-key and integrity coverage at the
-  stable database boundary.
-- No automatic full-database backups: conversation history lives in SQLite, so their time and disk
-  cost is unbounded. Make the migration itself safe instead.
+- One schema, no migrations ([plan 012](../../plans/012-in-place-rewrite.md)). `prepareDatabaseSchema` in
+  `openownbot-database-schema.ts` makes it in an empty database and refuses a database whose
+  `database_info.schema_version` is not `SCHEMA_VERSION`.
+- The SQL of a feature lives beside the feature (`channel-schema.ts`, `workflows/workflow-schema.ts`,
+  ...). `SCHEMA_SQL` joins them in one order; a table comes before an index on it.
+- A schema change edits the SQL and raises `SCHEMA_VERSION`. It does not change an existing database:
+  the developer deletes it, or the app moves to a new data location.
 
-### The two build paths
-
-`openownbot-database-schema.ts` builds a database twice. `createLatestDatabase` execs
-`LATEST_SCHEMA_SQL` and then stamps every entry in `MIGRATIONS` as applied **without running it**;
-an existing database runs them for real. A DDL migration that is not also mirrored by hand into
-`LATEST_SCHEMA_SQL` therefore ships new installs a database missing that column while upgraded
-installs get it, silently, on the user's machine.
-
-`openownbot-database-schema-parity.test.ts` builds a database both ways and compares the normalised
-`sqlite_master` SQL and `PRAGMA table_info` per table, so that divergence is a red test rather than a
-support ticket. Do not weaken it; a new DDL migration means editing `LATEST_SCHEMA_SQL` in the same
-change.
-
-The account service has a second, unrelated database — Cloudflare D1 — and its rule is the opposite
-shape: those migrations are reversible but race a deploy. `apps/auth-api/AGENTS.md` owns it — nothing in this
-directory touches `apps/auth-api/migrations/`.
+The account service has a second, unrelated database: Cloudflare D1. Its migrations stay, because it
+is a live remote database. `apps/auth-api/AGENTS.md` owns it; nothing in this directory touches
+`apps/auth-api/migrations/`.
 
 ## Size
 

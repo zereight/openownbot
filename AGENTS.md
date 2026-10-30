@@ -122,8 +122,7 @@ as a routine completion or PR step.
    the `typecheck:*` projects that can see a staged file; a root `package.json`, `tsconfig*.json` or
    `bun.lock` selects all of them. `--dry-run [<path>...]` shows the selection. This is the only
    exception to rule 3. Do not run these checks by hand, and do not bypass the hook with
-   `--no-verify`. The hook also runs the schema parity test when a database schema file in
-   `src/backend` is staged. It stops the commit if Biome fixes a file that also has unstaged
+   `--no-verify`. It stops the commit if Biome fixes a file that also has unstaged
    changes; stage the fixes you want and commit again.
 
 [Check design notes](docs/development-checks.md#check-coverage) explain CI coverage, command aliases,
@@ -138,7 +137,7 @@ State which surfaces a change touches. Check all affected consumers and reverse 
 - IPC contracts (`packages/contracts`) and their preview implementation
   (`src/renderer/src/preview/mock-openownbot.ts`).
 - Reverse actions: snooze/unsnooze, pause/resume, revoke/reconnect, mute/unmute.
-- Migrations and the separate latest schema for new databases.
+- The database schema (`src/backend/openownbot-database-schema.ts`) and its `SCHEMA_VERSION`.
 - Documentation: `README.md` commands, `docs/architecture/`, and `PRIVACY.md` when outbound data
   changes.
 
@@ -232,9 +231,6 @@ risks since the last release.
   end, it writes a verifiable and repeatable artifact, such as a JSON report or a screenshot under
   `.openownbot-build/`.
 - Vitest files are permitted only for these protected areas:
-  - Database migrations: data-preservation fixtures for every affected released schema, plus the
-    failure and rollback cases that [src/backend/AGENTS.md](src/backend/AGENTS.md) lists. A
-    migration always needs them.
   - The renderer-to-main trust boundary: sender validation, navigation and permission policy, CSP,
     sandboxing, and preload payload decoding.
   - Secret redaction on log, export, and send paths.

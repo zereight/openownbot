@@ -51,6 +51,9 @@ Each step is one PR, merged when CI passes. Each phase makes the code smaller be
    - Database: replace the baseline and every migration with one schema for new databases at the new
      data location. Delete the migration tests and fixtures, the schema history file and the parity
      test.
+     Done 2026-10-31: `prepareDatabaseSchema` and `SCHEMA_VERSION = 1`. A database made by the new code
+     has the same tables, columns, foreign keys, checks, indexes and triggers as one made by the old
+     code (137 objects compared); only `schema_migrations` became `database_info`.
    - Legacy imports: `bots.json`, `legacy-import`, the old team file import, `reconcileHost`.
    - Team API: keep one protocol version. Delete the frozen codecs, adapters, fixtures, capability
      negotiation and provider visibility for old peers. Desktop and mobile change together.

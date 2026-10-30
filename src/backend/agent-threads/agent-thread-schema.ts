@@ -1,7 +1,3 @@
-import type { DatabaseSync } from "node:sqlite";
-
-// The tail of the latest schema for new databases. IF NOT EXISTS throughout, as the other schema parts.
-//
 // A side thread is a second conversation of one agent that runs next to its own chat: the agent keeps
 // its identity, workspace and memories, and the thread has a provider session of its own. The agent's
 // own chat (`projection_agents.thread_id`) has no row here.
@@ -13,7 +9,9 @@ import type { DatabaseSync } from "node:sqlite";
 // the first message (`auto`), the agent's `start_task` call (`agent`), or a rename (`user`). `outcome`
 // is the end of the last turn, null before its first turn ends. `error` is the redacted provider error
 // of the last failed turn; a new turn clears it. `archived_at` is set when the person or the agent
-// archives the thread; an archived thread takes no message until it is restored.
+// archives the thread; an archived thread takes no message until it is restored. A forked thread names the
+// thread it was copied from and the last message it copied; both are null for a thread that is not a fork.
+// They have no foreign key: deleting the source thread must not change the fork.
 //
 // The title lives only here: the roster rewrites `projection_threads.title` to the agent name.
 export const AGENT_THREAD_SCHEMA_SQL = `
@@ -29,53 +27,11 @@ export const AGENT_THREAD_SCHEMA_SQL = `
     created_at TEXT NOT NULL,
     updated_at TEXT NOT NULL,
     archived_at TEXT,
-    last_event_sequence INTEGER NOT NULL
+    last_event_sequence INTEGER NOT NULL,
+    forked_from_thread_id TEXT,
+    forked_from_message_id TEXT
   );
   CREATE INDEX IF NOT EXISTS agent_threads_open ON projection_agent_threads(agent_id, updated_at DESC)
     WHERE archived_at IS NULL;
   CREATE INDEX IF NOT EXISTS agent_threads_agent ON projection_agent_threads(agent_id, created_at DESC);
 `;
-
-// Migration 47. Every task becomes a side thread with the same thread, title, state and dates: a closed
-// task is an archived thread. The task id stays as `legacy_task_id`, so a queued mailbox message and a
-// Team API client that name the task still find it. A task row whose thread is gone (written while
-// foreign keys were off) is not copied: it has no conversation, and copying it would fail the foreign
-// key check and stop the app at startup. The task table is a leaf, so it is dropped with no rebuild.
-export const AGENT_THREAD_MIGRATION_SQL = `
-  ${AGENT_THREAD_SCHEMA_SQL}
-  INSERT INTO projection_agent_threads
-    (thread_id, agent_id, legacy_task_id, origin, title, title_source, outcome, error, created_at, updated_at,
-     archived_at, last_event_sequence)
-  SELECT task.thread_id, task.agent_id, task.task_id, task.origin, task.title,
-    CASE task.origin WHEN 'agent' THEN 'agent' ELSE 'auto' END,
-    task.outcome, task.error, task.created_at, task.updated_at, task.closed_at, task.last_event_sequence
-  FROM projection_agent_tasks AS task
-  WHERE task.thread_id IN (SELECT thread_id FROM projection_threads);
-  DROP INDEX IF EXISTS agent_tasks_agent;
-  DROP TABLE projection_agent_tasks;
-`;
-
-// Migration 48. A forked thread names the thread it was copied from and the last message it copied, so the
-// person can find the source and the copy shows where its history was cut. Both are null for a thread that
-// is not a fork. There is no foreign key: deleting the source thread must not delete or change the fork,
-// which keeps its own copy of the history. `ALTER TABLE ADD COLUMN` rebuilds nothing, and no existing row
-// changes, so every thread from before 48 stays a thread that is not a fork. Latest databases run the same
-// statements after the table is created, so both build paths store the same table SQL.
-export const AGENT_THREAD_FORK_COLUMNS = ["forked_from_thread_id", "forked_from_message_id"] as const;
-
-export const AGENT_THREAD_FORK_MIGRATION_SQL = AGENT_THREAD_FORK_COLUMNS.map(
-  (column) => `ALTER TABLE projection_agent_threads ADD COLUMN ${column} TEXT;\n`,
-).join("");
-
-/** Adds the columns that the table lacks, so a repeated run after a restored marker does not fail. */
-export function addAgentThreadForkColumns(db: DatabaseSync): void {
-  const present = new Set(
-    db
-      .prepare("PRAGMA table_info(projection_agent_threads)")
-      .all()
-      .map((row) => row.name),
-  );
-  for (const column of AGENT_THREAD_FORK_COLUMNS) {
-    if (!present.has(column)) db.exec(`ALTER TABLE projection_agent_threads ADD COLUMN ${column} TEXT;`);
-  }
-}

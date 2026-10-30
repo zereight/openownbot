@@ -3,7 +3,6 @@
   "scripts/anti-slop-rules.test.ts": 1.44,
   "scripts/ui-foundation-check.test.ts": 0.02,
   "src/backend/browser-diagnostics.test.ts": 0,
-  "src/backend/openownbot-database-schema-parity.test.ts": 0.16,
   "src/backend/openownbot-database.test.ts": 1.81,
   "src/backend/stderr-diagnostics.test.ts": 0,
   "src/main/content-security-policy.test.ts": 0,

@@ -4,7 +4,7 @@ import { chmod, copyFile, mkdir, readFile } from "node:fs/promises";
 import { basename, dirname, join } from "node:path";
 import { DatabaseSync } from "node:sqlite";
 import { Effect, Result } from "effect";
-import { migrateOpenOwnBotDatabase } from "../openownbot-database-schema";
+import { prepareDatabaseSchema } from "../openownbot-database-schema";
 import { storedIO, storedSync } from "../stored-state-effects";
 import { databaseRow, errorCode, requiredNumberColumn, requiredStringColumn } from "./database-rows";
 
@@ -211,7 +211,7 @@ export class DatabaseCore {
   }
 
   #migrate(closedCleanly: boolean): void {
-    migrateOpenOwnBotDatabase(this.connection, { closedCleanly });
+    prepareDatabaseSchema(this.connection, { closedCleanly });
   }
 }
 

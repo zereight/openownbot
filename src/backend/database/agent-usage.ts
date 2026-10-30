@@ -63,11 +63,9 @@ export class AgentUsage {
   }
 
   collectionStartedAt(): string {
-    const row = databaseRow(
-      this.#core.connection.prepare("SELECT applied_at FROM schema_migrations WHERE version = 15").get(),
-    );
+    const row = databaseRow(this.#core.connection.prepare("SELECT created_at FROM database_info WHERE id = 1").get());
     if (!row) throw new Error("Analytics schema is unavailable.");
-    return requiredStringColumn(row, "applied_at");
+    return requiredStringColumn(row, "created_at");
   }
 
   reroute(agentId: string, sessionId: string, turnId: string, model: string): void {
@@ -446,7 +444,7 @@ export function recordUsageMessage(
   )
     return;
   db.prepare(`INSERT OR IGNORE INTO agent_usage_activity
-    SELECT ?, ?, '', ?, ?, ?, ?, ? WHERE ? >= (SELECT applied_at FROM schema_migrations WHERE version = 15)`).run(
+    SELECT ?, ?, '', ?, ?, ?, ?, ? WHERE ? >= (SELECT created_at FROM database_info WHERE id = 1)`).run(
     agentId,
     `message:${message.id}`,
     message.turnId ?? "",
