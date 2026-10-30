@@ -50,7 +50,7 @@ table, IPC channel or product string, or when a term in the code disagrees with 
   "Archived"; it is the task close (`closed`, `archived_at`). A **tab** is a device-local view of a
   thread; closing it does not change the thread.
 - **role**: a custom role of a server that sets which agents its members can use, and at which
-  level (`AgentAccessRole`, `agent-access-v1`, `openbot-agent-access-v1.json`). The **Everyone** role
+  level (`AgentAccessRole`, `agent-access-v1`, `agent-access.json`). The **Everyone** role
   applies to every member. It is not the team role (`TeamRole`: owner, admin, member), which the UI
   calls the server role. **agent access** in the agent settings is the agent's own runtime access;
   the `agent-access-v1` levels are the access of members to agents.

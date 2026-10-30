@@ -1,4 +1,4 @@
-// The `openbot-import.json` manifest at the root of an agent import archive.
+// The `robot-import.json` manifest at the root of an agent import archive.
 //
 // The format is a product contract: the Grok Bot export skill in
 // `resources/agent-import/grok-bot/SKILL.md` writes it, and an export made by an older skill must
@@ -14,7 +14,7 @@ import { isBoolean, isDynamicRecord, isString } from "@robot/contracts/runtime-v
 import { sourceText } from "@robot/i18n/source";
 import { isUnsafeArchivePath } from "./skill-package";
 
-export const AGENT_IMPORT_MANIFEST = "openbot-import.json";
+export const AGENT_IMPORT_MANIFEST = "robot-import.json";
 const FORMAT = "openownbot-agent-import";
 const VERSION = 1;
 

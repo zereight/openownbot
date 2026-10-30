@@ -66,7 +66,7 @@ sends no notification, and uses the registration only to make the Live Activity 
 tells each host again after each connection and when a choice changes, and removes the registration
 when nothing is left for that host or the user signs out. A level of
 "Nothing" and a mute with no end remove it too. `PushNotificationService` in `src/main` keeps the
-registrations in `openbot-push-notifications-v1.json` in the user data folder, readable only by the
+registrations in `push-notifications.json` in the user data folder, readable only by the
 user, so a phone that does not connect after the host restarts still gets notifications. It sends
 only while the phone is away or its connection is closed. No event goes while the member uses a
 desktop app, which shows the event and asks for input, an approval, or a browser step itself: that

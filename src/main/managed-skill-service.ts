@@ -19,7 +19,7 @@ export const MANAGED_SKILL_SLUGS: ReadonlySet<string> = new Set([
   SKILL_CREATOR_SKILL_SLUG,
   DATA_SKILL_SLUG,
 ]);
-export const OWNERSHIP_MARKER = ".openbot-managed.json";
+export const OWNERSHIP_MARKER = ".robot-managed.json";
 /** The workspace skill folders ROBot writes. Each provider reads at least one of them. */
 export const MANAGED_SKILL_FOLDERS = [".agents/skills", ".claude/skills"] as const;
 

@@ -32,7 +32,7 @@ import { isWithin } from "./workspace-paths";
 const MAX_ATTACHMENTS = INPUT_LIMITS.attachments;
 const MAX_FILE_BYTES = ATTACHMENT_LIMITS.fileBytes;
 const MAX_TOTAL_BYTES = ATTACHMENT_LIMITS.totalBytes;
-const TRANSFER_MANIFEST_FILE = ".openbot-transfer.json";
+const TRANSFER_MANIFEST_FILE = ".robot-transfer.json";
 
 export interface StoredAttachment extends AttachmentSummary {
   path: string;

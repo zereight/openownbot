@@ -207,7 +207,7 @@ const database = new OpenOwnBotDatabase(userData);
 const agentStore = new AgentStore(userData, join(root, "home"), database);
 const mailbox = new MailboxStore(userData, agentStore.sharedRoot, agentStore.database);
 const sidebar = new SidebarLayoutStore(join(userData, "sidebar-layout.json"));
-const team = new TeamStore(join(userData, "openbot-team-server-v2.json"));
+const team = new TeamStore(join(userData, "team-server.json"));
 let manager = new RemoteServerManager(serversPath, cipher, centralAccount, { appVersion: APP_VERSION });
 let agents: AgentService | undefined;
 /** Registers the IPC handler again after a restart. */

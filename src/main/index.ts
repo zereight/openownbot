@@ -347,7 +347,7 @@ type RendererDeepLink = Exclude<DeepLink, { kind: "mcp-auth" | "slack-workspace"
 let pendingDeepLink: RendererDeepLink | null = takeRendererDeepLink(findDeepLink(process.argv));
 let deepLinkReceiverReady = false;
 
-const MAIN_WINDOW_STATE_FILE = "openbot-main-window-state-v1.json";
+const MAIN_WINDOW_STATE_FILE = "main-window-state.json";
 
 // A server is stopped with SIGTERM (systemd, Docker). Without a handler, Electron ends at once and its
 // services do not stop. A hosted server's boat pre-stop hook stops it this way before the disk save

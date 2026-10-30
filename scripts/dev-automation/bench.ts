@@ -51,7 +51,7 @@ const READY_TIMEOUT_MS = 90_000;
 // The signed-in session, encrypted with the OS keychain. A reseed keeps it, so
 // each run opens the workspace the way a returning user does, without a new
 // sign-in inside the measured window.
-const CENTRAL_AUTH_FILE = "openbot-central-auth-v1.bin";
+const CENTRAL_AUTH_FILE = "central-auth.bin";
 
 // The bench profile. Its own instance id, so a bench never seeds over the
 // isolated dev profile of this worktree.

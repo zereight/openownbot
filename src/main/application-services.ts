@@ -326,54 +326,54 @@ import { WebhookRelay } from "./webhook-relay";
 import { startWorkflowLog } from "./workflow-log";
 
 const logger = createOpenOwnBotLogger("application-services");
-const SETUP_FILE = "openbot-setup-v2.json";
-const APPROVAL_AUTOMATION_FILE = "openbot-approval-automation-v3.json";
-const ROUTINE_FEED_FILE = "openbot-routine-feed-v1.json";
-const LANGUAGE_PREFERENCE_FILE = "openbot-language-preference-v1.json";
-const LOGO_COLOR_PREFERENCE_FILE = "openbot-logo-color-preference-v1.json";
-const APPEARANCE_PREFERENCE_FILE = "openbot-appearance-preference-v1.json";
-const INTERFACE_SIZE_PREFERENCE_FILE = "openbot-interface-size-preference-v1.json";
-const UPDATE_PREFERENCE_FILE = "openbot-update-preference-v1.json";
-const NOTIFICATION_PREFERENCE_FILE = "openbot-notification-preference-v1.json";
-const PUSH_NOTIFICATION_FILE = "openbot-push-notifications-v1.json";
-const BUSY_MESSAGE_MODE_PREFERENCE_FILE = "openbot-busy-message-mode-v1.json";
-const PROVIDER_CLI_APP_VERSION_FILE = "openbot-provider-cli-app-version-v1.json";
-const AGENT_DEFAULTS_PREFERENCE_FILE = "openbot-agent-defaults-v1.json";
-const AGENT_MEMORY_LIMIT_PREFERENCE_FILE = "openbot-agent-memory-limit-v1.json";
-const MEMORY_REVIEW_PREFERENCE_FILE = "openbot-memory-review-v1.json";
-const SERVER_TIMEZONE_PREFERENCE_FILE = "openbot-server-timezone-v1.json";
-const PROMPT_CACHE_TTL_PREFERENCE_FILE = "openbot-prompt-cache-ttl-v1.json";
-const CLAUDE_ENVIRONMENT_PREFERENCE_FILE = "openbot-claude-environment-v1.json";
-const REMOTE_SESSION_REUSE_PREFERENCE_FILE = "openbot-remote-session-reuse-preference-v1.json";
-const EXTERNAL_LINK_PREFERENCE_FILE = "openbot-external-link-preference-v1.json";
-const REMOTE_NETWORK_ROUTE_PREFERENCE_FILE = "openbot-remote-network-route-v1.json";
-const APP_BEHAVIOR_PREFERENCE_FILE = "openbot-app-behavior-preference-v1.json";
-const DYNAMIC_ISLAND_PREFERENCE_FILE = "openbot-dynamic-island-preference-v1.json";
-const BROWSER_STATE_FILE = "openbot-browser-state-v1.json";
-const SIDEBAR_LAYOUT_FILE = "openbot-sidebar-layout-v1.json";
+const SETUP_FILE = "setup.json";
+const APPROVAL_AUTOMATION_FILE = "approval-automation.json";
+const ROUTINE_FEED_FILE = "routine-feed.json";
+const LANGUAGE_PREFERENCE_FILE = "language-preference.json";
+const LOGO_COLOR_PREFERENCE_FILE = "logo-color-preference.json";
+const APPEARANCE_PREFERENCE_FILE = "appearance-preference.json";
+const INTERFACE_SIZE_PREFERENCE_FILE = "interface-size-preference.json";
+const UPDATE_PREFERENCE_FILE = "update-preference.json";
+const NOTIFICATION_PREFERENCE_FILE = "notification-preference.json";
+const PUSH_NOTIFICATION_FILE = "push-notifications.json";
+const BUSY_MESSAGE_MODE_PREFERENCE_FILE = "busy-message-mode.json";
+const PROVIDER_CLI_APP_VERSION_FILE = "provider-cli-app-version.json";
+const AGENT_DEFAULTS_PREFERENCE_FILE = "agent-defaults.json";
+const AGENT_MEMORY_LIMIT_PREFERENCE_FILE = "agent-memory-limit.json";
+const MEMORY_REVIEW_PREFERENCE_FILE = "memory-review.json";
+const SERVER_TIMEZONE_PREFERENCE_FILE = "server-timezone.json";
+const PROMPT_CACHE_TTL_PREFERENCE_FILE = "prompt-cache-ttl.json";
+const CLAUDE_ENVIRONMENT_PREFERENCE_FILE = "claude-environment.json";
+const REMOTE_SESSION_REUSE_PREFERENCE_FILE = "remote-session-reuse-preference.json";
+const EXTERNAL_LINK_PREFERENCE_FILE = "external-link-preference.json";
+const REMOTE_NETWORK_ROUTE_PREFERENCE_FILE = "remote-network-route.json";
+const APP_BEHAVIOR_PREFERENCE_FILE = "app-behavior-preference.json";
+const DYNAMIC_ISLAND_PREFERENCE_FILE = "dynamic-island-preference.json";
+const BROWSER_STATE_FILE = "browser-state.json";
+const SIDEBAR_LAYOUT_FILE = "sidebar-layout.json";
 /** One host per account. */
-const TEAM_FILE_V2 = "openbot-team-server-v2.json";
-const REMOTE_SERVERS_FILE = "openbot-remote-servers-v1.json";
-const CENTRAL_AUTH_FILE = "openbot-central-auth-v1.bin";
-const REMOTE_SESSIONS_FILE = "openbot-remote-sessions-v1.bin";
-const REMOTE_DESKTOP_RUNTIME_SECRET_FILE = "openbot-remote-desktop-runtime-v1.json";
-const CUSTOM_PROVIDERS_FILE = "openbot-custom-providers-v1.json";
-const PROVIDER_CREDENTIAL_FILE = "openbot-provider-credentials-v1.json";
-const MESSAGING_CREDENTIAL_FILE = "openbot-messaging-credentials-v1.json";
-const INGRESS_QUEUE_KEY_FILE = "openbot-ingress-queue-key-v1.json";
+const TEAM_FILE = "team-server.json";
+const REMOTE_SERVERS_FILE = "remote-servers.json";
+const CENTRAL_AUTH_FILE = "central-auth.bin";
+const REMOTE_SESSIONS_FILE = "remote-sessions.bin";
+const REMOTE_DESKTOP_RUNTIME_SECRET_FILE = "remote-desktop-runtime.json";
+const CUSTOM_PROVIDERS_FILE = "custom-providers.json";
+const PROVIDER_CREDENTIAL_FILE = "provider-credentials.json";
+const MESSAGING_CREDENTIAL_FILE = "messaging-credentials.json";
+const INGRESS_QUEUE_KEY_FILE = "ingress-queue-key.json";
 /** The MCP sign-ins. Separate from the keys above: a key is typed by the user, a token is not. */
-const MCP_OAUTH_FILE = "openbot-mcp-oauth-v1.json";
-const MCP_OAUTH_PROXY_FILE = "openbot-mcp-oauth-proxy-v1.json";
+const MCP_OAUTH_FILE = "mcp-oauth.json";
+const MCP_OAUTH_PROXY_FILE = "mcp-oauth-proxy.json";
 /** The one GitHub sign-in of this computer, with the same cipher as the MCP sign-ins. */
-const GITHUB_CONNECTOR_FILE = "openbot-github-connector-v1.json";
+const GITHUB_CONNECTOR_FILE = "github-connector.json";
 /** The 1Password service account token of this computer, with the same cipher. */
-const ONEPASSWORD_CONNECTOR_FILE = "openbot-onepassword-connector-v1.json";
+const ONEPASSWORD_CONNECTOR_FILE = "onepassword-connector.json";
 /** The Bitwarden API key and master password of a host connection (`bitwarden-connector-v1`), with the same cipher. */
-const BITWARDEN_CONNECTOR_FILE = "openbot-bitwarden-connector-v1.json";
+const BITWARDEN_CONNECTOR_FILE = "bitwarden-connector.json";
 /** The logins, payment cards and contact info of the Vault in Server settings, with the same cipher. */
-const VAULT_FILE = "openbot-vault-v1.json";
+const VAULT_FILE = "vault.json";
 /** Which agent each imported Hermes profile made, so a second import updates that agent. */
-const HERMES_IMPORT_LINKS_FILE = "openbot-hermes-imports-v1.json";
+const HERMES_IMPORT_LINKS_FILE = "hermes-imports.json";
 
 /**
  * Where each service stops, as a position in the shutdown sequence rather than a position in the
@@ -714,7 +714,7 @@ async function createMessagingServices({
       telegramDriver({ ingress: signalIngress }),
     ],
     downloadsRoot: join(app.getPath("userData"), "messaging-downloads"),
-    statusPath: join(app.getPath("userData"), "openbot-messaging-status-v1.json"),
+    statusPath: join(app.getPath("userData"), "messaging-status.json"),
     ingress: signalIngress,
     sidebar: sidebarLayout,
     slackApp: {
@@ -1206,10 +1206,10 @@ export async function createApplicationServices({
    * store is the path it always used. The switch is read here rather than imported from the entry
    * point, which this file may not reach into; both readers read the same immutable value.
    */
-  const providerUse = new ProviderUseSettingsStore(join(app.getPath("userData"), "openbot-provider-use-v1.json"));
+  const providerUse = new ProviderUseSettingsStore(join(app.getPath("userData"), "provider-use.json"));
   await runCauseEffect(providerUse.load());
   const providerAccounts = new ProviderAccountStore(
-    join(app.getPath("userData"), "openbot-provider-accounts-v1.json"),
+    join(app.getPath("userData"), "provider-accounts.json"),
     join(app.getPath("userData"), "provider-accounts"),
   );
   await runCauseEffect(providerAccounts.load());
@@ -2055,7 +2055,7 @@ export async function createApplicationServices({
     },
     skills: { setEnabled: (input) => skills.setEnabled(input) },
   });
-  const teamStore = new TeamStore(join(app.getPath("userData"), TEAM_FILE_V2));
+  const teamStore = new TeamStore(join(app.getPath("userData"), TEAM_FILE));
   await runCauseEffect(teamStore.initialize());
   performance.mark("openownbot:services.team");
   ingressHostId = () => teamStore.getIdentity()?.serverId ?? null;

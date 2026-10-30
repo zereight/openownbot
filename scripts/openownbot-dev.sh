@@ -50,7 +50,7 @@ restore_dev_profile() {
 # 백업 디렉터리로 옮기며, 복사나 DB 검사가 실패하면 그것을 제자리로 되돌림.
 sync_profile() {
   local source="$1" target="$2" backups="$3" backup="" item name check
-  local excluded=(SingletonLock SingletonCookie SingletonSocket DevToolsActivePort openbot-central-auth-v1.bin)
+  local excluded=(SingletonLock SingletonCookie SingletonSocket DevToolsActivePort central-auth.bin)
   [ -d "$source" ] || { echo "실제 프로필이 없음: $source" >&2; return 1; }
   # pgrep은 이 셸에서 설치된 앱을 못 보므로 ps로도 확인함.
   if ps -axo command | grep -q "^/Applications/ROBot.app/Contents/MacOS/ROBot" || profile_in_use "$source"; then

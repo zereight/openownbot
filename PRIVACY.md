@@ -254,7 +254,7 @@ the token to disk.
 
 The desktop app also keeps, for each joined server, the ID of its logical remote session and the
 Signal address, so that the next start asks only for a new ticket. The file
-(`openbot-remote-sessions-v1.bin`) is encrypted with the same storage protection and is not written
+(`remote-sessions.bin`) is encrypted with the same storage protection and is not written
 when that protection is unavailable. It names only the account that signed in. A session ID gives no
 access without that account's session token. The app removes the file at sign-out or when another
 account signs in, when it starts with no account signed in, and forgets a server's session when it
@@ -263,7 +263,7 @@ service for the next start; signing out or disconnecting the device's sign-in en
 Settings → General → Fast connection to servers turns this off. Off, the app removes the file at
 once, keeps nothing on disk, and ends each session when it quits. Turned on during a run, it keeps the
 sessions that are open at that time. The setting is on by default and is stored
-in `openbot-remote-session-reuse-preference-v1.json`.
+in `remote-session-reuse-preference.json`.
 
 Account avatar URLs are public, long-lived resources. A person who has the complete URL can request
 the avatar without an account session.
@@ -471,9 +471,9 @@ server can change it.
   the client registration and the access and refresh tokens. Removing the server in settings, or
   choosing Sign out on it, deletes its record. These values are redacted from logs, exports and diagnostics.
   The port and secret of the local MCP sign-in server are kept in
-  `~/Library/Application Support/OpenBot/openbot-mcp-oauth-proxy-v1.json`, encrypted in the same way.
+  `~/Library/Application Support/OpenBot/mcp-oauth-proxy.json`, encrypted in the same way.
 - The GitHub connection (Marketplace › Apps › GitHub) is kept in
-  `~/Library/Application Support/OpenBot/openbot-github-connector-v1.json`, encrypted by the operating
+  `~/Library/Application Support/OpenBot/github-connector.json`, encrypted by the operating
   system's secret storage. It holds the GitHub access and refresh tokens, the account name, ID and
   avatar address, and the port and secret of the local GitHub MCP server.
 - The ElevenLabs API key for dictation is kept in
@@ -495,14 +495,14 @@ server can change it.
   An owner or admin of a joined server can connect that server's Bitwarden or Vaultwarden in
   Marketplace › Apps › Bitwarden with the server address, the personal API key and the master password. They
   go once, over the encrypted connection, to the server, which keeps them in
-  `openbot-bitwarden-connector-v1.json` in its application data folder, encrypted by its operating
+  `bitwarden-connector.json` in its application data folder, encrypted by its operating
   system's secret storage, so it can unlock again after a restart. Its CLI keeps its own encrypted
   vault cache in `provider-state/bitwarden-host` in the same folder. The computer that sent them does
   not keep them, and no answer from the server carries them. Disconnect deletes the file and the
   cache. The API key and the master password can open the whole vault, not only the shared folder.
   They are redacted from logs, exports and diagnostics.
 - The 1Password connection (Marketplace > 1Password) is kept in
-  `~/Library/Application Support/OpenBot/openbot-onepassword-connector-v1.json`, encrypted by the
+  `~/Library/Application Support/OpenBot/onepassword-connector.json`, encrypted by the
   operating system's secret storage. It holds the service account token and the account ID only.
   ROBot keeps the list of logins (titles and web addresses) in memory, never on disk. A password
   or a one-time code is read from 1Password when the browser fills it, goes only to that page, and
@@ -512,7 +512,7 @@ server can change it.
   encrypted connection, to the server, which keeps it in the same file on its own disk. The
   computer that sent it does not keep it, and no answer from the server carries it.
 - The Vault (Server settings › Vault) is kept in
-  `~/Library/Application Support/OpenBot/openbot-vault-v1.json`, encrypted by the operating system's
+  `~/Library/Application Support/OpenBot/vault.json`, encrypted by the operating system's
   secret storage. It holds the logins, payment cards (number, expiry, security code, name) and
   contact info that the user saves. On a computer with no secret storage, such as Linux with no
   keyring, the Vault saves nothing. The file never leaves this computer. An owner or admin of a joined
@@ -561,9 +561,9 @@ server can change it.
   and CPU use of each ROBot process group and provider id, the main process delay, the number of
   agent database statements, active turns and browser tabs. It holds no process IDs, program names,
   command lines or paths. It is kept to two files of 1 MB each and is never sent.
-  `~/Library/Application Support/OpenBot/openbot-resource-summary-v1.json` holds the totals of
+  `~/Library/Application Support/OpenBot/resource-summary.json` holds the totals of
   today and of the previous day for the daily analytics summary and the diagnostics export.
-- `~/Library/Application Support/OpenBot/openbot-push-notifications-v1.json` holds, for each member
+- `~/Library/Application Support/OpenBot/push-notifications.json` holds, for each member
   phone that gets notifications from this host, the session ID, the member ID, the Apple or Firebase
   push token, the secret that seals the notifications, the interface language, and the notification
   choices. Only the user can read the file, and it is not in the diagnostics export or the data
@@ -1120,7 +1120,7 @@ server is only listed; ROBot saves nothing until you select Add.
 When you add or edit an endpoint, Load models sends the key and headers you typed to that address.
 For a saved endpoint, ROBot sends the stored key and headers only to the same origin as the saved
 address. Local detection can be turned off in Settings. Its switch, addresses, folders and hidden
-rows are in `openbot-provider-detection-v1.json` in the app profile.
+rows are in `provider-detection.json` in the app profile.
 
 ### Custom agents
 

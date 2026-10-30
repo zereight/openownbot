@@ -50,12 +50,12 @@ try {
   await check("zero-filled team file is moved aside and the store starts", async () => {
     const directory = join(root, "team");
     await mkdir(directory);
-    const path = join(directory, "openbot-team-server-v2.json");
+    const path = join(directory, "team-server.json");
     await writeFile(path, ZEROS);
     const store = new TeamStore(path);
     await runCauseEffect(store.initialize());
     assert.equal(store.getIdentity(), null);
-    const copies = await setAsideCopies(directory, "openbot-team-server-v2.json");
+    const copies = await setAsideCopies(directory, "team-server.json");
     assert.equal(copies.length, 1);
     assert.equal(await readFile(join(directory, copies[0] ?? ""), "utf8"), ZEROS);
     return copies[0];
@@ -64,12 +64,12 @@ try {
   await check("zero-filled remote server file is moved aside and the store starts", async () => {
     const directory = join(root, "remote");
     await mkdir(directory);
-    const path = join(directory, "openbot-remote-servers-v1.json");
+    const path = join(directory, "remote-servers.json");
     await writeFile(path, ZEROS);
     const store = new RemoteServerStore({ path, cipher });
     await runCauseEffect(store.load());
     assert.equal(store.servers.length, 0);
-    const copies = await setAsideCopies(directory, "openbot-remote-servers-v1.json");
+    const copies = await setAsideCopies(directory, "remote-servers.json");
     assert.equal(copies.length, 1);
     return copies[0];
   });
@@ -77,31 +77,31 @@ try {
   await check("an empty remote server file is moved aside and the store starts", async () => {
     const directory = join(root, "empty");
     await mkdir(directory);
-    const path = join(directory, "openbot-remote-servers-v1.json");
+    const path = join(directory, "remote-servers.json");
     await writeFile(path, "");
     const store = new RemoteServerStore({ path, cipher });
     await runCauseEffect(store.load());
     assert.equal(store.servers.length, 0);
-    assert.equal((await setAsideCopies(directory, "openbot-remote-servers-v1.json")).length, 1);
+    assert.equal((await setAsideCopies(directory, "remote-servers.json")).length, 1);
     return undefined;
   });
 
   await check("a remote server file that is not JSON stops the start and names the file", async () => {
     const directory = join(root, "malformed");
     await mkdir(directory);
-    const path = join(directory, "openbot-remote-servers-v1.json");
+    const path = join(directory, "remote-servers.json");
     await writeFile(path, '{"version":3,"servers":[{"encryptedToken":"SECRET-TOKEN-VALUE"');
     const message = await startError(() => runCauseEffect(new RemoteServerStore({ path, cipher }).load()));
     assert.equal(message, `ROBot cannot read ${path}. The file is damaged.`);
     assert.ok(!message.includes("SECRET"));
-    assert.deepEqual(await setAsideCopies(directory, "openbot-remote-servers-v1.json"), []);
+    assert.deepEqual(await setAsideCopies(directory, "remote-servers.json"), []);
     return message;
   });
 
   await check("a byte order mark does not stop the start", async () => {
     const directory = join(root, "bom");
     await mkdir(directory);
-    const path = join(directory, "openbot-remote-servers-v1.json");
+    const path = join(directory, "remote-servers.json");
     await writeFile(path, `﻿${JSON.stringify(emptyStoredRemoteServers())}`);
     await runCauseEffect(new RemoteServerStore({ path, cipher }).load());
     return undefined;

@@ -213,7 +213,7 @@ async function waitFor<T>(label: string, read: () => T | null | undefined | fals
 }
 
 await writeFile(fakeCodex, FAKE_CODEX, { mode: 0o755 });
-const accountsPath = join(userData, "openbot-provider-accounts-v1.json");
+const accountsPath = join(userData, "provider-accounts.json");
 const accountsRoot = join(userData, "provider-accounts");
 
 /** One run of the app on the profile: the service and the stores it owns. */

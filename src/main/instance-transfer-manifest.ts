@@ -1,4 +1,4 @@
-// The `openbot-transfer.json` manifest at the root of an instance transfer file. ROBot writes it
+// The `robot-transfer.json` manifest at the root of an instance transfer file. ROBot writes it
 // on one computer and reads it on another, so the format is a contract between app versions: add
 // optional fields only, and a change of meaning needs a new `version`. The format is described in
 // `docs/architecture/instance-transfer.md`.
@@ -23,7 +23,7 @@ import { sourceText } from "@robot/i18n/source";
 import { Result, Schema } from "effect";
 import { isUnsafeArchivePath } from "./skill-package";
 
-export const INSTANCE_TRANSFER_MANIFEST = "openbot-transfer.json";
+export const INSTANCE_TRANSFER_MANIFEST = "robot-transfer.json";
 export const INSTANCE_TRANSFER_FORMAT = "openownbot-instance-transfer";
 export const INSTANCE_TRANSFER_VERSION = 1;
 /** Where the files of `~/OpenBot/Shared` are in the archive. */

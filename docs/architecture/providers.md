@@ -101,7 +101,7 @@ latest messages.
 The number of turns is a setting of the server that runs the agents: Server settings > General >
 Memory review, with 10, 20 (the default) or 40 turns, or Off. An owner or admin of a joined server sets
 it through `memory-review-v1` (see [servers.md](servers.md)). Main owns
-`openbot-memory-review-v1.json` (`MemoryReviewPreferenceStore`) and passes
+`memory-review.json` (`MemoryReviewPreferenceStore`) and passes
 `memoryReviewInterval()` to the agent service, which reads it at each use, so a change applies from
 the next turn. Off starts no review of any kind: not after turns, a pause, a clear or a closed side
 thread. The counts continue while it is off, so the first turn after it is on again can start a
@@ -175,7 +175,7 @@ Codex and Pi, the manifest `checksum` for Muse, and npm `dist.integrity` for Cla
 so a Grok, Gemini or Cursor release is trusted on TLS alone. A Gemini release must stay on
 `dl.google.com/agy-extensions/releases` and keep the pinned command name. A Cursor release must use
 the pinned `downloads.cursor.com/lab` path for its target, with a build that starts with the
-registry date, and keep the pinned command. An upstream install writes `openbot-install.json` with the SHA-256 of each
+registry date, and keep the pinned command. An upstream install writes `robot-install.json` with the SHA-256 of each
 file it installed, and every start verifies that record and the binary's `--version` before the
 install is used. The newest version in the store that verifies is the one that runs.
 
@@ -294,7 +294,7 @@ metadata until the offered runtime passes the existing download and install chec
 preload decoder. Cancellation and failure preserve the previous installation and its update offer.
 
 After an app upgrade, main updates the managed CLIs with no offer (#3164).
-`openbot-provider-cli-app-version-v1.json` in `userData` keeps the app version that last started the
+`provider-cli-app-version.json` in `userData` keeps the app version that last started the
 update checks. A different or missing version calls `startUpdateChecks({ updateInstalled: true })`.
 Until the first check starts the downloads, `getStatus` does not offer the CLIs that it will update. That check then starts the
 download of each managed CLI that has a newer version, before it sends its status, so the renderer
@@ -804,7 +804,7 @@ saved, and a joined host gets no detection and no Edit.
 ### Local provider switches
 
 The Providers section can turn each built-in provider off on this computer.
-`ProviderUseSettingsStore` saves the choices in `openbot-provider-use-v1.json`.
+`ProviderUseSettingsStore` saves the choices in `provider-use.json`.
 A missing file leaves all providers on. An unreadable or newer file stays unchanged.
 
 `ProviderRuntime` filters off providers before CLI checks and model discovery. It also

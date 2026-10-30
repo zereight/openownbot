@@ -101,7 +101,7 @@ function phases(snapshots: ProviderRuntimeSnapshot[]): Record<string, string[]> 
 
 const managers: ProviderRuntimeManager[] = [];
 try {
-  const versionPath = join(root, "openbot-provider-cli-app-version-v1.json");
+  const versionPath = join(root, "provider-cli-app-version.json");
   const missing = createProviderCliAppVersionStore(versionPath);
   await runCauseEffect(missing.load());
   const before = missing.get().appVersion;

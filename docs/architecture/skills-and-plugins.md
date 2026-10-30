@@ -27,7 +27,7 @@ skill folders: `src/backend/process-confinement.ts` protects them as project set
 ROBot writes each skill that it installs to both `.agents/skills/<slug>` and
 `.claude/skills/<slug>`, because Claude Code does not read `.agents/skills`. It copies the files and
 does not make links. `.openownbot/skills-lock.json` in the workspace records the file hashes, and
-`.openownbot/skills-disabled/` holds disabled skills. A bundled skill has an `.openbot-managed.json`
+`.openownbot/skills-disabled/` holds disabled skills. A bundled skill has an `.robot-managed.json`
 marker.
 
 `src/main/skill-folder-discovery.ts` lists all other skills in the seven workspace folders as
@@ -81,7 +81,7 @@ that `checkSetup()` reads: a CLI of 2.18 or later (the user's own on `PATH`, els
 `src/main/onepassword-cli-installer.ts` downloads, with a SHA-256 pinned per target, into
 `<userData>/provider-state/1password-cli`), the 1Password app's CLI integration (`op account list`
 answers at least one account), and Connect. The service keeps only the token in
-`openbot-onepassword-connector-v1.json`, encrypted with `safeStorage`. It reads the vault with
+`onepassword-connector.json`, encrypted with `safeStorage`. It reads the vault with
 `@1password/sdk` and implements `PasswordVault` (`src/backend/password-vault.ts`). The developer
 instructions tell agents about the vault only while `PasswordVault.connected()` is true, read at
 each session start and resume, because most users have no vault. The agent service
@@ -132,7 +132,7 @@ A session key from one computer cannot open the vault of another, so a joined se
 its own CLI (`bitwarden-connector-v1`, see [integrations](integrations.md#bitwarden-on-a-joined-server)).
 An owner or admin enters the server address (Bitwarden or a self-hosted Vaultwarden, `https:` only),
 the personal API key (`client_id`, `client_secret`) and the master password in the desktop or browser
-client. The host keeps them in `openbot-bitwarden-connector-v1.json`, encrypted with `safeStorage`,
+client. The host keeps them in `bitwarden-connector.json`, encrypted with `safeStorage`,
 and its CLI data in `<userData>/provider-state/bitwarden-host` (`BITWARDENCLI_APPDATA_DIR`), apart from
 any `bw` configuration of the user. Without `bw` on `PATH`, it downloads the release that
 `src/main/bitwarden-cli-installer.ts` pins, with a SHA-256 per target, into
@@ -143,7 +143,7 @@ the CLI data. The phone shows the connector with no action.
 
 The GitHub connector is built in and has no SQLite row. `src/main/github-connector-service.ts` signs
 in to the `openownbotgit` GitHub App with the device flow, which needs only the public Client ID, and keeps
-the tokens in `openbot-github-connector-v1.json`, encrypted with `safeStorage`. While it is
+the tokens in `github-connector.json`, encrypted with `safeStorage`. While it is
 connected, `McpGateway.enabled()` adds the `openownbot-github` server (`api.githubcopilot.com/mcp/`),
 and `mcpAuthorization()` gives it a fresh bearer at each hand-off. An enabled server that the user added
 with the name `github` wins. For `gh` and `git`, the service writes the token to

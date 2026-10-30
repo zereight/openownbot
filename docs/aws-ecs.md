@@ -39,10 +39,10 @@ mount /srv/openownbot-data
 chown 1000:1000 /srv/openownbot-data
 # The seccomp profile of that image version, and no-new-privileges, for each container.
 [ ! -e /etc/docker/daemon.json ] || { echo "Add the two keys to /etc/docker/daemon.json." >&2; exit 1; }
-curl -fsSL -o /etc/docker/openbot-seccomp.json \
+curl -fsSL -o /etc/docker/robot-seccomp.json \
   "https://raw.githubusercontent.com/zereight/openownbot/v$version/docker/seccomp.json"
 cat >/etc/docker/daemon.json <<'EOF'
-{ "seccomp-profile": "/etc/docker/openbot-seccomp.json", "no-new-privileges": true }
+{ "seccomp-profile": "/etc/docker/robot-seccomp.json", "no-new-privileges": true }
 EOF
 systemctl restart docker
 echo ECS_CLUSTER=openownbot >>/etc/ecs/ecs.config

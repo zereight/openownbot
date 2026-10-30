@@ -152,7 +152,7 @@ function hostFingerprint(publicKey: string): string {
 async function main(): Promise<void> {
   mkdirSync(OUT, { recursive: true });
   const root = await mkdtemp(join(tmpdir(), "openownbot-host-key-rotation-"));
-  const file = join(root, "openbot-team-server-v2.json");
+  const file = join(root, "team-server.json");
   const checks: Record<string, boolean> = {};
   try {
     const begun = await hostStep(file, "begin");
