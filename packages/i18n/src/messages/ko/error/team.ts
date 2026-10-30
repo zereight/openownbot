@@ -6,7 +6,6 @@ export const messages = {
   "error.team.ownerEmailRequired": "이 호스트를 만든 OpenOwnBot 이메일로 로그인해 주세요.",
   "error.team.hostNotConfigured": "팀 호스트가 설정되지 않았어요.",
   "error.team.alreadyConfigured": "팀 서버가 이미 설정되어 있어요.",
-  "error.team.identityCreateFailed": "팀 ID를 만들 수 없어요.",
   "error.team.accountChangedDuringCreate": "서버를 만드는 동안 로그인한 계정이 바뀌었어요.",
   "error.team.notConfigured": "이 OpenOwnBot은 아직 설정되지 않았어요.",
   "error.team.keyRotationMissing": "대기 중인 서버 키 변경이 없어요.",
