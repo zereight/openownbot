@@ -6,6 +6,7 @@ import {
   type AgentImportSkillSource,
   HERMES_EXPORT_SKILL_ID,
 } from "@openownbot/contracts/ipc";
+import { PRODUCT_NAME } from "@openownbot/contracts/product";
 import type { AppFormat, AppTranslate } from "@openownbot/i18n";
 import {
   Button,
@@ -38,7 +39,7 @@ import { AgentAvatar } from "../agents/AgentAvatar";
 export type AgentImportPhase = "idle" | "reading" | "review" | "importing" | "done";
 
 /** What the user says to the export agent. It is also the copy button's value. */
-export const AGENT_IMPORT_PROMPT = "Export my agents for OpenOwnBot";
+export const AGENT_IMPORT_PROMPT = `Export my agents for ${PRODUCT_NAME}`;
 
 /**
  * How the user starts the export. Grok Bot: `agent` installs the ready export agent from its link,
@@ -55,7 +56,7 @@ export const HERMES_SKILL_COMMAND = `/skills install ${HERMES_EXPORT_SKILL_ID}`;
 const HERMES_EXPORT_PROMPT = "/openownbot-export";
 
 /** The name of the export agent on its Grok Bot page. */
-const EXPORT_AGENT_NAME = "OpenOwnBot export";
+const EXPORT_AGENT_NAME = `${PRODUCT_NAME} export`;
 const EXPORT_SKILL_FILE = "SKILL.md";
 const EXPORT_SKILL_ID = "openownbot-export";
 

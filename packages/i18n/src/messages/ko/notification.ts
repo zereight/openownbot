@@ -12,11 +12,11 @@ export const messages = {
   "notification.channelMessage": "메시지를 보냈어요.",
   "notification.usageLimit.title": "{provider} 계정이 한도에 도달했어요",
   "notification.usageLimit.body": {
-    other: "에이전트 {count}개가 대기 중이에요. OpenOwnBot이 나중에 다시 시도할게요.",
+    other: "에이전트 {count}개가 대기 중이에요. ROBot이 나중에 다시 시도할게요.",
   },
   "notification.usageLimit.bodyResets": { other: "에이전트 {count}개가 대기 중이에요. {reset}에 초기화돼요." },
   "notification.test": "알림이 정상적으로 작동해요.",
-  "notification.welcome": "에이전트가 도움을 필요로 하면 OpenOwnBot이 여기서 알려드려요.",
+  "notification.welcome": "에이전트가 도움을 필요로 하면 ROBot이 여기서 알려드려요.",
   "notification.toast.region": "알림",
   "notification.toast.close": "알림 닫기",
 } as const satisfies PartialTranslation<typeof source>;

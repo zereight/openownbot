@@ -28,7 +28,7 @@ export const messages = defineMessages("marketplace", {
   "marketplace.description.skills": "Instructions that teach an agent a task or a tool.",
 
   // A plugin link.
-  "marketplace.plugins.missing": "This plugin is not in the OpenOwnBot catalog.",
+  "marketplace.plugins.missing": "This plugin is not in the ROBot catalog.",
 
   // The agent page.
   "marketplace.agents.loadingDetail": "Loading agent details…",
@@ -39,7 +39,7 @@ export const messages = defineMessages("marketplace", {
 
   // The skill page, and why Try is off.
   "marketplace.skill.loading": "Loading skill",
-  "marketplace.try.readFailed": "OpenOwnBot could not read this agent's skills. Try again.",
+  "marketplace.try.readFailed": "ROBot could not read this agent's skills. Try again.",
   "marketplace.try.enable": "Enable this skill in agent settings to try it.",
   "marketplace.try.repair": "Repair this skill in agent settings to try it.",
   "marketplace.try.update": "Update this skill to try this version.",
@@ -187,7 +187,7 @@ export const messages = defineMessages("marketplace", {
   "marketplace.plugin.figma.prompt.assets": "Extract the marketing icons at 2x for the app bundle.",
   "marketplace.plugin.paper.tagline": "Design canvas built on HTML and CSS",
   "marketplace.plugin.paper.description":
-    "Paper lets agents read and write the design file that is open in Paper Desktop: inspect artboards, selections, computed styles, JSX and tokens, and create or change frames, text and styles. Install Paper Desktop, open it once, and open a file before you start. OpenOwnBot starts the Paper CLI that Paper Desktop installs. Paper needs no key. Write tools change the open file, so review each write before you approve it.",
+    "Paper lets agents read and write the design file that is open in Paper Desktop: inspect artboards, selections, computed styles, JSX and tokens, and create or change frames, text and styles. Install Paper Desktop, open it once, and open a file before you start. ROBot starts the Paper CLI that Paper Desktop installs. Paper needs no key. Write tools change the open file, so review each write before you approve it.",
   "marketplace.plugin.paper.app":
     "Reads and writes the open Paper Desktop file, over the local MCP server that the Paper CLI relays. Needs Paper Desktop with a file open.",
   "marketplace.plugin.paper.prompt.implement":
@@ -198,7 +198,7 @@ export const messages = defineMessages("marketplace", {
     "List the design tokens in the open Paper file and compare them with our theme.",
   "marketplace.plugin.appleApps.tagline": "Mail, Calendar and more on your Mac",
   "marketplace.plugin.appleApps.description":
-    "Apple apps lets agents use Mail, Calendar, Contacts, Reminders, Notes, Messages and Safari on this Mac. It works on macOS only. OpenOwnBot starts mcp-icloud, a community server that is not made by Apple or OpenOwnBot. The server controls the apps through AppleScript, on this computer, and needs no account and no key. The first time an agent uses an app, macOS asks if OpenOwnBot can control it. To change this later, open System Settings › Privacy & Security › Automation. Agents can send email and iMessages, and change or delete events, contacts and reminders, so review each write before you approve it. What the tools read, such as email text, goes to the model provider of the agent.",
+    "Apple apps lets agents use Mail, Calendar, Contacts, Reminders, Notes, Messages and Safari on this Mac. It works on macOS only. ROBot starts mcp-icloud, a community server that is not made by Apple or ROBot. The server controls the apps through AppleScript, on this computer, and needs no account and no key. The first time an agent uses an app, macOS asks if ROBot can control it. To change this later, open System Settings › Privacy & Security › Automation. Agents can send email and iMessages, and change or delete events, contacts and reminders, so review each write before you approve it. What the tools read, such as email text, goes to the model provider of the agent.",
   "marketplace.plugin.appleApps.app":
     "Mail, Calendar, Contacts, Reminders, Notes, Messages and Safari, over the local mcp-icloud server. Needs macOS and Automation access.",
   "marketplace.plugin.appleApps.prompt.unread": "Summarize my unread email in Apple Mail from today.",
@@ -404,8 +404,8 @@ export const messages = defineMessages("marketplace", {
   "marketplace.skills.source.all": "All",
   "marketplace.skills.source.verified": "Verified",
   "marketplace.skills.source.public": "Public",
-  "marketplace.skills.source.verifiedLong": "Verified by OpenOwnBot",
-  "marketplace.skills.source.publicLong": "Public: OpenOwnBot did not check it",
+  "marketplace.skills.source.verifiedLong": "Verified by ROBot",
+  "marketplace.skills.source.publicLong": "Public: ROBot did not check it",
   "marketplace.skills.sortLabel": "Sort",
   "marketplace.skills.sortName": "Sort: {name}",
   "marketplace.skills.sort.installs": "Most used",

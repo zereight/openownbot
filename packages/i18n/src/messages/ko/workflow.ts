@@ -326,10 +326,9 @@ export const messages = {
   "workflow.canvas.version.run": "실행 전",
   "workflow.canvas.deleteUndo.title": "{name}을(를) 삭제했어요",
   "workflow.canvas.deleteUndo.action": "실행 취소",
-  "workflow.page.failed": "OpenOwnBot이 이 작업을 할 수 없었어요. 다시 시도해 주세요.",
+  "workflow.page.failed": "ROBot이 이 작업을 할 수 없었어요. 다시 시도해 주세요.",
   "workflow.page.conflict": "편집하는 동안 이 워크플로가 변경됐어요. 실행 취소하면 내 편집 내용이 돌아와요.",
-  "workflow.page.needsNewerApp":
-    "이 워크플로에는 최신 버전 OpenOwnBot의 단계가 있어요. 변경하려면 OpenOwnBot을 업데이트하세요.",
+  "workflow.page.needsNewerApp": "이 워크플로에는 최신 버전 ROBot의 단계가 있어요. 변경하려면 ROBot을 업데이트하세요.",
   "workflow.chat.label": "워크플로 어시스턴트",
   "workflow.chat.title": "{name}에게 이 워크플로 묻기",
   "workflow.chat.empty": "이 워크플로가 하는 일을 {name}에게 묻거나 바꿀 내용을 알려 주세요.",

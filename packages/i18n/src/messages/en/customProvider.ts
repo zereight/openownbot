@@ -11,7 +11,7 @@ export const messages = defineMessages("customProvider", {
   "customProvider.registry.update": "Update",
   "customProvider.registry.remove": "Remove runtime",
   "customProvider.registry.searchFailed": "Could not search the registry. Try again.",
-  "customProvider.registry.statusFailed": "Could not check the install progress. OpenOwnBot tries again.",
+  "customProvider.registry.statusFailed": "Could not check the install progress. ROBot tries again.",
   "customProvider.registry.installFailed": "Could not install the agent. Try again.",
   "customProvider.registry.updateFailed": "Could not update the agent. Try again.",
   "customProvider.registry.removeFailed": "Could not remove the runtime. Try again.",
@@ -21,7 +21,7 @@ export const messages = defineMessages("customProvider", {
   "customProvider.error.providerIdPattern":
     "Use lowercase letters, numbers, hyphens or underscores, starting with a letter or number.",
   "customProvider.error.providerIdLength": "Keep the provider ID under {max} characters.",
-  "customProvider.error.providerIdBuiltIn": "OpenOwnBot already has a provider called {id}. Choose another ID.",
+  "customProvider.error.providerIdBuiltIn": "ROBot already has a provider called {id}. Choose another ID.",
   "customProvider.error.providerIdSaved":
     "An endpoint called {id} is already saved. Remove it first, or choose another ID.",
   "customProvider.error.displayNameRequired": "Enter a display name.",
@@ -45,14 +45,14 @@ export const messages = defineMessages("customProvider", {
   "customProvider.error.baseUrlCredential": "Put the credential in a header, not in the URL.",
 
   // The note after a save or a removal. It tells the user when OpenCode reads the new list.
-  "customProvider.saved.restarted": "Saved. OpenOwnBot is loading the models.",
+  "customProvider.saved.restarted": "Saved. ROBot is loading the models.",
   "customProvider.saved.skippedBusy": "Saved. OpenCode reads the list after the current task stops.",
   "customProvider.saved.notRunning": "Saved. OpenCode reads the list when it next starts.",
-  "customProvider.removed.restarted": "Removed. OpenOwnBot is loading the models.",
+  "customProvider.removed.restarted": "Removed. ROBot is loading the models.",
   "customProvider.removed.skippedBusy": "Removed. OpenCode reads the list after the current task stops.",
   "customProvider.removed.notRunning": "Removed. OpenCode reads the list when it next starts.",
-  "customProvider.saveFailed": "OpenOwnBot could not save this endpoint.",
-  "customProvider.removeFailed": "OpenOwnBot could not remove {name}.",
+  "customProvider.saveFailed": "ROBot could not save this endpoint.",
+  "customProvider.removeFailed": "ROBot could not remove {name}.",
   "customProvider.saveUnavailable": "This build cannot save an endpoint.",
   "customProvider.removeUnavailable": "This build cannot remove an endpoint.",
 
@@ -87,7 +87,7 @@ export const messages = defineMessages("customProvider", {
   "customProvider.header.add": "Add header",
   "customProvider.submit": "Submit",
 
-  // Model discovery. OpenOwnBot asks the endpoint for its model list, and the user picks from it.
+  // Model discovery. ROBot asks the endpoint for its model list, and the user picks from it.
   "customProvider.discovery.find": "Find models",
   "customProvider.discovery.refresh": "Find again",
   "customProvider.discovery.loading": "Asking {url} for its models.",
@@ -116,12 +116,12 @@ export const messages = defineMessages("customProvider", {
   "customProvider.probe.checking": "Checking",
   "customProvider.probe.running": { one: "Running · {count} model", other: "Running · {count} models" },
 
-  // Automatic detection on the provider step and in Settings. OpenOwnBot looks for local model servers
+  // Automatic detection on the provider step and in Settings. ROBot looks for local model servers
   // at their default addresses and for known ACP agent commands on the PATH.
   "customProvider.detected.title": "Found on this computer",
   "customProvider.detected.scanning": "Looking for local models and agents.",
   "customProvider.detected.scanAgain": "Scan again",
-  "customProvider.detected.empty": "OpenOwnBot found no local model server or ACP agent.",
+  "customProvider.detected.empty": "ROBot found no local model server or ACP agent.",
   "customProvider.detected.add": "Add",
   "customProvider.detected.addLabel": "Add {name}",
   "customProvider.detected.added": "Added",
@@ -139,10 +139,10 @@ export const messages = defineMessages("customProvider", {
   // Where the scan looks. The default addresses and PATH are always part of it.
   "customProvider.detection.title": "Local detection",
   "customProvider.detection.saveFailed": "Could not save the detection settings.",
-  "customProvider.detection.description": "Where OpenOwnBot looks for local model servers and ACP agents.",
+  "customProvider.detection.description": "Where ROBot looks for local model servers and ACP agents.",
   "customProvider.detection.enabled": "Look for local models and agents",
   "customProvider.detection.enabledDescription":
-    "OpenOwnBot checks the default addresses of Ollama and LM Studio, and looks for known ACP agents on your PATH.",
+    "ROBot checks the default addresses of Ollama and LM Studio, and looks for known ACP agents on your PATH.",
   "customProvider.detection.addresses": "Other model server addresses",
   "customProvider.detection.address.label": "Address {number}",
   "customProvider.detection.address.remove": "Remove address {number}",
@@ -163,12 +163,12 @@ export const messages = defineMessages("customProvider", {
   "customProvider.acp.agentId": "Agent ID",
   "customProvider.acp.agentIdHint": "Lowercase letters, numbers, or hyphens. You cannot change it later.",
   "customProvider.acp.command": "Command",
-  "customProvider.acp.commandHint": "The program to start. OpenOwnBot looks for it on your PATH.",
+  "customProvider.acp.commandHint": "The program to start. ROBot looks for it on your PATH.",
   "customProvider.acp.args": "Arguments",
   "customProvider.acp.argsHint": "Separate arguments with spaces. Put quotes around an argument that has spaces.",
   "customProvider.acp.usagePrompt": "Usage command",
   "customProvider.acp.usagePromptHint":
-    "OpenOwnBot sends it at most every 5 minutes and shows the last answer. Use a command that the agent answers itself, such as /usage.",
+    "ROBot sends it at most every 5 minutes and shows the last answer. Use a command that the agent answers itself, such as /usage.",
   "customProvider.acp.env": "Environment variables",
   "customProvider.acp.env.name": "Variable {number} name",
   "customProvider.acp.env.value": "Variable {number} value",
@@ -176,7 +176,7 @@ export const messages = defineMessages("customProvider", {
   "customProvider.acp.env.add": "Add variable",
   "customProvider.acp.check": "Connection",
   "customProvider.acp.checkRun": "Check agent",
-  "customProvider.acp.checkIdle": "OpenOwnBot starts the command once to make sure that it answers.",
+  "customProvider.acp.checkIdle": "ROBot starts the command once to make sure that it answers.",
   "customProvider.acp.checking": "Starting {command}.",
   "customProvider.acp.checkOk": "{name} answered",
   "customProvider.acp.checkOkVersion": "{name} {version} answered",
@@ -188,7 +188,7 @@ export const messages = defineMessages("customProvider", {
   "customProvider.acp.checkFailed": "The agent did not answer",
   "customProvider.acp.trustTitle": "This command runs on your computer",
   "customProvider.acp.trustDescription":
-    "OpenOwnBot starts it with your user account. The agent can read and change files and run commands. Add only an agent that you trust.",
+    "ROBot starts it with your user account. The agent can read and change files and run commands. Add only an agent that you trust.",
   "customProvider.acp.submit": "Add agent",
   "customProvider.acp.editTitle": "Edit a custom ACP agent",
   "customProvider.acp.submitEdit": "Save agent",
@@ -204,9 +204,9 @@ export const messages = defineMessages("customProvider", {
   "customProvider.acp.error.agentIdPattern":
     "Use lowercase letters, numbers or hyphens, starting with a letter or number. Use at most 40 characters.",
 
-  // The user's own ACP agents in Settings. Each is a command that OpenOwnBot starts on this computer.
+  // The user's own ACP agents in Settings. Each is a command that ROBot starts on this computer.
   "customProvider.agents.title": "Custom agents",
-  "customProvider.agents.description": "ACP agents that OpenOwnBot starts on this computer.",
+  "customProvider.agents.description": "ACP agents that ROBot starts on this computer.",
   "customProvider.agents.empty": "No custom agents yet.",
   "customProvider.agents.add": "Add agent",
   "customProvider.agents.restart": "Restart agents",
@@ -218,11 +218,11 @@ export const messages = defineMessages("customProvider", {
   "customProvider.agents.deleteLabel": "Delete {name}",
   "customProvider.agents.confirmDescription":
     "Its saved variables are discarded, and each agent that uses it moves to a default model.",
-  "customProvider.agents.saveFailed": "OpenOwnBot could not save this agent.",
-  "customProvider.agents.saved.restarted": "Saved. OpenOwnBot restarted the custom agents.",
+  "customProvider.agents.saveFailed": "ROBot could not save this agent.",
+  "customProvider.agents.saved.restarted": "Saved. ROBot restarted the custom agents.",
   "customProvider.agents.saved.skippedBusy": "Saved. The custom agents restart after the current task stops.",
   "customProvider.agents.saved.notRunning": "Saved. The custom agents read it when they next start.",
-  "customProvider.agents.removed.restarted": "Removed. OpenOwnBot restarted the custom agents.",
+  "customProvider.agents.removed.restarted": "Removed. ROBot restarted the custom agents.",
   "customProvider.agents.removed.skippedBusy": "Removed. The custom agents restart after the current task stops.",
   "customProvider.agents.removed.notRunning": "Removed. The custom agents read it when they next start.",
 

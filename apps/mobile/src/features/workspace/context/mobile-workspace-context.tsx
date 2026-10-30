@@ -9,6 +9,7 @@ import {
   type TeamRealtimeEvent,
   type UpdateAgentInput,
 } from "@openownbot/contracts/ipc";
+import { PRODUCT_NAME } from "@openownbot/contracts/product";
 import { TEAM_API_ROUTES } from "@openownbot/contracts/team-api-routes";
 import { AGENT_ACCESS_CAPABILITY } from "@openownbot/contracts/team-protocol/agent-access-v1";
 import { AGENT_ADMIN_CAPABILITY } from "@openownbot/contracts/team-protocol/agent-admin-v1";
@@ -193,7 +194,7 @@ const NO_AGENTS: MobileAgent[] = [];
 const OTHER_SERVERS_RETURN_DELAY_MS = 3_000;
 const EMPTY_SERVER: MobileServer = {
   id: "unavailable",
-  name: "OpenOwnBot",
+  name: PRODUCT_NAME,
   logoKey: null,
   kind: "local",
   state: "connecting",
@@ -750,7 +751,7 @@ export function MobileWorkspaceProvider({ children }: PropsWithChildren) {
       supportLog.add(
         "info",
         "connection",
-        `${serverId} host OpenOwnBot ${compatibility.appVersion}, protocol ${compatibility.protocol.minimum}-${compatibility.protocol.maximum}, capabilities: ${compatibility.capabilities.join(" ")}`,
+        `${serverId} host ${PRODUCT_NAME} ${compatibility.appVersion}, protocol ${compatibility.protocol.minimum}-${compatibility.protocol.maximum}, capabilities: ${compatibility.capabilities.join(" ")}`,
       );
       if (compatibility.protocol.minimum > TEAM_PROTOCOL_V3 || compatibility.protocol.maximum < TEAM_PROTOCOL_V3) {
         throw new Error(sourceText("error.remote.mobileUpdateRequired"));

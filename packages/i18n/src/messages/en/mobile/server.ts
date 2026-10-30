@@ -8,10 +8,10 @@ export const messages = defineMessages("mobile.server", {
   "mobile.server.drawer.editOrder": "Edit order",
   "mobile.server.drawer.leaveFailed": "Could not leave {name}",
   "mobile.server.drawer.removeFailed": "Could not remove {name}",
-  "mobile.server.drawer.actionFailed": "OpenOwnBot could not complete this action. Try again.",
+  "mobile.server.drawer.actionFailed": "ROBot could not complete this action. Try again.",
   "mobile.server.drawer.moveUp": "Move up",
   "mobile.server.drawer.moveDown": "Move down",
-  "mobile.server.drawer.orderHint": "OpenOwnBot opens on the first server. The order is saved on this device.",
+  "mobile.server.drawer.orderHint": "ROBot opens on the first server. The order is saved on this device.",
   "mobile.server.drawer.title": "Servers",
   "mobile.server.drawer.serverSettings": "Server settings",
   "mobile.server.drawer.serverListHint": "Shows or hides the servers",
@@ -24,8 +24,8 @@ export const messages = defineMessages("mobile.server", {
   "mobile.server.drawer.close": "Close server drawer",
   "mobile.server.invite.noExpiry": "{role} · No expiry",
   "mobile.server.invite.expires": "{role} · Expires {date}",
-  "mobile.server.invite.loadFailed": "OpenOwnBot could not load this invitation.",
-  "mobile.server.invite.joinFailed": "OpenOwnBot could not join this server.",
+  "mobile.server.invite.loadFailed": "ROBot could not load this invitation.",
+  "mobile.server.invite.joinFailed": "ROBot could not join this server.",
   "mobile.server.invite.checking": "Checking invitation…",
   "mobile.server.invite.unavailable": "Invitation unavailable",
   "mobile.server.invite.verifying": "Verifying the server identity.",
@@ -43,8 +43,8 @@ export const messages = defineMessages("mobile.server", {
   "mobile.server.join.inviteLink": "Invite link",
   "mobile.server.join.joining": "Joining…",
   "mobile.server.join.submit": "Join server",
-  // The cloud server that OpenOwnBot runs for the user, with a paid plan. The phone shows the plans and
-  // the servers of the account; the purchase is in OpenOwnBot on the computer.
+  // The cloud server that ROBot runs for the user, with a paid plan. The phone shows the plans and
+  // the servers of the account; the purchase is in ROBot on the computer.
   "mobile.server.hosted.loading": "Loading plans…",
   "mobile.server.hosted.loadFailed": "Could not load the plans. Try again.",
   "mobile.server.hosted.wakeFailed": "Could not start the server. Try again.",
@@ -68,15 +68,15 @@ export const messages = defineMessages("mobile.server", {
   "mobile.server.hosted.join": "Join a server",
   "mobile.server.hosted.intro.title": "Your agents, always on",
   "mobile.server.hosted.intro.description":
-    "A cloud server runs your agents and routines when your computer is off. OpenOwnBot sets it up and keeps it running.",
+    "A cloud server runs your agents and routines when your computer is off. ROBot sets it up and keeps it running.",
   // {members}, {storage} and {speed} are the texts of the three facts of a plan.
   "mobile.server.hosted.planFacts": "{members} · {storage} · {speed}",
   // The steps on the desktop app. The names after "Settings" are the desktop Settings tabs and buttons.
   "mobile.server.hosted.computer.title": "On your computer",
   "mobile.server.hosted.computer.add": "Add a cloud server",
-  "mobile.server.hosted.computer.addHint": "In OpenOwnBot, open Settings → Hosted servers and select Add server.",
+  "mobile.server.hosted.computer.addHint": "In ROBot, open Settings → Hosted servers and select Add server.",
   "mobile.server.hosted.computer.change": "Change a plan",
-  "mobile.server.hosted.computer.changeHint": "In OpenOwnBot, open Settings → Billing.",
+  "mobile.server.hosted.computer.changeHint": "In ROBot, open Settings → Billing.",
   "mobile.server.hosted.yourServers": "Your servers",
   "mobile.server.hosted.plans": "Plans",
   "mobile.server.hosted.currentPlan": "Your plan",
@@ -94,7 +94,7 @@ export const messages = defineMessages("mobile.server", {
   "mobile.server.hosted.paymentTitle": "Waiting for payment",
   "mobile.server.hosted.paymentDescription": "The setup starts when the payment is confirmed.",
   "mobile.server.hosted.progressTitle": "Setting up {name}",
-  "mobile.server.hosted.progressDescription": "OpenOwnBot prepares a private machine for you.",
+  "mobile.server.hosted.progressDescription": "ROBot prepares a private machine for you.",
   "mobile.server.hosted.closeHint":
     "You can close this sheet. The setup continues, and the server shows in your list when it is ready.",
   "mobile.server.hosted.readyTitle": "{name} is ready",
@@ -102,21 +102,21 @@ export const messages = defineMessages("mobile.server", {
   "mobile.server.hosted.open": "Open server",
   "mobile.server.hosted.failedTitle": "The server could not start",
   "mobile.server.hosted.failedDescription":
-    "Try again. If it fails again, delete the server in Settings in OpenOwnBot on your computer.",
+    "Try again. If it fails again, delete the server in Settings in ROBot on your computer.",
   "mobile.server.hosted.retrying": "Starting…",
   "mobile.server.hosted.expiredTitle": "The payment page expired",
   "mobile.server.hosted.expiredDescription": "The server was not paid, so it was removed.",
   "mobile.server.hosted.step.payment": "Confirm the payment",
   "mobile.server.hosted.step.create": "Create the machine",
-  "mobile.server.hosted.step.start": "Start OpenOwnBot",
+  "mobile.server.hosted.step.start": "Start ROBot",
   "mobile.server.hosted.step.connect": "Connect to your account",
   "mobile.server.hosted.detail.payment": "Waiting for Stripe",
   "mobile.server.hosted.detail.reserve": "Reserving a private machine",
-  "mobile.server.hosted.detail.copy": "Copying OpenOwnBot to the machine",
+  "mobile.server.hosted.detail.copy": "Copying ROBot to the machine",
   "mobile.server.hosted.detail.key": "Adding a one-time sign-in key",
   "mobile.server.hosted.detail.boot": "Turning on the machine",
-  "mobile.server.hosted.detail.app": "Starting OpenOwnBot",
-  "mobile.server.hosted.detail.wait": "Waiting for OpenOwnBot to answer",
+  "mobile.server.hosted.detail.app": "Starting ROBot",
+  "mobile.server.hosted.detail.wait": "Waiting for ROBot to answer",
   "mobile.server.hosted.detail.signIn": "Signing in as you",
   "mobile.server.hosted.detail.publish": "Adding the server to your account",
   "mobile.server.hosted.detail.check": "Checking the connection",
@@ -125,7 +125,7 @@ export const messages = defineMessages("mobile.server", {
   "mobile.server.hosted.stepActive": "in progress",
   "mobile.server.hosted.stepPending": "not started",
   "mobile.server.hosted.stepFailed": "failed",
-  "mobile.server.scan.notInvitation": "This QR code is not an OpenOwnBot invitation.",
+  "mobile.server.scan.notInvitation": "This QR code is not an ROBot invitation.",
   "mobile.server.scan.title": "Scan invitation",
   "mobile.server.role.owner": "owner",
   "mobile.server.role.admin": "admin",
@@ -162,7 +162,7 @@ export const messages = defineMessages("mobile.server", {
   "mobile.server.routines.status.paused": "Paused",
   "mobile.server.routines.status.failed": "Failed",
   "mobile.server.routines.status.completed": "Completed",
-  "mobile.server.tasks.unsupported": "This host does not support tasks. Update OpenOwnBot on the host.",
+  "mobile.server.tasks.unsupported": "This host does not support tasks. Update ROBot on the host.",
   "mobile.server.tasks.ask": "What do you want done?",
   "mobile.server.tasks.chooseAgent": "Give the task to",
   "mobile.server.tasks.agentLabel": "Give the task to {name}",
@@ -241,7 +241,7 @@ export const messages = defineMessages("mobile.server", {
   "mobile.server.settings.removeLogo": "Remove logo",
   "mobile.server.settings.identitySaveFailed": "Could not save the server name and logo. Try again.",
   "mobile.server.settings.identityNotAllowed": "Only an owner or admin can change the server name and logo.",
-  "mobile.server.settings.identityUnsupported": "Update OpenOwnBot on this server to change its name and logo here.",
+  "mobile.server.settings.identityUnsupported": "Update ROBot on this server to change its name and logo here.",
   "mobile.server.settings.identityOffline": "Connect to this server to change its name and logo.",
   "mobile.server.route.cropLogo": "Crop logo",
   "mobile.server.route.settings": "Server settings",
@@ -257,7 +257,7 @@ export const messages = defineMessages("mobile.server", {
   "mobile.server.storage.category.caches": "Cached server files",
   "mobile.server.storage.category.runtimes": "Provider runtimes",
   "mobile.server.storage.category.logs": "Logs",
-  "mobile.server.storage.total": "OpenOwnBot on {name}",
+  "mobile.server.storage.total": "ROBot on {name}",
   "mobile.server.storage.used": "Used",
   "mobile.server.storage.byType": "Storage by type",
   "mobile.server.storage.free": "{size} free on this disk",
@@ -278,11 +278,10 @@ export const messages = defineMessages("mobile.server", {
   "mobile.server.storage.clearCategory": "Clear {category}",
   "mobile.server.storage.clearTitle.caches": "Clear cached server files?",
   "mobile.server.storage.clearTitle.logs": "Clear logs?",
-  "mobile.server.storage.clearBody.caches":
-    "Copies of server files. OpenOwnBot downloads them again when you open them.",
+  "mobile.server.storage.clearBody.caches": "Copies of server files. ROBot downloads them again when you open them.",
   "mobile.server.storage.clearBody.logs": "Diagnostic logs. New logs start at once.",
   "mobile.server.storage.clearFailed": "Could not clear the data",
-  "mobile.server.storage.clearFailedBody": "OpenOwnBot could not clear this data on the server.",
+  "mobile.server.storage.clearFailedBody": "ROBot could not clear this data on the server.",
   "mobile.server.storage.noFiles": "No files are stored on this server.",
   "mobile.server.route.providers": "Providers",
   "mobile.server.route.provider": "Provider",
@@ -307,12 +306,12 @@ export const messages = defineMessages("mobile.server", {
   "mobile.server.settings.timezoneLoadFailed": "Could not load the server timezone.",
   "mobile.server.settings.timezoneSaveFailed": "Could not save the timezone. Try again.",
   "mobile.server.settings.timezoneUnavailable": "Connect to this server as an owner or admin to change its timezone.",
-  "mobile.server.settings.timezoneUnsupported": "Update OpenOwnBot on this server to change its timezone here.",
+  "mobile.server.settings.timezoneUnsupported": "Update ROBot on this server to change its timezone here.",
   "mobile.server.settings.memoryLimit": "Memories per agent",
   "mobile.server.settings.memoryLimitDescription": "How many memories each agent on this server can keep.",
   "mobile.server.settings.memoryLimitLoadFailed": "Could not load the memory limit of this server.",
   "mobile.server.settings.memoryLimitSaveFailed": "Could not save the memory limit. Try again.",
-  "mobile.server.settings.memoryLimitUnsupported": "Update OpenOwnBot on this server to change its memory limit here.",
+  "mobile.server.settings.memoryLimitUnsupported": "Update ROBot on this server to change its memory limit here.",
   "mobile.server.settings.memoryReview": "Memory review",
   "mobile.server.settings.memoryReviewDescription":
     "How often agents on this server save lasting facts from their chats in the background.",
@@ -320,20 +319,18 @@ export const messages = defineMessages("mobile.server", {
   "mobile.server.settings.memoryReviewTurns": { one: "Every {count} turn", other: "Every {count} turns" },
   "mobile.server.settings.memoryReviewLoadFailed": "Could not load the memory review setting.",
   "mobile.server.settings.memoryReviewSaveFailed": "Could not save the memory review setting. Try again.",
-  "mobile.server.settings.memoryReviewUnsupported":
-    "Update OpenOwnBot on this server to change its memory review here.",
+  "mobile.server.settings.memoryReviewUnsupported": "Update ROBot on this server to change its memory review here.",
   // Server settings › Vault: the logins, cards and contact info of a joined server, for an owner or
   // admin. {host} is the server name, such as Studio. The phone never shows a saved secret.
   "mobile.server.route.vault": "Vault",
   "mobile.server.settings.vault": "Vault",
   "mobile.server.vault.unavailable": "Connect to this server as an owner or admin to manage its Vault.",
-  "mobile.server.vault.unsupported": "Update OpenOwnBot on this server to manage its Vault here.",
+  "mobile.server.vault.unsupported": "Update ROBot on this server to manage its Vault here.",
   "mobile.server.vault.loading": "Loading the Vault…",
   "mobile.server.vault.loadFailed": "Could not read the Vault of this server.",
   "mobile.server.vault.retry": "Try again",
   "mobile.server.vault.statusUnavailable": "{host} has no secret storage, so its Vault cannot save items.",
-  "mobile.server.vault.statusUnreadable":
-    "The Vault file on {host} is unreadable. Reset the Vault in OpenOwnBot on {host}.",
+  "mobile.server.vault.statusUnreadable": "The Vault file on {host} is unreadable. Reset the Vault in ROBot on {host}.",
   "mobile.server.vault.description":
     "Agents on {host} use these items to sign in, pay and fill in forms. Passwords, card numbers and security codes stay on {host}. This phone cannot show them.",
   "mobile.server.vault.logins": "Logins",
@@ -352,8 +349,7 @@ export const messages = defineMessages("mobile.server", {
   "mobile.server.vault.importFooter":
     "Use a password export from a browser or a password manager. {host} adds its logins. It skips a row that is not HTTPS, has no password or is saved already. This phone deletes its copy of the file after it reads it.",
   "mobile.server.vault.importResult": "Added: {imported}. Skipped: {skipped}.",
-  "mobile.server.vault.importTooLarge":
-    "This file is too large to send from a phone. Import it in OpenOwnBot on {host}.",
+  "mobile.server.vault.importTooLarge": "This file is too large to send from a phone. Import it in ROBot on {host}.",
   "mobile.server.vault.importReadFailed": "Could not read the file.",
   "mobile.server.vault.importFailed": "Could not import the file. Try again.",
   "mobile.server.vault.newLogin": "New login",
@@ -424,7 +420,7 @@ export const messages = defineMessages("mobile.server", {
   "mobile.server.route.connectors": "Connectors",
   "mobile.server.settings.connectors": "Connectors",
   "mobile.server.connectors.unavailable": "Connect to this server as an owner or admin to manage its connectors.",
-  "mobile.server.connectors.unsupported": "Update OpenOwnBot on this server to manage its connectors here.",
+  "mobile.server.connectors.unsupported": "Update ROBot on this server to manage its connectors here.",
   "mobile.server.connectors.loading": "Loading connectors…",
   "mobile.server.connectors.onServer": "On {name}",
   "mobile.server.connectors.notSetUp": "Not set up",
@@ -453,11 +449,11 @@ export const messages = defineMessages("mobile.server", {
   "mobile.server.connectors.bitwarden.title": "Bitwarden",
   "mobile.server.connectors.bitwarden.summary": "Fills browser logins from Bitwarden. Set it up in the desktop app.",
   // Bitwarden of a joined server that signs in with its own Bitwarden CLI. Keep "Shared with
-  // OpenOwnBot" as the folder name that the user creates in Bitwarden.
+  // ROBot" as the folder name that the user creates in Bitwarden.
   "mobile.server.connectors.bitwarden.hostSummary": "Fills browser logins from Bitwarden or Vaultwarden",
   "mobile.server.connectors.bitwarden.description": "Fill browser logins on {host} from Bitwarden or Vaultwarden.",
   "mobile.server.connectors.bitwarden.howItWorks":
-    "{host} signs in with its own Bitwarden CLI. In your vault, create a folder named Shared with OpenOwnBot and put only the logins that agents may use in it. In the web vault, open Settings › Security › Keys and view your API key.",
+    "{host} signs in with its own Bitwarden CLI. In your vault, create a folder named Shared with ROBot and put only the logins that agents may use in it. In the web vault, open Settings › Security › Keys and view your API key.",
   "mobile.server.connectors.bitwarden.serverUrl": "Server address",
   "mobile.server.connectors.bitwarden.serverUrlHint":
     "Bitwarden, or the address of your Vaultwarden server. {host} must reach it over HTTPS.",
@@ -471,7 +467,7 @@ export const messages = defineMessages("mobile.server", {
   "mobile.server.connectors.bitwarden.connectingBody":
     "{host} is signing in to Bitwarden. The first sign-in can take a few minutes.",
   "mobile.server.connectors.bitwarden.folderTitle": "Shared folder",
-  "mobile.server.connectors.bitwarden.folderName": "Shared with OpenOwnBot",
+  "mobile.server.connectors.bitwarden.folderName": "Shared with ROBot",
   "mobile.server.connectors.bitwarden.folderKind": "Folder in Bitwarden",
   "mobile.server.connectors.bitwarden.folderFooter":
     "Move a login into this folder in Bitwarden to let agents sign in with it. Remove it to stop.",
@@ -483,7 +479,7 @@ export const messages = defineMessages("mobile.server", {
   "mobile.server.connectors.github.summary": "Repositories, issues and pull requests for every agent",
   "mobile.server.connectors.github.description":
     "Every agent on {host} can use your GitHub repositories, issues and pull requests, and gh and git.",
-  "mobile.server.connectors.github.unavailable": "OpenOwnBot on this server cannot connect GitHub.",
+  "mobile.server.connectors.github.unavailable": "ROBot on this server cannot connect GitHub.",
   "mobile.server.connectors.github.connect": "Connect GitHub",
   "mobile.server.connectors.github.codeTitle": "Type this code on GitHub",
   "mobile.server.connectors.github.codeFooter":
@@ -494,11 +490,11 @@ export const messages = defineMessages("mobile.server", {
   "mobile.server.connectors.github.connectedAs": "Connected as @{login}",
   "mobile.server.connectors.github.chooseRepositories": "Choose repositories",
   "mobile.server.connectors.github.repositoriesFooter":
-    "Agents can use only the repositories where the OpenOwnBot GitHub App is installed.",
+    "Agents can use only the repositories where the ROBot GitHub App is installed.",
   "mobile.server.connectors.github.repositoriesTitle": "Repositories",
   "mobile.server.connectors.github.repositoriesLoading": "Reading the repositories from GitHub",
-  "mobile.server.connectors.github.repositoriesFailed": "OpenOwnBot could not read the repositories from GitHub.",
-  "mobile.server.connectors.github.noRepositories": "The OpenOwnBot GitHub App is not installed on a repository yet.",
+  "mobile.server.connectors.github.repositoriesFailed": "ROBot could not read the repositories from GitHub.",
+  "mobile.server.connectors.github.noRepositories": "The ROBot GitHub App is not installed on a repository yet.",
   "mobile.server.connectors.github.moreRepositories": {
     one: "And {count} more repository",
     other: "And {count} more repositories",
@@ -511,13 +507,13 @@ export const messages = defineMessages("mobile.server", {
   "mobile.server.connectors.github.disconnect": "Disconnect GitHub",
   "mobile.server.connectors.github.disconnectTitle": "Disconnect GitHub?",
   "mobile.server.connectors.github.disconnectBody":
-    "This removes the sign-in of @{login} from {host}, and every agent loses the GitHub tools, gh and git. Then GitHub opens, where you can revoke OpenOwnBot.",
+    "This removes the sign-in of @{login} from {host}, and every agent loses the GitHub tools, gh and git. Then GitHub opens, where you can revoke ROBot.",
   "mobile.server.connectors.onePassword.title": "1Password",
-  "mobile.server.connectors.onePassword.summary": "A shared vault for sign-ins in the OpenOwnBot browser",
+  "mobile.server.connectors.onePassword.summary": "A shared vault for sign-ins in the ROBot browser",
   "mobile.server.connectors.onePassword.description":
-    "Share a dedicated 1Password vault with OpenOwnBot on {host} through a service account, so agents on {host} can sign in to sites in its browser.",
+    "Share a dedicated 1Password vault with ROBot on {host} through a service account, so agents on {host} can sign in to sites in its browser.",
   "mobile.server.connectors.onePassword.howItWorks":
-    "On 1Password.com, create a service account that can read only the vault you share with OpenOwnBot, then paste its token here. {host} checks the token and keeps it; this phone does not. Agents never see a password.",
+    "On 1Password.com, create a service account that can read only the vault you share with ROBot, then paste its token here. {host} checks the token and keeps it; this phone does not. Agents never see a password.",
   "mobile.server.connectors.onePassword.token": "Service account token",
   "mobile.server.connectors.onePassword.tokenPlaceholder": "ops_…",
   "mobile.server.connectors.onePassword.connect": "Connect 1Password",
@@ -533,12 +529,12 @@ export const messages = defineMessages("mobile.server", {
   "mobile.server.connectors.onePassword.disconnectTitle": "Disconnect 1Password?",
   "mobile.server.connectors.onePassword.disconnectBody":
     "{host} forgets the token. The vault and the service account stay in 1Password; remove them there if you no longer need them.",
-  // Slack: a workspace installs the one OpenOwnBot app, and the Slack Orchestrator agent answers.
+  // Slack: a workspace installs the one ROBot app, and the Slack Orchestrator agent answers.
   // {workspace} is the Slack workspace name.
   "mobile.server.connectors.slack.title": "Slack",
-  "mobile.server.connectors.slack.summary": "People mention @OpenOwnBot in Slack",
+  "mobile.server.connectors.slack.summary": "People mention @ROBot in Slack",
   "mobile.server.connectors.slack.description":
-    "People mention @OpenOwnBot in Slack or send it a direct message. The Slack Orchestrator asks the right agent and answers.",
+    "People mention @ROBot in Slack or send it a direct message. The Slack Orchestrator asks the right agent and answers.",
   "mobile.server.connectors.slack.connected": "{workspace} · Slack Orchestrator answers",
   "mobile.server.connectors.slack.noAgent": "{workspace} · No agent answers yet",
   "mobile.server.connectors.slack.many": {
@@ -551,48 +547,48 @@ export const messages = defineMessages("mobile.server", {
   },
   "mobile.server.connectors.slack.connect": "Connect Slack",
   "mobile.server.connectors.slack.connectFooter":
-    "Slack opens in a browser. Select the workspace in the top-right corner, then Allow. OpenOwnBot installs one app, named OpenOwnBot, and it joins every public channel.",
+    "Slack opens in a browser. Select the workspace in the top-right corner, then Allow. ROBot installs one app, named ROBot, and it joins every public channel.",
   "mobile.server.connectors.slack.add": "Add workspace",
   "mobile.server.connectors.slack.limit": {
     one: "You can connect a maximum of {count} workspace.",
     other: "You can connect a maximum of {count} workspaces.",
   },
   "mobile.server.connectors.slack.workspaceTitle": "Workspace",
-  "mobile.server.connectors.slack.workspaceDescription": "People mention @OpenOwnBot or send it a direct message.",
+  "mobile.server.connectors.slack.workspaceDescription": "People mention @ROBot or send it a direct message.",
   // {scopes} lists Slack permissions, such as "chat:write and users:read".
   "mobile.server.connectors.slack.missingScopes":
-    "OpenOwnBot does not have these permissions in Slack: {scopes}. Disconnect the workspace, then connect it again.",
+    "ROBot does not have these permissions in Slack: {scopes}. Disconnect the workspace, then connect it again.",
   // {time} is a time, such as 14:30.
-  "mobile.server.connectors.slack.retryAt": "Slack asked OpenOwnBot to wait. It tries again at {time}.",
+  "mobile.server.connectors.slack.retryAt": "Slack asked ROBot to wait. It tries again at {time}.",
   "mobile.server.connectors.slack.helpInvalidToken":
-    "Slack no longer accepts OpenOwnBot in this workspace. It may have been uninstalled. Connect the workspace again.",
+    "Slack no longer accepts ROBot in this workspace. It may have been uninstalled. Connect the workspace again.",
   "mobile.server.connectors.slack.helpSecretStorage":
-    "OpenOwnBot cannot read the saved tokens on {host}. Disconnect the workspace, then connect it again.",
+    "ROBot cannot read the saved tokens on {host}. Disconnect the workspace, then connect it again.",
   "mobile.server.connectors.slack.helpRelay":
-    "OpenOwnBot on {host} cannot receive Slack events. On {host}, sign in, give the server a name in Server settings, and keep OpenOwnBot open.",
+    "ROBot on {host} cannot receive Slack events. On {host}, sign in, give the server a name in Server settings, and keep ROBot open.",
   "mobile.server.connectors.slack.orchestratorTitle": "Slack Orchestrator",
   "mobile.server.connectors.slack.orchestratorDescription":
     "This agent receives every request from Slack. It answers short ones itself, gives other work to the right agent, and posts the answer in the thread.",
   "mobile.server.connectors.slack.orchestratorNone": "Add the Slack Orchestrator, or Slack gets no answer.",
   "mobile.server.connectors.slack.addAgent": "Add Slack Orchestrator",
   "mobile.server.connectors.slack.note":
-    "OpenOwnBot joins every public channel by itself, and each new one. For a private channel, invite it: /invite @OpenOwnBot.",
+    "ROBot joins every public channel by itself, and each new one. For a private channel, invite it: /invite @ROBot.",
   "mobile.server.connectors.slack.disconnectTitle": "Disconnect {workspace}?",
   "mobile.server.connectors.slack.disconnectBody":
-    "OpenOwnBot stops answering in {workspace} and removes its Slack token from {host}.",
-  "mobile.server.connectors.slack.disconnectKept": "The conversations and the Slack Orchestrator stay in OpenOwnBot.",
+    "ROBot stops answering in {workspace} and removes its Slack token from {host}.",
+  "mobile.server.connectors.slack.disconnectKept": "The conversations and the Slack Orchestrator stay in ROBot.",
   "mobile.server.connectors.slack.disconnectDeleted":
-    "The Slack Orchestrator and its conversations are deleted from OpenOwnBot.",
+    "The Slack Orchestrator and its conversations are deleted from ROBot.",
   "mobile.server.connectors.slack.agentPromptTitle": "Add the Slack Orchestrator?",
   "mobile.server.connectors.slack.agentPromptBody":
-    "This new agent answers everything that people send to @OpenOwnBot in {workspace}.",
+    "This new agent answers everything that people send to @ROBot in {workspace}.",
   "mobile.server.connectors.slack.installFailed": "Slack did not finish the install. Try again.",
-  // Discord: a Discord server adds the one OpenOwnBot bot. Always write "Discord server": "server" alone
-  // is an OpenOwnBot server. {workspace} is the Discord server name.
+  // Discord: a Discord server adds the one ROBot bot. Always write "Discord server": "server" alone
+  // is an ROBot server. {workspace} is the Discord server name.
   "mobile.server.connectors.discord.title": "Discord",
-  "mobile.server.connectors.discord.summary": "People mention @OpenOwnBot in a Discord server",
+  "mobile.server.connectors.discord.summary": "People mention @ROBot in a Discord server",
   "mobile.server.connectors.discord.description":
-    "People mention @OpenOwnBot in a channel of a Discord server. The Discord Orchestrator asks the right agent and answers.",
+    "People mention @ROBot in a channel of a Discord server. The Discord Orchestrator asks the right agent and answers.",
   "mobile.server.connectors.discord.connected": "{workspace} · Discord Orchestrator answers",
   "mobile.server.connectors.discord.noAgent": "{workspace} · No agent answers yet",
   "mobile.server.connectors.discord.many": {
@@ -605,49 +601,47 @@ export const messages = defineMessages("mobile.server", {
   },
   "mobile.server.connectors.discord.connect": "Connect Discord",
   "mobile.server.connectors.discord.connectFooter":
-    "Discord opens in a browser. Select the Discord server, then Authorize. OpenOwnBot adds one bot, named OpenOwnBot.",
+    "Discord opens in a browser. Select the Discord server, then Authorize. ROBot adds one bot, named ROBot.",
   "mobile.server.connectors.discord.add": "Add Discord server",
   "mobile.server.connectors.discord.limit": {
     one: "You can connect a maximum of {count} Discord server.",
     other: "You can connect a maximum of {count} Discord servers.",
   },
   "mobile.server.connectors.discord.workspaceTitle": "Discord server",
-  "mobile.server.connectors.discord.workspaceDescription":
-    "Mention @OpenOwnBot in a channel. Reply to OpenOwnBot to continue.",
+  "mobile.server.connectors.discord.workspaceDescription": "Mention @ROBot in a channel. Reply to ROBot to continue.",
   // {scopes} lists Discord permissions.
   "mobile.server.connectors.discord.missingScopes":
-    "OpenOwnBot does not have these permissions in Discord: {scopes}. Disconnect the Discord server, then connect it again.",
+    "ROBot does not have these permissions in Discord: {scopes}. Disconnect the Discord server, then connect it again.",
   // {time} is a time, such as 14:30.
-  "mobile.server.connectors.discord.retryAt": "Discord asked OpenOwnBot to wait. It tries again at {time}.",
+  "mobile.server.connectors.discord.retryAt": "Discord asked ROBot to wait. It tries again at {time}.",
   "mobile.server.connectors.discord.helpInvalidToken":
-    "Discord no longer accepts OpenOwnBot in this Discord server. It may have been removed. Connect the Discord server again.",
+    "Discord no longer accepts ROBot in this Discord server. It may have been removed. Connect the Discord server again.",
   "mobile.server.connectors.discord.helpSecretStorage":
-    "OpenOwnBot cannot read the saved tokens on {host}. Disconnect the Discord server, then connect it again.",
+    "ROBot cannot read the saved tokens on {host}. Disconnect the Discord server, then connect it again.",
   "mobile.server.connectors.discord.helpRelay":
-    "OpenOwnBot on {host} cannot receive Discord events. On {host}, sign in, give the server a name in Server settings, and keep OpenOwnBot open.",
+    "ROBot on {host} cannot receive Discord events. On {host}, sign in, give the server a name in Server settings, and keep ROBot open.",
   "mobile.server.connectors.discord.orchestratorTitle": "Discord Orchestrator",
   "mobile.server.connectors.discord.orchestratorDescription":
     "This agent receives every request from Discord. It answers short ones itself, gives other work to the right agent, and replies with the answer in the channel.",
   "mobile.server.connectors.discord.orchestratorNone": "Add the Discord Orchestrator, or Discord gets no answer.",
   "mobile.server.connectors.discord.addAgent": "Add Discord Orchestrator",
-  "mobile.server.connectors.discord.note": "OpenOwnBot sees the channels that its role can view.",
+  "mobile.server.connectors.discord.note": "ROBot sees the channels that its role can view.",
   "mobile.server.connectors.discord.disconnectTitle": "Disconnect {workspace}?",
   "mobile.server.connectors.discord.disconnectBody":
-    "OpenOwnBot stops answering in {workspace} and removes the Discord connection from {host}.",
-  "mobile.server.connectors.discord.disconnectKept":
-    "The conversations and the Discord Orchestrator stay in OpenOwnBot.",
+    "ROBot stops answering in {workspace} and removes the Discord connection from {host}.",
+  "mobile.server.connectors.discord.disconnectKept": "The conversations and the Discord Orchestrator stay in ROBot.",
   "mobile.server.connectors.discord.disconnectDeleted":
-    "The Discord Orchestrator and its conversations are deleted from OpenOwnBot.",
+    "The Discord Orchestrator and its conversations are deleted from ROBot.",
   "mobile.server.connectors.discord.agentPromptTitle": "Add the Discord Orchestrator?",
   "mobile.server.connectors.discord.agentPromptBody":
-    "This new agent answers everything that people send to @OpenOwnBot in {workspace}.",
+    "This new agent answers everything that people send to @ROBot in {workspace}.",
   "mobile.server.connectors.discord.installFailed": "Discord did not finish the authorization. Try again.",
-  // Telegram: each chat adds the one OpenOwnBot bot, and the Telegram Orchestrator answers all chats.
+  // Telegram: each chat adds the one ROBot bot, and the Telegram Orchestrator answers all chats.
   // {chat} is the Telegram chat name.
   "mobile.server.connectors.telegram.title": "Telegram",
-  "mobile.server.connectors.telegram.summary": "Add the OpenOwnBot bot to a Telegram chat",
+  "mobile.server.connectors.telegram.summary": "Add the ROBot bot to a Telegram chat",
   "mobile.server.connectors.telegram.description":
-    "Add the OpenOwnBot bot to a Telegram group or open a direct chat with it. The Telegram Orchestrator asks the right agent and answers.",
+    "Add the ROBot bot to a Telegram group or open a direct chat with it. The Telegram Orchestrator asks the right agent and answers.",
   // {count} is the number of linked Telegram chats.
   "mobile.server.connectors.telegram.connected": {
     one: "{count} chat · Telegram Orchestrator answers",
@@ -667,13 +661,12 @@ export const messages = defineMessages("mobile.server", {
   "mobile.server.connectors.telegram.directDescription":
     "Every message in this chat goes to the Telegram Orchestrator.",
   "mobile.server.connectors.telegram.helpRemoved":
-    "The OpenOwnBot bot is no longer in this chat. Disconnect the chat, then add the bot again.",
+    "The ROBot bot is no longer in this chat. Disconnect the chat, then add the bot again.",
   "mobile.server.connectors.telegram.helpRelay":
-    "OpenOwnBot on {host} cannot receive Telegram messages. On {host}, sign in, give the server a name in Server settings, and keep OpenOwnBot open.",
-  "mobile.server.connectors.telegram.helpError":
-    "OpenOwnBot cannot reach this chat. Reconnect, or disconnect the chat.",
+    "ROBot on {host} cannot receive Telegram messages. On {host}, sign in, give the server a name in Server settings, and keep ROBot open.",
+  "mobile.server.connectors.telegram.helpError": "ROBot cannot reach this chat. Reconnect, or disconnect the chat.",
   // {time} is a time, such as 14:30.
-  "mobile.server.connectors.telegram.retryAt": "Telegram asked OpenOwnBot to wait. It tries again at {time}.",
+  "mobile.server.connectors.telegram.retryAt": "Telegram asked ROBot to wait. It tries again at {time}.",
   "mobile.server.connectors.telegram.linkTitle": "Link a chat",
   "mobile.server.connectors.telegram.linkAnother": "Link another chat",
   "mobile.server.connectors.telegram.linkFooter":
@@ -686,16 +679,14 @@ export const messages = defineMessages("mobile.server", {
   "mobile.server.connectors.telegram.openDirectChat": "Open a direct chat",
   "mobile.server.connectors.telegram.orchestratorTitle": "Telegram Orchestrator",
   "mobile.server.connectors.telegram.orchestratorDescription":
-    "This agent receives the messages for OpenOwnBot from all your Telegram chats. It answers short ones itself, gives other work to the right agent, and posts the answer in the chat.",
+    "This agent receives the messages for ROBot from all your Telegram chats. It answers short ones itself, gives other work to the right agent, and posts the answer in the chat.",
   "mobile.server.connectors.telegram.orchestratorNone": "Add the Telegram Orchestrator, or Telegram gets no answer.",
   "mobile.server.connectors.telegram.addAgent": "Add Telegram Orchestrator",
   "mobile.server.connectors.telegram.disconnectTitle": "Disconnect {chat}?",
-  "mobile.server.connectors.telegram.disconnectBody":
-    "The OpenOwnBot bot leaves {chat}, and OpenOwnBot stops answering there.",
-  "mobile.server.connectors.telegram.disconnectKept":
-    "The conversations and the Telegram Orchestrator stay in OpenOwnBot.",
+  "mobile.server.connectors.telegram.disconnectBody": "The ROBot bot leaves {chat}, and ROBot stops answering there.",
+  "mobile.server.connectors.telegram.disconnectKept": "The conversations and the Telegram Orchestrator stay in ROBot.",
   "mobile.server.connectors.telegram.disconnectDeleted":
-    "This is the last chat, so the Telegram Orchestrator and its conversations are deleted from OpenOwnBot.",
+    "This is the last chat, so the Telegram Orchestrator and its conversations are deleted from ROBot.",
   "mobile.server.settings.providers": "Providers",
   "mobile.server.settings.providersConnected": { one: "{count} connected", other: "{count} connected" },
   // The AI providers of the computer that runs the server. Owners and admins manage them from the phone.
@@ -709,9 +700,9 @@ export const messages = defineMessages("mobile.server", {
   "mobile.server.providers.loadFailed": "Could not load the providers of this server.",
   "mobile.server.providers.runtimesFailed": "Could not load the downloads of this server.",
   "mobile.server.providers.unavailable": "Connect to this server as an owner or admin to manage its providers.",
-  "mobile.server.providers.unsupported": "Update OpenOwnBot on this server to manage its providers here.",
+  "mobile.server.providers.unsupported": "Update ROBot on this server to manage its providers here.",
   "mobile.server.providers.signInUnsupported": "This server cannot sign in this provider from the phone.",
-  "mobile.server.providers.actionFailed": "OpenOwnBot could not complete this action. Try again.",
+  "mobile.server.providers.actionFailed": "ROBot could not complete this action. Try again.",
   "mobile.server.providers.openFailed": "Could not open the sign-in page.",
   "mobile.server.providers.copyFailed": "Could not copy the code.",
   "mobile.server.providers.onHost": "This provider runs on the computer of this server.",
@@ -722,16 +713,15 @@ export const messages = defineMessages("mobile.server", {
   "mobile.server.providers.reconnect": "Reconnect",
   "mobile.server.providers.connectHint": "The server gets a sign-in from the provider. You finish it on this phone.",
   "mobile.server.providers.relayHint": "You sign in on the provider's page on this phone. The server gets the sign-in.",
-  "mobile.server.providers.connectOnComputer": "Connect this provider in OpenOwnBot on a computer.",
+  "mobile.server.providers.connectOnComputer": "Connect this provider in ROBot on a computer.",
   "mobile.server.providers.signIn": "Sign in",
   "mobile.server.providers.starting": "Starting the sign-in on the server…",
   "mobile.server.providers.openPage": "Open sign-in page",
   "mobile.server.providers.copy": "Copy",
   "mobile.server.providers.copyCode": "Copy code",
-  "mobile.server.providers.codeHint":
-    "Copy the code, open the page and enter the code. OpenOwnBot continues by itself.",
+  "mobile.server.providers.codeHint": "Copy the code, open the page and enter the code. ROBot continues by itself.",
   "mobile.server.providers.pasteHint": "Sign in on the page, then paste the code that the page shows.",
-  "mobile.server.providers.linkHint": "Sign in on the page. OpenOwnBot continues by itself.",
+  "mobile.server.providers.linkHint": "Sign in on the page. ROBot continues by itself.",
   "mobile.server.providers.relayWaiting": "Waiting for the sign-in page from the server…",
   "mobile.server.providers.relayPasteHint":
     "Sign in on the page. It then cannot load. Tap the address bar, copy the address and paste it here.",
@@ -783,7 +773,7 @@ export const messages = defineMessages("mobile.server", {
   "mobile.server.providers.status.checking": "Checking",
   "mobile.server.settings.mcp": "MCP servers",
   "mobile.server.settings.mcpCount": { one: "{count} server", other: "{count} servers" },
-  "mobile.server.mcp.unsupported": "Update OpenOwnBot on this server to manage its MCP servers here.",
+  "mobile.server.mcp.unsupported": "Update ROBot on this server to manage its MCP servers here.",
   "mobile.server.mcp.unavailable": "Connect to this server as an owner or admin to manage its MCP servers.",
   "mobile.server.mcp.description":
     "MCP servers give the agents of this server more tools. Claude and Codex agents get only the servers in this list.",
@@ -801,7 +791,7 @@ export const messages = defineMessages("mobile.server", {
   "mobile.server.mcp.addConfirm": "Add",
   "mobile.server.mcp.name": "Name",
   "mobile.server.mcp.namePlaceholder": "MCP server name",
-  "mobile.server.mcp.nameReserved": "OpenOwnBot already uses the name {name}.",
+  "mobile.server.mcp.nameReserved": "ROBot already uses the name {name}.",
   "mobile.server.mcp.transport": "Transport",
   "mobile.server.mcp.stdio": "Command (STDIO)",
   "mobile.server.mcp.http": "URL (HTTP)",
@@ -812,12 +802,12 @@ export const messages = defineMessages("mobile.server", {
   "mobile.server.mcp.command": "Command",
   "mobile.server.mcp.commandHint": "The program only. Put each word after it in Arguments.",
   "mobile.server.mcp.arguments": "Arguments",
-  "mobile.server.mcp.argumentsHint": "OpenOwnBot gives each argument to the program as one word.",
+  "mobile.server.mcp.argumentsHint": "ROBot gives each argument to the program as one word.",
   "mobile.server.mcp.addArgument": "Add argument",
   "mobile.server.mcp.argument": "Argument {position}",
   "mobile.server.mcp.removeArgument": "Remove argument {position}",
   "mobile.server.mcp.environment": "Environment variables",
-  "mobile.server.mcp.environmentHint": "OpenOwnBot gives these variables to the MCP server when it starts.",
+  "mobile.server.mcp.environmentHint": "ROBot gives these variables to the MCP server when it starts.",
   "mobile.server.mcp.addVariable": "Add variable",
   "mobile.server.mcp.variableKey": "Variable {position} name",
   "mobile.server.mcp.variableValue": "Variable {position} value",
@@ -832,7 +822,7 @@ export const messages = defineMessages("mobile.server", {
   "mobile.server.mcp.url": "Server URL",
   "mobile.server.mcp.urlInvalid": "Enter an http or https address.",
   "mobile.server.mcp.headers": "Headers",
-  "mobile.server.mcp.headersHint": "OpenOwnBot sends these headers with each request.",
+  "mobile.server.mcp.headersHint": "ROBot sends these headers with each request.",
   "mobile.server.mcp.addHeader": "Add header",
   "mobile.server.mcp.headerName": "Header {position} name",
   "mobile.server.mcp.headerValue": "Header {position} value",
@@ -849,7 +839,7 @@ export const messages = defineMessages("mobile.server", {
   "mobile.server.mcp.testFailed": "The MCP server did not answer.",
   "mobile.server.mcp.connected": { one: "Connected · {count} tool", other: "Connected · {count} tools" },
   "mobile.server.mcp.signInOnComputer":
-    "This MCP server asks you to sign in. Sign in from OpenOwnBot on a computer, then test again.",
+    "This MCP server asks you to sign in. Sign in from ROBot on a computer, then test again.",
   "mobile.server.mcp.signedInDescription": "{server} is signed in to this MCP server.",
   "mobile.server.mcp.signOut": "Sign out",
   "mobile.server.mcp.saveFailed": "Could not save the change. Try again.",
@@ -877,12 +867,12 @@ export const messages = defineMessages("mobile.server", {
   "mobile.server.planLimits.window.fiveHour": "5-hour",
   "mobile.server.planLimits.window.hours": { one: "{count}-hour", other: "{count}-hour" },
   "mobile.server.planLimits.window.minutes": "{minutes} min",
-  // Server settings > Updates: the OpenOwnBot update of the server's host. {name} is the server.
+  // Server settings > Updates: the ROBot update of the server's host. {name} is the server.
   "mobile.server.settings.updates": "Updates",
   "mobile.server.settings.updateAvailable": "Update available",
   "mobile.server.route.updates": "Updates",
-  "mobile.server.update.hostTitle": "OpenOwnBot on {name}",
-  "mobile.server.update.version": "OpenOwnBot {version}",
+  "mobile.server.update.hostTitle": "ROBot on {name}",
+  "mobile.server.update.version": "ROBot {version}",
   "mobile.server.update.status.idle": "Check for updates to find the latest release.",
   "mobile.server.update.status.checking": "Checking for updates…",
   "mobile.server.update.status.available": "{version} is available.",
@@ -890,28 +880,28 @@ export const messages = defineMessages("mobile.server", {
   "mobile.server.update.status.downloadingUnknown": "Downloading {version}…",
   "mobile.server.update.status.ready": "{version} is downloaded.",
   "mobile.server.update.status.installing": "{name} is restarting to install the update.",
-  "mobile.server.update.status.upToDate": "OpenOwnBot is up to date on {name}.",
+  "mobile.server.update.status.upToDate": "ROBot is up to date on {name}.",
   "mobile.server.update.status.checkFailed": "{name} could not check for updates. Try again.",
   "mobile.server.update.status.downloadFailed": "{name} could not download the update. Try again.",
   "mobile.server.update.status.installFailed":
-    "{name} could not install the update. Make sure that no other user of that computer runs OpenOwnBot, then try again.",
+    "{name} could not install the update. Make sure that no other user of that computer runs ROBot, then try again.",
   "mobile.server.update.releaseCheckFailed":
     "{name} could not read the release feed. Check the host network connection, then try again.",
   "mobile.server.update.releaseUnavailable":
     "Release checks are not available for this build. Ask the host administrator to check for a compatible release.",
   "mobile.server.update.externalTitle": "The host controls installation",
   "mobile.server.update.path.hostManager":
-    "OpenOwnBot Host Manager installs updates when all users are idle. Ask the host administrator to check the Host Manager status if an update does not start.",
+    "ROBot Host Manager installs updates when all users are idle. Ask the host administrator to check the Host Manager status if an update does not start.",
   "mobile.server.update.path.hosted":
     "The hosted service downloads updates in the background. A downloaded update starts when the server next starts. Wait for active work to finish before you stop and resume the server. If it stays on an old version, contact the host administrator.",
   "mobile.server.update.path.system":
-    "On the host, run sudo openownbot update to install the latest release. This command stops OpenOwnBot. Wait for active work to finish first. Automatic downloads install at the next boot.",
+    "On the host, run sudo openownbot update to install the latest release. This command stops ROBot. Wait for active work to finish first. Automatic downloads install at the next boot.",
   "mobile.server.update.path.container":
-    "On the Docker host, pull the new OpenOwnBot image and create the container again with the same data volumes. Wait for active work to finish first. Keep the existing volumes to preserve your data.",
+    "On the Docker host, pull the new ROBot image and create the container again with the same data volumes. Wait for active work to finish first. Keep the existing volumes to preserve your data.",
   "mobile.server.update.path.manual":
-    "This installation cannot replace itself. Ask the host administrator to install the compatible release from github.com/zereight/openownbot/releases. Keep the existing OpenOwnBot data.",
+    "This installation cannot replace itself. Ask the host administrator to install the compatible release from github.com/zereight/openownbot/releases. Keep the existing ROBot data.",
   "mobile.server.update.path.unavailable":
-    "This is a development build. Use an installed OpenOwnBot release to check for updates.",
+    "This is a development build. Use an installed ROBot release to check for updates.",
   "mobile.server.update.check": "Check for updates",
   "mobile.server.update.start": "Update when idle",
   "mobile.server.update.restartNow": "Restart now",
@@ -921,26 +911,25 @@ export const messages = defineMessages("mobile.server", {
   "mobile.server.update.requestedBy": "{member} asked for this update.",
   "mobile.server.update.automatic": "{name} installs updates automatically.",
   "mobile.server.update.autoDownloadTitle": "Download updates automatically",
-  "mobile.server.update.autoDownloadDescription": "{name} downloads each new version of OpenOwnBot when it comes out.",
+  "mobile.server.update.autoDownloadDescription": "{name} downloads each new version of ROBot when it comes out.",
   "mobile.server.update.autoInstallTitle": "Install updates automatically",
   "mobile.server.update.autoInstallDescription":
     "{name} restarts into a downloaded update when its agents are idle. Members are disconnected for a short time and connect again automatically.",
   "mobile.server.update.waitingFor": "Waiting for {reasons}.",
   "mobile.server.update.disabledTitle": "Remote updates are off",
   "mobile.server.update.disabledDescription":
-    "The user of {name} turned off updates from server members. Ask them to update OpenOwnBot or to turn the setting on.",
+    "The user of {name} turned off updates from server members. Ask them to update ROBot or to turn the setting on.",
   "mobile.server.update.managedTitle": "A Host Manager controls updates",
-  "mobile.server.update.managedDescription": "OpenOwnBot Host Manager updates {name}. Contact the host administrator.",
+  "mobile.server.update.managedDescription": "ROBot Host Manager updates {name}. Contact the host administrator.",
   "mobile.server.update.unsupportedTitle": "{name} cannot update itself",
-  "mobile.server.update.unsupportedDescription":
-    "This OpenOwnBot build has no updater. Install a new version on {name}.",
+  "mobile.server.update.unsupportedDescription": "This ROBot build has no updater. Install a new version on {name}.",
   "mobile.server.update.restarting": "Restarting…",
   "mobile.server.update.loadFailed": "The update status of {name} did not load.",
-  "mobile.server.update.dialog.offerTitle": "Update {name} to OpenOwnBot {version}",
+  "mobile.server.update.dialog.offerTitle": "Update {name} to ROBot {version}",
   "mobile.server.update.dialog.offerDescription":
-    "{name} uses OpenOwnBot {current}. It downloads the update first, then restarts.",
+    "{name} uses ROBot {current}. It downloads the update first, then restarts.",
   "mobile.server.update.dialog.offerReadyDescription":
-    "{name} uses OpenOwnBot {current}. The update is downloaded. {name} restarts to install it.",
+    "{name} uses ROBot {current}. The update is downloaded. {name} restarts to install it.",
   "mobile.server.update.dialog.waitIdleDescription": "The restart waits for agent turns and routine runs to finish.",
   "mobile.server.update.dialog.updateNow": "Update now",
   "mobile.server.update.dialog.restartWhenIdle": "Restart when idle",
@@ -955,10 +944,10 @@ export const messages = defineMessages("mobile.server", {
   "mobile.server.update.reason.fileTransfer": "a file transfer",
   "mobile.server.update.reason.browserControl": "browser control by an agent",
   "mobile.server.update.reason.updateOperation": "another update step",
-  "mobile.server.update.reason.initialization": "the start of OpenOwnBot",
+  "mobile.server.update.reason.initialization": "the start of ROBot",
   "mobile.server.update.reason.other": "other work",
   "mobile.server.update.actionFailed": "The server action failed.",
-  "mobile.server.update.unavailable": "Connect to this server to see its OpenOwnBot updates.",
+  "mobile.server.update.unavailable": "Connect to this server to see its ROBot updates.",
   "mobile.server.update.loading": "Loading updates…",
   "mobile.server.route.sites": "Sites",
   "mobile.server.settings.sites": "Sites",
@@ -976,7 +965,7 @@ export const messages = defineMessages("mobile.server", {
   "mobile.server.sites.deleteDescription": "This address will immediately return 410 Gone.",
   "mobile.server.sites.deleteFailed": "Could not delete the site.",
   "mobile.server.sites.openFailed": "Could not open the site.",
-  "mobile.server.sites.unsupported": "Update OpenOwnBot on this server to see its sites here.",
+  "mobile.server.sites.unsupported": "Update ROBot on this server to see its sites here.",
   "mobile.server.sites.offline": "Connect to this server to see its sites.",
-  "mobile.server.roles.unsupported": "Update OpenOwnBot on this server to manage roles.",
+  "mobile.server.roles.unsupported": "Update ROBot on this server to manage roles.",
 });

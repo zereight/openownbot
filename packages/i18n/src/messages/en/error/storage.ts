@@ -4,5 +4,5 @@ export const messages = defineMessages("error.storage", {
   // Storage errors.
   "error.storage.unsupported": "Storage is not supported by this server.",
   "error.storage.agentMissing": "The agent does not exist.",
-  "error.storage.unreadableFile": "OpenOwnBot cannot read {path}. The file is damaged.",
+  "error.storage.unreadableFile": "ROBot cannot read {path}. The file is damaged.",
 });

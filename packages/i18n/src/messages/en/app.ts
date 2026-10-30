@@ -2,7 +2,7 @@ import { defineMessages } from "../../message";
 
 export const messages = defineMessages("app", {
   // The app shell, shared state, and shared controls without a feature of their own.
-  "app.loading": "Loading OpenOwnBot",
+  "app.loading": "Loading ROBot",
   "app.leftPanel.resize": "Resize left sidebar",
   "app.host.thisMac": "This Mac",
   "app.host.thisComputer": "This computer",
@@ -29,16 +29,16 @@ export const messages = defineMessages("app", {
   "app.provider.codeExpired": "The {name} code expired",
   "app.provider.codeExpiredDescription": "Nobody entered it in time. That code no longer works.",
   "app.provider.connectFailed": "Could not connect {name}",
-  "app.provider.connectFailedRetry": "OpenOwnBot could not connect {name}. Try again.",
+  "app.provider.connectFailedRetry": "ROBot could not connect {name}. Try again.",
   "app.provider.restartFailed": "Could not restart {name}",
-  "app.provider.included": "{name} is included with OpenOwnBot.",
+  "app.provider.included": "{name} is included with ROBot.",
   "app.clipboard.copyFailed": "Could not copy the text.",
   "app.voice.tooLong": "Voice recordings are limited to two minutes.",
   "app.avatar.type": "Choose a PNG, JPEG, GIF, or WebP image.",
   "app.avatar.size": "Choose an image smaller than 10 MB.",
   "app.avatar.processingUnavailable": "Image processing is unavailable.",
-  "app.avatar.tooLarge": "OpenOwnBot could not make this image small enough. Choose a simpler image.",
-  "app.avatar.processFailed": "OpenOwnBot could not process this image.",
+  "app.avatar.tooLarge": "ROBot could not make this image small enough. Choose a simpler image.",
+  "app.avatar.processFailed": "ROBot could not process this image.",
   "app.chart.total": "Total",
   "app.modelVariant.default": "Default",
   "app.qrCode.label": "QR code",
@@ -50,7 +50,7 @@ export const messages = defineMessages("app", {
   "app.standingApproval.titleUnnamed": "Always allow this agent?",
   // The page rail and the settings page of the desktop window.
   "app.rail.label": "Pages",
-  "app.rail.website": "OpenOwnBot website",
+  "app.rail.website": "ROBot website",
   "app.rail.agents": "Agents",
   "app.rail.schedule": "Schedule",
   "app.rail.tasks": "Tasks",

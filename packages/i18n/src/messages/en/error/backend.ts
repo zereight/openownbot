@@ -2,7 +2,7 @@ import { defineMessages } from "../../../message";
 
 export const messages = defineMessages("error.backend", {
   "error.backend.eventsUnavailable": "Events are not available on this host.",
-  "error.backend.databaseIntegrity": "OpenOwnBot database failed its integrity check.",
+  "error.backend.databaseIntegrity": "ROBot database failed its integrity check.",
   "error.backend.webhookRouteLimit": "A host can have at most {limit} webhook routines.",
   "error.backend.webhookSettingsInvalid": "Check the webhook settings and try again.",
   "error.backend.webhookRouteUnavailable":
@@ -16,8 +16,8 @@ export const messages = defineMessages("error.backend", {
   "error.backend.browserViewLimit": "Too many browser views are open on this host.",
   "error.backend.browserViewEnded": "The live view of this page ended.",
   "error.backend.browserViewFailed": "The live view of this page failed.",
-  "error.backend.windowTemporarilyUnavailable": "The OpenOwnBot window is temporarily unavailable.",
-  "error.backend.windowUnavailable": "The OpenOwnBot window is unavailable.",
+  "error.backend.windowTemporarilyUnavailable": "The ROBot window is temporarily unavailable.",
+  "error.backend.windowUnavailable": "The ROBot window is unavailable.",
   "error.backend.sunshineApiHttp": "Sunshine API failed with HTTP {status}.",
   "error.backend.sunshinePortsUnavailable": "Could not reserve a free Sunshine port family for Remote Desktop.",
   "error.backend.moonlightPortsUnavailable": "Could not reserve a free Moonlight WebRTC port range for Remote Desktop.",
@@ -32,7 +32,7 @@ export const messages = defineMessages("error.backend", {
   "error.backend.moonlightRejectedPairing": "Moonlight rejected Sunshine pairing.",
   "error.backend.moonlightNoPin": "Moonlight did not return a pairing PIN.",
   "error.backend.moonlightPairingIncomplete": "Moonlight pairing did not complete.",
-  "error.backend.moonlightWebNotEmbedded": "Moonlight Web is not an OpenOwnBot embedded build.",
+  "error.backend.moonlightWebNotEmbedded": "Moonlight Web is not an ROBot embedded build.",
   "error.backend.moonlightEmptyResponse": "Moonlight returned an empty response.",
   "error.backend.remoteDesktopTimeout": "Remote desktop request timed out.",
   "error.backend.moonlightApiHttp": "Moonlight API failed with HTTP {status}.",
@@ -47,8 +47,8 @@ export const messages = defineMessages("error.backend", {
   "error.backend.browserUserControlBusy": "This browser tab waits for a secret. Answer the secret request first.",
   "error.backend.browserUserControlUnsupported": "This remote host does not support taking control of a browser tab.",
   "error.backend.browserSignInUnsupported": "This remote host cannot take a sign-in from this computer.",
-  "error.backend.browserSignInOpenFailed": "OpenOwnBot could not open the sign-in window.",
-  "error.backend.browserSignInReadFailed": "OpenOwnBot could not read the sign-in from the window.",
+  "error.backend.browserSignInOpenFailed": "ROBot could not open the sign-in window.",
+  "error.backend.browserSignInReadFailed": "ROBot could not read the sign-in from the window.",
   "error.backend.browserStopUnsupported": "This remote host cannot stop a page load.",
   "error.backend.sharedDataLocalOnly": "Shared data is managed on the computer that runs these agents.",
   "error.backend.browserUrlProtocol": "Only HTTP(S) browser URLs are allowed.",
@@ -56,7 +56,7 @@ export const messages = defineMessages("error.backend", {
   "error.backend.sunshineNotReadyReason": "Sunshine did not become ready. {reason}",
   "error.backend.channelLeadModelUnavailable": "The channel lead model is unavailable.",
   "error.backend.sharedDataUnavailable": "Shared data is unavailable.",
-  "error.backend.shuttingDown": "OpenOwnBot is shutting down.",
+  "error.backend.shuttingDown": "ROBot is shutting down.",
   "error.backend.channelUnconfirmedStart":
     "The channel has an unconfirmed assignment start. Check its outcome before deleting it.",
   "error.backend.channelNotFound": "Channel not found.",
@@ -123,8 +123,6 @@ export const messages = defineMessages("error.backend", {
   "error.backend.queueOrderStale": "Queue order is stale. Refresh the queue and try again.",
   "error.backend.fileGone": "The file does not exist or is already deleted.",
   "error.backend.managedAttachmentChanged": "Managed attachment is missing or has changed: {name}",
-  "error.backend.mailboxStateCorrupt":
-    "Mailbox state is corrupt or from a newer OpenOwnBot version; refusing to overwrite it.",
   "error.backend.recipientDeleting": "The recipient is being deleted. Retry after deletion finishes.",
   "error.backend.recipientHidden": "This agent is hidden. Restore it to send messages.",
   "error.backend.attachBetween": "Attach between 1 and {limit} files.",
@@ -133,7 +131,7 @@ export const messages = defineMessages("error.backend", {
     "{name} is an SVG file and cannot be attached. Write its absolute path in your answer: the chat shows the image there.",
   "error.backend.generatedImageTooLarge": "Generated image exceeds the 100 MB limit.",
   "error.backend.attachmentNotRegularFile": "Only regular files can be attached: {name}",
-  "error.backend.attachmentCopyFailed": "OpenOwnBot could not copy {name}.",
+  "error.backend.attachmentCopyFailed": "ROBot could not copy {name}.",
   "error.backend.routineNameRequired": "A routine name is required.",
   "error.backend.routineNameTooLong": "The routine name is too long.",
   "error.backend.routineInstructionRequired": "A routine instruction is required.",
@@ -155,13 +153,12 @@ export const messages = defineMessages("error.backend", {
   "error.backend.routineWaitForAgent": "Wait until the agent operation finishes before running a routine.",
   "error.backend.routineRunStarting": "This routine run is still starting. Try again after its turn starts.",
   "error.backend.routineRunNoSession":
-    "OpenOwnBot cannot interrupt the active routine run because its provider session is unavailable.",
+    "ROBot cannot interrupt the active routine run because its provider session is unavailable.",
   "error.backend.interruptSelf": "An agent cannot interrupt itself.",
   "error.backend.interruptOtherWork":
     "This agent works on a task that your message did not start. Only the user or the sender of that task can stop it.",
   "error.backend.interruptStarting": "This agent is still starting a turn. Try again after the turn starts.",
-  "error.backend.interruptNoSession":
-    "OpenOwnBot cannot interrupt this agent because its provider session is unavailable.",
+  "error.backend.interruptNoSession": "ROBot cannot interrupt this agent because its provider session is unavailable.",
   "error.backend.memoryTextRequired": "Memory text is required.",
   "error.backend.memoryTextTooLong": "Memory text is too long.",
   "error.backend.mcpServerGone": "This MCP server no longer exists.",
@@ -184,38 +181,38 @@ export const messages = defineMessages("error.backend", {
     "Only a run of one of your routines wakes a wait, and you have no routine. Create one with openownbot.create_routine, then open the wait.",
   "error.backend.agentWaitRemoteUnsupported": "Open waits are only available for agents on this computer.",
   "error.backend.routineFlowHandoffFailed": "The routine could not pass the work on to this agent.",
-  "error.backend.mcpServerLimit": "OpenOwnBot keeps up to {limit} MCP servers.",
+  "error.backend.mcpServerLimit": "ROBot keeps up to {limit} MCP servers.",
   "error.backend.mcpServerNameTaken": "An MCP server named {name} already exists.",
-  "error.backend.mcpServerInvalid": "OpenOwnBot cannot save this MCP server configuration.",
+  "error.backend.mcpServerInvalid": "ROBot cannot save this MCP server configuration.",
   "error.backend.mcpServerNoAnswer": "The server did not answer in {seconds} seconds.",
   "error.backend.mcpSignInNotAccepted": "The server did not accept that sign-in.",
   "error.backend.mcpSignInClientRefused":
-    "The sign-in server did not accept OpenOwnBot when it completed the sign-in. Sign in again: OpenOwnBot registers with the server again.",
+    "The sign-in server did not accept ROBot when it completed the sign-in. Sign in again: ROBot registers with the server again.",
   "error.backend.mcpCommandNotFound": "Command not found: {command}",
   "error.backend.mcpRegistrationRefused":
-    "The sign-in server does not accept OpenOwnBot as an app yet. Your account is not the cause. Use another way to connect, such as a local MCP server.",
+    "The sign-in server does not accept ROBot as an app yet. Your account is not the cause. Use another way to connect, such as a local MCP server.",
   "error.backend.mcpSignInAbandonedGeneric": "The sign-in was abandoned.",
   "error.backend.mcpSignInForgotten": "The MCP sign-in was forgotten while it was running.",
   "error.backend.mcpSignInAbandoned": "The MCP sign-in was abandoned.",
   "error.backend.mcpSignInNoBrowser": "This MCP sign-in cannot open a browser.",
   "error.backend.mcpSignInNotWebPage": "The sign-in address is not a web page.",
   "error.backend.mcpSignInRequired": "This server asks you to sign in. Choose Sign in to continue in your browser.",
-  "error.backend.mcpSignInOnHost": "This server asks for a sign-in. Sign in to it in OpenOwnBot on the host computer.",
+  "error.backend.mcpSignInOnHost": "This server asks for a sign-in. Sign in to it in ROBot on the host computer.",
   "error.backend.mcpSignInNeedsHttps":
-    "This server asks for a sign-in, and OpenOwnBot signs in only over https. Change the URL to {url}.",
+    "This server asks for a sign-in, and ROBot signs in only over https. Change the URL to {url}.",
   "error.backend.mcpSignInCancelled": "The sign-in was cancelled.",
   "error.backend.mcpSignInTimedOut": "The sign-in was not finished in the browser.",
   "error.backend.mcpSignInResponseTimedOut": "The sign-in response did not arrive in time.",
   "error.backend.mcpSignInMetadataUnreadable":
-    "OpenOwnBot could not read the sign-in information of this server. Check the server address and try again.",
+    "ROBot could not read the sign-in information of this server. Check the server address and try again.",
   "error.backend.mcpServerExited":
     "The server stopped before it answered. Run the command in a terminal to see its error.",
   "error.backend.mcpServerFailedToStart": "The server did not start: {reason}",
   "error.backend.mcpOAuthProxyUnavailable":
-    "OpenOwnBot could not start its local sign-in connection for this server. Restart OpenOwnBot, then try again.",
+    "ROBot could not start its local sign-in connection for this server. Restart ROBot, then try again.",
   "error.backend.mcpOAuthSignInNeeded":
-    "The sign-in to this MCP server has ended. The user must sign in to it again in OpenOwnBot.",
-  "error.backend.mcpServerUnreachable": "OpenOwnBot could not reach the server. Check the URL and your network.",
+    "The sign-in to this MCP server has ended. The user must sign in to it again in ROBot.",
+  "error.backend.mcpServerUnreachable": "ROBot could not reach the server. Check the URL and your network.",
   "error.backend.mcpLocalServerOff":
     "No server answers at {address} on this computer. Start the server, or turn it on in the app that runs it, then try again.",
   "error.backend.mcpServerBlocked":
@@ -223,7 +220,7 @@ export const messages = defineMessages("error.backend", {
   "error.backend.mcpServerIncompatible":
     "Something answered at this address, but not as an MCP server over Streamable HTTP. Check the URL, and update the app that runs the server.",
   "error.backend.mcpRemoteBridge":
-    "{reason} This command runs the mcp-remote bridge. Choose Streamable HTTP with the URL {url} instead, and OpenOwnBot signs you in.",
+    "{reason} This command runs the mcp-remote bridge. Choose Streamable HTTP with the URL {url} instead, and ROBot signs you in.",
   "error.backend.oauthNotHttps": "The OAuth endpoint {origin} is not https, so the credentials were not sent.",
   "error.backend.oauthTooManyRedirects": "The OAuth endpoint redirected too many times.",
   "error.backend.oauthRedirectOrigin":
@@ -269,7 +266,7 @@ export const messages = defineMessages("error.backend", {
   "error.backend.approvalOwnerOnly": "Only the server owner can approve this action.",
   "error.backend.takeoverInactive": "This browser takeover is no longer active.",
   "error.backend.authSubmitting": "Authentication submission is already in progress.",
-  "error.backend.apiKeySaveFailed": "OpenOwnBot could not save the API key. Try again.",
+  "error.backend.apiKeySaveFailed": "ROBot could not save the API key. Try again.",
   "error.backend.apiKeyNotAllowed": "Only the server owner or an admin can enter an API key.",
   "error.backend.apiKeySaving": "The API key is already being saved.",
   "error.backend.authRequestInactive": "This secure authentication request is no longer active.",
@@ -309,7 +306,7 @@ export const messages = defineMessages("error.backend", {
   "error.backend.mcpSignInAppUrl": "The sign-in app needs a valid server URL.",
   "error.backend.mcpSignInAppClientId": "Enter the client ID of the sign-in app.",
   "error.backend.mcpSignInAppIssuerChanged":
-    "The sign-in server of this MCP server changed, so OpenOwnBot did not send it the sign-in app. If the change is correct, remove the sign-in app and add it again.",
+    "The sign-in server of this MCP server changed, so ROBot did not send it the sign-in app. If the change is correct, remove the sign-in app and add it again.",
   "error.backend.mcpSignInAppNoServer": "Save this MCP server as a URL server before you add a sign-in app.",
   "error.backend.mcpSignInAppUnavailable": "This computer cannot keep a sign-in app.",
   // Tasks: conversations of one agent that run beside its own chat.
@@ -336,5 +333,5 @@ export const messages = defineMessages("error.backend", {
   "error.backend.taskOpenLimitReached":
     "This agent has {count} open tasks. Close a task, then start or open another one.",
   "error.backend.taskRemoteUnsupported": "Tasks are only available for agents on this computer.",
-  "error.backend.taskStartFailed": "OpenOwnBot could not start the task. Do the work in this turn instead.",
+  "error.backend.taskStartFailed": "ROBot could not start the task. Do the work in this turn instead.",
 });

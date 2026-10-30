@@ -1288,7 +1288,7 @@ export function ApprovalContent(props: {
         <IslandActionError message={props.actionError} />
         <Show when={props.allowDesktopReview !== false}>
           <Button size="sm" variant="ghost" onClick={openInOpenOwnBot}>
-            {t("island.action.reviewInOpenOwnBot")}
+            {t("island.action.reviewInROBot")}
           </Button>
         </Show>
         <Show when={props.allowDesktopReview === false && props.item.truncated}>
@@ -1501,7 +1501,7 @@ function QuestionContent(props: {
           {t("island.action.later")}
         </Button>
         <Button size="sm" onClick={openInOpenOwnBot}>
-          {t("island.action.answerInOpenOwnBot")}
+          {t("island.action.answerInROBot")}
         </Button>
       </div>
     </div>

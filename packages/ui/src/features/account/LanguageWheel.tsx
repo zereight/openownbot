@@ -1,5 +1,6 @@
 import { AppLogo } from "@openownbot/brand";
 import type { AppVariant } from "@openownbot/contracts/ipc";
+import { PRODUCT_NAME } from "@openownbot/contracts/product";
 import { TRANSLATED_LOCALES, type TranslatedLocale } from "@openownbot/i18n";
 import { APP_LANGUAGE_OPTIONS, type AppLanguageOption } from "@openownbot/i18n/languages";
 import { ArrowRight, Button, ChevronDown, ChevronUp, IconButton, RadioGroup } from "@openownbot/ui";
@@ -21,7 +22,6 @@ interface WheelEntry {
   option: AppLanguageOption;
 }
 
-const PRODUCT_NAME = "OpenOwnBot";
 const TITLE_ID = "language-wheel-title";
 
 /** The catalog languages in selector order. "System default" is not a row: the wheel opens on it. */

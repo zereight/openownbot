@@ -1,3 +1,4 @@
+import { PRODUCT_NAME } from "@openownbot/contracts/product";
 import * as Application from "expo-application";
 import Constants from "expo-constants";
 import { Typography } from "heroui-native";
@@ -11,8 +12,6 @@ import {
   SettingsSection,
 } from "@/features/settings/components/settings-content";
 import { useText } from "@/shared/lib/text";
-
-const PRODUCT_NAME = "OpenOwnBot";
 
 export function AboutSettingsScreen() {
   const { t } = useText();
