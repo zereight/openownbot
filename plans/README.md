@@ -35,7 +35,8 @@ Allowed states: `TODO`, `IN PROGRESS`, `DONE`, `BLOCKED: <reason>`,
   `acceptInvite` no longer exists in `team-store.ts`. New hosts and members get no hash. The legacy
   hashes and the two released routes remain. Since 2026-10-31 plan 002 is DONE with this exception:
   the developer chose option B, so the host refuses the password of a member who has an account and
-  keeps the hash. Options C and D are in the plan and need an explicit choice.
+  keeps the hash. The password-change route was removed after that, because nothing calls it.
+  Options C and D are in the plan and need an explicit choice.
 - Plan 003 is independent of 001 and 002. It was written against a clean
   worktree at commit `4980fb58`, after #633 gave Codex HTTP MCP servers, and
   rewritten once the developer decided the runtime, the configuration policy and

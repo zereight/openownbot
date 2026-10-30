@@ -53,7 +53,6 @@ export const TEAM_API_ROUTES = {
     login: "/v1/auth/login",
     account: "/v1/auth/account",
     logout: "/v1/auth/logout",
-    password: "/v1/auth/password",
   },
   host: {
     remoteMac: "/v1/host/remote-mac",

@@ -26,7 +26,6 @@ export const messages = {
   "error.team.usernameTaken": "Это имя пользователя уже занято.",
   "error.team.inviteRequiresAccount": "Для этого приглашения нужен подтверждённый аккаунт OpenOwnBot.",
   "error.team.loginIncorrect": "Неверное имя пользователя или пароль.",
-  "error.team.currentPasswordIncorrect": "Текущий пароль неверен.",
   "error.team.memberNotFound": "Участник команды не найден.",
   "error.team.directMessageSelf": "Вы не можете открыть личное сообщение с самим собой.",
   "error.team.directRecipientUnavailable": "Этот участник команды недоступен.",

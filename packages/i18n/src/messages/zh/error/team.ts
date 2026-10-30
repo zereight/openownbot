@@ -26,7 +26,6 @@ export const messages = {
   "error.team.usernameTaken": "该用户名已被使用。",
   "error.team.inviteRequiresAccount": "该邀请需要一个已验证的 OpenOwnBot 账号。",
   "error.team.loginIncorrect": "用户名或密码不正确。",
-  "error.team.currentPasswordIncorrect": "当前密码不正确。",
   "error.team.memberNotFound": "未找到该团队成员。",
   "error.team.directMessageSelf": "你不能与自己开始私信。",
   "error.team.directRecipientUnavailable": "该团队成员不可用。",

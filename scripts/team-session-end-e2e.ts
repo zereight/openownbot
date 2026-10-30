@@ -46,17 +46,14 @@ function recorder() {
     calls[name] = [...(calls[name] ?? []), value];
     return Effect.void;
   };
-  const unused = () => Effect.die(new Error("Not used by this check."));
   const store: TeamRouteDependencies["store"] = {
     logout: (token) => record("store.logout", token),
-    changePassword: unused,
     resolveLogo: () => null,
     listSessions: () => [SESSION_B],
     revokeSession: (sessionId) => record("store.revokeSession", sessionId),
   };
   const remoteScreen: NonNullable<TeamRouteDependencies["remoteScreen"]> = {
     revokeTeamSession: (sessionId) => record("remoteScreen.revokeTeamSession", sessionId),
-    revokeMember: (memberId) => record("remoteScreen.revokeMember", memberId),
   };
   const browserView: NonNullable<TeamRouteDependencies["browserView"]> = {
     revokeTeamSession: (sessionId) => record("browserView.revokeTeamSession", sessionId),

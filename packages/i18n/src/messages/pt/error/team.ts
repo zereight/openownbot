@@ -28,7 +28,6 @@ export const messages = {
   "error.team.usernameTaken": "Este nome de usuário já está em uso.",
   "error.team.inviteRequiresAccount": "Este convite exige uma conta verificada do OpenOwnBot.",
   "error.team.loginIncorrect": "O nome de usuário ou a senha estão incorretos.",
-  "error.team.currentPasswordIncorrect": "A senha atual está incorreta.",
   "error.team.memberNotFound": "Membro da equipe não encontrado.",
   "error.team.directMessageSelf": "Você não pode abrir uma mensagem direta com você mesmo.",
   "error.team.directRecipientUnavailable": "Este membro da equipe está indisponível.",

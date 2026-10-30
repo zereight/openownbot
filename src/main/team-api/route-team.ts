@@ -14,11 +14,11 @@ import { runCauseEffect } from "../../backend/effect-boundary";
 import type { TeamStore } from "../team-store";
 import type { TeamApiBrowser, TeamApiBrowserView, TeamApiRemoteScreen } from "./dependencies";
 import type { RouteOutcome, TeamApiRequestContext } from "./request-context";
-import { pathIdentifier, readJson, requireAdmin, stringField } from "./request-helpers";
+import { pathIdentifier, requireAdmin } from "./request-helpers";
 
 export interface TeamRouteDependencies {
-  store: Pick<TeamStore, "logout" | "changePassword" | "resolveLogo" | "listSessions" | "revokeSession">;
-  remoteScreen?: Pick<TeamApiRemoteScreen, "revokeTeamSession" | "revokeMember">;
+  store: Pick<TeamStore, "logout" | "resolveLogo" | "listSessions" | "revokeSession">;
+  remoteScreen?: Pick<TeamApiRemoteScreen, "revokeTeamSession">;
   /** A session or a member that ends gives back the browser tabs it controls. */
   browser?: Pick<TeamApiBrowser, "releaseUserControlHeldBy">;
   browserView?: Pick<TeamApiBrowserView, "revokeTeamSession">;
@@ -31,27 +31,13 @@ export async function routeTeam(
   context: TeamApiRequestContext,
   { store, remoteScreen, browser, browserView, onSessionRevoked, getPresence, refreshPresence }: TeamRouteDependencies,
 ): Promise<RouteOutcome> {
-  const { method, url, request, response, member, token, sessionId, json, empty } = context;
+  const { method, url, response, member, token, sessionId, json, empty } = context;
 
   if (method === "POST" && url.pathname === TEAM_API_ROUTES.auth.logout) {
     await runCauseEffect(store.logout(token));
     await (remoteScreen ? runCauseEffect(remoteScreen.revokeTeamSession(sessionId)) : undefined);
     browser?.releaseUserControlHeldBy({ kind: "session", sessionId });
     await (browserView ? runCauseEffect(browserView.revokeTeamSession(sessionId)) : undefined);
-    refreshPresence();
-    return empty(204);
-  }
-  if (method === "POST" && url.pathname === TEAM_API_ROUTES.auth.password) {
-    const body = await readJson(request);
-    await runCauseEffect(
-      store.changePassword(
-        member.id,
-        stringField(body, "currentPassword", false, 256),
-        stringField(body, "newPassword", false, 256),
-      ),
-    );
-    await (remoteScreen ? runCauseEffect(remoteScreen.revokeMember(member.id)) : undefined);
-    browser?.releaseUserControlHeldBy({ kind: "member", memberId: member.id });
     refreshPresence();
     return empty(204);
   }

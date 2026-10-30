@@ -1137,26 +1137,6 @@ export class TeamStore {
     Effect.uninterruptible,
   ).bind(this);
 
-  readonly changePassword = Effect.fn("TeamStore.changePassword")(
-    function* (this: TeamStore, memberId: string, currentPassword: string, nextPassword: string) {
-      yield* remoteDecode(() => validatePassword(nextPassword));
-      const state = yield* remoteDecode(() => this.#requireState());
-      const member = state.members.find((candidate) => candidate.id === memberId);
-      if (!member || !(yield* verifyPasswordEffect(currentPassword, member))) {
-        return yield* new RemoteWorkflowError({
-          cause: new TeamStoreError(sourceText("error.team.currentPasswordIncorrect")),
-        });
-      }
-      const credentials = yield* hashPasswordEffect(nextPassword);
-      yield* remoteDecode(() => this.#requireUnchangedState(state));
-      Object.assign(member, credentials);
-      state.sessions = state.sessions.filter((session) => session.memberId !== memberId);
-      yield* this.#persistEffect();
-    },
-    Effect.provide(TeamStoreFiles.layer),
-    Effect.uninterruptible,
-  ).bind(this);
-
   readonly revokeSession = Effect.fn("TeamStore.revokeSession")(
     function* (this: TeamStore, sessionId: string): Effect.fn.Return<void, RemoteWorkflowError, TeamStoreFiles> {
       const state = yield* remoteDecode(() => this.#requireState());
