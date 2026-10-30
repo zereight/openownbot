@@ -528,6 +528,7 @@ const agentGroup = bridgeGroup(IPC_ENDPOINTS.agent, {
   readTask: decodeTaskConversation,
   startTask: decodeAgentTask,
   runQueuedMessageAsTask: decodeAgentTask,
+  forkThread: decodeAgentTask,
   stopTask: decodeVoid,
   closeTask: decodeVoid,
   reopenTask: decodeVoid,

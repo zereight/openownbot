@@ -21,6 +21,7 @@ import {
   type DownloadAttachmentsInput,
   type EditQueuedMessageInput,
   type FileAction,
+  type ForkAgentThreadInput,
   type ImportAttachmentsInput,
   type InterruptTurnInput,
   isAgentAccess,
@@ -561,6 +562,15 @@ export function parseRunQueuedMessageAsTask(value: unknown): RunQueuedMessageAsT
   return {
     agentId: requireString(value.agentId, "agentId"),
     deliveryId: requireString(value.deliveryId, "deliveryId"),
+  };
+}
+
+export function parseForkAgentThread(value: unknown): ForkAgentThreadInput {
+  if (!isObject(value)) throw new Error("Invalid fork request.");
+  return {
+    agentId: requireString(value.agentId, "agentId"),
+    taskId: value.taskId === null ? null : requireString(value.taskId, "taskId"),
+    messageId: requireString(value.messageId, "messageId"),
   };
 }
 

@@ -8,7 +8,8 @@ export interface AgentThreadForkInput {
   sourceThreadId: string;
   /** The last message to copy. Later messages stay in the source. */
   throughMessageId: string;
-  title: string;
+  /** The title of the fork, from the last message that it copies. */
+  title: (lastMessage: ConversationMessage) => string;
 }
 
 /**
@@ -28,13 +29,15 @@ export function forkAgentThread(
   const cut = source.messages.findIndex((message) => message.id === input.throughMessageId);
   if (cut < 0) throw new Error(`The conversation has no message ${input.throughMessageId}.`);
   const copied = source.messages.slice(0, cut + 1);
+  const last = copied[cut];
+  if (!last) throw new Error(`The conversation has no message ${input.throughMessageId}.`);
   if (source.activeTurnId !== null && copied.some((message) => message.turnId === source.activeTurnId)) {
     throw new Error("A thread cannot be forked from a turn that is still running.");
   }
   const fork = threads.create({
     agentId: input.agentId,
     origin: "user",
-    title: input.title,
+    title: input.title(last),
     titleSource: "auto",
     forkedFrom: { threadId: input.sourceThreadId, messageId: input.throughMessageId },
   });

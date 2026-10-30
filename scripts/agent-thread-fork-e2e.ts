@@ -77,7 +77,7 @@ try {
       agentId: agent.id,
       sourceThreadId: ownThreadId,
       throughMessageId: "m2",
-      title: "Fork at m2",
+      title: (last) => `Fork at ${last.id}`,
     });
     const copy = database.readConversation(agent.id, fork.threadId);
     report.copied = {
@@ -114,7 +114,7 @@ try {
           agentId: agent.id,
           sourceThreadId: ownThreadId,
           throughMessageId: "missing",
-          title: "x",
+          title: () => "x",
         }),
       /no message missing/,
     );
@@ -128,7 +128,7 @@ try {
           agentId: agent.id,
           sourceThreadId: ownThreadId,
           throughMessageId: "m4",
-          title: "x",
+          title: () => "x",
         }),
       /still running/,
     );
@@ -150,7 +150,7 @@ try {
       agentId,
       sourceThreadId: forkThreadId,
       throughMessageId: "m1",
-      title: "Fork of the fork",
+      title: () => "Fork of the fork",
     });
     const secondIds = ids(database.readConversation(agentId, second.threadId).messages);
     assert.deepEqual(secondIds, ["m1"]);

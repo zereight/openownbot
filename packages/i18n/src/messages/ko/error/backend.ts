@@ -314,6 +314,7 @@ export const messages = {
   "error.backend.threadStillRunning": "이 스레드가 아직 실행 중이에요. 중지한 다음 다시 시도하세요.",
   "error.backend.threadArchived": "이 스레드는 보관되어 있어요. 메시지를 보내려면 복원하세요.",
   "error.backend.threadTitleRequired": "스레드에 짧은 제목을 지정하세요.",
+  "error.backend.threadForkTitle": "포크한 스레드",
   "error.backend.threadOpenLimitReached":
     "이 에이전트에는 열린 스레드가 {count}개 있어요. 스레드 하나를 보관한 후 다른 스레드를 시작하거나 복원하세요.",
   "error.backend.threadRemoteUnsupported": "스레드는 이 컴퓨터의 에이전트에서만 사용할 수 있어요.",

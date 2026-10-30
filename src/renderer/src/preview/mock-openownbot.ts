@@ -2673,6 +2673,17 @@ export function createMockOpenOwnBot(options: MockOpenOwnBotOptions = {}): MockO
         runTaskTurn(task, input.text);
         return clone(task);
       },
+      forkThread: async (input) => {
+        const source =
+          input.taskId === null ? getSnapshot(input.agentId) : taskConversation(findTask(input.agentId, input.taskId));
+        const cut = source.messages.findIndex((message) => message.id === input.messageId);
+        const last = source.messages[cut];
+        if (!last) throw new Error(sourceText("error.backend.threadNotFound"));
+        const task = createTask(input.agentId, last.text || sourceText("error.backend.threadForkTitle"));
+        taskConversation(task).messages = clone(source.messages.slice(0, cut + 1));
+        emitTasks(input.agentId);
+        return clone(task);
+      },
       runQueuedMessageAsTask: async (input) => {
         const queue = queues.get(input.agentId) ?? emptyQueue(input.agentId);
         const delivery = queue.deliveries.find(

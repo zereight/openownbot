@@ -5,6 +5,7 @@ import { type DynamicRecord, isOneOf } from "@openownbot/contracts/runtime-value
 import { deleteAggregateHistory, deleteThreadAttachments } from "../database/database-core";
 import { databaseRow, databaseRows, optionalStringColumn, requiredStringColumn } from "../database/database-rows";
 import type { OpenOwnBotDatabase } from "../openownbot-database";
+import { type AgentThreadForkInput, forkAgentThread } from "./agent-thread-fork";
 
 const AGENT_THREAD_ORIGINS = ["user", "agent"] as const;
 export type AgentThreadOrigin = (typeof AGENT_THREAD_ORIGINS)[number];
@@ -185,6 +186,11 @@ export class AgentThreadStore {
     const created = this.taskForThread(threadId);
     if (!created) throw new Error("The thread was not stored.");
     return created;
+  }
+
+  /** Forks a conversation of this agent at one message into a new side thread. See `forkAgentThread`. */
+  fork(input: AgentThreadForkInput): AgentThreadRecord {
+    return forkAgentThread(this.#database, this, input);
   }
 
   /** A rename by a person. The title no longer follows the first message. */
