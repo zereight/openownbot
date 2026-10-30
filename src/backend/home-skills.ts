@@ -24,7 +24,7 @@ class HomeSkillReadFailed extends Schema.TaggedError<HomeSkillReadFailed>()("Hom
   cause: Schema.Defect(),
 }) {}
 
-/** A folder or file that cannot be read counts as missing: the folder belongs to the user, not to OpenOwnBot. */
+/** A folder or file that cannot be read counts as missing: the folder belongs to the user, not to ROBot. */
 const optionalRead = <A>(operation: () => Promise<A>) =>
   Effect.tryPromise({ try: operation, catch: (cause) => new HomeSkillReadFailed({ cause }) }).pipe(Effect.option);
 
@@ -67,7 +67,7 @@ export const skillFolderNames = Effect.fn("HomeSkills.folderNames")(function* (d
 });
 
 /**
- * The valid skills in `~/.agents/skills`, by slug. OpenOwnBot only reads this folder. A skill whose
+ * The valid skills in `~/.agents/skills`, by slug. ROBot only reads this folder. A skill whose
  * `SKILL.md` is too large or does not follow the specification is left out, because a provider can
  * skip it too.
  */

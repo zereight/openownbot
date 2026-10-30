@@ -1,4 +1,4 @@
-// Runs a real provider CLI between OpenOwnBot's driver and the CLI, and appends each JSON-RPC line of
+// Runs a real provider CLI between ROBot's driver and the CLI, and appends each JSON-RPC line of
 // both directions to the transcript named in `TRANSCRIPT_OUT`, redacted. Lines that are not JSON,
 // and stderr, are passed through and not recorded. `record-provider-transcript.ts` installs this as
 // the provider executable: `bun transcript-proxy.ts <real executable> [args...]`.

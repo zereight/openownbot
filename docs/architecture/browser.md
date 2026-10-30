@@ -82,7 +82,7 @@ so a supplied image or text MIME type cannot enable a preview. Remote support is
 the `media-attachments` capability; released protocol adapters keep their existing meanings.
 
 ZIP attachments use the same contract with `application/zip` and no inline preview. Import copies
-and hashes the archive; OpenOwnBot never extracts it. Remote support is additive through the
+and hashes the archive; ROBot never extracts it. Remote support is additive through the
 `zip-attachments` capability.
 
 MP4 attachments use the MP3 and MOV contract with `video/mp4`. Remote support is additive through
@@ -93,7 +93,7 @@ the `mp4-attachments` capability, because a host with only `media-attachments` r
 `browser-tools.ts` defines provider schemas and parses each call into a typed tool and its arguments.
 `browser-tool-actions.ts` maps input tools to CDP operations. It does not own tabs or import the host.
 `BrowserHost` owns tab access checks, operation queues, focus, deadlines, and persistent browser state.
-The browser session and service-worker fallback remove the `OpenOwnBot/` and `Electron/` user-agent
+The browser session and service-worker fallback remove the `ROBot/` and `Electron/` user-agent
 tokens. They keep the installed Chromium version and host platform. Requests to `accounts.google.com`
 keep the `Electron/` token because Google rejects the account identifier step without it. This
 exception does not change the page identity or the identity sent to other sites.

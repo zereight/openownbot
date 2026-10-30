@@ -1,5 +1,5 @@
 // Adapted from the reproduction in zereight/openownbot#2464.
-// A Claude agent session with OpenOwnBot started the way Finder, the Dock or a login item starts it:
+// A Claude agent session with ROBot started the way Finder, the Dock or a login item starts it:
 // PATH=/usr/bin:/bin:/usr/sbin:/sbin. The session's Bash tool and hooks run with the PATH the Claude
 // process starts with, so that process must get the login shell's folders, such as Homebrew's.
 // The real Claude Agent SDK starts a stand-in Claude executable that records its PATH.
@@ -31,7 +31,7 @@ try {
   delete process.env.ZDOTDIR;
   if (process.platform !== "darwin") process.env.SHELL = "/bin/bash";
 
-  // OpenOwnBot started from Finder, the Dock or a login item.
+  // ROBot started from Finder, the Dock or a login item.
   process.env.PATH = "/usr/bin:/bin:/usr/sbin:/sbin";
 
   const shellPath = await runCauseEffect(runInLoginShell('printf %s "$PATH"'));

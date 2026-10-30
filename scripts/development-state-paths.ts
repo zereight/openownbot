@@ -13,7 +13,7 @@ export function resolveDevelopmentAppDataRoot(
   if (platform === "win32") {
     const appData = environment.APPDATA?.trim();
     if (!appData) {
-      throw new Error("APPDATA is not set. OpenOwnBot dev state was not changed.");
+      throw new Error("APPDATA is not set. ROBot dev state was not changed.");
     }
     return appData;
   }

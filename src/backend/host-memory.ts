@@ -1,6 +1,6 @@
 /**
- * How much memory the computer that runs OpenOwnBot has left. Only a server gives one (hosted,
- * self-hosted or a container): one unit or container holds OpenOwnBot, its browser tabs and every
+ * How much memory the computer that runs ROBot has left. Only a server gives one (hosted,
+ * self-hosted or a container): one unit or container holds ROBot, its browser tabs and every
  * provider process. The main process reads the system; this file has no Electron import, so the
  * backend can use it.
  */

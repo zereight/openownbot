@@ -16,7 +16,7 @@ import { z } from "zod";
  * The script serves one page on 127.0.0.1. The page sends the manifest to GitHub, GitHub asks you to
  * confirm the app, and then sends you back here with a code. The script trades that code for the
  * app's settings. It prints the Client ID, which is public, and writes the client secret, the private
- * key and the webhook secret to `~/.config/openownbot/github-app-<slug>.json` with mode 0600. OpenOwnBot
+ * key and the webhook secret to `~/.config/openownbot/github-app-<slug>.json` with mode 0600. ROBot
  * does not use them: keep them in a password manager.
  *
  * https://docs.github.com/en/apps/sharing-github-apps/registering-a-github-app-from-a-manifest
@@ -62,7 +62,7 @@ function page(response: ServerResponse, status: number, body: string): void {
     "Cache-Control": "no-store",
     "Referrer-Policy": "no-referrer",
   });
-  response.end(`<!doctype html><meta charset="utf-8"><title>OpenOwnBot GitHub App</title>${body}`);
+  response.end(`<!doctype html><meta charset="utf-8"><title>ROBot GitHub App</title>${body}`);
 }
 
 async function convert(code: string): Promise<Conversion> {
@@ -142,7 +142,7 @@ async function main(): Promise<void> {
           200,
           `<form id="manifest" method="post" action="${escapeHtml(`${target}?state=${state}`)}">` +
             `<input type="hidden" name="manifest" value="${escapeHtml(body)}">` +
-            `<p>Sending the OpenOwnBot manifest to GitHub…</p><button type="submit">Continue to GitHub</button></form>` +
+            `<p>Sending the ROBot manifest to GitHub…</p><button type="submit">Continue to GitHub</button></form>` +
             `<script>document.getElementById("manifest").submit()</script>`,
         );
       }
@@ -191,7 +191,7 @@ async function main(): Promise<void> {
     process.exitCode = 1;
     return;
   }
-  logger.info(`The secrets are in ${secretsPath} (mode 0600). OpenOwnBot does not use them.`);
+  logger.info(`The secrets are in ${secretsPath} (mode 0600). ROBot does not use them.`);
   logger.info("Do these steps in the app settings. A manifest cannot do them:");
   logger.info("  1. General > Identifying and authorizing users: select Enable Device Flow.");
   logger.info("  2. Optional features: opt out of User-to-server token expiration.");

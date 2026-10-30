@@ -53,7 +53,7 @@ export const startAcpAuthentication = Effect.fnUntraced(function* (options: {
   /** Called when the server answered `logout`: what it kept is gone, whether the sign-in ends or not. */
   onLoggedOut?: () => void;
   /**
-   * Gemini prints its Google page instead of opening it, and OpenOwnBot opens it, so a launch that fails
+   * Gemini prints its Google page instead of opening it, and ROBot opens it, so a launch that fails
    * shows an error. When the server opened it itself, a failure showed nothing (#3520).
    */
   openGoogleSignIn?: (url: string) => Promise<void>;
@@ -187,7 +187,7 @@ export const startAcpAuthentication = Effect.fnUntraced(function* (options: {
         params: {
           protocolVersion: 1,
           clientCapabilities: { fs: { readTextFile: false, writeTextFile: false }, terminal: false },
-          clientInfo: { name: "openownbot", title: "OpenOwnBot", version: "0.1.0" },
+          clientInfo: { name: "openownbot", title: "ROBot", version: "0.1.0" },
         },
       });
       return Effect.sync(() => {

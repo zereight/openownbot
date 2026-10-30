@@ -3,7 +3,7 @@ import { Button, CopyButton, Field, Input, SettingsSection, Text, Trash2 } from 
 import { useText } from "@robot/ui/text";
 import { createEffect, createStore, Show } from "solid-js";
 
-/** The pre-registered OAuth app of a saved http row, for a server that does not register OpenOwnBot by itself. */
+/** The pre-registered OAuth app of a saved http row, for a server that does not register ROBot by itself. */
 export interface McpPanelSignInApp {
   load: (mcpServerId: string) => Promise<McpSignInAppState>;
   save: (input: SaveMcpSignInAppInput) => Promise<McpSignInAppState>;

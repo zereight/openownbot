@@ -1,4 +1,4 @@
-// Checks that OpenOwnBot keeps a provider session when nothing in it is out of date, so the provider
+// Checks that ROBot keeps a provider session when nothing in it is out of date, so the provider
 // keeps its history and its prompt cache. Runs the real agent service on a temporary profile with
 // stand-in provider executables. Cases:
 // - claude-refresh-resumes: a runtime refresh (an MCP or skill change) closes the Claude process and
@@ -208,7 +208,7 @@ function handle(message) {
     const text = params.prompt.map((block) => block.text ?? "").join("");
     log({ sessionId: params.sessionId, length: text.length, text });
     // The context fill: a drop is a compaction that the agent does by itself, and a nearly full
-    // context makes OpenOwnBot replace the session.
+    // context makes ROBot replace the session.
     const used = text.includes("usage-high") ? 900000 : text.includes("usage-drop") ? 1000 : 400000;
     write({ method: "session/update", params: { sessionId: params.sessionId, update: { sessionUpdate: "usage_update", used, size: 1000000 } } });
     write({ method: "session/update", params: { sessionId: params.sessionId, update: { sessionUpdate: "agent_message_chunk", content: { type: "text", text: "Done." } } } });
@@ -535,7 +535,7 @@ try {
       url: "",
       headers: [],
     };
-    // The entry that Codex keeps for this server: OpenOwnBot's disabled placeholder, with the approvals.
+    // The entry that Codex keeps for this server: ROBot's disabled placeholder, with the approvals.
     const key = codexMcpServerKey(server);
     const writeConfig = (tools: { echo: { approval_mode: "approve" | "prompt" } } | null) =>
       writeFileSync(
@@ -595,7 +595,7 @@ try {
     const SECOND = "second-channel-request-9b4d";
     // The agent compacts by itself during this turn, so the next packet is complete again.
     const THIRD = "third-channel-request-usage-drop-2f6a";
-    // The context is nearly full after this turn, so OpenOwnBot replaces the channel session.
+    // The context is nearly full after this turn, so ROBot replaces the channel session.
     const FOURTH = "fourth-channel-request-usage-high-5d3c";
     const FIFTH = "fifth-channel-request-a81b";
     const prompts = () => entries<{ sessionId: string; length: number; text: string }>(agyLog);

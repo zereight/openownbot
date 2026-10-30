@@ -34,7 +34,7 @@ function restore(request: AcpRequest, peer: AcpPeer): void {
   peer.reply(request, setup(sessionId));
 }
 
-/** The user's text, without the instructions that OpenOwnBot puts first in a new or loaded session. */
+/** The user's text, without the instructions that ROBot puts first in a new or loaded session. */
 function promptText(params: AcpParams): string {
   const text = (params.prompt ?? []).map((block) => block.text ?? "").join("");
   return text.replace(/^[\s\S]*<\/openownbot-developer-instructions>/u, "");

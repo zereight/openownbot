@@ -30,7 +30,7 @@ export function guardSession(target: GuardableSession, onRefused: (origin: strin
 }
 
 /**
- * While LOCAL_ONLY is on, refuses every request this process makes to an OpenOwnBot service: Node
+ * While LOCAL_ONLY is on, refuses every request this process makes to a ROBot service: Node
  * `fetch` and `WebSocket` from this call on, and every Electron session (the default one, the
  * updater and the browser panes). The renderer runs in the default session, so it needs no code of
  * its own. Call it before any network call.

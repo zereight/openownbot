@@ -4,7 +4,7 @@
 # hosted variables to a 0600 file that openownbot-hosted-server waits for.
 #
 # The claim stays in the file after the first start. Until its first use, each start of the server makes it work for
-# one hour. After its first use it works for 10 minutes. OpenOwnBot removes it from the environment that agents inherit.
+# one hour. After its first use it works for 10 minutes. ROBot removes it from the environment that agents inherit.
 set -euo pipefail
 umask 077
 

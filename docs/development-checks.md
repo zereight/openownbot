@@ -132,7 +132,7 @@ deployment dependencies keep their existing order. Local commands do not change.
 times on GitHub before claiming a time reduction; parallel steps share the runner's resources.
 
 The `Provider CLI canary` workflow is not a pull request check. It runs every six hours on the newest
-upstream provider CLIs, which reach users without an OpenOwnBot release; see
+upstream provider CLIs, which reach users without a ROBot release; see
 [Provider CLI updates](architecture/providers.md#provider-cli-updates).
 
 `check:api` ends with `api:build:check`, which is the preview build of the Worker, so the API job
@@ -378,11 +378,11 @@ baseline. Do not name the script `typecheck:*`:
 
 ### Agent context budget
 
-`bun run check:agent-context` holds the text that OpenOwnBot adds to an agent's context to the byte
+`bun run check:agent-context` holds the text that ROBot adds to an agent's context to the byte
 counts in `tools/agent-context/budget.json`. It uses the same rules as the type debt ratchet
 (`scripts/debt-ratchet.ts`): more bytes fail, and fewer bytes fail until `--write` lowers the
 baseline. A raise is a hand edit that a reviewer sees. The fixture agent has no memories, teammates,
-skills, or connected vault, so the counts measure only OpenOwnBot's own text:
+skills, or connected vault, so the counts measure only ROBot's own text:
 
 - `instructions.claude` and `instructions.codex`: `developerInstructions()` with the options of each
   provider.

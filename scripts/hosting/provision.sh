@@ -1,5 +1,5 @@
 #!/bin/bash
-# Installs OpenOwnBot in a boat builder sandbox, so the sandbox can be saved as the hosted server
+# Installs ROBot in a boat builder sandbox, so the sandbox can be saved as the hosted server
 # template. `build-boat-template.ts` uploads this directory to the builder and runs:
 #
 #   sudo bash provision.sh <service-user> <appimage-url> <appimage-sha256> <auth-api-url>
@@ -46,14 +46,14 @@ install -d -m 0755 "$INSTALL" "$INSTALL/hosted"
 recover
 work=$(mktemp -d "$SCRATCH/openownbot-update.XXXXXX")
 trap 'rm -rf "$work"' EXIT
-fetch --output "$work/OpenOwnBot.AppImage" "$APPIMAGE_URL"
-echo "$APPIMAGE_SHA256  $work/OpenOwnBot.AppImage" | sha256sum --check --quiet
-unpack "$work/OpenOwnBot.AppImage"
+fetch --output "$work/ROBot.AppImage" "$APPIMAGE_URL"
+echo "$APPIMAGE_SHA256  $work/ROBot.AppImage" | sha256sum --check --quiet
+unpack "$work/ROBot.AppImage"
 prepare_release "$work/squashfs-root"
-# An older OpenOwnBot cannot open a database that a newer one migrated.
+# An older ROBot cannot open a database that a newer one migrated.
 installed=$(version_of "$INSTALL/app")
 if [ -n "$installed" ] && newer "$installed" "$(version_of "$work/squashfs-root")"; then
-  fail "OpenOwnBot $installed is installed, and this AppImage has an older version."
+  fail "ROBot $installed is installed, and this AppImage has an older version."
 fi
 stage_release "$work/squashfs-root"
 swap_in

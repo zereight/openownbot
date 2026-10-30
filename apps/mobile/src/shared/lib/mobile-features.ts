@@ -57,7 +57,7 @@ export async function refreshMobileFeatures(apiUrl: string, force = false): Prom
 }
 
 /**
- * The OpenOwnBot version. In Expo Go the native version is the version of Expo Go, so Expo Go and
+ * The ROBot version. In Expo Go the native version is the version of Expo Go, so Expo Go and
  * development builds send the version of the app config; for a development build it is the same.
  * A release build sends its native version.
  */

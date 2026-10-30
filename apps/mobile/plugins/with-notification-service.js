@@ -2,7 +2,7 @@ const fs = require("node:fs");
 const path = require("node:path");
 const { withDangerousMod, withXcodeProject } = require("expo/config-plugins");
 
-// Adds the Notification Service Extension that opens a sealed OpenOwnBot notification before iOS shows
+// Adds the Notification Service Extension that opens a sealed ROBot notification before iOS shows
 // it (`notification-service/NotificationService.swift`). It reads the keys that the app writes into
 // the App Group, so it has the App Group entitlement and nothing else.
 

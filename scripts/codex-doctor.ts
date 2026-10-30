@@ -15,7 +15,7 @@ try {
     client.request(
       "initialize",
       {
-        clientInfo: { name: "openownbot_doctor", title: "OpenOwnBot Doctor", version: "0.1.0" },
+        clientInfo: { name: "openownbot_doctor", title: "ROBot Doctor", version: "0.1.0" },
         capabilities: { experimentalApi: true },
       },
       decodeRecordResponse,

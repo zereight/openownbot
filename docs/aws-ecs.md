@@ -1,6 +1,6 @@
 # AWS ECS
 
-You can run the [OpenOwnBot image](docker.md) as an Amazon ECS service on an EC2 instance. AWS Fargate
+You can run the [ROBot image](docker.md) as an Amazon ECS service on an EC2 instance. AWS Fargate
 is not supported (see [Fargate](#fargate)). The service is a normal Remote host of your account, as
 any [Docker](docker.md) container. It publishes no port.
 
@@ -8,7 +8,7 @@ Read [Docker](docker.md) first. This page gives only the ECS settings for its op
 
 ## Instance
 
-Use one EC2 instance for OpenOwnBot, with the Amazon ECS-optimized Amazon Linux 2023 AMI. OpenOwnBot
+Use one EC2 instance for ROBot, with the Amazon ECS-optimized Amazon Linux 2023 AMI. ROBot
 needs the [seccomp profile](docker.md#security) of the image, and an ECS task definition cannot
 set a seccomp profile: `dockerSecurityOptions` accepts only `no-new-privileges`, `apparmor:`,
 `label:` and `credentialspec:`. So the Docker daemon of the instance uses the profile for each
@@ -87,7 +87,7 @@ the profile of that version again.
 | Setting | Docker option | Why |
 | --- | --- | --- |
 | `sharedMemorySize: 1024` | `--shm-size 1g` | Chromium uses shared memory. |
-| `stopTimeout: 60` | `--stop-timeout 60` | OpenOwnBot stops its agents and closes its database before it exits. |
+| `stopTimeout: 60` | `--stop-timeout 60` | ROBot stops its agents and closes its database before it exits. |
 | `host.sourcePath` | `-v openownbot-data:/data` | All data is in `/data`. |
 | `daemon.json` | `--security-opt` | See [Instance](#instance). |
 
@@ -95,7 +95,7 @@ The image starts `tini` as process 1. Do not set `initProcessEnabled`.
 
 To give a provider API key from AWS Secrets Manager or SSM Parameter Store, add `secrets` to the
 container, for example `{ "name": "XAI_API_KEY", "valueFrom": "<secret ARN>" }`. The execution
-role must be able to read it. Agents can read each variable of OpenOwnBot (see
+role must be able to read it. Agents can read each variable of ROBot (see
 [Environment](docker.md#environment)).
 
 The task role is for ECS Exec only. Agents can read the credentials of the task role, so do not give
@@ -128,7 +128,7 @@ aws ecs execute-command --cluster openownbot --task <task ID> --container openow
 ## Network
 
 The task only connects out. Allow HTTPS to the hosts in
-[A company firewall or proxy blocks OpenOwnBot](TROUBLESHOOTING.md#a-company-firewall-or-proxy-blocks-openownbot),
+[A company firewall or proxy blocks ROBot](TROUBLESHOOTING.md#a-company-firewall-or-proxy-blocks-openownbot),
 to your providers, and the UDP and TCP ports of the TURN relay for remote use. The security group
 needs no inbound rule.
 
@@ -144,7 +144,7 @@ Fargate cannot run the image with the Electron sandbox on:
 - `dockerSecurityOptions` is not valid on Fargate, and Fargate adds no capability other than
   `SYS_PTRACE`. If the default profile of Fargate refuses user namespaces, the container stops with a
   message about the seccomp profile.
-- Fargate stores data on EFS, a network file system. The OpenOwnBot database uses the SQLite WAL mode,
+- Fargate stores data on EFS, a network file system. The ROBot database uses the SQLite WAL mode,
   which [does not work over a network file system](https://www.sqlite.org/wal.html).
 
 Fargate does not let you set the shared memory size. When `/dev/shm` is smaller than 1 GiB, the image

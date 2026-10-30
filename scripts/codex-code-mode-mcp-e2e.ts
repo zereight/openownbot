@@ -1,6 +1,6 @@
 // Runs issue #2897 end to end on the real `codex app-server`: a code-mode-only model, as Codex
-// describes GPT-6, and an OpenOwnBot MCP server. Codex defers such a model's MCP tools into its `exec`
-// cell, and the prompt does not name them, so the model does not find them. OpenOwnBot sends their
+// describes GPT-6, and a ROBot MCP server. Codex defers such a model's MCP tools into its `exec`
+// cell, and the prompt does not name them, so the model does not find them. ROBot sends their
 // namespaces as direct-only, beside its own. The payload is the one `codexDisabledServers`,
 // `codexMcpServers`, `codexThreadMcpServers` and `codexMcpNamespaces` build for a thread. A local
 // server that speaks the Responses API stands in for the model: it records the top-level namespaces
@@ -255,7 +255,7 @@ interface Case {
   /** The user's own entries, as TOML. */
   user?: string;
   rows: McpServerConfig[];
-  /** True sends the direct-only list as it was before the fix: OpenOwnBot's own namespace alone. */
+  /** True sends the direct-only list as it was before the fix: ROBot's own namespace alone. */
   legacy?: boolean;
   /** True starts the thread with the fix, then resumes it in a new app-server. */
   resume?: boolean;
@@ -285,7 +285,7 @@ async function open(home: string) {
       client.request(
         "initialize",
         {
-          clientInfo: { name: "openownbot_e2e", title: "OpenOwnBot E2E", version: "0.0.0" },
+          clientInfo: { name: "openownbot_e2e", title: "ROBot E2E", version: "0.0.0" },
           capabilities: { experimentalApi: true },
         },
         decodeRecordResponse,

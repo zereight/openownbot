@@ -93,12 +93,12 @@ try {
 }
 
 if (failures.length > 0) {
-  logger.error("OpenOwnBot release preflight failed:\n");
+  logger.error("ROBot release preflight failed:\n");
   for (const failure of failures) logger.error(`- ${failure}`);
   logger.error("\nNo release tag was created.");
   process.exitCode = 1;
 } else {
-  logger.info(`OpenOwnBot v${packageJson.version} release preflight passed.`);
+  logger.info(`ROBot v${packageJson.version} release preflight passed.`);
 }
 
 function run(command: string, args: string[]): string {

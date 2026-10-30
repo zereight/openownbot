@@ -40,7 +40,7 @@ export const CliMissing: Story = { args: args({}) };
 
 export const CliInstalling: Story = { args: args({ setup: { ...MISSING, cli: "installing" } }) };
 
-/** OpenOwnBot has no CLI build for this computer, so the user installs it. */
+/** ROBot has no CLI build for this computer, so the user installs it. */
 export const CliManualInstall: Story = { args: args({ setup: { ...MISSING, canInstall: false } }) };
 
 /** Step 2: the CLI is in place, and the 1Password app does not let it in yet. */
@@ -64,17 +64,17 @@ export const ChooseAccount: Story = {
 };
 
 export const Connected: Story = {
-  args: args({ state: "connected", setup: READY, vaultNames: ["Shared with OpenOwnBot"], loginCount: 3 }),
+  args: args({ state: "connected", setup: READY, vaultNames: ["Shared with ROBot"], loginCount: 3 }),
 };
 
 /** The login count has not arrived from 1Password. */
 export const ConnectedLoading: Story = {
-  args: args({ state: "connected", setup: READY, vaultNames: ["Shared with OpenOwnBot"], loginCount: null }),
+  args: args({ state: "connected", setup: READY, vaultNames: ["Shared with ROBot"], loginCount: null }),
 };
 
 export const InstallFailed: Story = {
   args: args({
-    error: "OpenOwnBot could not install the 1Password CLI. Check the connection to the internet, then try again.",
+    error: "ROBot could not install the 1Password CLI. Check the connection to the internet, then try again.",
   }),
 };
 
@@ -87,7 +87,7 @@ export const HostTokenRejected: Story = {
 
 export const HostConnected: Story = {
   args: {
-    ...args({ state: "connected", vaultNames: ["Shared with OpenOwnBot"], loginCount: 3 }),
+    ...args({ state: "connected", vaultNames: ["Shared with ROBot"], loginCount: 3 }),
     hostName: "Studio",
   },
 };

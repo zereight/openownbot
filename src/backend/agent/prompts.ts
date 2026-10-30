@@ -388,7 +388,7 @@ export function browserUserControlResult(): DynamicToolResult {
 }
 
 export function browserTakeoverError(
-  message = "OpenOwnBot could not create a browser takeover request.",
+  message = "ROBot could not create a browser takeover request.",
 ): DynamicToolResult {
   return {
     success: false,

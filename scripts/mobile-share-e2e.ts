@@ -82,12 +82,12 @@ async function selectSimulator(): Promise<string> {
       await run("xcrun", ["simctl", "get_app_container", udid, BUNDLE_ID]);
       withApp.push(udid);
     } catch {
-      // OpenOwnBot is not installed on this simulator.
+      // ROBot is not installed on this simulator.
     }
   }
   const [udid, ...extra] = withApp;
-  if (!udid) throw new Error("No booted simulator has OpenOwnBot installed. Run `bun run dev:mobile` first.");
-  if (extra.length > 0) throw new Error(`Several booted simulators have OpenOwnBot. Pass --simulator=<udid>.`);
+  if (!udid) throw new Error("No booted simulator has ROBot installed. Run `bun run dev:mobile` first.");
+  if (extra.length > 0) throw new Error(`Several booted simulators have ROBot. Pass --simulator=<udid>.`);
   return udid;
 }
 
@@ -150,7 +150,7 @@ async function main(): Promise<void> {
   mkdirSync(OUT, { recursive: true });
 
   const cases: ShareCase[] = [
-    { name: "text", coldStart: false, text: [{ type: "text", value: "OpenOwnBot share E2E text" }] },
+    { name: "text", coldStart: false, text: [{ type: "text", value: "ROBot share E2E text" }] },
     { name: "link", coldStart: false, text: [{ type: "url", value: "https://openbot.run/" }] },
     {
       name: "image",
@@ -191,7 +191,7 @@ async function main(): Promise<void> {
     {
       name: "cold-start",
       coldStart: true,
-      text: [{ type: "text", value: "OpenOwnBot share E2E cold start" }],
+      text: [{ type: "text", value: "ROBot share E2E cold start" }],
       file: {
         source: fixtures.png,
         name: "share-e2e-cold.png",

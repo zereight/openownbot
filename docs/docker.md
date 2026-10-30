@@ -1,6 +1,6 @@
 # Docker
 
-The OpenOwnBot image is the Linux release, run as a [self-hosted server](self-hosted-server.md) in a
+The ROBot image is the Linux release, run as a [self-hosted server](self-hosted-server.md) in a
 container. It is a normal Remote host of your account. You use it from the desktop app, the iPhone
 app or `openbot.run/app`. The image is `ghcr.io/zereight/openownbot`, for `linux/amd64` and
 `linux/arm64`.
@@ -28,7 +28,7 @@ docker run -d --name openownbot --restart unless-stopped \
 docker exec -it openownbot openownbot login
 ```
 
-`openownbot login` asks for your email and the code that OpenOwnBot sends to it. An operator who sets up
+`openownbot login` asks for your email and the code that ROBot sends to it. An operator who sets up
 the container for somebody else can use `openownbot login --claim` instead (see
 [server claims](self-hosted-server.md#sign-in-with-a-server-claim)). After the sign-in, the
 server shows in the server list of that account. Then connect a provider from the app, as on a
@@ -48,12 +48,12 @@ The options in both examples are necessary:
 | --- | --- |
 | `seccomp=seccomp.json` | The Electron sandbox makes user namespaces. The default seccomp profile of Docker refuses them, and the container stops with a message. See [Security](#security). |
 | `--shm-size 1g` | Chromium uses shared memory. The Docker default of 64 MB is too small. When `/dev/shm` is smaller than 1 GiB, Chromium uses `/tmp`, which is slower. |
-| `--stop-timeout 60` | OpenOwnBot stops its agents and closes its database before it exits. |
+| `--stop-timeout 60` | ROBot stops its agents and closes its database before it exits. |
 | `-v openownbot-data:/data` | All data is in `/data`. Without a volume, it goes away with the container. |
 
 For Amazon ECS, see [AWS ECS](aws-ecs.md).
 
-The container publishes no port. OpenOwnBot only connects out: to the account server, to the providers,
+The container publishes no port. ROBot only connects out: to the account server, to the providers,
 and to Signal and TURN for remote use. The Team API listens on `127.0.0.1` in the container.
 The container does not serve a web interface. After `openownbot login`, use
 [`openbot.run/app`](https://openbot.run/app) with the same account to select the server. A web
@@ -63,20 +63,20 @@ client limits.
 
 ## Network
 
-The container uses the Docker bridge network. In the container, OpenOwnBot sees only its bridge
+The container uses the Docker bridge network. In the container, ROBot sees only its bridge
 address. Devices connect to it through the public address of the host or through TURN. On a public
 server, this is sufficient: a test on a VPS gave the same connection time with the bridge network
 and with host networking.
 
 When the devices are on the same local network or Tailscale tailnet as the host, the bridge network
 can make the connection slow: the container does not see the local or `tailscale0` addresses of the
-host, so devices often use TURN. With host networking, OpenOwnBot sees all addresses of the host, and
+host, so devices often use TURN. With host networking, ROBot sees all addresses of the host, and
 devices can connect directly. Add `network_mode: host` to the service in `compose.yaml`, or
 `--network host` to `docker run`. Host networking is available on Linux with Docker Engine.
 
 Host networking removes the network isolation of the container:
 
-- Other programs on the host can connect to the listeners of OpenOwnBot on `127.0.0.1`. These
+- Other programs on the host can connect to the listeners of ROBot on `127.0.0.1`. These
   listeners take tokens and team requests.
 - Agents can connect to the services of the host that listen only on `127.0.0.1`.
 - The virtual displays `:0` and `:1` of the container use abstract X sockets, which are in the
@@ -103,13 +103,13 @@ Public images need no GHCR sign-in. If `latest` or a version without `v` returns
 
 ## Data
 
-`/data` is the home folder of the user `openownbot` (UID 1000, GID 1000). OpenOwnBot and its agents run as
+`/data` is the home folder of the user `openownbot` (UID 1000, GID 1000). ROBot and its agents run as
 that user and keep everything there:
 
 | Path | Contents |
 | --- | --- |
-| `/data/.config/OpenOwnBot` | The database `openbot.db`, logs, the downloaded provider runtimes and the browser data. |
-| `/data/OpenOwnBot` | The agent workspaces (`Agents`), `Shared` and `Downloads`. |
+| `/data/.config/ROBot` | The database `openbot.db`, logs, the downloaded provider runtimes and the browser data. |
+| `/data/ROBot` | The agent workspaces (`Agents`), `Shared` and `Downloads`. |
 | `/data/.local/share/keyrings`, `/data/.config/openownbot-container` | The keyring and its password. The keyring has the key of the encrypted data in `/data`. |
 | Other files in `/data` | Provider sign-ins and the files of agent tools, for example `~/.codex` and `~/.claude`. |
 
@@ -140,7 +140,7 @@ In the container, `openownbot status`, `login`, `mobile-connect`, `logout`, `nam
 
 ## Several instances on one host
 
-`docker/instances/` runs more than one OpenOwnBot container on one Linux host with systemd. Each
+`docker/instances/` runs more than one ROBot container on one Linux host with systemd. Each
 instance has its own CPU, memory and disk limit, its own data and its own account. Copy the `docker`
 folder of the repository to the host, for example to `/opt/openownbot-docker`, and run as root:
 
@@ -173,7 +173,7 @@ installs LXCFS with `--enable-cfs` (`lxcfs-openownbot.conf`) as its last step; w
 prints a warning and the rest of the setup stays done. When LXCFS runs, `openownbot-instance` adds
 `lxcfs.yaml`: the container then reads its own CPU limit in `/proc/cpuinfo`, and its memory limit in
 `/proc/meminfo` and `/proc/swaps`. On cgroup v2, LXCFS 5.0 does not limit the CPU lines of
-`/proc/stat`, which Node's `os.cpus()` counts, so OpenOwnBot limits the Node programs of agents itself
+`/proc/stat`, which Node's `os.cpus()` counts, so ROBot limits the Node programs of agents itself
 (see [agent processes](hosted-servers.md#memory)). `nproc`, Python's `os.cpu_count()` and other
 programs that read the CPU affinity or `/sys/devices/system/cpu/online` still see the CPUs of the
 host. That file is not mounted: LXCFS lists CPUs 0 to limit-1 in it, but a process still runs on any
@@ -254,7 +254,7 @@ There is no command to remove an instance. To remove one and delete its data: `r
 ### Updates from the app
 
 The owner or an admin updates an instance in Server settings › Updates, or in the update dialog, as on a
-hosted server. The container never gets the Docker socket. OpenOwnBot writes an empty request file to
+hosted server. The container never gets the Docker socket. ROBot writes an empty request file to
 `/srv/openownbot/<name>/update-requests`. `openownbot-instance-update@<name>.path` sees it and runs
 `openownbot-instance update-request <name>` as root. Root only tests and removes the request; it never
 reads or follows it. It pulls the image of the instance and writes its version to `update-status` only
@@ -290,14 +290,14 @@ echo OPENOWNBOT_BACKUP_DIR=/var/backups/openownbot >>/opt/openownbot-docker/inst
 | `OPENOWNBOT_BACKUP_MAX_AGE` | Hours. When the newest complete backup is older, `backups` shows it as overdue and exits with 1. |
 | `OPENOWNBOT_BACKUP_WORK` | The folder where `verify` unpacks a backup. The default is `/var/tmp`. It needs free space for the data, and the user of the data must be able to reach it. |
 
-A backup stops the container, waits until OpenOwnBot closes its databases, writes the archive and starts
+A backup stops the container, waits until ROBot closes its databases, writes the archive and starts
 the container again. The instance is offline while the archive is written. The output and the status
 show how long. A running turn stops, as on a restart. Each backup is a folder `<UTC time>` with:
 
 | File | Contents |
 | --- | --- |
 | `data.tar.zst` | `/data` without `lost+found`. With `gzip` (`data.tar.gz`) when the host has no `zstd`. |
-| `manifest.json` | The OpenOwnBot version and image, the size, the checksum of the archive, the folders in `/data`, the stop and the time offline. |
+| `manifest.json` | The ROBot version and image, the size, the checksum of the archive, the folders in `/data`, the stop and the time offline. |
 | `required.sha256` | The checksums of `openbot.db`, the keyring, its password and `agent-data.db`. |
 | `instance.env` | A copy of the env file of the instance. |
 | `SHA256SUMS` | The checksums of the other files. |
@@ -358,19 +358,19 @@ the backup. When it has less, copy the old data to another disk, delete it from
 
 - Start it only when the instance of the backup does not run anywhere else. Two copies would use the
   same server identity and the same account session.
-- `restore` refuses a backup from a newer OpenOwnBot than the image of the instance. Pull a newer image
-  first. An older OpenOwnBot cannot open a database that a newer one migrated. Do not use a backup to go
+- `restore` refuses a backup from a newer ROBot than the image of the instance. Pull a newer image
+  first. An older ROBot cannot open a database that a newer one migrated. Do not use a backup to go
   back to an older version.
-- A newer OpenOwnBot migrates the database on its first start. Back up the restored data again before you
+- A newer ROBot migrates the database on its first start. Back up the restored data again before you
   upgrade when you want to keep the version that the backup had.
 - The provider sign-ins are in the backup. A provider can still ask for a new sign-in when its session
   expired. The account session is in the backup too.
 
 ## Upgrades
 
-OpenOwnBot does not update itself in a container. A new image replaces it. An instance of
+ROBot does not update itself in a container. A new image replaces it. An instance of
 `docker/instances` can ask the host for that from the app, see
-[Updates from the app](#updates-from-the-app). Do not go back to an older tag: an older OpenOwnBot cannot
+[Updates from the app](#updates-from-the-app). Do not go back to an older tag: an older ROBot cannot
 open a database that a newer one migrated, so it does not start.
 
 ### Update automation
@@ -432,14 +432,14 @@ sees only the memory of the host, so the guard uses it, and the log has one warn
 
 Main has an OOM score adjustment of 0 in the container, and each process that it starts gets 500.
 So when the container is out of memory, the kernel is more likely to stop a provider CLI, an MCP
-server or an agent tool than OpenOwnBot. Agent processes also run at nice 10, and at the `critical` level
+server or an agent tool than ROBot. Agent processes also run at nice 10, and at the `critical` level
 main stops leftover agent processes, such as the workers of a build whose parent was stopped. See
 [agent processes](hosted-servers.md#memory).
 
 ## Environment
 
 Pass these with `-e` or the `environment` of the Compose file, never in an image. Agents inherit the
-environment of OpenOwnBot, so they can read these values.
+environment of ROBot, so they can read these values.
 
 | Variable | Use |
 | --- | --- |
@@ -471,17 +471,17 @@ environment of OpenOwnBot, so they can read these values.
 
 The release workflow (`.github/workflows/release.yml`) builds the image on a runner of each
 architecture from the AppImage of that release, after it checks the AppImage against the release
-checksums. `docker/Dockerfile` unpacks the AppImage to `/opt/OpenOwnBot/app` and installs the packages
+checksums. `docker/Dockerfile` unpacks the AppImage to `/opt/ROBot/app` and installs the packages
 of a self-hosted server from that release. The workflow starts and stops each image once, and pushes
 the images to GHCR only after the GitHub Release is published.
 
 `tini` is process 1. It starts `resources/hosting/openownbot-container` from the release, which checks
 that it can make a user namespace, starts D-Bus, two virtual displays and the keyring, and then
-becomes OpenOwnBot with `OPENOWNBOT_SERVER=1`. OpenOwnBot shows its windows on `:0`, at 1280x800. The agents
+becomes ROBot with `OPENOWNBOT_SERVER=1`. ROBot shows its windows on `:0`, at 1280x800. The agents
 work on `:1`, at the size of `OPENOWNBOT_DISPLAY_SIZE`, which the script names in
-`OPENOWNBOT_AGENT_DISPLAY`. Computer Use and remote desktop use `:1`, so they do not show the OpenOwnBot
-window. On a stop, tini gives the signal to OpenOwnBot and waits for it.
-`/opt/OpenOwnBot/hosted/mode` is `container`, so the `openownbot` command talks to the control socket and
+`OPENOWNBOT_AGENT_DISPLAY`. Computer Use and remote desktop use `:1`, so they do not show the ROBot
+window. On a stop, tini gives the signal to ROBot and waits for it.
+`/opt/ROBot/hosted/mode` is `container`, so the `openownbot` command talks to the control socket and
 does not use systemd.
 
 ## Limits
@@ -509,7 +509,7 @@ does not use systemd.
 - Host networking: users report that it makes the connection fast on a local network and on a
   Tailscale tailnet. This was not tested here. On a public Ubuntu 24.04 VPS with Docker 29, the
   bridge network connected in 2.0 to 2.6 s and host networking in 2.0 to 2.4 s.
-- The two displays of the entrypoint were tested with a stand-in for OpenOwnBot: `:0` is 1280x800 and
+- The two displays of the entrypoint were tested with a stand-in for ROBot: `:0` is 1280x800 and
   `:1` has the display size. Computer Use and remote desktop on `:1` were not tested.
 - Not tested: a Codex agent with Workspace only access in a container. Codex runs its commands in
   bubblewrap, which mounts its root in a user namespace. The seccomp profile allows `mount` only with

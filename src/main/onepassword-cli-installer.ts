@@ -1,4 +1,4 @@
-// Installs the 1Password CLI into a folder that OpenOwnBot owns, so Connect works without Homebrew,
+// Installs the 1Password CLI into a folder that ROBot owns, so Connect works without Homebrew,
 // an installer package or administrator rights.
 
 import { createHash, randomBytes } from "node:crypto";

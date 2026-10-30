@@ -218,7 +218,7 @@ export function assertSupportedBunVersion(version: string): void {
   if (version === supportedBunVersion) return;
 
   throw new Error(
-    `Unsupported Bun ${version}. OpenOwnBot development requires stable Bun ${supportedBunVersion}. Install the exact version with the command in https://github.com/zereight/openownbot#development, then retry.`,
+    `Unsupported Bun ${version}. ROBot development requires stable Bun ${supportedBunVersion}. Install the exact version with the command in https://github.com/zereight/openownbot#development, then retry.`,
   );
 }
 

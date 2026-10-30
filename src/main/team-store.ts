@@ -118,7 +118,7 @@ interface StoredKeyRotation {
 }
 
 /**
- * The file holds one host per OpenOwnBot account, so switching accounts cannot hand the
+ * The file holds one host per ROBot account, so switching accounts cannot hand the
  * new account the previous one's server. `hosts` is append-only - a host is never
  * removed when its owner signs out, because this file is user data with no backup.
  */

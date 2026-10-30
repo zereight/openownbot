@@ -95,7 +95,7 @@ interface HermesState {
 
 /**
  * Server settings > Import. The user chooses where the agents are now: Hermes Agent, Grok Bot, or
- * another OpenOwnBot computer. An export file from Grok Bot or Hermes takes the same steps: main opens
+ * another ROBot computer. An export file from Grok Bot or Hermes takes the same steps: main opens
  * the file dialog and the host keeps the export under a token, so the panel holds the preview and
  * never a path. Hermes on this computer can also be read from its folder, item by item. A preview
  * left open when the panel closes is released.

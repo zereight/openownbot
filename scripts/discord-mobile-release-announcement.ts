@@ -52,7 +52,7 @@ function changelogUrl(version: string): string {
 function announcementMessage(highlights: readonly unknown[], version: string, roleId?: string): string {
   return [
     roleId === undefined ? "@Mobile Release Pings" : `<@&${roleId}>`,
-    `**OpenOwnBot v${version} is out on iOS and Android**`,
+    `**ROBot v${version} is out on iOS and Android**`,
     "",
     ...highlights.map((highlight) => `- ${String(highlight).trim()}`),
     "",
@@ -97,7 +97,7 @@ if (import.meta.main) {
   problems.push(...roleIdProblems(ROLE_VARIABLE, roleId, command === "send"));
   if (problems.length > 0) {
     fail([
-      `The Discord announcement for OpenOwnBot mobile ${version} is not ready:`,
+      `The Discord announcement for ROBot mobile ${version} is not ready:`,
       ...problems.map((problem) => `- ${problem}`),
       "",
       `See ${DOCS}.`,

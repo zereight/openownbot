@@ -965,7 +965,7 @@ export class DrainScheduler {
             this.#channels?.deliveryUncertain(delivery.id);
             this.#hooks.emitError(
               "delivery_start_unconfirmed",
-              `${error.providerName} did not confirm the turn start in time. OpenOwnBot will wait for lifecycle events instead of retrying potentially duplicated work.`,
+              `${error.providerName} did not confirm the turn start in time. ROBot will wait for lifecycle events instead of retrying potentially duplicated work.`,
               delivery.recipientAgentId,
             );
             // The wait has a limit: a turn that never starts would keep these messages starting, and

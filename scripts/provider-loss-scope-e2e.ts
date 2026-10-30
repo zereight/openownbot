@@ -172,7 +172,7 @@ const browser: AgentBrowserHost = {
   clearAgentSession: () => Effect.void,
 };
 
-/** The messages that OpenOwnBot sent to the fake Codex. */
+/** The messages that ROBot sent to the fake Codex. */
 function protocol(): { method: string | null; threadId: string | null }[] {
   try {
     return readFileSync(logPath, "utf8")

@@ -12,8 +12,8 @@ import { loadImage, loadSvg, withAlpha } from "../../avatar-canvas";
  * or the photo the owner uploaded. The Worker only checks its size and stores it.
  *
  * Layout, on the app's dark canvas: a hero square on the left in the avatar's own colour with the
- * avatar in it, and on the right the OpenOwnBot mark, the name, the role, the instructions, and the
- * "Add to OpenOwnBot" pill the page carries.
+ * avatar in it, and on the right the ROBot mark, the name, the role, the instructions, and the
+ * "Add to ROBot" pill the page carries.
  */
 
 const { width: WIDTH, height: HEIGHT } = AGENT_TEMPLATE_CARD;
@@ -128,7 +128,7 @@ async function drawColumn(
   await drawLogo(context, x, 92, 44, colors);
   context.fillStyle = colors.primary;
   context.font = `600 28px ${FONT}`;
-  context.fillText("OpenOwnBot", x + 58, 124);
+  context.fillText("ROBot", x + 58, 124);
 
   // `y` is always the baseline of the last line drawn.
   let y = 154;
@@ -157,7 +157,7 @@ async function drawColumn(
     y += lineHeight;
   }
 
-  const label = "Add to OpenOwnBot";
+  const label = "Add to ROBot";
   context.font = `600 24px ${FONT}`;
   const pillWidth = context.measureText(label).width + 64;
   context.fillStyle = colors.primary;

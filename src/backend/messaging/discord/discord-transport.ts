@@ -14,8 +14,8 @@ const RECENT_EVENTS = 2_000;
 const OK: IngressAnswer = { status: 200 };
 
 /**
- * The inbound half of one guild's OpenOwnBot app. Signal keeps the bot's Gateway connection, which only
- * it can, and passes the guild's mentions of OpenOwnBot and its button presses to this host's ingress
+ * The inbound half of one guild's ROBot app. Signal keeps the bot's Gateway connection, which only
+ * it can, and passes the guild's mentions of ROBot and its button presses to this host's ingress
  * socket. This holds that socket open while it runs. Signal has already acknowledged each button
  * press to Discord, so nothing here answers Discord.
  */

@@ -102,7 +102,7 @@ export interface ProviderConnectionOptions {
    */
   connectInBrowser?: (provider: AgentProviderId) => Promise<void>;
   openVerificationUrl: (url: string) => void;
-  /** Opens the page that downloads the OpenOwnBot app, for a provider that only the app can sign in. */
+  /** Opens the page that downloads the ROBot app, for a provider that only the app can sign in. */
   openAppDownload?: () => void;
 }
 

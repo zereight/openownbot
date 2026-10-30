@@ -45,7 +45,7 @@ function waitForHolderToExit({ holder, isAlive, sleep, log }: SingleInstanceLock
     return pid !== null && isAlive(pid);
   };
   if (!holderIsRunning()) return;
-  log("Another OpenOwnBot holds the single-instance lock; waiting for it to quit.");
+  log("Another ROBot holds the single-instance lock; waiting for it to quit.");
   const attempts = Math.floor(LOCK_WAIT_BUDGET_MS / LOCK_POLL_INTERVAL_MS);
   for (let attempt = 0; attempt < attempts; attempt += 1) {
     sleep(LOCK_POLL_INTERVAL_MS);

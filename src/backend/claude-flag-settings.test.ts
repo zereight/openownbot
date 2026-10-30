@@ -11,7 +11,7 @@ describe("claudeFlagSettings", () => {
     expect(claudeFlagSettings({ A: "1" }, undefined)).toEqual({ env: { A: "1" } });
   });
 
-  it("keeps the NODE_OPTIONS of OpenOwnBot even when a stored variable names it", () => {
+  it("keeps the NODE_OPTIONS of ROBot even when a stored variable names it", () => {
     expect(claudeFlagSettings({ A: "1", NODE_OPTIONS: "--user" }, "--cpu-limit")).toEqual({
       env: { A: "1", NODE_OPTIONS: "--cpu-limit" },
     });

@@ -26,7 +26,7 @@ const staged = process.argv.includes("--staged");
 const mobile = process.argv.includes("--mobile");
 const versionFile = mobile ? MOBILE_VERSION_FILES[0] : "package.json";
 const changelogFile = mobile ? MOBILE_CHANGELOG : "CHANGELOG.md";
-const product = mobile ? "OpenOwnBot mobile" : "OpenOwnBot";
+const product = mobile ? "ROBot mobile" : "ROBot";
 
 const show = (object: string): string | undefined => {
   try {

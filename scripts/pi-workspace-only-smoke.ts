@@ -106,7 +106,7 @@ try {
   process.env.PI_CODING_AGENT_DIR = agentDirectory;
   // As in the issue: Pi ran with Full access before, so `auth.json` exists and is empty.
   await runPi({ authJson: "{}", errors: [] });
-  // A user who never ran Pi with Full access has no `auth.json`. OpenOwnBot makes it before the start.
+  // A user who never ran Pi with Full access has no `auth.json`. ROBot makes it before the start.
   await runPi({ authJson: null, errors: [] });
 
   // The same sandbox, with commands in place of Pi.

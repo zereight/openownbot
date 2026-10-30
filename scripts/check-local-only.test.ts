@@ -24,7 +24,7 @@ function scan(text: string, path = PLANTED_PATH): Finding[] {
 }
 
 function notAllowed(text: string): string {
-  return `${JSON.stringify(text)} names an OpenOwnBot service and is not on the allowlist.`;
+  return `${JSON.stringify(text)} names a ROBot service and is not on the allowlist.`;
 }
 
 describe("mention rule", () => {
@@ -48,7 +48,7 @@ describe("mention rule", () => {
     ["a block comment", '/* fetch("https://x.openbot.run/v1/ping"); */\nexport const a = 1;'],
     ["a doc comment", "/**\n * Posts to https://x.openbot.run/v1/ping.\n */\nexport const a = 1;"],
     ["an identifier", "export const openownbotRun = 1;\nexport const nightlyLabs = 2;"],
-  ])("ignores an OpenOwnBot service in %s", (_name, text) => {
+  ])("ignores a ROBot service in %s", (_name, text) => {
     expect(scan(text)).toEqual([]);
   });
 
@@ -276,7 +276,7 @@ describe("bypass rule", () => {
 
   it("accepts only the primitive that an entry names", () => {
     const allowlist: AllowEntry[] = [
-      { rule: "bypass", path: PLANTED_PATH, primitive: "ws", note: "Dials a host that is not an OpenOwnBot service." },
+      { rule: "bypass", path: PLANTED_PATH, primitive: "ws", note: "Dials a host that is not a ROBot service." },
     ];
     const text = 'import WebSocket from "ws";\nimport { request } from "node:https";\n';
 
@@ -347,7 +347,7 @@ describe("config gates", () => {
     const files = withText("apps/mobile/app.config.js", (text) => text.replace("enabled: !localOnly", "enabled: true"));
 
     expect(checkFiles(files).map(formatFinding)).toEqual([
-      "check:local-only: apps/mobile/app.json:218 names an OpenOwnBot service, and apps/mobile/app.config.js no longer keeps it off: app.config.js must read local-only.json and set `updates.enabled` from it.",
+      "check:local-only: apps/mobile/app.json:218 names a ROBot service, and apps/mobile/app.config.js no longer keeps it off: app.config.js must read local-only.json and set `updates.enabled` from it.",
     ]);
   });
 
@@ -355,7 +355,7 @@ describe("config gates", () => {
     const files = tracked.filter((file) => file.path !== "apps/mobile/app.config.js");
 
     expect(checkFiles(files).map(formatFinding)).toContain(
-      "check:local-only: apps/mobile/app.json:218 names an OpenOwnBot service, and apps/mobile/app.config.js is not in the scan.",
+      "check:local-only: apps/mobile/app.json:218 names a ROBot service, and apps/mobile/app.config.js is not in the scan.",
     );
   });
 });

@@ -388,7 +388,7 @@ async function pipeBody(body: ReadableStream<Uint8Array>, response: ServerRespon
 }
 
 /**
- * The answer when OpenOwnBot holds no usable sign-in for the route: a JSON-RPC error for each request
+ * The answer when ROBot holds no usable sign-in for the route: a JSON-RPC error for each request
  * in the body, so the agent reads why the tool is not there and the provider does not sign in by
  * itself. A body with notifications only is accepted, as a server would.
  */

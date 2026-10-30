@@ -176,7 +176,7 @@ export interface ConversationProps {
   /**
    * Take the user to the provider's sign-in. Separate from `onConnectProvider`, which is the
    * managed-download path and is withheld when downloads are unavailable: a signed-out provider
-   * needs a way in whether or not OpenOwnBot manages its CLI.
+   * needs a way in whether or not ROBot manages its CLI.
    */
   onSignInProvider?: ((provider: AgentProviderId) => void | Promise<void>) | undefined;
   /** The code sign-in, for a provider that has one, when the browser sign-in is slow or fails. */
@@ -325,7 +325,7 @@ export interface ConversationProps {
   onUpdateAgentPermissions?: ((input: UpdateAgentAdminSettingsInput) => Promise<void>) | undefined;
   /** Starts a new chat with the agent. Absent when its host does not serve `context-reset-v1`. */
   onClearAgentContext?: (() => Promise<void>) | undefined;
-  /** Compacts the agent's context now. The context ring offers it only where OpenOwnBot compacts. */
+  /** Compacts the agent's context now. The context ring offers it only where ROBot compacts. */
   onCompactAgentContext?: (() => Promise<void>) | undefined;
   /** Answers `browserTakeover`. */
   onRespondToBrowserTakeover: (decision: "complete" | "cancel", options?: PromptAnswerOptions) => Promise<boolean>;

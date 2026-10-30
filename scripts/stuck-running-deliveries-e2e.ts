@@ -347,7 +347,7 @@ await writeFile(fakeCodex, FAKE_CODEX, { mode: 0o755 });
 let current: Instance | null = null;
 
 try {
-  // (a) Three agents with a turn that runs when OpenOwnBot stops, and a second message in each queue.
+  // (a) Three agents with a turn that runs when ROBot stops, and a second message in each queue.
   await control({ holdTurns: true, turnMs: 0 });
   const first = await start();
   current = first;

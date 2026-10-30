@@ -130,7 +130,7 @@ const Providers = createSimpleContext({
       flush(() => applyAgentStatus(status));
     }
 
-    /** `automatic`: the app asks, not the user, so a provider OpenOwnBot stopped starting stays stopped. */
+    /** `automatic`: the app asks, not the user, so a provider ROBot stopped starting stays stopped. */
     async function refreshAgentProviders(options = { automatic: false }): Promise<void> {
       if (refreshingProviders() || agentStatus().phase === "starting" || agentStatus().phase === "restarting") {
         return;

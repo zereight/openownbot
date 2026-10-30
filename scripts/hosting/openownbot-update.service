@@ -1,13 +1,13 @@
-# Downloads and unpacks a newer OpenOwnBot release next to the running one. openownbot-update.timer starts
+# Downloads and unpacks a newer ROBot release next to the running one. openownbot-update.timer starts
 # it; openownbot-update-apply.service moves the release into place at the next start of the server.
 [Unit]
-Description=Stage an OpenOwnBot update
+Description=Stage a ROBot update
 Wants=network-online.target
 After=network-online.target
 
 [Service]
 Type=oneshot
-ExecStart=/opt/OpenOwnBot/hosted/openownbot-hosted-update stage
+ExecStart=/opt/ROBot/hosted/openownbot-hosted-update stage
 Nice=19
 IOSchedulingClass=idle
 CPUWeight=idle

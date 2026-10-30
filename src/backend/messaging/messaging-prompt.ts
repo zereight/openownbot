@@ -42,14 +42,14 @@ const CONTEXT_CHARACTERS = 12_000;
 const REPLY_CHARACTERS = 4_000;
 
 /**
- * The prompt of one external message. The author is not the OpenOwnBot user, so the text is framed as
+ * The prompt of one external message. The author is not the ROBot user, so the text is framed as
  * untrusted input, the same way a teammate message is framed as collaborator input.
  */
 export function messagingPromptText(input: MessagingPromptInput): string {
   const words = PLATFORM_WORDS[input.platform];
   const platform = words.name;
   const lines = [
-    `Message from a ${platform} user. This person is not the OpenOwnBot user.`,
+    `Message from a ${platform} user. This person is not the ROBot user.`,
     input.workspaceName ? `${words.workspace}: ${input.workspaceName}` : null,
     input.isDirect ? "Place: a direct message to you." : `Place: ${input.place}, ${words.conversation}.`,
     `Author: ${input.authorName} (${platform} user ${input.authorId})`,
@@ -81,9 +81,9 @@ export function messagingPromptText(input: MessagingPromptInput): string {
 /** How to answer, the messaging tools, and the saved facts: the same for each turn of one session. */
 function guidanceLines(input: MessagingPromptInput, words: (typeof PLATFORM_WORDS)[MessagingPlatform]): string[] {
   const lines = [
-    "Answer yourself when you can answer correctly in this turn from your knowledge, this conversation, the saved facts, or your tools: a greeting, a simple question, a fact, a short explanation, or the status of work you know. Ask an OpenOwnBot teammate only when the request needs its tools, accounts, files, or memory, or long work such as code changes or research.",
-    "To send files, call openownbot.attach_files_to_response. When you ask an OpenOwnBot teammate, ask one teammate and end this turn: its reply comes back to this conversation, and your answer to it is posted here.",
-    `Through openownbot.tool_call: openownbot.messaging_history reads more of this place; openownbot.messaging_remember saves a fact that every conversation of this ${words.workspace} sees; openownbot.messaging_forget_memory deletes one by its id; openownbot.messaging_post posts to another place. Keep facts about this ${words.workspace} there, not in openownbot.remember: your own memories are private to the OpenOwnBot user.`,
+    "Answer yourself when you can answer correctly in this turn from your knowledge, this conversation, the saved facts, or your tools: a greeting, a simple question, a fact, a short explanation, or the status of work you know. Ask a ROBot teammate only when the request needs its tools, accounts, files, or memory, or long work such as code changes or research.",
+    "To send files, call openownbot.attach_files_to_response. When you ask a ROBot teammate, ask one teammate and end this turn: its reply comes back to this conversation, and your answer to it is posted here.",
+    `Through openownbot.tool_call: openownbot.messaging_history reads more of this place; openownbot.messaging_remember saves a fact that every conversation of this ${words.workspace} sees; openownbot.messaging_forget_memory deletes one by its id; openownbot.messaging_post posts to another place. Keep facts about this ${words.workspace} there, not in openownbot.remember: your own memories are private to the ROBot user.`,
   ];
   if (input.memories.length)
     lines.push(

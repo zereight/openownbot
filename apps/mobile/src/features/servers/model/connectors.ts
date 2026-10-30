@@ -14,7 +14,7 @@ export function isMobileConnectorId(value: string | undefined): value is MobileC
   return MOBILE_CONNECTOR_IDS.some((id) => id === value);
 }
 
-/** Slack and Discord install the OpenOwnBot app in a workspace; Telegram links chats to one bot. */
+/** Slack and Discord install the ROBot app in a workspace; Telegram links chats to one bot. */
 export type WorkspacePlatform = Exclude<MessagingPlatform, "telegram">;
 
 export const CONNECTOR_TITLE_KEYS = {

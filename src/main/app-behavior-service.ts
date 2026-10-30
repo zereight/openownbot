@@ -9,7 +9,7 @@ import { type PreferenceFileFailure, readPreferenceFile, writePreferenceFile } f
 const logger = createOpenOwnBotLogger("app-behavior");
 
 /**
- * How OpenOwnBot starts and stops on this computer, and if it keeps the computer awake.
+ * How ROBot starts and stops on this computer, and if it keeps the computer awake.
  *
  * The keep-running choice is stored here, because main reads it each time the main window closes.
  * The keep-awake choices are stored in the same file, and each write keeps all of them. The launch-at-login

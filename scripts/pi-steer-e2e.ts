@@ -177,7 +177,7 @@ try {
   };
 
   // Pi does not answer a steer in time, but queues it. The client removes it from Pi's queue, as the
-  // message also waits in OpenOwnBot's queue. An earlier steer that Pi holds stays. The turn goes on.
+  // message also waits in ROBot's queue. An earlier steer that Pi holds stays. The turn goes on.
   const slow = await startWork(client, thread, log);
   const cleared = await count(log, "clear_queue");
   assert.equal(cleared, 0, "A refused steer queues nothing, so it must not clear Pi's queue.");

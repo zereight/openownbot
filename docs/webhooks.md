@@ -11,9 +11,9 @@ editor. The host must be online to receive requests.
 3. Optional: enter an event type. With no event type, all event types start the routine.
 4. Optional: add filters.
 5. Save the routine. The host makes the URL and the signing secret.
-6. Copy the secret into the secret store of the sending service. OpenOwnBot shows it one time only.
+6. Copy the secret into the secret store of the sending service. ROBot shows it one time only.
 7. Copy the URL. The URL is empty until the account service registers the route. The host must be
-   signed in to its OpenOwnBot account.
+   signed in to its ROBot account.
 
 Each webhook routine has its own URL and secret. A host can have at most 64 webhook routines.
 
@@ -34,7 +34,7 @@ stops working immediately. A secret has the format `whsec_<43 base64url characte
 When you change the routine to **Schedule**, or delete the routine, its URL stops working. If you
 change it back to **Webhook**, the routine gets a new URL and a new secret.
 
-The URL also changes when you sign in to a different OpenOwnBot account on the host. The secret stays
+The URL also changes when you sign in to a different ROBot account on the host. The secret stays
 the same. Copy the new URL into the sending service.
 
 ### Send a test event
@@ -61,7 +61,7 @@ shape:
 | Field | Rule |
 | --- | --- |
 | `type` | Required. A string of 1 to 256 characters. |
-| `occurredAt` | Optional. A date string. If you do not send it, OpenOwnBot uses the receipt time. |
+| `occurredAt` | Optional. A date string. If you do not send it, ROBot uses the receipt time. |
 | `data` | Optional. Any JSON value. If you do not send it, the value is `null`. |
 
 The body must be UTF-8 and at most 64 KiB.
@@ -111,7 +111,7 @@ const response = await fetch(process.env.OPENOWNBOT_WEBHOOK_URL, {
   body,
 });
 if (response.status !== 200 && response.status !== 202) {
-  throw new Error(`OpenOwnBot did not accept the event: ${response.status}`);
+  throw new Error(`ROBot did not accept the event: ${response.status}`);
 }
 ```
 

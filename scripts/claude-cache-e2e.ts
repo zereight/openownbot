@@ -1,4 +1,4 @@
-// Measures how much of each Claude request reads the prompt cache after the events that OpenOwnBot
+// Measures how much of each Claude request reads the prompt cache after the events that ROBot
 // causes between turns. Runs the real Claude CLI with the user's Claude login, on Claude Haiku, in
 // a temporary git workspace. Each variant runs these turns in one session:
 //   1. the first turn of a new process,
@@ -40,7 +40,7 @@ interface Variant {
 }
 
 const VARIANTS: Variant[] = [
-  { name: "current", description: "The options that OpenOwnBot sends now.", options: (options) => options },
+  { name: "current", description: "The options that ROBot sends now.", options: (options) => options },
   {
     name: "snapshot-on",
     description: "`--system-prompt-snapshot on`: the CLI records the system prompt and resumes with it.",
@@ -103,7 +103,7 @@ function startedThreadId(value: unknown): string {
 }
 
 function git(cwd: string, ...args: string[]): void {
-  execFileSync("git", ["-c", "user.name=OpenOwnBot", "-c", "user.email=e2e@openbot.invalid", ...args], { cwd });
+  execFileSync("git", ["-c", "user.name=ROBot", "-c", "user.email=e2e@openbot.invalid", ...args], { cwd });
 }
 
 for (const variant of variants) {

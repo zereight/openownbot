@@ -918,7 +918,7 @@ export class HostService extends EventEmitter<HostEvents> {
     function* (this: HostService): Effect.fn.Return<HostStatus, RemoteWorkflowError, HostApiRuntime> {
       if (!this.#options.store.configured)
         return yield* new RemoteWorkflowError({
-          cause: new Error("Name this OpenOwnBot before starting local development."),
+          cause: new Error("Name this ROBot before starting local development."),
         });
       if (this.#status.phase === "online") return this.getStatus();
       const apiPort = yield* HostApiRuntime.use((api) => api.start());

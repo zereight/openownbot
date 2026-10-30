@@ -4,7 +4,7 @@
 // works, keep it. Nothing was written down between the probe and the moment
 // Vite actually listened, which is seconds later, so two `bun run dev` calls
 // started together both saw 5173 free, both claimed it, and both claimed the
-// unsuffixed `OpenOwnBot Dev` profile with it - two Electron clients writing one
+// unsuffixed `ROBot Dev` profile with it - two Electron clients writing one
 // SQLite file. This registry closes that window: a stack publishes every port
 // it won before it releases the allocation lock, and the next allocator reads
 // those ports as taken whether or not anything is listening yet.

@@ -87,7 +87,7 @@ export function parseProcessTime(raw: string): number | null {
 const CHROMIUM_TYPE_SWITCH = /--type=(\S+)/;
 const UTILITY_SUB_TYPE_SWITCH = /--utility-sub-type=(\S+)/;
 // A macOS bundle executable, which is what both the dev Electron binary and a
-// packaged OpenOwnBot are launched as.
+// packaged ROBot are launched as.
 const BUNDLE_EXECUTABLE = /\.app\/contents\/macos\//;
 
 /**

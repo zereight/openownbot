@@ -13,14 +13,14 @@ import { isPathInside } from "../backend/path-containment";
 const MANAGED_SKILL_SLUG = "openownbot-site-hosting";
 export const SKILL_CREATOR_SKILL_SLUG = "openownbot-skill-creator";
 export const DATA_SKILL_SLUG = "openownbot-data";
-/** The skills OpenOwnBot writes into every agent workspace. Add a new managed skill here too. */
+/** The skills ROBot writes into every agent workspace. Add a new managed skill here too. */
 export const MANAGED_SKILL_SLUGS: ReadonlySet<string> = new Set([
   MANAGED_SKILL_SLUG,
   SKILL_CREATOR_SKILL_SLUG,
   DATA_SKILL_SLUG,
 ]);
 export const OWNERSHIP_MARKER = ".openbot-managed.json";
-/** The workspace skill folders OpenOwnBot writes. Each provider reads at least one of them. */
+/** The workspace skill folders ROBot writes. Each provider reads at least one of them. */
 export const MANAGED_SKILL_FOLDERS = [".agents/skills", ".claude/skills"] as const;
 
 const logger = createOpenOwnBotLogger("managed-skill-service");
@@ -36,10 +36,10 @@ export class ManagedSkillService {
   constructor(
     private readonly sourcePath: string,
     private readonly reportCollision: (target: string) => void = (target) => {
-      logger.warn(`OpenOwnBot preserved an unowned managed-skill collision at ${target}.`);
+      logger.warn(`ROBot preserved an unowned managed-skill collision at ${target}.`);
     },
     private readonly reportFailure: (target: string, error: unknown) => void = (target, error) => {
-      logger.error(`OpenOwnBot could not synchronize the managed skill at ${target}.`, toLogValue(error));
+      logger.error(`ROBot could not synchronize the managed skill at ${target}.`, toLogValue(error));
     },
     private readonly slug = MANAGED_SKILL_SLUG,
   ) {}
@@ -237,7 +237,7 @@ function isFileExistsError(error: unknown): boolean {
   return error instanceof Error && "code" in error && error.code === "EEXIST";
 }
 
-/** Read only OpenOwnBot-owned skills from the active provider's skill folder. */
+/** Read only ROBot-owned skills from the active provider's skill folder. */
 export const listManagedSkillsForChat = Effect.fn("ManagedSkill.listForChat")(function* (agent: AgentSummary) {
   const root = yield* managedIO(() => realpath(agent.workspacePath));
   const reads = agentProviderDescriptor(agent.provider).skillFolders;

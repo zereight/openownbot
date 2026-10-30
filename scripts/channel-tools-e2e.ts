@@ -1,4 +1,4 @@
-// Checks the OpenOwnBot tools that a member agent uses in a channel turn, in this worktree's running
+// Checks the ROBot tools that a member agent uses in a channel turn, in this worktree's running
 // dev app with real provider turns. Start the app with `bun run dev` (never `--shared`), then run
 // `bun scripts/channel-tools-e2e.ts --allow-mutations`. It needs two visible agents whose provider is
 // signed in and follows tool instructions.

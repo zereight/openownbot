@@ -1,32 +1,32 @@
 #!/bin/bash
-# Keeps a hosted server on the newest OpenOwnBot release. systemd runs it as root:
+# Keeps a hosted server on the newest ROBot release. systemd runs it as root:
 #
 #   openownbot-hosted-update stage   openownbot-update.timer. Downloads a newer release, checks it against
-#                                 the release manifest, copies it to /opt/OpenOwnBot/staged, and installs
-#                                 the packages that it needs. OpenOwnBot keeps running.
+#                                 the release manifest, copies it to /opt/ROBot/staged, and installs
+#                                 the packages that it needs. ROBot keeps running.
 #   openownbot-hosted-update boot    openownbot-update-apply.service, at boot before openownbot.service. Runs
 #                                 `apply` when the disk of the server is complete. After a boat wake,
-#                                 boat restores the disk for some minutes, and OpenOwnBot does not wait
-#                                 for that: OpenOwnBot installs the staged release with `request` when
+#                                 boat restores the disk for some minutes, and ROBot does not wait
+#                                 for that: ROBot installs the staged release with `request` when
 #                                 no client uses the server.
-#   openownbot-hosted-update apply   Copies the staged release into place while OpenOwnBot is stopped. A
+#   openownbot-hosted-update apply   Copies the staged release into place while ROBot is stopped. A
 #                                 self-hosted server seldom reboots, so `openownbot update` stops
-#                                 OpenOwnBot, runs `stage` and `apply`, and starts it again.
-#   openownbot-hosted-update request openownbot-update-request.service, when OpenOwnBot asks for an update in
-#                                 Server Settings. Runs `stage`, or stops OpenOwnBot, runs `apply` and
+#                                 ROBot, runs `stage` and `apply`, and starts it again.
+#   openownbot-hosted-update request openownbot-update-request.service, when ROBot asks for an update in
+#                                 Server Settings. Runs `stage`, or stops ROBot, runs `apply` and
 #                                 starts it again.
-#   openownbot-hosted-update trigger openownbot.service, as root before OpenOwnBot starts. Installs the units
+#   openownbot-hosted-update trigger openownbot.service, as root before ROBot starts. Installs the units
 #                                 of `request` and the boat pre-stop hook when an older release moved
 #                                 this one into place.
 #
 # The manifest is the one that the Linux desktop updater reads, so a server trusts the same source as
-# a desktop install. A server only moves to a newer version: an older OpenOwnBot cannot open a database
+# a desktop install. A server only moves to a newer version: an older ROBot cannot open a database
 # that a newer one migrated. provision.sh sources this file for the same install steps.
 set -euo pipefail
 export LC_ALL=C DEBIAN_FRONTEND=noninteractive
 umask 022
 
-INSTALL=/opt/OpenOwnBot
+INSTALL=/opt/ROBot
 RELEASES=https://github.com/zereight/openownbot/releases
 LOCK=/run/openownbot-update.lock
 # Not in a directory that boat saves, so a download that a stop interrupts does not stay.
@@ -34,10 +34,10 @@ SCRATCH=/var/tmp
 # The session of the lazy disk restore that boat runs after a resume.
 RESTORE=/var/lib/ascii-lazy
 HOSTED_FILES=(openownbot-hosted-server openownbot-hosted-env openownbot-hosted-update openownbot)
-# OpenOwnBot asks for an update with an empty file in its runtime directory, which the service user
+# ROBot asks for an update with an empty file in its runtime directory, which the service user
 # owns. The path unit starts the request service as root when a file is there.
 REQUESTS=/run/openownbot
-# What a request or a stage does now, for OpenOwnBot to show. Root writes it, and each user can read it.
+# What a request or a stage does now, for ROBot to show. Root writes it, and each user can read it.
 # It is there only while a request or a download runs.
 STATE=/run/openownbot-update.state
 UNIT_DIRECTORY=/etc/systemd/system
@@ -131,7 +131,7 @@ install_packages() {
     elif available_package "${package%t64}"; then
       available+=("${package%t64}")
     else
-      echo "This system has no package $package. OpenOwnBot continues without it." >&2
+      echo "This system has no package $package. ROBot continues without it." >&2
     fi
   done
   [ "${#available[@]}" -eq 0 ] && return 0
@@ -246,13 +246,13 @@ self_hosted() {
 }
 
 # Installs the boat pre-stop hook of $1 on a hosted server. The user reads and writes it, so root
-# does not open a link or a FIFO in a directory of the user. A hook that OpenOwnBot did not write stays.
+# does not open a link or a FIFO in a directory of the user. A hook that ROBot did not write stays.
 install_pre_stop() {
   local source=$1/openownbot-boat-pre-stop
   if self_hosted || [ ! -f "$source" ] || ! id "$BOAT_USER" >/dev/null 2>&1; then return 0; fi
   if [ -L "$BOAT_PRE_STOP" ] || { [ -e "$BOAT_PRE_STOP" ] && [ ! -f "$BOAT_PRE_STOP" ]; } ||
     { [ -f "$BOAT_PRE_STOP" ] && ! runuser -u "$BOAT_USER" -- grep -q '^# openownbot-boat-pre-stop:' "$BOAT_PRE_STOP"; }; then
-    echo "$BOAT_PRE_STOP is not from OpenOwnBot. It stays, and OpenOwnBot is not stopped before a disk save." >&2
+    echo "$BOAT_PRE_STOP is not from ROBot. It stays, and ROBot is not stopped before a disk save." >&2
     return 0
   fi
   runuser -u "$BOAT_USER" -- cmp -s "$source" "$BOAT_PRE_STOP" 2>/dev/null && return 0
@@ -265,14 +265,14 @@ stage() {
   case $(uname -m) in
     x86_64) architecture=x86_64 manifest=latest-linux.yml ;;
     aarch64) architecture=arm64 manifest=latest-linux-arm64.yml ;;
-    *) fail "OpenOwnBot has no release for this machine." ;;
+    *) fail "ROBot has no release for this machine." ;;
   esac
   # `apply` did not complete its copy. A new stage could remove the only complete copy.
   if [ -e "$INSTALL/.applying" ]; then
     echo "The last update is not complete. It completes at the next start of the server." >&2
     return 0
   fi
-  [ -x "$INSTALL/app/openownbot" ] || fail "OpenOwnBot is not installed."
+  [ -x "$INSTALL/app/openownbot" ] || fail "ROBot is not installed."
   manifest=$(fetch "$RELEASES/latest/download/$manifest")
   version=$(sed -n 's/^version: *//p' <<<"$manifest" | head -n 1)
   path=$(sed -n 's/^path: *//p' <<<"$manifest" | head -n 1)
@@ -280,7 +280,7 @@ stage() {
   # Only for the percent. A Linux manifest has one file, the AppImage.
   size=$(sed -n 's/^ *size: *//p' <<<"$manifest" | head -n 1)
   [[ $version =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]] || fail "The release manifest has no valid version."
-  [ "$path" = "OpenOwnBot-$version-$architecture.AppImage" ] || fail "The release manifest names another file."
+  [ "$path" = "ROBot-$version-$architecture.AppImage" ] || fail "The release manifest names another file."
   [[ $sha512 =~ ^[A-Za-z0-9+/]{86}==$ ]] || fail "The release manifest has no valid SHA-512."
   # A release that is no longer the latest one, for example because it was withdrawn, is removed. A
   # server that starts before this check applies it. This also removes a copy that a stop interrupted.
@@ -290,15 +290,15 @@ stage() {
   [ -n "$current" ] || fail "The installed version is not known."
   newer "$version" "$current" || return 0
   [ -d "$INSTALL/staged" ] && return 0
-  echo "Staging OpenOwnBot $version (installed: ${current:-unknown})."
+  echo "Staging ROBot $version (installed: ${current:-unknown})."
   # Global: the trap runs after this function returns.
   work=$(mktemp -d "$SCRATCH/openownbot-update.XXXXXX")
   trap 'rm -rf "$work"; rm -f "$STATE"' EXIT
-  download "$RELEASES/download/v$version/$path" "$work/OpenOwnBot.AppImage" "$size"
+  download "$RELEASES/download/v$version/$path" "$work/ROBot.AppImage" "$size"
   set_state preparing
-  [ "$(openssl dgst -sha512 -binary "$work/OpenOwnBot.AppImage" | openssl base64 -A)" = "$sha512" ] ||
+  [ "$(openssl dgst -sha512 -binary "$work/ROBot.AppImage" | openssl base64 -A)" = "$sha512" ] ||
     fail "The AppImage does not match the release manifest."
-  unpack "$work/OpenOwnBot.AppImage"
+  unpack "$work/ROBot.AppImage"
   [ "$(version_of "$work/squashfs-root")" = "$version" ] || fail "The AppImage has another version."
   # The release names its own packages and units. A release without them cannot update a server.
   local file
@@ -308,7 +308,7 @@ stage() {
   prepare_release "$work/squashfs-root"
   install_packages "$work/squashfs-root/resources/hosting/packages.txt"
   stage_release "$work/squashfs-root"
-  echo "OpenOwnBot $version starts at the next start of the server."
+  echo "ROBot $version starts at the next start of the server."
 }
 
 apply() {
@@ -329,14 +329,14 @@ apply() {
   swap_in
   install_hosting "$INSTALL/app/resources/hosting"
   finish_swap
-  echo "Updated OpenOwnBot from ${current:-unknown} to $staged."
+  echo "Updated ROBot from ${current:-unknown} to $staged."
 }
 
 # openownbot.service waits for this. A restore after a wake takes minutes, and a staged release waits
-# for it: OpenOwnBot starts first, and asks for the install when no client uses the server. A copy that
+# for it: ROBot starts first, and asks for the install when no client uses the server. A copy that
 # a stop interrupted completes first, because a partial release cannot start. A staged release that
 # the restore does not show yet stays for the next start. boat starts the unit a second time after a
-# wake, and a failed `boot` is not active then, so `boot` does nothing while OpenOwnBot runs.
+# wake, and a failed `boot` is not active then, so `boot` does nothing while ROBot runs.
 boot() {
   local pid
   pid=$(systemctl show --property=MainPID --value openownbot.service || true)
@@ -352,7 +352,7 @@ boot() {
 }
 
 # A release that an older script moved into place has the units of `request`, but that script
-# installed only the units that it knew. The start of OpenOwnBot does not wait for the update lock.
+# installed only the units that it knew. The start of ROBot does not wait for the update lock.
 trigger() {
   local source=$INSTALL/app/resources/hosting unit changed=0
   for unit in "${REQUEST_UNITS[@]}"; do
@@ -380,16 +380,16 @@ request() {
   if [ -e "$REQUESTS/update-install" ] || [ -L "$REQUESTS/update-install" ]; then install=1; fi
   if [ "$install" -eq 1 ]; then set_state installing; else set_state waiting; fi
   rm -f -- "$REQUESTS/update-stage" "$REQUESTS/update-install"
-  # OpenOwnBot sees that the request runs while the time of $STATE changes. The `stage` of the timer
+  # ROBot sees that the request runs while the time of $STATE changes. The `stage` of the timer
   # removes $STATE when it ends, so the keeper makes it again while this request waits for the lock.
   (while sleep 5; do touch "$STATE"; done) >/dev/null 2>&1 &
   keeper=$!
-  # An install stages first, so OpenOwnBot runs while it waits for a `stage` of the timer. When that
+  # An install stages first, so ROBot runs while it waits for a `stage` of the timer. When that
   # fails, for example with no network, a release that is already staged still applies.
   "$INSTALL/hosted/openownbot-hosted-update" stage || status=$?
   if [ "$install" -eq 1 ]; then
     status=0
-    # OpenOwnBot starts again also when `apply` fails, or when systemd stops this service. A copy that
+    # ROBot starts again also when `apply` fails, or when systemd stops this service. A copy that
     # did not complete is done again first, because a partial release cannot start. `set -e` applies
     # in the trap, so a second failure must not stop it before the start.
     trap '[ ! -e "$INSTALL/.applying" ] || "$INSTALL/hosted/openownbot-hosted-update" apply || true

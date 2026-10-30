@@ -11,7 +11,7 @@ import { isPathInside } from "./path-containment";
  * folders and the provider's state are added to them.
  *
  * Grok, OpenCode, Antigravity, Cursor and Cline take no sandbox per session, so a Workspace only
- * agent on them gets a provider process of its own, and OpenOwnBot starts that process inside an
+ * agent on them gets a provider process of its own, and ROBot starts that process inside an
  * operating system sandbox. The whole process is confined: the file edit tools, the shell, and every
  * command and MCP server it starts. Nothing inside the process can take the sandbox away. Only macOS
  * has the sandbox now: on Linux and Windows the process does not start, and the user must choose
@@ -174,7 +174,7 @@ let keychainLockFile: string | undefined;
  * and Cursor 2026.10.22 answers each session with "Authentication required" although it is signed
  * in. Only the contents of the lock file are writable: the module directory beside it lists the
  * security modules that the user's other processes load. The confined process cannot create the
- * file, so OpenOwnBot makes it when it is missing, as `security` would.
+ * file, so ROBot makes it when it is missing, as `security` would.
  */
 function keychainLockFiles(): string[] {
   if (process.platform !== "darwin") return [];
@@ -233,7 +233,7 @@ export function clineStatePaths(env: NodeJS.ProcessEnv = process.env, home = hom
 }
 
 /**
- * A custom agent keeps its state where it wants, and OpenOwnBot cannot know where. A Workspace only
+ * A custom agent keeps its state where it wants, and ROBot cannot know where. A Workspace only
  * custom agent gets no state folder: an agent that must write in its home folder to run needs Full
  * access.
  */

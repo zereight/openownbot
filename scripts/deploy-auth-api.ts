@@ -36,7 +36,7 @@ async function main(): Promise<void> {
   await putOptionalSecretSet("BOAT_API_KEY", "BOAT_WEBHOOK_SECRET");
   // Production releases own the template. Test deployments keep their separate setting.
   if (cloudflareEnvironment === "test") await putOptionalSecret("HOSTED_SERVER_TEMPLATE");
-  // Without the key, agents act on GitHub as the signed-in user and not as the OpenOwnBot GitHub App.
+  // Without the key, agents act on GitHub as the signed-in user and not as the ROBot GitHub App.
   await putOptionalSecret("GITHUB_APP_PRIVATE_KEY");
   // Without the token, no one can make a server claim.
   await putOptionalSecret("SERVER_CLAIMS_ADMIN_TOKEN");

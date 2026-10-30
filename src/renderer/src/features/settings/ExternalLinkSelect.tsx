@@ -27,7 +27,7 @@ function sameKeys(before: string[], after: string[]): boolean {
   return before.length === after.length && before.every((key, index) => key === after[index]);
 }
 
-/** The line under "OpenOwnBot" ends the two fixed places. */
+/** The line under "ROBot" ends the two fixed places. */
 function groupClass(key: string) {
   if (key === "openownbot") return "settings-modal-select-group-end";
   return undefined;
@@ -42,7 +42,7 @@ interface ExternalLinkSelectProps {
 }
 
 /**
- * One list: the default browser, OpenOwnBot, each browser that macOS knows, and "Other app…" for the
+ * One list: the default browser, ROBot, each browser that macOS knows, and "Other app…" for the
  * file dialog. Linux and Windows do not list browsers, so "Command…" opens a field under the list.
  */
 export function ExternalLinkSelect(props: ExternalLinkSelectProps) {

@@ -185,7 +185,7 @@ export function serverCodeRouteProviders(server: ServerSummary | undefined): rea
 
 /**
  * The providers that a code sign-in reaches on this computer, for when the browser callback cannot
- * reach OpenOwnBot: each provider whose driver has one. A pasted code needs a terminal that only some
+ * reach ROBot: each provider whose driver has one. A pasted code needs a terminal that only some
  * platforms give it.
  */
 export function localCodeSignInProviders(platform: string | undefined): readonly AgentProviderId[] {
@@ -205,7 +205,7 @@ export function remoteAdminServer(
 }
 
 /**
- * Which side of a connection runs the older OpenOwnBot release, so a version notice can say what to
+ * Which side of a connection runs the older ROBot release, so a version notice can say what to
  * update. Only the release numbers count. `null` when they are equal or one does not parse.
  */
 export function olderAppSide(clientVersion: string, hostVersion: string): "client" | "host" | null {

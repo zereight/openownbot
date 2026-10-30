@@ -130,8 +130,8 @@ async function openHostPage(
 
 /**
  * Server settings › Connectors › Slack, Discord or Telegram of a joined server. A Slack workspace or a
- * Discord server installs the one OpenOwnBot app, and its orchestrator agent receives every request.
- * Every Telegram chat adds the one OpenOwnBot bot and shares one orchestrator. No token reaches the phone.
+ * Discord server installs the one ROBot app, and its orchestrator agent receives every request.
+ * Every Telegram chat adds the one ROBot bot and shares one orchestrator. No token reaches the phone.
  */
 export function MessagingConnectorPage({
   server,

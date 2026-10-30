@@ -40,7 +40,7 @@ export const HostFailed: Story = {
   args: args(
     {
       error:
-        "Could not open Bitwarden on this server. Check the server address, the API key and the master password, and make sure that one folder is named Shared with OpenOwnBot. Then connect again.",
+        "Could not open Bitwarden on this server. Check the server address, the API key and the master password, and make sure that one folder is named Shared with ROBot. Then connect again.",
     },
     "Studio",
   ),

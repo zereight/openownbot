@@ -8,7 +8,7 @@ export class SiblingScanFailed extends Schema.TaggedError<SiblingScanFailed>()("
 }) {}
 
 /**
- * Another OpenOwnBot process running from the same application bundle. On a Mac shared by several
+ * Another ROBot process running from the same application bundle. On a Mac shared by several
  * macOS users this is how one tenant finds the others: the bundle is shared, the network
  * namespace is shared, and replacing the bundle under a live session breaks it.
  */

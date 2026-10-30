@@ -235,7 +235,7 @@ export const RunHistoryStatuses: Story = {
 };
 
 /**
- * OpenOwnBot was closed for five occurrences of an hourly routine set to run once when OpenOwnBot opens.
+ * ROBot was closed for five occurrences of an hourly routine set to run once when ROBot opens.
  * It ran the newest one late and recorded the four before it as skipped. Yesterday it skipped one.
  * The times are on the hour.
  */
@@ -295,7 +295,7 @@ function storyDelivery(
 
 /**
  * Each answer of the morning brief also goes to a Slack channel. One went, one waited a day for its
- * connection, and OpenOwnBot stopped during one. Each run succeeded: the delivery has its own status.
+ * connection, and ROBot stopped during one. Each run succeeded: the delivery has its own status.
  */
 export const ResultDestination: Story = {
   render: () => (

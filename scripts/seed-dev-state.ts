@@ -102,7 +102,7 @@ async function claudeSignedIn(appDataRoot: string): Promise<boolean> {
 
 /**
  * Where the app's own Claude Code is: the runtime store this computer shares, which is where a CLI
- * the user downloaded in OpenOwnBot is the only copy there is.
+ * the user downloaded in ROBot is the only copy there is.
  *
  * The store, not the status: the manager is read for the path it computes, and nothing here creates
  * a directory, downloads, or collects an old version.
@@ -119,7 +119,7 @@ const GENERATED_DIRECTORY_PATTERN =
 const SHOWCASE_IMAGE_PATH = resolve(process.cwd(), "src", "renderer", "src", "assets", "openownbot-logo-dev.png");
 
 function previewPdf(): string {
-  const stream = "BT /F1 18 Tf 24 150 Td (OpenOwnBot file preview) Tj ET";
+  const stream = "BT /F1 18 Tf 24 150 Td (ROBot file preview) Tj ET";
   const objects = [
     "<< /Type /Catalog /Pages 2 0 R >>",
     "<< /Type /Pages /Kids [3 0 R] /Count 1 >>",
@@ -276,7 +276,7 @@ export async function seedDevelopmentState(options: DevelopmentSeedOptions = {})
   );
   assertSafeAppDataRoot(appDataRoot);
   const targetProfile = resolve(appDataRoot, developmentUserDataName("app", options.instanceId ?? null));
-  if (dirname(targetProfile) !== appDataRoot) throw new Error(`Unsafe OpenOwnBot dev profile path: ${targetProfile}`);
+  if (dirname(targetProfile) !== appDataRoot) throw new Error(`Unsafe ROBot dev profile path: ${targetProfile}`);
 
   const profileActive = await isDevelopmentProfileActive(targetProfile);
   const agentModel = options.agentModel ?? (await seededAgentModel(appDataRoot));
@@ -296,7 +296,7 @@ export async function seedDevelopmentState(options: DevelopmentSeedOptions = {})
   if (options.dryRun) return summary;
   if (options.ifMissing && (await pathExists(targetProfile))) return summary;
   if (profileActive) {
-    throw new Error("Quit the OpenOwnBot dev app before you seed its local state.");
+    throw new Error("Quit the ROBot dev app before you seed its local state.");
   }
 
   await mkdir(appDataRoot, { recursive: true, mode: 0o700 });
@@ -305,7 +305,7 @@ export async function seedDevelopmentState(options: DevelopmentSeedOptions = {})
   try {
     await buildSeedProfile(stagingProfile, homeDirectory, newTransferDirectories, agentModel, scale);
     if (await isDevelopmentProfileActive(targetProfile)) {
-      throw new Error("Quit the OpenOwnBot dev app before you seed its local state.");
+      throw new Error("Quit the ROBot dev app before you seed its local state.");
     }
     if (options.ifMissing && (await pathExists(targetProfile))) {
       await cleanupStagedSeed(stagingProfile, homeDirectory, newTransferDirectories);
@@ -424,7 +424,7 @@ function seedMemories(agentStore: AgentStore): void {
     },
     {
       agentId: "chief",
-      text: "The current priority is a traceable OpenOwnBot launch plan.",
+      text: "The current priority is a traceable ROBot launch plan.",
       origin: "automatic" as const,
       sourceTurnId: "dev-seed-turn-chief-plan",
     },
@@ -905,7 +905,7 @@ async function seedConversations(
             `| Evidence | ${mention("research")} | In review |`,
             `| Release | ${mention("launch")} | Ready |`,
             "",
-            "Next: review the [OpenOwnBot documentation](https://openbot.run/docs), then run:",
+            "Next: review the [ROBot documentation](https://openbot.run/docs), then run:",
             "",
             "```bash",
             "bun run check",
@@ -932,7 +932,7 @@ async function seedConversations(
         itemType: "image_generation",
         attachments: [attachments.image],
         imageGeneration: {
-          prompt: "A calm OpenOwnBot launch command center at blue hour",
+          prompt: "A calm ROBot launch command center at blue hour",
           resolution: "1024 × 1024",
           aspectRatio: "square",
         },
@@ -1210,7 +1210,7 @@ async function seedLaunchRoom(
     {
       ...store.create(channelId, {
         name: "Launch room",
-        title: "Ship OpenOwnBot 1.0",
+        title: "Ship ROBot 1.0",
         instructions:
           "Keep every decision traceable. Name the owner and the evidence in each result, and leave an unverified claim out.",
         members: [{ agentId: "chief" }, { agentId: "research" }, { agentId: "builder" }, { agentId: "launch" }],
@@ -1231,7 +1231,7 @@ async function seedLaunchRoom(
       mimeType: "text/markdown",
       bytes: bytes(
         [
-          "# OpenOwnBot 1.0 release note (draft)",
+          "# ROBot 1.0 release note (draft)",
           "",
           "## What is new",
           "- Channels: several agents share one chat and one task list.",
@@ -1287,7 +1287,7 @@ async function seedLaunchRoom(
   const taskStandup = "channel-launch-task-standup";
   const taskRollback = "channel-launch-task-rollback";
   const releaseNoteText =
-    "Draft the release note for OpenOwnBot 1.0. Keep the evidence with every claim and name an owner for each section.";
+    "Draft the release note for ROBot 1.0. Keep the evidence with every claim and name an owner for each section.";
   const evidenceText = "Verify the two performance claims in the draft and name a primary source for each.";
   const rollbackText = `Add the rollback owner to the release note. ${mentionAgent(agents, "builder")} should confirm the steps.`;
   const message = (input: SeedChannelMessage): ChannelMessage => channelMessage(channelId, clock, input);
@@ -1584,7 +1584,7 @@ async function seedTeam(profilePath: string): Promise<void> {
     name: "Dev Owner",
     avatarUrl: null,
   };
-  const teamIdentity = await runCauseEffect(team.configureWithAccount("OpenOwnBot Dev Team", owner));
+  const teamIdentity = await runCauseEffect(team.configureWithAccount("ROBot Dev Team", owner));
   await runCauseEffect(team.loginWithAccount(owner));
   await runCauseEffect(team.setEnabledOnLaunch(teamIdentity.serverId, true));
 }
@@ -1754,7 +1754,7 @@ async function main(): Promise<void> {
     scale: parsed.values.scale === undefined ? undefined : parseSeedScale(parsed.values.scale),
     instanceId: readDevelopmentInstanceId(process.env.OPENOWNBOT_DEV_INSTANCE_ID),
   });
-  logger.info(dryRun ? "OpenOwnBot development seed dry run:" : "OpenOwnBot development state seeded:");
+  logger.info(dryRun ? "ROBot development seed dry run:" : "ROBot development state seeded:");
   logger.info(`- profile: ${summary.targetProfile}`);
   logger.info(`- profile active: ${summary.profileActive ? "yes" : "no"}`);
   logger.info(`- agent model: ${summary.agentModel}`);

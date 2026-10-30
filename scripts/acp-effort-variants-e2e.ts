@@ -5,7 +5,7 @@
 // goes back to the exact model it opened on, that a selected family and effort reach the session, and
 // that an agent whose option lists the same models keeps today's catalog, also with a provider option.
 // Like Antigravity 1.4.3, the fake server offers its Claude and GPT models only to a client that names
-// itself `zed` (or Xcode, JetBrains, Android Studio), so the picker also checks the name OpenOwnBot sends.
+// itself `zed` (or Xcode, JetBrains, Android Studio), so the picker also checks the name ROBot sends.
 // `bun scripts/acp-effort-variants-e2e.ts`. Writes .openownbot-build/acp-effort-variants-e2e/report.json.
 import assert from "node:assert/strict";
 import { chmod, mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
@@ -263,7 +263,7 @@ try {
   assert.ok(clientNames.length > 0, "The discovery process is initialized.");
   assert.ok(
     clientNames.every((name) => name === "zed"),
-    "OpenOwnBot names itself zed to Antigravity, which offers Claude and GPT models only to the clients it lists.",
+    "ROBot names itself zed to Antigravity, which offers Claude and GPT models only to the clients it lists.",
   );
   const discoveryEndsOn: Record<string, string | null> = {};
   for (const entry of discovery) if (entry.event === "set") discoveryEndsOn[entry.sessionId] = entry.model;

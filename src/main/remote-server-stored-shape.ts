@@ -22,7 +22,7 @@
 //
 // Versions 1 and 2 differ from 3 only in fields this reader already treats as optional, so an upgrade
 // is a re-tag. A version this build does not know is refused outright: it was written by a newer
-// OpenOwnBot, and guessing at it would replace a file that build can still read.
+// ROBot, and guessing at it would replace a file that build can still read.
 
 import type { ServerNotificationLevel, TeamRole } from "@robot/contracts/ipc";
 import { LOCAL_SERVER_ID, SERVER_NOTIFICATION_LEVELS } from "@robot/contracts/ipc";

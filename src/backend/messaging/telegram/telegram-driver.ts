@@ -372,7 +372,7 @@ export interface TelegramDriverOptions {
   ingress?: MessagingIngress;
 }
 
-/** Each chat added the one OpenOwnBot bot. Its updates and calls go through the ingress relay. */
+/** Each chat added the one ROBot bot. Its updates and calls go through the ingress relay. */
 export function telegramDriver(options: TelegramDriverOptions = {}): MessagingDriver {
   const chats = new TelegramChats();
   const state = (credentials: Record<string, string>) => {

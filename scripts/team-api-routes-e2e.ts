@@ -528,8 +528,7 @@ const fakeBitwardenCli: BitwardenCliRunner = async (_executable, args, env) => {
     login: { username: "ada", password: BW_LOGIN_PASSWORD, uris: [{ uri: "https://example.com/login", match: null }] },
   };
   if (command === "sync") return "Syncing complete.";
-  if (command === "list" && target === "folders")
-    return JSON.stringify([{ id: "shared", name: "Shared with OpenOwnBot" }]);
+  if (command === "list" && target === "folders") return JSON.stringify([{ id: "shared", name: "Shared with ROBot" }]);
   if (command === "list" && target === "items") return JSON.stringify([item]);
   if (command === "get" && target === "item") return JSON.stringify(item);
   throw new Error(`Unexpected bw call: ${command}`);
@@ -1651,7 +1650,7 @@ try {
       capabilities: diskCapabilities,
     });
     check(
-      "the disk route ignores a path in the body and reads the disk of the OpenOwnBot data",
+      "the disk route ignores a path in the body and reads the disk of the ROBot data",
       withBody.status === 200 && isDeepStrictEqual(withBody.body, expected) && callsOf("disk").length === 3,
       summary(withBody),
     );

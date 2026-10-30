@@ -194,14 +194,14 @@ export function createDevInstanceRecord(
 // A dev profile no start has ever created is an empty one: the app opens on
 // first-run setup with no agents and no chats. `bun run dev:prepare` seeds the
 // worktree profile, but a setup that only ran `bun install` never reaches it,
-// and the shared `OpenOwnBot Dev` profile was never seeded by either, so the
+// and the shared `ROBot Dev` profile was never seeded by either, so the
 // profile this start is about to open is seeded here instead. Only a missing
 // profile is seeded, so a later start costs nothing and no data is replaced.
 //
 // The app spec, not the shared environment, decides which profile that is: a
 // start whose default renderer port was busy takes the port as its instance id,
 // and reading it any earlier would seed the shared profile while the app opens
-// `OpenOwnBot Dev <port>`.
+// `ROBot Dev <port>`.
 export function developmentProfileToSeed(
   specs: readonly DevelopmentServiceSpec[],
   profileExists: (path: string) => boolean = existsSync,
@@ -241,7 +241,7 @@ export interface DevelopmentInvocation {
   // stacks in one worktree is nearly always a forgotten terminal, so it takes
   // saying so.
   force: boolean;
-  // Open the shared `OpenOwnBot Dev` profile instead of the profile of this
+  // Open the shared `ROBot Dev` profile instead of the profile of this
   // worktree, which is keyed to its path. The default keeps two worktrees from
   // seeing each other's conversations. `--isolated`, the old way to ask for the
   // default, is still accepted and does nothing. Either way the profile is
@@ -348,7 +348,7 @@ async function main(): Promise<void> {
     if (instanceId !== sharedEnvironment.OPENOWNBOT_DEV_INSTANCE_ID) {
       sharedEnvironment.OPENOWNBOT_DEV_INSTANCE_ID = instanceId;
       // The default changed from the shared profile, so a developer who expects their old data learns where it is.
-      logger.info("This worktree opens its own dev profile. Pass --shared to open the shared OpenOwnBot Dev profile.");
+      logger.info("This worktree opens its own dev profile. Pass --shared to open the shared ROBot Dev profile.");
     }
     const allocated = await allocateDevelopmentPorts(
       services,
@@ -390,7 +390,7 @@ async function main(): Promise<void> {
 
 /**
  * The profile the start opens before the ports are chosen. An explicit id wins, and `--shared`
- * keeps the shared `OpenOwnBot Dev` profile. Beside a running stack of this worktree, that stack
+ * keeps the shared `ROBot Dev` profile. Beside a running stack of this worktree, that stack
  * already holds the worktree profile and Chromium lets one app hold a profile, so the start keeps
  * no id and the port allocation names a profile after the renderer port.
  */

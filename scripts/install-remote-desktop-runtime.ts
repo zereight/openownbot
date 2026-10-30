@@ -57,7 +57,7 @@ export async function installRemoteDesktopRuntime(
     {
       headers: {
         Accept: "application/vnd.github+json",
-        "User-Agent": "OpenOwnBot-runtime-installer",
+        "User-Agent": "ROBot-runtime-installer",
         ...(githubToken ? { Authorization: `Bearer ${githubToken}` } : {}),
       },
     },

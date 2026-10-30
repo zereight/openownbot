@@ -15,7 +15,7 @@ const CONNECTED: OnePasswordConnectorStatus = {
   ...DISCONNECTED_ONEPASSWORD_CONNECTOR,
   state: "connected",
   setup: READY,
-  vaultNames: ["Shared with OpenOwnBot"],
+  vaultNames: ["Shared with ROBot"],
   loginCount: 3,
 };
 

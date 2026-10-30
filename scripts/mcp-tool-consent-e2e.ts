@@ -167,7 +167,7 @@ interface Card {
 
 interface Outcome {
   cards: Card[];
-  /** What OpenOwnBot answered to Codex, in order. The tool consent comes first. */
+  /** What ROBot answered to Codex, in order. The tool consent comes first. */
   responses: Array<{ action: string; persist: unknown; contentKeys: string[] }>;
   toolText: string | null;
   toolStatus: string | null;
@@ -180,7 +180,7 @@ const allowOnce: Choose = () => ({ [DECISION]: ["Allow once"] });
 const allowAlways: Choose = () => ({ [DECISION]: ["Always allow"] });
 const deny: Choose = () => ({ [DECISION]: ["Don't allow"] });
 
-/** Records what OpenOwnBot answers to Codex, so a step can check the answer and not only the outcome. */
+/** Records what ROBot answers to Codex, so a step can check the answer and not only the outcome. */
 class RecordingClient extends CodexAppServerClient {
   readonly responses: Outcome["responses"] = [];
 
@@ -287,7 +287,7 @@ class Rig {
       this.#client.request(
         "initialize",
         {
-          clientInfo: { name: "openownbot_e2e", title: "OpenOwnBot E2E", version: "0.0.0" },
+          clientInfo: { name: "openownbot_e2e", title: "ROBot E2E", version: "0.0.0" },
           capabilities: { experimentalApi: true, mcpServerOpenaiFormElicitation: true },
         },
         decodeRecordResponse,
@@ -296,7 +296,7 @@ class Rig {
     this.#client.notify("initialized");
   }
 
-  /** The thread settings are the ones OpenOwnBot sends: `on-request`, and full access unless sandboxed. */
+  /** The thread settings are the ones ROBot sends: `on-request`, and full access unless sandboxed. */
   async thread(agentId: string): Promise<string> {
     const existing = this.#threads.get(agentId);
     if (existing) return existing;

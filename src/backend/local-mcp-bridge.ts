@@ -123,9 +123,9 @@ export class LocalMcpBridge {
     directory?: string,
   ): Effect.fn.Return<LocalMcpSession, McpOperationError> {
     const closes = this.#closes;
-    if (this.#closing) return yield* mcpFailure(new Error("The local OpenOwnBot MCP bridge closed."));
+    if (this.#closing) return yield* mcpFailure(new Error("The local ROBot MCP bridge closed."));
     yield* this.#listen();
-    if (closes !== this.#closes) return yield* mcpFailure(new Error("The local OpenOwnBot MCP bridge closed."));
+    if (closes !== this.#closes) return yield* mcpFailure(new Error("The local ROBot MCP bridge closed."));
     const member: BridgeMember = {
       threadId,
       activeTurnId,
@@ -238,7 +238,7 @@ export class LocalMcpBridge {
           ).pipe(Effect.uninterruptible);
           const address = server.address();
           if (!address || isString(address))
-            return yield* mcpFailure(new Error("Unable to bind the local OpenOwnBot MCP bridge."));
+            return yield* mcpFailure(new Error("Unable to bind the local ROBot MCP bridge."));
           this.#server = server;
           this.#port = address.port;
           retained = true;

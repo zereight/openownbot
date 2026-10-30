@@ -1,7 +1,7 @@
 // End-to-end check of `openownbot-instance backup`, `verify`, `restore` and `backups`
 // (docs/docker.md#backups). It runs the real script as root in a privileged Docker-in-Docker
 // container, with a loop-mounted ext4 data disk, as on a host of `docker/instances`. The instance is
-// a small stand-in container with the release label of an OpenOwnBot image, not the OpenOwnBot image: the
+// a small stand-in container with the release label of a ROBot image, not the ROBot image: the
 // check is of the script, its archive and its failure paths. The data has an `openbot.db` of the
 // latest schema and a shared tables database, which the verification opens with sqlite3.
 //
@@ -71,7 +71,7 @@ function summary(result: Run): string {
 
 /** The data of one instance: the database, shared tables, keyring, a workspace and an attachment. */
 async function writeFixture(root: string): Promise<void> {
-  const config = join(root, ".config/OpenOwnBot");
+  const config = join(root, ".config/ROBot");
   const shared = join(root, "ROBot/Shared/Data");
   await mkdir(config, { recursive: true });
   await mkdir(shared, { recursive: true });
@@ -122,8 +122,8 @@ async function writeFixture(root: string): Promise<void> {
   await writeFile(join(root, "ROBot/Agents/E2E/attachment.bin"), randomBytes(256 * 1024));
 }
 
-// The stand-in for the OpenOwnBot image: it has the release label, runs as UID 1000, and writes a file
-// when it gets the stop signal, as OpenOwnBot closes its database.
+// The stand-in for the ROBot image: it has the release label, runs as UID 1000, and writes a file
+// when it gets the stop signal, as ROBot closes its database.
 const standIn = `FROM alpine:3.22
 LABEL org.opencontainers.image.version=0.40.0
 RUN printf '#!/bin/sh\\ntrap "date > /data/.e2e-clean-stop; exit 0" TERM\\ndate >> /data/.e2e-starts\\nwhile true; do sleep 1 & wait $!; done\\n' >/app && chmod 0755 /app
@@ -244,7 +244,7 @@ async function main(): Promise<void> {
       {
         name: "main database",
         path: ".config/ROBot/openbot.db",
-        error: /OpenOwnBot cannot open openownbot\.db|openownbot\.db is damaged/,
+        error: /ROBot cannot open openownbot\.db|openownbot\.db is damaged/,
       },
       {
         name: "shared database",
@@ -479,7 +479,7 @@ async function main(): Promise<void> {
     result = instance("restore", "main", "newer", "--replace");
     must("rm -rf /backups/main/newer");
     check(
-      "restore refuses a backup from a newer OpenOwnBot",
+      "restore refuses a backup from a newer ROBot",
       result.status !== 0 && /99\.0\.0/.test(result.stderr) && running(),
       summary(result),
     );

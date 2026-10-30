@@ -2,7 +2,7 @@ import { defineMessages } from "../../../message";
 
 export const messages = defineMessages("error.team", {
   // Errors that the Team API and the team store send to clients.
-  "error.team.ownerNotLinked": "This host is not linked to an ROBot owner account.",
+  "error.team.ownerNotLinked": "This host is not linked to a ROBot owner account.",
   "error.team.ownerEmailRequired": "Sign in with the ROBot email that created this host.",
   "error.team.hostNotConfigured": "The team host is not configured.",
   "error.team.alreadyConfigured": "The team server is already configured.",

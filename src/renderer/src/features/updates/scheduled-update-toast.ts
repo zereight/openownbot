@@ -10,7 +10,7 @@ const TOAST_ID = "scheduled-app-update";
 /**
  * A notice on the host while a restart that a server admin asked for, or the automatic install
  * scheduled, waits. It stays until the
- * restart starts or someone cancels it, so the host user always knows why OpenOwnBot will restart.
+ * restart starts or someone cancels it, so the host user always knows why ROBot will restart.
  */
 export function createScheduledUpdateToast(options: {
   status: Accessor<UpdateStatus>;

@@ -137,7 +137,7 @@ export class HostedSiteCoordinator {
     if (!turnId || !agentId) {
       client.respondError(request.id, {
         code: -32602,
-        message: "OpenOwnBot could not identify this hosted site request.",
+        message: "ROBot could not identify this hosted site request.",
       });
       return null;
     }
@@ -234,7 +234,7 @@ export class HostedSiteCoordinator {
   }
 
   #requireHostedSites(): AgentHostedSites {
-    if (!this.#hostedSites) throw new Error("OpenOwnBot site hosting is unavailable.");
+    if (!this.#hostedSites) throw new Error("ROBot site hosting is unavailable.");
     return this.#hostedSites;
   }
 

@@ -115,9 +115,9 @@ export function importProviderHistory(
         // An earlier import committed this turn, and staging found no change since then.
         if (staged.turnImported) return true;
         // ACP replay has stable item IDs only inside the provider transcript. It has no stable
-        // OpenOwnBot turn ID, so normalizing it into the conversation projection would duplicate a
+        // ROBot turn ID, so normalizing it into the conversation projection would duplicate a
         // live turn after release and reload. Keep the bounded raw records for handoff and reads;
-        // live OpenOwnBot turns already committed their normalized messages under durable IDs.
+        // live ROBot turns already committed their normalized messages under durable IDs.
         if (fragment.recordsOnly) {
           yield* providerSync(() =>
             input.database.importProviderHistoryMessages({
@@ -230,7 +230,7 @@ function importCompletedTurn(
       const reconciled =
         input.provider === "claude"
           ? mergeProviderHistoryMessages(
-              // Claude can use a new provider ID for a reply that OpenOwnBot already published under the
+              // Claude can use a new provider ID for a reply that ROBot already published under the
               // live turn ID. Read only matching IDs from SQLite, so reconciliation never materializes
               // the full chat or the full turn.
               readStoredTurnMessages(input.database, input.publicThreadId, fragment.turnId, pageMessages),

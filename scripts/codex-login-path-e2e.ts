@@ -1,5 +1,5 @@
 // Adapted from the report in zereight/openownbot#2686: "Codex CLI reports 'not found'".
-// OpenOwnBot started the way Finder, the Dock or a login item starts it: PATH=/usr/bin:/bin:/usr/sbin:/sbin.
+// ROBot started the way Finder, the Dock or a login item starts it: PATH=/usr/bin:/bin:/usr/sbin:/sbin.
 // An npm Codex is a `#!/usr/bin/env node` script, so `codex --version` and the app-server process
 // must run with the login shell's folders, or with the folder that Codex was found in.
 // The stand-in Codex runs on a stand-in interpreter that is only in those folders. The login shell
@@ -36,7 +36,7 @@ if (process.env[ROOT_VARIABLE] === undefined) {
     [ROOT_VARIABLE]: root,
     HOME: home,
     SHELL: "/bin/bash",
-    // OpenOwnBot started from Finder, the Dock or a login item.
+    // ROBot started from Finder, the Dock or a login item.
     PATH: "/usr/bin:/bin:/usr/sbin:/sbin",
   };
   delete env.ZDOTDIR;

@@ -3,7 +3,7 @@
 // 1. A new session with an MCP server that writes no JSON-RPC: Muse stores an MCP startup fault.
 // 2. The same session resumed with no MCP server: the stored fault still refuses the turn.
 // 3. A new session with no MCP server: the turn completes.
-// The report records whether each refusal is one that OpenOwnBot closes the session for.
+// The report records whether each refusal is one that ROBot closes the session for.
 import assert from "node:assert/strict";
 import { mkdir, mkdtemp, realpath, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
@@ -23,7 +23,7 @@ interface Step {
   name: string;
   sessionId: string | null;
   status: string | null;
-  /** The `error` notification text: the only failure that OpenOwnBot checks for a refused session. */
+  /** The `error` notification text: the only failure that ROBot checks for a refused session. */
   error: string | null;
   requestError: string | null;
   refusedFailure: string | null;
@@ -66,7 +66,7 @@ function brokenServer(): McpServerConfig {
     args: ["-c", "printf 'not json-rpc\\r\\n\\r\\n'; sleep 120"],
     env: [],
     envPassthrough: [],
-    // OpenOwnBot does not send a stdio server with a working directory to Muse.
+    // ROBot does not send a stdio server with a working directory to Muse.
     workingDirectory: "",
     url: "",
     headers: [],
@@ -159,11 +159,11 @@ try {
   await mkdir(cwd);
   const faulted = await run("broken-mcp-start", cwd, [brokenServer()], null);
   assert.equal(faulted.status, "failed", "A session with a broken MCP server fails its turn.");
-  assert.ok(faulted.refusedFailure, `OpenOwnBot closes the session for this error: ${faulted.error}`);
+  assert.ok(faulted.refusedFailure, `ROBot closes the session for this error: ${faulted.error}`);
   assert.ok(faulted.sessionId);
   const resumed = await run("resume-without-mcp", cwd, [], faulted.sessionId);
   assert.equal(resumed.status, "failed", "Muse keeps the fault in the session after a resume.");
-  assert.ok(resumed.refusedFailure, `OpenOwnBot closes the session for this error: ${resumed.error}`);
+  assert.ok(resumed.refusedFailure, `ROBot closes the session for this error: ${resumed.error}`);
   const fresh = await run("new-session-without-mcp", cwd, [], null);
   assert.equal(fresh.status, "completed", "A new session answers.");
 } catch (error) {

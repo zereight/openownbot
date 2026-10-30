@@ -51,7 +51,7 @@ export class RemoteRuntimeStartError extends Error {
 
 const MOONLIGHT_STREAMER_SLOTS = 4;
 // First candidate for Sunshine's base port. Sunshine derives its whole port family from this one
-// `port` value, so every OpenOwnBot instance must claim a disjoint family: two macOS users share one
+// `port` value, so every ROBot instance must claim a disjoint family: two macOS users share one
 // network namespace, and a second Sunshine bound to the same ports fails to start.
 const SUNSHINE_DEFAULT_BASE_PORT = 47_989;
 // Offsets Sunshine applies to the base port (GameStream HTTPS, HTTP, Web UI HTTPS, video, control,
@@ -586,7 +586,7 @@ export class SunshineMoonlightRuntime {
           },
           this.#moonlight,
         ).pipe(Effect.mapError(this.#failStart("moonlight")));
-        this.#options.onDiagnostic?.("moonlight", "OpenOwnBot: Moonlight Web is ready.\n");
+        this.#options.onDiagnostic?.("moonlight", "ROBot: Moonlight Web is ready.\n");
         const paired = yield* this.#bootstrapMoonlightEffect(moonlightPort).pipe(
           Effect.mapError(this.#failStart("pairing")),
         );
@@ -642,10 +642,10 @@ export class SunshineMoonlightRuntime {
     const basePort = this.#sunshineBasePort;
     if (basePort === null) return yield* desktopFailure(new Error("Sunshine ports have not been allocated yet."));
     const values = [
-      "sunshine_name = OpenOwnBot Remote Desktop",
+      "sunshine_name = ROBot Remote Desktop",
       // The base port: every other Sunshine port (GameStream HTTP/HTTPS, Web UI HTTPS, video,
       // audio, control, RTSP setup) is offset from this one, so a per-instance base keeps the
-      // whole family disjoint from other OpenOwnBot instances on this machine.
+      // whole family disjoint from other ROBot instances on this machine.
       `port = ${basePort}`,
       "upnp = disabled",
       "stream_audio = disabled",
@@ -663,7 +663,7 @@ export class SunshineMoonlightRuntime {
       // probe the others.
       ...(this.#options.platform === "linux" ? ["capture = x11", "encoder = software"] : []),
       // The macOS tray changes its status item from the pairing and stream threads, and macOS 27 stops
-      // a process that changes AppKit off the main thread. OpenOwnBot runs its own main loop and pairing
+      // a process that changes AppKit off the main thread. ROBot runs its own main loop and pairing
       // UI, so the tray has no use.
       ...(this.#options.platform === "darwin" ? ["system_tray = disabled"] : []),
     ];
@@ -865,7 +865,7 @@ export class SunshineMoonlightRuntime {
       )).hosts;
       this.#options.onDiagnostic?.(
         "moonlight",
-        `OpenOwnBot: found ${hosts.length} local Moonlight hosts for streamer slot ${slot}.\n`,
+        `ROBot: found ${hosts.length} local Moonlight hosts for streamer slot ${slot}.\n`,
       );
       // Stored hosts keep their original port. Recreate the managed endpoint before pairing,
       // including when another user claimed this runtime's previous port after restart.
@@ -900,7 +900,7 @@ export class SunshineMoonlightRuntime {
       if (host.paired !== "Paired") {
         this.#options.onDiagnostic?.(
           "moonlight",
-          `OpenOwnBot: pairing local host ${host.host_id} for streamer slot ${slot}.\n`,
+          `ROBot: pairing local host ${host.host_id} for streamer slot ${slot}.\n`,
         );
         yield* this.#pairMoonlightEffect(baseUrl, host.host_id, user);
       }
@@ -1023,16 +1023,16 @@ export class SunshineMoonlightRuntime {
                 Effect.mapError(desktopFailure),
               );
               if (typeof message === "object" && "Pin" in message) {
-                this.#options.onDiagnostic?.("moonlight", "OpenOwnBot: received local pairing PIN.\n");
+                this.#options.onDiagnostic?.("moonlight", "ROBot: received local pairing PIN.\n");
                 const pairingId = yield* this.#waitForPairingRequestEffect();
                 yield* sunshineRequestEffect(
                   yield* desktopSync(() => this.#requireSunshineHttpsPort()),
                   "/api/pin",
                   this.#options.credentials,
                   join(this.#options.stateDirectory, "sunshine-cert.pem"),
-                  JSON.stringify({ pairing_id: pairingId, pin: message.Pin, name: "OpenOwnBot Remote Desktop" }),
+                  JSON.stringify({ pairing_id: pairingId, pin: message.Pin, name: "ROBot Remote Desktop" }),
                 );
-                this.#options.onDiagnostic?.("moonlight", "OpenOwnBot: submitted local pairing PIN.\n");
+                this.#options.onDiagnostic?.("moonlight", "ROBot: submitted local pairing PIN.\n");
                 pinSubmitted = true;
                 continue;
               }
@@ -1123,10 +1123,7 @@ export class SunshineMoonlightRuntime {
       // A stop clears the field before it waits. A start in progress fails its own readiness wait.
       if ((source === "sunshine" ? this.#sunshine : this.#moonlight) !== child || !this.#state) return;
       this.#state = null;
-      this.#options.onDiagnostic?.(
-        source,
-        `OpenOwnBot: ${source} exited unexpectedly (${signal ?? `code ${code}`}).\n`,
-      );
+      this.#options.onDiagnostic?.(source, `ROBot: ${source} exited unexpectedly (${signal ?? `code ${code}`}).\n`);
       this.#options.onExit?.(source);
     });
   }

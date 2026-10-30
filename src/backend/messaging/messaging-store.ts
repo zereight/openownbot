@@ -41,7 +41,7 @@ export interface MessagingLink {
   updatedAt: string;
 }
 
-/** A role whose members can use OpenOwnBot in one connection, by the name the user chose it from. */
+/** A role whose members can use ROBot in one connection, by the name the user chose it from. */
 export interface MessagingAllowedRole {
   id: string;
   name: string;
@@ -144,7 +144,7 @@ export class MessagingStore {
       );
   }
 
-  /** The roles whose members can use OpenOwnBot here. Empty lets everyone. */
+  /** The roles whose members can use ROBot here. Empty lets everyone. */
   allowedRoles(connectionId: string): MessagingAllowedRole[] {
     return databaseRows(
       this.#database.connection

@@ -168,7 +168,7 @@ export const messages = defineMessages("connector", {
 
   // Marketplace > Apps > Discord: a Discord server (a guild) adds the one ROBot bot, and
   // the Discord Orchestrator agent receives each request, asks the team and answers. Always write
-  // "Discord server": "server" alone is an ROBot server.
+  // "Discord server": "server" alone is a ROBot server.
   "connector.discord.title": "Discord",
   "connector.discord.description":
     "People mention @ROBot in a channel of a Discord server. The Discord Orchestrator asks the right agent and answers.",

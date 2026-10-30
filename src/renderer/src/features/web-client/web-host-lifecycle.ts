@@ -35,7 +35,7 @@ export function createWebHostLifecycle(options: {
   /** The next status read while the server starts. */
   let startTimer: ReturnType<typeof setTimeout> | undefined;
   let start: HostedServerStart | null = null;
-  /** When the account server first reported the server `running`: OpenOwnBot on it starts. */
+  /** When the account server first reported the server `running`: ROBot on it starts. */
   let runningSince: number | null = null;
   /** The status reads in a row that failed. */
   let failedReads = 0;
@@ -72,7 +72,7 @@ export function createWebHostLifecycle(options: {
     options.setHostedSleep(null);
     options.setIssue("start_timeout");
   }
-  /** The client waits while the server starts. Only OpenOwnBot on a running machine has a time limit. */
+  /** The client waits while the server starts. Only ROBot on a running machine has a time limit. */
   function setStep(startedAt: number, step: HostedServerStartStep): boolean {
     if (step !== "openownbot") runningSince = null;
     else runningSince ??= Date.now();

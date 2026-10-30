@@ -9,7 +9,7 @@ import { AgentSkillsModal } from "../src/features/conversation/AgentSkillsModal"
 const agents: AgentProfile[] = [
   agent("research", "Research"),
   agent("sales", "Sales"),
-  agent("social", "OpenOwnBot SM manager for very long names"),
+  agent("social", "ROBot SM manager for very long names"),
 ];
 const onSelectAgent = fn();
 const onOpenRoutine = fn();

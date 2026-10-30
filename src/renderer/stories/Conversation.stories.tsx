@@ -230,9 +230,9 @@ const agentMessageGalleryMessages: RendererAgentMessage[] = [
     body: [
       "## Links and references",
       "",
-      "Review [OpenOwnBot documentation](https://openbot.run/docs), the [Kobalte guide](https://kobalte.dev/docs/core/overview/introduction), and https://zaidan.carere.dev/docs/components/kobalte/bubble.",
+      "Review [ROBot documentation](https://openbot.run/docs), the [Kobalte guide](https://kobalte.dev/docs/core/overview/introduction), and https://zaidan.carere.dev/docs/components/kobalte/bubble.",
       "",
-      "You can also open [ConversationView.tsx](/Users/test/OpenOwnBot/src/renderer/src/features/conversation/ConversationView.tsx), ask @Research, or inspect the attached source file below.",
+      "You can also open [ConversationView.tsx](/Users/test/ROBot/src/renderer/src/features/conversation/ConversationView.tsx), ask @Research, or inspect the attached source file below.",
       "",
       `Attachment reference: ${serializeAttachmentReference(storyAttachment.name, storyAttachment.id)}.`,
       "",

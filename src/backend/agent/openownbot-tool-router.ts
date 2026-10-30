@@ -239,7 +239,7 @@ export interface OpenOwnBotToolRouterOptions {
   screenCapture?: ScreenCaptureHost | null | undefined;
   /** The fast path of Computer Use for `computer_use_fast`; null where nothing can run it. */
   fastComputerUse?: FastComputerUseHost | null | undefined;
-  /** The MCP servers of this OpenOwnBot server, for the MCP tools; null where nothing holds them. */
+  /** The MCP servers of this ROBot server, for the MCP tools; null where nothing holds them. */
   mcpServers?: AgentMcpServers | null | undefined;
   /** The API keys that users saved for agents; null where nothing can save them. */
   apiKeys?: AgentApiKeys | null | undefined;
@@ -247,7 +247,7 @@ export interface OpenOwnBotToolRouterOptions {
 }
 
 /**
- * Owns the answer to every request a provider process sends to OpenOwnBot: approvals and prompts go to
+ * Owns the answer to every request a provider process sends to ROBot: approvals and prompts go to
  * the attention registry, browser tools to the browser, and the `openownbot` tools to the controller
  * that owns each one. The profile, reaction and `send_message` tools are answered here.
  *
@@ -376,7 +376,7 @@ export class OpenOwnBotToolRouter {
           if (params.namespace === "openownbot") {
             if (params.tool === "tool_search" || params.tool === "tool_describe") {
               const agentId = this.#conversation.agentForThread(params.threadId);
-              if (!agentId) throw new Error("The calling OpenOwnBot agent is unknown.");
+              if (!agentId) throw new Error("The calling ROBot agent is unknown.");
               let result: ReturnType<typeof discoverTools>;
               try {
                 this.#requireAgent(agentId);
@@ -431,7 +431,7 @@ export class OpenOwnBotToolRouter {
           const toolRequest = { ...request, params };
           if (toolRequest.params.namespace === OPENOWNBOT_BROWSER_NAMESPACE) {
             const agentId = this.#conversation.agentForThread(toolRequest.params.threadId);
-            if (!agentId) throw new Error("The browsing OpenOwnBot agent is unknown.");
+            if (!agentId) throw new Error("The browsing ROBot agent is unknown.");
             if (toolRequest.params.tool === "request_takeover" || toolRequest.params.tool === "submit_secret") {
               const result = yield* this.#attention.surfaceBrowserTakeover(client, toolRequest);
               // A takeover of a stopped client ends with a cancel, and that process has nothing to answer.
@@ -538,7 +538,7 @@ export class OpenOwnBotToolRouter {
             const correctableFailure = (error: unknown) =>
               Effect.sync(() => {
                 const message = this.#hooks.redactMcp(profileToolErrorMessage(error));
-                if (!(error instanceof z.ZodError)) logger.warn("An OpenOwnBot tool failed.", { tool, error: message });
+                if (!(error instanceof z.ZodError)) logger.warn("A ROBot tool failed.", { tool, error: message });
                 return openOwnBotToolFailure(message);
               });
             const correctable = PROFILE_TOOL_NAMES.has(tool) || tool === "attach_files_to_response";
@@ -567,7 +567,7 @@ export class OpenOwnBotToolRouter {
         default:
           client.respondError(request.id, {
             code: -32601,
-            message: `OpenOwnBot does not implement server request ${request.method}.`,
+            message: `ROBot does not implement server request ${request.method}.`,
           });
       }
     }).pipe(
@@ -611,9 +611,9 @@ export class OpenOwnBotToolRouter {
     params: DynamicToolCallParams,
   ) {
     const agentId = this.#conversation.agentForThread(params.threadId);
-    if (!agentId) throw new Error("The calling OpenOwnBot agent is unknown.");
+    if (!agentId) throw new Error("The calling ROBot agent is unknown.");
     const apiKeys = this.#apiKeys;
-    if (!apiKeys) return openOwnBotToolFailure("This OpenOwnBot server cannot save API keys.");
+    if (!apiKeys) return openOwnBotToolFailure("This ROBot server cannot save API keys.");
     const failed = (failure: { cause: unknown }) =>
       Effect.succeed(
         openOwnBotToolFailure(
@@ -641,10 +641,10 @@ export class OpenOwnBotToolRouter {
       return openOwnBotToolFailure(`${z.prettifyError(parsed.error)}\nCorrect the arguments and retry.`);
     if (this.#messaging.store.linkForThread(this.#conversation.publicThreadId(agentId, params.threadId)))
       return openOwnBotToolFailure(
-        "request_api_key does not work in a Slack, Discord or Telegram chat. Ask the user to give you the key in OpenOwnBot.",
+        "request_api_key does not work in a Slack, Discord or Telegram chat. Ask the user to give you the key in ROBot.",
       );
     const spec = apiKeyFormSpec(parsed.data);
-    if (!spec) return openOwnBotToolFailure("OpenOwnBot could not show this form. Use a shorter title and retry.");
+    if (!spec) return openOwnBotToolFailure("ROBot could not show this form. Use a shorter title and retry.");
     this.#attention.surfaceUiBlock(client, request, {
       blockId: randomUUID(),
       spec,
@@ -792,7 +792,7 @@ export class OpenOwnBotToolRouter {
     params: DynamicToolCallParams,
   ) {
     const senderAgentId = this.#conversation.agentForThread(params.threadId);
-    if (!senderAgentId) throw new Error("The sending OpenOwnBot agent is unknown.");
+    if (!senderAgentId) throw new Error("The sending ROBot agent is unknown.");
 
     if (LOCAL_SKILL_TOOL_DEFINITIONS.some((tool) => tool.name === params.tool)) {
       const reportFailure = (error: unknown) =>
@@ -1199,8 +1199,7 @@ export class OpenOwnBotToolRouter {
     if (!parsed.success) return openOwnBotToolFailure(profileToolErrorMessage(parsed.error));
     const args = parsed.data;
     const preview = this.#visualPreview;
-    if (!preview)
-      return openOwnBotToolFailure("This OpenOwnBot cannot draw a page. Call html_render without a preview.");
+    if (!preview) return openOwnBotToolFailure("This ROBot cannot draw a page. Call html_render without a preview.");
     return yield* preview
       .capture({
         html: args.html,
@@ -1792,7 +1791,7 @@ export class OpenOwnBotToolRouter {
       senderAgentId: string,
     ): Effect.fn.Return<OpenOwnBotToolResponse, ToolOperationFailed> {
       if (params.tool !== "send_message" || !isRecord(params.arguments)) {
-        throw new Error(`Unsupported OpenOwnBot tool: ${params.tool}`);
+        throw new Error(`Unsupported ROBot tool: ${params.tool}`);
       }
       const recipientValues = params.arguments.recipientAgentIds;
       if (!Array.isArray(recipientValues) || !recipientValues.every((item) => isString(item))) {
@@ -1805,7 +1804,7 @@ export class OpenOwnBotToolRouter {
       const known = new Map(this.#hooks.listAgents().map((agent) => [agent.id, agent]));
       for (const recipient of recipientValues) {
         const agent = known.get(recipient);
-        if (!agent) throw new Error(`Unknown OpenOwnBot agent: ${recipient}`);
+        if (!agent) throw new Error(`Unknown ROBot agent: ${recipient}`);
         // A hidden agent receives no new messages until the user restores it.
         if (agent.hiddenAt !== undefined)
           throw new Error(`${recipient}: ${sourceText("error.backend.recipientHidden")}`);

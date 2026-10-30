@@ -38,7 +38,7 @@ interface FirstRunState {
   step: FirstRunStep;
   path: FirstRunPath;
   saving: boolean;
-  /** The user asked to open OpenOwnBot before the provider was ready, so setup ends when it is. */
+  /** The user asked to open ROBot before the provider was ready, so setup ends when it is. */
   finishWhenReady: boolean;
 }
 

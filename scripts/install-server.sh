@@ -1,10 +1,10 @@
 #!/bin/bash
-# Installs OpenOwnBot as a self-hosted server on a Linux computer with no screen:
+# Installs ROBot as a self-hosted server on a Linux computer with no screen:
 #
 #   curl -fsSL https://raw.githubusercontent.com/zereight/openownbot/main/scripts/install-server.sh | sudo bash
 #
 # Options (after `sudo bash -s --`):
-#   --user <name>             The user that runs OpenOwnBot and its agents. Default: the user of the
+#   --user <name>             The user that runs ROBot and its agents. Default: the user of the
 #                             installed server, else openownbot, which the install makes when it does
 #                             not exist.
 #   --auth-api-url <origin>   Another account server, for development. Default: the one of the
@@ -60,17 +60,17 @@ done
 
 [ "$(uname -s)" = Linux ] || fail "This install is for Linux. Download the desktop app at https://openbot.run."
 [ "$(id -u)" -eq 0 ] || fail "Run this with sudo."
-[ -d /run/systemd/system ] || fail "OpenOwnBot needs systemd."
-command -v apt-get >/dev/null || fail "OpenOwnBot needs Ubuntu 24.04 or a newer Ubuntu or Debian."
+[ -d /run/systemd/system ] || fail "ROBot needs systemd."
+command -v apt-get >/dev/null || fail "ROBot needs Ubuntu 24.04 or a newer Ubuntu or Debian."
 # shellcheck disable=SC1091
 . /etc/os-release
 if [ "${ID:-}" != ubuntu ] || [ "${VERSION_ID:-}" != 24.04 ]; then
-  echo "OpenOwnBot is tested on Ubuntu 24.04. This is ${PRETTY_NAME:-an unknown system}; the install continues." >&2
+  echo "ROBot is tested on Ubuntu 24.04. This is ${PRETTY_NAME:-an unknown system}; the install continues." >&2
 fi
 case $(uname -m) in
   x86_64) architecture=x86_64 manifest=latest-linux.yml ;;
   aarch64) architecture=arm64 manifest=latest-linux-arm64.yml ;;
-  *) fail "OpenOwnBot has no release for this machine." ;;
+  *) fail "ROBot has no release for this machine." ;;
 esac
 
 missing=()
@@ -87,27 +87,27 @@ version=$(sed -n 's/^version: *//p' <<<"$manifest" | head -n 1)
 path=$(sed -n 's/^path: *//p' <<<"$manifest" | head -n 1)
 sha512=$(sed -n 's/^sha512: *//p' <<<"$manifest" | head -n 1)
 [[ $version =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]] || fail "The release manifest has no valid version."
-[ "$path" = "OpenOwnBot-$version-$architecture.AppImage" ] || fail "The release manifest names another file."
+[ "$path" = "ROBot-$version-$architecture.AppImage" ] || fail "The release manifest names another file."
 [[ $sha512 =~ ^[A-Za-z0-9+/]{86}==$ ]] || fail "The release manifest has no valid SHA-512."
 
-echo "Downloading OpenOwnBot $version..."
-fetch --output "$work/OpenOwnBot.AppImage" "$RELEASES/download/v$version/$path"
-[ "$(openssl dgst -sha512 -binary "$work/OpenOwnBot.AppImage" | openssl base64 -A)" = "$sha512" ] ||
+echo "Downloading ROBot $version..."
+fetch --output "$work/ROBot.AppImage" "$RELEASES/download/v$version/$path"
+[ "$(openssl dgst -sha512 -binary "$work/ROBot.AppImage" | openssl base64 -A)" = "$sha512" ] ||
   fail "The download does not match the release manifest."
-chmod 0700 "$work/OpenOwnBot.AppImage"
-(cd "$work" && ./OpenOwnBot.AppImage --appimage-extract >/dev/null)
+chmod 0700 "$work/ROBot.AppImage"
+(cd "$work" && ./ROBot.AppImage --appimage-extract >/dev/null)
 
 setup="$work/squashfs-root/resources/hosting/openownbot-server-setup"
-[ -f "$setup" ] || fail "OpenOwnBot $version cannot install as a server. Try again after the next release."
+[ -f "$setup" ] || fail "ROBot $version cannot install as a server. Try again after the next release."
 # A release before --display-size refuses a fourth argument.
 if [ -n "$display_size" ] && ! grep -q OPENOWNBOT_DISPLAY_SIZE "$setup"; then
-  fail "OpenOwnBot $version has no --display-size. Install without it, or try again after the next release."
+  fail "ROBot $version has no --display-size. Install without it, or try again after the next release."
 fi
 bash "$setup" "$service_user" "$work/squashfs-root" "$auth_api_url" ${display_size:+"$display_size"}
 
 cat <<'EOF'
 
-Next, sign in with your OpenOwnBot account:
+Next, sign in with your ROBot account:
 
   sudo openownbot login
 

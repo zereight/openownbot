@@ -71,11 +71,11 @@ export interface GitHubConnectorServiceOptions {
   app: GitHubAppConfig | null;
   store: GitHubConnectorStore;
   /**
-   * A folder that OpenOwnBot owns, outside every root an agent can write. It holds the `gh` hosts file
+   * A folder that ROBot owns, outside every root an agent can write. It holds the `gh` hosts file
    * and the token file that the git credential helper reads, while the connection is active.
    */
   toolDirectory: string;
-  /** The OpenOwnBot API, which gives the installation tokens that make GitHub show the app as the author. */
+  /** The ROBot API, which gives the installation tokens that make GitHub show the app as the author. */
   apiUrl: string;
   openExternal: (url: string) => Promise<void>;
   fetch?: GitHubFetch;
@@ -94,7 +94,7 @@ interface PendingSignIn {
  * `mcpServer`, `accessToken` and `agentEnvironment`, and `onAgentAccessChanged` tells it when that
  * answer changes.
  *
- * The user token never leaves the main process except to GitHub, to the OpenOwnBot API as the proof
+ * The user token never leaves the main process except to GitHub, to the ROBot API as the proof
  * for the installation tokens, and into the files below for `gh` and `git`. Agents reach GitHub's
  * MCP server through `GitHubMcpProxy`, which adds the token for each call. Each token is registered
  * for redaction before it is used.
@@ -288,7 +288,7 @@ export class GitHubConnectorService {
   }
 
   /**
-   * Forgets the sign-in. GitHub revokes a token only with the client secret, which OpenOwnBot does not
+   * Forgets the sign-in. GitHub revokes a token only with the client secret, which ROBot does not
    * hold, so the GitHub page where the user can revoke it opens as well, unless `opensPage` is false.
    */
 
@@ -627,7 +627,7 @@ export class GitHubConnectorService {
           headers: {
             Accept: "application/vnd.github+json",
             Authorization: `Bearer ${accessToken}`,
-            "User-Agent": "OpenOwnBot",
+            "User-Agent": "ROBot",
             "X-GitHub-Api-Version": "2022-11-28",
           },
         }),
@@ -812,7 +812,7 @@ export class GitHubConnectorService {
         Effect.sync(() => {
           this.#refreshFailures += 1;
           if (this.#refreshFailures === 1) {
-            logger.warn("The GitHub token could not be refreshed. OpenOwnBot tries again each minute.", {
+            logger.warn("The GitHub token could not be refreshed. ROBot tries again each minute.", {
               cause: toLogValue(error),
             });
           }

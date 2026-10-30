@@ -153,7 +153,7 @@ const browser: AgentBrowserHost = {
   clearAgentSession: () => Effect.void,
 };
 
-/** The `turn/start` requests that OpenOwnBot sent on a thread. */
+/** The `turn/start` requests that ROBot sent on a thread. */
 function turnStarts(threadId: string): number {
   return readFileSync(logPath, "utf8")
     .split("\n")
@@ -239,7 +239,7 @@ try {
     };
     report.cases.push(result);
     assert.equal(result.finalStatus, entry.status, `${entry.name}: ${result.finalError ?? result.finalStatus}`);
-    assert.equal(result.turnStarts, 1, `${entry.name}: OpenOwnBot started the turn again`);
+    assert.equal(result.turnStarts, 1, `${entry.name}: ROBot started the turn again`);
     assert.ok(
       result.errorEvents.every((event) => !event.message.includes(FALLBACK)),
       `${entry.name}: the transport warning reached the banner`,

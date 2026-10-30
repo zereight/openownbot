@@ -1,5 +1,5 @@
 // The agents of `acp-instructions-once-e2e.ts`. Each prompt logs whether its first block carries the
-// OpenOwnBot instructions. `FAKE_MODE` picks one: "context" reports its context size after each prompt,
+// ROBot instructions. `FAKE_MODE` picks one: "context" reports its context size after each prompt,
 // as OpenCode does; "silent" reports none. A prompt that says "compact-now" shrinks the context,
 // "compaction-update" reports a completed compaction, and "fail-now" fails.
 import { randomUUID } from "node:crypto";

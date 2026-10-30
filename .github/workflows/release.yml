@@ -104,7 +104,7 @@ jobs:
                 *"-$version-"*) suffix="${f#*-$version-}" ;;
                 *) suffix="${f#*-$version}" ; suffix="${suffix#-}" ;;
               esac
-              cp "$f" "../release/OpenOwnBot-$release-$suffix"
+              cp "$f" "../release/ROBot-$release-$suffix"
             done
           done
           ls -l ../release
@@ -142,11 +142,11 @@ jobs:
           TAG: ${{ github.ref_name }}
         run: |
           cd assets
-          sha256sum OpenOwnBot-* > SHA256SUMS.txt
+          sha256sum ROBot-* > SHA256SUMS.txt
           cat SHA256SUMS.txt
           cd ..
           notes="docs/release-notes/$TAG.md"
           if [ -f "$notes" ]; then notes_args=(--notes-file "$notes"); else notes_args=(--notes "Draft. Release notes are not written yet."); fi
           gh release create "$TAG" --draft --verify-tag \
-            --title "OpenOwnBot ${TAG#oob-}" "${notes_args[@]}" \
+            --title "ROBot ${TAG#oob-}" "${notes_args[@]}" \
             assets/*

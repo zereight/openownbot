@@ -1,4 +1,4 @@
-// Runs the real `acp` provider driver over two fake agents to check that a session gets the OpenOwnBot
+// Runs the real `acp` provider driver over two fake agents to check that a session gets the ROBot
 // instructions once and not with every prompt. The instructions are 20-30 k characters, so each
 // prompt that repeats them costs thousands of input tokens. The "context" agent reports its context
 // size as OpenCode does: the instructions must come again after a change, a compaction, a failed
@@ -18,7 +18,7 @@ const OUT = resolve(import.meta.dirname, "../.openownbot-build/acp-instructions-
 const MODES = ["context", "silent"] as const;
 type Mode = (typeof MODES)[number];
 
-const INSTRUCTIONS = "You are a teammate in OpenOwnBot. Memory: the user likes short answers.";
+const INSTRUCTIONS = "You are a teammate in ROBot. Memory: the user likes short answers.";
 const CHANGED = `${INSTRUCTIONS} Memory: the user works in Kraków.`;
 
 interface Prompt {

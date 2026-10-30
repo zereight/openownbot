@@ -1,4 +1,4 @@
-// Runs OpenOwnBot's own provider driver against each recorded transcript of a real CLI in
+// Runs ROBot's own provider driver against each recorded transcript of a real CLI in
 // `scripts/provider-fakes/transcripts/`, replayed by `agents/replay.ts`. A fake that we write
 // ourselves agrees with the driver by construction; a recording shows what the released CLI really
 // sends. Checks that a thread starts and a turn completes with the recorded answer, and that the

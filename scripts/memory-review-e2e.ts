@@ -2,7 +2,7 @@
 // one side thread, after a pause with 3 or more new turns, when the chat is cleared and when a side
 // thread closes, one generation without tools proposes memory changes that the memory tools' checks
 // apply. Runs the real agent service on a temporary profile with a fake Codex app-server. An agent
-// turn calls the OpenOwnBot tools that its input names in `<<CALLS[...]CALLS>>` and answers "Done.". A
+// turn calls the ROBot tools that its input names in `<<CALLS[...]CALLS>>` and answers "Done.". A
 // review generation is logged and answers the text in `control.json`, after its delay.
 // Checks:
 //   1. Nineteen turns start no review. The twentieth starts one, which adds a memory and shows one

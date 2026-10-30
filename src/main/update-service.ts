@@ -115,7 +115,7 @@ export interface UpdateDiagnosticEvent {
 }
 
 // One manifest request every four minutes: a small GET while the app sits idle, and a user who
-// leaves OpenOwnBot open picks up a release within minutes instead of hours. The loop skips the request
+// leaves ROBot open picks up a release within minutes instead of hours. The loop skips the request
 // while a download or an install runs, and keeps checking while a downloaded update waits for its
 // restart, because releases ship often enough to supersede it before the user restarts.
 const DEFAULT_CHECK_INTERVAL = 4 * 60 * 1_000;
@@ -286,7 +286,7 @@ export class UpdateService extends EventEmitter<UpdateServiceEvents> {
         // so the app cannot install again; it reports the failure and asks to be relaunched.
         this.#installGeneration += 1;
         this.#activeInstall = null;
-        logUpdateFailure("OpenOwnBot update install failed.", error);
+        logUpdateFailure("ROBot update install failed.", error);
         this.#setError("install_failed", INSTALL_FAILED_MESSAGE);
         return;
       }
@@ -529,7 +529,7 @@ export class UpdateService extends EventEmitter<UpdateServiceEvents> {
           ),
         );
         if (Result.isFailure(result) && this.#downloadGeneration === generation) {
-          logUpdateFailure("OpenOwnBot update download failed.", result.failure.cause);
+          logUpdateFailure("ROBot update download failed.", result.failure.cause);
           this.#activeDownload = null;
           this.#setError("download_failed");
         }
@@ -593,7 +593,7 @@ export class UpdateService extends EventEmitter<UpdateServiceEvents> {
         }),
       );
       if (Result.isFailure(installed) && this.#installGeneration === generation) {
-        logUpdateFailure("OpenOwnBot update install failed.", installed.failure.cause);
+        logUpdateFailure("ROBot update install failed.", installed.failure.cause);
         this.#setError("install_failed", INSTALL_FAILED_MESSAGE);
         return yield* new UpdateOperationFailure({ cause: new Error(sourceText("error.update.restartFailed")) });
       }
@@ -639,7 +639,7 @@ export class UpdateService extends EventEmitter<UpdateServiceEvents> {
       this.#checkRequest = request;
       return yield* updateIO(() => this.#updater.checkForUpdates()).pipe(
         // Logged once per request, here, because joined callers and the status keep only a message.
-        Effect.tapError(({ cause }) => Effect.sync(() => logUpdateFailure("OpenOwnBot update check failed.", cause))),
+        Effect.tapError(({ cause }) => Effect.sync(() => logUpdateFailure("ROBot update check failed.", cause))),
         Effect.onExit((exit) =>
           Effect.gen({ self: this }, function* () {
             yield* Deferred.done(request, exit);
@@ -689,7 +689,7 @@ export class UpdateService extends EventEmitter<UpdateServiceEvents> {
     return Effect.gen({ self: this }, function* () {
       if (this.#cancellationToken && !this.#cancellationToken.cancelled) return this.#cancellationToken;
       const checked = yield* Effect.result(updateIO(() => this.#updater.checkForUpdates()));
-      if (Result.isFailure(checked)) logUpdateFailure("OpenOwnBot update check failed.", checked.failure.cause);
+      if (Result.isFailure(checked)) logUpdateFailure("ROBot update check failed.", checked.failure.cause);
       this.#cancellationToken = Result.isSuccess(checked) ? (checked.success?.cancellationToken ?? null) : null;
       return this.#cancellationToken;
     });

@@ -1,5 +1,5 @@
 // Drives MuseAgentClient and the installed SDK over a fake Muse server to check that a session gets
-// the OpenOwnBot instructions once and not with every turn. They must come again after a change, a
+// the ROBot instructions once and not with every turn. They must come again after a change, a
 // compaction, a failed turn and a restart.
 // `bun run test:muse-instructions-once`. Writes .openownbot-build/muse-instructions-once-e2e/report.json.
 import assert from "node:assert/strict";
@@ -13,7 +13,7 @@ import { MuseAgentClient } from "../src/backend/muse-client";
 import { readJsonl, runTurn, startThread, stopClients } from "./provider-fakes/host";
 
 const OUT = resolve(import.meta.dirname, "../.openownbot-build/muse-instructions-once-e2e");
-const INSTRUCTIONS = "You are a teammate in OpenOwnBot. Memory: the user likes short answers.";
+const INSTRUCTIONS = "You are a teammate in ROBot. Memory: the user likes short answers.";
 const CHANGED = `${INSTRUCTIONS} Memory: the user works in Kraków.`;
 
 // The fake answers only the MSP requests that this test sends. A turn that says "compact-now"

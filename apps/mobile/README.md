@@ -1,4 +1,4 @@
-# OpenOwnBot Mobile
+# ROBot Mobile
 
 React Native app built with Expo SDK 58, Expo Router, TypeScript 7, Biome, and Bun. The app uses Expo Continuous Native Generation, so native `ios/` and `android/` directories are intentionally not committed.
 
@@ -362,7 +362,7 @@ One-time setup:
 1. In GitHub repository settings, create the `release-ios` environment. Under deployment branches
    and tags, select only the `main` branch.
 2. Add environment secrets `EXPO_TOKEN`, `ASC_KEY_ID`, `ASC_ISSUER_ID`, and `ASC_PRIVATE_KEY`.
-   The Expo token needs access to the OpenOwnBot project. The Apple secrets are the Key ID, Issuer ID,
+   The Expo token needs access to the ROBot project. The Apple secrets are the Key ID, Issuer ID,
    and full `.p8` contents of an App Store Connect team API key with the App Manager role.
 3. Keep the iOS distribution certificate and provisioning profiles configured in EAS. CI downloads
    these existing credentials. If they expire or need repair, update them interactively through
@@ -476,7 +476,7 @@ See [Fastlane Google Play upload](https://docs.fastlane.tools/actions/upload_to_
 
 ### Discord announcement
 
-Each mobile version gets one post in the OpenOwnBot Discord, when the second store has it. Android is
+Each mobile version gets one post in the ROBot Discord, when the second store has it. Android is
 often available hours or days before iOS, so the post waits for both. The source is
 `apps/mobile/CHANGELOG.md`, not the stores. The `Announce mobile release on Discord` workflow
 (`mobile-release-announcement.yml`) runs on each push to `main` that changes the file. When the
@@ -497,7 +497,7 @@ to see the message. `bun run mobile:release:published` stops when it gives the v
 store and the file is not ready, and the Changelog workflow stops such a pull request.
 
 The message mentions the `Mobile Release Pings` role, then has the title
-`OpenOwnBot vx.y.z is out on iOS and Android`, the highlights, and one line of links:
+`ROBot vx.y.z is out on iOS and Android`, the highlights, and one line of links:
 `iOS · Android · Full Changelog`. The last link opens the version on the Mobile tab of
 `/changelog`. It notifies only that role.
 
@@ -506,7 +506,7 @@ One-time setup:
 1. In GitHub repository settings, create the `release-mobile` environment. Under deployment branches
    and tags, select only the `main` branch.
 2. In Discord, open the settings of the announcement channel, then Integrations > Webhooks. Make a
-   webhook named `OpenOwnBot` with the OpenOwnBot icon. Add its URL as the environment secret
+   webhook named `ROBot` with the ROBot icon. Add its URL as the environment secret
    `DISCORD_MOBILE_RELEASE_WEBHOOK_URL`. It can be the same channel as the desktop post.
 3. In Discord, turn on Developer Mode, open Server Settings > Roles, right-click `Mobile Release Pings`
    and select Copy Role ID. Add the ID as the environment variable `DISCORD_MOBILE_RELEASE_ROLE_ID`.

@@ -17,7 +17,7 @@ const systemLocaleListeners = new Set<() => void>();
 /**
  * The phone's language. Each read is a synchronous call to the native module, and every row of a
  * list uses text, so it is read once for the app. The phone's language can change in its settings
- * while OpenOwnBot is in the background, so it is read again each time the app becomes active.
+ * while ROBot is in the background, so it is read again each time the app becomes active.
  */
 function systemLocaleNow(): string {
   if (systemLocale === null) {

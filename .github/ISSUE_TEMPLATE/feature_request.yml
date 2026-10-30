@@ -1,12 +1,12 @@
 name: Feature request
-description: Propose a change to OpenOwnBot. A maintainer must approve it before anyone writes code.
+description: Propose a change to ROBot. A maintainer must approve it before anyone writes code.
 title: "[Feature]: "
 labels: [enhancement, needs-triage]
 body:
   - type: markdown
     attributes:
       value: |
-        OpenOwnBot is a local-first app: workspaces, conversations, and files stay on the user's computer. We accept requests that fit this product and solve a real problem for many users.
+        ROBot is a local-first app: workspaces, conversations, and files stay on the user's computer. We accept requests that fit this product and solve a real problem for many users.
 
         Do not open a pull request for a new feature or a change to existing behavior until a maintainer adds the `approved` label to this issue. We close such pull requests. Read [What you can send](https://github.com/zereight/openownbot/blob/main/CONTRIBUTING.md#what-you-can-send) first. For questions and open ideas, use [Discussions](https://github.com/zereight/openownbot/discussions).
 
@@ -58,8 +58,8 @@ body:
   - type: textarea
     id: fit
     attributes:
-      label: Fit with OpenOwnBot
-      description: Why does this belong in OpenOwnBot and not in a plugin, an MCP app, or a separate tool? See the README for what OpenOwnBot is.
+      label: Fit with ROBot
+      description: Why does this belong in ROBot and not in a plugin, an MCP app, or a separate tool? See the README for what ROBot is.
     validations:
       required: true
 

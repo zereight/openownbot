@@ -92,12 +92,12 @@ export function agentFolderIpcHandlers({
   }
 
   /**
-   * A folder in or around OpenOwnBot's own data or the OpenOwnBot folder, or one that holds this agent's
-   * workspace or the shared folder. The OpenOwnBot folder holds the workspaces of the other agents; the
+   * A folder in or around ROBot's own data or the ROBot folder, or one that holds this agent's
+   * workspace or the shared folder. The ROBot folder holds the workspaces of the other agents; the
    * home folder and a disk root hold it too.
    */
   async function isProtected(path: string, roots: readonly string[]): Promise<boolean> {
-    // The shared folder is in the OpenOwnBot folder, beside the agent workspaces.
+    // The shared folder is in the ROBot folder, beside the agent workspaces.
     const [openownbot, userData] = await Promise.all([
       realFolder(dirname(service.sharedRoot)),
       realFolder(userDataPath),

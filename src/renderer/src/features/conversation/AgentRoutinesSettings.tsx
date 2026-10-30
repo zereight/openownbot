@@ -1136,7 +1136,7 @@ function routineCompleted(routine: RoutineEditorRecord): boolean {
 }
 
 /**
- * The draft with a new schedule. A switch to a one-time run also runs it when OpenOwnBot opens after
+ * The draft with a new schedule. A switch to a one-time run also runs it when ROBot opens after
  * its time, so a reminder is not lost; the person can still choose to skip it.
  */
 function withSchedule(value: RoutineDraft, scheduleDraft: RoutineScheduleDraft): RoutineDraft {

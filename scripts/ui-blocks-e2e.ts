@@ -63,12 +63,12 @@ interface AgentAnswer {
   next?: string;
 }
 
-/** Records what OpenOwnBot answers to the agent. The process never starts: only the answer is read. */
+/** Records what ROBot answers to the agent. The process never starts: only the answer is read. */
 class RecordingClient extends CodexAppServerClient {
   readonly answers = new Map<RequestId, { success: boolean; value: AgentAnswer | null }>();
   readonly #waiters = new Map<RequestId, () => void>();
 
-  /** Resolves when OpenOwnBot answers the request, so that a host timer is awaited, not slept on. */
+  /** Resolves when ROBot answers the request, so that a host timer is awaited, not slept on. */
   answered(id: RequestId): Promise<void> {
     if (this.answers.has(id)) return Promise.resolve();
     return new Promise((resolve) => this.#waiters.set(id, resolve));

@@ -1,6 +1,6 @@
 ## Linked issue
 
-<!-- `Closes #123`. A new feature or a change to how OpenOwnBot works needs an issue with the `approved` label first: see https://github.com/zereight/openownbot/blob/main/CONTRIBUTING.md#what-you-can-send -->
+<!-- `Closes #123`. A new feature or a change to how ROBot works needs an issue with the `approved` label first: see https://github.com/zereight/openownbot/blob/main/CONTRIBUTING.md#what-you-can-send -->
 
 ## Type of change
 

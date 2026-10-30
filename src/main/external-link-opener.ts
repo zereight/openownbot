@@ -174,7 +174,7 @@ function decodeMacBrowsers(value: unknown): ExternalLinkBrowsers {
       ? { name: item.name.replace(/\.app$/, ""), path: item.path }
       : null;
   // A copy on a mounted disk image or in a hidden tool folder, such as a test Chrome, is not a
-  // browser that the user installed. OpenOwnBot itself also opens https pages.
+  // browser that the user installed. ROBot itself also opens https pages.
   const bundleEnd = process.execPath.indexOf(".app/");
   const ownBundle = bundleEnd === -1 ? null : process.execPath.slice(0, bundleEnd + 4);
   const installed = (path: string) => !path.startsWith("/Volumes/") && !path.includes("/.") && path !== ownBundle;

@@ -1,15 +1,15 @@
-// Drives the real Windows installers on a Windows computer that has no OpenOwnBot, such as a CI
-// runner. It removes every OpenOwnBot installation, %USERPROFILE%\OpenOwnBot and the OpenOwnBot registry
+// Drives the real Windows installers on a Windows computer that has no ROBot, such as a CI
+// runner. It removes every ROBot installation, %USERPROFILE%\ROBot and the ROBot registry
 // entries of this user, so do not run it on a computer that you use.
 //
-// An installation in %USERPROFILE%\OpenOwnBot shares its folder with the agent workspaces. An update
+// An installation in %USERPROFILE%\ROBot shares its folder with the agent workspaces. An update
 // runs the earlier uninstaller, which moves each file of the folder to a temporary folder and
 // deletes it. The cases:
 //   1. A normal update from the default folder keeps working, and it does not touch the workspaces.
 //   2. The earlier uninstaller, run as an update runs it, stops with exit code 2 when a workspace
 //      file has a path that fits in the folder but not in the temporary folder.
 //   3. Without such a file, the same uninstaller deletes the workspaces.
-//   4. The new installer updates the installation in %USERPROFILE%\OpenOwnBot: it installs in the
+//   4. The new installer updates the installation in %USERPROFILE%\ROBot: it installs in the
 //      default folder, keeps the workspaces, and removes only the earlier app.
 // Usage: bun scripts/windows-home-install-update-e2e.ts <earlier installer> <new installer>
 import { execFileSync, spawn } from "node:child_process";
@@ -23,9 +23,9 @@ import { createOpenOwnBotLogger } from "@robot/logging";
 const logger = createOpenOwnBotLogger("windows-home-install-update-e2e");
 
 if (process.platform !== "win32") throw new Error("This test drives the Windows installers and must run on Windows.");
-// It deletes %USERPROFILE%\OpenOwnBot, so it runs only on a GitHub Actions runner.
+// It deletes %USERPROFILE%\ROBot, so it runs only on a GitHub Actions runner.
 if (process.env.GITHUB_ACTIONS !== "true") {
-  throw new Error("This test deletes %USERPROFILE%\\OpenOwnBot and runs only on a GitHub Actions runner.");
+  throw new Error("This test deletes %USERPROFILE%\\ROBot and runs only on a GitHub Actions runner.");
 }
 
 const [earlierInstallerArgument, newInstallerArgument] = process.argv.slice(2);
@@ -38,11 +38,11 @@ const localAppData = process.env.LOCALAPPDATA;
 if (!localAppData) throw new Error("LOCALAPPDATA is not set.");
 
 const homeFolder = join(homedir(), "OpenBot");
-const defaultFolder = join(localAppData, "Programs", "OpenOwnBot");
+const defaultFolder = join(localAppData, "Programs", "ROBot");
 // Missing on a computer where no program was installed for this user.
 const uninstallKey = "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall";
 const runKey = "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Run";
-const loginItemName = "app.openownbot.desktop";
+const loginItemName = "app.robot.desktop";
 const reportPath = resolve(".openownbot-build/windows-home-install-update-e2e.json");
 // An installer that waits for a dialog in a silent run does not exit. This limit makes that a failure.
 const installerLimitMs = 5 * 60_000;
@@ -56,7 +56,7 @@ const workspaceFiles = [
   join("Shared", "report.txt"),
   join("Downloads", "picture.txt"),
 ];
-const appFiles = ["OpenOwnBot.exe", "Uninstall OpenOwnBot.exe", "resources", "locales", "ffmpeg.dll", "resources.pak"];
+const appFiles = ["ROBot.exe", "Uninstall ROBot.exe", "resources", "locales", "ffmpeg.dll", "resources.pak"];
 
 interface Registration {
   displayName: string | null;
@@ -126,7 +126,7 @@ function registration(): Registration {
     $entry = $null
     if (Test-Path ${uninstallKey}) {
       $entry = Get-ChildItem ${uninstallKey} | Get-ItemProperty |
-        Where-Object { $_.DisplayName -like 'OpenOwnBot*' } | Select-Object -First 1
+        Where-Object { $_.DisplayName -like 'ROBot*' } | Select-Object -First 1
     }
     $location = $null
     if ($entry) { $location = (Get-ItemProperty -LiteralPath "HKCU:\\Software\\$($entry.PSChildName)" -ErrorAction SilentlyContinue).InstallLocation }
@@ -159,7 +159,7 @@ async function removeEverything(): Promise<void> {
   const keys = powershell(`
     if (Test-Path ${uninstallKey}) {
       Get-ChildItem ${uninstallKey} | Get-ItemProperty |
-        Where-Object { $_.DisplayName -like 'OpenOwnBot*' } | ForEach-Object { $_.PSChildName }
+        Where-Object { $_.DisplayName -like 'ROBot*' } | ForEach-Object { $_.PSChildName }
     }`);
   // A key or value that is already gone still makes `$?` false, so each cleanup ends with exit 0.
   for (const key of keys.split(/\r?\n/u).filter(Boolean)) {
@@ -209,7 +209,7 @@ function presentAppFiles(folder: string): string[] {
 async function runEarlierUninstallerAsUpdate(): Promise<number> {
   const copyFolder = await mkdtemp(join(tmpdir(), "openownbot-old-uninstaller-"));
   const copy = join(copyFolder, "old-uninstaller.exe");
-  await copyFile(join(homeFolder, "Uninstall OpenOwnBot.exe"), copy);
+  await copyFile(join(homeFolder, "Uninstall ROBot.exe"), copy);
   try {
     return await runInstaller(copy, `/S /KEEP_APP_DATA /currentuser --updated _?=${homeFolder}`);
   } finally {
@@ -220,13 +220,13 @@ async function runEarlierUninstallerAsUpdate(): Promise<number> {
 async function installEarlierInHomeFolder(): Promise<void> {
   await removeEverything();
   check((await runInstaller(earlierInstaller, `/S /D=${homeFolder}`)) === 0, "The earlier installer failed.");
-  check(existsSync(join(homeFolder, "OpenOwnBot.exe")), "The earlier installer did not install in the home folder.");
+  check(existsSync(join(homeFolder, "ROBot.exe")), "The earlier installer did not install in the home folder.");
 }
 
 async function normalUpdate(): Promise<void> {
   await removeEverything();
   check((await runInstaller(earlierInstaller, "/S")) === 0, "The earlier installer failed.");
-  check(existsSync(join(defaultFolder, "OpenOwnBot.exe")), "The earlier installer did not use the default folder.");
+  check(existsSync(join(defaultFolder, "ROBot.exe")), "The earlier installer did not use the default folder.");
   await makeWorkspaces({ longPath: false });
   const exitCode = await runInstaller(newInstaller, "--updated /S");
   const result = {
@@ -238,7 +238,7 @@ async function normalUpdate(): Promise<void> {
   cases.normalUpdate = result;
   check(exitCode === 0, `The normal update exited with ${exitCode}.`);
   check(result.registration.installLocation === defaultFolder, "The normal update moved the installation.");
-  check(result.appFilesInDefaultFolder.includes("OpenOwnBot.exe"), "The normal update did not install OpenOwnBot.exe.");
+  check(result.appFilesInDefaultFolder.includes("ROBot.exe"), "The normal update did not install ROBot.exe.");
   check(result.missingWorkspaceFiles.length === 0, "The normal update changed the workspaces.");
 }
 
@@ -271,7 +271,7 @@ async function earlierUninstallerDeletesWorkspaces(): Promise<void> {
 async function newInstallerMovesTheInstallation(): Promise<void> {
   await installEarlierInHomeFolder();
   const longPathFile = await makeWorkspaces({ longPath: true });
-  setLoginItem(join(homeFolder, "OpenOwnBot.exe"));
+  setLoginItem(join(homeFolder, "ROBot.exe"));
   const exitCode = await runInstaller(newInstaller, "--updated /S");
   const result = {
     exitCode,
@@ -284,17 +284,14 @@ async function newInstallerMovesTheInstallation(): Promise<void> {
   cases.newInstallerMovesTheInstallation = result;
   check(exitCode === 0, `The new installer exited with ${exitCode}.`);
   check(result.missingWorkspaceFiles.length === 0, `Workspace files are missing: ${result.missingWorkspaceFiles}`);
-  check(result.appFilesInDefaultFolder.includes("OpenOwnBot.exe"), "The new installer did not use the default folder.");
+  check(result.appFilesInDefaultFolder.includes("ROBot.exe"), "The new installer did not use the default folder.");
   check(result.appFilesInHomeFolder.length === 0, `App files stay in the home folder: ${result.appFilesInHomeFolder}`);
   check(result.registration.installLocation === defaultFolder, "The registry does not name the default folder.");
   check(
     result.registration.uninstallString?.includes(defaultFolder) === true,
     "The uninstall entry does not name the default folder.",
   );
-  check(
-    result.loginItem === `"${join(defaultFolder, "OpenOwnBot.exe")}"`,
-    "The login item does not name the new copy.",
-  );
+  check(result.loginItem === `"${join(defaultFolder, "ROBot.exe")}"`, "The login item does not name the new copy.");
 }
 
 let failure: unknown = null;

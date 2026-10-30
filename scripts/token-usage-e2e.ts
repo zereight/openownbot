@@ -1,4 +1,4 @@
-// Measures the tokens of each turn that OpenOwnBot starts, as the usage analytics record them. Runs the
+// Measures the tokens of each turn that ROBot starts, as the usage analytics record them. Runs the
 // real agent service on a temporary profile with the real Claude CLI and the user's Claude login, on
 // Claude Haiku. The agent does:
 //   1. a main chat of `--turns=<n>` short turns (20 when absent), one after the other,

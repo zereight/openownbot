@@ -15,7 +15,7 @@ if [[ ! $RELEASE_TAG =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
 fi
 version=${RELEASE_TAG#v}
 name="openownbot-server-production-${version//./-}"
-asset="OpenOwnBot-$version-x86_64.AppImage"
+asset="ROBot-$version-x86_64.AppImage"
 
 require_latest() {
   local latest

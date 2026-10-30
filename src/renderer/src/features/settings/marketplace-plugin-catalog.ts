@@ -477,7 +477,7 @@ const PAPER: MarketplacePluginDetail = {
   name: "Paper",
   tagline: "Design canvas built on HTML and CSS",
   description:
-    "Paper lets agents read and write the design file that is open in Paper Desktop: inspect artboards, selections, computed styles, JSX and tokens, and create or change frames, text and styles. Install Paper Desktop, open it once, and open a file before you start. OpenOwnBot starts the Paper CLI that Paper Desktop installs. Paper needs no key. Write tools change the open file, so review each write before you approve it.",
+    "Paper lets agents read and write the design file that is open in Paper Desktop: inspect artboards, selections, computed styles, JSX and tokens, and create or change frames, text and styles. Install Paper Desktop, open it once, and open a file before you start. ROBot starts the Paper CLI that Paper Desktop installs. Paper needs no key. Write tools change the open file, so review each write before you approve it.",
   category: "design",
   creatorName: "Paper",
   iconUrl: "https://paper.design/apple-touch-icon.png",
@@ -513,7 +513,7 @@ const APPLE_APPS: MarketplacePluginDetail = {
   name: "Apple apps",
   tagline: "Mail, Calendar and more on your Mac",
   description:
-    "Apple apps lets agents use Mail, Calendar, Contacts, Reminders, Notes, Messages and Safari on this Mac. It works on macOS only. OpenOwnBot starts mcp-icloud, a community server that is not made by Apple or OpenOwnBot. The server controls the apps through AppleScript, on this computer, and needs no account and no key. The first time an agent uses an app, macOS asks if OpenOwnBot can control it. To change this later, open System Settings › Privacy & Security › Automation. Agents can send email and iMessages, and change or delete events, contacts and reminders, so review each write before you approve it. What the tools read, such as email text, goes to the model provider of the agent.",
+    "Apple apps lets agents use Mail, Calendar, Contacts, Reminders, Notes, Messages and Safari on this Mac. It works on macOS only. ROBot starts mcp-icloud, a community server that is not made by Apple or ROBot. The server controls the apps through AppleScript, on this computer, and needs no account and no key. The first time an agent uses an app, macOS asks if ROBot can control it. To change this later, open System Settings › Privacy & Security › Automation. Agents can send email and iMessages, and change or delete events, contacts and reminders, so review each write before you approve it. What the tools read, such as email text, goes to the model provider of the agent.",
   category: "productivity",
   creatorName: "MrGo2",
   iconUrl: "https://www.apple.com/favicon.ico",

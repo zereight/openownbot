@@ -5,7 +5,7 @@
 // what a CHECK change costs (migrations 17, 22 and 23). The code only accepts the platforms it has
 // a driver for.
 //
-// A connection is one workspace of a platform, such as a Slack workspace that installed the OpenOwnBot
+// A connection is one workspace of a platform, such as a Slack workspace that installed the ROBot
 // app. Its orchestrator agent receives each new conversation and asks its teammates. No token is
 // stored here. The tokens of a connection live in the main process's
 // encrypted credential file, keyed by `connection_id`.
@@ -47,7 +47,7 @@ export const MESSAGING_SCHEMA_SQL = `
 // Shared by migration v36 and the separate new-database schema. IF NOT EXISTS throughout.
 //
 // Facts that agents save about one connection (a Slack workspace, a Discord server, a Telegram chat)
-// with messaging_remember. Every conversation of the connection sees them; the OpenOwnBot user's own
+// with messaging_remember. Every conversation of the connection sees them; the ROBot user's own
 // chats and the agents' private memories do not. The columns mirror `projection_channel_memories`,
 // because one store implementation serves every owner. No CASCADE: no code deletes a connection
 // (disconnect only disables it), and code that does must purge these rows and their
@@ -71,7 +71,7 @@ export const MESSAGING_MEMORY_SCHEMA_SQL = `
 
 // Shared by migration v44 and the separate new-database schema. IF NOT EXISTS throughout.
 //
-// The Discord roles whose members can use OpenOwnBot in one connection. A connection with no row lets
+// The Discord roles whose members can use ROBot in one connection. A connection with no row lets
 // everyone. The name is the one the user chose from, kept so the setting reads the same when a role
 // is gone. Configuration, written directly. No CASCADE, as for memories: disconnect keeps the rows.
 export const MESSAGING_ALLOWED_ROLES_SCHEMA_SQL = `

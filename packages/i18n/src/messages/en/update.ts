@@ -31,7 +31,7 @@ export const messages = defineMessages("update", {
   "update.provider.hideDetails": "Hide details",
 
   // An update that an admin of this server asked for. {name} is the admin.
-  "update.scheduled.title": "{name} scheduled an ROBot update",
+  "update.scheduled.title": "{name} scheduled a ROBot update",
   // The same notice when "Install updates automatically" scheduled the restart.
   "update.scheduled.automaticTitle": "ROBot installs an update",
   "update.scheduled.whenIdle": "ROBot restarts when the agents are idle.",

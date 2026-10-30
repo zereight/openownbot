@@ -13,7 +13,7 @@
  *
  * The `boat` scenario runs only when named. It makes a real VM: the Worker needs the real `BOAT_API_KEY`
  * and `HOSTED_SERVER_TEMPLATE`, and the template must know a public origin of this Worker. It waits
- * until OpenOwnBot in the VM redeems its claim and publishes its host. Then it keeps a focused web client
+ * until ROBot in the VM redeems its claim and publishes its host. Then it keeps a focused web client
  * open with no input for 20 minutes and checks that the server stays on, waits for the idle stop
  * (about 15 minutes), starts the server, changes the plan, ends it, renews it, and deletes the server.
  * `--checkout` pays each Checkout page with a test card in the local Chrome. The web client then
@@ -1499,7 +1499,7 @@ const scenarios: Record<Scenario, (account: Account) => Promise<void>> = {
       );
       record(
         "boat",
-        "OpenOwnBot in the VM redeems its claim and publishes the host with the server name",
+        "ROBot in the VM redeems its claim and publishes the host with the server name",
         host.host_name === name,
         host,
       );
@@ -1509,7 +1509,7 @@ const scenarios: Record<Scenario, (account: Account) => Promise<void>> = {
       // app signs in before it starts the host, so 60 seconds of a clean log is a complete start.
       const restart = await boat("POST", `/sandboxes/${sandboxId}/commands`, {
         command: [
-          'test -s "$HOME/.config/OpenOwnBot/openbot-central-auth-v1.bin" || { echo "no stored session"; exit 1; }',
+          'test -s "$HOME/.config/ROBot/openbot-central-auth-v1.bin" || { echo "no stored session"; exit 1; }',
           "sudo -n systemctl restart openownbot.service",
           "id=$(systemctl show -p InvocationID --value openownbot.service)",
           "for _ in $(seq 1 30); do",

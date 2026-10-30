@@ -15,7 +15,7 @@ describe("providerEnvironmentIssue", () => {
     expect(providerEnvironmentIssue("")).not.toBeNull();
   });
 
-  it("refuses the names that OpenOwnBot owns", () => {
+  it("refuses the names that ROBot owns", () => {
     for (const name of [
       "ANTHROPIC_API_KEY",
       "PATH",

@@ -6,13 +6,13 @@
  *
  * boat saves /home file by file while the sandbox runs, and it resumes before the disk is restored.
  * The run starts with a new test database. Each cycle resumes the sandbox, checks the test database
- * that the last cycle left, starts a writer in WAL mode as OpenOwnBot uses it, and stops the sandbox while
+ * that the last cycle left, starts a writer in WAL mode as ROBot uses it, and stops the sandbox while
  * the writer runs. `live` stops during writes, with no hook for the writer. `pre-stop` runs the writer as a
  * systemd unit and installs openownbot-boat-pre-stop for that unit, as a hosted server does for
  * openownbot.service. The writer then closes the database before boat saves the disk, and each check
  * must find every row that the writer committed. The first damaged or incomplete check ends the run.
- * The test database is in /home/user/openownbot-durability; OpenOwnBot's own data is not touched. The test
- * hook also runs the OpenOwnBot hook of the sandbox, and the run puts that hook back at the end. The
+ * The test database is in /home/user/openownbot-durability; ROBot's own data is not touched. The test
+ * hook also runs the ROBot hook of the sandbox, and the run puts that hook back at the end. The
  * report is in .openownbot-build/hosted-database-durability/.
  */
 
@@ -58,7 +58,7 @@ interface CycleReport {
 
 /**
  * Writes rows with automatic checkpoints until SIGTERM. Then it writes its last committed row to the
- * status file and closes the database, as OpenOwnBot does at its teardown.
+ * status file and closes the database, as ROBot does at its teardown.
  */
 const WRITER = `
 import json, os, signal, sqlite3, sys, time
@@ -282,8 +282,8 @@ async function checkDatabase(boat: BoatRequester, sandboxId: string): Promise<Dy
 }
 
 /**
- * Keeps the OpenOwnBot hook of the sandbox, which the test hook runs and the run puts back. Only a file
- * with the OpenOwnBot first line: a test hook that an earlier run left is not kept.
+ * Keeps the ROBot hook of the sandbox, which the test hook runs and the run puts back. Only a file
+ * with the ROBot first line: a test hook that an earlier run left is not kept.
  */
 async function saveOpenOwnBotHook(boat: BoatRequester, sandboxId: string): Promise<void> {
   await command(
@@ -302,8 +302,8 @@ async function restoreOpenOwnBotHook(boat: BoatRequester, sandboxId: string): Pr
 }
 
 /**
- * The test hook runs the real hook for the writer unit (not in `live` mode), and then the OpenOwnBot
- * hook. It has no OpenOwnBot first line, so a start of OpenOwnBot does not replace it during the run.
+ * The test hook runs the real hook for the writer unit (not in `live` mode), and then the ROBot
+ * hook. It has no ROBot first line, so a start of ROBot does not replace it during the run.
  */
 async function installHook(boat: BoatRequester, sandboxId: string, mode: Mode): Promise<void> {
   const writerHook = (await readFile(join(import.meta.dirname, "openownbot-boat-pre-stop"), "utf8"))

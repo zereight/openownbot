@@ -134,8 +134,8 @@ type ClaudeEffort = (typeof CLAUDE_EFFORTS)[number];
 /**
  * Claude's own scheduling: session crons, the `/loop` wake-ups, and the `schedule` skill, alias
  * `routines`, that makes claude.ai cloud agents. A routine request matched that skill, and the
- * routine ran outside OpenOwnBot, where the user cannot see or stop it. Scheduled work belongs to the
- * OpenOwnBot routine tools. A deny rule takes the tools out of the model's context; the CLI still lists
+ * routine ran outside ROBot, where the user cannot see or stop it. Scheduled work belongs to the
+ * ROBot routine tools. A deny rule takes the tools out of the model's context; the CLI still lists
  * the two skills, but the rule refuses their call.
  */
 const CLAUDE_NATIVE_SCHEDULING = [
@@ -198,7 +198,7 @@ interface ActiveTurn {
    * message that only states the limit, so its text is held here and not published as the answer.
    */
   usageLimit: { resetsAt: number | null; text: string | null } | null;
-  /** The CLI started this turn itself, with no message from OpenOwnBot, such as after a background task ended. */
+  /** The CLI started this turn itself, with no message from ROBot, such as after a background task ended. */
   unprompted: boolean;
 }
 
@@ -224,7 +224,7 @@ interface ThreadRuntime {
   consume: Fiber.Fiber<void, ProviderClientOperationError> | null;
   idleRelease: ReturnType<typeof setTimeout> | null;
   idleSince: number;
-  /** The plan Claude keeps with its todo and task tools, which OpenOwnBot shows as a task list. */
+  /** The plan Claude keeps with its todo and task tools, which ROBot shows as a task list. */
   plan: ClaudePlanState;
   /** The subagents of the `Agent` tool, which can outlive their turn when they run in the background. */
   subagents: ClaudeSubagentState;
@@ -312,7 +312,7 @@ export class ClaudeAgentClient extends EventEmitter<ClientEvents> {
   readonly #mcpEndpoint: McpEndpointSource | undefined;
   /** Where a Workspace only query keeps its skill plugin. Without it, such a query has no workspace skills. */
   readonly #stateDirectory: string | undefined;
-  /** Read at each session start, so a GitHub connection made while OpenOwnBot runs reaches the next session. */
+  /** Read at each session start, so a GitHub connection made while ROBot runs reaches the next session. */
   readonly #agentEnvironment: ((inherited?: NodeJS.ProcessEnv) => Readonly<Record<string, string>>) | undefined;
   /**
    * The saved Anthropic API key, for the provider's own sign-in only. The CLI uses `ANTHROPIC_API_KEY`
@@ -340,7 +340,7 @@ export class ClaudeAgentClient extends EventEmitter<ClientEvents> {
   readonly #modelEffortCapabilities = new Map<string, ClaudeEffortCapability>();
   readonly #modelSdkValues = new Map<string, string>();
   /**
-   * Each thread's essential memories: the latest that OpenOwnBot gave, and the last that a turn sent.
+   * Each thread's essential memories: the latest that ROBot gave, and the last that a turn sent.
    * They go with the turns, not in the system prompt, so a memory change keeps the cached prefix
    * and restarts no query. Kept by thread, not by query: a restarted or reopened query resumes a
    * conversation that already holds the memories it was sent.
@@ -832,7 +832,7 @@ export class ClaudeAgentClient extends EventEmitter<ClientEvents> {
           return yield* this.#requestUserInputEffect(threadId, toolInput, options.toolUseID ?? randomUUID());
         }),
       );
-    // OpenOwnBot's own servers spread last: Claude keys this record by name, so a user configuration
+    // ROBot's own servers spread last: Claude keys this record by name, so a user configuration
     // that reached one of those names would take the agent's own tools away. Profile generation
     // asks one question and must not act, so it gets neither set.
     const handoff = config.profileGeneration
@@ -901,7 +901,7 @@ export class ClaudeAgentClient extends EventEmitter<ClientEvents> {
               : ["user", "project", "local"],
           // The MCP panel is the only door. Without this, Claude merges project `.mcp.json`, user
           // settings, plugin and agent-frontmatter servers into the record above, so two computers
-          // with the same OpenOwnBot settings give their agents different tools and "which servers does
+          // with the same ROBot settings give their agents different tools and "which servers does
           // my agent have" has no answer. The flag takes away MCP and nothing else, so permissions and
           // hooks still load from those files. Workspace only loads the user settings alone: see
           // `claude-workspace-sandbox.ts`.
@@ -927,12 +927,12 @@ export class ClaudeAgentClient extends EventEmitter<ClientEvents> {
           env: {
             ...claudeEnvironment(this.#cli),
             // The login shell's `PATH`, so the Bash tool and hooks find Homebrew and `~/.local/bin`
-            // tools when Finder starts OpenOwnBot. An `env.PATH` in the Claude settings still wins.
+            // tools when Finder starts ROBot. An `env.PATH` in the Claude settings still wins.
             ...(launchPath ? { PATH: launchPath } : {}),
             ...this.#environment(this.#onApiKey),
             CLAUDE_AGENT_SDK_CLIENT_APP: "openownbot/0.1.0",
             // Without a terminal, the CLI gives the newer models no TodoWrite or task tools, so the
-            // agent has no plan for OpenOwnBot to show as a task list.
+            // agent has no plan for ROBot to show as a task list.
             CLAUDE_CODE_ENABLE_TODO_TOOLS: "1",
           },
         },
@@ -1488,7 +1488,7 @@ export class ClaudeAgentClient extends EventEmitter<ClientEvents> {
   ): void {
     const turn = runtime.activeTurn;
     if (!turn) return;
-    // A bridged call names the OpenOwnBot tool and holds its own arguments in `arguments`.
+    // A bridged call names the ROBot tool and holds its own arguments in `arguments`.
     const bridged =
       name === "mcp__openownbot__tool_call" && isRecord(input) && input.name === "openownbot.send_message";
     const message = name === "mcp__openownbot__send_message" ? input : bridged ? input.arguments : undefined;
@@ -2242,7 +2242,7 @@ function messageText(message: unknown): string {
       (block) =>
         block.type === "text" &&
         isString(block.text) &&
-        // OpenOwnBot's memory block is not text that the user wrote.
+        // ROBot's memory block is not text that the user wrote.
         !(message.role === "user" && isTurnContextBlock(block.text)),
     )
     .map((block) => block.text)

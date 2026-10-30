@@ -100,7 +100,7 @@ type PersistedStoredAgent = Omit<StoredAgent, "avatarUrl" | "access" | "computer
   // Absent on every agent stored before the setting existed, which keeps its tabs in the shared browser session.
   ownBrowserSession?: boolean;
   // Absent on every agent stored before named browser profiles existed. Stored with
-  // `ownBrowserSession: true`, so an older OpenOwnBot opens the agent's own session instead.
+  // `ownBrowserSession: true`, so an older ROBot opens the agent's own session instead.
   browserProfileId?: string;
   // Absent on every agent stored before the setting existed, which leaves the service tier to Codex.
   fastMode?: boolean;
@@ -1238,7 +1238,7 @@ export class AgentStore {
 
   bindProviderSession(id: string, provider: AgentProviderId, externalSessionId: string): ProviderSession {
     const agent = this.#requireAgent(id);
-    if (!agent.threadId) throw new Error(`Agent ${id} does not have an OpenOwnBot thread.`);
+    if (!agent.threadId) throw new Error(`Agent ${id} does not have a ROBot thread.`);
     return this.#database.bindProviderSession({
       threadId: agent.threadId,
       provider,

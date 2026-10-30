@@ -11,7 +11,7 @@ export const messages = defineMessages("sitePage", {
     "Check your connection and reload the page. If it still does not load, go back to the home page.",
   "sitePage.error.reload": "Reload page",
   "sitePage.error.home": "Back to home",
-  "sitePage.join.title": "Join an ROBot server",
+  "sitePage.join.title": "Join a ROBot server",
   "sitePage.join.description": "Open a private server invitation in ROBot.",
   "sitePage.join.eyebrow": "Private invitation",
   "sitePage.join.intro":

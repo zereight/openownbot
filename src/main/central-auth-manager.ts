@@ -816,7 +816,7 @@ export class CentralAuthManager extends EventEmitter<CentralAuthEvents> {
     (operation) => this.#owned(operation),
   ).bind(this);
 
-  /** A one-use code that links the next Telegram chat that adds the OpenOwnBot bot to this host. */
+  /** A one-use code that links the next Telegram chat that adds the ROBot bot to this host. */
 
   readonly createTelegramLink = Effect.fn("CentralAuth.createTelegramLink")(
     function* (

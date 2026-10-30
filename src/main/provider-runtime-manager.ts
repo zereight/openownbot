@@ -356,7 +356,7 @@ export class ProviderRuntimeManager extends EventEmitter<ProviderRuntimeManagerE
 
   /**
    * What `removeDownload` frees now. Nothing for a provider that is on, or whose CLI the user pointed
-   * OpenOwnBot at.
+   * ROBot at.
    */
   measureDownload(provider: ManagedProviderId): Effect.Effect<ProviderRuntimeDownload> {
     return Effect.gen({ self: this }, function* () {
@@ -496,8 +496,8 @@ export class ProviderRuntimeManager extends EventEmitter<ProviderRuntimeManagerE
   }
 
   /**
-   * Whether the update check after an app upgrade updates this provider CLI: OpenOwnBot installed it
-   * and a newer version exists. A CLI the user installed or pointed OpenOwnBot at, and a provider that
+   * Whether the update check after an app upgrade updates this provider CLI: ROBot installed it
+   * and a newer version exists. A CLI the user installed or pointed ROBot at, and a provider that
    * is off, are left alone.
    */
   #updatesInstalled(provider: ManagedProviderId, target: RuntimeTarget): boolean {
@@ -730,7 +730,7 @@ export class ProviderRuntimeManager extends EventEmitter<ProviderRuntimeManagerE
   /**
    * Installs the Pi CLI that a key-only provider such as DeepSeek runs on, and waits for it. Only the
    * Pi row has a Download button, so without this a saved key finds no CLI (#3273). A Pi that the
-   * provider can already start, from OpenOwnBot or from the user, is kept.
+   * provider can already start, from ROBot or from the user, is kept.
    */
   ensureKeyProviderCli(provider: AgentProviderRef): Effect.Effect<void, ProviderRuntimeFailure> {
     if (!isKeyOnlyProvider(provider)) return Effect.void;
@@ -1255,7 +1255,7 @@ export class ProviderRuntimeManager extends EventEmitter<ProviderRuntimeManagerE
       );
       const response = yield* runtimeIO((signal) =>
         this.#fetch(url, {
-          headers: { "User-Agent": "OpenOwnBot-runtime-installer" },
+          headers: { "User-Agent": "ROBot-runtime-installer" },
           signal: AbortSignal.any([signal, controller.signal, AbortSignal.timeout(30_000)]),
         }),
       ).pipe(Effect.mapError(({ cause }) => requestFailure(url, cause)));
@@ -1285,7 +1285,7 @@ export class ProviderRuntimeManager extends EventEmitter<ProviderRuntimeManagerE
           signal: AbortSignal.any([signal, effectSignal]),
           redirect: "follow",
           headers: {
-            "User-Agent": "OpenOwnBot-runtime-installer",
+            "User-Agent": "ROBot-runtime-installer",
             ...(offset > 0 ? { Range: `bytes=${offset}-`, ...(etag ? { "If-Range": etag } : {}) } : {}),
           },
         }),

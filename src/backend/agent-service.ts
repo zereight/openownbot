@@ -284,7 +284,7 @@ export interface AgentServiceOptions {
   browser: AgentBrowserHost;
   requestTimeoutMs?: number;
   /**
-   * How long a provider takes to start a context compaction before OpenOwnBot stops it. A started
+   * How long a provider takes to start a context compaction before ROBot stops it. A started
    * compaction runs ten times as long. Tests make it short.
    */
   contextCompactionTimeoutMs?: number;
@@ -389,10 +389,10 @@ export interface AgentServiceOptions {
   computerUseMcpServer?: () => McpServerConfig | null;
   /**
    * The built-in GitHub connection of this computer, or `null`. Read at each spawn and each hand-off,
-   * for the same reason as `computerUseMcpServer`: the user connects and disconnects while OpenOwnBot runs.
+   * for the same reason as `computerUseMcpServer`: the user connects and disconnects while ROBot runs.
    */
   githubConnector?: GitHubConnectorSource | null;
-  /** The 1Password vault the user shared with OpenOwnBot, or `null`. The browser fills logins from it. */
+  /** The 1Password vault the user shared with ROBot, or `null`. The browser fills logins from it. */
   passwordVault?: PasswordVault | null;
   /** The cards and contact info of the Vault, or `null`. The browser fills cards from it. */
   vaultItems?: VaultItems | null;
@@ -1984,7 +1984,7 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
   /**
    * The MCP servers this machine holds.
    *
-   * Configurations only: OpenOwnBot holds no connection of its own to report. A connection is made
+   * Configurations only: ROBot holds no connection of its own to report. A connection is made
    * when the user asks for a test, and when an agent starts - and the second is the provider's own.
    */
   listMcpServers(): McpServerConfig[] {
@@ -2364,7 +2364,7 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
 
   /**
    * Claude and the app-server providers report each compaction. A `handoff` provider is compacted by
-   * OpenOwnBot, which gives the new session the complete prompt, and the ACP client reports a compaction
+   * ROBot, which gives the new session the complete prompt, and the ACP client reports a compaction
    * that the agent does by itself. Another ACP agent or Pi can compact with no signal, so a prompt
    * that names earlier context instead of repeating it could lose what the summary dropped.
    */
@@ -3333,7 +3333,7 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
 
   /**
    * Compacts the context of the agent's own chat now, below the automatic threshold too. Only for a
-   * provider that OpenOwnBot can ask to compact, and only when no turn or queued message needs the session.
+   * provider that ROBot can ask to compact, and only when no turn or queued message needs the session.
    */
   readonly compactAgentContext = Effect.fn("AgentService.compactAgentContext")(function* (
     this: AgentService,
@@ -4885,7 +4885,7 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
         ),
       );
     // No provider runs a turn whose end failed part way or whose provider exited, so it has nothing to
-    // stop. The Stop then settles what OpenOwnBot still holds for the turn, and the queue frees (#2214).
+    // stop. The Stop then settles what ROBot still holds for the turn, and the queue frees (#2214).
     // A turn that the drain started can wait for its `turn/started` with a snapshot already on it:
     // that turn is live, and only the provider can stop it. A turn whose normal end runs settles itself.
     if (!mayStop && this.#turn.turnStartedAt(turnId) === null && !this.#turn.isCompleting(turnId)) {

@@ -1343,7 +1343,7 @@ export function createMockOpenOwnBot(options: MockOpenOwnBotOptions = {}): MockO
         limit: 3,
         used: hostedSites.filter((site) => site.status === "active").length,
       }),
-      chooseDirectory: async () => "/mock/OpenOwnBot/Sites/launch-notes",
+      chooseDirectory: async () => "/mock/ROBot/Sites/launch-notes",
       publish: async (input) => {
         const hostname = `${input.title.toLowerCase().replaceAll(/[^a-z0-9]+/gu, "-")}.openbot.site`;
         const site: HostedSiteSummary = {
@@ -2928,7 +2928,7 @@ export function createMockOpenOwnBot(options: MockOpenOwnBotOptions = {}): MockO
     maintenance: {
       exportData: async () => ({ saved: true }),
       exportDiagnostics: async () => ({ saved: true }),
-      openLogs: async () => "~/Library/Application Support/OpenOwnBot/logs",
+      openLogs: async () => "~/Library/Application Support/ROBot/logs",
     },
     servers: mockTeam.servers,
     plugins: {

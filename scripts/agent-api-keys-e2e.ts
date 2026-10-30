@@ -27,7 +27,7 @@ const NEW_KEY = "e2e-key-replaced-77c1a0b2";
 const MEMBER: PromptResponder = { sender: { id: "member-1", name: "Mia" }, privileged: false };
 const ADMIN: PromptResponder = { sender: { id: "admin-1", name: "Ada" }, privileged: true };
 
-/** Records what OpenOwnBot answers to the agent, as raw JSON. The process never starts. */
+/** Records what ROBot answers to the agent, as raw JSON. The process never starts. */
 class RecordingClient extends CodexAppServerClient {
   readonly answers = new Map<RequestId, string>();
 
@@ -51,7 +51,7 @@ interface AgentAnswer {
 
 /** The JSON that the agent reads in a tool result. */
 function agentAnswer(raw: string | undefined): AgentAnswer {
-  assert.ok(raw, "OpenOwnBot did not answer the agent");
+  assert.ok(raw, "ROBot did not answer the agent");
   const parsed: { contentItems?: Array<{ text?: string }> } = JSON.parse(raw);
   const text = parsed.contentItems?.[0]?.text;
   assert.ok(text, "the answer has no text");
@@ -216,7 +216,7 @@ try {
     assert.deepEqual(names, ["OPENAI_API_KEY"]);
   });
 
-  await step("a key saved before a restart is masked once OpenOwnBot registers the saved keys", async () => {
+  await step("a key saved before a restart is masked once ROBot registers the saved keys", async () => {
     const earlier = "e2e-key-saved-before-restart-91d2";
     await mkdir(join(root, "agent-api-keys", "agent-2"), { recursive: true, mode: 0o700 });
     await writeFile(join(root, "agent-api-keys", "agent-2", "ANTHROPIC_API_KEY"), earlier, { mode: 0o600 });

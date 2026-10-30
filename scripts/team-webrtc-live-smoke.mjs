@@ -1,6 +1,6 @@
 import { app, BrowserWindow } from "electron";
 
-app.setName("OpenOwnBot");
+app.setName("ROBot");
 app.exit(await main());
 
 async function main() {
@@ -36,7 +36,7 @@ async function main() {
   });
 
   try {
-    await window.loadURL("data:text/html,<meta charset=utf-8><title>OpenOwnBot WebRTC smoke</title>");
+    await window.loadURL("data:text/html,<meta charset=utf-8><title>ROBot WebRTC smoke</title>");
     const result = await window.webContents.executeJavaScript(
       `(${runWebRtcSmoke.toString()})(${JSON.stringify({
         signalUrl,

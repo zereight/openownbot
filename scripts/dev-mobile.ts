@@ -198,13 +198,13 @@ async function selectSimulator(requested: string | null): Promise<string> {
       await runCommand("xcrun", ["simctl", "get_app_container", udid, MOBILE_BUNDLE_ID]);
       withApp.push(udid);
     } catch {
-      // OpenOwnBot is not installed on this simulator.
+      // ROBot is not installed on this simulator.
     }
   }
   const [udid, ...extra] = withApp;
-  if (!udid) throw new Error("No booted simulator has OpenOwnBot installed. Run without --pair-only to build it.");
+  if (!udid) throw new Error("No booted simulator has ROBot installed. Run without --pair-only to build it.");
   if (extra.length > 0) {
-    throw new Error(`Several booted simulators have OpenOwnBot. Pass --simulator=<udid>: ${withApp.join(", ")}`);
+    throw new Error(`Several booted simulators have ROBot. Pass --simulator=<udid>: ${withApp.join(", ")}`);
   }
   return udid;
 }

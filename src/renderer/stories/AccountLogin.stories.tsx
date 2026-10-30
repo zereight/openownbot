@@ -140,7 +140,7 @@ export const ServiceUnavailable: Story = {
       status: "error",
       issue: {
         code: "auth_api_unavailable",
-        message: "OpenOwnBot could not reach the account service. Check your connection and try again.",
+        message: "ROBot could not reach the account service. Check your connection and try again.",
       },
     },
   },

@@ -54,10 +54,10 @@ export interface BootRecoveryOptions {
  *   provider what really happened to each orphaned delivery instead of
  *   assuming, and conservatively keeps `interrupted` on any doubt — never
  *   repeats uncertain side effects. A delivery is orphaned when the process
- *   that ran it is gone: the previous OpenOwnBot run, or a provider CLI that
+ *   that ran it is gone: the previous ROBot run, or a provider CLI that
  *   exited. Any other unsettled delivery is a live turn of this run.
  * - `backfillProviderHistory` merges provider-side turns that happened while
- *   OpenOwnBot was down into the persisted conversation.
+ *   ROBot was down into the persisted conversation.
  *
  * Reads the store/mailbox/provider and writes the database plus in-memory
  * snapshots; delivery to the renderer goes through `mailboxSync` and

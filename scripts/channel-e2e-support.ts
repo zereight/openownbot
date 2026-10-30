@@ -97,7 +97,7 @@ export class ChannelClient {
   readonly chatted = new Set<string>();
   constructor(readonly page: Page) {}
 
-  /** The visible agents on a provider that this OpenOwnBot knows. */
+  /** The visible agents on a provider that this ROBot knows. */
   async agents(): Promise<AgentSummary[]> {
     const agents = await this.page.evaluate(() => window.openownbot.agent.listAgents());
     return agents.filter((agent): agent is AgentSummary => isAgentProvider(agent.provider));

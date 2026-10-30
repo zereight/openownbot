@@ -4,7 +4,7 @@ import { useText } from "@robot/ui/text";
 import { usePlatform } from "../../platform";
 import { useSetup } from "./onboarding-context";
 
-const PRODUCT_NAME = "OpenOwnBot";
+const PRODUCT_NAME = "ROBot";
 
 /**
  * Shown in place of first-run setup when the saved setup could not be read. A configured user

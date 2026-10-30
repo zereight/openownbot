@@ -1,4 +1,4 @@
-// The installation tokens of the OpenOwnBot GitHub App that the OpenOwnBot API gives this computer, so
+// The installation tokens of the ROBot GitHub App that the ROBot API gives this computer, so
 // that GitHub shows an agent's work as the app and not as the signed-in user.
 
 import { createOpenOwnBotLogger, registerSecretValue, toLogValue } from "@robot/logging";
@@ -33,7 +33,7 @@ export interface GitHubBotToken {
 }
 
 export interface GitHubBotTokensOptions {
-  /** The origin of the OpenOwnBot API, such as `https://api.openbot.run`. */
+  /** The origin of the ROBot API, such as `https://api.openbot.run`. */
   apiUrl: string;
   fetch: GitHubFetch;
   now: () => number;
@@ -125,7 +125,7 @@ export class GitHubBotTokens {
       }
       if (!response.ok)
         return yield* new GitHubOperationError({
-          cause: new Error(`The OpenOwnBot API refused the GitHub token request (HTTP ${response.status}).`),
+          cause: new Error(`The ROBot API refused the GitHub token request (HTTP ${response.status}).`),
         });
       const json = yield* githubCall(() => response.json());
       const answer = yield* githubDecode(() => answerSchema.parse(json));

@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "OpenOwnBot",
+    "name": "ROBot",
     "slug": "openownbot",
     "platforms": ["ios", "android"],
     "version": "1.4.2",
@@ -11,7 +11,7 @@
     "ios": {
       "bundleIdentifier": "dev.zereight.openownbot",
       "infoPlist": {
-        "NSLocalNetworkUsageDescription": "Allow OpenOwnBot to connect to your desktop during local development.",
+        "NSLocalNetworkUsageDescription": "Allow ROBot to connect to your desktop during local development.",
         "NSAppTransportSecurity": {
           "NSAllowsLocalNetworking": true
         },
@@ -55,8 +55,8 @@
       [
         "expo-camera",
         {
-          "cameraPermission": "Allow OpenOwnBot to use your camera to scan QR codes.",
-          "microphonePermission": "Allow OpenOwnBot to use the microphone to dictate messages.",
+          "cameraPermission": "Allow ROBot to use your camera to scan QR codes.",
+          "microphonePermission": "Allow ROBot to use the microphone to dictate messages.",
           "recordAudioAndroid": false,
           "barcodeScannerEnabled": true
         }
@@ -64,16 +64,16 @@
       [
         "expo-image-picker",
         {
-          "photosPermission": "Allow OpenOwnBot to access the photos you choose to share.",
-          "cameraPermission": "Allow OpenOwnBot to use your camera to add photos.",
-          "microphonePermission": "Allow OpenOwnBot to use the microphone to dictate messages."
+          "photosPermission": "Allow ROBot to access the photos you choose to share.",
+          "cameraPermission": "Allow ROBot to use your camera to add photos.",
+          "microphonePermission": "Allow ROBot to use the microphone to dictate messages."
         }
       ],
       [
         "expo-media-library",
         {
-          "photosPermission": "Allow OpenOwnBot to access the photos you choose to share.",
-          "savePhotosPermission": "Allow OpenOwnBot to save images and videos you download from a chat to your photo library.",
+          "photosPermission": "Allow ROBot to access the photos you choose to share.",
+          "savePhotosPermission": "Allow ROBot to save images and videos you download from a chat to your photo library.",
           "granularPermissions": ["photo"]
         }
       ],
@@ -101,7 +101,7 @@
       [
         "expo-local-authentication",
         {
-          "faceIDPermission": "Allow OpenOwnBot to use Face ID to unlock the app."
+          "faceIDPermission": "Allow ROBot to use Face ID to unlock the app."
         }
       ],
       [
@@ -195,8 +195,8 @@
       [
         "expo-speech-recognition",
         {
-          "microphonePermission": "Allow OpenOwnBot to use the microphone to dictate messages.",
-          "speechRecognitionPermission": "Allow OpenOwnBot to turn your speech into message text."
+          "microphonePermission": "Allow ROBot to use the microphone to dictate messages.",
+          "speechRecognitionPermission": "Allow ROBot to turn your speech into message text."
         }
       ]
     ],

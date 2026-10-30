@@ -390,7 +390,7 @@ const HERMES_IMPORT_LINKS_FILE = "openbot-hermes-imports-v1.json";
  * the Electron binary - which is also the name macOS shows in the Privacy & Security panes, and the
  * reason a dev grant does not carry over to a packaged build.
  */
-const PACKAGED_BUNDLE_IDENTIFIER = "app.openownbot.desktop";
+const PACKAGED_BUNDLE_IDENTIFIER = "app.robot.desktop";
 const DEVELOPMENT_BUNDLE_IDENTIFIER = "com.github.Electron";
 
 const TEARDOWN_ORDER = {
@@ -667,7 +667,7 @@ async function createMessagingServices({
   const messagingCredentialLoadError = await Effect.runPromise(messagingCredentials.load());
   if (messagingCredentialLoadError)
     logger.warn(
-      `OpenOwnBot could not read the messaging token file (${messagingCredentialLoadError.name}). It was left unchanged.`,
+      `ROBot could not read the messaging token file (${messagingCredentialLoadError.name}). It was left unchanged.`,
     );
   // The Signal socket that brings the events of the Slack workspaces, Discord guilds and Telegram chats
   // linked to this host, and makes its Discord and Telegram calls.
@@ -692,7 +692,7 @@ async function createMessagingServices({
     Effect.runPromise(signalIngress.dispose()),
   );
   // Development only: `bun run dev:slack` names this loopback port, so a Slack install returns to this
-  // dev app and not to an installed OpenOwnBot that owns `openownbot://`.
+  // dev app and not to an installed ROBot that owns `openownbot://`.
   const developmentSlackCallbackPort = app.isPackaged ? 0 : Number(process.env.OPENOWNBOT_DEV_SLACK_CALLBACK_PORT ?? 0);
   const messaging = new MessagingService({
     threads: service.messaging,
@@ -822,7 +822,7 @@ async function createMessagingServices({
   );
   teardown.push(TEARDOWN_ORDER.messaging, "the messaging connections", () => Effect.runPromise(messaging.stop()));
   if (developmentSlackCallbackPort > 0) {
-    // As `openownbot://` does for a packaged build, a finished install brings OpenOwnBot to the front.
+    // As `openownbot://` does for a packaged build, a finished install brings ROBot to the front.
     const callback = await startSlackDevCallbackServer(developmentSlackCallbackPort, async (nonce, grant) => {
       const received = await runCauseEffect(messaging.completeSlackWorkspace(nonce, grant));
       if (received) app.focus({ steal: true });
@@ -1048,7 +1048,7 @@ export async function createApplicationServices({
   teardown.push(TEARDOWN_ORDER.teamWebRtcBridge, "the team WebRTC bridge", () =>
     runCauseEffect(teamWebRtcBridge.stop()),
   );
-  // Only a hosted, self-hosted or container server: one unit or container holds OpenOwnBot and every
+  // Only a hosted, self-hosted or container server: one unit or container holds ROBot and every
   // agent process. The desktop app does not hold turns for memory.
   const hostMemory =
     hostedServer || serverModeEnvironment
@@ -1211,7 +1211,7 @@ export async function createApplicationServices({
    * The installed CLIs are the computer's, the partial downloads are this profile's.
    *
    * Development gives every renderer port and every `--isolated` worktree a `userData` of its own,
-   * so a store kept there started empty each time: OpenOwnBot fell back to the user's own CLI, offered
+   * so a store kept there started empty each time: ROBot fell back to the user's own CLI, offered
    * the pinned version against it, and downloaded 144 MB again for a profile that would be replaced
    * by the next port. The packaged app's `userData` is `appData/ROBot`, so the shared
    * store is the path it always used. The switch is read here rather than imported from the entry
@@ -1313,13 +1313,11 @@ export async function createApplicationServices({
   performance.mark("openownbot:services.provider-detection");
   const credentialLoadError = await Effect.runPromise(providerCredentials.load());
   if (credentialLoadError) {
-    logger.warn(
-      `OpenOwnBot could not read the provider key file (${credentialLoadError.name}). It was left unchanged.`,
-    );
+    logger.warn(`ROBot could not read the provider key file (${credentialLoadError.name}). It was left unchanged.`);
   }
   /*
    * The MCP sign-ins, in their own file with the same cipher. `mcp-remote` used to keep these where
-   * OpenOwnBot could not redact them; here they are covered by the same rule as every other secret.
+   * ROBot could not redact them; here they are covered by the same rule as every other secret.
    *
    * Unreadable is not fatal, for the same reason as the keys above: every signed-in server asks for
    * a sign-in again, and nothing else on this machine stops working.
@@ -1327,7 +1325,7 @@ export async function createApplicationServices({
   const mcpOAuthStore = new McpOAuthStore(join(app.getPath("userData"), MCP_OAUTH_FILE), secretCipher);
   const mcpOAuthLoadError = await Effect.runPromise(mcpOAuthStore.load());
   if (mcpOAuthLoadError) {
-    logger.warn(`OpenOwnBot could not read the MCP sign-in file (${mcpOAuthLoadError.name}). It was left unchanged.`);
+    logger.warn(`ROBot could not read the MCP sign-in file (${mcpOAuthLoadError.name}). It was left unchanged.`);
   }
   // The OAuth proxy port, so a Codex session resumed after a restart reaches the same address.
   const mcpOAuthProxySettings = new McpOAuthProxySettingsFile(
@@ -1337,13 +1335,13 @@ export async function createApplicationServices({
   const mcpOAuthProxyLoadError = await Effect.runPromise(mcpOAuthProxySettings.load());
   if (mcpOAuthProxyLoadError) {
     logger.warn(
-      `OpenOwnBot could not read the MCP sign-in proxy file (${mcpOAuthProxyLoadError.name}). A new port is used.`,
+      `ROBot could not read the MCP sign-in proxy file (${mcpOAuthProxyLoadError.name}). A new port is used.`,
     );
   }
   /*
    * Where a returning grant lands. The loopback listener is the address RFC 8252 gives a native
    * app and the only one some authorization servers accept - Canva refuses `openownbot://mcp-auth`
-   * on its own authorization page, where OpenOwnBot cannot see the failure or explain it.
+   * on its own authorization page, where ROBot cannot see the failure or explain it.
    *
    * A port that cannot be bound is not fatal: the deep link is still registered with the
    * operating system, and the servers that accept it keep working. It is logged because it
@@ -1382,7 +1380,7 @@ export async function createApplicationServices({
     },
   }).catch((error: unknown) => {
     logger.warn(
-      "OpenOwnBot could not listen for MCP sign-ins on this machine, so the openownbot:// link is used instead. Servers that refuse it cannot be signed in to:",
+      "ROBot could not listen for MCP sign-ins on this machine, so the openownbot:// link is used instead. Servers that refuse it cannot be signed in to:",
       toLogValue(error),
     );
     return null;
@@ -1416,7 +1414,7 @@ export async function createApplicationServices({
   );
   /*
    * The Bitwarden connection. A host connection's API key and master password are stored, so the
-   * host unlocks again after a restart; its CLI data and OpenOwnBot's copy of `bw` stay outside every
+   * host unlocks again after a restart; its CLI data and ROBot's copy of `bw` stay outside every
    * root an agent can write.
    */
   const bitwardenCliTarget = runtimeTarget(process.platform, process.arch);
@@ -1478,7 +1476,7 @@ export async function createApplicationServices({
       onStatementSettled: (durationMs) => statementTimings.record(durationMs),
     }),
   });
-  // Looked up again on demand, because a user may install the driver while OpenOwnBot runs, and the
+  // Looked up again on demand, because a user may install the driver while ROBot runs, and the
   // panel's "Check again" has to see it.
   const resolveCuaDriverExecutable = () => {
     const installDirectory = process.env.CUA_DRIVER_RS_INSTALL_DIR ?? process.env.CUA_DRIVER_BIN_DIR;
@@ -1528,11 +1526,11 @@ export async function createApplicationServices({
   // daemon: stopping it first would leave them reading a socket nothing answers.
   teardown.push(TEARDOWN_ORDER.cuaDriver, "the Computer Use driver", () => runCauseEffect(cuaDriver.stop()));
   /*
-   * The rim OpenOwnBot draws over the window an agent works in.
+   * The rim ROBot draws over the window an agent works in.
    *
    * It asks the daemon two read-only questions over a connection of its own: whether any agent
    * holds a live session, and where every window is. Both answers come from the daemon's own view,
-   * which an MCP client of OpenOwnBot's could not see: the tools report only the sessions of the lease
+   * which an MCP client of ROBot's could not see: the tools report only the sessions of the lease
    * that asks, and the agent's lease is its own.
    */
   const computerUseReads = new CuaDriverDaemonClient(() =>
@@ -1543,7 +1541,7 @@ export async function createApplicationServices({
     loadWindow: loadComputerUseHighlightRenderer,
     place: sendComputerUseHighlightPlacement,
     displays: computerUseDisplays,
-    // The driver's own cursor on one screen, OpenOwnBot's inside this overlay on more than one. The
+    // The driver's own cursor on one screen, ROBot's inside this overlay on more than one. The
     // runtime answers `null` for the screen it draws itself, so only one cursor is ever drawn.
     readPointer: () => {
       const pointer = cuaDriver.lastPointer(COMPUTER_USE_CURSOR_MAX_AGE_MS);
@@ -1581,7 +1579,7 @@ export async function createApplicationServices({
     computerUseHighlight.destroy();
     await Effect.runPromise(computerUseReads.close());
   });
-  // The overlays are OpenOwnBot windows, so they can mark only the display OpenOwnBot is on. With an agent
+  // The overlays are ROBot windows, so they can mark only the display ROBot is on. With an agent
   // display of its own, the driver works where they cannot be drawn.
   const drawsComputerUseHighlight = !hasSeparateAgentDisplay(process.platform);
   const computerUsePermissionHelp = new ComputerUsePermissionHelpWindowController({
@@ -1633,8 +1631,8 @@ export async function createApplicationServices({
         ensureToolRuntimesReady: () => providerRuntimes.ensureToolRuntimesReady(),
         toolRuntimes: () => providerRuntimes.mcpToolRuntimes(),
       }),
-    // `desktopCapturer` captures the display OpenOwnBot is on. With an agent display of its own, that
-    // is only the OpenOwnBot window, so agents take their screenshots with the Computer Use driver.
+    // `desktopCapturer` captures the display ROBot is on. With an agent display of its own, that
+    // is only the ROBot window, so agents take their screenshots with the Computer Use driver.
     screenCapture: hasSeparateAgentDisplay(process.platform)
       ? null
       : new ScreenCapturer({
@@ -1918,7 +1916,7 @@ export async function createApplicationServices({
   cuaDriver.onStateChanged((state) => service.setComputerUseCapability(computerUseCapability(state)));
   // Only when a live session would hold the wrong tool set: this deactivates every agent's stored
   // provider session, so the driver stays quiet for a grant, for the warm-up below, and from the
-  // moment OpenOwnBot quits, where the sessions are being left for the next run.
+  // moment ROBot quits, where the sessions are being left for the next run.
   cuaDriver.onMcpServerChanged(() => {
     void runCauseEffect(service.notifyComputerUseChanged()).catch((error) =>
       logger.warn("Provider tools did not refresh.", toLogValue(error)),
@@ -1957,7 +1955,7 @@ export async function createApplicationServices({
   );
   /*
    * Where the decision put the download: onboarding, which is the screen this start is about to
-   * show. A user who finished onboarding before OpenOwnBot downloaded a runtime at all is asked for
+   * show. A user who finished onboarding before ROBot downloaded a runtime at all is asked for
    * one here too, but only when this machine already has an MCP server to start.
    *
    * Nothing waits for it and nothing reports it. MCP is optional, so a failed download must not
@@ -2698,9 +2696,7 @@ export async function createApplicationServices({
     (hostedInstaller || (supportsInstalledUpdates(process.platform) && updateMetadataAvailable)) &&
     isValidSemver(currentVersion);
   if (app.isPackaged && updateMetadataAvailable && !isValidSemver(currentVersion)) {
-    logger.warn(
-      `OpenOwnBot updates are disabled because the application version is not valid SemVer: ${currentVersion}`,
-    );
+    logger.warn(`ROBot updates are disabled because the application version is not valid SemVer: ${currentVersion}`);
   }
   let updateAdapter: UpdateAdapter = createDisabledUpdateAdapter();
   let updaterEnabled = updatesEnabled;
@@ -2720,11 +2716,11 @@ export async function createApplicationServices({
         updaterCacheDirectory = join(electronUpdaterCacheRoot(), "openownbot-updater");
       } else {
         updaterEnabled = false;
-        logger.warn("OpenOwnBot updates are disabled: electron-updater did not export autoUpdater");
+        logger.warn("ROBot updates are disabled: electron-updater did not export autoUpdater");
       }
     } catch {
       updaterEnabled = false;
-      logger.warn("OpenOwnBot updates are disabled: electron-updater failed to load");
+      logger.warn("ROBot updates are disabled: electron-updater failed to load");
     }
   }
   const updater = new UpdateService(updateAdapter, {
@@ -2733,7 +2729,7 @@ export async function createApplicationServices({
     autoDownload: updatePreference.autoDownload,
     beforeInstall: prepareForUpdateInstall,
     // Packaged runs share one application bundle across macOS users. Installing while another
-    // login session runs OpenOwnBot from that bundle would replace it underneath that session, so
+    // login session runs ROBot from that bundle would replace it underneath that session, so
     // the service refuses the install until every sibling session stopped. Unpackaged runs never
     // enable updates, so there is nothing to guard there.
     ...(app.isPackaged
@@ -2748,9 +2744,7 @@ export async function createApplicationServices({
                 Effect.sync(() => {
                   if (siblings.length === 0) return;
                   const list = siblings.map(({ pid, uid }) => `pid ${pid} (uid ${uid})`).join(", ");
-                  logger.warn(
-                    `OpenOwnBot update install refused: other OpenOwnBot processes run from this application: ${list}`,
-                  );
+                  logger.warn(`ROBot update install refused: other ROBot processes run from this application: ${list}`);
                 }),
               ),
             ),
@@ -2761,7 +2755,7 @@ export async function createApplicationServices({
     logDirectory: join(app.getPath("userData"), "logs", "update"),
     // Squirrel.Mac only. The path is meaningless under a Linux or Windows home directory.
     ...(process.platform === "darwin"
-      ? { shipItDirectory: join(homedir(), "Library", "Caches", "app.openownbot.desktop.ShipIt") }
+      ? { shipItDirectory: join(homedir(), "Library", "Caches", "app.robot.desktop.ShipIt") }
       : {}),
     updaterCacheDirectory,
   });
@@ -2776,7 +2770,7 @@ export async function createApplicationServices({
       yield* routineFlowRuntime.sweep();
       // Ends the workflow steps a restart cut off, and moves the runs on.
       yield* workflowRuntime.sweep();
-      // Marks the posts a restart cut off, and sends the answers that ended while OpenOwnBot was closed.
+      // Marks the posts a restart cut off, and sends the answers that ended while ROBot was closed.
       yield* routineResultRuntime.recover();
     }),
   );

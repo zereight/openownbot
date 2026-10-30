@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to the OpenOwnBot iPhone app will be documented here. The project follows
+All notable changes to the ROBot iPhone app will be documented here. The project follows
 [Semantic Versioning](https://semver.org/). Notes for the next release are in
 [`changelog.d/`](changelog.d/README.md). The changes of the desktop app and the web client are in
 the [root changelog](../../CHANGELOG.md).
@@ -76,7 +76,7 @@ the [root changelog](../../CHANGELOG.md).
 - A Markdown file in a chat opens in a preview that shows the formatted text. The menu shows the source, copies it, or shares the file. Before, you could only download it.
 - Tap any image in a chat to open it, then swipe left or right to see all the other images of the loaded conversation, in chat order. The top bar shows the position, such as "3 of 8". ([#2426](https://github.com/zereight/openownbot/issues/2426))
 - When an agent sends two or more images in one reply, the chat shows them together in a compact grid, as on desktop. Before, each image took the full width of the chat.
-- Channels are back in the mobile app, on a computer whose OpenOwnBot has channels again. A channel
+- Channels are back in the mobile app, on a computer whose ROBot has channels again. A channel
   shows in the home list beside your agents, and you can pin it, hide it, put it in a section, and
   search it. It opens in the same chat as an agent, with the author of each message, plan cards,
   questions, approvals and browser steps of its work. To make one, open the menu at the top of the
@@ -139,18 +139,18 @@ the [root changelog](../../CHANGELOG.md).
   how it ended. A finished task stays until you close it with its close button. Tap a task to open
   it. A task opens as a chat, with the agent's messages, voice input and a text composer. In a
   task, you can answer the agent's questions and see what it does now.
-- Attach ZIP archives in chat when the host runs a version of OpenOwnBot that accepts them.
-- Server settings has a General section for owners and admins: Timezone sets the zone of new routines when the message does not give one, and Memories per agent sets how many memories each agent can keep. The server must have an OpenOwnBot version that supports these settings.
-- Server settings has a Storage page, as on desktop. A ring chart shows how much space OpenOwnBot uses on the server by type, with the size and share of each type. Tap a type to highlight it in the chart. The page also shows the agents and the largest chats, and the free disk space. Tap All files to open, share or delete a stored file. Owners and admins can clear cached server files and logs. The server must have an OpenOwnBot version that supports storage.
-- Server settings has a Sites page, as on desktop. It shows the sites that agents on the server published to openbot.site, the number of sites and the limit of your plan, and when each site expires. Tap a site to open it. Owners and admins can also delete a site. The server must have an OpenOwnBot version that supports sites.
-- Server settings has an Updates page, as on the desktop. It shows the OpenOwnBot version of the server and the update status. You can check for updates and start an update. Owners and admins can also restart the server now, cancel a scheduled restart, and turn automatic downloads and automatic installs on or off. Members can start an update that waits until the agents are idle, when the server permits it.
-- Server settings has Providers for owners and admins, as in OpenOwnBot on the computer. It shows each AI provider of the computer that runs the server and its status. Tap a provider to connect it, download it, check for updates and update it, or save its API key. The server must have an OpenOwnBot version that supports provider management.
-- Server settings has Connectors for owners and admins, as on the desktop. Connect Slack, Discord, Telegram, GitHub and 1Password on the server, see the status of each connection, pause or resume it, reconnect or disconnect it, and add the orchestrator agent that answers. GitHub shows the repositories that agents can use. Bitwarden shows as a desktop-only connector. The server must have an OpenOwnBot version that supports connectors.
-- Server settings has MCP servers for owners and admins. Add an MCP server that runs a command or connects to a URL, change it, turn it on or off for the agents, test the connection, sign out, or remove it. Each argument, environment variable and header has its own field, as on desktop. The server must have an OpenOwnBot version that supports MCP servers. To sign in to an MCP server, use OpenOwnBot on a computer.
-- App lock: in Settings > App lock, turn on a 4-digit PIN, Face ID, Touch ID or the phone's unlock, or a PIN and one of the others. OpenOwnBot then locks when you leave it for the time that you choose, from immediately to 1 hour, when the phone locks, and each time the app starts. A notification or a link that you open while the app is locked opens after you unlock it.
-- While the app lock is on, the app switcher shows the OpenOwnBot logo instead of your chats. On Android this needs Android 13 or later.
-- After 4 incorrect PINs, each new attempt waits longer. After 10 incorrect PINs, OpenOwnBot signs you out on the phone. If you forget the PIN, sign out from the lock screen and scan a new code from OpenOwnBot on your desktop.
-- Server settings has Roles, below Members. An owner or admin creates roles, sets the access of Everyone and of each role to each agent (no access, view, chat or manage), and gives roles to members on the member page. The members list shows the roles of each member. The server must run an OpenOwnBot version with roles.
+- Attach ZIP archives in chat when the host runs a version of ROBot that accepts them.
+- Server settings has a General section for owners and admins: Timezone sets the zone of new routines when the message does not give one, and Memories per agent sets how many memories each agent can keep. The server must have a ROBot version that supports these settings.
+- Server settings has a Storage page, as on desktop. A ring chart shows how much space ROBot uses on the server by type, with the size and share of each type. Tap a type to highlight it in the chart. The page also shows the agents and the largest chats, and the free disk space. Tap All files to open, share or delete a stored file. Owners and admins can clear cached server files and logs. The server must have a ROBot version that supports storage.
+- Server settings has a Sites page, as on desktop. It shows the sites that agents on the server published to openbot.site, the number of sites and the limit of your plan, and when each site expires. Tap a site to open it. Owners and admins can also delete a site. The server must have a ROBot version that supports sites.
+- Server settings has an Updates page, as on the desktop. It shows the ROBot version of the server and the update status. You can check for updates and start an update. Owners and admins can also restart the server now, cancel a scheduled restart, and turn automatic downloads and automatic installs on or off. Members can start an update that waits until the agents are idle, when the server permits it.
+- Server settings has Providers for owners and admins, as in ROBot on the computer. It shows each AI provider of the computer that runs the server and its status. Tap a provider to connect it, download it, check for updates and update it, or save its API key. The server must have a ROBot version that supports provider management.
+- Server settings has Connectors for owners and admins, as on the desktop. Connect Slack, Discord, Telegram, GitHub and 1Password on the server, see the status of each connection, pause or resume it, reconnect or disconnect it, and add the orchestrator agent that answers. GitHub shows the repositories that agents can use. Bitwarden shows as a desktop-only connector. The server must have a ROBot version that supports connectors.
+- Server settings has MCP servers for owners and admins. Add an MCP server that runs a command or connects to a URL, change it, turn it on or off for the agents, test the connection, sign out, or remove it. Each argument, environment variable and header has its own field, as on desktop. The server must have a ROBot version that supports MCP servers. To sign in to an MCP server, use ROBot on a computer.
+- App lock: in Settings > App lock, turn on a 4-digit PIN, Face ID, Touch ID or the phone's unlock, or a PIN and one of the others. ROBot then locks when you leave it for the time that you choose, from immediately to 1 hour, when the phone locks, and each time the app starts. A notification or a link that you open while the app is locked opens after you unlock it.
+- While the app lock is on, the app switcher shows the ROBot logo instead of your chats. On Android this needs Android 13 or later.
+- After 4 incorrect PINs, each new attempt waits longer. After 10 incorrect PINs, ROBot signs you out on the phone. If you forget the PIN, sign out from the lock screen and scan a new code from ROBot on your desktop.
+- Server settings has Roles, below Members. An owner or admin creates roles, sets the access of Everyone and of each role to each agent (no access, view, chat or manage), and gives roles to members on the member page. The members list shows the roles of each member. The server must run a ROBot version with roles.
 
 ### Changed
 
@@ -203,7 +203,7 @@ the [root changelog](../../CHANGELOG.md).
 - The Live Activity now follows the notification choices of each server. Before, it showed the
   agents of a server that you muted or set to Nothing. Now it stops showing that server at once when
   you mute it or turn its notifications off, and it shows the server again when the mute ends.
-- The app can now read the queue of an agent with a long history. Before, after some weeks of use, the queue answer was too large for the connection, and the chat showed a "response too large" error. The server must also run the version of OpenOwnBot with this fix (#2368).
+- The app can now read the queue of an agent with a long history. Before, after some weeks of use, the queue answer was too large for the connection, and the chat showed a "response too large" error. The server must also run the version of ROBot with this fix (#2368).
 - Live Activities show a link that an agent reply writes in angle brackets, such as
   `<https://example.com>`. Before, the Live Activity removed the link.
 - Agents and sections stay in the home list when you go back from a chat. Before, some or all
@@ -229,7 +229,7 @@ the [root changelog](../../CHANGELOG.md).
 - An open chat no longer renders again when another agent or server changes.
 - The server drawer, the chat header and the chat list no longer render again for workspace changes that they do not show, so the phone does less work while you use any screen.
 - The model list of an agent loads when the server has a provider that the app does not know. An
-  agent on that provider shows "Update OpenOwnBot to use" and the provider name, and its provider
+  agent on that provider shows "Update ROBot to use" and the provider name, and its provider
   and model choices are disabled.
 - The phone screen stays on while voice mode listens, so the screen lock no longer stops the voice input when you do not touch the phone.
 - A task that has no messages yet, for example a task that waits for the provider usage limit to reset, now shows why it waits and its queued messages. Before, the task screen was empty. A new chat with no messages shows its starter card again.
@@ -237,7 +237,7 @@ the [root changelog](../../CHANGELOG.md).
 ### Security
 
 - Show the account service address on the Mobile Connect screen when a link uses a service that is
-  not the OpenOwnBot account service. Before, the screen did not show where the phone connects.
+  not the ROBot account service. Before, the screen did not show where the phone connects.
 
 ## [1.3.2] - 2026-10-17
 
@@ -253,15 +253,15 @@ the [root changelog](../../CHANGELOG.md).
 - Hold the app icon to open a recent agent, Routines or Search. The recent agents are the chats that
   you opened last on this phone. Hidden chats do not show. The actions go away when you sign out, and
   a shortcut that you pinned on Android then opens only the sign-in screen.
-- Share a link, text, a photo or a file from another app to an agent. Choose OpenOwnBot in the share
+- Share a link, text, a photo or a file from another app to an agent. Choose ROBot in the share
   sheet, then choose the agent. The agent that got your last share is selected first. The chat opens
   with the shared content in the message field, so you can add a message before you send it. This
-  works when OpenOwnBot is closed and when it is open. A file that is too large or of a type that agents
+  works when ROBot is closed and when it is open. A file that is too large or of a type that agents
   cannot read shows an error with its name. An image that you share from a web page comes as an
   image, not as its link. iPhone photos in HEIC format are sent as JPEG.
 - Get agent notifications on Android: when an agent finishes, stops with an error, or needs your
   input, an approval, or a step in the browser. Choose them in Settings > Notifications, with a
-  sound and the events of each server. The server must run the newest OpenOwnBot desktop app.
+  sound and the events of each server. The server must run the newest ROBot desktop app.
 - When you create an agent, you can select its provider, model and reasoning level. The choice shows when the server supports it. "Host default" keeps the provider that the server selects for new agents.
 
 ### Changed
@@ -269,7 +269,7 @@ the [root changelog](../../CHANGELOG.md).
 - Copy, React, Reply and the time are now in a row under each message. Before, they were in a sheet that opened only when you touched and held a message.
 - On iPhone, touch and hold a word in a message to select it, as in other apps. The formatting of the message stays while you select. Before, the text opened in a separate sheet as plain text. On Android, tap Select text under the message.
 - The home of a server with no agents now has the layout of the welcome: its group of characters, the text under it, and the Add agent button at the bottom. Before, smaller characters stood in a ring around the text and the button.
-- After you sign in, the OpenOwnBot logo moves to the middle of the screen and turns into the loading animation, and your agents come in while it leaves. Before, the screen faded, the loader grew from a dot, and the list waited until the loader was gone.
+- After you sign in, the ROBot logo moves to the middle of the screen and turns into the loading animation, and your agents come in while it leaves. Before, the screen faded, the loader grew from a dot, and the list waited until the loader was gone.
 - When you open the app while signed in, the splash logo turns into the loading animation. Before, the loader showed on top of the splash logo.
 - Signing out now fades to the sign-in screen. Before, the sign-in screen slid in from the side.
 - While the app connects to a server, the home screen no longer shows the server, search and options buttons. They come in with your agents.
@@ -292,7 +292,7 @@ the [root changelog](../../CHANGELOG.md).
 - A long reply streams more smoothly. Before, the app read the full reply again for each new part of it.
 - While a server reconnects, the app does less work each second. Before, the countdown made all of the open screens draw again.
 - When the server supports it and you are an owner or an admin, an agent that you hide on the phone is hidden on each device that shows the server, and an agent that you hide on the computer is hidden on the phone. The server does not run the routines of a hidden agent and does not send new messages to it. Restore removes the hide on the phone and on the server. A member hides an agent on the phone only.
-- On Android, popup menus have the OpenOwnBot design: rounded corners, app colors, and icons. Before, they used the default Android menu with the colors of the device wallpaper.
+- On Android, popup menus have the ROBot design: rounded corners, app colors, and icons. Before, they used the default Android menu with the colors of the device wallpaper.
 - The Android app is a smaller download.
 
 ### Fixed
@@ -309,12 +309,12 @@ the [root changelog](../../CHANGELOG.md).
 - On iPhone, agent avatars get their colors back when the server connects again. Before, some avatars stayed gray.
 - A hosted server no longer stops soon after it starts while you read it with the app in the foreground. Before, it stopped about 15 minutes after a wake when you did not type. The app in the foreground now keeps it on for at most 30 minutes after your last message, change or typing, or after you open the app again.
 - The app keeps starting a hosted server while the server starts. Before, it stopped after 5 minutes.
-  It now stops only when the machine runs and OpenOwnBot on it does not connect in 15 minutes.
+  It now stops only when the machine runs and ROBot on it does not connect in 15 minutes.
 - On iPhone, a long agent reply shows word by word for one second. Then, if the full reply is available, all its text shows at once, with a strong, a light and a strong knock. Before, the words continued to show one by one for a long time after desktop showed the full reply.
 - On Android, a message that waits for the server stays at the right edge of the chat. Before, it moved to the left.
 - On Android, file names and code in a reply paragraph align with the text. Before, they were too high, and a long file path was cut at the edge of the message.
 - On Android, screens with animations scroll more smoothly. Before, scrolling could stutter after an animated item closed.
-- On Android, a share from another app that starts OpenOwnBot shows the share sheet with its Close and Share buttons. Before, the sheet filled the screen and the status bar covered the buttons.
+- On Android, a share from another app that starts ROBot shows the share sheet with its Close and Share buttons. Before, the sheet filled the screen and the status bar covered the buttons.
 - When you swipe to close the server list, the agent list behind it does not respond. Before, the swipe could pin an agent, open a chat or press the server list button.
 
 ## [1.3.1] - 2026-10-14 (Android), 2026-10-15 (iOS)
@@ -326,15 +326,15 @@ the [root changelog](../../CHANGELOG.md).
 - Italian interface. Choose Italiano in Settings > App language, or keep System default on an
   iPhone that uses Italian.
 - Get a notification when an agent finishes, stops with an error, or needs your input, an approval,
-  or a step in the browser while OpenOwnBot is not on screen. It shows the agent name and the start of
-  the reply, the question, or the action to approve, and a tap opens the chat. Apple and the OpenOwnBot
+  or a step in the browser while ROBot is not on screen. It shows the agent name and the start of
+  the reply, the question, or the action to approve, and a tap opens the chat. Apple and the ROBot
   account service cannot read the text. An answer or an error does not come while you use the
   desktop app. While the Live Activity shows, no notification comes: the Live Activity shows the
   event, and with Play sound on it lights up the screen and plays the sound, also with notifications
-  off. The server must run an OpenOwnBot version with this change.
+  off. The server must run a ROBot version with this change.
 - Settings > Notifications now has the notification and Live Activity settings on one screen. It
   turns notifications on or off, hides the reply preview, and sets the one sound of notifications
-  and the Live Activity: Play sound on or off, and the OpenOwnBot sound of the desktop app, one of the
+  and the Live Activity: Play sound on or off, and the ROBot sound of the desktop app, one of the
   four sounds of the desktop sound themes, or the iOS sound. The app plays a sound when you choose
   it. For each server you can choose all activity, only the events that need you, or nothing, and
   mute the server for a time, as in the desktop app. Server settings have the same choices.
@@ -350,7 +350,7 @@ the [root changelog](../../CHANGELOG.md).
 
 ### Removed
 
-- The app no longer shows channels, with any version of OpenOwnBot on your computer. You cannot make a new channel, and Settings no longer has Deleted channels. Search and the routine calendar show only agents. To make agents work together, put them in one sidebar section.
+- The app no longer shows channels, with any version of ROBot on your computer. You cannot make a new channel, and Settings no longer has Deleted channels. Search and the routine calendar show only agents. To make agents work together, put them in one sidebar section.
 
 ### Fixed
 
@@ -387,26 +387,26 @@ the [root changelog](../../CHANGELOG.md).
 - The arrows in the bottom bar of the browser go to the previous and the next page. Reload page is
   in the ··· menu. The tabs button shows the agent's tabs: select a tab to show it, or open a new
   tab or close the tab on screen.
-- The page in the browser keeps the same size on your phone when the window of OpenOwnBot on the
-  server changes size. The server needs this version of OpenOwnBot.
+- The page in the browser keeps the same size on your phone when the window of ROBot on the
+  server changes size. The server needs this version of ROBot.
 - When an agent asks you to take over its browser, the request has an Open browser button. In the
   browser, choose I'm done in the ··· menu to give control back to the agent.
 - You can allow or deny an agent's approval request in the chat. The card shows the command, files or permissions, and says what each answer does on the computer. Before, the chat only showed "Waiting for your input on desktop".
-- When a request is too long to show on the phone, the card lets you deny it and tells you to open OpenOwnBot on the computer to allow it.
+- When a request is too long to show on the phone, the card lets you deny it and tells you to open ROBot on the computer to allow it.
 - Mark agents that wait for you in the agent list, with an icon for a question, an approval, or a browser takeover. A "Needs you" group shows them above the sections.
 - When an agent waits for you, the compact Dynamic Island shows an amber mark on the agent's photo, and the agent's name has the agent color.
 - Mark all agent chats and channels on a server as read from the home screen chat options menu. If a chat cannot be marked read, it stays unread and the app tells you.
 - Agent info groups the agent settings as the desktop app does: **Brain**, **Knows**, **Does**, and **Rules**. **Rules** has **Permissions**, **Notifications**, and **Advanced**.
 - **Advanced** shows the workspace folder of the agent and can start a **New chat**. A new chat shows a "New chat started" divider in the chat.
-- Owners and admins can turn **Computer Use** and **Local scripts** on or off for an agent, and select what a message does while the agent works (**Queue** or **Steer**). A change made on the computer or on another device shows at once. The computer that runs the agent must have the newest OpenOwnBot desktop version.
-- Owners and admins can see and delete the **Tables** that the agents share, and **Publish** an agent as a link template. The link preview of a template that you publish from the phone shows the general OpenOwnBot image, not an agent card.
+- Owners and admins can turn **Computer Use** and **Local scripts** on or off for an agent, and select what a message does while the agent works (**Queue** or **Steer**). A change made on the computer or on another device shows at once. The computer that runs the agent must have the newest ROBot desktop version.
+- Owners and admins can see and delete the **Tables** that the agents share, and **Publish** an agent as a link template. The link preview of a template that you publish from the phone shows the general ROBot image, not an agent card.
 - Support Pi and Muse agents on hosts with Team API v7.
 - Add provider session settings and reset on hosts that support this feature.
 - Choose which agent memories enter every prompt on updated hosts. Keep other memories saved for search, and let the agent manage the selection when needed.
 - Polish interface. Choose Polski in Settings > App language, or keep System default on an iPhone
   that uses Polish.
 - Write and send messages while your server is offline. Waiting messages are drawn lighter, one line under them says they send when the server is online, and you touch and hold a message to edit it or not send it. They send on their own when the server is back. The phone keeps waiting messages and their files when you close the app.
-- Search finds the same kinds of results as the desktop search: agents, channels, messages, files and routines. It also finds the settings pages of the app and of the server. The filter button next to the search field shows one kind of result. Files show when the computer has the latest OpenOwnBot.
+- Search finds the same kinds of results as the desktop search: agents, channels, messages, files and routines. It also finds the settings pages of the app and of the server. The filter button next to the search field shows one kind of result. Files show when the computer has the latest ROBot.
 - A search result opens what it names. A message or a file opens the chat at its message. A channel opens the channel, a routine opens its settings, and a settings result opens its page.
 - Settings > Animations has "Animate search results". It turns off the blur when search results change.
 
@@ -416,7 +416,7 @@ the [root changelog](../../CHANGELOG.md).
 - The screen that creates an agent now has a soft glow in the color of the agent. When you select a different color, the glow and the avatar change to the new color smoothly.
 - Settings has no General page. Appearance, Animations, Language, Haptics, Live Activities and
   Privacy each have their own page. Hidden chats and deleted channels are on the Settings page.
-- Show what a hosted server gives at the top of the plans sheet: it runs OpenOwnBot 24/7 on an external
+- Show what a hosted server gives at the top of the plans sheet: it runs ROBot 24/7 on an external
   server, keeps agents and routines running when the computer is off, and needs no technical setup.
 - Like on desktop, consecutive messages between agents show as one line in the chat, such as "3 messages with 2 agents". Tap it to see each message.
 - A message to several agents shows their avatars and the number of agents. Tap it to see their names.
@@ -450,7 +450,7 @@ the [root changelog](../../CHANGELOG.md).
 - The agent's browser follows the light or dark appearance of the app.
 - Live Activity answer buttons show as one capsule each and share the full width.
 - The owner of a server can now remove it from the account in server settings, also when its computer is offline or gone. Before, an owner could not remove such a server. The removal applies to all members and all devices. Members lose access, and connected Slack, Discord, Telegram and webhook routes stop. If you add the server again, invite its members again and set up its connections again. Old webhook URLs do not work again.
-- Open a chat of an agent on a connected server that is not the active one, for example from a Live Activity, and OpenOwnBot now loads the messages, loads older messages and marks them read on the agent's own server. Before, it asked the active server.
+- Open a chat of an agent on a connected server that is not the active one, for example from a Live Activity, and ROBot now loads the messages, loads older messages and marks them read on the agent's own server. Before, it asked the active server.
 - Report failed browser Live View connections and input as failures instead of normal view termination. Release failed sessions so the view can be opened again.
 - Tasks card. The step in progress shows all its lines at each text size. Before, a larger text
   size cut off the bottom of the step, and the next step touched it.
@@ -462,7 +462,7 @@ the [root changelog](../../CHANGELOG.md).
 - A browser request in a chat stays visible, with the typed value, while Notification Center or another system overlay is open.
 - In Settings > Support, the recent log scrolls in its own box, so a long log does not make the page very long.
 - After 45 minutes on one server connection, and on each return to the app after that, the app asked the signalling service for new relay credentials many times a second, until the service closed the socket for a minute. A lost connection could not recover in that minute. The app now asks once every 45 minutes.
-- A remote connection that Signal refuses for a reason other than a rate limit, such as an invalid ticket, reconnects at once. Before, OpenOwnBot waited 60 seconds as if Signal had limited its rate.
+- A remote connection that Signal refuses for a reason other than a rate limit, such as an invalid ticket, reconnects at once. Before, ROBot waited 60 seconds as if Signal had limited its rate.
 - A server is usable sooner after you return to the app. Before, "Reconnecting" stayed until every chat that you had opened before had loaded again, one after another. Now it ends when the agents and the unread counts load, and the chats load after it, the open chat first.
 - After more than 30 seconds away, the app waited 3 seconds for a dead connection before it connected again. Now it repairs the connection at once, or replaces it at once when the server has already dropped it. After more than about 3 minutes away, it shows at once that it connects, instead of a server that looked online but did not answer.
 - On a return to the app, the selected server connects first, and your other servers follow when it is online.
@@ -479,7 +479,7 @@ the [root changelog](../../CHANGELOG.md).
 - Routines for a server. Touch and hold a server in the server list, then select Routines. The week view shows the runs of each day with the agents that do them. Swipe the days to change the week. Select Day in the header to see one day; today also shows the next runs. Select a run to open its routine.
 - Buy a cloud server from the iPhone app. Tap + in the server list, choose a plan, and pay on a secure Stripe page. The app shows the setup until the server is ready, and the server shows on your computer too.
 - Usage for a server. Touch and hold a server in the server list, then select Usage. The report shows the processed tokens and the estimated cost of all agents on the server, with the share of each agent. Select an agent in the list, or in the Agent row at the top, to see the usage of one agent.
-- Settings → Support. It shows how to get help: report a problem on GitHub or message us on X. It also shows a support log of recent app events, connection steps, requests and errors. Select Save log file to save the log or attach it to a message. The log stays on your phone and OpenOwnBot never sends it. It does not record messages or files, and it masks passwords and tokens. Select Clear log to remove it.
+- Settings → Support. It shows how to get help: report a problem on GitHub or message us on X. It also shows a support log of recent app events, connection steps, requests and errors. Select Save log file to save the log or attach it to a message. The log stays on your phone and ROBot never sends it. It does not record messages or files, and it masks passwords and tokens. Select Clear log to remove it.
 - Cursor and Cline agents on a server now show in the app. Before, the server kept them hidden.
 - HTML pages and Mermaid diagrams in a reply. A code block marked `html` or `mermaid` shows as a
   card with a header and a small picture of the page or the diagram. Tap the card to open it on its
@@ -494,7 +494,7 @@ the [root changelog](../../CHANGELOG.md).
 - A routine run in a chat shows as one short line with the routine name and its state. The chat no
   longer shows the routine instruction as your message.
 - The routine schedule is easier to set. Select how often it repeats (hourly, daily, weekly, monthly or yearly), then the days and the time, as on desktop. A cron expression is now the last choice, for advanced schedules only.
-- The OpenOwnBot logo no longer turns when you turn your phone, and the app no longer uses motion access.
+- The ROBot logo no longer turns when you turn your phone, and the app no longer uses motion access.
 - Settings → About shows the build number after the version, such as "1.1.0 (17)".
 - The agent Usage page has a clearer period control. Select 7 days, 30 days, 90 days, 1 year or Custom. For Custom, set the start and end dates with the date pickers. The report changes at once. The daily chart is now the chart of the desktop app: one area for each provider, in its color, with the values on a grid. Touch or drag across the chart to see a day, with the value of each provider under it. When you change the period or the agent, the report stays on screen and its numbers and chart move to the new values.
 - On Android, the app no longer asks for access to all photos and videos. You still choose photos and files with the system picker, and you can still save images from a chat.
@@ -590,10 +590,10 @@ the [root changelog](../../CHANGELOG.md).
 - When you open a hosted server that stopped after it was not in use, the app starts it again and connects when it is ready.
 - The Lock Screen and the Dynamic Island show what your agents do, as the desktop Dynamic Island
   does: work, new replies, questions, approvals, browser steps, and failed tasks. You can answer an
-  approval or a short question from the Lock Screen. OpenOwnBot asks again before it approves a command.
+  approval or a short question from the Lock Screen. ROBot asks again before it approves a command.
   When several agents have new replies, the activity lists them. Settings > General > Live Activities
-  turns this off. When iOS stops OpenOwnBot in the background, the host keeps the activity current
-  through Apple. The update is encrypted for your phone, so Apple and OpenOwnBot cannot read it.
+  turns this off. When iOS stops ROBot in the background, the host keeps the activity current
+  through Apple. The update is encrypted for your phone, so Apple and ROBot cannot read it.
 
 ### Changed
 

@@ -334,7 +334,7 @@ function parseFlow(slug: string, value: unknown, transport: unknown): PluginAuth
     throw new Error(`Plugin ${slug} has an invalid auth flow.`);
   }
   if (value.kind === "link") {
-    // OpenOwnBot holds the OAuth client itself and adds the header at hand-off, which it can only do
+    // ROBot holds the OAuth client itself and adds the header at hand-off, which it can only do
     // for an http server. A stdio listing asking for a sign-in would be asking for a bridge program.
     if (transport !== "http") throw new Error(`Plugin ${slug} sign-in needs an http server.`);
     return { id: value.id, kind: "link", label: value.label };

@@ -26,7 +26,7 @@ function linuxDesktopEntry(appImagePath: string, iconPath: string): string {
   return `${[
     "[Desktop Entry]",
     "Type=Application",
-    "Name=OpenOwnBot",
+    "Name=ROBot",
     "Comment=A local-first multi-agent desktop workspace.",
     `Exec=${quoteExecutable(appImagePath)} %U`,
     `Icon=${iconPath}`,
@@ -87,7 +87,7 @@ export const installLinuxDesktopEntry = Effect.fn("LinuxDesktopEntry.install")(f
  * that can disappear is still better than no invitation links at all.
  *
  * An AppImage mounts its resources in a temporary directory that the runtime removes when the app
- * exits, so an entry that points there loses its icon as soon as OpenOwnBot is not running. The entry
+ * exits, so an entry that points there loses its icon as soon as ROBot is not running. The entry
  * names the copy by absolute path, which the desktop entry specification allows, rather than by
  * icon theme name: one loose file under the data home is not a theme.
  */

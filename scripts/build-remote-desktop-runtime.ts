@@ -124,7 +124,7 @@ try {
   await Promise.all([
     cp(join(sunshineSource, "LICENSE"), join(licenses, "Sunshine-GPL-3.0.txt")),
     cp(join(moonlightSource, "LICENSE"), join(licenses, "moonlight-web-stream-GPL-3.0.txt")),
-    // The copies the runtime now carries are OpenOwnBot's to redistribute, so their notices ship with
+    // The copies the runtime now carries are ROBot's to redistribute, so their notices ship with
     // them. Taken from the tree that was linked against, so the notice is the one for the binary in
     // the archive rather than whatever the formula says today.
     ...(platform === "linux" ? linuxLibraryLicenses(bundledLibraries) : bundledLibraryLicenses(bundledLibraries)).map(
@@ -191,7 +191,7 @@ async function packageCorrespondingSource(
   );
   await writeFile(
     join(sourceOutput, "README.txt"),
-    "These archives are the corresponding source used to build the bundled GPL-3.0 Sunshine and Moonlight Web programs. Both archives already contain the OpenOwnBot changes. The separate patches show those changes against the pinned upstream versions.\n",
+    "These archives are the corresponding source used to build the bundled GPL-3.0 Sunshine and Moonlight Web programs. Both archives already contain the ROBot changes. The separate patches show those changes against the pinned upstream versions.\n",
   );
 }
 
@@ -362,7 +362,7 @@ async function prepareOpenOwnBotSource(
   }
 
   if (runtime.overrides.length > 0) {
-    throw new Error(`The OpenOwnBot fork must include its overrides: ${runtime.repository}.`);
+    throw new Error(`The ROBot fork must include its overrides: ${runtime.repository}.`);
   }
 }
 

@@ -282,7 +282,7 @@ describe("guardOpenOwnBotEgress", () => {
 });
 
 describe("guardSession", () => {
-  it("cancels a request to an OpenOwnBot service and reports the origin without the path", async () => {
+  it("cancels a request to a ROBot service and reports the origin without the path", async () => {
     const { guard } = await guardWithSwitch(true);
     const fake = new FakeSession();
     const reported: string[] = [];
@@ -309,7 +309,7 @@ describe("guardSession", () => {
 });
 
 describe("installLocalOnlyGuard", () => {
-  it("refuses an OpenOwnBot fetch and WebSocket in this process and passes others to the originals", async () => {
+  it("refuses a ROBot fetch and WebSocket in this process and passes others to the originals", async () => {
     const fetched: string[] = [];
     vi.stubGlobal("fetch", async (input: string | URL | Request) => {
       fetched.push(String(input));

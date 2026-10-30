@@ -1,7 +1,7 @@
 import type { OpenOwnBotDesktopApi } from "@robot/contracts/ipc";
 
 /**
- * What the account context reaches in main: the OpenOwnBot account session, its devices, and the
+ * What the account context reaches in main: the ROBot account session, its devices, and the
  * usage the page rail and the Usage page show.
  */
 export interface AccountPort {

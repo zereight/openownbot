@@ -1,27 +1,27 @@
 #!/bin/bash
 # openownbot.service runs this as the sandbox user. It waits for the env file that openownbot-hosted-env
 # writes, starts a D-Bus session with an unlocked keyring so that Electron `safeStorage` can keep
-# the account session, and runs OpenOwnBot on a virtual display. The agents work on the boat desktop.
+# the account session, and runs ROBot on a virtual display. The agents work on the boat desktop.
 #
 # On a self-hosted server (`mode` is `self`, which openownbot-server-setup writes) there is no claim and
-# no boat desktop: OpenOwnBot starts with `OPENOWNBOT_SERVER=1` on a virtual display, the agents work on a
+# no boat desktop: ROBot starts with `OPENOWNBOT_SERVER=1` on a virtual display, the agents work on a
 # second one, and its owner signs it in with `openownbot login`.
 set -euo pipefail
 umask 077
 
 # ExecStop of openownbot.service. The unit also holds the virtual displays, and its stop signal goes to
-# each of its processes at the same time. An Xvfb that stops first ends OpenOwnBot before it closes its
-# database. So this gives the signal to OpenOwnBot only and waits for it; the unit then stops the rest.
+# each of its processes at the same time. An Xvfb that stops first ends ROBot before it closes its
+# database. So this gives the signal to ROBot only and waits for it; the unit then stops the rest.
 if [ "${1:-}" = --stop ]; then
   pid=$(cat "$XDG_RUNTIME_DIR/openownbot.pid" 2>/dev/null) || exit 0
-  [[ $pid =~ ^[1-9][0-9]*$ && /proc/$pid/exe -ef /opt/OpenOwnBot/app/openownbot ]] || exit 0
+  [[ $pid =~ ^[1-9][0-9]*$ && /proc/$pid/exe -ef /opt/ROBot/app/openownbot ]] || exit 0
   kill -TERM "$pid" 2>/dev/null || exit 0
   while [ -e "/proc/$pid" ]; do sleep 0.2; done
   exit 0
 fi
 state="$HOME/.config/openownbot-hosted"
 mode=hosted
-if [ -r /opt/OpenOwnBot/hosted/mode ] && [ "$(</opt/OpenOwnBot/hosted/mode)" = self ]; then mode=self; fi
+if [ -r /opt/ROBot/hosted/mode ] && [ "$(</opt/ROBot/hosted/mode)" = self ]; then mode=self; fi
 
 if [ "${1:-}" != --in-session ] && [ "$mode" = self ]; then
   mkdir -p "$state"
@@ -53,13 +53,13 @@ fi
 # A self-hosted server has this file only when its install named another account server or a
 # display size.
 requested_size=""
-if [ -r /opt/OpenOwnBot/hosted/openownbot.env ]; then
+if [ -r /opt/ROBot/hosted/openownbot.env ]; then
   while IFS='=' read -r key value || [ -n "$key" ]; do
     case $key in
       OPENOWNBOT_AUTH_API_URL) export "$key=$value" ;;
       OPENOWNBOT_DISPLAY_SIZE) requested_size=$value ;;
     esac
-  done </opt/OpenOwnBot/hosted/openownbot.env
+  done </opt/ROBot/hosted/openownbot.env
 fi
 
 # The size of the virtual display, which computer use reads: $1 as WIDTHxHEIGHT, else 1280x800. A
@@ -123,19 +123,19 @@ export GNOME_KEYRING_CONTROL
   done
 ) &
 
-# OpenOwnBot and the agents use two displays. OpenOwnBot shows its windows on one. The agents work on the
-# other, which OpenOwnBot names in OPENOWNBOT_AGENT_DISPLAY: main gives it to Computer Use, to remote
-# desktop and to the agent processes, so an agent's screenshot does not show the OpenOwnBot window.
+# ROBot and the agents use two displays. ROBot shows its windows on one. The agents work on the
+# other, which ROBot names in OPENOWNBOT_AGENT_DISPLAY: main gives it to Computer Use, to remote
+# desktop and to the agent processes, so an agent's screenshot does not show the ROBot window.
 #
 # The boat desktop is a lightdm session of this user on :0, with a window manager. It is the agent
-# display, and OpenOwnBot shows its windows on a virtual display. xvfb-run adds the key of that display
-# to ~/.Xauthority, which already has the key of :0, so OpenOwnBot and the processes it starts can open
+# display, and ROBot shows its windows on a virtual display. xvfb-run adds the key of that display
+# to ~/.Xauthority, which already has the key of :0, so ROBot and the processes it starts can open
 # both. lightdm keeps the other keys when it writes the file. After a resume, boat can start the
 # session after this service. A sandbox that has no desktop session uses two virtual displays.
 
-# OpenOwnBot writes its PID for `--stop` before it starts.
+# ROBot writes its PID for `--stop` before it starts.
 openownbot=(bash -c 'echo "$$" >"$XDG_RUNTIME_DIR/openownbot.pid" && exec "$@"' openownbot-hosted-server
-  /opt/OpenOwnBot/app/openownbot --password-store=gnome-libsecret)
+  /opt/ROBot/app/openownbot --password-store=gnome-libsecret)
 if [ "$mode" = hosted ]; then
   for _ in $(seq 1 60); do
     if DISPLAY=:0 XAUTHORITY="$HOME/.Xauthority" xdpyinfo >/dev/null 2>&1; then
@@ -144,10 +144,10 @@ if [ "$mode" = hosted ]; then
     fi
     sleep 2
   done
-  echo "The boat desktop session did not start. OpenOwnBot uses two virtual displays." >&2
+  echo "The boat desktop session did not start. ROBot uses two virtual displays." >&2
 fi
 
-# The outer xvfb-run starts the agent display, at the display size. The inner one starts the OpenOwnBot
+# The outer xvfb-run starts the agent display, at the display size. The inner one starts the ROBot
 # display and adds its key to the same authority file.
 exec xvfb-run -a -s "-screen 0 $(display_size "$requested_size")x24 -nolisten tcp" \
   bash -c 'export OPENOWNBOT_AGENT_DISPLAY=$DISPLAY; exec xvfb-run -a -f "$XAUTHORITY" -s "-screen 0 1280x800x24 -nolisten tcp" "$@"' \

@@ -11,16 +11,16 @@ export class LoginItemFailure extends Schema.TaggedError<LoginItemFailure>()("Lo
   cause: Schema.Defect(),
 }) {}
 
-/** Whether the operating system opens OpenOwnBot when the user signs in. The system holds the value. */
+/** Whether the operating system opens ROBot when the user signs in. The system holds the value. */
 export interface LoginItem {
   read: () => Effect.Effect<boolean, LoginItemFailure>;
   write: (enabled: boolean) => Effect.Effect<void, LoginItemFailure>;
-  /** Points an existing item at the running copy of OpenOwnBot. Called once at start. */
+  /** Points an existing item at the running copy of ROBot. Called once at start. */
   refresh: () => Effect.Effect<void, LoginItemFailure>;
 }
 
 /**
- * Null where OpenOwnBot must not open itself at login: a development run would register the Electron
+ * Null where ROBot must not open itself at login: a development run would register the Electron
  * binary with no app, and a server starts from its own service unit.
  */
 export function createLoginItem(options: { appVariant: AppVariant; server: boolean }): LoginItem | null {

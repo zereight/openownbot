@@ -1,6 +1,6 @@
 # Local scripts API
 
-A script on the computer that runs OpenOwnBot can send an agent a message, wait for its answer, run a
+A script on the computer that runs ROBot can send an agent a message, wait for its answer, run a
 routine, read pending questions and approvals, submit responses, change the agent's model or
 provider account, and start a new chat with the agent. Enable **Local scripts** for each agent that the integration needs. Use this API
 for a local Slack bridge, to report a build result, or to give an agent a task from a terminal.
@@ -12,20 +12,20 @@ long-job; curl -sS -X POST "$(cat "$OPENOWNBOT_AUTOMATION/url")/v1/agents/<agent
   -d '{"payload":"long-job ended with code 0"}'
 ```
 
-`$OPENOWNBOT_AUTOMATION` is not set by OpenOwnBot. It stands for the folder below.
+`$OPENOWNBOT_AUTOMATION` is not set by ROBot. It stands for the folder below.
 
 ## Command line
 
 `openownbot-cli` uses this API, so you do not write the requests yourself. It needs Node 18 or later.
-OpenOwnBot puts it in its resources folder:
+ROBot puts it in its resources folder:
 
-- macOS: `/Applications/OpenOwnBot.app/Contents/Resources/cli/openownbot-cli.mjs`
+- macOS: `/Applications/ROBot.app/Contents/Resources/cli/openownbot-cli.mjs`
 - Linux: `resources/cli/openownbot-cli.mjs` in the install folder (for an AppImage, copy it out of the image)
 - Windows: `resources\cli\openownbot-cli.mjs` in the install folder. The default folder is
-  `%LOCALAPPDATA%\Programs\OpenOwnBot`.
+  `%LOCALAPPDATA%\Programs\ROBot`.
 
 ```sh
-alias openownbot-cli='node "/Applications/OpenOwnBot.app/Contents/Resources/cli/openownbot-cli.mjs"'
+alias openownbot-cli='node "/Applications/ROBot.app/Contents/Resources/cli/openownbot-cli.mjs"'
 openownbot-cli list                                    # the agents with Local scripts on
 openownbot-cli run "Ada" "Run the tests and tell me what failed" --wait
 openownbot-cli run "Ada" - --wait --json < task.md     # the task from standard input, one JSON answer
@@ -44,14 +44,14 @@ With `--json`, the output is one JSON object, also for a failure (`{ "ok": false
 | Exit code | Meaning |
 | --- | --- |
 | 0 | Done. For `run --wait`, the turn completed. |
-| 1 | The turn failed, was stopped or was cancelled, OpenOwnBot refused the request, or the delivery is unknown. |
+| 1 | The turn failed, was stopped or was cancelled, ROBot refused the request, or the delivery is unknown. |
 | 2 | The command line is wrong, or two agents have the name. |
-| 3 | The agent waits for a person: a question, an approval or a browser takeover, also of an earlier turn that this task waits behind. Answer it in OpenOwnBot or through the routes below, then use `status`. |
+| 3 | The agent waits for a person: a question, an approval or a browser takeover, also of an earlier turn that this task waits behind. Answer it in ROBot or through the routes below, then use `status`. |
 | 4 | The wait timed out. The agent continues. |
-| 5 | OpenOwnBot is not running, no agent has Local scripts on, or the agent was not found. |
+| 5 | ROBot is not running, no agent has Local scripts on, or the agent was not found. |
 
 The command reads the files below each time and sends the token only in a request header. When
-OpenOwnBot restarts during a wait, the command reads the new files and continues the wait.
+ROBot restarts during a wait, the command reads the new files and continues the wait.
 Set `OPENOWNBOT_AUTOMATION_DIR` to use another folder, for example the one of a development profile.
 
 ## Turn it on
@@ -63,10 +63,10 @@ An agent cannot turn it on for itself or for a teammate.
 
 For a headless host, connect as its owner or administrator and turn on the setting there. The
 listener and the files below are on the host. Run the script on that host, as the OS user that
-runs OpenOwnBot. No local screen is necessary. Turn the same setting off to remove access for that agent.
+runs ROBot. No local screen is necessary. Turn the same setting off to remove access for that agent.
 
 The setting also permits scripts to answer questions and accept or decline approvals. Browser
-takeovers and secret questions must be completed in OpenOwnBot.
+takeovers and secret questions must be completed in ROBot.
 Agents that already have Local scripts enabled get these operations after upgrade. No new opt-in
 is needed. Older clients can still change this setting, although their text can describe routines only.
 
@@ -77,7 +77,7 @@ so it can start a long command in the background and ask to be woken when it end
 
 ## Files
 
-While at least one agent allows local scripts, OpenOwnBot listens on `127.0.0.1` on a free port and
+While at least one agent allows local scripts, ROBot listens on `127.0.0.1` on a free port and
 writes three files in `<userData>/automation/`:
 
 | File | Contents |
@@ -86,16 +86,16 @@ writes three files in `<userData>/automation/`:
 | `token` | The bearer token |
 | `headers` | `Authorization: Bearer <token>`, for `curl -H @headers` |
 
-The folder is `0700` and the files are `0600`, so only the same OS user can read them. OpenOwnBot
+The folder is `0700` and the files are `0600`, so only the same OS user can read them. ROBot
 makes a new token and a new port at each start. A command reads the files when it runs, so a
 command that you copied before a restart still works. When the last agent turns the setting off, or
-OpenOwnBot quits, OpenOwnBot stops listening and deletes the files.
+ROBot quits, ROBot stops listening and deletes the files.
 
-`<userData>` is the OpenOwnBot application data folder:
+`<userData>` is the ROBot application data folder:
 
 - macOS: `~/Library/Application Support/OpenBot`
-- Linux: `~/.config/OpenOwnBot`
-- Windows: `%APPDATA%\OpenOwnBot`
+- Linux: `~/.config/ROBot`
+- Windows: `%APPDATA%\ROBot`
 
 ## Routes
 
@@ -182,7 +182,7 @@ valid values. A change of provider or account waits until the agent is idle: whi
 answer is `409` with the reason. A
 successful response is `200` with `id`, `name`, `provider`, `model`, `reasoningEffort` and
 `providerAccountId`. Other fields, such as the name, permissions or Local scripts, give `400`: change
-them in OpenOwnBot.
+them in ROBot.
 
 ### `POST /v1/agents/:agentId/context/clear`
 
@@ -217,7 +217,7 @@ An approval has `requestId`, `agentId`, `threadId`, `turnId`, `kind`, `command`,
 secret-redacted. A browser takeover has only `requestId` and `requiresOpenOwnBot: true`.
 A secret question, or a question whose IDs or choice labels need redaction, has
 `requiresOpenOwnBot: true` and an empty `questions` array.
-Direct the person to the agent in OpenOwnBot for these requests.
+Direct the person to the agent in ROBot for these requests.
 
 Request IDs are opaque. Keep them unchanged. They identify one pending request and expire when
 it ends, even if the provider reuses its own ID. They do not survive a host restart.
@@ -246,8 +246,8 @@ changes and new chats do not use that limit. Routine runs have no retry key; ret
 
 ```powershell
 Invoke-RestMethod -Method Post `
-  -Uri ((Get-Content -Raw "$env:APPDATA\OpenOwnBot\automation\url").Trim() + '/v1/agents/<agentId>/routines/<routineId>/run') `
-  -Headers @{ Authorization = 'Bearer ' + (Get-Content -Raw "$env:APPDATA\OpenOwnBot\automation\token").Trim() } `
+  -Uri ((Get-Content -Raw "$env:APPDATA\ROBot\automation\url").Trim() + '/v1/agents/<agentId>/routines/<routineId>/run') `
+  -Headers @{ Authorization = 'Bearer ' + (Get-Content -Raw "$env:APPDATA\ROBot\automation\token").Trim() } `
   -ContentType 'application/json' -Body '{"payload":"long-job ended"}'
 ```
 
@@ -255,13 +255,13 @@ Invoke-RestMethod -Method Post `
 
 - The listener binds only `127.0.0.1`. Other computers cannot reach it.
 - A request with an `Origin` header, or with a `Host` other than `127.0.0.1:<port>`, gets 403 before
-  OpenOwnBot reads the token. A web page cannot use it through DNS rebinding.
-- The token is a secret: OpenOwnBot redacts it from logs and never puts it in a prompt. The agent gets
+  ROBot reads the token. A web page cannot use it through DNS rebinding.
+- The token is a secret: ROBot redacts it from logs and never puts it in a prompt. The agent gets
   only the file paths.
 - Do not put the token in a command's arguments, for example with `-H "Authorization: Bearer
   $(cat token)"`. On Linux, other users can read the arguments of a running process. Use
   `-H @headers`.
-- OpenOwnBot logs the agent and the routine of each run, never the payload.
+- ROBot logs the agent and the routine of each run, never the payload.
 - A process that runs as the same OS user can read the token. Turn the setting on only for agents
   that you want such processes to message and control, including approval decisions, the
   agent's model and provider account, and a new chat. A script cannot change the agent's permissions or turn Local

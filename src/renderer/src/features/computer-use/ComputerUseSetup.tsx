@@ -41,7 +41,7 @@ export interface ComputerUseSetupProps {
 
 /**
  * How each grant is described. Which of them apply is the driver's answer, never this table: only
- * macOS puts a permission between OpenOwnBot and the desktop, and a row shown elsewhere would name a
+ * macOS puts a permission between ROBot and the desktop, and a row shown elsewhere would name a
  * setting the user cannot find.
  */
 const PERMISSION_DETAILS: Record<
@@ -102,7 +102,7 @@ export function ComputerUseSetup(props: ComputerUseSetupProps) {
   }
 
   // A grant is given in System Settings, outside this window, and the driver reports only what it
-  // sees when it is asked. Coming back to OpenOwnBot is the moment the answer may have changed, so the
+  // sees when it is asked. Coming back to ROBot is the moment the answer may have changed, so the
   // panel asks again rather than keeping a row that is granted already.
   const recheckOnReturn = () => {
     if (showPermissions()) void loadState();
@@ -177,7 +177,7 @@ export function ComputerUseSetup(props: ComputerUseSetupProps) {
       </Show>
 
       {/*
-       * One alert for every fault, the missing driver included. OpenOwnBot carries the driver, so a
+       * One alert for every fault, the missing driver included. ROBot carries the driver, so a
        * build without one is a fault of that build and not a thing the user installs by hand; the
        * panel therefore names no command and offers the same way back as the rest.
        */}

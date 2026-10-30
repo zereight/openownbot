@@ -38,7 +38,7 @@ function changelogUrl(version: string): string {
 function announcementMessage(highlights: readonly unknown[], version: string, roleId?: string): string {
   return [
     roleId === undefined ? "@Release Pings" : `<@&${roleId}>`,
-    `**OpenOwnBot v${version} is out**`,
+    `**ROBot v${version} is out**`,
     "",
     ...highlights.map((highlight) => `- ${String(highlight).trim()}`),
     "",
@@ -59,7 +59,7 @@ if (import.meta.main) {
   if (problems.length > 0) {
     process.stderr.write(
       [
-        `The Discord announcement for OpenOwnBot ${version} is not ready:`,
+        `The Discord announcement for ROBot ${version} is not ready:`,
         ...problems.map((problem) => `- ${problem}`),
         "",
         `See ${DOCS}.`,

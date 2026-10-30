@@ -17,8 +17,8 @@ import { ProviderRuntimeFailure, runtimeIO, runtimeSync } from "./provider-runti
 /**
  * The latest release of each provider CLI, read from the source that publishes it.
  *
- * OpenOwnBot used to install only the version `native-runtime.lock.json` pinned, so a new CLI reached
- * users with the next OpenOwnBot release. Providers ship faster than that, so the update offer now
+ * ROBot used to install only the version `native-runtime.lock.json` pinned, so a new CLI reached
+ * users with the next ROBot release. Providers ship faster than that, so the update offer now
  * follows upstream. The lock still names the version a first install uses when no source answers.
  *
  * Every download keeps a hash from its source: GitHub's asset `digest` for Codex and npm's
@@ -36,9 +36,9 @@ export interface LatestReleaseContext {
 }
 
 /**
- * Versions the OpenOwnBot repository asks every installation not to offer.
+ * Versions the ROBot repository asks every installation not to offer.
  *
- * This is the one way to stop a broken upstream release without shipping an OpenOwnBot release. It is a
+ * This is the one way to stop a broken upstream release without shipping a ROBot release. It is a
  * block list, not an allow list: a new release is offered at once, and only a version named here is
  * held back. A list that cannot be read blocks nothing.
  */
@@ -54,7 +54,7 @@ const VERSION = /^\d+\.\d+\.\d+$/u;
  */
 const CURSOR_DATE = /^\d{4}\.\d{2}\.\d{2}$/u;
 const CURSOR_BUILD = /^\d{4}\.\d{2}\.\d{2}(?:-\d{2}-\d{2}-\d{2})?-[0-9a-f]{7,40}$/u;
-const HEADERS = { "User-Agent": "OpenOwnBot-runtime-installer" };
+const HEADERS = { "User-Agent": "ROBot-runtime-installer" };
 
 export type BlockedVersions = ReadonlyMap<ManagedProviderId, ReadonlySet<string>>;
 

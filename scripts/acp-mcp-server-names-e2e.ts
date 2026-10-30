@@ -2,7 +2,7 @@
 // character outside `[A-Za-z0-9_-]`, as Antigravity does. A server the user named "My Server" made
 // every Gemini task fail with `invalid params` (#2801). The session must start with each name changed
 // to that form. A changed name that another server has (`computer use` and Computer Use's
-// `computer_use`), one that becomes a name of OpenOwnBot's own tools, and the second of two that become
+// `computer_use`), one that becomes a name of ROBot's own tools, and the second of two that become
 // the same name are reported as drops.
 // `bun run test:acp-mcp-names`. Writes .openownbot-build/acp-mcp-server-names-e2e/report.json.
 import assert from "node:assert/strict";

@@ -6,7 +6,7 @@ const { mergeContents } = require("@expo/config-plugins/build/utils/generateCode
 // Applies expo-sharing, which adds the iOS share extension and the Android share intents, with the
 // options from app.json. Then it changes two files that expo-sharing copies into the extension:
 // - Info.plist sets the display name to the target name, `expo-sharing-extension`. The iOS share
-//   sheet shows that name under the OpenOwnBot icon, so the extension gets the app's name.
+//   sheet shows that name under the ROBot icon, so the extension gets the app's name.
 // - ShareIntoViewController.swift reads an item as a web link before it looks for an image. An image
 //   from a web page also carries its address, so Safari's "Share" on an image sent only the address.
 
