@@ -492,13 +492,16 @@ export function createBrowserStore(deps: BrowserStoreDeps) {
   }
 
   function activateBrowserTab(tabId: string) {
-    if (
-      !browserInteractionAvailable() ||
-      closingBrowserTabIds.has(tabId) ||
-      !browserTabs().some((tab) => tab.id === tabId)
-    ) {
-      return;
-    }
+    if (!browserInteractionAvailable()) return;
+    activateAvailableBrowserTab(tabId);
+  }
+
+  /**
+   * For a caller that already knows the browser is available, such as an effect callback. That callback
+   * has no owner, and `browserEnabled` can be a compiled memo that its first read creates.
+   */
+  function activateAvailableBrowserTab(tabId: string) {
+    if (closingBrowserTabIds.has(tabId) || !browserTabs().some((tab) => tab.id === tabId)) return;
     deps.props.onActivateBrowserTab(tabId);
   }
 
@@ -654,6 +657,7 @@ export function createBrowserStore(deps: BrowserStoreDeps) {
     openBrowserAddress,
     closeBrowserTab,
     activateBrowserTab,
+    activateAvailableBrowserTab,
     showBrowserTabOf,
     browserTabOwner,
     reloadBrowserTab,
