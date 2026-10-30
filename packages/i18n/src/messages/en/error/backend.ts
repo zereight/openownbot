@@ -210,6 +210,7 @@ export const messages = defineMessages("error.backend", {
     "OpenOwnBot could not read the sign-in information of this server. Check the server address and try again.",
   "error.backend.mcpServerExited":
     "The server stopped before it answered. Run the command in a terminal to see its error.",
+  "error.backend.mcpServerFailedToStart": "The server did not start: {reason}",
   "error.backend.mcpOAuthProxyUnavailable":
     "OpenOwnBot could not start its local sign-in connection for this server. Restart OpenOwnBot, then try again.",
   "error.backend.mcpOAuthSignInNeeded":

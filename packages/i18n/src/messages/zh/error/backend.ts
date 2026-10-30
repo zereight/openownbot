@@ -194,6 +194,7 @@ export const messages = {
   "error.backend.mcpSignInResponseTimedOut": "登录响应未及时返回。",
   "error.backend.mcpSignInMetadataUnreadable": "OpenOwnBot 无法读取该服务器的登录信息。请检查服务器地址后重试。",
   "error.backend.mcpServerExited": "服务器在响应之前就停止了。请在终端中运行该命令以查看错误。",
+  "error.backend.mcpServerFailedToStart": "服务器没有启动：{reason}",
   "error.backend.mcpOAuthProxyUnavailable":
     "OpenOwnBot 无法为这台服务器建立本地登录连接。请重启 OpenOwnBot 后再试一次。",
   "error.backend.mcpOAuthSignInNeeded": "该 MCP 服务器的登录已结束。用户需要在 OpenOwnBot 中重新登录。",
