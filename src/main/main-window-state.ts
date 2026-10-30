@@ -1,5 +1,5 @@
 import { readFile } from "node:fs/promises";
-import { isDynamicRecord, isNumber } from "@openownbot/contracts/runtime-values";
+import { isDynamicRecord, isNumber } from "@robot/contracts/runtime-values";
 import { Deferred, Effect } from "effect";
 import type { Rectangle } from "electron";
 import { writeJsonFileAtomically } from "../backend/atomic-json-file";

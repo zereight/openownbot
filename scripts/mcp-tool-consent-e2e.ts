@@ -7,7 +7,7 @@ import assert from "node:assert/strict";
 import { mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import { createServer } from "node:http";
 import { join, resolve } from "node:path";
-import type { AgentEvent, AgentPromptQuestion, ConversationSnapshot } from "@openownbot/contracts/ipc";
+import type { AgentEvent, AgentPromptQuestion, ConversationSnapshot } from "@robot/contracts/ipc";
 import { Effect } from "effect";
 import { AttentionRegistry } from "../src/backend/agent/attention-registry";
 import { CodexAppServerClient } from "../src/backend/app-server-client";

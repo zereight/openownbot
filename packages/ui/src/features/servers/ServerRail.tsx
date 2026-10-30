@@ -1,6 +1,6 @@
-import type { HostedServerSleep, ServerConnectionState, ServerSummary } from "@openownbot/contracts/ipc";
-import type { AppTextKey, AppTranslate } from "@openownbot/i18n";
-import { BellOff, buttonVariants, ContextMenu, ServerGradientLogo, Tooltip } from "@openownbot/ui";
+import type { HostedServerSleep, ServerConnectionState, ServerSummary } from "@robot/contracts/ipc";
+import type { AppTextKey, AppTranslate } from "@robot/i18n";
+import { BellOff, buttonVariants, ContextMenu, ServerGradientLogo, Tooltip } from "@robot/ui";
 import { createEffect, createSignal, createStore, For, onCleanup, Show } from "solid-js";
 import { createScrollFades } from "../../components/createScrollFades";
 import { createVerticalDragPreview } from "../../components/createVerticalDragPreview";

@@ -3,7 +3,7 @@ import {
   type BillingCurrency,
   type BillingSubscriptionStatus,
   isOpenBillingStatus,
-} from "@openownbot/contracts/billing";
+} from "@robot/contracts/billing";
 import {
   LICENSE_INCLUDED_USERS,
   LICENSE_LOOKUP_KEY,
@@ -16,9 +16,9 @@ import {
   type LicenseState,
   type LicenseUser,
   licenseAmount,
-} from "@openownbot/contracts/license";
-import { isOneOf } from "@openownbot/contracts/runtime-values";
-import { sourceText } from "@openownbot/i18n/source";
+} from "@robot/contracts/license";
+import { isOneOf } from "@robot/contracts/runtime-values";
+import { sourceText } from "@robot/i18n/source";
 import { Context, Effect, Layer } from "effect";
 import {
   type AccountAnalytics,

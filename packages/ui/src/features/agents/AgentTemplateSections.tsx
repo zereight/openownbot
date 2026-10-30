@@ -1,6 +1,6 @@
-import type { AgentTemplateSkill, MarketplaceAgentRoutine } from "@openownbot/contracts/ipc";
-import type { AppTranslate } from "@openownbot/i18n";
-import { Button, ChevronDown, ChevronRight, Text } from "@openownbot/ui";
+import type { AgentTemplateSkill, MarketplaceAgentRoutine } from "@robot/contracts/ipc";
+import type { AppTranslate } from "@robot/i18n";
+import { Button, ChevronDown, ChevronRight, Text } from "@robot/ui";
 import { createSignal, For, Show } from "solid-js";
 import { useText } from "../../text";
 import { MarkdownMessageText } from "../conversation/MarkdownMessageText";

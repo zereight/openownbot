@@ -1,4 +1,4 @@
-import type { ClientAgentSummary } from "@openownbot/contracts/ipc";
+import type { ClientAgentSummary } from "@robot/contracts/ipc";
 import {
   Alert,
   AlertContent,
@@ -14,7 +14,7 @@ import {
   ItemMedia,
   ItemTitle,
   SettingsSection,
-} from "@openownbot/ui";
+} from "@robot/ui";
 import { For, Show } from "solid-js";
 import { useText } from "../../text";
 import { AgentAvatar } from "../agents/AgentAvatar";

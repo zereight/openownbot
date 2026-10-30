@@ -1,5 +1,5 @@
-import type { AgentEvent, ServerSummary } from "@openownbot/contracts/ipc";
-import { agentEventCanNotify, agentEventNeedsUser } from "@openownbot/team-client/agent-notifications";
+import type { AgentEvent, ServerSummary } from "@robot/contracts/ipc";
+import { agentEventCanNotify, agentEventNeedsUser } from "@robot/team-client/agent-notifications";
 import { Effect } from "effect";
 import type { Notification } from "electron";
 import type { NotificationPreferenceStore } from "./notification-preference-store";

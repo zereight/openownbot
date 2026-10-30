@@ -21,8 +21,8 @@ export default defineConfig(({ command }) => {
     resolve: {
       dedupe: ["solid-js", "@solidjs/web", "@solidjs/signals"],
       alias: {
-        "@openownbot/renderer-preview": rendererPreviewAlias,
-        "@openownbot/renderer-web": rendererWebAlias,
+        "@robot/renderer-preview": rendererPreviewAlias,
+        "@robot/renderer-web": rendererWebAlias,
       },
     },
     // Vite removes license comments by default. The home page beam's license requires its notice

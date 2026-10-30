@@ -1,4 +1,4 @@
-import { resolveMobileFeatures } from "@openownbot/contracts/mobile-features";
+import { resolveMobileFeatures } from "@robot/contracts/mobile-features";
 import { createFileRoute } from "@tanstack/solid-router";
 import { MOBILE_FEATURE_CONFIG } from "../../../server/mobile-features-config";
 import { json } from "../../../server/request-auth";

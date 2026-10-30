@@ -1,4 +1,4 @@
-import { Button, IconButton, RadialProgress, X } from "@openownbot/ui";
+import { Button, IconButton, RadialProgress, X } from "@robot/ui";
 import { Show } from "solid-js";
 import { useText } from "../../text";
 

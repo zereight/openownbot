@@ -1,22 +1,22 @@
-import { isKnownAgentProvider, providerDisplayName } from "@openownbot/contracts/agent-providers";
+import { isKnownAgentProvider, providerDisplayName } from "@robot/contracts/agent-providers";
 import {
   type FileQuoteTarget,
   fileQuoteId,
   fileQuoteTarget,
   limitedQuoteText,
-} from "@openownbot/contracts/chat-tag-references";
+} from "@robot/contracts/chat-tag-references";
 import {
   customProviderOfModel,
   type McpSignInRelayPage,
   relayableSignInLink,
   type UpdateAgentInput,
-} from "@openownbot/contracts/ipc";
-import { toast } from "@openownbot/ui";
-import type { QuestionPromptComposerAnswer } from "@openownbot/ui/components/QuestionPromptBubble";
-import type { QuoteRequest } from "@openownbot/ui/features/conversation/ComposerEditor";
-import { currentText } from "@openownbot/ui/text";
-import { usesTouchLayout } from "@openownbot/ui/utils";
-import { errorReference } from "@openownbot/user-errors";
+} from "@robot/contracts/ipc";
+import { toast } from "@robot/ui";
+import type { QuestionPromptComposerAnswer } from "@robot/ui/components/QuestionPromptBubble";
+import type { QuoteRequest } from "@robot/ui/features/conversation/ComposerEditor";
+import { currentText } from "@robot/ui/text";
+import { usesTouchLayout } from "@robot/ui/utils";
+import { errorReference } from "@robot/user-errors";
 import {
   createContext,
   createEffect,

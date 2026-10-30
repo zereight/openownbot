@@ -10,7 +10,7 @@
  * and shows when the user hid it in place of the last message.
  */
 
-import { AppWindow, Badge, buttonVariants, Clock3, ContextMenu, Lock } from "@openownbot/ui";
+import { AppWindow, Badge, buttonVariants, Clock3, ContextMenu, Lock } from "@robot/ui";
 import type { JSX } from "@solidjs/web";
 import { createSignal, Show } from "solid-js";
 import type { AgentProfile } from "../../data";

@@ -19,18 +19,18 @@ export const AgentUsagePanel = lazy(() =>
   import("./features/usage/AgentUsagePanel").then((module) => ({ default: module.AgentUsagePanel })),
 );
 export const AccountLogin = lazy(() =>
-  import("@openownbot/ui/features/account/AccountLogin").then((module) => ({ default: module.AccountLogin })),
+  import("@robot/ui/features/account/AccountLogin").then((module) => ({ default: module.AccountLogin })),
 );
 export const DirectConversation = lazy(() =>
-  import("@openownbot/ui/features/conversation/DirectConversation").then((module) => ({
+  import("@robot/ui/features/conversation/DirectConversation").then((module) => ({
     default: module.DirectConversation,
   })),
 );
 export const GlobalSearch = lazy(() =>
-  import("@openownbot/ui/components/GlobalSearch").then((module) => ({ default: module.GlobalSearch })),
+  import("@robot/ui/components/GlobalSearch").then((module) => ({ default: module.GlobalSearch })),
 );
 export const AddServerDialog = lazy(() =>
-  import("@openownbot/ui/features/servers/AddServerDialog").then((module) => ({ default: module.AddServerDialog })),
+  import("@robot/ui/features/servers/AddServerDialog").then((module) => ({ default: module.AddServerDialog })),
 );
 export const FirstRunFlow = lazy(() =>
   import("./features/onboarding/FirstRunFlow").then((module) => ({ default: module.FirstRunFlow })),
@@ -39,7 +39,7 @@ export const LanguageStep = lazy(() =>
   import("./features/onboarding/LanguageStep").then((module) => ({ default: module.LanguageStep })),
 );
 export const RemoteDesktopWorkspace = lazy(() =>
-  import("@openownbot/ui/features/remote-desktop/RemoteDesktopWorkspace").then((module) => ({
+  import("@robot/ui/features/remote-desktop/RemoteDesktopWorkspace").then((module) => ({
     default: module.RemoteDesktopWorkspace,
   })),
 );

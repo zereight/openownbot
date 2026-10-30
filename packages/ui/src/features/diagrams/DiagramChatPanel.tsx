@@ -19,7 +19,7 @@ import {
   SelectTrigger,
   SelectValue,
   Spinner,
-} from "@openownbot/ui";
+} from "@robot/ui";
 import type { JSX } from "@solidjs/web";
 import { createEffect, createSignal, For, Show } from "solid-js";
 import type { AvatarMood } from "../../bloub-avatar";

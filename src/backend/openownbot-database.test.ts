@@ -4,17 +4,17 @@ import { mkdtemp, rm, stat, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { DatabaseSync } from "node:sqlite";
-import { sortConversationMessages } from "@openownbot/contracts/conversation-order";
-import type { AgentSummary, ConversationMessage, ConversationSnapshot } from "@openownbot/contracts/ipc";
+import { sortConversationMessages } from "@robot/contracts/conversation-order";
+import type { AgentSummary, ConversationMessage, ConversationSnapshot } from "@robot/contracts/ipc";
 import {
   hostedSiteConversationEventItemType,
   hostedSiteConversationEventText,
   ROUTINE_QUIET_ANSWER_ITEM_TYPE,
   routineConversationEventItemType,
   routineRunConversationEventItemType,
-} from "@openownbot/contracts/ipc";
-import { isDynamicRecord, isNumber, isString } from "@openownbot/contracts/runtime-values";
-import { sourceText } from "@openownbot/i18n/source";
+} from "@robot/contracts/ipc";
+import { isDynamicRecord, isNumber, isString } from "@robot/contracts/runtime-values";
+import { sourceText } from "@robot/i18n/source";
 import { afterEach, assert, describe, expect, it } from "vitest";
 import { ConversationReadStore } from "./conversation-read-store";
 import { runCauseEffect } from "./effect-boundary";

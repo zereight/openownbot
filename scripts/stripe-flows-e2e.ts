@@ -30,14 +30,14 @@ import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { setTimeout as sleep } from "node:timers/promises";
 import { fileURLToPath } from "node:url";
-import { BILLING_CURRENCIES, type BillingPortalRequest } from "@openownbot/contracts/billing";
+import { BILLING_CURRENCIES, type BillingPortalRequest } from "@robot/contracts/billing";
 import {
   LICENSE_PRICES,
   type LicenseCheckoutRequest,
   type LicenseRenewalRequest,
   type LicenseUsersRequest,
   licenseAmount,
-} from "@openownbot/contracts/license";
+} from "@robot/contracts/license";
 import { type Browser, chromium } from "playwright-core";
 import { z } from "zod";
 import { STRIPE_API_VERSION } from "../apps/auth-api/src/server/stripe-client";

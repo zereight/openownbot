@@ -10,8 +10,8 @@ import type {
   RoutineResultDestination,
   RoutineRunFields,
   RoutineSchedule,
-} from "@openownbot/contracts/ipc";
-import type { EventRoutine, EventRoutineOwner, EventRoutineTriggerInput } from "@openownbot/contracts/ipc-events";
+} from "@robot/contracts/ipc";
+import type { EventRoutine, EventRoutineOwner, EventRoutineTriggerInput } from "@robot/contracts/ipc-events";
 import type { EventRoutinesApi, RoutineWebhooksApi } from "./routine-webhooks-api";
 
 interface RoutineSaveInput {

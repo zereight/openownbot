@@ -7,10 +7,10 @@ import {
 } from "node:http";
 import { createRequire } from "node:module";
 import { dirname, join } from "node:path";
-import { isString } from "@openownbot/contracts/runtime-values";
-import { TEAM_API_ROUTES } from "@openownbot/contracts/team-api-routes";
-import { browserViewStreamSessionId } from "@openownbot/contracts/team-protocol/browser-view-v1";
-import { sourceText } from "@openownbot/i18n/source";
+import { isString } from "@robot/contracts/runtime-values";
+import { TEAM_API_ROUTES } from "@robot/contracts/team-api-routes";
+import { browserViewStreamSessionId } from "@robot/contracts/team-protocol/browser-view-v1";
+import { sourceText } from "@robot/i18n/source";
 import { Deferred, Effect, Semaphore } from "effect";
 import type * as Ws from "ws";
 import { readBodyWithin } from "./http-body";

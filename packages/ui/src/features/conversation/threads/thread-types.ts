@@ -1,4 +1,4 @@
-import type { SidebarWaitReason } from "@openownbot/ui/features/sidebar/sidebar-types";
+import type { SidebarWaitReason } from "@robot/ui/features/sidebar/sidebar-types";
 
 /** What the agent does in a thread, as a sidebar row shows it for the agent. */
 export type ThreadStatus =

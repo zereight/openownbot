@@ -1,4 +1,4 @@
-import { type DynamicRecord, isDynamicRecord } from "@openownbot/contracts/runtime-values";
+import { type DynamicRecord, isDynamicRecord } from "@robot/contracts/runtime-values";
 import { Effect } from "effect";
 import type { DecisionBackend, DecisionFetch } from "./channel-decision";
 import {

@@ -1,5 +1,5 @@
-import { accountUsageProviderRows } from "@openownbot/ui/features/account/account-usage-view";
-import { useText } from "@openownbot/ui/text";
+import { accountUsageProviderRows } from "@robot/ui/features/account/account-usage-view";
+import { useText } from "@robot/ui/text";
 import { createMemo } from "solid-js";
 import { useAuth } from "../account/account-context";
 import { useAgents } from "../agents/agents-context";

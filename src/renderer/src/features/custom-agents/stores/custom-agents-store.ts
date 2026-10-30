@@ -6,8 +6,8 @@ import type {
   CustomAgentUsage,
   CustomProviderRestart,
   SaveCustomAgentInput,
-} from "@openownbot/contracts/ipc";
-import { currentText } from "@openownbot/ui/text";
+} from "@robot/contracts/ipc";
+import { currentText } from "@robot/ui/text";
 import { createStore } from "solid-js";
 
 interface CustomAgentsState {

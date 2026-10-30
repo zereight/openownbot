@@ -14,8 +14,8 @@ import {
   type UpdateAgentBackupModelsInput,
   type UpdateAgentHostSettingsInput,
   type UpdateAgentTaskLimitInput,
-} from "@openownbot/contracts/ipc";
-import { sourceText } from "@openownbot/i18n/source";
+} from "@robot/contracts/ipc";
+import { sourceText } from "@robot/i18n/source";
 import type { AgentService } from "../backend/agent-service";
 import { causeHelpers } from "../backend/effect-boundary";
 import { AgentNotFoundError } from "./agent-admin-settings";

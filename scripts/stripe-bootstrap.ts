@@ -4,7 +4,7 @@ import {
   type BillingInterval,
   type BillingPlanId,
   billingLookupKey,
-} from "@openownbot/contracts/billing";
+} from "@robot/contracts/billing";
 import {
   LICENSE_INCLUDED_USERS,
   LICENSE_LOOKUP_KEY,
@@ -12,8 +12,8 @@ import {
   LICENSE_METADATA_KIND,
   LICENSE_PRICES,
   LICENSE_PRODUCT_ID,
-} from "@openownbot/contracts/license";
-import { createOpenOwnBotLogger, toLogValue } from "@openownbot/logging";
+} from "@robot/contracts/license";
+import { createOpenOwnBotLogger, toLogValue } from "@robot/logging";
 import { z } from "zod";
 
 /**

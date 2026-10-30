@@ -1,8 +1,8 @@
-import { type DynamicRecord, isDynamicRecord, isNumber, isString } from "@openownbot/contracts/runtime-values";
+import { type DynamicRecord, isDynamicRecord, isNumber, isString } from "@robot/contracts/runtime-values";
 import {
   TELEGRAM_LINK_CODE_PATTERN,
   type TelegramReplyParameters,
-} from "@openownbot/contracts/signal-protocol/telegram-route";
+} from "@robot/contracts/signal-protocol/telegram-route";
 import type { InboundAction, InboundFile, InboundMessage, MessageTarget } from "../messaging-types";
 import type { TelegramChatState } from "./telegram-chats";
 

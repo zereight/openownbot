@@ -4,8 +4,8 @@ import {
   analyticsQuery,
   assertAnalyticsScope,
   decodeAgentAnalytics,
-} from "@openownbot/contracts/ipc";
-import { TEAM_API_ROUTES } from "@openownbot/contracts/team-api-routes";
+} from "@robot/contracts/ipc";
+import { TEAM_API_ROUTES } from "@robot/contracts/team-api-routes";
 import { Effect, Schema } from "effect";
 
 export class AnalyticsRequestError extends Schema.TaggedError<AnalyticsRequestError>()("AnalyticsRequestError", {

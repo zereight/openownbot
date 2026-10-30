@@ -8,9 +8,9 @@ import {
   type VoiceModelId,
   type VoiceModelStatus,
   type VoiceSettings,
-} from "@openownbot/contracts/ipc";
-import { toast } from "@openownbot/ui";
-import { currentText } from "@openownbot/ui/text";
+} from "@robot/contracts/ipc";
+import { toast } from "@robot/ui";
+import { currentText } from "@robot/ui/text";
 import { createEffect, createStore } from "solid-js";
 import { readAloud, stopSpeech } from "../speech/speech-playback";
 import { voicePort } from "./voice-port";

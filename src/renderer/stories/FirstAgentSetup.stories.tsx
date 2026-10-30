@@ -5,8 +5,8 @@ import {
   FirstAgentSetup,
   type FirstAgentSetupProps,
   type FirstAgentSuggestion,
-} from "@openownbot/ui/features/agents/FirstAgentSetup";
-import { currentText } from "@openownbot/ui/text";
+} from "@robot/ui/features/agents/FirstAgentSetup";
+import { currentText } from "@robot/ui/text";
 import { createEffect, createSignal } from "solid-js";
 import { fn } from "storybook/test";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";

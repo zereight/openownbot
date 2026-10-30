@@ -1,9 +1,9 @@
-import type { RoutineFields, RoutineSchedule } from "@openownbot/contracts/ipc";
+import type { RoutineFields, RoutineSchedule } from "@robot/contracts/ipc";
 import {
   RoutineScheduleCard,
   type RoutineScheduleCardState,
-} from "@openownbot/ui/features/conversation/RoutineScheduleCard";
-import type { RoutineScheduleDraft } from "@openownbot/ui/features/conversation/routine-schedule-draft";
+} from "@robot/ui/features/conversation/RoutineScheduleCard";
+import type { RoutineScheduleDraft } from "@robot/ui/features/conversation/routine-schedule-draft";
 import {
   ROUTINE_LOCAL_DRAFT_KINDS,
   ROUTINE_SAVED_DRAFT_KINDS,
@@ -12,8 +12,8 @@ import {
   routineOncePassed,
   routineScheduleFromDraft,
   routineScheduleToDraft,
-} from "@openownbot/ui/features/conversation/routine-schedule-saved";
-import { type TextValue, useText } from "@openownbot/ui/text";
+} from "@robot/ui/features/conversation/routine-schedule-saved";
+import { type TextValue, useText } from "@robot/ui/text";
 import { createEffect, createSignal } from "solid-js";
 import { agentRoutinesPort } from "./routines-port";
 

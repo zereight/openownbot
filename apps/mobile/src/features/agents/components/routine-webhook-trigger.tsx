@@ -3,8 +3,8 @@ import {
   eventFilterDraft,
   eventFilterPointerValid,
   MASKED_WEBHOOK_SECRET,
-} from "@openownbot/contracts/event-filter-value";
-import type { EventFilter } from "@openownbot/contracts/ipc-events";
+} from "@robot/contracts/event-filter-value";
+import type { EventFilter } from "@robot/contracts/ipc-events";
 import * as Clipboard from "expo-clipboard";
 import { Button, Typography } from "heroui-native";
 import Check from "lucide-react-native/icons/check";

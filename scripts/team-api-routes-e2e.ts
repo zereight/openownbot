@@ -15,7 +15,7 @@ import { request as httpRequest } from "node:http";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import { isDeepStrictEqual } from "node:util";
-import { ATTACHMENT_LIMITS, INPUT_LIMITS } from "@openownbot/contracts/input-limits";
+import { ATTACHMENT_LIMITS, INPUT_LIMITS } from "@robot/contracts/input-limits";
 import {
   AGENT_PROVIDERS,
   type AgentModelId,
@@ -30,56 +30,53 @@ import {
   type QueueSnapshot,
   type RoutineResultConnectionOption,
   type RoutineResultDestination,
-} from "@openownbot/contracts/ipc";
-import { TEAM_API_ROUTES } from "@openownbot/contracts/team-api-routes";
+} from "@robot/contracts/ipc";
+import { TEAM_API_ROUTES } from "@robot/contracts/team-api-routes";
 import {
   AGENT_BACKUP_MODELS_CAPABILITY,
   AGENT_BACKUP_MODELS_ROUTES,
-} from "@openownbot/contracts/team-protocol/agent-backup-models-v1";
-import { AGENT_HIDDEN_CAPABILITY, AGENT_HIDDEN_ROUTES } from "@openownbot/contracts/team-protocol/agent-hidden-v1";
+} from "@robot/contracts/team-protocol/agent-backup-models-v1";
+import { AGENT_HIDDEN_CAPABILITY, AGENT_HIDDEN_ROUTES } from "@robot/contracts/team-protocol/agent-hidden-v1";
 import {
   AGENT_TASK_LIMIT_CAPABILITY,
   AGENT_TASK_LIMIT_ROUTES,
-} from "@openownbot/contracts/team-protocol/agent-task-limit-v1";
+} from "@robot/contracts/team-protocol/agent-task-limit-v1";
 import {
   BITWARDEN_CONNECTOR_CAPABILITY,
   BITWARDEN_CONNECTOR_ROUTES,
-} from "@openownbot/contracts/team-protocol/bitwarden-connector-v1";
+} from "@robot/contracts/team-protocol/bitwarden-connector-v1";
 import {
   BROWSER_PROFILES_CAPABILITY,
   BROWSER_PROFILES_ROUTES,
-} from "@openownbot/contracts/team-protocol/browser-profiles-v1";
+} from "@robot/contracts/team-protocol/browser-profiles-v1";
 import {
   BROWSER_SECRET_VAULT_CAPABILITY,
   BROWSER_SECRET_VAULT_ROUTES,
-} from "@openownbot/contracts/team-protocol/browser-secret-vault-v1";
-import { MEMORY_REVIEW_CAPABILITY, MEMORY_REVIEW_ROUTES } from "@openownbot/contracts/team-protocol/memory-review-v1";
+} from "@robot/contracts/team-protocol/browser-secret-vault-v1";
+import { MEMORY_REVIEW_CAPABILITY, MEMORY_REVIEW_ROUTES } from "@robot/contracts/team-protocol/memory-review-v1";
 import {
   PROVIDER_DEFAULT_CAPABILITY,
   PROVIDER_DEFAULT_ROUTES,
-} from "@openownbot/contracts/team-protocol/provider-default-v1";
+} from "@robot/contracts/team-protocol/provider-default-v1";
 import {
   PROVIDER_USAGE_RESET_CAPABILITY,
   PROVIDER_USAGE_RESET_ROUTES,
-} from "@openownbot/contracts/team-protocol/provider-usage-reset-v1";
-import { PROVIDERS_V5_CAPABILITY, PROVIDERS_V5_ROUTES } from "@openownbot/contracts/team-protocol/providers-v5";
-import { PROVIDERS_V8_CAPABILITY, PROVIDERS_V8_ROUTES } from "@openownbot/contracts/team-protocol/providers-v8";
-import { QueueEditRejectedError, TEAM_QUEUE_EDIT_CAPABILITY } from "@openownbot/contracts/team-protocol/queue-edit-v1";
-import {
-  ROUTINE_RESULTS_CAPABILITY,
-  ROUTINE_RESULTS_ROUTES,
-} from "@openownbot/contracts/team-protocol/routine-results-v1";
-import { SIDE_QUESTION_CAPABILITY, SIDE_QUESTION_ROUTES } from "@openownbot/contracts/team-protocol/side-question-v1";
-import { STORAGE_DISK_CAPABILITY, STORAGE_DISK_ROUTES } from "@openownbot/contracts/team-protocol/storage-disk-v1";
+} from "@robot/contracts/team-protocol/provider-usage-reset-v1";
+import { PROVIDERS_V5_CAPABILITY, PROVIDERS_V5_ROUTES } from "@robot/contracts/team-protocol/providers-v5";
+import { PROVIDERS_V8_CAPABILITY, PROVIDERS_V8_ROUTES } from "@robot/contracts/team-protocol/providers-v8";
+import { QueueEditRejectedError, TEAM_QUEUE_EDIT_CAPABILITY } from "@robot/contracts/team-protocol/queue-edit-v1";
+import { ROUTINE_RESULTS_CAPABILITY, ROUTINE_RESULTS_ROUTES } from "@robot/contracts/team-protocol/routine-results-v1";
+import { SIDE_QUESTION_CAPABILITY, SIDE_QUESTION_ROUTES } from "@robot/contracts/team-protocol/side-question-v1";
+import { STORAGE_DISK_CAPABILITY, STORAGE_DISK_ROUTES } from "@robot/contracts/team-protocol/storage-disk-v1";
 import {
   TEAM_APP_VERSION_HEADER,
   TEAM_CAPABILITIES_HEADER,
   TEAM_PROTOCOL_VERSION_HEADER,
-} from "@openownbot/contracts/team-protocol/v1";
-import { VAULT_IMPORT_CAPABILITY, VAULT_IMPORT_ROUTES } from "@openownbot/contracts/team-protocol/vault-import-v1";
-import { VAULT_CAPABILITY, VAULT_ROUTES } from "@openownbot/contracts/team-protocol/vault-v1";
-import { sourceText } from "@openownbot/i18n/source";
-import { createOpenOwnBotLogger } from "@openownbot/logging";
+} from "@robot/contracts/team-protocol/v1";
+import { VAULT_IMPORT_CAPABILITY, VAULT_IMPORT_ROUTES } from "@robot/contracts/team-protocol/vault-import-v1";
+import { VAULT_CAPABILITY, VAULT_ROUTES } from "@robot/contracts/team-protocol/vault-v1";
+import { sourceText } from "@robot/i18n/source";
+import { createOpenOwnBotLogger } from "@robot/logging";
 import { Effect } from "effect";
 import { SteerUnsupportedError } from "../src/backend/agent/queue-controls";
 import { AgentLifecycleFailed } from "../src/backend/agent-service";

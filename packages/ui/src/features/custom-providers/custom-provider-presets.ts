@@ -1,7 +1,7 @@
 // The starting points of the add flow. A preset only fills the form: the user still sees and can
 // change every field before OpenOwnBot saves anything.
 
-import { DEFAULT_MODEL_SERVERS, type DefaultModelServerId, detectedModelServerKey } from "@openownbot/contracts/ipc";
+import { DEFAULT_MODEL_SERVERS, type DefaultModelServerId, detectedModelServerKey } from "@robot/contracts/ipc";
 import type { DetectedProvider, ProviderDetection } from "./detected-providers";
 
 export type CustomProviderPresetId = "ollama" | "lmstudio" | "openai-compatible" | "acp";

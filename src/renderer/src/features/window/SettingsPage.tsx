@@ -1,5 +1,5 @@
-import type { AppTextKey } from "@openownbot/i18n";
-import { Button, Input, Search } from "@openownbot/ui";
+import type { AppTextKey } from "@robot/i18n";
+import { Button, Input, Search } from "@robot/ui";
 import { createSignal, For, flush, Show } from "solid-js";
 import { useI18n } from "../../i18n-context";
 import { usePlatform } from "../../platform";

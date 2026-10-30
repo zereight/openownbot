@@ -1,5 +1,5 @@
-import type { QueueDeliveryStatus } from "@openownbot/contracts/ipc";
-import type { AppFormat, AppTextKey, AppTranslate } from "@openownbot/i18n";
+import type { QueueDeliveryStatus } from "@robot/contracts/ipc";
+import type { AppFormat, AppTextKey, AppTranslate } from "@robot/i18n";
 import {
   Button,
   CalendarClock,
@@ -18,7 +18,7 @@ import {
   Puzzle,
   TriangleAlert,
   X,
-} from "@openownbot/ui";
+} from "@robot/ui";
 import type { JSX } from "@solidjs/web";
 import { Dynamic } from "@solidjs/web";
 import { createSignal, createUniqueId, For, Show, untrack } from "solid-js";

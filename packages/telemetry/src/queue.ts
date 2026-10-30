@@ -1,4 +1,4 @@
-import { isDynamicRecord } from "@openownbot/contracts/runtime-values";
+import { isDynamicRecord } from "@robot/contracts/runtime-values";
 import { Effect, Schema, Semaphore } from "effect";
 import { type FailureProperties, isReportProfileId, type Report, type ReportContext, safeReport } from "./events";
 

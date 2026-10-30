@@ -8,7 +8,7 @@ import UserNotifications
 /// server into the App Group (`push-notification-keys.ts`). A notification that no key opens keeps
 /// the app name, so a host credential alone cannot make the phone show its own text.
 ///
-/// The seal is the one of `live-activity-seal.ts` in `@openownbot/team-client`: a keystream of
+/// The seal is the one of `live-activity-seal.ts` in `@robot/team-client`: a keystream of
 /// HMAC-SHA256 blocks over a 16-byte nonce and a 32-bit counter, then a 16-byte HMAC-SHA256 tag
 /// over the nonce and the ciphertext, as base64url.
 final class NotificationService: UNNotificationServiceExtension {

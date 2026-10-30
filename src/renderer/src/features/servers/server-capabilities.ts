@@ -5,13 +5,13 @@ import {
   canAdministerServer,
   pasteCodeSignInSupported,
   type ServerSummary,
-} from "@openownbot/contracts/ipc";
-import type { TeamCurrentCapability } from "@openownbot/contracts/team-protocol/current";
-import { PROVIDER_HOST_SIGN_IN_PROVIDERS } from "@openownbot/contracts/team-protocol/provider-host-sign-in-v1";
-import { PROVIDERS_ADMIN_CODE_SIGN_IN_PROVIDERS } from "@openownbot/contracts/team-protocol/providers-v1";
-import { PROVIDERS_SIGN_IN_V3_PROVIDERS } from "@openownbot/contracts/team-protocol/providers-v3";
-import { PROVIDERS_V4_SIGN_IN_PROVIDERS } from "@openownbot/contracts/team-protocol/providers-v4";
-import { SIGN_IN_RELAY_PROVIDERS } from "@openownbot/contracts/team-protocol/sign-in-relay-v1";
+} from "@robot/contracts/ipc";
+import type { TeamCurrentCapability } from "@robot/contracts/team-protocol/current";
+import { PROVIDER_HOST_SIGN_IN_PROVIDERS } from "@robot/contracts/team-protocol/provider-host-sign-in-v1";
+import { PROVIDERS_ADMIN_CODE_SIGN_IN_PROVIDERS } from "@robot/contracts/team-protocol/providers-v1";
+import { PROVIDERS_SIGN_IN_V3_PROVIDERS } from "@robot/contracts/team-protocol/providers-v3";
+import { PROVIDERS_V4_SIGN_IN_PROVIDERS } from "@robot/contracts/team-protocol/providers-v4";
+import { SIGN_IN_RELAY_PROVIDERS } from "@robot/contracts/team-protocol/sign-in-relay-v1";
 
 /**
  * Whether a server can be asked for a capability-gated feature. A local server

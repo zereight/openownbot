@@ -1,4 +1,4 @@
-import { providerSteersTurns } from "@openownbot/contracts/agent-providers";
+import { providerSteersTurns } from "@robot/contracts/agent-providers";
 import {
   BROWSER_DOCK_LIMITS,
   type BrowserDockAction,
@@ -9,12 +9,12 @@ import {
   type BrowserDockSkill,
   type BrowserTab,
   isBrowserDockIsland,
-} from "@openownbot/contracts/ipc";
-import { BROWSER_USER_CONTROL_CAPABILITY } from "@openownbot/contracts/team-protocol/browser-user-control-v1";
-import type { ComposerAgent, ComposerMcpServer, ComposerSkill } from "@openownbot/ui/data";
-import { BrowserDock, type BrowserIslandContent } from "@openownbot/ui/features/browser/BrowserDock";
-import { browserActionLabel } from "@openownbot/ui/features/browser/browser-action-labels";
-import { useText } from "@openownbot/ui/text";
+} from "@robot/contracts/ipc";
+import { BROWSER_USER_CONTROL_CAPABILITY } from "@robot/contracts/team-protocol/browser-user-control-v1";
+import type { ComposerAgent, ComposerMcpServer, ComposerSkill } from "@robot/ui/data";
+import { BrowserDock, type BrowserIslandContent } from "@robot/ui/features/browser/BrowserDock";
+import { browserActionLabel } from "@robot/ui/features/browser/browser-action-labels";
+import { useText } from "@robot/ui/text";
 import { createEffect, createMemo, createSignal, Show, snapshot, untrack } from "solid-js";
 import { deviceSendShortcut } from "../../send-shortcut-preference";
 import { serverSupportsCapability } from "../servers/server-capabilities";

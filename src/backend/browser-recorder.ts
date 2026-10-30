@@ -1,7 +1,7 @@
 import { randomUUID } from "node:crypto";
 import { type FileHandle, mkdir, open, rm } from "node:fs/promises";
 import { join } from "node:path";
-import type { BrowserRecordingArtifact } from "@openownbot/contracts/ipc";
+import type { BrowserRecordingArtifact } from "@robot/contracts/ipc";
 import { Deferred, Effect, Result, Schema, Semaphore } from "effect";
 import { BrowserWindow, type WebContents } from "electron";
 import { type BrowserOperationError, browserCall, browserFailure, browserSync } from "./browser-effects";

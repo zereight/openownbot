@@ -10,7 +10,7 @@ import assert from "node:assert/strict";
 import { mkdir, mkdtemp, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
-import { MANAGED_RUNTIME_PROVIDERS, type ManagedProviderId } from "@openownbot/contracts/ipc";
+import { MANAGED_RUNTIME_PROVIDERS, type ManagedProviderId } from "@robot/contracts/ipc";
 import { Effect } from "effect";
 import lockValue from "../native-runtime.lock.json";
 import { isMissingProviderSessionError } from "../src/backend/agent/thread-items";

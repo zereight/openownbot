@@ -1,5 +1,5 @@
 {
-  "name": "@openownbot/user-errors",
+  "name": "@robot/user-errors",
   "version": "0.0.0",
   "private": true,
   "type": "module",
@@ -11,9 +11,9 @@
     "typecheck": "bun ../../scripts/type-checker.ts --noEmit -p tsconfig.json"
   },
   "dependencies": {
-    "@openownbot/contracts": "workspace:*",
-    "@openownbot/i18n": "workspace:*",
-    "@openownbot/logging": "workspace:*"
+    "@robot/contracts": "workspace:*",
+    "@robot/i18n": "workspace:*",
+    "@robot/logging": "workspace:*"
   },
   "devDependencies": {
     "typescript": "catalog:",

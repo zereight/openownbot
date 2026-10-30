@@ -1,4 +1,4 @@
-import type { AttachmentSummary } from "@openownbot/contracts/ipc";
+import type { AttachmentSummary } from "@robot/contracts/ipc";
 import { Image } from "expo-image";
 import * as Sharing from "expo-sharing";
 import { createVideoPlayer, type VideoThumbnail } from "expo-video";

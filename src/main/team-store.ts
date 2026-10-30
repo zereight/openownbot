@@ -2,19 +2,19 @@ import { createHash, generateKeyPairSync, randomBytes, randomUUID, sign, timingS
 import { constants } from "node:fs";
 import { copyFile, mkdir, readFile, rm } from "node:fs/promises";
 import { basename, dirname, join } from "node:path";
-import { avatarFileExtension, isAvatarMimeType, isValidAvatarImage } from "@openownbot/contracts/avatar-images";
-import { type HostKeyHandover, hostKeyHandoverStatement } from "@openownbot/contracts/host-key-handover";
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
+import { avatarFileExtension, isAvatarMimeType, isValidAvatarImage } from "@robot/contracts/avatar-images";
+import { type HostKeyHandover, hostKeyHandoverStatement } from "@robot/contracts/host-key-handover";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
 import type {
   AvatarImageInput,
   CentralAuthUser,
   TeamMemberSummary,
   TeamRole,
   TeamSessionSummary,
-} from "@openownbot/contracts/ipc";
-import { isDynamicRecord, isString } from "@openownbot/contracts/runtime-values";
-import { normalizeEmailAddress, slugifyTeamServerName } from "@openownbot/contracts/validation";
-import { sourceText } from "@openownbot/i18n/source";
+} from "@robot/contracts/ipc";
+import { isDynamicRecord, isString } from "@robot/contracts/runtime-values";
+import { normalizeEmailAddress, slugifyTeamServerName } from "@robot/contracts/validation";
+import { sourceText } from "@robot/i18n/source";
 import { Context, Deferred, Effect, Layer, Result, Schema } from "effect";
 import {
   isEmptyStoredFile,

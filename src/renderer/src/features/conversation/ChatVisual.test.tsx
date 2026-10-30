@@ -3,9 +3,9 @@ import {
   CHAT_VISUAL_FRAME_SANDBOX,
   type ChatVisualKey,
   parseChatVisualMessage,
-} from "@openownbot/contracts/chat-visual";
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
-import { ChatVisual } from "@openownbot/ui/features/conversation/ChatVisual";
+} from "@robot/contracts/chat-visual";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
+import { ChatVisual } from "@robot/ui/features/conversation/ChatVisual";
 import { render, screen, waitFor } from "@solidjs/testing-library";
 import { afterEach, describe, expect, it, vi } from "vitest";
 

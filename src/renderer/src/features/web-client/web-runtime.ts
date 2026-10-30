@@ -2,8 +2,8 @@ import {
   assertSupportedAttachmentName,
   attachmentFileExtension,
   supportedAttachmentExtensions,
-} from "@openownbot/contracts/attachment-files";
-import { isAvatarMimeType } from "@openownbot/contracts/avatar-images";
+} from "@robot/contracts/attachment-files";
+import { isAvatarMimeType } from "@robot/contracts/avatar-images";
 import type {
   AccountUsage,
   AgentEvent,
@@ -45,7 +45,7 @@ import type {
   UpdateQueuedMessageInput,
   UpdateRoutineInput,
   WorkspaceDirectory,
-} from "@openownbot/contracts/ipc";
+} from "@robot/contracts/ipc";
 import {
   canAdministerServer,
   decodeWorkspaceDirectory,
@@ -60,54 +60,54 @@ import {
   isQueueSnapshot,
   isSidebarLayoutSnapshot,
   isTeamPresenceSnapshot,
-} from "@openownbot/contracts/ipc";
-import { guardedListDecoder, optionalHistoryExtent, requiredString } from "@openownbot/contracts/ipc-decoding";
-import { isDynamicRecord, isNumber, isString } from "@openownbot/contracts/runtime-values";
-import { TEAM_API_ROUTES } from "@openownbot/contracts/team-api-routes";
+} from "@robot/contracts/ipc";
+import { guardedListDecoder, optionalHistoryExtent, requiredString } from "@robot/contracts/ipc-decoding";
+import { isDynamicRecord, isNumber, isString } from "@robot/contracts/runtime-values";
+import { TEAM_API_ROUTES } from "@robot/contracts/team-api-routes";
 import {
   BROWSER_PAGE_STATE_CAPABILITY,
   BROWSER_PAGE_STATE_ROUTES,
   decodeBrowserPageStateSnapshot,
-} from "@openownbot/contracts/team-protocol/browser-page-state-v1";
+} from "@robot/contracts/team-protocol/browser-page-state-v1";
 import {
   BROWSER_USER_CONTROL_CAPABILITY,
   BROWSER_USER_CONTROL_ROUTES,
   decodeBrowserUserControlSnapshot,
-} from "@openownbot/contracts/team-protocol/browser-user-control-v1";
+} from "@robot/contracts/team-protocol/browser-user-control-v1";
 import {
   decodeBrowserViewInputValue,
   TEAM_BROWSER_VIEW_CLIPBOARD_CAPABILITY,
   TEAM_BROWSER_VIEW_FRAME_POINT_CAPABILITY,
-} from "@openownbot/contracts/team-protocol/browser-view-v1";
-import { TEAM_BROWSER_NAVIGATION_CAPABILITY } from "@openownbot/contracts/team-protocol/current";
-import { FOCUS_USE_ROUTES } from "@openownbot/contracts/team-protocol/focus-use-v1";
-import { PROVIDER_ACCOUNTS_CAPABILITY } from "@openownbot/contracts/team-protocol/provider-accounts-v1";
-import { ROUTINE_FLOWS_CAPABILITY } from "@openownbot/contracts/team-protocol/routine-flows-v1";
-import { type TeamProtocolSupportV1, teamProtocolUpdateDirection } from "@openownbot/contracts/team-protocol/v1";
-import type { TeamProtocolV2Json } from "@openownbot/contracts/team-protocol/v2";
-import { TEAM_PROTOCOL_V3 } from "@openownbot/contracts/team-protocol/v3";
-import { decodeTeamProtocolSupportV7Base } from "@openownbot/contracts/team-protocol/v7-base";
+} from "@robot/contracts/team-protocol/browser-view-v1";
+import { TEAM_BROWSER_NAVIGATION_CAPABILITY } from "@robot/contracts/team-protocol/current";
+import { FOCUS_USE_ROUTES } from "@robot/contracts/team-protocol/focus-use-v1";
+import { PROVIDER_ACCOUNTS_CAPABILITY } from "@robot/contracts/team-protocol/provider-accounts-v1";
+import { ROUTINE_FLOWS_CAPABILITY } from "@robot/contracts/team-protocol/routine-flows-v1";
+import { type TeamProtocolSupportV1, teamProtocolUpdateDirection } from "@robot/contracts/team-protocol/v1";
+import type { TeamProtocolV2Json } from "@robot/contracts/team-protocol/v2";
+import { TEAM_PROTOCOL_V3 } from "@robot/contracts/team-protocol/v3";
+import { decodeTeamProtocolSupportV7Base } from "@robot/contracts/team-protocol/v7-base";
 import {
   WORKSPACE_DIRECTORY_CAPABILITY,
   WORKSPACE_DIRECTORY_ROUTES,
-} from "@openownbot/contracts/team-protocol/workspace-directory-v1";
-import { runTeamEffect } from "@openownbot/team-client";
-import { bytesToBase64 } from "@openownbot/team-client/base64";
-import { createRemoteBrowserView, type RemoteBrowserView } from "@openownbot/team-client/browser-view";
-import { verifyEd25519Base64Url } from "@openownbot/team-client/ed25519";
+} from "@robot/contracts/team-protocol/workspace-directory-v1";
+import { runTeamEffect } from "@robot/team-client";
+import { bytesToBase64 } from "@robot/team-client/base64";
+import { createRemoteBrowserView, type RemoteBrowserView } from "@robot/team-client/browser-view";
+import { verifyEd25519Base64Url } from "@robot/team-client/ed25519";
 import {
   RemoteDirectoryError,
   RemoteTeamDirectoryClient,
   type RemoteTeamHost,
-} from "@openownbot/team-client/remote-directory";
+} from "@robot/team-client/remote-directory";
 import {
   createRemoteTeamPeer,
   MOBILE_ATTACHMENT_BYTES,
   type RemoteFileUpload,
   type RemoteTeamConnectionUpdate,
-} from "@openownbot/team-client/remote-peer";
-import { remoteWorkspaceReadTimeout } from "@openownbot/team-client/remote-recovery";
-import { listHiddenAgents, setAgentHidden, setAgentProviderAccount } from "@openownbot/team-client/team-admin-requests";
+} from "@robot/team-client/remote-peer";
+import { remoteWorkspaceReadTimeout } from "@robot/team-client/remote-recovery";
+import { listHiddenAgents, setAgentHidden, setAgentProviderAccount } from "@robot/team-client/team-admin-requests";
 import {
   cancelQueuedMessage,
   deleteAgent,
@@ -125,10 +125,10 @@ import {
   teamRoutineFlowsApi,
   updateQueuedMessage,
   uploadAttachmentDraft,
-} from "@openownbot/team-client/team-api-requests";
-import type { BrowserViewRuntime } from "@openownbot/ui/features/browser/BrowserLiveView";
-import { currentText } from "@openownbot/ui/text";
-import { referenceFrom } from "@openownbot/user-errors";
+} from "@robot/team-client/team-api-requests";
+import type { BrowserViewRuntime } from "@robot/ui/features/browser/BrowserLiveView";
+import { currentText } from "@robot/ui/text";
+import { referenceFrom } from "@robot/user-errors";
 import { Effect } from "effect";
 import {
   createWebHostConnections,

@@ -1,5 +1,5 @@
-import type { AccountUsage, AccountUsageLimit, AvatarImageInput, CentralAuthState } from "@openownbot/contracts/ipc";
-import { currentText } from "@openownbot/ui/text";
+import type { AccountUsage, AccountUsageLimit, AvatarImageInput, CentralAuthState } from "@robot/contracts/ipc";
+import { currentText } from "@robot/ui/text";
 import { createMemo, createSignal, createStore, flush, onCleanup, onSettled } from "solid-js";
 import { createSimpleContext } from "../../simple-context";
 import { accountPort } from "./account-port";

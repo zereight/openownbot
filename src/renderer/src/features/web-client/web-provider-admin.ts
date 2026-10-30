@@ -4,33 +4,29 @@ import type {
   ExternalDestination,
   ProviderAdminDesktopApi,
   ServerSummary,
-} from "@openownbot/contracts/ipc";
-import {
-  decodeRegistryEntries,
-  decodeRegistryInstallResult,
-  decodeRegistryOperations,
-} from "@openownbot/contracts/ipc";
-import { ACP_REGISTRY_ROUTES } from "@openownbot/contracts/team-protocol/acp-registry-v1";
-import { CLAUDE_API_KEY_CAPABILITY } from "@openownbot/contracts/team-protocol/claude-api-key-v1";
+} from "@robot/contracts/ipc";
+import { decodeRegistryEntries, decodeRegistryInstallResult, decodeRegistryOperations } from "@robot/contracts/ipc";
+import { ACP_REGISTRY_ROUTES } from "@robot/contracts/team-protocol/acp-registry-v1";
+import { CLAUDE_API_KEY_CAPABILITY } from "@robot/contracts/team-protocol/claude-api-key-v1";
 import {
   PROVIDER_ACCOUNT_RELAY_CAPABILITY,
   PROVIDER_ACCOUNT_RELAY_PROVIDERS,
-} from "@openownbot/contracts/team-protocol/provider-account-relay-v1";
-import { PROVIDER_ACCOUNTS_CAPABILITY } from "@openownbot/contracts/team-protocol/provider-accounts-v1";
-import { PROVIDER_USAGE_RESET_CAPABILITY } from "@openownbot/contracts/team-protocol/provider-usage-reset-v1";
-import { PROVIDERS_ADMIN_ROUTES } from "@openownbot/contracts/team-protocol/providers-v1";
+} from "@robot/contracts/team-protocol/provider-account-relay-v1";
+import { PROVIDER_ACCOUNTS_CAPABILITY } from "@robot/contracts/team-protocol/provider-accounts-v1";
+import { PROVIDER_USAGE_RESET_CAPABILITY } from "@robot/contracts/team-protocol/provider-usage-reset-v1";
+import { PROVIDERS_ADMIN_ROUTES } from "@robot/contracts/team-protocol/providers-v1";
 import {
   PROVIDERS_RUNTIMES_V2_CAPABILITY,
   PROVIDERS_RUNTIMES_V2_ROUTES,
-} from "@openownbot/contracts/team-protocol/providers-v2";
+} from "@robot/contracts/team-protocol/providers-v2";
 import {
   PROVIDERS_SIGN_IN_V3_CAPABILITY,
   PROVIDERS_SIGN_IN_V3_ROUTES,
-} from "@openownbot/contracts/team-protocol/providers-v3";
-import { PROVIDERS_V4_CAPABILITY, PROVIDERS_V4_ROUTES } from "@openownbot/contracts/team-protocol/providers-v4";
-import { PROVIDERS_V5_CAPABILITY, PROVIDERS_V5_ROUTES } from "@openownbot/contracts/team-protocol/providers-v5";
-import { PROVIDERS_V8_CAPABILITY, PROVIDERS_V8_ROUTES } from "@openownbot/contracts/team-protocol/providers-v8";
-import { runTeamEffect } from "@openownbot/team-client";
+} from "@robot/contracts/team-protocol/providers-v3";
+import { PROVIDERS_V4_CAPABILITY, PROVIDERS_V4_ROUTES } from "@robot/contracts/team-protocol/providers-v4";
+import { PROVIDERS_V5_CAPABILITY, PROVIDERS_V5_ROUTES } from "@robot/contracts/team-protocol/providers-v5";
+import { PROVIDERS_V8_CAPABILITY, PROVIDERS_V8_ROUTES } from "@robot/contracts/team-protocol/providers-v8";
+import { runTeamEffect } from "@robot/team-client";
 import {
   cancelProviderAccountSignIn,
   cancelProviderCodeLogin,
@@ -59,14 +55,14 @@ import {
   startProviderCodeLogin,
   startProviderHostSignIn,
   submitProviderCodeLogin,
-} from "@openownbot/team-client/team-admin-requests";
-import type { TeamApiRequest } from "@openownbot/team-client/team-api-requests";
-import type { ProviderAccountActions } from "@openownbot/ui/components/provider-accounts";
-import { isAgentAccount } from "@openownbot/ui/components/provider-accounts";
-import type { AgentProfile } from "@openownbot/ui/data";
-import type { BrowserViewRuntime } from "@openownbot/ui/features/browser/BrowserLiveView";
-import type { AcpRegistrySettingsApi } from "@openownbot/ui/features/custom-providers/AcpRegistrySettings";
-import { currentText } from "@openownbot/ui/text";
+} from "@robot/team-client/team-admin-requests";
+import type { TeamApiRequest } from "@robot/team-client/team-api-requests";
+import type { ProviderAccountActions } from "@robot/ui/components/provider-accounts";
+import { isAgentAccount } from "@robot/ui/components/provider-accounts";
+import type { AgentProfile } from "@robot/ui/data";
+import type { BrowserViewRuntime } from "@robot/ui/features/browser/BrowserLiveView";
+import type { AcpRegistrySettingsApi } from "@robot/ui/features/custom-providers/AcpRegistrySettings";
+import { currentText } from "@robot/ui/text";
 import { Effect } from "effect";
 import { createEffect, createMemo } from "solid-js";
 import { createHostAccounts, withHostAccounts, withHostProfileAccount } from "../agents/host-provider-accounts";

@@ -1,5 +1,5 @@
-import { IconButton, PanelRight, X } from "@openownbot/ui";
-import { useText } from "@openownbot/ui/text";
+import { IconButton, PanelRight, X } from "@robot/ui";
+import { useText } from "@robot/ui/text";
 import { render } from "@solidjs/web";
 import { createSignal } from "solid-js";
 import "../../styles.css";

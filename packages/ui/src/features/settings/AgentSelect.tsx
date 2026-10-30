@@ -5,7 +5,7 @@
  * than each growing its own: the target is the same question, and the answer reads the same way.
  */
 
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@openownbot/ui";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@robot/ui";
 import { createSignal } from "solid-js";
 import { useText } from "../../text";
 

@@ -3,7 +3,7 @@
 // (`list_logins` / `submit_secret`). Agents can add and change contacts, change the fields of a login
 // or card that are not secret, and delete items; a password gets in only from the secure input.
 
-import type { VaultCardBrand, VaultContactFields, VaultItemKind, VaultItemOrigin } from "@openownbot/contracts/ipc";
+import type { VaultCardBrand, VaultContactFields, VaultItemKind, VaultItemOrigin } from "@robot/contracts/ipc";
 import type { Effect } from "effect";
 import type { PasswordVaultError } from "./password-vault";
 

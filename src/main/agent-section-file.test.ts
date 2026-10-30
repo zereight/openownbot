@@ -3,8 +3,8 @@ import {
   AGENT_SECTION_FILE_LIMITS,
   buildAgentSectionFile,
   parseAgentSectionFile,
-} from "@openownbot/contracts/agent-section-file";
-import type { AgentTemplateSnapshot } from "@openownbot/contracts/ipc";
+} from "@robot/contracts/agent-section-file";
+import type { AgentTemplateSnapshot } from "@robot/contracts/ipc";
 import { describe, expect, it } from "vitest";
 
 const agent = (name: string, extra: Partial<AgentTemplateSnapshot> = {}): AgentTemplateSnapshot => ({

@@ -1,8 +1,8 @@
 // What `fill_card` types into each card field, and the page functions that check and fill the fields.
 // The values go to the page only: no function here returns one.
 
-import type { BrowserTarget } from "@openownbot/contracts/ipc";
-import { isBoolean, isDynamicRecord, isNumber, isString } from "@openownbot/contracts/runtime-values";
+import type { BrowserTarget } from "@robot/contracts/ipc";
+import { isBoolean, isDynamicRecord, isNumber, isString } from "@robot/contracts/runtime-values";
 import type { VaultCardSecret } from "./vault-items";
 
 export const BROWSER_CARD_FIELDS = ["number", "securityCode", "expiry", "expMonth", "expYear", "nameOnCard"] as const;

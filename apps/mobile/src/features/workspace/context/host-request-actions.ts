@@ -1,4 +1,4 @@
-import { isAvatarMimeType } from "@openownbot/contracts/avatar-images";
+import { isAvatarMimeType } from "@robot/contracts/avatar-images";
 import {
   assertStorageUsageScope,
   CHANNEL_CHATS_CAPABILITY,
@@ -22,32 +22,32 @@ import {
   type SetAgentHiddenInput,
   STORAGE_CAPABILITY,
   type TeamRole,
-} from "@openownbot/contracts/ipc";
-import { isDynamicRecord, isString } from "@openownbot/contracts/runtime-values";
-import { TEAM_API_ROUTES } from "@openownbot/contracts/team-api-routes";
-import { AGENT_ACCESS_CAPABILITY } from "@openownbot/contracts/team-protocol/agent-access-v1";
-import { AGENT_ADMIN_CAPABILITY, AGENT_ADMIN_ROUTES } from "@openownbot/contracts/team-protocol/agent-admin-v1";
-import { AGENT_HIDDEN_CAPABILITY } from "@openownbot/contracts/team-protocol/agent-hidden-v1";
+} from "@robot/contracts/ipc";
+import { isDynamicRecord, isString } from "@robot/contracts/runtime-values";
+import { TEAM_API_ROUTES } from "@robot/contracts/team-api-routes";
+import { AGENT_ACCESS_CAPABILITY } from "@robot/contracts/team-protocol/agent-access-v1";
+import { AGENT_ADMIN_CAPABILITY, AGENT_ADMIN_ROUTES } from "@robot/contracts/team-protocol/agent-admin-v1";
+import { AGENT_HIDDEN_CAPABILITY } from "@robot/contracts/team-protocol/agent-hidden-v1";
 import {
   AGENT_HOST_SETTINGS_CAPABILITY,
   AGENT_HOST_SETTINGS_ROUTES,
-} from "@openownbot/contracts/team-protocol/agent-host-settings-v1";
-import { AGENT_INSTALL_CAPABILITY } from "@openownbot/contracts/team-protocol/agent-install-v1";
-import { AGENT_MEMORIES_CAPABILITY } from "@openownbot/contracts/team-protocol/agent-memories-v1";
-import { AGENT_MEMORY_LIMIT_CAPABILITY } from "@openownbot/contracts/team-protocol/agent-memory-limit-v1";
-import { AGENT_PUBLISH_CAPABILITY } from "@openownbot/contracts/team-protocol/agent-publish-v1";
-import { AGENT_SESSION_SETTINGS_CAPABILITY } from "@openownbot/contracts/team-protocol/agent-session-settings-v1";
-import { AGENT_TASKS_CAPABILITY } from "@openownbot/contracts/team-protocol/agent-tasks-v1";
-import { BITWARDEN_CONNECTOR_CAPABILITY } from "@openownbot/contracts/team-protocol/bitwarden-connector-v1";
-import { CHANNEL_ROUTES } from "@openownbot/contracts/team-protocol/channels-v1";
-import { CONNECTORS_CAPABILITY } from "@openownbot/contracts/team-protocol/connectors-v1";
-import { CONTEXT_RESET_CAPABILITY } from "@openownbot/contracts/team-protocol/context-reset-v1";
+} from "@robot/contracts/team-protocol/agent-host-settings-v1";
+import { AGENT_INSTALL_CAPABILITY } from "@robot/contracts/team-protocol/agent-install-v1";
+import { AGENT_MEMORIES_CAPABILITY } from "@robot/contracts/team-protocol/agent-memories-v1";
+import { AGENT_MEMORY_LIMIT_CAPABILITY } from "@robot/contracts/team-protocol/agent-memory-limit-v1";
+import { AGENT_PUBLISH_CAPABILITY } from "@robot/contracts/team-protocol/agent-publish-v1";
+import { AGENT_SESSION_SETTINGS_CAPABILITY } from "@robot/contracts/team-protocol/agent-session-settings-v1";
+import { AGENT_TASKS_CAPABILITY } from "@robot/contracts/team-protocol/agent-tasks-v1";
+import { BITWARDEN_CONNECTOR_CAPABILITY } from "@robot/contracts/team-protocol/bitwarden-connector-v1";
+import { CHANNEL_ROUTES } from "@robot/contracts/team-protocol/channels-v1";
+import { CONNECTORS_CAPABILITY } from "@robot/contracts/team-protocol/connectors-v1";
+import { CONTEXT_RESET_CAPABILITY } from "@robot/contracts/team-protocol/context-reset-v1";
 import {
   CONVERSATION_FILE_SEARCH_CAPABILITY,
   CONVERSATION_FILE_SEARCH_ROUTES,
   type ConversationFileSearchRequest,
   decodeConversationFileSearchResponse,
-} from "@openownbot/contracts/team-protocol/conversation-file-search-v1";
+} from "@robot/contracts/team-protocol/conversation-file-search-v1";
 import {
   TEAM_AGENT_CREATE_MODEL_CAPABILITY,
   TEAM_EML_ATTACHMENTS_CAPABILITY,
@@ -56,33 +56,33 @@ import {
   TEAM_MP4_ATTACHMENTS_CAPABILITY,
   TEAM_SEMANTIC_TAGS_CAPABILITY,
   TEAM_ZIP_ATTACHMENTS_CAPABILITY,
-} from "@openownbot/contracts/team-protocol/current";
-import { EVENTS_CAPABILITY } from "@openownbot/contracts/team-protocol/events-v1";
-import { HOST_MEMBER_UPDATE_CAPABILITY } from "@openownbot/contracts/team-protocol/host-member-update-v1";
-import { HOST_RELEASE_CAPABILITY } from "@openownbot/contracts/team-protocol/host-release-v1";
-import { HOST_TIMEZONE_CAPABILITY } from "@openownbot/contracts/team-protocol/host-timezone-v1";
-import { HOST_UPDATE_CAPABILITY } from "@openownbot/contracts/team-protocol/host-update-v1";
-import { HOSTED_SITES_CAPABILITY } from "@openownbot/contracts/team-protocol/hosted-sites-v1";
-import { MCP_SIGN_IN_CAPABILITY } from "@openownbot/contracts/team-protocol/mcp-sign-in-v1";
-import { MEMORY_REVIEW_CAPABILITY } from "@openownbot/contracts/team-protocol/memory-review-v1";
-import { ONEPASSWORD_CONNECTOR_CAPABILITY } from "@openownbot/contracts/team-protocol/onepassword-connector-v1";
-import { PROVIDER_ACCOUNTS_CAPABILITY } from "@openownbot/contracts/team-protocol/provider-accounts-v1";
-import { PROVIDERS_ADMIN_CAPABILITY } from "@openownbot/contracts/team-protocol/providers-v1";
-import { TEAM_QUEUE_EDIT_CAPABILITY } from "@openownbot/contracts/team-protocol/queue-edit-v1";
-import { ROUTINE_RECOVERY_CAPABILITY } from "@openownbot/contracts/team-protocol/routine-recovery-v1";
-import { ROUTINE_RESULTS_CAPABILITY } from "@openownbot/contracts/team-protocol/routine-results-v1";
-import { SHARED_TABLES_CAPABILITY } from "@openownbot/contracts/team-protocol/shared-tables-v1";
-import { SKILLS_ADMIN_CAPABILITY } from "@openownbot/contracts/team-protocol/skills-admin-v1";
-import { STORAGE_ROUTES } from "@openownbot/contracts/team-protocol/storage-v1";
-import type { TeamProtocolV2Json } from "@openownbot/contracts/team-protocol/v2";
-import { VAULT_IMPORT_CAPABILITY } from "@openownbot/contracts/team-protocol/vault-import-v1";
-import { VAULT_CAPABILITY } from "@openownbot/contracts/team-protocol/vault-v1";
-import { WORKFLOWS_CAPABILITY } from "@openownbot/contracts/team-protocol/workflows-v1";
-import type { MobileTextKey } from "@openownbot/i18n/mobile";
-import { readHostAnalytics } from "@openownbot/team-client";
-import { readPlanLimits } from "@openownbot/team-client/plan-limits";
-import type { RemoteFileUpload } from "@openownbot/team-client/remote-peer";
-import { buildRoutineCalendar, type RoutineCalendarSource } from "@openownbot/team-client/routine-calendar";
+} from "@robot/contracts/team-protocol/current";
+import { EVENTS_CAPABILITY } from "@robot/contracts/team-protocol/events-v1";
+import { HOST_MEMBER_UPDATE_CAPABILITY } from "@robot/contracts/team-protocol/host-member-update-v1";
+import { HOST_RELEASE_CAPABILITY } from "@robot/contracts/team-protocol/host-release-v1";
+import { HOST_TIMEZONE_CAPABILITY } from "@robot/contracts/team-protocol/host-timezone-v1";
+import { HOST_UPDATE_CAPABILITY } from "@robot/contracts/team-protocol/host-update-v1";
+import { HOSTED_SITES_CAPABILITY } from "@robot/contracts/team-protocol/hosted-sites-v1";
+import { MCP_SIGN_IN_CAPABILITY } from "@robot/contracts/team-protocol/mcp-sign-in-v1";
+import { MEMORY_REVIEW_CAPABILITY } from "@robot/contracts/team-protocol/memory-review-v1";
+import { ONEPASSWORD_CONNECTOR_CAPABILITY } from "@robot/contracts/team-protocol/onepassword-connector-v1";
+import { PROVIDER_ACCOUNTS_CAPABILITY } from "@robot/contracts/team-protocol/provider-accounts-v1";
+import { PROVIDERS_ADMIN_CAPABILITY } from "@robot/contracts/team-protocol/providers-v1";
+import { TEAM_QUEUE_EDIT_CAPABILITY } from "@robot/contracts/team-protocol/queue-edit-v1";
+import { ROUTINE_RECOVERY_CAPABILITY } from "@robot/contracts/team-protocol/routine-recovery-v1";
+import { ROUTINE_RESULTS_CAPABILITY } from "@robot/contracts/team-protocol/routine-results-v1";
+import { SHARED_TABLES_CAPABILITY } from "@robot/contracts/team-protocol/shared-tables-v1";
+import { SKILLS_ADMIN_CAPABILITY } from "@robot/contracts/team-protocol/skills-admin-v1";
+import { STORAGE_ROUTES } from "@robot/contracts/team-protocol/storage-v1";
+import type { TeamProtocolV2Json } from "@robot/contracts/team-protocol/v2";
+import { VAULT_IMPORT_CAPABILITY } from "@robot/contracts/team-protocol/vault-import-v1";
+import { VAULT_CAPABILITY } from "@robot/contracts/team-protocol/vault-v1";
+import { WORKFLOWS_CAPABILITY } from "@robot/contracts/team-protocol/workflows-v1";
+import type { MobileTextKey } from "@robot/i18n/mobile";
+import { readHostAnalytics } from "@robot/team-client";
+import { readPlanLimits } from "@robot/team-client/plan-limits";
+import type { RemoteFileUpload } from "@robot/team-client/remote-peer";
+import { buildRoutineCalendar, type RoutineCalendarSource } from "@robot/team-client/routine-calendar";
 import {
   bitwardenConnectorRequest,
   cancelHostUpdate,
@@ -149,7 +149,7 @@ import {
   testMcpServer,
   uninstallAgentSkill,
   unpublishAgentTemplate,
-} from "@openownbot/team-client/team-admin-requests";
+} from "@robot/team-client/team-admin-requests";
 import {
   type AgentMemoriesRequest,
   agentTaskControl,
@@ -163,7 +163,7 @@ import {
   startAgentTask,
   type TeamApiRequest,
   TeamRequestError,
-} from "@openownbot/team-client/team-api-requests";
+} from "@robot/team-client/team-api-requests";
 import type { QueryClient } from "@tanstack/react-query";
 import { Effect } from "effect";
 import * as Crypto from "expo-crypto";

@@ -1,7 +1,7 @@
 import { type Block, BloubBot, type BloubBotRef, type StateId } from "@norbert_bodziony/bloub";
-import { padlockEyePath } from "@openownbot/brand/bloub-padlock-eye";
-import type { AvatarHue } from "@openownbot/contracts/ipc";
-import type { AppTextKey } from "@openownbot/i18n";
+import { padlockEyePath } from "@robot/brand/bloub-padlock-eye";
+import type { AvatarHue } from "@robot/contracts/ipc";
+import type { AppTextKey } from "@robot/i18n";
 import type { JSX } from "@solidjs/web";
 import { createEffect, createSignal, For, onSettled, untrack } from "solid-js";
 import { bloubAvatarProfile } from "../../bloub-avatar";

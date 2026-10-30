@@ -1,4 +1,4 @@
-import type { RoutineFeedDesktopApi } from "@openownbot/contracts/ipc";
+import type { RoutineFeedDesktopApi } from "@robot/contracts/ipc";
 
 /** A feed that starts off. Each `create` gives a new token, as the real one does. */
 export function createMockRoutineFeed(): RoutineFeedDesktopApi {

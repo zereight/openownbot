@@ -10,11 +10,11 @@
  * listing installs, behind the same connect attempt, so "never answers" is what waiting looks like.
  */
 
-import type { McpServerConfig, McpTestResult } from "@openownbot/contracts/ipc";
-import type { McpKeyFlow } from "@openownbot/contracts/mcp-connect-flows";
-import { Button, Text } from "@openownbot/ui";
-import type { McpConnectSubject } from "@openownbot/ui/features/settings/McpConnectShell";
-import type { MarketplacePluginApp } from "@openownbot/ui/features/settings/marketplace-plugins";
+import type { McpServerConfig, McpTestResult } from "@robot/contracts/ipc";
+import type { McpKeyFlow } from "@robot/contracts/mcp-connect-flows";
+import { Button, Text } from "@robot/ui";
+import type { McpConnectSubject } from "@robot/ui/features/settings/McpConnectShell";
+import type { MarketplacePluginApp } from "@robot/ui/features/settings/marketplace-plugins";
 import type { JSX } from "@solidjs/web";
 import { createSignal, Show } from "solid-js";
 import { createPluginAppConfig } from "../src/features/settings/marketplace-plugin-catalog";

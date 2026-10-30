@@ -1,9 +1,9 @@
-import { ACP_AGENT_PRESETS } from "@openownbot/contracts/ipc";
-import { CustomAcpAgentDialog } from "@openownbot/ui/features/custom-providers/CustomAcpAgentDialog";
+import { ACP_AGENT_PRESETS } from "@robot/contracts/ipc";
+import { CustomAcpAgentDialog } from "@robot/ui/features/custom-providers/CustomAcpAgentDialog";
 import {
   type CustomAcpAgentDraft,
   savedAcpAgentDraft,
-} from "@openownbot/ui/features/custom-providers/custom-acp-agent-form";
+} from "@robot/ui/features/custom-providers/custom-acp-agent-form";
 import { fn } from "storybook/test";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";
 

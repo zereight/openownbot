@@ -9,8 +9,8 @@ import {
   type DecisionModelState,
   type DecisionModelTestResult,
   type SaveDecisionModelInput,
-} from "@openownbot/contracts/ipc";
-import type { AppTextKey } from "@openownbot/i18n";
+} from "@robot/contracts/ipc";
+import type { AppTextKey } from "@robot/i18n";
 import {
   Button,
   Input,
@@ -27,8 +27,8 @@ import {
   SelectValue,
   SettingsSection,
   SwitchField,
-} from "@openownbot/ui";
-import { currentText, useText } from "@openownbot/ui/text";
+} from "@robot/ui";
+import { currentText, useText } from "@robot/ui/text";
 import type { JSX } from "@solidjs/web";
 import { createEffect, createStore, Show } from "solid-js";
 import { actionToast } from "../../action-toast";

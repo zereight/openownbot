@@ -16,7 +16,7 @@ import type {
   ProviderCodeLoginStart,
   ProviderUsageResetOutcome,
   ProviderUsageResets,
-} from "@openownbot/contracts/ipc";
+} from "@robot/contracts/ipc";
 import {
   accountUsageCoversModel,
   agentProviderDescriptor,
@@ -25,10 +25,10 @@ import {
   DEFAULT_PROVIDER_ACCOUNT_ID,
   isAgentProvider,
   workspaceAccessEnforced,
-} from "@openownbot/contracts/ipc";
-import { matchingSourceKeys, sourceText } from "@openownbot/i18n/source";
-import { createOpenOwnBotLogger, redactText } from "@openownbot/logging";
-import { classifyUserError } from "@openownbot/user-errors";
+} from "@robot/contracts/ipc";
+import { matchingSourceKeys, sourceText } from "@robot/i18n/source";
+import { createOpenOwnBotLogger, redactText } from "@robot/logging";
+import { classifyUserError } from "@robot/user-errors";
 import { Deferred, Effect, Exit, Fiber, Result, Schema, Scope, Semaphore } from "effect";
 import { startAcpAuthentication } from "./../acp-sign-in";
 import { type AgentClient, AgentProcessExitError, type AgentProvider } from "./../agent-client";

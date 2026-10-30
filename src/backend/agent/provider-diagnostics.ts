@@ -1,4 +1,4 @@
-import { isDynamicRecord } from "@openownbot/contracts/runtime-values";
+import { isDynamicRecord } from "@robot/contracts/runtime-values";
 
 /**
  * Codex's text record of a completed fallback, as Codex 0.163 writes it when `LOG_FORMAT` is not

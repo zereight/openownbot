@@ -1,4 +1,4 @@
-import type { HostReleaseStatus, HostUpdateStatus } from "@openownbot/contracts/ipc";
+import type { HostReleaseStatus, HostUpdateStatus } from "@robot/contracts/ipc";
 import { onSettled, snapshot } from "solid-js";
 import { fn } from "storybook/test";
 import { ServerSettingsModal, type ServerSettingsModalProps } from "../src/features/servers/ServerSettingsModal";

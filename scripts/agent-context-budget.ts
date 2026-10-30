@@ -1,6 +1,6 @@
 import { mkdirSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
-import { type AgentModelOption, type AgentSummary, DEFAULT_AGENT_DEFAULTS } from "@openownbot/contracts/ipc";
+import { type AgentModelOption, type AgentSummary, DEFAULT_AGENT_DEFAULTS } from "@robot/contracts/ipc";
 import { developerInstructions } from "../src/backend/agent/developer-instructions";
 import { listModelsPayload } from "../src/backend/agent/model-tools";
 import { BUILTIN_TOOL_CATALOG, VISIBLE_DYNAMIC_TOOLS } from "../src/backend/agent/tool-catalog";

@@ -1,8 +1,8 @@
-import type { UpdateHostIdentityInput } from "@openownbot/contracts/ipc";
-import type { DynamicRecord } from "@openownbot/contracts/runtime-values";
-import { isDynamicRecord, isString } from "@openownbot/contracts/runtime-values";
-import { HOST_ADMIN_CAPABILITY, HOST_ADMIN_ROUTES } from "@openownbot/contracts/team-protocol/host-admin-v1";
-import { sourceText } from "@openownbot/i18n/source";
+import type { UpdateHostIdentityInput } from "@robot/contracts/ipc";
+import type { DynamicRecord } from "@robot/contracts/runtime-values";
+import { isDynamicRecord, isString } from "@robot/contracts/runtime-values";
+import { HOST_ADMIN_CAPABILITY, HOST_ADMIN_ROUTES } from "@robot/contracts/team-protocol/host-admin-v1";
+import { sourceText } from "@robot/i18n/source";
 import { runCauseEffect } from "../../backend/effect-boundary";
 import { parseHostIdentity } from "../ipc/server-inputs";
 import type { TeamApiAdmin } from "./dependencies";

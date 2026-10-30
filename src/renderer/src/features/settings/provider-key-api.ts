@@ -1,5 +1,5 @@
-import type { ProviderAdminDesktopApi } from "@openownbot/contracts/ipc";
-import type { ProviderKeyApi } from "@openownbot/ui/features/settings/OpenCodeKeyDialog";
+import type { ProviderAdminDesktopApi } from "@robot/contracts/ipc";
+import type { ProviderKeyApi } from "@robot/ui/features/settings/OpenCodeKeyDialog";
 
 /**
  * The four calls the OpenCode key dialog makes, bound once.

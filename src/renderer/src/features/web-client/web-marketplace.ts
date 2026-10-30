@@ -1,6 +1,6 @@
-import { sourceText } from "@openownbot/i18n";
-import { runTeamEffect } from "@openownbot/team-client";
-import { createMarketplaceCatalog } from "@openownbot/team-client/marketplace-catalog";
+import { sourceText } from "@robot/i18n";
+import { runTeamEffect } from "@robot/team-client";
+import { createMarketplaceCatalog } from "@robot/team-client/marketplace-catalog";
 import {
   cancelMcpSignIn,
   installAgentSkill,
@@ -14,9 +14,9 @@ import {
   setAgentSkillEnabled,
   testMcpServer,
   uninstallAgentSkill,
-} from "@openownbot/team-client/team-admin-requests";
-import type { TeamApiRequest } from "@openownbot/team-client/team-api-requests";
-import { currentText } from "@openownbot/ui/text";
+} from "@robot/team-client/team-admin-requests";
+import type { TeamApiRequest } from "@robot/team-client/team-api-requests";
+import { currentText } from "@robot/ui/text";
 import { Effect } from "effect";
 import type { AgentTemplateInstallCalls } from "../agent-templates/agent-templates-port";
 import type { MarketplaceCalls } from "../settings/marketplace-calls";

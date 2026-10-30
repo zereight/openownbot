@@ -6,8 +6,8 @@
  * see. "unreachable" is the answer when the server is not on yet.
  */
 
-import type { McpLocalFlow } from "@openownbot/contracts/mcp-connect-flows";
-import { McpLocalDialog } from "@openownbot/ui/features/settings/McpLocalDialog";
+import type { McpLocalFlow } from "@robot/contracts/mcp-connect-flows";
+import { McpLocalDialog } from "@robot/ui/features/settings/McpLocalDialog";
 import { fn } from "storybook/test";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";
 import { MARKETPLACE_PLUGINS } from "../src/features/settings/marketplace-plugin-catalog";

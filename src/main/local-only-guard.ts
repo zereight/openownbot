@@ -1,5 +1,5 @@
-import { guardOpenOwnBotEgress, LOCAL_ONLY, refusesOpenOwnBotUrl } from "@openownbot/contracts/local-only";
-import { createOpenOwnBotLogger } from "@openownbot/logging";
+import { guardOpenOwnBotEgress, LOCAL_ONLY, refusesOpenOwnBotUrl } from "@robot/contracts/local-only";
+import { createOpenOwnBotLogger } from "@robot/logging";
 import { app, session } from "electron";
 
 const logger = createOpenOwnBotLogger("local-only-guard");

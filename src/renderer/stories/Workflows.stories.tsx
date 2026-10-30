@@ -5,18 +5,18 @@
  * other. A run in these stories uses the preview mock, not a provider.
  */
 
-import { Toaster } from "@openownbot/ui";
-import { AgentNode } from "@openownbot/ui/features/workflows/WorkflowAgentNode";
-import { ApprovalNode } from "@openownbot/ui/features/workflows/WorkflowApprovalNode";
-import { AssetNode } from "@openownbot/ui/features/workflows/WorkflowAssetNode";
-import { ConditionNode } from "@openownbot/ui/features/workflows/WorkflowConditionNode";
-import { ImageNode } from "@openownbot/ui/features/workflows/WorkflowImageNode";
-import { LlmNode } from "@openownbot/ui/features/workflows/WorkflowLlmNode";
-import { NoteNode } from "@openownbot/ui/features/workflows/WorkflowNoteNode";
-import { OutputNode } from "@openownbot/ui/features/workflows/WorkflowOutputNode";
-import { PromptNode } from "@openownbot/ui/features/workflows/WorkflowPromptNode";
-import { TextNode } from "@openownbot/ui/features/workflows/WorkflowTextNode";
-import { TriggerNode } from "@openownbot/ui/features/workflows/WorkflowTriggerNode";
+import { Toaster } from "@robot/ui";
+import { AgentNode } from "@robot/ui/features/workflows/WorkflowAgentNode";
+import { ApprovalNode } from "@robot/ui/features/workflows/WorkflowApprovalNode";
+import { AssetNode } from "@robot/ui/features/workflows/WorkflowAssetNode";
+import { ConditionNode } from "@robot/ui/features/workflows/WorkflowConditionNode";
+import { ImageNode } from "@robot/ui/features/workflows/WorkflowImageNode";
+import { LlmNode } from "@robot/ui/features/workflows/WorkflowLlmNode";
+import { NoteNode } from "@robot/ui/features/workflows/WorkflowNoteNode";
+import { OutputNode } from "@robot/ui/features/workflows/WorkflowOutputNode";
+import { PromptNode } from "@robot/ui/features/workflows/WorkflowPromptNode";
+import { TextNode } from "@robot/ui/features/workflows/WorkflowTextNode";
+import { TriggerNode } from "@robot/ui/features/workflows/WorkflowTriggerNode";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";
 import { NodeGallery } from "./workflow-node-gallery";
 import {

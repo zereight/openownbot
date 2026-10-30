@@ -1,10 +1,10 @@
-import { type DynamicRecord, isDynamicRecord, isString } from "@openownbot/contracts/runtime-values";
+import { type DynamicRecord, isDynamicRecord, isString } from "@robot/contracts/runtime-values";
 import {
   LIVE_ACTIVITY_PUSH_CAPABILITY,
   LIVE_ACTIVITY_PUSH_ROUTES,
   type LiveActivityPushRegistration,
-} from "@openownbot/contracts/team-protocol/live-activity-push-v1";
-import { sourceText } from "@openownbot/i18n/source";
+} from "@robot/contracts/team-protocol/live-activity-push-v1";
+import { sourceText } from "@robot/i18n/source";
 import type { LiveActivityPushService } from "../live-activity-push";
 import { HttpError } from "./http-error";
 import type { RouteOutcome, TeamApiRequestContext } from "./request-context";

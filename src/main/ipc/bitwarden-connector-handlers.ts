@@ -2,17 +2,17 @@
 // endpoints read, connect with an API key and the master password, and disconnect a joined server's
 // connection (`bitwarden-connector-v1`).
 
-import { type BitwardenHostConnectInput, decodeHostBitwardenConnectorStatus } from "@openownbot/contracts/ipc";
+import { type BitwardenHostConnectInput, decodeHostBitwardenConnectorStatus } from "@robot/contracts/ipc";
 import {
   BITWARDEN_CONNECTOR_CAPABILITY,
   BITWARDEN_CONNECTOR_KEY_LIMIT,
   BITWARDEN_CONNECTOR_PASSWORD_LIMIT,
   BITWARDEN_CONNECTOR_ROUTES,
   BITWARDEN_CONNECTOR_URL_LIMIT,
-} from "@openownbot/contracts/team-protocol/bitwarden-connector-v1";
-import type { TeamCurrentCapability } from "@openownbot/contracts/team-protocol/current";
-import { sourceText } from "@openownbot/i18n/source";
-import { registerSecretValue } from "@openownbot/logging";
+} from "@robot/contracts/team-protocol/bitwarden-connector-v1";
+import type { TeamCurrentCapability } from "@robot/contracts/team-protocol/current";
+import { sourceText } from "@robot/i18n/source";
+import { registerSecretValue } from "@robot/logging";
 import type { Effect } from "effect";
 import { runCauseEffect } from "../../backend/effect-boundary";
 import type { BitwardenConnectorService } from "../bitwarden-connector-service";

@@ -704,7 +704,7 @@ holds it:
    message or thread reply from a person; a Discord mention or button press; a Telegram message or
    button press.
 3. For such an event and a server that starts, Signal keeps the delivery frame, sealed to the host's
-   queue key (`@openownbot/contracts/signal-protocol/ingress-queue`), in memory for at most 10 minutes
+   queue key (`@robot/contracts/signal-protocol/ingress-queue`), in memory for at most 10 minutes
    (64 events and 192 KB for each host). Slack gets 200, so it does not send the event again. Because
    the start runs after the answer and can fail, Signal asks for the start again once a minute while
    the host has kept events. Signal

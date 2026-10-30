@@ -1,8 +1,8 @@
 // Workflows: graphs of steps drawn on a canvas. This computer's host answers from its own runtime,
 // and its events service owns webhook secrets. A joined server answers through `workflows-v1`.
 
-import { WORKFLOWS_CAPABILITY, WORKFLOWS_ROUTES } from "@openownbot/contracts/team-protocol/workflows-v1";
-import { sourceText } from "@openownbot/i18n/source";
+import { WORKFLOWS_CAPABILITY, WORKFLOWS_ROUTES } from "@robot/contracts/team-protocol/workflows-v1";
+import { sourceText } from "@robot/i18n/source";
 import {
   decodeRemoteWorkflowDetail,
   decodeRemoteWorkflowList,
@@ -14,7 +14,7 @@ import {
   decodeRemoteWorkflowSummary,
   decodeRemoteWorkflowVersionGraph,
   decodeRemoteWorkflowVersions,
-} from "@openownbot/team-client/workflow-decoding";
+} from "@robot/team-client/workflow-decoding";
 import type { Effect } from "effect";
 import { runCauseEffect } from "../../backend/effect-boundary";
 import type { WorkflowsHandle } from "../../backend/workflows/workflows";

@@ -1,8 +1,8 @@
-import type { RoutineSchedule } from "@openownbot/contracts/ipc";
-import type { AppMessages } from "@openownbot/i18n";
+import type { RoutineSchedule } from "@robot/contracts/ipc";
+import type { AppMessages } from "@robot/i18n";
 import { currentText, type TextValue } from "../../text";
 
-export { routineTimeMinutes } from "@openownbot/team-client/routine-schedule-draft";
+export { routineTimeMinutes } from "@robot/team-client/routine-schedule-draft";
 
 export interface RoutineSelectOption {
   value: string;

@@ -1,6 +1,6 @@
 import { type ButtonRootProps, Root } from "@kobalte/core/button";
 import type { PolymorphicProps } from "@kobalte/core/polymorphic";
-import { cx } from "@openownbot/ui/utils";
+import { cx } from "@robot/ui/utils";
 import { createLink } from "@tanstack/solid-router";
 import { cva, type VariantProps } from "class-variance-authority";
 import { omit } from "solid-js";

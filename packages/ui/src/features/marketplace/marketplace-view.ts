@@ -5,8 +5,8 @@ import {
   type McpServerConfig,
   SKILL_CATEGORIES,
   type SkillCategory,
-} from "@openownbot/contracts/ipc";
-import { errorReference } from "@openownbot/user-errors";
+} from "@robot/contracts/ipc";
+import { errorReference } from "@robot/user-errors";
 import { createStore, onCleanup, onSettled, untrack } from "solid-js";
 import type { MarketplaceListing } from "./marketplace-listing";
 import type { MarketplaceApp, MarketplaceModel } from "./marketplace-model";

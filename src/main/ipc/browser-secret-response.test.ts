@@ -4,7 +4,7 @@ import {
   parseLocalBrowserSecretResponse,
   type RespondToBrowserSecretInput,
   remoteBrowserSecretResponse,
-} from "@openownbot/contracts/ipc";
+} from "@robot/contracts/ipc";
 import { describe, expect, it } from "vitest";
 
 const SUBMIT: RespondToBrowserSecretInput = { requestId: "r1", agentId: "a1", decision: "submit", secret: "hunter2" };

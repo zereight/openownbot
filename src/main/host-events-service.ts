@@ -1,5 +1,5 @@
 import { randomBytes, randomUUID } from "node:crypto";
-import type { WorkflowTriggerInput, WorkflowWebhookSecret } from "@openownbot/contracts/ipc";
+import type { WorkflowTriggerInput, WorkflowWebhookSecret } from "@robot/contracts/ipc";
 import type {
   EventFilter,
   EventJsonValue,
@@ -12,17 +12,17 @@ import type {
   ListEventRoutinesInput,
   SaveEventRoutineInput,
   WebhookTestResult,
-} from "@openownbot/contracts/ipc-events";
-import { isEventJsonValue } from "@openownbot/contracts/ipc-events";
-import { isDynamicRecord, isString } from "@openownbot/contracts/runtime-values";
+} from "@robot/contracts/ipc-events";
+import { isEventJsonValue } from "@robot/contracts/ipc-events";
+import { isDynamicRecord, isString } from "@robot/contracts/runtime-values";
 import {
   WEBHOOK_DELIVERY_BODY_BYTES_LIMIT,
   type WebhookDeliveryStatus,
-} from "@openownbot/contracts/signal-protocol/messages";
-import { WEBHOOK_ROUTES_LIMIT } from "@openownbot/contracts/signal-protocol/webhook-route";
-import { sourceText } from "@openownbot/i18n/source";
-import { createOpenOwnBotLogger, registerSecretValue } from "@openownbot/logging";
-import { RoutineInputError } from "@openownbot/team-client/routine-schedule";
+} from "@robot/contracts/signal-protocol/messages";
+import { WEBHOOK_ROUTES_LIMIT } from "@robot/contracts/signal-protocol/webhook-route";
+import { sourceText } from "@robot/i18n/source";
+import { createOpenOwnBotLogger, registerSecretValue } from "@robot/logging";
+import { RoutineInputError } from "@robot/team-client/routine-schedule";
 import { Effect, Semaphore } from "effect";
 import { RoutineOperationFailed } from "../backend/agent/routine-scheduler";
 import type { WebhookRoutineWriter } from "../backend/agent/webhook-routine-tool";

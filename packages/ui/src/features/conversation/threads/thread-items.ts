@@ -1,5 +1,5 @@
-import type { AgentTask } from "@openownbot/contracts/ipc";
-import type { SidebarWaitReason } from "@openownbot/ui/features/sidebar/sidebar-types";
+import type { AgentTask } from "@robot/contracts/ipc";
+import type { SidebarWaitReason } from "@robot/ui/features/sidebar/sidebar-types";
 import { DRAFT_THREAD_ID, MAIN_THREAD_ID, type ThreadItem, type ThreadStatus } from "./thread-types";
 
 /** What a side thread does now. A turn that waits for an approval or an answer waits for the user. */

@@ -15,14 +15,14 @@
  * has no pass limit; it ends when a condition takes the other branch, a step fails, or the run stops.
  */
 
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
 import {
   isWorkflowStepKind,
   type WorkflowEdge,
   type WorkflowGraph,
   type WorkflowNode,
   workflowLoopEdges,
-} from "@openownbot/contracts/ipc";
+} from "@robot/contracts/ipc";
 import { isOpenStep, type StoredWorkflowStep } from "./workflow-run-store";
 
 /** Node kinds and settings that this version cannot run. The canvas does not offer them. */

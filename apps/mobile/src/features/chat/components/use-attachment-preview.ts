@@ -1,5 +1,5 @@
-import type { AttachmentSummary } from "@openownbot/contracts/ipc";
-import { MOBILE_ATTACHMENT_BYTES } from "@openownbot/team-client/remote-peer";
+import type { AttachmentSummary } from "@robot/contracts/ipc";
+import { MOBILE_ATTACHMENT_BYTES } from "@robot/team-client/remote-peer";
 import { File } from "expo-file-system";
 import { router } from "expo-router";
 import { useState } from "react";

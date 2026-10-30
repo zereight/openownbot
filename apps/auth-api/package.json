@@ -1,5 +1,5 @@
 {
-  "name": "@openownbot/auth-api",
+  "name": "@robot/auth-api",
   "version": "0.0.0",
   "private": true,
   "type": "module",
@@ -24,8 +24,8 @@
   "dependencies": {
     "@fontsource-variable/inter": "catalog:",
     "@kobalte/core": "catalog:",
-    "@openownbot/brand": "workspace:*",
-    "@openownbot/contracts": "workspace:*",
+    "@robot/brand": "workspace:*",
+    "@robot/contracts": "workspace:*",
     "@openpanel/web": "catalog:",
     "@paper-design/shaders": "catalog:",
     "@solidjs/signals": "catalog:",
@@ -38,7 +38,7 @@
     "solid-js": "2.0.0-rc.18",
     "yaml": "catalog:",
     "zod": "catalog:",
-    "@openownbot/ui": "workspace:*",
+    "@robot/ui": "workspace:*",
     "effect": "catalog:"
   },
   "devDependencies": {

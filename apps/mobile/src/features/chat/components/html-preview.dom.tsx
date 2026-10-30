@@ -1,6 +1,6 @@
 "use dom";
 
-import { chatHtmlPreviewDocument } from "@openownbot/contracts/chat-preview";
+import { chatHtmlPreviewDocument } from "@robot/contracts/chat-preview";
 import { useEffect, useRef, useState } from "react";
 
 interface HtmlPreviewProps {

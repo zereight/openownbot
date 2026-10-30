@@ -1,22 +1,18 @@
-import type { BillingInterval } from "@openownbot/contracts/billing";
-import type {
-  HostedServerEntryPoint,
-  HostedServerList,
-  HostedServerSummary,
-} from "@openownbot/contracts/hosted-servers";
-import type { HostedServersDesktopApi, ServerSummary } from "@openownbot/contracts/ipc";
-import { classifyFailure } from "@openownbot/telemetry";
+import type { BillingInterval } from "@robot/contracts/billing";
+import type { HostedServerEntryPoint, HostedServerList, HostedServerSummary } from "@robot/contracts/hosted-servers";
+import type { HostedServersDesktopApi, ServerSummary } from "@robot/contracts/ipc";
+import { classifyFailure } from "@robot/telemetry";
 import type {
   CreatedHostedServer,
   CreateHostedServerInput,
   HostedServerSetupStatus,
-} from "@openownbot/ui/features/servers/AddServerDialog";
+} from "@robot/ui/features/servers/AddServerDialog";
 import {
   HOSTED_BILLING_CURRENCY,
   type HostedServerPlan,
   hostedServerPlansFromCatalog,
-} from "@openownbot/ui/features/servers/HostedServerPricing";
-import { currentText } from "@openownbot/ui/text";
+} from "@robot/ui/features/servers/HostedServerPricing";
+import { currentText } from "@robot/ui/text";
 import { createEffect, createStore, Loading, Show, untrack } from "solid-js";
 import { actionToast } from "../../action-toast";
 import { AddServerDialog } from "../../lazy-views";

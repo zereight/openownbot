@@ -1,4 +1,4 @@
-import type { SpeechModelStatus } from "@openownbot/contracts/ipc";
+import type { SpeechModelStatus } from "@robot/contracts/ipc";
 import { createSignal } from "solid-js";
 import { speechPort } from "./speech-port";
 

@@ -1,6 +1,6 @@
-import { ConfirmDialog, ErrorReference } from "@openownbot/ui";
-import { AgentAvatar } from "@openownbot/ui/features/agents/AgentAvatar";
-import { errorReference, type UserErrorDetails } from "@openownbot/user-errors";
+import { ConfirmDialog, ErrorReference } from "@robot/ui";
+import { AgentAvatar } from "@robot/ui/features/agents/AgentAvatar";
+import { errorReference, type UserErrorDetails } from "@robot/user-errors";
 import { createSignal } from "solid-js";
 import type { AgentProfile } from "../../data";
 import { useText } from "../../text";

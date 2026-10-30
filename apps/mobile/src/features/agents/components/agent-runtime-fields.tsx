@@ -6,9 +6,9 @@ import {
   type ProviderAccountStatus,
   providerDisplayName,
   type UpdateAgentInput,
-} from "@openownbot/contracts/ipc";
-import { CLAUDE_API_KEY_ACCOUNT_ID } from "@openownbot/contracts/team-protocol/claude-api-key-v1";
-import type { MobileTextKey } from "@openownbot/i18n/mobile";
+} from "@robot/contracts/ipc";
+import { CLAUDE_API_KEY_ACCOUNT_ID } from "@robot/contracts/team-protocol/claude-api-key-v1";
+import type { MobileTextKey } from "@robot/i18n/mobile";
 import { useQuery } from "@tanstack/react-query";
 import { Button, Typography } from "heroui-native";
 import { Platform } from "react-native";

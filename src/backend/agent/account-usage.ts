@@ -1,12 +1,12 @@
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
 import {
   type AccountUsage,
   type AccountUsageGroup,
   type AccountUsageLimit,
   type AccountUsageWindow,
   MAX_USAGE_GROUPS,
-} from "@openownbot/contracts/ipc";
-import { isNumber } from "@openownbot/contracts/runtime-values";
+} from "@robot/contracts/ipc";
+import { isNumber } from "@robot/contracts/runtime-values";
 import type { AccountRateLimitGroupResult, AccountRateLimitResult, AccountRateLimitsReadResult } from "../protocol";
 
 export function normalizeAccountUsage(rateLimits: AccountRateLimitsReadResult | null, model?: string): AccountUsage {

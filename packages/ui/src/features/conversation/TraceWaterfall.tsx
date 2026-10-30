@@ -1,4 +1,4 @@
-import type { AppTextKey } from "@openownbot/i18n";
+import type { AppTextKey } from "@robot/i18n";
 import { Dynamic, type JSX } from "@solidjs/web";
 import { createMemo, createSignal, createStore, For, onCleanup, Show, untrack } from "solid-js";
 import { Badge } from "../../badge";

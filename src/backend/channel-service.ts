@@ -1,8 +1,8 @@
 import { randomUUID } from "node:crypto";
 import { realpathSync } from "node:fs";
 import { basename, dirname, isAbsolute, join, normalize, sep } from "node:path";
-import { mentionsEveryone } from "@openownbot/contracts/chat-tag-references";
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
+import { mentionsEveryone } from "@robot/contracts/chat-tag-references";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
 import {
   type AgentAccessLevel,
   type AgentEvent,
@@ -23,9 +23,9 @@ import {
   type DeleteChannelMemoryInput,
   type QueueHold,
   type UpdateChannelMemoryInput,
-} from "@openownbot/contracts/ipc";
-import { type DynamicRecord, isDynamicRecord, isString } from "@openownbot/contracts/runtime-values";
-import { isFixedSourceText, matchingSourceKeys, sourceText } from "@openownbot/i18n/source";
+} from "@robot/contracts/ipc";
+import { type DynamicRecord, isDynamicRecord, isString } from "@robot/contracts/runtime-values";
+import { isFixedSourceText, matchingSourceKeys, sourceText } from "@robot/i18n/source";
 import { Deferred, Effect, Exit, Fiber, Result, Schema, Scope } from "effect";
 import type { DecisionInput } from "./channel-decision";
 import { type ChannelOperationError, channelFailure, channelResult, channelSync } from "./channel-effects";

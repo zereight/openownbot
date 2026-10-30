@@ -1,4 +1,4 @@
-import { TaskList, type TaskListItem } from "@openownbot/ui/features/conversation/TaskList";
+import { TaskList, type TaskListItem } from "@robot/ui/features/conversation/TaskList";
 import { createSignal, onSettled } from "solid-js";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";
 

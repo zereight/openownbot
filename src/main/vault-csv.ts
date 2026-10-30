@@ -1,7 +1,7 @@
 // Reads the logins of a password export in CSV format: Chrome, Edge, Safari, Firefox, 1Password,
 // Bitwarden and LastPass all write a header row that names the address, user name and password columns.
 
-import { sourceText } from "@openownbot/i18n/source";
+import { sourceText } from "@robot/i18n/source";
 
 export interface CsvLogin {
   website: string;

@@ -3,7 +3,7 @@
  * get it in the add menu or in the node's choices; the host still refuses it in a run.
  */
 
-import type { ProviderLogoVariant } from "@openownbot/brand";
+import type { ProviderLogoVariant } from "@robot/brand";
 import {
   type ClientAgentModelOption,
   type StoredFileRow,
@@ -11,7 +11,7 @@ import {
   type WorkflowNodeKind,
   type WorkflowOutputTarget,
   type WorkflowTriggerType,
-} from "@openownbot/contracts/ipc";
+} from "@robot/contracts/ipc";
 import type { AgentProfile } from "../../data";
 
 export interface WorkflowFeatures {

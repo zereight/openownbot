@@ -6,7 +6,7 @@
  * whole list, and "Unassigned" names it against nothing.
  */
 
-import { SIDEBAR_UNASSIGNED_SECTION_ID } from "@openownbot/contracts/ipc";
+import { SIDEBAR_UNASSIGNED_SECTION_ID } from "@robot/contracts/ipc";
 import { For, Match, Show, Switch } from "solid-js";
 import { useText } from "../../text";
 import { SidebarAgentRow } from "./SidebarAgentRow";

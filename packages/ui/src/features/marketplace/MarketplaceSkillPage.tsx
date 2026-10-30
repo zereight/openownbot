@@ -3,7 +3,7 @@ import {
   isRemovableSkill,
   type MarketplaceSkillDetail,
   type MarketplaceSkillSummary,
-} from "@openownbot/contracts/ipc";
+} from "@robot/contracts/ipc";
 import {
   Button,
   Input,
@@ -18,11 +18,11 @@ import {
   SettingsSection,
   Switch,
   Text,
-} from "@openownbot/ui";
-import { skillExamplePrompt, skillInstructions } from "@openownbot/ui/components/SkillPreview";
-import { AgentAvatar } from "@openownbot/ui/features/agents/AgentAvatar";
-import { MarkdownMessageText } from "@openownbot/ui/features/conversation/MarkdownMessageText";
-import { useText } from "@openownbot/ui/text";
+} from "@robot/ui";
+import { skillExamplePrompt, skillInstructions } from "@robot/ui/components/SkillPreview";
+import { AgentAvatar } from "@robot/ui/features/agents/AgentAvatar";
+import { MarkdownMessageText } from "@robot/ui/features/conversation/MarkdownMessageText";
+import { useText } from "@robot/ui/text";
 import { createEffect, createSignal, For, Show } from "solid-js";
 import { IntegrationPage, type IntegrationStatus } from "../settings/IntegrationLayout";
 import { AddToAgents, type DialogSkill } from "./MarketplaceAgentsDialog";

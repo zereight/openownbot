@@ -7,7 +7,7 @@ import {
   IDLE_DYNAMIC_ISLAND_PRESENTATION,
   isDynamicIslandServerVisible,
   type ServerSummary,
-} from "@openownbot/contracts/ipc";
+} from "@robot/contracts/ipc";
 import {
   Button,
   Item,
@@ -21,13 +21,13 @@ import {
   SliderField,
   Switch,
   SwitchField,
-} from "@openownbot/ui";
+} from "@robot/ui";
 import {
   OpenOwnBotDynamicIsland,
   openOwnBotIdleCompactWidth,
-} from "@openownbot/ui/features/dynamic-island/OpenOwnBotDynamicIsland";
-import { ServerMark, serverStatusLabels } from "@openownbot/ui/features/servers/ServerRail";
-import type { GeneralSettingsValue } from "@openownbot/ui/features/settings/app-settings";
+} from "@robot/ui/features/dynamic-island/OpenOwnBotDynamicIsland";
+import { ServerMark, serverStatusLabels } from "@robot/ui/features/servers/ServerRail";
+import type { GeneralSettingsValue } from "@robot/ui/features/settings/app-settings";
 import type { JSX } from "@solidjs/web";
 import { createSignal, createUniqueId, For, onSettled, Show } from "solid-js";
 import { useI18n } from "../../i18n-context";

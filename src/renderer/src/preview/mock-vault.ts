@@ -5,7 +5,7 @@ import {
   type VaultSaveInput,
   type VaultSecretField,
   type VaultState,
-} from "@openownbot/contracts/ipc";
+} from "@robot/contracts/ipc";
 
 function brandOf(number: string): "visa" | "mastercard" | "amex" | "discover" | null {
   if (number.startsWith("4")) return "visa";

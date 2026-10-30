@@ -16,7 +16,7 @@ import { chmod, copyFile, mkdir, mkdtemp, readFile, rm, writeFile } from "node:f
 import { tmpdir } from "node:os";
 import { dirname, join, resolve } from "node:path";
 import { parseArgs } from "node:util";
-import { isAgentProvider } from "@openownbot/contracts/agent-providers";
+import { isAgentProvider } from "@robot/contracts/agent-providers";
 import type { AgentClient } from "../src/backend/agent-client";
 import { NO_PROVIDER_CREDENTIALS, requireProviderDriver } from "../src/backend/provider-drivers";
 import { runTurn, startThread, stopClients } from "./provider-fakes/host";

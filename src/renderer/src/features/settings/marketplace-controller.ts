@@ -1,4 +1,4 @@
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
 import type {
   AddedAgent,
   ClientAgentSummary,
@@ -11,15 +11,15 @@ import type {
   McpServerConfig,
   McpSignInRelayPage,
   McpSignInState,
-} from "@openownbot/contracts/ipc";
-import { assignedSkillCount, isRemovableSkill, isSkillEnabled, mcpConfigErrors } from "@openownbot/contracts/ipc";
-import type { McpConnectFlow } from "@openownbot/contracts/mcp-connect-flows";
-import { createPluginShareUrl } from "@openownbot/contracts/plugin-links";
-import { TOAST_DURATION, toast } from "@openownbot/ui";
-import { connectorSummary } from "@openownbot/ui/features/connectors/ConnectorDetailPanel";
-import { CONNECTOR_LISTINGS } from "@openownbot/ui/features/connectors/connector-catalog";
-import { isConnectorId } from "@openownbot/ui/features/connectors/connectors";
-import { safeBrowserUrl } from "@openownbot/ui/features/conversation/RichMessageText";
+} from "@robot/contracts/ipc";
+import { assignedSkillCount, isRemovableSkill, isSkillEnabled, mcpConfigErrors } from "@robot/contracts/ipc";
+import type { McpConnectFlow } from "@robot/contracts/mcp-connect-flows";
+import { createPluginShareUrl } from "@robot/contracts/plugin-links";
+import { TOAST_DURATION, toast } from "@robot/ui";
+import { connectorSummary } from "@robot/ui/features/connectors/ConnectorDetailPanel";
+import { CONNECTOR_LISTINGS } from "@robot/ui/features/connectors/connector-catalog";
+import { isConnectorId } from "@robot/ui/features/connectors/connectors";
+import { safeBrowserUrl } from "@robot/ui/features/conversation/RichMessageText";
 import type {
   AgentListingState,
   MarketplaceApp,
@@ -29,18 +29,18 @@ import type {
   MarketplaceSkillChange,
   MarketplaceSkillRef,
   SkillRead,
-} from "@openownbot/ui/features/marketplace/marketplace-model";
-import { serverAddress } from "@openownbot/ui/features/marketplace/marketplace-view";
-import type { McpConnectSubject } from "@openownbot/ui/features/settings/McpConnectShell";
+} from "@robot/ui/features/marketplace/marketplace-model";
+import { serverAddress } from "@robot/ui/features/marketplace/marketplace-view";
+import type { McpConnectSubject } from "@robot/ui/features/settings/McpConnectShell";
 import {
   isPluginAppConfig,
   type MarketplacePluginApp,
   type MarketplacePluginDetail,
   type MarketplacePluginPrompt,
-} from "@openownbot/ui/features/settings/marketplace-plugins";
-import type { PluginUninstallPlan } from "@openownbot/ui/features/settings/PluginUninstallDialog";
-import { currentText, useText } from "@openownbot/ui/text";
-import { errorReference } from "@openownbot/user-errors";
+} from "@robot/ui/features/settings/marketplace-plugins";
+import type { PluginUninstallPlan } from "@robot/ui/features/settings/PluginUninstallDialog";
+import { currentText, useText } from "@robot/ui/text";
+import { errorReference } from "@robot/user-errors";
 import { createEffect, createMemo, createSignal, createStore, onCleanup, untrack } from "solid-js";
 import { actionToast } from "../../action-toast";
 import { writeClipboardText } from "../../clipboard";

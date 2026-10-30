@@ -1,4 +1,4 @@
-import { AppLogo, PlatformLogo, ProviderLogo } from "@openownbot/brand";
+import { AppLogo, PlatformLogo, ProviderLogo } from "@robot/brand";
 import { onSettled } from "solid-js";
 import { landingAnalytics } from "../../lib/analytics";
 import { ContentCallToAction } from "../content/ContentCallToAction";

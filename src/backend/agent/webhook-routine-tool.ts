@@ -1,14 +1,14 @@
-import type { RoutineLimitPolicy } from "@openownbot/contracts/ipc";
-import { type EventFilter, type EventRoutine, isEventFilter } from "@openownbot/contracts/ipc-events";
-import { type DynamicRecord, isString } from "@openownbot/contracts/runtime-values";
-import { WEBHOOK_DELIVERY_BODY_BYTES_LIMIT } from "@openownbot/contracts/signal-protocol/messages";
+import type { RoutineLimitPolicy } from "@robot/contracts/ipc";
+import { type EventFilter, type EventRoutine, isEventFilter } from "@robot/contracts/ipc-events";
+import { type DynamicRecord, isString } from "@robot/contracts/runtime-values";
+import { WEBHOOK_DELIVERY_BODY_BYTES_LIMIT } from "@robot/contracts/signal-protocol/messages";
 import {
   WEBHOOK_DELIVERY_ID_HEADER,
   WEBHOOK_MAX_CLOCK_SKEW_SECONDS,
   WEBHOOK_SIGNATURE_HEADER,
   WEBHOOK_TIMESTAMP_HEADER,
-} from "@openownbot/contracts/signal-protocol/webhook-route";
-import { RoutineInputError } from "@openownbot/team-client/routine-schedule";
+} from "@robot/contracts/signal-protocol/webhook-route";
+import { RoutineInputError } from "@robot/team-client/routine-schedule";
 import type { Effect } from "effect";
 import type { RoutineOperationFailed } from "./routine-scheduler";
 

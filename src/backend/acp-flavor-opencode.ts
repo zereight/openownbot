@@ -1,5 +1,5 @@
 import { RequestError } from "@agentclientprotocol/sdk";
-import { type SourceMessages, sourceText } from "@openownbot/i18n/source";
+import { type SourceMessages, sourceText } from "@robot/i18n/source";
 import { type AcpFlavor, shownFailureDetail } from "./acp-flavor";
 import { isUsageLimitDiagnostic } from "./agent/provider-diagnostics";
 import { isRecord } from "./protocol";

@@ -1,5 +1,5 @@
 import type { IncomingMessage, ServerResponse } from "node:http";
-import type { AgentAccessLevel, TeamMemberSummary } from "@openownbot/contracts/ipc";
+import type { AgentAccessLevel, TeamMemberSummary } from "@robot/contracts/ipc";
 
 // What a route module says when it is asked about a request.
 //

@@ -7,9 +7,9 @@ import {
   parseRegistryId,
   parseRegistryInstall,
   parseRegistryQuery,
-} from "@openownbot/contracts/ipc";
-import { ACP_REGISTRY_CAPABILITY, ACP_REGISTRY_ROUTES } from "@openownbot/contracts/team-protocol/acp-registry-v1";
-import { sourceText } from "@openownbot/i18n/source";
+} from "@robot/contracts/ipc";
+import { ACP_REGISTRY_CAPABILITY, ACP_REGISTRY_ROUTES } from "@robot/contracts/team-protocol/acp-registry-v1";
+import { sourceText } from "@robot/i18n/source";
 import { runCauseEffect } from "../../backend/effect-boundary";
 import type { AcpRegistry } from "../acp-registry";
 import { acceptEmpty } from "../remote-host-decoding";

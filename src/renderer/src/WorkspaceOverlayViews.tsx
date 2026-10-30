@@ -1,5 +1,5 @@
-import type { AddedAgent, McpServerConfig, ServerSummary } from "@openownbot/contracts/ipc";
-import { MCP_SERVERS_CAPABILITY } from "@openownbot/contracts/ipc";
+import type { AddedAgent, McpServerConfig, ServerSummary } from "@robot/contracts/ipc";
+import { MCP_SERVERS_CAPABILITY } from "@robot/contracts/ipc";
 import type { ComponentProps } from "@solidjs/web";
 import { createMemo, Loading, omit, Show } from "solid-js";
 import type { AgentTemplateInstallCalls } from "./features/agent-templates/agent-templates-port";

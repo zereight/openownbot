@@ -22,10 +22,10 @@ import type {
   SidebarLayoutSnapshot,
   TeamPresenceSnapshot,
   UpdateStatus,
-} from "@openownbot/contracts/ipc";
-import { SIDEBAR_UNASSIGNED_SECTION_ID } from "@openownbot/contracts/ipc";
-import { TEAM_CURRENT_CAPABILITIES } from "@openownbot/contracts/team-protocol/current";
-import { TEAM_PROTOCOL_V6 } from "@openownbot/contracts/team-protocol/v6";
+} from "@robot/contracts/ipc";
+import { SIDEBAR_UNASSIGNED_SECTION_ID } from "@robot/contracts/ipc";
+import { TEAM_CURRENT_CAPABILITIES } from "@robot/contracts/team-protocol/current";
+import { TEAM_PROTOCOL_V6 } from "@robot/contracts/team-protocol/v6";
 import developmentLogoUrl from "../assets/openownbot-logo-dev.png";
 import productionLogoUrl from "../assets/openownbot-logo-production.png";
 import { STORY_AGENT_STATUS, STORY_PRESENCE } from "./fixtures";

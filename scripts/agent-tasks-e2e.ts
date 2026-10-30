@@ -12,7 +12,7 @@
 import assert from "node:assert/strict";
 import { mkdirSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
-import { agentProviderDescriptor } from "@openownbot/contracts/agent-providers";
+import { agentProviderDescriptor } from "@robot/contracts/agent-providers";
 import {
   type AgentSummary,
   type AgentTask,
@@ -21,8 +21,8 @@ import {
   isAgentModelOption,
   isAgentSummary,
   type OpenOwnBotDesktopApi,
-} from "@openownbot/contracts/ipc";
-import { createOpenOwnBotLogger } from "@openownbot/logging";
+} from "@robot/contracts/ipc";
+import { createOpenOwnBotLogger } from "@robot/logging";
 import { assertMutationAllowed, connectToDevApp } from "./dev-automation/cdp-client";
 import { readDevInstanceRecords } from "./dev-automation/instance-registry";
 

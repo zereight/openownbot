@@ -1,12 +1,12 @@
-import { agentProviderName, decodeHostProviderAccounts, isAccountUsage } from "@openownbot/contracts/ipc";
-import { CLAUDE_API_KEY_ACCOUNT_ID } from "@openownbot/contracts/team-protocol/claude-api-key-v1";
+import { agentProviderName, decodeHostProviderAccounts, isAccountUsage } from "@robot/contracts/ipc";
+import { CLAUDE_API_KEY_ACCOUNT_ID } from "@robot/contracts/team-protocol/claude-api-key-v1";
 import {
   type PlanLimitRow,
   type PlanLimits,
   type PlanLimitWindow,
   planLimitRows,
   planLimitWindowKind,
-} from "@openownbot/team-client/plan-limits";
+} from "@robot/team-client/plan-limits";
 import { useQuery } from "@tanstack/react-query";
 import { File, Paths } from "expo-file-system";
 import { useEffect, useMemo } from "react";

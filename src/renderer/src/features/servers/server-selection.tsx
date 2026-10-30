@@ -1,5 +1,5 @@
-import type { AddedAgent, NotificationOpenedEvent, ServerSummary } from "@openownbot/contracts/ipc";
-import { currentText } from "@openownbot/ui/text";
+import type { AddedAgent, NotificationOpenedEvent, ServerSummary } from "@robot/contracts/ipc";
+import { currentText } from "@robot/ui/text";
 import { onSettled } from "solid-js";
 import { actionToast } from "../../action-toast";
 import { usePlatform } from "../../platform";

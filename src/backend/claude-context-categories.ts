@@ -1,4 +1,4 @@
-import type { AgentContextCategory, AgentContextCategoryUsage } from "@openownbot/contracts/ipc";
+import type { AgentContextCategory, AgentContextCategoryUsage } from "@robot/contracts/ipc";
 import { Option, Schema } from "effect";
 
 const Count = Schema.Finite.check(Schema.isGreaterThanOrEqualTo(0));

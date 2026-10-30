@@ -1,4 +1,4 @@
-import type { AgentTemplatePreview, AvatarImageInput } from "@openownbot/contracts/ipc";
+import type { AgentTemplatePreview, AvatarImageInput } from "@robot/contracts/ipc";
 import { createSignal, onSettled, Show } from "solid-js";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";
 import { renderAgentTemplateCard } from "../src/features/agent-templates/agent-template-card";

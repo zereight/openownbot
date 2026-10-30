@@ -1,7 +1,7 @@
-import type { AgentApproval, AgentContextState, AgentEvent } from "@openownbot/contracts/ipc";
-import { isAgentTaskActive, taskApproval } from "@openownbot/team-client/agent-tasks";
-import { activeThreadId, threadLists } from "@openownbot/ui/features/conversation/threads/thread-items";
-import { DRAFT_THREAD_ID, MAIN_THREAD_ID } from "@openownbot/ui/features/conversation/threads/thread-types";
+import type { AgentApproval, AgentContextState, AgentEvent } from "@robot/contracts/ipc";
+import { isAgentTaskActive, taskApproval } from "@robot/team-client/agent-tasks";
+import { activeThreadId, threadLists } from "@robot/ui/features/conversation/threads/thread-items";
+import { DRAFT_THREAD_ID, MAIN_THREAD_ID } from "@robot/ui/features/conversation/threads/thread-types";
 import type { AgentTasks } from "../agent-tasks/agent-tasks-state";
 import type {
   BrowserTakeoverRequest,

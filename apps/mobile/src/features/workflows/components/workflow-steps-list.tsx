@@ -1,5 +1,5 @@
-import type { WorkflowGraph, WorkflowNode } from "@openownbot/contracts/ipc";
-import type { MobileTranslate } from "@openownbot/i18n/mobile";
+import type { WorkflowGraph, WorkflowNode } from "@robot/contracts/ipc";
+import type { MobileTranslate } from "@robot/i18n/mobile";
 import { Typography } from "heroui-native";
 import { View } from "react-native";
 import { WorkflowKindTile } from "@/features/workflows/components/workflow-kind-tile";

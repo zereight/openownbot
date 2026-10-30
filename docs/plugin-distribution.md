@@ -54,7 +54,7 @@ A plugin is one developer's bundle. It contains:
   developer's website, privacy policy and terms links.
 
 The types in `packages/ui/src/features/settings/marketplace-plugins.ts` are the start shape.
-`@openownbot/ui` owns them today, and the renderer imports them from there. They are not in
+`@robot/ui` owns them today, and the renderer imports them from there. They are not in
 `packages/contracts`.
 
 ## 2. Catalog delivery

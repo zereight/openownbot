@@ -1,8 +1,8 @@
-import { type AgentTemplatePreview, isAgentTemplateCardPng } from "@openownbot/contracts/ipc";
-import { classifyFailure } from "@openownbot/telemetry";
-import { toast } from "@openownbot/ui";
-import { PublishAgentDialog } from "@openownbot/ui/features/agents/PublishAgentDialog";
-import { currentText } from "@openownbot/ui/text";
+import { type AgentTemplatePreview, isAgentTemplateCardPng } from "@robot/contracts/ipc";
+import { classifyFailure } from "@robot/telemetry";
+import { toast } from "@robot/ui";
+import { PublishAgentDialog } from "@robot/ui/features/agents/PublishAgentDialog";
+import { currentText } from "@robot/ui/text";
 import { createStore } from "solid-js";
 import { actionToast } from "../../action-toast";
 import { writeClipboardText } from "../../clipboard";

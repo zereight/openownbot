@@ -4,7 +4,7 @@ import {
   type HostedSiteRouteManifest,
   hostedSiteBlockKey,
   hostedSiteRouteKey,
-} from "@openownbot/contracts/hosted-sites";
+} from "@robot/contracts/hosted-sites";
 import { Context, Effect, Layer, Schema } from "effect";
 
 interface SiteBucket {
@@ -59,7 +59,7 @@ class SiteStorage extends Context.Service<
   {
     get(key: string, options?: R2GetOptions): Effect.Effect<R2ObjectBody | R2Object | null, SiteStorageError>;
   }
->()("@openownbot/site-router/SiteStorage") {
+>()("@robot/site-router/SiteStorage") {
   static layer(bucket: SiteBucket) {
     return Layer.succeed(
       SiteStorage,

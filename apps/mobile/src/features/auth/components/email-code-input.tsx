@@ -1,4 +1,4 @@
-import { ONE_TIME_CODE_ALPHABET, ONE_TIME_CODE_LENGTH } from "@openownbot/contracts/validation";
+import { ONE_TIME_CODE_ALPHABET, ONE_TIME_CODE_LENGTH } from "@robot/contracts/validation";
 import { Typography } from "heroui-native";
 import { type Ref, useEffect, useImperativeHandle, useRef, useState } from "react";
 import { Platform, StyleSheet, TextInput, type TextInputInstance, View } from "react-native";

@@ -1,16 +1,16 @@
 /**
  * The words the connect dialog shows for a flow. The flows themselves, and the configuration each
- * connects with, are the contract in `@openownbot/contracts/mcp-connect-flows`.
+ * connects with, are the contract in `@robot/contracts/mcp-connect-flows`.
  */
 
-import type { McpServerConfig } from "@openownbot/contracts/ipc";
+import type { McpServerConfig } from "@robot/contracts/ipc";
 import {
   isListingUrl,
   type McpAuthValues,
   type McpConnectFlow,
   mcpFlowFields,
-} from "@openownbot/contracts/mcp-connect-flows";
-import type { AppTranslate } from "@openownbot/i18n";
+} from "@robot/contracts/mcp-connect-flows";
+import type { AppTranslate } from "@robot/i18n";
 
 /**
  * What is wrong with a typed link, in the words the dialog shows, or null.

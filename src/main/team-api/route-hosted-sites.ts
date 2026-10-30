@@ -1,5 +1,5 @@
-import { HOSTED_SITES_CAPABILITY, HOSTED_SITES_ROUTES } from "@openownbot/contracts/team-protocol/hosted-sites-v1";
-import { sourceText } from "@openownbot/i18n/source";
+import { HOSTED_SITES_CAPABILITY, HOSTED_SITES_ROUTES } from "@robot/contracts/team-protocol/hosted-sites-v1";
+import { sourceText } from "@robot/i18n/source";
 import { runCauseEffect } from "../../backend/effect-boundary";
 import type { TeamApiHostedSites } from "./dependencies";
 import { HttpError } from "./http-error";

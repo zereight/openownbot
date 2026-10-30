@@ -1,5 +1,5 @@
-import type { AgentApproval, AgentTask, ConversationSnapshot } from "@openownbot/contracts/ipc";
-import type { AgentProfile } from "@openownbot/ui/data";
+import type { AgentApproval, AgentTask, ConversationSnapshot } from "@robot/contracts/ipc";
+import type { AgentProfile } from "@robot/ui/data";
 import { createSignal, onCleanup } from "solid-js";
 import { fn } from "storybook/test";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";

@@ -1,6 +1,6 @@
-import { pickAgentName } from "@openownbot/brand/agent-names";
-import { agentProviderDescriptor } from "@openownbot/contracts/agent-providers";
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
+import { pickAgentName } from "@robot/brand/agent-names";
+import { agentProviderDescriptor } from "@robot/contracts/agent-providers";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
 import type {
   AgentModelId,
   AgentProviderId,
@@ -11,9 +11,9 @@ import type {
   CustomAgentSummary,
   CustomProviderSummary,
   ProviderRuntimeStatus,
-} from "@openownbot/contracts/ipc";
-import type { AppTextKey, AppTranslate } from "@openownbot/i18n";
-import { Button, Field, Input, Textarea } from "@openownbot/ui";
+} from "@robot/contracts/ipc";
+import type { AppTextKey, AppTranslate } from "@robot/i18n";
+import { Button, Field, Input, Textarea } from "@robot/ui";
 import { createSignal, For, onSettled, Show } from "solid-js";
 import { AVATAR_HUE_CHOICES, avatarCandidateSeeds, avatarHeadColor, avatarHueSwatch } from "../../bloub-avatar";
 import { ProviderModelPicker } from "../../components/ProviderModelPicker";

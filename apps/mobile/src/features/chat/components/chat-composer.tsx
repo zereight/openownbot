@@ -1,4 +1,4 @@
-import { rankAgentMentions } from "@openownbot/contracts/agent-mention-rank";
+import { rankAgentMentions } from "@robot/contracts/agent-mention-rank";
 import { GlassView } from "expo-glass-effect";
 import { useIsFocused } from "expo-router";
 import { Button, Spinner, Typography } from "heroui-native";

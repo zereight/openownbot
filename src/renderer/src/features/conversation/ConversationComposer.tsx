@@ -1,5 +1,5 @@
-import { isKnownAgentProvider, providerSteersTurns } from "@openownbot/contracts/agent-providers";
-import { supportedAttachmentExtensions } from "@openownbot/contracts/attachment-files";
+import { isKnownAgentProvider, providerSteersTurns } from "@robot/contracts/agent-providers";
+import { supportedAttachmentExtensions } from "@robot/contracts/attachment-files";
 import {
   type AccountUsageLimit,
   type AgentWait,
@@ -8,39 +8,39 @@ import {
   DEFAULT_PROVIDER_ACCOUNT_ID,
   type QueueSnapshot,
   usageQuotaForModel,
-} from "@openownbot/contracts/ipc";
+} from "@robot/contracts/ipc";
 import {
   TEAM_EML_ATTACHMENTS_CAPABILITY,
   TEAM_MEDIA_ATTACHMENTS_CAPABILITY,
   TEAM_MP4_ATTACHMENTS_CAPABILITY,
   TEAM_ZIP_ATTACHMENTS_CAPABILITY,
-} from "@openownbot/contracts/team-protocol/current";
-import { sourceText } from "@openownbot/i18n/source";
-import { Button, ImageRemoveButton, Input, toast } from "@openownbot/ui";
-import { fileBadge } from "@openownbot/ui/features/conversation/AttachmentCards";
-import { attachmentReferenceTone } from "@openownbot/ui/features/conversation/AttachmentReference";
-import { AwaitingReplies } from "@openownbot/ui/features/conversation/AwaitingReplies";
-import { ComposerAddMenu } from "@openownbot/ui/features/conversation/ComposerAddMenu";
-import { type ComposerCommand, ComposerEditor } from "@openownbot/ui/features/conversation/ComposerEditor";
-import { ComposerErrorBanner } from "@openownbot/ui/features/conversation/ComposerErrorBanner";
+} from "@robot/contracts/team-protocol/current";
+import { sourceText } from "@robot/i18n/source";
+import { Button, ImageRemoveButton, Input, toast } from "@robot/ui";
+import { fileBadge } from "@robot/ui/features/conversation/AttachmentCards";
+import { attachmentReferenceTone } from "@robot/ui/features/conversation/AttachmentReference";
+import { AwaitingReplies } from "@robot/ui/features/conversation/AwaitingReplies";
+import { ComposerAddMenu } from "@robot/ui/features/conversation/ComposerAddMenu";
+import { type ComposerCommand, ComposerEditor } from "@robot/ui/features/conversation/ComposerEditor";
+import { ComposerErrorBanner } from "@robot/ui/features/conversation/ComposerErrorBanner";
 import {
   ComposerNotice,
   ComposerSignInNotice,
   ComposerUpdateNotice,
   ComposerUsageLimitNotice,
-} from "@openownbot/ui/features/conversation/ComposerNotice";
-import { ComposerSendControl } from "@openownbot/ui/features/conversation/ComposerSendControl";
+} from "@robot/ui/features/conversation/ComposerNotice";
+import { ComposerSendControl } from "@robot/ui/features/conversation/ComposerSendControl";
 import {
   ComposerCompactionNotice,
   ContextUsageMeter,
   contextUsageView,
-} from "@openownbot/ui/features/conversation/ContextUsage";
-import { CloseIcon } from "@openownbot/ui/features/conversation/ConversationIcons";
-import { type OpenWaitItem, OpenWaits } from "@openownbot/ui/features/conversation/OpenWaits";
-import { ReplyQuote } from "@openownbot/ui/features/conversation/ReplyQuote";
-import { SpeakingBar } from "@openownbot/ui/features/conversation/SpeakingBar";
-import { ComposerVoiceControls } from "@openownbot/ui/features/conversation/VoiceRecordingMorph";
-import { useText } from "@openownbot/ui/text";
+} from "@robot/ui/features/conversation/ContextUsage";
+import { CloseIcon } from "@robot/ui/features/conversation/ConversationIcons";
+import { type OpenWaitItem, OpenWaits } from "@robot/ui/features/conversation/OpenWaits";
+import { ReplyQuote } from "@robot/ui/features/conversation/ReplyQuote";
+import { SpeakingBar } from "@robot/ui/features/conversation/SpeakingBar";
+import { ComposerVoiceControls } from "@robot/ui/features/conversation/VoiceRecordingMorph";
+import { useText } from "@robot/ui/text";
 import { createEffect, createMemo, createSignal, createStore, For, Loading, lazy, Show } from "solid-js";
 import { deviceSendShortcut, sendShortcutAriaKey, sendShortcutHintKey } from "../../send-shortcut-preference";
 import { speechReading } from "../speech/speech-playback";
@@ -884,5 +884,5 @@ function openWaitItems(waits: readonly AgentWait[], queue: QueueSnapshot | undef
 }
 
 const QueuePanel = lazy(() =>
-  import("@openownbot/ui/features/conversation/QueuePanel").then((module) => ({ default: module.QueuePanel })),
+  import("@robot/ui/features/conversation/QueuePanel").then((module) => ({ default: module.QueuePanel })),
 );

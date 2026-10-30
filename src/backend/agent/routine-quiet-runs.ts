@@ -5,7 +5,7 @@ import {
   type ConversationSnapshot,
   ROUTINE_QUIET_ANSWER_ITEM_TYPE,
   type RoutineRun,
-} from "@openownbot/contracts/ipc";
+} from "@robot/contracts/ipc";
 import { bridgedToolName, getString, type ThreadItem } from "../protocol";
 
 /**

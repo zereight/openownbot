@@ -1,9 +1,9 @@
-import { hostAgentMemoryLimit, isAgentMemoryLimit } from "@openownbot/contracts/ipc";
+import { hostAgentMemoryLimit, isAgentMemoryLimit } from "@robot/contracts/ipc";
 import {
   AGENT_MEMORY_LIMIT_CAPABILITY,
   AGENT_MEMORY_LIMIT_ROUTES,
-} from "@openownbot/contracts/team-protocol/agent-memory-limit-v1";
-import { sourceText } from "@openownbot/i18n/source";
+} from "@robot/contracts/team-protocol/agent-memory-limit-v1";
+import { sourceText } from "@robot/i18n/source";
 import { runCauseEffect } from "../../backend/effect-boundary";
 import type { TeamApiAdmin } from "./dependencies";
 import { HttpError } from "./http-error";

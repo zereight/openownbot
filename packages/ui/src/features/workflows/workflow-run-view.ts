@@ -5,7 +5,7 @@
  * Stop, Retry and an approval act on.
  */
 
-import type { WorkflowRunDetail, WorkflowRunStatus, WorkflowStep, WorkflowStepStatus } from "@openownbot/contracts/ipc";
+import type { WorkflowRunDetail, WorkflowRunStatus, WorkflowStep, WorkflowStepStatus } from "@robot/contracts/ipc";
 
 export interface WorkflowRunView {
   /** Newest first. */

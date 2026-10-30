@@ -8,9 +8,9 @@ import {
   type ExternalLinkFallback,
   type ExternalLinkPreference,
   externalLinkAppName,
-} from "@openownbot/contracts/ipc";
-import { isDynamicRecord } from "@openownbot/contracts/runtime-values";
-import { createOpenOwnBotLogger, toLogValue } from "@openownbot/logging";
+} from "@robot/contracts/ipc";
+import { isDynamicRecord } from "@robot/contracts/runtime-values";
+import { createOpenOwnBotLogger, toLogValue } from "@robot/logging";
 import { Effect, Result, Schema } from "effect";
 import { PreferenceStore } from "./preference-file";
 

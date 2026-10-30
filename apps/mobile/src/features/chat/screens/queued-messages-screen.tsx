@@ -1,4 +1,4 @@
-import type { QueueDelivery } from "@openownbot/contracts/ipc";
+import type { QueueDelivery } from "@robot/contracts/ipc";
 import { router, useLocalSearchParams } from "expo-router";
 import { Button, Typography } from "heroui-native";
 import X from "lucide-react-native/icons/x";

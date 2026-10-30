@@ -12,8 +12,8 @@
 import assert from "node:assert/strict";
 import { mkdirSync } from "node:fs";
 import { resolve } from "node:path";
-import type { RemoteNetworkRoute } from "@openownbot/contracts/ipc";
-import { translateFor } from "@openownbot/i18n";
+import type { RemoteNetworkRoute } from "@robot/contracts/ipc";
+import { translateFor } from "@robot/i18n";
 import { type Browser, chromium, type Page } from "playwright-core";
 import { isPrivateNetworkAddress } from "../src/renderer/src/features/team/team-webrtc-private-network";
 import { argument, connectChannelE2e, WAIT_MS, waitFor, writeReport } from "./channel-e2e-support";

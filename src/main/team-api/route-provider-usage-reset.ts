@@ -1,9 +1,9 @@
-import { isProviderAccountId } from "@openownbot/contracts/ipc";
+import { isProviderAccountId } from "@robot/contracts/ipc";
 import {
   PROVIDER_USAGE_RESET_CAPABILITY,
   PROVIDER_USAGE_RESET_ROUTES,
-} from "@openownbot/contracts/team-protocol/provider-usage-reset-v1";
-import { sourceText } from "@openownbot/i18n/source";
+} from "@robot/contracts/team-protocol/provider-usage-reset-v1";
+import { sourceText } from "@robot/i18n/source";
 import { runCauseEffect } from "../../backend/effect-boundary";
 import { parseProviderId } from "../ipc/app-inputs";
 import type { TeamApiProviderUsageResets } from "./dependencies";

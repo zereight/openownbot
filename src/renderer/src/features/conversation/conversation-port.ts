@@ -1,4 +1,4 @@
-import type { DeleteSharedTableInput, OpenOwnBotDesktopApi, SharedTable } from "@openownbot/contracts/ipc";
+import type { DeleteSharedTableInput, OpenOwnBotDesktopApi, SharedTable } from "@robot/contracts/ipc";
 
 /**
  * What the conversation domain reaches in main: agent and direct message pages, sends, reads,

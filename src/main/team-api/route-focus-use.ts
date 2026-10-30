@@ -1,4 +1,4 @@
-import { FOCUS_USE_CAPABILITY, FOCUS_USE_ROUTES } from "@openownbot/contracts/team-protocol/focus-use-v1";
+import { FOCUS_USE_CAPABILITY, FOCUS_USE_ROUTES } from "@robot/contracts/team-protocol/focus-use-v1";
 import type { RouteOutcome, TeamApiRequestContext } from "./request-context";
 import { readJson } from "./request-helpers";
 

@@ -15,8 +15,8 @@ import type {
   SetTeamTypingInput,
   TeamPresenceSnapshot,
   TeamSessionSummary,
-} from "@openownbot/contracts/ipc";
-import { sourceText } from "@openownbot/i18n/source";
+} from "@robot/contracts/ipc";
+import { sourceText } from "@robot/i18n/source";
 import {
   STORY_DIRECT_SNAPSHOTS,
   STORY_DIRECT_THREADS,

@@ -1,5 +1,5 @@
 import type { ChildProcess } from "node:child_process";
-import { type AgentProviderId, isAgentProvider } from "@openownbot/contracts/agent-providers";
+import { type AgentProviderId, isAgentProvider } from "@robot/contracts/agent-providers";
 
 /**
  * The provider CLI processes that OpenOwnBot started, by PID. The resource monitor reads it to attribute

@@ -1,5 +1,5 @@
-import { Button, Toaster, toast } from "@openownbot/ui";
-import { AgentDeleteUndoToast, startUndoCountdown } from "@openownbot/ui/features/agents/AgentDeleteUndoToast";
+import { Button, Toaster, toast } from "@robot/ui";
+import { AgentDeleteUndoToast, startUndoCountdown } from "@robot/ui/features/agents/AgentDeleteUndoToast";
 import { onCleanup } from "solid-js";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";
 import { requireFixture, STORY_AGENTS } from "./fixtures";

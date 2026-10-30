@@ -1,8 +1,8 @@
-import type { ConversationTurnTrace } from "@openownbot/contracts/ipc";
-import type { AgentMessage } from "@openownbot/ui/data";
-import type { AgentStep, AgentStepsFacts } from "@openownbot/ui/features/conversation/AgentSteps";
-import { silentAgentAnswer } from "@openownbot/ui/features/conversation/new-message-tally";
-import type { TraceSpan } from "@openownbot/ui/features/conversation/TraceWaterfall";
+import type { ConversationTurnTrace } from "@robot/contracts/ipc";
+import type { AgentMessage } from "@robot/ui/data";
+import type { AgentStep, AgentStepsFacts } from "@robot/ui/features/conversation/AgentSteps";
+import { silentAgentAnswer } from "@robot/ui/features/conversation/new-message-tally";
+import type { TraceSpan } from "@robot/ui/features/conversation/TraceWaterfall";
 import { createMemo } from "solid-js";
 import type { TurnStepLines } from "./turn-step-lines";
 

@@ -4,8 +4,8 @@ import {
   type DynamicIslandPreference,
   isDynamicIslandServerVisibility,
   isDynamicIslandSizePercent,
-} from "@openownbot/contracts/ipc";
-import { isBoolean, isDynamicRecord } from "@openownbot/contracts/runtime-values";
+} from "@robot/contracts/ipc";
+import { isBoolean, isDynamicRecord } from "@robot/contracts/runtime-values";
 import { Effect } from "effect";
 import { isMissingFileError } from "../backend/file-errors";
 import { type PreferenceFileFailure, readPreferenceFile, writePreferenceFile } from "./preference-file";

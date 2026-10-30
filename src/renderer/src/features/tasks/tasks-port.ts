@@ -5,7 +5,7 @@ import type {
   AgentTasksSnapshot,
   ConversationSnapshot,
   StartAgentTaskInput,
-} from "@openownbot/contracts/ipc";
+} from "@robot/contracts/ipc";
 
 export type TaskEvent = Extract<
   AgentEvent,

@@ -1,4 +1,4 @@
-import { referenceFrom } from "@openownbot/user-errors";
+import { referenceFrom } from "@robot/user-errors";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { AppState, Linking } from "react-native";
 import { type SharedValue, useSharedValue, withTiming } from "react-native-reanimated";

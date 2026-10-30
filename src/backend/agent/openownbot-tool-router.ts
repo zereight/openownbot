@@ -1,7 +1,7 @@
 import { randomUUID } from "node:crypto";
-import { chatVisualItemType } from "@openownbot/contracts/chat-visual";
-import { sortConversationMessages } from "@openownbot/contracts/conversation-order";
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
+import { chatVisualItemType } from "@robot/contracts/chat-visual";
+import { sortConversationMessages } from "@robot/contracts/conversation-order";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
 import type {
   AgentModelChoice,
   AgentModelOption,
@@ -12,7 +12,7 @@ import type {
   McpServerConfig,
   SidebarLayoutSnapshot,
   UpdateAgentInput,
-} from "@openownbot/contracts/ipc";
+} from "@robot/contracts/ipc";
 import {
   agentComputerUseEnabled,
   agentNewChatAllowed,
@@ -24,11 +24,11 @@ import {
   skillConversationEventItemType,
   VAULT_CHANGE_ITEM_TYPE,
   workspaceAccessEnforced,
-} from "@openownbot/contracts/ipc";
-import { isString } from "@openownbot/contracts/runtime-values";
-import { isUiBlockId, normalizeUiBlockSpec } from "@openownbot/contracts/ui-blocks";
-import { sourceText } from "@openownbot/i18n/source";
-import { createOpenOwnBotLogger, redactText } from "@openownbot/logging";
+} from "@robot/contracts/ipc";
+import { isString } from "@robot/contracts/runtime-values";
+import { isUiBlockId, normalizeUiBlockSpec } from "@robot/contracts/ui-blocks";
+import { sourceText } from "@robot/i18n/source";
+import { createOpenOwnBotLogger, redactText } from "@robot/logging";
 import { Effect, Result } from "effect";
 import { z } from "zod";
 import pluginCatalog from "../../../resources/plugin-catalog/catalog.json";

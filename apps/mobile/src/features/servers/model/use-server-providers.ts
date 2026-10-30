@@ -1,4 +1,4 @@
-import type { AgentStatus, ProviderRuntimeSnapshot } from "@openownbot/contracts/ipc";
+import type { AgentStatus, ProviderRuntimeSnapshot } from "@robot/contracts/ipc";
 import { skipToken, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useCallback, useMemo, useRef } from "react";
 import { useQueryScope } from "@/features/auth/context/mobile-session-context";

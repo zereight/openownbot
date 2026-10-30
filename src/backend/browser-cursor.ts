@@ -1,4 +1,4 @@
-import type { BrowserViewCursor } from "@openownbot/contracts/team-protocol/browser-view-v1";
+import type { BrowserViewCursor } from "@robot/contracts/team-protocol/browser-view-v1";
 
 /**
  * Electron's `cursor-changed` names, as the CSS names a live view client draws. Electron calls the

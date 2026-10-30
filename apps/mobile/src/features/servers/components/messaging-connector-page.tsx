@@ -3,8 +3,8 @@ import {
   type MessagingConnection,
   type MessagingOverview,
   type MessagingPlatform,
-} from "@openownbot/contracts/ipc";
-import type { MessagingConnectorPage as HostPage } from "@openownbot/team-client/team-admin-requests";
+} from "@robot/contracts/ipc";
+import type { MessagingConnectorPage as HostPage } from "@robot/team-client/team-admin-requests";
 import type { UseQueryResult } from "@tanstack/react-query";
 import { openAuthSessionAsync } from "expo-web-browser";
 import { Typography } from "heroui-native";

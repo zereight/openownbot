@@ -1,4 +1,4 @@
-import type { TeamPresenceMember } from "@openownbot/contracts/ipc";
+import type { TeamPresenceMember } from "@robot/contracts/ipc";
 import type { AvatarMotion } from "../../bloub-avatar";
 import { AgentAvatar } from "../agents/AgentAvatar";
 

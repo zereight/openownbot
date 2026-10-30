@@ -1,4 +1,4 @@
-import type { VaultSaveInput, VaultSecretRequest, VaultState } from "@openownbot/contracts/ipc";
+import type { VaultSaveInput, VaultSecretRequest, VaultState } from "@robot/contracts/ipc";
 import { createStore } from "solid-js";
 import type { VaultCalls } from "../vault-port";
 

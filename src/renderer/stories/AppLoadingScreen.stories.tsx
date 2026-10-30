@@ -1,9 +1,5 @@
-import {
-  APP_LOADING_FPS,
-  APP_LOADING_LOOP_S,
-  AppLoadingScreen,
-} from "@openownbot/ui/features/account/AppLoadingScreen";
-import { ServerConnectionNotice } from "@openownbot/ui/features/servers/ServerConnectionNotice";
+import { APP_LOADING_FPS, APP_LOADING_LOOP_S, AppLoadingScreen } from "@robot/ui/features/account/AppLoadingScreen";
+import { ServerConnectionNotice } from "@robot/ui/features/servers/ServerConnectionNotice";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";
 import { SplashPlayground } from "./splash-story-support";
 

@@ -1,5 +1,5 @@
-import { type AppLanguagePreference, DEFAULT_APP_LANGUAGE } from "@openownbot/contracts/ipc";
-import { type AppTranslate, resolveLocale, type TranslatedLocale, translateFor } from "@openownbot/i18n";
+import { type AppLanguagePreference, DEFAULT_APP_LANGUAGE } from "@robot/contracts/ipc";
+import { type AppTranslate, resolveLocale, type TranslatedLocale, translateFor } from "@robot/i18n";
 import { Effect, Semaphore } from "effect";
 import { readLanguagePreference, writeLanguagePreference } from "./language-preference-store";
 import type { PreferenceFileFailure } from "./preference-file";

@@ -1,6 +1,6 @@
-import type { BrowserTab } from "@openownbot/contracts/ipc";
-import { ContextMenu } from "@openownbot/ui";
-import { useText } from "@openownbot/ui/text";
+import type { BrowserTab } from "@robot/contracts/ipc";
+import { ContextMenu } from "@robot/ui";
+import { useText } from "@robot/ui/text";
 import { Show } from "solid-js";
 import { BrowserShortcutHint } from "./BrowserTabIcon";
 import type { BrowserFullViewProps } from "./browser-full-view-types";

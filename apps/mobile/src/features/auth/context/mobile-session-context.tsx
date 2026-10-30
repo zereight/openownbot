@@ -1,4 +1,4 @@
-import { createRemoteAccountRefresh, runTeamEffect } from "@openownbot/team-client";
+import { createRemoteAccountRefresh, runTeamEffect } from "@robot/team-client";
 import { Effect } from "effect";
 import {
   createContext,

@@ -3,9 +3,9 @@
  * `sidebar-update-island` wrapper is the class that the sidebar puts around the island.
  */
 
-import type { UpdateStatus } from "@openownbot/contracts/ipc";
-import { AccountUpdateIsland } from "@openownbot/ui/features/account/AccountUpdateIsland";
-import { useText } from "@openownbot/ui/text";
+import type { UpdateStatus } from "@robot/contracts/ipc";
+import { AccountUpdateIsland } from "@robot/ui/features/account/AccountUpdateIsland";
+import { useText } from "@robot/ui/text";
 import { fn } from "storybook/test";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";
 

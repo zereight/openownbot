@@ -10,15 +10,15 @@ import type {
   VaultSecretField,
   VaultSecretRequest,
   VaultState,
-} from "@openownbot/contracts/ipc";
+} from "@robot/contracts/ipc";
 import {
   cardBrand,
   VAULT_COUNTRY_CODES,
   VAULT_NOTES_LIMIT,
   VAULT_PASSWORD_LIMIT,
   VAULT_TEXT_LIMIT,
-} from "@openownbot/contracts/ipc";
-import type { AppTextKey } from "@openownbot/i18n";
+} from "@robot/contracts/ipc";
+import type { AppTextKey } from "@robot/i18n";
 import {
   Alert,
   AlertActions,
@@ -63,8 +63,8 @@ import {
   UserRound,
   userInitials,
   X,
-} from "@openownbot/ui";
-import type { UserErrorDetails } from "@openownbot/user-errors";
+} from "@robot/ui";
+import type { UserErrorDetails } from "@robot/user-errors";
 import type { JSX } from "@solidjs/web";
 import { createMemo, createSignal, createStore, For, Match, Show, Switch, untrack } from "solid-js";
 import { useText } from "../../text";

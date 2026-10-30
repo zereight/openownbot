@@ -4,7 +4,7 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { createServer, type IncomingMessage, type ServerResponse } from "node:http";
 import { homedir } from "node:os";
 import { join, resolve } from "node:path";
-import { createOpenOwnBotLogger, registerSecretValue, toLogValue } from "@openownbot/logging";
+import { createOpenOwnBotLogger, registerSecretValue, toLogValue } from "@robot/logging";
 import { z } from "zod";
 
 /**

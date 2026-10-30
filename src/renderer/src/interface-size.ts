@@ -1,4 +1,4 @@
-import { type AppInterfaceSize, DEFAULT_APP_INTERFACE_SIZE } from "@openownbot/contracts/ipc";
+import { type AppInterfaceSize, DEFAULT_APP_INTERFACE_SIZE } from "@robot/contracts/ipc";
 import { createSignal, onSettled } from "solid-js";
 import { appPort } from "./app-port";
 

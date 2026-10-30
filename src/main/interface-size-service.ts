@@ -3,9 +3,9 @@ import {
   type AppInterfaceSizePreference,
   DEFAULT_APP_INTERFACE_SIZE,
   isAppInterfaceSize,
-} from "@openownbot/contracts/ipc";
-import { isDynamicRecord } from "@openownbot/contracts/runtime-values";
-import { createOpenOwnBotLogger, toLogValue } from "@openownbot/logging";
+} from "@robot/contracts/ipc";
+import { isDynamicRecord } from "@robot/contracts/runtime-values";
+import { createOpenOwnBotLogger, toLogValue } from "@robot/logging";
 import { Effect, Semaphore } from "effect";
 import { type PreferenceFileFailure, readPreferenceFile, writePreferenceFile } from "./preference-file";
 

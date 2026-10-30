@@ -7,10 +7,10 @@
 import assert from "node:assert/strict";
 import { mkdirSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
-import type { OpenOwnBotDesktopApi } from "@openownbot/contracts/ipc";
-import type { EventRoutine, EventRoutineRun, SaveEventRoutineInput } from "@openownbot/contracts/ipc-events";
-import { ROUTINE_RECOVERY_CAPABILITY } from "@openownbot/contracts/team-protocol/routine-recovery-v1";
-import { createOpenOwnBotLogger } from "@openownbot/logging";
+import type { OpenOwnBotDesktopApi } from "@robot/contracts/ipc";
+import type { EventRoutine, EventRoutineRun, SaveEventRoutineInput } from "@robot/contracts/ipc-events";
+import { ROUTINE_RECOVERY_CAPABILITY } from "@robot/contracts/team-protocol/routine-recovery-v1";
+import { createOpenOwnBotLogger } from "@robot/logging";
 import type { Page } from "playwright-core";
 import { assertMutationAllowed, connectToDevApp } from "./dev-automation/cdp-client";
 import { readDevInstanceRecords } from "./dev-automation/instance-registry";

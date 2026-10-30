@@ -1,4 +1,4 @@
-import { isDynamicRecord } from "@openownbot/contracts/runtime-values";
+import { isDynamicRecord } from "@robot/contracts/runtime-values";
 import { type DecisionBackend, decisionEndpoint } from "./channel-decision";
 
 /**

@@ -1,4 +1,4 @@
-import type { AttachmentSummary, ConversationReaction, InstalledSkill } from "@openownbot/contracts/ipc";
+import type { AttachmentSummary, ConversationReaction, InstalledSkill } from "@robot/contracts/ipc";
 import {
   Bubble,
   BubbleContent,
@@ -9,7 +9,7 @@ import {
   MessageAvatar,
   MessageContent,
   MessageHeader,
-} from "@openownbot/ui";
+} from "@robot/ui";
 import type { JSX } from "@solidjs/web";
 import { createMemo, For, Show } from "solid-js";
 import { avatarHeadColor } from "../../bloub-avatar";

@@ -1,4 +1,4 @@
-import { prefersReducedMotion } from "@openownbot/ui/utils";
+import { prefersReducedMotion } from "@robot/ui/utils";
 import { flush } from "solid-js";
 import type { MarketplaceNavigation } from "./marketplace-view";
 

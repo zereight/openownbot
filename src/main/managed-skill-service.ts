@@ -1,9 +1,9 @@
 import { lstat, mkdir, readdir, readFile, realpath, rename, unlink, writeFile } from "node:fs/promises";
 import { dirname, join, relative, resolve, sep } from "node:path";
-import { agentProviderDescriptor } from "@openownbot/contracts/agent-providers";
-import type { AgentSummary, InstalledSkill } from "@openownbot/contracts/ipc";
-import { isDynamicRecord } from "@openownbot/contracts/runtime-values";
-import { createOpenOwnBotLogger, toLogValue } from "@openownbot/logging";
+import { agentProviderDescriptor } from "@robot/contracts/agent-providers";
+import type { AgentSummary, InstalledSkill } from "@robot/contracts/ipc";
+import { isDynamicRecord } from "@robot/contracts/runtime-values";
+import { createOpenOwnBotLogger, toLogValue } from "@robot/logging";
 import { Effect, Result, Schema } from "effect";
 import { parse as parseYaml } from "yaml";
 import { causeHelpers } from "../backend/effect-boundary";

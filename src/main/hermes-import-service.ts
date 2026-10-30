@@ -10,7 +10,7 @@
 import { randomUUID } from "node:crypto";
 import { mkdir, readFile, realpath, rm, writeFile } from "node:fs/promises";
 import { join } from "node:path";
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
 import {
   AGENT_IMPORT_LIMITS,
   type AgentImportResult,
@@ -24,9 +24,9 @@ import {
   type HermesImportProfile,
   type McpServerConfig,
   type UpdateAgentInput,
-} from "@openownbot/contracts/ipc";
-import { isDynamicRecord, isString } from "@openownbot/contracts/runtime-values";
-import { sourceText } from "@openownbot/i18n/source";
+} from "@robot/contracts/ipc";
+import { isDynamicRecord, isString } from "@robot/contracts/runtime-values";
+import { sourceText } from "@robot/i18n/source";
 import { Effect, Result } from "effect";
 import { parseStoredJson, writeJsonFileAtomically } from "../backend/atomic-json-file";
 import { writeTreeEffect } from "./agent-archive";

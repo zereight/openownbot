@@ -5,7 +5,7 @@
  * Each trigger keeps its own root and puts this list in its `DropdownMenu.Portal`.
  */
 
-import { Check, DropdownMenu, Input, Search } from "@openownbot/ui";
+import { Check, DropdownMenu, Input, Search } from "@robot/ui";
 import type { JSX } from "@solidjs/web";
 import { createMemo, createSignal, For, Show } from "solid-js";
 import { useText } from "../../text";

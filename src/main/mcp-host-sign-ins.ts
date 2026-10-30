@@ -10,8 +10,8 @@ import type {
   SaveMcpSignInAppInput,
   SignOutMcpServerInput,
   TestMcpServerInput,
-} from "@openownbot/contracts/ipc";
-import { sourceText } from "@openownbot/i18n/source";
+} from "@robot/contracts/ipc";
+import { sourceText } from "@robot/i18n/source";
 import { Cause, Effect, Exit, Option } from "effect";
 import type { AgentService } from "../backend/agent-service";
 import type { BrowserHost } from "../backend/browser-host";

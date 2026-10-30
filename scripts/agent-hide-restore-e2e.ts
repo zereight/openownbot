@@ -13,23 +13,23 @@ import { mkdirSync, writeFileSync } from "node:fs";
 import { mkdtemp, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
-import type { AgentEvent, HiddenAgentsSnapshot } from "@openownbot/contracts/ipc";
-import { TEAM_API_ROUTES } from "@openownbot/contracts/team-api-routes";
+import type { AgentEvent, HiddenAgentsSnapshot } from "@robot/contracts/ipc";
+import { TEAM_API_ROUTES } from "@robot/contracts/team-api-routes";
 import {
   TEAM_APP_VERSION_HEADER,
   TEAM_CAPABILITIES_HEADER,
   TEAM_PROTOCOL_V1_WEBSOCKET,
   TEAM_PROTOCOL_VERSION_HEADER,
-} from "@openownbot/contracts/team-protocol";
+} from "@robot/contracts/team-protocol";
 import {
   AGENT_HIDDEN_CAPABILITY,
   AGENT_HIDDEN_CODECS,
   AGENT_HIDDEN_ROUTES,
   agentHiddenEvent,
-} from "@openownbot/contracts/team-protocol/agent-hidden-v1";
-import { TEAM_CURRENT_CAPABILITIES } from "@openownbot/contracts/team-protocol/current";
-import { TEAM_PROTOCOL_V7 } from "@openownbot/contracts/team-protocol/v7";
-import { sourceText } from "@openownbot/i18n/source";
+} from "@robot/contracts/team-protocol/agent-hidden-v1";
+import { TEAM_CURRENT_CAPABILITIES } from "@robot/contracts/team-protocol/current";
+import { TEAM_PROTOCOL_V7 } from "@robot/contracts/team-protocol/v7";
+import { sourceText } from "@robot/i18n/source";
 import { plugin } from "bun";
 import { Effect } from "effect";
 import type { AgentBrowserHost } from "../src/backend/agent/turn-lifecycle";

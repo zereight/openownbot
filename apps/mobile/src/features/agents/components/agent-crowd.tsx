@@ -1,5 +1,5 @@
-import type { AvatarMood } from "@openownbot/brand/bloub-avatar-motion";
-import type { AvatarHue } from "@openownbot/contracts/ipc";
+import type { AvatarMood } from "@robot/brand/bloub-avatar-motion";
+import type { AvatarHue } from "@robot/contracts/ipc";
 import { useIsFocused } from "expo-router";
 import { useThemeColor } from "heroui-native/hooks";
 import type { LucideIcon } from "lucide-react-native";

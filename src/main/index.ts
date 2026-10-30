@@ -5,12 +5,12 @@ import {
   type CentralAuthState,
   type HostStatus,
   IPC_ENDPOINTS,
-} from "@openownbot/contracts/ipc";
-import { DATA_FOLDER_NAME } from "@openownbot/contracts/product";
-import { createFormat, resolveLocale, translateFor } from "@openownbot/i18n";
-import { localizeSourceText } from "@openownbot/i18n/source";
-import { createOpenOwnBotLogger, toLogValue } from "@openownbot/logging";
-import { createRemoteDirectoryRefresh } from "@openownbot/team-client/remote-directory";
+} from "@robot/contracts/ipc";
+import { DATA_FOLDER_NAME } from "@robot/contracts/product";
+import { createFormat, resolveLocale, translateFor } from "@robot/i18n";
+import { localizeSourceText } from "@robot/i18n/source";
+import { createOpenOwnBotLogger, toLogValue } from "@robot/logging";
+import { createRemoteDirectoryRefresh } from "@robot/team-client/remote-directory";
 import { Effect, Semaphore } from "effect";
 import {
   app,

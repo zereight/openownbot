@@ -17,7 +17,7 @@
 // plans (#3055). The reading carries every group, so the usage popover shows each one. An API key sign-in has no plan quota: the section then says "Not applicable for
 // current authentication method", which reads as no usage.
 
-import { usageGroupForModel } from "@openownbot/contracts/ipc";
+import { usageGroupForModel } from "@robot/contracts/ipc";
 import type {
   AccountRateLimitGroupResult,
   AccountRateLimitsReadResult,

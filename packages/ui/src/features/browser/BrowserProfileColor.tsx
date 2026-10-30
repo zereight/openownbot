@@ -1,5 +1,5 @@
-import type { AvatarHue } from "@openownbot/contracts/ipc";
-import { buttonVariants, Check, DropdownMenu } from "@openownbot/ui";
+import type { AvatarHue } from "@robot/contracts/ipc";
+import { buttonVariants, Check, DropdownMenu } from "@robot/ui";
 import { For, Show } from "solid-js";
 import { AVATAR_HUE_CHOICES, avatarHueSwatch } from "../../bloub-avatar";
 import { useText } from "../../text";

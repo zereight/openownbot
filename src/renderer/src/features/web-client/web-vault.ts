@@ -1,6 +1,6 @@
-import { decodeHostVaultSecret, decodeHostVaultState, type VaultSaveInput } from "@openownbot/contracts/ipc";
-import { VAULT_ROUTES } from "@openownbot/contracts/team-protocol/vault-v1";
-import type { TeamApiRequest } from "@openownbot/team-client/team-api-requests";
+import { decodeHostVaultSecret, decodeHostVaultState, type VaultSaveInput } from "@robot/contracts/ipc";
+import { VAULT_ROUTES } from "@robot/contracts/team-protocol/vault-v1";
+import type { TeamApiRequest } from "@robot/team-client/team-api-requests";
 import { remoteVaultCalls, type VaultCalls } from "../vault/vault-port";
 import type { WebWorkspace } from "./web-client-context";
 

@@ -1,5 +1,5 @@
-import { isAppLanguage } from "@openownbot/contracts/app-language";
-import type { TranslatedLocale } from "@openownbot/i18n";
+import { isAppLanguage } from "@robot/contracts/app-language";
+import type { TranslatedLocale } from "@robot/i18n";
 import { createIsomorphicFn } from "@tanstack/solid-start";
 import { getRequestHeader } from "@tanstack/solid-start/server";
 

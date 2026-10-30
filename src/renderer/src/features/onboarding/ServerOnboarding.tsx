@@ -1,6 +1,6 @@
-import type { AgentModelId, AgentProviderId } from "@openownbot/contracts/ipc";
-import { Button, ErrorReference, IconButton, X } from "@openownbot/ui";
-import { useText } from "@openownbot/ui/text";
+import type { AgentModelId, AgentProviderId } from "@robot/contracts/ipc";
+import { Button, ErrorReference, IconButton, X } from "@robot/ui";
+import { useText } from "@robot/ui/text";
 import { createSignal, createUniqueId, onSettled, Show } from "solid-js";
 import { listenForEscape } from "./onboarding-escape";
 import { createSetupProviders, SetupProviderPicker, type SetupProviderProps } from "./SetupProviderPicker";

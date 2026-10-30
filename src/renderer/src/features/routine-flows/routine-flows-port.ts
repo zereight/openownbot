@@ -1,4 +1,4 @@
-import type { OpenOwnBotDesktopApi, TestRoutineInput, UpdateRoutineInput } from "@openownbot/contracts/ipc";
+import type { OpenOwnBotDesktopApi, TestRoutineInput, UpdateRoutineInput } from "@robot/contracts/ipc";
 import { type AgentChatPort, desktopAgentChatPort } from "../../agent-chat-port";
 import { desktopEventRoutinesApi, type EventRoutinesApi } from "../conversation/routine-webhooks-api";
 

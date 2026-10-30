@@ -15,7 +15,7 @@ import assert from "node:assert/strict";
 import { mkdirSync, rmSync, writeFileSync } from "node:fs";
 import { homedir } from "node:os";
 import { join, resolve } from "node:path";
-import { translateFor } from "@openownbot/i18n";
+import { translateFor } from "@robot/i18n";
 import { ChannelClient, connectChannelE2e, WAIT_MS, waitFor, writeReport } from "./channel-e2e-support";
 
 const OUT = resolve(import.meta.dirname, "../.openownbot-build/channel-file-link-e2e");

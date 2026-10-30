@@ -1,9 +1,9 @@
-import { parseResetAgentSessionSetting, parseSetAgentSessionSetting } from "@openownbot/contracts/ipc";
+import { parseResetAgentSessionSetting, parseSetAgentSessionSetting } from "@robot/contracts/ipc";
 import {
   AGENT_SESSION_SETTINGS_CAPABILITY,
   AGENT_SESSION_SETTINGS_ROUTES,
-} from "@openownbot/contracts/team-protocol/agent-session-settings-v1";
-import { sourceText } from "@openownbot/i18n/source";
+} from "@robot/contracts/team-protocol/agent-session-settings-v1";
+import { sourceText } from "@robot/i18n/source";
 import { runCauseEffect } from "../../backend/effect-boundary";
 import type { TeamApiAdmin } from "./dependencies";
 import { HttpError } from "./http-error";

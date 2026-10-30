@@ -5,8 +5,8 @@ import type {
   DirectMessageRealtimeEvent,
   DirectThreadSummary,
   DirectTypingRealtimeEvent,
-} from "@openownbot/contracts/ipc";
-import { currentText } from "@openownbot/ui/text";
+} from "@robot/contracts/ipc";
+import { currentText } from "@robot/ui/text";
 import { createEffect, createMemo, createSignal, flush, onSettled } from "solid-js";
 import { usePlatform } from "../../platform";
 import { createScopeGuard } from "../../scope-lifetime";

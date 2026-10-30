@@ -1,5 +1,5 @@
-import type { StorageCategory, StorageUsage, StoredFileRow } from "@openownbot/contracts/ipc";
-import type { MobileTextKey } from "@openownbot/i18n/mobile";
+import type { StorageCategory, StorageUsage, StoredFileRow } from "@robot/contracts/ipc";
+import type { MobileTextKey } from "@robot/i18n/mobile";
 import { Typography } from "heroui-native";
 import { useThemeColor } from "heroui-native/hooks";
 import Trash2 from "lucide-react-native/icons/trash";

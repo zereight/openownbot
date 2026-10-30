@@ -1,5 +1,5 @@
-import { sourceText } from "@openownbot/i18n/source";
-import { redactText } from "@openownbot/logging";
+import { sourceText } from "@robot/i18n/source";
+import { redactText } from "@robot/logging";
 import { Effect } from "effect";
 import { z } from "zod";
 import type { AgentStore } from "../agent-store";

@@ -6,7 +6,7 @@
  * works, and offers the app. It is the same frame as the code sign-in dialog, which the same rows open.
  */
 
-import { Button, Dialog, IconButton, X } from "@openownbot/ui";
+import { Button, Dialog, IconButton, X } from "@robot/ui";
 import { useText } from "../text";
 
 export interface ProviderUseAppDialogProps {

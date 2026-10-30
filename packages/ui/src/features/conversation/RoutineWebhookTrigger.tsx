@@ -1,7 +1,7 @@
-import type { EventFilterDraft } from "@openownbot/contracts/event-filter-value";
-import type { WebhookTestResult } from "@openownbot/contracts/ipc-events";
-import type { AppTextKey } from "@openownbot/i18n";
-import { Button, Check, ChevronDown, ChevronRight, Text, Webhook } from "@openownbot/ui";
+import type { EventFilterDraft } from "@robot/contracts/event-filter-value";
+import type { WebhookTestResult } from "@robot/contracts/ipc-events";
+import type { AppTextKey } from "@robot/i18n";
+import { Button, Check, ChevronDown, ChevronRight, Text, Webhook } from "@robot/ui";
 import type { JSX } from "@solidjs/web";
 import { createEffect, createStore, Show } from "solid-js";
 import { useText } from "../../text";

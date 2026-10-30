@@ -14,9 +14,9 @@
 // It deletes its channel at the end. Writes .openownbot-build/chat-visual-e2e/report.json and screenshots.
 import assert from "node:assert/strict";
 import { resolve } from "node:path";
-import { isAgentProvider } from "@openownbot/contracts/agent-providers";
-import type { AgentSummary } from "@openownbot/contracts/ipc";
-import { translateFor } from "@openownbot/i18n";
+import { isAgentProvider } from "@robot/contracts/agent-providers";
+import type { AgentSummary } from "@robot/contracts/ipc";
+import { translateFor } from "@robot/i18n";
 import type { FrameLocator, Locator, Page } from "playwright-core";
 import { argument, ChannelClient, connectChannelE2e, WAIT_MS, waitFor, writeReport } from "./channel-e2e-support";
 

@@ -3,4 +3,4 @@ export {
   decodeRemoteDesktopSignalControl,
   encodeRemoteDesktopSignalBinary,
   encodeRemoteDesktopSignalControl,
-} from "@openownbot/contracts/team-protocol/remote-stream-v1";
+} from "@robot/contracts/team-protocol/remote-stream-v1";

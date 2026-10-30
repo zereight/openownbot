@@ -1,26 +1,26 @@
-import { memberLimitForPlan } from "@openownbot/contracts/billing";
+import { memberLimitForPlan } from "@robot/contracts/billing";
 import {
   HOST_KEY_HANDOVER_LIMIT,
   type HostKeyHandover,
   hostKeyHandoverStatement,
-} from "@openownbot/contracts/host-key-handover";
-import type { MobileConnectHostBinding } from "@openownbot/contracts/mobile-connect";
-import { type DynamicRecord, isDynamicRecord, isString } from "@openownbot/contracts/runtime-values";
-import type { RemoteAuthEvent } from "@openownbot/contracts/signal-protocol/auth-events";
+} from "@robot/contracts/host-key-handover";
+import type { MobileConnectHostBinding } from "@robot/contracts/mobile-connect";
+import { type DynamicRecord, isDynamicRecord, isString } from "@robot/contracts/runtime-values";
+import type { RemoteAuthEvent } from "@robot/contracts/signal-protocol/auth-events";
 import {
   DISCORD_ROUTE_AUDIENCE,
   DISCORD_ROUTE_GUILDS_LIMIT,
   DISCORD_ROUTE_TTL_SECONDS,
   type DiscordRouteGuild,
-} from "@openownbot/contracts/signal-protocol/discord-route";
-import type { IngressRoute } from "@openownbot/contracts/signal-protocol/ingress-queue";
+} from "@robot/contracts/signal-protocol/discord-route";
+import type { IngressRoute } from "@robot/contracts/signal-protocol/ingress-queue";
 import {
   SLACK_ROUTE_AUDIENCE,
   SLACK_ROUTE_TEAMS_LIMIT,
   SLACK_ROUTE_TTL_SECONDS,
   type SlackRouteClaims,
   type SlackRouteTeam,
-} from "@openownbot/contracts/signal-protocol/slack-route";
+} from "@robot/contracts/signal-protocol/slack-route";
 import {
   TELEGRAM_BOT_ID_PATTERN,
   TELEGRAM_CHAT_ID_PATTERN,
@@ -31,21 +31,21 @@ import {
   TELEGRAM_ROUTE_TTL_SECONDS,
   type TelegramRouteChat,
   type TelegramRouteClaims,
-} from "@openownbot/contracts/signal-protocol/telegram-route";
+} from "@robot/contracts/signal-protocol/telegram-route";
 import {
   REMOTE_TICKET_AUDIENCE,
   REMOTE_TICKET_PROTOCOL_VERSION,
   type RemoteMemberRole,
   type RemoteTicketClaims,
-} from "@openownbot/contracts/signal-protocol/ticket";
+} from "@robot/contracts/signal-protocol/ticket";
 import {
   WEBHOOK_ROUTE_AUDIENCE,
   WEBHOOK_ROUTE_ID_PATTERN,
   WEBHOOK_ROUTE_TTL_SECONDS,
   WEBHOOK_ROUTES_LIMIT,
   type WebhookRoute,
-} from "@openownbot/contracts/signal-protocol/webhook-route";
-import { sourceText } from "@openownbot/i18n/source";
+} from "@robot/contracts/signal-protocol/webhook-route";
+import { sourceText } from "@robot/i18n/source";
 import { Context, Effect, Layer, Result, Schema } from "effect";
 import { importJWK, type JWK, type JWTPayload, SignJWT } from "jose";
 import { getServerEntitlement, SERVER_MEMBER_LIMIT_SQL } from "./billing-entitlement";

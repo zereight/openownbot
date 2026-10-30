@@ -19,8 +19,8 @@
  * stays out of the store until a connection with it worked.
  */
 
-import type { McpServerConfig, McpTestResult } from "@openownbot/contracts/ipc";
-import { Alert, AlertContent, AlertDescription, AlertIcon, AlertTitle, Button, OctagonX, Puzzle } from "@openownbot/ui";
+import type { McpServerConfig, McpTestResult } from "@robot/contracts/ipc";
+import { Alert, AlertContent, AlertDescription, AlertIcon, AlertTitle, Button, OctagonX, Puzzle } from "@robot/ui";
 import type { JSX } from "@solidjs/web";
 import { createSignal, createStore, Show } from "solid-js";
 import { useText } from "../../text";

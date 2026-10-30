@@ -500,7 +500,7 @@ Team API adapters are permanent (see [Team API compatibility](team-api.md)). Wor
    [`team-admin-requests.ts`](../../packages/team-client/src/team-admin-requests.ts), and gate them
    on the host's capabilities in the web client.
 8. **Bootstrap.** Make sure that the capability is not in bootstrap.
-9. **Text.** Error messages use `sourceText(key)` with keys in all languages of `@openownbot/i18n`.
+9. **Text.** Error messages use `sourceText(key)` with keys in all languages of `@robot/i18n`.
 
 ## Test a sign-in through a joined server
 

@@ -1,7 +1,7 @@
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
-import type { AccountSession, AvatarImageInput, CentralAuthUser } from "@openownbot/contracts/ipc";
-import { normalizeAccountName, validateProfileName } from "@openownbot/contracts/validation";
-import { errorReference, type UserErrorDetails } from "@openownbot/user-errors";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
+import type { AccountSession, AvatarImageInput, CentralAuthUser } from "@robot/contracts/ipc";
+import { normalizeAccountName, validateProfileName } from "@robot/contracts/validation";
+import { errorReference, type UserErrorDetails } from "@robot/user-errors";
 import { createEffect, createMemo, createStore, untrack } from "solid-js";
 import { normalizeAvatarFile } from "../../../avatar-image";
 import { currentText } from "../../../text";

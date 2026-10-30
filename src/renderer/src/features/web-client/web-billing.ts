@@ -1,9 +1,9 @@
-import { parseBillingSessionUrl, parseBillingState } from "@openownbot/contracts/billing";
-import { parseLicenseCheckoutUrl, parseLicenseState } from "@openownbot/contracts/license";
-import { isDynamicRecord, isString } from "@openownbot/contracts/runtime-values";
-import type { BillingCalls } from "@openownbot/ui/features/billing/billing-store";
-import type { LicenseCalls } from "@openownbot/ui/features/billing/license-store";
-import { currentText } from "@openownbot/ui/text";
+import { parseBillingSessionUrl, parseBillingState } from "@robot/contracts/billing";
+import { parseLicenseCheckoutUrl, parseLicenseState } from "@robot/contracts/license";
+import { isDynamicRecord, isString } from "@robot/contracts/runtime-values";
+import type { BillingCalls } from "@robot/ui/features/billing/billing-store";
+import type { LicenseCalls } from "@robot/ui/features/billing/license-store";
+import { currentText } from "@robot/ui/text";
 
 const REQUEST_TIMEOUT_MS = 15_000;
 

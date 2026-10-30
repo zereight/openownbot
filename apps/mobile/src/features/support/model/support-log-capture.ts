@@ -1,4 +1,4 @@
-import { PRODUCT_NAME } from "@openownbot/contracts/product";
+import { PRODUCT_NAME } from "@robot/contracts/product";
 import * as Application from "expo-application";
 import * as Device from "expo-device";
 import { File, Paths } from "expo-file-system";

@@ -2,7 +2,7 @@ import { Effect } from "effect";
 // Signing in to a provider, storing the optional provider API keys, and downloading the CLI
 // runtimes the providers need.
 
-import { isManagedRuntimeProvider, type ManagedProviderId } from "@openownbot/contracts/agent-providers";
+import { isManagedRuntimeProvider, type ManagedProviderId } from "@robot/contracts/agent-providers";
 import {
   type AgentProviderId,
   type ConnectProviderAccountInput,
@@ -12,10 +12,10 @@ import {
   type RenameProviderAccountInput,
   type ResetProviderUsageInput,
   type SetProviderApiKeyInput,
-} from "@openownbot/contracts/ipc";
-import type { ProviderEnvironmentInput } from "@openownbot/contracts/provider-environment";
-import { isDynamicRecord, isString } from "@openownbot/contracts/runtime-values";
-import { sourceText } from "@openownbot/i18n/source";
+} from "@robot/contracts/ipc";
+import type { ProviderEnvironmentInput } from "@robot/contracts/provider-environment";
+import { isDynamicRecord, isString } from "@robot/contracts/runtime-values";
+import { sourceText } from "@robot/i18n/source";
 import { AgentLifecycleFailed, type AgentService } from "../../backend/agent-service";
 import { runCauseEffect } from "../../backend/effect-boundary";
 import type { ClaudeEnvironmentStore } from "../claude-environment-store";

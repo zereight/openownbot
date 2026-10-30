@@ -9,9 +9,9 @@ import type {
   ListChannelRoutineRunsInput,
   TestChannelRoutineInput,
   UpdateChannelRoutineInput,
-} from "@openownbot/contracts/ipc";
-import { sourceText } from "@openownbot/i18n/source";
-import { collapseMissedOccurrences } from "@openownbot/team-client/routine-schedule";
+} from "@robot/contracts/ipc";
+import { sourceText } from "@robot/i18n/source";
+import { collapseMissedOccurrences } from "@robot/team-client/routine-schedule";
 import { Effect, Result, Schema } from "effect";
 import type { RoutineTriggerAccess } from "./agent/routine-scheduler";
 import { ChannelRoutineStore } from "./channel-routine-store";

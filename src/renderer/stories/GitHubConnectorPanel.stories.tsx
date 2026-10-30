@@ -1,5 +1,5 @@
-import type { GitHubConnectorRepositories, GitHubConnectorStatus } from "@openownbot/contracts/ipc";
-import { GitHubConnectorPanel } from "@openownbot/ui/features/settings/GitHubConnectorPanel";
+import type { GitHubConnectorRepositories, GitHubConnectorStatus } from "@robot/contracts/ipc";
+import { GitHubConnectorPanel } from "@robot/ui/features/settings/GitHubConnectorPanel";
 import { fn } from "storybook/test";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";
 import { SettledArgs } from "./settled-args";

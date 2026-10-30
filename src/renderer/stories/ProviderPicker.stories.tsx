@@ -1,7 +1,7 @@
-import type { AgentProviderId } from "@openownbot/contracts/ipc";
-import { Toaster } from "@openownbot/ui";
-import type { ProviderPickerOption } from "@openownbot/ui/components/ProviderPicker";
-import { ProviderPicker } from "@openownbot/ui/components/ProviderPicker";
+import type { AgentProviderId } from "@robot/contracts/ipc";
+import { Toaster } from "@robot/ui";
+import type { ProviderPickerOption } from "@robot/ui/components/ProviderPicker";
+import { ProviderPicker } from "@robot/ui/components/ProviderPicker";
 import { createSignal } from "solid-js";
 import { fn } from "storybook/test";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";

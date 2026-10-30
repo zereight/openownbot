@@ -1,11 +1,11 @@
 import { rm } from "node:fs/promises";
-import { parseApplyInstanceTransferInput, parseExportInstanceInput } from "@openownbot/contracts/ipc";
+import { parseApplyInstanceTransferInput, parseExportInstanceInput } from "@robot/contracts/ipc";
 import {
   INSTANCE_TRANSFER_CAPABILITY,
   INSTANCE_TRANSFER_REMOTE_BYTES,
   INSTANCE_TRANSFER_ROUTES,
-} from "@openownbot/contracts/team-protocol/instance-transfer-v1";
-import { sourceText } from "@openownbot/i18n/source";
+} from "@robot/contracts/team-protocol/instance-transfer-v1";
+import { sourceText } from "@robot/i18n/source";
 import { Effect } from "effect";
 import { runCauseEffect } from "../../backend/effect-boundary";
 import type { TeamApiInstanceTransfer } from "./dependencies";

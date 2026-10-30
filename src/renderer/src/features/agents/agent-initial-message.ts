@@ -1,4 +1,4 @@
-import type { FirstAgentDraft } from "@openownbot/ui/features/agents/FirstAgentSetup";
+import type { FirstAgentDraft } from "@robot/ui/features/agents/FirstAgentSetup";
 
 /** Give a newly created agent its standing role, or ask for a greeting when no purpose is supplied. */
 export function createAgentInitialMessage(draft: Pick<FirstAgentDraft, "purpose">): string {

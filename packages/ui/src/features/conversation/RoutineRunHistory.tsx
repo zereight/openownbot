@@ -6,10 +6,10 @@ import {
   type RoutineResultDeliveryReason,
   type RoutineResultDeliveryStatus,
   type RoutineRunFields,
-} from "@openownbot/contracts/ipc";
-import type { EventActivity, EventRoutineRef, ListEventActivityInput } from "@openownbot/contracts/ipc-events";
-import type { AppMessages, AppTextKey } from "@openownbot/i18n";
-import { Button, Check, CirclePause, Clock3, Minus, Text, TriangleAlert, X } from "@openownbot/ui";
+} from "@robot/contracts/ipc";
+import type { EventActivity, EventRoutineRef, ListEventActivityInput } from "@robot/contracts/ipc-events";
+import type { AppMessages, AppTextKey } from "@robot/i18n";
+import { Button, Check, CirclePause, Clock3, Minus, Text, TriangleAlert, X } from "@robot/ui";
 import { createEffect, createSignal, createUniqueId, For, Match, Show, Switch, untrack } from "solid-js";
 import { type TextValue, useText } from "../../text";
 

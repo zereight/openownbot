@@ -1,4 +1,4 @@
-import type { RoutineFeed, RoutineFeedDesktopApi } from "@openownbot/contracts/ipc";
+import type { RoutineFeed, RoutineFeedDesktopApi } from "@robot/contracts/ipc";
 import {
   Button,
   CalendarClock,
@@ -21,8 +21,8 @@ import {
   SettingsSection,
   Spinner,
   Text,
-} from "@openownbot/ui";
-import { useText } from "@openownbot/ui/text";
+} from "@robot/ui";
+import { useText } from "@robot/ui/text";
 import { createSignal, createStore, Show, untrack } from "solid-js";
 import type { ServerSettingsSectionHost } from "./server-settings-section";
 

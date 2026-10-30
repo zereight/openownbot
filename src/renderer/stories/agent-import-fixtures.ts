@@ -1,4 +1,4 @@
-import type { AgentImportPreview, HermesImportPreview } from "@openownbot/contracts/ipc";
+import type { AgentImportPreview, HermesImportPreview } from "@robot/contracts/ipc";
 
 const MB = 1024 ** 2;
 

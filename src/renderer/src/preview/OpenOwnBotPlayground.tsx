@@ -1,8 +1,8 @@
 import {
   LANDING_PREVIEW_READY_MESSAGE,
   LANDING_PREVIEW_START_MESSAGE,
-} from "@openownbot/contracts/landing-preview-messages";
-import { prefersReducedMotion } from "@openownbot/ui/utils";
+} from "@robot/contracts/landing-preview-messages";
+import { prefersReducedMotion } from "@robot/ui/utils";
 import type { JSX } from "@solidjs/web";
 import { onCleanup, onSettled } from "solid-js";
 import { App } from "../App";

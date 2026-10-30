@@ -5,11 +5,7 @@
  * from the context menus and from the keyboard reorder shortcuts alike.
  */
 
-import {
-  SIDEBAR_UNASSIGNED_SECTION_ID,
-  type SidebarLayoutAction,
-  type TeamPresenceMember,
-} from "@openownbot/contracts/ipc";
+import { SIDEBAR_UNASSIGNED_SECTION_ID, type SidebarLayoutAction, type TeamPresenceMember } from "@robot/contracts/ipc";
 import { currentText } from "../../../text";
 import { teamMemberName } from "../../team/TeamPersonAvatar";
 import type {

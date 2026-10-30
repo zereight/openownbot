@@ -1,6 +1,6 @@
 /** A condition: a rule that sends the run down one of two branches. */
 
-import { Button, CircleCheck, Play, Split, Textarea } from "@openownbot/ui";
+import { Button, CircleCheck, Play, Split, Textarea } from "@robot/ui";
 import { For, Show, untrack } from "solid-js";
 import { useText } from "../../text";
 import { BRANCH_NAME, resultValue, useBoard } from "./workflow-board";

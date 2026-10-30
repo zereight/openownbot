@@ -1,9 +1,6 @@
-import { parseDiscordAllowedRoles } from "@openownbot/contracts/ipc";
-import {
-  DISCORD_ACCESS_CAPABILITY,
-  DISCORD_ACCESS_ROUTES,
-} from "@openownbot/contracts/team-protocol/discord-access-v1";
-import { sourceText } from "@openownbot/i18n/source";
+import { parseDiscordAllowedRoles } from "@robot/contracts/ipc";
+import { DISCORD_ACCESS_CAPABILITY, DISCORD_ACCESS_ROUTES } from "@robot/contracts/team-protocol/discord-access-v1";
+import { sourceText } from "@robot/i18n/source";
 import { runCauseEffect } from "../../backend/effect-boundary";
 import type { TeamApiConnectors } from "./dependencies";
 import { HttpError } from "./http-error";

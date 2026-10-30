@@ -1,5 +1,5 @@
-import { MASKED_WEBHOOK_SECRET } from "@openownbot/contracts/event-filter-value";
-import { Button, ConfirmDialog, CopyButton, IconButton, RefreshCw, Text } from "@openownbot/ui";
+import { MASKED_WEBHOOK_SECRET } from "@robot/contracts/event-filter-value";
+import { Button, ConfirmDialog, CopyButton, IconButton, RefreshCw, Text } from "@robot/ui";
 import { createSignal, Show } from "solid-js";
 import { useText } from "../../text";
 

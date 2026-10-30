@@ -1,5 +1,5 @@
 import { type SpawnedMspConnection, spawnMspConnection } from "@muse-code/sdk";
-import { sourceText } from "@openownbot/i18n/source";
+import { sourceText } from "@robot/i18n/source";
 import { Effect, Option, Schema } from "effect";
 import { type AgentCliInfo, cliPathEnvironment, cliSpawnTarget } from "../cli";
 import { providerCall, providerFailure, providerSync } from "../provider-client-effects";

@@ -1,10 +1,6 @@
-import { BILLING_PLANS, type BillingPlanId } from "@openownbot/contracts/billing";
-import {
-  HOSTED_SERVER_SIZES,
-  type HostedServerState,
-  type HostedServerSummary,
-} from "@openownbot/contracts/hosted-servers";
-import type { AppTextKey } from "@openownbot/i18n";
+import { BILLING_PLANS, type BillingPlanId } from "@robot/contracts/billing";
+import { HOSTED_SERVER_SIZES, type HostedServerState, type HostedServerSummary } from "@robot/contracts/hosted-servers";
+import type { AppTextKey } from "@robot/i18n";
 import {
   Badge,
   Button,
@@ -22,7 +18,7 @@ import {
   Spinner,
   Text,
   Trash2,
-} from "@openownbot/ui";
+} from "@robot/ui";
 import { For, Show } from "solid-js";
 import { useText } from "../../text";
 import type { SettingsHostedServersStore } from "./stores/hosted-servers-store";

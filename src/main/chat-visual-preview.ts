@@ -4,8 +4,8 @@ import {
   CHAT_VISUAL_MIN_HEIGHT,
   chatVisualAppTheme,
   chatVisualFrameUrl,
-} from "@openownbot/contracts/chat-visual";
-import { redactText } from "@openownbot/logging";
+} from "@robot/contracts/chat-visual";
+import { redactText } from "@robot/logging";
 import { Effect, Semaphore } from "effect";
 import { BrowserWindow, session as electronSession, type NativeImage, type Session } from "electron";
 import {

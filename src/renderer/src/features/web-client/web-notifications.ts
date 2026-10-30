@@ -1,11 +1,11 @@
-import type { AgentEvent, ClientAgentSummary, ServerNotificationLevel } from "@openownbot/contracts/ipc";
-import type { AppTranslate } from "@openownbot/i18n";
+import type { AgentEvent, ClientAgentSummary, ServerNotificationLevel } from "@robot/contracts/ipc";
+import type { AppTranslate } from "@robot/i18n";
 import {
   type AgentNotificationChannel,
   notificationForAgentEvent,
   notificationRequestKey,
-} from "@openownbot/team-client/agent-notifications";
-import type { ChannelNotificationContent } from "@openownbot/team-client/channel-notifications";
+} from "@robot/team-client/agent-notifications";
+import type { ChannelNotificationContent } from "@robot/team-client/channel-notifications";
 
 const PERMISSION_ASKED_KEY = "openownbot.web.notification-permission-asked";
 /** The tab of this browser that has focus. The tab that speaks for a host is often in the background. */

@@ -9,10 +9,10 @@ import type {
   SetMcpServerEnabledInput,
   SignOutMcpServerInput,
   TestMcpServerInput,
-} from "@openownbot/contracts/ipc";
-import { GITHUB_CONNECTOR_MCP_SERVER_ID, mcpConfigErrors, normalizeMcpConfig } from "@openownbot/contracts/ipc";
-import { sourceText } from "@openownbot/i18n/source";
-import { type Logger, toLogValue } from "@openownbot/logging";
+} from "@robot/contracts/ipc";
+import { GITHUB_CONNECTOR_MCP_SERVER_ID, mcpConfigErrors, normalizeMcpConfig } from "@robot/contracts/ipc";
+import { sourceText } from "@robot/i18n/source";
+import { type Logger, toLogValue } from "@robot/logging";
 import { Effect, Result, Schema } from "effect";
 import type { AgentProvider } from "../agent-client";
 import { causeHelpers } from "../effect-boundary";

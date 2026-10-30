@@ -1,4 +1,4 @@
-import { APP_LANGUAGE_OPTIONS } from "@openownbot/i18n/languages";
+import { APP_LANGUAGE_OPTIONS } from "@robot/i18n/languages";
 import { Typography } from "heroui-native";
 import { useEffect, useState } from "react";
 import { useUniwind } from "uniwind";

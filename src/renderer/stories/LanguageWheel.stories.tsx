@@ -1,7 +1,7 @@
-import type { TranslatedLocale } from "@openownbot/i18n";
-import { resolveLocale } from "@openownbot/i18n";
-import { LanguageWheel } from "@openownbot/ui/features/account/LanguageWheel";
-import { TextProvider } from "@openownbot/ui/text";
+import type { TranslatedLocale } from "@robot/i18n";
+import { resolveLocale } from "@robot/i18n";
+import { LanguageWheel } from "@robot/ui/features/account/LanguageWheel";
+import { TextProvider } from "@robot/ui/text";
 import { createSignal, untrack } from "solid-js";
 import { fn } from "storybook/test";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";

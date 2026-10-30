@@ -13,13 +13,13 @@ import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { mkdtemp, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
-import { AGENT_PROVIDERS, type AgentEvent, routineConversationEvent } from "@openownbot/contracts/ipc";
-import type { EventActivity, EventRoutine } from "@openownbot/contracts/ipc-events";
+import { AGENT_PROVIDERS, type AgentEvent, routineConversationEvent } from "@robot/contracts/ipc";
+import type { EventActivity, EventRoutine } from "@robot/contracts/ipc-events";
 import {
   WEBHOOK_DELIVERY_ID_HEADER,
   WEBHOOK_SIGNATURE_HEADER,
   WEBHOOK_TIMESTAMP_HEADER,
-} from "@openownbot/contracts/signal-protocol/webhook-route";
+} from "@robot/contracts/signal-protocol/webhook-route";
 import { Effect } from "effect";
 import type { AgentBrowserHost } from "../src/backend/agent/turn-lifecycle";
 

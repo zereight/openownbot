@@ -3,8 +3,8 @@ import {
   type BillingState,
   parseBillingSessionUrl,
   parseBillingState,
-} from "@openownbot/contracts/billing";
-import { sourceText } from "@openownbot/i18n/source";
+} from "@robot/contracts/billing";
+import { sourceText } from "@robot/i18n/source";
 import { Effect, type Layer } from "effect";
 import {
   type AccountRequestClient,

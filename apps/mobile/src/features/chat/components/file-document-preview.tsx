@@ -1,4 +1,4 @@
-import { SPREADSHEET_MAX_COLUMNS, SPREADSHEET_MAX_ROWS } from "@openownbot/contracts/spreadsheet-workbook";
+import { SPREADSHEET_MAX_COLUMNS, SPREADSHEET_MAX_ROWS } from "@robot/contracts/spreadsheet-workbook";
 import { File } from "expo-file-system";
 import { Typography } from "heroui-native";
 import { useThemeColor } from "heroui-native/hooks";

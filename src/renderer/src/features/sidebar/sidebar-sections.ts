@@ -2,7 +2,7 @@ import {
   SIDEBAR_PEOPLE_SECTION_ID,
   SIDEBAR_UNASSIGNED_SECTION_ID,
   type SidebarLayoutSnapshot,
-} from "@openownbot/contracts/ipc";
+} from "@robot/contracts/ipc";
 
 export function defaultSidebarLayout(): SidebarLayoutSnapshot {
   return {

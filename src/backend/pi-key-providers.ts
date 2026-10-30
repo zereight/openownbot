@@ -1,7 +1,7 @@
 import { mkdir, mkdtemp, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import type { KeyOnlyProviderId } from "@openownbot/contracts/agent-providers";
+import type { KeyOnlyProviderId } from "@robot/contracts/agent-providers";
 import { Effect } from "effect";
 import type { PiMcpExtension } from "./pi-mcp";
 import { providerCall } from "./provider-client-effects";

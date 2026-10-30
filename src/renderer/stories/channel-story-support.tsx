@@ -5,12 +5,12 @@
  * builds its variants on it, and the diagram workspace story shows it when a channel is open.
  */
 
-import { Button } from "@openownbot/ui";
-import type { AgentMessage } from "@openownbot/ui/data";
-import type { ChannelWorker } from "@openownbot/ui/features/channels/ChannelActivityIndicator";
-import { ChannelAvatar } from "@openownbot/ui/features/channels/ChannelAvatar";
-import { ChannelStoppedTasks } from "@openownbot/ui/features/channels/ChannelStoppedTasks";
-import type { AwaitingReplyItem } from "@openownbot/ui/features/conversation/AwaitingReplies";
+import { Button } from "@robot/ui";
+import type { AgentMessage } from "@robot/ui/data";
+import type { ChannelWorker } from "@robot/ui/features/channels/ChannelActivityIndicator";
+import { ChannelAvatar } from "@robot/ui/features/channels/ChannelAvatar";
+import { ChannelStoppedTasks } from "@robot/ui/features/channels/ChannelStoppedTasks";
+import type { AwaitingReplyItem } from "@robot/ui/features/conversation/AwaitingReplies";
 import { fn } from "storybook/test";
 import type { ConversationChannelSource } from "../src/features/conversation/conversation-types";
 import { StoryConversation } from "./conversation-story-support";

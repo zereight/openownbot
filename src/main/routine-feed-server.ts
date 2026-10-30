@@ -1,9 +1,9 @@
 import { randomBytes, timingSafeEqual } from "node:crypto";
 import { rm } from "node:fs/promises";
 import { createServer, type IncomingMessage, type Server, type ServerResponse } from "node:http";
-import type { RoutineFeed } from "@openownbot/contracts/ipc";
-import { isString } from "@openownbot/contracts/runtime-values";
-import { createOpenOwnBotLogger, registerSecretValue } from "@openownbot/logging";
+import type { RoutineFeed } from "@robot/contracts/ipc";
+import { isString } from "@robot/contracts/runtime-values";
+import { createOpenOwnBotLogger, registerSecretValue } from "@robot/logging";
 import { Effect, Result, Schema, Semaphore } from "effect";
 import { z } from "zod";
 import { runCauseEffect } from "../backend/effect-boundary";

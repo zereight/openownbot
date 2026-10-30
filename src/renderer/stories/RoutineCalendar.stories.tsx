@@ -1,10 +1,10 @@
-import type { RoutineSchedule } from "@openownbot/contracts/ipc";
+import type { RoutineSchedule } from "@robot/contracts/ipc";
 import {
   RoutineCalendar,
   type RoutineCalendarAgent,
   type RoutineCalendarRoutine,
   type RoutineCalendarRun,
-} from "@openownbot/ui/features/conversation/RoutineCalendar";
+} from "@robot/ui/features/conversation/RoutineCalendar";
 import { fn } from "storybook/test";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";
 import { STORY_AGENTS } from "./fixtures";

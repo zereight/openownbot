@@ -1,5 +1,5 @@
-import type { AgentApproval, AgentEvent, AgentRuntimeApproval, TeamRealtimeEvent } from "@openownbot/contracts/ipc";
-import { reconcilePendingRequests } from "@openownbot/team-client/runtime-attention";
+import type { AgentApproval, AgentEvent, AgentRuntimeApproval, TeamRealtimeEvent } from "@robot/contracts/ipc";
+import { reconcilePendingRequests } from "@robot/team-client/runtime-attention";
 
 /**
  * An approval that an agent waits on. The `approval` event carries the whole request. A runtime

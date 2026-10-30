@@ -1,4 +1,4 @@
-import type { BrowserBounds } from "@openownbot/contracts/ipc";
+import type { BrowserBounds } from "@robot/contracts/ipc";
 
 export const BROWSER_PIP_MIN_WIDTH = 300;
 export const BROWSER_PIP_MIN_HEIGHT = 220;

@@ -1,4 +1,4 @@
-import { REMOTE_RETRY_LIMIT } from "@openownbot/team-client";
+import { REMOTE_RETRY_LIMIT } from "@robot/team-client";
 import { Typography } from "heroui-native";
 import { View } from "react-native";
 

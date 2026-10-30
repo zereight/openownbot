@@ -6,9 +6,9 @@ import {
   isLocalOnlyProvider,
   type ProviderApiKeyStatus,
   type ProviderRuntimeStatus,
-} from "@openownbot/contracts/ipc";
-import type { ProviderPickerOption } from "@openownbot/ui/components/ProviderPicker";
-import { providerDiagnosticsText } from "@openownbot/ui/features/provider-diagnostics/provider-diagnostics";
+} from "@robot/contracts/ipc";
+import type { ProviderPickerOption } from "@robot/ui/components/ProviderPicker";
+import { providerDiagnosticsText } from "@robot/ui/features/provider-diagnostics/provider-diagnostics";
 import { createMemo } from "solid-js";
 import { useI18n } from "../../../i18n-context";
 

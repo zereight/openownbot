@@ -1,6 +1,6 @@
-import { agentThreadTitle } from "@openownbot/contracts/ipc";
-import { AGENT_THREADS_CAPABILITY, AGENT_THREADS_ROUTES } from "@openownbot/contracts/team-protocol/agent-threads-v1";
-import { sourceText } from "@openownbot/i18n/source";
+import { agentThreadTitle } from "@robot/contracts/ipc";
+import { AGENT_THREADS_CAPABILITY, AGENT_THREADS_ROUTES } from "@robot/contracts/team-protocol/agent-threads-v1";
+import { sourceText } from "@robot/i18n/source";
 import { runCauseEffect } from "../../backend/effect-boundary";
 import type { TeamApiAgentTasks } from "./dependencies";
 import { HttpError } from "./http-error";

@@ -1,7 +1,7 @@
 import type { DatabaseSync } from "node:sqlite";
-import { isDynamicRecord, isNumber } from "@openownbot/contracts/runtime-values";
-import { sourceText } from "@openownbot/i18n/source";
-import { createOpenOwnBotLogger } from "@openownbot/logging";
+import { isDynamicRecord, isNumber } from "@robot/contracts/runtime-values";
+import { sourceText } from "@robot/i18n/source";
+import { createOpenOwnBotLogger } from "@robot/logging";
 import { AGENT_MEMORY_SELECTION_SCHEMA_SQL } from "./agent-memory-selection";
 import { AGENT_THREAD_SCHEMA_SQL } from "./agent-threads/agent-thread-schema";
 import { AGENT_WAIT_SCHEMA_SQL } from "./agent-waits/agent-wait-schema";

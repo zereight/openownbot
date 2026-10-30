@@ -3,8 +3,8 @@ import {
   isAgentProvider,
   PROVIDER_USAGE_RESET_OUTCOMES,
   type ProviderUsageResetOutcome,
-} from "@openownbot/contracts/ipc";
-import { decodeRecord, requiredString } from "@openownbot/contracts/ipc-decoding";
+} from "@robot/contracts/ipc";
+import { decodeRecord, requiredString } from "@robot/contracts/ipc-decoding";
 import {
   type DynamicRecord,
   isBoolean,
@@ -12,7 +12,7 @@ import {
   isNumber,
   isOneOf,
   isString,
-} from "@openownbot/contracts/runtime-values";
+} from "@robot/contracts/runtime-values";
 
 export type RequestId = string | number;
 

@@ -1,4 +1,4 @@
-import { type AppAppearance, DEFAULT_APP_APPEARANCE, isAppAppearance } from "@openownbot/contracts/app-appearance";
+import { type AppAppearance, DEFAULT_APP_APPEARANCE, isAppAppearance } from "@robot/contracts/app-appearance";
 import { createEffect, createSignal, onCleanup } from "solid-js";
 import { syncColorScheme } from "../../color-scheme";
 import { WEB_APPEARANCE_STORAGE_KEY as STORAGE_KEY } from "./web-appearance-boot";

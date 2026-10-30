@@ -3,9 +3,9 @@ import type {
   DynamicIslandAction,
   DynamicIslandAgentIdentity,
   DynamicIslandPresentation,
-} from "@openownbot/contracts/ipc";
-import { isDynamicRecord, isString } from "@openownbot/contracts/runtime-values";
-import type { MobileTranslate } from "@openownbot/i18n/mobile";
+} from "@robot/contracts/ipc";
+import { isDynamicRecord, isString } from "@robot/contracts/runtime-values";
+import type { MobileTranslate } from "@robot/i18n/mobile";
 import type { DynamicIslandText } from "./dynamic-island-presentation";
 import { signLiveActivityLink, verifyLiveActivityLink } from "./live-activity-seal";
 import { liveActivityMarkdown } from "./live-activity-text";

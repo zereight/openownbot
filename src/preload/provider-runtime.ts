@@ -1,5 +1,5 @@
-import type { ProviderRuntimeSnapshot, ProviderRuntimeStatus } from "@openownbot/contracts/ipc";
-import { isDynamicRecord, isNumber, isOneOf, isString } from "@openownbot/contracts/runtime-values";
+import type { ProviderRuntimeSnapshot, ProviderRuntimeStatus } from "@robot/contracts/ipc";
+import { isDynamicRecord, isNumber, isOneOf, isString } from "@robot/contracts/runtime-values";
 
 export function decodeProviderRuntimeSnapshot(value: unknown): ProviderRuntimeSnapshot {
   if (

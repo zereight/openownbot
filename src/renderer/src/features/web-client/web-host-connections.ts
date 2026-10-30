@@ -3,18 +3,18 @@ import {
   type ClientAgentSummary,
   isClientAgentSummary,
   type TeamRealtimeEvent,
-} from "@openownbot/contracts/ipc";
-import { guardedListDecoder } from "@openownbot/contracts/ipc-decoding";
-import { TEAM_API_ROUTES } from "@openownbot/contracts/team-api-routes";
-import { teamProtocolUpdateDirection } from "@openownbot/contracts/team-protocol/v1";
-import { TEAM_PROTOCOL_V3 } from "@openownbot/contracts/team-protocol/v3";
-import { decodeTeamProtocolSupportV7Base } from "@openownbot/contracts/team-protocol/v7-base";
-import { agentEventCanNotify } from "@openownbot/team-client/agent-notifications";
-import type { RemoteTeamHost } from "@openownbot/team-client/remote-directory";
-import type { createRemoteTeamPeer, RemoteTeamPeerActions } from "@openownbot/team-client/remote-peer";
-import { createRemoteConnectionRecovery } from "@openownbot/team-client/remote-recovery";
-import { currentText } from "@openownbot/ui/text";
-import { referenceFrom } from "@openownbot/user-errors";
+} from "@robot/contracts/ipc";
+import { guardedListDecoder } from "@robot/contracts/ipc-decoding";
+import { TEAM_API_ROUTES } from "@robot/contracts/team-api-routes";
+import { teamProtocolUpdateDirection } from "@robot/contracts/team-protocol/v1";
+import { TEAM_PROTOCOL_V3 } from "@robot/contracts/team-protocol/v3";
+import { decodeTeamProtocolSupportV7Base } from "@robot/contracts/team-protocol/v7-base";
+import { agentEventCanNotify } from "@robot/team-client/agent-notifications";
+import type { RemoteTeamHost } from "@robot/team-client/remote-directory";
+import type { createRemoteTeamPeer, RemoteTeamPeerActions } from "@robot/team-client/remote-peer";
+import { createRemoteConnectionRecovery } from "@robot/team-client/remote-recovery";
+import { currentText } from "@robot/ui/text";
+import { referenceFrom } from "@robot/user-errors";
 import {
   type acquireWebHostLock,
   decodeWebHostTabMessage,

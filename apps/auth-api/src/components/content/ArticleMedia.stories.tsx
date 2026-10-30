@@ -1,4 +1,4 @@
-import { AppLogo } from "@openownbot/brand";
+import { AppLogo } from "@robot/brand";
 import type { JSX } from "@solidjs/web";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";
 // The site's stylesheet, not the desktop app's. It is imported here rather than in

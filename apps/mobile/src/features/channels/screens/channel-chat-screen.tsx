@@ -1,5 +1,5 @@
-import { EVERYONE_TAG_ID } from "@openownbot/contracts/chat-tag-references";
-import type { RespondToPromptInput } from "@openownbot/contracts/ipc";
+import { EVERYONE_TAG_ID } from "@robot/contracts/chat-tag-references";
+import type { RespondToPromptInput } from "@robot/contracts/ipc";
 import * as Crypto from "expo-crypto";
 import { useLocalSearchParams } from "expo-router";
 import { useCallback, useMemo, useRef, useState } from "react";

@@ -1,6 +1,6 @@
-import { graphAgentIds } from "@openownbot/contracts/ipc";
-import { workflowChatReference } from "@openownbot/contracts/workflow-chat-reference";
-import type { AgentProfile } from "@openownbot/ui/data";
+import { graphAgentIds } from "@robot/contracts/ipc";
+import { workflowChatReference } from "@robot/contracts/workflow-chat-reference";
+import type { AgentProfile } from "@robot/ui/data";
 import { createMemo, createSignal, untrack } from "solid-js";
 import { desktopAgentChatPort } from "../../agent-chat-port";
 import { createCanvasAssistant } from "../../canvas-assistant";

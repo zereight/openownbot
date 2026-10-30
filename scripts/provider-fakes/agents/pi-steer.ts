@@ -7,7 +7,7 @@
 import { appendFileSync } from "node:fs";
 import { join } from "node:path";
 import { createInterface } from "node:readline";
-import { isDynamicRecord, type DynamicRecord as RpcRecord } from "@openownbot/contracts/runtime-values";
+import { isDynamicRecord, type DynamicRecord as RpcRecord } from "@robot/contracts/runtime-values";
 
 const sessionFile = join(process.env.FAKE_DIR ?? process.cwd(), `pi-${process.pid}.jsonl`);
 let streaming = false;

@@ -11,7 +11,7 @@ import {
   type RemoveRoutineFlowPositionInput,
   type SaveRoutineFlowPositionInput,
   type UpdateRoutineFlowLinkInput,
-} from "@openownbot/contracts/ipc";
+} from "@robot/contracts/ipc";
 
 export function parseSaveRoutineFlowPosition(value: unknown): SaveRoutineFlowPositionInput {
   if (!isSaveRoutineFlowPositionInput(value)) throw new Error("Invalid routine flow position.");

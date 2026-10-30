@@ -1,6 +1,6 @@
-import { type AgentFolderList, type BrowserProfileSummary, nextBrowserProfileHue } from "@openownbot/contracts/ipc";
-import type { AgentFolderCalls } from "@openownbot/ui/features/conversation/AgentFolders";
-import AgentSettingsPanel from "@openownbot/ui/features/conversation/AgentSettingsPanel";
+import { type AgentFolderList, type BrowserProfileSummary, nextBrowserProfileHue } from "@robot/contracts/ipc";
+import type { AgentFolderCalls } from "@robot/ui/features/conversation/AgentFolders";
+import AgentSettingsPanel from "@robot/ui/features/conversation/AgentSettingsPanel";
 import { createStore } from "solid-js";
 import { fn } from "storybook/test";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";

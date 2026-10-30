@@ -1,4 +1,4 @@
-import type { ChatPreviewKind } from "@openownbot/contracts/chat-preview";
+import type { ChatPreviewKind } from "@robot/contracts/chat-preview";
 import { Image } from "expo-image";
 import { router } from "expo-router";
 import { Skeleton, Typography } from "heroui-native";

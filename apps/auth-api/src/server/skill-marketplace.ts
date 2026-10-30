@@ -4,8 +4,8 @@ import {
   type MarketplaceSkillSort,
   SKILL_DESCRIPTION_MAX_LENGTH,
   type SkillCategory,
-} from "@openownbot/contracts/ipc";
-import { isDynamicRecord, isString } from "@openownbot/contracts/runtime-values";
+} from "@robot/contracts/ipc";
+import { isDynamicRecord, isString } from "@robot/contracts/runtime-values";
 import { Effect, Result, Schema } from "effect";
 import { unzipSync } from "fflate";
 import { parse as parseYaml } from "yaml";

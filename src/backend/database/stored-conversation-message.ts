@@ -1,6 +1,6 @@
-import type { ConversationMessage } from "@openownbot/contracts/ipc";
-import { isConversationMessage, isConversationTurnTrace } from "@openownbot/contracts/ipc";
-import { isDynamicRecord } from "@openownbot/contracts/runtime-values";
+import type { ConversationMessage } from "@robot/contracts/ipc";
+import { isConversationMessage, isConversationTurnTrace } from "@robot/contracts/ipc";
+import { isDynamicRecord } from "@robot/contracts/runtime-values";
 
 /** A stored conversation message, or `null` when the value is not one. */
 export function storedConversationMessage(value: unknown): ConversationMessage | null {

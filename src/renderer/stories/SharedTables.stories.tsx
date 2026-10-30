@@ -1,4 +1,4 @@
-import type { SharedTable } from "@openownbot/contracts/ipc";
+import type { SharedTable } from "@robot/contracts/ipc";
 import { onCleanup } from "solid-js";
 import { fn } from "storybook/test";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";

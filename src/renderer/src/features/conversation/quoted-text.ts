@@ -1,5 +1,5 @@
-import { type FileQuoteTarget, fileQuoteId } from "@openownbot/contracts/chat-tag-references";
-import type { AgentProfile } from "@openownbot/ui/data";
+import { type FileQuoteTarget, fileQuoteId } from "@robot/contracts/chat-tag-references";
+import type { AgentProfile } from "@robot/ui/data";
 import { findChatSearchMatches } from "./chat-search";
 import type { SidebarFilePreview } from "./conversation-types";
 

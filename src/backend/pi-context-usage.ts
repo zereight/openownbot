@@ -1,4 +1,4 @@
-import type { DynamicRecord } from "@openownbot/contracts/runtime-values";
+import type { DynamicRecord } from "@robot/contracts/runtime-values";
 import { isRecord } from "./protocol";
 
 /**

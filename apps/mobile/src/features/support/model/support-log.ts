@@ -1,4 +1,4 @@
-import { redactText } from "@openownbot/logging";
+import { redactText } from "@robot/logging";
 
 export type SupportLogLevel = "info" | "warn" | "error";
 export type SupportLogSource = "app" | "network" | "connection" | "console";

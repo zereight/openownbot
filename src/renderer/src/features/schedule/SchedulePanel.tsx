@@ -2,13 +2,13 @@ import type {
   RoutineCalendar as HostCalendar,
   RoutineCalendarInput,
   RoutineCalendarRunStatus,
-} from "@openownbot/contracts/ipc";
+} from "@robot/contracts/ipc";
 import {
   RoutineCalendar,
   type RoutineCalendarAgent,
   type RoutineCalendarRoutine,
   type RoutineCalendarStatus,
-} from "@openownbot/ui/features/conversation/RoutineCalendar";
+} from "@robot/ui/features/conversation/RoutineCalendar";
 import { createEffect, createMemo, createSignal, createStore, onSettled } from "solid-js";
 import { useNavigation } from "../../navigation";
 import { useAgents } from "../agents/agents-context";

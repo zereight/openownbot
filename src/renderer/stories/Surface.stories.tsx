@@ -24,7 +24,7 @@ import {
   Spinner,
   Text,
   UserRound,
-} from "@openownbot/ui";
+} from "@robot/ui";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";
 
 const meta = {

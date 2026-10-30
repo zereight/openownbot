@@ -2,7 +2,7 @@
 
 ## iPhone Live Activity updates
 
-The phone and a host build the same Live Activity view with `@openownbot/team-client`:
+The phone and a host build the same Live Activity view with `@robot/team-client`:
 `dynamic-island-coordinator.ts` gives the state, and `live-activity-props.ts` turns it into the props
 that the widget shows. While the app runs, `use-live-activity.ts` publishes them itself.
 
@@ -32,7 +32,7 @@ A host sends an iOS notification when an agent finishes a turn, stops with an er
 message or a routine run (`error` with the code `delivery_start_failed`), or waits for input, an
 approval, or a step in the browser (`browser-takeover-requested`, also for a password or a code).
 The desktop and the web client notify about the same events (`agentEventCanNotify`), and all three
-decide as one: `notificationForAgentEvent` in `@openownbot/team-client` applies the level of the server
+decide as one: `notificationForAgentEvent` in `@robot/team-client` applies the level of the server
 (`all`, or `needs-me` for the events that wait for the user), the switch of the agent, and the quiet
 routine runs. The desktop and the web client close the notification of a request when an
 `agent-input-resolved` or `browser-takeover-resolved` event comes, also for an answer from another
@@ -292,7 +292,7 @@ the answer. Every answer comes from OpenOwnBot.
 - **Install.** The desktop asks `POST /v2/slack/authorize` for Slack's install URL, with a one-use host
   key. The Worker exchanges the code at `/v2/slack/callback`, because the app's client secret lives
   there. It links the workspace to the host in D1 (`slack_workspace_routes`: team, host, account; no
-  token) and seals the bot token to the host key (`@openownbot/contracts/slack-workspace-grant`). The
+  token) and seals the bot token to the host key (`@robot/contracts/slack-workspace-grant`). The
   page `/slack/connect` opens `openownbot://slack-workspace`. Only the account that linked a workspace
   can move it to another of its hosts; another account gets `slack_workspace_taken`.
 - **Events.** Slack posts every workspace's events and button presses to one URL,
@@ -314,7 +314,7 @@ the answer. Every answer comes from OpenOwnBot.
 
 Telegram uses the same socket with one difference: one OpenOwnBot bot serves every user, so its token
 must not reach any host. Only Signal has it (`TELEGRAM_BOT_TOKENS`), and the contract is
-`@openownbot/contracts/signal-protocol/telegram-route`.
+`@robot/contracts/signal-protocol/telegram-route`.
 
 - **Link.** A connection is one chat. The desktop asks `POST /v2/remote/hosts/<id>/telegram-link`
   (machine token) for a one-use code, and opens `t.me/<bot>?startgroup=<code>` or `?start=<code>`.
@@ -426,12 +426,12 @@ the token and does the platform work for the hosts:
 - **Install.** As for Slack: `POST /v2/discord/authorize`, `/v2/discord/callback` (scope `bot`, the
   Worker exchanges the code, revokes the user token it gets, and links the guild in D1
   `discord_guild_routes`), the page `/discord/connect` and `openownbot://discord-guild`. The sealed grant
-  (`@openownbot/contracts/discord-guild-grant`, on `host-grant.ts`) names the guild and holds no token.
+  (`@robot/contracts/discord-guild-grant`, on `host-grant.ts`) names the guild and holds no token.
   Another account gets `discord_guild_taken`.
 - **Events.** Signal keeps one Gateway connection (`@discordjs/ws`) with the guilds, guild messages
   and direct messages intents, and no privileged intent. It passes on only a guild message that
   mentions the bot, and a press of an OpenOwnBot button, which it acknowledges to Discord at once. It
-  normalizes each into `DiscordDelivery` (`@openownbot/contracts/signal-protocol/discord-api`), takes the
+  normalizes each into `DiscordDelivery` (`@robot/contracts/signal-protocol/discord-api`), takes the
   bot's own mention out, and sends a `discord-delivery` frame to the `ingress` socket that holds a
   Discord route ticket for the guild. The ticket mirrors the Slack one (audience
   `openownbot-discord-route`, `/v2/remote/hosts/:id/discord-route`, `discord-route-revoked`,

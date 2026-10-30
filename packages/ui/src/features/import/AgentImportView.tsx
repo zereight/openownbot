@@ -5,9 +5,9 @@ import {
   type AgentImportResult,
   type AgentImportSkillSource,
   HERMES_EXPORT_SKILL_ID,
-} from "@openownbot/contracts/ipc";
-import { PRODUCT_NAME } from "@openownbot/contracts/product";
-import type { AppFormat, AppTranslate } from "@openownbot/i18n";
+} from "@robot/contracts/ipc";
+import { PRODUCT_NAME } from "@robot/contracts/product";
+import type { AppFormat, AppTranslate } from "@robot/i18n";
 import {
   Button,
   Checkbox,
@@ -26,7 +26,7 @@ import {
   SlidingTabs,
   TriangleAlert,
   Upload,
-} from "@openownbot/ui";
+} from "@robot/ui";
 import { createMemo, createSignal, createUniqueId, For, Show } from "solid-js";
 import { useText } from "../../text";
 import { AgentAvatar } from "../agents/AgentAvatar";

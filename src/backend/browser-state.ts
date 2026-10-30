@@ -1,8 +1,8 @@
 import { createHash } from "node:crypto";
 import { readFile } from "node:fs/promises";
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
-import { type BrowserBounds, type BrowserEnvironment, isBrowserProfileId } from "@openownbot/contracts/ipc";
-import { isBoolean, isNumber, isString } from "@openownbot/contracts/runtime-values";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
+import { type BrowserBounds, type BrowserEnvironment, isBrowserProfileId } from "@robot/contracts/ipc";
+import { isBoolean, isNumber, isString } from "@robot/contracts/runtime-values";
 import { Effect } from "effect";
 import { browserCall, browserSync } from "./browser-effects";
 import type { BrowserToolArguments } from "./browser-tools";

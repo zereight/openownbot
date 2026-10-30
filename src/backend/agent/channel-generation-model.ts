@@ -1,4 +1,4 @@
-import { AGENT_REASONING_EFFORTS, type AgentModelOption } from "@openownbot/contracts/ipc";
+import { AGENT_REASONING_EFFORTS, type AgentModelOption } from "@robot/contracts/ipc";
 
 /**
  * The model that answers the channel's own questions: which member takes a task, and what an old

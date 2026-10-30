@@ -1,4 +1,4 @@
-import type { AgentEvent, ClientAgentSummary } from "@openownbot/contracts/ipc";
+import type { AgentEvent, ClientAgentSummary } from "@robot/contracts/ipc";
 
 const COMPLETION_SOUND_STORAGE_KEY = "openownbot:completion-sound-enabled";
 const COMPLETION_SOUND_DURATION_SECONDS = 0.22;

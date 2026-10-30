@@ -1,5 +1,5 @@
-import { CHANNEL_CHATS_CAPABILITY } from "@openownbot/contracts/ipc";
-import { ROUTINE_FLOWS_CAPABILITY } from "@openownbot/contracts/team-protocol/routine-flows-v1";
+import { CHANNEL_CHATS_CAPABILITY } from "@robot/contracts/ipc";
+import { ROUTINE_FLOWS_CAPABILITY } from "@robot/contracts/team-protocol/routine-flows-v1";
 import type { WebRuntimeFactory } from "../features/web-client/web-client-context";
 import type { WebRuntimeEvents, WebWorkspaceRuntime } from "../features/web-client/web-runtime";
 import { createMockOpenOwnBot, type MockOpenOwnBotControls } from "./mock-openownbot";

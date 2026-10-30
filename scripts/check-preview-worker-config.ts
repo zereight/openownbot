@@ -1,7 +1,7 @@
 import { readFileSync } from "node:fs";
 import { isDeepStrictEqual } from "node:util";
-import { type DynamicRecord, isDynamicRecord } from "@openownbot/contracts/runtime-values";
-import { createOpenOwnBotLogger } from "@openownbot/logging";
+import { type DynamicRecord, isDynamicRecord } from "@robot/contracts/runtime-values";
+import { createOpenOwnBotLogger } from "@robot/logging";
 
 // The trusted preview publisher (.github/workflows/cloudflare-preview.yml) uploads a Worker that a
 // pull request built. The pull request also wrote the generated wrangler.json, so its Worker name,

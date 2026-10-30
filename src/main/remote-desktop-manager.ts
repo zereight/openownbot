@@ -4,7 +4,7 @@ import {
   type RemoteDesktopConnectInput,
   type RemoteDesktopConnectResult,
   type RemoteDesktopSession,
-} from "@openownbot/contracts/ipc";
+} from "@robot/contracts/ipc";
 import { Effect, Result } from "effect";
 import { RemoteRequestError } from "./remote-server-errors";
 import type { RemoteWorkflowError } from "./remote-service-effects";

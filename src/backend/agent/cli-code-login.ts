@@ -1,7 +1,7 @@
 import { type ChildProcess, spawn } from "node:child_process";
-import { pasteCodeSignInSupported } from "@openownbot/contracts/agent-providers";
-import { sourceText } from "@openownbot/i18n/source";
-import { registerSecretValue } from "@openownbot/logging";
+import { pasteCodeSignInSupported } from "@robot/contracts/agent-providers";
+import { sourceText } from "@robot/i18n/source";
+import { registerSecretValue } from "@robot/logging";
 import { Effect, Fiber, Schema } from "effect";
 import { shellQuote } from "../automation-command";
 import { cliSpawnTarget } from "../cli";

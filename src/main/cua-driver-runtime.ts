@@ -15,9 +15,9 @@ import {
   type ComputerUseState,
   type MacPermissionId,
   type McpServerConfig,
-} from "@openownbot/contracts/ipc";
-import { type DynamicRecord, isDynamicRecord } from "@openownbot/contracts/runtime-values";
-import { sourceText } from "@openownbot/i18n/source";
+} from "@robot/contracts/ipc";
+import { type DynamicRecord, isDynamicRecord } from "@robot/contracts/runtime-values";
+import { sourceText } from "@robot/i18n/source";
 import { Deferred, Effect, Exit, Result } from "effect";
 import { agentDisplayEnvironment } from "./agent-display";
 import { CuaDriverActionTap, type ObservedAction, type ObservedPointer } from "./cua-driver-action-tap";

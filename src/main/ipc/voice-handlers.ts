@@ -10,8 +10,8 @@ import type {
   VoiceSettings,
   VoiceStream,
   VoiceTranscriptionResult,
-} from "@openownbot/contracts/ipc";
-import { sourceText } from "@openownbot/i18n/source";
+} from "@robot/contracts/ipc";
+import { sourceText } from "@robot/i18n/source";
 import type { AgentService } from "../../backend/agent-service";
 import { runCauseEffect } from "../../backend/effect-boundary";
 import type { VoiceSpeechService } from "../voice-speech-service";

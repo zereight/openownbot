@@ -1,7 +1,7 @@
 // The window that stands beside a System Settings pane while the user grants a permission.
 
-import type { ComputerUsePermissionApp, MacPermissionId } from "@openownbot/contracts/ipc";
-import { sourceText } from "@openownbot/i18n/source";
+import type { ComputerUsePermissionApp, MacPermissionId } from "@robot/contracts/ipc";
+import { sourceText } from "@robot/i18n/source";
 import { Effect, Schema } from "effect";
 import type { BrowserWindow, NativeImage } from "electron";
 import { causeHelpers } from "../backend/effect-boundary";

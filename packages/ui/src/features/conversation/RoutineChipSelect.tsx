@@ -1,4 +1,4 @@
-import { Select, SelectContent, SelectItem, SelectPrimitive } from "@openownbot/ui";
+import { Select, SelectContent, SelectItem, SelectPrimitive } from "@robot/ui";
 import { useText } from "../../text";
 import type { RoutineSelectOption } from "./routine-schedule-ui";
 

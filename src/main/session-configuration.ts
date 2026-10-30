@@ -12,9 +12,9 @@
 
 import { readFile, stat } from "node:fs/promises";
 import { extname, isAbsolute, relative, resolve } from "node:path";
-import { CHAT_VISUAL_PAGE_LIMIT, isChatVisualMimeType } from "@openownbot/contracts/chat-visual";
-import { LOCAL_SERVER_ID } from "@openownbot/contracts/ipc";
-import { createOpenOwnBotLogger, toLogValue } from "@openownbot/logging";
+import { CHAT_VISUAL_PAGE_LIMIT, isChatVisualMimeType } from "@robot/contracts/chat-visual";
+import { LOCAL_SERVER_ID } from "@robot/contracts/ipc";
+import { createOpenOwnBotLogger, toLogValue } from "@robot/logging";
 import { app, session } from "electron";
 import type { AgentService } from "../backend/agent-service";
 import { runCauseEffect } from "../backend/effect-boundary";

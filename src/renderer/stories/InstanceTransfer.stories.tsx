@@ -1,4 +1,4 @@
-import { InstanceTransferView } from "@openownbot/ui/features/transfer/InstanceTransferView";
+import { InstanceTransferView } from "@robot/ui/features/transfer/InstanceTransferView";
 import { createSignal } from "solid-js";
 import { fn } from "storybook/test";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";

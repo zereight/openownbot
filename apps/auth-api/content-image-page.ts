@@ -5,8 +5,8 @@
 // Workers have no WebGL, so the card artwork cannot be produced at request time.
 // This is the one place that turns the shared gradient description into pixels.
 
-import { APP_LOGO_CORNER, APP_LOGO_EYE_POINTS, APP_LOGO_SIZE } from "@openownbot/brand/app-logo-shape";
 import { getShaderColorFromString, meshGradientFragmentShader, ShaderMount } from "@paper-design/shaders";
+import { APP_LOGO_CORNER, APP_LOGO_EYE_POINTS, APP_LOGO_SIZE } from "@robot/brand/app-logo-shape";
 import type { ContentImageJob, ContentImageLockup, ContentImageMark } from "./content-images";
 import { RIVAL_MARK_SHAPES, type RivalMarkName } from "./src/components/compare/rival-mark-shapes";
 import { articleGradient, articleGradientUniforms } from "./src/lib/article-gradient";

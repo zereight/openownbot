@@ -1,6 +1,6 @@
 // @vitest-environment node
 
-import type { ChannelPage, ChannelTask } from "@openownbot/contracts/ipc";
+import type { ChannelPage, ChannelTask } from "@robot/contracts/ipc";
 import { describe, expect, it } from "vitest";
 import { stoppedChannelTasks } from "./channel-conversation-rows";
 

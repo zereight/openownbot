@@ -13,9 +13,9 @@ import {
   type GitHubConnectorState,
   type GitHubConnectorStatus,
   type McpServerConfig,
-} from "@openownbot/contracts/ipc";
-import { sourceText } from "@openownbot/i18n/source";
-import { createOpenOwnBotLogger, redactText, registerSecretValue, toLogValue } from "@openownbot/logging";
+} from "@robot/contracts/ipc";
+import { sourceText } from "@robot/i18n/source";
+import { createOpenOwnBotLogger, redactText, registerSecretValue, toLogValue } from "@robot/logging";
 import { Deferred, Effect, Exit, type Layer, Result, Scope, Semaphore } from "effect";
 import { z } from "zod";
 import { writeFileAtomically } from "../backend/atomic-json-file";

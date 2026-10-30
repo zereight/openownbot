@@ -1,5 +1,5 @@
-import type { MessagingConnection, MessagingPlatform } from "@openownbot/contracts/ipc";
-import type { AppMobileMessages, MobileTextKey } from "@openownbot/i18n/mobile";
+import type { MessagingConnection, MessagingPlatform } from "@robot/contracts/ipc";
+import type { AppMobileMessages, MobileTextKey } from "@robot/i18n/mobile";
 
 /**
  * The connectors of a joined server, in the order of desktop Server settings › Connectors. A host

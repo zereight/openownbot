@@ -5,8 +5,8 @@
  * and a reader hears only the pitch.
  */
 
-import type { AppTextKey } from "@openownbot/i18n";
-import { Button } from "@openownbot/ui";
+import type { AppTextKey } from "@robot/i18n";
+import { Button } from "@robot/ui";
 import { createMemo, createSignal, For, onSettled, Show } from "solid-js";
 import { useText } from "../../text";
 import { prefersReducedMotion } from "../../utils";

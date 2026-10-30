@@ -1,5 +1,5 @@
-import type { BrowserTab } from "@openownbot/contracts/ipc";
-import type { BrowserHistoryEntry } from "@openownbot/ui/features/browser/browser-suggestions";
+import type { BrowserTab } from "@robot/contracts/ipc";
+import type { BrowserHistoryEntry } from "@robot/ui/features/browser/browser-suggestions";
 import { createStore } from "solid-js";
 
 /**

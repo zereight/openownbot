@@ -1,4 +1,4 @@
-import type { ConversationPage } from "@openownbot/contracts/ipc";
+import type { ConversationPage } from "@robot/contracts/ipc";
 
 /**
  * Which messages a conversation shows after a page or a snapshot arrives.

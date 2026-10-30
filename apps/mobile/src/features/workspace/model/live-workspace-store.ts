@@ -1,4 +1,4 @@
-import type { AgentContextState, BrowserTakeoverRequest } from "@openownbot/contracts/ipc";
+import type { AgentContextState, BrowserTakeoverRequest } from "@robot/contracts/ipc";
 import type { MobileBrowserTabs } from "@/features/browser/model/browser-tabs";
 import type { MobileAgentActivities } from "./agent-activity";
 import type { PendingApproval } from "./pending-approvals";

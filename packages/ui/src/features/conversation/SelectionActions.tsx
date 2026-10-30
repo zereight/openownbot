@@ -1,12 +1,12 @@
-import { fileQuoteId, fileQuoteTarget } from "@openownbot/contracts/chat-tag-references";
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
+import { fileQuoteId, fileQuoteTarget } from "@robot/contracts/chat-tag-references";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
 import {
   SELECTION_ACTION_INSTRUCTIONS,
   serializeFileSelectionInstruction,
   serializeSelectionInstruction,
-} from "@openownbot/contracts/selection-instruction";
-import { Button, Input, TextQuote } from "@openownbot/ui";
-import { clamp } from "@openownbot/ui/utils";
+} from "@robot/contracts/selection-instruction";
+import { Button, Input, TextQuote } from "@robot/ui";
+import { clamp } from "@robot/ui/utils";
 import { Portal } from "@solidjs/web";
 import type { Element as SolidElement } from "solid-js";
 import { createEffect, createMemo, createSignal, For, onSettled, Show } from "solid-js";

@@ -3,9 +3,9 @@ import {
   type ClearableStorageCategory,
   canAdministerServer,
   type StorageCategory,
-} from "@openownbot/contracts/ipc";
-import { isOneOf } from "@openownbot/contracts/runtime-values";
-import type { MobileTextKey } from "@openownbot/i18n/mobile";
+} from "@robot/contracts/ipc";
+import { isOneOf } from "@robot/contracts/runtime-values";
+import type { MobileTextKey } from "@robot/i18n/mobile";
 import { router, Stack, useLocalSearchParams } from "expo-router";
 import { Typography } from "heroui-native";
 import RotateCw from "lucide-react-native/icons/rotate-cw";

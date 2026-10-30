@@ -1,4 +1,4 @@
-import { type GuardableScope, LOCAL_ONLY } from "@openownbot/contracts/local-only";
+import { type GuardableScope, LOCAL_ONLY } from "@robot/contracts/local-only";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { GuardableSession } from "./local-only-guard";
 
@@ -31,12 +31,12 @@ vi.mock("electron", () => ({
 async function contractWithSwitch(localOnly: boolean) {
   vi.resetModules();
   vi.doMock("../../packages/contracts/src/local-only.json", () => ({ default: { localOnly } }));
-  return await import("@openownbot/contracts/local-only");
+  return await import("@robot/contracts/local-only");
 }
 
 async function guardWithSwitch(localOnly: boolean) {
   await contractWithSwitch(localOnly);
-  return { guard: await import("./local-only-guard"), logging: await import("@openownbot/logging") };
+  return { guard: await import("./local-only-guard"), logging: await import("@robot/logging") };
 }
 
 /** A session that keeps one `onBeforeRequest` listener, as Electron does: a repeat call replaces it. */

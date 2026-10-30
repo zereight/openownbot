@@ -3,7 +3,7 @@ import {
   type UiBlockSpec,
   type UiBlockState,
   validateUiBlockResponse,
-} from "@openownbot/contracts/ui-blocks";
+} from "@robot/contracts/ui-blocks";
 
 /**
  * What every blocking block takes. The components know nothing about IPC: the host owns the stored

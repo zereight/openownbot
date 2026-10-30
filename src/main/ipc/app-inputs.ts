@@ -1,4 +1,4 @@
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
 import type {
   AgentDefaults,
   AgentMemoryLimitPreference,
@@ -41,7 +41,7 @@ import type {
   UninstallSkillInput,
   UpdatePreferenceChange,
   VerifyEmailCodeInput,
-} from "@openownbot/contracts/ipc";
+} from "@robot/contracts/ipc";
 import {
   decodeExternalLinkTarget,
   IDLE_RESTART_TARGETS,
@@ -64,7 +64,7 @@ import {
   isMemoryReviewInterval,
   isRemoteNetworkRoute,
   isSkillCategory,
-} from "@openownbot/contracts/ipc";
+} from "@robot/contracts/ipc";
 import {
   type DynamicRecord,
   isBoolean,
@@ -72,8 +72,8 @@ import {
   isNumber,
   isOneOf,
   isString,
-} from "@openownbot/contracts/runtime-values";
-import { validateProfileName } from "@openownbot/contracts/validation";
+} from "@robot/contracts/runtime-values";
+import { validateProfileName } from "@robot/contracts/validation";
 import { parseAvatarImage } from "./avatar-inputs";
 import { isObject, optionalBoolean, requireString } from "./validation";
 

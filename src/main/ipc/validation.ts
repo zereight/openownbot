@@ -1,5 +1,5 @@
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
-import { type DynamicRecord, isBoolean, isDynamicRecord, isString } from "@openownbot/contracts/runtime-values";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
+import { type DynamicRecord, isBoolean, isDynamicRecord, isString } from "@robot/contracts/runtime-values";
 
 export function requireString(value: unknown, field: string, maxLength: number = INPUT_LIMITS.identifier): string {
   if (!isString(value) || !value.trim()) throw new Error(`${field} is required.`);

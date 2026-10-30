@@ -1,12 +1,12 @@
-import { canAdministerServer, type RoutineSchedule, type WorkflowTriggerType } from "@openownbot/contracts/ipc";
-import type { MobileTextKey } from "@openownbot/i18n/mobile";
+import { canAdministerServer, type RoutineSchedule, type WorkflowTriggerType } from "@robot/contracts/ipc";
+import type { MobileTextKey } from "@robot/i18n/mobile";
 import {
   type RoutineScheduleDraft,
   routineDraftProblemCode,
   routineScheduleFromDraft,
   routineScheduleToDraft,
   switchDraftKind,
-} from "@openownbot/team-client/routine-schedule-draft";
+} from "@robot/team-client/routine-schedule-draft";
 import * as Clipboard from "expo-clipboard";
 import { useLocalSearchParams } from "expo-router";
 import { Typography } from "heroui-native";

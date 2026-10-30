@@ -10,11 +10,11 @@ import {
   type McpSignInRelayPage,
   type ProviderAdminDesktopApi,
   relayCallbackQuery,
-} from "@openownbot/contracts/ipc";
-import { PROVIDER_ACCOUNT_RELAY_PROVIDERS } from "@openownbot/contracts/team-protocol/provider-account-relay-v1";
-import { SIGN_IN_RELAY_PROVIDERS } from "@openownbot/contracts/team-protocol/sign-in-relay-v1";
-import { sourceText } from "@openownbot/i18n/source";
-import { runTeamEffect } from "@openownbot/team-client";
+} from "@robot/contracts/ipc";
+import { PROVIDER_ACCOUNT_RELAY_PROVIDERS } from "@robot/contracts/team-protocol/provider-account-relay-v1";
+import { SIGN_IN_RELAY_PROVIDERS } from "@robot/contracts/team-protocol/sign-in-relay-v1";
+import { sourceText } from "@robot/i18n/source";
+import { runTeamEffect } from "@robot/team-client";
 import {
   cancelProviderSignInRelay,
   completeSignInRelay,
@@ -22,8 +22,8 @@ import {
   startProviderAccountSignInRelay,
   startProviderSignInRelay,
   type TeamAdminRequestError,
-} from "@openownbot/team-client/team-admin-requests";
-import type { TeamApiRequest } from "@openownbot/team-client/team-api-requests";
+} from "@robot/team-client/team-admin-requests";
+import type { TeamApiRequest } from "@robot/team-client/team-api-requests";
 import { Effect } from "effect";
 
 /** How often the host is asked how the sign-in is. */

@@ -3,8 +3,8 @@ import { chmod, mkdir, mkdtemp, rm, stat, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { basename, join } from "node:path";
 import { pipeline } from "node:stream/promises";
-import { ATTACHMENT_LIMITS } from "@openownbot/contracts/input-limits";
-import { createOpenOwnBotLogger, redactText } from "@openownbot/logging";
+import { ATTACHMENT_LIMITS } from "@robot/contracts/input-limits";
+import { createOpenOwnBotLogger, redactText } from "@robot/logging";
 import { Effect, Exit, Fiber, Scope } from "effect";
 import {
   type AttachmentOperationError,

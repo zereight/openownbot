@@ -1,5 +1,5 @@
-import { isAgentTaskOpen, taskNeedsYou } from "@openownbot/team-client/agent-tasks";
-import { addCalendarDays, calendarDayOf } from "@openownbot/team-client/routine-calendar-dates";
+import { isAgentTaskOpen, taskNeedsYou } from "@robot/team-client/agent-tasks";
+import { addCalendarDays, calendarDayOf } from "@robot/team-client/routine-calendar-dates";
 import { useQuery } from "@tanstack/react-query";
 import { lastUsageDays } from "@/features/agents/components/usage-range-picker";
 import { useQueryScope } from "@/features/auth/context/mobile-session-context";

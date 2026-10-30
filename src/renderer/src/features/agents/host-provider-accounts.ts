@@ -4,8 +4,8 @@ import type {
   AgentStatus,
   ClientAgentSummary,
   HostProviderAccounts,
-} from "@openownbot/contracts/ipc";
-import type { AgentProfile } from "@openownbot/ui/data";
+} from "@robot/contracts/ipc";
+import type { AgentProfile } from "@robot/ui/data";
 import { type Accessor, createEffect, createSignal, onCleanup, untrack } from "solid-js";
 import { createScopeGuard } from "../../scope-lifetime";
 

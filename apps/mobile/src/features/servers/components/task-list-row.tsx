@@ -1,5 +1,5 @@
-import type { AgentTask } from "@openownbot/contracts/ipc";
-import { taskTone } from "@openownbot/team-client/agent-tasks";
+import type { AgentTask } from "@robot/contracts/ipc";
+import { taskTone } from "@robot/team-client/agent-tasks";
 import { Typography } from "heroui-native";
 import { Pressable, View } from "react-native";
 import { useCSSVariable } from "uniwind";

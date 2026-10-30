@@ -1,4 +1,4 @@
-import { sourceText } from "@openownbot/i18n/source";
+import { sourceText } from "@robot/i18n/source";
 /** Prevents delivery insertion across asynchronous agent deletion and attachment preparation. */
 export class MailboxDeliveryGate {
   readonly #blockedAgents = new Set<string>();

@@ -1,10 +1,4 @@
-import {
-  type DynamicRecord,
-  isBoolean,
-  isDynamicRecord,
-  isNumber,
-  isString,
-} from "@openownbot/contracts/runtime-values";
+import { type DynamicRecord, isBoolean, isDynamicRecord, isNumber, isString } from "@robot/contracts/runtime-values";
 import { Effect } from "effect";
 import { type BrowserOperationError, browserFailure } from "./browser-effects";
 

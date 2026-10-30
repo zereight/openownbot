@@ -12,7 +12,7 @@ import type {
   MarketplaceAgentSkill,
   RoutineSchedule,
   SubmitMarketplaceAgentInput,
-} from "@openownbot/contracts/ipc";
+} from "@robot/contracts/ipc";
 import {
   decodeMarketplaceAgentDetail,
   decodeMarketplaceAgentPage,
@@ -21,9 +21,9 @@ import {
   isReleasedRoutineSchedule,
   isSkillCategory,
   marketplaceQueryParams,
-} from "@openownbot/contracts/ipc";
-import { isBoolean, isDynamicRecord, isNumber, isOneOf, isString } from "@openownbot/contracts/runtime-values";
-import { sourceText } from "@openownbot/i18n/source";
+} from "@robot/contracts/ipc";
+import { isBoolean, isDynamicRecord, isNumber, isOneOf, isString } from "@robot/contracts/runtime-values";
+import { sourceText } from "@robot/i18n/source";
 import { Effect, Result, Schema } from "effect";
 import type { AgentLifecycleFailed } from "../backend/agent-service";
 import { causeHelpers } from "../backend/effect-boundary";

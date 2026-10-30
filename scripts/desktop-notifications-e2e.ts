@@ -18,8 +18,8 @@ import {
   LOCAL_SERVER_ID,
   type ServerNotificationLevel,
   type ServerSummary,
-} from "@openownbot/contracts/ipc";
-import { createFormat, translateFor } from "@openownbot/i18n";
+} from "@robot/contracts/ipc";
+import { createFormat, translateFor } from "@robot/i18n";
 import { plugin } from "bun";
 import { Effect } from "effect";
 import type { AgentBrowserHost } from "../src/backend/agent/turn-lifecycle";

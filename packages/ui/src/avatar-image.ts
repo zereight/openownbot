@@ -1,7 +1,7 @@
-import { AVATAR_MIME_TYPES } from "@openownbot/contracts/avatar-images";
-import { AVATAR_IMAGE_LIMITS } from "@openownbot/contracts/input-limits";
-import type { AvatarImageInput } from "@openownbot/contracts/ipc";
-import { isOneOf } from "@openownbot/contracts/runtime-values";
+import { AVATAR_MIME_TYPES } from "@robot/contracts/avatar-images";
+import { AVATAR_IMAGE_LIMITS } from "@robot/contracts/input-limits";
+import type { AvatarImageInput } from "@robot/contracts/ipc";
+import { isOneOf } from "@robot/contracts/runtime-values";
 import { currentText } from "./text";
 
 const OUTPUT_SIZES = [512, 448, 384, 320] as const;

@@ -1,6 +1,6 @@
-import { Button, Folder, X } from "@openownbot/ui";
-import type { AgentProfile } from "@openownbot/ui/data";
-import { useText } from "@openownbot/ui/text";
+import { Button, Folder, X } from "@robot/ui";
+import type { AgentProfile } from "@robot/ui/data";
+import { useText } from "@robot/ui/text";
 import { onSettled, Show } from "solid-js";
 import { createScrollFades } from "../../components/createScrollFades";
 import { FileList } from "./FileList";

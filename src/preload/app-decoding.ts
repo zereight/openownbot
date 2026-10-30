@@ -4,8 +4,8 @@
 // Each decoder checks every field the contract type requires and keeps each optional field it
 // carries, so a value the renderer reads always has the shape its type says.
 
-import { isAgentTemplateId } from "@openownbot/contracts/agent-template-links";
-import { type BillingState, parseBillingState } from "@openownbot/contracts/billing";
+import { isAgentTemplateId } from "@robot/contracts/agent-template-links";
+import { type BillingState, parseBillingState } from "@robot/contracts/billing";
 import {
   type HostedServerCatalog,
   type HostedServerList,
@@ -13,8 +13,8 @@ import {
   parseHostedServerCatalog,
   parseHostedServerList,
   parseHostedServerSummary,
-} from "@openownbot/contracts/hosted-servers";
-import { parseHostedSiteList, parseHostedSiteSummary } from "@openownbot/contracts/hosted-sites";
+} from "@robot/contracts/hosted-servers";
+import { parseHostedSiteList, parseHostedSiteSummary } from "@robot/contracts/hosted-sites";
 import {
   type AccountSession,
   AGENT_DEFAULT_KEYS,
@@ -112,7 +112,7 @@ import {
   type VoiceStream,
   type VoiceStreamTranscript,
   type VoiceTranscriptionResult,
-} from "@openownbot/contracts/ipc";
+} from "@robot/contracts/ipc";
 import {
   decodeList,
   decodeRecord,
@@ -124,10 +124,10 @@ import {
   requiredBoolean,
   requiredNumber,
   requiredString,
-} from "@openownbot/contracts/ipc-decoding";
-import { type LicenseState, parseLicenseState } from "@openownbot/contracts/license";
-import { isPluginSlug } from "@openownbot/contracts/plugin-links";
-import { isBoolean, isNumber, isOneOf, isString } from "@openownbot/contracts/runtime-values";
+} from "@robot/contracts/ipc-decoding";
+import { type LicenseState, parseLicenseState } from "@robot/contracts/license";
+import { isPluginSlug } from "@robot/contracts/plugin-links";
+import { isBoolean, isNumber, isOneOf, isString } from "@robot/contracts/runtime-values";
 
 export function decodeAppInfo(value: unknown): AppInfo {
   const info = decodeRecord(value, "app info");

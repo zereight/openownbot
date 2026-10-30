@@ -19,9 +19,9 @@ import type {
   TestChannelRoutineInput,
   UpdateChannelMemoryInput,
   UpdateChannelRoutineInput,
-} from "@openownbot/contracts/ipc";
-import { channelRoutingConversationEventItemType } from "@openownbot/contracts/ipc";
-import { markdownPreviewText } from "@openownbot/contracts/markdown-preview-text";
+} from "@robot/contracts/ipc";
+import { channelRoutingConversationEventItemType } from "@robot/contracts/ipc";
+import { markdownPreviewText } from "@robot/contracts/markdown-preview-text";
 
 /** A channel that exists when the preview starts, with its history. */
 export interface MockChannelSeed {

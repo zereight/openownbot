@@ -1,4 +1,4 @@
-import type { WorkflowRunDetail } from "@openownbot/contracts/ipc";
+import type { WorkflowRunDetail } from "@robot/contracts/ipc";
 import { Typography } from "heroui-native";
 import { SettingsRow } from "@/features/settings/components/settings-content";
 import { runStatusClass } from "@/features/workflows/components/workflow-row";

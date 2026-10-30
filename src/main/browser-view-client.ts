@@ -4,7 +4,7 @@
 // on the network or only through the WebRTC tunnel, and which session the frames belong to are all
 // answered here. Starting a second view replaces the first, because a user looks at one tab.
 
-import type { BrowserLiveViewEvent } from "@openownbot/contracts/ipc";
+import type { BrowserLiveViewEvent } from "@robot/contracts/ipc";
 import {
   BROWSER_VIEW_FRAME_ACK_QUERY,
   type BrowserViewInput,
@@ -15,9 +15,9 @@ import {
   TEAM_BROWSER_VIEW_CAPABILITY,
   TEAM_BROWSER_VIEW_CLIPBOARD_CAPABILITY,
   TEAM_BROWSER_VIEW_FRAME_POINT_CAPABILITY,
-} from "@openownbot/contracts/team-protocol/browser-view-v1";
-import { sourceText } from "@openownbot/i18n/source";
-import { createOpenOwnBotLogger } from "@openownbot/logging";
+} from "@robot/contracts/team-protocol/browser-view-v1";
+import { sourceText } from "@robot/i18n/source";
+import { createOpenOwnBotLogger } from "@robot/logging";
 import { Deferred, Effect, Fiber } from "effect";
 import type { RemoteServerManager } from "./remote-server-manager";
 import { RemoteWorkflowError, remoteDecode } from "./remote-service-effects";

@@ -1,4 +1,4 @@
-import type { GeneralSettingsValue, SoundChoice } from "@openownbot/ui/features/settings/app-settings";
+import type { GeneralSettingsValue, SoundChoice } from "@robot/ui/features/settings/app-settings";
 import { play } from "cuelume";
 
 /** Plays the preview that the app plays for a new sound choice, without saving the choice. */

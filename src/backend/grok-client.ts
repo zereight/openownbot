@@ -1,7 +1,7 @@
 import type { ClientSideConnection, ContentBlock, InitializeResponse } from "@agentclientprotocol/sdk";
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
-import { type DynamicRecord, isNumber } from "@openownbot/contracts/runtime-values";
-import { sourceText } from "@openownbot/i18n/source";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
+import { type DynamicRecord, isNumber } from "@robot/contracts/runtime-values";
+import { sourceText } from "@robot/i18n/source";
 import { Effect } from "effect";
 import { AcpAgentClient, type AcpHistoryPersistence } from "./acp-client";
 import { DEFAULT_ACP_FLAVOR } from "./acp-flavor";

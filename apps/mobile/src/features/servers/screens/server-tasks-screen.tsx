@@ -1,11 +1,6 @@
-import type { AgentTask } from "@openownbot/contracts/ipc";
-import type { MobileTextKey } from "@openownbot/i18n/mobile";
-import {
-  TASKS_CLOSED_SHOWN,
-  type TasksSectionId,
-  taskApproval,
-  taskSections,
-} from "@openownbot/team-client/agent-tasks";
+import type { AgentTask } from "@robot/contracts/ipc";
+import type { MobileTextKey } from "@robot/i18n/mobile";
+import { TASKS_CLOSED_SHOWN, type TasksSectionId, taskApproval, taskSections } from "@robot/team-client/agent-tasks";
 import { router, Stack, useLocalSearchParams } from "expo-router";
 import { Typography } from "heroui-native";
 import Plus from "lucide-react-native/icons/plus";

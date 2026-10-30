@@ -6,16 +6,16 @@
  * graph are the contract's (`isWorkflowGraph`); the byte limit of its JSON is `workflowGraphFits`.
  */
 
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
 import {
   WORKFLOW_TRIGGER_TYPES,
   type WorkflowGraph,
   type WorkflowNode,
   type WorkflowTriggerType,
-} from "@openownbot/contracts/ipc";
-import { isOneOf } from "@openownbot/contracts/runtime-values";
+} from "@robot/contracts/ipc";
+import { isOneOf } from "@robot/contracts/runtime-values";
 
-export { type WorkflowGraphProblem, workflowGraphProblem } from "@openownbot/contracts/ipc";
+export { type WorkflowGraphProblem, workflowGraphProblem } from "@robot/contracts/ipc";
 
 /** What a trigger node is planned on. The store writes a row from these values and plans it again when one changes. */
 export interface WorkflowTriggerPlan {

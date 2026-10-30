@@ -11,8 +11,8 @@ import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { mkdtemp, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
-import { AGENT_PROVIDERS, type McpServerConfig } from "@openownbot/contracts/ipc";
-import { sourceText } from "@openownbot/i18n/source";
+import { AGENT_PROVIDERS, type McpServerConfig } from "@robot/contracts/ipc";
+import { sourceText } from "@robot/i18n/source";
 import { Effect, Result } from "effect";
 import type { AgentBrowserHost } from "../src/backend/agent/turn-lifecycle";
 

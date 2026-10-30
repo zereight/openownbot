@@ -13,10 +13,10 @@ import {
   avatarMoodIsBusy,
   avatarMoodPresentation,
   type ShapeSafeStateId,
-} from "@openownbot/brand/bloub-avatar-motion";
-import { padlockEyePath } from "@openownbot/brand/bloub-padlock-eye";
-import type { AvatarHue } from "@openownbot/contracts/ipc";
-import { prefersReducedMotion } from "@openownbot/ui/utils";
+} from "@robot/brand/bloub-avatar-motion";
+import { padlockEyePath } from "@robot/brand/bloub-padlock-eye";
+import type { AvatarHue } from "@robot/contracts/ipc";
+import { prefersReducedMotion } from "@robot/ui/utils";
 import type { JSX } from "@solidjs/web";
 import { createEffect, createMemo, createSignal, createUniqueId, For, onSettled, Show } from "solid-js";
 import { type AvatarMotion, bloubAvatarProfile, type SupportedAvatarSilhouetteId } from "../../bloub-avatar";

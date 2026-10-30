@@ -1,6 +1,6 @@
-import { hostMemoryReview, isMemoryReviewInterval } from "@openownbot/contracts/ipc";
-import { MEMORY_REVIEW_CAPABILITY, MEMORY_REVIEW_ROUTES } from "@openownbot/contracts/team-protocol/memory-review-v1";
-import { sourceText } from "@openownbot/i18n/source";
+import { hostMemoryReview, isMemoryReviewInterval } from "@robot/contracts/ipc";
+import { MEMORY_REVIEW_CAPABILITY, MEMORY_REVIEW_ROUTES } from "@robot/contracts/team-protocol/memory-review-v1";
+import { sourceText } from "@robot/i18n/source";
 import { runCauseEffect } from "../../backend/effect-boundary";
 import type { TeamApiAdmin } from "./dependencies";
 import { HttpError } from "./http-error";

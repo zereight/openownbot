@@ -1,4 +1,4 @@
-import type { VaultImportResult, VaultSaveInput, VaultSecretRequest, VaultState } from "@openownbot/contracts/ipc";
+import type { VaultImportResult, VaultSaveInput, VaultSecretRequest, VaultState } from "@robot/contracts/ipc";
 
 /**
  * The Vault of one server. Desktop reaches this computer's Vault and a joined server's through main;

@@ -1,6 +1,6 @@
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
-import type { AgentModelOption } from "@openownbot/contracts/ipc";
-import { isFreeOpencodeModel } from "@openownbot/contracts/ipc";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
+import type { AgentModelOption } from "@robot/contracts/ipc";
+import { isFreeOpencodeModel } from "@robot/contracts/ipc";
 import type { AgentProvider } from "./../agent-client";
 import type { ModelListResponse } from "./../protocol";
 

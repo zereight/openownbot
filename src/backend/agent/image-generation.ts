@@ -1,5 +1,5 @@
-import { ATTACHMENT_LIMITS } from "@openownbot/contracts/input-limits";
-import { type ConversationMessage, isImageGenerationAspectRatio } from "@openownbot/contracts/ipc";
+import { ATTACHMENT_LIMITS } from "@robot/contracts/input-limits";
+import { type ConversationMessage, isImageGenerationAspectRatio } from "@robot/contracts/ipc";
 import { getRecord, getString, type ThreadItem } from "../protocol";
 
 export function isImageGenerationItem(item: ThreadItem): boolean {

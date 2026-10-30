@@ -1,5 +1,5 @@
-import { parseChannelCommand } from "@openownbot/contracts/ipc";
-import { CHANNEL_ROUTES, channelRequest } from "@openownbot/contracts/team-protocol/channels-v1";
+import { parseChannelCommand } from "@robot/contracts/ipc";
+import { CHANNEL_ROUTES, channelRequest } from "@robot/contracts/team-protocol/channels-v1";
 import { describe, expect, it } from "vitest";
 
 const cancel = {

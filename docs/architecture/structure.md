@@ -42,7 +42,7 @@ second version source and add package-signing risk without adding a useful runti
 Dependencies point toward stable boundaries:
 
 ```text
-renderer ──► @openownbot/contracts ◄── preload ◄── main ──► backend
+renderer ──► @robot/contracts ◄── preload ◄── main ──► backend
                         ▲                             │
                         └──────── auth-api ──────────┘
 ```
@@ -142,28 +142,28 @@ SolidJS, provider, Cloudflare, and application code; and the account server to d
 
 ## Shared UI package
 
-`@openownbot/ui` owns the existing SolidJS primitives and their primitive stylesheet. Desktop,
+`@robot/ui` owns the existing SolidJS primitives and their primitive stylesheet. Desktop,
 web, and Storybook import this workspace directly. It has no dependency on the renderer,
-Electron, account sessions, or host connections. Import `@openownbot/ui/styles.css` after brand
+Electron, account sessions, or host connections. Import `@robot/ui/styles.css` after brand
 tokens and include the package source in Tailwind scanning. App-specific styles remain in
 the application. The desktop TypeScript project includes the package source for CI checks.
 
 The package also owns prop-driven feature UI: the complete sidebar and its scoped interaction
 stores, account login, server rail and invitation dialog, message rendering, composer
 editor, attachment cards, preview renderers, agent setup, and reusable settings panels. Feature
-exports use explicit subpaths such as `@openownbot/ui/features/sidebar/Sidebar`. Shared display
-models live at `@openownbot/ui/data`. Source files are moved, not copied or re-exported from the
+exports use explicit subpaths such as `@robot/ui/features/sidebar/Sidebar`. Shared display
+models live at `@robot/ui/data`. Source files are moved, not copied or re-exported from the
 renderer. Tests remain in the renderer test harness and import the package directly.
 
 The browser panel and live canvas also live in this package. Their typed `BrowserViewRuntime`
 is required; the renderer supplies the desktop preload adapter or the web host adapter.
 Shared sidebar activity and avatar mood functions use caller-supplied state. The conversation
-stylesheet is exported as `@openownbot/ui/features/conversation/conversation.css`; applications
+stylesheet is exported as `@robot/ui/features/conversation/conversation.css`; applications
 import it in the same cascade position as the former renderer stylesheet. This file is an ordered
 manifest of component styles in `features/conversation/styles/`. Preserve import order: later
 surface and responsive rules override earlier component rules.
 
-`@openownbot/ui/features/marketplace/*` renders the Marketplace window: the Agents, Apps and Skills
+`@robot/ui/features/marketplace/*` renders the Marketplace window: the Agents, Apps and Skills
 tabs, and a page for each listing. It reads a typed `MarketplaceModel` and holds no data of its
 own. The renderer's `marketplace-controller.ts` builds the model on the injected `MarketplaceCalls`,
 and `MarketplaceModal` adds the connect and uninstall dialogs. `ConnectorsProvider` creates the

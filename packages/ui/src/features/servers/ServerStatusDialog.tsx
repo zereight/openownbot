@@ -1,5 +1,5 @@
-import type { HostedServerIssue } from "@openownbot/contracts/ipc";
-import type { AppTextKey } from "@openownbot/i18n";
+import type { HostedServerIssue } from "@robot/contracts/ipc";
+import type { AppTextKey } from "@robot/i18n";
 import type { JSX } from "@solidjs/web";
 import { createEffect, createMemo, createSignal, For, Show } from "solid-js";
 import { ConfirmDialog } from "../../confirm-dialog";

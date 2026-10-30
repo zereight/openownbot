@@ -1,9 +1,5 @@
-import { AppLogo } from "@openownbot/brand";
-import {
-  createWebAppInvitePath,
-  OPENOWNBOT_INVITE_ORIGIN,
-  toOpenOwnBotInviteUrl,
-} from "@openownbot/contracts/invite-links";
+import { AppLogo } from "@robot/brand";
+import { createWebAppInvitePath, OPENOWNBOT_INVITE_ORIGIN, toOpenOwnBotInviteUrl } from "@robot/contracts/invite-links";
 import { createSignal, onSettled, Show } from "solid-js";
 import { landingAnalytics } from "../../lib/analytics";
 import { detectDownloadPlatform } from "../../lib/download-platforms";

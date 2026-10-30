@@ -1,4 +1,4 @@
-import type { AttachmentSummary } from "@openownbot/contracts/ipc";
+import type { AttachmentSummary } from "@robot/contracts/ipc";
 import { BlurView } from "expo-blur";
 import { isLiquidGlassAvailable } from "expo-glass-effect";
 import { Image } from "expo-image";

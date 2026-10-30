@@ -9,9 +9,9 @@ import {
   isReservedMcpServerName,
   type McpServerConfig,
   type McpTransport,
-} from "@openownbot/contracts/ipc";
-import { type DynamicRecord, isDynamicRecord } from "@openownbot/contracts/runtime-values";
-import { sourceText } from "@openownbot/i18n/source";
+} from "@robot/contracts/ipc";
+import { type DynamicRecord, isDynamicRecord } from "@robot/contracts/runtime-values";
+import { sourceText } from "@robot/i18n/source";
 import { Deferred, Effect, Schema } from "effect";
 import { isWindowsRunnable, runInLoginShell } from "./cli";
 import { causeHelpers } from "./effect-boundary";

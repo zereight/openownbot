@@ -31,7 +31,7 @@ socket of the guild's host; `src/discord-api.ts` makes the typed Discord calls o
 `discord-session` token, an interaction token, a message's content or Discord's error text. Never
 let a host call Discord in a guild or channel that is not routed to its socket.
 
-- The message shapes come from `@openownbot/contracts/signal-protocol`. `src/protocol.ts` only
+- The message shapes come from `@robot/contracts/signal-protocol`. `src/protocol.ts` only
   re-exports them for the server. Change them there, and keep released messages compatible.
 - `src/tokens.ts` holds the secrets. Compare secrets in constant time (`timingSafeEqual`), and keep
   the TTL limits. Never log a ticket, a token, a Slack, Discord or Telegram route ticket, a request

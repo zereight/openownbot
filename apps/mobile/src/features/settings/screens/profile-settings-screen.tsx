@@ -1,4 +1,4 @@
-import { validateProfileName } from "@openownbot/contracts/validation";
+import { validateProfileName } from "@robot/contracts/validation";
 import { router } from "expo-router";
 import { Typography } from "heroui-native";
 import { useThemeColor } from "heroui-native/hooks";

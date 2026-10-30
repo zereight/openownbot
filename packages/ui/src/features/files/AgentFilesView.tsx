@@ -1,6 +1,6 @@
-import { Button, FolderOpen, IconButton, Skeleton } from "@openownbot/ui";
-import { SettingsPanelHeader } from "@openownbot/ui/components/SettingsPanel";
-import { currentText, useText } from "@openownbot/ui/text";
+import { Button, FolderOpen, IconButton, Skeleton } from "@robot/ui";
+import { SettingsPanelHeader } from "@robot/ui/components/SettingsPanel";
+import { currentText, useText } from "@robot/ui/text";
 import { createMemo, createUniqueId, For, Show } from "solid-js";
 import { FileList } from "./FileList";
 import {

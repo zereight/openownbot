@@ -11,16 +11,16 @@ import {
   type HostedSitePathProblem,
   parseHostedSiteList,
   parseHostedSiteSummary,
-} from "@openownbot/contracts/hosted-sites";
+} from "@robot/contracts/hosted-sites";
 import type {
   HostedSiteFramework,
   HostedSiteList,
   HostedSiteSummary,
   PublishHostedSiteInput,
   ReplaceHostedSiteInput,
-} from "@openownbot/contracts/ipc";
-import { isDynamicRecord, isString } from "@openownbot/contracts/runtime-values";
-import { type SourceMessages, sourceText } from "@openownbot/i18n/source";
+} from "@robot/contracts/ipc";
+import { isDynamicRecord, isString } from "@robot/contracts/runtime-values";
+import { type SourceMessages, sourceText } from "@robot/i18n/source";
 import { Deferred, Effect, Result, Schema } from "effect";
 import { causeHelpers } from "../backend/effect-boundary";
 import { isMissingFileError } from "../backend/file-errors";

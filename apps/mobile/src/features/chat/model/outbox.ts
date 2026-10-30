@@ -1,5 +1,5 @@
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
-import { isBoolean, isDynamicRecord, isString } from "@openownbot/contracts/runtime-values";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
+import { isBoolean, isDynamicRecord, isString } from "@robot/contracts/runtime-values";
 import type { ChatMessage } from "./chat-messages";
 import type { ImageDimensions } from "./image-dimensions";
 

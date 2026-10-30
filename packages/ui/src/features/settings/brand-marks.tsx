@@ -6,7 +6,7 @@ import {
   ONEPASSWORD_MARK_PATH,
   SLACK_MARK_PATH,
   TELEGRAM_MARK_PATH,
-} from "@openownbot/brand/connector-mark-shape";
+} from "@robot/brand/connector-mark-shape";
 
 /** GitHub's mark. Lucide has no brand icons, so the path is GitHub's own. */
 export function GitHubMark(props: { class?: string | undefined }) {

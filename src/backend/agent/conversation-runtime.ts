@@ -1,5 +1,5 @@
 import { createHash } from "node:crypto";
-import { sortConversationMessages } from "@openownbot/contracts/conversation-order";
+import { sortConversationMessages } from "@robot/contracts/conversation-order";
 import {
   type AgentEvent,
   type AgentSummary,
@@ -7,9 +7,9 @@ import {
   type ConversationMessage,
   type ConversationSnapshot,
   type QueueDeliveryStatus,
-} from "@openownbot/contracts/ipc";
-import { sourceText } from "@openownbot/i18n/source";
-import { createOpenOwnBotLogger } from "@openownbot/logging";
+} from "@robot/contracts/ipc";
+import { sourceText } from "@robot/i18n/source";
+import { createOpenOwnBotLogger } from "@robot/logging";
 import type { AgentClient } from "../agent-client";
 import type { AgentStore } from "../agent-store";
 import { MAILBOX_CONVERSATION_MESSAGE_LIMIT } from "../mailbox-store";

@@ -1,27 +1,27 @@
-import type { MessagingPlatform } from "@openownbot/contracts/ipc";
-import { refusesOpenOwnBotUrl } from "@openownbot/contracts/local-only";
-import { decodeSignalServerMessage } from "@openownbot/contracts/signal-protocol/decode";
-import { type DiscordApiRequest, decodeDiscordApiError } from "@openownbot/contracts/signal-protocol/discord-api";
-import { DISCORD_API_PATH } from "@openownbot/contracts/signal-protocol/discord-route";
+import type { MessagingPlatform } from "@robot/contracts/ipc";
+import { refusesOpenOwnBotUrl } from "@robot/contracts/local-only";
+import { decodeSignalServerMessage } from "@robot/contracts/signal-protocol/decode";
+import { type DiscordApiRequest, decodeDiscordApiError } from "@robot/contracts/signal-protocol/discord-api";
+import { DISCORD_API_PATH } from "@robot/contracts/signal-protocol/discord-route";
 import {
   INGRESS_QUEUE_CAPABILITY,
   openQueuedDelivery,
   type QueuedSignalMessage,
-} from "@openownbot/contracts/signal-protocol/ingress-queue";
+} from "@robot/contracts/signal-protocol/ingress-queue";
 import {
   SIGNAL_PROTOCOL_VERSION,
   type SignalClientMessage,
   type SignalServerMessage,
   SLACK_DELIVERY_RESPONSE_BYTES_LIMIT,
   type WebhookDeliveryStatus,
-} from "@openownbot/contracts/signal-protocol/messages";
+} from "@robot/contracts/signal-protocol/messages";
 import {
   TELEGRAM_CAPABILITY,
   type TelegramCallMethod,
   type TelegramCallParams,
   type TelegramCallResult,
-} from "@openownbot/contracts/signal-protocol/telegram-route";
-import { createOpenOwnBotLogger } from "@openownbot/logging";
+} from "@robot/contracts/signal-protocol/telegram-route";
+import { createOpenOwnBotLogger } from "@robot/logging";
 import { Context, Deferred, Effect, Exit, Layer, ManagedRuntime, Option, Result, Scope, Semaphore } from "effect";
 import WebSocket from "ws";
 import {

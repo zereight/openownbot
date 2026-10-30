@@ -1,5 +1,5 @@
-import { DEFAULT_REMOTE_SESSION_REUSE_PREFERENCE, type RemoteSessionReusePreference } from "@openownbot/contracts/ipc";
-import { isBoolean, isDynamicRecord } from "@openownbot/contracts/runtime-values";
+import { DEFAULT_REMOTE_SESSION_REUSE_PREFERENCE, type RemoteSessionReusePreference } from "@robot/contracts/ipc";
+import { isBoolean, isDynamicRecord } from "@robot/contracts/runtime-values";
 import { PreferenceStore } from "./preference-file";
 
 /**

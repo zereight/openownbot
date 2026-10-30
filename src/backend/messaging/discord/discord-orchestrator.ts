@@ -1,5 +1,5 @@
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
-import { sourceText } from "@openownbot/i18n/source";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
+import { sourceText } from "@robot/i18n/source";
 
 /**
  * The Discord Orchestrator: the agent that receives every new Discord conversation of a guild. It

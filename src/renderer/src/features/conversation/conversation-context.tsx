@@ -6,10 +6,10 @@ import {
   type ConversationPageInfo,
   type ConversationReadState,
   type ConversationSnapshot,
-} from "@openownbot/contracts/ipc";
-import { cleanAgentMessageText } from "@openownbot/team-client/agent-message-text";
-import type { AgentMessage } from "@openownbot/ui/data";
-import { currentText } from "@openownbot/ui/text";
+} from "@robot/contracts/ipc";
+import { cleanAgentMessageText } from "@robot/team-client/agent-message-text";
+import type { AgentMessage } from "@robot/ui/data";
+import { currentText } from "@robot/ui/text";
 import { createEffect, createMemo, createStore, onCleanup, untrack } from "solid-js";
 import {
   agentMessagesEqual,

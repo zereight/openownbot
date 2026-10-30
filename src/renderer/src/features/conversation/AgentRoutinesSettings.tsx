@@ -3,8 +3,8 @@ import {
   eventFilterDraft,
   eventFilterDraftsValid,
   eventFiltersFromDrafts,
-} from "@openownbot/contracts/event-filter-value";
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
+} from "@robot/contracts/event-filter-value";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
 import {
   ROUTINE_LIMIT_POLICIES,
   ROUTINE_MISSED_POLICIES,
@@ -15,9 +15,9 @@ import {
   type RoutineResultDestination,
   type RoutineRunFields,
   type RoutineSchedule,
-} from "@openownbot/contracts/ipc";
-import type { RoutineWebhookTriggerInput, WebhookTestResult } from "@openownbot/contracts/ipc-events";
-import type { AppTextKey } from "@openownbot/i18n";
+} from "@robot/contracts/ipc";
+import type { RoutineWebhookTriggerInput, WebhookTestResult } from "@robot/contracts/ipc-events";
+import type { AppTextKey } from "@robot/i18n";
 import {
   Button,
   CircleCheck,
@@ -37,22 +37,22 @@ import {
   Textarea,
   toast,
   Webhook,
-} from "@openownbot/ui";
-import { createScrollFades } from "@openownbot/ui/components/createScrollFades";
-import { SettingsBackIcon, SettingsForwardIcon } from "@openownbot/ui/components/SettingsPanel";
+} from "@robot/ui";
+import { createScrollFades } from "@robot/ui/components/createScrollFades";
+import { SettingsBackIcon, SettingsForwardIcon } from "@robot/ui/components/SettingsPanel";
 import {
   type RoutineResultChoice,
   RoutineResultDestinationField,
-} from "@openownbot/ui/features/conversation/RoutineResultDestinationField";
-import { RoutineRunHistory } from "@openownbot/ui/features/conversation/RoutineRunHistory";
-import { RoutineSchedulePicker } from "@openownbot/ui/features/conversation/RoutineSchedulePicker";
-import { RoutineTriggerMenu } from "@openownbot/ui/features/conversation/RoutineTriggerMenu";
-import { RoutineWebhookTrigger } from "@openownbot/ui/features/conversation/RoutineWebhookTrigger";
+} from "@robot/ui/features/conversation/RoutineResultDestinationField";
+import { RoutineRunHistory } from "@robot/ui/features/conversation/RoutineRunHistory";
+import { RoutineSchedulePicker } from "@robot/ui/features/conversation/RoutineSchedulePicker";
+import { RoutineTriggerMenu } from "@robot/ui/features/conversation/RoutineTriggerMenu";
+import { RoutineWebhookTrigger } from "@robot/ui/features/conversation/RoutineWebhookTrigger";
 import {
   ROUTINE_EVERY_DAY,
   type RoutineScheduleDraft,
   switchDraftKind,
-} from "@openownbot/ui/features/conversation/routine-schedule-draft";
+} from "@robot/ui/features/conversation/routine-schedule-draft";
 import {
   ROUTINE_LOCAL_DRAFT_KINDS,
   ROUTINE_SAVED_DRAFT_KINDS,
@@ -61,8 +61,8 @@ import {
   routineOncePassed,
   routineScheduleFromDraft,
   routineScheduleToDraft,
-} from "@openownbot/ui/features/conversation/routine-schedule-saved";
-import { useText } from "@openownbot/ui/text";
+} from "@robot/ui/features/conversation/routine-schedule-saved";
+import { useText } from "@robot/ui/text";
 import type { JSX } from "@solidjs/web";
 import { createEffect, createMemo, createSignal, createStore, For, onCleanup, Show, untrack } from "solid-js";
 import { actionToast } from "../../action-toast";

@@ -1,5 +1,5 @@
-import type { ServerSummary } from "@openownbot/contracts/ipc";
-import { CONNECTORS, type ConnectorId } from "@openownbot/ui/features/connectors/connectors";
+import type { ServerSummary } from "@robot/contracts/ipc";
+import { CONNECTORS, type ConnectorId } from "@robot/ui/features/connectors/connectors";
 import { remoteAdminServer } from "../servers/server-capabilities";
 
 /**

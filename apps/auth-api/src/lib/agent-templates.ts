@@ -1,5 +1,5 @@
-import { isAgentTemplateId } from "@openownbot/contracts/agent-template-links";
-import type { AgentTemplateDetail } from "@openownbot/contracts/ipc";
+import { isAgentTemplateId } from "@robot/contracts/agent-template-links";
+import type { AgentTemplateDetail } from "@robot/contracts/ipc";
 import { createServerFn } from "@tanstack/solid-start";
 import { runApiEffect } from "../server/effect-runtime";
 

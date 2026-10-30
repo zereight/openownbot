@@ -1,4 +1,4 @@
-import { CHAT_MERMAID_FONT_FAMILY, mermaidImageUrl } from "@openownbot/contracts/chat-preview";
+import { CHAT_MERMAID_FONT_FAMILY, mermaidImageUrl } from "@robot/contracts/chat-preview";
 import type { DocumentColorScheme } from "../../document-color-scheme";
 
 type Mermaid = typeof import("mermaid")["default"];

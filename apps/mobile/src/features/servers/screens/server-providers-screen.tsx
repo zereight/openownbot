@@ -1,4 +1,4 @@
-import { isAgentProvider, providerDisplayName } from "@openownbot/contracts/ipc";
+import { isAgentProvider, providerDisplayName } from "@robot/contracts/ipc";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { router, useLocalSearchParams } from "expo-router";
 import { Typography } from "heroui-native";

@@ -6,7 +6,7 @@
 // keeps the renderer drawing, and `--call-counts` turns on V8 precise coverage, which slows
 // JavaScript down.
 
-import { isDynamicRecord, isNumber, isString } from "@openownbot/contracts/runtime-values";
+import { isDynamicRecord, isNumber, isString } from "@robot/contracts/runtime-values";
 import type { Page } from "playwright-core";
 import type { MetricValues } from "./bench-stats";
 import type { InspectorClient } from "./inspector-client";

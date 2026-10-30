@@ -1,5 +1,5 @@
-import type { AgentMessage } from "@openownbot/ui/data";
-import { preferredMessageScrollBehavior } from "@openownbot/ui/features/conversation/MessageNavigation";
+import type { AgentMessage } from "@robot/ui/data";
+import { preferredMessageScrollBehavior } from "@robot/ui/features/conversation/MessageNavigation";
 import type { VirtualItem } from "@tanstack/virtual-core";
 import { createEffect, createSignal } from "solid-js";
 import type { ConversationProps } from "../conversation-types";

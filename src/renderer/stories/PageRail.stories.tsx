@@ -1,13 +1,13 @@
-import { accountUsageProviderRows } from "@openownbot/ui/features/account/account-usage-view";
-import { HelpMenu } from "@openownbot/ui/features/updates/HelpMenu";
+import { accountUsageProviderRows } from "@robot/ui/features/account/account-usage-view";
+import { HelpMenu } from "@robot/ui/features/updates/HelpMenu";
 import {
   type CustomAgentUsageRailRow,
   PageRail,
   type PageRailPage,
   type PageRailPinnablePage,
   type PageRailProps,
-} from "@openownbot/ui/features/window/PageRail";
-import { useText } from "@openownbot/ui/text";
+} from "@robot/ui/features/window/PageRail";
+import { useText } from "@robot/ui/text";
 import { createSignal } from "solid-js";
 import { fn } from "storybook/test";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";

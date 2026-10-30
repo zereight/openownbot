@@ -14,22 +14,22 @@ import {
   createIngressQueueKeyPair,
   importIngressQueuePrivateKey,
   openQueuedDelivery,
-} from "@openownbot/contracts/signal-protocol/ingress-queue";
-import { SLACK_EVENTS_PATH } from "@openownbot/contracts/signal-protocol/slack-route";
-import { TELEGRAM_ROUTE_AUDIENCE, TELEGRAM_UPDATES_PATH } from "@openownbot/contracts/signal-protocol/telegram-route";
+} from "@robot/contracts/signal-protocol/ingress-queue";
+import { SLACK_EVENTS_PATH } from "@robot/contracts/signal-protocol/slack-route";
+import { TELEGRAM_ROUTE_AUDIENCE, TELEGRAM_UPDATES_PATH } from "@robot/contracts/signal-protocol/telegram-route";
 import {
   REMOTE_TICKET_AUDIENCE,
   REMOTE_TICKET_PROTOCOL_VERSION,
   type RemoteTicketClaims,
-} from "@openownbot/contracts/signal-protocol/ticket";
+} from "@robot/contracts/signal-protocol/ticket";
 import {
   WEBHOOK_DELIVERY_ID_HEADER,
   WEBHOOK_EVENTS_PATH,
   WEBHOOK_ROUTE_AUDIENCE,
   WEBHOOK_SIGNATURE_HEADER,
   WEBHOOK_TIMESTAMP_HEADER,
-} from "@openownbot/contracts/signal-protocol/webhook-route";
-import { createOpenOwnBotLogger } from "@openownbot/logging";
+} from "@robot/contracts/signal-protocol/webhook-route";
+import { createOpenOwnBotLogger } from "@robot/logging";
 import { exportJWK, type JWTPayload, SignJWT } from "jose";
 
 const ROOT = resolve(import.meta.dirname, "..");

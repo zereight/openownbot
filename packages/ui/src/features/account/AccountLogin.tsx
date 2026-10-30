@@ -1,10 +1,10 @@
-import { AppLogo } from "@openownbot/brand";
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
-import type { AppVariant, CentralAuthIssue, CentralAuthState } from "@openownbot/contracts/ipc";
-import { PRODUCT_NAME } from "@openownbot/contracts/product";
-import { normalizeEmailAddress, normalizeOneTimeCode } from "@openownbot/contracts/validation";
-import { ArrowLeft, Button, ErrorReference, Input, Lock, RefreshCw } from "@openownbot/ui";
-import { errorReference, type UserErrorDetails } from "@openownbot/user-errors";
+import { AppLogo } from "@robot/brand";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
+import type { AppVariant, CentralAuthIssue, CentralAuthState } from "@robot/contracts/ipc";
+import { PRODUCT_NAME } from "@robot/contracts/product";
+import { normalizeEmailAddress, normalizeOneTimeCode } from "@robot/contracts/validation";
+import { ArrowLeft, Button, ErrorReference, Input, Lock, RefreshCw } from "@robot/ui";
+import { errorReference, type UserErrorDetails } from "@robot/user-errors";
 import { createEffect, createMemo, createSignal, onCleanup, Show, untrack } from "solid-js";
 import { useText } from "../../text";
 import { OtpInput, type OtpInputStatus } from "./OtpInput";

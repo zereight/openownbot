@@ -1,4 +1,4 @@
-import { foreignProvider, isKnownAgentProvider } from "@openownbot/contracts/agent-providers";
+import { foreignProvider, isKnownAgentProvider } from "@robot/contracts/agent-providers";
 import {
   type AgentModelId,
   type AgentProviderRef,
@@ -6,12 +6,12 @@ import {
   agentNextProviderAccountId,
   DEFAULT_PROVIDER_ACCOUNT_ID,
   providerDisplayName,
-} from "@openownbot/contracts/ipc";
-import { reasoningLabel } from "@openownbot/ui/components/ProviderModelPicker";
-import { providerAccountName } from "@openownbot/ui/components/provider-accounts";
-import { ConversationHeader as SharedConversationHeader } from "@openownbot/ui/features/conversation/ConversationHeader";
-import { ThreadHeader } from "@openownbot/ui/features/conversation/threads/ThreadHeader";
-import { MAIN_THREAD_ID } from "@openownbot/ui/features/conversation/threads/thread-types";
+} from "@robot/contracts/ipc";
+import { reasoningLabel } from "@robot/ui/components/ProviderModelPicker";
+import { providerAccountName } from "@robot/ui/components/provider-accounts";
+import { ConversationHeader as SharedConversationHeader } from "@robot/ui/features/conversation/ConversationHeader";
+import { ThreadHeader } from "@robot/ui/features/conversation/threads/ThreadHeader";
+import { MAIN_THREAD_ID } from "@robot/ui/features/conversation/threads/thread-types";
 import { Show } from "solid-js";
 import { useConversationViewScope } from "./conversation-scope";
 
@@ -25,7 +25,7 @@ interface BadgeRuntime {
   providerAccountId?: string | undefined;
 }
 
-import { useText } from "@openownbot/ui/text";
+import { useText } from "@robot/ui/text";
 
 /** @internal Stable HMR boundary for conversation header. */
 export function ConversationHeader() {

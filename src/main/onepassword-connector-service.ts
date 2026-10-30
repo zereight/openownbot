@@ -11,9 +11,9 @@ import {
   type OnePasswordConnectInput,
   type OnePasswordConnectorStatus,
   type OnePasswordSetup,
-} from "@openownbot/contracts/ipc";
-import { sourceText } from "@openownbot/i18n/source";
-import { createOpenOwnBotLogger, redactText, registerSecretValue, toLogValue } from "@openownbot/logging";
+} from "@robot/contracts/ipc";
+import { sourceText } from "@robot/i18n/source";
+import { createOpenOwnBotLogger, redactText, registerSecretValue, toLogValue } from "@robot/logging";
 import { Deferred, Effect, Exit, Scope } from "effect";
 import { z } from "zod";
 import {

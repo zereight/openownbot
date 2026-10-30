@@ -1,9 +1,5 @@
 import type { DatabaseSync } from "node:sqlite";
-import {
-  type AgentProviderId,
-  type ConversationMessage,
-  ROUTINE_QUIET_ANSWER_ITEM_TYPE,
-} from "@openownbot/contracts/ipc";
+import { type AgentProviderId, type ConversationMessage, ROUTINE_QUIET_ANSWER_ITEM_TYPE } from "@robot/contracts/ipc";
 import { Effect } from "effect";
 import { isImageGenerationItem } from "./agent/image-generation";
 import { isNoUpdateAnswer, isNoUpdateToolCall, isTextAnswer, keptQuietAnswer } from "./agent/routine-quiet-runs";

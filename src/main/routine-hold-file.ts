@@ -3,7 +3,7 @@
 // once at the next start. The writes are synchronous because the process quits right after them.
 
 import { readFileSync, rmSync, writeFileSync } from "node:fs";
-import { isDynamicRecord, isString } from "@openownbot/contracts/runtime-values";
+import { isDynamicRecord, isString } from "@robot/contracts/runtime-values";
 import { isMissingFileError } from "../backend/file-errors";
 import type { RoutineHoldWindow } from "../backend/routine-store";
 

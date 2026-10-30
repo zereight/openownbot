@@ -1,5 +1,5 @@
-import { IconButton, Pencil, RotateCcw, TriangleAlert, X } from "@openownbot/ui";
-import { useText } from "@openownbot/ui/text";
+import { IconButton, Pencil, RotateCcw, TriangleAlert, X } from "@robot/ui";
+import { useText } from "@robot/ui/text";
 import type { JSX } from "@solidjs/web";
 import { Show } from "solid-js";
 

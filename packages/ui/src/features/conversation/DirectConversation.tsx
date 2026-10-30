@@ -1,5 +1,5 @@
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
-import type { DirectConversationSnapshot, DirectMessage, TeamPresenceMember } from "@openownbot/contracts/ipc";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
+import type { DirectConversationSnapshot, DirectMessage, TeamPresenceMember } from "@robot/contracts/ipc";
 import {
   Bubble,
   BubbleContent,
@@ -9,18 +9,18 @@ import {
   MessageFooter,
   MessageGroup,
   Textarea,
-} from "@openownbot/ui";
-import { TypingDots } from "@openownbot/ui/components/TypingDots";
-import { formatChatTimestamp } from "@openownbot/ui/features/conversation/chat-timestamp";
-import { ScrollToLatestButton, scrollToLatestMessage } from "@openownbot/ui/features/conversation/MessageNavigation";
+} from "@robot/ui";
+import { TypingDots } from "@robot/ui/components/TypingDots";
+import { formatChatTimestamp } from "@robot/ui/features/conversation/chat-timestamp";
+import { ScrollToLatestButton, scrollToLatestMessage } from "@robot/ui/features/conversation/MessageNavigation";
 import {
   scrollToUnreadBoundary,
   UnreadMessagesBanner,
   UnreadMessagesDivider,
   unreadMessagesDividerIsVisible,
-} from "@openownbot/ui/features/conversation/UnreadMessages";
-import { TeamPersonAvatar, teamMemberName } from "@openownbot/ui/features/team/TeamPersonAvatar";
-import { type TextValue, useText } from "@openownbot/ui/text";
+} from "@robot/ui/features/conversation/UnreadMessages";
+import { TeamPersonAvatar, teamMemberName } from "@robot/ui/features/team/TeamPersonAvatar";
+import { type TextValue, useText } from "@robot/ui/text";
 import { createEffect, createMemo, createSignal, For, onCleanup, onSettled, Show } from "solid-js";
 import { ChatScrollRail, createChatScrollRail, type UnloadedHistory } from "./ChatScrollRail";
 import { calculateChatScrollMargin, chatHistoryBoundaryReached, createChatVirtualizer } from "./createChatVirtualizer";

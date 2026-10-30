@@ -1,6 +1,6 @@
 import { stat } from "node:fs/promises";
 import { tmpdir } from "node:os";
-import { type AgentSummary, workspaceAccessEnforced } from "@openownbot/contracts/ipc";
+import { type AgentSummary, workspaceAccessEnforced } from "@robot/contracts/ipc";
 import { Effect } from "effect";
 
 type SandboxedAgent = Pick<AgentSummary, "access" | "additionalFolders" | "provider" | "workspacePath">;

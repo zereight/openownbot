@@ -1,7 +1,7 @@
 import { createHash } from "node:crypto";
 import { join } from "node:path";
-import { expandAttachmentReferences } from "@openownbot/contracts/attachment-references";
-import { expandChatTagReferences } from "@openownbot/contracts/chat-tag-references";
+import { expandAttachmentReferences } from "@robot/contracts/attachment-references";
+import { expandChatTagReferences } from "@robot/contracts/chat-tag-references";
 import type {
   AgentSummary,
   AgentWait,
@@ -9,8 +9,8 @@ import type {
   ConversationSnapshot,
   QueueDelivery,
   RoutineRun,
-} from "@openownbot/contracts/ipc";
-import { redactText } from "@openownbot/logging";
+} from "@robot/contracts/ipc";
+import { redactText } from "@robot/logging";
 import { wokenWaitsPromptText } from "../agent-waits/agent-waits";
 import { homeSkillRoot, homeSkillTagSlug } from "../home-skills";
 import type { DeliveryContext } from "../mailbox-store";

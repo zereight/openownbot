@@ -1,9 +1,6 @@
-import type { McpConnectFlow } from "@openownbot/contracts/mcp-connect-flows";
-import { type AppTextKey, type AppTranslate, translateFor } from "@openownbot/i18n";
-import type {
-  MarketplacePluginDetail,
-  MarketplacePluginServer,
-} from "@openownbot/ui/features/settings/marketplace-plugins";
+import type { McpConnectFlow } from "@robot/contracts/mcp-connect-flows";
+import { type AppTextKey, type AppTranslate, translateFor } from "@robot/i18n";
+import type { MarketplacePluginDetail, MarketplacePluginServer } from "@robot/ui/features/settings/marketplace-plugins";
 
 /** The keys of one catalog listing's text. Apps and prompts go by their catalog id. */
 interface PluginTextKeys {

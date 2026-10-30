@@ -1,5 +1,5 @@
-import type { ConversationMessage } from "@openownbot/contracts/ipc";
-import { type DynamicRecord, isDynamicRecord, isNumber, isOneOf, isString } from "@openownbot/contracts/runtime-values";
+import type { ConversationMessage } from "@robot/contracts/ipc";
+import { type DynamicRecord, isDynamicRecord, isNumber, isOneOf, isString } from "@robot/contracts/runtime-values";
 import { storedConversationMessage } from "./stored-conversation-message";
 
 /**

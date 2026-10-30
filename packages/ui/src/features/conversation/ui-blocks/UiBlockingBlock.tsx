@@ -1,4 +1,4 @@
-import type { UiBlockSpec } from "@openownbot/contracts/ui-blocks";
+import type { UiBlockSpec } from "@robot/contracts/ui-blocks";
 import type { JSX } from "@solidjs/web";
 import { Match, Switch } from "solid-js";
 import { UiChoiceBlock } from "./UiChoiceBlock";

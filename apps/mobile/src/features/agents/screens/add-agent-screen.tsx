@@ -1,5 +1,5 @@
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
-import type { AvatarHue, CreateAgentInput } from "@openownbot/contracts/ipc";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
+import type { AvatarHue, CreateAgentInput } from "@robot/contracts/ipc";
 import * as Crypto from "expo-crypto";
 import { router, Stack } from "expo-router";
 import { usePreventRemove } from "expo-router/react-navigation";

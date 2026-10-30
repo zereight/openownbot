@@ -4,9 +4,9 @@ import {
   agentAutoApprovalEnabled,
   type DynamicIslandGeometry,
   type ExternalLinkTarget,
-} from "@openownbot/contracts/ipc";
-import { DEFAULT_GENERAL_SETTINGS, type GeneralSettingsValue } from "@openownbot/ui/features/settings/app-settings";
-import { currentText } from "@openownbot/ui/text";
+} from "@robot/contracts/ipc";
+import { DEFAULT_GENERAL_SETTINGS, type GeneralSettingsValue } from "@robot/ui/features/settings/app-settings";
+import { currentText } from "@robot/ui/text";
 import { createEffect, createSignal, onSettled } from "solid-js";
 import { isActionSoundEnabled, readActionSoundTheme, setActionSoundChoice } from "../../action-sounds";
 import { actionToast } from "../../action-toast";

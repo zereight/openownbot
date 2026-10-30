@@ -3,12 +3,12 @@
 // logs a token or a file.
 
 import { open, readFile, rm } from "node:fs/promises";
-import { isDynamicRecord, isNumber, isString } from "@openownbot/contracts/runtime-values";
+import { isDynamicRecord, isNumber, isString } from "@robot/contracts/runtime-values";
 import {
   TELEGRAM_FILE_BYTES_LIMIT,
   TELEGRAM_FILES_PATH,
   TELEGRAM_UPLOADS_PATH,
-} from "@openownbot/contracts/signal-protocol/telegram-route";
+} from "@robot/contracts/signal-protocol/telegram-route";
 import { Effect } from "effect";
 import { MessagingAdapterError, TelegramCallError } from "../backend/messaging/messaging-types";
 

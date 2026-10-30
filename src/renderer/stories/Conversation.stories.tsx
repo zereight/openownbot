@@ -1,15 +1,15 @@
-import { serializeAttachmentReference } from "@openownbot/contracts/attachment-references";
-import type { AgentEvent, AttachmentSummary, DraftAttachment, QueueSnapshot } from "@openownbot/contracts/ipc";
+import { serializeAttachmentReference } from "@robot/contracts/attachment-references";
+import type { AgentEvent, AttachmentSummary, DraftAttachment, QueueSnapshot } from "@robot/contracts/ipc";
 import {
   type ConversationUiBlock,
   type UiChoiceBlock,
   type UiConfirmBlock,
   uiBlockFallbackQuestions,
-} from "@openownbot/contracts/ui-blocks";
-import type { AgentMessage as RendererAgentMessage, RoutineRunMarkerModel } from "@openownbot/ui/data";
-import { BrowserTakeoverCard } from "@openownbot/ui/features/conversation/ConversationPrompts";
-import type { VoicePhase } from "@openownbot/ui/features/conversation/VoiceRecordingMorph";
-import { currentText } from "@openownbot/ui/text";
+} from "@robot/contracts/ui-blocks";
+import type { AgentMessage as RendererAgentMessage, RoutineRunMarkerModel } from "@robot/ui/data";
+import { BrowserTakeoverCard } from "@robot/ui/features/conversation/ConversationPrompts";
+import type { VoicePhase } from "@robot/ui/features/conversation/VoiceRecordingMorph";
+import { currentText } from "@robot/ui/text";
 import { Portal } from "@solidjs/web";
 import { createEffect, createSignal, onCleanup, onSettled, Show } from "solid-js";
 import { fn } from "storybook/test";

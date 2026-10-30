@@ -4,7 +4,7 @@
 
 import { DiscordAPIError, HTTPError, RateLimitError, REST, RequestMethod } from "@discordjs/rest";
 import { WebSocketManager, WebSocketShardEvents } from "@discordjs/ws";
-import { DISCORD_GATEWAY_INTENTS, DISCORD_MESSAGE_CONTENT_INTENT } from "@openownbot/contracts/discord-app";
+import { DISCORD_GATEWAY_INTENTS, DISCORD_MESSAGE_CONTENT_INTENT } from "@robot/contracts/discord-app";
 import { GatewayCloseCodes } from "discord-api-types/v10";
 import { Context, Effect, FiberSet, Layer, Schedule, Schema } from "effect";
 import type { DiscordBotConfig } from "./config";
@@ -86,7 +86,7 @@ function makeDiscordRestTransport(rest: REST): DiscordTransport {
 }
 
 export class DiscordGateway extends Context.Service<DiscordGateway, { readonly api: DiscordApi }>()(
-  "@openownbot/remote-api/DiscordGateway",
+  "@robot/remote-api/DiscordGateway",
 ) {
   /** Connects the bot. The scope's finalizer closes the Gateway connection. */
   static layer(config: DiscordBotConfig, signal: SignalService, links: DiscordLinks) {

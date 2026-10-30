@@ -9,9 +9,9 @@
 import assert from "node:assert/strict";
 import { mkdirSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
-import { type OpenOwnBotDesktopApi, SPEECH_VOICES, type SpeechVoice } from "@openownbot/contracts/ipc";
-import { translateFor } from "@openownbot/i18n";
-import { createOpenOwnBotLogger } from "@openownbot/logging";
+import { type OpenOwnBotDesktopApi, SPEECH_VOICES, type SpeechVoice } from "@robot/contracts/ipc";
+import { translateFor } from "@robot/i18n";
+import { createOpenOwnBotLogger } from "@robot/logging";
 import type { Page } from "playwright-core";
 import { assertMutationAllowed, connectToDevApp } from "./dev-automation/cdp-client";
 import { readDevInstanceRecords } from "./dev-automation/instance-registry";

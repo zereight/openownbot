@@ -12,8 +12,8 @@ import {
   type RoutineResultDelivery,
   type RoutineResultDeliveryReason,
   type RoutineResultDestination,
-} from "@openownbot/contracts/ipc";
-import { type DynamicRecord, isOneOf } from "@openownbot/contracts/runtime-values";
+} from "@robot/contracts/ipc";
+import { type DynamicRecord, isOneOf } from "@robot/contracts/runtime-values";
 import { databaseRow, databaseRows } from "../database/database-rows";
 import type { OpenOwnBotDatabase } from "../openownbot-database";
 

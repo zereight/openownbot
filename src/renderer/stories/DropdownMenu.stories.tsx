@@ -1,4 +1,4 @@
-import { ProviderLogo, type ProviderLogoVariant } from "@openownbot/brand";
+import { ProviderLogo, type ProviderLogoVariant } from "@robot/brand";
 import {
   BellOff,
   buttonVariants,
@@ -12,8 +12,8 @@ import {
   Pencil,
   Pin,
   Trash2,
-} from "@openownbot/ui";
-import { SwapLabel } from "@openownbot/ui/components/SwapLabel";
+} from "@robot/ui";
+import { SwapLabel } from "@robot/ui/components/SwapLabel";
 import { createSignal, For, Show } from "solid-js";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";
 import "./DropdownMenu.css";

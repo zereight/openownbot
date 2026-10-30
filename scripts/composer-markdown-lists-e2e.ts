@@ -5,7 +5,7 @@
 import assert from "node:assert/strict";
 import { mkdirSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
-import { serializeChatTagReference } from "@openownbot/contracts/chat-tag-references";
+import { serializeChatTagReference } from "@robot/contracts/chat-tag-references";
 import { chromium, type Locator } from "playwright-core";
 import { mentionDraft } from "../apps/mobile/src/features/chat/model/chat-mentions";
 import { applyMarkdownListEdit, markdownListReturn } from "../apps/mobile/src/features/chat/model/composer-lists";

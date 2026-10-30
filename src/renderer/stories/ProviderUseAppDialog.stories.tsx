@@ -5,7 +5,7 @@
  * Connect opens this dialog in place of a sign-in that would end on a dead page.
  */
 
-import { ProviderUseAppDialog } from "@openownbot/ui/components/ProviderUseAppDialog";
+import { ProviderUseAppDialog } from "@robot/ui/components/ProviderUseAppDialog";
 import { fn } from "storybook/test";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";
 

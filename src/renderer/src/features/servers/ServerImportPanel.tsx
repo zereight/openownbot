@@ -4,20 +4,20 @@ import type {
   AgentImportSkillSource,
   HermesImportPreview,
   OpenOwnBotDesktopApi,
-} from "@openownbot/contracts/ipc";
-import { classifyFailure } from "@openownbot/telemetry";
-import { AgentImportSources } from "@openownbot/ui/features/import/AgentImportSources";
+} from "@robot/contracts/ipc";
+import { classifyFailure } from "@robot/telemetry";
+import { AgentImportSources } from "@robot/ui/features/import/AgentImportSources";
 import {
   type AgentImportPhase,
   type AgentImportSetup,
   AgentImportView,
-} from "@openownbot/ui/features/import/AgentImportView";
+} from "@robot/ui/features/import/AgentImportView";
 import {
   type HermesImportPhase,
   type HermesImportSelection,
   HermesImportView,
-} from "@openownbot/ui/features/import/HermesImportView";
-import { useText } from "@openownbot/ui/text";
+} from "@robot/ui/features/import/HermesImportView";
+import { useText } from "@robot/ui/text";
 import { createEffect, createSignal, createStore, Match, onSettled, Switch } from "solid-js";
 import { actionToast } from "../../action-toast";
 

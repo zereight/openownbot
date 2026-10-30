@@ -1,6 +1,6 @@
-import type { ServerSummary } from "@openownbot/contracts/ipc";
-import { BITWARDEN_CONNECTOR_CAPABILITY } from "@openownbot/contracts/team-protocol/bitwarden-connector-v1";
-import { ONEPASSWORD_CONNECTOR_CAPABILITY } from "@openownbot/contracts/team-protocol/onepassword-connector-v1";
+import type { ServerSummary } from "@robot/contracts/ipc";
+import { BITWARDEN_CONNECTOR_CAPABILITY } from "@robot/contracts/team-protocol/bitwarden-connector-v1";
+import { ONEPASSWORD_CONNECTOR_CAPABILITY } from "@robot/contracts/team-protocol/onepassword-connector-v1";
 import { createMemo } from "solid-js";
 import { createSimpleContext } from "../../simple-context";
 import { resolveCreationModel } from "../agents/agent-creation-model";

@@ -12,7 +12,7 @@ import { mkdirSync, writeFileSync } from "node:fs";
 import { mkdtemp, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
-import { type WorkflowGraph, type WorkflowStep, workflowLoopEdges } from "@openownbot/contracts/ipc";
+import { type WorkflowGraph, type WorkflowStep, workflowLoopEdges } from "@robot/contracts/ipc";
 import { Effect } from "effect";
 import { runCauseEffect } from "../src/backend/effect-boundary";
 import { OpenOwnBotDatabase } from "../src/backend/openownbot-database";

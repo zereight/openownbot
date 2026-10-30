@@ -1,6 +1,6 @@
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
-import type { SaveCustomProviderInput } from "@openownbot/contracts/ipc";
-import { CUSTOM_PROVIDER_LIMITS } from "@openownbot/contracts/ipc";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
+import type { SaveCustomProviderInput } from "@robot/contracts/ipc";
+import { CUSTOM_PROVIDER_LIMITS } from "@robot/contracts/ipc";
 import {
   ArrowLeft,
   Button,
@@ -15,7 +15,7 @@ import {
   Spinner,
   Text,
   X,
-} from "@openownbot/ui";
+} from "@robot/ui";
 import {
   createEffect,
   createSignal,

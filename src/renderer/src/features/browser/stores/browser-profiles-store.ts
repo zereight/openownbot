@@ -1,4 +1,4 @@
-import type { AgentBrowserProfile, AvatarHue, BrowserProfileSummary } from "@openownbot/contracts/ipc";
+import type { AgentBrowserProfile, AvatarHue, BrowserProfileSummary } from "@robot/contracts/ipc";
 import { createStore } from "solid-js";
 import type { BrowserProfileCalls } from "../browser-profiles-port";
 

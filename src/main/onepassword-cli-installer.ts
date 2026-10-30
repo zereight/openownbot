@@ -6,7 +6,7 @@ import { createWriteStream } from "node:fs";
 import { chmod, mkdir, rename, rm, stat } from "node:fs/promises";
 import { join } from "node:path";
 import { pipeline } from "node:stream/promises";
-import { sourceText } from "@openownbot/i18n/source";
+import { sourceText } from "@robot/i18n/source";
 import { Effect } from "effect";
 import { OnePasswordOperationError, onePasswordCall, toOnePasswordOperationError } from "./onepassword-effects";
 import { extractZipFiles } from "./provider-runtime-archive";

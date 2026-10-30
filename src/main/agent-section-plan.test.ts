@@ -1,5 +1,5 @@
-import { buildAgentSectionFile } from "@openownbot/contracts/agent-section-file";
-import type { AgentTemplateSnapshot, MarketplaceAgentRoutine } from "@openownbot/contracts/ipc";
+import { buildAgentSectionFile } from "@robot/contracts/agent-section-file";
+import type { AgentTemplateSnapshot, MarketplaceAgentRoutine } from "@robot/contracts/ipc";
 import { describe, expect, it } from "vitest";
 import { maskSectionSecrets, planSectionImport, uniqueName } from "./agent-section-plan";
 

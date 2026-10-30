@@ -1,4 +1,4 @@
-import { VoicePlayer } from "@openownbot/ui/features/conversation/VoicePlayer";
+import { VoicePlayer } from "@robot/ui/features/conversation/VoicePlayer";
 import { createSignal, untrack } from "solid-js";
 import { fn } from "storybook/test";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";

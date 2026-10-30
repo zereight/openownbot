@@ -1,9 +1,9 @@
-import type { LicenseDesktopApi } from "@openownbot/contracts/ipc";
-import { type License, type LicenseState, licenseAmount } from "@openownbot/contracts/license";
-import { BillingPanel } from "@openownbot/ui/features/billing/BillingPanel";
-import { createBillingStore } from "@openownbot/ui/features/billing/billing-store";
-import { LicenseSection } from "@openownbot/ui/features/billing/LicenseSection";
-import { createLicenseStore } from "@openownbot/ui/features/billing/license-store";
+import type { LicenseDesktopApi } from "@robot/contracts/ipc";
+import { type License, type LicenseState, licenseAmount } from "@robot/contracts/license";
+import { BillingPanel } from "@robot/ui/features/billing/BillingPanel";
+import { createBillingStore } from "@robot/ui/features/billing/billing-store";
+import { LicenseSection } from "@robot/ui/features/billing/LicenseSection";
+import { createLicenseStore } from "@robot/ui/features/billing/license-store";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";
 import { createMockBilling, previewBillingServers } from "../src/preview/mock-billing";
 import { createMockLicense, previewLicenseUsers } from "../src/preview/mock-license";

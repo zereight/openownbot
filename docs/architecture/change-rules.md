@@ -69,7 +69,7 @@ safe to replay. Keep domain retry and recovery rules at their existing owners.
    renders, and passes a value down as a prop when two of them would otherwise derive it twice. A
    component that assembles another one's props is how the god controller grew back last time.
 9. Do not add temporary compatibility paths without a removal condition and a test for that condition. Released Team API protocol adapters are permanent by default and follow the policy below.
-10. Log through `@openownbot/logging` (`ts-log` Logger), never bare `console.*` - Biome's `noConsole`
+10. Log through `@robot/logging` (`ts-log` Logger), never bare `console.*` - Biome's `noConsole`
     enforces this in `src`, `scripts` and `packages`. The remote-desktop build recipe scripts that the
     `noConsole` override in `biome.json` excludes are exempt. The `Require a recipe version bump` step
     of `.github/workflows/remote-desktop-runtime.yml` lists them: any edit to them, cosmetic or not, forces `remoteDesktop.recipeVersion` up and a full

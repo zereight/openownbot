@@ -1,10 +1,10 @@
-import type { AgentEvent, TeamRealtimeEvent } from "@openownbot/contracts/ipc";
-import { TEAM_API_ROUTES } from "@openownbot/contracts/team-api-routes";
-import { isQueueEditRoute, QueueEditRejectedError } from "@openownbot/contracts/team-protocol/queue-edit-v1";
-import type { TeamProtocolV2Json } from "@openownbot/contracts/team-protocol/v2";
-import { sourceText } from "@openownbot/i18n/source";
-import type { RemoteTeamDirectoryClient } from "@openownbot/team-client";
-import { runTeamEffect } from "@openownbot/team-client";
+import type { AgentEvent, TeamRealtimeEvent } from "@robot/contracts/ipc";
+import { TEAM_API_ROUTES } from "@robot/contracts/team-api-routes";
+import { isQueueEditRoute, QueueEditRejectedError } from "@robot/contracts/team-protocol/queue-edit-v1";
+import type { TeamProtocolV2Json } from "@robot/contracts/team-protocol/v2";
+import { sourceText } from "@robot/i18n/source";
+import type { RemoteTeamDirectoryClient } from "@robot/team-client";
+import { runTeamEffect } from "@robot/team-client";
 import {
   createRemoteCommandMailbox,
   type RemoteFileUpload,
@@ -13,8 +13,8 @@ import {
   type RemoteTeamConnectionUpdate,
   type RemoteTeamDiagnostic,
   type RemoteUploadProgress,
-} from "@openownbot/team-client/remote-peer";
-import { referenceFrom } from "@openownbot/user-errors";
+} from "@robot/team-client/remote-peer";
+import { referenceFrom } from "@robot/user-errors";
 import type { DOMProps } from "expo/dom";
 import * as Crypto from "expo-crypto";
 import { forwardRef, memo, useCallback, useEffect, useImperativeHandle, useRef, useState } from "react";

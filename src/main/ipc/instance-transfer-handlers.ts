@@ -14,15 +14,15 @@ import {
   parseApplyInstanceTransferInput,
   parseExportInstanceInput,
   resolveRemoteInstanceTransferResult,
-} from "@openownbot/contracts/ipc";
-import { TEAM_API_ROUTES } from "@openownbot/contracts/team-api-routes";
+} from "@robot/contracts/ipc";
+import { TEAM_API_ROUTES } from "@robot/contracts/team-api-routes";
 import {
   INSTANCE_TRANSFER_CAPABILITY,
   INSTANCE_TRANSFER_REMOTE_BYTES,
   INSTANCE_TRANSFER_ROUTES,
-} from "@openownbot/contracts/team-protocol/instance-transfer-v1";
-import type { AppTranslate } from "@openownbot/i18n";
-import { sourceText } from "@openownbot/i18n/source";
+} from "@robot/contracts/team-protocol/instance-transfer-v1";
+import type { AppTranslate } from "@robot/i18n";
+import { sourceText } from "@robot/i18n/source";
 import { Effect } from "effect";
 import { app, type BrowserWindow, dialog, type OpenDialogOptions, type SaveDialogOptions, shell } from "electron";
 import { runCauseEffect } from "../../backend/effect-boundary";

@@ -1,4 +1,4 @@
-import { formatLocale, resolveLocale, type TranslatedLocale } from "@openownbot/i18n/mobile";
+import { formatLocale, resolveLocale, type TranslatedLocale } from "@robot/i18n/mobile";
 import { useSyncExternalStore } from "react";
 import { AppState } from "react-native";
 import { useAppLanguage } from "@/features/settings/model/app-language";

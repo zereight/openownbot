@@ -1,4 +1,4 @@
-import { Button, ChevronRight, FieldContext } from "@openownbot/ui";
+import { Button, ChevronRight, FieldContext } from "@robot/ui";
 import type { JSX } from "@solidjs/web";
 import { createUniqueId, onSettled, Show } from "solid-js";
 import { useText } from "../text";

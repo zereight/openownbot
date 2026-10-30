@@ -11,7 +11,7 @@ import assert from "node:assert/strict";
 import { chmod, mkdir, mkdtemp, rm, stat, utimes, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { basename, dirname, join, resolve } from "node:path";
-import type { AgentProviderId, ManagedProviderId } from "@openownbot/contracts/agent-providers";
+import type { AgentProviderId, ManagedProviderId } from "@robot/contracts/agent-providers";
 import { runCauseEffect } from "../src/backend/effect-boundary";
 import { ProviderRuntimeManager } from "../src/main/provider-runtime-manager";
 

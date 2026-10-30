@@ -2,7 +2,7 @@ import { writeFileSync } from "node:fs";
 import { mkdir, mkdtemp, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { dirname, join, resolve } from "node:path";
-import { CONVERSATION_SNAPSHOT_MESSAGE_LIMIT, type ConversationSnapshot } from "@openownbot/contracts/ipc";
+import { CONVERSATION_SNAPSHOT_MESSAGE_LIMIT, type ConversationSnapshot } from "@robot/contracts/ipc";
 import { Effect } from "effect";
 import {
   CONVERSATION_CACHE_BYTES_LIMIT,

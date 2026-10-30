@@ -5,8 +5,8 @@ import {
   decodeChannelRoutineRun,
   decodeChannelRoutineRuns,
   decodeChannelRoutines,
-} from "@openownbot/contracts/ipc";
-import { CHANNEL_ROUTES } from "@openownbot/contracts/team-protocol/channels-v1";
+} from "@robot/contracts/ipc";
+import { CHANNEL_ROUTES } from "@robot/contracts/team-protocol/channels-v1";
 import type { AgentService } from "../../backend/agent-service";
 import { runCauseEffect } from "../../backend/effect-boundary";
 import { decodeVoid } from "../remote-host-decoding";

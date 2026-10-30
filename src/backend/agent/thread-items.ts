@@ -1,12 +1,8 @@
 import { RequestError } from "@agentclientprotocol/sdk";
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
-import {
-  agentProviderName,
-  COMPUTER_USE_MCP_SERVER_NAME,
-  DEFAULT_PROVIDER_ACCOUNT_ID,
-} from "@openownbot/contracts/ipc";
-import { type DynamicRecord, isString } from "@openownbot/contracts/runtime-values";
-import { sourceText } from "@openownbot/i18n/source";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
+import { agentProviderName, COMPUTER_USE_MCP_SERVER_NAME, DEFAULT_PROVIDER_ACCOUNT_ID } from "@robot/contracts/ipc";
+import { type DynamicRecord, isString } from "@robot/contracts/runtime-values";
+import { sourceText } from "@robot/i18n/source";
 import {
   type AgentProvider,
   MissingClaudeSessionError,

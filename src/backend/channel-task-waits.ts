@@ -1,4 +1,4 @@
-import { CHANNEL_TASK_WAIT_INSTRUCTION_LIMIT, type ChannelTask, type ChannelTaskWait } from "@openownbot/contracts/ipc";
+import { CHANNEL_TASK_WAIT_INSTRUCTION_LIMIT, type ChannelTask, type ChannelTaskWait } from "@robot/contracts/ipc";
 
 /** The channel work that an agent is doing now, which the tasks of its other channels wait behind. */
 export interface ChannelWorkInFront {

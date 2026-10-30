@@ -1,4 +1,4 @@
-import { AppLogo } from "@openownbot/brand";
+import { AppLogo } from "@robot/brand";
 import type { JSX } from "@solidjs/web";
 import { createSignal, For, onSettled } from "solid-js";
 import { landingAnalytics } from "../../lib/analytics";

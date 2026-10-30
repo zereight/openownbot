@@ -1,4 +1,4 @@
-import type { ChatVisualKey } from "@openownbot/contracts/chat-visual";
+import type { ChatVisualKey } from "@robot/contracts/chat-visual";
 import { isGlobalSearchShortcut } from "../../global-search-shortcut";
 import { isOpenSettingsShortcut } from "../settings/settings-shortcut";
 

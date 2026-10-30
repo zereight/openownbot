@@ -1,4 +1,4 @@
-import { type AvatarHue, BROWSER_PROFILE_NAME_MAX, type BrowserProfileSummary } from "@openownbot/contracts/ipc";
+import { type AvatarHue, BROWSER_PROFILE_NAME_MAX, type BrowserProfileSummary } from "@robot/contracts/ipc";
 import {
   Button,
   buttonVariants,
@@ -19,8 +19,8 @@ import {
   Plus,
   Text,
   Trash2,
-} from "@openownbot/ui";
-import { errorReference, type UserErrorDetails } from "@openownbot/user-errors";
+} from "@robot/ui";
+import { errorReference, type UserErrorDetails } from "@robot/user-errors";
 import { createStore, For, Show } from "solid-js";
 import { useText } from "../../text";
 import { BrowserProfileColorMenu, BrowserProfileDot } from "./BrowserProfileColor";
@@ -322,7 +322,7 @@ function BrowserProfileRowMenu(props: {
 }) {
   const { t } = useText();
   // Rename puts a field in place of the row. The menu gives the focus back to its trigger two frames
-  // after it closes (focusRestoreHandler in @openownbot/ui complex.tsx), so the field opens after that.
+  // after it closes (focusRestoreHandler in @robot/ui complex.tsx), so the field opens after that.
   let afterClose: (() => void) | undefined;
   return (
     <DropdownMenu.Root

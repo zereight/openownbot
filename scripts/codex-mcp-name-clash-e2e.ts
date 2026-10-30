@@ -13,7 +13,7 @@ import { Server } from "@modelcontextprotocol/sdk/server/index.js";
 import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
 import type { Transport } from "@modelcontextprotocol/sdk/shared/transport.js";
 import { CallToolRequestSchema, ListToolsRequestSchema } from "@modelcontextprotocol/sdk/types.js";
-import type { McpServerConfig } from "@openownbot/contracts/ipc";
+import type { McpServerConfig } from "@robot/contracts/ipc";
 import { Effect, Result } from "effect";
 import { readCodexMcpConfig } from "../src/backend/agent/codex-mcp-config";
 import { CodexAppServerClient } from "../src/backend/app-server-client";

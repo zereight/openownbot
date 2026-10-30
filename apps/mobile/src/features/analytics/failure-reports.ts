@@ -1,5 +1,5 @@
-import type { FailureProperties } from "@openownbot/telemetry";
-import { errorReference } from "@openownbot/user-errors";
+import type { FailureProperties } from "@robot/telemetry";
+import { errorReference } from "@robot/user-errors";
 import { Alert, type AlertButton } from "react-native";
 import { currentText } from "@/shared/lib/text";
 

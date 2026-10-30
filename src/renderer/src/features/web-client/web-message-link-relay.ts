@@ -7,9 +7,9 @@ import {
   type McpTestResult,
   type OpenOwnBotDesktopApi,
   relayableSignInLink,
-} from "@openownbot/contracts/ipc";
-import { sourceText } from "@openownbot/i18n/source";
-import type { TeamApiRequest } from "@openownbot/team-client/team-api-requests";
+} from "@robot/contracts/ipc";
+import { sourceText } from "@robot/i18n/source";
+import type { TeamApiRequest } from "@robot/team-client/team-api-requests";
 import { openWebLink } from "./web-attachments";
 import { webMcpRelay } from "./web-mcp-relay";
 

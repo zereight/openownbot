@@ -9,16 +9,16 @@
 import { lstat, readdir, readFile, stat } from "node:fs/promises";
 import { homedir } from "node:os";
 import { basename, dirname, join, sep } from "node:path";
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
 import {
   HERMES_IMPORT_LIMITS,
   HERMES_PROFILE_KEY,
   type HermesImportReason,
   type McpServerConfig,
   type RoutineSchedule,
-} from "@openownbot/contracts/ipc";
-import { isDynamicRecord, isString } from "@openownbot/contracts/runtime-values";
-import { sourceText } from "@openownbot/i18n/source";
+} from "@robot/contracts/ipc";
+import { isDynamicRecord, isString } from "@robot/contracts/runtime-values";
+import { sourceText } from "@robot/i18n/source";
 import { Effect, Result } from "effect";
 import { parse as parseYaml } from "yaml";
 import { type ArchiveOperationError, archiveCall, archiveFailure } from "./archive-effects";

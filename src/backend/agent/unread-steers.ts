@@ -1,4 +1,4 @@
-import type { ConversationMessage } from "@openownbot/contracts/ipc";
+import type { ConversationMessage } from "@robot/contracts/ipc";
 
 /**
  * How long before the end of a turn a steered message is too late to have been read. A provider takes a

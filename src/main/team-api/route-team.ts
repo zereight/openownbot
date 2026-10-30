@@ -7,9 +7,9 @@ import type { TeamApiOptions } from "./dependencies";
 // first line for exactly that reason.
 
 import { readFile } from "node:fs/promises";
-import type { TeamPresenceSnapshot } from "@openownbot/contracts/ipc";
-import { TEAM_API_ROUTES } from "@openownbot/contracts/team-api-routes";
-import { sourceText } from "@openownbot/i18n/source";
+import type { TeamPresenceSnapshot } from "@robot/contracts/ipc";
+import { TEAM_API_ROUTES } from "@robot/contracts/team-api-routes";
+import { sourceText } from "@robot/i18n/source";
 import { runCauseEffect } from "../../backend/effect-boundary";
 import type { TeamStore } from "../team-store";
 import type { TeamApiBrowser, TeamApiBrowserView, TeamApiRemoteScreen } from "./dependencies";

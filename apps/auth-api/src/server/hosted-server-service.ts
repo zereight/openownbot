@@ -6,7 +6,7 @@ import {
   type BillingInterval,
   type BillingPlanId,
   isOpenBillingStatus,
-} from "@openownbot/contracts/billing";
+} from "@robot/contracts/billing";
 import {
   HOSTED_PLAN_SIZE,
   HOSTED_SERVER_ENTRY_POINTS,
@@ -23,10 +23,10 @@ import {
   type HostedServerStatus,
   type HostedServerSummary,
   parseHostedServerName,
-} from "@openownbot/contracts/hosted-servers";
-import { isDynamicRecord, isOneOf, isString } from "@openownbot/contracts/runtime-values";
-import type { RouteHostState } from "@openownbot/contracts/signal-protocol/ingress-queue";
-import { sourceText } from "@openownbot/i18n/source";
+} from "@robot/contracts/hosted-servers";
+import { isDynamicRecord, isOneOf, isString } from "@robot/contracts/runtime-values";
+import type { RouteHostState } from "@robot/contracts/signal-protocol/ingress-queue";
+import { sourceText } from "@robot/i18n/source";
 import { Context, Effect, Layer, Result, Schema } from "effect";
 import { type AccountAnalytics, type AccountAnalyticsEvent, NO_ACCOUNT_ANALYTICS } from "./account-analytics";
 import { getServerEntitlement } from "./billing-entitlement";

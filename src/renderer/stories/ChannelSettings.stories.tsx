@@ -1,4 +1,4 @@
-import { Button, buttonVariants, Input, ItemActions, ItemGroup, Plus, Textarea } from "@openownbot/ui";
+import { Button, buttonVariants, Input, ItemActions, ItemGroup, Plus, Textarea } from "@robot/ui";
 import {
   SettingsField,
   SettingsLinkGroup,
@@ -6,8 +6,8 @@ import {
   SettingsPanel,
   SettingsPanelContent,
   SettingsPanelHeader,
-} from "@openownbot/ui/components/SettingsPanel";
-import { ChannelMemberRow } from "@openownbot/ui/features/channels/ChannelMemberRow";
+} from "@robot/ui/components/SettingsPanel";
+import { ChannelMemberRow } from "@robot/ui/features/channels/ChannelMemberRow";
 import { onCleanup } from "solid-js";
 import { fn } from "storybook/test";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";

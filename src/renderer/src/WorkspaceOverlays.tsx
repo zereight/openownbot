@@ -1,19 +1,14 @@
-import {
-  type CentralAuthUser,
-  LOCAL_SERVER_ID,
-  type RoutineFields,
-  type ServerSummary,
-} from "@openownbot/contracts/ipc";
-import { BROWSER_PROFILES_CAPABILITY } from "@openownbot/contracts/team-protocol/browser-profiles-v1";
-import { VAULT_CAPABILITY } from "@openownbot/contracts/team-protocol/vault-v1";
-import { classifyFailure } from "@openownbot/telemetry";
-import { isAgentAccount } from "@openownbot/ui/components/provider-accounts";
-import type { AcpRegistrySettingsApi } from "@openownbot/ui/features/custom-providers/AcpRegistrySettings";
-import type { CustomAgentSettingsApi } from "@openownbot/ui/features/custom-providers/CustomAgentSettings";
-import { providerDiagnosticsText } from "@openownbot/ui/features/provider-diagnostics/provider-diagnostics";
-import { LeaveServerDialog } from "@openownbot/ui/features/servers/LeaveServerDialog";
-import { RestartServerDialog } from "@openownbot/ui/features/servers/RestartServerDialog";
-import { currentText } from "@openownbot/ui/text";
+import { type CentralAuthUser, LOCAL_SERVER_ID, type RoutineFields, type ServerSummary } from "@robot/contracts/ipc";
+import { BROWSER_PROFILES_CAPABILITY } from "@robot/contracts/team-protocol/browser-profiles-v1";
+import { VAULT_CAPABILITY } from "@robot/contracts/team-protocol/vault-v1";
+import { classifyFailure } from "@robot/telemetry";
+import { isAgentAccount } from "@robot/ui/components/provider-accounts";
+import type { AcpRegistrySettingsApi } from "@robot/ui/features/custom-providers/AcpRegistrySettings";
+import type { CustomAgentSettingsApi } from "@robot/ui/features/custom-providers/CustomAgentSettings";
+import { providerDiagnosticsText } from "@robot/ui/features/provider-diagnostics/provider-diagnostics";
+import { LeaveServerDialog } from "@robot/ui/features/servers/LeaveServerDialog";
+import { RestartServerDialog } from "@robot/ui/features/servers/RestartServerDialog";
+import { currentText } from "@robot/ui/text";
 import { createEffect, createMemo, Loading, Show, untrack } from "solid-js";
 import { actionToast } from "./action-toast";
 import { appPort } from "./app-port";

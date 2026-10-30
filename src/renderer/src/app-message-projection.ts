@@ -1,4 +1,4 @@
-import type { ClientAgentSummary, ConversationMessage, QueueDeliveryStatus } from "@openownbot/contracts/ipc";
+import type { ClientAgentSummary, ConversationMessage, QueueDeliveryStatus } from "@robot/contracts/ipc";
 import {
   CONVERSATION_MEMORY_CHANGES_ITEM_TYPE,
   CONVERSATION_PLAN_ITEM_TYPE,
@@ -15,19 +15,19 @@ import {
   routineConversationEvent,
   routineRunConversationEvent,
   skillConversationEvent,
-} from "@openownbot/contracts/ipc";
-import { markdownPreviewText } from "@openownbot/contracts/markdown-preview-text";
-import { cleanAgentMessageText } from "@openownbot/team-client/agent-message-text";
+} from "@robot/contracts/ipc";
+import { markdownPreviewText } from "@robot/contracts/markdown-preview-text";
+import { cleanAgentMessageText } from "@robot/team-client/agent-message-text";
 import type {
   AgentDeliveryMarkerStatus,
   AgentMessage,
   AgentMessagePlan,
   AgentProfile,
   ChatActionMarkerModel,
-} from "@openownbot/ui/data";
-import { formatChatTimestamp } from "@openownbot/ui/features/conversation/chat-timestamp";
-import type { TaskListItem } from "@openownbot/ui/features/conversation/TaskList";
-import { currentText } from "@openownbot/ui/text";
+} from "@robot/ui/data";
+import { formatChatTimestamp } from "@robot/ui/features/conversation/chat-timestamp";
+import type { TaskListItem } from "@robot/ui/features/conversation/TaskList";
+import { currentText } from "@robot/ui/text";
 import { isRoutineEventItem } from "./features/conversation/conversation-read-state";
 
 export function toAgentProfile(stored: ClientAgentSummary): AgentProfile {

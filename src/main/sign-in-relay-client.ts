@@ -7,10 +7,10 @@ import {
   type McpSignInRelayPage,
   relayCallbackQuery,
   type SignInRelayStatus,
-} from "@openownbot/contracts/ipc";
-import { SIGN_IN_RELAY_ROUTES } from "@openownbot/contracts/team-protocol/sign-in-relay-v1";
-import { sourceText } from "@openownbot/i18n/source";
-import { createOpenOwnBotLogger, toLogValue } from "@openownbot/logging";
+} from "@robot/contracts/ipc";
+import { SIGN_IN_RELAY_ROUTES } from "@robot/contracts/team-protocol/sign-in-relay-v1";
+import { sourceText } from "@robot/i18n/source";
+import { createOpenOwnBotLogger, toLogValue } from "@robot/logging";
 import { Deferred, Duration, Effect } from "effect";
 import type { LanguageService } from "./language-service";
 import { type LoopbackCallbackServer, startLoopbackCallbackServer } from "./loopback-callback-server";

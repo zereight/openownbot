@@ -7,10 +7,10 @@ import {
   type SpawnedMspConnection,
   spawnMspConnection,
 } from "@muse-code/sdk";
-import { attachmentMimeTypeForName } from "@openownbot/contracts/attachment-files";
-import { isString } from "@openownbot/contracts/runtime-values";
-import { sourceText } from "@openownbot/i18n/source";
-import { redactText } from "@openownbot/logging";
+import { attachmentMimeTypeForName } from "@robot/contracts/attachment-files";
+import { isString } from "@robot/contracts/runtime-values";
+import { sourceText } from "@robot/i18n/source";
+import { redactText } from "@robot/logging";
 import { Effect, Exit, Fiber, Option, Schema, Scope } from "effect";
 import { secretElicitationField } from "./agent/prompts";
 import { type AgentClient, type AgentProvider, type DiagnosticOrigin, RequestTimeoutError } from "./agent-client";

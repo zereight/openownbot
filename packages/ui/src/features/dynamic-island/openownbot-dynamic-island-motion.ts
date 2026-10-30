@@ -1,6 +1,6 @@
-import type { DynamicIslandPresentation } from "@openownbot/contracts/ipc";
-import { computedBlur, computedScale, springKeyframes } from "@openownbot/ui/spring-motion";
-import { mix } from "@openownbot/ui/utils";
+import type { DynamicIslandPresentation } from "@robot/contracts/ipc";
+import { computedBlur, computedScale, springKeyframes } from "@robot/ui/spring-motion";
+import { mix } from "@robot/ui/utils";
 
 const MODE_SWAP_EXIT_DURATION = 160;
 const MODE_SWAP_STATIC_DURATION = 240;

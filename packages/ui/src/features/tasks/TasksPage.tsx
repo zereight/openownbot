@@ -1,12 +1,12 @@
-import type { AgentTask } from "@openownbot/contracts/ipc";
-import type { AppTextKey } from "@openownbot/i18n";
+import type { AgentTask } from "@robot/contracts/ipc";
+import type { AppTextKey } from "@robot/i18n";
 import {
   plainTaskTitle,
   TASKS_CLOSED_SHOWN,
   type TasksSectionId,
   taskSections,
   taskTone,
-} from "@openownbot/team-client/agent-tasks";
+} from "@robot/team-client/agent-tasks";
 import {
   ArrowLeft,
   ArrowUp,
@@ -20,21 +20,21 @@ import {
   Mic,
   PanelLeft,
   X,
-} from "@openownbot/ui";
-import { SwapLabel, type SwapMotion } from "@openownbot/ui/components/SwapLabel";
-import type { AgentProfile } from "@openownbot/ui/data";
-import { AgentAvatar } from "@openownbot/ui/features/agents/AgentAvatar";
-import { AgentTaskMark, type AgentTaskWait, agentTaskStatus } from "@openownbot/ui/features/conversation/AgentTasks";
-import { ComposerEditor } from "@openownbot/ui/features/conversation/ComposerEditor";
-import { ComposerNotice } from "@openownbot/ui/features/conversation/ComposerNotice";
-import type { SendShortcut } from "@openownbot/ui/features/conversation/send-shortcut";
+} from "@robot/ui";
+import { SwapLabel, type SwapMotion } from "@robot/ui/components/SwapLabel";
+import type { AgentProfile } from "@robot/ui/data";
+import { AgentAvatar } from "@robot/ui/features/agents/AgentAvatar";
+import { AgentTaskMark, type AgentTaskWait, agentTaskStatus } from "@robot/ui/features/conversation/AgentTasks";
+import { ComposerEditor } from "@robot/ui/features/conversation/ComposerEditor";
+import { ComposerNotice } from "@robot/ui/features/conversation/ComposerNotice";
+import type { SendShortcut } from "@robot/ui/features/conversation/send-shortcut";
 import {
   type VoicePhase,
   VoiceRecordingMorph,
   voiceButtonLabel,
-} from "@openownbot/ui/features/conversation/VoiceRecordingMorph";
-import { useText } from "@openownbot/ui/text";
-import { prefersReducedMotion } from "@openownbot/ui/utils";
+} from "@robot/ui/features/conversation/VoiceRecordingMorph";
+import { useText } from "@robot/ui/text";
+import { prefersReducedMotion } from "@robot/ui/utils";
 import type { JSX } from "@solidjs/web";
 import { createEffect, createStore, createUniqueId, For, onCleanup, onSettled, Show, untrack } from "solid-js";
 import { TasksEmptyBoard, TasksEmptyPitch } from "./TasksEmpty";

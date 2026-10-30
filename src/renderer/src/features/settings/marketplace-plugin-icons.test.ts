@@ -1,4 +1,4 @@
-import type { MarketplacePluginDetail } from "@openownbot/ui/features/settings/marketplace-plugins";
+import type { MarketplacePluginDetail } from "@robot/ui/features/settings/marketplace-plugins";
 import { describe, expect, it } from "vitest";
 import { isRemoteImageUrl, withoutRemoteIcons } from "./marketplace-plugin-icons";
 

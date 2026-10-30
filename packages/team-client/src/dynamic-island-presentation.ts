@@ -1,4 +1,4 @@
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
 import {
   type AgentApproval,
   type AgentEvent,
@@ -11,7 +11,7 @@ import {
   type DynamicIslandQuestionItem,
   type DynamicIslandTakeoverItem,
   type QueueSnapshot,
-} from "@openownbot/contracts/ipc";
+} from "@robot/contracts/ipc";
 
 type PromptEvent = Extract<AgentEvent, { type: "prompt" }>;
 type BrowserTakeoverEvent = Extract<AgentEvent, { type: "browser-takeover-requested" }>;

@@ -12,7 +12,7 @@ import {
   isTelegramOverview,
   type MessagingOverview,
   type TelegramOverview,
-} from "@openownbot/contracts/ipc";
+} from "@robot/contracts/ipc";
 
 /** The orchestrator that main created, and the sidebar section it went to. */
 export function decodeAddOrchestratorReply(value: unknown): AddMessagingOrchestratorResult {

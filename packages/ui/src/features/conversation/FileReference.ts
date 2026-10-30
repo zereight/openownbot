@@ -1,6 +1,6 @@
-import { attachmentReferences } from "@openownbot/contracts/attachment-references";
-import type { AttachmentSummary } from "@openownbot/contracts/ipc";
-import { DATA_FOLDER_NAME } from "@openownbot/contracts/product";
+import { attachmentReferences } from "@robot/contracts/attachment-references";
+import type { AttachmentSummary } from "@robot/contracts/ipc";
+import { DATA_FOLDER_NAME } from "@robot/contracts/product";
 
 export type MessageFileReference =
   | {

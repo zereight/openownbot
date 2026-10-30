@@ -6,8 +6,8 @@ import type {
   OpenOwnBotDesktopApi,
   ResetAgentSessionSettingInput,
   SetAgentSessionSettingInput,
-} from "@openownbot/contracts/ipc";
-import type { AttachmentMediaSource } from "@openownbot/ui/features/conversation/AttachmentCards";
+} from "@robot/contracts/ipc";
+import type { AttachmentMediaSource } from "@robot/ui/features/conversation/AttachmentCards";
 import type { AgentSkillCalls } from "../../skills-port";
 import type { AgentTemplatePublishCalls } from "../agent-templates/agent-templates-port";
 import type { BrowserProfileCalls } from "../browser/browser-profiles-port";

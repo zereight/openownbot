@@ -1,4 +1,4 @@
-import type { PlanLimitRow, PlanLimits } from "@openownbot/team-client/plan-limits";
+import type { PlanLimitRow, PlanLimits } from "@robot/team-client/plan-limits";
 import { router } from "expo-router";
 import { Typography } from "heroui-native";
 import { Pressable, View, type ViewStyle } from "react-native";

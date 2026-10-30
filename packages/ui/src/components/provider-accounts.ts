@@ -4,9 +4,9 @@ import {
   type ProviderAccountStatus,
   type ProviderUsageResetOutcome,
   type ProviderUsageResets,
-} from "@openownbot/contracts/ipc";
-import { CLAUDE_API_KEY_ACCOUNT_ID } from "@openownbot/contracts/team-protocol/claude-api-key-v1";
-import type { AppTranslate } from "@openownbot/i18n";
+} from "@robot/contracts/ipc";
+import { CLAUDE_API_KEY_ACCOUNT_ID } from "@robot/contracts/team-protocol/claude-api-key-v1";
+import type { AppTranslate } from "@robot/i18n";
 
 /** One account of a provider row, with the agents that use it. */
 export interface ProviderPickerAccount extends ProviderAccountStatus {

@@ -13,29 +13,29 @@ import { mkdtemp, rm } from "node:fs/promises";
 import { createServer, type IncomingMessage, type ServerResponse } from "node:http";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
-import { isQueueSnapshot, type QueueSnapshot } from "@openownbot/contracts/ipc";
-import { isDynamicRecord, isNumber } from "@openownbot/contracts/runtime-values";
+import { isQueueSnapshot, type QueueSnapshot } from "@robot/contracts/ipc";
+import { isDynamicRecord, isNumber } from "@robot/contracts/runtime-values";
 import {
   supportsTeamSemanticTags,
   TEAM_HISTORY_EXTENT_CAPABILITY,
   TEAM_QUEUE_WINDOW_CAPABILITY,
   teamCapabilitiesForProtocol,
-} from "@openownbot/contracts/team-protocol/current";
-import { teamHttpCodec } from "@openownbot/contracts/team-protocol/http-codecs";
-import { TEAM_CAPABILITIES_HEADER, TEAM_PROTOCOL_VERSION_HEADER } from "@openownbot/contracts/team-protocol/v1";
+} from "@robot/contracts/team-protocol/current";
+import { teamHttpCodec } from "@robot/contracts/team-protocol/http-codecs";
+import { TEAM_CAPABILITIES_HEADER, TEAM_PROTOCOL_VERSION_HEADER } from "@robot/contracts/team-protocol/v1";
 import {
   decodeTeamProtocolV2RpcFrame,
   encodeTeamProtocolV2Frame,
   TEAM_PROTOCOL_V2_MAX_JSON_FRAME_BYTES,
-} from "@openownbot/contracts/team-protocol/v2";
+} from "@robot/contracts/team-protocol/v2";
 import {
   decodeTeamProtocolV6WebRtcHttpResponse,
   encodeTeamProtocolV6WebRtcHttpResponse,
-} from "@openownbot/contracts/team-protocol/v6-webrtc-adapter";
+} from "@robot/contracts/team-protocol/v6-webrtc-adapter";
 import {
   decodeTeamProtocolV7WebRtcHttpResponse,
   encodeTeamProtocolV7WebRtcHttpResponse,
-} from "@openownbot/contracts/team-protocol/v7-webrtc-adapter";
+} from "@robot/contracts/team-protocol/v7-webrtc-adapter";
 import { Effect } from "effect";
 import { runCauseEffect } from "../src/backend/effect-boundary";
 import { MailboxStore } from "../src/backend/mailbox-store";

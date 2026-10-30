@@ -1,4 +1,4 @@
-import type { AgentTemplatePreview } from "@openownbot/contracts/ipc";
+import type { AgentTemplatePreview } from "@robot/contracts/ipc";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Stack } from "expo-router";
 import { Button, Typography } from "heroui-native";

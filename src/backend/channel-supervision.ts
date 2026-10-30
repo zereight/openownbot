@@ -1,4 +1,4 @@
-import type { ChannelTask } from "@openownbot/contracts/ipc";
+import type { ChannelTask } from "@robot/contracts/ipc";
 import { Result, Schema } from "effect";
 import { extractJsonObject, StructuredOutputError } from "./structured-output";
 

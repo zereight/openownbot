@@ -1,10 +1,6 @@
-import {
-  parseSpreadsheet,
-  SPREADSHEET_MAX_COLUMNS,
-  SPREADSHEET_MAX_ROWS,
-} from "@openownbot/contracts/spreadsheet-workbook";
-import { Button } from "@openownbot/ui";
-import { useText } from "@openownbot/ui/text";
+import { parseSpreadsheet, SPREADSHEET_MAX_COLUMNS, SPREADSHEET_MAX_ROWS } from "@robot/contracts/spreadsheet-workbook";
+import { Button } from "@robot/ui";
+import { useText } from "@robot/ui/text";
 import { createMemo, createSignal, For, Show } from "solid-js";
 
 export interface SpreadsheetFilePreviewProps {

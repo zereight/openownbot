@@ -2,7 +2,7 @@ import {
   isMobileConnectDevelopmentHost,
   type MobileConnectHostBinding,
   parseMobileConnectUrl,
-} from "@openownbot/contracts/mobile-connect";
+} from "@robot/contracts/mobile-connect";
 
 // `bun run dev:mobile` pairs a simulator, which has no camera, by opening the
 // Mobile Connect QR link with `simctl openurl`. Any app or web page on a device

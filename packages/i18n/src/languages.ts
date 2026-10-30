@@ -1,4 +1,4 @@
-import { APP_LANGUAGES, type AppLanguage } from "@openownbot/contracts/app-language";
+import { APP_LANGUAGES, type AppLanguage } from "@robot/contracts/app-language";
 
 /**
  * The rows of the language selector.

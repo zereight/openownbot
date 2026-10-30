@@ -5,13 +5,13 @@ import {
   MANAGED_RUNTIME_PROVIDERS,
   type ProviderRuntimeSnapshot,
   type ProviderRuntimesDesktopApi,
-} from "@openownbot/contracts/ipc";
+} from "@robot/contracts/ipc";
 import {
   type ProviderUpdate,
   providerUpdateAvailable,
   providerUpdatesToAnnounce,
-} from "@openownbot/ui/features/provider-updates/provider-update";
-import { currentText } from "@openownbot/ui/text";
+} from "@robot/ui/features/provider-updates/provider-update";
+import { currentText } from "@robot/ui/text";
 import { createEffect, createSignal, flush, onSettled } from "solid-js";
 import { FALLBACK_PROVIDER_RUNTIMES } from "../../app-defaults";
 import {

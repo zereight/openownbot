@@ -1,6 +1,6 @@
-import type { BillingCurrency, BillingPlanId } from "@openownbot/contracts/billing";
-import type { HostedServerCatalog } from "@openownbot/contracts/hosted-servers";
-import type { AppFormat, AppTextKey } from "@openownbot/i18n";
+import type { BillingCurrency, BillingPlanId } from "@robot/contracts/billing";
+import type { HostedServerCatalog } from "@robot/contracts/hosted-servers";
+import type { AppFormat, AppTextKey } from "@robot/i18n";
 import {
   Badge,
   Button,
@@ -15,9 +15,9 @@ import {
   SelectValue,
   Server,
   UsersRound,
-} from "@openownbot/ui";
-import { createDigitRoll } from "@openownbot/ui/digit-roll";
-import { prefersReducedMotion } from "@openownbot/ui/utils";
+} from "@robot/ui";
+import { createDigitRoll } from "@robot/ui/digit-roll";
+import { prefersReducedMotion } from "@robot/ui/utils";
 import { createMemo, For, Show, untrack } from "solid-js";
 import { useText } from "../../text";
 

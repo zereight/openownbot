@@ -1,13 +1,4 @@
-import {
-  Alert,
-  AlertActions,
-  AlertContent,
-  AlertDescription,
-  AlertIcon,
-  AlertTitle,
-  Button,
-  Moon,
-} from "@openownbot/ui";
+import { Alert, AlertActions, AlertContent, AlertDescription, AlertIcon, AlertTitle, Button, Moon } from "@robot/ui";
 import { useText } from "../../text";
 import type { HostedUpsellHost } from "./hosted-server-upsell-host";
 

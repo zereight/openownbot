@@ -6,14 +6,8 @@ import type {
   BrowserJsonValue,
   BrowserSnapshot,
   BrowserTarget,
-} from "@openownbot/contracts/ipc";
-import {
-  type DynamicRecord,
-  isBoolean,
-  isDynamicRecord,
-  isNumber,
-  isString,
-} from "@openownbot/contracts/runtime-values";
+} from "@robot/contracts/ipc";
+import { type DynamicRecord, isBoolean, isDynamicRecord, isNumber, isString } from "@robot/contracts/runtime-values";
 import { Deferred, Effect, Exit, Fiber, Scope } from "effect";
 import type { NativeImage, WebContents } from "electron";
 import {

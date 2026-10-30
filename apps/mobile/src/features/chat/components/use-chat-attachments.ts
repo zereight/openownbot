@@ -4,9 +4,9 @@ import {
   attachmentMimeTypeForName,
   isSupportedAttachmentName,
   isSupportedAttachmentNameFor,
-} from "@openownbot/contracts/attachment-files";
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
-import { MOBILE_ATTACHMENT_BYTES, type RemoteFileUpload } from "@openownbot/team-client/remote-peer";
+} from "@robot/contracts/attachment-files";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
+import { MOBILE_ATTACHMENT_BYTES, type RemoteFileUpload } from "@robot/team-client/remote-peer";
 import * as DocumentPicker from "expo-document-picker";
 import { File } from "expo-file-system";
 import * as ImagePicker from "expo-image-picker";

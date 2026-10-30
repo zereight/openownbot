@@ -1,4 +1,4 @@
-import { SETTINGS_PANEL_DEFAULT, SETTINGS_PANEL_MAX } from "@openownbot/ui/components/SettingsPanel";
+import { SETTINGS_PANEL_DEFAULT, SETTINGS_PANEL_MAX } from "@robot/ui/components/SettingsPanel";
 import { createSignal } from "solid-js";
 import { readPanelWidth, savePanelWidth } from "./panel-width-storage";
 /** The remembered width, read once from storage and written back when a drag ends. */

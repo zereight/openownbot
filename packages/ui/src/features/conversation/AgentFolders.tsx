@@ -13,7 +13,7 @@ import {
   type AgentFolderList,
   agentFolderName,
   folderInside,
-} from "@openownbot/contracts/ipc";
+} from "@robot/contracts/ipc";
 import {
   Button,
   Folder,
@@ -27,8 +27,8 @@ import {
   toast,
   Upload,
   X,
-} from "@openownbot/ui";
-import { SettingsLinkGroup, SettingsLinkRow } from "@openownbot/ui/components/SettingsPanel";
+} from "@robot/ui";
+import { SettingsLinkGroup, SettingsLinkRow } from "@robot/ui/components/SettingsPanel";
 import { createSignal, createStore, For, onSettled, Show } from "solid-js";
 import { useText } from "../../text";
 

@@ -27,7 +27,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { parseArgs } from "node:util";
 import { set as dotenvSet } from "@dotenvx/dotenvx";
-import { createOpenOwnBotLogger, toLogValue } from "@openownbot/logging";
+import { createOpenOwnBotLogger, toLogValue } from "@robot/logging";
 import { z } from "zod";
 import { loadSharedDevelopmentEnvironment } from "../development-environment";
 import { bootstrapStripe } from "../stripe-bootstrap";

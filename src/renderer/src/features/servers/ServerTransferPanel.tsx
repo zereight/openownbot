@@ -1,5 +1,5 @@
-import type { AgentProviderId } from "@openownbot/contracts/agent-providers";
-import { InstanceTransferView } from "@openownbot/ui/features/transfer/InstanceTransferView";
+import type { AgentProviderId } from "@robot/contracts/agent-providers";
+import { InstanceTransferView } from "@robot/ui/features/transfer/InstanceTransferView";
 import { createServerTransferStore, type ServerTransferCalls } from "./server-transfer-store";
 
 export interface ServerTransferOptions {

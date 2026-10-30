@@ -1,7 +1,7 @@
 /*
  * Settings modal rules for markup that only the renderer draws: the server settings detail crumbs,
  * the provider section, the Dynamic Island tab, the voice key row and the sound theme row. The
- * shared modal frame and its panels are in `@openownbot/ui/features/settings/settings-modal.css`,
+ * shared modal frame and its panels are in `@robot/ui/features/settings/settings-modal.css`,
  * which `styles.css` imports immediately before this file.
  */
 

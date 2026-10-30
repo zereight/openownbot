@@ -7,7 +7,7 @@ import {
 } from "./local-skill-inputs";
 // The skill marketplace, and the skills installed into a workspace.
 
-import type { AppTranslate } from "@openownbot/i18n";
+import type { AppTranslate } from "@robot/i18n";
 import { type BrowserWindow, dialog, type OpenDialogOptions } from "electron";
 import { runCauseEffect } from "../../backend/effect-boundary";
 import type { SkillMarketplaceService } from "../skill-marketplace-service";

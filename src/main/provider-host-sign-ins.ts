@@ -1,9 +1,9 @@
 // Provider sign-ins that an administrator starts on this host from another computer
 // (`provider-host-sign-in-v1`).
 
-import type { AgentProviderId, ProviderHostSignInStatus } from "@openownbot/contracts/ipc";
-import { PROVIDER_HOST_SIGN_IN_ERROR_LIMIT } from "@openownbot/contracts/team-protocol/provider-host-sign-in-v1";
-import { sourceText } from "@openownbot/i18n/source";
+import type { AgentProviderId, ProviderHostSignInStatus } from "@robot/contracts/ipc";
+import { PROVIDER_HOST_SIGN_IN_ERROR_LIMIT } from "@robot/contracts/team-protocol/provider-host-sign-in-v1";
+import { sourceText } from "@robot/i18n/source";
 import { Cause, Effect, Exit, Option } from "effect";
 import { providerLabel } from "../backend/agent/thread-items";
 import type { AgentService } from "../backend/agent-service";

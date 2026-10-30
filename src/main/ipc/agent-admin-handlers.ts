@@ -26,29 +26,29 @@ import {
   parseUpdateAgentHostSettingsInput,
   parseUpdateAgentTaskLimitInput,
   parseUpdateBrowserProfileInput,
-} from "@openownbot/contracts/ipc";
-import { AGENT_ADMIN_CAPABILITY, AGENT_ADMIN_ROUTES } from "@openownbot/contracts/team-protocol/agent-admin-v1";
+} from "@robot/contracts/ipc";
+import { AGENT_ADMIN_CAPABILITY, AGENT_ADMIN_ROUTES } from "@robot/contracts/team-protocol/agent-admin-v1";
 import {
   AGENT_BACKUP_MODELS_CAPABILITY,
   AGENT_BACKUP_MODELS_ROUTES,
-} from "@openownbot/contracts/team-protocol/agent-backup-models-v1";
+} from "@robot/contracts/team-protocol/agent-backup-models-v1";
 import {
   AGENT_HOST_SETTINGS_CAPABILITY,
   AGENT_HOST_SETTINGS_ROUTES,
-} from "@openownbot/contracts/team-protocol/agent-host-settings-v1";
-import { AGENT_INSTALL_CAPABILITY, AGENT_INSTALL_ROUTES } from "@openownbot/contracts/team-protocol/agent-install-v1";
+} from "@robot/contracts/team-protocol/agent-host-settings-v1";
+import { AGENT_INSTALL_CAPABILITY, AGENT_INSTALL_ROUTES } from "@robot/contracts/team-protocol/agent-install-v1";
 import {
   AGENT_TASK_LIMIT_CAPABILITY,
   AGENT_TASK_LIMIT_ROUTES,
-} from "@openownbot/contracts/team-protocol/agent-task-limit-v1";
-import { AGENT_UPDATE_CAPABILITY, AGENT_UPDATE_ROUTES } from "@openownbot/contracts/team-protocol/agent-update-v1";
+} from "@robot/contracts/team-protocol/agent-task-limit-v1";
+import { AGENT_UPDATE_CAPABILITY, AGENT_UPDATE_ROUTES } from "@robot/contracts/team-protocol/agent-update-v1";
 import {
   BROWSER_PROFILES_CAPABILITY,
   BROWSER_PROFILES_ROUTES,
-} from "@openownbot/contracts/team-protocol/browser-profiles-v1";
-import type { TeamCurrentCapability } from "@openownbot/contracts/team-protocol/current";
-import { SKILLS_ADMIN_CAPABILITY, SKILLS_ADMIN_ROUTES } from "@openownbot/contracts/team-protocol/skills-admin-v1";
-import { sourceText } from "@openownbot/i18n/source";
+} from "@robot/contracts/team-protocol/browser-profiles-v1";
+import type { TeamCurrentCapability } from "@robot/contracts/team-protocol/current";
+import { SKILLS_ADMIN_CAPABILITY, SKILLS_ADMIN_ROUTES } from "@robot/contracts/team-protocol/skills-admin-v1";
+import { sourceText } from "@robot/i18n/source";
 import { runCauseEffect } from "../../backend/effect-boundary";
 import type { AgentAdminSettingsService } from "../agent-admin-settings";
 import type { AgentHostSettingsService } from "../agent-host-settings";

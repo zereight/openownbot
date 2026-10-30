@@ -1,4 +1,4 @@
-import { sourceText } from "@openownbot/i18n/source";
+import { sourceText } from "@robot/i18n/source";
 import { Effect, Exit, Scope } from "effect";
 import type { HostMemory, HostMemoryLevel } from "../host-memory";
 import type { ProviderClientOperationError } from "../provider-client-effects";

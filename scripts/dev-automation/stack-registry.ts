@@ -14,7 +14,7 @@
 
 import { existsSync, readdirSync, readFileSync, rmSync } from "node:fs";
 import { join, resolve } from "node:path";
-import { isDynamicRecord, isNumber, isOneOf, isString } from "@openownbot/contracts/runtime-values";
+import { isDynamicRecord, isNumber, isOneOf, isString } from "@robot/contracts/runtime-values";
 import { devInstanceRegistryDirectory } from "./instance-registry";
 import {
   assertRegistryDirectoryOwnership,

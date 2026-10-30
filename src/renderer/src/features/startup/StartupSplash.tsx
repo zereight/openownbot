@@ -1,5 +1,5 @@
-import { AppLogo, type AppLogoVariant } from "@openownbot/brand";
-import { useText } from "@openownbot/ui/text";
+import { AppLogo, type AppLogoVariant } from "@robot/brand";
+import { useText } from "@robot/ui/text";
 import { createEffect, createSignal, onSettled } from "solid-js";
 
 // The fade takes the overlay duration. If no `animationend` comes, the splash ends this time after the

@@ -16,8 +16,8 @@
  * front of a link kind it has never heard of.
  */
 
-import { parseAgentTemplateUrl } from "@openownbot/contracts/agent-template-links";
-import { parsePluginUrl } from "@openownbot/contracts/plugin-links";
+import { parseAgentTemplateUrl } from "@robot/contracts/agent-template-links";
+import { parsePluginUrl } from "@robot/contracts/plugin-links";
 
 export type DeepLink =
   | { kind: "plugin"; slug: string }

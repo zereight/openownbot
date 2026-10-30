@@ -1,4 +1,4 @@
-import { normalizeEmailAddress } from "@openownbot/contracts/validation";
+import { normalizeEmailAddress } from "@robot/contracts/validation";
 import * as Crypto from "expo-crypto";
 import { useEffect, useRef, useState } from "react";
 import { Keyboard } from "react-native";

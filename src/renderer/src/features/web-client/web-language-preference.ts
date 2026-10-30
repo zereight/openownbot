@@ -1,5 +1,5 @@
-import { type AppLanguage, DEFAULT_APP_LANGUAGE, isAppLanguage } from "@openownbot/contracts/app-language";
-import { loadLocale, resolveLocale } from "@openownbot/i18n";
+import { type AppLanguage, DEFAULT_APP_LANGUAGE, isAppLanguage } from "@robot/contracts/app-language";
+import { loadLocale, resolveLocale } from "@robot/i18n";
 import { createSignal, onCleanup } from "solid-js";
 
 const STORAGE_KEY = "openownbot.web.language";

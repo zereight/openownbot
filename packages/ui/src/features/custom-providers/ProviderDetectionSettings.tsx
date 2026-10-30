@@ -1,5 +1,5 @@
-import { isDetectionFolder, PROVIDER_DETECTION_LIMITS } from "@openownbot/contracts/ipc";
-import { ItemGroup, SettingsSection, SwitchField, Text } from "@openownbot/ui";
+import { isDetectionFolder, PROVIDER_DETECTION_LIMITS } from "@robot/contracts/ipc";
+import { ItemGroup, SettingsSection, SwitchField, Text } from "@robot/ui";
 import { createStore, Show, untrack } from "solid-js";
 import { useText } from "../../text";
 import { endpointUrlError } from "./custom-provider-form";

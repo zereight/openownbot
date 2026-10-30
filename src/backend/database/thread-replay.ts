@@ -1,7 +1,7 @@
 import { randomUUID } from "node:crypto";
-import type { ConversationMessage, ConversationSnapshot } from "@openownbot/contracts/ipc";
-import { isAgentProvider } from "@openownbot/contracts/ipc";
-import { type DynamicRecord, isNumber, isString } from "@openownbot/contracts/runtime-values";
+import type { ConversationMessage, ConversationSnapshot } from "@robot/contracts/ipc";
+import { isAgentProvider } from "@robot/contracts/ipc";
+import { type DynamicRecord, isNumber, isString } from "@robot/contracts/runtime-values";
 import type { ConversationQueries } from "./conversation-queries";
 import { activityTurnId } from "./conversation-writer";
 import { type DatabaseCore, deleteThreadAttachments } from "./database-core";

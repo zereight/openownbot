@@ -7,19 +7,19 @@ import {
   type MarketplaceSkillSummary,
   type McpServerConfig,
   type SkillCategory,
-} from "@openownbot/contracts/ipc";
-import type { McpConnectFlow } from "@openownbot/contracts/mcp-connect-flows";
-import { CONNECTOR_LISTINGS } from "@openownbot/ui/features/connectors/connector-catalog";
-import { Marketplace } from "@openownbot/ui/features/marketplace/Marketplace";
-import { AgentsDialog } from "@openownbot/ui/features/marketplace/MarketplaceAgentsDialog";
-import type { MarketplaceApp, MarketplaceModel } from "@openownbot/ui/features/marketplace/marketplace-model";
+} from "@robot/contracts/ipc";
+import type { McpConnectFlow } from "@robot/contracts/mcp-connect-flows";
+import { CONNECTOR_LISTINGS } from "@robot/ui/features/connectors/connector-catalog";
+import { Marketplace } from "@robot/ui/features/marketplace/Marketplace";
+import { AgentsDialog } from "@robot/ui/features/marketplace/MarketplaceAgentsDialog";
+import type { MarketplaceApp, MarketplaceModel } from "@robot/ui/features/marketplace/marketplace-model";
 import {
   createMarketplaceNavigation,
   type MarketplaceNavigation,
-} from "@openownbot/ui/features/marketplace/marketplace-view";
-import { McpConnectDialog } from "@openownbot/ui/features/settings/McpConnectDialog";
-import type { McpConnectSubject } from "@openownbot/ui/features/settings/McpConnectShell";
-import { currentText } from "@openownbot/ui/text";
+} from "@robot/ui/features/marketplace/marketplace-view";
+import { McpConnectDialog } from "@robot/ui/features/settings/McpConnectDialog";
+import type { McpConnectSubject } from "@robot/ui/features/settings/McpConnectShell";
+import { currentText } from "@robot/ui/text";
 import { createSignal, createStore, onSettled, Show, untrack } from "solid-js";
 import { fn } from "storybook/test";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";

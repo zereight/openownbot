@@ -1,4 +1,4 @@
-// The Bot API adapter. Only Signal has the bot tokens (`@openownbot/contracts/signal-protocol/telegram-route`):
+// The Bot API adapter. Only Signal has the bot tokens (`@robot/contracts/signal-protocol/telegram-route`):
 // a token goes only into the request URL here, and never into a frame, a log or an error message.
 // A host gets only the reduced result of a call (`TelegramCallResult`).
 
@@ -10,7 +10,7 @@ import {
   type TelegramCallParams,
   type TelegramCallResult,
   type TelegramUploadAnswer,
-} from "@openownbot/contracts/signal-protocol/telegram-route";
+} from "@robot/contracts/signal-protocol/telegram-route";
 import { Effect, Schema } from "effect";
 import { z } from "zod";
 import type { TelegramConfig } from "./config";

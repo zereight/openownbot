@@ -12,7 +12,7 @@ import type {
   InstallMarketplaceAgentInput,
   InstallMarketplaceAgentResult,
   MarketplaceAgentDetail,
-} from "@openownbot/contracts/ipc";
+} from "@robot/contracts/ipc";
 import { Effect, Exit, Schema } from "effect";
 import { type AgentMarketplaceFailure, AgentMarketplaceService } from "../src/main/agent-marketplace-service";
 import { CentralAuthOperationError } from "../src/main/central-auth-effects";

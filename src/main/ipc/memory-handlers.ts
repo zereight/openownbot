@@ -1,12 +1,12 @@
 // An agent's long-lived memories: the notes it carries between threads.
 
-import { TEAM_API_ROUTES } from "@openownbot/contracts/team-api-routes";
-import { AGENT_MEMORIES_CAPABILITY } from "@openownbot/contracts/team-protocol/agent-memories-v1";
+import { TEAM_API_ROUTES } from "@robot/contracts/team-api-routes";
+import { AGENT_MEMORIES_CAPABILITY } from "@robot/contracts/team-protocol/agent-memories-v1";
 import {
   readAgentMemories,
   readAgentMemorySelection,
   setAgentMemoryInclusion,
-} from "@openownbot/team-client/team-api-requests";
+} from "@robot/team-client/team-api-requests";
 import type { AgentService } from "../../backend/agent-service";
 import { runCauseEffect } from "../../backend/effect-boundary";
 import { decodeAgentMemory } from "../remote-agent-decoding";

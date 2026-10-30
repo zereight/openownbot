@@ -1,7 +1,7 @@
-import type { MarketplaceAgentSummary } from "@openownbot/contracts/ipc";
-import { Badge, Button, Heading, Plus, Text, TriangleAlert } from "@openownbot/ui";
-import { AgentAvatar } from "@openownbot/ui/features/agents/AgentAvatar";
-import { useText } from "@openownbot/ui/text";
+import type { MarketplaceAgentSummary } from "@robot/contracts/ipc";
+import { Badge, Button, Heading, Plus, Text, TriangleAlert } from "@robot/ui";
+import { AgentAvatar } from "@robot/ui/features/agents/AgentAvatar";
+import { useText } from "@robot/ui/text";
 import { For, Match, Show, Switch } from "solid-js";
 import { AppLogo, Done } from "./MarketplaceParts";
 import type { MarketplaceApp } from "./marketplace-model";

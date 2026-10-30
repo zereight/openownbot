@@ -1,4 +1,4 @@
-import { type ExternalToast, toast } from "@openownbot/ui";
+import { type ExternalToast, toast } from "@robot/ui";
 import { playActionSound } from "./action-sounds";
 
 type ToastMessage = Parameters<typeof toast>[0];

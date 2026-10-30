@@ -10,9 +10,9 @@ import {
   type VaultSaveInput,
   type VaultSecretField,
   type VaultSecretRequest,
-} from "@openownbot/contracts/ipc";
-import type { DynamicRecord } from "@openownbot/contracts/runtime-values";
-import { type SourceMessages, sourceText } from "@openownbot/i18n/source";
+} from "@robot/contracts/ipc";
+import type { DynamicRecord } from "@robot/contracts/runtime-values";
+import { type SourceMessages, sourceText } from "@robot/i18n/source";
 import { websiteUrl } from "../backend/password-vault";
 import { isObject } from "./ipc/validation";
 

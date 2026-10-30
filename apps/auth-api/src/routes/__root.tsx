@@ -2,8 +2,8 @@ import interLatinFont from "@fontsource-variable/inter/files/inter-latin-wght-no
 import type { JSX } from "@solidjs/web";
 import { createRootRoute, type ErrorComponentProps, HeadContent, Outlet, Scripts } from "@tanstack/solid-router";
 import { createSignal, onSettled, Show } from "solid-js";
-import "@openownbot/brand/logo.css";
-import { installPointerFocusGuard } from "@openownbot/ui/pointer-focus";
+import "@robot/brand/logo.css";
+import { installPointerFocusGuard } from "@robot/ui/pointer-focus";
 import "../styles.css";
 import { NotFoundPage } from "../components/landing/NotFoundPage";
 import { PageError } from "../components/landing/PageError";

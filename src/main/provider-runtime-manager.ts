@@ -21,11 +21,11 @@ import {
   type ProviderRuntimeDownload,
   type ProviderRuntimeSnapshot,
   type ProviderRuntimeStatus,
-} from "@openownbot/contracts/ipc";
-import { DATA_FOLDER_NAME } from "@openownbot/contracts/product";
-import { isBoolean, isDynamicRecord, isNumber, isString } from "@openownbot/contracts/runtime-values";
-import { matchingSourceKeys, sourceText } from "@openownbot/i18n/source";
-import { createOpenOwnBotLogger, type LogValue, redactText, toLogValue } from "@openownbot/logging";
+} from "@robot/contracts/ipc";
+import { DATA_FOLDER_NAME } from "@robot/contracts/product";
+import { isBoolean, isDynamicRecord, isNumber, isString } from "@robot/contracts/runtime-values";
+import { matchingSourceKeys, sourceText } from "@robot/i18n/source";
+import { createOpenOwnBotLogger, type LogValue, redactText, toLogValue } from "@robot/logging";
 import { Deferred, Effect, Exit, Fiber, Result, Scope, Stream } from "effect";
 import lockValue from "../../native-runtime.lock.json";
 import { type AgentRuntimeLock, parseAgentRuntimeLock } from "../../scripts/agent-runtime-lock";

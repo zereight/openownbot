@@ -1,4 +1,4 @@
-import type { HostedServerEntryPoint } from "@openownbot/contracts/hosted-servers";
+import type { HostedServerEntryPoint } from "@robot/contracts/hosted-servers";
 import { createEffect, createSignal } from "solid-js";
 import type { AddServerResume } from "../servers/AddServerOverlay";
 import { createWebHostedServerCalls } from "./web-hosted-servers";

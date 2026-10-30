@@ -1,4 +1,4 @@
-import { decodeTeamProtocolSupportV7Base } from "@openownbot/contracts/team-protocol/v7-base";
+import { decodeTeamProtocolSupportV7Base } from "@robot/contracts/team-protocol/v7-base";
 // One Team API call, from picking a wire format to recording that it failed.
 //
 // **Two encodings, on purpose. Never merge them.** The HTTPS path frames V1 or V3 according to the
@@ -19,8 +19,8 @@ import { decodeTeamProtocolSupportV7Base } from "@openownbot/contracts/team-prot
 // reaching in and closing a WebSocket.
 
 import { randomBytes, verify } from "node:crypto";
-import type { RemoteDesktopCapabilities, ServerCompatibility } from "@openownbot/contracts/ipc";
-import { TEAM_API_ROUTES } from "@openownbot/contracts/team-api-routes";
+import type { RemoteDesktopCapabilities, ServerCompatibility } from "@robot/contracts/ipc";
+import { TEAM_API_ROUTES } from "@robot/contracts/team-api-routes";
 import {
   isAgentCreateRoute,
   supportsTeamSemanticTags,
@@ -28,15 +28,15 @@ import {
   TEAM_BOOTSTRAP_CAPABILITIES,
   type TeamCurrentCapability,
   teamCapabilitiesForProtocol,
-} from "@openownbot/contracts/team-protocol/current";
+} from "@robot/contracts/team-protocol/current";
 import {
   highestCommonTeamProtocol,
   TEAM_APP_VERSION_HEADER,
   TEAM_CAPABILITIES_HEADER,
   TEAM_PROTOCOL_VERSION_HEADER,
   teamProtocolUpdateDirection,
-} from "@openownbot/contracts/team-protocol/v1";
-import { sourceText } from "@openownbot/i18n/source";
+} from "@robot/contracts/team-protocol/v1";
+import { sourceText } from "@robot/i18n/source";
 import { Deferred, Effect, Result } from "effect";
 import { decodeRemoteDesktopCapabilities } from "./remote-device-decoding";
 import type { ResponseDecoder } from "./remote-host-decoding";

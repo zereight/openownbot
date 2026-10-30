@@ -10,8 +10,8 @@
 // channels and deletes them, restores each agent it hides, and gives the agent its provider back.
 // Writes .openownbot-build/channel-hide-handoff-e2e/report.json.
 import assert from "node:assert/strict";
-import { agentProviderDescriptor, isAgentProvider } from "@openownbot/contracts/agent-providers";
-import type { AgentSummary, ChannelPage, ChannelTask } from "@openownbot/contracts/ipc";
+import { agentProviderDescriptor, isAgentProvider } from "@robot/contracts/agent-providers";
+import type { AgentSummary, ChannelPage, ChannelTask } from "@robot/contracts/ipc";
 import {
   argument,
   ChannelClient,

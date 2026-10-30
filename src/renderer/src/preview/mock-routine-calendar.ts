@@ -5,7 +5,7 @@ import type {
   RoutineCalendarRun,
   RoutineRun,
   RoutineSchedule,
-} from "@openownbot/contracts/ipc";
+} from "@robot/contracts/ipc";
 
 const HOUR = 3_600_000;
 const DAY = 24 * HOUR;

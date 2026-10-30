@@ -1,4 +1,4 @@
-import type { AgentProviderId } from "@openownbot/contracts/ipc";
+import type { AgentProviderId } from "@robot/contracts/ipc";
 
 /**
  * The API URL, user ID and session scope that start each account query key. A new session changes

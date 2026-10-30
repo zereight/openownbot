@@ -1,5 +1,5 @@
-import { ConfirmDialog } from "@openownbot/ui";
-import { useText } from "@openownbot/ui/text";
+import { ConfirmDialog } from "@robot/ui";
+import { useText } from "@robot/ui/text";
 
 /** Explains the Full access level that "Always allow" on an approval card gives. */
 export function StandingApprovalConfirmation(props: {

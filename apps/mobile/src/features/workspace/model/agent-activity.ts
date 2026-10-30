@@ -1,5 +1,5 @@
-import type { AvatarMood } from "@openownbot/brand/bloub-avatar-motion";
-import type { AgentEvent, TeamRealtimeEvent } from "@openownbot/contracts/ipc";
+import type { AvatarMood } from "@robot/brand/bloub-avatar-motion";
+import type { AgentEvent, TeamRealtimeEvent } from "@robot/contracts/ipc";
 
 /** What a waiting agent needs from the user, as the desktop sidebar names it. */
 export type MobileAgentWaitReason = "question" | "approval" | "takeover";

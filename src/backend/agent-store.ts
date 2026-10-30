@@ -15,10 +15,10 @@ import {
   writeFile,
 } from "node:fs/promises";
 import { basename, dirname, isAbsolute, join, relative, resolve } from "node:path";
-import { pickAgentName } from "@openownbot/brand/agent-names";
-import { avatarFileExtension, isAvatarMimeType, isValidAvatarImage } from "@openownbot/contracts/avatar-images";
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
-import type { AgentProfileDraft } from "@openownbot/contracts/ipc";
+import { pickAgentName } from "@robot/brand/agent-names";
+import { avatarFileExtension, isAvatarMimeType, isValidAvatarImage } from "@robot/contracts/avatar-images";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
+import type { AgentProfileDraft } from "@robot/contracts/ipc";
 import {
   AGENT_FOLDER_LIMIT,
   AGENT_PROVIDERS,
@@ -62,12 +62,12 @@ import {
   type SaveAgentProfileResult,
   type SidebarLayoutSnapshot,
   type UpdateAgentInput,
-} from "@openownbot/contracts/ipc";
-import { DATA_FOLDER_NAME } from "@openownbot/contracts/product";
-import { type DynamicRecord, isBoolean, isNumber, isOneOf, isString } from "@openownbot/contracts/runtime-values";
-import { isGeneratedAgentId, isUuidV4 } from "@openownbot/contracts/validation";
-import { sourceText } from "@openownbot/i18n/source";
-import { createOpenOwnBotLogger, toLogValue } from "@openownbot/logging";
+} from "@robot/contracts/ipc";
+import { DATA_FOLDER_NAME } from "@robot/contracts/product";
+import { type DynamicRecord, isBoolean, isNumber, isOneOf, isString } from "@robot/contracts/runtime-values";
+import { isGeneratedAgentId, isUuidV4 } from "@robot/contracts/validation";
+import { sourceText } from "@robot/i18n/source";
+import { createOpenOwnBotLogger, toLogValue } from "@robot/logging";
 import { Effect, Result, Semaphore, Stream } from "effect";
 import { ProfileCreationRecovery } from "./agent/profile-creation-recovery";
 import { writeFileAtomically } from "./atomic-json-file";

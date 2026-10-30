@@ -13,16 +13,16 @@ import {
   parseHostedServerList,
   parseHostedServerStatus,
   parseHostedServerSummary,
-} from "@openownbot/contracts/hosted-servers";
-import { isDynamicRecord } from "@openownbot/contracts/runtime-values";
-import { sourceText } from "@openownbot/i18n/source";
+} from "@robot/contracts/hosted-servers";
+import { isDynamicRecord } from "@robot/contracts/runtime-values";
+import { sourceText } from "@robot/i18n/source";
 import {
   createHostedServerStatusCheck,
   createHostedServerWake,
   type HostedServerAvailability,
   type HostedServerWakeResponse,
   WAKE_RECONNECT_STATES,
-} from "@openownbot/team-client/hosted-server-wake";
+} from "@robot/team-client/hosted-server-wake";
 import { Effect, type Layer } from "effect";
 import {
   type AccountRequestClient,

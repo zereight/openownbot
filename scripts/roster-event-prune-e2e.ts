@@ -11,7 +11,7 @@ import { mkdirSync, writeFileSync } from "node:fs";
 import { mkdtemp, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
-import { AGENT_REASONING_EFFORTS, type AgentSummary } from "@openownbot/contracts/ipc";
+import { AGENT_REASONING_EFFORTS, type AgentSummary } from "@robot/contracts/ipc";
 import { AgentStore } from "../src/backend/agent-store";
 import type { AgentModelChange } from "../src/backend/database/agent-roster";
 import { databaseRows, requiredStringColumn } from "../src/backend/database/database-rows";

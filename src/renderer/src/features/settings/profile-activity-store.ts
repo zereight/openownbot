@@ -1,12 +1,7 @@
-import {
-  analyticsRange,
-  type ClientAgentSummary,
-  type HostAnalytics,
-  LOCAL_SERVER_ID,
-} from "@openownbot/contracts/ipc";
-import type { ProfileActivityPhase } from "@openownbot/ui/features/settings/ProfileActivity";
-import type { ProfileActivityState } from "@openownbot/ui/features/settings/SettingsProfileTab";
-import { errorReference } from "@openownbot/user-errors";
+import { analyticsRange, type ClientAgentSummary, type HostAnalytics, LOCAL_SERVER_ID } from "@robot/contracts/ipc";
+import type { ProfileActivityPhase } from "@robot/ui/features/settings/ProfileActivity";
+import type { ProfileActivityState } from "@robot/ui/features/settings/SettingsProfileTab";
+import { errorReference } from "@robot/user-errors";
 import { createEffect, createStore, untrack } from "solid-js";
 import { usagePort } from "../usage/usage-port";
 

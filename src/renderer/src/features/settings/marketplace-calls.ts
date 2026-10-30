@@ -1,4 +1,4 @@
-import type { AddedAgent, InstallMarketplaceAgentInput, McpSignInRelayPage } from "@openownbot/contracts/ipc";
+import type { AddedAgent, InstallMarketplaceAgentInput, McpSignInRelayPage } from "@robot/contracts/ipc";
 import { appPort } from "../../app-port";
 import { type AgentSkillCalls, agentSkillCalls, type SkillsPort, skillsPort } from "../../skills-port";
 

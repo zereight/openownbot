@@ -1,4 +1,4 @@
-import { browserSignInCookieFitsHost } from "@openownbot/contracts/team-protocol/browser-sign-in-v1";
+import { browserSignInCookieFitsHost } from "@robot/contracts/team-protocol/browser-sign-in-v1";
 
 /** Words in a path or a query that sign-in, sign-up and recovery steps of most sites use. */
 const SIGN_IN_WORD =

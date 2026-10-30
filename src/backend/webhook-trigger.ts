@@ -1,13 +1,8 @@
-import type {
-  EventEnvelope,
-  EventFilter,
-  EventJsonValue,
-  WebhookReceiptReason,
-} from "@openownbot/contracts/ipc-events";
-import { isEventFilter } from "@openownbot/contracts/ipc-events";
-import { isDynamicRecord } from "@openownbot/contracts/runtime-values";
-import { sourceText } from "@openownbot/i18n/source";
-import { RoutineInputError } from "@openownbot/team-client/routine-schedule";
+import type { EventEnvelope, EventFilter, EventJsonValue, WebhookReceiptReason } from "@robot/contracts/ipc-events";
+import { isEventFilter } from "@robot/contracts/ipc-events";
+import { isDynamicRecord } from "@robot/contracts/runtime-values";
+import { sourceText } from "@robot/i18n/source";
+import { RoutineInputError } from "@robot/team-client/routine-schedule";
 
 export const WEBHOOK_EVENT_TYPE_MAX_LENGTH = 256;
 export const WEBHOOK_FILTERS_LIMIT = 128;

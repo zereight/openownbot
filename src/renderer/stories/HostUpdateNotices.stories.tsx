@@ -1,4 +1,4 @@
-import { Toaster, toast } from "@openownbot/ui";
+import { Toaster, toast } from "@robot/ui";
 import { createSignal, onCleanup, onSettled } from "solid-js";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";
 import { createHostRestartToasts, type HostRestartView } from "../src/features/updates/host-restart-toast";

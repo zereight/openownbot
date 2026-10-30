@@ -8,7 +8,7 @@ import assert from "node:assert/strict";
 import { mkdir, mkdtemp, realpath, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
-import type { McpServerConfig } from "@openownbot/contracts/ipc";
+import type { McpServerConfig } from "@robot/contracts/ipc";
 import { refusedSessionFailure } from "../src/backend/agent/thread-items";
 import { runCauseEffect } from "../src/backend/effect-boundary";
 import { MuseAgentClient } from "../src/backend/muse-client";

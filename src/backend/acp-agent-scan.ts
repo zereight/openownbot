@@ -11,7 +11,7 @@ import {
   type AcpAgentPreset,
   type DetectedAcpAgent,
   isNewCustomAgentId,
-} from "@openownbot/contracts/ipc";
+} from "@robot/contracts/ipc";
 import { Effect } from "effect";
 import { resolveAgentCommand } from "./acp-agent-command";
 

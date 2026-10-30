@@ -1,4 +1,4 @@
-import { isDynamicRecord } from "@openownbot/contracts/runtime-values";
+import { isDynamicRecord } from "@robot/contracts/runtime-values";
 import { Effect } from "effect";
 
 export const JSON_BODY_LIMIT = 16 * 1024;

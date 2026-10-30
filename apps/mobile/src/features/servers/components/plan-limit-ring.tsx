@@ -1,4 +1,4 @@
-import type { PlanLimitRow, PlanLimitTone } from "@openownbot/team-client/plan-limits";
+import type { PlanLimitRow, PlanLimitTone } from "@robot/team-client/plan-limits";
 import { useThemeColor } from "heroui-native/hooks";
 import { useId } from "react";
 import { View } from "react-native";

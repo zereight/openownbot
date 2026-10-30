@@ -1,4 +1,4 @@
-import type { HostedServerSummary } from "@openownbot/contracts/hosted-servers";
+import type { HostedServerSummary } from "@robot/contracts/hosted-servers";
 import { create } from "zustand";
 import type { HostedServerCalls } from "@/features/servers/api/hosted-servers";
 

@@ -8,12 +8,12 @@ import type {
   ServerSummary,
   UpdateAgentAdminSettingsInput,
   UpdateAgentInput,
-} from "@openownbot/contracts/ipc";
-import { AGENT_ADMIN_CAPABILITY } from "@openownbot/contracts/team-protocol/agent-admin-v1";
-import { AGENT_BACKUP_MODELS_CAPABILITY } from "@openownbot/contracts/team-protocol/agent-backup-models-v1";
-import { AGENT_HOST_SETTINGS_CAPABILITY } from "@openownbot/contracts/team-protocol/agent-host-settings-v1";
-import { AGENT_TASK_LIMIT_CAPABILITY } from "@openownbot/contracts/team-protocol/agent-task-limit-v1";
-import { currentText } from "@openownbot/ui/text";
+} from "@robot/contracts/ipc";
+import { AGENT_ADMIN_CAPABILITY } from "@robot/contracts/team-protocol/agent-admin-v1";
+import { AGENT_BACKUP_MODELS_CAPABILITY } from "@robot/contracts/team-protocol/agent-backup-models-v1";
+import { AGENT_HOST_SETTINGS_CAPABILITY } from "@robot/contracts/team-protocol/agent-host-settings-v1";
+import { AGENT_TASK_LIMIT_CAPABILITY } from "@robot/contracts/team-protocol/agent-task-limit-v1";
+import { currentText } from "@robot/ui/text";
 import { createEffect, createStore, untrack } from "solid-js";
 import { serverCanAdminister } from "../servers/server-capabilities";
 import { type AgentsPort, agentsPort } from "./agents-port";

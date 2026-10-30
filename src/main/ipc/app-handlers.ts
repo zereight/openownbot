@@ -4,8 +4,8 @@ import { Effect } from "effect";
 // App identity, first-run setup, external links and the data and
 // diagnostics exports.
 
-import { HOSTED_SERVER_CONTACT_URL } from "@openownbot/contracts/hosted-servers";
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
+import { HOSTED_SERVER_CONTACT_URL } from "@robot/contracts/hosted-servers";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
 import {
   type AppInfo,
   type AppSetupState,
@@ -15,7 +15,7 @@ import {
   type ExternalLinkBrowser,
   externalLinkAppName,
   GROK_BOT_EXPORT_URL,
-} from "@openownbot/contracts/ipc";
+} from "@robot/contracts/ipc";
 import { app, type BrowserWindow, dialog, type OpenDialogOptions, shell } from "electron";
 import { version as developmentVersion } from "../../../package.json";
 import type { AgentService } from "../../backend/agent-service";

@@ -1,4 +1,4 @@
-import type { RespondToPromptInput } from "@openownbot/contracts/ipc";
+import type { RespondToPromptInput } from "@robot/contracts/ipc";
 import { useCallback, useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
 import { useMobileSession } from "@/features/auth/context/mobile-session-context";
 import { ChatChannelWorkRow } from "@/features/channels/components/chat-channel-work-row";

@@ -6,7 +6,7 @@ import type {
   ClearBrowserDataInput,
   UpdateAgentBrowserProfileInput,
   UpdateBrowserProfileInput,
-} from "@openownbot/contracts/ipc";
+} from "@robot/contracts/ipc";
 
 /**
  * The browser profiles of one server, and the profile of each of its agents. Desktop reaches them

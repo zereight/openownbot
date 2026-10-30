@@ -11,15 +11,15 @@ import { randomBytes } from "node:crypto";
 import { EventEmitter } from "node:events";
 import { mkdirSync, writeFileSync } from "node:fs";
 import { join, resolve } from "node:path";
-import type { AgentEvent, AgentRuntimeSnapshot } from "@openownbot/contracts/ipc";
-import type { LiveActivityRelayPush } from "@openownbot/contracts/live-activity-relay";
-import { isDynamicRecord } from "@openownbot/contracts/runtime-values";
-import { createOpenOwnBotLogger } from "@openownbot/logging";
+import type { AgentEvent, AgentRuntimeSnapshot } from "@robot/contracts/ipc";
+import type { LiveActivityRelayPush } from "@robot/contracts/live-activity-relay";
+import { isDynamicRecord } from "@robot/contracts/runtime-values";
+import { createOpenOwnBotLogger } from "@robot/logging";
 import {
   encodeLiveActivityBytes,
   LIVE_ACTIVITY_SECRET_BYTES,
   liveActivityKeys,
-} from "@openownbot/team-client/live-activity-seal";
+} from "@robot/team-client/live-activity-seal";
 import { Effect } from "effect";
 import { openSealedLiveActivity } from "../apps/mobile/src/features/live-activity/model/live-activity-open";
 import { LiveActivityPushService } from "../src/main/live-activity-push";

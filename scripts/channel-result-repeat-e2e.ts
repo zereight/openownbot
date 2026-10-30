@@ -9,8 +9,8 @@
 // no reply of the ended turn is still at streaming. It makes its own
 // channel and deletes it. Writes .openownbot-build/channel-result-repeat-e2e/report.json.
 import assert from "node:assert/strict";
-import { DEVELOPMENT_FREE_DEFAULT } from "@openownbot/contracts/development-defaults";
-import type { AgentSummary, ChannelPage } from "@openownbot/contracts/ipc";
+import { DEVELOPMENT_FREE_DEFAULT } from "@robot/contracts/development-defaults";
+import type { AgentSummary, ChannelPage } from "@robot/contracts/ipc";
 import { ChannelClient, connectChannelE2e, waitFor, writeReport } from "./channel-e2e-support";
 
 const WORDS = ["OSPREY", "KESTREL", "PLOVER"];

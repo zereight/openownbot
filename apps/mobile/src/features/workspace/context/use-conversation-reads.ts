@@ -1,6 +1,6 @@
-import { TEAM_API_ROUTES } from "@openownbot/contracts/team-api-routes";
-import { TEAM_CONVERSATION_UNREAD_CAPABILITY } from "@openownbot/contracts/team-protocol/current";
-import { type createRemoteReadRefresh, mergeRemoteUnreadIds, runTeamEffect } from "@openownbot/team-client";
+import { TEAM_API_ROUTES } from "@robot/contracts/team-api-routes";
+import { TEAM_CONVERSATION_UNREAD_CAPABILITY } from "@robot/contracts/team-protocol/current";
+import { type createRemoteReadRefresh, mergeRemoteUnreadIds, runTeamEffect } from "@robot/team-client";
 import { Effect } from "effect";
 import { type RefObject, useCallback, useRef } from "react";
 import { showFailureAlert, showWarningAlert } from "@/features/analytics/failure-reports";

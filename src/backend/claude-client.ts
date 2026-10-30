@@ -19,11 +19,11 @@ import {
   tool,
 } from "@anthropic-ai/claude-agent-sdk";
 import type { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
-import { type AgentContextCategoryUsage, defaultProviderModel } from "@openownbot/contracts/ipc";
-import { type DynamicRecord, isDynamicRecord, isNumber, isOneOf, isString } from "@openownbot/contracts/runtime-values";
-import { sourceText } from "@openownbot/i18n/source";
-import { createOpenOwnBotLogger } from "@openownbot/logging";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
+import { type AgentContextCategoryUsage, defaultProviderModel } from "@robot/contracts/ipc";
+import { type DynamicRecord, isDynamicRecord, isNumber, isOneOf, isString } from "@robot/contracts/runtime-values";
+import { sourceText } from "@robot/i18n/source";
+import { createOpenOwnBotLogger } from "@robot/logging";
 import { Deferred, Effect, Exit, Fiber, Scope } from "effect";
 import {
   isTurnContextBlock,

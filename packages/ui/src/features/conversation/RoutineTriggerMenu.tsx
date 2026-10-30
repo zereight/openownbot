@@ -1,5 +1,5 @@
-import type { AppTextKey } from "@openownbot/i18n";
-import { AlarmClock, buttonVariants, Check, ChevronsUpDown, DropdownMenu } from "@openownbot/ui";
+import type { AppTextKey } from "@robot/i18n";
+import { AlarmClock, buttonVariants, Check, ChevronsUpDown, DropdownMenu } from "@robot/ui";
 import { For, Show } from "solid-js";
 import { useText } from "../../text";
 import type { RoutineDraftKind, RoutineDraftKindOption } from "./routine-schedule-draft";

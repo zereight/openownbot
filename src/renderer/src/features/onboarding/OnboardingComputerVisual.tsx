@@ -1,4 +1,4 @@
-import { AgentAvatar } from "@openownbot/ui/features/agents/AgentAvatar";
+import { AgentAvatar } from "@robot/ui/features/agents/AgentAvatar";
 import type { OnboardingAvatarVariant } from "./onboarding-avatars";
 
 /** The picture of the computer step: an agent drags a window across a desktop. */

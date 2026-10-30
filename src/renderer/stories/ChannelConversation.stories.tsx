@@ -1,5 +1,5 @@
-import type { AgentMessage } from "@openownbot/ui/data";
-import type { AwaitingReplyItem } from "@openownbot/ui/features/conversation/AwaitingReplies";
+import type { AgentMessage } from "@robot/ui/data";
+import type { AwaitingReplyItem } from "@robot/ui/features/conversation/AwaitingReplies";
 import { createSignal, onCleanup } from "solid-js";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";
 import {

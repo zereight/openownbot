@@ -1,4 +1,4 @@
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
 import { useThemeColor } from "heroui-native/hooks";
 import { useEffect, useRef } from "react";
 import { TextInput, type TextInputInstance, useWindowDimensions, View } from "react-native";

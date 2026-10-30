@@ -14,8 +14,8 @@ import {
   folderInside,
   parseAgentFolderInput,
   parseChooseAgentFolderInput,
-} from "@openownbot/contracts/ipc";
-import type { AppTranslate } from "@openownbot/i18n";
+} from "@robot/contracts/ipc";
+import type { AppTranslate } from "@robot/i18n";
 import { type BrowserWindow, dialog, type OpenDialogOptions } from "electron";
 import type { AgentService } from "../../backend/agent-service";
 import { runCauseEffect } from "../../backend/effect-boundary";

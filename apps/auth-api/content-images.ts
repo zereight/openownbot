@@ -12,7 +12,7 @@ import { readdir, readFile } from "node:fs/promises";
 import { createRequire } from "node:module";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { isDynamicRecord } from "@openownbot/contracts/runtime-values";
+import { isDynamicRecord } from "@robot/contracts/runtime-values";
 import type { Plugin } from "vite";
 import type { RivalMarkName } from "./src/components/compare/rival-mark-shapes";
 import { COMPARISONS } from "./src/content/compare";

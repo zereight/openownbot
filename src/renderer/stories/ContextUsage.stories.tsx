@@ -1,14 +1,14 @@
-import { ArrowUp, Button, Mic, Plus } from "@openownbot/ui";
-import type { AgentMessage } from "@openownbot/ui/data";
-import { ChatMessageRow } from "@openownbot/ui/features/conversation/ChatMessageRow";
-import { ComposerEditor } from "@openownbot/ui/features/conversation/ComposerEditor";
+import { ArrowUp, Button, Mic, Plus } from "@robot/ui";
+import type { AgentMessage } from "@robot/ui/data";
+import { ChatMessageRow } from "@robot/ui/features/conversation/ChatMessageRow";
+import { ComposerEditor } from "@robot/ui/features/conversation/ComposerEditor";
 import {
   ComposerCompactionNotice,
   ContextCompactionMarker,
   type ContextCompactionView,
   ContextUsageMeter,
   type ContextUsageView,
-} from "@openownbot/ui/features/conversation/ContextUsage";
+} from "@robot/ui/features/conversation/ContextUsage";
 import type { JSX } from "@solidjs/web";
 import { createSignal, For, Show } from "solid-js";
 import { fn } from "storybook/test";

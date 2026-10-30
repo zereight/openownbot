@@ -1,6 +1,6 @@
-import type { ProviderEnvironmentEntry, ProviderEnvironmentInput } from "@openownbot/contracts/provider-environment";
-import type { ProviderEnvironmentEditor } from "@openownbot/ui/features/settings/ProviderSettingsPage";
-import { useText } from "@openownbot/ui/text";
+import type { ProviderEnvironmentEntry, ProviderEnvironmentInput } from "@robot/contracts/provider-environment";
+import type { ProviderEnvironmentEditor } from "@robot/ui/features/settings/ProviderSettingsPage";
+import { useText } from "@robot/ui/text";
 import { createEffect, createStore } from "solid-js";
 
 /**

@@ -1,5 +1,5 @@
-import type { ChannelSummary } from "@openownbot/contracts/ipc";
-import type { GlobalSearchChannel } from "@openownbot/ui/components/GlobalSearch";
+import type { ChannelSummary } from "@robot/contracts/ipc";
+import type { GlobalSearchChannel } from "@robot/ui/components/GlobalSearch";
 
 /**
  * The channels that global search lists, with the last message as the detail. The desktop app and

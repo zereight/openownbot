@@ -17,9 +17,9 @@ import {
   type VaultSecretRequest,
   type VaultState,
   type VaultStatus,
-} from "@openownbot/contracts/ipc";
-import { type SourceMessages, sourceText } from "@openownbot/i18n/source";
-import { registerSecretValues } from "@openownbot/logging";
+} from "@robot/contracts/ipc";
+import { type SourceMessages, sourceText } from "@robot/i18n/source";
+import { registerSecretValues } from "@robot/logging";
 import { Effect } from "effect";
 import { type PasswordVault, PasswordVaultError, websiteMatchesOrigin, websiteUrl } from "../backend/password-vault";
 import type {

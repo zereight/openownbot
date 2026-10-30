@@ -1,4 +1,4 @@
-import { OtpInput } from "@openownbot/ui/features/account/OtpInput";
+import { OtpInput } from "@robot/ui/features/account/OtpInput";
 import { fn } from "storybook/test";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";
 

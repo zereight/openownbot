@@ -1,5 +1,5 @@
-import type { ConversationSubagent, ConversationSubagentStep } from "@openownbot/contracts/ipc";
-import { SubagentGroup, SubagentPanel } from "@openownbot/ui/features/conversation/Subagents";
+import type { ConversationSubagent, ConversationSubagentStep } from "@robot/contracts/ipc";
+import { SubagentGroup, SubagentPanel } from "@robot/ui/features/conversation/Subagents";
 import { createSignal, onSettled, untrack } from "solid-js";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";
 

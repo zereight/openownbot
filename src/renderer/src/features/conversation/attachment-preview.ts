@@ -1,7 +1,7 @@
-import { attachmentMimeTypeForName } from "@openownbot/contracts/attachment-files";
-import { type AttachmentSummary, type FilePreview, filePreviewKindForFile } from "@openownbot/contracts/ipc";
-import { sourceText } from "@openownbot/i18n/source";
-import { currentText } from "@openownbot/ui/text";
+import { attachmentMimeTypeForName } from "@robot/contracts/attachment-files";
+import { type AttachmentSummary, type FilePreview, filePreviewKindForFile } from "@robot/contracts/ipc";
+import { sourceText } from "@robot/i18n/source";
+import { currentText } from "@robot/ui/text";
 
 /** Kinds the panel can render straight from `previewUrl`, without reading the bytes first. */
 const URL_PREVIEW_KINDS = new Set<FilePreview["previewKind"]>(["image", "pdf", "audio", "video"]);

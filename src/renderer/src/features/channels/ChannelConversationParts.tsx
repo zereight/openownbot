@@ -4,11 +4,11 @@
  * data, so each part reads the open channel from `useChannels()`.
  */
 
-import { Button, ErrorReference } from "@openownbot/ui";
-import { SettingsPanel, SettingsPanelContent, SettingsPanelHeader } from "@openownbot/ui/components/SettingsPanel";
-import { ChannelAvatar } from "@openownbot/ui/features/channels/ChannelAvatar";
-import { ChannelStoppedTasks } from "@openownbot/ui/features/channels/ChannelStoppedTasks";
-import { useText } from "@openownbot/ui/text";
+import { Button, ErrorReference } from "@robot/ui";
+import { SettingsPanel, SettingsPanelContent, SettingsPanelHeader } from "@robot/ui/components/SettingsPanel";
+import { ChannelAvatar } from "@robot/ui/features/channels/ChannelAvatar";
+import { ChannelStoppedTasks } from "@robot/ui/features/channels/ChannelStoppedTasks";
+import { useText } from "@robot/ui/text";
 import { createEffect, createMemo, createStore, Show } from "solid-js";
 import { createSettingsPanelWidth, saveSettingsPanelWidth } from "../../components/settings-panel-width";
 import { AgentMemoriesModal } from "../conversation/AgentMemoriesModal";

@@ -1,12 +1,12 @@
-import { isDynamicRecord, isNumber, isString } from "@openownbot/contracts/runtime-values";
+import { isDynamicRecord, isNumber, isString } from "@robot/contracts/runtime-values";
 import {
   type BrowserViewFrame,
   type BrowserViewHostMessage,
   type BrowserViewInput,
   decodeBrowserViewInputValue,
-} from "@openownbot/contracts/team-protocol/browser-view-v1";
-import { runTeamEffect } from "@openownbot/team-client";
-import { createRemoteBrowserView, type RemoteBrowserView } from "@openownbot/team-client/browser-view";
+} from "@robot/contracts/team-protocol/browser-view-v1";
+import { runTeamEffect } from "@robot/team-client";
+import { createRemoteBrowserView, type RemoteBrowserView } from "@robot/team-client/browser-view";
 
 // The phone's live view of a host browser tab runs in the hidden page that holds the Team peer: the
 // frames arrive on its data channel, and the native screen has no channel of its own. The page

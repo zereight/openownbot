@@ -1,4 +1,4 @@
-import type { AppLanguage } from "@openownbot/i18n/languages";
+import type { AppLanguage } from "@robot/i18n/languages";
 import {
   Heading,
   Item,
@@ -8,8 +8,8 @@ import {
   ItemGroup,
   ItemTitle,
   SettingsSection,
-} from "@openownbot/ui";
-import { LanguageSelect } from "@openownbot/ui/features/settings/LanguageSelect";
+} from "@robot/ui";
+import { LanguageSelect } from "@robot/ui/features/settings/LanguageSelect";
 import { createSignal } from "solid-js";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";
 

@@ -5,8 +5,8 @@ import {
   type MobileTranslate,
   mobileTranslateFor,
   type TranslatedLocale,
-} from "@openownbot/i18n/mobile";
-import { type UserErrorDetails, userErrorDetails, userErrorMessage } from "@openownbot/user-errors";
+} from "@robot/i18n/mobile";
+import { type UserErrorDetails, userErrorDetails, userErrorMessage } from "@robot/user-errors";
 
 /**
  * The interface language on mobile. Screens call `useText()`; a store, an `Alert.alert` callback or

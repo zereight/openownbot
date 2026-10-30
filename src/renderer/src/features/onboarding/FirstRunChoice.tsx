@@ -1,7 +1,7 @@
-import { ProviderLogo, type ProviderLogoVariant } from "@openownbot/brand";
-import { Button, ChevronRight, Spinner } from "@openownbot/ui";
-import { AgentAvatar } from "@openownbot/ui/features/agents/AgentAvatar";
-import { useText } from "@openownbot/ui/text";
+import { ProviderLogo, type ProviderLogoVariant } from "@robot/brand";
+import { Button, ChevronRight, Spinner } from "@robot/ui";
+import { AgentAvatar } from "@robot/ui/features/agents/AgentAvatar";
+import { useText } from "@robot/ui/text";
 import { createUniqueId, For, Show } from "solid-js";
 import type { OnboardingAvatarVariant } from "./onboarding-avatars";
 

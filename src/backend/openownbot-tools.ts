@@ -4,9 +4,9 @@ import {
   CHAT_VISUAL_MAX_HEIGHT,
   CHAT_VISUAL_MIN_HEIGHT,
   CHAT_VISUAL_TITLE_LIMIT,
-} from "@openownbot/contracts/chat-visual";
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
-import { isUiBlockId, UI_BLOCK_LIMITS } from "@openownbot/contracts/ui-blocks";
+} from "@robot/contracts/chat-visual";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
+import { isUiBlockId, UI_BLOCK_LIMITS } from "@robot/contracts/ui-blocks";
 import { z } from "zod";
 import { advertisedJsonSchema } from "./agent/advertised-json-schema";
 import { interruptAgentToolSchema } from "./agent/agent-interrupt-tool";

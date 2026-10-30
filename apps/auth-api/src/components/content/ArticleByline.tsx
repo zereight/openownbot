@@ -1,4 +1,4 @@
-import { cx } from "@openownbot/ui/utils";
+import { cx } from "@robot/ui/utils";
 import { type CollectionArticle, formatArticleDate } from "../../lib/content-collection";
 
 export interface ArticleBylineProps {

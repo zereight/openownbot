@@ -1,4 +1,4 @@
-import { Button, SlidingTabs } from "@openownbot/ui";
+import { Button, SlidingTabs } from "@robot/ui";
 import { Show } from "solid-js";
 import { useText } from "../../text";
 

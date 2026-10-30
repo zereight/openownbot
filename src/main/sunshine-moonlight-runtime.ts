@@ -13,8 +13,8 @@ import type {
   RemoteDesktopIceServer,
   RemoteDesktopSetupStatus,
   RemoteDesktopTestStatus,
-} from "@openownbot/contracts/ipc";
-import { sourceText } from "@openownbot/i18n/source";
+} from "@robot/contracts/ipc";
+import { sourceText } from "@robot/i18n/source";
 import { Effect, Result, Schema } from "effect";
 import { runCauseEffect } from "../backend/effect-boundary";
 import { agentDisplayEnvironment } from "./agent-display";

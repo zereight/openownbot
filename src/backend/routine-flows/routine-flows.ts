@@ -31,10 +31,10 @@ import type {
   RoutineRun,
   SaveRoutineFlowPositionInput,
   UpdateRoutineFlowLinkInput,
-} from "@openownbot/contracts/ipc";
-import { sourceText } from "@openownbot/i18n/source";
-import { createOpenOwnBotLogger } from "@openownbot/logging";
-import { nextValidRoutineOccurrence, routineOnceInstant } from "@openownbot/team-client/routine-schedule";
+} from "@robot/contracts/ipc";
+import { sourceText } from "@robot/i18n/source";
+import { createOpenOwnBotLogger } from "@robot/logging";
+import { nextValidRoutineOccurrence, routineOnceInstant } from "@robot/team-client/routine-schedule";
 import { Context, Effect, Exit, Layer, ManagedRuntime, Schema, Scope, Semaphore } from "effect";
 import { coalescedPasses } from "../coalesced-passes";
 import { routineFlowDepths } from "./routine-flow-graph";

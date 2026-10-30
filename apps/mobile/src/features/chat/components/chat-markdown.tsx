@@ -4,11 +4,11 @@ import {
   fileReferenceName,
   fileReferenceTone,
   isFileReference,
-} from "@openownbot/brand/file-reference";
-import { chatMathStart } from "@openownbot/contracts/chat-math";
-import { chatPreviewKind } from "@openownbot/contracts/chat-preview";
-import { chatTagReferences } from "@openownbot/contracts/chat-tag-references";
-import type { MobileTranslate } from "@openownbot/i18n/mobile";
+} from "@robot/brand/file-reference";
+import { chatMathStart } from "@robot/contracts/chat-math";
+import { chatPreviewKind } from "@robot/contracts/chat-preview";
+import { chatTagReferences } from "@robot/contracts/chat-tag-references";
+import type { MobileTranslate } from "@robot/i18n/mobile";
 import * as Linking from "expo-linking";
 import { Typography } from "heroui-native";
 import { useThemeColor } from "heroui-native/hooks";

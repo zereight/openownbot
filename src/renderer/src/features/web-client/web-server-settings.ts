@@ -7,8 +7,8 @@ import type {
   McpTestResult,
   SaveMcpSignInAppInput,
   ServerSummary,
-} from "@openownbot/contracts/ipc";
-import { runTeamEffect } from "@openownbot/team-client";
+} from "@robot/contracts/ipc";
+import { runTeamEffect } from "@robot/team-client";
 import {
   cancelMcpSignIn as cancelMcpSignInRequest,
   listMcpServers,
@@ -24,8 +24,8 @@ import {
   startMcpSignIn,
   testMcpServer as testMcpServerRequest,
   updateHostIdentity,
-} from "@openownbot/team-client/team-admin-requests";
-import { currentText } from "@openownbot/ui/text";
+} from "@robot/team-client/team-admin-requests";
+import { currentText } from "@robot/ui/text";
 import { Effect } from "effect";
 import { createEffect, createStore, untrack } from "solid-js";
 import { mcpSignInRecord } from "../servers/mcp-servers";

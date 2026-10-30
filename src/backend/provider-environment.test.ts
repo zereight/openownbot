@@ -3,7 +3,7 @@ import {
   providerEnvironmentInputIssue,
   providerEnvironmentIssue,
   readProviderEnvironment,
-} from "@openownbot/contracts/provider-environment";
+} from "@robot/contracts/provider-environment";
 import { describe, expect, it } from "vitest";
 
 const none = new Set<string>();

@@ -1,7 +1,7 @@
-import { serializeAttachmentReference } from "@openownbot/contracts/attachment-references";
-import { serializeChatTagReference } from "@openownbot/contracts/chat-tag-references";
-import type { DraftAttachment, InstalledSkill } from "@openownbot/contracts/ipc";
-import { ComposerEditor } from "@openownbot/ui/features/conversation/ComposerEditor";
+import { serializeAttachmentReference } from "@robot/contracts/attachment-references";
+import { serializeChatTagReference } from "@robot/contracts/chat-tag-references";
+import type { DraftAttachment, InstalledSkill } from "@robot/contracts/ipc";
+import { ComposerEditor } from "@robot/ui/features/conversation/ComposerEditor";
 import { createSignal } from "solid-js";
 import { fn } from "storybook/test";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";

@@ -1,5 +1,5 @@
-import type { RemoteDesktopSession } from "@openownbot/contracts/ipc";
-import { RemoteDesktopWorkspace } from "@openownbot/ui/features/remote-desktop/RemoteDesktopWorkspace";
+import type { RemoteDesktopSession } from "@robot/contracts/ipc";
+import { RemoteDesktopWorkspace } from "@robot/ui/features/remote-desktop/RemoteDesktopWorkspace";
 import { fn } from "storybook/test";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";
 import macDesktopMock from "./assets/remote-desktop-mac-mock.png";

@@ -1,4 +1,4 @@
-// Connector brand marks as plain data, so that the SolidJS marks in `@openownbot/ui` and the native
+// Connector brand marks as plain data, so that the SolidJS marks in `@robot/ui` and the native
 // marks of the mobile app draw the same paths. Each path is on a 24 by 24 grid.
 
 export const GITHUB_MARK_PATH =

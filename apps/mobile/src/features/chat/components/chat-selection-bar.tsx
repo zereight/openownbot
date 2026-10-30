@@ -1,5 +1,5 @@
-import { SELECTION_ACTION_INSTRUCTIONS, type SelectionAction } from "@openownbot/contracts/selection-instruction";
-import type { MobileTextKey } from "@openownbot/i18n/mobile";
+import { SELECTION_ACTION_INSTRUCTIONS, type SelectionAction } from "@robot/contracts/selection-instruction";
+import type { MobileTextKey } from "@robot/i18n/mobile";
 import { Typography } from "heroui-native";
 import { useEffect, useState } from "react";
 import { ScrollView, type ViewStyle } from "react-native";

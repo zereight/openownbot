@@ -1,5 +1,5 @@
-import { AppLogo } from "@openownbot/brand";
-import { prefersReducedMotion } from "@openownbot/ui/utils";
+import { AppLogo } from "@robot/brand";
+import { prefersReducedMotion } from "@robot/ui/utils";
 import { Link, useLocation } from "@tanstack/solid-router";
 import { createSignal, For, onSettled } from "solid-js";
 import { ButtonLink } from "../ui/button";

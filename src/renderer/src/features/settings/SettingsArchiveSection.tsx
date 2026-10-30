@@ -1,11 +1,6 @@
-import {
-  type ChannelSummary,
-  type ClientAgentSummary,
-  type HiddenAgent,
-  LOCAL_SERVER_ID,
-} from "@openownbot/contracts/ipc";
-import { SettingsArchiveTab } from "@openownbot/ui/features/settings/SettingsArchiveTab";
-import { currentText } from "@openownbot/ui/text";
+import { type ChannelSummary, type ClientAgentSummary, type HiddenAgent, LOCAL_SERVER_ID } from "@robot/contracts/ipc";
+import { SettingsArchiveTab } from "@robot/ui/features/settings/SettingsArchiveTab";
+import { currentText } from "@robot/ui/text";
 import type { JSX } from "@solidjs/web";
 import { createEffect, createStore } from "solid-js";
 import { actionToast } from "../../action-toast";

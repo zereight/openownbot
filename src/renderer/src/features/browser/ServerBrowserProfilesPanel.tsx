@@ -1,6 +1,6 @@
-import type { AgentSummary } from "@openownbot/contracts/ipc";
-import { BrowserProfilesPanel } from "@openownbot/ui/features/browser/BrowserProfilesPanel";
-import { useText } from "@openownbot/ui/text";
+import type { AgentSummary } from "@robot/contracts/ipc";
+import { BrowserProfilesPanel } from "@robot/ui/features/browser/BrowserProfilesPanel";
+import { useText } from "@robot/ui/text";
 import { createEffect, createSignal } from "solid-js";
 import { actionToast } from "../../action-toast";
 import type { BrowserProfilesStore } from "./stores/browser-profiles-store";

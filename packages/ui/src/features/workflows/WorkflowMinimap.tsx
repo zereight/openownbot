@@ -1,6 +1,6 @@
 /** The minimap: the nodes, the drawn lines and the view, scaled down into one corner of the canvas. */
 
-import type { WorkflowNodeKind } from "@openownbot/contracts/ipc";
+import type { WorkflowNodeKind } from "@robot/contracts/ipc";
 import { For } from "solid-js";
 import type { WfnPoint } from "./workflow-board";
 import { type Box, inkPath, type Stroke, strokeBox } from "./workflow-ink";

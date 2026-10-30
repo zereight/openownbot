@@ -1,6 +1,6 @@
-import type { MarketplaceAgentSummary, MarketplaceSkillSummary } from "@openownbot/contracts/ipc";
-import { MarketplaceHomeCache } from "@openownbot/ui/features/marketplace/marketplace-listing";
-import { currentText } from "@openownbot/ui/text";
+import type { MarketplaceAgentSummary, MarketplaceSkillSummary } from "@robot/contracts/ipc";
+import { MarketplaceHomeCache } from "@robot/ui/features/marketplace/marketplace-listing";
+import { currentText } from "@robot/ui/text";
 import type { MarketplaceCalls } from "./marketplace-calls";
 
 /*

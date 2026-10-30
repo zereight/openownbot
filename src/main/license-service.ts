@@ -5,8 +5,8 @@ import {
   type LicenseUsersRequest,
   parseLicenseCheckoutUrl,
   parseLicenseState,
-} from "@openownbot/contracts/license";
-import { sourceText } from "@openownbot/i18n/source";
+} from "@robot/contracts/license";
+import { sourceText } from "@robot/i18n/source";
 import { Effect, type Layer } from "effect";
 import {
   type AccountRequestClient,

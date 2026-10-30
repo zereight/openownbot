@@ -1,4 +1,4 @@
-import type { ComputerUseHighlightPlacement } from "@openownbot/contracts/ipc";
+import type { ComputerUseHighlightPlacement } from "@robot/contracts/ipc";
 import { createSignal, onSettled, Show } from "solid-js";
 import { ComputerUseAgentCursor } from "./ComputerUseAgentCursor";
 import { ComputerUseWindowHighlight } from "./ComputerUseWindowHighlight";

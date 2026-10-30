@@ -1,4 +1,4 @@
-import { isUuidV4 } from "@openownbot/contracts/validation";
+import { isUuidV4 } from "@robot/contracts/validation";
 import { createFileRoute } from "@tanstack/solid-router";
 import { Effect } from "effect";
 import { avatarObjectKey } from "../../../server/avatar-storage";

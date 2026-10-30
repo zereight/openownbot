@@ -1,9 +1,9 @@
-import type { AgentTemplatePreview, AgentTemplatePublication } from "@openownbot/contracts/ipc";
-import type { DynamicRecord } from "@openownbot/contracts/runtime-values";
-import { isString } from "@openownbot/contracts/runtime-values";
-import { AGENT_PUBLISH_CAPABILITY, AGENT_PUBLISH_ROUTES } from "@openownbot/contracts/team-protocol/agent-publish-v1";
-import { sourceText } from "@openownbot/i18n/source";
-import { redactText } from "@openownbot/logging";
+import type { AgentTemplatePreview, AgentTemplatePublication } from "@robot/contracts/ipc";
+import type { DynamicRecord } from "@robot/contracts/runtime-values";
+import { isString } from "@robot/contracts/runtime-values";
+import { AGENT_PUBLISH_CAPABILITY, AGENT_PUBLISH_ROUTES } from "@robot/contracts/team-protocol/agent-publish-v1";
+import { sourceText } from "@robot/i18n/source";
+import { redactText } from "@robot/logging";
 import { runCauseEffect } from "../../backend/effect-boundary";
 import { parsePublishAgentTemplate } from "../ipc/agent-template-handlers";
 import { requireString } from "../ipc/validation";

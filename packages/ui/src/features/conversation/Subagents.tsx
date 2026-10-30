@@ -2,8 +2,8 @@ import type {
   ConversationSubagent,
   ConversationSubagentStatus,
   ConversationSubagentStepKind,
-} from "@openownbot/contracts/ipc";
-import type { AppTextKey } from "@openownbot/i18n";
+} from "@robot/contracts/ipc";
+import type { AppTextKey } from "@robot/i18n";
 import {
   Badge,
   Brain,
@@ -22,8 +22,8 @@ import {
   Search,
   TriangleAlert,
   X,
-} from "@openownbot/ui";
-import { useText } from "@openownbot/ui/text";
+} from "@robot/ui";
+import { useText } from "@robot/ui/text";
 import type { JSX } from "@solidjs/web";
 import { createEffect, createMemo, createSignal, createUniqueId, For, Match, Show, Switch } from "solid-js";
 

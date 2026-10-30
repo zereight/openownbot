@@ -1,5 +1,5 @@
-import type { MobileConnectHostBinding } from "@openownbot/contracts/mobile-connect";
-import { sourceText } from "@openownbot/i18n/source";
+import type { MobileConnectHostBinding } from "@robot/contracts/mobile-connect";
+import { sourceText } from "@robot/i18n/source";
 import { Effect } from "effect";
 import type { CentralAuthManager } from "./central-auth-manager";
 import { RemoteWorkflowError } from "./remote-service-effects";

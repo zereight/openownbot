@@ -1,4 +1,4 @@
-import type { AttachmentSummary } from "@openownbot/contracts/ipc";
+import type { AttachmentSummary } from "@robot/contracts/ipc";
 import { router, useLocalSearchParams } from "expo-router";
 import { Typography } from "heroui-native";
 import { useThemeColor } from "heroui-native/hooks";

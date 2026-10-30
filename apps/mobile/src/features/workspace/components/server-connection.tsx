@@ -1,5 +1,5 @@
-import type { AgentEvent, TeamRealtimeEvent } from "@openownbot/contracts/ipc";
-import { sourceText } from "@openownbot/i18n/source";
+import type { AgentEvent, TeamRealtimeEvent } from "@robot/contracts/ipc";
+import { sourceText } from "@robot/i18n/source";
 import {
   createRemoteConnectionRecovery,
   type RemoteConnectionFailure,
@@ -7,8 +7,8 @@ import {
   type RemoteRecoveryStatus,
   type RemoteTeamDirectoryClient,
   remoteConnectionFailureDetails,
-} from "@openownbot/team-client";
-import { REMOTE_PEER_LOST_AFTER_MS, type RemoteTeamConnectionUpdate } from "@openownbot/team-client/remote-peer";
+} from "@robot/team-client";
+import { REMOTE_PEER_LOST_AFTER_MS, type RemoteTeamConnectionUpdate } from "@robot/team-client/remote-peer";
 import { memo, useCallback, useEffect, useRef, useState } from "react";
 import { supportLog, supportLogValue } from "@/features/support/model/support-log";
 import { referencedError } from "@/features/workspace/model/referenced-error";

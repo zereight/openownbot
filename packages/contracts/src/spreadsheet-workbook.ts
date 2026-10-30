@@ -1,6 +1,6 @@
 import { strFromU8, unzipSync } from "fflate";
 
-/** Formats a cell number in the reader's language. `AppFormat` from `@openownbot/i18n` fits it. */
+/** Formats a cell number in the reader's language. `AppFormat` from `@robot/i18n` fits it. */
 export interface SpreadsheetNumberFormat {
   number: (value: number, options?: Intl.NumberFormatOptions) => string;
 }

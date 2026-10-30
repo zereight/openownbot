@@ -1,5 +1,5 @@
-import { attachmentFileExtension } from "@openownbot/contracts/attachment-files";
-import { MOBILE_ATTACHMENT_BYTES } from "@openownbot/team-client/remote-peer";
+import { attachmentFileExtension } from "@robot/contracts/attachment-files";
+import { MOBILE_ATTACHMENT_BYTES } from "@robot/team-client/remote-peer";
 import * as Crypto from "expo-crypto";
 import { Directory, File, Paths } from "expo-file-system";
 import { ImageManipulator, SaveFormat } from "expo-image-manipulator";

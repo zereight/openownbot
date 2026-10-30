@@ -1,1 +1,1 @@
-export { encodeTeamWebRtcPayload, TeamWebRtcPayloadDecoder } from "@openownbot/team-client";
+export { encodeTeamWebRtcPayload, TeamWebRtcPayloadDecoder } from "@robot/team-client";

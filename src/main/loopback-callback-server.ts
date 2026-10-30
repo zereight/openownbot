@@ -10,7 +10,7 @@
 
 import { createServer, type Server } from "node:http";
 import type { Socket } from "node:net";
-import type { AppTextKey } from "@openownbot/i18n";
+import type { AppTextKey } from "@robot/i18n";
 import type { LanguageService } from "./language-service";
 import { listenLoopback, listenLoopbackExact } from "./listen-loopback";
 

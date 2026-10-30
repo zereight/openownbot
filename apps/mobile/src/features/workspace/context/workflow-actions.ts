@@ -1,6 +1,6 @@
-import type { WorkflowGraph, WorkflowNodeSize } from "@openownbot/contracts/ipc";
-import type { TeamProtocolV2Json } from "@openownbot/contracts/team-protocol/v2";
-import { WORKFLOWS_CAPABILITY, WORKFLOWS_ROUTES } from "@openownbot/contracts/team-protocol/workflows-v1";
+import type { WorkflowGraph, WorkflowNodeSize } from "@robot/contracts/ipc";
+import type { TeamProtocolV2Json } from "@robot/contracts/team-protocol/v2";
+import { WORKFLOWS_CAPABILITY, WORKFLOWS_ROUTES } from "@robot/contracts/team-protocol/workflows-v1";
 import {
   decodeRemoteWorkflowDetail,
   decodeRemoteWorkflowList,
@@ -10,7 +10,7 @@ import {
   decodeRemoteWorkflowSecret,
   decodeRemoteWorkflowStep,
   decodeRemoteWorkflowSummary,
-} from "@openownbot/team-client/workflow-decoding";
+} from "@robot/team-client/workflow-decoding";
 import * as Crypto from "expo-crypto";
 import type { WorkspaceRequest } from "@/features/workspace/context/host-request-actions";
 import { requireCapability, type ServerCapabilities } from "@/features/workspace/model/server-capabilities";

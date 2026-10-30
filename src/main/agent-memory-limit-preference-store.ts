@@ -1,9 +1,5 @@
-import {
-  type AgentMemoryLimitPreference,
-  DEFAULT_AGENT_MEMORY_LIMIT,
-  isAgentMemoryLimit,
-} from "@openownbot/contracts/ipc";
-import { isDynamicRecord } from "@openownbot/contracts/runtime-values";
+import { type AgentMemoryLimitPreference, DEFAULT_AGENT_MEMORY_LIMIT, isAgentMemoryLimit } from "@robot/contracts/ipc";
+import { isDynamicRecord } from "@robot/contracts/runtime-values";
 import { Effect, Result, Semaphore } from "effect";
 import { isMissingFileError } from "../backend/file-errors";
 import { type PreferenceFileFailure, readPreferenceFile, writePreferenceFile } from "./preference-file";

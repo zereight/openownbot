@@ -6,7 +6,7 @@ import type {
   MarketplaceSkillSummary,
   OpenOwnBotDesktopApi,
   SkillSubmission,
-} from "@openownbot/contracts/ipc";
+} from "@robot/contracts/ipc";
 import {
   STORY_INSTALLED_SKILLS,
   STORY_MARKETPLACE_SKILL_DETAILS,

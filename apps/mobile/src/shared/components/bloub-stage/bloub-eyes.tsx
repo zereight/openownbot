@@ -3,7 +3,7 @@ import {
   APP_LOGO_LOCK_KEYHOLE,
   APP_LOGO_LOCK_SHACKLE,
   APP_LOGO_LOCK_SHACKLE_WIDTH,
-} from "@openownbot/brand/app-logo-shape";
+} from "@robot/brand/app-logo-shape";
 import { useEffect } from "react";
 import { StyleSheet, View } from "react-native";
 import Animated, {

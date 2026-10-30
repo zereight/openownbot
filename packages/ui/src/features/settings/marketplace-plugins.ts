@@ -4,13 +4,13 @@
  * A plugin is one developer's bundle: the MCP server it publishes, shown as an **app**, the skills
  * that drive that server, and the listing text. Nothing here has a wire protocol yet - there is no
  * `skills:*` or `marketplace-agents:*` equivalent to answer these, so the types stay in the renderer
- * rather than in `@openownbot/contracts/ipc`, where a shape can only be added once it is the shape the
+ * rather than in `@robot/contracts/ipc`, where a shape can only be added once it is the shape the
  * main process really sends. `SkillCategory` is the one borrowed type: a plugin is filed under the
  * same categories the rest of the marketplace already offers.
  */
 
-import type { McpServerConfig, McpTransport, SkillCategory } from "@openownbot/contracts/ipc";
-import { isListingUrl, type McpAuth, mcpFlowFields } from "@openownbot/contracts/mcp-connect-flows";
+import type { McpServerConfig, McpTransport, SkillCategory } from "@robot/contracts/ipc";
+import { isListingUrl, type McpAuth, mcpFlowFields } from "@robot/contracts/mcp-connect-flows";
 
 /** One of the example questions a plugin listing opens with. */
 export interface MarketplacePluginPrompt {

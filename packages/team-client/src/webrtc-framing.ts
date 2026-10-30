@@ -1,8 +1,8 @@
-import { isString } from "@openownbot/contracts/runtime-values";
+import { isString } from "@robot/contracts/runtime-values";
 import {
   TEAM_PROTOCOL_V2_MAX_BINARY_FRAME_BYTES,
   TEAM_PROTOCOL_V2_MAX_JSON_FRAME_BYTES,
-} from "@openownbot/contracts/team-protocol/v2";
+} from "@robot/contracts/team-protocol/v2";
 
 const FRAME_MAGIC = 0x4f425732;
 const FRAME_HEADER_BYTES = 17;

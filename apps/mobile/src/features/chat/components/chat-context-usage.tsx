@@ -1,4 +1,4 @@
-import { AGENT_CONTEXT_CATEGORIES, type AgentContextState } from "@openownbot/contracts/ipc";
+import { AGENT_CONTEXT_CATEGORIES, type AgentContextState } from "@robot/contracts/ipc";
 import { Typography } from "heroui-native";
 import { Alert, Pressable, View } from "react-native";
 import { haptics } from "@/shared/lib/haptics";

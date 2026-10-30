@@ -1,7 +1,7 @@
-import { type ComputerUsePermissionApp, LOCAL_SERVER_ID, type MacPermissionId } from "@openownbot/contracts/ipc";
-import type { AppTextKey } from "@openownbot/i18n";
-import { Button, FolderOpen, GripVertical, Monitor, MousePointer2 } from "@openownbot/ui";
-import { useText } from "@openownbot/ui/text";
+import { type ComputerUsePermissionApp, LOCAL_SERVER_ID, type MacPermissionId } from "@robot/contracts/ipc";
+import type { AppTextKey } from "@robot/i18n";
+import { Button, FolderOpen, GripVertical, Monitor, MousePointer2 } from "@robot/ui";
+import { useText } from "@robot/ui/text";
 import { createSignal, onCleanup, onSettled, Show } from "solid-js";
 import { computerUsePort } from "./computer-use-port";
 

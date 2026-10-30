@@ -3,7 +3,7 @@ const { dirname, join, relative } = require("node:path");
 const { withAppBuildGradle } = require("expo/config-plugins");
 
 // The React Native Gradle task that makes the release JS bundle only checks the sources under
-// `apps/mobile`. When only a workspace package such as `@openownbot/team-client` changes, Gradle marks
+// `apps/mobile`. When only a workspace package such as `@robot/team-client` changes, Gradle marks
 // the task `UP-TO-DATE` and puts the old bundle in the APK. This adds the sources of each workspace
 // package that the app uses, directly or through another workspace package, as task inputs.
 

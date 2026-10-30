@@ -1,4 +1,4 @@
-import type { AgentTask, ConversationMessage, ConversationSnapshot } from "@openownbot/contracts/ipc";
+import type { AgentTask, ConversationMessage, ConversationSnapshot } from "@robot/contracts/ipc";
 import type { MockOpenOwnBotOptions } from "../src/preview/mock-openownbot";
 
 /** Side threads of Chief for the desktop and web thread stories. */

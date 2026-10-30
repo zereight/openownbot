@@ -1,5 +1,5 @@
-import { BILLING_PLANS, type BillingServerPlan } from "@openownbot/contracts/billing";
-import type { HostedServerSummary } from "@openownbot/contracts/hosted-servers";
+import { BILLING_PLANS, type BillingServerPlan } from "@robot/contracts/billing";
+import type { HostedServerSummary } from "@robot/contracts/hosted-servers";
 import { createEffect, createStore } from "solid-js";
 import { useText } from "../../text";
 import type { SettingsHostedServersStore } from "../settings/stores/hosted-servers-store";

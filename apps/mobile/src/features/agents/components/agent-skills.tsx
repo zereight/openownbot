@@ -1,6 +1,6 @@
 import { Host, Switch } from "@expo/ui";
-import { type InstalledSkill, SKILL_CREATION_REQUEST } from "@openownbot/contracts/ipc";
-import type { MobileTranslate } from "@openownbot/i18n/mobile";
+import { type InstalledSkill, SKILL_CREATION_REQUEST } from "@robot/contracts/ipc";
+import type { MobileTranslate } from "@robot/i18n/mobile";
 import { type QueryKey, useQueryClient } from "@tanstack/react-query";
 import { Stack, useNavigation } from "expo-router";
 import { StackActions } from "expo-router/react-navigation";

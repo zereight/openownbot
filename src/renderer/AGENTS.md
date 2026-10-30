@@ -27,7 +27,7 @@ skills for the component patterns, not the imports.
   together. `bun run dev:api` is for API-only debugging.
 - `bun run storybook` verifies isolated components. CI builds it; do not run `build-storybook`.
 - `bun run check:ui` is the design-system guard for this directory: shared primitives over native
-  controls, Kobalte and Lucide only inside `@openownbot/ui`, and palette tokens instead of colour,
+  controls, Kobalte and Lucide only inside `@robot/ui`, and palette tokens instead of colour,
   size, radius and transition literals. The pre-commit hook runs it on each commit that stages
   code, so do not run it by hand — its budgets only ever go down. All of them sit at zero.
 - Nothing here imports `src/main`, `src/backend` or `src/preload`. `biome.json` rejects it by path,
@@ -40,11 +40,11 @@ skills for the component patterns, not the imports.
 
 App-specific domains live in `src/renderer/src/features/<domain>/`, flat except for `stores/`.
 Shared feature components live in `packages/ui/src/features/<domain>/`; see
-[shared UI instructions](../../packages/ui/AGENTS.md). Import them from `@openownbot/ui` package
+[shared UI instructions](../../packages/ui/AGENTS.md). Import them from `@robot/ui` package
 subpaths. Keep application contexts, persistence, and platform adapters in the renderer.
 Its context, its DOM-free logic, its pane, its components, its tests and its stylesheet are
 siblings, so "fix the pin ordering" is answerable by opening one path. There is no barrel —
-`packages/ui/src/index.ts` is still the only one — and feature-local imports stay relative. Import shared primitives from `@openownbot/ui`.
+`packages/ui/src/index.ts` is still the only one — and feature-local imports stay relative. Import shared primitives from `@robot/ui`.
 
 ```
 features/<domain>/
@@ -63,7 +63,7 @@ are the same filename on case-insensitive APFS. That breaks the `Check` job on `
 while every ubuntu job stays green, so the suffix is uniform rather than applied where a collision
 happens to exist today.
 
-**Outside a feature:** `@openownbot/ui` (the shared patched-Kobalte layer), the app shell and its
+**Outside a feature:** `@robot/ui` (the shared patched-Kobalte layer), the app shell and its
 wiring (`App.tsx`, `AppView.tsx`, `app-providers.tsx`, `app-bootstrap.tsx`, `WorkspaceShell.tsx`,
 `WorkspaceOverlays.tsx`, `WorkspaceOverlayViews.tsx`, `lazy-views.ts`), the cross-domain modules every feature reads and none
 owns (`navigation.tsx`, `layout.tsx`, `turns.tsx`, `providers.tsx`,

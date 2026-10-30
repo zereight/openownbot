@@ -1,4 +1,4 @@
-import type { AgentTemplateSnapshot, SidebarLayoutAction, SidebarLayoutSnapshot } from "@openownbot/contracts/ipc";
+import type { AgentTemplateSnapshot, SidebarLayoutAction, SidebarLayoutSnapshot } from "@robot/contracts/ipc";
 import { Effect } from "effect";
 import { describe, expect, it } from "vitest";
 import { AgentSectionService, type SectionTemplates } from "./agent-section-service";

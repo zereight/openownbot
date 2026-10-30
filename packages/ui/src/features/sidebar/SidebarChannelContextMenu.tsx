@@ -1,7 +1,7 @@
 /** The right-click menu on a channel, in the pinned strip and in a section alike. */
 
-import type { ChannelSummary } from "@openownbot/contracts/ipc";
-import { ContextMenu, Hash, Pin, PinOff, RotateCcw } from "@openownbot/ui";
+import type { ChannelSummary } from "@robot/contracts/ipc";
+import { ContextMenu, Hash, Pin, PinOff, RotateCcw } from "@robot/ui";
 import { Show } from "solid-js";
 import { useText } from "../../text";
 import { DeleteIcon, EditIcon } from "./SidebarIcons";

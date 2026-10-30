@@ -1,9 +1,9 @@
-import type { BitwardenConnectorStatus } from "@openownbot/contracts/ipc";
+import type { BitwardenConnectorStatus } from "@robot/contracts/ipc";
 import {
   BITWARDEN_CONNECTOR_KEY_LIMIT,
   BITWARDEN_CONNECTOR_PASSWORD_LIMIT,
   BITWARDEN_CONNECTOR_URL_LIMIT,
-} from "@openownbot/contracts/team-protocol/bitwarden-connector-v1";
+} from "@robot/contracts/team-protocol/bitwarden-connector-v1";
 import type { UseQueryResult } from "@tanstack/react-query";
 import { Typography } from "heroui-native";
 import { useState } from "react";

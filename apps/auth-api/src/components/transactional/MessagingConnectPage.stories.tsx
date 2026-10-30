@@ -1,4 +1,4 @@
-import { translateFor } from "@openownbot/i18n";
+import { translateFor } from "@robot/i18n";
 import type { JSX } from "@solidjs/web";
 import { createRootRoute, createRoute, createRouter, RouterContextProvider } from "@tanstack/solid-router";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";

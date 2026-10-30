@@ -1,4 +1,4 @@
-import type { AgentEvent, ConversationPage, TeamRealtimeEvent } from "@openownbot/contracts/ipc";
+import type { AgentEvent, ConversationPage, TeamRealtimeEvent } from "@robot/contracts/ipc";
 
 /**
  * The part of a host that a canvas chat reaches: the open agent's own conversation and the events of

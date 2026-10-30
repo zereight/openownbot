@@ -1,4 +1,4 @@
-import { currentText } from "@openownbot/ui/text";
+import { currentText } from "@robot/ui/text";
 
 /**
  * Writes text to the clipboard. When the async clipboard is missing or refuses the write, such as

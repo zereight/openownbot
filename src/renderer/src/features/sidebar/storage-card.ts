@@ -1,6 +1,6 @@
-import type { ServerSummary, StorageDisk } from "@openownbot/contracts/ipc";
-import { STORAGE_DISK_CAPABILITY } from "@openownbot/contracts/team-protocol/storage-disk-v1";
-import type { SidebarStorageLevel } from "@openownbot/ui/features/sidebar/SidebarStorageCard";
+import type { ServerSummary, StorageDisk } from "@robot/contracts/ipc";
+import { STORAGE_DISK_CAPABILITY } from "@robot/contracts/team-protocol/storage-disk-v1";
+import type { SidebarStorageLevel } from "@robot/ui/features/sidebar/SidebarStorageCard";
 import { createMemo, createSignal, untrack } from "solid-js";
 import { createUsageRefreshPoll } from "../account/usage-refresh-poll";
 import { canManageStorage } from "../files/storage-usage";

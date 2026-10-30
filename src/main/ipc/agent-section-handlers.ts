@@ -2,9 +2,9 @@
 
 import { readFile, writeFile } from "node:fs/promises";
 import { basename, join } from "node:path";
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
-import type { ExportAgentSectionInput, ImportAgentSectionInput } from "@openownbot/contracts/ipc";
-import type { AppTranslate } from "@openownbot/i18n";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
+import type { ExportAgentSectionInput, ImportAgentSectionInput } from "@robot/contracts/ipc";
+import type { AppTranslate } from "@robot/i18n";
 import { app, type BrowserWindow, dialog, type OpenDialogOptions, type SaveDialogOptions } from "electron";
 import { runCauseEffect } from "../../backend/effect-boundary";
 import type { AgentSectionService } from "../agent-section-service";

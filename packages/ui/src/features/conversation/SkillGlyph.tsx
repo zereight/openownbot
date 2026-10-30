@@ -1,4 +1,4 @@
-import { Puzzle } from "@openownbot/ui";
+import { Puzzle } from "@robot/ui";
 import { createSignal, Show } from "solid-js";
 
 export function SkillGlyph(props: { iconUrl: string | null }) {

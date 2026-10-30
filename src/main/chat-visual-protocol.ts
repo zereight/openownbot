@@ -1,8 +1,4 @@
-import {
-  CHAT_VISUAL_FRAME_SANDBOX,
-  CHAT_VISUAL_PAGE_LIMIT,
-  chatVisualDocument,
-} from "@openownbot/contracts/chat-visual";
+import { CHAT_VISUAL_FRAME_SANDBOX, CHAT_VISUAL_PAGE_LIMIT, chatVisualDocument } from "@robot/contracts/chat-visual";
 import { isTrustedRendererUrl } from "./trusted-renderer";
 
 /**

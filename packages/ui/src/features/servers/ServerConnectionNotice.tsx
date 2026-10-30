@@ -1,4 +1,4 @@
-import type { HostedServerIssue, HostedServerSleep, HostedServerStart } from "@openownbot/contracts/ipc";
+import type { HostedServerIssue, HostedServerSleep, HostedServerStart } from "@robot/contracts/ipc";
 import { createEffect, createSignal, Show, untrack } from "solid-js";
 import { Button } from "../../button";
 import { ErrorReference } from "../../error-reference";

@@ -1,5 +1,5 @@
-import type { AttachmentSummary, ImageGenerationAspectRatio } from "@openownbot/contracts/ipc";
-import { Button, X } from "@openownbot/ui";
+import type { AttachmentSummary, ImageGenerationAspectRatio } from "@robot/contracts/ipc";
+import { Button, X } from "@robot/ui";
 import { createEffect, createSignal, Show } from "solid-js";
 import { useText } from "../../text";
 import { DownloadIcon } from "./ConversationIcons";

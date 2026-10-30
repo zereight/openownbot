@@ -10,7 +10,7 @@ import { mkdirSync, writeFileSync } from "node:fs";
 import { mkdtemp, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
-import type { ConversationMessage } from "@openownbot/contracts/ipc";
+import type { ConversationMessage } from "@robot/contracts/ipc";
 import { readHandoffHistory } from "../src/backend/agent/handoff-history";
 import { AgentStore } from "../src/backend/agent-store";
 import { forkAgentThread } from "../src/backend/agent-threads/agent-thread-fork";

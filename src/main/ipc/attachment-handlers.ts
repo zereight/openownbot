@@ -13,8 +13,8 @@ import {
   MEDIA_ATTACHMENT_EXTENSIONS,
   MP4_ATTACHMENT_EXTENSIONS,
   supportedAttachmentExtensions,
-} from "@openownbot/contracts/attachment-files";
-import { ATTACHMENT_LIMITS, INPUT_LIMITS } from "@openownbot/contracts/input-limits";
+} from "@robot/contracts/attachment-files";
+import { ATTACHMENT_LIMITS, INPUT_LIMITS } from "@robot/contracts/input-limits";
 import {
   type DownloadAttachmentsInput,
   decodeWorkspaceDirectory,
@@ -22,20 +22,20 @@ import {
   type ImportAttachmentsInput,
   LOCAL_SERVER_ID,
   type OpenAttachmentInput,
-} from "@openownbot/contracts/ipc";
-import { TEAM_API_ROUTES } from "@openownbot/contracts/team-api-routes";
+} from "@robot/contracts/ipc";
+import { TEAM_API_ROUTES } from "@robot/contracts/team-api-routes";
 import {
   TEAM_EML_ATTACHMENTS_CAPABILITY,
   TEAM_MEDIA_ATTACHMENTS_CAPABILITY,
   TEAM_MP4_ATTACHMENTS_CAPABILITY,
   TEAM_ZIP_ATTACHMENTS_CAPABILITY,
-} from "@openownbot/contracts/team-protocol/current";
+} from "@robot/contracts/team-protocol/current";
 import {
   WORKSPACE_DIRECTORY_CAPABILITY,
   WORKSPACE_DIRECTORY_ROUTES,
-} from "@openownbot/contracts/team-protocol/workspace-directory-v1";
-import type { AppTranslate } from "@openownbot/i18n";
-import { sourceText } from "@openownbot/i18n/source";
+} from "@robot/contracts/team-protocol/workspace-directory-v1";
+import type { AppTranslate } from "@robot/i18n";
+import { sourceText } from "@robot/i18n/source";
 import { Effect, Schema } from "effect";
 import { app, type BrowserWindow, dialog, type OpenDialogOptions, shell } from "electron";
 import { type Zippable, zip } from "fflate";

@@ -1,4 +1,4 @@
-import { parseHostedServerActivityReport } from "@openownbot/contracts/hosted-servers";
+import { parseHostedServerActivityReport } from "@robot/contracts/hosted-servers";
 import { createFileRoute } from "@tanstack/solid-router";
 import { Effect } from "effect";
 import { runApiResponse } from "../../../../../server/effect-runtime";

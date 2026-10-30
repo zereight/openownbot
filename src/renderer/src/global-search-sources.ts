@@ -1,11 +1,11 @@
-import { BookMarked, Bot, CalendarClock, Hash, Server, Store, UsersRound } from "@openownbot/ui";
+import { BookMarked, Bot, CalendarClock, Hash, Server, Store, UsersRound } from "@robot/ui";
 import type {
   GlobalSearchAction,
   GlobalSearchFile,
   GlobalSearchPage,
   GlobalSearchRoutine,
-} from "@openownbot/ui/components/GlobalSearch";
-import { useText } from "@openownbot/ui/text";
+} from "@robot/ui/components/GlobalSearch";
+import { useText } from "@robot/ui/text";
 import { createEffect, createMemo, createSignal } from "solid-js";
 import { formatMessageTime } from "./app-message-projection";
 import { appPort } from "./app-port";

@@ -1,13 +1,13 @@
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
 import type {
   AgentEvent,
   AskSideQuestionInput,
   AttachmentImportEvent,
   AttachmentSummary,
   TeamRealtimeEvent,
-} from "@openownbot/contracts/ipc";
-import { decodeSideQuestionResponse, SIDE_QUESTION_ROUTES } from "@openownbot/contracts/team-protocol/side-question-v1";
-import { runTeamEffect } from "@openownbot/team-client";
+} from "@robot/contracts/ipc";
+import { decodeSideQuestionResponse, SIDE_QUESTION_ROUTES } from "@robot/contracts/team-protocol/side-question-v1";
+import { runTeamEffect } from "@robot/team-client";
 import {
   deleteSharedTable,
   installAgentSkill,
@@ -22,13 +22,9 @@ import {
   setAgentSkillEnabled,
   uninstallAgentSkill,
   unpublishAgentTemplate,
-} from "@openownbot/team-client/team-admin-requests";
-import {
-  listInstalledSkills,
-  type TeamApiRequest,
-  teamAgentRoutinesApi,
-} from "@openownbot/team-client/team-api-requests";
-import { currentText } from "@openownbot/ui/text";
+} from "@robot/team-client/team-admin-requests";
+import { listInstalledSkills, type TeamApiRequest, teamAgentRoutinesApi } from "@robot/team-client/team-api-requests";
+import { currentText } from "@robot/ui/text";
 import { Effect } from "effect";
 import { onCleanup } from "solid-js";
 import type { ConversationRuntime } from "../conversation/conversation-runtime";
@@ -63,9 +59,9 @@ function webHostAdmin(
       return {
         read: (agentId: string) =>
           runTeamEffect(readAgentSessionSettings(request(), agentId).pipe(Effect.mapError((error) => error.cause))),
-        set: (input: import("@openownbot/contracts/ipc").SetAgentSessionSettingInput) =>
+        set: (input: import("@robot/contracts/ipc").SetAgentSessionSettingInput) =>
           runTeamEffect(setAgentSessionSetting(request(), input).pipe(Effect.mapError((error) => error.cause))),
-        reset: (input: import("@openownbot/contracts/ipc").ResetAgentSessionSettingInput) =>
+        reset: (input: import("@robot/contracts/ipc").ResetAgentSessionSettingInput) =>
           runTeamEffect(resetAgentSessionSetting(request(), input).pipe(Effect.mapError((error) => error.cause))),
         ...(onHostEvent
           ? {

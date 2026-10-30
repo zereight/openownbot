@@ -2,7 +2,7 @@ import { randomUUID } from "node:crypto";
 import { existsSync } from "node:fs";
 import { isIP } from "node:net";
 import { basename, extname, join } from "node:path";
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
 import type {
   AgentBrowserProfile,
   BrowserBounds,
@@ -18,20 +18,20 @@ import type {
   BrowserTarget,
   BrowserViewTarget,
   BrowserVisibilityInput,
-} from "@openownbot/contracts/ipc";
-import { isNumber, isString } from "@openownbot/contracts/runtime-values";
+} from "@robot/contracts/ipc";
+import { isNumber, isString } from "@robot/contracts/runtime-values";
 import {
   type BrowserSignInCookie,
   browserSignInCookieFitsHost,
-} from "@openownbot/contracts/team-protocol/browser-sign-in-v1";
+} from "@robot/contracts/team-protocol/browser-sign-in-v1";
 import {
   BROWSER_VIEW_CONTEXT_MENU_URL_MAX_LENGTH,
   type BrowserViewContextMenu,
   type BrowserViewCursor,
   type BrowserViewViewport,
-} from "@openownbot/contracts/team-protocol/browser-view-v1";
-import { sourceText } from "@openownbot/i18n/source";
-import { createOpenOwnBotLogger, redactText, toLogValue } from "@openownbot/logging";
+} from "@robot/contracts/team-protocol/browser-view-v1";
+import { sourceText } from "@robot/i18n/source";
+import { createOpenOwnBotLogger, redactText, toLogValue } from "@robot/logging";
 import { Deferred, Effect, Exit, Fiber, Scope, Semaphore } from "effect";
 import {
   app,

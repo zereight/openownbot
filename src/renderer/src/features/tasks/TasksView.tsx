@@ -1,4 +1,4 @@
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
 import type {
   AgentApproval,
   AgentTask,
@@ -6,16 +6,16 @@ import type {
   AgentTasksSnapshot,
   AttachmentSummary,
   ConversationSnapshot,
-} from "@openownbot/contracts/ipc";
-import type { AppTextKey } from "@openownbot/i18n";
-import { plainTaskTitle, taskApproval } from "@openownbot/team-client/agent-tasks";
-import type { AgentMessage, AgentProfile } from "@openownbot/ui/data";
-import type { AgentTaskWait } from "@openownbot/ui/features/conversation/AgentTasks";
-import type { SendShortcut } from "@openownbot/ui/features/conversation/send-shortcut";
-import { AgentThreadView } from "@openownbot/ui/features/conversation/threads/AgentThreadView";
-import { TaskAnswerCard, TaskPanel } from "@openownbot/ui/features/tasks/TaskPanel";
-import { TasksPage, type TasksVoice } from "@openownbot/ui/features/tasks/TasksPage";
-import { currentText } from "@openownbot/ui/text";
+} from "@robot/contracts/ipc";
+import type { AppTextKey } from "@robot/i18n";
+import { plainTaskTitle, taskApproval } from "@robot/team-client/agent-tasks";
+import type { AgentMessage, AgentProfile } from "@robot/ui/data";
+import type { AgentTaskWait } from "@robot/ui/features/conversation/AgentTasks";
+import type { SendShortcut } from "@robot/ui/features/conversation/send-shortcut";
+import { AgentThreadView } from "@robot/ui/features/conversation/threads/AgentThreadView";
+import { TaskAnswerCard, TaskPanel } from "@robot/ui/features/tasks/TaskPanel";
+import { TasksPage, type TasksVoice } from "@robot/ui/features/tasks/TasksPage";
+import { currentText } from "@robot/ui/text";
 import { createEffect, createMemo, createProjection, createStore, onCleanup, Show, untrack } from "solid-js";
 import { actionToast } from "../../action-toast";
 import { useShowAgentSteps } from "../../agent-steps-preference";

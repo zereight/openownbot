@@ -9,11 +9,8 @@
  * and the notification it leaves behind are watchable and not only described.
  */
 
-import { Toaster, toast } from "@openownbot/ui";
-import {
-  ProviderCodeLoginDialog,
-  type ProviderCodeLoginState,
-} from "@openownbot/ui/components/ProviderCodeLoginDialog";
+import { Toaster, toast } from "@robot/ui";
+import { ProviderCodeLoginDialog, type ProviderCodeLoginState } from "@robot/ui/components/ProviderCodeLoginDialog";
 import { createSignal, onCleanup } from "solid-js";
 import { fn } from "storybook/test";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";

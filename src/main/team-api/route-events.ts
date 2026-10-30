@@ -1,11 +1,11 @@
-import { isReleasedRoutineSchedule } from "@openownbot/contracts/ipc";
-import { EVENTS_CAPABILITY, EVENTS_ROUTES } from "@openownbot/contracts/team-protocol/events-v1";
+import { isReleasedRoutineSchedule } from "@robot/contracts/ipc";
+import { EVENTS_CAPABILITY, EVENTS_ROUTES } from "@robot/contracts/team-protocol/events-v1";
 import {
   ROUTINE_RECOVERY_CAPABILITY,
   ROUTINE_RECOVERY_ROUTES,
-} from "@openownbot/contracts/team-protocol/routine-recovery-v1";
-import { WEBHOOK_TESTS_CAPABILITY, WEBHOOK_TESTS_ROUTES } from "@openownbot/contracts/team-protocol/webhook-tests-v1";
-import { sourceText } from "@openownbot/i18n/source";
+} from "@robot/contracts/team-protocol/routine-recovery-v1";
+import { WEBHOOK_TESTS_CAPABILITY, WEBHOOK_TESTS_ROUTES } from "@robot/contracts/team-protocol/webhook-tests-v1";
+import { sourceText } from "@robot/i18n/source";
 import { Effect } from "effect";
 import { type HostEventsApi, HostEventsFailure, hostEventsFailureMessage } from "../host-events-api";
 import {

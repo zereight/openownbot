@@ -1,13 +1,13 @@
-import { isAgentTemplateId } from "@openownbot/contracts/agent-template-links";
-import { isValidAvatarImage } from "@openownbot/contracts/avatar-images";
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
+import { isAgentTemplateId } from "@robot/contracts/agent-template-links";
+import { isValidAvatarImage } from "@robot/contracts/avatar-images";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
 import {
   type AgentTemplateSnapshot,
   isAgentTemplateCardPng,
   isAgentTemplateSnapshot,
   toAgentTemplateSnapshot,
-} from "@openownbot/contracts/ipc";
-import { isDynamicRecord } from "@openownbot/contracts/runtime-values";
+} from "@robot/contracts/ipc";
+import { isDynamicRecord } from "@robot/contracts/runtime-values";
 import { Effect, Result, Schema } from "effect";
 import { AgentMarketplaceError } from "./agent-marketplace";
 import { encodeBase64Url } from "./crypto";

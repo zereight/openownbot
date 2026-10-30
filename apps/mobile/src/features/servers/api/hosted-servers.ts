@@ -5,7 +5,7 @@ import {
   parseHostedServerCatalog,
   parseHostedServerList,
   parseHostedServerSummary,
-} from "@openownbot/contracts/hosted-servers";
+} from "@robot/contracts/hosted-servers";
 import { type MobileSession, requestMobileAccount } from "@/features/auth/api/mobile-auth";
 import { currentText } from "@/shared/lib/text";
 

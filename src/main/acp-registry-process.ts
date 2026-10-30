@@ -1,5 +1,5 @@
 import { spawn } from "node:child_process";
-import { sourceText } from "@openownbot/i18n/source";
+import { sourceText } from "@robot/i18n/source";
 import { Deferred, Effect } from "effect";
 import { cliSpawnTarget } from "../backend/cli";
 import { stopWindowsProcessTree } from "../backend/windows-process-tree";

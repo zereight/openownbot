@@ -1,5 +1,5 @@
-import { ProviderLogo } from "@openownbot/brand";
-import { Button, Gauge, RefreshCw } from "@openownbot/ui";
+import { ProviderLogo } from "@robot/brand";
+import { Button, Gauge, RefreshCw } from "@robot/ui";
 import type { JSX } from "@solidjs/web";
 import { createSignal, For, onCleanup, Show } from "solid-js";
 import { useText } from "../../text";

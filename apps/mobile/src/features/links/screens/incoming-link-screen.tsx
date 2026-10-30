@@ -1,5 +1,5 @@
-import { OPENOWNBOT_CONTROL_PLANE_ORIGIN } from "@openownbot/contracts/invite-links";
-import { parseMobileConnectUrl } from "@openownbot/contracts/mobile-connect";
+import { OPENOWNBOT_CONTROL_PLANE_ORIGIN } from "@robot/contracts/invite-links";
+import { parseMobileConnectUrl } from "@robot/contracts/mobile-connect";
 import { Redirect, router, Stack, useLocalSearchParams } from "expo-router";
 import { usePreventRemove } from "expo-router/react-navigation";
 import { openBrowserAsync } from "expo-web-browser";

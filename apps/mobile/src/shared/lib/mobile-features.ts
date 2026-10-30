@@ -3,7 +3,7 @@ import {
   type MobileFeatureFlags,
   mobileFeaturesOff,
   parseMobileFeatureFlags,
-} from "@openownbot/contracts/mobile-features";
+} from "@robot/contracts/mobile-features";
 import * as Application from "expo-application";
 import Constants, { ExecutionEnvironment } from "expo-constants";
 import { create } from "zustand";

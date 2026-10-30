@@ -10,15 +10,15 @@
  * A webhook trigger starts its run from `HostEventsService`, which verifies the request first.
  */
 
-import type { RoutineSchedule, WorkflowGraph } from "@openownbot/contracts/ipc";
-import { createOpenOwnBotLogger } from "@openownbot/logging";
+import type { RoutineSchedule, WorkflowGraph } from "@robot/contracts/ipc";
+import { createOpenOwnBotLogger } from "@robot/logging";
 import {
   collapseMissedOccurrences,
   nextValidRoutineOccurrence,
   normalizeRoutineSchedule,
   RoutineInputError,
   validateRoutineSchedule,
-} from "@openownbot/team-client/routine-schedule";
+} from "@robot/team-client/routine-schedule";
 import { Effect } from "effect";
 import type { ReceivedWebhookEvent } from "../routine-store";
 import type { RoutineDueSource } from "../routine-timer";

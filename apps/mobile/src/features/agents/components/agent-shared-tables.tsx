@@ -1,4 +1,4 @@
-import type { SharedTable } from "@openownbot/contracts/ipc";
+import type { SharedTable } from "@robot/contracts/ipc";
 import { useQuery } from "@tanstack/react-query";
 import { Button, Typography } from "heroui-native";
 import { useThemeColor } from "heroui-native/hooks";

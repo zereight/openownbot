@@ -1,12 +1,12 @@
-import type { CentralAuthUser } from "@openownbot/contracts/ipc";
-import { AGENT_TASKS_CAPABILITY } from "@openownbot/contracts/team-protocol/agent-tasks-v1";
+import type { CentralAuthUser } from "@robot/contracts/ipc";
+import { AGENT_TASKS_CAPABILITY } from "@robot/contracts/team-protocol/agent-tasks-v1";
 import {
   ConversationLoadNotice,
   ServerConnectionNotice,
   ServerPanelLoadNotice,
   serverWorkspacePhase,
-} from "@openownbot/ui/features/servers/ServerConnectionNotice";
-import { useText } from "@openownbot/ui/text";
+} from "@robot/ui/features/servers/ServerConnectionNotice";
+import { useText } from "@robot/ui/text";
 import { createEffect, createMemo, Show } from "solid-js";
 import { useAccountUsagePolling } from "./features/account/account-usage-polling";
 import { useAgents } from "./features/agents/agents-context";

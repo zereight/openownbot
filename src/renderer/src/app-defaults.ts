@@ -5,7 +5,7 @@ import {
   type ProviderRuntimeSnapshot,
   type TeamPresenceSnapshot,
   type UpdateStatus,
-} from "@openownbot/contracts/ipc";
+} from "@robot/contracts/ipc";
 
 /**
  * What the renderer shows before main has answered, and what it falls back to

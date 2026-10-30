@@ -3,7 +3,7 @@ import { mkdtemp, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import type { AvatarHue, MarketplaceAgentRoutine, MarketplaceAgentSkill } from "@openownbot/contracts/ipc";
+import type { AvatarHue, MarketplaceAgentRoutine, MarketplaceAgentSkill } from "@robot/contracts/ipc";
 
 interface SeedAgent {
   slug: string;

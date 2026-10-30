@@ -1,14 +1,14 @@
 import { randomUUID } from "node:crypto";
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
 import type {
   AgentApprovalPermissions,
   AgentPromptQuestion,
   AgentPromptResolution,
   RespondToBrowserTakeoverInput,
-} from "@openownbot/contracts/ipc";
-import { COMPUTER_USE_MCP_SERVER_NAME, MCP_ELICITATION_DECISION_QUESTION_ID } from "@openownbot/contracts/ipc";
-import { type DynamicRecord, isString } from "@openownbot/contracts/runtime-values";
-import { normalizeUiBlockSpec, type UiBlockResponse, type UiBlockSpec } from "@openownbot/contracts/ui-blocks";
+} from "@robot/contracts/ipc";
+import { COMPUTER_USE_MCP_SERVER_NAME, MCP_ELICITATION_DECISION_QUESTION_ID } from "@robot/contracts/ipc";
+import { type DynamicRecord, isString } from "@robot/contracts/runtime-values";
+import { normalizeUiBlockSpec, type UiBlockResponse, type UiBlockSpec } from "@robot/contracts/ui-blocks";
 import type { SavedApiKey } from "../agent-api-keys";
 import { type DynamicToolResult, getArray, getRecord, getString, isRecord } from "../protocol";
 

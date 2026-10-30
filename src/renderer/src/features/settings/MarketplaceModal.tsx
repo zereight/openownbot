@@ -1,11 +1,11 @@
-import { ConfirmDialog } from "@openownbot/ui";
-import { Marketplace } from "@openownbot/ui/features/marketplace/Marketplace";
-import type { MarketplaceApp } from "@openownbot/ui/features/marketplace/marketplace-model";
-import { createMarketplaceNavigation } from "@openownbot/ui/features/marketplace/marketplace-view";
-import { McpConnectDialog } from "@openownbot/ui/features/settings/McpConnectDialog";
-import { McpSignInRelayDialog } from "@openownbot/ui/features/settings/McpSignInPage";
-import { PluginUninstallDialog } from "@openownbot/ui/features/settings/PluginUninstallDialog";
-import { useText } from "@openownbot/ui/text";
+import { ConfirmDialog } from "@robot/ui";
+import { Marketplace } from "@robot/ui/features/marketplace/Marketplace";
+import type { MarketplaceApp } from "@robot/ui/features/marketplace/marketplace-model";
+import { createMarketplaceNavigation } from "@robot/ui/features/marketplace/marketplace-view";
+import { McpConnectDialog } from "@robot/ui/features/settings/McpConnectDialog";
+import { McpSignInRelayDialog } from "@robot/ui/features/settings/McpSignInPage";
+import { PluginUninstallDialog } from "@robot/ui/features/settings/PluginUninstallDialog";
+import { useText } from "@robot/ui/text";
 import { createEffect, createSignal, Show, untrack } from "solid-js";
 import {
   createMarketplaceController,

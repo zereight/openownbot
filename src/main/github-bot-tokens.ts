@@ -1,7 +1,7 @@
 // The installation tokens of the OpenOwnBot GitHub App that the OpenOwnBot API gives this computer, so
 // that GitHub shows an agent's work as the app and not as the signed-in user.
 
-import { createOpenOwnBotLogger, registerSecretValue, toLogValue } from "@openownbot/logging";
+import { createOpenOwnBotLogger, registerSecretValue, toLogValue } from "@robot/logging";
 import { Effect } from "effect";
 import { z } from "zod";
 import type { GitHubFetch } from "./github-device-flow";

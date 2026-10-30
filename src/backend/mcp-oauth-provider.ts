@@ -44,10 +44,10 @@ import {
   OAuthTokensSchema,
 } from "@modelcontextprotocol/sdk/shared/auth.js";
 import type { FetchLike } from "@modelcontextprotocol/sdk/shared/transport.js";
-import { MCP_SIGN_IN_TIMEOUT_MS } from "@openownbot/contracts/ipc";
-import { LOCAL_ONLY } from "@openownbot/contracts/local-only";
-import { sourceText } from "@openownbot/i18n/source";
-import type { Logger } from "@openownbot/logging";
+import { MCP_SIGN_IN_TIMEOUT_MS } from "@robot/contracts/ipc";
+import { LOCAL_ONLY } from "@robot/contracts/local-only";
+import { sourceText } from "@robot/i18n/source";
+import type { Logger } from "@robot/logging";
 import { z } from "zod";
 import { runCauseEffect } from "./effect-boundary";
 import { readLimitedBody } from "./limited-body";

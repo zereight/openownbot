@@ -1,5 +1,5 @@
-import { parseHostedServerLifecycleInput } from "@openownbot/contracts/hosted-servers";
-import { sourceText } from "@openownbot/i18n/source";
+import { parseHostedServerLifecycleInput } from "@robot/contracts/hosted-servers";
+import { sourceText } from "@robot/i18n/source";
 import { createFileRoute } from "@tanstack/solid-router";
 import { Effect } from "effect";
 import { runApiResponse } from "../../../../../server/effect-runtime";

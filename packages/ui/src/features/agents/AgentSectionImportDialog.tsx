@@ -1,6 +1,6 @@
-import type { AgentSectionPreview } from "@openownbot/contracts/ipc";
-import { classifyFailure } from "@openownbot/telemetry";
-import { Button, Dialog, Heading, IconButton, Text, toast, X } from "@openownbot/ui";
+import type { AgentSectionPreview } from "@robot/contracts/ipc";
+import { classifyFailure } from "@robot/telemetry";
+import { Button, Dialog, Heading, IconButton, Text, toast, X } from "@robot/ui";
 import { createSignal, For, Show } from "solid-js";
 import { useText } from "../../text";
 

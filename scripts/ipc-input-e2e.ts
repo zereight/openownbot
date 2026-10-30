@@ -6,10 +6,10 @@
 import assert from "node:assert/strict";
 import { mkdirSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
-import type { OpenOwnBotDesktopApi } from "@openownbot/contracts/ipc";
-import { en } from "@openownbot/i18n";
-import { createOpenOwnBotLogger } from "@openownbot/logging";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
+import type { OpenOwnBotDesktopApi } from "@robot/contracts/ipc";
+import { en } from "@robot/i18n";
+import { createOpenOwnBotLogger } from "@robot/logging";
 import type { Page } from "playwright-core";
 import { assertMutationAllowed, connectToDevApp } from "./dev-automation/cdp-client";
 import { readDevInstanceRecords } from "./dev-automation/instance-registry";

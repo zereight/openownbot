@@ -5,7 +5,7 @@ import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
-import { translateFor } from "@openownbot/i18n";
+import { translateFor } from "@robot/i18n";
 import { type Browser, chromium, type Locator, type Page } from "playwright-core";
 
 const ROOT = resolve(import.meta.dirname, "..");

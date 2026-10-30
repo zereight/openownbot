@@ -1,5 +1,5 @@
-import type { RoutineResultConnectionOption, RoutineResultDestination } from "@openownbot/contracts/ipc";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, Text } from "@openownbot/ui";
+import type { RoutineResultConnectionOption, RoutineResultDestination } from "@robot/contracts/ipc";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, Text } from "@robot/ui";
 import { For } from "solid-js";
 import { useText } from "../../text";
 

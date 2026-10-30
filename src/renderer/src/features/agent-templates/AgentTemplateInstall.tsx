@@ -1,7 +1,7 @@
-import type { AddedAgent, AgentTemplateDetail, ServerSummary } from "@openownbot/contracts/ipc";
-import { classifyFailure } from "@openownbot/telemetry";
-import { AgentTemplateInstallDialog } from "@openownbot/ui/features/agents/AgentTemplateInstallDialog";
-import { useText } from "@openownbot/ui/text";
+import type { AddedAgent, AgentTemplateDetail, ServerSummary } from "@robot/contracts/ipc";
+import { classifyFailure } from "@robot/telemetry";
+import { AgentTemplateInstallDialog } from "@robot/ui/features/agents/AgentTemplateInstallDialog";
+import { useText } from "@robot/ui/text";
 import { createEffect, createStore } from "solid-js";
 import { actionToast } from "../../action-toast";
 import { type AgentTemplateInstallCalls, agentTemplatesPort } from "./agent-templates-port";

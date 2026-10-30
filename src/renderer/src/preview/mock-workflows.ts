@@ -18,9 +18,9 @@ import {
   type WorkflowSummary,
   type WorkflowTriggerState,
   type WorkflowVersion,
-} from "@openownbot/contracts/ipc";
-import { sourceText } from "@openownbot/i18n/source";
-import { nextValidRoutineOccurrence } from "@openownbot/team-client/routine-schedule";
+} from "@robot/contracts/ipc";
+import { sourceText } from "@robot/i18n/source";
+import { nextValidRoutineOccurrence } from "@robot/team-client/routine-schedule";
 
 const PREVIEW_HOOKS = "https://hooks.openbot.run/wf";
 

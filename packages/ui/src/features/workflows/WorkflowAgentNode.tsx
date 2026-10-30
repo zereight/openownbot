@@ -1,8 +1,8 @@
 /** An agent step: a task that one agent does, with the agent, its model and the effort of the step. */
 
-import { ProviderLogo } from "@openownbot/brand";
-import { AGENT_REASONING_EFFORTS } from "@openownbot/contracts/ipc";
-import { Bot, Button, buttonVariants, ChevronDown, DropdownMenu, Play, Textarea, TriangleAlert } from "@openownbot/ui";
+import { ProviderLogo } from "@robot/brand";
+import { AGENT_REASONING_EFFORTS } from "@robot/contracts/ipc";
+import { Bot, Button, buttonVariants, ChevronDown, DropdownMenu, Play, Textarea, TriangleAlert } from "@robot/ui";
 import { Show, untrack } from "solid-js";
 import type { AgentProfile } from "../../data";
 import { useText } from "../../text";

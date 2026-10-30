@@ -1,5 +1,5 @@
-import { pickAgentName } from "@openownbot/brand/agent-names";
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
+import { pickAgentName } from "@robot/brand/agent-names";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
 import {
   type AvatarHue,
   agentPermissionLevel,
@@ -7,7 +7,7 @@ import {
   DEFAULT_PROVIDER_ACCOUNT_ID,
   type HostProviderAccounts,
   type UpdateAgentInput,
-} from "@openownbot/contracts/ipc";
+} from "@robot/contracts/ipc";
 import { useQueryClient } from "@tanstack/react-query";
 import { router, useLocalSearchParams } from "expo-router";
 import { usePreventRemove } from "expo-router/react-navigation";

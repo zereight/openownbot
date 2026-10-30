@@ -1,9 +1,9 @@
-import { MESSAGING_LIMITS, type MessagingConnection } from "@openownbot/contracts/ipc";
+import { MESSAGING_LIMITS, type MessagingConnection } from "@robot/contracts/ipc";
 import {
   SlackConnectDialog,
   type SlackIntegrationAgent,
   SlackIntegrationPanel,
-} from "@openownbot/ui/features/settings/SlackIntegrationPanel";
+} from "@robot/ui/features/settings/SlackIntegrationPanel";
 import { fn } from "storybook/test";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";
 import { STORY_AGENT_SUMMARIES } from "./fixtures";

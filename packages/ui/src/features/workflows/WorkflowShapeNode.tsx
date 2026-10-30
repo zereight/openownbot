@@ -1,7 +1,7 @@
 /** A shape on the canvas, with words at its centre. It has no ports, and a run skips it. */
 
-import type { AppTextKey } from "@openownbot/i18n";
-import { Shapes, Textarea } from "@openownbot/ui";
+import type { AppTextKey } from "@robot/i18n";
+import { Shapes, Textarea } from "@robot/ui";
 import { Show, untrack } from "solid-js";
 import { useText } from "../../text";
 import {

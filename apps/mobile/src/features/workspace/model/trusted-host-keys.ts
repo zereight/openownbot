@@ -1,4 +1,4 @@
-import { type RemoteHostKeyStore, remoteHostFingerprint } from "@openownbot/team-client";
+import { type RemoteHostKeyStore, remoteHostFingerprint } from "@robot/team-client";
 import * as LockedKeychain from "@/shared/lib/locked-keychain";
 
 /** The keys are in the keychain that a locked phone can read (`locked-keychain.ts`). */

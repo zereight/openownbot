@@ -1,4 +1,4 @@
-import { parseInviteUrl, selfHostedApiOrigin } from "@openownbot/contracts/invite-links";
+import { parseInviteUrl, selfHostedApiOrigin } from "@robot/contracts/invite-links";
 import { router, Stack } from "expo-router";
 import { Typography } from "heroui-native";
 import { useThemeColor } from "heroui-native/hooks";

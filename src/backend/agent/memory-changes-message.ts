@@ -1,4 +1,4 @@
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
 import {
   CONVERSATION_MEMORY_CHANGE_LIMIT,
   CONVERSATION_MEMORY_CHANGES_ITEM_TYPE,
@@ -6,8 +6,8 @@ import {
   type ConversationMemoryChangeAction,
   type ConversationMessage,
   countConversationMemoryChanges,
-} from "@openownbot/contracts/ipc";
-import { sourceText } from "@openownbot/i18n/source";
+} from "@robot/contracts/ipc";
+import { sourceText } from "@robot/i18n/source";
 
 /**
  * The system message that shows the memory changes of a turn, after its answer, or null when there

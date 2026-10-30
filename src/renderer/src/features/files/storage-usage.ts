@@ -4,10 +4,10 @@ import {
   type ServerSummary,
   STORAGE_CAPABILITY,
   type StorageUsage,
-} from "@openownbot/contracts/ipc";
-import { classifyFailure } from "@openownbot/telemetry";
-import type { StoredFileAction, StoredFileRow } from "@openownbot/ui/features/files/files-view";
-import { currentText } from "@openownbot/ui/text";
+} from "@robot/contracts/ipc";
+import { classifyFailure } from "@robot/telemetry";
+import type { StoredFileAction, StoredFileRow } from "@robot/ui/features/files/files-view";
+import { currentText } from "@robot/ui/text";
 import { createEffect, createStore, untrack } from "solid-js";
 import { actionToast } from "../../action-toast";
 import { serverRoleCanAdminister, serverSupportsCapability } from "../servers/server-capabilities";

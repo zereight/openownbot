@@ -7,7 +7,7 @@ import type { RemoteWorkflowError } from "./remote-service-effects";
  * A desktop server uses it too, to publish again after a failed publish at launch or a Signal failure.
  */
 
-import type { HostPhase } from "@openownbot/contracts/ipc";
+import type { HostPhase } from "@robot/contracts/ipc";
 import { runCauseEffect } from "../backend/effect-boundary";
 
 const CHECK_INTERVAL_MS = 60_000;

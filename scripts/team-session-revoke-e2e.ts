@@ -13,7 +13,7 @@ import { mkdirSync, writeFileSync } from "node:fs";
 import { mkdtemp, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
-import { TEAM_API_ROUTES } from "@openownbot/contracts/team-api-routes";
+import { TEAM_API_ROUTES } from "@robot/contracts/team-api-routes";
 import {
   TEAM_APP_VERSION_HEADER,
   TEAM_CAPABILITIES_HEADER,
@@ -21,7 +21,7 @@ import {
   TEAM_PROTOCOL_V7,
   TEAM_PROTOCOL_V7_CAPABILITIES,
   TEAM_PROTOCOL_VERSION_HEADER,
-} from "@openownbot/contracts/team-protocol";
+} from "@robot/contracts/team-protocol";
 import { plugin } from "bun";
 import { Effect } from "effect";
 import type { AgentBrowserHost } from "../src/backend/agent/turn-lifecycle";

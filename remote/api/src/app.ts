@@ -1,16 +1,16 @@
-import type { RemoteAuthEvent } from "@openownbot/contracts/signal-protocol/auth-events";
+import type { RemoteAuthEvent } from "@robot/contracts/signal-protocol/auth-events";
 import {
   DISCORD_UPLOAD_BYTES_LIMIT,
   type DiscordApiErrorBody,
   type DiscordApiErrorCode,
   type DiscordApiRequest,
-} from "@openownbot/contracts/signal-protocol/discord-api";
-import { DISCORD_API_PATH } from "@openownbot/contracts/signal-protocol/discord-route";
+} from "@robot/contracts/signal-protocol/discord-api";
+import { DISCORD_API_PATH } from "@robot/contracts/signal-protocol/discord-route";
 import {
   WEBHOOK_DELIVERY_BODY_BYTES_LIMIT,
   type WebhookDeliveryStatus,
-} from "@openownbot/contracts/signal-protocol/messages";
-import { SLACK_EVENTS_PATH } from "@openownbot/contracts/signal-protocol/slack-route";
+} from "@robot/contracts/signal-protocol/messages";
+import { SLACK_EVENTS_PATH } from "@robot/contracts/signal-protocol/slack-route";
 import {
   TELEGRAM_BOT_ID_PATTERN,
   TELEGRAM_CHAT_ID_PATTERN,
@@ -21,7 +21,7 @@ import {
   TELEGRAM_UPDATES_PATH,
   TELEGRAM_UPLOADS_PATH,
   type TelegramUploadAnswer,
-} from "@openownbot/contracts/signal-protocol/telegram-route";
+} from "@robot/contracts/signal-protocol/telegram-route";
 import {
   WEBHOOK_DELIVERY_ID_HEADER,
   WEBHOOK_DELIVERY_ID_PATTERN,
@@ -31,7 +31,7 @@ import {
   WEBHOOK_SIGNATURE_PATTERN,
   WEBHOOK_TIMESTAMP_HEADER,
   WEBHOOK_TIMESTAMP_PATTERN,
-} from "@openownbot/contracts/signal-protocol/webhook-route";
+} from "@robot/contracts/signal-protocol/webhook-route";
 import { Effect, type ManagedRuntime, Result } from "effect";
 import { Elysia } from "elysia";
 import { z } from "zod";

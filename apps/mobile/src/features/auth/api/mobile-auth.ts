@@ -1,17 +1,17 @@
-import { type AvatarMimeType, isValidAvatarImage } from "@openownbot/contracts/avatar-images";
-import { AVATAR_IMAGE_LIMITS } from "@openownbot/contracts/input-limits";
-import { OPENOWNBOT_CONTROL_PLANE_ORIGIN } from "@openownbot/contracts/invite-links";
-import type { CentralAuthUser } from "@openownbot/contracts/ipc";
+import { type AvatarMimeType, isValidAvatarImage } from "@robot/contracts/avatar-images";
+import { AVATAR_IMAGE_LIMITS } from "@robot/contracts/input-limits";
+import { OPENOWNBOT_CONTROL_PLANE_ORIGIN } from "@robot/contracts/invite-links";
+import type { CentralAuthUser } from "@robot/contracts/ipc";
 import {
   isMobileConnectDevelopmentHost,
   isMobileConnectHostBinding,
   type MobileConnectHostBinding,
   parseMobileConnectUrl,
   validateMobileConnectHostBinding,
-} from "@openownbot/contracts/mobile-connect";
-import { type DynamicRecord, isDynamicRecord, isString } from "@openownbot/contracts/runtime-values";
-import { normalizeEmailAddress, normalizeOneTimeCode, validateProfileName } from "@openownbot/contracts/validation";
-import type { MobileTextKey } from "@openownbot/i18n/mobile";
+} from "@robot/contracts/mobile-connect";
+import { type DynamicRecord, isDynamicRecord, isString } from "@robot/contracts/runtime-values";
+import { normalizeEmailAddress, normalizeOneTimeCode, validateProfileName } from "@robot/contracts/validation";
+import type { MobileTextKey } from "@robot/i18n/mobile";
 import * as Crypto from "expo-crypto";
 import * as Device from "expo-device";
 import * as SecureStore from "expo-secure-store";

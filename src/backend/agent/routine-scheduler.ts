@@ -1,6 +1,6 @@
 import { randomUUID } from "node:crypto";
-import { sortConversationMessages } from "@openownbot/contracts/conversation-order";
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
+import { sortConversationMessages } from "@robot/contracts/conversation-order";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
 import type {
   AgentEvent,
   AgentReasoningEffort,
@@ -18,12 +18,12 @@ import type {
   RoutineRunConversationEventStatus,
   TestRoutineInput,
   UpdateRoutineInput,
-} from "@openownbot/contracts/ipc";
-import { routineConversationEventItemType, routineRunConversationEventItemType } from "@openownbot/contracts/ipc";
-import type { EventRoutine } from "@openownbot/contracts/ipc-events";
-import { type DynamicRecord, isBoolean } from "@openownbot/contracts/runtime-values";
-import { sourceText } from "@openownbot/i18n/source";
-import { collapseMissedOccurrences, RoutineInputError } from "@openownbot/team-client/routine-schedule";
+} from "@robot/contracts/ipc";
+import { routineConversationEventItemType, routineRunConversationEventItemType } from "@robot/contracts/ipc";
+import type { EventRoutine } from "@robot/contracts/ipc-events";
+import { type DynamicRecord, isBoolean } from "@robot/contracts/runtime-values";
+import { sourceText } from "@robot/i18n/source";
+import { collapseMissedOccurrences, RoutineInputError } from "@robot/team-client/routine-schedule";
 import { Effect, Schema } from "effect";
 import { AgentRoutineStore } from "../agent-routine-store";
 import { AGENT_PREVIEW_MAX_LENGTH, type AgentStore } from "../agent-store";

@@ -1,4 +1,4 @@
-import type { ServerSummary } from "@openownbot/contracts/ipc";
+import type { ServerSummary } from "@robot/contracts/ipc";
 import type {
   EventActivity,
   EventRoutine,
@@ -12,8 +12,8 @@ import type {
   SaveEventRoutineResult,
   WebhookSecret,
   WebhookTestResult,
-} from "@openownbot/contracts/ipc-events";
-import { runTeamEffect } from "@openownbot/team-client";
+} from "@robot/contracts/ipc-events";
+import { runTeamEffect } from "@robot/team-client";
 import {
   deleteEventRoutine,
   getEventStatus,
@@ -24,8 +24,8 @@ import {
   saveEventRoutine,
   sendEventRoutineTestEvent,
   testEventRoutine,
-} from "@openownbot/team-client/team-admin-requests";
-import type { TeamApiRequest } from "@openownbot/team-client/team-api-requests";
+} from "@robot/team-client/team-admin-requests";
+import type { TeamApiRequest } from "@robot/team-client/team-api-requests";
 import { Effect } from "effect";
 import { remoteRoutineRecovery, serverCanAdminister, serverSendsWebhookTests } from "../servers/server-capabilities";
 import type { ConversationRuntime } from "./conversation-runtime";

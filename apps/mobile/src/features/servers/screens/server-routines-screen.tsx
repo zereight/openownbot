@@ -1,5 +1,5 @@
-import type { RoutineCalendarRoutine, RoutineCalendarRun, RoutineCalendarRunStatus } from "@openownbot/contracts/ipc";
-import type { MobileTextKey } from "@openownbot/i18n/mobile";
+import type { RoutineCalendarRoutine, RoutineCalendarRun, RoutineCalendarRunStatus } from "@robot/contracts/ipc";
+import type { MobileTextKey } from "@robot/i18n/mobile";
 import {
   addCalendarDays,
   type CalendarDay,
@@ -7,7 +7,7 @@ import {
   calendarDayOf,
   calendarDays,
   calendarWeekStart,
-} from "@openownbot/team-client/routine-calendar-dates";
+} from "@robot/team-client/routine-calendar-dates";
 import { useQueries } from "@tanstack/react-query";
 import { router, Stack, useLocalSearchParams } from "expo-router";
 import { Typography } from "heroui-native";

@@ -1,4 +1,4 @@
-import { Button, CopyButton, Heading, IconButton, Plus, Search, Text, Trash2 } from "@openownbot/ui";
+import { Button, CopyButton, Heading, IconButton, Plus, Search, Text, Trash2 } from "@robot/ui";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";
 
 const meta = {

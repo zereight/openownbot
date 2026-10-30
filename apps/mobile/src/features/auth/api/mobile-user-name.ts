@@ -1,4 +1,4 @@
-import type { CentralAuthUser } from "@openownbot/contracts/ipc";
+import type { CentralAuthUser } from "@robot/contracts/ipc";
 
 export function mobileUserName(user: CentralAuthUser): string {
   if (user.name) return user.name;

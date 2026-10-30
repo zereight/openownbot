@@ -1,6 +1,6 @@
-import type { OpenOwnBotDesktopApi, PromptCacheTtl } from "@openownbot/contracts/ipc";
-import type { ProviderPromptCache } from "@openownbot/ui/features/settings/ProviderSettingsPage";
-import { useText } from "@openownbot/ui/text";
+import type { OpenOwnBotDesktopApi, PromptCacheTtl } from "@robot/contracts/ipc";
+import type { ProviderPromptCache } from "@robot/ui/features/settings/ProviderSettingsPage";
+import { useText } from "@robot/ui/text";
 import { createEffect, createStore, untrack } from "solid-js";
 
 /** The prompt cache calls of one server's host. The desktop reaches them through main. */

@@ -1,5 +1,5 @@
-import { type AgentStep, AgentStepsDisclosure } from "@openownbot/ui/features/conversation/AgentSteps";
-import { type TraceSpan, TraceWaterfall } from "@openownbot/ui/features/conversation/TraceWaterfall";
+import { type AgentStep, AgentStepsDisclosure } from "@robot/ui/features/conversation/AgentSteps";
+import { type TraceSpan, TraceWaterfall } from "@robot/ui/features/conversation/TraceWaterfall";
 import { createMemo, createSignal, onSettled } from "solid-js";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";
 

@@ -1,5 +1,5 @@
 // Composition adapted from https://zaidan.carere.dev/r/kobalte/chart-area-interactive.json (MIT).
-import type { HostAnalytics } from "@openownbot/contracts/ipc";
+import type { HostAnalytics } from "@robot/contracts/ipc";
 import {
   Area,
   AreaChart,
@@ -10,7 +10,7 @@ import {
   type TooltipContentProps,
   XAxis,
   YAxis,
-} from "@openownbot/ui/chart";
+} from "@robot/ui/chart";
 import { createMemo, For } from "solid-js";
 import { useText } from "../../text";
 import { UsageProviderMark } from "./UsageProviderMark";

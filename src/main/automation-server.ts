@@ -2,7 +2,7 @@ import { randomBytes, timingSafeEqual } from "node:crypto";
 import { chmod, mkdir, rm } from "node:fs/promises";
 import { createServer, type IncomingMessage, type Server, type ServerResponse } from "node:http";
 import { join } from "node:path";
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
 import {
   type AgentDefaults,
   type AgentModelOption,
@@ -16,12 +16,12 @@ import {
   type Routine,
   type RoutineRun,
   type UpdateAgentInput,
-} from "@openownbot/contracts/ipc";
-import { type DynamicRecord, isDynamicRecord, isString } from "@openownbot/contracts/runtime-values";
-import { ContextResetBusyError } from "@openownbot/contracts/team-protocol/context-reset-v1";
-import { sourceText } from "@openownbot/i18n/source";
-import { createOpenOwnBotLogger, registerSecretValue, toLogValue } from "@openownbot/logging";
-import { RoutineInputError } from "@openownbot/team-client/routine-schedule";
+} from "@robot/contracts/ipc";
+import { type DynamicRecord, isDynamicRecord, isString } from "@robot/contracts/runtime-values";
+import { ContextResetBusyError } from "@robot/contracts/team-protocol/context-reset-v1";
+import { sourceText } from "@robot/i18n/source";
+import { createOpenOwnBotLogger, registerSecretValue, toLogValue } from "@robot/logging";
+import { RoutineInputError } from "@robot/team-client/routine-schedule";
 import { Effect, Exit, Schema, Scope, Semaphore } from "effect";
 import { AgentSettingsRefused } from "../backend/agent/agent-settings-refused";
 import { InactiveAttentionRequest } from "../backend/agent/inactive-attention-request";

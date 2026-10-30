@@ -1,5 +1,5 @@
-import type { GitHubConnectorRepositories, GitHubConnectorStatus } from "@openownbot/contracts/ipc";
-import type { AppTextKey } from "@openownbot/i18n";
+import type { GitHubConnectorRepositories, GitHubConnectorStatus } from "@robot/contracts/ipc";
+import type { AppTextKey } from "@robot/i18n";
 import {
   Alert,
   AlertActions,
@@ -26,7 +26,7 @@ import {
   Text,
   TriangleAlert,
   UserAvatar,
-} from "@openownbot/ui";
+} from "@robot/ui";
 import { createEffect, createMemo, createSignal, For, Match, Show, Switch } from "solid-js";
 import { useText } from "../../text";
 import { GitHubMark } from "./brand-marks";

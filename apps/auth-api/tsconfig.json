@@ -4,9 +4,9 @@
     "jsx": "preserve",
     "jsxImportSource": "@solidjs/web",
     "paths": {
-      "@openownbot/renderer-preview": ["./src/types/renderer-preview.d.ts"],
-      "@openownbot/renderer-web": ["./src/types/renderer-web.d.ts"],
-      "@openownbot/ui/features/conversation/MarkdownMessageText": ["./src/types/markdown-message-text.d.ts"]
+      "@robot/renderer-preview": ["./src/types/renderer-preview.d.ts"],
+      "@robot/renderer-web": ["./src/types/renderer-web.d.ts"],
+      "@robot/ui/features/conversation/MarkdownMessageText": ["./src/types/markdown-message-text.d.ts"]
     },
     "types": ["@cloudflare/workers-types", "vite/client", "@testing-library/jest-dom"]
   },

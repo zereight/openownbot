@@ -1,4 +1,4 @@
-import { isDynamicRecord, isString } from "@openownbot/contracts/runtime-values";
+import { isDynamicRecord, isString } from "@robot/contracts/runtime-values";
 import { Context, Effect, Layer, Schema } from "effect";
 import { hexToBytes, importHmacSha256Key } from "./crypto";
 
@@ -56,7 +56,7 @@ class BoatTransport extends Context.Service<
     apiKey: string;
     baseUrl: string;
   }
->()("@openownbot/auth-api/BoatTransport") {}
+>()("@robot/auth-api/BoatTransport") {}
 
 const boatRequest = Effect.fn("BoatClient.request")(function* (
   method: string,

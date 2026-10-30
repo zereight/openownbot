@@ -1,10 +1,10 @@
 @import "@fontsource-variable/inter";
 @import "@fontsource-variable/inter/wght-italic.css";
 @import "tailwindcss";
-@import "@openownbot/brand/tokens.css";
+@import "@robot/brand/tokens.css";
 /* Only the web client at /app sets the attribute that turns it on. The public pages stay dark. */
-@import "@openownbot/brand/tokens-light.css";
-@import "@openownbot/ui/stagger.css";
+@import "@robot/brand/tokens-light.css";
+@import "@robot/ui/stagger.css";
 
 /* Arial with the size and line metrics of Inter. Until Inter loads, the text takes the same space,
    so the hero does not move when the font changes. Inter is wider than the system font, and on a
@@ -8724,7 +8724,7 @@ a {
   pointer-events: none;
 }
 
-/* The agent's own avatar from `@openownbot/ui`. The hero in the selector outranks the generic
+/* The agent's own avatar from `@robot/ui`. The hero in the selector outranks the generic
    `.agent-avatar` size rule, which loads with the avatar's own code after this stylesheet. */
 .agent-share-hero .agent-share-avatar {
   --agent-share-avatar-size: clamp(100px, 16vh, 140px);

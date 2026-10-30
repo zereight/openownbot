@@ -4,8 +4,8 @@ import {
   type MarketplaceSkillSummary,
   SKILL_CATEGORIES,
   type SkillCategory,
-} from "@openownbot/contracts/ipc";
-import type { AppTextKey } from "@openownbot/i18n";
+} from "@robot/contracts/ipc";
+import type { AppTextKey } from "@robot/i18n";
 import {
   Button,
   buttonVariants,
@@ -21,9 +21,9 @@ import {
   ShieldCheck,
   SlidingTabs,
   Text,
-} from "@openownbot/ui";
-import { SkillGradient } from "@openownbot/ui/skill-gradient";
-import { useText } from "@openownbot/ui/text";
+} from "@robot/ui";
+import { SkillGradient } from "@robot/ui/skill-gradient";
+import { useText } from "@robot/ui/text";
 import type { JSX } from "@solidjs/web";
 import { createEffect, createMemo, createStore, For, onCleanup, Show, untrack } from "solid-js";
 import { DialogAgents, type DialogSkill } from "./MarketplaceAgentsDialog";

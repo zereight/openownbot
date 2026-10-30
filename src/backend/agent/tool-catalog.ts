@@ -1,4 +1,4 @@
-import { sourceText } from "@openownbot/i18n/source";
+import { sourceText } from "@robot/i18n/source";
 import { z } from "zod";
 import { BROWSER_DYNAMIC_TOOLS, OPENOWNBOT_BROWSER_NAMESPACE } from "../browser-tools";
 import { OPENOWNBOT_DYNAMIC_TOOLS, OPENOWNBOT_TOOL_DEFINITIONS } from "../openownbot-tools";

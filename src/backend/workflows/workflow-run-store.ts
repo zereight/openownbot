@@ -20,8 +20,8 @@ import {
   type WorkflowRunStatus,
   type WorkflowStep,
   type WorkflowStepStatus,
-} from "@openownbot/contracts/ipc";
-import { type DynamicRecord, isOneOf } from "@openownbot/contracts/runtime-values";
+} from "@robot/contracts/ipc";
+import { type DynamicRecord, isOneOf } from "@robot/contracts/runtime-values";
 import {
   checkedColumn,
   databaseRow,

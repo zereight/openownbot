@@ -8,15 +8,10 @@
 // channel member or lead that cannot be kept is dropped with a warning, because the rest is still
 // worth importing. `channels` is optional: an export made before group chats has none.
 
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
-import {
-  AGENT_IMPORT_LIMITS,
-  isAgentImportKey,
-  isRoutineSchedule,
-  type RoutineSchedule,
-} from "@openownbot/contracts/ipc";
-import { isBoolean, isDynamicRecord, isString } from "@openownbot/contracts/runtime-values";
-import { sourceText } from "@openownbot/i18n/source";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
+import { AGENT_IMPORT_LIMITS, isAgentImportKey, isRoutineSchedule, type RoutineSchedule } from "@robot/contracts/ipc";
+import { isBoolean, isDynamicRecord, isString } from "@robot/contracts/runtime-values";
+import { sourceText } from "@robot/i18n/source";
 import { isUnsafeArchivePath } from "./skill-package";
 
 export const AGENT_IMPORT_MANIFEST = "openbot-import.json";

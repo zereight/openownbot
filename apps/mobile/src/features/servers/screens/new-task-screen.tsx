@@ -1,6 +1,6 @@
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
-import type { AgentTasksSnapshot } from "@openownbot/contracts/ipc";
-import { plainTaskTitle } from "@openownbot/team-client/agent-tasks";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
+import type { AgentTasksSnapshot } from "@robot/contracts/ipc";
+import { plainTaskTitle } from "@robot/team-client/agent-tasks";
 import { useQueryClient } from "@tanstack/react-query";
 import * as Crypto from "expo-crypto";
 import { router, Stack, useLocalSearchParams } from "expo-router";

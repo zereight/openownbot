@@ -1,9 +1,9 @@
-import type { BrowserPreview, BrowserTakeoverRequest, LocalBrowserSecretResponse } from "@openownbot/contracts/ipc";
-import { Button, Checkbox, ErrorReference, Input, Lock, Maximize2, Monitor, ShieldCheck, X } from "@openownbot/ui";
-import { OtpInput } from "@openownbot/ui/features/account/OtpInput";
-import { BrowserTakeoverPreview } from "@openownbot/ui/features/conversation/BrowserTakeoverPreview";
-import { useText } from "@openownbot/ui/text";
-import { errorReference } from "@openownbot/user-errors";
+import type { BrowserPreview, BrowserTakeoverRequest, LocalBrowserSecretResponse } from "@robot/contracts/ipc";
+import { Button, Checkbox, ErrorReference, Input, Lock, Maximize2, Monitor, ShieldCheck, X } from "@robot/ui";
+import { OtpInput } from "@robot/ui/features/account/OtpInput";
+import { BrowserTakeoverPreview } from "@robot/ui/features/conversation/BrowserTakeoverPreview";
+import { useText } from "@robot/ui/text";
+import { errorReference } from "@robot/user-errors";
 import { createEffect, createMemo, createSignal, createUniqueId, onCleanup, Show } from "solid-js";
 
 /**

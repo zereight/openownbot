@@ -1,4 +1,4 @@
-import { isDynamicRecord, isString } from "@openownbot/contracts/runtime-values";
+import { isDynamicRecord, isString } from "@robot/contracts/runtime-values";
 import { PreferenceStore } from "./preference-file";
 
 /**

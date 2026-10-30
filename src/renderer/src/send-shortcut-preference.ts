@@ -5,7 +5,7 @@ import {
   type SendShortcutMode,
   sendShortcutAriaKey,
   sendShortcutHintKey,
-} from "@openownbot/ui/features/conversation/send-shortcut";
+} from "@robot/ui/features/conversation/send-shortcut";
 import { createSignal } from "solid-js";
 
 export { sendShortcutAriaKey, sendShortcutHintKey };

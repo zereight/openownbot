@@ -1,4 +1,4 @@
-import { type AgentTemplateDetail, decodeAgentTemplateDetail } from "@openownbot/contracts/ipc";
+import { type AgentTemplateDetail, decodeAgentTemplateDetail } from "@robot/contracts/ipc";
 import { fetch } from "@/features/support/model/logged-fetch";
 import { currentText } from "@/shared/lib/text";
 

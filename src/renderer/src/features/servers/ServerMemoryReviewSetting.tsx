@@ -1,4 +1,4 @@
-import type { HostMemoryReview, OpenOwnBotDesktopApi } from "@openownbot/contracts/ipc";
+import type { HostMemoryReview, OpenOwnBotDesktopApi } from "@robot/contracts/ipc";
 import {
   Item,
   ItemActions,
@@ -10,8 +10,8 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@openownbot/ui";
-import { useText } from "@openownbot/ui/text";
+} from "@robot/ui";
+import { useText } from "@robot/ui/text";
 import { createEffect, createSignal, Show, untrack } from "solid-js";
 
 /** The memory review calls of one server's host. The desktop reaches them through main. */

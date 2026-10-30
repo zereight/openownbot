@@ -1,5 +1,5 @@
-import { type Spring, springKeyframes, springProgress } from "@openownbot/ui/spring-motion";
-import { clamp, mix, motionDuration, prefersReducedMotion } from "@openownbot/ui/utils";
+import { type Spring, springKeyframes, springProgress } from "@robot/ui/spring-motion";
+import { clamp, mix, motionDuration, prefersReducedMotion } from "@robot/ui/utils";
 
 /** The send motion: a spring with no visible bounce. It starts at rest, so a motion does not jump at its first frame. */
 const SEND_SPRING: Spring = { response: 0.43, dampingFraction: 0.78 };

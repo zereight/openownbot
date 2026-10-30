@@ -1,5 +1,5 @@
-import { CHAT_HTML_PREVIEW_POLICY } from "@openownbot/contracts/chat-preview";
-import { MarkdownMessageText } from "@openownbot/ui/features/conversation/MarkdownMessageText";
+import { CHAT_HTML_PREVIEW_POLICY } from "@robot/contracts/chat-preview";
+import { MarkdownMessageText } from "@robot/ui/features/conversation/MarkdownMessageText";
 import { render, screen } from "@solidjs/testing-library";
 import { expect, it, vi } from "vitest";
 

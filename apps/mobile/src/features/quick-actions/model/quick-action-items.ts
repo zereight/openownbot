@@ -1,4 +1,4 @@
-import type { MobileTranslate } from "@openownbot/i18n/mobile";
+import type { MobileTranslate } from "@robot/i18n/mobile";
 import type { MobileAgent, MobileServer } from "@/features/workspace/model/workspace-types";
 
 /** iOS shows four quick actions, so two recent agents leave room for Routines and Search. */

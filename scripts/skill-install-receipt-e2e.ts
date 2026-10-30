@@ -7,7 +7,7 @@ import { createHash } from "node:crypto";
 import { mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import type { AgentSummary, InstalledSkill, MarketplaceSkillDetail } from "@openownbot/contracts/ipc";
+import type { AgentSummary, InstalledSkill, MarketplaceSkillDetail } from "@robot/contracts/ipc";
 import { Effect, Exit, Result, Schema } from "effect";
 import { zipSync } from "fflate";
 import { AgentLifecycleFailed } from "../src/backend/agent-service";

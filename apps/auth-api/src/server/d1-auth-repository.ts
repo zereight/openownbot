@@ -1,4 +1,4 @@
-import type { AccountSession, MobileConnectHostBinding } from "@openownbot/contracts/mobile-connect";
+import type { AccountSession, MobileConnectHostBinding } from "@robot/contracts/mobile-connect";
 import { Context, Effect, Layer, Schema } from "effect";
 import { sha256 } from "./crypto";
 import type {

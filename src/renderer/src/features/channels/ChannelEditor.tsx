@@ -1,5 +1,5 @@
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
-import type { Channel, ChannelDraft } from "@openownbot/contracts/ipc";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
+import type { Channel, ChannelDraft } from "@robot/contracts/ipc";
 import {
   Button,
   buttonVariants,
@@ -13,14 +13,14 @@ import {
   Search,
   Textarea,
   Tooltip,
-} from "@openownbot/ui";
-import { createScrollFades } from "@openownbot/ui/components/createScrollFades";
-import { SettingsField, SettingsLinkGroup, SettingsLinkRow } from "@openownbot/ui/components/SettingsPanel";
-import { AgentAvatar } from "@openownbot/ui/features/agents/AgentAvatar";
-import { InstructionsLimit, instructionsTooLong } from "@openownbot/ui/features/agents/InstructionsLimit";
-import { ChannelMemberRow } from "@openownbot/ui/features/channels/ChannelMemberRow";
-import { ContentExitMotion } from "@openownbot/ui/menu-motion";
-import { useText } from "@openownbot/ui/text";
+} from "@robot/ui";
+import { createScrollFades } from "@robot/ui/components/createScrollFades";
+import { SettingsField, SettingsLinkGroup, SettingsLinkRow } from "@robot/ui/components/SettingsPanel";
+import { AgentAvatar } from "@robot/ui/features/agents/AgentAvatar";
+import { InstructionsLimit, instructionsTooLong } from "@robot/ui/features/agents/InstructionsLimit";
+import { ChannelMemberRow } from "@robot/ui/features/channels/ChannelMemberRow";
+import { ContentExitMotion } from "@robot/ui/menu-motion";
+import { useText } from "@robot/ui/text";
 import { createEffect, createStore, For, onSettled, Show } from "solid-js";
 import { useChannels } from "./channels-context";
 import { matchesAgentSearch, toggleChannelMember } from "./channels-draft";

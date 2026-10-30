@@ -1,4 +1,4 @@
-import { Check, Popover, RadioGroup } from "@openownbot/ui";
+import { Check, Popover, RadioGroup } from "@robot/ui";
 import { createSignal, Show } from "solid-js";
 import { useText } from "../../text";
 import { RoutineChipSelect } from "./RoutineChipSelect";

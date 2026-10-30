@@ -1,5 +1,5 @@
-import { LOCAL_ONLY } from "@openownbot/contracts/local-only";
-import type { MarketplacePluginDetail } from "@openownbot/ui/features/settings/marketplace-plugins";
+import { LOCAL_ONLY } from "@robot/contracts/local-only";
+import type { MarketplacePluginDetail } from "@robot/ui/features/settings/marketplace-plugins";
 import { MARKETPLACE_PLUGINS } from "./marketplace-plugin-catalog";
 
 /**

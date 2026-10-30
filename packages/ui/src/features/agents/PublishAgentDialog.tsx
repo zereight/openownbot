@@ -1,7 +1,7 @@
-import type { AgentTemplatePreview, MarketplaceAgentRoutine } from "@openownbot/contracts/ipc";
-import { markdownPreviewText } from "@openownbot/contracts/markdown-preview-text";
-import type { AppFormat, AppTranslate } from "@openownbot/i18n";
-import { classifyFailure } from "@openownbot/telemetry";
+import type { AgentTemplatePreview, MarketplaceAgentRoutine } from "@robot/contracts/ipc";
+import { markdownPreviewText } from "@robot/contracts/markdown-preview-text";
+import type { AppFormat, AppTranslate } from "@robot/i18n";
+import { classifyFailure } from "@robot/telemetry";
 import {
   ArrowLeft,
   Badge,
@@ -16,7 +16,7 @@ import {
   Text,
   toast,
   X,
-} from "@openownbot/ui";
+} from "@robot/ui";
 import { createSignal, Show } from "solid-js";
 import { useText } from "../../text";
 import { AgentAvatar } from "./AgentAvatar";

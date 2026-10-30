@@ -1,15 +1,15 @@
 // The GitHub connection of the joined server in the browser client (`connectors-v1`). The host runs
 // the device flow and opens no page; this browser opens GitHub's pages that the host names.
 
-import { githubPage, type HostGitHubConnectorStatus, withoutGitHubPages } from "@openownbot/contracts/ipc";
-import type { CONNECTORS_ROUTES } from "@openownbot/contracts/team-protocol/connectors-v1";
-import { runTeamEffect } from "@openownbot/team-client";
+import { githubPage, type HostGitHubConnectorStatus, withoutGitHubPages } from "@robot/contracts/ipc";
+import type { CONNECTORS_ROUTES } from "@robot/contracts/team-protocol/connectors-v1";
+import { runTeamEffect } from "@robot/team-client";
 import {
   githubConnectorRepositories,
   githubConnectorRequest,
   type TeamAdminRequestError,
-} from "@openownbot/team-client/team-admin-requests";
-import type { TeamApiRequest } from "@openownbot/team-client/team-api-requests";
+} from "@robot/team-client/team-admin-requests";
+import type { TeamApiRequest } from "@robot/team-client/team-api-requests";
 import { Effect } from "effect";
 import { type GitHubConnectorPort, polledGitHubConnectorPort } from "../connectors/github-connector-port";
 

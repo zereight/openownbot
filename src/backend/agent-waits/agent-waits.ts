@@ -1,6 +1,6 @@
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
-import type { AgentEvent, AgentWait, AgentWaitsSnapshot } from "@openownbot/contracts/ipc";
-import { sourceText } from "@openownbot/i18n/source";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
+import type { AgentEvent, AgentWait, AgentWaitsSnapshot } from "@robot/contracts/ipc";
+import { sourceText } from "@robot/i18n/source";
 import { z } from "zod";
 import { type OpenOwnBotToolResponse, openOwnBotToolFailure, openOwnBotToolResult } from "../agent/routine-tools";
 import type { MailboxStore } from "../mailbox-store";

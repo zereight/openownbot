@@ -1,6 +1,6 @@
 "use dom";
 
-import { CHAT_MERMAID_FONT_FAMILY, mermaidImageUrl, sizedMermaidSvg } from "@openownbot/contracts/chat-preview";
+import { CHAT_MERMAID_FONT_FAMILY, mermaidImageUrl, sizedMermaidSvg } from "@robot/contracts/chat-preview";
 import mermaid from "mermaid";
 import { useEffect, useRef } from "react";
 import type { MermaidJob, MermaidResult } from "../model/mermaid-diagrams";

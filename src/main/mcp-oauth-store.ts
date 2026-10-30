@@ -3,8 +3,8 @@ import { McpOperationError } from "../backend/mcp-effects";
 // encrypted at rest by the operating system.
 
 import { readFile, rm } from "node:fs/promises";
-import { sourceText } from "@openownbot/i18n/source";
-import { registerSecretValue } from "@openownbot/logging";
+import { sourceText } from "@robot/i18n/source";
+import { registerSecretValue } from "@robot/logging";
 import { Effect, Result, Semaphore } from "effect";
 import { z } from "zod";
 import { writeFileAtomically } from "../backend/atomic-json-file";

@@ -1,4 +1,4 @@
-import type { DynamicRecord } from "@openownbot/contracts/runtime-values";
+import type { DynamicRecord } from "@robot/contracts/runtime-values";
 import { Effect, Schema } from "effect";
 import { CONTACT_LIMITS, contactTopicLabel } from "../lib/contact";
 import { AuthServiceError, emailDeliveryFailure, isEmailDeliveryFailure, normalizeEmail } from "./auth-service";

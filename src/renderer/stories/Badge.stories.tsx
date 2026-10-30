@@ -1,4 +1,4 @@
-import { Badge, Heading } from "@openownbot/ui";
+import { Badge, Heading } from "@robot/ui";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";
 
 const meta = {

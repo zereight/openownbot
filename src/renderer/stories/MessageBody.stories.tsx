@@ -1,6 +1,6 @@
-import { Bubble, BubbleContent, type BubbleVariant } from "@openownbot/ui";
-import type { AgentMessage } from "@openownbot/ui/data";
-import { MessageBody } from "@openownbot/ui/features/conversation/MessageRendering";
+import { Bubble, BubbleContent, type BubbleVariant } from "@robot/ui";
+import type { AgentMessage } from "@robot/ui/data";
+import { MessageBody } from "@robot/ui/features/conversation/MessageRendering";
 import { fn } from "storybook/test";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";
 import { STORY_AGENTS, STORY_ATTACHMENTS, STORY_REPLY_QUOTE_BODY } from "./fixtures";

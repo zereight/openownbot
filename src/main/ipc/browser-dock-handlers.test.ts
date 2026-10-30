@@ -1,6 +1,6 @@
 // @vitest-environment node
 
-import type { BrowserDockAction, BrowserDockFrame, BrowserDockPresentation } from "@openownbot/contracts/ipc";
+import type { BrowserDockAction, BrowserDockFrame, BrowserDockPresentation } from "@robot/contracts/ipc";
 import { Effect } from "effect";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { BROWSER_DOCK_OVERLAY_WIDTH, browserDockLayout } from "../browser-dock-overlay";

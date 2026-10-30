@@ -5,7 +5,7 @@ import type {
   ConversationPageAnchor,
   ConversationReadState,
   ConversationSearchPage,
-} from "@openownbot/contracts/ipc";
+} from "@robot/contracts/ipc";
 import { Effect, Schema } from "effect";
 import type { AgentStore } from "../agent-store";
 import { type ConversationMarkerExclusions, ConversationReadStore } from "../conversation-read-store";

@@ -15,7 +15,7 @@ import {
   IconButton,
   Puzzle,
   Upload,
-} from "@openownbot/ui";
+} from "@robot/ui";
 import { Show } from "solid-js";
 import { useText } from "../../text";
 import { ServerMenu } from "../servers/ServerMenu";

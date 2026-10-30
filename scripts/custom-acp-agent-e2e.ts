@@ -8,7 +8,7 @@ import assert from "node:assert/strict";
 import { mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
-import { CUSTOM_AGENT_DEFAULT_MODEL } from "@openownbot/contracts/ipc";
+import { CUSTOM_AGENT_DEFAULT_MODEL } from "@robot/contracts/ipc";
 import { Effect } from "effect";
 import { checkAcpAgent } from "../src/backend/acp-agent-check";
 import { isMissingProviderSessionError } from "../src/backend/agent/thread-items";

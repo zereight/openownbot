@@ -1,12 +1,12 @@
-import { WORKFLOWS_CAPABILITY } from "@openownbot/contracts/team-protocol/workflows-v1";
-import { DiagramChatAgentPicker, DiagramChatPanel } from "@openownbot/ui/features/diagrams/DiagramChatPanel";
-import { WorkflowCanvas } from "@openownbot/ui/features/workflows/WorkflowCanvas";
+import { WORKFLOWS_CAPABILITY } from "@robot/contracts/team-protocol/workflows-v1";
+import { DiagramChatAgentPicker, DiagramChatPanel } from "@robot/ui/features/diagrams/DiagramChatPanel";
+import { WorkflowCanvas } from "@robot/ui/features/workflows/WorkflowCanvas";
 import {
   WORKFLOW_FEATURES_V1,
   type WorkflowCatalogs,
   type WorkflowFeatures,
-} from "@openownbot/ui/features/workflows/workflow-model";
-import { useText } from "@openownbot/ui/text";
+} from "@robot/ui/features/workflows/workflow-model";
+import { useText } from "@robot/ui/text";
 import { createMemo, createSignal, Show, untrack } from "solid-js";
 import { useNavigation } from "../../navigation";
 import { useAuth } from "../account/account-context";

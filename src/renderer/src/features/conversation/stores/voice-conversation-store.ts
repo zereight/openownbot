@@ -1,6 +1,6 @@
-import { LOCAL_SERVER_ID, VOICE_AUDIO_LIMITS, VOICE_MODELS, VOICE_STREAM_LIMITS } from "@openownbot/contracts/ipc";
-import type { VoicePanelPhase } from "@openownbot/ui/features/conversation/VoicePanel";
-import { currentText } from "@openownbot/ui/text";
+import { LOCAL_SERVER_ID, VOICE_AUDIO_LIMITS, VOICE_MODELS, VOICE_STREAM_LIMITS } from "@robot/contracts/ipc";
+import type { VoicePanelPhase } from "@robot/ui/features/conversation/VoicePanel";
+import { currentText } from "@robot/ui/text";
 import { createEffect, createStore, onCleanup } from "solid-js";
 import { encodePcm16, recordingToSamples, recordingToWav } from "../../../voice-recording";
 import { SPEECH_LEVEL_COUNT, speechReading } from "../../speech/speech-playback";

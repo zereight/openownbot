@@ -1,6 +1,6 @@
-import type { UpdateStatus } from "@openownbot/contracts/ipc";
-import { isUpdateActivePhase, isUpdateBusyPhase } from "@openownbot/contracts/ipc";
-import { Button, Download, RefreshCw, Spinner } from "@openownbot/ui";
+import type { UpdateStatus } from "@robot/contracts/ipc";
+import { isUpdateActivePhase, isUpdateBusyPhase } from "@robot/contracts/ipc";
+import { Button, Download, RefreshCw, Spinner } from "@robot/ui";
 import { createEffect, createMemo, createSignal, For, Show, untrack } from "solid-js";
 import { createDigitRoll } from "../../digit-roll";
 import { useText } from "../../text";

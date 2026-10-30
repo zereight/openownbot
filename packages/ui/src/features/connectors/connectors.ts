@@ -1,10 +1,10 @@
-import { CONNECTOR_IDS, type ConnectorId } from "@openownbot/contracts/ipc";
-import { BITWARDEN_CONNECTOR_CAPABILITY } from "@openownbot/contracts/team-protocol/bitwarden-connector-v1";
-import { CONNECTORS_CAPABILITY } from "@openownbot/contracts/team-protocol/connectors-v1";
-import type { TeamCurrentCapability } from "@openownbot/contracts/team-protocol/current";
-import { ONEPASSWORD_CONNECTOR_CAPABILITY } from "@openownbot/contracts/team-protocol/onepassword-connector-v1";
+import { CONNECTOR_IDS, type ConnectorId } from "@robot/contracts/ipc";
+import { BITWARDEN_CONNECTOR_CAPABILITY } from "@robot/contracts/team-protocol/bitwarden-connector-v1";
+import { CONNECTORS_CAPABILITY } from "@robot/contracts/team-protocol/connectors-v1";
+import type { TeamCurrentCapability } from "@robot/contracts/team-protocol/current";
+import { ONEPASSWORD_CONNECTOR_CAPABILITY } from "@robot/contracts/team-protocol/onepassword-connector-v1";
 
-export { CONNECTOR_IDS, type ConnectorId } from "@openownbot/contracts/ipc";
+export { CONNECTOR_IDS, type ConnectorId } from "@robot/contracts/ipc";
 
 export interface ConnectorDefinition {
   /**

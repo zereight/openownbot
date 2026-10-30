@@ -8,10 +8,10 @@
 // Electron-free, with the cipher injected, so its tests need neither a keychain nor a display.
 
 import { readFile } from "node:fs/promises";
-import type { CustomAgentEnvInput, CustomAgentSummary, SaveCustomAgentInput } from "@openownbot/contracts/ipc";
-import { CUSTOM_AGENT_LIMITS, isCustomAgentUsagePrompt } from "@openownbot/contracts/ipc";
-import { sourceText } from "@openownbot/i18n/source";
-import { registerSecretValue } from "@openownbot/logging";
+import type { CustomAgentEnvInput, CustomAgentSummary, SaveCustomAgentInput } from "@robot/contracts/ipc";
+import { CUSTOM_AGENT_LIMITS, isCustomAgentUsagePrompt } from "@robot/contracts/ipc";
+import { sourceText } from "@robot/i18n/source";
+import { registerSecretValue } from "@robot/logging";
 import { Effect, Schema, Semaphore } from "effect";
 import { z } from "zod";
 import { resolveAgentCommand } from "../backend/acp-agent-command";

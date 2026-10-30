@@ -1,4 +1,4 @@
-import type { CustomProviderRestart } from "@openownbot/contracts/ipc";
+import type { CustomProviderRestart } from "@robot/contracts/ipc";
 import { createEffect, createSignal } from "solid-js";
 import { useText } from "../../text";
 import { CustomAcpAgentDialog } from "./CustomAcpAgentDialog";

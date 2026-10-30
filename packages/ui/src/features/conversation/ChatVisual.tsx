@@ -10,9 +10,9 @@ import {
   chatVisualReplyMessage,
   chatVisualThemeMessage,
   parseChatVisualMessage,
-} from "@openownbot/contracts/chat-visual";
-import type { AttachmentSummary } from "@openownbot/contracts/ipc";
-import { Button, Maximize2 } from "@openownbot/ui";
+} from "@robot/contracts/chat-visual";
+import type { AttachmentSummary } from "@robot/contracts/ipc";
+import { Button, Maximize2 } from "@robot/ui";
 import { createEffect, createSignal, onSettled, Show, untrack } from "solid-js";
 import { documentColorScheme } from "../../document-color-scheme";
 import { useText } from "../../text";

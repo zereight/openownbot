@@ -1,6 +1,6 @@
 /** The switch over the list: open a chat's conversation, or its routines on the canvas. */
 
-import { Bot, SlidingTabs, Workflow } from "@openownbot/ui";
+import { Bot, SlidingTabs, Workflow } from "@robot/ui";
 import { useText } from "../../text";
 import { useSidebarScope } from "./sidebar-scope";
 import type { SidebarView } from "./sidebar-types";

@@ -1,4 +1,4 @@
-import { Button, Progress } from "@openownbot/ui";
+import { Button, Progress } from "@robot/ui";
 import { type Accessor, createSignal } from "solid-js";
 import type { AgentProfile } from "../../data";
 import { currentText } from "../../text";

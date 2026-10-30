@@ -572,7 +572,7 @@ source before the copy shows to clients, so a copy does not open memories that t
 each change it sends `agent-access-changed` and a new `agents-changed` to each connection, so the agent
 lists of members change without a reload.
 
-Server settings → Roles (`ServerRolesSection.tsx`, `@openownbot/ui/features/servers/ServerRoles`) edits the
+Server settings → Roles (`ServerRolesSection.tsx`, `@robot/ui/features/servers/ServerRoles`) edits the
 set on desktop and web. The role menu of each member row on the Members page sets the server role
 (Member or Admin, through the same confirmation as before) and the custom roles. The tab shows for the
 local server and for a joined server whose host advertises the capability to an owner or admin.
@@ -623,7 +623,7 @@ creates them and the Customer Portal settings.
   [hosted servers](../hosted-servers.md#lifecycle). The webhook links a new Stripe customer to the
   account from `openownbot_user_id`. It never moves a known
   customer to another account, and it skips a subscription that names no account.
-- Desktop Settings → Billing and the web Billing dialog render `@openownbot/ui/features/billing`: one
+- Desktop Settings → Billing and the web Billing dialog render `@robot/ui/features/billing`: one
   row for each open plan, with the server name, the plan, its price, and its renewal controls.
   Hosted plans support cancellation that keeps data, Keep server, and explicit deletion now or
   after the paid period. A stored deletion date and subscription ID drive the cron; a fresh
@@ -693,7 +693,7 @@ subscription quantity is the number of users.
   shows the extra price, then adds the user and creates the invite. At 25 users it shows "Contact
   us" and creates no invite. Admins get no step; the join tells the person that the license is full.
 - Desktop calls the `license` IPC group; the web client calls the browser routes. Both render
-  `@openownbot/ui/features/billing/LicenseSection` in the license slot of `BillingPanel`.
+  `@robot/ui/features/billing/LicenseSection` in the license slot of `BillingPanel`.
 
 ## macOS Host Manager
 

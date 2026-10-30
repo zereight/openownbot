@@ -1,4 +1,4 @@
-import { isDynamicRecord, isString } from "@openownbot/contracts/runtime-values";
+import { isDynamicRecord, isString } from "@robot/contracts/runtime-values";
 import { createFileRoute } from "@tanstack/solid-router";
 import { ReportSitePage } from "../components/report-site/ReportSitePage";
 import { reportSiteText } from "../components/transactional/page-text";

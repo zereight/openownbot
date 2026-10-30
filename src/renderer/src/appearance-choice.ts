@@ -4,7 +4,7 @@ import {
   DEFAULT_APP_APPEARANCE,
   DEFAULT_TRANSPARENT_WINDOW,
   isAppAppearance,
-} from "@openownbot/contracts/app-appearance";
+} from "@robot/contracts/app-appearance";
 import { createSignal, onSettled } from "solid-js";
 import { appPort } from "./app-port";
 import { syncColorScheme } from "./color-scheme";

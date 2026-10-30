@@ -1,5 +1,5 @@
-import { parseHostedServerName } from "@openownbot/contracts/hosted-servers";
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
+import { parseHostedServerName } from "@robot/contracts/hosted-servers";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
 import type {
   AvatarImageInput,
   CentralAuthUser,
@@ -10,8 +10,8 @@ import type {
   McpTestResult,
   SaveMcpSignInAppInput,
   ServerSummary,
-} from "@openownbot/contracts/ipc";
-import { currentText } from "@openownbot/ui/text";
+} from "@robot/contracts/ipc";
+import { currentText } from "@robot/ui/text";
 import { createEffect, createMemo, createSignal, onCleanup } from "solid-js";
 import { createSimpleContext } from "../../simple-context";
 import { useAuth } from "../account/account-context";

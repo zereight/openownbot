@@ -1,4 +1,4 @@
-import { runTeamEffect } from "@openownbot/team-client";
+import { runTeamEffect } from "@robot/team-client";
 import {
   agentTaskControl,
   listAgentTasks,
@@ -7,7 +7,7 @@ import {
   startAgentTask,
   type TeamApiRequest,
   type TeamRequestError,
-} from "@openownbot/team-client/team-api-requests";
+} from "@robot/team-client/team-api-requests";
 import { Effect } from "effect";
 import { isTaskEvent, type TasksSource } from "../tasks/tasks-port";
 import { withoutPreviewUrls } from "./web-agent-threads";

@@ -13,7 +13,7 @@
 // other method is sent from here.
 
 import { connect, type Socket } from "node:net";
-import { type DynamicRecord, isDynamicRecord } from "@openownbot/contracts/runtime-values";
+import { type DynamicRecord, isDynamicRecord } from "@robot/contracts/runtime-values";
 import { Effect } from "effect";
 import { CuaDriverFailure } from "./cua-driver-effects";
 

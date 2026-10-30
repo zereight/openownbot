@@ -14,7 +14,7 @@ import type {
   TeamMemberSummary,
   TeamPresenceSnapshot,
   TeamSessionSummary,
-} from "@openownbot/contracts/ipc";
+} from "@robot/contracts/ipc";
 import { describe, expect, it } from "vitest";
 import {
   decodeDirectConversation,

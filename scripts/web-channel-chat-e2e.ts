@@ -13,7 +13,7 @@
 // Writes .openownbot-build/web-channel-chat-e2e/report.json and screenshots.
 import assert from "node:assert/strict";
 import { resolve } from "node:path";
-import { translateFor } from "@openownbot/i18n";
+import { translateFor } from "@robot/i18n";
 import { type Browser, chromium, type Locator, type Page } from "playwright-core";
 import {
   argument,

@@ -2,7 +2,7 @@
 // envelope; its record is the whole Vault, so a change rewrites the file atomically.
 
 import { readFile, rm } from "node:fs/promises";
-import { sourceText } from "@openownbot/i18n/source";
+import { sourceText } from "@robot/i18n/source";
 import { Effect, Result, Schema, Semaphore } from "effect";
 import { writeJsonFileAtomically } from "../backend/atomic-json-file";
 import { causeHelpers } from "../backend/effect-boundary";

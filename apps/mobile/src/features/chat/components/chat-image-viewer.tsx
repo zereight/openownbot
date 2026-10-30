@@ -1,5 +1,5 @@
-import type { AttachmentSummary } from "@openownbot/contracts/ipc";
-import { MOBILE_ATTACHMENT_BYTES } from "@openownbot/team-client/remote-peer";
+import type { AttachmentSummary } from "@robot/contracts/ipc";
+import { MOBILE_ATTACHMENT_BYTES } from "@robot/team-client/remote-peer";
 import { createContext, type PropsWithChildren, use, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   type AnimatedRef,

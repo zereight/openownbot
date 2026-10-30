@@ -1,7 +1,7 @@
 // The bridge calls behind an agent's Folders row, the Folders page and the chat's folder drop. Only
 // the local server has them: the Team API does not carry an agent's folders.
 
-import type { AgentFolderCalls } from "@openownbot/ui/features/conversation/AgentFolders";
+import type { AgentFolderCalls } from "@robot/ui/features/conversation/AgentFolders";
 
 /** Read on each call: tests and stories replace `window.openownbot` per case. */
 export function agentFolderCalls(): AgentFolderCalls {

@@ -13,9 +13,9 @@ import {
   isSidebarLayoutSnapshot,
   type SidebarLayoutSnapshot,
   type UpdateAgentInput,
-} from "@openownbot/contracts/ipc";
-import { isBoolean, isDynamicRecord, isNumber, isString } from "@openownbot/contracts/runtime-values";
-import type { TeamProtocolV2Json } from "@openownbot/contracts/team-protocol/v2";
+} from "@robot/contracts/ipc";
+import { isBoolean, isDynamicRecord, isNumber, isString } from "@robot/contracts/runtime-values";
+import type { TeamProtocolV2Json } from "@robot/contracts/team-protocol/v2";
 import type { MobileAgent } from "@/features/workspace/model/workspace-types";
 import { formatUpdatedAt } from "@/shared/lib/format-updated-at";
 

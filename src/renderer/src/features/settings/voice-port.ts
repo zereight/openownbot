@@ -1,4 +1,4 @@
-import type { OpenOwnBotDesktopApi } from "@openownbot/contracts/ipc";
+import type { OpenOwnBotDesktopApi } from "@robot/contracts/ipc";
 
 /** What the Voice tab reaches in main: the dictation models and the dictation settings. */
 export interface VoicePort {

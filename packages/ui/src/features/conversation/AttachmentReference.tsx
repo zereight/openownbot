@@ -1,10 +1,10 @@
-import { fileReferenceBadge, fileReferenceTone } from "@openownbot/brand/file-reference";
+import { fileReferenceBadge, fileReferenceTone } from "@robot/brand/file-reference";
 
 export {
   type FileReferenceTone as AttachmentReferenceTone,
   fileReferenceBadge as attachmentReferenceBadge,
   fileReferenceTone as attachmentReferenceTone,
-} from "@openownbot/brand/file-reference";
+} from "@robot/brand/file-reference";
 
 export function AttachmentReferenceVisual(props: { name: string }) {
   const badge = () => fileReferenceBadge(props.name);

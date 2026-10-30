@@ -1,4 +1,4 @@
-import { Badge, Button, Check, Lock } from "@openownbot/ui";
+import { Badge, Button, Check, Lock } from "@robot/ui";
 import { createUniqueId, Match, Show, Switch } from "solid-js";
 import { useText } from "../../text";
 import { PluginIcon } from "../marketplace/PluginIcon";

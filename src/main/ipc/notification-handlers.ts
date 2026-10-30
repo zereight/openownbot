@@ -1,7 +1,7 @@
 // The desktop notification switch and the test notification Settings offers.
 
-import type { AppTranslate } from "@openownbot/i18n";
-import { sourceText } from "@openownbot/i18n/source";
+import type { AppTranslate } from "@robot/i18n";
+import { sourceText } from "@robot/i18n/source";
 import { Notification } from "electron";
 import { runCauseEffect } from "../../backend/effect-boundary";
 import { notificationSettingsUrl, showRetainedNotification } from "../desktop-notifications";

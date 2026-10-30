@@ -8,8 +8,8 @@
 import assert from "node:assert/strict";
 import { mkdirSync, rmSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
-import { type AppTextKey, en, TRANSLATED_LOCALES, type TranslatedLocale, translateFor } from "@openownbot/i18n";
-import { createOpenOwnBotLogger } from "@openownbot/logging";
+import { type AppTextKey, en, TRANSLATED_LOCALES, type TranslatedLocale, translateFor } from "@robot/i18n";
+import { createOpenOwnBotLogger } from "@robot/logging";
 import { type Browser, chromium, type Page } from "playwright-core";
 import { type FitProblem, measureFit } from "./i18n-fit-probe";
 

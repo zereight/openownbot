@@ -5,8 +5,8 @@ import {
   type CustomAgentSummary,
   type CustomProviderRestart,
   type SaveCustomAgentInput,
-} from "@openownbot/contracts/ipc";
-import type { AppTextKey } from "@openownbot/i18n";
+} from "@robot/contracts/ipc";
+import type { AppTextKey } from "@robot/i18n";
 import {
   Button,
   ConfirmDialog,
@@ -24,7 +24,7 @@ import {
   Text,
   Trash2,
   X,
-} from "@openownbot/ui";
+} from "@robot/ui";
 import { createSignal, For, Show } from "solid-js";
 import { useText } from "../../text";
 import { CustomAcpAgentDialog } from "./CustomAcpAgentDialog";

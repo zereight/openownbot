@@ -1,5 +1,5 @@
-import type { SettingsPagePlacement } from "@openownbot/ui/features/settings/SettingsDialogShell";
-import { cx } from "@openownbot/ui/utils";
+import type { SettingsPagePlacement } from "@robot/ui/features/settings/SettingsDialogShell";
+import { cx } from "@robot/ui/utils";
 import type { JSX } from "@solidjs/web";
 import { createSignal } from "solid-js";
 import { SettingsPageFrame } from "../src/features/window/SettingsPageFrame";

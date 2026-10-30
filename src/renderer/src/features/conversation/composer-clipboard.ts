@@ -2,12 +2,12 @@ import {
   attachmentReferenceIds,
   expandAttachmentReferences,
   serializeAttachmentReference,
-} from "@openownbot/contracts/attachment-references";
-import { expandChatTagReferences } from "@openownbot/contracts/chat-tag-references";
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
-import type { AttachmentSummary, FilePreview } from "@openownbot/contracts/ipc";
-import { expandComposerMentions } from "@openownbot/ui/features/conversation/ComposerEditor";
-import { currentText } from "@openownbot/ui/text";
+} from "@robot/contracts/attachment-references";
+import { expandChatTagReferences } from "@robot/contracts/chat-tag-references";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
+import type { AttachmentSummary, FilePreview } from "@robot/contracts/ipc";
+import { expandComposerMentions } from "@robot/ui/features/conversation/ComposerEditor";
+import { currentText } from "@robot/ui/text";
 import { Option, Schema } from "effect";
 import { writeClipboardText } from "../../clipboard";
 

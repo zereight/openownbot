@@ -1,10 +1,10 @@
-import { MESSAGING_LIMITS, type MessagingConnection, type MessagingRole } from "@openownbot/contracts/ipc";
+import { MESSAGING_LIMITS, type MessagingConnection, type MessagingRole } from "@robot/contracts/ipc";
 import {
   type DiscordAccessControl,
   SlackConnectDialog,
   type SlackIntegrationAgent,
   SlackIntegrationPanel,
-} from "@openownbot/ui/features/settings/SlackIntegrationPanel";
+} from "@robot/ui/features/settings/SlackIntegrationPanel";
 import { fn } from "storybook/test";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";
 import { STORY_AGENT_SUMMARIES } from "./fixtures";

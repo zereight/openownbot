@@ -1,5 +1,5 @@
 import { ContextMenu } from "@kobalte/core/context-menu";
-import { AppLogo } from "@openownbot/brand";
+import { AppLogo } from "@robot/brand";
 import { Link, useRouter } from "@tanstack/solid-router";
 import { BRAND_ROUTE } from "../../lib/brand-page";
 import { LandingIcon } from "../landing/LandingIcon";

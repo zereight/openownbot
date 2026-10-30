@@ -9,7 +9,7 @@ import {
   isOpenableAttachmentName,
   isSupportedAttachmentNameFor,
   supportedAttachmentExtensions,
-} from "@openownbot/contracts/attachment-files";
+} from "@robot/contracts/attachment-files";
 import { Effect } from "effect";
 import { unzipSync, zipSync } from "fflate";
 import { AttachmentFiles } from "../src/backend/attachment-files";

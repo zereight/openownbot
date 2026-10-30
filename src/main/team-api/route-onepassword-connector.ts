@@ -1,12 +1,12 @@
-import type { OnePasswordConnectorStatus } from "@openownbot/contracts/ipc";
+import type { OnePasswordConnectorStatus } from "@robot/contracts/ipc";
 import {
   ONEPASSWORD_CONNECTOR_CAPABILITY,
   ONEPASSWORD_CONNECTOR_ROUTES,
   ONEPASSWORD_CONNECTOR_TOKEN_LIMIT,
   ONEPASSWORD_CONNECTOR_VAULT_LIMIT,
   ONEPASSWORD_CONNECTOR_VAULT_NAME_LIMIT,
-} from "@openownbot/contracts/team-protocol/onepassword-connector-v1";
-import { sourceText } from "@openownbot/i18n/source";
+} from "@robot/contracts/team-protocol/onepassword-connector-v1";
+import { sourceText } from "@robot/i18n/source";
 import { runCauseEffect } from "../../backend/effect-boundary";
 import type { TeamApiOnePasswordConnector } from "./dependencies";
 import { HttpError } from "./http-error";

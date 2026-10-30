@@ -2,7 +2,7 @@ import {
   ComposerSignInNotice,
   ComposerUpdateNotice,
   ComposerUsageLimitNotice,
-} from "@openownbot/ui/features/conversation/ComposerNotice";
+} from "@robot/ui/features/conversation/ComposerNotice";
 import type { JSX } from "@solidjs/web";
 import { createSignal, Show } from "solid-js";
 import { fn } from "storybook/test";

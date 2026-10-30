@@ -1,4 +1,4 @@
-import { type OpenWaitItem, OpenWaits } from "@openownbot/ui/features/conversation/OpenWaits";
+import { type OpenWaitItem, OpenWaits } from "@robot/ui/features/conversation/OpenWaits";
 import { fn } from "storybook/test";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";
 

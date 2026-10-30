@@ -5,8 +5,8 @@
 // Run: bun apps/auth-api/scripts/mobile-connected-devices-server.ts <database path>
 import { createServer, type IncomingMessage, type ServerResponse } from "node:http";
 import { DatabaseSync } from "node:sqlite";
-import { isMobileConnectHostBinding } from "@openownbot/contracts/mobile-connect";
-import { type DynamicRecord, isDynamicRecord, isString } from "@openownbot/contracts/runtime-values";
+import { isMobileConnectHostBinding } from "@robot/contracts/mobile-connect";
+import { type DynamicRecord, isDynamicRecord, isString } from "@robot/contracts/runtime-values";
 import { Effect } from "effect";
 import { AuthService, AuthServiceError } from "../src/server/auth-service";
 import { D1AuthRepository } from "../src/server/d1-auth-repository";

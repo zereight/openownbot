@@ -1,7 +1,7 @@
 import { randomUUID } from "node:crypto";
 import { EventEmitter } from "node:events";
 import { basename } from "node:path";
-import { isValidAvatarImage } from "@openownbot/contracts/avatar-images";
+import { isValidAvatarImage } from "@robot/contracts/avatar-images";
 import type {
   AgentEvent,
   AgentImportPreview,
@@ -37,32 +37,32 @@ import type {
   SetTeamTypingInput,
   TeamPresenceSnapshot,
   TeamRealtimeEvent,
-} from "@openownbot/contracts/ipc";
+} from "@robot/contracts/ipc";
 import {
   decodeRemoteAgentImportPreview,
   decodeRemoteInstanceTransferPreview,
   LOCAL_SERVER_ID,
   REMOTE_DESKTOP_SETUP_CAPABILITY,
   type RemoteDesktopTestInput,
-} from "@openownbot/contracts/ipc";
-import { isDynamicRecord } from "@openownbot/contracts/runtime-values";
-import { TEAM_API_ROUTES } from "@openownbot/contracts/team-api-routes";
-import { AGENT_IMPORT_ROUTES } from "@openownbot/contracts/team-protocol/agent-import-v1";
-import { decodeBrowserViewSessionResponse } from "@openownbot/contracts/team-protocol/browser-view-v1";
-import { TEAM_MEMBER_LEAVE_CAPABILITY, type TeamCurrentCapability } from "@openownbot/contracts/team-protocol/current";
-import { FOCUS_USE_CAPABILITY, FOCUS_USE_ROUTES } from "@openownbot/contracts/team-protocol/focus-use-v1";
-import type { HostRestartEvent } from "@openownbot/contracts/team-protocol/host-update-v1";
-import { INSTANCE_TRANSFER_ROUTES } from "@openownbot/contracts/team-protocol/instance-transfer-v1";
-import { decodeTeamProtocolV1CurrentHttpResponse } from "@openownbot/contracts/team-protocol/v1-adapter";
-import { sourceText } from "@openownbot/i18n/source";
-import { createFocusUsePing } from "@openownbot/team-client/focus-use";
+} from "@robot/contracts/ipc";
+import { isDynamicRecord } from "@robot/contracts/runtime-values";
+import { TEAM_API_ROUTES } from "@robot/contracts/team-api-routes";
+import { AGENT_IMPORT_ROUTES } from "@robot/contracts/team-protocol/agent-import-v1";
+import { decodeBrowserViewSessionResponse } from "@robot/contracts/team-protocol/browser-view-v1";
+import { TEAM_MEMBER_LEAVE_CAPABILITY, type TeamCurrentCapability } from "@robot/contracts/team-protocol/current";
+import { FOCUS_USE_CAPABILITY, FOCUS_USE_ROUTES } from "@robot/contracts/team-protocol/focus-use-v1";
+import type { HostRestartEvent } from "@robot/contracts/team-protocol/host-update-v1";
+import { INSTANCE_TRANSFER_ROUTES } from "@robot/contracts/team-protocol/instance-transfer-v1";
+import { decodeTeamProtocolV1CurrentHttpResponse } from "@robot/contracts/team-protocol/v1-adapter";
+import { sourceText } from "@robot/i18n/source";
+import { createFocusUsePing } from "@robot/team-client/focus-use";
 import {
   HOSTED_HOST_READY_LIMIT_MS,
   HOSTED_START_FAILED_READS,
   HOSTED_START_POLL_MS,
   hostedStartStep,
   WAKE_RECONNECT_STATES,
-} from "@openownbot/team-client/hosted-server-wake";
+} from "@robot/team-client/hosted-server-wake";
 import { Deferred, Effect, Exit, Layer, Result, Scope, Semaphore } from "effect";
 import type { CentralAuthOperationError } from "./central-auth-effects";
 import { contentDispositionFileName } from "./content-disposition";

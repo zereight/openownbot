@@ -18,7 +18,7 @@ import { execFileSync } from "node:child_process";
 import { copyFile, cp, mkdir, mkdtemp, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
-import { createOpenOwnBotLogger } from "@openownbot/logging";
+import { createOpenOwnBotLogger } from "@robot/logging";
 
 const logger = createOpenOwnBotLogger("compile-macos-icon");
 const sourcePath = resolve("build/icon-production.icon");

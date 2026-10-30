@@ -1,4 +1,4 @@
-import { Button, Check, Copy } from "@openownbot/ui";
+import { Button, Check, Copy } from "@robot/ui";
 import type { JSX } from "@solidjs/web";
 import { createSignal, For, onCleanup } from "solid-js";
 import { useText } from "../../text";

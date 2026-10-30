@@ -1,10 +1,10 @@
 /*
  * Display helpers for the Files and storage views (issue #496). The row and usage shapes are the IPC
- * contract in `@openownbot/contracts/ipc`; labels, grouping and filters stay here, beside the views.
+ * contract in `@robot/contracts/ipc`; labels, grouping and filters stay here, beside the views.
  */
 
-import type { AttachmentSummary, StorageBreakdown, StorageCategory, StoredFileRow } from "@openownbot/contracts/ipc";
-import type { AppFormat, AppTextKey, AppTranslate } from "@openownbot/i18n";
+import type { AttachmentSummary, StorageBreakdown, StorageCategory, StoredFileRow } from "@robot/contracts/ipc";
+import type { AppFormat, AppTextKey, AppTranslate } from "@robot/i18n";
 
 export type {
   AgentStorageRow,
@@ -16,7 +16,7 @@ export type {
   StoredFileRow,
   StoredFileSource,
   StoredFileStatus,
-} from "@openownbot/contracts/ipc";
+} from "@robot/contracts/ipc";
 
 export type StoredFileAction = "open" | "reveal" | "download" | "show-in-chat" | "delete" | "retry";
 

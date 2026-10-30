@@ -27,7 +27,7 @@ OpenPanel reads campaign attribution from whichever event creates the session, a
 are sent concurrently.
 See [PRIVACY.md](../../PRIVACY.md) for the data boundary.
 
-`rememberLandingFirstTouch` saves the first visit in `localStorage` (`@openownbot/contracts/first-touch`
+`rememberLandingFirstTouch` saves the first visit in `localStorage` (`@robot/contracts/first-touch`
 owns the shape, the parser and the 90-day age). The web client sends it with `email/verify`, and
 `/billing/return` sends it with the Checkout Session ID to `POST /api/browser/checkout-attribution`.
 `AccountAttribution` (`src/server/account-attribution.ts`) checks it again, keeps the first value
@@ -132,10 +132,10 @@ Desktop opens Usage from the server context menu. It keeps the previous workspac
 inert until Back, so conversation drafts and settings survive navigation. Agent settings opens
 the same report with an agent filter. Host changes clear the filter and stale responses are rejected.
 The iPhone app opens Usage from the server menu in a sheet. It reads the same route through
-`readHostAnalytics` in `@openownbot/team-client` and shows the per-agent rows; a row or the header
+`readHostAnalytics` in `@robot/team-client` and shows the per-agent rows; a row or the header
 filter narrows the report to one agent. The agent Usage page reads the same route with the agent
 filter, so its chart has the provider split too; a host without `host-analytics` gets the
-agent-scoped route and one area. The series pivot is in `@openownbot/team-client/usage-series`, which
+agent-scoped route and one area. The series pivot is in `@robot/team-client/usage-series`, which
 the desktop chart also reads.
 
 `host:get-analytics` and the optional `host-analytics` capability expose `GET /v1/analytics`.

@@ -9,7 +9,7 @@
 // `### Added` style groups, `-` bullets with indented continuation lines, plain paragraphs
 // under a heading, and inline `**bold**`, `code` and [links](url).
 
-import { isDynamicRecord } from "@openownbot/contracts/runtime-values";
+import { isDynamicRecord } from "@robot/contracts/runtime-values";
 import {
   OPENOWNBOT_SITE_URL,
   OPENOWNBOT_SOCIAL_IMAGE_ALT,

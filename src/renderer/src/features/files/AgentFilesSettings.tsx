@@ -1,5 +1,5 @@
-import { canPreviewAttachment, type StoredFileRow } from "@openownbot/contracts/ipc";
-import { AgentFilesView } from "@openownbot/ui/features/files/AgentFilesView";
+import { canPreviewAttachment, type StoredFileRow } from "@robot/contracts/ipc";
+import { AgentFilesView } from "@robot/ui/features/files/AgentFilesView";
 import type { StorageUsageResource } from "./storage-usage";
 
 export interface AgentFilesOptions {

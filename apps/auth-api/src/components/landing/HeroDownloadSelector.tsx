@@ -1,4 +1,4 @@
-import { PlatformLogo } from "@openownbot/brand";
+import { PlatformLogo } from "@robot/brand";
 import { createSignal, createUniqueId, For, onSettled, Show } from "solid-js";
 import { landingAnalytics } from "../../lib/analytics";
 import {

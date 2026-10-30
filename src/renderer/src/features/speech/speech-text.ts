@@ -1,4 +1,4 @@
-import { SPEECH_LIMITS } from "@openownbot/contracts/ipc";
+import { SPEECH_LIMITS } from "@robot/contracts/ipc";
 
 /**
  * The first part is short, so the first words play soon after the reply ends. It ends at the first

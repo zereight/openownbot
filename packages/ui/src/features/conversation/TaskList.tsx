@@ -1,4 +1,4 @@
-import { Button, ChevronDown } from "@openownbot/ui";
+import { Button, ChevronDown } from "@robot/ui";
 import { createMemo, createSignal, createUniqueId, For, onSettled, Show, untrack } from "solid-js";
 import { createDigitRoll } from "../../digit-roll";
 import { useText } from "../../text";

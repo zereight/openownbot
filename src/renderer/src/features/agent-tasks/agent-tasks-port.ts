@@ -1,4 +1,4 @@
-import type { AgentTaskInput, OpenOwnBotDesktopApi } from "@openownbot/contracts/ipc";
+import type { AgentTaskInput, OpenOwnBotDesktopApi } from "@robot/contracts/ipc";
 
 /** What the side thread state reaches on a server: the list, a thread's conversation, and the thread actions. */
 export interface AgentTasksPort

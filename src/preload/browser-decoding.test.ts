@@ -5,7 +5,7 @@ import type {
   BrowserLiveViewEvent,
   BrowserPictureInPictureEvent,
   BrowserTab,
-} from "@openownbot/contracts/ipc";
+} from "@robot/contracts/ipc";
 import { describe, expect, it } from "vitest";
 import {
   decodeBrowserBounds,

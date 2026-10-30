@@ -5,12 +5,12 @@ import type {
   ClientAgentSummary,
   HiddenAgent,
   UpdateAgentInput,
-} from "@openownbot/contracts/ipc";
-import { agentIsMain } from "@openownbot/contracts/ipc";
-import { PROVIDER_ACCOUNTS_CAPABILITY } from "@openownbot/contracts/team-protocol/provider-accounts-v1";
-import type { AgentProfile } from "@openownbot/ui/data";
-import { createFirstAgentDraft, type FirstAgentDraft } from "@openownbot/ui/features/agents/FirstAgentSetup";
-import { currentText } from "@openownbot/ui/text";
+} from "@robot/contracts/ipc";
+import { agentIsMain } from "@robot/contracts/ipc";
+import { PROVIDER_ACCOUNTS_CAPABILITY } from "@robot/contracts/team-protocol/provider-accounts-v1";
+import type { AgentProfile } from "@robot/ui/data";
+import { createFirstAgentDraft, type FirstAgentDraft } from "@robot/ui/features/agents/FirstAgentSetup";
+import { currentText } from "@robot/ui/text";
 import { createEffect, createMemo, createSignal, untrack } from "solid-js";
 import { FALLBACK_STATUS } from "../../app-defaults";
 import { agentProfilesEqual, toAgentProfile } from "../../app-message-projection";

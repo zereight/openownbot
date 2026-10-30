@@ -3,8 +3,8 @@ import type {
   VaultContactSummary,
   VaultHostImportResult,
   VaultLoginSummary,
-} from "@openownbot/contracts/ipc";
-import { VAULT_IMPORT_CSV_LIMIT } from "@openownbot/contracts/team-protocol/vault-import-v1";
+} from "@robot/contracts/ipc";
+import { VAULT_IMPORT_CSV_LIMIT } from "@robot/contracts/team-protocol/vault-import-v1";
 import * as DocumentPicker from "expo-document-picker";
 import { File } from "expo-file-system";
 import { router, useLocalSearchParams } from "expo-router";

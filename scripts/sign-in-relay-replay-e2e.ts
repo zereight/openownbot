@@ -8,7 +8,7 @@ import assert from "node:assert/strict";
 import { mkdir, writeFile } from "node:fs/promises";
 import { createServer, type Server } from "node:http";
 import { join, resolve } from "node:path";
-import type { McpTestResult } from "@openownbot/contracts/ipc";
+import type { McpTestResult } from "@robot/contracts/ipc";
 import { Effect } from "effect";
 import { SignInRelayHost } from "../src/main/sign-in-relay-host";
 

@@ -3,24 +3,24 @@ import {
   expandAttachmentReferences,
   rewriteAttachmentReferences,
   serializeAttachmentReference,
-} from "@openownbot/contracts/attachment-references";
-import { fileQuoteTarget } from "@openownbot/contracts/chat-tag-references";
-import { ATTACHMENT_LIMITS, INPUT_LIMITS } from "@openownbot/contracts/input-limits";
+} from "@robot/contracts/attachment-references";
+import { fileQuoteTarget } from "@robot/contracts/chat-tag-references";
+import { ATTACHMENT_LIMITS, INPUT_LIMITS } from "@robot/contracts/input-limits";
 import {
   type AttachmentDataInput,
   type DraftAttachment,
   LOCAL_SERVER_ID,
   type QueueDelivery,
-} from "@openownbot/contracts/ipc";
-import { TEAM_MESSAGE_CLIENT_ID_CAPABILITY } from "@openownbot/contracts/team-protocol/current";
-import { isQueueEditRejected, TEAM_QUEUE_EDIT_CAPABILITY } from "@openownbot/contracts/team-protocol/queue-edit-v1";
-import type { QuestionPromptComposerAnswer } from "@openownbot/ui/components/QuestionPromptBubble";
+} from "@robot/contracts/ipc";
+import { TEAM_MESSAGE_CLIENT_ID_CAPABILITY } from "@robot/contracts/team-protocol/current";
+import { isQueueEditRejected, TEAM_QUEUE_EDIT_CAPABILITY } from "@robot/contracts/team-protocol/queue-edit-v1";
+import type { QuestionPromptComposerAnswer } from "@robot/ui/components/QuestionPromptBubble";
 import {
   type ComposerPasteResult,
   type ComposerSelection,
   expandComposerMentions,
-} from "@openownbot/ui/features/conversation/ComposerEditor";
-import { currentText } from "@openownbot/ui/text";
+} from "@robot/ui/features/conversation/ComposerEditor";
+import { currentText } from "@robot/ui/text";
 import { playActionSound } from "../../../action-sounds";
 import { claimDictatedSend, forgetDictatedMessage } from "../../speech/speech-replies";
 import { type PastedComposerCopy, rememberComposerFile } from "../composer-clipboard";

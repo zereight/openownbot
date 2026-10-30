@@ -17,7 +17,7 @@ import { type ChildProcess, spawn } from "node:child_process";
 import { mkdirSync, rmSync, writeFileSync } from "node:fs";
 import { createServer } from "node:net";
 import { resolve } from "node:path";
-import { createOpenOwnBotLogger } from "@openownbot/logging";
+import { createOpenOwnBotLogger } from "@robot/logging";
 import { type Browser, chromium, type FrameLocator, type Page } from "playwright-core";
 
 const logger = createOpenOwnBotLogger("landing-demo-e2e");

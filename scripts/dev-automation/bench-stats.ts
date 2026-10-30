@@ -3,7 +3,7 @@
 // several runs reduce to a median with its spread, and how two reports compare.
 // Pure, so the numbers a PR quotes can be tested without launching the app.
 
-import { isDynamicRecord, isNumber, isString } from "@openownbot/contracts/runtime-values";
+import { isDynamicRecord, isNumber, isString } from "@robot/contracts/runtime-values";
 import { type MemoryProcessKind, type ProcessTableRow, summarizeMemory } from "./cpu-sampling";
 
 // One flat reading. Keys are stable metric names such as `rss.main` or

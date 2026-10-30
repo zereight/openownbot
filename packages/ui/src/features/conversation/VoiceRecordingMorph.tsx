@@ -1,6 +1,6 @@
-import { VOICE_AUDIO_LIMITS } from "@openownbot/contracts/ipc";
-import type { AppTextKey } from "@openownbot/i18n";
-import { Button, Check, LoaderCircle, Mic, X } from "@openownbot/ui";
+import { VOICE_AUDIO_LIMITS } from "@robot/contracts/ipc";
+import type { AppTextKey } from "@robot/i18n";
+import { Button, Check, LoaderCircle, Mic, X } from "@robot/ui";
 import type { JSX } from "@solidjs/web";
 import { createEffect, createUniqueId, For, Show } from "solid-js";
 import { useText } from "../../text";

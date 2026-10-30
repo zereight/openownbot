@@ -21,12 +21,12 @@ import {
   type SessionNotification,
   type SessionUpdate,
 } from "@agentclientprotocol/sdk";
-import { agentProviderName } from "@openownbot/contracts/agent-providers";
-import { attachmentMimeTypeForName } from "@openownbot/contracts/attachment-files";
-import type { AgentSessionSettingsSnapshot, AgentSessionSettingValue } from "@openownbot/contracts/ipc";
-import { type DynamicRecord, isBoolean, isString } from "@openownbot/contracts/runtime-values";
-import { sourceText } from "@openownbot/i18n/source";
-import { redactText } from "@openownbot/logging";
+import { agentProviderName } from "@robot/contracts/agent-providers";
+import { attachmentMimeTypeForName } from "@robot/contracts/attachment-files";
+import type { AgentSessionSettingsSnapshot, AgentSessionSettingValue } from "@robot/contracts/ipc";
+import { type DynamicRecord, isBoolean, isString } from "@robot/contracts/runtime-values";
+import { sourceText } from "@robot/i18n/source";
+import { redactText } from "@robot/logging";
 import { Deferred, Effect, Exit, Fiber, Scope, Semaphore } from "effect";
 import {
   AcpConfiguration,

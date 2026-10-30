@@ -1,4 +1,4 @@
-import { FIRST_TOUCH_CAMPAIGN_FIELDS, type FirstTouch, parseFirstTouch } from "@openownbot/contracts/first-touch";
+import { FIRST_TOUCH_CAMPAIGN_FIELDS, type FirstTouch, parseFirstTouch } from "@robot/contracts/first-touch";
 import { Effect, Schema } from "effect";
 import { safeScreenPath } from "../lib/analytics";
 import type { AccountAnalytics, AttributionSource } from "./account-analytics";

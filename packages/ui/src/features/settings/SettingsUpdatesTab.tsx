@@ -1,4 +1,4 @@
-import type { AppTextKey } from "@openownbot/i18n";
+import type { AppTextKey } from "@robot/i18n";
 import {
   Alert,
   AlertActions,
@@ -21,7 +21,7 @@ import {
   SelectValue,
   SettingsSection,
   SwitchField,
-} from "@openownbot/ui";
+} from "@robot/ui";
 import { Show } from "solid-js";
 import { useText } from "../../text";
 import { restartReasonKey } from "../updates/restart-reasons";

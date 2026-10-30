@@ -1,9 +1,9 @@
-import { Button } from "@openownbot/ui";
-import type { AgentProfile } from "@openownbot/ui/data";
-import { AgentAvatar } from "@openownbot/ui/features/agents/AgentAvatar";
-import { StopIcon } from "@openownbot/ui/features/conversation/ConversationIcons";
-import { VoiceWaveform } from "@openownbot/ui/features/conversation/VoiceRecordingMorph";
-import { useText } from "@openownbot/ui/text";
+import { Button } from "@robot/ui";
+import type { AgentProfile } from "@robot/ui/data";
+import { AgentAvatar } from "@robot/ui/features/agents/AgentAvatar";
+import { StopIcon } from "@robot/ui/features/conversation/ConversationIcons";
+import { VoiceWaveform } from "@robot/ui/features/conversation/VoiceRecordingMorph";
+import { useText } from "@robot/ui/text";
 
 export interface SpeakingBarProps {
   agent: AgentProfile;

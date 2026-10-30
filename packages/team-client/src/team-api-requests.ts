@@ -54,24 +54,24 @@ import {
   type StartAgentTaskInput,
   type SteerQueuedMessageInput,
   type UpdateQueuedMessageInput,
-} from "@openownbot/contracts/ipc";
-import { guardedDecoder, guardedListDecoder } from "@openownbot/contracts/ipc-decoding";
-import { isDynamicRecord, isString } from "@openownbot/contracts/runtime-values";
-import { TEAM_API_ROUTES } from "@openownbot/contracts/team-api-routes";
-import { AGENT_IMPORT_ROUTES, AGENT_IMPORT_UPLOAD_BYTES } from "@openownbot/contracts/team-protocol/agent-import-v1";
+} from "@robot/contracts/ipc";
+import { guardedDecoder, guardedListDecoder } from "@robot/contracts/ipc-decoding";
+import { isDynamicRecord, isString } from "@robot/contracts/runtime-values";
+import { TEAM_API_ROUTES } from "@robot/contracts/team-api-routes";
+import { AGENT_IMPORT_ROUTES, AGENT_IMPORT_UPLOAD_BYTES } from "@robot/contracts/team-protocol/agent-import-v1";
 import {
   AGENT_MEMORIES_PAGE_ROUTE,
   AGENT_MEMORIES_PAGE_SIZE,
   AGENT_MEMORY_INCLUSION_ROUTE,
   AGENT_MEMORY_SELECTION_PAGE_ROUTE,
-} from "@openownbot/contracts/team-protocol/agent-memories-v1";
-import { AGENT_TASKS_ROUTES } from "@openownbot/contracts/team-protocol/agent-tasks-v1";
-import { AGENT_THREADS_ROUTES } from "@openownbot/contracts/team-protocol/agent-threads-v1";
-import { BROWSER_SECRET_VAULT_ROUTES } from "@openownbot/contracts/team-protocol/browser-secret-vault-v1";
-import { CHANNEL_ROUTES } from "@openownbot/contracts/team-protocol/channels-v1";
-import { CONTEXT_RESET_ROUTES } from "@openownbot/contracts/team-protocol/context-reset-v1";
-import { ROUTINE_FLOWS_ROUTES } from "@openownbot/contracts/team-protocol/routine-flows-v1";
-import { decodeTeamProtocolV2Json, type TeamProtocolV2Json } from "@openownbot/contracts/team-protocol/v2";
+} from "@robot/contracts/team-protocol/agent-memories-v1";
+import { AGENT_TASKS_ROUTES } from "@robot/contracts/team-protocol/agent-tasks-v1";
+import { AGENT_THREADS_ROUTES } from "@robot/contracts/team-protocol/agent-threads-v1";
+import { BROWSER_SECRET_VAULT_ROUTES } from "@robot/contracts/team-protocol/browser-secret-vault-v1";
+import { CHANNEL_ROUTES } from "@robot/contracts/team-protocol/channels-v1";
+import { CONTEXT_RESET_ROUTES } from "@robot/contracts/team-protocol/context-reset-v1";
+import { ROUTINE_FLOWS_ROUTES } from "@robot/contracts/team-protocol/routine-flows-v1";
+import { decodeTeamProtocolV2Json, type TeamProtocolV2Json } from "@robot/contracts/team-protocol/v2";
 import type { RemoteFileUpload } from "./file-upload";
 
 export class TeamRequestError extends Schema.TaggedError<TeamRequestError>()("TeamRequestError", {

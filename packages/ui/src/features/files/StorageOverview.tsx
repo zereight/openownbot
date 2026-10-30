@@ -1,6 +1,6 @@
-import { CLEARABLE_STORAGE_CATEGORIES, type ClearableStorageCategory } from "@openownbot/contracts/ipc";
-import { isOneOf } from "@openownbot/contracts/runtime-values";
-import type { AppFormat, AppTextKey, AppTranslate } from "@openownbot/i18n";
+import { CLEARABLE_STORAGE_CATEGORIES, type ClearableStorageCategory } from "@robot/contracts/ipc";
+import { isOneOf } from "@robot/contracts/runtime-values";
+import type { AppFormat, AppTextKey, AppTranslate } from "@robot/i18n";
 import {
   Button,
   ChevronRight,
@@ -10,10 +10,10 @@ import {
   RefreshCw,
   Skeleton,
   TriangleAlert,
-} from "@openownbot/ui";
-import { SettingsBackIcon } from "@openownbot/ui/components/SettingsPanel";
-import type { AgentProfile } from "@openownbot/ui/data";
-import { useText } from "@openownbot/ui/text";
+} from "@robot/ui";
+import { SettingsBackIcon } from "@robot/ui/components/SettingsPanel";
+import type { AgentProfile } from "@robot/ui/data";
+import { useText } from "@robot/ui/text";
 import { createMemo, createSignal, createUniqueId, For, Show } from "solid-js";
 import { AgentAvatar } from "../agents/AgentAvatar";
 import { FileList } from "./FileList";

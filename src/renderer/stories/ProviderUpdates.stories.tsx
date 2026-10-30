@@ -1,13 +1,10 @@
-import { isManagedRuntimeProvider, type ManagedProviderId } from "@openownbot/contracts/agent-providers";
-import type { AgentProviderId, ProviderRuntimeStatus } from "@openownbot/contracts/ipc";
-import { sourceText } from "@openownbot/i18n/source";
-import { Button, Checkbox, Heading, Text, Toaster, toast } from "@openownbot/ui";
-import type { ProviderPickerOption } from "@openownbot/ui/components/ProviderPicker";
-import { ProviderPicker } from "@openownbot/ui/components/ProviderPicker";
-import {
-  type ProviderUpdate,
-  providerUpdatesToAnnounce,
-} from "@openownbot/ui/features/provider-updates/provider-update";
+import { isManagedRuntimeProvider, type ManagedProviderId } from "@robot/contracts/agent-providers";
+import type { AgentProviderId, ProviderRuntimeStatus } from "@robot/contracts/ipc";
+import { sourceText } from "@robot/i18n/source";
+import { Button, Checkbox, Heading, Text, Toaster, toast } from "@robot/ui";
+import type { ProviderPickerOption } from "@robot/ui/components/ProviderPicker";
+import { ProviderPicker } from "@robot/ui/components/ProviderPicker";
+import { type ProviderUpdate, providerUpdatesToAnnounce } from "@robot/ui/features/provider-updates/provider-update";
 import { createEffect, createSignal, createUniqueId, onCleanup, onSettled, Show, untrack } from "solid-js";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";
 import {

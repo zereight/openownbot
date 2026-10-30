@@ -1,10 +1,10 @@
 {
-  "name": "@openownbot/site-router",
+  "name": "@robot/site-router",
   "version": "0.0.0",
   "private": true,
   "type": "module",
   "dependencies": {
-    "@openownbot/contracts": "workspace:*",
+    "@robot/contracts": "workspace:*",
     "effect": "catalog:"
   },
   "scripts": {

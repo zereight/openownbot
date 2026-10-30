@@ -8,7 +8,7 @@
 import assert from "node:assert/strict";
 import { mkdirSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
-import { translateFor } from "@openownbot/i18n";
+import { translateFor } from "@robot/i18n";
 import { chromium, type Page } from "playwright-core";
 
 const OUT = resolve(import.meta.dirname, "../.openownbot-build/task-plan-e2e");

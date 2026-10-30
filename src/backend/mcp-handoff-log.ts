@@ -1,4 +1,4 @@
-import type { McpServerConfig } from "@openownbot/contracts/ipc";
+import type { McpServerConfig } from "@robot/contracts/ipc";
 import { mcpSecretValues } from "./mcp-redaction";
 
 /**

@@ -1,6 +1,6 @@
-import { Button, Heading } from "@openownbot/ui";
-import type { VoicePhase } from "@openownbot/ui/features/conversation/VoiceRecordingMorph";
-import { currentText } from "@openownbot/ui/text";
+import { Button, Heading } from "@robot/ui";
+import type { VoicePhase } from "@robot/ui/features/conversation/VoiceRecordingMorph";
+import { currentText } from "@robot/ui/text";
 import { createSignal, For, onCleanup, onSettled } from "solid-js";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";
 import { createConversationController } from "../src/features/conversation/Conversation";

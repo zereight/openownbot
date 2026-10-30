@@ -1,9 +1,9 @@
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
-import { assignedSkillCount } from "@openownbot/contracts/ipc";
-import { Button, Checkbox, Dialog, IconButton, Input, Plus, Search, Text, X } from "@openownbot/ui";
-import { createScrollFades } from "@openownbot/ui/components/createScrollFades";
-import { AgentAvatar } from "@openownbot/ui/features/agents/AgentAvatar";
-import { useText } from "@openownbot/ui/text";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
+import { assignedSkillCount } from "@robot/contracts/ipc";
+import { Button, Checkbox, Dialog, IconButton, Input, Plus, Search, Text, X } from "@robot/ui";
+import { createScrollFades } from "@robot/ui/components/createScrollFades";
+import { AgentAvatar } from "@robot/ui/features/agents/AgentAvatar";
+import { useText } from "@robot/ui/text";
 import type { JSX } from "@solidjs/web";
 import { createSignal, createStore, createUniqueId, For, onCleanup, onSettled, Show, untrack } from "solid-js";
 import { SkillMark } from "./MarketplaceParts";

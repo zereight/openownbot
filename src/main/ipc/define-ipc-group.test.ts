@@ -8,7 +8,7 @@ import {
   type VoiceSettings,
   type VoiceTranscriptionInput,
   type VoiceTranscriptionResult,
-} from "@openownbot/contracts/ipc";
+} from "@robot/contracts/ipc";
 import { describe, expect, it, vi } from "vitest";
 import { handler, payloadHandler, registerIpcGroup, unregisterIpcGroups } from "./define-ipc-group";
 import {

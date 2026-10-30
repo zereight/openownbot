@@ -1,4 +1,4 @@
-import { cx, prefersReducedMotion } from "@openownbot/ui/utils";
+import { cx, prefersReducedMotion } from "@robot/ui/utils";
 import { type JSX, Portal } from "@solidjs/web";
 import { createEffect, createSignal, createUniqueId, onCleanup, Show, untrack } from "solid-js";
 

@@ -1,4 +1,4 @@
-import { type DynamicRecord, isDynamicRecord } from "@openownbot/contracts/runtime-values";
+import { type DynamicRecord, isDynamicRecord } from "@robot/contracts/runtime-values";
 
 /**
  * A reply that carries no usable JSON object. Callers translate it into their own user-facing

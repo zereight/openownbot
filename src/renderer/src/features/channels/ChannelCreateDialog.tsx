@@ -1,4 +1,4 @@
-import type { ChannelDraft } from "@openownbot/contracts/ipc";
+import type { ChannelDraft } from "@robot/contracts/ipc";
 import {
   Alert,
   AlertDescription,
@@ -12,10 +12,10 @@ import {
   Search,
   UsersRound,
   X,
-} from "@openownbot/ui";
-import { createScrollFades } from "@openownbot/ui/components/createScrollFades";
-import { ChannelMemberRow } from "@openownbot/ui/features/channels/ChannelMemberRow";
-import { useText } from "@openownbot/ui/text";
+} from "@robot/ui";
+import { createScrollFades } from "@robot/ui/components/createScrollFades";
+import { ChannelMemberRow } from "@robot/ui/features/channels/ChannelMemberRow";
+import { useText } from "@robot/ui/text";
 import { createEffect, createSignal, createStore, For, onSettled, Show, snapshot } from "solid-js";
 import { useChannels } from "./channels-context";
 import { emptyChannelDraft, matchesAgentSearch, toggleChannelMember } from "./channels-draft";

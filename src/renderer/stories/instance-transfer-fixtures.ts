@@ -3,7 +3,7 @@ import type {
   InstanceTransferPreview,
   InstanceTransferResult,
   InstanceTransferSummary,
-} from "@openownbot/contracts/ipc";
+} from "@robot/contracts/ipc";
 import { AGENT_IMPORT_PREVIEW } from "./agent-import-fixtures";
 
 const MB = 1024 ** 2;

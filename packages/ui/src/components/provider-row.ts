@@ -1,11 +1,11 @@
-import { agentProviderDescriptor, isKeyOnlyProvider } from "@openownbot/contracts/agent-providers";
+import { agentProviderDescriptor, isKeyOnlyProvider } from "@robot/contracts/agent-providers";
 import type {
   AgentProviderId,
   AgentProviderState,
   ProviderRuntimePhase,
   ProviderRuntimeStatus,
-} from "@openownbot/contracts/ipc";
-import type { AppFormat, AppMessages, AppTextKey, AppTranslate } from "@openownbot/i18n";
+} from "@robot/contracts/ipc";
+import type { AppFormat, AppMessages, AppTextKey, AppTranslate } from "@robot/i18n";
 import { createSignal } from "solid-js";
 import { providerUpdateAvailable, providerVersionLabel } from "../features/provider-updates/provider-update";
 import { useText } from "../text";

@@ -1,13 +1,13 @@
-import { type ClientAgentSummary, LOCAL_SERVER_ID, type UpdateAgentInput } from "@openownbot/contracts/ipc";
-import type { GeneralSettingsValue } from "@openownbot/ui/features/settings/app-settings";
+import { type ClientAgentSummary, LOCAL_SERVER_ID, type UpdateAgentInput } from "@robot/contracts/ipc";
+import type { GeneralSettingsValue } from "@robot/ui/features/settings/app-settings";
 import {
   type AgentDefaultChoice,
   type AgentDefaultSetting,
   type AgentDefaultsAgent,
   agentDefaultSettingTitle,
   SettingsAgentsTab,
-} from "@openownbot/ui/features/settings/SettingsAgentsTab";
-import { currentText, useText } from "@openownbot/ui/text";
+} from "@robot/ui/features/settings/SettingsAgentsTab";
+import { currentText, useText } from "@robot/ui/text";
 import type { JSX } from "@solidjs/web";
 import { createEffect, createStore } from "solid-js";
 import { actionToast } from "../../action-toast";

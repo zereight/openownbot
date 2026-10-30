@@ -1,5 +1,5 @@
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
-import type { BrowserViewInput } from "@openownbot/contracts/team-protocol/browser-view-v1";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
+import type { BrowserViewInput } from "@robot/contracts/team-protocol/browser-view-v1";
 import { clamp } from "./live-view-geometry";
 
 /**
