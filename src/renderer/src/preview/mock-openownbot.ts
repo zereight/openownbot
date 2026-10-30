@@ -2931,6 +2931,7 @@ export function createMockOpenOwnBot(options: MockOpenOwnBotOptions = {}): MockO
     maintenance: {
       exportData: async () => ({ saved: true }),
       exportDiagnostics: async () => ({ saved: true }),
+      openLogs: async () => "~/Library/Application Support/OpenOwnBot/logs",
     },
     servers: mockTeam.servers,
     plugins: {

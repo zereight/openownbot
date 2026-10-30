@@ -26,6 +26,7 @@ import { useI18n } from "../../i18n-context";
 import { useInterfaceSizeChoice } from "../../interface-size";
 import { useLogoColorChoice } from "../../logo-color";
 import { ExternalLinkSelect } from "./ExternalLinkSelect";
+import { SettingsLogsRow } from "./SettingsLogsRow";
 
 const interfaceSizeOptions = [...APP_INTERFACE_SIZES];
 
@@ -207,6 +208,11 @@ export function SettingsGeneralTab(props: SettingsGeneralTabProps) {
             label={i18n.t("settings.restoreWorkspace.title")}
             description={i18n.t("settings.restoreWorkspace.description")}
           />
+        </ItemGroup>
+      </SettingsSection>
+      <SettingsSection title={i18n.t("settings.diagnostics.title")}>
+        <ItemGroup class="settings-modal-card">
+          <SettingsLogsRow />
         </ItemGroup>
       </SettingsSection>
     </>

@@ -44,6 +44,11 @@ export const messages = defineMessages("settings", {
     "Keep the computer awake on battery power too. The battery runs down faster.",
   "settings.restoreWorkspace.title": "Restore the last workspace on launch",
   "settings.restoreWorkspace.description": "Open the workspace and tasks from your previous session.",
+  "settings.diagnostics.title": "Diagnostics",
+  "settings.logs.title": "Logs",
+  "settings.logs.description": "Open the folder with the log files of this computer.",
+  "settings.logs.open": "Open",
+  "settings.logs.openFailed": "Could not open the logs folder.",
   "settings.externalLinks.title": "Open external links in",
   "settings.externalLinks.description": "Links in chats, sign-in pages and billing pages open here.",
   // The two link targets. The saved value stays in English; only the label is translated.

@@ -156,6 +156,7 @@ import {
   decodeHostedSite,
   decodeHostedSiteList,
   decodeLicenseState,
+  decodeLogsFolder,
   decodeMobileConnectedDevices,
   decodeMobileConnectLink,
   decodeMobileConnectTicket,
@@ -1218,6 +1219,7 @@ const openownbotApi: OpenOwnBotDesktopApi = {
   maintenance: bridgeGroup(IPC_ENDPOINTS.maintenance, {
     exportData: decodeExportResult,
     exportDiagnostics: decodeExportResult,
+    openLogs: decodeLogsFolder,
   }),
   servers: {
     ...serversGroup,

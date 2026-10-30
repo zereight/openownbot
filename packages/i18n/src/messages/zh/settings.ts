@@ -42,6 +42,11 @@ export const messages = {
   "settings.keepAwakeOnBattery.description": "使用电池供电时也保持电脑唤醒，电量会消耗得更快。",
   "settings.restoreWorkspace.title": "启动时恢复上次的工作区",
   "settings.restoreWorkspace.description": "打开上次会话中的工作区和任务。",
+  "settings.diagnostics.title": "诊断",
+  "settings.logs.title": "日志",
+  "settings.logs.description": "打开本机日志文件所在的文件夹。",
+  "settings.logs.open": "打开",
+  "settings.logs.openFailed": "无法打开日志文件夹。",
   "settings.externalLinks.title": "打开外部链接的方式",
   "settings.externalLinks.description": "聊天、登录页面和账单页面中的链接在这里打开。",
   // The two link targets. The saved value stays in English; only the label is translated.

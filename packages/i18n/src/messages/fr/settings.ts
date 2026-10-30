@@ -46,6 +46,11 @@ export const messages = {
     "Garder l’ordinateur éveillé aussi sur batterie. La batterie se décharge plus vite.",
   "settings.restoreWorkspace.title": "Restaurer le dernier espace de travail au lancement",
   "settings.restoreWorkspace.description": "Rouvrir l’espace de travail et les tâches de votre session précédente.",
+  "settings.diagnostics.title": "Diagnostic",
+  "settings.logs.title": "Journaux",
+  "settings.logs.description": "Ouvrir le dossier des fichiers journaux de cet ordinateur.",
+  "settings.logs.open": "Ouvrir",
+  "settings.logs.openFailed": "Impossible d'ouvrir le dossier des journaux.",
   "settings.externalLinks.title": "Ouvrir les liens externes dans",
   "settings.externalLinks.description":
     "Les liens des discussions, des pages de connexion et de facturation s’ouvrent ici.",

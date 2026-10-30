@@ -1,3 +1,5 @@
+import { mkdir } from "node:fs/promises";
+import { join } from "node:path";
 import { Effect } from "effect";
 // App identity, first-run setup, external links and the data and
 // diagnostics exports.
@@ -14,7 +16,7 @@ import {
   externalLinkAppName,
   GROK_BOT_EXPORT_URL,
 } from "@openownbot/contracts/ipc";
-import { app, type BrowserWindow, dialog, type OpenDialogOptions } from "electron";
+import { app, type BrowserWindow, dialog, type OpenDialogOptions, shell } from "electron";
 import { version as developmentVersion } from "../../../package.json";
 import type { AgentService } from "../../backend/agent-service";
 import type { BrowserHost } from "../../backend/browser-host";
@@ -257,6 +259,13 @@ export function appIpcHandlers({
       getChatWindows: handler(chatWindowTargets),
     },
     maintenance: {
+      openLogs: handler(async () => {
+        const directory = join(app.getPath("userData"), "logs");
+        await mkdir(directory, { recursive: true });
+        const error = await shell.openPath(directory);
+        if (error) throw new Error(error);
+        return directory;
+      }),
       exportData: handler(() =>
         runCauseEffect(
           exportOpenOwnBotData({ service, mailbox, parentWindow: getMainWindow(), translate: language.translate }),

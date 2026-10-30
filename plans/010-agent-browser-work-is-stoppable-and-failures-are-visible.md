@@ -6,7 +6,8 @@
 > routine run on 2026-10-30: the working line names the routine when it has no step text. The
 > workflow run kind and the current tool name are still open. Goal 4 is done for the log on
 > 2026-10-30: `logs/browser/browser.log` records failed tool calls, stop requests, stop results and
-> browser warnings. The UI does not show the log path yet.
+> browser warnings. Settings › General › Diagnostics › Logs opens the logs folder of this computer
+> and shows its path (done 2026-10-30). The logs of a remote host are not reachable from there.
 
 ## Status
 

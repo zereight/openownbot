@@ -42,6 +42,11 @@ export const messages = {
     "Mantener el ordenador activo también con batería. La batería se agota antes.",
   "settings.restoreWorkspace.title": "Restaurar el último espacio de trabajo al iniciar",
   "settings.restoreWorkspace.description": "Abrir el espacio de trabajo y las tareas de la sesión anterior.",
+  "settings.diagnostics.title": "Diagnóstico",
+  "settings.logs.title": "Registros",
+  "settings.logs.description": "Abrir la carpeta con los archivos de registro de este equipo.",
+  "settings.logs.open": "Abrir",
+  "settings.logs.openFailed": "No se pudo abrir la carpeta de registros.",
   "settings.externalLinks.title": "Abrir enlaces externos en",
   "settings.externalLinks.description":
     "Los enlaces de los chats, las páginas de inicio de sesión y las de facturación se abren aquí.",
