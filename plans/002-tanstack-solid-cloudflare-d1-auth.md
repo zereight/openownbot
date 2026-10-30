@@ -117,7 +117,7 @@ email) before this step. Not recommended before A, B and C have shipped and a re
    have a hash and no `accountId` (no names, no emails). Release it, then read the result from
    support reports. The product sends no telemetry, so there is no other count.
 3. B, with an E2E script that signs in with an old client. Done on 2026-10-31.
-4. C, with migration fixtures. Open: it deletes the stored hashes and needs an explicit choice.
+4. C, with an E2E fixture of a legacy team file. Code written on 2026-10-31; merge waits for the approval words.
 5. D. Done on 2026-10-31, without C: the hashes stay in the file.
 
 ### Decision (2026-10-31)
@@ -179,12 +179,10 @@ Removed:
 - Four texts that only that code used (`error.team.loginIncorrect`, `usernameInvalid`, `passwordLength`
   and `accountChangedDuringRequest`) in 13 catalogs.
 
-Kept, on purpose:
+Kept after option D:
 
-- `passwordHash` and `passwordSalt` in the team file, and in the copy of the record that the file keeps
-  for a legacy import. Nothing reads them. They are not deleted, because deleting is irreversible and
-  `AGENTS.md` says that user data is kept. `publicMember` copies the fields it names, so no response
-  carries them. Option C, deleting them, stays open and needs an explicit choice.
+- `passwordHash` and `passwordSalt` in the team file. Option C, below, removes them for members that have
+  an account.
 - The frozen codecs of the released protocols (`v1.ts`, `provider-aware-codec.ts`) still name the login
   route. The host answers a request to it like any unknown route.
 
@@ -228,3 +226,31 @@ Read in `apps/auth-api/src/server/auth-service.ts`, `d1-auth-repository.ts` and
 Not checked: that the code is used only once, that the session token is stored only as a hash, and that
 Electron keeps the token through `safeStorage`.
 
+### Password data removed for members with an account (2026-10-31, option C)
+
+The developer chose option 2 on 2026-10-31, which includes option C. The merge of the code needs the
+words "해시 삭제 승인" from the developer. Deleting is irreversible, and no backup exists.
+
+What the code deletes (`dropPasswordData` in `src/main/team-store.ts`):
+
+- `passwordHash` and `passwordSalt` of a member that has an account. This happens when the member
+  signs in with an account (`loginWithAccount`), when an account is applied to the member
+  (`#applyAccount`, which `activateAccount` and `syncAccount` call), and at start for a member that
+  already had an account. At start the deletion is in memory, and the write of `#pruneEffect` carries it.
+
+What the code keeps:
+
+- The hash and the salt of a member without an account. Nothing reads them.
+- The copy of the imported record (`legacyImport.record`) and `replacedHosts`. These copies are the
+  baseline of a later reconcile with an older build, and they are the only recovery record.
+
+Check (run locally on 2026-10-31): `bun run test:team-password-removed`. The file has an owner without
+an account, a member with an account, a member that signs in later and a member that never signs in,
+and an imported copy with all hashes. After the host starts, the first two have no hash and no salt
+outside the imported copy. After the third member signs in, that member has none either. The fourth
+member keeps both. No response carries a hash or a salt. A profile that cannot be written fails the
+start and leaves the file byte for byte as it was. That last step also passes on the code before this
+change, because the start already wrote the file; it guards the failure case, not the new deletion.
+The other steps fail on the code before this change (the hash of the owner was still in the file).
+
+Not checked: a file from a real older build. The fixture is written by the script.
