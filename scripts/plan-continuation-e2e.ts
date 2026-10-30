@@ -491,7 +491,7 @@ try {
       })}`,
     );
     assert.equal(await settled(id), "completed");
-    assert.equal(current.service.listWaits(agent.id).waits.length, 1, "The wait is open.");
+    assert.equal(current.service.waits.list(agent.id).waits.length, 1, "The wait is open.");
     assert.equal(turnsSince(mark).length, 1, "No continuation turn runs.");
     assert.equal(continuationLines(agent.id).length, 0);
     return { turns: 1 };

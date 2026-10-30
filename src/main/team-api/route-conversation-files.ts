@@ -20,7 +20,7 @@ const DEFAULT_PAGE_SIZE = 50;
  */
 export async function routeConversationFiles(
   context: TeamApiRequestContext,
-  agents: Pick<TeamApiAgents, "searchConversationFiles">,
+  agents: Pick<TeamApiAgents, "conversations">,
 ): Promise<RouteOutcome> {
   const { method, url, capabilities, request, json } = context;
   if (method !== "POST" || url.pathname !== CONVERSATION_FILE_SEARCH_ROUTES.search) return "unmatched";
@@ -33,5 +33,5 @@ export async function routeConversationFiles(
   const limit = isNumber(body.limit)
     ? Math.min(Math.max(body.limit, 1), CONVERSATION_FILE_SEARCH_PAGE_LIMIT)
     : DEFAULT_PAGE_SIZE;
-  return json(200, agents.searchConversationFiles(query, cursor ?? undefined, limit));
+  return json(200, agents.conversations.searchFiles(query, cursor ?? undefined, limit));
 }

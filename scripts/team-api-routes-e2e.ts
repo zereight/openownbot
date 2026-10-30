@@ -354,7 +354,6 @@ const fakeAgents: TeamApiAgents = {
   getHostAnalytics: unused("getHostAnalytics"),
   listModels: unused("listModels"),
   sidebarChatIds: unused("sidebarChatIds"),
-  listConversationReads: unused("listConversationReads"),
   generateProfile: unused("generateProfile"),
   askSideQuestion: (input) => {
     record("askSideQuestion", input);
@@ -373,6 +372,11 @@ const fakeAgents: TeamApiAgents = {
   duplicateAgent: unused("duplicateAgent"),
   commitAgentDuplication: unused("commitAgentDuplication"),
   updateAgent: unused("updateAgent"),
+  conversations: {
+    listReads: unused("conversations.listReads"),
+    search: unused("conversations.search"),
+    searchFiles: unused("conversations.searchFiles"),
+  },
   memories: {
     list: unused("memories.list"),
     selectionState: unused("memories.selectionState"),
@@ -410,8 +414,6 @@ const fakeAgents: TeamApiAgents = {
   readConversation: unused("readConversation"),
   readConversationFor: unused("readConversationFor"),
   readConversationPageFor: unused("readConversationPageFor"),
-  searchConversationMessages: unused("searchConversationMessages"),
-  searchConversationFiles: unused("searchConversationFiles"),
   markConversationRead: unused("markConversationRead"),
   markConversationUnread: unused("markConversationUnread"),
   listWorkspaceDirectory: unused("listWorkspaceDirectory"),

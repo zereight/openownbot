@@ -3,7 +3,7 @@
  * A routine that fires in the first seconds after a wake runs before Wi-Fi joins and fails.
  */
 export interface RoutineWakeOptions {
-  routines: { suspendRoutines(): void; resumeRoutines(): void };
+  routines: { suspend(): void; resume(): void };
   isOnline: () => boolean;
   pollMs?: number;
   /** Consecutive online reads before routines resume. One read can be true before the link is up. */
@@ -30,7 +30,7 @@ export class RoutineWake {
 
   suspend(): void {
     this.dispose();
-    this.#routines.suspendRoutines();
+    this.#routines.suspend();
   }
 
   resume(): void {
@@ -41,7 +41,7 @@ export class RoutineWake {
       reads = this.#isOnline() ? reads + 1 : 0;
       if (reads >= this.#onlineReads || Date.now() >= deadline) {
         this.#poll = null;
-        this.#routines.resumeRoutines();
+        this.#routines.resume();
         return;
       }
       this.#poll = setTimeout(check, this.#pollMs);

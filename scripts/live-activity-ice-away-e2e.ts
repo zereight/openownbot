@@ -112,11 +112,13 @@ const service = new LiveActivityPushService({
     on: (event, listener) => events.on(event, listener),
     off: (event, listener) => events.off(event, listener),
     getRuntimeSnapshot: snapshot,
-    listConversationReads: () => ({
-      [AGENT]: working
-        ? { unreadCount: 0, firstUnreadMessageId: null, throughMessageId: null }
-        : { unreadCount: 1, firstUnreadMessageId: "fixture-message", throughMessageId: null },
-    }),
+    conversations: {
+      listReads: () => ({
+        [AGENT]: working
+          ? { unreadCount: 0, firstUnreadMessageId: null, throughMessageId: null }
+          : { unreadCount: 1, firstUnreadMessageId: "fixture-message", throughMessageId: null },
+      }),
+    },
   },
   send: (push) =>
     Effect.sync(() => {

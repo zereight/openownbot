@@ -609,11 +609,11 @@ export function agentIpcHandlers({
       }),
       // Open waits are local only: the Team API has no route for them.
       listWaits: scopedHandler(parseAgentId, {
-        local: (agentId) => service.listWaits(agentId),
+        local: (agentId) => service.waits.list(agentId),
         remote: (agentId) => ({ agentId, waits: [] }),
       }),
       cancelWait: scopedHandler(parseCancelAgentWait, {
-        local: (parsed) => service.cancelWait(parsed.agentId, parsed.waitId),
+        local: (parsed) => service.waits.cancel(parsed.agentId, parsed.waitId),
         remote: () => {
           throw new Error(sourceText("error.backend.agentWaitRemoteUnsupported"));
         },

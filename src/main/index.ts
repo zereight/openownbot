@@ -1331,7 +1331,7 @@ if (!hasSingleInstanceLock) {
       powerMonitor.on("resume", () => void Effect.runPromise(remoteServers.wake()));
       // A Slack socket can be dead after sleep without knowing it; reconnect instead of waiting for a ping.
       powerMonitor.on("resume", () => built.messaging.resume());
-      const routineWake = new RoutineWake({ routines: service, isOnline: () => net.isOnline() });
+      const routineWake = new RoutineWake({ routines: service.routineTimer, isOnline: () => net.isOnline() });
       powerMonitor.on("suspend", () => routineWake.suspend());
       powerMonitor.on("resume", () => routineWake.resume());
       teardown.push(0, "routine wake", () => routineWake.dispose());
