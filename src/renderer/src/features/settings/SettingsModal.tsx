@@ -330,6 +330,7 @@ export function SettingsModal(props: SettingsModalProps) {
 
         <Tabs.Content value="computer-use" class="settings-modal-tab-panel" data-tab="computer-use">
           <ComputerUseSetup variant="settings" />
+          <SettingsDecisionModel selectMount={modalElement} />
         </Tabs.Content>
 
         <Tabs.Content value="profile" class="settings-modal-tab-panel profile-panel" data-tab="profile">
