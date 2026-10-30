@@ -18,6 +18,9 @@ import { automationRunCommand } from "../automation-command";
 import type { HomeSkill } from "../home-skills";
 import { existingAgentFolders, workspaceExcludedFolders } from "./workspace-sandbox";
 
+const ROUTINE_SIGN_IN_RULE =
+  "In a routine run, first check saved logins with openownbot_browser.list_logins. Use a matching login's username and submit_secret with its loginId for a password or authenticator code. With several logins, use only the account that the task names. When no login fits, the account is unclear, a fill fails, or the page needs a person (email or SMS code, CAPTCHA, passkey, or payment confirmation), report the sign-in requirement; do not call request_takeover or submit_secret without loginId.";
+
 export interface VaultContents {
   available: boolean;
   /** A saved card replaces payment-field takeover with `fill_card`. */
@@ -257,6 +260,7 @@ export function developerInstructions(
     ...(options.passwordVault
       ? [
           "The user shares saved logins with OpenOwnBot: before a username, password, or authenticator-app step, call openownbot_browser.list_logins for the tab and follow the browser guidance.",
+          ROUTINE_SIGN_IN_RULE,
         ]
       : []),
     ...(options.vaultItems?.available ? [vaultInstruction(options.vaultItems, options.serverHost === true)] : []),
