@@ -1,7 +1,7 @@
-import { buildAgentTeamFile } from "@openownbot/contracts/agent-team-file";
+import { buildAgentSectionFile } from "@openownbot/contracts/agent-section-file";
 import type { AgentTemplateSnapshot, MarketplaceAgentRoutine } from "@openownbot/contracts/ipc";
 import { describe, expect, it } from "vitest";
-import { maskTeamSecrets, planTeamImport, uniqueName } from "./agent-team-plan";
+import { maskSectionSecrets, planSectionImport, uniqueName } from "./agent-section-plan";
 
 const agent = (name: string, extra: Partial<AgentTemplateSnapshot> = {}): AgentTemplateSnapshot => ({
   name,
@@ -37,9 +37,9 @@ describe("uniqueName", () => {
   });
 });
 
-describe("maskTeamSecrets", () => {
+describe("maskSectionSecrets", () => {
   it("hides secrets in instructions, routines and skills, and counts the agents it changed", () => {
-    const file = buildAgentTeamFile("Work", [
+    const file = buildAgentSectionFile("Work", [
       {
         name: "Reviewers",
         agents: [
@@ -59,7 +59,7 @@ describe("maskTeamSecrets", () => {
         ],
       },
     ]);
-    const { file: masked, agents } = maskTeamSecrets(file);
+    const { file: masked, agents } = maskSectionSecrets(file);
     expect(agents).toBe(3);
     const all = JSON.stringify(masked);
     expect(all).not.toContain("ghp_");
@@ -69,25 +69,25 @@ describe("maskTeamSecrets", () => {
   });
 });
 
-describe("planTeamImport", () => {
-  const file = buildAgentTeamFile("Work", [
+describe("planSectionImport", () => {
+  const file = buildAgentSectionFile("Work", [
     { name: "Reviewers", agents: [agent("A", { routines: [routine("run")] }), agent("B")] },
     { name: "Ops", agents: [agent("C")] },
   ]);
 
   it("renames what collides with the agents and sections already there", () => {
-    const plan = planTeamImport(file, new Set(["A"]), new Set(["Reviewers"]));
+    const plan = planSectionImport(file, new Set(["A"]), new Set(["Reviewers"]));
     expect(plan.sections.map((section) => section.name)).toEqual(["Reviewers 2", "Ops"]);
     expect(plan.sections[0]?.agents.map((item) => item.name)).toEqual(["A 2", "B"]);
     expect(plan.renamed).toBe(2);
   });
 
   it("starts every routine paused", () => {
-    const plan = planTeamImport(file, new Set(), new Set());
+    const plan = planSectionImport(file, new Set(), new Set());
     expect(plan.sections[0]?.agents[0]?.routines.map((item) => item.active)).toEqual([false]);
   });
 
   it("counts the agents to create", () => {
-    expect(planTeamImport(file, new Set(), new Set()).agents).toBe(3);
+    expect(planSectionImport(file, new Set(), new Set()).agents).toBe(3);
   });
 });

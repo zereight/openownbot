@@ -134,7 +134,7 @@ import {
   type AgentMemoryLimitSetting,
   reloadingAgentMemoryLimit,
 } from "./agent-memory-limit-preference-store";
-import { AgentTeamService } from "./agent-team-service";
+import { AgentSectionService } from "./agent-section-service";
 import { AgentTemplateService } from "./agent-template-service";
 import { AppBehaviorService } from "./app-behavior-service";
 import { AppearanceService } from "./appearance-service";
@@ -580,7 +580,7 @@ export interface ApplicationServices {
   providerDetectionSettings: ProviderDetectionSettingsStore;
   marketplaceAgents: AgentMarketplaceService;
   agentTemplates: AgentTemplateService;
-  agentTeams: AgentTeamService;
+  agentSections: AgentSectionService;
   agentImport: AgentImportService;
   hermesImport: HermesImportService;
   instanceTransfer: InstanceTransferService;
@@ -2051,13 +2051,15 @@ export async function createApplicationServices({
     library: () => skills.requireLocalLibrary(),
     installLocal: (input) => skills.installLocal(input),
   });
-  const agentTeams = new AgentTeamService({
+  const agentSections = new AgentSectionService({
     agents: { list: () => service.listAgents() },
     sidebar: sidebarLayout,
     templates: {
       snapshot: (agentId) => {
         const agent = service.listAgents().find((item) => item.id === agentId);
-        return agent ? agentTemplates.snapshot(agent) : Effect.fail(new Error("The agent for the team file is gone."));
+        return agent
+          ? agentTemplates.snapshot(agent)
+          : Effect.fail(new Error("The agent for the section file is gone."));
       },
       installSnapshot: (snapshot, avatar, timezone) =>
         agentTemplates
@@ -3039,7 +3041,7 @@ export async function createApplicationServices({
     providerDetectionSettings,
     marketplaceAgents,
     agentTemplates,
-    agentTeams,
+    agentSections,
     agentImport,
     hermesImport,
     instanceTransfer,

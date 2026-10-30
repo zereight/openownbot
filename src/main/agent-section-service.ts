@@ -1,10 +1,10 @@
 import {
-  type AgentTeamFileSection,
-  buildAgentTeamFile,
-  parseAgentTeamFile,
-} from "@openownbot/contracts/agent-team-file";
+  buildAgentSectionFile,
+  parseAgentSectionFile,
+  type SectionFileEntry,
+} from "@openownbot/contracts/agent-section-file";
 import type {
-  AgentTeamPreview,
+  AgentSectionPreview,
   AgentTemplateSnapshot,
   AvatarImageInput,
   SetEnabledSkillInput,
@@ -12,18 +12,18 @@ import type {
   SidebarLayoutSnapshot,
 } from "@openownbot/contracts/ipc";
 import { Effect, Schema } from "effect";
-import { maskTeamSecrets, planTeamImport } from "./agent-team-plan";
+import { maskSectionSecrets, planSectionImport } from "./agent-section-plan";
 
-export interface TeamAgents {
+export interface SectionAgents {
   list(): ReadonlyArray<{ id: string; name: string }>;
 }
 
-export interface TeamSidebar {
+export interface SectionSidebar {
   getSnapshot(): SidebarLayoutSnapshot;
   mutate(action: SidebarLayoutAction, agentIds: ReadonlySet<string>): Effect.Effect<SidebarLayoutSnapshot, unknown>;
 }
 
-export interface TeamTemplates {
+export interface SectionTemplates {
   snapshot(agentId: string): Effect.Effect<AgentTemplateSnapshot, unknown>;
   installSnapshot(
     snapshot: AgentTemplateSnapshot,
@@ -32,41 +32,41 @@ export interface TeamTemplates {
   ): Effect.Effect<{ agentId: string; skillIds: string[] }, unknown>;
 }
 
-export interface TeamSkills {
+export interface SectionSkills {
   setEnabled(input: SetEnabledSkillInput): Effect.Effect<unknown, unknown>;
 }
 
-export interface AgentTeamOptions {
-  agents: TeamAgents;
-  sidebar: TeamSidebar;
-  templates: TeamTemplates;
-  skills: TeamSkills;
+export interface AgentSectionOptions {
+  agents: SectionAgents;
+  sidebar: SectionSidebar;
+  templates: SectionTemplates;
+  skills: SectionSkills;
 }
 
-export class AgentTeamFailure extends Schema.TaggedError<AgentTeamFailure>()("AgentTeamFailure", {
+export class AgentSectionFailure extends Schema.TaggedError<AgentSectionFailure>()("AgentSectionFailure", {
   cause: Schema.Defect(),
 }) {}
 
-const toAgentTeamFailure = Effect.mapError((cause: unknown) => new AgentTeamFailure({ cause }));
+const toAgentSectionFailure = Effect.mapError((cause: unknown) => new AgentSectionFailure({ cause }));
 
 /**
  * Moves the agents of some sidebar sections to a file and back. An import creates new agents and
  * new sections: it never changes an agent that is already there, it starts every routine paused
  * and switches the skills off, and a name that is taken gets a number.
  */
-export class AgentTeamService {
-  readonly #options: AgentTeamOptions;
+export class AgentSectionService {
+  readonly #options: AgentSectionOptions;
 
-  constructor(options: AgentTeamOptions) {
+  constructor(options: AgentSectionOptions) {
     this.#options = options;
   }
 
   /** The text of a file with the agents of `sectionIds`, secrets hidden. */
-  exportFile(sectionIds: readonly string[], teamName: string) {
+  exportFile(sectionIds: readonly string[], exportName: string) {
     return Effect.gen({ self: this }, function* () {
       const layout = this.#options.sidebar.getSnapshot();
       const known = new Set(this.#options.agents.list().map((agent) => agent.id));
-      const sections: AgentTeamFileSection[] = [];
+      const sections: SectionFileEntry[] = [];
       for (const section of layout.sections) {
         if (!sectionIds.includes(section.id)) continue;
         const agents: AgentTemplateSnapshot[] = [];
@@ -75,19 +75,19 @@ export class AgentTeamService {
             agents.push(yield* this.#options.templates.snapshot(agentId));
         sections.push({ name: section.name, agents });
       }
-      const { file, agents: masked } = maskTeamSecrets(buildAgentTeamFile(teamName, sections));
+      const { file, agents: masked } = maskSectionSecrets(buildAgentSectionFile(exportName, sections));
       return {
         text: `${JSON.stringify(file, null, 2)}\n`,
         agents: file.sections.reduce((sum, section) => sum + section.agents.length, 0),
         masked,
       };
-    }).pipe(toAgentTeamFailure);
+    }).pipe(toAgentSectionFailure);
   }
 
   /** What importing `text` would create, or why it cannot be imported. */
-  preview(text: string): Effect.Effect<AgentTeamPreview> {
+  preview(text: string): Effect.Effect<AgentSectionPreview> {
     return Effect.sync(() => {
-      const parsed = parseAgentTeamFile(text);
+      const parsed = parseAgentSectionFile(text);
       if (!parsed.ok) return parsed;
       const plan = this.#plan(parsed.file);
       const all = plan.sections.flatMap((section) => section.agents);
@@ -109,8 +109,8 @@ export class AgentTeamService {
   /** Creates the sections and agents of `text`. A failure stops there; what was made stays. */
   importFile(text: string, timezone: string) {
     return Effect.gen({ self: this }, function* () {
-      const parsed = parseAgentTeamFile(text);
-      if (!parsed.ok) return yield* Effect.fail(new Error(`The team file cannot be read: ${parsed.problem.kind}`));
+      const parsed = parseAgentSectionFile(text);
+      if (!parsed.ok) return yield* Effect.fail(new Error(`The section file cannot be read: ${parsed.problem.kind}`));
       const plan = this.#plan(parsed.file);
       let created = 0;
       for (const section of plan.sections) {
@@ -130,12 +130,12 @@ export class AgentTeamService {
         }
       }
       return { agents: created };
-    }).pipe(toAgentTeamFailure);
+    }).pipe(toAgentSectionFailure);
   }
 
-  #plan(file: Parameters<typeof planTeamImport>[0]) {
+  #plan(file: Parameters<typeof planSectionImport>[0]) {
     const layout = this.#options.sidebar.getSnapshot();
-    return planTeamImport(
+    return planSectionImport(
       file,
       new Set(this.#options.agents.list().map((agent) => agent.name)),
       new Set(layout.sections.map((section) => section.name)),

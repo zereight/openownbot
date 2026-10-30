@@ -1,6 +1,6 @@
 import type { ChatWindowTarget } from "@openownbot/contracts/ipc";
 import { AGENT_HIDDEN_CAPABILITY } from "@openownbot/contracts/team-protocol/current";
-import { AgentTeamImportDialog } from "@openownbot/ui/features/agents/AgentTeamImportDialog";
+import { AgentSectionImportDialog } from "@openownbot/ui/features/agents/AgentSectionImportDialog";
 import { computeAgentAvatarMoods } from "@openownbot/ui/features/agents/agent-avatar-mood";
 import { Sidebar } from "@openownbot/ui/features/sidebar/Sidebar";
 import { SidebarMobileAppCard } from "@openownbot/ui/features/sidebar/SidebarMobileAppCard";
@@ -16,8 +16,8 @@ import { DirectConversation } from "../../lazy-views";
 import { useNavigation } from "../../navigation";
 import { usePlatform } from "../../platform";
 import { useTurns } from "../../turns";
+import { createAgentSectionFlow } from "../agent-sections/agent-section-flow";
 import { useAgentTasks } from "../agent-tasks/agent-tasks-context";
-import { createAgentTeamFlow } from "../agent-teams/agent-team-flow";
 import { useAgentThreads } from "../agent-threads/agent-threads-context";
 import { useAgentActions } from "../agents/agent-actions";
 import { attentionByAgent } from "../agents/agent-runtime-snapshot";
@@ -195,8 +195,8 @@ export function WorkspaceSidebar(props: { peopleEnabled: boolean }) {
   );
 
   // Team files read and write this computer's agents, so a joined server shows neither item.
-  const teamFiles = () => activeServer()?.kind === "local";
-  const teams = createAgentTeamFlow(
+  const sectionFiles = () => activeServer()?.kind === "local";
+  const teams = createAgentSectionFlow(
     (sectionId) => sidebarLayout().sections.find((item) => item.id === sectionId)?.name,
   );
 
@@ -271,8 +271,8 @@ export function WorkspaceSidebar(props: { peopleEnabled: boolean }) {
         }
         duplicatingSectionIds={duplicatingSectionIds()}
         onDuplicateSection={duplicateSection}
-        onExportSection={teamFiles() ? teams.exportSection : undefined}
-        onImportTeam={teamFiles() ? () => void teams.chooseFile() : undefined}
+        onExportSection={sectionFiles() ? teams.exportSection : undefined}
+        onImportSections={sectionFiles() ? () => void teams.chooseFile() : undefined}
         onToggleSection={toggleSidebarSection}
         pinnedItems={pinnedSidebarItems()}
         peopleOrder={sidebarPeopleOrder()}
@@ -348,7 +348,7 @@ export function WorkspaceSidebar(props: { peopleEnabled: boolean }) {
             : undefined
         }
       />
-      <AgentTeamImportDialog
+      <AgentSectionImportDialog
         open={teams.preview() !== null}
         onOpenChange={(open) => {
           if (!open) teams.close();

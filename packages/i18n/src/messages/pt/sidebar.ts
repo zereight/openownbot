@@ -131,6 +131,6 @@ export const messages = {
   "sidebar.storage.used": "{percent} em uso",
   "sidebar.storage.freeUpSpace": "Liberar espaço",
   "sidebar.storage.dismiss": "Ocultar até o armazenamento encher",
-  "sidebar.new.importTeam": "Importar seções",
-  "sidebar.section.exportTeam": "Exportar como arquivo de seções",
+  "sidebar.new.importSections": "Importar seções",
+  "sidebar.section.exportSections": "Exportar como arquivo de seções",
 } as const satisfies PartialTranslation<typeof source>;

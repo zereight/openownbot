@@ -84,6 +84,13 @@ import type {
   SaveAgentProfileResult,
 } from "./ipc-agent-profile";
 import type { AgentRuntimeSnapshot } from "./ipc-agent-runtime";
+import type {
+  ChosenAgentSection,
+  ExportAgentSectionInput,
+  ExportAgentSectionResult,
+  ImportAgentSectionInput,
+  ImportAgentSectionResult,
+} from "./ipc-agent-sections";
 import type { AskSideQuestionInput } from "./ipc-agent-side-question";
 import type {
   AccountUsage,
@@ -112,13 +119,6 @@ import type {
   RunQueuedMessageAsTaskInput,
   StartAgentTaskInput,
 } from "./ipc-agent-tasks";
-import type {
-  ChosenAgentTeam,
-  ExportAgentTeamInput,
-  ExportAgentTeamResult,
-  ImportAgentTeamInput,
-  ImportAgentTeamResult,
-} from "./ipc-agent-teams";
 import type {
   AgentTemplateDetail,
   AgentTemplatePreview,
@@ -1233,10 +1233,10 @@ export const IPC_ENDPOINTS = {
   },
   // Link-only agent templates. `takePendingLink` and `openLink` carry an id from an
   // `openownbot://agents/<id>` link; there is no endpoint that installs from a link without the dialog.
-  agentTeams: {
-    export: request<ExportAgentTeamInput, ExportAgentTeamResult | null>()("agent-teams:export"),
-    choose: request<undefined, ChosenAgentTeam | null>()("agent-teams:choose"),
-    import: request<ImportAgentTeamInput, ImportAgentTeamResult>()("agent-teams:import"),
+  agentSections: {
+    export: request<ExportAgentSectionInput, ExportAgentSectionResult | null>()("agent-sections:export"),
+    choose: request<undefined, ChosenAgentSection | null>()("agent-sections:choose"),
+    import: request<ImportAgentSectionInput, ImportAgentSectionResult>()("agent-sections:import"),
   },
   agentTemplates: {
     preview: request<string, AgentTemplatePreview>()("agent-templates:preview"),
@@ -1810,7 +1810,7 @@ export const IPC_GROUP_PATHS = {
   license: "license",
   hostedServers: "hostedServers",
   marketplaceAgents: "marketplaceAgents",
-  agentTeams: "agentTeams",
+  agentSections: "agentSections",
   agentTemplates: "agentTemplates",
   auth: "auth",
   update: "update",

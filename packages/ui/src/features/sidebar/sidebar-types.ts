@@ -85,10 +85,10 @@ export interface SidebarProps {
   sectionDuplicateSupported?: boolean | undefined;
   duplicatingSectionIds?: ReadonlySet<string> | undefined;
   onDuplicateSection?: ((sectionId: string) => Promise<void>) | undefined;
-  /** Saves the agents of a custom section to a team file. Without it, the section menu has no export item. */
+  /** Saves the agents of a custom section to a section file. Without it, the section menu has no export item. */
   onExportSection?: ((sectionId: string) => Promise<void>) | undefined;
-  /** Opens a team file to import. Without it, the sidebar menu has no import item. */
-  onImportTeam?: (() => void) | undefined;
+  /** Opens a section file to import. Without it, the sidebar menu has no import item. */
+  onImportSections?: (() => void) | undefined;
   onToggleSection: (sectionId: string) => void;
   pinnedItems: SidebarPinnedItem[];
   peopleOrder: string[];

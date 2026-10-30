@@ -1,9 +1,9 @@
 import {
-  AGENT_TEAM_FILE_FORMAT,
-  type AgentTeamFile,
-  type AgentTeamFileSection,
-  buildAgentTeamFile,
-} from "@openownbot/contracts/agent-team-file";
+  AGENT_SECTION_FILE_FORMAT,
+  type AgentSectionFile,
+  buildAgentSectionFile,
+  type SectionFileEntry,
+} from "@openownbot/contracts/agent-section-file";
 import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
 import type { AgentTemplateSnapshot } from "@openownbot/contracts/ipc";
 import { redactText } from "@openownbot/logging";
@@ -35,9 +35,9 @@ function maskAgent(agent: AgentTemplateSnapshot): AgentTemplateSnapshot {
 }
 
 /** The file with secret-looking values hidden, and the number of agents that had any. */
-export function maskTeamSecrets(file: AgentTeamFile): { file: AgentTeamFile; agents: number } {
+export function maskSectionSecrets(file: AgentSectionFile): { file: AgentSectionFile; agents: number } {
   let agents = 0;
-  const sections: AgentTeamFileSection[] = file.sections.map((section) => ({
+  const sections: SectionFileEntry[] = file.sections.map((section) => ({
     name: section.name,
     agents: section.agents.map((agent) => {
       const masked = maskAgent(agent);
@@ -45,12 +45,12 @@ export function maskTeamSecrets(file: AgentTeamFile): { file: AgentTeamFile; age
       return masked;
     }),
   }));
-  return { file: buildAgentTeamFile(file.name, sections), agents };
+  return { file: buildAgentSectionFile(file.name, sections), agents };
 }
 
-export interface TeamImportPlan {
-  format: typeof AGENT_TEAM_FILE_FORMAT;
-  sections: AgentTeamFileSection[];
+export interface SectionImportPlan {
+  format: typeof AGENT_SECTION_FILE_FORMAT;
+  sections: SectionFileEntry[];
   /** The agents to create. */
   agents: number;
   /** The agents and sections that got a number because the name was taken. */
@@ -61,11 +61,11 @@ export interface TeamImportPlan {
  * What an import creates: every section is new, an agent or section name that is taken gets a
  * number, and every routine starts paused so nothing runs before the user has read it.
  */
-export function planTeamImport(
-  file: AgentTeamFile,
+export function planSectionImport(
+  file: AgentSectionFile,
   agentNames: ReadonlySet<string>,
   sectionNames: ReadonlySet<string>,
-): TeamImportPlan {
+): SectionImportPlan {
   const takenAgents = new Set(agentNames);
   const takenSections = new Set(sectionNames);
   let renamed = 0;
@@ -89,5 +89,5 @@ export function planTeamImport(
       }),
     };
   });
-  return { format: AGENT_TEAM_FILE_FORMAT, sections, agents, renamed };
+  return { format: AGENT_SECTION_FILE_FORMAT, sections, agents, renamed };
 }

@@ -131,6 +131,6 @@ export const messages = {
   "sidebar.storage.used": "{percent} kullanılıyor",
   "sidebar.storage.freeUpSpace": "Yer aç",
   "sidebar.storage.dismiss": "Depolama dolana kadar gizle",
-  "sidebar.new.importTeam": "Bölümleri içe aktar",
-  "sidebar.section.exportTeam": "Bölüm dosyası olarak dışa aktar",
+  "sidebar.new.importSections": "Bölümleri içe aktar",
+  "sidebar.section.exportSections": "Bölüm dosyası olarak dışa aktar",
 } as const satisfies PartialTranslation<typeof source>;
