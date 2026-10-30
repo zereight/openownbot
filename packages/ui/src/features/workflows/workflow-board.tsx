@@ -188,6 +188,8 @@ export interface WfnBoard {
   isLocked: (id: string) => boolean;
   lock: (id: string, locked: boolean) => void;
   lockedCount: () => number;
+  /** The place of the node in the workflow, from 1, as the assistant counts the nodes. Without it, a node shows no number. */
+  number: (id: string) => number | undefined;
   unlockAll: () => void;
   /** The text or style that the user set on a node. Copy, paste and undo keep it. */
   field: (id: string, key: string) => WfnFieldValue | undefined;
@@ -313,6 +315,8 @@ export interface BoardOptions {
   toolbarBelow?: (id: string, bar: { width: number; height: number }) => boolean;
   decide?: (id: string, approved: boolean) => void | Promise<unknown>;
   step?: (id: string) => string | undefined;
+  /** The place of a node in the workflow, from 1. */
+  number?: (id: string) => number | undefined;
   /** The nodes that are locked when the story opens. */
   locked?: readonly string[] | undefined;
   /** The size the user set on a node. With it, the nodes show a resize handle. */
@@ -798,6 +802,7 @@ export function createBoard(options: BoardOptions) {
     isLocked: (id) => lockedIds[id] === true,
     lock: (id, locked) => lockAll([id], locked),
     lockedCount: () => state.locked.length,
+    number: (id) => options.number?.(id),
     unlockAll: () => {
       if (state.locked.length > 0) lockAll(state.locked, false);
     },

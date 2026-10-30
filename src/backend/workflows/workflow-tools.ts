@@ -90,7 +90,7 @@ export const WORKFLOW_TOOL_DEFINITIONS = [
   {
     name: "read_workflow",
     description:
-      "Read the workflow that this chat is about: its nodes with their fields and positions, its edges, its triggers, and the revision that edit_workflow must name. Only a chat opened from the workflow's own chat panel names a workflow.",
+      "Read the workflow that this chat is about: its nodes with their number, fields and positions (the number is the one the canvas shows on the node, so use it when you tell the user which node you changed), its edges, its triggers, and the revision that edit_workflow must name. Only a chat opened from the workflow's own chat panel names a workflow.",
     shape: readSchema.shape,
   },
   {
@@ -127,13 +127,16 @@ const PERSON_ONLY =
 const NO_REFERENCE = "This chat is not about a workflow. Open the chat from the workflow's own chat panel.";
 const MANY_REFERENCES = "The messages of this turn are about different workflows. Ask the user to send one at a time.";
 
-/** What the model reads of a workflow: no webhook address, strokes as a count. */
+/**
+ * What the model reads of a workflow: no webhook address, strokes as a count. Each node carries its
+ * number, its place in the node list from 1, which the canvas shows on the node.
+ */
 function modelView(detail: WorkflowDetail) {
   return {
     workflowId: detail.summary.id,
     title: detail.summary.title,
     revision: detail.revision,
-    nodes: detail.graph.nodes,
+    nodes: detail.graph.nodes.map((node, index) => ({ number: index + 1, ...node })),
     edges: detail.graph.edges,
     triggers: detail.triggers.map(({ nodeId, type, nextDueAt }) => ({ nodeId, type, nextDueAt })),
     strokes: detail.graph.strokes.length,

@@ -580,6 +580,10 @@ export function WorkflowCanvas(props: WorkflowCanvasProps) {
     features: () => props.features,
     edges: initial.board.edges,
     locked: initial.board.locked,
+    number: (id) => {
+      const index = nodes().findIndex((node) => node.id === id);
+      return index < 0 ? undefined : index + 1;
+    },
     fields: initial.board.fields,
     // A node deleted from the keyboard gives the focus to the next node, as in a list.
     focusAfterRemove: (ids, from) => {
