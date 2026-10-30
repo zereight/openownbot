@@ -394,6 +394,7 @@ export const messages = defineMessages("chat", {
   "chat.history.olderFailed": "Older messages could not load.",
   "chat.messageUnavailable": "This message is no longer available.",
   "chat.activity.workingIn": "Working in {channel}",
+  "chat.activity.runningRoutine": "Running routine {name}",
   "chat.actions.reactionFailed": "Could not update the reaction. Try again.",
   "chat.actions.copyFailed": "Could not copy the message.",
   "chat.unread.markReadFailed": "Could not mark messages as read.",

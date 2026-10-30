@@ -401,6 +401,7 @@ export const messages = {
   "chat.history.olderFailed": "Oudere berichten kunnen niet worden geladen.",
   "chat.messageUnavailable": "Dit bericht is niet meer beschikbaar.",
   "chat.activity.workingIn": "Bezig in {channel}",
+  "chat.activity.runningRoutine": "Routine {name} wordt uitgevoerd",
   "chat.actions.reactionFailed": "Kan de reactie niet bijwerken. Probeer het opnieuw.",
   "chat.actions.copyFailed": "Kan het bericht niet kopiëren.",
   "chat.unread.markReadFailed": "Kan berichten niet als gelezen markeren.",

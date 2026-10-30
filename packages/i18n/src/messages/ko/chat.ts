@@ -394,6 +394,7 @@ export const messages = {
   "chat.history.olderFailed": "이전 메시지를 불러올 수 없어요.",
   "chat.messageUnavailable": "이 메시지는 더 이상 사용할 수 없어요.",
   "chat.activity.workingIn": "{channel}에서 작업 중",
+  "chat.activity.runningRoutine": "루틴 {name} 실행 중",
   "chat.actions.reactionFailed": "반응을 업데이트할 수 없어요. 다시 시도해 주세요.",
   "chat.actions.copyFailed": "메시지를 복사할 수 없어요.",
   "chat.unread.markReadFailed": "메시지를 읽음으로 표시할 수 없어요.",
