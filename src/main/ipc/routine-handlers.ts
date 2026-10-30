@@ -50,12 +50,12 @@ export function routineIpcHandlers({
   return {
     agentRoutines: {
       listRoutines: scopedHandler(parseAgentId, {
-        local: (agentId) => service.listRoutines(agentId),
+        local: (agentId) => service.routines.list(agentId),
         remote: (agentId, serverId) =>
           runCauseEffect(remoteServers.request(serverId, TEAM_API_ROUTES.agent.routines(agentId), decodeRoutines)),
       }),
       createRoutine: scopedHandler(parseCreateRoutine, {
-        local: (parsed) => service.createRoutine(parsed),
+        local: (parsed) => service.routines.create(parsed),
         remote: (parsed, serverId) =>
           runCauseEffect(
             remoteServers.request(serverId, TEAM_API_ROUTES.agent.routines(parsed.agentId), decodeRoutine, {
@@ -65,7 +65,7 @@ export function routineIpcHandlers({
           ),
       }),
       updateRoutine: scopedHandler(parseUpdateRoutine, {
-        local: (parsed) => service.updateRoutine(parsed),
+        local: (parsed) => service.routines.update(parsed),
         remote: (parsed, serverId) =>
           runCauseEffect(
             remoteServers.request(
@@ -80,7 +80,7 @@ export function routineIpcHandlers({
           ),
       }),
       deleteRoutine: scopedHandler(parseDeleteRoutine, {
-        local: (parsed) => runCauseEffect(service.deleteRoutine(parsed)),
+        local: (parsed) => runCauseEffect(service.routines.delete(parsed)),
         remote: (parsed, serverId) =>
           runCauseEffect(
             remoteServers.request(
@@ -94,7 +94,7 @@ export function routineIpcHandlers({
           ),
       }),
       testRoutine: scopedHandler(parseTestRoutine, {
-        local: (parsed) => runCauseEffect(service.testRoutine(parsed)),
+        local: (parsed) => runCauseEffect(service.routines.test(parsed)),
         remote: (parsed, serverId) =>
           runCauseEffect(
             remoteServers.request(
@@ -106,7 +106,7 @@ export function routineIpcHandlers({
           ),
       }),
       listRoutineRuns: scopedHandler(parseListRoutineRuns, {
-        local: (parsed) => service.listRoutineRuns(parsed, true),
+        local: (parsed) => service.routines.listRuns(parsed, true),
         remote: (parsed, serverId) =>
           runCauseEffect(
             remoteServers.request(

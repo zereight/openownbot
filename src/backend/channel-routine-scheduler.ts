@@ -99,7 +99,20 @@ export function channelRunStatusForTasks(
  * it is a `request` command, so it inherits the per-channel serialisation, the retry receipt and
  * the archived guard that every other channel command already has.
  */
-export class ChannelRoutineScheduler implements RoutineDueSource {
+/** The channel routine operations that code outside the backend calls. */
+export interface ChannelRoutineOperations {
+  list(channelId: string): ChannelRoutine[];
+  create(input: CreateChannelRoutineInput): ChannelRoutine;
+  update(input: UpdateChannelRoutineInput): ChannelRoutine;
+  delete(input: DeleteChannelRoutineInput, access?: RoutineTriggerAccess): void;
+  test(
+    input: TestChannelRoutineInput,
+    access?: RoutineTriggerAccess,
+  ): Effect.Effect<ChannelRoutineRun, ChannelRoutineFailed>;
+  listRuns(input: ListChannelRoutineRunsInput, withSkipped?: boolean): ChannelRoutineRun[];
+}
+
+export class ChannelRoutineScheduler implements RoutineDueSource, ChannelRoutineOperations {
   readonly #channels: ChannelService;
   readonly #hooks: ChannelRoutineHooks;
   readonly #routines: ChannelRoutineStore;
@@ -463,7 +476,7 @@ export class ChannelRoutineScheduler implements RoutineDueSource {
   }
 }
 
-class ChannelRoutineFailed extends Schema.TaggedError<ChannelRoutineFailed>()("ChannelRoutineFailed", {
+export class ChannelRoutineFailed extends Schema.TaggedError<ChannelRoutineFailed>()("ChannelRoutineFailed", {
   cause: Schema.Defect(),
 }) {}
 

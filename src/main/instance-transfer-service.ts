@@ -120,7 +120,10 @@ const AVATAR_EXTENSIONS: Record<AvatarImageInput["mimeType"], string> = {
 /** The agent operations a transfer uses, as `AgentService` offers them. */
 interface InstanceTransferAgents {
   listAgents(): AgentSummary[];
-  listRoutines(agentId: string): Routine[];
+  routines: {
+    list(agentId: string): Routine[];
+    create(input: CreateRoutineInput, options?: { recordConversationEvent?: boolean }): Pick<Routine, "id">;
+  };
   memories: Pick<
     AgentMemories,
     "list" | "selectionState" | "setInclusions" | "create" | "limit" | "initializeSelection"
@@ -131,7 +134,6 @@ interface InstanceTransferAgents {
     input: Omit<CreateAgentInput, "initialMessage"> & { title?: string },
   ): Effect.Effect<AgentSummary, unknown>;
   updateAgent(input: UpdateAgentInput): Effect.Effect<AgentSummary, unknown>;
-  createRoutine(input: CreateRoutineInput, options?: { recordConversationEvent?: boolean }): Pick<Routine, "id">;
   setAvatar(agentId: string, image: AvatarImageInput | null): Effect.Effect<AgentSummary, unknown>;
   deleteAgent(agentId: string): Effect.Effect<void, unknown>;
 }
@@ -215,7 +217,7 @@ export class InstanceTransferService {
         avatarHue: agent.avatarHue,
         avatarUrl: agent.avatarUrl,
         skillCount: skills.length,
-        routineCount: this.options.agents.listRoutines(agent.id).length,
+        routineCount: this.options.agents.routines.list(agent.id).length,
         memoryCount: this.options.agents.memories.list(agent.id).length,
         fileCount: files.length,
         fileBytes: files.reduce((total, file) => total + file.size, 0),
@@ -291,8 +293,8 @@ export class InstanceTransferService {
         }
       }
 
-      const routines: TransferAgent["routines"][number][] = this.options.agents
-        .listRoutines(agent.id)
+      const routines: TransferAgent["routines"][number][] = this.options.agents.routines
+        .list(agent.id)
         .map((routine) => ({
           key: routine.id,
           name: routine.name,
@@ -881,7 +883,7 @@ export class InstanceTransferService {
 
           for (const routine of transferRoutines(source)) {
             const created = yield* archiveSync(() =>
-              this.options.agents.createRoutine(
+              this.options.agents.routines.create(
                 {
                   agentId: agent.id,
                   name: routine.name,

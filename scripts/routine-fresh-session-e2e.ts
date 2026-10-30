@@ -418,7 +418,7 @@ try {
   const chatTurn = turnEntry("last history turn", lastChatTurn);
   pass("The chat session holds about 45,000 tokens", chatTurn.recordedInputTokens >= 45_000);
 
-  const routine = agents.createRoutine({
+  const routine = agents.routines.create({
     agentId: agent.id,
     name: "Build check",
     instruction: `${ROUTINE_MARK}: check the build and report.`,
@@ -428,7 +428,7 @@ try {
   });
   const routineTurns: TurnReport[] = [];
   for (const run of [1, 2]) {
-    const queued = await runCauseEffect(agents.testRoutine({ agentId: agent.id, routineId: routine.id }));
+    const queued = await runCauseEffect(agents.routines.test({ agentId: agent.id, routineId: routine.id }));
     assert.ok(queued.deliveryId, `routine run ${run}: no delivery`);
     await settled(queued.deliveryId, `routine run ${run}`);
     const entry = await waitFor(`routine run ${run} turn`, () =>

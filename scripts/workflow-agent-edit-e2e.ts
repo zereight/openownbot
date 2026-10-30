@@ -804,7 +804,7 @@ try {
     edits: [{ op: "add_node", key: "n", kind: "note", fields: { text: "From elsewhere" } }],
   };
   const beforeRoutine = toolLogs().length;
-  const routine = agents.createRoutine({
+  const routine = agents.routines.create({
     agentId: planner.id,
     name: "Injected",
     instruction: callText(refMain, [addNote]),
@@ -812,7 +812,7 @@ try {
     timezone: "UTC",
     schedule: { kind: "daily", time: "09:00" },
   });
-  await runCauseEffect(agents.testRoutine({ agentId: planner.id, routineId: routine.id }));
+  await runCauseEffect(agents.routines.test({ agentId: planner.id, routineId: routine.id }));
   const [fromRoutine] = await nextTools("routine run", beforeRoutine, 1);
   pass(
     "A routine run cannot use the workflow tools",

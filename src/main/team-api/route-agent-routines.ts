@@ -13,10 +13,7 @@ import type { AgentRouteTarget, RouteOutcome, TeamApiRequestContext } from "./re
 import { pathIdentifier, readJson, requireReleasedSchedule } from "./request-helpers";
 
 export interface AgentRoutineRouteDependencies {
-  agents: Pick<
-    TeamApiAgents,
-    "listRoutines" | "createRoutine" | "updateRoutine" | "deleteRoutine" | "testRoutine" | "listRoutineRuns"
-  >;
+  agents: Pick<TeamApiAgents, "routines">;
 }
 
 export async function routeAgentRoutines(
@@ -28,13 +25,13 @@ export async function routeAgentRoutines(
 
   if (action === "routines") {
     if (method === "GET") {
-      return json(200, agents.listRoutines(agentId).filter(isReleasedRoutine));
+      return json(200, agents.routines.list(agentId).filter(isReleasedRoutine));
     }
     if (method === "POST") {
       const body = await readJson(request);
       const input = parseCreateRoutine({ ...body, agentId });
       requireReleasedSchedule(input.schedule);
-      return json(201, agents.createRoutine(input));
+      return json(201, agents.routines.create(input));
     }
   }
   const routineMatch = action.match(/^routines\/([^/]+)(?:\/(test|runs))?$/);
@@ -43,24 +40,24 @@ export async function routeAgentRoutines(
     const routineAction = routineMatch[2] ?? "";
     if (method === "PATCH" && !routineAction) {
       const body = await readJson(request);
-      if (agents.listRoutines(agentId).some((routine) => routine.id === routineId && !isReleasedRoutine(routine))) {
+      if (agents.routines.list(agentId).some((routine) => routine.id === routineId && !isReleasedRoutine(routine))) {
         throw new HttpError(404, sourceText("error.backend.routineGone"));
       }
       const input = parseUpdateRoutine({ ...body, agentId, routineId });
       requireReleasedSchedule(input.schedule);
-      return json(200, agents.updateRoutine(input));
+      return json(200, agents.routines.update(input));
     }
     if (method === "DELETE" && !routineAction) {
-      await runCauseEffect(agents.deleteRoutine({ agentId, routineId }));
+      await runCauseEffect(agents.routines.delete({ agentId, routineId }));
       return empty(204);
     }
     if (method === "POST" && routineAction === "test") {
-      return json(201, await runCauseEffect(agents.testRoutine({ agentId, routineId })));
+      return json(201, await runCauseEffect(agents.routines.test({ agentId, routineId })));
     }
     if (method === "GET" && routineAction === "runs") {
       const rawLimit = url.searchParams.get("limit");
       const limit = rawLimit === null ? 50 : Number(rawLimit);
-      return json(200, agents.listRoutineRuns(parseListRoutineRuns({ agentId, routineId, limit })));
+      return json(200, agents.routines.listRuns(parseListRoutineRuns({ agentId, routineId, limit })));
     }
   }
 

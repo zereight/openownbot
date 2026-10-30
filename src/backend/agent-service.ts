@@ -25,9 +25,6 @@ import type {
   AvatarImageInput,
   CancelMcpSignInInput,
   CapabilityState,
-  ChannelMemory,
-  ChannelRoutine,
-  ChannelRoutineRun,
   ConversationFileSearchPage,
   ConversationMessage,
   ConversationMessageSender,
@@ -38,13 +35,7 @@ import type {
   ConversationSnapshot,
   ConversationWithReadState,
   CreateAgentInput,
-  CreateChannelMemoryInput,
-  CreateChannelRoutineInput,
-  CreateRoutineInput,
   CustomProviderRestart,
-  DeleteChannelMemoryInput,
-  DeleteChannelRoutineInput,
-  DeleteRoutineInput,
   DeleteSharedTableInput,
   DraftAttachment,
   DuplicateAgentResult,
@@ -52,8 +43,6 @@ import type {
   GenerateAgentProfileInput,
   HiddenAgentsSnapshot,
   HostAnalyticsInput,
-  ListChannelRoutineRunsInput,
-  ListRoutineRunsInput,
   LocalBrowserSecretResponse,
   McpServerConfig,
   McpSignInAppInput,
@@ -70,7 +59,6 @@ import type {
   RespondToApprovalInput,
   RespondToBrowserTakeoverInput,
   RespondToPromptInput,
-  Routine,
   RoutineRun,
   RunQueuedMessageAsTaskInput,
   SaveAgentProfileInput,
@@ -88,14 +76,10 @@ import type {
   SignOutMcpServerInput,
   StartAgentTaskInput,
   SteerQueuedMessageInput,
-  TestChannelRoutineInput,
   TestMcpServerInput,
   TestRoutineInput,
   UpdateAgentInput,
-  UpdateChannelMemoryInput,
-  UpdateChannelRoutineInput,
   UpdateQueuedMessageInput,
-  UpdateRoutineInput,
 } from "@robot/contracts/ipc";
 import {
   type AgentDefaults,
@@ -181,7 +165,7 @@ import { isPlanLimitDiagnostic } from "./agent/provider-diagnostics";
 import { type AgentClientFactory, ProviderRuntime, toProviderOperationFailed } from "./agent/provider-runtime";
 import { QueueControls } from "./agent/queue-controls";
 import { quietRoutineRun } from "./agent/routine-quiet-runs";
-import { type RoutineMutationOptions, RoutineScheduler, toRoutineOperationFailed } from "./agent/routine-scheduler";
+import { RoutineScheduler, toRoutineOperationFailed } from "./agent/routine-scheduler";
 import { localTimezone } from "./agent/routine-tools";
 import { buildRuntimeSnapshot } from "./agent/runtime-snapshot";
 import type { ScreenCaptureHost } from "./agent/screen-capture";
@@ -447,9 +431,11 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
   readonly #waits: AgentWaits;
   readonly #tasks: AgentTasks;
   readonly #tables: AgentTables | null;
-  readonly #routines: RoutineScheduler;
+  /** The routines of every agent. */
+  readonly routines: RoutineScheduler;
   readonly #routineTimer: RoutineTimer;
-  readonly #channelRoutines: ChannelRoutineScheduler;
+  /** The routines of every channel. */
+  readonly channelRoutines: ChannelRoutineScheduler;
   /** Agent and channel routines of every trigger kind, with their webhook routes. */
   readonly routineRecords: RoutineRecords;
   readonly #mcp: McpGateway;
@@ -640,7 +626,7 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
     // One timer for every routine owner. The sources are read lazily because `channels` and its
     // scheduler are built further down, and because an owner's earliest routine changes constantly.
     this.#routineTimer = new RoutineTimer(
-      () => [this.#routines, this.#channelRoutines, ...(options.extraRoutineSources?.() ?? [])],
+      () => [this.routines, this.channelRoutines, ...(options.extraRoutineSources?.() ?? [])],
       () => this.#initialized && !this.#stopping,
       (code, error) => this.#emitError(code, error),
     );
@@ -649,14 +635,14 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
       mailbox,
       hooks: {
         emit: (event) => this.#emit(event),
-        ownsRoutine: (agentId, routineId) => this.#routines.getRecord(agentId, routineId) !== null,
-        hasRoutine: (agentId) => this.#routines.listRecordsFor(agentId).length > 0,
+        ownsRoutine: (agentId, routineId) => this.routines.getRecord(agentId, routineId) !== null,
+        hasRoutine: (agentId) => this.routines.listRecordsFor(agentId).length > 0,
         requireKnownAgent: (agentId) => {
           this.#conversation.requireKnownAgent(agentId);
         },
       },
     });
-    this.#routines = new RoutineScheduler({
+    this.routines = new RoutineScheduler({
       timer: this.#routineTimer,
       waits: this.#waits,
       ...(options.timezone ? { timezone: options.timezone } : {}),
@@ -740,7 +726,7 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
                 ),
               );
             yield* this.channels.recover();
-            this.#channelRoutines.reconcileAll();
+            this.channelRoutines.reconcileAll();
             yield* this.#boot.backfillProviderHistory().pipe(Effect.forkIn(this.#scope));
           }).pipe(
             // Limits are not kept over a restart, so an agent on a backup model goes back first.
@@ -902,7 +888,7 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
       conversation: this.#conversation,
       browser: this.#browser,
       hostedSites: this.#hostedSites,
-      routines: this.#routines,
+      routines: this.routines,
       ...(options.approvalAutomation === undefined ? {} : { approvalAutomation: options.approvalAutomation }),
       workspaceSandboxed: (agentId) => {
         const agent = store.list().find((candidate) => candidate.id === agentId);
@@ -924,7 +910,7 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
       mailbox,
       conversation: this.#conversation,
       memories: this.memories,
-      routines: this.#routines,
+      routines: this.routines,
       hooks: {
         emit: (event) => this.#emit(event),
         listAgents: () => this.listAgents(),
@@ -977,7 +963,7 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
       database: store.database,
       mailbox,
       conversation: this.#conversation,
-      routines: this.#routines,
+      routines: this.routines,
       scope: () => this.#scope,
       hooks: {
         emit: (event) => this.#emit(event),
@@ -1053,7 +1039,7 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
         // A deleted routine takes its runs with it, so a run without a record counts as quiet:
         // otherwise the import would bring back the answers that its quiet turns settled.
         quietRoutineDelivery: (deliveryId) => {
-          const run = this.#routines.runForDelivery(deliveryId);
+          const run = this.routines.runForDelivery(deliveryId);
           return run === null || quietRoutineRun(run);
         },
         executionThreads: () => [...this.channels.store.executionThreads(), ...this.messaging.store.executionThreads()],
@@ -1133,7 +1119,7 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
           this.#conversation.workingTaskSnapshots(agentId).some((snapshot) => snapshot.activeTurnId)) ||
         !this.#usageLimits.mayDrain(agentId),
       usageLimited: (agentId) => !this.#usageLimits.mayDrain(agentId),
-      skipAtLimit: (task) => this.#channelRoutines.skipAtLimit(task.channelId, task.requestMessageId),
+      skipAtLimit: (task) => this.channelRoutines.skipAtLimit(task.channelId, task.requestMessageId),
       usageLimitBackup: (agentId) => this.#usageLimitBackup(agentId) !== undefined,
       steer: (agentId, threadId, turnId, messageId, text) =>
         Effect.gen({ self: this }, function* () {
@@ -1166,7 +1152,7 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
       // reconciling a channel routine run. It does not depend on `turn-completed`, which never
       // reaches the agent event forwarder for a channel thread.
       changed: (channelId, revision) => {
-        this.#channelRoutines.reconcile(channelId);
+        this.channelRoutines.reconcile(channelId);
         this.#routineTimer.arm();
         this.#emit({ type: "channels-changed", channelId, revision });
       },
@@ -1174,10 +1160,10 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
       ...(options.channelPersonAgentLevel ? { personAgentLevel: options.channelPersonAgentLevel } : {}),
       ...(options.channelRemotePerson ? { remotePerson: options.channelRemotePerson } : {}),
       routines: {
-        list: (channelId) => this.#channelRoutines.list(channelId),
-        create: (input) => this.#channelRoutines.create(input),
-        update: (input) => this.#channelRoutines.update(input),
-        delete: (input) => this.#channelRoutines.delete(input),
+        list: (channelId) => this.channelRoutines.list(channelId),
+        create: (input) => this.channelRoutines.create(input),
+        update: (input) => this.channelRoutines.update(input),
+        delete: (input) => this.channelRoutines.delete(input),
         timezone: options.timezone ?? localTimezone,
       },
       // A held agent starts nothing, so its queue has no event of its own while the reservation
@@ -1188,7 +1174,7 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
       },
       error: (error) => this.#emitError("channel_coordination_failed", error),
     });
-    this.#channelRoutines = new ChannelRoutineScheduler({
+    this.channelRoutines = new ChannelRoutineScheduler({
       channels: this.channels,
       hooks: {
         changed: (channelId) => {
@@ -1205,8 +1191,8 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
     });
     this.routineRecords = new RoutineRecords({
       database: store.database,
-      agentRoutines: this.#routines,
-      channelRoutines: this.#channelRoutines,
+      agentRoutines: this.routines,
+      channelRoutines: this.channelRoutines,
       agentExists: (agentId) => this.listAgents().some((agent) => agent.id === agentId),
       channelExists: (channelId) => this.channels.store.exists(channelId),
       channelRoutinesChanged: (channelId) => this.#emit({ type: "channel-routines-changed", channelId }),
@@ -1287,7 +1273,7 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
       duplication: this.#duplication,
       profileSave: this.#profileSave,
       compaction: this.#compaction,
-      routines: this.#routines,
+      routines: this.routines,
       threads: this.#threads,
       memory: this.#memoryHold,
       usageLimits: this.#usageLimits,
@@ -1373,7 +1359,7 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
       providers: this.#providers,
       endpoints: this.#endpoints,
       drain: this.#drain,
-      routines: this.#routines,
+      routines: this.routines,
       hooks: {
         channelAssignment: (deliveryId) => this.channels.store.assignmentForDelivery(deliveryId),
         taskThreadId: (deliveryId) => {
@@ -1412,8 +1398,8 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
         turnModel: (agentId, turnId) => this.#drain.modelForTurn(agentId, turnId),
         mayFailOver: (agentId) => this.#usageLimitBackup(agentId) !== undefined,
         requeueChannelDelivery: (deliveryId, continueWork) => this.#requeueChannelDelivery(deliveryId, continueWork),
-        quietRoutineDelivery: (deliveryId) => this.#routines.quietRunForDelivery(deliveryId),
-        takeRoutinePreview: (deliveryId) => this.#routines.takePreviewBeforeRun(deliveryId),
+        quietRoutineDelivery: (deliveryId) => this.routines.quietRunForDelivery(deliveryId),
+        takeRoutinePreview: (deliveryId) => this.routines.takePreviewBeforeRun(deliveryId),
         closeRoutineSession: (externalThreadId) => this.#threads.closeRoutineThread(externalThreadId),
         conversationTurnEnded: (agentId, sideThreadId, counts, memoryCommitted) =>
           this.#memoryReview.turnEnded(agentId, sideThreadId, counts, memoryCommitted),
@@ -1423,7 +1409,7 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
           this.#waits.list(agentId).waits.some((wait) => deliveryIds.includes(wait.requestMessageId)),
         routineAnswered: (agentId, deliveryId, answer) => {
           const agent = this.#store.list().find((item) => item.id === agentId);
-          const run = this.#routines.runForDelivery(deliveryId);
+          const run = this.routines.runForDelivery(deliveryId);
           if (!agent || !run) return Effect.void;
           return this.#threads
             .addRoutineDigest(agent, run.routineName, answer)
@@ -1453,7 +1439,7 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
       browser,
       channels: this.channels,
       messaging: this.messaging,
-      routines: this.#routines,
+      routines: this.routines,
       duplication: this.#duplication,
       drain: this.#drain,
       threads: this.#threads,
@@ -1492,7 +1478,7 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
       channels: this.channels,
       messaging: this.messaging,
       hostedSites: this.#hostedSites,
-      routines: this.#routines,
+      routines: this.routines,
       memories: this.memories,
       waits: this.#waits,
       tasks: this.#tasks,
@@ -1739,7 +1725,7 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
         break;
       }
     }
-    if (this.#routines.hasActiveRuns() || this.#channelRoutines.hasActiveRuns()) reasons.push("routine-run");
+    if (this.routines.hasActiveRuns() || this.channelRoutines.hasActiveRuns()) reasons.push("routine-run");
     if (this.channels.hasActiveWork()) reasons.push("channel-work");
     if (this.#providers.activeProcessCount() > 0) reasons.push("provider-process");
     return reasons;
@@ -1796,35 +1782,6 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
     this.#routineTimer.release();
   }
 
-  listRoutines(agentId: string): Routine[] {
-    return this.#routines.list(agentId);
-  }
-
-  createRoutine(input: CreateRoutineInput, options: RoutineMutationOptions = {}): Routine {
-    return this.#routines.create(input, options);
-  }
-
-  updateRoutine(input: UpdateRoutineInput, options: RoutineMutationOptions = {}): Routine {
-    return this.#routines.update(input, options);
-  }
-
-  deleteRoutine(
-    input: DeleteRoutineInput,
-    options: RoutineMutationOptions = {},
-  ): Effect.Effect<void, AgentLifecycleFailed> {
-    return this.#routines
-      .delete(input, options)
-      .pipe(
-        Effect.mapError((failure) => new AgentLifecycleFailed({ operation: "deleteRoutine", cause: failure.cause })),
-      );
-  }
-
-  testRoutine(input: TestRoutineInput): Effect.Effect<RoutineRun, AgentLifecycleFailed> {
-    return this.#routines
-      .test(input)
-      .pipe(Effect.mapError((failure) => new AgentLifecycleFailed({ operation: "testRoutine", cause: failure.cause })));
-  }
-
   /** Hands a routine run's work on to the next agent of its flow; answers the delivery id. */
   enqueueRoutineHandoff(input: {
     run: Pick<RoutineRun, "id" | "routineId" | "routineName" | "scheduledFor">;
@@ -1834,7 +1791,7 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
     /** The effort for the one turn this handoff starts. Absent: the agent's own setting. */
     reasoningEffort?: AgentReasoningEffort;
   }): Effect.Effect<string, AgentLifecycleFailed> {
-    return this.#routines
+    return this.routines
       .enqueueHandoff(input)
       .pipe(
         Effect.mapError(
@@ -1854,7 +1811,7 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
         throw new Error(sourceText("error.agent.automationPayloadTooLong", { limit: INPUT_LIMITS.automationPayload }));
       }
     });
-    return yield* this.#routines
+    return yield* this.routines
       .runWithPayload({ ...input, source: "script" })
       .pipe(
         Effect.mapError(
@@ -1866,7 +1823,7 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
   /** The command the user copies to run a routine from a local script. */
   automationRunCommand(input: TestRoutineInput): string {
     this.#requireAutomationAllowed(input.agentId);
-    if (!this.#routines.list(input.agentId).some((routine) => routine.id === input.routineId)) {
+    if (!this.routines.list(input.agentId).some((routine) => routine.id === input.routineId)) {
       throw new Error(sourceText("error.backend.routineGone"));
     }
     return automationRunCommand({
@@ -1885,59 +1842,6 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
   }
 
   /** `withSkipped` adds the skipped-run records, which only the local history shows. */
-  listRoutineRuns(input: ListRoutineRunsInput, withSkipped = false): RoutineRun[] {
-    return this.#routines.listRuns(input, withSkipped);
-  }
-
-  listChannelMemories(channelId: string): ChannelMemory[] {
-    return this.channels.listMemories(channelId);
-  }
-
-  createChannelMemory(input: CreateChannelMemoryInput): ChannelMemory {
-    return this.channels.createMemory(input);
-  }
-
-  updateChannelMemory(input: UpdateChannelMemoryInput): ChannelMemory {
-    return this.channels.updateMemory(input);
-  }
-
-  deleteChannelMemory(input: DeleteChannelMemoryInput): void {
-    this.channels.deleteMemory(input);
-  }
-
-  clearChannelMemories(channelId: string): void {
-    this.channels.clearMemories(channelId);
-  }
-
-  listChannelRoutines(channelId: string): ChannelRoutine[] {
-    return this.#channelRoutines.list(channelId);
-  }
-
-  createChannelRoutine(input: CreateChannelRoutineInput): ChannelRoutine {
-    return this.#channelRoutines.create(input);
-  }
-
-  updateChannelRoutine(input: UpdateChannelRoutineInput): ChannelRoutine {
-    return this.#channelRoutines.update(input);
-  }
-
-  deleteChannelRoutine(input: DeleteChannelRoutineInput): void {
-    this.#channelRoutines.delete(input);
-  }
-
-  testChannelRoutine(input: TestChannelRoutineInput): Effect.Effect<ChannelRoutineRun, AgentLifecycleFailed> {
-    return this.#channelRoutines
-      .test(input)
-      .pipe(
-        Effect.mapError(
-          (failure) => new AgentLifecycleFailed({ operation: "testChannelRoutine", cause: failure.cause }),
-        ),
-      );
-  }
-
-  listChannelRoutineRuns(input: ListChannelRoutineRunsInput, withSkipped = false): ChannelRoutineRun[] {
-    return this.#channelRoutines.listRuns(input, withSkipped);
-  }
 
   /**
    * The MCP servers this machine holds.
@@ -2589,13 +2493,13 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
       if (this.#store.isHidden(input.agentId) === input.hidden) return false;
       const now = new Date();
       // While the agent is still hidden, so the timer cannot fire an occurrence that this skips.
-      if (!input.hidden) this.#routines.skipMissedFor(input.agentId, now);
+      if (!input.hidden) this.routines.skipMissedFor(input.agentId, now);
       this.#store.setHidden(input.agentId, input.hidden ? now.toISOString() : null);
       return true;
     });
     const snapshot = this.listHiddenAgents();
     if (!changed) return snapshot;
-    this.#routines.arm();
+    this.routines.arm();
     if (input.hidden) {
       // The channel work that waits in its queue goes back to the channel, so it holds nothing.
       yield* this.channels
@@ -3507,8 +3411,8 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
     yield* lifecycleStep("recover agent state", () => {
       this.#boot.recoverPersistedTurns();
       this.#hostedSites.restore();
-      this.#routines.skipMissed(new Date(), options.heldRoutines);
-      this.#channelRoutines.skipMissed(new Date(), options.heldRoutines);
+      this.routines.skipMissed(new Date(), options.heldRoutines);
+      this.channelRoutines.skipMissed(new Date(), options.heldRoutines);
       this.#initialized = true;
       this.#memoryHold.start();
     });
@@ -3518,14 +3422,14 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
     yield* lifecycleStep("publish queues", () => {
       for (const agent of this.#store.list()) this.#mailboxSync.emitQueue(agent.id);
     });
-    yield* this.#routines
+    yield* this.routines
       .resumePendingRuns()
       .pipe(
         Effect.mapError(
           (failure) => new AgentLifecycleFailed({ operation: "resume agent routines", cause: failure.cause }),
         ),
       );
-    yield* this.#channelRoutines
+    yield* this.channelRoutines
       .resumePendingRuns()
       .pipe(
         Effect.mapError(
@@ -3533,7 +3437,7 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
         ),
       );
     yield* lifecycleStep("arm routines", () => {
-      this.#channelRoutines.reconcileAll();
+      this.channelRoutines.reconcileAll();
       this.#routineTimer.arm();
     });
   }).bind(this);
@@ -4460,7 +4364,7 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
         this.#mailboxSync.emitQueue(agentId);
       }
       const skipped = new Set(
-        this.#routines
+        this.routines
           .listRecordsFor(agentId)
           .filter((routine) => routine.limitPolicy === "skip")
           .map((routine) => routine.id),
@@ -4635,7 +4539,7 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
         cause: new Error(sourceText("error.backend.threadArchived")),
       });
     }
-    if (timezone !== undefined) this.#routines.noteDeliveryTimezone(delivery.delivery.id, timezone);
+    if (timezone !== undefined) this.routines.noteDeliveryTimezone(delivery.delivery.id, timezone);
     const snapshot = this.#conversation.ensureSnapshot(agent.id, task?.threadId ?? agent.threadId);
     // A task message shows in the task's row until its turn starts, not in the agent's own chat.
     if (!task) this.#mailboxSync.syncMailboxMessages(snapshot);

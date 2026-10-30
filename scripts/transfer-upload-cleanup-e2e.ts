@@ -61,8 +61,13 @@ function service(uploadDirectory: string): InstanceTransferService {
   // These checks transfer an empty instance. Other boundary calls must fail.
   const agents: InstanceTransferOptions["agents"] = {
     listAgents: () => [],
-    listRoutines: (_agentId) => {
-      throw unexpected("listRoutines");
+    routines: {
+      list: (_agentId) => {
+        throw unexpected("routines.list");
+      },
+      create: (_input, _options) => {
+        throw unexpected("routines.create");
+      },
     },
     memories: {
       list: (_agentId) => {
@@ -92,9 +97,6 @@ function service(uploadDirectory: string): InstanceTransferService {
     },
     createAgentProfile: (_input) => Effect.fail(unexpected("createAgentProfile")),
     updateAgent: (_input) => Effect.fail(unexpected("updateAgent")),
-    createRoutine: (_input, _options) => {
-      throw unexpected("createRoutine");
-    },
     setAvatar: (_agentId, _image) => Effect.fail(unexpected("setAvatar")),
     deleteAgent: (_agentId) => Effect.fail(unexpected("deleteAgent")),
   };

@@ -32,20 +32,7 @@ import { readJson, requireAgentLevel, requireReleasedSchedule, stringField } fro
  * call, so a memory or a routine written over the Team API cannot differ from one written in the
  * app. `ChannelService` still owns the chat half below.
  */
-export type ChannelSettingsAgents = Pick<
-  TeamApiAgents,
-  | "listChannelMemories"
-  | "createChannelMemory"
-  | "updateChannelMemory"
-  | "deleteChannelMemory"
-  | "clearChannelMemories"
-  | "listChannelRoutines"
-  | "createChannelRoutine"
-  | "updateChannelRoutine"
-  | "deleteChannelRoutine"
-  | "testChannelRoutine"
-  | "listChannelRoutineRuns"
->;
+export type ChannelSettingsAgents = Pick<TeamApiAgents, "channels" | "channelRoutines">;
 
 export async function routeChannels(
   context: TeamApiRequestContext,
@@ -151,46 +138,46 @@ async function routeChannelSettings(
   const body = await readJson(request);
   switch (url.pathname) {
     case CHANNEL_ROUTES.memories:
-      return json(200, agents.listChannelMemories(channelId(body)));
+      return json(200, agents.channels.listMemories(channelId(body)));
     case CHANNEL_ROUTES.memoryCreate:
-      return json(201, agents.createChannelMemory(parseCreateChannelMemory(body)));
+      return json(201, agents.channels.createMemory(parseCreateChannelMemory(body)));
     case CHANNEL_ROUTES.memoryUpdate:
-      return json(200, agents.updateChannelMemory(parseUpdateChannelMemory(body)));
+      return json(200, agents.channels.updateMemory(parseUpdateChannelMemory(body)));
     case CHANNEL_ROUTES.memoryDelete:
-      agents.deleteChannelMemory(parseDeleteChannelMemory(body));
+      agents.channels.deleteMemory(parseDeleteChannelMemory(body));
       return empty(204);
     case CHANNEL_ROUTES.memoryClear:
-      agents.clearChannelMemories(channelId(body));
+      agents.channels.clearMemories(channelId(body));
       return empty(204);
     case CHANNEL_ROUTES.routines:
       // A `once` routine stays on this computer: the channel codec rejects its schedule.
       return json(
         200,
-        agents
-          .listChannelRoutines(channelId(body))
+        agents.channelRoutines
+          .list(channelId(body))
           .filter((routine) => isReleasedRoutineSchedule(routine.trigger.schedule)),
       );
     case CHANNEL_ROUTES.routineCreate: {
       const input = parseCreateChannelRoutine(body);
       requireReleasedSchedule(input.schedule);
-      return json(201, agents.createChannelRoutine(input));
+      return json(201, agents.channelRoutines.create(input));
     }
     case CHANNEL_ROUTES.routineUpdate: {
       const input = parseUpdateChannelRoutine(body);
       requireReleasedSchedule(input.schedule);
-      const hidden = agents
-        .listChannelRoutines(input.channelId)
+      const hidden = agents.channelRoutines
+        .list(input.channelId)
         .some((routine) => routine.id === input.routineId && !isReleasedRoutineSchedule(routine.trigger.schedule));
       if (hidden) throw new HttpError(404, sourceText("error.backend.routineGone"));
-      return json(200, agents.updateChannelRoutine(input));
+      return json(200, agents.channelRoutines.update(input));
     }
     case CHANNEL_ROUTES.routineDelete:
-      agents.deleteChannelRoutine(parseDeleteChannelRoutine(body));
+      agents.channelRoutines.delete(parseDeleteChannelRoutine(body));
       return empty(204);
     case CHANNEL_ROUTES.routineTest:
-      return json(201, await runCauseEffect(agents.testChannelRoutine(parseTestChannelRoutine(body))));
+      return json(201, await runCauseEffect(agents.channelRoutines.test(parseTestChannelRoutine(body))));
     default:
-      return json(200, agents.listChannelRoutineRuns(parseListChannelRoutineRuns(body)));
+      return json(200, agents.channelRoutines.listRuns(parseListChannelRoutineRuns(body)));
   }
 }
 

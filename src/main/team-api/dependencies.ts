@@ -1,5 +1,7 @@
 import type { Effect } from "effect";
 import type { AgentMemories } from "../../backend/agent/agent-memories";
+import type { RoutineOperations } from "../../backend/agent/routine-scheduler";
+import type { ChannelRoutineOperations } from "../../backend/channel-routine-scheduler";
 import type { ChannelService } from "../../backend/channel-service";
 import type { AcpRegistry } from "../acp-registry";
 import type { AgentAdminSettingsService } from "../agent-admin-settings";
@@ -94,23 +96,6 @@ type TeamApiAgentMethods = Pick<
   | "commitAgentDuplication"
   | "updateAgent"
   | "deleteAgent"
-  | "listRoutines"
-  | "createRoutine"
-  | "updateRoutine"
-  | "deleteRoutine"
-  | "testRoutine"
-  | "listRoutineRuns"
-  | "listChannelMemories"
-  | "createChannelMemory"
-  | "updateChannelMemory"
-  | "deleteChannelMemory"
-  | "clearChannelMemories"
-  | "listChannelRoutines"
-  | "createChannelRoutine"
-  | "updateChannelRoutine"
-  | "deleteChannelRoutine"
-  | "testChannelRoutine"
-  | "listChannelRoutineRuns"
   | "setAvatar"
   | "resolveAvatar"
   | "readConversation"
@@ -145,6 +130,9 @@ type TeamApiAgentMethods = Pick<
 
 export type TeamApiAgents = TeamApiAgentMethods & {
   memories: Pick<AgentMemories, "list" | "selectionState" | "setInclusions" | "create" | "update" | "delete" | "clear">;
+  channels: Pick<ChannelService, "listMemories" | "createMemory" | "updateMemory" | "deleteMemory" | "clearMemories">;
+  routines: RoutineOperations;
+  channelRoutines: ChannelRoutineOperations;
   on: (event: "event", listener: (event: AgentEvent) => void) => void;
   off: (event: "event", listener: (event: AgentEvent) => void) => void;
 };

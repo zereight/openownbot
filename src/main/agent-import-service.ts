@@ -80,13 +80,19 @@ export interface AgentImportAgents {
     avatarSeed: string;
     avatarHue: null;
   }): ReturnType<AgentService["createAgentProfile"]>;
-  createRoutine(input: CreateRoutineInput, options?: { recordConversationEvent?: boolean }): unknown;
+  routines: {
+    create(input: CreateRoutineInput, options?: { recordConversationEvent?: boolean }): unknown;
+  };
   memories: Pick<AgentMemories, "create" | "limit" | "initializeSelection">;
   setAvatar(agentId: string, image: AvatarImageInput | null): ReturnType<AgentService["setAvatar"]>;
   deleteAgent(agentId: string): ReturnType<AgentService["deleteAgent"]>;
-  channels: { command(command: ChannelCommand, actor: ChannelActor): ReturnType<ChannelService["command"]> };
-  createChannelMemory(input: CreateChannelMemoryInput): unknown;
-  createChannelRoutine(input: CreateChannelRoutineInput): unknown;
+  channels: {
+    command(command: ChannelCommand, actor: ChannelActor): ReturnType<ChannelService["command"]>;
+    createMemory(input: CreateChannelMemoryInput): unknown;
+  };
+  channelRoutines: {
+    create(input: CreateChannelRoutineInput): unknown;
+  };
   deleteChannel(channelId: string): ReturnType<AgentService["deleteChannel"]>;
 }
 
@@ -450,10 +456,10 @@ export class AgentImportService {
         Effect.gen({ self: this }, function* () {
           const channel = created;
           try {
-            for (const text of source.memories) this.agents.createChannelMemory({ channelId: channel.id, text });
+            for (const text of source.memories) this.agents.channels.createMemory({ channelId: channel.id, text });
             for (const routine of source.routines) {
               try {
-                this.agents.createChannelRoutine({
+                this.agents.channelRoutines.create({
                   channelId: channel.id,
                   name: routine.name,
                   instruction: routine.instruction,
@@ -578,7 +584,7 @@ export class AgentImportService {
 
             for (const routine of source.routines) {
               try {
-                this.agents.createRoutine(
+                this.agents.routines.create(
                   {
                     agentId: agent.id,
                     name: routine.name,

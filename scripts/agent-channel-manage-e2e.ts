@@ -386,7 +386,7 @@ try {
     instruction: "Each member posts what they finished yesterday.",
     schedule: { kind: "daily", time: "09:00" },
   });
-  const routine = agents.listChannelRoutines(channelId).find((item) => item.name === "Standup");
+  const routine = agents.channelRoutines.list(channelId).find((item) => item.name === "Standup");
   pass(
     "The routine is created in the channel with the server timezone",
     created.success && routine?.active === true && routine.timezone === "UTC",
@@ -411,7 +411,7 @@ try {
   });
   pass(
     "The routine pauses",
-    paused.success && agents.listChannelRoutines(channelId).find((item) => item.id === routine.id)?.active === false,
+    paused.success && agents.channelRoutines.list(channelId).find((item) => item.id === routine.id)?.active === false,
     paused.text,
   );
   const deleted = await callTool("delete routine", channelId, lead.id, "channel_delete_routine", {
@@ -419,7 +419,7 @@ try {
   });
   pass(
     "The routine is deleted",
-    deleted.success && !agents.listChannelRoutines(channelId).some((item) => item.id === routine.id),
+    deleted.success && !agents.channelRoutines.list(channelId).some((item) => item.id === routine.id),
     deleted.text,
   );
   pass(
@@ -477,7 +477,7 @@ try {
     "A team member's request cannot make a one-time channel routine",
     !remoteOnce.success &&
       remoteOnce.text.includes("one-time channel routine") &&
-      !agents.listChannelRoutines(channelId).some((item) => item.name === "Reminder"),
+      !agents.channelRoutines.list(channelId).some((item) => item.name === "Reminder"),
     remoteOnce.text,
   );
 
@@ -498,7 +498,7 @@ try {
       PERSON,
     ),
   );
-  const runner = agents.createChannelRoutine({
+  const runner = agents.channelRoutines.create({
     channelId: soloId,
     name: "Injected",
     instruction: `${CALL_MARK} <<ARGS${JSON.stringify({ __tool: "channel_add_member", agentId: tester.id })}ARGS>>`,
@@ -507,7 +507,7 @@ try {
     schedule: { kind: "daily", time: "09:00" },
   });
   const before = toolLogs().length;
-  await runCauseEffect(agents.testChannelRoutine({ channelId: soloId, routineId: runner.id }));
+  await runCauseEffect(agents.channelRoutines.test({ channelId: soloId, routineId: runner.id }));
   const fromRun = await waitFor("the routine run tool result", () => toolLogs()[before]);
   await settled(soloId);
   const fromRunText = fromRun.result?.contentItems.map((item) => item.text).join("\n") ?? JSON.stringify(fromRun.error);

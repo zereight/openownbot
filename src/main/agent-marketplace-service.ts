@@ -43,13 +43,30 @@ interface AgentMarketplaceAuth {
 
 interface AgentMarketplaceAgents {
   listAgents(): AgentSummary[];
-  listRoutines(agentId: string): Array<{
-    id: string;
-    name: string;
-    instruction: string;
-    active: boolean;
-    trigger: { schedule: RoutineSchedule };
-  }>;
+  routines: {
+    list(agentId: string): Array<{
+      id: string;
+      name: string;
+      instruction: string;
+      active: boolean;
+      trigger: { schedule: RoutineSchedule };
+    }>;
+    create(
+      input: {
+        agentId: string;
+        name: string;
+        instruction: string;
+        active: boolean;
+        timezone: string;
+        schedule: RoutineSchedule;
+      },
+      options?: { recordConversationEvent?: boolean },
+    ): { id: string };
+    delete(
+      input: { agentId: string; routineId: string },
+      options?: { recordConversationEvent?: boolean },
+    ): Effect.Effect<void, { readonly cause: unknown }>;
+  };
   resolveAvatar(agentId: string): { path: string; mimeType: AvatarImageInput["mimeType"] } | null;
   createAgentProfile(input: {
     name: string;
@@ -67,21 +84,6 @@ interface AgentMarketplaceAgents {
     avatarHue: MarketplaceAgentDetail["avatarHue"];
   }): Effect.Effect<AgentSummary, AgentLifecycleFailed>;
   setAvatar(agentId: string, image: AvatarImageInput | null): Effect.Effect<AgentSummary, AgentLifecycleFailed>;
-  createRoutine(
-    input: {
-      agentId: string;
-      name: string;
-      instruction: string;
-      active: boolean;
-      timezone: string;
-      schedule: RoutineSchedule;
-    },
-    options?: { recordConversationEvent?: boolean },
-  ): { id: string };
-  deleteRoutine(
-    input: { agentId: string; routineId: string },
-    options?: { recordConversationEvent?: boolean },
-  ): Effect.Effect<void, AgentLifecycleFailed>;
   setMarketplaceSource(agentId: string, source: NonNullable<AgentSummary["marketplaceSource"]>): AgentSummary;
   deleteAgent(agentId: string): Effect.Effect<void, AgentLifecycleFailed>;
 }
@@ -141,7 +143,7 @@ export class AgentMarketplaceService {
       if (!agent)
         return yield* new AgentMarketplaceFailure({ cause: new Error(sourceText("error.skill.chooseLocalAgent")) });
       const skills = yield* this.skills.listPublishable(agentId).pipe(toAgentMarketplaceFailure);
-      const routines = this.agents.listRoutines(agentId).flatMap(({ name, instruction, active, trigger }) =>
+      const routines = this.agents.routines.list(agentId).flatMap(({ name, instruction, active, trigger }) =>
         // A `once` routine names one date, so it is not part of a template.
         isReleasedRoutineSchedule(trigger.schedule) ? [{ name, instruction, active, schedule: trigger.schedule }] : [],
       );
@@ -238,7 +240,7 @@ export class AgentMarketplaceService {
             }
             for (const routine of detail.routines) {
               const created = yield* marketplaceSync(() =>
-                this.agents.createRoutine(
+                this.agents.routines.create(
                   {
                     agentId: agent.id,
                     name: routine.name,
@@ -280,8 +282,8 @@ export class AgentMarketplaceService {
               }),
             );
             for (const routineId of existing?.marketplaceSource?.routineIds ?? []) {
-              yield* this.agents
-                .deleteRoutine({ agentId: agent.id, routineId }, { recordConversationEvent: false })
+              yield* this.agents.routines
+                .delete({ agentId: agent.id, routineId }, { recordConversationEvent: false })
                 .pipe(Effect.catch(() => Effect.void));
             }
           }),
@@ -292,8 +294,8 @@ export class AgentMarketplaceService {
             yield* Effect.forEach(
               createdRoutineIds,
               (routineId) =>
-                this.agents
-                  .deleteRoutine({ agentId: agent.id, routineId }, { recordConversationEvent: false })
+                this.agents.routines
+                  .delete({ agentId: agent.id, routineId }, { recordConversationEvent: false })
                   .pipe(Effect.catch(() => Effect.void)),
               { concurrency: "unbounded" },
             );

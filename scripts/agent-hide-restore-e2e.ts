@@ -352,7 +352,7 @@ try {
           avatarHue: null,
         }),
       );
-      const routine = agents.createRoutine(
+      const routine = agents.routines.create(
         {
           agentId: agent.id,
           name: "Hourly log check",
@@ -403,7 +403,7 @@ try {
       listed.body.some((agent) => record(agent, "agent").id === setup.agentId),
       "A hidden agent left /v1/agents.",
     );
-    assert.equal(current().agents.listRoutines(setup.agentId).length, 1, "A hidden agent lost its routine.");
+    assert.equal(current().agents.routines.list(setup.agentId).length, 1, "A hidden agent lost its routine.");
     const sent = await call("POST", TEAM_API_ROUTES.agent.messages(setup.agentId), {
       token: setup.deviceToken,
       body: { text: "Are you there?" },
@@ -442,7 +442,7 @@ try {
     const read = await hidden(AGENT_HIDDEN_ROUTES.read, setup.deviceToken, {});
     assert.equal(read.status, 200, "The other device's session did not survive the restart.");
     assert.deepEqual(hiddenIds(read.body), [setup.agentId]);
-    assert.equal(agents.listRoutines(setup.agentId)[0]?.trigger.nextRunAt, at("10:00").toISOString());
+    assert.equal(agents.routines.list(setup.agentId)[0]?.trigger.nextRunAt, at("10:00").toISOString());
     socket = await openEvents(setup.deviceToken);
     return { hidden: hiddenIds(read.body) };
   });
@@ -454,13 +454,13 @@ try {
     assert.equal(response.status, 200);
     assert.deepEqual(hiddenIds(response.body), []);
     assert.deepEqual((await event).agents, []);
-    const [routine] = agents.listRoutines(setup.agentId);
+    const [routine] = agents.routines.list(setup.agentId);
     assert.ok(routine);
     assert.equal(routine.active, true);
     assert.equal(routine.missedPolicy, "run-once", "The routine asks to replay one missed run.");
     assert.equal(routine.trigger.nextRunAt, at("12:00").toISOString(), "Restore did not skip the hidden time.");
     // The 10:00 and 11:00 occurrences are recorded as one missed record. Neither is queued as work.
-    const runs = agents.listRoutineRuns({ agentId: setup.agentId, routineId: setup.routineId }, true);
+    const runs = agents.routines.listRuns({ agentId: setup.agentId, routineId: setup.routineId }, true);
     assert.equal(runs.length, 1, `Restore made more than one run: ${JSON.stringify(runs.map((run) => run.status))}.`);
     const [missed] = runs;
     assert.equal(missed?.deliveryId, null, "Restore replayed an occurrence from the hidden time.");
