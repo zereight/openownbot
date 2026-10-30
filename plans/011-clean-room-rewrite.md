@@ -1,7 +1,39 @@
-# Plan 011: Clean-room rewrite of OpenOwnBot as a new product
+# Plan 011: A new product that uses OpenOwnBot only as an idea benchmark
 
-> **Status**: BLOCKED: needs a legal decision and a named clean team (see
-> [Gates](#gates)). This plan changes no code and no license.
+> **Status**: READY: the developer decided the approach on 2026-10-31 (see
+> [Decision](#decision-2026-10-31)). It needs a repository name and a stack before work starts.
+> This plan changes no code and no license in this repository.
+
+## Decision (2026-10-31)
+
+The developer decided: the new product is a full rewrite, not a port. It uses OpenOwnBot only as a
+benchmark of ideas (what features exist and what problem each one solves). Its code, its visual
+design and its layout are different. This replaces the two-team clean-room method below as the plan
+of record. The sections after this one stay as background.
+
+Rules for the new product:
+
+- **New repository**, with no history from this one.
+- **No copy** of code, file structure, module split, identifiers, interface text, documentation
+  text, icons, images, styles or design tokens from this repository. No line is pasted and then
+  edited.
+- **No reading the inherited code while writing.** A developer or agent writes from a feature list in
+  plain words and from public documents of third-party tools (Codex, Claude Code, ACP, MCP, Electron,
+  Expo). The feature list names what a user can do, not how this repository does it.
+- **Own design.** New layout, new screens, new visual style, new names for features where possible.
+- **Own name and identity.** Not "OpenBot" or "OpenOwnBot".
+- **Own wire formats and storage.** No reuse of the Team API protocols or the `openbot.db` schema.
+  Reading an old user's data, if wanted later, is a separate importer decision.
+
+Not changed by this decision:
+
+- Ideas, features and general methods are not protected by copyright; the expression in code, text
+  and design is. This is general knowledge, not legal advice. A lawyer was not asked.
+- The agent that wrote this plan has read the inherited code. The rule "no reading the inherited code
+  while writing" lowers the risk; it does not make that agent clean. The developer accepted this.
+- The commercial license inquiry (Gate 2) is no longer required. It stays an option.
+
+Open before work starts: the repository name, the product name, the stack, and the first features.
 
 ## Status
 
