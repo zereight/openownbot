@@ -129,6 +129,6 @@ export const messages = defineMessages("sidebar", {
   "sidebar.storage.used": "{percent} used",
   "sidebar.storage.freeUpSpace": "Free up space",
   "sidebar.storage.dismiss": "Hide until storage is full",
-  "sidebar.new.importTeam": "Import team",
-  "sidebar.section.exportTeam": "Export as team file",
+  "sidebar.new.importTeam": "Import sections",
+  "sidebar.section.exportTeam": "Export as section file",
 });

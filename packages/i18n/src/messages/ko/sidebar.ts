@@ -131,6 +131,6 @@ export const messages = {
   "sidebar.storage.used": "{percent} 사용 중",
   "sidebar.storage.freeUpSpace": "공간 확보",
   "sidebar.storage.dismiss": "저장 공간이 가득 찰 때까지 숨기기",
-  "sidebar.new.importTeam": "팀 가져오기",
-  "sidebar.section.exportTeam": "팀 파일로 내보내기",
+  "sidebar.new.importTeam": "섹션 가져오기",
+  "sidebar.section.exportTeam": "섹션 파일로 내보내기",
 } as const satisfies PartialTranslation<typeof source>;

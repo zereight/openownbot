@@ -130,6 +130,6 @@ export const messages = {
   "sidebar.storage.used": "已使用 {percent}",
   "sidebar.storage.freeUpSpace": "释放空间",
   "sidebar.storage.dismiss": "隐藏，直到存储空间已满",
-  "sidebar.new.importTeam": "导入团队",
-  "sidebar.section.exportTeam": "导出为团队文件",
+  "sidebar.new.importTeam": "导入分组",
+  "sidebar.section.exportTeam": "导出为分组文件",
 } as const satisfies PartialTranslation<typeof source>;
