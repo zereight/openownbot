@@ -1925,31 +1925,24 @@ async function main(): Promise<void> {
     ) {
       throw new Error("An immediate shutdown lost a restored tab URL.");
     }
-    const legacyTabId = "legacy-v1-tab";
+    const bareTabId = "tab-without-environment";
     await writeFile(
       statePath,
       `${JSON.stringify({
-        version: 1,
-        activeTabId: legacyTabId,
-        tabs: [
-          {
-            id: legacyTabId,
-            url: `${origin}/cookie`,
-            ownerThreadId: "legacy-thread",
-            ownerBotId: "legacy-bot",
-          },
-        ],
+        version: 2,
+        activeTabId: bareTabId,
+        tabs: [{ id: bareTabId, url: `${origin}/cookie`, ownerThreadId: "smoke-thread", ownerAgentId: "smoke-agent" }],
       })}\n`,
     );
-    const legacyWindow = new BrowserWindow({ show: false });
-    const legacyBrowser = new BrowserHost(legacyWindow, downloadsRoot, statePath);
-    await runCauseEffect(legacyBrowser.restore());
-    const legacyTab = legacyBrowser.listTabs().find((candidate) => candidate.id === legacyTabId);
-    if (legacyTab?.environment?.viewport.mode !== "fill" || legacyTab.environment.colorScheme !== "system") {
-      throw new Error("Browser state v1 did not migrate to the default V2 environment.");
+    const bareWindow = new BrowserWindow({ show: false });
+    const bareBrowser = new BrowserHost(bareWindow, downloadsRoot, statePath);
+    await runCauseEffect(bareBrowser.restore());
+    const bareTab = bareBrowser.listTabs().find((candidate) => candidate.id === bareTabId);
+    if (bareTab?.environment?.viewport.mode !== "fill" || bareTab.environment.colorScheme !== "system") {
+      throw new Error("A stored tab without an environment did not get the default environment.");
     }
-    await runCauseEffect(legacyBrowser.destroy());
-    legacyWindow.destroy();
+    await runCauseEffect(bareBrowser.destroy());
+    bareWindow.destroy();
     restoredWindow.destroy();
     process.stdout.write("BrowserHost smoke test passed.\n");
   } finally {

@@ -7,7 +7,7 @@ const SIDEBAR_PINS_STORAGE_KEY = "openownbot:sidebar-pins:v1";
 type SidebarPinStorage = Pick<Storage, "getItem" | "setItem">;
 
 const sidebarPinnedItemSchema = z.object({
-  kind: z.enum(["agent", "channel", "person"]),
+  kind: z.enum(["agent", "channel"]),
   id: z.string().trim().min(1),
 });
 const sidebarPinsSchema = z.record(

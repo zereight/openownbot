@@ -150,9 +150,7 @@ function validateActiveHostedSiteConversationEvent(event: ActiveHostedSiteConver
 }
 
 function activeHostedSiteConversationEventValue(value: unknown): ActiveHostedSiteConversationEvent | null {
-  // Events written before the bot-to-agent rename spell the id `botId`; a rejected event is a publication
-  // that never reports back in the conversation, so both spellings are read. See `thread-replay.ts`.
-  const agentId = isDynamicRecord(value) ? (value.agentId ?? value.botId) : null;
+  const agentId = isDynamicRecord(value) ? value.agentId : null;
   if (
     !isDynamicRecord(value) ||
     !isString(agentId) ||

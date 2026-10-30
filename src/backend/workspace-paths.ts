@@ -9,7 +9,6 @@ import {
   type WorkspaceDirectoryEntry,
 } from "@openownbot/contracts/ipc";
 import { DATA_FOLDER_NAME } from "@openownbot/contracts/product";
-import { legacyAgentId } from "@openownbot/contracts/validation";
 import { sourceText } from "@openownbot/i18n/source";
 import { Effect } from "effect";
 import { type AttachmentOperationError, attachmentCall, attachmentFailure } from "./attachment-effects";
@@ -36,61 +35,15 @@ export function sharedPathFromInput(sharedRoot: string, inputPath: string): stri
   return isAbsolute(inputPath) ? inputPath : join(sharedRoot, normalized);
 }
 
-/**
- * The two `Bots` prefixes are permanent. This function reads paths the model writes and paths quoted in
- * messages, and the workspace root was `~/OpenBot/Bots/bot-<uuid>` in every release before the
- * bot-to-agent rename. A database restored from the user's own copy of the file never ran migration v13,
- * so it still spells both the id and the path that way; and a cross-device root legitimately leaves a
- * workspace under the old name even after v13. Dropping the prefix does not fail loudly -- the path just
- * resolves somewhere else.
- */
+/** A path the model writes or quotes, resolved against this agent's workspace. */
 export function workspacePathFromInput(workspaceRoot: string, agentId: string, inputPath: string): string {
   const decoded = decodePath(inputPath.trim());
   const normalized = decoded.replaceAll("\\", "/");
-  const legacyId = legacyAgentId(agentId);
-  for (const prefix of [
-    `~/${DATA_FOLDER_NAME}/Agents/${agentId}/`,
-    `${DATA_FOLDER_NAME}/Agents/${agentId}/`,
-    `~/OpenBot/Bots/${legacyId}/`,
-    `OpenBot/Bots/${legacyId}/`,
-  ]) {
+  for (const prefix of [`~/${DATA_FOLDER_NAME}/Agents/${agentId}/`, `${DATA_FOLDER_NAME}/Agents/${agentId}/`]) {
     if (normalized.startsWith(prefix)) return join(workspaceRoot, normalized.slice(prefix.length));
   }
   if (normalized.startsWith("~/")) return join(homedir(), normalized.slice(2));
   return isAbsolute(decoded) ? decoded : join(workspaceRoot, normalized);
-}
-
-/**
- * An absolute path under this agent's pre-rename workspace root, rebased onto its current one, or `null`
- * if it is not one. The provider keeps its own transcript behind `external_session_id`, and migration v13
- * cannot reach into it, so a resumed thread can still hand back a path it wrote before the workspace
- * moved. Callers try this only after the original path is gone, and put the result through the same
- * {@link isWithin} containment check as any other candidate -- the fallback finds the file again, it does
- * not open a second way out of the workspace.
- */
-export function rebaseLegacyWorkspacePath(workspacePath: string, agentId: string, candidate: string): string | null {
-  const counterpart = counterpartWorkspaceRoot(workspacePath, agentId);
-  if (counterpart === null || counterpart === workspacePath || !isWithin(counterpart, candidate)) return null;
-  return join(workspacePath, relative(counterpart, candidate));
-}
-
-/**
- * The other root this agent's workspace could be sitting under -- the pre-rename one when the move
- * succeeded, and the post-rename one when it did not. The move gives up on `EXDEV` or a permission error
- * and leaves the directory where it was, but migration v13 has already rewritten the paths inside that
- * agent's messages to where it *would* have gone, so the fallback has to run in both directions or those
- * links stay broken for exactly the users whose move failed.
- */
-function counterpartWorkspaceRoot(workspacePath: string, agentId: string): string | null {
-  const parent = dirname(workspacePath);
-  const legacyId = legacyAgentId(agentId);
-  if (basename(workspacePath) === agentId && basename(parent) === "Agents") {
-    return join(dirname(parent), "Bots", legacyId);
-  }
-  if (basename(workspacePath) === legacyId && basename(parent) === "Bots") {
-    return join(dirname(parent), "Agents", agentId);
-  }
-  return null;
 }
 
 export function isWithin(root: string, candidate: string): boolean {
@@ -159,12 +112,12 @@ const resolveWorkspacePath = Effect.fn("Workspace.resolveWorkspacePath")(functio
   // A member reads one sentence for a path that is missing and for a path outside the workspace, so
   // the answer does not tell whether a path exists on the host.
   const memberMessage = sourceText("error.backend.workspacePathMissingForMember", { path: inputPath });
-  const resolvedPath = yield* realpathWithLegacyRoot(agent, candidatePath).pipe(
+  const resolvedPath = yield* attachmentCall(() => realpath(candidatePath)).pipe(
     Effect.catch((error) => {
       // The literal path goes first, so a real file named `notes:2` still opens.
       const withoutLocation = candidatePath.replace(LOCATION_SUFFIX, "");
       if (!isMissing(error) || withoutLocation === candidatePath) return Effect.fail(error);
-      return realpathWithLegacyRoot(agent, withoutLocation);
+      return attachmentCall(() => realpath(withoutLocation));
     }),
     Effect.catch((error) => {
       if (!isMissing(error) || !options.allowOutside) return Effect.fail(error);
@@ -301,20 +254,4 @@ export const listWorkspaceDirectory = Effect.fn("Workspace.listWorkspaceDirector
     ),
     truncated: candidates.length > WORKSPACE_DIRECTORY_LIMIT,
   };
-});
-
-const realpathWithLegacyRoot = Effect.fn("Workspace.realpathWithLegacyRoot")(function* (
-  agent: Pick<AgentSummary, "id" | "workspacePath">,
-  candidatePath: string,
-): Effect.fn.Return<string, AttachmentOperationError> {
-  return yield* attachmentCall(() => realpath(candidatePath)).pipe(
-    Effect.catch((error) => {
-      // Apply the same containment check to paths from released provider transcripts.
-      const rebased =
-        isRecord(error.cause) && error.cause.code === "ENOENT"
-          ? rebaseLegacyWorkspacePath(agent.workspacePath, agent.id, candidatePath)
-          : null;
-      return rebased === null ? Effect.fail(error) : attachmentCall(() => realpath(rebased));
-    }),
-  );
 });

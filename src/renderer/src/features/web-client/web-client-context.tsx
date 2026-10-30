@@ -1030,7 +1030,6 @@ export function createWebWorkspace(
         capabilities,
         agents.map((agent) => agent.id),
       );
-      preferences.reconcileActiveServerPins(agents.map((agent) => agent.id));
       for (const agent of agents) loadQueue(agent.id);
       void runtime
         .currentMemberId?.()

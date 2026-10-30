@@ -69,10 +69,6 @@ export const UI_QUICK_REPLIES_QUESTION_ID = "reply";
 /** The fallback question id of a `choice`. */
 export const UI_CHOICE_QUESTION_ID = "choice";
 
-// Keys the legacy message read renames (`legacy-conversation-message.ts`). An id that becomes a record
-// key in a response must not be one of them.
-const LEGACY_KEY_IDS: ReadonlySet<string> = new Set(["botId", "recipientBotId", "recipientBotIds", "senderBotId"]);
-
 // ---------------------------------------------------------------------------------------------------
 // Types
 
@@ -289,7 +285,7 @@ export function isUiBlockType(value: unknown): value is UiBlockType {
  * become a record key), and the legacy `bot*` key names are refused because the stored tree renames them.
  */
 export function isUiBlockId(value: unknown): value is string {
-  return isString(value) && UI_BLOCK_ID_PATTERN.test(value) && !value.startsWith("_") && !LEGACY_KEY_IDS.has(value);
+  return isString(value) && UI_BLOCK_ID_PATTERN.test(value) && !value.startsWith("_");
 }
 
 // ---------------------------------------------------------------------------------------------------

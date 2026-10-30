@@ -1,9 +1,4 @@
-import {
-  AGENT_PROVIDER_DESCRIPTORS,
-  type AgentProviderRef,
-  agentProviderDescriptor,
-  isAgentProviderRef,
-} from "./agent-providers";
+import { type AgentProviderRef, agentProviderDescriptor, isAgentProviderRef } from "./agent-providers";
 import { INPUT_LIMITS } from "./input-limits";
 import { type AgentProviderId, isAgentProvider } from "./ipc-agent-status";
 import { isBoundedString } from "./ipc-bounded-values";
@@ -44,17 +39,6 @@ export function isAgentModel(value: unknown): value is AgentModelId {
  */
 export function defaultProviderModel(provider: AgentProviderId): AgentModelId {
   return agentProviderDescriptor(provider).defaultModel;
-}
-
-/**
- * `codex` is the historical answer for a model no prefix claims, and it has to stay that way: an
- * import that never named a provider already landed there, and moving it would move those agents.
- */
-export function providerForLegacyModel(model: AgentModelId): AgentProviderId {
-  for (const descriptor of AGENT_PROVIDER_DESCRIPTORS) {
-    if (descriptor.legacyModelPrefix !== null && model.startsWith(descriptor.legacyModelPrefix)) return descriptor.id;
-  }
-  return "codex";
 }
 
 export function isReasoningEffort(value: unknown): value is AgentReasoningEffort {

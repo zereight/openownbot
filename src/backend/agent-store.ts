@@ -59,7 +59,6 @@ import {
   isProviderAccountId,
   isReasoningEffort,
   isSidebarLayoutSnapshot,
-  providerForLegacyModel,
   type SaveAgentProfileResult,
   type SidebarLayoutSnapshot,
   type UpdateAgentInput,
@@ -80,9 +79,8 @@ import { isRecord } from "./protocol";
 import { StoredStateFailure, storedIO, storedSync } from "./stored-state-effects";
 
 type StoredAgent = AgentSummary & { access: AgentAccess; computerUse: boolean };
-type PersistedStoredAgent = Omit<StoredAgent, "avatarUrl" | "provider" | "access" | "computerUse"> & {
+type PersistedStoredAgent = Omit<StoredAgent, "avatarUrl" | "access" | "computerUse"> & {
   avatarUrl?: string | null;
-  provider?: AgentProviderId;
   // Absent on every agent stored before the setting existed, which keeps the access it always had.
   access?: AgentAccess;
   // Absent on every agent stored before the setting existed, which keeps Computer Use on.
@@ -1507,7 +1505,7 @@ function isStoredAgent(value: unknown): value is PersistedStoredAgent {
   if (!isRecord(value) || !isStoredAgentBase(value)) return false;
   const record = value;
   return (
-    (record.provider === undefined || isOneOf(AGENT_PROVIDERS, record.provider)) &&
+    isOneOf(AGENT_PROVIDERS, record.provider) &&
     (record.sessionSettingOverrides === undefined || isAgentSessionSettingOverrides(record.sessionSettingOverrides)) &&
     (record.sessionSettingResets === undefined || isAgentSessionSettingResets(record.sessionSettingResets)) &&
     (record.access === undefined || isAgentAccess(record.access)) &&
@@ -1571,13 +1569,10 @@ function readStoredAgent(value: unknown): ReadStoredAgent | UnreadableStoredAgen
     repaired.push(field);
     return fallback;
   };
-  const provider =
-    value.provider === undefined || isOneOf(AGENT_PROVIDERS, value.provider)
-      ? value.provider
-      : reset("provider", undefined);
-  const model = isAgentModel(value.model)
-    ? value.model
-    : reset("model", provider === undefined ? DEFAULT_AGENT_MODEL : defaultProviderModel(provider));
+  const provider: AgentProviderId = isOneOf(AGENT_PROVIDERS, value.provider)
+    ? value.provider
+    : reset("provider", DEFAULT_AGENT_PROVIDER);
+  const model = isAgentModel(value.model) ? value.model : reset("model", defaultProviderModel(provider));
   const access =
     value.access === undefined || isAgentAccess(value.access) ? value.access : reset("access", DEFAULT_AGENT_ACCESS);
   // A list that this build cannot read keeps the folders it can, so the agent loses no more access than it must.
@@ -1684,7 +1679,7 @@ function readStoredAgent(value: unknown): ReadStoredAgent | UnreadableStoredAgen
     avatarSeed: isAvatarSeed(value.avatarSeed) ? value.avatarSeed : reset("avatarSeed", id),
     avatarHue: value.avatarHue === null || isAvatarHue(value.avatarHue) ? value.avatarHue : reset("avatarHue", null),
     avatarUrl: isString(value.avatarUrl) ? value.avatarUrl : null,
-    ...(provider === undefined ? {} : { provider }),
+    provider,
     ...(access === undefined ? {} : { access }),
     ...(additionalFolders === undefined || additionalFolders.length === 0 ? {} : { additionalFolders }),
     ...(excludedFolders === undefined || excludedFolders.length === 0 ? {} : { excludedFolders }),
@@ -1752,7 +1747,7 @@ function readableFolders(value: unknown, repair: () => void): string[] {
 function normalizeStoredAgent(agent: PersistedStoredAgent): StoredAgent {
   return {
     ...agent,
-    provider: agent.provider ?? providerForLegacyModel(agent.model),
+    provider: agent.provider,
     access: agent.access ?? DEFAULT_AGENT_ACCESS,
     computerUse: agent.computerUse ?? true,
     avatarUrl: isString(agent.avatarUrl) && parseAgentAvatarUrl(agent.avatarUrl, agent.id) ? agent.avatarUrl : null,
