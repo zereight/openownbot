@@ -27,7 +27,7 @@ export interface AttachmentGatewayHooks {
  * Where a path a tool named is allowed to point.
  *
  * The default is the attachment policy: the file must resolve inside this agent's own workspace or the
- * OpenOwnBot shared directory, and a symlink anywhere on the way is refused outright.
+ * ROBot shared directory, and a symlink anywhere on the way is refused outright.
  *
  * `allowAnyReadablePath` is the browser-upload policy. `openownbot_browser.upload_files` hands a local
  * file to a page, and the file the user names is almost never one the agent already copied into its
@@ -373,8 +373,8 @@ export class AttachmentGateway {
     return yield* attachmentFailure(
       new Error(
         scope.allowAnyReadablePath
-          ? "Upload files must exist, be regular files, and be readable by OpenOwnBot."
-          : "Attachment files must exist inside this agent's workspace or the OpenOwnBot shared directory.",
+          ? "Upload files must exist, be regular files, and be readable by ROBot."
+          : "Attachment files must exist inside this agent's workspace or the ROBot shared directory.",
       ),
     );
   });

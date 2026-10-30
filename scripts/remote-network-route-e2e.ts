@@ -4,7 +4,7 @@
 // `--api` is the account service of the dev stack (default http://localhost:3100); the script signs
 // in to its `/app` as the dev host user, so the web client connects to the host over WebRTC.
 //
-// It selects "Through OpenOwnBot" in Settings › Mobile Connect on the desktop, and the web client
+// It selects "Through ROBot" in Settings › Mobile Connect on the desktop, and the web client
 // connects. Then it selects "Private network". It checks that main saves each choice, that the host
 // closes the connected peer, that the web client connects again, that each candidate of the host is a `host` candidate on
 // a private address, and that the selected pair uses one of them. It puts back the route that was set
@@ -182,7 +182,7 @@ try {
     (at) => window.__routeE2ePeers?.[at]?.connectionState ?? "closed",
     report.openownbot.index,
   );
-  assert.equal(report.firstPeerAfterChange, "closed", "The host kept the peer that connected through OpenOwnBot.");
+  assert.equal(report.firstPeerAfterChange, "closed", "The host kept the peer that connected through ROBot.");
   assert.ok(report.private.hostCandidates.length > 0, "The host sent no candidates on the private route.");
   for (const candidate of report.private.hostCandidates) {
     const [type, address = ""] = candidate.split(" ");

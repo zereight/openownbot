@@ -1,10 +1,10 @@
 Pod::Spec.new do |s|
   s.name           = 'OpenOwnBotComposerPaste'
   s.version        = '1.0.0'
-  s.summary        = 'File paste for the OpenOwnBot chat composer'
+  s.summary        = 'File paste for the ROBot chat composer'
   s.description    = 'Gives photos, videos and other files pasted in the chat composer to JavaScript as files.'
   s.license        = 'PolyForm-Noncommercial-1.0.0'
-  s.author         = 'OpenOwnBot'
+  s.author         = 'ROBot'
   s.homepage       = 'https://openbot.run'
   s.platforms      = { :ios => '16.4' }
   s.swift_version  = '5.9'

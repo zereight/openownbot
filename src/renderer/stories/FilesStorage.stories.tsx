@@ -120,7 +120,7 @@ export const StorageError: Story = {
       args={{
         ...overviewArgs(),
         state: "error",
-        error: "OpenOwnBot could not read ~/OpenBot/Agents. Check the folder permissions and try again.",
+        error: "ROBot could not read ~/OpenBot/Agents. Check the folder permissions and try again.",
         scannedAt: null,
         breakdown: [],
         agentUsage: [],
@@ -356,6 +356,6 @@ export const ListLoading: Story = {
 export const ListError: Story = {
   name: "File list: Error",
   render: () => (
-    <ListStage error="The attachment index is not available. Restart OpenOwnBot and try again." onRetry={fn()} />
+    <ListStage error="The attachment index is not available. Restart ROBot and try again." onRetry={fn()} />
   ),
 };

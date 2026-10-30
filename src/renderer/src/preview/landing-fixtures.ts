@@ -284,7 +284,7 @@ function landingServers(): ServerSummary[] {
     },
     {
       id: "team",
-      name: "OpenOwnBot team",
+      name: "ROBot team",
       logoUrl: productionLogoUrl,
       notificationsMuted: false,
       notificationsMutedUntil: null,

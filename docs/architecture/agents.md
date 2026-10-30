@@ -32,7 +32,7 @@ Messages use `AgentService.sendMessage` and its persisted retry keys. The attent
 each pending object an opaque local handle. Responses match that handle and agent together; an
 expired handle cannot answer a later provider request. Pending details are not trimmed to the UI
 snapshot budget. The HTTP boundary redacts outgoing values. Browser takeovers and secret questions
-are notices only and direct the person to OpenOwnBot. Messages and routine runs share the rate limit.
+are notices only and direct the person to ROBot. Messages and routine runs share the rate limit.
 
 ## Scheduled routine changes
 
@@ -288,7 +288,7 @@ at once and shows an Undo toast; when the toast ends, `AgentService.deleteTask` 
 messages and deletes the thread with its conversation, attachments, event history and provider
 session. It refuses a thread with a running turn. The main thread has no archive, rename or delete.
 
-The agent starts a side thread with the `start_task` OpenOwnBot tool, up to 8 open tasks. On desktop and
+The agent starts a side thread with the `start_task` ROBot tool, up to 8 open tasks. On desktop and
 the web, it opens as a tab of the agent and does not take focus. An agent has at most 50
 open tasks (`INPUT_LIMITS.agentTasks`, the size of the task list), so each open task stays visible. A message to a
 running task waits in the task, or steers the turn when the agent's busy-message mode is "steer"
@@ -334,9 +334,9 @@ instead, as on desktop: a finished task stays with its result until the person c
 opens the task.
 
 Shared writes: each task thread owns its own browser tabs and tab queue. Computer Use is an MCP
-server that the provider starts, so OpenOwnBot cannot queue its calls; `ThreadLifecycle` starts a task
+server that the provider starts, so ROBot cannot queue its calls; `ThreadLifecycle` starts a task
 session without it, and the instructions send desktop work to the agent's own chat. Tasks share the
-workspace, and OpenOwnBot does not lock files; the `start_task` guidance warns the agent about this.
+workspace, and ROBot does not lock files; the `start_task` guidance warns the agent about this.
 
 A provider, account or custom-agent change that a user or an agent asks for while a turn, a task or
 a queued message waits is stored on the agent as `pendingRuntime`. The running work keeps its
@@ -429,7 +429,7 @@ description to 300 characters (`read_agent` returns all of it), its
 `status` (a starting delivery and a context compaction count as `working`), `queuedMessages`
 (channel work excluded), `turnStartedAt`, and `lastActivityAt`. The last two come from the provider
 notifications that `TurnLifecycle` sees; they are in memory only, so after a restart
-`lastActivityAt` falls back to the newest message for the agent. OpenOwnBot does not record which
+`lastActivityAt` falls back to the newest message for the agent. ROBot does not record which
 files a turn changed. `openownbot.interrupt_agent` (`src/backend/agent/agent-interrupt-tool.ts`)
 refuses the caller itself, a channel turn, and a turn that any delivery other than the caller's
 started, so an agent cannot stop work from the user, a routine, or another agent. It cancels the
@@ -491,7 +491,7 @@ conversation. `openownbot.create_agent` creates a persistent teammate with instr
 task; `openownbot.update_profile` changes an existing agent's name, title, instructions, generated
 or custom avatar, provider, model, reasoning effort, account, backup models, access, Computer Use, or notifications. `avatarPath` accepts a local PNG, JPEG, or WebP file up to 512 KB, with relative
 paths resolved from the calling agent’s workspace. The agent uses its available tools to resize or
-compress a copy when needed. OpenOwnBot validates the prepared file before profile changes and copies
+compress a copy when needed. ROBot validates the prepared file before profile changes and copies
 it into managed avatar storage. Generated avatar settings remove the custom image. Both run through
 the existing agent service and validate arguments before changing state.
 `openownbot.create_agent` also accepts an optional `provider`, `model` and `reasoningEffort`. The
@@ -506,12 +506,12 @@ that can hold more than one account also lists its accounts, with the provider's
 (`default`) first: the id, the name the user gave it (or null), and the state. It never lists the
 account email, credentials or account folders. `update_profile` takes the
 agent's `providerAccountId` and its `backupModels` (`automatic` and an `order` of provider, model
-and account), the same choices that the settings page offers. OpenOwnBot checks each backup model and
+and account), the same choices that the settings page offers. ROBot checks each backup model and
 account against the lists before it writes, and the agent service checks the primary account; an
 account change, like a provider change, waits until the agent is idle. These changes apply at once,
 as the other profile fields do. `read_agent` and the `update_profile` result return the account,
 the backup models and `usageLimitReturn`, the model that the agent left for a usage limit or a provider error (`cause: "provider-error"`). An unknown
-model or an unsupported effort is an error that names the valid values; OpenOwnBot checks them before
+model or an unsupported effort is an error that names the valid values; ROBot checks them before
 it creates the agent. Without a provider and a model, the new agent starts on the calling agent's
 provider, model and reasoning effort, so a team that one agent creates runs where that agent runs.
 When the caller's provider no longer lists its model, the new agent starts on the user's default.
@@ -603,7 +603,7 @@ Unchanged fingerprints resume the existing session. Pending history handoffs are
 the replacement is bound, reloaded after restart, and removed after a turn accepts the handoff.
 
 The same handoff carries a chat to another provider after a provider switch. It holds the user and
-assistant messages after the last context-reset marker, with attachment names only. OpenOwnBot stores
+assistant messages after the last context-reset marker, with attachment names only. ROBot stores
 no tool steps, so the work log comes from the providers. At the switch, before the old sessions are
 retired, `ThreadLifecycle.readWorkSteps` reads each active session with the provider history read
 through the client that holds it, with a 10-second limit. The switch then checks again that no turn started.
@@ -660,7 +660,7 @@ memory step fails is deleted. Step 1 offers two ways to add the export agent: it
 
 ## Instance transfer
 
-Server settings > Transfer moves a server's agents and server settings to another OpenOwnBot server with
+Server settings > Transfer moves a server's agents and server settings to another ROBot server with
 one `.zip` file. It is a separate format from the Grok Bot agent import. The first screen offers "Export
 from this server" and "Import into this server". The section shows for this computer's server, and for a
 joined server with `instance-transfer-v1` when the user is an owner or admin (see
@@ -680,7 +680,7 @@ Each agent carries its profile (name, title, instructions, avatar seed and image
 and reasoning effort, notifications and busy-message mode, its routines (schedule, limit and missed
 policies; one-time routines are in the optional `oneTimeRoutines` field, so an older app skips them and
 keeps the agent), its memories (with the essential or searchable choice the user made) and the skill folders
-in `.agents/skills` and `.claude/skills` that OpenOwnBot does not manage. Workspace files are optional
+in `.agents/skills` and `.claude/skills` that ROBot does not manage. Workspace files are optional
 and leave out `.openownbot/`, the skill folders, links, and every path `isUnsafeArchivePath` refuses
 (`.git`, `node_modules`, `.env*`, private keys, nested archives). Server settings are optional: MCP servers,
 custom model providers, custom ACP agents (as a warning, see below), sidebar sections and routine flows

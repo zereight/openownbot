@@ -250,7 +250,7 @@ const WAITING_APPROVAL: AgentApproval = {
   turnId: "task-board-update-turn",
   kind: "file-change",
   command: null,
-  cwd: "/Users/you/OpenOwnBot/Agents/Chief",
+  cwd: "/Users/you/ROBot/Agents/Chief",
   reason: "Save board-update.md on the Desktop",
   grantRoot: "/Users/you/Desktop",
   permissions: null,

@@ -1,4 +1,4 @@
-// Checks what OpenOwnBot sends to the provider at each turn start, so that turns repeat less context.
+// Checks what ROBot sends to the provider at each turn start, so that turns repeat less context.
 // Runs the real agent service on a temporary profile with a fake Codex app-server that logs each
 // `turn/start` input:
 // (a) messages that the person sends while a turn runs start one next turn together, in their order;
@@ -113,7 +113,7 @@ process.stdin.on("data", (chunk) => {
 });
 `;
 
-/** One `turn/start` that OpenOwnBot sent: its provider thread and the text of its input. */
+/** One `turn/start` that ROBot sent: its provider thread and the text of its input. */
 interface TurnStart {
   threadId: string;
   text: string;

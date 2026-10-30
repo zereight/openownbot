@@ -274,7 +274,7 @@ export class MessagingThreads {
   });
 
   /**
-   * A post that OpenOwnBot sends on its own, such as a routine's answer, to the top level of one place.
+   * A post that ROBot sends on its own, such as a routine's answer, to the top level of one place.
    * Only an enabled connection of this host can take it.
    */
   readonly deliver = Effect.fn("MessagingThreads.deliver")(function* (

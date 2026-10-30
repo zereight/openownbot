@@ -1,5 +1,5 @@
 // Records a redacted transcript of one real provider CLI, for `provider-transcript-replay-e2e.ts`.
-// Runs OpenOwnBot's own driver for the provider against the real CLI through `transcript-proxy.ts`:
+// Runs ROBot's own driver for the provider against the real CLI through `transcript-proxy.ts`:
 // one session in an empty temporary folder, and one short turn. Use a free model: the turn is real.
 // The CLI runs with an empty temporary home folder and only the variables in `KEPT_ENV`, so it sees
 // no account, saved key, token or settings of this computer, and the transcript lists only the

@@ -21,7 +21,7 @@ const chiefMemories: AgentMemory[] = [
   {
     id: "memory-manual",
     agentId: "chief",
-    text: "Use Bun for package scripts in OpenOwnBot.",
+    text: "Use Bun for package scripts in ROBot.",
     origin: "manual",
     sourceTurnId: null,
     createdAt: "2026-08-23T11:00:00.000Z",

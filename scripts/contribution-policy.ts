@@ -20,7 +20,7 @@ import { execFileSync } from "node:child_process";
 import { mkdirSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 
-// `openownbotgit[bot]` is the OpenOwnBot GitHub App. The account Worker gives its installation token only for
+// `openownbotgit[bot]` is the ROBot GitHub App. The account Worker gives its installation token only for
 // repositories where the signed-in user can push (`apps/auth-api/src/server/github-installation-tokens.ts`).
 const TRUSTED_BOTS = new Set(["infeld-ai[bot]", "dependabot[bot]", "openownbotgit[bot]"]);
 const TRUSTED_ASSOCIATIONS = new Set(["OWNER", "MEMBER", "COLLABORATOR"]);
@@ -244,7 +244,7 @@ function loadPullRequest(number: number): PullRequest {
 
 function failureComment(author: string): string {
   return [
-    `@${author}, thank you for the pull request. A maintainer marked it as a feature or a change to how OpenOwnBot works.`,
+    `@${author}, thank you for the pull request. A maintainer marked it as a feature or a change to how ROBot works.`,
     "",
     `Changes of this type need an issue with the \`${LABEL_APPROVED}\` label before we review code. To continue:`,
     "",

@@ -90,10 +90,10 @@ export interface ComputerUseHighlightControllerOptions<W extends HighlightOverla
 /**
  * Keeps one transparent overlay over the window an agent is working in.
  *
- * The overlay is OpenOwnBot's own. A cursor says where one click lands and says nothing about which
+ * The overlay is ROBot's own. A cursor says where one click lands and says nothing about which
  * window the next twenty actions belong to, so this marks the target window while the agent holds
  * the desktop and hides the moment it lets go. It also carries the agent cursor itself wherever the
- * driver draws none, which is every display layout in OpenOwnBot.
+ * driver draws none, which is every display layout in ROBot.
  *
  * There is one overlay for each display, because macOS draws a window on one display only. Each
  * covers its own display and stays there, and only the rim inside it moves, so following a window

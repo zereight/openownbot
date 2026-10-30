@@ -34,13 +34,13 @@ const EXPECTED_MACOS_ICON_FILES = [
 // electron-builder writes the default x64 build to `dist/mac` and adds a suffix for any other one.
 // The package is built for the runner's own architecture, so that is the one to verify.
 const architecture = process.arch === "arm64" ? "arm64" : process.arch === "x64" ? "x64" : null;
-if (!architecture) throw new Error(`OpenOwnBot does not ship for macOS ${process.arch}.`);
+if (!architecture) throw new Error(`ROBot does not ship for macOS ${process.arch}.`);
 const machOArchitecture = architecture === "arm64" ? "arm64" : "x86_64";
 const appPath = resolve(
-  process.argv[2] ?? (architecture === "arm64" ? "dist/mac-arm64/OpenOwnBot.app" : "dist/mac/OpenOwnBot.app"),
+  process.argv[2] ?? (architecture === "arm64" ? "dist/mac-arm64/ROBot.app" : "dist/mac/ROBot.app"),
 );
 const contentsPath = resolve(appPath, "Contents");
-const executablePath = resolve(contentsPath, "MacOS/OpenOwnBot");
+const executablePath = resolve(contentsPath, "MacOS/ROBot");
 const resourcesPath = resolve(contentsPath, "Resources");
 const packagedIconPath = resolve(resourcesPath, "icon.icns");
 const sourceIconPath = resolve("build/icon-production.icns");
@@ -105,7 +105,7 @@ await Promise.all(
   ),
 );
 // `signIgnore` keeps the driver's own Developer ID signature, and with it the Automation
-// entitlement that re-signing under OpenOwnBot's inherited entitlements would drop.
+// entitlement that re-signing under ROBot's inherited entitlements would drop.
 assertCuaDriverSignature(resolve(cuaDriverPath, "cua-driver"));
 await verifyPackagedIcon(packagedIconPath, sourceIconPath);
 await verifyPackagedIconCatalog(packagedIconCatalogPath, sourceIconCatalogPath);
@@ -117,9 +117,9 @@ await assertAbsent(
 
 const plist = JSON.parse(run("plutil", ["-convert", "json", "-o", "-", plistPath]));
 if (!isDynamicRecord(plist)) throw new Error("Info.plist is not a JSON object.");
-expectEqual(plist.CFBundleDisplayName, "OpenOwnBot", "display name");
-expectEqual(plist.CFBundleExecutable, "OpenOwnBot", "executable name");
-expectEqual(plist.CFBundleIdentifier, "app.openownbot.desktop", "bundle identifier");
+expectEqual(plist.CFBundleDisplayName, "ROBot", "display name");
+expectEqual(plist.CFBundleExecutable, "ROBot", "executable name");
+expectEqual(plist.CFBundleIdentifier, "app.robot.desktop", "bundle identifier");
 expectEqual(plist.CFBundleIconFile, "icon.icns", "application icon");
 expectEqual(plist.CFBundleIconName, "Icon", "macOS 26 application icon");
 expectEqual(plist.LSMinimumSystemVersion, "13.0", "minimum macOS version");
@@ -130,7 +130,7 @@ if (!Array.isArray(plist.NSUserActivityTypes) || !plist.NSUserActivityTypes.incl
 if (!plist.ElectronAsarIntegrity) throw new Error("ASAR integrity metadata is missing.");
 expectEqual(
   plist.NSMicrophoneUsageDescription,
-  "OpenOwnBot uses the microphone to transcribe voice prompts locally on this Mac.",
+  "ROBot uses the microphone to transcribe voice prompts locally on this Mac.",
   "microphone usage description",
 );
 
@@ -201,7 +201,7 @@ await verifyLaunch(executablePath);
 
 logger.info(`Verified ${appPath}`);
 logger.info(
-  `OpenOwnBot ${String(packageJson.version)} · ${machOArchitecture} · icon · GPL remote runtime · WebRTC remote stack · ASAR integrity · hardened fuses · launch`,
+  `ROBot ${String(packageJson.version)} · ${machOArchitecture} · icon · GPL remote runtime · WebRTC remote stack · ASAR integrity · hardened fuses · launch`,
 );
 
 function expectEqual(actual: unknown, expected: unknown, label: string): void {
@@ -226,7 +226,7 @@ async function verifyPackagedIcon(packagedPath: string, sourcePath: string): Pro
   }
 
   const iconRoot = await mkdtemp(join(tmpdir(), "openownbot-icon-"));
-  const iconSetPath = join(iconRoot, "OpenOwnBot.iconset");
+  const iconSetPath = join(iconRoot, "ROBot.iconset");
   try {
     run("iconutil", ["--convert", "iconset", packagedPath, "--output", iconSetPath]);
     await Promise.all(EXPECTED_MACOS_ICON_FILES.map((name) => access(join(iconSetPath, name))));
@@ -243,7 +243,7 @@ async function verifyPackagedIconCatalog(packagedPath: string, sourcePath: strin
   }
 }
 
-/** The Computer Use driver keeps the signature it was published with, not OpenOwnBot's. */
+/** The Computer Use driver keeps the signature it was published with, not ROBot's. */
 function assertCuaDriverSignature(binary: string): void {
   const description = run("codesign", ["-dvvv", binary], true);
   if (!description.includes("Authority=Developer ID Application: Cua AI, Inc. (YCK386LBJ7)")) {
@@ -289,9 +289,7 @@ async function verifyLaunch(executable: string): Promise<void> {
 
   const launchExit = new Promise<never>((_, reject) => {
     child.once("exit", (code, signal) => {
-      reject(
-        new Error(`Packaged OpenOwnBot exited during launch (${signal ?? `code ${String(code)}`}): ${stderr.trim()}`),
-      );
+      reject(new Error(`Packaged ROBot exited during launch (${signal ?? `code ${String(code)}`}): ${stderr.trim()}`));
     });
   });
 
@@ -317,7 +315,7 @@ async function verifyLaunch(executable: string): Promise<void> {
     await verifySecondInstanceExits(executable, userDataPath, launchExit);
     if (child.exitCode !== null || child.signalCode !== null) {
       throw new Error(
-        `Packaged OpenOwnBot exited when a second instance started (${child.signalCode ?? `code ${String(child.exitCode)}`}): ${stderr.trim()}`,
+        `Packaged ROBot exited when a second instance started (${child.signalCode ?? `code ${String(child.exitCode)}`}): ${stderr.trim()}`,
       );
     }
   } finally {
@@ -347,7 +345,7 @@ async function waitForFirstInstance(
     const limit = Date.now() + launchStepLimitMs;
     while (!(await reached())) {
       if (Date.now() > limit) {
-        throw new Error(`Packaged OpenOwnBot did not ${step} in 5 minutes: ${stderr().trim()}`);
+        throw new Error(`Packaged ROBot did not ${step} in 5 minutes: ${stderr().trim()}`);
       }
       await delay(200, undefined, { signal: stop.signal });
     }
@@ -417,11 +415,11 @@ async function verifySecondInstanceExits(
       delay(launchStepLimitMs, null, { signal: stop.signal }),
     ]);
     if (!result) {
-      throw new Error(`A second OpenOwnBot instance did not exit in 5 minutes: ${stderr.trim()}`);
+      throw new Error(`A second ROBot instance did not exit in 5 minutes: ${stderr.trim()}`);
     }
     if (result.code !== 0 || result.signal) {
       throw new Error(
-        `A second OpenOwnBot instance exited unexpectedly (${result.signal ?? `code ${String(result.code)}`}): ${stderr.trim()}`,
+        `A second ROBot instance exited unexpectedly (${result.signal ?? `code ${String(result.code)}`}): ${stderr.trim()}`,
       );
     }
   } finally {

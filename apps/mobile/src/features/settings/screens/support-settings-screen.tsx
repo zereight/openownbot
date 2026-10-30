@@ -13,7 +13,7 @@ import { formatSupportLogEntry, type SupportLogLevel, supportLog } from "@/featu
 import { clearSupportLog, supportLogFileText } from "@/features/support/model/support-log-capture";
 import { useText } from "@/shared/lib/text";
 
-/** The OpenOwnBot account, the same contact as the website. */
+/** The ROBot account, the same contact as the website. */
 const SUPPORT_X_HANDLE = "@OpenOwnBot_";
 const SUPPORT_X_URL = "https://x.com/OpenOwnBot_";
 const ISSUES_URL = "https://github.com/zereight/openownbot/issues/new";

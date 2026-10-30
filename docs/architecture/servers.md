@@ -45,7 +45,7 @@ capability shows no card.
 
 A hosted site belongs to the server that published it (`hosted_sites.server_id`, D1 `0024`). The user
 stays the accountable owner, for abuse reports, blocks and account deletion. The desktop sends
-`OpenOwnBot-Host-Id` and `OpenOwnBot-Host-Token` (the machine token of `/v2/remote/hosts/register`) on each
+`ROBot-Host-Id` and `ROBot-Host-Token` (the machine token of `/v2/remote/hosts/register`) on each
 `/v1/sites` request when it is a registered server. The Worker checks the hash and that the host owner
 is the request user; a wrong token is refused with 401, never counted as unlinked. The active-site
 limit comes from the server's plan (`siteLimitForPlan`: none 1, Starter 3, Standard 10, Pro 50). A
@@ -128,7 +128,7 @@ the web client uses the browser chooser and ships the export skill in its bundle
 
 ### Instance transfer with a joined server
 
-`instance-transfer-v1` moves a server's agents and server settings to or from an OpenOwnBot transfer file
+`instance-transfer-v1` moves a server's agents and server settings to or from a ROBot transfer file
 (see [Instance transfer](agents.md#instance-transfer)). Only an owner or admin can use it: the file holds
 every agent's memories and files, and an import adds server settings. It is protocol 7 only. Every file
 that crosses the connection is at most 100 MB, the size of one WebRTC file transfer; a computer's own
@@ -422,7 +422,7 @@ host advertises a capability only when its `TeamApiAdmin` member exists.
 | `prompt-cache-ttl-v1` | Read and set how long Claude keeps the prompt cache of the host's agents | `hostAdmin` |
 | `provider-default-v1` | Read and set the provider that a new agent of the host starts on | none: only the mobile app sends it |
 | `agent-access-v1` | Read and set the roles that give members access to agents (see [Roles](#roles)) | `hostAdmin` |
-| `discord-access-v1` | Read and set which Discord roles can use OpenOwnBot in a Discord server; list its roles | `messaging` |
+| `discord-access-v1` | Read and set which Discord roles can use ROBot in a Discord server; list its roles | `messaging` |
 | `events-v1` | Manage webhook routines, their secrets, and activity | `events` |
 | `routine-recovery-v1` | Read and set a routine's missed-run policy; read its runs with the missed occurrences | `events` |
 | `routine-results-v1` | List the messaging connections and their places; read and set where an agent routine sends its answers. Deliveries stay on the host | none: only the mobile app sends it |
@@ -723,7 +723,7 @@ See [multi-tenant hosting](../multi-tenant-hosting.md) for installation, permiss
 ## Hosted servers
 
 A hosted server is one [boat](https://boat.dev) sandbox for one account. It runs the Linux
-OpenOwnBot build under Xvfb and is a normal Remote host after its first start. The account Worker
+ROBot build under Xvfb and is a normal Remote host after its first start. The account Worker
 owns the sandbox lifecycle: it creates, resumes and deletes sandboxes, and D1 keeps the desired
 and observed state. A server reports each minute while it is in use, and the Worker stops it after
 15 minutes with no report. boat also stops each sandbox at the end of a 2-hour lease that activity
@@ -735,7 +735,7 @@ turns while it is low and limits the turns that run at the same time. See
 [hosted servers](../hosted-servers.md) for the flow, the configuration, the memory guards and the template.
 
 A self-hosted server uses the same Linux build, scripts and units on the owner's own computer, with
-`/opt/OpenOwnBot/hosted/mode` set to `self`. It has no claim: main starts in server mode
+`/opt/ROBot/hosted/mode` set to `self`. It has no claim: main starts in server mode
 (`src/main/server-mode.ts`, `OPENOWNBOT_SERVER=1`), and the `openownbot` terminal command signs it in over
 a Unix socket in the 0700 runtime directory of the service user. Main publishes the host after each
 sign-in. See [self-hosted servers](../self-hosted-server.md).

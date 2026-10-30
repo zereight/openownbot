@@ -1,6 +1,6 @@
 # Glossary
 
-The product terms OpenOwnBot uses, and the identifiers each one owns. Read this when naming a new type,
+The product terms ROBot uses, and the identifiers each one owns. Read this when naming a new type,
 table, IPC channel or product string, or when a term in the code disagrees with the term in the UI.
 [AGENTS.md](../AGENTS.md#terms) carries the two naming rules that are decisions rather than lookup.
 
@@ -27,8 +27,8 @@ table, IPC channel or product string, or when a term in the code disagrees with 
   (`SidebarPinnedGroup`, `create_section`), an IPC endpoint group (`IpcEndpointGroup`,
   `define-ipc-group.ts`), or an ARIA `role="group"`. An IPC **channel** is the wire name of an
   endpoint in `IPC_ENDPOINTS` (`ipc-endpoints.ts`); the product contract is `ipc-chat-channels.ts`.
-- **connector**: a built-in sign-in to an outside service that OpenOwnBot turns into agent tools, one
-  for each OpenOwnBot computer (`GitHubConnectorService`, `github-connector:*`,
+- **connector**: a built-in sign-in to an outside service that ROBot turns into agent tools, one
+  for each ROBot computer (`GitHubConnectorService`, `github-connector:*`,
   `GITHUB_CONNECTOR_MCP_SERVER_ID`). A user-added MCP server or a marketplace plugin is not a
   connector.
 - **messaging connection**: one workspace of an external chat platform (a Slack workspace, a Discord

@@ -25,7 +25,7 @@ const FRAME_WITH_OPENOWNBOT =
   "frame-src 'self' openbot-attachment: openbot-remote-attachment: openownbot-visual: openownbot-remote-visual: https://*.openbot.run http://127.0.0.1:* http://localhost:*";
 
 describe("buildContentSecurityPolicy", () => {
-  it("allows the analytics endpoint and the OpenOwnBot hosts only while the switch is off", async () => {
+  it("allows the analytics endpoint and the ROBot hosts only while the switch is off", async () => {
     const build = await policyWithSwitch(false);
     const policy = build(true);
 
@@ -35,7 +35,7 @@ describe("buildContentSecurityPolicy", () => {
     expect(directive(policy, "frame-src")).toBe(FRAME_WITH_OPENOWNBOT);
   });
 
-  it.each([true, false])("allows no OpenOwnBot host while the switch is on and packaged=%s", async (packaged) => {
+  it.each([true, false])("allows no ROBot host while the switch is on and packaged=%s", async (packaged) => {
     const build = await policyWithSwitch(true);
     const policy = build(packaged);
 

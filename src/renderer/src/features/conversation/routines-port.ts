@@ -59,7 +59,7 @@ export interface RoutinesPort {
    */
   limitPolicy: boolean;
   /**
-   * Whether the host keeps what a routine does with a run that came due while OpenOwnBot was closed:
+   * Whether the host keeps what a routine does with a run that came due while ROBot was closed:
    * this computer's host, and a remote host with `routine-recovery-v1`. `events-v1` drops the field.
    */
   missedPolicy: boolean;

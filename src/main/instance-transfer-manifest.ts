@@ -1,4 +1,4 @@
-// The `openbot-transfer.json` manifest at the root of an instance transfer file. OpenOwnBot writes it
+// The `openbot-transfer.json` manifest at the root of an instance transfer file. ROBot writes it
 // on one computer and reads it on another, so the format is a contract between app versions: add
 // optional fields only, and a change of meaning needs a new `version`. The format is described in
 // `docs/architecture/instance-transfer.md`.

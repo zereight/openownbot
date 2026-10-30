@@ -40,7 +40,7 @@ interface PlansData {
 /**
  * The plans of a hosted server and the servers of the account, with their plans. App store rules do
  * not allow a purchase outside the store, so this screen has no prices and no purchase: the user
- * buys and changes a plan in OpenOwnBot on the computer.
+ * buys and changes a plan in ROBot on the computer.
  */
 export function HostedServerPlansScreen() {
   const { t, errorMessage } = useText();

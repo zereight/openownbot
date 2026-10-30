@@ -27,7 +27,7 @@ export const messages = defineMessages("server", {
 
   "server.status.steps": "Connection steps",
   "server.status.updateCause": "{name} restarts to install ROBot {version}.",
-  "server.status.updateCauseNoVersion": "{name} restarts to install an ROBot update.",
+  "server.status.updateCauseNoVersion": "{name} restarts to install a ROBot update.",
   "server.status.wakeCause": "{name} was stopped. ROBot starts it again.",
   "server.status.connectCause": "This app connects to {name}.",
   "server.status.connectionCause": "This app lost its connection to {name}. It connects again automatically.",
@@ -89,7 +89,7 @@ export const messages = defineMessages("server", {
   "server.upsell.modal.title": "Routines stop when your computer sleeps",
   // {name} is the routine.
   "server.upsell.modal.description":
-    "{name} runs only while your computer is on. An ROBot server keeps it running 24/7.",
+    "{name} runs only while your computer is on. A ROBot server keeps it running 24/7.",
   // Labels in the small picture above the modal text: a laptop and a server, each with a status.
   "server.upsell.modal.computer": "Your computer",
   "server.upsell.modal.server": "ROBot server",
@@ -103,9 +103,9 @@ export const messages = defineMessages("server", {
     one: "{count} routine needs {server} on",
     other: "{count} routines need {server} on",
   },
-  "server.upsell.notice.description": "An ROBot server runs them 24/7.",
+  "server.upsell.notice.description": "A ROBot server runs them 24/7.",
   // One line under the notice that the user's computer is offline.
-  "server.upsell.offline": "An ROBot server stays on 24/7, so routines keep running.",
+  "server.upsell.offline": "A ROBot server stays on 24/7, so routines keep running.",
   "server.upsell.seePlans": "See plans",
   "server.upsell.notNow": "Not now",
   "server.hosted.progressTitle": "Setting up {name}",

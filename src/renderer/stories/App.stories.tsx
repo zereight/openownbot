@@ -98,7 +98,7 @@ export const IncompatibleRemoteHost: Story = {
             },
             issue: {
               code: "host_update_required",
-              message: "Update OpenOwnBot on the host.",
+              message: "Update ROBot on the host.",
               retryable: true,
             },
           },
@@ -182,7 +182,7 @@ export const WorkflowsAgentChatJoinedServer: Story = {
   ),
 };
 
-/** A joined server has a new OpenOwnBot version. Entering it opens the update dialog each time. */
+/** A joined server has a new ROBot version. Entering it opens the update dialog each time. */
 export const RemoteHostUpdate: Story = {
   render: () => (
     <OpenOwnBotPlayground

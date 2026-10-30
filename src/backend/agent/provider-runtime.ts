@@ -159,7 +159,7 @@ function signInFileVersion(path: string): string {
   }
 }
 /**
- * Starts that fail in a row before OpenOwnBot stops starting a provider by itself. A start that fails,
+ * Starts that fail in a row before ROBot stops starting a provider by itself. A start that fails,
  * that times out, or whose process ends within `STABLE_RUN_MS` counts. Only a user action starts the
  * provider again: each start of the Windows Gemini server unpacks about 310 MB, and a loop of starts
  * filled the disk.
@@ -1305,7 +1305,7 @@ export class ProviderRuntime implements ProviderPort {
    * Only a signed-out row is checked again: the CLI also writes the file to refresh a token, and a
    * provider that stopped at `START_FAILURE_LIMIT` must wait for the user. A change that comes while
    * a check runs keeps its new version, so a later poll checks it. A sign-in or a Connect that
-   * OpenOwnBot started checks the account itself when it ends.
+   * ROBot started checks the account itself when it ends.
    */
   #checkSignInFiles(): void {
     if (this.#status.phase === "starting" || this.#status.phase === "restarting" || this.#providerRefresh) return;
@@ -1363,7 +1363,7 @@ export class ProviderRuntime implements ProviderPort {
   }).bind(this);
 
   /**
-   * `automatic`: the app asked, not the user, so a provider that OpenOwnBot stopped starting
+   * `automatic`: the app asked, not the user, so a provider that ROBot stopped starting
    * (`START_FAILURE_LIMIT`) stays stopped.
    */
   readonly refreshProviders = Effect.fn("ProviderRuntime.refreshProviders")(function* (
@@ -1417,8 +1417,8 @@ export class ProviderRuntime implements ProviderPort {
   /**
    * Signs the user in to one provider, in the way that provider's driver declares. `openExternal`
    * is only reached by a `browser` or `muse-device` sign-in, whose login hands back a URL; a
-   * `cli-command` sign-in opens its own browser window from the CLI OpenOwnBot spawns, and an
-   * `external` sign-in happens outside OpenOwnBot, so Connect only asks the provider again.
+   * `cli-command` sign-in opens its own browser window from the CLI ROBot spawns, and an
+   * `external` sign-in happens outside ROBot, so Connect only asks the provider again.
    */
   readonly connectProvider = Effect.fn("ProviderRuntime.connectProvider")(function* (
     this: ProviderRuntime,
@@ -2744,7 +2744,7 @@ export class ProviderRuntime implements ProviderPort {
       .request(
         "initialize",
         {
-          clientInfo: { name: "openownbot", title: "OpenOwnBot", version: "0.1.0" },
+          clientInfo: { name: "openownbot", title: "ROBot", version: "0.1.0" },
           capabilities: { experimentalApi: true, mcpServerOpenaiFormElicitation: true },
         },
         decodeRecordResponse,
@@ -3022,7 +3022,7 @@ export class ProviderRuntime implements ProviderPort {
     keepsReleased = false,
   ): void {
     const hasActiveClient = this.#clients.has(provider) || (keepsReleased && this.#released.has(provider));
-    const fallbackMessage = `OpenOwnBot could not connect ${providerLabel(provider)}. Try again.`;
+    const fallbackMessage = `ROBot could not connect ${providerLabel(provider)}. Try again.`;
     const rawMessage = error instanceof Error ? error.message : String(error);
     const timeout = isProviderTimeout(error);
     // A timeout says which stage did not answer, and the row's last error keeps it. Only a catalog
@@ -3031,7 +3031,7 @@ export class ProviderRuntime implements ProviderPort {
     const message =
       (timeout && matchingSourceKeys(rawMessage).length > 0) ||
       error instanceof ProviderSignInError ||
-      /^(ChatGPT connection|OpenOwnBot)/u.test(rawMessage)
+      /^(ChatGPT connection|ROBot)/u.test(rawMessage)
         ? rawMessage
         : fallbackMessage;
     const status = hasActiveClient
@@ -3112,7 +3112,7 @@ export class ProviderRuntime implements ProviderPort {
   }, Effect.uninterruptible);
 
   /**
-   * Connects a provider that OpenOwnBot never spawns a login for. The user signed in with the
+   * Connects a provider that ROBot never spawns a login for. The user signed in with the
    * provider's own CLI in a terminal, so this only starts a fresh client and asks the provider
    * which account it now has. A provider with a free tier answers with an account either way.
    */
@@ -3213,7 +3213,7 @@ export class ProviderRuntime implements ProviderPort {
     } = {},
   ) {
     requestedProviders = requestedProviders.filter((provider) => !this.#off.has(provider));
-    // A provider OpenOwnBot stopped starting keeps its row as it is, and no process starts.
+    // A provider ROBot stopped starting keeps its row as it is, and no process starts.
     const stopped = requestedProviders.filter(
       (provider) => this.#startStopped(provider) && !this.#clients.has(provider),
     );
@@ -3507,10 +3507,10 @@ export class ProviderRuntime implements ProviderPort {
         logger.info("Codex completed a credential storage fallback.", { provider: client.provider, message });
         return;
       }
-      // An agent that tears down its sessions while OpenOwnBot stops it (idle release, restart, quit)
+      // An agent that tears down its sessions while ROBot stops it (idle release, restart, quit)
       // can write an error for each one. It is not a failure the user can act on, so it goes to the log.
       if (origin?.duringStop) {
-        stderrLogger.warn("A provider wrote an error while OpenOwnBot stopped it.", {
+        stderrLogger.warn("A provider wrote an error while ROBot stopped it.", {
           provider: client.provider,
           message,
         });
@@ -3661,7 +3661,7 @@ export class ProviderRuntime implements ProviderPort {
               capabilities: { ...this.#status.capabilities, chat: "unavailable" },
               message: startStopped
                 ? this.#startStoppedMessage(client.provider)
-                : `${providerLabel(client.provider)} stopped repeatedly. Restart OpenOwnBot after checking the CLI.`,
+                : `${providerLabel(client.provider)} stopped repeatedly. Restart ROBot after checking the CLI.`,
             },
       );
       return;
@@ -3723,15 +3723,14 @@ export class ProviderRuntime implements ProviderPort {
     return (this.#startFailures.get(provider) ?? 0) >= START_FAILURE_LIMIT;
   }
 
-  /** Counts one failed start, and answers whether OpenOwnBot now stops starting the provider. */
+  /** Counts one failed start, and answers whether ROBot now stops starting the provider. */
   #countStartFailure(provider: AgentProvider): boolean {
     const failures = (this.#startFailures.get(provider) ?? 0) + 1;
     this.#startFailures.set(provider, failures);
     if (failures < START_FAILURE_LIMIT) return false;
     clearTimeout(this.#restartTimers.get(provider));
     this.#restartTimers.delete(provider);
-    if (failures === START_FAILURE_LIMIT)
-      logger.warn("OpenOwnBot stopped starting a provider.", { provider, failures });
+    if (failures === START_FAILURE_LIMIT) logger.warn("ROBot stopped starting a provider.", { provider, failures });
     return true;
   }
 
@@ -3739,7 +3738,7 @@ export class ProviderRuntime implements ProviderPort {
     return sourceText("error.provider.startStopped", { provider: providerLabel(provider) });
   }
 
-  /** Shows on the provider row that OpenOwnBot stopped starting it, and answers the message. */
+  /** Shows on the provider row that ROBot stopped starting it, and answers the message. */
   #showStartStopped(provider: AgentProvider): string {
     const message = this.#startStoppedMessage(provider);
     const row = this.#status.providers?.find((candidate) => candidate.id === provider);
@@ -3784,7 +3783,7 @@ export class ProviderRuntime implements ProviderPort {
 
   /**
    * Starts a provider whose CLI did not answer in time again later, with the backoff and the attempt
-   * count of `#handleExit`. Answers the status message: whether OpenOwnBot tries again, or the user has to.
+   * count of `#handleExit`. Answers the status message: whether ROBot tries again, or the user has to.
    */
   #retryAfterTimeout(provider: AgentProvider, schedule: boolean): string {
     const attempts = this.#restartAttempts.get(provider) ?? 0;

@@ -61,7 +61,7 @@ export const WithAvatar: Story = {
     triggerLabel: "Delete agent",
     title: "Delete Nova?",
     description:
-      "This removes the agent and its OpenOwnBot conversation from the app. Its queue, memories, routines, and workspace are deleted.",
+      "This removes the agent and its ROBot conversation from the app. Its queue, memories, routines, and workspace are deleted.",
     media: <UserAvatar user={{ name: "Nova", email: "nova@example.com", avatarUrl: null }} decorative />,
   },
 };
@@ -91,7 +91,7 @@ export const WithDetails: Story = {
   args: {
     triggerLabel: "Uninstall plugin",
     title: "Uninstall Linear?",
-    description: "OpenOwnBot removes these items from this computer:",
+    description: "ROBot removes these items from this computer:",
     confirmLabel: "Uninstall",
     pendingLabel: "Uninstalling…",
     children: (

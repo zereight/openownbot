@@ -87,7 +87,7 @@ export async function installCodexRuntime(
   return "installed";
 }
 
-/** The `target` the Codex package manifest carries for each runtime target OpenOwnBot ships. */
+/** The `target` the Codex package manifest carries for each runtime target ROBot ships. */
 const CODEX_MANIFEST_TARGETS = {
   "darwin-arm64": "aarch64-apple-darwin",
   "darwin-x64": "x86_64-apple-darwin",

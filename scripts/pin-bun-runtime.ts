@@ -9,7 +9,7 @@ import { sha256, sha256File } from "./remote-desktop-runtime-release";
 export type BunRuntimeTarget = "darwin-arm64" | "darwin-x64" | "linux-x64" | "linux-arm64" | "win32-x64";
 
 /**
- * The npm platform package and the executable inside it, per target OpenOwnBot supports.
+ * The npm platform package and the executable inside it, per target ROBot supports.
  *
  * `baseline` on x64, as the lock file's own comment explains: Bun's plain x64 builds need AVX2, and
  * an older machine answers a spawn with an illegal instruction and no message.
@@ -71,7 +71,7 @@ interface BunArtifactPin {
 /**
  * Recomputes the `bun` block of `native-runtime.lock.json` from the npm registry.
  *
- * Run this at release preparation, not on a schedule: a pinned runtime is OpenOwnBot's supply chain,
+ * Run this at release preparation, not on a schedule: a pinned runtime is ROBot's supply chain,
  * and moving it is a reviewed commit like any other dependency change. `verifyInstalledRuntime`
  * compares `bun --version` against `lock.bun.version` for exact equality, so a pin is only
  * trustworthy if the staged binary really prints that string. This script asserts it on the target
@@ -203,7 +203,7 @@ async function fetchParsed<Schema extends z.ZodType>(
 
 async function fetchBytes(fetchImpl: typeof fetch, url: string): Promise<Buffer> {
   const response = await fetchImpl(url, {
-    headers: { "User-Agent": "OpenOwnBot-runtime-pin" },
+    headers: { "User-Agent": "ROBot-runtime-pin" },
     redirect: "follow",
   });
   if (!response.ok) throw new Error(`${url} answered HTTP ${response.status}.`);

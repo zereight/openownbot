@@ -168,17 +168,15 @@ if (!isString(packageJson.version)) throw new Error("package.json version is mis
 const packagedManifest = JSON.parse(await readAsarFile(asarPath, "package.json"));
 if (!isDynamicRecord(packagedManifest)) throw new Error("The packaged package.json is not a JSON object.");
 expectEqual(packagedManifest.name, "openownbot", "packaged name");
-expectEqual(packagedManifest.productName, "OpenOwnBot", "packaged product name");
+expectEqual(packagedManifest.productName, "ROBot", "packaged product name");
 expectEqual(packagedManifest.version, packageJson.version, "packaged version");
 
 await assertElfMachine(executablePath);
 
 const appImages = existsSync("dist") ? await findAppImages() : [];
 for (const appImage of appImages) {
-  if (!appImage.startsWith(`OpenOwnBot-${packageJson.version}-`)) {
-    throw new Error(
-      `Unexpected AppImage name: ${appImage} (expected OpenOwnBot-${packageJson.version}-<arch>.AppImage)`,
-    );
+  if (!appImage.startsWith(`ROBot-${packageJson.version}-`)) {
+    throw new Error(`Unexpected AppImage name: ${appImage} (expected ROBot-${packageJson.version}-<arch>.AppImage)`);
   }
 }
 
@@ -214,7 +212,7 @@ await verifyLaunch(executablePath);
 
 logger.info(`Verified ${appPath}`);
 logger.info(
-  `OpenOwnBot ${packageJson.version} · Linux ${architecture} · manifest · voice runtime · ASAR integrity · hardened fuses · launch`,
+  `ROBot ${packageJson.version} · Linux ${architecture} · manifest · voice runtime · ASAR integrity · hardened fuses · launch`,
 );
 
 function expectEqual(actual: unknown, expected: unknown, label: string): void {
@@ -302,9 +300,7 @@ async function verifyLaunch(executable: string): Promise<void> {
 
   const launchExit = new Promise<never>((_, reject) => {
     child.once("exit", (code, signal) => {
-      reject(
-        new Error(`Packaged OpenOwnBot exited during launch (${signal ?? `code ${String(code)}`}): ${stderr.trim()}`),
-      );
+      reject(new Error(`Packaged ROBot exited during launch (${signal ?? `code ${String(code)}`}): ${stderr.trim()}`));
     });
   });
 
@@ -330,7 +326,7 @@ async function verifyLaunch(executable: string): Promise<void> {
     await verifySecondInstanceExits(executable, userDataPath, launchExit);
     if (child.exitCode !== null || child.signalCode !== null) {
       throw new Error(
-        `Packaged OpenOwnBot exited when a second instance started (${child.signalCode ?? `code ${String(child.exitCode)}`}): ${stderr.trim()}`,
+        `Packaged ROBot exited when a second instance started (${child.signalCode ?? `code ${String(child.exitCode)}`}): ${stderr.trim()}`,
       );
     }
   } finally {
@@ -371,7 +367,7 @@ async function waitForFirstInstance(
     const limit = Date.now() + launchStepLimitMs;
     while (!(await reached())) {
       if (Date.now() > limit) {
-        throw new Error(`Packaged OpenOwnBot did not ${step} in 5 minutes: ${stderr().trim()}`);
+        throw new Error(`Packaged ROBot did not ${step} in 5 minutes: ${stderr().trim()}`);
       }
       await delay(200, undefined, { signal: stop.signal });
     }
@@ -434,11 +430,11 @@ async function verifySecondInstanceExits(
       delay(launchStepLimitMs, null, { signal: stop.signal }),
     ]);
     if (!result) {
-      throw new Error(`A second OpenOwnBot instance did not exit in 5 minutes: ${stderr.trim()}`);
+      throw new Error(`A second ROBot instance did not exit in 5 minutes: ${stderr.trim()}`);
     }
     if (result.code !== 0 || result.signal) {
       throw new Error(
-        `A second OpenOwnBot instance exited unexpectedly (${result.signal ?? `code ${String(result.code)}`}): ${stderr.trim()}`,
+        `A second ROBot instance exited unexpectedly (${result.signal ?? `code ${String(result.code)}`}): ${stderr.trim()}`,
       );
     }
   } finally {

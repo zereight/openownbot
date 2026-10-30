@@ -493,6 +493,6 @@ function assertQuickCheck(db: DatabaseSync): void {
     .map((row) => (isDynamicRecord(row) ? row.quick_check : row));
   if (problems.length === 1 && problems[0] === "ok") return;
   // The lines name the damaged pages and tables, which tell a page left by a disk save from a bad index.
-  logger.error("The OpenOwnBot database failed its integrity check.", { problems });
+  logger.error("The ROBot database failed its integrity check.", { problems });
   throw new Error(sourceText("error.backend.databaseIntegrity"));
 }

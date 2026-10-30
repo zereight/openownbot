@@ -7,10 +7,10 @@ import { BUILTIN_TOOL_CATALOG, VISIBLE_DYNAMIC_TOOLS } from "../src/backend/agen
 import { toolGuidance } from "../src/backend/agent/tool-guidance";
 import { runDebtRatchet } from "./debt-ratchet";
 
-// Holds the text that OpenOwnBot adds to an agent's context to the byte counts in
+// Holds the text that ROBot adds to an agent's context to the byte counts in
 // tools/agent-context/budget.json. `scripts/debt-ratchet.ts` has the rules of the baseline: more bytes
 // fail, fewer bytes fail until `--write` lowers the baseline. The fixture agent has no user data, so
-// the counts measure only OpenOwnBot's own text. Not measured: the schema that the Claude Agent SDK makes
+// the counts measure only ROBot's own text. Not measured: the schema that the Claude Agent SDK makes
 // from the raw Zod shapes of its visible tools (`claude-client.ts`).
 
 const ROOT = resolve(import.meta.dirname, "..");

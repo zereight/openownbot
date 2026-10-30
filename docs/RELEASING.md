@@ -1,4 +1,4 @@
-# Releasing OpenOwnBot
+# Releasing ROBot
 
 For iOS builds uploaded to TestFlight through GitHub Actions, see
 [the mobile release guide](../apps/mobile/README.md#github-actions-testflight-release). For Android
@@ -6,20 +6,20 @@ builds uploaded to Google Play, see
 [the Google Play release guide](../apps/mobile/README.md#github-actions-google-play-release).
 The mobile workflows are separate from the desktop tag release described below.
 
-OpenOwnBot updates are published through GitHub Releases and installed with `electron-updater`.
+ROBot updates are published through GitHub Releases and installed with `electron-updater`.
 macOS requires every auto-updatable build to be signed with a Developer ID Application certificate.
 The release workflow also notarizes and staples the macOS application before publishing it. A Windows
 x64 tag release is signed with Azure Artifact Signing (see [Windows signing](#windows-signing)). Linux
 releases are unsigned, and the Linux AppImage carries no signature.
 All three platforms must pass before one release is published. A release also requires the pinned
 Sunshine and Moonlight Web runtime artifacts. GitHub Actions downloads those artifacts, checks SHA-256, and
-verifies their native executables as part of the final OpenOwnBot package. Release packages are not built
+verifies their native executables as part of the final ROBot package. Release packages are not built
 on a developer machine.
 
 Codex, Claude, and Grok runtimes are optional downloads. They are not part of the application package.
 Release CI downloads the pinned macOS, Windows, and Linux provider artifacts as control artifacts. It
 checks their SHA-256 values, versions, licenses, and vendor signatures without copying them into
-OpenOwnBot. Linux has no code-signature contract to check, so its provider artifacts are verified by
+ROBot. Linux has no code-signature contract to check, so its provider artifacts are verified by
 SHA-256 and version only.
 
 Installed apps do not wait for a release to get a new provider CLI: they offer the latest upstream
@@ -34,7 +34,10 @@ Create the `release` environment in `zereight/openownbot`, then add these enviro
 
 - `CSC_LINK` — a base64-encoded Developer ID Application `.p12` file.
 - `MAC_PROVISIONING_PROFILE` — the base64-encoded Developer ID provisioning profile for
-  `app.openownbot.desktop`, with the `applinks:openbot.run` entitlement.
+  `app.robot.desktop`, with the `applinks:openbot.run` entitlement. The app id changed from
+  `app.openownbot.desktop` with the ROBot rename (plan 012): register the new App ID and make a new
+  profile before the first ROBot release. An installed OpenOwnBot does not update to ROBot; the user
+  installs ROBot from the release page.
 - `CSC_KEY_PASSWORD` — the application `.p12` export password.
 - `CSC_INSTALLER_LINK` — a base64-encoded **Developer ID Installer** `.p12` file for team `ZTRDTUL87R`.
 - `CSC_INSTALLER_KEY_PASSWORD` — the installer `.p12` export password.
@@ -52,7 +55,7 @@ The Docker image needs no secret: the `docker-publish` job pushes with `GITHUB_T
 even when the source repository is public. A successful push does not confirm public access.
 
 After the first push, a package administrator must open the
-[OpenOwnBot package](https://github.com/orgs/nightly-labs/packages/container/package/openownbot):
+[ROBot package](https://github.com/orgs/nightly-labs/packages/container/package/openownbot):
 
 1. Open **Package settings** and set **Change visibility** to **Public**.
 2. Check that the package is linked to `zereight/openownbot`. The Dockerfile sets the
@@ -62,7 +65,7 @@ After the first push, a package administrator must open the
 If **Public** is disabled by organization administrators, an organization owner must enable
 **Public** under **Package creation** in the
 [organization package settings](https://github.com/organizations/nightly-labs/settings/packages).
-Make OpenOwnBot public, then restore the previous organization policy. Existing public packages stay
+Make ROBot public, then restore the previous organization policy. Existing public packages stay
 public when this creation permission is disabled again.
 
 If a release pushed its image but users cannot pull it, check these settings first. Changing
@@ -139,7 +142,7 @@ A tag build signs the Windows release with Azure Artifact Signing. It needs no s
 - The `windows` job logs in with `azure/login`, caches a token for the signing service, and runs
   `bun run dist:win --config electron-builder.windows-signing.yml`, then runs `az account clear`, so
   the steps after the build have no Azure session. That overlay adds
-  `win.azureSignOptions` and `forceCodeSigning`. electron-builder signs `OpenOwnBot.exe`, every `.exe` from
+  `win.azureSignOptions` and `forceCodeSigning`. electron-builder signs `ROBot.exe`, every `.exe` from
   `extraResources` (the remote desktop runtime and the Computer Use driver), the NSIS
   installer, and its uninstaller. It does not sign the `.node` and `.dll` files of the voice runtime,
   because the overlay sets no `win.signExts`. The provider CLIs are not packaged on Windows, so their
@@ -162,7 +165,7 @@ certificate builds download reputation.
 ## Build the remote desktop runtime
 
 `native-runtime.lock.json` pins the upstream source for Sunshine `v2026.516.143833` and Moonlight Web
-`v2.10.0` by full commit and source archive SHA-256. Each entry also records the reviewable OpenOwnBot
+`v2.10.0` by full commit and source archive SHA-256. Each entry also records the reviewable ROBot
 patch applied to that source. Build on the target platform:
 
 ```bash
@@ -179,7 +182,7 @@ Use this source build only to make or reproduce a runtime version. The
 `.github/workflows/remote-desktop-runtime.yml` workflow builds macOS ARM64, macOS x64, Windows x64 and Linux x64
 when the recipe or a pinned input changes. It publishes an immutable GitHub prerelease named
 `remote-desktop-runtime-<input-digest>`. The prerelease contains the four deterministic archives, SPDX
-SBOMs, build provenance, and `remote-desktop-runtime-manifest.json`. It is not an OpenOwnBot application
+SBOMs, build provenance, and `remote-desktop-runtime-manifest.json`. It is not a ROBot application
 update and it must never contain `latest.yml`.
 
 PR pushes do not cancel an active runtime build. The next run reuses a successful native build
@@ -227,7 +230,7 @@ assets in an existing runtime prerelease. Increase `recipeVersion` when the buil
 ### Sunshine security backports (runtime recipe 12)
 
 The Sunshine upstream base remains `v2026.516.143833` to keep the tested macOS input backend.
-The OpenOwnBot patch includes these upstream security changes and regression tests:
+The ROBot patch includes these upstream security changes and regression tests:
 
 - `1583e7c4a7e99538c7700315a1d2a2101c6d2812`: validate input packets before queueing and
   dispatch (GHSA-26q2-58j6-qmvv and GHSA-6w33-pjh7-p77c).
@@ -241,16 +244,16 @@ The OpenOwnBot patch includes these upstream security changes and regression tes
 Backport adaptations retain the older platform APIs and test fixtures. Native CI builds and runs
 only the relevant packet, pairing, REST authorization, and certificate regression tests. The local
 Moonlight client uses a random pairing name and approves only its matching loopback request ID.
-Moonlight now builds from the same upstream commit with the existing OpenOwnBot patch and a fix
+Moonlight now builds from the same upstream commit with the existing ROBot patch and a fix
 that sends the configured pairing name instead of the upstream hard-coded name.
 The published runtime uses a new recipe/input digest; no existing release assets are replaced.
 The Linux GUI capability advisory GHSA-fp6g-27w5-489j does not apply: the Linux runtime is built
-with the tray off, and OpenOwnBot gives Sunshine no file capabilities.
+with the tray off, and ROBot gives Sunshine no file capabilities.
 
 ### Linux runtime (recipe 16)
 
 The `linux-x64` target builds on Ubuntu 24.04 with GCC 14, X11 capture and software encoding only
-(CUDA, DRM, KWin, VAAPI, Vulkan, Wayland, portal and tray are off). The OpenOwnBot patch adds an XTest
+(CUDA, DRM, KWin, VAAPI, Vulkan, Wayland, portal and tray are off). The ROBot patch adds an XTest
 input backend, because Xvfb does not read uinput devices. It also links libcap when DRM is off and
 adds a `vaMapBuffer2` shim, because the prebuilt FFmpeg needs libva 2.21 and Ubuntu 24.04 has 2.20.
 The runtime uses the system libraries of Ubuntu 24.04 that Ubuntu 26.04 also has; the hosted server
@@ -291,7 +294,7 @@ packages have no license file, so set `licenseSha256` to the SHA-256 of `LICENSE
 
 ## Pin the OpenCode CLI
 
-`native-runtime.lock.json` also pins the OpenCode CLI that OpenOwnBot downloads for the OpenCode
+`native-runtime.lock.json` also pins the OpenCode CLI that ROBot downloads for the OpenCode
 provider before its first update check answers, by `@opencode/cli-*` npm platform package (OpenCode 2), asset SHA-256,
 extracted binary SHA-256, byte counts, and the MIT license file. The OpenCode 2 tarballs carry no license, so the lock
 names an `opencode-ai` (OpenCode 1) release in `licensePackage` and the app installs the same MIT file from it. Codex,
@@ -320,7 +323,7 @@ before release.
 ## Pin the Computer Use driver
 
 `native-runtime.lock.json` pins `cua-driver`, the third-party binary that gives every provider
-Computer Use, by release tag, asset SHA-256, and one SHA-256 for each file OpenOwnBot ships. Unlike the
+Computer Use, by release tag, asset SHA-256, and one SHA-256 for each file ROBot ships. Unlike the
 provider CLIs, the driver is packaged rather than downloaded on demand, so the release carries it and
 the user installs nothing.
 
@@ -343,7 +346,7 @@ check both that the driver is present and that no other platform's is. The macOS
 `dist:linux`.
 
 On macOS the driver arrives signed by Cua AI with the hardened runtime, a secure timestamp, and the
-Automation entitlement. `mac.signIgnore` keeps that signature: re-signing it under OpenOwnBot's
+Automation entitlement. `mac.signIgnore` keeps that signature: re-signing it under ROBot's
 inherited entitlements would drop the entitlement and break the driver's Automation route.
 Notarization accepts a nested binary signed by another Developer ID team, and
 `verify-macos-package.ts` fails if the Cua AI authority or the hardened runtime flag is ever lost.
@@ -372,8 +375,8 @@ an older machine with an illegal instruction and no message, which would reach t
 server that never starts.
 
 Move this pin at release preparation, with the release-upgrade-safety audit, and not on a schedule:
-a pinned runtime is OpenOwnBot's supply chain, and a Bun security release only reaches users through an
-OpenOwnBot release. One reviewed commit per release.
+a pinned runtime is ROBot's supply chain, and a Bun security release only reaches users through an
+ROBot release. One reviewed commit per release.
 
 ## Release notes
 
@@ -449,7 +452,7 @@ public web, Signal, database schemas, or Team API contracts.
 
 ### Discord announcement
 
-Each desktop release posts a message in the OpenOwnBot Discord. Before publishing a desktop release,
+Each desktop release posts a message in the ROBot Discord. Before publishing a desktop release,
 select the 3 to 5 changes in its `CHANGELOG.md` section that have the largest effect on users, and
 write them with the version in `.github/release-announcement.json`:
 
@@ -463,14 +466,14 @@ developer setup, internal paths, credentials, or unpublished plans. Replace the 
 previous release; the file holds only one version.
 
 `scripts/discord-release-announcement.ts` builds the message: a mention of the `Release Pings`
-role, the title `OpenOwnBot vx.y.z is out`, the highlights, and a link to the version on `/changelog`.
+role, the title `ROBot vx.y.z is out`, the highlights, and a link to the version on `/changelog`.
 It notifies only that role, not `@everyone` or `@here`. Run
 `bun scripts/discord-release-announcement.ts check x.y.z` to see it. The tag workflow and
 `bun run release:preflight` stop when the file is not for the release version, has fewer than 3 or
 more than 5 highlights, has a highlight that is empty or has a placeholder, a line break or a
 mention, or makes a message longer than 2000 characters. They also stop when the
 `DISCORD_RELEASE_ROLE_ID` repository variable is not set or is not a Discord role ID. After the GitHub Release, the Docker image and the
-boat snapshot are published, the `discord-announce` job posts the message as OpenOwnBot through the
+boat snapshot are published, the `discord-announce` job posts the message as ROBot through the
 channel webhook in the `DISCORD_RELEASE_WEBHOOK_URL` secret of the `release` environment. The job
 fails, and posts nothing, when `DISCORD_RELEASE_ROLE_ID` is not set. A failed post does not undo the
 release: re-run the job. A re-run after a successful post posts the message again.
@@ -478,7 +481,7 @@ release: re-run the job. A re-run after a successful post posts the message agai
 One-time setup:
 
 1. In Discord, open the settings of the announcement channel, then Integrations > Webhooks. Make a
-   webhook named `OpenOwnBot` with the OpenOwnBot icon. Add its URL as the secret
+   webhook named `ROBot` with the ROBot icon. Add its URL as the secret
    `DISCORD_RELEASE_WEBHOOK_URL` of the `release` environment.
 2. In Discord, turn on Developer Mode, open Server Settings > Roles, right-click `Release Pings` and
    select Copy Role ID. Add the ID as the repository variable `DISCORD_RELEASE_ROLE_ID`.
@@ -492,7 +495,7 @@ Start from a clean, up-to-date `main` branch. For the first release, `package.js
 `CHANGELOG.md` are already prepared as `0.1.0`; after CI passes, create its annotated tag directly:
 
 ```bash
-git tag -a v0.1.0 -m "OpenOwnBot v0.1.0"
+git tag -a v0.1.0 -m "ROBot v0.1.0"
 git push origin v0.1.0
 ```
 
@@ -514,7 +517,7 @@ git add package.json CHANGELOG.md changelog.d .github/release-announcement.json
 git commit -m "release: prepare vX.Y.Z"
 git push origin main
 bun run release:preflight
-git tag -a vX.Y.Z -m "OpenOwnBot vX.Y.Z"
+git tag -a vX.Y.Z -m "ROBot vX.Y.Z"
 # When Signal changed since the previous tag, deploy and check Signal from
 # vX.Y.Z now (preflight item 16). Push the tag only after that.
 git push origin vX.Y.Z
@@ -589,7 +592,7 @@ It logs in to Azure, then signs a throwaway executable once immediately and once
 the delay between login and signing in a release build. It uploads and publishes nothing. Run it once
 after a change to the Azure setup or to `electron-builder.windows-signing.yml`, before the next tag.
 
-Installed OpenOwnBot builds check for updates shortly after launch and every four minutes. New versions
+Installed ROBot builds check for updates shortly after launch and every four minutes. New versions
 download automatically while **Automatically download updates** is on, which is the default and is
 persisted per user in `openbot-update-preference-v1.json`; with the setting off, a download starts
 only on a user action. The update notice in the sidebar and Settings > Updates show the current
@@ -603,7 +606,7 @@ The voice runtime (the sherpa-onnx N-API addon and ONNX Runtime, from the pinned
 npm packages) is part of the macOS, Windows and Linux applications, in `voice/runtime`. Each Linux
 AppImage carries the runtime of its architecture. The Linux arm64 AppImage ships no remote desktop
 runtime. The NVIDIA Parakeet TDT 0.6B v3 int8 model is not part of an application or update
-artifact. OpenOwnBot downloads its four pinned files on first voice use, checks the size and SHA-256 of
+artifact. ROBot downloads its four pinned files on first voice use, checks the size and SHA-256 of
 each, and keeps the verified files in `runtimes/parakeet-tdt-0.6b-v3-int8` in the user data directory
 for later offline use. The optional Whisper large-v3 turbo int8 model, which takes a fixed dictation
 language, is downloaded the same way only when the user selects Download in Settings > Voice. Its
@@ -658,17 +661,17 @@ Before creating the first tag or any later release:
 11. confirm the canary update does not crash in `CFURLConnectionSynchronous`, preserves data, starts
     the new version, and can run three provider downloads with restricted memory;
 12. on Windows 10 and 11 x64, confirm that normal exit, restart, and sign-out do not start NSIS, while
-    `Restart and install` does start it, shows no installer page, and opens OpenOwnBot again. With
-    OpenOwnBot closed and with it open, confirm that Open OpenOwnBot on a `/join` page opens OpenOwnBot and
+    `Restart and install` does start it, shows no installer page, and opens ROBot again. With
+    ROBot closed and with it open, confirm that Open ROBot on a `/join` page opens ROBot and
     shows the invitation once, and that uninstall
     removes `HKCU\Software\Classes\openownbot`. Update from the previous release, then install to a
     folder on a second disk. Confirm that the installer has no "All users" page, that an update
     installs to the same folder, that `icacls` on that folder lists only the user, `SYSTEM` and
     `Administrators`, and that the uninstaller removes only that folder. Choose
-    `%USERPROFILE%\OpenOwnBot` with an agent workspace in it, and confirm that OpenOwnBot installs to
-    `%USERPROFILE%\OpenOwnBot\OpenOwnBot` and that uninstall keeps the workspace. As a second account,
-    make an empty `D:\OpenOwnBot`. As the first account, choose it, and confirm that OpenOwnBot installs to
-    `D:\OpenOwnBot\OpenOwnBot` and that the second account cannot write there;
+    `%USERPROFILE%\ROBot` with an agent workspace in it, and confirm that ROBot installs to
+    `%USERPROFILE%\ROBot\ROBot` and that uninstall keeps the workspace. As a second account,
+    make an empty `D:\ROBot`. As the first account, choose it, and confirm that ROBot installs to
+    `D:\ROBot\ROBot` and that the second account cannot write there;
 13. on Ubuntu 24.04 x64 with the AppArmor profile from `build/linux/openownbot.apparmor` installed,
     confirm the AppImage starts with the sandbox on, that `xdg-open 'openownbot://join?...'` focuses the
     running application, that a provider downloads in-app, that the page rail is drawn, and that the
@@ -711,19 +714,19 @@ or checksum generation fails; it never publishes a release with the Host package
 Expected macOS assets:
 
 ```text
-OpenOwnBot-<VERSION>-arm64.dmg
-OpenOwnBot-<VERSION>-arm64.zip
-OpenOwnBot-Host-<VERSION>-arm64.pkg
+ROBot-<VERSION>-arm64.dmg
+ROBot-<VERSION>-arm64.zip
+ROBot-Host-<VERSION>-arm64.pkg
 latest-mac.yml
 SHA256SUMS-macos.txt
-OpenOwnBot-<VERSION>-macos.spdx.json
-OpenOwnBot-Host-<VERSION>-macos.spdx.json
-OpenOwnBot-<VERSION>-macos.sigstore.json
-OpenOwnBot-<VERSION>-x64.dmg
-OpenOwnBot-<VERSION>-x64.zip
+ROBot-<VERSION>-macos.spdx.json
+ROBot-Host-<VERSION>-macos.spdx.json
+ROBot-<VERSION>-macos.sigstore.json
+ROBot-<VERSION>-x64.dmg
+ROBot-<VERSION>-x64.zip
 SHA256SUMS-macos-x64.txt
-OpenOwnBot-<VERSION>-macos-x64.spdx.json
-OpenOwnBot-<VERSION>-macos-x64.sigstore.json
+ROBot-<VERSION>-macos-x64.spdx.json
+ROBot-<VERSION>-macos-x64.sigstore.json
 ```
 
 The macOS checksum file covers the DMG, ZIP, and Host PKG. The existing provenance step consumes
@@ -732,7 +735,7 @@ The publish job downloads `release-macos` and `release-macos-x64` and publishes 
 other assets. `SHA256SUMS-macos-x64.txt` covers the x64 DMG and ZIP.
 `latest-mac.yml` still describes only Electron application updates; a `.pkg` reference is rejected.
 
-After verifying OpenOwnBot.app, the macOS job:
+After verifying ROBot.app, the macOS job:
 
 1. runs native account tests without creating users;
 2. imports the application and installer certificates into a temporary, isolated keychain;

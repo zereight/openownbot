@@ -1,5 +1,5 @@
 #!/bin/bash
-# The entrypoint of the OpenOwnBot Docker image (docker/Dockerfile). It runs OpenOwnBot as a self-hosted
+# The entrypoint of the ROBot Docker image (docker/Dockerfile). It runs ROBot as a self-hosted
 # server, as openownbot-hosted-server does on a computer with systemd: a D-Bus session with an unlocked
 # keyring, so that Electron `safeStorage` can keep the account session, two virtual displays, and
 # `OPENOWNBOT_SERVER=1`. Its owner signs it in with `docker exec -it openownbot openownbot login`.
@@ -29,30 +29,30 @@ display_size() {
   echo 1280x800
 }
 
-[ "$(id -u)" -ne 0 ] || fail "Run the OpenOwnBot image as its own user, not as root."
+[ "$(id -u)" -ne 0 ] || fail "Run the ROBot image as its own user, not as root."
 [ -w "$HOME" ] || fail "User $(id -u) cannot write to $HOME. Give the data volume to that user: chown -R $(id -u):$(id -g) <folder>"
 # The Electron sandbox stays on. It makes user namespaces, and the default seccomp profile of Docker
 # refuses them to a container. `--no-sandbox` is never the answer.
 unshare --user --map-root-user true 2>/dev/null ||
-  fail "OpenOwnBot cannot make a user namespace for the Electron sandbox. Start the container with --security-opt seccomp=seccomp.json. See https://github.com/zereight/openownbot/blob/main/docs/docker.md"
+  fail "ROBot cannot make a user namespace for the Electron sandbox. Start the container with --security-opt seccomp=seccomp.json. See https://github.com/zereight/openownbot/blob/main/docs/docker.md"
 # The control socket of `openownbot`. Main refuses a directory that other users can enter. The socket of
 # the last run stays in the container, and `openownbot` must not take it for the new one.
 mkdir -p "$XDG_RUNTIME_DIR"
 chmod 0700 "$XDG_RUNTIME_DIR"
 rm -f "$XDG_RUNTIME_DIR/control.sock"
 
-# D-Bus and the virtual display run in the background, and OpenOwnBot replaces this script. tini then
-# gives the stop signal to OpenOwnBot only and waits for it: OpenOwnBot stops its agents and closes the
-# database. A wrapper such as xvfb-run would stop at once, and Docker would kill OpenOwnBot with it.
+# D-Bus and the virtual display run in the background, and ROBot replaces this script. tini then
+# gives the stop signal to ROBot only and waits for it: ROBot stops its agents and closes the
+# database. A wrapper such as xvfb-run would stop at once, and Docker would kill ROBot with it.
 # An assignment first, so `set -e` stops the start when a daemon fails. `eval "$(…)"` ignores it.
 session=$(dbus-launch --sh-syntax)
 eval "$session"
-# OpenOwnBot shows its windows on :0. The agents work on :1: main gives it to Computer Use, to remote
-# desktop and to the agent processes, so an agent's screenshot does not show the OpenOwnBot window.
+# ROBot shows its windows on :0. The agents work on :1: main gives it to Computer Use, to remote
+# desktop and to the agent processes, so an agent's screenshot does not show the ROBot window.
 # The locks of the last run stay in the container too.
 rm -f /tmp/.X0-lock /tmp/.X11-unix/X0 /tmp/.X1-lock /tmp/.X11-unix/X1
-# The subshells exit at once, so tini adopts Xvfb. As a child of OpenOwnBot, Xvfb would get the high OOM
-# value of the agent processes, and OpenOwnBot stops when the kernel kills its display.
+# The subshells exit at once, so tini adopts Xvfb. As a child of ROBot, Xvfb would get the high OOM
+# value of the agent processes, and ROBot stops when the kernel kills its display.
 (Xvfb :0 -screen 0 1280x800x24 -nolisten tcp >/dev/null 2>&1 &)
 (Xvfb :1 -screen 0 "$(display_size "${OPENOWNBOT_DISPLAY_SIZE:-}")x24" -nolisten tcp >/dev/null 2>&1 &)
 export DISPLAY=:0 OPENOWNBOT_AGENT_DISPLAY=:1
@@ -94,4 +94,4 @@ shm=$(df --output=size -k /dev/shm 2>/dev/null | tail -n 1 | tr -d ' ') || shm=0
 [ "${shm:-0}" -ge 1048576 ] 2>/dev/null || chromium+=(--disable-dev-shm-usage)
 
 export OPENOWNBOT_SERVER=1
-exec /opt/OpenOwnBot/app/openownbot --password-store=gnome-libsecret "${chromium[@]}"
+exec /opt/ROBot/app/openownbot --password-store=gnome-libsecret "${chromium[@]}"

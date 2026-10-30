@@ -19,7 +19,7 @@ const meta = {
     name: "example",
     address: "https://example.com/mcp",
     state: "sign-in",
-    unavailableText: "Sign in to example in OpenOwnBot on your computer, in Server settings, MCP.",
+    unavailableText: "Sign in to example in ROBot on your computer, in Server settings, MCP.",
     onSignIn: fn(),
     onContinue: fn(),
   },

@@ -3,7 +3,7 @@
 // service on a temporary profile with a fake Codex app-server that, like Codex 0.160.1, refuses
 // `turn/start` with `ActiveTurnNotSteerable { turn_kind: Compact }` while a compaction turn runs.
 // Four cases: a compaction that ends by itself, one that runs past the start deadline and ends by
-// itself (#3466), one that the run deadline stops, and one that does not stop, so that OpenOwnBot sends
+// itself (#3466), one that the run deadline stops, and one that does not stop, so that ROBot sends
 // a turn that Codex refuses. Then a side thread: the runtime snapshot carries its context, and
 // `compactTaskContext` compacts its session and not the agent's own chat (#3503). Last, a usage
 // report that Codex sends while the stop ends it does not reach the closed database (#3808).
@@ -67,7 +67,7 @@ process.stdout.on("error", (error) => {
   throw error;
 });
 const write = (message) => process.stdout.write(JSON.stringify(message) + "\\n");
-// Like a Codex in the middle of a turn, it can report usage while OpenOwnBot stops it (#3808).
+// Like a Codex in the middle of a turn, it can report usage while ROBot stops it (#3808).
 process.on("SIGTERM", () => {
   if (!control().usageOnStop) process.exit(0);
   for (let thread = 1; thread <= threads; thread++) {
@@ -159,7 +159,7 @@ process.stdin.on("data", (chunk) => {
 });
 `;
 
-/** One line of the fake Codex log: a message that OpenOwnBot sent, or a fact that the fake reports. */
+/** One line of the fake Codex log: a message that ROBot sent, or a fact that the fake reports. */
 interface ProtocolEntry {
   method: string | null;
   threadId: string | null;
@@ -415,7 +415,7 @@ try {
   assert.ok(sideThread.mainContextUnchanged, "side thread: the agent's own context changed");
 
   // Codex reports usage while the stop ends it. The quit closes the database next, and a late
-  // usage snapshot then failed with "OpenOwnBot database is not initialized." (#3808).
+  // usage snapshot then failed with "ROBot database is not initialized." (#3808).
   await writeFile(controlPath, JSON.stringify({ compactionMs: 200, ignoreInterrupt: false, usageOnStop: true }));
   const lateErrors: string[] = [];
   const collect = (error: unknown) => lateErrors.push(error instanceof Error ? error.message : String(error));

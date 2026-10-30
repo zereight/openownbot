@@ -14,7 +14,7 @@ export { resolveDevelopmentAppDataRoot } from "./development-state-paths";
 const logger = createOpenOwnBotLogger("reset-dev-state");
 
 const developmentProfiles = ["app", "test-client"] as const satisfies readonly DevelopmentProfile[];
-const legacyDevelopmentStateNames = ["OpenOwnBot Dev Host"] as const;
+const legacyDevelopmentStateNames = ["ROBot Dev Host"] as const;
 
 const USAGE = [
   "Usage: bun run dev:reset",
@@ -35,7 +35,7 @@ export function developmentStatePaths(appDataRoot: string): string[] {
   ].map((name) => {
     const target = resolve(safeRoot, name);
     if (dirname(target) !== safeRoot) {
-      throw new Error(`Unsafe OpenOwnBot dev state path: ${target}`);
+      throw new Error(`Unsafe ROBot dev state path: ${target}`);
     }
     return target;
   });
@@ -62,7 +62,7 @@ export async function resetDevelopmentState(
   // Check every profile before deleting any, so a refusal leaves all of them as they were.
   for (const statePath of existingPaths) {
     if (await isDevelopmentProfileActive(statePath)) {
-      throw new Error(`Quit the OpenOwnBot dev app before you reset its state. ${statePath} is open.`);
+      throw new Error(`Quit the ROBot dev app before you reset its state. ${statePath} is open.`);
     }
   }
 
@@ -83,9 +83,9 @@ async function main(): Promise<void> {
   });
 
   if (deletedPaths.length === 0) {
-    logger.info("No OpenOwnBot development state was found.");
+    logger.info("No ROBot development state was found.");
   } else {
-    logger.info("OpenOwnBot development state reset.");
+    logger.info("ROBot development state reset.");
   }
 
   logger.info("Seed-owned transfer files were removed. Other shared files were not changed.");

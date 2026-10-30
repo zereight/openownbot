@@ -48,14 +48,14 @@ async function build(): Promise<void> {
     await command("/usr/libexec/PlistBuddy", [
       "-c",
       "Print CFBundleShortVersionString",
-      "dist/mac-arm64/OpenOwnBot.app/Contents/Info.plist",
+      "dist/mac-arm64/ROBot.app/Contents/Info.plist",
     ])
   ).trim();
-  if (appVersion !== version) throw new Error("OpenOwnBot.app and Host package versions differ.");
+  if (appVersion !== version) throw new Error("ROBot.app and Host package versions differ.");
   const temp = await mkdtemp(join(tmpdir(), "openownbot-host-build-"));
   const payload = join(temp, "payload");
   const installerScripts = join(temp, "scripts");
-  const destination = resolve(`dist/OpenOwnBot-Host-${version}-arm64.pkg`);
+  const destination = resolve(`dist/ROBot-Host-${version}-arm64.pkg`);
   try {
     await mkdir(join(payload, HOST_MANAGER_DIRECTORY), { recursive: true });
     for (const name of ["host-manager", "openownbot-host"]) {

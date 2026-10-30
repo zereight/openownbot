@@ -2,12 +2,12 @@
  * Builds the boat named snapshot that hosted servers are created from:
  *
  *   BOAT_TEMPLATE_API_KEY=... bun scripts/hosting/build-boat-template.ts --version=0.9.0 \
- *     --appimage-url=https://.../OpenOwnBot-0.9.0-x86_64.AppImage --appimage-sha256=<hex> \
+ *     --appimage-url=https://.../ROBot-0.9.0-x86_64.AppImage --appimage-sha256=<hex> \
  *     --auth-api-url=https://<test worker origin>
  *
  * It creates a builder sandbox with no account env, runs provision.sh there, checks the install,
  * saves the builder as `openownbot-server-<version>`, and deletes the builder. The builder never starts
- * OpenOwnBot, so the template holds no host identity and no session. The key needs sandbox, files,
+ * ROBot, so the template holds no host identity and no session. The key needs sandbox, files,
  * commands, and named snapshot access; the Worker's key must not have that access.
  *
  * The release job adds `--keep-releases=<n> --in-use=<names>`: before the build, it removes the
@@ -119,8 +119,8 @@ async function main(): Promise<void> {
       boat,
       builderId,
       [
-        "test -x /opt/OpenOwnBot/app/openownbot",
-        `test "$(sed -n 's/^X-AppImage-Version=//p' /opt/OpenOwnBot/app/*.desktop)" = ${shellQuote(options.version)}`,
+        "test -x /opt/ROBot/app/openownbot",
+        `test "$(sed -n 's/^X-AppImage-Version=//p' /opt/ROBot/app/*.desktop)" = ${shellQuote(options.version)}`,
         "systemctl is-enabled --quiet openownbot.service",
         "! systemctl is-active --quiet openownbot.service",
         // With more than one unit, `is-enabled` passes when one of them is enabled.
@@ -128,7 +128,7 @@ async function main(): Promise<void> {
         "systemctl is-enabled --quiet openownbot-update-apply.service",
         "systemctl is-enabled --quiet openownbot-update-request.path",
         "! systemctl is-active --quiet openownbot-update.timer",
-        'test ! -e "$HOME/.config/OpenOwnBot"',
+        'test ! -e "$HOME/.config/ROBot"',
         'test ! -e "$HOME/.config/openownbot-hosted"',
         'test -z "$(ls -A /srv/openownbot-hosted)"',
         `rm -rf ${REMOTE_DIRECTORY}`,

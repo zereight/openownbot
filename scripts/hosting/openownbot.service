@@ -1,11 +1,11 @@
-# OpenOwnBot on a hosted server. provision.sh replaces @SERVICE_USER@ and enables this unit. boat
+# ROBot on a hosted server. provision.sh replaces @SERVICE_USER@ and enables this unit. boat
 # stop and resume work like a reboot, so the unit starts again on each wake. boat starts the desktop
-# about 8 seconds before the enabled units, and OpenOwnBot starts with it.
+# about 8 seconds before the enabled units, and ROBot starts with it.
 [Unit]
-Description=OpenOwnBot hosted server
+Description=ROBot hosted server
 Wants=network-online.target openownbot-update-apply.service
 After=network-online.target display-manager.service
-# openownbot-boat-pre-stop stops OpenOwnBot before boat saves the disk, and makes this file so that nothing
+# openownbot-boat-pre-stop stops ROBot before boat saves the disk, and makes this file so that nothing
 # starts it again before the save. /run is empty at each boot.
 ConditionPathExists=!/run/openownbot-pre-stop
 
@@ -15,20 +15,20 @@ User=@SERVICE_USER@
 RuntimeDirectory=openownbot
 RuntimeDirectoryMode=0700
 Environment=XDG_RUNTIME_DIR=/run/openownbot
-# As root (+), and OpenOwnBot starts when it fails (-). It installs the update request units when an
+# As root (+), and ROBot starts when it fails (-). It installs the update request units when an
 # older release moved this one into place; openownbot-hosted-update says why.
-ExecStartPre=-+/opt/OpenOwnBot/hosted/openownbot-hosted-update trigger
-ExecStart=/opt/OpenOwnBot/hosted/openownbot-hosted-server
-# Stops OpenOwnBot before its virtual displays, so that it closes its database first.
-ExecStop=/opt/OpenOwnBot/hosted/openownbot-hosted-server --stop
+ExecStartPre=-+/opt/ROBot/hosted/openownbot-hosted-update trigger
+ExecStart=/opt/ROBot/hosted/openownbot-hosted-server
+# Stops ROBot before its virtual displays, so that it closes its database first.
+ExecStop=/opt/ROBot/hosted/openownbot-hosted-server --stop
 Restart=always
 RestartSec=10
 TimeoutStopSec=60
-# Memory guards. The machine is small, and this unit holds OpenOwnBot, its browser tabs and every agent
+# Memory guards. The machine is small, and this unit holds ROBot, its browser tabs and every agent
 # process. The OOM killer of the unit acts before the kernel's own, so the desktop, sshd and the boat
 # agent keep running. systemd sets -500 as root, before it changes the user; main then gives each
 # process it starts 500, so the OOM killer picks an agent process before main. One killed agent does
-# not stop the unit: the default policy "stop" would stop OpenOwnBot too.
+# not stop the unit: the default policy "stop" would stop ROBot too.
 MemoryMax=90%
 OOMScoreAdjust=-500
 OOMPolicy=continue

@@ -1,5 +1,5 @@
 #!/bin/bash
-# Installs OpenOwnBot as a self-hosted server. install-server.sh downloads the release, checks it
+# Installs ROBot as a self-hosted server. install-server.sh downloads the release, checks it
 # against the release manifest, unpacks it, and runs this file from that release as root:
 #
 #   openownbot-server-setup <service-user> <unpacked release> [<account server URL> [<display size>]]
@@ -8,7 +8,7 @@
 # the home folder of that user, for that account server. No display size keeps the installed one.
 #
 # It uses the install steps of a hosted server (openownbot-hosted-update), with `mode` set to `self`:
-# openownbot-hosted-server then starts OpenOwnBot for a terminal sign-in, not for a claim. Run it again to
+# openownbot-hosted-server then starts ROBot for a terminal sign-in, not for a claim. Run it again to
 # reinstall or upgrade; the data in the home folder of the service user stays.
 set -euo pipefail
 
@@ -29,7 +29,7 @@ fi
 if [ -z "$SERVICE_USER" ]; then
   SERVICE_USER=${installed_user:-openownbot}
 elif [ -n "$installed_user" ] && [ "$SERVICE_USER" != "$installed_user" ]; then
-  fail "OpenOwnBot is installed for the user $installed_user. Install again without --user, or with --user $installed_user."
+  fail "ROBot is installed for the user $installed_user. Install again without --user, or with --user $installed_user."
 fi
 
 [[ $SERVICE_USER =~ ^[a-zA-Z_][a-zA-Z0-9_-]*$ ]] && [ "$SERVICE_USER" != root ] || fail "The service user is not valid."
@@ -46,7 +46,7 @@ if [ -n "$DISPLAY_SIZE" ]; then
     fail "The display size must be WIDTHxHEIGHT from 640x480 to 2576x2576, for example 1920x1080."
 fi
 if [ -f "$INSTALL/hosted/service-user" ] && ! { [ -r "$INSTALL/hosted/mode" ] && [ "$(<"$INSTALL/hosted/mode")" = self ]; }; then
-  fail "This computer is an OpenOwnBot hosted server. A self-hosted install would replace it."
+  fail "This computer is a ROBot hosted server. A self-hosted install would replace it."
 fi
 # Agents run shell commands as this user, so it gets a login shell, and no password.
 if ! id "$SERVICE_USER" >/dev/null 2>&1; then
@@ -62,12 +62,12 @@ recover
 prepare_release "$RELEASE"
 version=$(version_of "$RELEASE")
 [ -n "$version" ] || fail "The release has no version."
-# An older OpenOwnBot cannot open a database that a newer one migrated.
+# An older ROBot cannot open a database that a newer one migrated.
 installed=$(version_of "$INSTALL/app")
 if [ -n "$installed" ] && newer "$installed" "$version"; then
-  fail "OpenOwnBot $installed is installed, and this release has an older version."
+  fail "ROBot $installed is installed, and this release has an older version."
 fi
-# The copy below replaces the files that a running OpenOwnBot uses.
+# The copy below replaces the files that a running ROBot uses.
 systemctl stop openownbot.service 2>/dev/null || true
 stage_release "$RELEASE"
 swap_in
@@ -95,4 +95,4 @@ flock -u 9
 systemctl start openownbot.service
 # install_hosting only enables the timer, and the first boot is maybe a long time away.
 systemctl start openownbot-update.timer
-echo "Installed OpenOwnBot $version. It runs as the user $SERVICE_USER."
+echo "Installed ROBot $version. It runs as the user $SERVICE_USER."

@@ -81,7 +81,7 @@ function deliveryState(
   delivery.reads += 1;
   const base = { recipientAgentId: delivery.agentId, turnId: delivery.reads > 1 ? `turn-${delivery.id}` : null };
   if (delivery.reads === 1 || delivery.outcome === "behind") return { ...base, status: "queued", error: null };
-  // OpenOwnBot restarts while the CLI waits: the next read comes through a new port and token.
+  // ROBot restarts while the CLI waits: the next read comes through a new port and token.
   if (delivery.reads === 2 && delivery.outcome === "restart") restarted = restart();
   if (delivery.reads < 3 || delivery.outcome === "person" || delivery.outcome === "forever")
     return { ...base, status: "running", error: null };
@@ -264,14 +264,9 @@ try {
   });
   await check("a wrong command line exits 2", ["run", "Ada"], 2, (run) => run.stderr.includes("Usage:"));
   const oldUrl = readFileSync(join(root, "url"), "utf8");
-  await check(
-    "run --wait continues after OpenOwnBot restarts",
-    ["run", "Ada", "restart", "--wait", "--json"],
-    0,
-    (run) => {
-      return parsed(run).status === "completed" && readFileSync(join(root, "url"), "utf8") !== oldUrl;
-    },
-  );
+  await check("run --wait continues after ROBot restarts", ["run", "Ada", "restart", "--wait", "--json"], 0, (run) => {
+    return parsed(run).status === "completed" && readFileSync(join(root, "url"), "utf8") !== oldUrl;
+  });
   await restarted;
   const newToken = readFileSync(join(root, "token"), "utf8").trim();
   await check("set-account changes the account", ["agent", "set-account", "Ada", "a0123456789abcdef"], 0, (run) => {
@@ -319,7 +314,7 @@ try {
   });
   busy = false;
   await Effect.runPromise(server.stop());
-  await check("a stopped app exits 5", ["list"], 5, (run) => run.stderr.includes("OpenOwnBot is not running"));
+  await check("a stopped app exits 5", ["list"], 5, (run) => run.stderr.includes("ROBot is not running"));
   await check("a wrong command line exits 2 also when the app is stopped", ["agent", "foo", "Ada"], 2, (run) =>
     run.stderr.includes("Usage:"),
   );

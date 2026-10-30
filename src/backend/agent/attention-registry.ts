@@ -232,7 +232,7 @@ interface PendingBrowserTakeover {
   providerRequestId: RequestId;
   secret?: PreparedBrowserSecret | undefined;
   submitting?: boolean;
-  /** The saved login that OpenOwnBot filled without the card, so the agent does not credit the user. */
+  /** The saved login that ROBot filled without the card, so the agent does not credit the user. */
   vaultLoginId?: string;
   params: DynamicToolCallParams;
   request: BrowserTakeoverRequest;
@@ -305,7 +305,7 @@ export interface AttentionRegistryOptions {
   emitError(code: string, error: unknown, agentId?: string): void;
   emitRuntimeSnapshot(): void;
   /**
-   * The vault the user shared with OpenOwnBot, or null. A password or authenticator request for a login
+   * The vault the user shared with ROBot, or null. A password or authenticator request for a login
    * saved there is filled without a card: putting the login in the shared vault is the consent.
    */
   passwordVault?: PasswordVault | null | undefined;
@@ -657,7 +657,7 @@ export class AttentionRegistry {
       if (this.#takeovers.get(input.requestId) !== pending) return;
       if (outcome === "submitted") {
         const vault = pending.vaultLoginId
-          ? `OpenOwnBot filled saved login ${pending.vaultLoginId}; the user did not type it.`
+          ? `ROBot filled saved login ${pending.vaultLoginId}; the user did not type it.`
           : input.saveToVault && secret.request.method === "password"
             ? yield* this.#saveTypedPassword(pending, secret.request.origin, input.secret)
             : undefined;
@@ -696,7 +696,7 @@ export class AttentionRegistry {
   }
 
   /**
-   * The one rule for every approval OpenOwnBot could answer itself: the agent has Full access. A
+   * The one rule for every approval ROBot could answer itself: the agent has Full access. A
    * Workspace only agent asks to go outside the limit the user chose, so its approvals always reach
    * the user, and an agent at Ask first has no standing grant.
    */
@@ -913,7 +913,7 @@ export class AttentionRegistry {
     this.#takeovers.set(requestId, pending);
     return yield* Effect.gen({ self: this }, function* () {
       // The card is only shown once the tab has actually been handed over -- references invalidated,
-      // diagnostics cleared, any recording stopped. Asking the user for control OpenOwnBot then failed to
+      // diagnostics cleared, any recording stopped. Asking the user for control ROBot then failed to
       // give them would leave the agent acting on the page underneath them.
       const prepare = Effect.gen({ self: this }, function* () {
         if (params.tool === "submit_secret") {
@@ -1186,7 +1186,7 @@ export class AttentionRegistry {
         contentItems: [
           {
             type: "inputText",
-            text: "OpenOwnBot could not create a user question.",
+            text: "ROBot could not create a user question.",
           },
         ],
       });
@@ -1254,7 +1254,7 @@ export class AttentionRegistry {
     if (!threadId || !turnId || !agentId || !publicThreadId || !uiBlock || !validPromptQuestions(questions)) {
       client.respond(request.id, {
         success: false,
-        contentItems: [{ type: "inputText", text: "OpenOwnBot could not show this block." }],
+        contentItems: [{ type: "inputText", text: "ROBot could not show this block." }],
       });
       return;
     }
@@ -1360,7 +1360,7 @@ export class AttentionRegistry {
 
   /**
    * Only the consent that Codex marks is covered, a tool set to ask every time included. A form, a
-   * hand-off, a sign-in and any request that OpenOwnBot does not know still reach the user. A Workspace
+   * hand-off, a sign-in and any request that ROBot does not know still reach the user. A Workspace
    * only agent keeps its card: it asks to go outside the limit the user chose. Computer Use is
    * covered too: its own switch already lets the agent control apps, and Full access means no card.
    */
@@ -1378,7 +1378,7 @@ export class AttentionRegistry {
       client.respond(request.id, { action: "decline", content: null, _meta: null });
       this.#emitError(
         "mcp_safety_handoff",
-        "A local plugin requested an unsupported security hand-off, so OpenOwnBot declined it.",
+        "A local plugin requested an unsupported security hand-off, so ROBot declined it.",
         agentId,
       );
       return;
@@ -1554,7 +1554,7 @@ export class AttentionRegistry {
   #respondToMalformedApproval(client: AgentClient, request: AppServerRequest): void {
     client.respond(
       request.id,
-      approvalReply(request.method, request.params, "decline", "OpenOwnBot could not identify this approval."),
+      approvalReply(request.method, request.params, "decline", "ROBot could not identify this approval."),
     );
   }
 

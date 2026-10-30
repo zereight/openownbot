@@ -453,7 +453,7 @@ function ServerGeneralSettings({ serverId }: { serverId: string }) {
   );
 }
 
-/** Opens the OpenOwnBot update of the host. The value is the version that runs there, or a new one. */
+/** Opens the ROBot update of the host. The value is the version that runs there, or a new one. */
 function ServerUpdatesRow({ serverId, update }: { serverId: string; update: ReturnType<typeof useServerUpdate> }) {
   const { t } = useText();
   const status = update.query.data?.status;

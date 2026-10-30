@@ -44,7 +44,7 @@ adding a module or moving ownership between workspaces.
 ## Product constraints
 
 - Workspaces, conversations, attachments, browser data, and team data stay on the computer that
-  runs OpenOwnBot. Providers, visited pages, and plugins can use the network.
+  runs ROBot. Providers, visited pages, and plugins can use the network.
 - Cloudflare holds accounts, avatars, host configuration, memberships, invitations, and logical
   sessions; it does not hold chats, files, or commands.
 - The user's SQLite database is the source of truth, not a remote cache.
@@ -160,7 +160,7 @@ State which surfaces a change touches. Check all affected consumers and reverse 
   `DOTENV_PRIVATE_KEY_DEV`. Every encrypted env file, `remote/.env.production` included, uses one of
   them. Never make a new key pair. Pass `-fk` with the root `.env.keys` so Dotenvx does not make one.
 - For direct Cloudflare changes, `apps/auth-api/.env.production` holds `CLOUDFLARE_API_TOKEN`
-  (write access to all resources in the OpenOwnBot account) and `CLOUDFLARE_ACCOUNT_ID`. Load them
+  (write access to all resources in the ROBot account) and `CLOUDFLARE_ACCOUNT_ID`. Load them
   with `bunx dotenvx run -f apps/auth-api/.env.production -fk <root>/.env.keys -- <command>`. A worktree
   has no `.env.keys`; use the one in the main checkout. Never print the token: do not use
   `dotenvx get` or `echo`. Ask before a change that deletes data or affects production users.
@@ -181,7 +181,7 @@ See [account service setup](apps/auth-api/README.md) for loading and deployment 
   when it cannot confirm a PID's identity; resolve the process, then `bun run dev:forget`. Dead
   records do not reserve ports.
 - Reuse a running dev instance. `bun run dev` opens a profile tied to this worktree; `--shared`
-  opens the shared `OpenOwnBot Dev` profile. Use the ports the stack reports rather than a fixed port.
+  opens the shared `ROBot Dev` profile. Use the ports the stack reports rather than a fixed port.
 
 See [README.md — Commands](README.md#commands) for the flags these commands take, and
 [docs/architecture/change-rules.md](docs/architecture/change-rules.md#change-rules) for why the registry works this way, when a dev command

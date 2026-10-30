@@ -18,7 +18,7 @@ import { createWorkflowsController } from "./workflows-controller";
 import { desktopWorkflowHost, type WorkflowHost } from "./workflows-port";
 
 /**
- * The workflows of one server on a page that covers the agent list. A joined server whose OpenOwnBot
+ * The workflows of one server on a page that covers the agent list. A joined server whose ROBot
  * does not serve `workflows-v1` shows a notice.
  */
 export function WorkflowsPage(props: { serverId: string }) {

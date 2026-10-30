@@ -52,7 +52,7 @@ const POLL_MS = 1000;
 const RETRY_MS = 5000;
 
 /**
- * Server Settings > Updates: the OpenOwnBot update of a joined server's host (`host-update-v1`). The
+ * Server Settings > Updates: the ROBot update of a joined server's host (`host-update-v1`). The
  * host sends no progress event, so the panel reads the status again while something runs there.
  * The host checks permissions again on every call.
  */

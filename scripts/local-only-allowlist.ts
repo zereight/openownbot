@@ -2,7 +2,7 @@
 // safe. A glob would admit files nobody reviewed, and a pattern that is not anchored would admit a
 // changed URL, so the check rejects both. An entry that matches nothing fails the check.
 
-/** Why a mention of an OpenOwnBot service cannot send a request while LOCAL_ONLY is on. */
+/** Why a mention of a ROBot service cannot send a request while LOCAL_ONLY is on. */
 export type AllowReason =
   /** The code reads LOCAL_ONLY and does not run while it is on. */
   | "gated"
@@ -28,7 +28,7 @@ export type AllowEntry =
   | { readonly rule: "dynamic-dial"; readonly path: string; readonly note: string };
 
 /**
- * A config file that may name an OpenOwnBot service only while code elsewhere keeps the service off.
+ * A config file that may name a ROBot service only while code elsewhere keeps the service off.
  * Native tooling reads these files, so no runtime guard can stop what they start.
  */
 export interface ConfigGate {
@@ -71,11 +71,11 @@ const HOSTNAME_SUFFIX = /^\.openbot\.site$/u;
 const PODSPEC_HOMEPAGE = /^s\.homepage\s+= 'https:\/\/openbot\.run'$/u;
 
 const GLOBAL_WEBSOCKET =
-  "Uses the global WebSocket, which installLocalOnlyGuard replaces. The URL is a remote server that the user chose, and an OpenOwnBot host is refused there.";
+  "Uses the global WebSocket, which installLocalOnlyGuard replaces. The URL is a remote server that the user chose, and a ROBot host is refused there.";
 const RENDERER_SIGNAL_SOCKET =
   "The signal URL comes from a team ticket. The page runs in an Electron session, and webRequest reports its sockets as `webSocket` requests, so the session guard sees them.";
 const LOCAL_SUNSHINE =
-  "Reaches the local Sunshine runtime on 127.0.0.1 only. That is not an OpenOwnBot service, and a request to it needs no guard.";
+  "Reaches the local Sunshine runtime on 127.0.0.1 only. That is not a ROBot service, and a request to it needs no guard.";
 const LOCAL_SOCKET = "Connects to the local cua-driver daemon through a unix socket path. It never leaves the machine.";
 
 export const LOCAL_ONLY_ALLOWLIST: readonly AllowEntry[] = [
@@ -219,7 +219,7 @@ export const LOCAL_ONLY_ALLOWLIST: readonly AllowEntry[] = [
   bypass(
     "src/main/voice-cloud-stream.ts",
     "ws",
-    "Dials the ElevenLabs speech-to-text URL, which is not an OpenOwnBot service.",
+    "Dials the ElevenLabs speech-to-text URL, which is not a ROBot service.",
   ),
   dynamicDial("src/main/voice-cloud-stream.ts", "The URL is the ElevenLabs constant of this file."),
   mention(

@@ -2,8 +2,8 @@
 ; openownbot:// scheme only on macOS and Linux, so the installer writes the Windows key itself.
 ; The application writes the same key at each start (`src/main/index.ts`).
 
-; A chosen folder such as D:\OpenOwnBot inherits Modify rights for "Authenticated Users" from the drive
-; root, so another account could replace OpenOwnBot.exe. Give access only to this user, SYSTEM and
+; A chosen folder such as D:\ROBot inherits Modify rights for "Authenticated Users" from the drive
+; root, so another account could replace ROBot.exe. Give access only to this user, SYSTEM and
 ; Administrators, as %LOCALAPPDATA% does, and reset the files to inherit it. This runs before the
 ; files are copied at each install and update, because an update deletes the folder. The installer
 ; makes the folder, so this user owns it and icacls can change it. On a drive with no ACLs, such as
@@ -38,15 +38,15 @@
 !macroend
 
 !macro customInstall
-  WriteRegStr SHCTX "Software\Classes\openownbot" "" "URL:OpenOwnBot invitations"
+  WriteRegStr SHCTX "Software\Classes\openownbot" "" "URL:ROBot invitations"
   WriteRegStr SHCTX "Software\Classes\openownbot" "URL Protocol" ""
   WriteRegStr SHCTX "Software\Classes\openownbot\DefaultIcon" "" "$appExe,0"
   WriteRegStr SHCTX "Software\Classes\openownbot\shell\open\command" "" '"$appExe" "%1"'
   !insertmacro openOwnBotRemoveAppFromDataFolder
 !macroend
 
-; OpenOwnBot keeps the agent workspaces in %USERPROFILE%\OpenOwnBot (`src/backend/agent-store.ts`) and its
-; user data in %APPDATA%\OpenOwnBot (`app.setName` in `src/main/index.ts`). The uninstaller deletes the
+; ROBot keeps the agent workspaces in %USERPROFILE%\ROBot (`src/backend/agent-store.ts`) and its
+; user data in %APPDATA%\ROBot (`app.setName` in `src/main/index.ts`). The uninstaller deletes the
 ; installation folder, and an update moves each file in it to a temporary folder that it then
 ; deletes. An installation folder must not be one of these folders or a folder that holds one.
 ; Sets OUT to "1" when the folder in the variable PATH is such a folder, otherwise to "0". A
@@ -60,8 +60,8 @@
     StrCpy ${PATH} ${PATH} -1
   ${endIf}
   ${if} ${PATH} != ""
-    !insertmacro openOwnBotHolds ${PATH} "$PROFILE\OpenOwnBot" ${OUT}
-    !insertmacro openOwnBotHolds ${PATH} "$APPDATA\OpenOwnBot" ${OUT}
+    !insertmacro openOwnBotHolds ${PATH} "$PROFILE\ROBot" ${OUT}
+    !insertmacro openOwnBotHolds ${PATH} "$APPDATA\ROBot" ${OUT}
   ${endIf}
   Pop $R9
   Pop $R8
@@ -82,11 +82,11 @@
 !ifndef BUILD_UNINSTALLER
   ; "1" when the registry names an earlier installation in a folder with user data.
   Var openOwnBotRegisteredInDataFolder
-  ; The folder with user data that holds an earlier OpenOwnBot.exe. The update removes that copy.
+  ; The folder with user data that holds an earlier ROBot.exe. The update removes that copy.
   Var openOwnBotDataFolderInstall
 
   ; The assisted installer accepted a folder that did not exist yet, so a first installation could go
-  ; to %USERPROFILE%\OpenOwnBot, and the app then made the agent folders in it. The earlier uninstaller
+  ; to %USERPROFILE%\ROBot, and the app then made the agent folders in it. The earlier uninstaller
   ; would move them with the app files and delete them, or it stops the update with "Failed to
   ; uninstall old application files". Do not run that uninstaller: `customCheckAppRunning` removes its
   ; registry entry, and `customInstall` removes only the app files. A copy whose registry entry is
@@ -100,10 +100,10 @@
       ${if} ${FileExists} "$1\${APP_EXECUTABLE_FILENAME}"
         StrCpy $openOwnBotDataFolderInstall $1
       ${endIf}
-    ${elseIf} ${FileExists} "$PROFILE\OpenOwnBot\${APP_EXECUTABLE_FILENAME}"
-      StrCpy $openOwnBotDataFolderInstall "$PROFILE\OpenOwnBot"
-    ${elseIf} ${FileExists} "$APPDATA\OpenOwnBot\${APP_EXECUTABLE_FILENAME}"
-      StrCpy $openOwnBotDataFolderInstall "$APPDATA\OpenOwnBot"
+    ${elseIf} ${FileExists} "$PROFILE\ROBot\${APP_EXECUTABLE_FILENAME}"
+      StrCpy $openOwnBotDataFolderInstall "$PROFILE\ROBot"
+    ${elseIf} ${FileExists} "$APPDATA\ROBot\${APP_EXECUTABLE_FILENAME}"
+      StrCpy $openOwnBotDataFolderInstall "$APPDATA\ROBot"
     ${endIf}
     !insertmacro openOwnBotHoldsUserData $INSTDIR $0
     ${if} $0 == "1"
@@ -113,7 +113,7 @@
 
   ; The installer runs this check before it removes the earlier version. It is the default check.
   ; When the registry names a folder with user data, the update closes the app there, so the check
-  ; looks for the earlier OpenOwnBot.exe only: a match on the folder would also stop the programs that
+  ; looks for the earlier ROBot.exe only: a match on the folder would also stop the programs that
   ; agents run from their workspaces. Then the registry no longer names that installation, so
   ; `uninstallOldVersion` does not run its uninstaller. The uninstaller keeps the default check.
   !macro customCheckAppRunning
@@ -142,10 +142,10 @@
 !endif
 
 ; After the new copy is installed, delete the earlier app from the folder with user data. Only the
-; files and folders that an OpenOwnBot installation has are deleted, so the agent folders stay. A file
+; files and folders that a ROBot installation has are deleted, so the agent folders stay. A file
 ; that Windows still holds stays too; it does not stop the update. The login item names the
 ; executable (`src/main/login-item.ts`), and Electron calls it by the AppUserModelId: point it at
-; the new copy, or OpenOwnBot no longer opens at sign-in.
+; the new copy, or ROBot no longer opens at sign-in.
 !macro openOwnBotRemoveAppFromDataFolder
   ${if} $openOwnBotDataFolderInstall != ""
     Push $0
@@ -198,18 +198,18 @@
   ${endIf}
 !macroend
 
-; OpenOwnBot installs for the current user only. The application writes the openownbot:// key in HKCU at
+; ROBot installs for the current user only. The application writes the openownbot:// key in HKCU at
 ; each start, and an update finds only one installation. This skips the "All users" page.
 !macro customInstallMode
   StrCpy $isForceCurrentInstall "1"
 !macroend
 
 ; The uninstaller and each update delete the whole installation folder. electron-builder adds an
-; OpenOwnBot subfolder only when the chosen path does not contain "OpenOwnBot", so a choice such as
-; %USERPROFILE%\OpenOwnBot (the agent workspaces) or %APPDATA%\OpenOwnBot (the user data) would be
+; ROBot subfolder only when the chosen path does not contain "ROBot", so a choice such as
+; %USERPROFILE%\ROBot (the agent workspaces) or %APPDATA%\ROBot (the user data) would be
 ; deleted. Another account can also make a folder first and keep its rights on it. Use only a folder
-; that does not exist or that holds this user's earlier installation. Until then, add an OpenOwnBot
-; subfolder. The app makes %USERPROFILE%\OpenOwnBot only at its first start, so that folder can also not
+; that does not exist or that holds this user's earlier installation. Until then, add a ROBot
+; subfolder. The app makes %USERPROFILE%\ROBot only at its first start, so that folder can also not
 ; exist yet: use the default folder for it and for a folder that holds it. The page shows nothing;
 ; Abort skips it.
 !macro customPageAfterChangeDir

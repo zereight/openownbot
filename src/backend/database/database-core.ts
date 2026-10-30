@@ -99,7 +99,7 @@ export class DatabaseCore {
   }
 
   get connection(): DatabaseSync {
-    if (!this.#db) throw new Error("OpenOwnBot database is not initialized.");
+    if (!this.#db) throw new Error("ROBot database is not initialized.");
     return this.#db;
   }
 

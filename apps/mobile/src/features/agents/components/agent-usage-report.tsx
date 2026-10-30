@@ -16,7 +16,7 @@ import { UsageChart, useUsageSeriesColor } from "./usage-chart";
 import { UsageBar, UsageValue } from "./usage-motion";
 import { UsageSegments } from "./usage-segments";
 
-// A usage row names the provider the record carried, which is not always one OpenOwnBot knows:
+// A usage row names the provider the record carried, which is not always one ROBot knows:
 // an unrecognised string is shown as it was stored rather than guessed at.
 const providerName = (value: string) => (isAgentProvider(value) ? agentProviderCliName(value) : value);
 

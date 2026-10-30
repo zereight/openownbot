@@ -28,11 +28,11 @@ export interface HostedUpdatePaths {
 const HOSTED_UPDATE_PATHS: HostedUpdatePaths = {
   requests: "/run/openownbot",
   state: "/run/openownbot-update.state",
-  stagedReady: "/opt/OpenOwnBot/staged.ready",
+  stagedReady: "/opt/ROBot/staged.ready",
 };
 
 /**
- * The folders that docker/instances/compose.yaml mounts in a container. OpenOwnBot writes requests, and
+ * The folders that docker/instances/compose.yaml mounts in a container. ROBot writes requests, and
  * `openownbot-instance update-request` on the host pulls the image and makes the container again.
  */
 export const CONTAINER_UPDATE_PATHS: HostedUpdatePaths = {
@@ -68,15 +68,15 @@ class RequestCancellation implements UpdateCancellationToken {
 }
 
 /**
- * The updater of a hosted or self-installed Linux server. OpenOwnBot runs as the service user from a
+ * The updater of a hosted or self-installed Linux server. ROBot runs as the service user from a
  * release that root owns, so it cannot replace itself. It asks root instead: an empty file in its
  * runtime directory starts `openownbot-hosted-update request` through a path unit. That stages the
- * newest release, or stops OpenOwnBot, moves the staged release into place and starts OpenOwnBot again.
+ * newest release, or stops ROBot, moves the staged release into place and starts ROBot again.
  *
  * UpdateService drives this as it drives electron-updater, so its deadlines apply. While root works,
  * the time of the state file changes, and each change is a progress event. When root stops without
  * a staged release, or never takes the request, the download fails. An install request has no
- * answer: shutdown preparation exits OpenOwnBot after its deadline, and when root did not take the
+ * answer: shutdown preparation exits ROBot after its deadline, and when root did not take the
  * request, systemd starts the same release again. Each start of openownbot.service starts the path
  * unit, so this happens only when an administrator stopped it.
  */
@@ -112,7 +112,7 @@ export class HostedUpdateAdapter implements UpdateAdapter {
   /**
    * Root answers also when the timer staged the release already: it answers after boat restored the
    * disk, which can take minutes after a wake. An install during the restore would wait for it with
-   * OpenOwnBot stopped.
+   * ROBot stopped.
    */
   async downloadUpdate(cancellationToken?: UpdateCancellationToken): Promise<void> {
     const request = join(this.#paths.requests, "update-stage");

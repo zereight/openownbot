@@ -181,7 +181,7 @@ const SUPERTONIC_MODEL_FILES: readonly VoiceModelFile[] = [
   },
 ];
 
-/** A model that OpenOwnBot downloads: a dictation model or the speech model. */
+/** A model that ROBot downloads: a dictation model or the speech model. */
 type DownloadedModelId = LocalVoiceModelId | SpeechModelId;
 
 /** The files of each model. */

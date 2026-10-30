@@ -2,7 +2,7 @@ import type { OpenOwnBotDesktopApi } from "@robot/contracts/ipc";
 
 /**
  * What provider state reaches in main: connecting, signing in and refreshing providers, and the
- * runtimes OpenOwnBot installs for them, on this computer or on a host the account administers.
+ * runtimes ROBot installs for them, on this computer or on a host the account administers.
  */
 export interface ProvidersPort {
   cancelProviderCodeLogin: OpenOwnBotDesktopApi["cancelProviderCodeLogin"];

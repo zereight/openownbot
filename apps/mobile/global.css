@@ -58,7 +58,7 @@
       --overlay: var(--openownbot-bg-surface-raised);
     }
 
-    /* HeroUI consumes these aliases; OpenOwnBot tokens remain the source of truth. */
+    /* HeroUI consumes these aliases; ROBot tokens remain the source of truth. */
     --foreground: var(--openownbot-text-primary);
     --surface: var(--openownbot-bg-surface);
     --surface-foreground: var(--openownbot-text-primary);

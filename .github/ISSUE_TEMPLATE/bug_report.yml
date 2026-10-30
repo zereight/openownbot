@@ -1,5 +1,5 @@
 name: Bug report
-description: Report a problem that you can reproduce in OpenOwnBot.
+description: Report a problem that you can reproduce in ROBot.
 title: "[Bug]: "
 labels: [bug, needs-triage]
 body:
@@ -45,7 +45,7 @@ body:
   - type: input
     id: version
     attributes:
-      label: OpenOwnBot version
+      label: ROBot version
       description: "Desktop: Settings → Updates. Phone: Settings → About. From source: the commit SHA."
       placeholder: 0.42.0
     validations:

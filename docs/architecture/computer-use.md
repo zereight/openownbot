@@ -2,15 +2,15 @@
 
 ## Computer Use
 
-Computer Use is `cua-driver`, a third-party MIT binary, and OpenOwnBot owns how it runs.
+Computer Use is `cua-driver`, a third-party MIT binary, and ROBot owns how it runs.
 `cua-driver-runtime.ts` in the main process starts one long-lived `serve` daemon and holds it; each
 provider CLI spawns its own short-lived `cua-driver mcp --socket` proxy against that daemon. All
 screen capture, accessibility reads, and input posting happen inside the daemon, so the proxy's own
 identity does not matter.
 
 The daemon is spawned directly, and never through `open(1)` or `NSWorkspace`. macOS finds the
-responsible process by walking up the launch chain, so a direct spawn puts OpenOwnBot at the top of it
-and the user grants Screen Recording and Accessibility to OpenOwnBot rather than to somebody else's
+responsible process by walking up the launch chain, so a direct spawn puts ROBot at the top of it
+and the user grants Screen Recording and Accessibility to ROBot rather than to somebody else's
 helper. `CUA_DRIVER_EMBEDDED=1` tells the driver to stay on that path instead of relaunching itself
 as its own application. Anything that launches the daemon another way breaks the attribution, which
 is the reason the earlier Codex helper was replaced.
@@ -43,7 +43,7 @@ vanish for two providers with no error. Codex staleness needs no separate signal
 session. `onMcpServerChanged` is what refreshes the agent runtimes, which deactivates every
 stored provider session: the next turn starts a new one, which keeps the public thread and loses
 what the provider held privately. So it reports two moments only — the entry appearing on a start a
-user asked for, and the daemon dying under OpenOwnBot. It is quiet for a grant given while the daemon
+user asked for, and the daemon dying under ROBot. It is quiet for a grant given while the daemon
 serves, which changes the state and not the tool set; for the startup warm-up, which settles the
 entry the stored sessions already had; and for the stop at teardown, which happens at order 55,
 before the agent service at 110, and would otherwise deactivate on every quit the sessions the next
@@ -58,22 +58,22 @@ the other native runtimes rather than managed like a provider CLI. The pinned fi
 allowlist: `scripts/install-cua-driver.ts` copies only the named paths and checks each digest, so an
 upstream layout change fails the build instead of shipping a surprise file. Each installer carries
 only its own target. On macOS `mac.signIgnore` keeps the vendor's Developer ID signature, because
-re-signing under OpenOwnBot's inherited entitlements would drop the Automation entitlement the driver
+re-signing under ROBot's inherited entitlements would drop the Automation entitlement the driver
 needs. A packaged build reads the copy under `resources/cua-driver` and nothing else, because the release
 is pinned and signed against that build and an environment variable must not decide which program
 drives the user's desktop; a release without the binary reports no driver. In a checkout
 `resolveCuaDriver` also reads an override, an install directory and `PATH`, so a developer can point
 `OPENOWNBOT_CUA_DRIVER_PATH` at another build.
 
-OpenOwnBot draws the agent cursor in its own per-display overlays for every display layout. The
+ROBot draws the agent cursor in its own per-display overlays for every display layout. The
 runtime starts `serve` with `--no-overlay`. The driver's overlay covers only the main display and
-cannot follow a display connected after startup. Keeping cursor ownership in OpenOwnBot lets the
+cannot follow a display connected after startup. Keeping cursor ownership in ROBot lets the
 highlight controller add, resize, and remove display overlays without restarting the daemon or
 changing provider sessions.
 
 ### Fast path
 
-`computer_use_fast` is an OpenOwnBot tool for one small step in one window. A provider still owns the
+`computer_use_fast` is a ROBot tool for one small step in one window. A provider still owns the
 agent loop, so the fast path is a first try inside one tool call and never a second agent. The tool
 opens its own short-lived lease on the daemon (`cua-driver-tool-client.ts`, the only client that
 writes, separate from the rim's read-only one), and `computer-use-fast.ts` runs at most six steps:
@@ -105,32 +105,32 @@ place of the model. It checks the loop and the fallbacks and writes
 ### Agent display on a server
 
 A self-hosted server and the container start two Xvfb displays, and name the agent display in
-`OPENOWNBOT_AGENT_DISPLAY`. A boat hosted server names its desktop `:0`, and OpenOwnBot runs on an Xvfb
+`OPENOWNBOT_AGENT_DISPLAY`. A boat hosted server names its desktop `:0`, and ROBot runs on an Xvfb
 display. Electron keeps its own `DISPLAY`: the built-in browser draws its tabs in
-the OpenOwnBot window, and under Xvfb a hidden view gives no capture and no clicks, so OpenOwnBot cannot
+the ROBot window, and under Xvfb a hidden view gives no capture and no clicks, so ROBot cannot
 only hide its window. On Linux, `agent-display.ts` sets `DISPLAY` to the agent display for the
 driver daemon, for Sunshine, and in `agentEnvironment` for every agent process. The driver and
 Sunshine open the display that `DISPLAY` names, so a screenshot, an input event and the remote
 desktop stream all use the agent display, and a program that an agent starts opens there. The
-per-display overlays are OpenOwnBot windows, so with an agent display they are not started: nothing
+per-display overlays are ROBot windows, so with an agent display they are not started: nothing
 draws the agent cursor or the rim there. `capture_screen` and `list_capture_sources` use Electron's
-`desktopCapturer`, which sees only the OpenOwnBot display, so with an agent display they are not
+`desktopCapturer`, which sees only the ROBot display, so with an agent display they are not
 available, and agents take screenshots with the driver.
 
 `openownbot.service` holds the Xvfb displays too, and a stop signals each process of the unit at the
-same time. An Xvfb that stops first ends OpenOwnBot before it closes its database. So the unit's
-`ExecStop` runs `openownbot-hosted-server --stop`: it sends `SIGTERM` to OpenOwnBot only, whose PID the
+same time. An Xvfb that stops first ends ROBot before it closes its database. So the unit's
+`ExecStop` runs `openownbot-hosted-server --stop`: it sends `SIGTERM` to ROBot only, whose PID the
 script writes to `$XDG_RUNTIME_DIR/openownbot.pid`, and waits for it. The container does not need this:
-tini signals only OpenOwnBot.
+tini signals only ROBot.
 
 Because the driver draws no cursor, its motion styles do not apply. The renderer plays the driver's
 `adaptive` style itself (`agent-cursor-motion.ts`, a port of the driver's `trajectory.rs`): a Fitts
 min-jerk glide, or a wide swoop for a move over 900 points. The tap does not delay a request, so the
 cursor shows where an action went, from 180 ms to about 1.1 s after the driver acts.
 
-Every copy OpenOwnBot starts gets `CUA_DRIVER_RS_TELEMETRY_ENABLED=0` and
-`CUA_DRIVER_RS_UPDATE_CHECK=0`. OpenOwnBot ships the driver, so its vendor analytics are not something
-a user chose, and OpenOwnBot pins the version, so a release check could only offer an update OpenOwnBot
+Every copy ROBot starts gets `CUA_DRIVER_RS_TELEMETRY_ENABLED=0` and
+`CUA_DRIVER_RS_UPDATE_CHECK=0`. ROBot ships the driver, so its vendor analytics are not something
+a user chose, and ROBot pins the version, so a release check could only offer an update ROBot
 would refuse.
 
 ## Remote desktop permission checks and live tests
@@ -175,16 +175,16 @@ capability. On a server with an agent display, Sunshine runs on that display (se
 
 Codex saves an “Always allow” tool decision only when the MCP server is in a file-backed
 configuration layer. A thread configuration alone does not satisfy this check. Before starting or
-resuming a thread with Computer Use, OpenOwnBot registers `computer_use` in the Codex user
+resuming a thread with Computer Use, ROBot registers `computer_use` in the Codex user
 configuration through `config/batchWrite`. The new entry contains only a placeholder command
 (`openownbot-mcp`) and `enabled = false`. The write uses the user layer's version, and an existing entry is left unchanged.
-OpenOwnBot does not save the driver socket, environment, or credentials in that entry.
+ROBot does not save the driver socket, environment, or credentials in that entry.
 
 The thread configuration enables the running driver and supplies its current command, arguments,
 and environment. It also carries the saved per-tool settings, including `set_value.approval_mode`.
 Saved tool settings are also in the session fingerprint. When an approval changes, the next turn
 replaces a loaded provider session that holds the old policy.
-An agent with Full access does not ask: OpenOwnBot accepts each Computer Use tool consent once and
+An agent with Full access does not ask: ROBot accepts each Computer Use tool consent once and
 saves nothing, as it does for other MCP tools. A Workspace only or Ask first agent shows the card,
 and Codex keeps "Always allow" per tool and per provider account.
 When Computer Use is off for the agent or the driver is unavailable, the thread keeps the saved

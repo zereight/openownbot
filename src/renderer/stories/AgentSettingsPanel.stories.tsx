@@ -62,7 +62,7 @@ const STORY_FOLDERS: AgentFolderList = {
     { path: "/Users/sam/Projects/Leads", found: true },
     { path: "/Users/sam/Documents/Contracts 2026", found: false },
   ],
-  excluded: ["/Users/sam/Projects/Leads/Clients/Private", "/Users/sam/OpenOwnBot/Agents/Chief/archive"],
+  excluded: ["/Users/sam/Projects/Leads/Clients/Private", "/Users/sam/ROBot/Agents/Chief/archive"],
 };
 
 function storyFolderCalls(): AgentFolderCalls {

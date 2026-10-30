@@ -54,7 +54,7 @@ if (platform === "linux" || platform === "linux-arm64") {
 // Each macOS job builds its own architecture, and electron-builder writes x64 to `dist/mac`.
 const resourcesRoot =
   platform === "macos"
-    ? join(distRoot, process.arch === "arm64" ? "mac-arm64" : "mac", "OpenOwnBot.app", "Contents", "Resources")
+    ? join(distRoot, process.arch === "arm64" ? "mac-arm64" : "mac", "ROBot.app", "Contents", "Resources")
     : join(distRoot, platform === "windows" ? "win-unpacked" : `${platform}-unpacked`, "resources");
 // Every platform ships the voice runtime and downloads the model on first use.
 if (!existsSync(join(resourcesRoot, "voice", "runtime", "sherpa-onnx.node"))) {

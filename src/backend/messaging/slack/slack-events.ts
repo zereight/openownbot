@@ -9,15 +9,15 @@ export const SLACK_ACTION_IDS = {
 } as const;
 
 /**
- * One Events API payload as a message for OpenOwnBot, or null when it does not address OpenOwnBot.
+ * One Events API payload as a message for ROBot, or null when it does not address ROBot.
  *
  * - `app_mention` in a channel starts or continues the thread it is in.
- * - A direct message always addresses OpenOwnBot. OpenOwnBot answers in a thread under it, so each
+ * - A direct message always addresses ROBot. ROBot answers in a thread under it, so each
  *   top-level direct message is its own conversation, and the router picks its agent.
  * - A reply in a thread without a mention counts only in a thread that an agent already answers
  *   (`requiresLink`). A reply with a mention also arrives as `app_mention`, and both have the same
  *   dedup key, so it runs once.
- * - Messages of bots, of OpenOwnBot itself, edits, deletions and joins are ignored.
+ * - Messages of bots, of ROBot itself, edits, deletions and joins are ignored.
  */
 export function slackInboundMessage(payload: unknown, workspaceId: string, botUserId: string): InboundMessage | null {
   if (!isDynamicRecord(payload) || payload.team_id !== workspaceId) return null;
@@ -70,7 +70,7 @@ export function slackInboundMessage(payload: unknown, workspaceId: string, botUs
   };
 }
 
-/** One `block_actions` payload as a button press on an OpenOwnBot message, or null. */
+/** One `block_actions` payload as a button press on a ROBot message, or null. */
 export function slackInboundAction(payload: unknown, workspaceId: string): InboundAction | null {
   if (!isDynamicRecord(payload) || payload.type !== "block_actions") return null;
   const team = payload.team;
@@ -117,14 +117,14 @@ function inboundFiles(value: unknown): InboundFile[] {
   );
 }
 
-/** The users that Slack markup mentions, without OpenOwnBot. `plainText` writes each as `@<id>`. */
+/** The users that Slack markup mentions, without ROBot. `plainText` writes each as `@<id>`. */
 export function slackMentionIds(text: string, botUserId: string): string[] {
   const ids = [...text.matchAll(/<@([A-Z0-9]+)(?:\|[^>]*)?>/g)].map((match) => match[1] ?? "");
   return [...new Set(ids)].filter((id) => id && id !== botUserId);
 }
 
 /**
- * Slack's markup as plain text: OpenOwnBot's own mention goes, other mentions stay as ids, a
+ * Slack's markup as plain text: ROBot's own mention goes, other mentions stay as ids, a
  * channel link keeps its name, a link keeps its label and address, and the three escaped
  * characters come back.
  */

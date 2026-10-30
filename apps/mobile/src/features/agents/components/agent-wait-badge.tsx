@@ -37,7 +37,7 @@ export const AGENT_WAIT_STATE = {
  */
 export function AgentWaitBadge({ reason, size = 20 }: { reason: MobileAgentWaitReason; size?: number }) {
   const [background] = useThemeColor(["background"]);
-  // HeroUI keeps its own dark warning, a yellow. The OpenOwnBot token is the amber of the chip and the desktop.
+  // HeroUI keeps its own dark warning, a yellow. The ROBot token is the amber of the chip and the desktop.
   const [warning] = useCSSVariable(["--openownbot-warning"]);
   const Icon = WAIT_ICON[reason];
   return (
@@ -89,7 +89,7 @@ export function AgentWaitChip({ reason }: { reason: MobileAgentWaitReason }) {
 export function AgentWaitingGroupHeader({ count }: { count: number }) {
   const { t, format } = useText();
   const [background] = useThemeColor(["background"]);
-  // HeroUI keeps its own dark warning, a yellow. The OpenOwnBot token is the amber of the chip and the desktop.
+  // HeroUI keeps its own dark warning, a yellow. The ROBot token is the amber of the chip and the desktop.
   const [warning] = useCSSVariable(["--openownbot-warning"]);
   return (
     <View

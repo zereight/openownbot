@@ -67,7 +67,7 @@ export class ModelCatalog {
           if (catalog.hiddenWhenSignedOut && signedOut && !client) return { provider, models: [], fresh: false };
           if (!client) return { provider, models: previous, fresh: false };
           // Read once per pass, not per model: a stored key cannot change inside one refresh, and
-          // a model is unusable only because OpenOwnBot is what put that key in the environment.
+          // a model is unusable only because ROBot is what put that key in the environment.
           const hasStoredKey = Boolean(this.#options.credentials.apiKey(provider));
           const startedAt = performance.now();
           return yield* Effect.gen({ self: this }, function* () {

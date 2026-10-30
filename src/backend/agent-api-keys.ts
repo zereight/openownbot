@@ -27,7 +27,7 @@ const failed = () => new AgentApiKeyFailed({ cause: new Error(sourceText("error.
  * The API keys that the user entered for an agent through `request_api_key`. Each key is one file,
  * `<root>/<agentId>/<NAME>`, readable only by the user, outside every workspace. The agent gets the
  * path and reads the file in its own commands, so the value never travels in a tool argument or a
- * tool result. Each value is registered for redaction when it is saved and when OpenOwnBot starts.
+ * tool result. Each value is registered for redaction when it is saved and when ROBot starts.
  */
 export class AgentApiKeys {
   readonly #root: string;

@@ -49,7 +49,7 @@ export function startAgentLog(logsDirectory: string): () => void {
 /**
  * Keeps the lines of the main process logger in `<logs>/main/main.log`, with the same size limit:
  * startup failures, uncaught errors, and why the app quit. Without it, a window that disappeared on
- * Windows left no record of whether OpenOwnBot quit or crashed (#2675). It runs for the life of the
+ * Windows left no record of whether ROBot quit or crashed (#2675). It runs for the life of the
  * process, so the teardown's own lines reach the file too. The shutdown deadline exits before its
  * line can be written. The update logger goes here too: `update.log` names only the failure code of
  * a check, download or install, and this file keeps the reason (#3724).

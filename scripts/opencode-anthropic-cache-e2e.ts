@@ -98,7 +98,7 @@ const address = server.address();
 assert.ok(address && typeof address === "object", "the fake server has no port");
 const local = `http://127.0.0.1:${address.port}/v1`;
 
-/** The layer OpenOwnBot sends for one endpoint, with only the base URL moved to the fake server. */
+/** The layer ROBot sends for one endpoint, with only the base URL moved to the fake server. */
 function configFor(baseUrl: string): { readonly npm: string; readonly baseURL: string; readonly content: string } {
   const env = openCodeConfigEnv(
     {},

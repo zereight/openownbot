@@ -14,7 +14,7 @@ export interface ConnectorController {
   readonly id: ConnectorId;
   /** False until the first read, while the page has nothing to show. */
   ready: () => boolean;
-  /** False when this OpenOwnBot build cannot use the connector, such as GitHub with no GitHub App. */
+  /** False when this ROBot build cannot use the connector, such as GitHub with no GitHub App. */
   available: () => boolean;
   busy: () => boolean;
   /** The page of the connector. Its props are getters, so the page follows the controller. */

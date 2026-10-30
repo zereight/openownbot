@@ -7,4 +7,4 @@ ROOT='/Library/Application Support/OpenBot/HostManager'
 if [ -f "$ROOT/config.json" ] && [ ! -L "$ROOT/config.json" ]; then
   launchctl bootstrap system /Library/LaunchDaemons/app.openownbot.host-manager.plist
 fi
-echo 'OpenOwnBot Host installed. Run sudo openownbot-host setup, then sudo openownbot-host verify.'
+echo 'ROBot Host installed. Run sudo openownbot-host setup, then sudo openownbot-host verify.'

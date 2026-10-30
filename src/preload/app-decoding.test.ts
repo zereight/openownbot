@@ -72,7 +72,7 @@ const valid: [string, (value: unknown) => unknown, unknown][] = [
   [
     "app info",
     decodeAppInfo,
-    { name: "OpenOwnBot", version: "1.0.0", platform: "darwin", variant: "dev" } satisfies AppInfo,
+    { name: "ROBot", version: "1.0.0", platform: "darwin", variant: "dev" } satisfies AppInfo,
   ],
   [
     "setup state",
@@ -165,11 +165,7 @@ const valid: [string, (value: unknown) => unknown, unknown][] = [
 ];
 
 const malformed: [string, (value: unknown) => unknown, unknown][] = [
-  [
-    "app info on an unknown platform",
-    decodeAppInfo,
-    { name: "OpenOwnBot", version: "1", platform: "aix", variant: "dev" },
-  ],
+  ["app info on an unknown platform", decodeAppInfo, { name: "ROBot", version: "1", platform: "aix", variant: "dev" }],
   [
     "setup state with an unknown provider",
     decodeAppSetupState,

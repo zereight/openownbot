@@ -17,7 +17,7 @@ const STEP_MS = 5_000;
 interface FlowProps {
   /** Open the add-server dialog when the story loads. */
   startOpen?: boolean;
-  /** The fake setup stops with an error at the "Start OpenOwnBot" step on the first try. */
+  /** The fake setup stops with an error at the "Start ROBot" step on the first try. */
   failFirstTry?: boolean;
   /** The account has this many servers, the maximum, so the plans are disabled. */
   serverLimit?: number;
@@ -171,7 +171,7 @@ export const DialogOpen: Story = {
   render: () => <AddServerFlow startOpen />,
 };
 
-/** The first setup stops at "Start OpenOwnBot". "Try again" then succeeds. */
+/** The first setup stops at "Start ROBot". "Try again" then succeeds. */
 export const SetupFails: Story = {
   render: () => <AddServerFlow startOpen failFirstTry />,
 };

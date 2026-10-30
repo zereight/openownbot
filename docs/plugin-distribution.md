@@ -87,7 +87,7 @@ correct: a change to the content gives a different URL.
 
 Each file has a `schemaVersion`. The index also has a `catalogVersion`, which always increases.
 If the `schemaVersion` is higher than the app knows, the app ignores the whole file and shows
-"Update OpenOwnBot to see the newest plugins." The app must not read a part of a file it does not know.
+"Update ROBot to see the newest plugins." The app must not read a part of a file it does not know.
 
 ### 2.3 The detail shape
 
@@ -187,7 +187,7 @@ Two controls protect the catalog:
 
 There is **no signature**. The party that holds a signing key would also be the party that deploys
 the Worker that serves the file. Thus a signature would protect against nothing new. Add a signature
-only if the catalog moves to a host that OpenOwnBot does not control.
+only if the catalog moves to a host that ROBot does not control.
 
 ### 2.6 Fetch and cache in the app
 
@@ -207,7 +207,7 @@ in.
 
 The renderer shows three failure states:
 
-- stale: "Showing the catalog from <time>. OpenOwnBot could not reach openbot.run.";
+- stale: "Showing the catalog from <time>. ROBot could not reach openbot.run.";
 - cold and offline: "Plugins need a connection to openbot.run the first time.";
 - wrong hash: "This plugin listing did not match its checksum. Try again later."
 
@@ -328,7 +328,7 @@ there. Add one when you add a listing. Each statement in it needs a vendor page 
 listing with no guide still gets the generated "How to connect" section, but no uses, questions or
 sources, and nothing warns about it.
 
-The page has one main button, `Open in OpenOwnBot`, and a second button, `Download OpenOwnBot`.
+The page has one main button, `Open in ROBot`, and a second button, `Download ROBot`.
 
 ### 4.2 The link shapes
 
@@ -390,9 +390,9 @@ the install button and choose an agent.
 When the slug is not in the copy of the catalog, the main process reads it. The renderer does not
 fetch, so the `connect-src` policy does not change. Two states follow:
 
-- `missing`: "This plugin is not in the OpenOwnBot catalog." This is final, and gives a button back to
+- `missing`: "This plugin is not in the ROBot catalog." This is final, and gives a button back to
   the plugin list;
-- `offline`: "OpenOwnBot cannot reach openbot.run. Check your connection." This gives "Try again".
+- `offline`: "ROBot cannot reach openbot.run. Check your connection." This gives "Try again".
 
 ### 4.5 Copy link
 

@@ -193,7 +193,7 @@ export function ConversationComposer() {
     const value = context()?.compaction;
     return value && value.id !== dismissedCompactions()[currentChatConversationKey() ?? ""] ? value : null;
   };
-  /** The request that a restart of OpenOwnBot cut off, until the user writes again or closes the notice. */
+  /** The request that a restart of ROBot cut off, until the user writes again or closes the notice. */
   const restartNotice = createMemo(() => {
     const agentId = props.agent?.id;
     const cut = agentId ? restartInterruptedDelivery(props.queue?.deliveries ?? [], agentId) : null;

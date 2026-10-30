@@ -111,7 +111,7 @@ const LOCAL_OWNER = "local";
 const UPLOAD_TTL_MS = 30 * 60_000;
 /** Skill folders are copied here, published to the local library, and removed again. */
 const SKILL_STAGING = ".openownbot/import-skills";
-/** Workspace folders an export leaves out: OpenOwnBot's own state and the installed skills, which travel as skills. */
+/** Workspace folders an export leaves out: ROBot's own state and the installed skills, which travel as skills. */
 const WORKSPACE_SKIPPED = [".openownbot", ...MANAGED_SKILL_FOLDERS];
 const AVATAR_EXTENSIONS: Record<AvatarImageInput["mimeType"], string> = {
   "image/png": "png",
@@ -962,7 +962,7 @@ export class InstanceTransferService {
 
 /**
  * The files an export carries from one folder: no link, nothing `isUnsafeArchivePath` refuses on
- * import (`.git`, `node_modules`, `.env*`, private keys, nested archives), and not OpenOwnBot's own
+ * import (`.git`, `node_modules`, `.env*`, private keys, nested archives), and not ROBot's own
  * workspace folders.
  */
 const workspaceFiles = Effect.fn("InstanceTransfer.workspaceFiles")(function* (
@@ -971,9 +971,9 @@ const workspaceFiles = Effect.fn("InstanceTransfer.workspaceFiles")(function* (
   return yield* walk(root, isWorkspaceSkipped);
 });
 
-/** OpenOwnBot's own workspace folders: an export leaves them out, and an import never writes them. */
+/** ROBot's own workspace folders: an export leaves them out, and an import never writes them. */
 function isWorkspaceSkipped(name: string): boolean {
-  // A disk that ignores case writes `.OpenOwnBot/` into `.openownbot/`, so the check ignores case too.
+  // A disk that ignores case writes `.ROBot/` into `.openownbot/`, so the check ignores case too.
   const lower = name.toLowerCase();
   return WORKSPACE_SKIPPED.some((skipped) => lower === skipped || lower.startsWith(`${skipped}/`));
 }
@@ -1010,7 +1010,7 @@ const walk = Effect.fn("InstanceTransfer.walk")(function* (
   return files.sort((a, b) => a.name.localeCompare(b.name));
 });
 
-/** The skills a user or a marketplace installed. OpenOwnBot's own skills are installed again on import. */
+/** The skills a user or a marketplace installed. ROBot's own skills are installed again on import. */
 const skillFolders = Effect.fn("InstanceTransfer.skillFolders")(function* (
   workspace: string,
 ): Effect.fn.Return<Array<{ slug: string; files: FileEntry[] }>, ArchiveOperationError> {

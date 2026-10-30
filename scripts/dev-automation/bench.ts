@@ -9,7 +9,7 @@
 // median with its spread, and `--compare` prints the deltas against an earlier
 // report, which is what a fix PR quotes.
 //
-// Everything this touches is the bench profile (`OpenOwnBot Dev wt-<hash of
+// Everything this touches is the bench profile (`ROBot Dev wt-<hash of
 // this worktree>#bench`) and the process group it started. It never reaches a
 // dev instance, another worktree, or the developer's own profile.
 

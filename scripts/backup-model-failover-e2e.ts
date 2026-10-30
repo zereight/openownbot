@@ -488,7 +488,7 @@ async function markers(agentId: string, itemType: string) {
   return snapshot.messages.filter((message) => message.itemType === itemType).map((message) => message.text);
 }
 
-/** Calls an OpenOwnBot tool from the thread of the last turn, as its provider would, and returns the answer. */
+/** Calls a ROBot tool from the thread of the last turn, as its provider would, and returns the answer. */
 let toolCalls = 0;
 async function callTool(tool: string, args: unknown) {
   const client = clients.at(-1);

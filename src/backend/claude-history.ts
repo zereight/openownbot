@@ -986,7 +986,7 @@ function messageText(message: unknown): string {
       (block) =>
         block.type === "text" &&
         typeof block.text === "string" &&
-        // OpenOwnBot's memory block is not text that the user wrote.
+        // ROBot's memory block is not text that the user wrote.
         !(message.role === "user" && isTurnContextBlock(block.text)),
     )
     .map((block) => String(block.text))

@@ -1,7 +1,7 @@
 # Status webhooks
 
 The status page at `status.openbot.run` can send its incidents and service changes to the tools of
-the OpenOwnBot team, such as a Slack channel or an on-call service. These webhooks are for the team
+the ROBot team, such as a Slack channel or an on-call service. These webhooks are for the team
 only. The public way to follow the page is its feed, `https://status.openbot.run/feed.xml`.
 
 The `notify` job of the `status-page` workflow sends them. It runs after each run that publishes the
@@ -115,7 +115,7 @@ nobody, even if the incident text contains `@everyone`.
 | `x-openownbot-signature` | `sha256=<hex>`, when the subscription has a secret. |
 
 The signature is the HMAC-SHA256, with the secret as key, of `<timestamp>.<delivery>.<body>`. This
-is the same format as [OpenOwnBot webhook routines](webhooks.md#headers-and-signature). A receiver must:
+is the same format as [ROBot webhook routines](webhooks.md#headers-and-signature). A receiver must:
 
 1. Calculate the signature from the raw body, and compare it in constant time.
 2. Refuse a timestamp that is not within 5 minutes of its clock.

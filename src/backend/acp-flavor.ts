@@ -66,7 +66,7 @@ export interface AcpFlavor {
   thoughtsInsideAnswer?: true;
   /**
    * `session/prompt` stays open with no update while background tasks run, so a silent turn is not
-   * stalled and OpenOwnBot does not end it (`ACP_TURN_STALL_MS`).
+   * stalled and ROBot does not end it (`ACP_TURN_STALL_MS`).
    */
   promptOpenForBackgroundTasks?: true;
   /**
@@ -79,12 +79,12 @@ export interface AcpFlavor {
   messagePerId?: true;
   /**
    * The agent keeps one MCP server of each name for a directory, and a session that opens there
-   * replaces the server that the others in it use. Their OpenOwnBot servers then share one token.
+   * replaces the server that the others in it use. Their ROBot servers then share one token.
    */
   mcpServersPerDirectory?: true;
-  /** OpenOwnBot compacts by replacing the session, for an agent that reports `usage_update` and has no compact request. */
+  /** ROBot compacts by replacing the session, for an agent that reports `usage_update` and has no compact request. */
   contextCompaction?: "handoff";
-  /** A whole answer chunk that is the agent's own transport error, not answer text. OpenOwnBot drops it. */
+  /** A whole answer chunk that is the agent's own transport error, not answer text. ROBot drops it. */
   noiseChunk?: RegExp;
 }
 

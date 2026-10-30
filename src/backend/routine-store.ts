@@ -792,7 +792,7 @@ export class RoutineStore {
   }
 
   /**
-   * A one-time routine that came due while OpenOwnBot was closed. A run that a crash left behind
+   * A one-time routine that came due while ROBot was closed. A run that a crash left behind
    * finishes it. Otherwise `run-once` keeps it due, so the scheduler runs it now, and `skip`
    * records the missed time and finishes it.
    */
@@ -1292,7 +1292,7 @@ function limitPolicyFor(schedule: RoutineSchedule, requested: RoutineLimitPolicy
   return schedule.kind === "once" ? "wait" : (requested ?? "wait");
 }
 
-/** A one-time routine that came due while OpenOwnBot was closed runs late by default; it has no next run. */
+/** A one-time routine that came due while ROBot was closed runs late by default; it has no next run. */
 function defaultMissedPolicy(schedule: RoutineSchedule): RoutineMissedPolicy {
   return schedule.kind === "once" ? "run-once" : "skip";
 }

@@ -86,5 +86,5 @@ export const Playground: Story = {};
 
 /** Catalog sign-in for a joined server: the host's browser shows the page here, and that host keeps the grant. */
 export const RemoteHost: Story = {
-  args: { hostName: "OpenOwnBot team" },
+  args: { hostName: "ROBot team" },
 };

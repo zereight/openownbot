@@ -2,7 +2,7 @@
 // ends with open steps in the agent's plan runs once more with a short note, up to 3 times for one
 // request. Runs the real agent service on a temporary profile with a fake Codex app-server. The
 // current message names its turns in `<<PLAN[...]PLAN>>`: each element is one turn, with its plan
-// steps, its answer, its delay and its OpenOwnBot tool calls. A continuation turn takes the next element
+// steps, its answer, its delay and its ROBot tool calls. A continuation turn takes the next element
 // of its thread.
 // Checks:
 //   1. A turn with open steps continues once, and the request completes when the plan is done.
@@ -34,7 +34,7 @@ const userData = join(root, "user-data");
 const home = join(root, "home");
 const fakeCodex = join(root, "codex");
 const fakeLog = join(root, "codex.jsonl");
-const NOTE_MARKER = "OpenOwnBot note, not a message from the user";
+const NOTE_MARKER = "ROBot note, not a message from the user";
 
 // Before the service modules load: the Codex process and the stores read the home folder.
 process.env.HOME = home;
@@ -50,7 +50,7 @@ const { OpenOwnBotDatabase } = await import("../src/backend/openownbot-database"
 
 type StepStatus = "pending" | "inProgress" | "completed";
 
-/** One turn of the fake: its plan, its answer, its delay and its OpenOwnBot tool calls. */
+/** One turn of the fake: its plan, its answer, its delay and its ROBot tool calls. */
 interface FakeTurn {
   steps: [string, StepStatus][];
   answer?: string;

@@ -10,7 +10,7 @@ import type { VoiceTranscriptionHostProcess, VoiceTranscriptionResponse } from "
 
 export function spawnVoiceTranscriptionHost(): VoiceTranscriptionHostProcess {
   const child = utilityProcess.fork(join(__dirname, "voice-transcription-host.js"), [], {
-    serviceName: "OpenOwnBot voice transcription",
+    serviceName: "ROBot voice transcription",
     stdio: "ignore",
   });
   return {

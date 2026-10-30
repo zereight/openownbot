@@ -62,7 +62,7 @@ const CLEAR_CONFIRM: Record<ClearableStorageCategory, { title: MobileTextKey; bo
 const LARGEST_CHATS = 5;
 
 /**
- * Server sheet > Storage: how much space OpenOwnBot takes on the host, which agents and chats take it,
+ * Server sheet > Storage: how much space ROBot takes on the host, which agents and chats take it,
  * and every stored file, like Server Settings > Storage on desktop. Every member reads it; an owner
  * or admin also clears caches and logs. Chats and workspaces are never cleared from here.
  */

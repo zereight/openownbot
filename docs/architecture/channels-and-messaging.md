@@ -87,7 +87,7 @@ the user removes the activity, so until the app runs again such an event shows n
 The host sends it to `POST /v2/remote/hosts/:hostId/notification` with its machine credential and the
 account session of the phone. The Worker checks the credential and a per-host rate limit, and sends
 nothing for a session that has ended, a revoked membership, or a signed-out device, because the host
-does not learn about these. It makes the APNs alert itself, with "OpenOwnBot" as the only text,
+does not learn about these. It makes the APNs alert itself, with "ROBot" as the only text,
 `mutable-content`, the sound, and the sealed bytes. It stores and logs nothing. A `410` answer, from
 the Worker or Apple, removes the registration.
 
@@ -284,10 +284,10 @@ No account API, Signal, IPC contract, or database migration changes are required
 The agents of a computer can answer in an external chat platform: Slack, Discord (see **Discord**
 below) and Telegram. [messaging.md](../messaging.md) has the setup, the limits and how to add a
 platform. Every workspace
-installs the one OpenOwnBot Slack app (`apps/slack-app`), and the workspace is linked to the host that
-connected it. People mention @OpenOwnBot or send it a direct message. The workspace's Slack Orchestrator,
+installs the one ROBot Slack app (`apps/slack-app`), and the workspace is linked to the host that
+connected it. People mention @ROBot or send it a direct message. The workspace's Slack Orchestrator,
 an agent that the connect dialog adds, receives each new conversation, asks its teammates and posts
-the answer. Every answer comes from OpenOwnBot.
+the answer. Every answer comes from ROBot.
 
 - **Install.** The desktop asks `POST /v2/slack/authorize` for Slack's install URL, with a one-use host
   key. The Worker exchanges the code at `/v2/slack/callback`, because the app's client secret lives
@@ -312,7 +312,7 @@ the answer. Every answer comes from OpenOwnBot.
   like `/v2/remote/resume/validate`) which links of each ticket D1 still has. The host trusts a delivery because Signal checked the signature; no host has the
   signing secret.
 
-Telegram uses the same socket with one difference: one OpenOwnBot bot serves every user, so its token
+Telegram uses the same socket with one difference: one ROBot bot serves every user, so its token
 must not reach any host. Only Signal has it (`TELEGRAM_BOT_TOKENS`), and the contract is
 `@robot/contracts/signal-protocol/telegram-route`.
 
@@ -401,7 +401,7 @@ transport for its events. `messaging-types.ts` is the seam; the core never reads
 - **Approvals and stop.** An approval of a messaging thread is also posted with buttons. Only the
   Slack user whose message started the turn can answer or stop it; the host can always answer. The
   button value is a random token that exists only in memory.
-- **Channels.** When a connection starts, OpenOwnBot joins every public channel it is not in
+- **Channels.** When a connection starts, ROBot joins every public channel it is not in
   (`conversations.list`, `conversations.join`, scope `channels:join`), so people can mention it with
   no invitation. It joins each new public channel on `channel_created`. A private channel needs
   `/invite`.
@@ -412,13 +412,13 @@ transport for its events. `messaging-types.ts` is the seam; the core never reads
   each workspace and its orchestrator, and a two-step dialog connects the workspace and adds the
   orchestrator on the model the user picks (`messaging:*`). A remote server shows no Slack page,
   because the install returns to the host's own browser. A live connection does not count as use:
-  a hosted server sleeps, and Signal starts it for the next message that addresses OpenOwnBot and keeps
+  a hosted server sleeps, and Signal starts it for the next message that addresses ROBot and keeps
   that message, sealed to the host, until the host connects
   ([Connector events](../hosted-servers.md#connector-events)). **Apps → Discord** is the same page for Discord
   (`SlackIntegrationPanel` with `platform="discord"`). **Apps → Telegram** has its own page
   (`TelegramIntegrationPanel`), with one row per chat and one orchestrator for all chats.
 
-**Discord.** Every guild installs the one OpenOwnBot Discord app (`apps/discord-app`), and a guild is a
+**Discord.** Every guild installs the one ROBot Discord app (`apps/discord-app`), and a guild is a
 connection with its own Discord Orchestrator (`discord-orchestrator.ts`). Discord pushes a bot's
 messages only over its Gateway WebSocket, and the bot token cannot go to each host, so Signal holds
 the token and does the platform work for the hosts:
@@ -430,7 +430,7 @@ the token and does the platform work for the hosts:
   Another account gets `discord_guild_taken`.
 - **Events.** Signal keeps one Gateway connection (`@discordjs/ws`) with the guilds, guild messages
   and direct messages intents, and no privileged intent. It passes on only a guild message that
-  mentions the bot, and a press of an OpenOwnBot button, which it acknowledges to Discord at once. It
+  mentions the bot, and a press of a ROBot button, which it acknowledges to Discord at once. It
   normalizes each into `DiscordDelivery` (`@robot/contracts/signal-protocol/discord-api`), takes the
   bot's own mention out, and sends a `discord-delivery` frame to the `ingress` socket that holds a
   Discord route ticket for the guild. The ticket mirrors the Slack one (audience
@@ -452,8 +452,8 @@ the token and does the platform work for the hosts:
   bearer. Signal accepts an operation only for a guild routed to that socket, and only for a channel
   of that guild, and makes the call with `@discordjs/rest`. Every post has no allowed mention, so it
   pings nobody. Attachments are signed CDN addresses, which the host downloads directly.
-- **Conversations.** A conversation is a reply chain, keyed by its first message. Every OpenOwnBot post
-  replies to that message, so a reply to an OpenOwnBot post names the conversation through the replied
+- **Conversations.** A conversation is a reply chain, keyed by its first message. Every ROBot post
+  replies to that message, so a reply to a ROBot post names the conversation through the replied
   post's own reference. A direct message has no guild, so Signal answers it once with a fixed line.
 
 ## Mobile chat queue

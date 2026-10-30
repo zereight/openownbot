@@ -1,12 +1,12 @@
-# Stages the newest release, or stops OpenOwnBot, moves the staged release into place and starts OpenOwnBot
+# Stages the newest release, or stops ROBot, moves the staged release into place and starts ROBot
 # again, when an owner, an admin or a permitted member asks for it in Server Settings > Updates.
 [Unit]
-Description=Update OpenOwnBot on request
+Description=Update ROBot on request
 Wants=network-online.target
 After=network-online.target
 
 [Service]
 Type=oneshot
-ExecStart=/opt/OpenOwnBot/hosted/openownbot-hosted-update request
+ExecStart=/opt/ROBot/hosted/openownbot-hosted-update request
 # A download and an apply: the limits of openownbot-update.service and openownbot-update-apply.service.
 TimeoutStartSec=45min

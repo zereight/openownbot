@@ -15,7 +15,7 @@ const POLL_MS = 1000;
 const IDLE_POLL_MS = 15_000;
 
 /**
- * The OpenOwnBot update of a server's host (`host-update-v1`, `host-member-update-v1`), as Server
+ * The ROBot update of a server's host (`host-update-v1`, `host-member-update-v1`), as Server
  * settings and its Updates page show it. The host sends no progress event, so the Updates page
  * reads the status again while something runs there. The host checks permissions on every call.
  */

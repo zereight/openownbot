@@ -1,6 +1,6 @@
 # Self-hosted servers
 
-A self-hosted server is the Linux OpenOwnBot build on your own computer with no screen: a VPS, a home
+A self-hosted server is the Linux ROBot build on your own computer with no screen: a VPS, a home
 server or a cloud VM. It is a normal Remote host of your account. You use it from the desktop app,
 the iPhone app or `openbot.run/app`, as you use a [hosted server](hosted-servers.md). You install
 and control it from a terminal.
@@ -16,8 +16,8 @@ curl -fsSL https://raw.githubusercontent.com/zereight/openownbot/main/scripts/in
 sudo openownbot login
 ```
 
-`openownbot login` asks for your email and the code that OpenOwnBot sends to it. After the sign-in, the
-server shows in the server list of that account. Its name is "OpenOwnBot"; give another one with
+`openownbot login` asks for your email and the code that ROBot sends to it. After the sign-in, the
+server shows in the server list of that account. Its name is "ROBot"; give another one with
 `sudo openownbot login --name <name>` or `sudo openownbot name <name>`. A name has 6 to 32 characters.
 Then connect a provider from the app, as on a hosted server (see
 [Providers](hosted-servers.md#providers)).
@@ -26,7 +26,7 @@ Then connect a provider from the app, as on a hosted server (see
 
 An operator who sets up a server for somebody else can sign it in with no code. The operator makes a
 one-time claim for the owner's email, and the server redeems it. The owner does nothing: when they
-sign in to OpenOwnBot with that email, the server is in their server list.
+sign in to ROBot with that email, the server is in their server list.
 
 ```sh
 printf '{"email":"%s"}' owner@example.com |
@@ -56,13 +56,13 @@ Install options go after `sudo bash -s --`:
 
 | Option | Default | Use |
 | --- | --- | --- |
-| `--user <name>` | the installed user, else `openownbot` | The user that runs OpenOwnBot and its agents. The install makes it when it does not exist, with its home folder in `/var/lib/<name>`. |
+| `--user <name>` | the installed user, else `openownbot` | The user that runs ROBot and its agents. The install makes it when it does not exist, with its home folder in `/var/lib/<name>`. |
 | `--auth-api-url <origin>` | the installed one, else the URL in the build | Another account server, for example the `test` Worker or a [self-hosted account service](self-hosting.md). |
 | `--display-size <W>x<H>` | the installed one, else `1280x800` | The size of the virtual display that computer use reads (see [Display size](#display-size)). |
 
 Run the install again to reinstall or upgrade. The data stays in the home folder of the service
 user. A reinstall keeps the user and the account server, because the sign-in belongs to them, and
-refuses another `--user`. A reinstall without `--display-size` keeps the display size. The install refuses an older release than the installed one, because an older OpenOwnBot cannot
+refuses another `--user`. A reinstall without `--display-size` keeps the display size. The install refuses an older release than the installed one, because an older ROBot cannot
 open a database that a newer one migrated. It also refuses a computer that is a hosted server.
 
 ## Commands
@@ -78,7 +78,7 @@ open a database that a newer one migrated. It also refuses a computer that is a 
 | `openownbot logs [-f]` | Show the journal of `openownbot.service`. |
 | `sudo openownbot start\|stop\|restart` | Control `openownbot.service`. |
 | `sudo openownbot update` | Download, check and install the newest release now. |
-| `sudo openownbot uninstall` | Sign out and remove OpenOwnBot. The data stays (see [Remove](#remove)). |
+| `sudo openownbot uninstall` | Sign out and remove ROBot. The data stays (see [Remove](#remove)). |
 | `openownbot version` | Show the installed version. |
 
 Run the account commands with `sudo` or as the service user. Other users cannot open the control
@@ -93,7 +93,7 @@ and unloads idle pages sooner. A fixed number of turns run at the same time: 2 u
 8 up to 10 GiB, and 16 above.
 
 The memory ceiling is the smaller of the machine memory and the limit of `openownbot.service`
-(`MemoryMax=90%`). To give OpenOwnBot less memory, lower the limit with
+(`MemoryMax=90%`). To give ROBot less memory, lower the limit with
 `sudo systemctl edit openownbot.service`, for example `MemoryMax=2G`, and restart the service. The
 turn limit and the low-memory levels then use the new ceiling. `openownbot status` shows the ceiling,
 the free memory, the level (`ok`, `low` or `critical`) and the turn limit:
@@ -107,7 +107,7 @@ The guard reads cgroup v2. On a system with cgroup v1, it uses the machine memor
 one warning.
 
 Agent processes run at nice 10 with an OOM value of 500, also a job that an agent detaches. At the
-`critical` level, OpenOwnBot stops leftover agent processes first. Node programs of agents see the CPU
+`critical` level, ROBot stops leftover agent processes first. Node programs of agents see the CPU
 limit of the unit in `os.cpus()`. See [agent processes](hosted-servers.md#memory).
 
 ## Display size
@@ -117,11 +117,11 @@ The default size is 1280x800. A [Docker](docker.md#environment) container uses t
 and the same default. A hosted server gives the agents its boat desktop, and this setting does not
 change that desktop.
 
-The display size does not change the OpenOwnBot browser (`openownbot_browser`). Its pages have their own
+The display size does not change the ROBot browser (`openownbot_browser`). Its pages have their own
 size, 1200x800 when no panel shows them, and its clicks go to page elements.
 
 To use another size, give it at the install with `--display-size 1920x1080`, or write this line in
-`/opt/OpenOwnBot/hosted/openownbot.env` and run `sudo openownbot restart`:
+`/opt/ROBot/hosted/openownbot.env` and run `sudo openownbot restart`:
 
 ```text
 OPENOWNBOT_DISPLAY_SIZE=1920x1080
@@ -214,7 +214,7 @@ already in its server list. Remove a phone from the account in the desktop app, 
 ## Remove
 
 `sudo openownbot uninstall` signs out, then removes the service, the units, the AppArmor profile, the
-`openownbot` command and the server files in `/opt/OpenOwnBot`. It keeps the home folder of the service user
+`openownbot` command and the server files in `/opt/ROBot`. It keeps the home folder of the service user
 and the keyring in `/srv/openownbot-hosted`. The keyring has the key of the encrypted data in that home
 folder, so keep or delete the two together. An install with the same `--user` uses them again. To
 delete the data too:
@@ -234,20 +234,20 @@ install steps always match the build that they install. A release before this fe
 file, and the install stops with a message.
 
 `openownbot-server-setup` uses the install steps of a hosted server (`openownbot-hosted-update`): it
-installs the packages in `packages.txt`, copies the release to `/opt/OpenOwnBot/app`, and installs the
-scripts, the AppArmor profile and the units. It writes `self` to `/opt/OpenOwnBot/hosted/mode` and
+installs the packages in `packages.txt`, copies the release to `/opt/ROBot/app`, and installs the
+scripts, the AppArmor profile and the units. It writes `self` to `/opt/ROBot/hosted/mode` and
 links `/usr/local/bin/openownbot`.
 
 With `mode` set to `self`, `openownbot-hosted-server` does not wait for a claim or for a boat desktop.
-It starts a D-Bus session with an unlocked keyring, as on a hosted server, and runs OpenOwnBot under
+It starts a D-Bus session with an unlocked keyring, as on a hosted server, and runs ROBot under
 Xvfb with `OPENOWNBOT_SERVER=1`. Main (`src/main/server-mode.ts`) then opens the control socket
 `/run/openownbot/control.sock` and publishes the host after each sign-in.
 
 The server has two Xvfb displays, one in each of two nested `xvfb-run` commands that share one
 authority file. The outer one starts the agent display, at the [display size](#display-size), and
-the script names it in `OPENOWNBOT_AGENT_DISPLAY`. The inner one starts the display that OpenOwnBot shows
+the script names it in `OPENOWNBOT_AGENT_DISPLAY`. The inner one starts the display that ROBot shows
 its windows on, at 1280x800. Main gives that display to Computer Use, to remote desktop and to the agent
-processes, so an agent's screenshot and remote desktop do not show the OpenOwnBot window. See
+processes, so an agent's screenshot and remote desktop do not show the ROBot window. See
 [Computer Use and remote desktop](architecture/computer-use.md#agent-display-on-a-server).
 
 Updates work as on a hosted server (see [Updates](hosted-servers.md#updates)): the timer stages a
@@ -269,7 +269,7 @@ Threat model:
   Main refuses to listen when the directory belongs to another user or other users can enter it. It
   never removes a file at the socket path that is not a socket.
 - Only the service user and root can connect. Agents run as the service user and already have full
-  access to its files, its keyring and the OpenOwnBot database, so the socket gives them nothing new.
+  access to its files, its keyring and the ROBot database, so the socket gives them nothing new.
 - The socket answers a closed list of requests. It never sends the session token, the sign-in
   code or the claim back, and a value cannot add a line to an answer. A body is at most 4 KiB.
 - Server mode starts only in a packaged Linux build with `OPENOWNBOT_SERVER=1`, and never on a hosted
@@ -299,7 +299,7 @@ Threat model:
   limits from the Claude docs. The Codex limit comes from `codex-rs/utils/image` and was not checked
   again. It is not known if Claude Code or Codex makes a screenshot smaller before it sends it to
   the model.
-- The two displays were tested in an Ubuntu 24.04 container with a stand-in for OpenOwnBot: OpenOwnBot
+- The two displays were tested in an Ubuntu 24.04 container with a stand-in for ROBot: ROBot
   gets 1280x800, the agent display the display size, and a process without the authority file cannot
   open the agent display. Computer Use and remote desktop on the agent display were not tested on a
   server.

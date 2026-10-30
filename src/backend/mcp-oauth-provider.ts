@@ -1,12 +1,12 @@
 import { Deferred, Effect, Exit, Fiber, Result, Scope } from "effect";
 import { McpOperationError, mcpCall, mcpFailure, mcpSync, toMcpOperationError } from "./mcp-effects";
 /**
- * The OAuth client OpenOwnBot is, for an http MCP server that asks its users to sign in.
+ * The OAuth client ROBot is, for an http MCP server that asks its users to sign in.
  *
  * Every one of the six sign-in listings used to reach its server through `npx -y mcp-remote`, a
- * third-party program that kept the refresh token in a file of its own. A token OpenOwnBot cannot see
+ * third-party program that kept the refresh token in a file of its own. A token ROBot cannot see
  * is a token it cannot redact, and redaction is not optional here - so the grant, the registration
- * and the token set move into OpenOwnBot's own encrypted store, and the bridge goes away.
+ * and the token set move into ROBot's own encrypted store, and the bridge goes away.
  *
  * Almost none of the protocol is written here. `@modelcontextprotocol/sdk` already does RFC 9728
  * discovery, RFC 7591 registration, PKCE and the refresh; what it asks for is one object that says
@@ -64,7 +64,7 @@ import { withTimeout } from "./with-timeout";
 export const mcpOAuthRecordSchema = z.object({
   /**
    * An OAuth app the administrator registered with the authorization server themselves, for a
-   * server that does not offer RFC 7591 registration. When it is set, OpenOwnBot never registers.
+   * server that does not offer RFC 7591 registration. When it is set, ROBot never registers.
    * The secret is optional: a public client has none.
    */
   app: z
@@ -845,7 +845,7 @@ class McpOAuthClientProvider implements OAuthClientProvider {
   }
 
   /**
-   * What OpenOwnBot registers itself as. `redirect_uris` holds the one address this run receives on,
+   * What ROBot registers itself as. `redirect_uris` holds the one address this run receives on,
    * so an authorization server will not send a grant anywhere else.
    *
    * No `scope` unless a sign-in app names one: the SDK takes the scope the server's own
@@ -861,7 +861,7 @@ class McpOAuthClientProvider implements OAuthClientProvider {
     const scope = this.#record().app?.scope;
     const methods = this.#discoveryState?.authorizationServerMetadata?.token_endpoint_auth_methods_supported;
     return {
-      client_name: "OpenOwnBot",
+      client_name: "ROBot",
       ...(LOCAL_ONLY ? {} : { client_uri: "https://openbot.run", logo_uri: "https://openbot.run/icon-512x512.png" }),
       redirect_uris: [this.#options.redirectUrl],
       grant_types: ["authorization_code", "refresh_token"],
@@ -1113,7 +1113,7 @@ class McpOAuthClientProvider implements OAuthClientProvider {
   /**
    * The user's own browser, not a window of this app.
    *
-   * An embedded window would be OpenOwnBot standing between the user and their password manager, their
+   * An embedded window would be ROBot standing between the user and their password manager, their
    * existing session and the address bar that proves which site is asking - which is the whole
    * reason RFC 8252 says a native app must not do it. The one other opener is a sign-in an
    * administrator started from another computer: nobody is at this one, and only a browser here
@@ -1329,7 +1329,7 @@ export function isLoopback(hostname: string): boolean {
  * Checked where the address is configured rather than where it is spent, because the failure it
  * prevents is otherwise invisible from here: the authorization server refuses the address on its
  * own page, in its own words, after the browser has already left. Canva answers `Invalid redirect
- * URI.` there and OpenOwnBot never learns of it.
+ * URI.` there and ROBot never learns of it.
  *
  * Two kinds are allowed, and they are the two RFC 8252 gives a native application: loopback http,
  * which is what this app listens on, and a private-use scheme such as `openownbot://mcp-auth`, which

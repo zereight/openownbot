@@ -27,7 +27,7 @@ export class McpHandoffLog {
   }
 
   /**
-   * Remembers one secret that is not on a row: the bearer token OpenOwnBot mints for a signed-in http
+   * Remembers one secret that is not on a row: the bearer token ROBot mints for a signed-in http
    * server. It reaches a provider process in a header and is never stored, so `mcpSecretValues`
    * cannot find it, and a CLI quoting the request it failed on would otherwise print it in full.
    */

@@ -33,7 +33,7 @@ export interface LoopbackCallbackServerOptions {
   path: string;
   /**
    * Answers a callback that passed the checks. It is synchronous, so the browser does not wait for
-   * the network: the sign-in shows its own end in OpenOwnBot.
+   * the network: the sign-in shows its own end in ROBot.
    */
   receive: (url: URL) => CallbackAnswer;
   /** Read on each request, so the page uses the language that is set at that time. */
@@ -131,5 +131,5 @@ function isLoopbackHost(host: string | undefined): boolean {
  * authorization server reaches the markup.
  */
 function callbackPage(locale: string, message: string): string {
-  return `<!doctype html><html lang="${locale}"><head><meta charset="utf-8"><title>OpenOwnBot</title></head><body style="font-family:system-ui;padding:2rem"><p>${message}</p></body></html>`;
+  return `<!doctype html><html lang="${locale}"><head><meta charset="utf-8"><title>ROBot</title></head><body style="font-family:system-ui;padding:2rem"><p>${message}</p></body></html>`;
 }

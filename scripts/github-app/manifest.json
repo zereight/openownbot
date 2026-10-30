@@ -1,7 +1,7 @@
 {
   "name": "OpenOwnBotGit",
   "url": "https://github.com/zereight/openownbot",
-  "description": "Gives OpenOwnBot agents your repositories, issues and pull requests, through the GitHub MCP server, gh and git. The sign-in stays on the computer that runs OpenOwnBot.",
+  "description": "Gives ROBot agents your repositories, issues and pull requests, through the GitHub MCP server, gh and git. The sign-in stays on the computer that runs ROBot.",
   "public": true,
   "hook_attributes": { "url": "https://github.com/zereight/openownbot", "active": false },
   "request_oauth_on_install": false,

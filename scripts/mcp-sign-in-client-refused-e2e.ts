@@ -4,7 +4,7 @@
 // endpoint refuses every request that carries that secret. A public client (`none`) is accepted.
 // A server that lists `none` must get a public registration and a working sign-in. A server that
 // does not list it gets a secret client, and the refusal must say that the server did not accept
-// OpenOwnBot, not the SDK's "Existing OAuth client information is required" text.
+// ROBot, not the SDK's "Existing OAuth client information is required" text.
 import assert from "node:assert/strict";
 import { mkdir, writeFile } from "node:fs/promises";
 import { createServer, type IncomingMessage, type Server, type ServerResponse } from "node:http";
@@ -227,7 +227,7 @@ function check(entry: Case, condition: boolean, text: string): void {
 async function main(): Promise<void> {
   await mkdir(out, { recursive: true });
   try {
-    // Railway's metadata lists `none`: OpenOwnBot registers a public client and the sign-in works.
+    // Railway's metadata lists `none`: ROBot registers a public client and the sign-in works.
     const listed = await runCase("public-client-when-listed", ["client_secret_basic", "client_secret_post", "none"], 1);
     const [first] = listed.attempts;
     check(listed, first?.error === null, `the sign-in failed: ${first?.error}`);

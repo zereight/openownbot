@@ -1,6 +1,6 @@
 // Runs turns end to end on the real OpenCode driver against a fake `opencode acp` that picks its key
 // as OpenCode 1.18.30 to 1.18.35 do: config `options.apiKey` first, then the `auth.json` key, then
-// `OPENCODE_API_KEY`. An old key in `auth.json` used to win over the key pasted into OpenOwnBot (#2544).
+// `OPENCODE_API_KEY`. An old key in `auth.json` used to win over the key pasted into ROBot (#2544).
 // Checks that an expired key reads as the expired-key error, not "Internal error"; that a replaced
 // key reaches a new process and the same thread there, although `auth.json` still holds the old
 // key; that with no stored key the config names no key, so the user's own sign-in stays in use;
@@ -99,7 +99,7 @@ try {
   assert.equal((await runTurn(third, ownThread)).error, null, "The turn on the user's own key succeeds.");
   const own = await readJsonl<LogEntry>(log);
   const spawn = own.find((entry) => entry.event === "spawn");
-  assert.equal(spawn?.configKey, null, "With no stored key, OpenOwnBot sends no key in the config.");
+  assert.equal(spawn?.configKey, null, "With no stored key, ROBot sends no key in the config.");
   const ownPrompt = own.find((entry) => entry.event === "prompt");
   assert.equal(ownPrompt?.key, "own", "The user's own key is used.");
   report.noStoredKey = { configKey: spawn?.configKey ?? null, key: ownPrompt?.key ?? null };

@@ -76,7 +76,7 @@ export const VISIBLE_DYNAMIC_TOOLS = [
     type: "namespace" as const,
     name: "openownbot",
     description:
-      "OpenOwnBot tools. Search, then call other built-in and browser capabilities. Describe a result that has no inputSchema.",
+      "ROBot tools. Search, then call other built-in and browser capabilities. Describe a result that has no inputSchema.",
     tools: VISIBLE_TOOL_DEFINITIONS.map((definition) => ({
       type: "function" as const,
       name: definition.name,

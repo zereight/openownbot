@@ -60,20 +60,20 @@ export const resolveCuaDriver = Effect.fn("CuaDriver.resolve")(function* (input:
 });
 
 /**
- * The two calls the driver makes to its own vendor, off for every copy OpenOwnBot starts.
+ * The two calls the driver makes to its own vendor, off for every copy ROBot starts.
  *
  * `CUA_DRIVER_RS_TELEMETRY_ENABLED` stops the product analytics. The driver ships with them on, and
- * OpenOwnBot now ships the driver, so a user who never chose the driver would otherwise send a vendor
- * that is not OpenOwnBot a record of each tool call.
+ * ROBot now ships the driver, so a user who never chose the driver would otherwise send a vendor
+ * that is not ROBot a record of each tool call.
  *
- * `CUA_DRIVER_RS_UPDATE_CHECK` stops the release check `serve` makes at startup. OpenOwnBot pins the
+ * `CUA_DRIVER_RS_UPDATE_CHECK` stops the release check `serve` makes at startup. ROBot pins the
  * driver in `native-runtime.lock.json` and packages that exact build, so the answer could only offer
- * the user an update OpenOwnBot would refuse: on macOS the binary sits inside a signed application
+ * the user an update ROBot would refuse: on macOS the binary sits inside a signed application
  * bundle, and replacing it would break the signature. Off, the daemon also writes no
  * `~/.cua-driver/version_check.json`.
  *
  * The driver reads the environment before its own configuration, so these decide the question:
- * nothing a process inherits can turn them back on, and OpenOwnBot writes no file, so a driver the user
+ * nothing a process inherits can turn them back on, and ROBot writes no file, so a driver the user
  * runs themselves keeps the settings they gave it. This is why both are spread last, after any
  * inherited environment, at every place that runs the binary: the daemon, the MCP proxy each
  * provider spawns, the permission probe, and the doctor script.
@@ -93,7 +93,7 @@ function* candidatePaths(input: CuaDriverArtifactInput): Generator<string> {
 
   // A release carries the driver it was pinned, built and signed against, and that one only. An
   // environment variable or an install the user already had would otherwise decide which program
-  // drives their desktop, and OpenOwnBot would have no way to say which build it spawned. A release
+  // drives their desktop, and ROBot would have no way to say which build it spawned. A release
   // that shipped without the binary is a broken build, and reporting no driver says so.
   if (input.isPackaged) {
     yield join(input.resourcesPath, "cua-driver", input.platform, input.architecture, name);

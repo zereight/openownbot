@@ -136,7 +136,7 @@ While a turn of that conversation runs, the line waits for the turn to end. Agen
 
 Codex and Muse complete explicit compaction through turn events. Pi completes it through the request
 response. Claude manages compaction natively. ACP and custom ACP expose no explicit compaction
-operation to the OpenOwnBot scheduler. Unsupported or native-managed clients cannot reserve its queue
+operation to the ROBot scheduler. Unsupported or native-managed clients cannot reserve its queue
 for a no-op request. Request completion clears the hold and keeps the minimum-growth guard.
 
 Antigravity reports its context fill but has no compact operation, so its flavor sets the `handoff`
@@ -151,7 +151,7 @@ Cumulative account usage is not context occupancy. A missing report is not zero 
 200,000-token context window, per-turn model summary, or new automatic model call is added.
 
 The design uses Hermes's on-demand discovery, stable instruction ordering, and bounded local
-history recall as references. OpenOwnBot retains each native provider's session and compaction rules.
+history recall as references. ROBot retains each native provider's session and compaction rules.
 
 ## Model catalog
 
@@ -180,7 +180,7 @@ file it installed, and every start verifies that record and the binary's `--vers
 install is used. The newest version in the store that verifies is the one that runs.
 
 `provider-runtime-blocklist.json` on `main` names versions no installation may offer. It stops a
-broken upstream release without an OpenOwnBot release. It suppresses an offer only: it does not remove
+broken upstream release without a ROBot release. It suppresses an offer only: it does not remove
 a version a user already installed. A list that cannot be read blocks nothing.
 
 The `Provider CLI canary` workflow (`.github/workflows/provider-cli-canary.yml`) finds a broken
@@ -208,9 +208,9 @@ On macOS and Linux, discovery looks in the folders of the login-shell `PATH` (`l
 folders: `~/.local/bin`, `~/.npm-global/bin`, `~/.volta/bin`, `~/.bun/bin`, the pnpm home, Homebrew
 and the system folders. nvm folders are not searched, because only nvm's shell setup selects a
 version. The login shell is `$SHELL` when it is a known POSIX shell or fish; otherwise macOS uses
-`/bin/zsh`. The version probe and each process that OpenOwnBot starts for the CLI (app server, ACP,
+`/bin/zsh`. The version probe and each process that ROBot starts for the CLI (app server, ACP,
 Claude sessions, sign-in and sign-out) start with the resolved `launchPath`: the login-shell
-folders, then OpenOwnBot's own, then the CLI's folder for a system copy. An app that Finder starts can
+folders, then ROBot's own, then the CLI's folder for a system copy. An app that Finder starts can
 then run a `#!/usr/bin/env node` CLI. A CLI that exists but does not start reports whether the
 managed copy or the user's copy failed.
 
@@ -320,7 +320,7 @@ it compares a managed installation. The row and the notification therefore use t
 the one Update button, and one entry point in the runtime store, `startProviderUpdate`. One path
 runs behind it, whoever owns the CLI: the download installs the managed copy and
 `updateProviderCli` activates it, and CLI resolution then prefers that copy to the system install,
-which is left where it is. OpenOwnBot never runs the CLI's own updater, so no version it offers depends
+which is left where it is. ROBot never runs the CLI's own updater, so no version it offers depends
 on another release channel. An explicit `OPENOWNBOT_*_PATH` suppresses the offer, because that path
 names the binary to run and the managed copy is not it. The owner comes from the last resolution of
 the binary, not from the client that runs it, so a provider that is signed out still reports its own
@@ -359,7 +359,7 @@ failure as well as after a success.
 `src/backend/acp-connection.ts` owns ACP process transport. `acp-configuration.ts` owns
 configuration and model discovery. `src/backend/acp-client.ts` owns session start/load,
 streamed messages, permissions, tool bridging, and cancellation. `grok-client.ts` supplies xAI
-login and billing hooks. The OpenCode driver starts `opencode acp` on the runtime OpenOwnBot pins and
+login and billing hooks. The OpenCode driver starts `opencode acp` on the runtime ROBot pins and
 downloads, or on a CLI the user installed. Profile clients deny tool permissions.
 
 The pinned runtime is OpenCode 2 (`@opencode/cli`). Its platform tarballs carry no licence file, so
@@ -369,7 +369,7 @@ the stage step copies `LICENSE` from the `opencode-ai` tarball that `licensePack
 `session_v2` and keeps `session`, so OpenCode 1 can still open it. A database that OpenCode 2
 creates has no `session` table, and OpenCode 1 then refuses to start with "Database is not empty and
 has no session table" (OpenCode issue #53221); `ProviderRuntime` replaces that exit text with
-`error.provider.opencodeDatabaseNewer`. OpenOwnBot does
+`error.provider.opencodeDatabaseNewer`. ROBot does
 not move OpenCode to a separate database, because the threads would lose their sessions. OpenCode 2
 differs from OpenCode 1 on the wire in three places that `acp-client.ts` handles: a missing session
 is `-32602` "session not found: <id>" instead of an `-32603` service failure; `session/resume` can
@@ -377,7 +377,7 @@ fail with `ServiceUnavailableError` while the CLI starts (OpenCode issue #57204)
 more after two seconds; and a model name starts with the provider id, not its name, so
 `openCodeModelName` restores the group name.
 
-OpenCode has no login step OpenOwnBot can drive, because the account is one environment variable: a
+OpenCode has no login step ROBot can drive, because the account is one environment variable: a
 spawn without `OPENCODE_API_KEY` lists the free OpenCode Go models, and a spawn with one lists the
 paid catalog. So `AcpAgentClient` derives `#signedIn` from the models `session/new` returns, not
 from a credential, and a keyless OpenCode reports `available`. `AcpProviderOptions.extraEnv` is read
@@ -393,10 +393,10 @@ the provider's serialized connection command. It refuses a provider that is runn
 deliveries while it writes, and reports success only after a new process runs with the new key.
 
 That one variable turns on two products: OpenCode reports OpenCode Zen and OpenCode Go as a single
-catalog, on the separate endpoints `opencode.ai/zen/v1` and `opencode.ai/zen/go/v1`, and OpenOwnBot
+catalog, on the separate endpoints `opencode.ai/zen/v1` and `opencode.ai/zen/go/v1`, and ROBot
 supports only Go. So `isOpencodeModelUnusableWithStoredKey` in `src/backend/agent/provider-models.ts`
 drops the paid Zen models from `ModelCatalog.refresh` (through the OpenCode driver's
-`catalog.usableWithStoredKey`) while OpenOwnBot is the one supplying the key;
+`catalog.usableWithStoredKey`) while ROBot is the one supplying the key;
 with no key stored those models can only come from the user's own OpenCode sign-in, which does
 buy them. Neither `/models` endpoint authenticates, so entitlement cannot be read back and the
 split is a product rule rather than a check.
@@ -404,7 +404,7 @@ split is a product rule rather than a check.
 `PREFERRED_MODEL_ORDER` (in the same file) reorders that catalog, because a provider with no
 `defaultProviderModel` runs the first model of its list and OpenCode reports the third-party
 services the user signed in to before its own — so the fallback used to pick a model behind a token
-OpenOwnBot can neither see nor refresh. `opencodeModelRank` sorts free models first with Muse ahead of
+ROBot can neither see nor refresh. `opencodeModelRank` sorts free models first with Muse ahead of
 the rest, then OpenCode's own paid models, then everything behind a separate sign-in. Inside one
 tier the newest version comes first. The sort is stable, so the CLI's order stays between models of
 one version.
@@ -470,28 +470,28 @@ The Gemini provider (id `antigravity`) starts Google's Antigravity ACP server
 downloads the zip on the user's computer. `extractZipFiles` in `src/main/provider-runtime-archive.ts`
 accepts only the server and `localharness_external`, which the server starts from its own folder.
 The server has no `--version`, so staging writes `antigravity-package.json` and
-`verifyInstalledRuntime` reads the version from that file (`versionFile`). OpenOwnBot never searches
+`verifyInstalledRuntime` reads the version from that file (`versionFile`). ROBot never searches
 `PATH`, because the Antigravity editor installs an `antigravity` command that is not this server.
 
 The server offers its Claude and GPT models only to a client whose `initialize` `clientInfo.name` is
 `zed`, `xcode`, `jetbrains.*` or `android studio*` (`supports_third_party_models` in 1.4.3). Other
 clients get only the Gemini models. So `ANTIGRAVITY_ACP_FLAVOR.clientInfo` sends the name `zed` and
-the title `OpenOwnBot`. The server also sends the name and version to Google in its User-Agent
-(`_surface`), so Google sees OpenOwnBot's requests as `zed/0.1.0`.
+the title `ROBot`. The server also sends the name and version to Google in its User-Agent
+(`_surface`), so Google sees ROBot's requests as `zed/0.1.0`.
 
 Sign in is an ACP `authenticate` call with `oauth-personal`, in a separate process
-(`src/backend/acp-sign-in.ts`). On Linux, OpenOwnBot reads the Google sign-in link from the
+(`src/backend/acp-sign-in.ts`). On Linux, ROBot reads the Google sign-in link from the
 server and opens it with the desktop browser. The server browser launch is disabled for this
 process so the page opens once. A failed browser launch gives an actionable error; the OAuth
 link and browser error details are not logged. Other platforms let the server open the browser.
 A valid saved Google token answers `authenticate` with no browser page. So a Reconnect of a
 connected Google sign-in, with no saved key, first calls ACP `logout` when `initialize` advertises
 `agentCapabilities.auth.logout` (runtime 1.4.1 and later). The Google page then opens. The token is
-shared by every OpenOwnBot profile on the computer, so they all sign out. A Reconnect is refused while
-a Gemini turn runs. When the sign-in stops after the logout answered, OpenOwnBot stops the old client
+shared by every ROBot profile on the computer, so they all sign out. A Reconnect is refused while
+a Gemini turn runs. When the sign-in stops after the logout answered, ROBot stops the old client
 and reports Gemini signed out; a failure keeps its own reason. A status probe must never call `authenticate`. The serving client does not call it.
-OpenOwnBot checks authentication through model discovery (`session/new`), not the auth methods
-advertised by `initialize`. The runtime can answer "Authentication required", which OpenOwnBot
+ROBot checks authentication through model discovery (`session/new`), not the auth methods
+advertised by `initialize`. The runtime can answer "Authentication required", which ROBot
 reports as sign-in required. In runtime 1.3.0, a saved OAuth method with no valid token can also
 start interactive authentication during `session/new`; this can leave the probe waiting until
 its existing deadline. Runtime installation alone does not confirm authentication.
@@ -508,7 +508,7 @@ from the CLI in a private tab of its browser. The client polls `status`, shows t
 the live view (`browser-view`), and closes the dialog on the `result`. The Google callback goes to
 `127.0.0.1` on the host, so the host's browser completes it. No route carries the link or a
 credential, and every route requires an owner or admin. A host on another platform does not
-advertise the capability; open OpenOwnBot in the host's desktop session to connect it there. A runtime status of "Runtime installed" means only that the files are
+advertise the capability; open ROBot in the host's desktop session to connect it there. A runtime status of "Runtime installed" means only that the files are
 available; "Connected" requires a successful provider check. A known authentication or launch
 error takes priority over runtime readiness.
 
@@ -517,7 +517,7 @@ error takes priority over runtime readiness.
 Issue #1776 reports an HTTP 404 for the official 1.3.0 Linux archive from an OVH IPv6 pool,
 and HTTP 200 over IPv4. This cause is not confirmed: checks from another host on 2026-10-10
 returned HTTP 200 over both families. An HTTP failure occurs before archive extraction or
-ACP startup; it is separate from browser sign-in and missing runtime files. OpenOwnBot keeps
+ACP startup; it is separate from browser sign-in and missing runtime files. ROBot keeps
 the download error and Retry action and does not change the host's network settings.
 
 For an affected host, an operator can compare bounded requests to the exact failing URL
@@ -538,11 +538,11 @@ An external installation must preserve this layout (1.3.0 is an example):
     localharness_external
 ```
 
-Both programs must be executable by the OpenOwnBot host user. Set
+Both programs must be executable by the ROBot host user. Set
 `OPENOWNBOT_ANTIGRAVITY_PATH=/var/lib/openownbot/antigravity-acp-1.3.0/bin/agy_acp_server.par`
-in that process's environment and restart OpenOwnBot. The variable names the executable, not
-the directory. OpenOwnBot requires the version manifest two levels above it; extraction alone
-does not create that manifest. An invalid override remains an error: OpenOwnBot does not replace
+in that process's environment and restart ROBot. The variable names the executable, not
+the directory. ROBot requires the version manifest two levels above it; extraction alone
+does not create that manifest. An invalid override remains an error: ROBot does not replace
 it with the managed runtime. Managed updates do not change the explicit override.
 
 The server runs confined; `antigravityStatePaths` gives it `~/.gemini/antigravity-acp` and
@@ -560,11 +560,11 @@ Gemini can hold more than one account: each account after the first gets `GEMINI
 own folder (`antigravityReadsGeminiHome` gates the rows, the sign-in, the checks, the usage reads and
 the agent start), and `antigravityStatePaths` confines its process to that folder. Each new session
 leaves a conversation database in that folder, so a usage read of an account with no agent process
-starts no process: the account shows its reading from the sign-in check. The sandbox cannot create folders in a new account's home, so OpenOwnBot makes them.
+starts no process: the account shows its reading from the sign-in check. The sandbox cannot create folders in a new account's home, so ROBot makes them.
 The account sign-in is the same ACP `authenticate` call as the first account's; a Reconnect calls
 `logout` first. So a Reconnect refuses while an agent on the account runs a turn, and it stops the
 account's idle agent processes, which keep the old token. A saved Gemini API key belongs to the
-first account: an account process never gets `GEMINI_API_KEY`. The server reports no email and the token file holds none, so OpenOwnBot cannot see
+first account: an account process never gets `GEMINI_API_KEY`. The server reports no email and the token file holds none, so ROBot cannot see
 that two accounts are the same Google account. A joined server signs the account in through the
 live view, because `provider-account-relay-v1` names Codex and Claude only.
 
@@ -600,7 +600,7 @@ limit can be for one model and that the plan's usage page can still show room.
 
 Antigravity 1.3.0 and later send ACP `usage_update` after each model step: `used` is the size of
 the last model call, and `size` is the model's context window. The adapter turns it into
-`thread/tokenUsage/updated`, also after a turn that OpenOwnBot already ended. 1.2.1, the pinned
+`thread/tokenUsage/updated`, also after a turn that ROBot already ended. 1.2.1, the pinned
 first-install version, sends none, so the ring stays hidden until the runtime updates. The update
 has no category breakdown.
 
@@ -684,7 +684,7 @@ npm packages have no license file, so staging downloads `LICENSE` from the `cli-
 checks the pinned hash. `resolveClineCli` refuses a CLI older than 3.0.68.
 
 By default the CLI runs its sessions in a hub process that it detaches and that other Cline
-processes share. That process outlives OpenOwnBot and is outside a Workspace only sandbox, so every
+processes share. That process outlives ROBot and is outside a Workspace only sandbox, so every
 Cline process, the sign-in included, gets `CLINE_SESSION_BACKEND_MODE=local` and
 `CLINE_NO_AUTO_UPDATE=1` (`CLINE_ENV` in `provider-drivers.ts`). Sign in is an ACP `authenticate`
 call with `cline`, as for Gemini. `CLINE_API_KEY` in the environment also signs the CLI in.
@@ -737,7 +737,7 @@ is ready. The `providers-v5` and `providers-v1` key routes refuse its key.
 
 A v8 client keeps the agents of a provider that its build does not know (`ForeignProviderId`,
 `AgentProviderRef`). The agent stays in the list and chat works, because the host runs it. The
-provider and model pickers show the agent disabled, with "Update OpenOwnBot to use {name}" and the
+provider and model pickers show the agent disabled, with "Update ROBot to use {name}" and the
 neutral `unknown` logo. They do not reset the agent. The model picker and the backup models leave
 out the models of that provider. Host types (`AgentProviderId`, the database, the drivers) stay
 closed.
@@ -768,7 +768,7 @@ failed `session/new` (an agent that needs sign-in first) gives no models and doe
 check. The registry install check (`acp-registry-install.ts`) sends `initialize` only. The scan (`src/backend/acp-agent-scan.ts`) looks up the preset names on the
 login-shell `PATH` and in the user's folders, and never starts a file. An agent and its check start
 with the `PATH` that its command was looked up in (`agentLaunchPath`): the absolute folders of the
-login-shell `PATH`, then those of OpenOwnBot's own, so an app that Finder starts can still run a
+login-shell `PATH`, then those of ROBot's own, so an app that Finder starts can still run a
 `#!/usr/bin/env node` agent. A `PATH` saved on the agent wins. Claude agent sessions start with the
 same `PATH`, so their Bash tool and hooks find the user's tools; an `env.PATH` in the Claude settings
 wins. The agents run confined with no state paths. Migration 23 adds `acp` to
@@ -779,7 +779,7 @@ A custom agent can have a usage prompt (`usagePrompt`, "Usage command" in the fo
 as `/usage`. `customAgents.usage` asks each agent that has one: `ProviderRuntime.customAgentUsage`
 sends it through `readUsageText` on the agent's model list process, in the session that no thread
 owns (`privatePrompt`). The answer is redacted and kept to `CUSTOM_AGENT_LIMITS.usageAnswer`
-characters. OpenOwnBot does not read a percent from it, so `acp` keeps `reportsUsage: false`: the rail
+characters. ROBot does not read a percent from it, so `acp` keeps `reportsUsage: false`: the rail
 shows the agent's logo with no ring, and its hover card shows the text. The renderer polls with the
 plan usage interval, only while the local server is active. One read runs at a time, and a read from
 the last minute answers the next request. While `acp` is released, the read returns the last answers
@@ -867,7 +867,7 @@ account after the first also counts as a read.
 
 The values follow t3code (one refresh in five minutes for each host, one at a time) and openusage (5
 minutes, doubling up to an hour). CodexBar and openusage first wait for `Retry-After`; the Claude Agent
-SDK and the Codex app-server do not give OpenOwnBot that header, so the gate uses only the doubling.
+SDK and the Codex app-server do not give ROBot that header, so the gate uses only the doubling.
 `scripts/usage-read-pacing-e2e.ts` checks the gate with a fake Codex.
 
 ### Usage reset credits
@@ -893,7 +893,7 @@ uses the optional `provider-usage-reset-v1` routes (see [Admin capabilities](ser
 `AgentClient` remains the provider boundary. ACP session ownership, history replay, and turn
 completion stay together. Boolean and select settings can include grouped choices. The client
 processes configuration notifications while idle. Model and reasoning continue to use their
-existing fields. Permission, access, and approval settings remain under OpenOwnBot controls: the agent's
+existing fields. Permission, access, and approval settings remain under ROBot controls: the agent's
 Permissions level decides them, not an ACP setting.
 
 Additional overrides are stored in validated agent JSON, by provider identity. A custom ACP
@@ -916,11 +916,11 @@ Pi uses its native `--mode rpc` interface. It does not use an ACP wrapper. Reque
 `agent_settled` completes a turn. A successful `prompt` response only accepts the prompt. Cancellation
 clears queued work before abort. Session paths and the active conversation branch are preserved.
 Models come from the running CLI. A small extension uses Pi's `registerMcpServer` interface to
-register configured MCP servers and OpenOwnBot tools. Secrets are supplied through process state,
+register configured MCP servers and ROBot tools. Secrets are supplied through process state,
 not copied into the extension source.
 
 Managed Pi archives come from official GitHub releases and use the published SHA-256 digest.
-Sign-in opens Pi in a host terminal. Close Pi after sign-in to refresh models in OpenOwnBot.
+Sign-in opens Pi in a host terminal. Close Pi after sign-in to refresh models in ROBot.
 Remote clients must complete sign-in on the host. There is no separate Pi account screen.
 
 ## Inception
@@ -943,7 +943,7 @@ with a key as its only sign-in (`KEY_ONLY_PROVIDERS` in contracts). The key is s
 `deepseek` API key. Pi has a built-in `deepseek` provider, so the extension from
 `pi-key-providers.ts` calls `pi.registerProvider("deepseek", ...)` with the key and no models. A
 registration with only the key keeps Pi's DeepSeek models, endpoint and thinking levels (checked in
-Pi 1.4.0), so OpenOwnBot keeps no DeepSeek model list. Pi prefers a `deepseek` key in its own
+Pi 1.4.0), so ROBot keeps no DeepSeek model list. Pi prefers a `deepseek` key in its own
 `auth.json` to the registered `apiKey`, so the extension also sets the `Authorization` header,
 which replaces either key. A 401 or a 402 from a key provider shows a text about the saved key or
 the account balance (`#failureText` in `pi-client.ts`). The DeepSeek client lists only the `deepseek`
@@ -956,10 +956,10 @@ Peers see DeepSeek from v8, as Inception.
 OpenRouter works as DeepSeek does: a key-only provider on Pi's managed CLI. The key is stored as the
 `openrouter` API key. Pi has a built-in `openrouter` provider with OpenRouter's model list (401 models
 in Pi 1.1.0 and 1.4.0), so the extension registers only the key and the `Authorization` header, and
-OpenOwnBot keeps no OpenRouter model list. Pi sends some models to OpenRouter's Anthropic Messages
+ROBot keeps no OpenRouter model list. Pi sends some models to OpenRouter's Anthropic Messages
 endpoint and the others to its chat completions endpoint; both read the header. On the Anthropic
 Messages endpoint Pi also sends the key from its own `auth.json` as `x-api-key`, so the extension sets
-that header to the OpenOwnBot key too (checked in Pi 1.4.0 with a local server). Pi's own
+that header to the ROBot key too (checked in Pi 1.4.0 with a local server). Pi's own
 `/api/models/user` request still uses a key from `auth.json` when the user saved one there; it reads
 the model list and sends no turn content. Model ids keep
 OpenRouter's `<lab>/<model>` form, such as `anthropic/claude-opus-5.5`, and the client passes them to
@@ -976,7 +976,7 @@ newer SDK versions must meet the three-day dependency rule before adoption. The 
 supplies `sessionMcp`, preserves native session identity, and reads durable items to recover missed
 events before completion. A cached model list does not prove authentication. Connect starts the
 `muse serve` device sign-in and opens its page, because `muse login` with no terminal never opens
-it; an explicit Meta API key uses OpenOwnBot's encrypted credential store. The account check asks a
+it; an explicit Meta API key uses ROBot's encrypted credential store. The account check asks a
 short-lived `muse serve` host, which gets the same key, for the experimental `account/read`. The
 session host does not opt in to experimental MSP, so its strict event decoders see no experimental
 variants. A Muse CLI without `account/read` stays "not verified" and keeps running.
@@ -989,7 +989,7 @@ then select Muse for the agent. The local echo test and synthetic MCP marker rec
 authentication test.
 
 Managed Muse downloads use the official stable-channel manifest and artifact SHA-256 values.
-The CLI remains an optional download, outside the OpenOwnBot package. OpenOwnBot does not overwrite
+The CLI remains an optional download, outside the ROBot package. ROBot does not overwrite
 provider account files or run upstream self-updaters against managed installations. Both Pi and
 Muse use the existing process confinement boundary. Workspace-only mode fails closed on hosts
 without confinement support.
@@ -1040,7 +1040,7 @@ The latest marker and timing are runtime state, not new saved conversation messa
 summary is not copied into this state.
 
 `agent:compact-context` asks for a compaction now, below the threshold too. The popover offers it
-when `autoCompactAt` is set, which means that OpenOwnBot compacts the thread (`events`, `request` or
+when `autoCompactAt` is set, which means that ROBot compacts the thread (`events`, `request` or
 `handoff`). It refuses while a turn, a queued message or a session start needs the session. It is
 local only: the Team API has no route, and a joined server's agent shows no ring.
 `agent:tasks:compact-context` does the same for one open side thread. It refuses while the thread

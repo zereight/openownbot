@@ -212,7 +212,7 @@ export class ChannelHistory {
       );
       const packet = (seen: number | null) =>
         [
-          "You have one assignment in a shared OpenOwnBot channel chat. Speak as yourself. Other members stay idle unless assigned work. Ordinary replies do not start work.",
+          "You have one assignment in a shared ROBot channel chat. Speak as yourself. Other members stay idle unless assigned work. Ordinary replies do not start work.",
           "Use channel_history for earlier history and attachmentId to get a channel attachment path, channel_assign for a subtask, channel_transfer for ownership, and channel_result for a requested result. Never bypass coordination with send_message. End your turn while waiting for assigned results.",
           // Each search or describe step sends the whole context to the model again (#3138).
           'The channel tools need no search or describe. When one is not in your tool list, call the openownbot tool_call tool (openownbot.tool_call, or openownbot__tool_call where MCP tool names use underscores) with its name, such as {"name":"openownbot.channel_result","arguments":{"text":"<result>"}}. channel_history takes beforeSequence and attachmentId, both optional.',

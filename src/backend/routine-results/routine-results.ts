@@ -1,5 +1,5 @@
 /**
- * Routine results: an agent routine's answer sent on to a messaging place outside OpenOwnBot.
+ * Routine results: an agent routine's answer sent on to a messaging place outside ROBot.
  *
  * The routine's run is not changed: it succeeds when its agent answers, and the delivery of that answer
  * has a status of its own. When a run of a routine with a destination succeeds, the sweep keeps its

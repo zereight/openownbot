@@ -5,6 +5,11 @@ const APPLE_APP_SITE_ASSOCIATION = {
     apps: [],
     details: [
       {
+        appID: "ZTRDTUL87R.app.robot.desktop",
+        paths: ["/join"],
+      },
+      {
+        // OpenOwnBot desktop builds from before the ROBot rename.
         appID: "ZTRDTUL87R.app.openownbot.desktop",
         paths: ["/join"],
       },

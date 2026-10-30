@@ -1,11 +1,11 @@
 // Adapted from the report in nightly-labs/openownbot#3824: "Gemini shows MCP errors for cloudflare and
-// higgsfield servers". An agent saved an http MCP server that asks for a sign-in OpenOwnBot does not
-// hold. OpenOwnBot gives such a row to the provider as written, the server answers 401, and Antigravity
+// higgsfield servers". An agent saved an http MCP server that asks for a sign-in ROBot does not
+// hold. ROBot gives such a row to the provider as written, the server answers 401, and Antigravity
 // ends every turn with "The MCP server 'higgsfield' failed to initialize". Other providers start
 // without that server. Runs the real Antigravity driver over a fake server that acts as 1.4.4 does.
 // Cases: the turn resumes the session without the server and answers, the server is reported as a
 // drop, a new session gets the server again (a sign-in or a fix can have changed it) and leaves it
-// out the same way, and a failed server that OpenOwnBot did not give
+// out the same way, and a failed server that ROBot did not give
 // (the user's own `mcp_config.json`) stays the turn's error. A last case sends the failure message
 // before the stderr line: the turn still goes on, and the message is not shown as an answer.
 // `bun run test:antigravity-mcp-load-failure`. Writes
@@ -89,7 +89,7 @@ try {
   });
   client.start();
 
-  // 1. The server that OpenOwnBot gave fails: the session opens again without it, and the turn answers.
+  // 1. The server that ROBot gave fails: the session opens again without it, and the turn answers.
   const thread = await startThread(client, { cwd: workspace });
   const first = await runTurn(client, thread, { text: "Reply with OK only.", timeoutMs: 30_000 });
   report.turns.first = first;
@@ -115,7 +115,7 @@ try {
     "Each session reports the server that it left out.",
   );
 
-  // 3. A server that OpenOwnBot did not give is not OpenOwnBot's to leave out: the turn fails as before.
+  // 3. A server that ROBot did not give is not ROBot's to leave out: the turn fails as before.
   const foreign = await runTurn(client, thread, { text: "fail cloudflare", timeoutMs: 30_000 });
   report.turns.foreign = foreign;
   assert.equal(foreign.status, "failed", "The turn fails.");
@@ -140,7 +140,7 @@ try {
   assert.deepEqual(
     resumed[0]?.names?.filter((name) => !opened[0]?.names?.includes(name)),
     [],
-    "The resumed session keeps the same OpenOwnBot tools.",
+    "The resumed session keeps the same ROBot tools.",
   );
   const prompts = requests.filter((request) => request.method === "session/prompt");
   assert.deepEqual(

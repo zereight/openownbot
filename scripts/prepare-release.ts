@@ -35,7 +35,7 @@ interface ReleaseTarget {
 }
 
 const DESKTOP: ReleaseTarget = {
-  name: "OpenOwnBot",
+  name: "ROBot",
   changelog: "CHANGELOG.md",
   fragmentDir: FRAGMENT_DIR,
   versionFiles: ["package.json"],
@@ -44,7 +44,7 @@ const DESKTOP: ReleaseTarget = {
 };
 
 const MOBILE: ReleaseTarget = {
-  name: "OpenOwnBot mobile",
+  name: "ROBot mobile",
   changelog: MOBILE_CHANGELOG,
   fragmentDir: MOBILE_FRAGMENT_DIR,
   versionFiles: MOBILE_VERSION_FILES,

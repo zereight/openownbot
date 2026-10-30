@@ -1,6 +1,6 @@
 // Runs the real LocalMcpBridge with the MCP SDK client that OpenCode uses. OpenCode 2.1.4 keeps one
 // `openownbot` server for a directory, so a second chat of an agent replaced the first chat's token,
-// and closing the second chat left every OpenOwnBot tool call of the first refused with 401. Sessions in
+// and closing the second chat left every ROBot tool call of the first refused with 401. Sessions in
 // one directory must get one token that lasts until the last of them closes, and a call must reach
 // the session in a turn. A session with no directory keeps a token of its own.
 // `bun run test:acp-mcp-shared-token`. Writes .openownbot-build/acp-mcp-shared-token-e2e/report.json.
@@ -138,7 +138,7 @@ try {
   turns.set("thread-first", null);
   turns.set("thread-second", null);
 
-  // The second chat goes idle and OpenOwnBot releases it. OpenCode still holds the shared token.
+  // The second chat goes idle and ROBot releases it. OpenCode still holds the shared token.
   second.close();
   turns.set("thread-first", "turn-3");
   assert.equal(await whoami(first), "thread-first", "The first chat's tools still work after the second closes.");

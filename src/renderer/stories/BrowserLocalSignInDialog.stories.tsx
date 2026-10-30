@@ -21,13 +21,13 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-/** The window on this computer is open. OpenOwnBot sends the sign-in when the site looks signed in. */
+/** The window on this computer is open. ROBot sends the sign-in when the site looks signed in. */
 export const WindowOpen: Story = {};
 
 /** The person closed the window before the sign-in was complete. */
 export const WindowClosed: Story = { args: { windowOpen: false } };
 
-/** OpenOwnBot sends the sign-in and checks the server tab. */
+/** ROBot sends the sign-in and checks the server tab. */
 export const Sending: Story = { args: { pending: true } };
 
 /** The server tab still shows a sign-in page, so the window stays open. */

@@ -14,7 +14,7 @@ export const DEFAULT_DEV_AUTOMATION_PORT = 9_333;
 export const MIN_DEV_AUTOMATION_PORT = 1_024;
 export const MAX_DEV_AUTOMATION_PORT = 65_535;
 
-// Thrown when the port answers but the browser behind it is not OpenOwnBot.
+// Thrown when the port answers but the browser behind it is not ROBot.
 // A class instead of a message prefix: the reconnect hint below must not
 // swallow this one, and matching on wording breaks the moment it is reworded.
 export class ForeignBrowserError extends Error {}
@@ -268,7 +268,7 @@ export async function readTargetId(page: Page): Promise<string> {
   const session = await page.context().newCDPSession(page);
   try {
     // Playwright types this reply against the CDP protocol, so the id needs no
-    // validation: it comes from the browser we already confirmed is OpenOwnBot,
+    // validation: it comes from the browser we already confirmed is ROBot,
     // not from a file another account could write.
     const { targetInfo } = await session.send("Target.getTargetInfo");
     return targetInfo.targetId;
@@ -315,7 +315,7 @@ export interface OpenDevBrowserOptions {
   // The pid of the live registry record that owns the port, if any. An Electron
   // browser with an app window that has the preload bridge proves itself without
   // further checks; a page in another Chromium can define `window.openownbot`, but
-  // that browser does not report `Electron/`. The `OpenOwnBot/` token cannot prove
+  // that browser does not report `Electron/`. The `ROBot/` token cannot prove
   // it: the embedded browser removes both product tokens for site compatibility.
   // A browser without the Electron token must prove its process descends from
   // this pid, because liveness alone cannot tell a restarted instance from a
@@ -347,7 +347,7 @@ export async function openDevBrowser(
     if (ownerPid === null || !(await verifyBrowserOwnership(browser, ownerPid))) {
       await browser.close();
       throw new ForeignBrowserError(
-        `Port ${port} does not belong to OpenOwnBot. Pass --port=<OPENOWNBOT_DEV_REMOTE_DEBUGGING_PORT> of the instance you mean to drive.`,
+        `Port ${port} does not belong to ROBot. Pass --port=<OPENOWNBOT_DEV_REMOTE_DEBUGGING_PORT> of the instance you mean to drive.`,
       );
     }
     logger.info(`Port :${port} belongs to the recorded instance process.`);
@@ -383,7 +383,7 @@ export async function connectToDevApp(
       );
     }
     throw new Error(
-      `Connected over CDP but found no OpenOwnBot main window on :${port}` +
+      `Connected over CDP but found no ROBot main window on :${port}` +
         (expectedRendererPort === null ? ". " : ` serving renderer :${expectedRendererPort}. `) +
         (expectedRendererPort === null
           ? "Open the app window, or aim at another target with --page=<target-id|url-substring> " +

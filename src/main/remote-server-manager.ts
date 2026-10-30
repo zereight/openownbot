@@ -192,7 +192,7 @@ export class RemoteServerManager extends EventEmitter<RemoteServerEvents> {
   readonly #hostedServers: HostedServerWakeHooks | null;
   /** When each hosted server that starts after a wake request started. */
   readonly #hostedStartAt = new Map<string, number>();
-  /** When the account server first reported each starting server `running`: OpenOwnBot on it starts. */
+  /** When the account server first reported each starting server `running`: ROBot on it starts. */
   readonly #hostedRunningSince = new Map<string, number>();
   /** The status reads in a row that failed, for each starting server. */
   readonly #hostedFailedReads = new Map<string, number>();
@@ -834,7 +834,7 @@ export class RemoteServerManager extends EventEmitter<RemoteServerEvents> {
   }
 
   /**
-   * The client waits while the account server reports that the server starts. Only OpenOwnBot on a running
+   * The client waits while the account server reports that the server starts. Only ROBot on a running
    * machine has a time limit, `HOSTED_HOST_READY_LIMIT_MS`. Answers whether the visible step changed.
    */
   #applyHostedStartStep(serverId: string, step: HostedServerStartStep): boolean {
@@ -1423,7 +1423,7 @@ export class RemoteServerManager extends EventEmitter<RemoteServerEvents> {
     (operation) => this.#owned(operation),
   ).bind(this);
 
-  /** Sends an OpenOwnBot transfer file to the host with `instance-transfer-v1` and answers its preview. */
+  /** Sends a ROBot transfer file to the host with `instance-transfer-v1` and answers its preview. */
   readonly stageInstanceTransfer = Effect.fn("RemoteManager.stageInstanceTransfer")(
     function* (
       this: RemoteServerManager,

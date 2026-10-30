@@ -2,7 +2,7 @@ import type { ConnectTelegramChatInput } from "@robot/contracts/ipc";
 import type { Effect } from "effect";
 import type { MessagingOperationFailed } from "../messaging-service";
 
-/** The account service half of the OpenOwnBot Telegram bot. Signal holds the bot token. */
+/** The account service half of the ROBot Telegram bot. Signal holds the bot token. */
 export interface TelegramAppPort {
   /** A one-use code that links the next chat that adds the bot to this host. */
   createLink(): Effect.Effect<{ botUsername: string; code: string }, MessagingOperationFailed>;

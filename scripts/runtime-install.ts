@@ -25,7 +25,7 @@ export async function download(fetchImpl: typeof fetch, url: string, label: stri
     let failure: unknown;
     try {
       response = await fetchImpl(url, {
-        headers: { "User-Agent": "OpenOwnBot-runtime-installer" },
+        headers: { "User-Agent": "ROBot-runtime-installer" },
         redirect: "follow",
       });
       if (response.ok) return Buffer.from(await response.arrayBuffer());

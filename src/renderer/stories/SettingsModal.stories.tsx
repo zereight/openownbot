@@ -22,7 +22,7 @@ const storyGeneralSettings: GeneralSettingsValue = {
   keepAwakeOnBattery: false,
 };
 
-const storyAppInfo = { name: "OpenOwnBot", version: "0.2.1", platform: "darwin", variant: "dev" } as const;
+const storyAppInfo = { name: "ROBot", version: "0.2.1", platform: "darwin", variant: "dev" } as const;
 const storyAccount: CentralAuthUser = {
   id: "user-1",
   email: "person@example.com",

@@ -119,7 +119,7 @@ describe("IPC group registration", () => {
 });
 
 // Shutdown unregisters what registration bound: a renderer read that lands after the database
-// closed must reject in the renderer, not run against stopped services and log "OpenOwnBot database
+// closed must reject in the renderer, not run against stopped services and log "ROBot database
 // is not initialized" from the main process on every restart.
 describe("IPC group unregistration", () => {
   it("removes every registered channel", () => {

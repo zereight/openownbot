@@ -124,7 +124,7 @@ import type { MobileConversationStore } from "./conversation-store";
 import type { LiveWorkspaceStore } from "./live-workspace-store";
 
 type MobileServerKind = "local" | "remote";
-/** The route set that reaches a host's OpenOwnBot update: the admin set or the member set. */
+/** The route set that reaches a host's ROBot update: the admin set or the member set. */
 export type ServerUpdateAccess = "admin" | "member";
 
 export type MobileServerState = "unknown" | "connecting" | "online" | "offline" | "error";
@@ -383,7 +383,7 @@ export interface MobileWorkspaceContextValue {
     serverId: string,
   ) => Promise<AddMessagingOrchestratorResult>;
   /**
-   * How this user reaches the OpenOwnBot update of an online host: an owner or admin through
+   * How this user reaches the ROBot update of an online host: an owner or admin through
    * `host-update-v1`, any member through `host-member-update-v1`. Null when neither applies.
    */
   serverUpdateAccess: (serverId: string) => ServerUpdateAccess | null;

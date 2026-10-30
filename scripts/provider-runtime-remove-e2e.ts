@@ -27,7 +27,7 @@ const SIBLING: ManagedProviderId = "cline";
 const TURNED_OFF: ManagedProviderId = "grok";
 /** On at the start, then turned off; a sibling stamped it after this instance did. */
 const SHARED: ManagedProviderId = "antigravity";
-/** Off, and the user pointed OpenOwnBot at a CLI of their own. */
+/** Off, and the user pointed ROBot at a CLI of their own. */
 const CONFIGURED: ManagedProviderId = "claude";
 const CONFIGURED_ENV = `OPENOWNBOT_${CONFIGURED.toUpperCase()}_PATH`;
 /** Off, but DeepSeek, which is on, runs on its CLI. */

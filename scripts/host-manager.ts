@@ -20,7 +20,7 @@ import {
 
 async function main(): Promise<void> {
   if (process.argv[2] === "--help") {
-    process.stdout.write("OpenOwnBot Host Manager: run through launchd; administrator setup uses openownbot-host.\n");
+    process.stdout.write("ROBot Host Manager: run through launchd; administrator setup uses openownbot-host.\n");
     return;
   }
   if (process.argv[2] === "--runtime-check") {

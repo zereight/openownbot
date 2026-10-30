@@ -1,6 +1,6 @@
 // Checks `routine_report_failure` (#2804): an agent marks its routine run failed when the task could
 // not be done. Runs the real agent service, tool router, routine flows and routine result store on a
-// temporary profile with a fake Codex app-server. The fake calls the OpenOwnBot tools that a turn's input
+// temporary profile with a fake Codex app-server. The fake calls the ROBot tools that a turn's input
 // names in `<<CALLS[...]CALLS>>`, logs each result, and then answers. The check asserts that a called
 // run ends `failed` with the redacted reason while its delivery stays `completed` and its answer shows,
 // that a later queue change keeps it failed, that a run with no call succeeds, that a provider failure
@@ -65,7 +65,7 @@ const noUpdate: FakeCall = { tool: "routine_no_update", arguments: {} };
 
 /**
  * A Codex app-server with the methods that the service calls. A turn calls, one at a time, the
- * OpenOwnBot tools that its input (the task, for a routine prompt) names in `<<CALLS[...]CALLS>>`, logs each
+ * ROBot tools that its input (the task, for a routine prompt) names in `<<CALLS[...]CALLS>>`, logs each
  * result, then answers:
  * `FAILED_ANSWER` after a call, `Relay report <<CALLS...CALLS>>` for an input with `<<NEXT...NEXT>>`
  * (so the next agent of a flow gets the calls), and "All good." otherwise. An input with

@@ -461,7 +461,7 @@ async function main(): Promise<void> {
   const temporaryRoot = configuredRoot ?? (await mkdtemp(join(tmpdir(), "openownbot-browser-smoke-")));
   const userDataPath = join(temporaryRoot, "user-data");
   await mkdir(userDataPath, { recursive: true });
-  app.setName("OpenOwnBot");
+  app.setName("ROBot");
   app.setPath("userData", userDataPath);
   app.setPath("sessionData", userDataPath);
   // A backstop for a phase that hangs, not a performance budget -- and it has to stay clear of the
@@ -3294,7 +3294,7 @@ async function checkOnePersistencePage(
     const cookie = getString(snapshot, "cookie") ?? "";
     const localStorageValue = getString(snapshot, "localStorage");
     const indexedDbValue = getString(snapshot, "indexedDb");
-    // The npm macOS Electron binary does not have OpenOwnBot's production signature or cookie-encryption fuse.
+    // The npm macOS Electron binary does not have ROBot's production signature or cookie-encryption fuse.
     // Verify encrypted cookie persistence with the signed app; other platforms cover it in this process test.
     const requireCrossProcessCookie = phase !== "read" || process.platform !== "darwin";
     if (
@@ -3523,7 +3523,7 @@ async function checkBrowserIdentity(browser: BrowserHost, tabId: string): Promis
   if (
     !navigatorUserAgent?.includes(`Chrome/${chromiumMajorVersion}`) ||
     navigatorUserAgent.includes("Electron/") ||
-    navigatorUserAgent.includes("OpenOwnBot/") ||
+    navigatorUserAgent.includes("ROBot/") ||
     getString(identity.requestHeaders, "user-agent") !== navigatorUserAgent ||
     identity.navigatorWebdriver !== false ||
     getString(identity.requestHeaders, "sec-ch-ua-platform") !== `"${getString(identity, "navigatorPlatform")}"` ||
@@ -3531,7 +3531,7 @@ async function checkBrowserIdentity(browser: BrowserHost, tabId: string): Promis
     !navigatorBrands.some(
       (brand) => getString(brand, "brand") === "Chromium" && getString(brand, "version") === chromiumMajorVersion,
     ) ||
-    /Electron|OpenOwnBot/u.test(clientHintBrands) ||
+    /Electron|ROBot/u.test(clientHintBrands) ||
     !clientHintBrands.includes(`"Chromium";v="${chromiumMajorVersion}"`)
   ) {
     throw new Error(`Browser identity headers are invalid: ${headerSnapshot.text}`);

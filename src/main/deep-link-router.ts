@@ -7,7 +7,7 @@
  * of them asks this module and then acts on the answer.
  *
  * Three kinds never reach a renderer. `mcp-auth` carries an OAuth grant for an MCP server,
- * `slack-workspace` the sealed bot token of a Slack workspace that installed the OpenOwnBot app, and
+ * `slack-workspace` the sealed bot token of a Slack workspace that installed the ROBot app, and
  * `discord-guild` the sealed link of a Discord guild that installed it. Each is for the sign-in only, so `src/main/index.ts` hands it to the sign-in that is waiting for it and sends nothing on. They are classified here anyway, because the four entry
  * points must keep asking one question.
  *

@@ -49,7 +49,7 @@ const RELEASE_PATH_KEYS = {
 } as const satisfies Record<string, MobileTextKey>;
 
 /**
- * Server settings > Updates: the OpenOwnBot update of the server's host, as the Updates section of the
+ * Server settings > Updates: the ROBot update of the server's host, as the Updates section of the
  * desktop Server Settings shows it. Owners and admins also choose the restart, cancel it and change
  * the automatic updates. A member can only ask for an update that waits for idle agents.
  */

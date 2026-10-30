@@ -32,7 +32,7 @@ internal data class OpenedNotification(
 }
 
 /**
- * Opens a notification that an OpenOwnBot host sealed, with the keys of each server that the app writes
+ * Opens a notification that a ROBot host sealed, with the keys of each server that the app writes
  * into `push-notifications.json` in its files folder (`android-push-notifications.android.ts`).
  *
  * The seal is the one of `live-activity-seal.ts` in `@robot/team-client`: a keystream of

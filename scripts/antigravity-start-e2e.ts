@@ -1,6 +1,6 @@
 // Starts the Antigravity provider end to end on the real driver and `ProviderRuntime`, with a fake
 // server that, like the Windows PyInstaller build, unpacks itself into the temporary folder at each
-// start. Checks that each process gets its own temporary folder and that OpenOwnBot removes it, that
+// start. Checks that each process gets its own temporary folder and that ROBot removes it, that
 // failed starts stop after the limit, that an automatic refresh does not start the provider again
 // and a user refresh does, that low disk space stops a start before the process spawns, that a
 // launch removes what an earlier run left, and that a server that unpacks for longer than the
@@ -282,7 +282,7 @@ try {
   await installFakeAgy(join(root, "agy"));
   const cli: AgentCliInfo = { executable, version: "1.2.1", source: "managed" };
 
-  // 1. A process that is stopped while it unpacks: its folder is in OpenOwnBot's root and is removed.
+  // 1. A process that is stopped while it unpacks: its folder is in ROBot's root and is removed.
   process.env.FAKE_AGY_MODE = "hang";
   const stoppedRoot = join(root, "temp-stopped");
   const client: AgentClient = requireProviderDriver("antigravity").createClient(cli, 5_000, {
@@ -304,7 +304,7 @@ try {
     unpackedWhileRunning,
     leftAfterStop: await entries(tempRoot),
   };
-  assert.ok(envInRoot, "TMP, TEMP and TMPDIR point into OpenOwnBot's temporary root");
+  assert.ok(envInRoot, "TMP, TEMP and TMPDIR point into ROBot's temporary root");
   assert.ok(unpackedWhileRunning, "the fake server unpacked while it ran");
 
   // 2. Failed starts stop after the limit, whatever asks for the provider.

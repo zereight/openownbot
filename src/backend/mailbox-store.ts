@@ -142,7 +142,7 @@ export interface UsageLimitContinuation {
 }
 
 /**
- * The turns that OpenOwnBot added to a delivery because its plan still had open steps. `queued` is set
+ * The turns that ROBot added to a delivery because its plan still had open steps. `queued` is set
  * from the end of one turn to the start of the next; the queue then shows the delivery as running.
  */
 interface PlanContinuationMarker {
@@ -167,7 +167,7 @@ interface StoredDelivery {
   steerFallback?: QueueSteerFallback;
   /** The interrupted turn whose work continues after a usage-limit switch. Kept out of queue snapshots. */
   resumeAfterUsageLimit?: UsageLimitContinuation;
-  /** OpenOwnBot's automatic plan continuations of this delivery. Kept out of queue snapshots. */
+  /** ROBot's automatic plan continuations of this delivery. Kept out of queue snapshots. */
   planContinuation?: PlanContinuationMarker;
 }
 

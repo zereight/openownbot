@@ -87,7 +87,7 @@ const args = (connections: MessagingConnection[], busy = false) => ({
   onAddOrchestrator: fn(),
 });
 
-/** Who can use OpenOwnBot, with `allowed` saved for every Discord server. */
+/** Who can use ROBot, with `allowed` saved for every Discord server. */
 function access(allowed: MessagingRole[], unsupported = false): DiscordAccessControl {
   return {
     allowed: () => allowed,
@@ -139,13 +139,13 @@ export const AtLimit: Story = {
   ),
 };
 
-/** No role is chosen, so everyone in the Discord server can mention OpenOwnBot. */
+/** No role is chosen, so everyone in the Discord server can mention ROBot. */
 export const DiscordAccessEveryone: Story = { args: { ...args([guild()]), access: access([]) } };
 
-/** Only members with Admin or Moderator can mention OpenOwnBot. */
+/** Only members with Admin or Moderator can mention ROBot. */
 export const DiscordAccessRoles: Story = { args: { ...args([guild()]), access: access(ROLES.slice(0, 2)) } };
 
-/** The joined server's OpenOwnBot is too old to choose roles. */
+/** The joined server's ROBot is too old to choose roles. */
 export const DiscordAccessUnsupported: Story = {
   args: { ...args([guild()]), hostName: "Studio Mac", access: access([], true) },
 };

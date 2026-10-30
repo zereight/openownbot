@@ -62,7 +62,7 @@ export type { ProviderSession } from "./database/provider-sessions";
 export type { StoredThreadSummary } from "./database/thread-summaries";
 
 /**
- * The local OpenOwnBot event log and its read projections.
+ * The local ROBot event log and its read projections.
  *
  * A command appends events, changes projections, and stores its receipt in one
  * SQLite transaction. Providers never receive direct access to this database.

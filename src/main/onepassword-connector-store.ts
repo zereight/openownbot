@@ -9,7 +9,7 @@ import { OnePasswordOperationError, onePasswordCall, onePasswordDecode } from ".
 import type { SecretCipher } from "./provider-credential-store";
 
 const onePasswordConnectorRecordSchema = z.object({
-  /** The service account token. It reads only the vaults that the user shared with OpenOwnBot. */
+  /** The service account token. It reads only the vaults that the user shared with ROBot. */
   token: z.string().min(1),
   /** The account that the CLI created the service account in, or null for a pasted token. */
   accountId: z.string().min(1).nullable(),

@@ -25,7 +25,7 @@ const creator = {
   id: "seed-agents-openownbot",
   subject: "seed-agents-openownbot",
   email: "agents@openownbot.local",
-  name: "OpenOwnBot",
+  name: "ROBot",
 };
 
 const agents: SeedAgent[] = [

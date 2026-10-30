@@ -1,12 +1,12 @@
-// Checks that an agent keeps its provider session when OpenOwnBot's child processes stop under it.
+// Checks that an agent keeps its provider session when ROBot's child processes stop under it.
 // Runs the real agent service on a temporary profile with a fake Codex app-server (or a fake OpenCode
 // with `PROBE_PROVIDER=opencode`), and the real Computer Use runtime with a fake driver daemon.
 // 1. After one turn the fake provider gets SIGTERM, as it does when the operating system or a process
 //    supervisor stops the app's process group. The runtime starts it again, and the next turn must
 //    resume the same provider thread rather than start a new one, which would lose its own context.
-// 2. The same signal reaches the driver daemon while OpenOwnBot quits. Its exit must not deactivate the
+// 2. The same signal reaches the driver daemon while ROBot quits. Its exit must not deactivate the
 //    stored sessions, which the next run resumes.
-// 3. Control: a daemon that dies while OpenOwnBot keeps running still deactivates them, because the live
+// 3. Control: a daemon that dies while ROBot keeps running still deactivates them, because the live
 //    sessions then hold a tool set that is not the one they would be given now.
 // `bun run test:provider-exit-session`. Writes .openownbot-build/provider-exit-session-e2e/report.json.
 import { type ChildProcess, spawn } from "node:child_process";
@@ -334,7 +334,7 @@ try {
     turnThread: turn.threadId ?? null,
   };
 
-  // 3. OpenOwnBot quits, and the same signal stops the driver daemon before the teardown does.
+  // 3. ROBot quits, and the same signal stops the driver daemon before the teardown does.
   atQuit.quit.started = true;
   await killDaemon(atQuit);
   report.driverExitAtQuit = {
@@ -342,7 +342,7 @@ try {
     sessionState: sessionState(agent.id, firstThread),
   };
 
-  // 4. Control: a daemon that dies while OpenOwnBot runs still deactivates the session.
+  // 4. Control: a daemon that dies while ROBot runs still deactivates the session.
   await runCauseEffect(whileRunning.runtime.warmUp());
   await killDaemon(whileRunning);
   const deactivated = await waitFor("the session to be deactivated", () => {

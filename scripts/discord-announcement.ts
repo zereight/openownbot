@@ -78,7 +78,7 @@ export interface AllowedMentions {
 }
 
 /**
- * Posts `content` as OpenOwnBot through the webhook in the environment variable `webhookVariable`.
+ * Posts `content` as ROBot through the webhook in the environment variable `webhookVariable`.
  * Returns the problem when Discord did not post it. `docs` is where the reader finds the setup.
  */
 export async function postAnnouncement(
@@ -100,7 +100,7 @@ export async function postAnnouncement(
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify({
-        username: "OpenOwnBot",
+        username: "ROBot",
         avatar_url: "https://openbot.run/icon-512x512.png",
         content,
         allowed_mentions: allowedMentions,

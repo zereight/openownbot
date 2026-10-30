@@ -402,7 +402,7 @@ export function createMarketplaceController(props: MarketplaceControllerProps) {
    * window shows the skill as removed, and the host removes it when the toast closes, also after the
    * window closed. Undo takes back the waiting removes and removes what this change installed. An
    * agent that refuses is named in one partial error: at its skill limit, or with a skill that
-   * OpenOwnBot cannot remove.
+   * ROBot cannot remove.
    */
   async function changeSkill(skill: MarketplaceSkillRef, change: MarketplaceSkillChange) {
     const key = `skill:${skill.id}`;

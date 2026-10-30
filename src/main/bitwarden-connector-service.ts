@@ -67,7 +67,7 @@ export interface BitwardenHostOptions {
   store: BitwardenConnectorStore;
   /** The CLI data of the host connection, apart from the user's own `bw` configuration. */
   dataDirectory: string;
-  /** Installs OpenOwnBot's copy of `bw` when none is on the PATH, or null when there is no build for this computer. */
+  /** Installs ROBot's copy of `bw` when none is on the PATH, or null when there is no build for this computer. */
   installCli: ((signal: AbortSignal) => Effect.Effect<string, PasswordVaultError>) | null;
 }
 
@@ -444,7 +444,7 @@ export class BitwardenConnectorService implements PasswordVault {
     );
   }).bind(this);
 
-  /** Syncs and finds the one folder named "Shared with OpenOwnBot". */
+  /** Syncs and finds the one folder named "Shared with ROBot". */
   readonly #openFolder = Effect.fn("BitwardenConnector.openFolder")(function* (
     this: BitwardenConnectorService,
     session: Session,
@@ -455,7 +455,7 @@ export class BitwardenConnectorService implements PasswordVault {
       try: () => Schema.decodeUnknownSync(foldersSchema)(JSON.parse(output)),
       catch: failure,
     });
-    const shared = folders.filter((folder) => folder.name === "Shared with OpenOwnBot");
+    const shared = folders.filter((folder) => folder.name === "Shared with ROBot");
     if (shared.length !== 1 || !shared[0]?.id) return yield* failure();
     session.folderId = shared[0].id;
     this.#error = null;

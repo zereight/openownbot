@@ -1,5 +1,5 @@
 // Adapted from the reproduction in zereight/openownbot#1824.
-// A custom ACP agent whose interpreter is only on the user's login-shell PATH, with OpenOwnBot started
+// A custom ACP agent whose interpreter is only on the user's login-shell PATH, with ROBot started
 // the way Finder, the Dock or a login item starts it: PATH=/usr/bin:/bin:/usr/sbin:/sbin.
 // Most ACP adapters are `#!/usr/bin/env node` scripts and Node comes from Homebrew, nvm or mise, so
 // this is the normal macOS setup. Both ways the agent starts must work: Check agent, and the `acp`
@@ -70,9 +70,9 @@ try {
   delete process.env.ZDOTDIR;
   if (process.platform !== "darwin") process.env.SHELL = "/bin/bash";
 
-  // OpenOwnBot started from Finder, the Dock or a login item.
+  // ROBot started from Finder, the Dock or a login item.
   process.env.PATH = "/usr/bin:/bin:/usr/sbin:/sbin";
-  // Control run: the same agent with the tool folder on OpenOwnBot's own PATH, as when started from a terminal.
+  // Control run: the same agent with the tool folder on ROBot's own PATH, as when started from a terminal.
   if (process.env.LOGIN_PATH_CONTROL) process.env.PATH = `${tools}:${process.env.PATH}`;
 
   const found = await runCauseEffect(runInLoginShell(`command -v ${INTERPRETER}`));

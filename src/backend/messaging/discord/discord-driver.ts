@@ -98,7 +98,7 @@ class DiscordAdapter implements MessagingAdapter {
 
   /**
    * The guild that the account service linked to this host. Signal checks each call against the
-   * link, and tells this host when OpenOwnBot leaves the guild, so this asks Discord nothing.
+   * link, and tells this host when ROBot leaves the guild, so this asks Discord nothing.
    */
   identify(): Effect.Effect<ConnectionIdentity, MessagingAdapterError> {
     return Effect.succeed({
@@ -245,11 +245,11 @@ class DiscordAdapter implements MessagingAdapter {
   /**
    * The messages of the reply chain that `threadKey` starts, after `afterId` and before `beforeId`.
    * Discord has no thread of replies, so this reads the channel from the first message on and keeps
-   * the first message, the replies to it and the replies to OpenOwnBot's posts, which all reply to it.
+   * the first message, the replies to it and the replies to ROBot's posts, which all reply to it.
    * The first message of a conversation has no chain before it: its context is the channel's
    * messages of the last minutes before it, such as an image that a person posted without a mention.
    * Without the Message Content intent, Discord gives the text and files only of a message that
-   * mentions OpenOwnBot, so a message without either is left out.
+   * mentions ROBot, so a message without either is left out.
    */
   readonly history = Effect.fnUntraced(function* (
     this: DiscordAdapter,
@@ -271,7 +271,7 @@ class DiscordAdapter implements MessagingAdapter {
   });
 
   /**
-   * The newest messages of a reply chain or of the channel, OpenOwnBot's posts included, for the agent's
+   * The newest messages of a reply chain or of the channel, ROBot's posts included, for the agent's
    * history tool. Discord lists a channel only forward from an id, so the channel is read from a
    * time: the last hour first, and a longer time when that has too few messages. A message without
    * text or files is left out, as in `history`.
@@ -316,7 +316,7 @@ class DiscordAdapter implements MessagingAdapter {
   /**
    * The messages of the reply chain that `threadKey` starts, before `before`, oldest first. Discord
    * has no thread of replies, so this reads the channel from the first message on and keeps the first
-   * message, the replies to it, OpenOwnBot's posts that reply to it, and the replies to those posts.
+   * message, the replies to it, ROBot's posts that reply to it, and the replies to those posts.
    */
   readonly #chain = Effect.fnUntraced(function* (
     this: DiscordAdapter,
@@ -504,7 +504,7 @@ class DiscordAdapter implements MessagingAdapter {
   }
 }
 
-/** Each guild installed the OpenOwnBot app. Its events come through the ingress relay, and its calls go through Signal. */
+/** Each guild installed the ROBot app. Its events come through the ingress relay, and its calls go through Signal. */
 export function discordDriver(options: { ingress?: MessagingIngress } = {}): MessagingDriver {
   return {
     platform: "discord",
@@ -552,7 +552,7 @@ function compareSnowflakes(left: string, right: string): number {
   return difference < 0n ? -1 : difference > 0n ? 1 : 0;
 }
 
-/** The answer of a call that returns nothing OpenOwnBot reads. */
+/** The answer of a call that returns nothing ROBot reads. */
 function ignoreAnswer(): void {}
 
 function trustedCdnUrl(value: string): boolean {

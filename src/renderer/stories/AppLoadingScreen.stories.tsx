@@ -51,7 +51,7 @@ export const Scrub: StoryObj<{ at: number }> = {
 export const StartingServer: Story = {
   render: () => <ServerConnectionNotice name="My server" phase="waking" initial onRetry={() => {}} />,
 };
-/** The machine runs and OpenOwnBot on it starts. The time counts from the wake. */
+/** The machine runs and ROBot on it starts. The time counts from the wake. */
 export const StartingOpenOwnBot: Story = {
   render: () => (
     <ServerConnectionNotice

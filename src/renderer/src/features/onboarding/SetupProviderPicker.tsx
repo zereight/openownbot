@@ -104,7 +104,7 @@ export interface SetupProviderChoice {
 
 // The line that the plan providers share. It tells nothing about one row, so those rows show their
 // version there.
-const INCLUDED_DESCRIPTION = "Included with OpenOwnBot";
+const INCLUDED_DESCRIPTION = "Included with ROBot";
 
 // A custom agent is not a first provider: it is added from the detected list or in Settings.
 const SETUP_PROVIDERS: Array<{ id: AgentProviderId; name: string; description: string | null }> =
@@ -425,7 +425,7 @@ export function createSetupProviders(
         focusRefreshTimer = setTimeout(synchronize, 250);
         return;
       }
-      // A refresh cancels a sign-in that OpenOwnBot runs, such as Gemini's Google sign-in. The browser
+      // A refresh cancels a sign-in that ROBot runs, such as Gemini's Google sign-in. The browser
       // takes focus, so the user often comes back before the sign-in is complete. That sign-in
       // reports its own result.
       const signingIn = props.agentStatus.providers?.some(

@@ -157,7 +157,7 @@ type ExitReason = "main_window_closed" | "signal" | "session_end" | "quit";
 let exitRecorded = false;
 
 /**
- * Records once why OpenOwnBot quits, in the main log and in the trace, before the teardown closes the
+ * Records once why ROBot quits, in the main log and in the trace, before the teardown closes the
  * trace. The first reason wins: closing the window then also quits. A process that ends with no such
  * line and no crash dump stopped from outside, such as Task Manager.
  */
@@ -193,7 +193,7 @@ const developmentRemoteRole =
     ? process.env.OPENOWNBOT_DEV_REMOTE_ROLE
     : null;
 const developmentTestClientEnabled = !app.isPackaged && process.env.OPENOWNBOT_DEV_TEST_CLIENT_ENABLED === "1";
-// Before any child process starts: agents must not run as part of a Claude Code session that started OpenOwnBot.
+// Before any child process starts: agents must not run as part of a Claude Code session that started ROBot.
 removeClaudeCodeSessionEnvironment(process.env);
 // Before any child process starts: this removes the single-use claim from the environment they inherit.
 const hostedServer = takeHostedServerEnvironment(process.env, app.isPackaged, process.platform);
@@ -229,9 +229,9 @@ if (commandLineUserDataDirectory) {
 } else {
   app.setPath("userData", join(app.getPath("appData"), DATA_FOLDER_NAME));
 }
-app.setName("OpenOwnBot");
+app.setName("ROBot");
 app.enableSandbox();
-if (process.platform === "win32") app.setAppUserModelId("app.openownbot.desktop");
+if (process.platform === "win32") app.setAppUserModelId("app.robot.desktop");
 // In development this waits for the process holding the lock to quit while a restart replaces
 // it; a packaged second launch still exits at once. Either way a launch without the lock must not
 // write into the files of the instance that runs.
@@ -328,7 +328,7 @@ let systemSessionEndFlushStarted = false;
 let relaunchRequested = false;
 /**
  * Set by a quit signal, by `before-quit` and by a Windows `session-end`, and never cleared. Not
- * `isQuitting`: a Windows session end that another app cancels also sets that, and then OpenOwnBot
+ * `isQuitting`: a Windows session end that another app cancels also sets that, and then ROBot
  * keeps running.
  */
 let quitStarted = false;
@@ -474,19 +474,19 @@ function applyAppIconColor(color: AppLogoColor): void {
 }
 
 /**
- * Outside macOS, closing the main window ends OpenOwnBot, unless the user chose to keep it running in
+ * Outside macOS, closing the main window ends ROBot, unless the user chose to keep it running in
  * the background. The window is then hidden, not closed, so this event does not come.
  *
  * `window-all-closed` cannot carry that on its own any more. The Computer Use overlays are hidden
  * between actions and closed only after a minute of idle, and a hidden window is still a window,
- * so the event may never arrive: the user would close the last window they can see and leave OpenOwnBot
+ * so the event may never arrive: the user would close the last window they can see and leave ROBot
  * and the driver running with no way back to them.
  */
 function attachQuitOnMainWindowClose(window: BrowserWindow): void {
   if (process.platform === "darwin") return;
   window.on("closed", () => {
     recordExit("main_window_closed");
-    // `quit`, not a teardown of its own: `before-quit` below is what OpenOwnBot shuts down through,
+    // `quit`, not a teardown of its own: `before-quit` below is what ROBot shuts down through,
     // and it already ignores a second request while the first one runs.
     app.quit();
   });
@@ -499,9 +499,9 @@ function attachQuitOnMainWindowClose(window: BrowserWindow): void {
  * registered when the first window is built, long before any service exists, which is why every
  * read below goes through `services?.`.
  *
- * Another app can cancel a session end after the query, and OpenOwnBot then keeps running. Provider
+ * Another app can cancel a session end after the query, and ROBot then keeps running. Provider
  * runtimes stop only on `session-end`: a stopped manager does not start again, so stopping it on the
- * query left every later Download failing with "OpenOwnBot is closing." (#2518).
+ * query left every later Download failing with "ROBot is closing." (#2518).
  */
 function attachWindowsSessionEndHandlers(window: BrowserWindow): void {
   if (process.platform !== "win32") return;
@@ -836,7 +836,7 @@ function requestDesktopNotificationPermission(
       preference,
       showWelcome: () => {
         if (!Notification.isSupported()) return;
-        showRetainedNotification(new Notification({ title: "OpenOwnBot", body: translate("notification.welcome") }));
+        showRetainedNotification(new Notification({ title: "ROBot", body: translate("notification.welcome") }));
       },
     }),
   );
@@ -1083,7 +1083,7 @@ if (!hasSingleInstanceLock) {
       // A Windows development build does not register: the handler would be bare `electron.exe`.
       // A macOS development build does not register either: macOS ignores the path and arguments and
       // names the `com.github.Electron` bundle, so the link took `openownbot://` from an installed
-      // OpenOwnBot and opened some worktree's bare Electron.app. `bun run dev:slack` has a loopback return.
+      // ROBot and opened some worktree's bare Electron.app. `bun run dev:slack` has a loopback return.
       await Effect.runPromise(
         installLinuxDesktopEntry({ platform: process.platform, environment: process.env, iconPath: appIconPath }),
       );
@@ -1092,7 +1092,7 @@ if (!hasSingleInstanceLock) {
         ((process.platform === "darwin" || process.platform === "win32") && app.isPackaged)
       ) {
         if (!app.setAsDefaultProtocolClient("openownbot")) {
-          logger.warn("Unable to register the openownbot:// scheme. Invitation links will not open OpenOwnBot.");
+          logger.warn("Unable to register the openownbot:// scheme. Invitation links will not open ROBot.");
         }
       }
       configureContentSecurityPolicy();
@@ -1368,7 +1368,7 @@ if (!hasSingleInstanceLock) {
         })
       ) {
         void runCauseEffect(built.centralAuthInitialization.pipe(Effect.flatMap(() => host.start()))).catch((error) =>
-          logger.error("Unable to republish this OpenOwnBot:", toLogValue(error)),
+          logger.error("Unable to republish this ROBot:", toLogValue(error)),
         );
       }
       void runCauseEffect(built.agentInitialization.start()).catch((error) => {
@@ -1441,7 +1441,7 @@ if (!hasSingleInstanceLock) {
       }
       // The Windows error box ends the text at a NUL character, so control characters are replaced.
       const message = (error instanceof Error ? error.message : String(error)).replace(/[^\P{Cc}\n\t]/gu, "�");
-      logger.error("OpenOwnBot failed to start:", toLogValue(error));
+      logger.error("ROBot failed to start:", toLogValue(error));
       // A server has nobody at its virtual display to close the box, and the box blocks the quit.
       if (!serverMode && !hostedServer) {
         // The services, and with them the saved language, may not exist yet. Then the system language applies.
@@ -1496,7 +1496,7 @@ const SHUTDOWN_DEADLINE_MS = 30_000;
 
 function forceExitAfterShutdownDeadline(): void {
   setTimeout(() => {
-    logger.error(`OpenOwnBot did not quit within ${SHUTDOWN_DEADLINE_MS} ms and will exit now.`);
+    logger.error(`ROBot did not quit within ${SHUTDOWN_DEADLINE_MS} ms and will exit now.`);
     app.exit(0);
   }, SHUTDOWN_DEADLINE_MS);
 }

@@ -163,7 +163,7 @@ export interface ThreadLifecycleOptions {
   passwordVaultConnected?: () => boolean;
   /** What the Vault holds, read at each start and resume of a session. */
   vaultItems?: () => VaultContents;
-  /** OpenOwnBot runs on a server. The prompt then names the sign-in on the user's computer. */
+  /** ROBot runs on a server. The prompt then names the sign-in on the user's computer. */
   serverHost?: boolean;
   /** The other agents in an agent's sidebar section, read at each start and resume of a session. */
   sectionTeammates?: (agentId: string) => SectionTeammates | null;
@@ -752,7 +752,7 @@ export class ThreadLifecycle {
    * `codexMcpServers`. Every other provider gets nothing here.
    *
    * The user's own `~/.codex/config.toml` entries are turned off in the same record, so the MCP
-   * panel is the only door to an agent's tools. OpenOwnBot's entries are spread last: a name in both
+   * panel is the only door to an agent's tools. ROBot's entries are spread last: a name in both
    * places resolves to the one the panel shows.
    *
    * The agent environment goes in as one dotted key for each variable. Codex applies a dotted key
@@ -854,7 +854,7 @@ export class ThreadLifecycle {
    * secret values to a digest first, so the file this string is written to holds none of them.
    *
    * The names swept out of `~/.codex/config.toml` are folded in as well, and they are the reason
-   * this is not OpenOwnBot's set alone: a user who edits that file changes what the agent is given
+   * this is not ROBot's set alone: a user who edits that file changes what the agent is given
    * while the stored set is untouched, and a loaded session would keep the old tools with the
    * panel saying otherwise.
    *
@@ -1166,7 +1166,7 @@ export class ThreadLifecycle {
 
   /**
    * Closes one provider session that the provider refuses, and keeps the public thread. The next
-   * turn opens a new session, and `startProviderThread` gives it the OpenOwnBot transcript.
+   * turn opens a new session, and `startProviderThread` gives it the ROBot transcript.
    */
   readonly dropRefusedProviderSession = Effect.fn("ThreadLifecycle.dropRefusedProviderSession")(function* (
     this: ThreadLifecycle,

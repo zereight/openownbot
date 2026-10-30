@@ -1,5 +1,5 @@
 // Runs issue #2851 end to end on the real `codex app-server`: a server in the user's own
-// `config.toml` and an OpenOwnBot server with the same name. Codex merges the two entries, so a stdio
+// `config.toml` and a ROBot server with the same name. Codex merges the two entries, so a stdio
 // `command` and an http `url` under one key stop it from loading its configuration. The payload is
 // the one `readCodexMcpConfig`, `codexDisabledServers`, `codexMcpServers` and `codexThreadMcpServers`
 // build for a thread. A local server that speaks the Responses API stands in for the model and
@@ -220,7 +220,7 @@ async function run(executable: string, modelPort: number, test: Case): Promise<O
     await runCauseEffect(
       client.request(
         "initialize",
-        { clientInfo: { name: "openownbot_e2e", title: "OpenOwnBot E2E", version: "0.0.0" }, capabilities: {} },
+        { clientInfo: { name: "openownbot_e2e", title: "ROBot E2E", version: "0.0.0" }, capabilities: {} },
         decodeRecordResponse,
       ),
     );
@@ -303,7 +303,7 @@ const connector = row("github", { id: "openownbot-github", transport: "http", ur
 
 try {
   await step(
-    "before the fix: OpenOwnBot's http github over the user's stdio github stops Codex",
+    "before the fix: ROBot's http github over the user's stdio github stops Codex",
     { name: "legacy", user: userStdio, rows: [connector], legacy: true },
     (o) => {
       assert.equal(o.started, false, "Codex started the thread");
@@ -361,7 +361,7 @@ try {
     },
   );
   await step(
-    "a rename onto OpenOwnBot's browser tools: the row is left out, and the chat starts",
+    "a rename onto ROBot's browser tools: the row is left out, and the chat starts",
     {
       name: "reserved",
       user: `[mcp_servers.browser]${NL}url = "${httpUrl}"${NL}enabled = true${NL}`,

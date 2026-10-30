@@ -1,4 +1,4 @@
-// Stops a change that adds a call to a service that OpenOwnBot operates, before it is committed or
+// Stops a change that adds a call to a service that ROBot operates, before it is committed or
 // merged. The runtime guard refuses such a call anyway; this check keeps it from reaching the
 // guard unseen, and names each place that was reviewed.
 //
@@ -14,7 +14,7 @@
 // each line that is not a comment. A file is parsed only when it has a marker.
 //
 // Rules:
-//   mention       A unit that names an OpenOwnBot service needs an allowlist entry for that exact path.
+//   mention       A unit that names a ROBot service needs an allowlist entry for that exact path.
 //   bypass        A way out that skips the guarded fetch and WebSocket needs an entry.
 //   dynamic-dial  `new WebSocket(x)` with an `x` that is not a plain string needs an entry, unless the
 //                 file asks `refusesOpenOwnBotUrl(` first.
@@ -289,14 +289,14 @@ function matches(entry: AllowEntry, path: string, text: string): boolean {
 function gateProblem(gate: ConfigGate, files: readonly SourceFile[], line: number): Finding | null {
   const source = files.find((file) => file.path === gate.gateFile);
   if (source === undefined) {
-    return { path: gate.path, line, message: `names an OpenOwnBot service, and ${gate.gateFile} is not in the scan.` };
+    return { path: gate.path, line, message: `names a ROBot service, and ${gate.gateFile} is not in the scan.` };
   }
   return gate.holds(source.text)
     ? null
     : {
         path: gate.path,
         line,
-        message: `names an OpenOwnBot service, and ${gate.gateFile} no longer keeps it off: ${gate.requirement}.`,
+        message: `names a ROBot service, and ${gate.gateFile} no longer keeps it off: ${gate.requirement}.`,
       };
 }
 
@@ -322,7 +322,7 @@ export function checkFiles(
         findings.push({
           path: file.path,
           line: unit.line,
-          message: `${quote(unit.text)} names an OpenOwnBot service and is not on the allowlist.`,
+          message: `${quote(unit.text)} names a ROBot service and is not on the allowlist.`,
         });
       }
     }

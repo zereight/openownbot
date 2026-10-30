@@ -301,7 +301,7 @@ const browser: Browser = await chromium.launch(
   browserExecutable ? { executablePath: browserExecutable } : { channel: "chrome" },
 );
 const newPage = () => browser.newPage({ viewport: { width: 1280, height: 800 } });
-// A story that navigates away, such as a "Return to OpenOwnBot" page, can leave an evaluate that never
+// A story that navigates away, such as a "Return to ROBot" page, can leave an evaluate that never
 // settles, and a story can close its own window. The deadline and the closed-page check give the worker
 // a new page, so one story cannot stop the run.
 const STORY_DEADLINE_MS = 120_000;

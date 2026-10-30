@@ -69,7 +69,7 @@ type StepState = "done" | "active" | "pending" | "failed";
 /**
  * A server of the account in setup: the payment, then the setup until the server shows in the server
  * list of this phone. The phone does not take the payment: app store rules do not allow a purchase
- * outside the store, so the user pays in OpenOwnBot on the computer. The account server goes on with
+ * outside the store, so the user pays in ROBot on the computer. The account server goes on with
  * the setup when this sheet closes.
  */
 export function HostedServerSetupScreen() {
