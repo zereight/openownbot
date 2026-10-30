@@ -6,7 +6,6 @@ export const messages = defineMessages("error.team", {
   "error.team.ownerEmailRequired": "Sign in with the OpenOwnBot email that created this host.",
   "error.team.hostNotConfigured": "The team host is not configured.",
   "error.team.alreadyConfigured": "The team server is already configured.",
-  "error.team.identityCreateFailed": "The team identity could not be created.",
   "error.team.accountChangedDuringCreate": "The signed-in account changed while this server was being created.",
   "error.team.notConfigured": "This OpenOwnBot has not been configured.",
   "error.team.keyRotationMissing": "No server key change is waiting.",

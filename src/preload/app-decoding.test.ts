@@ -87,7 +87,7 @@ const valid: [string, (value: unknown) => unknown, unknown][] = [
       autoApproveOverrides: { "agent-1": false },
     } satisfies ApprovalAutomationPreference,
   ],
-  ["language preference", decodeAppLanguagePreference, { language: "fr" }],
+  ["language preference", decodeAppLanguagePreference, { language: "ko" }],
   ["appearance preference", decodeAppAppearancePreference, { appearance: "light", transparentWindow: true }],
   ["signed out", decodeCentralAuthState, { status: "signed_out" } satisfies CentralAuthState],
   ["code sent", decodeCentralAuthState, codeSent],

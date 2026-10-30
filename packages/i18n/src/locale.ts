@@ -1,21 +1,7 @@
 import type { AppLanguage } from "@openownbot/contracts/app-language";
 
 /** The languages a catalog exists for. `"system"` resolves to one of these; it is never one itself. */
-export const TRANSLATED_LOCALES = [
-  "en",
-  "de",
-  "es",
-  "fr",
-  "it",
-  "ja",
-  "ko",
-  "nl",
-  "pl",
-  "pt",
-  "ru",
-  "tr",
-  "zh",
-] as const;
+export const TRANSLATED_LOCALES = ["en", "ko"] as const;
 
 export type TranslatedLocale = (typeof TRANSLATED_LOCALES)[number];
 
@@ -26,7 +12,7 @@ function isTranslatedLocale(value: string): value is TranslatedLocale {
 /**
  * The locale to draw in, given the saved preference and the computer's own language.
  *
- * A system locale is matched on its language subtag, so `ja-JP` and `ja` both read Japanese, and
+ * A system locale is matched on its language subtag, so `ko-KR` and `ko` both read Korean, and
  * anything without a catalog falls back to English rather than to a half-translated screen.
  */
 export function resolveLocale(language: AppLanguage, systemLocale: string): TranslatedLocale {

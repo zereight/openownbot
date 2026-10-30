@@ -30,32 +30,21 @@ const WHEEL: readonly WheelEntry[] = APP_LANGUAGE_OPTIONS.flatMap((option) => {
   return id ? [{ id, option }] : [];
 });
 
-/** The usual country of each catalog. Portuguese is the Brazilian catalog, so it keeps Brazil. */
+/** The usual country of each catalog. */
 const FLAG_REGION: Record<TranslatedLocale, string> = {
   en: "US",
-  de: "DE",
-  es: "ES",
-  fr: "FR",
-  it: "IT",
-  ja: "JP",
   ko: "KR",
-  nl: "NL",
-  pl: "PL",
-  pt: "BR",
-  ru: "RU",
-  tr: "TR",
-  zh: "CN",
 };
 
 /**
  * A language is not a country, so the flag follows the computer where it can: English on an
- * `en-GB` computer shows the British flag, Spanish on `es-MX` the Mexican one.
+ * `en-GB` computer shows the British flag.
  */
 function flagFor(id: TranslatedLocale, systemLocale: string): string {
   let region = FLAG_REGION[id];
   try {
     const locale = new Intl.Locale(systemLocale);
-    if (id !== "pt" && locale.language === id && locale.region) region = locale.region;
+    if (locale.language === id && locale.region) region = locale.region;
   } catch {
     // An invalid system locale keeps the usual country.
   }
