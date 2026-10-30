@@ -240,6 +240,19 @@ interface BrowserConsoleMessageDetails {
 }
 
 const logger = createOpenOwnBotLogger("browser-host");
+
+/** The longest error text a log line keeps. The provider gets the whole text; the log needs only the cause. */
+const MAX_LOGGED_ERROR_CHARACTERS = 200;
+
+function describeToolFailure(error: unknown): string {
+  const name = error instanceof Error ? error.name : typeof error;
+  return `${name}: ${redactText(error instanceof Error ? error.message : String(error)).slice(0, MAX_LOGGED_ERROR_CHARACTERS)}`;
+}
+
+function logStopFailure(tabId: string): (failure: BrowserOperationError) => Effect.Effect<void> {
+  return (failure) =>
+    Effect.sync(() => logger.warn("Browser stop failed.", { tabId, error: describeToolFailure(failure.cause) }));
+}
 const BROWSER_WEB_PREFERENCES = {
   sandbox: true,
   contextIsolation: true,
@@ -899,10 +912,15 @@ export class BrowserHost {
     this: BrowserHost,
     tabId: string,
   ): Effect.fn.Return<void, BrowserOperationError> {
-    const tab = yield* this.#requireTab(tabId);
-    if (!tab.contents.isLoading()) return;
+    logger.info("Browser stop requested.", { tabId });
+    const tab = yield* this.#requireTab(tabId).pipe(Effect.tapError(logStopFailure(tabId)));
+    if (!tab.contents.isLoading()) {
+      logger.info("Browser stop finished: the tab was not loading.", { tabId });
+      return;
+    }
     tab.loadGeneration += 1;
-    yield* browserSync(() => tab.contents.stop());
+    yield* browserSync(() => tab.contents.stop()).pipe(Effect.tapError(logStopFailure(tabId)));
+    logger.info("Browser stop finished: the load ended.", { tabId });
   }).bind(this);
 
   readonly close = Effect.fn("BrowserHost.close")(function* (
@@ -1945,6 +1963,7 @@ export class BrowserHost {
           Effect.sync((): { result: DynamicToolResult } | { heldTabId: string } => {
             const error = operationFailure.cause;
             if (error instanceof BrowserUserControlHeld) return { heldTabId: error.tabId };
+            logger.warn("A browser tool call failed.", { tool: params.tool, error: describeToolFailure(error) });
             return {
               result: {
                 success: false,

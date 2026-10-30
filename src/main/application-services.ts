@@ -145,6 +145,7 @@ import { managedBitwardenCli } from "./bitwarden-cli-installer";
 import { BitwardenConnectorService } from "./bitwarden-connector-service";
 import { BitwardenConnectorStore } from "./bitwarden-connector-store";
 import { BrowserDockOverlay } from "./browser-dock-overlay";
+import { startBrowserLog } from "./browser-log";
 import { BrowserPictureInPicture } from "./browser-picture-in-picture";
 import { BrowserViewClient } from "./browser-view-client";
 import { BusyMessageModePreferenceStore } from "./busy-message-mode-preference-store";
@@ -861,6 +862,7 @@ export async function createApplicationServices({
     startProviderLog(join(app.getPath("userData"), "logs")),
   );
   teardown.push(TEARDOWN_ORDER.agentLog, "the agent log", startAgentLog(join(app.getPath("userData"), "logs")));
+  teardown.push(TEARDOWN_ORDER.agentLog, "the browser log", startBrowserLog(join(app.getPath("userData"), "logs")));
   teardown.push(TEARDOWN_ORDER.agentLog, "the channel log", startChannelLog(join(app.getPath("userData"), "logs")));
   teardown.push(TEARDOWN_ORDER.agentLog, "the workflow log", startWorkflowLog(join(app.getPath("userData"), "logs")));
   teardown.push(TEARDOWN_ORDER.accountLog, "the account log", startAccountLog(join(app.getPath("userData"), "logs")));

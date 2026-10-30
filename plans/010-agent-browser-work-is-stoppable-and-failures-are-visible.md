@@ -4,7 +4,9 @@
 > 2026-10-28 (Stop shows with the working line, a queue turn id is used, and a
 > toast says why when no turn is known). Goals 3, 4 and 6 are open. Goal 6 is done for a
 > routine run on 2026-10-30: the working line names the routine when it has no step text. The
-> workflow run kind and the current tool name are still open.
+> workflow run kind and the current tool name are still open. Goal 4 is done for the log on
+> 2026-10-30: `logs/browser/browser.log` records failed tool calls, stop requests, stop results and
+> browser warnings. The UI does not show the log path yet.
 
 ## Status
 
