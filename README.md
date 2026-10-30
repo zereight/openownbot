@@ -1,7 +1,21 @@
+<p align="center">
+  <img src="docs/assets/banner.svg" alt="OpenOwnBot: private by design. Your data never leaves your computer." width="100%">
+</p>
+
+<p align="center">
+  <a href="https://github.com/zereight/openownbot/actions/workflows/ci.yml"><img src="https://github.com/zereight/openownbot/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-PolyForm_Noncommercial_1.0.0-blue.svg" alt="License"></a>
+  <img src="https://img.shields.io/badge/telemetry-none-brightgreen.svg" alt="Telemetry: none">
+  <img src="https://img.shields.io/badge/data-stays_on_your_computer-brightgreen.svg" alt="Data stays on your computer">
+</p>
+
 # OpenOwnBot
 
-[![CI](https://github.com/zereight/openownbot/actions/workflows/ci.yml/badge.svg)](https://github.com/zereight/openownbot/actions/workflows/ci.yml)
-[![License](https://img.shields.io/badge/license-PolyForm_Noncommercial_1.0.0-blue.svg)](LICENSE)
+> [!IMPORTANT]
+> **Private by design.** Your chats, files, and agent workspaces stay on your computer. OpenOwnBot
+> sends no telemetry, makes no update checks, and sends no request to any OpenOwnBot server. The only
+> network traffic is to the AI model providers you connect, plus the external services (MCP) and
+> sites you choose to open. See [Network use](#network-use) for the exact limits.
 
 > [!NOTE]
 > This is OpenOwnBot, a noncommercial fork of [OpenOwnBot](https://github.com/zereight/openownbot) by
