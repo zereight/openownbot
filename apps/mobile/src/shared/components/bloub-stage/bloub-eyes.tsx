@@ -1,3 +1,9 @@
+import {
+  APP_LOGO_LOCK_BODY,
+  APP_LOGO_LOCK_KEYHOLE,
+  APP_LOGO_LOCK_SHACKLE,
+  APP_LOGO_LOCK_SHACKLE_WIDTH,
+} from "@openownbot/brand/app-logo-shape";
 import { useEffect } from "react";
 import { StyleSheet, View } from "react-native";
 import Animated, {
@@ -22,6 +28,13 @@ export const EYES_HEIGHT = 170;
 const EYE_WIDTH = 66;
 const EYE_HEIGHT = 160;
 const EYE_INSET = 18;
+// The padlock of the logo, drawn in its own units (x -8 to 8, y -10.2 to 11) at 5 points a unit,
+// in the middle of the eye box. The keyhole is cut out, so the block shows through it.
+const LOCK_VIEWBOX = "-8.2 -10.4 16.4 21.6";
+const LOCK_WIDTH = 82;
+const LOCK_HEIGHT = 108;
+const { cx: KEY_X, cy: KEY_Y, r: KEY_R } = APP_LOGO_LOCK_KEYHOLE;
+const LOCK_KEYHOLE = `M${KEY_X - KEY_R} ${KEY_Y}A${KEY_R} ${KEY_R} 0 1 0 ${KEY_X + KEY_R} ${KEY_Y}A${KEY_R} ${KEY_R} 0 1 0 ${KEY_X - KEY_R} ${KEY_Y}Z`;
 // The scanner frame: the eyes become its two sides, and four arms finish the corners.
 const FRAME_OUTSET_X = 15;
 const FRAME_OUTSET_Y = 40;
@@ -129,6 +142,8 @@ function Eye({
   // Happy closes the capsule, and a smiling arc takes its place.
   const closed = useSharedValue(0);
   const smile = useSharedValue(0);
+  // The eye is a padlock, except in the scanner frame, where it is a thin bar.
+  const bar = useSharedValue(0);
 
   useEffect(() => {
     const pose = poseFor(mood, side);
@@ -139,6 +154,7 @@ function Eye({
     scaleX.set(to(pose.scaleX));
     scaleY.set(to(pose.scaleY));
     const happy = mood === "happy";
+    bar.set(to(isFrame(mood) ? 1 : 0));
     closed.set(withTiming(happy ? 1 : 0, { duration: reduced ? 160 : happy ? 200 : 300, easing: SPLASH_EASE_OUT }));
     smile.set(
       reduced
@@ -147,7 +163,7 @@ function Eye({
           ? withDelay(80, withTiming(1, { duration: 360, easing: SPLASH_EASE_OUT }))
           : withTiming(0, { duration: 200, easing: SPLASH_EASE_OUT }),
     );
-  }, [closed, mood, reduced, rotate, scaleX, scaleY, side, smile, x, y]);
+  }, [bar, closed, mood, reduced, rotate, scaleX, scaleY, side, smile, x, y]);
 
   const eyeStyle = useAnimatedStyle(() => ({
     transform: [
@@ -160,7 +176,11 @@ function Eye({
   }));
   const capsuleStyle = useAnimatedStyle(() => ({
     backgroundColor: interpolateColor(tint.get(), [0, 1], [eyeColor, FRAME_COLOR]),
-    opacity: 1 - closed.get(),
+    opacity: bar.get() * (1 - closed.get()),
+    transform: [{ scaleY: blink.get() * (1 - 0.8 * closed.get()) }],
+  }));
+  const lockStyle = useAnimatedStyle(() => ({
+    opacity: (1 - bar.get()) * (1 - closed.get()),
     transform: [{ scaleY: blink.get() * (1 - 0.8 * closed.get()) }],
   }));
   const smileStyle = useAnimatedStyle(() => ({
@@ -171,6 +191,18 @@ function Eye({
   return (
     <Animated.View style={[styles.eye, side < 0 ? { left: EYE_INSET } : { right: EYE_INSET }, eyeStyle]}>
       <Animated.View style={[styles.capsule, capsuleStyle]} />
+      <Animated.View style={[styles.lock, lockStyle]}>
+        <Svg width="100%" height="100%" viewBox={LOCK_VIEWBOX}>
+          <Path
+            d={APP_LOGO_LOCK_SHACKLE}
+            fill="none"
+            stroke={eyeColor}
+            strokeLinecap="round"
+            strokeWidth={APP_LOGO_LOCK_SHACKLE_WIDTH}
+          />
+          <Path d={`${APP_LOGO_LOCK_BODY}${LOCK_KEYHOLE}`} fill={eyeColor} fillRule="evenodd" />
+        </Svg>
+      </Animated.View>
       <Animated.View style={[styles.smile, smileStyle]}>
         <Svg width="100%" height="100%" viewBox="0 0 78 44">
           <Path d="M10 36 Q39 -4 68 36" fill="none" stroke={eyeColor} strokeWidth={18} strokeLinecap="round" />
@@ -306,6 +338,13 @@ export function BloubEyes({
 const styles = StyleSheet.create({
   eye: { position: "absolute", top: 0, width: EYE_WIDTH, height: EYE_HEIGHT },
   capsule: { position: "absolute", top: 0, right: 0, bottom: 0, left: 0, borderRadius: EYE_WIDTH / 2 },
+  lock: {
+    position: "absolute",
+    left: (EYE_WIDTH - LOCK_WIDTH) / 2,
+    top: (EYE_HEIGHT - LOCK_HEIGHT) / 2,
+    width: LOCK_WIDTH,
+    height: LOCK_HEIGHT,
+  },
   smile: { position: "absolute", left: -6, top: 56, width: 78, height: 44 },
   frame: {
     position: "absolute",
