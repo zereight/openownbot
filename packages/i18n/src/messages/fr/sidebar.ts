@@ -6,9 +6,9 @@ export const messages = {
   "sidebar.nav.label": "Liste des discussions",
   "sidebar.nav.freeArea": "Zone libre de la barre latérale",
   "sidebar.nav.actions": "Actions de la barre latérale",
-  "sidebar.deletedChannels.title": "Canaux supprimés",
-  "sidebar.deletedChannels.empty": "Aucun canal supprimé.",
-  "sidebar.deletedChannels.hide": "Masquer les canaux supprimés",
+  "sidebar.deletedChannels.title": "Canaux archivés",
+  "sidebar.deletedChannels.empty": "Aucun canal archivé.",
+  "sidebar.deletedChannels.hide": "Masquer les canaux archivés",
   "sidebar.new.agent": "Nouvel agent",
   "sidebar.new.channel": "Nouveau canal",
   "sidebar.new.section": "Nouvelle section",
@@ -68,7 +68,7 @@ export const messages = {
   "sidebar.agentMenu.inWindow": "Ouvert dans sa propre fenêtre",
   "sidebar.channelMenu.label": "Actions du canal",
   "sidebar.channelMenu.edit": "Modifier le canal",
-  "sidebar.channelMenu.delete": "Supprimer le canal",
+  "sidebar.channelMenu.delete": "Archiver le canal",
   "sidebar.channelMenu.restore": "Restaurer le canal",
   "sidebar.channel.noMessages": "Aucun message pour l’instant",
   "sidebar.channel.workingPreview": "En cours · {preview}",
@@ -110,7 +110,7 @@ export const messages = {
   "sidebar.delete.agentDescription":
     "Cette action retire l’agent et sa conversation OpenOwnBot de l’application. Sa file d’attente, ses souvenirs, ses routines et son espace de travail sont supprimés. L’historique conservé séparément par le fournisseur CLI connecté n’est pas supprimé.",
   "sidebar.delete.channelDescription":
-    "Cette action arrête le canal. Son historique reste dans « Canaux supprimés », en aperçu uniquement. Vous pouvez le restaurer depuis cette liste. Les agents membres sont conservés.",
+    "Cette action arrête le canal. Son historique reste dans « Canaux archivés », en aperçu uniquement. Vous pouvez le restaurer depuis cette liste. Les agents membres sont conservés.",
   "sidebar.delete.sectionDescription":
     "Les agents de cette section seront déplacés vers « Non attribué ». Aucun agent ne sera supprimé.",
   "sidebar.delete.failed": "Impossible de supprimer cet élément. Réessayez.",

@@ -6,9 +6,9 @@ export const messages = {
   "sidebar.nav.label": "Список чатов",
   "sidebar.nav.freeArea": "Свободная область боковой панели",
   "sidebar.nav.actions": "Действия боковой панели",
-  "sidebar.deletedChannels.title": "Удалённые каналы",
-  "sidebar.deletedChannels.empty": "Удалённых каналов нет.",
-  "sidebar.deletedChannels.hide": "Скрыть удалённые каналы",
+  "sidebar.deletedChannels.title": "Архивные каналы",
+  "sidebar.deletedChannels.empty": "Архивных каналов нет.",
+  "sidebar.deletedChannels.hide": "Скрыть архивные каналы",
   "sidebar.new.agent": "Новый агент",
   "sidebar.new.channel": "Новый канал",
   "sidebar.new.section": "Новый раздел",
@@ -68,7 +68,7 @@ export const messages = {
   "sidebar.agentMenu.inWindow": "Открыт в отдельном окне",
   "sidebar.channelMenu.label": "Действия с каналом",
   "sidebar.channelMenu.edit": "Изменить канал",
-  "sidebar.channelMenu.delete": "Удалить канал",
+  "sidebar.channelMenu.delete": "Архивировать канал",
   "sidebar.channelMenu.restore": "Восстановить канал",
   "sidebar.channel.noMessages": "Сообщений пока нет",
   "sidebar.channel.workingPreview": "Работает · {preview}",
@@ -147,7 +147,7 @@ export const messages = {
   "sidebar.delete.agentDescription":
     "Агент и его диалог в OpenOwnBot будут удалены из приложения вместе с очередью, памятью, регулярными задачами и рабочим пространством. История, которую отдельно хранит подключённый CLI-провайдер, не удаляется.",
   "sidebar.delete.channelDescription":
-    "Канал будет остановлен. Его история останется в разделе «Удалённые каналы» только для просмотра. Оттуда канал можно восстановить. Агенты-участники сохранятся.",
+    "Канал будет остановлен. Его история останется в разделе «Архивные каналы» только для просмотра. Оттуда канал можно восстановить. Агенты-участники сохранятся.",
   "sidebar.delete.sectionDescription":
     "Агенты из этого раздела переместятся в «Без раздела». Ни один агент не будет удалён.",
   "sidebar.delete.failed": "Не удалось удалить. Повторите попытку.",

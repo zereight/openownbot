@@ -9,7 +9,7 @@ export const messages = {
   "channel.stoppedTask.reassignLabel": "重新分配 {name} 被停止的任务",
   "channel.stoppedTask.reassign": "重新分配",
   "channel.conversation.noMembers": "请在频道设置中添加助手以开始工作。",
-  "channel.conversation.archivedNotice": "已删除的频道，仅供预览。",
+  "channel.conversation.archivedNotice": "已归档的频道，仅供预览。",
   "channel.composer.label": "发消息到频道",
   "channel.composer.placeholder": "发消息给 {name}",
   "channel.panel.label": "频道面板",
@@ -47,5 +47,5 @@ export const messages = {
   "channel.error.action": "频道操作失败。",
   "channel.error.update": "无法更新该频道。",
   "channel.error.loadOlder": "无法加载更早的消息。",
-  "channel.error.delete": "无法删除该频道。",
+  "channel.error.delete": "无法归档该频道。",
 } as const satisfies PartialTranslation<typeof source>;

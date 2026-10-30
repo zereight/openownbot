@@ -9,7 +9,7 @@ export const messages = {
   "channel.stoppedTask.reassignLabel": "Gestopte taak van {name} opnieuw toewijzen",
   "channel.stoppedTask.reassign": "Opnieuw toewijzen",
   "channel.conversation.noMembers": "Voeg agents toe in de kanaalinstellingen om te beginnen.",
-  "channel.conversation.archivedNotice": "Verwijderd kanaal. Alleen voorvertoning.",
+  "channel.conversation.archivedNotice": "Gearchiveerd kanaal. Alleen voorvertoning.",
   "channel.composer.label": "Bericht aan kanaal",
   "channel.composer.placeholder": "Bericht aan {name}",
   "channel.panel.label": "Kanaalpaneel",
@@ -47,5 +47,5 @@ export const messages = {
   "channel.error.action": "De kanaalactie is mislukt.",
   "channel.error.update": "Kan het kanaal niet bijwerken.",
   "channel.error.loadOlder": "Kan eerdere berichten niet laden.",
-  "channel.error.delete": "Kan dit kanaal niet verwijderen.",
+  "channel.error.delete": "Kan dit kanaal niet archiveren.",
 } as const satisfies PartialTranslation<typeof source>;

@@ -9,7 +9,7 @@ export const messages = {
   "channel.stoppedTask.reassignLabel": "Gestoppte Aufgabe von {name} neu zuweisen",
   "channel.stoppedTask.reassign": "Neu zuweisen",
   "channel.conversation.noMembers": "Füge in den Kanaleinstellungen Agenten hinzu, um mit der Arbeit zu beginnen.",
-  "channel.conversation.archivedNotice": "Gelöschter Kanal. Nur Vorschau.",
+  "channel.conversation.archivedNotice": "Archivierter Kanal. Nur Vorschau.",
   "channel.composer.label": "Nachricht an den Kanal",
   "channel.composer.placeholder": "Nachricht an {name}",
   "channel.panel.label": "Kanalbereich",
@@ -53,5 +53,5 @@ export const messages = {
   "channel.error.action": "Die Kanalaktion ist fehlgeschlagen.",
   "channel.error.update": "Der Kanal konnte nicht aktualisiert werden.",
   "channel.error.loadOlder": "Frühere Nachrichten konnten nicht geladen werden.",
-  "channel.error.delete": "Dieser Kanal konnte nicht gelöscht werden.",
+  "channel.error.delete": "Dieser Kanal konnte nicht archiviert werden.",
 } as const satisfies PartialTranslation<typeof source>;

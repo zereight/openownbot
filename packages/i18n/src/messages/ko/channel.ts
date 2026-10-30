@@ -14,7 +14,7 @@ export const messages = {
   "channel.stoppedTask.cancelDescription": "다른 작업을 포함해 요청 전체가 끝나요. 이어서 진행할 수 없어요.",
   "channel.stoppedTask.cancelConfirm": "요청 취소",
   "channel.conversation.noMembers": "채널 설정에서 에이전트를 추가하면 작업을 시작할 수 있어요.",
-  "channel.conversation.archivedNotice": "삭제된 채널이에요. 미리보기만 가능해요.",
+  "channel.conversation.archivedNotice": "아카이브한 채널이에요. 미리보기만 가능해요.",
   "channel.composer.label": "채널에 메시지 보내기",
   "channel.composer.placeholder": "{name}에 메시지 보내기",
   "channel.panel.label": "채널 패널",
@@ -52,5 +52,5 @@ export const messages = {
   "channel.error.action": "채널 작업에 실패했어요.",
   "channel.error.update": "채널을 업데이트할 수 없어요.",
   "channel.error.loadOlder": "이전 메시지를 불러올 수 없어요.",
-  "channel.error.delete": "이 채널을 삭제할 수 없어요.",
+  "channel.error.delete": "이 채널을 아카이브할 수 없어요.",
 } as const satisfies PartialTranslation<typeof source>;

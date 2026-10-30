@@ -1,6 +1,7 @@
 import type { AppInfo } from "@openownbot/contracts/ipc";
 import type { AppTextKey } from "@openownbot/i18n";
 import {
+  Archive,
   Bell,
   Bot,
   CircleArrowDown,
@@ -17,6 +18,7 @@ import {
 export type SettingsTab =
   | "general"
   | "agents"
+  | "archive"
   | "notifications"
   | "voice"
   | "dynamic-island"
@@ -81,6 +83,13 @@ export const navItems: ReadonlyArray<SettingsNavItem> = [
       { titleKey: "agentSettings.quickAcknowledgement.title" },
       { titleKey: "settings.busyMessage.title", descriptionKey: "settings.busyMessage.description" },
     ],
+  },
+  {
+    value: "archive",
+    titleKey: "settings.tab.archive.title",
+    descriptionKey: "settings.tab.archive.description",
+    icon: Archive,
+    rows: [{ titleKey: "settings.archive.agents.title" }, { titleKey: "settings.archive.channels.title" }],
   },
   {
     value: "profile",

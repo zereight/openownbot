@@ -6,9 +6,9 @@ export const messages = {
   "sidebar.nav.label": "Chatliste",
   "sidebar.nav.freeArea": "Freier Bereich der Seitenleiste",
   "sidebar.nav.actions": "Aktionen der Seitenleiste",
-  "sidebar.deletedChannels.title": "Gelöschte Kanäle",
-  "sidebar.deletedChannels.empty": "Keine gelöschten Kanäle.",
-  "sidebar.deletedChannels.hide": "Gelöschte Kanäle ausblenden",
+  "sidebar.deletedChannels.title": "Archivierte Kanäle",
+  "sidebar.deletedChannels.empty": "Keine archivierten Kanäle.",
+  "sidebar.deletedChannels.hide": "Archivierte Kanäle ausblenden",
   "sidebar.new.agent": "Neuer Agent",
   "sidebar.new.channel": "Neuer Kanal",
   "sidebar.new.section": "Neuer Abschnitt",
@@ -68,7 +68,7 @@ export const messages = {
   "sidebar.agentMenu.inWindow": "In eigenem Fenster offen",
   "sidebar.channelMenu.label": "Kanalaktionen",
   "sidebar.channelMenu.edit": "Kanal bearbeiten",
-  "sidebar.channelMenu.delete": "Kanal löschen",
+  "sidebar.channelMenu.delete": "Kanal archivieren",
   "sidebar.channelMenu.restore": "Kanal wiederherstellen",
   "sidebar.channel.noMessages": "Noch keine Nachrichten",
   "sidebar.channel.workingPreview": "Arbeitet · {preview}",
@@ -128,7 +128,7 @@ export const messages = {
   "sidebar.delete.agentDescription":
     "Dies entfernt den Agenten und seine OpenOwnBot-Unterhaltung aus der App. Seine Warteschlange, Erinnerungen, Routinen und sein Arbeitsbereich werden gelöscht. Der separat vom verbundenen CLI-Anbieter gespeicherte Verlauf wird nicht gelöscht.",
   "sidebar.delete.channelDescription":
-    "Dies stoppt den Kanal. Sein Verlauf bleibt unter „Gelöschte Kanäle“ nur zur Ansicht erhalten. Dort kannst du ihn wiederherstellen. Die zugehörigen Agenten bleiben erhalten.",
+    "Dies stoppt den Kanal. Sein Verlauf bleibt unter „Archivierte Kanäle“ nur zur Ansicht erhalten. Dort kannst du ihn wiederherstellen. Die zugehörigen Agenten bleiben erhalten.",
   "sidebar.delete.sectionDescription":
     "Agenten in diesem Abschnitt werden nach „Nicht zugeordnet“ verschoben. Es werden keine Agenten gelöscht.",
   "sidebar.delete.failed": "Dieses Element konnte nicht gelöscht werden. Versuche es erneut.",

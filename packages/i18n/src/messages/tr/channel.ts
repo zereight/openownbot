@@ -9,7 +9,7 @@ export const messages = {
   "channel.stoppedTask.reassignLabel": "{name} ajanının durdurulan görevini yeniden ata",
   "channel.stoppedTask.reassign": "Yeniden ata",
   "channel.conversation.noMembers": "Çalışmayı başlatmak için kanal ayarlarından ajan ekleyin.",
-  "channel.conversation.archivedNotice": "Silinmiş kanal. Yalnızca önizleme.",
+  "channel.conversation.archivedNotice": "Arşivlenmiş kanal. Yalnızca önizleme.",
   "channel.composer.label": "Kanala mesaj",
   "channel.composer.placeholder": "{name} kanalına mesaj gönder",
   "channel.panel.label": "Kanal paneli",
@@ -47,5 +47,5 @@ export const messages = {
   "channel.error.action": "Kanal eylemi başarısız oldu.",
   "channel.error.update": "Kanal güncellenemedi.",
   "channel.error.loadOlder": "Önceki mesajlar yüklenemedi.",
-  "channel.error.delete": "Bu kanal silinemedi.",
+  "channel.error.delete": "Bu kanal arşivlenemedi.",
 } as const satisfies PartialTranslation<typeof source>;

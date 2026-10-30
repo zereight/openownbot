@@ -13,7 +13,7 @@ export const messages = defineMessages("channel", {
   "channel.stoppedTask.cancelDescription": "The whole request ends, including its other tasks. It cannot be continued.",
   "channel.stoppedTask.cancelConfirm": "Cancel request",
   "channel.conversation.noMembers": "Add agents in channel settings to start work.",
-  "channel.conversation.archivedNotice": "Deleted channel. Preview only.",
+  "channel.conversation.archivedNotice": "Archived channel. Preview only.",
   "channel.composer.label": "Message to channel",
   "channel.composer.placeholder": "Message {name}",
   "channel.panel.label": "Channel panel",
@@ -51,5 +51,5 @@ export const messages = defineMessages("channel", {
   "channel.error.action": "The channel action failed.",
   "channel.error.update": "The channel could not be updated.",
   "channel.error.loadOlder": "Could not load earlier messages.",
-  "channel.error.delete": "Could not delete this channel.",
+  "channel.error.delete": "Could not archive this channel.",
 });

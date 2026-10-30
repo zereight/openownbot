@@ -6,9 +6,9 @@ export const messages = {
   "sidebar.nav.label": "Chatlijst",
   "sidebar.nav.freeArea": "Vrij gebied van zijbalk",
   "sidebar.nav.actions": "Zijbalkacties",
-  "sidebar.deletedChannels.title": "Verwijderde kanalen",
-  "sidebar.deletedChannels.empty": "Geen verwijderde kanalen.",
-  "sidebar.deletedChannels.hide": "Verwijderde kanalen verbergen",
+  "sidebar.deletedChannels.title": "Gearchiveerde kanalen",
+  "sidebar.deletedChannels.empty": "Geen gearchiveerde kanalen.",
+  "sidebar.deletedChannels.hide": "Gearchiveerde kanalen verbergen",
   "sidebar.new.agent": "Nieuwe agent",
   "sidebar.new.channel": "Nieuw kanaal",
   "sidebar.new.section": "Nieuwe sectie",
@@ -68,7 +68,7 @@ export const messages = {
   "sidebar.agentMenu.inWindow": "Openen in eigen venster",
   "sidebar.channelMenu.label": "Kanaalacties",
   "sidebar.channelMenu.edit": "Kanaal bewerken",
-  "sidebar.channelMenu.delete": "Kanaal verwijderen",
+  "sidebar.channelMenu.delete": "Kanaal archiveren",
   "sidebar.channelMenu.restore": "Kanaal herstellen",
   "sidebar.channel.noMessages": "Nog geen berichten",
   "sidebar.channel.workingPreview": "Bezig · {preview}",
@@ -110,7 +110,7 @@ export const messages = {
   "sidebar.delete.agentDescription":
     "Hiermee verwijder je de agent en zijn OpenOwnBot-gesprek uit de app. De wachtrij, herinneringen, routines en werkruimte worden verwijderd. Geschiedenis die de verbonden CLI-aanbieder apart bewaart, wordt niet verwijderd.",
   "sidebar.delete.channelDescription":
-    "Hiermee stop je het kanaal. De geschiedenis blijft alleen ter inzage in Verwijderde kanalen. Je kunt het daar herstellen. Agents die lid zijn blijven bestaan.",
+    "Hiermee stop je het kanaal. De geschiedenis blijft alleen ter inzage in Gearchiveerde kanalen. Je kunt het daar herstellen. Agents die lid zijn blijven bestaan.",
   "sidebar.delete.sectionDescription":
     "Agents in deze sectie gaan naar Niet toegewezen. Er worden geen agents verwijderd.",
   "sidebar.delete.failed": "Kan dit item niet verwijderen. Probeer het opnieuw.",

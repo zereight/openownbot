@@ -9,7 +9,7 @@ export const messages = {
   "channel.stoppedTask.reassignLabel": "{name} の停止したタスクを再割り当てします",
   "channel.stoppedTask.reassign": "再割り当て",
   "channel.conversation.noMembers": "作業を始めるには、チャンネル設定でエージェントを追加してください。",
-  "channel.conversation.archivedNotice": "削除済みのチャンネルです。プレビューのみです。",
+  "channel.conversation.archivedNotice": "アーカイブ済みのチャンネルです。プレビューのみです。",
   "channel.composer.label": "チャンネルへのメッセージ",
   "channel.composer.placeholder": "{name} へのメッセージ",
   "channel.panel.label": "チャンネルパネル",
@@ -47,5 +47,5 @@ export const messages = {
   "channel.error.action": "チャンネルの操作に失敗しました。",
   "channel.error.update": "チャンネルを更新できませんでした。",
   "channel.error.loadOlder": "以前のメッセージを読み込めませんでした。",
-  "channel.error.delete": "このチャンネルを削除できませんでした。",
+  "channel.error.delete": "このチャンネルをアーカイブできませんでした。",
 } as const satisfies PartialTranslation<typeof source>;
