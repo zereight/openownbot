@@ -1509,7 +1509,7 @@ const scenarios: Record<Scenario, (account: Account) => Promise<void>> = {
       // app signs in before it starts the host, so 60 seconds of a clean log is a complete start.
       const restart = await boat("POST", `/sandboxes/${sandboxId}/commands`, {
         command: [
-          'test -s "$HOME/.config/ROBot/openbot-central-auth-v1.bin" || { echo "no stored session"; exit 1; }',
+          'test -s "$HOME/.config/ROBot/central-auth.bin" || { echo "no stored session"; exit 1; }',
           "sudo -n systemctl restart openownbot.service",
           "id=$(systemctl show -p InvocationID --value openownbot.service)",
           "for _ in $(seq 1 30); do",

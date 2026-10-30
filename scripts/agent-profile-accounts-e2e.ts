@@ -245,7 +245,7 @@ function pass(name: string, condition: boolean, detail?: string) {
 }
 
 await writeFile(fakeCodex, FAKE_CODEX, { mode: 0o755 });
-const accounts = new ProviderAccountStore(join(userData, "openbot-provider-accounts-v1.json"), accountsRoot);
+const accounts = new ProviderAccountStore(join(userData, "provider-accounts.json"), accountsRoot);
 await runCauseEffect(accounts.load());
 const second = await runCauseEffect(accounts.create("codex"));
 assert.ok(second, "The second Codex account was not created.");

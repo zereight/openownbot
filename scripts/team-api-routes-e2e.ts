@@ -486,7 +486,7 @@ const BW_SESSION_KEY = ["bw", "e2e", "session"].join("-");
 const BW_LOGIN_PASSWORD = ["bw", "e2e", "login", "password"].join("-");
 const BW_SECRETS = [BW_CLIENT_SECRET, BW_MASTER_PASSWORD, BW_SESSION_KEY, BW_LOGIN_PASSWORD];
 const bitwardenData = join(root, "bitwarden-host");
-const bitwardenFile = join(root, "openbot-bitwarden-connector-v1.json");
+const bitwardenFile = join(root, "bitwarden-connector.json");
 const bitwardenCalls: { args: string[]; env: Record<string, string> }[] = [];
 /** While set, `unlock` reports that it started and waits for `released`. */
 let bitwardenUnlockGate: { started: () => void; released: Promise<void> } | null = null;
@@ -559,7 +559,7 @@ const createBitwardenHost = () =>
   });
 const bitwardenConnector = createBitwardenHost();
 // The host's Vault: the real service and store, over the same reversible cipher.
-const vaultFile = join(root, "openbot-vault-v1.json");
+const vaultFile = join(root, "vault.json");
 const vault = new VaultService({ store: new VaultStore(vaultFile, fakeCipher), canPersist: () => true });
 await Effect.runPromise(vault.load());
 const VAULT_PASSWORD = "e2e-vault-password-7f3c";

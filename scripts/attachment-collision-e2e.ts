@@ -104,8 +104,8 @@ async function run() {
     const transferRoot = files.transferRoot(transferId);
     const storedNames = attachments.map((attachment) => attachment.name);
     assert.equal(new Set(storedNames).size, sources.length);
-    assert.deepEqual((await readdir(transferRoot)).sort(), [".openbot-transfer.json", ...storedNames].sort());
-    const manifest = JSON.parse(await readFile(join(transferRoot, ".openbot-transfer.json"), "utf8"));
+    assert.deepEqual((await readdir(transferRoot)).sort(), [".robot-transfer.json", ...storedNames].sort());
+    const manifest = JSON.parse(await readFile(join(transferRoot, ".robot-transfer.json"), "utf8"));
     assert.deepEqual(manifest, {
       version: 2,
       kind: "message-transfer",

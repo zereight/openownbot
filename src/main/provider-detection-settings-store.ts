@@ -15,7 +15,7 @@ import { Effect, Result, Semaphore } from "effect";
 import { isMissingFileError } from "../backend/file-errors";
 import { PreferenceFileFailure, readPreferenceFile, writePreferenceFile } from "./preference-file";
 
-export const PROVIDER_DETECTION_SETTINGS_FILE = "openbot-provider-detection-v1.json";
+export const PROVIDER_DETECTION_SETTINGS_FILE = "provider-detection.json";
 
 function copy(settings: ProviderDetectionSettings): ProviderDetectionSettings {
   return {

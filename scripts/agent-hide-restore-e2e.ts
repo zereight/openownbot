@@ -204,7 +204,7 @@ async function startHost(): Promise<Host> {
   const agentStore = new AgentStore(userData, home, database);
   const mailbox = new MailboxStore(userData, agentStore.sharedRoot, agentStore.database);
   const sidebar = new SidebarLayoutStore(join(userData, "sidebar-layout.json"));
-  const team = new TeamStore(join(userData, "openbot-team-server-v2.json"));
+  const team = new TeamStore(join(userData, "team-server.json"));
   await runCauseEffect(sidebar.initialize());
   // The stores only: `AgentService.initialize` would start the provider CLIs, which no step needs.
   await runCauseEffect(agentStore.initialize());

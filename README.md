@@ -556,7 +556,7 @@ capability.
   workspace whose move could not run stays readable where it is.
 - `~/OpenBot/Shared` — files intentionally shared between agents.
 - `~/OpenBot/Shared/Transfers` — managed message snapshots and generated files. Each transfer has
-  an `.openbot-transfer.json` manifest with ownership, recipients, size, and SHA-256 metadata.
+  an `.robot-transfer.json` manifest with ownership, recipients, size, and SHA-256 metadata.
 - `~/OpenBot/Downloads` — embedded-browser downloads.
 - Electron `userData/openbot.db` — the canonical ROBot event log and projections for agents,
   conversations, provider session bindings, queues, reactions, and attachment indexes.

@@ -95,7 +95,7 @@ try {
   const redirecting = await fakeServer([], primary.baseUrl);
   servers.push(primary, other, redirecting);
 
-  const settings = new ProviderDetectionSettingsStore(join(root, "openbot-provider-detection-v1.json"));
+  const settings = new ProviderDetectionSettingsStore(join(root, "provider-detection.json"));
   await runCauseEffect(settings.load());
   const endpoints = new CustomProviderStore({ path: join(root, "custom-providers.json"), cipher });
   await runCauseEffect(endpoints.load());
@@ -285,7 +285,7 @@ try {
   assert.deepEqual(await Effect.runPromise(detection.scanModelServers()), []);
   assert.deepEqual(await Effect.runPromise(detection.scanAgents()), []);
   assert.equal(primary.seen.length, before, "A disabled scan sends nothing.");
-  const reloaded = new ProviderDetectionSettingsStore(join(root, "openbot-provider-detection-v1.json"));
+  const reloaded = new ProviderDetectionSettingsStore(join(root, "provider-detection.json"));
   await runCauseEffect(reloaded.load());
   assert.equal(reloaded.get().enabled, false, "The switch survives a restart.");
   report.disabled = { requestsSent: 0, savedAcrossRestart: true };

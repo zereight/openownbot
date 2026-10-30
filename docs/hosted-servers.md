@@ -721,7 +721,7 @@ holds it:
    sends it again on the host's next hello: the first socket can close before the host handled it. The
    transports drop an event that they already handled.
 
-The host makes its queue key once (`src/main/ingress-queue-key.ts`, `openbot-ingress-queue-key-v1.json`
+The host makes its queue key once (`src/main/ingress-queue-key.ts`, `ingress-queue-key.json`
 in the user data folder), encrypted by the operating system, and sends the public half in each
 `ingress` hello. An older host sends no key, so Signal keeps nothing for it; a hello with no key
 removes the key that Signal had. A kept delivery that arrives before its connection has started waits

@@ -594,7 +594,7 @@ after a change to the Azure setup or to `electron-builder.windows-signing.yml`, 
 
 Installed ROBot builds check for updates shortly after launch and every four minutes. New versions
 download automatically while **Automatically download updates** is on, which is the default and is
-persisted per user in `openbot-update-preference-v1.json`; with the setting off, a download starts
+persisted per user in `update-preference.json`; with the setting off, a download starts
 only on a user action. The update notice in the sidebar and Settings > Updates show the current
 state and let the user download an available version, then restart into it. The restart action appears as
 soon as the download completes, and no platform installs without that

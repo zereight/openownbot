@@ -88,7 +88,7 @@ editing or signing out of a row refuses its route at once; there is no list of r
 current. A proxy that cannot start drops the row from the hand-off with
 `error.backend.mcpOAuthProxyUnavailable`. The raw token is never the fallback.
 
-The port and the secret are kept encrypted in `openbot-mcp-oauth-proxy-v1.json`. Codex keeps the
+The port and the secret are kept encrypted in `mcp-oauth-proxy.json`. Codex keeps the
 MCP configuration of a resumed thread, so the same address must work after a restart. When the
 saved port is in use, the proxy takes a new port and a new secret, so the old bearers stop working.
 The Codex tool manifest records the proxy address and the proxied rows; a change replaces the Codex

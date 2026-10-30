@@ -119,7 +119,7 @@ id and its context. A restart during a run marks the run interrupted: the sessio
 computer as an iCalendar feed (`src/main/routine-feed-ics.ts`) for Server Settings > Routines. It
 runs only after the user makes a feed URL, and binds `127.0.0.1`. The URL is
 `/routines/<token>.ics`, with an optional `?agent=<id>`: a calendar app cannot send a header, so the
-token is in the path. `<userData>/openbot-routine-feed-v1.json` keeps the token, encrypted with the
+token is in the path. `<userData>/routine-feed.json` keeps the token, encrypted with the
 secret storage cipher, and the port, so the URL stays the same after a restart. When the port is not
 free, the listener takes a new one and saves it. **New URL** replaces the token, and **Turn off**
 deletes the file. A wrong token gets 404. A request with an `Origin` header or a foreign `Host`
@@ -642,7 +642,7 @@ agent. This does not introduce a schema migration or alter released protocol cod
 
 Server Settings > Import moves agents from a `.zip` export into the local host, or into a remote host
 that serves `agent-import-v1` (see [Agent import from a joined server](servers.md#agent-import-from-a-joined-server)).
-The format is `openbot-import.json` plus `agents/<key>/`
+The format is `robot-import.json` plus `agents/<key>/`
 folders. `resources/agent-import/grok-bot/SKILL.md` writes it and `src/main/agent-import-manifest.ts`
 reads it; both are a product contract, so add only optional fields and raise `version` for a change
 of meaning. The renderer never names a path: `agent-import:choose` opens the dialog in main, and
@@ -668,7 +668,7 @@ joined server with `instance-transfer-v1` when the user is an owner or admin (se
 client and mobile do not show it. App preferences, the default model and the providers that are off
 belong to the app, not to a server, so they are not in the file.
 
-The file has `openbot-transfer.json` at its root, `agents/<key>/` folders (`avatar.<ext>`,
+The file has `robot-transfer.json` at its root, `agents/<key>/` folders (`avatar.<ext>`,
 `skills/<slug>/` and `workspace/`), and `shared/` for `~/OpenBot/Shared`. The manifest is
 `{ format: "openownbot-instance-transfer", version: 1, source, agents, settings, shared, signedIn }`.
 `src/main/instance-transfer-manifest.ts` writes and reads it with Effect `Schema`; it is a contract

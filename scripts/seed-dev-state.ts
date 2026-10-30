@@ -42,12 +42,12 @@ import { resolveDevelopmentAppDataRoot } from "./development-state-paths";
 import { readScriptArguments } from "./script-arguments";
 import { NO_SCALE, parseSeedScale, type SeedScale, seedScale } from "./seed-dev-scale";
 
-export const DEVELOPMENT_SEED_MANIFEST_FILE = "openbot-dev-seed-v1.json";
+export const DEVELOPMENT_SEED_MANIFEST_FILE = "robot-dev-seed.json";
 
 const logger = createOpenOwnBotLogger("seed-dev-state");
 
-const TEAM_FILE = "openbot-team-server-v2.json";
-const SETUP_FILE = "openbot-setup-v2.json";
+const TEAM_FILE = "team-server.json";
+const SETUP_FILE = "setup.json";
 const SEED_VERSION = 1;
 const MINUTE = 60_000;
 const HOUR = 60 * MINUTE;

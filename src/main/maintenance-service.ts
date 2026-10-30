@@ -87,7 +87,7 @@ export const exportOpenOwnBotData = Effect.fn("Archive.exportOpenOwnBotData")(fu
           queues,
         };
         yield* archiveCall(() =>
-          writeFile(join(exportRoot, "openbot-data.json"), `${JSON.stringify(manifest, null, 2)}\n`, {
+          writeFile(join(exportRoot, "robot-data.json"), `${JSON.stringify(manifest, null, 2)}\n`, {
             encoding: "utf8",
             mode: 0o600,
           }),

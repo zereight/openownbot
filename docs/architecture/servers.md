@@ -465,7 +465,7 @@ then opens with that provider. The choice stays in memory for the server; it is 
 setup file of this computer. A member, the local server, and a host without `providers-v1` open the
 form directly.
 
-`host-timezone-v1` reads and sets the server timezone (`openbot-server-timezone-v1.json`; `null` is
+`host-timezone-v1` reads and sets the server timezone (`server-timezone.json`; `null` is
 automatic, the system zone of the host). When an agent creates a routine, the zone comes from the tool
 call first, then from the sender's last message in that turn, then from this setting. The sender's
 zone stays in memory only, so after a restart a queued message uses the server timezone. Agent import
@@ -481,14 +481,14 @@ place that sets the limit, for this computer (`hostAdmin.setAgentMemoryLimit`, l
 joined server. App Settings does not show it, so that one name does not have two values.
 
 `memory-review-v1` reads and sets how many completed turns of one conversation pass between two
-background memory reviews of the host's agents (`openbot-memory-review-v1.json`; 10, 20 or 40, default
+background memory reviews of the host's agents (`memory-review.json`; 10, 20 or 40, default
 20; `0` is Off). The snapshot gives the value and the values that the host permits; the host refuses
 other values. The agent service reads the value at each use, so a change applies from the next turn.
 Server settings → General → Agents → Memory review sets it for this computer
 (`hostAdmin.setMemoryReview`, local handler) and for a joined server.
 
 `prompt-cache-ttl-v1` reads and sets how long Claude keeps the prompt cache of the host's agents
-(`openbot-prompt-cache-ttl-v1.json`; `5m` or `1h`, default `5m`). With `1h` the host starts each
+(`prompt-cache-ttl.json`; `5m` or `1h`, default `5m`). With `1h` the host starts each
 Claude process with `ENABLE_PROMPT_CACHING_1H=1`. Claude Code reads this flag before its subscription
 rules, so subagents and a subscription that uses extra usage also get 1 hour. With `5m`, the default, it
 sets nothing, so Claude Code uses its own choice: 5 minutes with an API key, 1 hour for the main thread of a
@@ -523,7 +523,7 @@ the host advertises the capability.
 `host-update-v1` runs the same update as the host's own Settings. `src/main/requested-update.ts`
 keeps the schedule in memory: who asked, and whether the restart waits until
 `describeRestartReadiness` reports no running work or happens as soon as the update is ready. The
-host user can turn the routes off with "Allow updates from server members" (`openbot-update-preference-v1.json`,
+host user can turn the routes off with "Allow updates from server members" (`update-preference.json`,
 default on) and can cancel a restart that waits. The host still advertises the capability when the
 setting is off, so the client can show why. A Host Manager tenant refuses the routes. The client
 reads the status again every second while a check, a download or a restart runs. An admin can also
@@ -561,7 +561,7 @@ member IDs (`TeamMemberSummary.id`). A member gets the highest level of Everyone
 names them. An owner or an admin always gets `manage`. So a server with no roles works as before, and
 a new agent is open to every member until an admin closes it.
 
-The host keeps the roles in `openbot-agent-access-v1.json`, by server ID (`src/main/agent-access-store.ts`).
+The host keeps the roles in `agent-access.json`, by server ID (`src/main/agent-access-store.ts`).
 It is a preference file, not the database: there is no migration, and an older build ignores it, so a
 downgrade keeps the roles. A file that does not decode closes every agent to members until the next
 save. Nothing goes to the account service. An owner or admin reads the whole set; a member reads only

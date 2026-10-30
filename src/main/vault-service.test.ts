@@ -20,7 +20,7 @@ let path: string;
 
 beforeEach(async () => {
   directory = await mkdtemp(join(tmpdir(), "openownbot-vault-"));
-  path = join(directory, "openbot-vault-v1.json");
+  path = join(directory, "vault.json");
 });
 
 afterEach(async () => {
