@@ -78,8 +78,8 @@ import { VAULT_CAPABILITY, VAULT_ROUTES } from "@robot/contracts/team-protocol/v
 import { sourceText } from "@robot/i18n/source";
 import { createOpenOwnBotLogger } from "@robot/logging";
 import { Effect } from "effect";
+import { AgentLifecycleFailed } from "../src/backend/agent/agent-lifecycle-failed";
 import { QueueOperationFailed, SteerUnsupportedError } from "../src/backend/agent/queue-controls";
-import { AgentLifecycleFailed } from "../src/backend/agent-service";
 import { BrowserProfileStore } from "../src/backend/browser-profiles/browser-profile-store";
 import type { BrowserTabSession } from "../src/backend/browser-state";
 import { runCauseEffect } from "../src/backend/effect-boundary";

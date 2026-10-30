@@ -10,7 +10,7 @@ import { join } from "node:path";
 import type { AgentSummary, InstalledSkill, MarketplaceSkillDetail } from "@robot/contracts/ipc";
 import { Effect, Exit, Result, Schema } from "effect";
 import { zipSync } from "fflate";
-import { AgentLifecycleFailed } from "../src/backend/agent-service";
+import { AgentLifecycleFailed } from "../src/backend/agent/agent-lifecycle-failed";
 import { isMissingFileError } from "../src/backend/file-errors";
 import { CentralAuthOperationError } from "../src/main/central-auth-effects";
 import { CentralAuthManager } from "../src/main/central-auth-manager";

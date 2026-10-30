@@ -63,8 +63,9 @@ import {
   SIGN_IN_RELAY_ROUTES,
 } from "@robot/contracts/team-protocol/sign-in-relay-v1";
 import { sourceText } from "@robot/i18n/source";
+import { AgentLifecycleFailed } from "../../backend/agent/agent-lifecycle-failed";
 import { normalizePastedCode } from "../../backend/agent/cli-code-login";
-import { AgentLifecycleFailed, type AgentService } from "../../backend/agent-service";
+import type { AgentService } from "../../backend/agent-service";
 import { runCauseEffect } from "../../backend/effect-boundary";
 import type { PeerCustomProviderChanges } from "../custom-provider-changes";
 import type { ProviderCredentialStore } from "../provider-credential-store";

@@ -31,7 +31,7 @@ import { TELEGRAM_ORCHESTRATOR_AVATAR } from "@robot/contracts/telegram-app";
 import { sourceText } from "@robot/i18n/source";
 import { createOpenOwnBotLogger, redactText } from "@robot/logging";
 import { Deferred, Effect, Exit, Result, Schema, Scope } from "effect";
-import type { AgentLifecycleFailed } from "../agent-service";
+import type { AgentLifecycleFailed } from "../agent/agent-lifecycle-failed";
 import { causeHelpers } from "../effect-boundary";
 import type { MessagingOrigin } from "../mailbox-store";
 import type { SidebarLayoutStore } from "../sidebar-layout-store";

@@ -1,4 +1,4 @@
-import type { AgentLifecycleFailed } from "../backend/agent-service";
+import type { AgentLifecycleFailed } from "../backend/agent/agent-lifecycle-failed";
 import type { CentralAuthOperationError } from "./central-auth-effects";
 import type { SkillMarketplaceFailure } from "./skill-marketplace-service";
 // Link-only agent templates on the account Worker.

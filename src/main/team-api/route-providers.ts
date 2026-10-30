@@ -39,8 +39,8 @@ import { PROVIDERS_V8_CAPABILITY, PROVIDERS_V8_ROUTES } from "@robot/contracts/t
 import { sourceText } from "@robot/i18n/source";
 import { redactText, registerSecretValue } from "@robot/logging";
 import { Effect } from "effect";
+import { AgentLifecycleFailed } from "../../backend/agent/agent-lifecycle-failed";
 import { normalizePastedCode } from "../../backend/agent/cli-code-login";
-import { AgentLifecycleFailed } from "../../backend/agent-service";
 import { runCauseEffect } from "../../backend/effect-boundary";
 import { parseProviderId } from "../ipc/app-inputs";
 import { parseDeleteCustomProvider, parseSaveCustomProvider } from "../ipc/custom-provider-inputs";
