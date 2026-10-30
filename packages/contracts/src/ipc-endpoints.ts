@@ -702,6 +702,8 @@ export const IPC_ENDPOINTS = {
   maintenance: {
     exportData: request<undefined, ExportResult>()("maintenance:export-data"),
     exportDiagnostics: request<undefined, ExportResult>()("maintenance:export-diagnostics"),
+    // Opens the folder with the log files of this computer in the file manager and answers with its path.
+    openLogs: request<undefined, string>()("maintenance:open-logs"),
   },
   providers: {
     setProviderOn: request<{ provider: AgentProviderId; on: boolean }, AgentStatus>()("app:set-provider-on"),

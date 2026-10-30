@@ -517,6 +517,12 @@ export function decodeAgentImportSkill(value: unknown): string {
   return value;
 }
 
+/** The path of the logs folder that main opened, shown so the user can find it again. */
+export function decodeLogsFolder(value: unknown): string {
+  if (!isString(value) || !value) throw new Error("Invalid logs folder response.");
+  return value;
+}
+
 export const decodeVoid = emptyDecoder("IPC returned unexpected data.");
 
 export function decodeHostedSite(value: unknown): HostedSiteSummary {

@@ -41,6 +41,11 @@ export const messages = {
   "settings.keepAwakeOnBattery.description": "Bilgisayarı pildeyken de uyanık tut. Pil daha hızlı biter.",
   "settings.restoreWorkspace.title": "Başlangıçta son çalışma alanını geri yükle",
   "settings.restoreWorkspace.description": "Önceki oturumunuzdaki çalışma alanını ve görevleri açın.",
+  "settings.diagnostics.title": "Tanılama",
+  "settings.logs.title": "Günlükler",
+  "settings.logs.description": "Bu bilgisayarın günlük dosyalarının bulunduğu klasörü aç.",
+  "settings.logs.open": "Aç",
+  "settings.logs.openFailed": "Günlük klasörü açılamadı.",
   "settings.externalLinks.title": "Harici bağlantıları şurada aç",
   "settings.externalLinks.description":
     "Sohbetlerdeki, oturum açma ve faturalandırma sayfalarındaki bağlantılar burada açılır.",
