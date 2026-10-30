@@ -48,6 +48,7 @@ export { default as CornerDownLeft } from "lucide-solid/icons/corner-down-left";
 export { default as Cpu } from "lucide-solid/icons/cpu";
 export { default as CreditCard } from "lucide-solid/icons/credit-card";
 export { default as Crown } from "lucide-solid/icons/crown";
+export { default as Dices } from "lucide-solid/icons/dices";
 export { default as Download } from "lucide-solid/icons/download";
 export { default as Ellipsis } from "lucide-solid/icons/ellipsis";
 export { default as Eraser } from "lucide-solid/icons/eraser";

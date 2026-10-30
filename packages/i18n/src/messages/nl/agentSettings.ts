@@ -79,6 +79,7 @@ export const messages = {
   "agentSettings.saveFailed": "Kan de agentinstellingen niet opslaan.",
   "agentSettings.name": "Naam",
   "agentSettings.nameLabel": "Naam van agent",
+  "agentSettings.randomName": "Willekeurige naam",
   "agentSettings.agentTitle": "Titel",
   "agentSettings.agentTitleLabel": "Titel van agent",
   "agentSettings.agentTitlePlaceholder": "Beschrijf wat je agent doet",

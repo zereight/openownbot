@@ -76,6 +76,7 @@ export const messages = {
   "agentSettings.saveFailed": "에이전트 설정을 저장할 수 없어요.",
   "agentSettings.name": "이름",
   "agentSettings.nameLabel": "에이전트 이름",
+  "agentSettings.randomName": "무작위 이름",
   "agentSettings.agentTitle": "직함",
   "agentSettings.agentTitleLabel": "에이전트 직함",
   "agentSettings.agentTitlePlaceholder": "에이전트가 하는 일을 설명해 주세요",

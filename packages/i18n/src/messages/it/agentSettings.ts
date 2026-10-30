@@ -79,6 +79,7 @@ export const messages = {
 
   "agentSettings.name": "Nome",
   "agentSettings.nameLabel": "Nome dell'agente",
+  "agentSettings.randomName": "Nome casuale",
   "agentSettings.agentTitle": "Titolo",
   "agentSettings.agentTitleLabel": "Titolo dell'agente",
   "agentSettings.agentTitlePlaceholder": "Descrivi cosa fa il tuo agente",

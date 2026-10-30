@@ -77,6 +77,7 @@ export const messages = {
 
   "agentSettings.name": "名前",
   "agentSettings.nameLabel": "エージェント名",
+  "agentSettings.randomName": "ランダムな名前",
   "agentSettings.agentTitle": "肩書き",
   "agentSettings.agentTitleLabel": "エージェントの肩書き",
   "agentSettings.agentTitlePlaceholder": "エージェントの役割を説明してください",

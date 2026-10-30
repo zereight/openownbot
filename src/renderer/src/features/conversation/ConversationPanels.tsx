@@ -407,6 +407,7 @@ export function ConversationPanels(panelProps: { onOpenUsage?: ((trigger: HTMLBu
               remoteClient={Boolean(props.runtime)}
               localHost={props.server?.kind === "local"}
               folders={localFolderCalls()}
+              takenAgentNames={props.agents.map((other) => other.name)}
               sessionSettingsEditable={serverCanAdminister(props.server, "agent-session-settings-v1")}
               adminCalls={props.runtime?.admin}
               skillsMarketplaceOpen={props.skillsMarketplaceOpen}
