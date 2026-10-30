@@ -12,6 +12,7 @@ import { createMemo, createProjection, createSignal, Show } from "solid-js";
 import { actionToast } from "../../action-toast";
 import { useShowAgentSteps } from "../../agent-steps-preference";
 import { toAgentMessages } from "../../app-message-projection";
+import { deviceSendShortcut } from "../../send-shortcut-preference";
 import { ConversationBrowserTakeover } from "./ConversationBrowserTakeover";
 import { ConversationQuestionPrompt } from "./ConversationQuestionPrompt";
 import { useConversationViewScope } from "./conversation-scope";
@@ -171,6 +172,7 @@ export function ConversationThread() {
             factsAbove={turnSteps.factsAbove}
             activeSteps={turnSteps.activeSteps()}
             stepsOpenByDefault={showAgentSteps()}
+            sendShortcut={deviceSendShortcut(props.platform)}
           />
         </>
       )}
