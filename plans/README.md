@@ -9,7 +9,7 @@ changes, and respect the `STOP` conditions.
 | Plan | Title | Priority | Size | Dependencies | State |
 |------|-------|----------|------|--------------|-------|
 | 001 | Add a central account API and a host whitelist | P1 | L | — | SUPERSEDED BY 002 |
-| 002 | TanStack Start, Solid 2, Cloudflare Workers and D1 | P1 | L | — | IN PROGRESS |
+| 002 | TanStack Start, Solid 2, Cloudflare Workers and D1 | P1 | L | — | IN PROGRESS: local password sign-in stays until a decision (options in the plan) |
 | 003 | MCP is robust and future-proof | P1 | M | — | DONE |
 | 004 | Fade the mobile search results and notices in and out | MEDIUM | S | — | DONE |
 | 005 | An invitation cannot disconnect a host or revive a removed member | P1 | M | maintainer decision (revoked member) | DONE |
@@ -30,9 +30,11 @@ Allowed states: `TODO`, `IN PROGRESS`, `DONE`, `BLOCKED: <reason>`,
   account, role and invitation email (`remote_memberships`, `remote_invites`), and
   the host accepts a one-host account ticket (`redeemCentralTicket`). The host
   still keeps local password sign-in (`src/main/team-store.ts`), and the plan
-  does not permit that. Checked again on 2026-10-17 at `ac4880d86`: `configure`,
-  `acceptInvite`, `login` and `changePassword` still use scrypt hashes
-  (`hashPasswordEffect`, line 1462), so plan 002 stays IN PROGRESS.
+  does not permit that. Checked again on 2026-10-31 at `bb1e59935`: only `configure`
+  (called by E2E scripts only), `login` and `changePassword` use scrypt hashes, and
+  `acceptInvite` no longer exists in `team-store.ts`. New hosts and members get no hash. Plan 002
+  stays IN PROGRESS because the legacy hashes and the two released routes remain; the plan lists
+  options A to D and waits for a decision.
 - Plan 003 is independent of 001 and 002. It was written against a clean
   worktree at commit `4980fb58`, after #633 gave Codex HTTP MCP servers, and
   rewritten once the developer decided the runtime, the configuration policy and
