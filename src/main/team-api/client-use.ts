@@ -19,6 +19,7 @@ import { HOST_TIMEZONE_ROUTES } from "@openownbot/contracts/team-protocol/host-t
 import { HOST_UPDATE_ROUTES } from "@openownbot/contracts/team-protocol/host-update-v1";
 import { HOSTED_SITES_ROUTES } from "@openownbot/contracts/team-protocol/hosted-sites-v1";
 import { LIVE_ACTIVITY_PUSH_ROUTES } from "@openownbot/contracts/team-protocol/live-activity-push-v1";
+import { MEMORY_REVIEW_ROUTES } from "@openownbot/contracts/team-protocol/memory-review-v1";
 import { PROMPT_CACHE_TTL_ROUTES } from "@openownbot/contracts/team-protocol/prompt-cache-ttl-v1";
 import { PROVIDER_DEFAULT_ROUTES } from "@openownbot/contracts/team-protocol/provider-default-v1";
 import { PROVIDERS_ADMIN_ROUTES } from "@openownbot/contracts/team-protocol/providers-v1";
@@ -53,6 +54,7 @@ const PASSIVE_ROUTES: ReadonlySet<string> = new Set([
   HOST_MEMBER_UPDATE_ROUTES.status,
   HOST_TIMEZONE_ROUTES.settings,
   AGENT_MEMORY_LIMIT_ROUTES.settings,
+  MEMORY_REVIEW_ROUTES.settings,
   PROMPT_CACHE_TTL_ROUTES.settings,
   PROVIDER_DEFAULT_ROUTES.settings,
   DISCORD_ACCESS_ROUTES.access,
