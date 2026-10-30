@@ -74,6 +74,16 @@
   user-select: none;
 }
 
+/* The place of the node in the workflow, so a reference such as "node 3" can be found on the canvas. */
+.wfn-number {
+  min-width: 1.5em;
+  padding: 0 var(--openownbot-space-1);
+  border-radius: var(--openownbot-radius-sm);
+  background: var(--wfn-ring);
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+}
+
 .wfn-label svg {
   width: var(--openownbot-icon-xs);
   height: var(--openownbot-icon-xs);

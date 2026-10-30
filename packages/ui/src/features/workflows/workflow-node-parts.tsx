@@ -436,6 +436,7 @@ export function NodeShell(props: ShellProps) {
         </Show>
         <span class="wfn-label" data-bare={props.bare ? "" : undefined}>
           <Show when={!props.bare}>
+            <Show when={board.number(props.id)}>{(number) => <span class="wfn-number">{number()}</span>}</Show>
             {props.icon}
             {props.label}
           </Show>
