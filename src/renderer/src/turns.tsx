@@ -7,6 +7,7 @@ import type {
   QueueSnapshot,
   RoutineFields,
 } from "@openownbot/contracts/ipc";
+import { sourceText } from "@openownbot/i18n/source";
 import { currentText } from "@openownbot/ui/text";
 import { createEffect, createMemo, createSignal, untrack } from "solid-js";
 import { useAnsweredPrompts } from "./answered-prompts";
@@ -314,6 +315,11 @@ const Turns = createSimpleContext({
         setPendingPrompts((current) => ({ ...current, [key]: undefined }));
         return true;
       } catch (error) {
+        // Main no longer holds this takeover, so the card can never be answered. It must not stay.
+        if (error instanceof Error && error.message.includes(sourceText("error.backend.takeoverInactive"))) {
+          setPendingPrompts((current) => ({ ...current, [key]: undefined }));
+          return true;
+        }
         appendUiError(agent.id, error, currentText().t("app.errorStatus.browserTakeover"), serverId);
         return false;
       }

@@ -4726,6 +4726,7 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
   interrupt(agentId: string, turnId: string, executionThreadId?: string): Effect.Effect<void, AgentLifecycleFailed> {
     return Effect.suspend(() => {
       if (!executionThreadId) this.#stoppedTurns.set(agentId, turnId);
+      this.#attention.cancelTakeoversForTurn(agentId, turnId);
       return this.#interruptTurn(agentId, turnId, executionThreadId);
     }).pipe(Effect.asVoid);
   }

@@ -1508,6 +1508,15 @@ export class AttentionRegistry {
     }
   }
 
+  /** A Stop ends the turn, so the takeovers it waits on are cancelled and its browser tool call returns. */
+  cancelTakeoversForTurn(agentId: string, turnId: string): void {
+    for (const [requestId, pending] of this.#takeovers) {
+      if (pending.request.agentId === agentId && pending.request.turnId === turnId) {
+        this.#resolveBrowserTakeover(requestId, pending, "cancel");
+      }
+    }
+  }
+
   /** Cancels the takeovers of one lost provider client, or of all clients when none is given. */
   clearBrowserTakeovers(client?: AgentClient): void {
     for (const [requestId, pending] of this.#takeovers) {
