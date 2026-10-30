@@ -9,7 +9,7 @@ export const messages = {
   "channel.stoppedTask.reassignLabel": "Reasignar la tarea detenida de {name}",
   "channel.stoppedTask.reassign": "Reasignar",
   "channel.conversation.noMembers": "Añade agentes en los ajustes del canal para empezar a trabajar.",
-  "channel.conversation.archivedNotice": "Canal eliminado. Solo vista previa.",
+  "channel.conversation.archivedNotice": "Canal archivado. Solo vista previa.",
   "channel.composer.label": "Mensaje al canal",
   "channel.composer.placeholder": "Enviar mensaje a {name}",
   "channel.panel.label": "Panel del canal",
@@ -53,5 +53,5 @@ export const messages = {
   "channel.error.action": "La acción del canal falló.",
   "channel.error.update": "No se pudo actualizar el canal.",
   "channel.error.loadOlder": "No se pudieron cargar los mensajes anteriores.",
-  "channel.error.delete": "No se pudo eliminar este canal.",
+  "channel.error.delete": "No se pudo archivar este canal.",
 } as const satisfies PartialTranslation<typeof source>;

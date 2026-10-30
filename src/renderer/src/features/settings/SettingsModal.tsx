@@ -45,6 +45,7 @@ import { ComputerUseSetup } from "../computer-use/ComputerUseSetup";
 import { createProfileActivityStore } from "./profile-activity-store";
 import { renderProfileShareImage } from "./profile-share-image";
 import { createSettingsAgentsSection } from "./SettingsAgentsSection";
+import { createSettingsArchiveSection } from "./SettingsArchiveSection";
 import { SettingsDecisionModel } from "./SettingsDecisionModel";
 import { SettingsDynamicIslandTab } from "./SettingsDynamicIslandTab";
 import { SettingsGeneralTab } from "./SettingsGeneralTab";
@@ -148,6 +149,7 @@ export function SettingsModal(props: SettingsModalProps) {
     value: () => props.value,
     onValueChange: (value) => props.onValueChange(value),
   });
+  const archive = createSettingsArchiveSection({ visible: () => props.open && activeTab() === "archive" });
   let handledHostedServerDeleteNonce = 0;
   createEffect(
     () => (props.open ? props.hostedServerDeleteRequest : null),
@@ -183,6 +185,7 @@ export function SettingsModal(props: SettingsModalProps) {
       if (
         value === "general" ||
         value === "agents" ||
+        value === "archive" ||
         value === "notifications" ||
         value === "voice" ||
         (value === "dynamic-island" && dynamicIslandShown()) ||
@@ -286,6 +289,10 @@ export function SettingsModal(props: SettingsModalProps) {
           {preferencesLoadError()}
           <agents.Panel menuMount={modalElement} />
           <SettingsDecisionModel selectMount={modalElement} />
+        </Tabs.Content>
+
+        <Tabs.Content value="archive" class="settings-modal-tab-panel" data-tab="archive">
+          <archive.Panel />
         </Tabs.Content>
 
         <Tabs.Content value="notifications" class="settings-modal-tab-panel" data-tab="notifications">

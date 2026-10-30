@@ -6,9 +6,9 @@ export const messages = {
   "sidebar.nav.label": "Elenco delle chat",
   "sidebar.nav.freeArea": "Area libera della barra laterale",
   "sidebar.nav.actions": "Azioni della barra laterale",
-  "sidebar.deletedChannels.title": "Canali eliminati",
-  "sidebar.deletedChannels.empty": "Nessun canale eliminato.",
-  "sidebar.deletedChannels.hide": "Nascondi i canali eliminati",
+  "sidebar.deletedChannels.title": "Canali archiviati",
+  "sidebar.deletedChannels.empty": "Nessun canale archiviato.",
+  "sidebar.deletedChannels.hide": "Nascondi i canali archiviati",
   "sidebar.new.agent": "Nuovo agente",
   "sidebar.new.channel": "Nuovo canale",
   "sidebar.new.section": "Nuova sezione",
@@ -68,7 +68,7 @@ export const messages = {
   "sidebar.agentMenu.inWindow": "Aperto in una finestra a parte",
   "sidebar.channelMenu.label": "Azioni del canale",
   "sidebar.channelMenu.edit": "Modifica canale",
-  "sidebar.channelMenu.delete": "Elimina canale",
+  "sidebar.channelMenu.delete": "Archivia canale",
   "sidebar.channelMenu.restore": "Ripristina canale",
   "sidebar.channel.noMessages": "Ancora nessun messaggio",
   "sidebar.channel.workingPreview": "Al lavoro · {preview}",
@@ -110,7 +110,7 @@ export const messages = {
   "sidebar.delete.agentDescription":
     "Questo rimuove l'agente e la sua conversazione OpenOwnBot dall'app. Coda, memorie, routine e workspace vengono eliminati. La cronologia salvata separatamente dalla CLI del provider connesso non viene eliminata.",
   "sidebar.delete.channelDescription":
-    "Questo interrompe il canale. La sua cronologia resta in «Canali eliminati», solo per l'anteprima. Puoi ripristinarlo da lì. Gli agenti membri vengono mantenuti.",
+    "Questo interrompe il canale. La sua cronologia resta in «Canali archiviati», solo per l'anteprima. Puoi ripristinarlo da lì. Gli agenti membri vengono mantenuti.",
   "sidebar.delete.sectionDescription":
     "Gli agenti di questa sezione passeranno a «Non assegnati». Nessun agente verrà eliminato.",
   "sidebar.delete.failed": "Impossibile eliminare questo elemento. Riprova.",

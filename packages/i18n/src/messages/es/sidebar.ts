@@ -6,9 +6,9 @@ export const messages = {
   "sidebar.nav.label": "Lista de chats",
   "sidebar.nav.freeArea": "Área libre de la barra lateral",
   "sidebar.nav.actions": "Acciones de la barra lateral",
-  "sidebar.deletedChannels.title": "Canales eliminados",
-  "sidebar.deletedChannels.empty": "No hay canales eliminados.",
-  "sidebar.deletedChannels.hide": "Ocultar canales eliminados",
+  "sidebar.deletedChannels.title": "Canales archivados",
+  "sidebar.deletedChannels.empty": "No hay canales archivados.",
+  "sidebar.deletedChannels.hide": "Ocultar canales archivados",
   "sidebar.new.agent": "Nuevo agente",
   "sidebar.new.channel": "Nuevo canal",
   "sidebar.new.section": "Nueva sección",
@@ -68,7 +68,7 @@ export const messages = {
   "sidebar.agentMenu.inWindow": "Abierto en su propia ventana",
   "sidebar.channelMenu.label": "Acciones del canal",
   "sidebar.channelMenu.edit": "Editar canal",
-  "sidebar.channelMenu.delete": "Eliminar canal",
+  "sidebar.channelMenu.delete": "Archivar canal",
   "sidebar.channelMenu.restore": "Restaurar canal",
   "sidebar.channel.noMessages": "Aún no hay mensajes",
   "sidebar.channel.workingPreview": "Trabajando · {preview}",
@@ -128,7 +128,7 @@ export const messages = {
   "sidebar.delete.agentDescription":
     "Esto elimina de la aplicación el agente y su conversación de OpenOwnBot. Se eliminan su cola, recuerdos, rutinas y espacio de trabajo. El historial guardado por separado por el proveedor CLI conectado no se elimina.",
   "sidebar.delete.channelDescription":
-    "Esto detiene el canal. Su historial permanece en Canales eliminados solo para consulta. Puedes restaurarlo desde allí. Los agentes miembros se conservan.",
+    "Esto detiene el canal. Su historial permanece en Canales archivados solo para consulta. Puedes restaurarlo desde allí. Los agentes miembros se conservan.",
   "sidebar.delete.sectionDescription":
     "Los agentes de esta sección se moverán a Sin asignar. No se eliminará ningún agente.",
   "sidebar.delete.failed": "No se pudo eliminar este elemento. Vuelve a intentarlo.",

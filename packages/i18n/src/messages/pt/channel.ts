@@ -9,7 +9,7 @@ export const messages = {
   "channel.stoppedTask.reassignLabel": "Reatribuir a tarefa interrompida de {name}",
   "channel.stoppedTask.reassign": "Reatribuir",
   "channel.conversation.noMembers": "Adicione agentes nas configurações do canal para começar o trabalho.",
-  "channel.conversation.archivedNotice": "Canal excluído. Somente visualização.",
+  "channel.conversation.archivedNotice": "Canal arquivado. Somente visualização.",
   "channel.composer.label": "Mensagem para o canal",
   "channel.composer.placeholder": "Mensagem para {name}",
   "channel.panel.label": "Painel do canal",
@@ -47,5 +47,5 @@ export const messages = {
   "channel.error.action": "A ação do canal falhou.",
   "channel.error.update": "Não foi possível atualizar o canal.",
   "channel.error.loadOlder": "Não foi possível carregar as mensagens anteriores.",
-  "channel.error.delete": "Não foi possível excluir este canal.",
+  "channel.error.delete": "Não foi possível arquivar este canal.",
 } as const satisfies PartialTranslation<typeof source>;

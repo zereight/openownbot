@@ -2,7 +2,8 @@ import type { OpenOwnBotDesktopApi } from "@openownbot/contracts/ipc";
 
 /**
  * What the settings context reaches in main: the app-wide preferences, the switches for updates,
- * notifications and the Dynamic Island, and the local agents of the Agents tab.
+ * notifications and the Dynamic Island, the local agents of the Agents tab, and the hidden agents and
+ * archived channels of the Archive tab.
  */
 export interface SettingsPort {
   getAgentDefaults: OpenOwnBotDesktopApi["getAgentDefaults"];
@@ -26,7 +27,10 @@ export interface SettingsPort {
   setExternalLinkPreference: OpenOwnBotDesktopApi["setExternalLinkPreference"];
   setRemoteNetworkRoute: OpenOwnBotDesktopApi["setRemoteNetworkRoute"];
   setRemoteSessionReusePreference: OpenOwnBotDesktopApi["setRemoteSessionReusePreference"];
-  agent: Pick<OpenOwnBotDesktopApi["agent"], "listAgents" | "updateAgent">;
+  agent: Pick<
+    OpenOwnBotDesktopApi["agent"],
+    "channelCommand" | "listAgents" | "listChannels" | "listHiddenAgents" | "setAgentHidden" | "updateAgent"
+  >;
   dynamicIsland: Pick<
     OpenOwnBotDesktopApi["dynamicIsland"],
     "getBuiltInDisplayGeometry" | "getPreference" | "setPreference"

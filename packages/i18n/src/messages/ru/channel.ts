@@ -9,7 +9,7 @@ export const messages = {
   "channel.stoppedTask.reassignLabel": "Переназначить остановленную задачу {name}",
   "channel.stoppedTask.reassign": "Переназначить",
   "channel.conversation.noMembers": "Добавьте агентов в настройках канала, чтобы начать работу.",
-  "channel.conversation.archivedNotice": "Канал удалён. Только просмотр.",
+  "channel.conversation.archivedNotice": "Канал в архиве. Только просмотр.",
   "channel.composer.label": "Сообщение в канал",
   "channel.composer.placeholder": "Сообщение: {name}",
   "channel.panel.label": "Панель канала",
@@ -57,5 +57,5 @@ export const messages = {
   "channel.error.action": "Не удалось выполнить действие с каналом.",
   "channel.error.update": "Не удалось обновить канал.",
   "channel.error.loadOlder": "Не удалось загрузить прежние сообщения.",
-  "channel.error.delete": "Не удалось удалить этот канал.",
+  "channel.error.delete": "Не удалось архивировать этот канал.",
 } as const satisfies PartialTranslation<typeof source>;

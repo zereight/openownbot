@@ -6,9 +6,9 @@ export const messages = {
   "sidebar.nav.label": "チャット一覧",
   "sidebar.nav.freeArea": "サイドバーの空き領域",
   "sidebar.nav.actions": "サイドバーの操作",
-  "sidebar.deletedChannels.title": "削除済みのチャンネル",
-  "sidebar.deletedChannels.empty": "削除済みのチャンネルはありません。",
-  "sidebar.deletedChannels.hide": "削除済みのチャンネルを非表示",
+  "sidebar.deletedChannels.title": "アーカイブ済みのチャンネル",
+  "sidebar.deletedChannels.empty": "アーカイブ済みのチャンネルはありません。",
+  "sidebar.deletedChannels.hide": "アーカイブ済みのチャンネルを非表示",
   "sidebar.new.agent": "新しいエージェント",
   "sidebar.new.channel": "新しいチャンネル",
   "sidebar.new.section": "新しいセクション",
@@ -68,7 +68,7 @@ export const messages = {
   "sidebar.agentMenu.inWindow": "別のウインドウで開いています",
   "sidebar.channelMenu.label": "チャンネルの操作",
   "sidebar.channelMenu.edit": "チャンネルを編集",
-  "sidebar.channelMenu.delete": "チャンネルを削除",
+  "sidebar.channelMenu.delete": "チャンネルをアーカイブ",
   "sidebar.channelMenu.restore": "チャンネルを復元",
   "sidebar.channel.noMessages": "メッセージはまだありません",
   "sidebar.channel.workingPreview": "作業中 · {preview}",
@@ -107,7 +107,7 @@ export const messages = {
   "sidebar.delete.agentDescription":
     "エージェントとその OpenOwnBot の会話をアプリから削除します。キュー、メモリー、ルーティン、ワークスペースも削除されます。接続した CLI プロバイダーが別に保存している履歴は削除されません。",
   "sidebar.delete.channelDescription":
-    "チャンネルを停止します。履歴は「削除済みのチャンネル」にプレビュー専用で残ります。そこから復元できます。メンバーのエージェントは残ります。",
+    "チャンネルを停止します。履歴は「アーカイブ済みのチャンネル」にプレビュー専用で残ります。そこから復元できます。メンバーのエージェントは残ります。",
   "sidebar.delete.sectionDescription":
     "このセクションのエージェントは「未割り当て」に移動します。エージェントは削除されません。",
   "sidebar.delete.failed": "この項目を削除できませんでした。もう一度お試しください。",

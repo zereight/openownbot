@@ -6,9 +6,9 @@ export const messages = {
   "sidebar.nav.label": "Lista de chats",
   "sidebar.nav.freeArea": "Área livre da barra lateral",
   "sidebar.nav.actions": "Ações da barra lateral",
-  "sidebar.deletedChannels.title": "Canais excluídos",
-  "sidebar.deletedChannels.empty": "Nenhum canal excluído.",
-  "sidebar.deletedChannels.hide": "Ocultar canais excluídos",
+  "sidebar.deletedChannels.title": "Canais arquivados",
+  "sidebar.deletedChannels.empty": "Nenhum canal arquivado.",
+  "sidebar.deletedChannels.hide": "Ocultar canais arquivados",
   "sidebar.new.agent": "Novo agente",
   "sidebar.new.channel": "Novo canal",
   "sidebar.new.section": "Nova seção",
@@ -68,7 +68,7 @@ export const messages = {
   "sidebar.agentMenu.inWindow": "Aberto em uma janela própria",
   "sidebar.channelMenu.label": "Ações do canal",
   "sidebar.channelMenu.edit": "Editar canal",
-  "sidebar.channelMenu.delete": "Excluir canal",
+  "sidebar.channelMenu.delete": "Arquivar canal",
   "sidebar.channelMenu.restore": "Restaurar canal",
   "sidebar.channel.noMessages": "Nenhuma mensagem ainda",
   "sidebar.channel.workingPreview": "Trabalhando · {preview}",
@@ -107,7 +107,7 @@ export const messages = {
   "sidebar.delete.agentDescription":
     "Isso remove do aplicativo o agente e sua conversa no OpenOwnBot. A fila, as memórias, as rotinas e o espaço de trabalho são excluídos. O histórico armazenado separadamente pelo provedor de CLI conectado não é excluído.",
   "sidebar.delete.channelDescription":
-    "Isso para o canal. O histórico continua em Canais excluídos, somente para visualização. Você pode restaurá-lo de lá. Os agentes membros são mantidos.",
+    "Isso para o canal. O histórico continua em Canais arquivados, somente para visualização. Você pode restaurá-lo de lá. Os agentes membros são mantidos.",
   "sidebar.delete.sectionDescription":
     "Os agentes desta seção serão movidos para Sem seção. Nenhum agente será excluído.",
   "sidebar.delete.failed": "Não foi possível excluir este item. Tente novamente.",
