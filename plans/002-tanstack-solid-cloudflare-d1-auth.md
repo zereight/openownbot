@@ -116,15 +116,36 @@ email) before this step. Not recommended before A, B and C have shipped and a re
 2. Before B or C, count legacy members: add a local, redacted log line that records how many members
    have a hash and no `accountId` (no names, no emails). Release it, then read the result from
    support reports. The product sends no telemetry, so there is no other count.
-3. B, with an E2E script that signs in with an old client.
+3. B, with an E2E script that signs in with an old client. Done on 2026-10-31.
 4. C, with migration fixtures.
 5. D only after a decision.
 
 ### Decision (2026-10-31)
 
-Option A. The developer answered "1" to the question "which option?" without naming a letter, so the
-recommended option A is applied. This is an assumption: B, C and D stay open, and the developer can
-choose one later. Nothing is deleted or refused under A.
+The developer chose option B. An earlier answer, "1", named no letter, and option A was assumed for a
+short time. B replaces that assumption.
+
+B is done in code. `TeamStore.login` refuses the password of a member who has an `accountId`, with the
+answer of a wrong password (`error.team.loginIncorrect`). It checks the hash first, so both refusals
+take the same time. The hash stays in the file. A member with no `accountId` signs in as before.
+`scripts/team-password-login-e2e.ts` (`bun run test:team-password-login`) checks this on a real host:
+
+- It failed on the code before the change: a member with an account signed in with the email address
+  and the old password (status 200).
+- It passes after the change, for a client of the oldest protocol and a client of protocol 7, and after
+  a restart of the host. The account sign-in still works and the hash is still in the file.
+
+What B does not do, and what is not checked:
+
+- `changePassword` (`POST /v1/auth/password`) still works for a member with an account who knows the
+  old password. It makes a hash that no sign-in can use. It was not part of B, so it is unchanged.
+- An old released client that signs in with a password as a member with an account now fails. The test
+  uses the wire format of the oldest protocol, not a real old build. Which real builds do this is not
+  confirmed.
+- The E2E script is not run by this fork's CI (`ci.yml` has no E2E lane). It ran locally once.
+- No count of legacy members was made first (step 2 of the order above). The developer's choice
+  replaces that default. A member with an account is not locked out of the account sign-in, so no
+  member loses access unless the member has an old client that cannot sign in with an account.
 
 ### Account contract check (2026-10-31)
 

@@ -1088,7 +1088,11 @@ export class TeamStore {
       const member = state.members.find(
         (candidate) => candidate.username === username.trim().toLowerCase() && !candidate.disabled,
       );
-      if (!member || !(yield* verifyPasswordEffect(password, member))) {
+      // A member that has an account signs in through the account. The password of such a member is
+      // refused, with the answer of a wrong password so that it names no account. The hash stays in the
+      // file: it is the only way in for a member from before accounts. The check follows the hash
+      // check, so both refusals take the same time.
+      if (!member || !(yield* verifyPasswordEffect(password, member)) || member.accountId) {
         return yield* new RemoteWorkflowError({ cause: new TeamStoreError(sourceText("error.team.loginIncorrect")) });
       }
       yield* remoteDecode(() => this.#requireUnchangedState(state));

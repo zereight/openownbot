@@ -9,7 +9,7 @@ changes, and respect the `STOP` conditions.
 | Plan | Title | Priority | Size | Dependencies | State |
 |------|-------|----------|------|--------------|-------|
 | 001 | Add a central account API and a host whitelist | P1 | L | — | SUPERSEDED BY 002 |
-| 002 | TanStack Start, Solid 2, Cloudflare Workers and D1 | P1 | L | — | DONE with an exception: option A keeps the legacy local password sign-in (assumed; B to D stay open) |
+| 002 | TanStack Start, Solid 2, Cloudflare Workers and D1 | P1 | L | — | DONE with an exception: option B refuses the password of a member with an account; legacy hashes and the two routes stay (C and D stay open) |
 | 003 | MCP is robust and future-proof | P1 | M | — | DONE |
 | 004 | Fade the mobile search results and notices in and out | MEDIUM | S | — | DONE |
 | 005 | An invitation cannot disconnect a host or revive a removed member | P1 | M | maintainer decision (revoked member) | DONE |
@@ -34,8 +34,8 @@ Allowed states: `TODO`, `IN PROGRESS`, `DONE`, `BLOCKED: <reason>`,
   (called by E2E scripts only), `login` and `changePassword` use scrypt hashes, and
   `acceptInvite` no longer exists in `team-store.ts`. New hosts and members get no hash. The legacy
   hashes and the two released routes remain. Since 2026-10-31 plan 002 is DONE with this exception:
-  the developer's answer named no option, so the recommended option A (keep) was assumed. Options B
-  to D are in the plan and need an explicit choice.
+  the developer chose option B, so the host refuses the password of a member who has an account and
+  keeps the hash. Options C and D are in the plan and need an explicit choice.
 - Plan 003 is independent of 001 and 002. It was written against a clean
   worktree at commit `4980fb58`, after #633 gave Codex HTTP MCP servers, and
   rewritten once the developer decided the runtime, the configuration policy and
