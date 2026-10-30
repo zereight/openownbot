@@ -42,7 +42,6 @@ import type {
   McpServerConfig,
   QueuedMessageReceipt,
   QueueSnapshot,
-  ReorderQueueInput,
   ResetAgentSessionSettingInput,
   RespondToApprovalInput,
   RespondToBrowserTakeoverInput,
@@ -62,7 +61,6 @@ import type {
   SteerQueuedMessageInput,
   TestRoutineInput,
   UpdateAgentInput,
-  UpdateQueuedMessageInput,
 } from "@robot/contracts/ipc";
 import {
   type AgentDefaults,
@@ -86,7 +84,6 @@ import {
 } from "@robot/contracts/ipc";
 import { CLAUDE_API_KEY_ACCOUNT_ID } from "@robot/contracts/team-protocol/claude-api-key-v1";
 import { ContextResetBusyError } from "@robot/contracts/team-protocol/context-reset-v1";
-import type { QueueEditRequest } from "@robot/contracts/team-protocol/queue-edit-v1";
 import { sourceText } from "@robot/i18n/source";
 import { createOpenOwnBotLogger } from "@robot/logging";
 import { classifyFailure } from "@robot/telemetry";
@@ -152,7 +149,7 @@ import {
   ProviderRuntime,
   toProviderOperationFailed,
 } from "./agent/provider-runtime";
-import { QueueControls } from "./agent/queue-controls";
+import { QueueControls, type QueueOperations } from "./agent/queue-controls";
 import { quietRoutineRun } from "./agent/routine-quiet-runs";
 import { RoutineScheduler, toRoutineOperationFailed } from "./agent/routine-scheduler";
 import { localTimezone } from "./agent/routine-tools";
@@ -450,6 +447,8 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
   readonly #drain: DrainScheduler;
   readonly #sessionSettings: SessionSettings;
   readonly #queue: QueueControls;
+  /** Cancel, edit, update and reorder queued messages. */
+  readonly queue: QueueOperations;
   readonly #attachments: AttachmentGateway;
   readonly #browserUploads: BrowserUploads;
   readonly #mailboxSync: MailboxSync;
@@ -1025,6 +1024,7 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
         },
       },
     });
+    this.queue = this.#queue;
     this.#turn = new TurnLifecycle({
       store,
       mailbox,
@@ -3907,7 +3907,7 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
     yield* this.#drain.endPlanContinuation(task.agentId, task.taskId);
     // A teammate's answer stays in the open thread, so it runs with the other answers to the same request.
     for (const message of this.#mailbox.queuedTaskMessages(task.agentId, task.taskId, { teammateAnswers: false }))
-      yield* this.cancelQueuedMessage(task.agentId, message.deliveryId);
+      yield* this.#cancelQueued(task.agentId, message.deliveryId);
     const turnId = this.#conversation.loadedExecutionSnapshot(task.threadId)?.activeTurnId;
     if (turnId) {
       this.#tasks.markStopped(task.taskId, turnId);
@@ -3978,7 +3978,7 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
     yield* this.#memoryReview.forgetThread(task.agentId, task.threadId);
     yield* this.#returnTaskAnswers(task);
     for (const message of this.#mailbox.queuedTaskMessages(task.agentId, task.taskId))
-      yield* this.cancelQueuedMessage(task.agentId, message.deliveryId);
+      yield* this.#cancelQueued(task.agentId, message.deliveryId);
     yield* lifecycleStep("check task", () => {
       if (!this.#mailbox.taskBusy(task.agentId, task.taskId)) return;
       // A turn that started before the archive runs on, so the thread stays as the person left it.
@@ -4005,11 +4005,7 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
     this.#drain.scheduleDrain(task.agentId);
   }).bind(this);
 
-  acknowledgeFailedTurn(agentId: string, turnId: string): void {
-    this.#turn.acknowledgeFailedTurn(agentId, turnId);
-  }
-
-  cancelQueuedMessage(agentId: string, deliveryId: string): Effect.Effect<void, AgentLifecycleFailed> {
+  #cancelQueued(agentId: string, deliveryId: string): Effect.Effect<void, AgentLifecycleFailed> {
     return this.#queue
       .cancel(agentId, deliveryId)
       .pipe(
@@ -4017,6 +4013,10 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
           (failure) => new AgentLifecycleFailed({ operation: "cancelQueuedMessage", cause: failure.cause }),
         ),
       );
+  }
+
+  acknowledgeFailedTurn(agentId: string, turnId: string): void {
+    this.#turn.acknowledgeFailedTurn(agentId, turnId);
   }
 
   /**
@@ -4064,42 +4064,6 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
       }
     }
   });
-
-  /** A saved edit is the editor's text, so `sender` becomes the sender of the message. */
-  editQueuedMessage(
-    agentId: string,
-    input: QueueEditRequest,
-    sender?: ConversationMessageSender,
-  ): Effect.Effect<QueueSnapshot, AgentLifecycleFailed> {
-    return this.#queue
-      .edit(agentId, input, sender)
-      .pipe(
-        Effect.mapError(
-          (failure) => new AgentLifecycleFailed({ operation: "editQueuedMessage", cause: failure.cause }),
-        ),
-      );
-  }
-
-  updateQueuedMessage(
-    input: UpdateQueuedMessageInput,
-    sender?: ConversationMessageSender,
-  ): Effect.Effect<void, AgentLifecycleFailed> {
-    return this.#queue
-      .update(input, sender)
-      .pipe(
-        Effect.mapError(
-          (failure) => new AgentLifecycleFailed({ operation: "updateQueuedMessage", cause: failure.cause }),
-        ),
-      );
-  }
-
-  reorderQueue(input: ReorderQueueInput): Effect.Effect<void, AgentLifecycleFailed> {
-    return this.#queue
-      .reorder(input)
-      .pipe(
-        Effect.mapError((failure) => new AgentLifecycleFailed({ operation: "reorderQueue", cause: failure.cause })),
-      );
-  }
 
   steerQueuedMessage(input: SteerQueuedMessageInput): Effect.Effect<void, AgentLifecycleFailed> {
     // A steer gives a queued message to the running turn. The queue of a hidden agent waits.
@@ -4220,7 +4184,7 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
       });
     // The task can close while the message is stored, and a closed task shows no queue to cancel it.
     if (task && this.#tasks.threadId(task.taskId) === null) {
-      yield* this.cancelQueuedMessage(agent.id, delivery.delivery.id);
+      yield* this.#cancelQueued(agent.id, delivery.delivery.id);
       return yield* new AgentLifecycleFailed({
         operation: "send message",
         cause: new Error(sourceText("error.backend.threadArchived")),

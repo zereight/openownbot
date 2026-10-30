@@ -1824,7 +1824,7 @@ export async function createApplicationServices({
         if (!found) return Effect.void;
         return found.status === "running" && found.turnId
           ? service.interrupt(agentId, found.turnId)
-          : service.cancelQueuedMessage(agentId, deliveryId);
+          : service.queue.cancel(agentId, deliveryId);
       },
       generateText: (request) =>
         service.generateWorkflowText(request).pipe(

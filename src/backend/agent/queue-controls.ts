@@ -51,6 +51,11 @@ export interface QueueControlsOptions {
  *
  * It never imports the agent service facade.
  */
+/** The queue edits that code outside the backend calls. A steer stays on the service, which checks the agent first. */
+export type QueueOperations = {
+  readonly [K in "cancel" | "edit" | "update" | "reorder"]: OmitThisParameter<QueueControls[K]>;
+};
+
 export class QueueControls {
   readonly #store: AgentStore;
   readonly #mailbox: MailboxStore;

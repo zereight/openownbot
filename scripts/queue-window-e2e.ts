@@ -118,17 +118,19 @@ function queueAgents(mailbox: MailboxStore): AgentQueueRouteDependencies["agents
   return {
     listQueue: (agentId) => mailbox.listQueue(agentId),
     // The `begin` step of `QueueControls.edit`: lock the queued message, then answer the snapshot.
-    editQueuedMessage: (agentId, input) =>
-      Effect.sync(() => {
-        assert.equal(input.action, "begin");
-        mailbox.beginQueueEdit(agentId, input.deliveryId, input.editId);
-        return mailbox.listQueue(agentId);
-      }),
     acknowledgeFailedTurn: () => unused("acknowledgeFailedTurn"),
-    cancelQueuedMessage: () => Effect.sync(() => unused("cancelQueuedMessage")),
     steerQueuedMessage: () => Effect.sync(() => unused("steerQueuedMessage")),
-    updateQueuedMessage: () => Effect.sync(() => unused("updateQueuedMessage")),
-    reorderQueue: () => Effect.sync(() => unused("reorderQueue")),
+    queue: {
+      edit: (agentId, input) =>
+        Effect.sync(() => {
+          assert.equal(input.action, "begin");
+          mailbox.beginQueueEdit(agentId, input.deliveryId, input.editId);
+          return mailbox.listQueue(agentId);
+        }),
+      cancel: () => Effect.sync(() => unused("queue.cancel")),
+      update: () => Effect.sync(() => unused("queue.update")),
+      reorder: () => Effect.sync(() => unused("queue.reorder")),
+    },
     interrupt: () => Effect.sync(() => unused("interrupt")),
     listAgents: () => [],
   };

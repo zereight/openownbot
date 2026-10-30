@@ -698,7 +698,7 @@ export function agentIpcHandlers({
           ),
       }),
       cancelQueuedMessage: scopedHandler(parseCancelQueuedMessage, {
-        local: (parsed) => runCauseEffect(service.cancelQueuedMessage(parsed.agentId, parsed.deliveryId)),
+        local: (parsed) => runCauseEffect(service.queue.cancel(parsed.agentId, parsed.deliveryId)),
         remote: (parsed, serverId) =>
           runCauseEffect(
             remoteServers.request(serverId, TEAM_API_ROUTES.agent.queueCancel(parsed.agentId), decodeVoid, {
@@ -718,8 +718,7 @@ export function agentIpcHandlers({
           ),
       }),
       editQueuedMessage: scopedHandler(parseQueueEdit, {
-        local: ({ agentId, ...input }) =>
-          runCauseEffect(service.editQueuedMessage(agentId, input, host.conversationSender())),
+        local: ({ agentId, ...input }) => runCauseEffect(service.queue.edit(agentId, input, host.conversationSender())),
         remote: ({ agentId, ...input }, serverId) =>
           runCauseEffect(
             remoteServers.request(serverId, TEAM_API_ROUTES.agent.queueEdit(agentId), decodeQueueSnapshot, {
@@ -729,7 +728,7 @@ export function agentIpcHandlers({
           ),
       }),
       updateQueuedMessage: scopedHandler(parseUpdateQueuedMessage, {
-        local: (parsed) => runCauseEffect(service.updateQueuedMessage(parsed, host.conversationSender())),
+        local: (parsed) => runCauseEffect(service.queue.update(parsed, host.conversationSender())),
         remote: (parsed, serverId) =>
           runCauseEffect(
             remoteServers.request(serverId, TEAM_API_ROUTES.agent.queueUpdate(parsed.agentId), decodeVoid, {
@@ -744,7 +743,7 @@ export function agentIpcHandlers({
           ),
       }),
       reorderQueue: scopedHandler(parseReorderQueue, {
-        local: (parsed) => runCauseEffect(service.reorderQueue(parsed)),
+        local: (parsed) => runCauseEffect(service.queue.reorder(parsed)),
         remote: (parsed, serverId) =>
           runCauseEffect(
             remoteServers.request(serverId, TEAM_API_ROUTES.agent.queueReorder(parsed.agentId), decodeVoid, {
