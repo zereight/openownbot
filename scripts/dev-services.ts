@@ -38,6 +38,7 @@ import {
 } from "./development-environment";
 import { resolveDevelopmentAppDataRoot } from "./development-state-paths";
 import { withoutElectronRuntimeFlags } from "./electron-spawn-env";
+import { installCuaDriver } from "./install-cua-driver";
 import { resolvePackageBin } from "./package-bin";
 import { prepareDevelopmentEnvironment } from "./prepare-dev-environment";
 
@@ -288,12 +289,27 @@ async function readHostingDeveloperKey(): Promise<string> {
   return environment.HOSTED_SERVERS_DEVELOPER_KEY ?? "";
 }
 
+/**
+ * A checkout has no Computer Use driver until the pinned build is under `build/cua-driver`, and
+ * without it the app reports that this build has no driver. The install is a no-op when the
+ * installed tree is current. A failure, such as no network, only logs: development goes on
+ * without Computer Use.
+ */
+async function ensureCuaDriver(): Promise<void> {
+  try {
+    await installCuaDriver();
+  } catch (error) {
+    logger.warn(`Computer Use driver not installed. Run \`bun run prepare:cua-driver\` to retry: ${toLogValue(error)}`);
+  }
+}
+
 async function main(): Promise<void> {
   const { target, dryRun, force, shared, hostingTest, slack } = parseDevelopmentTarget(process.argv.slice(2));
   if (!dryRun && prepareDevelopmentEnvironment() === "created") {
     logger.info("Prepared local development state.");
   }
   const services = servicesForTarget(target);
+  if (!dryRun && services.includes("app")) await ensureCuaDriver();
   const developmentEnvironment = dryRun ? {} : await loadDevelopmentEnvironment(projectRoot);
   const sharedEnvironment = developmentEnvironmentForTarget(target);
   if (hostingTest) {
