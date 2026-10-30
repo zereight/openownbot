@@ -1,5 +1,6 @@
 import type { Effect } from "effect";
 import type { AgentMemories } from "../../backend/agent/agent-memories";
+import type { McpOperations } from "../../backend/agent/mcp-gateway";
 import type { RoutineOperations } from "../../backend/agent/routine-scheduler";
 import type { ChannelRoutineOperations } from "../../backend/channel-routine-scheduler";
 import type { ChannelService } from "../../backend/channel-service";
@@ -141,10 +142,7 @@ export type TeamApiAgents = TeamApiAgentMethods & {
  * The MCP half of `AgentService`, kept as its own option rather than folded into `TeamApiAgents`:
  * its presence is what `#protocolSupport` advertises the capability on, exactly as `channels` is.
  */
-export type TeamApiMcpServers = Pick<
-  AgentService,
-  "listMcpServers" | "saveMcpServer" | "removeMcpServer" | "setMcpServerEnabled" | "testMcpServer"
->;
+export type TeamApiMcpServers = Pick<McpOperations, "list" | "save" | "remove" | "setEnabled" | "test">;
 
 /** Its presence, beside `mcpServers`, is what `#protocolSupport` advertises `mcp-sign-in-v1` on. */
 export type TeamApiMcpSignIns = Pick<

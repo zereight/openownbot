@@ -1,3 +1,4 @@
+import type { McpOperations } from "../backend/agent/mcp-gateway";
 // MCP sign-ins that an administrator starts on this host from another computer (`mcp-sign-in-v1`, and
 // `sign-in-relay-v1` through `SignInRelayHost`).
 
@@ -13,7 +14,6 @@ import type {
 } from "@robot/contracts/ipc";
 import { sourceText } from "@robot/i18n/source";
 import { Cause, Effect, Exit, Option } from "effect";
-import type { AgentService } from "../backend/agent-service";
 import type { BrowserHost } from "../backend/browser-host";
 import { normalizeResource } from "../backend/mcp-oauth-provider";
 import { HostSignInPages } from "./host-sign-in-pages";
@@ -23,14 +23,8 @@ const ERROR_LIMIT = 2_000;
 
 export interface McpHostSignInDependencies {
   service: Pick<
-    AgentService,
-    | "signInMcpServer"
-    | "cancelMcpSignIn"
-    | "signOutMcpServer"
-    | "listMcpSignIns"
-    | "mcpSignInApp"
-    | "saveMcpSignInApp"
-    | "removeMcpSignInApp"
+    McpOperations,
+    "signIn" | "cancelSignIn" | "signOut" | "signIns" | "signInApp" | "saveSignInApp" | "removeSignInApp"
   >;
   browser: Pick<BrowserHost, "openPrivate" | "privateTab" | "close">;
 }
@@ -55,7 +49,7 @@ export class McpHostSignIns {
   start(input: TestMcpServerInput) {
     return this.#pages.start(
       signInKey(input.config.url),
-      (openPage) => this.#dependencies.service.signInMcpServer(input, openPage),
+      (openPage) => this.#dependencies.service.signIn(input, openPage),
       resultOf,
     );
   }
@@ -67,7 +61,7 @@ export class McpHostSignIns {
   startRelay(input: TestMcpServerInput) {
     return this.#pages.start(
       signInKey(input.config.url),
-      (openPage) => this.#dependencies.service.signInMcpServer(input, openPage),
+      (openPage) => this.#dependencies.service.signIn(input, openPage),
       resultOf,
       "relay",
     );
@@ -89,28 +83,28 @@ export class McpHostSignIns {
   }
 
   cancel(url: string): void {
-    this.#dependencies.service.cancelMcpSignIn({ url });
+    this.#dependencies.service.cancelSignIn(url);
   }
 
   signOut(input: SignOutMcpServerInput) {
-    return this.#dependencies.service.signOutMcpServer(input).pipe(Effect.map(onWire));
+    return this.#dependencies.service.signOut(input).pipe(Effect.map(onWire));
   }
 
   list(): McpSignInState[] {
-    return onWire(this.#dependencies.service.listMcpSignIns());
+    return onWire(this.#dependencies.service.signIns());
   }
 
   /** The sign-in app of one row (`mcp-sign-in-app-v1`). The next `start` uses it. */
   app(input: McpSignInAppInput): McpSignInAppState {
-    return this.#dependencies.service.mcpSignInApp(input);
+    return this.#dependencies.service.signInApp(input);
   }
 
   saveApp(input: SaveMcpSignInAppInput) {
-    return this.#dependencies.service.saveMcpSignInApp(input);
+    return this.#dependencies.service.saveSignInApp(input);
   }
 
   removeApp(input: McpSignInAppInput) {
-    return this.#dependencies.service.removeMcpSignInApp(input);
+    return this.#dependencies.service.removeSignInApp(input);
   }
 
   close() {

@@ -40,7 +40,7 @@ export async function routeMcpServers(
   if (!mcpServers || !capabilities.has(MCP_SERVERS_CAPABILITY))
     throw new HttpError(400, sourceText("error.team.mcpUnsupported"));
   requireAdmin(member);
-  if (list) return json(200, mcpServers.listMcpServers());
+  if (list) return json(200, mcpServers.list());
   // `readJson` has already run the body through the MCP wire codec, so every field below is decoded
   // and bounded before the IPC parsers see it.
   const body = mcpRequest(url.pathname, await readJson(request));
@@ -48,21 +48,18 @@ export async function routeMcpServers(
     // The local save starts the runtime download; the host route shares it, or a first server
     // added remotely never gets the runtime its test and its spawn need.
     toolRuntimes?.startToolRuntimes();
-    return json(200, await runCauseEffect(mcpServers.saveMcpServer(parseSaveMcpServer(body))));
+    return json(200, await runCauseEffect(mcpServers.save(parseSaveMcpServer(body))));
   }
-  if (remove) return json(200, await runCauseEffect(mcpServers.removeMcpServer(parseRemoveMcpServer(body))));
+  if (remove) return json(200, await runCauseEffect(mcpServers.remove(parseRemoveMcpServer(body))));
   if (test) {
     const parsed = parseTestMcpServer(body);
     if (toolRuntimes) await runCauseEffect(prepareToolRuntimeForTest(parsed.config, toolRuntimes));
     // The administrator tests the host's servers, so the host's stored sign-ins are spent - but no
     // browser opens on a machine nobody is sitting at. Only the tool count and the error travel back;
     // a server that wants a sign-in is told to the administrator as one to finish on the host.
-    return json(
-      200,
-      await runCauseEffect(mcpServers.testMcpServer(parsed, { storedCredentials: true, signInPlace: "host" })),
-    );
+    return json(200, await runCauseEffect(mcpServers.test(parsed, { storedCredentials: true, signInPlace: "host" })));
   }
   const toggled = parseSetMcpServerEnabled(body);
   if (toggled.enabled) toolRuntimes?.startToolRuntimes();
-  return json(200, await runCauseEffect(mcpServers.setMcpServerEnabled(toggled)));
+  return json(200, await runCauseEffect(mcpServers.setEnabled(toggled)));
 }
