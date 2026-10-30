@@ -1,10 +1,12 @@
 import type { BrowserControlSession, BrowserPreview, BrowserTab } from "@openownbot/contracts/ipc";
 import { TEAM_BROWSER_NAVIGATION_CAPABILITY } from "@openownbot/contracts/team-protocol/current";
+import { classifyFailure } from "@openownbot/telemetry";
 import { toast } from "@openownbot/ui";
 import type { AgentProfile } from "@openownbot/ui/data";
 import { browserAddressUrl } from "@openownbot/ui/features/browser/browser-suggestions";
 import { currentText } from "@openownbot/ui/text";
 import { createEffect, createMemo, createSignal, untrack } from "solid-js";
+import { actionToast } from "../../../action-toast";
 import { serverSupportsCapability } from "../../servers/server-capabilities";
 import { conversationPort } from "../conversation-port";
 import { conversationRuntime } from "../conversation-runtime";
@@ -219,7 +221,21 @@ export function createBrowserStore(deps: BrowserStoreDeps) {
       messageMarker: latestMessageMarker(),
       signInBlocked: blockedTakeoverSignIn(),
     } satisfies BrowserTakeoverResolutionState;
-    const completed = await deps.props.onRespondToBrowserTakeover(decision);
+    // The takeover of an open side thread: a failure shows where the person answered, not in the agent's chat.
+    const sideThread = request.threadId === deps.props.threads?.open?.threadId;
+    const completed = await deps.props.onRespondToBrowserTakeover(
+      decision,
+      sideThread
+        ? {
+            onError: (error) => {
+              const { t, errorMessage } = currentText();
+              actionToast.error(errorMessage(error, t("app.errorStatus.browserTakeover")), {
+                report: { operation: "turn", source: "action", cause_code: classifyFailure(error) },
+              });
+            },
+          }
+        : undefined,
+    );
     if (completed && latestMessageMarker() === resolution.messageMarker) setBrowserTakeoverResolution(resolution);
     return completed;
   };
