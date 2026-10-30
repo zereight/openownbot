@@ -9,7 +9,7 @@ changes, and respect the `STOP` conditions.
 | Plan | Title | Priority | Size | Dependencies | State |
 |------|-------|----------|------|--------------|-------|
 | 001 | Add a central account API and a host whitelist | P1 | L | — | SUPERSEDED BY 002 |
-| 002 | TanStack Start, Solid 2, Cloudflare Workers and D1 | P1 | L | — | DONE with an exception: option D removed the password sign-in and change from the host; the stored hashes stay in the file (option C, deleting them, stays open) |
+| 002 | TanStack Start, Solid 2, Cloudflare Workers and D1 | P1 | L | — | DONE with an exception: option D removed the password sign-in and change from the host; the stored hashes stay in the file (option C, deleting them for members with an account, waits for the approval words) |
 | 003 | MCP is robust and future-proof | P1 | M | — | DONE |
 | 004 | Fade the mobile search results and notices in and out | MEDIUM | S | — | DONE |
 | 005 | An invitation cannot disconnect a host or revive a removed member | P1 | M | maintainer decision (revoked member) | DONE |
@@ -30,8 +30,8 @@ Allowed states: `TODO`, `IN PROGRESS`, `DONE`, `BLOCKED: <reason>`,
   ticket (`redeemCentralTicket`). The local password sign-in that the plan did not permit is gone
   since 2026-10-31: the developer chose option B and then option D, so the host serves neither
   `/v1/auth/login` nor `/v1/auth/password`, and `TeamStore.login`, `configure` and `changePassword`
-  are removed. The password hashes that older versions stored stay in the team file and nothing reads
-  them. Option C, deleting them, needs an explicit choice.
+  are removed. Option C (a branch, not merged) deletes the password hashes of members that have an
+  account. The hashes of members without an account, and the imported copy, stay.
 - Plan 003 is independent of 001 and 002. It was written against a clean
   worktree at commit `4980fb58`, after #633 gave Codex HTTP MCP servers, and
   rewritten once the developer decided the runtime, the configuration policy and

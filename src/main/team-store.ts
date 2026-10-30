@@ -67,9 +67,9 @@ export class TeamStoreError extends Schema.TaggedError<TeamStoreError>()("TeamSt
 interface StoredMember extends TeamMemberSummary {
   accountId?: string;
   /**
-   * Written by versions that had a password sign-in. Nothing reads them now. They stay in the file, and
-   * in the copy of the imported record, so that no data is lost; a later step can delete them. They
-   * never leave this file: `publicMember` copies the fields it names.
+   * Written by versions that had a password sign-in. Nothing reads them now. A member that has an
+   * account loses them (`dropPasswordData`); a member without one keeps them, and so does the copy of
+   * the imported record. They never leave this file: `publicMember` copies the fields it names.
    */
   passwordSalt?: string;
   passwordHash?: string;
@@ -286,6 +286,11 @@ export class TeamStore {
         }
         this.#file.legacyImport = { fingerprint: legacy.fingerprint, record: structuredClone(legacy.record) };
         migrated = true;
+      }
+      // Only in memory here. The write of `#pruneEffect` below carries it, and a failed write leaves the
+      // file as it was, with every hash.
+      for (const host of this.#file.hosts) {
+        for (const member of host.members) if (member.accountId) dropPasswordData(member);
       }
       const imported = this.#file.legacyImport?.record.serverId;
       const importedHost = imported === undefined ? undefined : this.#file.hosts.find((h) => h.serverId === imported);
@@ -990,6 +995,7 @@ export class TeamStore {
       member.username = email;
       member.name = yield* remoteDecode(() => normalizeName(user.name));
       member.avatarUrl = yield* remoteDecode(() => normalizeAvatarUrl(user.avatarUrl));
+      dropPasswordData(member);
       const result = yield* remoteDecode(() => this.#createSession(member));
       yield* this.#persistEffect();
       return result;
@@ -1065,6 +1071,9 @@ export class TeamStore {
     if (!member) return false;
     const name = normalizeName(user.name);
     const avatarUrl = normalizeAvatarUrl(user.avatarUrl);
+    // The member has an account from here on, so the hash of an older sign-in goes. It counts as a change,
+    // or the write that removes it would be skipped for a profile that is otherwise up to date.
+    const hadPasswordData = dropPasswordData(member);
     if (
       member.email === email &&
       member.accountId === user.id &&
@@ -1072,7 +1081,7 @@ export class TeamStore {
       member.name === name &&
       (member.avatarUrl ?? null) === avatarUrl
     ) {
-      return false;
+      return hadPasswordData;
     }
     member.email = email;
     member.accountId = user.id;
@@ -1256,6 +1265,17 @@ function identityOf(host: StoredTeam): TeamIdentity {
     enabledOnLaunch: host.enabledOnLaunch,
     logoVersion: host.serverLogo?.version ?? null,
   };
+}
+
+/**
+ * Removes what a version with a password sign-in stored for the member. Reports whether anything was
+ * there. Call it only for a member that has an account: nothing else can sign in for them.
+ */
+function dropPasswordData(member: StoredMember): boolean {
+  const present = member.passwordHash !== undefined || member.passwordSalt !== undefined;
+  delete member.passwordHash;
+  delete member.passwordSalt;
+  return present;
 }
 
 function hostOwner(host: StoredTeam): StoredMember | undefined {

@@ -1,15 +1,18 @@
-// Checks that the host has no password sign-in, and that it keeps the password data of an older version.
-// A team file written by a version with a password sign-in is put on a temporary profile: the owner has
-// a password hash and salt and no account. A real `TeamApiServer` runs on that profile on loopback, in a
-// child process of this script. `/v1/auth/login` and `/v1/auth/password` must answer like any unknown
-// route, for a client of the oldest protocol and a client of protocol 7. The owner must sign in with
-// the account, no response may carry the hash or the salt, and both must still be in the file after the
-// host wrote it and after a restart.
+// Checks that the host has no password sign-in, and what it does with the password data of an older
+// version. A team file written by a version with a password sign-in is put on a temporary profile: the
+// owner has a password hash and salt and no account, a second member has an account and a hash, a third
+// has a hash and no account, and the copy of the imported record has the owner's hash. A real
+// `TeamApiServer` runs on that profile on loopback, in a child process of this script.
+// `/v1/auth/login` and `/v1/auth/password` must answer like any unknown route, for a client of the
+// oldest protocol and a client of protocol 7. The owner must sign in with the account. After the host
+// wrote the file, the hash and the salt must be gone for the two members that have an account, and
+// must remain for the member without one and in the imported copy. A host whose start cannot write
+// the file must leave it byte for byte as it was. No response may carry a hash or a salt.
 // Run: `bun scripts/team-password-removed-e2e.ts`.
 // Writes .openownbot-build/team-password-removed-e2e/report.json.
 import assert from "node:assert/strict";
 import { generateKeyPairSync, randomUUID } from "node:crypto";
-import { mkdirSync, writeFileSync } from "node:fs";
+import { chmodSync, mkdirSync, writeFileSync } from "node:fs";
 import { mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
@@ -39,10 +42,24 @@ const TEAM_FILE = "openbot-team-server-v2.json";
 const STEP_DEADLINE_MS = 30_000;
 const LEGACY_USERNAME = "owner-user";
 const LEGACY_PASSWORD = "owner-password-123";
-const LEGACY_HASH = "legacy-hash-0123456789abcdefghijklmnopqrstuvwxyz";
-const LEGACY_SALT = "legacy-salt-0123456789abcdef";
+// One hash and salt for each member of the fixture, so a check can tell which ones the host removed.
+// No value contains another one: the checks count occurrences in the file text.
+const OWNER_DATA = { hash: "owner-hash-0123456789abcdefghijklmnopqrstuvwxyz", salt: "owner-salt-0123456789abcdef" };
+const BOUND_DATA = { hash: "hasacct-hash-0123456789abcdefghijklmnopqrstuvwxyz", salt: "hasacct-salt-0123456789abcdef" };
+const UNBOUND_DATA = {
+  hash: "noacct-hash-0123456789abcdefghijklmnopqrstuvwxyz",
+  salt: "noacct-salt-0123456789abcdef",
+};
+const INVITED_DATA = {
+  hash: "invited-hash-0123456789abcdefghijklmnopqrstuvwxyz",
+  salt: "invited-salt-0123456789abcdef",
+};
+const BOUND_ACCOUNT_ID = "account-bound-1";
 const ACCOUNT = { id: "account-e2e-1", email: "owner@example.test", name: "Owner", avatarUrl: null };
 const ACCOUNT_TICKET = "ticket-e2e";
+// A member that has a hash and no account, whose user name is the address of this account.
+const INVITED_ACCOUNT = { id: "account-invited-1", email: "invited@example.test", name: "Invited", avatarUrl: null };
+const INVITED_TICKET = "ticket-invited";
 const HOST_LINE = "team-password-host ";
 
 // --- Host process ---
@@ -50,8 +67,10 @@ const HOST_LINE = "team-password-host ";
 /**
  * Runs the host on a profile until its standard input closes. It activates the account of the owner, as
  * the app does at launch after a sign-in, and lets the host redeem the one ticket of this check.
+ * In `read-only` mode the profile cannot be written when the team store starts. The host reports
+ * whether that failed, and stops.
  */
-async function runHost(root: string): Promise<void> {
+async function runHost(root: string, mode: "serve" | "read-only"): Promise<void> {
   // The main process imports Electron for its windows and IPC. No check here opens a window.
   plugin({
     name: "team-password-electron-boundary",
@@ -133,6 +152,18 @@ async function runHost(root: string): Promise<void> {
   // The stores only: `AgentService.initialize` would start the provider CLIs, which no step needs.
   await runCauseEffect(agentStore.initialize());
   await runCauseEffect(mailbox.initialize());
+  if (mode === "read-only") {
+    // The start writes the file once, so a profile that cannot be written fails it.
+    chmodSync(userData, 0o555);
+    const outcome = await runCauseEffect(team.initialize()).then(
+      () => "written",
+      () => "failed",
+    );
+    chmodSync(userData, 0o755);
+    database.close();
+    process.stdout.write(`${HOST_LINE}${JSON.stringify({ outcome })}\n`);
+    return;
+  }
   await runCauseEffect(team.initialize());
   await runCauseEffect(team.activateAccount(ACCOUNT));
   const agents = new AgentService({ store: agentStore, mailbox, browser: agentBrowser, sidebarLayout: sidebar });
@@ -143,7 +174,8 @@ async function runHost(root: string): Promise<void> {
     browser: teamBrowser,
     sidebarLayout: sidebar,
     appVersion: HOST_VERSION,
-    redeemCentralTicket: (ticket) => Effect.succeed(ticket === ACCOUNT_TICKET ? ACCOUNT : null),
+    redeemCentralTicket: (ticket) =>
+      Effect.succeed(ticket === ACCOUNT_TICKET ? ACCOUNT : ticket === INVITED_TICKET ? INVITED_ACCOUNT : null),
   });
   const port = await Effect.runPromise(server.start());
   process.stdout.write(`${HOST_LINE}${JSON.stringify({ port })}\n`);
@@ -157,7 +189,9 @@ async function runHost(root: string): Promise<void> {
 if (process.argv[2] === "--host") {
   const root = process.argv[3];
   assert.ok(root, "The host needs a profile directory.");
-  await runHost(root);
+  const mode = process.argv[4];
+  assert.ok(mode === "serve" || mode === "read-only", "The host needs a mode.");
+  await runHost(root, mode);
   process.exit(0);
 }
 
@@ -198,52 +232,71 @@ const root = await mkdtemp(join(tmpdir(), "openownbot-team-password-"));
 let host: { process: Bun.Subprocess<"pipe", "pipe", "inherit">; exited: Promise<number> } | null = null;
 let port = 0;
 
+/** One member as a version with a password sign-in stored it. The values are not real hashes. */
+function legacyMember(
+  username: string,
+  role: "owner" | "member",
+  data: { hash: string; salt: string },
+  accountId?: string,
+) {
+  return {
+    id: randomUUID(),
+    username,
+    email: null,
+    name: null,
+    avatarUrl: null,
+    role,
+    disabled: false,
+    createdAt: new Date().toISOString(),
+    ...(accountId === undefined ? {} : { accountId }),
+    passwordSalt: data.salt,
+    passwordHash: data.hash,
+  };
+}
+
 /**
- * The team file of a version with a password sign-in: one host whose owner has a hash, a salt and no
- * account. The values are not real hashes; nothing reads them now, which is what this check shows.
+ * The team file of a version with a password sign-in. One host: the owner has a hash, a salt and no
+ * account; a member has an account and a hash; a member has a hash and no account and will sign in with
+ * an account; a member has a hash and no account and never signs in. The file also holds the copy of
+ * the imported record, with every hash. Returns the text, so that a check can compare.
  */
-async function writeLegacyTeamFile(): Promise<void> {
+async function writeLegacyTeamFile(): Promise<string> {
   const { publicKey, privateKey } = generateKeyPairSync("ed25519", {
     publicKeyEncoding: { type: "spki", format: "pem" },
     privateKeyEncoding: { type: "pkcs8", format: "pem" },
   });
+  const owner = legacyMember(LEGACY_USERNAME, "owner", OWNER_DATA);
+  const host = {
+    version: 1,
+    serverId: randomUUID(),
+    serverName: "Legacy Host",
+    enabledOnLaunch: false,
+    publicKey,
+    privateKey,
+    members: [
+      owner,
+      legacyMember("bound-user", "member", BOUND_DATA, BOUND_ACCOUNT_ID),
+      legacyMember(INVITED_ACCOUNT.email, "member", INVITED_DATA),
+      legacyMember("unbound-user", "member", UNBOUND_DATA),
+    ],
+    invites: [],
+    sessions: [],
+  };
   const file = {
     version: 2,
     activeAccountId: null,
-    hosts: [
-      {
-        version: 1,
-        serverId: randomUUID(),
-        serverName: "Legacy Host",
-        enabledOnLaunch: false,
-        publicKey,
-        privateKey,
-        members: [
-          {
-            id: randomUUID(),
-            username: LEGACY_USERNAME,
-            email: null,
-            name: null,
-            avatarUrl: null,
-            role: "owner",
-            disabled: false,
-            createdAt: new Date().toISOString(),
-            passwordSalt: LEGACY_SALT,
-            passwordHash: LEGACY_HASH,
-          },
-        ],
-        invites: [],
-        sessions: [],
-      },
-    ],
+    hosts: [host],
+    legacyImport: { fingerprint: "e2e-fingerprint", record: structuredClone(host) },
   };
+  const text = JSON.stringify(file);
   await mkdir(join(root, "user-data"), { recursive: true });
-  await writeFile(join(root, "user-data", TEAM_FILE), JSON.stringify(file));
+  await writeFile(join(root, "user-data", TEAM_FILE), text);
+  return text;
 }
 
 /** Starts the host process on the profile, and waits until it listens. */
 async function startHost(): Promise<void> {
-  const child = Bun.spawn([process.execPath, import.meta.path, "--host", root], {
+  const child = Bun.spawn([process.execPath, import.meta.path, "--host", root, "serve"], {
     stdin: "pipe",
     stdout: "pipe",
     stderr: "inherit",
@@ -319,15 +372,39 @@ const accountSignIn = async (client: Client = "protocol 7") =>
     "account sign-in",
   );
 
-/** The team file holds the hash and the salt of the older version, unchanged. */
-async function assertLegacyDataKept(): Promise<void> {
-  const text = await teamFile();
-  assert.ok(text.includes(LEGACY_HASH), "The stored password hash is gone from the team file.");
-  assert.ok(text.includes(LEGACY_SALT), "The stored password salt is gone from the team file.");
+/** How often the file holds the value. Each hash and salt is in the host and in the imported copy. */
+async function occurrences(value: string): Promise<number> {
+  return (await teamFile()).split(value).length - 1;
+}
+
+/** The hash and the salt of a member: in both copies, or only in the imported copy. */
+async function assertPasswordData(
+  name: string,
+  data: { hash: string; salt: string },
+  expected: "kept" | "dropped",
+): Promise<void> {
+  const copies = expected === "kept" ? 2 : 1;
+  assert.equal(await occurrences(data.hash), copies, `The hash of ${name} is not ${expected}.`);
+  assert.equal(await occurrences(data.salt), copies, `The salt of ${name} is not ${expected}.`);
 }
 
 try {
-  await writeLegacyTeamFile();
+  const fixture = await writeLegacyTeamFile();
+  await step("read-only profile: a failed write leaves the team file as it was", async () => {
+    const child = Bun.spawn([process.execPath, import.meta.path, "--host", root, "read-only"], {
+      stdout: "pipe",
+      stderr: "inherit",
+    });
+    const output = await new Response(child.stdout).text();
+    assert.equal(await child.exited, 0, "The read-only host did not stop cleanly.");
+    const line = output.split("\n").find((candidate) => candidate.startsWith(HOST_LINE));
+    assert.ok(line, "The read-only host reported no outcome.");
+    const { outcome } = JSON.parse(line.slice(HOST_LINE.length));
+    assert.equal(outcome, "failed", "The write did not fail, so this check proves nothing.");
+    assert.equal(await teamFile(), fixture, "The team file changed although the write failed.");
+    return { outcome };
+  });
+
   await startHost();
   await step("password routes: login and password change answer like an unknown route", async () => {
     const unknown = await call("protocol 7", "POST", "/v1/auth/no-such-route", { body: {} });
@@ -365,24 +442,38 @@ try {
     return { status: changed.status };
   });
 
-  await step("older data: the hash and the salt stay in the file after the host wrote it", async () => {
-    await assertLegacyDataKept();
+  await step("password data: gone for the owner and the member with an account, kept for the rest", async () => {
     // The host did write: the owner is bound to the account now. Without that, this check proves nothing.
     assert.ok((await teamFile()).includes(ACCOUNT.id), "The host did not write the account of the owner.");
-    return { kept: true };
+    await assertPasswordData("the owner, bound at start", OWNER_DATA, "dropped");
+    await assertPasswordData("the member that had an account", BOUND_DATA, "dropped");
+    await assertPasswordData("the member that has not signed in", INVITED_DATA, "kept");
+    await assertPasswordData("the member without an account", UNBOUND_DATA, "kept");
+    return { owner: "dropped", bound: "dropped", invited: "kept", unbound: "kept" };
   });
 
-  await step("older data: no response carries the hash or the salt", async () => {
+  await step("password data: gone for a member that signs in with an account, kept for the others", async () => {
+    sessionToken(
+      await call("protocol 7", "POST", TEAM_API_ROUTES.auth.account, { body: { accountTicket: INVITED_TICKET } }),
+      "sign-in of the invited member",
+    );
+    await assertPasswordData("the invited member", INVITED_DATA, "dropped");
+    await assertPasswordData("the member without an account", UNBOUND_DATA, "kept");
+    return { invited: "dropped", unbound: "kept" };
+  });
+
+  await step("password data: no response carries a hash or a salt", async () => {
     const answers = [
       await call("protocol 7", "GET", TEAM_API_ROUTES.me, { token }),
       await call("protocol 7", "GET", TEAM_API_ROUTES.team.sessions, { token }),
       await call("protocol 7", "GET", TEAM_API_ROUTES.team.presence, { token }),
       await call("protocol 7", "POST", TEAM_API_ROUTES.auth.account, { body: { accountTicket: ACCOUNT_TICKET } }),
     ];
+    const values = [OWNER_DATA, BOUND_DATA, INVITED_DATA, UNBOUND_DATA].flatMap((data) => [data.hash, data.salt]);
     for (const answer of answers) {
       assert.equal(answer.status, 200, "A response check got a failure.");
       const text = JSON.stringify(answer.body);
-      assert.ok(!text.includes(LEGACY_HASH) && !text.includes(LEGACY_SALT), "A response carries password data.");
+      assert.ok(!values.some((value) => text.includes(value)), "A response carries password data.");
       assert.ok(!/passwordHash|passwordSalt/u.test(text), "A response names a password field.");
     }
     return { responses: answers.length };
@@ -390,7 +481,7 @@ try {
 
   await stopHost();
   await startHost();
-  await step("restart: the account sign-in works, the route stays gone and the data stays", async () => {
+  await step("restart: the account sign-in works, the route stays gone and the data stays as it was", async () => {
     const session = await accountSignIn("oldest");
     const me = await call("protocol 7", "GET", TEAM_API_ROUTES.me, { token: session });
     assert.equal(me.status, 200);
@@ -398,7 +489,10 @@ try {
       body: { username: ACCOUNT.email, password: LEGACY_PASSWORD },
     });
     assert.notEqual(login.status, 200);
-    await assertLegacyDataKept();
+    await assertPasswordData("the owner", OWNER_DATA, "dropped");
+    await assertPasswordData("the member that had an account", BOUND_DATA, "dropped");
+    await assertPasswordData("the invited member", INVITED_DATA, "dropped");
+    await assertPasswordData("the member without an account", UNBOUND_DATA, "kept");
     return { signedIn: true, loginStatus: login.status };
   });
 
