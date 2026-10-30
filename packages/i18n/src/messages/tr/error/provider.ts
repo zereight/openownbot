@@ -8,6 +8,7 @@ export const messages = {
     "OpenOwnBot, Bilgisayar Kullanımını Codex yapılandırmasına kaydedemedi. Codex config.toml dosyanızın geçerli ve yazılabilir olduğunu denetleyin, ardından OpenOwnBot'u yeniden başlatın. Onsuz devam etmek için ekip arkadaşı ayarlarından Bilgisayar Kullanımını kapatabilirsiniz.",
   // Provider, provider runtime and custom endpoint errors.
   "error.provider.codexUnresponsive": "Codex yanıt vermeyi bıraktı, bu yüzden OpenOwnBot işlemini sonlandırdı.",
+  "error.provider.acpUnresponsive": "{provider} zamanında yanıt vermedi, bu yüzden OpenOwnBot işlemini sonlandırdı.",
   "error.provider.endpointsReadOnly":
     "Kayıtlı uç noktalar OpenOwnBot'un daha yeni bir sürümü tarafından yazılmış veya dosya okunamıyor. Bunları değiştirmek için OpenOwnBot'u güncelleyin.",
   "error.provider.endpointNoSecureStorage":
@@ -267,6 +268,8 @@ export const messages = {
   "error.provider.acpSignInStopped": "Oturum açma tamamlanmadan önce durdu.",
   "error.provider.geminiBrowserUnavailable":
     "Gemini oturum açma sayfasını açamadı. Bir tarayıcı ve xdg-utils yükleyin, ardından bu ana makinede bir masaüstü oturumundan bağlanın. Masaüstü olmayan bir sunucu bu oturum açma işlemini tamamlayamaz.",
+  "error.provider.geminiBrowserOpenFailed":
+    "Gemini oturum açma sayfasını tarayıcınızda açamadı. Varsayılan tarayıcınızı kontrol edin, ardından yeniden bağlanın.",
   "error.provider.acpSignInFailed": "Oturum açma tamamlanmadı.",
   "error.provider.acpSignInFailedReason": "Oturum açma tamamlanmadı: {reason}",
   "error.provider.acpSignInMethodMissing":

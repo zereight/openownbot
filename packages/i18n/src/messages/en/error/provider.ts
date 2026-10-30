@@ -7,6 +7,7 @@ export const messages = defineMessages("error.provider", {
   "error.provider.computerUseConfig":
     "OpenOwnBot could not register Computer Use in the Codex configuration. Check that your Codex config.toml is valid and writable, then restart OpenOwnBot. You can turn off Computer Use in the teammate settings to continue without it.",
   "error.provider.codexUnresponsive": "Codex stopped answering, so OpenOwnBot ended its process.",
+  "error.provider.acpUnresponsive": "{provider} did not answer in time, so OpenOwnBot ended its process.",
   "error.provider.endpointsReadOnly":
     "The saved endpoints were written by a newer version of OpenOwnBot, or the file cannot be read. Update OpenOwnBot to change them.",
   "error.provider.endpointNoSecureStorage":
@@ -261,6 +262,8 @@ export const messages = defineMessages("error.provider", {
   "error.provider.acpSignInStopped": "The sign-in stopped before it was complete.",
   "error.provider.geminiBrowserUnavailable":
     "Gemini could not open the sign-in page. Install a browser and xdg-utils, then connect from a desktop session on this host. A server with no desktop cannot complete this sign-in.",
+  "error.provider.geminiBrowserOpenFailed":
+    "Gemini could not open the sign-in page in your browser. Check your default browser, then connect again.",
   "error.provider.acpSignInFailed": "The sign-in did not complete.",
   "error.provider.acpSignInFailedReason": "The sign-in did not complete: {reason}",
   "error.provider.acpSignInMethodMissing":

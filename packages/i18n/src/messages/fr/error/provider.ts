@@ -7,6 +7,7 @@ export const messages = {
   "error.provider.computerUseConfig":
     "OpenOwnBot n’a pas pu enregistrer Computer Use dans la configuration de Codex. Vérifiez que votre fichier config.toml de Codex est valide et accessible en écriture, puis redémarrez OpenOwnBot. Vous pouvez désactiver Computer Use dans les réglages du coéquipier pour continuer sans.",
   "error.provider.codexUnresponsive": "Codex ne répondait plus, OpenOwnBot a donc arrêté son processus.",
+  "error.provider.acpUnresponsive": "{provider} n’a pas répondu à temps, OpenOwnBot a donc arrêté son processus.",
   "error.provider.endpointsReadOnly":
     "Les points de terminaison enregistrés ont été écrits par une version plus récente d’OpenOwnBot, ou le fichier est illisible. Mettez à jour OpenOwnBot pour les modifier.",
   "error.provider.endpointNoSecureStorage":
@@ -285,6 +286,8 @@ export const messages = {
   "error.provider.acpSignInStopped": "La connexion s’est arrêtée avant la fin.",
   "error.provider.geminiBrowserUnavailable":
     "Gemini n’a pas pu ouvrir la page de connexion. Installez un navigateur et xdg-utils, puis connectez-vous depuis une session de bureau sur cet hôte. Un serveur sans bureau ne peut pas terminer cette connexion.",
+  "error.provider.geminiBrowserOpenFailed":
+    "Gemini n’a pas pu ouvrir la page de connexion dans votre navigateur. Vérifiez votre navigateur par défaut, puis reconnectez-vous.",
   "error.provider.acpSignInFailed": "La connexion n’a pas abouti.",
   "error.provider.acpSignInFailedReason": "La connexion n’a pas abouti : {reason}",
   "error.provider.acpSignInMethodMissing":

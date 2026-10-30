@@ -7,6 +7,8 @@ export const messages = {
   "error.provider.computerUseConfig":
     "OpenOwnBot は Codex の設定に Computer Use を登録できませんでした。Codex の config.toml が有効で書き込み可能であることを確認してから、OpenOwnBot を再起動してください。Computer Use なしで続行するには、エージェントの設定で Computer Use をオフにできます。",
   "error.provider.codexUnresponsive": "Codex が応答しなくなったため、OpenOwnBot がそのプロセスを終了しました。",
+  "error.provider.acpUnresponsive":
+    "{provider} が時間内に応答しなかったため、OpenOwnBot がそのプロセスを終了しました。",
   "error.provider.endpointsReadOnly":
     "保存されたエンドポイントは新しいバージョンの OpenOwnBot で書き込まれたか、ファイルを読み取れません。変更するには OpenOwnBot を更新してください。",
   "error.provider.endpointNoSecureStorage":
@@ -274,6 +276,8 @@ export const messages = {
   "error.provider.acpSignInStopped": "サインインが完了する前に停止しました。",
   "error.provider.geminiBrowserUnavailable":
     "Gemini はサインインページを開けませんでした。ブラウザーと xdg-utils をインストールしてから、このホストのデスクトップセッションで接続してください。デスクトップのないサーバーではこのサインインを完了できません。",
+  "error.provider.geminiBrowserOpenFailed":
+    "Gemini はブラウザーでサインインページを開けませんでした。既定のブラウザーを確認してから、もう一度接続してください。",
   "error.provider.acpSignInFailed": "サインインが完了しませんでした。",
   "error.provider.acpSignInFailedReason": "サインインが完了しませんでした: {reason}",
   "error.provider.acpSignInMethodMissing":
