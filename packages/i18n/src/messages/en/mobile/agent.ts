@@ -464,6 +464,8 @@ export const messages = defineMessages("mobile.agent", {
   "mobile.agent.edit.gone": "This agent is no longer available on this host.",
   "mobile.agent.edit.failed": "OpenOwnBot could not update this agent.",
   "mobile.agent.edit.appearance": "Edit appearance",
+  "mobile.agent.edit.randomName": "Random name",
+  "mobile.agent.edit.existingTitles": "Existing titles",
   "mobile.agent.edit.title": "Title",
   "mobile.agent.edit.titlePlaceholder": "Describe what your agent does",
   "mobile.agent.edit.instructions": "Instructions",

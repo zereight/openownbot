@@ -362,6 +362,13 @@ export const messages = {
   "mobile.server.settings.memoryLimitLoadFailed": "无法加载该服务器的记忆数量上限。",
   "mobile.server.settings.memoryLimitSaveFailed": "无法保存记忆数量上限，请重试。",
   "mobile.server.settings.memoryLimitUnsupported": "请更新该服务器上的 OpenOwnBot，才能在此更改其记忆数量上限。",
+  "mobile.server.settings.memoryReview": "记忆整理",
+  "mobile.server.settings.memoryReviewDescription": "该服务器上的助手在后台从聊天中保存长期事实的频率。",
+  "mobile.server.settings.memoryReviewOff": "关闭",
+  "mobile.server.settings.memoryReviewTurns": { other: "每 {count} 轮" },
+  "mobile.server.settings.memoryReviewLoadFailed": "无法加载记忆整理设置。",
+  "mobile.server.settings.memoryReviewSaveFailed": "无法保存记忆审查设置，请重试。",
+  "mobile.server.settings.memoryReviewUnsupported": "请更新此服务器上的 OpenOwnBot，以便在这里更改记忆审查。",
   // Server settings › Connectors: the Slack, Discord, Telegram, GitHub and 1Password connections of a
   // joined server, for an owner or admin. {host} and {name} are the server name, such as Studio.
   "mobile.server.route.connectors": "连接器",

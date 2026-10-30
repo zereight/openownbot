@@ -474,6 +474,8 @@ export const messages = {
   "mobile.agent.edit.gone": "Este agente ya no está disponible en este host.",
   "mobile.agent.edit.failed": "OpenOwnBot no pudo actualizar este agente.",
   "mobile.agent.edit.appearance": "Editar apariencia",
+  "mobile.agent.edit.randomName": "Nombre aleatorio",
+  "mobile.agent.edit.existingTitles": "Títulos existentes",
   "mobile.agent.edit.title": "Título",
   "mobile.agent.edit.titlePlaceholder": "Describe lo que hace tu agente",
   "mobile.agent.edit.instructions": "Instrucciones",

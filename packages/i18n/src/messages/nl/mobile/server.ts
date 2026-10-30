@@ -377,6 +377,15 @@ export const messages = {
   "mobile.server.settings.memoryLimitSaveFailed": "Kan de geheugenlimiet niet opslaan. Probeer het opnieuw.",
   "mobile.server.settings.memoryLimitUnsupported":
     "Werk OpenOwnBot bij op deze server om de geheugenlimiet hier te wijzigen.",
+  "mobile.server.settings.memoryReview": "Geheugencontrole",
+  "mobile.server.settings.memoryReviewDescription":
+    "Hoe vaak agents op deze server op de achtergrond blijvende feiten uit hun chats bewaren.",
+  "mobile.server.settings.memoryReviewOff": "Uit",
+  "mobile.server.settings.memoryReviewTurns": { one: "Elke {count} beurt", other: "Elke {count} beurten" },
+  "mobile.server.settings.memoryReviewLoadFailed": "Kan de instelling voor geheugencontrole niet laden.",
+  "mobile.server.settings.memoryReviewSaveFailed": "Kan de geheugenreview niet opslaan. Probeer opnieuw.",
+  "mobile.server.settings.memoryReviewUnsupported":
+    "Werk OpenOwnBot op deze server bij om de geheugenreview hier te wijzigen.",
   "mobile.server.route.connectors": "Connectors",
   "mobile.server.settings.connectors": "Connectors",
   "mobile.server.connectors.unavailable":

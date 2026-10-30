@@ -1,3 +1,4 @@
+import { pickAgentName } from "@openownbot/brand/agent-names";
 import { agentProviderDescriptor, agentProviderName, foreignProvider } from "@openownbot/contracts/agent-providers";
 import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
 import {
@@ -95,7 +96,6 @@ import {
   untrack,
 } from "solid-js";
 import { useText } from "../../text";
-import { pickAgentName } from "../agents/agent-names";
 import { AVATAR_HUE_LABEL } from "../agents/avatar-hue-label";
 import { type AgentFolderCalls, AgentFoldersPage, AgentFoldersRow, createAgentFolders } from "./AgentFolders";
 import { AgentNewChatDialog } from "./AgentNewChatDialog";

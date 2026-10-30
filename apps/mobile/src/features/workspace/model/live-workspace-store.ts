@@ -1,4 +1,4 @@
-import type { BrowserTakeoverRequest } from "@openownbot/contracts/ipc";
+import type { AgentContextState, BrowserTakeoverRequest } from "@openownbot/contracts/ipc";
 import type { MobileBrowserTabs } from "@/features/browser/model/browser-tabs";
 import type { MobileAgentActivities } from "./agent-activity";
 import type { PendingApproval } from "./pending-approvals";
@@ -13,6 +13,8 @@ export interface LiveWorkspaceState {
   /** The host's browser tabs, by server. Absent for a host that serves no live view. */
   browserTabs: Record<string, MobileBrowserTabs>;
   approvalRequests: Record<string, readonly PendingApproval[]>;
+  /** How full the context window of each chat is, by server (`context-usage-v1`). Absent for a host without it. */
+  contextStates: Record<string, { agents: readonly AgentContextState[]; threads: readonly AgentContextState[] }>;
 }
 
 /**
@@ -27,6 +29,7 @@ export class LiveWorkspaceStore {
     browserRequests: {},
     browserTabs: {},
     approvalRequests: {},
+    contextStates: {},
   };
   readonly #listeners = new Set<() => void>();
 

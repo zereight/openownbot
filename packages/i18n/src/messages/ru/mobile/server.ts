@@ -427,6 +427,20 @@ export const messages = {
   "mobile.server.settings.memoryLimitSaveFailed": "Не удалось сохранить лимит воспоминаний. Повторите попытку.",
   "mobile.server.settings.memoryLimitUnsupported":
     "Обновите OpenOwnBot на этом сервере, чтобы изменить здесь его лимит воспоминаний.",
+  "mobile.server.settings.memoryReview": "Проверка памяти",
+  "mobile.server.settings.memoryReviewDescription":
+    "Как часто агенты на этом сервере сохраняют в фоне устойчивые факты из своих чатов.",
+  "mobile.server.settings.memoryReviewOff": "Выкл.",
+  "mobile.server.settings.memoryReviewTurns": {
+    one: "Каждый {count} ход",
+    few: "Каждые {count} хода",
+    many: "Каждые {count} ходов",
+    other: "Каждые {count} хода",
+  },
+  "mobile.server.settings.memoryReviewLoadFailed": "Не удалось загрузить настройку проверки памяти.",
+  "mobile.server.settings.memoryReviewSaveFailed": "Не удалось сохранить проверку памяти. Повторите попытку.",
+  "mobile.server.settings.memoryReviewUnsupported":
+    "Обновите OpenOwnBot на этом сервере, чтобы изменить здесь проверку памяти.",
   "mobile.server.route.connectors": "Коннекторы",
   "mobile.server.settings.connectors": "Коннекторы",
   "mobile.server.connectors.unavailable":

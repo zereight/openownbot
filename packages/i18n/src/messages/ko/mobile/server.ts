@@ -362,6 +362,15 @@ export const messages = {
   "mobile.server.settings.memoryLimitSaveFailed": "메모리 한도를 저장하지 못했어요. 다시 시도해 주세요.",
   "mobile.server.settings.memoryLimitUnsupported":
     "여기에서 메모리 한도를 변경하려면 이 서버의 OpenOwnBot을 업데이트해 주세요.",
+  "mobile.server.settings.memoryReview": "메모리 검토",
+  "mobile.server.settings.memoryReviewDescription":
+    "이 서버의 에이전트가 채팅에서 오래 쓸 사실을 백그라운드에서 저장하는 빈도예요.",
+  "mobile.server.settings.memoryReviewOff": "끄기",
+  "mobile.server.settings.memoryReviewTurns": { other: "{count}턴마다" },
+  "mobile.server.settings.memoryReviewLoadFailed": "메모리 검토 설정을 불러올 수 없었어요.",
+  "mobile.server.settings.memoryReviewSaveFailed": "메모리 검토 설정을 저장할 수 없어요. 다시 시도해 주세요.",
+  "mobile.server.settings.memoryReviewUnsupported":
+    "이 서버의 OpenOwnBot을 업데이트하면 여기서 메모리 검토를 바꿀 수 있어요.",
   "mobile.server.route.connectors": "커넥터",
   "mobile.server.settings.connectors": "커넥터",
   "mobile.server.connectors.unavailable": "커넥터를 관리하려면 소유자나 관리자로 이 서버에 연결하세요.",

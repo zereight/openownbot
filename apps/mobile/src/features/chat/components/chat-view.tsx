@@ -37,7 +37,7 @@ import {
   presentChatMessages,
 } from "@/features/chat/model/chat-messages";
 import { ConnectionStatus } from "@/features/workspace/components/connection-status";
-import { useBrowserRequests } from "@/features/workspace/components/use-live-workspace";
+import { useBrowserRequests, useChatContextState } from "@/features/workspace/components/use-live-workspace";
 import type { MobileAgent } from "@/features/workspace/context/mobile-workspace-context";
 import {
   useMobileWorkspaceReader,
@@ -68,6 +68,7 @@ import { voiceAccent, voicePalette } from "../model/voice-palette";
 import { rememberImageDimensions } from "./attachment-preview";
 import { asksForSecret, BrowserSecretComposer, BrowserTakeoverCard } from "./browser-secret-card";
 import { ChatAttachmentPanel } from "./chat-attachment-panel";
+import { ChatContextUsage } from "./chat-context-usage";
 import type { OutboxRowStatus } from "./chat-outbox-status";
 import { ChatQueueButton } from "./chat-queue-button";
 import { ChatSelectionBar } from "./chat-selection-bar";
@@ -226,6 +227,8 @@ export function ChatView({
     (current) => current.browserViewSupport(target.serverId).view,
   );
   const browserRequests = useBrowserRequests(target.serverId);
+  // A channel has no context window of its own; the agent chats and side threads have.
+  const contextState = useChatContextState(target.serverId, target.kind === "agent" ? target.id : "", threadId);
   const chatBrowserRequests = useMemo(
     () =>
       browserRequests.filter((request) =>
@@ -976,6 +979,7 @@ export function ChatView({
                   </ChatGlassIconButton>
                 </View>
               ) : null}
+              {target.kind === "agent" ? <ChatContextUsage state={contextState} /> : null}
               <ConnectionStatus
                 server={server}
                 // The history waits for the server: the chat says so under the reconnect status.

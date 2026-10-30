@@ -378,6 +378,15 @@ export const messages = {
   "mobile.server.settings.memoryLimitSaveFailed": "Anı sınırı kaydedilemedi. Tekrar deneyin.",
   "mobile.server.settings.memoryLimitUnsupported":
     "Anı sınırını burada değiştirmek için bu sunucudaki OpenOwnBot'u güncelleyin.",
+  "mobile.server.settings.memoryReview": "Bellek incelemesi",
+  "mobile.server.settings.memoryReviewDescription":
+    "Bu sunucudaki ajanların sohbetlerindeki kalıcı bilgileri arka planda ne sıklıkla kaydettiği.",
+  "mobile.server.settings.memoryReviewOff": "Kapalı",
+  "mobile.server.settings.memoryReviewTurns": { one: "Her {count} turda", other: "Her {count} turda" },
+  "mobile.server.settings.memoryReviewLoadFailed": "Bellek incelemesi ayarı yüklenemedi.",
+  "mobile.server.settings.memoryReviewSaveFailed": "Bellek incelemesi kaydedilemedi. Tekrar deneyin.",
+  "mobile.server.settings.memoryReviewUnsupported":
+    "Bellek incelemesini burada değiştirmek için bu sunucudaki OpenOwnBot'u güncelleyin.",
   "mobile.server.route.connectors": "Bağlayıcılar",
   "mobile.server.settings.connectors": "Bağlayıcılar",
   "mobile.server.connectors.unavailable":

@@ -387,6 +387,17 @@ export const messages = {
     "Das Erinnerungslimit konnte nicht gespeichert werden. Versuche es erneut.",
   "mobile.server.settings.memoryLimitUnsupported":
     "Aktualisiere OpenOwnBot auf diesem Server, um sein Erinnerungslimit hier zu ändern.",
+  "mobile.server.settings.memoryReview": "Erinnerungsprüfung",
+  "mobile.server.settings.memoryReviewDescription":
+    "Wie oft Agenten auf diesem Server im Hintergrund dauerhafte Fakten aus ihren Chats speichern.",
+  "mobile.server.settings.memoryReviewOff": "Aus",
+  "mobile.server.settings.memoryReviewTurns": { one: "Alle {count} Runde", other: "Alle {count} Runden" },
+  "mobile.server.settings.memoryReviewLoadFailed":
+    "Die Einstellung für die Erinnerungsprüfung konnte nicht geladen werden.",
+  "mobile.server.settings.memoryReviewSaveFailed":
+    "Die Erinnerungsprüfung konnte nicht gespeichert werden. Versuche es erneut.",
+  "mobile.server.settings.memoryReviewUnsupported":
+    "Aktualisiere OpenOwnBot auf diesem Server, um die Erinnerungsprüfung hier zu ändern.",
   "mobile.server.route.connectors": "Konnektoren",
   "mobile.server.settings.connectors": "Konnektoren",
   "mobile.server.connectors.unavailable":

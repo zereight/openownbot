@@ -15,7 +15,7 @@ export const messages = {
   "mobile.app.route.support": "Support",
   "mobile.app.route.hiddenChats": "Ausgeblendete Chats",
   "mobile.app.route.share": "Teilen",
-  "mobile.app.route.deletedChannels": "Gelöschte Kanäle",
+  "mobile.app.route.deletedChannels": "Archivierte Kanäle",
   "mobile.app.route.cropPhoto": "Bewegen und skalieren",
   "mobile.app.route.queuedMessages": "Nachrichten in der Warteschlange",
   "mobile.app.route.messageOptions": "Nachrichtenoptionen",
@@ -32,7 +32,6 @@ export const messages = {
   "mobile.app.route.tasks": "Aufgaben",
   "mobile.app.route.task": "Aufgabe",
   "mobile.app.route.usage": "Nutzung",
-  "mobile.app.route.marketplace": "Marketplace",
   "mobile.app.quickAction.routines": "Routinen",
   "mobile.app.quickAction.search": "Suchen",
 } as const satisfies PartialTranslation<typeof source>;

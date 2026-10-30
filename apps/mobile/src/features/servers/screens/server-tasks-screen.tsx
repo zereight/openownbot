@@ -1,6 +1,11 @@
 import type { AgentTask } from "@openownbot/contracts/ipc";
 import type { MobileTextKey } from "@openownbot/i18n/mobile";
-import { TASKS_CLOSED_SHOWN, type TasksSectionId, taskSections } from "@openownbot/team-client/agent-tasks";
+import {
+  TASKS_CLOSED_SHOWN,
+  type TasksSectionId,
+  taskApproval,
+  taskSections,
+} from "@openownbot/team-client/agent-tasks";
 import { router, Stack, useLocalSearchParams } from "expo-router";
 import { Typography } from "heroui-native";
 import Plus from "lucide-react-native/icons/plus";
@@ -8,6 +13,7 @@ import { useState } from "react";
 import { Pressable, View } from "react-native";
 import { TaskListRow } from "@/features/servers/components/task-list-row";
 import { useServerTasks } from "@/features/servers/model/use-server-tasks";
+import { useApprovalRequests, useBrowserRequests } from "@/features/workspace/components/use-live-workspace";
 import { useMobileWorkspace } from "@/features/workspace/context/mobile-workspace-context";
 import { AndroidHeaderButton } from "@/shared/components/android-header-button";
 import { LargeTitleScrollView } from "@/shared/components/large-title";
@@ -34,6 +40,11 @@ export function ServerTasksScreen() {
   const server = servers.find((item) => item.id === serverId);
   const { agents, tasks, online, supported, ready, retry } = useServerTasks(serverId, { agentId });
   const [showAllClosed, setShowAllClosed] = useState(false);
+  const approvals = useApprovalRequests(serverId);
+  const takeovers = useBrowserRequests(serverId);
+  // A running task that waits for an approval or a browser takeover needs you, as on the desktop.
+  const waitsForYou = (task: AgentTask) =>
+    taskApproval(task, approvals) !== undefined || taskApproval(task, takeovers) !== undefined;
   const agent = agentId ? agents.find((item) => item.id === agentId) : undefined;
   const agentOf = (id: string) => agents.find((item) => item.id === id);
   const title = agent ? t("mobile.server.tasks.agentTitle", { name: agent.name }) : t("mobile.app.route.tasks");
@@ -57,7 +68,9 @@ export function ServerTasksScreen() {
           : !ready && tasks.length === 0
             ? t("mobile.server.tasks.loading")
             : null;
-  const sections = note ? [] : taskSections(tasks, showAllClosed).filter((section) => section.tasks.length > 0);
+  const sections = note
+    ? []
+    : taskSections(tasks, showAllClosed, waitsForYou).filter((section) => section.tasks.length > 0);
 
   return (
     <>

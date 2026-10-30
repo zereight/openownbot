@@ -488,6 +488,8 @@ export const messages = {
   "mobile.agent.edit.gone": "Bu ajan bu ana makinede artık mevcut değil.",
   "mobile.agent.edit.failed": "OpenOwnBot bu ajanı güncelleyemedi.",
   "mobile.agent.edit.appearance": "Görünümü düzenle",
+  "mobile.agent.edit.randomName": "Rastgele ad",
+  "mobile.agent.edit.existingTitles": "Mevcut başlıklar",
   "mobile.agent.edit.title": "Başlık",
   "mobile.agent.edit.titlePlaceholder": "Ajanınızın ne yaptığını açıklayın",
   "mobile.agent.edit.instructions": "Talimatlar",

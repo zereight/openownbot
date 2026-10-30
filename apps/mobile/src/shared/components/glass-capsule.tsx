@@ -8,7 +8,7 @@ import { ChromeGlassSheen } from "@/shared/components/chrome-glass-sheen";
 import { useChromeGlass } from "@/shared/lib/chrome-glass";
 import { isAndroid } from "@/shared/lib/platform";
 
-/** The height of the bottom search capsules: home search and the Marketplace field. */
+/** The height of the bottom search capsules: the home search. */
 export const GLASS_CAPSULE_HEIGHT = 52;
 const CSS_EASE_SMOOTH = cubicBezier(0.32, 0.72, 0, 1);
 /** How long a tint takes to come in and to go, as the task result of home search. */

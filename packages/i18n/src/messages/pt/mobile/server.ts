@@ -380,6 +380,15 @@ export const messages = {
   "mobile.server.settings.memoryLimitSaveFailed": "Não foi possível salvar o limite de memórias. Tente de novo.",
   "mobile.server.settings.memoryLimitUnsupported":
     "Atualize o OpenOwnBot neste servidor para alterar o limite de memórias aqui.",
+  "mobile.server.settings.memoryReview": "Revisão de memórias",
+  "mobile.server.settings.memoryReviewDescription":
+    "Com que frequência os agentes deste servidor guardam em segundo plano fatos duradouros das conversas.",
+  "mobile.server.settings.memoryReviewOff": "Desativada",
+  "mobile.server.settings.memoryReviewTurns": { one: "A cada {count} turno", other: "A cada {count} turnos" },
+  "mobile.server.settings.memoryReviewLoadFailed": "Não foi possível carregar a configuração de revisão de memórias.",
+  "mobile.server.settings.memoryReviewSaveFailed": "Não foi possível salvar a revisão de memória. Tente novamente.",
+  "mobile.server.settings.memoryReviewUnsupported":
+    "Atualize o OpenOwnBot neste servidor para alterar aqui a revisão de memória.",
   "mobile.server.route.connectors": "Conectores",
   "mobile.server.settings.connectors": "Conectores",
   "mobile.server.connectors.unavailable":

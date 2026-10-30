@@ -1,4 +1,4 @@
-import { AGENT_NAMES, pickAgentName } from "@openownbot/ui/features/agents/agent-names";
+import { AGENT_NAMES, pickAgentName } from "@openownbot/brand/agent-names";
 import { describe, expect, it } from "vitest";
 
 describe("pickAgentName", () => {

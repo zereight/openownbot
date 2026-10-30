@@ -1,4 +1,4 @@
-import type { BrowserTakeoverRequest } from "@openownbot/contracts/ipc";
+import type { AgentContextState, BrowserTakeoverRequest } from "@openownbot/contracts/ipc";
 import { useCallback, useMemo, useSyncExternalStore } from "react";
 import { agentBrowserTab, agentBrowserTabs, type MobileBrowserTabs } from "@/features/browser/model/browser-tabs";
 import {
@@ -74,5 +74,20 @@ export function useBrowserTabsLoaded(serverId: string) {
 export function useApprovalRequests(serverId: string) {
   const liveState = useMobileWorkspaceSelector(selectLiveState);
   const select = useCallback(() => liveState.get().approvalRequests[serverId] ?? NO_APPROVALS, [liveState, serverId]);
+  return useSyncExternalStore(liveState.subscribe, select);
+}
+
+/**
+ * The context state of one chat. The main chat of an agent reads the agent list, a side thread its
+ * own entry by `threadId`. Re-renders only when that state changes.
+ */
+export function useChatContextState(serverId: string, agentId: string, threadId: string | null) {
+  const liveState = useMobileWorkspaceSelector(selectLiveState);
+  const select = useCallback((): AgentContextState | undefined => {
+    const states = liveState.get().contextStates[serverId];
+    return threadId === null
+      ? states?.agents.find((state) => state.agentId === agentId)
+      : states?.threads.find((state) => state.agentId === agentId && state.threadId === threadId);
+  }, [liveState, serverId, agentId, threadId]);
   return useSyncExternalStore(liveState.subscribe, select);
 }

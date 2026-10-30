@@ -2,6 +2,7 @@ import { router } from "expo-router";
 import { Typography } from "heroui-native";
 import { useThemeColor } from "heroui-native/hooks";
 import type { LucideIcon } from "lucide-react-native";
+import Archive from "lucide-react-native/icons/archive";
 import Bell from "lucide-react-native/icons/bell";
 import CalendarClock from "lucide-react-native/icons/calendar-clock";
 import ChartColumn from "lucide-react-native/icons/chart-column";
@@ -17,7 +18,6 @@ import Palette from "lucide-react-native/icons/palette";
 import Radio from "lucide-react-native/icons/radio";
 import Server from "lucide-react-native/icons/server";
 import Sparkles from "lucide-react-native/icons/sparkles";
-import Trash2 from "lucide-react-native/icons/trash";
 import UserRound from "lucide-react-native/icons/user-round";
 import Vibrate from "lucide-react-native/icons/vibrate";
 import { type ReactNode, useContext, useMemo } from "react";
@@ -139,7 +139,7 @@ const SETTING_ICON = {
   notifications: Bell,
   liveActivities: Radio,
   hiddenChats: EyeOff,
-  deletedChannels: Trash2,
+  deletedChannels: Archive,
   support: LifeBuoy,
   about: Info,
   serverOptions: Server,

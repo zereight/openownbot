@@ -74,7 +74,6 @@
     "./features/agents/AgentSectionImportDialog": "./src/features/agents/AgentSectionImportDialog.tsx",
     "./features/agents/AgentTemplateInstallDialog": "./src/features/agents/AgentTemplateInstallDialog.tsx",
     "./features/agents/FirstAgentSetup": "./src/features/agents/FirstAgentSetup.tsx",
-    "./features/agents/agent-names": "./src/features/agents/agent-names.ts",
     "./features/agents/InstructionsLimit": "./src/features/agents/InstructionsLimit.tsx",
     "./features/agents/PublishAgentDialog": "./src/features/agents/PublishAgentDialog.tsx",
     "./features/billing/BillingDialog": "./src/features/billing/BillingDialog.tsx",

@@ -455,6 +455,8 @@ export const messages = {
   "mobile.agent.edit.gone": "该助手在这台主机上已不可用。",
   "mobile.agent.edit.failed": "OpenOwnBot 无法更新该助手。",
   "mobile.agent.edit.appearance": "编辑外观",
+  "mobile.agent.edit.randomName": "随机名称",
+  "mobile.agent.edit.existingTitles": "现有称号",
   "mobile.agent.edit.title": "标题",
   "mobile.agent.edit.titlePlaceholder": "描述你的助手做什么",
   "mobile.agent.edit.instructions": "指令",

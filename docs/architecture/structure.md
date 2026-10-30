@@ -13,7 +13,7 @@ apps/
   telegram-app/      BotFather settings of the OpenOwnBot Telegram bot (no code)
 packages/
   ui/                Shared SolidJS controls and primitive styles for desktop, web, and Storybook
-  brand/             Shared logos, avatars, and design tokens
+  brand/             Shared logos, avatars, agent names, and design tokens
   contracts/         Process and network boundary types, limits, and pure validation
   i18n/              Message catalogs, translate and format functions for desktop, shared UI and mobile
   logging/           ts-log Logger interface plus the redacting console/file implementation

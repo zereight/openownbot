@@ -13,10 +13,8 @@ import { TEAM_API_ROUTES } from "@openownbot/contracts/team-api-routes";
 import { AGENT_ACCESS_CAPABILITY } from "@openownbot/contracts/team-protocol/agent-access-v1";
 import { AGENT_ADMIN_CAPABILITY } from "@openownbot/contracts/team-protocol/agent-admin-v1";
 import { AGENT_HOST_SETTINGS_CAPABILITY } from "@openownbot/contracts/team-protocol/agent-host-settings-v1";
-import { AGENT_INSTALL_CAPABILITY } from "@openownbot/contracts/team-protocol/agent-install-v1";
 import { AGENT_MEMORY_LIMIT_CAPABILITY } from "@openownbot/contracts/team-protocol/agent-memory-limit-v1";
 import { AGENT_PUBLISH_CAPABILITY } from "@openownbot/contracts/team-protocol/agent-publish-v1";
-import { AGENT_UPDATE_CAPABILITY } from "@openownbot/contracts/team-protocol/agent-update-v1";
 import { BITWARDEN_CONNECTOR_CAPABILITY } from "@openownbot/contracts/team-protocol/bitwarden-connector-v1";
 import { CONNECTORS_CAPABILITY } from "@openownbot/contracts/team-protocol/connectors-v1";
 import { TEAM_AGENT_CREATE_MODEL_CAPABILITY } from "@openownbot/contracts/team-protocol/current";
@@ -29,6 +27,7 @@ import { HOST_TIMEZONE_CAPABILITY } from "@openownbot/contracts/team-protocol/ho
 import { HOST_UPDATE_CAPABILITY } from "@openownbot/contracts/team-protocol/host-update-v1";
 import { HOSTED_SITES_CAPABILITY } from "@openownbot/contracts/team-protocol/hosted-sites-v1";
 import { LIVE_ACTIVITY_PUSH_CAPABILITY } from "@openownbot/contracts/team-protocol/live-activity-push-v1";
+import { MEMORY_REVIEW_CAPABILITY } from "@openownbot/contracts/team-protocol/memory-review-v1";
 import { ONEPASSWORD_CONNECTOR_CAPABILITY } from "@openownbot/contracts/team-protocol/onepassword-connector-v1";
 import { PROVIDER_ACCOUNTS_CAPABILITY } from "@openownbot/contracts/team-protocol/provider-accounts-v1";
 import { PROVIDERS_ADMIN_CAPABILITY } from "@openownbot/contracts/team-protocol/providers-v1";
@@ -37,7 +36,6 @@ import { PUSH_NOTIFICATIONS_CAPABILITY } from "@openownbot/contracts/team-protoc
 import { ROUTINE_RECOVERY_CAPABILITY } from "@openownbot/contracts/team-protocol/routine-recovery-v1";
 import { ROUTINE_RESULTS_CAPABILITY } from "@openownbot/contracts/team-protocol/routine-results-v1";
 import { SHARED_TABLES_CAPABILITY } from "@openownbot/contracts/team-protocol/shared-tables-v1";
-import { SIGN_IN_RELAY_CAPABILITY } from "@openownbot/contracts/team-protocol/sign-in-relay-v1";
 import { SKILLS_ADMIN_CAPABILITY } from "@openownbot/contracts/team-protocol/skills-admin-v1";
 import type { TeamProtocolV2Json } from "@openownbot/contracts/team-protocol/v2";
 import { TEAM_PROTOCOL_V3 } from "@openownbot/contracts/team-protocol/v3";
@@ -1261,7 +1259,19 @@ export function MobileWorkspaceProvider({ children }: PropsWithChildren) {
           throw new Error(currentText().t("mobile.workspace.error.approvalOffline"));
         await sendApproval(serverId, input);
       },
-      respondToBrowserTakeover: (serverId, input) => runTeamRequest(respondToBrowserTakeover(teamApi(serverId), input)),
+      respondToBrowserTakeover: async (serverId, input) => {
+        try {
+          await runTeamRequest(respondToBrowserTakeover(teamApi(serverId), input));
+        } catch (cause) {
+          // The host no longer holds this takeover, so its card can never be answered. It must not stay.
+          if (!(cause instanceof Error) || !cause.message.includes(sourceText("error.backend.takeoverInactive")))
+            throw cause;
+          liveState.update("browserRequests", (current) => ({
+            ...current,
+            [serverId]: (current[serverId] ?? []).filter((item) => item.requestId !== input.requestId),
+          }));
+        }
+      },
       respondToBrowserSecret: (serverId, input) => runTeamRequest(respondToBrowserSecret(teamApi(serverId), input)),
       selectServer: (id) => {
         loadGeneration.current += 1;
@@ -1662,6 +1672,7 @@ export function MobileWorkspaceProvider({ children }: PropsWithChildren) {
       canEditServerIdentity: (serverId) => administers(serverId, HOST_ADMIN_CAPABILITY),
       canManageServerTimezone: (serverId) => administers(serverId, HOST_TIMEZONE_CAPABILITY),
       canManageAgentMemoryLimit: (serverId) => administers(serverId, AGENT_MEMORY_LIMIT_CAPABILITY),
+      canManageMemoryReview: (serverId) => administers(serverId, MEMORY_REVIEW_CAPABILITY),
       canManageServerRoles: (serverId) => administers(serverId, AGENT_ACCESS_CAPABILITY),
       hasAgentAccessLimits: (serverId) => {
         const server = servers.find((candidate) => candidate.id === serverId);
@@ -1695,10 +1706,6 @@ export function MobileWorkspaceProvider({ children }: PropsWithChildren) {
       canDeleteHostedSites: (serverId) => administers(serverId, HOSTED_SITES_CAPABILITY),
       canManageProviders: (serverId) => administers(serverId, PROVIDERS_ADMIN_CAPABILITY),
       canManageMcpServers: (serverId) => administers(serverId, MCP_SERVERS_CAPABILITY),
-      canRelayMcpSignIn: (serverId) =>
-        administers(serverId, MCP_SERVERS_CAPABILITY) && administers(serverId, SIGN_IN_RELAY_CAPABILITY),
-      canAddMarketplaceAgents: (serverId) => administers(serverId, AGENT_INSTALL_CAPABILITY),
-      canUpdateMarketplaceAgents: (serverId) => administers(serverId, AGENT_UPDATE_CAPABILITY),
       canSendNotifications: (serverId) =>
         servers.some((server) => server.id === serverId && showsOnline(server)) && supportsPushNotifications(serverId),
       canManageEvents: (serverId) => administers(serverId, EVENTS_CAPABILITY),

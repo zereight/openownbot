@@ -38,7 +38,6 @@ import { AGENT_MEMORY_LIMIT_CAPABILITY } from "@openownbot/contracts/team-protoc
 import { AGENT_PUBLISH_CAPABILITY } from "@openownbot/contracts/team-protocol/agent-publish-v1";
 import { AGENT_SESSION_SETTINGS_CAPABILITY } from "@openownbot/contracts/team-protocol/agent-session-settings-v1";
 import { AGENT_TASKS_CAPABILITY } from "@openownbot/contracts/team-protocol/agent-tasks-v1";
-import { AGENT_UPDATE_CAPABILITY } from "@openownbot/contracts/team-protocol/agent-update-v1";
 import { BITWARDEN_CONNECTOR_CAPABILITY } from "@openownbot/contracts/team-protocol/bitwarden-connector-v1";
 import { CHANNEL_ROUTES } from "@openownbot/contracts/team-protocol/channels-v1";
 import { CONNECTORS_CAPABILITY } from "@openownbot/contracts/team-protocol/connectors-v1";
@@ -65,6 +64,7 @@ import { HOST_TIMEZONE_CAPABILITY } from "@openownbot/contracts/team-protocol/ho
 import { HOST_UPDATE_CAPABILITY } from "@openownbot/contracts/team-protocol/host-update-v1";
 import { HOSTED_SITES_CAPABILITY } from "@openownbot/contracts/team-protocol/hosted-sites-v1";
 import { MCP_SIGN_IN_CAPABILITY } from "@openownbot/contracts/team-protocol/mcp-sign-in-v1";
+import { MEMORY_REVIEW_CAPABILITY } from "@openownbot/contracts/team-protocol/memory-review-v1";
 import { ONEPASSWORD_CONNECTOR_CAPABILITY } from "@openownbot/contracts/team-protocol/onepassword-connector-v1";
 import { PROVIDER_ACCOUNTS_CAPABILITY } from "@openownbot/contracts/team-protocol/provider-accounts-v1";
 import { PROVIDERS_ADMIN_CAPABILITY } from "@openownbot/contracts/team-protocol/providers-v1";
@@ -72,7 +72,6 @@ import { TEAM_QUEUE_EDIT_CAPABILITY } from "@openownbot/contracts/team-protocol/
 import { ROUTINE_RECOVERY_CAPABILITY } from "@openownbot/contracts/team-protocol/routine-recovery-v1";
 import { ROUTINE_RESULTS_CAPABILITY } from "@openownbot/contracts/team-protocol/routine-results-v1";
 import { SHARED_TABLES_CAPABILITY } from "@openownbot/contracts/team-protocol/shared-tables-v1";
-import { SIGN_IN_RELAY_CAPABILITY } from "@openownbot/contracts/team-protocol/sign-in-relay-v1";
 import { SKILLS_ADMIN_CAPABILITY } from "@openownbot/contracts/team-protocol/skills-admin-v1";
 import { STORAGE_ROUTES } from "@openownbot/contracts/team-protocol/storage-v1";
 import type { TeamProtocolV2Json } from "@openownbot/contracts/team-protocol/v2";
@@ -87,16 +86,15 @@ import { buildRoutineCalendar, type RoutineCalendarSource } from "@openownbot/te
 import {
   bitwardenConnectorRequest,
   cancelHostUpdate,
-  cancelSignInRelay,
   checkHostForUpdate,
   checkHostRelease,
-  completeSignInRelay,
   deleteEventRoutine,
   deleteHostedSite,
   deleteHostVaultItem,
   deleteSharedTable,
   getHostAgentAccess,
   getHostAgentMemoryLimit,
+  getHostMemoryReview,
   getHostReleaseStatus,
   getHostTimezone,
   getHostUpdateStatus,
@@ -106,7 +104,6 @@ import {
   importHostVaultCsv,
   installAgentSkill,
   installAgentTemplate,
-  installMarketplaceAgent,
   listAgentSkills,
   listEventActivity,
   listEventRoutines,
@@ -141,14 +138,13 @@ import {
   setAgentSkillEnabled,
   setHostAgentAccess,
   setHostAgentMemoryLimit,
+  setHostMemoryReview,
   setHostTimezone,
   setHostUpdateSettings,
   setMcpServerEnabled,
   setRoutineResultDestination,
-  signInRelayStatus,
   signOutMcpServer,
   startHostUpdate,
-  startMcpSignInRelay,
   testEventRoutine,
   testMcpServer,
   uninstallAgentSkill,
@@ -256,6 +252,8 @@ type HostRequestActions = Pick<
   | "setServerTimezone"
   | "loadAgentMemoryLimit"
   | "setAgentMemoryLimit"
+  | "loadMemoryReview"
+  | "setMemoryReview"
   | "loadServerRoles"
   | "setServerRoles"
   | "githubConnector"
@@ -303,8 +301,6 @@ type HostRequestActions = Pick<
   | "unpublishAgentTemplate"
   | "deleteStoredFile"
   | "installAgentTemplate"
-  | "installMarketplaceAgent"
-  | "mcpSignInRelay"
   | "loadAgentAvatar"
   | "duplicateAgent"
   | "loadQueue"
@@ -393,6 +389,8 @@ export function createHostRequestActions({
     capabilityApi(serverId, HOST_TIMEZONE_CAPABILITY, "mobile.server.settings.timezoneUnsupported");
   const memoryLimitAdmin = (serverId: string) =>
     capabilityApi(serverId, AGENT_MEMORY_LIMIT_CAPABILITY, "mobile.server.settings.memoryLimitUnsupported");
+  const memoryReviewAdmin = (serverId: string) =>
+    capabilityApi(serverId, MEMORY_REVIEW_CAPABILITY, "mobile.server.settings.memoryReviewUnsupported");
   /** The roles that set the agents of each member are an optional admin route set. */
   const rolesAdmin = (serverId: string) =>
     capabilityApi(serverId, AGENT_ACCESS_CAPABILITY, "mobile.server.roles.unsupported");
@@ -456,6 +454,9 @@ export function createHostRequestActions({
     loadAgentMemoryLimit: async (serverId) => runTeamRequest(getHostAgentMemoryLimit(memoryLimitAdmin(serverId))),
     setAgentMemoryLimit: async (limit, serverId) =>
       runTeamRequest(setHostAgentMemoryLimit(memoryLimitAdmin(serverId), limit)),
+    loadMemoryReview: async (serverId) => runTeamRequest(getHostMemoryReview(memoryReviewAdmin(serverId))),
+    setMemoryReview: async (interval, serverId) =>
+      runTeamRequest(setHostMemoryReview(memoryReviewAdmin(serverId), interval)),
     loadServerRoles: async (serverId) => runTeamRequest(getHostAgentAccess(rolesAdmin(serverId))),
     setServerRoles: async (change, serverId) => runTeamRequest(setHostAgentAccess(rolesAdmin(serverId), change)),
     githubConnector: async (route, serverId) =>
@@ -788,34 +789,6 @@ export function createHostRequestActions({
       // A host too old to know the route answers 404, so refuse before the request.
       requireCapability(capabilities, serverId, AGENT_INSTALL_CAPABILITY, "mobile.link.template.error.unsupported");
       return runTeamRequest(installAgentTemplate(teamApi(serverId), input));
-    },
-    installMarketplaceAgent: async (input, serverId) => {
-      // A host too old to know the route answers 404, so refuse before the request. An update goes
-      // to the `agent-update-v1` route, as on the desktop.
-      if (input.agentId)
-        requireCapability(
-          capabilities,
-          serverId,
-          AGENT_UPDATE_CAPABILITY,
-          "mobile.marketplace.error.agentUpdateUnsupported",
-        );
-      else
-        requireCapability(
-          capabilities,
-          serverId,
-          AGENT_INSTALL_CAPABILITY,
-          "mobile.marketplace.error.agentUnsupported",
-        );
-      return runTeamRequest(installMarketplaceAgent(teamApi(serverId), input));
-    },
-    mcpSignInRelay: (serverId) => {
-      const relay = capabilityApi(serverId, SIGN_IN_RELAY_CAPABILITY, "mobile.marketplace.error.signInUnsupported");
-      return {
-        start: async (config) => (await runTeamRequest(startMcpSignInRelay(relay, { config }))).flowId,
-        status: (flowId) => runTeamRequest(signInRelayStatus(relay, flowId)),
-        complete: (flowId, query) => runTeamRequest(completeSignInRelay(relay, flowId, query)),
-        cancel: (flowId) => runTeamRequest(cancelSignInRelay(relay, flowId)),
-      };
     },
     loadAgentAvatar: (agentId, avatarUrl, serverId) => requestAgentAvatar(request, agentId, avatarUrl, serverId),
     duplicateAgent: async (agentId) => {
