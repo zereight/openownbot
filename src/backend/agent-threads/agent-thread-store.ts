@@ -16,9 +16,7 @@ type AgentThreadTitleSource = (typeof AGENT_THREAD_TITLE_SOURCES)[number];
 /**
  * A side thread: a second conversation of one agent, with its own thread, next to the agent's own chat.
  *
- * `taskId` is the id that mailbox records, the drain's lanes and `agent-tasks-v1` clients use: the task id
- * of a thread from before migration 47, else the thread id. The two never collide: task ids start with
- * `agent-task-` and thread ids with `openbot-thread-`.
+ * `taskId` is the id that mailbox records, the drain's lanes and Team API clients use. It is the thread id.
  */
 export interface AgentThreadRecord {
   taskId: string;
@@ -48,7 +46,7 @@ export interface AgentThreadInput {
   forkedFrom?: { threadId: string; messageId: string };
 }
 
-const SELECT_THREAD = "SELECT *, COALESCE(legacy_task_id, thread_id) AS task_id FROM projection_agent_threads";
+const SELECT_THREAD = "SELECT *, thread_id AS task_id FROM projection_agent_threads";
 
 /**
  * Owns `projection_agent_threads`. It never imports the database facade's callers.
@@ -63,13 +61,9 @@ export class AgentThreadStore {
     this.#database = database;
   }
 
-  /** The thread by its task id: the legacy task id, or the thread id of a newer thread. */
+  /** The thread by its task id, which is its thread id. */
   task(taskId: string): AgentThreadRecord | null {
-    const row = databaseRow(
-      this.#database.connection
-        .prepare(`${SELECT_THREAD} WHERE legacy_task_id = ? OR (legacy_task_id IS NULL AND thread_id = ?)`)
-        .get(taskId, taskId),
-    );
+    const row = databaseRow(this.#database.connection.prepare(`${SELECT_THREAD} WHERE thread_id = ?`).get(taskId));
     return row ? decodeThread(row) : null;
   }
 
@@ -114,7 +108,7 @@ export class AgentThreadStore {
     return databaseRows(
       this.#database.connection
         .prepare(
-          `SELECT COALESCE(legacy_task_id, thread_id) AS task_id FROM projection_agent_threads
+          `SELECT thread_id AS task_id FROM projection_agent_threads
            WHERE agent_id = ? AND archived_at IS NULL ORDER BY created_at, thread_id`,
         )
         .all(agentId),
@@ -124,9 +118,7 @@ export class AgentThreadStore {
   taskIdsForAgent(agentId: string): string[] {
     return databaseRows(
       this.#database.connection
-        .prepare(
-          "SELECT COALESCE(legacy_task_id, thread_id) AS task_id FROM projection_agent_threads WHERE agent_id = ?",
-        )
+        .prepare("SELECT thread_id AS task_id FROM projection_agent_threads WHERE agent_id = ?")
         .all(agentId),
     ).map((row) => requiredStringColumn(row, "task_id"));
   }
@@ -165,9 +157,9 @@ export class AgentThreadStore {
         );
         db.prepare(
           `INSERT INTO projection_agent_threads
-             (thread_id, agent_id, legacy_task_id, origin, title, title_source, outcome, error, created_at,
+             (thread_id, agent_id, origin, title, title_source, outcome, error, created_at,
               updated_at, archived_at, last_event_sequence, forked_from_thread_id, forked_from_message_id)
-           VALUES (?, ?, NULL, ?, ?, ?, NULL, NULL, ?, ?, NULL, ?, ?, ?)`,
+           VALUES (?, ?, ?, ?, ?, NULL, NULL, ?, ?, NULL, ?, ?, ?)`,
         ).run(
           threadId,
           input.agentId,
@@ -212,21 +204,21 @@ export class AgentThreadStore {
   setOutcome(taskId: string, outcome: AgentTaskOutcome): void {
     this.#database.connection
       .prepare(`UPDATE projection_agent_threads SET outcome = ?, updated_at = ? WHERE ${BY_TASK_ID}`)
-      .run(outcome, new Date().toISOString(), taskId, taskId);
+      .run(outcome, new Date().toISOString(), taskId);
   }
 
   /** Keeps the error of the thread's last turn, or clears it when a turn starts. */
   setError(taskId: string, error: string | null): void {
     this.#database.connection
       .prepare(`UPDATE projection_agent_threads SET error = ? WHERE ${BY_TASK_ID}`)
-      .run(error, taskId, taskId);
+      .run(error, taskId);
   }
 
   /** Marks new activity, so the thread lists first among its peers. */
   touch(taskId: string): void {
     this.#database.connection
       .prepare(`UPDATE projection_agent_threads SET updated_at = ? WHERE ${BY_TASK_ID}`)
-      .run(new Date().toISOString(), taskId, taskId);
+      .run(new Date().toISOString(), taskId);
   }
 
   close(taskId: string): void {
@@ -235,13 +227,13 @@ export class AgentThreadStore {
       .prepare(
         `UPDATE projection_agent_threads SET archived_at = ?, updated_at = ? WHERE ${BY_TASK_ID} AND archived_at IS NULL`,
       )
-      .run(now, now, taskId, taskId);
+      .run(now, now, taskId);
   }
 
   reopen(taskId: string): void {
     this.#database.connection
       .prepare(`UPDATE projection_agent_threads SET archived_at = NULL, updated_at = ? WHERE ${BY_TASK_ID}`)
-      .run(new Date().toISOString(), taskId, taskId);
+      .run(new Date().toISOString(), taskId);
   }
 
   /**
@@ -296,17 +288,12 @@ export class AgentThreadStore {
   }
 }
 
-const BY_TASK_ID = "(legacy_task_id = ? OR (legacy_task_id IS NULL AND thread_id = ?))";
+const BY_TASK_ID = "thread_id = ?";
 
 type Connection = OpenOwnBotDatabase["connection"];
 
-/** The history of a migrated thread is also under its old task aggregate. The thread row takes the side-thread row. */
+/** The thread row takes the side-thread row. */
 function deleteThreadRows(db: Connection, threads: readonly AgentThreadRecord[]): void {
-  deleteAggregateHistory(
-    db,
-    "agent-task",
-    threads.filter((thread) => thread.taskId !== thread.threadId).map((thread) => thread.taskId),
-  );
   deleteAggregateHistory(
     db,
     "agent-thread",

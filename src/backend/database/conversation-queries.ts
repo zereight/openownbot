@@ -401,7 +401,7 @@ export class ConversationQueries {
                ${filter}
            )
            SELECT counted.count, page.agent_id, message.message_json,
-             COALESCE(side.legacy_task_id, side.thread_id) AS task_id
+             side.thread_id AS task_id
            FROM (SELECT COUNT(*) AS count FROM matches) counted
            LEFT JOIN (
              SELECT * FROM matches
