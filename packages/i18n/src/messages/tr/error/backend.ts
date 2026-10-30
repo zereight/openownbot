@@ -188,6 +188,8 @@ export const messages = {
   "error.backend.mcpServerNameTaken": "{name} adında bir MCP sunucusu zaten mevcut.",
   "error.backend.mcpServerNoAnswer": "Sunucu {seconds} saniye içinde yanıt vermedi.",
   "error.backend.mcpSignInNotAccepted": "Sunucu bu oturum açmayı kabul etmedi.",
+  "error.backend.mcpSignInClientRefused":
+    "Oturum açma sunucusu, oturum açma tamamlanırken OpenOwnBot'u kabul etmedi. Yeniden oturum açın: OpenOwnBot sunucuya yeniden kaydolur.",
   "error.backend.mcpCommandNotFound": "Komut bulunamadı: {command}",
   "error.backend.mcpRegistrationRefused":
     "Oturum açma sunucusu OpenOwnBot'u henüz bir uygulama olarak kabul etmiyor. Hesabınız bunun nedeni değildir. Yerel bir MCP sunucusu gibi bağlanmanın başka bir yolunu kullanın.",

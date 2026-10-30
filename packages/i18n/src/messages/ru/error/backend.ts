@@ -192,6 +192,8 @@ export const messages = {
   "error.backend.mcpServerNameTaken": "Сервер MCP с именем {name} уже существует.",
   "error.backend.mcpServerNoAnswer": "Сервер не ответил за {seconds} с.",
   "error.backend.mcpSignInNotAccepted": "Сервер не принял этот вход.",
+  "error.backend.mcpSignInClientRefused":
+    "Сервер входа не принял OpenOwnBot при завершении входа. Войдите снова: OpenOwnBot заново зарегистрируется на сервере.",
   "error.backend.mcpCommandNotFound": "Команда не найдена: {command}",
   "error.backend.mcpRegistrationRefused":
     "Сервер входа пока не принимает OpenOwnBot как приложение. Дело не в вашем аккаунте. Подключитесь другим способом, например через локальный сервер MCP.",
