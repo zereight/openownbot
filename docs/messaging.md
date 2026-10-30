@@ -183,7 +183,7 @@ development app's signing secret.
    `REMOTE_TICKET_PRIVATE_JWK` in `.openownbot/dev-state.json`, and export
    `SLACK_ROUTE_KEY_ID=openownbot-remote-1`. Development only: the
    ticket key's public key is already in the JWKS that Signal loads.
-4. Run `bun run dev:slack` (add `--shared` for the shared `OpenOwnBot Dev` profile). Set the printed addresses
+4. Run `bun run dev:slack` (add `--shared` for the shared `ROBot Dev` profile). Set the printed addresses
    as the development app's request URL, for events and interactivity, and its redirect URL. They
    change on each start.
 

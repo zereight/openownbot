@@ -6,6 +6,7 @@ import {
   type HostStatus,
   IPC_ENDPOINTS,
 } from "@openownbot/contracts/ipc";
+import { DATA_FOLDER_NAME } from "@openownbot/contracts/product";
 import { createFormat, resolveLocale, translateFor } from "@openownbot/i18n";
 import { localizeSourceText } from "@openownbot/i18n/source";
 import { createOpenOwnBotLogger, toLogValue } from "@openownbot/logging";
@@ -125,12 +126,6 @@ import { trustSystemCertificates } from "./system-certificates";
 import { TeardownRegistry } from "./teardown-registry";
 import type { TraceFile } from "./trace-file";
 import { setIpcCallObserver } from "./trusted-ipc";
-import {
-  legacyUserDataDirectory,
-  migrateUserData,
-  nodeUserDataMigrationDependencies,
-  USER_DATA_NAME,
-} from "./user-data-migration";
 import { setWindowAppearance } from "./window-appearance";
 
 const logger = createOpenOwnBotLogger("main");
@@ -232,23 +227,7 @@ if (commandLineUserDataDirectory) {
     ),
   );
 } else {
-  // A packaged app keeps its data under the product name; the folder of the name before OpenOwnBot is
-  // copied once, before anything reads `userData`.
-  const legacyDirectory = legacyUserDataDirectory(app.getPath("appData"));
-  app.setPath("userData", join(app.getPath("appData"), USER_DATA_NAME));
-  const migration = migrateUserData(
-    legacyDirectory,
-    app.getPath("userData"),
-    nodeUserDataMigrationDependencies(legacyDirectory),
-  );
-  if (migration === "migrated")
-    logger.info(`Copied the data folder "${legacyDirectory}" to "${app.getPath("userData")}".`);
-  else if (migration === "legacy-in-use" || migration === "failed") {
-    // An empty new folder would end the migration for good, so this run uses the old folder as it is and
-    // the copy is tried again at the next start.
-    logger.warn(`The data folder "${legacyDirectory}" was not copied (${migration}); using it where it is.`);
-    app.setPath("userData", legacyDirectory);
-  }
+  app.setPath("userData", join(app.getPath("appData"), DATA_FOLDER_NAME));
 }
 app.setName("OpenOwnBot");
 app.enableSandbox();

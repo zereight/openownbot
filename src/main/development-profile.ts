@@ -1,4 +1,5 @@
 import { createHash } from "node:crypto";
+import { DATA_FOLDER_NAME } from "@openownbot/contracts/product";
 
 export type DevelopmentProfile = "app" | "test-client";
 
@@ -26,7 +27,7 @@ export function developmentInstanceIdForWorktree(projectRoot: string): string {
 }
 
 export function developmentUserDataName(profile: DevelopmentProfile, instanceId: string | null = null): string {
-  const base = profile === "test-client" ? "OpenOwnBot Dev Test Client" : "OpenOwnBot Dev";
+  const base = profile === "test-client" ? `${DATA_FOLDER_NAME} Dev Test Client` : `${DATA_FOLDER_NAME} Dev`;
   return instanceId ? `${base} ${instanceId}` : base;
 }
 

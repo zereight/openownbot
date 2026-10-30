@@ -65,6 +65,7 @@ import {
   type SidebarLayoutSnapshot,
   type UpdateAgentInput,
 } from "@openownbot/contracts/ipc";
+import { DATA_FOLDER_NAME } from "@openownbot/contracts/product";
 import { type DynamicRecord, isBoolean, isNumber, isOneOf, isString } from "@openownbot/contracts/runtime-values";
 import { isGeneratedAgentId, isUuidV4, legacyAgentId } from "@openownbot/contracts/validation";
 import { sourceText } from "@openownbot/i18n/source";
@@ -207,7 +208,7 @@ export class AgentStore {
     database = new OpenOwnBotDatabase(userDataPath),
     agentDefaults: () => AgentDefaults = () => DEFAULT_AGENT_DEFAULTS,
   ) {
-    const openownbotRoot = join(homePath, "OpenBot");
+    const openownbotRoot = join(homePath, DATA_FOLDER_NAME);
     this.#statePath = join(userDataPath, LEGACY_AGENTS_STATE_FILE);
     this.#agentsRoot = join(openownbotRoot, "Agents");
     this.#legacyAgentsRoot = join(openownbotRoot, "Bots");

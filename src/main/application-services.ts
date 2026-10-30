@@ -1214,7 +1214,7 @@ export async function createApplicationServices({
    * Development gives every renderer port and every `--isolated` worktree a `userData` of its own,
    * so a store kept there started empty each time: OpenOwnBot fell back to the user's own CLI, offered
    * the pinned version against it, and downloaded 144 MB again for a profile that would be replaced
-   * by the next port. The packaged app's `userData` is `appData/OpenOwnBot` already, so the shared
+   * by the next port. The packaged app's `userData` is `appData/ROBot`, so the shared
    * store is the path it always used. The switch is read here rather than imported from the entry
    * point, which this file may not reach into; both readers read the same immutable value.
    */

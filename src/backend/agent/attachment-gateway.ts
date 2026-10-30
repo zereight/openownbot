@@ -4,6 +4,7 @@ import { basename, isAbsolute } from "node:path";
 import { sortConversationMessages } from "@openownbot/contracts/conversation-order";
 import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
 import type { AgentEvent, ConversationSnapshot } from "@openownbot/contracts/ipc";
+import { DATA_FOLDER_NAME } from "@openownbot/contracts/product";
 import { Deferred, Effect, Result } from "effect";
 import {
   type AttachmentOperationError,
@@ -318,7 +319,7 @@ export class AttachmentGateway {
       ),
     );
     const normalized = value.replaceAll("\\", "/");
-    const sharedReference = ["~/OpenBot/Shared/", "OpenBot/Shared/", "Shared/"].some((prefix) =>
+    const sharedReference = [`~/${DATA_FOLDER_NAME}/Shared/`, `${DATA_FOLDER_NAME}/Shared/`, "Shared/"].some((prefix) =>
       normalized.startsWith(prefix),
     );
     // An absolute path may be one the provider's own transcript still names under this agent's pre-rename

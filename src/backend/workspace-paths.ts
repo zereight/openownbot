@@ -8,6 +8,7 @@ import {
   type WorkspaceDirectory,
   type WorkspaceDirectoryEntry,
 } from "@openownbot/contracts/ipc";
+import { DATA_FOLDER_NAME } from "@openownbot/contracts/product";
 import { legacyAgentId } from "@openownbot/contracts/validation";
 import { sourceText } from "@openownbot/i18n/source";
 import { Effect } from "effect";
@@ -29,7 +30,7 @@ const LOCATION_SUFFIX = /(?::\d+(?::\d+)?|#L\d+(?:C\d+)?(?:-L?\d+(?:C\d+)?)?)$/u
 
 export function sharedPathFromInput(sharedRoot: string, inputPath: string): string {
   const normalized = inputPath.replaceAll("\\", "/");
-  for (const prefix of ["~/OpenBot/Shared/", "OpenBot/Shared/", "Shared/"]) {
+  for (const prefix of [`~/${DATA_FOLDER_NAME}/Shared/`, `${DATA_FOLDER_NAME}/Shared/`, "Shared/"]) {
     if (normalized.startsWith(prefix)) return join(sharedRoot, normalized.slice(prefix.length));
   }
   return isAbsolute(inputPath) ? inputPath : join(sharedRoot, normalized);
@@ -48,8 +49,8 @@ export function workspacePathFromInput(workspaceRoot: string, agentId: string, i
   const normalized = decoded.replaceAll("\\", "/");
   const legacyId = legacyAgentId(agentId);
   for (const prefix of [
-    `~/OpenBot/Agents/${agentId}/`,
-    `OpenBot/Agents/${agentId}/`,
+    `~/${DATA_FOLDER_NAME}/Agents/${agentId}/`,
+    `${DATA_FOLDER_NAME}/Agents/${agentId}/`,
     `~/OpenBot/Bots/${legacyId}/`,
     `OpenBot/Bots/${legacyId}/`,
   ]) {

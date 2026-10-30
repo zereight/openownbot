@@ -2,6 +2,7 @@ import { fileReferenceName, isFileReference } from "@openownbot/brand/file-refer
 import { blockChatMath, chatMathBlockStart, chatMathStart, inlineChatMath } from "@openownbot/contracts/chat-math";
 import { chatPreviewKind } from "@openownbot/contracts/chat-preview";
 import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
+import { DATA_FOLDER_NAME } from "@openownbot/contracts/product";
 import { Button, Checkbox } from "@openownbot/ui";
 import { Dynamic } from "@solidjs/web";
 import { Marked, type Token, type Tokens, type TokensList } from "marked";
@@ -1023,9 +1024,9 @@ function sharedFileTarget(value: string): string | null {
   const path = value.trim();
   if (!path || /[\0\r\n]/u.test(path)) return null;
   const normalized = path.replaceAll("\\", "/");
-  return normalized.startsWith("~/OpenBot/Shared/") ||
-    normalized.startsWith("OpenBot/Shared/") ||
-    normalized.includes("/OpenBot/Shared/")
+  return normalized.startsWith(`~/${DATA_FOLDER_NAME}/Shared/`) ||
+    normalized.startsWith(`${DATA_FOLDER_NAME}/Shared/`) ||
+    normalized.includes(`/${DATA_FOLDER_NAME}/Shared/`)
     ? path
     : null;
 }
