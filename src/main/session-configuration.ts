@@ -75,7 +75,7 @@ export interface AttachmentProtocolDependencies {
 
 export function configureAttachmentProtocol({ mailbox, agents, remoteServers }: AttachmentProtocolDependencies): void {
   const logger = createOpenOwnBotLogger("attachment-protocol");
-  session.defaultSession.protocol.handle("openownbot-attachment", async (request) => {
+  session.defaultSession.protocol.handle("openbot-attachment", async (request) => {
     try {
       const url = new URL(request.url);
       const id = url.pathname.split("/").filter(Boolean).at(-1);
@@ -95,7 +95,7 @@ export function configureAttachmentProtocol({ mailbox, agents, remoteServers }: 
       return new Response("Not found", { status: 404 });
     }
   });
-  session.defaultSession.protocol.handle("openownbot-remote-attachment", async (request) => {
+  session.defaultSession.protocol.handle("openbot-remote-attachment", async (request) => {
     try {
       const url = new URL(request.url);
       const serverId = decodeURIComponent(url.hostname);
