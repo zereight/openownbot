@@ -4,6 +4,7 @@ import type { AppTextKey } from "@openownbot/i18n";
 import { classifyFailure } from "@openownbot/telemetry";
 import { Input } from "@openownbot/ui";
 import type { AgentMessage } from "@openownbot/ui/data";
+import { ChatSearch } from "@openownbot/ui/features/conversation/ChatSearch";
 import { contextUsageView } from "@openownbot/ui/features/conversation/ContextUsage";
 import { AgentThreadView } from "@openownbot/ui/features/conversation/threads/AgentThreadView";
 import { useText } from "@openownbot/ui/text";
@@ -33,6 +34,13 @@ export function ConversationThread() {
     installedSkillsLoadFailed,
     mcpServers,
     threadComposer,
+    threadSearch,
+    threadSearchOpen,
+    threadSearchQuery,
+    threadSearchMatches,
+    activeThreadSearchIndex,
+    setThreadSearchQuery,
+    setThreadScrollElement,
   } = useConversationViewScope();
   const { t, errorMessage } = useText();
   const [picker, setPicker] = createSignal<HTMLInputElement>();
@@ -113,7 +121,20 @@ export function ConversationThread() {
               data-openownbot-attachment-picker="true"
             />
           </Show>
+          <Show when={threadSearchOpen()}>
+            <ChatSearch
+              query={threadSearchQuery()}
+              current={activeThreadSearchIndex()}
+              total={threadSearchMatches().length}
+              inputRef={threadSearch.setChatSearchInputElement}
+              onQueryChange={setThreadSearchQuery}
+              onPrevious={() => threadSearch.moveChatSearch(-1)}
+              onNext={() => threadSearch.moveChatSearch(1)}
+              onClose={threadSearch.closeChatSearch}
+            />
+          </Show>
           <AgentThreadView
+            scrollRef={setThreadScrollElement}
             task={current().threads.open ?? null}
             limit={current().threads.limit}
             agent={current().agent}
