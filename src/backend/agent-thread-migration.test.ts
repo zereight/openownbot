@@ -61,6 +61,8 @@ const THREADS = [
     updated_at: "2026-10-02T09:00:00.000Z",
     archived_at: "2026-10-03T09:00:00.000Z",
     last_event_sequence: 7,
+    forked_from_thread_id: null,
+    forked_from_message_id: null,
   },
   {
     thread_id: "openbot-thread-open",
@@ -75,6 +77,8 @@ const THREADS = [
     updated_at: "2026-10-02T08:00:00.000Z",
     archived_at: null,
     last_event_sequence: 4,
+    forked_from_thread_id: null,
+    forked_from_message_id: null,
   },
 ];
 
@@ -108,8 +112,14 @@ function withoutTasks(rows: Record<string, unknown[]>): Record<string, unknown[]
   return kept;
 }
 
+/** Every table except the thread table, which gains two columns in migration 48. */
+function withoutThreads(rows: Record<string, unknown[]>): Record<string, unknown[]> {
+  const { projection_agent_threads: _threads, ...kept } = rows;
+  return kept;
+}
+
 function expectHealthy(db: DatabaseSync): void {
-  expect(db.prepare("SELECT MAX(version) AS version FROM schema_migrations").get()).toEqual({ version: 47 });
+  expect(db.prepare("SELECT MAX(version) AS version FROM schema_migrations").get()).toEqual({ version: 48 });
   expect(db.prepare("PRAGMA foreign_keys").get()).toEqual({ foreign_keys: 1 });
   expect(db.prepare("PRAGMA foreign_key_check").all()).toEqual([]);
   expect(db.prepare("PRAGMA integrity_check").get()).toEqual({ integrity_check: "ok" });
@@ -215,11 +225,36 @@ describe("agent thread migration", () => {
     seedThreads(db);
     seedTasks(db);
     const before = contents(db);
-    db.exec("INSERT INTO schema_migrations VALUES(48,'now')");
+    db.exec("INSERT INTO schema_migrations VALUES(49,'now')");
     expect(() => migrateOpenOwnBotDatabase(db)).toThrow("newer than this application supports");
-    db.exec("DELETE FROM schema_migrations WHERE version=48; DELETE FROM schema_migrations WHERE version=20");
+    db.exec("DELETE FROM schema_migrations WHERE version=49; DELETE FROM schema_migrations WHERE version=20");
     expect(() => migrateOpenOwnBotDatabase(db)).toThrow("missing version 20");
     expect(contents(db)).toEqual(before);
+  });
+
+  it("adds the fork columns to released schema 47, keeps every thread, and runs again without failing", () => {
+    const db = databaseAt(47);
+    seedThreads(db);
+    insertThread(db, { threadId: "openbot-thread-open" });
+    const before = contents(db);
+    migrateOpenOwnBotDatabase(db);
+    expect(threads(db)).toEqual([
+      expect.objectContaining({
+        thread_id: "openbot-thread-open",
+        forked_from_thread_id: null,
+        forked_from_message_id: null,
+      }),
+    ]);
+    expect(withoutThreads(contents(db))).toEqual(withoutThreads(before));
+    expectHealthy(db);
+    db.exec("DELETE FROM schema_migrations WHERE version = 48");
+    migrateOpenOwnBotDatabase(db);
+    expectHealthy(db);
+    db.prepare(
+      "UPDATE projection_agent_threads SET forked_from_thread_id = 'openbot-thread-chief', forked_from_message_id = 'm1'",
+    ).run();
+    db.exec("DELETE FROM projection_threads WHERE thread_id = 'openbot-thread-chief'");
+    expect(threads(db)).toEqual([expect.objectContaining({ forked_from_thread_id: "openbot-thread-chief" })]);
   });
 
   it("refuses a thread of no conversation, a second thread of one task, and an unknown value", () => {
