@@ -60,7 +60,7 @@ import { RemoteWorkflowError, toRemoteWorkflowError } from "./remote-service-eff
  */
 
 import { existsSync } from "node:fs";
-import { readdir, rm } from "node:fs/promises";
+import { readdir } from "node:fs/promises";
 import { homedir, hostname, tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 
@@ -314,7 +314,6 @@ import { openScribeSocket } from "./voice-cloud-stream";
 import {
   BARK_PLUS_MODEL_DIRECTORY,
   PARAKEET_MODEL_DIRECTORY,
-  removeLegacyWhisperCache,
   SUPERTONIC_MODEL_DIRECTORY,
   WHISPER_TURBO_MODEL_DIRECTORY,
 } from "./voice-model-service";
@@ -329,9 +328,7 @@ import { startWorkflowLog } from "./workflow-log";
 const logger = createOpenOwnBotLogger("application-services");
 const SETUP_FILE = "openbot-setup-v2.json";
 const APPROVAL_AUTOMATION_FILE = "openbot-approval-automation-v3.json";
-const V2_APPROVAL_AUTOMATION_FILE = "openbot-approval-automation-v2.json";
 const ROUTINE_FEED_FILE = "openbot-routine-feed-v1.json";
-const LEGACY_APPROVAL_AUTOMATION_FILE = "openbot-approval-automation-v1.json";
 const LANGUAGE_PREFERENCE_FILE = "openbot-language-preference-v1.json";
 const LOGO_COLOR_PREFERENCE_FILE = "openbot-logo-color-preference-v1.json";
 const APPEARANCE_PREFERENCE_FILE = "openbot-appearance-preference-v1.json";
@@ -359,7 +356,6 @@ const TEAM_FILE_V2 = "openbot-team-server-v2.json";
 const REMOTE_SERVERS_FILE = "openbot-remote-servers-v1.json";
 const CENTRAL_AUTH_FILE = "openbot-central-auth-v1.bin";
 const REMOTE_SESSIONS_FILE = "openbot-remote-sessions-v1.bin";
-const LEGACY_REMOTE_DESKTOP_CREDENTIAL_FILE = "openbot-remote-desktop-credential-v1.json";
 const REMOTE_DESKTOP_RUNTIME_SECRET_FILE = "openbot-remote-desktop-runtime-v1.json";
 const CUSTOM_PROVIDERS_FILE = "openbot-custom-providers-v1.json";
 const PROVIDER_CREDENTIAL_FILE = "openbot-provider-credentials-v1.json";
@@ -1197,15 +1193,7 @@ export async function createApplicationServices({
   const approvalAutomationFile = join(app.getPath("userData"), APPROVAL_AUTOMATION_FILE);
   const approvalAutomation = new ApprovalAutomation({
     path: approvalAutomationFile,
-    initial: await runCauseEffect(
-      readApprovalAutomation(
-        approvalAutomationFile,
-        store.list().map((agent) => agent.id),
-        [V2_APPROVAL_AUTOMATION_FILE, LEGACY_APPROVAL_AUTOMATION_FILE].map((file) =>
-          join(app.getPath("userData"), file),
-        ),
-      ),
-    ),
+    initial: await runCauseEffect(readApprovalAutomation(approvalAutomationFile)),
     knownAgentIds: () => store.list().map((agent) => agent.id),
   });
   /*
@@ -2430,14 +2418,6 @@ export async function createApplicationServices({
       centralAuth.updateRemoteHostLogo(hostId, image, version).pipe(toRemoteWorkflowError),
     localDevelopmentHost: developmentRemoteRole === "host",
     logDirectory: join(app.getPath("userData"), "logs", "remote"),
-    removeLegacyRemoteDesktopCredential: () =>
-      Effect.tryPromise({
-        try: async () => {
-          const credentialPath = join(app.getPath("userData"), LEGACY_REMOTE_DESKTOP_CREDENTIAL_FILE);
-          await Promise.all([rm(credentialPath, { force: true }), rm(`${credentialPath}.tmp`, { force: true })]);
-        },
-        catch: (cause) => new RemoteWorkflowError({ cause }),
-      }),
     // Still a function, and still throws when nobody is signed in: the account is a lifetime
     // state of the running app, not a startup-ordering artifact.
     getSignedInUser: () => centralAuth.getSignedInUser(),
@@ -2647,12 +2627,6 @@ export async function createApplicationServices({
     spawnHost: spawnVoiceTranscriptionHost,
     openStreamSocket: openScribeSocket,
   });
-  if (app.isPackaged) {
-    // Parakeet replaced Whisper. The Whisper model is an application download, not user data.
-    void Effect.runPromise(removeLegacyWhisperCache(join(app.getPath("userData"), "runtimes", "whisper"))).catch(
-      (error) => logger.warn("Could not remove the old Whisper model cache.", toLogValue(error)),
-    );
-  }
   teardown.push(TEARDOWN_ORDER.voice, "voice transcription", () => Effect.runPromise(voice.shutdown()));
   voice.on("modelStatus", forwardVoiceModelStatus);
   voice.on("streamTranscript", forwardVoiceStreamTranscript);

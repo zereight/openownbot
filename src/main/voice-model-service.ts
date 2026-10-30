@@ -489,14 +489,6 @@ export class VoiceOperationError extends Schema.TaggedError<VoiceOperationError>
 
 const { io: voiceIO } = causeHelpers(VoiceOperationError);
 
-/**
- * Deletes the Whisper model cache that earlier versions downloaded (`<userData>/runtimes/whisper`).
- * It is a 539 MB application download, not user data, and no version reads it any more.
- */
-export const removeLegacyWhisperCache = Effect.fn("VoiceModel.removeLegacyWhisperCache")(function* (directory: string) {
-  yield* voiceIO(() => rm(directory, { recursive: true, force: true }));
-});
-
 const hasSha256 = Effect.fn("VoiceModel.validate")(function* (path: string, expectedSha256: string) {
   const hash = createHash("sha256");
   yield* Effect.acquireUseRelease(
