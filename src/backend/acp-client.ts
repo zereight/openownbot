@@ -538,6 +538,7 @@ export class AcpAgentClient extends EventEmitter<ClientEvents> {
       provider: options.provider,
       requestTimeoutMs,
       discoveryCwd: options.discoveryCwd,
+      processWideModel: options.flavor.processWideModel === true,
     });
   }
 
