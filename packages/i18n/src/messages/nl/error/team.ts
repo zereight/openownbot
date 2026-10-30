@@ -26,7 +26,6 @@ export const messages = {
   "error.team.usernameTaken": "Deze gebruikersnaam is al in gebruik.",
   "error.team.inviteRequiresAccount": "Voor deze uitnodiging is een geverifieerd OpenOwnBot-account nodig.",
   "error.team.loginIncorrect": "De gebruikersnaam of het wachtwoord is onjuist.",
-  "error.team.currentPasswordIncorrect": "Het huidige wachtwoord is onjuist.",
   "error.team.memberNotFound": "Teamlid niet gevonden.",
   "error.team.directMessageSelf": "Je kunt geen direct bericht met jezelf openen.",
   "error.team.directRecipientUnavailable": "Dit teamlid is niet beschikbaar.",

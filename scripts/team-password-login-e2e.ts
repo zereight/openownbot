@@ -236,7 +236,12 @@ async function stopHost(): Promise<void> {
 type Client = "oldest" | "protocol 7";
 
 /** One request from a client of the given protocol. */
-async function call(client: Client, path: string, body: unknown): Promise<{ status: number; body: unknown }> {
+async function call(
+  client: Client,
+  path: string,
+  body: unknown,
+  token?: string,
+): Promise<{ status: number; body: unknown }> {
   const headers: Record<string, string> = {
     Accept: "application/json",
     "Content-Type": "application/json",
@@ -244,6 +249,7 @@ async function call(client: Client, path: string, body: unknown): Promise<{ stat
     [TEAM_APP_VERSION_HEADER]: HOST_VERSION,
   };
   if (client === "protocol 7") headers[TEAM_CAPABILITIES_HEADER] = TEAM_PROTOCOL_V7_CAPABILITIES.join(",");
+  if (token) headers.Authorization = `Bearer ${token}`;
   const response = await fetch(`http://127.0.0.1:${port}${path}`, {
     method: "POST",
     headers,
@@ -312,6 +318,21 @@ try {
     const wrong = await passwordLogin("protocol 7", OWNER.username, "not-the-password-123");
     assert.notEqual(wrong.status, 200, "A wrong password signed in.");
     return { clients: 2, hashes: (await storedHashes()).length };
+  });
+  await step("password change: the host has no such route, and the password stays", async () => {
+    const token = sessionToken(await passwordLogin("protocol 7", OWNER.username, OWNER.password), "sign-in");
+    const changed = await call(
+      "protocol 7",
+      "/v1/auth/password",
+      { currentPassword: OWNER.password, newPassword: "a-new-password-456" },
+      token,
+    );
+    assert.equal(changed.status, 404, `The password route answered ${changed.status}.`);
+    assert.equal(await meStatus(token), 200, "The failed change ended the session.");
+    sessionToken(await passwordLogin("protocol 7", OWNER.username, OWNER.password), "sign-in with the old password");
+    const refused = await passwordLogin("protocol 7", OWNER.username, "a-new-password-456");
+    assert.notEqual(refused.status, 200, "The new password was accepted.");
+    return { status: changed.status };
   });
 
   await stopHost();

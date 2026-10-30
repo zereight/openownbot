@@ -137,15 +137,34 @@ take the same time. The hash stays in the file. A member with no `accountId` sig
 
 What B does not do, and what is not checked:
 
-- `changePassword` (`POST /v1/auth/password`) still works for a member with an account who knows the
-  old password. It makes a hash that no sign-in can use. It was not part of B, so it is unchanged.
+- `changePassword` (`POST /v1/auth/password`) was not part of B. It is removed in a later step; see
+  "Password change removed" below.
 - An old released client that signs in with a password as a member with an account now fails. The test
-  uses the wire format of the oldest protocol, not a real old build. Which real builds do this is not
-  confirmed.
+  uses the wire format of the oldest protocol, not a real old build. The developer states that no old
+  client exists (2026-10-31). That statement was not checked here.
 - The E2E script is not run by this fork's CI (`ci.yml` has no E2E lane). It ran locally once.
 - No count of legacy members was made first (step 2 of the order above). The developer's choice
   replaces that default. A member with an account is not locked out of the account sign-in, so no
   member loses access unless the member has an old client that cannot sign in with an account.
+
+### Password change removed (2026-10-31)
+
+The developer stated that no old Team API client exists, and asked whether `changePassword` is needed.
+It is not: a search of `src`, `apps`, `packages`, `scripts` and `docs` found one caller, the host route
+itself. The desktop, mobile and `team-client` code never call `/v1/auth/password`.
+
+Removed: the host route `POST /v1/auth/password` (`src/main/team-api/route-team.ts`),
+`TeamStore.changePassword`, the route constant `TEAM_API_ROUTES.auth.password`, and the unused text
+`error.team.currentPasswordIncorrect` in 13 catalogs.
+
+Kept: the frozen codecs of the released protocols (`v1.ts`, `provider-aware-codec.ts`) still name the
+route, because their fixtures record the released wire format. The host now answers an authenticated
+request to that path with 404. `scripts/team-password-login-e2e.ts` checks that answer and that the
+password does not change. The step was not run against the code before the removal.
+
+After this, the host writes a password hash in one place only: `TeamStore.configure`, which only E2E
+scripts call. Options C (delete the hashes) and D (remove `/v1/auth/login` and the hash code) stay open
+and need an explicit choice.
 
 ### Account contract check (2026-10-31)
 

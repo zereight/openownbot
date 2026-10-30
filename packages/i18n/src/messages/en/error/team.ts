@@ -25,7 +25,6 @@ export const messages = defineMessages("error.team", {
   "error.team.usernameTaken": "This username is already in use.",
   "error.team.inviteRequiresAccount": "This invitation requires a verified OpenOwnBot account.",
   "error.team.loginIncorrect": "The username or password is incorrect.",
-  "error.team.currentPasswordIncorrect": "The current password is incorrect.",
   "error.team.memberNotFound": "Team member not found.",
   "error.team.directMessageSelf": "You cannot open a direct message with yourself.",
   "error.team.directRecipientUnavailable": "This team member is unavailable.",

@@ -26,7 +26,6 @@ export const messages = {
   "error.team.usernameTaken": "Bu kullanıcı adı zaten kullanımda.",
   "error.team.inviteRequiresAccount": "Bu davet doğrulanmış bir OpenOwnBot hesabı gerektirir.",
   "error.team.loginIncorrect": "Kullanıcı adı veya şifre yanlış.",
-  "error.team.currentPasswordIncorrect": "Mevcut şifre yanlış.",
   "error.team.memberNotFound": "Ekip üyesi bulunamadı.",
   "error.team.directMessageSelf": "Kendinizle doğrudan mesaj açamazsınız.",
   "error.team.directRecipientUnavailable": "Bu ekip üyesi kullanılamıyor.",
