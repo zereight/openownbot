@@ -34,7 +34,7 @@ export function memoryIpcHandlers({
   return {
     agentMemories: {
       getMemorySelection: scopedHandler(parseAgentId, {
-        local: (agentId) => service.getMemorySelection(agentId),
+        local: (agentId) => service.memories.selectionState(agentId),
         remote: (agentId, serverId) =>
           runCauseEffect(
             readAgentMemorySelection(
@@ -45,7 +45,7 @@ export function memoryIpcHandlers({
           ),
       }),
       setMemoryInclusion: scopedHandler(parseSetAgentMemoryInclusion, {
-        local: (input) => service.setMemoryInclusion(input),
+        local: (input) => service.memories.setInclusions(input),
         remote: (input, serverId) =>
           runCauseEffect(
             setAgentMemoryInclusion(
@@ -55,7 +55,7 @@ export function memoryIpcHandlers({
           ),
       }),
       listMemories: scopedHandler(parseAgentId, {
-        local: (agentId) => service.listMemories(agentId),
+        local: (agentId) => service.memories.list(agentId),
         remote: (agentId, serverId) =>
           runCauseEffect(
             readAgentMemories(
@@ -66,7 +66,7 @@ export function memoryIpcHandlers({
           ),
       }),
       createMemory: scopedHandler(parseCreateAgentMemory, {
-        local: (parsed) => service.createMemory(parsed),
+        local: (parsed) => service.memories.create(parsed),
         remote: (parsed, serverId) =>
           runCauseEffect(
             remoteServers.request(serverId, TEAM_API_ROUTES.agent.memories(parsed.agentId), decodeAgentMemory, {
@@ -76,7 +76,7 @@ export function memoryIpcHandlers({
           ),
       }),
       updateMemory: scopedHandler(parseUpdateAgentMemory, {
-        local: (parsed) => service.updateMemory(parsed),
+        local: (parsed) => service.memories.update(parsed),
         remote: (parsed, serverId) =>
           runCauseEffect(
             remoteServers.request(
@@ -91,7 +91,7 @@ export function memoryIpcHandlers({
           ),
       }),
       deleteMemory: scopedHandler(parseDeleteAgentMemory, {
-        local: (parsed) => service.deleteMemory(parsed),
+        local: (parsed) => service.memories.delete(parsed),
         remote: (parsed, serverId) =>
           runCauseEffect(
             remoteServers.request(serverId, TEAM_API_ROUTES.agent.memory(parsed.agentId, parsed.memoryId), decodeVoid, {
@@ -100,7 +100,7 @@ export function memoryIpcHandlers({
           ),
       }),
       clearMemories: scopedHandler(parseAgentId, {
-        local: (agentId) => service.clearMemories(agentId),
+        local: (agentId) => service.memories.clear(agentId),
         remote: (agentId, serverId) =>
           runCauseEffect(
             remoteServers.request(serverId, TEAM_API_ROUTES.agent.memories(agentId), decodeVoid, { method: "DELETE" }),

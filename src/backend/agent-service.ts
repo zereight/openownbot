@@ -8,8 +8,6 @@ import type {
   AgentAccessLevel,
   AgentAnalyticsInput,
   AgentEvent,
-  AgentMemory,
-  AgentMemorySelectionState,
   AgentModelId,
   AgentModelOption,
   AgentPendingRuntime,
@@ -40,12 +38,10 @@ import type {
   ConversationSnapshot,
   ConversationWithReadState,
   CreateAgentInput,
-  CreateAgentMemoryInput,
   CreateChannelMemoryInput,
   CreateChannelRoutineInput,
   CreateRoutineInput,
   CustomProviderRestart,
-  DeleteAgentMemoryInput,
   DeleteChannelMemoryInput,
   DeleteChannelRoutineInput,
   DeleteRoutineInput,
@@ -83,7 +79,6 @@ import type {
   SaveMcpSignInAppInput,
   SendMessageInput,
   SetAgentHiddenInput,
-  SetAgentMemoryInclusionInput,
   SetAgentSessionSettingInput,
   SetMcpServerEnabledInput,
   SetMessageReactionInput,
@@ -97,7 +92,6 @@ import type {
   TestMcpServerInput,
   TestRoutineInput,
   UpdateAgentInput,
-  UpdateAgentMemoryInput,
   UpdateChannelMemoryInput,
   UpdateChannelRoutineInput,
   UpdateQueuedMessageInput,
@@ -447,7 +441,8 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
   readonly #mailbox: MailboxStore;
   readonly #browser: AgentBrowserHost;
   readonly #reader: ConversationReader;
-  readonly #memories: AgentMemories;
+  /** The memories of every agent. */
+  readonly memories: AgentMemories;
   readonly #memoryReview: MemoryReview;
   readonly #waits: AgentWaits;
   readonly #tasks: AgentTasks;
@@ -595,7 +590,7 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
       },
     });
     this.#tables = options.tables ?? null;
-    this.#memories = new AgentMemories({
+    this.memories = new AgentMemories({
       store,
       conversation: this.#conversation,
       emit: (event) => this.#emit(event),
@@ -603,7 +598,7 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
       ...(options.agentMemoryLimit ? { limit: options.agentMemoryLimit } : {}),
     });
     this.#memoryReview = new MemoryReview({
-      memories: this.#memories,
+      memories: this.memories,
       profileClients: this.#profileClients,
       listAgents: () => this.listAgents(),
       models: (agent) =>
@@ -928,7 +923,7 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
       store,
       mailbox,
       conversation: this.#conversation,
-      memories: this.#memories,
+      memories: this.memories,
       routines: this.#routines,
       hooks: {
         emit: (event) => this.#emit(event),
@@ -1019,7 +1014,7 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
       store,
       mailbox,
       conversation: this.#conversation,
-      memories: this.#memories,
+      memories: this.memories,
       compaction: this.#compaction,
       mcpServers: () => this.#mcp.enabled(),
       mcpToolRuntimes: () => this.#mcp.toolRuntimes(),
@@ -1394,7 +1389,7 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
       mailboxSync: this.#mailboxSync,
       conversation: this.#conversation,
       providers: this.#providers,
-      memories: this.#memories,
+      memories: this.memories,
       attention: this.#attention,
       browser,
       compaction: this.#compaction,
@@ -1498,7 +1493,7 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
       messaging: this.messaging,
       hostedSites: this.#hostedSites,
       routines: this.#routines,
-      memories: this.#memories,
+      memories: this.memories,
       waits: this.#waits,
       tasks: this.#tasks,
       drain: this.#drain,
@@ -1750,46 +1745,9 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
     return reasons;
   }
 
-  listMemories(agentId: string): AgentMemory[] {
-    return this.#memories.list(agentId);
-  }
-
-  getMemorySelection(agentId: string): AgentMemorySelectionState {
-    return this.#memories.selectionState(agentId);
-  }
-
-  setMemoryInclusion(input: SetAgentMemoryInclusionInput): AgentMemorySelectionState {
-    return this.#memories.setInclusions(input);
-  }
-
-  initializeMemorySelection(agentId: string): void {
-    this.#memories.initializeSelection(agentId);
-  }
-
-  /** How many memories one agent can hold now. */
-  memoryLimit(): number {
-    return this.#memories.limit();
-  }
-
   /** The developer instructions state the limit, so a new limit reloads every agent's threads. */
   memoryLimitChanged(): void {
     for (const agent of this.listAgents()) this.#conversation.unloadAgentThreads(agent.id);
-  }
-
-  createMemory(input: CreateAgentMemoryInput): AgentMemory {
-    return this.#memories.create(input);
-  }
-
-  updateMemory(input: UpdateAgentMemoryInput): AgentMemory {
-    return this.#memories.update(input);
-  }
-
-  deleteMemory(input: DeleteAgentMemoryInput): void {
-    this.#memories.delete(input);
-  }
-
-  clearMemories(agentId: string): void {
-    this.#memories.clear(agentId);
   }
 
   listTables(): Effect.Effect<SharedTable[], AgentLifecycleFailed> {
@@ -4046,7 +4004,7 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
     this.#deltas.dispose();
     this.#conversation.dispose();
     this.#threads.dispose();
-    this.#memories.clearPending();
+    this.memories.clearPending();
     this.#tables?.dispose();
     this.#attention.clearPrompts();
     this.#attention.clearBrowserTakeovers();

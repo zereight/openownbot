@@ -1,3 +1,4 @@
+import type { AgentMemories } from "../backend/agent/agent-memories";
 // Instance transfer: the agents and app settings of this computer in one `.zip` file, and the import
 // of such a file on another computer. See `docs/architecture/instance-transfer.md`.
 //
@@ -19,8 +20,6 @@ import {
   AGENT_IMPORT_LIMITS,
   type AgentImportPreviewAgent,
   type AgentImportSkipped,
-  type AgentMemory,
-  type AgentMemorySelectionState,
   type AgentModelOption,
   type AgentSummary,
   type ApplyInstanceTransferInput,
@@ -44,7 +43,6 @@ import {
   type Routine,
   type RoutineFlowLink,
   type SaveCustomProviderInput,
-  type SetAgentMemoryInclusionInput,
   type SidebarLayoutAction,
   type SidebarLayoutSnapshot,
   type UpdateAgentInput,
@@ -123,9 +121,10 @@ const AVATAR_EXTENSIONS: Record<AvatarImageInput["mimeType"], string> = {
 interface InstanceTransferAgents {
   listAgents(): AgentSummary[];
   listRoutines(agentId: string): Routine[];
-  listMemories(agentId: string): AgentMemory[];
-  getMemorySelection(agentId: string): Pick<AgentMemorySelectionState, "selections">;
-  setMemoryInclusion(input: SetAgentMemoryInclusionInput): unknown;
+  memories: Pick<
+    AgentMemories,
+    "list" | "selectionState" | "setInclusions" | "create" | "limit" | "initializeSelection"
+  >;
   resolveAvatar(agentId: string): { path: string; mimeType: AvatarImageInput["mimeType"] } | null;
   listModels(): Array<Pick<AgentModelOption, "provider" | "id">>;
   createAgentProfile(
@@ -133,9 +132,6 @@ interface InstanceTransferAgents {
   ): Effect.Effect<AgentSummary, unknown>;
   updateAgent(input: UpdateAgentInput): Effect.Effect<AgentSummary, unknown>;
   createRoutine(input: CreateRoutineInput, options?: { recordConversationEvent?: boolean }): Pick<Routine, "id">;
-  createMemory(input: { agentId: string; text: string }): Pick<AgentMemory, "id">;
-  memoryLimit(): number;
-  initializeMemorySelection(agentId: string): void;
   setAvatar(agentId: string, image: AvatarImageInput | null): Effect.Effect<AgentSummary, unknown>;
   deleteAgent(agentId: string): Effect.Effect<void, unknown>;
 }
@@ -220,7 +216,7 @@ export class InstanceTransferService {
         avatarUrl: agent.avatarUrl,
         skillCount: skills.length,
         routineCount: this.options.agents.listRoutines(agent.id).length,
-        memoryCount: this.options.agents.listMemories(agent.id).length,
+        memoryCount: this.options.agents.memories.list(agent.id).length,
         fileCount: files.length,
         fileBytes: files.reduce((total, file) => total + file.size, 0),
       });
@@ -310,8 +306,8 @@ export class InstanceTransferService {
       const oneTimeRoutines = routines.filter((routine) => routine.schedule.kind === "once");
 
       const selections = new Map(
-        this.options.agents
-          .getMemorySelection(agent.id)
+        this.options.agents.memories
+          .selectionState(agent.id)
           .selections.filter((selection) => selection.userControlled)
           .map((selection) => [selection.memoryId, selection.inclusion] as const),
       );
@@ -333,7 +329,7 @@ export class InstanceTransferService {
         files,
         routines: routines.filter((routine) => routine.schedule.kind !== "once"),
         ...(oneTimeRoutines.length > 0 ? { oneTimeRoutines } : {}),
-        memories: this.options.agents.listMemories(agent.id).map((memory) => {
+        memories: this.options.agents.memories.list(agent.id).map((memory) => {
           const inclusion = selections.get(memory.id);
           return { text: memory.text, ...(inclusion ? { inclusion } : {}) };
         }),
@@ -911,24 +907,24 @@ export class InstanceTransferService {
           }
 
           // The limit can be lower here than on the computer that made the file.
-          const memoryLimit = this.options.agents.memoryLimit();
+          const memoryLimit = this.options.agents.memories.limit();
           if (source.memories.length > memoryLimit)
             warnings.push(sourceText("error.import.memoryLimit", { name: source.name, limit: memoryLimit }));
           const chosen = yield* archiveSync(() =>
             source.memories.slice(0, memoryLimit).flatMap((memory) => {
-              const created = this.options.agents.createMemory({ agentId: agent.id, text: memory.text });
+              const created = this.options.agents.memories.create({ agentId: agent.id, text: memory.text });
               return memory.inclusion ? [{ memoryId: created.id, inclusion: memory.inclusion }] : [];
             }),
           );
-          yield* archiveSync(() => this.options.agents.initializeMemorySelection(agent.id));
+          yield* archiveSync(() => this.options.agents.memories.initializeSelection(agent.id));
           if (chosen.length > 0) {
             const revisions = new Map(
-              this.options.agents
-                .getMemorySelection(agent.id)
+              this.options.agents.memories
+                .selectionState(agent.id)
                 .selections.map((selection) => [selection.memoryId, selection.revision]),
             );
             yield* archiveSync(() =>
-              this.options.agents.setMemoryInclusion({
+              this.options.agents.memories.setInclusions({
                 agentId: agent.id,
                 changes: chosen.map((change) => ({ ...change, expectedRevision: revisions.get(change.memoryId) ?? 0 })),
               }),

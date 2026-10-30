@@ -20,7 +20,7 @@ import type { AgentRouteTarget, RouteOutcome, TeamApiRequestContext } from "./re
 import { pathIdentifier, readJson, requireAgentLevel, stringField } from "./request-helpers";
 
 export interface AgentMemoryRouteDependencies {
-  agents: Pick<TeamApiAgents, "listMemories" | "createMemory" | "updateMemory" | "deleteMemory" | "clearMemories">;
+  agents: Pick<TeamApiAgents, "memories">;
 }
 
 export async function routeAgentMemories(
@@ -32,20 +32,20 @@ export async function routeAgentMemories(
 
   if (action === "memories") {
     if (method === "GET") {
-      return json(200, agents.listMemories(agentId));
+      return json(200, agents.memories.list(agentId));
     }
     if (method === "POST") {
       const body = await readJson(request);
       return json(
         201,
-        agents.createMemory({
+        agents.memories.create({
           agentId,
           text: stringField(body, "text", false, INPUT_LIMITS.agentMemoryText),
         }),
       );
     }
     if (method === "DELETE") {
-      agents.clearMemories(agentId);
+      agents.memories.clear(agentId);
       return empty(204);
     }
   }
@@ -56,7 +56,7 @@ export async function routeAgentMemories(
       const body = await readJson(request);
       return json(
         200,
-        agents.updateMemory({
+        agents.memories.update({
           agentId,
           memoryId,
           text: stringField(body, "text", false, INPUT_LIMITS.agentMemoryText),
@@ -64,7 +64,7 @@ export async function routeAgentMemories(
       );
     }
     if (method === "DELETE") {
-      agents.deleteMemory({ agentId, memoryId });
+      agents.memories.delete({ agentId, memoryId });
       return empty(204);
     }
   }
@@ -75,7 +75,7 @@ export async function routeAgentMemories(
 /** A separate optional route keeps the released full-list response unchanged. */
 export async function routeAgentMemoryPage(
   context: TeamApiRequestContext,
-  agents: Pick<TeamApiAgents, "listMemories" | "listAgents" | "getMemorySelection" | "setMemoryInclusion">,
+  agents: Pick<TeamApiAgents, "listAgents" | "memories">,
   hiddenAgentIds: ReadonlySet<string>,
 ): Promise<RouteOutcome> {
   const { method, url, capabilities, request, json } = context;
@@ -100,12 +100,12 @@ export async function routeAgentMemoryPage(
     } catch (error) {
       throw new HttpError(400, error instanceof Error ? error.message : "Invalid memory inclusion request.");
     }
-    agents.setMemoryInclusion(input);
+    agents.memories.setInclusions(input);
     return json(200, {});
   }
   const after = body.after === null ? null : stringField(body, "after");
   if (url.pathname === AGENT_MEMORY_SELECTION_PAGE_ROUTE) {
-    const state = agents.getMemorySelection(agentId);
+    const state = agents.memories.selectionState(agentId);
     const remaining = state.selections
       .filter((entry) => after === null || entry.memoryId > after)
       .sort((left, right) => (left.memoryId < right.memoryId ? -1 : left.memoryId > right.memoryId ? 1 : 0));
@@ -118,8 +118,8 @@ export async function routeAgentMemoryPage(
       nextCursor: remaining.length > selections.length ? (selections.at(-1)?.memoryId ?? null) : null,
     });
   }
-  const remaining = agents
-    .listMemories(agentId)
+  const remaining = agents.memories
+    .list(agentId)
     .filter((memory) => after === null || memory.id > after)
     .sort((left, right) => (left.id < right.id ? -1 : left.id > right.id ? 1 : 0));
   const memories = remaining.slice(0, AGENT_MEMORIES_PAGE_SIZE);

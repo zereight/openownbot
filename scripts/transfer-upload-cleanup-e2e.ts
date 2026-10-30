@@ -64,14 +64,25 @@ function service(uploadDirectory: string): InstanceTransferService {
     listRoutines: (_agentId) => {
       throw unexpected("listRoutines");
     },
-    listMemories: (_agentId) => {
-      throw unexpected("listMemories");
-    },
-    getMemorySelection: (_agentId) => {
-      throw unexpected("getMemorySelection");
-    },
-    setMemoryInclusion: (_input) => {
-      throw unexpected("setMemoryInclusion");
+    memories: {
+      list: (_agentId) => {
+        throw unexpected("memories.list");
+      },
+      selectionState: (_agentId) => {
+        throw unexpected("memories.selectionState");
+      },
+      setInclusions: (_input) => {
+        throw unexpected("memories.setInclusions");
+      },
+      create: (_input) => {
+        throw unexpected("memories.create");
+      },
+      limit: () => {
+        throw unexpected("memories.limit");
+      },
+      initializeSelection: (_agentId) => {
+        throw unexpected("memories.initializeSelection");
+      },
     },
     resolveAvatar: (_agentId) => {
       throw unexpected("resolveAvatar");
@@ -83,15 +94,6 @@ function service(uploadDirectory: string): InstanceTransferService {
     updateAgent: (_input) => Effect.fail(unexpected("updateAgent")),
     createRoutine: (_input, _options) => {
       throw unexpected("createRoutine");
-    },
-    createMemory: (_input) => {
-      throw unexpected("createMemory");
-    },
-    memoryLimit: () => {
-      throw unexpected("memoryLimit");
-    },
-    initializeMemorySelection: (_agentId) => {
-      throw unexpected("initializeMemorySelection");
     },
     setAvatar: (_agentId, _image) => Effect.fail(unexpected("setAvatar")),
     deleteAgent: (_agentId) => Effect.fail(unexpected("deleteAgent")),

@@ -1,4 +1,5 @@
 import { Deferred, Effect, Exit, Result } from "effect";
+import type { AgentMemories } from "../backend/agent/agent-memories";
 import { type ArchiveOperationError, archiveCall, archiveFailure, archiveSync } from "./archive-effects";
 // Agent import into this host from one `.zip` export: chosen by the local user, or sent by a member
 // of a joined client with `agent-import-v1`.
@@ -80,9 +81,7 @@ export interface AgentImportAgents {
     avatarHue: null;
   }): ReturnType<AgentService["createAgentProfile"]>;
   createRoutine(input: CreateRoutineInput, options?: { recordConversationEvent?: boolean }): unknown;
-  createMemory(input: { agentId: string; text: string }): unknown;
-  memoryLimit(): number;
-  initializeMemorySelection(agentId: string): void;
+  memories: Pick<AgentMemories, "create" | "limit" | "initializeSelection">;
   setAvatar(agentId: string, image: AvatarImageInput | null): ReturnType<AgentService["setAvatar"]>;
   deleteAgent(agentId: string): ReturnType<AgentService["deleteAgent"]>;
   channels: { command(command: ChannelCommand, actor: ChannelActor): ReturnType<ChannelService["command"]> };
@@ -247,7 +246,7 @@ export class AgentImportService {
     const { manifest, warnings } = yield* archiveSync(() =>
       decodeImportManifest(
         extract(bytes, (name) => name === manifestName)[manifestName] ?? new Uint8Array(),
-        this.agents.memoryLimit(),
+        this.agents.memories.limit(),
       ),
     );
 
@@ -601,12 +600,12 @@ export class AgentImportService {
               }
             }
             // The limit can be lower now than when the archive was read.
-            const memoryLimit = this.agents.memoryLimit();
+            const memoryLimit = this.agents.memories.limit();
             if (source.memories.length > memoryLimit)
               warnings.push(sourceText("error.import.memoryLimit", { name: source.name, limit: memoryLimit }));
             for (const text of source.memories.slice(0, memoryLimit))
-              this.agents.createMemory({ agentId: agent.id, text });
-            this.agents.initializeMemorySelection(agent.id);
+              this.agents.memories.create({ agentId: agent.id, text });
+            this.agents.memories.initializeSelection(agent.id);
             const avatar = staged.avatars.get(source.key);
             if (avatar)
               agent = yield* this.agents

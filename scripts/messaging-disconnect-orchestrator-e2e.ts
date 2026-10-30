@@ -110,7 +110,7 @@ async function boot<T>(
       respondToApproval: (input) => agents.respondToApproval(input),
       onEvent: () => () => {},
       createAgentProfile: (input) => agents.createAgentProfile(input),
-      createMemory: (input) => agents.createMemory(input),
+      createMemory: (input) => agents.memories.create(input),
       ensureDeletable: (agentId) =>
         busy.has(agentId)
           ? Effect.fail(
