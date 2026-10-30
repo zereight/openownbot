@@ -11,6 +11,7 @@ import { mkdtemp, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import type { ConversationMessage } from "@openownbot/contracts/ipc";
+import { readHandoffHistory } from "../src/backend/agent/handoff-history";
 import { AgentStore } from "../src/backend/agent-store";
 import { forkAgentThread } from "../src/backend/agent-threads/agent-thread-fork";
 import { AgentThreadStore } from "../src/backend/agent-threads/agent-thread-store";
@@ -25,6 +26,7 @@ const home = join(root, "home");
 interface Report {
   copied?: { messageIds: string[]; turnIds: Array<string | null>; forkedFrom: unknown };
   sourceMessageCount?: number;
+  handoffHasCopy?: boolean;
   replayMessageIds?: string[];
   afterRestart?: { forkedFrom: unknown; messageIds: string[] };
   forkOfFork?: { messageIds: string[]; afterFirstDeleted: string[] };
@@ -90,6 +92,14 @@ try {
     );
     assert.deepEqual(fork.forkedFrom, { threadId: ownThreadId, messageId: "m2" });
     assert.equal(threads.taskForThread(fork.threadId)?.agentId, agent.id, "The fork is not a thread of the agent.");
+
+    assert.ok(database.isForkedThread(fork.threadId), "The fork is not marked as a fork.");
+    assert.ok(!database.isForkedThread(ownThreadId), "The source is marked as a fork.");
+    const handoff = readHandoffHistory(database, agent.id, fork.threadId, new Map());
+    const handoffText = JSON.stringify(handoff);
+    report.handoffHasCopy = handoffText.includes("user m1") && handoffText.includes("assistant m2");
+    assert.ok(report.handoffHasCopy, "The handoff of the fork does not hold the copied history.");
+    assert.ok(!handoffText.includes("assistant m4"), "The handoff holds a message after the cut.");
 
     const source = database.readConversation(agent.id, ownThreadId);
     report.sourceMessageCount = source.messages.length;
