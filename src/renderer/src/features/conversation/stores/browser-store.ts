@@ -584,28 +584,40 @@ export function createBrowserStore(deps: BrowserStoreDeps) {
     if (await setBrowserControl(tabId, "release")) takenBrowserTabIds.delete(tabId);
   }
 
+  async function releaseAvailableBrowserControl(tabId: string) {
+    if (await setAvailableBrowserControl(tabId, "release")) takenBrowserTabIds.delete(tabId);
+  }
+
   // The user leaves the full view: the agents get their pages back, so no tab waits with no control in sight.
   let fullViewWasOpen = false;
-  createEffect(browserExpandedOpen, (open) => {
-    const closed = fullViewWasOpen && !open;
-    // The full view lists every tab, so a tab that main has dropped must not wait there for a press.
-    if (open && !fullViewWasOpen) untrack(() => deps.props.onResyncBrowserTabs?.());
-    fullViewWasOpen = open;
-    if (!closed) return;
-    const held = new Set(untrack(allBrowserTabs).flatMap((tab) => (tab.userControl ? [tab.id] : [])));
-    for (const tabId of [...takenBrowserTabIds]) {
-      if (held.has(tabId)) void releaseBrowserControl(tabId);
-      else takenBrowserTabIds.delete(tabId);
-    }
-  });
+  createEffect(
+    () => ({ open: browserExpandedOpen(), available: browserInteractionAvailable() }),
+    ({ open, available }) => {
+      const closed = fullViewWasOpen && !open;
+      // The full view lists every tab, so a tab that main has dropped must not wait there for a press.
+      if (open && !fullViewWasOpen) untrack(() => deps.props.onResyncBrowserTabs?.());
+      fullViewWasOpen = open;
+      if (!closed) return;
+      const held = new Set(untrack(allBrowserTabs).flatMap((tab) => (tab.userControl ? [tab.id] : [])));
+      for (const tabId of [...takenBrowserTabIds]) {
+        if (held.has(tabId)) {
+          // Read in the compute: this callback has no owner, and `browserEnabled` can be a compiled memo.
+          if (available) void releaseAvailableBrowserControl(tabId);
+        } else takenBrowserTabIds.delete(tabId);
+      }
+    },
+  );
 
   /** Whether the host took the request. */
   async function setBrowserControl(tabId: string, action: "take" | "release"): Promise<boolean> {
-    // The user gives back a tab of any agent; the user takes only a tab of this agent.
+    if (!browserInteractionAvailable()) return false;
+    return setAvailableBrowserControl(tabId, action);
+  }
+
+  /** For a caller that already knows the browser is available, such as an effect callback. It has no owner. */
+  async function setAvailableBrowserControl(tabId: string, action: "take" | "release"): Promise<boolean> {
     const tabs = action === "take" ? browserTabs() : allBrowserTabs();
-    if (!browserInteractionAvailable() || closingBrowserTabIds.has(tabId) || !tabs.some((tab) => tab.id === tabId)) {
-      return false;
-    }
+    if (closingBrowserTabIds.has(tabId) || !tabs.some((tab) => tab.id === tabId)) return false;
     const agentId = deps.props.agent?.id;
     const target = agentId ? { agentId, serverId: deps.props.server?.id ?? "local" } : undefined;
     const browser = conversationRuntime(deps.props).browser;
