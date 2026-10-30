@@ -243,8 +243,10 @@ try {
       getProviderAccountUsage: unused("getProviderAccountUsage"),
       listAgents: unused("listAgents"),
       updateAgent: unused("updateAgent"),
-      signInProviderAccountOnHost: unused("signInProviderAccountOnHost"),
-      renameProviderAccount: unused("renameProviderAccount"),
+      providers: {
+        signInProviderAccountOnHost: unused("providers.signInProviderAccountOnHost"),
+        renameProviderAccount: unused("providers.renameProviderAccount"),
+      },
       removeProviderAccount: unused("removeProviderAccount"),
     },
     browser: { openPrivate: unused("openPrivate"), privateTab: unused("privateTab"), close: unused("close") },

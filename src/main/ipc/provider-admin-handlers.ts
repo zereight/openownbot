@@ -1,6 +1,7 @@
 import { PROVIDERS_V5_CAPABILITY, PROVIDERS_V5_ROUTES } from "@robot/contracts/team-protocol/providers-v5";
 import { PROVIDERS_V8_CAPABILITY, PROVIDERS_V8_ROUTES } from "@robot/contracts/team-protocol/providers-v8";
 import { Cause, Effect, Exit, Fiber } from "effect";
+import type { ProviderOperations } from "../../backend/agent/provider-runtime";
 import type { RemoteWorkflowError } from "../remote-service-effects";
 // The providers of one server's host: code sign-in, API keys, managed CLI runtimes and custom
 // endpoints. On a joined server they belong to the host, so the request goes there, and the host
@@ -102,14 +103,12 @@ interface ProviderAdminRemoteServers {
 }
 
 interface ProviderAdminIpcDependencies {
-  service: Pick<
-    AgentService,
-    | "startProviderCodeLogin"
-    | "submitProviderCodeLogin"
-    | "cancelProviderCodeLogin"
-    | "changeProviderCredential"
-    | "clearProviderCredential"
-  >;
+  service: Pick<AgentService, "changeProviderCredential" | "clearProviderCredential"> & {
+    providers: Pick<
+      ProviderOperations,
+      "startProviderCodeLogin" | "submitProviderCodeLogin" | "cancelProviderCodeLogin"
+    >;
+  };
   credentials: Pick<ProviderCredentialStore, "status" | "set" | "clear">;
   runtimes: Pick<
     ProviderRuntimeManager,
@@ -293,12 +292,12 @@ export function providerAdminIpcHandlers({
   return {
     providerAdmin: {
       startCodeLogin: scopedHandler(parseProviderId, {
-        local: (provider) => runCauseEffect(service.startProviderCodeLogin(provider)),
+        local: (provider) => runCauseEffect(service.providers.startProviderCodeLogin(provider)),
         remote: (provider, serverId) =>
           remote(serverId, signInRoutes(serverId, provider).codeLoginStart, { provider }, decodeProviderCodeLoginStart),
       }),
       submitCodeLogin: scopedHandler(parseSubmitCodeLoginInput, {
-        local: ({ provider, code }) => service.submitProviderCodeLogin(provider, code),
+        local: ({ provider, code }) => service.providers.submitProviderCodeLogin(provider, code),
         remote: (input, serverId) => {
           if (remoteServers.supportsCapability(serverId, PROVIDERS_V8_CAPABILITY))
             return remoteChange(serverId, PROVIDERS_V8_ROUTES.codeLoginSubmit, input);
@@ -310,7 +309,7 @@ export function providerAdminIpcHandlers({
         },
       }),
       cancelCodeLogin: scopedHandler(parseProviderId, {
-        local: (provider) => runCauseEffect(service.cancelProviderCodeLogin(provider)),
+        local: (provider) => runCauseEffect(service.providers.cancelProviderCodeLogin(provider)),
         remote: (provider, serverId) =>
           remoteChange(serverId, signInRoutes(serverId, provider).codeLoginCancel, { provider }),
       }),

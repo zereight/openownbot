@@ -1,3 +1,4 @@
+import type { ProviderOperations } from "../backend/agent/provider-runtime";
 // Provider sign-ins that an administrator starts on this host from another computer
 // (`provider-host-sign-in-v1`).
 
@@ -6,12 +7,11 @@ import { PROVIDER_HOST_SIGN_IN_ERROR_LIMIT } from "@robot/contracts/team-protoco
 import { sourceText } from "@robot/i18n/source";
 import { Cause, Effect, Exit, Option } from "effect";
 import { providerLabel } from "../backend/agent/thread-items";
-import type { AgentService } from "../backend/agent-service";
 import type { BrowserHost } from "../backend/browser-host";
 import { HostSignInPages } from "./host-sign-in-pages";
 
 export interface ProviderHostSignInDependencies {
-  service: Pick<AgentService, "signInProviderOnHost" | "cancelProviderSignIn">;
+  service: { providers: Pick<ProviderOperations, "signInProviderOnHost" | "cancelProviderSignIn"> };
   browser: Pick<BrowserHost, "openPrivate" | "privateTab" | "close">;
 }
 
@@ -36,7 +36,7 @@ export class ProviderHostSignIns {
   start(provider: AgentProviderId) {
     return this.#pages.start(
       provider,
-      (openPage) => this.#dependencies.service.signInProviderOnHost(provider, openPage),
+      (openPage) => this.#dependencies.service.providers.signInProviderOnHost(provider, openPage),
       (exit) => resultOf(provider, exit),
     );
   }
@@ -45,7 +45,7 @@ export class ProviderHostSignIns {
   startRelay(provider: AgentProviderId) {
     return this.#pages.start(
       provider,
-      (openPage) => this.#dependencies.service.signInProviderOnHost(provider, openPage),
+      (openPage) => this.#dependencies.service.providers.signInProviderOnHost(provider, openPage),
       (exit) => resultOf(provider, exit),
       "relay",
     );
@@ -67,7 +67,7 @@ export class ProviderHostSignIns {
     // A sign-in that still waits for the provider to start has no CLI to stop yet. The interrupt
     // stops it before it opens a page.
     yield* this.#pages.interrupt(provider);
-    yield* this.#dependencies.service.cancelProviderSignIn(provider);
+    yield* this.#dependencies.service.providers.cancelProviderSignIn(provider);
   }).bind(this);
 
   close() {

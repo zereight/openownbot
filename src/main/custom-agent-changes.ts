@@ -1,4 +1,5 @@
 import { Effect, Semaphore } from "effect";
+import type { ProviderOperations } from "../backend/agent/provider-runtime";
 import { ProviderRuntimeFailure, runtimeSync, toProviderRuntimeFailure } from "./provider-runtime-effects";
 // The user's own ACP agents: list, save, remove and check. This computer only: no Team API route
 // reaches these, because an agent is a command that runs here.
@@ -23,7 +24,9 @@ import { agentLaunchPath } from "../backend/cli";
 import type { CustomAgentStore } from "./custom-agent-store";
 
 export interface CustomAgentChangeDependencies {
-  service: Pick<AgentService, "saveCustomAgent" | "removeCustomAgent" | "reloadCustomAgents" | "customAgentUsage">;
+  service: Pick<AgentService, "saveCustomAgent" | "removeCustomAgent"> & {
+    providers: Pick<ProviderOperations, "customAgentUsage" | "reloadCustomAgents">;
+  };
   customAgents: Pick<CustomAgentStore, "list" | "save" | "remove" | "checkEnv" | "assertWritable">;
   resolve?: typeof resolveAgentCommand;
   check?: typeof checkAcpAgent;
@@ -72,13 +75,13 @@ export function createCustomAgentChanges({
       .pipe(toProviderRuntimeFailure);
     return {
       agents: yield* customAgents.list(),
-      restart: yield* service.reloadCustomAgents().pipe(toProviderRuntimeFailure),
+      restart: yield* service.providers.reloadCustomAgents().pipe(toProviderRuntimeFailure),
     };
   });
 
   return {
     list: () => customAgents.list(),
-    usage: () => service.customAgentUsage(),
+    usage: () => service.providers.customAgentUsage(),
     /**
      * Persist first, then restart the router. The command is not resolved here: an agent installed
      * later still saves, and its row shows that the command is not found.
@@ -137,7 +140,7 @@ export function createCustomAgentChanges({
             .pipe(toProviderRuntimeFailure);
           return {
             agents: yield* customAgents.list(),
-            restart: yield* service.reloadCustomAgents().pipe(toProviderRuntimeFailure),
+            restart: yield* service.providers.reloadCustomAgents().pipe(toProviderRuntimeFailure),
           };
         })().pipe(Effect.uninterruptible),
       ),

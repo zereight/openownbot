@@ -412,7 +412,7 @@ try {
     "Codex to exit",
     () => app.agents.getStatus().providers?.find((provider) => provider.id === "codex")?.state !== "available",
   );
-  await runCauseEffect(app.agents.refreshProvider("codex"));
+  await runCauseEffect(app.agents.providers.refreshProvider("codex"));
   await waitFor("the backfill after the first turn", () => importedSince(starting.id, thirdRestartAt));
   report.startingSession.importedAfterTurn = true;
 

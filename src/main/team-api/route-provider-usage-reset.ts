@@ -30,7 +30,7 @@ export async function routeProviderUsageReset(
   const body = await readJson(request);
   const provider = parseProviderId(body.provider);
   if (url.pathname === PROVIDER_USAGE_RESET_ROUTES.list)
-    return json(200, { accounts: await runCauseEffect(resets.providerUsageResets(provider)) });
+    return json(200, { accounts: await runCauseEffect(resets.providers.usageResets(provider)) });
   if (!isProviderAccountId(body.accountId)) throw new HttpError(400, "accountId is invalid.");
   return json(200, { outcome: await runCauseEffect(resets.resetProviderUsage(provider, body.accountId)) });
 }

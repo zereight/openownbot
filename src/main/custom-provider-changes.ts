@@ -1,4 +1,5 @@
 import { Effect, Semaphore } from "effect";
+import type { ProviderOperations } from "../backend/agent/provider-runtime";
 import { type ProviderRuntimeFailure, runtimeSync, toProviderRuntimeFailure } from "./provider-runtime-effects";
 // The user's own model endpoints: list, add, remove. The local IPC handlers and the `providers-v1`
 // host routes share one instance, so a change from a joined admin and a change from this window
@@ -19,10 +20,9 @@ import type { CustomProviderStore } from "./custom-provider-store";
 export interface CustomProviderChangeDependencies {
   // Only the endpoint-change methods, so the order of writes can be checked without a running
   // backend.
-  service: Pick<
-    AgentService,
-    "saveCustomProvider" | "updateCustomProvider" | "removeCustomProvider" | "reloadOpenCodeConfig"
-  >;
+  service: Pick<AgentService, "saveCustomProvider" | "updateCustomProvider" | "removeCustomProvider"> & {
+    providers: Pick<ProviderOperations, "reloadOpenCodeConfig">;
+  };
   customProviders: Pick<CustomProviderStore, "list" | "save" | "checkUpdate" | "update" | "remove">;
 }
 
@@ -82,7 +82,7 @@ export function createCustomProviderChanges({
             .pipe(toProviderRuntimeFailure);
           return {
             providers,
-            restart: yield* service.reloadOpenCodeConfig().pipe(toProviderRuntimeFailure),
+            restart: yield* service.providers.reloadOpenCodeConfig().pipe(toProviderRuntimeFailure),
           };
         })().pipe(Effect.uninterruptible),
       ),
@@ -110,7 +110,7 @@ export function createCustomProviderChanges({
             .pipe(toProviderRuntimeFailure);
           return {
             providers,
-            restart: yield* service.reloadOpenCodeConfig().pipe(toProviderRuntimeFailure),
+            restart: yield* service.providers.reloadOpenCodeConfig().pipe(toProviderRuntimeFailure),
           };
         })().pipe(Effect.uninterruptible),
       ),
@@ -137,7 +137,7 @@ export function createCustomProviderChanges({
             .pipe(toProviderRuntimeFailure);
           return {
             providers,
-            restart: yield* service.reloadOpenCodeConfig().pipe(toProviderRuntimeFailure),
+            restart: yield* service.providers.reloadOpenCodeConfig().pipe(toProviderRuntimeFailure),
           };
         })().pipe(Effect.uninterruptible),
       ),

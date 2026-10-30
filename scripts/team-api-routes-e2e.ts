@@ -689,9 +689,11 @@ try {
       // A credential store in memory. The service runs the change as the host's does.
       providers: {
         service: {
-          startProviderCodeLogin: unused("providers.startProviderCodeLogin"),
-          submitProviderCodeLogin: unused("providers.submitProviderCodeLogin"),
-          cancelProviderCodeLogin: unused("providers.cancelProviderCodeLogin"),
+          providers: {
+            startProviderCodeLogin: unused("providers.startProviderCodeLogin"),
+            submitProviderCodeLogin: unused("providers.submitProviderCodeLogin"),
+            cancelProviderCodeLogin: unused("providers.cancelProviderCodeLogin"),
+          },
           changeProviderCredential: (provider, change) => {
             record("changeProviderCredential", provider);
             return change().pipe(Effect.as(NO_STATUS));
@@ -747,11 +749,13 @@ try {
     },
     // The host's own sign-in has two usage reset credits; a reset spends one.
     providerUsageResets: {
-      providerUsageResets: (provider) =>
-        Effect.sync(() => {
-          record("providerUsageResets", provider);
-          return [{ provider, accountId: "default", available: 2 }];
-        }),
+      providers: {
+        usageResets: (provider) =>
+          Effect.sync(() => {
+            record("providerUsageResets", provider);
+            return [{ provider, accountId: "default", available: 2 }];
+          }),
+      },
       resetProviderUsage: (provider, accountId) =>
         Effect.sync(() => {
           record("resetProviderUsage", { provider, accountId });

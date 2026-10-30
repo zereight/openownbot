@@ -99,7 +99,7 @@ with a Storybook story of this layout; the developer can change it there.
 
 1. Backend services and stores, feature by feature, behind the existing IPC.
    Method: `AgentService` exposes a feature service as a property (`service.memories`) and loses its
-   forwarding methods; ports that callers declare keep their own shape. Done 2026-10-31: memories; routines, channel memories and channel routines; MCP.
+   forwarding methods; ports that callers declare keep their own shape. Done 2026-10-31: memories; routines, channel memories and channel routines; MCP; provider operations.
 2. Main and IPC, feature by feature.
 3. Shared UI and renderer in the new design.
 4. Team API, team client and mobile together.

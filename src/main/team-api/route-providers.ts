@@ -95,37 +95,37 @@ export async function routeProviders(
         if (id !== "codex")
           throw new Error(sourceText("error.provider.noCodeSignIn", { provider: agentProviderName(id) }));
         // The admin types the code in their own browser; nothing it is traded for comes back.
-        return json(200, await runCauseEffect(service.startProviderCodeLogin(id)));
+        return json(200, await runCauseEffect(service.providers.startProviderCodeLogin(id)));
       }
       case PROVIDERS_ADMIN_ROUTES.codeLoginCancel: {
         // A v1 client never started a Claude or Grok sign-in, so it cannot cancel one either.
         const id = parsed(provider, body);
-        if (id === "codex") await runCauseEffect(service.cancelProviderCodeLogin(id));
+        if (id === "codex") await runCauseEffect(service.providers.cancelProviderCodeLogin(id));
         return json(200, {});
       }
       case PROVIDERS_SIGN_IN_V3_ROUTES.codeLoginStart:
-        return json(200, await runCauseEffect(service.startProviderCodeLogin(parsed(signInProvider, body))));
+        return json(200, await runCauseEffect(service.providers.startProviderCodeLogin(parsed(signInProvider, body))));
       case PROVIDERS_SIGN_IN_V3_ROUTES.codeLoginSubmit: {
         // The code is a credential: it goes to the CLI's stdin, and no error quotes it.
         const input = parsed(codeSubmitInput, body);
-        service.submitProviderCodeLogin(input.provider, input.code);
+        service.providers.submitProviderCodeLogin(input.provider, input.code);
         return json(200, {});
       }
       case PROVIDERS_SIGN_IN_V3_ROUTES.codeLoginCancel:
-        await runCauseEffect(service.cancelProviderCodeLogin(parsed(signInProvider, body)));
+        await runCauseEffect(service.providers.cancelProviderCodeLogin(parsed(signInProvider, body)));
         return json(200, {});
       // A provider id that this host does not know gets a 400. The sign-in service refuses a known
       // provider that has no code sign-in.
       case PROVIDERS_V8_ROUTES.codeLoginStart:
-        return json(200, await runCauseEffect(service.startProviderCodeLogin(parsed(hostProvider, body))));
+        return json(200, await runCauseEffect(service.providers.startProviderCodeLogin(parsed(hostProvider, body))));
       case PROVIDERS_V8_ROUTES.codeLoginSubmit: {
         // The code is a credential: it goes to the CLI's stdin, and no error quotes it.
         const input = parsed(codeSubmitInputV8, body);
-        service.submitProviderCodeLogin(input.provider, input.code);
+        service.providers.submitProviderCodeLogin(input.provider, input.code);
         return json(200, {});
       }
       case PROVIDERS_V8_ROUTES.codeLoginCancel:
-        await runCauseEffect(service.cancelProviderCodeLogin(parsed(hostProvider, body)));
+        await runCauseEffect(service.providers.cancelProviderCodeLogin(parsed(hostProvider, body)));
         return json(200, {});
       case PROVIDERS_V8_ROUTES.runtimesStatus:
         return json(200, wireSnapshotV8(runtimes.getStatus()));
@@ -137,17 +137,20 @@ export async function routeProviders(
         return json(200, wireSnapshotV8(await runCauseEffect(runtimes.checkForUpdates())));
       case PROVIDERS_V5_ROUTES.codeLoginStart:
       case PROVIDERS_V4_ROUTES.codeLoginStart:
-        return json(200, await runCauseEffect(service.startProviderCodeLogin(parsed(signInProviderV4, body))));
+        return json(
+          200,
+          await runCauseEffect(service.providers.startProviderCodeLogin(parsed(signInProviderV4, body))),
+        );
       case PROVIDERS_V5_ROUTES.codeLoginSubmit:
       case PROVIDERS_V4_ROUTES.codeLoginSubmit: {
         // The code is a credential: it goes to the CLI's stdin, and no error quotes it.
         const input = parsed(codeSubmitInputV4, body);
-        service.submitProviderCodeLogin(input.provider, input.code);
+        service.providers.submitProviderCodeLogin(input.provider, input.code);
         return json(200, {});
       }
       case PROVIDERS_V5_ROUTES.codeLoginCancel:
       case PROVIDERS_V4_ROUTES.codeLoginCancel:
-        await runCauseEffect(service.cancelProviderCodeLogin(parsed(signInProviderV4, body)));
+        await runCauseEffect(service.providers.cancelProviderCodeLogin(parsed(signInProviderV4, body)));
         return json(200, {});
       case PROVIDERS_V5_ROUTES.runtimesStatus:
         return json(200, wireSnapshotV5(runtimes.getStatus()));
