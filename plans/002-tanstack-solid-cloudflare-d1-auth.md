@@ -49,3 +49,75 @@ sign-in data and OpenOwnBot sessions.
 - `bun run dev:all` starts the API, the client and the host.
 - `bun run api:migrate:local` applies the local D1 migrations.
 - `bun run api:deploy` deploys the Worker once the Cloudflare configuration is set.
+
+## Local password sign-in: findings and options (2026-10-31)
+
+Checked by reading code at `bb1e59935`. Nothing was run, and no installed host was inspected.
+
+### What the code does now
+
+- The host stores a scrypt hash and salt for a member in the team store file
+  (`passwordHash`, `passwordSalt` in `src/main/team-store.ts`). The file is JSON (`StoredTeam`,
+  `version: 1`), not SQLite.
+- Two functions write a hash: `configure` and `changePassword`. Two functions read it: `login` and
+  `changePassword`. Nothing else in `src`, `packages` or `apps` touches it.
+- `configure(serverName, username, password)` has no caller in `src`. The app, mobile connect and the
+  hosted bootstrap all call `configureWithAccount`. Only `scripts/team-api-routes-e2e.ts` calls
+  `configure`. So a new host, and a member who joins by account, never gets a hash.
+- The host serves `POST /v1/auth/login` and `POST /v1/auth/password` (`team-api-server.ts` line 723,
+  `team-api/route-team.ts` line 44). Both are in the frozen v1 codec
+  (`packages/contracts/src/team-protocol/v1.ts`) and in `provider-aware-codec.ts`.
+- No client in this repository calls them: the desktop remote server manager uses
+  `auth.account`, and a search of `apps/mobile` and `packages/team-client` found no password call.
+  Four E2E scripts use `auth/login`: `team-api-routes-e2e.ts`, `team-session-revoke-e2e.ts`,
+  `channel-notifications-e2e.ts` and `agent-hide-restore-e2e.ts`.
+- `POST /v1/join` with a password is in the frozen codec. A search of `src/main` found no handler for
+  it. Not confirmed outside `src/main`.
+- Not confirmed: which released clients, outside this repository, still send a password; and how many
+  installed hosts have a member with a hash and no `accountId`.
+
+### Why removal is not safe yet
+
+1. A member from before accounts has a hash and may have no `accountId`. For that member the password
+   is the only way in. Removing the sign-in locks the member out. `AGENTS.md` says user data must be
+   kept and that no backup exists, so a lock-out cannot be undone by a restore.
+2. `/v1/auth/login` and `/v1/auth/password` belong to released adapters. `packages/contracts/AGENTS.md`
+   allows removal only after a separate architecture decision, a changelog entry, update
+   instructions, an E2E check of both update directions and clear UI text.
+3. Deleting a stored hash is a data change that cannot be reversed.
+
+### Options
+
+**A. Keep (recommended).** Treat "the host stores no new password" as met: new hosts and members have
+no hash. Keep the two routes and the legacy hashes. Mark this stage DONE with the exception written
+down. Cost: the host keeps a sign-in path that the plan did not want. Risk: none new.
+
+**B. Refuse the password for a bound member.** `login` refuses a member who has an `accountId`. The
+hash stays on disk. A legacy member with no `accountId` still signs in. Cost: an old released client
+that signs in with a password as a bound member fails with the existing "login incorrect" text. This
+changes what a released route does, so it needs the developer decision and an E2E check with an old
+client.
+
+**C. Drop the hash when a member binds to an account.** `loginWithAccount` and `#applyAccount` delete
+`passwordHash` and `passwordSalt`. Irreversible. Needs fixtures of a team store file with a legacy
+member, tests for the write failure and the rollback, and a check that `activateAccount` still
+adopts an owner-less host.
+
+**D. Remove the routes and the code.** Needs the architecture decision of `packages/contracts/AGENTS.md`
+and all of C first. A legacy member with no account must have a way to bind (a one-time invitation by
+email) before this step. Not recommended before A, B and C have shipped and a release has passed.
+
+### Order if the developer chooses to go on
+
+1. A now. Update this plan and `plans/README.md`.
+2. Before B or C, count legacy members: add a local, redacted log line that records how many members
+   have a hash and no `accountId` (no names, no emails). Release it, then read the result from
+   support reports. The product sends no telemetry, so there is no other count.
+3. B, with an E2E script that signs in with an old client.
+4. C, with migration fixtures.
+5. D only after a decision.
+
+### Decision needed
+
+Choose A, B, C or D. Without a decision, this plan stays at A and nothing is deleted or refused.
+
