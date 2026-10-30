@@ -106,6 +106,7 @@ function createTasksVoice(controls: TasksVoiceControls): TasksVoiceAdapter {
     voiceMeterStop: undefined,
     voiceAgentId: undefined,
     voiceServerId: undefined,
+    voiceThreadSend: false,
   };
   const showError = (message: string | null) => {
     if (message) controls.showError(message);
@@ -124,6 +125,9 @@ function createTasksVoice(controls: TasksVoiceControls): TasksVoiceAdapter {
     voiceElapsedSeconds: elapsedSeconds,
     setVoiceElapsedSeconds: setElapsedSeconds,
     setVoiceLiveTranscript: (transcript) => setLiveText(transcript?.text ?? ""),
+    // The Tasks composer has no side threads.
+    voiceThreadKey: () => undefined,
+    setVoiceThreadKey: () => {},
     setVoiceLevels: setLevels,
     drafts: () => ({ [key()]: draft() }),
     setDrafts: (update) => controls.setDraft(update({ [key()]: draft() })[key()]?.text ?? ""),
