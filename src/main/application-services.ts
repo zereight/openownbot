@@ -1837,7 +1837,7 @@ export async function createApplicationServices({
       post: (connectionId, placeId, markdown) => service.messaging.deliver(connectionId, placeId, markdown),
       // An agent event, so this window, joined clients and the web app hear it the same way.
       changed: (workflowId) => service.notifyWorkflowsChanged(workflowId),
-      rearm: () => service.armRoutines(),
+      rearm: () => service.routineTimer.arm(),
       timezone: () => serverTimezone.effective(),
       runEnded: (end) => service.notifyWorkflowRunEnded(end),
     }),
@@ -1848,7 +1848,7 @@ export async function createApplicationServices({
     start: (start) => workflowRuntime.startScheduled(start),
     changed: (workflowId) => service.notifyWorkflowsChanged(workflowId),
   });
-  service.armRoutines();
+  service.routineTimer.arm();
   // An agent event too, so joined admins and the web app read the Vault again. It carries no item.
   vault.onChanged(() => service.notifyVaultChanged());
   teardown.push(TEARDOWN_ORDER.workflows, "the workflows", () => Effect.runPromise(workflowRuntime.close()));
@@ -2250,7 +2250,7 @@ export async function createApplicationServices({
     // The search ignores case, so the exact address is checked again on each agent message it finds.
     printedLink: (agentId, url) =>
       agentPrintedLink(
-        service.searchConversationMessages(url, agentId, undefined, 20).results.map(({ message }) => message),
+        service.conversations.search(url, agentId, undefined, 20).results.map(({ message }) => message),
         url,
         Date.now(),
       ),
@@ -2823,8 +2823,8 @@ export async function createApplicationServices({
   const idleRestart = new IdleRestart({
     updater,
     describeReadiness: describeRestartReadiness,
-    holdRoutines: () => service.holdRoutines(),
-    releaseRoutines: () => service.releaseRoutines(),
+    holdRoutines: () => service.routineTimer.hold(),
+    releaseRoutines: () => service.routineTimer.release(),
     recordHold: (window) => {
       try {
         if (window) writeRoutineHold(routineHoldFile, window);
@@ -2872,7 +2872,7 @@ export async function createApplicationServices({
         host.describeRestartBlockers().some((reason) => reason !== "browser-view") ||
         clientInUse(),
       nextRunAt: () => {
-        const dueAt = service.nextRoutineDueAt();
+        const dueAt = service.routineTimer.nextDueAt();
         return dueAt ? Date.parse(dueAt) : null;
       },
       report: (path, report) =>

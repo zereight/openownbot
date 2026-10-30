@@ -164,7 +164,7 @@ export async function routeAgents(
     }
     return json(
       200,
-      agents.searchConversationMessages(
+      agents.conversations.search(
         query,
         // A query parameter is part of the released URL, and the versioned adapters translate JSON
         // bodies only. `botId` is what every shipped client sends and what every shipped host reads.
@@ -206,7 +206,7 @@ export async function routeAgents(
     return json(200, agents.listAgents());
   }
   if (method === "GET" && url.pathname === TEAM_API_ROUTES.agents.conversationReads) {
-    return json(200, agents.listConversationReads(member.id, markerExclusionsForCapabilities(capabilities)));
+    return json(200, agents.conversations.listReads(member.id, markerExclusionsForCapabilities(capabilities)));
   }
   if (method === "POST" && url.pathname === TEAM_API_ROUTES.agents.all) {
     requireCompatibleDefault();

@@ -165,11 +165,13 @@ async function runCase(fixture: (typeof CASES)[number]): Promise<CaseResult> {
           result.snapshotReads += 1;
           return runtime;
         },
-        listConversationReads: () => {
-          result.readStateReads += 1;
-          return {
-            "fixture-agent": { unreadCount: 1, firstUnreadMessageId: "fixture-message", throughMessageId: null },
-          };
+        conversations: {
+          listReads: () => {
+            result.readStateReads += 1;
+            return {
+              "fixture-agent": { unreadCount: 1, firstUnreadMessageId: "fixture-message", throughMessageId: null },
+            };
+          },
         },
       },
       send: (push) =>

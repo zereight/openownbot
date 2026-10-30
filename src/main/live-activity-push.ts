@@ -40,7 +40,9 @@ const ACTIVITY_LIFETIME_MS = 8 * 60 * 60 * 1000;
 /** iOS removes an ended Live Activity from the Lock Screen 4 hours later. */
 const REGISTRATION_LIFETIME_MS = ACTIVITY_LIFETIME_MS + 4 * 60 * 60 * 1000;
 
-type LiveActivityPushAgents = Pick<TeamApiAgents, "on" | "off" | "getRuntimeSnapshot" | "listConversationReads">;
+type LiveActivityPushAgents = Pick<TeamApiAgents, "on" | "off" | "getRuntimeSnapshot"> & {
+  conversations: Pick<TeamApiAgents["conversations"], "listReads">;
+};
 
 export interface LiveActivityPushOptions {
   agents: LiveActivityPushAgents;
@@ -305,7 +307,7 @@ export class LiveActivityPushService {
     const hidden = viewer.hiddenAgentIds();
     const snapshot = visibleSnapshot(this.#options.agents.getRuntimeSnapshot(), hidden);
     coordinator.applyEvent({ serverId: value.serverId, event: { type: "runtime-snapshot", snapshot } }, value.serverId);
-    const reads = this.#options.agents.listConversationReads(viewer.memberId, viewer.readOptions);
+    const reads = this.#options.agents.conversations.listReads(viewer.memberId, viewer.readOptions);
     const counts = new Map(
       Object.entries(reads).flatMap(([agentId, read]) =>
         read.unreadCount > 0 && !hidden.has(agentId) ? [[agentId, read.unreadCount] as const] : [],

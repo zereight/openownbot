@@ -19,18 +19,15 @@ import type {
   AgentTask,
   AgentTaskInput,
   AgentTasksSnapshot,
-  AgentWaitsSnapshot,
   AskSideQuestionInput,
   AttachmentDataInput,
   AvatarImageInput,
   CapabilityState,
-  ConversationFileSearchPage,
   ConversationMessage,
   ConversationMessageSender,
   ConversationPage,
   ConversationPageAnchor,
   ConversationReadState,
-  ConversationSearchPage,
   ConversationSnapshot,
   ConversationWithReadState,
   CreateAgentInput,
@@ -414,16 +411,19 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
   readonly #store: AgentStore;
   readonly #mailbox: MailboxStore;
   readonly #browser: AgentBrowserHost;
-  readonly #reader: ConversationReader;
+  /** Reads, searches and read markers of conversations. */
+  readonly conversations: ConversationReader;
   /** The memories of every agent. */
   readonly memories: AgentMemories;
   readonly #memoryReview: MemoryReview;
-  readonly #waits: AgentWaits;
+  /** What each agent waits for. */
+  readonly waits: AgentWaits;
   readonly #tasks: AgentTasks;
   readonly #tables: AgentTables | null;
   /** The routines of every agent. */
   readonly routines: RoutineScheduler;
-  readonly #routineTimer: RoutineTimer;
+  /** The timer that starts due routines. */
+  readonly routineTimer: RoutineTimer;
   /** The routines of every channel. */
   readonly channelRoutines: ChannelRoutineScheduler;
   /** Agent and channel routines of every trigger kind, with their webhook routes. */
@@ -621,12 +621,12 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
     });
     // One timer for every routine owner. The sources are read lazily because `channels` and its
     // scheduler are built further down, and because an owner's earliest routine changes constantly.
-    this.#routineTimer = new RoutineTimer(
+    this.routineTimer = new RoutineTimer(
       () => [this.routines, this.channelRoutines, ...(options.extraRoutineSources?.() ?? [])],
       () => this.#initialized && !this.#stopping,
       (code, error) => this.#emitError(code, error),
     );
-    this.#waits = new AgentWaits({
+    this.waits = new AgentWaits({
       store: new AgentWaitStore({ database: store.database }),
       mailbox,
       hooks: {
@@ -639,8 +639,8 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
       },
     });
     this.routines = new RoutineScheduler({
-      timer: this.#routineTimer,
-      waits: this.#waits,
+      timer: this.routineTimer,
+      waits: this.waits,
       ...(options.timezone ? { timezone: options.timezone } : {}),
       webhookRoutines: options.webhookRoutines,
       store,
@@ -969,7 +969,7 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
         queueHold: (agentId) => this.channels.queueHold(agentId),
       },
     });
-    this.#reader = new ConversationReader({
+    this.conversations = new ConversationReader({
       store,
       conversation: this.#conversation,
       mailboxSync: this.#mailboxSync,
@@ -1150,7 +1150,7 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
       // reaches the agent event forwarder for a channel thread.
       changed: (channelId, revision) => {
         this.channelRoutines.reconcile(channelId);
-        this.#routineTimer.arm();
+        this.routineTimer.arm();
         this.#emit({ type: "channels-changed", channelId, revision });
       },
       memoriesChanged: (channelId) => this.#emit({ type: "channel-memories-changed", channelId }),
@@ -1176,7 +1176,7 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
       hooks: {
         changed: (channelId) => {
           this.#emit({ type: "channel-routines-changed", channelId });
-          this.#routineTimer.arm();
+          this.routineTimer.arm();
         },
         emitError: (code, error) => this.#emitError(code, error),
         excludedChannels: () => new Set(),
@@ -1193,7 +1193,7 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
       agentExists: (agentId) => this.listAgents().some((agent) => agent.id === agentId),
       channelExists: (channelId) => this.channels.store.exists(channelId),
       channelRoutinesChanged: (channelId) => this.#emit({ type: "channel-routines-changed", channelId }),
-      routinesHeld: () => this.#routineTimer.held,
+      routinesHeld: () => this.routineTimer.held,
     });
     this.messaging = new MessagingThreads(store.database, mailbox, {
       schedule: (agentId) => this.#drain.scheduleDrain(agentId),
@@ -1403,7 +1403,7 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
         turnStopped: (agentId, taskId, turnId) =>
           this.#stoppedTurn(agentId, taskId) === turnId || (taskId === null && this.#requestedNewChats.has(agentId)),
         hasOpenWait: (agentId, deliveryIds) =>
-          this.#waits.list(agentId).waits.some((wait) => deliveryIds.includes(wait.requestMessageId)),
+          this.waits.list(agentId).waits.some((wait) => deliveryIds.includes(wait.requestMessageId)),
         routineAnswered: (agentId, deliveryId, answer) => {
           const agent = this.#store.list().find((item) => item.id === agentId);
           const run = this.routines.runForDelivery(deliveryId);
@@ -1477,7 +1477,7 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
       hostedSites: this.#hostedSites,
       routines: this.routines,
       memories: this.memories,
-      waits: this.#waits,
+      waits: this.waits,
       tasks: this.#tasks,
       drain: this.#drain,
       tables: this.#tables,
@@ -1695,10 +1695,6 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
    * agrees with what stopping would interrupt. Scheduled future routine runs do not count; they
    * resume from durable rows after a restart.
    */
-  /** The next scheduled routine run of any agent or channel, or null when none is scheduled. */
-  nextRoutineDueAt(): string | null {
-    return this.#routineTimer.nextDueAt();
-  }
 
   hasActiveWork(): string[] {
     const reasons: string[] = [];
@@ -1755,29 +1751,6 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
       .removeAsUser(input.name)
       .pipe(Effect.mapError((cause) => new AgentLifecycleFailed({ operation: "delete table", cause })));
   }).bind(this);
-
-  /** Plans the routine timer again, after an outside source changed its next due time. */
-  armRoutines(): void {
-    this.#routineTimer.arm();
-  }
-
-  /** Holds routine firing while the system sleeps. See RoutineTimer.suspend. */
-  suspendRoutines(): void {
-    this.#routineTimer.suspend();
-  }
-
-  resumeRoutines(): void {
-    this.#routineTimer.resume();
-  }
-
-  /** Holds routine firing while a restart of the app waits for the agents. See RoutineTimer.hold. */
-  holdRoutines(): void {
-    this.#routineTimer.hold();
-  }
-
-  releaseRoutines(): void {
-    this.#routineTimer.release();
-  }
 
   /** Hands a routine run's work on to the next agent of its flow; answers the delivery id. */
   enqueueRoutineHandoff(input: {
@@ -3335,7 +3308,7 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
       );
     yield* lifecycleStep("arm routines", () => {
       this.channelRoutines.reconcileAll();
-      this.#routineTimer.arm();
+      this.routineTimer.arm();
     });
   }).bind(this);
 
@@ -3618,7 +3591,7 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
       { startImmediately: true },
     );
     this.#initialized = false;
-    this.#routineTimer.dispose();
+    this.routineTimer.dispose();
     yield* this.#memoryHold.dispose();
     this.#hostedSites.dispose();
     this.#compaction.dispose();
@@ -3668,7 +3641,7 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
   }).bind(this);
 
   readConversation(agentId: string): Effect.Effect<ConversationSnapshot, AgentLifecycleFailed> {
-    return this.#reader
+    return this.conversations
       .read(agentId)
       .pipe(
         Effect.mapError((failure) => new AgentLifecycleFailed({ operation: "readConversation", cause: failure.cause })),
@@ -3679,7 +3652,7 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
     agentId: string,
     memberId: string,
   ): Effect.Effect<ConversationWithReadState, AgentLifecycleFailed> {
-    return this.#reader
+    return this.conversations
       .readFor(agentId, memberId)
       .pipe(
         Effect.mapError(
@@ -3695,7 +3668,7 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
     limit?: number,
     options?: ConversationMarkerExclusions,
   ): Effect.Effect<ConversationPage, AgentLifecycleFailed> {
-    return this.#reader
+    return this.conversations
       .readPageFor(agentId, memberId, anchor, limit, options)
       .pipe(
         Effect.mapError(
@@ -3704,38 +3677,13 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
       );
   }
 
-  searchConversationMessages(
-    query: string,
-    agentId?: string,
-    cursor?: string,
-    limit?: number,
-    includeSideThreads = false,
-  ): ConversationSearchPage {
-    return this.#reader.search(query, agentId, cursor, limit, includeSideThreads);
-  }
-
-  searchConversationFiles(query: string, cursor?: string, limit?: number): ConversationFileSearchPage {
-    return this.#reader.searchFiles(query, cursor, limit);
-  }
-
-  listConversationReads(
-    memberId: string,
-    options?: ConversationMarkerExclusions,
-  ): Record<string, ConversationReadState> {
-    return this.#reader.listReads(memberId, options);
-  }
-
-  adoptConversationReads(sourceMemberId: string, targetMemberId: string): void {
-    this.#reader.adoptReads(sourceMemberId, targetMemberId);
-  }
-
   markConversationRead(
     agentId: string,
     memberId: string,
     throughMessageId: string | null,
     options?: ConversationMarkerExclusions,
   ): Effect.Effect<ConversationReadState, AgentLifecycleFailed> {
-    return this.#reader
+    return this.conversations
       .markRead(agentId, memberId, throughMessageId, options)
       .pipe(
         Effect.mapError(
@@ -3748,7 +3696,7 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
     agentId: string,
     memberId: string,
   ): Effect.Effect<ConversationReadState, AgentLifecycleFailed> {
-    return this.#reader
+    return this.conversations
       .markUnread(agentId, memberId)
       .pipe(
         Effect.mapError(
@@ -3805,15 +3753,6 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
 
   listQueue(agentId: string): QueueSnapshot {
     return this.#mailboxSync.queueSnapshot(agentId);
-  }
-
-  listWaits(agentId: string): AgentWaitsSnapshot {
-    return this.#waits.list(agentId);
-  }
-
-  /** The user cancels an open wait. */
-  cancelWait(agentId: string, waitId: string): void {
-    this.#waits.cancel(agentId, waitId);
   }
 
   listTasks(agentId: string): AgentTasksSnapshot {

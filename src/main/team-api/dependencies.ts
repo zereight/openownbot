@@ -1,5 +1,6 @@
 import type { Effect } from "effect";
 import type { AgentMemories } from "../../backend/agent/agent-memories";
+import type { ConversationReader } from "../../backend/agent/conversation-reader";
 import type { McpOperations } from "../../backend/agent/mcp-gateway";
 import type { ProviderOperations } from "../../backend/agent/provider-runtime";
 import type { RoutineOperations } from "../../backend/agent/routine-scheduler";
@@ -88,7 +89,6 @@ type TeamApiAgentMethods = Pick<
   | "listModels"
   | "listAgents"
   | "sidebarChatIds"
-  | "listConversationReads"
   | "generateProfile"
   | "askSideQuestion"
   | "saveProfile"
@@ -103,8 +103,6 @@ type TeamApiAgentMethods = Pick<
   | "readConversation"
   | "readConversationFor"
   | "readConversationPageFor"
-  | "searchConversationMessages"
-  | "searchConversationFiles"
   | "markConversationRead"
   | "markConversationUnread"
   | "prepareImportedAttachments"
@@ -132,6 +130,7 @@ type TeamApiAgentMethods = Pick<
 
 export type TeamApiAgents = TeamApiAgentMethods & {
   memories: Pick<AgentMemories, "list" | "selectionState" | "setInclusions" | "create" | "update" | "delete" | "clear">;
+  conversations: Pick<ConversationReader, "listReads" | "search" | "searchFiles">;
   channels: Pick<ChannelService, "listMemories" | "createMemory" | "updateMemory" | "deleteMemory" | "clearMemories">;
   routines: RoutineOperations;
   channelRoutines: ChannelRoutineOperations;
