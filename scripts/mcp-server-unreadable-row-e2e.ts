@@ -1,7 +1,7 @@
 // Drives issue #3643 on the real modules: the SQLite MCP store and McpGateway, over a database that
 // holds MCP rows this build cannot read. The startup read must not throw, and the user must be able to
 // see, correct and remove the row. No provider or account is used.
-// bun scripts/mcp-server-unreadable-row-e2e.ts. Writes .openbot-build/mcp-server-unreadable-row-e2e/report.json.
+// bun scripts/mcp-server-unreadable-row-e2e.ts. Writes .openownbot-build/mcp-server-unreadable-row-e2e/report.json.
 import assert from "node:assert/strict";
 import { mkdir, mkdtemp, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";

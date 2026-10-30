@@ -101,7 +101,7 @@ latest messages.
 The number of turns is a setting of the server that runs the agents: Server settings > General >
 Memory review, with 10, 20 (the default) or 40 turns, or Off. An owner or admin of a joined server sets
 it through `memory-review-v1` (see [servers.md](servers.md)). Main owns
-`openownbot-memory-review-v1.json` (`MemoryReviewPreferenceStore`) and passes
+`openbot-memory-review-v1.json` (`MemoryReviewPreferenceStore`) and passes
 `memoryReviewInterval()` to the agent service, which reads it at each use, so a change applies from
 the next turn. Off starts no review of any kind: not after turns, a pause, a clear or a closed side
 thread. The counts continue while it is off, so the first turn after it is on again can start a

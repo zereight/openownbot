@@ -481,7 +481,7 @@ place that sets the limit, for this computer (`hostAdmin.setAgentMemoryLimit`, l
 joined server. App Settings does not show it, so that one name does not have two values.
 
 `memory-review-v1` reads and sets how many completed turns of one conversation pass between two
-background memory reviews of the host's agents (`openownbot-memory-review-v1.json`; 10, 20 or 40, default
+background memory reviews of the host's agents (`openbot-memory-review-v1.json`; 10, 20 or 40, default
 20; `0` is Off). The snapshot gives the value and the values that the host permits; the host refuses
 other values. The agent service reads the value at each use, so a change applies from the next turn.
 Server settings → General → Agents → Memory review sets it for this computer
