@@ -2,7 +2,9 @@
 
 > **Status**: IN PROGRESS. Goals 1, 2 and 5 are done in the working tree on
 > 2026-10-28 (Stop shows with the working line, a queue turn id is used, and a
-> toast says why when no turn is known). Goals 3, 4 and 6 are open.
+> toast says why when no turn is known). Goals 3, 4 and 6 are open. Goal 6 is done for a
+> routine run on 2026-10-30: the working line names the routine when it has no step text. The
+> workflow run kind and the current tool name are still open.
 
 ## Status
 

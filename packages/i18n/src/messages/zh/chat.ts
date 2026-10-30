@@ -393,6 +393,7 @@ export const messages = {
   "chat.history.olderFailed": "更早的消息加载失败。",
   "chat.messageUnavailable": "这条消息已不可用。",
   "chat.activity.workingIn": "正在 {channel} 中工作",
+  "chat.activity.runningRoutine": "正在运行自动化任务 {name}",
   "chat.actions.reactionFailed": "无法更新回应，请重试。",
   "chat.actions.copyFailed": "无法复制消息。",
   "chat.unread.markReadFailed": "无法标为已读。",

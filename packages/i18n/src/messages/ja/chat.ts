@@ -385,6 +385,7 @@ export const messages = {
   "chat.history.olderFailed": "以前のメッセージを読み込めませんでした。",
   "chat.messageUnavailable": "このメッセージはもう利用できません。",
   "chat.activity.workingIn": "{channel} で作業しています",
+  "chat.activity.runningRoutine": "ルーティン {name} を実行しています",
   "chat.actions.reactionFailed": "リアクションを更新できませんでした。もう一度お試しください。",
   "chat.actions.copyFailed": "メッセージをコピーできませんでした。",
   "chat.unread.markReadFailed": "メッセージを既読にできませんでした。",

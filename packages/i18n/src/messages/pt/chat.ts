@@ -399,6 +399,7 @@ export const messages = {
   "chat.history.olderFailed": "Não foi possível carregar as mensagens anteriores.",
   "chat.messageUnavailable": "Esta mensagem não está mais disponível.",
   "chat.activity.workingIn": "Trabalhando em {channel}",
+  "chat.activity.runningRoutine": "Executando a rotina {name}",
   "chat.actions.reactionFailed": "Não foi possível atualizar a reação. Tente novamente.",
   "chat.actions.copyFailed": "Não foi possível copiar a mensagem.",
   "chat.unread.markReadFailed": "Não foi possível marcar as mensagens como lidas.",

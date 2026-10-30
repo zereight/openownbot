@@ -496,6 +496,7 @@ export const messages = {
   "chat.history.olderFailed": "Не удалось загрузить прежние сообщения.",
   "chat.messageUnavailable": "Это сообщение больше недоступно.",
   "chat.activity.workingIn": "Работает в канале {channel}",
+  "chat.activity.runningRoutine": "Выполняет регулярную задачу {name}",
   "chat.actions.reactionFailed": "Не удалось обновить реакцию. Повторите попытку.",
   "chat.actions.copyFailed": "Не удалось скопировать сообщение.",
   "chat.unread.markReadFailed": "Не удалось отметить сообщения прочитанными.",

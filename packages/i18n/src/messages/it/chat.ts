@@ -407,6 +407,7 @@ export const messages = {
   "chat.history.olderFailed": "Non è stato possibile caricare i messaggi meno recenti.",
   "chat.messageUnavailable": "Questo messaggio non è più disponibile.",
   "chat.activity.workingIn": "Al lavoro in {channel}",
+  "chat.activity.runningRoutine": "Esegue la routine {name}",
   "chat.actions.reactionFailed": "Impossibile aggiornare la reazione. Riprova.",
   "chat.actions.copyFailed": "Impossibile copiare il messaggio.",
   "chat.unread.markReadFailed": "Impossibile segnare i messaggi come letti.",

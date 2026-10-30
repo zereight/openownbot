@@ -1,4 +1,4 @@
-import type { AgentModelId, AgentProviderRef, AgentReasoningEffort } from "@openownbot/contracts/ipc";
+import type { AgentModelId, AgentProviderRef, AgentReasoningEffort, QueueDelivery } from "@openownbot/contracts/ipc";
 import { markdownPreviewText } from "@openownbot/contracts/markdown-preview-text";
 import type { AgentProfile } from "@openownbot/ui/data";
 import { type AgentActivityLabel, nextAgentActivityLabel } from "@openownbot/ui/features/conversation/AgentActivity";
@@ -38,7 +38,7 @@ export interface TurnRuntime {
 
 export interface ActivityStoreDeps {
   props: ConversationProps;
-  activeDeliveries: () => Array<{ id: string }>;
+  activeDeliveries: () => Array<Pick<QueueDelivery, "id" | "sender">>;
   agentActivityLabels: Map<string, { activityId: string; label: AgentActivityLabel }>;
   /** Kept on the controller, so a return to the chat during the turn keeps the first record. */
   turnRuntimes: Map<string, TurnRuntime>;
@@ -106,7 +106,13 @@ export function createActivityStore(deps: ActivityStoreDeps) {
     const progress = deps.props.activityDetail?.trim();
     // The agent's own commentary is shown as plain text, without its Markdown marks (#3425); the host's
     // progress text is in the host's source English and is read here in the user's language.
-    return latestActiveCommentary() ?? (progress ? currentText().sourceText(progress) : null);
+    const step = latestActiveCommentary() ?? (progress ? currentText().sourceText(progress) : null);
+    if (step) return step;
+    // A routine run has no turn of this chat to describe. Name the routine rather than show a stock phrase.
+    const sender = deps.activeDeliveries()[0]?.sender;
+    return sender?.kind === "routine"
+      ? currentText().t("chat.activity.runningRoutine", { name: sender.routineName })
+      : null;
   });
   const agentActivity = createMemo<"Working" | null>(() => (activeActivityId() ? "Working" : null));
   /**

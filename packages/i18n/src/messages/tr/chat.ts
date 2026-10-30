@@ -409,6 +409,7 @@ export const messages = {
   "chat.history.olderFailed": "Daha eski mesajlar yüklenemedi.",
   "chat.messageUnavailable": "Bu mesaj artık kullanılamıyor.",
   "chat.activity.workingIn": "{channel} içinde çalışıyor",
+  "chat.activity.runningRoutine": "{name} rutini çalışıyor",
   "chat.actions.reactionFailed": "Tepki güncellenemedi. Tekrar deneyin.",
   "chat.actions.copyFailed": "Mesaj kopyalanamadı.",
   "chat.unread.markReadFailed": "Mesajlar okundu olarak işaretlenemedi.",

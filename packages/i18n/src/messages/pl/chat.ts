@@ -501,6 +501,7 @@ export const messages = {
   "chat.history.olderFailed": "Nie udało się wczytać starszych wiadomości.",
   "chat.messageUnavailable": "Ta wiadomość nie jest już dostępna.",
   "chat.activity.workingIn": "Pracuje w: {channel}",
+  "chat.activity.runningRoutine": "Uruchamia rutynę {name}",
   "chat.actions.reactionFailed": "Nie udało się zaktualizować reakcji. Spróbuj ponownie.",
   "chat.actions.copyFailed": "Nie udało się skopiować wiadomości.",
   "chat.unread.markReadFailed": "Nie udało się oznaczyć wiadomości jako przeczytanych.",
