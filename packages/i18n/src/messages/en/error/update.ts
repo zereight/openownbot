@@ -4,27 +4,26 @@ export const messages = defineMessages("error.update", {
   // Updater state the user reads.
   "error.update.unsupported": "Updates are available in installed desktop builds.",
   "error.update.notReady": "An update is not ready to install.",
-  "error.update.restartFailed": "OpenOwnBot could not restart to install the update.",
+  "error.update.restartFailed": "ROBot could not restart to install the update.",
   "error.update.downloadStalled": "The update download stopped responding. Try again.",
-  "error.update.installFailed": "Could not install the update. Quit and reopen OpenOwnBot, then try again.",
+  "error.update.installFailed": "Could not install the update. Quit and reopen ROBot, then try again.",
   "error.update.downloadFailed": "Could not download the update. Try again.",
   "error.update.checkFailed": "Could not check for updates. Try again.",
   "error.update.checkStalled": "The update check stopped responding. Try again.",
   "error.update.checkOffline": "Could not reach the update service. Check your internet connection, then try again.",
-  "error.update.checkUnavailable":
-    "The update service did not answer. OpenOwnBot tries again on its own in a few minutes.",
+  "error.update.checkUnavailable": "The update service did not answer. ROBot tries again on its own in a few minutes.",
   "error.update.checkNoRelease":
-    "No published update was found for this platform. OpenOwnBot tries again on its own in a few minutes.",
-  "error.update.managedByNix": "Nix installs updates for this copy of OpenOwnBot. Update it with Nix.",
+    "No published update was found for this platform. ROBot tries again on its own in a few minutes.",
+  "error.update.managedByNix": "Nix installs updates for this copy of ROBot. Update it with Nix.",
   "error.update.managedByHost":
     "Updates on this Mac are installed by the host. The update stays ready until the host's maintenance runs.",
   "error.update.siblingSession":
-    "Another OpenOwnBot session is still running from this application. Stop OpenOwnBot in every other macOS user account first, then install the update again.",
+    "Another ROBot session is still running from this application. Stop ROBot in every other macOS user account first, then install the update again.",
   "error.update.siblingSessionSameAccount":
-    "Another OpenOwnBot process is still running in this user account. Quit it, then install the update again.",
-  "error.update.siblingCheckFailed": "Could not verify other OpenOwnBot sessions. Try again before installing.",
+    "Another ROBot process is still running in this user account. Quit it, then install the update again.",
+  "error.update.siblingCheckFailed": "Could not verify other ROBot sessions. Try again before installing.",
   // A joined server's admin reads these from the host.
   "error.update.remoteDisabled": "Updates from server admins are turned off on this computer.",
-  "error.update.restartStarted": "OpenOwnBot is already restarting to install the update.",
-  "error.update.alreadyRestarting": "OpenOwnBot is already restarting.",
+  "error.update.restartStarted": "ROBot is already restarting to install the update.",
+  "error.update.alreadyRestarting": "ROBot is already restarting.",
 });

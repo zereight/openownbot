@@ -3,8 +3,8 @@ import { defineMessages } from "../../../message";
 export const messages = defineMessages("error.import", {
   // Agent import errors and warnings.
   "error.import.manifestNotJson": "{manifest} is not valid JSON.",
-  "error.import.notAgentExport": "{manifest} is not an OpenOwnBot agent export.",
-  "error.import.newerExportSkill": "This export was made by a newer export skill. Update OpenOwnBot and try again.",
+  "error.import.notAgentExport": "{manifest} is not an ROBot agent export.",
+  "error.import.newerExportSkill": "This export was made by a newer export skill. Update ROBot and try again.",
   "error.import.noAgents": "The export contains no agents.",
   "error.import.tooManyAgents": "The export contains more than {limit} agents.",
   "error.import.tooManyChannels": "The export contains more than {limit} channels.",
@@ -52,12 +52,12 @@ export const messages = defineMessages("error.import", {
   "error.import.hermesSkillCodeAdded":
     "It has code that it did not have when the profiles were read. Read them again to allow it.",
   "error.import.hermesLinkNotSaved":
-    "{name}: OpenOwnBot could not save which agent came from this profile, so the next import adds it as a new agent.",
-  // Instance transfer between two OpenOwnBot computers.
+    "{name}: ROBot could not save which agent came from this profile, so the next import adds it as a new agent.",
+  // Instance transfer between two ROBot computers.
   "error.import.transferRemoteTooLarge":
     "A transfer file for a joined server must be under 100 MB. Turn off workspace files, or export fewer agents.",
-  "error.import.transferNotFile": "This file is not an OpenOwnBot transfer file.",
-  "error.import.transferNewer": "A newer version of OpenOwnBot made this file. Update OpenOwnBot and try again.",
+  "error.import.transferNotFile": "This file is not an ROBot transfer file.",
+  "error.import.transferNewer": "A newer version of ROBot made this file. Update ROBot and try again.",
   "error.import.transferEmpty": "The file contains no agents and no settings.",
   "error.import.transferTooLarge":
     "A transfer file must be under 2 GB and 50,000 files. Turn off workspace files, or export fewer agents.",

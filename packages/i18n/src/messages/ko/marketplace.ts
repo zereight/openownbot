@@ -24,14 +24,14 @@ export const messages = {
   "marketplace.description.apps": "에이전트가 사용하는 도구와 서비스를 연결하세요.",
   "marketplace.description.agents": "자체 지침과 스킬을 갖춘 바로 사용할 수 있는 에이전트입니다.",
   "marketplace.description.skills": "에이전트에게 작업이나 도구 사용법을 알려 주는 지침입니다.",
-  "marketplace.plugins.missing": "이 플러그인은 OpenOwnBot 카탈로그에 없어요.",
+  "marketplace.plugins.missing": "이 플러그인은 ROBot 카탈로그에 없어요.",
   "marketplace.agents.loadingDetail": "에이전트 상세 정보 불러오는 중…",
   "marketplace.agents.skills": "스킬",
   "marketplace.agents.routines": "루틴",
   "marketplace.agents.routineActive": "활성",
   "marketplace.agents.routineInactive": "비활성",
   "marketplace.skill.loading": "스킬 불러오는 중",
-  "marketplace.try.readFailed": "OpenOwnBot이 이 에이전트의 스킬을 읽지 못했어요. 다시 시도해 주세요.",
+  "marketplace.try.readFailed": "ROBot이 이 에이전트의 스킬을 읽지 못했어요. 다시 시도해 주세요.",
   "marketplace.try.enable": "체험하려면 에이전트 설정에서 이 스킬을 켜 주세요.",
   "marketplace.try.repair": "체험하려면 에이전트 설정에서 이 스킬을 복구해 주세요.",
   "marketplace.try.update": "이 버전을 체험하려면 스킬을 업데이트해 주세요.",
@@ -165,7 +165,7 @@ export const messages = {
   "marketplace.plugin.figma.prompt.assets": "앱 번들에 넣을 마케팅 아이콘을 2x로 추출해 줘.",
   "marketplace.plugin.paper.tagline": "HTML과 CSS 기반 디자인 캔버스",
   "marketplace.plugin.paper.description":
-    "Paper를 사용하면 에이전트가 Paper Desktop에서 열려 있는 디자인 파일을 읽고 쓸 수 있어요. 아트보드, 선택 영역, 계산된 스타일, JSX, 토큰을 살펴보고 프레임, 텍스트, 스타일을 만들거나 바꿀 수 있어요. 시작하기 전에 Paper Desktop을 설치하고, 한 번 실행한 다음 파일을 열어 주세요. OpenOwnBot은 Paper Desktop이 설치하는 Paper CLI를 실행해요. Paper는 키가 필요 없어요. 쓰기 도구는 열려 있는 파일을 변경하므로, 승인하기 전에 각 쓰기 작업을 검토해 주세요.",
+    "Paper를 사용하면 에이전트가 Paper Desktop에서 열려 있는 디자인 파일을 읽고 쓸 수 있어요. 아트보드, 선택 영역, 계산된 스타일, JSX, 토큰을 살펴보고 프레임, 텍스트, 스타일을 만들거나 바꿀 수 있어요. 시작하기 전에 Paper Desktop을 설치하고, 한 번 실행한 다음 파일을 열어 주세요. ROBot은 Paper Desktop이 설치하는 Paper CLI를 실행해요. Paper는 키가 필요 없어요. 쓰기 도구는 열려 있는 파일을 변경하므로, 승인하기 전에 각 쓰기 작업을 검토해 주세요.",
   "marketplace.plugin.paper.app":
     "Paper CLI가 중계하는 로컬 MCP 서버로 열려 있는 Paper Desktop 파일을 읽고 써요. 파일이 열린 Paper Desktop이 필요해요.",
   "marketplace.plugin.paper.prompt.implement":
@@ -174,7 +174,7 @@ export const messages = {
   "marketplace.plugin.paper.prompt.tokens": "열려 있는 Paper 파일의 디자인 토큰을 나열하고 우리 테마와 비교해 줘.",
   "marketplace.plugin.appleApps.tagline": "Mac의 Mail, 캘린더 등",
   "marketplace.plugin.appleApps.description":
-    "Apple apps를 사용하면 에이전트가 이 Mac의 Mail, 캘린더, 연락처, 미리 알림, 메모, 메시지, Safari를 사용할 수 있어요. macOS에서만 작동해요. OpenOwnBot은 mcp-icloud를 시작해요. Apple이나 OpenOwnBot이 만들지 않은 커뮤니티 서버예요. 서버는 이 컴퓨터에서 AppleScript로 앱을 제어하며, 계정이나 키가 필요 없어요. 에이전트가 앱을 처음 사용하면 macOS가 OpenOwnBot이 그 앱을 제어해도 되는지 물어요. 나중에 바꾸려면 시스템 설정 › 개인정보 보호 및 보안 › 자동화를 여세요. 에이전트는 이메일과 iMessage를 보내고 이벤트, 연락처, 미리 알림을 변경하거나 삭제할 수 있으니, 승인하기 전에 각 쓰기를 확인하세요. 이메일 본문처럼 도구가 읽은 내용은 에이전트의 모델 제공자에게 전송돼요.",
+    "Apple apps를 사용하면 에이전트가 이 Mac의 Mail, 캘린더, 연락처, 미리 알림, 메모, 메시지, Safari를 사용할 수 있어요. macOS에서만 작동해요. ROBot은 mcp-icloud를 시작해요. Apple이나 ROBot이 만들지 않은 커뮤니티 서버예요. 서버는 이 컴퓨터에서 AppleScript로 앱을 제어하며, 계정이나 키가 필요 없어요. 에이전트가 앱을 처음 사용하면 macOS가 ROBot이 그 앱을 제어해도 되는지 물어요. 나중에 바꾸려면 시스템 설정 › 개인정보 보호 및 보안 › 자동화를 여세요. 에이전트는 이메일과 iMessage를 보내고 이벤트, 연락처, 미리 알림을 변경하거나 삭제할 수 있으니, 승인하기 전에 각 쓰기를 확인하세요. 이메일 본문처럼 도구가 읽은 내용은 에이전트의 모델 제공자에게 전송돼요.",
   "marketplace.plugin.appleApps.app":
     "Mail, 캘린더, 연락처, 미리 알림, 메모, 메시지, Safari를 로컬 mcp-icloud 서버로 사용해요. macOS와 자동화 권한이 필요해요.",
   "marketplace.plugin.appleApps.prompt.unread": "Apple Mail에서 오늘 읽지 않은 이메일을 요약해 줘.",
@@ -365,8 +365,8 @@ export const messages = {
   "marketplace.skills.source.all": "전체",
   "marketplace.skills.source.verified": "검증됨",
   "marketplace.skills.source.public": "공개",
-  "marketplace.skills.source.verifiedLong": "OpenOwnBot이 검증함",
-  "marketplace.skills.source.publicLong": "공개: OpenOwnBot이 확인하지 않았어요",
+  "marketplace.skills.source.verifiedLong": "ROBot이 검증함",
+  "marketplace.skills.source.publicLong": "공개: ROBot이 확인하지 않았어요",
   "marketplace.skills.sortLabel": "정렬",
   "marketplace.skills.sortName": "정렬: {name}",
   "marketplace.skills.sort.installs": "많이 사용됨",

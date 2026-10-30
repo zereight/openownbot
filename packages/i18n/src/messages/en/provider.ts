@@ -34,7 +34,7 @@ export const messages = defineMessages("provider", {
   "provider.status.checking": "Checking",
   "provider.status.off": "Off",
   "provider.gemini.hostSignIn":
-    "To connect Gemini, open OpenOwnBot on the host and select Connect in Settings > Providers. Google sign-in needs a browser on that host. Remote sign-in is not supported.",
+    "To connect Gemini, open ROBot on the host and select Connect in Settings > Providers. Google sign-in needs a browser on that host. Remote sign-in is not supported.",
 
   // Which account tier the OpenCode row runs on. It shows only while it adds to the runtime
   // badge: a saved key leaves the runtime "Connected" to speak for the row.
@@ -65,15 +65,15 @@ export const messages = defineMessages("provider", {
   "provider.aria.cancelSignIn": "Cancel the {name} sign-in",
   "provider.aria.apiKey": "{name} API key",
   "provider.connecting.browserHint": "Finish the sign-in if a browser page opens.",
-  "provider.connecting.cancelFailed": "OpenOwnBot could not cancel the {name} sign-in. Try again.",
+  "provider.connecting.cancelFailed": "ROBot could not cancel the {name} sign-in. Try again.",
   "provider.aria.install": "Install {name}",
   "provider.aria.signIn": "Sign in to {name}",
   "provider.aria.codeFallback": "Log in to {name} with a code",
   "provider.aria.moreActions": "More actions for {name}",
 
-  // The switch that turns a provider on or off in OpenOwnBot. While an agent uses the provider, the
+  // The switch that turns a provider on or off in ROBot. While an agent uses the provider, the
   // switch stays on and a toast names the agent, or counts the agents when there are more.
-  "provider.aria.use": "Use {name} in OpenOwnBot",
+  "provider.aria.use": "Use {name} in ROBot",
   "provider.use.inUseOne": "{agent} uses {name}. Change the model of this agent, then turn {name} off.",
   "provider.use.inUse": {
     one: "{count} agent uses {name}. Change the model of this agent, then turn {name} off.",
@@ -82,7 +82,7 @@ export const messages = defineMessages("provider", {
 
   // The dialog that signs in to a provider with a code on another device.
   "provider.codeLogin.title": "Log in to {name} with a code",
-  "provider.codeLogin.description": "Finish on your phone or another browser. OpenOwnBot waits here.",
+  "provider.codeLogin.description": "Finish on your phone or another browser. ROBot waits here.",
   "provider.codeLogin.starting": "Getting a code from {name}…",
   "provider.codeLogin.qrLabel": "QR code for the {name} login page",
   "provider.codeLogin.open": "Open",
@@ -103,12 +103,12 @@ export const messages = defineMessages("provider", {
   "provider.codeLogin.pageDescription": "This page is open in the browser on {host}. Sign in here.",
   "provider.codeLogin.relayStarting": "Starting the {name} sign-in on {host}…",
   "provider.codeLogin.pageOpening": "Opening the {name} sign-in page on {host}…",
-  "provider.codeLogin.linkStep": "Log in to {name}. OpenOwnBot continues by itself.",
+  "provider.codeLogin.linkStep": "Log in to {name}. ROBot continues by itself.",
 
-  // A provider that only the OpenOwnBot app can sign in, from a browser tab.
-  "provider.useApp.title": "Connect {name} in the OpenOwnBot app",
+  // A provider that only the ROBot app can sign in, from a browser tab.
+  "provider.useApp.title": "Connect {name} in the ROBot app",
   "provider.useApp.description":
-    "The {name} sign-in returns to the computer that started it, and a browser tab cannot receive it. Connect {name} in the OpenOwnBot app. The app finishes the sign-in by itself.",
+    "The {name} sign-in returns to the computer that started it, and a browser tab cannot receive it. Connect {name} in the ROBot app. The app finishes the sign-in by itself.",
   "provider.useApp.download": "Get the app",
 
   // The agent model picker.
@@ -120,7 +120,7 @@ export const messages = defineMessages("provider", {
   "provider.picker.providers": "Model providers",
   "provider.picker.downloading": "Downloading {percent}",
   "provider.picker.unavailable": "{name} is unavailable.",
-  "provider.picker.updateToUse": "Update OpenOwnBot to use {name}",
+  "provider.picker.updateToUse": "Update ROBot to use {name}",
   "provider.picker.models": "{name} models",
   "provider.picker.addProvider": "Add provider",
   "provider.picker.download": "{name} download",
@@ -159,15 +159,15 @@ export const messages = defineMessages("provider", {
   "provider.claudeKey.label": "Anthropic API key",
   "provider.inceptionKey.title": "Inception API key",
   "provider.inceptionKey.description":
-    "Save an Inception API key on this computer to use the Mercury models. OpenOwnBot runs them in the Pi CLI that it downloads.",
+    "Save an Inception API key on this computer to use the Mercury models. ROBot runs them in the Pi CLI that it downloads.",
   "provider.inceptionKey.label": "Inception API key",
   "provider.deepseekKey.title": "DeepSeek API key",
   "provider.deepseekKey.description":
-    "Save a DeepSeek API key on this computer to use the DeepSeek models. OpenOwnBot runs them in the Pi CLI that it downloads.",
+    "Save a DeepSeek API key on this computer to use the DeepSeek models. ROBot runs them in the Pi CLI that it downloads.",
   "provider.deepseekKey.label": "DeepSeek API key",
   "provider.openrouterKey.title": "OpenRouter API key",
   "provider.openrouterKey.description":
-    "Save an OpenRouter API key on this computer to use the models that OpenRouter serves. OpenOwnBot runs them in the Pi CLI that it downloads.",
+    "Save an OpenRouter API key on this computer to use the models that OpenRouter serves. ROBot runs them in the Pi CLI that it downloads.",
   "provider.openrouterKey.label": "OpenRouter API key",
 
   // The optional OpenCode Go key dialog.
@@ -238,7 +238,7 @@ export const messages = defineMessages("provider", {
   "provider.settings.removeTitle": "Remove {name}?",
   "provider.settings.removeMoves": "{agents} will use {name}.",
   "provider.settings.removeUnused": "No agent uses this account.",
-  "provider.settings.removeCredentials": "OpenOwnBot deletes the sign-in of this account from this computer.",
+  "provider.settings.removeCredentials": "ROBot deletes the sign-in of this account from this computer.",
   "provider.settings.usageLow": "{percent} left · {window}",
   "provider.settings.usageOf": "Usage of {name}",
   "provider.settings.signIn": "Sign-in",
@@ -292,7 +292,7 @@ export const messages = defineMessages("provider", {
     other: "{version} · {count} versions · {size}",
   },
   "provider.settings.downloadVersions": { one: "1 version · {size}", other: "{count} versions · {size}" },
-  "provider.settings.downloadAgain": "When you turn {name} on, OpenOwnBot downloads its CLI again.",
+  "provider.settings.downloadAgain": "When you turn {name} on, ROBot downloads its CLI again.",
   "provider.settings.removeDownloadConfirm": "Remove {size}?",
   "provider.settings.removeDownloadKeeps": "Accounts, sign-ins and agents stay.",
   "provider.settings.removeDownload": "Remove download",

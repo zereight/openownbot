@@ -1,3 +1,4 @@
+import { PRODUCT_NAME } from "@openownbot/contracts/product";
 import * as Application from "expo-application";
 import * as Device from "expo-device";
 import { File, Paths } from "expo-file-system";
@@ -89,7 +90,7 @@ function systemName(): string {
 export function supportLogFileText(): string {
   const entries = supportLog.entries();
   return [
-    "OpenOwnBot support log",
+    `${PRODUCT_NAME} support log`,
     `Saved: ${new Date().toISOString()}`,
     `App: ${appVersion()}`,
     `System: ${systemName()}`,
@@ -158,7 +159,7 @@ export function installSupportLog(): void {
   installed = true;
   restoreWhenIdle();
   supportLog.subscribe(schedulePersist);
-  supportLog.add("info", "app", `Started OpenOwnBot ${appVersion()} on ${systemName()}`);
+  supportLog.add("info", "app", `Started ${PRODUCT_NAME} ${appVersion()} on ${systemName()}`);
   captureConsole();
   captureErrors();
   captureFetch();

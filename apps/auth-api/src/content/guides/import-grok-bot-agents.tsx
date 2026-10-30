@@ -44,7 +44,7 @@ export function ImportGrokBotAgents() {
       />
 
       <p>
-        The page shows the export instructions and a card for <strong>OpenOwnBot export</strong>. Select{" "}
+        The page shows the export instructions and a card for <strong>ROBot export</strong>. Select{" "}
         <strong>Open the export agent</strong>. This opens the Grok Bot page for <strong>Migrator by OpenOwnBot</strong>
         , the agent prepared for this job.
       </p>
@@ -66,7 +66,7 @@ export function ImportGrokBotAgents() {
       <p>Send this message in the export agent's Grok Bot conversation:</p>
 
       <blockquote>
-        <p>Export my agents for OpenOwnBot</p>
+        <p>Export my agents for ROBot</p>
       </blockquote>
       <ArticleImage
         src={exportInstructions}

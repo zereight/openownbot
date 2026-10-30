@@ -4,7 +4,7 @@ import { defineMessages } from "../../message";
 export const messages = defineMessages("vault", {
   "vault.items.title": "Saved items",
   "vault.items.description":
-    "Every agent on this server can use these items. OpenOwnBot types passwords, card numbers and security codes into the page, so agents never see them.",
+    "Every agent on this server can use these items. ROBot types passwords, card numbers and security codes into the page, so agents never see them.",
   "vault.newItem": "New item",
   "vault.kind.login": "Login",
   "vault.kind.card": "Card",
@@ -81,16 +81,16 @@ export const messages = defineMessages("vault", {
   "vault.importMenu": "Import from CSV",
   "vault.importTitle": "Import from a CSV file",
   "vault.importDescription":
-    "Import logins from a CSV file that 1Password, Bitwarden, Chrome, Edge, Firefox, Safari, Apple Passwords or LastPass exports. OpenOwnBot reads the file on this computer and does not upload it.",
+    "Import logins from a CSV file that 1Password, Bitwarden, Chrome, Edge, Firefox, Safari, Apple Passwords or LastPass exports. ROBot reads the file on this computer and does not upload it.",
   "vault.importChoose": "Choose CSV file",
   "vault.importDone": "Imported: {imported}. Skipped: {skipped}.",
   "vault.unavailableTitle": "This computer cannot keep secrets",
   "vault.unavailableDescription":
-    "OpenOwnBot encrypts the Vault with the secret storage of the system. Set up a keyring, then open this page again.",
-  "vault.unreadableTitle": "OpenOwnBot cannot read the Vault",
+    "ROBot encrypts the Vault with the secret storage of the system. Set up a keyring, then open this page again.",
+  "vault.unreadableTitle": "ROBot cannot read the Vault",
   "vault.unreadableDescription":
-    "The Vault file is on this computer, but OpenOwnBot cannot decrypt it. This can occur when the system keychain changes. Reset the Vault to start again with no items.",
+    "The Vault file is on this computer, but ROBot cannot decrypt it. This can occur when the system keychain changes. Reset the Vault to start again with no items.",
   "vault.reset": "Reset Vault",
   "vault.resetTitle": "Reset the Vault?",
-  "vault.resetDescription": "OpenOwnBot deletes the Vault file and all items in it. You cannot undo this.",
+  "vault.resetDescription": "ROBot deletes the Vault file and all items in it. You cannot undo this.",
 });

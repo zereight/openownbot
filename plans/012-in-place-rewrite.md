@@ -95,6 +95,10 @@ Each step is one PR, merged when CI passes. Each phase makes the code smaller be
     for the app data, `appData/ROBot Dev …` for development profiles, and `~/ROBot` for agent workspaces.
     The copy of the old `OpenBot` app data folder is deleted. The rename of the product in the interface,
     the packages and the build follows in its own step.
+    Done 2026-10-31 for the interface text (`ROBot` in the en and ko catalogs, the wordmarks and the
+    mobile about screen). Still `OpenOwnBot`: `productName`, the app id, installer and artifact names,
+    hosted-server paths under `/opt/OpenOwnBot`, the webhook headers `X-OpenOwnBot-*`, the mobile
+    bundle and native module names, and the `@openownbot/*` package names.
 
 ## Risks
 

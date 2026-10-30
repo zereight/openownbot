@@ -11,8 +11,8 @@ export const messages = defineMessages("error.voice", {
   "error.voice.modelUnavailable": "The voice model is unavailable.",
   "error.voice.transcriptionTimedOut": "Voice transcription timed out.",
   "error.voice.prepareRequired":
-    "Local voice transcription is unavailable. Run `bun run voice:prepare` and restart OpenOwnBot.",
-  "error.voice.transcriptionFailed": "OpenOwnBot could not transcribe this recording.",
+    "Local voice transcription is unavailable. Run `bun run voice:prepare` and restart ROBot.",
+  "error.voice.transcriptionFailed": "ROBot could not transcribe this recording.",
   "error.voice.cloud.keyRequired": "Add your ElevenLabs API key in Settings → Voice.",
   "error.voice.cloud.keyRejected": "ElevenLabs did not accept the API key. Check the key in Settings → Voice.",
   "error.voice.cloud.quotaExceeded": "Your ElevenLabs quota is used up.",
@@ -24,6 +24,6 @@ export const messages = defineMessages("error.voice", {
   "error.voice.speech.runtimeUnavailable": "Local speech is not available on this platform.",
   "error.voice.speech.modelRequired": "Download the speech model in Settings → Voice.",
   "error.voice.speech.timedOut": "Reading the reply aloud timed out.",
-  "error.voice.speech.failed": "OpenOwnBot could not read the reply aloud.",
-  "error.voice.recordingNotKept": "OpenOwnBot could not keep the voice recording.",
+  "error.voice.speech.failed": "ROBot could not read the reply aloud.",
+  "error.voice.recordingNotKept": "ROBot could not keep the voice recording.",
 });
