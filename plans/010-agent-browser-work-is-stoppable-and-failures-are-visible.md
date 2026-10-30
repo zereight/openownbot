@@ -4,7 +4,8 @@
 > 2026-10-28 (Stop shows with the working line, a queue turn id is used, and a
 > toast says why when no turn is known). Goals 3, 4 and 6 are open. Goal 6 is done for a
 > routine run on 2026-10-30: the working line names the routine when it has no step text. The
-> workflow run kind and the current tool name are still open. Goal 4 is done for the log on
+> current tool name was already shown. The workflow run kind is open and needs a contract decision
+> (see the findings of 2026-10-31). Goal 4 is done for the log on
 > 2026-10-30: `logs/browser/browser.log` records failed tool calls, stop requests, stop results and
 > browser warnings. Settings › General › Diagnostics › Logs opens the logs folder of this computer
 > and shows its path (done 2026-10-30). The logs of a remote host are not reachable from there.
@@ -105,6 +106,28 @@ sidebar inputs (`activeTurns`, `queues`, `activeTasks`) with the stored rows.
 Goal 7 (channel row done 2026-10-28: `pausedTasks` in the channel summary and a
 "Stopped" preview prefix; the agent-name row is still open): a task that a restart stopped shows in the sidebar as stopped, with the
 same wording as the chat ("needs you"), and never as working.
+
+## Findings of 2026-10-31 (code reading at `dded5a78b`, nothing reproduced)
+
+- **Goal 6, current tool**: already done for a conversation turn. `toolProgressText`
+  (`src/backend/agent/turn-lifecycle.ts`, line 1549) sends each tool step as `turn-progress`, and the
+  working line shows it as `activityDetail` (`activity-store.ts`). Nothing to add.
+- **Goal 6, workflow run kind**: open, and it needs a contract decision. `QueueDelivery.sender` has the
+  kinds `user`, `agent` and `routine` (`packages/contracts/src/ipc-queue.ts`). The workflow code
+  (`src/backend/workflows/`) sets none of them. A new kind crosses the Team API to remote hosts, and a
+  released adapter must keep its meaning, so a new kind needs a capability and a fallback for older
+  hosts. Decide before coding.
+- **Goal 7, agent row**: the queue `hold` is attached to a snapshot only when the queue has a `queued`
+  delivery (`queueSnapshot` in `src/backend/agent/mailbox-sync.ts`), and `queueHoldChanged` emits the
+  queue of each agent that has one (`src/backend/agent-service.ts`, line 1190). So a hold that ends
+  does not leave a stale badge through this path. `recover` also does not call `#releaseHeldAgents`
+  after it pauses a task, but the badge does not read it. The remaining suspect is the observed
+  state: a delivery that stays `running` while its assignment is `interrupted`. Only a reproduction
+  can show who leaves it `running`.
+- **Goal 3, warning badge**: the sidebar has no error badge. The nearest signal is the `failed` avatar
+  mood (`packages/ui/src/features/agents/agent-avatar-mood.ts`), which reads `failedTurns`. Which
+  element the user saw is not confirmed. A screenshot of the badge, or the agent and browser state
+  at that time, is the input that this goal needs.
 
 ## Where to look first
 
