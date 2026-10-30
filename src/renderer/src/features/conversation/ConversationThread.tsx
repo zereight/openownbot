@@ -9,10 +9,12 @@ import { AgentThreadView } from "@openownbot/ui/features/conversation/threads/Ag
 import { useText } from "@openownbot/ui/text";
 import { createMemo, createProjection, createSignal, Show } from "solid-js";
 import { actionToast } from "../../action-toast";
+import { useShowAgentSteps } from "../../agent-steps-preference";
 import { toAgentMessages } from "../../app-message-projection";
 import { ConversationBrowserTakeover } from "./ConversationBrowserTakeover";
 import { ConversationQuestionPrompt } from "./ConversationQuestionPrompt";
 import { useConversationViewScope } from "./conversation-scope";
+import { createTurnSteps } from "./turn-steps";
 
 /** A thread takes files only from this computer, which reads every supported type. */
 const THREAD_ATTACHMENT_ACCEPT = supportedAttachmentExtensions({ eml: true, media: true, zip: true, mp4: true })
@@ -57,6 +59,14 @@ export function ConversationThread() {
     [],
     { key: "id" },
   );
+  // The thread gets only the latest progress line of a running turn, so its steps are the thoughts,
+  // and after the turn the tool steps of its stored trace.
+  const turnSteps = createTurnSteps({
+    messages: () => messages,
+    lines: () => undefined,
+    activeTurnId: () => props.threads?.open?.activeTurnId,
+  });
+  const showAgentSteps = useShowAgentSteps();
   const view = () => {
     const agent = props.agent;
     const threads = props.threads;
@@ -136,6 +146,10 @@ export function ConversationThread() {
             onCompactContext={current().threads.onCompactContext}
             waitsForAnswer={props.prompt !== undefined || props.browserTakeover !== undefined}
             attention={attention()}
+            stepsAbove={turnSteps.stepsAbove}
+            factsAbove={turnSteps.factsAbove}
+            activeSteps={turnSteps.activeSteps()}
+            stepsOpenByDefault={showAgentSteps()}
           />
         </>
       )}
