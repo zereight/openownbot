@@ -76,6 +76,7 @@ export const messages = {
   "agentSettings.nameLabel": "助手名称",
   "agentSettings.randomName": "随机名称",
   "agentSettings.agentTitle": "称号",
+  "agentSettings.agentTitleExisting": "现有称号",
   "agentSettings.agentTitleLabel": "助手称号",
   "agentSettings.agentTitlePlaceholder": "描述你的助手做什么",
   "agentSettings.instructions": "指令",

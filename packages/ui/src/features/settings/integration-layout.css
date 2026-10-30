@@ -497,3 +497,15 @@
   width: 100%;
   height: 100%;
 }
+
+.settings-titles-agents {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+}
+
+.settings-titles-agent {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}

@@ -142,6 +142,8 @@ export interface AgentSettingsPanelProps {
   folders?: AgentFolderCalls | undefined;
   /** The names of the other agents, so a random name is one that no agent has. */
   takenAgentNames?: readonly string[] | undefined;
+  /** The titles of the agents, so a title is one that exists or is new. Empty titles and repeats are fine. */
+  agentTitles?: readonly string[] | undefined;
   /** Whether a usage limit holds this model and account now, for the backup models page. */
   usageLimited?: ((choice: AgentModelChoice) => boolean) | undefined;
   /** The app default an agent without its own busy-message setting follows. */
@@ -667,6 +669,29 @@ export default function AgentSettingsPanel(props: AgentSettingsPanelProps) {
       state.dirty.name = true;
     });
     queueTextSave(textSaveRequest("name", props.agent.id, value));
+  }
+
+  /** The titles that other agents carry, without repeats and without the one this agent has now. */
+  function titleChoices(): string[] {
+    const current = draft.fields.title.trim().toLocaleLowerCase();
+    const seen = new Set<string>([current]);
+    const choices: string[] = [];
+    for (const title of props.agentTitles ?? []) {
+      const trimmed = title.trim();
+      const key = trimmed.toLocaleLowerCase();
+      if (!trimmed || seen.has(key)) continue;
+      seen.add(key);
+      choices.push(trimmed);
+    }
+    return choices.sort((a, b) => a.localeCompare(b));
+  }
+
+  function chooseTitle(value: string): void {
+    setDraft((state) => {
+      state.fields.title = value;
+      state.dirty.title = true;
+    });
+    queueTextSave(textSaveRequest("title", props.agent.id, value));
   }
 
   function saveTitle(): void {
@@ -1241,6 +1266,17 @@ export default function AgentSettingsPanel(props: AgentSettingsPanelProps) {
                   }
                   onBlur={saveTitle}
                 />
+                <Show when={titleChoices().length > 0}>
+                  <fieldset class="agent-title-choices" aria-label={t("agentSettings.agentTitleExisting")}>
+                    <For each={titleChoices()}>
+                      {(title) => (
+                        <Button type="button" variant="outline" size="sm" onClick={() => chooseTitle(title)}>
+                          {title}
+                        </Button>
+                      )}
+                    </For>
+                  </fieldset>
+                </Show>
               </SettingsField>
               <SettingsField label={t("agentSettings.instructions")}>
                 <Textarea
