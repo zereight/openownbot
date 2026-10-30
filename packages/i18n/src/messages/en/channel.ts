@@ -14,6 +14,8 @@ export const messages = defineMessages("channel", {
   "channel.stoppedTask.cancelConfirm": "Cancel request",
   "channel.conversation.noMembers": "Add agents in channel settings to start work.",
   "channel.conversation.archivedNotice": "Archived channel. Preview only.",
+  "channel.mention.everyoneTitle": "Everyone",
+  "channel.mention.everyoneDescription": "Gives every member of the channel its own task.",
   "channel.composer.label": "Message to channel",
   "channel.composer.placeholder": "Message {name}",
   "channel.panel.label": "Channel panel",

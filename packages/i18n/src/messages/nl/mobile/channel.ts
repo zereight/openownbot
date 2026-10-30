@@ -37,6 +37,8 @@ export const messages = {
   "mobile.channel.deleted.restoreNamed": "Herstel {name}",
   "mobile.channel.deleted.restoreFailed": "Kan kanaal niet herstellen",
   "mobile.channel.deleted.restoreFailedBody": "Kan dit kanaal niet herstellen. Probeer opnieuw.",
+  "mobile.channel.mention.everyoneTitle": "Iedereen",
+  "mobile.channel.mention.everyoneDescription": "Geeft elk lid van het kanaal een eigen taak.",
   "mobile.channel.chat.fallbackName": "Kanaal",
   "mobile.channel.chat.deletedNotice": "Verwijderd kanaal. Alleen ter inzage.",
   "mobile.channel.records.connect": "Maak verbinding met de server om dit kanaal te bewerken.",

@@ -1,3 +1,4 @@
+import { EVERYONE_TAG_ID } from "@openownbot/contracts/chat-tag-references";
 import type { RespondToPromptInput } from "@openownbot/contracts/ipc";
 import * as Crypto from "expo-crypto";
 import { useLocalSearchParams } from "expo-router";
@@ -142,6 +143,27 @@ function ChannelChat({ channelId, serverId }: { channelId: string; serverId: str
     respondToPrompt,
   );
   const name = channel?.name ?? t("mobile.channel.chat.fallbackName");
+  // A channel with two or more members also offers `@all`, which names every one of them.
+  const mentionAgents = useMemo(
+    () =>
+      members.length < 2
+        ? members
+        : [
+            {
+              id: EVERYONE_TAG_ID,
+              serverId,
+              name: "all",
+              title: t("mobile.channel.mention.everyoneTitle"),
+              description: t("mobile.channel.mention.everyoneDescription"),
+              preview: "",
+              updatedLabel: "",
+              avatarSeed: EVERYONE_TAG_ID,
+              avatarHue: null,
+            },
+            ...members,
+          ],
+    [members, serverId, t],
+  );
   const target = useMemo(
     () => ({ kind: "channel" as const, id: channelId, serverId, name, members }),
     [channelId, serverId, name, members],
@@ -150,7 +172,7 @@ function ChannelChat({ channelId, serverId }: { channelId: string; serverId: str
     <ChatView
       target={target}
       agents={serverAgents}
-      mentionAgents={members}
+      mentionAgents={mentionAgents}
       projectedMessages={messages}
       referenceMessages={messages}
       ready={Boolean(page)}

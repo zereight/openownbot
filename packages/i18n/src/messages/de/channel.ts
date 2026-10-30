@@ -10,6 +10,8 @@ export const messages = {
   "channel.stoppedTask.reassign": "Neu zuweisen",
   "channel.conversation.noMembers": "Füge in den Kanaleinstellungen Agenten hinzu, um mit der Arbeit zu beginnen.",
   "channel.conversation.archivedNotice": "Archivierter Kanal. Nur Vorschau.",
+  "channel.mention.everyoneTitle": "Alle",
+  "channel.mention.everyoneDescription": "Gibt jedem Mitglied des Kanals eine eigene Aufgabe.",
   "channel.composer.label": "Nachricht an den Kanal",
   "channel.composer.placeholder": "Nachricht an {name}",
   "channel.panel.label": "Kanalbereich",

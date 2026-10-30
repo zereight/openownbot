@@ -41,6 +41,8 @@ export const messages = {
   "mobile.channel.deleted.restoreNamed": "Przywróć {name}",
   "mobile.channel.deleted.restoreFailed": "Nie udało się przywrócić kanału",
   "mobile.channel.deleted.restoreFailedBody": "Nie udało się przywrócić tego kanału. Spróbuj ponownie.",
+  "mobile.channel.mention.everyoneTitle": "Wszyscy",
+  "mobile.channel.mention.everyoneDescription": "Daje każdemu członkowi kanału osobne zadanie.",
   "mobile.channel.chat.fallbackName": "Kanał",
   "mobile.channel.chat.deletedNotice": "Usunięty kanał. Tylko podgląd.",
   "mobile.channel.records.connect": "Połącz się z serwerem, aby edytować ten kanał.",

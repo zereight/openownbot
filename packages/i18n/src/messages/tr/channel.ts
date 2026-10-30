@@ -10,6 +10,8 @@ export const messages = {
   "channel.stoppedTask.reassign": "Yeniden ata",
   "channel.conversation.noMembers": "Çalışmayı başlatmak için kanal ayarlarından ajan ekleyin.",
   "channel.conversation.archivedNotice": "Arşivlenmiş kanal. Yalnızca önizleme.",
+  "channel.mention.everyoneTitle": "Herkes",
+  "channel.mention.everyoneDescription": "Kanalın her üyesine kendi görevini verir.",
   "channel.composer.label": "Kanala mesaj",
   "channel.composer.placeholder": "{name} kanalına mesaj gönder",
   "channel.panel.label": "Kanal paneli",

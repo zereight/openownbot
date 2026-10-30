@@ -10,6 +10,8 @@ export const messages = {
   "channel.stoppedTask.reassign": "Opnieuw toewijzen",
   "channel.conversation.noMembers": "Voeg agents toe in de kanaalinstellingen om te beginnen.",
   "channel.conversation.archivedNotice": "Gearchiveerd kanaal. Alleen voorvertoning.",
+  "channel.mention.everyoneTitle": "Iedereen",
+  "channel.mention.everyoneDescription": "Geeft elk lid van het kanaal een eigen taak.",
   "channel.composer.label": "Bericht aan kanaal",
   "channel.composer.placeholder": "Bericht aan {name}",
   "channel.panel.label": "Kanaalpaneel",

@@ -19,6 +19,13 @@ export interface ChatTagReference {
   end: number;
 }
 
+/**
+ * The id of the agent tag that names every member of a channel, as `@[all](agent:everyone)`. It is
+ * a reserved id, not an agent. A channel host gives each available member its own task for a
+ * message that carries it; a host that predates it routes the message as any other.
+ */
+export const EVERYONE_TAG_ID = "everyone";
+
 const CHAT_TAG_REFERENCE_PATTERN = /@\[([^\]\r\n]+)\]\((agent|skill|mcp|quote)(\+uri)?:([^)\r\n]+)\)/gu;
 
 /*
@@ -88,6 +95,11 @@ export function chatTagReferences(value: string): ChatTagReference[] {
     start: match.index ?? 0,
     end: (match.index ?? 0) + match[0].length,
   }));
+}
+
+/** Whether the text names every member of a channel. */
+export function mentionsEveryone(value: string): boolean {
+  return chatTagReferences(value).some((reference) => reference.kind === "agent" && reference.id === EVERYONE_TAG_ID);
 }
 
 function chatTagKind(value: string | undefined): ChatTagKind {
