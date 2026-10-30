@@ -23,7 +23,7 @@ import { WORKFLOW_SCHEMA_SQL } from "./workflows/workflow-schema";
  * raises this number, and a database of another version does not open. The app keeps its data in a new
  * folder for each such change, or the developer deletes the database.
  */
-export const SCHEMA_VERSION = 1;
+export const SCHEMA_VERSION = 2;
 
 /** One row: the schema version, and when the database was made. Usage analytics count from that time. */
 const DATABASE_INFO_SQL = `

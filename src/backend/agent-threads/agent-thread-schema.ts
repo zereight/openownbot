@@ -3,8 +3,7 @@
 // own chat (`projection_agents.thread_id`) has no row here.
 //
 // `projection_agent_threads`: one row for each side thread. Deleting the thread deletes the row.
-// `legacy_task_id` is the id of a task from before migration 47; mailbox records and Team API clients
-// still name the thread by it. It is null for a thread created after 47. `origin` says who started it:
+// `origin` says who started it:
 // the person, or the agent with its `start_task` tool. `title_source` says where the title came from:
 // the first message (`auto`), the agent's `start_task` call (`agent`), or a rename (`user`). `outcome`
 // is the end of the last turn, null before its first turn ends. `error` is the redacted provider error
@@ -18,7 +17,6 @@ export const AGENT_THREAD_SCHEMA_SQL = `
   CREATE TABLE IF NOT EXISTS projection_agent_threads (
     thread_id TEXT PRIMARY KEY REFERENCES projection_threads(thread_id) ON DELETE CASCADE,
     agent_id TEXT NOT NULL,
-    legacy_task_id TEXT UNIQUE,
     origin TEXT NOT NULL CHECK(origin IN ('user', 'agent')),
     title TEXT NOT NULL,
     title_source TEXT NOT NULL CHECK(title_source IN ('auto', 'agent', 'user')),
