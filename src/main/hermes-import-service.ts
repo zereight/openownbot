@@ -49,7 +49,7 @@ const SOUL_POINTER = "\n\nThe full persona is in imported/hermes/SOUL.md. Read i
 const LINKS_VERSION = 1;
 
 export interface HermesImportAgents
-  extends Pick<AgentImportAgents, "listAgents" | "createAgentProfile" | "createRoutine" | "deleteAgent"> {
+  extends Pick<AgentImportAgents, "listAgents" | "createAgentProfile" | "deleteAgent"> {
   updateAgent(input: UpdateAgentInput): Effect.Effect<AgentSummary, { cause: unknown }>;
   memories: {
     create(input: { agentId: string; text: string }): unknown;
@@ -57,7 +57,10 @@ export interface HermesImportAgents
     initializeSelection(agentId: string): void;
     list(agentId: string): ReadonlyArray<{ text: string }>;
   };
-  listRoutines(agentId: string): ReadonlyArray<{ name: string }>;
+  routines: {
+    create(input: CreateRoutineInput, options?: { recordConversationEvent?: boolean }): unknown;
+    list(agentId: string): ReadonlyArray<{ name: string }>;
+  };
   listMcpServers(): McpServerConfig[];
   saveMcpServer(config: McpServerConfig): Effect.Effect<unknown, { cause: unknown }>;
 }
@@ -230,7 +233,7 @@ export class HermesImportService {
                   }),
                 );
             }
-            const routineNames = new Set(this.agents.listRoutines(agent.id).map((routine) => routine.name));
+            const routineNames = new Set(this.agents.routines.list(agent.id).map((routine) => routine.name));
             for (const routine of profile.routines) {
               if (routineNames.has(routine.name)) continue;
               const timezone = this.timezone();
@@ -248,7 +251,7 @@ export class HermesImportService {
                 schedule,
               };
               try {
-                this.agents.createRoutine(input, { recordConversationEvent: false });
+                this.agents.routines.create(input, { recordConversationEvent: false });
               } catch (error) {
                 warnings.push(
                   sourceText("error.import.routineSkipped", {

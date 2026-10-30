@@ -467,7 +467,7 @@ try {
 
   await check("a turn that opens a wait does not continue", async () => {
     const agent = await createAgent("Waiter");
-    const routine = current.service.createRoutine(
+    const routine = current.service.routines.create(
       {
         agentId: agent.id,
         name: "Build check",
@@ -599,7 +599,7 @@ try {
 
   await check("a routine run does not continue", async () => {
     const agent = await createAgent("Routine");
-    const routine = current.service.createRoutine(
+    const routine = current.service.routines.create(
       {
         agentId: agent.id,
         name: "Daily report",
@@ -617,7 +617,7 @@ try {
       { recordConversationEvent: false },
     );
     const mark = loggedTurns().length;
-    await runCauseEffect(current.service.testRoutine({ agentId: agent.id, routineId: routine.id }));
+    await runCauseEffect(current.service.routines.test({ agentId: agent.id, routineId: routine.id }));
     await waitFor("the routine turn", () => turnsSince(mark).length >= 1);
     await waitFor("the routine run to end", () =>
       current.service.listQueue(agent.id).deliveries.every((delivery) => ended(delivery.status)),

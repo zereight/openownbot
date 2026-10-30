@@ -188,7 +188,7 @@ try {
 
   // 2. One routine run.
   const instruction = `Routine run. ${PROMPT}`;
-  const routine = agents.createRoutine(
+  const routine = agents.routines.create(
     {
       agentId: agent.id,
       name: "Token check",
@@ -199,7 +199,7 @@ try {
     },
     { recordConversationEvent: false },
   );
-  const run = await runCauseEffect(agents.testRoutine({ agentId: agent.id, routineId: routine.id }));
+  const run = await runCauseEffect(agents.routines.test({ agentId: agent.id, routineId: routine.id }));
   assert.ok(run.deliveryId, "the routine run has no delivery");
   await measure(agent.id, run.deliveryId, "routine", 1, instruction.length);
 

@@ -34,7 +34,7 @@ export function channelRoutineIpcHandlers({
   return {
     channelRoutines: {
       listChannelRoutines: scopedHandler(parseChannelId, {
-        local: (channelId) => service.listChannelRoutines(channelId),
+        local: (channelId) => service.channelRoutines.list(channelId),
         remote: (channelId, serverId) =>
           runCauseEffect(
             remoteServers.request(serverId, CHANNEL_ROUTES.routines, decodeChannelRoutines, {
@@ -44,7 +44,7 @@ export function channelRoutineIpcHandlers({
           ),
       }),
       createChannelRoutine: scopedHandler(parseCreateChannelRoutine, {
-        local: (parsed) => service.createChannelRoutine(parsed),
+        local: (parsed) => service.channelRoutines.create(parsed),
         remote: (parsed, serverId) =>
           runCauseEffect(
             remoteServers.request(serverId, CHANNEL_ROUTES.routineCreate, decodeChannelRoutine, {
@@ -54,7 +54,7 @@ export function channelRoutineIpcHandlers({
           ),
       }),
       updateChannelRoutine: scopedHandler(parseUpdateChannelRoutine, {
-        local: (parsed) => service.updateChannelRoutine(parsed),
+        local: (parsed) => service.channelRoutines.update(parsed),
         remote: (parsed, serverId) =>
           runCauseEffect(
             remoteServers.request(serverId, CHANNEL_ROUTES.routineUpdate, decodeChannelRoutine, {
@@ -64,7 +64,7 @@ export function channelRoutineIpcHandlers({
           ),
       }),
       deleteChannelRoutine: scopedHandler(parseDeleteChannelRoutine, {
-        local: (parsed) => service.deleteChannelRoutine(parsed),
+        local: (parsed) => service.channelRoutines.delete(parsed),
         remote: (parsed, serverId) =>
           runCauseEffect(
             remoteServers.request(serverId, CHANNEL_ROUTES.routineDelete, decodeVoid, {
@@ -74,7 +74,7 @@ export function channelRoutineIpcHandlers({
           ),
       }),
       testChannelRoutine: scopedHandler(parseTestChannelRoutine, {
-        local: (parsed) => runCauseEffect(service.testChannelRoutine(parsed)),
+        local: (parsed) => runCauseEffect(service.channelRoutines.test(parsed)),
         remote: (parsed, serverId) =>
           runCauseEffect(
             remoteServers.request(serverId, CHANNEL_ROUTES.routineTest, decodeChannelRoutineRun, {
@@ -84,7 +84,7 @@ export function channelRoutineIpcHandlers({
           ),
       }),
       listChannelRoutineRuns: scopedHandler(parseListChannelRoutineRuns, {
-        local: (parsed) => service.listChannelRoutineRuns(parsed, true),
+        local: (parsed) => service.channelRoutines.listRuns(parsed, true),
         remote: (parsed, serverId) =>
           runCauseEffect(
             remoteServers.request(serverId, CHANNEL_ROUTES.routineRuns, decodeChannelRoutineRuns, {

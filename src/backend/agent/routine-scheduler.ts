@@ -150,7 +150,20 @@ export interface RoutinePreviewBeforeRun {
  * blocked on a question is `needs-attention`, and answering returns it to `running`. That is why a
  * user can tell a stalled routine from a working one.
  */
-export class RoutineScheduler implements RoutineDueSource {
+/** The routine operations that code outside the backend calls. */
+export interface RoutineOperations {
+  list(agentId: string): Routine[];
+  create(input: CreateRoutineInput, options?: RoutineMutationOptions): Routine;
+  update(input: UpdateRoutineInput, options?: RoutineMutationOptions): Routine;
+  delete(
+    input: DeleteRoutineInput,
+    options?: RoutineMutationOptions & RoutineTriggerAccess,
+  ): Effect.Effect<void, RoutineOperationFailed>;
+  test(input: TestRoutineInput, access?: RoutineTriggerAccess): Effect.Effect<RoutineRun, RoutineOperationFailed>;
+  listRuns(input: ListRoutineRunsInput, withSkipped?: boolean): RoutineRun[];
+}
+
+export class RoutineScheduler implements RoutineDueSource, RoutineOperations {
   readonly #store: AgentStore;
   readonly #mailbox: MailboxStore;
   readonly #conversation: ConversationRuntime;

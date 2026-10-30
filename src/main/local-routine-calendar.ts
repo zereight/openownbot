@@ -26,13 +26,13 @@ export function localRoutineCalendarSource(service: AgentService): RoutineCalend
       }),
     routines: (owner) =>
       Effect.sync(() =>
-        owner.kind === "agent" ? service.listRoutines(owner.agentId) : service.listChannelRoutines(owner.channelId),
+        owner.kind === "agent" ? service.routines.list(owner.agentId) : service.channelRoutines.list(owner.channelId),
       ),
     runs: (owner, routineId, limit) =>
       Effect.sync(() =>
         owner.kind === "agent"
-          ? service.listRoutineRuns({ agentId: owner.agentId, routineId, limit })
-          : service.listChannelRoutineRuns({ channelId: owner.channelId, routineId, limit }),
+          ? service.routines.listRuns({ agentId: owner.agentId, routineId, limit })
+          : service.channelRoutines.listRuns({ channelId: owner.channelId, routineId, limit }),
       ),
   };
 }

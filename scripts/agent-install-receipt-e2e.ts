@@ -22,7 +22,7 @@ import { SkillMarketplaceFailure } from "../src/main/skill-marketplace-service";
 type AgentMarketplaceDependencies = ConstructorParameters<typeof AgentMarketplaceService>;
 type AgentStore = AgentMarketplaceDependencies[1];
 type SkillStore = AgentMarketplaceDependencies[2];
-type RoutineInput = Parameters<AgentStore["createRoutine"]>[0];
+type RoutineInput = Parameters<AgentStore["routines"]["create"]>[0];
 
 interface ScenarioOptions {
   receiptDefect?: boolean;
@@ -186,7 +186,6 @@ async function scenario(
   }
   const agentStore: AgentStore = {
     listAgents: () => [...agents.values()],
-    listRoutines: () => [],
     resolveAvatar: () => null,
     createAgentProfile: (profile) =>
       Effect.sync(() => {
@@ -209,12 +208,15 @@ async function scenario(
         assert.ok(agent);
         return agent;
       }),
-    createRoutine: (routine) => {
-      const id = randomUUID();
-      routines.set(id, routine);
-      return { id };
+    routines: {
+      list: () => [],
+      create: (routine) => {
+        const id = randomUUID();
+        routines.set(id, routine);
+        return { id };
+      },
+      delete: ({ routineId }) => Effect.sync(() => void routines.delete(routineId)),
     },
-    deleteRoutine: ({ routineId }) => Effect.sync(() => void routines.delete(routineId)),
     setMarketplaceSource: (agentId, source) => {
       const agent = agents.get(agentId);
       assert.ok(agent);

@@ -99,12 +99,25 @@ interface AgentTemplateAuth {
 
 interface AgentTemplateAgents {
   listAgents(): AgentSummary[];
-  listRoutines(agentId: string): Array<{
-    name: string;
-    instruction: string;
-    active: boolean;
-    trigger: { schedule: RoutineSchedule };
-  }>;
+  routines: {
+    list(agentId: string): Array<{
+      name: string;
+      instruction: string;
+      active: boolean;
+      trigger: { schedule: RoutineSchedule };
+    }>;
+    create(
+      input: {
+        agentId: string;
+        name: string;
+        instruction: string;
+        active: boolean;
+        timezone: string;
+        schedule: RoutineSchedule;
+      },
+      options?: { recordConversationEvent?: boolean },
+    ): { id: string };
+  };
   resolveAvatar(agentId: string): { path: string; mimeType: AvatarImageInput["mimeType"] } | null;
   createAgentProfile(input: {
     name: string;
@@ -114,17 +127,6 @@ interface AgentTemplateAgents {
     avatarHue: AgentTemplateSnapshot["avatarHue"];
   }): Effect.Effect<AgentSummary, AgentLifecycleFailed>;
   setAvatar(agentId: string, image: AvatarImageInput | null): Effect.Effect<AgentSummary, AgentLifecycleFailed>;
-  createRoutine(
-    input: {
-      agentId: string;
-      name: string;
-      instruction: string;
-      active: boolean;
-      timezone: string;
-      schedule: RoutineSchedule;
-    },
-    options?: { recordConversationEvent?: boolean },
-  ): { id: string };
   deleteAgent(agentId: string): Effect.Effect<void, AgentLifecycleFailed>;
 }
 
@@ -353,7 +355,7 @@ export class AgentTemplateService {
             }
             for (const routine of detail.routines)
               yield* templateSync(() =>
-                this.agents.createRoutine(
+                this.agents.routines.create(
                   {
                     agentId: agent.id,
                     name: routine.name,
@@ -395,7 +397,7 @@ export class AgentTemplateService {
       avatarSeed: agent.avatarSeed,
       avatarHue: agent.avatarHue,
       skills,
-      routines: this.agents.listRoutines(agent.id).flatMap(({ name, instruction, active, trigger }) =>
+      routines: this.agents.routines.list(agent.id).flatMap(({ name, instruction, active, trigger }) =>
         // A `once` routine names one date, so it is not part of a template.
         isReleasedRoutineSchedule(trigger.schedule) ? [{ name, instruction, active, schedule: trigger.schedule }] : [],
       ),

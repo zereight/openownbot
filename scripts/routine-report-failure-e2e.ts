@@ -296,7 +296,7 @@ async function createAgent(name: string) {
 }
 
 function createRoutine(agentId: string, name: string, instruction: string) {
-  return agents.createRoutine({
+  return agents.routines.create({
     agentId,
     name,
     instruction,
@@ -315,8 +315,8 @@ async function settledRun(name: string, run: RoutineRun) {
     return ended(found?.status) ? found : null;
   });
   const ranRun = await waitFor(`${name} run`, () => {
-    const found = agents
-      .listRoutineRuns({ agentId: run.agentId, routineId: run.routineId })
+    const found = agents.routines
+      .listRuns({ agentId: run.agentId, routineId: run.routineId })
       .find((entry) => entry.id === run.id);
     return found && !["queued", "running"].includes(found.status) ? found : null;
   });
@@ -421,7 +421,7 @@ try {
   // A Test run that reports a failure.
   const healthRun = await settledRun(
     "Health check",
-    await runCauseEffect(agents.testRoutine({ agentId: checker.id, routineId: health.id })),
+    await runCauseEffect(agents.routines.test({ agentId: checker.id, routineId: health.id })),
   );
   const healthTool = toolResults(healthRun.delivery.turnId, "routine_report_failure")[0]?.result;
   pass("The tool call succeeds in a Test run", healthTool?.success === true, healthTool);
@@ -455,12 +455,12 @@ try {
   // A routine run with no call, and a provider failure.
   const plainRun = await settledRun(
     "Plain check",
-    await runCauseEffect(agents.testRoutine({ agentId: checker.id, routineId: plain.id })),
+    await runCauseEffect(agents.routines.test({ agentId: checker.id, routineId: plain.id })),
   );
   pass("A run with no call succeeds", plainRun.run.status === "succeeded" && plainRun.run.error === null);
   const brokenRun = await settledRun(
     "Broken check",
-    await runCauseEffect(agents.testRoutine({ agentId: checker.id, routineId: broken.id })),
+    await runCauseEffect(agents.routines.test({ agentId: checker.id, routineId: broken.id })),
   );
   pass(
     "A provider failure fails the delivery and the run with its own error",
@@ -475,8 +475,8 @@ try {
   const laterId = laterReceipt.deliveries[0]?.id;
   assert.ok(laterId);
   await waitFor("the later chat turn", () => ended(mailbox.getDelivery(laterId)?.delivery.status));
-  const healthAfter = agents
-    .listRoutineRuns({ agentId: checker.id, routineId: health.id })
+  const healthAfter = agents.routines
+    .listRuns({ agentId: checker.id, routineId: health.id })
     .find((run) => run.id === healthRun.run.id);
   pass(
     "A later queue change keeps the run failed",
@@ -542,7 +542,7 @@ try {
   // Flows: a call in a linked step fails that step only.
   const relayedRun = await settledRun(
     "Mirror check",
-    await runCauseEffect(agents.testRoutine({ agentId: relay.id, routineId: relayed.id })),
+    await runCauseEffect(agents.routines.test({ agentId: relay.id, routineId: relayed.id })),
   );
   const relayedSteps = await steps("Mirror check", relayedRun.run.id, 3);
   const linked = relayedSteps.find((step) => step.agentId === responder.id);
@@ -561,8 +561,8 @@ try {
     relayedSteps.find((step) => step.agentId === finisher.id)?.status === "skipped",
     report.flowSteps["Mirror check"],
   );
-  const relayedAfter = agents
-    .listRoutineRuns({ agentId: relay.id, routineId: relayed.id })
+  const relayedAfter = agents.routines
+    .listRuns({ agentId: relay.id, routineId: relayed.id })
     .find((run) => run.id === relayedRun.run.id);
   pass("A linked step's call does not change the owner's run", relayedAfter?.status === "succeeded");
 

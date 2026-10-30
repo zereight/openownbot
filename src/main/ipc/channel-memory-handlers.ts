@@ -27,7 +27,7 @@ export function channelMemoryIpcHandlers({
   return {
     channelMemories: {
       listChannelMemories: scopedHandler(parseChannelId, {
-        local: (channelId) => service.listChannelMemories(channelId),
+        local: (channelId) => service.channels.listMemories(channelId),
         remote: (channelId, serverId) =>
           runCauseEffect(
             remoteServers.request(serverId, CHANNEL_ROUTES.memories, decodeChannelMemories, {
@@ -37,7 +37,7 @@ export function channelMemoryIpcHandlers({
           ),
       }),
       createChannelMemory: scopedHandler(parseCreateChannelMemory, {
-        local: (parsed) => service.createChannelMemory(parsed),
+        local: (parsed) => service.channels.createMemory(parsed),
         remote: (parsed, serverId) =>
           runCauseEffect(
             remoteServers.request(serverId, CHANNEL_ROUTES.memoryCreate, decodeChannelMemory, {
@@ -47,7 +47,7 @@ export function channelMemoryIpcHandlers({
           ),
       }),
       updateChannelMemory: scopedHandler(parseUpdateChannelMemory, {
-        local: (parsed) => service.updateChannelMemory(parsed),
+        local: (parsed) => service.channels.updateMemory(parsed),
         remote: (parsed, serverId) =>
           runCauseEffect(
             remoteServers.request(serverId, CHANNEL_ROUTES.memoryUpdate, decodeChannelMemory, {
@@ -57,7 +57,7 @@ export function channelMemoryIpcHandlers({
           ),
       }),
       deleteChannelMemory: scopedHandler(parseDeleteChannelMemory, {
-        local: (parsed) => service.deleteChannelMemory(parsed),
+        local: (parsed) => service.channels.deleteMemory(parsed),
         remote: (parsed, serverId) =>
           runCauseEffect(
             remoteServers.request(serverId, CHANNEL_ROUTES.memoryDelete, decodeVoid, {
@@ -67,7 +67,7 @@ export function channelMemoryIpcHandlers({
           ),
       }),
       clearChannelMemories: scopedHandler(parseChannelId, {
-        local: (channelId) => service.clearChannelMemories(channelId),
+        local: (channelId) => service.channels.clearMemories(channelId),
         remote: (channelId, serverId) =>
           runCauseEffect(
             remoteServers.request(serverId, CHANNEL_ROUTES.memoryClear, decodeVoid, {

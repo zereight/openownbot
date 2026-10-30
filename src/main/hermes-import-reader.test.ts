@@ -74,8 +74,7 @@ describe("Hermes import reader", () => {
       createAgentProfile: () => Effect.die("unused"),
       updateAgent: () => Effect.die("unused"),
       deleteAgent: () => Effect.die("unused"),
-      createRoutine: () => undefined,
-      listRoutines: () => [],
+      routines: { create: () => undefined, list: () => [] },
       memories: { create: () => undefined, list: () => [], limit: () => 64, initializeSelection: () => undefined },
       saveMcpServer: () => Effect.die("unused"),
     };
