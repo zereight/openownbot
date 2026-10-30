@@ -1,4 +1,5 @@
 import type { Effect } from "effect";
+import type { AgentMemories } from "../../backend/agent/agent-memories";
 import type { ChannelService } from "../../backend/channel-service";
 import type { AcpRegistry } from "../acp-registry";
 import type { AgentAdminSettingsService } from "../agent-admin-settings";
@@ -93,13 +94,6 @@ type TeamApiAgentMethods = Pick<
   | "commitAgentDuplication"
   | "updateAgent"
   | "deleteAgent"
-  | "getMemorySelection"
-  | "setMemoryInclusion"
-  | "listMemories"
-  | "createMemory"
-  | "updateMemory"
-  | "deleteMemory"
-  | "clearMemories"
   | "listRoutines"
   | "createRoutine"
   | "updateRoutine"
@@ -150,6 +144,7 @@ type TeamApiAgentMethods = Pick<
 >;
 
 export type TeamApiAgents = TeamApiAgentMethods & {
+  memories: Pick<AgentMemories, "list" | "selectionState" | "setInclusions" | "create" | "update" | "delete" | "clear">;
   on: (event: "event", listener: (event: AgentEvent) => void) => void;
   off: (event: "event", listener: (event: AgentEvent) => void) => void;
 };

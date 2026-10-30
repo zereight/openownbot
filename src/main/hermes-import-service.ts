@@ -49,18 +49,14 @@ const SOUL_POINTER = "\n\nThe full persona is in imported/hermes/SOUL.md. Read i
 const LINKS_VERSION = 1;
 
 export interface HermesImportAgents
-  extends Pick<
-    AgentImportAgents,
-    | "listAgents"
-    | "createAgentProfile"
-    | "createRoutine"
-    | "createMemory"
-    | "memoryLimit"
-    | "initializeMemorySelection"
-    | "deleteAgent"
-  > {
+  extends Pick<AgentImportAgents, "listAgents" | "createAgentProfile" | "createRoutine" | "deleteAgent"> {
   updateAgent(input: UpdateAgentInput): Effect.Effect<AgentSummary, { cause: unknown }>;
-  listMemories(agentId: string): ReadonlyArray<{ text: string }>;
+  memories: {
+    create(input: { agentId: string; text: string }): unknown;
+    limit(): number;
+    initializeSelection(agentId: string): void;
+    list(agentId: string): ReadonlyArray<{ text: string }>;
+  };
   listRoutines(agentId: string): ReadonlyArray<{ name: string }>;
   listMcpServers(): McpServerConfig[];
   saveMcpServer(config: McpServerConfig): Effect.Effect<unknown, { cause: unknown }>;
@@ -322,7 +318,7 @@ export class HermesImportService {
 
   /** Adds the entries the agent does not have, up to the memory limit. */
   #addMemories(agent: AgentSummary, profile: HermesProfileData, warnings: string[]): void {
-    const memories = this.agents.listMemories(agent.id);
+    const memories = this.agents.memories.list(agent.id);
     const known = new Set(memories.map((memory) => memory.text));
     const fresh = profile.memories.filter((text) => !known.has(text));
     const fitting = fresh.filter((text) => text.length <= INPUT_LIMITS.agentMemoryText);
@@ -334,11 +330,13 @@ export class HermesImportService {
           limit: INPUT_LIMITS.agentMemoryText,
         }),
       );
-    const room = Math.max(0, this.agents.memoryLimit() - memories.length);
+    const room = Math.max(0, this.agents.memories.limit() - memories.length);
     if (fitting.length > room)
-      warnings.push(sourceText("error.import.memoryLimit", { name: profile.name, limit: this.agents.memoryLimit() }));
-    for (const text of fitting.slice(0, room)) this.agents.createMemory({ agentId: agent.id, text });
-    if (memories.length === 0) this.agents.initializeMemorySelection(agent.id);
+      warnings.push(
+        sourceText("error.import.memoryLimit", { name: profile.name, limit: this.agents.memories.limit() }),
+      );
+    for (const text of fitting.slice(0, room)) this.agents.memories.create({ agentId: agent.id, text });
+    if (memories.length === 0) this.agents.memories.initializeSelection(agent.id);
   }
 
   /** Each allowed server once, turned off, unless a server with its name is already here. */

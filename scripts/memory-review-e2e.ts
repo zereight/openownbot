@@ -340,7 +340,7 @@ try {
     await send(first.id, "I always drink green tea.");
     await reviewed(1);
     await waitFor("the added memory", () =>
-      service.listMemories(first.id).find((memory) => memory.text === "The user prefers green tea."),
+      service.memories.list(first.id).find((memory) => memory.text === "The user prefers green tea."),
     );
     await waitFor("the memory-changes line", () => memoryLines(first.id).length > 0);
     const shown = memoryLines(first.id);
@@ -361,9 +361,9 @@ try {
   await check("a review shows the related searchable memories within its budget", async () => {
     control({ operations: [] });
     const filler = " Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed eiusmod tempor.".repeat(5);
-    service.createMemory({ agentId: first.id, text: `The user's favourite island is Zanzibar.${filler}` });
+    service.memories.create({ agentId: first.id, text: `The user's favourite island is Zanzibar.${filler}` });
     for (let index = 1; index <= 40; index += 1)
-      service.createMemory({ agentId: first.id, text: `Unrelated fact ${index}.${filler}` });
+      service.memories.create({ agentId: first.id, text: `Unrelated fact ${index}.${filler}` });
     await send(first.id, "Tell me about Zanzibar.");
     await runCauseEffect(service.clearAgentContext(first.id));
     await reviewed(2);
@@ -372,7 +372,7 @@ try {
     assert.ok(notShown > 0, "Some searchable memories are not shown.");
     assert.ok(prompt.includes("favourite island is Zanzibar"), "The related memory is shown.");
     assert.ok(prompt.includes("The user prefers green tea."), "The essential memory is shown.");
-    return { memories: service.listMemories(first.id).length, notShown, characters: prompt.length };
+    return { memories: service.memories.list(first.id).length, notShown, characters: prompt.length };
   });
 
   const second = await createAgent("Keeper");
@@ -383,14 +383,14 @@ try {
     await chat(second.id, 17, "Keeper");
     await send(second.id, `Save it. ${calls({ tool: "remember", arguments: { text: "The user works in Berlin." } })}`);
     await send(second.id, `Save this too. ${calls({ tool: "remember", arguments: { text: "The user likes jazz." } })}`);
-    const memories = service.listMemories(second.id);
+    const memories = service.memories.list(second.id);
     own = memories.find((memory) => memory.text === "The user works in Berlin.")?.id ?? "";
     chosen = memories.find((memory) => memory.text === "The user likes jazz.")?.id ?? "";
     assert.ok(own && chosen, "The agent saved both memories.");
-    manual = service.createMemory({ agentId: second.id, text: "The user's cat is called Miso." }).id;
-    const selection = service.getMemorySelection(second.id).selections.find((entry) => entry.memoryId === chosen);
+    manual = service.memories.create({ agentId: second.id, text: "The user's cat is called Miso." }).id;
+    const selection = service.memories.selectionState(second.id).selections.find((entry) => entry.memoryId === chosen);
     assert.ok(selection);
-    service.setMemoryInclusion({
+    service.memories.setInclusions({
       agentId: second.id,
       changes: [{ memoryId: chosen, inclusion: "essential", expectedRevision: selection.revision }],
     });
@@ -411,11 +411,11 @@ try {
   await check("a pause after new turns starts a review of the agent's own memories", async () => {
     await reviewed(3);
     await waitFor("the updated memory", () =>
-      service
-        .listMemories(second.id)
+      service.memories
+        .list(second.id)
         .find((memory) => memory.id === own && memory.text === "The user works in Munich."),
     );
-    const memories = service.listMemories(second.id);
+    const memories = service.memories.list(second.id);
     assert.equal(
       memories.find((memory) => memory.id === chosen)?.text,
       "The user likes jazz.",
@@ -442,7 +442,7 @@ try {
       "The review does not read the chat that the last one read.",
     );
     await waitFor("the memory from the cleared chat", () =>
-      service.listMemories(second.id).some((memory) => memory.text === "The user plans a trip to Oslo."),
+      service.memories.list(second.id).some((memory) => memory.text === "The user plans a trip to Oslo."),
     );
     return { reviews: reviews().length };
   });
@@ -467,13 +467,13 @@ try {
 
   await check("an answer that is not JSON changes nothing, and the next review works", async () => {
     const since = events.length;
-    const before = service.listMemories(third.id).length;
+    const before = service.memories.list(third.id).length;
     control("I think the user likes cats.");
     const failed = await startTask(third.id, "Cats are fine.");
     await runCauseEffect(service.closeTask({ agentId: third.id, taskId: failed.id }));
     await reviewed(6);
     await settle();
-    assert.equal(service.listMemories(third.id).length, before, "Nothing changed.");
+    assert.equal(service.memories.list(third.id).length, before, "Nothing changed.");
     assert.equal(memoryLines(third.id, failed.threadId).length, 0, "No line shows.");
     assert.equal(errorsFor(third.id, since).length, 0, "No error shows.");
     control({ operations: [{ type: "add", text: "The user has two dogs.", inclusion: "searchable" }] });
@@ -481,7 +481,7 @@ try {
     await runCauseEffect(service.closeTask({ agentId: third.id, taskId: next.id }));
     await reviewed(7);
     await waitFor("the next review's memory", () =>
-      service.listMemories(third.id).some((memory) => memory.text === "The user has two dogs."),
+      service.memories.list(third.id).some((memory) => memory.text === "The user has two dogs."),
     );
     return { reviews: reviews().length };
   });
@@ -500,7 +500,7 @@ try {
     assert.ok(reviews()[8]?.includes("I bake bread on Sundays."), "The waiting review reads the ended chat.");
     assert.ok(!reviews()[8]?.includes("I like rye."), "The waiting review does not read the side thread.");
     await waitFor("the memory", () =>
-      service.listMemories(third.id).some((memory) => memory.text === "The user bakes bread on Sundays."),
+      service.memories.list(third.id).some((memory) => memory.text === "The user bakes bread on Sundays."),
     );
     return { reviews: reviews().length };
   });
@@ -548,7 +548,7 @@ try {
     await runCauseEffect(service.clearAgentContext(quiet.id));
     await settle();
     assert.equal(reviews().length, 11, "No review started.");
-    assert.equal(service.listMemories(quiet.id).length, 0, "Nothing changed.");
+    assert.equal(service.memories.list(quiet.id).length, 0, "Nothing changed.");
     assert.equal(memoryLines(quiet.id).length, 0, "No line shows.");
     reviewInterval = 20;
     return { reviews: reviews().length };
@@ -563,7 +563,7 @@ try {
     await runCauseEffect(service.deleteTask({ agentId: third.id, taskId: task.id }));
     await new Promise((done) => setTimeout(done, 3_500));
     assert.ok(
-      !service.listMemories(third.id).some((memory) => memory.text === "Never saved from a thread."),
+      !service.memories.list(third.id).some((memory) => memory.text === "Never saved from a thread."),
       "Nothing changed.",
     );
     assert.equal(errorsFor(third.id, since).length, 0, "No error shows.");
@@ -588,12 +588,12 @@ try {
     const guarded = await createAgent("Guarded");
     const secretText = `The user's key is ${SECRET}.`;
     await send(guarded.id, `Save it. ${calls({ tool: "remember", arguments: { text: secretText } })}`);
-    const hidden = service.listMemories(guarded.id).find((memory) => memory.text.includes(SECRET))?.id;
+    const hidden = service.memories.list(guarded.id).find((memory) => memory.text.includes(SECRET))?.id;
     assert.ok(hidden, "The agent saved the memory.");
     const manualText = "The user's dog is called Rex.";
-    const written = service.createMemory({ agentId: guarded.id, text: manualText }).id;
+    const written = service.memories.create({ agentId: guarded.id, text: manualText }).id;
     const inclusion = () =>
-      service.getMemorySelection(guarded.id).selections.find((entry) => entry.memoryId === written)?.inclusion;
+      service.memories.selectionState(guarded.id).selections.find((entry) => entry.memoryId === written)?.inclusion;
     const before = inclusion();
     assert.notEqual(before, "essential", "The user's memory is not essential.");
     control({
@@ -607,7 +607,7 @@ try {
     await reviewed(14);
     await settle();
     assert.ok(!reviews()[13]?.includes(SECRET), "The review prompt has no secret.");
-    const memories = service.listMemories(guarded.id);
+    const memories = service.memories.list(guarded.id);
     assert.ok(
       memories.some((memory) => memory.id === hidden),
       "The memory that the review saw redacted stays.",
@@ -619,7 +619,7 @@ try {
 
   await check("stopping the service during a slow review applies nothing", async () => {
     const since = events.length;
-    const before = service.listMemories(third.id).length;
+    const before = service.memories.list(third.id).length;
     control({ operations: [{ type: "add", text: "Never saved either.", inclusion: "searchable" }] }, 3_000);
     await send(third.id, "Remember that I like pears.");
     await runCauseEffect(service.clearAgentContext(third.id));
@@ -628,7 +628,7 @@ try {
     await runCauseEffect(service.stop());
     const stopMs = Date.now() - started;
     await new Promise((done) => setTimeout(done, 3_500));
-    assert.equal(service.listMemories(third.id).length, before, "Nothing changed.");
+    assert.equal(service.memories.list(third.id).length, before, "Nothing changed.");
     assert.equal(errorsFor(third.id, since).length, 0, "No error shows.");
     return { stopMs };
   });

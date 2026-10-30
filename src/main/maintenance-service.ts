@@ -82,7 +82,7 @@ export const exportOpenOwnBotData = Effect.fn("Archive.exportOpenOwnBotData")(fu
             ],
           },
           agents: agents.map(toBackupAgent),
-          memories: agents.flatMap((agent) => context.service.listMemories(agent.id)),
+          memories: agents.flatMap((agent) => context.service.memories.list(agent.id)),
           conversations,
           queues,
         };

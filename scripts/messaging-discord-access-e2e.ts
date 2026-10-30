@@ -298,7 +298,7 @@ async function boot<T>(use: (services: Booted) => Promise<T>): Promise<T> {
       respondToApproval: (input) => agents.respondToApproval(input),
       onEvent: () => () => {},
       createAgentProfile: (input) => agents.createAgentProfile(input),
-      createMemory: (input) => agents.createMemory(input),
+      createMemory: (input) => agents.memories.create(input),
       ensureDeletable: (agentId) => agents.ensureAgentDeletable(agentId),
       deleteAgent: (agentId) => agents.deleteAgent(agentId),
       sidebarChatIds: () => agents.sidebarChatIds(),
