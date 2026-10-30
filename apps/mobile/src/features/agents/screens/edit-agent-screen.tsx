@@ -1,3 +1,4 @@
+import { pickAgentName } from "@openownbot/brand/agent-names";
 import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
 import {
   type AvatarHue,
@@ -12,6 +13,8 @@ import { router, useLocalSearchParams } from "expo-router";
 import { usePreventRemove } from "expo-router/react-navigation";
 import { Typography } from "heroui-native";
 import { useThemeColor } from "heroui-native/hooks";
+import ChevronDown from "lucide-react-native/icons/chevron-down";
+import Dices from "lucide-react-native/icons/dices";
 import Pencil from "lucide-react-native/icons/pencil";
 import { useCallback, useMemo, useRef, useState } from "react";
 import { Alert, Pressable, View } from "react-native";
@@ -39,6 +42,7 @@ import {
   useMobileWorkspace,
 } from "@/features/workspace/context/mobile-workspace-context";
 import { showsOnline } from "@/features/workspace/model/server-status";
+import { MenuView } from "@/shared/components/menu-view";
 import { SheetFormField } from "@/shared/components/sheet-form-field";
 import { SheetSaveAction } from "@/shared/components/sheet-save-action";
 import { SheetScrollView } from "@/shared/components/sheet-scroll-view";
@@ -89,6 +93,20 @@ export function EditAgentScreen({ page = "info" }: { page?: AgentPage }) {
   );
 }
 
+/** The titles that agents of the server carry, sorted, without repeats and without the one in the field. */
+function existingTitles(titles: readonly string[], current: string): string[] {
+  const seen = new Set([current.trim().toLocaleLowerCase()]);
+  const choices: string[] = [];
+  for (const title of titles) {
+    const trimmed = title.trim();
+    const key = trimmed.toLocaleLowerCase();
+    if (!trimmed || seen.has(key)) continue;
+    seen.add(key);
+    choices.push(trimmed);
+  }
+  return choices.sort((a, b) => a.localeCompare(b));
+}
+
 function AgentForm({
   agent,
   host,
@@ -102,6 +120,7 @@ function AgentForm({
 }) {
   const { t, errorMessage } = useText();
   const {
+    agents,
     updateAgent,
     setAgentAvatar,
     canManageSharedTables,
@@ -182,6 +201,17 @@ function AgentForm({
     setEdits((current) => ({ ...current, ...value }));
     setError(null);
   }
+  const serverAgents = agents.filter((candidate) => candidate.serverId === agent.serverId);
+  // A random name is one that no other agent of the server has.
+  function randomizeName() {
+    const taken = serverAgents.filter((candidate) => candidate.id !== agent.id).map((candidate) => candidate.name);
+    change({ name: pickAgentName(Math.random, taken).slice(0, INPUT_LIMITS.agentName) });
+    void haptics.selection();
+  }
+  const titleChoices = existingTitles(
+    serverAgents.map((candidate) => candidate.title),
+    title,
+  );
   // Stable handlers let the memoized face and color choices skip unrelated renders.
   const changeAvatarSeed = useCallback((avatarSeed: string) => {
     setEdits((current) => ({ ...current, avatarSeed }));
@@ -307,6 +337,18 @@ function AgentForm({
               value={name}
               editable={!saving}
               onChangeText={(value) => change({ name: value })}
+              trailing={
+                <Pressable
+                  accessibilityRole="button"
+                  accessibilityLabel={t("mobile.agent.edit.randomName")}
+                  disabled={saving}
+                  hitSlop={8}
+                  className="px-4"
+                  onPress={randomizeName}
+                >
+                  <Dices color={foreground} size={20} />
+                </Pressable>
+              }
             />
           </View>
           <SheetFormField
@@ -317,6 +359,24 @@ function AgentForm({
             value={title}
             editable={!saving}
             onChangeText={(value) => change({ title: value })}
+            trailing={
+              titleChoices.length > 0 ? (
+                <MenuView
+                  title={t("mobile.agent.edit.existingTitles")}
+                  actions={titleChoices.map((choice) => ({ id: choice, title: choice }))}
+                  onPressAction={({ nativeEvent }) => change({ title: nativeEvent.event })}
+                >
+                  <View
+                    accessible
+                    accessibilityRole="button"
+                    accessibilityLabel={t("mobile.agent.edit.existingTitles")}
+                    className="px-4"
+                  >
+                    <ChevronDown color={foreground} size={20} />
+                  </View>
+                </MenuView>
+              ) : undefined
+            }
           />
           <SheetFormField
             label={t("mobile.agent.edit.instructions")}

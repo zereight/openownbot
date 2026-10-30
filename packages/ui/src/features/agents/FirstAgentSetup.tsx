@@ -1,3 +1,4 @@
+import { pickAgentName } from "@openownbot/brand/agent-names";
 import { agentProviderDescriptor } from "@openownbot/contracts/agent-providers";
 import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
 import type {
@@ -19,7 +20,6 @@ import { ProviderModelPicker } from "../../components/ProviderModelPicker";
 import { useText } from "../../text";
 import { prefersReducedMotion } from "../../utils";
 import { AgentAvatar } from "./AgentAvatar";
-import { pickAgentName } from "./agent-names";
 import { AVATAR_HUE_LABEL } from "./avatar-hue-label";
 import { InstructionsLimit, instructionsTooLong } from "./InstructionsLimit";
 

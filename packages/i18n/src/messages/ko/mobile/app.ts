@@ -15,7 +15,7 @@ export const messages = {
   "mobile.app.route.support": "지원",
   "mobile.app.route.hiddenChats": "숨긴 채팅",
   "mobile.app.route.share": "공유",
-  "mobile.app.route.deletedChannels": "삭제된 채널",
+  "mobile.app.route.deletedChannels": "아카이브한 채널",
   "mobile.app.route.cropPhoto": "이동 및 확대/축소",
   "mobile.app.route.queuedMessages": "대기 중인 메시지",
   "mobile.app.route.messageOptions": "메시지 옵션",
@@ -31,7 +31,6 @@ export const messages = {
   "mobile.app.route.tasks": "작업",
   "mobile.app.route.task": "작업",
   "mobile.app.route.usage": "사용량",
-  "mobile.app.route.marketplace": "마켓플레이스",
   "mobile.app.quickAction.routines": "루틴",
   "mobile.app.quickAction.search": "검색",
 } as const satisfies PartialTranslation<typeof source>;

@@ -15,7 +15,7 @@ function userAssignedSkills(skills: InstalledSkill[]): InstalledSkill[] {
 }
 
 /**
- * The read of one agent's skills. Agent info, the Marketplace and the chat composer use this one
+ * The read of one agent's skills. Agent info and the chat composer use this one
  * query, so they write the same list under the same key. Null when the host has no skill route.
  */
 export function agentSkillsQuery(

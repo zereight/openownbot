@@ -13,6 +13,14 @@ export type WorkspaceTeamEvent = AgentEvent | TeamRealtimeEvent;
 /** The browser takeover requests and the browser tabs of a server that one host event changes. */
 export function applyBrowserEvent(liveState: LiveWorkspaceStore, serverId: string, event: WorkspaceTeamEvent): void {
   if (event.type === "runtime-snapshot") {
+    liveState.update("contextStates", (current) => {
+      const incoming = {
+        agents: event.snapshot.contextStates ?? [],
+        threads: event.snapshot.threadContextStates ?? [],
+      };
+      const next = replaceEqualDeep(current[serverId], incoming);
+      return next === current[serverId] ? current : { ...current, [serverId]: next };
+    });
     liveState.update("browserRequests", (current) => {
       const next = replaceEqualDeep(
         current[serverId],

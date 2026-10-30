@@ -312,6 +312,16 @@ export const messages = {
   "mobile.server.settings.memoryLimitSaveFailed": "メモリー数の上限を保存できませんでした。もう一度お試しください。",
   "mobile.server.settings.memoryLimitUnsupported":
     "ここでメモリー数の上限を変更するには、このサーバーの OpenOwnBot を更新してください。",
+  "mobile.server.settings.memoryReview": "メモリーの見直し",
+  "mobile.server.settings.memoryReviewDescription":
+    "このサーバーのエージェントが、チャットから長く使う事実をバックグラウンドで保存する頻度です。",
+  "mobile.server.settings.memoryReviewOff": "オフ",
+  "mobile.server.settings.memoryReviewTurns": { other: "{count} ターンごと" },
+  "mobile.server.settings.memoryReviewLoadFailed": "メモリーの見直しの設定を読み込めませんでした。",
+  "mobile.server.settings.memoryReviewSaveFailed":
+    "メモリレビューの設定を保存できませんでした。もう一度お試しください。",
+  "mobile.server.settings.memoryReviewUnsupported":
+    "このサーバーの OpenOwnBot を更新すると、ここでメモリレビューを変更できます。",
   "mobile.server.route.connectors": "コネクター",
   "mobile.server.settings.connectors": "コネクター",
   "mobile.server.connectors.unavailable":

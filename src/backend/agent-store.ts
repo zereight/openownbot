@@ -16,6 +16,7 @@ import {
   writeFile,
 } from "node:fs/promises";
 import { basename, dirname, isAbsolute, join, relative, resolve } from "node:path";
+import { pickAgentName } from "@openownbot/brand/agent-names";
 import { avatarFileExtension, isAvatarMimeType, isValidAvatarImage } from "@openownbot/contracts/avatar-images";
 import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
 import type { AgentProfileDraft } from "@openownbot/contracts/ipc";
@@ -68,7 +69,6 @@ import { type DynamicRecord, isBoolean, isNumber, isOneOf, isString } from "@ope
 import { isGeneratedAgentId, isUuidV4, legacyAgentId } from "@openownbot/contracts/validation";
 import { sourceText } from "@openownbot/i18n/source";
 import { createOpenOwnBotLogger, toLogValue } from "@openownbot/logging";
-import { pickAgentName } from "@openownbot/ui/features/agents/agent-names";
 import { Effect, Result, Semaphore, Stream } from "effect";
 import { ProfileCreationRecovery } from "./agent/profile-creation-recovery";
 import { isEmptyStoredFile, parseStoredJson, writeFileAtomically } from "./atomic-json-file";

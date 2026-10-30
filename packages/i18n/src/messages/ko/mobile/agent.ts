@@ -469,6 +469,8 @@ export const messages = {
   "mobile.agent.edit.gone": "이 에이전트는 이 호스트에서 더 이상 사용할 수 없어요.",
   "mobile.agent.edit.failed": "OpenOwnBot이 이 에이전트를 업데이트하지 못했어요.",
   "mobile.agent.edit.appearance": "외형 편집",
+  "mobile.agent.edit.randomName": "무작위 이름",
+  "mobile.agent.edit.existingTitles": "기존 직함",
   "mobile.agent.edit.title": "제목",
   "mobile.agent.edit.titlePlaceholder": "에이전트가 하는 일을 설명해 주세요",
   "mobile.agent.edit.instructions": "지침",

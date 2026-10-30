@@ -9,7 +9,6 @@ import ChevronDown from "lucide-react-native/icons/chevron-down";
 import Plus from "lucide-react-native/icons/plus";
 import Settings from "lucide-react-native/icons/settings";
 import Settings2 from "lucide-react-native/icons/settings-2";
-import ShoppingBag from "lucide-react-native/icons/shopping-bag";
 import SquareCheck from "lucide-react-native/icons/square-check";
 import WorkflowIcon from "lucide-react-native/icons/workflow";
 import { memo, type PropsWithChildren, type ReactNode, useEffect, useMemo, useRef, useState } from "react";
@@ -469,7 +468,7 @@ export const ServerDrawerContent = memo(function ServerDrawerContent({
   );
 });
 
-type DrawerRoute = "tasks" | "routines" | "workflows" | "marketplace" | "usage" | "settings";
+type DrawerRoute = "tasks" | "routines" | "workflows" | "usage" | "settings";
 
 /**
  * The tools of the open server with their values. Each answer from the host renders only this part
@@ -493,7 +492,6 @@ function DrawerServerTools({
       tasks: { pathname: "/server-tasks", params: { serverId } },
       routines: { pathname: "/server-routines", params: { serverId } },
       workflows: { pathname: "/server-workflows", params: { serverId } },
-      marketplace: { pathname: "/server-marketplace", params: { serverId } },
       usage: { pathname: "/server-usage", params: { serverId } },
       settings: { pathname: "/server-settings", params: { serverId } },
     }),
@@ -531,12 +529,6 @@ function DrawerServerTools({
           <DrawerPinnedWorkflows serverId={serverId} pinned={workflows.pinned} onNavigate={onNavigate} />
         </>
       ) : null}
-      <DrawerRow
-        icon={ShoppingBag}
-        label={t("mobile.app.route.marketplace")}
-        href={routes.marketplace}
-        onNavigate={onNavigate}
-      />
       <DrawerRow
         icon={ChartColumn}
         label={t("mobile.app.route.usage")}

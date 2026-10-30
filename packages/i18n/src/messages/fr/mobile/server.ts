@@ -319,6 +319,15 @@ export const messages = {
   "mobile.server.settings.memoryLimitSaveFailed": "Impossible d’enregistrer la limite de souvenirs. Réessayez.",
   "mobile.server.settings.memoryLimitUnsupported":
     "Mettez à jour OpenOwnBot sur ce serveur pour changer sa limite de souvenirs ici.",
+  "mobile.server.settings.memoryReview": "Revue des souvenirs",
+  "mobile.server.settings.memoryReviewDescription":
+    "À quelle fréquence les agents de ce serveur enregistrent en arrière-plan les faits durables de leurs discussions.",
+  "mobile.server.settings.memoryReviewOff": "Désactivée",
+  "mobile.server.settings.memoryReviewTurns": { one: "Tous les {count} tour", other: "Tous les {count} tours" },
+  "mobile.server.settings.memoryReviewLoadFailed": "Impossible de charger le réglage de revue des souvenirs.",
+  "mobile.server.settings.memoryReviewSaveFailed": "Impossible d’enregistrer la révision de la mémoire. Réessayez.",
+  "mobile.server.settings.memoryReviewUnsupported":
+    "Mettez à jour OpenOwnBot sur ce serveur pour modifier ici sa révision de la mémoire.",
   "mobile.server.route.connectors": "Connecteurs",
   "mobile.server.settings.connectors": "Connecteurs",
   "mobile.server.connectors.unavailable":

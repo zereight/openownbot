@@ -41,6 +41,7 @@ import type {
   HostAnalyticsInput,
   HostedSiteList,
   HostGitHubConnectorStatus,
+  HostMemoryReview,
   HostMessagingConnectInput,
   HostMessagingWorkspaceInput,
   HostProviderAccounts,
@@ -51,7 +52,6 @@ import type {
   HostUpdateStatus,
   InstallAgentTemplateInput,
   InstalledSkill,
-  InstallMarketplaceAgentInput,
   InstallSkillInput,
   McpServerConfig,
   McpSignInState,
@@ -82,7 +82,6 @@ import type {
   SharedTable,
   SidebarLayoutAction,
   SidebarLayoutSnapshot,
-  SignInRelayStatus,
   StorageUsage,
   UninstallSkillInput,
   UpdateAgentAdminSettingsInput,
@@ -314,6 +313,12 @@ export interface MobileWorkspaceContextValue {
   /** How many memories each agent of the server can keep, and the values that the host permits. */
   loadAgentMemoryLimit: (serverId: string) => Promise<HostAgentMemoryLimit>;
   setAgentMemoryLimit: (limit: number, serverId: string) => Promise<HostAgentMemoryLimit>;
+  /** An owner or admin of an online host that serves `memory-review-v1`. The host checks the role again. */
+  canManageMemoryReview: (serverId: string) => boolean;
+  /** How many completed turns pass between two memory reviews of the server, and the values that the host permits. */
+  loadMemoryReview: (serverId: string) => Promise<HostMemoryReview>;
+  /** `0` turns the review off. */
+  setMemoryReview: (interval: number, serverId: string) => Promise<HostMemoryReview>;
   /** An owner or admin of an online host that serves `agent-access-v1`. The host checks the role again. */
   canManageServerRoles: (serverId: string) => boolean;
   /**
@@ -420,13 +425,6 @@ export interface MobileWorkspaceContextValue {
   setMcpServerEnabled: (mcpServerId: string, enabled: boolean, serverId: string) => Promise<McpServerConfig[]>;
   /** Connects once with `config` on the host. Nothing is saved. */
   testMcpServer: (config: McpServerConfig, serverId: string) => Promise<McpTestResult>;
-  /**
-   * An owner or admin of an online host that serves `mcp-servers-v1` and `sign-in-relay-v1`: the phone
-   * opens the browser sign-in of an MCP server, and the host keeps the grant.
-   */
-  canRelayMcpSignIn: (serverId: string) => boolean;
-  /** The relayed browser sign-ins of MCP servers on one host. Refuses a host without `sign-in-relay-v1`. */
-  mcpSignInRelay: (serverId: string) => McpSignInRelay;
   /** The http servers that the host holds a sign-in for. Empty for a host without `mcp-sign-in-v1`. */
   listMcpSignIns: (serverId: string) => Promise<McpSignInState[]>;
   signOutMcpServer: (mcpServerId: string, serverId: string) => Promise<McpSignInState[]>;
@@ -572,12 +570,6 @@ export interface MobileWorkspaceContextValue {
   canInstallAgentTemplate: (serverId: string) => boolean;
   /** Owners and admins only. The host downloads the template with its own account. */
   installAgentTemplate: (input: InstallAgentTemplateInput, serverId: string) => Promise<AddedAgent>;
-  /** An owner or admin of an online host that serves `agent-install-v1`. The host checks the role again. */
-  canAddMarketplaceAgents: (serverId: string) => boolean;
-  /** An owner or admin of an online host that serves `agent-update-v1`. The host checks the role again. */
-  canUpdateMarketplaceAgents: (serverId: string) => boolean;
-  /** Owners and admins only. The host downloads the listing with its own account. */
-  installMarketplaceAgent: (input: InstallMarketplaceAgentInput, serverId: string) => Promise<AddedAgent>;
   /** Owners and admins only; the host refuses a member. */
   deleteStoredFile: (fileId: string, serverId: string) => Promise<void>;
   /** Searches message text in the server's agent chats, one page from `cursor` or from the newest match. */
@@ -672,19 +664,6 @@ export interface MobileWorkspaceContextValue {
   toggleAgentPin: (agentId: string) => ToggleAgentPinResult;
 }
 
-/**
- * One host's relayed MCP sign-ins (`sign-in-relay-v1`). The host starts the sign-in and opens no page;
- * the phone opens the page, and the address it ends on goes back with `complete`.
- */
-interface McpSignInRelay {
-  /** Starts the sign-in of `config` and answers its flow id. */
-  start: (config: McpServerConfig) => Promise<string>;
-  status: (flowId: string) => Promise<SignInRelayStatus>;
-  /** `query` holds a grant. It goes only to the host. */
-  complete: (flowId: string, query: string) => Promise<SignInRelayStatus>;
-  cancel: (flowId: string) => Promise<void>;
-}
-
 /** The checks that read what a host advertised. Their answer changes when a server connects. */
 export type MobileWorkspaceCapabilityCheck =
   | "browserViewSupport"
@@ -719,6 +698,7 @@ type MobileWorkspaceStateKey =
   | "canEditServerIdentity"
   | "canManageServerTimezone"
   | "canManageAgentMemoryLimit"
+  | "canManageMemoryReview"
   | "canManageServerRoles"
   | "hasAgentAccessLimits"
   | "canManageConnectors"
@@ -732,9 +712,6 @@ type MobileWorkspaceStateKey =
   | "canDeleteHostedSites"
   | "canManageProviders"
   | "canManageMcpServers"
-  | "canRelayMcpSignIn"
-  | "canAddMarketplaceAgents"
-  | "canUpdateMarketplaceAgents"
   | "canSendNotifications"
   | "canManageEvents"
   | "canManageMissedRuns"

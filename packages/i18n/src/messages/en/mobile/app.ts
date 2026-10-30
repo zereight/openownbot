@@ -14,7 +14,7 @@ export const messages = defineMessages("mobile.app", {
   "mobile.app.route.support": "Support",
   "mobile.app.route.hiddenChats": "Hidden chats",
   "mobile.app.route.share": "Share",
-  "mobile.app.route.deletedChannels": "Deleted channels",
+  "mobile.app.route.deletedChannels": "Archived channels",
   "mobile.app.route.cropPhoto": "Move and Scale",
   "mobile.app.route.queuedMessages": "Queued messages",
   "mobile.app.route.messageOptions": "Message options",
@@ -30,7 +30,6 @@ export const messages = defineMessages("mobile.app", {
   "mobile.app.route.tasks": "Tasks",
   "mobile.app.route.task": "Task",
   "mobile.app.route.usage": "Usage",
-  "mobile.app.route.marketplace": "Marketplace",
   // The quick actions of the app icon, which the phone shows when the icon is held.
   "mobile.app.quickAction.routines": "Routines",
   "mobile.app.quickAction.search": "Search",

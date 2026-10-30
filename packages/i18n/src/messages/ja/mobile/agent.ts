@@ -477,6 +477,8 @@ export const messages = {
   "mobile.agent.edit.gone": "このエージェントは、このホストで利用できなくなりました。",
   "mobile.agent.edit.failed": "OpenOwnBot はこのエージェントを更新できませんでした。",
   "mobile.agent.edit.appearance": "外観を編集",
+  "mobile.agent.edit.randomName": "ランダムな名前",
+  "mobile.agent.edit.existingTitles": "既存の肩書き",
   "mobile.agent.edit.title": "タイトル",
   "mobile.agent.edit.titlePlaceholder": "エージェントが行うことを説明してください",
   "mobile.agent.edit.instructions": "指示",

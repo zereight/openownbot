@@ -313,6 +313,15 @@ export const messages = defineMessages("mobile.server", {
   "mobile.server.settings.memoryLimitLoadFailed": "Could not load the memory limit of this server.",
   "mobile.server.settings.memoryLimitSaveFailed": "Could not save the memory limit. Try again.",
   "mobile.server.settings.memoryLimitUnsupported": "Update OpenOwnBot on this server to change its memory limit here.",
+  "mobile.server.settings.memoryReview": "Memory review",
+  "mobile.server.settings.memoryReviewDescription":
+    "How often agents on this server save lasting facts from their chats in the background.",
+  "mobile.server.settings.memoryReviewOff": "Off",
+  "mobile.server.settings.memoryReviewTurns": { one: "Every {count} turn", other: "Every {count} turns" },
+  "mobile.server.settings.memoryReviewLoadFailed": "Could not load the memory review setting.",
+  "mobile.server.settings.memoryReviewSaveFailed": "Could not save the memory review setting. Try again.",
+  "mobile.server.settings.memoryReviewUnsupported":
+    "Update OpenOwnBot on this server to change its memory review here.",
   // Server settings › Vault: the logins, cards and contact info of a joined server, for an owner or
   // admin. {host} is the server name, such as Studio. The phone never shows a saved secret.
   "mobile.server.route.vault": "Vault",

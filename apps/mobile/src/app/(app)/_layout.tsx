@@ -326,22 +326,6 @@ function AuthenticatedStack() {
           }}
         />
         <Stack.Screen
-          name="marketplace-listing"
-          // The header comes from the stack in `marketplace-listing/_layout.tsx`: Android draws no header
-          // on a formSheet route, so Close would not show there.
-          options={{
-            contentStyle: { backgroundColor: sheetBackground },
-            headerShown: false,
-            scrollEdgeEffects: { top: "hidden", bottom: "soft" },
-            presentation: "formSheet",
-            // A page to read before installing, as a shared agent: full height on iOS. On Android a
-            // full-height sheet goes under the status bar and covers its header.
-            sheetAllowedDetents: isAndroid ? [0.85] : [1],
-            sheetInitialDetentIndex: "last",
-            sheetGrabberVisible: true,
-          }}
-        />
-        <Stack.Screen
           name="section-form"
           // The header comes from the route's `_layout.tsx`: Android draws no header on a formSheet route.
           // Android: autoFocus focuses the name field while the sheet opens, and Android does not show
@@ -476,7 +460,6 @@ function AuthenticatedStack() {
           }}
         />
         <Stack.Screen name="server-usage/index" options={largeTitlePage} />
-        <Stack.Screen name="server-marketplace/index" options={largeTitlePage} />
         <Stack.Screen
           name="share"
           // The header comes from the route's `_layout.tsx`: Android draws no header on a formSheet route.

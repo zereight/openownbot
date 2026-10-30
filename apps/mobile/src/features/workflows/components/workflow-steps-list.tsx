@@ -9,13 +9,16 @@ import type { MobileAgent } from "@/features/workspace/model/workspace-types";
 import { useText } from "@/shared/lib/text";
 import { typeScale } from "@/shared/lib/type-scale";
 
-/** One step of a workflow, read-only: its kind and what it does. */
+/** One step of a workflow, read-only: its number, kind and what it does. */
 function WorkflowStepLine({
   node,
+  number,
   agents,
   inset = false,
 }: {
   node: WorkflowNode;
+  /** The place of the node in the workflow from 1, as the canvas on the desktop shows it. */
+  number: number | undefined;
   agents: readonly MobileAgent[];
   /** A step of a condition path sits under the condition. */
   inset?: boolean;
@@ -23,6 +26,14 @@ function WorkflowStepLine({
   const { t } = useText();
   return (
     <View className={`min-h-12 flex-row items-center gap-3 py-2.5 pr-4 ${inset ? "pl-12" : "pl-4"}`}>
+      {number === undefined ? null : (
+        <Typography.Paragraph
+          className="min-w-5 text-center text-text-secondary"
+          style={[typeScale.small, { fontVariant: ["tabular-nums"] }]}
+        >
+          {number}
+        </Typography.Paragraph>
+      )}
       <WorkflowKindTile kind={node.kind} trigger={node.kind === "trigger" ? triggerType(node) : undefined} size={26} />
       <View className="min-w-0 flex-1">
         <Typography.Paragraph className="text-text-secondary" numberOfLines={1} style={typeScale.small}>
@@ -53,12 +64,19 @@ function PathLabel({ text }: { text: string }) {
 export function workflowStepRows(graph: WorkflowGraph, agents: readonly MobileAgent[], t: MobileTranslate) {
   const outline = workflowOutline(graph);
   const byId = new Map(graph.nodes.map((node) => [node.id, node]));
+  // The number is the place in the node list, whatever the reading order, as on the desktop canvas.
+  const numberOf = (id: string) => {
+    const index = graph.nodes.findIndex((node) => node.id === id);
+    return index < 0 ? undefined : index + 1;
+  };
   const line = (id: string, inset = false) => {
     const node = byId.get(id);
-    return node ? <WorkflowStepLine key={id} node={node} agents={agents} inset={inset} /> : null;
+    return node ? <WorkflowStepLine key={id} node={node} number={numberOf(id)} agents={agents} inset={inset} /> : null;
   };
   if (!outline)
-    return readingOrder(graph).map((node) => <WorkflowStepLine key={node.id} node={node} agents={agents} />);
+    return readingOrder(graph).map((node) => (
+      <WorkflowStepLine key={node.id} node={node} number={numberOf(node.id)} agents={agents} />
+    ));
   const rows = [line(outline.trigger), ...outline.main.map((id) => line(id))];
   if (outline.condition) {
     rows.push(line(outline.condition));

@@ -301,8 +301,8 @@ function ServerGeneralSettings({ serverId }: { serverId: string }) {
   const { theme } = useUniwind();
   const queryScope = useQueryScope();
   const queryClient = useQueryClient();
-  const { canManageAgentMemoryLimit } = useMobileWorkspace();
-  const { loadAgentMemoryLimit, setAgentMemoryLimit } = useMobileWorkspaceActions();
+  const { canManageAgentMemoryLimit, canManageMemoryReview } = useMobileWorkspace();
+  const { loadAgentMemoryLimit, setAgentMemoryLimit, loadMemoryReview, setMemoryReview } = useMobileWorkspaceActions();
   const timezone = useServerTimezone(serverId);
   const memoryLimitKey = queryKeys.agentMemoryLimit(queryScope, serverId);
   const memoryLimitAvailable = canManageAgentMemoryLimit(serverId);
@@ -314,11 +314,22 @@ function ServerGeneralSettings({ serverId }: { serverId: string }) {
     gcTime: 0,
     queryFn: () => loadAgentMemoryLimit(serverId),
   });
+  const memoryReviewKey = queryKeys.memoryReview(queryScope, serverId);
+  const memoryReviewAvailable = canManageMemoryReview(serverId);
+  const memoryReview = useQuery({
+    queryKey: memoryReviewKey,
+    enabled: memoryReviewAvailable,
+    retry: false,
+    staleTime: 0,
+    gcTime: 0,
+    queryFn: () => loadMemoryReview(serverId),
+  });
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  if (!timezone.available && !memoryLimitAvailable) return null;
+  if (!timezone.available && !memoryLimitAvailable && !memoryReviewAvailable) return null;
   const zone = timezone.query.data;
   const limit = memoryLimit.data;
+  const review = memoryReview.data;
 
   function chooseLimit(next: number) {
     if (saving || next === limit?.limit) return;
@@ -338,18 +349,44 @@ function ServerGeneralSettings({ serverId }: { serverId: string }) {
       .finally(() => setSaving(false));
   }
 
+  function chooseReview(next: number) {
+    if (saving || next === review?.interval) return;
+    void haptics.selection();
+    setSaving(true);
+    setError(null);
+    setMemoryReview(next, serverId)
+      .then(async (saved) => {
+        await queryClient.cancelQueries({ queryKey: memoryReviewKey, exact: true });
+        queryClient.setQueryData(memoryReviewKey, saved);
+        void haptics.notification("success");
+      })
+      .catch((cause: unknown) => {
+        void haptics.notification("error");
+        setError(errorMessage(cause, t("mobile.server.settings.memoryReviewSaveFailed")));
+      })
+      .finally(() => setSaving(false));
+  }
+  const reviewLabel = (interval: number) =>
+    interval === 0
+      ? t("mobile.server.settings.memoryReviewOff")
+      : t("mobile.server.settings.memoryReviewTurns", { count: interval });
+
   return (
     <SettingsSection
       title={t("mobile.server.settings.general")}
       footer={
         error ??
-        (memoryLimit.isError
-          ? errorMessage(memoryLimit.error, t("mobile.server.settings.memoryLimitLoadFailed"))
-          : timezone.query.isError
-            ? errorMessage(timezone.query.error, t("mobile.server.settings.timezoneLoadFailed"))
-            : memoryLimitAvailable
-              ? t("mobile.server.settings.memoryLimitDescription")
-              : undefined)
+        (memoryReview.isError
+          ? errorMessage(memoryReview.error, t("mobile.server.settings.memoryReviewLoadFailed"))
+          : memoryLimit.isError
+            ? errorMessage(memoryLimit.error, t("mobile.server.settings.memoryLimitLoadFailed"))
+            : timezone.query.isError
+              ? errorMessage(timezone.query.error, t("mobile.server.settings.timezoneLoadFailed"))
+              : memoryLimitAvailable
+                ? t("mobile.server.settings.memoryLimitDescription")
+                : memoryReviewAvailable
+                  ? t("mobile.server.settings.memoryReviewDescription")
+                  : undefined)
       }
     >
       {timezone.available ? (
@@ -387,6 +424,29 @@ function ServerGeneralSettings({ serverId }: { serverId: string }) {
           }
         >
           <Typography.Paragraph>{t("mobile.server.settings.memoryLimit")}</Typography.Paragraph>
+        </SettingsRow>
+      ) : null}
+      {memoryReviewAvailable ? (
+        <SettingsRow
+          disclosure={false}
+          trailing={
+            review ? (
+              <SettingsPicker
+                value={review.interval}
+                // A host that no longer permits its saved value still shows it.
+                options={(review.choices.includes(review.interval)
+                  ? review.choices
+                  : [review.interval, ...review.choices]
+                ).map((choice) => ({ value: choice, label: reviewLabel(choice) }))}
+                enabled={!saving}
+                dark={theme === "dark"}
+                label={t("mobile.server.settings.memoryReview")}
+                onChange={chooseReview}
+              />
+            ) : null
+          }
+        >
+          <Typography.Paragraph>{t("mobile.server.settings.memoryReview")}</Typography.Paragraph>
         </SettingsRow>
       ) : null}
     </SettingsSection>

@@ -15,7 +15,7 @@ export const messages = {
   "mobile.app.route.support": "支持",
   "mobile.app.route.hiddenChats": "隐藏的对话",
   "mobile.app.route.share": "分享",
-  "mobile.app.route.deletedChannels": "已删除的频道",
+  "mobile.app.route.deletedChannels": "已归档的频道",
   "mobile.app.route.cropPhoto": "移动与缩放",
   "mobile.app.route.queuedMessages": "排队的消息",
   "mobile.app.route.messageOptions": "消息选项",
@@ -31,7 +31,6 @@ export const messages = {
   "mobile.app.route.tasks": "任务",
   "mobile.app.route.task": "任务",
   "mobile.app.route.usage": "用量",
-  "mobile.app.route.marketplace": "市场",
   // The quick actions of the app icon, which the phone shows when the icon is held.
   "mobile.app.quickAction.routines": "自动化任务",
   "mobile.app.quickAction.search": "搜索",

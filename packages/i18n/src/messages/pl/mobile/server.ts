@@ -358,6 +358,20 @@ export const messages = {
   "mobile.server.settings.memoryLimitSaveFailed": "Nie udało się zapisać limitu wspomnień. Spróbuj ponownie.",
   "mobile.server.settings.memoryLimitUnsupported":
     "Zaktualizuj OpenOwnBot na tym serwerze, aby zmienić tu jego limit wspomnień.",
+  "mobile.server.settings.memoryReview": "Przegląd wspomnień",
+  "mobile.server.settings.memoryReviewDescription":
+    "Jak często agenci na tym serwerze zapisują w tle trwałe fakty ze swoich czatów.",
+  "mobile.server.settings.memoryReviewOff": "Wyłączony",
+  "mobile.server.settings.memoryReviewTurns": {
+    one: "Co {count} turę",
+    few: "Co {count} tury",
+    many: "Co {count} tur",
+    other: "Co {count} tury",
+  },
+  "mobile.server.settings.memoryReviewLoadFailed": "Nie udało się wczytać ustawienia przeglądu wspomnień.",
+  "mobile.server.settings.memoryReviewSaveFailed": "Nie udało się zapisać przeglądu pamięci. Spróbuj ponownie.",
+  "mobile.server.settings.memoryReviewUnsupported":
+    "Zaktualizuj OpenOwnBot na tym serwerze, aby zmienić tutaj przegląd pamięci.",
   "mobile.server.route.connectors": "Konektory",
   "mobile.server.settings.connectors": "Konektory",
   "mobile.server.connectors.unavailable":
