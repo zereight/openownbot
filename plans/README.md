@@ -19,7 +19,7 @@ changes, and respect the `STOP` conditions.
 | 009 | An HTTPS sign-out or session revoke also closes the browser views of that session | P2 | S | — | DONE |
 | 010 | Work of an agent can always be stopped, and its kind and failure are visible | P1 | M | — | IN PROGRESS: goals 3, 7 need a reproduction; goal 6 needs a contract decision |
 | 011 | A new product that uses OpenOwnBot only as an idea benchmark | P2 | XL | — | REJECTED: not needed; no commercial sale, and the noncommercial license permits all changes in this repository |
-| 012 | Rewrite OpenOwnBot in place, as a first version | P1 | XL | — | IN PROGRESS: decisions recorded 2026-10-31; phase 1 (delete compatibility) is next |
+| 012 | Rewrite OpenOwnBot in place, as a first version | P1 | XL | — | IN PROGRESS: phase 1 (delete compatibility); backup branch `main-backup` |
 
 Allowed states: `TODO`, `IN PROGRESS`, `DONE`, `BLOCKED: <reason>`,
 `REJECTED: <reason>`.

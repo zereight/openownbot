@@ -65,11 +65,17 @@ Each step is one PR, merged when CI passes. Each phase makes the code smaller be
    are part of the UI step.
 5. **Clean up.** Remove scripts, checks and documents that no longer apply.
 
-## Open questions
+## More decisions (developer, 2026-10-31)
 
-- Languages: the 13 catalogs have about 157k lines. Keep all 13, or keep fewer?
-- Checks: which E2E scripts stay as the proof of each feature.
-- The design direction for the new UI.
+7. **Backup.** The branch `main-backup` keeps `main` as it was before the rewrite (`c7d27ad98`). Do not
+   delete or move it.
+8. **Languages.** English and Korean only. The other 11 catalogs are deleted in phase 1.
+9. **Checks.** The E2E scripts are chosen again after phase 2: one or more per feature on the list.
+   Until then, a script that only checks deleted behavior is deleted with that behavior.
+10. **Design.** In the style of a Discord bot such as Grok on Discord: a server and channel layout,
+    a chat column where agents post as bot members, compact message rows. The exact reading of this
+    style is not confirmed; phase 3 shows a draft for the developer to accept.
+11. **Order.** The phases below, in this order.
 
 ## Risks
 
