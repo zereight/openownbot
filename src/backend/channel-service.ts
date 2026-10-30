@@ -1,6 +1,7 @@
 import { randomUUID } from "node:crypto";
 import { realpathSync } from "node:fs";
 import { basename, dirname, isAbsolute, join, normalize, sep } from "node:path";
+import { mentionsEveryone } from "@openownbot/contracts/chat-tag-references";
 import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
 import {
   type AgentAccessLevel,
@@ -475,6 +476,12 @@ export class ChannelService {
           !previous && referenced && !referenced.taskId && referenced.author.kind === "agent"
             ? this.eligibleMembers(current).find((agentId) => agentId === referenced.author.id)
             : undefined;
+        // A message that names everyone gives each available member its own task. A reply, a
+        // continuation or a named recipient is addressed already, so the tag adds nothing there.
+        const everyone =
+          !previous && !repliedMember && !command.recipientAgentId && mentionsEveryone(text)
+            ? this.eligibleMembers(current).map((agentId) => this.newTask(current.id, id, text, agentId))
+            : [];
         const task = previous
           ? {
               ...previous,
@@ -487,7 +494,7 @@ export class ChannelService {
               error: null,
               ownerAgentId: command.recipientAgentId ?? previous.ownerAgentId,
             }
-          : this.newTask(current.id, id, text, command.recipientAgentId ?? repliedMember ?? null);
+          : (everyone[0] ?? this.newTask(current.id, id, text, command.recipientAgentId ?? repliedMember ?? null));
         const message = this.message(current.id, task.id, { kind: "member", ...actor }, text, id);
         message.message.replyToMessageId = command.replyToMessageId;
         if (committed) message.message.attachments = committed.attachments;
@@ -512,7 +519,7 @@ export class ChannelService {
                   .map((entry) => ({ ...entry, superseded: true })),
                 message,
               ],
-              tasks: [...stopped, task],
+              tasks: [...stopped, task, ...everyone.slice(1)],
             },
             operationId,
           ),

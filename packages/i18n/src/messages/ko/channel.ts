@@ -15,6 +15,8 @@ export const messages = {
   "channel.stoppedTask.cancelConfirm": "요청 취소",
   "channel.conversation.noMembers": "채널 설정에서 에이전트를 추가하면 작업을 시작할 수 있어요.",
   "channel.conversation.archivedNotice": "아카이브한 채널이에요. 미리보기만 가능해요.",
+  "channel.mention.everyoneTitle": "전체",
+  "channel.mention.everyoneDescription": "채널의 모든 멤버에게 각자 작업을 줌.",
   "channel.composer.label": "채널에 메시지 보내기",
   "channel.composer.placeholder": "{name}에 메시지 보내기",
   "channel.panel.label": "채널 패널",

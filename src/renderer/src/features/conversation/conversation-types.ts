@@ -30,7 +30,7 @@ import type {
   WorkspaceDirectory,
 } from "@openownbot/contracts/ipc";
 import type { ConversationUiBlock } from "@openownbot/contracts/ui-blocks";
-import type { AgentMessage, AgentProfile } from "@openownbot/ui/data";
+import type { AgentMessage, AgentProfile, ComposerAgent } from "@openownbot/ui/data";
 import type { BrowserViewRuntime } from "@openownbot/ui/features/browser/BrowserLiveView";
 import type { ChannelWorker } from "@openownbot/ui/features/channels/ChannelActivityIndicator";
 import type { AwaitingReplyItem } from "@openownbot/ui/features/conversation/AwaitingReplies";
@@ -194,7 +194,7 @@ export interface ConversationProps {
    * The agents that the composer offers for a mention. Absent means `agents`. A hidden agent gets no
    * messages, so the desktop leaves it out; the timeline still names it from `agents`.
    */
-  mentionAgents?: AgentProfile[] | undefined;
+  mentionAgents?: ComposerAgent[] | undefined;
   availableRoutineIds?: readonly string[] | undefined;
   /** The agent's routines, for the chat card of a routine the agent created or changed. */
   routines?: readonly RoutineFields[] | undefined;

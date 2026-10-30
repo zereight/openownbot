@@ -36,6 +36,8 @@ export const messages = {
   "mobile.channel.deleted.restoreNamed": "恢复 {name}",
   "mobile.channel.deleted.restoreFailed": "无法恢复频道",
   "mobile.channel.deleted.restoreFailedBody": "无法恢复该频道，请重试。",
+  "mobile.channel.mention.everyoneTitle": "所有人",
+  "mobile.channel.mention.everyoneDescription": "为频道的每位成员分配各自的任务。",
   "mobile.channel.chat.fallbackName": "频道",
   "mobile.channel.chat.deletedNotice": "已归档的频道，仅供预览。",
   "mobile.channel.records.connect": "连接到服务器后才能编辑该频道。",

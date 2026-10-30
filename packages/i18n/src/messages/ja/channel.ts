@@ -10,6 +10,8 @@ export const messages = {
   "channel.stoppedTask.reassign": "再割り当て",
   "channel.conversation.noMembers": "作業を始めるには、チャンネル設定でエージェントを追加してください。",
   "channel.conversation.archivedNotice": "アーカイブ済みのチャンネルです。プレビューのみです。",
+  "channel.mention.everyoneTitle": "全員",
+  "channel.mention.everyoneDescription": "チャンネルの全メンバーにそれぞれタスクを渡します。",
   "channel.composer.label": "チャンネルへのメッセージ",
   "channel.composer.placeholder": "{name} へのメッセージ",
   "channel.panel.label": "チャンネルパネル",

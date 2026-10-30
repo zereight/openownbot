@@ -38,6 +38,8 @@ export const messages = {
   "mobile.channel.deleted.restoreNamed": "Ripristina {name}",
   "mobile.channel.deleted.restoreFailed": "Impossibile ripristinare il canale",
   "mobile.channel.deleted.restoreFailedBody": "Impossibile ripristinare questo canale. Riprova.",
+  "mobile.channel.mention.everyoneTitle": "Tutti",
+  "mobile.channel.mention.everyoneDescription": "Assegna a ogni membro del canale un'attività propria.",
   "mobile.channel.chat.fallbackName": "Canale",
   "mobile.channel.chat.deletedNotice": "Canale archiviato. Solo anteprima.",
   "mobile.channel.records.connect": "Connettiti al server per modificare questo canale.",

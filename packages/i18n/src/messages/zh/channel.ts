@@ -10,6 +10,8 @@ export const messages = {
   "channel.stoppedTask.reassign": "重新分配",
   "channel.conversation.noMembers": "请在频道设置中添加助手以开始工作。",
   "channel.conversation.archivedNotice": "已归档的频道，仅供预览。",
+  "channel.mention.everyoneTitle": "所有人",
+  "channel.mention.everyoneDescription": "为频道的每位成员分配各自的任务。",
   "channel.composer.label": "发消息到频道",
   "channel.composer.placeholder": "发消息给 {name}",
   "channel.panel.label": "频道面板",

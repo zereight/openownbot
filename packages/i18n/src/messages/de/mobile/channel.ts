@@ -38,6 +38,8 @@ export const messages = {
   "mobile.channel.deleted.restoreNamed": "{name} wiederherstellen",
   "mobile.channel.deleted.restoreFailed": "Kanal konnte nicht wiederhergestellt werden",
   "mobile.channel.deleted.restoreFailedBody": "Dieser Kanal konnte nicht wiederhergestellt werden. Versuche es erneut.",
+  "mobile.channel.mention.everyoneTitle": "Alle",
+  "mobile.channel.mention.everyoneDescription": "Gibt jedem Mitglied des Kanals eine eigene Aufgabe.",
   "mobile.channel.chat.fallbackName": "Kanal",
   "mobile.channel.chat.deletedNotice": "Archivierter Kanal. Nur Vorschau.",
   "mobile.channel.records.connect": "Verbinde dich mit dem Server, um diesen Kanal zu bearbeiten.",

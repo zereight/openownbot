@@ -40,6 +40,8 @@ export const messages = {
   "mobile.channel.deleted.restoreNamed": "Geri yükle: {name}",
   "mobile.channel.deleted.restoreFailed": "Kanal geri yüklenemedi",
   "mobile.channel.deleted.restoreFailedBody": "Bu kanal geri yüklenemedi. Tekrar deneyin.",
+  "mobile.channel.mention.everyoneTitle": "Herkes",
+  "mobile.channel.mention.everyoneDescription": "Kanalın her üyesine kendi görevini verir.",
   "mobile.channel.chat.fallbackName": "Kanal",
   "mobile.channel.chat.deletedNotice": "Arşivlenmiş kanal. Yalnızca önizleme.",
   "mobile.channel.records.connect": "Bu kanalı düzenlemek için sunucuya bağlanın.",

@@ -42,6 +42,8 @@ export const messages = {
   "mobile.channel.deleted.restoreNamed": "Восстановить {name}",
   "mobile.channel.deleted.restoreFailed": "Не удалось восстановить канал",
   "mobile.channel.deleted.restoreFailedBody": "Не удалось восстановить этот канал. Попробуйте ещё раз.",
+  "mobile.channel.mention.everyoneTitle": "Все",
+  "mobile.channel.mention.everyoneDescription": "Дает каждому участнику канала отдельную задачу.",
   "mobile.channel.chat.fallbackName": "Канал",
   "mobile.channel.chat.deletedNotice": "Канал в архиве. Только просмотр.",
   "mobile.channel.records.connect": "Подключитесь к серверу, чтобы изменять этот канал.",

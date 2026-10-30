@@ -37,6 +37,8 @@ export const messages = {
   "mobile.channel.deleted.restoreNamed": "{name} を復元",
   "mobile.channel.deleted.restoreFailed": "チャンネルを復元できませんでした",
   "mobile.channel.deleted.restoreFailedBody": "このチャンネルを復元できませんでした。もう一度お試しください。",
+  "mobile.channel.mention.everyoneTitle": "全員",
+  "mobile.channel.mention.everyoneDescription": "チャンネルの全メンバーにそれぞれタスクを渡します。",
   "mobile.channel.chat.fallbackName": "チャンネル",
   "mobile.channel.chat.deletedNotice": "アーカイブ済みのチャンネルです。プレビューのみです。",
   "mobile.channel.records.connect": "このチャンネルを編集するには、サーバーに接続してください。",

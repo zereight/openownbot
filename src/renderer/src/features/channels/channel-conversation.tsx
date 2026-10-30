@@ -4,9 +4,9 @@
  * host from its own contexts.
  */
 
-import { chatTagReferences } from "@openownbot/contracts/chat-tag-references";
+import { chatTagReferences, EVERYONE_TAG_ID } from "@openownbot/contracts/chat-tag-references";
 import type { AgentApproval, AgentEvent, BrowserTakeoverRequest } from "@openownbot/contracts/ipc";
-import type { AgentMessage } from "@openownbot/ui/data";
+import type { AgentMessage, ComposerAgent } from "@openownbot/ui/data";
 import { unloadedHistory } from "@openownbot/ui/features/conversation/ChatScrollRail";
 import { useText } from "@openownbot/ui/text";
 import { createEffect, createMemo } from "solid-js";
@@ -162,7 +162,8 @@ export function createChannelConversation(env: ChannelConversationEnvironment) {
     // A request that opens with a member is addressed to that member, the way a reader writes it. A
     // mention later in the text is a reference that the owner of the work can see.
     const mention = chatTagReferences(body).find(
-      (reference) => reference.kind === "agent" && !body.slice(0, reference.start).trim(),
+      (reference) =>
+        reference.kind === "agent" && reference.id !== EVERYONE_TAG_ID && !body.slice(0, reference.start).trim(),
     );
     try {
       const after = await channels.send({
@@ -272,10 +273,24 @@ export function createChannelConversation(env: ChannelConversationEnvironment) {
     firstUnreadMessageId: () => firstUnreadChannelMessageId(entries(), unreadCount(), env.isOwnSender),
     hasOlder: () => Boolean(page()?.olderCursor),
     unloadedHistory: () => unloadedHistory(page()),
-    /** The agents that a mention can name: the members. A hidden agent gets no work here either. */
-    mentionAgents: () => {
+    /**
+     * The agents that a mention can name: the members. A hidden agent gets no work here either. A
+     * channel with two or more members also offers `@all`, which names every one of them.
+     */
+    mentionAgents: (): ComposerAgent[] => {
       const members = new Set(page()?.channel.members.map((member) => member.agentId));
-      return channels.agents().filter((agent) => members.has(agent.id));
+      const named = channels.agents().filter((agent) => members.has(agent.id));
+      if (named.length < 2) return named;
+      const everyone: ComposerAgent = {
+        id: EVERYONE_TAG_ID,
+        name: "all",
+        title: t("channel.mention.everyoneTitle"),
+        description: t("channel.mention.everyoneDescription"),
+        avatarSeed: EVERYONE_TAG_ID,
+        avatarHue: null,
+        avatarUrl: null,
+      };
+      return [everyone, ...named];
     },
     activeTurnId: () => activeRuns()[0] ?? null,
     prompt,

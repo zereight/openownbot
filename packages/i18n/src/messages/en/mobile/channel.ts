@@ -39,6 +39,8 @@ export const messages = defineMessages("mobile.channel", {
   "mobile.channel.deleted.restoreNamed": "Restore {name}",
   "mobile.channel.deleted.restoreFailed": "Could not restore channel",
   "mobile.channel.deleted.restoreFailedBody": "Could not restore this channel. Try again.",
+  "mobile.channel.mention.everyoneTitle": "Everyone",
+  "mobile.channel.mention.everyoneDescription": "Gives every member of the channel its own task.",
   "mobile.channel.chat.fallbackName": "Channel",
   "mobile.channel.chat.deletedNotice": "Archived channel. Preview only.",
   "mobile.channel.records.connect": "Connect to the server to edit this channel.",

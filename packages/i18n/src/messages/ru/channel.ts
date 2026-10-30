@@ -10,6 +10,8 @@ export const messages = {
   "channel.stoppedTask.reassign": "Переназначить",
   "channel.conversation.noMembers": "Добавьте агентов в настройках канала, чтобы начать работу.",
   "channel.conversation.archivedNotice": "Канал в архиве. Только просмотр.",
+  "channel.mention.everyoneTitle": "Все",
+  "channel.mention.everyoneDescription": "Дает каждому участнику канала отдельную задачу.",
   "channel.composer.label": "Сообщение в канал",
   "channel.composer.placeholder": "Сообщение: {name}",
   "channel.panel.label": "Панель канала",
