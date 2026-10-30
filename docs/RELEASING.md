@@ -614,7 +614,7 @@ three pinned files go in `runtimes/whisper-turbo-int8`. The optional Underdog Ba
 int8 model, which recognizes English only, is downloaded the same way when the user selects Download
 in Settings > Voice. Its four pinned files go in `runtimes/bark-3.0-plus-int8`. They come from an
 unofficial sherpa-onnx conversion; the license is in `build/licenses/Underdog-Bark-3.0-Plus-LICENSE`.
-At startup, a packaged application removes the old `runtimes/whisper` directory if it exists. The
+The
 Supertonic 3 int8 voice model, which reads replies aloud, is downloaded the same way only when the
 user turns on Read replies aloud or selects Download in the Spoken replies section. Its eight pinned
 files go in `runtimes/supertonic-3-int8`. The speech host, `voice-speech-host.js`, is a separate

@@ -205,8 +205,6 @@ const ResourceSummaryFile = Schema.Struct({
   current: ResourceDaySchema,
   /** The last closed day, until a newer day replaces it. The diagnostics export reads it. */
   previous: Schema.NullOr(ResourceDaySchema),
-  /** Older files hold this flag. It is read and ignored. */
-  previousHandled: Schema.optional(Schema.Boolean),
 });
 export const decodeResourceSummaryFile = Schema.decodeUnknownOption(ResourceSummaryFile);
 

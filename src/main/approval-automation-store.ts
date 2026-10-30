@@ -1,11 +1,10 @@
-import { INPUT_LIMITS } from "@robot/contracts/input-limits";
 import {
   type ApprovalAutomationPreference,
   agentAutoApprovalEnabled,
   DEFAULT_APPROVAL_AUTOMATION_PREFERENCE,
   isApprovalAutomationPreference,
 } from "@robot/contracts/ipc";
-import { isBoolean, isDynamicRecord, isString } from "@robot/contracts/runtime-values";
+import { isDynamicRecord } from "@robot/contracts/runtime-values";
 import { sourceText } from "@robot/i18n/source";
 import { Effect, Result, Semaphore } from "effect";
 import { isMissingFileError } from "../backend/file-errors";
@@ -13,31 +12,11 @@ import { PreferenceFileFailure, readPreferenceFile, writePreferenceFile } from "
 
 const DENY_ALL: ApprovalAutomationPreference = { defaultAutoApprove: false, autoApproveOverrides: {} };
 
-/** Turbo mode gave every agent Full access, so a file that had it on keeps that for each agent. */
-const TURBO_ON: ApprovalAutomationPreference = { defaultAutoApprove: true, autoApproveOverrides: {} };
-
-/**
- * Missing settings use the product default; invalid settings always require approval.
- *
- * Older files stay in place, so a downgraded build still reads its own version. `legacyPaths` lists
- * them newest first: the v2 file, then the v1 file.
- */
+/** Missing settings use the product default; invalid settings always require approval. */
 export const readApprovalAutomation = Effect.fn("ApprovalAutomation.read")(function* (
   path: string,
-  knownAgentIds: Iterable<string>,
-  legacyPaths: readonly string[] = [],
 ): Effect.fn.Return<ApprovalAutomationPreference, PreferenceFileFailure> {
-  const loaded = yield* Effect.result(
-    legacyPaths.reduce(
-      (read, legacyPath) =>
-        read.pipe(
-          Effect.catch((failure) =>
-            isMissingFileError(failure.cause) ? readPreferenceFile(legacyPath, (value) => value) : Effect.fail(failure),
-          ),
-        ),
-      readPreferenceFile(path, (value) => value),
-    ),
-  );
+  const loaded = yield* Effect.result(readPreferenceFile(path, (value) => value));
   if (Result.isFailure(loaded)) {
     const error = loaded.failure.cause;
     if (isMissingFileError(error)) return { ...DEFAULT_APPROVAL_AUTOMATION_PREFERENCE, autoApproveOverrides: {} };
@@ -45,25 +24,8 @@ export const readApprovalAutomation = Effect.fn("ApprovalAutomation.read")(funct
     return yield* loaded.failure;
   }
   const parsed = loaded.success;
-  if (!isDynamicRecord(parsed)) return DENY_ALL;
-  if (parsed.version === 3 && isApprovalAutomationPreference(parsed)) {
+  if (isDynamicRecord(parsed) && parsed.version === 3 && isApprovalAutomationPreference(parsed)) {
     return { defaultAutoApprove: parsed.defaultAutoApprove, autoApproveOverrides: parsed.autoApproveOverrides };
-  }
-  if (parsed.version === 2 && isBoolean(parsed.turbo) && isApprovalAutomationPreference(parsed)) {
-    if (parsed.turbo) return TURBO_ON;
-    return { defaultAutoApprove: parsed.defaultAutoApprove, autoApproveOverrides: parsed.autoApproveOverrides };
-  }
-  if (parsed.version === 1 && isBoolean(parsed.turbo)) {
-    const ids = parsed.autoApproveAgentIds;
-    if (Array.isArray(ids) && ids.length <= INPUT_LIMITS.agents && ids.every(isString)) {
-      if (parsed.turbo) return yield* writeApprovalAutomation(path, TURBO_ON);
-      const granted = new Set(ids);
-      // Snapshot every existing choice before enabling the default for future agents.
-      return yield* writeApprovalAutomation(path, {
-        defaultAutoApprove: true,
-        autoApproveOverrides: Object.fromEntries([...knownAgentIds].map((id) => [id, granted.has(id)])),
-      });
-    }
   }
   return DENY_ALL;
 });

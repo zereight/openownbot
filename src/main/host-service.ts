@@ -113,7 +113,6 @@ interface HostServiceOptions {
    */
   localDevelopmentHost?: boolean;
   logDirectory?: string;
-  removeLegacyRemoteDesktopCredential?: () => Effect.Effect<void, RemoteWorkflowError>;
   getSignedInUser: () => CentralAuthUser;
   redeemCentralTicket: (ticket: string, serverId: string) => Effect.Effect<CentralAuthUser | null, RemoteWorkflowError>;
   sendTeamInviteEmail: (input: {
@@ -238,7 +237,6 @@ export class HostService extends EventEmitter<HostEvents> {
   #webRtcOnline = false;
   /** `undefined` until the account service first reports, so the first report always binds. */
   #boundAccountId: string | null | undefined = undefined;
-  #legacyCredentialRemoved = false;
 
   constructor(options: HostServiceOptions) {
     super();
@@ -276,23 +274,6 @@ export class HostService extends EventEmitter<HostEvents> {
         if (options.logDirectory) {
           Effect.runFork(
             appendRemoteDiagnosticLog(options.logDirectory, "remote-screen", `${JSON.stringify(event)}\n`),
-          );
-        }
-        if (
-          event.event === "started" &&
-          !this.#legacyCredentialRemoved &&
-          options.removeLegacyRemoteDesktopCredential
-        ) {
-          this.#legacyCredentialRemoved = true;
-          const remove = options.removeLegacyRemoteDesktopCredential;
-          this.#dispatch(
-            remove().pipe(
-              Effect.catch(() =>
-                Effect.sync(() => {
-                  this.#legacyCredentialRemoved = false;
-                }),
-              ),
-            ),
           );
         }
       },
@@ -1161,11 +1142,6 @@ export class HostService extends EventEmitter<HostEvents> {
         ),
       );
     });
-  }
-
-  // Native audit callbacks own these background operations; shutdown drains them.
-  #dispatch(operation: Effect.Effect<void, RemoteWorkflowError>): void {
-    this.#runtime.runFork(this.#provide(operation));
   }
 
   readonly shutdown = Effect.fn("HostService.shutdown")(function* (this: HostService) {
