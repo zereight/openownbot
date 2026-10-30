@@ -1,5 +1,5 @@
 import { sourceText } from "@openownbot/i18n/source";
-import { redactText } from "@openownbot/logging";
+import { createOpenOwnBotLogger, redactText } from "@openownbot/logging";
 import { Context, Deferred, Effect, Layer, Result, Semaphore } from "effect";
 import { recordRestartActivity } from "../backend/restart-activity";
 import { RemoteWorkflowError, remoteDecode } from "./remote-service-effects";
@@ -36,6 +36,8 @@ import {
 import type * as Ws from "ws";
 import type { BrowserHost } from "../backend/browser-host";
 import { rawDataSize, rawDataText } from "./ws-raw-data";
+
+const logger = createOpenOwnBotLogger("browser-view");
 
 const requireModule = createRequire(import.meta.url);
 const webSockets: typeof Ws = requireModule(join(dirname(requireModule.resolve("ws/package.json")), "index.js"));
@@ -391,7 +393,18 @@ export class BrowserViewGateway {
       session.reportContextMenu && client
         ? (menu: BrowserViewContextMenu) => this.#send(session, client, { type: "context-menu", ...menu })
         : undefined;
-    yield* browser.input(session.tabId, dispatched, onContextMenu).pipe(Effect.catch(() => Effect.void));
+    yield* browser.input(session.tabId, dispatched, onContextMenu).pipe(
+      Effect.catch((failure) =>
+        Effect.sync(() => {
+          if (dispatched.type !== "pointer" || dispatched.action !== "move")
+            logger.warn("The host refused live view input.", {
+              inputType: dispatched.type,
+              tabId: session.tabId,
+              message: redactText(String(failure.cause instanceof Error ? failure.cause.message : failure.cause)),
+            });
+        }),
+      ),
+    );
   });
 
   #send(session: ManagedViewSession, client: Ws.WebSocket, message: BrowserViewHostMessage): void {
