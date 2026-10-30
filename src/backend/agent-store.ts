@@ -11,7 +11,6 @@ import {
   realpath,
   rename,
   rm,
-  rmdir,
   symlink,
   writeFile,
 } from "node:fs/promises";
@@ -67,12 +66,12 @@ import {
 } from "@openownbot/contracts/ipc";
 import { DATA_FOLDER_NAME } from "@openownbot/contracts/product";
 import { type DynamicRecord, isBoolean, isNumber, isOneOf, isString } from "@openownbot/contracts/runtime-values";
-import { isGeneratedAgentId, isUuidV4, legacyAgentId } from "@openownbot/contracts/validation";
+import { isGeneratedAgentId, isUuidV4 } from "@openownbot/contracts/validation";
 import { sourceText } from "@openownbot/i18n/source";
 import { createOpenOwnBotLogger, toLogValue } from "@openownbot/logging";
 import { Effect, Result, Semaphore, Stream } from "effect";
 import { ProfileCreationRecovery } from "./agent/profile-creation-recovery";
-import { isEmptyStoredFile, parseStoredJson, writeFileAtomically } from "./atomic-json-file";
+import { writeFileAtomically } from "./atomic-json-file";
 import { automationRoot } from "./automation-command";
 import type { AgentModelChange } from "./database/agent-roster";
 import { OpenOwnBotDatabase, type ProviderSession, stableThreadId } from "./openownbot-database";
@@ -135,26 +134,6 @@ interface StoredState {
   agents: StoredAgent[];
 }
 
-type LegacyStoredAgent = Omit<PersistedStoredAgent, "avatarSeed" | "avatarHue"> & {
-  avatarShape: string;
-  avatarColor: string;
-};
-
-const LEGACY_AVATAR_VARIANTS = ["blob", "pebble", "squircle", "tablet", "wedge", "hex", "cloud", "teardrop"] as const;
-const LEGACY_AVATAR_COLORS = [
-  "black",
-  "brown",
-  "red",
-  "orange",
-  "yellow",
-  "green",
-  "cyan",
-  "blue",
-  "violet",
-  "magenta",
-  "gray",
-] as const;
-
 const NEW_AGENT_PREVIEW = "No messages yet";
 /** The longest agent preview the store keeps; a longer text is cut to it. */
 export const AGENT_PREVIEW_MAX_LENGTH = 180;
@@ -165,16 +144,8 @@ export const DEFAULT_AGENT_PROVIDER: AgentProviderId = "codex";
 // model, where the extra thinking buys little and costs a visible wait on every turn.
 const DEFAULT_REASONING_EFFORT: AgentReasoningEffort = "low";
 
-// These three strings are history, not vocabulary. The first is the file a release before the move to
-// SQLite wrote its state into, and is only ever read: renaming it means that file is never found and the
-// data of anyone who has not yet run the importing release is lost. The second is the key that file's
-// agent array is stored under, and reading a different one discards every agent in it just as
-// silently. The third is the `command_id` of the import's roster event on existing installs. The next
-// roster write removes that event and its receipt; the roster event that write keeps is what stops the
-// legacy import running a second time. None of the three follows the bot-to-agent rename.
-const LEGACY_AGENTS_STATE_FILE = "bots.json";
-const LEGACY_AGENTS_STATE_KEY = "bots";
-const LEGACY_AGENTS_IMPORT_COMMAND_ID = "legacy-import:bots:v1";
+// The command id of the empty roster that a new database starts with.
+const INITIAL_ROSTER_COMMAND_ID = "agents:initial-roster";
 
 const logger = createOpenOwnBotLogger("agent-store");
 
@@ -186,9 +157,7 @@ const logger = createOpenOwnBotLogger("agent-store");
 const AGENT_FILES_REMOVAL = { recursive: true, force: true, maxRetries: 10, retryDelay: 150 } as const;
 
 export class AgentStore {
-  readonly #statePath: string;
   readonly #agentsRoot: string;
-  readonly #legacyAgentsRoot: string;
   readonly #sharedRoot: string;
   readonly #downloadsRoot: string;
   readonly #avatarsRoot: string;
@@ -209,9 +178,7 @@ export class AgentStore {
     agentDefaults: () => AgentDefaults = () => DEFAULT_AGENT_DEFAULTS,
   ) {
     const openownbotRoot = join(homePath, DATA_FOLDER_NAME);
-    this.#statePath = join(userDataPath, LEGACY_AGENTS_STATE_FILE);
     this.#agentsRoot = join(openownbotRoot, "Agents");
-    this.#legacyAgentsRoot = join(openownbotRoot, "Bots");
     this.#sharedRoot = join(openownbotRoot, "Shared");
     this.#downloadsRoot = join(openownbotRoot, "Downloads");
     this.#avatarsRoot = join(userDataPath, "avatars", "agents");
@@ -258,7 +225,6 @@ export class AgentStore {
           storedIO(() => mkdir(this.#downloadsRoot, { recursive: true, mode: 0o700 })),
           storedIO(() => mkdir(this.#avatarsRoot, { recursive: true, mode: 0o700 })),
           storedIO(() => mkdir(this.#duplicationsRoot, { recursive: true, mode: 0o700 })),
-          storedIO(() => mkdir(dirname(this.#statePath), { recursive: true, mode: 0o700 })),
         ],
         { concurrency: "unbounded" },
       );
@@ -296,35 +262,10 @@ export class AgentStore {
           this.#persist("agents.repaired");
         }
       } else {
-        const legacy = yield* this.#readStateEffect();
-        yield* this.#database.backupLegacyFile(this.#statePath);
-        const sessions: Array<{ agent: StoredAgent; externalSessionId: string }> = [];
-        legacy.agents = legacy.agents.map((agent) => {
-          if (!agent.threadId) return agent;
-          sessions.push({ agent, externalSessionId: agent.threadId });
-          return { ...agent, threadId: stableThreadId(agent.id) };
-        });
-        legacy.examplesInitialized = true;
-        this.#state = legacy;
-        this.#database.replaceAgents(LEGACY_AGENTS_IMPORT_COMMAND_ID, legacy.agents, "agents.legacy-imported");
-        // Bound, then retired in the same breath. Migration v14 deactivates every provider session on this
-        // upgrade because the tool parameters were renamed, and a resumed transcript still remembers calls
-        // written against the old ones -- but a session imported out of `bots.json` arrives *after* the
-        // migrations ran, so it would be the one active session on the machine that v14 never saw. The row is
-        // kept rather than dropped: it is what a later handoff and the thread's own history read.
-        for (const { agent, externalSessionId } of sessions) {
-          const threadId = stableThreadId(agent.id);
-          this.#database.bindProviderSession({
-            threadId,
-            provider: agent.provider,
-            externalSessionId,
-            model: agent.model,
-            effort: agent.reasoningEffort,
-          });
-          this.#database.deactivateProviderSessions(threadId);
-        }
+        // A new database: an empty roster, written once so that the next start reads it from the database.
+        this.#state = { version: 2, examplesInitialized: true, agents: [] };
+        this.#database.replaceAgents(INITIAL_ROSTER_COMMAND_ID, [], "agents.created");
       }
-      yield* this.#reconcileLegacyDirectoriesEffect();
       yield* this.#recoverPendingDuplicationsEffect();
       yield* this.#profileCreationRecovery.recover(this.#database, (agentId) =>
         this.deleteAgent(agentId).pipe(Effect.asVoid),
@@ -1015,21 +956,6 @@ export class AgentStore {
         yield* storedIO(() => rm(path, AGENT_FILES_REMOVAL));
       }
       yield* storedIO(() => rm(this.#duplicationMarkerPath(id), { force: true }));
-      // A workspace that could not follow the rename legitimately sits under the pre-rename root, and deleting
-      // only the derived path would leave that agent's files behind. Every path here is derived rather than
-      // read from `workspacePath`, because that column comes out of the user's own database file and a
-      // recursive delete must never follow a string this code did not build.
-      //
-      // The agent's own id is always safe to clear under the old root: nobody else can be stored under it.
-      // Migration v13 leaves a `bot-` id alone unless the application minted it, and a legacy `bots.json`
-      // import runs afterwards and keeps both the id and the `~/OpenBot/Bots/<id>` workspace it read, so an
-      // agent whose workspace is only ever there is a state the user can reach.
-      const legacyPaths = [join(this.#legacyAgentsRoot, id)];
-      const legacyId = this.#unclaimedLegacyId(id);
-      if (legacyId !== null) {
-        legacyPaths.push(join(this.#avatarsRoot, legacyId), join(this.#legacyAgentsRoot, legacyId));
-      }
-      for (const path of legacyPaths) yield* storedIO(() => rm(path, AGENT_FILES_REMOVAL));
       // Keep the record for retry until every managed path is removed. Publish the new
       // in-memory list only after the database transaction succeeds.
       const remaining = this.#state.agents.filter((candidate) => candidate.id !== id);
@@ -1110,40 +1036,6 @@ export class AgentStore {
    * the user with no way back in.
    */
 
-  #reconcileLegacyDirectoriesEffect = Effect.fn("AgentStore.reconcileLegacyDirectories")(function* (
-    this: AgentStore,
-  ): Effect.fn.Return<void, StoredStateFailure> {
-    try {
-      let relocated = false;
-      for (const agent of this.#state.agents) {
-        relocated = (yield* this.#reconcileWorkspaceDirectoryEffect(agent)) || relocated;
-        yield* this.#reconcileAvatarDirectoryEffect(agent);
-      }
-      if (relocated) this.#persist("agent.workspace-relocated");
-      yield* this.#removeLegacyWorkspaceRootEffect();
-    } catch (cause) {
-      return yield* new StoredStateFailure({ cause });
-    }
-  }, Effect.uninterruptible);
-
-  /**
-   * The name a pre-rename build would have given this agent, or `null` when another agent in the store is
-   * living under it right now. `legacyAgentId` reads syntax, and syntax is not ownership: `bot-<uuid>` is
-   * a valid id in its own right, so migration v13 leaving one in place beside an `agent-<uuid>` that shares
-   * its UUID is a state the user can reach. Every caller here either deletes a directory recursively or
-   * moves one, so a derived name that belongs to somebody else is the difference between tidying up after
-   * the rename and destroying an agent nobody touched.
-   *
-   * An id the application never minted -- `chief`, or one the user chose -- keeps its spelling, and that is
-   * not the same as having nothing to do: the *root* moved as well, so its workspace is still sitting in
-   * `OpenBot/Bots` under exactly this name. Nobody else can hold it, because ids are unique.
-   */
-  #unclaimedLegacyId(id: string): string | null {
-    const legacyId = legacyAgentId(id);
-    if (legacyId === id) return id;
-    return this.#state.agents.some((candidate) => candidate.id === legacyId) ? null : legacyId;
-  }
-
   /**
    * Answers whether the agent's stored workspace path had to change, which is what has to be persisted.
    *
@@ -1153,109 +1045,11 @@ export class AgentStore {
    * the workspace already "at" its destination and leave it in the old root forever.
    */
 
-  #reconcileWorkspaceDirectoryEffect = Effect.fn("AgentStore.reconcileWorkspaceDirectory")(function* (
-    this: AgentStore,
-    agent: StoredAgent,
-  ): Effect.fn.Return<boolean, StoredStateFailure> {
-    try {
-      const legacyId = this.#unclaimedLegacyId(agent.id);
-      if (legacyId === null) return false;
-      const targetPath = join(this.#agentsRoot, agent.id);
-      const legacyPath = join(this.#legacyAgentsRoot, legacyId);
-      if (legacyPath === targetPath) return false;
-      // A probe that cannot answer is not permission to guess. `EACCES` on either directory, or a Windows
-      // lock, leaves this run unable to tell a moved workspace from a missing one -- so it does nothing and
-      // the next launch tries again, rather than moving a directory on a false negative.
-      const current = yield* probeDirectoryEffect(targetPath);
-      const legacy = yield* probeDirectoryEffect(legacyPath);
-      if (current !== false || legacy !== true) {
-        // A previous run moved the files but was interrupted before it could persist where they went -- and
-        // only then. Two directories at once is not that story: the move is a single atomic `rename`, so it
-        // never leaves both behind, and what this run is looking at is a destination that was never this
-        // agent's. Repointing the record at it would hand the agent somebody else's files and put its own
-        // out of reach, so an ambiguous pair leaves the path the agent has actually been reading alone.
-        if (current === true && legacy === false && agent.workspacePath !== targetPath) {
-          agent.workspacePath = targetPath;
-          return true;
-        }
-        return false;
-      }
-      {
-        const attempt2 = yield* Effect.result(
-          Effect.gen({ self: this }, function* () {
-            try {
-              yield* storedIO(() => rename(legacyPath, targetPath));
-              if (agent.workspacePath === targetPath) return false;
-              agent.workspacePath = targetPath;
-              return true;
-            } catch (cause) {
-              return yield* new StoredStateFailure({ cause });
-            }
-          }),
-        );
-        if (Result.isFailure(attempt2)) {
-          const error = attempt2.failure.cause;
-          // Only the move failed; the workspace itself is still there and still readable. `EXDEV` means
-          // `~/OpenBot/Bots` is a link onto another volume, so the move would be a copy, and a copy of a
-          // workspace interrupted halfway is lost data. A permission error, a Windows lock or an open handle
-          // leave exactly the same situation, so they get the same answer: the files stay where they are and
-          // the stored path is pointed back at them. An out-of-date directory name is cosmetic.
-          logger.warn("Could not move an agent workspace to its new directory.", toLogValue(error));
-          if (agent.workspacePath === legacyPath) return false;
-          agent.workspacePath = legacyPath;
-          return true;
-        } else {
-          return attempt2.success;
-        }
-      }
-    } catch (cause) {
-      return yield* new StoredStateFailure({ cause });
-    }
-  }, Effect.uninterruptible);
-
   /**
    * An uploaded avatar lives under the agent id, and `avatarUrl` derives that directory from the id
    * migration v13 has just rewritten. Without this the file is still on disk under the old name and the
    * app looks for it under the new one, so every uploaded avatar silently falls back to a drawn face.
    */
-
-  #reconcileAvatarDirectoryEffect = Effect.fn("AgentStore.reconcileAvatarDirectory")(function* (
-    this: AgentStore,
-    agent: StoredAgent,
-  ): Effect.fn.Return<void, StoredStateFailure> {
-    try {
-      const legacyId = this.#unclaimedLegacyId(agent.id);
-      // An avatar directory is named after the id alone, so an id the rename left untouched has nowhere to
-      // move from. Only the workspace root changed for those.
-      if (legacyId === null || legacyId === agent.id) return;
-      const currentPath = join(this.#avatarsRoot, agent.id);
-      const legacyPath = join(this.#avatarsRoot, legacyId);
-      if ((yield* probeDirectoryEffect(legacyPath)) !== true) return;
-      const current = yield* probeDirectoryEffect(currentPath);
-      if (current === true) {
-        yield* this.#adoptLegacyAvatarFileEffect(agent, legacyPath, currentPath);
-        return;
-      }
-      if (current !== false) return;
-      {
-        const attempt3 = yield* Effect.result(
-          Effect.gen({ self: this }, function* () {
-            try {
-              yield* storedIO(() => rename(legacyPath, currentPath));
-            } catch (cause) {
-              return yield* new StoredStateFailure({ cause });
-            }
-          }),
-        );
-        if (Result.isFailure(attempt3)) {
-          const error = attempt3.failure.cause;
-          logger.warn("Could not move an uploaded agent avatar to its new directory.", toLogValue(error));
-        }
-      }
-    } catch (cause) {
-      return yield* new StoredStateFailure({ cause });
-    }
-  }, Effect.uninterruptible);
 
   /**
    * Both directories exist, so neither can be moved onto the other -- but abandoning the old one strands the
@@ -1263,69 +1057,6 @@ export class AgentStore {
    * fall back to a drawn face. What that URL names is one file, and one file is what gets carried across.
    * Nothing is overwritten: a name already answering in the new directory is the newer upload.
    */
-
-  #adoptLegacyAvatarFileEffect = Effect.fn("AgentStore.adoptLegacyAvatarFile")(function* (
-    this: AgentStore,
-    agent: StoredAgent,
-    legacyPath: string,
-    currentPath: string,
-  ): Effect.fn.Return<void, StoredStateFailure> {
-    try {
-      if (!agent.avatarUrl) return;
-      const parsed = parseAgentAvatarUrl(agent.avatarUrl, agent.id);
-      if (!parsed) return;
-      const name = `${parsed.version}.${avatarFileExtension(parsed.mimeType)}`;
-      {
-        const attempt4 = yield* Effect.result(
-          Effect.gen({ self: this }, function* () {
-            try {
-              if (yield* fileExistsEffect(join(currentPath, name))) return;
-              yield* storedIO(() => rename(join(legacyPath, name), join(currentPath, name)));
-            } catch (cause) {
-              return yield* new StoredStateFailure({ cause });
-            }
-          }),
-        );
-        if (Result.isFailure(attempt4)) {
-          const error = attempt4.failure.cause;
-          logger.warn("Could not move an uploaded agent avatar to its new directory.", toLogValue(error));
-        } else {
-          return attempt4.success;
-        }
-      }
-    } catch (cause) {
-      return yield* new StoredStateFailure({ cause });
-    }
-  }, Effect.uninterruptible);
-
-  #removeLegacyWorkspaceRootEffect = Effect.fn("AgentStore.removeLegacyWorkspaceRoot")(function* (this: AgentStore) {
-    const listing = yield* Effect.result(storedIO(() => readdir(this.#legacyAgentsRoot)));
-    if (Result.isFailure(listing)) {
-      const error = listing.failure.cause;
-      if (!isRecord(error) || error.code !== "ENOENT")
-        logger.warn("Could not read the legacy workspace root.", toLogValue(error));
-      return;
-    }
-    const entries = listing.success;
-    yield* Effect.forEach(
-      entries.filter((entry) => entry.endsWith(".openownbot-stage")),
-      (entry) =>
-        storedIO(() => rm(join(this.#legacyAgentsRoot, entry), { recursive: true, force: true })).pipe(
-          Effect.catch(({ cause }) =>
-            Effect.sync(() =>
-              logger.warn("Could not remove an unfinished copy under the legacy workspace root.", toLogValue(cause)),
-            ),
-          ),
-        ),
-      { concurrency: "unbounded", discard: true },
-    );
-    if (!entries.every((entry) => entry.endsWith(".openownbot-stage"))) return;
-    yield* storedIO(() => rmdir(this.#legacyAgentsRoot)).pipe(
-      Effect.catch(({ cause }) =>
-        Effect.sync(() => logger.warn("Could not remove the legacy workspace root.", toLogValue(cause))),
-      ),
-    );
-  });
 
   #recoverPendingDuplicationsEffect = Effect.fn("AgentStore.recoverPendingDuplications")(function* (
     this: AgentStore,
@@ -1336,7 +1067,7 @@ export class AgentStore {
         if (!entry.isFile() || !entry.name.endsWith(".pending")) continue;
         const id = entry.name.slice(0, -".pending".length);
         if (!isGeneratedAgentId(id)) continue;
-        const agent = this.#agentByEitherSpelling(id);
+        const agent = this.#state.agents.find((candidate) => candidate.id === id);
         const marker = yield* this.#readDuplicationMarkerEffect(id);
         // Everything below addresses the agent by the id it has *now*, which the marker name only equals
         // when the same build wrote both. Using the file name would filter nothing out of the roster and
@@ -1362,7 +1093,7 @@ export class AgentStore {
         // under either root, under either spelling of the id. Removing only the current one reports a
         // clean recovery and leaves the half-written workspace on disk forever.
         const names = agentId === id ? [id] : [id, agentId];
-        const roots = [this.#agentsRoot, this.#legacyAgentsRoot, this.#avatarsRoot];
+        const roots = [this.#agentsRoot, this.#avatarsRoot];
         yield* Effect.all(
           [
             ...roots.flatMap((root) =>
@@ -1388,27 +1119,23 @@ export class AgentStore {
    * ties `projection_threads` to `projection_agents`, and nothing enumerates threads. The user sees an
    * empty chat, or no chat, while every message is still on disk. Two ways in are covered -- an agent
    * rebuilt under its own id by a `getOrCreate`, such as a message sent to that id, which comes back with
-   * no thread while its old row still names it; and a thread whose `agent_id` kept a pre-rename
-   * spelling, which `#agentByEitherSpelling` resolves.
+   * no thread while its old row still names it.
    *
    * An agent that already holds a thread keeps it. It is reading that one, and handing it a second would
-   * hide the first -- the same trade `#reconcileWorkspaceDirectory` makes for an ambiguous pair. That
-   * also settles two threads naming one agent: the first in the ordering wins and the rest are reported.
+   * hide the first. That also settles two threads naming one agent: the first in the ordering wins and the rest are reported.
    *
    * The thread of a channel context or an external conversation is never adopted: it is not the agent's
    * own chat. An agent that an earlier build gave one keeps it, because its chat history is there now;
    * `ConversationRuntime` keeps one snapshot for such a thread.
    *
-   * The repair is one `#persist`, because `replaceAgents` runs `ensureThreadProjection` for every agent
-   * that holds a thread, which is what rewrites the row's `agent_id` to the spelling the roster uses.
-   * Nothing here may stop the app, so a thread this cannot place is counted and left alone.
+   * The repair is one `#persist`. Nothing here may stop the app, so a thread this cannot place is counted and left alone.
    */
   #reconcileUnclaimedThreads(): void {
     const unclaimed = this.#database.unclaimedThreads();
     if (unclaimed.length === 0) return;
     let adopted = 0;
     for (const thread of unclaimed) {
-      const agent = this.#agentByEitherSpelling(thread.agentId);
+      const agent = this.#state.agents.find((candidate) => candidate.id === thread.agentId);
       if (!agent || agent.threadId) continue;
       agent.threadId = thread.threadId;
       adopted += 1;
@@ -1416,18 +1143,6 @@ export class AgentStore {
     if (adopted > 0) this.#persist("thread.reclaimed");
     const stranded = unclaimed.length - adopted;
     if (stranded > 0) logger.warn("Threads remain that no agent claims.", stranded);
-  }
-
-  /**
-   * The agent an id names, whether it is spelled the way this build writes ids or the way the build that
-   * wrote the file on disk did. The exact spelling is tried first, because migration v13 leaves a `bot-`
-   * id alone when the `agent-` spelling is already taken and both agents can then exist at once.
-   */
-  #agentByEitherSpelling(id: string): StoredAgent | undefined {
-    return (
-      this.#state.agents.find((candidate) => candidate.id === id) ??
-      this.#state.agents.find((candidate) => legacyAgentId(candidate.id) === id)
-    );
   }
 
   #duplicationMarkerPath(id: string): string {
@@ -1458,13 +1173,7 @@ export class AgentStore {
               ) {
                 return null;
               }
-              // The value beside that key names the source agent as it was spelled when the marker was written,
-              // and migration v13 has renamed it since. Nothing rewrites a file outside the database, so the
-              // receipt this is about to be compared against already says `agent-<uuid>` while the marker still
-              // says `bot-<uuid>`: comparing them raw throws "The agent duplication receipt is invalid." out of
-              // recovery, and the app never finishes starting.
-              const sourceAgentId = this.#agentByEitherSpelling(storedSource)?.id ?? storedSource;
-              return { operationId: value.operationId, sourceAgentId };
+              return { operationId: value.operationId, sourceAgentId: storedSource };
             } catch (cause) {
               return yield* new StoredStateFailure({ cause });
             }
@@ -1555,62 +1264,6 @@ export class AgentStore {
       return yield* new StoredStateFailure({ cause });
     }
   }, Effect.uninterruptible).bind(this);
-
-  #readStateEffect = Effect.fn("AgentStore.readState")(function* (
-    this: AgentStore,
-  ): Effect.fn.Return<StoredState, StoredStateFailure> {
-    try {
-      {
-        const attempt8 = yield* Effect.result(
-          Effect.gen({ self: this }, function* () {
-            try {
-              const contents = yield* storedIO(() => readFile(this.#statePath, "utf8"));
-              // A power loss left the file without content: no agent in it can be recovered.
-              if (isEmptyStoredFile(contents)) {
-                const empty: StoredState = { version: 2, examplesInitialized: false, agents: [] };
-                return empty;
-              }
-              const parsed = parseStoredJson(this.#statePath, contents, (value) => (isRecord(value) ? value : null));
-              const stored = isRecord(parsed) ? parsed[LEGACY_AGENTS_STATE_KEY] : null;
-              if (!isRecord(parsed) || !isBoolean(parsed.examplesInitialized) || !Array.isArray(stored)) {
-                throw new Error(sourceText("error.agent.stateCorrupt"));
-              }
-              if (stored.some((agent) => isRecord(agent) && "role" in agent)) {
-                throw new Error(sourceText("error.agent.oldRoleField"));
-              }
-
-              let agents: StoredAgent[];
-              if (parsed.version === 1 && stored.every(isLegacyStoredAgent)) {
-                agents = stored.map(migrateLegacyAgent);
-              } else if (parsed.version === 2 && stored.every(isStoredAgent)) {
-                agents = stored.map(normalizeStoredAgent);
-              } else {
-                throw new Error(sourceText("error.agent.stateCorrupt"));
-              }
-              if (new Set(agents.map((agent) => agent.id)).size !== agents.length) {
-                throw new Error(sourceText("error.agent.duplicateIds"));
-              }
-              const state: StoredState = { version: 2, examplesInitialized: parsed.examplesInitialized, agents };
-              return state;
-            } catch (cause) {
-              return yield* new StoredStateFailure({ cause });
-            }
-          }),
-        );
-        if (Result.isFailure(attempt8)) {
-          const error = attempt8.failure.cause;
-          if (isRecord(error) && error.code === "ENOENT") {
-            return { version: 2, examplesInitialized: false, agents: [] };
-          }
-          throw error;
-        } else {
-          return attempt8.success;
-        }
-      }
-    } catch (cause) {
-      return yield* new StoredStateFailure({ cause });
-    }
-  }, Effect.uninterruptible);
 
   /**
    * Put back any agent the roster projection has lost but the event log still names.
@@ -1824,33 +1477,6 @@ function validateAgentId(id: string): void {
 function isValidAgentId(id: string): boolean {
   return /^[a-z0-9][a-z0-9-]{0,63}$/.test(id) && basename(id) === id;
 }
-
-const directoryExistsEffect = Effect.fn("AgentStore.directoryExists")((path: string) =>
-  storedIO(() => lstat(path)).pipe(
-    Effect.map((stats) => stats.isDirectory()),
-    Effect.catch((failure) =>
-      isRecord(failure.cause) && failure.cause.code === "ENOENT" ? Effect.succeed(false) : Effect.fail(failure),
-    ),
-  ),
-);
-const fileExistsEffect = Effect.fn("AgentStore.fileExists")((path: string) =>
-  storedIO(() => lstat(path)).pipe(
-    Effect.map((stats) => stats.isFile()),
-    Effect.catch((failure) =>
-      isRecord(failure.cause) && failure.cause.code === "ENOENT" ? Effect.succeed(false) : Effect.fail(failure),
-    ),
-  ),
-);
-const probeDirectoryEffect = Effect.fn("AgentStore.probeDirectory")((path: string) =>
-  directoryExistsEffect(path).pipe(
-    Effect.catch(({ cause }) =>
-      Effect.sync(() => {
-        logger.warn("Could not check an agent directory during startup reconciliation.", toLogValue(cause));
-        return null;
-      }),
-    ),
-  ),
-);
 
 function titleFromId(id: string): string {
   return id
@@ -2113,39 +1739,6 @@ function isMarketplaceSource(value: unknown): boolean {
     Array.isArray(value.routineIds) &&
     value.routineIds.every(isString)
   );
-}
-
-function isLegacyStoredAgent(value: unknown): value is LegacyStoredAgent {
-  if (!isRecord(value) || !isStoredAgentBase(value)) return false;
-  const record = value;
-  return (
-    isString(record.avatarShape) &&
-    isOneOf(LEGACY_AVATAR_VARIANTS, record.avatarShape) &&
-    isString(record.avatarColor) &&
-    isOneOf(LEGACY_AVATAR_COLORS, record.avatarColor)
-  );
-}
-
-function migrateLegacyAgent(agent: LegacyStoredAgent): StoredAgent {
-  return {
-    id: agent.id,
-    name: agent.name,
-    title: agent.title,
-    description: agent.description,
-    notifications: agent.notifications,
-    provider: providerForLegacyModel(agent.model),
-    model: agent.model,
-    reasoningEffort: agent.reasoningEffort,
-    access: DEFAULT_AGENT_ACCESS,
-    computerUse: true,
-    threadId: agent.threadId,
-    workspacePath: agent.workspacePath,
-    preview: agent.preview,
-    updatedAt: agent.updatedAt,
-    avatarSeed: agent.id,
-    avatarHue: null,
-    avatarUrl: null,
-  };
 }
 
 function readableFolders(value: unknown, repair: () => void): string[] {

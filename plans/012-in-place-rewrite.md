@@ -55,6 +55,8 @@ Each step is one PR, merged when CI passes. Each phase makes the code smaller be
      has the same tables, columns, foreign keys, checks, indexes and triggers as one made by the old
      code (137 objects compared); only `schema_migrations` became `database_info`.
    - Legacy imports: `bots.json`, `legacy-import`, the old team file import, `reconcileHost`.
+     Done 2026-10-31, with the move of `~/OpenBot/Bots`, the pre-rename `bot-` ids, `mailbox.json`, the
+     owner-less host adoption and the stored password fields.
    - Team API: keep one protocol version. Delete the frozen codecs, adapters, fixtures, capability
      negotiation and provider visibility for old peers. Desktop and mobile change together.
    - Account service D1 migrations stay: D1 is a live remote database, not user data on this computer.
