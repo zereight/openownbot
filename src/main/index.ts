@@ -592,6 +592,7 @@ function registerIpcHandlers({
   busyMessageMode,
   agentDefaults,
   agentMemoryLimit,
+  memoryReview,
   serverTimezone,
   promptCacheTtl,
   claudeEnvironment,
@@ -785,6 +786,7 @@ function registerIpcHandlers({
       remoteServers,
       serverTimezone,
       agentMemoryLimit,
+      memoryReview,
       promptCacheTtl,
     }),
     ...providerAdminIpcHandlers({

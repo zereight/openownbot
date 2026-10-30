@@ -1,10 +1,6 @@
 import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
-import {
-  type FilePreview,
-  type InstalledSkill,
-  isHomeSkillId,
-  type MarketplaceSkillDetail,
-} from "@openownbot/contracts/ipc";
+import type { FilePreview, InstalledSkill, MarketplaceSkillDetail } from "@openownbot/contracts/ipc";
+import { assignedSkillCount, isFolderSkill, isSkillEnabled, userAssignedSkills } from "@openownbot/contracts/ipc";
 import type { AppTranslate } from "@openownbot/i18n";
 import {
   Button,
@@ -80,7 +76,7 @@ export function AgentSkillsModal(props: AgentSkillsModalProps) {
   const [error, setError] = createSignal<string | null>(null);
   const [filter, setFilter] = createSignal("all");
   const libraryOpen = () => filter() === "local";
-  const visibleSkills = createMemo(() => (filter() === "enabled" ? skills().filter(isEnabled) : skills()));
+  const visibleSkills = createMemo(() => (filter() === "enabled" ? skills().filter(isSkillEnabled) : skills()));
   const [savingId, setSavingId] = createSignal<string | null>(null);
   const [confirm, setConfirm] = createSignal<ConfirmRequest | null>(null);
   const scrollFades = createScrollFades();
@@ -369,7 +365,7 @@ export function AgentSkillsModal(props: AgentSkillsModalProps) {
                       />
                       <Switch
                         aria-label={t("skill.enableName", { name: skill().name })}
-                        checked={isEnabled(skill())}
+                        checked={isSkillEnabled(skill())}
                         disabled={savingId() === skill().skillId}
                         onChange={(enabled) => void setEnabled(skill(), enabled)}
                       />
@@ -483,7 +479,7 @@ export function AgentSkillsModal(props: AgentSkillsModalProps) {
                                       {(skill) => (
                                         <div
                                           class={
-                                            isEnabled(skill())
+                                            isSkillEnabled(skill())
                                               ? "agent-skill-row"
                                               : "agent-skill-row agent-skill-row-disabled"
                                           }
@@ -539,7 +535,7 @@ export function AgentSkillsModal(props: AgentSkillsModalProps) {
                                             />
                                             <Switch
                                               aria-label={t("skill.enableName", { name: skill().name })}
-                                              checked={isEnabled(skill())}
+                                              checked={isSkillEnabled(skill())}
                                               disabled={savingId() === skill().skillId}
                                               onChange={(enabled) => void setEnabled(skill(), enabled)}
                                             />
@@ -591,7 +587,8 @@ export function AgentSkillsModal(props: AgentSkillsModalProps) {
                                                 const selected = skill();
                                                 const preview = current();
                                                 const agentId = props.agentId;
-                                                if (!isEnabled(selected) && !(await setEnabled(selected, true))) return;
+                                                if (!isSkillEnabled(selected) && !(await setEnabled(selected, true)))
+                                                  return;
                                                 if (
                                                   !props.open ||
                                                   props.agentId !== agentId ||
@@ -688,40 +685,10 @@ function SkillMoreMenu(props: {
   );
 }
 
-function isBuiltInSkill(skill: InstalledSkill): boolean {
-  return (
-    skill.origin === "managed" ||
-    skill.slug === "openownbot-site-hosting" ||
-    skill.skillId === "openownbot-site-hosting"
-  );
-}
-
-/** A skill in a skill folder that OpenOwnBot lists but does not manage. */
-function isFolderSkill(skill: InstalledSkill): boolean {
-  return skill.origin === "workspace";
-}
-
-function isEnabled(skill: InstalledSkill): boolean {
-  return skill.enabled !== false;
-}
-
-/** A home skill comes with the `$` list that the read-only view reads; it is not in the agent's workspace. */
-function userAssignedSkills(skills: InstalledSkill[]): InstalledSkill[] {
-  return skills
-    .filter((skill) => !isBuiltInSkill(skill) && !isHomeSkillId(skill.skillId))
-    .slice()
-    .sort((left, right) => left.name.localeCompare(right.name));
-}
-
-/** A skill in a folder OpenOwnBot did not write is not an assignment, so it does not count toward the cap. */
-export function assignedSkillCount(skills: InstalledSkill[]): number {
-  return skills.filter((skill) => !isBuiltInSkill(skill) && !isFolderSkill(skill)).length;
-}
-
 /** Where the host keeps the skill's SKILL.md, relative to the agent workspace, in the order to read. */
 function hostSkillPaths(skill: InstalledSkill): string[] {
   if (isFolderSkill(skill)) return [`${skill.location}/SKILL.md`];
-  if (!isEnabled(skill)) return [`.openownbot/skills-disabled/${skill.slug}/SKILL.md`];
+  if (!isSkillEnabled(skill)) return [`.openownbot/skills-disabled/${skill.slug}/SKILL.md`];
   // The host writes a copy to each managed skill folder.
   return [".agents/skills", ".claude/skills"].map((folder) => `${folder}/${skill.slug}/SKILL.md`);
 }

@@ -25,8 +25,15 @@ const taskWaits = (task: AgentTask) => task.state === "queued" || (task.state ==
 
 const newestFirst = (a: AgentTask, b: AgentTask) => Date.parse(b.updatedAt) - Date.parse(a.updatedAt);
 
-/** The tasks by what they need: needs you, working, waiting, then the newest closed tasks. */
-export function taskSections(tasks: readonly AgentTask[], showAllClosed: boolean): TasksSection[] {
+/**
+ * The tasks by what they need: needs you, working, waiting, then the newest closed tasks. A running
+ * task that `waitsForYou` (an approval, a question or a browser takeover) needs you too.
+ */
+export function taskSections(
+  tasks: readonly AgentTask[],
+  showAllClosed: boolean,
+  waitsForYou?: (task: AgentTask) => boolean,
+): TasksSection[] {
   const open = tasks.filter(isAgentTaskOpen).sort(newestFirst);
   const closed = tasks
     .filter((task) => !isAgentTaskOpen(task))
@@ -36,11 +43,15 @@ export function taskSections(tasks: readonly AgentTask[], showAllClosed: boolean
     tasks: shown,
     count,
   });
+  const blocked = (task: AgentTask) => task.state === "running" && (waitsForYou?.(task) ?? false);
   return [
-    section("needsYou", open.filter(taskNeedsYou)),
+    section(
+      "needsYou",
+      open.filter((task) => taskNeedsYou(task) || blocked(task)),
+    ),
     section(
       "working",
-      open.filter((task) => task.state === "running"),
+      open.filter((task) => task.state === "running" && !blocked(task)),
     ),
     section("waiting", open.filter(taskWaits)),
     section("closed", showAllClosed ? closed : closed.slice(0, TASKS_CLOSED_SHOWN), closed.length),

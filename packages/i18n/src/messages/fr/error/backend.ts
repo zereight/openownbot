@@ -202,8 +202,11 @@ export const messages = {
   "error.backend.routineFlowHandoffFailed": "La routine n’a pas pu transmettre le travail à cet agent.",
   "error.backend.mcpServerLimit": "OpenOwnBot garde jusqu’à {limit} serveurs MCP.",
   "error.backend.mcpServerNameTaken": "Un serveur MCP nommé {name} existe déjà.",
+  "error.backend.mcpServerInvalid": "OpenOwnBot ne peut pas enregistrer cette configuration de serveur MCP.",
   "error.backend.mcpServerNoAnswer": "Le serveur n’a pas répondu en {seconds} secondes.",
   "error.backend.mcpSignInNotAccepted": "Le serveur n’a pas accepté cette connexion.",
+  "error.backend.mcpSignInClientRefused":
+    "Le serveur de connexion n’a pas accepté OpenOwnBot à la fin de la connexion. Connectez-vous à nouveau : OpenOwnBot s’enregistre de nouveau auprès du serveur.",
   "error.backend.mcpCommandNotFound": "Commande introuvable : {command}",
   "error.backend.mcpRegistrationRefused":
     "Le serveur de connexion n’accepte pas encore OpenOwnBot comme application. Votre compte n’en est pas la cause. Utilisez un autre moyen de connexion, par exemple un serveur MCP local.",
@@ -225,6 +228,7 @@ export const messages = {
     "OpenOwnBot n’a pas pu lire les informations de connexion de ce serveur. Vérifiez l’adresse du serveur et réessayez.",
   "error.backend.mcpServerExited":
     "Le serveur s’est arrêté avant de répondre. Exécutez la commande dans un terminal pour voir son erreur.",
+  "error.backend.mcpServerFailedToStart": "Le serveur n’a pas démarré : {reason}",
   "error.backend.mcpOAuthProxyUnavailable":
     "OpenOwnBot n’a pas pu démarrer sa connexion locale de connexion pour ce serveur. Redémarrez OpenOwnBot, puis réessayez.",
   "error.backend.mcpOAuthSignInNeeded":

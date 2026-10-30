@@ -173,8 +173,11 @@ export const messages = {
   "error.backend.routineFlowHandoffFailed": "自动化任务无法把工作交给该助手。",
   "error.backend.mcpServerLimit": "OpenOwnBot 最多保留 {limit} 个 MCP 服务器。",
   "error.backend.mcpServerNameTaken": "名为 {name} 的 MCP 服务器已存在。",
+  "error.backend.mcpServerInvalid": "OpenOwnBot 无法保存此 MCP 服务器配置。",
   "error.backend.mcpServerNoAnswer": "服务器未在 {seconds} 秒内响应。",
   "error.backend.mcpSignInNotAccepted": "服务器未接受该登录。",
+  "error.backend.mcpSignInClientRefused":
+    "完成登录时，登录服务器未接受 OpenOwnBot。请重新登录，OpenOwnBot 会重新向服务器注册。",
   "error.backend.mcpCommandNotFound": "未找到命令：{command}",
   "error.backend.mcpRegistrationRefused":
     "登录服务器尚未接受 OpenOwnBot 作为应用，这与你的账号无关。请改用其他连接方式，例如本地 MCP 服务器。",
@@ -191,6 +194,7 @@ export const messages = {
   "error.backend.mcpSignInResponseTimedOut": "登录响应未及时返回。",
   "error.backend.mcpSignInMetadataUnreadable": "OpenOwnBot 无法读取该服务器的登录信息。请检查服务器地址后重试。",
   "error.backend.mcpServerExited": "服务器在响应之前就停止了。请在终端中运行该命令以查看错误。",
+  "error.backend.mcpServerFailedToStart": "服务器没有启动：{reason}",
   "error.backend.mcpOAuthProxyUnavailable":
     "OpenOwnBot 无法为这台服务器建立本地登录连接。请重启 OpenOwnBot 后再试一次。",
   "error.backend.mcpOAuthSignInNeeded": "该 MCP 服务器的登录已结束。用户需要在 OpenOwnBot 中重新登录。",

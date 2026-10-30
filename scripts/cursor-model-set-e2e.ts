@@ -4,7 +4,7 @@
 // model the process already runs on sends no model set, that each turn still runs on its own model
 // after another thread changed it, that a set is sent again after a set failed, and that two sets
 // that overlap leave the model unknown, because they can apply in another order than they answer.
-// `bun run test:cursor-model-set`. Writes .openbot-build/cursor-model-set-e2e/report.json.
+// `bun run test:cursor-model-set`. Writes .openownbot-build/cursor-model-set-e2e/report.json.
 import assert from "node:assert/strict";
 import { mkdir, mkdtemp, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";

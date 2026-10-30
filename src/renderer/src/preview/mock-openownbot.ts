@@ -13,6 +13,7 @@ import {
   type AgentBrowserProfile,
   type AgentDefaults,
   type AgentEvent,
+  type AgentExclusionChange,
   type AgentFolderChange,
   type AgentFolderList,
   type AgentMemory,
@@ -40,6 +41,7 @@ import {
   agentAutomationAllowed,
   agentBrowserProfile,
   agentComputerUseEnabled,
+  agentExclusionCoverage,
   agentFolderCoverage,
   agentTaskLimit,
   type BrowserProfileSummary,
@@ -70,6 +72,7 @@ import {
   DEFAULT_DECISION_MODEL_SETTINGS,
   DEFAULT_DYNAMIC_ISLAND_PREFERENCE,
   DEFAULT_EXTERNAL_LINK_PREFERENCE,
+  DEFAULT_MEMORY_REVIEW_INTERVAL,
   DEFAULT_PROMPT_CACHE_TTL,
   DEFAULT_PROVIDER_ACCOUNT_ID,
   DEFAULT_PROVIDER_DETECTION_SETTINGS,
@@ -90,17 +93,21 @@ import {
   type HostedSiteSummary,
   type HostStatus,
   hostAgentMemoryLimit,
+  hostMemoryReview,
   isAgentMemoryLimit,
   isAgentSummary,
+  isMemoryReviewInterval,
   isPromptCacheTtl,
   isReleasedRoutineSchedule,
   type MacPermissionId,
+  type MemoryReviewPreference,
   nextBrowserProfileHue,
   normalizeMcpConfig,
   type OpenAttachmentInput,
   type OpenOwnBotDesktopApi,
   type OpenSharedFileInput,
   type OpenWorkspaceFileInput,
+  PLAN_CONTINUATION_ITEM_TYPE,
   type PromptCacheTtlSetting,
   type ProviderAccountStatus,
   type ProviderDetectionSettings,
@@ -411,6 +418,8 @@ export function createMockOpenOwnBot(options: MockOpenOwnBotOptions = {}): MockO
     ...DEFAULT_DECISION_MODEL_SETTINGS,
     keys: { jev: false, openrouter: false, cloudflare: false, local: false },
   };
+  let memoryReview: MemoryReviewPreference = { interval: DEFAULT_MEMORY_REVIEW_INTERVAL };
+  // The disk level is below the preview disk use (82%), so Storage shows a passed level.
   let promptCacheTtl: PromptCacheTtlSetting = { ...DEFAULT_PROMPT_CACHE_TTL };
   let claudeEnvironment: ProviderEnvironmentEntry[] = [];
   const agentMemoryLimitListeners = new Set<(preference: AgentMemoryLimitPreference) => void>();
@@ -692,7 +701,30 @@ export function createMockOpenOwnBot(options: MockOpenOwnBotOptions = {}): MockO
       workspace: agent.workspacePath,
       shared: "/mock/OpenBot/Shared",
       folders: (agent.additionalFolders ?? []).map((path) => ({ path, found: !path.endsWith("(missing)") })),
+      excluded: agent.excludedFolders ?? [],
     };
+  }
+
+  function setMockAgentExclusions(agent: ClientAgentSummary, excluded: string[]): void {
+    const updated: ClientAgentSummary = { ...agent, excludedFolders: excluded };
+    if (excluded.length === 0) delete updated.excludedFolders;
+    agents = agents.map((candidate) => (candidate.id === agent.id ? updated : candidate));
+    emitAgentEvent({ type: "agents-changed", agents });
+  }
+
+  function addMockAgentExclusion(agentId: string, path: string): AgentExclusionChange {
+    const agent = requireMockAgent(agentId);
+    const list = mockAgentFolders(agentId);
+    const roots = [list.workspace, list.shared, ...list.folders.map((folder) => folder.path)];
+    if (roots.includes(path)) return { outcome: "refused", path, refusal: "root", list };
+    if (!roots.some((root) => folderInside(root, path))) return { outcome: "refused", path, refusal: "outside", list };
+    const folder = agentExclusionCoverage(path, list.excluded);
+    if (folder) return { outcome: "covered", path, folder, list };
+    const kept = list.excluded.filter((excluded) => !folderInside(path, excluded));
+    if (kept.length >= AGENT_FOLDER_LIMIT) return { outcome: "refused", path, refusal: "limit", list };
+    setMockAgentExclusions(agent, [...kept, path]);
+    const replaced = list.excluded.filter((excluded) => !kept.includes(excluded));
+    return { outcome: "excluded", path, replaced, list: mockAgentFolders(agentId) };
   }
 
   function setMockAgentFolders(agent: ClientAgentSummary, folders: string[]): void {
@@ -1867,6 +1899,18 @@ export function createMockOpenOwnBot(options: MockOpenOwnBotOptions = {}): MockO
         );
         return { outcome: "removed", path, list: mockAgentFolders(agentId) };
       },
+      // The preview has no picker: it excludes a folder in the workspace.
+      chooseAgentExclusion: async (agentId) =>
+        addMockAgentExclusion(agentId, `${requireMockAgent(agentId).workspacePath}/archive`),
+      addAgentExclusion: async ({ agentId, path }) => addMockAgentExclusion(agentId, path),
+      removeAgentExclusion: async ({ agentId, path }) => {
+        const agent = requireMockAgent(agentId);
+        setMockAgentExclusions(
+          agent,
+          (agent.excludedFolders ?? []).filter((folder) => folder !== path),
+        );
+        return { outcome: "included", path, list: mockAgentFolders(agentId) };
+      },
       getAgentTaskLimit: async (agentId) => {
         const agent = agents.find((candidate) => candidate.id === agentId);
         if (!agent) throw new Error("Agent not found");
@@ -2570,9 +2614,23 @@ export function createMockOpenOwnBot(options: MockOpenOwnBotOptions = {}): MockO
                 },
               ]
             : [];
+          // A message that asks for a plan ends with open steps, so the agent continues by itself.
+          const planContinuation: ConversationMessage[] = /\bplan\b/iu.test(input.text)
+            ? [
+                {
+                  id: `${turnId}:plan-continuation`,
+                  author: "system",
+                  source: "system",
+                  text: sourceText("status.agent.planContinues", { current: 1, limit: 3 }),
+                  createdAt: new Date().toISOString(),
+                  status: "completed",
+                  itemType: PLAN_CONTINUATION_ITEM_TYPE,
+                },
+              ]
+            : [];
           updateSnapshot(input.agentId, (snapshot) => {
             snapshot.activeTurnId = null;
-            snapshot.messages = [...snapshot.messages, assistantMessage, ...memoryMessage];
+            snapshot.messages = [...snapshot.messages, assistantMessage, ...memoryMessage, ...planContinuation];
           });
           queues.set(input.agentId, {
             agentId: input.agentId,
@@ -2891,6 +2949,12 @@ export function createMockOpenOwnBot(options: MockOpenOwnBotOptions = {}): MockO
         agentMemoryLimit = { limit };
         for (const listener of agentMemoryLimitListeners) listener(clone(agentMemoryLimit));
         return hostAgentMemoryLimit(agentMemoryLimit);
+      },
+      getMemoryReview: async () => hostMemoryReview(memoryReview),
+      setMemoryReview: async (interval) => {
+        if (!isMemoryReviewInterval(interval)) throw new Error("Memory review interval is required.");
+        memoryReview = { interval };
+        return hostMemoryReview(memoryReview);
       },
       // Preview has one host, so every server shares one cache time.
       getPromptCacheTtl: async () => clone(promptCacheTtl),

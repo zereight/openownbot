@@ -199,8 +199,11 @@ export const messages = {
   "error.backend.routineFlowHandoffFailed": "De routine kon het werk niet aan deze agent doorgeven.",
   "error.backend.mcpServerLimit": "OpenOwnBot bewaart maximaal {limit} MCP-servers.",
   "error.backend.mcpServerNameTaken": "Er bestaat al een MCP-server met de naam {name}.",
+  "error.backend.mcpServerInvalid": "OpenOwnBot kan deze MCP-serverconfiguratie niet opslaan.",
   "error.backend.mcpServerNoAnswer": "De server reageerde niet binnen {seconds} seconden.",
   "error.backend.mcpSignInNotAccepted": "De server heeft die inlog niet geaccepteerd.",
+  "error.backend.mcpSignInClientRefused":
+    "De inlogserver heeft OpenOwnBot niet geaccepteerd bij het voltooien van de aanmelding. Meld je opnieuw aan: OpenOwnBot registreert zich dan opnieuw bij de server.",
   "error.backend.mcpCommandNotFound": "Opdracht niet gevonden: {command}",
   "error.backend.mcpRegistrationRefused":
     "De inlogserver accepteert OpenOwnBot nog niet als app. Dit ligt niet aan je account. Gebruik een andere manier om te verbinden, zoals een lokale MCP-server.",
@@ -221,6 +224,7 @@ export const messages = {
     "OpenOwnBot kon de inloggegevens van deze server niet lezen. Controleer het serveradres en probeer het opnieuw.",
   "error.backend.mcpServerExited":
     "De server is gestopt voordat hij antwoordde. Voer de opdracht uit in een terminal om de fout te zien.",
+  "error.backend.mcpServerFailedToStart": "De server is niet gestart: {reason}",
   "error.backend.mcpOAuthProxyUnavailable":
     "OpenOwnBot kon de lokale inlogverbinding voor deze server niet starten. Start OpenOwnBot opnieuw en probeer het nog eens.",
   "error.backend.mcpOAuthSignInNeeded":

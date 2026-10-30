@@ -68,6 +68,7 @@ export const messages = {
   "composer.placeholder.reply": "Rispondi…",
   "composer.placeholder.message": "Scrivi a {name}",
   "composer.placeholder.messageAgent": "Scrivi all'agente",
+  "composer.placeholder.answer": "Scrivi la tua risposta",
   "composer.add.label": "Aggiungi al prompt",
   "composer.add.image": "Allega immagine",
   "composer.add.skill": "Usa una skill",
@@ -81,6 +82,7 @@ export const messages = {
   "composer.send.saveQueued": "Salva messaggio in coda",
   "composer.send.voice": "Invia messaggio vocale",
   "composer.send.message": "Invia messaggio",
+  "composer.send.answer": "Invia risposta",
   "composer.send.stop": "Ferma l'agente",
   "composer.send.stopUnavailable":
     "Questo lavoro non ha un turno da fermare da questa chat. Potrebbe essere in esecuzione in un canale.",

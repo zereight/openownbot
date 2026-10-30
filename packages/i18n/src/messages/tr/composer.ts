@@ -70,6 +70,7 @@ export const messages = {
   "composer.placeholder.reply": "Yanıtla…",
   "composer.placeholder.message": "{name} adlı ajana mesaj gönder",
   "composer.placeholder.messageAgent": "Ajana mesaj gönder",
+  "composer.placeholder.answer": "Yanıtınızı yazın",
   "composer.add.label": "İsteme ekle",
   "composer.add.image": "Görsel ekle",
   "composer.add.skill": "Bir beceri kullan",
@@ -82,6 +83,7 @@ export const messages = {
   "composer.send.saveQueued": "Kuyruktaki mesajı kaydet",
   "composer.send.voice": "Sesli mesaj gönder",
   "composer.send.message": "Mesaj gönder",
+  "composer.send.answer": "Yanıtı gönder",
   "composer.send.stop": "Ajanı durdur",
   "composer.send.stopUnavailable":
     "Bu işin bu sohbetten durdurulabilecek bir turu yok. Bir kanalda çalışıyor olabilir.",

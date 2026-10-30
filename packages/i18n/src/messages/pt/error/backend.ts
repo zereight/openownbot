@@ -198,8 +198,11 @@ export const messages = {
   "error.backend.routineFlowHandoffFailed": "A rotina não conseguiu passar o trabalho para este agente.",
   "error.backend.mcpServerLimit": "O OpenOwnBot mantém até {limit} servidores MCP.",
   "error.backend.mcpServerNameTaken": "Já existe um servidor MCP chamado {name}.",
+  "error.backend.mcpServerInvalid": "O OpenOwnBot não pode salvar esta configuração de servidor MCP.",
   "error.backend.mcpServerNoAnswer": "O servidor não respondeu em {seconds} segundos.",
   "error.backend.mcpSignInNotAccepted": "O servidor não aceitou esse login.",
+  "error.backend.mcpSignInClientRefused":
+    "O servidor de login não aceitou o OpenOwnBot ao concluir o login. Entre de novo: o OpenOwnBot se registra outra vez no servidor.",
   "error.backend.mcpCommandNotFound": "Comando não encontrado: {command}",
   "error.backend.mcpRegistrationRefused":
     "O servidor de login ainda não aceita o OpenOwnBot como aplicativo. Sua conta não é a causa. Use outra forma de conexão, como um servidor MCP local.",
@@ -220,6 +223,7 @@ export const messages = {
     "O OpenOwnBot não conseguiu ler as informações de login deste servidor. Verifique o endereço do servidor e tente novamente.",
   "error.backend.mcpServerExited":
     "O servidor parou antes de responder. Execute o comando em um terminal para ver o erro.",
+  "error.backend.mcpServerFailedToStart": "O servidor não iniciou: {reason}",
   "error.backend.mcpOAuthProxyUnavailable":
     "O OpenOwnBot não conseguiu iniciar a conexão local de login para este servidor. Reinicie o OpenOwnBot e tente novamente.",
   "error.backend.mcpOAuthSignInNeeded":

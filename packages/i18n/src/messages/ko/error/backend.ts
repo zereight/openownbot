@@ -184,8 +184,11 @@ export const messages = {
   "error.backend.routineFlowHandoffFailed": "루틴이 이 에이전트에게 작업을 넘기지 못했어요.",
   "error.backend.mcpServerLimit": "OpenOwnBot은 MCP 서버를 최대 {limit}개까지 유지해요.",
   "error.backend.mcpServerNameTaken": "{name}(이)라는 MCP 서버가 이미 있어요.",
+  "error.backend.mcpServerInvalid": "OpenOwnBot이 이 MCP 서버 설정을 저장할 수 없어요.",
   "error.backend.mcpServerNoAnswer": "서버가 {seconds}초 안에 응답하지 않았어요.",
   "error.backend.mcpSignInNotAccepted": "서버가 해당 로그인을 수락하지 않았어요.",
+  "error.backend.mcpSignInClientRefused":
+    "로그인을 완료할 때 로그인 서버가 OpenOwnBot을 받아들이지 않았어요. 다시 로그인하세요. OpenOwnBot이 서버에 다시 등록해요.",
   "error.backend.mcpCommandNotFound": "명령을 찾을 수 없어요: {command}",
   "error.backend.mcpRegistrationRefused":
     "로그인 서버가 아직 OpenOwnBot을 앱으로 허용하지 않아요. 계정 문제가 아니에요. 로컬 MCP 서버처럼 다른 방법으로 연결하세요.",
@@ -204,6 +207,7 @@ export const messages = {
   "error.backend.mcpSignInMetadataUnreadable":
     "OpenOwnBot이 이 서버의 로그인 정보를 읽을 수 없었어요. 서버 주소를 확인한 후 다시 시도해 주세요.",
   "error.backend.mcpServerExited": "서버가 응답하기 전에 중지되었어요. 터미널에서 명령을 실행해 오류를 확인하세요.",
+  "error.backend.mcpServerFailedToStart": "서버가 시작되지 않았어요: {reason}",
   "error.backend.mcpOAuthProxyUnavailable":
     "OpenOwnBot이 이 서버용 로컬 로그인 연결을 시작할 수 없었어요. OpenOwnBot을 다시 시작한 후 시도해 주세요.",
   "error.backend.mcpOAuthSignInNeeded":

@@ -12,5 +12,8 @@ export function agentFolderCalls(): AgentFolderCalls {
     add: (agentId, path) => window.openownbot.agent.addAgentFolder({ agentId, path }),
     remove: (agentId, path) => window.openownbot.agent.removeAgentFolder({ agentId, path }),
     drop: (agentId, folder) => window.openownbot.agent.addDroppedAgentFolder(agentId, folder),
+    exclude: (agentId) => window.openownbot.agent.chooseAgentExclusion(agentId),
+    addExclusion: (agentId, path) => window.openownbot.agent.addAgentExclusion({ agentId, path }),
+    include: (agentId, path) => window.openownbot.agent.removeAgentExclusion({ agentId, path }),
   };
 }

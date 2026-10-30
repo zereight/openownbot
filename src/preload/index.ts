@@ -5,6 +5,7 @@ import {
   decodeAgentAdminSettings,
   decodeAgentBackupModelSettings,
   decodeAgentBrowserProfile,
+  decodeAgentExclusionChangeFromMain,
   decodeAgentFolderChangeFromMain,
   decodeAgentFolderListFromMain,
   decodeAgentImportPreview,
@@ -28,6 +29,7 @@ import {
   decodeHermesImportPreview,
   decodeHermesImportResult,
   decodeHostAgentMemoryLimit,
+  decodeHostMemoryReview,
   decodeHostTimezoneSettings,
   decodeHostUpdateStatus,
   decodeImportAgentTeamResult,
@@ -554,6 +556,9 @@ const agentFoldersGroup = bridgeGroup(IPC_ENDPOINTS.agentFolders, {
   chooseAgentFolder: decodeAgentFolderChangeFromMain,
   addAgentFolder: decodeAgentFolderChangeFromMain,
   removeAgentFolder: decodeAgentFolderChangeFromMain,
+  chooseAgentExclusion: decodeAgentExclusionChangeFromMain,
+  addAgentExclusion: decodeAgentExclusionChangeFromMain,
+  removeAgentExclusion: decodeAgentExclusionChangeFromMain,
 });
 
 // Bridged apart from the API object, because the server list calls record the selected server and
@@ -994,6 +999,8 @@ const openownbotApi: OpenOwnBotDesktopApi = {
     setTimezone: decodeHostTimezoneSettings,
     getAgentMemoryLimit: decodeHostAgentMemoryLimit,
     setAgentMemoryLimit: decodeHostAgentMemoryLimit,
+    getMemoryReview: decodeHostMemoryReview,
+    setMemoryReview: decodeHostMemoryReview,
     getPromptCacheTtl: decodePromptCacheTtlSetting,
     setPromptCacheTtl: decodePromptCacheTtlSetting,
   }),

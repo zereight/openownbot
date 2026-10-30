@@ -197,8 +197,11 @@ export const messages = {
   "error.backend.routineFlowHandoffFailed": "ルーティンはこのエージェントに作業を渡せませんでした。",
   "error.backend.mcpServerLimit": "OpenOwnBot に保存できる MCP サーバーは {limit} 個までです。",
   "error.backend.mcpServerNameTaken": "{name} という名前の MCP サーバーはすでに存在します。",
+  "error.backend.mcpServerInvalid": "OpenOwnBot はこの MCP サーバーの設定を保存できません。",
   "error.backend.mcpServerNoAnswer": "サーバーは {seconds} 秒以内に応答しませんでした。",
   "error.backend.mcpSignInNotAccepted": "サーバーはそのサインインを受け付けませんでした。",
+  "error.backend.mcpSignInClientRefused":
+    "サインインの完了時に、サインインサーバーが OpenOwnBot を受け付けませんでした。もう一度サインインしてください。OpenOwnBot はサーバーに再登録します。",
   "error.backend.mcpCommandNotFound": "コマンドが見つかりません: {command}",
   "error.backend.mcpRegistrationRefused":
     "サインインサーバーはまだ OpenOwnBot をアプリとして受け付けていません。原因はお使いのアカウントではありません。ローカル MCP サーバーなど、別の方法で接続してください。",
@@ -220,6 +223,7 @@ export const messages = {
     "OpenOwnBot はこのサーバーのサインイン情報を読み取れませんでした。サーバーアドレスを確認して再試行してください。",
   "error.backend.mcpServerExited":
     "サーバーは応答する前に停止しました。ターミナルでコマンドを実行してエラーを確認してください。",
+  "error.backend.mcpServerFailedToStart": "サーバーが起動しませんでした: {reason}",
   "error.backend.mcpOAuthProxyUnavailable":
     "OpenOwnBot はこのサーバーのローカルサインイン接続を開始できませんでした。OpenOwnBot を再起動してから、もう一度お試しください。",
   "error.backend.mcpOAuthSignInNeeded":

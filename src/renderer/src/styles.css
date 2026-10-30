@@ -38,6 +38,7 @@
 @import "@openownbot/ui/features/usage/agent-usage-report.css";
 @import "./features/usage/usage.css";
 @import "./features/schedule/schedule.css";
+@import "@openownbot/ui/features/tasks/tasks.css";
 @import "@openownbot/ui/styles/chart.css";
 @import "@openownbot/ui/features/files/files.css";
 @import "@openownbot/ui/features/import/agent-import.css";
