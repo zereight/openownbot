@@ -18,7 +18,8 @@ are not needed for this goal. Two conditions stay:
 
 This is a reading of the license text, not legal advice. A lawyer was not asked.
 
-Changes to the code, design and layout go into new plans in this repository. The sections below are
+Changes to the code, design and layout go into new plans in this repository. The developer then chose
+an in-place rewrite: see [plan 012](012-in-place-rewrite.md). The sections below are
 kept as background only.
 
 ## Decision (2026-10-31)

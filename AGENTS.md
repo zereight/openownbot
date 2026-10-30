@@ -25,9 +25,13 @@ and state which default you set aside. Do not argue by citing this file.
 
 ## Non-negotiable
 
-- **Migrations are irreversible.** No backup of `openbot.db` is made before an upgrade. Preserve all
-  user data and support every shipped source schema. Never assume a backup exists.
-- **Released Team API adapters are permanent.** Do not change a shipped wire protocol's meaning.
+[Plan 012](plans/012-in-place-rewrite.md) rewrites the code in place with no compatibility. By the
+developer's decision of 2026-10-31, it replaces two earlier rules: support for every shipped database
+schema, and permanent Team API adapters. Where a directory file still states them, plan 012 wins.
+
+- **Never touch the data of an earlier build.** The new code uses a new data location. It does not
+  delete, move or write old `openbot.db`, team or browser data. No backup exists.
+- **One Team API protocol.** Desktop and mobile change together. Do not keep adapters for old peers.
 - **Keep the renderer-to-main trust boundary:** Electron sandboxing, context isolation, navigation
   policy, IPC sender validation, and their tests. Coding agents already have `danger-full-access`.
 - **Redact secrets** on every log, export, and send path, including diagnostics and analytics.
