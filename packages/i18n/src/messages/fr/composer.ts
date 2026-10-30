@@ -71,6 +71,7 @@ export const messages = {
   "composer.placeholder.reply": "Répondre…",
   "composer.placeholder.message": "Écrire à {name}",
   "composer.placeholder.messageAgent": "Écrire à l’agent",
+  "composer.placeholder.answer": "Saisissez votre réponse",
   "composer.add.label": "Ajouter à la demande",
   "composer.add.image": "Joindre une image",
   "composer.add.skill": "Utiliser une compétence",
@@ -84,6 +85,7 @@ export const messages = {
   "composer.send.saveQueued": "Enregistrer le message en attente",
   "composer.send.voice": "Envoyer le message vocal",
   "composer.send.message": "Envoyer le message",
+  "composer.send.answer": "Envoyer la réponse",
   "composer.send.stop": "Arrêter l’agent",
   "composer.send.stopUnavailable":
     "Ce travail n’a aucun tour à arrêter depuis ce chat. Il s’exécute peut-être dans un canal.",

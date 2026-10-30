@@ -69,6 +69,7 @@ export const messages = {
   "composer.placeholder.reply": "返信…",
   "composer.placeholder.message": "{name} にメッセージを送る",
   "composer.placeholder.messageAgent": "エージェントにメッセージを送る",
+  "composer.placeholder.answer": "回答を入力",
   "composer.add.label": "プロンプトに追加",
   "composer.add.image": "画像を添付",
   "composer.add.skill": "スキルを使う",
@@ -81,6 +82,7 @@ export const messages = {
   "composer.send.saveQueued": "キューのメッセージを保存",
   "composer.send.voice": "音声メッセージを送信",
   "composer.send.message": "メッセージを送信",
+  "composer.send.answer": "回答を送信",
   "composer.send.stop": "エージェントを停止",
   "composer.send.stopUnavailable":
     "このチャットから停止できるターンがありません。チャンネルで実行中の作業かもしれません。",

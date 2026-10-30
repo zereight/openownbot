@@ -70,6 +70,7 @@ export const messages = {
   "composer.placeholder.reply": "Antworten…",
   "composer.placeholder.message": "Nachricht an {name}",
   "composer.placeholder.messageAgent": "Nachricht an den Agenten",
+  "composer.placeholder.answer": "Gib deine Antwort ein",
   "composer.add.label": "Zur Anweisung hinzufügen",
   "composer.add.image": "Bild anhängen",
   "composer.add.skill": "Fähigkeit verwenden",
@@ -83,6 +84,7 @@ export const messages = {
   "composer.send.saveQueued": "Nachricht in der Warteschlange speichern",
   "composer.send.voice": "Sprachnachricht senden",
   "composer.send.message": "Nachricht senden",
+  "composer.send.answer": "Antwort senden",
   "composer.send.stop": "Agenten stoppen",
   "composer.send.stopUnavailable":
     "Für diese Arbeit gibt es in diesem Chat keinen Durchlauf zum Stoppen. Sie läuft möglicherweise in einem Kanal.",

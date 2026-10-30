@@ -69,6 +69,7 @@ export const messages = {
   "composer.placeholder.reply": "Ответить…",
   "composer.placeholder.message": "Сообщение: {name}",
   "composer.placeholder.messageAgent": "Сообщение агенту",
+  "composer.placeholder.answer": "Введите ответ",
   "composer.add.label": "Добавить в запрос",
   "composer.add.image": "Прикрепить изображение",
   "composer.add.skill": "Использовать навык",
@@ -81,6 +82,7 @@ export const messages = {
   "composer.send.saveQueued": "Сохранить сообщение в очереди",
   "composer.send.voice": "Отправить голосовое сообщение",
   "composer.send.message": "Отправить сообщение",
+  "composer.send.answer": "Отправить ответ",
   "composer.send.stop": "Остановить агента",
   "composer.send.stopUnavailable":
     "У этой работы нет хода, который можно остановить из этого чата. Возможно, она выполняется в канале.",
