@@ -68,6 +68,7 @@ import { type DynamicRecord, isBoolean, isNumber, isOneOf, isString } from "@ope
 import { isGeneratedAgentId, isUuidV4, legacyAgentId } from "@openownbot/contracts/validation";
 import { sourceText } from "@openownbot/i18n/source";
 import { createOpenOwnBotLogger, toLogValue } from "@openownbot/logging";
+import { pickAgentName } from "@openownbot/ui/features/agents/agent-names";
 import { Effect, Result, Semaphore, Stream } from "effect";
 import { ProfileCreationRecovery } from "./agent/profile-creation-recovery";
 import { isEmptyStoredFile, parseStoredJson, writeFileAtomically } from "./atomic-json-file";
@@ -398,12 +399,7 @@ export class AgentStore {
       const sourceAvatar = this.resolveAvatar(source.id);
       const sourceAvatarSignature = sourceAvatar ? yield* fileFingerprintEffect(sourceAvatar.path) : null;
       const id = `agent-${randomUUID()}`;
-      const record = this.#createRecord(
-        id,
-        duplicateAgentName(source.name, this.#state.agents),
-        source.title,
-        source.description,
-      );
+      const record = this.#createRecord(id, duplicateAgentName(this.#state.agents), source.title, source.description);
       record.notifications = source.notifications;
       record.provider = source.provider;
       record.model = source.model;
@@ -477,7 +473,7 @@ export class AgentStore {
               if (this.#state.agents.length >= INPUT_LIMITS.agents) {
                 throw new Error(sourceText("error.agent.hostLimit", { limit: INPUT_LIMITS.agents }));
               }
-              record.name = duplicateAgentName(source.name, this.#state.agents);
+              record.name = duplicateAgentName(this.#state.agents);
               yield* storedIO(() => rename(stagedWorkspace, record.workspacePath));
               if (sourceAvatar) yield* storedIO(() => rename(stagedAvatarDirectory, avatarDirectory));
               this.#state.agents.unshift(record);
@@ -1707,16 +1703,12 @@ function limitedText(value: string, label: string, maxLength: number): string {
   return trimmed;
 }
 
-function duplicateAgentName(sourceName: string, agents: readonly StoredAgent[]): string {
-  const match = /^(.*?)(?: copy(?: (\d+))?)$/iu.exec(sourceName);
-  const base = match?.[1]?.trim() || sourceName.trim();
-  const existing = new Set(agents.map((agent) => agent.name.toLocaleLowerCase()));
-  for (let index = 1; index <= INPUT_LIMITS.agents + 1; index += 1) {
-    const suffix = index === 1 ? " copy" : ` copy ${index}`;
-    const candidate = `${base.slice(0, Math.max(1, INPUT_LIMITS.agentName - suffix.length)).trimEnd()}${suffix}`;
-    if (!existing.has(candidate.toLocaleLowerCase())) return candidate;
-  }
-  throw new Error(sourceText("error.agent.copyNameFailed"));
+/** A copy is a second hire for the same role, so it gets a new random name and keeps the title. */
+function duplicateAgentName(agents: readonly StoredAgent[]): string {
+  return pickAgentName(
+    Math.random,
+    agents.map((agent) => agent.name),
+  );
 }
 
 /**
