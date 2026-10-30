@@ -182,8 +182,6 @@ export const messages = {
   "conversation.tasks.panel.openInChat": "Abrir en el chat",
   "conversation.tasks.section.needsYou": "Te necesita",
   "conversation.tasks.section.waiting": "En espera",
-  "conversation.tasks.section.unread": "Sin leer",
-  "conversation.tasks.section.read": "Leídos",
   "conversation.tasks.section.working": "Trabajando",
   "conversation.tasks.showAll": { one: "Ver todas ({count})", other: "Ver todas ({count})" },
   "conversation.tasks.showLess": "Mostrar menos",

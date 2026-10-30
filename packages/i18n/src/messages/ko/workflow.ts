@@ -330,7 +330,6 @@ export const messages = {
   "workflow.page.conflict": "편집하는 동안 이 워크플로가 변경됐어요. 실행 취소하면 내 편집 내용이 돌아와요.",
   "workflow.page.needsNewerApp":
     "이 워크플로에는 최신 버전 OpenOwnBot의 단계가 있어요. 변경하려면 OpenOwnBot을 업데이트하세요.",
-  "workflow.page.manageOnly": "이 워크플로를 변경하려면 각 에이전트에 대해 ‘관리 가능’ 권한이 있어야 해요.",
   "workflow.chat.label": "워크플로 어시스턴트",
   "workflow.chat.title": "{name}에게 이 워크플로 묻기",
   "workflow.chat.empty": "이 워크플로가 하는 일을 {name}에게 묻거나 바꿀 내용을 알려 주세요.",

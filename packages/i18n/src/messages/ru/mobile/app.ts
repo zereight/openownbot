@@ -21,7 +21,6 @@ export const messages = {
   "mobile.app.route.messageOptions": "Действия с сообщением",
   "mobile.app.route.editMessage": "Изменить сообщение",
   "mobile.app.route.serverOptions": "Параметры сервера",
-  "mobile.app.route.members": "Участники",
   "mobile.app.route.hostedServerPlans": "Облачный сервер",
   "mobile.app.route.hostedServerSetup": "Настройка",
   "mobile.app.route.routines": "Регулярные задачи",

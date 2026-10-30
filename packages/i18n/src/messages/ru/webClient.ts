@@ -32,7 +32,6 @@ export const messages = {
   "webClient.connect.stepRemote": "Включите удалённый доступ.",
   "webClient.notice.download": "Скачать OpenOwnBot",
   "webClient.notice.createServer": "Создать облачный сервер",
-  "webClient.notice.join": "Войти по приглашению",
   "webClient.notice.refreshHosts": "Обновить серверы",
   "webClient.agent.modelsFailed": "Не удалось загрузить модели сервера.",
   "webClient.agent.refreshFailed":
@@ -48,8 +47,6 @@ export const messages = {
   "webClient.error.requestFailed": "Запрос не удался.",
   "webClient.error.accessEnded": "Доступ к этому серверу закончился.",
   "webClient.error.hostsFailed": "Не удалось загрузить ваши серверы.",
-  "webClient.error.enterInvitation": "Введите ссылку-приглашение.",
-  "webClient.error.invitationOffline": "Приглашение принято, но сервер не в сети. Повторите попытку.",
   "webClient.error.otherConversation": "Сервер вернул другой диалог.",
   "webClient.error.messageTooLong": "Сообщение слишком длинное.",
   "webClient.error.deliveryUnconfirmed":
@@ -83,6 +80,4 @@ export const messages = {
   "webClient.error.linkDesktopOnly": "Эта ссылка открывается только в приложении для компьютера.",
   "webClient.error.saveEndpointOffline": "Подключитесь к серверу, чтобы сохранить эндпоинт.",
   "webClient.error.removeEndpointOffline": "Подключитесь к серверу, чтобы удалить эндпоинт.",
-  "webClient.error.hostNotConnected": "Сервер не подключён.",
-  "webClient.error.memberNotFound": "Участника не существует.",
 } as const satisfies PartialTranslation<typeof source>;

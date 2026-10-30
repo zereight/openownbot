@@ -135,12 +135,4 @@ export const messages = {
     "Lisans {date} tarihine kadar etkin kalır. Ardından sona erer. Sunucularınız etkilenmez.",
   "billing.license.cancel.descriptionNow": "Lisans, ödenen dönemin sonunda sona erer. Sunucularınız etkilenmez.",
   "billing.license.cancel.keep": "Lisansı koru",
-  "billing.license.invite.title": "Lisansa kullanıcı eklensin mi?",
-  "billing.license.invite.description": "Bu davet lisansınıza 1 kullanıcı ekler: ayda {price} daha fazla.",
-  "billing.license.invite.confirm": "Ekle ve davet et",
-  "billing.license.invite.max": {
-    one: "Lisansınızda azami sayı olan {count} kullanıcı var. Daha büyük bir lisans için bize ulaşın. Yeni kişiler sunucularınıza katılamaz.",
-    other:
-      "Lisansınızda azami sayı olan {count} kullanıcı var. Daha büyük bir lisans için bize ulaşın. Yeni kişiler sunucularınıza katılamaz.",
-  },
 } as const satisfies PartialTranslation<typeof source>;

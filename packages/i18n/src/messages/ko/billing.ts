@@ -125,11 +125,4 @@ export const messages = {
   "billing.license.cancel.description": "라이선스는 {date}까지 유지되고 그 후 종료돼요. 서버에는 영향이 없어요.",
   "billing.license.cancel.descriptionNow": "라이선스는 결제한 기간이 끝나면 종료돼요. 서버에는 영향이 없어요.",
   "billing.license.cancel.keep": "라이선스 유지",
-  "billing.license.invite.title": "라이선스에 사용자를 추가할까요?",
-  "billing.license.invite.description": "이 초대로 라이선스에 사용자 1명이 추가돼요. 월 {price}가 더 들어요.",
-  "billing.license.invite.confirm": "사용자 추가 후 초대",
-  "billing.license.invite.max": {
-    other:
-      "라이선스가 최대치인 사용자 {count}명이에요. 더 큰 라이선스가 필요하면 문의해 주세요. 새로운 사람은 서버에 참여할 수 없어요.",
-  },
 } as const satisfies PartialTranslation<typeof source>;

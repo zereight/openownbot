@@ -181,8 +181,6 @@ export const messages = {
   "conversation.tasks.panel.openInChat": "Openen in chat",
   "conversation.tasks.section.needsYou": "Heeft je nodig",
   "conversation.tasks.section.waiting": "Wacht",
-  "conversation.tasks.section.unread": "Ongelezen",
-  "conversation.tasks.section.read": "Gelezen",
   "conversation.tasks.section.working": "Bezig",
   "conversation.tasks.showAll": { one: "Alles tonen ({count})", other: "Alles tonen ({count})" },
   "conversation.tasks.showLess": "Minder tonen",

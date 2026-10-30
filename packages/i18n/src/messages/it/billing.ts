@@ -140,12 +140,4 @@ export const messages = {
     "La licenza termina alla fine del periodo pagato. I tuoi server non sono interessati.",
   "billing.license.cancel.keep": "Mantieni licenza",
   // Shown before an invite that makes the license too small.
-  "billing.license.invite.title": "Aggiungere un utente alla licenza?",
-  "billing.license.invite.description": "Questo invito aggiunge 1 utente alla tua licenza: {price} in più al mese.",
-  "billing.license.invite.confirm": "Aggiungi e invita",
-  "billing.license.invite.max": {
-    one: "La tua licenza ha {count} utente, il massimo. Contattaci per una licenza più grande. Le nuove persone non possono unirsi ai tuoi server.",
-    other:
-      "La tua licenza ha {count} utenti, il massimo. Contattaci per una licenza più grande. Le nuove persone non possono unirsi ai tuoi server.",
-  },
 } as const satisfies PartialTranslation<typeof source>;

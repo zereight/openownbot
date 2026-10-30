@@ -177,8 +177,6 @@ export const messages = {
   "conversation.tasks.panel.openInChat": "在聊天中打开",
   "conversation.tasks.section.needsYou": "需要你",
   "conversation.tasks.section.waiting": "等待中",
-  "conversation.tasks.section.unread": "未读",
-  "conversation.tasks.section.read": "已读",
   "conversation.tasks.section.working": "处理中",
   "conversation.tasks.showAll": { one: "显示全部（{count}）", other: "显示全部（{count}）" },
   "conversation.tasks.showLess": "收起",

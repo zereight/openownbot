@@ -331,7 +331,6 @@ export const messages = {
     "Bu iş akışı siz düzenlerken değişti. Düzenlemelerinizi geri almak için Geri Al'ı kullanın.",
   "workflow.page.needsNewerApp":
     "Bu iş akışında daha yeni bir OpenOwnBot sürümünden adımlar var. Değiştirmek için OpenOwnBot'u güncelleyin.",
-  "workflow.page.manageOnly": "Bu iş akışını değiştirmek için her bir ajanı üzerinde Yönetme erişiminiz olmalı.",
   "workflow.chat.label": "İş akışı asistanı",
   "workflow.chat.title": "{name} ile bu iş akışını konuşun",
   "workflow.chat.empty": "{name} ajanına bu iş akışının ne yaptığını sorun ya da neyi değiştireceğini söyleyin.",

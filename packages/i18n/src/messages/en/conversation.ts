@@ -179,8 +179,6 @@ export const messages = defineMessages("conversation", {
   "conversation.tasks.panel.openInChat": "Open in chat",
   "conversation.tasks.section.needsYou": "Needs you",
   "conversation.tasks.section.waiting": "Waiting",
-  "conversation.tasks.section.unread": "Unread",
-  "conversation.tasks.section.read": "Read",
   "conversation.tasks.section.working": "Working",
   "conversation.tasks.showAll": { one: "Show all ({count})", other: "Show all ({count})" },
   "conversation.tasks.showLess": "Show less",

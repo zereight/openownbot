@@ -21,7 +21,6 @@ export const messages = {
   "mobile.app.route.messageOptions": "Nachrichtenoptionen",
   "mobile.app.route.editMessage": "Nachricht bearbeiten",
   "mobile.app.route.serverOptions": "Serveroptionen",
-  "mobile.app.route.members": "Mitglieder",
   "mobile.app.route.hostedServerPlans": "Cloud-Server",
   "mobile.app.route.hostedServerSetup": "Einrichtung",
   "mobile.app.route.routines": "Routinen",

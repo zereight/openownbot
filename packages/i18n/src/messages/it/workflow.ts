@@ -331,8 +331,6 @@ export const messages = {
     "Questo flusso di lavoro è cambiato mentre lo modificavi. Annulla per recuperare le tue modifiche.",
   "workflow.page.needsNewerApp":
     "Questo flusso di lavoro ha passaggi di una versione più recente di OpenOwnBot. Aggiorna OpenOwnBot per modificarlo.",
-  "workflow.page.manageOnly":
-    "Per modificare questo flusso di lavoro, ti serve l'accesso Gestione a ciascuno dei suoi agenti.",
   "workflow.chat.label": "Assistente del flusso di lavoro",
   "workflow.chat.title": "Chiedi a {name} di questo flusso di lavoro",
   "workflow.chat.empty": "Chiedi a {name} cosa fa questo flusso di lavoro o digli cosa cambiare.",

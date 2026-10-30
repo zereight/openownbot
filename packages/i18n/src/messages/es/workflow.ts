@@ -330,8 +330,6 @@ export const messages = {
   "workflow.page.conflict": "Este flujo de trabajo cambió mientras lo editabas. Deshaz para recuperar tus cambios.",
   "workflow.page.needsNewerApp":
     "Este flujo de trabajo tiene pasos de una versión más reciente de OpenOwnBot. Actualiza OpenOwnBot para cambiarlo.",
-  "workflow.page.manageOnly":
-    "Para cambiar este flujo de trabajo, necesitas acceso de gestión a cada uno de sus agentes.",
   "workflow.chat.label": "Asistente del flujo de trabajo",
   "workflow.chat.title": "Preguntar a {name} sobre este flujo de trabajo",
   "workflow.chat.empty": "Pregunta a {name} qué hace este flujo de trabajo o dile qué cambiar.",

@@ -31,7 +31,6 @@ export const messages = defineMessages("webClient", {
   "webClient.connect.stepRemote": "Turn on remote access.",
   "webClient.notice.download": "Download OpenOwnBot",
   "webClient.notice.createServer": "Create a hosted server",
-  "webClient.notice.join": "Join with invitation",
   "webClient.notice.refreshHosts": "Refresh servers",
   "webClient.agent.modelsFailed": "Could not load the server models.",
   "webClient.agent.refreshFailed":
@@ -47,8 +46,6 @@ export const messages = defineMessages("webClient", {
   "webClient.error.requestFailed": "The request failed.",
   "webClient.error.accessEnded": "Access to this server has ended.",
   "webClient.error.hostsFailed": "Could not load your servers.",
-  "webClient.error.enterInvitation": "Enter an invitation link.",
-  "webClient.error.invitationOffline": "The invitation was accepted, but the server is offline. Try again.",
   "webClient.error.otherConversation": "The server returned another conversation.",
   "webClient.error.messageTooLong": "The message is too long.",
   "webClient.error.deliveryUnconfirmed":
@@ -80,6 +77,4 @@ export const messages = defineMessages("webClient", {
   "webClient.error.linkDesktopOnly": "This link opens only in the desktop app.",
   "webClient.error.saveEndpointOffline": "Connect to your server to save an endpoint.",
   "webClient.error.removeEndpointOffline": "Connect to your server to remove an endpoint.",
-  "webClient.error.hostNotConnected": "The server is not connected.",
-  "webClient.error.memberNotFound": "The member does not exist.",
 });

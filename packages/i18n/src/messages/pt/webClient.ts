@@ -32,7 +32,6 @@ export const messages = {
   "webClient.connect.stepRemote": "Ative o acesso remoto.",
   "webClient.notice.download": "Baixar OpenOwnBot",
   "webClient.notice.createServer": "Criar servidor hospedado",
-  "webClient.notice.join": "Entrar com convite",
   "webClient.notice.refreshHosts": "Atualizar servidores",
   "webClient.agent.modelsFailed": "Não foi possível carregar os modelos do servidor.",
   "webClient.agent.refreshFailed":
@@ -48,8 +47,6 @@ export const messages = {
   "webClient.error.requestFailed": "A solicitação falhou.",
   "webClient.error.accessEnded": "O acesso a este servidor terminou.",
   "webClient.error.hostsFailed": "Não foi possível carregar seus servidores.",
-  "webClient.error.enterInvitation": "Digite um link de convite.",
-  "webClient.error.invitationOffline": "O convite foi aceito, mas o servidor está offline. Tente novamente.",
   "webClient.error.otherConversation": "O servidor retornou outra conversa.",
   "webClient.error.messageTooLong": "A mensagem é longa demais.",
   "webClient.error.deliveryUnconfirmed":
@@ -83,6 +80,4 @@ export const messages = {
   "webClient.error.linkDesktopOnly": "Este link abre apenas no app para computador.",
   "webClient.error.saveEndpointOffline": "Conecte-se ao seu servidor para salvar um endpoint.",
   "webClient.error.removeEndpointOffline": "Conecte-se ao seu servidor para remover um endpoint.",
-  "webClient.error.hostNotConnected": "O servidor não está conectado.",
-  "webClient.error.memberNotFound": "O membro não existe.",
 } as const satisfies PartialTranslation<typeof source>;

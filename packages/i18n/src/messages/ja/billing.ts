@@ -132,11 +132,4 @@ export const messages = {
   "billing.license.cancel.descriptionNow": "ライセンスは支払い済み期間の終了時に終了します。サーバーには影響しません。",
   "billing.license.cancel.keep": "ライセンスを維持",
   // Shown before an invite that makes the license too small.
-  "billing.license.invite.title": "ライセンスにユーザーを追加しますか？",
-  "billing.license.invite.description": "この招待でライセンスにユーザーが 1 人追加され、月額が {price} 増えます。",
-  "billing.license.invite.confirm": "追加して招待",
-  "billing.license.invite.max": {
-    other:
-      "ライセンスのユーザー数は上限の {count} 人です。より大きなライセンスについてはお問い合わせください。新しい人はサーバーに参加できません。",
-  },
 } as const satisfies PartialTranslation<typeof source>;
