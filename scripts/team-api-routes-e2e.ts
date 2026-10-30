@@ -78,7 +78,7 @@ import { VAULT_CAPABILITY, VAULT_ROUTES } from "@robot/contracts/team-protocol/v
 import { sourceText } from "@robot/i18n/source";
 import { createOpenOwnBotLogger } from "@robot/logging";
 import { Effect } from "effect";
-import { SteerUnsupportedError } from "../src/backend/agent/queue-controls";
+import { QueueOperationFailed, SteerUnsupportedError } from "../src/backend/agent/queue-controls";
 import { AgentLifecycleFailed } from "../src/backend/agent-service";
 import { BrowserProfileStore } from "../src/backend/browser-profiles/browser-profile-store";
 import type { BrowserTabSession } from "../src/backend/browser-state";
@@ -293,7 +293,6 @@ const fakeAgents: TeamApiAgents = {
     return queueSnapshot(agentId);
   },
   acknowledgeFailedTurn: (agentId, turnId) => record("acknowledgeFailedTurn", agentId, turnId),
-  cancelQueuedMessage: (agentId, deliveryId) => Effect.sync(() => record("cancelQueuedMessage", agentId, deliveryId)),
   steerQueuedMessage: (input) => {
     record("steerQueuedMessage", input);
     // OpenCode defers steering: the queue keeps the message and refuses the steer.
@@ -303,20 +302,20 @@ const fakeAgents: TeamApiAgents = {
       );
     return Effect.void;
   },
-  updateQueuedMessage: (input, sender) => Effect.sync(() => record("updateQueuedMessage", input, sender)),
-  editQueuedMessage: (agentId, input, sender) => {
-    record("editQueuedMessage", agentId, input, sender);
-    if (input.editId === "edit-rejected") {
-      return Effect.fail(
-        new AgentLifecycleFailed({
-          operation: "editQueuedMessage",
-          cause: new QueueEditRejectedError("another editor holds this message."),
-        }),
-      );
-    }
-    return Effect.succeed(queueSnapshot(agentId));
+  queue: {
+    cancel: (agentId, deliveryId) => Effect.sync(() => record("cancelQueuedMessage", agentId, deliveryId)),
+    update: (input, sender) => Effect.sync(() => record("updateQueuedMessage", input, sender)),
+    edit: (agentId, input, sender) => {
+      record("editQueuedMessage", agentId, input, sender);
+      if (input.editId === "edit-rejected") {
+        return Effect.fail(
+          new QueueOperationFailed({ cause: new QueueEditRejectedError("another editor holds this message.") }),
+        );
+      }
+      return Effect.succeed(queueSnapshot(agentId));
+    },
+    reorder: (input) => Effect.sync(() => record("reorderQueue", input)),
   },
-  reorderQueue: (input) => Effect.sync(() => record("reorderQueue", input)),
   interrupt: (agentId, turnId) => Effect.sync(() => record("interrupt", agentId, turnId)),
   prepareImportedAttachments: (paths, data) =>
     Effect.sync(() => {

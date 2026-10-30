@@ -36,15 +36,7 @@ import {
 export interface AgentQueueRouteDependencies {
   agents: Pick<
     TeamApiAgents,
-    | "listQueue"
-    | "acknowledgeFailedTurn"
-    | "cancelQueuedMessage"
-    | "steerQueuedMessage"
-    | "updateQueuedMessage"
-    | "editQueuedMessage"
-    | "reorderQueue"
-    | "interrupt"
-    | "listAgents"
+    "listQueue" | "acknowledgeFailedTurn" | "queue" | "steerQueuedMessage" | "interrupt" | "listAgents"
   >;
 }
 
@@ -66,7 +58,7 @@ export async function routeAgentQueue(
     try {
       return snapshot(
         await runCauseEffect(
-          agents.editQueuedMessage(agentId, decodeQueueEditRequest(await readJson(request)), memberSender(member)),
+          agents.queue.edit(agentId, decodeQueueEditRequest(await readJson(request)), memberSender(member)),
         ),
       );
     } catch (error) {
@@ -84,7 +76,7 @@ export async function routeAgentQueue(
   }
   if (method === "POST" && action === "queue/cancel") {
     const body = await readJson(request);
-    await runCauseEffect(agents.cancelQueuedMessage(agentId, stringField(body, "deliveryId")));
+    await runCauseEffect(agents.queue.cancel(agentId, stringField(body, "deliveryId")));
     return empty(204);
   }
   if (method === "POST" && action === "queue/steer") {
@@ -108,7 +100,7 @@ export async function routeAgentQueue(
   if (method === "POST" && action === "queue/update") {
     const body = await readJson(request);
     await runCauseEffect(
-      agents.updateQueuedMessage(
+      agents.queue.update(
         {
           agentId,
           deliveryId: stringField(body, "deliveryId"),
@@ -124,7 +116,7 @@ export async function routeAgentQueue(
   if (method === "POST" && action === "queue/reorder") {
     const body = await readJson(request);
     await runCauseEffect(
-      agents.reorderQueue({
+      agents.queue.reorder({
         agentId,
         deliveryIds: stringArray(body, "deliveryIds", INPUT_LIMITS.messageRecipients),
       } satisfies ReorderQueueInput),
