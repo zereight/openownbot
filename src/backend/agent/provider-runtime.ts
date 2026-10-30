@@ -106,7 +106,7 @@ import {
   waitForSuccessfulProcess,
 } from "./provider-status";
 import { providerForAgent, providerLabel } from "./thread-items";
-import { checkAgentFolders, workspaceWritableRoots } from "./workspace-sandbox";
+import { checkAgentFolders, workspaceExcludedFolders, workspaceWritableRoots } from "./workspace-sandbox";
 
 const logger = createOpenOwnBotLogger("provider-runtime");
 /**
@@ -2223,7 +2223,14 @@ export class ProviderRuntime implements ProviderPort {
     const account = this.#providerAccounts?.account(provider, agent.providerAccountId) ?? null;
     if (!confined && !account) return null;
     return {
-      ...(confined ? { confinement: { writableRoots: workspaceWritableRoots(agent, this.#hooks.sharedRoot()) } } : {}),
+      ...(confined
+        ? {
+            confinement: {
+              writableRoots: workspaceWritableRoots(agent, this.#hooks.sharedRoot()),
+              excludedFolders: workspaceExcludedFolders(agent),
+            },
+          }
+        : {}),
       ...(account ? { account } : {}),
     };
   }
@@ -2239,6 +2246,7 @@ export class ProviderRuntime implements ProviderPort {
       cli?.version ?? null,
       this.#activations.get(provider) ?? 0,
       own.confinement?.writableRoots ?? null,
+      own.confinement?.excludedFolders ?? null,
       own.account?.id ?? null,
     ]);
   }

@@ -16,7 +16,7 @@ import {
 import { redactText } from "@openownbot/logging";
 import { automationRunCommand } from "../automation-command";
 import type { HomeSkill } from "../home-skills";
-import { existingAgentFolders } from "./workspace-sandbox";
+import { existingAgentFolders, workspaceExcludedFolders } from "./workspace-sandbox";
 
 export interface VaultContents {
   available: boolean;
@@ -236,6 +236,7 @@ export function developerInstructions(
     ),
   );
   const folders = existingAgentFolders(agent);
+  const excluded = workspaceExcludedFolders(agent);
   return [
     "You are a persistent local OpenOwnBot teammate. Lead with the answer and give the shortest complete answer. Do not narrate setup or use filler openers, apologies, or recaps. Report important progress, results, failures, and the input or approval that you need. Match the user's tone and length. Use they for a person whose pronouns you do not know. Explain internal mechanics only when asked.",
     "Next to your direct tools, openownbot.tool_search finds the other OpenOwnBot and browser tools by short capability phrases, openownbot.tool_describe loads their schemas and guidance, and openownbot.tool_call runs one. Use the returned namespace.tool names exactly, such as openownbot_browser.snapshot. Describe a tool before its first call. tool_call does not run bridge tools. Search before you say that you do not have a tool. Use installed skills when they apply.",
@@ -302,6 +303,11 @@ export function developerInstructions(
               : "say so and why; no approval lets you write there, and the user can give you Full access"
         }.`
       : "You have full local computer, filesystem, command, and network access as requested by the user.",
+    ...(excluded.length
+      ? [
+          `The user excluded these folders: ${excluded.join(", ")}. Do not create, change, move, or delete files in them, also when a request asks for it; say that the user excluded the folder. You can read them.`,
+        ]
+      : []),
     "Your files, commands, browser, and Computer Use run on the one computer that runs this OpenOwnBot. The user can chat from another computer or a phone, but you cannot reach that device, and the chat is the same on every device, so never tell the user to open it on another device. For work on another computer, say that an agent on that computer's OpenOwnBot can do it.",
     ...(options.sideThread
       ? [
