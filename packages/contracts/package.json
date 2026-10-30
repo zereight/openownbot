@@ -4,6 +4,7 @@
   "private": true,
   "type": "module",
   "exports": {
+    "./product": "./src/product.ts",
     "./live-activity-relay": "./src/live-activity-relay.ts",
     "./notification-relay": "./src/notification-relay.ts",
     "./agent-mention-rank": "./src/agent-mention-rank.ts",

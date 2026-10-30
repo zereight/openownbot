@@ -214,8 +214,8 @@ folders, then OpenOwnBot's own, then the CLI's folder for a system copy. An app 
 then run a `#!/usr/bin/env node` CLI. A CLI that exists but does not start reports whether the
 managed copy or the user's copy failed.
 
-Installed runtimes live in one store per computer, `appData/OpenOwnBot/provider-runtimes`, which is the
-path the packaged app always used: its `userData` is `appData/OpenOwnBot`. Development profiles differ
+Installed runtimes live in one store per computer, `appData/ROBot/provider-runtimes`, inside
+the `userData` of the packaged app (`appData/ROBot`). Development profiles differ
 per renderer port and per worktree, so a store inside `userData` started empty in each
 one, fell back to the user's own CLI, and offered and downloaded the managed copy again. An explicit
 `--user-data-dir` still keeps its own store, so automation and packaged smoke checks stay

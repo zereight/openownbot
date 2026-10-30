@@ -76,6 +76,10 @@ Each step is one PR, merged when CI passes. Each phase makes the code smaller be
     a chat column where agents post as bot members, compact message rows. The exact reading of this
     style is not confirmed; phase 3 shows a draft for the developer to accept.
 11. **Order.** The phases below, in this order.
+12. **Name.** The product is **ROBot** (Rapid Open Bot). The new data location is `ROBot`: `appData/ROBot`
+    for the app data, `appData/ROBot Dev …` for development profiles, and `~/ROBot` for agent workspaces.
+    The copy of the old `OpenBot` app data folder is deleted. The rename of the product in the interface,
+    the packages and the build follows in its own step.
 
 ## Risks
 

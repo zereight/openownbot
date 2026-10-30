@@ -22,6 +22,7 @@ import {
   type ProviderRuntimeSnapshot,
   type ProviderRuntimeStatus,
 } from "@openownbot/contracts/ipc";
+import { DATA_FOLDER_NAME } from "@openownbot/contracts/product";
 import { isBoolean, isDynamicRecord, isNumber, isString } from "@openownbot/contracts/runtime-values";
 import { matchingSourceKeys, sourceText } from "@openownbot/i18n/source";
 import { createOpenOwnBotLogger, type LogValue, redactText, toLogValue } from "@openownbot/logging";
@@ -180,9 +181,8 @@ export interface ProviderRuntimeManagerOptions {
 /**
  * Where the downloaded provider CLIs live: one store for the whole computer, not one per profile.
  *
- * `appData/OpenOwnBot` is exactly what Electron gives the packaged app as `userData` on macOS, Windows
- * and Linux, so this is the path released builds already use and nothing has to be migrated. What
- * it changes is development, where every renderer port and every `--isolated` worktree gets a
+ * `appData/ROBot` is exactly what Electron gives the packaged app as `userData` on macOS, Windows
+ * and Linux. What it changes is development, where every renderer port and every `--isolated` worktree gets a
  * profile of its own: each one used to start with an empty store, resolve the user's own CLI
  * instead, and offer -- and download -- the pinned copy again.
  *
@@ -193,7 +193,7 @@ export interface ProviderRuntimeManagerOptions {
 export function providerRuntimeRoot(input: { appData: string; userDataOverride: string }): string {
   const override = input.userDataOverride.trim();
   if (override) return join(resolve(override), "provider-runtimes");
-  return join(input.appData, "OpenOwnBot", "provider-runtimes");
+  return join(input.appData, DATA_FOLDER_NAME, "provider-runtimes");
 }
 
 export class ProviderRuntimeManager extends EventEmitter<ProviderRuntimeManagerEvents> {

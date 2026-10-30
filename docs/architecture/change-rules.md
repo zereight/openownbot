@@ -95,7 +95,7 @@ safe to replay. Keep domain retry and recovery rules at their existing owners.
     Storybook included, and `scripts/dev-automation/port-allocation.ts` serializes read, choose and
     publish behind one machine-wide lock: probing a port and binding it seconds later is a check
     followed by a use, so two runners starting together both used to win 5173 and the unsuffixed
-    `OpenOwnBot Dev` profile with it. Ownership of that lock is a generation rather than a path: taking
+    `ROBot Dev` profile with it. Ownership of that lock is a generation rather than a path: taking
     it means creating the next numbered file with an exclusive create, so who owns it is decided by
     a step the kernel makes atomic and never by a delete. Once a lock path exists it stays, and nothing ever
     frees it: releasing replaces the contents with a released marker in one `rename` onto the same
