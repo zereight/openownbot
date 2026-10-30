@@ -1,4 +1,5 @@
 import { Duration, Effect } from "effect";
+import type { McpOperations } from "../../backend/agent/mcp-gateway";
 import type { RemoteWorkflowError } from "../remote-service-effects";
 // MCP servers: the model-context servers an agent on this server may use.
 //
@@ -23,7 +24,6 @@ import { MCP_SIGN_IN_CAPABILITY, MCP_SIGN_IN_ROUTES } from "@robot/contracts/tea
 import { MCP_ROUTES } from "@robot/contracts/team-protocol/mcp-v1";
 import { SIGN_IN_RELAY_CAPABILITY, SIGN_IN_RELAY_ROUTES } from "@robot/contracts/team-protocol/sign-in-relay-v1";
 import { sourceText } from "@robot/i18n/source";
-import type { AgentService } from "../../backend/agent-service";
 import { runCauseEffect } from "../../backend/effect-boundary";
 import { MCP_STDIO_PROBE_TIMEOUT_MS } from "../../backend/mcp-probe";
 import { type McpToolRuntimes, needsManagedRuntime } from "../../backend/mcp-provider-shapes";
@@ -45,21 +45,7 @@ import {
 import { scopedHandler, scopedQueryHandler } from "./scoped-handler";
 
 /** The AgentService members this registrar reaches, and nothing else. */
-type McpServerService = Pick<
-  AgentService,
-  | "listMcpServers"
-  | "saveMcpServer"
-  | "removeMcpServer"
-  | "setMcpServerEnabled"
-  | "testMcpServer"
-  | "signInMcpServer"
-  | "cancelMcpSignIn"
-  | "signOutMcpServer"
-  | "listMcpSignIns"
-  | "mcpSignInApp"
-  | "saveMcpSignInApp"
-  | "removeMcpSignInApp"
->;
+type McpServerService = McpOperations;
 
 /** The RemoteServerManager members this registrar reaches, and nothing else. */
 interface McpRemoteServers {
@@ -215,7 +201,7 @@ export function mcpServerIpcHandlers({
   return {
     mcpServers: {
       listMcpServers: scopedQueryHandler({
-        local: () => service.listMcpServers(),
+        local: () => service.list(),
         // The one read route, and the only one the host answers to a GET.
         remote: (serverId) => {
           requireRemoteSupport(serverId);
@@ -225,18 +211,18 @@ export function mcpServerIpcHandlers({
       saveMcpServer: scopedHandler(parseSaveMcpServer, {
         local: (parsed) => {
           startToolRuntimes();
-          return runCauseEffect(service.saveMcpServer(parsed));
+          return runCauseEffect(service.save(parsed));
         },
         remote: (parsed, serverId) => remoteList(serverId, MCP_ROUTES.save, parsed),
       }),
       removeMcpServer: scopedHandler(parseRemoveMcpServer, {
-        local: (parsed) => runCauseEffect(service.removeMcpServer(parsed)),
+        local: (parsed) => runCauseEffect(service.remove(parsed)),
         remote: (parsed, serverId) => remoteList(serverId, MCP_ROUTES.remove, parsed),
       }),
       setMcpServerEnabled: scopedHandler(parseSetMcpServerEnabled, {
         local: (parsed) => {
           if (parsed.enabled) startToolRuntimes();
-          return runCauseEffect(service.setMcpServerEnabled(parsed));
+          return runCauseEffect(service.setEnabled(parsed));
         },
         remote: (parsed, serverId) => remoteList(serverId, MCP_ROUTES.toggle, parsed),
       }),
@@ -255,7 +241,7 @@ export function mcpServerIpcHandlers({
               toolRuntimes,
             }),
           );
-          return runCauseEffect(service.testMcpServer(parsed, { storedCredentials: true, signInPlace: "here" }));
+          return runCauseEffect(service.test(parsed, { storedCredentials: true, signInPlace: "here" }));
         },
         remote: (parsed, serverId) => {
           requireRemoteSupport(serverId);
@@ -271,7 +257,7 @@ export function mcpServerIpcHandlers({
       // A sign-in opens the browser of the computer that runs ROBot. On a joined server that is the
       // host's browser, which the panel shows through the live view of the tab `mcpSignInPage` names.
       signInMcpServer: scopedHandler(parseTestMcpServer, {
-        local: (parsed) => runCauseEffect(service.signInMcpServer(parsed)),
+        local: (parsed) => runCauseEffect(service.signIn(parsed)),
         remote: (parsed, serverId) => {
           if (!remoteServers.supportsCapability(serverId, SIGN_IN_RELAY_CAPABILITY)) requireRemoteSignIn(serverId);
           return runCauseEffect(signInRemotely(serverId, parsed));
@@ -300,7 +286,7 @@ export function mcpServerIpcHandlers({
         remote: (parsed, serverId) => relay.paste(remotePageKey(serverId, parsed.url), parsed.address),
       }),
       cancelMcpSignIn: scopedHandler(parseCancelMcpSignIn, {
-        local: (parsed) => service.cancelMcpSignIn(parsed),
+        local: (parsed) => service.cancelSignIn(parsed.url),
         remote: (parsed, serverId) => {
           requireRemoteSignIn(serverId);
           return runCauseEffect(
@@ -313,7 +299,7 @@ export function mcpServerIpcHandlers({
       }),
       // A sign-out names its row the way a removal does, so it is read by the same parser.
       signOutMcpServer: scopedHandler(parseRemoveMcpServer, {
-        local: (parsed) => runCauseEffect(service.signOutMcpServer(parsed)),
+        local: (parsed) => runCauseEffect(service.signOut(parsed)),
         remote: (parsed, serverId) => {
           requireRemoteSignIn(serverId);
           return runCauseEffect(
@@ -326,7 +312,7 @@ export function mcpServerIpcHandlers({
       }),
       // A host without `mcp-sign-in-v1` holds no sign-in state to show, which is not an error.
       listMcpSignIns: scopedQueryHandler({
-        local: () => service.listMcpSignIns(),
+        local: () => service.signIns(),
         remote: (serverId) => {
           if (!remoteServers.supportsCapability(serverId, MCP_SIGN_IN_CAPABILITY)) return [];
           return runCauseEffect(
@@ -339,15 +325,15 @@ export function mcpServerIpcHandlers({
       }),
       // The client secret goes to the machine that signs in, and no answer carries it back.
       mcpSignInApp: scopedHandler(parseMcpSignInApp, {
-        local: (parsed) => service.mcpSignInApp(parsed),
+        local: (parsed) => service.signInApp(parsed),
         remote: (parsed, serverId) => remoteSignInApp(serverId, MCP_SIGN_IN_APP_ROUTES.get, parsed),
       }),
       saveMcpSignInApp: scopedHandler(parseSaveMcpSignInApp, {
-        local: (parsed) => runCauseEffect(service.saveMcpSignInApp(parsed)),
+        local: (parsed) => runCauseEffect(service.saveSignInApp(parsed)),
         remote: (parsed, serverId) => remoteSignInApp(serverId, MCP_SIGN_IN_APP_ROUTES.save, parsed),
       }),
       removeMcpSignInApp: scopedHandler(parseMcpSignInApp, {
-        local: (parsed) => runCauseEffect(service.removeMcpSignInApp(parsed)),
+        local: (parsed) => runCauseEffect(service.removeSignInApp(parsed)),
         remote: (parsed, serverId) => remoteSignInApp(serverId, MCP_SIGN_IN_APP_ROUTES.remove, parsed),
       }),
     },

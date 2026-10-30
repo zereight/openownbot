@@ -783,7 +783,7 @@ function registerIpcHandlers({
       openExternal: openLink,
     }),
     ...mcpServerIpcHandlers({
-      service,
+      service: service.mcp,
       remoteServers,
       startToolRuntimes: () => {
         Effect.runFork(providerRuntimes.ensureToolRuntimes());

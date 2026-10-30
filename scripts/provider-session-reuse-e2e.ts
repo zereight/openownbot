@@ -545,7 +545,7 @@ try {
         }),
       );
     writeConfig(null);
-    await runCauseEffect(agents.saveMcpServer({ config: server }));
+    await runCauseEffect(agents.mcp.save({ config: server }));
     const starts = () =>
       entries<{ method: string }>(codexLog).filter((entry) => entry.method === "thread/start").length;
     await createAgent(agents, "Codex reuse", "codex");

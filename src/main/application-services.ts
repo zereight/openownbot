@@ -1689,7 +1689,7 @@ export async function createApplicationServices({
       customAgents: () => customAgents.configs(),
       // The enabled MCP servers, read at each spawn. The service owns the store, so this reads back
       // into the object being constructed; nothing calls it before the constructor returns.
-      mcpServers: () => service.enabledMcpServers(),
+      mcpServers: () => service.mcp.enabled(),
       // The floor under those servers: the `bin` of every managed tool runtime, appended after the
       // user's own `PATH`, so a machine with no Node can still start `npx some-server` and a machine
       // that has one keeps the build it installed.
@@ -1961,8 +1961,7 @@ export async function createApplicationServices({
    * Nothing waits for it and nothing reports it. MCP is optional, so a failed download must not
    * reach onboarding; a server that cannot start is reported at hand-off like any other.
    */
-  if (!setupState.completed || service.enabledMcpServers().length > 0)
-    Effect.runFork(providerRuntimes.ensureToolRuntimes());
+  if (!setupState.completed || service.mcp.enabled().length > 0) Effect.runFork(providerRuntimes.ensureToolRuntimes());
   // After `new AgentService`, which owns the channels: the layout files channels beside agents, and
   // reconciling against the agents alone would read every channel as gone and drop where it sits.
   performance.mark("openownbot:services.messaging");
@@ -2206,8 +2205,8 @@ export async function createApplicationServices({
       deleteAgent: (agentId) => service.deleteAgent(agentId),
       routines: service.routines,
       memories: service.memories,
-      listMcpServers: () => service.listMcpServers(),
-      saveMcpServer: (config) => service.saveMcpServer({ config }),
+      listMcpServers: () => service.mcp.list(),
+      saveMcpServer: (config) => service.mcp.save({ config }),
     },
     { library: () => skills.requireLocalLibrary(), installLocal: (input) => skills.installLocal(input) },
     join(app.getPath("userData"), HERMES_IMPORT_LINKS_FILE),
@@ -2222,8 +2221,8 @@ export async function createApplicationServices({
     uploadDirectory: join(app.getPath("userData"), "instance-transfer-uploads"),
     timezone: () => serverTimezone.effective(),
     settings: {
-      mcpServers: () => service.listMcpServers(),
-      saveMcpServer: (config) => service.saveMcpServer({ config }),
+      mcpServers: () => service.mcp.list(),
+      saveMcpServer: (config) => service.mcp.save({ config }),
       customProviders: () => customProviderChanges.list(),
       saveCustomProvider: (input) => customProviderChanges.save(input),
       customAgents: () => customAgentChanges.list(),
@@ -2238,7 +2237,7 @@ export async function createApplicationServices({
           .map((provider) => provider.id),
     },
   });
-  const mcpHostSignIns = new McpHostSignIns({ service, browser });
+  const mcpHostSignIns = new McpHostSignIns({ service: service.mcp, browser });
   const providerSignIns = new ProviderHostSignIns({ service, browser });
   const providerAccountsHost = new ProviderAccountsHost({ service, browser });
   // The flows end with the sign-ins they relay, which `mcpHostSignIns`, `providerSignIns` and
@@ -2284,7 +2283,7 @@ export async function createApplicationServices({
     chat: teamChatStore,
     channels: service.channels,
     // Present, so the host advertises `mcp-servers-v1`. The routes are admin-only.
-    mcpServers: service,
+    mcpServers: service.mcp,
     // Present, so the host advertises `mcp-sign-in-v1`. The routes are admin-only.
     mcpSignIns: mcpHostSignIns,
     // Present, so the host advertises `sign-in-relay-v1`. The routes are admin-only.

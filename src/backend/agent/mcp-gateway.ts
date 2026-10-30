@@ -3,6 +3,7 @@ import type {
   McpSignInAppInput,
   McpSignInAppState,
   McpSignInState,
+  McpTestResult,
   RemoveMcpServerInput,
   SaveMcpServerInput,
   SaveMcpSignInAppInput,
@@ -86,7 +87,24 @@ export interface McpGatewayOptions {
  *
  * Holds no connection of its own. It never imports the agent service facade.
  */
-export class McpGateway {
+/** The MCP operations that code outside the backend calls. */
+export interface McpOperations {
+  list(): McpServerConfig[];
+  save(input: SaveMcpServerInput): Effect.Effect<McpServerConfig[], McpGatewayFailed>;
+  remove(input: RemoveMcpServerInput): Effect.Effect<McpServerConfig[], McpGatewayFailed>;
+  setEnabled(input: SetMcpServerEnabledInput): Effect.Effect<McpServerConfig[], McpGatewayFailed>;
+  test(input: TestMcpServerInput, options?: TestMcpServerOptions): Effect.Effect<McpTestResult, McpGatewayFailed>;
+  signIn(input: TestMcpServerInput, open?: McpSignInOpener): Effect.Effect<McpTestResult, McpGatewayFailed>;
+  cancelSignIn(url: string): void;
+  signOut(input: SignOutMcpServerInput): Effect.Effect<McpSignInState[], McpGatewayFailed>;
+  signIns(): McpSignInState[];
+  signInApp(input: McpSignInAppInput): McpSignInAppState;
+  saveSignInApp(input: SaveMcpSignInAppInput): Effect.Effect<McpSignInAppState, McpGatewayFailed>;
+  removeSignInApp(input: McpSignInAppInput): Effect.Effect<McpSignInAppState, McpGatewayFailed>;
+  enabled(): McpServerConfig[];
+}
+
+export class McpGateway implements McpOperations {
   readonly #servers: McpServerStore;
   readonly #computerUseMcpServer: () => McpServerConfig | null;
   readonly #githubConnector: GitHubConnectorSource | null;

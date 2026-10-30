@@ -23,7 +23,6 @@ import type {
   AskSideQuestionInput,
   AttachmentDataInput,
   AvatarImageInput,
-  CancelMcpSignInInput,
   CapabilityState,
   ConversationFileSearchPage,
   ConversationMessage,
@@ -45,15 +44,10 @@ import type {
   HostAnalyticsInput,
   LocalBrowserSecretResponse,
   McpServerConfig,
-  McpSignInAppInput,
-  McpSignInAppState,
-  McpSignInState,
-  McpTestResult,
   ProviderCodeLoginStart,
   ProviderUsageResets,
   QueuedMessageReceipt,
   QueueSnapshot,
-  RemoveMcpServerInput,
   ReorderQueueInput,
   ResetAgentSessionSettingInput,
   RespondToApprovalInput,
@@ -63,20 +57,15 @@ import type {
   RunQueuedMessageAsTaskInput,
   SaveAgentProfileInput,
   SaveAgentProfileResult,
-  SaveMcpServerInput,
-  SaveMcpSignInAppInput,
   SendMessageInput,
   SetAgentHiddenInput,
   SetAgentSessionSettingInput,
-  SetMcpServerEnabledInput,
   SetMessageReactionInput,
   SharedTable,
   SidebarLayoutSnapshot,
   SidebarSection,
-  SignOutMcpServerInput,
   StartAgentTaskInput,
   SteerQueuedMessageInput,
-  TestMcpServerInput,
   TestRoutineInput,
   UpdateAgentInput,
   UpdateQueuedMessageInput,
@@ -137,7 +126,7 @@ import type { FastComputerUseHost } from "./agent/fast-computer-use";
 import { type AgentHostedSites, HostedSiteCoordinator } from "./agent/hosted-site-coordinator";
 import { ImageGenRuntime } from "./agent/image-gen-runtime";
 import { MailboxSync } from "./agent/mailbox-sync";
-import { type GitHubConnectorSource, McpGateway, type TestMcpServerOptions } from "./agent/mcp-gateway";
+import { type GitHubConnectorSource, McpGateway } from "./agent/mcp-gateway";
 import { mcpServersFromGateway } from "./agent/mcp-tools";
 import { MemoryHold } from "./agent/memory-hold";
 import { MEMORY_REVIEW_MESSAGES, MemoryReview } from "./agent/memory-review";
@@ -207,7 +196,6 @@ import { reportOriginalFailure } from "./effect-boundary";
 import type { HostMemory } from "./host-memory";
 import type { MailboxStore } from "./mailbox-store";
 import { toMcpOperationError } from "./mcp-effects";
-import type { McpSignInOpener } from "./mcp-oauth-provider";
 import { McpServerStore } from "./mcp-server-store";
 import { MessagingThreads, toMessagingThreadFailed } from "./messaging/messaging-threads";
 import type { PasswordVault } from "./password-vault";
@@ -438,7 +426,11 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
   readonly channelRoutines: ChannelRoutineScheduler;
   /** Agent and channel routines of every trigger kind, with their webhook routes. */
   readonly routineRecords: RoutineRecords;
-  readonly #mcp: McpGateway;
+  /**
+   * The MCP servers this machine holds. Configurations only: ROBot holds no connection of its own.
+   * A connection is made when the user asks for a test, and when an agent starts.
+   */
+  readonly mcp: McpGateway;
   readonly #providers: ProviderRuntime;
   readonly #providerUseChanges = Semaphore.makeUnsafe(1);
   readonly #endpoints: CustomEndpoints;
@@ -514,7 +506,7 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
     this.#store = store;
     // First of the sub-objects, because `#emitError` reads it to redact and every one of them is
     // given that callback.
-    this.#mcp = new McpGateway({
+    this.mcp = new McpGateway({
       servers: new McpServerStore(store.database),
       credentials,
       computerUseMcpServer,
@@ -618,7 +610,7 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
         sideThreadId
           ? this.#appendSideThreadSystemMessage(agentId, sideThreadId, message, "thread.memory-reviewed")
           : this.#appendSystemMessage(agentId, message, "thread.memory-reviewed"),
-      redact: (text) => this.#mcp.redact(text),
+      redact: (text) => this.mcp.redact(text),
       stopping: () => this.#stopping,
       ...(options.memoryReviewIdleMs === undefined ? {} : { idleMs: options.memoryReviewIdleMs }),
       ...(options.memoryReviewInterval ? { interval: options.memoryReviewInterval } : {}),
@@ -845,12 +837,12 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
         // Every MCP set that leaves for a provider is remembered, so its secrets stay redactable
         // after the user edits them. This is the second of the two ways one leaves; the other is
         // `enabledMcpServers`, which the Codex thread configuration reads.
-        mcpServers: () => this.#mcp.record(credentials.mcpServers()),
-        reportMcpDrops: (provider, drops) => this.#mcp.reportDrops(provider, drops),
-        mcpEndpoint: (config) => this.#mcp.endpoint(config).pipe(toMcpOperationError),
+        mcpServers: () => this.mcp.record(credentials.mcpServers()),
+        reportMcpDrops: (provider, drops) => this.mcp.reportDrops(provider, drops),
+        mcpEndpoint: (config) => this.mcp.endpoint(config).pipe(toMcpOperationError),
       },
-      mcpHandoff: this.#mcp.handoffLog(),
-      redactMcp: (text) => this.#mcp.redact(text),
+      mcpHandoff: this.mcp.handoffLog(),
+      redactMcp: (text) => this.mcp.redact(text),
     });
     this.#endpoints = new CustomEndpoints({
       store,
@@ -1002,10 +994,10 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
       conversation: this.#conversation,
       memories: this.memories,
       compaction: this.#compaction,
-      mcpServers: () => this.#mcp.enabled(),
-      mcpToolRuntimes: () => this.#mcp.toolRuntimes(),
-      mcpEndpoint: (config) => this.#mcp.endpoint(config).pipe(toMcpOperationError),
-      mcpProxyFingerprint: (configs) => this.#mcp.proxyFingerprint(configs).pipe(toMcpOperationError),
+      mcpServers: () => this.mcp.enabled(),
+      mcpToolRuntimes: () => this.mcp.toolRuntimes(),
+      mcpEndpoint: (config) => this.mcp.endpoint(config).pipe(toMcpOperationError),
+      mcpProxyFingerprint: (configs) => this.mcp.proxyFingerprint(configs).pipe(toMcpOperationError),
       ...(credentials.agentEnvironment ? { agentEnvironment: credentials.agentEnvironment } : {}),
       passwordVaultConnected: () => options.passwordVault?.connected() ?? false,
       vaultItems: () => ({
@@ -1022,7 +1014,7 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
           logger.warn("Recovered an unavailable provider session.", { agentId, provider, outcome }),
         logReleaseFailure: (provider, error) =>
           logger.warn("Could not close a replaced provider session.", { provider, error }),
-        reportMcpDrops: (provider, drops) => this.#mcp.reportDrops(provider, drops),
+        reportMcpDrops: (provider, drops) => this.mcp.reportDrops(provider, drops),
         logHandoffReadFailure: (provider, error) =>
           logger.warn("Could not read the work steps of an earlier provider session.", { provider, error }),
       },
@@ -1281,7 +1273,7 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
       tasks: this.#tasks,
       hooks: {
         emitError: (code, error, agentId) => this.#emitError(code, error, agentId),
-        redactMcp: (text) => this.#mcp.redact(text),
+        redactMcp: (text) => this.mcp.redact(text),
         isStopping: () => this.#stopping,
         servesModel: (model) => this.#endpoints.serves(model),
         requeueChannelDelivery: (deliveryId, continueWork) => this.#requeueChannelDelivery(deliveryId, continueWork),
@@ -1393,7 +1385,7 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
         dropRefusedSession: (agentId, externalThreadId) =>
           this.#threads.dropRefusedProviderSession(agentId, externalThreadId),
         listAgents: () => this.listAgents(),
-        redactMcp: (text) => this.#mcp.redact(text),
+        redactMcp: (text) => this.mcp.redact(text),
         emitToolUsage: (usage) => this.emit("toolUsage", usage),
         turnModel: (agentId, turnId) => this.#drain.modelForTurn(agentId, turnId),
         mayFailOver: (agentId) => this.#usageLimitBackup(agentId) !== undefined,
@@ -1429,7 +1421,7 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
             ),
         taskForThread: (threadId) => this.#tasks.taskForThread(threadId),
         taskOpen: (taskId) => this.#tasks.threadId(taskId) !== null,
-        taskFailed: (taskId, message) => this.#tasks.failed(taskId, this.#mcp.redact(message)),
+        taskFailed: (taskId, message) => this.#tasks.failed(taskId, this.mcp.redact(message)),
       },
     });
     this.#removal = new AgentRemoval({
@@ -1494,7 +1486,7 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
       ...(options.visualPreview === undefined ? {} : { visualPreview: options.visualPreview }),
       ...(options.screenCapture === undefined ? {} : { screenCapture: options.screenCapture }),
       ...(options.fastComputerUse === undefined ? {} : { fastComputerUse: options.fastComputerUse }),
-      mcpServers: mcpServersFromGateway(this.#mcp, options.prepareMcpTest),
+      mcpServers: mcpServersFromGateway(this.mcp, options.prepareMcpTest),
       apiKeys: options.agentApiKeys ?? null,
       hooks: {
         listAgents: () => this.listAgents(),
@@ -1518,9 +1510,9 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
         updateAgent: (input, initiatingAgentId) =>
           this.updateAgent(input, initiatingAgentId).pipe(toToolOperationFailed),
         setAvatar: (agentId, image) => this.setAvatar(agentId, image).pipe(toToolOperationFailed),
-        enabledMcpServers: () => this.enabledMcpServers(),
+        enabledMcpServers: () => this.mcp.enabled(),
         emitError: (code, error, agentId) => this.#emitError(code, error, agentId),
-        redactMcp: (text) => this.#mcp.redact(text),
+        redactMcp: (text) => this.mcp.redact(text),
         runsTurn: (agentId) => this.#runsTurn(agentId),
         interrupt: (agentId, turnId, mayStop) =>
           this.#interruptTurn(agentId, turnId, undefined, mayStop).pipe(toToolOperationFailed),
@@ -1844,42 +1836,6 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
   /** `withSkipped` adds the skipped-run records, which only the local history shows. */
 
   /**
-   * The MCP servers this machine holds.
-   *
-   * Configurations only: ROBot holds no connection of its own to report. A connection is made
-   * when the user asks for a test, and when an agent starts - and the second is the provider's own.
-   */
-  listMcpServers(): McpServerConfig[] {
-    return this.#mcp.list();
-  }
-
-  saveMcpServer(input: SaveMcpServerInput): Effect.Effect<McpServerConfig[], AgentLifecycleFailed> {
-    return this.#mcp
-      .save(input)
-      .pipe(
-        Effect.mapError((failure) => new AgentLifecycleFailed({ operation: "saveMcpServer", cause: failure.cause })),
-      );
-  }
-
-  removeMcpServer(input: RemoveMcpServerInput): Effect.Effect<McpServerConfig[], AgentLifecycleFailed> {
-    return this.#mcp
-      .remove(input)
-      .pipe(
-        Effect.mapError((failure) => new AgentLifecycleFailed({ operation: "removeMcpServer", cause: failure.cause })),
-      );
-  }
-
-  setMcpServerEnabled(input: SetMcpServerEnabledInput): Effect.Effect<McpServerConfig[], AgentLifecycleFailed> {
-    return this.#mcp
-      .setEnabled(input)
-      .pipe(
-        Effect.mapError(
-          (failure) => new AgentLifecycleFailed({ operation: "setMcpServerEnabled", cause: failure.cause }),
-        ),
-      );
-  }
-
-  /**
    * Marks every agent's provider session for refresh, spent before its next turn.
    *
    * The mark is what a managed tool runtime becoming ready spends: a session that dropped its
@@ -1888,70 +1844,6 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
    */
   refreshAllAgentRuntimes(): Effect.Effect<void, AgentLifecycleFailed> {
     return this.#threads.refreshAllAgentRuntimes();
-  }
-
-  testMcpServer(
-    input: TestMcpServerInput,
-    options: TestMcpServerOptions = {},
-  ): Effect.Effect<McpTestResult, AgentLifecycleFailed> {
-    return this.#mcp
-      .test(input, options)
-      .pipe(
-        Effect.mapError((failure) => new AgentLifecycleFailed({ operation: "testMcpServer", cause: failure.cause })),
-      );
-  }
-
-  signInMcpServer(
-    input: TestMcpServerInput,
-    open?: McpSignInOpener,
-  ): Effect.Effect<McpTestResult, AgentLifecycleFailed> {
-    return this.#mcp
-      .signIn(input, open)
-      .pipe(
-        Effect.mapError((failure) => new AgentLifecycleFailed({ operation: "signInMcpServer", cause: failure.cause })),
-      );
-  }
-
-  cancelMcpSignIn(input: CancelMcpSignInInput): void {
-    this.#mcp.cancelSignIn(input.url);
-  }
-
-  signOutMcpServer(input: SignOutMcpServerInput): Effect.Effect<McpSignInState[], AgentLifecycleFailed> {
-    return this.#mcp
-      .signOut(input)
-      .pipe(
-        Effect.mapError((failure) => new AgentLifecycleFailed({ operation: "signOutMcpServer", cause: failure.cause })),
-      );
-  }
-
-  listMcpSignIns(): McpSignInState[] {
-    return this.#mcp.signIns();
-  }
-
-  mcpSignInApp(input: McpSignInAppInput): McpSignInAppState {
-    return this.#mcp.signInApp(input);
-  }
-
-  saveMcpSignInApp(input: SaveMcpSignInAppInput): Effect.Effect<McpSignInAppState, AgentLifecycleFailed> {
-    return this.#mcp
-      .saveSignInApp(input)
-      .pipe(
-        Effect.mapError((failure) => new AgentLifecycleFailed({ operation: "saveMcpSignInApp", cause: failure.cause })),
-      );
-  }
-
-  removeMcpSignInApp(input: McpSignInAppInput): Effect.Effect<McpSignInAppState, AgentLifecycleFailed> {
-    return this.#mcp
-      .removeSignInApp(input)
-      .pipe(
-        Effect.mapError(
-          (failure) => new AgentLifecycleFailed({ operation: "removeMcpSignInApp", cause: failure.cause }),
-        ),
-      );
-  }
-
-  enabledMcpServers(): McpServerConfig[] {
-    return this.#mcp.enabled();
   }
 
   /**
@@ -1971,7 +1863,7 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
    * and the public thread is untouched.
    */
   notifyComputerUseChanged(): Effect.Effect<void, AgentLifecycleFailed> {
-    return this.#mcp.changed().pipe(
+    return this.mcp.changed().pipe(
       Effect.asVoid,
       Effect.mapError(
         (failure) => new AgentLifecycleFailed({ operation: "refresh computer use", cause: failure.cause }),
@@ -1994,7 +1886,7 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
   readonly notifyGitHubConnectorChanged = Effect.fn("AgentService.notifyGitHubConnectorChanged")(function* (
     this: AgentService,
   ) {
-    yield* this.#mcp
+    yield* this.mcp
       .changed()
       .pipe(
         Effect.mapError(
@@ -3397,7 +3289,7 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
         ),
       );
     yield* lifecycleStep("restore channel links", () => {
-      this.#mcp.migrateCatalogBridgesToHttp();
+      this.mcp.migrateCatalogBridgesToHttp();
       this.channels.restoreDeliveryLinks();
       this.channels.removeDeletedMembers(new Set(this.#store.list().map((agent) => agent.id)));
     });
@@ -3932,7 +3824,7 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
     yield* this.#warmGenerations.dispose();
     yield* Fiber.join(channelStop);
     // After the clients: a provider that still runs would see its MCP servers fail.
-    yield* this.#mcp.close();
+    yield* this.mcp.close();
     yield* settleLifecycleTasks("finish drain", this.#drain.pendingTasks());
     yield* settleLifecycleTasks("finish image requests", this.#images.pendingOperations());
     yield* this.#images.dispose();
@@ -4882,7 +4774,7 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
     if (code === "channel_coordination_failed")
       logger.warn("A channel coordination failed.", {
         ...(agentId !== undefined ? { agentId } : {}),
-        message: this.#mcp.redact(error instanceof Error ? error.message : String(error)).slice(0, 500),
+        message: this.mcp.redact(error instanceof Error ? error.message : String(error)).slice(0, 500),
       });
     this.emit("failure", {
       ...context,
@@ -4897,7 +4789,7 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
       // Redacted, because every error from a provider CLI arrives here on its way to the renderer
       // and the log, and a CLI quotes what it was given: a failure against a custom endpoint can
       // carry that endpoint's API key or a header value.
-      message: this.#mcp.redact(error instanceof Error ? error.message : String(error)),
+      message: this.mcp.redact(error instanceof Error ? error.message : String(error)),
       ...(context?.provider ? { provider: context.provider } : {}),
       ...(context?.model ? { model: context.model } : {}),
     });

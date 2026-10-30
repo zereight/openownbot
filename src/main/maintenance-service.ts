@@ -155,7 +155,7 @@ export const exportDiagnostics = Effect.fn("Archive.exportDiagnostics")(function
       ),
     };
   });
-  const mcpServers = context.service.listMcpServers();
+  const mcpServers = context.service.mcp.list();
   const update = context.updater.getStatus();
   const diagnostics = {
     // 4, not 3: schema 3 had a one-time `memory` reading, and this report has the `resources` summaries.
