@@ -1,12 +1,12 @@
 import { randomUUID } from "node:crypto";
 import { appendFileSync, existsSync } from "node:fs";
-import { chmod, copyFile, mkdir, readFile } from "node:fs/promises";
-import { basename, dirname, join } from "node:path";
+import { chmod, mkdir } from "node:fs/promises";
+import { dirname, join } from "node:path";
 import { DatabaseSync } from "node:sqlite";
 import { Effect, Result } from "effect";
 import { prepareDatabaseSchema } from "../openownbot-database-schema";
 import { storedIO, storedSync } from "../stored-state-effects";
-import { databaseRow, errorCode, requiredNumberColumn, requiredStringColumn } from "./database-rows";
+import { databaseRow, requiredNumberColumn, requiredStringColumn } from "./database-rows";
 
 export interface OrchestrationEventInput {
   aggregateType: string;
@@ -50,12 +50,10 @@ export interface DatabaseCoreOptions {
  */
 export class DatabaseCore {
   readonly path: string;
-  readonly #legacyBackupRoot: string;
   #db: DatabaseSync | null = null;
 
   constructor(options: DatabaseCoreOptions) {
     this.path = join(options.userDataPath, "openbot.db");
-    this.#legacyBackupRoot = join(options.userDataPath, "legacy-backup-v1");
   }
 
   initialize = Effect.fn("DatabaseCore.initialize")(function* (this: DatabaseCore) {
@@ -187,20 +185,6 @@ export class DatabaseCore {
       throw error;
     }
   }
-
-  backupLegacyFile = Effect.fn("DatabaseCore.backupLegacyFile")(function* (this: DatabaseCore, path: string) {
-    const found = yield* Effect.result(storedIO(() => readFile(path)));
-    if (Result.isFailure(found)) {
-      if (errorCode(found.failure.cause) === "ENOENT") return;
-      return yield* found.failure;
-    }
-    yield* storedIO(() => mkdir(this.#legacyBackupRoot, { recursive: true, mode: 0o700 }));
-    const target = join(this.#legacyBackupRoot, basename(path));
-    yield* storedIO(() => copyFile(path, target, 1)).pipe(
-      Effect.catch((failure) => (errorCode(failure.cause) === "EEXIST" ? Effect.void : Effect.fail(failure))),
-    );
-    yield* storedIO(() => chmod(target, 0o600));
-  }, Effect.uninterruptible);
 
   hasAggregateEvents(aggregateType: string, aggregateId: string): boolean {
     return Boolean(

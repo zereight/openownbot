@@ -128,10 +128,6 @@ export class OpenOwnBotDatabase {
     return this.#core.hasAggregateEvents(aggregateType, aggregateId);
   }
 
-  backupLegacyFile(path: string) {
-    return this.#core.backupLegacyFile(path);
-  }
-
   recordPendingHostedSiteTerminalEvent(event: PendingHostedSiteTerminalEvent): void {
     this.#hostedSiteEvents.recordPendingHostedSiteTerminalEvent(event);
   }

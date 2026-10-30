@@ -353,8 +353,7 @@ const APP_BEHAVIOR_PREFERENCE_FILE = "openbot-app-behavior-preference-v1.json";
 const DYNAMIC_ISLAND_PREFERENCE_FILE = "openbot-dynamic-island-preference-v1.json";
 const BROWSER_STATE_FILE = "openbot-browser-state-v1.json";
 const SIDEBAR_LAYOUT_FILE = "openbot-sidebar-layout-v1.json";
-const TEAM_FILE = "openbot-team-server-v1.json";
-/** One host per account. The v1 file above stays as the last build without accounts left it. */
+/** One host per account. */
 const TEAM_FILE_V2 = "openbot-team-server-v2.json";
 const REMOTE_SERVERS_FILE = "openbot-remote-servers-v1.json";
 const CENTRAL_AUTH_FILE = "openbot-central-auth-v1.bin";
@@ -2070,10 +2069,7 @@ export async function createApplicationServices({
     },
     skills: { setEnabled: (input) => skills.setEnabled(input) },
   });
-  const teamStore = new TeamStore(
-    join(app.getPath("userData"), TEAM_FILE_V2),
-    join(app.getPath("userData"), TEAM_FILE),
-  );
+  const teamStore = new TeamStore(join(app.getPath("userData"), TEAM_FILE_V2));
   await runCauseEffect(teamStore.initialize());
   performance.mark("openownbot:services.team");
   ingressHostId = () => teamStore.getIdentity()?.serverId ?? null;

@@ -47,8 +47,6 @@ export const DEVELOPMENT_SEED_MANIFEST_FILE = "openbot-dev-seed-v1.json";
 const logger = createOpenOwnBotLogger("seed-dev-state");
 
 const TEAM_FILE = "openbot-team-server-v2.json";
-/** Read only, exactly as the app reads it: the file a build without accounts owns. */
-const LEGACY_TEAM_FILE = "openbot-team-server-v1.json";
 const SETUP_FILE = "openbot-setup-v2.json";
 const SEED_VERSION = 1;
 const MINUTE = 60_000;
@@ -1578,7 +1576,7 @@ function mentionAgent(agents: Map<string, AgentSummary>, agentId: string): strin
 }
 
 async function seedTeam(profilePath: string): Promise<void> {
-  const team = new TeamStore(join(profilePath, TEAM_FILE), join(profilePath, LEGACY_TEAM_FILE));
+  const team = new TeamStore(join(profilePath, TEAM_FILE));
   await runCauseEffect(team.initialize());
   const owner = {
     id: "openownbot-dev-owner",

@@ -1,6 +1,4 @@
 import { createHash, randomUUID } from "node:crypto";
-import { mkdir, readFile } from "node:fs/promises";
-import { dirname, join } from "node:path";
 import { playableMediaKind } from "@openownbot/contracts/attachment-files";
 import { rewriteAttachmentReferences } from "@openownbot/contracts/attachment-references";
 import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
@@ -46,11 +44,10 @@ import {
   type StoredGeneratedAttachment,
   toAttachmentSummary,
 } from "./attachment-files";
-import { StoredStateFailure, storedIO, storedSync, toStoredStateFailure } from "./stored-state-effects";
+import { StoredStateFailure, storedSync, toStoredStateFailure } from "./stored-state-effects";
 
 export type { ExportedAttachmentFile, GeneratedAttachmentSource } from "./attachment-files";
 
-import { isEmptyStoredFile, parseStoredJson } from "./atomic-json-file";
 import { mailboxReactionRowKey } from "./database/mailbox-projection";
 import { MailboxDeliveryGate } from "./mailbox-delivery-gate";
 import { OpenOwnBotDatabase } from "./openownbot-database";
@@ -273,7 +270,6 @@ export interface CommittedChannelAttachments {
 export const MAILBOX_CONVERSATION_MESSAGE_LIMIT = 100;
 
 export class MailboxStore {
-  readonly #statePath: string;
   readonly #files: AttachmentFiles;
   readonly #database: OpenOwnBotDatabase;
   readonly #queueUpdates = new Set<string>();
@@ -290,7 +286,6 @@ export class MailboxStore {
   };
 
   constructor(userDataPath: string, sharedRoot: string, database = new OpenOwnBotDatabase(userDataPath)) {
-    this.#statePath = join(userDataPath, "mailbox.json");
     this.#files = new AttachmentFiles({ userDataPath, sharedRoot });
     this.#database = database;
   }
@@ -300,10 +295,7 @@ export class MailboxStore {
   ): Effect.fn.Return<void, StoredStateFailure> {
     try {
       yield* Effect.all(
-        [
-          storedIO(() => mkdir(dirname(this.#statePath), { recursive: true, mode: 0o700 })),
-          this.#files.initialize().pipe(Effect.mapError(({ cause }) => new StoredStateFailure({ cause }))),
-        ],
+        [this.#files.initialize().pipe(Effect.mapError(({ cause }) => new StoredStateFailure({ cause })))],
         { concurrency: "unbounded" },
       );
       yield* this.#database.initialize();
@@ -318,9 +310,9 @@ export class MailboxStore {
           this.#persist("mailbox.normalized", undefined, [], true);
         }
       } else {
-        this.#state = normalizeStoredState(yield* this.#readStateEffect());
-        yield* this.#database.backupLegacyFile(this.#statePath);
-        this.#persist("mailbox.legacy-imported", "legacy-import:mailbox:v1", [], true);
+        // A new database: an empty mailbox, written once.
+        this.#state = normalizeStoredState(structuredClone(EMPTY_STATE));
+        this.#persist("mailbox.created", "mailbox:initial-state", [], true);
       }
       const activeEdits = new Set(
         this.#state.deliveries
@@ -2881,24 +2873,6 @@ export class MailboxStore {
     if (!message) throw new Error(`Mailbox message is missing: ${id}`);
     return message;
   }
-
-  #readStateEffect = Effect.fn("MailboxStore.readState")(function* (
-    this: MailboxStore,
-  ): Effect.fn.Return<StoredState, StoredStateFailure> {
-    const loaded = yield* Effect.result(storedIO(() => readFile(this.#statePath, "utf8")));
-    if (Result.isFailure(loaded)) {
-      const error = loaded.failure.cause;
-      if (isRecord(error) && error.code === "ENOENT") return structuredClone(EMPTY_STATE);
-      return yield* loaded.failure;
-    }
-    // A power loss left the file without content: no message in it can be recovered.
-    if (isEmptyStoredFile(loaded.success)) return structuredClone(EMPTY_STATE);
-    return yield* storedSync(() => {
-      const value = parseStoredJson(this.#statePath, loaded.success, toCurrentMailboxState);
-      if (!value || !isStoredState(value)) throw new Error(sourceText("error.backend.mailboxStateCorrupt"));
-      return value;
-    });
-  });
 
   /**
    * Writes the rows in `#changes`, or with `replaceAll` the whole state. The keys are cleared only
