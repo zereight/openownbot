@@ -35,7 +35,8 @@ import type { TeamApiBrowser } from "../src/main/team-api/dependencies";
 
 const OUT = resolve(import.meta.dirname, "../.openownbot-build/team-session-revoke-e2e");
 const HOST_VERSION = "0.0.0-e2e";
-const OWNER = { username: "owner-user", password: "owner-password-123" };
+const ACCOUNT = { id: "account-e2e-1", email: "owner@example.test", name: "Owner", avatarUrl: null };
+const ACCOUNT_TICKET = "ticket-e2e";
 const STEP_DEADLINE_MS = 30_000;
 
 /** A line that the host process writes to its standard output, after `HOST_LINE`. */
@@ -137,7 +138,7 @@ async function runHost(root: string, configure: boolean): Promise<void> {
   await runCauseEffect(agentStore.initialize());
   await runCauseEffect(mailbox.initialize());
   await runCauseEffect(team.initialize());
-  if (configure) await runCauseEffect(team.configure("E2E Host", OWNER.username, OWNER.password));
+  if (configure) await runCauseEffect(team.configureWithAccount("E2E Host", ACCOUNT));
   const agents = new AgentService({ store: agentStore, mailbox, browser: agentBrowser, sidebarLayout: sidebar });
   let port = 0;
   const server = new TeamApiServer({
@@ -147,6 +148,7 @@ async function runHost(root: string, configure: boolean): Promise<void> {
     browser: teamBrowser,
     sidebarLayout: sidebar,
     appVersion: HOST_VERSION,
+    redeemCentralTicket: (ticket) => Effect.succeed(ticket === ACCOUNT_TICKET ? ACCOUNT : null),
     // The WebRTC gateway ends a revoked session through this callback.
     onSessionRevoked: (sessionId) => Effect.sync(() => send({ type: "revoked", sessionId })),
   });
@@ -315,8 +317,8 @@ async function call(
   return { status: response.status, body: body ? JSON.parse(body) : null };
 }
 
-async function login(credentials: { username: string; password: string }): Promise<string> {
-  const response = await call("POST", TEAM_API_ROUTES.auth.login, { body: credentials });
+async function login(): Promise<string> {
+  const response = await call("POST", TEAM_API_ROUTES.auth.account, { body: { accountTicket: ACCOUNT_TICKET } });
   assert.equal(response.status, 200, `Sign-in returned ${response.status}.`);
   return text(record(response.body, "login").sessionToken, "session token");
 }
@@ -336,7 +338,7 @@ async function sessionIds(ownerToken: string): Promise<string[]> {
 /** Signs in a new device, and finds its session in the owner's list. */
 async function loginDevice(ownerToken: string): Promise<{ token: string; sessionId: string }> {
   const before = new Set(await sessionIds(ownerToken));
-  const token = await login(OWNER);
+  const token = await login();
   const added = (await sessionIds(ownerToken)).filter((id) => !before.has(id));
   assert.equal(added.length, 1, "Sign-in did not add exactly one session.");
   return { token, sessionId: added[0] ?? "" };
@@ -364,7 +366,7 @@ async function openEvents(token: string): Promise<{ closed: Promise<number>; clo
 
 try {
   await startHost(true);
-  const ownerToken = await login(OWNER);
+  const ownerToken = await login();
 
   const member = await step(
     "setup: the owner signs in on two more devices",

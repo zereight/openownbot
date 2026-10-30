@@ -1,14 +1,16 @@
-// Checks who may sign in with a password on a real host. A member that has an account must use the
-// account: the host refuses the password of that member, and keeps the stored hash. A member with no
-// account still signs in with the password. A real `TeamApiServer` runs on loopback with the real team
-// store on a temporary profile, in a child process of this script. A client of the oldest protocol and
-// a client of protocol 7 send the requests through the released `/v1/auth/login` route. The host
-// process restarts on the same files between the phases, and the refusal must still hold.
-// Run: `bun scripts/team-password-login-e2e.ts`.
-// Writes .openownbot-build/team-password-login-e2e/report.json.
+// Checks that the host has no password sign-in, and that it keeps the password data of an older version.
+// A team file written by a version with a password sign-in is put on a temporary profile: the owner has
+// a password hash and salt and no account. A real `TeamApiServer` runs on that profile on loopback, in a
+// child process of this script. `/v1/auth/login` and `/v1/auth/password` must answer like any unknown
+// route, for a client of the oldest protocol and a client of protocol 7. The owner must sign in with
+// the account, no response may carry the hash or the salt, and both must still be in the file after the
+// host wrote it and after a restart.
+// Run: `bun scripts/team-password-removed-e2e.ts`.
+// Writes .openownbot-build/team-password-removed-e2e/report.json.
 import assert from "node:assert/strict";
+import { generateKeyPairSync, randomUUID } from "node:crypto";
 import { mkdirSync, writeFileSync } from "node:fs";
-import { mkdtemp, readFile, rm } from "node:fs/promises";
+import { mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import { TEAM_API_ROUTES } from "@openownbot/contracts/team-api-routes";
@@ -31,11 +33,14 @@ import { OpenOwnBotDatabase } from "../src/backend/openownbot-database";
 import { SidebarLayoutStore } from "../src/backend/sidebar-layout-store";
 import type { TeamApiBrowser } from "../src/main/team-api/dependencies";
 
-const OUT = resolve(import.meta.dirname, "../.openownbot-build/team-password-login-e2e");
+const OUT = resolve(import.meta.dirname, "../.openownbot-build/team-password-removed-e2e");
 const HOST_VERSION = "0.0.0-e2e";
 const TEAM_FILE = "openbot-team-server-v2.json";
 const STEP_DEADLINE_MS = 30_000;
-const OWNER = { username: "owner-user", password: "owner-password-123" };
+const LEGACY_USERNAME = "owner-user";
+const LEGACY_PASSWORD = "owner-password-123";
+const LEGACY_HASH = "legacy-hash-0123456789abcdefghijklmnopqrstuvwxyz";
+const LEGACY_SALT = "legacy-salt-0123456789abcdef";
 const ACCOUNT = { id: "account-e2e-1", email: "owner@example.test", name: "Owner", avatarUrl: null };
 const ACCOUNT_TICKET = "ticket-e2e";
 const HOST_LINE = "team-password-host ";
@@ -43,11 +48,10 @@ const HOST_LINE = "team-password-host ";
 // --- Host process ---
 
 /**
- * Runs the host on a profile until its standard input closes. `configure` sets up the team with an
- * owner who has a password and no account. `account` activates the account of the owner, as the app
- * does at launch after a sign-in, and lets the host redeem the one ticket of this check.
+ * Runs the host on a profile until its standard input closes. It activates the account of the owner, as
+ * the app does at launch after a sign-in, and lets the host redeem the one ticket of this check.
  */
-async function runHost(root: string, mode: "configure" | "account"): Promise<void> {
+async function runHost(root: string): Promise<void> {
   // The main process imports Electron for its windows and IPC. No check here opens a window.
   plugin({
     name: "team-password-electron-boundary",
@@ -130,8 +134,7 @@ async function runHost(root: string, mode: "configure" | "account"): Promise<voi
   await runCauseEffect(agentStore.initialize());
   await runCauseEffect(mailbox.initialize());
   await runCauseEffect(team.initialize());
-  if (mode === "configure") await runCauseEffect(team.configure("E2E Host", OWNER.username, OWNER.password));
-  else await runCauseEffect(team.activateAccount(ACCOUNT));
+  await runCauseEffect(team.activateAccount(ACCOUNT));
   const agents = new AgentService({ store: agentStore, mailbox, browser: agentBrowser, sidebarLayout: sidebar });
   const server = new TeamApiServer({
     store: team,
@@ -153,10 +156,8 @@ async function runHost(root: string, mode: "configure" | "account"): Promise<voi
 
 if (process.argv[2] === "--host") {
   const root = process.argv[3];
-  const mode = process.argv[4];
   assert.ok(root, "The host needs a profile directory.");
-  assert.ok(mode === "configure" || mode === "account", "The host needs a mode.");
-  await runHost(root, mode);
+  await runHost(root);
   process.exit(0);
 }
 
@@ -197,9 +198,52 @@ const root = await mkdtemp(join(tmpdir(), "openownbot-team-password-"));
 let host: { process: Bun.Subprocess<"pipe", "pipe", "inherit">; exited: Promise<number> } | null = null;
 let port = 0;
 
+/**
+ * The team file of a version with a password sign-in: one host whose owner has a hash, a salt and no
+ * account. The values are not real hashes; nothing reads them now, which is what this check shows.
+ */
+async function writeLegacyTeamFile(): Promise<void> {
+  const { publicKey, privateKey } = generateKeyPairSync("ed25519", {
+    publicKeyEncoding: { type: "spki", format: "pem" },
+    privateKeyEncoding: { type: "pkcs8", format: "pem" },
+  });
+  const file = {
+    version: 2,
+    activeAccountId: null,
+    hosts: [
+      {
+        version: 1,
+        serverId: randomUUID(),
+        serverName: "Legacy Host",
+        enabledOnLaunch: false,
+        publicKey,
+        privateKey,
+        members: [
+          {
+            id: randomUUID(),
+            username: LEGACY_USERNAME,
+            email: null,
+            name: null,
+            avatarUrl: null,
+            role: "owner",
+            disabled: false,
+            createdAt: new Date().toISOString(),
+            passwordSalt: LEGACY_SALT,
+            passwordHash: LEGACY_HASH,
+          },
+        ],
+        invites: [],
+        sessions: [],
+      },
+    ],
+  };
+  await mkdir(join(root, "user-data"), { recursive: true });
+  await writeFile(join(root, "user-data", TEAM_FILE), JSON.stringify(file));
+}
+
 /** Starts the host process on the profile, and waits until it listens. */
-async function startHost(mode: "configure" | "account"): Promise<void> {
-  const child = Bun.spawn([process.execPath, import.meta.path, "--host", root, mode], {
+async function startHost(): Promise<void> {
+  const child = Bun.spawn([process.execPath, import.meta.path, "--host", root], {
     stdin: "pipe",
     stdout: "pipe",
     stderr: "inherit",
@@ -238,45 +282,28 @@ type Client = "oldest" | "protocol 7";
 /** One request from a client of the given protocol. */
 async function call(
   client: Client,
+  method: "GET" | "POST",
   path: string,
-  body: unknown,
-  token?: string,
+  options: { body?: unknown; token?: string } = {},
 ): Promise<{ status: number; body: unknown }> {
   const headers: Record<string, string> = {
     Accept: "application/json",
-    "Content-Type": "application/json",
     [TEAM_PROTOCOL_VERSION_HEADER]: String(client === "oldest" ? TEAM_PROTOCOL_V1 : TEAM_PROTOCOL_V7),
     [TEAM_APP_VERSION_HEADER]: HOST_VERSION,
   };
   if (client === "protocol 7") headers[TEAM_CAPABILITIES_HEADER] = TEAM_PROTOCOL_V7_CAPABILITIES.join(",");
-  if (token) headers.Authorization = `Bearer ${token}`;
+  if (options.body !== undefined) headers["Content-Type"] = "application/json";
+  if (options.token) headers.Authorization = `Bearer ${options.token}`;
   const response = await fetch(`http://127.0.0.1:${port}${path}`, {
-    method: "POST",
+    method,
     headers,
-    body: JSON.stringify(body),
+    body: options.body === undefined ? null : JSON.stringify(options.body),
   });
   const text = await response.text();
   return { status: response.status, body: text ? JSON.parse(text) : null };
 }
 
-const passwordLogin = (client: Client, username: string, password: string) =>
-  call(client, TEAM_API_ROUTES.auth.login, { username, password });
-
-/** The hash of every member in the team file, read from disk. */
-async function storedHashes(): Promise<string[]> {
-  const hashes: string[] = [];
-  const visit = (value: unknown): void => {
-    if (Array.isArray(value)) value.forEach(visit);
-    else if (typeof value === "object" && value !== null) {
-      for (const [key, inner] of Object.entries(value)) {
-        if (key === "passwordHash" && typeof inner === "string") hashes.push(inner);
-        else visit(inner);
-      }
-    }
-  };
-  visit(JSON.parse(await readFile(join(root, "user-data", TEAM_FILE), "utf8")));
-  return hashes;
-}
+const teamFile = () => readFile(join(root, "user-data", TEAM_FILE), "utf8");
 
 function sessionToken(response: { status: number; body: unknown }, label: string): string {
   assert.equal(response.status, 200, `${label} returned ${response.status}.`);
@@ -286,90 +313,93 @@ function sessionToken(response: { status: number; body: unknown }, label: string
   throw new Error(`${label} gave no session token.`);
 }
 
-async function meStatus(token: string): Promise<number> {
-  const response = await fetch(`http://127.0.0.1:${port}${TEAM_API_ROUTES.me}`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-      [TEAM_PROTOCOL_VERSION_HEADER]: String(TEAM_PROTOCOL_V7),
-      [TEAM_APP_VERSION_HEADER]: HOST_VERSION,
-      [TEAM_CAPABILITIES_HEADER]: TEAM_PROTOCOL_V7_CAPABILITIES.join(","),
-    },
-  });
-  return response.status;
-}
+const accountSignIn = async (client: Client = "protocol 7") =>
+  sessionToken(
+    await call(client, "POST", TEAM_API_ROUTES.auth.account, { body: { accountTicket: ACCOUNT_TICKET } }),
+    "account sign-in",
+  );
 
-/** The refusal of a bound member must look like a wrong password: it names no account. */
-async function assertRefusedLikeWrongPassword(client: Client, username: string): Promise<number> {
-  const wrong = await passwordLogin(client, username, "not-the-password-123");
-  const bound = await passwordLogin(client, username, OWNER.password);
-  assert.notEqual(bound.status, 200, `${client} signed in with the password of a member that has an account.`);
-  assert.equal(bound.status, wrong.status, `${client} sees a different status for a refused password.`);
-  assert.deepEqual(bound.body, wrong.body, `${client} sees a different body for a refused password.`);
-  return bound.status;
+/** The team file holds the hash and the salt of the older version, unchanged. */
+async function assertLegacyDataKept(): Promise<void> {
+  const text = await teamFile();
+  assert.ok(text.includes(LEGACY_HASH), "The stored password hash is gone from the team file.");
+  assert.ok(text.includes(LEGACY_SALT), "The stored password salt is gone from the team file.");
 }
 
 try {
-  await startHost("configure");
-  await step("legacy member with no account: both clients sign in with the password", async () => {
+  await writeLegacyTeamFile();
+  await startHost();
+  await step("password routes: login and password change answer like an unknown route", async () => {
+    const unknown = await call("protocol 7", "POST", "/v1/auth/no-such-route", { body: {} });
+    const statuses: Record<string, number> = {};
     for (const client of ["oldest", "protocol 7"] as const) {
-      const token = sessionToken(await passwordLogin(client, OWNER.username, OWNER.password), client);
-      assert.equal(await meStatus(token), 200);
+      const login = await call(client, "POST", "/v1/auth/login", {
+        body: { username: LEGACY_USERNAME, password: LEGACY_PASSWORD },
+      });
+      assert.equal(login.status, unknown.status, `${client} sees a different status for the login route.`);
+      assert.deepEqual(login.body, unknown.body, `${client} sees a different body for the login route.`);
+      assert.ok(!JSON.stringify(login.body).includes("sessionToken"), `${client} got a session from the login route.`);
+      statuses[client] = login.status;
     }
-    const wrong = await passwordLogin("protocol 7", OWNER.username, "not-the-password-123");
-    assert.notEqual(wrong.status, 200, "A wrong password signed in.");
-    return { clients: 2, hashes: (await storedHashes()).length };
+    return { unknown: unknown.status, ...statuses };
   });
-  await step("password change: the host has no such route, and the password stays", async () => {
-    const token = sessionToken(await passwordLogin("protocol 7", OWNER.username, OWNER.password), "sign-in");
-    const changed = await call(
-      "protocol 7",
-      "/v1/auth/password",
-      { currentPassword: OWNER.password, newPassword: "a-new-password-456" },
+
+  const token = await step(
+    "owner from before accounts: signs in with the account, and keeps the owner role",
+    async () => {
+      const session = await accountSignIn();
+      const me = await call("protocol 7", "GET", TEAM_API_ROUTES.me, { token: session });
+      assert.equal(me.status, 200);
+      assert.ok(typeof me.body === "object" && me.body !== null && "role" in me.body && me.body.role === "owner");
+      return session;
+    },
+    () => ({ signedIn: true, role: "owner" }),
+  );
+
+  await step("password change route: authenticated request gets 404", async () => {
+    const changed = await call("protocol 7", "POST", "/v1/auth/password", {
       token,
-    );
+      body: { currentPassword: LEGACY_PASSWORD, newPassword: "a-new-password-456" },
+    });
     assert.equal(changed.status, 404, `The password route answered ${changed.status}.`);
-    assert.equal(await meStatus(token), 200, "The failed change ended the session.");
-    sessionToken(await passwordLogin("protocol 7", OWNER.username, OWNER.password), "sign-in with the old password");
-    const refused = await passwordLogin("protocol 7", OWNER.username, "a-new-password-456");
-    assert.notEqual(refused.status, 200, "The new password was accepted.");
     return { status: changed.status };
   });
 
-  await stopHost();
-  await startHost("account");
-  await step("member with an account: both clients are refused, with the answer of a wrong password", async () => {
-    const statuses = {
-      oldest: await assertRefusedLikeWrongPassword("oldest", ACCOUNT.email),
-      "protocol 7": await assertRefusedLikeWrongPassword("protocol 7", ACCOUNT.email),
-    };
-    return statuses;
+  await step("older data: the hash and the salt stay in the file after the host wrote it", async () => {
+    await assertLegacyDataKept();
+    // The host did write: the owner is bound to the account now. Without that, this check proves nothing.
+    assert.ok((await teamFile()).includes(ACCOUNT.id), "The host did not write the account of the owner.");
+    return { kept: true };
   });
-  await step("member with an account: the account sign-in still works", async () => {
-    const token = sessionToken(
-      await call("protocol 7", TEAM_API_ROUTES.auth.account, { accountTicket: ACCOUNT_TICKET }),
-      "account sign-in",
-    );
-    assert.equal(await meStatus(token), 200);
-    return { signedIn: true };
-  });
-  await step("refusal keeps the stored hash", async () => {
-    const hashes = await storedHashes();
-    assert.equal(hashes.length, 1, "The stored hash was removed or copied.");
-    assert.ok(!(await readFile(join(root, "user-data", TEAM_FILE), "utf8")).includes(OWNER.password));
-    return { hashes: hashes.length };
+
+  await step("older data: no response carries the hash or the salt", async () => {
+    const answers = [
+      await call("protocol 7", "GET", TEAM_API_ROUTES.me, { token }),
+      await call("protocol 7", "GET", TEAM_API_ROUTES.team.sessions, { token }),
+      await call("protocol 7", "GET", TEAM_API_ROUTES.team.presence, { token }),
+      await call("protocol 7", "POST", TEAM_API_ROUTES.auth.account, { body: { accountTicket: ACCOUNT_TICKET } }),
+    ];
+    for (const answer of answers) {
+      assert.equal(answer.status, 200, "A response check got a failure.");
+      const text = JSON.stringify(answer.body);
+      assert.ok(!text.includes(LEGACY_HASH) && !text.includes(LEGACY_SALT), "A response carries password data.");
+      assert.ok(!/passwordHash|passwordSalt/u.test(text), "A response names a password field.");
+    }
+    return { responses: answers.length };
   });
 
   await stopHost();
-  await startHost("account");
-  await step("restart: the refusal holds, the account sign-in works and the hash stays", async () => {
-    await assertRefusedLikeWrongPassword("protocol 7", ACCOUNT.email);
-    const token = sessionToken(
-      await call("protocol 7", TEAM_API_ROUTES.auth.account, { accountTicket: ACCOUNT_TICKET }),
-      "account sign-in after restart",
-    );
-    assert.equal(await meStatus(token), 200);
-    assert.equal((await storedHashes()).length, 1);
-    return { refused: true, signedIn: true };
+  await startHost();
+  await step("restart: the account sign-in works, the route stays gone and the data stays", async () => {
+    const session = await accountSignIn("oldest");
+    const me = await call("protocol 7", "GET", TEAM_API_ROUTES.me, { token: session });
+    assert.equal(me.status, 200);
+    const login = await call("protocol 7", "POST", "/v1/auth/login", {
+      body: { username: ACCOUNT.email, password: LEGACY_PASSWORD },
+    });
+    assert.notEqual(login.status, 200);
+    await assertLegacyDataKept();
+    return { signedIn: true, loginStatus: login.status };
   });
 
   report.passed = report.steps.every((entry) => entry.passed);
@@ -380,4 +410,4 @@ try {
   await rm(root, { recursive: true, force: true });
 }
 
-process.stdout.write(`Team password sign-in passed. Report: ${join(OUT, "report.json")}\n`);
+process.stdout.write(`Team password removal passed. Report: ${join(OUT, "report.json")}\n`);

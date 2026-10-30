@@ -43,7 +43,8 @@ import type { TeamApiBrowser } from "../src/main/team-api/dependencies";
 
 const OUT = resolve(import.meta.dirname, "../.openownbot-build/agent-hide-restore-e2e");
 const HOST_VERSION = "0.0.0-e2e";
-const OWNER = { username: "owner-user", password: "owner-password-123" };
+const ACCOUNT = { id: "account-e2e-1", email: "owner@example.test", name: "Owner", avatarUrl: null };
+const ACCOUNT_TICKET = "ticket-e2e";
 const STEP_DEADLINE_MS = 30_000;
 const DAY = "2031-05-05";
 const at = (time: string) => new Date(`${DAY}T${time}:00.000Z`);
@@ -209,7 +210,7 @@ async function startHost(): Promise<Host> {
   await runCauseEffect(agentStore.initialize());
   await runCauseEffect(mailbox.initialize());
   await runCauseEffect(team.initialize());
-  if (!team.getIdentity()) await runCauseEffect(team.configure("E2E Host", OWNER.username, OWNER.password));
+  if (!team.getIdentity()) await runCauseEffect(team.configureWithAccount("E2E Host", ACCOUNT));
   const agents = new AgentService({ store: agentStore, mailbox, browser: agentBrowser, sidebarLayout: sidebar });
   const events: AgentEvent[] = [];
   agents.on("event", (event) => events.push(event));
@@ -220,6 +221,7 @@ async function startHost(): Promise<Host> {
     browser: teamBrowser,
     sidebarLayout: sidebar,
     appVersion: HOST_VERSION,
+    redeemCentralTicket: (ticket) => Effect.succeed(ticket === ACCOUNT_TICKET ? ACCOUNT : null),
     hiddenAgents: agents,
   });
   const port = await Effect.runPromise(server.start());
@@ -278,8 +280,8 @@ function hiddenIds(body: unknown): string[] {
   return agents.map((agent) => text(record(agent, "hidden agent").agentId, "agent id"));
 }
 
-async function login(credentials: { username: string; password: string }): Promise<string> {
-  const response = await call("POST", TEAM_API_ROUTES.auth.login, { body: credentials });
+async function login(): Promise<string> {
+  const response = await call("POST", TEAM_API_ROUTES.auth.account, { body: { accountTicket: ACCOUNT_TICKET } });
   assert.equal(response.status, 200, `Sign-in returned ${response.status}.`);
   return text(record(response.body, "login").sessionToken, "session token");
 }
@@ -336,7 +338,7 @@ function snapshotIds(snapshot: HiddenAgentsSnapshot): string[] {
 try {
   setSystemTime(at("09:00"));
   host = await startHost();
-  const ownerToken = await login(OWNER);
+  const ownerToken = await login();
 
   const setup = await step(
     "setup: an owner on two devices, and an agent with a routine",
@@ -363,7 +365,7 @@ try {
         { recordConversationEvent: false },
       );
       assert.equal(routine.trigger.nextRunAt, at("10:00").toISOString());
-      const deviceToken = await login(OWNER);
+      const deviceToken = await login();
       const read = await hidden(AGENT_HIDDEN_ROUTES.read, deviceToken, {});
       assert.equal(read.status, 200);
       assert.deepEqual(hiddenIds(read.body), []);

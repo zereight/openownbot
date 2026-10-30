@@ -57,7 +57,14 @@ async function runHost(file: string, step: Step): Promise<void> {
   const store = new TeamStore(file);
   await runCauseEffect(store.initialize());
   if (step === "begin") {
-    await runCauseEffect(store.configure("E2E Host", "owner-user", "owner-password-123"));
+    await runCauseEffect(
+      store.configureWithAccount("E2E Host", {
+        id: "account-e2e-1",
+        email: "owner@example.test",
+        name: "Owner",
+        avatarUrl: null,
+      }),
+    );
     await runCauseEffect(store.beginKeyRotation());
   } else if (step === "complete") {
     const pending = store.getPendingKeyHandover();

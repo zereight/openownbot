@@ -27,15 +27,12 @@ export const messages = {
   "error.team.accountNotMember": "Questo account OpenOwnBot non è membro del team.",
   "error.team.usernameTaken": "Questo nome utente è già in uso.",
   "error.team.inviteRequiresAccount": "Questo invito richiede un account OpenOwnBot verificato.",
-  "error.team.loginIncorrect": "Nome utente o password non corretti.",
   "error.team.memberNotFound": "Membro del team non trovato.",
   "error.team.directMessageSelf": "Non puoi aprire un messaggio diretto con te stesso.",
   "error.team.directRecipientUnavailable": "Questo membro del team non è disponibile.",
   "error.team.ownerCannotChange": "L'account del proprietario non può essere modificato.",
   "error.team.ownerCannotRemove": "L'account del proprietario non può essere rimosso.",
   "error.team.serverNotConfigured": "Il server del team non è configurato.",
-  "error.team.accountChangedDuringRequest":
-    "L'account con cui hai effettuato l'accesso è cambiato mentre la richiesta era in corso.",
   "error.team.serverFileUnreadable":
     "Non è stato possibile leggere il file del server del team di questo computer. Spostalo prima di configurare un server, così non viene sovrascritto.",
   "error.team.emailInvalid": "Inserisci un indirizzo email valido.",
@@ -44,9 +41,6 @@ export const messages = {
   "error.team.avatarUrlInvalid": "L'URL dell'avatar dell'account non è valido.",
   "error.team.serverNameLength": "Il nome del server deve contenere da {min} a {max} caratteri.",
   "error.team.serverNameHostname": "Il nome del server deve dare un hostname pubblico valido.",
-  "error.team.usernameInvalid":
-    "Il nome utente deve contenere da 3 a 32 tra lettere, numeri, punti, trattini o trattini bassi.",
-  "error.team.passwordLength": "La password deve contenere da 12 a 256 caratteri.",
   "error.team.bindFailed": "Impossibile mettere in ascolto l'API del team.",
   "error.team.signInRequired": "È necessario accedere a OpenOwnBot.",
   "error.team.authenticationRequired": "Autenticazione richiesta.",
