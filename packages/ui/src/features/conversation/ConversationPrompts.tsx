@@ -300,6 +300,8 @@ export function BrowserTakeoverCard(props: BrowserTakeoverCardProps) {
 function BrowserManualTakeoverCard(props: BrowserTakeoverCardProps) {
   const { t } = useText();
   const [submitting, setSubmitting] = createSignal<"complete" | "cancel" | null>(null);
+  // Closing hides only this card. The agent keeps waiting, and Cancel is the answer that stops it.
+  const [dismissed, setDismissed] = createSignal(false);
   const pageDetails = createMemo(() => browserPageDetails(props.tab, t));
   const completed = () => props.decision === "complete";
   const cancelled = () => props.decision === "cancel";
@@ -355,147 +357,164 @@ function BrowserManualTakeoverCard(props: BrowserTakeoverCardProps) {
   };
 
   return (
-    <section
-      class="browser-takeover-card conversation-interaction-card"
-      data-decision={props.decision ?? undefined}
-      aria-label={accessibleLabel()}
-      aria-busy={submitting() ? "true" : undefined}
-    >
-      <header class="browser-takeover-header conversation-interaction-header">
-        <h2>{title()}</h2>
-        <Show
-          when={!props.decision}
-          fallback={
-            <Badge
-              variant={completed() ? "success-light" : "secondary"}
-              class="conversation-interaction-status"
-              role="status"
-            >
-              <Show when={completed()} fallback={<X data-icon="inline-start" aria-hidden="true" />}>
-                <Check data-icon="inline-start" aria-hidden="true" />
-              </Show>
-              {completed() ? t("common.done") : t("prompt.browser.cancelled")}
+    <Show when={!dismissed()}>
+      <section
+        class="browser-takeover-card conversation-interaction-card"
+        data-decision={props.decision ?? undefined}
+        aria-label={accessibleLabel()}
+        aria-busy={submitting() ? "true" : undefined}
+      >
+        <header class="browser-takeover-header conversation-interaction-header">
+          <h2>{title()}</h2>
+          <Show
+            when={!props.decision}
+            fallback={
+              <Badge
+                variant={completed() ? "success-light" : "secondary"}
+                class="conversation-interaction-status"
+                role="status"
+              >
+                <Show when={completed()} fallback={<X data-icon="inline-start" aria-hidden="true" />}>
+                  <Check data-icon="inline-start" aria-hidden="true" />
+                </Show>
+                {completed() ? t("common.done") : t("prompt.browser.cancelled")}
+              </Badge>
+            }
+          >
+            <Badge variant="warning-light" class="conversation-interaction-status" role="status">
+              <LoaderCircle class="conversation-interaction-spinner" data-icon="inline-start" aria-hidden="true" />
+              {props.signInBlocked?.signingIn
+                ? t("prompt.browser.signInBlocked.waiting")
+                : t("prompt.browser.actionRequired")}
             </Badge>
-          }
-        >
-          <Badge variant="warning-light" class="conversation-interaction-status" role="status">
-            <LoaderCircle class="conversation-interaction-spinner" data-icon="inline-start" aria-hidden="true" />
-            {props.signInBlocked?.signingIn
-              ? t("prompt.browser.signInBlocked.waiting")
-              : t("prompt.browser.actionRequired")}
-          </Badge>
+          </Show>
+          <Show when={!props.decision}>
+            <Button
+              variant="ghost"
+              size="icon-xs"
+              type="button"
+              aria-label={t("common.close")}
+              onClick={() => setDismissed(true)}
+            >
+              <X aria-hidden="true" />
+            </Button>
+          </Show>
+        </header>
+        <Show when={props.request?.secret?.requiresReload}>
+          <p>{t("prompt.browser.reload")}</p>
         </Show>
-      </header>
-      <Show when={props.request?.secret?.requiresReload}>
-        <p>{t("prompt.browser.reload")}</p>
-      </Show>
-      <div class="browser-takeover-copy">
-        <p>{body()}</p>
-      </div>
+        <div class="browser-takeover-copy">
+          <p>{body()}</p>
+        </div>
 
-      <figure class="browser-takeover-preview">
-        <figcaption class="browser-takeover-preview-bar">
-          <Monitor aria-hidden="true" />
-          <span title={pageDetails().title}>{pageDetails().title}</span>
-          <small title={pageHost()}>{pageHost()}</small>
-        </figcaption>
-        <Show
-          when={props.onOpen}
-          fallback={
-            <div class="browser-takeover-preview-viewport">
+        <figure class="browser-takeover-preview">
+          <figcaption class="browser-takeover-preview-bar">
+            <Monitor aria-hidden="true" />
+            <span title={pageDetails().title}>{pageDetails().title}</span>
+            <small title={pageHost()}>{pageHost()}</small>
+          </figcaption>
+          <Show
+            when={props.onOpen}
+            fallback={
+              <div class="browser-takeover-preview-viewport">
+                <BrowserTakeoverPreview
+                  preview={props.preview}
+                  previewStatus={props.previewStatus}
+                  page={pageDetails()}
+                />
+              </div>
+            }
+          >
+            <Button
+              variant="ghost"
+              type="button"
+              class="browser-takeover-preview-viewport browser-takeover-preview-open"
+              aria-label={t("prompt.browser.openPage", { title: pageDetails().title })}
+              onClick={() => props.onOpen?.()}
+            >
               <BrowserTakeoverPreview
                 preview={props.preview}
                 previewStatus={props.previewStatus}
                 page={pageDetails()}
               />
-            </div>
-          }
-        >
-          <Button
-            variant="ghost"
-            type="button"
-            class="browser-takeover-preview-viewport browser-takeover-preview-open"
-            aria-label={t("prompt.browser.openPage", { title: pageDetails().title })}
-            onClick={() => props.onOpen?.()}
-          >
-            <BrowserTakeoverPreview preview={props.preview} previewStatus={props.previewStatus} page={pageDetails()} />
-            <span class="browser-takeover-preview-open-label" aria-hidden="true">
-              <Maximize2 />
-              {t("common.open")}
-            </span>
-          </Button>
-        </Show>
-      </figure>
+              <span class="browser-takeover-preview-open-label" aria-hidden="true">
+                <Maximize2 />
+                {t("common.open")}
+              </span>
+            </Button>
+          </Show>
+        </figure>
 
-      <Show when={!props.decision}>
-        <footer class="browser-takeover-actions">
-          <Button
-            variant="ghost"
-            size="sm"
-            type="button"
-            class="approval-button"
-            loading={submitting() === "cancel"}
-            loadingLabel={t("prompt.browser.cancelling")}
-            disabled={Boolean(submitting())}
-            data-cuelume-tap="close"
-            onClick={() => void submit("cancel")}
-          >
-            {t("common.cancel")}
-          </Button>
-          <div class="browser-takeover-finish">
-            <Show
-              when={props.signInBlocked && props.onSignInLocally}
-              fallback={
-                <>
-                  <Show when={props.onSignInLocally}>
-                    {(signIn) => (
-                      <Button
-                        variant="secondary"
-                        size="sm"
-                        type="button"
-                        class="approval-button"
-                        disabled={Boolean(submitting())}
-                        onClick={() => signIn()()}
-                      >
-                        {t("browser.signIn.local")}
-                      </Button>
-                    )}
-                  </Show>
+        <Show when={!props.decision}>
+          <footer class="browser-takeover-actions">
+            <Button
+              variant="ghost"
+              size="sm"
+              type="button"
+              class="approval-button"
+              loading={submitting() === "cancel"}
+              loadingLabel={t("prompt.browser.cancelling")}
+              disabled={Boolean(submitting())}
+              data-cuelume-tap="close"
+              onClick={() => void submit("cancel")}
+            >
+              {t("common.cancel")}
+            </Button>
+            <div class="browser-takeover-finish">
+              <Show
+                when={props.signInBlocked && props.onSignInLocally}
+                fallback={
+                  <>
+                    <Show when={props.onSignInLocally}>
+                      {(signIn) => (
+                        <Button
+                          variant="secondary"
+                          size="sm"
+                          type="button"
+                          class="approval-button"
+                          disabled={Boolean(submitting())}
+                          onClick={() => signIn()()}
+                        >
+                          {t("browser.signIn.local")}
+                        </Button>
+                      )}
+                    </Show>
+                    <Button
+                      variant="default"
+                      size="sm"
+                      type="button"
+                      class="approval-button"
+                      loading={submitting() === "complete"}
+                      loadingLabel={t("prompt.browser.returning")}
+                      disabled={Boolean(submitting())}
+                      onClick={() => void submit("complete")}
+                    >
+                      {t("prompt.browser.done")}
+                    </Button>
+                  </>
+                }
+              >
+                {(signIn) => (
                   <Button
                     variant="default"
                     size="sm"
                     type="button"
                     class="approval-button"
-                    loading={submitting() === "complete"}
-                    loadingLabel={t("prompt.browser.returning")}
-                    disabled={Boolean(submitting())}
-                    onClick={() => void submit("complete")}
+                    loading={props.signInBlocked?.signingIn}
+                    loadingLabel={t("prompt.browser.signInBlocked.waitingButton")}
+                    disabled={Boolean(submitting()) || props.signInBlocked?.signingIn}
+                    onClick={() => signIn()()}
                   >
-                    {t("prompt.browser.done")}
+                    <LogIn data-icon="inline-start" aria-hidden="true" />
+                    {t("browser.signIn.local")}
                   </Button>
-                </>
-              }
-            >
-              {(signIn) => (
-                <Button
-                  variant="default"
-                  size="sm"
-                  type="button"
-                  class="approval-button"
-                  loading={props.signInBlocked?.signingIn}
-                  loadingLabel={t("prompt.browser.signInBlocked.waitingButton")}
-                  disabled={Boolean(submitting()) || props.signInBlocked?.signingIn}
-                  onClick={() => signIn()()}
-                >
-                  <LogIn data-icon="inline-start" aria-hidden="true" />
-                  {t("browser.signIn.local")}
-                </Button>
-              )}
-            </Show>
-          </div>
-        </footer>
-      </Show>
-    </section>
+                )}
+              </Show>
+            </div>
+          </footer>
+        </Show>
+      </section>
+    </Show>
   );
 }
 
