@@ -84,8 +84,6 @@ export const messages = {
   "sidebar.state.waitingApproval": "Onayınızı bekliyor",
   "sidebar.state.waitingTakeover": "Tarayıcıda sizi bekliyor",
   "sidebar.state.waitingDetail": "{state}: {detail}",
-  "sidebar.waiting.title": "Size ihtiyacı var",
-  "sidebar.waiting.label": { one: "Size ihtiyacı var, {count} sohbet", other: "Size ihtiyacı var, {count} sohbet" },
   "sidebar.waiting.action.question": "Yanıtla",
   "sidebar.waiting.action.approval": "İncele",
   "sidebar.waiting.action.takeover": "Devral",

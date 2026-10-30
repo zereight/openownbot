@@ -328,7 +328,6 @@ export const messages = defineMessages("workflow", {
   "workflow.page.failed": "OpenOwnBot could not do this. Try again.",
   "workflow.page.conflict": "This workflow changed while you edited it. Undo to get your edits back.",
   "workflow.page.needsNewerApp": "This workflow has steps from a newer OpenOwnBot. Update OpenOwnBot to change it.",
-  "workflow.page.manageOnly": "To change this workflow, you need “Can manage” on each of its agents.",
   "workflow.chat.label": "Workflow assistant",
   "workflow.chat.title": "Ask {name} about this workflow",
   "workflow.chat.empty": "Ask {name} what this workflow does, or tell it what to change.",

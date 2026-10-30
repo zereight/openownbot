@@ -329,7 +329,6 @@ export const messages = {
   "workflow.page.failed": "OpenOwnBot 无法完成该操作，请重试。",
   "workflow.page.conflict": "该工作流在你编辑时发生了更改。撤销即可找回你的编辑。",
   "workflow.page.needsNewerApp": "该工作流包含来自更新版 OpenOwnBot 的步骤。更新 OpenOwnBot 后才能更改它。",
-  "workflow.page.manageOnly": "要更改该工作流，你需要对其中每个助手拥有“可管理”权限。",
   "workflow.chat.label": "工作流助手",
   "workflow.chat.title": "向 {name} 询问该工作流",
   "workflow.chat.empty": "问问 {name} 这个工作流是做什么的，或告诉它要改什么。",

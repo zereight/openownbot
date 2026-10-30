@@ -331,7 +331,6 @@ export const messages = {
     "Der Workflow wurde geändert, während du ihn bearbeitet hast. Mit Rückgängig erhältst du deine Änderungen zurück.",
   "workflow.page.needsNewerApp":
     "Dieser Workflow hat Schritte aus einer neueren OpenOwnBot-Version. Aktualisiere OpenOwnBot, um ihn zu ändern.",
-  "workflow.page.manageOnly": "Um diesen Workflow zu ändern, brauchst du Verwalten-Zugriff auf jeden seiner Agenten.",
   "workflow.chat.label": "Workflow-Assistent",
   "workflow.chat.title": "{name} zu diesem Workflow fragen",
   "workflow.chat.empty": "Frag {name}, was dieser Workflow macht, oder sag, was sich ändern soll.",

@@ -84,8 +84,6 @@ export const messages = {
   "sidebar.state.waitingApproval": "等待你的批准",
   "sidebar.state.waitingTakeover": "等待你在浏览器中操作",
   "sidebar.state.waitingDetail": "{state}：{detail}",
-  "sidebar.waiting.title": "需要你",
-  "sidebar.waiting.label": { one: "需要你，{count} 个聊天", other: "需要你，{count} 个聊天" },
   "sidebar.waiting.action.question": "回答",
   "sidebar.waiting.action.approval": "审核",
   "sidebar.waiting.action.takeover": "接管",

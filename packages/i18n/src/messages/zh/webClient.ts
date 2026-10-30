@@ -32,7 +32,6 @@ export const messages = {
   "webClient.connect.stepRemote": "开启远程访问。",
   "webClient.notice.download": "下载 OpenOwnBot",
   "webClient.notice.createServer": "创建云服务器",
-  "webClient.notice.join": "用邀请加入",
   "webClient.notice.refreshHosts": "刷新服务器",
   "webClient.agent.modelsFailed": "无法加载服务器的模型。",
   "webClient.agent.refreshFailed": "助手已创建，但工作区刷新失败。请先重新加载再重试。",
@@ -46,8 +45,6 @@ export const messages = {
   "webClient.error.requestFailed": "请求失败。",
   "webClient.error.accessEnded": "对该服务器的访问已结束。",
   "webClient.error.hostsFailed": "无法加载你的服务器。",
-  "webClient.error.enterInvitation": "请输入邀请链接。",
-  "webClient.error.invitationOffline": "邀请已被接受，但服务器离线。请重试。",
   "webClient.error.otherConversation": "服务器返回了另一个对话。",
   "webClient.error.messageTooLong": "消息过长。",
   "webClient.error.deliveryUnconfirmed": "消息投递未确认。请刷新并检查对话后再重发。",
@@ -76,6 +73,4 @@ export const messages = {
   "webClient.error.linkDesktopOnly": "该链接仅在桌面应用中打开。",
   "webClient.error.saveEndpointOffline": "请连接服务器以保存端点。",
   "webClient.error.removeEndpointOffline": "请连接服务器以移除端点。",
-  "webClient.error.hostNotConnected": "服务器未连接。",
-  "webClient.error.memberNotFound": "该成员不存在。",
 } as const satisfies PartialTranslation<typeof source>;

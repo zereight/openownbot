@@ -32,7 +32,6 @@ export const messages = {
   "webClient.connect.stepRemote": "원격 접근을 켜세요.",
   "webClient.notice.download": "OpenOwnBot 다운로드",
   "webClient.notice.createServer": "호스팅 서버 만들기",
-  "webClient.notice.join": "초대로 참여",
   "webClient.notice.refreshHosts": "서버 새로 고침",
   "webClient.agent.modelsFailed": "서버 모델을 불러올 수 없었어요.",
   "webClient.agent.refreshFailed":
@@ -47,8 +46,6 @@ export const messages = {
   "webClient.error.requestFailed": "요청에 실패했어요.",
   "webClient.error.accessEnded": "이 서버에 대한 접근이 종료되었어요.",
   "webClient.error.hostsFailed": "서버를 불러올 수 없었어요.",
-  "webClient.error.enterInvitation": "초대 링크를 입력해 주세요.",
-  "webClient.error.invitationOffline": "초대를 수락했지만 서버가 오프라인이에요. 다시 시도해 주세요.",
   "webClient.error.otherConversation": "서버가 다른 대화를 반환했어요.",
   "webClient.error.messageTooLong": "메시지가 너무 길어요.",
   "webClient.error.deliveryUnconfirmed":
@@ -80,6 +77,4 @@ export const messages = {
   "webClient.error.linkDesktopOnly": "이 링크는 데스크톱 앱에서만 열 수 있어요.",
   "webClient.error.saveEndpointOffline": "엔드포인트를 저장하려면 서버에 연결해 주세요.",
   "webClient.error.removeEndpointOffline": "엔드포인트를 제거하려면 서버에 연결해 주세요.",
-  "webClient.error.hostNotConnected": "서버가 연결되어 있지 않아요.",
-  "webClient.error.memberNotFound": "멤버가 없어요.",
 } as const satisfies PartialTranslation<typeof source>;

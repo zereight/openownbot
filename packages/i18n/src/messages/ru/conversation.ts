@@ -183,8 +183,6 @@ export const messages = {
   "conversation.tasks.panel.openInChat": "Открыть в чате",
   "conversation.tasks.section.needsYou": "Ждёт вас",
   "conversation.tasks.section.waiting": "Ожидает",
-  "conversation.tasks.section.unread": "Непрочитанные",
-  "conversation.tasks.section.read": "Прочитанные",
   "conversation.tasks.section.working": "Работает",
   "conversation.tasks.showAll": { one: "Показать все ({count})", other: "Показать все ({count})" },
   "conversation.tasks.showLess": "Свернуть",

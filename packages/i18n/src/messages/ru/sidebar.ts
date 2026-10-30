@@ -99,13 +99,6 @@ export const messages = {
   "sidebar.state.waitingApproval": "Ждёт вашего подтверждения",
   "sidebar.state.waitingTakeover": "Ждёт вас в браузере",
   "sidebar.state.waitingDetail": "{state}: {detail}",
-  "sidebar.waiting.title": "Нужны вы",
-  "sidebar.waiting.label": {
-    one: "Нужны вы: {count} чат",
-    few: "Нужны вы: {count} чата",
-    many: "Нужны вы: {count} чатов",
-    other: "Нужны вы: {count} чата",
-  },
   "sidebar.waiting.action.question": "Ответить",
   "sidebar.waiting.action.approval": "Проверить",
   "sidebar.waiting.action.takeover": "Взять управление",

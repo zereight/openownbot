@@ -84,8 +84,6 @@ export const messages = {
   "sidebar.state.waitingApproval": "Aguardando sua aprovação",
   "sidebar.state.waitingTakeover": "Aguardando você no navegador",
   "sidebar.state.waitingDetail": "{state}: {detail}",
-  "sidebar.waiting.title": "Precisa de você",
-  "sidebar.waiting.label": { one: "Precisa de você, {count} conversa", other: "Precisam de você, {count} conversas" },
   "sidebar.waiting.action.question": "Responder",
   "sidebar.waiting.action.approval": "Revisar",
   "sidebar.waiting.action.takeover": "Assumir",

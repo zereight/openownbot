@@ -32,7 +32,6 @@ export const messages = {
   "webClient.connect.stepRemote": "Aktiviere den Fernzugriff.",
   "webClient.notice.download": "OpenOwnBot herunterladen",
   "webClient.notice.createServer": "Gehosteten Server erstellen",
-  "webClient.notice.join": "Mit Einladung beitreten",
   "webClient.notice.refreshHosts": "Server aktualisieren",
   "webClient.agent.modelsFailed": "Die Modelle des Servers konnten nicht geladen werden.",
   "webClient.agent.refreshFailed":
@@ -48,9 +47,6 @@ export const messages = {
   "webClient.error.requestFailed": "Die Anfrage ist fehlgeschlagen.",
   "webClient.error.accessEnded": "Der Zugriff auf diesen Server ist beendet.",
   "webClient.error.hostsFailed": "Deine Server konnten nicht geladen werden.",
-  "webClient.error.enterInvitation": "Gib einen Einladungslink ein.",
-  "webClient.error.invitationOffline":
-    "Die Einladung wurde angenommen, aber der Server ist offline. Versuche es erneut.",
   "webClient.error.otherConversation": "Der Server hat eine andere Unterhaltung zurückgegeben.",
   "webClient.error.messageTooLong": "Die Nachricht ist zu lang.",
   "webClient.error.deliveryUnconfirmed":
@@ -86,6 +82,4 @@ export const messages = {
   "webClient.error.linkDesktopOnly": "Dieser Link öffnet sich nur in der Desktop-App.",
   "webClient.error.saveEndpointOffline": "Verbinde dich mit deinem Server, um einen Endpunkt zu speichern.",
   "webClient.error.removeEndpointOffline": "Verbinde dich mit deinem Server, um einen Endpunkt zu entfernen.",
-  "webClient.error.hostNotConnected": "Der Server ist nicht verbunden.",
-  "webClient.error.memberNotFound": "Das Mitglied existiert nicht.",
 } as const satisfies PartialTranslation<typeof source>;

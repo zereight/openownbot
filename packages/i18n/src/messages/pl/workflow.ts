@@ -345,7 +345,6 @@ export const messages = {
   "workflow.page.conflict": "Ten przepływ zmienił się podczas edycji. Cofnij, aby odzyskać swoje zmiany.",
   "workflow.page.needsNewerApp":
     "Ten przepływ ma kroki z nowszej wersji OpenOwnBot. Zaktualizuj OpenOwnBot, aby go zmienić.",
-  "workflow.page.manageOnly": "Aby zmienić ten przepływ, potrzebujesz dostępu do zarządzania każdym z jego agentów.",
   "workflow.chat.label": "Asystent przepływu",
   "workflow.chat.title": "Zapytaj agenta {name} o ten przepływ",
   "workflow.chat.empty": "Zapytaj agenta {name}, co robi ten przepływ, albo napisz, co zmienić.",

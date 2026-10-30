@@ -87,8 +87,6 @@ export const messages = {
   "sidebar.state.waitingApproval": "Wacht op je goedkeuring",
   "sidebar.state.waitingTakeover": "Wacht op je in de browser",
   "sidebar.state.waitingDetail": "{state}: {detail}",
-  "sidebar.waiting.title": "Heeft je nodig",
-  "sidebar.waiting.label": { one: "Heeft je nodig, {count} chat", other: "Heeft je nodig, {count} chats" },
   "sidebar.waiting.action.question": "Antwoorden",
   "sidebar.waiting.action.approval": "Bekijken",
   "sidebar.waiting.action.takeover": "Overnemen",

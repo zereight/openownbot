@@ -331,7 +331,6 @@ export const messages = {
     "Ce workflow a changé pendant votre modification. Annulez pour récupérer vos modifications.",
   "workflow.page.needsNewerApp":
     "Ce workflow contient des étapes d’une version plus récente d’OpenOwnBot. Mettez OpenOwnBot à jour pour le modifier.",
-  "workflow.page.manageOnly": "Pour modifier ce workflow, il vous faut l’accès Gérer sur chacun de ses agents.",
   "workflow.chat.label": "Assistant de workflow",
   "workflow.chat.title": "Interroger {name} sur ce workflow",
   "workflow.chat.empty": "Demandez à {name} ce que fait ce workflow, ou dites-lui quoi modifier.",

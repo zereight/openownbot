@@ -180,8 +180,6 @@ export const messages = {
   "conversation.tasks.panel.openInChat": "채팅에서 열기",
   "conversation.tasks.section.needsYou": "확인 필요",
   "conversation.tasks.section.waiting": "대기 중",
-  "conversation.tasks.section.unread": "읽지 않음",
-  "conversation.tasks.section.read": "읽음",
   "conversation.tasks.section.working": "작업 중",
   "conversation.tasks.showAll": { other: "모두 보기 ({count})" },
   "conversation.tasks.showLess": "간단히 보기",

@@ -134,12 +134,4 @@ export const messages = {
   "billing.license.cancel.descriptionNow":
     "Die Lizenz endet mit dem bezahlten Zeitraum. Deine Server sind nicht betroffen.",
   "billing.license.cancel.keep": "Lizenz behalten",
-  "billing.license.invite.title": "Nutzer zur Lizenz hinzufügen?",
-  "billing.license.invite.description": "Diese Einladung fügt deiner Lizenz 1 Nutzer hinzu: {price} mehr pro Monat.",
-  "billing.license.invite.confirm": "Hinzufügen und einladen",
-  "billing.license.invite.max": {
-    one: "Deine Lizenz hat {count} Nutzer, das Maximum. Kontaktiere uns für eine größere Lizenz. Neue Personen können deinen Servern nicht beitreten.",
-    other:
-      "Deine Lizenz hat {count} Nutzer, das Maximum. Kontaktiere uns für eine größere Lizenz. Neue Personen können deinen Servern nicht beitreten.",
-  },
 } as const satisfies PartialTranslation<typeof source>;

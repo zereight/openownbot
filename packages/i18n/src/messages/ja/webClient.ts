@@ -32,7 +32,6 @@ export const messages = {
   "webClient.connect.stepRemote": "リモートアクセスをオンにします。",
   "webClient.notice.download": "OpenOwnBot をダウンロード",
   "webClient.notice.createServer": "ホスト型サーバーを作成",
-  "webClient.notice.join": "招待で参加",
   "webClient.notice.refreshHosts": "サーバーを更新",
   "webClient.agent.modelsFailed": "サーバーのモデルを読み込めませんでした。",
   "webClient.agent.refreshFailed":
@@ -48,8 +47,6 @@ export const messages = {
   "webClient.error.requestFailed": "リクエストに失敗しました。",
   "webClient.error.accessEnded": "このサーバーへのアクセスは終了しました。",
   "webClient.error.hostsFailed": "サーバーを読み込めませんでした。",
-  "webClient.error.enterInvitation": "招待リンクを入力してください。",
-  "webClient.error.invitationOffline": "招待は承認されましたが、サーバーがオフラインです。もう一度お試しください。",
   "webClient.error.otherConversation": "サーバーが別の会話を返しました。",
   "webClient.error.messageTooLong": "メッセージが長すぎます。",
   "webClient.error.deliveryUnconfirmed":
@@ -83,6 +80,4 @@ export const messages = {
   "webClient.error.linkDesktopOnly": "このリンクはデスクトップアプリでのみ開けます。",
   "webClient.error.saveEndpointOffline": "エンドポイントを保存するには、サーバーに接続してください。",
   "webClient.error.removeEndpointOffline": "エンドポイントを削除するには、サーバーに接続してください。",
-  "webClient.error.hostNotConnected": "サーバーが接続されていません。",
-  "webClient.error.memberNotFound": "このメンバーは存在しません。",
 } as const satisfies PartialTranslation<typeof source>;

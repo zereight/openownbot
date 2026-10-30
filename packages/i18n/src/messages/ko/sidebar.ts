@@ -84,8 +84,6 @@ export const messages = {
   "sidebar.state.waitingApproval": "내 승인을 기다리는 중",
   "sidebar.state.waitingTakeover": "브라우저에서 내 조작을 기다리는 중",
   "sidebar.state.waitingDetail": "{state}: {detail}",
-  "sidebar.waiting.title": "확인 필요",
-  "sidebar.waiting.label": { other: "확인 필요, 채팅 {count}개" },
   "sidebar.waiting.action.question": "답변",
   "sidebar.waiting.action.approval": "검토",
   "sidebar.waiting.action.takeover": "직접 처리",

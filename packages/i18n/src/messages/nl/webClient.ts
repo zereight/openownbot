@@ -32,7 +32,6 @@ export const messages = {
   "webClient.connect.stepRemote": "Zet toegang op afstand aan.",
   "webClient.notice.download": "OpenOwnBot downloaden",
   "webClient.notice.createServer": "Gehoste server maken",
-  "webClient.notice.join": "Lid worden met uitnodiging",
   "webClient.notice.refreshHosts": "Servers vernieuwen",
   "webClient.agent.modelsFailed": "Kan de modellen van de server niet laden.",
   "webClient.agent.refreshFailed":
@@ -48,9 +47,6 @@ export const messages = {
   "webClient.error.requestFailed": "Het verzoek is mislukt.",
   "webClient.error.accessEnded": "De toegang tot deze server is beëindigd.",
   "webClient.error.hostsFailed": "Kan je servers niet laden.",
-  "webClient.error.enterInvitation": "Vul een uitnodigingslink in.",
-  "webClient.error.invitationOffline":
-    "De uitnodiging is geaccepteerd, maar de server is offline. Probeer het opnieuw.",
   "webClient.error.otherConversation": "De server gaf een ander gesprek terug.",
   "webClient.error.messageTooLong": "Het bericht is te lang.",
   "webClient.error.deliveryUnconfirmed":
@@ -86,6 +82,4 @@ export const messages = {
   "webClient.error.linkDesktopOnly": "Deze link opent alleen in de desktop-app.",
   "webClient.error.saveEndpointOffline": "Maak verbinding met je server om een endpoint op te slaan.",
   "webClient.error.removeEndpointOffline": "Maak verbinding met je server om een endpoint te verwijderen.",
-  "webClient.error.hostNotConnected": "De server is niet verbonden.",
-  "webClient.error.memberNotFound": "Het lid bestaat niet.",
 } as const satisfies PartialTranslation<typeof source>;

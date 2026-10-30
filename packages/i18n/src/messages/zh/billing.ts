@@ -130,10 +130,4 @@ export const messages = {
   "billing.license.cancel.descriptionNow": "许可证在付费周期结束时结束。你的服务器不受影响。",
   "billing.license.cancel.keep": "保留许可证",
   // Shown before an invite that makes the license too small.
-  "billing.license.invite.title": "将用户添加到许可证？",
-  "billing.license.invite.description": "该邀请会为你的许可证增加 1 位用户：每月多 {price}。",
-  "billing.license.invite.confirm": "添加用户并邀请",
-  "billing.license.invite.max": {
-    other: "你的许可证已有 {count} 位用户，已达上限。如需更大的许可证，请联系我们。新成员无法加入你的服务器。",
-  },
 } as const satisfies PartialTranslation<typeof source>;

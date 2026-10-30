@@ -181,8 +181,6 @@ export const messages = {
   "conversation.tasks.panel.openInChat": "Sohbette aç",
   "conversation.tasks.section.needsYou": "Seni bekliyor",
   "conversation.tasks.section.waiting": "Bekliyor",
-  "conversation.tasks.section.unread": "Okunmamış",
-  "conversation.tasks.section.read": "Okunmuş",
   "conversation.tasks.section.working": "Çalışıyor",
   "conversation.tasks.showAll": { one: "Tümünü göster ({count})", other: "Tümünü göster ({count})" },
   "conversation.tasks.showLess": "Daha az göster",

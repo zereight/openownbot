@@ -178,8 +178,6 @@ export const messages = {
   "conversation.tasks.panel.openInChat": "チャットで開く",
   "conversation.tasks.section.needsYou": "要対応",
   "conversation.tasks.section.waiting": "待機中",
-  "conversation.tasks.section.unread": "未読",
-  "conversation.tasks.section.read": "既読",
   "conversation.tasks.section.working": "作業中",
   "conversation.tasks.showAll": { one: "すべて表示（{count}）", other: "すべて表示（{count}）" },
   "conversation.tasks.showLess": "表示を減らす",

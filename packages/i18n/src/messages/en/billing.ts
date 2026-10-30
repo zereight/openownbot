@@ -136,13 +136,4 @@ export const messages = defineMessages("billing", {
   "billing.license.cancel.descriptionNow":
     "The license ends at the end of the paid period. Your servers are not affected.",
   "billing.license.cancel.keep": "Keep license",
-  // Shown before an invite that makes the license too small.
-  "billing.license.invite.title": "Add a user to the license?",
-  "billing.license.invite.description": "This invite adds 1 user to your license: {price} more a month.",
-  "billing.license.invite.confirm": "Add user and invite",
-  "billing.license.invite.max": {
-    one: "Your license has {count} user, the maximum. Contact us for a larger license. New people cannot join your servers.",
-    other:
-      "Your license has {count} users, the maximum. Contact us for a larger license. New people cannot join your servers.",
-  },
 });

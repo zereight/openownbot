@@ -21,7 +21,6 @@ export const messages = {
   "mobile.app.route.messageOptions": "消息选项",
   "mobile.app.route.editMessage": "编辑消息",
   "mobile.app.route.serverOptions": "服务器选项",
-  "mobile.app.route.members": "成员",
   "mobile.app.route.hostedServerPlans": "云服务器",
   "mobile.app.route.hostedServerSetup": "配置",
   "mobile.app.route.routines": "自动化任务",

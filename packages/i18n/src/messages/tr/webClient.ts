@@ -32,7 +32,6 @@ export const messages = {
   "webClient.connect.stepRemote": "Uzaktan erişimi açın.",
   "webClient.notice.download": "OpenOwnBot'u indir",
   "webClient.notice.createServer": "Barındırılan sunucu oluştur",
-  "webClient.notice.join": "Davet ile katıl",
   "webClient.notice.refreshHosts": "Sunucuları yenile",
   "webClient.agent.modelsFailed": "Sunucu modelleri yüklenemedi.",
   "webClient.agent.refreshFailed":
@@ -47,8 +46,6 @@ export const messages = {
   "webClient.error.requestFailed": "İstek başarısız oldu.",
   "webClient.error.accessEnded": "Bu sunucuya erişim sona erdi.",
   "webClient.error.hostsFailed": "Sunucularınız yüklenemedi.",
-  "webClient.error.enterInvitation": "Bir davet bağlantısı girin.",
-  "webClient.error.invitationOffline": "Davet kabul edildi, ancak sunucu çevrim dışı. Tekrar deneyin.",
   "webClient.error.otherConversation": "Sunucu başka bir konuşma döndürdü.",
   "webClient.error.messageTooLong": "Mesaj çok uzun.",
   "webClient.error.deliveryUnconfirmed":
@@ -80,6 +77,4 @@ export const messages = {
   "webClient.error.linkDesktopOnly": "Bu bağlantı yalnızca masaüstü uygulamasında açılır.",
   "webClient.error.saveEndpointOffline": "Bir uç noktayı kaydetmek için sunucunuza bağlanın.",
   "webClient.error.removeEndpointOffline": "Bir uç noktayı kaldırmak için sunucunuza bağlanın.",
-  "webClient.error.hostNotConnected": "Sunucu bağlı değil.",
-  "webClient.error.memberNotFound": "Üye mevcut değil.",
 } as const satisfies PartialTranslation<typeof source>;

@@ -32,7 +32,6 @@ export const messages = {
   "webClient.connect.stepRemote": "Activez l’accès à distance.",
   "webClient.notice.download": "Télécharger OpenOwnBot",
   "webClient.notice.createServer": "Créer un serveur hébergé",
-  "webClient.notice.join": "Rejoindre par invitation",
   "webClient.notice.refreshHosts": "Actualiser les serveurs",
   "webClient.agent.modelsFailed": "Impossible de charger les modèles du serveur.",
   "webClient.agent.refreshFailed":
@@ -48,8 +47,6 @@ export const messages = {
   "webClient.error.requestFailed": "La requête a échoué.",
   "webClient.error.accessEnded": "L’accès à ce serveur a pris fin.",
   "webClient.error.hostsFailed": "Impossible de charger vos serveurs.",
-  "webClient.error.enterInvitation": "Saisissez un lien d’invitation.",
-  "webClient.error.invitationOffline": "L’invitation a été acceptée, mais le serveur est hors ligne. Réessayez.",
   "webClient.error.otherConversation": "Le serveur a renvoyé une autre conversation.",
   "webClient.error.messageTooLong": "Le message est trop long.",
   "webClient.error.deliveryUnconfirmed":
@@ -83,6 +80,4 @@ export const messages = {
   "webClient.error.linkDesktopOnly": "Ce lien s’ouvre uniquement dans l’application de bureau.",
   "webClient.error.saveEndpointOffline": "Connectez-vous à votre serveur pour enregistrer un point de terminaison.",
   "webClient.error.removeEndpointOffline": "Connectez-vous à votre serveur pour supprimer un point de terminaison.",
-  "webClient.error.hostNotConnected": "Le serveur n’est pas connecté.",
-  "webClient.error.memberNotFound": "Ce membre n’existe pas.",
 } as const satisfies PartialTranslation<typeof source>;

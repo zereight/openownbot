@@ -135,13 +135,4 @@ export const messages = {
   "billing.license.cancel.descriptionNow":
     "De licentie eindigt aan het einde van de betaalde periode. Je servers merken hier niets van.",
   "billing.license.cancel.keep": "Licentie behouden",
-  "billing.license.invite.title": "Gebruiker aan de licentie toevoegen?",
-  "billing.license.invite.description":
-    "Deze uitnodiging voegt 1 gebruiker toe aan je licentie: {price} meer per maand.",
-  "billing.license.invite.confirm": "Toevoegen en uitnodigen",
-  "billing.license.invite.max": {
-    one: "Je licentie heeft {count} gebruiker, het maximum. Neem contact met ons op voor een grotere licentie. Nieuwe mensen kunnen niet meedoen op je servers.",
-    other:
-      "Je licentie heeft {count} gebruikers, het maximum. Neem contact met ons op voor een grotere licentie. Nieuwe mensen kunnen niet meedoen op je servers.",
-  },
 } as const satisfies PartialTranslation<typeof source>;
