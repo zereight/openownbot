@@ -1,8 +1,25 @@
 # Plan 011: A new product that uses OpenOwnBot only as an idea benchmark
 
-> **Status**: READY: the developer decided the approach on 2026-10-31 (see
-> [Decision](#decision-2026-10-31)). It needs a repository name and a stack before work starts.
-> This plan changes no code and no license in this repository.
+> **Status**: REJECTED: not needed. The developer will not sell the product, so the noncommercial
+> license already permits every change (see [Second decision](#second-decision-2026-10-31)).
+
+## Second decision (2026-10-31)
+
+The developer stated: no commercial sale. The goal is to change all code freely, so that it is easy to
+understand and convenient for the developer. The developer chose to keep working in this repository.
+
+`LICENSE` ("Changes and New Works License", "Noncommercial Purposes", "Personal Uses") permits changes
+and new works for any noncommercial purpose. So a rewrite, a new repository and a clean-room process
+are not needed for this goal. Two conditions stay:
+
+- Use stays noncommercial.
+- A copy given to anyone (a public repository counts) keeps the license terms and the three
+  `Required Notice:` lines of `LICENSE` and `NOTICE`.
+
+This is a reading of the license text, not legal advice. A lawyer was not asked.
+
+Changes to the code, design and layout go into new plans in this repository. The sections below are
+kept as background only.
 
 ## Decision (2026-10-31)
 
