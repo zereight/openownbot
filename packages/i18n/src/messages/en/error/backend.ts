@@ -322,6 +322,7 @@ export const messages = defineMessages("error.backend", {
   "error.backend.threadStillRunning": "This thread still runs. Stop it, then try again.",
   "error.backend.threadArchived": "This thread is archived. Restore it to send a message.",
   "error.backend.threadTitleRequired": "Give the thread a short title.",
+  "error.backend.threadForkTitle": "Forked thread",
   "error.backend.threadOpenLimitReached":
     "This agent has {count} open threads. Archive a thread, then start or restore another one.",
   "error.backend.threadRemoteUnsupported": "Threads are only available for agents on this computer.",

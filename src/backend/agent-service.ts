@@ -52,6 +52,7 @@ import type {
   DeleteSharedTableInput,
   DraftAttachment,
   DuplicateAgentResult,
+  ForkAgentThreadInput,
   GenerateAgentProfileInput,
   HiddenAgentsSnapshot,
   HostAnalyticsInput,
@@ -4278,6 +4279,23 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
         }),
       ),
     );
+    return this.#tasks.publicTask(task);
+  }).bind(this);
+
+  /** Forks a conversation of the agent at one message into a new task. Nothing is sent: the first message of the fork starts its session. */
+  readonly forkThread = Effect.fn("AgentService.forkThread")(function* (
+    this: AgentService,
+    input: ForkAgentThreadInput,
+  ): Effect.fn.Return<AgentTask, AgentLifecycleFailed> {
+    const task = yield* lifecycleStep("fork thread", () => {
+      const agent = this.listAgents().find((candidate) => candidate.id === input.agentId);
+      if (!agent) throw new Error(sourceText("error.agent.unknown", { id: input.agentId }));
+      this.#requireNotHidden(input.agentId);
+      const sourceThreadId =
+        input.taskId === null ? agent.threadId : this.#tasks.require(input.agentId, input.taskId).threadId;
+      if (!sourceThreadId) throw new Error(sourceText("error.backend.threadNotFound"));
+      return this.#tasks.fork(input.agentId, sourceThreadId, input.messageId);
+    });
     return this.#tasks.publicTask(task);
   }).bind(this);
 

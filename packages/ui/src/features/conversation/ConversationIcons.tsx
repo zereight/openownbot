@@ -68,6 +68,18 @@ export function ReplyIcon() {
   );
 }
 
+export function ForkIcon() {
+  return (
+    <svg aria-hidden="true" viewBox="0 0 20 20" class="ui-glyph-20">
+      <circle cx="6" cy="5" r="1.75" />
+      <circle cx="6" cy="15" r="1.75" />
+      <circle cx="14" cy="7.5" r="1.75" />
+      <path d="M6 6.75v6.5" />
+      <path d="M14 9.25c0 2.25-2 3.25-8 3.75" />
+    </svg>
+  );
+}
+
 export function QueueIcon() {
   return (
     <svg aria-hidden="true" viewBox="0 0 20 20" class="ui-glyph-20">

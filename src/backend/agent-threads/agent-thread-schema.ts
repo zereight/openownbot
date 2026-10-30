@@ -1,3 +1,5 @@
+import type { DatabaseSync } from "node:sqlite";
+
 // The tail of the latest schema for new databases. IF NOT EXISTS throughout, as the other schema parts.
 //
 // A side thread is a second conversation of one agent that runs next to its own chat: the agent keeps
@@ -52,3 +54,28 @@ export const AGENT_THREAD_MIGRATION_SQL = `
   DROP INDEX IF EXISTS agent_tasks_agent;
   DROP TABLE projection_agent_tasks;
 `;
+
+// Migration 48. A forked thread names the thread it was copied from and the last message it copied, so the
+// person can find the source and the copy shows where its history was cut. Both are null for a thread that
+// is not a fork. There is no foreign key: deleting the source thread must not delete or change the fork,
+// which keeps its own copy of the history. `ALTER TABLE ADD COLUMN` rebuilds nothing, and no existing row
+// changes, so every thread from before 48 stays a thread that is not a fork. Latest databases run the same
+// statements after the table is created, so both build paths store the same table SQL.
+export const AGENT_THREAD_FORK_COLUMNS = ["forked_from_thread_id", "forked_from_message_id"] as const;
+
+export const AGENT_THREAD_FORK_MIGRATION_SQL = AGENT_THREAD_FORK_COLUMNS.map(
+  (column) => `ALTER TABLE projection_agent_threads ADD COLUMN ${column} TEXT;\n`,
+).join("");
+
+/** Adds the columns that the table lacks, so a repeated run after a restored marker does not fail. */
+export function addAgentThreadForkColumns(db: DatabaseSync): void {
+  const present = new Set(
+    db
+      .prepare("PRAGMA table_info(projection_agent_threads)")
+      .all()
+      .map((row) => row.name),
+  );
+  for (const column of AGENT_THREAD_FORK_COLUMNS) {
+    if (!present.has(column)) db.exec(`ALTER TABLE projection_agent_threads ADD COLUMN ${column} TEXT;`);
+  }
+}

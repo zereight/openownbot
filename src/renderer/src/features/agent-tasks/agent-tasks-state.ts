@@ -201,6 +201,15 @@ export function createAgentTasks(options: AgentTasksOptions) {
     return task;
   }
 
+  /** Forks the open thread (a task id, or null for the agent's own chat) at one message into a new thread. */
+  async function forkThread(agentId: string, taskId: string | null, messageId: string): Promise<AgentTask | null> {
+    const fork = port().forkThread;
+    if (!fork) return null;
+    const task = await runAction(() => fork({ agentId, taskId, messageId }), "conversation.threads.error.fork");
+    if (task && scopeIsCurrent()) rememberTask(task);
+    return task;
+  }
+
   /** Steers the task's running turn, or queues the message in the task. */
   async function sendToTask(
     agentId: string,
@@ -297,6 +306,7 @@ export function createAgentTasks(options: AgentTasksOptions) {
     openTask,
     startTask,
     runQueuedMessageAsTask,
+    forkThread,
     sendToTask,
     stopTask,
     closeTask,

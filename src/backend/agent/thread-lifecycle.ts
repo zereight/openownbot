@@ -1488,7 +1488,8 @@ export class ThreadLifecycle {
     // A task keeps its own conversation across sessions, as the agent's own chat does.
     if (this.#conversation.isExecutionThread(threadId) && !this.#conversation.isTaskThread(threadId)) return null;
     const sessions = this.#store.database.listProviderSessions(threadId);
-    if (sessions.length < 1) return null;
+    // A fork has no session yet, but its copied history is the context that its first session must get.
+    if (sessions.length < 1 && !this.#store.database.isForkedThread(threadId)) return null;
     const agentNames = agentNamesById(this.#store.list());
     const history = readHandoffHistory(this.#store.database, agentId, threadId, agentNames);
     const captures = new Map<string, Map<string, string> | null>();

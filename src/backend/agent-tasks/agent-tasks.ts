@@ -156,6 +156,24 @@ export class AgentTasks implements TaskLanes {
     return task;
   }
 
+  /**
+   * A new task that starts with a copy of one conversation of the agent up to one message. The title is the
+   * first line of that message, as for a task that a message starts. `sourceThreadId` is a task thread or the
+   * agent's own chat.
+   */
+  fork(agentId: string, sourceThreadId: string, throughMessageId: string): AgentThreadRecord {
+    this.#requireRoom(agentId);
+    const task = this.#store.fork({
+      agentId,
+      sourceThreadId,
+      throughMessageId,
+      title: (last) => taskTitle(last.text) || sourceText("error.backend.threadForkTitle"),
+    });
+    this.#conversation.registerTaskThread(agentId, task.threadId);
+    this.changed(agentId);
+    return task;
+  }
+
   /** The task list holds `INPUT_LIMITS.agentTasks` tasks, open ones first, so more open tasks could not be seen or stopped. */
   #requireRoom(agentId: string): void {
     if (this.#store.openTaskIds(agentId).length >= INPUT_LIMITS.agentTasks)

@@ -95,6 +95,7 @@ import {
   parseCancelQueuedMessage,
   parseChannelId,
   parseCreateAgent,
+  parseForkAgentThread,
   parseInterrupt,
   parseMarkConversationRead,
   parseMessageReaction,
@@ -650,6 +651,11 @@ export function agentIpcHandlers({
       // Local only: `agent-tasks-v1` does not move a queued message into a task.
       runQueuedMessageAsTask: scopedHandler(parseRunQueuedMessageAsTask, {
         local: (parsed) => runCauseEffect(service.runQueuedMessageAsTask(parsed)),
+        remote: taskRemoteUnsupported,
+      }),
+      // Local only: `agent-tasks-v1` has no fork.
+      forkThread: scopedHandler(parseForkAgentThread, {
+        local: (parsed) => runCauseEffect(service.forkThread(parsed)),
         remote: taskRemoteUnsupported,
       }),
       stopTask: scopedHandler(parseAgentTask, {

@@ -115,6 +115,7 @@ import type {
   AgentTask,
   AgentTaskInput,
   AgentTasksSnapshot,
+  ForkAgentThreadInput,
   RenameAgentTaskInput,
   RunQueuedMessageAsTaskInput,
   StartAgentTaskInput,
@@ -1360,6 +1361,8 @@ export const IPC_ENDPOINTS = {
     readTask: scopedRequest<AgentTaskInput, ConversationSnapshot>()("agent:tasks:read"),
     startTask: scopedRequest<StartAgentTaskInput, AgentTask>()("agent:tasks:start"),
     runQueuedMessageAsTask: scopedRequest<RunQueuedMessageAsTaskInput, AgentTask>()("agent:tasks:run-queued-message"),
+    // Local only: `agent-tasks-v1` has no fork.
+    forkThread: scopedRequest<ForkAgentThreadInput, AgentTask>()("agent:tasks:fork"),
     stopTask: scopedRequest<AgentTaskInput, void>()("agent:tasks:stop"),
     closeTask: scopedRequest<AgentTaskInput, void>()("agent:tasks:close"),
     reopenTask: scopedRequest<AgentTaskInput, void>()("agent:tasks:reopen"),

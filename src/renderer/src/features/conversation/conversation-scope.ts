@@ -97,6 +97,7 @@ export function createConversationViewScope(props: ConversationProps) {
   const agentReady = () => props.agentStatus.phase === "ready";
   /** A side thread covers the agent's own chat, which stays mounted under it. */
   const sideThreadOpen = () => props.threads?.open !== undefined;
+  const forkMessage = () => props.threads?.onForkMessage;
   const providerUpdateRequired = () =>
     props.agentStatus.providers?.find(
       (provider) => provider.id === props.agent?.provider && provider.state === "outdated",
@@ -1836,6 +1837,7 @@ export function createConversationViewScope(props: ConversationProps) {
 
   return {
     sideThreadOpen,
+    forkMessage,
     threadSearch,
     threadSearchOpen,
     threadSearchQuery,

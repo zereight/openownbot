@@ -423,6 +423,15 @@ export class OpenOwnBotDatabase {
     return this.#sessions.activeProviderSession(threadId, provider);
   }
 
+  /** Whether a side thread was forked from another thread and so starts with a copy of its history. */
+  isForkedThread(threadId: string): boolean {
+    return (
+      this.connection
+        .prepare("SELECT 1 FROM projection_agent_threads WHERE thread_id = ? AND forked_from_thread_id IS NOT NULL")
+        .get(threadId) !== undefined
+    );
+  }
+
   listProviderSessions(threadId: string): ProviderSession[] {
     return this.#sessions.listProviderSessions(threadId);
   }

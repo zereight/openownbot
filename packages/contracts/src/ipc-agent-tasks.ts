@@ -107,6 +107,16 @@ export interface RunQueuedMessageAsTaskInput {
   deliveryId: string;
 }
 
+/**
+ * Forks a conversation of the agent at one message into a new task that starts with a copy of the history up
+ * to that message. `taskId` names the task to copy, or is null for the agent's own chat. Local only.
+ */
+export interface ForkAgentThreadInput {
+  agentId: string;
+  taskId: string | null;
+  messageId: string;
+}
+
 export interface AgentTaskInput {
   agentId: string;
   taskId: string;

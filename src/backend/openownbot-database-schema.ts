@@ -6,7 +6,12 @@ import { sourceText } from "@openownbot/i18n/source";
 import { createOpenOwnBotLogger, toLogValue } from "@openownbot/logging";
 import { AGENT_MEMORY_SELECTION_SCHEMA_SQL, migrateAgentMemorySelection } from "./agent-memory-selection";
 import { AGENT_TASK_SCHEMA_SQL } from "./agent-tasks/agent-task-schema";
-import { AGENT_THREAD_MIGRATION_SQL, AGENT_THREAD_SCHEMA_SQL } from "./agent-threads/agent-thread-schema";
+import {
+  AGENT_THREAD_FORK_MIGRATION_SQL,
+  AGENT_THREAD_MIGRATION_SQL,
+  AGENT_THREAD_SCHEMA_SQL,
+  addAgentThreadForkColumns,
+} from "./agent-threads/agent-thread-schema";
 import { AGENT_WAIT_SCHEMA_SQL } from "./agent-waits/agent-wait-schema";
 import { BROWSER_PROFILE_SCHEMA_SQL } from "./browser-profiles/browser-profile-schema";
 import { CHANNEL_SCHEMA_SQL, CHANNEL_SETTINGS_SCHEMA_SQL } from "./channel-schema";
@@ -603,7 +608,8 @@ const LATEST_SCHEMA_SQL =
   MESSAGING_ALLOWED_ROLES_SCHEMA_SQL +
   BROWSER_PROFILE_SCHEMA_SQL +
   WORKFLOW_SCHEMA_SQL +
-  AGENT_THREAD_SCHEMA_SQL;
+  AGENT_THREAD_SCHEMA_SQL +
+  AGENT_THREAD_FORK_MIGRATION_SQL;
 
 /** The end of the thread message table with the migration 40 columns before its PRIMARY KEY constraint. */
 function withThreadMessageOrderColumns(tableEnd: string): string {
@@ -872,6 +878,12 @@ const MIGRATIONS: readonly OpenOwnBotMigration[] = [
     // dropped table is a leaf, so no foreign-key pause; few rows, so no vacuum. Mailbox records keep their
     // task ids: the thread keeps the task id as `legacy_task_id`.
     up: (db) => db.exec(AGENT_THREAD_MIGRATION_SQL),
+  },
+  {
+    version: 48,
+    // Adds two nullable columns to the side-thread table. No table is rebuilt, so no foreign-key pause and no
+    // vacuum. Every thread keeps its row and is not a fork.
+    up: addAgentThreadForkColumns,
   },
 ];
 

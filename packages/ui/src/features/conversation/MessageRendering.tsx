@@ -32,7 +32,7 @@ import { AttachmentCards, type AttachmentMediaSource } from "./AttachmentCards";
 import { CodeBlock } from "./CodeBlock";
 import { CodePreview } from "./CodePreview";
 import { ComparisonTable } from "./ComparisonTable";
-import { CheckIcon, CopyIcon, PlusIcon, ReactionIcon, ReplyIcon, StopIcon } from "./ConversationIcons";
+import { CheckIcon, CopyIcon, ForkIcon, PlusIcon, ReactionIcon, ReplyIcon, StopIcon } from "./ConversationIcons";
 import { createSmoothHeightResize } from "./createSmoothHeightResize";
 import { DataTable, type MessageContentBlock, messageContentBlocks, reuseUnchangedBlocks } from "./DataTable";
 import { messageFileReferences } from "./FileReference";
@@ -761,6 +761,8 @@ export function MessageActions(props: {
   onExpandEmoji: () => void;
   onReact: (emoji: MessageReaction | null) => void;
   onReply?: (() => void) | undefined;
+  /** Forks the thread at this message. Absent where the host cannot fork. */
+  onFork?: (() => void) | undefined;
   onCopy: () => void;
   /** Reads the message aloud, or stops it while it is read. Absent where replies cannot be read aloud. */
   readAloud?: { reading: boolean; onToggle: () => void } | undefined;
@@ -874,6 +876,17 @@ export function MessageActions(props: {
           <ReplyIcon />
         </Button>
       </Show>
+      <Show when={props.onFork}>
+        <Button
+          variant="ghost"
+          type="button"
+          class="message-action-button"
+          aria-label={t("chat.actions.fork")}
+          onClick={props.onFork}
+        >
+          <ForkIcon />
+        </Button>
+      </Show>
     </div>
   );
 }
@@ -890,6 +903,7 @@ export function MessageMenu(props: {
   reactions?: boolean;
   onReact: (emoji: MessageReaction | null) => void;
   onReply?: (() => void) | undefined;
+  onFork?: (() => void) | undefined;
   onCopy: () => void;
   readAloud?: { reading: boolean; onToggle: () => void } | undefined;
 }) {
@@ -914,6 +928,14 @@ export function MessageMenu(props: {
         <CopyIcon />
         <span>{t("chat.menu.copy")}</span>
       </ContextMenu.Item>
+      <Show when={props.onFork}>
+        {(onFork) => (
+          <ContextMenu.Item onSelectAfterClose={onFork()}>
+            <ForkIcon />
+            <span>{t("chat.menu.fork")}</span>
+          </ContextMenu.Item>
+        )}
+      </Show>
       <Show when={props.reactions !== false}>
         <ContextMenu.Sub>
           <ContextMenu.SubTrigger>

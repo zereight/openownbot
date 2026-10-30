@@ -102,6 +102,8 @@ export function conversationThreads(input: ConversationThreadsInput): Conversati
     },
     onCompactContext: open && onCompactContext ? () => onCompactContext(open.id) : undefined,
     // Only this computer moves a queued message to a new thread.
+    // Only this computer forks: `agent-tasks-v1` has no fork.
+    onForkMessage: tasks.local() ? (messageId) => void tabs.fork(agentId, open?.id ?? null, messageId) : undefined,
     onRunQueuedMessage: tasks.local() ? (deliveryId) => void tabs.runQueuedMessage(agentId, deliveryId) : undefined,
   };
 }

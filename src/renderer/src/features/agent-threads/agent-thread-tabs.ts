@@ -340,6 +340,14 @@ export function createAgentThreadTabs(options: AgentThreadTabsOptions) {
     open(agentId, started.id);
   }
 
+  /** Forks the open thread at one message into a new thread, and opens it. */
+  async function fork(agentId: string, taskId: string | null, messageId: string): Promise<void> {
+    const started = await tasks.forkThread(agentId, taskId, messageId);
+    if (!started || !scopeIsCurrent()) return;
+    seen.add(started.id);
+    open(agentId, started.id);
+  }
+
   /** Removes the tabs of a deleted agent. */
   function forgetAgent(agentId: string): void {
     forgetPendingThreadDeletes(serverId(), agentId);
@@ -409,6 +417,7 @@ export function createAgentThreadTabs(options: AgentThreadTabsOptions) {
     send,
     sendDraft,
     runQueuedMessage,
+    fork,
     forgetAgent,
   };
 }

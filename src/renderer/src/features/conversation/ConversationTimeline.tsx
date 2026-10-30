@@ -184,6 +184,7 @@ export function ConversationTimeline() {
     shownSubagentId,
     toggleSubagentPanel,
     sideThreadOpen,
+    forkMessage,
   } = useConversationViewScope();
   const { t, format, sourceText } = useText();
   // A named function, not a ternary in the prop: the compiler wraps a ternary prop in a memo, and
@@ -1122,6 +1123,14 @@ export function ConversationTimeline() {
                   onCopy: () => {
                     const currentMessage = message();
                     if (currentMessage) void copyMessage(currentMessage);
+                  },
+                  // A message that still streams has no end to copy, so only a finished one forks.
+                  // A getter, so the button stays out where the host cannot fork, and follows a change of host.
+                  get onFork() {
+                    const fork = forkMessage();
+                    const currentMessage = message();
+                    if (!fork || !currentMessage || currentMessage.status === "streaming") return undefined;
+                    return () => fork(currentMessage.id);
                   },
                 };
                 const messageReadAloud = () =>
