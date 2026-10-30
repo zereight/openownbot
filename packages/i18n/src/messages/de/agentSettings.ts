@@ -79,6 +79,7 @@ export const messages = {
   "agentSettings.saveFailed": "Die Agenteneinstellungen konnten nicht gespeichert werden.",
   "agentSettings.name": "Name",
   "agentSettings.nameLabel": "Agentenname",
+  "agentSettings.randomName": "Zufälliger Name",
   "agentSettings.agentTitle": "Titel",
   "agentSettings.agentTitleLabel": "Agententitel",
   "agentSettings.agentTitlePlaceholder": "Beschreibe, was dein Agent tut",

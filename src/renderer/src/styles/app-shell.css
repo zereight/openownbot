@@ -2537,6 +2537,17 @@ textarea {
   white-space: nowrap;
 }
 
+.agent-name-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.agent-name-row > :first-child {
+  flex: 1;
+  min-width: 0;
+}
+
 .avatar-editor-actions {
   display: flex;
   align-items: center;

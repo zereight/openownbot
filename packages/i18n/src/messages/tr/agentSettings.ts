@@ -79,6 +79,7 @@ export const messages = {
   "agentSettings.saveFailed": "Ajan ayarları kaydedilemedi.",
   "agentSettings.name": "Ad",
   "agentSettings.nameLabel": "Ajan adı",
+  "agentSettings.randomName": "Rastgele ad",
   "agentSettings.agentTitle": "Başlık",
   "agentSettings.agentTitleLabel": "Ajan başlığı",
   "agentSettings.agentTitlePlaceholder": "Ajanınızın ne yaptığını açıklayın",

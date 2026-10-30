@@ -45,6 +45,7 @@ import {
   Button,
   ConfirmDialog,
   Cpu,
+  Dices,
   ErrorReference,
   IconButton,
   Input,
@@ -92,6 +93,7 @@ import {
   untrack,
 } from "solid-js";
 import { useText } from "../../text";
+import { pickAgentName } from "../agents/agent-names";
 import { AVATAR_HUE_LABEL } from "../agents/avatar-hue-label";
 import { type AgentFolderCalls, AgentFoldersPage, AgentFoldersRow, createAgentFolders } from "./AgentFolders";
 import { AgentNewChatDialog } from "./AgentNewChatDialog";
@@ -138,6 +140,8 @@ export interface AgentSettingsPanelProps {
   backupModelsEditable?: boolean;
   /** The folders the agent can change besides its workspace. Local-only: the Team API does not carry them. */
   folders?: AgentFolderCalls | undefined;
+  /** The names of the other agents, so a random name is one that no agent has. */
+  takenAgentNames?: readonly string[] | undefined;
   /** Whether a usage limit holds this model and account now, for the backup models page. */
   usageLimited?: ((choice: AgentModelChoice) => boolean) | undefined;
   /** The app default an agent without its own busy-message setting follows. */
@@ -653,6 +657,16 @@ export default function AgentSettingsPanel(props: AgentSettingsPanelProps) {
       state.fields.name = value;
     });
     queueTextSave(textSaveRequest("name", props.agent.id));
+  }
+
+  function randomizeName(): void {
+    const taken = (props.takenAgentNames ?? []).filter((name) => name !== props.agent.name);
+    const value = pickAgentName(Math.random, taken).slice(0, INPUT_LIMITS.agentName);
+    setDraft((state) => {
+      state.fields.name = value;
+      state.dirty.name = true;
+    });
+    queueTextSave(textSaveRequest("name", props.agent.id, value));
   }
 
   function saveTitle(): void {
@@ -1190,18 +1204,28 @@ export default function AgentSettingsPanel(props: AgentSettingsPanelProps) {
                 </Popover.Root>
               </div>
               <SettingsField label={t("agentSettings.name")}>
-                <Input
-                  value={draft.fields.name}
-                  aria-label={t("agentSettings.nameLabel")}
-                  maxlength={INPUT_LIMITS.agentName}
-                  onValueChange={(value) =>
-                    setDraft((state) => {
-                      state.fields.name = value;
-                      state.dirty.name = true;
-                    })
-                  }
-                  onBlur={saveName}
-                />
+                <div class="agent-name-row">
+                  <Input
+                    value={draft.fields.name}
+                    aria-label={t("agentSettings.nameLabel")}
+                    maxlength={INPUT_LIMITS.agentName}
+                    onValueChange={(value) =>
+                      setDraft((state) => {
+                        state.fields.name = value;
+                        state.dirty.name = true;
+                      })
+                    }
+                    onBlur={saveName}
+                  />
+                  <IconButton
+                    variant="outline"
+                    type="button"
+                    label={t("agentSettings.randomName")}
+                    onClick={randomizeName}
+                  >
+                    <Dices aria-hidden="true" />
+                  </IconButton>
+                </div>
               </SettingsField>
               <SettingsField label={t("agentSettings.agentTitle")}>
                 <Input
