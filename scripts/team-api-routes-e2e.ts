@@ -457,7 +457,14 @@ const browser: TeamApiBrowser = {
 };
 
 // Account tickets that the fake account service redeems. Anything else is a ticket it refuses.
+const OWNER_ACCOUNT: CentralAuthUser = {
+  id: "account-owner",
+  email: "owner@example.com",
+  name: "Owner",
+  avatarUrl: null,
+};
 const accountUsers: Record<string, CentralAuthUser> = {
+  "ticket-owner": OWNER_ACCOUNT,
   "ticket-bob": { id: "account-bob", email: "bob@example.com", name: "Bob", avatarUrl: null },
   "ticket-stranger": { id: "account-stranger", email: "stranger@example.com", name: null, avatarUrl: null },
 };
@@ -574,10 +581,9 @@ let server: TeamApiServer | null = null;
 
 try {
   await runCauseEffect(store.initialize());
-  const OWNER_PASSWORD = "owner-password-e2e";
-  await runCauseEffect(store.configure("E2E Server", "owner", OWNER_PASSWORD));
+  await runCauseEffect(store.configureWithAccount("E2E Server", OWNER_ACCOUNT));
   await runCauseEffect(database.initialize());
-  const owner = await runCauseEffect(store.login("owner", OWNER_PASSWORD));
+  const owner = await runCauseEffect(store.loginWithAccount(OWNER_ACCOUNT));
   const serverId = store.getIdentity()?.serverId;
   assert.ok(serverId, "The team store has no identity after configure.");
 
@@ -891,11 +897,11 @@ try {
 
   // ---- Two more devices of the owner ----
   // A host has one owner and no other members, so every client below is a device of the owner.
-  const adaLogin = await call("POST", TEAM_API_ROUTES.auth.login, {
-    json: { username: "owner", password: OWNER_PASSWORD },
+  const adaLogin = await call("POST", TEAM_API_ROUTES.auth.account, {
+    json: { accountTicket: "ticket-owner" },
   });
-  const bobLogin = await call("POST", TEAM_API_ROUTES.auth.login, {
-    json: { username: "owner", password: OWNER_PASSWORD },
+  const bobLogin = await call("POST", TEAM_API_ROUTES.auth.account, {
+    json: { accountTicket: "ticket-owner" },
   });
   const adaToken = field(adaLogin.body, "sessionToken");
   const bobToken = field(bobLogin.body, "sessionToken");
@@ -916,33 +922,32 @@ try {
 
   // ---- Sign-in, rate limit, account sign-in, logout ----
   {
-    // The two device sign-ins above count toward the limit of the owner's user name.
+    // The two device sign-ins above count toward the limit of the owner's account address.
     clock += 15 * 60 * 1_000 + 1;
+    // An account that is not a member is refused each time, and each attempt counts toward its own limit.
+    const stranger = () => call("POST", TEAM_API_ROUTES.auth.account, { json: { accountTicket: "ticket-stranger" } });
     const results: number[] = [];
-    for (let attempt = 0; attempt < 5; attempt += 1) {
-      const wrong = await call("POST", TEAM_API_ROUTES.auth.login, {
-        json: { username: "owner", password: "not-the-owner-password" },
-      });
-      results.push(wrong.status);
-    }
-    const blocked = await call("POST", TEAM_API_ROUTES.auth.login, {
-      json: { username: "owner", password: OWNER_PASSWORD },
-    });
+    for (let attempt = 0; attempt < 5; attempt += 1) results.push((await stranger()).status);
+    const blocked = await stranger();
     check(
-      "five wrong passwords give loginIncorrect, then the correct password gets 429",
+      "five sign-ins of an account that is not a member are refused, then the sixth gets 429",
       results.every((status) => status === 400) &&
         errorIs(blocked, 429, sourceText("error.team.tooManySignInAttempts")) &&
         field(blocked.body, "sessionToken") === undefined,
       { results, blocked: summary(blocked) },
     );
-    clock += 15 * 60 * 1_000 + 1;
-    const afterWindow = await call("POST", TEAM_API_ROUTES.auth.login, {
-      json: { username: "owner", password: OWNER_PASSWORD },
-    });
+    const afterWindow = await call("POST", TEAM_API_ROUTES.auth.account, { json: { accountTicket: "ticket-owner" } });
     check(
-      "after the 15 minute window the owner signs in again",
+      "the limit counts one account address: the owner signs in while that account is blocked",
       afterWindow.status === 200 && field(afterWindow.body, "member", "role") === "owner",
       { status: afterWindow.status },
+    );
+    clock += 15 * 60 * 1_000 + 1;
+    const strangerAgain = await stranger();
+    check(
+      "after the 15 minute window the blocked account is refused as a non-member again, not rate limited",
+      strangerAgain.status === 400,
+      { status: strangerAgain.status },
     );
 
     const adaSecond = field(afterWindow.body, "sessionToken");
@@ -2128,7 +2133,7 @@ try {
 
   // ---- Queue routes ----
   {
-    const bobSender = { id: bobId, name: "owner" };
+    const bobSender = { id: bobId, name: OWNER_ACCOUNT.name };
     const queue = await call("GET", TEAM_API_ROUTES.agent.queue("agent-ada"), { token: bobToken });
     check(
       "the queue route returns the queue of the agent in the path",

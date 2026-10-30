@@ -708,7 +708,7 @@ export class TeamApiServer {
       const protocolIssue = this.#protocolIssue(request);
       if (protocolIssue) return this.#json(response, protocolIssue.status, protocolIssue.body);
 
-      // The six unauthenticated routes stay here rather than moving to a module of their own. They
+      // The unauthenticated routes stay here rather than moving to a module of their own. They
       // sit astride the auth gate below, so a module holding them would need a context without a
       // member while every other module needs one with a member - two shapes of the same type, to
       // save sixty lines that have not changed in the life of the file.
@@ -719,17 +719,6 @@ export class TeamApiServer {
           200,
           challenge ? this.#options.store.getIdentityProof(challenge) : this.#options.store.getIdentity(),
         );
-      }
-      if (method === "POST" && url.pathname === TEAM_API_ROUTES.auth.login) {
-        const body = await readJson(request);
-        this.#checkRate(request, stringField(body, "username", false, 64));
-        const result = await runCauseEffect(
-          this.#options.store.login(
-            stringField(body, "username", false, 64),
-            stringField(body, "password", false, 256),
-          ),
-        );
-        return this.#json(response, 200, result);
       }
       if (method === "POST" && url.pathname === TEAM_API_ROUTES.auth.account) {
         const body = await readJson(request);

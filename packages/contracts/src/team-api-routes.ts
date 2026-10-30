@@ -50,7 +50,6 @@ export const TEAM_API_ROUTES = {
     invitationPreview: "/v1/invitations/preview",
   },
   auth: {
-    login: "/v1/auth/login",
     account: "/v1/auth/account",
     logout: "/v1/auth/logout",
   },

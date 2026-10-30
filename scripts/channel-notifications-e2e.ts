@@ -53,7 +53,8 @@ import type { TeamApiBrowser } from "../src/main/team-api/dependencies";
 const OUT = resolve(import.meta.dirname, "../.openownbot-build/channel-notifications-e2e");
 const APP_VERSION = "0.0.0-e2e";
 const STEP_DEADLINE_MS = 30_000;
-const OWNER = { username: "owner-user", password: "owner-password-123" };
+const ACCOUNT = { id: "account-e2e-1", email: "owner@example.test", name: "Owner", avatarUrl: null };
+const ACCOUNT_TICKET = "ticket-e2e";
 const english = translateFor("en");
 
 interface RecordedNotification {
@@ -570,7 +571,7 @@ try {
         }),
       ],
     });
-    await runCauseEffect(team.configure("E2E Host", OWNER.username, OWNER.password));
+    await runCauseEffect(team.configureWithAccount("E2E Host", ACCOUNT));
     assert.ok(agents);
     server = new TeamApiServer({
       store: team,
@@ -579,15 +580,16 @@ try {
       browser: teamBrowser,
       sidebarLayout: sidebar,
       appVersion: APP_VERSION,
+      redeemCentralTicket: (ticket) => Effect.succeed(ticket === ACCOUNT_TICKET ? ACCOUNT : null),
       channels,
     });
     return Effect.runPromise(server.start());
   });
   const login = await wire(port, {
     method: "POST",
-    path: "/v1/auth/login",
+    path: "/v1/auth/account",
     capabilities: TEAM_CURRENT_CAPABILITIES,
-    body: OWNER,
+    body: { accountTicket: ACCOUNT_TICKET },
   });
   assert.equal(login.status, 200, `Login failed: ${JSON.stringify(login.body)}`);
   assert.ok(isDynamicRecord(login.body) && typeof login.body.sessionToken === "string");

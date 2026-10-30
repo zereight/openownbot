@@ -1,16 +1,7 @@
-import {
-  createHash,
-  generateKeyPairSync,
-  randomBytes,
-  randomUUID,
-  scrypt as scryptCallback,
-  sign,
-  timingSafeEqual,
-} from "node:crypto";
+import { createHash, generateKeyPairSync, randomBytes, randomUUID, sign, timingSafeEqual } from "node:crypto";
 import { constants } from "node:fs";
 import { copyFile, mkdir, readFile, rm } from "node:fs/promises";
 import { basename, dirname, join } from "node:path";
-import { promisify } from "node:util";
 import { avatarFileExtension, isAvatarMimeType, isValidAvatarImage } from "@openownbot/contracts/avatar-images";
 import { type HostKeyHandover, hostKeyHandoverStatement } from "@openownbot/contracts/host-key-handover";
 import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
@@ -65,7 +56,6 @@ class TeamStoreFiles extends Context.Service<
   );
 }
 
-const scrypt = promisify(scryptCallback);
 const SESSION_TTL_MS = 30 * 24 * 60 * 60 * 1_000;
 
 export class TeamStoreError extends Schema.TaggedError<TeamStoreError>()("TeamStoreError", { message: Schema.String }) {
@@ -76,6 +66,11 @@ export class TeamStoreError extends Schema.TaggedError<TeamStoreError>()("TeamSt
 
 interface StoredMember extends TeamMemberSummary {
   accountId?: string;
+  /**
+   * Written by versions that had a password sign-in. Nothing reads them now. They stay in the file, and
+   * in the copy of the imported record, so that no data is lost; a later step can delete them. They
+   * never leave this file: `publicMember` copies the fields it names.
+   */
   passwordSalt?: string;
   passwordHash?: string;
 }
@@ -464,81 +459,6 @@ export class TeamStore {
     if (!this.#state) throw new TeamStoreError(sourceText("error.team.hostNotConfigured"));
     return sign(null, Buffer.from(transcript), this.#state.privateKey).toString("base64url");
   }
-
-  /**
-   * The password path, used by the development connection and by tests. It creates an
-   * owner-less host and deliberately leaves `activeAccountId` alone - no account owns it
-   * yet, and the first one to activate adopts it. `#assertNoHostFor` is what keeps a
-   * second owner-less host from being created beside it.
-   */
-
-  readonly configure = Effect.fn("TeamStore.configure")(
-    function* (
-      this: TeamStore,
-      serverName: string,
-      username: string,
-      password: string,
-    ): Effect.fn.Return<TeamIdentity, RemoteWorkflowError, TeamStoreFiles> {
-      if (this.#state)
-        return yield* new RemoteWorkflowError({
-          cause: new TeamStoreError(sourceText("error.team.alreadyConfigured")),
-        });
-      yield* remoteDecode(() => validateServerName(serverName));
-      yield* remoteDecode(() => validateUsername(username));
-      yield* remoteDecode(() => validatePassword(password));
-      const { publicKey, privateKey } = yield* remoteDecode(() =>
-        generateKeyPairSync("ed25519", {
-          publicKeyEncoding: { type: "spki", format: "pem" },
-          privateKeyEncoding: { type: "pkcs8", format: "pem" },
-        }),
-      );
-      const credentials = yield* hashPasswordEffect(password);
-      // Hashing yields, so a second request could have configured a host meanwhile.
-      if (this.#state)
-        return yield* new RemoteWorkflowError({
-          cause: new TeamStoreError(sourceText("error.team.alreadyConfigured")),
-        });
-      this.#state = {
-        version: 1,
-        serverId: randomUUID(),
-        serverName: serverName.trim(),
-        enabledOnLaunch: false,
-        publicKey,
-        privateKey,
-        members: [
-          {
-            id: randomUUID(),
-            username: username.trim().toLowerCase(),
-            email: null,
-            name: null,
-            avatarUrl: null,
-            role: "owner",
-            disabled: false,
-            createdAt: new Date().toISOString(),
-            ...credentials,
-          },
-        ],
-        invites: [],
-        sessions: [],
-      };
-      this.#file.hosts.push(this.#state);
-      const attempt3 = yield* Effect.gen({ self: this }, function* () {
-        yield* this.#persistFileEffect();
-      }).pipe(Effect.result);
-      if (Result.isFailure(attempt3)) {
-        const error = attempt3.failure.cause;
-        this.#file.hosts.pop();
-        this.#state = null;
-        return yield* new RemoteWorkflowError({ cause: error });
-      }
-      const identity = this.getIdentity();
-      if (!identity)
-        return yield* new RemoteWorkflowError({ cause: new Error(sourceText("error.team.identityCreateFailed")) });
-      return identity;
-    },
-    Effect.provide(TeamStoreFiles.layer),
-    Effect.uninterruptible,
-  ).bind(this);
 
   readonly configureWithAccount = Effect.fn("TeamStore.configureWithAccount")(
     function* (
@@ -1078,32 +998,6 @@ export class TeamStore {
     Effect.uninterruptible,
   ).bind(this);
 
-  readonly login = Effect.fn("TeamStore.login")(
-    function* (
-      this: TeamStore,
-      username: string,
-      password: string,
-    ): Effect.fn.Return<AuthenticatedMember, RemoteWorkflowError, TeamStoreFiles> {
-      const state = yield* remoteDecode(() => this.#requireState());
-      const member = state.members.find(
-        (candidate) => candidate.username === username.trim().toLowerCase() && !candidate.disabled,
-      );
-      // A member that has an account signs in through the account. The password of such a member is
-      // refused, with the answer of a wrong password so that it names no account. The hash stays in the
-      // file: it is the only way in for a member from before accounts. The check follows the hash
-      // check, so both refusals take the same time.
-      if (!member || !(yield* verifyPasswordEffect(password, member)) || member.accountId) {
-        return yield* new RemoteWorkflowError({ cause: new TeamStoreError(sourceText("error.team.loginIncorrect")) });
-      }
-      yield* remoteDecode(() => this.#requireUnchangedState(state));
-      const result = yield* remoteDecode(() => this.#createSession(member));
-      yield* this.#persistEffect();
-      return result;
-    },
-    Effect.provide(TeamStoreFiles.layer),
-    Effect.uninterruptible,
-  ).bind(this);
-
   authenticate(token: string): TeamMemberSummary | null {
     return this.authenticateSession(token)?.member ?? null;
   }
@@ -1216,18 +1110,6 @@ export class TeamStore {
   }
 
   /**
-   * The host this request started on, still the one being served. Hashing a password takes
-   * long enough for an account switch to land in the middle of it, and the host captured
-   * before that await is still in the file: mutating it there would commit a change the
-   * caller is about to be told failed.
-   */
-  #requireUnchangedState(state: StoredTeam): void {
-    if (this.#state !== state) {
-      throw new TeamStoreError(sourceText("error.team.accountChangedDuringRequest"));
-    }
-  }
-
-  /**
    * Rejects a second host for one account, and a second host beside an owner-less one.
    * The owner-less check spans every stored host, not just the active one: an inactive
    * one is exactly what the next `activateAccount` adopts, so letting a second accumulate
@@ -1307,28 +1189,6 @@ export function fingerprint(publicKey: string): string {
   return createHash("sha256").update(publicKey).digest("base64url");
 }
 
-const hashPasswordEffect = Effect.fn("TeamStore.hashPassword")(function* (password: string) {
-  const passwordSalt = yield* remoteDecode(() => randomBytes(16).toString("base64url"));
-  const bytes = yield* derivePasswordBytesEffect(password, passwordSalt);
-  return { passwordSalt, passwordHash: Buffer.from(bytes).toString("base64url") };
-});
-const verifyPasswordEffect = Effect.fn("TeamStore.verifyPassword")(function* (password: string, member: StoredMember) {
-  if (!member.passwordSalt || !member.passwordHash) return false;
-  const bytes = yield* derivePasswordBytesEffect(password, member.passwordSalt);
-  const candidate = Buffer.from(bytes);
-  const expected = Buffer.from(member.passwordHash, "base64url");
-  return candidate.length === expected.length && timingSafeEqual(candidate, expected);
-});
-const derivePasswordBytesEffect = Effect.fn("TeamStore.derivePasswordBytes")(function* (
-  password: string,
-  salt: string,
-) {
-  const result = yield* remoteCall(() => scrypt(password, salt, 64));
-  if (!(result instanceof Uint8Array))
-    return yield* new RemoteWorkflowError({ cause: new Error("Password hashing returned invalid data.") });
-  return result;
-});
-
 function hashToken(token: string): string {
   return createHash("sha256").update(token).digest("base64url");
 }
@@ -1384,18 +1244,6 @@ function validateServerName(value: string): void {
   }
   if (slugifyTeamServerName(normalized).length < INPUT_LIMITS.serverNameMin) {
     throw new TeamStoreError(sourceText("error.team.serverNameHostname"));
-  }
-}
-
-function validateUsername(value: string): void {
-  if (!/^[a-zA-Z0-9][a-zA-Z0-9._-]{2,31}$/.test(value.trim())) {
-    throw new TeamStoreError(sourceText("error.team.usernameInvalid"));
-  }
-}
-
-function validatePassword(value: string): void {
-  if (value.length < 12 || value.length > 256) {
-    throw new TeamStoreError(sourceText("error.team.passwordLength"));
   }
 }
 
