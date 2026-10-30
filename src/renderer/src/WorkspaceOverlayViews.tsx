@@ -118,6 +118,11 @@ export function MarketplaceOverlay(props: {
               ? (agentId, skill) => appendExample(agentId, (target) => controller.appendSkillExample(target, skill))
               : undefined
           }
+          onCreateSkill={
+            composerFree()
+              ? (agentId) => appendExample(agentId, (target) => controller.startSkillCreation(target))
+              : undefined
+          }
           onAgentInstalled={props.onAgentInstalled}
           plugins={DISPLAYED_MARKETPLACE_PLUGINS}
           initialPluginSlug={props.pluginSlug ?? undefined}
