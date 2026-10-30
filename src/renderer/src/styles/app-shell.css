@@ -2543,14 +2543,26 @@ textarea {
   gap: 6px;
 }
 
-.agent-title-choices {
+.agent-title-menu {
+  min-width: 200px;
+  max-width: min(320px, 90vw);
+}
+
+.agent-title-list {
   display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  min-width: 0;
-  margin: 6px 0 0;
-  padding: 0;
-  border: 0;
+  flex-direction: column;
+  gap: 2px;
+  max-height: 240px;
+  margin: 0;
+  padding: 4px;
+  overflow-y: auto;
+  list-style: none;
+}
+
+.agent-title-list button {
+  justify-content: flex-start;
+  width: 100%;
+  text-align: left;
 }
 
 .agent-name-row > :first-child {

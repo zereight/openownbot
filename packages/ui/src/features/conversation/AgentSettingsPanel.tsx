@@ -43,6 +43,8 @@ import {
   Bell,
   Brain,
   Button,
+  buttonVariants,
+  ChevronDown,
   ConfirmDialog,
   Cpu,
   Dices,
@@ -281,6 +283,7 @@ export default function AgentSettingsPanel(props: AgentSettingsPanelProps) {
   const { t, errorMessage, format } = useText();
   const agentDefaults = () => props.agentDefaults ?? DEFAULT_AGENT_DEFAULTS;
   const [newChatOpen, setNewChatOpen] = createSignal(false);
+  const [titleMenuOpen, setTitleMenuOpen] = createSignal(false);
   const [draft, setDraft] = createStore<AgentSettingsDraft>({
     avatar: {
       batch: 0,
@@ -1262,30 +1265,60 @@ export default function AgentSettingsPanel(props: AgentSettingsPanelProps) {
                 </div>
               </SettingsField>
               <SettingsField label={t("agentSettings.agentTitle")}>
-                <Input
-                  value={draft.fields.title}
-                  aria-label={t("agentSettings.agentTitleLabel")}
-                  placeholder={t("agentSettings.agentTitlePlaceholder")}
-                  maxlength={INPUT_LIMITS.agentTitle}
-                  onValueChange={(value) =>
-                    setDraft((state) => {
-                      state.fields.title = value;
-                      state.dirty.title = true;
-                    })
-                  }
-                  onBlur={saveTitle}
-                />
-                <Show when={titleChoices().length > 0}>
-                  <fieldset class="agent-title-choices" aria-label={t("agentSettings.agentTitleExisting")}>
-                    <For each={titleChoices()}>
-                      {(title) => (
-                        <Button type="button" variant="outline" size="sm" onClick={() => chooseTitle(title)}>
-                          {title}
-                        </Button>
-                      )}
-                    </For>
-                  </fieldset>
-                </Show>
+                <div class="agent-name-row">
+                  <Input
+                    value={draft.fields.title}
+                    aria-label={t("agentSettings.agentTitleLabel")}
+                    placeholder={t("agentSettings.agentTitlePlaceholder")}
+                    maxlength={INPUT_LIMITS.agentTitle}
+                    onValueChange={(value) =>
+                      setDraft((state) => {
+                        state.fields.title = value;
+                        state.dirty.title = true;
+                      })
+                    }
+                    onBlur={saveTitle}
+                  />
+                  <Show when={titleChoices().length > 0}>
+                    <Popover.Root
+                      open={titleMenuOpen()}
+                      onOpenChange={setTitleMenuOpen}
+                      placement="bottom-end"
+                      gutter={6}
+                    >
+                      <Popover.Trigger
+                        class={buttonVariants({ variant: "outline", size: "icon" })}
+                        aria-label={t("agentSettings.agentTitleExisting")}
+                      >
+                        <ChevronDown aria-hidden="true" />
+                      </Popover.Trigger>
+                      <Popover.Portal>
+                        <Popover.Content class="ui-popover-menu-surface agent-title-menu">
+                          <Popover.Title class="sr-only">{t("agentSettings.agentTitleExisting")}</Popover.Title>
+                          <ul class="agent-title-list">
+                            <For each={titleChoices()}>
+                              {(title) => (
+                                <li>
+                                  <Button
+                                    type="button"
+                                    variant="ghost"
+                                    size="sm"
+                                    onClick={() => {
+                                      setTitleMenuOpen(false);
+                                      chooseTitle(title);
+                                    }}
+                                  >
+                                    {title}
+                                  </Button>
+                                </li>
+                              )}
+                            </For>
+                          </ul>
+                        </Popover.Content>
+                      </Popover.Portal>
+                    </Popover.Root>
+                  </Show>
+                </div>
               </SettingsField>
               <SettingsField label={t("agentSettings.instructions")}>
                 <Textarea
