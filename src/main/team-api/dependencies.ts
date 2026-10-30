@@ -1,6 +1,7 @@
 import type { Effect } from "effect";
 import type { AgentMemories } from "../../backend/agent/agent-memories";
 import type { McpOperations } from "../../backend/agent/mcp-gateway";
+import type { ProviderOperations } from "../../backend/agent/provider-runtime";
 import type { RoutineOperations } from "../../backend/agent/routine-scheduler";
 import type { ChannelRoutineOperations } from "../../backend/channel-routine-scheduler";
 import type { ChannelService } from "../../backend/channel-service";
@@ -198,7 +199,9 @@ export type TeamApiProviderAccounts = Pick<
 >;
 
 /** Its presence is what `#protocolSupport` advertises `provider-usage-reset-v1` on. The routes are admin-only. */
-export type TeamApiProviderUsageResets = Pick<AgentService, "providerUsageResets" | "resetProviderUsage">;
+export type TeamApiProviderUsageResets = Pick<AgentService, "resetProviderUsage"> & {
+  providers: Pick<ProviderOperations, "usageResets">;
+};
 
 /** Its presence is what `#protocolSupport` advertises `storage-v1` and `storage-disk-v1` on. */
 export type TeamApiStorage = Pick<StorageUsageService, "usage" | "deleteFile" | "clear" | "disk">;
@@ -360,14 +363,12 @@ interface TeamApiHostIdentity {
 }
 
 interface TeamApiProviders {
-  service: Pick<
-    AgentService,
-    | "startProviderCodeLogin"
-    | "submitProviderCodeLogin"
-    | "cancelProviderCodeLogin"
-    | "changeProviderCredential"
-    | "clearProviderCredential"
-  >;
+  service: Pick<AgentService, "changeProviderCredential" | "clearProviderCredential"> & {
+    providers: Pick<
+      ProviderOperations,
+      "startProviderCodeLogin" | "submitProviderCodeLogin" | "cancelProviderCodeLogin"
+    >;
+  };
   credentials: Pick<ProviderCredentialStore, "status" | "set" | "clear">;
   runtimes: Pick<
     ProviderRuntimeManager,

@@ -34,7 +34,6 @@ import type {
   ConversationSnapshot,
   ConversationWithReadState,
   CreateAgentInput,
-  CustomProviderRestart,
   DeleteSharedTableInput,
   DraftAttachment,
   DuplicateAgentResult,
@@ -44,8 +43,6 @@ import type {
   HostAnalyticsInput,
   LocalBrowserSecretResponse,
   McpServerConfig,
-  ProviderCodeLoginStart,
-  ProviderUsageResets,
   QueuedMessageReceipt,
   QueueSnapshot,
   ReorderQueueInput,
@@ -151,7 +148,12 @@ import {
 import { ProfileSave, standingProfileChanged, toProfileSaveFailed } from "./agent/profile-save";
 import type { ProviderAccountStore } from "./agent/provider-account-store";
 import { isPlanLimitDiagnostic } from "./agent/provider-diagnostics";
-import { type AgentClientFactory, ProviderRuntime, toProviderOperationFailed } from "./agent/provider-runtime";
+import {
+  type AgentClientFactory,
+  type ProviderOperations,
+  ProviderRuntime,
+  toProviderOperationFailed,
+} from "./agent/provider-runtime";
 import { QueueControls } from "./agent/queue-controls";
 import { quietRoutineRun } from "./agent/routine-quiet-runs";
 import { RoutineScheduler, toRoutineOperationFailed } from "./agent/routine-scheduler";
@@ -432,6 +434,8 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
    */
   readonly mcp: McpGateway;
   readonly #providers: ProviderRuntime;
+  /** Sign-in, accounts, restarts and status of the providers. */
+  readonly providers: ProviderOperations;
   readonly #providerUseChanges = Semaphore.makeUnsafe(1);
   readonly #endpoints: CustomEndpoints;
   readonly #prepareAgentWorkspace: (agent: AgentSummary) => Effect.Effect<void, AgentLifecycleFailed>;
@@ -844,6 +848,7 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
       mcpHandoff: this.mcp.handoffLog(),
       redactMcp: (text) => this.mcp.redact(text),
     });
+    this.providers = this.#providers;
     this.#endpoints = new CustomEndpoints({
       store,
       mailbox: this.#mailbox,
@@ -3341,14 +3346,6 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
     return this.#providers.setPreferredProvider(provider, this.#initialized, model);
   }
 
-  ensureProvider(provider: AgentProvider): Effect.Effect<void, AgentLifecycleFailed> {
-    return this.#providers
-      .ensureProvider(provider)
-      .pipe(
-        Effect.mapError((failure) => new AgentLifecycleFailed({ operation: "ensureProvider", cause: failure.cause })),
-      );
-  }
-
   setProviderOn(provider: AgentProvider, on: boolean): Effect.Effect<AgentStatus, AgentLifecycleFailed> {
     // Turning on can activate models, which takes this same lock. Only off holds it.
     const change = () => this.#providers.setProviderOn(provider, on);
@@ -3357,109 +3354,6 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
       .pipe(
         Effect.mapError((failure) => new AgentLifecycleFailed({ operation: "setProviderOn", cause: failure.cause })),
       );
-  }
-
-  refreshProviders(options: { automatic: boolean }): Effect.Effect<AgentStatus, AgentLifecycleFailed> {
-    return this.#providers
-      .refreshProviders(options)
-      .pipe(
-        Effect.mapError((failure) => new AgentLifecycleFailed({ operation: "refreshProviders", cause: failure.cause })),
-      );
-  }
-
-  refreshProvider(provider: AgentProvider): Effect.Effect<AgentStatus, AgentLifecycleFailed> {
-    return this.#providers
-      .refreshProvider(provider)
-      .pipe(
-        Effect.mapError((failure) => new AgentLifecycleFailed({ operation: "refreshProvider", cause: failure.cause })),
-      );
-  }
-
-  /** See `ProviderRuntime.restartProviderWhenIdle`. */
-  restartProvider(provider: AgentProvider): Effect.Effect<AgentStatus, AgentLifecycleFailed> {
-    return this.#providers
-      .restartProviderWhenIdle(provider)
-      .pipe(
-        Effect.mapError((failure) => new AgentLifecycleFailed({ operation: "restartProvider", cause: failure.cause })),
-      );
-  }
-
-  cancelProviderRestart(provider: AgentProvider): AgentStatus {
-    return this.#providers.cancelProviderRestart(provider);
-  }
-
-  connectProvider(
-    provider: AgentProvider,
-    openExternal: (url: string) => Promise<void>,
-  ): Effect.Effect<AgentStatus, AgentLifecycleFailed> {
-    return this.#providers
-      .connectProvider(provider, openExternal)
-      .pipe(
-        Effect.mapError((failure) => new AgentLifecycleFailed({ operation: "connectProvider", cause: failure.cause })),
-      );
-  }
-
-  /** See `ProviderRuntime.connectProviderAccount`. */
-  connectProviderAccount(
-    provider: AgentProvider,
-    accountId: string | null,
-    openExternal: (url: string) => Promise<void>,
-  ): Effect.Effect<AgentStatus, AgentLifecycleFailed> {
-    return this.#providers
-      .connectProviderAccount(provider, accountId, openExternal)
-      .pipe(
-        Effect.mapError(
-          (failure) => new AgentLifecycleFailed({ operation: "connectProviderAccount", cause: failure.cause }),
-        ),
-      );
-  }
-
-  /** See `ProviderRuntime.signInProviderAccountOnHost`. */
-  signInProviderAccountOnHost(
-    provider: AgentProvider,
-    accountId: string | null,
-    openPage: (url: string) => Promise<void>,
-  ): Effect.Effect<void, AgentLifecycleFailed> {
-    return this.#providers
-      .signInProviderAccountOnHost(provider, accountId, openPage)
-      .pipe(
-        Effect.mapError(
-          (failure) => new AgentLifecycleFailed({ operation: "signInProviderAccountOnHost", cause: failure.cause }),
-        ),
-      );
-  }
-
-  /** See `ProviderRuntime.cancelProviderAccountSignIn`. */
-  cancelProviderAccountSignIn(
-    provider: AgentProvider,
-    accountId: string,
-  ): Effect.Effect<AgentStatus, AgentLifecycleFailed> {
-    return this.#providers
-      .cancelProviderAccountSignIn(provider, accountId)
-      .pipe(
-        Effect.mapError(
-          (failure) => new AgentLifecycleFailed({ operation: "cancelProviderAccountSignIn", cause: failure.cause }),
-        ),
-      );
-  }
-
-  renameProviderAccount(
-    provider: AgentProvider,
-    accountId: string,
-    label: string | null,
-  ): Effect.Effect<AgentStatus, AgentLifecycleFailed> {
-    return this.#providers
-      .renameProviderAccount(provider, accountId, label)
-      .pipe(
-        Effect.mapError(
-          (failure) => new AgentLifecycleFailed({ operation: "renameProviderAccount", cause: failure.cause }),
-        ),
-      );
-  }
-
-  /** The usage reset credits of each connected account of a provider. An account that has no count is left out. */
-  providerUsageResets(provider: AgentProvider): Effect.Effect<ProviderUsageResets[]> {
-    return this.#providers.usageResets(provider);
   }
 
   /** Spends one usage reset credit of an account. A reset ends the usage limit that holds its agents. */
@@ -3518,54 +3412,6 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
       .pipe(
         Effect.mapError(
           (failure) => new AgentLifecycleFailed({ operation: "removeProviderAccount", cause: failure.cause }),
-        ),
-      );
-  }
-
-  /** See `ProviderRuntime.signInProviderOnHost`. */
-  signInProviderOnHost(
-    provider: AgentProvider,
-    openPage: (url: string) => Promise<void>,
-  ): Effect.Effect<void, AgentLifecycleFailed> {
-    return this.#providers
-      .signInProviderOnHost(provider, openPage)
-      .pipe(
-        Effect.mapError(
-          (failure) => new AgentLifecycleFailed({ operation: "signInProviderOnHost", cause: failure.cause }),
-        ),
-      );
-  }
-
-  cancelProviderSignIn(provider: AgentProvider): Effect.Effect<AgentStatus, AgentLifecycleFailed> {
-    return this.#providers
-      .cancelProviderSignIn(provider)
-      .pipe(
-        Effect.mapError(
-          (failure) => new AgentLifecycleFailed({ operation: "cancelProviderSignIn", cause: failure.cause }),
-        ),
-      );
-  }
-
-  startProviderCodeLogin(provider: AgentProvider): Effect.Effect<ProviderCodeLoginStart, AgentLifecycleFailed> {
-    return this.#providers
-      .startProviderCodeLogin(provider)
-      .pipe(
-        Effect.mapError(
-          (failure) => new AgentLifecycleFailed({ operation: "startProviderCodeLogin", cause: failure.cause }),
-        ),
-      );
-  }
-
-  submitProviderCodeLogin(provider: AgentProvider, code: string): AgentStatus {
-    return this.#providers.submitProviderCodeLogin(provider, code);
-  }
-
-  cancelProviderCodeLogin(provider: AgentProvider): Effect.Effect<AgentStatus, AgentLifecycleFailed> {
-    return this.#providers
-      .cancelProviderCodeLogin(provider)
-      .pipe(
-        Effect.mapError(
-          (failure) => new AgentLifecycleFailed({ operation: "cancelProviderCodeLogin", cause: failure.cause }),
         ),
       );
   }
@@ -3652,22 +3498,6 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
       );
   }
 
-  /** Restarts OpenCode so a saved or removed endpoint reaches it. Reports why, if it did not. */
-  reloadOpenCodeConfig(): Effect.Effect<CustomProviderRestart, AgentLifecycleFailed> {
-    return this.#providers.reloadOpenCodeConfig();
-  }
-
-  /** Replaces the custom agents' router so a saved or removed agent reaches it. Reports why, if it did not. */
-  reloadCustomAgents(): Effect.Effect<CustomProviderRestart, AgentLifecycleFailed> {
-    return this.#providers
-      .reloadCustomAgents()
-      .pipe(
-        Effect.mapError(
-          (failure) => new AgentLifecycleFailed({ operation: "reloadCustomAgents", cause: failure.cause }),
-        ),
-      );
-  }
-
   withCustomAgentRuntimeRemoval<T>(
     _customAgentIds: readonly string[],
     operation: () => Effect.Effect<T, AgentLifecycleFailed>,
@@ -3679,11 +3509,6 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
           (failure) => new AgentLifecycleFailed({ operation: "removeCustomAgentRuntime", cause: failure.cause }),
         ),
       );
-  }
-
-  /** See `ProviderRuntime.customAgentUsage`. */
-  customAgentUsage() {
-    return this.#providers.customAgentUsage();
   }
 
   /** See `CustomEndpoints.saveCustomAgent`. */

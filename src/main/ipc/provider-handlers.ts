@@ -52,7 +52,7 @@ export function providerIpcHandlers({
       connectProvider: payloadHandler(parseProviderId, async (provider) => {
         await runCauseEffect(providerRuntimes.ensureKeyProviderCli(provider));
         return runCauseEffect(
-          service.connectProvider(provider, async (value) => {
+          service.providers.connectProvider(provider, async (value) => {
             const url = new URL(value);
             if (url.protocol !== "https:") throw new Error(sourceText("error.provider.httpsSignInLinkOnly"));
             await openLink(url.toString());
@@ -60,25 +60,27 @@ export function providerIpcHandlers({
         );
       }),
       cancelProviderSignIn: payloadHandler(parseProviderId, (provider) =>
-        runCauseEffect(service.cancelProviderSignIn(provider)),
+        runCauseEffect(service.providers.cancelProviderSignIn(provider)),
       ),
       updateProviderCli: payloadHandler(parseManagedProviderId, async (provider) => {
         await runCauseEffect(providerRuntimes.downloadAndWait(provider));
         return service.getStatus();
       }),
       refreshAgentProviders: payloadHandler(optionalPayload(parseRefreshProvidersInput), (input) =>
-        runCauseEffect(service.refreshProviders({ automatic: input?.automatic === true })),
+        runCauseEffect(service.providers.refreshProviders({ automatic: input?.automatic === true })),
       ),
-      restartProvider: payloadHandler(parseProviderId, (provider) => runCauseEffect(service.restartProvider(provider))),
+      restartProvider: payloadHandler(parseProviderId, (provider) =>
+        runCauseEffect(service.providers.restartProviderWhenIdle(provider)),
+      ),
       cancelProviderRestart: payloadHandler(parseProviderId, async (provider) =>
-        service.cancelProviderRestart(provider),
+        service.providers.cancelProviderRestart(provider),
       ),
       // The code and the page it is typed on come back; nothing the code is later traded for does.
       startProviderCodeLogin: payloadHandler(parseProviderId, (provider) =>
-        runCauseEffect(service.startProviderCodeLogin(provider)),
+        runCauseEffect(service.providers.startProviderCodeLogin(provider)),
       ),
       cancelProviderCodeLogin: payloadHandler(parseProviderId, (provider) =>
-        runCauseEffect(service.cancelProviderCodeLogin(provider)),
+        runCauseEffect(service.providers.cancelProviderCodeLogin(provider)),
       ),
       // The key and the process that uses it change as one step, because the catalog the CLI
       // advertises is decided at spawn time: the service writes the key only when it can restart
@@ -113,7 +115,7 @@ export function providerIpcHandlers({
       // The account's sign-in opens the same way as `connectProvider`, with an https page only.
       connectProviderAccount: payloadHandler(parseConnectProviderAccountInput, ({ provider, accountId }) =>
         runCauseEffect(
-          service.connectProviderAccount(provider, accountId, async (value) => {
+          service.providers.connectProviderAccount(provider, accountId, async (value) => {
             const url = new URL(value);
             if (url.protocol !== "https:") throw new Error(sourceText("error.provider.httpsSignInLinkOnly"));
             await openLink(url.toString());
@@ -121,16 +123,16 @@ export function providerIpcHandlers({
         ),
       ),
       cancelProviderAccountSignIn: payloadHandler(parseRemoveProviderAccountInput, ({ provider, accountId }) =>
-        runCauseEffect(service.cancelProviderAccountSignIn(provider, accountId)),
+        runCauseEffect(service.providers.cancelProviderAccountSignIn(provider, accountId)),
       ),
       renameProviderAccount: payloadHandler(parseRenameProviderAccountInput, ({ provider, accountId, label }) =>
-        runCauseEffect(service.renameProviderAccount(provider, accountId, label)),
+        runCauseEffect(service.providers.renameProviderAccount(provider, accountId, label)),
       ),
       removeProviderAccount: payloadHandler(parseRemoveProviderAccountInput, ({ provider, accountId }) =>
         runCauseEffect(service.removeProviderAccount(provider, accountId)),
       ),
       providerUsageResets: payloadHandler(parseProviderId, (provider) =>
-        runCauseEffect(service.providerUsageResets(provider)),
+        runCauseEffect(service.providers.usageResets(provider)),
       ),
       resetProviderUsage: payloadHandler(parseResetProviderUsageInput, ({ provider, accountId }) =>
         runCauseEffect(service.resetProviderUsage(provider, accountId)),

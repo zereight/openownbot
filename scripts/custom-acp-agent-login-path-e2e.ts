@@ -93,8 +93,7 @@ try {
     service: {
       saveCustomAgent: unused,
       removeCustomAgent: unused,
-      reloadCustomAgents: unused,
-      customAgentUsage: unused,
+      providers: { reloadCustomAgents: unused, customAgentUsage: unused },
     },
     customAgents: store,
   });

@@ -1,3 +1,4 @@
+import type { ProviderOperations } from "../backend/agent/provider-runtime";
 // The provider accounts of this host for an administrator of a joined server (`provider-accounts-v1`).
 
 import { type AgentProviderId, DEFAULT_PROVIDER_ACCOUNT_ID } from "@robot/contracts/ipc";
@@ -13,14 +14,10 @@ import { type HostSignInPageMode, HostSignInPages } from "./host-sign-in-pages";
 export interface ProviderAccountsHostDependencies {
   service: Pick<
     AgentService,
-    | "getStatus"
-    | "getProviderAccountUsage"
-    | "listAgents"
-    | "updateAgent"
-    | "signInProviderAccountOnHost"
-    | "renameProviderAccount"
-    | "removeProviderAccount"
-  >;
+    "getStatus" | "getProviderAccountUsage" | "listAgents" | "updateAgent" | "removeProviderAccount"
+  > & {
+    providers: Pick<ProviderOperations, "renameProviderAccount" | "signInProviderAccountOnHost">;
+  };
   browser: Pick<BrowserHost, "openPrivate" | "privateTab" | "close">;
 }
 
@@ -79,7 +76,7 @@ export class ProviderAccountsHost {
       Effect.andThen(
         this.#pages.start(
           provider,
-          (openPage) => this.#dependencies.service.signInProviderAccountOnHost(provider, accountId, openPage),
+          (openPage) => this.#dependencies.service.providers.signInProviderAccountOnHost(provider, accountId, openPage),
           (exit) => resultOf(provider, exit),
           mode,
         ),
@@ -108,7 +105,7 @@ export class ProviderAccountsHost {
   }
 
   rename(provider: AgentProviderId, accountId: string, label: string | null) {
-    return this.#dependencies.service.renameProviderAccount(provider, accountId, label).pipe(Effect.asVoid);
+    return this.#dependencies.service.providers.renameProviderAccount(provider, accountId, label).pipe(Effect.asVoid);
   }
 
   /**

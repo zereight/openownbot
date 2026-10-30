@@ -343,6 +343,30 @@ const INITIAL_STATUS: AgentStatus = {
  * #status was read in five places outside this domain and written in sixteen inside it; the
  * ProviderPort above is what those five places get now.
  */
+/** The provider operations that code outside the backend calls, without the runtime's internals. */
+export type ProviderOperations = {
+  readonly [K in
+    | "ensureProvider"
+    | "refreshProviders"
+    | "refreshProvider"
+    | "restartProviderWhenIdle"
+    | "cancelProviderRestart"
+    | "connectProvider"
+    | "connectProviderAccount"
+    | "signInProviderAccountOnHost"
+    | "cancelProviderAccountSignIn"
+    | "renameProviderAccount"
+    | "usageResets"
+    | "signInProviderOnHost"
+    | "cancelProviderSignIn"
+    | "startProviderCodeLogin"
+    | "submitProviderCodeLogin"
+    | "cancelProviderCodeLogin"
+    | "reloadCustomAgents"
+    | "reloadOpenCodeConfig"
+    | "customAgentUsage"]: OmitThisParameter<ProviderRuntime[K]>;
+};
+
 export class ProviderRuntime implements ProviderPort {
   readonly #conversation: ConversationRuntime;
   readonly #hooks: ProviderHooks;

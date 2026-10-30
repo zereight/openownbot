@@ -198,7 +198,7 @@ try {
   await runCauseEffect(agents.initialize());
   // The dock's reading starts Codex and counts its credits.
   await runCauseEffect(agents.getUsage());
-  const before = await runCauseEffect(agents.providerUsageResets("codex"));
+  const before = await runCauseEffect(agents.providers.usageResets("codex"));
   assert.deepEqual(before, [{ provider: "codex", accountId: DEFAULT_PROVIDER_ACCOUNT_ID, available: 2 }]);
   report.cases.push({ name: "credits are read", details: before, passed: true });
 
@@ -230,7 +230,7 @@ try {
   await waitFor("the held message to run", () =>
     agents.listQueue(agent.id).deliveries.every((delivery) => delivery.status === "completed"),
   );
-  const after = await runCauseEffect(agents.providerUsageResets("codex"));
+  const after = await runCauseEffect(agents.providers.usageResets("codex"));
   assert.deepEqual(after, [{ provider: "codex", accountId: DEFAULT_PROVIDER_ACCOUNT_ID, available: 1 }]);
   const usage = await runCauseEffect(agents.getUsage());
   const primary = usage.limits.find((limit) => limit.id === "codex")?.primary;
@@ -258,7 +258,7 @@ try {
   await waitFor("the message after the refusal to run", () =>
     agents.listQueue(agent.id).deliveries.every((delivery) => delivery.status === "completed"),
   );
-  const left = await runCauseEffect(agents.providerUsageResets("codex"));
+  const left = await runCauseEffect(agents.providers.usageResets("codex"));
   assert.equal(left[0]?.available, 1, "A reset with nothing to reset spends no credit.");
   report.cases.push({
     name: "nothing to reset spends no credit and ends a hold that is out of date",
