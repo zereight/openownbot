@@ -2543,6 +2543,16 @@ textarea {
   gap: 6px;
 }
 
+.agent-title-choices {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  min-width: 0;
+  margin: 6px 0 0;
+  padding: 0;
+  border: 0;
+}
+
 .agent-name-row > :first-child {
   flex: 1;
   min-width: 0;

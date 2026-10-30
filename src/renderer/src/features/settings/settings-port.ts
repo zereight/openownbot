@@ -3,7 +3,7 @@ import type { OpenOwnBotDesktopApi } from "@openownbot/contracts/ipc";
 /**
  * What the settings context reaches in main: the app-wide preferences, the switches for updates,
  * notifications and the Dynamic Island, the local agents of the Agents tab, and the hidden agents and
- * archived channels of the Archive tab.
+ * archived channels of the Archive tab. The Titles tab reads and updates the local agents too.
  */
 export interface SettingsPort {
   getAgentDefaults: OpenOwnBotDesktopApi["getAgentDefaults"];

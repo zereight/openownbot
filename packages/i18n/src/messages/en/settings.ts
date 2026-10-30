@@ -159,6 +159,8 @@ export const messages = defineMessages("settings", {
   "settings.tab.dynamicIsland.description": "Choose when the island shows and how large it is.",
   "settings.tab.updates.title": "Updates",
   "settings.tab.updates.description": "Keep OpenOwnBot current on this computer.",
+  "settings.tab.titles.title": "Titles",
+  "settings.tab.titles.description": "The job titles of your agents. Rename a title or see which agents have it.",
   "settings.tab.archive.title": "Archive",
   "settings.tab.archive.description": "Hidden agents and archived channels on this computer. Restore them here.",
   "settings.tab.billing.title": "Billing",
@@ -167,6 +169,23 @@ export const messages = defineMessages("settings", {
   "settings.tab.hostedServers.description": "Create OpenOwnBot servers that run when this computer is off.",
   "settings.sections.label": "Settings sections",
   "settings.panel.resize": "Resize right panel",
+  // Settings › Titles: each title that an agent carries, with its agents.
+  "settings.titles.loadFailed": "Could not load the agent titles.",
+  "settings.titles.section.title": "Job titles",
+  "settings.titles.section.description":
+    "An agent picks a title from this list or adds a new one in its settings. Rename a title to the name of another title to merge them.",
+  "settings.titles.empty": "No agent has a title yet.",
+  "settings.titles.renameLabel": "Rename {title}",
+  "settings.titles.renameInputLabel": "New name for {title}",
+  "settings.titles.removeLabel": "Remove {title}",
+  "settings.titles.save": "Save",
+  "settings.titles.cancel": "Cancel",
+  "settings.titles.renameFailed": "Could not rename {title}.",
+  "settings.titles.removeFailed": "Could not remove {title}.",
+  "settings.titles.remove.confirmTitle": "Remove the title {title}?",
+  "settings.titles.remove.confirmDescription":
+    "Its agents keep their name, chats and files. They have no title after this.",
+  "settings.titles.remove.confirm": "Remove title",
   // Settings › Archive: the hidden agents and archived channels of this computer, with a restore button.
   "settings.archive.loadFailed": "Could not load hidden agents and archived channels.",
   "settings.archive.restore": "Restore",

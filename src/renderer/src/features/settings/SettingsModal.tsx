@@ -50,6 +50,7 @@ import { SettingsDecisionModel } from "./SettingsDecisionModel";
 import { SettingsDynamicIslandTab } from "./SettingsDynamicIslandTab";
 import { SettingsGeneralTab } from "./SettingsGeneralTab";
 import { SettingsNotificationsTab } from "./SettingsNotificationsTab";
+import { createSettingsTitlesSection } from "./SettingsTitlesSection";
 import { SettingsVoiceTab } from "./SettingsVoiceTab";
 import { dynamicIslandSettingsShown, navItem, navItems, type SettingsTab, settingsTabShown } from "./settings-tabs";
 import { createSettingsVoiceStore } from "./settings-voice-store";
@@ -150,6 +151,7 @@ export function SettingsModal(props: SettingsModalProps) {
     onValueChange: (value) => props.onValueChange(value),
   });
   const archive = createSettingsArchiveSection({ visible: () => props.open && activeTab() === "archive" });
+  const titles = createSettingsTitlesSection({ visible: () => props.open && activeTab() === "titles" });
   let handledHostedServerDeleteNonce = 0;
   createEffect(
     () => (props.open ? props.hostedServerDeleteRequest : null),
@@ -186,6 +188,7 @@ export function SettingsModal(props: SettingsModalProps) {
         value === "general" ||
         value === "agents" ||
         value === "archive" ||
+        value === "titles" ||
         value === "notifications" ||
         value === "voice" ||
         (value === "dynamic-island" && dynamicIslandShown()) ||
@@ -289,6 +292,10 @@ export function SettingsModal(props: SettingsModalProps) {
           {preferencesLoadError()}
           <agents.Panel menuMount={modalElement} />
           <SettingsDecisionModel selectMount={modalElement} />
+        </Tabs.Content>
+
+        <Tabs.Content value="titles" class="settings-modal-tab-panel" data-tab="titles">
+          <titles.Panel />
         </Tabs.Content>
 
         <Tabs.Content value="archive" class="settings-modal-tab-panel" data-tab="archive">

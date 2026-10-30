@@ -12,6 +12,7 @@ import {
   Server,
   Settings,
   Smartphone,
+  Tag,
   UserRound,
 } from "@openownbot/ui";
 
@@ -19,6 +20,7 @@ export type SettingsTab =
   | "general"
   | "agents"
   | "archive"
+  | "titles"
   | "notifications"
   | "voice"
   | "dynamic-island"
@@ -83,6 +85,13 @@ export const navItems: ReadonlyArray<SettingsNavItem> = [
       { titleKey: "agentSettings.quickAcknowledgement.title" },
       { titleKey: "settings.busyMessage.title", descriptionKey: "settings.busyMessage.description" },
     ],
+  },
+  {
+    value: "titles",
+    titleKey: "settings.tab.titles.title",
+    descriptionKey: "settings.tab.titles.description",
+    icon: Tag,
+    rows: [{ titleKey: "settings.titles.section.title" }],
   },
   {
     value: "archive",

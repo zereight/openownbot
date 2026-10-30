@@ -79,6 +79,7 @@ export const messages = defineMessages("agentSettings", {
   "agentSettings.randomName": "Random name",
   "agentSettings.agentTitle": "Title",
   "agentSettings.agentTitleLabel": "Agent title",
+  "agentSettings.agentTitleExisting": "Existing titles",
   "agentSettings.agentTitlePlaceholder": "Describe what your agent does",
   "agentSettings.instructions": "Instructions",
   "agentSettings.instructionsLabel": "Agent instructions",
