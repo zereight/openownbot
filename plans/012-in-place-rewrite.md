@@ -57,11 +57,16 @@ Each step is one PR, merged when CI passes. Each phase makes the code smaller be
    - Legacy imports: `bots.json`, `legacy-import`, the old team file import, `reconcileHost`.
      Done 2026-10-31, with the move of `~/OpenBot/Bots`, the pre-rename `bot-` ids, `mailbox.json`, the
      owner-less host adoption and the stored password fields.
-   - Team API: keep one protocol version. Delete the frozen codecs, adapters, fixtures, capability
-     negotiation and provider visibility for old peers. Desktop and mobile change together.
+   - Team API: moved to phase 4 on 2026-10-31. The protocol versions are not adapters for peers that
+     are gone: they are the codec layers in use. Mobile requests protocol 3 (`mobile-workspace-context.tsx`),
+     the desktop client uses the highest common version (8), and the WebRTC channels and frame sizes
+     are protocol 2 constants. Removing them is a rewrite of the codec, the team client and mobile, so
+     it goes with the team client and mobile step.
    - Account service D1 migrations stay: D1 is a live remote database, not user data on this computer.
 2. **Map the product.** One page per feature in plain words: what the user does and sees. This is the
    target for later phases, and the list to check that no wanted feature is lost.
+   Done 2026-10-31: [012-feature-map.md](012-feature-map.md), one row per feature, each marked Keep
+   or Drop by the developer.
 3. **Target structure.** A short document: the modules, who owns what, and the data flow from the
    renderer to main to the backend, and from mobile to the host. Small modules with one job each.
 4. **Rewrite by area,** in this order: backend data and agent runtime (`src/backend`), main process and
