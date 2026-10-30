@@ -1,5 +1,8 @@
 # `packages/contracts`
 
+> [Plan 012](../../plans/012-in-place-rewrite.md) removes the compatibility rules below. Until phase 1
+> deletes this section, follow plan 012 where they conflict.
+
 The IPC channel list, the IPC payload types, and the frozen Team API wire protocol. Everything here
 is a contract someone else already implements — a shipped desktop build, a remote host, a renderer
 mock — so the cost of a change is paid by code you cannot edit.

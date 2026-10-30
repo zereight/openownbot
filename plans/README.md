@@ -18,7 +18,8 @@ changes, and respect the `STOP` conditions.
 | 008 | Mailbox reads of one delivery do not sort or scan the whole mailbox | P2 | S | — | DONE |
 | 009 | An HTTPS sign-out or session revoke also closes the browser views of that session | P2 | S | — | DONE |
 | 010 | Work of an agent can always be stopped, and its kind and failure are visible | P1 | M | — | IN PROGRESS: goals 3, 7 need a reproduction; goal 6 needs a contract decision |
-| 011 | A new product that uses OpenOwnBot only as an idea benchmark | P2 | XL | repository name and stack | READY: approach decided 2026-10-31 (new repo, own code, design and layout) |
+| 011 | A new product that uses OpenOwnBot only as an idea benchmark | P2 | XL | — | REJECTED: not needed; no commercial sale, and the noncommercial license permits all changes in this repository |
+| 012 | Rewrite OpenOwnBot in place, as a first version | P1 | XL | — | IN PROGRESS: decisions recorded 2026-10-31; phase 1 (delete compatibility) is next |
 
 Allowed states: `TODO`, `IN PROGRESS`, `DONE`, `BLOCKED: <reason>`,
 `REJECTED: <reason>`.

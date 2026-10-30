@@ -1,0 +1,79 @@
+# Plan 012: Rewrite OpenOwnBot in place, as a first version
+
+> **Status**: IN PROGRESS: decisions recorded on 2026-10-31. Phase 1 is next.
+
+## Status
+
+- **Priority**: P1
+- **Effort**: XL (about 860k lines today; no estimate)
+- **Risk**: HIGH (scale; loss of compatibility is accepted)
+- **Depends on**: none
+- **Category**: architecture
+- **Reported at**: 2026-10-31
+
+## Decisions (developer, 2026-10-31)
+
+1. **In place.** The rewrite changes this repository. No new repository and no parallel app directory.
+2. **No compatibility.** The new code does not read the data of earlier builds (`openbot.db`, the team
+   file, `bots.json`, legacy imports) and does not speak the released Team API protocols. Desktop and
+   mobile ship together and use one protocol.
+3. **Same stack.** Electron, SolidJS, Effect, Bun, Expo.
+4. **Scope.** Desktop and mobile. The account service (`apps/auth-api`) and Signal (`remote/api`) stay
+   because mobile reaches the desktop host through them; they are rewritten only where the protocol
+   change needs it.
+5. **Goal.** Code that the developer can understand and change easily. Write it as a first version: no
+   code exists only to support an older build.
+6. **No commercial use** (plan 011). `LICENSE` and the `Required Notice:` lines stay.
+
+## Rules that change
+
+These rules of `AGENTS.md` were non-negotiable. This plan replaces them by the developer's decision:
+
+- "Migrations are irreversible ... support every shipped source schema." Replaced by: the new code
+  starts from one current schema. It does not migrate old data.
+- "Released Team API adapters are permanent." Replaced by: one current protocol. Old adapters,
+  frozen codecs and fixtures are deleted.
+- Released names (`bot`, `botId`, `bots.json`) may be renamed.
+
+One rule is added so that nothing is deleted by accident:
+
+- **The new code uses a new data location** (a new file name or folder). It never deletes, moves or
+  writes the data of an earlier build. The developer deletes old data by hand when they want.
+
+The other non-negotiable rules stay: the renderer-to-main trust boundary, secret redaction, and the
+license.
+
+## Phases
+
+Each step is one PR, merged when CI passes. Each phase makes the code smaller before it makes it new.
+
+1. **Delete compatibility.**
+   - Database: replace the baseline and every migration with one schema for new databases at the new
+     data location. Delete the migration tests and fixtures, the schema history file and the parity
+     test.
+   - Legacy imports: `bots.json`, `legacy-import`, the old team file import, `reconcileHost`.
+   - Team API: keep one protocol version. Delete the frozen codecs, adapters, fixtures, capability
+     negotiation and provider visibility for old peers. Desktop and mobile change together.
+   - Account service D1 migrations stay: D1 is a live remote database, not user data on this computer.
+2. **Map the product.** One page per feature in plain words: what the user does and sees. This is the
+   target for later phases, and the list to check that no wanted feature is lost.
+3. **Target structure.** A short document: the modules, who owns what, and the data flow from the
+   renderer to main to the backend, and from mobile to the host. Small modules with one job each.
+4. **Rewrite by area,** in this order: backend data and agent runtime (`src/backend`), main process and
+   IPC (`src/main`, `src/preload`, `packages/contracts`), shared UI and renderer (`packages/ui`,
+   `src/renderer`), team client and mobile (`packages/team-client`, `apps/mobile`). New layout and design
+   are part of the UI step.
+5. **Clean up.** Remove scripts, checks and documents that no longer apply.
+
+## Open questions
+
+- Languages: the 13 catalogs have about 157k lines. Keep all 13, or keep fewer?
+- Checks: which E2E scripts stay as the proof of each feature.
+- The design direction for the new UI.
+
+## Risks
+
+- The developer's own data of earlier builds is not shown by the new code. It stays on disk.
+- A long rewrite in place leaves `main` in a mixed state between phases. Each PR must still build and
+  run.
+- A feature can be lost without a list. Phase 2 is that list.

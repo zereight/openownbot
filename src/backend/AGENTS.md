@@ -1,5 +1,8 @@
 # `src/backend`
 
+> [Plan 012](../../plans/012-in-place-rewrite.md) removes the compatibility rules below. Until phase 1
+> deletes this section, follow plan 012 where they conflict.
+
 The stores, the SQLite database (`openownbot-database.ts` and the controllers under `database/`), the
 provider clients and `agent-service.ts`. The user's SQLite is the source of truth here, not a cache
 of something remote — which is what makes the first section below non-negotiable.
