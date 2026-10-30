@@ -1,27 +1,27 @@
-import { canAdministerServer } from "@openownbot/contracts/ipc";
+import { canAdministerServer } from "@robot/contracts/ipc";
 // The embedded browser, driven from a remote client: its tabs, and who is holding the wheel.
 //
 // Every handler forwards straight to `BrowserHost`. The validation here is only about the wire -
 // a URL that is too long, a `focus` that is not a boolean - because whether a tab may be opened at
 // all is the browser host's decision, made the same way for a local caller.
 
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
-import { type DynamicRecord, isBoolean } from "@openownbot/contracts/runtime-values";
-import { TEAM_API_ROUTES } from "@openownbot/contracts/team-api-routes";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
+import { type DynamicRecord, isBoolean } from "@robot/contracts/runtime-values";
+import { TEAM_API_ROUTES } from "@robot/contracts/team-api-routes";
 import {
   BROWSER_PAGE_STATE_CAPABILITY,
   BROWSER_PAGE_STATE_ROUTES,
-} from "@openownbot/contracts/team-protocol/browser-page-state-v1";
+} from "@robot/contracts/team-protocol/browser-page-state-v1";
 import {
   BROWSER_SIGN_IN_CAPABILITY,
   BROWSER_SIGN_IN_ROUTES,
   decodeBrowserSignInImport,
-} from "@openownbot/contracts/team-protocol/browser-sign-in-v1";
+} from "@robot/contracts/team-protocol/browser-sign-in-v1";
 import {
   BROWSER_USER_CONTROL_CAPABILITY,
   BROWSER_USER_CONTROL_ROUTES,
-} from "@openownbot/contracts/team-protocol/browser-user-control-v1";
-import { sourceText } from "@openownbot/i18n/source";
+} from "@robot/contracts/team-protocol/browser-user-control-v1";
+import { sourceText } from "@robot/i18n/source";
 import { runCauseEffect } from "../../backend/effect-boundary";
 import type { TeamApiBrowser, TeamApiBrowserView } from "./dependencies";
 import { HttpError } from "./http-error";

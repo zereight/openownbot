@@ -4,11 +4,11 @@
  * OpenOwnBot has no description.
  */
 
-import { agentProviderName, PICKER_PROVIDERS } from "@openownbot/contracts/agent-providers";
-import type { AgentProviderId } from "@openownbot/contracts/ipc";
-import type { AppTextKey } from "@openownbot/i18n";
-import { MoreProvidersDialog } from "@openownbot/ui/components/MoreProvidersDialog";
-import { useText } from "@openownbot/ui/text";
+import { agentProviderName, PICKER_PROVIDERS } from "@robot/contracts/agent-providers";
+import type { AgentProviderId } from "@robot/contracts/ipc";
+import type { AppTextKey } from "@robot/i18n";
+import { MoreProvidersDialog } from "@robot/ui/components/MoreProvidersDialog";
+import { useText } from "@robot/ui/text";
 import { fn } from "storybook/test";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";
 

@@ -6,7 +6,7 @@ import {
   type VaultItemKind,
   type VaultItemSummary,
   type VaultState,
-} from "@openownbot/contracts/ipc";
+} from "@robot/contracts/ipc";
 import { router, Stack, useLocalSearchParams } from "expo-router";
 import { usePreventRemove } from "expo-router/react-navigation";
 import { Typography } from "heroui-native";

@@ -5,11 +5,11 @@ import type {
   WorkflowStep,
   WorkflowStepStatus,
   WorkflowTriggerType,
-} from "@openownbot/contracts/ipc";
-import { WORKFLOW_TRIGGER_TYPES } from "@openownbot/contracts/ipc";
-import { isOneOf } from "@openownbot/contracts/runtime-values";
-import type { MobileTextKey, MobileTranslate } from "@openownbot/i18n/mobile";
-import { type RoutineDraftKind, routineScheduleToDraft } from "@openownbot/team-client/routine-schedule-draft";
+} from "@robot/contracts/ipc";
+import { WORKFLOW_TRIGGER_TYPES } from "@robot/contracts/ipc";
+import { isOneOf } from "@robot/contracts/runtime-values";
+import type { MobileTextKey, MobileTranslate } from "@robot/i18n/mobile";
+import { type RoutineDraftKind, routineScheduleToDraft } from "@robot/team-client/routine-schedule-draft";
 import type { MobileAgent } from "@/features/workspace/model/workspace-types";
 
 const KIND_LABEL = {

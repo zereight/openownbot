@@ -4,8 +4,8 @@ import {
   type ExternalLinkTarget,
   externalLinkAppName,
   isExternalLinkAppPath,
-} from "@openownbot/contracts/ipc";
-import { Button, Input, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@openownbot/ui";
+} from "@robot/contracts/ipc";
+import { Button, Input, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@robot/ui";
 import { createMemo, createSignal, createStore, onSettled, Show } from "solid-js";
 import { useI18n } from "../../i18n-context";
 import { settingsPort } from "./settings-port";

@@ -4,8 +4,8 @@
  * The connectors and the Marketplace app pages use them.
  */
 
-import { AppLogo } from "@openownbot/brand";
-import type { AppTextKey } from "@openownbot/i18n";
+import { AppLogo } from "@robot/brand";
+import type { AppTextKey } from "@robot/i18n";
 import {
   Alert,
   AlertActions,
@@ -31,7 +31,7 @@ import {
   Text,
   TriangleAlert,
   X,
-} from "@openownbot/ui";
+} from "@robot/ui";
 import type { JSX } from "@solidjs/web";
 import { createSignal, For, Show } from "solid-js";
 import type { AgentProfile } from "../../data";

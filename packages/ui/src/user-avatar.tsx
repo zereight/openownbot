@@ -1,4 +1,4 @@
-import type { CentralAuthUser } from "@openownbot/contracts/ipc";
+import type { CentralAuthUser } from "@robot/contracts/ipc";
 import type { JSX } from "@solidjs/web";
 import { createEffect, createMemo, createSignal, Show } from "solid-js";
 

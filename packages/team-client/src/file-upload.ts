@@ -4,8 +4,8 @@ import {
   encodeTeamProtocolV2FileChunk,
   encodeTeamProtocolV2Frame,
   TEAM_PROTOCOL_V2_MAX_FILE_BYTES,
-} from "@openownbot/contracts/team-protocol/v2";
-import { sourceText } from "@openownbot/i18n/source";
+} from "@robot/contracts/team-protocol/v2";
+import { sourceText } from "@robot/i18n/source";
 import { Deferred, Effect, Schema } from "effect";
 
 export class FileTransferError extends Schema.TaggedError<FileTransferError>()("FileTransferError", {

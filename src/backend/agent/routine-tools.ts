@@ -1,4 +1,4 @@
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
 import {
   isRoutineSchedule,
   ROUTINE_LIMIT_POLICIES,
@@ -7,9 +7,9 @@ import {
   type RoutineLimitPolicy,
   type RoutineMissedPolicy,
   type RoutineSchedule,
-} from "@openownbot/contracts/ipc";
-import { type DynamicRecord, isOneOf, isString } from "@openownbot/contracts/runtime-values";
-import { RoutineInputError } from "@openownbot/team-client/routine-schedule";
+} from "@robot/contracts/ipc";
+import { type DynamicRecord, isOneOf, isString } from "@robot/contracts/runtime-values";
+import { RoutineInputError } from "@robot/team-client/routine-schedule";
 import { isRecord } from "../protocol";
 
 export function routineToolArguments(value: unknown, allowedKeys: readonly string[]): DynamicRecord {

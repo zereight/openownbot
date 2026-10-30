@@ -1,4 +1,4 @@
-import { APP_INTERFACE_SIZES, type AppInterfaceSize } from "@openownbot/contracts/ipc";
+import { APP_INTERFACE_SIZES, type AppInterfaceSize } from "@robot/contracts/ipc";
 import {
   Item,
   ItemActions,
@@ -13,13 +13,13 @@ import {
   SelectValue,
   SettingsSection,
   SwitchField,
-} from "@openownbot/ui";
-import { AppearanceSelect } from "@openownbot/ui/features/settings/AppearanceSelect";
-import type { GeneralSettingsValue } from "@openownbot/ui/features/settings/app-settings";
-import { LanguageSelect } from "@openownbot/ui/features/settings/LanguageSelect";
-import { LogoColorPicker } from "@openownbot/ui/features/settings/LogoColorPicker";
-import { SendShortcutSelect } from "@openownbot/ui/features/settings/SendShortcutSelect";
-import { useText } from "@openownbot/ui/text";
+} from "@robot/ui";
+import { AppearanceSelect } from "@robot/ui/features/settings/AppearanceSelect";
+import type { GeneralSettingsValue } from "@robot/ui/features/settings/app-settings";
+import { LanguageSelect } from "@robot/ui/features/settings/LanguageSelect";
+import { LogoColorPicker } from "@robot/ui/features/settings/LogoColorPicker";
+import { SendShortcutSelect } from "@robot/ui/features/settings/SendShortcutSelect";
+import { useText } from "@robot/ui/text";
 import { Show } from "solid-js";
 import { useAppearanceChoice } from "../../appearance-choice";
 import { useI18n } from "../../i18n-context";

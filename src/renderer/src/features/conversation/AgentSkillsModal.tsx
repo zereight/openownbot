@@ -1,7 +1,7 @@
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
-import type { FilePreview, InstalledSkill, MarketplaceSkillDetail } from "@openownbot/contracts/ipc";
-import { assignedSkillCount, isFolderSkill, isSkillEnabled, userAssignedSkills } from "@openownbot/contracts/ipc";
-import type { AppTranslate } from "@openownbot/i18n";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
+import type { FilePreview, InstalledSkill, MarketplaceSkillDetail } from "@robot/contracts/ipc";
+import { assignedSkillCount, isFolderSkill, isSkillEnabled, userAssignedSkills } from "@robot/contracts/ipc";
+import type { AppTranslate } from "@robot/i18n";
 import {
   Button,
   ChevronRight,
@@ -15,11 +15,11 @@ import {
   Switch,
   Trash2,
   X,
-} from "@openownbot/ui";
-import { createScrollFades } from "@openownbot/ui/components/createScrollFades";
-import { SkillGlyph } from "@openownbot/ui/features/conversation/SkillGlyph";
-import { SkillLibraryToolbar } from "@openownbot/ui/features/conversation/SkillLibraryToolbar";
-import { useText } from "@openownbot/ui/text";
+} from "@robot/ui";
+import { createScrollFades } from "@robot/ui/components/createScrollFades";
+import { SkillGlyph } from "@robot/ui/features/conversation/SkillGlyph";
+import { SkillLibraryToolbar } from "@robot/ui/features/conversation/SkillLibraryToolbar";
+import { useText } from "@robot/ui/text";
 import { createEffect, createMemo, createSignal, For, onSettled, Show, untrack } from "solid-js";
 import { SkillPreview } from "../../components/SkillPreview";
 import { type AgentSkillCalls, agentSkillCalls, type SkillCatalogCalls, skillsPort } from "../../skills-port";

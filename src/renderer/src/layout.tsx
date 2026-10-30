@@ -1,7 +1,7 @@
-import type { AppInfo } from "@openownbot/contracts/ipc";
-import type { ServerView } from "@openownbot/ui/features/servers/ServerMenu";
-import type { SidebarView } from "@openownbot/ui/features/sidebar/sidebar-types";
-import { PAGE_RAIL_PINNABLE_PAGES, type PageRailPinnablePage } from "@openownbot/ui/features/window/PageRail";
+import type { AppInfo } from "@robot/contracts/ipc";
+import type { ServerView } from "@robot/ui/features/servers/ServerMenu";
+import type { SidebarView } from "@robot/ui/features/sidebar/sidebar-types";
+import { PAGE_RAIL_PINNABLE_PAGES, type PageRailPinnablePage } from "@robot/ui/features/window/PageRail";
 import { createEffect, createMemo, createSignal, onSettled } from "solid-js";
 import { z } from "zod";
 import { readPanelWidth } from "./components/panel-width-storage";

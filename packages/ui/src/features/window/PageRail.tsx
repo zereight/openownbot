@@ -1,4 +1,4 @@
-import { AppLogo, type AppLogoVariant, ProviderLogo } from "@openownbot/brand";
+import { AppLogo, type AppLogoVariant, ProviderLogo } from "@robot/brand";
 import {
   Bot,
   Button,
@@ -13,10 +13,10 @@ import {
   Store,
   Waypoints,
   Workflow,
-} from "@openownbot/ui";
-import { AccountUsageDetails } from "@openownbot/ui/features/account/AccountUsageDetails";
-import { type AccountUsageProviderRow, accountUsageRowKey } from "@openownbot/ui/features/account/account-usage-view";
-import { useText } from "@openownbot/ui/text";
+} from "@robot/ui";
+import { AccountUsageDetails } from "@robot/ui/features/account/AccountUsageDetails";
+import { type AccountUsageProviderRow, accountUsageRowKey } from "@robot/ui/features/account/account-usage-view";
+import { useText } from "@robot/ui/text";
 import { Dynamic, type JSX } from "@solidjs/web";
 import { createMemo, createSignal, For, Show } from "solid-js";
 

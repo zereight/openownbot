@@ -1,4 +1,4 @@
-import { AVATAR_MIME_TYPES, avatarFileExtension, isAvatarMimeType } from "@openownbot/contracts/avatar-images";
+import { AVATAR_MIME_TYPES, avatarFileExtension, isAvatarMimeType } from "@robot/contracts/avatar-images";
 import { Directory, File, Paths } from "expo-file-system";
 
 /**

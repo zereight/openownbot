@@ -1,4 +1,4 @@
-import type { BrowserControlSession, BrowserControlState } from "@openownbot/contracts/ipc";
+import type { BrowserControlSession, BrowserControlState } from "@robot/contracts/ipc";
 import { browserControlAction, browserControlDetailAction, controlSessionId } from "./browser-control";
 import type { BrowserToolCall } from "./browser-tools";
 import type { DynamicToolCallParams } from "./protocol";

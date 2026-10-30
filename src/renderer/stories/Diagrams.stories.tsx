@@ -5,9 +5,9 @@
  * The app logic and the runtime that executes a run are not wired yet.
  */
 
-import type { AgentProfile } from "@openownbot/ui/data";
-import { DiagramView } from "@openownbot/ui/features/diagrams/DiagramView";
-import { diagramRoutineSteps } from "@openownbot/ui/features/diagrams/diagram-graph";
+import type { AgentProfile } from "@robot/ui/data";
+import { DiagramView } from "@robot/ui/features/diagrams/DiagramView";
+import { diagramRoutineSteps } from "@robot/ui/features/diagrams/diagram-graph";
 import type {
   Diagram,
   DiagramChatMessage,
@@ -15,7 +15,7 @@ import type {
   DiagramRoutineRun,
   DiagramRun,
   DiagramStepRun,
-} from "@openownbot/ui/features/diagrams/diagram-model";
+} from "@robot/ui/features/diagrams/diagram-model";
 import { createStore, onCleanup, snapshot, untrack } from "solid-js";
 import { fn } from "storybook/test";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";

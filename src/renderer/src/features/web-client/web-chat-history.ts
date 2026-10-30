@@ -1,4 +1,4 @@
-import { type DynamicRecord, isDynamicRecord, isNumber, isString } from "@openownbot/contracts/runtime-values";
+import { type DynamicRecord, isDynamicRecord, isNumber, isString } from "@robot/contracts/runtime-values";
 import { createEffect, onCleanup, untrack } from "solid-js";
 
 /** A chat that a browser history entry opens: an agent chat or a channel on one server. */

@@ -14,7 +14,7 @@ import {
   type DiscordChannelSummary,
   type DiscordHistoryMessage,
   type DiscordRoleSummary,
-} from "@openownbot/contracts/signal-protocol/discord-api";
+} from "@robot/contracts/signal-protocol/discord-api";
 import { Effect, Schema } from "effect";
 import { z } from "zod";
 import { type DiscordState, discordAuthorName, messageBody } from "./discord-events";

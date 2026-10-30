@@ -13,7 +13,7 @@ import { type ArchiveOperationError, archiveCall, archiveFailure, archiveSync } 
 import { randomUUID } from "node:crypto";
 import { mkdir, rm, writeFile } from "node:fs/promises";
 import { join } from "node:path";
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
 import {
   AGENT_IMPORT_LIMITS,
   type AgentImportChannel,
@@ -29,8 +29,8 @@ import {
   type CreateChannelRoutineInput,
   type CreateRoutineInput,
   isChannelDraft,
-} from "@openownbot/contracts/ipc";
-import { sourceText } from "@openownbot/i18n/source";
+} from "@robot/contracts/ipc";
+import { sourceText } from "@robot/i18n/source";
 import { zipSync } from "fflate";
 import type { AgentService } from "../backend/agent-service";
 import type { ChannelService } from "../backend/channel-service";

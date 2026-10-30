@@ -1,4 +1,4 @@
-import type { MobileTextKey } from "@openownbot/i18n/mobile";
+import type { MobileTextKey } from "@robot/i18n/mobile";
 import { router, useLocalSearchParams } from "expo-router";
 import { Typography } from "heroui-native";
 import {

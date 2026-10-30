@@ -1,5 +1,5 @@
-import { ProviderLogo } from "@openownbot/brand";
-import { prefersReducedMotion } from "@openownbot/ui/utils";
+import { ProviderLogo } from "@robot/brand";
+import { prefersReducedMotion } from "@robot/ui/utils";
 import { createSignal, For, onSettled } from "solid-js";
 import {
   LANDING_NETWORK_AGENTS,
@@ -342,7 +342,7 @@ export function AgentNetworkSection() {
       })
       .catch(() => {});
     // The avatar engine is too large for the first load of the home page, as in the features section.
-    void import("@openownbot/ui/bloub-avatar")
+    void import("@robot/ui/bloub-avatar")
       .then(({ AVATAR_HUE_CHOICES, avatarHeadColor, createStaticAvatarSvg }) => {
         if (disposed) return;
         const seeds = [

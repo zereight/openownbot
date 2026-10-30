@@ -5,8 +5,8 @@ import {
   isAgentModel,
   isAgentProvider,
   type SaveSetupInput,
-} from "@openownbot/contracts/ipc";
-import { isDynamicRecord, isNumber, isString } from "@openownbot/contracts/runtime-values";
+} from "@robot/contracts/ipc";
+import { isDynamicRecord, isNumber, isString } from "@robot/contracts/runtime-values";
 import { Effect } from "effect";
 import { isMissingFileError } from "../backend/file-errors";
 import { type PreferenceFileFailure, readPreferenceFile, writePreferenceFile } from "./preference-file";

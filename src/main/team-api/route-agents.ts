@@ -6,7 +6,7 @@ import {
   parseGenerateAgentProfile,
   parseHostAnalyticsInput,
   parseSaveAgentProfile,
-} from "@openownbot/contracts/ipc";
+} from "@robot/contracts/ipc";
 import { hiddenProviderAgentIds, isPeerHiddenProvider } from "./provider-visibility";
 // Agents: the collection, the sidebar that arranges them, and everything under one agent's id.
 //
@@ -21,18 +21,18 @@ import { hiddenProviderAgentIds, isPeerHiddenProvider } from "./provider-visibil
 // 400 on a malformed identifier into a 404 for some methods and not others.
 
 import { readFile } from "node:fs/promises";
-import { isAvatarMimeType } from "@openownbot/contracts/avatar-images";
-import { AVATAR_IMAGE_LIMITS, INPUT_LIMITS } from "@openownbot/contracts/input-limits";
-import { type CreateAgentInput, type DuplicateAgentResult, WORKFLOWS_USAGE_ID } from "@openownbot/contracts/ipc";
-import { TEAM_API_ROUTES } from "@openownbot/contracts/team-api-routes";
+import { isAvatarMimeType } from "@robot/contracts/avatar-images";
+import { AVATAR_IMAGE_LIMITS, INPUT_LIMITS } from "@robot/contracts/input-limits";
+import { type CreateAgentInput, type DuplicateAgentResult, WORKFLOWS_USAGE_ID } from "@robot/contracts/ipc";
+import { TEAM_API_ROUTES } from "@robot/contracts/team-api-routes";
 import {
   BROWSER_SECRET_VAULT_CAPABILITY,
   BROWSER_SECRET_VAULT_ROUTES,
-} from "@openownbot/contracts/team-protocol/browser-secret-vault-v1";
-import { V5_AGENT_MODEL } from "@openownbot/contracts/team-protocol/v5-adapter";
-import { V6_AGENT_MODEL } from "@openownbot/contracts/team-protocol/v6-adapter";
-import { WORKFLOWS_CAPABILITY } from "@openownbot/contracts/team-protocol/workflows-v1";
-import { sourceText } from "@openownbot/i18n/source";
+} from "@robot/contracts/team-protocol/browser-secret-vault-v1";
+import { V5_AGENT_MODEL } from "@robot/contracts/team-protocol/v5-adapter";
+import { V6_AGENT_MODEL } from "@robot/contracts/team-protocol/v6-adapter";
+import { WORKFLOWS_CAPABILITY } from "@robot/contracts/team-protocol/workflows-v1";
+import { sourceText } from "@robot/i18n/source";
 import type { Effect } from "effect";
 import type { AgentDuplicationFailed } from "../../backend/agent/duplication-gate";
 import { ForbiddenAttentionAnswer, InactiveAttentionRequest } from "../../backend/agent/inactive-attention-request";

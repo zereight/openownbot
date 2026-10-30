@@ -1,5 +1,5 @@
-import type { BrowserDisplayState } from "@openownbot/contracts/ipc";
-import { useText } from "@openownbot/ui/text";
+import type { BrowserDisplayState } from "@robot/contracts/ipc";
+import { useText } from "@robot/ui/text";
 import { render } from "@solidjs/web";
 import { createSignal, onCleanup, onSettled, Show } from "solid-js";
 import "../../styles.css";

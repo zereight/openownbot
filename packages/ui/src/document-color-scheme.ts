@@ -1,6 +1,6 @@
 import { createSignal } from "solid-js";
 
-/** The palette that `@openownbot/brand` shows: light when the root element asks for `tokens-light.css`. */
+/** The palette that `@robot/brand` shows: light when the root element asks for `tokens-light.css`. */
 export type DocumentColorScheme = "light" | "dark";
 
 const ATTRIBUTE = "data-openownbot-color-scheme";

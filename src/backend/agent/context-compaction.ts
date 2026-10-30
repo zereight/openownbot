@@ -1,6 +1,6 @@
 import { randomUUID } from "node:crypto";
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
-import type { AgentContextCategoryUsage, AgentContextState } from "@openownbot/contracts/ipc";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
+import type { AgentContextCategoryUsage, AgentContextState } from "@robot/contracts/ipc";
 import { Effect, Schema } from "effect";
 import type { AgentClient } from "../agent-client";
 import type { AgentStore } from "../agent-store";

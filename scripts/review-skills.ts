@@ -1,4 +1,4 @@
-import { isDynamicRecord, isNumber, isString } from "@openownbot/contracts/runtime-values";
+import { isDynamicRecord, isNumber, isString } from "@robot/contracts/runtime-values";
 
 const [command, targetId, ...rest] = process.argv.slice(2);
 const apiUrl = process.env.OPENOWNBOT_AUTH_API_URL ?? "http://127.0.0.1:3100";

@@ -1,5 +1,5 @@
-import { DEFAULT_APP_LANGUAGE } from "@openownbot/contracts/app-language";
-import { loadLocale, resolveLocale } from "@openownbot/i18n";
+import { DEFAULT_APP_LANGUAGE } from "@robot/contracts/app-language";
+import { loadLocale, resolveLocale } from "@robot/i18n";
 import { createLazyFileRoute } from "@tanstack/solid-router";
 import { createSignal, lazy, onSettled, Show } from "solid-js";
 import "../../../../src/renderer/src/preview/preview.css";
@@ -8,7 +8,7 @@ import "../../../../src/renderer/src/preview/preview.css";
 // start in English; if they fail, the demo shows English.
 const OpenOwnBotPlayground = lazy(() =>
   Promise.all([
-    import("@openownbot/renderer-preview"),
+    import("@robot/renderer-preview"),
     loadLocale(resolveLocale(DEFAULT_APP_LANGUAGE, navigator.language)).catch(() => undefined),
   ]).then(([module]) => ({ default: module.OpenOwnBotPlayground })),
 );

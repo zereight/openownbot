@@ -1,5 +1,5 @@
-import { AppLogo } from "@openownbot/brand";
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
+import { AppLogo } from "@robot/brand";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
 import type {
   AppVariant,
   DynamicIslandAction,
@@ -9,14 +9,14 @@ import type {
   DynamicIslandPresentation,
   DynamicIslandPromptItem,
   DynamicIslandTakeoverItem,
-} from "@openownbot/contracts/ipc";
+} from "@robot/contracts/ipc";
 import {
   DEFAULT_DYNAMIC_ISLAND_PREFERENCE,
   DYNAMIC_ISLAND_DEFAULT_COMPACT_HEIGHT,
   DYNAMIC_ISLAND_SIZE_LIMITS,
   dynamicIslandCompactHeight,
-} from "@openownbot/contracts/ipc";
-import type { AppTextKey, AppTranslate } from "@openownbot/i18n";
+} from "@robot/contracts/ipc";
+import type { AppTextKey, AppTranslate } from "@robot/i18n";
 import {
   ArrowUp,
   Badge,
@@ -37,10 +37,10 @@ import {
   Monitor,
   OctagonX,
   Spinner,
-} from "@openownbot/ui";
-import { useText } from "@openownbot/ui/text";
-import { prefersReducedMotion } from "@openownbot/ui/utils";
-import type { UserErrorDetails } from "@openownbot/user-errors";
+} from "@robot/ui";
+import { useText } from "@robot/ui/text";
+import { prefersReducedMotion } from "@robot/ui/utils";
+import type { UserErrorDetails } from "@robot/user-errors";
 import { Dynamic, type JSX } from "@solidjs/web";
 import {
   createEffect,

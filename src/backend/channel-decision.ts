@@ -1,4 +1,4 @@
-import { isDynamicRecord } from "@openownbot/contracts/runtime-values";
+import { isDynamicRecord } from "@robot/contracts/runtime-values";
 
 /**
  * The fast decision models that can pick the member for a request that names none: Jev of TypeSafe, a

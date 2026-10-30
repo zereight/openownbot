@@ -1,8 +1,8 @@
-import type { AttachmentSummary } from "@openownbot/contracts/ipc";
-import { Bubble, BubbleContent } from "@openownbot/ui";
-import type { AgentMessage } from "@openownbot/ui/data";
-import { ImageLightbox } from "@openownbot/ui/features/conversation/ImageLightbox";
-import { MessageBody } from "@openownbot/ui/features/conversation/MessageRendering";
+import type { AttachmentSummary } from "@robot/contracts/ipc";
+import { Bubble, BubbleContent } from "@robot/ui";
+import type { AgentMessage } from "@robot/ui/data";
+import { ImageLightbox } from "@robot/ui/features/conversation/ImageLightbox";
+import { MessageBody } from "@robot/ui/features/conversation/MessageRendering";
 import { fn } from "storybook/test";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";
 import { STORY_AGENTS } from "./fixtures";

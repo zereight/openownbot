@@ -5,11 +5,11 @@ import type {
   BrowserBounds,
   BrowserTab,
   MarketplaceSkillDetail,
-} from "@openownbot/contracts/ipc";
-import { SETTINGS_PANEL_DEFAULT } from "@openownbot/ui/components/SettingsPanel";
-import type { AgentActivityLabel } from "@openownbot/ui/features/conversation/AgentActivity";
-import { currentText } from "@openownbot/ui/text";
-import type { UserErrorDetails } from "@openownbot/user-errors";
+} from "@robot/contracts/ipc";
+import { SETTINGS_PANEL_DEFAULT } from "@robot/ui/components/SettingsPanel";
+import type { AgentActivityLabel } from "@robot/ui/features/conversation/AgentActivity";
+import { currentText } from "@robot/ui/text";
+import type { UserErrorDetails } from "@robot/user-errors";
 import { createEffect, createSignal, createStore, onCleanup } from "solid-js";
 import type { ChatSearchMatch } from "./chat-search";
 import {

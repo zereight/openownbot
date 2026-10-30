@@ -1,6 +1,6 @@
-import type { GlobalSearchPage } from "@openownbot/ui/components/GlobalSearch";
-import type { AgentMessage } from "@openownbot/ui/data";
-import { currentText } from "@openownbot/ui/text";
+import type { GlobalSearchPage } from "@robot/ui/components/GlobalSearch";
+import type { AgentMessage } from "@robot/ui/data";
+import { currentText } from "@robot/ui/text";
 import { createEffect, createSignal, onSettled, untrack } from "solid-js";
 import { toAgentMessage } from "./app-message-projection";
 import { appPort } from "./app-port";

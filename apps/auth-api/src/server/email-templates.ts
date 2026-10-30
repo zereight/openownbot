@@ -1,4 +1,4 @@
-import type { BillingPlanId } from "@openownbot/contracts/billing";
+import type { BillingPlanId } from "@robot/contracts/billing";
 import { OPENOWNBOT_LINKS } from "../lib/landing-links";
 
 // HTML and plain-text bodies for account email. Mail clients render HTML very differently, so the

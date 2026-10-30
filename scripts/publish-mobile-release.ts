@@ -1,6 +1,6 @@
 import { readFile, writeFile } from "node:fs/promises";
-import { isDynamicRecord, isOneOf, isString } from "@openownbot/contracts/runtime-values";
-import { createOpenOwnBotLogger } from "@openownbot/logging";
+import { isDynamicRecord, isOneOf, isString } from "@robot/contracts/runtime-values";
+import { createOpenOwnBotLogger } from "@robot/logging";
 import { MOBILE_ANNOUNCEMENT_FILE, mobileAnnouncementProblems } from "./discord-mobile-release-announcement";
 import {
   formatStoreDates,

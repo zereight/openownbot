@@ -3,10 +3,10 @@ import type {
   CustomProviderSummary,
   SaveCustomProviderInput,
   UpdateCustomProviderInput,
-} from "@openownbot/contracts/ipc";
-import { customAgentRestartKey } from "@openownbot/ui/features/custom-providers/CustomAgentSettings";
-import { customProviderUpdate } from "@openownbot/ui/features/custom-providers/custom-provider-form";
-import { currentText } from "@openownbot/ui/text";
+} from "@robot/contracts/ipc";
+import { customAgentRestartKey } from "@robot/ui/features/custom-providers/CustomAgentSettings";
+import { customProviderUpdate } from "@robot/ui/features/custom-providers/custom-provider-form";
+import { currentText } from "@robot/ui/text";
 import { createStore } from "solid-js";
 import { customProviderRestartMessage } from "./custom-provider-restart";
 

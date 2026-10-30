@@ -1,5 +1,5 @@
-import type { NotificationPreference } from "@openownbot/contracts/ipc";
-import { isBoolean, isDynamicRecord } from "@openownbot/contracts/runtime-values";
+import type { NotificationPreference } from "@robot/contracts/ipc";
+import { isBoolean, isDynamicRecord } from "@robot/contracts/runtime-values";
 import { Effect, Result, Semaphore } from "effect";
 import { isMissingFileError } from "../backend/file-errors";
 import { type PreferenceFileFailure, readPreferenceFile, writePreferenceFile } from "./preference-file";

@@ -1,7 +1,7 @@
 import { createServer, type IncomingMessage, type Server, type ServerResponse } from "node:http";
 import { createRequire } from "node:module";
 import { dirname, join } from "node:path";
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
 import {
   AGENT_RUNTIME_SNAPSHOT_BYTES_LIMIT,
   type AgentAccessLevel,
@@ -24,22 +24,22 @@ import {
   type TeamMemberSummary,
   type TeamPresenceSnapshot,
   type TeamRealtimeEvent,
-} from "@openownbot/contracts/ipc";
-import { isString } from "@openownbot/contracts/runtime-values";
-import { TEAM_API_ROUTES } from "@openownbot/contracts/team-api-routes";
-import { ACP_REGISTRY_CAPABILITY } from "@openownbot/contracts/team-protocol/acp-registry-v1";
-import { AGENT_ACCESS_CAPABILITY } from "@openownbot/contracts/team-protocol/agent-access-v1";
-import { AGENT_BACKUP_MODELS_CAPABILITY } from "@openownbot/contracts/team-protocol/agent-backup-models-v1";
-import { AGENT_HIDDEN_CAPABILITY } from "@openownbot/contracts/team-protocol/agent-hidden-v1";
-import { AGENT_SESSION_SETTINGS_CAPABILITY } from "@openownbot/contracts/team-protocol/agent-session-settings-v1";
-import { AGENT_TASK_LIMIT_CAPABILITY } from "@openownbot/contracts/team-protocol/agent-task-limit-v1";
-import { AGENT_TASK_UI_BLOCKS_CAPABILITY } from "@openownbot/contracts/team-protocol/agent-task-ui-blocks-v1";
-import { AGENT_TASKS_CAPABILITY } from "@openownbot/contracts/team-protocol/agent-tasks-v1";
-import { AGENT_THREADS_CAPABILITY } from "@openownbot/contracts/team-protocol/agent-threads-v1";
-import { BROWSER_PAGE_STATE_CAPABILITY } from "@openownbot/contracts/team-protocol/browser-page-state-v1";
-import { BROWSER_PROFILES_CAPABILITY } from "@openownbot/contracts/team-protocol/browser-profiles-v1";
-import { BROWSER_USER_CONTROL_CAPABILITY } from "@openownbot/contracts/team-protocol/browser-user-control-v1";
-import { CLAUDE_API_KEY_CAPABILITY } from "@openownbot/contracts/team-protocol/claude-api-key-v1";
+} from "@robot/contracts/ipc";
+import { isString } from "@robot/contracts/runtime-values";
+import { TEAM_API_ROUTES } from "@robot/contracts/team-api-routes";
+import { ACP_REGISTRY_CAPABILITY } from "@robot/contracts/team-protocol/acp-registry-v1";
+import { AGENT_ACCESS_CAPABILITY } from "@robot/contracts/team-protocol/agent-access-v1";
+import { AGENT_BACKUP_MODELS_CAPABILITY } from "@robot/contracts/team-protocol/agent-backup-models-v1";
+import { AGENT_HIDDEN_CAPABILITY } from "@robot/contracts/team-protocol/agent-hidden-v1";
+import { AGENT_SESSION_SETTINGS_CAPABILITY } from "@robot/contracts/team-protocol/agent-session-settings-v1";
+import { AGENT_TASK_LIMIT_CAPABILITY } from "@robot/contracts/team-protocol/agent-task-limit-v1";
+import { AGENT_TASK_UI_BLOCKS_CAPABILITY } from "@robot/contracts/team-protocol/agent-task-ui-blocks-v1";
+import { AGENT_TASKS_CAPABILITY } from "@robot/contracts/team-protocol/agent-tasks-v1";
+import { AGENT_THREADS_CAPABILITY } from "@robot/contracts/team-protocol/agent-threads-v1";
+import { BROWSER_PAGE_STATE_CAPABILITY } from "@robot/contracts/team-protocol/browser-page-state-v1";
+import { BROWSER_PROFILES_CAPABILITY } from "@robot/contracts/team-protocol/browser-profiles-v1";
+import { BROWSER_USER_CONTROL_CAPABILITY } from "@robot/contracts/team-protocol/browser-user-control-v1";
+import { CLAUDE_API_KEY_CAPABILITY } from "@robot/contracts/team-protocol/claude-api-key-v1";
 import {
   AGENT_ADMIN_CAPABILITY,
   AGENT_HOST_SETTINGS_CAPABILITY,
@@ -107,18 +107,18 @@ import {
   VAULT_IMPORT_CAPABILITY,
   WEBHOOK_TESTS_CAPABILITY,
   WORKFLOWS_CAPABILITY,
-} from "@openownbot/contracts/team-protocol/current";
-import { FOCUS_USE_INTERVAL_MS } from "@openownbot/contracts/team-protocol/focus-use-v1";
+} from "@robot/contracts/team-protocol/current";
+import { FOCUS_USE_INTERVAL_MS } from "@robot/contracts/team-protocol/focus-use-v1";
 import {
   HOST_RESTART_EVENT,
   type HostRestartEvent,
   type HostRestartState,
-} from "@openownbot/contracts/team-protocol/host-update-v1";
-import { teamHttpCodec } from "@openownbot/contracts/team-protocol/http-codecs";
-import { type OptionalTeamEvent, optionalTeamEvent } from "@openownbot/contracts/team-protocol/optional-events";
-import { PROVIDERS_V8_CAPABILITY } from "@openownbot/contracts/team-protocol/providers-v8";
-import { teamSideRouteCodec } from "@openownbot/contracts/team-protocol/side-routes";
-import { STORAGE_DISK_CAPABILITY } from "@openownbot/contracts/team-protocol/storage-disk-v1";
+} from "@robot/contracts/team-protocol/host-update-v1";
+import { teamHttpCodec } from "@robot/contracts/team-protocol/http-codecs";
+import { type OptionalTeamEvent, optionalTeamEvent } from "@robot/contracts/team-protocol/optional-events";
+import { PROVIDERS_V8_CAPABILITY } from "@robot/contracts/team-protocol/providers-v8";
+import { teamSideRouteCodec } from "@robot/contracts/team-protocol/side-routes";
+import { STORAGE_DISK_CAPABILITY } from "@robot/contracts/team-protocol/storage-disk-v1";
 import {
   TEAM_APP_VERSION_HEADER,
   TEAM_PROTOCOL_V1,
@@ -126,22 +126,22 @@ import {
   TEAM_PROTOCOL_V1_WEBSOCKET,
   TEAM_PROTOCOL_VERSION_HEADER,
   type TeamProtocolSupportV1,
-} from "@openownbot/contracts/team-protocol/v1";
+} from "@robot/contracts/team-protocol/v1";
 import {
   decodeTeamProtocolV1CurrentClientEvent,
   encodeTeamProtocolV1CurrentEvent,
-} from "@openownbot/contracts/team-protocol/v1-adapter";
-import { encodeTeamProtocolV4BaseCurrentEvent } from "@openownbot/contracts/team-protocol/v4-base-adapter";
-import { TEAM_LOCAL_PROVIDERS_CAPABILITY } from "@openownbot/contracts/team-protocol/v5";
-import { encodeTeamProtocolV5BaseCurrentEvent } from "@openownbot/contracts/team-protocol/v5-base-adapter";
-import { TEAM_CURSOR_CLINE_CAPABILITY } from "@openownbot/contracts/team-protocol/v6";
-import { encodeTeamProtocolV6BaseCurrentEvent } from "@openownbot/contracts/team-protocol/v6-base-adapter";
-import { TEAM_PI_MUSE_CAPABILITY } from "@openownbot/contracts/team-protocol/v7";
-import { encodeTeamProtocolV7BaseCurrentEvent } from "@openownbot/contracts/team-protocol/v7-base-adapter";
-import { TEAM_OPEN_PROVIDERS_CAPABILITY, TEAM_PROTOCOL_V8 } from "@openownbot/contracts/team-protocol/v8";
-import { encodeTeamProtocolV8BaseCurrentEvent } from "@openownbot/contracts/team-protocol/v8-base-adapter";
-import { isFixedSourceText, sourceText } from "@openownbot/i18n/source";
-import { createOpenOwnBotLogger, toLogValue } from "@openownbot/logging";
+} from "@robot/contracts/team-protocol/v1-adapter";
+import { encodeTeamProtocolV4BaseCurrentEvent } from "@robot/contracts/team-protocol/v4-base-adapter";
+import { TEAM_LOCAL_PROVIDERS_CAPABILITY } from "@robot/contracts/team-protocol/v5";
+import { encodeTeamProtocolV5BaseCurrentEvent } from "@robot/contracts/team-protocol/v5-base-adapter";
+import { TEAM_CURSOR_CLINE_CAPABILITY } from "@robot/contracts/team-protocol/v6";
+import { encodeTeamProtocolV6BaseCurrentEvent } from "@robot/contracts/team-protocol/v6-base-adapter";
+import { TEAM_PI_MUSE_CAPABILITY } from "@robot/contracts/team-protocol/v7";
+import { encodeTeamProtocolV7BaseCurrentEvent } from "@robot/contracts/team-protocol/v7-base-adapter";
+import { TEAM_OPEN_PROVIDERS_CAPABILITY, TEAM_PROTOCOL_V8 } from "@robot/contracts/team-protocol/v8";
+import { encodeTeamProtocolV8BaseCurrentEvent } from "@robot/contracts/team-protocol/v8-base-adapter";
+import { isFixedSourceText, sourceText } from "@robot/i18n/source";
+import { createOpenOwnBotLogger, toLogValue } from "@robot/logging";
 import { Deferred, Effect, Exit, Scope } from "effect";
 import type * as Ws from "ws";
 import { AgentDuplicationFailed, duplicateAgentIntoLayout } from "../backend/agent/duplication-gate";

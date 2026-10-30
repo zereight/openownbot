@@ -1,9 +1,9 @@
 import type { JSX } from "@solidjs/web";
 
 /**
- * The props of `@openownbot/ui/features/conversation/MarkdownMessageText` that the site uses. Its source
+ * The props of `@robot/ui/features/conversation/MarkdownMessageText` that the site uses. Its source
  * reaches DOM code that the Worker types reject, so the site checks this declaration instead, as it
- * does for `@openownbot/renderer-web`. The page names no agents, so `agents` is always empty.
+ * does for `@robot/renderer-web`. The page names no agents, so `agents` is always empty.
  */
 export function MarkdownMessageText(props: {
   body: string;

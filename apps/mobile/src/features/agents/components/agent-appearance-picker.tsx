@@ -1,6 +1,6 @@
-import { AVATAR_HUE_CHOICES, avatarHueSwatch } from "@openownbot/brand/bloub-avatar";
-import type { AvatarHue } from "@openownbot/contracts/ipc";
-import type { MobileTextKey } from "@openownbot/i18n/mobile";
+import { AVATAR_HUE_CHOICES, avatarHueSwatch } from "@robot/brand/bloub-avatar";
+import type { AvatarHue } from "@robot/contracts/ipc";
+import type { MobileTextKey } from "@robot/i18n/mobile";
 import { Button, Typography } from "heroui-native";
 import { useThemeColor } from "heroui-native/hooks";
 import Shuffle from "lucide-react-native/icons/shuffle";

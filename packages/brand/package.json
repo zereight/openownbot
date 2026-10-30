@@ -1,5 +1,5 @@
 {
-  "name": "@openownbot/brand",
+  "name": "@robot/brand",
   "version": "0.0.0",
   "private": true,
   "type": "module",
@@ -25,7 +25,7 @@
   },
   "dependencies": {
     "@norbert_bodziony/bloub": "catalog:",
-    "@openownbot/contracts": "workspace:*"
+    "@robot/contracts": "workspace:*"
   },
   "peerDependencies": {
     "@solidjs/web": "catalog:",

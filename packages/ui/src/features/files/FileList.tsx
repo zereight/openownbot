@@ -1,5 +1,5 @@
-import { canPreviewAttachment } from "@openownbot/contracts/ipc";
-import type { AppTextKey } from "@openownbot/i18n";
+import { canPreviewAttachment } from "@robot/contracts/ipc";
+import type { AppTextKey } from "@robot/i18n";
 import {
   Badge,
   Button,
@@ -22,9 +22,9 @@ import {
   Skeleton,
   Trash2,
   TriangleAlert,
-} from "@openownbot/ui";
-import type { AgentProfile } from "@openownbot/ui/data";
-import { useText } from "@openownbot/ui/text";
+} from "@robot/ui";
+import type { AgentProfile } from "@robot/ui/data";
+import { useText } from "@robot/ui/text";
 import { Dynamic } from "@solidjs/web";
 import { createMemo, createSignal, createStore, For, Show } from "solid-js";
 import { fileBadge } from "../conversation/AttachmentCards";

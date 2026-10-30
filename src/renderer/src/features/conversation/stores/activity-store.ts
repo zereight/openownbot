@@ -1,13 +1,13 @@
-import type { AgentModelId, AgentProviderRef, AgentReasoningEffort, QueueDelivery } from "@openownbot/contracts/ipc";
-import { markdownPreviewText } from "@openownbot/contracts/markdown-preview-text";
-import type { AgentProfile } from "@openownbot/ui/data";
-import { type AgentActivityLabel, nextAgentActivityLabel } from "@openownbot/ui/features/conversation/AgentActivity";
+import type { AgentModelId, AgentProviderRef, AgentReasoningEffort, QueueDelivery } from "@robot/contracts/ipc";
+import { markdownPreviewText } from "@robot/contracts/markdown-preview-text";
+import type { AgentProfile } from "@robot/ui/data";
+import { type AgentActivityLabel, nextAgentActivityLabel } from "@robot/ui/features/conversation/AgentActivity";
 import {
   agentActivityExitDelay,
   agentActivityExitDuration,
   agentActivityShowDelay,
-} from "@openownbot/ui/features/conversation/activity-timing";
-import { currentText } from "@openownbot/ui/text";
+} from "@robot/ui/features/conversation/activity-timing";
+import { currentText } from "@robot/ui/text";
 import { createEffect, createMemo, createSignal, onCleanup, untrack } from "solid-js";
 import { agentConversationKey } from "../conversation-keys";
 import type { ConversationProps } from "../conversation-types";

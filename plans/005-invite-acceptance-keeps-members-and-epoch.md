@@ -259,7 +259,7 @@ disconnects the server, and a removed member cannot rejoin with an old link."
 
 - The excerpts in "Current state" do not match the code.
 - The maintainer chose a policy that needs a new error code. A new code needs an
-  `@openownbot/i18n` key and a `DIRECTORY_ERROR_TEXT` entry (read `docs/i18n.md`);
+  `@robot/i18n` key and a `DIRECTORY_ERROR_TEXT` entry (read `docs/i18n.md`);
   report back for a scope change.
 - A membership status other than `active` and `revoked` exists.
 - Another caller depends on the epoch bump in `acceptInvite` (search

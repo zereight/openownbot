@@ -1,6 +1,6 @@
 // @vitest-environment node
 
-import { CHAT_VISUAL_PAGE_LIMIT } from "@openownbot/contracts/chat-visual";
+import { CHAT_VISUAL_PAGE_LIMIT } from "@robot/contracts/chat-visual";
 import { describe, expect, it } from "vitest";
 import { FilePreviewPages } from "./file-preview-pages";
 

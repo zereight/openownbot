@@ -1,6 +1,6 @@
 /** The search field, and the compact-mode button in its place. Both open the global search. */
 
-import { Button } from "@openownbot/ui";
+import { Button } from "@robot/ui";
 import { useText } from "../../text";
 import { SearchIcon } from "./SidebarIcons";
 import { useSidebarScope } from "./sidebar-scope";

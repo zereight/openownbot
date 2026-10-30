@@ -1,5 +1,5 @@
-import { TEAM_AGENT_CREATE_MODEL_CAPABILITY } from "@openownbot/contracts/team-protocol/current";
-import { FIRST_AGENT_SUGGESTIONS, FirstAgentSetup } from "@openownbot/ui/features/agents/FirstAgentSetup";
+import { TEAM_AGENT_CREATE_MODEL_CAPABILITY } from "@robot/contracts/team-protocol/current";
+import { FIRST_AGENT_SUGGESTIONS, FirstAgentSetup } from "@robot/ui/features/agents/FirstAgentSetup";
 import { createEffect, createMemo, createSignal } from "solid-js";
 import { useProviders } from "../../providers";
 import { useCustomAgents } from "../custom-agents/custom-agents-context";

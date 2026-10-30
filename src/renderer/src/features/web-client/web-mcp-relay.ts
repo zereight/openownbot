@@ -9,9 +9,9 @@ import {
   type McpTestResult,
   relayCallbackQuery,
   type SignInRelayStatus,
-} from "@openownbot/contracts/ipc";
-import { sourceText } from "@openownbot/i18n/source";
-import { runTeamEffect } from "@openownbot/team-client";
+} from "@robot/contracts/ipc";
+import { sourceText } from "@robot/i18n/source";
+import { runTeamEffect } from "@robot/team-client";
 import {
   cancelSignInRelay,
   completeSignInRelay,
@@ -19,8 +19,8 @@ import {
   startLinkSignInRelay,
   startMcpSignInRelay,
   type TeamAdminRequestError,
-} from "@openownbot/team-client/team-admin-requests";
-import type { TeamApiRequest } from "@openownbot/team-client/team-api-requests";
+} from "@robot/team-client/team-admin-requests";
+import type { TeamApiRequest } from "@robot/team-client/team-api-requests";
 import { Effect } from "effect";
 
 /** How often a sign-in asks the host whether it ended. */

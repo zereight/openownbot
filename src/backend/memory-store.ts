@@ -1,9 +1,9 @@
 import { randomUUID } from "node:crypto";
 import type { DatabaseSync } from "node:sqlite";
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
-import type { AgentMemoryOrigin, MemoryEntry } from "@openownbot/contracts/ipc";
-import { type DynamicRecord, isString } from "@openownbot/contracts/runtime-values";
-import { sourceText } from "@openownbot/i18n/source";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
+import type { AgentMemoryOrigin, MemoryEntry } from "@robot/contracts/ipc";
+import { type DynamicRecord, isString } from "@robot/contracts/runtime-values";
+import { sourceText } from "@robot/i18n/source";
 import { databaseRow, databaseRows, requiredStringColumn } from "./database/database-rows";
 import type { OpenOwnBotDatabase } from "./openownbot-database";
 

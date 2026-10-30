@@ -1,4 +1,4 @@
-import type { AppLogoVariant } from "@openownbot/brand";
+import type { AppLogoVariant } from "@robot/brand";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";
 import { StartupSplash } from "../src/features/startup/StartupSplash";
 import { SplashPlayground } from "./splash-story-support";

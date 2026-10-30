@@ -1,5 +1,5 @@
-import { LOCAL_ONLY } from "@openownbot/contracts/local-only";
-import { isMobileConnectDevelopmentHost } from "@openownbot/contracts/mobile-connect";
+import { LOCAL_ONLY } from "@robot/contracts/local-only";
+import { isMobileConnectDevelopmentHost } from "@robot/contracts/mobile-connect";
 
 function unlessLocalOnly(source: string): string {
   return LOCAL_ONLY ? "" : source;

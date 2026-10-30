@@ -13,8 +13,8 @@
 import { randomUUID } from "node:crypto";
 import { lstat, mkdir, open, readdir, readFile, rename, rm, stat, writeFile } from "node:fs/promises";
 import { basename, dirname, join, relative, resolve, sep } from "node:path";
-import type { AgentProviderId } from "@openownbot/contracts/agent-providers";
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
+import type { AgentProviderId } from "@robot/contracts/agent-providers";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
 import {
   AGENT_IMPORT_LIMITS,
   type AgentImportPreviewAgent,
@@ -48,9 +48,9 @@ import {
   type SidebarLayoutAction,
   type SidebarLayoutSnapshot,
   type UpdateAgentInput,
-} from "@openownbot/contracts/ipc";
-import { INSTANCE_TRANSFER_REMOTE_BYTES } from "@openownbot/contracts/team-protocol/instance-transfer-v1";
-import { sourceText } from "@openownbot/i18n/source";
+} from "@robot/contracts/ipc";
+import { INSTANCE_TRANSFER_REMOTE_BYTES } from "@robot/contracts/team-protocol/instance-transfer-v1";
+import { sourceText } from "@robot/i18n/source";
 import { Deferred, Effect, Exit, Result } from "effect";
 import { Zip, ZipPassThrough, zipSync } from "fflate";
 import { isMissingFileError } from "../backend/file-errors";

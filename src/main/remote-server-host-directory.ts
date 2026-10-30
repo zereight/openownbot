@@ -24,8 +24,8 @@
 // user has not seen before are appended in directory order. The user drags this list.
 
 import { verify } from "node:crypto";
-import { REMOTE_ACCOUNT_CHECK_INTERVAL_MS } from "@openownbot/team-client";
-import { followHostKeyHandovers, type HostKeySignatureCheck } from "@openownbot/team-client/host-key-handover";
+import { REMOTE_ACCOUNT_CHECK_INTERVAL_MS } from "@robot/team-client";
+import { followHostKeyHandovers, type HostKeySignatureCheck } from "@robot/team-client/host-key-handover";
 import { Effect } from "effect";
 import type { RemoteHostSummary } from "./central-auth-records";
 import type { PreservedHostIdentity, StoredRemoteServerView } from "./remote-server-store";

@@ -1,6 +1,6 @@
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
-import type { MemoryEntry } from "@openownbot/contracts/ipc";
-import { sourceText } from "@openownbot/i18n/source";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
+import type { MemoryEntry } from "@robot/contracts/ipc";
+import { sourceText } from "@robot/i18n/source";
 import { MemoryStore, type MemoryTables } from "../memory-store";
 import type { OpenOwnBotDatabase } from "../openownbot-database";
 

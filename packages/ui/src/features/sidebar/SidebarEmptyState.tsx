@@ -4,7 +4,7 @@
  * from a joined server says that it connects.
  */
 
-import { Button } from "@openownbot/ui";
+import { Button } from "@robot/ui";
 import { Show } from "solid-js";
 import { useText } from "../../text";
 import { AgentAvatar } from "../agents/AgentAvatar";

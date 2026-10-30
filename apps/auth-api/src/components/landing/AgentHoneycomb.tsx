@@ -5,7 +5,7 @@ import { NEWS_COLLECTION } from "../../lib/news";
 
 // Loaded in the browser, as in `FeaturesSection`: the avatar engine does not run in the Worker.
 const AgentAvatar = lazy(() =>
-  import("@openownbot/ui/features/agents/AgentAvatar").then((module) => ({ default: module.AgentAvatar })),
+  import("@robot/ui/features/agents/AgentAvatar").then((module) => ({ default: module.AgentAvatar })),
 );
 
 const ART_SLUGS = new Set([

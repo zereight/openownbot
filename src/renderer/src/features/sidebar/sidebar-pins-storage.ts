@@ -1,4 +1,4 @@
-import { normalizeSidebarPinnedItems, type SidebarPinnedItem } from "@openownbot/ui/features/sidebar/sidebar-pins";
+import { normalizeSidebarPinnedItems, type SidebarPinnedItem } from "@robot/ui/features/sidebar/sidebar-pins";
 import { z } from "zod";
 export type SidebarPinsByServer = Record<string, SidebarPinnedItem[]>;
 

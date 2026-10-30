@@ -7,10 +7,10 @@ import type {
   UpdateBusyPhase,
   UpdateFailureCode,
   UpdateStatus,
-} from "@openownbot/contracts/ipc";
-import { isUpdateBusyPhase } from "@openownbot/contracts/ipc";
-import { sourceText } from "@openownbot/i18n/source";
-import { createOpenOwnBotLogger, toLogValue } from "@openownbot/logging";
+} from "@robot/contracts/ipc";
+import { isUpdateBusyPhase } from "@robot/contracts/ipc";
+import { sourceText } from "@robot/i18n/source";
+import { createOpenOwnBotLogger, toLogValue } from "@robot/logging";
 import { Cause, Deferred, Effect, Result, Schema, Scope, Semaphore } from "effect";
 import type { ProgressInfo, UpdateInfo } from "electron-updater";
 import type { HostUpdateState } from "../../packages/contracts/src/host-manager";

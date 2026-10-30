@@ -9,9 +9,9 @@ import {
   SettingsSection,
   SwitchField,
   toast,
-} from "@openownbot/ui";
-import type { GeneralSettingsValue } from "@openownbot/ui/features/settings/app-settings";
-import { SoundThemePicker } from "@openownbot/ui/features/settings/SoundThemePicker";
+} from "@robot/ui";
+import type { GeneralSettingsValue } from "@robot/ui/features/settings/app-settings";
+import { SoundThemePicker } from "@robot/ui/features/settings/SoundThemePicker";
 import { Show } from "solid-js";
 import { replayActionSoundChoice } from "../../action-sounds";
 import { useI18n } from "../../i18n-context";

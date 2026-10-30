@@ -1,5 +1,5 @@
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
-import type { ClientAgentSummary } from "@openownbot/contracts/ipc";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
+import type { ClientAgentSummary } from "@robot/contracts/ipc";
 import {
   Alert,
   AlertContent,
@@ -19,7 +19,7 @@ import {
   SettingsSection,
   Tag,
   Trash2,
-} from "@openownbot/ui";
+} from "@robot/ui";
 import { createSignal, For, Show } from "solid-js";
 import { useText } from "../../text";
 import { AgentAvatar } from "../agents/AgentAvatar";

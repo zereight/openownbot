@@ -1,5 +1,5 @@
-import type { AttachmentSummary, FilePreview, OpenOwnBotDesktopApi } from "@openownbot/contracts/ipc";
-import type { AttachmentMediaSource } from "@openownbot/ui/features/conversation/AttachmentCards";
+import type { AttachmentSummary, FilePreview, OpenOwnBotDesktopApi } from "@robot/contracts/ipc";
+import type { AttachmentMediaSource } from "@robot/ui/features/conversation/AttachmentCards";
 import type { ChannelMemoriesApi } from "../conversation/memories-port";
 import type { EventRoutinesApi } from "../conversation/routine-webhooks-api";
 import type { ChannelRoutinesApi } from "../conversation/routines-port";

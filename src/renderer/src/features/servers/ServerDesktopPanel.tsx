@@ -1,5 +1,5 @@
-import type { HostStatus, ServerConnectionIssueCode, ServerSummary } from "@openownbot/contracts/ipc";
-import type { AppTextKey } from "@openownbot/i18n";
+import type { HostStatus, ServerConnectionIssueCode, ServerSummary } from "@robot/contracts/ipc";
+import type { AppTextKey } from "@robot/i18n";
 import {
   Badge,
   Item,
@@ -12,8 +12,8 @@ import {
   Monitor,
   SettingsSection,
   Text,
-} from "@openownbot/ui";
-import { useText } from "@openownbot/ui/text";
+} from "@robot/ui";
+import { useText } from "@robot/ui/text";
 import { Show } from "solid-js";
 import { RemoteDesktopSetup } from "./RemoteDesktopSetup";
 import { serverSupportsCapability } from "./server-capabilities";

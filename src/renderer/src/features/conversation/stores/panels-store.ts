@@ -4,8 +4,8 @@ import {
   canPreviewAttachment,
   type FileAction,
   type WorkspaceDirectory,
-} from "@openownbot/contracts/ipc";
-import { currentText } from "@openownbot/ui/text";
+} from "@robot/contracts/ipc";
+import { currentText } from "@robot/ui/text";
 import { createMemo, createSignal, type Store, type StoreSetter, untrack } from "solid-js";
 import { createScopeGuard } from "../../../scope-lifetime";
 import { attachmentFilePreview } from "../attachment-preview";
@@ -78,9 +78,9 @@ export interface PanelsStoreDeps {
   /** Owned with `rightPanels`, so that the tabs stay with the open pane when the view of the chat closes. */
   panels: Store<SidePanelsState>;
   setPanels: StoreSetter<SidePanelsState>;
-  settingsProvider: () => import("@openownbot/contracts/ipc").AgentProviderId;
-  settingsModel: () => import("@openownbot/contracts/ipc").AgentModelId;
-  settingsReasoning: () => import("@openownbot/contracts/ipc").AgentReasoningEffort;
+  settingsProvider: () => import("@robot/contracts/ipc").AgentProviderId;
+  settingsModel: () => import("@robot/contracts/ipc").AgentModelId;
+  settingsReasoning: () => import("@robot/contracts/ipc").AgentReasoningEffort;
   setBrowserPipBounds: (bounds: BrowserBounds | null) => void;
   sidebarFilePreview: () => SidebarFilePreview | null;
   setSidebarFilePreview: (preview: SidebarFilePreview | null) => void;

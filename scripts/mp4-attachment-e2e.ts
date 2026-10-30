@@ -10,13 +10,13 @@ import {
   isSupportedAttachmentNameFor,
   playableMediaKind,
   supportedAttachmentExtensions,
-} from "@openownbot/contracts/attachment-files";
+} from "@robot/contracts/attachment-files";
 import {
   legacyTeamCapabilities,
   TEAM_CURRENT_CAPABILITIES,
   TEAM_MP4_ATTACHMENTS_CAPABILITY,
   teamCapabilitiesForProtocol,
-} from "@openownbot/contracts/team-protocol/current";
+} from "@robot/contracts/team-protocol/current";
 import { Effect } from "effect";
 import { AttachmentFiles } from "../src/backend/attachment-files";
 

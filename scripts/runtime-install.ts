@@ -1,6 +1,6 @@
 import { cp, mkdir, rename, rm } from "node:fs/promises";
 import { dirname, join } from "node:path";
-import { createOpenOwnBotLogger } from "@openownbot/logging";
+import { createOpenOwnBotLogger } from "@robot/logging";
 
 const logger = createOpenOwnBotLogger("runtime-install");
 

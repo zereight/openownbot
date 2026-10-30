@@ -1,4 +1,4 @@
-import { Badge, Heading, Text } from "@openownbot/ui";
+import { Badge, Heading, Text } from "@robot/ui";
 import type { JSX } from "@solidjs/web";
 import { createEffect, createSignal, For } from "solid-js";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";

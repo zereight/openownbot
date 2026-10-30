@@ -1,8 +1,5 @@
-import {
-  MCP_SIGN_IN_APP_CAPABILITY,
-  MCP_SIGN_IN_APP_ROUTES,
-} from "@openownbot/contracts/team-protocol/mcp-sign-in-app-v1";
-import { sourceText } from "@openownbot/i18n/source";
+import { MCP_SIGN_IN_APP_CAPABILITY, MCP_SIGN_IN_APP_ROUTES } from "@robot/contracts/team-protocol/mcp-sign-in-app-v1";
+import { sourceText } from "@robot/i18n/source";
 import { runCauseEffect } from "../../backend/effect-boundary";
 import { parseMcpSignInApp, parseSaveMcpSignInApp } from "../ipc/mcp-inputs";
 import type { TeamApiMcpSignIns } from "./dependencies";

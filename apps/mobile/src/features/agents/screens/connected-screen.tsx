@@ -1,4 +1,4 @@
-import type { ChannelSummary, SidebarLayoutSnapshot } from "@openownbot/contracts/ipc";
+import type { ChannelSummary, SidebarLayoutSnapshot } from "@robot/contracts/ipc";
 import { BlurTargetView } from "expo-blur";
 import { type Href, router, Stack } from "expo-router";
 import { Button, Typography } from "heroui-native";

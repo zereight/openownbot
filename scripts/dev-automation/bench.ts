@@ -17,7 +17,7 @@ import { lstat, mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import { homedir } from "node:os";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import { createOpenOwnBotLogger, toLogValue } from "@openownbot/logging";
+import { createOpenOwnBotLogger, toLogValue } from "@robot/logging";
 import { type Browser, chromium, type Page } from "playwright-core";
 import { developmentInstanceIdForWorktree, developmentUserDataName } from "../../src/main/development-profile";
 import { resolveDevelopmentAppDataRoot } from "../development-state-paths";

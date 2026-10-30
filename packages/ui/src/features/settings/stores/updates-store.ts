@@ -1,6 +1,6 @@
-import type { AppInfo, UpdateStatus } from "@openownbot/contracts/ipc";
-import { isUpdateActivePhase } from "@openownbot/contracts/ipc";
-import type { AppTextKey } from "@openownbot/i18n";
+import type { AppInfo, UpdateStatus } from "@robot/contracts/ipc";
+import { isUpdateActivePhase } from "@robot/contracts/ipc";
+import type { AppTextKey } from "@robot/i18n";
 import { createMemo, createSignal } from "solid-js";
 import { currentText } from "../../../text";
 import { presentUpdateStatus } from "../../updates/update-status";

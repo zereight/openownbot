@@ -1,4 +1,4 @@
-import { isManagedRuntimeProvider } from "@openownbot/contracts/agent-providers";
+import { isManagedRuntimeProvider } from "@robot/contracts/agent-providers";
 import { Effect, Fiber } from "effect";
 import { toAgentRemovalFailed } from "../backend/agent/agent-removal";
 import { toHostedSiteOperationFailed } from "../backend/agent/hosted-site-coordinator";
@@ -75,7 +75,7 @@ import type {
   SpeechModelStatus,
   VoiceModelStatus,
   VoiceStreamTranscript,
-} from "@openownbot/contracts/ipc";
+} from "@robot/contracts/ipc";
 import {
   agentBrowserProfile,
   IPC_ENDPOINTS,
@@ -83,12 +83,12 @@ import {
   isUpdateBusyPhase,
   LOCAL_SERVER_ID,
   latestTurnAnswer,
-} from "@openownbot/contracts/ipc";
-import { decodeRecord, requiredString } from "@openownbot/contracts/ipc-decoding";
-import { LOCAL_ONLY } from "@openownbot/contracts/local-only";
-import { sourceText } from "@openownbot/i18n/source";
-import { createOpenOwnBotLogger, toLogValue } from "@openownbot/logging";
-import { REMOTE_ACCOUNT_CHECK_INTERVAL_MS } from "@openownbot/team-client";
+} from "@robot/contracts/ipc";
+import { decodeRecord, requiredString } from "@robot/contracts/ipc-decoding";
+import { LOCAL_ONLY } from "@robot/contracts/local-only";
+import { sourceText } from "@robot/i18n/source";
+import { createOpenOwnBotLogger, toLogValue } from "@robot/logging";
+import { REMOTE_ACCOUNT_CHECK_INTERVAL_MS } from "@robot/team-client";
 import {
   app,
   BrowserWindow,

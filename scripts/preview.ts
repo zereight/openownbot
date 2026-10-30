@@ -1,7 +1,7 @@
 import { spawn } from "node:child_process";
 import { dirname } from "node:path";
 import { fileURLToPath } from "node:url";
-import { createOpenOwnBotLogger } from "@openownbot/logging";
+import { createOpenOwnBotLogger } from "@robot/logging";
 import { cliSpawnTarget } from "../src/backend/cli";
 import { withoutElectronRuntimeFlags } from "./electron-spawn-env";
 import { resolvePackageBin } from "./package-bin";

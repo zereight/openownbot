@@ -1,4 +1,4 @@
-import { ServerStatusDialog, type ServerStatusDialogProps } from "@openownbot/ui/features/servers/ServerStatusDialog";
+import { ServerStatusDialog, type ServerStatusDialogProps } from "@robot/ui/features/servers/ServerStatusDialog";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";
 
 type StoryArgs = Omit<ServerStatusDialogProps, "open" | "onClose" | "since">;

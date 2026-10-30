@@ -17,8 +17,8 @@ import { existsSync } from "node:fs";
 import { copyFile, mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { homedir, tmpdir } from "node:os";
 import { dirname, join, resolve } from "node:path";
-import { isDynamicRecord, isString } from "@openownbot/contracts/runtime-values";
-import { createOpenOwnBotLogger } from "@openownbot/logging";
+import { isDynamicRecord, isString } from "@robot/contracts/runtime-values";
+import { createOpenOwnBotLogger } from "@robot/logging";
 
 const logger = createOpenOwnBotLogger("windows-home-install-update-e2e");
 

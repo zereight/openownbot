@@ -1,12 +1,12 @@
-import { ProviderLogo } from "@openownbot/brand";
-import { agentProviderDescriptor } from "@openownbot/contracts/agent-providers";
+import { ProviderLogo } from "@robot/brand";
+import { agentProviderDescriptor } from "@robot/contracts/agent-providers";
 import type {
   AgentProviderId,
   AgentProviderState,
   CustomProviderSummary,
   ProviderApiKeyStatus,
   ProviderRuntimeStatus,
-} from "@openownbot/contracts/ipc";
+} from "@robot/contracts/ipc";
 import {
   Badge,
   Button,
@@ -24,7 +24,7 @@ import {
   Switch,
   UserRoundPlus,
   X,
-} from "@openownbot/ui";
+} from "@robot/ui";
 import type { JSX } from "@solidjs/web";
 import { createEffect, createSignal, createStore, createUniqueId, For, Show } from "solid-js";
 import { useText } from "../text";

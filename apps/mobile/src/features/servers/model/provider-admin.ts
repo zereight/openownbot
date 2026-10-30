@@ -15,40 +15,37 @@ import {
   type ProviderRuntimeSnapshot,
   type ProviderRuntimeStatus,
   type SignInRelayStatus,
-} from "@openownbot/contracts/ipc";
-import { isOneOf } from "@openownbot/contracts/runtime-values";
-import { TEAM_API_ROUTES } from "@openownbot/contracts/team-api-routes";
-import { PROVIDER_DEFAULT_CAPABILITY } from "@openownbot/contracts/team-protocol/provider-default-v1";
+} from "@robot/contracts/ipc";
+import { isOneOf } from "@robot/contracts/runtime-values";
+import { TEAM_API_ROUTES } from "@robot/contracts/team-api-routes";
+import { PROVIDER_DEFAULT_CAPABILITY } from "@robot/contracts/team-protocol/provider-default-v1";
 import {
   PROVIDERS_ADMIN_CODE_SIGN_IN_PROVIDERS,
   PROVIDERS_ADMIN_ROUTES,
-} from "@openownbot/contracts/team-protocol/providers-v1";
+} from "@robot/contracts/team-protocol/providers-v1";
 import {
   PROVIDERS_RUNTIMES_V2_CAPABILITY,
   PROVIDERS_RUNTIMES_V2_ROUTES,
-} from "@openownbot/contracts/team-protocol/providers-v2";
+} from "@robot/contracts/team-protocol/providers-v2";
 import {
   PROVIDERS_SIGN_IN_V3_CAPABILITY,
   PROVIDERS_SIGN_IN_V3_PROVIDERS,
   PROVIDERS_SIGN_IN_V3_ROUTES,
-} from "@openownbot/contracts/team-protocol/providers-v3";
+} from "@robot/contracts/team-protocol/providers-v3";
 import {
   PROVIDERS_V4_CAPABILITY,
   PROVIDERS_V4_ROUTES,
   PROVIDERS_V4_RUNTIME_PROVIDERS,
   PROVIDERS_V4_SIGN_IN_PROVIDERS,
-} from "@openownbot/contracts/team-protocol/providers-v4";
+} from "@robot/contracts/team-protocol/providers-v4";
 import {
   PROVIDERS_V5_CAPABILITY,
   PROVIDERS_V5_ROUTES,
   PROVIDERS_V5_RUNTIME_PROVIDERS,
-} from "@openownbot/contracts/team-protocol/providers-v5";
-import { PROVIDERS_V8_CAPABILITY, PROVIDERS_V8_ROUTES } from "@openownbot/contracts/team-protocol/providers-v8";
-import {
-  SIGN_IN_RELAY_CAPABILITY,
-  SIGN_IN_RELAY_PROVIDERS,
-} from "@openownbot/contracts/team-protocol/sign-in-relay-v1";
-import type { MobileTextKey } from "@openownbot/i18n/mobile";
+} from "@robot/contracts/team-protocol/providers-v5";
+import { PROVIDERS_V8_CAPABILITY, PROVIDERS_V8_ROUTES } from "@robot/contracts/team-protocol/providers-v8";
+import { SIGN_IN_RELAY_CAPABILITY, SIGN_IN_RELAY_PROVIDERS } from "@robot/contracts/team-protocol/sign-in-relay-v1";
+import type { MobileTextKey } from "@robot/i18n/mobile";
 import {
   cancelProviderCodeLogin,
   cancelProviderRuntime,
@@ -67,8 +64,8 @@ import {
   startProviderCodeLogin,
   startProviderSignInRelay,
   submitProviderCodeLogin,
-} from "@openownbot/team-client/team-admin-requests";
-import type { TeamApiRequest } from "@openownbot/team-client/team-api-requests";
+} from "@robot/team-client/team-admin-requests";
+import type { TeamApiRequest } from "@robot/team-client/team-api-requests";
 import { runTeamRequest } from "@/features/workspace/model/team-request";
 import { currentText } from "@/shared/lib/text";
 

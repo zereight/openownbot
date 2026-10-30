@@ -1,7 +1,7 @@
-import type { AgentSectionPreview, ChosenAgentSection } from "@openownbot/contracts/ipc";
-import { classifyFailure } from "@openownbot/telemetry";
-import type { AgentSectionImportPreview } from "@openownbot/ui/features/agents/AgentSectionImportDialog";
-import { currentText } from "@openownbot/ui/text";
+import type { AgentSectionPreview, ChosenAgentSection } from "@robot/contracts/ipc";
+import { classifyFailure } from "@robot/telemetry";
+import type { AgentSectionImportPreview } from "@robot/ui/features/agents/AgentSectionImportDialog";
+import { currentText } from "@robot/ui/text";
 import { createSignal } from "solid-js";
 import { actionToast } from "../../action-toast";
 

@@ -1,12 +1,7 @@
-import type {
-  BrowserControlSession,
-  BrowserDockIsland,
-  BrowserLiveViewEvent,
-  BrowserTab,
-} from "@openownbot/contracts/ipc";
-import { BrowserDock } from "@openownbot/ui/features/browser/BrowserDock";
-import BrowserFullView from "@openownbot/ui/features/browser/BrowserFullView";
-import type { BrowserViewRuntime } from "@openownbot/ui/features/browser/BrowserLiveView";
+import type { BrowserControlSession, BrowserDockIsland, BrowserLiveViewEvent, BrowserTab } from "@robot/contracts/ipc";
+import { BrowserDock } from "@robot/ui/features/browser/BrowserDock";
+import BrowserFullView from "@robot/ui/features/browser/BrowserFullView";
+import type { BrowserViewRuntime } from "@robot/ui/features/browser/BrowserLiveView";
 import { createSignal } from "solid-js";
 import { fn } from "storybook/test";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";

@@ -1,5 +1,5 @@
-import type { HostUpdateSettingsChange, HostUpdateStatus, UpdateRestartMode } from "@openownbot/contracts/ipc";
-import type { MobileTextKey } from "@openownbot/i18n/mobile";
+import type { HostUpdateSettingsChange, HostUpdateStatus, UpdateRestartMode } from "@robot/contracts/ipc";
+import type { MobileTextKey } from "@robot/i18n/mobile";
 import { useLocalSearchParams } from "expo-router";
 import { Spinner, Typography } from "heroui-native";
 import { useState } from "react";

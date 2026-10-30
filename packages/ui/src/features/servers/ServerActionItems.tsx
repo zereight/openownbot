@@ -1,6 +1,6 @@
-import { canAdministerServer, type ServerNotificationLevel, type ServerSummary } from "@openownbot/contracts/ipc";
-import type { AppFormat, AppTextKey, AppTranslate } from "@openownbot/i18n";
-import { Bell, BellOff, Check, ChevronRight, type ContextMenu, LogOut, RotateCcw, Trash2 } from "@openownbot/ui";
+import { canAdministerServer, type ServerNotificationLevel, type ServerSummary } from "@robot/contracts/ipc";
+import type { AppFormat, AppTextKey, AppTranslate } from "@robot/i18n";
+import { Bell, BellOff, Check, ChevronRight, type ContextMenu, LogOut, RotateCcw, Trash2 } from "@robot/ui";
 import { For, Show } from "solid-js";
 import { useText } from "../../text";
 

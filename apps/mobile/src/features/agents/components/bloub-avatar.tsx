@@ -1,6 +1,6 @@
-import { type AvatarMood, avatarMoodPresentation } from "@openownbot/brand/bloub-avatar-motion";
-import { padlockEyePath } from "@openownbot/brand/bloub-padlock-eye";
-import type { AvatarHue } from "@openownbot/contracts/ipc";
+import { type AvatarMood, avatarMoodPresentation } from "@robot/brand/bloub-avatar-motion";
+import { padlockEyePath } from "@robot/brand/bloub-padlock-eye";
+import type { AvatarHue } from "@robot/contracts/ipc";
 import { memo, useMemo } from "react";
 import Animated, {
   convertToRGBA,

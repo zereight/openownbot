@@ -1,7 +1,7 @@
-import type { AppAppearance } from "@openownbot/contracts/app-appearance";
-import type { AppLanguage } from "@openownbot/contracts/app-language";
-import type { CentralAuthUser } from "@openownbot/contracts/ipc";
-import type { AppTextKey } from "@openownbot/i18n";
+import type { AppAppearance } from "@robot/contracts/app-appearance";
+import type { AppLanguage } from "@robot/contracts/app-language";
+import type { CentralAuthUser } from "@robot/contracts/ipc";
+import type { AppTextKey } from "@robot/i18n";
 import {
   Button,
   CreditCard,
@@ -16,15 +16,15 @@ import {
   SwitchField,
   Tabs,
   UserRound,
-} from "@openownbot/ui";
-import { AppearanceSelect } from "@openownbot/ui/features/settings/AppearanceSelect";
-import { LanguageSelect } from "@openownbot/ui/features/settings/LanguageSelect";
-import { SendShortcutSelect } from "@openownbot/ui/features/settings/SendShortcutSelect";
-import { SettingsDialogShell, type SettingsPagePlacement } from "@openownbot/ui/features/settings/SettingsDialogShell";
-import { SettingsProfileTab } from "@openownbot/ui/features/settings/SettingsProfileTab";
-import { SoundThemePicker } from "@openownbot/ui/features/settings/SoundThemePicker";
-import { createSettingsProfileStore } from "@openownbot/ui/features/settings/stores/profile-store";
-import { useText } from "@openownbot/ui/text";
+} from "@robot/ui";
+import { AppearanceSelect } from "@robot/ui/features/settings/AppearanceSelect";
+import { LanguageSelect } from "@robot/ui/features/settings/LanguageSelect";
+import { SendShortcutSelect } from "@robot/ui/features/settings/SendShortcutSelect";
+import { SettingsDialogShell, type SettingsPagePlacement } from "@robot/ui/features/settings/SettingsDialogShell";
+import { SettingsProfileTab } from "@robot/ui/features/settings/SettingsProfileTab";
+import { SoundThemePicker } from "@robot/ui/features/settings/SoundThemePicker";
+import { createSettingsProfileStore } from "@robot/ui/features/settings/stores/profile-store";
+import { useText } from "@robot/ui/text";
 import { createSignal, onCleanup } from "solid-js";
 import { readActionSoundChoice, replayActionSoundChoice, setActionSoundChoice } from "../../action-sounds";
 import { setShowAgentSteps, useShowAgentSteps } from "../../agent-steps-preference";

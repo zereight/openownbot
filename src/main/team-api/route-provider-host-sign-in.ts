@@ -1,8 +1,8 @@
 import {
   PROVIDER_HOST_SIGN_IN_CAPABILITY,
   PROVIDER_HOST_SIGN_IN_ROUTES,
-} from "@openownbot/contracts/team-protocol/provider-host-sign-in-v1";
-import { sourceText } from "@openownbot/i18n/source";
+} from "@robot/contracts/team-protocol/provider-host-sign-in-v1";
+import { sourceText } from "@robot/i18n/source";
 import { runCauseEffect } from "../../backend/effect-boundary";
 import { parseProviderId } from "../ipc/app-inputs";
 import type { TeamApiProviderHostSignIns } from "./dependencies";

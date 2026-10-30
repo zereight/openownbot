@@ -1,8 +1,8 @@
-import type { AppTextKey } from "@openownbot/i18n";
-import { classifyFailure } from "@openownbot/telemetry";
-import type { ConnectorDetail } from "@openownbot/ui/features/connectors/ConnectorDetailPanel";
-import type { ConnectorId } from "@openownbot/ui/features/connectors/connectors";
-import { currentText } from "@openownbot/ui/text";
+import type { AppTextKey } from "@robot/i18n";
+import { classifyFailure } from "@robot/telemetry";
+import type { ConnectorDetail } from "@robot/ui/features/connectors/ConnectorDetailPanel";
+import type { ConnectorId } from "@robot/ui/features/connectors/connectors";
+import { currentText } from "@robot/ui/text";
 import { createSignal, onCleanup } from "solid-js";
 import { actionToast } from "../../action-toast";
 

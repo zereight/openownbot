@@ -1,5 +1,5 @@
-import { HOSTED_SERVER_ENTRY_POINTS } from "@openownbot/contracts/hosted-servers";
-import { isDynamicRecord, isOneOf } from "@openownbot/contracts/runtime-values";
+import { HOSTED_SERVER_ENTRY_POINTS } from "@robot/contracts/hosted-servers";
+import { isDynamicRecord, isOneOf } from "@robot/contracts/runtime-values";
 import { Effect, Schema } from "effect";
 import {
   ACCOUNT_ANALYTICS_SCHEMA_VERSION,

@@ -1,6 +1,6 @@
-import type { FirstTouch } from "@openownbot/contracts/first-touch";
-import type { MobileConnectHostBinding } from "@openownbot/contracts/mobile-connect";
-import { isString } from "@openownbot/contracts/runtime-values";
+import type { FirstTouch } from "@robot/contracts/first-touch";
+import type { MobileConnectHostBinding } from "@robot/contracts/mobile-connect";
+import { isString } from "@robot/contracts/runtime-values";
 import {
   isUuidV4,
   normalizeEmailAddress,
@@ -8,7 +8,7 @@ import {
   ONE_TIME_CODE_ALPHABET,
   ONE_TIME_CODE_LENGTH,
   validateProfileName,
-} from "@openownbot/contracts/validation";
+} from "@robot/contracts/validation";
 import { Context, Effect, Layer, Result, Schema } from "effect";
 import { type AccountAnalytics, type AccountSurface, NO_ACCOUNT_ANALYTICS } from "./account-analytics";
 import type { AccountAttribution } from "./account-attribution";
@@ -83,7 +83,7 @@ class AuthDependencies extends Context.Service<
     analytics: AccountAnalytics;
     attribution: AccountAttribution | null;
   }
->()("@openownbot/auth-api/AuthDependencies") {}
+>()("@robot/auth-api/AuthDependencies") {}
 
 export class AuthService {
   readonly #layer: Layer.Layer<AuthDependencies>;

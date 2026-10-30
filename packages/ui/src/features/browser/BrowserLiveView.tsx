@@ -2,10 +2,10 @@ import {
   BROWSER_LIVE_VIEW_MAX_PASTE_TEXT,
   type BrowserDesktopApi,
   type BrowserLiveViewInput,
-} from "@openownbot/contracts/ipc";
-import { ErrorReference, toast } from "@openownbot/ui";
-import { useText } from "@openownbot/ui/text";
-import { errorReference } from "@openownbot/user-errors";
+} from "@robot/contracts/ipc";
+import { ErrorReference, toast } from "@robot/ui";
+import { useText } from "@robot/ui/text";
+import { errorReference } from "@robot/user-errors";
 import { createEffect, createSignal, createStore, onCleanup, Show } from "solid-js";
 
 /** CDP's modifier bitmap, which is what the host dispatches the event with. */

@@ -1,5 +1,5 @@
-import { toast } from "@openownbot/ui";
-import { currentText } from "@openownbot/ui/text";
+import { toast } from "@robot/ui";
+import { currentText } from "@robot/ui/text";
 import { createEffect, onCleanup } from "solid-js";
 
 /** A retry changes the same notice. Only a recovered workspace earns a success notice. */

@@ -1,6 +1,6 @@
-import type { RoutineRunFields } from "@openownbot/contracts/ipc";
-import type { EventRoutineOwner, EventRoutineRun } from "@openownbot/contracts/ipc-events";
-import { ROUTINE_RECOVERY_RUN_ERROR_LIMIT } from "@openownbot/contracts/team-protocol/routine-recovery-v1";
+import type { RoutineRunFields } from "@robot/contracts/ipc";
+import type { EventRoutineOwner, EventRoutineRun } from "@robot/contracts/ipc-events";
+import { ROUTINE_RECOVERY_RUN_ERROR_LIMIT } from "@robot/contracts/team-protocol/routine-recovery-v1";
 import { Effect, Schema } from "effect";
 import type { RoutineScheduler } from "./agent/routine-scheduler";
 import type { ChannelRoutineScheduler } from "./channel-routine-scheduler";

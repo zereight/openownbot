@@ -1,4 +1,4 @@
-import type { AgentEvent } from "@openownbot/contracts/ipc";
+import type { AgentEvent } from "@robot/contracts/ipc";
 import type { OpenOwnBotDatabase } from "../openownbot-database";
 import type { ConversationRuntime } from "./conversation-runtime";
 

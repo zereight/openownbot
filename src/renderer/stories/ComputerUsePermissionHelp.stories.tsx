@@ -1,4 +1,4 @@
-import type { ComputerUseState, MacPermissionId } from "@openownbot/contracts/ipc";
+import type { ComputerUseState, MacPermissionId } from "@robot/contracts/ipc";
 import { onCleanup } from "solid-js";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";
 import { ComputerUsePermissionHelp } from "../src/features/computer-use/ComputerUsePermissionHelp";

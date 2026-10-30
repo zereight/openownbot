@@ -1,10 +1,10 @@
-import { createAgentTemplateShareUrl } from "@openownbot/contracts/agent-template-links";
+import { createAgentTemplateShareUrl } from "@robot/contracts/agent-template-links";
 import type {
   AgentTemplateDetail,
   AgentTemplatePreview,
   AgentTemplatePublication,
   AgentTemplateSnapshot,
-} from "@openownbot/contracts/ipc";
+} from "@robot/contracts/ipc";
 
 const STORY_AGENT_TEMPLATE_ID = "k3VfX9qLm2Rw8TzA1bN5cQ";
 

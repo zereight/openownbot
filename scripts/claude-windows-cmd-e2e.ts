@@ -12,7 +12,7 @@ import { execFileSync } from "node:child_process";
 import { mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
-import { isDynamicRecord, isNumber, isString } from "@openownbot/contracts/runtime-values";
+import { isDynamicRecord, isNumber, isString } from "@robot/contracts/runtime-values";
 import { ClaudeAgentClient } from "../src/backend/claude-client";
 import { runCauseEffect } from "../src/backend/effect-boundary";
 

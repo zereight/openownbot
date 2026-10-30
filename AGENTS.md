@@ -78,10 +78,10 @@ adding a module or moving ownership between workspaces.
 
 ## Shared UI
 
-`packages/ui` (`@openownbot/ui`) owns shared SolidJS controls and feature components used by
+`packages/ui` (`@robot/ui`) owns shared SolidJS controls and feature components used by
 desktop, public web, and Storybook. Reuse these components before adding UI. Import primitives
-from `@openownbot/ui` and feature components from explicit subpaths such as
-`@openownbot/ui/features/sidebar/Sidebar`. Do not copy them back into an app.
+from `@robot/ui` and feature components from explicit subpaths such as
+`@robot/ui/features/sidebar/Sidebar`. Do not copy them back into an app.
 
 Keep shared components independent of application contexts, desktop storage, host connections,
 and `window.openownbot`. Pass data and actions through typed props. Platform adapters and the main
@@ -93,7 +93,7 @@ Read [packages/ui/AGENTS.md](packages/ui/AGENTS.md) before changing shared UI.
 
 ## Interface text
 
-Text that a user reads comes from `@openownbot/i18n` catalog keys, on desktop, web and mobile. Do not
+Text that a user reads comes from `@robot/i18n` catalog keys, on desktop, web and mobile. Do not
 write a literal. Errors that the main process, backend or team client send use `sourceText(key)`.
 Read [docs/i18n.md](docs/i18n.md) before adding a key or a language.
 

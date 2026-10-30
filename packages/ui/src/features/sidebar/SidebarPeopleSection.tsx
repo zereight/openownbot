@@ -4,7 +4,7 @@
  * the same id the layout used - see `SIDEBAR_DRAG_SELECTORS`.
  */
 
-import { Badge, Button } from "@openownbot/ui";
+import { Badge, Button } from "@robot/ui";
 import { For, Show } from "solid-js";
 import { useText } from "../../text";
 import { TeamPersonAvatar, teamMemberName } from "../team/TeamPersonAvatar";

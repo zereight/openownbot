@@ -1,5 +1,5 @@
-import { articleGradient, articleGradientCss, articleGradientUniforms } from "@openownbot/brand/article-gradient";
 import type { ShaderMount } from "@paper-design/shaders";
+import { articleGradient, articleGradientCss, articleGradientUniforms } from "@robot/brand/article-gradient";
 import { createEffect } from "solid-js";
 
 /** Uses the same stable mesh profile as the public article artwork. */

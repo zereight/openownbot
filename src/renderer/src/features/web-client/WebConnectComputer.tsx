@@ -1,6 +1,6 @@
-import { AppLogo } from "@openownbot/brand";
-import { Button, buttonVariants, Download, ErrorReference, Heading, RefreshCw, Server, Text } from "@openownbot/ui";
-import { useText } from "@openownbot/ui/text";
+import { AppLogo } from "@robot/brand";
+import { Button, buttonVariants, Download, ErrorReference, Heading, RefreshCw, Server, Text } from "@robot/ui";
+import { useText } from "@robot/ui/text";
 import { Show } from "solid-js";
 
 /** The first screen of the web client when the account has no computer to connect to. */

@@ -1,5 +1,5 @@
-import { BILLING_CURRENCIES, BILLING_METADATA, type BillingCurrency } from "@openownbot/contracts/billing";
-import { isOneOf } from "@openownbot/contracts/runtime-values";
+import { BILLING_CURRENCIES, BILLING_METADATA, type BillingCurrency } from "@robot/contracts/billing";
+import { isOneOf } from "@robot/contracts/runtime-values";
 import { Effect, Option, Result, Schema } from "effect";
 import { constantTimeEqual, hexToBytes, importHmacSha256Key } from "./crypto";
 

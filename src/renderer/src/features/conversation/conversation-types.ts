@@ -28,17 +28,17 @@ import type {
   UpdateAgentAdminSettingsInput,
   UpdateAgentInput,
   WorkspaceDirectory,
-} from "@openownbot/contracts/ipc";
-import type { ConversationUiBlock } from "@openownbot/contracts/ui-blocks";
-import type { AgentMessage, AgentProfile, ComposerAgent } from "@openownbot/ui/data";
-import type { BrowserViewRuntime } from "@openownbot/ui/features/browser/BrowserLiveView";
-import type { ChannelWorker } from "@openownbot/ui/features/channels/ChannelActivityIndicator";
-import type { AwaitingReplyItem } from "@openownbot/ui/features/conversation/AwaitingReplies";
-import type { UsageLimitAskCardProps } from "@openownbot/ui/features/conversation/BackupModels";
-import type { ChatMessageAuthor } from "@openownbot/ui/features/conversation/ChatMessageRow";
-import type { UnloadedHistory } from "@openownbot/ui/features/conversation/ChatScrollRail";
-import type { ThreadHeaderProps } from "@openownbot/ui/features/conversation/threads/thread-types";
-import type { SidebarAgentWait } from "@openownbot/ui/features/sidebar/sidebar-agent-states";
+} from "@robot/contracts/ipc";
+import type { ConversationUiBlock } from "@robot/contracts/ui-blocks";
+import type { AgentMessage, AgentProfile, ComposerAgent } from "@robot/ui/data";
+import type { BrowserViewRuntime } from "@robot/ui/features/browser/BrowserLiveView";
+import type { ChannelWorker } from "@robot/ui/features/channels/ChannelActivityIndicator";
+import type { AwaitingReplyItem } from "@robot/ui/features/conversation/AwaitingReplies";
+import type { UsageLimitAskCardProps } from "@robot/ui/features/conversation/BackupModels";
+import type { ChatMessageAuthor } from "@robot/ui/features/conversation/ChatMessageRow";
+import type { UnloadedHistory } from "@robot/ui/features/conversation/ChatScrollRail";
+import type { ThreadHeaderProps } from "@robot/ui/features/conversation/threads/thread-types";
+import type { SidebarAgentWait } from "@robot/ui/features/sidebar/sidebar-agent-states";
 import type { JSX } from "@solidjs/web";
 import type { ConnectorRegistry } from "../connectors/connector-registry";
 import type { ConversationRuntime } from "./conversation-runtime";
@@ -149,7 +149,7 @@ export interface ConversationProps {
   onOpenMcpSignIn?: ((mcpServerId: string, trigger: HTMLElement | null) => void) | undefined;
   /** Whether the server on screen holds a sign-in for an MCP row, as Server settings last read it. */
   mcpSignedIn?: ((mcpServerId: string) => boolean) | undefined;
-  platform?: import("@openownbot/contracts/ipc").AppInfo["platform"] | undefined;
+  platform?: import("@robot/contracts/ipc").AppInfo["platform"] | undefined;
 
   agentStatus: AgentStatus;
   /** A joined server's agents are still on their way, so the composer says that it connects. */
@@ -395,7 +395,7 @@ export type RightPanelMode =
   | "voice"
   | "subagent";
 
-export type { SidePanelPane } from "@openownbot/ui/features/conversation/SidePanel";
+export type { SidePanelPane } from "@robot/ui/features/conversation/SidePanel";
 
 /**
  * The threads of the active agent. A side thread is a task of the host; the agent's own chat is the

@@ -3,9 +3,9 @@ import {
   HOSTED_SITE_MIME_TYPES,
   HOSTED_SITE_UPLOAD_LIMITS,
   type HostedSitePathProblem,
-} from "@openownbot/contracts/hosted-sites";
-import type { HostedSiteFramework } from "@openownbot/contracts/ipc";
-import { isBoolean, isDynamicRecord, isNumber, isString } from "@openownbot/contracts/runtime-values";
+} from "@robot/contracts/hosted-sites";
+import type { HostedSiteFramework } from "@robot/contracts/ipc";
+import { isBoolean, isDynamicRecord, isNumber, isString } from "@robot/contracts/runtime-values";
 import { Schema } from "effect";
 
 export const HOSTED_SITE_LIMITS = {

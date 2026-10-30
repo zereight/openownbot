@@ -1,5 +1,5 @@
 {
-  "name": "@openownbot/ui",
+  "name": "@robot/ui",
   "version": "0.0.0",
   "private": true,
   "type": "module",
@@ -448,16 +448,16 @@
     "./features/conversation/ConversationHeader": "./src/features/conversation/ConversationHeader.tsx"
   },
   "dependencies": {
-    "@openownbot/contracts": "workspace:*",
+    "@robot/contracts": "workspace:*",
     "@kobalte/core": "catalog:",
     "class-variance-authority": "catalog:",
     "lucide-solid": "catalog:",
     "solid-sonner": "catalog:",
     "solid-recharts": "catalog:",
     "qrcode": "catalog:",
-    "@openownbot/brand": "workspace:*",
-    "@openownbot/team-client": "workspace:*",
-    "@openownbot/user-errors": "workspace:*",
+    "@robot/brand": "workspace:*",
+    "@robot/team-client": "workspace:*",
+    "@robot/user-errors": "workspace:*",
     "@norbert_bodziony/bloub": "catalog:",
     "@speed-highlight/core": "catalog:",
     "katex": "catalog:",
@@ -465,8 +465,8 @@
     "mermaid": "catalog:",
     "@tanstack/virtual-core": "catalog:",
     "zod": "catalog:",
-    "@openownbot/i18n": "workspace:*",
-    "@openownbot/telemetry": "workspace:*"
+    "@robot/i18n": "workspace:*",
+    "@robot/telemetry": "workspace:*"
   },
   "peerDependencies": {
     "solid-js": "2.0.0-rc.18",

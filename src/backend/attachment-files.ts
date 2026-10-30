@@ -14,16 +14,16 @@ import {
   writeFile,
 } from "node:fs/promises";
 import { basename, dirname, extname, isAbsolute, join, relative } from "node:path";
-import { assertSupportedAttachmentName, attachmentMimeTypeForName } from "@openownbot/contracts/attachment-files";
-import { ATTACHMENT_LIMITS, INPUT_LIMITS } from "@openownbot/contracts/input-limits";
+import { assertSupportedAttachmentName, attachmentMimeTypeForName } from "@robot/contracts/attachment-files";
+import { ATTACHMENT_LIMITS, INPUT_LIMITS } from "@robot/contracts/input-limits";
 import type {
   AttachmentDataInput,
   AttachmentKind,
   AttachmentPreviewKind,
   AttachmentSummary,
   QueueDelivery,
-} from "@openownbot/contracts/ipc";
-import { sourceText } from "@openownbot/i18n/source";
+} from "@robot/contracts/ipc";
+import { sourceText } from "@robot/i18n/source";
 import { Effect } from "effect";
 import { type AttachmentOperationError, attachmentCall, attachmentFailure, attachmentSync } from "./attachment-effects";
 import { sha256File } from "./file-hash";

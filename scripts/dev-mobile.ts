@@ -8,9 +8,9 @@ import { connect } from "node:net";
 import { dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { promisify } from "node:util";
-import { parseMobileConnectUrl } from "@openownbot/contracts/mobile-connect";
-import { isDynamicRecord, isNumber, isString } from "@openownbot/contracts/runtime-values";
-import { createOpenOwnBotLogger } from "@openownbot/logging";
+import { parseMobileConnectUrl } from "@robot/contracts/mobile-connect";
+import { isDynamicRecord, isNumber, isString } from "@robot/contracts/runtime-values";
+import { createOpenOwnBotLogger } from "@robot/logging";
 import { connectToDevApp } from "./dev-automation/cdp-client";
 import { type DevInstanceRecord, readDevInstanceRecords, selectDevInstance } from "./dev-automation/instance-registry";
 

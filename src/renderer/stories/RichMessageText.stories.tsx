@@ -1,8 +1,8 @@
-import { serializeAttachmentReference } from "@openownbot/contracts/attachment-references";
-import { serializeChatTagReference } from "@openownbot/contracts/chat-tag-references";
-import type { AttachmentSummary } from "@openownbot/contracts/ipc";
-import type { MessageCitation } from "@openownbot/ui/data";
-import { RichMessageText } from "@openownbot/ui/features/conversation/RichMessageText";
+import { serializeAttachmentReference } from "@robot/contracts/attachment-references";
+import { serializeChatTagReference } from "@robot/contracts/chat-tag-references";
+import type { AttachmentSummary } from "@robot/contracts/ipc";
+import type { MessageCitation } from "@robot/ui/data";
+import { RichMessageText } from "@robot/ui/features/conversation/RichMessageText";
 import { fn } from "storybook/test";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";
 import { requireFixture, STORY_AGENTS, STORY_ATTACHMENTS, STORY_INSTALLED_SKILLS } from "./fixtures";

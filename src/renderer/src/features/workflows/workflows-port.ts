@@ -1,5 +1,5 @@
-import type { OpenOwnBotDesktopApi, ServerSummary } from "@openownbot/contracts/ipc";
-import type { WorkflowPlace } from "@openownbot/ui/features/workflows/workflow-model";
+import type { OpenOwnBotDesktopApi, ServerSummary } from "@robot/contracts/ipc";
+import type { WorkflowPlace } from "@robot/ui/features/workflows/workflow-model";
 
 type WorkflowsApi = OpenOwnBotDesktopApi["workflows"];
 /** Each method with its input only; `list` takes none. */

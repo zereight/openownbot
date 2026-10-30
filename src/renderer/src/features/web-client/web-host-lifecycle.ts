@@ -3,14 +3,14 @@ import type {
   HostedServerSleep,
   HostedServerStart,
   HostedServerStartStep,
-} from "@openownbot/contracts/ipc";
-import { runTeamEffect } from "@openownbot/team-client";
+} from "@robot/contracts/ipc";
+import { runTeamEffect } from "@robot/team-client";
 import {
   HOSTED_HOST_READY_LIMIT_MS,
   HOSTED_START_FAILED_READS,
   HOSTED_START_POLL_MS,
   hostedStartStep,
-} from "@openownbot/team-client/hosted-server-wake";
+} from "@robot/team-client/hosted-server-wake";
 import { createWebHostedServerWake } from "./web-hosted-server-wake";
 
 /** A sleeping server is asked again after this long, also with no input. */

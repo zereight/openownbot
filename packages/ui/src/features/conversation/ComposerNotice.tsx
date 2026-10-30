@@ -1,6 +1,6 @@
-import { type AgentProviderId, agentProviderName } from "@openownbot/contracts/agent-providers";
-import type { AppFormat } from "@openownbot/i18n";
-import { Button, ErrorReference, TriangleAlert } from "@openownbot/ui";
+import { type AgentProviderId, agentProviderName } from "@robot/contracts/agent-providers";
+import type { AppFormat } from "@robot/i18n";
+import { Button, ErrorReference, TriangleAlert } from "@robot/ui";
 import type { JSX } from "@solidjs/web";
 import { createEffect, createSignal, Show } from "solid-js";
 import { createCodeSignInFallback } from "../../components/createCodeSignInFallback";

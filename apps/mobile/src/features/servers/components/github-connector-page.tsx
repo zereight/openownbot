@@ -1,4 +1,4 @@
-import type { HostGitHubConnectorStatus } from "@openownbot/contracts/ipc";
+import type { HostGitHubConnectorStatus } from "@robot/contracts/ipc";
 import type { UseQueryResult } from "@tanstack/react-query";
 import * as Clipboard from "expo-clipboard";
 import { router } from "expo-router";

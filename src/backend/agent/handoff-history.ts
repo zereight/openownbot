@@ -1,6 +1,6 @@
-import { sortConversationMessages } from "@openownbot/contracts/conversation-order";
-import type { ConversationMessage } from "@openownbot/contracts/ipc";
-import { redactText } from "@openownbot/logging";
+import { sortConversationMessages } from "@robot/contracts/conversation-order";
+import type { ConversationMessage } from "@robot/contracts/ipc";
+import { redactText } from "@robot/logging";
 import type { OpenOwnBotDatabase } from "../openownbot-database";
 import { HANDOFF_END, HANDOFF_START, renderHandoffMessage } from "./delivery-content";
 

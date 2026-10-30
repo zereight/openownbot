@@ -9,9 +9,9 @@ import type {
   BrowserDockFrame,
   BrowserDockGlass,
   BrowserDockPresentation,
-} from "@openownbot/contracts/ipc";
-import { BROWSER_DOCK_LIMITS, IPC_ENDPOINTS } from "@openownbot/contracts/ipc";
-import { createOpenOwnBotLogger } from "@openownbot/logging";
+} from "@robot/contracts/ipc";
+import { BROWSER_DOCK_LIMITS, IPC_ENDPOINTS } from "@robot/contracts/ipc";
+import { createOpenOwnBotLogger } from "@robot/logging";
 import { Effect, Schema, Semaphore } from "effect";
 import { type BrowserWindow, type Input, type Rectangle, View, type WebContents, WebContentsView } from "electron";
 import type { BrowserMainPage } from "../backend/browser-host";

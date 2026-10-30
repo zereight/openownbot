@@ -2,7 +2,7 @@ import { randomUUID } from "node:crypto";
 import { EventEmitter } from "node:events";
 import { mkdir, readFile, rename } from "node:fs/promises";
 import { dirname } from "node:path";
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
 import {
   isCompleteSectionOrder,
   SIDEBAR_PEOPLE_SECTION_ID,
@@ -10,10 +10,10 @@ import {
   type SidebarLayoutAction,
   type SidebarLayoutSnapshot,
   type SidebarSection,
-} from "@openownbot/contracts/ipc";
-import { isDynamicRecord, isNumber, isString } from "@openownbot/contracts/runtime-values";
-import { isUuidV4 } from "@openownbot/contracts/validation";
-import { sourceText } from "@openownbot/i18n/source";
+} from "@robot/contracts/ipc";
+import { isDynamicRecord, isNumber, isString } from "@robot/contracts/runtime-values";
+import { isUuidV4 } from "@robot/contracts/validation";
+import { sourceText } from "@robot/i18n/source";
 import { Effect, Exit, Result, Semaphore } from "effect";
 import { writeFileAtomically } from "./atomic-json-file";
 import { isMissingFileError } from "./file-errors";

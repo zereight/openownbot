@@ -1,5 +1,5 @@
-import type { BitwardenConnectorStatus, BitwardenHostConnectInput } from "@openownbot/contracts/ipc";
-import { Button, Field, Input, ItemGroup, Lock, SettingsSection, Text } from "@openownbot/ui";
+import type { BitwardenConnectorStatus, BitwardenHostConnectInput } from "@robot/contracts/ipc";
+import { Button, Field, Input, ItemGroup, Lock, SettingsSection, Text } from "@robot/ui";
 import { createSignal, Show } from "solid-js";
 import { useText } from "../../text";
 import { IntegrationPage, type IntegrationPageSlots } from "./IntegrationLayout";

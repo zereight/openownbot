@@ -21,8 +21,8 @@
  * did not start is sent then; one that was on its way fails as uncertain.
  */
 
-import { isAgentProvider } from "@openownbot/contracts/agent-providers";
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
+import { isAgentProvider } from "@robot/contracts/agent-providers";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
 import {
   type AgentEvent,
   type AgentReasoningEffort,
@@ -51,10 +51,10 @@ import {
   type WorkflowSummary,
   type WorkflowVersion,
   type WorkflowVersionInput,
-} from "@openownbot/contracts/ipc";
-import { sourceText } from "@openownbot/i18n/source";
-import { createOpenOwnBotLogger } from "@openownbot/logging";
-import { RoutineInputError } from "@openownbot/team-client/routine-schedule";
+} from "@robot/contracts/ipc";
+import { sourceText } from "@robot/i18n/source";
+import { createOpenOwnBotLogger } from "@robot/logging";
+import { RoutineInputError } from "@robot/team-client/routine-schedule";
 import { Cause, Context, Effect, Exit, Fiber, Layer, ManagedRuntime, Result, Schema, Scope, Semaphore } from "effect";
 import { isNoUpdateAnswer } from "../agent/routine-quiet-runs";
 import type { AgentProvider } from "../agent-client";

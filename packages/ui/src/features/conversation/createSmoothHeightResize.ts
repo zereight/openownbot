@@ -1,4 +1,4 @@
-import { prefersReducedMotion } from "@openownbot/ui/utils";
+import { prefersReducedMotion } from "@robot/ui/utils";
 import { onCleanup, onSettled } from "solid-js";
 
 interface SmoothHeightResizeOptions {

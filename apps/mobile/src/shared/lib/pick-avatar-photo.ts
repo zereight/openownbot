@@ -1,4 +1,4 @@
-import { AVATAR_IMAGE_LIMITS } from "@openownbot/contracts/input-limits";
+import { AVATAR_IMAGE_LIMITS } from "@robot/contracts/input-limits";
 import { File } from "expo-file-system";
 import { ImageManipulator, SaveFormat } from "expo-image-manipulator";
 import * as ImagePicker from "expo-image-picker";

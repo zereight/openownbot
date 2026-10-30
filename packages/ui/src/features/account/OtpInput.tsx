@@ -1,6 +1,6 @@
-import { ONE_TIME_CODE_ALPHABET, ONE_TIME_CODE_LENGTH } from "@openownbot/contracts/validation";
-import { Input } from "@openownbot/ui";
-import { prefersReducedMotion } from "@openownbot/ui/utils";
+import { ONE_TIME_CODE_ALPHABET, ONE_TIME_CODE_LENGTH } from "@robot/contracts/validation";
+import { Input } from "@robot/ui";
+import { prefersReducedMotion } from "@robot/ui/utils";
 import { createEffect, createMemo, createSignal, createUniqueId, For, flush, Show, untrack } from "solid-js";
 import { useText } from "../../text";
 

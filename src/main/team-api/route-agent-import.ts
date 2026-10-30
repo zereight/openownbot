@@ -1,10 +1,10 @@
-import { canAdministerServer, parseApplyAgentImportInput } from "@openownbot/contracts/ipc";
+import { canAdministerServer, parseApplyAgentImportInput } from "@robot/contracts/ipc";
 import {
   AGENT_IMPORT_CAPABILITY,
   AGENT_IMPORT_ROUTES,
   AGENT_IMPORT_UPLOAD_BYTES,
-} from "@openownbot/contracts/team-protocol/agent-import-v1";
-import { sourceText } from "@openownbot/i18n/source";
+} from "@robot/contracts/team-protocol/agent-import-v1";
+import { sourceText } from "@robot/i18n/source";
 import { Effect } from "effect";
 import { runCauseEffect } from "../../backend/effect-boundary";
 import type { TeamApiAgentImport } from "./dependencies";

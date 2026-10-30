@@ -1,4 +1,4 @@
-import { type DynamicRecord, isDynamicRecord, isNumber, isString } from "@openownbot/contracts/runtime-values";
+import { type DynamicRecord, isDynamicRecord, isNumber, isString } from "@robot/contracts/runtime-values";
 import type { InboundAction, InboundFile, InboundMessage } from "../messaging-types";
 
 /** The Block Kit action ids of the buttons the agent posts. */

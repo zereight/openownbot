@@ -1,4 +1,4 @@
-import type { AppTextKey } from "@openownbot/i18n";
+import type { AppTextKey } from "@robot/i18n";
 import {
   Button,
   Field,
@@ -9,7 +9,7 @@ import {
   ItemGroup,
   ItemTitle,
   SettingsSection,
-} from "@openownbot/ui";
+} from "@robot/ui";
 import type { JSX } from "@solidjs/web";
 import { createSignal, Show } from "solid-js";
 import { useText } from "../../text";

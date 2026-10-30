@@ -1,4 +1,4 @@
-import type { OpenOwnBotDesktopApi } from "@openownbot/contracts/ipc";
+import type { OpenOwnBotDesktopApi } from "@robot/contracts/ipc";
 
 /**
  * What the account context reaches in main: the OpenOwnBot account session, its devices, and the

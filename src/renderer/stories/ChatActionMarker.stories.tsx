@@ -1,6 +1,6 @@
-import { Heading, Text } from "@openownbot/ui";
-import type { AgentProfile, ChatActionMarkerModel } from "@openownbot/ui/data";
-import { ChatActionMarker } from "@openownbot/ui/features/conversation/ChatActionMarker";
+import { Heading, Text } from "@robot/ui";
+import type { AgentProfile, ChatActionMarkerModel } from "@robot/ui/data";
+import { ChatActionMarker } from "@robot/ui/features/conversation/ChatActionMarker";
 import { createSignal } from "solid-js";
 import { fn } from "storybook/test";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";

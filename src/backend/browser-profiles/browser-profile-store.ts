@@ -1,6 +1,6 @@
 import { randomBytes } from "node:crypto";
-import { type AvatarHue, isAvatarHue } from "@openownbot/contracts/ipc";
-import type { DynamicRecord } from "@openownbot/contracts/runtime-values";
+import { type AvatarHue, isAvatarHue } from "@robot/contracts/ipc";
+import type { DynamicRecord } from "@robot/contracts/runtime-values";
 import { databaseRows, requiredNumberColumn, requiredStringColumn } from "../database/database-rows";
 import type { OpenOwnBotDatabase } from "../openownbot-database";
 

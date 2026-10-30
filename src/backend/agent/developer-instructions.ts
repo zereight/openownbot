@@ -2,8 +2,8 @@ import {
   AGENT_MEMORY_CONTEXT_BUDGET_BYTES,
   essentialMemoryBytes,
   serializeEssentialMemories,
-} from "@openownbot/contracts/agent-memory-context";
-import type { AgentDefaults, AgentMemory, AgentSummary } from "@openownbot/contracts/ipc";
+} from "@robot/contracts/agent-memory-context";
+import type { AgentDefaults, AgentMemory, AgentSummary } from "@robot/contracts/ipc";
 import {
   agentAutomationAllowed,
   agentComputerUseEnabled,
@@ -12,8 +12,8 @@ import {
   COMPUTER_USE_MCP_SERVER_NAME,
   DEFAULT_AGENT_MEMORY_LIMIT,
   workspaceAccessEnforced,
-} from "@openownbot/contracts/ipc";
-import { redactText } from "@openownbot/logging";
+} from "@robot/contracts/ipc";
+import { redactText } from "@robot/logging";
 import { automationRunCommand } from "../automation-command";
 import type { HomeSkill } from "../home-skills";
 import { existingAgentFolders, workspaceExcludedFolders } from "./workspace-sandbox";

@@ -1,4 +1,4 @@
-import { type HostKeyHandover, optionalHostKeyHandovers } from "@openownbot/contracts/host-key-handover";
+import { type HostKeyHandover, optionalHostKeyHandovers } from "@robot/contracts/host-key-handover";
 import {
   createInviteUrl,
   type InviteLinkOptions,
@@ -8,12 +8,12 @@ import {
   OPENOWNBOT_INVITE_ORIGIN,
   parseInviteUrl,
   selfHostedApiOrigin,
-} from "@openownbot/contracts/invite-links";
-import type { MobileConnectHostBinding } from "@openownbot/contracts/mobile-connect";
-import { decodeRemoteSession, decodeRemoteSessionTicket } from "@openownbot/contracts/remote-control-plane";
-import { isBoolean, isDynamicRecord, isNumber, isString } from "@openownbot/contracts/runtime-values";
-import { sourceText } from "@openownbot/i18n/source";
-import { referenceFrom, safeReference } from "@openownbot/user-errors/reference";
+} from "@robot/contracts/invite-links";
+import type { MobileConnectHostBinding } from "@robot/contracts/mobile-connect";
+import { decodeRemoteSession, decodeRemoteSessionTicket } from "@robot/contracts/remote-control-plane";
+import { isBoolean, isDynamicRecord, isNumber, isString } from "@robot/contracts/runtime-values";
+import { sourceText } from "@robot/i18n/source";
+import { referenceFrom, safeReference } from "@robot/user-errors/reference";
 import { Deferred, Effect, Schema, Semaphore } from "effect";
 import { runTeamEffect } from "./effect-boundary";
 import { followHostKeyHandovers, type HostKeySignatureCheck, remoteHostFingerprint } from "./host-key-handover";

@@ -1,8 +1,8 @@
 import { spawn } from "node:child_process";
 import { createInterface } from "node:readline";
-import { type DynamicRecord, isDynamicRecord } from "@openownbot/contracts/runtime-values";
-import { sourceText } from "@openownbot/i18n/source";
-import { redactText, registerSecretValue } from "@openownbot/logging";
+import { type DynamicRecord, isDynamicRecord } from "@robot/contracts/runtime-values";
+import { sourceText } from "@robot/i18n/source";
+import { redactText, registerSecretValue } from "@robot/logging";
 import { Effect, Fiber } from "effect";
 import { cliSpawnTarget } from "./cli";
 import { type ProviderClientOperationError, ProviderSignInError, providerFailure } from "./provider-client-effects";

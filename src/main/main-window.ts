@@ -18,8 +18,8 @@ import {
   IPC_ENDPOINTS,
   LOCAL_SERVER_ID,
   type MacPermissionId,
-} from "@openownbot/contracts/ipc";
-import type { AppTextKey, AppTranslate } from "@openownbot/i18n";
+} from "@robot/contracts/ipc";
+import type { AppTextKey, AppTranslate } from "@robot/i18n";
 import {
   app,
   BrowserWindow,

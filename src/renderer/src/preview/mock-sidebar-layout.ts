@@ -1,4 +1,4 @@
-import type { SidebarLayoutAction, SidebarLayoutSnapshot } from "@openownbot/contracts/ipc";
+import type { SidebarLayoutAction, SidebarLayoutSnapshot } from "@robot/contracts/ipc";
 
 export function applySidebarLayoutAction(
   layout: SidebarLayoutSnapshot,

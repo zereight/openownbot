@@ -1,4 +1,4 @@
-import type { BillingPortalRequest, BillingState } from "@openownbot/contracts/billing";
+import type { BillingPortalRequest, BillingState } from "@robot/contracts/billing";
 import { createEffect, createStore, untrack } from "solid-js";
 import { currentText } from "../../text";
 

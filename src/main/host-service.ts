@@ -1,7 +1,7 @@
 import { randomBytes } from "node:crypto";
 import { EventEmitter } from "node:events";
 import { dirname, join } from "node:path";
-import type { HostKeyHandover } from "@openownbot/contracts/host-key-handover";
+import type { HostKeyHandover } from "@robot/contracts/host-key-handover";
 import type {
   AgentEvent,
   AvatarImageInput,
@@ -28,16 +28,12 @@ import type {
   TeamPresenceSnapshot,
   TeamSessionSummary,
   UpdateHostIdentityInput,
-} from "@openownbot/contracts/ipc";
-import {
-  type AgentAccessLevel,
-  conversationMessageSender,
-  SIGNED_OUT_CHANNEL_MEMBER_ID,
-} from "@openownbot/contracts/ipc";
-import type { LiveActivityRelayPush } from "@openownbot/contracts/live-activity-relay";
-import type { HostRestartState } from "@openownbot/contracts/team-protocol/host-update-v1";
-import { sourceText } from "@openownbot/i18n/source";
-import { createOpenOwnBotLogger, toLogValue } from "@openownbot/logging";
+} from "@robot/contracts/ipc";
+import { type AgentAccessLevel, conversationMessageSender, SIGNED_OUT_CHANNEL_MEMBER_ID } from "@robot/contracts/ipc";
+import type { LiveActivityRelayPush } from "@robot/contracts/live-activity-relay";
+import type { HostRestartState } from "@robot/contracts/team-protocol/host-update-v1";
+import { sourceText } from "@robot/i18n/source";
+import { createOpenOwnBotLogger, toLogValue } from "@robot/logging";
 import { Cause, Context, Deferred, Effect, Fiber, Layer, ManagedRuntime, Result, Semaphore } from "effect";
 import type { AgentService } from "../backend/agent-service";
 import type { ChannelService } from "../backend/channel-service";

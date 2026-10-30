@@ -1,7 +1,7 @@
 // @vitest-environment node
 
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
-import type { BrowserDockPresentation } from "@openownbot/contracts/ipc";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
+import type { BrowserDockPresentation } from "@robot/contracts/ipc";
 import { describe, expect, it } from "vitest";
 import {
   decodeBrowserDockAction,

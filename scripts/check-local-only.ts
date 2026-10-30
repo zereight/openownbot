@@ -28,7 +28,7 @@
 import { execFileSync } from "node:child_process";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
-import { mentionsOpenOwnBotService } from "@openownbot/contracts/local-only";
+import { mentionsOpenOwnBotService } from "@robot/contracts/local-only";
 import ts from "@typescript/typescript6";
 import {
   type AllowEntry,

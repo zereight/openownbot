@@ -1,4 +1,4 @@
-import type { BrowserTakeoverRequest, RespondToBrowserSecretInput } from "@openownbot/contracts/ipc";
+import type { BrowserTakeoverRequest, RespondToBrowserSecretInput } from "@robot/contracts/ipc";
 import { GlassView } from "expo-glass-effect";
 import { Button, Spinner, Typography } from "heroui-native";
 import { useThemeColor } from "heroui-native/hooks";

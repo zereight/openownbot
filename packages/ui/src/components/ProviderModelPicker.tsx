@@ -1,4 +1,4 @@
-import { ProviderLogo } from "@openownbot/brand";
+import { ProviderLogo } from "@robot/brand";
 import type {
   AgentModelId,
   AgentProviderId,
@@ -11,7 +11,7 @@ import type {
   ForeignProviderId,
   ProviderAccountStatus,
   ProviderRuntimeStatus,
-} from "@openownbot/contracts/ipc";
+} from "@robot/contracts/ipc";
 import {
   agentProviderCliName,
   agentProviderName,
@@ -21,8 +21,8 @@ import {
   isCustomProviderModelId,
   PICKER_PROVIDERS,
   providerDisplayName,
-} from "@openownbot/contracts/ipc";
-import type { AppTextKey, AppTranslate } from "@openownbot/i18n";
+} from "@robot/contracts/ipc";
+import type { AppTextKey, AppTranslate } from "@robot/i18n";
 import {
   Button,
   Input,
@@ -41,9 +41,9 @@ import {
   Tabs,
   Tooltip,
   Zap,
-} from "@openownbot/ui";
-import { ContentExitMotion } from "@openownbot/ui/menu-motion";
-import { cx } from "@openownbot/ui/utils";
+} from "@robot/ui";
+import { ContentExitMotion } from "@robot/ui/menu-motion";
+import { cx } from "@robot/ui/utils";
 import type { JSX } from "@solidjs/web";
 import { createEffect, createMemo, createSignal, For, onCleanup, onSettled, Show, untrack } from "solid-js";
 import { currentText, type TextValue, useText } from "../text";

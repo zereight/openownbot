@@ -2,8 +2,8 @@ import type { ChildProcess } from "node:child_process";
 import { mkdirSync, mkdtempSync, statfsSync } from "node:fs";
 import { readdir, rm } from "node:fs/promises";
 import { join } from "node:path";
-import { sourceText } from "@openownbot/i18n/source";
-import { createOpenOwnBotLogger, toLogValue } from "@openownbot/logging";
+import { sourceText } from "@robot/i18n/source";
+import { createOpenOwnBotLogger, toLogValue } from "@robot/logging";
 import { Effect, Schema } from "effect";
 import { causeHelpers } from "./effect-boundary";
 

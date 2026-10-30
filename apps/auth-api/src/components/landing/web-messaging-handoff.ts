@@ -4,7 +4,7 @@ import {
   WEB_MESSAGING_INSTALL_CHANNEL,
   type WebMessagingInstallPlatform,
   webMessagingInstallKey,
-} from "@openownbot/contracts/web-messaging-install";
+} from "@robot/contracts/web-messaging-install";
 
 /** How long the page waits for the client tab's answer. The tab answers before any network call. */
 const RECEIPT_TIMEOUT_MS = 3_000;

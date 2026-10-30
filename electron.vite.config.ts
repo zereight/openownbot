@@ -11,13 +11,13 @@ export default defineConfig({
     plugins: [
       externalizeDepsPlugin({
         exclude: [
-          "@openownbot/brand",
-          "@openownbot/contracts",
-          "@openownbot/i18n",
-          "@openownbot/logging",
-          "@openownbot/team-client",
-          "@openownbot/telemetry",
-          "@openownbot/user-errors",
+          "@robot/brand",
+          "@robot/contracts",
+          "@robot/i18n",
+          "@robot/logging",
+          "@robot/team-client",
+          "@robot/telemetry",
+          "@robot/user-errors",
         ],
       }),
     ],
@@ -37,7 +37,7 @@ export default defineConfig({
     },
   },
   preload: {
-    plugins: [externalizeDepsPlugin({ exclude: ["@openownbot/contracts"] })],
+    plugins: [externalizeDepsPlugin({ exclude: ["@robot/contracts"] })],
     build: {
       rollupOptions: {
         input: {

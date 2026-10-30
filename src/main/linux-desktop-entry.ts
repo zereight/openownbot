@@ -1,7 +1,7 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { homedir } from "node:os";
 import { join } from "node:path";
-import { createOpenOwnBotLogger, toLogValue } from "@openownbot/logging";
+import { createOpenOwnBotLogger, toLogValue } from "@robot/logging";
 import { Effect, Schema } from "effect";
 import { causeHelpers } from "../backend/effect-boundary";
 

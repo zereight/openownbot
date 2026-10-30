@@ -1,7 +1,7 @@
 import { access, mkdir, mkdtemp, readFile, rm, stat, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { basename, join, resolve } from "node:path";
-import { isString } from "@openownbot/contracts/runtime-values";
+import { isString } from "@robot/contracts/runtime-values";
 import { AcpAgentClient } from "../src/backend/acp-client";
 import { OPENCODE_ACP_FLAVOR } from "../src/backend/acp-flavor-opencode";
 import { codexSandboxConfig, codexSandboxMode, codexSandboxPolicy } from "../src/backend/agent/workspace-sandbox";

@@ -1,9 +1,9 @@
 import { createHash, randomUUID } from "node:crypto";
 import { EventEmitter } from "node:events";
-import { agentProviderDescriptor, customAgentIdOfModel } from "@openownbot/contracts/agent-providers";
-import { sortConversationMessages } from "@openownbot/contracts/conversation-order";
-import { developmentStartingModel } from "@openownbot/contracts/development-defaults";
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
+import { agentProviderDescriptor, customAgentIdOfModel } from "@robot/contracts/agent-providers";
+import { sortConversationMessages } from "@robot/contracts/conversation-order";
+import { developmentStartingModel } from "@robot/contracts/development-defaults";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
 import type {
   AgentAccessLevel,
   AgentAnalyticsInput,
@@ -102,7 +102,7 @@ import type {
   UpdateChannelRoutineInput,
   UpdateQueuedMessageInput,
   UpdateRoutineInput,
-} from "@openownbot/contracts/ipc";
+} from "@robot/contracts/ipc";
 import {
   type AgentDefaults,
   type AgentModelChoice,
@@ -122,13 +122,13 @@ import {
   sameAgentModelChoice,
   WORKFLOWS_USAGE_ID,
   workspaceAccessEnforced,
-} from "@openownbot/contracts/ipc";
-import { CLAUDE_API_KEY_ACCOUNT_ID } from "@openownbot/contracts/team-protocol/claude-api-key-v1";
-import { ContextResetBusyError } from "@openownbot/contracts/team-protocol/context-reset-v1";
-import type { QueueEditRequest } from "@openownbot/contracts/team-protocol/queue-edit-v1";
-import { sourceText } from "@openownbot/i18n/source";
-import { createOpenOwnBotLogger } from "@openownbot/logging";
-import { classifyFailure } from "@openownbot/telemetry";
+} from "@robot/contracts/ipc";
+import { CLAUDE_API_KEY_ACCOUNT_ID } from "@robot/contracts/team-protocol/claude-api-key-v1";
+import { ContextResetBusyError } from "@robot/contracts/team-protocol/context-reset-v1";
+import type { QueueEditRequest } from "@robot/contracts/team-protocol/queue-edit-v1";
+import { sourceText } from "@robot/i18n/source";
+import { createOpenOwnBotLogger } from "@robot/logging";
+import { classifyFailure } from "@robot/telemetry";
 import { Cause, Deferred, Effect, Exit, Fiber, Result, Schema, Scope, Semaphore } from "effect";
 import { AgentMemories } from "./agent/agent-memories";
 import { AgentRemoval, AgentRemovalFailed } from "./agent/agent-removal";

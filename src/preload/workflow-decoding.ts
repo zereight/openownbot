@@ -10,8 +10,8 @@ import {
   isWorkflowSummary,
   isWorkflowVersion,
   isWorkflowWebhookSecret,
-} from "@openownbot/contracts/ipc";
-import { guardedDecoder, guardedListDecoder } from "@openownbot/contracts/ipc-decoding";
+} from "@robot/contracts/ipc";
+import { guardedDecoder, guardedListDecoder } from "@robot/contracts/ipc-decoding";
 
 export const decodeWorkflowSummaries = guardedListDecoder(isWorkflowSummary, "workflow list response");
 export const decodeWorkflowSummary = guardedDecoder(isWorkflowSummary, "workflow summary response");

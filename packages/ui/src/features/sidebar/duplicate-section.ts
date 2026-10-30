@@ -5,8 +5,8 @@
  * the next step reads that layout rather than a signal that has not flushed yet.
  */
 
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
-import type { SidebarLayoutAction, SidebarLayoutSnapshot } from "@openownbot/contracts/ipc";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
+import type { SidebarLayoutAction, SidebarLayoutSnapshot } from "@robot/contracts/ipc";
 
 export interface SectionDuplicateDeps {
   /** The layout when the user chose Duplicate. */

@@ -3,9 +3,9 @@ import type {
   DynamicIslandAgentIdentity,
   DynamicIslandPresentation,
   DynamicIslandPromptItem,
-} from "@openownbot/contracts/ipc";
-import type { DynamicIslandViewState } from "@openownbot/ui";
-import { OpenOwnBotDynamicIsland } from "@openownbot/ui/features/dynamic-island/OpenOwnBotDynamicIsland";
+} from "@robot/contracts/ipc";
+import type { DynamicIslandViewState } from "@robot/ui";
+import { OpenOwnBotDynamicIsland } from "@robot/ui/features/dynamic-island/OpenOwnBotDynamicIsland";
 import type { JSX } from "@solidjs/web";
 import { createMemo, createSignal } from "solid-js";
 import { fn } from "storybook/test";

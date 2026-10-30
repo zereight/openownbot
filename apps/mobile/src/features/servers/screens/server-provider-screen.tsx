@@ -1,9 +1,4 @@
-import {
-  type AgentProviderId,
-  isAgentProvider,
-  isKeyOnlyProvider,
-  relayCallbackQuery,
-} from "@openownbot/contracts/ipc";
+import { type AgentProviderId, isAgentProvider, isKeyOnlyProvider, relayCallbackQuery } from "@robot/contracts/ipc";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import * as Clipboard from "expo-clipboard";
 import { Stack, useLocalSearchParams } from "expo-router";

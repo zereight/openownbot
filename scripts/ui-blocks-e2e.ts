@@ -11,25 +11,25 @@ import {
   type ConversationPage,
   type ConversationSnapshot,
   isConversationMessage,
-} from "@openownbot/contracts/ipc";
+} from "@robot/contracts/ipc";
 import {
   TEAM_BOOTSTRAP_CAPABILITIES,
   TEAM_CURRENT_CAPABILITIES,
   TEAM_UI_BLOCKS_CAPABILITY,
   teamCapabilitiesForProtocol,
-} from "@openownbot/contracts/team-protocol/current";
+} from "@robot/contracts/team-protocol/current";
 import {
   decodeTeamProtocolV6CurrentHttpResponse,
   encodeTeamProtocolV6CurrentHttpResponse,
-} from "@openownbot/contracts/team-protocol/v6-adapter";
+} from "@robot/contracts/team-protocol/v6-adapter";
 import {
   decodeTeamProtocolV7CurrentHttpResponse,
   encodeTeamProtocolV7CurrentHttpResponse,
-} from "@openownbot/contracts/team-protocol/v7-adapter";
+} from "@robot/contracts/team-protocol/v7-adapter";
 import {
   decodeTeamProtocolV7BaseCurrentEvent,
   encodeTeamProtocolV7BaseCurrentEvent,
-} from "@openownbot/contracts/team-protocol/v7-base-adapter";
+} from "@robot/contracts/team-protocol/v7-base-adapter";
 import {
   type ConversationUiBlock,
   normalizeUiBlockSpec,
@@ -37,7 +37,7 @@ import {
   type UiBlockSpec,
   type UiBlockValue,
   uiBlockAnswersFromResponse,
-} from "@openownbot/contracts/ui-blocks";
+} from "@robot/contracts/ui-blocks";
 import { Effect } from "effect";
 import { AttentionRegistry, type PromptResponder } from "../src/backend/agent/attention-registry";
 import { ForbiddenAttentionAnswer } from "../src/backend/agent/inactive-attention-request";

@@ -1,4 +1,4 @@
-import { RESTART_INTERRUPTED_REASON } from "@openownbot/contracts/ipc";
+import { RESTART_INTERRUPTED_REASON } from "@robot/contracts/ipc";
 import { Cause, Effect, Schema } from "effect";
 import type { AgentProvider } from "../agent-client";
 import type { AgentStore } from "../agent-store";

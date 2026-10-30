@@ -1,6 +1,6 @@
-import { ANDROID_PLAY_STORE_URL } from "@openownbot/ui/features/mobile-app/android-play-store";
-import { IOS_APP_STORE_URL } from "@openownbot/ui/features/mobile-app/ios-app-store";
-import { prefersReducedMotion } from "@openownbot/ui/utils";
+import { ANDROID_PLAY_STORE_URL } from "@robot/ui/features/mobile-app/android-play-store";
+import { IOS_APP_STORE_URL } from "@robot/ui/features/mobile-app/ios-app-store";
+import { prefersReducedMotion } from "@robot/ui/utils";
 import { createEffect, createSignal, For, onSettled, Show, untrack } from "solid-js";
 import { landingAnalytics } from "../../lib/analytics";
 import { CHANGELOG_ROUTE, type ChangelogPlatform, type ChangelogRelease as Release } from "../../lib/changelog";

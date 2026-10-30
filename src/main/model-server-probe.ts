@@ -5,11 +5,11 @@
 // An error names the host only. The path and the query of a base URL can hold a token, and the key
 // and the header values are credentials, so no message and no log line contains them.
 
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
-import type { CustomProviderHeader, DetectedModel } from "@openownbot/contracts/ipc";
-import { PROVIDER_DETECTION_LIMITS } from "@openownbot/contracts/ipc";
-import { isDynamicRecord, isString } from "@openownbot/contracts/runtime-values";
-import { sourceText } from "@openownbot/i18n/source";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
+import type { CustomProviderHeader, DetectedModel } from "@robot/contracts/ipc";
+import { PROVIDER_DETECTION_LIMITS } from "@robot/contracts/ipc";
+import { isDynamicRecord, isString } from "@robot/contracts/runtime-values";
+import { sourceText } from "@robot/i18n/source";
 import { Context, Effect, Layer, Schema } from "effect";
 import { readLimitedBody } from "../backend/limited-body";
 

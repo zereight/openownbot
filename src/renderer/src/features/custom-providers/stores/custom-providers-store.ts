@@ -3,8 +3,8 @@ import type {
   CustomProviderSummary,
   SaveCustomProviderInput,
   UpdateCustomProviderInput,
-} from "@openownbot/contracts/ipc";
-import { currentText } from "@openownbot/ui/text";
+} from "@robot/contracts/ipc";
+import { currentText } from "@robot/ui/text";
 import { createStore } from "solid-js";
 import type { CustomProvidersEndpointApi } from "../custom-providers-port";
 

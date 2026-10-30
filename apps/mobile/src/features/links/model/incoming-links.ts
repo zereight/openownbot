@@ -2,10 +2,10 @@ import {
   createAgentTemplateShareUrl,
   OPENOWNBOT_AGENT_TEMPLATE_PATH_PREFIX,
   parseAgentTemplateUrl,
-} from "@openownbot/contracts/agent-template-links";
-import { parseInviteUrl, selfHostedApiOrigin } from "@openownbot/contracts/invite-links";
-import { parseMobileConnectUrl } from "@openownbot/contracts/mobile-connect";
-import { createPluginShareUrl, parsePluginUrl } from "@openownbot/contracts/plugin-links";
+} from "@robot/contracts/agent-template-links";
+import { parseInviteUrl, selfHostedApiOrigin } from "@robot/contracts/invite-links";
+import { parseMobileConnectUrl } from "@robot/contracts/mobile-connect";
+import { createPluginShareUrl, parsePluginUrl } from "@robot/contracts/plugin-links";
 
 export type IncomingLink =
   | { kind: "invite"; url: string }

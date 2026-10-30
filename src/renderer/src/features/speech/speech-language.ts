@@ -1,4 +1,4 @@
-import type { SpeechLanguage } from "@openownbot/contracts/ipc";
+import type { SpeechLanguage } from "@robot/contracts/ipc";
 
 /**
  * The Latin-script languages that Supertonic 3 reads: their frequent short words, and the letters

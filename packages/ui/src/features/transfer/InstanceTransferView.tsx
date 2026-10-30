@@ -1,11 +1,11 @@
-import { type AgentProviderId, agentProviderName } from "@openownbot/contracts/agent-providers";
+import { type AgentProviderId, agentProviderName } from "@robot/contracts/agent-providers";
 import type {
   AgentImportPreviewAgent,
   InstanceTransferPreview,
   InstanceTransferResult,
   InstanceTransferSummary,
-} from "@openownbot/contracts/ipc";
-import type { AppFormat, AppTranslate } from "@openownbot/i18n";
+} from "@robot/contracts/ipc";
+import type { AppFormat, AppTranslate } from "@robot/i18n";
 import {
   ArrowRight,
   Bot,
@@ -25,7 +25,7 @@ import {
   SwitchField,
   TriangleAlert,
   Upload,
-} from "@openownbot/ui";
+} from "@robot/ui";
 import type { JSX } from "@solidjs/web";
 import { createMemo, createSignal, createUniqueId, For, Show } from "solid-js";
 import { useText } from "../../text";

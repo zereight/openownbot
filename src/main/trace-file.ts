@@ -1,8 +1,8 @@
 import { appendFile, mkdir, readFile, rename, stat } from "node:fs/promises";
 import { join } from "node:path";
-import type { AgentEvent } from "@openownbot/contracts/ipc";
-import { isDynamicRecord } from "@openownbot/contracts/runtime-values";
-import { redactValue } from "@openownbot/logging";
+import type { AgentEvent } from "@robot/contracts/ipc";
+import { isDynamicRecord } from "@robot/contracts/runtime-values";
+import { redactValue } from "@robot/logging";
 import { Effect, Exit, Scope, Semaphore } from "effect";
 import { localIO } from "./operation-effects";
 

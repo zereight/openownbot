@@ -1,7 +1,7 @@
-import type { AppLogoVariant } from "@openownbot/brand";
-import type { AgentModelId, AgentProviderId, AppSetupState, DesktopPlatform } from "@openownbot/contracts/ipc";
-import { Button, ErrorReference } from "@openownbot/ui";
-import { useText } from "@openownbot/ui/text";
+import type { AppLogoVariant } from "@robot/brand";
+import type { AgentModelId, AgentProviderId, AppSetupState, DesktopPlatform } from "@robot/contracts/ipc";
+import { Button, ErrorReference } from "@robot/ui";
+import { useText } from "@robot/ui/text";
 import { createEffect, createSignal, createStore, createUniqueId, For, Match, Show, Switch, untrack } from "solid-js";
 import { ComputerUseSetup } from "../computer-use/ComputerUseSetup";
 import { FirstRunChoice } from "./FirstRunChoice";

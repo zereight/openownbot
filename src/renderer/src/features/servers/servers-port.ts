@@ -1,4 +1,4 @@
-import type { OpenOwnBotDesktopApi } from "@openownbot/contracts/ipc";
+import type { OpenOwnBotDesktopApi } from "@robot/contracts/ipc";
 
 /**
  * What the servers domain reaches in main: the server list and selection, the account changes, the local host, the

@@ -1,9 +1,9 @@
-import { fileReferenceName, isFileReference } from "@openownbot/brand/file-reference";
-import { blockChatMath, chatMathBlockStart, chatMathStart, inlineChatMath } from "@openownbot/contracts/chat-math";
-import { chatPreviewKind } from "@openownbot/contracts/chat-preview";
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
-import { DATA_FOLDER_NAME } from "@openownbot/contracts/product";
-import { Button, Checkbox } from "@openownbot/ui";
+import { fileReferenceName, isFileReference } from "@robot/brand/file-reference";
+import { blockChatMath, chatMathBlockStart, chatMathStart, inlineChatMath } from "@robot/contracts/chat-math";
+import { chatPreviewKind } from "@robot/contracts/chat-preview";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
+import { DATA_FOLDER_NAME } from "@robot/contracts/product";
+import { Button, Checkbox } from "@robot/ui";
 import { Dynamic } from "@solidjs/web";
 import { Marked, type Token, type Tokens, type TokensList } from "marked";
 import { createMemo, For, Show } from "solid-js";

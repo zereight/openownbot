@@ -1,13 +1,10 @@
-import type { AgentMessage } from "@openownbot/ui/data";
-import { ChatMessageRow } from "@openownbot/ui/features/conversation/ChatMessageRow";
+import type { AgentMessage } from "@robot/ui/data";
+import { ChatMessageRow } from "@robot/ui/features/conversation/ChatMessageRow";
 import {
   RoutineScheduleCard,
   type RoutineScheduleCardProps,
-} from "@openownbot/ui/features/conversation/RoutineScheduleCard";
-import {
-  ROUTINE_WORKDAYS,
-  type RoutineScheduleDraft,
-} from "@openownbot/ui/features/conversation/routine-schedule-draft";
+} from "@robot/ui/features/conversation/RoutineScheduleCard";
+import { ROUTINE_WORKDAYS, type RoutineScheduleDraft } from "@robot/ui/features/conversation/routine-schedule-draft";
 import { createSignal } from "solid-js";
 import { fn } from "storybook/test";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";

@@ -1,5 +1,5 @@
-import type { AppInfo } from "@openownbot/contracts/ipc";
-import type { AppTextKey } from "@openownbot/i18n";
+import type { AppInfo } from "@robot/contracts/ipc";
+import type { AppTextKey } from "@robot/i18n";
 import {
   Archive,
   Bell,
@@ -14,7 +14,7 @@ import {
   Smartphone,
   Tag,
   UserRound,
-} from "@openownbot/ui";
+} from "@robot/ui";
 
 export type SettingsTab =
   | "general"

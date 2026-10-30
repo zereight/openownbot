@@ -4,7 +4,7 @@ export { readHostAnalytics } from "./host-analytics";
 export { createRemoteAccountRefresh } from "./remote-account-refresh";
 export type TeamClientFetch = typeof globalThis.fetch;
 
-// Deliberately not `export * from "@openownbot/contracts/team-protocol"`. That barrel pulls every
+// Deliberately not `export * from "@robot/contracts/team-protocol"`. That barrel pulls every
 // frozen per-version codec and adapter - v1 through v3 plus the WebRTC adapter - into any consumer
 // that touches the root export, which on React Native and in a browser is bundle weight for
 // protocol versions the client will never negotiate. A consumer that needs a protocol symbol

@@ -33,17 +33,17 @@ import type {
   TeamPresenceSnapshot,
   TeamSessionSummary,
   UpdateStatus,
-} from "@openownbot/contracts/ipc";
+} from "@robot/contracts/ipc";
 import {
   CONVERSATION_PLAN_ITEM_TYPE,
   conversationPlanText,
   isAgentStatus,
   isForeignProviderId,
   isKnownAgentProvider,
-} from "@openownbot/contracts/ipc";
-import type { AgentProfile } from "@openownbot/ui/data";
-import type { AgentRuntimeSettings } from "@openownbot/ui/features/conversation/AgentSettingsPanel";
-import type { MarketplacePluginDetail } from "@openownbot/ui/features/settings/marketplace-plugins";
+} from "@robot/contracts/ipc";
+import type { AgentProfile } from "@robot/ui/data";
+import type { AgentRuntimeSettings } from "@robot/ui/features/conversation/AgentSettingsPanel";
+import type { MarketplacePluginDetail } from "@robot/ui/features/settings/marketplace-plugins";
 import type { McpServerConfig } from "../features/servers/mcp-servers";
 
 const STORY_NOW = "2026-08-19T10:00:00.000Z";

@@ -1,4 +1,4 @@
-import type { ServerSummary } from "@openownbot/contracts/ipc";
+import type { ServerSummary } from "@robot/contracts/ipc";
 import { serverCanAdminister } from "../servers/server-capabilities";
 import type { AgentSkillsMode } from "./AgentSkillsModal";
 import type { ConversationRuntime } from "./conversation-runtime";

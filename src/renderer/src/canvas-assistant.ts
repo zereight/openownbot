@@ -5,10 +5,10 @@
  * tab. The routine canvas and the Workflows page both use it.
  */
 
-import { latestTurnAnswer } from "@openownbot/contracts/ipc";
-import { toast } from "@openownbot/ui";
-import type { DiagramChatMessage } from "@openownbot/ui/features/diagrams/diagram-model";
-import { useText } from "@openownbot/ui/text";
+import { latestTurnAnswer } from "@robot/contracts/ipc";
+import { toast } from "@robot/ui";
+import type { DiagramChatMessage } from "@robot/ui/features/diagrams/diagram-model";
+import { useText } from "@robot/ui/text";
 import { createEffect, createMemo, createStore, onSettled } from "solid-js";
 import type { AgentChatPort } from "./agent-chat-port";
 

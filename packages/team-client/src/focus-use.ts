@@ -1,4 +1,4 @@
-import { FOCUS_USE_INTERVAL_MS } from "@openownbot/contracts/team-protocol/focus-use-v1";
+import { FOCUS_USE_INTERVAL_MS } from "@robot/contracts/team-protocol/focus-use-v1";
 
 /**
  * Tells a hosted server that its app has focus (`focus-use-v1`): at once when the server becomes the

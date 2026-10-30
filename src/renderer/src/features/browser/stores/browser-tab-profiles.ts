@@ -1,4 +1,4 @@
-import type { BrowserTab, BrowserTabProfile } from "@openownbot/contracts/ipc";
+import type { BrowserTab, BrowserTabProfile } from "@robot/contracts/ipc";
 import { createEffect, createMemo, createSignal } from "solid-js";
 
 /**

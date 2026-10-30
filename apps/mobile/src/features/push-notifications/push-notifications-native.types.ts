@@ -1,4 +1,4 @@
-import type { NotificationSound } from "@openownbot/contracts/notification-relay";
+import type { NotificationSound } from "@robot/contracts/notification-relay";
 import type { NotificationPermission } from "@/features/settings/model/push-notifications";
 
 /** The data key of a sound preview. The notification handler plays it and shows nothing. */

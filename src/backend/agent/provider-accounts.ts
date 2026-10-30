@@ -1,5 +1,5 @@
 import { spawn } from "node:child_process";
-import type { AgentProviderId } from "@openownbot/contracts/agent-providers";
+import type { AgentProviderId } from "@robot/contracts/agent-providers";
 import {
   type AccountUsage,
   type AccountUsageLimit,
@@ -11,10 +11,10 @@ import {
   type ProviderUsageResetOutcome,
   type ProviderUsageResets,
   usageQuotaForModel,
-} from "@openownbot/contracts/ipc";
-import { CLAUDE_API_KEY_ACCOUNT_ID } from "@openownbot/contracts/team-protocol/claude-api-key-v1";
-import { sourceText } from "@openownbot/i18n/source";
-import { createOpenOwnBotLogger } from "@openownbot/logging";
+} from "@robot/contracts/ipc";
+import { CLAUDE_API_KEY_ACCOUNT_ID } from "@robot/contracts/team-protocol/claude-api-key-v1";
+import { sourceText } from "@robot/i18n/source";
+import { createOpenOwnBotLogger } from "@robot/logging";
 import { Cause, Effect, Fiber, Schema, type Scope } from "effect";
 import { startAcpAuthentication } from "./../acp-sign-in";
 import type { AgentClient } from "./../agent-client";

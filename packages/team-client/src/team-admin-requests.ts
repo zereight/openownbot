@@ -15,20 +15,20 @@ import {
   type ResetAgentSessionSettingInput,
   type SetAgentHiddenInput,
   type SetAgentSessionSettingInput,
-} from "@openownbot/contracts/ipc";
-import { AGENT_ACCESS_ROUTES } from "@openownbot/contracts/team-protocol/agent-access-v1";
-import { AGENT_HIDDEN_ROUTES } from "@openownbot/contracts/team-protocol/agent-hidden-v1";
-import { AGENT_MEMORY_LIMIT_ROUTES } from "@openownbot/contracts/team-protocol/agent-memory-limit-v1";
-import { AGENT_SESSION_SETTINGS_ROUTES } from "@openownbot/contracts/team-protocol/agent-session-settings-v1";
-import { DISCORD_ACCESS_ROUTES } from "@openownbot/contracts/team-protocol/discord-access-v1";
-import { HOST_MEMBER_UPDATE_ROUTES } from "@openownbot/contracts/team-protocol/host-member-update-v1";
-import { HOST_RELEASE_ROUTES } from "@openownbot/contracts/team-protocol/host-release-v1";
-import { HOST_TIMEZONE_ROUTES } from "@openownbot/contracts/team-protocol/host-timezone-v1";
-import { MEMORY_REVIEW_ROUTES } from "@openownbot/contracts/team-protocol/memory-review-v1";
-import { PROMPT_CACHE_TTL_ROUTES } from "@openownbot/contracts/team-protocol/prompt-cache-ttl-v1";
-import { PROVIDER_DEFAULT_ROUTES } from "@openownbot/contracts/team-protocol/provider-default-v1";
-import type { PROVIDERS_V5_ROUTES } from "@openownbot/contracts/team-protocol/providers-v5";
-import { PROVIDERS_V8_ROUTES } from "@openownbot/contracts/team-protocol/providers-v8";
+} from "@robot/contracts/ipc";
+import { AGENT_ACCESS_ROUTES } from "@robot/contracts/team-protocol/agent-access-v1";
+import { AGENT_HIDDEN_ROUTES } from "@robot/contracts/team-protocol/agent-hidden-v1";
+import { AGENT_MEMORY_LIMIT_ROUTES } from "@robot/contracts/team-protocol/agent-memory-limit-v1";
+import { AGENT_SESSION_SETTINGS_ROUTES } from "@robot/contracts/team-protocol/agent-session-settings-v1";
+import { DISCORD_ACCESS_ROUTES } from "@robot/contracts/team-protocol/discord-access-v1";
+import { HOST_MEMBER_UPDATE_ROUTES } from "@robot/contracts/team-protocol/host-member-update-v1";
+import { HOST_RELEASE_ROUTES } from "@robot/contracts/team-protocol/host-release-v1";
+import { HOST_TIMEZONE_ROUTES } from "@robot/contracts/team-protocol/host-timezone-v1";
+import { MEMORY_REVIEW_ROUTES } from "@robot/contracts/team-protocol/memory-review-v1";
+import { PROMPT_CACHE_TTL_ROUTES } from "@robot/contracts/team-protocol/prompt-cache-ttl-v1";
+import { PROVIDER_DEFAULT_ROUTES } from "@robot/contracts/team-protocol/provider-default-v1";
+import type { PROVIDERS_V5_ROUTES } from "@robot/contracts/team-protocol/providers-v5";
+import { PROVIDERS_V8_ROUTES } from "@robot/contracts/team-protocol/providers-v8";
 // Admin requests to one host: agent settings and skills, shared tables, agent share links, the server name and logo,
 // the server timezone, the agent memory limit, the memory review, the prompt cache time, the default provider, the Discord roles that can use OpenOwnBot, the app update, MCP servers, storage, hosted sites and providers.
 //
@@ -36,12 +36,8 @@ import { PROVIDERS_V8_ROUTES } from "@openownbot/contracts/team-protocol/provide
 // them through their own transport, so the path, body and decoding of each request are here once.
 // The host answers only an owner or admin; a member gets a refusal, which the transport rejects.
 
-import {
-  type AgentProviderRef,
-  isAgentProviderRef,
-  type ManagedProviderId,
-} from "@openownbot/contracts/agent-providers";
-import { parseHostedSiteList } from "@openownbot/contracts/hosted-sites";
+import { type AgentProviderRef, isAgentProviderRef, type ManagedProviderId } from "@robot/contracts/agent-providers";
+import { parseHostedSiteList } from "@robot/contracts/hosted-sites";
 import {
   type AccountUsage,
   type AddedAgent,
@@ -169,8 +165,8 @@ import {
   type VaultHostImportResult,
   type VaultSaveInput,
   type VaultState,
-} from "@openownbot/contracts/ipc";
-import { decodeRecord, guardedListDecoder, nullableString, requiredBoolean } from "@openownbot/contracts/ipc-decoding";
+} from "@robot/contracts/ipc";
+import { decodeRecord, guardedListDecoder, nullableString, requiredBoolean } from "@robot/contracts/ipc-decoding";
 import {
   decodeEventActivity,
   decodeEventRoutineRuns,
@@ -191,46 +187,43 @@ import {
   type SaveEventRoutineResult,
   type WebhookSecret,
   type WebhookTestResult,
-} from "@openownbot/contracts/ipc-events";
-import { TEAM_API_ROUTES } from "@openownbot/contracts/team-api-routes";
-import { AGENT_ADMIN_ROUTES } from "@openownbot/contracts/team-protocol/agent-admin-v1";
-import { AGENT_INSTALL_ROUTES } from "@openownbot/contracts/team-protocol/agent-install-v1";
-import { AGENT_PUBLISH_IMAGE_BYTES, AGENT_PUBLISH_ROUTES } from "@openownbot/contracts/team-protocol/agent-publish-v1";
-import { AGENT_UPDATE_ROUTES } from "@openownbot/contracts/team-protocol/agent-update-v1";
-import { BITWARDEN_CONNECTOR_ROUTES } from "@openownbot/contracts/team-protocol/bitwarden-connector-v1";
-import { CONNECTORS_ROUTES } from "@openownbot/contracts/team-protocol/connectors-v1";
-import { EVENTS_ROUTES } from "@openownbot/contracts/team-protocol/events-v1";
-import { HOST_ADMIN_ROUTES } from "@openownbot/contracts/team-protocol/host-admin-v1";
-import { HOST_UPDATE_ROUTES } from "@openownbot/contracts/team-protocol/host-update-v1";
-import { HOSTED_SITES_ROUTES } from "@openownbot/contracts/team-protocol/hosted-sites-v1";
-import { MCP_SIGN_IN_APP_ROUTES } from "@openownbot/contracts/team-protocol/mcp-sign-in-app-v1";
-import { MCP_SIGN_IN_ROUTES } from "@openownbot/contracts/team-protocol/mcp-sign-in-v1";
-import { MCP_ROUTES } from "@openownbot/contracts/team-protocol/mcp-v1";
-import { ONEPASSWORD_CONNECTOR_ROUTES } from "@openownbot/contracts/team-protocol/onepassword-connector-v1";
+} from "@robot/contracts/ipc-events";
+import { TEAM_API_ROUTES } from "@robot/contracts/team-api-routes";
+import { AGENT_ADMIN_ROUTES } from "@robot/contracts/team-protocol/agent-admin-v1";
+import { AGENT_INSTALL_ROUTES } from "@robot/contracts/team-protocol/agent-install-v1";
+import { AGENT_PUBLISH_IMAGE_BYTES, AGENT_PUBLISH_ROUTES } from "@robot/contracts/team-protocol/agent-publish-v1";
+import { AGENT_UPDATE_ROUTES } from "@robot/contracts/team-protocol/agent-update-v1";
+import { BITWARDEN_CONNECTOR_ROUTES } from "@robot/contracts/team-protocol/bitwarden-connector-v1";
+import { CONNECTORS_ROUTES } from "@robot/contracts/team-protocol/connectors-v1";
+import { EVENTS_ROUTES } from "@robot/contracts/team-protocol/events-v1";
+import { HOST_ADMIN_ROUTES } from "@robot/contracts/team-protocol/host-admin-v1";
+import { HOST_UPDATE_ROUTES } from "@robot/contracts/team-protocol/host-update-v1";
+import { HOSTED_SITES_ROUTES } from "@robot/contracts/team-protocol/hosted-sites-v1";
+import { MCP_SIGN_IN_APP_ROUTES } from "@robot/contracts/team-protocol/mcp-sign-in-app-v1";
+import { MCP_SIGN_IN_ROUTES } from "@robot/contracts/team-protocol/mcp-sign-in-v1";
+import { MCP_ROUTES } from "@robot/contracts/team-protocol/mcp-v1";
+import { ONEPASSWORD_CONNECTOR_ROUTES } from "@robot/contracts/team-protocol/onepassword-connector-v1";
 import {
   type PROVIDER_ACCOUNT_RELAY_PROVIDERS,
   PROVIDER_ACCOUNT_RELAY_ROUTES,
-} from "@openownbot/contracts/team-protocol/provider-account-relay-v1";
-import { PROVIDER_ACCOUNTS_ROUTES } from "@openownbot/contracts/team-protocol/provider-accounts-v1";
-import { PROVIDER_HOST_SIGN_IN_ROUTES } from "@openownbot/contracts/team-protocol/provider-host-sign-in-v1";
-import { PROVIDER_USAGE_RESET_ROUTES } from "@openownbot/contracts/team-protocol/provider-usage-reset-v1";
-import { PROVIDERS_ADMIN_ROUTES } from "@openownbot/contracts/team-protocol/providers-v1";
-import type { PROVIDERS_RUNTIMES_V2_ROUTES } from "@openownbot/contracts/team-protocol/providers-v2";
-import { PROVIDERS_SIGN_IN_V3_ROUTES } from "@openownbot/contracts/team-protocol/providers-v3";
-import type { PROVIDERS_V4_ROUTES } from "@openownbot/contracts/team-protocol/providers-v4";
-import { ROUTINE_RECOVERY_ROUTES } from "@openownbot/contracts/team-protocol/routine-recovery-v1";
-import { ROUTINE_RESULTS_ROUTES } from "@openownbot/contracts/team-protocol/routine-results-v1";
-import { SHARED_TABLES_ROUTES } from "@openownbot/contracts/team-protocol/shared-tables-v1";
-import {
-  type SIGN_IN_RELAY_PROVIDERS,
-  SIGN_IN_RELAY_ROUTES,
-} from "@openownbot/contracts/team-protocol/sign-in-relay-v1";
-import { SKILLS_ADMIN_ROUTES } from "@openownbot/contracts/team-protocol/skills-admin-v1";
-import { STORAGE_ROUTES } from "@openownbot/contracts/team-protocol/storage-v1";
-import type { TeamProtocolV2Json } from "@openownbot/contracts/team-protocol/v2";
-import { VAULT_IMPORT_ROUTES } from "@openownbot/contracts/team-protocol/vault-import-v1";
-import { VAULT_ROUTES } from "@openownbot/contracts/team-protocol/vault-v1";
-import { WEBHOOK_TESTS_ROUTES } from "@openownbot/contracts/team-protocol/webhook-tests-v1";
+} from "@robot/contracts/team-protocol/provider-account-relay-v1";
+import { PROVIDER_ACCOUNTS_ROUTES } from "@robot/contracts/team-protocol/provider-accounts-v1";
+import { PROVIDER_HOST_SIGN_IN_ROUTES } from "@robot/contracts/team-protocol/provider-host-sign-in-v1";
+import { PROVIDER_USAGE_RESET_ROUTES } from "@robot/contracts/team-protocol/provider-usage-reset-v1";
+import { PROVIDERS_ADMIN_ROUTES } from "@robot/contracts/team-protocol/providers-v1";
+import type { PROVIDERS_RUNTIMES_V2_ROUTES } from "@robot/contracts/team-protocol/providers-v2";
+import { PROVIDERS_SIGN_IN_V3_ROUTES } from "@robot/contracts/team-protocol/providers-v3";
+import type { PROVIDERS_V4_ROUTES } from "@robot/contracts/team-protocol/providers-v4";
+import { ROUTINE_RECOVERY_ROUTES } from "@robot/contracts/team-protocol/routine-recovery-v1";
+import { ROUTINE_RESULTS_ROUTES } from "@robot/contracts/team-protocol/routine-results-v1";
+import { SHARED_TABLES_ROUTES } from "@robot/contracts/team-protocol/shared-tables-v1";
+import { type SIGN_IN_RELAY_PROVIDERS, SIGN_IN_RELAY_ROUTES } from "@robot/contracts/team-protocol/sign-in-relay-v1";
+import { SKILLS_ADMIN_ROUTES } from "@robot/contracts/team-protocol/skills-admin-v1";
+import { STORAGE_ROUTES } from "@robot/contracts/team-protocol/storage-v1";
+import type { TeamProtocolV2Json } from "@robot/contracts/team-protocol/v2";
+import { VAULT_IMPORT_ROUTES } from "@robot/contracts/team-protocol/vault-import-v1";
+import { VAULT_ROUTES } from "@robot/contracts/team-protocol/vault-v1";
+import { WEBHOOK_TESTS_ROUTES } from "@robot/contracts/team-protocol/webhook-tests-v1";
 import { Effect, Schema } from "effect";
 import { bytesToBase64 } from "./base64";
 import type { TeamApiRequest } from "./team-api-requests";

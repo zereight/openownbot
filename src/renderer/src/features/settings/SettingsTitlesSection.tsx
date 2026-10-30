@@ -1,6 +1,6 @@
-import { type ClientAgentSummary, LOCAL_SERVER_ID } from "@openownbot/contracts/ipc";
-import { SettingsTitlesTab, type TitleGroup } from "@openownbot/ui/features/settings/SettingsTitlesTab";
-import { currentText } from "@openownbot/ui/text";
+import { type ClientAgentSummary, LOCAL_SERVER_ID } from "@robot/contracts/ipc";
+import { SettingsTitlesTab, type TitleGroup } from "@robot/ui/features/settings/SettingsTitlesTab";
+import { currentText } from "@robot/ui/text";
 import type { JSX } from "@solidjs/web";
 import { createEffect, createStore } from "solid-js";
 import { actionToast } from "../../action-toast";

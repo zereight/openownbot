@@ -24,8 +24,8 @@
 // is a re-tag. A version this build does not know is refused outright: it was written by a newer
 // OpenOwnBot, and guessing at it would replace a file that build can still read.
 
-import type { ServerNotificationLevel, TeamRole } from "@openownbot/contracts/ipc";
-import { LOCAL_SERVER_ID, SERVER_NOTIFICATION_LEVELS } from "@openownbot/contracts/ipc";
+import type { ServerNotificationLevel, TeamRole } from "@robot/contracts/ipc";
+import { LOCAL_SERVER_ID, SERVER_NOTIFICATION_LEVELS } from "@robot/contracts/ipc";
 import {
   type DynamicRecord,
   isBoolean,
@@ -33,7 +33,7 @@ import {
   isNumber,
   isOneOf,
   isString,
-} from "@openownbot/contracts/runtime-values";
+} from "@robot/contracts/runtime-values";
 
 export interface StoredRemoteServer {
   id: string;

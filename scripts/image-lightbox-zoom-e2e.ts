@@ -14,7 +14,7 @@
 // It deletes its channel at the end. Writes .openownbot-build/image-lightbox-zoom-e2e/report.json and screenshots.
 import assert from "node:assert/strict";
 import { resolve } from "node:path";
-import { translateFor } from "@openownbot/i18n";
+import { translateFor } from "@robot/i18n";
 import type { Locator } from "playwright-core";
 import { ChannelClient, connectChannelE2e, waitFor, writeReport } from "./channel-e2e-support";
 

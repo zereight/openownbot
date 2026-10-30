@@ -1,4 +1,4 @@
-import { Heading, SliderField } from "@openownbot/ui";
+import { Heading, SliderField } from "@robot/ui";
 import { createSignal } from "solid-js";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";
 

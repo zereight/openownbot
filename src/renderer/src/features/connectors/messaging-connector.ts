@@ -6,17 +6,17 @@ import type {
   MessagingOverview,
   MessagingPlatform,
   MessagingRole,
-} from "@openownbot/contracts/ipc";
-import { sourceText } from "@openownbot/i18n/source";
-import type { AgentProfile } from "@openownbot/ui/data";
+} from "@robot/contracts/ipc";
+import { sourceText } from "@robot/i18n/source";
+import type { AgentProfile } from "@robot/ui/data";
 import type {
   DiscordAccessControl,
   SlackOrchestratorChoice,
   SlackOrchestratorModels,
   WorkspacePlatform,
-} from "@openownbot/ui/features/settings/SlackIntegrationPanel";
-import type { TelegramChatPlace } from "@openownbot/ui/features/settings/TelegramIntegrationPanel";
-import { currentText } from "@openownbot/ui/text";
+} from "@robot/ui/features/settings/SlackIntegrationPanel";
+import type { TelegramChatPlace } from "@robot/ui/features/settings/TelegramIntegrationPanel";
+import { currentText } from "@robot/ui/text";
 import { createSignal, createStore, untrack } from "solid-js";
 import { type ConnectorController, createConnectorActions } from "./connector-controller";
 

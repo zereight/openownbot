@@ -89,7 +89,7 @@ export type ChatVisualTheme = Record<`--${string}`, string>;
 export type ChatVisualAppearance = "dark" | "light";
 
 /**
- * The app colours from `@openownbot/brand` tokens, for a host that cannot read them from its own
+ * The app colours from `@robot/brand` tokens, for a host that cannot read them from its own
  * styles. The background is the chat canvas.
  */
 const APP_THEMES: Record<ChatVisualAppearance, ChatVisualTheme> = {

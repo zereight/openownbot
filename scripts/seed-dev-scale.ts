@@ -11,8 +11,8 @@ import {
   type ChannelMessage,
   type ChannelTask,
   type ConversationMessage,
-} from "@openownbot/contracts/ipc";
-import { isOneOf } from "@openownbot/contracts/runtime-values";
+} from "@robot/contracts/ipc";
+import { isOneOf } from "@robot/contracts/runtime-values";
 import { strToU8, zlibSync } from "fflate";
 import type { AgentStore } from "../src/backend/agent-store";
 import { ChannelStore } from "../src/backend/channel-store";

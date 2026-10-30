@@ -1,4 +1,4 @@
-import { isDynamicRecord, isString } from "@openownbot/contracts/runtime-values";
+import { isDynamicRecord, isString } from "@robot/contracts/runtime-values";
 import type { JSX } from "@solidjs/web";
 import { Link } from "@tanstack/solid-router";
 import { createSignal, createUniqueId, For, Show } from "solid-js";

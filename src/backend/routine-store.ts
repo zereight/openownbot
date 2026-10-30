@@ -1,5 +1,5 @@
 import { randomUUID } from "node:crypto";
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
 import type {
   RoutineFields,
   RoutineLimitPolicy,
@@ -8,17 +8,17 @@ import type {
   RoutineRunSource,
   RoutineRunStatus,
   RoutineSchedule,
-} from "@openownbot/contracts/ipc";
+} from "@robot/contracts/ipc";
 import {
   isRoutineSchedule,
   ROUTINE_LIMIT_POLICIES,
   ROUTINE_MISSED_COUNT_LIMIT,
   ROUTINE_MISSED_POLICIES,
   ROUTINE_RUN_SOURCES,
-} from "@openownbot/contracts/ipc";
-import type { EventFilter, EventJsonValue, EventRoutineOwner } from "@openownbot/contracts/ipc-events";
-import { type DynamicRecord, isDynamicRecord, isOneOf, isString } from "@openownbot/contracts/runtime-values";
-import { sourceText } from "@openownbot/i18n/source";
+} from "@robot/contracts/ipc";
+import type { EventFilter, EventJsonValue, EventRoutineOwner } from "@robot/contracts/ipc-events";
+import { type DynamicRecord, isDynamicRecord, isOneOf, isString } from "@robot/contracts/runtime-values";
+import { sourceText } from "@robot/i18n/source";
 import {
   nextRoutineOccurrence,
   nextValidRoutineOccurrence,
@@ -27,7 +27,7 @@ import {
   routineOnceInstant,
   validateRoutineSchedule,
   validateStoredRoutineSchedule,
-} from "@openownbot/team-client/routine-schedule";
+} from "@robot/team-client/routine-schedule";
 import {
   databaseRows,
   optionalStringColumn,

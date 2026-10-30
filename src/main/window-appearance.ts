@@ -2,7 +2,7 @@ import {
   type AppAppearancePreference,
   DEFAULT_APP_APPEARANCE,
   DEFAULT_TRANSPARENT_WINDOW,
-} from "@openownbot/contracts/app-appearance";
+} from "@robot/contracts/app-appearance";
 import { type BrowserWindow, nativeTheme } from "electron";
 
 /** The light canvas, `--openownbot-bg-canvas` in `tokens-light.css`, so a light window opens without a dark frame. */

@@ -8,18 +8,18 @@
 // returns a decoded value or throws one of `remote-server-errors.ts`. Deciding what a throw means for
 // the user is `remote-server-connection-status.ts`; deciding which server to ask is the caller's.
 
-import { isDynamicRecord, isString } from "@openownbot/contracts/runtime-values";
-import type { TeamCurrentCapability } from "@openownbot/contracts/team-protocol/current";
-import { teamHttpCodec } from "@openownbot/contracts/team-protocol/http-codecs";
-import { teamSideRouteCodec } from "@openownbot/contracts/team-protocol/side-routes";
+import { isDynamicRecord, isString } from "@robot/contracts/runtime-values";
+import type { TeamCurrentCapability } from "@robot/contracts/team-protocol/current";
+import { teamHttpCodec } from "@robot/contracts/team-protocol/http-codecs";
+import { teamSideRouteCodec } from "@robot/contracts/team-protocol/side-routes";
 import {
   TEAM_APP_VERSION_HEADER,
   TEAM_CAPABILITIES_HEADER,
   TEAM_PROTOCOL_VERSION_HEADER,
-} from "@openownbot/contracts/team-protocol/v1";
-import { decodeTeamProtocolV1CurrentHttpResponse } from "@openownbot/contracts/team-protocol/v1-adapter";
-import { decodeTeamProtocolV2Json, type TeamProtocolV2Json } from "@openownbot/contracts/team-protocol/v2";
-import { sourceText } from "@openownbot/i18n/source";
+} from "@robot/contracts/team-protocol/v1";
+import { decodeTeamProtocolV1CurrentHttpResponse } from "@robot/contracts/team-protocol/v1-adapter";
+import { decodeTeamProtocolV2Json, type TeamProtocolV2Json } from "@robot/contracts/team-protocol/v2";
+import { sourceText } from "@robot/i18n/source";
 import { Effect, Result, Schema } from "effect";
 import type { ResponseDecoder } from "./remote-host-decoding";
 import { RemoteProtocolError, RemoteRequestError } from "./remote-server-errors";

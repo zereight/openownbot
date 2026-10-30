@@ -1,5 +1,5 @@
-import { AGENT_CONTEXT_CATEGORIES, type AgentContextCategory, type AgentContextState } from "@openownbot/contracts/ipc";
-import type { AppTextKey } from "@openownbot/i18n";
+import { AGENT_CONTEXT_CATEGORIES, type AgentContextCategory, type AgentContextState } from "@robot/contracts/ipc";
+import type { AppTextKey } from "@robot/i18n";
 import {
   Button,
   CircleCheck,
@@ -12,8 +12,8 @@ import {
   RadialProgress,
   type RadialProgressTone,
   TriangleAlert,
-} from "@openownbot/ui";
-import { ContentExitMotion } from "@openownbot/ui/menu-motion";
+} from "@robot/ui";
+import { ContentExitMotion } from "@robot/ui/menu-motion";
 import { createEffect, createSignal, For, Match, Show, Switch } from "solid-js";
 import type { AgentProfile } from "../../data";
 import { useText } from "../../text";

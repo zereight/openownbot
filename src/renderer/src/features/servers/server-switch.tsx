@@ -1,4 +1,4 @@
-import type { DynamicIslandAction } from "@openownbot/contracts/ipc";
+import type { DynamicIslandAction } from "@robot/contracts/ipc";
 import { createSignal } from "solid-js";
 import { createSimpleContext } from "../../simple-context";
 

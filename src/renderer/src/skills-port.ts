@@ -4,7 +4,7 @@ import type {
   OpenOwnBotDesktopApi,
   SetEnabledSkillInput,
   UninstallSkillInput,
-} from "@openownbot/contracts/ipc";
+} from "@robot/contracts/ipc";
 
 /**
  * What the skill screens reach in main: the marketplace, the agent skills dialog and the local

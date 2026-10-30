@@ -1,4 +1,4 @@
-import type { AgentProviderId, ClientAgentModelOption, CustomProviderSummary } from "@openownbot/contracts/ipc";
+import type { AgentProviderId, ClientAgentModelOption, CustomProviderSummary } from "@robot/contracts/ipc";
 import {
   agentProviderName,
   CUSTOM_AGENT_DEFAULT_MODEL,
@@ -6,8 +6,8 @@ import {
   isCustomProviderModelId,
   isFreeOpencodeModel,
   isKnownAgentProvider,
-} from "@openownbot/contracts/ipc";
-import type { AppTextKey } from "@openownbot/i18n";
+} from "@robot/contracts/ipc";
+import type { AppTextKey } from "@robot/i18n";
 import { currentText } from "../text";
 
 /** The efforts that have a name in the catalog. The other efforts show their id. */

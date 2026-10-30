@@ -5,7 +5,7 @@
  * up as a type error at every site that builds one.
  */
 
-import { SIDEBAR_PEOPLE_SECTION_ID } from "@openownbot/contracts/ipc";
+import { SIDEBAR_PEOPLE_SECTION_ID } from "@robot/contracts/ipc";
 
 export interface DragSlot {
   bottom: number;

@@ -1,7 +1,7 @@
 import { lstatSync } from "node:fs";
 import { mkdir } from "node:fs/promises";
 import { dirname, relative, resolve, sep } from "node:path";
-import { dummyLogger, type Logger, redactText } from "@openownbot/logging";
+import { dummyLogger, type Logger, redactText } from "@robot/logging";
 import type { Page } from "playwright-core";
 import { describeTarget } from "./page-url";
 

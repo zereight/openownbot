@@ -9,8 +9,8 @@
  * as the agent rows around it, and it counts the members it cannot show.
  */
 
-import type { ChannelMember } from "@openownbot/contracts/ipc";
-import { UsersRound } from "@openownbot/ui";
+import type { ChannelMember } from "@robot/contracts/ipc";
+import { UsersRound } from "@robot/ui";
 import { For, Show } from "solid-js";
 import type { AgentProfile } from "../../data";
 import { AgentAvatar } from "../agents/AgentAvatar";

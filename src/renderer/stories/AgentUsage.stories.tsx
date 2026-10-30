@@ -1,4 +1,4 @@
-import { emptyAnalyticsTotals, type HostAnalytics } from "@openownbot/contracts/ipc";
+import { emptyAnalyticsTotals, type HostAnalytics } from "@robot/contracts/ipc";
 import { onCleanup } from "solid-js";
 import { fn } from "storybook/test";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";

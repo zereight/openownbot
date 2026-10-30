@@ -42,7 +42,7 @@ export function isGlobalSearchShortcut(input: BrowserShortcutInput): boolean {
  * A key of the full browser view, as other browsers have them: new, reopen, close and select tab,
  * address, reload, back and forward. The page has the focus nearly all the time, so the host sends
  * these keys on to the window, where the view acts on them. `browser-view-shortcuts.ts` in
- * `@openownbot/ui` reads the same keys.
+ * `@robot/ui` reads the same keys.
  */
 export function isBrowserViewShortcut(input: BrowserShortcutInput, mac: boolean): boolean {
   if (input.type !== "keyDown") return false;

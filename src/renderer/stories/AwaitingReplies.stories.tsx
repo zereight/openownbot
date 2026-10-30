@@ -1,5 +1,5 @@
-import type { AgentProfile } from "@openownbot/ui/data";
-import { AwaitingReplies, type AwaitingReplyItem } from "@openownbot/ui/features/conversation/AwaitingReplies";
+import type { AgentProfile } from "@robot/ui/data";
+import { AwaitingReplies, type AwaitingReplyItem } from "@robot/ui/features/conversation/AwaitingReplies";
 import { fn } from "storybook/test";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";
 import { requireFixture, STORY_AGENTS } from "../src/preview/fixtures";

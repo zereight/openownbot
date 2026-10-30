@@ -18,8 +18,8 @@ import { readFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { setTimeout as delay } from "node:timers/promises";
 import { fileURLToPath } from "node:url";
-import { type DynamicRecord, isDynamicRecord, isString } from "@openownbot/contracts/runtime-values";
-import { createOpenOwnBotLogger, registerSecretValue, toLogValue } from "@openownbot/logging";
+import { type DynamicRecord, isDynamicRecord, isString } from "@robot/contracts/runtime-values";
+import { createOpenOwnBotLogger, registerSecretValue, toLogValue } from "@robot/logging";
 
 const logger = createOpenOwnBotLogger("build-boat-template");
 const BOAT_API_URL = "https://boat.dev/api/v1";

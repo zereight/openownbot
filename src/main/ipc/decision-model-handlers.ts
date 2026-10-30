@@ -1,6 +1,6 @@
 // The fast decision model that picks the member for a channel request. Keys enter main here and stay in main.
 
-import type { DecisionModelState, DecisionModelTestResult } from "@openownbot/contracts/ipc";
+import type { DecisionModelState, DecisionModelTestResult } from "@robot/contracts/ipc";
 import { DECISION_TIMEOUT_MS, type DecisionMember, decideMember } from "../../backend/channel-decision";
 import { runCauseEffect } from "../../backend/effect-boundary";
 import type { DecisionModelStore } from "../decision-model-store";

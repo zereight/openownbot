@@ -82,7 +82,7 @@ mock. The separate web preview implements the browser runtime with that same moc
 - The rail order is kept in this browser, per account. The server menu has Mute, Notification
   settings, Usage and Settings. Mute and notification level are kept in this browser, per account
   and host (`web-notification-preferences.ts`). They control browser notifications and the
-  completion sound, with the same rules as the desktop (`@openownbot/team-client/agent-notifications`).
+  completion sound, with the same rules as the desktop (`@robot/team-client/agent-notifications`).
   A browser notification shows only while a tab is open and no tab of the app has focus; the tabs
   share the focused tab in local storage, because the tab that speaks for a host is often in the
   background. The browser asks for permission on the first prompt that the user sends, or when the

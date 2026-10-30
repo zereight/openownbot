@@ -1,11 +1,11 @@
-import { Text } from "@openownbot/ui";
-import { RoutineSchedulePicker } from "@openownbot/ui/features/conversation/RoutineSchedulePicker";
+import { Text } from "@robot/ui";
+import { RoutineSchedulePicker } from "@robot/ui/features/conversation/RoutineSchedulePicker";
 import {
   ROUTINE_EVERY_DAY,
   ROUTINE_WORKDAYS,
   type RoutineScheduleDraft,
   routineDraftSummary,
-} from "@openownbot/ui/features/conversation/routine-schedule-draft";
+} from "@robot/ui/features/conversation/routine-schedule-draft";
 import { createSignal } from "solid-js";
 import { fn } from "storybook/test";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";

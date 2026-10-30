@@ -12,7 +12,7 @@ import {
   type WorkflowNode,
   type WorkflowNodeKind,
   type WorkflowNodeSize,
-} from "@openownbot/contracts/ipc";
+} from "@robot/contracts/ipc";
 import { createSignal } from "solid-js";
 import type { BoardSnapshot, WfnFields, WfnPoint, WfnSize } from "./workflow-board";
 import type { Stroke } from "./workflow-ink";

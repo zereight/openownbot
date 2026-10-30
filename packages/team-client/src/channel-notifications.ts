@@ -1,10 +1,5 @@
-import type {
-  ChannelPreview,
-  ChannelSummary,
-  ClientAgentSummary,
-  ServerNotificationLevel,
-} from "@openownbot/contracts/ipc";
-import type { AppTranslate } from "@openownbot/i18n";
+import type { ChannelPreview, ChannelSummary, ClientAgentSummary, ServerNotificationLevel } from "@robot/contracts/ipc";
+import type { AppTranslate } from "@robot/i18n";
 import { type AgentNotificationChannel, plainPreview } from "./agent-notifications";
 
 export interface ChannelNotificationContent {

@@ -3,7 +3,7 @@ import {
   type LiveActivityKeys,
   liveActivityHostSecret,
   liveActivityKeys,
-} from "@openownbot/team-client/live-activity-seal";
+} from "@robot/team-client/live-activity-seal";
 import * as Crypto from "expo-crypto";
 import * as SecureStore from "expo-secure-store";
 import { untilForeground } from "../../../shared/lib/until-foreground";

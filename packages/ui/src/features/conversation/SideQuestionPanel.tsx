@@ -1,11 +1,11 @@
-import { ArrowUp, Button, MessageCircleQuestionMark, X } from "@openownbot/ui";
-import type { AgentMessage, AgentProfile } from "@openownbot/ui/data";
-import { AgentActivityIndicator, nextAgentActivityLabel } from "@openownbot/ui/features/conversation/AgentActivity";
-import { ChatMessageRow } from "@openownbot/ui/features/conversation/ChatMessageRow";
-import { ComposerEditor } from "@openownbot/ui/features/conversation/ComposerEditor";
-import { ComposerNotice } from "@openownbot/ui/features/conversation/ComposerNotice";
-import { formatChatTimestamp } from "@openownbot/ui/features/conversation/chat-timestamp";
-import { useText } from "@openownbot/ui/text";
+import { ArrowUp, Button, MessageCircleQuestionMark, X } from "@robot/ui";
+import type { AgentMessage, AgentProfile } from "@robot/ui/data";
+import { AgentActivityIndicator, nextAgentActivityLabel } from "@robot/ui/features/conversation/AgentActivity";
+import { ChatMessageRow } from "@robot/ui/features/conversation/ChatMessageRow";
+import { ComposerEditor } from "@robot/ui/features/conversation/ComposerEditor";
+import { ComposerNotice } from "@robot/ui/features/conversation/ComposerNotice";
+import { formatChatTimestamp } from "@robot/ui/features/conversation/chat-timestamp";
+import { useText } from "@robot/ui/text";
 import { For, onSettled, Show } from "solid-js";
 import { createScrollFades } from "../../components/createScrollFades";
 

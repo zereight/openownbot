@@ -1,10 +1,10 @@
 import { KeyboardAwareLegendList } from "@legendapp/list/keyboard";
 import type { AnchoredEndSpaceConfig } from "@legendapp/list/react-native";
-import { expandAttachmentReferences } from "@openownbot/contracts/attachment-references";
-import { expandChatTagReferences } from "@openownbot/contracts/chat-tag-references";
-import type { AttachmentSummary, BrowserTakeoverRequest } from "@openownbot/contracts/ipc";
-import { markdownPlainText } from "@openownbot/contracts/markdown-preview-text";
-import type { MobileTextKey } from "@openownbot/i18n/mobile";
+import { expandAttachmentReferences } from "@robot/contracts/attachment-references";
+import { expandChatTagReferences } from "@robot/contracts/chat-tag-references";
+import type { AttachmentSummary, BrowserTakeoverRequest } from "@robot/contracts/ipc";
+import { markdownPlainText } from "@robot/contracts/markdown-preview-text";
+import type { MobileTextKey } from "@robot/i18n/mobile";
 import { useIsFocused } from "expo-router";
 import { Button, Typography } from "heroui-native";
 import type { LucideIcon } from "lucide-react-native";

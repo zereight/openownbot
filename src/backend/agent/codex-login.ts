@@ -1,6 +1,6 @@
-import type { ProviderCodeLoginStart } from "@openownbot/contracts/ipc";
-import { sourceText } from "@openownbot/i18n/source";
-import { classifyUserError } from "@openownbot/user-errors";
+import type { ProviderCodeLoginStart } from "@robot/contracts/ipc";
+import { sourceText } from "@robot/i18n/source";
+import { classifyUserError } from "@robot/user-errors";
 import { Deferred, Effect, Result, Schema } from "effect";
 import type { AgentClient } from "./../agent-client";
 import { type CodexCliInfo, resolveCodexCli } from "./../cli";

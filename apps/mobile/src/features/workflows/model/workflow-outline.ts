@@ -7,8 +7,8 @@ import {
   type WorkflowNodeKind,
   workflowGraphProblem,
   workflowLoopEdges,
-} from "@openownbot/contracts/ipc";
-import { isOneOf } from "@openownbot/contracts/runtime-values";
+} from "@robot/contracts/ipc";
+import { isOneOf } from "@robot/contracts/runtime-values";
 
 /**
  * The phone edits a workflow as lists of steps, not as a canvas. A graph of this shape becomes an

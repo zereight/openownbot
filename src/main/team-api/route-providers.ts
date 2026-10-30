@@ -5,39 +5,39 @@ import {
   MANAGED_RUNTIME_PROVIDERS,
   MANAGED_TOOL_RUNTIMES,
   type ManagedProviderId,
-} from "@openownbot/contracts/agent-providers";
+} from "@robot/contracts/agent-providers";
 import type {
   CustomProviderModel,
   CustomProviderResult,
   CustomProviderSummary,
   ProviderRuntimeSnapshot,
   ProviderRuntimeStatus,
-} from "@openownbot/contracts/ipc";
-import { type DynamicRecord, isOneOf } from "@openownbot/contracts/runtime-values";
-import { PROVIDERS_ADMIN_CAPABILITY, PROVIDERS_ADMIN_ROUTES } from "@openownbot/contracts/team-protocol/providers-v1";
+} from "@robot/contracts/ipc";
+import { type DynamicRecord, isOneOf } from "@robot/contracts/runtime-values";
+import { PROVIDERS_ADMIN_CAPABILITY, PROVIDERS_ADMIN_ROUTES } from "@robot/contracts/team-protocol/providers-v1";
 import {
   PROVIDERS_RUNTIMES_V2_CAPABILITY,
   PROVIDERS_RUNTIMES_V2_ROUTES,
-} from "@openownbot/contracts/team-protocol/providers-v2";
+} from "@robot/contracts/team-protocol/providers-v2";
 import {
   PROVIDERS_SIGN_IN_V3_CAPABILITY,
   PROVIDERS_SIGN_IN_V3_PROVIDERS,
   PROVIDERS_SIGN_IN_V3_ROUTES,
-} from "@openownbot/contracts/team-protocol/providers-v3";
+} from "@robot/contracts/team-protocol/providers-v3";
 import {
   PROVIDERS_V4_CAPABILITY,
   PROVIDERS_V4_ROUTES,
   PROVIDERS_V4_RUNTIME_PROVIDERS,
   PROVIDERS_V4_SIGN_IN_PROVIDERS,
-} from "@openownbot/contracts/team-protocol/providers-v4";
+} from "@robot/contracts/team-protocol/providers-v4";
 import {
   PROVIDERS_V5_CAPABILITY,
   PROVIDERS_V5_ROUTES,
   PROVIDERS_V5_RUNTIME_PROVIDERS,
-} from "@openownbot/contracts/team-protocol/providers-v5";
-import { PROVIDERS_V8_CAPABILITY, PROVIDERS_V8_ROUTES } from "@openownbot/contracts/team-protocol/providers-v8";
-import { sourceText } from "@openownbot/i18n/source";
-import { redactText, registerSecretValue } from "@openownbot/logging";
+} from "@robot/contracts/team-protocol/providers-v5";
+import { PROVIDERS_V8_CAPABILITY, PROVIDERS_V8_ROUTES } from "@robot/contracts/team-protocol/providers-v8";
+import { sourceText } from "@robot/i18n/source";
+import { redactText, registerSecretValue } from "@robot/logging";
 import { Effect } from "effect";
 import { normalizePastedCode } from "../../backend/agent/cli-code-login";
 import { AgentLifecycleFailed } from "../../backend/agent-service";

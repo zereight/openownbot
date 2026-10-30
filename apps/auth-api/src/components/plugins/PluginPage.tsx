@@ -1,4 +1,4 @@
-import { createOpenOwnBotPluginUrl, createWebAppPluginPath, pluginLinkText } from "@openownbot/contracts/plugin-links";
+import { createOpenOwnBotPluginUrl, createWebAppPluginPath, pluginLinkText } from "@robot/contracts/plugin-links";
 import type { JSX } from "@solidjs/web";
 import { Link } from "@tanstack/solid-router";
 import { For, onSettled, Show } from "solid-js";

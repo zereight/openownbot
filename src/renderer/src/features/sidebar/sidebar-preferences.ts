@@ -2,7 +2,7 @@ import {
   normalizeSidebarPinnedItems,
   type SidebarPinnedItem,
   sidebarPinnedItemKey,
-} from "@openownbot/ui/features/sidebar/sidebar-pins";
+} from "@robot/ui/features/sidebar/sidebar-pins";
 import { createMemo, createSignal } from "solid-js";
 import { readSidebarPins, type SidebarPinsByServer, writeSidebarPins } from "./sidebar-pins-storage";
 import { readSidebarCollapsed, type SidebarCollapsedByServer, writeSidebarCollapsed } from "./sidebar-sections-storage";

@@ -1,4 +1,4 @@
-import type { OpenOwnBotDesktopApi } from "@openownbot/contracts/ipc";
+import type { OpenOwnBotDesktopApi } from "@robot/contracts/ipc";
 
 /**
  * What Computer Use reaches in main: the driver state, the macOS permission panes and helper, and

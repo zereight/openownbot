@@ -1,6 +1,6 @@
-import type { UiBlockStatus } from "@openownbot/contracts/ui-blocks";
-import type { AppTextKey } from "@openownbot/i18n";
-import { Badge, Button, Check, CircleCheck, Clock3, LoaderCircle, X } from "@openownbot/ui";
+import type { UiBlockStatus } from "@robot/contracts/ui-blocks";
+import type { AppTextKey } from "@robot/i18n";
+import { Badge, Button, Check, CircleCheck, Clock3, LoaderCircle, X } from "@robot/ui";
 import type { JSX } from "@solidjs/web";
 import { createUniqueId, Match, Show, Switch } from "solid-js";
 import { useText } from "../../../text";

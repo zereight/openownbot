@@ -15,9 +15,9 @@ import type {
   CustomProviderSummary,
   SaveCustomProviderInput,
   UpdateCustomProviderInput,
-} from "@openownbot/contracts/ipc";
-import { isCustomProviderContextWindow, sameCustomProviderOrigin } from "@openownbot/contracts/ipc";
-import { sourceText } from "@openownbot/i18n/source";
+} from "@robot/contracts/ipc";
+import { isCustomProviderContextWindow, sameCustomProviderOrigin } from "@robot/contracts/ipc";
+import { sourceText } from "@robot/i18n/source";
 import { Effect, Schema, Semaphore } from "effect";
 import { z } from "zod";
 import { writeFileAtomically } from "../backend/atomic-json-file";

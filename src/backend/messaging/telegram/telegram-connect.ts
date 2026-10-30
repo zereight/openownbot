@@ -1,4 +1,4 @@
-import type { ConnectTelegramChatInput } from "@openownbot/contracts/ipc";
+import type { ConnectTelegramChatInput } from "@robot/contracts/ipc";
 import type { Effect } from "effect";
 import type { MessagingOperationFailed } from "../messaging-service";
 

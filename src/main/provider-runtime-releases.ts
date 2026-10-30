@@ -1,7 +1,7 @@
-import { MANAGED_RUNTIME_PROVIDERS, type ManagedProviderId } from "@openownbot/contracts/ipc";
-import { LOCAL_ONLY } from "@openownbot/contracts/local-only";
-import { type DynamicRecord, isDynamicRecord, isNumber, isString } from "@openownbot/contracts/runtime-values";
-import { sourceText } from "@openownbot/i18n/source";
+import { MANAGED_RUNTIME_PROVIDERS, type ManagedProviderId } from "@robot/contracts/ipc";
+import { LOCAL_ONLY } from "@robot/contracts/local-only";
+import { type DynamicRecord, isDynamicRecord, isNumber, isString } from "@robot/contracts/runtime-values";
+import { sourceText } from "@robot/i18n/source";
 import { Effect } from "effect";
 import type { AgentRuntimeLock } from "../../scripts/agent-runtime-lock";
 import {

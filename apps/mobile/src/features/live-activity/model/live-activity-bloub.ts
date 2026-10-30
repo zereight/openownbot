@@ -1,7 +1,7 @@
 import { BotEngine } from "@norbert_bodziony/bloub";
-import { type AvatarMood, avatarMoodPresentation } from "@openownbot/brand/bloub-avatar-motion";
-import { padlockEyePath } from "@openownbot/brand/bloub-padlock-eye";
-import type { AvatarHue } from "@openownbot/contracts/ipc";
+import { type AvatarMood, avatarMoodPresentation } from "@robot/brand/bloub-avatar-motion";
+import { padlockEyePath } from "@robot/brand/bloub-padlock-eye";
+import type { AvatarHue } from "@robot/contracts/ipc";
 import { ImageFormat, Skia } from "@shopify/react-native-skia";
 import { bloubActivityGeometry, getBloubAvatarColor } from "@/features/agents/model/bloub-activity";
 

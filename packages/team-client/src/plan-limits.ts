@@ -7,8 +7,8 @@ import {
   type HostProviderAccounts,
   isAccountUsage,
   isAgentProvider,
-} from "@openownbot/contracts/ipc";
-import { TEAM_API_ROUTES } from "@openownbot/contracts/team-api-routes";
+} from "@robot/contracts/ipc";
+import { TEAM_API_ROUTES } from "@robot/contracts/team-api-routes";
 import { Effect, Schema } from "effect";
 import { listProviderAccounts, providerAccountUsage } from "./team-admin-requests";
 import type { TeamApiRequest } from "./team-api-requests";

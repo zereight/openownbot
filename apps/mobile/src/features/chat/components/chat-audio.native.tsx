@@ -1,4 +1,4 @@
-import type { AttachmentSummary } from "@openownbot/contracts/ipc";
+import type { AttachmentSummary } from "@robot/contracts/ipc";
 import * as Sharing from "expo-sharing";
 import { useVideoPlayer, type VideoPlayer } from "expo-video";
 import { Button, Spinner, Typography } from "heroui-native";

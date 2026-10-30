@@ -10,9 +10,9 @@
  * closes the dialog and becomes a notification the store raises.
  */
 
-import type { AgentProviderId } from "@openownbot/contracts/ipc";
-import type { ProviderCodeLoginState } from "@openownbot/ui/components/ProviderCodeLoginDialog";
-import type { ProviderConnection } from "@openownbot/ui/components/ProviderPicker";
+import type { AgentProviderId } from "@robot/contracts/ipc";
+import type { ProviderCodeLoginState } from "@robot/ui/components/ProviderCodeLoginDialog";
+import type { ProviderConnection } from "@robot/ui/components/ProviderPicker";
 
 export type ProviderCodeLoginOpener = "composer";
 

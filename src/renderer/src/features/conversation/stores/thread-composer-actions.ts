@@ -1,9 +1,9 @@
-import { attachmentReferenceIds, serializeAttachmentReference } from "@openownbot/contracts/attachment-references";
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
-import type { DraftAttachment } from "@openownbot/contracts/ipc";
-import type { ComposerPasteResult, ComposerSelection } from "@openownbot/ui/features/conversation/ComposerEditor";
-import { DRAFT_THREAD_ID } from "@openownbot/ui/features/conversation/threads/thread-types";
-import { currentText } from "@openownbot/ui/text";
+import { attachmentReferenceIds, serializeAttachmentReference } from "@robot/contracts/attachment-references";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
+import type { DraftAttachment } from "@robot/contracts/ipc";
+import type { ComposerPasteResult, ComposerSelection } from "@robot/ui/features/conversation/ComposerEditor";
+import { DRAFT_THREAD_ID } from "@robot/ui/features/conversation/threads/thread-types";
+import { currentText } from "@robot/ui/text";
 import { actionToast } from "../../../action-toast";
 import { EMPTY_DRAFT } from "../composer-draft";
 import { threadDraftKey } from "../conversation-keys";

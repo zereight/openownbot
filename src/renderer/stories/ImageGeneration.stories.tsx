@@ -1,5 +1,5 @@
-import type { AttachmentSummary } from "@openownbot/contracts/ipc";
-import { ImageGeneration, type ImageGenerationProps } from "@openownbot/ui/features/conversation/ImageGeneration";
+import type { AttachmentSummary } from "@robot/contracts/ipc";
+import { ImageGeneration, type ImageGenerationProps } from "@robot/ui/features/conversation/ImageGeneration";
 import { fn } from "storybook/test";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";
 

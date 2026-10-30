@@ -1,5 +1,5 @@
-import type { ProviderLogoVariant } from "@openownbot/brand";
-import { APP_LANGUAGES } from "@openownbot/contracts/app-language";
+import type { ProviderLogoVariant } from "@robot/brand";
+import { APP_LANGUAGES } from "@robot/contracts/app-language";
 import type { RivalMarkName } from "../../components/compare/rival-mark-shapes";
 import type { LandingIconName } from "../../components/landing/LandingIcon";
 

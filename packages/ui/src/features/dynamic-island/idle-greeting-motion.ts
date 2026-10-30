@@ -3,8 +3,8 @@
 // than a curve per keyframe. The card turns in 3D to its back face; the moment it is edge-on is hidden
 // by a small blur, from how fast it turns, and a small scale dip.
 
-import { springProgress } from "@openownbot/ui/spring-motion";
-import { clamp } from "@openownbot/ui/utils";
+import { springProgress } from "@robot/ui/spring-motion";
+import { clamp } from "@robot/ui/utils";
 
 export type IdleGreetingMotionName = "wave" | "smile" | "cheer" | "sparkles";
 

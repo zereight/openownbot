@@ -7,8 +7,8 @@
  * There it does not drag, and it has the same badge, chip and tooltip as the agent row.
  */
 
-import type { ChannelSummary } from "@openownbot/contracts/ipc";
-import { Badge, buttonVariants, ContextMenu } from "@openownbot/ui";
+import type { ChannelSummary } from "@robot/contracts/ipc";
+import { Badge, buttonVariants, ContextMenu } from "@robot/ui";
 import type { JSX } from "@solidjs/web";
 import { createSignal, Show } from "solid-js";
 import { useText } from "../../text";

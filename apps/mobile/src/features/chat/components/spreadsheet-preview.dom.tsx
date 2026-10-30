@@ -1,6 +1,6 @@
 "use dom";
 
-import { parseSpreadsheet, type SpreadsheetData } from "@openownbot/contracts/spreadsheet-workbook";
+import { parseSpreadsheet, type SpreadsheetData } from "@robot/contracts/spreadsheet-workbook";
 import { useMemo, useState } from "react";
 import { base64Bytes } from "../model/base64-bytes";
 

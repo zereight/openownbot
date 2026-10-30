@@ -1,4 +1,4 @@
-import { PRODUCT_NAME } from "@openownbot/contracts/product";
+import { PRODUCT_NAME } from "@robot/contracts/product";
 import * as Application from "expo-application";
 import Constants from "expo-constants";
 import { Typography } from "heroui-native";

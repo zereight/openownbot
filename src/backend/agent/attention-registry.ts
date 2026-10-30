@@ -13,9 +13,9 @@ import type {
   RespondToApprovalInput,
   RespondToBrowserTakeoverInput,
   RespondToPromptInput,
-} from "@openownbot/contracts/ipc";
-import { AGENT_RUNTIME_ATTENTION_LIMIT, BROWSER_TAKEOVER_REASONS } from "@openownbot/contracts/ipc";
-import { type DynamicRecord, isOneOf } from "@openownbot/contracts/runtime-values";
+} from "@robot/contracts/ipc";
+import { AGENT_RUNTIME_ATTENTION_LIMIT, BROWSER_TAKEOVER_REASONS } from "@robot/contracts/ipc";
+import { type DynamicRecord, isOneOf } from "@robot/contracts/runtime-values";
 import {
   type ConversationUiBlock,
   normalizeConversationUiBlock,
@@ -32,9 +32,9 @@ import {
   uiBlockOutcomeText,
   uiBlockResponseFromAnswers,
   validateUiBlockResponse,
-} from "@openownbot/contracts/ui-blocks";
-import { sourceText } from "@openownbot/i18n/source";
-import { createOpenOwnBotLogger, redactText, toLogValue } from "@openownbot/logging";
+} from "@robot/contracts/ui-blocks";
+import { sourceText } from "@robot/i18n/source";
+import { createOpenOwnBotLogger, redactText, toLogValue } from "@robot/logging";
 import { Deferred, Effect, Result, Schema } from "effect";
 import type { AgentApiKeys } from "../agent-api-keys";
 import type { AgentClient } from "../agent-client";

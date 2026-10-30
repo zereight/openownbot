@@ -1,5 +1,5 @@
-import type { AgentModelId, AgentProviderId, AppSetupState } from "@openownbot/contracts/ipc";
-import { errorReference } from "@openownbot/user-errors";
+import type { AgentModelId, AgentProviderId, AppSetupState } from "@robot/contracts/ipc";
+import { errorReference } from "@robot/user-errors";
 import { createSignal, createStore, onSettled } from "solid-js";
 import { createSimpleContext } from "../../simple-context";
 import { firstRunTransition } from "./first-run-transition";

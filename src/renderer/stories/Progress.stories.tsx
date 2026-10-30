@@ -1,4 +1,4 @@
-import { Heading, Progress, RadialProgress, Text } from "@openownbot/ui";
+import { Heading, Progress, RadialProgress, Text } from "@robot/ui";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";
 
 const meta = {

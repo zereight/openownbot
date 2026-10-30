@@ -1,6 +1,6 @@
 import { Host, Switch } from "@expo/ui";
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
-import type { MobileTextKey } from "@openownbot/i18n/mobile";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
+import type { MobileTextKey } from "@robot/i18n/mobile";
 import {
   ROUTINE_EVERY_DAY,
   ROUTINE_EVERY_HOURS,
@@ -12,7 +12,7 @@ import {
   routineYearlyDaysInMonth,
   sameRoutineDays,
   toggleRoutineDay,
-} from "@openownbot/team-client/routine-schedule-draft";
+} from "@robot/team-client/routine-schedule-draft";
 import { Typography } from "heroui-native";
 import type { ReactNode } from "react";
 import { Pressable, View } from "react-native";

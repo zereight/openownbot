@@ -19,8 +19,8 @@ import assert from "node:assert/strict";
 import { execFileSync } from "node:child_process";
 import { existsSync, readFileSync, rmSync } from "node:fs";
 import { join } from "node:path";
-import { agentProviderDescriptor, isAgentProvider } from "@openownbot/contracts/agent-providers";
-import type { AgentTask, ConversationMessage, ConversationSnapshot } from "@openownbot/contracts/ipc";
+import { agentProviderDescriptor, isAgentProvider } from "@robot/contracts/agent-providers";
+import type { AgentTask, ConversationMessage, ConversationSnapshot } from "@robot/contracts/ipc";
 import { argument, connectChannelE2e, LONG_PROMPT, waitFor, writeReport } from "./channel-e2e-support";
 
 const agentArgument = argument("agent");

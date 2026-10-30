@@ -1,7 +1,7 @@
 /** The zoom bar of the canvas: zoom out, the zoom menu, zoom in, zoom to fit, and the minimap. */
 
-import type { AppTextKey } from "@openownbot/i18n";
-import { buttonVariants, DropdownMenu, Kbd, MapIcon, Minus, Plus, Scan } from "@openownbot/ui";
+import type { AppTextKey } from "@robot/i18n";
+import { buttonVariants, DropdownMenu, Kbd, MapIcon, Minus, Plus, Scan } from "@robot/ui";
 import { For } from "solid-js";
 import { useText } from "../../text";
 import { HudButton, hudBarRect } from "./WorkflowCanvasHud";

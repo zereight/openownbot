@@ -1,4 +1,4 @@
-import type { DynamicIslandStateChangeReason, DynamicIslandViewState } from "@openownbot/ui";
+import type { DynamicIslandStateChangeReason, DynamicIslandViewState } from "@robot/ui";
 import type { JSX } from "@solidjs/web";
 import { BatteryFull, Bot, Wifi } from "lucide-solid";
 import { type Accessor, createSignal, untrack } from "solid-js";

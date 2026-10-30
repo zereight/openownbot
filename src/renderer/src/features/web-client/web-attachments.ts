@@ -1,7 +1,7 @@
-import { attachmentMimeTypeForName } from "@openownbot/contracts/attachment-files";
-import { CHAT_VISUAL_PAGE_LIMIT, isChatVisualMimeType } from "@openownbot/contracts/chat-visual";
-import { type AttachmentSummary, type FilePreview, filePreviewKindForFile } from "@openownbot/contracts/ipc";
-import { currentText } from "@openownbot/ui/text";
+import { attachmentMimeTypeForName } from "@robot/contracts/attachment-files";
+import { CHAT_VISUAL_PAGE_LIMIT, isChatVisualMimeType } from "@robot/contracts/chat-visual";
+import { type AttachmentSummary, type FilePreview, filePreviewKindForFile } from "@robot/contracts/ipc";
+import { currentText } from "@robot/ui/text";
 import { createWebFileSaver } from "./web-file-download";
 import type { WebFile, WebWorkspaceRuntime } from "./web-runtime";
 

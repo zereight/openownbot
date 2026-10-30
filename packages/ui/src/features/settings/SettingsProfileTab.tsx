@@ -1,4 +1,4 @@
-import type { AccountSession, CentralAuthUser, ClientAgentSummary, HostAnalytics } from "@openownbot/contracts/ipc";
+import type { AccountSession, CentralAuthUser, ClientAgentSummary, HostAnalytics } from "@robot/contracts/ipc";
 import {
   Badge,
   Button,
@@ -15,7 +15,7 @@ import {
   Text,
   Upload,
   UserAvatar,
-} from "@openownbot/ui";
+} from "@robot/ui";
 import { createMemo, createSignal, For, Show } from "solid-js";
 import { useText } from "../../text";
 import { ProfileActivity, type ProfileActivityPhase } from "./ProfileActivity";

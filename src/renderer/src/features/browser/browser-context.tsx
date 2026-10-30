@@ -1,4 +1,4 @@
-import type { BrowserControlState, BrowserDisplayState, BrowserTab, ServerSummary } from "@openownbot/contracts/ipc";
+import type { BrowserControlState, BrowserDisplayState, BrowserTab, ServerSummary } from "@robot/contracts/ipc";
 import { createSignal, onSettled } from "solid-js";
 import { usePlatform } from "../../platform";
 import { createScopeGuard } from "../../scope-lifetime";

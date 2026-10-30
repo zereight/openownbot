@@ -1,5 +1,5 @@
-import type { AgentMessage } from "@openownbot/ui/data";
-import { currentText } from "@openownbot/ui/text";
+import type { AgentMessage } from "@robot/ui/data";
+import { currentText } from "@robot/ui/text";
 import { createStore } from "solid-js";
 import { formatMessageTime } from "../../../app-message-projection";
 import { composerDraftKey } from "../conversation-keys";

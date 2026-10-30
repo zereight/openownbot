@@ -1,6 +1,6 @@
-import { MESSAGING_PLATFORMS, type MessagingConnectPage } from "@openownbot/contracts/ipc";
-import { CONNECTORS_CAPABILITY, CONNECTORS_ROUTES } from "@openownbot/contracts/team-protocol/connectors-v1";
-import { sourceText } from "@openownbot/i18n/source";
+import { MESSAGING_PLATFORMS, type MessagingConnectPage } from "@robot/contracts/ipc";
+import { CONNECTORS_CAPABILITY, CONNECTORS_ROUTES } from "@robot/contracts/team-protocol/connectors-v1";
+import { sourceText } from "@robot/i18n/source";
 import { runCauseEffect } from "../../backend/effect-boundary";
 import type { TeamApiConnectors } from "./dependencies";
 import { HttpError } from "./http-error";

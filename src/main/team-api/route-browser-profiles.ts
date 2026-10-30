@@ -6,12 +6,12 @@ import {
   parseClearBrowserDataInput,
   parseUpdateAgentBrowserProfileInput,
   parseUpdateBrowserProfileInput,
-} from "@openownbot/contracts/ipc";
+} from "@robot/contracts/ipc";
 import {
   BROWSER_PROFILES_CAPABILITY,
   BROWSER_PROFILES_ROUTES,
-} from "@openownbot/contracts/team-protocol/browser-profiles-v1";
-import { sourceText } from "@openownbot/i18n/source";
+} from "@robot/contracts/team-protocol/browser-profiles-v1";
+import { sourceText } from "@robot/i18n/source";
 import { runCauseEffect } from "../../backend/effect-boundary";
 import { AgentNotFoundError } from "../agent-admin-settings";
 import { BrowserProfileRejectedError } from "../browser-profile-service";

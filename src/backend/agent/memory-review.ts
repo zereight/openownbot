@@ -5,8 +5,8 @@ import {
   type ConversationMessage,
   defaultProviderModel,
   isContextResetMarker,
-} from "@openownbot/contracts/ipc";
-import { createOpenOwnBotLogger } from "@openownbot/logging";
+} from "@robot/contracts/ipc";
+import { createOpenOwnBotLogger } from "@robot/logging";
 import { Effect, Exit, Fiber, Schema, Scope } from "effect";
 import type { AgentClient } from "../agent-client";
 import { extractJsonObject } from "../structured-output";

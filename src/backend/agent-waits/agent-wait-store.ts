@@ -4,10 +4,10 @@
  * wait is deleted. It owns no events: the runtime says when something changed.
  */
 
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
-import type { AgentWait } from "@openownbot/contracts/ipc";
-import type { DynamicRecord } from "@openownbot/contracts/runtime-values";
-import { sourceText } from "@openownbot/i18n/source";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
+import type { AgentWait } from "@robot/contracts/ipc";
+import type { DynamicRecord } from "@robot/contracts/runtime-values";
+import { sourceText } from "@robot/i18n/source";
 import {
   databaseRow,
   databaseRows,

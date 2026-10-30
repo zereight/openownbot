@@ -4,7 +4,7 @@ import { randomUUID } from "node:crypto";
 import { mkdtemp, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import type { AgentSummary, ChannelTask } from "@openownbot/contracts/ipc";
+import type { AgentSummary, ChannelTask } from "@robot/contracts/ipc";
 import { Effect } from "effect";
 import { afterEach, describe, expect, it } from "vitest";
 import type { DecisionInput } from "./channel-decision";

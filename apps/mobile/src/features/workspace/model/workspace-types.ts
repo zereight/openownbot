@@ -1,4 +1,4 @@
-import type { AttachmentSupport } from "@openownbot/contracts/attachment-files";
+import type { AttachmentSupport } from "@robot/contracts/attachment-files";
 import type {
   AddedAgent,
   AddMessagingOrchestratorResult,
@@ -100,7 +100,7 @@ import type {
   WorkflowSummary,
   WorkflowTriggerInput,
   WorkflowWebhookSecret,
-} from "@openownbot/contracts/ipc";
+} from "@robot/contracts/ipc";
 import type {
   EventActivity,
   EventRoutine,
@@ -110,12 +110,12 @@ import type {
   SaveEventRoutineInput,
   SaveEventRoutineResult,
   WebhookSecret,
-} from "@openownbot/contracts/ipc-events";
-import type { QueueEditRequest } from "@openownbot/contracts/team-protocol/queue-edit-v1";
-import type { RemoteConnectionFailure, RemoteRecoveryStatus, RemoteTeamDirectoryClient } from "@openownbot/team-client";
-import type { PlanLimits } from "@openownbot/team-client/plan-limits";
-import type { RemoteFileUpload } from "@openownbot/team-client/remote-peer";
-import type { MessagingConnectorPage } from "@openownbot/team-client/team-admin-requests";
+} from "@robot/contracts/ipc-events";
+import type { QueueEditRequest } from "@robot/contracts/team-protocol/queue-edit-v1";
+import type { RemoteConnectionFailure, RemoteRecoveryStatus, RemoteTeamDirectoryClient } from "@robot/team-client";
+import type { PlanLimits } from "@robot/team-client/plan-limits";
+import type { RemoteFileUpload } from "@robot/team-client/remote-peer";
+import type { MessagingConnectorPage } from "@robot/team-client/team-admin-requests";
 import type { MobileBrowserTab } from "@/features/browser/model/browser-tabs";
 import type { BrowserViewBridgeEvent, RemoteBrowserViewSession } from "@/features/browser/model/browser-view-bridge";
 import type { MobileChannelStore } from "@/features/channels/model/channel-store";

@@ -4,9 +4,9 @@
  * answer is simulated on a timer.
  */
 
-import type { AgentProfile } from "@openownbot/ui/data";
-import { DiagramChatAgentPicker, DiagramChatPanel } from "@openownbot/ui/features/diagrams/DiagramChatPanel";
-import type { DiagramChatMessage } from "@openownbot/ui/features/diagrams/diagram-model";
+import type { AgentProfile } from "@robot/ui/data";
+import { DiagramChatAgentPicker, DiagramChatPanel } from "@robot/ui/features/diagrams/DiagramChatPanel";
+import type { DiagramChatMessage } from "@robot/ui/features/diagrams/diagram-model";
 import { createSignal, onCleanup, Show, untrack } from "solid-js";
 import { fn } from "storybook/test";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";

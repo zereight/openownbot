@@ -1,5 +1,5 @@
-import type { ServerSummary } from "@openownbot/contracts/ipc";
-import { ConfirmDialog, Spinner, toast } from "@openownbot/ui";
+import type { ServerSummary } from "@robot/contracts/ipc";
+import { ConfirmDialog, Spinner, toast } from "@robot/ui";
 import type { JSX } from "@solidjs/web";
 import { createEffect, createSignal, For, onCleanup, Show, untrack } from "solid-js";
 import { CircleCheck, CircleDot, RotateCcw, TriangleAlert } from "../../icons";

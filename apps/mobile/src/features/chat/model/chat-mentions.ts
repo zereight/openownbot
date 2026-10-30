@@ -1,4 +1,4 @@
-import { chatTagReferences, serializeChatTagReference } from "@openownbot/contracts/chat-tag-references";
+import { chatTagReferences, serializeChatTagReference } from "@robot/contracts/chat-tag-references";
 
 export function mentionDraft(source: string) {
   let cursor = 0;

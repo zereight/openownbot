@@ -9,7 +9,7 @@ import {
   type WfnEdge,
   type WfnResult,
   type WfnRunStatus,
-} from "@openownbot/ui/features/workflows/workflow-board";
+} from "@robot/ui/features/workflows/workflow-board";
 import type { JSX } from "@solidjs/web";
 import { createStore, onCleanup, untrack } from "solid-js";
 import { STEP_ANSWER, STORY_IMAGES, STORY_SEED, storyCatalogs } from "./workflow-story-data";

@@ -1,5 +1,5 @@
-import type { AppTextKey } from "@openownbot/i18n";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@openownbot/ui";
+import type { AppTextKey } from "@robot/i18n";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@robot/ui";
 import type { JSX } from "@solidjs/web";
 import { useText } from "../../text";
 import { SEND_SHORTCUT_MODES, type SendShortcutMode } from "../conversation/send-shortcut";

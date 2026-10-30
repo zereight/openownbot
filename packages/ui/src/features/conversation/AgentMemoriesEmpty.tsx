@@ -1,5 +1,5 @@
-import type { AppMessages, AppTextKey } from "@openownbot/i18n";
-import { Button, Plus, Trash2 } from "@openownbot/ui";
+import type { AppMessages, AppTextKey } from "@robot/i18n";
+import { Button, Plus, Trash2 } from "@robot/ui";
 import { createMemo, createSignal, For, onSettled } from "solid-js";
 import { useText } from "../../text";
 import { prefersReducedMotion } from "../../utils";

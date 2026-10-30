@@ -1,7 +1,7 @@
 /** Free text on the canvas, for a heading over a column of nodes. It has no card and no ports. */
 
-import type { AppTextKey } from "@openownbot/i18n";
-import { Bold, Button, buttonVariants, ChevronDown, DropdownMenu, LabelTooltipTrigger, Textarea } from "@openownbot/ui";
+import type { AppTextKey } from "@robot/i18n";
+import { Bold, Button, buttonVariants, ChevronDown, DropdownMenu, LabelTooltipTrigger, Textarea } from "@robot/ui";
 import { Show, untrack } from "solid-js";
 import { useText } from "../../text";
 import { PickerMenu } from "./WorkflowPicker";

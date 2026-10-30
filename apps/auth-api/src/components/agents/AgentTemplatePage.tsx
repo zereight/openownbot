@@ -1,9 +1,6 @@
-import {
-  createOpenOwnBotAgentTemplateUrl,
-  createWebAppAgentTemplatePath,
-} from "@openownbot/contracts/agent-template-links";
-import type { AgentTemplateDetail } from "@openownbot/contracts/ipc";
-import { markdownPlainText, markdownPreviewText } from "@openownbot/contracts/markdown-preview-text";
+import { createOpenOwnBotAgentTemplateUrl, createWebAppAgentTemplatePath } from "@robot/contracts/agent-template-links";
+import type { AgentTemplateDetail } from "@robot/contracts/ipc";
+import { markdownPlainText, markdownPreviewText } from "@robot/contracts/markdown-preview-text";
 import { Link } from "@tanstack/solid-router";
 import { createMemo, createSignal, For, Loading, lazy, onSettled, Show } from "solid-js";
 import { agentTemplatePath } from "../../lib/agent-template-path";
@@ -16,12 +13,12 @@ import { PluginOpenButtons } from "../plugins/PluginOpenButtons";
 // its module loads, so the Worker must never import it. The page loads both parts in the browser
 // after hydration.
 const AgentAvatar = lazy(() =>
-  import("@openownbot/ui/features/agents/AgentAvatar").then((module) => ({ default: module.AgentAvatar })),
+  import("@robot/ui/features/agents/AgentAvatar").then((module) => ({ default: module.AgentAvatar })),
 );
 // The instructions are Markdown. The renderer is the app's own, which builds elements from the parsed
 // text and never inserts HTML. It loads only when the reader opens the instructions.
 const MarkdownMessageText = lazy(() =>
-  import("@openownbot/ui/features/conversation/MarkdownMessageText").then((module) => ({
+  import("@robot/ui/features/conversation/MarkdownMessageText").then((module) => ({
     default: module.MarkdownMessageText,
   })),
 );
@@ -49,7 +46,7 @@ export function AgentTemplatePage(props: AgentTemplatePageProps) {
   let description: HTMLParagraphElement | undefined;
   onSettled(() => {
     setMounted(true);
-    void import("@openownbot/brand/bloub-avatar").then(({ avatarHeadColor }) =>
+    void import("@robot/brand/bloub-avatar").then(({ avatarHeadColor }) =>
       setAccent(avatarHeadColor(props.template.avatarSeed, props.template.avatarHue)),
     );
     if (description) setClamped(description.scrollHeight > description.clientHeight + 1);

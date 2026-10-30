@@ -9,8 +9,8 @@ import {
   agentAutoApprovalEnabled,
   DEFAULT_AGENT_ACCESS,
   type UpdateAgentAdminSettingsInput,
-} from "@openownbot/contracts/ipc";
-import { sourceText } from "@openownbot/i18n/source";
+} from "@robot/contracts/ipc";
+import { sourceText } from "@robot/i18n/source";
 import type { AgentService } from "../backend/agent-service";
 import { causeHelpers } from "../backend/effect-boundary";
 import type { ApprovalAutomation } from "./approval-automation-store";

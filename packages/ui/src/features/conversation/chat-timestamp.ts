@@ -1,4 +1,4 @@
-import type { AppFormat } from "@openownbot/i18n";
+import type { AppFormat } from "@robot/i18n";
 import { currentText } from "../../text";
 
 /** `format` defaults to the app's interface language, for a caller outside a component. */

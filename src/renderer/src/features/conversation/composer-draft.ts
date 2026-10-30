@@ -1,8 +1,8 @@
-import { serializeChatTagReference } from "@openownbot/contracts/chat-tag-references";
-import { isAttachmentSummary, type MarketplaceSkillDetail, SKILL_CREATION_REQUEST } from "@openownbot/contracts/ipc";
-import { isDynamicRecord, isString } from "@openownbot/contracts/runtime-values";
-import { decodeQueueEditRequest, type QueueEditRequest } from "@openownbot/contracts/team-protocol/queue-edit-v1";
-import { skillExamplePrompt } from "@openownbot/ui/components/SkillPreview";
+import { serializeChatTagReference } from "@robot/contracts/chat-tag-references";
+import { isAttachmentSummary, type MarketplaceSkillDetail, SKILL_CREATION_REQUEST } from "@robot/contracts/ipc";
+import { isDynamicRecord, isString } from "@robot/contracts/runtime-values";
+import { decodeQueueEditRequest, type QueueEditRequest } from "@robot/contracts/team-protocol/queue-edit-v1";
+import { skillExamplePrompt } from "@robot/ui/components/SkillPreview";
 import type { ComposerDraft } from "./conversation-types";
 
 export const EMPTY_DRAFT: ComposerDraft = {

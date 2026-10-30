@@ -1,5 +1,5 @@
-import { blockChatMath, chatMathBlockStart, chatMathStart, inlineChatMath } from "@openownbot/contracts/chat-math";
-import { chatTagReferences } from "@openownbot/contracts/chat-tag-references";
+import { blockChatMath, chatMathBlockStart, chatMathStart, inlineChatMath } from "@robot/contracts/chat-math";
+import { chatTagReferences } from "@robot/contracts/chat-tag-references";
 import { replaceEqualDeep } from "@tanstack/react-query";
 import { Marked, type Token, type TokensList } from "marked";
 

@@ -17,11 +17,11 @@ import {
   isAgentContextCategories,
   latestTurnAnswer,
   PLAN_CONTINUATION_ITEM_TYPE,
-} from "@openownbot/contracts/ipc";
-import { type DynamicRecord, isString } from "@openownbot/contracts/runtime-values";
-import { sourceText } from "@openownbot/i18n/source";
-import { createOpenOwnBotLogger } from "@openownbot/logging";
-import { type CauseCode, classifyFailure } from "@openownbot/telemetry";
+} from "@robot/contracts/ipc";
+import { type DynamicRecord, isString } from "@robot/contracts/runtime-values";
+import { sourceText } from "@robot/i18n/source";
+import { createOpenOwnBotLogger } from "@robot/logging";
+import { type CauseCode, classifyFailure } from "@robot/telemetry";
 import { Cause, Deferred, Effect, Exit, Schema, Scope } from "effect";
 import type { AgentClient } from "../agent-client";
 import type { AgentStore } from "../agent-store";

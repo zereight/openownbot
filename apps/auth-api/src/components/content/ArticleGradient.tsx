@@ -1,5 +1,5 @@
-import { cx, prefersReducedMotion } from "@openownbot/ui/utils";
 import type { ShaderMount } from "@paper-design/shaders";
+import { cx, prefersReducedMotion } from "@robot/ui/utils";
 import { createMemo, createSignal, onSettled } from "solid-js";
 import { articleGradient, articleGradientCss, articleGradientUniforms } from "../../lib/article-gradient";
 import { articleArtPath, type ContentArtShape, type ContentCollection } from "../../lib/content-collection";

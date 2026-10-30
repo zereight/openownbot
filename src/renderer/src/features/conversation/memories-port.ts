@@ -3,13 +3,13 @@
 // Everything the modal renders is owner-agnostic; only the five calls, the event filter and three
 // words of copy are not. They live here, so `AgentMemoriesModal` names no owner at all.
 
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
 import type {
   AgentMemorySelectionState,
   MemoryEntry,
   OpenOwnBotDesktopApi,
   SetAgentMemoryInclusionInput,
-} from "@openownbot/contracts/ipc";
+} from "@robot/contracts/ipc";
 
 export interface MemoriesPort {
   ownerId: string;

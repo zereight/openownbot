@@ -15,7 +15,7 @@ import { type ChildProcess, spawn } from "node:child_process";
 import { existsSync, readFileSync } from "node:fs";
 import { createServer } from "node:net";
 import { join } from "node:path";
-import { createOpenOwnBotLogger } from "@openownbot/logging";
+import { createOpenOwnBotLogger } from "@robot/logging";
 
 import { developmentChildEnvironment } from "./development-environment";
 

@@ -7,7 +7,7 @@
 import { execFileSync } from "node:child_process";
 import { existsSync, readFileSync } from "node:fs";
 import { dirname, join, normalize, relative, resolve } from "node:path";
-import { createOpenOwnBotLogger } from "@openownbot/logging";
+import { createOpenOwnBotLogger } from "@robot/logging";
 
 const ROOT = resolve(import.meta.dirname, "..");
 const LINK = /\]\(([^)\s]+)(?:\s+"[^"]*")?\)/g;

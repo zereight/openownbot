@@ -9,7 +9,7 @@
 // sees. Both are classified by `instanceof`, so this file must stay their single definition: a second
 // copy of a class makes every `instanceof` silently false.
 
-import type { TeamProtocolSupportV1 } from "@openownbot/contracts/team-protocol/v1";
+import type { TeamProtocolSupportV1 } from "@robot/contracts/team-protocol/v1";
 import { Schema } from "effect";
 
 export class RemoteRequestError extends Schema.TaggedError<RemoteRequestError>()("RemoteRequestError", {

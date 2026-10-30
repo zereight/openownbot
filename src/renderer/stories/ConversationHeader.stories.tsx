@@ -1,4 +1,4 @@
-import { ConversationHeader } from "@openownbot/ui/features/conversation/ConversationHeader";
+import { ConversationHeader } from "@robot/ui/features/conversation/ConversationHeader";
 import { fn } from "storybook/test";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";
 import { STORY_AGENT, STORY_AGENT_STATUS, STORY_MODELS, storyRuntimeSettings } from "./fixtures";

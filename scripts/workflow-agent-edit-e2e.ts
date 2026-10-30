@@ -30,9 +30,9 @@ import {
   type WorkflowGraph,
   type WorkflowNode,
   type WorkflowVersion,
-} from "@openownbot/contracts/ipc";
-import { workflowChatReference } from "@openownbot/contracts/workflow-chat-reference";
-import { sourceText } from "@openownbot/i18n/source";
+} from "@robot/contracts/ipc";
+import { workflowChatReference } from "@robot/contracts/workflow-chat-reference";
+import { sourceText } from "@robot/i18n/source";
 import { Effect } from "effect";
 import type { AgentBrowserHost } from "../src/backend/agent/turn-lifecycle";
 

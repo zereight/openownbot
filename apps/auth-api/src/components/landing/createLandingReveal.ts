@@ -1,4 +1,4 @@
-import { prefersReducedMotion } from "@openownbot/ui/utils";
+import { prefersReducedMotion } from "@robot/ui/utils";
 import { type Accessor, createSignal, onSettled } from "solid-js";
 
 export interface LandingRevealOptions {

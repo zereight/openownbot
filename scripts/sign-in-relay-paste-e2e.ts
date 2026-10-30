@@ -7,8 +7,8 @@
 import assert from "node:assert/strict";
 import { mkdir, writeFile } from "node:fs/promises";
 import { join, resolve } from "node:path";
-import type { McpTestResult, SignInRelayStatus } from "@openownbot/contracts/ipc";
-import { sourceText, translateFor } from "@openownbot/i18n";
+import type { McpTestResult, SignInRelayStatus } from "@robot/contracts/ipc";
+import { sourceText, translateFor } from "@robot/i18n";
 import { Deferred, Effect } from "effect";
 import { SignInRelayClient, type SignInRelayRemote } from "../src/main/sign-in-relay-client";
 

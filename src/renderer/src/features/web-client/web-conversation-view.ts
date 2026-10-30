@@ -6,8 +6,8 @@ import {
   type ConversationSnapshot,
   type RespondToApprovalInput,
   type RespondToPromptInput,
-} from "@openownbot/contracts/ipc";
-import type { AgentMessage } from "@openownbot/ui/data";
+} from "@robot/contracts/ipc";
+import type { AgentMessage } from "@robot/ui/data";
 import { createEffect, createMemo, createProjection, createSignal, mapArray } from "solid-js";
 import { toAgentMessage, toAgentMessages } from "../../app-message-projection";
 import type { createRemoteAgentAdmin } from "../agents/remote-agent-admin";

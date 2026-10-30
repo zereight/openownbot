@@ -11,8 +11,8 @@
 // the way back to the spent model, so the agent does not return to it at the reset.
 // Writes .openownbot-build/channel-usage-limit-e2e/report.json.
 import assert from "node:assert/strict";
-import { agentProviderDescriptor, isAgentProvider } from "@openownbot/contracts/agent-providers";
-import { type AgentSummary, type ChannelPage, MODEL_SWITCH_ITEM_TYPES } from "@openownbot/contracts/ipc";
+import { agentProviderDescriptor, isAgentProvider } from "@robot/contracts/agent-providers";
+import { type AgentSummary, type ChannelPage, MODEL_SWITCH_ITEM_TYPES } from "@robot/contracts/ipc";
 import { argument, ChannelClient, connectChannelE2e, SHORT_PROMPT, waitFor, writeReport } from "./channel-e2e-support";
 
 interface Report {

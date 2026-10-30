@@ -1,4 +1,4 @@
-import type { AgentModelOption } from "@openownbot/contracts/ipc";
+import type { AgentModelOption } from "@robot/contracts/ipc";
 import { describe, expect, it } from "vitest";
 import { channelGenerationModel } from "./channel-generation-model";
 

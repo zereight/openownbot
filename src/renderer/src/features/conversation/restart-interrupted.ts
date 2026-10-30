@@ -1,4 +1,4 @@
-import { type QueueDelivery, RESTART_INTERRUPTED_REASON } from "@openownbot/contracts/ipc";
+import { type QueueDelivery, RESTART_INTERRUPTED_REASON } from "@robot/contracts/ipc";
 
 /**
  * The last request of the user to this agent, when a restart of OpenOwnBot cut it off and the user has not

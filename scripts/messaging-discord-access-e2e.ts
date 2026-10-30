@@ -9,13 +9,13 @@ import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { mkdtemp, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
-import { DISCORD_GATEWAY_INTENTS, DISCORD_MESSAGE_CONTENT_INTENT } from "@openownbot/contracts/discord-app";
-import { isDiscordRoleList } from "@openownbot/contracts/ipc";
+import { DISCORD_GATEWAY_INTENTS, DISCORD_MESSAGE_CONTENT_INTENT } from "@robot/contracts/discord-app";
+import { isDiscordRoleList } from "@robot/contracts/ipc";
 import {
   decodeDiscordApiError,
   decodeDiscordDelivery,
   decodeDiscordHistory,
-} from "@openownbot/contracts/signal-protocol/discord-api";
+} from "@robot/contracts/signal-protocol/discord-api";
 import { Effect } from "effect";
 import { type DiscordRestRequest, DiscordTransportError, makeDiscordApi } from "../remote/api/src/discord-api";
 import { DiscordState } from "../remote/api/src/discord-events";

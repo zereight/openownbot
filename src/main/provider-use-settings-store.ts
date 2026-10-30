@@ -1,5 +1,5 @@
-import { AGENT_PROVIDERS, type AgentProviderId } from "@openownbot/contracts/agent-providers";
-import { sourceText } from "@openownbot/i18n/source";
+import { AGENT_PROVIDERS, type AgentProviderId } from "@robot/contracts/agent-providers";
+import { sourceText } from "@robot/i18n/source";
 import { Effect, Result, Schema, Semaphore } from "effect";
 import { isMissingFileError } from "../backend/file-errors";
 import { PreferenceFileFailure, readPreferenceFile, writePreferenceFile } from "./preference-file";

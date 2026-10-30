@@ -4,7 +4,7 @@ import { mkdtemp, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import type { SkillCategory } from "@openownbot/contracts/ipc";
+import type { SkillCategory } from "@robot/contracts/ipc";
 import { zipSync } from "fflate";
 
 interface SeedSkill {

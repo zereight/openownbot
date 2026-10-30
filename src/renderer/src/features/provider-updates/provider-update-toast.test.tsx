@@ -1,4 +1,4 @@
-import type { ProviderUpdate } from "@openownbot/ui/features/provider-updates/provider-update";
+import type { ProviderUpdate } from "@robot/ui/features/provider-updates/provider-update";
 import { createEffect, createRoot, createSignal, flush } from "solid-js";
 import { afterEach, expect, it } from "vitest";
 import { hideProviderUpdateToast, showProviderUpdateToast } from "./provider-update-toast";

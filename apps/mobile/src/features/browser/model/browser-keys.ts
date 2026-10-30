@@ -1,7 +1,4 @@
-import {
-  BROWSER_VIEW_MAX_CLIPBOARD_TEXT,
-  type BrowserViewInput,
-} from "@openownbot/contracts/team-protocol/browser-view-v1";
+import { BROWSER_VIEW_MAX_CLIPBOARD_TEXT, type BrowserViewInput } from "@robot/contracts/team-protocol/browser-view-v1";
 import { graphemes } from "../../../shared/lib/graphemes";
 
 // The phone keyboard as keystrokes on the host's page. A hidden text field takes the typing, and

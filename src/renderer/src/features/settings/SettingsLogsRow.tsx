@@ -1,5 +1,5 @@
-import { Button, Item, ItemActions, ItemContent, ItemDescription, ItemTitle } from "@openownbot/ui";
-import { currentText } from "@openownbot/ui/text";
+import { Button, Item, ItemActions, ItemContent, ItemDescription, ItemTitle } from "@robot/ui";
+import { currentText } from "@robot/ui/text";
 import { createSignal } from "solid-js";
 import { actionToast } from "../../action-toast";
 import { useI18n } from "../../i18n-context";

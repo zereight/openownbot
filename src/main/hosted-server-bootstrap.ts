@@ -11,8 +11,8 @@
  * built, at the same position as `applyDevelopmentRemoteAccount`.
  */
 
-import { parseHostedServerList } from "@openownbot/contracts/hosted-servers";
-import type { CentralAuthState, CentralAuthUser } from "@openownbot/contracts/ipc";
+import { parseHostedServerList } from "@robot/contracts/hosted-servers";
+import type { CentralAuthState, CentralAuthUser } from "@robot/contracts/ipc";
 import { Effect } from "effect";
 import type { CentralAuthManager } from "./central-auth-manager";
 import { RemoteWorkflowError, toRemoteWorkflowError } from "./remote-service-effects";

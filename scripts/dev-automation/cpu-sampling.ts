@@ -13,7 +13,7 @@
 // "Percent" here is percent of one core. 100 means one core fully used; a
 // machine with eight cores can therefore report more than 100 in total.
 
-import { isDynamicRecord, isNumber, isOneOf, isString } from "@openownbot/contracts/runtime-values";
+import { isDynamicRecord, isNumber, isOneOf, isString } from "@robot/contracts/runtime-values";
 
 export type ChromiumProcessType = "main" | "renderer" | "gpu" | "utility" | "network" | "crashpad" | "other";
 

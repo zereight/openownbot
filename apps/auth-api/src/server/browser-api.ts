@@ -1,14 +1,14 @@
-import { isAvatarMimeType } from "@openownbot/contracts/avatar-images";
-import { parseBillingPortalRequest } from "@openownbot/contracts/billing";
-import { parseHostedServerLifecycleInput } from "@openownbot/contracts/hosted-servers";
+import { isAvatarMimeType } from "@robot/contracts/avatar-images";
+import { parseBillingPortalRequest } from "@robot/contracts/billing";
+import { parseHostedServerLifecycleInput } from "@robot/contracts/hosted-servers";
 import {
   LICENSE_UNAVAILABLE_STATE,
   parseLicenseCheckoutRequest,
   parseLicenseRenewalRequest,
   parseLicenseUsersRequest,
-} from "@openownbot/contracts/license";
-import { type DynamicRecord, isBoolean, isNumber, isString } from "@openownbot/contracts/runtime-values";
-import { sourceText } from "@openownbot/i18n/source";
+} from "@robot/contracts/license";
+import { type DynamicRecord, isBoolean, isNumber, isString } from "@robot/contracts/runtime-values";
+import { sourceText } from "@robot/i18n/source";
 import { Cause, Effect } from "effect";
 import { type AccountAttribution, requestFirstTouch } from "./account-attribution";
 import { type AuthService, AuthServiceError } from "./auth-service";

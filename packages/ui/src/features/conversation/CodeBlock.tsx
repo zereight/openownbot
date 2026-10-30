@@ -1,5 +1,5 @@
-import type { AppTextKey, AppTranslate } from "@openownbot/i18n";
-import { Button, Check, Copy } from "@openownbot/ui";
+import type { AppTextKey, AppTranslate } from "@robot/i18n";
+import { Button, Check, Copy } from "@robot/ui";
 import type { JSX } from "@solidjs/web";
 import { type ShjLanguage, type ShjToken, tokenize } from "@speed-highlight/core";
 import { createEffect, createMemo, createSignal, For, onCleanup, Show, untrack } from "solid-js";

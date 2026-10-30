@@ -21,10 +21,10 @@ import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { mkdtemp, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
-import { decodeHostKeyHandover, type HostKeyHandover } from "@openownbot/contracts/host-key-handover";
-import { decodeRecord, requiredString } from "@openownbot/contracts/ipc-decoding";
-import { verifyEd25519Base64Url } from "@openownbot/team-client/ed25519";
-import { followHostKeyHandovers, remoteHostFingerprint } from "@openownbot/team-client/host-key-handover";
+import { decodeHostKeyHandover, type HostKeyHandover } from "@robot/contracts/host-key-handover";
+import { decodeRecord, requiredString } from "@robot/contracts/ipc-decoding";
+import { verifyEd25519Base64Url } from "@robot/team-client/ed25519";
+import { followHostKeyHandovers, remoteHostFingerprint } from "@robot/team-client/host-key-handover";
 import { Effect } from "effect";
 import { verifyHostKeySignature } from "../src/main/remote-server-host-directory";
 

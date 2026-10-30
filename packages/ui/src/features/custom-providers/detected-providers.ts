@@ -1,11 +1,7 @@
 // Local model servers and ACP agents that the host found without the user's help. The host owns the
 // scan, the saves and the hidden list; these types only describe what it reports and what it does.
 
-import {
-  CUSTOM_PROVIDER_LIMITS,
-  type CustomProviderRestart,
-  type SaveCustomProviderInput,
-} from "@openownbot/contracts/ipc";
+import { CUSTOM_PROVIDER_LIMITS, type CustomProviderRestart, type SaveCustomProviderInput } from "@robot/contracts/ipc";
 import type { AcpAgentCheck, CustomAcpAgentDraft } from "./custom-acp-agent-form";
 import {
   type CustomProviderDraft,

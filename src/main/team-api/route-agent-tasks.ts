@@ -1,8 +1,8 @@
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
-import type { TeamMemberSummary } from "@openownbot/contracts/ipc";
-import { type DynamicRecord, isString } from "@openownbot/contracts/runtime-values";
-import { AGENT_TASKS_CAPABILITY, AGENT_TASKS_ROUTES } from "@openownbot/contracts/team-protocol/agent-tasks-v1";
-import { sourceText } from "@openownbot/i18n/source";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
+import type { TeamMemberSummary } from "@robot/contracts/ipc";
+import { type DynamicRecord, isString } from "@robot/contracts/runtime-values";
+import { AGENT_TASKS_CAPABILITY, AGENT_TASKS_ROUTES } from "@robot/contracts/team-protocol/agent-tasks-v1";
+import { sourceText } from "@robot/i18n/source";
 import { runCauseEffect } from "../../backend/effect-boundary";
 import type { TeamApiAgentTasks } from "./dependencies";
 import { HttpError } from "./http-error";

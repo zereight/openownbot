@@ -1,5 +1,5 @@
-import { Blocks, BookOpen, Bot, Button, TriangleAlert } from "@openownbot/ui";
-import { useText } from "@openownbot/ui/text";
+import { Blocks, BookOpen, Bot, Button, TriangleAlert } from "@robot/ui";
+import { useText } from "@robot/ui/text";
 import { Dynamic } from "@solidjs/web";
 import { For, Show } from "solid-js";
 import type { BrowseLists } from "./MarketplaceBrowse";

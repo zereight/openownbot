@@ -1,4 +1,4 @@
-import type { MobileTextKey } from "@openownbot/i18n/mobile";
+import type { MobileTextKey } from "@robot/i18n/mobile";
 import { Typography } from "heroui-native";
 import { useThemeColor } from "heroui-native/hooks";
 import type { LucideIcon } from "lucide-react-native";

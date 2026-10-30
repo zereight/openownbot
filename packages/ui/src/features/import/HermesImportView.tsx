@@ -5,8 +5,8 @@ import type {
   HermesImportPreview,
   HermesImportProfile,
   HermesImportReason,
-} from "@openownbot/contracts/ipc";
-import type { AppFormat, AppTextKey, AppTranslate } from "@openownbot/i18n";
+} from "@robot/contracts/ipc";
+import type { AppFormat, AppTextKey, AppTranslate } from "@robot/i18n";
 import {
   ArrowLeft,
   Badge,
@@ -24,7 +24,7 @@ import {
   SlidersHorizontal,
   SlidingTabs,
   TriangleAlert,
-} from "@openownbot/ui";
+} from "@robot/ui";
 import { createMemo, createSignal, createUniqueId, For, Show } from "solid-js";
 import { useText } from "../../text";
 import { AgentAvatar } from "../agents/AgentAvatar";

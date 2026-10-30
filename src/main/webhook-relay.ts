@@ -1,5 +1,5 @@
-import { WEBHOOK_EVENTS_PATH } from "@openownbot/contracts/signal-protocol/webhook-route";
-import { sourceText } from "@openownbot/i18n/source";
+import { WEBHOOK_EVENTS_PATH } from "@robot/contracts/signal-protocol/webhook-route";
+import { sourceText } from "@robot/i18n/source";
 import { Effect } from "effect";
 import type { CentralAuthOperationError } from "./central-auth-effects";
 import { HostEventsFailure, WebhookRouteConflict } from "./host-events-api";

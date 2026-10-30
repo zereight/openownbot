@@ -1,13 +1,13 @@
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
-import { Button, CircleDot, Clock3, Globe2, Input, Listbox, Search, TriangleAlert, UserRound } from "@openownbot/ui";
-import { AgentAvatar } from "@openownbot/ui/features/agents/AgentAvatar";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
+import { Button, CircleDot, Clock3, Globe2, Input, Listbox, Search, TriangleAlert, UserRound } from "@robot/ui";
+import { AgentAvatar } from "@robot/ui/features/agents/AgentAvatar";
 import {
   BrowserBackIcon,
   BrowserForwardIcon,
   BrowserReloadIcon,
   BrowserStopIcon,
-} from "@openownbot/ui/features/conversation/ConversationIcons";
-import { useText } from "@openownbot/ui/text";
+} from "@robot/ui/features/conversation/ConversationIcons";
+import { useText } from "@robot/ui/text";
 import { createMemo, createStore, createUniqueId, flush, Show } from "solid-js";
 import { BrowserPageMenu } from "./BrowserPageMenu";
 import { BrowserProfileDot } from "./BrowserProfileColor";

@@ -1,4 +1,4 @@
-/* Parts that only the DropdownMenu story draws. The menu look comes from @openownbot/ui. */
+/* Parts that only the DropdownMenu story draws. The menu look comes from @robot/ui. */
 
 :root {
   --story-cluster-move: var(--openownbot-duration-overlay) var(--ui-menu-ease);

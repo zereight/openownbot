@@ -1,4 +1,4 @@
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
 import {
   type AgentAccessLevel,
   type AgentSummary,
@@ -12,10 +12,10 @@ import {
   type DeleteChannelRoutineInput,
   isReleasedRoutineSchedule,
   type UpdateChannelRoutineInput,
-} from "@openownbot/contracts/ipc";
-import { type DynamicRecord, isBoolean, isString } from "@openownbot/contracts/runtime-values";
-import { sourceText } from "@openownbot/i18n/source";
-import { RoutineInputError } from "@openownbot/team-client/routine-schedule";
+} from "@robot/contracts/ipc";
+import { type DynamicRecord, isBoolean, isString } from "@robot/contracts/runtime-values";
+import { sourceText } from "@robot/i18n/source";
+import { RoutineInputError } from "@robot/team-client/routine-schedule";
 import {
   routineToolArguments,
   routineToolPolicies,

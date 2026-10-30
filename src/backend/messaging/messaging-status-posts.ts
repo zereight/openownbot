@@ -1,5 +1,5 @@
 import { readFileSync } from "node:fs";
-import { createOpenOwnBotLogger } from "@openownbot/logging";
+import { createOpenOwnBotLogger } from "@robot/logging";
 import { Effect, Schema, Semaphore } from "effect";
 import { writeJsonFileAtomically } from "../atomic-json-file";
 

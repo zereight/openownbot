@@ -10,7 +10,7 @@
 
 import { createServer, type Server } from "node:http";
 import type { Socket } from "node:net";
-import { sourceText } from "@openownbot/i18n/source";
+import { sourceText } from "@robot/i18n/source";
 import { parseDeepLink } from "./deep-link-router";
 
 export const SLACK_DEV_CALLBACK_PATH = "/slack-workspace";

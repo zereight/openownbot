@@ -1,12 +1,12 @@
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
 import {
   type ApprovalAutomationPreference,
   agentAutoApprovalEnabled,
   DEFAULT_APPROVAL_AUTOMATION_PREFERENCE,
   isApprovalAutomationPreference,
-} from "@openownbot/contracts/ipc";
-import { isBoolean, isDynamicRecord, isString } from "@openownbot/contracts/runtime-values";
-import { sourceText } from "@openownbot/i18n/source";
+} from "@robot/contracts/ipc";
+import { isBoolean, isDynamicRecord, isString } from "@robot/contracts/runtime-values";
+import { sourceText } from "@robot/i18n/source";
 import { Effect, Result, Semaphore } from "effect";
 import { isMissingFileError } from "../backend/file-errors";
 import { PreferenceFileFailure, readPreferenceFile, writePreferenceFile } from "./preference-file";

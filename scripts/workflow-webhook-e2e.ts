@@ -13,7 +13,7 @@ import { mkdirSync, writeFileSync } from "node:fs";
 import { mkdtemp, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
-import { AGENT_PROVIDERS, type WorkflowGraph, type WorkflowNode } from "@openownbot/contracts/ipc";
+import { AGENT_PROVIDERS, type WorkflowGraph, type WorkflowNode } from "@robot/contracts/ipc";
 import { Effect } from "effect";
 import type { AgentBrowserHost } from "../src/backend/agent/turn-lifecycle";
 

@@ -4,9 +4,9 @@
  * these, and the diagram workspace story shows the same chat when an agent is open.
  */
 
-import { serializeAttachmentReference } from "@openownbot/contracts/attachment-references";
-import type { AvatarImageInput, UpdateAgentInput } from "@openownbot/contracts/ipc";
-import type { AgentMessage as RendererAgentMessage } from "@openownbot/ui/data";
+import { serializeAttachmentReference } from "@robot/contracts/attachment-references";
+import type { AvatarImageInput, UpdateAgentInput } from "@robot/contracts/ipc";
+import type { AgentMessage as RendererAgentMessage } from "@robot/ui/data";
 import { onCleanup, type ParentProps } from "solid-js";
 import { fn } from "storybook/test";
 import { AuthProvider } from "../src/features/account/account-context";

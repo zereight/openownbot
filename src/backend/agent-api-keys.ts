@@ -1,7 +1,7 @@
 import { readdir, readFile, rm } from "node:fs/promises";
 import { join } from "node:path";
-import { sourceText } from "@openownbot/i18n/source";
-import { registerSecretValue } from "@openownbot/logging";
+import { sourceText } from "@robot/i18n/source";
+import { registerSecretValue } from "@robot/logging";
 import { Effect, Schema } from "effect";
 import { writeFileAtomically } from "./atomic-json-file";
 import { isMissingFileError } from "./file-errors";

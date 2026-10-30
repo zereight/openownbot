@@ -1,4 +1,4 @@
-import type { SettingsPagePlacement } from "@openownbot/ui/features/settings/SettingsDialogShell";
+import type { SettingsPagePlacement } from "@robot/ui/features/settings/SettingsDialogShell";
 import { createEffect, createMemo, createSignal, untrack } from "solid-js";
 import { createSimpleContext } from "../../simple-context";
 import { useServerSettings } from "../servers/server-settings";

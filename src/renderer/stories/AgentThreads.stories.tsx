@@ -1,4 +1,4 @@
-import { LOCAL_SERVER_ID } from "@openownbot/contracts/ipc";
+import { LOCAL_SERVER_ID } from "@robot/contracts/ipc";
 import { onSettled } from "solid-js";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";
 import { AGENT_ID, TABS_KEY, THREAD_OPTIONS } from "./agent-threads-fixtures";

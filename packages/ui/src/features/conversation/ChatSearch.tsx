@@ -1,4 +1,4 @@
-import { Button, ChevronDown, ChevronUp, Input, Search, X } from "@openownbot/ui";
+import { Button, ChevronDown, ChevronUp, Input, Search, X } from "@robot/ui";
 import { useText } from "../../text";
 
 interface ChatSearchProps {

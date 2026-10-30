@@ -1,15 +1,15 @@
-import { isDynamicRecord, isString } from "@openownbot/contracts/runtime-values";
+import { isDynamicRecord, isString } from "@robot/contracts/runtime-values";
 import {
   ANDROID_PUSH_NOTIFICATIONS_CODECS,
   ANDROID_PUSH_NOTIFICATIONS_ROUTES,
   type AndroidPushNotificationRegistration,
-} from "@openownbot/contracts/team-protocol/push-notifications-android-v1";
+} from "@robot/contracts/team-protocol/push-notifications-android-v1";
 import {
   PUSH_NOTIFICATION_SOUNDS,
   PUSH_NOTIFICATIONS_CODECS,
   PUSH_NOTIFICATIONS_ROUTES,
   type PushNotificationRegistration,
-} from "@openownbot/contracts/team-protocol/push-notifications-v1";
+} from "@robot/contracts/team-protocol/push-notifications-v1";
 import { Effect, Result, Semaphore } from "effect";
 import { isMissingFileError } from "../backend/file-errors";
 import { type PreferenceFileFailure, readPreferenceFile, writePreferenceFile } from "./preference-file";

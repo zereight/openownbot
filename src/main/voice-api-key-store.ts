@@ -1,7 +1,7 @@
 import { rm } from "node:fs/promises";
-import { isDynamicRecord } from "@openownbot/contracts/runtime-values";
-import { sourceText } from "@openownbot/i18n/source";
-import { registerSecretValue } from "@openownbot/logging";
+import { isDynamicRecord } from "@robot/contracts/runtime-values";
+import { sourceText } from "@robot/i18n/source";
+import { registerSecretValue } from "@robot/logging";
 import { Effect, Result, Semaphore } from "effect";
 import { isMissingFileError } from "../backend/file-errors";
 import { PreferenceFileFailure, readPreferenceFile, writePreferenceFile } from "./preference-file";

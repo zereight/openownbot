@@ -6,10 +6,10 @@ import {
   type BillingInterval,
   type BillingPlanId,
   isBillingAmount,
-} from "@openownbot/contracts/billing";
-import { HOSTED_SERVER_ENTRY_POINTS, type HostedServerEntryPoint } from "@openownbot/contracts/hosted-servers";
-import { LICENSE_METADATA, LICENSE_METADATA_KIND } from "@openownbot/contracts/license";
-import { isOneOf } from "@openownbot/contracts/runtime-values";
+} from "@robot/contracts/billing";
+import { HOSTED_SERVER_ENTRY_POINTS, type HostedServerEntryPoint } from "@robot/contracts/hosted-servers";
+import { LICENSE_METADATA, LICENSE_METADATA_KIND } from "@robot/contracts/license";
+import { isOneOf } from "@robot/contracts/runtime-values";
 import { Effect, Schema } from "effect";
 import {
   type BillingProduct,

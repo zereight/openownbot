@@ -1,8 +1,5 @@
-import {
-  HOST_MEMBER_UPDATE_CAPABILITY,
-  memberUpdateRoute,
-} from "@openownbot/contracts/team-protocol/host-member-update-v1";
-import { HOST_RELEASE_CAPABILITY, HOST_RELEASE_ROUTES } from "@openownbot/contracts/team-protocol/host-release-v1";
+import { HOST_MEMBER_UPDATE_CAPABILITY, memberUpdateRoute } from "@robot/contracts/team-protocol/host-member-update-v1";
+import { HOST_RELEASE_CAPABILITY, HOST_RELEASE_ROUTES } from "@robot/contracts/team-protocol/host-release-v1";
 import type { Effect } from "effect";
 import type { RemoteWorkflowError } from "../remote-service-effects";
 // The server name, logo, timezone, agent memory limit, memory review, prompt cache time and app
@@ -28,22 +25,22 @@ import {
   UPDATE_RESTART_MODES,
   type UpdateHostIdentityInput,
   type UpdateRestartMode,
-} from "@openownbot/contracts/ipc";
-import { isOneOf } from "@openownbot/contracts/runtime-values";
+} from "@robot/contracts/ipc";
+import { isOneOf } from "@robot/contracts/runtime-values";
 import {
   AGENT_MEMORY_LIMIT_CAPABILITY,
   AGENT_MEMORY_LIMIT_ROUTES,
-} from "@openownbot/contracts/team-protocol/agent-memory-limit-v1";
-import type { TeamCurrentCapability } from "@openownbot/contracts/team-protocol/current";
-import { HOST_ADMIN_CAPABILITY, HOST_ADMIN_ROUTES } from "@openownbot/contracts/team-protocol/host-admin-v1";
-import { HOST_TIMEZONE_CAPABILITY, HOST_TIMEZONE_ROUTES } from "@openownbot/contracts/team-protocol/host-timezone-v1";
-import { HOST_UPDATE_CAPABILITY, HOST_UPDATE_ROUTES } from "@openownbot/contracts/team-protocol/host-update-v1";
-import { MEMORY_REVIEW_CAPABILITY, MEMORY_REVIEW_ROUTES } from "@openownbot/contracts/team-protocol/memory-review-v1";
+} from "@robot/contracts/team-protocol/agent-memory-limit-v1";
+import type { TeamCurrentCapability } from "@robot/contracts/team-protocol/current";
+import { HOST_ADMIN_CAPABILITY, HOST_ADMIN_ROUTES } from "@robot/contracts/team-protocol/host-admin-v1";
+import { HOST_TIMEZONE_CAPABILITY, HOST_TIMEZONE_ROUTES } from "@robot/contracts/team-protocol/host-timezone-v1";
+import { HOST_UPDATE_CAPABILITY, HOST_UPDATE_ROUTES } from "@robot/contracts/team-protocol/host-update-v1";
+import { MEMORY_REVIEW_CAPABILITY, MEMORY_REVIEW_ROUTES } from "@robot/contracts/team-protocol/memory-review-v1";
 import {
   PROMPT_CACHE_TTL_CAPABILITY,
   PROMPT_CACHE_TTL_ROUTES,
-} from "@openownbot/contracts/team-protocol/prompt-cache-ttl-v1";
-import { sourceText } from "@openownbot/i18n/source";
+} from "@robot/contracts/team-protocol/prompt-cache-ttl-v1";
+import { sourceText } from "@robot/i18n/source";
 import { runCauseEffect } from "../../backend/effect-boundary";
 import type { AgentMemoryLimitSetting } from "../agent-memory-limit-preference-store";
 import type { HostService } from "../host-service";

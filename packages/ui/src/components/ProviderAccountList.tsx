@@ -3,9 +3,9 @@ import {
   DEFAULT_PROVIDER_ACCOUNT_ID,
   PROVIDER_ACCOUNT_LABEL_MAX_LENGTH,
   type ProviderAccountState,
-} from "@openownbot/contracts/ipc";
-import type { AppTextKey } from "@openownbot/i18n";
-import { Badge, buttonVariants, DropdownMenu, Ellipsis, Input, LogIn, Pencil, Trash2, X } from "@openownbot/ui";
+} from "@robot/contracts/ipc";
+import type { AppTextKey } from "@robot/i18n";
+import { Badge, buttonVariants, DropdownMenu, Ellipsis, Input, LogIn, Pencil, Trash2, X } from "@robot/ui";
 import { createSignal, For, Show } from "solid-js";
 import { useText } from "../text";
 import { type ProviderAccountActions, type ProviderPickerAccount, providerAccountName } from "./provider-accounts";

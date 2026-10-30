@@ -1,6 +1,6 @@
 import { defineMessages } from "../../../message";
 
-/** The sentence for each kind `classifyUserError` decides. `@openownbot/user-errors` owns the mapping. */
+/** The sentence for each kind `classifyUserError` decides. `@robot/user-errors` owns the mapping. */
 export const messages = defineMessages("error.kind", {
   "error.kind.network": "Could not connect. Check your connection and try again.",
   "error.kind.timeout": "The request took too long. Check whether the action completed before you try again.",

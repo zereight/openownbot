@@ -1,6 +1,6 @@
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
-import { isCanonicalInviteUrl } from "@openownbot/contracts/invite-links";
-import { isValidHostname as isSharedValidHostname } from "@openownbot/contracts/validation";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
+import { isCanonicalInviteUrl } from "@robot/contracts/invite-links";
+import { isValidHostname as isSharedValidHostname } from "@robot/contracts/validation";
 import { Effect, Fiber, Option, Result, Schema } from "effect";
 import {
   type ContactMessageEmailInput,

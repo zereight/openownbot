@@ -1,4 +1,4 @@
-import type { OpenOwnBotDesktopApi } from "@openownbot/contracts/ipc";
+import type { OpenOwnBotDesktopApi } from "@robot/contracts/ipc";
 
 /**
  * What the sidebar reaches in main: the saved sidebar layout and its changes, and the free space

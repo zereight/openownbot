@@ -4,7 +4,7 @@
  * asks for in a small card at the same spot.
  */
 
-import { ChevronRight, ContextMenu, Plus, UserRound } from "@openownbot/ui";
+import { ChevronRight, ContextMenu, Plus, UserRound } from "@robot/ui";
 import { For, Show } from "solid-js";
 import type { AgentProfile } from "../../data";
 import { useText } from "../../text";

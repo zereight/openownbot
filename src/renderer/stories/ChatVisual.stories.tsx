@@ -1,4 +1,4 @@
-import { ChatVisual } from "@openownbot/ui/features/conversation/ChatVisual";
+import { ChatVisual } from "@robot/ui/features/conversation/ChatVisual";
 import { createEffect, createSignal, For } from "solid-js";
 import { fn } from "storybook/test";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";

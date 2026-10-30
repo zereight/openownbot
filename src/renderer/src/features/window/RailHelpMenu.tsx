@@ -1,5 +1,5 @@
-import { HelpMenu, type HelpMenuNews } from "@openownbot/ui/features/updates/HelpMenu";
-import { whatsNewEntry } from "@openownbot/ui/features/updates/whats-new";
+import { HelpMenu, type HelpMenuNews } from "@robot/ui/features/updates/HelpMenu";
+import { whatsNewEntry } from "@robot/ui/features/updates/whats-new";
 import { createSignal } from "solid-js";
 import { compareReleaseVersions } from "../updates/whats-new-history";
 import { loadWhatsNewReleases } from "../updates/whats-new-releases";

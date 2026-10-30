@@ -78,7 +78,7 @@ Do not implement it in this skill.
 Find the root cause, not only the place where the symptom shows.
 
 1. Find the code path from the symptom. Start from the UI text (an
-   `@openownbot/i18n` key), the IPC channel, the error code, or the log line
+   `@robot/i18n` key), the IPC channel, the error code, or the log line
    in the issue. Use an `Explore` agent for a broad search.
 2. Write the hypothesis in one sentence: "X fails because Y at `path:line`".
 3. Prove it. Use the cheapest proof that is conclusive:
@@ -116,7 +116,7 @@ Otherwise, continue:
    over new code. Do not fix nearby problems in the same change; list them
    in the report.
 2. Obey `AGENTS.md`: non-negotiable rules, Effect rules, shared UI,
-   `@openownbot/i18n` text, and terms.
+   `@robot/i18n` text, and terms.
 3. Add a test only when `AGENTS.md` asks for one: data loss, released
    protocol, trust boundary, secret leak, or a bug that came back. A
    migration always needs its tests. Delete temporary tests from Step 3

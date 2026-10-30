@@ -11,7 +11,7 @@ import assert from "node:assert/strict";
 import { mkdir, mkdtemp, readdir, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
-import { isAgentProvider } from "@openownbot/contracts/agent-providers";
+import { isAgentProvider } from "@robot/contracts/agent-providers";
 import type { AgentClient } from "../src/backend/agent-client";
 import { NO_PROVIDER_CREDENTIALS, requireProviderDriver } from "../src/backend/provider-drivers";
 import { installFakeAgent, readJsonl, runTurn, startThread, stopClients } from "./provider-fakes/host";

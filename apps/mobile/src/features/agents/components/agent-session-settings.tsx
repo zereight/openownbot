@@ -1,4 +1,4 @@
-import type { AgentSessionSettingValue } from "@openownbot/contracts/ipc";
+import type { AgentSessionSettingValue } from "@robot/contracts/ipc";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Typography } from "heroui-native";
 import { Fragment, useState } from "react";

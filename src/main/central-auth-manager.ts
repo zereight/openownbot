@@ -2,8 +2,8 @@ import { randomUUID } from "node:crypto";
 import { EventEmitter } from "node:events";
 import { chmod, mkdir, readFile, rename, rm, writeFile } from "node:fs/promises";
 import { dirname } from "node:path";
-import type { HostKeyHandover } from "@openownbot/contracts/host-key-handover";
-import { parseHostedServerClaim } from "@openownbot/contracts/hosted-servers";
+import type { HostKeyHandover } from "@robot/contracts/host-key-handover";
+import { parseHostedServerClaim } from "@robot/contracts/hosted-servers";
 import type {
   AvatarImageInput,
   CentralAuthIssue,
@@ -12,30 +12,30 @@ import type {
   MobileConnectedDevice,
   MobileConnectLink,
   MobileConnectTicket,
-} from "@openownbot/contracts/ipc";
-import { decodeRecord, requiredString } from "@openownbot/contracts/ipc-decoding";
-import type { LiveActivityRelayPush } from "@openownbot/contracts/live-activity-relay";
+} from "@robot/contracts/ipc";
+import { decodeRecord, requiredString } from "@robot/contracts/ipc-decoding";
+import type { LiveActivityRelayPush } from "@robot/contracts/live-activity-relay";
 import {
   createMobileConnectUrl,
   isMobileConnectHostBinding,
   type MobileConnectHostBinding,
-} from "@openownbot/contracts/mobile-connect";
+} from "@robot/contracts/mobile-connect";
 import {
   decodeRemoteSession,
   decodeRemoteSessionTicket,
   type RemoteSession,
   type RemoteSessionTicket,
-} from "@openownbot/contracts/remote-control-plane";
-import { isDynamicRecord, isNumber, isString } from "@openownbot/contracts/runtime-values";
-import { TELEGRAM_LINK_CODE_PATTERN } from "@openownbot/contracts/signal-protocol/telegram-route";
+} from "@robot/contracts/remote-control-plane";
+import { isDynamicRecord, isNumber, isString } from "@robot/contracts/runtime-values";
+import { TELEGRAM_LINK_CODE_PATTERN } from "@robot/contracts/signal-protocol/telegram-route";
 import {
   REMOTE_TICKET_AUDIENCE,
   type RemoteMemberRole,
   type RemoteTicketClaims,
-} from "@openownbot/contracts/signal-protocol/ticket";
-import { sourceText } from "@openownbot/i18n/source";
-import { createOpenOwnBotLogger } from "@openownbot/logging";
-import { referenceFrom, safeReference } from "@openownbot/user-errors";
+} from "@robot/contracts/signal-protocol/ticket";
+import { sourceText } from "@robot/i18n/source";
+import { createOpenOwnBotLogger } from "@robot/logging";
+import { referenceFrom, safeReference } from "@robot/user-errors";
 import { Deferred, Effect, type Layer, Result, Schema, Semaphore } from "effect";
 import { createLocalJWKSet, jwtVerify } from "jose";
 import { z } from "zod";
@@ -141,7 +141,7 @@ const remoteTicketJwksSchema = z.object({
 });
 
 // The account API answers the same shape for a host credential and for a member session, so both
-// paths below decode it with the one function in `@openownbot/contracts/remote-control-plane`.
+// paths below decode it with the one function in `@robot/contracts/remote-control-plane`.
 export type RemoteConnectionBootstrap = RemoteSessionTicket;
 
 // The claims this host reads off a client's ticket, derived from the contract the account API mints

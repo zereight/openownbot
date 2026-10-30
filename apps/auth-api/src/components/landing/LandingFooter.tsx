@@ -1,4 +1,4 @@
-import { AppLogo } from "@openownbot/brand";
+import { AppLogo } from "@robot/brand";
 import { Link } from "@tanstack/solid-router";
 import { For, Show } from "solid-js";
 import { EXTERNAL_LINK_REL, FOOTER_COLUMNS, type FooterLink, OPENOWNBOT_LINKS } from "../../lib/landing-links";

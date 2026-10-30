@@ -1,5 +1,5 @@
-import { type EventFilterDraft, eventFilterPointerValid } from "@openownbot/contracts/event-filter-value";
-import { Button, ChevronDown, ChevronRight, IconButton, Input, Plus, SlidersHorizontal, Text, X } from "@openownbot/ui";
+import { type EventFilterDraft, eventFilterPointerValid } from "@robot/contracts/event-filter-value";
+import { Button, ChevronDown, ChevronRight, IconButton, Input, Plus, SlidersHorizontal, Text, X } from "@robot/ui";
 import { createSignal, createUniqueId, For, onSettled, Show } from "solid-js";
 import { useText } from "../../text";
 

@@ -1,6 +1,6 @@
-import { isDynamicRecord } from "@openownbot/contracts/runtime-values";
+import { isDynamicRecord } from "@robot/contracts/runtime-values";
 
-// No import of `@openownbot/logging` or the catalogs here: `@openownbot/team-client` runs in a browser and
+// No import of `@robot/logging` or the catalogs here: `@robot/team-client` runs in a browser and
 // in React Native, and builds references with this module only.
 
 export const NETWORK_MESSAGE =

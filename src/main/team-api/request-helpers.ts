@@ -8,7 +8,7 @@
 // property of the reader, not something ~50 routes each have to remember.
 
 import type { IncomingMessage } from "node:http";
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
 import {
   type AgentAccessLevel,
   agentAccessRank,
@@ -34,28 +34,22 @@ import {
   ROUTINE_RUN_EVENT_ITEM_TYPE_PREFIX,
   type TeamMemberSummary,
   type UpdateAgentInput,
-} from "@openownbot/contracts/ipc";
-import {
-  type DynamicRecord,
-  isBoolean,
-  isDynamicRecord,
-  isNumber,
-  isString,
-} from "@openownbot/contracts/runtime-values";
+} from "@robot/contracts/ipc";
+import { type DynamicRecord, isBoolean, isDynamicRecord, isNumber, isString } from "@robot/contracts/runtime-values";
 import {
   isTeamCurrentCapability,
   supportsTeamSemanticTags,
   TEAM_AGENT_CREATE_MODEL_CAPABILITY,
-} from "@openownbot/contracts/team-protocol/current";
-import { teamHttpCodec } from "@openownbot/contracts/team-protocol/http-codecs";
-import { teamSideRouteCodec } from "@openownbot/contracts/team-protocol/side-routes";
+} from "@robot/contracts/team-protocol/current";
+import { teamHttpCodec } from "@robot/contracts/team-protocol/http-codecs";
+import { teamSideRouteCodec } from "@robot/contracts/team-protocol/side-routes";
 import {
   TEAM_CAPABILITIES_HEADER,
   TEAM_PROTOCOL_V1,
   TEAM_PROTOCOL_VERSION_HEADER,
-} from "@openownbot/contracts/team-protocol/v1";
-import { TEAM_PROTOCOL_V2_MAX_JSON_FRAME_BYTES } from "@openownbot/contracts/team-protocol/v2";
-import { sourceText } from "@openownbot/i18n/source";
+} from "@robot/contracts/team-protocol/v1";
+import { TEAM_PROTOCOL_V2_MAX_JSON_FRAME_BYTES } from "@robot/contracts/team-protocol/v2";
+import { sourceText } from "@robot/i18n/source";
 import { readBodyWithin } from "../http-body";
 import { HttpError } from "./http-error";
 import type { TeamApiRequestContext } from "./request-context";

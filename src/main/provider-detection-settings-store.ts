@@ -8,9 +8,9 @@ import {
   DEFAULT_PROVIDER_DETECTION_SETTINGS,
   isProviderDetectionSettings,
   type ProviderDetectionSettings,
-} from "@openownbot/contracts/ipc";
-import { isDynamicRecord } from "@openownbot/contracts/runtime-values";
-import { sourceText } from "@openownbot/i18n/source";
+} from "@robot/contracts/ipc";
+import { isDynamicRecord } from "@robot/contracts/runtime-values";
+import { sourceText } from "@robot/i18n/source";
 import { Effect, Result, Semaphore } from "effect";
 import { isMissingFileError } from "../backend/file-errors";
 import { PreferenceFileFailure, readPreferenceFile, writePreferenceFile } from "./preference-file";

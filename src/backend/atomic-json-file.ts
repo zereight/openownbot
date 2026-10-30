@@ -1,7 +1,7 @@
 import { randomUUID } from "node:crypto";
 import { mkdir, open, rename, rm } from "node:fs/promises";
 import { dirname } from "node:path";
-import { sourceText } from "@openownbot/i18n/source";
+import { sourceText } from "@robot/i18n/source";
 import { Effect, Result, Schema } from "effect";
 
 /** Every stored JSON file carries a schema version, so a later release can read an older one. */

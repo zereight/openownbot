@@ -1,4 +1,4 @@
-import type { AgentProviderState, AgentStatus } from "@openownbot/contracts/ipc";
+import type { AgentProviderState, AgentStatus } from "@robot/contracts/ipc";
 
 /**
  * The provider state to show while `AgentStatus` carries no per-provider entry. Both onboarding

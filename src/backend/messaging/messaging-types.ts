@@ -8,13 +8,13 @@
 // socket, and the host calls the Bot API through Signal, which holds the bot token. No transport needs
 // a public endpoint on the host.
 
-import type { MessagingConnectionState, MessagingPlatform } from "@openownbot/contracts/ipc";
-import type { DiscordApiRequest, DiscordDelivery } from "@openownbot/contracts/signal-protocol/discord-api";
+import type { MessagingConnectionState, MessagingPlatform } from "@robot/contracts/ipc";
+import type { DiscordApiRequest, DiscordDelivery } from "@robot/contracts/signal-protocol/discord-api";
 import type {
   TelegramCallMethod,
   TelegramCallParams,
   TelegramCallResult,
-} from "@openownbot/contracts/signal-protocol/telegram-route";
+} from "@robot/contracts/signal-protocol/telegram-route";
 import { type Effect, Schema } from "effect";
 import type { MessagingOperationFailed } from "./messaging-service";
 import type { MessagingAnswerFile } from "./messaging-threads";

@@ -1,6 +1,6 @@
-import { agentProviderDescriptor } from "@openownbot/contracts/ipc";
-import { ProviderCodeLoginDialog } from "@openownbot/ui/components/ProviderCodeLoginDialog";
-import { ProviderUseAppDialog } from "@openownbot/ui/components/ProviderUseAppDialog";
+import { agentProviderDescriptor } from "@robot/contracts/ipc";
+import { ProviderCodeLoginDialog } from "@robot/ui/components/ProviderCodeLoginDialog";
+import { ProviderUseAppDialog } from "@robot/ui/components/ProviderUseAppDialog";
 import { Show } from "solid-js";
 import type { ProviderCodeLoginOpener, ProviderConnectionApi } from "./provider-connection-api";
 

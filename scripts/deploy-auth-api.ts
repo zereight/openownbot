@@ -2,7 +2,7 @@ import { spawn } from "node:child_process";
 import { existsSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { createOpenOwnBotLogger, toLogValue } from "@openownbot/logging";
+import { createOpenOwnBotLogger, toLogValue } from "@robot/logging";
 import { readFcmServiceAccount } from "../apps/auth-api/src/server/android-notification-relay";
 
 const logger = createOpenOwnBotLogger("deploy-auth-api");

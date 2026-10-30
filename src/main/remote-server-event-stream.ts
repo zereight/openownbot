@@ -1,6 +1,6 @@
-import type { HostRestartEvent } from "@openownbot/contracts/team-protocol/host-update-v1";
-import { optionalTeamEvent, optionalTeamEventToCurrent } from "@openownbot/contracts/team-protocol/optional-events";
-import { decodeTeamProtocolV8BaseCurrentEvent } from "@openownbot/contracts/team-protocol/v8-base-adapter";
+import type { HostRestartEvent } from "@robot/contracts/team-protocol/host-update-v1";
+import { optionalTeamEvent, optionalTeamEventToCurrent } from "@robot/contracts/team-protocol/optional-events";
+import { decodeTeamProtocolV8BaseCurrentEvent } from "@robot/contracts/team-protocol/v8-base-adapter";
 import { Effect, Exit, Result, Scope } from "effect";
 import { RemoteWorkflowError, remoteDecode } from "./remote-service-effects";
 // The live event channel for HTTPS servers, and the reconnect policy both transports share.
@@ -31,18 +31,18 @@ import type {
   ServerCompatibility,
   ServerSummary,
   TeamPresenceSnapshot,
-} from "@openownbot/contracts/ipc";
-import { decodeRecord } from "@openownbot/contracts/ipc-decoding";
-import { isString } from "@openownbot/contracts/runtime-values";
-import { TEAM_API_ROUTES } from "@openownbot/contracts/team-api-routes";
-import { type TeamCurrentCapability, teamCapabilitiesForProtocol } from "@openownbot/contracts/team-protocol/current";
-import { TEAM_PROTOCOL_V1_WEBSOCKET } from "@openownbot/contracts/team-protocol/v1";
+} from "@robot/contracts/ipc";
+import { decodeRecord } from "@robot/contracts/ipc-decoding";
+import { isString } from "@robot/contracts/runtime-values";
+import { TEAM_API_ROUTES } from "@robot/contracts/team-api-routes";
+import { type TeamCurrentCapability, teamCapabilitiesForProtocol } from "@robot/contracts/team-protocol/current";
+import { TEAM_PROTOCOL_V1_WEBSOCKET } from "@robot/contracts/team-protocol/v1";
 import {
   encodeTeamProtocolV1CurrentClientEvent,
   type TeamProtocolV1CurrentClientEvent,
-} from "@openownbot/contracts/team-protocol/v1-adapter";
-import { sourceText } from "@openownbot/i18n/source";
-import { referenceFrom } from "@openownbot/user-errors";
+} from "@robot/contracts/team-protocol/v1-adapter";
+import { sourceText } from "@robot/i18n/source";
+import { referenceFrom } from "@robot/user-errors";
 import { RemoteProtocolError, RemoteRequestError } from "./remote-server-errors";
 import { requestJson } from "./remote-server-http";
 import type { RemoteServerDirectory, StoredRemoteServerView } from "./remote-server-store";

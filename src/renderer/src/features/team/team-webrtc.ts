@@ -1,13 +1,13 @@
-import { isString } from "@openownbot/contracts/runtime-values";
-import { decodeSignalServerMessage } from "@openownbot/contracts/signal-protocol/decode";
+import { isString } from "@robot/contracts/runtime-values";
+import { decodeSignalServerMessage } from "@robot/contracts/signal-protocol/decode";
 import {
   SIGNAL_PROTOCOL_VERSION,
   SIGNAL_TURN_REFRESH_INTERVAL_MS,
   type SignalClientMessage,
   type SignalServerMessage,
-} from "@openownbot/contracts/signal-protocol/messages";
-import { TEAM_PROTOCOL_V2_CHANNELS } from "@openownbot/contracts/team-protocol/v2";
-import { sourceText } from "@openownbot/i18n/source";
+} from "@robot/contracts/signal-protocol/messages";
+import { TEAM_PROTOCOL_V2_CHANNELS } from "@robot/contracts/team-protocol/v2";
+import { sourceText } from "@robot/i18n/source";
 import { encodeTeamWebRtcPayload, TeamWebRtcPayloadDecoder } from "./team-webrtc-framing";
 import { isPrivateNetworkCandidate, privateNetworkSdp } from "./team-webrtc-private-network";
 

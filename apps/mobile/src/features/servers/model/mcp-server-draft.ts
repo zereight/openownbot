@@ -1,4 +1,4 @@
-import { type McpServerConfig, mcpConfigErrors, normalizeMcpConfig } from "@openownbot/contracts/ipc";
+import { type McpServerConfig, mcpConfigErrors, normalizeMcpConfig } from "@robot/contracts/ipc";
 
 /**
  * What the MCP server page edits: one field for each argument, variable and header, as on desktop.

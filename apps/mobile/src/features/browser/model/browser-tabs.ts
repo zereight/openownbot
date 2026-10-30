@@ -1,4 +1,4 @@
-import { isDynamicRecord, isString } from "@openownbot/contracts/runtime-values";
+import { isDynamicRecord, isString } from "@robot/contracts/runtime-values";
 
 /** The part of a host browser tab that the phone uses. */
 export interface MobileBrowserTab {
@@ -112,7 +112,7 @@ const SEARCH_URL = "https://www.google.com/search?q=";
 
 /**
  * The page that the text in the address field opens: a web address, or a Google search. The same
- * rule as the desktop address bar (`browserAddressUrl` in `@openownbot/ui`, which mobile cannot import).
+ * rule as the desktop address bar (`browserAddressUrl` in `@robot/ui`, which mobile cannot import).
  */
 export function browserAddressUrl(value: string): string {
   const hasProtocol = /^https?:\/\//i.test(value);

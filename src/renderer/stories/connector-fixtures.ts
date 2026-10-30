@@ -2,9 +2,9 @@ import {
   DISCONNECTED_BITWARDEN_CONNECTOR,
   DISCONNECTED_ONEPASSWORD_CONNECTOR,
   type MessagingConnection,
-} from "@openownbot/contracts/ipc";
-import type { ConnectorDetail } from "@openownbot/ui/features/connectors/ConnectorDetailPanel";
-import type { SlackIntegrationAgent } from "@openownbot/ui/features/settings/SlackIntegrationPanel";
+} from "@robot/contracts/ipc";
+import type { ConnectorDetail } from "@robot/ui/features/connectors/ConnectorDetailPanel";
+import type { SlackIntegrationAgent } from "@robot/ui/features/settings/SlackIntegrationPanel";
 import { fn } from "storybook/test";
 import type { ConnectorController } from "../src/features/connectors/connector-controller";
 import type { ConnectorSet } from "../src/features/connectors/connector-registry";

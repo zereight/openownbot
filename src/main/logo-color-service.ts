@@ -1,5 +1,5 @@
-import { type AppLogoColorPreference, DEFAULT_APP_LOGO_COLOR, isAppLogoColor } from "@openownbot/contracts/ipc";
-import { isDynamicRecord } from "@openownbot/contracts/runtime-values";
+import { type AppLogoColorPreference, DEFAULT_APP_LOGO_COLOR, isAppLogoColor } from "@robot/contracts/ipc";
+import { isDynamicRecord } from "@robot/contracts/runtime-values";
 import { Effect, Semaphore } from "effect";
 import { type PreferenceFileFailure, readPreferenceFile, writePreferenceFile } from "./preference-file";
 

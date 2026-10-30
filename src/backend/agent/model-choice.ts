@@ -1,8 +1,8 @@
-import { customAgentIdOfModel } from "@openownbot/contracts/agent-providers";
-import { developmentStartingModel } from "@openownbot/contracts/development-defaults";
-import type { AgentModelId, AgentModelOption, AgentProviderStatus, CreateAgentInput } from "@openownbot/contracts/ipc";
-import { defaultProviderModel, PICKER_PROVIDERS } from "@openownbot/contracts/ipc";
-import { sourceText } from "@openownbot/i18n/source";
+import { customAgentIdOfModel } from "@robot/contracts/agent-providers";
+import { developmentStartingModel } from "@robot/contracts/development-defaults";
+import type { AgentModelId, AgentModelOption, AgentProviderStatus, CreateAgentInput } from "@robot/contracts/ipc";
+import { defaultProviderModel, PICKER_PROVIDERS } from "@robot/contracts/ipc";
+import { sourceText } from "@robot/i18n/source";
 import type { AgentProvider } from "../agent-client";
 import { DEFAULT_AGENT_PROVIDER } from "../agent-store";
 import { providerLabel } from "./thread-items";

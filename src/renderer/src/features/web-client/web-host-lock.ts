@@ -1,5 +1,5 @@
-import { isDynamicRecord, isString } from "@openownbot/contracts/runtime-values";
-import { currentText } from "@openownbot/ui/text";
+import { isDynamicRecord, isString } from "@robot/contracts/runtime-values";
+import { currentText } from "@robot/ui/text";
 
 /**
  * A logical host session belongs to one account credential. Prevent tabs from replacing each other's peer.

@@ -1,4 +1,4 @@
-import { SpeakingBar } from "@openownbot/ui/features/conversation/SpeakingBar";
+import { SpeakingBar } from "@robot/ui/features/conversation/SpeakingBar";
 import { fn } from "storybook/test";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";
 import { STORY_AGENT } from "./fixtures";

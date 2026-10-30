@@ -1,4 +1,4 @@
-import type { WhatsNewRelease } from "@openownbot/ui/features/updates/whats-new";
+import type { WhatsNewRelease } from "@robot/ui/features/updates/whats-new";
 
 const WHATS_NEW_VERSION_KEY = "openownbot:whats-new-version";
 const LEGACY_VERSION_KEY = "openownbot:analytics-app-version";

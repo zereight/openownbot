@@ -1,8 +1,8 @@
-import type { BrowserTab } from "@openownbot/contracts/ipc";
-import { Globe2, LoaderCircle } from "@openownbot/ui";
-import type { AgentProfile } from "@openownbot/ui/data";
-import { AgentAvatar } from "@openownbot/ui/features/agents/AgentAvatar";
-import { useText } from "@openownbot/ui/text";
+import type { BrowserTab } from "@robot/contracts/ipc";
+import { Globe2, LoaderCircle } from "@robot/ui";
+import type { AgentProfile } from "@robot/ui/data";
+import { AgentAvatar } from "@robot/ui/features/agents/AgentAvatar";
+import { useText } from "@robot/ui/text";
 import { Show } from "solid-js";
 import type { BrowserFullViewProps } from "./browser-full-view-types";
 import { browserDisplayUrl } from "./browser-suggestions";

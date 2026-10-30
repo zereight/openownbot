@@ -1,10 +1,6 @@
-import type { BillingPlanId } from "@openownbot/contracts/billing";
-import type {
-  HostedServerCatalogPlan,
-  HostedServerList,
-  HostedServerSummary,
-} from "@openownbot/contracts/hosted-servers";
-import type { MobileTextKey } from "@openownbot/i18n/mobile";
+import type { BillingPlanId } from "@robot/contracts/billing";
+import type { HostedServerCatalogPlan, HostedServerList, HostedServerSummary } from "@robot/contracts/hosted-servers";
+import type { MobileTextKey } from "@robot/i18n/mobile";
 import { skipToken, useQuery } from "@tanstack/react-query";
 import { router } from "expo-router";
 import { Button, Chip, Skeleton, Typography } from "heroui-native";

@@ -1,5 +1,5 @@
-import type { HostUpdateStatus, UpdateRestartMode } from "@openownbot/contracts/ipc";
-import { toast } from "@openownbot/ui";
+import type { HostUpdateStatus, UpdateRestartMode } from "@robot/contracts/ipc";
+import { toast } from "@robot/ui";
 import {
   type ServerUpdateBusy,
   ServerUpdateDialog,
@@ -7,9 +7,9 @@ import {
   type ServerUpdateFailure,
   type ServerUpdateStage,
   type ServerUpdateView,
-} from "@openownbot/ui/features/servers/ServerUpdateDialog";
-import { restartReasonKey } from "@openownbot/ui/features/updates/restart-reasons";
-import { currentText } from "@openownbot/ui/text";
+} from "@robot/ui/features/servers/ServerUpdateDialog";
+import { restartReasonKey } from "@robot/ui/features/updates/restart-reasons";
+import { currentText } from "@robot/ui/text";
 import { createEffect, createSignal, createStore, onSettled, untrack } from "solid-js";
 import { createDetachedRoot } from "../../detached-root";
 import type { HostRestartView } from "../updates/host-restart-toast";

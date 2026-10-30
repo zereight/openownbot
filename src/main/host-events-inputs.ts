@@ -1,4 +1,4 @@
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
 import {
   type EventRoutineOwner,
   type EventRoutineRef,
@@ -8,9 +8,9 @@ import {
   type ListEventRoutineRunsInput,
   type ListEventRoutinesInput,
   type SaveEventRoutineInput,
-} from "@openownbot/contracts/ipc-events";
-import { type DynamicRecord, isDynamicRecord } from "@openownbot/contracts/runtime-values";
-import { sourceText } from "@openownbot/i18n/source";
+} from "@robot/contracts/ipc-events";
+import { type DynamicRecord, isDynamicRecord } from "@robot/contracts/runtime-values";
+import { sourceText } from "@robot/i18n/source";
 
 // Each parser decodes an untrusted renderer or Team API body. A failure has only catalog text.
 

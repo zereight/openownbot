@@ -10,10 +10,10 @@ import {
   COMPUTER_USE_MCP_SERVER_ID,
   type McpServerConfig,
   workspaceAccessEnforced,
-} from "@openownbot/contracts/ipc";
-import { type DynamicRecord, isDynamicRecord } from "@openownbot/contracts/runtime-values";
-import { sourceText } from "@openownbot/i18n/source";
-import { createOpenOwnBotLogger } from "@openownbot/logging";
+} from "@robot/contracts/ipc";
+import { type DynamicRecord, isDynamicRecord } from "@robot/contracts/runtime-values";
+import { sourceText } from "@robot/i18n/source";
+import { createOpenOwnBotLogger } from "@robot/logging";
 import { Effect, Result, Schema } from "effect";
 import type { AgentClient, AgentProvider } from "../agent-client";
 import type { AgentStore } from "../agent-store";

@@ -1,4 +1,4 @@
-import { SkillPreview as SharedSkillPreview } from "@openownbot/ui/components/SkillPreview";
+import { SkillPreview as SharedSkillPreview } from "@robot/ui/components/SkillPreview";
 import type { ComponentProps } from "@solidjs/web";
 import { appPort } from "../app-port";
 

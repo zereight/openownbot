@@ -1,13 +1,13 @@
-import type { BrowserDockIsland, LocalBrowserSecretResponse } from "@openownbot/contracts/ipc";
-import { Button, LoaderCircle, MousePointer2, X } from "@openownbot/ui";
-import { QuestionPromptBubble } from "@openownbot/ui/components/QuestionPromptBubble";
-import type { ComposerAgent } from "@openownbot/ui/data";
-import { AgentAvatar } from "@openownbot/ui/features/agents/AgentAvatar";
-import { BrowserSecretCard, type BrowserSecretVault } from "@openownbot/ui/features/conversation/BrowserSecretCard";
-import { ApprovalCard } from "@openownbot/ui/features/conversation/ConversationPrompts";
-import { RichMessageText } from "@openownbot/ui/features/conversation/RichMessageText";
-import type { SendShortcut } from "@openownbot/ui/features/conversation/send-shortcut";
-import { useText } from "@openownbot/ui/text";
+import type { BrowserDockIsland, LocalBrowserSecretResponse } from "@robot/contracts/ipc";
+import { Button, LoaderCircle, MousePointer2, X } from "@robot/ui";
+import { QuestionPromptBubble } from "@robot/ui/components/QuestionPromptBubble";
+import type { ComposerAgent } from "@robot/ui/data";
+import { AgentAvatar } from "@robot/ui/features/agents/AgentAvatar";
+import { BrowserSecretCard, type BrowserSecretVault } from "@robot/ui/features/conversation/BrowserSecretCard";
+import { ApprovalCard } from "@robot/ui/features/conversation/ConversationPrompts";
+import { RichMessageText } from "@robot/ui/features/conversation/RichMessageText";
+import type { SendShortcut } from "@robot/ui/features/conversation/send-shortcut";
+import { useText } from "@robot/ui/text";
 import { Match, Show, Switch } from "solid-js";
 
 /**

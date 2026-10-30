@@ -1,8 +1,5 @@
-import type { EventFilterDraft } from "@openownbot/contracts/event-filter-value";
-import {
-  RoutineWebhookCard,
-  type RoutineWebhookCardProps,
-} from "@openownbot/ui/features/conversation/RoutineWebhookCard";
+import type { EventFilterDraft } from "@robot/contracts/event-filter-value";
+import { RoutineWebhookCard, type RoutineWebhookCardProps } from "@robot/ui/features/conversation/RoutineWebhookCard";
 import { createSignal } from "solid-js";
 import { fn } from "storybook/test";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";

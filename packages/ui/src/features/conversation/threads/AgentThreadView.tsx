@@ -5,31 +5,27 @@ import type {
   AttachmentSummary,
   DraftAttachment,
   InstalledSkill,
-} from "@openownbot/contracts/ipc";
-import type { AppTextKey } from "@openownbot/i18n";
-import { isAgentTaskActive } from "@openownbot/team-client/agent-tasks";
-import { createScrollFades } from "@openownbot/ui/components/createScrollFades";
-import type { AgentMessage, AgentProfile, ComposerMcpServer } from "@openownbot/ui/data";
-import { AgentActivityIndicator, nextAgentActivityLabel } from "@openownbot/ui/features/conversation/AgentActivity";
-import {
-  type AgentStep,
-  AgentStepsDisclosure,
-  type AgentStepsFacts,
-} from "@openownbot/ui/features/conversation/AgentSteps";
-import { type ChatMessageAuthor, ChatMessageRow } from "@openownbot/ui/features/conversation/ChatMessageRow";
-import { ComposerAddMenu } from "@openownbot/ui/features/conversation/ComposerAddMenu";
+} from "@robot/contracts/ipc";
+import type { AppTextKey } from "@robot/i18n";
+import { isAgentTaskActive } from "@robot/team-client/agent-tasks";
+import { createScrollFades } from "@robot/ui/components/createScrollFades";
+import type { AgentMessage, AgentProfile, ComposerMcpServer } from "@robot/ui/data";
+import { AgentActivityIndicator, nextAgentActivityLabel } from "@robot/ui/features/conversation/AgentActivity";
+import { type AgentStep, AgentStepsDisclosure, type AgentStepsFacts } from "@robot/ui/features/conversation/AgentSteps";
+import { type ChatMessageAuthor, ChatMessageRow } from "@robot/ui/features/conversation/ChatMessageRow";
+import { ComposerAddMenu } from "@robot/ui/features/conversation/ComposerAddMenu";
 import {
   ComposerEditor,
   type ComposerPasteResult,
   type ComposerSelection,
-} from "@openownbot/ui/features/conversation/ComposerEditor";
-import { ComposerNotice } from "@openownbot/ui/features/conversation/ComposerNotice";
-import { ComposerSendControl } from "@openownbot/ui/features/conversation/ComposerSendControl";
-import { ContextUsageMeter, type ContextUsageView } from "@openownbot/ui/features/conversation/ContextUsage";
-import { ApprovalCard } from "@openownbot/ui/features/conversation/ConversationPrompts";
-import type { SendShortcut } from "@openownbot/ui/features/conversation/send-shortcut";
-import { ComposerVoiceControls, type VoicePhase } from "@openownbot/ui/features/conversation/VoiceRecordingMorph";
-import { type TextValue, useText } from "@openownbot/ui/text";
+} from "@robot/ui/features/conversation/ComposerEditor";
+import { ComposerNotice } from "@robot/ui/features/conversation/ComposerNotice";
+import { ComposerSendControl } from "@robot/ui/features/conversation/ComposerSendControl";
+import { ContextUsageMeter, type ContextUsageView } from "@robot/ui/features/conversation/ContextUsage";
+import { ApprovalCard } from "@robot/ui/features/conversation/ConversationPrompts";
+import type { SendShortcut } from "@robot/ui/features/conversation/send-shortcut";
+import { ComposerVoiceControls, type VoicePhase } from "@robot/ui/features/conversation/VoiceRecordingMorph";
+import { type TextValue, useText } from "@robot/ui/text";
 import type { JSX } from "@solidjs/web";
 import { children, createSignal, For, onSettled, Show } from "solid-js";
 

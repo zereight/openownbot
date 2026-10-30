@@ -4,9 +4,9 @@ import { access, readFile, stat } from "node:fs/promises";
 import { homedir } from "node:os";
 import { basename, delimiter, dirname, extname, isAbsolute, join, posix, resolve, win32 } from "node:path";
 import { promisify } from "node:util";
-import { type AgentProviderId, agentProviderName } from "@openownbot/contracts/ipc";
-import { isDynamicRecord } from "@openownbot/contracts/runtime-values";
-import { sourceText } from "@openownbot/i18n/source";
+import { type AgentProviderId, agentProviderName } from "@robot/contracts/ipc";
+import { isDynamicRecord } from "@robot/contracts/runtime-values";
+import { sourceText } from "@robot/i18n/source";
 import { Deferred, Effect, Result } from "effect";
 import { type ProviderClientOperationError, providerCall, providerFailure } from "./provider-client-effects";
 

@@ -1,6 +1,6 @@
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
-import type { AgentSummary } from "@openownbot/contracts/ipc";
-import { sourceText } from "@openownbot/i18n/source";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
+import type { AgentSummary } from "@robot/contracts/ipc";
+import { sourceText } from "@robot/i18n/source";
 import { Effect } from "effect";
 import { z } from "zod";
 import type { AgentStore } from "../agent-store";

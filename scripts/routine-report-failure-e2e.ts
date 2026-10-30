@@ -19,7 +19,7 @@ import {
   latestTurnAnswer,
   type RoutineRun,
   routineRunConversationEvent,
-} from "@openownbot/contracts/ipc";
+} from "@robot/contracts/ipc";
 import { Effect } from "effect";
 import type { AgentBrowserHost } from "../src/backend/agent/turn-lifecycle";
 

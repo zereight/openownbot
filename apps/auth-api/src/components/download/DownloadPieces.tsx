@@ -1,4 +1,4 @@
-import { PlatformLogo } from "@openownbot/brand";
+import { PlatformLogo } from "@robot/brand";
 import { Link } from "@tanstack/solid-router";
 import { createSignal, onCleanup } from "solid-js";
 import { DOWNLOAD_PAGES, type DownloadInstaller, type DownloadPagePlatform } from "../../lib/download-pages";

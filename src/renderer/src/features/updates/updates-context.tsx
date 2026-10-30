@@ -1,4 +1,4 @@
-import type { UpdateStatus } from "@openownbot/contracts/ipc";
+import type { UpdateStatus } from "@robot/contracts/ipc";
 import { createSignal, flush, onSettled } from "solid-js";
 import { FALLBACK_UPDATE_STATUS } from "../../app-defaults";
 import { createSimpleContext } from "../../simple-context";

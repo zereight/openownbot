@@ -6,8 +6,8 @@
 // A file with an invalid structure is refused. One invalid agent is reported and the others are
 // still offered, and invalid settings are left out with a warning.
 
-import { isAgentProvider } from "@openownbot/contracts/agent-providers";
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
+import { isAgentProvider } from "@robot/contracts/agent-providers";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
 import {
   isAgentImportKey,
   isAgentTaskLimit,
@@ -18,8 +18,8 @@ import {
   isRoutineSchedule,
   ROUTINE_LIMIT_POLICIES,
   ROUTINE_MISSED_POLICIES,
-} from "@openownbot/contracts/ipc";
-import { sourceText } from "@openownbot/i18n/source";
+} from "@robot/contracts/ipc";
+import { sourceText } from "@robot/i18n/source";
 import { Result, Schema } from "effect";
 import { isUnsafeArchivePath } from "./skill-package";
 

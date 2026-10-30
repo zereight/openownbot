@@ -6,7 +6,7 @@ import {
   DEFAULT_AGENT_MEMORY_LIMIT,
   DEFAULT_EXTERNAL_LINK_PREFERENCE,
   type ExternalLinkTarget,
-} from "@openownbot/contracts/ipc";
+} from "@robot/contracts/ipc";
 /** Which chord sends a message. Re-exported here so settings state can name the same type. */
 import type { SendShortcutMode } from "../conversation/send-shortcut";
 

@@ -10,13 +10,13 @@ import assert from "node:assert/strict";
 import { mkdir, writeFile } from "node:fs/promises";
 import { join, resolve } from "node:path";
 import { DatabaseSync } from "node:sqlite";
-import { type HostedServerSummary, parseHostedServerSummary } from "@openownbot/contracts/hosted-servers";
+import { type HostedServerSummary, parseHostedServerSummary } from "@robot/contracts/hosted-servers";
 import {
   createHostedServerWake,
   HOSTED_HOST_READY_LIMIT_MS,
   hostedStartStep,
   WAKE_RECONNECT_DELAY_MS,
-} from "@openownbot/team-client/hosted-server-wake";
+} from "@robot/team-client/hosted-server-wake";
 import { Effect } from "effect";
 import { HostedServerService } from "../src/server/hosted-server-service";
 import { sqliteD1 } from "./sqlite-d1";

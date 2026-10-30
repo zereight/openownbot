@@ -1,4 +1,4 @@
-import type { OpenOwnBotDesktopApi } from "@openownbot/contracts/ipc";
+import type { OpenOwnBotDesktopApi } from "@robot/contracts/ipc";
 
 /**
  * What the settings context reaches in main: the app-wide preferences, the switches for updates,

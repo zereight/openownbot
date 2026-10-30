@@ -13,7 +13,7 @@ import {
   StableLabel,
   Text,
   Trash2,
-} from "@openownbot/ui";
+} from "@robot/ui";
 import { createSignal, onSettled, Show } from "solid-js";
 import { useText } from "../../text";
 import "./billing-server-lifecycle-preview.css";

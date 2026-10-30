@@ -1,4 +1,4 @@
-import type { MobileTextKey, MobileTranslate } from "@openownbot/i18n/mobile";
+import type { MobileTextKey, MobileTranslate } from "@robot/i18n/mobile";
 import type { ShjLanguage, ShjToken } from "@speed-highlight/core";
 
 export interface CodeToken {

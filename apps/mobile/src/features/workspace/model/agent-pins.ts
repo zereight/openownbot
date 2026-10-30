@@ -1,4 +1,4 @@
-import type { createWorkspacePreferences, RemoteWorkspacePreferences } from "@openownbot/team-client";
+import type { createWorkspacePreferences, RemoteWorkspacePreferences } from "@robot/team-client";
 
 const MAX_PINNED_AGENTS = 16;
 

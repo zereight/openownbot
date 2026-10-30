@@ -3,9 +3,9 @@ import type {
   ResetAgentSessionSettingInput,
   SetAgentSessionSettingInput,
   AgentSessionSettings as Settings,
-} from "@openownbot/contracts/ipc";
-import { Button, Select, SelectContent, SelectItem, SelectTrigger, SelectValue, Switch, Text } from "@openownbot/ui";
-import { SettingsLinkGroup } from "@openownbot/ui/components/SettingsPanel";
+} from "@robot/contracts/ipc";
+import { Button, Select, SelectContent, SelectItem, SelectTrigger, SelectValue, Switch, Text } from "@robot/ui";
+import { SettingsLinkGroup } from "@robot/ui/components/SettingsPanel";
 import { createEffect, createStore, For, Show } from "solid-js";
 import { useText } from "../../text";
 

@@ -8,8 +8,8 @@ import {
   IPC_GROUP_PATHS,
   type IpcEndpoint,
   type IpcGroupName,
-} from "@openownbot/contracts/ipc";
-import { createOpenOwnBotLogger } from "@openownbot/logging";
+} from "@robot/contracts/ipc";
+import { createOpenOwnBotLogger } from "@robot/logging";
 
 // Runs the built preload bundles in a VM with a fake Electron, after `bun run build`. The types
 // describe the source; this reads what the renderer really gets. It fails when the bundle:

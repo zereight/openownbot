@@ -1,4 +1,4 @@
-import type { MobileFeatureConfig } from "@openownbot/contracts/mobile-features";
+import type { MobileFeatureConfig } from "@robot/contracts/mobile-features";
 
 /**
  * The app versions of each platform that have each mobile feature. `upTo` is the last version that

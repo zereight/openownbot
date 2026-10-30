@@ -1,6 +1,6 @@
 /** The bar that shows while the canvas shows a saved version, read-only, with Back and Make current. */
 
-import { ArrowLeft, Button, History, Lock } from "@openownbot/ui";
+import { ArrowLeft, Button, History, Lock } from "@robot/ui";
 import { useText } from "../../text";
 
 export function WorkflowVersionBar(props: {

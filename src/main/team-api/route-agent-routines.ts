@@ -3,8 +3,8 @@
 // The bodies are parsed by the same `parseCreateRoutine` / `parseUpdateRoutine` the IPC handlers
 // use, so a routine created over the Team API cannot differ from one created in the app.
 
-import { isReleasedRoutineSchedule } from "@openownbot/contracts/ipc";
-import { sourceText } from "@openownbot/i18n/source";
+import { isReleasedRoutineSchedule } from "@robot/contracts/ipc";
+import { sourceText } from "@robot/i18n/source";
 import { runCauseEffect } from "../../backend/effect-boundary";
 import { parseCreateRoutine, parseListRoutineRuns, parseUpdateRoutine } from "../ipc/agent-inputs";
 import type { TeamApiAgents } from "./dependencies";

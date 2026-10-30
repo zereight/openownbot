@@ -1,4 +1,4 @@
-import { CalendarClock } from "@openownbot/ui";
+import { CalendarClock } from "@robot/ui";
 import { useText } from "../../text";
 import { ChatActionCard, type ChatActionCardStatus } from "./ChatActionCard";
 import { RoutineSchedulePicker } from "./RoutineSchedulePicker";

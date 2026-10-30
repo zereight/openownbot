@@ -1,6 +1,6 @@
-import type { AccountSession, AvatarImageInput } from "@openownbot/contracts/ipc";
-import { isBoolean, isDynamicRecord, isNumber, isString } from "@openownbot/contracts/runtime-values";
-import { currentText } from "@openownbot/ui/text";
+import type { AccountSession, AvatarImageInput } from "@robot/contracts/ipc";
+import { isBoolean, isDynamicRecord, isNumber, isString } from "@robot/contracts/runtime-values";
+import { currentText } from "@robot/ui/text";
 
 /**
  * The desktop Settings > Profile calls for a signed-in browser. They use the

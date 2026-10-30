@@ -5,7 +5,7 @@ import { createServer } from "node:net";
 import { type NetworkInterfaceInfo, networkInterfaces } from "node:os";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import { createOpenOwnBotLogger, toLogValue } from "@openownbot/logging";
+import { createOpenOwnBotLogger, toLogValue } from "@robot/logging";
 import { cliSpawnTarget } from "../src/backend/cli";
 import {
   developmentInstanceIdForWorktree,

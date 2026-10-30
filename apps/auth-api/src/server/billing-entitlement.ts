@@ -2,7 +2,7 @@ import { Effect, Schema } from "effect";
 
 class BillingEntitlementError extends Schema.TaggedError<BillingEntitlementError>()("BillingEntitlementError", {}) {}
 
-import { BILLING_PLANS, type BillingPlanId, type BillingSubscriptionStatus } from "@openownbot/contracts/billing";
+import { BILLING_PLANS, type BillingPlanId, type BillingSubscriptionStatus } from "@robot/contracts/billing";
 
 export interface BillingEntitlement {
   plan: BillingPlanId;

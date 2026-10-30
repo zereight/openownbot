@@ -3,17 +3,7 @@
  * away is `SidebarMoveToSubmenu`, which the channel menu shows too; everything here is agent-only.
  */
 
-import {
-  AppWindow,
-  CheckCheck,
-  ContextMenu,
-  Copy,
-  MessageCirclePlus,
-  Moon,
-  Pin,
-  PinOff,
-  RotateCcw,
-} from "@openownbot/ui";
+import { AppWindow, CheckCheck, ContextMenu, Copy, MessageCirclePlus, Moon, Pin, PinOff, RotateCcw } from "@robot/ui";
 import { Show } from "solid-js";
 import type { AgentProfile } from "../../data";
 import { useText } from "../../text";

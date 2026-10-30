@@ -1,5 +1,5 @@
-import { CHAT_VISUAL_ITEM_TYPE_PREFIX } from "@openownbot/contracts/chat-visual";
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
+import { CHAT_VISUAL_ITEM_TYPE_PREFIX } from "@robot/contracts/chat-visual";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
 import {
   type AgentSummary,
   type AskSideQuestionInput,
@@ -7,7 +7,7 @@ import {
   CONVERSATION_SUBAGENTS_ITEM_TYPE,
   type ConversationMessage,
   ROUTINE_QUIET_ANSWER_ITEM_TYPE,
-} from "@openownbot/contracts/ipc";
+} from "@robot/contracts/ipc";
 import { tagSafe } from "./developer-instructions";
 
 /** The chat messages a side question reads, newest last. */

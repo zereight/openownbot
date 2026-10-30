@@ -1,6 +1,6 @@
-import { pickAgentName } from "@openownbot/brand/agent-names";
-import { agentProviderDescriptor, agentProviderName, foreignProvider } from "@openownbot/contracts/agent-providers";
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
+import { pickAgentName } from "@robot/brand/agent-names";
+import { agentProviderDescriptor, agentProviderName, foreignProvider } from "@robot/contracts/agent-providers";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
 import {
   AGENT_TASK_LIMIT_DEFAULT,
   AGENT_TASK_LIMIT_MAX,
@@ -37,8 +37,8 @@ import {
   type UpdateAgentAdminSettingsInput,
   type UpdateAgentInput,
   widensAgentPermission,
-} from "@openownbot/contracts/ipc";
-import type { AppTextKey } from "@openownbot/i18n";
+} from "@robot/contracts/ipc";
+import type { AppTextKey } from "@robot/i18n";
 import {
   ArrowLeftRight,
   Bell,
@@ -66,10 +66,10 @@ import {
   Switch,
   Text,
   Textarea,
-} from "@openownbot/ui";
-import { normalizeAvatarFile } from "@openownbot/ui/avatar-image";
-import { AVATAR_HUE_OPTIONS, avatarCandidateSeeds, avatarHueSwatch } from "@openownbot/ui/bloub-avatar";
-import { ProviderModelPicker, reasoningLabel } from "@openownbot/ui/components/ProviderModelPicker";
+} from "@robot/ui";
+import { normalizeAvatarFile } from "@robot/ui/avatar-image";
+import { AVATAR_HUE_OPTIONS, avatarCandidateSeeds, avatarHueSwatch } from "@robot/ui/bloub-avatar";
+import { ProviderModelPicker, reasoningLabel } from "@robot/ui/components/ProviderModelPicker";
 import {
   SettingsField,
   SettingsLinkGroup,
@@ -77,12 +77,12 @@ import {
   SettingsPanel,
   SettingsPanelContent,
   SettingsPanelHeader,
-} from "@openownbot/ui/components/SettingsPanel";
-import type { AgentProfile } from "@openownbot/ui/data";
-import { AgentAvatar } from "@openownbot/ui/features/agents/AgentAvatar";
-import { InstructionsLimit, instructionsTooLong } from "@openownbot/ui/features/agents/InstructionsLimit";
-import { type BrowserProfileChoice, BrowserProfileSelect } from "@openownbot/ui/features/browser/BrowserProfileSelect";
-import { errorReference } from "@openownbot/user-errors";
+} from "@robot/ui/components/SettingsPanel";
+import type { AgentProfile } from "@robot/ui/data";
+import { AgentAvatar } from "@robot/ui/features/agents/AgentAvatar";
+import { InstructionsLimit, instructionsTooLong } from "@robot/ui/features/agents/InstructionsLimit";
+import { type BrowserProfileChoice, BrowserProfileSelect } from "@robot/ui/features/browser/BrowserProfileSelect";
+import { errorReference } from "@robot/user-errors";
 import type { JSX } from "@solidjs/web";
 import {
   createEffect,

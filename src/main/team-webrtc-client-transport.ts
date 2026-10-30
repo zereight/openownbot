@@ -1,14 +1,14 @@
 import { generateKeyPairSync, randomBytes, sign, verify } from "node:crypto";
 import { EventEmitter } from "node:events";
-import type { AgentEvent, TeamRealtimeEvent } from "@openownbot/contracts/ipc";
-import { isDynamicRecord, isNumber, isString } from "@openownbot/contracts/runtime-values";
-import { teamCapabilitiesForProtocol } from "@openownbot/contracts/team-protocol/current";
-import { optionalTeamEvent, optionalTeamEventToCurrent } from "@openownbot/contracts/team-protocol/optional-events";
-import { teamSideRouteCodec } from "@openownbot/contracts/team-protocol/side-routes";
+import type { AgentEvent, TeamRealtimeEvent } from "@robot/contracts/ipc";
+import { isDynamicRecord, isNumber, isString } from "@robot/contracts/runtime-values";
+import { teamCapabilitiesForProtocol } from "@robot/contracts/team-protocol/current";
+import { optionalTeamEvent, optionalTeamEventToCurrent } from "@robot/contracts/team-protocol/optional-events";
+import { teamSideRouteCodec } from "@robot/contracts/team-protocol/side-routes";
 import {
   type TeamProtocolV1CurrentEventControl,
   toWireTeamProtocolV1ClientEvent,
-} from "@openownbot/contracts/team-protocol/v1-adapter";
+} from "@robot/contracts/team-protocol/v1-adapter";
 import {
   decodeTeamProtocolV2AuthFrame,
   decodeTeamProtocolV2EventFrame,
@@ -18,15 +18,15 @@ import {
   type TeamProtocolV2Json,
   type TeamProtocolV2RpcFrame,
   teamProtocolV2AuthenticationTranscript,
-} from "@openownbot/contracts/team-protocol/v2";
-import { decodeTeamProtocolSupportV7Base } from "@openownbot/contracts/team-protocol/v7-base";
+} from "@robot/contracts/team-protocol/v2";
+import { decodeTeamProtocolSupportV7Base } from "@robot/contracts/team-protocol/v7-base";
 import {
   decodeTeamProtocolV8CurrentEvent,
   decodeTeamProtocolV8WebRtcHttpResponse,
   encodeTeamProtocolV8WebRtcHttpRequest,
-} from "@openownbot/contracts/team-protocol/v8-webrtc-adapter";
-import { sourceText } from "@openownbot/i18n/source";
-import { remoteWorkspaceReadTimeout } from "@openownbot/team-client/remote-recovery";
+} from "@robot/contracts/team-protocol/v8-webrtc-adapter";
+import { sourceText } from "@robot/i18n/source";
+import { remoteWorkspaceReadTimeout } from "@robot/team-client/remote-recovery";
 import { Context, Deferred, Effect, Fiber, Layer, Result, Schema } from "effect";
 import type { CentralAuthOperationError } from "./central-auth-effects";
 import type { RemoteConnectionBootstrap } from "./central-auth-manager";

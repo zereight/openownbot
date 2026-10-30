@@ -1,14 +1,14 @@
-import type { CentralAuthUser } from "@openownbot/contracts/ipc";
-import { userInitials } from "@openownbot/ui";
+import type { CentralAuthUser } from "@robot/contracts/ipc";
+import { userInitials } from "@robot/ui";
 import {
   heatLevel,
   heatmapMonths,
   heatmapWeeks,
   type ProfileDay,
   type ProfileStats,
-} from "@openownbot/ui/features/settings/profile-stats";
-import { usageCompact } from "@openownbot/ui/features/usage/usage-format";
-import { currentText } from "@openownbot/ui/text";
+} from "@robot/ui/features/settings/profile-stats";
+import { usageCompact } from "@robot/ui/features/usage/usage-format";
+import { currentText } from "@robot/ui/text";
 import { drawLogo, ellipsize, FONT } from "../agent-templates/agent-template-card";
 
 /*

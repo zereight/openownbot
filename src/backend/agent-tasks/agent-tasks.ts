@@ -1,7 +1,7 @@
 import { createHash } from "node:crypto";
-import { agentProviderDescriptor } from "@openownbot/contracts/agent-providers";
-import { expandAttachmentReferences } from "@openownbot/contracts/attachment-references";
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
+import { agentProviderDescriptor } from "@robot/contracts/agent-providers";
+import { expandAttachmentReferences } from "@robot/contracts/attachment-references";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
 import {
   AGENT_TASK_QUEUED_PREVIEW,
   type AgentEvent,
@@ -11,9 +11,9 @@ import {
   type AgentTasksSnapshot,
   agentTaskLimit,
   type ConversationSnapshot,
-} from "@openownbot/contracts/ipc";
-import { sourceText } from "@openownbot/i18n/source";
-import { createOpenOwnBotLogger } from "@openownbot/logging";
+} from "@robot/contracts/ipc";
+import { sourceText } from "@robot/i18n/source";
+import { createOpenOwnBotLogger } from "@robot/logging";
 import { Deferred, Effect } from "effect";
 import { z } from "zod";
 import type { ConversationRuntime } from "../agent/conversation-runtime";

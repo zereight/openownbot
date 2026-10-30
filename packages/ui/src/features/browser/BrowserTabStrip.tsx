@@ -1,7 +1,7 @@
-import type { BrowserTabProfile } from "@openownbot/contracts/ipc";
-import { Button, buttonVariants, ChevronDown, ContextMenu, DropdownMenu, Tabs, X } from "@openownbot/ui";
-import { useText } from "@openownbot/ui/text";
-import { clamp, motionDuration, prefersReducedMotion } from "@openownbot/ui/utils";
+import type { BrowserTabProfile } from "@robot/contracts/ipc";
+import { Button, buttonVariants, ChevronDown, ContextMenu, DropdownMenu, Tabs, X } from "@robot/ui";
+import { useText } from "@robot/ui/text";
+import { clamp, motionDuration, prefersReducedMotion } from "@robot/ui/utils";
 import { createEffect, createSignal, createStore, For, onSettled, Show } from "solid-js";
 import { browserProfileColor } from "./BrowserProfileColor";
 import { BrowserTabIcon, useBrowserTabTitle } from "./BrowserTabIcon";

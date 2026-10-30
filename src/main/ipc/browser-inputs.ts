@@ -1,4 +1,4 @@
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
 import type {
   BrowserBounds,
   BrowserLocalSignInFinish,
@@ -6,9 +6,9 @@ import type {
   BrowserNavigateInput,
   BrowserOpenInput,
   BrowserVisibilityInput,
-} from "@openownbot/contracts/ipc";
-import { isBoolean, isNumber } from "@openownbot/contracts/runtime-values";
-import { sourceText } from "@openownbot/i18n/source";
+} from "@robot/contracts/ipc";
+import { isBoolean, isNumber } from "@robot/contracts/runtime-values";
+import { sourceText } from "@robot/i18n/source";
 import { isObject, requireString } from "./validation";
 
 export function parseBrowserOpen(value: unknown): BrowserOpenInput {

@@ -1,5 +1,5 @@
-import type { AgentTask, AgentTaskHold, AgentTaskOutcome } from "@openownbot/contracts/ipc";
-import type { MobileTextKey, MobileTranslate } from "@openownbot/i18n/mobile";
+import type { AgentTask, AgentTaskHold, AgentTaskOutcome } from "@robot/contracts/ipc";
+import type { MobileTextKey, MobileTranslate } from "@robot/i18n/mobile";
 
 const OUTCOME_TEXT = {
   completed: "mobile.server.tasks.state.completed",

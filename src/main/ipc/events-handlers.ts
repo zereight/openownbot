@@ -6,14 +6,14 @@ import {
   decodeSaveEventRoutineResult,
   decodeWebhookSecret,
   decodeWebhookTestResult,
-} from "@openownbot/contracts/ipc-events";
-import { EVENTS_CAPABILITY, EVENTS_ROUTES } from "@openownbot/contracts/team-protocol/events-v1";
+} from "@robot/contracts/ipc-events";
+import { EVENTS_CAPABILITY, EVENTS_ROUTES } from "@robot/contracts/team-protocol/events-v1";
 import {
   ROUTINE_RECOVERY_CAPABILITY,
   ROUTINE_RECOVERY_ROUTES,
-} from "@openownbot/contracts/team-protocol/routine-recovery-v1";
-import { WEBHOOK_TESTS_CAPABILITY, WEBHOOK_TESTS_ROUTES } from "@openownbot/contracts/team-protocol/webhook-tests-v1";
-import { sourceText } from "@openownbot/i18n/source";
+} from "@robot/contracts/team-protocol/routine-recovery-v1";
+import { WEBHOOK_TESTS_CAPABILITY, WEBHOOK_TESTS_ROUTES } from "@robot/contracts/team-protocol/webhook-tests-v1";
+import { sourceText } from "@robot/i18n/source";
 import type { Effect } from "effect";
 import { runCauseEffect } from "../../backend/effect-boundary";
 import type { HostEventsApi } from "../host-events-api";

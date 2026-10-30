@@ -1,4 +1,4 @@
-import type { BrowserSnapshot, BrowserTarget } from "@openownbot/contracts/ipc";
+import type { BrowserSnapshot, BrowserTarget } from "@robot/contracts/ipc";
 import { Context, Deferred, Effect, Fiber } from "effect";
 import { type BrowserOperationError, browserFailure, browserSync } from "./browser-effects";
 import {

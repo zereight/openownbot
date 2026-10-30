@@ -1,6 +1,6 @@
 import { randomUUID } from "node:crypto";
-import { CHAT_VISUAL_PAGE_LIMIT, isChatVisualMimeType } from "@openownbot/contracts/chat-visual";
-import { isFilePreviewPageUrl } from "@openownbot/contracts/ipc";
+import { CHAT_VISUAL_PAGE_LIMIT, isChatVisualMimeType } from "@robot/contracts/chat-visual";
+import { isFilePreviewPageUrl } from "@robot/contracts/ipc";
 import { chatVisualResponse } from "./chat-visual-protocol";
 
 const FILE_PREVIEW_PAGE_CAPACITY = 8;

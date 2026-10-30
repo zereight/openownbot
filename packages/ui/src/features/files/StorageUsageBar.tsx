@@ -1,4 +1,4 @@
-import { useText } from "@openownbot/ui/text";
+import { useText } from "@robot/ui/text";
 import { createSignal, For } from "solid-js";
 import { type StorageGroup, type StorageGroupTotal, sharePercentLabel } from "./files-view";
 

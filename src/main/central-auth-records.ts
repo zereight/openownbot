@@ -1,8 +1,8 @@
-import { type HostKeyHandover, optionalHostKeyHandovers } from "@openownbot/contracts/host-key-handover";
-import { inviteUseCount, isPermanentInvite } from "@openownbot/contracts/invite-links";
-import type { CentralAuthUser, MobileConnectedDevice } from "@openownbot/contracts/ipc";
-import { decodeRecord, requiredString } from "@openownbot/contracts/ipc-decoding";
-import { type DynamicRecord, isBoolean, isNumber, isString } from "@openownbot/contracts/runtime-values";
+import { type HostKeyHandover, optionalHostKeyHandovers } from "@robot/contracts/host-key-handover";
+import { inviteUseCount, isPermanentInvite } from "@robot/contracts/invite-links";
+import type { CentralAuthUser, MobileConnectedDevice } from "@robot/contracts/ipc";
+import { decodeRecord, requiredString } from "@robot/contracts/ipc-decoding";
+import { type DynamicRecord, isBoolean, isNumber, isString } from "@robot/contracts/runtime-values";
 
 /** The account API's answers, and the decoders that `CentralAuthManager` checks them with. */
 

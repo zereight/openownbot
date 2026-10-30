@@ -1,7 +1,7 @@
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
-import { markdownPlainText } from "@openownbot/contracts/markdown-preview-text";
-import { serializeSelectionInstruction } from "@openownbot/contracts/selection-instruction";
-import { type CauseCode, classifyFailure, type FailureProperties } from "@openownbot/telemetry";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
+import { markdownPlainText } from "@robot/contracts/markdown-preview-text";
+import { serializeSelectionInstruction } from "@robot/contracts/selection-instruction";
+import { type CauseCode, classifyFailure, type FailureProperties } from "@robot/telemetry";
 import { useQueryClient } from "@tanstack/react-query";
 import { isLiquidGlassAvailable } from "expo-glass-effect";
 import { router, useIsFocused } from "expo-router";

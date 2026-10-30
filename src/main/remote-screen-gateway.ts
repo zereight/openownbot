@@ -12,9 +12,9 @@ import type {
   RemoteDesktopSession,
   RemoteDesktopSetupStatus,
   RemoteDesktopTestStatus,
-} from "@openownbot/contracts/ipc";
-import { TEAM_API_ROUTES } from "@openownbot/contracts/team-api-routes";
-import { sourceText } from "@openownbot/i18n/source";
+} from "@robot/contracts/ipc";
+import { TEAM_API_ROUTES } from "@robot/contracts/team-api-routes";
+import { sourceText } from "@robot/i18n/source";
 import { Context, Deferred, Effect, Exit, Fiber, Layer, Result, Schema, Scope } from "effect";
 import type * as Ws from "ws";
 import { z } from "zod";

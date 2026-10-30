@@ -2,9 +2,9 @@
 // The API key and the master password go to the host once, in the connect request; no answer carries
 // them.
 
-import { runTeamEffect } from "@openownbot/team-client";
-import { bitwardenConnectorRequest } from "@openownbot/team-client/team-admin-requests";
-import type { TeamApiRequest } from "@openownbot/team-client/team-api-requests";
+import { runTeamEffect } from "@robot/team-client";
+import { bitwardenConnectorRequest } from "@robot/team-client/team-admin-requests";
+import type { TeamApiRequest } from "@robot/team-client/team-api-requests";
 import { Effect } from "effect";
 import { type BitwardenConnectorPort, polledBitwardenConnectorPort } from "../connectors/bitwarden-connector-port";
 

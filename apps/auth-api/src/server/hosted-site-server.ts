@@ -1,9 +1,9 @@
-import { siteLimitForPlan } from "@openownbot/contracts/billing";
+import { siteLimitForPlan } from "@robot/contracts/billing";
 import {
   HOSTED_SITE_HOST_ID_HEADER,
   HOSTED_SITE_HOST_TOKEN_HEADER,
   HOSTED_SITE_UNLINKED_LIMIT,
-} from "@openownbot/contracts/hosted-sites";
+} from "@robot/contracts/hosted-sites";
 import { Effect } from "effect";
 import { getServerEntitlement } from "./billing-entitlement";
 import { sha256 } from "./crypto";

@@ -1,6 +1,6 @@
-import { isDeleteSharedTableInput } from "@openownbot/contracts/ipc";
-import { SHARED_TABLES_CAPABILITY, SHARED_TABLES_ROUTES } from "@openownbot/contracts/team-protocol/shared-tables-v1";
-import { sourceText } from "@openownbot/i18n/source";
+import { isDeleteSharedTableInput } from "@robot/contracts/ipc";
+import { SHARED_TABLES_CAPABILITY, SHARED_TABLES_ROUTES } from "@robot/contracts/team-protocol/shared-tables-v1";
+import { sourceText } from "@robot/i18n/source";
 import { runCauseEffect } from "../../backend/effect-boundary";
 import type { TeamApiAdmin } from "./dependencies";
 import { HttpError } from "./http-error";

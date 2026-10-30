@@ -321,7 +321,7 @@ agents of the active server and opens a task beside the list in `AgentThreadView
 The panel archives, restores and opens the task in the chat. A read there marks the thread read. A running
 task that waits for an approval, a question or a browser takeover goes to Needs you; the chat answers a
 question or takeover, so the panel links there. The Tasks page and the phone share the section and title
-rules in `@openownbot/team-client/agent-tasks`.
+rules in `@robot/team-client/agent-tasks`.
 On the phone, the server drawer opens the Tasks screen (`apps/mobile/src/app/(app)/server-tasks.tsx`) when
 the host serves the capability. A task opens as a full screen (`apps/mobile/src/app/(app)/task/[taskId].tsx`)
 with the message list and header of the agent's chat, the task actions in place of the browser
@@ -547,7 +547,7 @@ and change events delivered to desktop and connected clients.
 
 `html_render` publishes a visual reply: an HTML page that shows above the agent's reply. The router
 stores the page as a generated `text/html` attachment and adds an assistant message with the item
-type `visual-reply:<height>` and the page title as its text (`@openownbot/contracts/chat-visual`). A
+type `visual-reply:<height>` and the page title as its text (`@robot/contracts/chat-visual`). A
 client that does not know the item type shows the title and the file. A visual message is not
 readable: unread counts, latest-message previews and mobile read state skip it. The desktop serves
 the page on `openownbot-visual:` (`openownbot-remote-visual:` for a remote host) with

@@ -1,5 +1,5 @@
-import { canPreviewAttachment, type StoredFileRow } from "@openownbot/contracts/ipc";
-import { ConversationFilesPanel } from "@openownbot/ui/features/files/ConversationFilesPanel";
+import { canPreviewAttachment, type StoredFileRow } from "@robot/contracts/ipc";
+import { ConversationFilesPanel } from "@robot/ui/features/files/ConversationFilesPanel";
 import { createStorageUsage } from "./storage-usage";
 
 /** Chat > Files: every file of one chat, in the side-panel slot the file preview also uses. */

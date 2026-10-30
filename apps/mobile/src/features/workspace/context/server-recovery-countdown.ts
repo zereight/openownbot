@@ -1,4 +1,4 @@
-import type { RemoteRecoveryStatus } from "@openownbot/team-client";
+import type { RemoteRecoveryStatus } from "@robot/team-client";
 import { createContext, useCallback, useContext, useMemo, useSyncExternalStore } from "react";
 import type { MobileServer } from "../model/workspace-types";
 

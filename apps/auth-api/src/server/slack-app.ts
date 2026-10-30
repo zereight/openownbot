@@ -5,9 +5,9 @@ import type { RemoteFailure } from "./remote-control-plane";
 // the workspace, and seals the bot token to the host's key. It keeps no token. The sealed grant goes
 // back to the desktop in the URL fragment of `/slack/connect`.
 
-import { isDynamicRecord, isString } from "@openownbot/contracts/runtime-values";
-import { SLACK_BOT_SCOPES } from "@openownbot/contracts/slack-app";
-import { isRawP256PublicKey, sealSlackWorkspaceGrant } from "@openownbot/contracts/slack-workspace-grant";
+import { isDynamicRecord, isString } from "@robot/contracts/runtime-values";
+import { SLACK_BOT_SCOPES } from "@robot/contracts/slack-app";
+import { isRawP256PublicKey, sealSlackWorkspaceGrant } from "@robot/contracts/slack-workspace-grant";
 import { Effect, Schema } from "effect";
 import { decodeBase64Url, encodeBase64Url, hmacSha256, importHmacSha256Key } from "./crypto";
 import { authEventStatement } from "./remote-control-plane";

@@ -1,8 +1,8 @@
-import type { AgentTask } from "@openownbot/contracts/ipc";
-import { isAgentTaskActive } from "@openownbot/team-client/agent-tasks";
-import { Archive, ArchiveRestore, Badge, Button, MessageSquare, X } from "@openownbot/ui";
-import { AgentTaskMark, type AgentTaskWait } from "@openownbot/ui/features/conversation/AgentTasks";
-import { useText } from "@openownbot/ui/text";
+import type { AgentTask } from "@robot/contracts/ipc";
+import { isAgentTaskActive } from "@robot/team-client/agent-tasks";
+import { Archive, ArchiveRestore, Badge, Button, MessageSquare, X } from "@robot/ui";
+import { AgentTaskMark, type AgentTaskWait } from "@robot/ui/features/conversation/AgentTasks";
+import { useText } from "@robot/ui/text";
 import type { JSX } from "@solidjs/web";
 import { Show } from "solid-js";
 

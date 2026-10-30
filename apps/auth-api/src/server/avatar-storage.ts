@@ -1,6 +1,6 @@
-import { isAvatarMimeType, isValidAvatarImage } from "@openownbot/contracts/avatar-images";
-import { AVATAR_IMAGE_LIMITS } from "@openownbot/contracts/input-limits";
-import { isUuidV4 } from "@openownbot/contracts/validation";
+import { isAvatarMimeType, isValidAvatarImage } from "@robot/contracts/avatar-images";
+import { AVATAR_IMAGE_LIMITS } from "@robot/contracts/input-limits";
+import { isUuidV4 } from "@robot/contracts/validation";
 import { Effect, Result, Schema } from "effect";
 import { AuthOperationError, type AuthService, AuthServiceError } from "./auth-service";
 import type { AuthUser } from "./types";

@@ -2,8 +2,8 @@ import {
   UI_BLOCK_SUBMIT_ACTION_ID,
   UI_CHOICE_VALUES_KEY,
   type UiChoiceBlock as UiChoiceSpec,
-} from "@openownbot/contracts/ui-blocks";
-import { Button, Input, Kbd, Spinner } from "@openownbot/ui";
+} from "@robot/contracts/ui-blocks";
+import { Button, Input, Kbd, Spinner } from "@robot/ui";
 import { createSignal, createUniqueId, For, Show } from "solid-js";
 import { useText } from "../../../text";
 import { cx } from "../../../utils";

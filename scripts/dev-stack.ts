@@ -7,7 +7,7 @@
 
 import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import { createOpenOwnBotLogger, redactText, toLogValue } from "@openownbot/logging";
+import { createOpenOwnBotLogger, redactText, toLogValue } from "@robot/logging";
 import {
   type DevInstanceRecord,
   describeDevInstance,

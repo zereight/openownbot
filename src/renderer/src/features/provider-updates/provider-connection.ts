@@ -6,10 +6,10 @@ import {
   type ProviderCodeLoginStart,
   type ProviderHostSignInStatus,
   type ProviderRelaySignInStatus,
-} from "@openownbot/contracts/ipc";
-import type { ProviderCodeLoginState } from "@openownbot/ui/components/ProviderCodeLoginDialog";
-import type { BrowserViewRuntime } from "@openownbot/ui/features/browser/BrowserLiveView";
-import { currentText } from "@openownbot/ui/text";
+} from "@robot/contracts/ipc";
+import type { ProviderCodeLoginState } from "@robot/ui/components/ProviderCodeLoginDialog";
+import type { BrowserViewRuntime } from "@robot/ui/features/browser/BrowserLiveView";
+import { currentText } from "@robot/ui/text";
 import { createEffect, createSignal, flush, onCleanup } from "solid-js";
 import { actionToast } from "../../action-toast";
 import type {

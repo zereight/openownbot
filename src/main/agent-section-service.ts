@@ -2,7 +2,7 @@ import {
   buildAgentSectionFile,
   parseAgentSectionFile,
   type SectionFileEntry,
-} from "@openownbot/contracts/agent-section-file";
+} from "@robot/contracts/agent-section-file";
 import type {
   AgentSectionPreview,
   AgentTemplateSnapshot,
@@ -10,7 +10,7 @@ import type {
   SetEnabledSkillInput,
   SidebarLayoutAction,
   SidebarLayoutSnapshot,
-} from "@openownbot/contracts/ipc";
+} from "@robot/contracts/ipc";
 import { Effect, Schema } from "effect";
 import { maskSectionSecrets, planSectionImport } from "./agent-section-plan";
 

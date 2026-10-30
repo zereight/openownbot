@@ -1,5 +1,5 @@
-import type { BrowserTakeoverRequest, CentralAuthUser } from "@openownbot/contracts/ipc";
-import { hasVisibleToasts } from "@openownbot/ui";
+import type { BrowserTakeoverRequest, CentralAuthUser } from "@robot/contracts/ipc";
+import { hasVisibleToasts } from "@robot/ui";
 import { createMemo, Show } from "solid-js";
 import { useNavigation } from "../../navigation";
 import { usePlatform } from "../../platform";

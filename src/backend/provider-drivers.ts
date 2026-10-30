@@ -10,8 +10,8 @@ import {
   DEFAULT_PROMPT_CACHE_TTL,
   type KeyOnlyProviderId,
   type PromptCacheTtl,
-} from "@openownbot/contracts/ipc";
-import { sourceText } from "@openownbot/i18n/source";
+} from "@robot/contracts/ipc";
+import { sourceText } from "@robot/i18n/source";
 import { Effect } from "effect";
 import { AcpAgentClient, type AcpHistoryPersistence } from "./acp-client";
 import { CURSOR_ACP_FLAVOR, customAgentFlavor, DEFAULT_ACP_FLAVOR } from "./acp-flavor";
@@ -460,7 +460,7 @@ interface ProviderModelCatalog {
 
 /**
  * What a provider *does*. What it is called, how it is described and where its sign-in help points
- * live in the provider registry in `@openownbot/contracts/agent-providers`; a driver holds only the
+ * live in the provider registry in `@robot/contracts/agent-providers`; a driver holds only the
  * behaviour, so a new provider is one registry row plus one driver.
  */
 export interface BuiltInProviderDriver {

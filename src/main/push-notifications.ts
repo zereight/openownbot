@@ -1,32 +1,32 @@
-import { type AgentEvent, type AgentSummary, latestTurnAnswer } from "@openownbot/contracts/ipc";
-import type { LiveActivityRelayPush } from "@openownbot/contracts/live-activity-relay";
+import { type AgentEvent, type AgentSummary, latestTurnAnswer } from "@robot/contracts/ipc";
+import type { LiveActivityRelayPush } from "@robot/contracts/live-activity-relay";
 import {
   type AndroidNotificationRelayPush,
   NOTIFICATION_SEALED_LIMIT,
   type NotificationRelayPush,
   type NotificationSound,
-} from "@openownbot/contracts/notification-relay";
-import { TEAM_CHANNEL_ATTENTION_CAPABILITY } from "@openownbot/contracts/team-protocol/current";
-import { resolveLocale, translateFor } from "@openownbot/i18n";
-import { redactText, toLogValue } from "@openownbot/logging";
+} from "@robot/contracts/notification-relay";
+import { TEAM_CHANNEL_ATTENTION_CAPABILITY } from "@robot/contracts/team-protocol/current";
+import { resolveLocale, translateFor } from "@robot/i18n";
+import { redactText, toLogValue } from "@robot/logging";
 import {
   type AgentNotificationChannel,
   agentEventCanNotify,
   agentEventRequestThread,
   notificationForAgentEvent,
-} from "@openownbot/team-client/agent-notifications";
+} from "@robot/team-client/agent-notifications";
 import {
   decodeLiveActivityBytes,
   LIVE_ACTIVITY_NONCE_BYTES,
   LIVE_ACTIVITY_SECRET_BYTES,
-} from "@openownbot/team-client/live-activity-seal";
+} from "@robot/team-client/live-activity-seal";
 import {
   type PushNotificationContent,
   type PushNotificationKeys,
   type PushNotificationKind,
   pushNotificationKeys,
   sealPushNotification,
-} from "@openownbot/team-client/push-notification-seal";
+} from "@robot/team-client/push-notification-seal";
 import { Effect, Exit, Fiber, Schema, Scope } from "effect";
 import { isNoUpdateAnswer } from "../backend/agent/routine-quiet-runs";
 import type { PushNotificationStore, PushTarget, StoredPushRegistration } from "./push-notification-store";

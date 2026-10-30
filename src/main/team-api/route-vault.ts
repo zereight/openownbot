@@ -1,11 +1,11 @@
-import type { VaultState } from "@openownbot/contracts/ipc";
+import type { VaultState } from "@robot/contracts/ipc";
 import {
   VAULT_CAPABILITY,
   VAULT_ROUTES,
   VAULT_WIRE_ITEM_LIMIT,
   VAULT_WIRE_NAME_LIMIT,
-} from "@openownbot/contracts/team-protocol/vault-v1";
-import { isFixedSourceText, sourceText } from "@openownbot/i18n/source";
+} from "@robot/contracts/team-protocol/vault-v1";
+import { isFixedSourceText, sourceText } from "@robot/i18n/source";
 import { runCauseEffect } from "../../backend/effect-boundary";
 import { decodeVaultSaveInput, decodeVaultSecretRequest } from "../vault-inputs";
 import type { TeamApiVault } from "./dependencies";

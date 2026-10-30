@@ -1,4 +1,4 @@
-import { type HostStatus, LOCAL_SERVER_ID, type ServerSummary } from "@openownbot/contracts/ipc";
+import { type HostStatus, LOCAL_SERVER_ID, type ServerSummary } from "@robot/contracts/ipc";
 import { runCauseEffect } from "../../backend/effect-boundary";
 import type { HostService } from "../host-service";
 import type { RemoteDesktopManager } from "../remote-desktop-manager";

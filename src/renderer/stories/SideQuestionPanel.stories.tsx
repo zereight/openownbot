@@ -1,4 +1,4 @@
-import { SideQuestionPanel } from "@openownbot/ui/features/conversation/SideQuestionPanel";
+import { SideQuestionPanel } from "@robot/ui/features/conversation/SideQuestionPanel";
 import { createSignal } from "solid-js";
 import { fn } from "storybook/test";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";

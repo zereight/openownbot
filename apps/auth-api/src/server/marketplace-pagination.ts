@@ -1,4 +1,4 @@
-import { isDynamicRecord, isNumber, isString } from "@openownbot/contracts/runtime-values";
+import { isDynamicRecord, isNumber, isString } from "@robot/contracts/runtime-values";
 import { decodeBase64Url, encodeBase64Url } from "./crypto";
 
 const MARKETPLACE_DEFAULT_PAGE_SIZE = 24;

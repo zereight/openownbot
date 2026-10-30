@@ -1,4 +1,4 @@
-import { ONE_TIME_CODE_LENGTH } from "@openownbot/contracts/validation";
+import { ONE_TIME_CODE_LENGTH } from "@robot/contracts/validation";
 import { Button, Spinner, Typography } from "heroui-native";
 import type { LucideIcon } from "lucide-react-native";
 import ChevronDown from "lucide-react-native/icons/chevron-down";

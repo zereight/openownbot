@@ -1,4 +1,4 @@
-declare module "@openownbot/renderer-preview" {
+declare module "@robot/renderer-preview" {
   import type { JSX } from "@solidjs/web";
 
   export interface OpenOwnBotPlaygroundProps {

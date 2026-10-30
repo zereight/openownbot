@@ -1,6 +1,6 @@
-import type { AppTextKey } from "@openownbot/i18n";
-import { RadioGroup } from "@openownbot/ui";
 import type { DitheringShape, DitheringType, ShaderMount } from "@paper-design/shaders";
+import type { AppTextKey } from "@robot/i18n";
+import { RadioGroup } from "@robot/ui";
 import type { JSX } from "@solidjs/web";
 import { createEffect, createSignal, For, onCleanup } from "solid-js";
 import { useText } from "../../text";

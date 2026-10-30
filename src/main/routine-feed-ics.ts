@@ -4,7 +4,7 @@
 // schedule code that fires it, daylight saving time included, so the file needs no time zone rules
 // and a calendar app cannot place a run at a time where OpenOwnBot does not fire it.
 
-import type { RoutineCalendar } from "@openownbot/contracts/ipc";
+import type { RoutineCalendar } from "@robot/contracts/ipc";
 
 /** A run has no end; the event is long enough for a calendar to show it. */
 const EVENT_DURATION = "PT15M";

@@ -1,6 +1,6 @@
 import type { ChildProcess } from "node:child_process";
-import type { AgentProviderStatus } from "@openownbot/contracts/ipc";
-import { redactText } from "@openownbot/logging";
+import type { AgentProviderStatus } from "@robot/contracts/ipc";
+import { redactText } from "@robot/logging";
 import { Effect, Schema } from "effect";
 import { type AgentProvider, RequestTimeoutError } from "../agent-client";
 import { CodexCliError } from "../cli";

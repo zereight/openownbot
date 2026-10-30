@@ -2,7 +2,7 @@ import {
   type BitwardenConnectorStatus,
   DISCONNECTED_BITWARDEN_CONNECTOR,
   type OpenOwnBotDesktopApi,
-} from "@openownbot/contracts/ipc";
+} from "@robot/contracts/ipc";
 
 /** This computer's connection and one joined server's, which connects at once with any input. */
 export function createMockBitwardenConnector(): OpenOwnBotDesktopApi["bitwardenConnector"] {

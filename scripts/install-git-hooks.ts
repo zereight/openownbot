@@ -1,5 +1,5 @@
 import { spawnSync } from "node:child_process";
-import { createOpenOwnBotLogger } from "@openownbot/logging";
+import { createOpenOwnBotLogger } from "@robot/logging";
 
 const logger = createOpenOwnBotLogger("install-git-hooks");
 

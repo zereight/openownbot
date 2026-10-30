@@ -14,8 +14,8 @@ import {
   agentTemplateShareOrigin,
   createAgentTemplateShareUrl,
   isAgentTemplateId,
-} from "@openownbot/contracts/agent-template-links";
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
+} from "@robot/contracts/agent-template-links";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
 import {
   AGENT_TEMPLATE_LIMITS,
   type AgentSummary,
@@ -36,10 +36,10 @@ import {
   type PublishAgentTemplateInput,
   type RoutineSchedule,
   toAgentTemplateSnapshot,
-} from "@openownbot/contracts/ipc";
-import { isDynamicRecord, isString } from "@openownbot/contracts/runtime-values";
-import { sourceText } from "@openownbot/i18n/source";
-import { redactText } from "@openownbot/logging";
+} from "@robot/contracts/ipc";
+import { isDynamicRecord, isString } from "@robot/contracts/runtime-values";
+import { sourceText } from "@robot/i18n/source";
+import { redactText } from "@robot/logging";
 import { Effect, Result, Schema } from "effect";
 import { causeHelpers } from "../backend/effect-boundary";
 import { imageMimeType, localSchedule, toArrayBuffer, validTimezone } from "./agent-marketplace-service";

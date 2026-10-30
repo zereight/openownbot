@@ -1,5 +1,5 @@
-import { Toaster } from "@openownbot/ui";
-import { PublishAgentDialog } from "@openownbot/ui/features/agents/PublishAgentDialog";
+import { Toaster } from "@robot/ui";
+import { PublishAgentDialog } from "@robot/ui/features/agents/PublishAgentDialog";
 import { fn } from "storybook/test";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";
 import { STORY_AGENT_TEMPLATE_PUBLICATION, storyAgentTemplatePreview } from "../src/preview/agent-template-fixtures";

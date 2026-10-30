@@ -4,8 +4,8 @@ import {
   isNullableRoutineResultDestination,
   isRoutineResultConnectionOptions,
   isRoutineResultDeliveries,
-} from "@openownbot/contracts/ipc";
-import { guardedDecoder } from "@openownbot/contracts/ipc-decoding";
+} from "@robot/contracts/ipc";
+import { guardedDecoder } from "@robot/contracts/ipc-decoding";
 
 export const decodeRoutineResultOptions = guardedDecoder(
   isRoutineResultConnectionOptions,

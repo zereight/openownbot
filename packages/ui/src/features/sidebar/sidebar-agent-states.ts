@@ -1,4 +1,4 @@
-import type { ChannelSummary, QueueSnapshot } from "@openownbot/contracts/ipc";
+import type { ChannelSummary, QueueSnapshot } from "@robot/contracts/ipc";
 import type { SidebarAgentState, SidebarChannelWait, SidebarRoutinePhase } from "./sidebar-types";
 
 /** A question or a browser takeover that an agent is blocked on. */

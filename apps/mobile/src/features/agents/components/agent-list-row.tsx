@@ -1,5 +1,5 @@
-import { markdownPreviewText } from "@openownbot/contracts/markdown-preview-text";
 import MaskedView from "@react-native-masked-view/masked-view";
+import { markdownPreviewText } from "@robot/contracts/markdown-preview-text";
 import { BlurView } from "expo-blur";
 import { Link } from "expo-router";
 import { Typography } from "heroui-native";

@@ -6,10 +6,10 @@ import {
   EXPRESSION_BY_ID,
   SHAPE_BY_ID,
 } from "@norbert_bodziony/bloub";
-import { bloubAvatarProfile } from "@openownbot/brand/bloub-avatar";
-import { type AvatarMood, avatarMoodPresentation } from "@openownbot/brand/bloub-avatar-motion";
-import { padlockEyePath } from "@openownbot/brand/bloub-padlock-eye";
-import type { AvatarHue } from "@openownbot/contracts/ipc";
+import { bloubAvatarProfile } from "@robot/brand/bloub-avatar";
+import { type AvatarMood, avatarMoodPresentation } from "@robot/brand/bloub-avatar-motion";
+import { padlockEyePath } from "@robot/brand/bloub-padlock-eye";
+import type { AvatarHue } from "@robot/contracts/ipc";
 
 /**
  * The pose the working cycle holds. It is shape-safe by type, so the cycle can never hand back a

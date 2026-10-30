@@ -1,8 +1,8 @@
-import type { RoutineSchedule } from "@openownbot/contracts/ipc";
-import type { EventRoutine } from "@openownbot/contracts/ipc-events";
-import { routineDraftSummary } from "@openownbot/ui/features/conversation/routine-schedule-draft";
-import { routineScheduleToDraft } from "@openownbot/ui/features/conversation/routine-schedule-saved";
-import { type RoutineText, routineScheduleSummary } from "@openownbot/ui/features/conversation/routine-schedule-ui";
+import type { RoutineSchedule } from "@robot/contracts/ipc";
+import type { EventRoutine } from "@robot/contracts/ipc-events";
+import { routineDraftSummary } from "@robot/ui/features/conversation/routine-schedule-draft";
+import { routineScheduleToDraft } from "@robot/ui/features/conversation/routine-schedule-saved";
+import { type RoutineText, routineScheduleSummary } from "@robot/ui/features/conversation/routine-schedule-ui";
 import type { RoutineEditorRecord } from "./routines-port";
 
 export function isEventRoutine(routine: RoutineEditorRecord): routine is EventRoutine {

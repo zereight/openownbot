@@ -1,5 +1,5 @@
-import { TEAM_API_ROUTES } from "@openownbot/contracts/team-api-routes";
-import { AGENT_TASKS_ROUTES } from "@openownbot/contracts/team-protocol/agent-tasks-v1";
+import { TEAM_API_ROUTES } from "@robot/contracts/team-api-routes";
+import { AGENT_TASKS_ROUTES } from "@robot/contracts/team-protocol/agent-tasks-v1";
 
 /**
  * The reads that fill lists, counts and photos for many agents at once. The rpc channel keeps its

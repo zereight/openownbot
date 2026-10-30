@@ -2,7 +2,7 @@ import {
   type LiveActivityAction,
   type LiveActivityLink,
   readLiveActivityLink,
-} from "@openownbot/team-client/live-activity-props";
+} from "@robot/team-client/live-activity-props";
 
 /** An action from a signed button link. `command` is the command that Approve runs, shown again first. */
 export interface LiveActivityRequest {

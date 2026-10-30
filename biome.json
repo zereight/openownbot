@@ -238,8 +238,8 @@
                     "group": [
                       "electron",
                       "electron/**",
-                      "@openownbot/renderer-preview",
-                      "@openownbot/renderer-web",
+                      "@robot/renderer-preview",
+                      "@robot/renderer-web",
                       "**/src/main/**",
                       "**/src/backend/**",
                       "**/src/preload/**",

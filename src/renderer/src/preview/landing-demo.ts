@@ -9,7 +9,7 @@ import {
   conversationSubagentsText,
   type DirectMessage,
   type QueueDelivery,
-} from "@openownbot/contracts/ipc";
+} from "@robot/contracts/ipc";
 import {
   LANDING_DEMO_SCENES,
   LANDING_DIRECT_DEMO_SCRIPTS,

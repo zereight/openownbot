@@ -1,15 +1,10 @@
-import type {
-  ChannelSummary,
-  HiddenAgent,
-  SidebarLayoutAction,
-  SidebarLayoutSnapshot,
-} from "@openownbot/contracts/ipc";
-import type { AvatarMood } from "@openownbot/ui/bloub-avatar";
-import { Sidebar } from "@openownbot/ui/features/sidebar/Sidebar";
-import { SidebarMobileAppCard } from "@openownbot/ui/features/sidebar/SidebarMobileAppCard";
-import { SidebarStorageCard } from "@openownbot/ui/features/sidebar/SidebarStorageCard";
-import { normalizeSidebarPinnedItems, type SidebarPinnedItem } from "@openownbot/ui/features/sidebar/sidebar-pins";
-import { SIDEBAR_HIDDEN_GROUP_OPEN_ID, type SidebarAgentState } from "@openownbot/ui/features/sidebar/sidebar-types";
+import type { ChannelSummary, HiddenAgent, SidebarLayoutAction, SidebarLayoutSnapshot } from "@robot/contracts/ipc";
+import type { AvatarMood } from "@robot/ui/bloub-avatar";
+import { Sidebar } from "@robot/ui/features/sidebar/Sidebar";
+import { SidebarMobileAppCard } from "@robot/ui/features/sidebar/SidebarMobileAppCard";
+import { SidebarStorageCard } from "@robot/ui/features/sidebar/SidebarStorageCard";
+import { normalizeSidebarPinnedItems, type SidebarPinnedItem } from "@robot/ui/features/sidebar/sidebar-pins";
+import { SIDEBAR_HIDDEN_GROUP_OPEN_ID, type SidebarAgentState } from "@robot/ui/features/sidebar/sidebar-types";
 import { createSignal, untrack } from "solid-js";
 import { fn } from "storybook/test";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";

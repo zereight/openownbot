@@ -1,4 +1,4 @@
-import { prefersReducedMotion } from "@openownbot/ui/utils";
+import { prefersReducedMotion } from "@robot/ui/utils";
 import { createSignal, onSettled } from "solid-js";
 import { useText } from "../../text";
 import { type Camera, DOUBLE_CLICK_ZOOM, MAX_SCALE, WHEEL_ZOOM_RATE, ZOOM_STEP, ZoomControls } from "./ZoomControls";

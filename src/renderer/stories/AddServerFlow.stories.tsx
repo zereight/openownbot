@@ -1,8 +1,8 @@
-import type { ServerSummary } from "@openownbot/contracts/ipc";
-import { Heading, Text } from "@openownbot/ui";
-import { AddServerDialog, type HostedServerSetupStatus } from "@openownbot/ui/features/servers/AddServerDialog";
-import { hostedServerPlansFromCatalog } from "@openownbot/ui/features/servers/HostedServerPricing";
-import { ServerRail } from "@openownbot/ui/features/servers/ServerRail";
+import type { ServerSummary } from "@robot/contracts/ipc";
+import { Heading, Text } from "@robot/ui";
+import { AddServerDialog, type HostedServerSetupStatus } from "@robot/ui/features/servers/AddServerDialog";
+import { hostedServerPlansFromCatalog } from "@robot/ui/features/servers/HostedServerPricing";
+import { ServerRail } from "@robot/ui/features/servers/ServerRail";
 import { createMemo, createSignal, onCleanup, Show } from "solid-js";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";
 import { MOCK_HOSTED_SERVER_CATALOG } from "../src/preview/mock-hosted-servers";

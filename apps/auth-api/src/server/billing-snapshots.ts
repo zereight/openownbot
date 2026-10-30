@@ -1,4 +1,4 @@
-import { licenseAmount } from "@openownbot/contracts/license";
+import { licenseAmount } from "@robot/contracts/license";
 import { Effect, Schema } from "effect";
 import { readBillingCohortCounts } from "./billing-cohorts";
 import { BillingUsd } from "./billing-usd";

@@ -5,7 +5,7 @@ import { type FileHandle, mkdir, open, readFile, rm } from "node:fs/promises";
 import { basename, join } from "node:path";
 import { Readable } from "node:stream";
 import { pipeline } from "node:stream/promises";
-import { isString } from "@openownbot/contracts/runtime-values";
+import { isString } from "@robot/contracts/runtime-values";
 import {
   decodeTeamProtocolV2FileChunk,
   decodeTeamProtocolV2FileControlFrame,
@@ -13,8 +13,8 @@ import {
   encodeTeamProtocolV2Frame,
   TEAM_PROTOCOL_V2_MAX_FILE_BYTES,
   TEAM_PROTOCOL_V2_MAX_FILE_SET_BYTES,
-} from "@openownbot/contracts/team-protocol/v2";
-import { sourceText } from "@openownbot/i18n/source";
+} from "@robot/contracts/team-protocol/v2";
+import { sourceText } from "@robot/i18n/source";
 import { Deferred, Effect, Result, Semaphore } from "effect";
 import { sha256File } from "../backend/file-hash";
 import { recordRestartActivity } from "../backend/restart-activity";

@@ -1,4 +1,4 @@
-import { DISCORD_ROUTE_GUILDS_LIMIT } from "@openownbot/contracts/signal-protocol/discord-route";
+import { DISCORD_ROUTE_GUILDS_LIMIT } from "@robot/contracts/signal-protocol/discord-route";
 import { createFileRoute } from "@tanstack/solid-router";
 import { Effect } from "effect";
 import { z } from "zod";

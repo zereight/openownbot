@@ -1,4 +1,4 @@
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
 import {
   AGENT_ACCESS_MODES,
   AGENT_BACKUP_MODEL_LIMIT,
@@ -13,7 +13,7 @@ import {
   isProviderAccountId,
   type UpdateAgentInput,
   workspaceAccessEnforced,
-} from "@openownbot/contracts/ipc";
+} from "@robot/contracts/ipc";
 import { z } from "zod";
 
 const profileFields = {

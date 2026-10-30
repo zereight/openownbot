@@ -6,8 +6,8 @@ import {
   decodeAgentProfileDraft,
   type GenerateAgentProfileInput,
   type SidebarSection,
-} from "@openownbot/contracts/ipc";
-import { sourceText } from "@openownbot/i18n/source";
+} from "@robot/contracts/ipc";
+import { sourceText } from "@robot/i18n/source";
 import { Effect, Fiber, Result, Schema } from "effect";
 import type { AgentClient } from "../agent-client";
 import { causeHelpers } from "../effect-boundary";

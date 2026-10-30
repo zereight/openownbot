@@ -3,7 +3,7 @@ import {
   isRemoteDesktopTestStatus,
   type RemoteDesktopSetupStatus,
   type RemoteDesktopTestStatus,
-} from "@openownbot/contracts/ipc";
+} from "@robot/contracts/ipc";
 
 export function decodeRemoteDesktopSetupFromHost(value: unknown): RemoteDesktopSetupStatus {
   if (!isRemoteDesktopSetupStatus(value)) throw new Error("Invalid remote desktop setup response.");

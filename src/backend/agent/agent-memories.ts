@@ -1,5 +1,5 @@
-import { AGENT_MEMORY_CONTEXT_BUDGET_BYTES, essentialMemoryBytes } from "@openownbot/contracts/agent-memory-context";
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
+import { AGENT_MEMORY_CONTEXT_BUDGET_BYTES, essentialMemoryBytes } from "@robot/contracts/agent-memory-context";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
 import type {
   AgentEvent,
   AgentMemory,
@@ -9,10 +9,10 @@ import type {
   DeleteAgentMemoryInput,
   SetAgentMemoryInclusionInput,
   UpdateAgentMemoryInput,
-} from "@openownbot/contracts/ipc";
-import { isString } from "@openownbot/contracts/runtime-values";
-import { sourceText } from "@openownbot/i18n/source";
-import { redactText } from "@openownbot/logging";
+} from "@robot/contracts/ipc";
+import { isString } from "@robot/contracts/runtime-values";
+import { sourceText } from "@robot/i18n/source";
+import { redactText } from "@robot/logging";
 import {
   type AgentMemoryListPage,
   type AgentMemorySearchResult,

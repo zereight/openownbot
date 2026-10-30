@@ -5,18 +5,18 @@ import {
   isManagedRuntimeProvider,
   LOCAL_SERVER_ID,
   type ProviderRuntimeDownload,
-} from "@openownbot/contracts/ipc";
-import { CLAUDE_API_KEY_CAPABILITY } from "@openownbot/contracts/team-protocol/claude-api-key-v1";
+} from "@robot/contracts/ipc";
+import { CLAUDE_API_KEY_CAPABILITY } from "@robot/contracts/team-protocol/claude-api-key-v1";
 import {
   PROVIDER_ACCOUNT_RELAY_CAPABILITY,
   PROVIDER_ACCOUNT_RELAY_PROVIDERS,
-} from "@openownbot/contracts/team-protocol/provider-account-relay-v1";
-import { PROVIDER_ACCOUNTS_CAPABILITY } from "@openownbot/contracts/team-protocol/provider-accounts-v1";
-import { PROVIDER_USAGE_RESET_CAPABILITY } from "@openownbot/contracts/team-protocol/provider-usage-reset-v1";
-import { classifyFailure } from "@openownbot/telemetry";
-import { toast } from "@openownbot/ui";
-import type { ProviderAccountActions } from "@openownbot/ui/components/provider-accounts";
-import { currentText } from "@openownbot/ui/text";
+} from "@robot/contracts/team-protocol/provider-account-relay-v1";
+import { PROVIDER_ACCOUNTS_CAPABILITY } from "@robot/contracts/team-protocol/provider-accounts-v1";
+import { PROVIDER_USAGE_RESET_CAPABILITY } from "@robot/contracts/team-protocol/provider-usage-reset-v1";
+import { classifyFailure } from "@robot/telemetry";
+import { toast } from "@robot/ui";
+import type { ProviderAccountActions } from "@robot/ui/components/provider-accounts";
+import { currentText } from "@robot/ui/text";
 import { createEffect, createMemo, createSignal, flush } from "solid-js";
 import { appPort } from "./app-port";
 import { useAgents } from "./features/agents/agents-context";

@@ -1,5 +1,5 @@
 import { createHash } from "node:crypto";
-import { DATA_FOLDER_NAME } from "@openownbot/contracts/product";
+import { DATA_FOLDER_NAME } from "@robot/contracts/product";
 
 export type DevelopmentProfile = "app" | "test-client";
 

@@ -58,11 +58,11 @@ continue without the user.
 
 Before you write UI, list the parts that already exist:
 
-- Primitives from `@openownbot/ui` (`packages/ui/src/`).
-- Feature components from `@openownbot/ui/features/<domain>/...`.
+- Primitives from `@robot/ui` (`packages/ui/src/`).
+- Feature components from `@robot/ui/features/<domain>/...`.
 - For public web: existing site components and classes in
   `apps/auth-api/src/components/` and `apps/auth-api/src/styles.css`. Import
-  only explicit `@openownbot/ui/...` subpaths there. The `@openownbot/ui` barrel
+  only explicit `@robot/ui/...` subpaths there. The `@robot/ui` barrel
   fails the Worker typecheck.
 - Data that already exists, such as plans, prices, and limits in
   `packages/contracts`. Use the real values, not invented ones.

@@ -1,5 +1,5 @@
-import type { AgentMessage } from "@openownbot/ui/data";
-import { MessageActions } from "@openownbot/ui/features/conversation/MessageRendering";
+import type { AgentMessage } from "@robot/ui/data";
+import { MessageActions } from "@robot/ui/features/conversation/MessageRendering";
 import { fn } from "storybook/test";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";
 

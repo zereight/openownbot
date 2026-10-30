@@ -6,14 +6,14 @@ import type {
   AgentSummary,
   ProviderAccountStatus,
   UpdateAgentInput,
-} from "@openownbot/contracts/ipc";
+} from "@robot/contracts/ipc";
 import {
   AGENT_PROVIDERS,
   DEFAULT_PROVIDER_ACCOUNT_ID,
   defaultProviderModel,
   sameAgentModelChoice,
-} from "@openownbot/contracts/ipc";
-import { sourceText } from "@openownbot/i18n/source";
+} from "@robot/contracts/ipc";
+import { sourceText } from "@robot/i18n/source";
 import type { AgentProvider } from "../agent-client";
 import { AgentSettingsRefused } from "./agent-settings-refused";
 import { providerLabel } from "./thread-items";

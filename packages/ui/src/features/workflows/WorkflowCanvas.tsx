@@ -21,8 +21,8 @@ import {
   type WorkflowTriggerState,
   type WorkflowVersion,
   type WorkflowVersionKind,
-} from "@openownbot/contracts/ipc";
-import type { AppTextKey, AppTranslate } from "@openownbot/i18n";
+} from "@robot/contracts/ipc";
+import type { AppTextKey, AppTranslate } from "@robot/i18n";
 import {
   BringToFront,
   Button,
@@ -54,7 +54,7 @@ import {
   Type,
   Undo2,
   Zap,
-} from "@openownbot/ui";
+} from "@robot/ui";
 import type { JSX } from "@solidjs/web";
 import {
   createEffect,

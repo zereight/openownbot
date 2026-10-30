@@ -1,4 +1,4 @@
-import SharedFilePreviewPanel from "@openownbot/ui/features/conversation/FilePreviewPanel";
+import SharedFilePreviewPanel from "@robot/ui/features/conversation/FilePreviewPanel";
 import type { ComponentProps } from "@solidjs/web";
 import { readPanelWidth, savePanelWidth } from "../../components/panel-width-storage";
 

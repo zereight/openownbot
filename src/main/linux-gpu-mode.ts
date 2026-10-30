@@ -17,8 +17,8 @@
 
 import { mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
-import { isDynamicRecord, isString } from "@openownbot/contracts/runtime-values";
-import { createOpenOwnBotLogger, toLogValue } from "@openownbot/logging";
+import { isDynamicRecord, isString } from "@robot/contracts/runtime-values";
+import { createOpenOwnBotLogger, toLogValue } from "@robot/logging";
 import { app, type Details } from "electron";
 import { isMissingFileError } from "../backend/file-errors";
 

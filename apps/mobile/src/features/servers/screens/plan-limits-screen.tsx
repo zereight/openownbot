@@ -1,4 +1,4 @@
-import type { PlanLimitTone, PlanLimitWindow } from "@openownbot/team-client/plan-limits";
+import type { PlanLimitTone, PlanLimitWindow } from "@robot/team-client/plan-limits";
 import { useLocalSearchParams } from "expo-router";
 import { Typography } from "heroui-native";
 import { useThemeColor } from "heroui-native/hooks";

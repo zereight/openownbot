@@ -1,6 +1,6 @@
-import type { BrowserControlSession, BrowserTab, BrowserTabProfile } from "@openownbot/contracts/ipc";
-import type { AppTranslate } from "@openownbot/i18n";
-import type { AgentProfile } from "@openownbot/ui/data";
+import type { BrowserControlSession, BrowserTab, BrowserTabProfile } from "@robot/contracts/ipc";
+import type { AppTranslate } from "@robot/i18n";
+import type { AgentProfile } from "@robot/ui/data";
 import type { JSX } from "@solidjs/web";
 import type { BrowserViewRuntime } from "./BrowserLiveView";
 import type { BrowserHistoryEntry } from "./browser-suggestions";

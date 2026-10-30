@@ -19,8 +19,8 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { setTimeout as delay } from "node:timers/promises";
-import { type DynamicRecord, isDynamicRecord, isString } from "@openownbot/contracts/runtime-values";
-import { createOpenOwnBotLogger, registerSecretValue } from "@openownbot/logging";
+import { type DynamicRecord, isDynamicRecord, isString } from "@robot/contracts/runtime-values";
+import { createOpenOwnBotLogger, registerSecretValue } from "@robot/logging";
 
 const logger = createOpenOwnBotLogger("hosted-database-durability-e2e");
 const BOAT_API_URL = "https://boat.dev/api/v1";

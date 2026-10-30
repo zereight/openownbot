@@ -14,10 +14,10 @@ import {
   isChannelMessage,
   isChannelTask,
   SIGNED_OUT_CHANNEL_MEMBER_ID,
-} from "@openownbot/contracts/ipc";
-import { markdownPreviewText } from "@openownbot/contracts/markdown-preview-text";
-import { isDynamicRecord, isString } from "@openownbot/contracts/runtime-values";
-import { sourceText } from "@openownbot/i18n/source";
+} from "@robot/contracts/ipc";
+import { markdownPreviewText } from "@robot/contracts/markdown-preview-text";
+import { isDynamicRecord, isString } from "@robot/contracts/runtime-values";
+import { sourceText } from "@robot/i18n/source";
 import { deleteAggregateHistory, deleteThreadAttachments } from "./database/database-core";
 import {
   databaseRow,

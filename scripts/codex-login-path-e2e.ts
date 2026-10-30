@@ -12,7 +12,7 @@ import { spawnSync } from "node:child_process";
 import { chmod, mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
-import { sourceText } from "@openownbot/i18n/source";
+import { sourceText } from "@robot/i18n/source";
 import { Effect } from "effect";
 import { providerFailureStatus } from "../src/backend/agent/provider-status";
 import type { AgentClient } from "../src/backend/agent-client";

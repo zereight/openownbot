@@ -1,4 +1,4 @@
-import { isAgentTaskOpen, taskNeedsYou } from "@openownbot/team-client/agent-tasks";
+import { isAgentTaskOpen, taskNeedsYou } from "@robot/team-client/agent-tasks";
 import * as Crypto from "expo-crypto";
 import { type Href, router, useFocusEffect } from "expo-router";
 import type { NativeStackNavigationProp } from "expo-router/native-stack";

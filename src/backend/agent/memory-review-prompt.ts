@@ -1,6 +1,6 @@
-import { AGENT_MEMORY_CONTEXT_BUDGET_BYTES } from "@openownbot/contracts/agent-memory-context";
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
-import type { AgentSummary, ConversationMessage } from "@openownbot/contracts/ipc";
+import { AGENT_MEMORY_CONTEXT_BUDGET_BYTES } from "@robot/contracts/agent-memory-context";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
+import type { AgentSummary, ConversationMessage } from "@robot/contracts/ipc";
 import { Schema } from "effect";
 import type { MemoryReviewBase } from "./agent-memories";
 import { chatTranscript, promptJson } from "./side-question";

@@ -1,4 +1,4 @@
-import type { InstalledSkill } from "@openownbot/contracts/ipc";
+import type { InstalledSkill } from "@robot/contracts/ipc";
 import type { MobileWorkspaceActions } from "@/features/workspace/context/mobile-workspace-context";
 import { type QueryScope, queryKeys } from "@/features/workspace/model/query-keys";
 

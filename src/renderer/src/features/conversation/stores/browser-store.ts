@@ -1,10 +1,10 @@
-import type { BrowserControlSession, BrowserPreview, BrowserTab } from "@openownbot/contracts/ipc";
-import { TEAM_BROWSER_NAVIGATION_CAPABILITY } from "@openownbot/contracts/team-protocol/current";
-import { classifyFailure } from "@openownbot/telemetry";
-import { toast } from "@openownbot/ui";
-import type { AgentProfile } from "@openownbot/ui/data";
-import { browserAddressUrl } from "@openownbot/ui/features/browser/browser-suggestions";
-import { currentText } from "@openownbot/ui/text";
+import type { BrowserControlSession, BrowserPreview, BrowserTab } from "@robot/contracts/ipc";
+import { TEAM_BROWSER_NAVIGATION_CAPABILITY } from "@robot/contracts/team-protocol/current";
+import { classifyFailure } from "@robot/telemetry";
+import { toast } from "@robot/ui";
+import type { AgentProfile } from "@robot/ui/data";
+import { browserAddressUrl } from "@robot/ui/features/browser/browser-suggestions";
+import { currentText } from "@robot/ui/text";
 import { createEffect, createMemo, createSignal, untrack } from "solid-js";
 import { actionToast } from "../../../action-toast";
 import { serverSupportsCapability } from "../../servers/server-capabilities";

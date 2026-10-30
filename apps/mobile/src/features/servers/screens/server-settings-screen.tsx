@@ -1,6 +1,6 @@
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
-import { canAdministerServer } from "@openownbot/contracts/ipc";
-import { WAKE_RECONNECT_STATES } from "@openownbot/team-client/hosted-server-wake";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
+import { canAdministerServer } from "@robot/contracts/ipc";
+import { WAKE_RECONNECT_STATES } from "@robot/team-client/hosted-server-wake";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { router, useLocalSearchParams } from "expo-router";
 import { usePreventRemove } from "expo-router/react-navigation";

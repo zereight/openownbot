@@ -1,5 +1,5 @@
-import { Toaster } from "@openownbot/ui";
-import { AgentTemplateInstallDialog } from "@openownbot/ui/features/agents/AgentTemplateInstallDialog";
+import { Toaster } from "@robot/ui";
+import { AgentTemplateInstallDialog } from "@robot/ui/features/agents/AgentTemplateInstallDialog";
 import { fn } from "storybook/test";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";
 import { STORY_AGENT_TEMPLATE_DETAIL } from "../src/preview/agent-template-fixtures";

@@ -1,5 +1,5 @@
-import { isDynamicRecord, isString } from "@openownbot/contracts/runtime-values";
-import { remoteHostFingerprint } from "@openownbot/team-client";
+import { isDynamicRecord, isString } from "@robot/contracts/runtime-values";
+import { remoteHostFingerprint } from "@robot/team-client";
 import { create } from "zustand";
 import type { RecentAgent } from "./quick-action-items";
 

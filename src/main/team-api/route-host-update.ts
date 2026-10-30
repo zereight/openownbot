@@ -1,17 +1,17 @@
-import type { HostUpdateSettingsChange, HostUpdateStatus, UpdateRestartMode } from "@openownbot/contracts/ipc";
+import type { HostUpdateSettingsChange, HostUpdateStatus, UpdateRestartMode } from "@robot/contracts/ipc";
 import {
   HOST_MEMBER_UPDATE_CAPABILITY,
   HOST_MEMBER_UPDATE_ROUTES,
-} from "@openownbot/contracts/team-protocol/host-member-update-v1";
-import { HOST_RELEASE_CAPABILITY, HOST_RELEASE_ROUTES } from "@openownbot/contracts/team-protocol/host-release-v1";
+} from "@robot/contracts/team-protocol/host-member-update-v1";
+import { HOST_RELEASE_CAPABILITY, HOST_RELEASE_ROUTES } from "@robot/contracts/team-protocol/host-release-v1";
 import {
   HOST_UPDATE_CAPABILITY,
   HOST_UPDATE_RESTART_MODES,
   HOST_UPDATE_ROUTES,
   HOST_UPDATE_WAIT_REASON_LIMIT,
   HOST_UPDATE_WAIT_REASONS,
-} from "@openownbot/contracts/team-protocol/host-update-v1";
-import { sourceText } from "@openownbot/i18n/source";
+} from "@robot/contracts/team-protocol/host-update-v1";
+import { sourceText } from "@robot/i18n/source";
 import { runCauseEffect } from "../../backend/effect-boundary";
 import { RequestedUpdateRefusal } from "../requested-update";
 import type { TeamApiAdmin } from "./dependencies";

@@ -1,4 +1,4 @@
-import { Bot, Hash, Palette, Settings, Store } from "@openownbot/ui";
+import { Bot, Hash, Palette, Settings, Store } from "@robot/ui";
 import {
   GlobalSearch,
   type GlobalSearchAction,
@@ -6,8 +6,8 @@ import {
   type GlobalSearchFile,
   type GlobalSearchPage,
   type GlobalSearchRoutine,
-} from "@openownbot/ui/components/GlobalSearch";
-import type { AgentMessage, AgentProfile } from "@openownbot/ui/data";
+} from "@robot/ui/components/GlobalSearch";
+import type { AgentMessage, AgentProfile } from "@robot/ui/data";
 import { fn } from "storybook/test";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";
 import { requireFixture, STORY_AGENTS } from "../src/preview/fixtures";

@@ -1,5 +1,5 @@
-import { sourceText } from "@openownbot/i18n/source";
-import { createOpenOwnBotLogger, toLogValue } from "@openownbot/logging";
+import { sourceText } from "@robot/i18n/source";
+import { createOpenOwnBotLogger, toLogValue } from "@robot/logging";
 import { Effect } from "effect";
 import {
   ScreenCaptureFailed,

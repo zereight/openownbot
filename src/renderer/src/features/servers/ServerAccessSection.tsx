@@ -8,8 +8,8 @@ import {
   ItemTitle,
   SettingsSection,
   SwitchField,
-} from "@openownbot/ui";
-import { useText } from "@openownbot/ui/text";
+} from "@robot/ui";
+import { useText } from "@robot/ui/text";
 import type { JSX } from "@solidjs/web";
 import { createStore, Show } from "solid-js";
 import type { ServerSettingsSectionHost } from "./server-settings-section";

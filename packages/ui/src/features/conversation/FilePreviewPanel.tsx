@@ -1,4 +1,4 @@
-import type { FilePreview, WorkspaceDirectory, WorkspaceDirectoryEntry } from "@openownbot/contracts/ipc";
+import type { FilePreview, WorkspaceDirectory, WorkspaceDirectoryEntry } from "@robot/contracts/ipc";
 import {
   ArrowLeft,
   Button,
@@ -11,14 +11,14 @@ import {
   FolderOpen,
   WrapText,
   X,
-} from "@openownbot/ui";
-import { PanelResizer } from "@openownbot/ui/components/PanelResizer";
-import type { AgentProfile } from "@openownbot/ui/data";
-import { ChatVisual } from "@openownbot/ui/features/conversation/ChatVisual";
-import { type CodeToken, fileCodeLanguage, highlightedCodeLines } from "@openownbot/ui/features/conversation/CodeBlock";
-import { MarkdownFilePreview } from "@openownbot/ui/features/conversation/MarkdownFilePreview";
-import { SpreadsheetFilePreview } from "@openownbot/ui/features/conversation/SpreadsheetFilePreview";
-import { useText } from "@openownbot/ui/text";
+} from "@robot/ui";
+import { PanelResizer } from "@robot/ui/components/PanelResizer";
+import type { AgentProfile } from "@robot/ui/data";
+import { ChatVisual } from "@robot/ui/features/conversation/ChatVisual";
+import { type CodeToken, fileCodeLanguage, highlightedCodeLines } from "@robot/ui/features/conversation/CodeBlock";
+import { MarkdownFilePreview } from "@robot/ui/features/conversation/MarkdownFilePreview";
+import { SpreadsheetFilePreview } from "@robot/ui/features/conversation/SpreadsheetFilePreview";
+import { useText } from "@robot/ui/text";
 import { createEffect, createMemo, createSignal, For, onCleanup, onSettled, Show, untrack } from "solid-js";
 
 import { MediaFilePreview } from "./MediaFilePreview";

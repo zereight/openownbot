@@ -1,9 +1,9 @@
-import { SettingsLinkGroup, SettingsLinkRow } from "@openownbot/ui/components/SettingsPanel";
-import AgentSettingsPanel from "@openownbot/ui/features/conversation/AgentSettingsPanel";
-import { AgentFilesView, agentFilesLinkValue } from "@openownbot/ui/features/files/AgentFilesView";
-import { ConversationFilesPanel } from "@openownbot/ui/features/files/ConversationFilesPanel";
-import { FileList } from "@openownbot/ui/features/files/FileList";
-import { StorageOverview } from "@openownbot/ui/features/files/StorageOverview";
+import { SettingsLinkGroup, SettingsLinkRow } from "@robot/ui/components/SettingsPanel";
+import AgentSettingsPanel from "@robot/ui/features/conversation/AgentSettingsPanel";
+import { AgentFilesView, agentFilesLinkValue } from "@robot/ui/features/files/AgentFilesView";
+import { ConversationFilesPanel } from "@robot/ui/features/files/ConversationFilesPanel";
+import { FileList } from "@robot/ui/features/files/FileList";
+import { StorageOverview } from "@robot/ui/features/files/StorageOverview";
 import { createSignal, Show } from "solid-js";
 import { fn } from "storybook/test";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";

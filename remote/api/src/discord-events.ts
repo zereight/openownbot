@@ -15,7 +15,7 @@ import {
   type DiscordInboundInteraction,
   type DiscordInboundMessage,
   type DiscordInboundQuote,
-} from "@openownbot/contracts/signal-protocol/discord-api";
+} from "@robot/contracts/signal-protocol/discord-api";
 import {
   GatewayDispatchEvents,
   type GatewayDispatchPayload,

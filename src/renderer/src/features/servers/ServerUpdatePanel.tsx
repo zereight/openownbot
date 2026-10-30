@@ -3,8 +3,8 @@ import type {
   HostUpdateSettingsChange,
   HostUpdateStatus,
   OpenOwnBotDesktopApi,
-} from "@openownbot/contracts/ipc";
-import { classifyFailure } from "@openownbot/telemetry";
+} from "@robot/contracts/ipc";
+import { classifyFailure } from "@robot/telemetry";
 import {
   Alert,
   AlertActions,
@@ -25,9 +25,9 @@ import {
   SettingsSection,
   SwitchField,
   TriangleAlert,
-} from "@openownbot/ui";
-import { restartReasonKey } from "@openownbot/ui/features/updates/restart-reasons";
-import { useText } from "@openownbot/ui/text";
+} from "@robot/ui";
+import { restartReasonKey } from "@robot/ui/features/updates/restart-reasons";
+import { useText } from "@robot/ui/text";
 import { createEffect, createSignal, onCleanup, Show, untrack } from "solid-js";
 import { actionToast } from "../../action-toast";
 import { openServerUpdate, serverUpdateStatus } from "./server-update-flow";

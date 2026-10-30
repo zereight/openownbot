@@ -12,7 +12,7 @@ import {
   isDynamicIslandNotchSize,
   isDynamicIslandPreference,
   isDynamicIslandPresentation,
-} from "@openownbot/contracts/ipc";
+} from "@robot/contracts/ipc";
 
 export function decodeDynamicIslandPreference(value: unknown): DynamicIslandPreference {
   if (!isDynamicIslandPreference(value)) throw new Error("Invalid Dynamic Island preference response.");

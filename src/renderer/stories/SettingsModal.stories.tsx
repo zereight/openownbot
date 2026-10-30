@@ -1,6 +1,6 @@
-import type { AvatarImageInput, CentralAuthUser, MobileConnectedDevice, UpdateStatus } from "@openownbot/contracts/ipc";
-import { Button, Toaster, toast } from "@openownbot/ui";
-import { DEFAULT_GENERAL_SETTINGS, type GeneralSettingsValue } from "@openownbot/ui/features/settings/app-settings";
+import type { AvatarImageInput, CentralAuthUser, MobileConnectedDevice, UpdateStatus } from "@robot/contracts/ipc";
+import { Button, Toaster, toast } from "@robot/ui";
+import { DEFAULT_GENERAL_SETTINGS, type GeneralSettingsValue } from "@robot/ui/features/settings/app-settings";
 import { createSignal, onCleanup } from "solid-js";
 import { fn } from "storybook/test";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";

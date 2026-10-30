@@ -12,7 +12,7 @@
 // channel and deletes it, and gives the agent its settings back.
 // Writes .openownbot-build/channel-tools-e2e/report.json.
 import assert from "node:assert/strict";
-import { agentProviderDescriptor } from "@openownbot/contracts/agent-providers";
+import { agentProviderDescriptor } from "@robot/contracts/agent-providers";
 import type {
   AgentAdminSettings,
   AgentApproval,
@@ -21,7 +21,7 @@ import type {
   ChannelMessage,
   ChannelPage,
   ChannelTask,
-} from "@openownbot/contracts/ipc";
+} from "@robot/contracts/ipc";
 import { ChannelClient, connectChannelE2e, waitFor, writeReport } from "./channel-e2e-support";
 
 interface SeenPrompt {

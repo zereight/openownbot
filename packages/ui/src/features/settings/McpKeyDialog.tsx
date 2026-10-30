@@ -3,13 +3,8 @@
  * before it is saved anywhere.
  */
 
-import {
-  applyMcpFlow,
-  type McpAuthValues,
-  type McpKeyFlow,
-  mcpFlowComplete,
-} from "@openownbot/contracts/mcp-connect-flows";
-import { Button, ExternalLink, Field, Input, ShieldCheck, Text } from "@openownbot/ui";
+import { applyMcpFlow, type McpAuthValues, type McpKeyFlow, mcpFlowComplete } from "@robot/contracts/mcp-connect-flows";
+import { Button, ExternalLink, Field, Input, ShieldCheck, Text } from "@robot/ui";
 import { createMemo, createStore, For, Show } from "solid-js";
 import { useText } from "../../text";
 import { createConnectRun, type McpConnectBaseProps, McpConnectShell } from "./McpConnectShell";

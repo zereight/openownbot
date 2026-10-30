@@ -1,9 +1,9 @@
-import { AppLogo } from "@openownbot/brand";
-import type { AppVariant } from "@openownbot/contracts/ipc";
-import { PRODUCT_NAME } from "@openownbot/contracts/product";
-import { TRANSLATED_LOCALES, type TranslatedLocale } from "@openownbot/i18n";
-import { APP_LANGUAGE_OPTIONS, type AppLanguageOption } from "@openownbot/i18n/languages";
-import { ArrowRight, Button, ChevronDown, ChevronUp, IconButton, RadioGroup } from "@openownbot/ui";
+import { AppLogo } from "@robot/brand";
+import type { AppVariant } from "@robot/contracts/ipc";
+import { PRODUCT_NAME } from "@robot/contracts/product";
+import { TRANSLATED_LOCALES, type TranslatedLocale } from "@robot/i18n";
+import { APP_LANGUAGE_OPTIONS, type AppLanguageOption } from "@robot/i18n/languages";
+import { ArrowRight, Button, ChevronDown, ChevronUp, IconButton, RadioGroup } from "@robot/ui";
 import { createSignal, createStore, For, onSettled } from "solid-js";
 import { useText } from "../../text";
 

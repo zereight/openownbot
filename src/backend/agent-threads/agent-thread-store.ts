@@ -1,7 +1,7 @@
 import { randomUUID } from "node:crypto";
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
-import { AGENT_TASK_OUTCOMES, type AgentTaskOutcome } from "@openownbot/contracts/ipc";
-import { type DynamicRecord, isOneOf } from "@openownbot/contracts/runtime-values";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
+import { AGENT_TASK_OUTCOMES, type AgentTaskOutcome } from "@robot/contracts/ipc";
+import { type DynamicRecord, isOneOf } from "@robot/contracts/runtime-values";
 import { deleteAggregateHistory, deleteThreadAttachments } from "../database/database-core";
 import { databaseRow, databaseRows, optionalStringColumn, requiredStringColumn } from "../database/database-rows";
 import type { OpenOwnBotDatabase } from "../openownbot-database";

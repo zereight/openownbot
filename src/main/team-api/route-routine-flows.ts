@@ -3,13 +3,13 @@ import {
   isReleasedRoutineSchedule,
   type RoutineFlowCanvas,
   type RoutineFlowStep,
-} from "@openownbot/contracts/ipc";
+} from "@robot/contracts/ipc";
 import {
   ROUTINE_FLOW_STEP_TEXT_LIMIT,
   ROUTINE_FLOWS_CAPABILITY,
   ROUTINE_FLOWS_ROUTES,
-} from "@openownbot/contracts/team-protocol/routine-flows-v1";
-import { sourceText } from "@openownbot/i18n/source";
+} from "@robot/contracts/team-protocol/routine-flows-v1";
+import { sourceText } from "@robot/i18n/source";
 import type { Effect } from "effect";
 import { runCauseEffect } from "../../backend/effect-boundary";
 import { RoutineFlowError } from "../../backend/routine-flows/routine-flow-store";

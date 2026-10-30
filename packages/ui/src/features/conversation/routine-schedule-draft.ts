@@ -1,4 +1,4 @@
-import type { AppMessages, AppTextKey } from "@openownbot/i18n";
+import type { AppMessages, AppTextKey } from "@robot/i18n";
 import {
   parseRoutineDateKey,
   ROUTINE_EVERY_DAY,
@@ -13,7 +13,7 @@ import {
   routineHourlyMinute,
   routineRunsPerDay,
   sameRoutineDays,
-} from "@openownbot/team-client/routine-schedule-draft";
+} from "@robot/team-client/routine-schedule-draft";
 import { currentText } from "../../text";
 import {
   formatRoutineClock,
@@ -42,7 +42,7 @@ export {
   routineYearlyDaysInMonth,
   switchDraftKind,
   toggleRoutineDay,
-} from "@openownbot/team-client/routine-schedule-draft";
+} from "@robot/team-client/routine-schedule-draft";
 
 /** A frequency the menu offers. `label` is the key of its name. */
 export interface RoutineDraftKindOption {

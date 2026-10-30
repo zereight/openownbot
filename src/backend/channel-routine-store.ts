@@ -4,7 +4,7 @@ import type {
   ChannelRoutineRunStatus,
   CreateChannelRoutineInput,
   UpdateChannelRoutineInput,
-} from "@openownbot/contracts/ipc";
+} from "@robot/contracts/ipc";
 import type { OpenOwnBotDatabase } from "./openownbot-database";
 import {
   type DueRoutine,

@@ -9,7 +9,7 @@ import { mkdirSync, writeFileSync } from "node:fs";
 import { mkdtemp, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
-import type { AgentSummary, ChannelMessage, ChannelTask } from "@openownbot/contracts/ipc";
+import type { AgentSummary, ChannelMessage, ChannelTask } from "@robot/contracts/ipc";
 import { Effect } from "effect";
 import { type ChannelHooks, ChannelService } from "../src/backend/channel-service";
 import { SUPERVISION_MAX_ROUNDS } from "../src/backend/channel-supervision";

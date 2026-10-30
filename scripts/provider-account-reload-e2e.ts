@@ -6,7 +6,7 @@ import { EventEmitter } from "node:events";
 import { chmod, mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
-import type { ProviderAccountState, ProviderAccountStatus } from "@openownbot/contracts/ipc";
+import type { ProviderAccountState, ProviderAccountStatus } from "@robot/contracts/ipc";
 import { Effect } from "effect";
 import { ConversationRuntime } from "../src/backend/agent/conversation-runtime";
 import { ProviderAccountStore } from "../src/backend/agent/provider-account-store";

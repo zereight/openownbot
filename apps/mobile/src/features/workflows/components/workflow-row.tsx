@@ -1,4 +1,4 @@
-import type { WorkflowSummary } from "@openownbot/contracts/ipc";
+import type { WorkflowSummary } from "@robot/contracts/ipc";
 import { Typography } from "heroui-native";
 import ChevronRight from "lucide-react-native/icons/chevron-right";
 import Pin from "lucide-react-native/icons/pin";

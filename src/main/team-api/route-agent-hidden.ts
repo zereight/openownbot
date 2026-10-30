@@ -1,6 +1,6 @@
-import { canAdministerServer, type HiddenAgentsSnapshot, parseSetAgentHiddenInput } from "@openownbot/contracts/ipc";
-import { AGENT_HIDDEN_CAPABILITY, AGENT_HIDDEN_ROUTES } from "@openownbot/contracts/team-protocol/agent-hidden-v1";
-import { sourceText } from "@openownbot/i18n/source";
+import { canAdministerServer, type HiddenAgentsSnapshot, parseSetAgentHiddenInput } from "@robot/contracts/ipc";
+import { AGENT_HIDDEN_CAPABILITY, AGENT_HIDDEN_ROUTES } from "@robot/contracts/team-protocol/agent-hidden-v1";
+import { sourceText } from "@robot/i18n/source";
 import { runCauseEffect } from "../../backend/effect-boundary";
 import type { TeamApiHiddenAgents } from "./dependencies";
 import { HttpError } from "./http-error";

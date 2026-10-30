@@ -1,4 +1,4 @@
-import type { ChannelDraft } from "@openownbot/contracts/ipc";
+import type { ChannelDraft } from "@robot/contracts/ipc";
 
 export function emptyChannelDraft(): ChannelDraft {
   return { name: "", title: "", instructions: "", members: [], leadAgentId: null };

@@ -1,5 +1,5 @@
 import { spawnSync } from "node:child_process";
-import { createOpenOwnBotLogger } from "@openownbot/logging";
+import { createOpenOwnBotLogger } from "@robot/logging";
 
 // Pull request screenshots and recordings go in the pull request body, not in the repository
 // (AGENTS.md, "Pull requests"). Only the product owns image files, in these directories.

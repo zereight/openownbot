@@ -6,11 +6,8 @@
  * bun run marketplace:build:plugins -- --check to verify.
  */
 
-import type { McpServerConfig } from "@openownbot/contracts/ipc";
-import type {
-  MarketplacePluginApp,
-  MarketplacePluginDetail,
-} from "@openownbot/ui/features/settings/marketplace-plugins";
+import type { McpServerConfig } from "@robot/contracts/ipc";
+import type { MarketplacePluginApp, MarketplacePluginDetail } from "@robot/ui/features/settings/marketplace-plugins";
 
 /**
  * The configuration an app installs as. The catalog states the name and how the server is reached -

@@ -14,7 +14,7 @@
 // The structured result itself is never changed: the driver's proxy checks it against the tool's
 // output schema, and a result that fails the check reaches the agent as an error.
 
-import { type DynamicRecord, isDynamicRecord } from "@openownbot/contracts/runtime-values";
+import { type DynamicRecord, isDynamicRecord } from "@robot/contracts/runtime-values";
 
 /** The first line of the copy, which also marks a result that already holds one. */
 const STRUCTURED_TEXT_LABEL = "structuredContent as JSON, copied by OpenOwnBot for clients that show only text:";

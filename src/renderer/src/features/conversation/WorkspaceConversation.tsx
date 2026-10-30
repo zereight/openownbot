@@ -1,4 +1,4 @@
-import { type AgentProviderId, isKeyOnlyProvider, isKnownAgentProvider } from "@openownbot/contracts/agent-providers";
+import { type AgentProviderId, isKeyOnlyProvider, isKnownAgentProvider } from "@robot/contracts/agent-providers";
 import {
   type AgentModelChoice,
   agentPermissionLevel,
@@ -8,18 +8,18 @@ import {
   sameAgentModelChoice,
   type UpdateAgentAdminSettingsInput,
   type UpdateAgentInput,
-} from "@openownbot/contracts/ipc";
-import { BROWSER_PROFILES_CAPABILITY } from "@openownbot/contracts/team-protocol/browser-profiles-v1";
-import { hasVisibleToasts } from "@openownbot/ui";
+} from "@robot/contracts/ipc";
+import { BROWSER_PROFILES_CAPABILITY } from "@robot/contracts/team-protocol/browser-profiles-v1";
+import { hasVisibleToasts } from "@robot/ui";
 import {
   type BackupModelSource,
   rememberedBackupModels,
   type UsageLimitAskCardProps,
   usageLimitAskOptions,
-} from "@openownbot/ui/features/conversation/BackupModels";
-import { unloadedHistory } from "@openownbot/ui/features/conversation/ChatScrollRail";
-import { sidebarAgentWaits } from "@openownbot/ui/features/sidebar/sidebar-agent-states";
-import { useText } from "@openownbot/ui/text";
+} from "@robot/ui/features/conversation/BackupModels";
+import { unloadedHistory } from "@robot/ui/features/conversation/ChatScrollRail";
+import { sidebarAgentWaits } from "@robot/ui/features/sidebar/sidebar-agent-states";
+import { useText } from "@robot/ui/text";
 import { createMemo } from "solid-js";
 import { ProviderSignInDialogs } from "../../components/ProviderSignInDialogs";
 import { useNavigation } from "../../navigation";

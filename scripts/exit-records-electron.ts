@@ -4,7 +4,7 @@
 // crashes the page renderer through the DevTools protocol. A "quit" line or the end of stdin quits.
 import { writeFileSync } from "node:fs";
 import { join } from "node:path";
-import { createOpenOwnBotLogger } from "@openownbot/logging";
+import { createOpenOwnBotLogger } from "@robot/logging";
 import { Effect } from "effect";
 import { app, BrowserWindow, crashReporter } from "electron";
 import { startMainLog } from "../src/main/provider-log";

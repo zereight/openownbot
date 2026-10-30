@@ -1,6 +1,6 @@
 /** The Undo toast of a workflow delete, in the layout of the agent delete toast. */
 
-import { Button, Progress, toast, Workflow } from "@openownbot/ui";
+import { Button, Progress, toast, Workflow } from "@robot/ui";
 import { currentText } from "../../text";
 import { startUndoCountdown, type UndoCountdown } from "../agents/AgentDeleteUndoToast";
 

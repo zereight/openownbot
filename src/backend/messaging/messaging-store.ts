@@ -1,6 +1,6 @@
 import { randomUUID } from "node:crypto";
-import { MESSAGING_PLATFORMS, type MessagingPlatform } from "@openownbot/contracts/ipc";
-import { type DynamicRecord, isOneOf } from "@openownbot/contracts/runtime-values";
+import { MESSAGING_PLATFORMS, type MessagingPlatform } from "@robot/contracts/ipc";
+import { type DynamicRecord, isOneOf } from "@robot/contracts/runtime-values";
 import { deleteAggregateHistory, deleteThreadAttachments } from "../database/database-core";
 import {
   databaseRow,

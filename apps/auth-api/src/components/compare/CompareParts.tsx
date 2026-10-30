@@ -1,4 +1,4 @@
-import { AppLogo, ProviderLogo } from "@openownbot/brand";
+import { AppLogo, ProviderLogo } from "@robot/brand";
 import type { JSX } from "@solidjs/web";
 import { For, Show } from "solid-js";
 import type { ComparePage, OpenOwnBotPlan, RoundupApp } from "../../content/compare/comparison";

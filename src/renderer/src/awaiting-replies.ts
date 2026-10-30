@@ -4,12 +4,12 @@ import {
   isQueuedAgentReply,
   type QueueDelivery,
   type QueueSnapshot,
-} from "@openownbot/contracts/ipc";
-import { markdownPreviewText } from "@openownbot/contracts/markdown-preview-text";
-import type { AgentMessage, AgentProfile } from "@openownbot/ui/data";
-import type { AwaitingReplyItem, AwaitingReplyState } from "@openownbot/ui/features/conversation/AwaitingReplies";
-import type { SidebarAgentWait } from "@openownbot/ui/features/sidebar/sidebar-agent-states";
-import { currentText } from "@openownbot/ui/text";
+} from "@robot/contracts/ipc";
+import { markdownPreviewText } from "@robot/contracts/markdown-preview-text";
+import type { AgentMessage, AgentProfile } from "@robot/ui/data";
+import type { AwaitingReplyItem, AwaitingReplyState } from "@robot/ui/features/conversation/AwaitingReplies";
+import type { SidebarAgentWait } from "@robot/ui/features/sidebar/sidebar-agent-states";
+import { currentText } from "@robot/ui/text";
 
 /**
  * The rows of the waiting block: which agents this agent asked, and where each answer is.

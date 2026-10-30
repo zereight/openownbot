@@ -1,4 +1,4 @@
-import type { WorkflowNodeKind, WorkflowTriggerType } from "@openownbot/contracts/ipc";
+import type { WorkflowNodeKind, WorkflowTriggerType } from "@robot/contracts/ipc";
 import type { LucideIcon } from "lucide-react-native";
 import Bot from "lucide-react-native/icons/bot";
 import Clock from "lucide-react-native/icons/clock";

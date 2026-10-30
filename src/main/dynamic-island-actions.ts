@@ -3,8 +3,8 @@ import {
   type DynamicIslandAction,
   LOCAL_SERVER_ID,
   type SendMessageInput,
-} from "@openownbot/contracts/ipc";
-import { TEAM_API_ROUTES } from "@openownbot/contracts/team-api-routes";
+} from "@robot/contracts/ipc";
+import { TEAM_API_ROUTES } from "@robot/contracts/team-api-routes";
 import { Effect } from "effect";
 import type { AgentLifecycleFailed } from "../backend/agent-service";
 import type { RemoteWorkflowError } from "./remote-service-effects";

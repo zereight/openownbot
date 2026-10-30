@@ -1,7 +1,7 @@
 import { readFile, rm } from "node:fs/promises";
 import { homedir } from "node:os";
 import { isAbsolute, join } from "node:path";
-import type { AppVariant } from "@openownbot/contracts/ipc";
+import type { AppVariant } from "@robot/contracts/ipc";
 import { Effect, Schema } from "effect";
 import { app } from "electron";
 import { writeFileAtomically } from "../backend/atomic-json-file";

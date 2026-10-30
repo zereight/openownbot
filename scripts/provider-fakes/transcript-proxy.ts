@@ -9,7 +9,7 @@
 import { spawn } from "node:child_process";
 import { appendFileSync, writeFileSync } from "node:fs";
 import { homedir, hostname, userInfo } from "node:os";
-import { isSecretName } from "@openownbot/logging";
+import { isSecretName } from "@robot/logging";
 import { assertRedacted, createTranscriptRedactor, type TranscriptJson } from "./transcript-redaction";
 
 export interface TranscriptLine {

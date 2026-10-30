@@ -1,4 +1,4 @@
-import type { BrowserTab } from "@openownbot/contracts/ipc";
+import type { BrowserTab } from "@robot/contracts/ipc";
 
 /**
  * Which browser tab is in front, after the tab list changes underneath it.

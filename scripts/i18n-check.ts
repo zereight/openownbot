@@ -1,10 +1,10 @@
 import { mkdirSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, relative, resolve, sep } from "node:path";
-import { isDynamicRecord } from "@openownbot/contracts/runtime-values";
-import type { Message, PluralMessage } from "@openownbot/i18n";
-import { TRANSLATED_LOCALES } from "@openownbot/i18n";
-import { matchingSourceKeys } from "@openownbot/i18n/source";
-import { createOpenOwnBotLogger } from "@openownbot/logging";
+import { isDynamicRecord } from "@robot/contracts/runtime-values";
+import type { Message, PluralMessage } from "@robot/i18n";
+import { TRANSLATED_LOCALES } from "@robot/i18n";
+import { matchingSourceKeys } from "@robot/i18n/source";
+import { createOpenOwnBotLogger } from "@robot/logging";
 
 // Checks the catalogs in packages/i18n/src/messages. See docs/i18n.md.
 //

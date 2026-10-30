@@ -6,7 +6,7 @@ import {
   decodeAgentFolderChangeFromMain,
   decodeAgentFolderListFromMain,
   isAgentAdditionalFolders,
-} from "@openownbot/contracts/ipc";
+} from "@robot/contracts/ipc";
 import { describe, expect, it } from "vitest";
 
 const LIST = {

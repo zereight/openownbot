@@ -1,5 +1,5 @@
-import { Button, Plus } from "@openownbot/ui";
-import { useText } from "@openownbot/ui/text";
+import { Button, Plus } from "@robot/ui";
+import { useText } from "@robot/ui/text";
 import { createSignal, onSettled, Show } from "solid-js";
 import { ThreadMenu } from "./ThreadMenu";
 import { ThreadTabs } from "./ThreadTabs";

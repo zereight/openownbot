@@ -1,4 +1,4 @@
-import { useText } from "@openownbot/ui/text";
+import { useText } from "@robot/ui/text";
 import { Loading, Match, Show, Switch } from "solid-js";
 import { AgentUsagePanel, WorkflowsPage } from "../../lazy-views";
 import { SkillsMarketplace } from "../../WorkspaceOverlays";

@@ -1,8 +1,8 @@
-import { isString } from "@openownbot/contracts/runtime-values";
-import { remoteHostFingerprint } from "@openownbot/team-client";
+import { isString } from "@robot/contracts/runtime-values";
+import { remoteHostFingerprint } from "@robot/team-client";
 
 // Categorical hues shared with the desktop server rail (--openownbot-file-blue/-orange/-teal/-pink and
-// --openownbot-success). @openownbot/brand ships tokens as CSS only, so JS keeps a copy.
+// --openownbot-success). @robot/brand ships tokens as CSS only, so JS keeps a copy.
 const SERVER_ACCENTS = ["#74b9ff", "#f0a06a", "#6bc7d9", "#d98ac9", "#31cf76"] as const;
 
 /** The accent follows the server, so a move, join, or leave does not recolor other servers. */

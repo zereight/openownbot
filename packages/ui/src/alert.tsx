@@ -1,4 +1,4 @@
-import type { FailureProperties, NotificationMetadata } from "@openownbot/telemetry";
+import type { FailureProperties, NotificationMetadata } from "@robot/telemetry";
 import type { JSX } from "@solidjs/web";
 import { createContext, createEffect, omit, useContext } from "solid-js";
 import { cx } from "./utils";

@@ -4,7 +4,7 @@ import {
   IMAGE_ATTACHMENT_EXTENSIONS,
   MEDIA_ATTACHMENT_EXTENSIONS,
   MP4_ATTACHMENT_EXTENSIONS,
-} from "@openownbot/contracts/attachment-files";
+} from "@robot/contracts/attachment-files";
 
 /**
  * A path starts at the start of a line, after a space, or after an opening quote, bracket or bold mark,

@@ -1,6 +1,6 @@
 import { randomUUID } from "node:crypto";
-import { sortConversationMessages } from "@openownbot/contracts/conversation-order";
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
+import { sortConversationMessages } from "@robot/contracts/conversation-order";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
 import type {
   AgentApproval,
   AgentApprovalPermissions,
@@ -11,9 +11,9 @@ import type {
   HostedSiteList,
   HostedSiteSummary,
   PublishHostedSiteInput,
-} from "@openownbot/contracts/ipc";
-import { hostedSiteConversationEventItemType, hostedSiteConversationEventText } from "@openownbot/contracts/ipc";
-import { isBoolean } from "@openownbot/contracts/runtime-values";
+} from "@robot/contracts/ipc";
+import { hostedSiteConversationEventItemType, hostedSiteConversationEventText } from "@robot/contracts/ipc";
+import { isBoolean } from "@robot/contracts/runtime-values";
 import { Effect, Result, Schema } from "effect";
 import type { AgentClient } from "../agent-client";
 import type { AgentStore } from "../agent-store";

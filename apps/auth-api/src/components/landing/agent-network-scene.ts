@@ -9,7 +9,7 @@
 // frame at second `t`. Playback, pause and reduced motion are only a choice of
 // `t`, so they cannot drift apart.
 
-import { APP_LOGO_CORNER, APP_LOGO_EYE_POINTS, APP_LOGO_SIZE } from "@openownbot/brand/app-logo-shape";
+import { APP_LOGO_CORNER, APP_LOGO_EYE_POINTS, APP_LOGO_SIZE } from "@robot/brand/app-logo-shape";
 
 /** A node with no avatar is the OpenOwnBot mark at the centre. */
 const HUB = -1;

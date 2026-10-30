@@ -1,7 +1,7 @@
 import { createHash, randomUUID } from "node:crypto";
-import { playableMediaKind } from "@openownbot/contracts/attachment-files";
-import { rewriteAttachmentReferences } from "@openownbot/contracts/attachment-references";
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
+import { playableMediaKind } from "@robot/contracts/attachment-files";
+import { rewriteAttachmentReferences } from "@robot/contracts/attachment-references";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
 import type {
   AgentReasoningEffort,
   AgentRuntimeWorkItem,
@@ -19,7 +19,7 @@ import type {
   QueuedMessageReceipt,
   QueueSnapshot,
   QueueSteerFallback,
-} from "@openownbot/contracts/ipc";
+} from "@robot/contracts/ipc";
 import {
   AGENT_EXCHANGE_ITEM_TYPE,
   AGENT_RUNTIME_ATTENTION_LIMIT,
@@ -29,11 +29,11 @@ import {
   isMessageReaction,
   isReasoningEffort,
   QUEUE_STEER_FALLBACKS,
-} from "@openownbot/contracts/ipc";
-import { type DynamicRecord, isNumber, isOneOf, isString } from "@openownbot/contracts/runtime-values";
-import { QueueEditRejectedError } from "@openownbot/contracts/team-protocol/queue-edit-v1";
-import { sourceText } from "@openownbot/i18n/source";
-import { createOpenOwnBotLogger, redactText } from "@openownbot/logging";
+} from "@robot/contracts/ipc";
+import { type DynamicRecord, isNumber, isOneOf, isString } from "@robot/contracts/runtime-values";
+import { QueueEditRejectedError } from "@robot/contracts/team-protocol/queue-edit-v1";
+import { sourceText } from "@robot/i18n/source";
+import { createOpenOwnBotLogger, redactText } from "@robot/logging";
 import { Effect, Result } from "effect";
 import {
   AttachmentFiles,

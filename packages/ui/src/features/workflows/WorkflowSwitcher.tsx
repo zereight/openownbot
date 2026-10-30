@@ -7,7 +7,7 @@
  * workflow. Version history opens a saved version of the canvas to look at, read-only.
  */
 
-import { Check, ChevronRight, CopyPlus, DropdownMenu, History, Pencil, Plus, Trash2 } from "@openownbot/ui";
+import { Check, ChevronRight, CopyPlus, DropdownMenu, History, Pencil, Plus, Trash2 } from "@robot/ui";
 import { For, Show } from "solid-js";
 import { useText } from "../../text";
 

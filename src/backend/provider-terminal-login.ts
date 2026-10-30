@@ -1,6 +1,6 @@
 import { execFile, spawn } from "node:child_process";
 import { promisify } from "node:util";
-import { sourceText } from "@openownbot/i18n/source";
+import { sourceText } from "@robot/i18n/source";
 import { Effect, type Scope } from "effect";
 import type { CliLoginProcess } from "./agent/cli-login-flow";
 import { waitForSuccessfulProcess } from "./agent/provider-status";

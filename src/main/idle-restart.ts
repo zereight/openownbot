@@ -6,8 +6,8 @@
 // A restart that an admin of a joined server asks for, and the automatic install, are
 // `RequestedUpdate`. They do not hold routines.
 
-import type { IdleRestart as IdleRestartStatus, IdleRestartTarget, UpdateStatus } from "@openownbot/contracts/ipc";
-import { sourceText } from "@openownbot/i18n/source";
+import type { IdleRestart as IdleRestartStatus, IdleRestartTarget, UpdateStatus } from "@robot/contracts/ipc";
+import { sourceText } from "@robot/i18n/source";
 import { Effect, Result } from "effect";
 import type { RoutineHoldWindow } from "../backend/routine-store";
 import type { RestartReadiness } from "./update-readiness";

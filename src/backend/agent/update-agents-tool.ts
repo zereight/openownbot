@@ -1,6 +1,6 @@
-import { type AgentSummary, agentComputerUseEnabled, workspaceAccessEnforced } from "@openownbot/contracts/ipc";
-import { sourceText } from "@openownbot/i18n/source";
-import { createOpenOwnBotLogger } from "@openownbot/logging";
+import { type AgentSummary, agentComputerUseEnabled, workspaceAccessEnforced } from "@robot/contracts/ipc";
+import { sourceText } from "@robot/i18n/source";
+import { createOpenOwnBotLogger } from "@robot/logging";
 import { Effect } from "effect";
 import type { DynamicToolCallParams } from "../protocol";
 import { requestedRuntime, requestedToolModel } from "./model-tools";

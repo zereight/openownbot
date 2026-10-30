@@ -3,7 +3,7 @@
 // `provider-host-sign-in-v1`), or the host only records the page address and the administrator's own
 // computer opens it and relays the callback (`sign-in-relay-v1`).
 
-import { createOpenOwnBotLogger, toLogValue } from "@openownbot/logging";
+import { createOpenOwnBotLogger, toLogValue } from "@robot/logging";
 import { Duration, Effect, Exit, Fiber, Scope } from "effect";
 import type { BrowserHost } from "../backend/browser-host";
 import { runCauseEffect } from "../backend/effect-boundary";

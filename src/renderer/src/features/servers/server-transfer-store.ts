@@ -3,15 +3,15 @@ import type {
   InstanceTransferResult,
   InstanceTransferSummary,
   OpenOwnBotDesktopApi,
-} from "@openownbot/contracts/ipc";
-import { toast } from "@openownbot/ui";
+} from "@robot/contracts/ipc";
+import { toast } from "@robot/ui";
 import type {
   InstanceExportOptions,
   InstanceExportPhase,
   InstanceImportPhase,
   InstanceTransferScreen,
-} from "@openownbot/ui/features/transfer/InstanceTransferView";
-import { currentText } from "@openownbot/ui/text";
+} from "@robot/ui/features/transfer/InstanceTransferView";
+import { currentText } from "@robot/ui/text";
 import { createEffect, createStore } from "solid-js";
 
 /** The transfer calls of one server. Main routes them to this computer or to a joined host. */

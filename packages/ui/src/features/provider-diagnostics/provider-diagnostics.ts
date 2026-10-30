@@ -1,4 +1,4 @@
-import type { AgentProviderStatus } from "@openownbot/contracts/ipc";
+import type { AgentProviderStatus } from "@robot/contracts/ipc";
 
 /**
  * What "Copy diagnostics" puts on the clipboard: the provider's status row as JSON, for a bug report

@@ -1,5 +1,5 @@
-import { TRANSLATED_LOCALES, type TranslatedLocale } from "@openownbot/i18n";
-import { installPointerFocusGuard } from "@openownbot/ui/pointer-focus";
+import { TRANSLATED_LOCALES, type TranslatedLocale } from "@robot/i18n";
+import { installPointerFocusGuard } from "@robot/ui/pointer-focus";
 import type { Preview } from "storybook-solidjs-vite";
 import { StaticI18nProvider } from "../src/renderer/src/i18n-context";
 import "../src/renderer/src/styles.css";

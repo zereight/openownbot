@@ -3,8 +3,8 @@ import {
   isRemovableSkill,
   type MarketplaceSkillSort,
   type MarketplaceSkillSummary,
-} from "@openownbot/contracts/ipc";
-import { useText } from "@openownbot/ui/text";
+} from "@robot/contracts/ipc";
+import { useText } from "@robot/ui/text";
 import type { MarketplaceAgent, MarketplaceModel } from "./marketplace-model";
 
 export const isOn = (skill: InstalledSkill | undefined) => skill?.enabled !== false;

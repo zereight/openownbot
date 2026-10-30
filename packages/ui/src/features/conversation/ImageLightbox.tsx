@@ -1,6 +1,6 @@
-import type { AttachmentSummary } from "@openownbot/contracts/ipc";
-import { Button, ChevronLeft, ChevronRight, Dialog, Spinner, X } from "@openownbot/ui";
-import { prefersReducedMotion } from "@openownbot/ui/utils";
+import type { AttachmentSummary } from "@robot/contracts/ipc";
+import { Button, ChevronLeft, ChevronRight, Dialog, Spinner, X } from "@robot/ui";
+import { prefersReducedMotion } from "@robot/ui/utils";
 import { createMemo, createSignal, createStore, For, onCleanup, onSettled, Show, untrack } from "solid-js";
 import { useText } from "../../text";
 import { CloseIcon, DownloadIcon } from "./ConversationIcons";

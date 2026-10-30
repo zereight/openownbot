@@ -11,7 +11,7 @@ import {
   type VoiceModelStatus,
   type VoiceSettings,
   type VoiceStreamTranscript,
-} from "@openownbot/contracts/ipc";
+} from "@robot/contracts/ipc";
 import { clone, type Listener, type MockRuntime } from "./mock-support";
 
 export interface MockVoiceOptions {

@@ -1,6 +1,6 @@
 // @vitest-environment node
 
-import type { BrowserElement, BrowserSnapshot } from "@openownbot/contracts/ipc";
+import type { BrowserElement, BrowserSnapshot } from "@robot/contracts/ipc";
 import { describe, expect, it } from "vitest";
 import { CardValueScrub } from "./browser-cdp-snapshot";
 

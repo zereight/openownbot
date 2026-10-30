@@ -8,7 +8,7 @@ import { mkdirSync, writeFileSync } from "node:fs";
 import { mkdtemp, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
-import type { AgentProviderId } from "@openownbot/contracts/ipc";
+import type { AgentProviderId } from "@robot/contracts/ipc";
 import { AgentStore } from "../src/backend/agent-store";
 import { runCauseEffect } from "../src/backend/effect-boundary";
 import { OpenOwnBotDatabase } from "../src/backend/openownbot-database";

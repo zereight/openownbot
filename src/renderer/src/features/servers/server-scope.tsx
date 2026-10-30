@@ -1,7 +1,7 @@
-import { AGENT_HIDDEN_CAPABILITY } from "@openownbot/contracts/team-protocol/current";
-import { createRemoteConnectionRecovery, type RemoteRecoveryStatus } from "@openownbot/team-client/remote-recovery";
-import { currentText } from "@openownbot/ui/text";
-import type { UserErrorDetails } from "@openownbot/user-errors";
+import { AGENT_HIDDEN_CAPABILITY } from "@robot/contracts/team-protocol/current";
+import { createRemoteConnectionRecovery, type RemoteRecoveryStatus } from "@robot/team-client/remote-recovery";
+import { currentText } from "@robot/ui/text";
+import type { UserErrorDetails } from "@robot/user-errors";
 import { createEffect, createSignal, createStore, flush, getOwner, isDisposed, onSettled, untrack } from "solid-js";
 import { isGlobalSearchShortcut } from "../../global-search-shortcut";
 import { useNavigation } from "../../navigation";

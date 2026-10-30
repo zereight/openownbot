@@ -1,6 +1,6 @@
-import type { HostTimezoneSettings } from "@openownbot/contracts/ipc";
-import { isDynamicRecord, isString } from "@openownbot/contracts/runtime-values";
-import { sourceText } from "@openownbot/i18n/source";
+import type { HostTimezoneSettings } from "@robot/contracts/ipc";
+import { isDynamicRecord, isString } from "@robot/contracts/runtime-values";
+import { sourceText } from "@robot/i18n/source";
 import { Effect, Result, Semaphore } from "effect";
 import { localTimezone } from "../backend/agent/routine-tools";
 import { isMissingFileError } from "../backend/file-errors";

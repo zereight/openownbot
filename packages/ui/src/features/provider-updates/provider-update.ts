@@ -1,4 +1,4 @@
-import type { AgentProviderId, ProviderRuntimeStatus } from "@openownbot/contracts/ipc";
+import type { AgentProviderId, ProviderRuntimeStatus } from "@robot/contracts/ipc";
 import { currentText, type TextValue } from "../../text";
 
 /** The part of the interface text that the presenters read. */

@@ -3,8 +3,8 @@ import type {
   AcpRegistryInstallInput,
   AcpRegistryOperation,
   CustomAgentResult,
-} from "@openownbot/contracts/ipc";
-import { isNewCustomAgentId } from "@openownbot/contracts/ipc";
+} from "@robot/contracts/ipc";
+import { isNewCustomAgentId } from "@robot/contracts/ipc";
 import {
   Button,
   Field,
@@ -17,7 +17,7 @@ import {
   ItemTitle,
   SettingsSection,
   Text,
-} from "@openownbot/ui";
+} from "@robot/ui";
 import { createEffect, createStore, For, Show } from "solid-js";
 import { useText } from "../../text";
 

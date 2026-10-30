@@ -1,6 +1,6 @@
-import type { AgentEvent } from "@openownbot/contracts/ipc";
-import { WORKFLOWS_CAPABILITY } from "@openownbot/contracts/team-protocol/workflows-v1";
-import type { ServerView } from "@openownbot/ui/features/servers/ServerMenu";
+import type { AgentEvent } from "@robot/contracts/ipc";
+import { WORKFLOWS_CAPABILITY } from "@robot/contracts/team-protocol/workflows-v1";
+import type { ServerView } from "@robot/ui/features/servers/ServerMenu";
 import { onCleanup } from "solid-js";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";
 import { App } from "../src/App";

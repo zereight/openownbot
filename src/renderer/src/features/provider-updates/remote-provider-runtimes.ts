@@ -1,8 +1,4 @@
-import type {
-  ProviderAdminDesktopApi,
-  ProviderRuntimeSnapshot,
-  ProviderRuntimeStatus,
-} from "@openownbot/contracts/ipc";
+import type { ProviderAdminDesktopApi, ProviderRuntimeSnapshot, ProviderRuntimeStatus } from "@robot/contracts/ipc";
 import type { ProviderRuntimeSource } from "./provider-runtime-store";
 
 /** How often a download on the host is read again while it runs. */

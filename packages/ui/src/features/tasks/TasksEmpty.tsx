@@ -1,14 +1,14 @@
-import type { AvatarMood } from "@openownbot/brand/bloub-avatar-motion";
-import type { AgentTask } from "@openownbot/contracts/ipc";
-import type { AppTextKey } from "@openownbot/i18n";
-import { taskTone } from "@openownbot/team-client/agent-tasks";
-import { buttonVariants } from "@openownbot/ui";
-import { SwapLabel } from "@openownbot/ui/components/SwapLabel";
-import type { AgentProfile } from "@openownbot/ui/data";
-import { AgentAvatar } from "@openownbot/ui/features/agents/AgentAvatar";
-import { AgentTaskMark, agentTaskStatus } from "@openownbot/ui/features/conversation/AgentTasks";
-import { useText } from "@openownbot/ui/text";
-import { prefersReducedMotion } from "@openownbot/ui/utils";
+import type { AvatarMood } from "@robot/brand/bloub-avatar-motion";
+import type { AgentTask } from "@robot/contracts/ipc";
+import type { AppTextKey } from "@robot/i18n";
+import { taskTone } from "@robot/team-client/agent-tasks";
+import { buttonVariants } from "@robot/ui";
+import { SwapLabel } from "@robot/ui/components/SwapLabel";
+import type { AgentProfile } from "@robot/ui/data";
+import { AgentAvatar } from "@robot/ui/features/agents/AgentAvatar";
+import { AgentTaskMark, agentTaskStatus } from "@robot/ui/features/conversation/AgentTasks";
+import { useText } from "@robot/ui/text";
+import { prefersReducedMotion } from "@robot/ui/utils";
 import { createMemo, createSignal, For, onSettled } from "solid-js";
 
 /** One sample task: its title, and what its agent does while it runs. */

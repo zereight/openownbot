@@ -1,5 +1,5 @@
-import { VOICE_AUDIO_LIMITS } from "@openownbot/contracts/ipc";
-import { currentText } from "@openownbot/ui/text";
+import { VOICE_AUDIO_LIMITS } from "@robot/contracts/ipc";
+import { currentText } from "@robot/ui/text";
 
 export function appendVoiceTranscript(draft: string, transcript: string): string {
   const text = transcript.trim();

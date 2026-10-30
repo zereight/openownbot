@@ -68,7 +68,7 @@ import {
   type ServerScope,
   type ServerSummary,
   type Untyped,
-} from "@openownbot/contracts/ipc";
+} from "@robot/contracts/ipc";
 import {
   decodeEventActivity,
   decodeEventRoutineRuns,
@@ -77,8 +77,8 @@ import {
   decodeSaveEventRoutineResult,
   decodeWebhookSecret,
   decodeWebhookTestResult,
-} from "@openownbot/contracts/ipc-events";
-import { decodeProviderEnvironmentState } from "@openownbot/contracts/provider-environment";
+} from "@robot/contracts/ipc-events";
+import { decodeProviderEnvironmentState } from "@robot/contracts/provider-environment";
 import { contextBridge, ipcRenderer, webUtils } from "electron";
 import {
   decodeAccountUsageFromMain,

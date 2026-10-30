@@ -1,9 +1,9 @@
 // The optional API keys a provider CLI needs, encrypted at rest by the operating system.
 
 import { readFile, rm } from "node:fs/promises";
-import type { AgentProviderId, ProviderApiKeyStatus } from "@openownbot/contracts/ipc";
-import { sourceText } from "@openownbot/i18n/source";
-import { registerSecretValue } from "@openownbot/logging";
+import type { AgentProviderId, ProviderApiKeyStatus } from "@robot/contracts/ipc";
+import { sourceText } from "@robot/i18n/source";
+import { registerSecretValue } from "@robot/logging";
 import { Effect, Result, Schema, Semaphore } from "effect";
 import { z } from "zod";
 import { writeFileAtomically } from "../backend/atomic-json-file";

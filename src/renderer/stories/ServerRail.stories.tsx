@@ -1,4 +1,4 @@
-import { ServerRail } from "@openownbot/ui/features/servers/ServerRail";
+import { ServerRail } from "@robot/ui/features/servers/ServerRail";
 import { createMemo, createSignal } from "solid-js";
 import { fn } from "storybook/test";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";

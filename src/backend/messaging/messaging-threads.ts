@@ -3,13 +3,9 @@ import type {
   ConversationMessage,
   MessagingPlatform,
   RoutineResultConnectionOption,
-} from "@openownbot/contracts/ipc";
-import {
-  CONVERSATION_PLAN_ITEM_TYPE,
-  CONVERSATION_SUBAGENTS_ITEM_TYPE,
-  MESSAGING_LIMITS,
-} from "@openownbot/contracts/ipc";
-import { sourceText } from "@openownbot/i18n/source";
+} from "@robot/contracts/ipc";
+import { CONVERSATION_PLAN_ITEM_TYPE, CONVERSATION_SUBAGENTS_ITEM_TYPE, MESSAGING_LIMITS } from "@robot/contracts/ipc";
+import { sourceText } from "@robot/i18n/source";
 import { Deferred, Effect, Result, Schema, type Scope } from "effect";
 import { type OpenOwnBotToolResponse, openOwnBotToolFailure, openOwnBotToolResult } from "../agent/routine-tools";
 import { causeHelpers } from "../effect-boundary";

@@ -1,11 +1,11 @@
-import type { AgentModelOption, AgentReasoningEffort, AgentSummary, UpdateAgentInput } from "@openownbot/contracts/ipc";
+import type { AgentModelOption, AgentReasoningEffort, AgentSummary, UpdateAgentInput } from "@robot/contracts/ipc";
 import {
   CUSTOM_AGENT_DEFAULT_MODEL,
   customAgentIdOfModel,
   defaultProviderModel,
   PICKER_PROVIDERS,
-} from "@openownbot/contracts/ipc";
-import { sourceText } from "@openownbot/i18n/source";
+} from "@robot/contracts/ipc";
+import { sourceText } from "@robot/i18n/source";
 import { Effect, Exit, Schema, Semaphore } from "effect";
 import type { AgentProvider } from "../agent-client";
 import { type AgentStore, DEFAULT_AGENT_PROVIDER } from "../agent-store";

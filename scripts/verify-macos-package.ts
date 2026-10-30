@@ -5,8 +5,8 @@ import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import { setTimeout as delay } from "node:timers/promises";
 import { FuseV1Options, getCurrentFuseWire } from "@electron/fuses";
-import { isDynamicRecord } from "@openownbot/contracts/runtime-values";
-import { createOpenOwnBotLogger } from "@openownbot/logging";
+import { isDynamicRecord } from "@robot/contracts/runtime-values";
+import { createOpenOwnBotLogger } from "@robot/logging";
 import { isMissingFileError } from "../src/backend/file-errors";
 
 const logger = createOpenOwnBotLogger("verify-macos-package");

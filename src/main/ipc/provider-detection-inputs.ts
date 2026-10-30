@@ -1,15 +1,15 @@
 // The model list request and the detection settings. The list request can carry a key, so no
 // message here quotes the input.
 
-import type { DiscoverModelsInput, ProviderDetectionSettings } from "@openownbot/contracts/ipc";
+import type { DiscoverModelsInput, ProviderDetectionSettings } from "@robot/contracts/ipc";
 import {
   customProviderEndpointKey,
   isCustomProviderId,
   isDetectionFolder,
   PROVIDER_DETECTION_LIMITS,
-} from "@openownbot/contracts/ipc";
-import { isBoolean, isString } from "@openownbot/contracts/runtime-values";
-import { sourceText } from "@openownbot/i18n/source";
+} from "@robot/contracts/ipc";
+import { isBoolean, isString } from "@robot/contracts/runtime-values";
+import { sourceText } from "@robot/i18n/source";
 import { parseApiKey, parseBaseUrl, parseHeaders } from "./custom-provider-inputs";
 import { isObject } from "./validation";
 

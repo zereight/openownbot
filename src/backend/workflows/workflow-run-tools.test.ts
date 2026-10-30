@@ -1,4 +1,4 @@
-import type { StartWorkflowRunInput, WorkflowRunDetail, WorkflowSummary } from "@openownbot/contracts/ipc";
+import type { StartWorkflowRunInput, WorkflowRunDetail, WorkflowSummary } from "@robot/contracts/ipc";
 import { Effect } from "effect";
 import { describe, expect, it } from "vitest";
 import { handleWorkflowRunTool, handleWorkflowTool, type WorkflowRunTools } from "./workflow-tools";

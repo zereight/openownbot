@@ -2,8 +2,8 @@ import {
   DISCONNECTED_ONEPASSWORD_CONNECTOR,
   type OnePasswordConnectorStatus,
   type OnePasswordSetup,
-} from "@openownbot/contracts/ipc";
-import { OnePasswordConnectorPanel } from "@openownbot/ui/features/settings/OnePasswordConnectorPanel";
+} from "@robot/contracts/ipc";
+import { OnePasswordConnectorPanel } from "@robot/ui/features/settings/OnePasswordConnectorPanel";
 import { fn } from "storybook/test";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";
 import { SettledArgs } from "./settled-args";

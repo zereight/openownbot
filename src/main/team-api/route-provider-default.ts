@@ -1,9 +1,9 @@
-import { isAgentModel, isAgentProvider } from "@openownbot/contracts/ipc";
+import { isAgentModel, isAgentProvider } from "@robot/contracts/ipc";
 import {
   PROVIDER_DEFAULT_CAPABILITY,
   PROVIDER_DEFAULT_ROUTES,
-} from "@openownbot/contracts/team-protocol/provider-default-v1";
-import { sourceText } from "@openownbot/i18n/source";
+} from "@robot/contracts/team-protocol/provider-default-v1";
+import { sourceText } from "@robot/i18n/source";
 import { runCauseEffect } from "../../backend/effect-boundary";
 import type { ProviderDefaultSetting, TeamApiAdmin } from "./dependencies";
 import { HttpError } from "./http-error";

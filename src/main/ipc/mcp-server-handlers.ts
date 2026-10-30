@@ -16,16 +16,13 @@ import {
   MCP_SERVERS_CAPABILITY,
   type McpServerConfig,
   type TestMcpServerInput,
-} from "@openownbot/contracts/ipc";
-import type { TeamCurrentCapability } from "@openownbot/contracts/team-protocol/current";
-import {
-  MCP_SIGN_IN_APP_CAPABILITY,
-  MCP_SIGN_IN_APP_ROUTES,
-} from "@openownbot/contracts/team-protocol/mcp-sign-in-app-v1";
-import { MCP_SIGN_IN_CAPABILITY, MCP_SIGN_IN_ROUTES } from "@openownbot/contracts/team-protocol/mcp-sign-in-v1";
-import { MCP_ROUTES } from "@openownbot/contracts/team-protocol/mcp-v1";
-import { SIGN_IN_RELAY_CAPABILITY, SIGN_IN_RELAY_ROUTES } from "@openownbot/contracts/team-protocol/sign-in-relay-v1";
-import { sourceText } from "@openownbot/i18n/source";
+} from "@robot/contracts/ipc";
+import type { TeamCurrentCapability } from "@robot/contracts/team-protocol/current";
+import { MCP_SIGN_IN_APP_CAPABILITY, MCP_SIGN_IN_APP_ROUTES } from "@robot/contracts/team-protocol/mcp-sign-in-app-v1";
+import { MCP_SIGN_IN_CAPABILITY, MCP_SIGN_IN_ROUTES } from "@robot/contracts/team-protocol/mcp-sign-in-v1";
+import { MCP_ROUTES } from "@robot/contracts/team-protocol/mcp-v1";
+import { SIGN_IN_RELAY_CAPABILITY, SIGN_IN_RELAY_ROUTES } from "@robot/contracts/team-protocol/sign-in-relay-v1";
+import { sourceText } from "@robot/i18n/source";
 import type { AgentService } from "../../backend/agent-service";
 import { runCauseEffect } from "../../backend/effect-boundary";
 import { MCP_STDIO_PROBE_TIMEOUT_MS } from "../../backend/mcp-probe";

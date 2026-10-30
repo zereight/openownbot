@@ -1,4 +1,4 @@
-import type { PlatformLogoVariant } from "@openownbot/brand";
+import type { PlatformLogoVariant } from "@robot/brand";
 import { OPENOWNBOT_DOWNLOAD_LINKS } from "./landing-links";
 
 export type DownloadPlatform = PlatformLogoVariant;

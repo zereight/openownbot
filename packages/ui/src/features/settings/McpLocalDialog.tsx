@@ -7,8 +7,8 @@
  * is not on yet, and the steps are what turns it on.
  */
 
-import type { McpLocalFlow } from "@openownbot/contracts/mcp-connect-flows";
-import { Alert, AlertContent, AlertDescription, AlertIcon, Button, ExternalLink, Info, Text } from "@openownbot/ui";
+import type { McpLocalFlow } from "@robot/contracts/mcp-connect-flows";
+import { Alert, AlertContent, AlertDescription, AlertIcon, Button, ExternalLink, Info, Text } from "@robot/ui";
 import { createMemo, For, onSettled, Show } from "solid-js";
 import { useText } from "../../text";
 import { createConnectRun, type McpConnectBaseProps, McpConnectShell } from "./McpConnectShell";

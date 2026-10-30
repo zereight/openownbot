@@ -1,4 +1,4 @@
-import { type MarkdownListEdit, markdownListLineBreak } from "@openownbot/contracts/markdown-lists";
+import { type MarkdownListEdit, markdownListLineBreak } from "@robot/contracts/markdown-lists";
 import { editMentionDraft } from "./chat-mentions";
 
 /**

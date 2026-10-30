@@ -6,9 +6,9 @@ import type {
   AgentWaitsSnapshot,
   QueueSnapshot,
   RoutineFields,
-} from "@openownbot/contracts/ipc";
-import { sourceText } from "@openownbot/i18n/source";
-import { currentText } from "@openownbot/ui/text";
+} from "@robot/contracts/ipc";
+import { sourceText } from "@robot/i18n/source";
+import { currentText } from "@robot/ui/text";
 import { createEffect, createMemo, createSignal, untrack } from "solid-js";
 import { useAnsweredPrompts } from "./answered-prompts";
 import {

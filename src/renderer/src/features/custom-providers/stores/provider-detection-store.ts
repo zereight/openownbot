@@ -9,21 +9,21 @@ import {
   detectedModelServerKey,
   type ProviderDetectionDesktopApi,
   type ProviderDetectionSettings,
-} from "@openownbot/contracts/ipc";
-import { checkResult } from "@openownbot/ui/features/custom-providers/CustomAgentSettings";
+} from "@robot/contracts/ipc";
+import { checkResult } from "@robot/ui/features/custom-providers/CustomAgentSettings";
 import {
   customAgentCheckInput,
   customAgentInput,
   formatAgentArgs,
-} from "@openownbot/ui/features/custom-providers/custom-acp-agent-form";
-import { customProviderUpdate } from "@openownbot/ui/features/custom-providers/custom-provider-form";
+} from "@robot/ui/features/custom-providers/custom-acp-agent-form";
+import { customProviderUpdate } from "@robot/ui/features/custom-providers/custom-provider-form";
 import type {
   DetectedProvider,
   DetectedProviderApi,
   ProviderDetection,
-} from "@openownbot/ui/features/custom-providers/detected-providers";
-import type { ProviderDetectionSettingsValue } from "@openownbot/ui/features/custom-providers/ProviderDetectionSettings";
-import { currentText } from "@openownbot/ui/text";
+} from "@robot/ui/features/custom-providers/detected-providers";
+import type { ProviderDetectionSettingsValue } from "@robot/ui/features/custom-providers/ProviderDetectionSettings";
+import { currentText } from "@robot/ui/text";
 import { createStore } from "solid-js";
 import type { createCustomAgentsStore } from "../../custom-agents/stores/custom-agents-store";
 import type { createCustomProvidersStore } from "./custom-providers-store";

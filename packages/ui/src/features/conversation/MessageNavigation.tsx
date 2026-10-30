@@ -1,5 +1,5 @@
-import type { AppTranslate } from "@openownbot/i18n";
-import { Button, CornerDownLeft, X } from "@openownbot/ui";
+import type { AppTranslate } from "@robot/i18n";
+import { Button, CornerDownLeft, X } from "@robot/ui";
 import { Show } from "solid-js";
 import { useText } from "../../text";
 import { prefersReducedMotion } from "../../utils";

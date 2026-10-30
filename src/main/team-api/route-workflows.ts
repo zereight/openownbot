@@ -7,15 +7,15 @@ import {
   type WorkflowRunDetail,
   type WorkflowRunPage,
   type WorkflowStep,
-} from "@openownbot/contracts/ipc";
+} from "@robot/contracts/ipc";
 import {
   WORKFLOW_RUN_STEP_LIMIT,
   WORKFLOW_STEP_TEXT_LIMIT,
   WORKFLOWS_CAPABILITY,
   WORKFLOWS_ROUTES,
-} from "@openownbot/contracts/team-protocol/workflows-v1";
-import { sourceText } from "@openownbot/i18n/source";
-import { RoutineInputError } from "@openownbot/team-client/routine-schedule";
+} from "@robot/contracts/team-protocol/workflows-v1";
+import { sourceText } from "@robot/i18n/source";
+import { RoutineInputError } from "@robot/team-client/routine-schedule";
 import type { Effect } from "effect";
 import { runCauseEffect } from "../../backend/effect-boundary";
 import { placeOutputs } from "../../backend/workflows/workflow-graph";

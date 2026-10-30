@@ -4,8 +4,8 @@ import {
   DEFAULT_TRANSPARENT_WINDOW,
   isAppAppearance,
   type SetAppAppearancePreferenceInput,
-} from "@openownbot/contracts/ipc";
-import { isDynamicRecord } from "@openownbot/contracts/runtime-values";
+} from "@robot/contracts/ipc";
+import { isDynamicRecord } from "@robot/contracts/runtime-values";
 import { Effect, Semaphore } from "effect";
 import { type PreferenceFileFailure, readPreferenceFile, writePreferenceFile } from "./preference-file";
 

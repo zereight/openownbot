@@ -7,8 +7,8 @@
 // the developer's model quota. They never start Codex.
 
 import { createServer, type Server } from "node:http";
-import type { DynamicIslandPreference } from "@openownbot/contracts/ipc";
-import type { Logger } from "@openownbot/logging";
+import type { DynamicIslandPreference } from "@robot/contracts/ipc";
+import type { Logger } from "@robot/logging";
 import type { Browser, Page } from "playwright-core";
 import { NO_SCALE, parseSeedScale, type SeedScale } from "../seed-dev-scale";
 import type { BenchApp } from "./bench-launch";

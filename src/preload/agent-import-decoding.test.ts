@@ -4,7 +4,7 @@ import {
   decodeAgentImportResult,
   decodeInstanceTransferResult,
   decodeRemoteInstanceTransferResult,
-} from "@openownbot/contracts/ipc";
+} from "@robot/contracts/ipc";
 import { describe, expect, it } from "vitest";
 
 // The preload decodes these results with the same contracts decoders. A remote import or transfer

@@ -1,8 +1,8 @@
-import { isUpdateActivePhase } from "@openownbot/contracts/ipc";
-import { AGENT_TASKS_CAPABILITY } from "@openownbot/contracts/team-protocol/agent-tasks-v1";
-import type { SidebarView } from "@openownbot/ui/features/sidebar/sidebar-types";
-import { PageRail, type PageRailPage } from "@openownbot/ui/features/window/PageRail";
-import { useText } from "@openownbot/ui/text";
+import { isUpdateActivePhase } from "@robot/contracts/ipc";
+import { AGENT_TASKS_CAPABILITY } from "@robot/contracts/team-protocol/agent-tasks-v1";
+import type { SidebarView } from "@robot/ui/features/sidebar/sidebar-types";
+import { PageRail, type PageRailPage } from "@robot/ui/features/window/PageRail";
+import { useText } from "@robot/ui/text";
 import { appPort } from "../../app-port";
 import { useLayout } from "../../layout";
 import { usePlatform } from "../../platform";

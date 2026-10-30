@@ -1,4 +1,4 @@
-import type { AgentMessage, AgentProfile } from "@openownbot/ui/data";
+import type { AgentMessage, AgentProfile } from "@robot/ui/data";
 import { createStore } from "solid-js";
 
 /**

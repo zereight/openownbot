@@ -12,7 +12,7 @@ export {
   type AppLanguage,
   DEFAULT_APP_LANGUAGE,
   isAppLanguage,
-} from "@openownbot/contracts/app-language";
+} from "@robot/contracts/app-language";
 export { type AppFormat, createFormat } from "./format";
 export { formatLocale, resolveLocale, TRANSLATED_LOCALES, type TranslatedLocale } from "./locale";
 export { localizeSourceText, sourceText } from "./source-text";

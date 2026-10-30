@@ -1,4 +1,4 @@
-import { runTeamEffect } from "@openownbot/team-client";
+import { runTeamEffect } from "@robot/team-client";
 import { Effect } from "effect";
 
 /** Runs a Team API request. A failure rejects with the error of the host, not its Effect wrapper. */

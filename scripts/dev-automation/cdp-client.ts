@@ -4,8 +4,8 @@
 
 import { execFile } from "node:child_process";
 import { promisify } from "node:util";
-import { isDynamicRecord, isNumber, isString } from "@openownbot/contracts/runtime-values";
-import type { Logger } from "@openownbot/logging";
+import { isDynamicRecord, isNumber, isString } from "@robot/contracts/runtime-values";
+import type { Logger } from "@robot/logging";
 import { type Browser, chromium, type Page } from "playwright-core";
 import { PROCESS_TABLE_PS_ARGS, parseProcessTable } from "./cpu-sampling";
 import { describeTarget, findMainPages } from "./page-url";

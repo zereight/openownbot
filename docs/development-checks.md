@@ -14,7 +14,7 @@ this is why routine fixes target paths or use the staged-file hook.
 
 The aggregate typecheck selects `typecheck:*`. Mobile was previously named only `mobile:typecheck`
 and was omitted. It now has `typecheck:mobile`; the old name remains an alias for CI. Mobile uses
-`@openownbot/brand`, `@openownbot/contracts`, and `@openownbot/team-client`. Its Expo and Uniwind generation
+`@robot/brand`, `@robot/contracts`, and `@robot/team-client`. Its Expo and Uniwind generation
 writes ignored files before TypeScript runs.
 
 Each `typecheck` script starts `scripts/type-checker.ts`, not a bare `tsc`. The script runs tsrs, the

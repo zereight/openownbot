@@ -12,8 +12,8 @@ import {
   type RoutineRunStatus,
   routineFlowAgentKey,
   routineFlowRoutineKey,
-} from "@openownbot/contracts/ipc";
-import type { AgentProfile } from "@openownbot/ui/data";
+} from "@robot/contracts/ipc";
+import type { AgentProfile } from "@robot/ui/data";
 import type {
   Diagram,
   DiagramEdge,
@@ -23,7 +23,7 @@ import type {
   DiagramRun,
   DiagramRunStatus,
   DiagramStepRun,
-} from "@openownbot/ui/features/diagrams/diagram-model";
+} from "@robot/ui/features/diagrams/diagram-model";
 
 const COLUMN = 360;
 const ROUTINE_ROW = 300;

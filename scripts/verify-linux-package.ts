@@ -5,8 +5,8 @@ import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import { setTimeout as delay } from "node:timers/promises";
 import { FuseV1Options, getCurrentFuseWire } from "@electron/fuses";
-import { isDynamicRecord, isNumber, isString } from "@openownbot/contracts/runtime-values";
-import { createOpenOwnBotLogger, toLogValue } from "@openownbot/logging";
+import { isDynamicRecord, isNumber, isString } from "@robot/contracts/runtime-values";
+import { createOpenOwnBotLogger, toLogValue } from "@robot/logging";
 import { isMissingFileError } from "../src/backend/file-errors";
 import { elfSearchPaths, ORIGIN_SEARCH_PATH } from "./elf-search-paths";
 

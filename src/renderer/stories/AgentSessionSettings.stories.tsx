@@ -1,5 +1,5 @@
-import type { AgentSessionSettings as Settings } from "@openownbot/contracts/ipc";
-import { AgentSessionSettings } from "@openownbot/ui/features/conversation/AgentSessionSettings";
+import type { AgentSessionSettings as Settings } from "@robot/contracts/ipc";
+import { AgentSessionSettings } from "@robot/ui/features/conversation/AgentSessionSettings";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";
 
 const snapshot: Settings = {

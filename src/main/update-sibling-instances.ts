@@ -1,5 +1,5 @@
 import { execFile } from "node:child_process";
-import { sourceText } from "@openownbot/i18n/source";
+import { sourceText } from "@robot/i18n/source";
 import { Effect, Schema } from "effect";
 
 /** The process scan failed. The cause is the message the install refusal shows. */

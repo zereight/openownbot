@@ -13,9 +13,9 @@ import {
   writeFile,
 } from "node:fs/promises";
 import { join } from "node:path";
-import type { ManagedRuntimeId } from "@openownbot/contracts/ipc";
-import { isDynamicRecord } from "@openownbot/contracts/runtime-values";
-import { sourceText } from "@openownbot/i18n/source";
+import type { ManagedRuntimeId } from "@robot/contracts/ipc";
+import { isDynamicRecord } from "@robot/contracts/runtime-values";
+import { sourceText } from "@robot/i18n/source";
 import { Effect } from "effect";
 import type { AgentRuntimeLock } from "../../scripts/agent-runtime-lock";
 import {

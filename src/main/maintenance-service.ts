@@ -4,8 +4,8 @@ import { copyFile, mkdir, mkdtemp, rename, rm, writeFile } from "node:fs/promise
 import { arch, release as osRelease, tmpdir } from "node:os";
 import { dirname, join } from "node:path";
 import { promisify } from "node:util";
-import type { AgentSummary, ExportResult } from "@openownbot/contracts/ipc";
-import type { AppTranslate } from "@openownbot/i18n";
+import type { AgentSummary, ExportResult } from "@robot/contracts/ipc";
+import type { AppTranslate } from "@robot/i18n";
 import { Effect } from "effect";
 import { app, type BrowserWindow, dialog } from "electron";
 import type { AgentService } from "../backend/agent-service";

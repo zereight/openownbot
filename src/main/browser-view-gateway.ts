@@ -1,5 +1,5 @@
-import { sourceText } from "@openownbot/i18n/source";
-import { createOpenOwnBotLogger, redactText } from "@openownbot/logging";
+import { sourceText } from "@robot/i18n/source";
+import { createOpenOwnBotLogger, redactText } from "@robot/logging";
 import { Context, Deferred, Effect, Layer, Result, Semaphore } from "effect";
 import { recordRestartActivity } from "../backend/restart-activity";
 import { RemoteWorkflowError, remoteDecode } from "./remote-service-effects";
@@ -32,7 +32,7 @@ import {
   encodeBrowserViewCopied,
   encodeBrowserViewFrame,
   encodeBrowserViewHostMessage,
-} from "@openownbot/contracts/team-protocol/browser-view-v1";
+} from "@robot/contracts/team-protocol/browser-view-v1";
 import type * as Ws from "ws";
 import type { BrowserHost } from "../backend/browser-host";
 import { rawDataSize, rawDataText } from "./ws-raw-data";

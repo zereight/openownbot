@@ -1,4 +1,4 @@
-import type { MarketplaceSkillSummary } from "@openownbot/contracts/ipc";
+import type { MarketplaceSkillSummary } from "@robot/contracts/ipc";
 import {
   ArrowRight,
   Button,
@@ -11,10 +11,10 @@ import {
   Skeleton,
   Sparkles,
   Text,
-} from "@openownbot/ui";
-import { ReferenceChip } from "@openownbot/ui/reference-chip";
-import { SkillGradient } from "@openownbot/ui/skill-gradient";
-import { useText } from "@openownbot/ui/text";
+} from "@robot/ui";
+import { ReferenceChip } from "@robot/ui/reference-chip";
+import { SkillGradient } from "@robot/ui/skill-gradient";
+import { useText } from "@robot/ui/text";
 import type { JSX } from "@solidjs/web";
 import { createSignal, For, Match, Show, Switch } from "solid-js";
 import { CONNECTOR_LISTINGS } from "../connectors/connector-catalog";

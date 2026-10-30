@@ -1,9 +1,9 @@
 import { EventEmitter } from "node:events";
 import { join } from "node:path";
-import type { RemoteDesktopIceServer } from "@openownbot/contracts/ipc";
-import type { IceServer } from "@openownbot/contracts/signal-protocol/messages";
-import type { RemoteMemberRole } from "@openownbot/contracts/signal-protocol/ticket";
-import { sourceText } from "@openownbot/i18n/source";
+import type { RemoteDesktopIceServer } from "@robot/contracts/ipc";
+import type { IceServer } from "@robot/contracts/signal-protocol/messages";
+import type { RemoteMemberRole } from "@robot/contracts/signal-protocol/ticket";
+import { sourceText } from "@robot/i18n/source";
 import { Deferred, Effect, Exit, Fiber, Scope } from "effect";
 import { BrowserWindow, MessageChannelMain, type MessagePortMain } from "electron";
 import { z } from "zod";

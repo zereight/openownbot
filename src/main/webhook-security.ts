@@ -1,10 +1,10 @@
 import { createHmac, timingSafeEqual } from "node:crypto";
-import { WEBHOOK_DELIVERY_BODY_BYTES_LIMIT } from "@openownbot/contracts/signal-protocol/messages";
+import { WEBHOOK_DELIVERY_BODY_BYTES_LIMIT } from "@robot/contracts/signal-protocol/messages";
 import {
   WEBHOOK_DELIVERY_ID_PATTERN,
   WEBHOOK_MAX_CLOCK_SKEW_SECONDS,
   WEBHOOK_TIMESTAMP_PATTERN,
-} from "@openownbot/contracts/signal-protocol/webhook-route";
+} from "@robot/contracts/signal-protocol/webhook-route";
 import { Schema } from "effect";
 
 /** Signatures outside this clock window are replays, even if the secret is valid. */

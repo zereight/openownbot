@@ -1,10 +1,10 @@
-import { avatarHeadColor } from "@openownbot/brand/bloub-avatar";
-import type { AgentRuntimeSnapshot } from "@openownbot/contracts/ipc";
-import { LIVE_ACTIVITY_SEALED_LIMIT, type LiveActivityRelayPush } from "@openownbot/contracts/live-activity-relay";
-import type { LiveActivityPushRegistration } from "@openownbot/contracts/team-protocol/live-activity-push-v1";
-import { mobileTranslateFor, resolveLocale } from "@openownbot/i18n/mobile";
-import { toLogValue } from "@openownbot/logging";
-import { DynamicIslandCoordinator } from "@openownbot/team-client/dynamic-island-coordinator";
+import { avatarHeadColor } from "@robot/brand/bloub-avatar";
+import type { AgentRuntimeSnapshot } from "@robot/contracts/ipc";
+import { LIVE_ACTIVITY_SEALED_LIMIT, type LiveActivityRelayPush } from "@robot/contracts/live-activity-relay";
+import type { LiveActivityPushRegistration } from "@robot/contracts/team-protocol/live-activity-push-v1";
+import { mobileTranslateFor, resolveLocale } from "@robot/i18n/mobile";
+import { toLogValue } from "@robot/logging";
+import { DynamicIslandCoordinator } from "@robot/team-client/dynamic-island-coordinator";
 import {
   type AgentLiveActivityProps,
   type LiveActivityUnreadAgent,
@@ -12,14 +12,14 @@ import {
   liveActivityIslandText,
   liveActivityShorterProps,
   liveActivityView,
-} from "@openownbot/team-client/live-activity-props";
+} from "@robot/team-client/live-activity-props";
 import {
   decodeLiveActivityBytes,
   LIVE_ACTIVITY_NONCE_BYTES,
   type LiveActivityKeys,
   liveActivityKeys,
   sealLiveActivity,
-} from "@openownbot/team-client/live-activity-seal";
+} from "@robot/team-client/live-activity-seal";
 import { Effect, Exit, Schema, Scope } from "effect";
 import type { TeamApiAgents } from "./team-api/dependencies";
 import type { markerExclusionsForCapabilities } from "./team-api/request-helpers";

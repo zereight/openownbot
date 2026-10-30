@@ -1,5 +1,5 @@
-import { isRemoteNetworkRoute, type RemoteNetworkRoute } from "@openownbot/contracts/ipc";
-import { Badge, RadioGroup } from "@openownbot/ui";
+import { isRemoteNetworkRoute, type RemoteNetworkRoute } from "@robot/contracts/ipc";
+import { Badge, RadioGroup } from "@robot/ui";
 import { Show } from "solid-js";
 import { useText } from "../../text";
 

@@ -1,5 +1,5 @@
-import type { OpenOwnBotDesktopApi } from "@openownbot/contracts/ipc";
-import { IPC_ENDPOINTS } from "@openownbot/contracts/ipc";
+import type { OpenOwnBotDesktopApi } from "@robot/contracts/ipc";
+import { IPC_ENDPOINTS } from "@robot/contracts/ipc";
 import { expect, it, vi } from "vitest";
 
 const bridge = vi.hoisted(() => {

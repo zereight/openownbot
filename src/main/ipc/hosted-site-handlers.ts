@@ -6,12 +6,12 @@ import type { RemoteWorkflowError } from "../remote-service-effects";
 // server-scoped. A joined server answers through `hosted-sites-v1`: every member can list, and the host
 // answers a delete only for an owner or admin.
 
-import { parseHostedSiteList } from "@openownbot/contracts/hosted-sites";
-import type { HostedSiteList } from "@openownbot/contracts/ipc";
-import type { TeamCurrentCapability } from "@openownbot/contracts/team-protocol/current";
-import { HOSTED_SITES_CAPABILITY, HOSTED_SITES_ROUTES } from "@openownbot/contracts/team-protocol/hosted-sites-v1";
-import type { AppTranslate } from "@openownbot/i18n";
-import { sourceText } from "@openownbot/i18n/source";
+import { parseHostedSiteList } from "@robot/contracts/hosted-sites";
+import type { HostedSiteList } from "@robot/contracts/ipc";
+import type { TeamCurrentCapability } from "@robot/contracts/team-protocol/current";
+import { HOSTED_SITES_CAPABILITY, HOSTED_SITES_ROUTES } from "@robot/contracts/team-protocol/hosted-sites-v1";
+import type { AppTranslate } from "@robot/i18n";
+import { sourceText } from "@robot/i18n/source";
 import { type BrowserWindow, dialog, type OpenDialogOptions } from "electron";
 import { runCauseEffect } from "../../backend/effect-boundary";
 import type { HostedSiteDesktopService } from "../hosted-site-service";

@@ -1,5 +1,5 @@
-import type { MessagingDesktopApi } from "@openownbot/contracts/ipc";
-import { sourceText } from "@openownbot/i18n/source";
+import type { MessagingDesktopApi } from "@robot/contracts/ipc";
+import { sourceText } from "@robot/i18n/source";
 import type { MessagingApi } from "./messaging-connector";
 
 /**

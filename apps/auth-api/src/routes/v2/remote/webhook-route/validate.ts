@@ -1,4 +1,4 @@
-import { WEBHOOK_ROUTES_LIMIT } from "@openownbot/contracts/signal-protocol/webhook-route";
+import { WEBHOOK_ROUTES_LIMIT } from "@robot/contracts/signal-protocol/webhook-route";
 import { createFileRoute } from "@tanstack/solid-router";
 import { Effect } from "effect";
 import { z } from "zod";

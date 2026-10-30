@@ -1,4 +1,4 @@
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
 import type {
   AgentApproval,
   AgentEvent,
@@ -23,23 +23,23 @@ import type {
   SidebarLayoutSnapshot,
   TeamPresenceSnapshot,
   TeamRealtimeEvent,
-} from "@openownbot/contracts/ipc";
-import { canAdministerServer } from "@openownbot/contracts/ipc";
-import { AGENT_HIDDEN_CAPABILITY } from "@openownbot/contracts/team-protocol/current";
-import { FOCUS_USE_CAPABILITY } from "@openownbot/contracts/team-protocol/focus-use-v1";
-import { cleanAgentMessageText } from "@openownbot/team-client/agent-message-text";
-import { createFocusUsePing } from "@openownbot/team-client/focus-use";
-import { WAKE_RECONNECT_DELAY_MS } from "@openownbot/team-client/hosted-server-wake";
-import type { RemoteTeamHost } from "@openownbot/team-client/remote-directory";
+} from "@robot/contracts/ipc";
+import { canAdministerServer } from "@robot/contracts/ipc";
+import { AGENT_HIDDEN_CAPABILITY } from "@robot/contracts/team-protocol/current";
+import { FOCUS_USE_CAPABILITY } from "@robot/contracts/team-protocol/focus-use-v1";
+import { cleanAgentMessageText } from "@robot/team-client/agent-message-text";
+import { createFocusUsePing } from "@robot/team-client/focus-use";
+import { WAKE_RECONNECT_DELAY_MS } from "@robot/team-client/hosted-server-wake";
+import type { RemoteTeamHost } from "@robot/team-client/remote-directory";
 import {
   createRemoteConnectionRecovery,
   isSafeConnectionError,
   type RemoteRecoveryStatus,
-} from "@openownbot/team-client/remote-recovery";
-import { reconcilePendingRequests } from "@openownbot/team-client/runtime-attention";
-import { duplicateSection as duplicateSectionWith } from "@openownbot/ui/features/sidebar/duplicate-section";
-import { currentText } from "@openownbot/ui/text";
-import { errorReference, type UserErrorDetails } from "@openownbot/user-errors";
+} from "@robot/team-client/remote-recovery";
+import { reconcilePendingRequests } from "@robot/team-client/runtime-attention";
+import { duplicateSection as duplicateSectionWith } from "@robot/ui/features/sidebar/duplicate-section";
+import { currentText } from "@robot/ui/text";
+import { errorReference, type UserErrorDetails } from "@robot/user-errors";
 import { createEffect, createMemo, createSignal, createStore, onSettled } from "solid-js";
 import { toAgentProfile } from "../../app-message-projection";
 import { mergeConversationPage, missingReplyOriginals } from "../conversation/conversation-merge";

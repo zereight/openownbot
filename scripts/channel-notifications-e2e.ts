@@ -26,19 +26,19 @@ import {
   IPC_ENDPOINTS,
   LOCAL_SERVER_ID,
   type NotificationOpenedEvent,
-} from "@openownbot/contracts/ipc";
-import { isDynamicRecord } from "@openownbot/contracts/runtime-values";
+} from "@robot/contracts/ipc";
+import { isDynamicRecord } from "@robot/contracts/runtime-values";
 import {
   TEAM_APP_VERSION_HEADER,
   TEAM_CAPABILITIES_HEADER,
   TEAM_CURRENT_CAPABILITIES,
   TEAM_PROTOCOL_V8,
   TEAM_PROTOCOL_VERSION_HEADER,
-} from "@openownbot/contracts/team-protocol";
-import { CHANNEL_ROUTES, channelResponse } from "@openownbot/contracts/team-protocol/channels-v1";
-import { TEAM_CHANNEL_ATTENTION_CAPABILITY } from "@openownbot/contracts/team-protocol/current";
-import { teamSideRouteCodec } from "@openownbot/contracts/team-protocol/side-routes";
-import { createFormat, translateFor } from "@openownbot/i18n";
+} from "@robot/contracts/team-protocol";
+import { CHANNEL_ROUTES, channelResponse } from "@robot/contracts/team-protocol/channels-v1";
+import { TEAM_CHANNEL_ATTENTION_CAPABILITY } from "@robot/contracts/team-protocol/current";
+import { teamSideRouteCodec } from "@robot/contracts/team-protocol/side-routes";
+import { createFormat, translateFor } from "@robot/i18n";
 import { plugin } from "bun";
 import { Effect } from "effect";
 import type { AgentBrowserHost } from "../src/backend/agent/turn-lifecycle";

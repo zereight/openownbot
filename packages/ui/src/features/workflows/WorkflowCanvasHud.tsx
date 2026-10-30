@@ -3,8 +3,8 @@
  * the run status, the run history and the Run button.
  */
 
-import type { WorkflowRunStatus } from "@openownbot/contracts/ipc";
-import type { AppFormat, AppTranslate } from "@openownbot/i18n";
+import type { WorkflowRunStatus } from "@robot/contracts/ipc";
+import type { AppFormat, AppTranslate } from "@robot/i18n";
 import {
   Button,
   buttonVariants,
@@ -21,7 +21,7 @@ import {
   Square,
   UserCheck,
   X,
-} from "@openownbot/ui";
+} from "@robot/ui";
 import type { JSX } from "@solidjs/web";
 import { createMemo, For, Show, untrack } from "solid-js";
 import { useText } from "../../text";

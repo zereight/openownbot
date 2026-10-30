@@ -1,4 +1,4 @@
-import type { BrowserTarget } from "@openownbot/contracts/ipc";
+import type { BrowserTarget } from "@robot/contracts/ipc";
 import { Effect, type Fiber } from "effect";
 import type { BrowserCdpEngine } from "./browser-cdp";
 import { type BrowserOperationError, browserSync } from "./browser-effects";

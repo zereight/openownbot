@@ -2,12 +2,8 @@
 // submit produces the contract `SaveCustomProviderInput` verbatim. Every bound/pattern comes
 // from the contract; main rechecks on save, so a drifted copy would pass the form and fail save.
 
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
-import type {
-  CustomProviderSummary,
-  SaveCustomProviderInput,
-  UpdateCustomProviderInput,
-} from "@openownbot/contracts/ipc";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
+import type { CustomProviderSummary, SaveCustomProviderInput, UpdateCustomProviderInput } from "@robot/contracts/ipc";
 import {
   AGENT_PROVIDERS,
   CUSTOM_PROVIDER_ID_PATTERN,
@@ -16,8 +12,8 @@ import {
   isAgentModel,
   isCustomProviderContextWindow,
   isCustomProviderHeaderName,
-} from "@openownbot/contracts/ipc";
-import type { AppFormat, AppTranslate } from "@openownbot/i18n";
+} from "@robot/contracts/ipc";
+import type { AppFormat, AppTranslate } from "@robot/i18n";
 import { currentText } from "../../text";
 
 export interface CustomModelDraft {

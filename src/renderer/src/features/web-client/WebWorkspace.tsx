@@ -1,7 +1,7 @@
-import { isKnownAgentProvider } from "@openownbot/contracts/agent-providers";
-import type { AppAppearance } from "@openownbot/contracts/app-appearance";
-import type { AppLanguage } from "@openownbot/contracts/app-language";
-import { HOSTED_SERVER_CONTACT_URL } from "@openownbot/contracts/hosted-servers";
+import { isKnownAgentProvider } from "@robot/contracts/agent-providers";
+import type { AppAppearance } from "@robot/contracts/app-appearance";
+import type { AppLanguage } from "@robot/contracts/app-language";
+import { HOSTED_SERVER_CONTACT_URL } from "@robot/contracts/hosted-servers";
 import {
   type AddedAgent,
   type AgentProviderId,
@@ -16,32 +16,29 @@ import {
   decodeAgentTaskLimitSettings,
   type ServerConnectionState,
   type ServerSummary,
-} from "@openownbot/contracts/ipc";
-import { AGENT_BACKUP_MODELS_ROUTES } from "@openownbot/contracts/team-protocol/agent-backup-models-v1";
-import { AGENT_HOST_SETTINGS_ROUTES } from "@openownbot/contracts/team-protocol/agent-host-settings-v1";
-import { AGENT_IMPORT_CAPABILITY } from "@openownbot/contracts/team-protocol/agent-import-v1";
-import { AGENT_TASK_LIMIT_ROUTES } from "@openownbot/contracts/team-protocol/agent-task-limit-v1";
-import { AGENT_TASKS_CAPABILITY } from "@openownbot/contracts/team-protocol/agent-tasks-v1";
-import { BROWSER_PROFILES_CAPABILITY } from "@openownbot/contracts/team-protocol/browser-profiles-v1";
-import { CONNECTORS_CAPABILITY } from "@openownbot/contracts/team-protocol/connectors-v1";
-import { CONTEXT_RESET_CAPABILITY } from "@openownbot/contracts/team-protocol/context-reset-v1";
-import {
-  AGENT_HIDDEN_CAPABILITY,
-  TEAM_AGENT_CREATE_MODEL_CAPABILITY,
-} from "@openownbot/contracts/team-protocol/current";
-import { DISCORD_ACCESS_CAPABILITY } from "@openownbot/contracts/team-protocol/discord-access-v1";
-import { EVENTS_CAPABILITY } from "@openownbot/contracts/team-protocol/events-v1";
-import { HOST_RELEASE_CAPABILITY } from "@openownbot/contracts/team-protocol/host-release-v1";
-import { HOSTED_SITES_CAPABILITY } from "@openownbot/contracts/team-protocol/hosted-sites-v1";
-import { MCP_SIGN_IN_CAPABILITY } from "@openownbot/contracts/team-protocol/mcp-sign-in-v1";
-import { ROUTINE_FLOWS_CAPABILITY } from "@openownbot/contracts/team-protocol/routine-flows-v1";
-import { ROUTINE_RECOVERY_CAPABILITY } from "@openownbot/contracts/team-protocol/routine-recovery-v1";
-import { SIDE_QUESTION_CAPABILITY } from "@openownbot/contracts/team-protocol/side-question-v1";
-import { SIGN_IN_RELAY_CAPABILITY } from "@openownbot/contracts/team-protocol/sign-in-relay-v1";
-import { VAULT_CAPABILITY } from "@openownbot/contracts/team-protocol/vault-v1";
-import { WEBHOOK_TESTS_CAPABILITY } from "@openownbot/contracts/team-protocol/webhook-tests-v1";
-import { runTeamEffect } from "@openownbot/team-client";
-import { channelForThread } from "@openownbot/team-client/channel-notifications";
+} from "@robot/contracts/ipc";
+import { AGENT_BACKUP_MODELS_ROUTES } from "@robot/contracts/team-protocol/agent-backup-models-v1";
+import { AGENT_HOST_SETTINGS_ROUTES } from "@robot/contracts/team-protocol/agent-host-settings-v1";
+import { AGENT_IMPORT_CAPABILITY } from "@robot/contracts/team-protocol/agent-import-v1";
+import { AGENT_TASK_LIMIT_ROUTES } from "@robot/contracts/team-protocol/agent-task-limit-v1";
+import { AGENT_TASKS_CAPABILITY } from "@robot/contracts/team-protocol/agent-tasks-v1";
+import { BROWSER_PROFILES_CAPABILITY } from "@robot/contracts/team-protocol/browser-profiles-v1";
+import { CONNECTORS_CAPABILITY } from "@robot/contracts/team-protocol/connectors-v1";
+import { CONTEXT_RESET_CAPABILITY } from "@robot/contracts/team-protocol/context-reset-v1";
+import { AGENT_HIDDEN_CAPABILITY, TEAM_AGENT_CREATE_MODEL_CAPABILITY } from "@robot/contracts/team-protocol/current";
+import { DISCORD_ACCESS_CAPABILITY } from "@robot/contracts/team-protocol/discord-access-v1";
+import { EVENTS_CAPABILITY } from "@robot/contracts/team-protocol/events-v1";
+import { HOST_RELEASE_CAPABILITY } from "@robot/contracts/team-protocol/host-release-v1";
+import { HOSTED_SITES_CAPABILITY } from "@robot/contracts/team-protocol/hosted-sites-v1";
+import { MCP_SIGN_IN_CAPABILITY } from "@robot/contracts/team-protocol/mcp-sign-in-v1";
+import { ROUTINE_FLOWS_CAPABILITY } from "@robot/contracts/team-protocol/routine-flows-v1";
+import { ROUTINE_RECOVERY_CAPABILITY } from "@robot/contracts/team-protocol/routine-recovery-v1";
+import { SIDE_QUESTION_CAPABILITY } from "@robot/contracts/team-protocol/side-question-v1";
+import { SIGN_IN_RELAY_CAPABILITY } from "@robot/contracts/team-protocol/sign-in-relay-v1";
+import { VAULT_CAPABILITY } from "@robot/contracts/team-protocol/vault-v1";
+import { WEBHOOK_TESTS_CAPABILITY } from "@robot/contracts/team-protocol/webhook-tests-v1";
+import { runTeamEffect } from "@robot/team-client";
+import { channelForThread } from "@robot/team-client/channel-notifications";
 import {
   cancelHostUpdate,
   checkHostForUpdate,
@@ -65,40 +62,40 @@ import {
   setHostUpdateSettings,
   startHostUpdate,
   updateAgentAdminSettings,
-} from "@openownbot/team-client/team-admin-requests";
-import { clearAgentContext, type TeamApiRequest } from "@openownbot/team-client/team-api-requests";
-import { classifyFailure } from "@openownbot/telemetry";
-import { hasVisibleToasts, toast } from "@openownbot/ui";
-import { accountUsageProviderRows } from "@openownbot/ui/features/account/account-usage-view";
-import { computeAgentAvatarMoods } from "@openownbot/ui/features/agents/agent-avatar-mood";
-import { createFirstAgentDraft, type FirstAgentDraft } from "@openownbot/ui/features/agents/FirstAgentSetup";
-import { BillingDialog } from "@openownbot/ui/features/billing/BillingDialog";
-import { createBillingStore } from "@openownbot/ui/features/billing/billing-store";
-import { LicenseSection } from "@openownbot/ui/features/billing/LicenseSection";
-import { createLicenseStore } from "@openownbot/ui/features/billing/license-store";
-import { unloadedHistory } from "@openownbot/ui/features/conversation/ChatScrollRail";
-import type { DiagramModelChoice } from "@openownbot/ui/features/diagrams/DiagramNewAgentCard";
-import { LeaveServerDialog } from "@openownbot/ui/features/servers/LeaveServerDialog";
-import { RestartServerDialog } from "@openownbot/ui/features/servers/RestartServerDialog";
-import type { ServerActionCallbacks } from "@openownbot/ui/features/servers/ServerActionItems";
+} from "@robot/team-client/team-admin-requests";
+import { clearAgentContext, type TeamApiRequest } from "@robot/team-client/team-api-requests";
+import { classifyFailure } from "@robot/telemetry";
+import { hasVisibleToasts, toast } from "@robot/ui";
+import { accountUsageProviderRows } from "@robot/ui/features/account/account-usage-view";
+import { computeAgentAvatarMoods } from "@robot/ui/features/agents/agent-avatar-mood";
+import { createFirstAgentDraft, type FirstAgentDraft } from "@robot/ui/features/agents/FirstAgentSetup";
+import { BillingDialog } from "@robot/ui/features/billing/BillingDialog";
+import { createBillingStore } from "@robot/ui/features/billing/billing-store";
+import { LicenseSection } from "@robot/ui/features/billing/LicenseSection";
+import { createLicenseStore } from "@robot/ui/features/billing/license-store";
+import { unloadedHistory } from "@robot/ui/features/conversation/ChatScrollRail";
+import type { DiagramModelChoice } from "@robot/ui/features/diagrams/DiagramNewAgentCard";
+import { LeaveServerDialog } from "@robot/ui/features/servers/LeaveServerDialog";
+import { RestartServerDialog } from "@robot/ui/features/servers/RestartServerDialog";
+import type { ServerActionCallbacks } from "@robot/ui/features/servers/ServerActionItems";
 import {
   ConversationLoadNotice,
   ServerConnectionNotice,
   ServerPanelLoadNotice,
   serverWorkspacePhase,
-} from "@openownbot/ui/features/servers/ServerConnectionNotice";
-import { ServerRail } from "@openownbot/ui/features/servers/ServerRail";
-import type { SettingsPagePlacement } from "@openownbot/ui/features/settings/SettingsDialogShell";
-import { createSettingsHostedServersStore } from "@openownbot/ui/features/settings/stores/hosted-servers-store";
-import { Sidebar } from "@openownbot/ui/features/sidebar/Sidebar";
+} from "@robot/ui/features/servers/ServerConnectionNotice";
+import { ServerRail } from "@robot/ui/features/servers/ServerRail";
+import type { SettingsPagePlacement } from "@robot/ui/features/settings/SettingsDialogShell";
+import { createSettingsHostedServersStore } from "@robot/ui/features/settings/stores/hosted-servers-store";
+import { Sidebar } from "@robot/ui/features/sidebar/Sidebar";
 import {
   computeSidebarAgentStates,
   sidebarAgentWaits,
   sidebarChannelWaits,
-} from "@openownbot/ui/features/sidebar/sidebar-agent-states";
-import type { SidebarView } from "@openownbot/ui/features/sidebar/sidebar-types";
-import { PageRail, type PageRailPage } from "@openownbot/ui/features/window/PageRail";
-import { useText } from "@openownbot/ui/text";
+} from "@robot/ui/features/sidebar/sidebar-agent-states";
+import type { SidebarView } from "@robot/ui/features/sidebar/sidebar-types";
+import { PageRail, type PageRailPage } from "@robot/ui/features/window/PageRail";
+import { useText } from "@robot/ui/text";
 import { Effect } from "effect";
 import {
   createEffect,

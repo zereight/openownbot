@@ -1,4 +1,4 @@
-import type { InstalledSkill } from "@openownbot/contracts/ipc";
+import type { InstalledSkill } from "@robot/contracts/ipc";
 import { createEffect, createMemo, createSignal, untrack } from "solid-js";
 import { conversationRuntime } from "../conversation-runtime";
 import type { ConversationProps } from "../conversation-types";

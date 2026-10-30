@@ -1,4 +1,4 @@
-import { SIGNED_OUT_CHANNEL_MEMBER_ID } from "@openownbot/contracts/ipc";
+import { SIGNED_OUT_CHANNEL_MEMBER_ID } from "@robot/contracts/ipc";
 
 /**
  * Who the reader is, as the three ids a message can carry for them: a channel author, or the

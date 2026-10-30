@@ -1,9 +1,5 @@
-import type {
-  AgentProviderId,
-  AgentSessionSettingsSnapshot,
-  AgentSessionSettingValue,
-} from "@openownbot/contracts/ipc";
-import { sourceText } from "@openownbot/i18n/source";
+import type { AgentProviderId, AgentSessionSettingsSnapshot, AgentSessionSettingValue } from "@robot/contracts/ipc";
+import { sourceText } from "@robot/i18n/source";
 import type { Effect } from "effect";
 import type { AppServerNotification, AppServerRequest, RequestId, ResponseDecoder, RpcError } from "./protocol";
 import type { ProviderClientOperationError } from "./provider-client-effects";

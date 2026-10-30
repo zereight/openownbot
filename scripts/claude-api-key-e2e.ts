@@ -12,7 +12,7 @@ import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { chmod, mkdtemp, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
-import { CLAUDE_API_KEY_ACCOUNT_ID } from "@openownbot/contracts/team-protocol/claude-api-key-v1";
+import { CLAUDE_API_KEY_ACCOUNT_ID } from "@robot/contracts/team-protocol/claude-api-key-v1";
 import { Effect } from "effect";
 import { ProviderAccountStore } from "../src/backend/agent/provider-account-store";
 import { ProviderAccounts, type ProviderAccountsHost } from "../src/backend/agent/provider-accounts";

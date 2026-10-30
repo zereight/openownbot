@@ -1,4 +1,4 @@
-import type { CustomProviderSummary } from "@openownbot/contracts/ipc";
+import type { CustomProviderSummary } from "@robot/contracts/ipc";
 import {
   Button,
   ConfirmDialog,
@@ -15,7 +15,7 @@ import {
   Text,
   Trash2,
   X,
-} from "@openownbot/ui";
+} from "@robot/ui";
 import { createSignal, For, onSettled, Show } from "solid-js";
 import { createScrollFades } from "../../components/createScrollFades";
 import { useText } from "../../text";

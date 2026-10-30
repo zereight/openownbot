@@ -1,5 +1,5 @@
-import type { BrowserEnvironment, BrowserPreview, BrowserTab } from "@openownbot/contracts/ipc";
-import type { BrowserViewContextMenu } from "@openownbot/contracts/team-protocol/browser-view-v1";
+import type { BrowserEnvironment, BrowserPreview, BrowserTab } from "@robot/contracts/ipc";
+import type { BrowserViewContextMenu } from "@robot/contracts/team-protocol/browser-view-v1";
 import type { Deferred, Effect, Scope } from "effect";
 import { BrowserWindow, type Session, type WebContents, type WebContentsView, webContents } from "electron";
 import type { BrowserCdpEngine } from "./browser-cdp";

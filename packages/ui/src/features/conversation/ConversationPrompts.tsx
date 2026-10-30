@@ -1,29 +1,17 @@
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
 import type {
   AgentApproval,
   BrowserPreview,
   BrowserTab,
   BrowserTakeoverRequest,
   LocalBrowserSecretResponse,
-} from "@openownbot/contracts/ipc";
-import { classifyFailure } from "@openownbot/telemetry";
-import {
-  Badge,
-  Button,
-  Check,
-  Input,
-  LoaderCircle,
-  LogIn,
-  Maximize2,
-  Monitor,
-  RadioGroup,
-  toast,
-  X,
-} from "@openownbot/ui";
-import { StandingApprovalConfirmation } from "@openownbot/ui/components/StandingApprovalConfirmation";
-import { BrowserSecretCard, type BrowserSecretVault } from "@openownbot/ui/features/conversation/BrowserSecretCard";
-import { BrowserTakeoverPreview } from "@openownbot/ui/features/conversation/BrowserTakeoverPreview";
-import { type TextValue, useText } from "@openownbot/ui/text";
+} from "@robot/contracts/ipc";
+import { classifyFailure } from "@robot/telemetry";
+import { Badge, Button, Check, Input, LoaderCircle, LogIn, Maximize2, Monitor, RadioGroup, toast, X } from "@robot/ui";
+import { StandingApprovalConfirmation } from "@robot/ui/components/StandingApprovalConfirmation";
+import { BrowserSecretCard, type BrowserSecretVault } from "@robot/ui/features/conversation/BrowserSecretCard";
+import { BrowserTakeoverPreview } from "@robot/ui/features/conversation/BrowserTakeoverPreview";
+import { type TextValue, useText } from "@robot/ui/text";
 import { createMemo, createSignal, For, Show } from "solid-js";
 import { isSendShortcutKey, type SendShortcut, sendShortcutAriaKey } from "./send-shortcut";
 

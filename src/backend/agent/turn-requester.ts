@@ -5,7 +5,7 @@
  * Telegram message cannot reach either.
  */
 
-import type { ConversationMessageSender, QueueDelivery } from "@openownbot/contracts/ipc";
+import type { ConversationMessageSender, QueueDelivery } from "@robot/contracts/ipc";
 
 /** What a requester rule reads of a delivery: who sent the message, and which message it is. */
 export type TurnDelivery = Pick<QueueDelivery, "sender" | "messageId">;

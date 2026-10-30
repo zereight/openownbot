@@ -1,7 +1,7 @@
-import { type ChatTagKind, chatTagReferences } from "@openownbot/contracts/chat-tag-references";
-import type { DraftAttachment } from "@openownbot/contracts/ipc";
-import { referenceChipClasses } from "@openownbot/ui/reference-chip";
-import { usesTouchLayout } from "@openownbot/ui/utils";
+import { type ChatTagKind, chatTagReferences } from "@robot/contracts/chat-tag-references";
+import type { DraftAttachment } from "@robot/contracts/ipc";
+import { referenceChipClasses } from "@robot/ui/reference-chip";
+import { usesTouchLayout } from "@robot/ui/utils";
 import { createStaticAvatarSvg } from "../../bloub-avatar";
 import type { ComposerAgent, ComposerMcpServer, ComposerSkill } from "../../data";
 import { currentText } from "../../text";

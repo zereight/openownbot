@@ -9,15 +9,15 @@ import {
   REMOTE_DESKTOP_ERROR_CODES,
   type RemoteDesktopCapabilities,
   type RemoteDesktopSession,
-} from "@openownbot/contracts/ipc";
+} from "@robot/contracts/ipc";
 import {
   decodeRecord,
   nullableString,
   requiredBoolean,
   requiredNumber,
   requiredString,
-} from "@openownbot/contracts/ipc-decoding";
-import { isBoolean, isDynamicRecord, isNumber, isOneOf, isString } from "@openownbot/contracts/runtime-values";
+} from "@robot/contracts/ipc-decoding";
+import { isBoolean, isDynamicRecord, isNumber, isOneOf, isString } from "@robot/contracts/runtime-values";
 
 export function decodeBrowserTabs(value: unknown): BrowserTab[] {
   if (!Array.isArray(value) || !value.every(isBrowserTabValue)) {

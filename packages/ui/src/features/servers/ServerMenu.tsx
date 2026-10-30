@@ -1,5 +1,5 @@
-import type { ServerSummary } from "@openownbot/contracts/ipc";
-import type { AppTextKey } from "@openownbot/i18n";
+import type { ServerSummary } from "@robot/contracts/ipc";
+import type { AppTextKey } from "@robot/i18n";
 import {
   AppWindow,
   BellOff,
@@ -12,8 +12,8 @@ import {
   Moon,
   PanelLeft,
   Plus,
-} from "@openownbot/ui";
-import { SwapLabel } from "@openownbot/ui/components/SwapLabel";
+} from "@robot/ui";
+import { SwapLabel } from "@robot/ui/components/SwapLabel";
 import { createEffect, createSignal, For, Show, untrack } from "solid-js";
 import { useText } from "../../text";
 import { type ServerActionCallbacks, ServerActionItems } from "./ServerActionItems";

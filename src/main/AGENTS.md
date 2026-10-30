@@ -62,7 +62,7 @@ with a fabricated sender frame. Services that can be tested without Electron sho
 ## Interface text
 
 An error or status text that can reach a user is `sourceText(key, params)` from
-`@openownbot/i18n/source`, not a literal. Its English must stay the same, byte for byte: remote
+`@robot/i18n/source`, not a literal. Its English must stay the same, byte for byte: remote
 clients and older versions read it. Dialogs, menus and window titles use `language.translate`.
 Errors that only a malformed payload or a programming error can cause stay English. See
 [docs/i18n.md](../../docs/i18n.md#text-from-another-process).

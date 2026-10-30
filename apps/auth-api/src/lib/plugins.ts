@@ -8,9 +8,9 @@
 // This module holds no JSX, for the same reason `content-collection.ts` holds none: it is read by
 // the sitemap, which runs outside the renderer.
 
-import { SKILL_CATEGORY_LABELS } from "@openownbot/contracts/ipc-skills";
-import { createPluginShareUrl } from "@openownbot/contracts/plugin-links";
-import { type DynamicRecord, isDynamicRecord, isString } from "@openownbot/contracts/runtime-values";
+import { SKILL_CATEGORY_LABELS } from "@robot/contracts/ipc-skills";
+import { createPluginShareUrl } from "@robot/contracts/plugin-links";
+import { type DynamicRecord, isDynamicRecord, isString } from "@robot/contracts/runtime-values";
 import { PLUGIN_CATALOG_DETAILS, PLUGIN_CATALOG_INDEX, type PluginCatalogDetail } from "./plugin-catalog.generated";
 import { OPENOWNBOT_SITE_URL } from "./site-metadata";
 

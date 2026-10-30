@@ -1,4 +1,4 @@
-import type { ConversationMessage, ConversationSnapshot } from "@openownbot/contracts/ipc";
+import type { ConversationMessage, ConversationSnapshot } from "@robot/contracts/ipc";
 import type { OpenOwnBotDatabase } from "../openownbot-database";
 import type { AgentThreadRecord, AgentThreadStore } from "./agent-thread-store";
 

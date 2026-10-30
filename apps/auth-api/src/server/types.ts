@@ -1,5 +1,5 @@
-import type { AccountSession } from "@openownbot/contracts/mobile-connect";
-import { isDynamicRecord, isFunction } from "@openownbot/contracts/runtime-values";
+import type { AccountSession } from "@robot/contracts/mobile-connect";
+import { isDynamicRecord, isFunction } from "@robot/contracts/runtime-values";
 import type { Effect } from "effect";
 import type { AuthStoreError } from "./d1-auth-repository";
 import type { EmailDeliveryError } from "./email-delivery";
@@ -151,7 +151,7 @@ export function requireWorkerBindings(value: unknown): WorkerBindings {
 export interface MobileAuthSessionResult {
   sessionToken: string;
   user: AuthUser;
-  host?: import("@openownbot/contracts/mobile-connect").MobileConnectHostBinding;
+  host?: import("@robot/contracts/mobile-connect").MobileConnectHostBinding;
 }
 
 export interface AuthUser {
@@ -272,7 +272,7 @@ export interface AuthRepository {
     expiresAt: number;
   }): Effect.Effect<void, AuthStoreError>;
   replaceMobileAuthTicket(input: {
-    host?: import("@openownbot/contracts/mobile-connect").MobileConnectHostBinding | undefined;
+    host?: import("@robot/contracts/mobile-connect").MobileConnectHostBinding | undefined;
     ticketHash: string;
     userId: string;
     serverId: string;
@@ -303,7 +303,7 @@ export interface AuthRepository {
     linkHash: string;
     desktopSessionToken: string;
     userId: string;
-    host: import("@openownbot/contracts/mobile-connect").MobileConnectHostBinding;
+    host: import("@robot/contracts/mobile-connect").MobileConnectHostBinding;
     createdAt: number;
   }): Effect.Effect<boolean, AuthStoreError>;
   revokeMobileConnectLink(input: { userId: string; hostId: string; now: number }): Effect.Effect<void, AuthStoreError>;

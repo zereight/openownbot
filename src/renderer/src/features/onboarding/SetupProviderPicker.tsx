@@ -8,29 +8,26 @@ import {
   isLocalOnlyProvider,
   type ProviderRuntimeStatus,
   type SaveCustomProviderInput,
-} from "@openownbot/contracts/ipc";
-import type { AppTextKey } from "@openownbot/i18n";
+} from "@robot/contracts/ipc";
+import type { AppTextKey } from "@robot/i18n";
 import {
   type ProviderConnection,
   ProviderPicker,
   type ProviderPickerOption,
-} from "@openownbot/ui/components/ProviderPicker";
-import { freeModelsReady } from "@openownbot/ui/components/provider-row";
-import { CustomProviderDialog } from "@openownbot/ui/features/custom-providers/CustomProviderDialog";
-import { CustomProviderListDialog } from "@openownbot/ui/features/custom-providers/CustomProviderListDialog";
-import { DetectedProviders } from "@openownbot/ui/features/custom-providers/DetectedProviders";
-import type {
-  DetectedProviderApi,
-  ProviderDetection,
-} from "@openownbot/ui/features/custom-providers/detected-providers";
+} from "@robot/ui/components/ProviderPicker";
+import { freeModelsReady } from "@robot/ui/components/provider-row";
+import { CustomProviderDialog } from "@robot/ui/features/custom-providers/CustomProviderDialog";
+import { CustomProviderListDialog } from "@robot/ui/features/custom-providers/CustomProviderListDialog";
+import { DetectedProviders } from "@robot/ui/features/custom-providers/DetectedProviders";
+import type { DetectedProviderApi, ProviderDetection } from "@robot/ui/features/custom-providers/detected-providers";
 import {
   isKeyDialogProvider,
   type KeyDialogProvider,
   OpenCodeKeyDialog,
   type ProviderKeyApi,
-} from "@openownbot/ui/features/settings/OpenCodeKeyDialog";
-import { useText } from "@openownbot/ui/text";
-import { errorReference, type UserErrorDetails } from "@openownbot/user-errors";
+} from "@robot/ui/features/settings/OpenCodeKeyDialog";
+import { useText } from "@robot/ui/text";
+import { errorReference, type UserErrorDetails } from "@robot/user-errors";
 import { createEffect, createMemo, createSignal, onCleanup, Show, untrack } from "solid-js";
 import { ProviderSignInDialogs } from "../../components/ProviderSignInDialogs";
 import type { ProviderConnectionApi } from "../../components/provider-connection-api";

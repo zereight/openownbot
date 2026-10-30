@@ -1,16 +1,7 @@
-import type { RemoteDesktopErrorCode, RemoteDesktopSession, ServerSummary } from "@openownbot/contracts/ipc";
-import {
-  ArrowLeft,
-  Button,
-  Monitor,
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@openownbot/ui";
-import { AgentAvatar } from "@openownbot/ui/features/agents/AgentAvatar";
-import { useText } from "@openownbot/ui/text";
+import type { RemoteDesktopErrorCode, RemoteDesktopSession, ServerSummary } from "@robot/contracts/ipc";
+import { ArrowLeft, Button, Monitor, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@robot/ui";
+import { AgentAvatar } from "@robot/ui/features/agents/AgentAvatar";
+import { useText } from "@robot/ui/text";
 import { type JSX, Portal } from "@solidjs/web";
 import { createEffect, createMemo, createSignal, onSettled, Show } from "solid-js";
 import { z } from "zod";

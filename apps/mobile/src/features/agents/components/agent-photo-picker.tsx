@@ -1,4 +1,4 @@
-import type { RemoteFileUpload } from "@openownbot/team-client/remote-peer";
+import type { RemoteFileUpload } from "@robot/team-client/remote-peer";
 import type { Href } from "expo-router";
 import { Button, Typography } from "heroui-native";
 import { useThemeColor } from "heroui-native/hooks";

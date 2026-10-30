@@ -1,4 +1,4 @@
-import type { BrowserViewContextMenu, BrowserViewInput } from "@openownbot/contracts/team-protocol/browser-view-v1";
+import type { BrowserViewContextMenu, BrowserViewInput } from "@robot/contracts/team-protocol/browser-view-v1";
 import * as Clipboard from "expo-clipboard";
 import { GlassView } from "expo-glass-effect";
 import { router, useLocalSearchParams } from "expo-router";

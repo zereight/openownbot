@@ -4,8 +4,8 @@ import {
   type HostAnalytics,
   type HostAnalyticsInput,
   WORKFLOWS_USAGE_ID,
-} from "@openownbot/contracts/ipc";
-import type { AppTextKey } from "@openownbot/i18n";
+} from "@robot/contracts/ipc";
+import type { AppTextKey } from "@robot/i18n";
 import {
   ArrowLeft,
   Button,
@@ -17,8 +17,8 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@openownbot/ui";
-import { AgentUsageReport } from "@openownbot/ui/features/usage/AgentUsageReport";
+} from "@robot/ui";
+import { AgentUsageReport } from "@robot/ui/features/usage/AgentUsageReport";
 import {
   type UsageAgentLabel,
   type UsageMetric,
@@ -28,9 +28,9 @@ import {
   usagePeriodDays,
   usagePeriodLabels,
   usagePeriods,
-} from "@openownbot/ui/features/usage/usage-format";
-import { useText } from "@openownbot/ui/text";
-import { errorReference } from "@openownbot/user-errors";
+} from "@robot/ui/features/usage/usage-format";
+import { useText } from "@robot/ui/text";
+import { errorReference } from "@robot/user-errors";
 import { createEffect, createStore, onSettled, Show } from "solid-js";
 import { type UsagePort, usagePort } from "./usage-port";
 

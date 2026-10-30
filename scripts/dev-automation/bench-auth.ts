@@ -12,7 +12,7 @@ import { type ChildProcess, spawn } from "node:child_process";
 import { createWriteStream } from "node:fs";
 import { mkdir } from "node:fs/promises";
 import { join } from "node:path";
-import type { Logger } from "@openownbot/logging";
+import type { Logger } from "@robot/logging";
 import type { Page } from "playwright-core";
 import { withoutElectronRuntimeFlags } from "../electron-spawn-env";
 import { isSameWorktree, readDevStackRecords } from "./stack-registry";

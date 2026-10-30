@@ -1,4 +1,4 @@
-import { type MobilePlatformLogoVariant, PlatformLogo, type PlatformLogoVariant } from "@openownbot/brand";
+import { type MobilePlatformLogoVariant, PlatformLogo, type PlatformLogoVariant } from "@robot/brand";
 import { Link } from "@tanstack/solid-router";
 import { For, Show } from "solid-js";
 import { DOWNLOAD_PLATFORM_ORDER, DOWNLOAD_PLATFORMS } from "../../lib/download-platforms";

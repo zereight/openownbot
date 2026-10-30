@@ -1,6 +1,6 @@
-import type { AgentModelOption } from "@openownbot/contracts/ipc";
-import { isAgentModel, isReasoningEffort } from "@openownbot/contracts/ipc";
-import { createOpenOwnBotLogger } from "@openownbot/logging";
+import type { AgentModelOption } from "@robot/contracts/ipc";
+import { isAgentModel, isReasoningEffort } from "@robot/contracts/ipc";
+import { createOpenOwnBotLogger } from "@robot/logging";
 import { Effect } from "effect";
 import type { AgentClient, AgentProvider } from "./../agent-client";
 import { decodeModelListResponse, type ModelListResponse } from "./../protocol";

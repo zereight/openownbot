@@ -10,8 +10,8 @@
 // its own two channels and deletes them at the end.
 // Writes .openownbot-build/channel-concurrency-e2e/report.json.
 import assert from "node:assert/strict";
-import { agentProviderDescriptor } from "@openownbot/contracts/agent-providers";
-import type { AgentTask, ChannelPage, ChannelTask } from "@openownbot/contracts/ipc";
+import { agentProviderDescriptor } from "@robot/contracts/agent-providers";
+import type { AgentTask, ChannelPage, ChannelTask } from "@robot/contracts/ipc";
 import {
   ChannelClient,
   connectChannelE2e,

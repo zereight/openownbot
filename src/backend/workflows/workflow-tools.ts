@@ -6,15 +6,15 @@
  * faults.
  */
 
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
 import {
   WORKFLOW_BRANCHES,
   WORKFLOW_MAX_COORDINATE,
   WORKFLOW_NODE_KINDS,
   WORKFLOW_PORT_TYPES,
   type WorkflowDetail,
-} from "@openownbot/contracts/ipc";
-import { parseWorkflowChatReference } from "@openownbot/contracts/workflow-chat-reference";
+} from "@robot/contracts/ipc";
+import { parseWorkflowChatReference } from "@robot/contracts/workflow-chat-reference";
 import { Effect } from "effect";
 import { z } from "zod";
 import { type OpenOwnBotToolResponse, openOwnBotToolFailure, openOwnBotToolResult } from "../agent/routine-tools";

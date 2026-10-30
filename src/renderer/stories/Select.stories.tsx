@@ -1,4 +1,4 @@
-import { Heading, SearchSelect, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@openownbot/ui";
+import { Heading, SearchSelect, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@robot/ui";
 import { createSignal } from "solid-js";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";
 

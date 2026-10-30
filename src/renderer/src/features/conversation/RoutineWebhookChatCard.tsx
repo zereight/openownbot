@@ -3,18 +3,10 @@ import {
   eventFilterDraft,
   eventFilterDraftsValid,
   eventFiltersFromDrafts,
-} from "@openownbot/contracts/event-filter-value";
-import type {
-  EventFilter,
-  EventRoutine,
-  EventRoutineOwner,
-  RoutineWebhookTrigger,
-} from "@openownbot/contracts/ipc-events";
-import {
-  RoutineWebhookCard,
-  type RoutineWebhookCardState,
-} from "@openownbot/ui/features/conversation/RoutineWebhookCard";
-import { useText } from "@openownbot/ui/text";
+} from "@robot/contracts/event-filter-value";
+import type { EventFilter, EventRoutine, EventRoutineOwner, RoutineWebhookTrigger } from "@robot/contracts/ipc-events";
+import { RoutineWebhookCard, type RoutineWebhookCardState } from "@robot/ui/features/conversation/RoutineWebhookCard";
+import { useText } from "@robot/ui/text";
 import { createEffect, createMemo, createStore } from "solid-js";
 import type { EventRoutinesApi } from "./routine-webhooks-api";
 import { agentRoutinesPort } from "./routines-port";

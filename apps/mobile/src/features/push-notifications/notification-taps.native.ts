@@ -1,4 +1,4 @@
-import { isString } from "@openownbot/contracts/runtime-values";
+import { isString } from "@robot/contracts/runtime-values";
 import * as Notifications from "expo-notifications";
 import { useEffect, useRef } from "react";
 import { type NotificationTarget, SOUND_PREVIEW_KEY } from "./push-notifications-native.types";

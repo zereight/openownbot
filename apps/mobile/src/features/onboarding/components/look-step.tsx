@@ -1,5 +1,5 @@
-import { AVATAR_HUE_CHOICES, avatarHueSwatch } from "@openownbot/brand/bloub-avatar";
-import type { AvatarHue } from "@openownbot/contracts/ipc";
+import { AVATAR_HUE_CHOICES, avatarHueSwatch } from "@robot/brand/bloub-avatar";
+import type { AvatarHue } from "@robot/contracts/ipc";
 import { Typography } from "heroui-native";
 import { useThemeColor } from "heroui-native/hooks";
 import ChevronLeft from "lucide-react-native/icons/chevron-left";

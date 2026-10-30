@@ -1,7 +1,7 @@
-import type { AppVariant } from "@openownbot/contracts/ipc";
-import { type AppLanguage, formatLocale, type TranslatedLocale } from "@openownbot/i18n";
-import { LanguageWheel } from "@openownbot/ui/features/account/LanguageWheel";
-import { TextProvider } from "@openownbot/ui/text";
+import type { AppVariant } from "@robot/contracts/ipc";
+import { type AppLanguage, formatLocale, type TranslatedLocale } from "@robot/i18n";
+import { LanguageWheel } from "@robot/ui/features/account/LanguageWheel";
+import { TextProvider } from "@robot/ui/text";
 import { createSignal } from "solid-js";
 import { useI18n } from "../../i18n-context";
 

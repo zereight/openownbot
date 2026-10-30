@@ -1,5 +1,5 @@
-import type { AttachmentSummary, ImageGenerationAspectRatio, ImageGenerationInfo } from "@openownbot/contracts/ipc";
 import MaskedView from "@react-native-masked-view/masked-view";
+import type { AttachmentSummary, ImageGenerationAspectRatio, ImageGenerationInfo } from "@robot/contracts/ipc";
 import { Image } from "expo-image";
 import { Button, Typography } from "heroui-native";
 import { useThemeColor } from "heroui-native/hooks";

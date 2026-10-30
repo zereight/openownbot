@@ -1,6 +1,6 @@
-import { LOCAL_SERVER_ID } from "@openownbot/contracts/ipc";
-import type { AgentProfile } from "@openownbot/ui/data";
-import { StorageOverview } from "@openownbot/ui/features/files/StorageOverview";
+import { LOCAL_SERVER_ID } from "@robot/contracts/ipc";
+import type { AgentProfile } from "@robot/ui/data";
+import { StorageOverview } from "@robot/ui/features/files/StorageOverview";
 import { createEffect, createSignal, untrack } from "solid-js";
 import { toAgentProfile } from "../../app-message-projection";
 import { type FilesPort, filesPort } from "./files-port";

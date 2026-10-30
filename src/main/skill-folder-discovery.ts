@@ -5,9 +5,9 @@ import {
   AGENT_PROVIDER_DESCRIPTORS,
   agentProviderCliName,
   agentProviderDescriptor,
-} from "@openownbot/contracts/agent-providers";
-import { type AgentSummary, type InstalledSkill, SKILL_DESCRIPTION_MAX_LENGTH } from "@openownbot/contracts/ipc";
-import { sourceText } from "@openownbot/i18n/source";
+} from "@robot/contracts/agent-providers";
+import { type AgentSummary, type InstalledSkill, SKILL_DESCRIPTION_MAX_LENGTH } from "@robot/contracts/ipc";
+import { sourceText } from "@robot/i18n/source";
 import { Effect } from "effect";
 import { HOME_SKILL_FOLDER, homeSkillTagId, listHomeSkills } from "../backend/home-skills";
 import { readSkillFrontmatter } from "../backend/skill-frontmatter";

@@ -1,4 +1,4 @@
-import { NOTIFICATION_SOUND_FILES } from "@openownbot/contracts/notification-relay";
+import { NOTIFICATION_SOUND_FILES } from "@robot/contracts/notification-relay";
 import { File, Paths } from "expo-file-system";
 import * as Notifications from "expo-notifications";
 import type { NotificationPermission } from "@/features/settings/model/push-notifications";

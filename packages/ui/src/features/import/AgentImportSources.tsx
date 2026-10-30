@@ -1,5 +1,5 @@
-import { ProviderLogo } from "@openownbot/brand";
-import { Button, ChevronRight, Monitor } from "@openownbot/ui";
+import { ProviderLogo } from "@robot/brand";
+import { Button, ChevronRight, Monitor } from "@robot/ui";
 import type { JSX } from "@solidjs/web";
 import { createUniqueId, Show } from "solid-js";
 import { useText } from "../../text";

@@ -1,5 +1,5 @@
-import type { BillingServerPlan, BillingState } from "@openownbot/contracts/billing";
-import type { BillingDesktopApi } from "@openownbot/contracts/ipc";
+import type { BillingServerPlan, BillingState } from "@robot/contracts/billing";
+import type { BillingDesktopApi } from "@robot/contracts/ipc";
 
 const DAY = 24 * 60 * 60_000;
 

@@ -1,5 +1,5 @@
-import { CHAT_VISUAL_ITEM_TYPE_PREFIX } from "@openownbot/contracts/chat-visual";
-import { sortConversationMessages } from "@openownbot/contracts/conversation-order";
+import { CHAT_VISUAL_ITEM_TYPE_PREFIX } from "@robot/contracts/chat-visual";
+import { sortConversationMessages } from "@robot/contracts/conversation-order";
 import type {
   ConversationFileSearchPage,
   ConversationFileSearchResult,
@@ -8,7 +8,7 @@ import type {
   ConversationPageAnchor,
   ConversationSearchPage,
   ConversationSnapshot,
-} from "@openownbot/contracts/ipc";
+} from "@robot/contracts/ipc";
 import {
   HOSTED_SITE_EVENT_ITEM_TYPE_PREFIX,
   isAttachmentSummary,
@@ -17,8 +17,8 @@ import {
   ROUTINE_QUIET_ANSWER_ITEM_TYPE,
   ROUTINE_RUN_EVENT_ITEM_TYPE_PREFIX,
   SKILL_EVENT_ITEM_TYPE_PREFIX,
-} from "@openownbot/contracts/ipc";
-import { type DynamicRecord, isDynamicRecord, isNumber, isString } from "@openownbot/contracts/runtime-values";
+} from "@robot/contracts/ipc";
+import { type DynamicRecord, isDynamicRecord, isNumber, isString } from "@robot/contracts/runtime-values";
 import { COLLAPSE_WHITESPACE_FUNCTION, type DatabaseCore, LOWERCASE_FUNCTION } from "./database-core";
 import {
   databaseRow,

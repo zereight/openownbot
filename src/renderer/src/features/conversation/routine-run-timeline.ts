@@ -1,10 +1,10 @@
-import { ROUTINE_QUIET_ANSWER_ITEM_TYPE } from "@openownbot/contracts/ipc";
+import { ROUTINE_QUIET_ANSWER_ITEM_TYPE } from "@robot/contracts/ipc";
 import type {
   AgentMessage,
   ChatActionMarkerModel,
   RoutineRunMarkerModel,
   RoutineRunMarkerTransition,
-} from "@openownbot/ui/data";
+} from "@robot/ui/data";
 import { startsDay } from "./agent-message-timeline";
 
 type RoutineRunMarker = RoutineRunMarkerModel;

@@ -1,10 +1,10 @@
 import { constants } from "node:fs";
 import { lstat, open, realpath } from "node:fs/promises";
 import { basename, isAbsolute } from "node:path";
-import { sortConversationMessages } from "@openownbot/contracts/conversation-order";
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
-import type { AgentEvent, ConversationSnapshot } from "@openownbot/contracts/ipc";
-import { DATA_FOLDER_NAME } from "@openownbot/contracts/product";
+import { sortConversationMessages } from "@robot/contracts/conversation-order";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
+import type { AgentEvent, ConversationSnapshot } from "@robot/contracts/ipc";
+import { DATA_FOLDER_NAME } from "@robot/contracts/product";
 import { Deferred, Effect, Result } from "effect";
 import {
   type AttachmentOperationError,

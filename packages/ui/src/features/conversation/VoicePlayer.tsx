@@ -1,5 +1,5 @@
-import { Button, Pause, Play, SeekSlider } from "@openownbot/ui";
-import { useText } from "@openownbot/ui/text";
+import { Button, Pause, Play, SeekSlider } from "@robot/ui";
+import { useText } from "@robot/ui/text";
 import { createSignal, For, Show } from "solid-js";
 
 /** How many bars the waveform has. */

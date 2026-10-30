@@ -1,4 +1,4 @@
-import type { AgentContextState, BrowserTakeoverRequest } from "@openownbot/contracts/ipc";
+import type { AgentContextState, BrowserTakeoverRequest } from "@robot/contracts/ipc";
 import { useCallback, useMemo, useSyncExternalStore } from "react";
 import { agentBrowserTab, agentBrowserTabs, type MobileBrowserTabs } from "@/features/browser/model/browser-tabs";
 import {

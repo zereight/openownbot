@@ -1,4 +1,4 @@
-import type { ConversationPlan, ConversationPlanStep } from "@openownbot/contracts/ipc";
+import type { ConversationPlan, ConversationPlanStep } from "@robot/contracts/ipc";
 import { planContinuationPrompt } from "./delivery-content";
 
 export interface PlanContinuationOptions {

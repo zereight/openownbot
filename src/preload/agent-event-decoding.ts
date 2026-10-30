@@ -11,9 +11,9 @@ import {
   type AgentEvent,
   isAgentEvent,
   type ScopedAgentEvent,
-} from "@openownbot/contracts/ipc";
-import { decodeRecord, nullableString, requiredString } from "@openownbot/contracts/ipc-decoding";
-import { isBoolean, isNumber, isOneOf, isString } from "@openownbot/contracts/runtime-values";
+} from "@robot/contracts/ipc";
+import { decodeRecord, nullableString, requiredString } from "@robot/contracts/ipc-decoding";
+import { isBoolean, isNumber, isOneOf, isString } from "@robot/contracts/runtime-values";
 
 const APPROVAL_KINDS = ["command", "file-change", "permissions"] as const;
 

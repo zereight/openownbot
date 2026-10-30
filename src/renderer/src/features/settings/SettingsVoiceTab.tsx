@@ -11,8 +11,8 @@ import {
   type VoiceModelStatus,
   WHISPER_LANGUAGES,
   type WhisperLanguage,
-} from "@openownbot/contracts/ipc";
-import type { AppTextKey } from "@openownbot/i18n";
+} from "@robot/contracts/ipc";
+import type { AppTextKey } from "@robot/i18n";
 import {
   Badge,
   Button,
@@ -35,8 +35,8 @@ import {
   SettingsSection,
   Square,
   SwitchField,
-} from "@openownbot/ui";
-import { useText } from "@openownbot/ui/text";
+} from "@robot/ui";
+import { useText } from "@robot/ui/text";
 import { createMemo, createStore, For, Show } from "solid-js";
 import type { SettingsVoiceStore } from "./settings-voice-store";
 

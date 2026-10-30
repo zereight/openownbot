@@ -1,5 +1,5 @@
-import type { QueueDelivery } from "@openownbot/contracts/ipc";
-import { agentActivityExitDuration } from "@openownbot/ui/features/conversation/activity-timing";
+import type { QueueDelivery } from "@robot/contracts/ipc";
+import { agentActivityExitDuration } from "@robot/ui/features/conversation/activity-timing";
 import { type Accessor, createEffect, createMemo, createSignal, onCleanup, untrack } from "solid-js";
 import { agentAwaitingReplies } from "../../../awaiting-replies";
 import { activeQueueDeliveries, presentQueueDeliveries, queuedDeliveriesInOrder } from "../../../queue-reconciliation";

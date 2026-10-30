@@ -6,11 +6,11 @@ import type { RemoteWorkflowError } from "../remote-service-effects";
 // owner-gated -- the owner rule binds agents, not the person whose computer holds the data. On a
 // joined server the tables are on the host, which answers only an owner or admin.
 
-import { isDeleteSharedTableInput, isSharedTable, type SharedTable } from "@openownbot/contracts/ipc";
-import { guardedDecoder, guardedListDecoder } from "@openownbot/contracts/ipc-decoding";
-import type { TeamCurrentCapability } from "@openownbot/contracts/team-protocol/current";
-import { SHARED_TABLES_CAPABILITY, SHARED_TABLES_ROUTES } from "@openownbot/contracts/team-protocol/shared-tables-v1";
-import { sourceText } from "@openownbot/i18n/source";
+import { isDeleteSharedTableInput, isSharedTable, type SharedTable } from "@robot/contracts/ipc";
+import { guardedDecoder, guardedListDecoder } from "@robot/contracts/ipc-decoding";
+import type { TeamCurrentCapability } from "@robot/contracts/team-protocol/current";
+import { SHARED_TABLES_CAPABILITY, SHARED_TABLES_ROUTES } from "@robot/contracts/team-protocol/shared-tables-v1";
+import { sourceText } from "@robot/i18n/source";
 import type { AgentService } from "../../backend/agent-service";
 import { runCauseEffect } from "../../backend/effect-boundary";
 import { acceptEmpty, type ResponseDecoder } from "../remote-host-decoding";

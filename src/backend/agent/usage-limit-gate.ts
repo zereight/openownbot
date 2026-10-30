@@ -1,5 +1,5 @@
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
-import type { AccountUsage, AgentEvent, AgentRuntimeSnapshot } from "@openownbot/contracts/ipc";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
+import type { AccountUsage, AgentEvent, AgentRuntimeSnapshot } from "@robot/contracts/ipc";
 import { Effect, Exit, Schema, Scope } from "effect";
 import type { AgentProvider } from "../agent-client";
 import type { AgentStore } from "../agent-store";

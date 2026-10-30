@@ -6,8 +6,8 @@ import {
   type ConversationSubagentStepKind,
   clampConversationSubagents,
   isConversationSubagents,
-} from "@openownbot/contracts/ipc";
-import { type DynamicRecord, isString } from "@openownbot/contracts/runtime-values";
+} from "@robot/contracts/ipc";
+import { type DynamicRecord, isString } from "@robot/contracts/runtime-values";
 import { isRecord } from "../protocol";
 
 /**

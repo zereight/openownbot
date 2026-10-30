@@ -1,4 +1,4 @@
-import { isFunction } from "@openownbot/contracts/runtime-values";
+import { isFunction } from "@robot/contracts/runtime-values";
 import { createSignal, onSettled } from "solid-js";
 import { useText } from "../text";
 

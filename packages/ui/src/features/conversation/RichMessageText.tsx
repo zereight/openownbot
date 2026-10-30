@@ -1,10 +1,10 @@
-import { type ChatTagKind, chatTagReferences } from "@openownbot/contracts/chat-tag-references";
-import type { AttachmentSummary } from "@openownbot/contracts/ipc";
-import { LOCAL_ONLY } from "@openownbot/contracts/local-only";
-import type { AppTextKey } from "@openownbot/i18n";
-import { Blocks, Button, Puzzle, TextQuote } from "@openownbot/ui";
-import { ReferenceChip } from "@openownbot/ui/reference-chip";
-import { usesTouchLayout } from "@openownbot/ui/utils";
+import { type ChatTagKind, chatTagReferences } from "@robot/contracts/chat-tag-references";
+import type { AttachmentSummary } from "@robot/contracts/ipc";
+import { LOCAL_ONLY } from "@robot/contracts/local-only";
+import type { AppTextKey } from "@robot/i18n";
+import { Blocks, Button, Puzzle, TextQuote } from "@robot/ui";
+import { ReferenceChip } from "@robot/ui/reference-chip";
+import { usesTouchLayout } from "@robot/ui/utils";
 import type { JSX } from "@solidjs/web";
 import { createMemo, createSignal, createUniqueId, For, Show, untrack } from "solid-js";
 import type { ComposerAgent, ComposerSkill, MessageCitation } from "../../data";

@@ -3,7 +3,7 @@
 import { chmod, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { registerSecretValue } from "@openownbot/logging";
+import { registerSecretValue } from "@robot/logging";
 import { Duration, Effect } from "effect";
 import { CliLoginFailed } from "./cli-login-flow";
 

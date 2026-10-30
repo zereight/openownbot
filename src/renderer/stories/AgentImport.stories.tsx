@@ -1,7 +1,7 @@
-import type { AgentImportResult } from "@openownbot/contracts/ipc";
-import { AgentImportSources } from "@openownbot/ui/features/import/AgentImportSources";
-import { AgentImportView } from "@openownbot/ui/features/import/AgentImportView";
-import { HermesImportView } from "@openownbot/ui/features/import/HermesImportView";
+import type { AgentImportResult } from "@robot/contracts/ipc";
+import { AgentImportSources } from "@robot/ui/features/import/AgentImportSources";
+import { AgentImportView } from "@robot/ui/features/import/AgentImportView";
+import { HermesImportView } from "@robot/ui/features/import/HermesImportView";
 import type { JSX } from "@solidjs/web";
 import { createSignal } from "solid-js";
 import { fn } from "storybook/test";

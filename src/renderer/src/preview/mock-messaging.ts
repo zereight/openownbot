@@ -1,10 +1,5 @@
-import type {
-  MessagingConnection,
-  MessagingDesktopApi,
-  MessagingPlatform,
-  MessagingRole,
-} from "@openownbot/contracts/ipc";
-import { sourceText } from "@openownbot/i18n/source";
+import type { MessagingConnection, MessagingDesktopApi, MessagingPlatform, MessagingRole } from "@robot/contracts/ipc";
+import { sourceText } from "@robot/i18n/source";
 import { clone } from "./mock-support";
 
 /** The platforms whose preview adds a workspace for each connect. Telegram has a chat for each link. */

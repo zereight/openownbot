@@ -1,11 +1,11 @@
-import { AGENT_MEMORY_CONTEXT_BUDGET_BYTES, essentialMemoryBytes } from "@openownbot/contracts/agent-memory-context";
+import { AGENT_MEMORY_CONTEXT_BUDGET_BYTES, essentialMemoryBytes } from "@robot/contracts/agent-memory-context";
 import type {
   AcpRegistryEntry,
   AgentSessionSettings,
   HiddenAgentsSnapshot,
   McpSignInApp,
   McpSignInAppState,
-} from "@openownbot/contracts/ipc";
+} from "@robot/contracts/ipc";
 import {
   type AccountUsage,
   AGENT_DEFAULT_KEYS,
@@ -139,12 +139,9 @@ import {
   type UpdateQueuedMessageInput,
   type UpdateStatus,
   type WorkspaceDirectory,
-} from "@openownbot/contracts/ipc";
-import {
-  type ProviderEnvironmentEntry,
-  providerEnvironmentInputIssue,
-} from "@openownbot/contracts/provider-environment";
-import { sourceText } from "@openownbot/i18n/source";
+} from "@robot/contracts/ipc";
+import { type ProviderEnvironmentEntry, providerEnvironmentInputIssue } from "@robot/contracts/provider-environment";
+import { sourceText } from "@robot/i18n/source";
 import {
   AGENT_IMPORT_PREVIEW,
   AGENT_IMPORT_SKILL,

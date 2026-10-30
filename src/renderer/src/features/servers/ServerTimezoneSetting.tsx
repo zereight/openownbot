@@ -1,6 +1,6 @@
-import type { HostTimezoneSettings, OpenOwnBotDesktopApi } from "@openownbot/contracts/ipc";
-import { Item, ItemActions, ItemContent, ItemDescription, ItemTitle, SearchSelect } from "@openownbot/ui";
-import { useText } from "@openownbot/ui/text";
+import type { HostTimezoneSettings, OpenOwnBotDesktopApi } from "@robot/contracts/ipc";
+import { Item, ItemActions, ItemContent, ItemDescription, ItemTitle, SearchSelect } from "@robot/ui";
+import { useText } from "@robot/ui/text";
 import { createEffect, createSignal, Show, untrack } from "solid-js";
 
 /** The timezone calls of one server's host. The desktop reaches them through main. */

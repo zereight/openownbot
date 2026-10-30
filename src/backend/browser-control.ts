@@ -1,4 +1,4 @@
-import type { BrowserControlAction, BrowserControlDetailAction } from "@openownbot/contracts/ipc";
+import type { BrowserControlAction, BrowserControlDetailAction } from "@robot/contracts/ipc";
 import type { BrowserToolCall } from "./browser-tools";
 
 export function controlSessionId(threadId: string, turnId: string): string {

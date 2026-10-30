@@ -1,4 +1,4 @@
-import type { BrowserViewCursor } from "@openownbot/contracts/team-protocol/browser-view-v1";
+import type { BrowserViewCursor } from "@robot/contracts/team-protocol/browser-view-v1";
 import type { LucideIcon } from "lucide-react-native";
 import Ban from "lucide-react-native/icons/ban";
 import CircleHelp from "lucide-react-native/icons/circle-question-mark";

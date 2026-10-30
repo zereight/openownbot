@@ -1,5 +1,5 @@
-import type { AgentProviderId } from "@openownbot/contracts/agent-providers";
-import type { CauseCode } from "@openownbot/telemetry";
+import type { AgentProviderId } from "@robot/contracts/agent-providers";
+import type { CauseCode } from "@robot/telemetry";
 
 /** Local analytics context. This is not an IPC or Team API payload. */
 export interface FailureContext {

@@ -12,7 +12,7 @@ import type {
   CustomProviderSummary,
   SaveCustomProviderInput,
   UpdateCustomProviderInput,
-} from "@openownbot/contracts/ipc";
+} from "@robot/contracts/ipc";
 import { AgentLifecycleFailed, type AgentService } from "../backend/agent-service";
 import type { CustomProviderStore } from "./custom-provider-store";
 

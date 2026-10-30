@@ -8,8 +8,8 @@ import {
   type VaultItemSummary,
   type VaultLoginSummary,
   type VaultSaveInput,
-} from "@openownbot/contracts/ipc";
-import type { MobileTextKey } from "@openownbot/i18n/mobile";
+} from "@robot/contracts/ipc";
+import type { MobileTextKey } from "@robot/i18n/mobile";
 import type { MobileText } from "@/shared/lib/text";
 
 /** The host name of a login's website, as the desktop Vault lists it. */

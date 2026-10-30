@@ -1,9 +1,9 @@
 // The 1Password connection of the joined server in the browser client (`onepassword-connector-v1`).
 // The token goes to the host once, in the connect request; no answer carries it.
 
-import { runTeamEffect } from "@openownbot/team-client";
-import { onePasswordConnectorRequest } from "@openownbot/team-client/team-admin-requests";
-import type { TeamApiRequest } from "@openownbot/team-client/team-api-requests";
+import { runTeamEffect } from "@robot/team-client";
+import { onePasswordConnectorRequest } from "@robot/team-client/team-admin-requests";
+import type { TeamApiRequest } from "@robot/team-client/team-api-requests";
 import { Effect } from "effect";
 import {
   type OnePasswordConnectorPort,

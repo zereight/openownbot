@@ -1,4 +1,4 @@
-import { SIDEBAR_UNASSIGNED_SECTION_ID } from "@openownbot/contracts/ipc";
+import { SIDEBAR_UNASSIGNED_SECTION_ID } from "@robot/contracts/ipc";
 import { Link } from "expo-router";
 import { useRef, useState } from "react";
 import { showFailureAlert } from "@/features/analytics/failure-reports";

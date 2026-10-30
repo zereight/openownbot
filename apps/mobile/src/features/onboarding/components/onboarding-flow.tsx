@@ -1,5 +1,5 @@
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
-import type { AvatarHue } from "@openownbot/contracts/ipc";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
+import type { AvatarHue } from "@robot/contracts/ipc";
 import * as Crypto from "expo-crypto";
 import { router } from "expo-router";
 import type { NativeStackNavigationProp } from "expo-router/native-stack";

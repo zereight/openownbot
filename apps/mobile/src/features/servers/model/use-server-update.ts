@@ -1,4 +1,4 @@
-import type { HostReleaseStatus, HostUpdateStatus } from "@openownbot/contracts/ipc";
+import type { HostReleaseStatus, HostUpdateStatus } from "@robot/contracts/ipc";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useQueryScope } from "@/features/auth/context/mobile-session-context";
 import { useMobileWorkspace, useMobileWorkspaceActions } from "@/features/workspace/context/mobile-workspace-context";

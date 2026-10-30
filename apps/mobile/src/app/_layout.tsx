@@ -1,6 +1,6 @@
 import "../../global.css";
 
-import { guardOpenOwnBotEgress } from "@openownbot/contracts/local-only";
+import { guardOpenOwnBotEgress } from "@robot/contracts/local-only";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { usePathname } from "expo-router";
 import { DarkTheme, DefaultTheme, ThemeProvider } from "expo-router/react-navigation";

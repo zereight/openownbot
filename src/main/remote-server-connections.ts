@@ -10,7 +10,7 @@
 // remembered about it. Keeping those apart is what lets the whole error table be tested without a
 // manager, a socket or a disk.
 
-import type { ServerCompatibility, ServerConnectionIssue, ServerSummary } from "@openownbot/contracts/ipc";
+import type { ServerCompatibility, ServerConnectionIssue, ServerSummary } from "@robot/contracts/ipc";
 import {
   checkingCompatibility,
   classifyRemoteConnectionError,

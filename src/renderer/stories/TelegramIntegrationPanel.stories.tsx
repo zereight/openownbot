@@ -1,9 +1,9 @@
-import type { MessagingConnection } from "@openownbot/contracts/ipc";
+import type { MessagingConnection } from "@robot/contracts/ipc";
 import {
   TelegramConnectDialog,
   type TelegramIntegrationAgent,
   TelegramIntegrationPanel,
-} from "@openownbot/ui/features/settings/TelegramIntegrationPanel";
+} from "@robot/ui/features/settings/TelegramIntegrationPanel";
 import { fn } from "storybook/test";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";
 import { STORY_AGENT_SUMMARIES } from "./fixtures";

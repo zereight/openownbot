@@ -1,5 +1,5 @@
-import { buttonVariants, DropdownMenu, SlidersHorizontal } from "@openownbot/ui";
-import { useText } from "@openownbot/ui/text";
+import { buttonVariants, DropdownMenu, SlidersHorizontal } from "@robot/ui";
+import { useText } from "@robot/ui/text";
 import { For, Show } from "solid-js";
 import { MenuCheck } from "./MarketplaceParts";
 

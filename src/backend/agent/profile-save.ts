@@ -5,15 +5,15 @@ import type {
   ConversationMessageSender,
   SaveAgentProfileInput,
   SidebarLayoutSnapshot,
-} from "@openownbot/contracts/ipc";
+} from "@robot/contracts/ipc";
 import {
   agentAutomationAllowed,
   agentComputerUseEnabled,
   agentQuickAcknowledgementEnabled,
   decodeSaveAgentProfileResult,
   workspaceAccessEnforced,
-} from "@openownbot/contracts/ipc";
-import { sourceText } from "@openownbot/i18n/source";
+} from "@robot/contracts/ipc";
+import { sourceText } from "@robot/i18n/source";
 import { Effect, Exit, Schema, Semaphore } from "effect";
 import type { AgentStore } from "../agent-store";
 import { causeHelpers } from "../effect-boundary";

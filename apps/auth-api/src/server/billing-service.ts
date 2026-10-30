@@ -16,15 +16,15 @@ import {
   isBillingAmount,
   isOpenBillingStatus,
   parseBillingLookupKey,
-} from "@openownbot/contracts/billing";
+} from "@robot/contracts/billing";
 import type {
   HostedServerCatalog,
   HostedServerCatalogPlan,
   HostedServerEntryPoint,
-} from "@openownbot/contracts/hosted-servers";
-import { LICENSE_METADATA, LICENSE_METADATA_KIND } from "@openownbot/contracts/license";
-import { isDynamicRecord, isOneOf, isString } from "@openownbot/contracts/runtime-values";
-import { sourceText } from "@openownbot/i18n/source";
+} from "@robot/contracts/hosted-servers";
+import { LICENSE_METADATA, LICENSE_METADATA_KIND } from "@robot/contracts/license";
+import { isDynamicRecord, isOneOf, isString } from "@robot/contracts/runtime-values";
+import { sourceText } from "@robot/i18n/source";
 import { Context, Effect, Layer } from "effect";
 import {
   type AccountAnalytics,

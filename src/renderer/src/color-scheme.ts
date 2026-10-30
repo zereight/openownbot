@@ -1,10 +1,10 @@
-import type { AppAppearance } from "@openownbot/contracts/app-appearance";
+import type { AppAppearance } from "@robot/contracts/app-appearance";
 
 const LIGHT_QUERY = "(prefers-color-scheme: light)";
 
 /**
  * `tokens-light.css` changes the palette when the root element has `data-openownbot-color-scheme="light"`.
- * Code that cannot use the tokens in CSS reads the attribute through `@openownbot/ui/document-color-scheme`.
+ * Code that cannot use the tokens in CSS reads the attribute through `@robot/ui/document-color-scheme`.
  */
 function applyColorScheme(scheme: "light" | "dark"): void {
   document.documentElement.dataset.openownbotColorScheme = scheme;

@@ -13,12 +13,12 @@ import {
   isAttachmentSummary,
   type RespondToPromptInput,
   type UpdateChannelRoutineInput,
-} from "@openownbot/contracts/ipc";
-import { TEAM_API_ROUTES } from "@openownbot/contracts/team-api-routes";
-import { CHANNEL_ROUTES } from "@openownbot/contracts/team-protocol/channels-v1";
-import { decodeTeamProtocolV2Json, type TeamProtocolV2Json } from "@openownbot/contracts/team-protocol/v2";
-import { sourceText } from "@openownbot/i18n/source";
-import type { RemoteFileUpload } from "@openownbot/team-client/remote-peer";
+} from "@robot/contracts/ipc";
+import { TEAM_API_ROUTES } from "@robot/contracts/team-api-routes";
+import { CHANNEL_ROUTES } from "@robot/contracts/team-protocol/channels-v1";
+import { decodeTeamProtocolV2Json, type TeamProtocolV2Json } from "@robot/contracts/team-protocol/v2";
+import { sourceText } from "@robot/i18n/source";
+import type { RemoteFileUpload } from "@robot/team-client/remote-peer";
 import { replaceEqualDeep } from "@tanstack/react-query";
 import { answeredPromptResolution } from "../../chat/model/question-prompt";
 

@@ -8,7 +8,7 @@
 // The cache is also what makes a lost connection legible. `markOffline` does not clear it, because
 // an empty roster and a roster of people who went offline look nothing alike to a user.
 
-import type { TeamPresenceSnapshot } from "@openownbot/contracts/ipc";
+import type { TeamPresenceSnapshot } from "@robot/contracts/ipc";
 import { Effect } from "effect";
 import type { RemoteWorkflowError } from "./remote-service-effects";
 

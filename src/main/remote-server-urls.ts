@@ -5,8 +5,8 @@
 // rewrites them in place on a decoded payload before it leaves the main process. `src/main/index.ts`
 // registers the matching protocol handlers, and they parse exactly what these three builders emit.
 
-import type { ConversationPageAnchor, DirectConversationPageAnchor } from "@openownbot/contracts/ipc";
-import { isDynamicRecord, isString } from "@openownbot/contracts/runtime-values";
+import type { ConversationPageAnchor, DirectConversationPageAnchor } from "@robot/contracts/ipc";
+import { isDynamicRecord, isString } from "@robot/contracts/runtime-values";
 
 export function pageQuery(anchor: ConversationPageAnchor | DirectConversationPageAnchor, limit: number): string {
   const query = new URLSearchParams({ limit: String(limit) });

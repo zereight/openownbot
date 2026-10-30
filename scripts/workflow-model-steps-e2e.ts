@@ -11,7 +11,7 @@ import assert from "node:assert/strict";
 import { chmod, mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
-import { type AgentModelOption, analyticsRange, isAgentModel, WORKFLOWS_USAGE_ID } from "@openownbot/contracts/ipc";
+import { type AgentModelOption, analyticsRange, isAgentModel, WORKFLOWS_USAGE_ID } from "@robot/contracts/ipc";
 import { Effect } from "effect";
 import { ProfileClients } from "../src/backend/agent/profile-clients";
 import { workflowUsageObserver } from "../src/backend/agent/usage-collection";

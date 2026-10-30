@@ -1,4 +1,4 @@
-import type { WorkflowSummary } from "@openownbot/contracts/ipc";
+import type { WorkflowSummary } from "@robot/contracts/ipc";
 import type { Href } from "expo-router";
 import { Typography } from "heroui-native";
 import Play from "lucide-react-native/icons/play";

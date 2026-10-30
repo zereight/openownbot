@@ -4,8 +4,8 @@
  * the dialog shows its own text for it.
  */
 
-import type { ProviderApiKeyStatus } from "@openownbot/contracts/ipc";
-import { OpenCodeKeyDialog, type ProviderKeyApi } from "@openownbot/ui/features/settings/OpenCodeKeyDialog";
+import type { ProviderApiKeyStatus } from "@robot/contracts/ipc";
+import { OpenCodeKeyDialog, type ProviderKeyApi } from "@robot/ui/features/settings/OpenCodeKeyDialog";
 import { fn } from "storybook/test";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";
 

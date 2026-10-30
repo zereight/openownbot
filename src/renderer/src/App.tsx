@@ -1,4 +1,4 @@
-import { Toaster } from "@openownbot/ui";
+import { Toaster } from "@robot/ui";
 import { AppAccessGate } from "./AppView";
 import { type AppProps, AppProviders } from "./app-providers";
 

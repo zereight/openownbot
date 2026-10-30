@@ -1,4 +1,4 @@
-import { installPointerFocusGuard } from "@openownbot/ui/pointer-focus";
+import { installPointerFocusGuard } from "@robot/ui/pointer-focus";
 import { render } from "@solidjs/web";
 import { syncAppearance } from "./appearance-choice";
 import { BrowserDockSurface } from "./features/browser/BrowserDockSurface";

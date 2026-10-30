@@ -4,9 +4,9 @@
  * results strip. The control blocks share their choice pills, the toolbar menus and the colours.
  */
 
-import { isKnownAgentProvider } from "@openownbot/contracts/agent-providers";
-import { isAgentProviderRef } from "@openownbot/contracts/ipc";
-import type { AppFormat, AppTextKey, AppTranslate } from "@openownbot/i18n";
+import { isKnownAgentProvider } from "@robot/contracts/agent-providers";
+import { isAgentProviderRef } from "@robot/contracts/ipc";
+import type { AppFormat, AppTextKey, AppTranslate } from "@robot/i18n";
 import {
   Button,
   buttonVariants,
@@ -35,7 +35,7 @@ import {
   Trash2,
   TriangleAlert,
   Type,
-} from "@openownbot/ui";
+} from "@robot/ui";
 import type { JSX } from "@solidjs/web";
 import { children, createEffect, createSignal, createStore, For, onSettled, Show, untrack } from "solid-js";
 import type { AgentProfile } from "../../data";

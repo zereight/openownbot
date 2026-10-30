@@ -1,18 +1,15 @@
-import {
-  agentTemplateIdFromWebAppSearch,
-  WEB_APP_AGENT_TEMPLATE_PARAM,
-} from "@openownbot/contracts/agent-template-links";
-import { type FirstTouch, readFirstTouch } from "@openownbot/contracts/first-touch";
-import type { AppVariant, CentralAuthState, CentralAuthUser } from "@openownbot/contracts/ipc";
-import { pluginSlugFromWebAppSearch, WEB_APP_PLUGIN_PARAM } from "@openownbot/contracts/plugin-links";
-import { isDynamicRecord, isString } from "@openownbot/contracts/runtime-values";
-import { formatLocale, resolveLocale } from "@openownbot/i18n";
-import { sourceText } from "@openownbot/i18n/source";
-import { classifyFailure } from "@openownbot/telemetry";
-import { Toaster, toast } from "@openownbot/ui";
-import { AccountLogin } from "@openownbot/ui/features/account/AccountLogin";
-import { AppLoadingScreen } from "@openownbot/ui/features/account/AppLoadingScreen";
-import { currentText } from "@openownbot/ui/text";
+import { agentTemplateIdFromWebAppSearch, WEB_APP_AGENT_TEMPLATE_PARAM } from "@robot/contracts/agent-template-links";
+import { type FirstTouch, readFirstTouch } from "@robot/contracts/first-touch";
+import type { AppVariant, CentralAuthState, CentralAuthUser } from "@robot/contracts/ipc";
+import { pluginSlugFromWebAppSearch, WEB_APP_PLUGIN_PARAM } from "@robot/contracts/plugin-links";
+import { isDynamicRecord, isString } from "@robot/contracts/runtime-values";
+import { formatLocale, resolveLocale } from "@robot/i18n";
+import { sourceText } from "@robot/i18n/source";
+import { classifyFailure } from "@robot/telemetry";
+import { Toaster, toast } from "@robot/ui";
+import { AccountLogin } from "@robot/ui/features/account/AccountLogin";
+import { AppLoadingScreen } from "@robot/ui/features/account/AppLoadingScreen";
+import { currentText } from "@robot/ui/text";
 import { Dynamic } from "@solidjs/web";
 import { createSignal, createStore, onSettled, Show } from "solid-js";
 import { StaticI18nProvider } from "../../i18n-context";

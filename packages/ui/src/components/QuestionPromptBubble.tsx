@@ -1,9 +1,9 @@
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
 import {
   type AgentPromptQuestion,
   type AgentPromptResolution,
   MCP_ELICITATION_DECISION_QUESTION_ID,
-} from "@openownbot/contracts/ipc";
+} from "@robot/contracts/ipc";
 import {
   Badge,
   Bubble,
@@ -25,9 +25,9 @@ import {
   Questionnaire,
   Spinner,
   X,
-} from "@openownbot/ui";
-import { useText } from "@openownbot/ui/text";
-import { prefersReducedMotion } from "@openownbot/ui/utils";
+} from "@robot/ui";
+import { useText } from "@robot/ui/text";
+import { prefersReducedMotion } from "@robot/ui/utils";
 import { createEffect, createSignal, For, onCleanup, onSettled, Show, untrack } from "solid-js";
 import { isSendShortcutKey, type SendShortcut, sendShortcutAriaKey } from "../features/conversation/send-shortcut";
 

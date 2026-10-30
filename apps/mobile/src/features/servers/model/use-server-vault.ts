@@ -1,4 +1,4 @@
-import type { VaultState } from "@openownbot/contracts/ipc";
+import type { VaultState } from "@robot/contracts/ipc";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useRef } from "react";
 import { useQueryScope } from "@/features/auth/context/mobile-session-context";

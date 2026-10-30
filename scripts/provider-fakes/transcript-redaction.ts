@@ -7,7 +7,7 @@
 // generated ids become stable pseudonyms, so a request and its answer still refer to the same
 // session.
 // Numbers, booleans and null stay: they are counts, flags and codes.
-import { redactText } from "@openownbot/logging";
+import { redactText } from "@robot/logging";
 
 export const REDACTED = "[redacted]";
 

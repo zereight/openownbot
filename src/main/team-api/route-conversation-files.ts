@@ -1,10 +1,10 @@
-import { isNumber } from "@openownbot/contracts/runtime-values";
+import { isNumber } from "@robot/contracts/runtime-values";
 import {
   CONVERSATION_FILE_SEARCH_CAPABILITY,
   CONVERSATION_FILE_SEARCH_PAGE_LIMIT,
   CONVERSATION_FILE_SEARCH_ROUTES,
-} from "@openownbot/contracts/team-protocol/conversation-file-search-v1";
-import { sourceText } from "@openownbot/i18n/source";
+} from "@robot/contracts/team-protocol/conversation-file-search-v1";
+import { sourceText } from "@robot/i18n/source";
 import type { TeamApiAgents } from "./dependencies";
 import { HttpError } from "./http-error";
 import type { RouteOutcome, TeamApiRequestContext } from "./request-context";

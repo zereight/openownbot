@@ -1,14 +1,14 @@
 import {
   ANDROID_PUSH_NOTIFICATIONS_ROUTES,
   type AndroidPushNotificationRegistration,
-} from "@openownbot/contracts/team-protocol/push-notifications-android-v1";
+} from "@robot/contracts/team-protocol/push-notifications-android-v1";
 import {
   PUSH_NOTIFICATIONS_ROUTES,
   type PushNotificationRegistration,
-} from "@openownbot/contracts/team-protocol/push-notifications-v1";
-import type { TeamProtocolV2Json } from "@openownbot/contracts/team-protocol/v2";
-import { encodeLiveActivityBytes } from "@openownbot/team-client/live-activity-seal";
-import { pushNotificationKeys } from "@openownbot/team-client/push-notification-seal";
+} from "@robot/contracts/team-protocol/push-notifications-v1";
+import type { TeamProtocolV2Json } from "@robot/contracts/team-protocol/v2";
+import { encodeLiveActivityBytes } from "@robot/team-client/live-activity-seal";
+import { pushNotificationKeys } from "@robot/team-client/push-notification-seal";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useLiveActivityHost } from "@/features/live-activity/model/live-activity-host";
 import { liveActivityHostKeys, loadLiveActivitySecret } from "@/features/live-activity/model/live-activity-keys";

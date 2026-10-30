@@ -1,6 +1,6 @@
-import { Button } from "@openownbot/ui";
-import { WhatsNewDialog } from "@openownbot/ui/features/updates/WhatsNewDialog";
-import type { WhatsNewNotes, WhatsNewRelease } from "@openownbot/ui/features/updates/whats-new";
+import { Button } from "@robot/ui";
+import { WhatsNewDialog } from "@robot/ui/features/updates/WhatsNewDialog";
+import type { WhatsNewNotes, WhatsNewRelease } from "@robot/ui/features/updates/whats-new";
 import { createSignal, Show } from "solid-js";
 import { fn } from "storybook/test";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";

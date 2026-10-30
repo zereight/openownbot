@@ -1,4 +1,4 @@
-import { Button, Field, Heading, Input, NativeSelect, Textarea } from "@openownbot/ui";
+import { Button, Field, Heading, Input, NativeSelect, Textarea } from "@robot/ui";
 import { createSignal } from "solid-js";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";
 

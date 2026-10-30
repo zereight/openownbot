@@ -1,6 +1,6 @@
 import { Host, Switch } from "@expo/ui";
-import { eventFilterDraftsValid, eventFiltersFromDrafts } from "@openownbot/contracts/event-filter-value";
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
+import { eventFilterDraftsValid, eventFiltersFromDrafts } from "@robot/contracts/event-filter-value";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
 import {
   type AgentMemorySelectionState,
   type CreateRoutineInput,
@@ -14,15 +14,15 @@ import {
   type SaveEventRoutineInput,
   type UpdateRoutineInput,
   type RoutineWebhookTrigger as WebhookTriggerFields,
-} from "@openownbot/contracts/ipc";
-import type { MobileTextKey } from "@openownbot/i18n/mobile";
+} from "@robot/contracts/ipc";
+import type { MobileTextKey } from "@robot/i18n/mobile";
 import {
   type RoutineScheduleDraft,
   routineDraftProblemCode,
   routineScheduleFromDraft,
   routineScheduleToDraft,
   switchDraftKind,
-} from "@openownbot/team-client/routine-schedule-draft";
+} from "@robot/team-client/routine-schedule-draft";
 import { type QueryKey, useQueryClient } from "@tanstack/react-query";
 import { router } from "expo-router";
 import { usePreventRemove } from "expo-router/react-navigation";

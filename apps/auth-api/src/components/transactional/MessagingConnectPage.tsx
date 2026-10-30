@@ -1,6 +1,6 @@
-import { AppLogo } from "@openownbot/brand";
-import type { WebMessagingInstallPlatform } from "@openownbot/contracts/web-messaging-install";
-import { DiscordMark, SlackMark } from "@openownbot/ui/features/settings/brand-marks";
+import { AppLogo } from "@robot/brand";
+import type { WebMessagingInstallPlatform } from "@robot/contracts/web-messaging-install";
+import { DiscordMark, SlackMark } from "@robot/ui/features/settings/brand-marks";
 import type { JSX } from "@solidjs/web";
 import { createSignal, onSettled, Show } from "solid-js";
 import { handOffToWebClient } from "../landing/web-messaging-handoff";

@@ -19,8 +19,8 @@ import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from "no
 import { createServer, type Server } from "node:http";
 import { resolve } from "node:path";
 import { gzipSync } from "node:zlib";
-import { isDynamicRecord, isNumber } from "@openownbot/contracts/runtime-values";
-import { createOpenOwnBotLogger } from "@openownbot/logging";
+import { isDynamicRecord, isNumber } from "@robot/contracts/runtime-values";
+import { createOpenOwnBotLogger } from "@robot/logging";
 import { type Browser, type BrowserContext, chromium, type Page } from "playwright-core";
 import { type Spread, spread } from "./dev-automation/bench-stats";
 import { startRenderRecording } from "./dev-automation/render-metrics";

@@ -1,4 +1,4 @@
-import type { AppInfo } from "@openownbot/contracts/ipc";
+import type { AppInfo } from "@robot/contracts/ipc";
 import { createSignal, flush, onSettled } from "solid-js";
 import { appPort } from "./app-port";
 import type { AppProps } from "./app-providers";

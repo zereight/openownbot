@@ -3,7 +3,7 @@
  * label can be computed without the component.
  */
 
-import type { AppFormat, AppTextKey, AppTranslate } from "@openownbot/i18n";
+import type { AppFormat, AppTextKey, AppTranslate } from "@robot/i18n";
 import type { SidebarAgentState, SidebarRoutinePhase, SidebarWaitReason } from "./sidebar-types";
 
 /** The state line a waiting row reads out and shows as its tooltip title. */

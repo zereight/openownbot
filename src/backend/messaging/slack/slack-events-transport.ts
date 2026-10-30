@@ -1,4 +1,4 @@
-import { type DynamicRecord, isDynamicRecord, isString } from "@openownbot/contracts/runtime-values";
+import { type DynamicRecord, isDynamicRecord, isString } from "@robot/contracts/runtime-values";
 import { Effect } from "effect";
 import type {
   ConnectionIdentity,

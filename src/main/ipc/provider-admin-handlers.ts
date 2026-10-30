@@ -1,13 +1,13 @@
-import { PROVIDERS_V5_CAPABILITY, PROVIDERS_V5_ROUTES } from "@openownbot/contracts/team-protocol/providers-v5";
-import { PROVIDERS_V8_CAPABILITY, PROVIDERS_V8_ROUTES } from "@openownbot/contracts/team-protocol/providers-v8";
+import { PROVIDERS_V5_CAPABILITY, PROVIDERS_V5_ROUTES } from "@robot/contracts/team-protocol/providers-v5";
+import { PROVIDERS_V8_CAPABILITY, PROVIDERS_V8_ROUTES } from "@robot/contracts/team-protocol/providers-v8";
 import { Cause, Effect, Exit, Fiber } from "effect";
 import type { RemoteWorkflowError } from "../remote-service-effects";
 // The providers of one server's host: code sign-in, API keys, managed CLI runtimes and custom
 // endpoints. On a joined server they belong to the host, so the request goes there, and the host
 // answers only an owner or admin. A key only travels towards the host; no result carries one.
 
-import type { ManagedProviderId } from "@openownbot/contracts/agent-providers";
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
+import type { ManagedProviderId } from "@robot/contracts/agent-providers";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
 import {
   type AgentProviderId,
   type AgentStatus,
@@ -24,44 +24,44 @@ import {
   type PasteProviderRelaySignInInput,
   type ProviderRelaySignInStatus,
   type SubmitProviderCodeLoginInput,
-} from "@openownbot/contracts/ipc";
-import { isDynamicRecord, isString } from "@openownbot/contracts/runtime-values";
-import { TEAM_API_ROUTES } from "@openownbot/contracts/team-api-routes";
-import type { TeamCurrentCapability } from "@openownbot/contracts/team-protocol/current";
+} from "@robot/contracts/ipc";
+import { isDynamicRecord, isString } from "@robot/contracts/runtime-values";
+import { TEAM_API_ROUTES } from "@robot/contracts/team-api-routes";
+import type { TeamCurrentCapability } from "@robot/contracts/team-protocol/current";
 import {
   PROVIDER_ACCOUNT_RELAY_CAPABILITY,
   PROVIDER_ACCOUNT_RELAY_PROVIDERS,
   PROVIDER_ACCOUNT_RELAY_ROUTES,
-} from "@openownbot/contracts/team-protocol/provider-account-relay-v1";
+} from "@robot/contracts/team-protocol/provider-account-relay-v1";
 import {
   PROVIDER_ACCOUNTS_CAPABILITY,
   PROVIDER_ACCOUNTS_ROUTES,
-} from "@openownbot/contracts/team-protocol/provider-accounts-v1";
+} from "@robot/contracts/team-protocol/provider-accounts-v1";
 import {
   PROVIDER_HOST_SIGN_IN_CAPABILITY,
   PROVIDER_HOST_SIGN_IN_ERROR_LIMIT,
   PROVIDER_HOST_SIGN_IN_ROUTES,
-} from "@openownbot/contracts/team-protocol/provider-host-sign-in-v1";
+} from "@robot/contracts/team-protocol/provider-host-sign-in-v1";
 import {
   PROVIDER_USAGE_RESET_CAPABILITY,
   PROVIDER_USAGE_RESET_ROUTES,
-} from "@openownbot/contracts/team-protocol/provider-usage-reset-v1";
-import { PROVIDERS_ADMIN_CAPABILITY, PROVIDERS_ADMIN_ROUTES } from "@openownbot/contracts/team-protocol/providers-v1";
+} from "@robot/contracts/team-protocol/provider-usage-reset-v1";
+import { PROVIDERS_ADMIN_CAPABILITY, PROVIDERS_ADMIN_ROUTES } from "@robot/contracts/team-protocol/providers-v1";
 import {
   PROVIDERS_RUNTIMES_V2_CAPABILITY,
   PROVIDERS_RUNTIMES_V2_ROUTES,
-} from "@openownbot/contracts/team-protocol/providers-v2";
+} from "@robot/contracts/team-protocol/providers-v2";
 import {
   PROVIDERS_SIGN_IN_V3_CAPABILITY,
   PROVIDERS_SIGN_IN_V3_ROUTES,
-} from "@openownbot/contracts/team-protocol/providers-v3";
-import { PROVIDERS_V4_CAPABILITY, PROVIDERS_V4_ROUTES } from "@openownbot/contracts/team-protocol/providers-v4";
+} from "@robot/contracts/team-protocol/providers-v3";
+import { PROVIDERS_V4_CAPABILITY, PROVIDERS_V4_ROUTES } from "@robot/contracts/team-protocol/providers-v4";
 import {
   SIGN_IN_RELAY_CAPABILITY,
   SIGN_IN_RELAY_PROVIDERS,
   SIGN_IN_RELAY_ROUTES,
-} from "@openownbot/contracts/team-protocol/sign-in-relay-v1";
-import { sourceText } from "@openownbot/i18n/source";
+} from "@robot/contracts/team-protocol/sign-in-relay-v1";
+import { sourceText } from "@robot/i18n/source";
 import { normalizePastedCode } from "../../backend/agent/cli-code-login";
 import { AgentLifecycleFailed, type AgentService } from "../../backend/agent-service";
 import { runCauseEffect } from "../../backend/effect-boundary";

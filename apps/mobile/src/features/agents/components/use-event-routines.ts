@@ -1,4 +1,4 @@
-import type { EventRoutineOwner } from "@openownbot/contracts/ipc-events";
+import type { EventRoutineOwner } from "@robot/contracts/ipc-events";
 import { type QueryKey, useQuery } from "@tanstack/react-query";
 import {
   useMobileWorkspaceActions,

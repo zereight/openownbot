@@ -1,12 +1,12 @@
-import type { BitwardenConnectorStatus } from "@openownbot/contracts/ipc";
+import type { BitwardenConnectorStatus } from "@robot/contracts/ipc";
 import {
   BITWARDEN_CONNECTOR_CAPABILITY,
   BITWARDEN_CONNECTOR_KEY_LIMIT,
   BITWARDEN_CONNECTOR_PASSWORD_LIMIT,
   BITWARDEN_CONNECTOR_ROUTES,
   BITWARDEN_CONNECTOR_URL_LIMIT,
-} from "@openownbot/contracts/team-protocol/bitwarden-connector-v1";
-import { sourceText } from "@openownbot/i18n/source";
+} from "@robot/contracts/team-protocol/bitwarden-connector-v1";
+import { sourceText } from "@robot/i18n/source";
 import { runCauseEffect } from "../../backend/effect-boundary";
 import type { TeamApiBitwardenConnector } from "./dependencies";
 import { HttpError } from "./http-error";

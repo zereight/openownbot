@@ -1,9 +1,5 @@
-import type {
-  RemoteDesktopConnectResult,
-  RemoteDesktopErrorCode,
-  RemoteDesktopSession,
-} from "@openownbot/contracts/ipc";
-import { currentText } from "@openownbot/ui/text";
+import type { RemoteDesktopConnectResult, RemoteDesktopErrorCode, RemoteDesktopSession } from "@robot/contracts/ipc";
+import { currentText } from "@robot/ui/text";
 import { createEffect, createMemo, createSignal, flush, onSettled } from "solid-js";
 import { usePlatform } from "../../platform";
 import { createSimpleContext } from "../../simple-context";

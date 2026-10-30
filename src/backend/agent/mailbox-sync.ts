@@ -1,4 +1,4 @@
-import { sortConversationMessages } from "@openownbot/contracts/conversation-order";
+import { sortConversationMessages } from "@robot/contracts/conversation-order";
 import type {
   AgentEvent,
   AgentSummary,
@@ -6,7 +6,7 @@ import type {
   ConversationSnapshot,
   QueueHold,
   QueueSnapshot,
-} from "@openownbot/contracts/ipc";
+} from "@robot/contracts/ipc";
 import { Effect, type Scope } from "effect";
 import { isMailboxMessageCopy } from "../conversation-snapshots";
 import type { MailboxStore } from "../mailbox-store";

@@ -1,4 +1,4 @@
-import { currentText } from "@openownbot/ui/text";
+import { currentText } from "@robot/ui/text";
 
 export function voiceCaptureError(error: unknown) {
   const { t } = currentText();

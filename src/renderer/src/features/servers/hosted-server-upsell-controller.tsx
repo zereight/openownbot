@@ -1,7 +1,7 @@
-import type { RoutineFields } from "@openownbot/contracts/ipc";
-import { HostedServerUpsellDialog } from "@openownbot/ui/features/servers/HostedServerUpsellDialog";
-import { HostedServerUpsellNotice } from "@openownbot/ui/features/servers/HostedServerUpsellNotice";
-import type { HostedUpsellHost } from "@openownbot/ui/features/servers/hosted-server-upsell-host";
+import type { RoutineFields } from "@robot/contracts/ipc";
+import { HostedServerUpsellDialog } from "@robot/ui/features/servers/HostedServerUpsellDialog";
+import { HostedServerUpsellNotice } from "@robot/ui/features/servers/HostedServerUpsellNotice";
+import type { HostedUpsellHost } from "@robot/ui/features/servers/hosted-server-upsell-host";
 import { createEffect, createMemo, createSignal, onSettled, Show, untrack } from "solid-js";
 import { usePlatform } from "../../platform";
 import {

@@ -13,13 +13,8 @@ import { mkdirSync, writeFileSync } from "node:fs";
 import { mkdtemp, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
-import {
-  IPC_ENDPOINTS,
-  LOCAL_SERVER_ID,
-  SERVER_MUTE_DURATIONS_MS,
-  type ServerSummary,
-} from "@openownbot/contracts/ipc";
-import { createFormat, translateFor } from "@openownbot/i18n";
+import { IPC_ENDPOINTS, LOCAL_SERVER_ID, SERVER_MUTE_DURATIONS_MS, type ServerSummary } from "@robot/contracts/ipc";
+import { createFormat, translateFor } from "@robot/i18n";
 import { plugin } from "bun";
 import { Effect } from "effect";
 import type { AgentBrowserHost } from "../src/backend/agent/turn-lifecycle";

@@ -1,4 +1,4 @@
-import type { SaveAgentProfileInput, SaveAgentProfileResult } from "@openownbot/contracts/ipc";
+import type { SaveAgentProfileInput, SaveAgentProfileResult } from "@robot/contracts/ipc";
 import { Effect, Schema } from "effect";
 
 class AgentProfileSaveFailure extends Schema.TaggedError<AgentProfileSaveFailure>()("AgentProfileSaveFailure", {

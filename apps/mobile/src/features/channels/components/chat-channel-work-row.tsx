@@ -1,4 +1,4 @@
-import type { ChannelSummary } from "@openownbot/contracts/ipc";
+import type { ChannelSummary } from "@robot/contracts/ipc";
 import { router } from "expo-router";
 import { Spinner, Typography } from "heroui-native";
 import { Pressable, View } from "react-native";

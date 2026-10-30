@@ -1,6 +1,6 @@
-import type { AgentApproval } from "@openownbot/contracts/ipc";
-import type { AgentProfile } from "@openownbot/ui/data";
-import type { SidebarApproval, SidebarAttention } from "@openownbot/ui/features/sidebar/sidebar-agent-states";
+import type { AgentApproval } from "@robot/contracts/ipc";
+import type { AgentProfile } from "@robot/ui/data";
+import type { SidebarApproval, SidebarAttention } from "@robot/ui/features/sidebar/sidebar-agent-states";
 import { attentionAgentId, type PendingAttentionPrompts } from "./agent-runtime-snapshot";
 
 export interface AgentThreadAttentionInput {

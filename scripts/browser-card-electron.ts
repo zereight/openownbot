@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import { mkdir, writeFile } from "node:fs/promises";
 import { createServer } from "node:http";
 import { dirname, join } from "node:path";
-import { redactText } from "@openownbot/logging";
+import { redactText } from "@robot/logging";
 import { Effect } from "effect";
 import { app, BrowserWindow, type WebContents, type WebFrameMain, webContents } from "electron";
 import { z } from "zod";

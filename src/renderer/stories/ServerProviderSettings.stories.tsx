@@ -8,11 +8,11 @@ import {
   type ProviderRuntimeSnapshot,
   type ServerSummary,
   type UpdateCustomProviderInput,
-} from "@openownbot/contracts/ipc";
-import { Toaster, toast } from "@openownbot/ui";
-import type { ProviderAccountActions } from "@openownbot/ui/components/provider-accounts";
-import type { ProviderDetection } from "@openownbot/ui/features/custom-providers/detected-providers";
-import type { ProviderDetectionSettingsValue } from "@openownbot/ui/features/custom-providers/ProviderDetectionSettings";
+} from "@robot/contracts/ipc";
+import { Toaster, toast } from "@robot/ui";
+import type { ProviderAccountActions } from "@robot/ui/components/provider-accounts";
+import type { ProviderDetection } from "@robot/ui/features/custom-providers/detected-providers";
+import type { ProviderDetectionSettingsValue } from "@robot/ui/features/custom-providers/ProviderDetectionSettings";
 import { createSignal, onCleanup } from "solid-js";
 import { fn } from "storybook/test";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";

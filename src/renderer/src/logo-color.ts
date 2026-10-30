@@ -4,7 +4,7 @@ import {
   type AppLogoColor,
   type AppVariant,
   DEFAULT_APP_LOGO_COLOR,
-} from "@openownbot/contracts/ipc";
+} from "@robot/contracts/ipc";
 import { createSignal, onSettled } from "solid-js";
 import { appPort } from "./app-port";
 

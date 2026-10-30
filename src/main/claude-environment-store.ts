@@ -4,10 +4,10 @@ import {
   type ProviderEnvironmentState,
   providerEnvironmentInputIssue,
   readProviderEnvironment,
-} from "@openownbot/contracts/provider-environment";
-import { isDynamicRecord } from "@openownbot/contracts/runtime-values";
-import { sourceText } from "@openownbot/i18n/source";
-import { registerSecretValue } from "@openownbot/logging";
+} from "@robot/contracts/provider-environment";
+import { isDynamicRecord } from "@robot/contracts/runtime-values";
+import { sourceText } from "@robot/i18n/source";
+import { registerSecretValue } from "@robot/logging";
 import { Effect, Result, Schema, Semaphore } from "effect";
 import { isMissingFileError } from "../backend/file-errors";
 import type { CustomProviderCipher } from "./custom-provider-store";

@@ -1,4 +1,4 @@
-import type { BrowserTab } from "@openownbot/contracts/ipc";
+import type { BrowserTab } from "@robot/contracts/ipc";
 
 /** A page that the user went to in this session, and how many times. */
 export interface BrowserHistoryEntry {

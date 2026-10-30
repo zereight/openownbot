@@ -1,5 +1,5 @@
-import type { AttachmentSummary } from "@openownbot/contracts/ipc";
-import { currentText } from "@openownbot/ui/text";
+import type { AttachmentSummary } from "@robot/contracts/ipc";
+import { currentText } from "@robot/ui/text";
 import { createSignal, onCleanup } from "solid-js";
 import { actionToast } from "../../action-toast";
 import { appPort } from "../../app-port";

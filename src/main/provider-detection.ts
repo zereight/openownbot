@@ -5,20 +5,20 @@
 // headers only when the user leaves them blank and the address keeps the saved origin, so an edited
 // address never receives the old credentials.
 
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
 import type {
   DetectedAcpAgent,
   DetectedModelServer,
   DiscoverModelsInput,
   DiscoverModelsResult,
   ProviderDetectionSettings,
-} from "@openownbot/contracts/ipc";
+} from "@robot/contracts/ipc";
 import {
   customProviderEndpointKey,
   DEFAULT_MODEL_SERVERS,
   isNewCustomProviderId,
   sameCustomProviderOrigin,
-} from "@openownbot/contracts/ipc";
+} from "@robot/contracts/ipc";
 import { Context, Effect, Exit, Fiber, Layer, ManagedRuntime, Scope } from "effect";
 import { scanAcpAgents } from "../backend/acp-agent-scan";
 import type { CustomProviderConfig } from "../backend/opencode-config";

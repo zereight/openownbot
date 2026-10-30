@@ -1,6 +1,6 @@
 // A provider record goes to the renderer and to history after this redaction. It must stay a valid
 // record, and a value that the MCP configuration knows must not reach either place.
-import { registerSecretValue } from "@openownbot/logging";
+import { registerSecretValue } from "@robot/logging";
 import { describe, expect, it } from "vitest";
 import { redactMcpRecord } from "./mcp-redaction";
 

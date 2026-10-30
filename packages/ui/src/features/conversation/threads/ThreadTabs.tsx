@@ -1,16 +1,6 @@
-import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
-import {
-  Archive,
-  ArrowRightToLine,
-  CircleX,
-  ContextMenu,
-  Input,
-  PencilLine,
-  SlidingTabs,
-  Trash2,
-  X,
-} from "@openownbot/ui";
-import { useText } from "@openownbot/ui/text";
+import { INPUT_LIMITS } from "@robot/contracts/input-limits";
+import { Archive, ArrowRightToLine, CircleX, ContextMenu, Input, PencilLine, SlidingTabs, Trash2, X } from "@robot/ui";
+import { useText } from "@robot/ui/text";
 import { createSignal, For, flush, onSettled, Show } from "solid-js";
 import { ThreadStatusMark, threadAttention } from "./ThreadStatusMark";
 import { MAIN_THREAD_ID, type ThreadHeaderProps, type ThreadItem, threadBusy } from "./thread-types";

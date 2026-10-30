@@ -1,4 +1,4 @@
-import type { AppTextKey } from "@openownbot/i18n";
+import type { AppTextKey } from "@robot/i18n";
 
 /** The restart blockers that `checkRestartReadiness` reports, as the user reads them. */
 const RESTART_REASON_LABELS: Record<string, AppTextKey> = {

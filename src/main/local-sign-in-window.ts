@@ -2,8 +2,8 @@ import { randomUUID } from "node:crypto";
 import {
   type BrowserSignInCookie,
   browserSignInCookieFitsHost,
-} from "@openownbot/contracts/team-protocol/browser-sign-in-v1";
-import { sourceText } from "@openownbot/i18n/source";
+} from "@robot/contracts/team-protocol/browser-sign-in-v1";
+import { sourceText } from "@robot/i18n/source";
 import { Deferred, Effect, Exit, Schema } from "effect";
 import {
   BrowserWindow,

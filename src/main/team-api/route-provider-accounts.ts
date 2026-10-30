@@ -1,9 +1,9 @@
-import { isString } from "@openownbot/contracts/runtime-values";
+import { isString } from "@robot/contracts/runtime-values";
 import {
   PROVIDER_ACCOUNTS_CAPABILITY,
   PROVIDER_ACCOUNTS_ROUTES,
-} from "@openownbot/contracts/team-protocol/provider-accounts-v1";
-import { sourceText } from "@openownbot/i18n/source";
+} from "@robot/contracts/team-protocol/provider-accounts-v1";
+import { sourceText } from "@robot/i18n/source";
 import { runCauseEffect } from "../../backend/effect-boundary";
 import { parseProviderId } from "../ipc/app-inputs";
 import type { TeamApiProviderAccounts } from "./dependencies";

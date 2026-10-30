@@ -1,4 +1,4 @@
-import { Button } from "@openownbot/ui";
+import { Button } from "@robot/ui";
 import type { JSX } from "@solidjs/web";
 import { createSignal, onSettled, Show } from "solid-js";
 

@@ -1,6 +1,6 @@
 import { readFile } from "node:fs/promises";
-import type { HostReleaseStatus, UpdateStatus } from "@openownbot/contracts/ipc";
-import { LOCAL_ONLY } from "@openownbot/contracts/local-only";
+import type { HostReleaseStatus, UpdateStatus } from "@robot/contracts/ipc";
+import { LOCAL_ONLY } from "@robot/contracts/local-only";
 import { Deferred, Effect, Exit, Schema } from "effect";
 import { parse } from "yaml";
 import { isValidSemver } from "./update-service";

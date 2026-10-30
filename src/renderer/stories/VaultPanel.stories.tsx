@@ -1,5 +1,5 @@
-import type { VaultItemSummary } from "@openownbot/contracts/ipc";
-import { VaultPanel } from "@openownbot/ui/features/vault/VaultPanel";
+import type { VaultItemSummary } from "@robot/contracts/ipc";
+import { VaultPanel } from "@robot/ui/features/vault/VaultPanel";
 import { fn } from "storybook/test";
 import type { Meta, StoryObj } from "storybook-solidjs-vite";
 
