@@ -360,6 +360,10 @@ const Turns = createSimpleContext({
         .catch((error) => {
           // After the turn ended, the message runs as the next turn. The refusal is old news (#3206).
           if (activeTurns()[agent.id] !== turnId) return;
+          // A message that left the queue is in the turn already: an agent that steers each message
+          // sent while it works can take it first.
+          const delivery = queues()[agent.id]?.deliveries.find((item) => item.id === deliveryId);
+          if (delivery && delivery.status !== "queued") return;
           appendUiError(agent.id, error, currentText().t("app.errorStatus.steer"), serverId);
         });
     }
