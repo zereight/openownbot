@@ -28,7 +28,7 @@ export const AGENT_MEMORY_SELECTION_SCHEMA_SQL = `
   END;
 `;
 
-/** Shared by migration and text-only imports. Call within the caller's transaction. */
+/** Sets the inclusion of each memory of the agent. Call within the caller's transaction. */
 export function initializeAgentMemorySelection(db: DatabaseSync, agentId: string): void {
   const rows = databaseRows(
     db
@@ -57,13 +57,5 @@ export function initializeAgentMemorySelection(db: DatabaseSync, agentId: string
     db.prepare(`INSERT INTO agent_memory_selections(memory_id, inclusion) VALUES (?, ?)
       ON CONFLICT(memory_id) DO UPDATE SET inclusion = excluded.inclusion, revision = revision + 1
       WHERE user_controlled = 0`).run(memory.id, essential ? "essential" : "searchable");
-  }
-}
-
-export function migrateAgentMemorySelection(db: DatabaseSync): void {
-  db.exec(AGENT_MEMORY_SELECTION_SCHEMA_SQL);
-  db.exec("INSERT INTO agent_memory_search(agent_memory_search) VALUES ('rebuild')");
-  for (const row of databaseRows(db.prepare("SELECT DISTINCT agent_id FROM projection_agent_memories").all())) {
-    initializeAgentMemorySelection(db, requiredStringColumn(row, "agent_id"));
   }
 }

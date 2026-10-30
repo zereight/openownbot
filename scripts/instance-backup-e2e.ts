@@ -15,7 +15,7 @@ import { createHash, randomBytes } from "node:crypto";
 import { mkdir, mkdtemp, rm, writeFile } from "node:fs/promises";
 import { join, resolve } from "node:path";
 import { DatabaseSync } from "node:sqlite";
-import { migrateOpenOwnBotDatabase } from "../src/backend/openownbot-database-schema";
+import { prepareDatabaseSchema } from "../src/backend/openownbot-database-schema";
 
 const reportRoot = resolve(".openownbot-build/instance-backup-e2e");
 const dind = `openownbot-backup-e2e-${randomBytes(4).toString("hex")}`;
@@ -72,17 +72,17 @@ function summary(result: Run): string {
 /** The data of one instance: the database, shared tables, keyring, a workspace and an attachment. */
 async function writeFixture(root: string): Promise<void> {
   const config = join(root, ".config/OpenOwnBot");
-  const shared = join(root, "OpenBot/Shared/Data");
+  const shared = join(root, "ROBot/Shared/Data");
   await mkdir(config, { recursive: true });
   await mkdir(shared, { recursive: true });
   await mkdir(join(root, ".local/share/keyrings"), { recursive: true });
   await mkdir(join(root, ".config/openownbot-container"), { recursive: true });
-  await mkdir(join(root, "OpenBot/Agents/E2E"), { recursive: true });
+  await mkdir(join(root, "ROBot/Agents/E2E"), { recursive: true });
 
   const now = new Date().toISOString();
   const db = new DatabaseSync(join(config, "openbot.db"));
   try {
-    migrateOpenOwnBotDatabase(db);
+    prepareDatabaseSchema(db);
     db.prepare(
       "INSERT INTO projection_agents (agent_id, thread_id, model, updated_at, sort_order, agent_json, last_event_sequence) VALUES (?, ?, 'test', ?, 0, ?, 1)",
     ).run(agentId, "thread-e2e-1", now, JSON.stringify({ id: agentId, name: "E2E" }));
@@ -118,8 +118,8 @@ async function writeFixture(root: string): Promise<void> {
   await writeFile(join(root, ".config/openownbot-container/keyring-password"), randomBytes(32).toString("hex"), {
     mode: 0o600,
   });
-  await writeFile(join(root, "OpenBot/Agents/E2E/notes.md"), "Saved before the backup.\n");
-  await writeFile(join(root, "OpenBot/Agents/E2E/attachment.bin"), randomBytes(256 * 1024));
+  await writeFile(join(root, "ROBot/Agents/E2E/notes.md"), "Saved before the backup.\n");
+  await writeFile(join(root, "ROBot/Agents/E2E/attachment.bin"), randomBytes(256 * 1024));
 }
 
 // The stand-in for the OpenOwnBot image: it has the release label, runs as UID 1000, and writes a file
@@ -180,7 +180,7 @@ async function main(): Promise<void> {
       cp -a /fixture/. ${data}/ && chown -R 1000:1000 ${data} && chmod 0700 ${data}
       printf 'OPENOWNBOT_NAME=main\\nOPENOWNBOT_CPUS=1\\nOPENOWNBOT_MEM=1g\\nOPENOWNBOT_DISK=256M\\nOPENOWNBOT_BACKUP_DIR=/backups\\nOPENOWNBOT_BACKUP_KEEP=2\\nOPENOWNBOT_BACKUP_MAX_AGE=24\\n' >/opt/openownbot-docker/instances/main.env
       docker run --detach --name openownbot-main --stop-timeout 20 -v ${data}:/data ghcr.io/zereight/openownbot:latest >/dev/null`);
-    const dataHash = must(`sha256sum ${data}/.config/OpenOwnBot/openbot.db | cut -d ' ' -f 1`);
+    const dataHash = must(`sha256sum ${data}/.config/ROBot/openbot.db | cut -d ' ' -f 1`);
 
     let result = instance("backups", "main");
     check(
@@ -243,12 +243,12 @@ async function main(): Promise<void> {
     const invalidSources = [
       {
         name: "main database",
-        path: ".config/OpenOwnBot/openbot.db",
+        path: ".config/ROBot/openbot.db",
         error: /OpenOwnBot cannot open openownbot\.db|openownbot\.db is damaged/,
       },
       {
         name: "shared database",
-        path: "OpenBot/Shared/Data/agent-data.db",
+        path: "ROBot/Shared/Data/agent-data.db",
         error: /shared tables cannot open|shared tables are damaged/,
       },
     ];
@@ -272,7 +272,7 @@ async function main(): Promise<void> {
         summary(invalidResult),
       );
       const targetHashes = must(
-        `cd ${data} && sha256sum .config/OpenOwnBot/openbot.db OpenBot/Shared/Data/agent-data.db OpenBot/Agents/E2E/notes.md OpenBot/Agents/E2E/attachment.bin .local/share/keyrings/login.keyring .config/openownbot-container/keyring-password .e2e-starts .e2e-clean-stop`,
+        `cd ${data} && sha256sum .config/ROBot/openbot.db ROBot/Shared/Data/agent-data.db ROBot/Agents/E2E/notes.md ROBot/Agents/E2E/attachment.bin .local/share/keyrings/login.keyring .config/openownbot-container/keyring-password .e2e-starts .e2e-clean-stop`,
       );
       const targetRunningBefore = running();
       const refused = instance("restore", "main", invalidBackup, "--replace");
@@ -283,7 +283,7 @@ async function main(): Promise<void> {
       );
       const targetRunningAfter = running();
       const afterHashes = must(
-        `cd ${data} && sha256sum .config/OpenOwnBot/openbot.db OpenBot/Shared/Data/agent-data.db OpenBot/Agents/E2E/notes.md OpenBot/Agents/E2E/attachment.bin .local/share/keyrings/login.keyring .config/openownbot-container/keyring-password .e2e-starts .e2e-clean-stop`,
+        `cd ${data} && sha256sum .config/ROBot/openbot.db ROBot/Shared/Data/agent-data.db ROBot/Agents/E2E/notes.md ROBot/Agents/E2E/attachment.bin .local/share/keyrings/login.keyring .config/openownbot-container/keyring-password .e2e-starts .e2e-clean-stop`,
       );
       check(
         `a refused ${source.name} restore keeps target bytes and running state`,
@@ -461,7 +461,7 @@ async function main(): Promise<void> {
     check("down waits for the lock of the instance", waited === "124" && running(), `timeout exit ${waited}`);
 
     // Restore: the data changes after the backup, and the restore gives back the backup.
-    must(`echo changed > ${data}/OpenBot/Agents/E2E/after-backup.md && rm ${data}/OpenBot/Agents/E2E/notes.md`);
+    must(`echo changed > ${data}/ROBot/Agents/E2E/after-backup.md && rm ${data}/ROBot/Agents/E2E/notes.md`);
     // An agent can leave links with the names of the restore folders. Root must not follow them.
     must(
       `mkdir -p /trap && ln -s /trap ${data}/.openownbot-replaced && ln -s /trap ${data}/.openownbot-restore && ln -s /trap ${data}/.openownbot-replaced.x && chown -h 1000:1000 ${data}/.openownbot-*`,
@@ -495,7 +495,7 @@ async function main(): Promise<void> {
     check("restore with --replace", result.status === 0, summary(result));
     check("instance stays stopped after a restore", !running(), `running=${running()}`);
     const restored = must(
-      `cd ${data} && test -f OpenBot/Agents/E2E/notes.md && test ! -e OpenBot/Agents/E2E/after-backup.md && test -z "$(find . -maxdepth 1 -name '.openownbot-*')" && sha256sum .config/OpenOwnBot/openbot.db | cut -d ' ' -f 1`,
+      `cd ${data} && test -f ROBot/Agents/E2E/notes.md && test ! -e ROBot/Agents/E2E/after-backup.md && test -z "$(find . -maxdepth 1 -name '.openownbot-*')" && sha256sum .config/ROBot/openbot.db | cut -d ' ' -f 1`,
     );
     check("restored data is the backup", restored === dataHash, `openbot.db ${restored.slice(0, 12)}`);
     check(

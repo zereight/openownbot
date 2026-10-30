@@ -56,4 +56,8 @@ export const ROUTINE_FLOW_SCHEMA_SQL = `
   CREATE UNIQUE INDEX IF NOT EXISTS routine_flow_steps_delivery
     ON routine_flow_steps(delivery_id) WHERE delivery_id IS NOT NULL;
   CREATE INDEX IF NOT EXISTS routine_flow_steps_agent ON routine_flow_steps(agent_id);
+  CREATE INDEX IF NOT EXISTS routine_runs_status_updated ON projection_routine_runs(status, updated_at);
+  CREATE INDEX IF NOT EXISTS routine_flow_steps_running ON routine_flow_steps(created_at, step_id)
+    WHERE status = 'running';
+  CREATE INDEX IF NOT EXISTS routine_flow_steps_updated ON routine_flow_steps(updated_at);
 `;
