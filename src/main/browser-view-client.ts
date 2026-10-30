@@ -17,9 +17,12 @@ import {
   TEAM_BROWSER_VIEW_FRAME_POINT_CAPABILITY,
 } from "@openownbot/contracts/team-protocol/browser-view-v1";
 import { sourceText } from "@openownbot/i18n/source";
+import { createOpenOwnBotLogger } from "@openownbot/logging";
 import { Deferred, Effect, Fiber } from "effect";
 import type { RemoteServerManager } from "./remote-server-manager";
 import { RemoteWorkflowError, remoteDecode } from "./remote-service-effects";
+
+const logger = createOpenOwnBotLogger("browser-view");
 
 export interface BrowserViewClientOptions {
   servers: Pick<
@@ -118,7 +121,15 @@ export class BrowserViewClient {
    */
   sendInput(input: BrowserViewInput): void {
     const view = this.#view;
-    if (!view || view.socket.readyState !== WebSocket.OPEN) return;
+    if (!view || view.socket.readyState !== WebSocket.OPEN) {
+      // Pointer moves are too frequent to log; any other dropped input explains a dead live view.
+      if (input.type !== "pointer" || input.action !== "move")
+        logger.warn("Live view input was dropped.", {
+          inputType: input.type,
+          reason: view ? "socket-not-open" : "no-view",
+        });
+      return;
+    }
     // An older host drops an unknown sequence and would expand the point with a newer frame.
     const namesFrames = this.#options.servers.supportsCapability(
       view.serverId,
