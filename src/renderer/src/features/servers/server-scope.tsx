@@ -75,7 +75,7 @@ const ServerScope = createSimpleContext({
       loadControlState: loadBrowserControlState,
       beginBrowserLoad,
     } = useBrowserTabs();
-    const { setSidebarLayout, loadLayout: loadSidebarLayout, reconcileActiveServerPins } = useSidebar();
+    const { setSidebarLayout, loadLayout: loadSidebarLayout } = useSidebar();
     const { globalSearchOpen, setGlobalSearchVisibility, selectAgent } = useNavigation();
     const { conversations, clearRecentReplies, requestConversationRead, applyConversationReads, isAgentChatOpen } =
       useConversation();
@@ -170,7 +170,6 @@ const ServerScope = createSimpleContext({
       setModelOptions(models);
       if (reads) applyConversationReads(reads);
       applyStoredAgents(agents);
-      reconcileActiveServerPins(agents.map((agent) => agent.id));
       setConnection((draft) => {
         draft.hasContent = true;
         draft.loading = false;

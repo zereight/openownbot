@@ -95,7 +95,7 @@ export interface MailboxProjectionOptions {
  * `projection_attachments`, `projection_reactions` and `file_deletion_outbox`. Finished deliveries
  * stay as chat history, so a write that touched every row grew with that history. A normal write
  * therefore receives the keys that changed and writes or deletes only those rows. The full replace
- * stays for the legacy import and for deletions that drop many rows: it deletes the rows that the
+ * stays for deletions that drop many rows: it deletes the rows that the
  * state no longer has and writes only the rows that are new or changed. Each write compacts the
  * `mailbox` aggregate down to its newest event, and that event records only counts, not the state.
  * The class never imports the facade.

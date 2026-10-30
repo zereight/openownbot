@@ -61,8 +61,7 @@ export class AgentRoster {
    *
    * Claimed by `thread_id` rather than matched on `agent_id`, because both halves of the split have to
    * be caught: an agent rebuilt under its own id points at no thread while its old row still names it,
-   * and a thread whose `agent_id` keeps a pre-rename spelling names an agent that no longer answers to
-   * it. Ordered so that a repair over the result is deterministic. A side thread is claimed by its row,
+   * and a thread whose `agent_id` names another agent. Ordered so that a repair over the result is deterministic. A side thread is claimed by its row,
    * so a repair never makes it an agent's own chat.
    */
   unclaimedThreads(): { threadId: string; agentId: string }[] {

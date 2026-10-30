@@ -12,7 +12,7 @@ import {
   type SidebarSection,
 } from "@openownbot/contracts/ipc";
 import { isDynamicRecord, isNumber, isString } from "@openownbot/contracts/runtime-values";
-import { isUuidV4, legacyAgentId } from "@openownbot/contracts/validation";
+import { isUuidV4 } from "@openownbot/contracts/validation";
 import { sourceText } from "@openownbot/i18n/source";
 import { Effect, Exit, Result, Semaphore } from "effect";
 import { writeFileAtomically } from "./atomic-json-file";
@@ -21,10 +21,6 @@ import { StoredStateFailure, storedIO, storedSync } from "./stored-state-effects
 
 interface StoredSidebarLayout extends SidebarLayoutSnapshot {
   version: 2;
-}
-
-interface LegacyStoredSidebarLayout extends Omit<SidebarLayoutSnapshot, "agentOrder"> {
-  version: 1;
 }
 
 interface SidebarLayoutStoreEvents {
@@ -58,7 +54,6 @@ export class SidebarLayoutStore extends EventEmitter<SidebarLayoutStoreEvents> {
           return yield* storedSync(() => {
             const parsed = JSON.parse(contents);
             if (isStoredSidebarLayout(parsed)) return snapshotFromStored(parsed);
-            if (isLegacyStoredSidebarLayout(parsed)) return { ...snapshotFromLegacyStored(parsed), agentOrder: [] };
             throw new Error("Invalid sidebar layout state.");
           });
         }),
@@ -174,47 +169,18 @@ export class SidebarLayoutStore extends EventEmitter<SidebarLayoutStoreEvents> {
     );
   }
 
-  /**
-   * Drops the agents that are gone -- but renames the ones that only look gone first. This layout is a
-   * JSON file outside the database, so migration v13 renamed every agent in SQLite and left the sidebar
-   * still filing them under `bot-<uuid>`. Filtering straight against the new roster would read that as
-   * "these agents no longer exist" and commit the deletion, so a user with a dozen agents in named groups
-   * comes back to all of them unassigned, in an order they never chose, with nothing to undo it.
-   */
+  /** Drops the agents that are gone. */
   reconcileAgents(agentIds: ReadonlySet<string>): Effect.Effect<SidebarLayoutSnapshot, StoredStateFailure> {
     return this.#enqueue(
       Effect.gen({ self: this }, function* () {
-        const renamedFrom = new Map<string, string>();
-        for (const agentId of agentIds) {
-          const legacyId = legacyAgentId(agentId);
-          if (legacyId !== agentId) renamedFrom.set(legacyId, agentId);
-        }
-        // An id still in the roster answers for itself, which is why that test comes first: v13 declines to
-        // rename onto an id that is taken, so an agent spelled `bot-<uuid>` can be sitting beside the
-        // `agent-<uuid>` it would otherwise have become, and this entry belongs to the one the user filed.
-        const currentId = (agentId: string) =>
-          agentIds.has(agentId) ? agentId : (renamedFrom.get(agentId) ?? agentId);
-        // Two entries can land on one id -- the layout can hold a `bot-<uuid>` the user filed before the
-        // upgrade beside the `agent-<uuid>` it became -- and the layout is validated on the way back in.
-        // An unmerged pair leaves the same agent twice in `agentOrder`, the file is rejected on the next
-        // launch, and the user's sections and ordering are reset. The entry already spelled the way the
-        // roster spells it is the one the user filed most recently, so it wins.
-        const agentAssignments: Record<string, string> = {};
-        for (const [agentId, sectionId] of Object.entries(this.#layout.agentAssignments)) {
-          const id = currentId(agentId);
-          if (!agentIds.has(id) || (id !== agentId && this.#layout.agentAssignments[id] !== undefined)) continue;
-          agentAssignments[id] = sectionId;
-        }
-        const agentOrder: string[] = [];
-        for (const entry of this.#layout.agentOrder) {
-          const agentId = currentId(entry);
-          if (agentIds.has(agentId) && !agentOrder.includes(agentId)) agentOrder.push(agentId);
-        }
+        const agentAssignments = Object.fromEntries(
+          Object.entries(this.#layout.agentAssignments).filter(([agentId]) => agentIds.has(agentId)),
+        );
+        const agentOrder = this.#layout.agentOrder.filter((agentId) => agentIds.has(agentId));
+        // A filter only removes entries, so equal lengths mean nothing changed.
         if (
           Object.keys(agentAssignments).length === Object.keys(this.#layout.agentAssignments).length &&
-          Object.keys(agentAssignments).every((agentId) => agentId in this.#layout.agentAssignments) &&
-          agentOrder.length === this.#layout.agentOrder.length &&
-          agentOrder.every((agentId, index) => agentId === this.#layout.agentOrder[index])
+          agentOrder.length === this.#layout.agentOrder.length
         ) {
           return this.getSnapshot();
         }
@@ -389,10 +355,6 @@ function isStoredSidebarLayout(value: unknown): value is StoredSidebarLayout {
   );
 }
 
-function isLegacyStoredSidebarLayout(value: unknown): value is LegacyStoredSidebarLayout {
-  return isDynamicRecord(value) && value.version === 1 && isStoredSidebarLayoutBody(value);
-}
-
 function isStoredSidebarLayoutBody(value: unknown): boolean {
   if (!isDynamicRecord(value)) return false;
   if (!isNumber(value.revision)) return false;
@@ -428,14 +390,5 @@ function snapshotFromStored(stored: StoredSidebarLayout): SidebarLayoutSnapshot 
     order: [...stored.order],
     agentAssignments: { ...stored.agentAssignments },
     agentOrder: [...stored.agentOrder],
-  };
-}
-
-function snapshotFromLegacyStored(stored: LegacyStoredSidebarLayout): Omit<SidebarLayoutSnapshot, "agentOrder"> {
-  return {
-    revision: stored.revision,
-    sections: stored.sections.map((section) => ({ ...section })),
-    order: [...stored.order],
-    agentAssignments: { ...stored.agentAssignments },
   };
 }

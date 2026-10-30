@@ -6,8 +6,8 @@ import type { ConversationQueries } from "./conversation-queries";
 import { activityTurnId } from "./conversation-writer";
 import { type DatabaseCore, deleteThreadAttachments } from "./database-core";
 import { databaseRows, decodeThreadAgentRow, objectValue, requiredEventRow } from "./database-rows";
-import { currentConversationMessage } from "./legacy-conversation-message";
 import type { ProviderSession } from "./provider-sessions";
+import { storedConversationMessage } from "./stored-conversation-message";
 import { refreshThreadOrder } from "./thread-message-order";
 import type { StoredThreadSummary } from "./thread-summaries";
 
@@ -85,12 +85,12 @@ export class ThreadReplay {
         if (summary) summaries.push({ ...summary, sequence: event.sequence });
       }
       const snapshot = conversationSnapshotValue(objectValue(record?.snapshot));
-      const appendedMessage = currentConversationMessage(record?.appendedMessage);
-      const streamedMessage = currentConversationMessage(record?.streamedMessage);
-      const importedMessage = currentConversationMessage(record?.importedMessage);
+      const appendedMessage = storedConversationMessage(record?.appendedMessage);
+      const streamedMessage = storedConversationMessage(record?.streamedMessage);
+      const importedMessage = storedConversationMessage(record?.importedMessage);
       const changedMessages = Array.isArray(record?.changedMessages)
         ? record.changedMessages
-            .map(currentConversationMessage)
+            .map(storedConversationMessage)
             .filter((message): message is ConversationMessage => message !== null)
         : [];
       const removedMessageIds = Array.isArray(record?.removedMessageIds)
@@ -288,8 +288,8 @@ export class ThreadReplay {
         const eventRecord = objectValue(eventPayload);
         const eventSnapshot = conversationSnapshotValue(objectValue(eventRecord?.snapshot));
         const eventMessage =
-          currentConversationMessage(eventRecord?.appendedMessage) ??
-          currentConversationMessage(eventRecord?.importedMessage);
+          storedConversationMessage(eventRecord?.appendedMessage) ??
+          storedConversationMessage(eventRecord?.importedMessage);
         const activityPayload =
           eventSnapshot ||
           eventMessage ||
@@ -301,7 +301,7 @@ export class ThreadReplay {
         activityInsert.run(
           randomUUID(),
           threadId,
-          (eventMessage ?? currentConversationMessage(eventRecord?.streamedMessage))?.turnId ??
+          (eventMessage ?? storedConversationMessage(eventRecord?.streamedMessage))?.turnId ??
             activityTurnId(
               event.event_type,
               eventRecord?.detail,
@@ -382,10 +382,7 @@ function summaryValue(value: DynamicRecord | null): StoredThreadSummary | null {
 }
 
 function conversationSnapshotValue(value: DynamicRecord | null): ConversationSnapshot | null {
-  // Snapshots written before the bot-to-agent rename spell the id `botId`, and a database restored from
-  // the user's own file copy still carries them however far the migrations have run. Rejecting one here
-  // makes `rebuildThreadProjection` throw and the conversation unrecoverable, so both spellings are read.
-  const agentId = value?.agentId ?? value?.botId;
+  const agentId = value?.agentId;
   if (
     !value ||
     !isString(agentId) ||
@@ -396,7 +393,7 @@ function conversationSnapshotValue(value: DynamicRecord | null): ConversationSna
   ) {
     return null;
   }
-  const messages = value.messages.map(currentConversationMessage).filter((message) => message !== null);
+  const messages = value.messages.map(storedConversationMessage).filter((message) => message !== null);
   if (messages.length !== value.messages.length) return null;
   return {
     agentId,

@@ -301,11 +301,11 @@ export class MailboxStore {
       yield* this.#database.initialize();
       const stored = this.#database.readMailboxState();
       if (stored !== null && stored !== undefined) {
-        const persisted = toCurrentMailboxState(stored);
+        const persisted = readableMailboxState(stored);
         if (!persisted || !isStoredState(persisted)) throw new Error("Stored mailbox projection is invalid.");
         this.#state = normalizeStoredState(persisted);
-        // Each read accepts rows in an older form, and a write stores only the rows that changed. So
-        // rows that the read had to bring to the current form are all written once, here.
+        // A write stores only the rows that changed. So rows that the read had to repair are all
+        // written once, here.
         if (JSON.stringify(this.#state) !== JSON.stringify(stored)) {
           this.#persist("mailbox.normalized", undefined, [], true);
         }
@@ -1870,7 +1870,7 @@ export class MailboxStore {
   }
 
   restorePersistedState(): void {
-    const persisted = toCurrentMailboxState(this.#database.readMailboxState());
+    const persisted = readableMailboxState(this.#database.readMailboxState());
     if (!persisted || !isStoredState(persisted)) throw new Error("Stored mailbox projection is invalid.");
     this.#state = normalizeStoredState(persisted);
     // Inside a transaction this read sees rows that a later ROLLBACK can still undo, so the keys stay.
@@ -2945,41 +2945,18 @@ function compareQueueOrder(left: StoredDelivery, right: StoredDelivery): number 
 }
 
 /**
- * Mailbox state written before the bot-to-agent rename spells the product agent `bot`. The validators
- * below run *before* normalization and throw "Stored mailbox projection is invalid.", so an old
- * spelling does not degrade -- it blocks startup outright. Migration v13 rewrites the database, but a
- * user who restores `openbot.db` from their own copy of the file never runs it, and `mailbox.json`
- * predates the database entirely. So every read tolerates both spellings and every write emits only
- * the new one. This renames keys and the `sender.kind` / `actor.kind` discriminant, never message text.
+ * The stored mailbox with the fields this build cannot read dropped, so one bad field does not stop
+ * the whole mailbox from loading.
  */
-function toCurrentMailboxState(value: unknown): DynamicRecord | null {
+function readableMailboxState(value: unknown): DynamicRecord | null {
   if (!isRecord(value)) return null;
-  const state = withCurrentAgentKeys(value, { pausedBotIds: "pausedAgentIds" });
-  const unreadableEfforts = Array.isArray(state.messages) ? state.messages.filter(hasUnreadableEffort).length : 0;
+  const unreadableEfforts = Array.isArray(value.messages) ? value.messages.filter(hasUnreadableEffort).length : 0;
   // One line for the whole read, not one for each message.
   if (unreadableEfforts > 0)
     logger.warn("Stored messages ask for an effort that this build cannot read and were reset.", {
       count: unreadableEfforts,
     });
-  return {
-    ...state,
-    ...(Array.isArray(state.messages) ? { messages: state.messages.map(toCurrentMailboxMessage) } : {}),
-    ...(Array.isArray(state.deliveries) ? { deliveries: state.deliveries.map(toCurrentDelivery) } : {}),
-    ...(Array.isArray(state.generatedAttachments)
-      ? { generatedAttachments: state.generatedAttachments.map(toCurrentGeneratedAttachment) }
-      : {}),
-    ...(Array.isArray(state.reactions) ? { reactions: state.reactions.map(toCurrentMailboxReaction) } : {}),
-  };
-}
-
-const ACTOR_AGENT_KEYS: Readonly<Record<string, string>> = { botId: "agentId" };
-
-function toCurrentDelivery(value: unknown): DynamicRecord | null {
-  return isRecord(value) ? withCurrentAgentKeys(value, { recipientBotId: "recipientAgentId" }) : null;
-}
-
-function toCurrentGeneratedAttachment(value: unknown): DynamicRecord | null {
-  return isRecord(value) ? withCurrentAgentKeys(value, { ownerBotId: "ownerAgentId" }) : null;
+  return Array.isArray(value.messages) ? { ...value, messages: value.messages.map(readableMailboxMessage) } : value;
 }
 
 function setSenderMember(message: StoredMessage, sender: ConversationMessageSender | undefined): void {
@@ -2995,53 +2972,22 @@ function hasUnreadableEffort(value: unknown): boolean {
   return isRecord(value) && value.reasoningEffort !== undefined && !isReasoningEffort(value.reasoningEffort);
 }
 
-function toCurrentMailboxMessage(value: unknown): DynamicRecord | null {
+function readableMailboxMessage(value: unknown): DynamicRecord | null {
   if (!isRecord(value)) return null;
   const { senderMember, reasoningEffort, ...message } = value;
-  // A sender that does not decode only loses the name on its message; it must not stop the whole
-  // mailbox from loading. The same holds for an effort that this build cannot read: the turn then
-  // runs with the agent's own effort, as it did before the step asked for one.
+  // A sender that does not decode only loses the name on its message. An effort that this build cannot
+  // read is dropped: the turn then runs with the agent's own effort.
   return {
     ...message,
-    sender: toCurrentMailboxActor(value.sender),
     ...(isConversationMessageSender(senderMember) ? { senderMember } : {}),
     ...(isReasoningEffort(reasoningEffort) ? { reasoningEffort } : {}),
-    // Released builds kept an agent's `replyToMessageId: ""`, which refers to no message, and every
-    // conversation that showed the message then failed to read.
-    ...(message.replyToMessageId === "" ? { replyToMessageId: null } : {}),
   };
-}
-
-function toCurrentMailboxReaction(value: unknown): DynamicRecord | null {
-  if (!isRecord(value)) return null;
-  const reaction = withCurrentAgentKeys(value, ACTOR_AGENT_KEYS);
-  return reaction.actor === undefined ? reaction : { ...reaction, actor: toCurrentMailboxActor(reaction.actor) };
-}
-
-function toCurrentMailboxActor(value: unknown): DynamicRecord | null {
-  if (!isRecord(value)) return null;
-  const actor = withCurrentAgentKeys(value, ACTOR_AGENT_KEYS);
-  return actor.kind === "bot" ? { ...actor, kind: "agent" } : actor;
-}
-
-/**
- * Rewrites the legacy keys onto their current names, dropping a legacy key whose current name is
- * already present so a half-migrated record cannot resurrect a stale value.
- */
-function withCurrentAgentKeys(value: DynamicRecord, renames: Readonly<Record<string, string>>): DynamicRecord {
-  return Object.fromEntries(
-    Object.entries(value).flatMap(([key, entry]) => {
-      const current = renames[key];
-      if (current === undefined) return [[key, entry]];
-      return value[current] === undefined ? [[current, entry]] : [];
-    }),
-  );
 }
 
 function isStoredState(value: unknown): value is StoredState {
   return (
     isRecord(value) &&
-    (value.version === 1 || value.version === 2 || value.version === 3) &&
+    value.version === 3 &&
     Array.isArray(value.messages) &&
     value.messages.every(isStoredMessage) &&
     Array.isArray(value.deliveries) &&

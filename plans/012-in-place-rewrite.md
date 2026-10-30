@@ -57,6 +57,10 @@ Each step is one PR, merged when CI passes. Each phase makes the code smaller be
    - Legacy imports: `bots.json`, `legacy-import`, the old team file import, `reconcileHost`.
      Done 2026-10-31, with the move of `~/OpenBot/Bots`, the pre-rename `bot-` ids, `mailbox.json`, the
      owner-less host adoption and the stored password fields.
+   - Old format readers: done 2026-10-31. Removed the `bot` key renames of messages and the mailbox,
+     the `OpenBot/Bots` path prefixes and workspace rebase, the `bot-` id remapping of sidebar pins,
+     sidebar layout and browser tabs, version 1 sidebar and browser files, and the model-prefix guess
+     of an agent's provider. Left: the `legacy_task_id` column, which is a schema change.
    - Team API: moved to phase 4 on 2026-10-31. The protocol versions are not adapters for peers that
      are gone: they are the codec layers in use. Mobile requests protocol 3 (`mobile-workspace-context.tsx`),
      the desktop client uses the highest common version (8), and the WebRTC channels and frame sizes

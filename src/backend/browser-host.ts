@@ -102,7 +102,6 @@ import {
   isPersistableBrowserUrl,
   persistentBrowserUrl,
   readBrowserState,
-  reownStoredBrowserTab,
   resolveEnvironment,
   type StoredBrowserStateV2,
   storedSessionFields,
@@ -434,8 +433,7 @@ export class BrowserHost {
     if (state.tabs.length === 0) return;
 
     const tabs: BrowserHostTab[] = [];
-    for (const saved of state.tabs) {
-      const stored = reownStoredBrowserTab(saved, agents);
+    for (const stored of state.tabs) {
       const ownerAgentId =
         stored.ownerAgentId ??
         agents.find((agent) => agent.threadId === stored.ownerThreadId && stored.ownerThreadId !== null)?.id ??

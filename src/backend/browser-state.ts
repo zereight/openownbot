@@ -3,7 +3,6 @@ import { readFile } from "node:fs/promises";
 import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
 import { type BrowserBounds, type BrowserEnvironment, isBrowserProfileId } from "@openownbot/contracts/ipc";
 import { isBoolean, isNumber, isString } from "@openownbot/contracts/runtime-values";
-import { legacyAgentId } from "@openownbot/contracts/validation";
 import { Effect } from "effect";
 import { browserCall, browserSync } from "./browser-effects";
 import type { BrowserToolArguments } from "./browser-tools";
@@ -170,14 +169,7 @@ export function isPersistableBrowserUrl(value: string): boolean {
   }
 }
 
-/**
- * A tab a released build wrote spells the owner key `ownerBotId`, and rejecting it would filter out every
- * tab open at the moment of the upgrade, so the user's browser would come back empty. Only the key is
- * translated here. The id *values* beside it are left exactly as they were found, because syntax cannot
- * tell which of them migration v13 rewrote -- it declines on a collision, and an agent imported from
- * `bots.json` after the migrations ran never went through it at all. `reownStoredBrowserTab` does that
- * part against the roster, which knows.
- */
+/** A stored tab, or `null` when the value is not one. */
 function storedBrowserTab(value: unknown): StoredBrowserTab | null {
   if (
     !isRecord(value) ||
@@ -193,7 +185,7 @@ function storedBrowserTab(value: unknown): StoredBrowserTab | null {
   if (ownerThreadId !== null && (!isString(ownerThreadId) || ownerThreadId.length > INPUT_LIMITS.identifier)) {
     return null;
   }
-  const ownerAgentId = value.ownerAgentId === undefined ? (value.ownerBotId ?? null) : value.ownerAgentId;
+  const ownerAgentId = value.ownerAgentId ?? null;
   if (ownerAgentId !== null && (!isString(ownerAgentId) || ownerAgentId.length > INPUT_LIMITS.identifier)) {
     return null;
   }
@@ -214,70 +206,13 @@ function storedBrowserTab(value: unknown): StoredBrowserTab | null {
   };
 }
 
-/** Enough of an agent to say which of two spellings of an id is the one it answers to now. */
+/** The agent a restored tab can belong to. */
 export interface BrowserTabOwner {
   id: string;
   threadId: string | null;
 }
 
-/**
- * Points a tab a released build wrote at the agent that owns it now. Migration v13 renamed agents inside
- * the database and rewrote their thread ids with them, but a JSON file outside the database kept the old
- * spellings -- so the tab's owner matches nothing, and `#canUseToolTab` compares a thread id that no
- * longer exists and refuses every tool call against the tab the agent itself opened.
- *
- * The mapping comes from the roster rather than from the shape of the id, because the shape does not know
- * which agents v13 actually renamed: it declines when the `agent-` spelling is already taken, and an agent
- * imported from `bots.json` after the migrations ran never went through it. An owner that resolves to
- * nobody keeps the id it was found with -- inventing one hands the tab to a stranger.
- */
-export function reownStoredBrowserTab(tab: StoredBrowserTab, agents: readonly BrowserTabOwner[]): StoredBrowserTab {
-  if (tab.ownerAgentId === null && tab.ownerThreadId === null) return tab;
-  const owner = tabOwner(tab, agents);
-  if (!owner) return tab;
-  // Both fields are brought to the owner, not just the one that failed to match. A generated agent's
-  // thread id is `openbot-thread-<uuid>` with no agent id inside it, so v13 never touched it and it
-  // matches on its own -- while the owner id beside it is still the pre-rename spelling. Stopping at the
-  // first match would call that tab correct and leave `#canUseToolTab`, which checks both, refusing it.
-  const ownerThreadId = tab.ownerThreadId === null || owner.threadId === null ? tab.ownerThreadId : owner.threadId;
-  const ownerAgentId = tab.ownerAgentId === null ? null : owner.id;
-  if (ownerThreadId === tab.ownerThreadId && ownerAgentId === tab.ownerAgentId) return tab;
-  return { ...tab, ownerThreadId, ownerAgentId };
-}
-
-/**
- * The roster entry a tab belongs to. Both current spellings are asked before either historical one,
- * because v13 declines to rename onto an id that is taken: a `bot-<uuid>` agent can be sitting beside the
- * `agent-<uuid>` it would otherwise have become, and the one that literally holds the id owns the tab.
- */
-function tabOwner(tab: StoredBrowserTab, agents: readonly BrowserTabOwner[]): BrowserTabOwner | undefined {
-  const claims: ((agent: BrowserTabOwner) => boolean)[] = [
-    (agent) => agent.id === tab.ownerAgentId,
-    (agent) => tab.ownerThreadId !== null && agent.threadId === tab.ownerThreadId,
-    (agent) => tab.ownerAgentId !== null && legacyAgentId(agent.id) === tab.ownerAgentId,
-    (agent) => tab.ownerThreadId !== null && legacyThreadId(agent) === tab.ownerThreadId,
-  ];
-  for (const claim of claims) {
-    const owner = agents.find(claim);
-    if (owner) return owner;
-  }
-  return undefined;
-}
-
-/**
- * The thread id this agent's thread carried before the rename. A thread id either embeds the agent id, in
- * which case migration v13 rewrote it along with the id, or is a bare UUID it never touched -- so
- * substituting the agent's own id is the whole of the difference.
- */
-function legacyThreadId(agent: BrowserTabOwner): string | null {
-  if (agent.threadId === null) return null;
-  return agent.threadId.replace(agent.id, legacyAgentId(agent.id));
-}
-
-/**
- * The file is always rewritten as v2. A v1 file is still read -- `storedBrowserTab` accepts both owner
- * spellings, and a tab that arrives without an environment is given the default rather than dropped.
- */
+/** A tab that arrives without an environment is given the default rather than dropped. */
 export interface StoredBrowserStateV2 {
   version: 2;
   activeTabId: string | null;
@@ -288,7 +223,7 @@ export const readBrowserState = Effect.fn("Browser.readState")((path: string) =>
     const content = yield* browserCall((signal) => readFile(path, { encoding: "utf8", signal }));
     return yield* browserSync((): StoredBrowserStateV2 => {
       const parsed = JSON.parse(content);
-      if (!isRecord(parsed) || (parsed.version !== 1 && parsed.version !== 2)) {
+      if (!isRecord(parsed) || parsed.version !== 2) {
         return { version: 2, activeTabId: null, tabs: [] };
       }
       const tabs = Array.isArray(parsed.tabs)
@@ -298,9 +233,7 @@ export const readBrowserState = Effect.fn("Browser.readState")((path: string) =>
             .map((tab) => ({
               ...tab,
               url: persistentBrowserUrl(tab.url),
-              // A v1 file never wrote an environment, so anything sitting under that key in one is not
-              // ours to trust -- the tab starts from the default instead.
-              environment: (parsed.version === 2 ? tab.environment : undefined) ?? defaultBrowserEnvironment(),
+              environment: tab.environment ?? defaultBrowserEnvironment(),
             }))
         : [];
       return {

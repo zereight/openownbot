@@ -1268,57 +1268,6 @@ describe("OpenOwnBotDatabase", () => {
 
   // Released builds stored an agent's blank `replyToMessageId` as `""`. The guard rejects an empty id,
   // so the read failed for the whole page of the sender and of the recipient, and stalled the queue.
-  it("reads a message that a released build stored with a blank reply id", async () => {
-    const root = await mkdtemp(join(tmpdir(), "openownbot-db-blank-reply-"));
-    roots.push(root);
-    const database = new OpenOwnBotDatabase(root);
-    await runCauseEffect(database.initialize());
-    const threadId = "openbot-thread-agent-chief";
-    database.connection
-      .prepare(
-        `INSERT INTO projection_threads (thread_id, agent_id, title, active_turn_id, created_at, updated_at, last_event_sequence)
-         VALUES (?, 'agent-chief', 'Chief', NULL, '2026-09-01T12:00:00.000Z', '2026-09-01T12:00:00.000Z', 1)`,
-      )
-      .run(threadId);
-    database.connection
-      .prepare(
-        `INSERT INTO projection_thread_messages
-           (thread_id, message_id, turn_id, author, status, item_type, created_at, ordinal, message_json, last_event_sequence,
-            group_start, group_first, group_id, turn_rank)
-         VALUES (?, 'message-1', NULL, 'agent', 'completed', NULL, '2026-09-01T12:00:00.000Z', 0, ?, 1,
-                 '2026-09-01T12:00:00.000Z', 0, 'message:message-1', 0)`,
-      )
-      .run(
-        threadId,
-        JSON.stringify({
-          id: "message-1",
-          author: "agent",
-          status: "completed",
-          text: "Done.",
-          createdAt: "2026-09-01T12:00:00.000Z",
-          senderAgentId: "agent-chief",
-          replyToMessageId: "",
-          exchange: {
-            direction: "outgoing",
-            messageId: "exchange-1",
-            senderAgentId: "agent-chief",
-            recipientAgentIds: ["agent-helper"],
-            replyToMessageId: "",
-            deliveries: [],
-          },
-        }),
-      );
-
-    expect(database.readConversationPage("agent-chief", threadId).messages).toEqual([
-      expect.objectContaining({
-        id: "message-1",
-        text: "Done.",
-        replyToMessageId: null,
-        exchange: expect.objectContaining({ replyToMessageId: null }),
-      }),
-    ]);
-    database.close();
-  });
 
   // Every shipped provider-session table: the v16 baseline (three providers), v17 to v21 (the same
   // four-provider table), and v22 (five). Migration 23 must keep every row, the turn link, the index

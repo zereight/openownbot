@@ -94,11 +94,6 @@ export interface AgentProviderDescriptor {
   readonly installGuideLink: ExternalDestination | null;
   /** The model a new agent starts on. A provider lists its own models, so this id can be missing. */
   readonly defaultModel: AgentModelId;
-  /**
-   * The model-id prefix that identifies this provider in a `bots.json` import, which predates the
-   * provider field. `null` means never guessed: a file older than the provider cannot name it.
-   */
-  readonly legacyModelPrefix: string | null;
   /** The `AgentAuthState` arm this provider reports when it has an account. */
   readonly authKind: AgentAuthState["kind"];
   /** Left-to-right order in the model picker and top-to-bottom in the onboarding list. */
@@ -185,7 +180,6 @@ const AGENT_PROVIDER_DESCRIPTOR_TABLE = {
     signInMessage: "Connect ChatGPT to continue.",
     installGuideLink: null,
     defaultModel: "gpt-6-luna",
-    legacyModelPrefix: null,
     authKind: "chatgpt",
     pickerOrder: 1,
     localCodeSignIn: "device",
@@ -206,7 +200,6 @@ const AGENT_PROVIDER_DESCRIPTOR_TABLE = {
     signInMessage: "Connect Claude to continue.",
     installGuideLink: "claude-install",
     defaultModel: "claude-haiku-5-5",
-    legacyModelPrefix: "claude-",
     authKind: "claude",
     pickerOrder: 0,
     localCodeSignIn: "paste",
@@ -227,7 +220,6 @@ const AGENT_PROVIDER_DESCRIPTOR_TABLE = {
     signInMessage: "Run `grok login` or set XAI_API_KEY to use Grok.",
     installGuideLink: null,
     defaultModel: "grok-4.6",
-    legacyModelPrefix: "grok-",
     authKind: "grok",
     pickerOrder: 2,
     localCodeSignIn: "device",
@@ -250,7 +242,6 @@ const AGENT_PROVIDER_DESCRIPTOR_TABLE = {
     signInMessage: "OpenCode listed no model. Add an OpenCode Go key to continue.",
     installGuideLink: null,
     defaultModel: "",
-    legacyModelPrefix: null,
     authKind: "opencode",
     pickerOrder: 3,
     localCodeSignIn: null,
@@ -273,7 +264,6 @@ const AGENT_PROVIDER_DESCRIPTOR_TABLE = {
     signInMessage: "Sign in with Google to use Gemini.",
     installGuideLink: null,
     defaultModel: "",
-    legacyModelPrefix: null,
     authKind: "antigravity",
     pickerOrder: 4,
     localCodeSignIn: null,
@@ -296,7 +286,6 @@ const AGENT_PROVIDER_DESCRIPTOR_TABLE = {
     signInMessage: "Sign in with Cursor or set CURSOR_API_KEY to use Cursor.",
     installGuideLink: null,
     defaultModel: "",
-    legacyModelPrefix: null,
     authKind: "cursor",
     pickerOrder: 5,
     localCodeSignIn: "device",
@@ -319,7 +308,6 @@ const AGENT_PROVIDER_DESCRIPTOR_TABLE = {
     signInMessage: "Sign in with Cline or set CLINE_API_KEY to use Cline.",
     installGuideLink: null,
     defaultModel: "",
-    legacyModelPrefix: null,
     authKind: "cline",
     pickerOrder: 6,
     localCodeSignIn: "device",
@@ -340,7 +328,6 @@ const AGENT_PROVIDER_DESCRIPTOR_TABLE = {
     signInMessage: "Use /login in Pi on the host computer. Close Pi when sign-in is complete.",
     installGuideLink: null,
     defaultModel: "",
-    legacyModelPrefix: null,
     authKind: "pi",
     pickerOrder: 7,
     localCodeSignIn: null,
@@ -361,7 +348,6 @@ const AGENT_PROVIDER_DESCRIPTOR_TABLE = {
     signInMessage: "Use /login in Pi-Bolt on the host computer. Close Pi-Bolt when sign-in is complete.",
     installGuideLink: null,
     defaultModel: "",
-    legacyModelPrefix: null,
     authKind: "pi-bolt",
     pickerOrder: 12,
     localCodeSignIn: null,
@@ -382,7 +368,6 @@ const AGENT_PROVIDER_DESCRIPTOR_TABLE = {
     signInMessage: "Sign in to Muse on the host computer to continue.",
     installGuideLink: null,
     defaultModel: "",
-    legacyModelPrefix: null,
     authKind: "muse",
     pickerOrder: 8,
     localCodeSignIn: "device",
@@ -405,7 +390,6 @@ const AGENT_PROVIDER_DESCRIPTOR_TABLE = {
     signInMessage: "Add an Inception API key to continue.",
     installGuideLink: null,
     defaultModel: "mercury-3",
-    legacyModelPrefix: null,
     authKind: "inception",
     pickerOrder: 9,
     localCodeSignIn: null,
@@ -428,7 +412,6 @@ const AGENT_PROVIDER_DESCRIPTOR_TABLE = {
     signInMessage: "Add a DeepSeek API key to continue.",
     installGuideLink: null,
     defaultModel: "deepseek-v4-pro",
-    legacyModelPrefix: null,
     authKind: "deepseek",
     pickerOrder: 10,
     localCodeSignIn: null,
@@ -451,7 +434,6 @@ const AGENT_PROVIDER_DESCRIPTOR_TABLE = {
     signInMessage: "Add an OpenRouter API key to continue.",
     installGuideLink: null,
     defaultModel: "anthropic/claude-sonnet-5.5",
-    legacyModelPrefix: null,
     authKind: "openrouter",
     pickerOrder: 11,
     localCodeSignIn: null,
@@ -475,7 +457,6 @@ const AGENT_PROVIDER_DESCRIPTOR_TABLE = {
     signInMessage: "Sign in with the agent's own command, then try again.",
     installGuideLink: null,
     defaultModel: "",
-    legacyModelPrefix: null,
     authKind: "acp",
     pickerOrder: 7,
     localCodeSignIn: null,

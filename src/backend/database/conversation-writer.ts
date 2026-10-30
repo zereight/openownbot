@@ -13,7 +13,7 @@ import {
   requiredNumberColumn,
   requiredStringColumn,
 } from "./database-rows";
-import { currentConversationMessage } from "./legacy-conversation-message";
+import { storedConversationMessage } from "./stored-conversation-message";
 import { readOrderInputs, refreshChangedOrder, refreshThreadOrder } from "./thread-message-order";
 
 export interface ConversationWriterOptions {
@@ -401,7 +401,7 @@ export class ConversationWriter {
           .all(threadId, ...messages.map((message) => message.id)),
       ).map((row) => [
         requiredStringColumn(row, "message_id"),
-        currentConversationMessage(JSON.parse(requiredStringColumn(row, "message_json"))),
+        storedConversationMessage(JSON.parse(requiredStringColumn(row, "message_json"))),
       ]),
     );
     return messages.filter((message) => {
@@ -492,7 +492,7 @@ export class ConversationWriter {
         for (const imported of input.changedMessages) {
           const existingRow = databaseRow(findOrdinal.get(input.threadId, imported.id));
           const existing = existingRow
-            ? currentConversationMessage(JSON.parse(requiredStringColumn(existingRow, "message_json")))
+            ? storedConversationMessage(JSON.parse(requiredStringColumn(existingRow, "message_json")))
             : null;
           // This is a live projection update. Provider-history reconciliation uses the additive
           // merge below, but a streamed update must replace status and text from the caller. The
@@ -626,7 +626,7 @@ export class ConversationWriter {
         .get(input.threadId, input.message.id),
     );
     if (existingBeforeWrite && input.activeTurnId === undefined) {
-      const existingMessage = currentConversationMessage(
+      const existingMessage = storedConversationMessage(
         JSON.parse(requiredStringColumn(existingBeforeWrite, "message_json")),
       );
       if (
@@ -683,7 +683,7 @@ export class ConversationWriter {
             .get(input.threadId, input.message.id),
         );
         const existing = existingRow
-          ? currentConversationMessage(JSON.parse(requiredStringColumn(existingRow, "message_json")))
+          ? storedConversationMessage(JSON.parse(requiredStringColumn(existingRow, "message_json")))
           : null;
         const message = existing ? mergeImportedMessage(existing, input.message) : input.message;
         const orderBefore = readOrderInputs(db, input.threadId, [message.id]);

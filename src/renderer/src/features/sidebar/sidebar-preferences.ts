@@ -1,6 +1,5 @@
 import {
   normalizeSidebarPinnedItems,
-  reownSidebarPinnedItems,
   type SidebarPinnedItem,
   sidebarPinnedItemKey,
 } from "@openownbot/ui/features/sidebar/sidebar-pins";
@@ -61,27 +60,6 @@ export function createSidebarPreferences(options: { scope: () => string }) {
     });
   }
 
-  /**
-   * Brings this scope's pins up to date with the roster it just sent. Nothing else rewrites them: the
-   * pins are in browser storage, and the id migration ran inside the host's database.
-   */
-  function reconcileActiveServerPins(agentIds: readonly string[]): void {
-    const roster = new Set(agentIds);
-    const serverId = options.scope();
-    setSidebarPinsByServer((current) => {
-      const items = current[serverId];
-      if (!items) return current;
-      const reowned = reownSidebarPinnedItems(items, roster);
-      if (reowned.length === items.length && reowned.every((item, index) => item.id === items[index]?.id))
-        return current;
-      const next = { ...current };
-      if (reowned.length > 0) next[serverId] = reowned;
-      else delete next[serverId];
-      writeSidebarPins(next);
-      return next;
-    });
-  }
-
   function pinSidebarItem(item: SidebarPinnedItem): void {
     updateActiveServerPins((items) =>
       items.some((candidate) => sidebarPinnedItemKey(candidate) === sidebarPinnedItemKey(item))
@@ -118,7 +96,6 @@ export function createSidebarPreferences(options: { scope: () => string }) {
     toggleSidebarSection,
     collapseSidebarSection,
     pinnedSidebarItems,
-    reconcileActiveServerPins,
     pinSidebarItem,
     unpinSidebarItem,
     reorderPinnedSidebarItems,
