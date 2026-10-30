@@ -48,6 +48,15 @@ import {
 } from "./channel-management";
 import { ChannelMemoryStore } from "./channel-memory-store";
 import { type ChannelAssignment, type ChannelContext, ChannelStore } from "./channel-store";
+import {
+  SUPERVISION_MAX_ROUNDS,
+  SUPERVISION_PERSON_WINDOW,
+  SUPERVISION_PROMPT_CHARACTERS,
+  SUPERVISION_RECENT_MESSAGES,
+  supervisable,
+  supervisionDecision,
+  supervisionPrompt,
+} from "./channel-supervision";
 import { channelTaskWaits } from "./channel-task-waits";
 import type { DeliveryContext, MailboxStore } from "./mailbox-store";
 import type { OpenOwnBotDatabase } from "./openownbot-database";
@@ -173,6 +182,10 @@ export class ChannelService {
    */
   readonly #waitingForAgents = new Set<string>();
   readonly #deletedChannels = new Set<string>();
+  /** Channels where an agent turn ended since the lead last looked. Only those are examined, never old ones. */
+  readonly #supervisionDue = new Set<string>();
+  /** What the lead last saw of each quiet channel, so one quiet moment is not examined twice. */
+  readonly #supervision = new Map<string, { personMessageId: string | null; rounds: number; headSequence: number }>();
   readonly #assignmentTerminalWaiters = new Map<string, Set<() => void>>();
   /** The active assignments last seen per channel, so turn traffic reports no new hold. */
   readonly #activeAssignments = new Map<string, string>();
@@ -291,6 +304,8 @@ export class ChannelService {
           this.#pumps.delete(channelId);
           this.#wakeAgain.delete(channelId);
           this.#waitingForAgents.delete(channelId);
+          this.#supervision.delete(channelId);
+          this.#supervisionDue.delete(channelId);
           yield* this.#releaseHeldAgents(agentIds);
           this.hooks.changed(channelId, channel.revision + 1);
         }).pipe(Effect.ensuring(Effect.sync(() => this.#deletedChannels.delete(channelId))));
@@ -1373,7 +1388,116 @@ export class ChannelService {
         yield* this.#releaseHeldAgents([assignment.agentId]);
       }
     }
+    yield* this.#supervise(channelId);
   }).bind(this);
+
+  /**
+   * The lead's look at a channel that went quiet. Routing ends when a task has an owner, so nothing
+   * else asks whether the work is done after the agents stop. The lead reads the state once and
+   * nudges an agent that stopped early, asks the person for what only they can give, or stays silent.
+   * It never fails the pump: a lead that cannot answer leaves the channel as it is.
+   */
+  readonly #supervise = Effect.fn("ChannelService.supervise")(function* (
+    this: ChannelService,
+    channelId: string,
+  ): Effect.fn.Return<void, ChannelOperationError> {
+    if (this.#stopped || this.#deletedChannels.has(channelId) || !this.#supervisionDue.has(channelId)) return;
+    const channel = yield* channelSync(() => this.store.get(channelId));
+    if (channel.archived) return;
+    const lead = this.hooks.agents().find((agent) => agent.id === channel.leadAgentId);
+    if (!lead || this.hooks.hidden?.(lead.id) || this.hooks.usageLimited?.(lead.id)) return;
+    const tasks = yield* channelSync(() => this.store.tasks(channelId));
+    const assignments = yield* channelSync(() => this.store.assignments(channelId));
+    if (assignments.some(activeAssignment) || !supervisable(tasks)) return;
+    this.#supervisionDue.delete(channelId);
+    const [head] = yield* channelSync(() => this.store.messages(channelId, undefined, 1));
+    if (!head) return;
+    const recent = (yield* channelSync(() =>
+      this.store.messages(channelId, undefined, SUPERVISION_RECENT_MESSAGES),
+    )).filter((item) => !isMemberThinking(item));
+    // The prompt shows only the last few messages, but the person's message that opened the rounds can
+    // lie further back, so it is looked for in a longer window.
+    const personId =
+      (yield* channelSync(() => this.store.messages(channelId, undefined, SUPERVISION_PERSON_WINDOW))).findLast(
+        (item) => item.author.kind === "member",
+      )?.id ?? null;
+    // A new person message opens new rounds. The same last message means nothing happened since the
+    // last look, so the lead is not asked again, and a question waits for its answer this way.
+    const seen = this.#supervision.get(channelId);
+    const rounds = seen && seen.personMessageId === personId ? seen.rounds : 0;
+    if (rounds >= SUPERVISION_MAX_ROUNDS || seen?.headSequence === head.sequence) return;
+    this.#supervision.set(channelId, {
+      personMessageId: personId,
+      rounds: rounds + 1,
+      headSequence: head.sequence,
+    });
+    const revision = this.routingState(channelId);
+    try {
+      const summary = channelResult(yield* Effect.result(channelSync(() => this.store.summary(channelId))));
+      const prompt = supervisionPrompt({
+        title: channel.title,
+        instructions: channel.instructions,
+        summary: summary.text || undefined,
+        agents: this.hooks
+          .agents()
+          .filter(
+            (agent) => channel.members.some((member) => member.agentId === agent.id) && !this.hooks.hidden?.(agent.id),
+          )
+          .map(({ id, name, title, description }) => ({ id, name, title, description })),
+        tasks,
+        recent: recent.map((item) => ({ author: item.author.name, text: item.message.text })),
+      });
+      if (prompt.length > SUPERVISION_PROMPT_CHARACTERS) return;
+      const response = channelResult(
+        yield* Effect.result(this.hooks.generate(lead, prompt).pipe(Effect.mapError(channelFailure))),
+      );
+      if (this.#deletedChannels.has(channelId)) return;
+      // The channel changed while the lead thought, so its view is stale. The next pump looks again.
+      if (this.routingState(channelId) !== revision) {
+        this.#wakeAgain.add(channelId);
+        return;
+      }
+      const decision = supervisionDecision(response);
+      if (!decision || "done" in decision) return;
+      const current = yield* channelSync(() => this.store.get(channelId));
+      const author = { kind: "agent" as const, id: lead.id, name: lead.name };
+      if ("question" in decision) {
+        const anchor = tasks.findLast((task) => !terminal(task)) ?? tasks.at(-1);
+        if (!anchor) return;
+        yield* channelSync(() =>
+          this.store.update(current, { messages: [this.message(channelId, anchor.id, author, decision.question)] }),
+        );
+        this.#supervisionSeen(channelId);
+        this.publish(channelId);
+        return;
+      }
+      const { agentId, instruction } = decision.nudge;
+      yield* channelSync(() => this.requireAvailableMember(current, agentId));
+      const requestId = randomUUID();
+      const task = this.newTask(channelId, requestId, instruction, agentId);
+      yield* channelSync(() =>
+        this.store.update(current, {
+          tasks: [task],
+          messages: [
+            this.message(channelId, task.id, author, instruction, requestId),
+            this.dispatch(channelId, task.id, lead, "assigned", agentId),
+          ],
+        }),
+      );
+      this.#supervisionSeen(channelId);
+      this.publish(channelId);
+      this.#wakeAgain.add(channelId);
+    } catch (error) {
+      this.hooks.error(error);
+    }
+  }).bind(this);
+
+  /** The lead's own messages are part of what it has seen, so they do not open another look. */
+  #supervisionSeen(channelId: string): void {
+    const seen = this.#supervision.get(channelId);
+    const [head] = this.store.messages(channelId, undefined, 1);
+    if (seen && head) this.#supervision.set(channelId, { ...seen, headSequence: head.sequence });
+  }
 
   /**
    * The files of a request outlive its first dispatch as committed attachments, not as drafts:
@@ -2126,6 +2250,7 @@ export class ChannelService {
         this.store.update(this.store.get(channelId), { assignments: [{ ...assignment, state }], tasks: updated }),
       );
       this.resolveAssignmentTerminal(assignment.id);
+      this.#supervisionDue.add(channelId);
       this.publish(channelId);
       yield* this.#releaseHeldAgents([assignment.agentId]);
     });
