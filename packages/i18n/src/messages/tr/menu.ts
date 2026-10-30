@@ -12,4 +12,12 @@ export const messages = {
   "menu.trayOpen": "OpenOwnBot'u aç",
   "menu.trayQuit": "OpenOwnBot'tan çık",
   "menu.trayTooltip": "OpenOwnBot",
+  "menu.undo": "Geri al",
+  "menu.redo": "Yinele",
+  "menu.cut": "Kes",
+  "menu.copy": "Kopyala",
+  "menu.paste": "Yapıştır",
+  "menu.pasteAndMatchStyle": "Yapıştır ve stili eşleştir",
+  "menu.delete": "Sil",
+  "menu.selectAll": "Tümünü seç",
 } as const satisfies PartialTranslation<typeof source>;
