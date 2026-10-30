@@ -69,6 +69,7 @@ Each step is one PR, merged when CI passes. Each phase makes the code smaller be
    or Drop by the developer.
 3. **Target structure.** A short document: the modules, who owns what, and the data flow from the
    renderer to main to the backend, and from mobile to the host. Small modules with one job each.
+   Done 2026-10-31: [012-target-structure.md](012-target-structure.md), with the design of decision 10.
 4. **Rewrite by area,** in this order: backend data and agent runtime (`src/backend`), main process and
    IPC (`src/main`, `src/preload`, `packages/contracts`), shared UI and renderer (`packages/ui`,
    `src/renderer`), team client and mobile (`packages/team-client`, `apps/mobile`). New layout and design
