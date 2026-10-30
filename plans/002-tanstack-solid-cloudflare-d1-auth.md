@@ -43,10 +43,13 @@ sign-in data and OpenOwnBot sessions.
 
 ## Commands
 
-- `bun run api` starts the local Worker and D1.
-- `bun run dev` starts the Electron client.
-- `bun run host` starts a separate host profile.
-- `bun run dev:all` starts the API, the client and the host.
+Checked on 2026-10-31 against `package.json` and `scripts/dev-services.ts`. The first version of this
+list named `bun run api` and `bun run host`; neither script exists now.
+
+- `bun run dev:api` starts the local Worker and D1.
+- `bun run dev` starts the Electron client (the API, the Signal service and the app).
+- `bun run dev:test-client` also starts a second client, in place of the old `host` script.
+- `bun run dev:all` starts the API, the Signal service and the app.
 - `bun run api:migrate:local` applies the local D1 migrations.
 - `bun run api:deploy` deploys the Worker once the Cloudflare configuration is set.
 
@@ -117,7 +120,27 @@ email) before this step. Not recommended before A, B and C have shipped and a re
 4. C, with migration fixtures.
 5. D only after a decision.
 
-### Decision needed
+### Decision (2026-10-31)
 
-Choose A, B, C or D. Without a decision, this plan stays at A and nothing is deleted or refused.
+Option A. The developer answered "1" to the question "which option?" without naming a letter, so the
+recommended option A is applied. This is an assumption: B, C and D stay open, and the developer can
+choose one later. Nothing is deleted or refused under A.
+
+### Account contract check (2026-10-31)
+
+Read in `apps/auth-api/src/server/auth-service.ts`, `d1-auth-repository.ts` and
+`packages/contracts/src/validation.ts`. Nothing was run.
+
+| Statement of the plan | Code |
+|---|---|
+| Code format `XXXX-XXXX`, 32 safe characters | `ONE_TIME_CODE_LENGTH = 8`, alphabet of 32 characters, `generateOneTimeCode` |
+| Valid for 10 minutes | `CHALLENGE_TTL_MS = 10 * 60_000` |
+| D1 stores a hash of the code | column `code_hash` |
+| 5 new codes per email, 20 per IP in 15 minutes | `start:email` 5, `start:ip` 20, `RATE_WINDOW_MS = 15 * 60_000` |
+| 60 seconds between codes | `RESEND_COOLDOWN_MS = 60_000` |
+| 5 failed attempts per code | `maxAttempts: 5`, `failed_attempts` |
+| 30 verifications per IP | `verify:ip` 30 |
+
+Not checked: that the code is used only once, that the session token is stored only as a hash, and that
+Electron keeps the token through `safeStorage`.
 
