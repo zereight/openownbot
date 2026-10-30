@@ -25,7 +25,7 @@ import {
 import { isBoolean, isDynamicRecord, isNumber, isOneOf, isString } from "@robot/contracts/runtime-values";
 import { sourceText } from "@robot/i18n/source";
 import { Effect, Result, Schema } from "effect";
-import type { AgentLifecycleFailed } from "../backend/agent-service";
+import type { AgentLifecycleFailed } from "../backend/agent/agent-lifecycle-failed";
 import { causeHelpers } from "../backend/effect-boundary";
 import type { CentralAuthOperationError } from "./central-auth-effects";
 import type { SkillMarketplaceFailure } from "./skill-marketplace-service";

@@ -6,8 +6,9 @@ import { CLAUDE_API_KEY_ACCOUNT_ID } from "@robot/contracts/team-protocol/claude
 import { PROVIDER_ACCOUNTS_MESSAGE_LIMIT } from "@robot/contracts/team-protocol/provider-accounts-v1";
 import { sourceText } from "@robot/i18n/source";
 import { Cause, Effect, Exit, Option, Semaphore } from "effect";
+import { AgentLifecycleFailed } from "../backend/agent/agent-lifecycle-failed";
 import { providerLabel } from "../backend/agent/thread-items";
-import { AgentLifecycleFailed, type AgentService } from "../backend/agent-service";
+import type { AgentService } from "../backend/agent-service";
 import type { BrowserHost } from "../backend/browser-host";
 import { type HostSignInPageMode, HostSignInPages } from "./host-sign-in-pages";
 

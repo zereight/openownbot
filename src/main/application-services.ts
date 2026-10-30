@@ -102,10 +102,11 @@ import {
   shell,
   systemPreferences,
 } from "electron";
+import { AgentLifecycleFailed } from "../backend/agent/agent-lifecycle-failed";
 import { pasteCodeLoginSupported } from "../backend/agent/cli-code-login";
 import { toMcpGatewayFailed } from "../backend/agent/mcp-gateway";
 import { ProviderAccountStore } from "../backend/agent/provider-account-store";
-import { AgentLifecycleFailed, AgentService } from "../backend/agent-service";
+import { AgentService } from "../backend/agent-service";
 import { AgentStore } from "../backend/agent-store";
 import { BrowserHost } from "../backend/browser-host";
 import { BrowserProfileStore } from "../backend/browser-profiles/browser-profile-store";

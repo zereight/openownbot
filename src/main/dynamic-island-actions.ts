@@ -6,7 +6,7 @@ import {
 } from "@robot/contracts/ipc";
 import { TEAM_API_ROUTES } from "@robot/contracts/team-api-routes";
 import { Effect } from "effect";
-import type { AgentLifecycleFailed } from "../backend/agent-service";
+import type { AgentLifecycleFailed } from "../backend/agent/agent-lifecycle-failed";
 import type { RemoteWorkflowError } from "./remote-service-effects";
 
 /** The island actions that main runs against the agent itself, with no help from the main window. */

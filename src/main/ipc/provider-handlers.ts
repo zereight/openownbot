@@ -16,7 +16,8 @@ import {
 import type { ProviderEnvironmentInput } from "@robot/contracts/provider-environment";
 import { isDynamicRecord, isString } from "@robot/contracts/runtime-values";
 import { sourceText } from "@robot/i18n/source";
-import { AgentLifecycleFailed, type AgentService } from "../../backend/agent-service";
+import { AgentLifecycleFailed } from "../../backend/agent/agent-lifecycle-failed";
+import type { AgentService } from "../../backend/agent-service";
 import { runCauseEffect } from "../../backend/effect-boundary";
 import type { ClaudeEnvironmentStore } from "../claude-environment-store";
 import type { ProviderCredentialStore } from "../provider-credential-store";

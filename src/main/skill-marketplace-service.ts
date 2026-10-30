@@ -29,7 +29,7 @@ import { isBoolean, isDynamicRecord, isNumber, isOneOf, isString } from "@robot/
 import { sourceText } from "@robot/i18n/source";
 import { Cache, Effect, Exit, Result, Schema, Semaphore } from "effect";
 import { parse as parseYaml } from "yaml";
-import type { AgentLifecycleFailed } from "../backend/agent-service";
+import type { AgentLifecycleFailed } from "../backend/agent/agent-lifecycle-failed";
 import { writeFileAtomically } from "../backend/atomic-json-file";
 import { causeHelpers } from "../backend/effect-boundary";
 import { toArrayBuffer } from "./agent-marketplace-service";

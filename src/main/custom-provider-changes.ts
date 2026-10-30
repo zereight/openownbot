@@ -14,7 +14,8 @@ import type {
   SaveCustomProviderInput,
   UpdateCustomProviderInput,
 } from "@robot/contracts/ipc";
-import { AgentLifecycleFailed, type AgentService } from "../backend/agent-service";
+import { AgentLifecycleFailed } from "../backend/agent/agent-lifecycle-failed";
+import type { AgentService } from "../backend/agent-service";
 import type { CustomProviderStore } from "./custom-provider-store";
 
 export interface CustomProviderChangeDependencies {
