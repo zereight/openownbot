@@ -3,7 +3,7 @@
 // process ends only when that page loads. The replay must load it, so a second Codex account on a
 // joined server finishes. A success page that fails does not undo the callback, and a redirect to a
 // different address must not be followed.
-// `bun run test:sign-in-relay-replay`. Writes .openbot-build/sign-in-relay-replay-e2e/report.json.
+// `bun run test:sign-in-relay-replay`. Writes .openownbot-build/sign-in-relay-replay-e2e/report.json.
 import assert from "node:assert/strict";
 import { mkdir, writeFile } from "node:fs/promises";
 import { createServer, type Server } from "node:http";

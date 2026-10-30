@@ -6,7 +6,7 @@
 // The login shell is bash, set in $SHELL, and only `~/.bash_profile` adds the folder.
 // Bun reads HOME once, at start, so the cases run in a second process that starts with the stand-in
 // home. `bun run test:antigravity:login-path`; exit 0 = every case passed. Writes
-// .openbot-build/antigravity-login-path-e2e/report.json.
+// .openownbot-build/antigravity-login-path-e2e/report.json.
 import assert from "node:assert/strict";
 import { spawnSync } from "node:child_process";
 import { chmod, mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
