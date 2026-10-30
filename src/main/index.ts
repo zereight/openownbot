@@ -297,11 +297,11 @@ protocol.registerSchemesAsPrivileged([
   // `stream` lets an <audio> or <video> element play a file from the scheme: without it the
   // element cannot make the range requests that playback needs.
   {
-    scheme: "openownbot-attachment",
+    scheme: "openbot-attachment",
     privileges: { standard: true, secure: true, supportFetchAPI: true, corsEnabled: true, stream: true },
   },
   {
-    scheme: "openownbot-remote-attachment",
+    scheme: "openbot-remote-attachment",
     privileges: { standard: true, secure: true, supportFetchAPI: true, corsEnabled: true, stream: true },
   },
   // A visual reply page. It needs no fetch or CORS support: only a frame loads it.
