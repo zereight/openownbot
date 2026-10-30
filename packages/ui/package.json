@@ -71,7 +71,7 @@
     "./features/account/account-usage-view": "./src/features/account/account-usage-view.ts",
     "./features/agents/AgentAvatar": "./src/features/agents/AgentAvatar.tsx",
     "./features/agents/AgentDeleteUndoToast": "./src/features/agents/AgentDeleteUndoToast.tsx",
-    "./features/agents/AgentTeamImportDialog": "./src/features/agents/AgentTeamImportDialog.tsx",
+    "./features/agents/AgentSectionImportDialog": "./src/features/agents/AgentSectionImportDialog.tsx",
     "./features/agents/AgentTemplateInstallDialog": "./src/features/agents/AgentTemplateInstallDialog.tsx",
     "./features/agents/FirstAgentSetup": "./src/features/agents/FirstAgentSetup.tsx",
     "./features/agents/agent-names": "./src/features/agents/agent-names.ts",

@@ -1,9 +1,9 @@
 import {
-  AGENT_TEAM_FILE_FORMAT,
-  AGENT_TEAM_FILE_LIMITS,
-  buildAgentTeamFile,
-  parseAgentTeamFile,
-} from "@openownbot/contracts/agent-team-file";
+  AGENT_SECTION_FILE_FORMAT,
+  AGENT_SECTION_FILE_LIMITS,
+  buildAgentSectionFile,
+  parseAgentSectionFile,
+} from "@openownbot/contracts/agent-section-file";
 import type { AgentTemplateSnapshot } from "@openownbot/contracts/ipc";
 import { describe, expect, it } from "vitest";
 
@@ -18,19 +18,19 @@ const agent = (name: string, extra: Partial<AgentTemplateSnapshot> = {}): AgentT
   ...extra,
 });
 
-const team = (agents: AgentTemplateSnapshot[]) => buildAgentTeamFile("Work", [{ name: "Reviewers", agents }]);
+const sectionFile = (agents: AgentTemplateSnapshot[]) => buildAgentSectionFile("Work", [{ name: "Reviewers", agents }]);
 
-describe("the agent team file", () => {
+describe("the agent section file", () => {
   it("reads back what it wrote", () => {
-    const file = team([agent("A"), agent("B")]);
-    const result = parseAgentTeamFile(JSON.stringify(file));
+    const file = sectionFile([agent("A"), agent("B")]);
+    const result = parseAgentSectionFile(JSON.stringify(file));
     expect(result).toEqual({ ok: true, file });
-    expect(file.format).toBe(AGENT_TEAM_FILE_FORMAT);
+    expect(file.format).toBe(AGENT_SECTION_FILE_FORMAT);
   });
 
   it("keeps only the known fields of an agent", () => {
     const text = JSON.stringify({
-      format: AGENT_TEAM_FILE_FORMAT,
+      format: AGENT_SECTION_FILE_FORMAT,
       version: 1,
       name: "Work",
       sections: [
@@ -40,18 +40,18 @@ describe("the agent team file", () => {
         },
       ],
     });
-    const result = parseAgentTeamFile(text);
-    if (!result.ok) throw new Error("expected a team");
+    const result = parseAgentSectionFile(text);
+    if (!result.ok) throw new Error("expected a section file");
     expect(result.file.sections[0]?.agents[0]).toEqual(agent("A"));
   });
 
   it("refuses text that is not JSON, another format, or a newer version", () => {
-    expect(parseAgentTeamFile("{")).toEqual({ ok: false, problem: { kind: "json" } });
-    expect(parseAgentTeamFile(JSON.stringify({ ...team([agent("A")]), format: "other" }))).toEqual({
+    expect(parseAgentSectionFile("{")).toEqual({ ok: false, problem: { kind: "json" } });
+    expect(parseAgentSectionFile(JSON.stringify({ ...sectionFile([agent("A")]), format: "other" }))).toEqual({
       ok: false,
       problem: { kind: "format" },
     });
-    expect(parseAgentTeamFile(JSON.stringify({ ...team([agent("A")]), version: 2 }))).toEqual({
+    expect(parseAgentSectionFile(JSON.stringify({ ...sectionFile([agent("A")]), version: 2 }))).toEqual({
       ok: false,
       problem: { kind: "version" },
     });
@@ -59,34 +59,37 @@ describe("the agent team file", () => {
 
   it("refuses a marketplace skill, which needs the account service to install", () => {
     const skill = { kind: "marketplace", skillId: "s", versionId: "v", slug: "s", name: "S", version: 1 } as const;
-    const result = parseAgentTeamFile(JSON.stringify(team([agent("A", { skills: [skill] })])));
+    const result = parseAgentSectionFile(JSON.stringify(sectionFile([agent("A", { skills: [skill] })])));
     expect(result).toEqual({ ok: false, problem: { kind: "marketplaceSkill", agent: "A" } });
   });
 
   it("names the agent that does not fit the limits", () => {
-    const result = parseAgentTeamFile(JSON.stringify(team([agent("A"), agent("B", { description: " " })])));
+    const result = parseAgentSectionFile(JSON.stringify(sectionFile([agent("A"), agent("B", { description: " " })])));
     expect(result).toEqual({ ok: false, problem: { kind: "agent", agent: "B" } });
   });
 
   it("limits the sections, the agents and the size", () => {
-    const many = Array.from({ length: AGENT_TEAM_FILE_LIMITS.agents + 1 }, (_, i) => agent(`A${i}`));
-    expect(parseAgentTeamFile(JSON.stringify(team(many)))).toEqual({ ok: false, problem: { kind: "agents" } });
-    const sections = Array.from({ length: AGENT_TEAM_FILE_LIMITS.sections + 1 }, (_, i) => ({
+    const many = Array.from({ length: AGENT_SECTION_FILE_LIMITS.agents + 1 }, (_, i) => agent(`A${i}`));
+    expect(parseAgentSectionFile(JSON.stringify(sectionFile(many)))).toEqual({
+      ok: false,
+      problem: { kind: "agents" },
+    });
+    const sections = Array.from({ length: AGENT_SECTION_FILE_LIMITS.sections + 1 }, (_, i) => ({
       name: `S${i}`,
       agents: [agent(`B${i}`)],
     }));
-    expect(parseAgentTeamFile(JSON.stringify(buildAgentTeamFile("Work", sections)))).toEqual({
+    expect(parseAgentSectionFile(JSON.stringify(buildAgentSectionFile("Work", sections)))).toEqual({
       ok: false,
       problem: { kind: "sections" },
     });
-    expect(parseAgentTeamFile("x".repeat(AGENT_TEAM_FILE_LIMITS.bytes + 1))).toEqual({
+    expect(parseAgentSectionFile("x".repeat(AGENT_SECTION_FILE_LIMITS.bytes + 1))).toEqual({
       ok: false,
       problem: { kind: "tooLarge" },
     });
   });
 
   it("refuses two agents with the same name in one file", () => {
-    expect(parseAgentTeamFile(JSON.stringify(team([agent("A"), agent("A")])))).toEqual({
+    expect(parseAgentSectionFile(JSON.stringify(sectionFile([agent("A"), agent("A")])))).toEqual({
       ok: false,
       problem: { kind: "duplicate", agent: "A" },
     });

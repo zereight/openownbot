@@ -1,36 +1,36 @@
-// Moving a team of agents to a file and back. The file dialogs open here, so the renderer never names a path.
+// Moving the agents of sections to a file and back. The file dialogs open here, so the renderer never names a path.
 
 import { readFile, writeFile } from "node:fs/promises";
 import { basename, join } from "node:path";
 import { INPUT_LIMITS } from "@openownbot/contracts/input-limits";
-import type { ExportAgentTeamInput, ImportAgentTeamInput } from "@openownbot/contracts/ipc";
+import type { ExportAgentSectionInput, ImportAgentSectionInput } from "@openownbot/contracts/ipc";
 import type { AppTranslate } from "@openownbot/i18n";
 import { app, type BrowserWindow, dialog, type OpenDialogOptions, type SaveDialogOptions } from "electron";
 import { runCauseEffect } from "../../backend/effect-boundary";
-import type { AgentTeamService } from "../agent-team-service";
+import type { AgentSectionService } from "../agent-section-service";
 import { handler, type IpcGroupHandlers, payloadHandler } from "./define-ipc-group";
 import { isObject, requireString } from "./validation";
 
-export interface AgentTeamIpcDependencies {
-  agentTeams: AgentTeamService;
+export interface AgentSectionIpcDependencies {
+  agentSections: AgentSectionService;
   getMainWindow: () => BrowserWindow | null;
   translate: AppTranslate;
 }
 
-export function agentTeamIpcHandlers({
-  agentTeams,
+export function agentSectionIpcHandlers({
+  agentSections,
   getMainWindow,
   translate,
-}: AgentTeamIpcDependencies): Pick<IpcGroupHandlers, "agentTeams"> {
+}: AgentSectionIpcDependencies): Pick<IpcGroupHandlers, "agentSections"> {
   return {
-    agentTeams: {
-      export: payloadHandler(parseExportAgentTeam, async (input) => {
-        const exported = await runCauseEffect(agentTeams.exportFile(input.sectionIds, input.teamName));
+    agentSections: {
+      export: payloadHandler(parseExportAgentSection, async (input) => {
+        const exported = await runCauseEffect(agentSections.exportFile(input.sectionIds, input.exportName));
         const mainWindow = getMainWindow();
         const options: SaveDialogOptions = {
-          title: translate("dialog.saveAgentTeam"),
-          defaultPath: join(app.getPath("downloads"), `${fileStem(input.teamName)}.agent-team.json`),
-          filters: [{ name: translate("dialog.filter.agentTeams"), extensions: ["json"] }],
+          title: translate("dialog.saveAgentSection"),
+          defaultPath: join(app.getPath("downloads"), `${fileStem(input.exportName)}.agent-team.json`),
+          filters: [{ name: translate("dialog.filter.agentSections"), extensions: ["json"] }],
         };
         const result = mainWindow
           ? await dialog.showSaveDialog(mainWindow, options)
@@ -42,9 +42,9 @@ export function agentTeamIpcHandlers({
       choose: handler(async () => {
         const mainWindow = getMainWindow();
         const options: OpenDialogOptions = {
-          title: translate("dialog.chooseAgentTeam"),
+          title: translate("dialog.chooseAgentSection"),
           properties: ["openFile"],
-          filters: [{ name: translate("dialog.filter.agentTeams"), extensions: ["json"] }],
+          filters: [{ name: translate("dialog.filter.agentSections"), extensions: ["json"] }],
         };
         const result = mainWindow
           ? await dialog.showOpenDialog(mainWindow, options)
@@ -52,10 +52,10 @@ export function agentTeamIpcHandlers({
         const path = result.canceled ? undefined : result.filePaths[0];
         if (!path) return null;
         const text = await readFile(path, "utf8");
-        return { fileName: basename(path), text, preview: await runCauseEffect(agentTeams.preview(text)) };
+        return { fileName: basename(path), text, preview: await runCauseEffect(agentSections.preview(text)) };
       }),
-      import: payloadHandler(parseImportAgentTeam, (input) =>
-        runCauseEffect(agentTeams.importFile(input.text, input.timezone)),
+      import: payloadHandler(parseImportAgentSection, (input) =>
+        runCauseEffect(agentSections.importFile(input.text, input.timezone)),
       ),
     },
   };
@@ -63,20 +63,20 @@ export function agentTeamIpcHandlers({
 
 function fileStem(name: string): string {
   const stem = name.replace(/[^\p{L}\p{N}_-]+/gu, "-").replace(/^-+|-+$/g, "");
-  return stem || "team";
+  return stem || "sections";
 }
 
-export function parseExportAgentTeam(input: unknown): ExportAgentTeamInput {
+export function parseExportAgentSection(input: unknown): ExportAgentSectionInput {
   if (!isObject(input) || !Array.isArray(input.sectionIds) || input.sectionIds.length === 0)
-    throw new Error("Invalid team export.");
+    throw new Error("Invalid section export.");
   return {
     sectionIds: input.sectionIds.map((id) => requireString(id, "sectionId", INPUT_LIMITS.identifier)),
-    teamName: requireString(input.teamName, "teamName", INPUT_LIMITS.agentName),
+    exportName: requireString(input.exportName, "exportName", INPUT_LIMITS.agentName),
   };
 }
 
-export function parseImportAgentTeam(input: unknown): ImportAgentTeamInput {
-  if (!isObject(input)) throw new Error("Invalid team import.");
+export function parseImportAgentSection(input: unknown): ImportAgentSectionInput {
+  if (!isObject(input)) throw new Error("Invalid section import.");
   return {
     text: requireString(input.text, "text", 10_000_000),
     timezone: requireString(input.timezone, "timezone", 255),

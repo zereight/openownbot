@@ -132,6 +132,6 @@ export const messages = {
   "sidebar.storage.used": "{percent} 使用中",
   "sidebar.storage.freeUpSpace": "空き容量を増やす",
   "sidebar.storage.dismiss": "いっぱいになるまで非表示",
-  "sidebar.new.importTeam": "チームをインポート",
-  "sidebar.section.exportTeam": "チームファイルとしてエクスポート",
+  "sidebar.new.importSections": "セクションをインポート",
+  "sidebar.section.exportSections": "セクションファイルとしてエクスポート",
 } as const satisfies PartialTranslation<typeof source>;

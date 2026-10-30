@@ -103,7 +103,7 @@ export function SidebarSectionHeader(headerProps: { sectionId: string; name: str
                   <Show when={props.onExportSection}>
                     <ContextMenu.Item onSelect={() => void props.onExportSection?.(headerProps.sectionId)}>
                       <Download class="agent-context-icon size-4" aria-hidden="true" />
-                      <span>{t("sidebar.section.exportTeam")}</span>
+                      <span>{t("sidebar.section.exportSections")}</span>
                     </ContextMenu.Item>
                   </Show>
                 </Show>

@@ -1,7 +1,7 @@
 import type { AgentTemplateSnapshot, SidebarLayoutAction, SidebarLayoutSnapshot } from "@openownbot/contracts/ipc";
 import { Effect } from "effect";
 import { describe, expect, it } from "vitest";
-import { AgentTeamService, type TeamTemplates } from "./agent-team-service";
+import { AgentSectionService, type SectionTemplates } from "./agent-section-service";
 
 const snapshotOf = (name: string): Promise<AgentTemplateSnapshot> =>
   Effect.runPromise(
@@ -24,7 +24,7 @@ function setup(existing: Array<{ id: string; name: string }>, layout: SidebarLay
   const disabled: string[] = [];
   const calls = { actions, installed, disabled };
   let current = structuredClone(layout);
-  const templates: TeamTemplates = {
+  const templates: SectionTemplates = {
     snapshot: (agentId) => {
       const agent = existing.find((item) => item.id === agentId);
       return Effect.promise(() => snapshotOf(agent?.name ?? "?"));
@@ -36,7 +36,7 @@ function setup(existing: Array<{ id: string; name: string }>, layout: SidebarLay
         return { agentId: `new-${calls.installed.length}`, skillIds: [`skill-${calls.installed.length}`] };
       }),
   };
-  const service = new AgentTeamService({
+  const service = new AgentSectionService({
     agents: { list: () => existing },
     sidebar: {
       getSnapshot: () => structuredClone(current),
@@ -85,7 +85,7 @@ const agents = () => [
   { id: "c", name: "C" },
 ];
 
-describe("AgentTeamService", () => {
+describe("AgentSectionService", () => {
   it("exports only the agents of the chosen sections, with secrets hidden", async () => {
     const { service } = setup(agents(), layout);
     const result = await Effect.runPromise(service.exportFile(["rev"], "Work"));
@@ -102,7 +102,7 @@ describe("AgentTeamService", () => {
     expect(preview).toMatchObject({ ok: true, agents: 3, renamed: 5 });
   });
 
-  it("refuses a file that is not a team", async () => {
+  it("refuses a file that is not a section file", async () => {
     const { service } = setup(agents(), layout);
     expect(await Effect.runPromise(service.preview("{"))).toEqual({ ok: false, problem: { kind: "json" } });
   });

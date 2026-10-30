@@ -1,20 +1,20 @@
-import type { AgentTeamFileProblem } from "./agent-team-file";
+import type { AgentSectionFileProblem } from "./agent-section-file";
 import { isDynamicRecord, isNumber, isString } from "./runtime-values";
 
-export interface ExportAgentTeamInput {
+export interface ExportAgentSectionInput {
   sectionIds: string[];
-  teamName: string;
+  exportName: string;
 }
 
 /** `null` when the user closed the save dialog. */
-export interface ExportAgentTeamResult {
+export interface ExportAgentSectionResult {
   fileName: string;
   agents: number;
   /** The agents that had a value hidden because it looked like a secret. */
   masked: number;
 }
 
-export type AgentTeamPreview =
+export type AgentSectionPreview =
   | {
       ok: true;
       name: string;
@@ -25,28 +25,28 @@ export type AgentTeamPreview =
       skills: number;
       routines: number;
     }
-  | { ok: false; problem: AgentTeamFileProblem };
+  | { ok: false; problem: AgentSectionFileProblem };
 
 /** The file the user chose to import: its text goes back with the confirmation. */
-export interface ChosenAgentTeam {
+export interface ChosenAgentSection {
   fileName: string;
   text: string;
-  preview: AgentTeamPreview;
+  preview: AgentSectionPreview;
 }
 
-export interface ImportAgentTeamInput {
+export interface ImportAgentSectionInput {
   text: string;
   timezone: string;
 }
 
-export interface ImportAgentTeamResult {
+export interface ImportAgentSectionResult {
   agents: number;
 }
 
-export function decodeExportAgentTeamResult(value: unknown): ExportAgentTeamResult | null {
+export function decodeExportAgentSectionResult(value: unknown): ExportAgentSectionResult | null {
   if (value === null) return null;
   if (!isDynamicRecord(value) || !isString(value.fileName) || !isNumber(value.agents) || !isNumber(value.masked))
-    throw new Error("IPC returned an invalid team export.");
+    throw new Error("IPC returned an invalid section export.");
   return { fileName: value.fileName, agents: value.agents, masked: value.masked };
 }
 
@@ -60,8 +60,8 @@ const PROBLEMS_WITHOUT_NAME: ReadonlySet<string> = new Set([
   "agents",
 ]);
 
-function decodeProblem(value: unknown): AgentTeamFileProblem {
-  if (!isDynamicRecord(value) || !isString(value.kind)) throw new Error("IPC returned an invalid team problem.");
+function decodeProblem(value: unknown): AgentSectionFileProblem {
+  if (!isDynamicRecord(value) || !isString(value.kind)) throw new Error("IPC returned an invalid section problem.");
   if (value.kind === "sectionName" && isString(value.section)) return { kind: "sectionName", section: value.section };
   if (
     (value.kind === "agent" || value.kind === "marketplaceSkill" || value.kind === "duplicate") &&
@@ -80,11 +80,11 @@ function decodeProblem(value: unknown): AgentTeamFileProblem {
         return { kind: value.kind };
     }
   }
-  throw new Error("IPC returned an invalid team problem.");
+  throw new Error("IPC returned an invalid section problem.");
 }
 
-export function decodeAgentTeamPreview(value: unknown): AgentTeamPreview {
-  if (!isDynamicRecord(value)) throw new Error("IPC returned an invalid team preview.");
+export function decodeAgentSectionPreview(value: unknown): AgentSectionPreview {
+  if (!isDynamicRecord(value)) throw new Error("IPC returned an invalid section preview.");
   if (value.ok === false) return { ok: false, problem: decodeProblem(value.problem) };
   if (
     value.ok !== true ||
@@ -95,10 +95,10 @@ export function decodeAgentTeamPreview(value: unknown): AgentTeamPreview {
     !isNumber(value.skills) ||
     !isNumber(value.routines)
   )
-    throw new Error("IPC returned an invalid team preview.");
+    throw new Error("IPC returned an invalid section preview.");
   const sections = value.sections.map((section) => {
     if (!isDynamicRecord(section) || !isString(section.name) || !Array.isArray(section.agents))
-      throw new Error("IPC returned an invalid team preview.");
+      throw new Error("IPC returned an invalid section preview.");
     return { name: section.name, agents: section.agents.filter(isString) };
   });
   return {
@@ -112,14 +112,14 @@ export function decodeAgentTeamPreview(value: unknown): AgentTeamPreview {
   };
 }
 
-export function decodeChosenAgentTeam(value: unknown): ChosenAgentTeam | null {
+export function decodeChosenAgentSection(value: unknown): ChosenAgentSection | null {
   if (value === null) return null;
   if (!isDynamicRecord(value) || !isString(value.fileName) || !isString(value.text))
-    throw new Error("IPC returned an invalid team file.");
-  return { fileName: value.fileName, text: value.text, preview: decodeAgentTeamPreview(value.preview) };
+    throw new Error("IPC returned an invalid section file.");
+  return { fileName: value.fileName, text: value.text, preview: decodeAgentSectionPreview(value.preview) };
 }
 
-export function decodeImportAgentTeamResult(value: unknown): ImportAgentTeamResult {
-  if (!isDynamicRecord(value) || !isNumber(value.agents)) throw new Error("IPC returned an invalid team import.");
+export function decodeImportAgentSectionResult(value: unknown): ImportAgentSectionResult {
+  if (!isDynamicRecord(value) || !isNumber(value.agents)) throw new Error("IPC returned an invalid section import.");
   return { agents: value.agents };
 }

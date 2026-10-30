@@ -102,10 +102,10 @@ export function SidebarNav() {
                   <span>{t("sidebar.new.section")}</span>
                 </ContextMenu.Item>
               </Show>
-              <Show when={layoutMutable() && props.onImportTeam}>
-                <ContextMenu.Item onSelect={() => props.onImportTeam?.()}>
+              <Show when={layoutMutable() && props.onImportSections}>
+                <ContextMenu.Item onSelect={() => props.onImportSections?.()}>
                   <Upload class="agent-context-icon size-4" aria-hidden="true" />
-                  <span>{t("sidebar.new.importTeam")}</span>
+                  <span>{t("sidebar.new.importSections")}</span>
                 </ContextMenu.Item>
               </Show>
               <Show when={props.onMarkAllRead}>

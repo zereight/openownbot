@@ -161,10 +161,10 @@ export function SidebarTopbar() {
                     {t("sidebar.new.section")}
                   </DropdownMenu.Item>
                 </Show>
-                <Show when={layoutMutable() && props.onImportTeam}>
-                  <DropdownMenu.Item onSelectAfterClose={() => props.onImportTeam?.()}>
+                <Show when={layoutMutable() && props.onImportSections}>
+                  <DropdownMenu.Item onSelectAfterClose={() => props.onImportSections?.()}>
                     <Upload aria-hidden="true" />
-                    {t("sidebar.new.importTeam")}
+                    {t("sidebar.new.importSections")}
                   </DropdownMenu.Item>
                 </Show>
               </DropdownMenu.Content>

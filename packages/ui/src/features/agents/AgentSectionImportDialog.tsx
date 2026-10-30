@@ -1,24 +1,24 @@
-import type { AgentTeamPreview } from "@openownbot/contracts/ipc";
+import type { AgentSectionPreview } from "@openownbot/contracts/ipc";
 import { classifyFailure } from "@openownbot/telemetry";
 import { Button, Dialog, Heading, IconButton, Text, toast, X } from "@openownbot/ui";
 import { createSignal, For, Show } from "solid-js";
 import { useText } from "../../text";
 
-export type AgentTeamImportPreview = Extract<AgentTeamPreview, { ok: true }>;
+export type AgentSectionImportPreview = Extract<AgentSectionPreview, { ok: true }>;
 
-export interface AgentTeamImportDialogProps {
+export interface AgentSectionImportDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   /** What the import would create. Null while no file is chosen. */
-  preview: AgentTeamImportPreview | null;
+  preview: AgentSectionImportPreview | null;
   onImport: () => Promise<void>;
 }
 
 /**
- * Shows what a team file would create before anything is made: a file from someone else carries
+ * Shows what a section file would create before anything is made: a file from someone else carries
  * instructions an agent will follow, so choosing it never adds an agent by itself.
  */
-export function AgentTeamImportDialog(props: AgentTeamImportDialogProps) {
+export function AgentSectionImportDialog(props: AgentSectionImportDialogProps) {
   const { t, errorMessage } = useText();
   const [importing, setImporting] = createSignal(false);
 
@@ -27,7 +27,7 @@ export function AgentTeamImportDialog(props: AgentTeamImportDialogProps) {
     try {
       await props.onImport();
     } catch (error) {
-      toast.error(errorMessage(error, t("agentTeam.import.failed")), {
+      toast.error(errorMessage(error, t("agentSection.import.failed")), {
         report: { operation: "agent", source: "system", cause_code: classifyFailure(error) },
       });
     } finally {
@@ -41,9 +41,9 @@ export function AgentTeamImportDialog(props: AgentTeamImportDialogProps) {
         <Dialog.Overlay class="agent-template-backdrop">
           <Dialog.Content as="section" class="agent-template-dialog" aria-busy={importing() ? "true" : undefined}>
             <Dialog.Title class="sr-only">
-              {t("agentTeam.import.title", { name: props.preview?.name ?? "" })}
+              {t("agentSection.import.title", { name: props.preview?.name ?? "" })}
             </Dialog.Title>
-            <Dialog.Description class="sr-only">{t("agentTeam.import.safety")}</Dialog.Description>
+            <Dialog.Description class="sr-only">{t("agentSection.import.safety")}</Dialog.Description>
             <div class="agent-template-corner-actions">
               <IconButton label={t("common.close")} variant="ghost" onClick={() => props.onOpenChange(false)}>
                 <X />
@@ -54,10 +54,10 @@ export function AgentTeamImportDialog(props: AgentTeamImportDialogProps) {
                 <>
                   <div class="agent-template-body agent-template-scroll">
                     <Heading as="h2" size="md" class="agent-template-name">
-                      {t("agentTeam.import.title", { name: preview().name })}
+                      {t("agentSection.import.title", { name: preview().name })}
                     </Heading>
                     <Text>
-                      {t("agentTeam.import.summary", {
+                      {t("agentSection.import.summary", {
                         agents: preview().agents,
                         sections: preview().sections.length,
                       })}
@@ -75,15 +75,15 @@ export function AgentTeamImportDialog(props: AgentTeamImportDialogProps) {
                       )}
                     </For>
                     <Text tone="muted" variant="caption">
-                      {t("agentTeam.import.contents", { skills: preview().skills, routines: preview().routines })}
+                      {t("agentSection.import.contents", { skills: preview().skills, routines: preview().routines })}
                     </Text>
                     <Show when={preview().renamed > 0}>
                       <Text tone="muted" variant="caption">
-                        {t("agentTeam.import.renamed", { count: preview().renamed })}
+                        {t("agentSection.import.renamed", { count: preview().renamed })}
                       </Text>
                     </Show>
                     <Text tone="muted" variant="caption">
-                      {t("agentTeam.import.safety")}
+                      {t("agentSection.import.safety")}
                     </Text>
                   </div>
                   <footer class="agent-template-actions">
@@ -96,7 +96,7 @@ export function AgentTeamImportDialog(props: AgentTeamImportDialogProps) {
                       {t("common.cancel")}
                     </Button>
                     <Button type="button" variant="default" disabled={importing()} onClick={() => void run()}>
-                      {importing() ? t("agentTeam.import.pending") : t("agentTeam.import.action")}
+                      {importing() ? t("agentSection.import.pending") : t("agentSection.import.action")}
                     </Button>
                   </footer>
                 </>

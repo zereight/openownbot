@@ -1589,7 +1589,7 @@ export function createMockOpenOwnBot(options: MockOpenOwnBotOptions = {}): MockO
       saveCustomProvider: (input) => api.customProviders.save(input),
       deleteCustomProvider: (input) => api.customProviders.delete(input),
     },
-    agentTeams: {
+    agentSections: {
       export: async () => null,
       choose: async () => null,
       import: async () => ({ agents: 0 }),
