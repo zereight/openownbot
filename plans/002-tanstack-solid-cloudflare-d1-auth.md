@@ -117,8 +117,8 @@ email) before this step. Not recommended before A, B and C have shipped and a re
    have a hash and no `accountId` (no names, no emails). Release it, then read the result from
    support reports. The product sends no telemetry, so there is no other count.
 3. B, with an E2E script that signs in with an old client. Done on 2026-10-31.
-4. C, with migration fixtures.
-5. D only after a decision.
+4. C, with migration fixtures. Open: it deletes the stored hashes and needs an explicit choice.
+5. D. Done on 2026-10-31, without C: the hashes stay in the file.
 
 ### Decision (2026-10-31)
 
@@ -162,9 +162,53 @@ route, because their fixtures record the released wire format. The host now answ
 request to that path with 404. `scripts/team-password-login-e2e.ts` checks that answer and that the
 password does not change. The step was not run against the code before the removal.
 
-After this, the host writes a password hash in one place only: `TeamStore.configure`, which only E2E
-scripts call. Options C (delete the hashes) and D (remove `/v1/auth/login` and the hash code) stay open
-and need an explicit choice.
+After this step the host still wrote a password hash in one place, `TeamStore.configure`, which only
+E2E scripts called. The next section removes it.
+
+### Password sign-in removed (2026-10-31, option D)
+
+The developer chose option D after stating that no old Team API client exists. That statement was not
+checked here. A search found no caller of `POST /v1/auth/login` in `src`, `apps`, `packages` or `docs`:
+the desktop remote sign-in sends an account ticket to `/v1/auth/account`.
+
+Removed:
+
+- The host route `POST /v1/auth/login` (`src/main/team-api-server.ts`) and `TEAM_API_ROUTES.auth.login`.
+- `TeamStore.login`, `TeamStore.configure`, the scrypt helpers, `validateUsername`, `validatePassword`
+  and `#requireUnchangedState`. Only the removed code used them.
+- Four texts that only that code used (`error.team.loginIncorrect`, `usernameInvalid`, `passwordLength`
+  and `accountChangedDuringRequest`) in 13 catalogs.
+
+Kept, on purpose:
+
+- `passwordHash` and `passwordSalt` in the team file, and in the copy of the record that the file keeps
+  for a legacy import. Nothing reads them. They are not deleted, because deleting is irreversible and
+  `AGENTS.md` says that user data is kept. `publicMember` copies the fields it names, so no response
+  carries them. Option C, deleting them, stays open and needs an explicit choice.
+- The frozen codecs of the released protocols (`v1.ts`, `provider-aware-codec.ts`) still name the login
+  route. The host answers a request to it like any unknown route.
+
+What this means for members:
+
+- An owner from before accounts signs in with the account. `activateAccount` adopts a host with an
+  owner that has no account and binds the owner. The new E2E shows this with a team file written as an
+  older version wrote it.
+- A member that is not the owner, has no account and has no email address has no way in now. No client
+  in this repository sent a password, so this member had no way in with a current client before this
+  step either. Whether such members exist on installed hosts is not known.
+
+Checks (run locally on 2026-10-31; this fork's CI has no E2E lane):
+
+- `scripts/team-password-removed-e2e.ts` (`bun run test:team-password-removed`) replaces
+  `team-password-login-e2e.ts`. It fails on the code before this step (the login route answered 400
+  where an unknown route answers 401) and passes after it. It also checks that the hash and the salt
+  stay in the file after the host wrote it and after a restart, and that no response carries them.
+- `team-session-revoke`, `team-session-end`, `agent-hide-restore`, `channel-notifications` and
+  `host-key-rotation` pass after they moved from the password sign-in to the account sign-in.
+- `team-api-routes` has 123 passing checks and one failing: "a member cannot read or set the memory
+  review". It fails on the code before this step too (122 pass, the same one fails), because the
+  second device of that script is an owner, not a member. It is not fixed here. The rate-limit check
+  of that script now counts the account sign-in, and it is split into three checks.
 
 ### Account contract check (2026-10-31)
 

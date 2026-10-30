@@ -9,7 +9,7 @@ changes, and respect the `STOP` conditions.
 | Plan | Title | Priority | Size | Dependencies | State |
 |------|-------|----------|------|--------------|-------|
 | 001 | Add a central account API and a host whitelist | P1 | L | — | SUPERSEDED BY 002 |
-| 002 | TanStack Start, Solid 2, Cloudflare Workers and D1 | P1 | L | — | DONE with an exception: option B refuses the password of a member with an account; legacy hashes and the two routes stay (C and D stay open) |
+| 002 | TanStack Start, Solid 2, Cloudflare Workers and D1 | P1 | L | — | DONE with an exception: option D removed the password sign-in and change from the host; the stored hashes stay in the file (option C, deleting them, stays open) |
 | 003 | MCP is robust and future-proof | P1 | M | — | DONE |
 | 004 | Fade the mobile search results and notices in and out | MEDIUM | S | — | DONE |
 | 005 | An invitation cannot disconnect a host or revive a removed member | P1 | M | maintainer decision (revoked member) | DONE |
@@ -25,18 +25,13 @@ Allowed states: `TODO`, `IN PROGRESS`, `DONE`, `BLOCKED: <reason>`,
 
 ## Dependencies
 
-- Plan 002 supersedes the backend part of plan 001. The host whitelist part is
-  the open stage of plan 002. Part of it is in the code: D1 keeps members by
-  account, role and invitation email (`remote_memberships`, `remote_invites`), and
-  the host accepts a one-host account ticket (`redeemCentralTicket`). The host
-  still keeps local password sign-in (`src/main/team-store.ts`), and the plan
-  does not permit that. Checked again on 2026-10-31 at `bb1e59935`: only `configure`
-  (called by E2E scripts only), `login` and `changePassword` use scrypt hashes, and
-  `acceptInvite` no longer exists in `team-store.ts`. New hosts and members get no hash. The legacy
-  hashes and the two released routes remain. Since 2026-10-31 plan 002 is DONE with this exception:
-  the developer chose option B, so the host refuses the password of a member who has an account and
-  keeps the hash. The password-change route was removed after that, because nothing calls it.
-  Options C and D are in the plan and need an explicit choice.
+- Plan 002 supersedes the backend part of plan 001. D1 keeps members by account, role and
+  invitation email (`remote_memberships`, `remote_invites`), and the host accepts a one-host account
+  ticket (`redeemCentralTicket`). The local password sign-in that the plan did not permit is gone
+  since 2026-10-31: the developer chose option B and then option D, so the host serves neither
+  `/v1/auth/login` nor `/v1/auth/password`, and `TeamStore.login`, `configure` and `changePassword`
+  are removed. The password hashes that older versions stored stay in the team file and nothing reads
+  them. Option C, deleting them, needs an explicit choice.
 - Plan 003 is independent of 001 and 002. It was written against a clean
   worktree at commit `4980fb58`, after #633 gave Codex HTTP MCP servers, and
   rewritten once the developer decided the runtime, the configuration policy and
