@@ -12,6 +12,8 @@ export interface AgentTasksPort
   ): Promise<unknown>;
   /** Missing where the server cannot move a queued message of the agent's own chat to a new thread. */
   runQueuedMessageAsTask?: OpenOwnBotDesktopApi["agent"]["runQueuedMessageAsTask"];
+  /** Missing where the server cannot fork a conversation at a message. */
+  forkThread?: OpenOwnBotDesktopApi["agent"]["forkThread"];
 }
 
 /**
@@ -27,6 +29,7 @@ export function agentTasksPort(): AgentTasksPort {
     startTask: (input) => agent.startTask(input),
     sendToTask: (input) => agent.sendMessage(input),
     runQueuedMessageAsTask: (input) => agent.runQueuedMessageAsTask(input),
+    forkThread: (input) => agent.forkThread(input),
     stopTask: (input) => agent.stopTask(input),
     closeTask: (input, serverId) => agent.closeTask(input, serverId),
     reopenTask: (input, serverId) => agent.reopenTask(input, serverId),

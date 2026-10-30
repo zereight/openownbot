@@ -87,6 +87,7 @@ export const messages = {
   "conversation.threads.error.load": "이 에이전트의 스레드를 불러올 수 없어요.",
   "conversation.threads.error.read": "이 스레드의 메시지를 불러올 수 없어요.",
   "conversation.threads.error.start": "스레드를 시작할 수 없어요.",
+  "conversation.threads.error.fork": "스레드를 포크할 수 없어요.",
   "conversation.threads.error.send": "스레드에 메시지를 보낼 수 없어요.",
   "conversation.threads.error.files": "파일은 이 컴퓨터에 있는 에이전트의 스레드에만 보낼 수 있어요.",
   "conversation.threads.error.stop": "스레드를 중지할 수 없어요.",

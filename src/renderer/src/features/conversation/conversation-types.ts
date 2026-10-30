@@ -425,4 +425,6 @@ export interface ConversationThreads {
   onCompactContext?: (() => Promise<void>) | undefined;
   /** Missing when the host cannot move a queued message to a new thread. */
   onRunQueuedMessage?: ((deliveryId: string) => void) | undefined;
+  /** Forks the open thread at a message into a new thread. Missing when the host cannot fork. */
+  onForkMessage?: ((messageId: string) => void) | undefined;
 }

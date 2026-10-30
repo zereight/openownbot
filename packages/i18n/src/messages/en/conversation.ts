@@ -87,6 +87,7 @@ export const messages = defineMessages("conversation", {
   "conversation.threads.error.load": "Could not load the threads of this agent.",
   "conversation.threads.error.read": "Could not load the messages of this thread.",
   "conversation.threads.error.start": "Could not start the thread.",
+  "conversation.threads.error.fork": "Could not fork the thread.",
   "conversation.threads.error.send": "Could not send the message to the thread.",
   "conversation.threads.error.files": "Files can go to a thread only for an agent on this computer.",
   "conversation.threads.error.stop": "Could not stop the thread.",
