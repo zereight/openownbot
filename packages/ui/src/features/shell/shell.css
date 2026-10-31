@@ -1,0 +1,315 @@
+/* The ROBot window: rail, list, chat and member panel. Backgrounds go from the darkest column (rail)
+   to the lightest (chat). */
+.shell-frame {
+  display: flex;
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+  font-size: var(--openownbot-text-md);
+  color: var(--openownbot-text-secondary);
+  background: var(--openownbot-bg-surface);
+}
+
+.shell-frame .lucide {
+  width: var(--openownbot-icon-sm);
+  height: var(--openownbot-icon-sm);
+  flex: none;
+}
+
+.shell-chat {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.shell-rail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--openownbot-space-2);
+  width: 72px;
+  flex: none;
+  padding: var(--openownbot-space-3) 0;
+  overflow-y: auto;
+  background: var(--openownbot-bg-frame);
+}
+
+.shell-frame .shell-server {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  flex: none;
+  border: 0;
+  border-radius: var(--openownbot-radius-pill);
+  font-weight: var(--openownbot-weight-semibold);
+  color: var(--openownbot-text-secondary);
+  background: var(--openownbot-bg-surface);
+  cursor: pointer;
+  transition: border-radius var(--openownbot-duration-fast) var(--openownbot-ease-out);
+}
+
+.shell-frame .shell-server:hover,
+.shell-frame .shell-server[aria-pressed="true"] {
+  border-radius: var(--openownbot-radius-lg);
+}
+
+.shell-frame .shell-server[aria-pressed="true"] {
+  color: var(--openownbot-text-primary);
+  background: var(--openownbot-bg-surface-raised);
+  box-shadow: inset 0 0 0 2px var(--openownbot-accent);
+}
+
+.shell-frame .shell-server:focus-visible,
+.shell-frame .shell-place:focus-visible,
+.shell-frame .shell-icon-button:focus-visible {
+  outline: none;
+  box-shadow: var(--openownbot-focus-ring);
+}
+
+.shell-frame .shell-server-add {
+  color: var(--openownbot-success-text);
+}
+
+.shell-list {
+  display: flex;
+  flex-direction: column;
+  width: 240px;
+  flex: none;
+  background: var(--openownbot-bg-canvas);
+}
+
+.shell-list-header,
+.shell-side-header {
+  display: flex;
+  align-items: center;
+  gap: var(--openownbot-space-2);
+  height: 48px;
+  flex: none;
+  padding: 0 var(--openownbot-space-4);
+  border-bottom: 1px solid var(--openownbot-border-strong);
+  font-weight: var(--openownbot-weight-semibold);
+  color: var(--openownbot-text-primary);
+}
+
+.shell-list-scroll {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--openownbot-space-2);
+}
+
+.shell-section {
+  margin: var(--openownbot-space-4) var(--openownbot-space-2) var(--openownbot-space-1);
+  font-size: var(--openownbot-text-sm);
+  font-weight: var(--openownbot-weight-semibold);
+  letter-spacing: var(--openownbot-tracking-wide);
+  text-transform: uppercase;
+  color: var(--openownbot-text-muted);
+}
+
+.shell-side-header .shell-section {
+  flex: 1;
+  margin: 0;
+}
+
+.shell-frame .shell-place {
+  display: flex;
+  align-items: center;
+  gap: var(--openownbot-space-2);
+  width: 100%;
+  min-height: 34px;
+  padding: var(--openownbot-space-1) var(--openownbot-space-2);
+  border: 0;
+  border-radius: var(--openownbot-radius-sm);
+  text-align: start;
+  color: var(--openownbot-text-muted);
+  background: transparent;
+  cursor: pointer;
+}
+
+.shell-frame .shell-place:hover {
+  color: var(--openownbot-text-secondary);
+  background: var(--openownbot-hover);
+}
+
+.shell-frame .shell-place[aria-current="page"] {
+  color: var(--openownbot-text-primary);
+  background: var(--openownbot-accent-soft);
+}
+
+.shell-place-icon {
+  color: var(--openownbot-text-dim);
+}
+
+.shell-place-name {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.shell-unread {
+  min-width: 20px;
+  padding: 0 var(--openownbot-space-1-5);
+  border-radius: var(--openownbot-radius-pill);
+  font-size: var(--openownbot-text-sm);
+  font-weight: var(--openownbot-weight-bold);
+  text-align: center;
+  color: var(--openownbot-unread-text);
+  background: var(--openownbot-unread-surface);
+}
+
+.shell-you {
+  display: flex;
+  align-items: center;
+  gap: var(--openownbot-space-2);
+  padding: var(--openownbot-space-2) var(--openownbot-space-3);
+  background: var(--openownbot-bg-frame);
+}
+
+.shell-you-slot {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: var(--openownbot-space-2);
+  min-width: 0;
+  font-weight: var(--openownbot-weight-medium);
+  color: var(--openownbot-text-primary);
+}
+
+.shell-frame .shell-icon-button {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  flex: none;
+  border: 0;
+  border-radius: var(--openownbot-radius-sm);
+  color: var(--openownbot-text-muted);
+  background: transparent;
+  cursor: pointer;
+}
+
+.shell-frame .shell-icon-button:hover {
+  color: var(--openownbot-text-primary);
+  background: var(--openownbot-hover);
+}
+
+.shell-avatar {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  flex: none;
+}
+
+.shell-avatar-small {
+  width: 24px;
+  height: 24px;
+}
+
+.shell-avatar .agent-avatar {
+  width: 100%;
+  height: 100%;
+}
+
+.shell-status {
+  position: absolute;
+  inset-inline-end: -2px;
+  bottom: -2px;
+  width: 12px;
+  height: 12px;
+  border: 2px solid var(--openownbot-bg-canvas);
+  border-radius: var(--openownbot-radius-pill);
+  background: var(--openownbot-text-dim);
+}
+
+.shell-avatar-small .shell-status {
+  width: 10px;
+  height: 10px;
+}
+
+.shell-status-working {
+  background: var(--openownbot-success);
+}
+
+.shell-status-waiting {
+  background: var(--openownbot-warning);
+}
+
+.shell-status-failed {
+  background: var(--openownbot-danger);
+}
+
+.shell-side {
+  display: flex;
+  flex-direction: column;
+  width: 240px;
+  flex: none;
+  background: var(--openownbot-bg-canvas);
+}
+
+.shell-members {
+  flex: 1;
+  overflow-y: auto;
+  margin: 0;
+  padding: var(--openownbot-space-2) 0;
+  list-style: none;
+}
+
+.shell-member {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--openownbot-space-3);
+  padding: var(--openownbot-space-2) var(--openownbot-space-4);
+}
+
+.shell-member-text {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.shell-member-name {
+  overflow: hidden;
+  font-weight: var(--openownbot-weight-medium);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--openownbot-text-primary);
+}
+
+.shell-member-state {
+  font-size: var(--openownbot-text-sm);
+  color: var(--openownbot-text-muted);
+}
+
+.shell-member-working .shell-member-state {
+  color: var(--openownbot-success-text);
+}
+
+.shell-member-waiting .shell-member-state {
+  color: var(--openownbot-warning-text);
+}
+
+.shell-member-failed .shell-member-state {
+  color: var(--openownbot-danger-text);
+}
+
+.shell-member-detail {
+  font-size: var(--openownbot-text-sm);
+  color: var(--openownbot-text-secondary);
+  overflow-wrap: anywhere;
+}
+
+.shell-member-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--openownbot-space-2);
+  margin-top: var(--openownbot-space-2);
+}
+
+.shell-member-actions > * {
+  flex: 1 1 auto;
+}
