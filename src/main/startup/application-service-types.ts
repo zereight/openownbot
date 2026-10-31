@@ -83,6 +83,7 @@ import type { RemoteDesktopManager } from "../remote-desktop-manager";
 import type { RemoteNetworkRoutePreferenceStore } from "../remote-network-route-preference-store";
 import type { RemoteServerManager } from "../remote-server-manager";
 import type { RemoteWorkflowError } from "../remote-service-effects";
+
 /**
  * The composition root. Every long-lived service the desktop app owns is built here, in one
  * function, in dependency order, and handed back as a single record.

@@ -338,7 +338,7 @@ describe("config gates", () => {
 
   it("lists the two config files that start a service on their own", () => {
     expect(CONFIG_GATES.map((gate) => [gate.path, gate.gateFile])).toEqual([
-      ["electron-builder.yml", "src/main/application-services.ts"],
+      ["electron-builder.yml", "src/main/startup/updater.ts"],
       ["apps/mobile/app.json", "apps/mobile/app.config.js"],
     ]);
   });
