@@ -258,10 +258,8 @@ other places.
 7. **Logo.** The `ProviderLogoVariant` union and its SVG in
    [`packages/brand/src/ProviderLogo.tsx`](../../packages/brand/src/ProviderLogo.tsx), and the color
    in `packages/brand/src/tokens.css`.
-8. **Team API.** The provider lists of a released capability are frozen. A new provider on a joined
-   server needs a new `providers-vN` capability (see "Protocol compatibility" in
-   [Providers](providers.md#protocol-compatibility)) and the peer rules in
-   [`provider-visibility.ts`](../../src/main/team-api/provider-visibility.ts).
+8. **Team API.** Provider ids are open values (`OPEN_PROVIDER_ID`), so a new provider needs no
+   protocol change. Add its routes to `providers-v8` when a peer must manage it.
 9. **Text and docs.** Error keys in `error/provider.ts` and onboarding text in all languages
    ([docs/i18n.md](../i18n.md)). A section in [Providers](providers.md), and a
    `changelog.d/<branch>.md` file.

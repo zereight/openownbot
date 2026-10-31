@@ -104,9 +104,6 @@ export const messages = {
   "error.team.inviteServiceUnavailable": "초대 서비스를 사용할 수 없어요.",
   "error.team.logoNotFound": "서버 로고를 찾을 수 없어요.",
   "error.team.updateRequired": "업데이트가 필요해요.",
-  "error.team.defaultProviderRequiresV4": "호스트의 기본 제공자를 사용하려면 Team API v4가 필요해요.",
-  "error.team.newAgentProviderLocalOnly":
-    "새 에이전트가 호스트에서만 사용할 수 있는 제공자로 시작될 수 있어요. 호스트의 기본 제공자를 변경해 주세요.",
   "error.team.hostAnalyticsUnsupported": "이 클라이언트는 호스트 분석을 지원하지 않아요.",
   "error.team.profileGenerationUnsupported": "이 클라이언트는 프로필 생성을 지원하지 않아요.",
   "error.team.searchQueryRequired": "올바른 검색어가 필요해요.",

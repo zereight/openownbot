@@ -10,7 +10,7 @@
 
 import { isDynamicRecord, isString } from "@robot/contracts/runtime-values";
 import type { TeamCurrentCapability } from "@robot/contracts/team-protocol/current";
-import { teamHttpCodec } from "@robot/contracts/team-protocol/http-codecs";
+import { TEAM_HTTP_CODEC } from "@robot/contracts/team-protocol/http-codecs";
 import { teamSideRouteCodec } from "@robot/contracts/team-protocol/side-routes";
 import {
   TEAM_APP_VERSION_HEADER,
@@ -50,7 +50,7 @@ export const requestJson = Effect.fn("RemoteHttp.requestJson")(function* <T>(
   );
   const method = options.method ?? (options.body === undefined ? "GET" : "POST");
   const sideRoute = teamSideRouteCodec(path);
-  const codec = teamHttpCodec(options.protocol);
+  const codec = TEAM_HTTP_CODEC;
   const response = yield* remoteFetch(
     new URL(path, apiUrl),
     {

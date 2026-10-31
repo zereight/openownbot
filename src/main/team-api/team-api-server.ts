@@ -113,7 +113,7 @@ import {
   type HostRestartEvent,
   type HostRestartState,
 } from "@robot/contracts/team-protocol/host-update-v1";
-import { teamHttpCodec } from "@robot/contracts/team-protocol/http-codecs";
+import { TEAM_HTTP_CODEC } from "@robot/contracts/team-protocol/http-codecs";
 import { type OptionalTeamEvent, optionalTeamEvent } from "@robot/contracts/team-protocol/optional-events";
 import { PROVIDERS_V8_CAPABILITY } from "@robot/contracts/team-protocol/providers-v8";
 import { teamSideRouteCodec } from "@robot/contracts/team-protocol/side-routes";
@@ -129,14 +129,7 @@ import {
   decodeTeamProtocolV1CurrentClientEvent,
   encodeTeamProtocolV1CurrentEvent,
 } from "@robot/contracts/team-protocol/v1-adapter";
-import { encodeTeamProtocolV4BaseCurrentEvent } from "@robot/contracts/team-protocol/v4-base-adapter";
-import { TEAM_LOCAL_PROVIDERS_CAPABILITY } from "@robot/contracts/team-protocol/v5";
-import { encodeTeamProtocolV5BaseCurrentEvent } from "@robot/contracts/team-protocol/v5-base-adapter";
-import { TEAM_CURSOR_CLINE_CAPABILITY } from "@robot/contracts/team-protocol/v6";
-import { encodeTeamProtocolV6BaseCurrentEvent } from "@robot/contracts/team-protocol/v6-base-adapter";
-import { TEAM_PI_MUSE_CAPABILITY } from "@robot/contracts/team-protocol/v7";
-import { encodeTeamProtocolV7BaseCurrentEvent } from "@robot/contracts/team-protocol/v7-base-adapter";
-import { TEAM_OPEN_PROVIDERS_CAPABILITY, TEAM_PROTOCOL_V8 } from "@robot/contracts/team-protocol/v8";
+import { TEAM_PROTOCOL_V8 } from "@robot/contracts/team-protocol/v8";
 import { encodeTeamProtocolV8BaseCurrentEvent } from "@robot/contracts/team-protocol/v8-base-adapter";
 import { isFixedSourceText, sourceText } from "@robot/i18n/source";
 import { createOpenOwnBotLogger, toLogValue } from "@robot/logging";
@@ -153,15 +146,10 @@ import { listenLoopback } from "../platform/listen-loopback";
 import { RemoteScreenError } from "../remote-desktop/remote-screen-gateway";
 import { RemoteWorkflowError, remoteCall, toRemoteWorkflowError } from "../remote-servers/remote-service-effects";
 import { TeamStoreError } from "../team/team-store";
+import { hiddenAgentView } from "./agent-visibility";
 import { isClientUse } from "./client-use";
 import type { TeamApiOptions, TeamApiSidebarLayout } from "./dependencies";
 import { HttpError } from "./http-error";
-import {
-  hiddenAgentView,
-  hiddenProviderAgentIds,
-  isPeerHiddenProvider,
-  legacyProviderView,
-} from "./provider-visibility";
 import type { RouteOutcome, TeamApiRequestContext } from "./request-context";
 import {
   bearerToken,
@@ -750,7 +738,7 @@ export class TeamApiServer {
         await runCauseEffect(this.#options.agentsReady());
       }
       // A member also gets the agents that the roles close to them as hidden.
-      const hidden = this.hiddenAgentIds(context.protocol, context.capabilities);
+      const hidden = this.hiddenAgentIds(context.capabilities);
       // Every protocol gets the projection, also with no hidden agent: a provider status row, a
       // model or an auth state of a local-only provider can be in the response.
       const responseRoute = this.#responseRoutes.get(response);
@@ -762,11 +750,6 @@ export class TeamApiServer {
       ) {
         throw new HttpError(404, sourceText("error.team.agentNotFound"));
       }
-      // A template, a marketplace agent and an imported one start where a new agent does.
-      const newAgentHidden = () => {
-        const provider = this.#options.agents.newAgentProvider();
-        return provider !== null && isPeerHiddenProvider(provider, context.protocol);
-      };
 
       // First module that does not say "unmatched" wins, and the dispatcher then does nothing at
       // all - work after a `writeHead` is an `ERR_HTTP_HEADERS_SENT` thrown into the catch below,
@@ -820,7 +803,7 @@ export class TeamApiServer {
       if ((await routeAgentThreads(context, this.#options.agentTasks, hidden)) === "handled") return;
       if ((await routeSkillsAdmin(context, this.#options.admin, hidden)) === "handled") return;
       if ((await routeSharedTables(context, this.#options.admin)) === "handled") return;
-      if ((await routeAgentInstall(context, this.#options.admin, hidden, newAgentHidden)) === "handled") return;
+      if ((await routeAgentInstall(context, this.#options.admin, hidden)) === "handled") return;
       if ((await routeAgentPublish(context, this.#options.admin, hidden)) === "handled") return;
       if ((await routeAcpRegistry(context, this.#options.admin)) === "handled") return;
       if ((await routeProviders(context, this.#options.admin)) === "handled") return;
@@ -840,12 +823,12 @@ export class TeamApiServer {
         return;
       if ((await routeWorkflows(context, this.#options.workflows, this.#options.agents, hidden)) === "handled") return;
       if ((await this.#routeEvents(context)) === "handled") return;
-      if ((await routeAgentImport(context, this.#options.agentImport, newAgentHidden)) === "handled") return;
-      if ((await routeInstanceTransfer(context, this.#options.instanceTransfer, newAgentHidden)) === "handled") return;
+      if ((await routeAgentImport(context, this.#options.agentImport)) === "handled") return;
+      if ((await routeInstanceTransfer(context, this.#options.instanceTransfer)) === "handled") return;
       if (
         // The ID, not the member: the registration outlives a role change.
         (await routeLiveActivityPush(context, this.#options.liveActivityPush, () =>
-          this.hiddenAgentIds(context.protocol, context.capabilities),
+          this.hiddenAgentIds(context.capabilities),
         )) === "handled"
       )
         return;
@@ -997,34 +980,17 @@ export class TeamApiServer {
     options: { preserveSemanticTags?: boolean } = {},
     blocked: ReadonlySet<string> = new Set(),
   ): string | null {
-    const protocol = eventProtocol(capabilities);
-    const hidden = hiddenProviderAgentIds(this.#options.agents.listAgents(), protocol);
-    for (const id of blocked) hidden.add(id);
-    const visible = protocol === 1 ? legacyProviderView(event, hidden) : hiddenAgentView(event, hidden, protocol);
+    const visible = hiddenAgentView(event, blocked);
     if (!isAgentEvent(visible) && !isTeamRealtimeEvent(visible)) return null;
-    if (protocol !== 1)
-      return (
-        protocol === 8
-          ? encodeTeamProtocolV8BaseCurrentEvent
-          : protocol === 7
-            ? encodeTeamProtocolV7BaseCurrentEvent
-            : protocol === 6
-              ? encodeTeamProtocolV6BaseCurrentEvent
-              : protocol === 5
-                ? encodeTeamProtocolV5BaseCurrentEvent
-                : encodeTeamProtocolV4BaseCurrentEvent
-      )(visible, {
-        ...options,
-        preserveBrowserSecrets: capabilities.has("browser-secret-handoff"),
-        // Only the V8 encoder reads them.
-        browserSignIn: capabilities.has(BROWSER_SIGN_IN_CAPABILITY),
-        contextUsage: capabilities.has(TEAM_CONTEXT_USAGE_CAPABILITY),
-        // Only the V7 and V8 encoders read them.
-        uiBlocks: capabilities.has(TEAM_UI_BLOCKS_CAPABILITY),
-        subagents: capabilities.has(TEAM_SUBAGENTS_CAPABILITY),
-        promptMultiSelect: capabilities.has(TEAM_PROMPT_MULTI_SELECT_CAPABILITY),
-      });
-    return encodeTeamProtocolV1CurrentEvent(visible, options);
+    return encodeTeamProtocolV8BaseCurrentEvent(visible, {
+      ...options,
+      preserveBrowserSecrets: capabilities.has("browser-secret-handoff"),
+      browserSignIn: capabilities.has(BROWSER_SIGN_IN_CAPABILITY),
+      contextUsage: capabilities.has(TEAM_CONTEXT_USAGE_CAPABILITY),
+      uiBlocks: capabilities.has(TEAM_UI_BLOCKS_CAPABILITY),
+      subagents: capabilities.has(TEAM_SUBAGENTS_CAPABILITY),
+      promptMultiSelect: capabilities.has(TEAM_PROMPT_MULTI_SELECT_CAPABILITY),
+    });
   }
 
   #broadcastAgentEvent(event: AgentEvent): void {
@@ -1196,14 +1162,11 @@ export class TeamApiServer {
         // The base events go through the provider view; an optional event that names a hidden agent is left out.
         // A task event uses the hidden agents of the task routes, so a task of an agent that answers 404 does not arrive.
         const agentId = optionalEventAgentId(optional);
-        const protocol = eventProtocol(connection.capabilities);
         if (
           agentId !== null &&
           (blocked.has(agentId) ||
-            (requiredCapability === AGENT_TASKS_CAPABILITY
-              ? this.hiddenAgentIds(protocol, connection.capabilities)
-              : hiddenProviderAgentIds(this.#options.agents.listAgents(), protocol)
-            ).has(agentId))
+            (requiredCapability === AGENT_TASKS_CAPABILITY &&
+              this.hiddenAgentIds(connection.capabilities).has(agentId)))
         )
           continue;
         // The list of hidden agents does not name an agent that this peer cannot see, as `/v1/hidden-agents` does.
@@ -1211,10 +1174,7 @@ export class TeamApiServer {
           optional.type === "hidden-agents-changed"
             ? {
                 type: optional.type,
-                ...visibleSnapshot(
-                  optional,
-                  this.hiddenAgentIds(eventProtocol(connection.capabilities), connection.capabilities),
-                ),
+                ...visibleSnapshot(optional, this.hiddenAgentIds(connection.capabilities)),
               }
             : optional,
         );
@@ -1239,7 +1199,7 @@ export class TeamApiServer {
           event.snapshot.messages.some((message) => message.itemType === ROUTINE_QUIET_ANSWER_ITEM_TYPE))
       ) {
         // The payloads are shared between clients, so the key holds what the roles allow too.
-        const key = `${blockedKey}:${eventProtocol(connection.capabilities)}:${connection.capabilities.has("opencode")}:${connection.capabilities.has("routine-event-markers")}:${connection.capabilities.has("routine-run-event-markers")}:${connection.capabilities.has("hosted-site-event-markers")}:${connection.capabilities.has(TEAM_PROMPT_MULTI_SELECT_CAPABILITY)}:${encodingOptions.preserveSemanticTags}`;
+        const key = `${blockedKey}:${connection.capabilities.has("opencode")}:${connection.capabilities.has("routine-event-markers")}:${connection.capabilities.has("routine-run-event-markers")}:${connection.capabilities.has("hosted-site-event-markers")}:${connection.capabilities.has(TEAM_PROMPT_MULTI_SELECT_CAPABILITY)}:${encodingOptions.preserveSemanticTags}`;
         let filtered = filteredConversationPayloads.get(key);
         if (!filtered) {
           filtered =
@@ -1685,20 +1645,11 @@ export class TeamApiServer {
     // the headers already sent that throw could neither answer the caller nor end the request: it
     // surfaced as a hung socket and an `ERR_HTTP_HEADERS_SENT` rejection out of `#handle`'s own
     // error path. Encoding first lets that failure become the 500 the caller can read.
-    const visibleValue =
-      status < 400 && route.hiddenAgentIds
-        ? route.protocol < 4
-          ? legacyProviderView(value, route.hiddenAgentIds)
-          : hiddenAgentView(
-              value,
-              route.hiddenAgentIds,
-              route.protocol < 5 ? 4 : route.protocol < 6 ? 5 : route.protocol < 7 ? 6 : route.protocol < 8 ? 7 : 8,
-            )
-        : value;
+    const visibleValue = status < 400 && route.hiddenAgentIds ? hiddenAgentView(value, route.hiddenAgentIds) : value;
     const sideRoute = teamSideRouteCodec(route.path);
     const body = sideRoute
       ? JSON.stringify(sideRoute.response(route.path, status, visibleValue, options))
-      : teamHttpCodec(route.protocol).encodeResponse(route.method, route.path, status, visibleValue, options);
+      : TEAM_HTTP_CODEC.encodeResponse(route.method, route.path, status, visibleValue, options);
     response.writeHead(status, { "Content-Type": "application/json; charset=utf-8" });
     response.end(`${body}\n`);
     return "handled";
@@ -1709,12 +1660,8 @@ export class TeamApiServer {
    * accept. They are hidden like a provider an old client does not know: one such agent must not
    * turn the whole agent list into a 500, because a remote client then cannot load the server.
    */
-  #unrepresentableAgentIds(
-    agents: readonly AgentSummary[],
-    protocol: number,
-    capabilities: ReadonlySet<string>,
-  ): Set<string> {
-    const codec = teamHttpCodec(protocol);
+  #unrepresentableAgentIds(agents: readonly AgentSummary[], capabilities: ReadonlySet<string>): Set<string> {
+    const codec = TEAM_HTTP_CODEC;
     const options = { preserveSemanticTags: supportsTeamSemanticTags(capabilities) };
     const hidden = new Set<string>();
     for (const agent of agents) {
@@ -1722,30 +1669,19 @@ export class TeamApiServer {
         codec.encodeResponse("GET", TEAM_API_ROUTES.agents.all, 200, [agent], options);
       } catch {
         hidden.add(agent.id);
-        const key = `${protocol}:${agent.id}`;
-        if (this.#reportedUnrepresentableAgents.has(key)) continue;
-        this.#reportedUnrepresentableAgents.add(key);
+        if (this.#reportedUnrepresentableAgents.has(agent.id)) continue;
+        this.#reportedUnrepresentableAgents.add(agent.id);
         (this.#options.logger ?? logger).warn(
-          `Team API protocol ${protocol} cannot describe agent ${agent.id}; it is hidden from these clients.`,
+          `The Team API cannot describe agent ${agent.id}; it is hidden from remote clients.`,
         );
       }
     }
     return hidden;
   }
 
-  /**
-   * The agents this client cannot see: a provider its protocol does not know, or one it cannot describe.
-   */
-  hiddenAgentIds(protocol: number, capabilities: ReadonlySet<string>): Set<string> {
-    const agents = this.#options.agents.listAgents();
-    const hidden = hiddenProviderAgentIds(agents, protocol);
-    for (const id of this.#unrepresentableAgentIds(
-      agents.filter((agent) => !hidden.has(agent.id)),
-      protocol,
-      capabilities,
-    ))
-      hidden.add(id);
-    return hidden;
+  /** The agents that a remote client cannot see: the ones the Team API codec cannot describe. */
+  hiddenAgentIds(capabilities: ReadonlySet<string>): Set<string> {
+    return this.#unrepresentableAgentIds(this.#options.agents.listAgents(), capabilities);
   }
 
   /** Every authenticated client is an owner of this host, so every agent is at `manage`. */
@@ -1970,14 +1906,6 @@ function unavailableSidebarLayout(): TeamApiSidebarLayout {
     on: () => undefined,
     off: () => undefined,
   };
-}
-
-/** The protocol that an event connection's capabilities describe, as `#encodeProviderEvent` encodes it. */
-function eventProtocol(capabilities: ReadonlySet<string>): 1 | 4 | 5 | 6 | 7 | 8 {
-  if (capabilities.has(TEAM_OPEN_PROVIDERS_CAPABILITY)) return 8;
-  if (capabilities.has(TEAM_PI_MUSE_CAPABILITY)) return 7;
-  if (capabilities.has(TEAM_CURSOR_CLINE_CAPABILITY)) return 6;
-  return capabilities.has(TEAM_LOCAL_PROVIDERS_CAPABILITY) ? 5 : capabilities.has("opencode") ? 4 : 1;
 }
 
 function isLegacyConversationClient(connection: EventClientState): boolean {

@@ -32,13 +32,6 @@ export async function routeRemoteScreen(
 ): Promise<RouteOutcome> {
   const { method, url, request, member, sessionId, sessionExpiresAt, json, empty } = context;
 
-  if (
-    method === "POST" &&
-    (url.pathname === TEAM_API_ROUTES.remoteScreen.setup || url.pathname === TEAM_API_ROUTES.remoteScreen.test) &&
-    context.protocol < 4
-  ) {
-    throw new RemoteScreenError(426, "protocol_mismatch", sourceText("error.remote.desktopSetupClientUpdate"));
-  }
   if (method === "POST" && url.pathname === TEAM_API_ROUTES.remoteScreen.setup) {
     if (!remoteScreen?.checkSetup)
       throw new RemoteScreenError(503, "host_unavailable", sourceText("error.remote.desktopSetupUnavailable"));

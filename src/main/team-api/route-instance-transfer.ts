@@ -25,7 +25,6 @@ const ROUTES: ReadonlySet<string> = new Set(Object.values(INSTANCE_TRANSFER_ROUT
 export async function routeInstanceTransfer(
   context: TeamApiRequestContext,
   instanceTransfer: TeamApiInstanceTransfer | undefined,
-  newAgentHidden: () => boolean,
 ): Promise<RouteOutcome> {
   const { method, url, capabilities, member, request, response, json } = context;
   if (method !== "POST" || !ROUTES.has(url.pathname)) return "unmatched";
@@ -70,7 +69,6 @@ export async function routeInstanceTransfer(
     default: {
       // `readJson` has already run the body through the instance-transfer wire codec.
       const body = await readJson(request);
-      if (newAgentHidden()) throw new HttpError(400, sourceText("error.team.newAgentProviderLocalOnly"));
       let input: ReturnType<typeof parseApplyInstanceTransferInput>;
       try {
         input = parseApplyInstanceTransferInput(body);

@@ -14,17 +14,13 @@ import {
 } from "@robot/contracts/ipc";
 import { TEAM_CURRENT_CAPABILITIES, TEAM_UI_BLOCKS_CAPABILITY } from "@robot/contracts/team-protocol/current";
 import {
-  decodeTeamProtocolV6CurrentHttpResponse,
-  encodeTeamProtocolV6CurrentHttpResponse,
-} from "@robot/contracts/team-protocol/v6-adapter";
+  decodeTeamProtocolV8CurrentHttpResponse,
+  encodeTeamProtocolV8CurrentHttpResponse,
+} from "@robot/contracts/team-protocol/v8-adapter";
 import {
-  decodeTeamProtocolV7CurrentHttpResponse,
-  encodeTeamProtocolV7CurrentHttpResponse,
-} from "@robot/contracts/team-protocol/v7-adapter";
-import {
-  decodeTeamProtocolV7BaseCurrentEvent,
-  encodeTeamProtocolV7BaseCurrentEvent,
-} from "@robot/contracts/team-protocol/v7-base-adapter";
+  decodeTeamProtocolV8BaseCurrentEvent,
+  encodeTeamProtocolV8BaseCurrentEvent,
+} from "@robot/contracts/team-protocol/v8-base-adapter";
 import {
   type ConversationUiBlock,
   normalizeUiBlockSpec,
@@ -378,28 +374,20 @@ try {
   const current = page(snapshot.messages, secretMessage ? { "quoted-1": { ...secretMessage, id: "quoted-1" } } : {});
   const released = withoutBlocks(current);
 
-  await step("protocol 7 without the capability: the bytes of the released projection", () => {
-    const encoded = encodeTeamProtocolV7CurrentHttpResponse("GET", PAGE_PATH, 200, current);
-    assert.equal(encoded, encodeTeamProtocolV7CurrentHttpResponse("GET", PAGE_PATH, 200, released));
+  await step("without the capability: the bytes of the page without blocks", () => {
+    const encoded = encodeTeamProtocolV8CurrentHttpResponse("GET", PAGE_PATH, 200, current);
+    assert.equal(encoded, encodeTeamProtocolV8CurrentHttpResponse("GET", PAGE_PATH, 200, released));
     assert.ok(!hasUiBlock(encoded));
-    const event = encodeTeamProtocolV7BaseCurrentEvent({ type: "conversation-page", page: current });
-    assert.equal(event, encodeTeamProtocolV7BaseCurrentEvent({ type: "conversation-page", page: released }));
+    const event = encodeTeamProtocolV8BaseCurrentEvent({ type: "conversation-page", page: current });
+    assert.equal(event, encodeTeamProtocolV8BaseCurrentEvent({ type: "conversation-page", page: released }));
     assert.ok(event && !hasUiBlock(event));
     return { bytes: encoded.length };
   });
 
-  await step("protocol 6: the released projection, whatever the client says", () => {
-    const encoded = encodeTeamProtocolV6CurrentHttpResponse("GET", PAGE_PATH, 200, current);
-    assert.equal(encoded, encodeTeamProtocolV6CurrentHttpResponse("GET", PAGE_PATH, 200, released));
-    assert.ok(!hasUiBlock(encoded));
-    const decoded = decodeTeamProtocolV6CurrentHttpResponse("GET", PAGE_PATH, 200, JSON.parse(encoded));
-    assert.ok(!hasUiBlock(JSON.stringify(decoded)));
-  });
-
-  await step("protocol 7 with the capability: page and event carry each block as stored", () => {
-    const encoded = encodeTeamProtocolV7CurrentHttpResponse("GET", PAGE_PATH, 200, current, { uiBlocks: true });
+  await step("with the capability: page and event carry each block as stored", () => {
+    const encoded = encodeTeamProtocolV8CurrentHttpResponse("GET", PAGE_PATH, 200, current, { uiBlocks: true });
     assert.ok(!encoded.includes(SECRET));
-    const decoded = decodeTeamProtocolV7CurrentHttpResponse("GET", PAGE_PATH, 200, JSON.parse(encoded));
+    const decoded = decodeTeamProtocolV8CurrentHttpResponse("GET", PAGE_PATH, 200, JSON.parse(encoded));
     assert(decoded && typeof decoded === "object" && !Array.isArray(decoded));
     const messages: unknown[] = Array.isArray(decoded.messages) ? decoded.messages : [];
     assert.equal(messages.length, current.messages.length);
@@ -413,12 +401,12 @@ try {
     assert.ok(isConversationMessage(quoted));
     assert.deepEqual(quoted.uiBlock?.state.response?.values, { agentId: "a-7" });
 
-    const event = encodeTeamProtocolV7BaseCurrentEvent(
+    const event = encodeTeamProtocolV8BaseCurrentEvent(
       { type: "conversation-page", page: current },
       { uiBlocks: true },
     );
     assert.ok(event);
-    const read = decodeTeamProtocolV7BaseCurrentEvent(JSON.parse(event));
+    const read = decodeTeamProtocolV8BaseCurrentEvent(JSON.parse(event));
     assert.equal(read.kind, "known");
     assert(read.kind === "known" && read.event.type === "conversation-page");
     assert.deepEqual(
@@ -429,14 +417,14 @@ try {
     return { pageBytes: encoded.length, eventBytes: event.length, blocks: messages.length };
   });
 
-  await step("protocol 7 with the capability: the host's auto-answer state stays off the wire", () => {
+  await step("with the capability: the host's auto-answer state stays off the wire", () => {
     assert.ok(
       current.messages.some((message) => message.uiBlock?.state.autoAnswer),
       "no plan card to send",
     );
-    const encoded = encodeTeamProtocolV7CurrentHttpResponse("GET", PAGE_PATH, 200, current, { uiBlocks: true });
+    const encoded = encodeTeamProtocolV8CurrentHttpResponse("GET", PAGE_PATH, 200, current, { uiBlocks: true });
     assert.ok(!encoded.includes('"autoAnswer"'));
-    const event = encodeTeamProtocolV7BaseCurrentEvent(
+    const event = encodeTeamProtocolV8BaseCurrentEvent(
       { type: "conversation-page", page: current },
       { uiBlocks: true },
     );
@@ -446,17 +434,17 @@ try {
   await step("a malformed block fails closed in both directions", () => {
     const broken = JSON.parse(JSON.stringify(page(snapshot.messages.slice(0, 1))));
     broken.messages[0].uiBlock.version = 99;
-    assert.throws(() => encodeTeamProtocolV7CurrentHttpResponse("GET", PAGE_PATH, 200, broken, { uiBlocks: true }));
+    assert.throws(() => encodeTeamProtocolV8CurrentHttpResponse("GET", PAGE_PATH, 200, broken, { uiBlocks: true }));
     const wire = JSON.parse(
-      encodeTeamProtocolV7CurrentHttpResponse("GET", PAGE_PATH, 200, current, { uiBlocks: true }),
+      encodeTeamProtocolV8CurrentHttpResponse("GET", PAGE_PATH, 200, current, { uiBlocks: true }),
     );
     wire.messages[0].uiBlock.spec.type = "unknown";
-    assert.throws(() => decodeTeamProtocolV7CurrentHttpResponse("GET", PAGE_PATH, 200, wire));
+    assert.throws(() => decodeTeamProtocolV8CurrentHttpResponse("GET", PAGE_PATH, 200, wire));
     const event = JSON.parse(
-      encodeTeamProtocolV7BaseCurrentEvent({ type: "conversation-page", page: current }, { uiBlocks: true }) ?? "null",
+      encodeTeamProtocolV8BaseCurrentEvent({ type: "conversation-page", page: current }, { uiBlocks: true }) ?? "null",
     );
     event.page.messages[0].uiBlock.state.status = "unknown";
-    assert.equal(decodeTeamProtocolV7BaseCurrentEvent(event).kind, "invalid");
+    assert.equal(decodeTeamProtocolV8BaseCurrentEvent(event).kind, "invalid");
   });
 
   await writeFile(resolve(OUT, "report.json"), `${JSON.stringify({ ok: true, steps }, null, 2)}\n`);

@@ -47,13 +47,10 @@ export async function routeAgentQueue(
 ): Promise<RouteOutcome> {
   const { method, request, member, json, empty } = context;
   const snapshot = (value: QueueSnapshot) =>
-    json(
-      200,
-      context.protocol >= 7 && context.capabilities.has(TEAM_QUEUE_WINDOW_CAPABILITY) ? queueWindow(value) : value,
-    );
+    json(200, context.capabilities.has(TEAM_QUEUE_WINDOW_CAPABILITY) ? queueWindow(value) : value);
 
   if (method === "POST" && action === "queue/edit") {
-    if (context.protocol < 3 || !context.capabilities.has(TEAM_QUEUE_EDIT_CAPABILITY))
+    if (!context.capabilities.has(TEAM_QUEUE_EDIT_CAPABILITY))
       throw new HttpError(400, sourceText("error.team.queueEditUnsupported"));
     try {
       return snapshot(

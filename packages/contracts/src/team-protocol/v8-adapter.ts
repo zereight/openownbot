@@ -374,7 +374,7 @@ function decodeFrozenResponse(
  * provider is open: any id that `OPEN_PROVIDER_ID` matches. The host still refuses an id it cannot
  * run, so a client may name a provider that only a newer host knows.
  */
-const V8_AGENT_MODEL = /^[A-Za-z0-9][A-Za-z0-9._:/[\],=-]{0,159}$/u;
+export const V8_AGENT_MODEL = /^[A-Za-z0-9][A-Za-z0-9._:/[\],=-]{0,159}$/u;
 const V8_REASONING_EFFORTS = ["low", "medium", "high", "xhigh", "max"] as const;
 
 /**
