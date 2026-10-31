@@ -333,6 +333,10 @@ Open **Server settings → Import** on this computer, or on a joined server in t
 
 The import adds each agent's name, instructions, avatar, skills, routines, and memories. Workspace files are copied to `imported/` in the agent's workspace if you included them. Chat history is not copied: the export agent keeps the important facts as memories. For this computer, the file is read here and is not uploaded. For a joined server, the file (at most 100 MB) goes to the computer that runs that server through the encrypted host connection. A member's import uses a skill that the server already has instead of changing it. The export skill and its format are in [`resources/agent-import/grok-bot/SKILL.md`](resources/agent-import/grok-bot/SKILL.md).
 
+## Move data from OpenBot
+
+ROBot keeps its data apart from OpenBot and does not read OpenBot data. To move the data of OpenBot 0.50 on the same Mac once, quit both apps and run `node --import tsx scripts/import-openbot.ts` from a checkout. It reads a copy, converts it and writes nothing; check the report, then run it again with `--apply`. It moves the database (agents, memories, workflows, routines, chats and channels), clones the agent workspaces and `~/OpenBot/Shared` without using more disk space, and copies the settings files. It never changes OpenBot data. Secrets do not move, because OpenBot sealed them with its own keychain entry: sign in again and enter API keys again. Routines and workflow schedules that came due while the apps were closed run once at the first start.
+
 ## Commands
 
 The browser client is served at `/app` by the public web app. For local development, run
