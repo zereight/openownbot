@@ -6,23 +6,21 @@ import { AgentApiKeys } from "../backend/agent-api-keys";
 import { AgentDatabaseSupervisor } from "../backend/agent-data/agent-database-supervisor";
 import { AgentTables } from "../backend/agent-data/agent-tables";
 import { AgentRoutineStore } from "../backend/agent-routine-store";
-import { DiscordConnectFailed, toDiscordConnectFailed } from "../backend/messaging/discord/discord-connect";
-import { SlackConnectFailed, toSlackConnectFailed } from "../backend/messaging/slack/slack-connect";
 import { routineFlowRoutines } from "../backend/routine-flows/routine-flow-routines";
 import { RoutineFlowStore } from "../backend/routine-flows/routine-flow-store";
-import { createRoutineFlows, type RoutineFlowsHandle } from "../backend/routine-flows/routine-flows";
+import { createRoutineFlows } from "../backend/routine-flows/routine-flows";
 import { RoutineResultStore } from "../backend/routine-results/routine-result-store";
-import { createRoutineResults, type RoutineResultsHandle } from "../backend/routine-results/routine-results";
+import { createRoutineResults } from "../backend/routine-results/routine-results";
 import { WorkflowRunStore } from "../backend/workflows/workflow-run-store";
 import { WorkflowStore } from "../backend/workflows/workflow-store";
 import { WorkflowTriggers, workflowScheduleDueAt } from "../backend/workflows/workflow-triggers";
-import { createWorkflows, type WorkflowNotice, type WorkflowsHandle } from "../backend/workflows/workflows";
-import { type AcpRegistry, createAcpRegistry } from "./acp-registry";
-import { type AgentAdminSettingsService, createAgentAdminSettings } from "./agent-admin-settings";
+import { createWorkflows } from "../backend/workflows/workflows";
+import { createAcpRegistry } from "./acp-registry";
+import { createAgentAdminSettings } from "./agent-admin-settings";
 import { spawnAgentDatabaseHost } from "./agent-database-host-process";
 import { agentDisplayEnvironment, hasSeparateAgentDisplay } from "./agent-display";
-import { type AgentHostSettingsService, createAgentHostSettings } from "./agent-host-settings";
-import { type BrowserProfileService, createBrowserProfileService } from "./browser-profile-service";
+import { createAgentHostSettings } from "./agent-host-settings";
+import { createBrowserProfileService } from "./browser-profile-service";
 import { HostReleaseService, readInstallationMode } from "./host-release-service";
 import {
   CONTAINER_UPDATE_PATHS,
@@ -64,18 +62,7 @@ import { readdir } from "node:fs/promises";
 import { homedir, hostname, tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 
-import type {
-  AgentStatus,
-  AppVariant,
-  BrowserDisplayState,
-  CapabilityState,
-  CentralAuthState,
-  ComputerUseState,
-  ProviderRuntimeSnapshot,
-  SpeechModelStatus,
-  VoiceModelStatus,
-  VoiceStreamTranscript,
-} from "@robot/contracts/ipc";
+import type { AgentStatus, CentralAuthState } from "@robot/contracts/ipc";
 import {
   agentBrowserProfile,
   IPC_ENDPOINTS,
@@ -84,7 +71,6 @@ import {
   LOCAL_SERVER_ID,
   latestTurnAnswer,
 } from "@robot/contracts/ipc";
-import { decodeRecord, requiredString } from "@robot/contracts/ipc-decoding";
 import { LOCAL_ONLY } from "@robot/contracts/local-only";
 import { sourceText } from "@robot/i18n/source";
 import { createOpenOwnBotLogger, toLogValue } from "@robot/logging";
@@ -113,28 +99,17 @@ import { BrowserProfileStore } from "../backend/browser-profiles/browser-profile
 import { runCauseEffect } from "../backend/effect-boundary";
 import { MailboxStore } from "../backend/mailbox-store";
 import { McpOAuth } from "../backend/mcp-oauth-provider";
-import { discordDriver } from "../backend/messaging/discord/discord-driver";
-import { MessagingOperationFailed, MessagingService } from "../backend/messaging/messaging-service";
-import { slackDriver } from "../backend/messaging/slack/slack-driver";
-import { telegramDriver } from "../backend/messaging/telegram/telegram-driver";
 import { OpenOwnBotDatabase } from "../backend/openownbot-database";
 import { passwordVaultRouter } from "../backend/password-vault-router";
 import { sweepProviderTemp } from "../backend/provider-temp";
 import { SidebarLayoutStore } from "../backend/sidebar-layout-store";
 import { StorageUsageScanner, StorageUsageService } from "../backend/storage-usage";
 import { TeamChatStore } from "../backend/team-chat-store";
-import {
-  type AgentDefaultsPreferenceStore,
-  createAgentDefaultsPreferenceStore,
-} from "./agent-defaults-preference-store";
+import { createAgentDefaultsPreferenceStore } from "./agent-defaults-preference-store";
 import { AgentImportService } from "./agent-import-service";
 import { AgentInitializationGate } from "./agent-initialization";
 import { AgentMarketplaceService } from "./agent-marketplace-service";
-import {
-  AgentMemoryLimitPreferenceStore,
-  type AgentMemoryLimitSetting,
-  reloadingAgentMemoryLimit,
-} from "./agent-memory-limit-preference-store";
+import { AgentMemoryLimitPreferenceStore, reloadingAgentMemoryLimit } from "./agent-memory-limit-preference-store";
 import { AgentSectionService } from "./agent-section-service";
 import { AgentTemplateService } from "./agent-template-service";
 import { AppBehaviorService } from "./app-behavior-service";
@@ -166,26 +141,18 @@ import {
 import { isSupportedCuaDriverTarget, resolveCuaDriver } from "./cua-driver-artifact";
 import { CuaDriverDaemonClient } from "./cua-driver-daemon-client";
 import { CuaDriverRuntime, cuaDriverCommandAlias, resolveCuaDriverEndpoint } from "./cua-driver-runtime";
-import { type CustomAgentChanges, createCustomAgentChanges } from "./custom-agent-changes";
+import { createCustomAgentChanges } from "./custom-agent-changes";
 import { CUSTOM_AGENTS_FILE, CustomAgentStore } from "./custom-agent-store";
-import { type CustomProviderChanges, createCustomProviderChanges } from "./custom-provider-changes";
+import { createCustomProviderChanges } from "./custom-provider-changes";
 import { CustomProviderStore } from "./custom-provider-store";
 import { DecisionModelStore } from "./decision-model-store";
 import { MCP_OAUTH_REDIRECT_URL } from "./deep-link-router";
 import { desktopShowsAgentEvent } from "./desktop-notifications";
 import { shouldAutoStartHost } from "./development-profile";
-import {
-  applyDevelopmentRemoteAccount,
-  type DevelopmentRemoteRole,
-  startDevelopmentRemoteRole,
-} from "./development-remote-bootstrap";
+import { applyDevelopmentRemoteAccount, startDevelopmentRemoteRole } from "./development-remote-bootstrap";
 import { performDynamicIslandCriticalAction } from "./dynamic-island-actions";
 import { DynamicIslandFailed, DynamicIslandWindowController, toDynamicIslandFailed } from "./dynamic-island-window";
-import {
-  createExternalLinkPreferenceStore,
-  ExternalLinkOpener,
-  type ExternalLinkPreferenceStore,
-} from "./external-link-opener";
+import { createExternalLinkPreferenceStore, ExternalLinkOpener } from "./external-link-opener";
 import { createFastComputerUseHost } from "./fast-computer-use-host";
 import { githubAppConfig } from "./github-connector-config";
 import { GitHubConnectorService } from "./github-connector-service";
@@ -201,7 +168,6 @@ import { HostedServerDesktopService, withHostingDeveloperKey } from "./hosted-se
 import { HostedServerStartRetry } from "./hosted-server-start-retry";
 import { HostedSiteDesktopService } from "./hosted-site-service";
 import { IdleRestart } from "./idle-restart";
-import { loadIngressQueueKey } from "./ingress-queue-key";
 import { InstanceTransferService } from "./instance-transfer-service";
 import { InterfaceSizeService } from "./interface-size-service";
 import { prepareToolRuntimeForTest } from "./ipc/mcp-server-handlers";
@@ -209,7 +175,6 @@ import { LanguageService } from "./language-service";
 import { localRoutineFeedDocument } from "./local-routine-calendar";
 import { createLoginItem } from "./login-item";
 import { LogoColorService } from "./logo-color-service";
-import type { MacHapticFeedback } from "./mac-haptic-feedback";
 import {
   computerUseCoveringWindowIds,
   computerUseDesktopPoint,
@@ -222,7 +187,6 @@ import {
   loadComputerUseHighlightRenderer,
   loadComputerUsePermissionHelpRenderer,
   loadDynamicIslandRenderer,
-  type MainWindowController,
   sendComputerUseHighlightPlacement,
   showMainWindow,
 } from "./main-window";
@@ -236,7 +200,6 @@ import {
 } from "./mcp-oauth-redirect-server";
 import { McpOAuthStore } from "./mcp-oauth-store";
 import { MemoryReviewPreferenceStore } from "./memory-review-preference-store";
-import { MessagingCredentialStore } from "./messaging-credential-store";
 import { NotificationPreferenceStore } from "./notification-preference-store";
 import { OnePasswordConnectorService } from "./onepassword-connector-service";
 import { OnePasswordConnectorStore } from "./onepassword-connector-store";
@@ -244,7 +207,7 @@ import { PromptCacheTtlPreferenceStore } from "./prompt-cache-ttl-preference-sto
 import { ProviderAccountsHost } from "./provider-accounts-host";
 import { createProviderCliAppVersionStore } from "./provider-cli-app-version-store";
 import { ProviderCredentialStore } from "./provider-credential-store";
-import { createProviderDetection, type ProviderDetection } from "./provider-detection";
+import { createProviderDetection } from "./provider-detection";
 import { PROVIDER_DETECTION_SETTINGS_FILE, ProviderDetectionSettingsStore } from "./provider-detection-settings-store";
 import { ProviderHostSignIns } from "./provider-host-sign-ins";
 import { startAccountLog, startAgentLog, startProviderLog } from "./provider-log";
@@ -259,16 +222,10 @@ import { resolveRemoteDesktopRuntime } from "./remote-desktop-runtime-artifact";
 import { loadOrCreateRemoteDesktopCredentials } from "./remote-desktop-secret-store";
 import { appendRemoteDiagnosticLog } from "./remote-diagnostics";
 import { decodeVoid } from "./remote-host-decoding";
-import {
-  createRemoteNetworkRoutePreferenceStore,
-  type RemoteNetworkRoutePreferenceStore,
-} from "./remote-network-route-preference-store";
+import { createRemoteNetworkRoutePreferenceStore } from "./remote-network-route-preference-store";
 import { RemoteServerManager } from "./remote-server-manager";
 import { RemoteSessionCache } from "./remote-session-cache";
-import {
-  createRemoteSessionReusePreferenceStore,
-  type RemoteSessionReusePreferenceStore,
-} from "./remote-session-reuse-preference-store";
+import { createRemoteSessionReusePreferenceStore } from "./remote-session-reuse-preference-store";
 import { sendToRenderer } from "./renderer-ipc";
 import { RequestedUpdate, RequestedUpdateRefusal } from "./requested-update";
 import { ResourceMonitor } from "./resource-monitor";
@@ -277,7 +234,7 @@ import { RoutineFeedServer } from "./routine-feed-server";
 import { clearRoutineHold, ROUTINE_HOLD_FILE, takeRoutineHold, writeRoutineHold } from "./routine-hold-file";
 import { ScreenCapturer } from "./screen-capture";
 import { agentProcessEnvironment, ServerMemory } from "./server-memory";
-import { ServerMode, type ServerModeEnvironment } from "./server-mode";
+import { ServerMode } from "./server-mode";
 import { ServerTimezonePreferenceStore } from "./server-timezone-preference-store";
 import {
   configureApplicationProtocol,
@@ -287,14 +244,62 @@ import {
 import { readSetupState, writeSetupState } from "./setup-store";
 import { SignInRelayClient } from "./sign-in-relay-client";
 import { agentPrintedLink, SignInRelayHost } from "./sign-in-relay-host";
-import { SignalIngress } from "./signal-ingress";
 import { SkillMarketplaceService } from "./skill-marketplace-service";
-import { SLACK_DEV_CALLBACK_PATH, startSlackDevCallbackServer } from "./slack-dev-callback-server";
 import { SpeechPreferenceStore } from "./speech-preference-store";
+import type { ApplicationServiceContext, ApplicationServices } from "./startup/application-service-types";
+import {
+  AGENT_DEFAULTS_PREFERENCE_FILE,
+  AGENT_MEMORY_LIMIT_PREFERENCE_FILE,
+  APP_BEHAVIOR_PREFERENCE_FILE,
+  APPEARANCE_PREFERENCE_FILE,
+  APPROVAL_AUTOMATION_FILE,
+  BITWARDEN_CONNECTOR_FILE,
+  BROWSER_STATE_FILE,
+  BUSY_MESSAGE_MODE_PREFERENCE_FILE,
+  CENTRAL_AUTH_FILE,
+  CLAUDE_ENVIRONMENT_PREFERENCE_FILE,
+  CUSTOM_PROVIDERS_FILE,
+  DYNAMIC_ISLAND_PREFERENCE_FILE,
+  EXTERNAL_LINK_PREFERENCE_FILE,
+  GITHUB_CONNECTOR_FILE,
+  HERMES_IMPORT_LINKS_FILE,
+  INTERFACE_SIZE_PREFERENCE_FILE,
+  LANGUAGE_PREFERENCE_FILE,
+  LOGO_COLOR_PREFERENCE_FILE,
+  MCP_OAUTH_FILE,
+  MCP_OAUTH_PROXY_FILE,
+  MEMORY_REVIEW_PREFERENCE_FILE,
+  NOTIFICATION_PREFERENCE_FILE,
+  ONEPASSWORD_CONNECTOR_FILE,
+  PROMPT_CACHE_TTL_PREFERENCE_FILE,
+  PROVIDER_CLI_APP_VERSION_FILE,
+  PROVIDER_CREDENTIAL_FILE,
+  PUSH_NOTIFICATION_FILE,
+  REMOTE_DESKTOP_RUNTIME_SECRET_FILE,
+  REMOTE_NETWORK_ROUTE_PREFERENCE_FILE,
+  REMOTE_SERVERS_FILE,
+  REMOTE_SESSION_REUSE_PREFERENCE_FILE,
+  REMOTE_SESSIONS_FILE,
+  ROUTINE_FEED_FILE,
+  SERVER_TIMEZONE_PREFERENCE_FILE,
+  SETUP_FILE,
+  SIDEBAR_LAYOUT_FILE,
+  TEAM_FILE,
+  UPDATE_PREFERENCE_FILE,
+  VAULT_FILE,
+} from "./startup/data-files";
+import { createMessagingServices } from "./startup/messaging-services";
+import {
+  computerUseCapability,
+  DEVELOPMENT_BUNDLE_IDENTIFIER,
+  electronUpdaterCacheRoot,
+  PACKAGED_BUNDLE_IDENTIFIER,
+  safeStorageCipher,
+} from "./startup/platform";
+import { TEARDOWN_ORDER } from "./startup/teardown-order";
 import { TeamStore } from "./team-store";
 import { TeamWebRtcBridge } from "./team-webrtc-bridge";
 import { TeamWebRtcClientTransport } from "./team-webrtc-client-transport";
-import type { TeardownRegistry } from "./teardown-registry";
 import { TraceFile } from "./trace-file";
 import { readUpdatePreference, writeUpdatePreference } from "./update-preference-store";
 import { checkRestartReadiness, type RestartReadiness } from "./update-readiness";
@@ -326,510 +331,6 @@ import { WebhookRelay } from "./webhook-relay";
 import { startWorkflowLog } from "./workflow-log";
 
 const logger = createOpenOwnBotLogger("application-services");
-const SETUP_FILE = "setup.json";
-const APPROVAL_AUTOMATION_FILE = "approval-automation.json";
-const ROUTINE_FEED_FILE = "routine-feed.json";
-const LANGUAGE_PREFERENCE_FILE = "language-preference.json";
-const LOGO_COLOR_PREFERENCE_FILE = "logo-color-preference.json";
-const APPEARANCE_PREFERENCE_FILE = "appearance-preference.json";
-const INTERFACE_SIZE_PREFERENCE_FILE = "interface-size-preference.json";
-const UPDATE_PREFERENCE_FILE = "update-preference.json";
-const NOTIFICATION_PREFERENCE_FILE = "notification-preference.json";
-const PUSH_NOTIFICATION_FILE = "push-notifications.json";
-const BUSY_MESSAGE_MODE_PREFERENCE_FILE = "busy-message-mode.json";
-const PROVIDER_CLI_APP_VERSION_FILE = "provider-cli-app-version.json";
-const AGENT_DEFAULTS_PREFERENCE_FILE = "agent-defaults.json";
-const AGENT_MEMORY_LIMIT_PREFERENCE_FILE = "agent-memory-limit.json";
-const MEMORY_REVIEW_PREFERENCE_FILE = "memory-review.json";
-const SERVER_TIMEZONE_PREFERENCE_FILE = "server-timezone.json";
-const PROMPT_CACHE_TTL_PREFERENCE_FILE = "prompt-cache-ttl.json";
-const CLAUDE_ENVIRONMENT_PREFERENCE_FILE = "claude-environment.json";
-const REMOTE_SESSION_REUSE_PREFERENCE_FILE = "remote-session-reuse-preference.json";
-const EXTERNAL_LINK_PREFERENCE_FILE = "external-link-preference.json";
-const REMOTE_NETWORK_ROUTE_PREFERENCE_FILE = "remote-network-route.json";
-const APP_BEHAVIOR_PREFERENCE_FILE = "app-behavior-preference.json";
-const DYNAMIC_ISLAND_PREFERENCE_FILE = "dynamic-island-preference.json";
-const BROWSER_STATE_FILE = "browser-state.json";
-const SIDEBAR_LAYOUT_FILE = "sidebar-layout.json";
-/** One host per account. */
-const TEAM_FILE = "team-server.json";
-const REMOTE_SERVERS_FILE = "remote-servers.json";
-const CENTRAL_AUTH_FILE = "central-auth.bin";
-const REMOTE_SESSIONS_FILE = "remote-sessions.bin";
-const REMOTE_DESKTOP_RUNTIME_SECRET_FILE = "remote-desktop-runtime.json";
-const CUSTOM_PROVIDERS_FILE = "custom-providers.json";
-const PROVIDER_CREDENTIAL_FILE = "provider-credentials.json";
-const MESSAGING_CREDENTIAL_FILE = "messaging-credentials.json";
-const INGRESS_QUEUE_KEY_FILE = "ingress-queue-key.json";
-/** The MCP sign-ins. Separate from the keys above: a key is typed by the user, a token is not. */
-const MCP_OAUTH_FILE = "mcp-oauth.json";
-const MCP_OAUTH_PROXY_FILE = "mcp-oauth-proxy.json";
-/** The one GitHub sign-in of this computer, with the same cipher as the MCP sign-ins. */
-const GITHUB_CONNECTOR_FILE = "github-connector.json";
-/** The 1Password service account token of this computer, with the same cipher. */
-const ONEPASSWORD_CONNECTOR_FILE = "onepassword-connector.json";
-/** The Bitwarden API key and master password of a host connection (`bitwarden-connector-v1`), with the same cipher. */
-const BITWARDEN_CONNECTOR_FILE = "bitwarden-connector.json";
-/** The logins, payment cards and contact info of the Vault in Server settings, with the same cipher. */
-const VAULT_FILE = "vault.json";
-/** Which agent each imported Hermes profile made, so a second import updates that agent. */
-const HERMES_IMPORT_LINKS_FILE = "hermes-imports.json";
-
-/**
- * Where each service stops, as a position in the shutdown sequence rather than a position in the
- * construction sequence. The gaps leave room to insert one without renumbering.
- */
-/**
- * What the Computer Use driver is told to record as its host, for its own logs.
- *
- * Advisory only: `cua-driver` does not treat it as a trust signal, and it cannot, because any
- * process can set the variable. The development value is honest about the fact that a dev run is
- * the Electron binary - which is also the name macOS shows in the Privacy & Security panes, and the
- * reason a dev grant does not carry over to a packaged build.
- */
-const PACKAGED_BUNDLE_IDENTIFIER = "app.robot.desktop";
-const DEVELOPMENT_BUNDLE_IDENTIFIER = "com.github.Electron";
-
-const TEARDOWN_ORDER = {
-  // First, so a process that the teardown ends does not count as a crash.
-  resourceMonitor: 9,
-  updater: 10,
-  idleRestart: 11,
-  hostUpdateCoordinator: 12,
-  requestedUpdate: 13,
-  hostedServerStartRetry: 14,
-  launchPublishRetry: 14.5,
-  hostedServerActivity: 15,
-  serverMemory: 16,
-  serverMode: 17,
-  computerUseHighlight: 18,
-  computerUsePermissionHelp: 19,
-  dynamicIsland: 20,
-  // Before the browser, so no sign-in opens a tab while it stops.
-  providerAccountsHost: 27,
-  providerHostSignIns: 28,
-  mcpHostSignIns: 29,
-  browser: 30,
-  browserPictureInPicture: 40,
-  localSignIn: 41,
-  browserDock: 42,
-  browserView: 45,
-  providerDetection: 48,
-  providerRuntimes: 50,
-  cuaDriver: 55,
-  remoteServers: 60,
-  voice: 70,
-  speech: 71,
-  remoteDesktop: 80,
-  // Before messaging, so no routine answer starts a post while the connections stop.
-  routineResults: 84,
-  // Before the host and the service: no new external message arrives while they stop.
-  messaging: 85,
-  hostEvents: 85.5,
-  // After the connections that hold it.
-  signalIngress: 86,
-  host: 90,
-  teamWebRtcBridge: 100,
-  // Before the agent service, so no handoff is sent to an agent while the service stops.
-  routineFlows: 103,
-  // Before the agent service, so no workflow step is sent to an agent while the service stops.
-  workflows: 103.5,
-  // Before the agent service, so no calendar read finds it stopping.
-  routineFeed: 104,
-  mcpOAuthRedirect: 105,
-  // Before the agent service. It holds no file an agent reads; only a CLI run that waits is stopped.
-  onePasswordConnector: 106,
-  bitwardenConnector: 106.5,
-  // Before the agent service, so no agent is handed a token file that is being removed.
-  githubConnector: 107,
-  // Before the agent service, so no script starts a run while the service stops.
-  automation: 108,
-  storageUsage: 109,
-  service: 110,
-  mcpOAuth: 111,
-  // After all account consumers have stopped.
-  centralAuth: 115,
-  // After the service, so the turns that end while the services stop are still written.
-  trace: 120,
-  // After the service, so the lines its providers write while they stop are kept.
-  providerLog: 121,
-  // After the service, so a deletion that fails while the service stops is kept.
-  agentLog: 122,
-  // After the account, so a session write that fails while it stops is kept.
-  accountLog: 123,
-  // Last: every step above can still write.
-  database: 130,
-} as const;
-
-export interface ApplicationServiceContext {
-  /**
-   * The window that exists now, by value. Anything that must survive a macOS close-and-rebuild
-   * reads `windows.getMainWindow()` instead - the two type-check identically, so only the call
-   * site says which one is correct.
-   */
-  mainWindow: BrowserWindow;
-  windows: MainWindowController;
-  appIconPath: string;
-  appVariant: AppVariant;
-  developmentRemoteRole: DevelopmentRemoteRole | null;
-  /** Set only in a hosted server VM. */
-  hostedServer: HostedServerEnvironment | null;
-  /** Set only in a self-hosted server that `install-server.sh` installed. */
-  serverMode: ServerModeEnvironment | null;
-  /** Set only by `bun run dev --hosting=test`. */
-  hostingDeveloperKey: string | null;
-  macHapticFeedback: MacHapticFeedback;
-  teardown: TeardownRegistry;
-  forwardCentralAuth: (state: CentralAuthState) => void;
-  forwardBrowserDisplayState: (state: BrowserDisplayState) => void;
-  forwardProviderRuntimeStatus: (snapshot: ProviderRuntimeSnapshot) => void;
-  forwardVoiceModelStatus: (status: VoiceModelStatus) => void;
-  forwardVoiceStreamTranscript: (transcript: VoiceStreamTranscript) => void;
-  forwardSpeechModelStatus: (status: SpeechModelStatus) => void;
-  forwardWorkflowNotice: (notice: WorkflowNotice) => void;
-  prepareForUpdateInstall: () => Promise<void>;
-  /** True once a quit starts, also before this function returns. See `CuaDriverRuntimeOptions.quitting`. */
-  quitting: () => boolean;
-}
-
-/** Everything the entry point wires up, registers IPC handlers against, and shuts down. */
-export interface ApplicationServices {
-  service: AgentService;
-  routineFlows: RoutineFlowsHandle;
-  workflows: WorkflowsHandle;
-  routineResults: RoutineResultsHandle;
-  providerRuntimes: ProviderRuntimeManager;
-  providerCredentials: ProviderCredentialStore;
-  /** The Slack and Telegram connections of the agents on this host. */
-  messaging: MessagingService;
-  /** Reached by the entry point for one thing only: handing a returning grant to its sign-in. */
-  mcpOAuth: McpOAuth;
-  /** The sign-ins of joined servers that wait in this computer's browser, and the callbacks they take. */
-  signInRelayClient: SignInRelayClient;
-  /** The Slack and Discord installs that this computer opened for a joined server. */
-  relayedMessagingInstalls: RelayedMessagingInstalls;
-  githubConnector: GitHubConnectorService;
-  onePasswordConnector: OnePasswordConnectorService;
-  bitwardenConnector: BitwardenConnectorService;
-  vault: VaultService;
-  mailbox: MailboxStore;
-  storageUsage: StorageUsageService;
-  browser: BrowserHost;
-  browserPictureInPicture: BrowserPictureInPicture;
-  localSignIn: LocalSignInWindows;
-  browserDock: BrowserDockOverlay;
-  browserView: BrowserViewClient;
-  updater: UpdateService;
-  /** Point-in-time restart safety for host-managed updates. Nothing holds the instance when empty. */
-  describeRestartReadiness: () => RestartReadiness;
-  hostUpdateCoordinator: HostUpdateCoordinator;
-  /** The update restart that an admin of a joined server asked for (`host-update-v1`). */
-  requestedUpdate: RequestedUpdate;
-  /** The restart that the user of this computer asked for, when no work runs. */
-  idleRestart: IdleRestart;
-  setupFile: string;
-  updatePreferenceFile: string;
-  approvalAutomation: ApprovalAutomation;
-  agentAdminSettings: AgentAdminSettingsService;
-  agentHostSettings: AgentHostSettingsService;
-  browserProfiles: BrowserProfileService;
-  language: LanguageService;
-  logoColor: LogoColorService;
-  appearance: AppearanceService;
-  interfaceSize: InterfaceSizeService;
-  notificationPreference: NotificationPreferenceStore;
-  busyMessageMode: BusyMessageModePreferenceStore;
-  agentDefaults: AgentDefaultsPreferenceStore;
-  agentMemoryLimit: AgentMemoryLimitSetting;
-  memoryReview: MemoryReviewPreferenceStore;
-  serverTimezone: ServerTimezonePreferenceStore;
-  promptCacheTtl: PromptCacheTtlPreferenceStore;
-  claudeEnvironment: ClaudeEnvironmentStore;
-  remoteSessionReuse: RemoteSessionReusePreferenceStore;
-  externalLinkPreference: ExternalLinkPreferenceStore;
-  externalLinks: ExternalLinkOpener;
-  /** Opens a web page in the program that the user chose in Settings. */
-  openLink: (url: string) => Promise<void>;
-  remoteNetworkRoute: RemoteNetworkRoutePreferenceStore;
-  remoteSessionCache: RemoteSessionCache;
-  appBehavior: AppBehaviorService;
-  agentInitialization: AgentInitializationGate<AgentLifecycleFailed>;
-  sidebarLayout: SidebarLayoutStore;
-  host: HostService;
-  remoteDesktop: RemoteDesktopManager;
-  remoteServers: RemoteServerManager;
-  centralAuth: CentralAuthManager;
-  skills: SkillMarketplaceService;
-  hostedSites: HostedSiteDesktopService;
-  billing: BillingDesktopService;
-  license: LicenseDesktopService;
-  hostedServers: HostedServerDesktopService;
-  routineFeed: RoutineFeedServer;
-  events: HostEventsService;
-  eventsRuntime: HostEventsRuntime;
-  /** The terminal control of a self-hosted server. Null in every other build. */
-  serverMode: ServerMode | null;
-  customProviders: CustomProviderStore;
-  customProviderChanges: CustomProviderChanges;
-  customAgentChanges: CustomAgentChanges;
-  acpRegistry: AcpRegistry;
-  providerDetection: ProviderDetection;
-  providerDetectionSettings: ProviderDetectionSettingsStore;
-  marketplaceAgents: AgentMarketplaceService;
-  agentTemplates: AgentTemplateService;
-  agentSections: AgentSectionService;
-  agentImport: AgentImportService;
-  hermesImport: HermesImportService;
-  instanceTransfer: InstanceTransferService;
-  voice: VoiceTranscriptionService;
-  decisionModel: DecisionModelStore;
-  speech: VoiceSpeechService;
-  dynamicIsland: DynamicIslandWindowController;
-  cuaDriver: CuaDriverRuntime;
-  computerUseHighlight: ComputerUseHighlightController;
-  computerUsePermissionHelp: ComputerUsePermissionHelpWindowController;
-  trace: TraceFile;
-  resourceMonitor: ResourceMonitor;
-  teamStore: TeamStore;
-  /**
-   * The account state this function read part-way through, and bound the local host to. The
-   * entry point compares it against the current state to find an account that settled after
-   * that read, while `forwardCentralAuth` still had no services to apply it to.
-   */
-  appliedAccount: CentralAuthState;
-  /** Left un-awaited on purpose: the account settles in the background while the app opens. */
-  centralAuthInitialization: Effect.Effect<CentralAuthState, RemoteWorkflowError>;
-}
-
-/** How the driver's own state reads as the capability the Team API projects. */
-/** The Electron secret storage cipher that every encrypted file in userData uses. */
-function safeStorageCipher(
-  unavailableKey: "error.app.secretStorageUnavailable" | "error.app.macSecureStorageUnavailable",
-) {
-  return {
-    canPersist: () => safeStorage.isEncryptionAvailable(),
-    encrypt: (value: string) => {
-      if (!safeStorage.isEncryptionAvailable()) throw new Error(sourceText(unavailableKey));
-      return safeStorage.encryptString(value);
-    },
-    decrypt: (value: Buffer) => safeStorage.decryptString(value),
-  };
-}
-
-function computerUseCapability(state: ComputerUseState): CapabilityState {
-  if (state.status === "ready") return "ready";
-  if (state.status === "permissions-required") return "setup-required";
-  return "unavailable";
-}
-
-/** The base cache path of electron-updater 6.8.9 (`getAppCacheDir`), which differs from Electron's. */
-function electronUpdaterCacheRoot(): string {
-  if (process.platform === "win32") return process.env.LOCALAPPDATA || join(homedir(), "AppData", "Local");
-  if (process.platform === "darwin") return join(homedir(), "Library", "Caches");
-  return process.env.XDG_CACHE_HOME || join(homedir(), ".cache");
-}
-
-interface MessagingServicesContext {
-  teardown: TeardownRegistry;
-  secretCipher: ReturnType<typeof safeStorageCipher>;
-  centralAuth: CentralAuthManager;
-  service: AgentService;
-  sidebarLayout: SidebarLayoutStore;
-  /** Read on each call: the team store that names this host is built after messaging. */
-  readHostId: () => string | null;
-  openLink: (url: string) => Promise<void>;
-}
-
-/**
- * The Slack, Discord and Telegram connections. Awaited in place, so start and teardown order stay as they were
- * inline.
- */
-async function createMessagingServices({
-  teardown,
-  secretCipher,
-  centralAuth,
-  service,
-  sidebarLayout,
-  readHostId,
-  openLink,
-}: MessagingServicesContext): Promise<{ messaging: MessagingService; signalIngress: SignalIngress }> {
-  /*
-   * The Slack workspaces, Discord guilds and Telegram chats where the agents answer. The tokens use the same cipher as every other
-   * secret; an unreadable file is reported, not fatal, and each workspace then connects again.
-   */
-  const messagingCredentials = new MessagingCredentialStore(
-    join(app.getPath("userData"), MESSAGING_CREDENTIAL_FILE),
-    secretCipher,
-  );
-  const messagingCredentialLoadError = await Effect.runPromise(messagingCredentials.load());
-  if (messagingCredentialLoadError)
-    logger.warn(
-      `ROBot could not read the messaging token file (${messagingCredentialLoadError.name}). It was left unchanged.`,
-    );
-  // The Signal socket that brings the events of the Slack workspaces, Discord guilds and Telegram chats
-  // linked to this host, and makes its Discord and Telegram calls.
-  const signalIngress = new SignalIngress({
-    hostId: readHostId,
-    signedIn: () => {
-      try {
-        centralAuth.getSignedInUser();
-        return true;
-      } catch {
-        return false;
-      }
-    },
-    issueTicket: (hostId) => centralAuth.issueRemoteHostTicket(hostId).pipe(toRemoteWorkflowError),
-    issueSlackRoute: (hostId) => centralAuth.issueSlackRoute(hostId).pipe(toRemoteWorkflowError),
-    issueDiscordRoute: (hostId) => centralAuth.issueDiscordRoute(hostId).pipe(toRemoteWorkflowError),
-    issueWebhookRoute: (hostId) => centralAuth.issueWebhookRoute(hostId).pipe(toRemoteWorkflowError),
-    issueTelegramRoute: (hostId) => centralAuth.issueTelegramRoute(hostId).pipe(toRemoteWorkflowError),
-    queueKey: () => loadIngressQueueKey(join(app.getPath("userData"), INGRESS_QUEUE_KEY_FILE), secretCipher),
-  });
-  teardown.push(TEARDOWN_ORDER.signalIngress, "the Signal ingress socket", () =>
-    Effect.runPromise(signalIngress.dispose()),
-  );
-  // Development only: `bun run dev:slack` names this loopback port, so a Slack install returns to this
-  // dev app and not to an installed ROBot that owns `openownbot://`.
-  const developmentSlackCallbackPort = app.isPackaged ? 0 : Number(process.env.OPENOWNBOT_DEV_SLACK_CALLBACK_PORT ?? 0);
-  const messaging = new MessagingService({
-    threads: service.messaging,
-    agents: {
-      listAgents: () => service.listAgents(),
-      // A chat app user is not the owner, even when the owner links the chat.
-      respondToApproval: (input) => service.respondToApproval(input, { owner: false }),
-      onEvent: (listener) => {
-        service.on("event", listener);
-        return () => service.off("event", listener);
-      },
-      createAgentProfile: (input) => service.createAgentProfile(input),
-      createMemory: (input) => service.memories.create(input),
-      ensureDeletable: (agentId) => service.ensureAgentDeletable(agentId),
-      deleteAgent: (agentId) => service.deleteAgent(agentId),
-      sidebarChatIds: () => service.sidebarChatIds(),
-    },
-    credentials: messagingCredentials,
-    drivers: [
-      slackDriver({ ingress: signalIngress }),
-      discordDriver({ ingress: signalIngress }),
-      telegramDriver({ ingress: signalIngress }),
-    ],
-    downloadsRoot: join(app.getPath("userData"), "messaging-downloads"),
-    statusPath: join(app.getPath("userData"), "messaging-status.json"),
-    ingress: signalIngress,
-    sidebar: sidebarLayout,
-    slackApp: {
-      authorize: (input) =>
-        Effect.suspend(() => {
-          const hostId = readHostId();
-          if (!hostId)
-            return Effect.fail(
-              new SlackConnectFailed({ cause: new Error(sourceText("error.messaging.relayUnavailable")) }),
-            );
-          return centralAuth
-            .requestAuthorized(
-              "/v2/slack/authorize",
-              {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                  hostId,
-                  ...input,
-                  ...(developmentSlackCallbackPort > 0
-                    ? { returnUrl: `http://127.0.0.1:${developmentSlackCallbackPort}${SLACK_DEV_CALLBACK_PATH}` }
-                    : {}),
-                }),
-              },
-              (value) => requiredString(decodeRecord(value, "Slack sign-in"), "authorizeUrl"),
-            )
-            .pipe(toSlackConnectFailed);
-        }),
-      unlink: (workspaceId) =>
-        Effect.suspend(() => {
-          const hostId = readHostId();
-          return hostId
-            ? centralAuth.unlinkSlackWorkspace(hostId, workspaceId).pipe(toSlackConnectFailed)
-            : Effect.void;
-        }),
-      openExternal: openLink,
-    },
-    discordApp: {
-      authorize: (input) =>
-        Effect.suspend(() => {
-          const hostId = readHostId();
-          if (!hostId)
-            return Effect.fail(
-              new DiscordConnectFailed({ cause: new Error(sourceText("error.messaging.discordRelayUnavailable")) }),
-            );
-          return centralAuth
-            .requestAuthorized(
-              "/v2/discord/authorize",
-              {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ hostId, ...input }),
-              },
-              (value) => requiredString(decodeRecord(value, "Discord sign-in"), "authorizeUrl"),
-            )
-            .pipe(toDiscordConnectFailed);
-        }),
-      unlink: (guildId) =>
-        Effect.suspend(() => {
-          const hostId = readHostId();
-          return hostId ? centralAuth.unlinkDiscordGuild(hostId, guildId).pipe(toDiscordConnectFailed) : Effect.void;
-        }),
-      openExternal: openLink,
-    },
-    telegramApp: {
-      createLink: () =>
-        Effect.suspend(() => {
-          const hostId = readHostId();
-          if (!hostId)
-            return Effect.fail(
-              new MessagingOperationFailed({
-                cause: new Error(sourceText("error.messaging.telegramRelayUnavailable")),
-              }),
-            );
-          return centralAuth.createTelegramLink(hostId).pipe(
-            Effect.mapError(({ cause }) => {
-              // The account service has no Telegram bot. The user can only wait, so they get catalog
-              // text, which a joined server can show to its client.
-              const notConfigured =
-                cause instanceof Error && "code" in cause && cause.code === "telegram_not_configured";
-              return new MessagingOperationFailed({
-                cause: notConfigured ? new Error(sourceText("error.messaging.telegramServiceUnavailable")) : cause,
-              });
-            }),
-          );
-        }),
-      unlink: (chatId) =>
-        Effect.suspend(() => {
-          const hostId = readHostId();
-          return hostId
-            ? centralAuth
-                .unlinkTelegramChat(hostId, chatId)
-                .pipe(Effect.mapError((error) => new MessagingOperationFailed({ cause: error.cause })))
-            : Effect.void;
-        }),
-      openExternal: openLink,
-    },
-  });
-  // Not awaited: a connection waits for Slack, and the app does not wait for it.
-  void runCauseEffect(messaging.start()).catch((error) =>
-    logger.warn("Messaging connections did not start.", toLogValue(error)),
-  );
-  teardown.push(TEARDOWN_ORDER.messaging, "the messaging connections", () => Effect.runPromise(messaging.stop()));
-  if (developmentSlackCallbackPort > 0) {
-    // As `openownbot://` does for a packaged build, a finished install brings ROBot to the front.
-    const callback = await startSlackDevCallbackServer(developmentSlackCallbackPort, async (nonce, grant) => {
-      const received = await runCauseEffect(messaging.completeSlackWorkspace(nonce, grant));
-      if (received) app.focus({ steal: true });
-      return received;
-    });
-    teardown.push(TEARDOWN_ORDER.signalIngress, "the Slack development callback", () => callback.close());
-  }
-  return { messaging, signalIngress };
-}
-
 export async function createApplicationServices({
   mainWindow,
   windows,
