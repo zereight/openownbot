@@ -63,7 +63,25 @@ export async function connectChannelE2e(command: string): Promise<ChannelE2e> {
     expectedRendererPort: instance.rendererPort,
     ownerPid: instance.pid,
   });
-  return { page: session.page, instance, close: session.close };
+  // The scripts find controls by their English names, so the app shows English while one runs. A
+  // profile on another language gets it back on close.
+  const page = session.page;
+  const original = (await page.evaluate(() => window.openownbot.getAppLanguagePreference())).language;
+  if (original !== "en") {
+    await page.evaluate(() => window.openownbot.setAppLanguagePreference({ language: "en" }));
+    await page.waitForFunction(() => document.documentElement.lang === "en");
+  }
+  return {
+    page,
+    instance,
+    close: async () => {
+      if (original !== "en")
+        await page
+          .evaluate((language) => window.openownbot.setAppLanguagePreference({ language }), original)
+          .catch(() => undefined);
+      await session.close();
+    },
+  };
 }
 
 export function writeReport(name: string, report: unknown): string {

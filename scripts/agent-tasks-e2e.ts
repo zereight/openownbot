@@ -40,7 +40,8 @@ assert.ok(agentArgument, "Pass --agent=<agent id> of an agent whose provider is 
 const agentId: string = agentArgument;
 
 // Long enough that the first task still runs while the script reads the second one.
-const LONG_PROMPT = "Write a numbered list of 40 short facts about rivers. Do not use tools.";
+// Long enough that a fast model (Claude Haiku) still runs when Stop arrives a few steps later.
+const LONG_PROMPT = "Write a numbered list of 400 short facts about rivers, one per line. Do not use tools.";
 const SHORT_PROMPT = "Reply with the single word ready. Do not use tools.";
 const WAIT_MS = 120_000;
 

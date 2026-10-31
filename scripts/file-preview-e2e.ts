@@ -5,36 +5,23 @@
 import assert from "node:assert/strict";
 import { mkdirSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
-import { createOpenOwnBotLogger } from "@robot/logging";
-import { assertMutationAllowed, connectToDevApp } from "./dev-automation/cdp-client";
-import { readDevInstanceRecords } from "./dev-automation/instance-registry";
+import { connectChannelE2e } from "./channel-e2e-support";
 
 const renderedText = process.argv.find((value) => value.startsWith("--rendered-text="))?.slice(16);
 const filename = process.argv.find((value) => value.startsWith("--file="))?.slice(7);
 assert.ok(renderedText && filename, "Pass --rendered-text=<script output> and --file=<filename>.");
-const instances = readDevInstanceRecords().filter(
-  (record) => record.service === "app" && resolve(record.projectRoot) === resolve(process.cwd()),
-);
-assert.equal(instances.length, 1, "Start one dev app for this worktree first.");
-const instance = instances[0];
-assert.ok(instance);
-assertMutationAllowed({
-  command: "file-preview-e2e",
-  allowMutations: process.argv.includes("--allow-mutations"),
-  instanceNamed: true,
-  target: instance.instanceId,
-});
-const session = await connectToDevApp(instance.remoteDebuggingPort, createOpenOwnBotLogger("file-preview-e2e"), {
-  expectedRendererPort: instance.rendererPort,
-  ownerPid: instance.pid,
-});
+const session = await connectChannelE2e("file-preview-e2e");
 const out = resolve(".openownbot-build/file-preview-e2e");
 mkdirSync(out, { recursive: true });
 const results: string[] = [];
 try {
   const page = session.page;
   page.setDefaultTimeout(10_000);
-  const open = () => page.getByRole("button", { name: `Open workspace file ${filename}`, exact: true }).click();
+  const open = () =>
+    page
+      .getByRole("button", { name: `Open workspace file ${filename}`, exact: true })
+      .last()
+      .click();
   const panel = page.getByRole("complementary", { name: "File preview", exact: true });
   const frameElement = panel.locator("iframe");
   await open();
@@ -63,9 +50,11 @@ try {
     .getByRole("heading", { level: 1 })
     .innerText();
   const chats = page.getByRole("navigation", { name: "Chat list" });
+  // A row's name starts with its agent's name. Another row's preview text can mention the agent.
+  const agentRow = new RegExp(`^${agentName.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}[,.]`);
   await chats.getByRole("button").filter({ hasNotText: agentName }).first().click();
   await panel.waitFor({ state: "detached" });
-  await chats.getByRole("button").filter({ hasText: agentName }).click();
+  await chats.getByRole("button", { name: agentRow }).first().click();
   await page
     .getByRole("main", { name: "Conversation" })
     .getByRole("heading", { level: 1, name: agentName, exact: true })
