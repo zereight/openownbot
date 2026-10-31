@@ -18,6 +18,11 @@
 // provider credentials and the Vault again. Team server identity and push registrations stay too.
 // The routine feed is sealed too, so it starts off. Downloaded runtimes are downloaded again.
 //
+// `--only=agents,workflows,channels` moves the agents (with their memories, routines and workspaces),
+// the workflows and the channels, and leaves the history behind: chats, side threads, channel messages
+// and tasks, provider sessions, attachments, runs and usage. Agents always move; the other parts are
+// `workflows`, `channels` and `history`. With no `--only`, everything moves.
+//
 // Options: --from-data=<OpenBot user data> --from-home=<folder with OpenBot/> --to-data=<ROBot user
 // data> --to-home=<folder for ROBot/>. `--replace` sets an existing ROBot database aside (renamed, not
 // deleted) instead of stopping; use it only for a dev profile. `--allow-running-source` copies the
@@ -70,6 +75,21 @@ const fromRoot = join(resolve(option("from-home") ?? homedir()), OLD_FOLDER_NAME
 const toData = resolve(option("to-data") ?? join(appData, DATA_FOLDER_NAME));
 const toRoot = join(resolve(option("to-home") ?? homedir()), DATA_FOLDER_NAME);
 const apply = flag("apply");
+const PARTS = ["agents", "workflows", "channels", "history"] as const;
+type Part = (typeof PARTS)[number];
+const isPart = (value: string): value is Part => PARTS.some((part) => part === value);
+const onlyOption = option("only");
+const parts: ReadonlySet<Part> = new Set(
+  onlyOption === undefined
+    ? PARTS
+    : [
+        "agents" as const,
+        ...onlyOption.split(",").map((value) => {
+          assert.ok(isPart(value), `--only takes ${PARTS.join(", ")}; got "${value}".`);
+          return value;
+        }),
+      ],
+);
 
 /** Old path prefix, new path prefix. The user data folder goes first: it is inside neither root. */
 const PATH_PREFIXES: [string, string][] = [
@@ -117,7 +137,9 @@ interface Report {
   apply: boolean;
   from: { data: string; root: string; schemaVersion: number | null };
   to: { data: string; root: string };
+  parts: string[];
   counts: Record<string, number>;
+  leftOut: Record<string, number>;
   rewrittenPaths: Record<string, number>;
   schemaDifferences: string[];
   foreignKeyProblems: number;
@@ -133,7 +155,9 @@ const report: Report = {
   apply,
   from: { data: fromData, root: fromRoot, schemaVersion: null },
   to: { data: toData, root: toRoot },
+  parts: [...parts],
   counts: {},
+  leftOut: {},
   rewrittenPaths: {},
   schemaDifferences: [],
   foreignKeyProblems: 0,
@@ -290,6 +314,7 @@ function convert(db: DatabaseSync): void {
     SCHEMA_VERSION,
     createdAt,
   );
+  leaveOut(db);
   rewritePaths(db);
   db.exec("COMMIT");
   db.exec("PRAGMA foreign_keys = ON");
@@ -335,6 +360,107 @@ function compareWithNewSchema(db: DatabaseSync, folder: string): void {
       report.schemaDifferences.push(`columns of ${name}`);
   }
   for (const name of actual.keys()) if (!expected.has(name)) report.schemaDifferences.push(`extra ${name}`);
+}
+
+/** The tables of each part that `--only` can leave out. Every other table is configuration and moves. */
+const HISTORY_TABLES = [
+  "agent_usage_activity",
+  "agent_usage_checkpoints",
+  "agent_usage_records",
+  "agent_waits",
+  "file_deletion_outbox",
+  "orchestration_command_receipts",
+  "projection_agent_threads",
+  "projection_attachments",
+  "projection_channel_assignments",
+  "projection_channel_contexts",
+  "projection_channel_messages",
+  "projection_channel_reads",
+  "projection_channel_routine_runs",
+  "projection_channel_summaries",
+  "projection_channel_tasks",
+  "projection_deliveries",
+  "projection_direct_messages",
+  "projection_direct_reads",
+  "projection_direct_threads",
+  "projection_mailbox_messages",
+  "projection_provider_sessions",
+  "projection_queue_state",
+  "projection_reactions",
+  "projection_routine_runs",
+  "projection_thread_activities",
+  "projection_thread_messages",
+  "projection_thread_read_baselines",
+  "projection_thread_reads",
+  "projection_thread_summaries",
+  "projection_turns",
+  "projection_webhook_receipts",
+  "provider_history_imports",
+  "provider_history_staging",
+  "provider_history_turns",
+  "routine_flow_steps",
+  "routine_result_deliveries",
+  "workflow_output_deliveries",
+  "workflow_runs",
+  "workflow_steps",
+  "workflow_webhook_receipts",
+];
+const WORKFLOW_TABLES = [
+  "workflow_output_deliveries",
+  "workflow_steps",
+  "workflow_runs",
+  "workflow_webhook_receipts",
+  "workflow_trigger_webhooks",
+  "workflow_triggers",
+  "workflow_edges",
+  "workflow_nodes",
+  "workflow_versions",
+  "workflows",
+];
+const CHANNEL_TABLES = [
+  "projection_channel_assignments",
+  "projection_channel_tasks",
+  "projection_channel_messages",
+  "projection_channel_summaries",
+  "projection_channel_reads",
+  "projection_channel_contexts",
+  "projection_channel_memories",
+  "projection_channel_routine_runs",
+  "projection_channel_routine_webhooks",
+  "projection_channel_routine_triggers",
+  "projection_channel_routines",
+  "projection_channels",
+];
+/** Event aggregates that hold configuration. `agents` must stay: ROBot reads the roster from it. */
+const CONFIGURATION_EVENTS = ["agents", "agent-memory", "agent-routine", "channel-memory", "channel-routine"];
+
+/** Removes the parts that `--only` left out from the copy. */
+function leaveOut(db: DatabaseSync): void {
+  const clear = (tables: readonly string[]) => {
+    for (const table of tables) {
+      const removed = Number(db.prepare(`DELETE FROM "${table}"`).run().changes);
+      if (removed > 0) report.leftOut[table] = (report.leftOut[table] ?? 0) + removed;
+    }
+  };
+  if (!parts.has("workflows")) clear(WORKFLOW_TABLES);
+  if (!parts.has("channels")) {
+    clear(CHANNEL_TABLES);
+    db.exec("DELETE FROM orchestration_events WHERE aggregate_type IN ('channel-memory', 'channel-routine')");
+  }
+  if (parts.has("history")) return;
+  clear(HISTORY_TABLES);
+  // Each agent keeps the empty thread of its own chat; side threads and channel contexts go.
+  db.exec(`
+    DELETE FROM projection_threads
+      WHERE thread_id NOT IN (SELECT thread_id FROM projection_agents WHERE thread_id IS NOT NULL);
+    UPDATE projection_threads SET active_turn_id = NULL;
+    UPDATE projection_agents SET agent_json = json_set(agent_json, '$.preview', '');
+  `);
+  const kept = CONFIGURATION_EVENTS.map(() => "?").join(", ");
+  const removed = db
+    .prepare(`DELETE FROM orchestration_events WHERE aggregate_type NOT IN (${kept})`)
+    .run(...CONFIGURATION_EVENTS).changes;
+  report.leftOut.orchestration_events = Number(removed);
 }
 
 function count(db: DatabaseSync): void {
@@ -438,6 +564,8 @@ try {
     return path ? [{ id: requiredStringColumn(row, "agent_id"), path }] : [];
   });
   db.exec("PRAGMA wal_checkpoint(TRUNCATE)");
+  // Gives back the pages of the history that was left out.
+  if (!parts.has("history")) db.exec("VACUUM");
   db.close();
   assert.deepEqual(report.schemaDifferences, [], "The converted database does not match the schema of this build.");
 
