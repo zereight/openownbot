@@ -41,7 +41,7 @@ export interface ConfigGate {
 export const CONFIG_GATES: readonly ConfigGate[] = [
   {
     path: "electron-builder.yml",
-    gateFile: "src/main/application-services.ts",
+    gateFile: "src/main/startup/updater.ts",
     requirement: "the `updatesEnabled` assignment must contain LOCAL_ONLY",
     holds: (source) => /const updatesEnabled =[^;]*\bLOCAL_ONLY\b[^;]*;/u.test(source),
   },

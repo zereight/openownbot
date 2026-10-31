@@ -20,6 +20,7 @@ import { toRemoteWorkflowError } from "../remote-service-effects";
 import { INGRESS_QUEUE_KEY_FILE, MESSAGING_CREDENTIAL_FILE } from "./data-files";
 import type { safeStorageCipher } from "./platform";
 import { TEARDOWN_ORDER } from "./teardown-order";
+
 /**
  * The composition root. Every long-lived service the desktop app owns is built here, in one
  * function, in dependency order, and handed back as a single record.
