@@ -35,7 +35,7 @@ export class FilePreviewPages {
       this.#pages.size >= this.capacity
     )
       return undefined;
-    const address = `openownbot-visual://preview/${randomUUID()}`;
+    const address = `robot-visual://preview/${randomUUID()}`;
     this.#pages.set(address, bytes.slice());
     return address;
   }

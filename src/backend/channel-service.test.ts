@@ -118,7 +118,7 @@ describe("ChannelService turn-completed", () => {
       const handled = service.event({
         type: "turn-completed",
         agentId,
-        threadId: "openbot-thread-unmapped",
+        threadId: "thread-unmapped",
         turnId,
         status: "failed",
       });
@@ -140,7 +140,7 @@ describe("ChannelService turn-completed", () => {
       const handled = service.event({
         type: "turn-completed",
         agentId,
-        threadId: "openbot-thread-unmapped",
+        threadId: "thread-unmapped",
         turnId: `01a17935-${randomUUID().slice(9)}`,
         status: "failed",
       });

@@ -242,7 +242,7 @@ export interface WebWorkspaceRuntime {
   setAgentHidden?: (input: SetAgentHiddenInput) => Promise<HiddenAgentsSnapshot>;
   react(input: SetMessageReactionInput): Promise<void>;
   setAvatar(agentId: string, image: AvatarImageInput | null): Promise<void>;
-  /** The agent image as a data URL. The browser cannot open the host's `openbot-avatar:` URL. */
+  /** The agent image as a data URL. The browser cannot open the host's `robot-avatar:` URL. */
   agentAvatar(agentId: string, avatarUrl: string): Promise<string>;
   models(): Promise<ClientAgentModelOption[]>;
   status(): Promise<AgentStatus>;
@@ -949,7 +949,7 @@ export function createWebWorkspaceRuntime(
         throw new Error(currentText().t("webClient.error.uploadCancelled"));
       }
       trackCompletedDraft(value.id, uploadHostGeneration === generation ? lockedHostId : null);
-      // The host names the draft's preview with the desktop `openbot-attachment:` scheme.
+      // The host names the draft's preview with the desktop `robot-attachment:` scheme.
       return { ...value, previewUrl: null };
     },
     setTyping(agentId, typing) {

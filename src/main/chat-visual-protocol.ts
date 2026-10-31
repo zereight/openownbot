@@ -2,7 +2,7 @@ import { CHAT_VISUAL_FRAME_SANDBOX, CHAT_VISUAL_PAGE_LIMIT, chatVisualDocument }
 import { isTrustedRendererUrl } from "./trusted-renderer";
 
 /**
- * Responses for the `openownbot-visual` and `openownbot-remote-visual` schemes, which serve an HTML
+ * Responses for the `robot-visual` and `robot-remote-visual` schemes, which serve an HTML
  * attachment as a visual reply page, and the CORS headers of the attachment schemes.
  *
  * A visual reply page runs the agent's scripts. Its `sandbox` policy gives it an opaque origin, so

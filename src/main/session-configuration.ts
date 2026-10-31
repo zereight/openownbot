@@ -75,7 +75,7 @@ export interface AttachmentProtocolDependencies {
 
 export function configureAttachmentProtocol({ mailbox, agents, remoteServers }: AttachmentProtocolDependencies): void {
   const logger = createOpenOwnBotLogger("attachment-protocol");
-  session.defaultSession.protocol.handle("openbot-attachment", async (request) => {
+  session.defaultSession.protocol.handle("robot-attachment", async (request) => {
     try {
       const url = new URL(request.url);
       const id = url.pathname.split("/").filter(Boolean).at(-1);
@@ -95,7 +95,7 @@ export function configureAttachmentProtocol({ mailbox, agents, remoteServers }: 
       return new Response("Not found", { status: 404 });
     }
   });
-  session.defaultSession.protocol.handle("openbot-remote-attachment", async (request) => {
+  session.defaultSession.protocol.handle("robot-remote-attachment", async (request) => {
     try {
       const url = new URL(request.url);
       const serverId = decodeURIComponent(url.hostname);
@@ -120,7 +120,7 @@ export function configureAttachmentProtocol({ mailbox, agents, remoteServers }: 
   });
   // A visual reply page: an HTML attachment with the frame script, in a sandbox. See
   // `chat-visual-protocol.ts`.
-  session.defaultSession.protocol.handle("openownbot-visual", async (request) => {
+  session.defaultSession.protocol.handle("robot-visual", async (request) => {
     try {
       const url = new URL(request.url);
       if (url.hostname === "preview") return filePreviewPages.response(request);
@@ -134,7 +134,7 @@ export function configureAttachmentProtocol({ mailbox, agents, remoteServers }: 
       return new Response("Not found", { status: 404 });
     }
   });
-  session.defaultSession.protocol.handle("openownbot-remote-visual", async (request) => {
+  session.defaultSession.protocol.handle("robot-remote-visual", async (request) => {
     try {
       const url = new URL(request.url);
       const serverId = decodeURIComponent(url.hostname);
@@ -148,7 +148,7 @@ export function configureAttachmentProtocol({ mailbox, agents, remoteServers }: 
       return new Response("Not found", { status: 404 });
     }
   });
-  session.defaultSession.protocol.handle("openbot-avatar", async (request) => {
+  session.defaultSession.protocol.handle("robot-avatar", async (request) => {
     try {
       const url = new URL(request.url);
       if (url.hostname !== "agent") return new Response("Not found", { status: 404 });
@@ -168,7 +168,7 @@ export function configureAttachmentProtocol({ mailbox, agents, remoteServers }: 
       return new Response("Not found", { status: 404 });
     }
   });
-  session.defaultSession.protocol.handle("openownbot-remote-avatar", async (request) => {
+  session.defaultSession.protocol.handle("robot-remote-avatar", async (request) => {
     try {
       const url = new URL(request.url);
       const serverId = decodeURIComponent(url.hostname);
@@ -196,7 +196,7 @@ export interface ServerLogoProtocolDependencies {
 }
 
 export function configureServerLogoProtocols({ teamStore, remoteServers }: ServerLogoProtocolDependencies): void {
-  session.defaultSession.protocol.handle("openownbot-server-logo", async (request) => {
+  session.defaultSession.protocol.handle("robot-server-logo", async (request) => {
     try {
       const url = new URL(request.url);
       const logo = teamStore.resolveLogo();
@@ -214,7 +214,7 @@ export function configureServerLogoProtocols({ teamStore, remoteServers }: Serve
       return new Response("Not found", { status: 404 });
     }
   });
-  session.defaultSession.protocol.handle("openownbot-remote-server-logo", async (request) => {
+  session.defaultSession.protocol.handle("robot-remote-server-logo", async (request) => {
     try {
       const url = new URL(request.url);
       const serverId = decodeURIComponent(url.hostname);
@@ -236,7 +236,7 @@ export function configureServerLogoProtocols({ teamStore, remoteServers }: Serve
 
 export function configureApplicationProtocol(): void {
   const rendererRoot = resolve(__dirname, "../renderer");
-  session.defaultSession.protocol.handle("openownbot-app", async (request) => {
+  session.defaultSession.protocol.handle("robot-app", async (request) => {
     try {
       const url = new URL(request.url);
       if (url.host !== "app") return new Response("Not found", { status: 404 });

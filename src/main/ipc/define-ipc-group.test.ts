@@ -38,7 +38,7 @@ vi.mock("electron", () => ({
   },
 }));
 
-const TRUSTED_EVENT = { senderFrame: { url: "openownbot-app://app/index.html" } };
+const TRUSTED_EVENT = { senderFrame: { url: "robot-app://app/index.html" } };
 const UNTRUSTED_EVENT = { senderFrame: { url: "https://evil.example/index.html" } };
 
 const READY: VoiceModelStatus = { modelId: "parakeet-tdt-0.6b-v3", phase: "ready", progress: null, message: null };

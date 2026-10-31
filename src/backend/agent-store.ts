@@ -1783,7 +1783,7 @@ function stringList(value: unknown): string[] {
 }
 
 function agentAvatarUrl(agentId: string, version: string, mimeType: string): string {
-  const url = new URL(`openbot-avatar://agent/${encodeURIComponent(agentId)}`);
+  const url = new URL(`robot-avatar://agent/${encodeURIComponent(agentId)}`);
   url.searchParams.set("v", version);
   url.searchParams.set("type", mimeType);
   return url.toString();
@@ -1799,7 +1799,7 @@ function parseAgentAvatarUrl(
     const version = url.searchParams.get("v") ?? "";
     const mimeType = url.searchParams.get("type") ?? "";
     if (
-      url.protocol !== "openbot-avatar:" ||
+      url.protocol !== "robot-avatar:" ||
       url.hostname !== "agent" ||
       agentId !== expectedAgentId ||
       !isUuidV4(version) ||

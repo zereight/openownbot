@@ -19,10 +19,10 @@ describe("workspace HTML preview pages", () => {
     expect(await response.text()).toContain("drawChart()");
 
     for (const value of [
-      "openownbot-visual://preview/unknown",
-      "openownbot-visual://preview/etc/passwd",
-      "openownbot-visual://preview/%2e%2e%2fprivate.html",
-      `openownbot-visual://file/${new URL(address ?? "").pathname.slice(1)}`,
+      "robot-visual://preview/unknown",
+      "robot-visual://preview/etc/passwd",
+      "robot-visual://preview/%2e%2e%2fprivate.html",
+      `robot-visual://file/${new URL(address ?? "").pathname.slice(1)}`,
       `${address ?? ""}?path=/private.html`,
     ]) {
       expect(pages.get(new URL(value))).toBeUndefined();

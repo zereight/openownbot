@@ -6,10 +6,10 @@ import { CHAT_VISUAL_PAGE_LIMIT, isChatVisualMimeType } from "@robot/contracts/c
  */
 export function chatVisualPageUrl(previewUrl: string | null | undefined): string | undefined {
   if (!previewUrl) return undefined;
-  const local = /^openbot-attachment:\/\/file\/([^/?#]+)$/.exec(previewUrl);
-  if (local) return `openownbot-visual://file/${local[1]}`;
-  const remote = /^openbot-remote-attachment:\/\/([^/?#]+)\/([^/?#]+)$/.exec(previewUrl);
-  if (remote) return `openownbot-remote-visual://${remote[1]}/${remote[2]}`;
+  const local = /^robot-attachment:\/\/file\/([^/?#]+)$/.exec(previewUrl);
+  if (local) return `robot-visual://file/${local[1]}`;
+  const remote = /^robot-remote-attachment:\/\/([^/?#]+)\/([^/?#]+)$/.exec(previewUrl);
+  if (remote) return `robot-remote-visual://${remote[1]}/${remote[2]}`;
   return undefined;
 }
 

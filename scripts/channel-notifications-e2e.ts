@@ -540,7 +540,7 @@ try {
 
   await step("A prompt on the agent's own thread does not name a channel", async () => {
     const notified = nextNotification();
-    forwarders.forwardAgentEvent(LOCAL_SERVER_ID, prompt(2, agent.threadId ?? "openbot-thread-own-chat"));
+    forwarders.forwardAgentEvent(LOCAL_SERVER_ID, prompt(2, agent.threadId ?? "thread-own-chat"));
     const notification = await notified;
     assert.equal(notification.title, agent.name);
     notification.click();

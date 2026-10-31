@@ -1331,7 +1331,7 @@ function initialHostStatus(identity: TeamIdentity | null, unattended: boolean): 
 }
 
 function serverLogoUrl(version: string): string {
-  return `openownbot-server-logo://local/logo?v=${encodeURIComponent(version)}`;
+  return `robot-server-logo://local/logo?v=${encodeURIComponent(version)}`;
 }
 
 function normalizeRemoteDesktopPlatform(platform: NodeJS.Platform): "darwin" | "win32" | "linux" {

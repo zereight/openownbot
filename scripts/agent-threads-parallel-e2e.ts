@@ -65,7 +65,7 @@ const approvalCard = () => page.getByRole("region", { name: english("prompt.appr
 const sidebarNav = () => page.getByRole("navigation", { name: english("sidebar.nav.label") });
 
 function writePrompt(): string {
-  const file = join(homedir(), `openbot-thread-approval-${randomUUID()}.txt`);
+  const file = join(homedir(), `thread-approval-${randomUUID()}.txt`);
   files.push(file);
   return `Create the file ${file} with the text ok. Run the shell command with escalated permissions so that I get an approval request.`;
 }

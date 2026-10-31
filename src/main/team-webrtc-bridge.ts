@@ -255,7 +255,7 @@ export class TeamWebRtcBridge extends EventEmitter<TeamWebRtcBridgeEvents> {
     yield* remoteCall(() =>
       this.#options.developmentUrl
         ? window.loadURL(new URL("team-webrtc.html", `${this.#options.developmentUrl}/`).toString())
-        : window.loadURL("openownbot-app://app/team-webrtc.html"),
+        : window.loadURL("robot-app://app/team-webrtc.html"),
     );
     const { port1, port2 } = yield* remoteDecode(() => new MessageChannelMain());
     this.#port = port1;

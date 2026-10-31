@@ -116,7 +116,7 @@ export async function startRenderRecording(
         let total = 0;
         for (const script of coverage.result) {
           // Only the app's own bundle: extensions and DevTools scripts are not the app's work.
-          if (!script.url.startsWith("openownbot-app://")) continue;
+          if (!script.url.startsWith("robot-app://")) continue;
           const file = script.url.slice(script.url.lastIndexOf("/") + 1);
           for (const fn of script.functions) {
             const count = fn.ranges[0]?.count ?? 0;

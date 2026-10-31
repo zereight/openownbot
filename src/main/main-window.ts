@@ -678,7 +678,7 @@ export function createComputerUsePermissionHelpWindow(translate: AppTranslate): 
 
 /** The entry that loads `App`: the main window, and a chat window with its query. */
 function appRendererUrl(developmentUrl: string | undefined): URL {
-  return developmentUrl ? new URL(developmentUrl) : new URL("openownbot-app://app/index.html");
+  return developmentUrl ? new URL(developmentUrl) : new URL("robot-app://app/index.html");
 }
 
 function chatWindowKey(target: ChatWindowTarget): string {
@@ -687,7 +687,7 @@ function chatWindowKey(target: ChatWindowTarget): string {
 
 /** The entry for the helper windows. It does not load `App`, so each window uses less memory. */
 function helperRendererUrl(developmentUrl: string | undefined): URL {
-  return developmentUrl ? new URL("helper.html", `${developmentUrl}/`) : new URL("openownbot-app://app/helper.html");
+  return developmentUrl ? new URL("helper.html", `${developmentUrl}/`) : new URL("robot-app://app/helper.html");
 }
 
 export function loadComputerUsePermissionHelpRenderer(

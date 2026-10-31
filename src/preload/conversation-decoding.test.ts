@@ -10,7 +10,7 @@ const preview = {
   previewKind: "text",
   bytes: new Uint8Array([60]),
 };
-const pageUrl = "openownbot-visual://preview/6e25cdd3-e985-4b45-8f86-572bb037ed50";
+const pageUrl = "robot-visual://preview/6e25cdd3-e985-4b45-8f86-572bb037ed50";
 
 describe("file preview page decoding", () => {
   it("keeps a temporary page address and accepts previews from main without it", () => {
@@ -23,8 +23,8 @@ describe("file preview page decoding", () => {
       "file:///private.html",
       "javascript:alert(1)",
       "https://example.com",
-      "openownbot-app://app/index.html",
-      "openownbot-visual://preview/../../private.html",
+      "robot-app://app/index.html",
+      "robot-visual://preview/../../private.html",
       `${pageUrl}?file=/private.html`,
       null,
       1,

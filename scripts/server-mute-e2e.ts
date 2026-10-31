@@ -28,7 +28,7 @@ import type { TeamApiBrowser } from "../src/main/team-api/dependencies";
 
 const OUT = resolve(import.meta.dirname, "../.openownbot-build/server-mute-e2e");
 const APP_VERSION = "0.0.0-e2e";
-const TRUSTED_SENDER = { senderFrame: { url: "openownbot-app://app/index.html" } };
+const TRUSTED_SENDER = { senderFrame: { url: "robot-app://app/index.html" } };
 const UNTRUSTED_SENDER = { senderFrame: { url: "https://example.com/" } };
 const STEP_DEADLINE_MS = 30_000;
 const FIFTEEN_MINUTES = 15 * 60_000;
