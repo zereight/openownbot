@@ -603,7 +603,7 @@ export function createWebWorkspace(
   );
   const [serverOrder, setServerOrder] = createSignal(readWebServerOrder(props.accountId));
   const orderedHosts = createMemo(() => orderWebHosts(state.hosts, serverOrder()));
-  // The host sends an `openbot-avatar:` URL, which only the desktop app can open. The image comes
+  // The host sends an `robot-avatar:` URL, which only the desktop app can open. The image comes
   // through the host connection; until then, the agent keeps the host URL and its generated avatar.
   const [avatars, setAvatars] = createSignal<ReadonlyMap<string, { source: string; url: string }>>(new Map());
   const avatarLoads = new Set<string>();
@@ -639,7 +639,7 @@ export function createWebWorkspace(
     () => ({
       hostId: state.host?.hostId ?? null,
       sources: state.agents.flatMap((agent) =>
-        agent.avatarUrl?.startsWith("openbot-avatar:") ? [{ id: agent.id, source: agent.avatarUrl }] : [],
+        agent.avatarUrl?.startsWith("robot-avatar:") ? [{ id: agent.id, source: agent.avatarUrl }] : [],
       ),
     }),
     ({ hostId, sources }) => {

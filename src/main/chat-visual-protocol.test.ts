@@ -27,10 +27,8 @@ describe("visual reply pages", () => {
 describe("attachment scheme headers", () => {
   it("lets only the app read an attachment across origins", () => {
     expect(attachmentCorsHeaders(developmentUrl, developmentUrl)["Access-Control-Allow-Origin"]).toBe(developmentUrl);
-    expect(attachmentCorsHeaders("openownbot-app://app", undefined)["Access-Control-Allow-Origin"]).toBe(
-      "openownbot-app://app",
-    );
-    for (const origin of ["null", "openownbot-visual://file", "https://example.com", null]) {
+    expect(attachmentCorsHeaders("robot-app://app", undefined)["Access-Control-Allow-Origin"]).toBe("robot-app://app");
+    for (const origin of ["null", "robot-visual://file", "https://example.com", null]) {
       expect(attachmentCorsHeaders(origin, developmentUrl)).not.toHaveProperty("Access-Control-Allow-Origin");
     }
   });

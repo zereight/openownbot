@@ -38,7 +38,7 @@ describe("isRemoteImageUrl", () => {
     expect(isRemoteImageUrl("HTTP://example.com/a.png")).toBe(true);
     expect(isRemoteImageUrl("data:image/png;base64,AAAA")).toBe(false);
     expect(isRemoteImageUrl("blob:abc")).toBe(false);
-    expect(isRemoteImageUrl("openownbot-server-logo://x")).toBe(false);
+    expect(isRemoteImageUrl("robot-server-logo://x")).toBe(false);
     expect(isRemoteImageUrl("/icons/a.svg")).toBe(false);
     expect(isRemoteImageUrl(null)).toBe(false);
   });

@@ -199,7 +199,7 @@ async function runTurns(context: ScenarioContext, agentIds: string[], text: stri
 // The app window in the main process: not a Dynamic Island or overlay surface.
 const MAIN_WINDOW = `require("electron").BrowserWindow.getAllWindows().find((window) => {
   const url = window.webContents.getURL();
-  return url.startsWith("openownbot-app://app/index.html") && !url.includes("surface=");
+  return url.startsWith("robot-app://app/index.html") && !url.includes("surface=");
 })`;
 
 async function mainWindowCall(context: ScenarioContext, call: "close" | "minimize"): Promise<void> {

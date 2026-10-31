@@ -550,7 +550,7 @@ stores the page as a generated `text/html` attachment and adds an assistant mess
 type `visual-reply:<height>` and the page title as its text (`@robot/contracts/chat-visual`). A
 client that does not know the item type shows the title and the file. A visual message is not
 readable: unread counts, latest-message previews and mobile read state skip it. The desktop serves
-the page on `openownbot-visual:` (`openownbot-remote-visual:` for a remote host) with
+the page on `robot-visual:` (`robot-remote-visual:` for a remote host) with
 `Content-Security-Policy: sandbox allow-scripts allow-forms` and the frame script, and the frame has
 the same sandbox without `allow-same-origin`. The page runs its scripts and can load files from the
 network, but it has an opaque origin, gets no permission, and talks to the app only with the checked
@@ -580,7 +580,7 @@ without the native module shows the page with no scripts. `html_preview` lets th
 process draws it in a hidden window with its own in-memory session (`ChatVisualPreviewer`)
 and returns a PNG, the content height and the console lines. The file preview shows an HTML file in
 the same frame. On desktop, a shared or workspace HTML file preview gives the client a temporary
-`openownbot-visual://preview/<token>` page URL beside its bytes. `FilePreviewPages` keeps only local HTML
+`robot-visual://preview/<token>` page URL beside its bytes. `FilePreviewPages` keeps only local HTML
 that already passed the existing file-access checks, in a bounded in-memory registry. The page
 protocol accepts only an opaque token, never a file path, and uses the same sandbox response as
 HTML attachments. The server-owned preview state releases its page on replacement, close or

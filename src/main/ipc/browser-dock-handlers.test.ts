@@ -58,7 +58,7 @@ const PRESENTATION: BrowserDockPresentation = {
 
 const FRAME: BrowserDockFrame = { seq: 1, height: 120, glass: [] };
 
-function event(senderId: number, url = "openownbot-app://app/index.html") {
+function event(senderId: number, url = "robot-app://app/index.html") {
   return { senderFrame: { url }, sender: { id: senderId } };
 }
 

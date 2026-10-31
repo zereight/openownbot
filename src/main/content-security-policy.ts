@@ -20,15 +20,15 @@ export function buildContentSecurityPolicy(
     "default-src 'self'",
     "script-src 'self'",
     "style-src 'self' 'unsafe-inline'",
-    `img-src 'self' data: openbot-attachment: openbot-remote-attachment: openbot-avatar: openownbot-remote-avatar: openownbot-server-logo: openownbot-remote-server-logo: https:${developmentImageSources}`,
+    `img-src 'self' data: robot-attachment: robot-remote-attachment: robot-avatar: robot-remote-avatar: robot-server-logo: robot-remote-server-logo: https:${developmentImageSources}`,
     "font-src 'self' data:",
     // The lightbox plays a recording from the attachment scheme, and the preview panel plays one
     // from an object URL of the bytes that the main process sent. Neither matches `default-src`.
-    "media-src 'self' blob: openbot-attachment: openbot-remote-attachment:",
-    `connect-src 'self' openbot-attachment: openbot-remote-attachment: ws://127.0.0.1:*${unlessLocalOnly(" wss://*.openbot.run")}${selfHostedSignalSource}${developmentSources}`,
+    "media-src 'self' blob: robot-attachment: robot-remote-attachment:",
+    `connect-src 'self' robot-attachment: robot-remote-attachment: ws://127.0.0.1:*${unlessLocalOnly(" wss://*.openbot.run")}${selfHostedSignalSource}${developmentSources}`,
     "object-src 'none'",
     // The remote desktop viewer uses a loopback proxy in packaged apps too.
-    `frame-src 'self' openbot-attachment: openbot-remote-attachment: openownbot-visual: openownbot-remote-visual:${unlessLocalOnly(" https://*.openbot.run")} http://127.0.0.1:* http://localhost:*`,
+    `frame-src 'self' robot-attachment: robot-remote-attachment: robot-visual: robot-remote-visual:${unlessLocalOnly(" https://*.openbot.run")} http://127.0.0.1:* http://localhost:*`,
     "base-uri 'none'",
   ].join("; ");
 }

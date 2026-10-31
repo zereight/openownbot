@@ -13,7 +13,7 @@ const URL_PREVIEW_KINDS = new Set<FilePreview["previewKind"]>(["image", "pdf", "
 const attachmentUnavailable = () => sourceText("error.attachment.unavailable");
 
 /** Only the local host's files are checked: a remote check downloads the whole file first. */
-const LOCAL_ATTACHMENT_URL = /^openbot-attachment:/u;
+const LOCAL_ATTACHMENT_URL = /^robot-attachment:/u;
 
 /**
  * Builds the file preview panel's `FilePreview` from an attachment record. `AttachmentSummary`

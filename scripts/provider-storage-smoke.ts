@@ -82,7 +82,7 @@ async function runProvider(
   model: AgentSummary["model"],
 ): Promise<void> {
   const agentId = `smoke-${provider}`;
-  const threadId = `openbot-thread-${agentId}`;
+  const threadId = `thread-${agentId}`;
   const workspace = join(root, "workspace", provider);
   await mkdir(workspace, { recursive: true, mode: 0o700 });
   const agent: AgentSummary = {

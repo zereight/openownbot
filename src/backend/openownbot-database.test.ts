@@ -777,7 +777,7 @@ describe("OpenOwnBotDatabase", () => {
     const database = await createDatabase();
     const agent = testAgent();
     database.replaceAgents("agents-channel-search", [agent], "agents.imported");
-    const channelThreadId = "openbot-thread-channel-search";
+    const channelThreadId = "thread-channel-search";
     const now = "2026-09-01T12:00:00.000Z";
     database.connection
       .prepare("INSERT INTO projection_channels(channel_id, channel_json) VALUES (?, ?)")
@@ -1131,7 +1131,7 @@ describe("OpenOwnBotDatabase", () => {
               kind: "image",
               mimeType: "image/png",
               previewKind: "image",
-              previewUrl: "openbot-attachment://file/generated-1",
+              previewUrl: "robot-attachment://file/generated-1",
               path: "/tmp/screenshot.png",
               sha256: "hash",
             },
@@ -1321,7 +1321,7 @@ describe("OpenOwnBotDatabase", () => {
     );
     database.recordPendingHostedSiteTerminalEvent({
       agentId: agent.id,
-      threadId: "openbot-thread-chief",
+      threadId: "thread-chief",
       turnId: "turn-1",
       operationId: "operation-1",
       action: "publish",
@@ -1420,7 +1420,7 @@ function testAgent(): AgentSummary {
     notifications: true,
     model: "gpt-5.6-luna",
     reasoningEffort: "medium",
-    threadId: "openbot-thread-chief",
+    threadId: "thread-chief",
     workspacePath: "/tmp/openownbot-chief",
     preview: "42",
     updatedAt: "2026-08-18T10:00:01.000Z",

@@ -716,7 +716,7 @@ function attachmentMetadata(
 }
 
 function attachmentPreviewUrl(id: string): string {
-  return `openbot-attachment://file/${id}`;
+  return `robot-attachment://file/${id}`;
 }
 
 export function toAttachmentSummary(attachment: StoredAttachment): AttachmentSummary {

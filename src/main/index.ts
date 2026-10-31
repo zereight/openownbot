@@ -270,42 +270,42 @@ const appIconPath = resolveAppIconPath({
 });
 protocol.registerSchemesAsPrivileged([
   {
-    scheme: "openownbot-app",
+    scheme: "robot-app",
     privileges: { standard: true, secure: true, supportFetchAPI: true },
   },
   // `stream` lets an <audio> or <video> element play a file from the scheme: without it the
   // element cannot make the range requests that playback needs.
   {
-    scheme: "openbot-attachment",
+    scheme: "robot-attachment",
     privileges: { standard: true, secure: true, supportFetchAPI: true, corsEnabled: true, stream: true },
   },
   {
-    scheme: "openbot-remote-attachment",
+    scheme: "robot-remote-attachment",
     privileges: { standard: true, secure: true, supportFetchAPI: true, corsEnabled: true, stream: true },
   },
   // A visual reply page. It needs no fetch or CORS support: only a frame loads it.
   {
-    scheme: "openownbot-visual",
+    scheme: "robot-visual",
     privileges: { standard: true, secure: true },
   },
   {
-    scheme: "openownbot-remote-visual",
+    scheme: "robot-remote-visual",
     privileges: { standard: true, secure: true },
   },
   {
-    scheme: "openbot-avatar",
+    scheme: "robot-avatar",
     privileges: { standard: true, secure: true, supportFetchAPI: true },
   },
   {
-    scheme: "openownbot-remote-avatar",
+    scheme: "robot-remote-avatar",
     privileges: { standard: true, secure: true, supportFetchAPI: true },
   },
   {
-    scheme: "openownbot-server-logo",
+    scheme: "robot-server-logo",
     privileges: { standard: true, secure: true, supportFetchAPI: true },
   },
   {
-    scheme: "openownbot-remote-server-logo",
+    scheme: "robot-remote-server-logo",
     privileges: { standard: true, secure: true, supportFetchAPI: true },
   },
 ]);

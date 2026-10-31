@@ -133,7 +133,7 @@ export class AgentThreadStore {
 
   /** Creates the side thread and its conversation in one transaction. */
   create(input: AgentThreadInput): AgentThreadRecord {
-    const threadId = `openbot-thread-${randomUUID()}`;
+    const threadId = `thread-${randomUUID()}`;
     this.#database.dispatch(
       `agent-thread:${threadId}`,
       [

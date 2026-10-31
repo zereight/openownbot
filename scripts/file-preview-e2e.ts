@@ -40,7 +40,7 @@ try {
   await open();
   await frameElement.waitFor();
   const address = await frameElement.getAttribute("src");
-  assert.ok(address?.startsWith("openownbot-visual://preview/"));
+  assert.ok(address?.startsWith("robot-visual://preview/"));
   const frame = frameElement.contentFrame();
   await frame.getByText(renderedText, { exact: true }).waitFor();
   const isolation = await frame.locator("body").evaluate(() => ({

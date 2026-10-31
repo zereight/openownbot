@@ -17,7 +17,7 @@ import type { WebWorkspace } from "./web-client-context";
 
 type PromptEvent = Extract<AgentEvent, { type: "prompt" }>;
 
-/** The host names attachment previews with the desktop `openbot-attachment:` scheme, which a browser cannot load. */
+/** The host names attachment previews with the desktop `robot-attachment:` scheme, which a browser cannot load. */
 function withoutPreviewUrls(message: AgentMessage): AgentMessage {
   if (!message.attachments) return message;
   return { ...message, attachments: message.attachments.map((attachment) => ({ ...attachment, previewUrl: null })) };

@@ -232,7 +232,7 @@ export class MessagingStore {
     const existing = this.linkByKey(input.connectionId, input.platformChannelId, input.threadKey);
     if (existing) return existing;
     const linkId = `messaging-link-${randomUUID()}`;
-    const threadId = `openbot-thread-${randomUUID()}`;
+    const threadId = `thread-${randomUUID()}`;
     this.#database.dispatch(
       `messaging-thread:${linkId}`,
       [

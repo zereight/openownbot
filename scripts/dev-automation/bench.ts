@@ -121,7 +121,7 @@ async function waitFor<T>(what: string, timeoutMs: number, probe: () => Promise<
 }
 
 function isAppWindowUrl(url: string): boolean {
-  return url.startsWith("openownbot-app://app/index.html") && !url.includes("surface=");
+  return url.startsWith("robot-app://app/index.html") && !url.includes("surface=");
 }
 
 async function findAppPage(browser: Browser): Promise<Page | null> {

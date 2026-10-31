@@ -34,7 +34,7 @@ export function addRemotePreviewUrls<T>(value: T, serverId: string): T {
   if ("previewUrl" in record && isString(record.id)) {
     Reflect.set(record, "previewUrl", remoteAttachmentPreviewUrl(serverId, record.id));
   }
-  if (isString(record.avatarUrl) && record.avatarUrl.startsWith("openbot-avatar:") && isString(record.id)) {
+  if (isString(record.avatarUrl) && record.avatarUrl.startsWith("robot-avatar:") && isString(record.id)) {
     Reflect.set(record, "avatarUrl", remoteAgentAvatarUrl(serverId, record.id, record.avatarUrl));
   }
   for (const item of Object.values(record)) addRemotePreviewUrls(item, serverId);
@@ -42,18 +42,18 @@ export function addRemotePreviewUrls<T>(value: T, serverId: string): T {
 }
 
 function remoteAttachmentPreviewUrl(serverId: string, attachmentId: string): string {
-  return `openbot-remote-attachment://${encodeURIComponent(serverId)}/${encodeURIComponent(attachmentId)}`;
+  return `robot-remote-attachment://${encodeURIComponent(serverId)}/${encodeURIComponent(attachmentId)}`;
 }
 
 function remoteAgentAvatarUrl(serverId: string, agentId: string, sourceUrl: string): string {
   const source = new URL(sourceUrl);
-  const target = new URL(`openownbot-remote-avatar://${encodeURIComponent(serverId)}/${encodeURIComponent(agentId)}`);
+  const target = new URL(`robot-remote-avatar://${encodeURIComponent(serverId)}/${encodeURIComponent(agentId)}`);
   target.search = source.search;
   return target.toString();
 }
 
 export function remoteServerLogoUrl(serverId: string, version: string): string {
-  const target = new URL(`openownbot-remote-server-logo://${encodeURIComponent(serverId)}/logo`);
+  const target = new URL(`robot-remote-server-logo://${encodeURIComponent(serverId)}/logo`);
   target.searchParams.set("v", version);
   return target.toString();
 }

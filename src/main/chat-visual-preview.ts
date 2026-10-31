@@ -25,7 +25,7 @@ import { chatVisualResponse } from "./chat-visual-protocol";
  * or leave its address.
  */
 
-const PREVIEW_PARTITION = "openownbot-visual-preview";
+const PREVIEW_PARTITION = "robot-visual-preview";
 const PREVIEW_HOST = "preview";
 const PREVIEW_TIMEOUT = "20 seconds";
 const INITIAL_HEIGHT = 600;
@@ -75,7 +75,7 @@ export class ChatVisualPreviewer implements ChatVisualPreviewHost {
   #previewSession(): Session {
     if (this.#session) return this.#session;
     const session = electronSession.fromPartition(PREVIEW_PARTITION);
-    session.protocol.handle("openownbot-visual", (request) => {
+    session.protocol.handle("robot-visual", (request) => {
       const url = new URL(request.url);
       const page = url.hostname === PREVIEW_HOST ? this.#pages.get(url.pathname.slice(1)) : undefined;
       return page ? chatVisualResponse(page) : new Response("Not found", { status: 404 });
@@ -147,7 +147,7 @@ export class ChatVisualPreviewer implements ChatVisualPreviewHost {
     contents.on("will-navigate", (event) => event.preventDefault());
     contents.on("will-redirect", (event) => event.preventDefault());
     const theme = chatVisualAppTheme(request.appearance);
-    const url = chatVisualFrameUrl(`openownbot-visual://${PREVIEW_HOST}/${token}`, theme);
+    const url = chatVisualFrameUrl(`robot-visual://${PREVIEW_HOST}/${token}`, theme);
     return yield* Effect.gen(function* () {
       yield* Effect.tryPromise({
         try: () => contents.loadURL(url),

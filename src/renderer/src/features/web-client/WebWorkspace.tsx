@@ -931,7 +931,7 @@ function WebWorkspaceFrame(props: WebWorkspaceProps) {
   const storageCalls: FilesPort = {
     agent: { listAgents: () => workspace.runtime.listAgents() },
     storage: {
-      // The host names previews with the desktop `openbot-attachment:` scheme, as it does in chat.
+      // The host names previews with the desktop `robot-attachment:` scheme, as it does in chat.
       getUsage: async (input, serverId) => {
         const usage = await runTeamEffect(
           getStorageUsage(hostRequest(serverId), input).pipe(Effect.mapError((error) => error.cause)),

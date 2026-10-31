@@ -444,9 +444,9 @@ function preamble(options: ChatVisualDocumentOptions): string {
   return [
     '<meta charset="utf-8">',
     '<meta name="viewport" content="width=device-width, initial-scale=1">',
-    `<style id="openownbot-visual-base">${BASE_STYLE}${themeStyle(options)}</style>`,
+    `<style id="robot-visual-base">${BASE_STYLE}${themeStyle(options)}</style>`,
     options.head ?? "",
-    options.bootstrap === false ? "" : `<script id="openownbot-visual-bootstrap">${BOOTSTRAP}</script>`,
+    options.bootstrap === false ? "" : `<script id="robot-visual-bootstrap">${BOOTSTRAP}</script>`,
   ].join("");
 }
 

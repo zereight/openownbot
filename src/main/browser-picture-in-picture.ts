@@ -137,14 +137,14 @@ export class BrowserPictureInPicture {
     yield* pipCall(() =>
       developmentUrl
         ? window.loadURL(new URL("browser-pip.html", `${developmentUrl}/`).toString())
-        : window.loadURL("openownbot-app://app/browser-pip.html"),
+        : window.loadURL("robot-app://app/browser-pip.html"),
     );
     // The system can close the window during the load, and the `closed` handler closes the controls.
     if (controlsView.webContents.isDestroyed()) return bounds;
     yield* pipCall(() =>
       developmentUrl
         ? controlsView.webContents.loadURL(new URL("browser-pip-controls.html", `${developmentUrl}/`).toString())
-        : controlsView.webContents.loadURL("openownbot-app://app/browser-pip-controls.html"),
+        : controlsView.webContents.loadURL("robot-app://app/browser-pip-controls.html"),
     );
     if (!window.isDestroyed()) {
       this.#startHoverTracking(window, controlsView);

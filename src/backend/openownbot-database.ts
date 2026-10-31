@@ -567,5 +567,5 @@ export class OpenOwnBotDatabase {
 }
 
 export function stableThreadId(agentId: string): string {
-  return `openbot-thread-${agentId}`;
+  return `thread-${agentId}`;
 }

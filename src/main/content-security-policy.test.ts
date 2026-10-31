@@ -16,13 +16,13 @@ function directive(policy: string, name: string): string | undefined {
   return policy.split("; ").find((candidate) => candidate.startsWith(`${name} `));
 }
 
-const CONNECT_WITHOUT_OPENOWNBOT = "connect-src 'self' openbot-attachment: openbot-remote-attachment: ws://127.0.0.1:*";
+const CONNECT_WITHOUT_OPENOWNBOT = "connect-src 'self' robot-attachment: robot-remote-attachment: ws://127.0.0.1:*";
 const CONNECT_WITH_OPENOWNBOT =
-  "connect-src 'self' openbot-attachment: openbot-remote-attachment: ws://127.0.0.1:* wss://*.openbot.run";
+  "connect-src 'self' robot-attachment: robot-remote-attachment: ws://127.0.0.1:* wss://*.openbot.run";
 const FRAME_WITHOUT_OPENOWNBOT =
-  "frame-src 'self' openbot-attachment: openbot-remote-attachment: openownbot-visual: openownbot-remote-visual: http://127.0.0.1:* http://localhost:*";
+  "frame-src 'self' robot-attachment: robot-remote-attachment: robot-visual: robot-remote-visual: http://127.0.0.1:* http://localhost:*";
 const FRAME_WITH_OPENOWNBOT =
-  "frame-src 'self' openbot-attachment: openbot-remote-attachment: openownbot-visual: openownbot-remote-visual: https://*.openbot.run http://127.0.0.1:* http://localhost:*";
+  "frame-src 'self' robot-attachment: robot-remote-attachment: robot-visual: robot-remote-visual: https://*.openbot.run http://127.0.0.1:* http://localhost:*";
 
 describe("buildContentSecurityPolicy", () => {
   it("allows the analytics endpoint and the ROBot hosts only while the switch is off", async () => {
@@ -60,8 +60,8 @@ describe("buildContentSecurityPolicy", () => {
   it("lets the renderer play an attachment recording, but only from the attachment schemes", () => {
     const policy = buildContentSecurityPolicy(true);
 
-    expect(policy).toContain("media-src 'self' blob: openbot-attachment: openbot-remote-attachment:");
-    expect(policy).not.toContain("media-src 'self' blob: openbot-attachment: openbot-remote-attachment: https:");
+    expect(policy).toContain("media-src 'self' blob: robot-attachment: robot-remote-attachment:");
+    expect(policy).not.toContain("media-src 'self' blob: robot-attachment: robot-remote-attachment: https:");
   });
 
   it("keeps local development sources", () => {
