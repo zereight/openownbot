@@ -13,10 +13,38 @@
 }
 
 .virtual-chat-row {
+  /* Where the text of a message row starts: the row's start padding, the face and the gap after
+     it. The cards between messages start there too, as the embeds of a chat server do. */
+  --chat-content-inset: calc(var(--openownbot-space-2) + 40px + var(--openownbot-space-4));
+
   position: absolute;
   inset: 0 0 auto;
   width: 100%;
   padding-top: var(--openownbot-chat-entry-gap);
+}
+
+/* The steps and the actions of a turn are embeds: a card with a bar down its start edge. */
+.virtual-chat-row > .agent-steps,
+.virtual-chat-row > article > .chat-action-marker {
+  box-sizing: border-box;
+  width: fit-content;
+  max-width: min(640px, calc(100% - var(--chat-content-inset)));
+  margin: 0 0 0 var(--chat-content-inset);
+  padding: var(--openownbot-space-1-5) var(--openownbot-space-3);
+  border-left: 4px solid var(--message-author-color, var(--openownbot-border-strong));
+  border-radius: 0 var(--openownbot-radius-md) var(--openownbot-radius-md) 0;
+  background: var(--openownbot-bg-surface);
+}
+
+.virtual-chat-row > article > .chat-action-marker {
+  justify-content: flex-start;
+  text-align: start;
+}
+
+.virtual-chat-row > article > .chat-action-attachments,
+.virtual-chat-row > article > .task-list {
+  max-width: min(640px, calc(100% - var(--chat-content-inset)));
+  margin-left: var(--chat-content-inset);
 }
 
 /* Rows the timeline marks as grouped (marker runs, same-sender messages) sit tighter. */

@@ -1,12 +1,3 @@
-.message-entry-user .ui-bubble {
-  max-width: min(420px, 100%);
-}
-
-/* A table needs the width of an agent table. The bubble still fits a short table. */
-.message-entry-user .ui-bubble:has(.message-markdown-table-scroll) {
-  max-width: min(720px, 100%);
-}
-
 .message-copy {
   margin: 0;
   font-size: var(--openownbot-text-lg);
