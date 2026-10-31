@@ -12,6 +12,7 @@ export const messages = {
   "shell.members.label": "이 채널의 에이전트",
   "shell.members.count": { other: "에이전트 {count}개" },
   "shell.members.hide": "에이전트 숨기기",
+  "shell.members.show": "에이전트 보기",
   "shell.member.idle": "대기 중",
   "shell.member.working": "작업 중",
   "shell.member.waitingApproval": "승인을 기다려요",

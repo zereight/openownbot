@@ -114,6 +114,8 @@ export interface ConversationChannelSource {
   /** The agents that a lead asked and that did not reply yet. */
   awaitingReplies: () => readonly AwaitingReplyItem[];
   HeaderTitle: (props: { onOpenSettings: () => void }) => JSX.Element;
+  /** Buttons of the channel in the header's action row. */
+  HeaderActions?: (() => JSX.Element) | undefined;
   SettingsPane: (props: ConversationChannelSettingsPaneProps) => JSX.Element;
   /** Shows above the composer: the stopped tasks, and why the channel cannot work. */
   AboveComposer: () => JSX.Element;

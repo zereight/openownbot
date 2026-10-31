@@ -6,6 +6,7 @@ import { createEffect, createMemo, createSignal, onSettled } from "solid-js";
 import { z } from "zod";
 import { readPanelWidth } from "./components/panel-width-storage";
 import {
+  CHANNEL_MEMBERS_HIDDEN_STORAGE_KEY,
   CONVERSATION_MIN_WIDTH,
   LEFT_PANEL_COLLAPSED_STORAGE_KEY,
   LEFT_PANEL_DEFAULT,
@@ -109,6 +110,9 @@ const Layout = createSimpleContext({
     const [sidebarView, setSidebarViewSignal] = createSignal<SidebarView>(
       window.localStorage.getItem(SIDEBAR_VIEW_STORAGE_KEY) === "routines" ? "routines" : "agents",
     );
+    const [channelMembersVisible, setChannelMembersVisibleSignal] = createSignal(
+      window.localStorage.getItem(CHANNEL_MEMBERS_HIDDEN_STORAGE_KEY) !== "true",
+    );
     const [railPinChoices, setRailPinChoices] = createSignal<RailPinChoices>(readRailPinChoices());
     const railPinned = createMemo(() => {
       const choices = railPinChoices();
@@ -164,6 +168,11 @@ const Layout = createSimpleContext({
       window.localStorage.setItem(SIDEBAR_VIEW_STORAGE_KEY, view);
     }
 
+    function setChannelMembersVisible(visible: boolean): void {
+      setChannelMembersVisibleSignal(visible);
+      window.localStorage.setItem(CHANNEL_MEMBERS_HIDDEN_STORAGE_KEY, String(!visible));
+    }
+
     function setRailPinned(page: PageRailPinnablePage, pinned: boolean): void {
       // Start from the saved value, so the choices of another window stay. Blocked storage reads as no choice.
       const choices = { ...railPinChoices(), ...readRailPinChoices(), [page]: pinned };
@@ -193,6 +202,8 @@ const Layout = createSimpleContext({
       setSidebarView,
       railPinned,
       setRailPinned,
+      channelMembersVisible,
+      setChannelMembersVisible,
     };
   },
 });

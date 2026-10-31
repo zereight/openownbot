@@ -25,6 +25,8 @@ export interface ConversationHeaderProps {
   sidePanel?: SidePanelToggleProps | undefined;
   /** The thread tabs of the agent, after its name. */
   threads?: JSX.Element | undefined;
+  /** Buttons of the chat before the side panel toggle, such as the member list of a channel. */
+  actions?: JSX.Element | undefined;
 }
 
 export interface ConversationHeaderPendingModel {
@@ -107,6 +109,7 @@ export function ConversationHeader(props: ConversationHeaderProps) {
             </Button>
           )}
         </Show>
+        {props.actions}
         <Show when={props.sidePanel}>{(sidePanel) => <SidePanelToggle {...sidePanel()} />}</Show>
       </div>
     </header>

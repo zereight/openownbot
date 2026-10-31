@@ -138,7 +138,7 @@ import { withHostAccountUsage, withHostProfileAccount } from "../agents/host-pro
 import { createRemoteAgentAdmin, updateRemoteAgent } from "../agents/remote-agent-admin";
 import type { ServerBrowserProfilesOptions } from "../browser/ServerBrowserProfilesPanel";
 import { createBrowserProfilesStore } from "../browser/stores/browser-profiles-store";
-import { ChannelErrorNotice } from "../channels/ChannelConversationParts";
+import { ChannelErrorNotice, ChannelWithMembers } from "../channels/ChannelConversationParts";
 import { createChannelConversation } from "../channels/channel-conversation";
 import { readChannelSelection, writeChannelSelection } from "../channels/channel-selection";
 import { ChannelsControllerProvider } from "../channels/channels-context";
@@ -2281,87 +2281,92 @@ function WebWorkspaceFrame(props: WebWorkspaceProps) {
                     hiddenAgentIds: () => new Set(workspace.state.userHiddenAgents.map((entry) => entry.agentId)),
                   });
                   return (
-                    <Conversation
-                      runtime={runtime}
-                      channel={channelView.source}
-                      notice={<ChannelErrorNotice />}
-                      connectors={connectors}
-                      agentStatus={workspace.state.status === "online" ? providerAdmin.status() : CONNECTING_STATUS}
-                      agent={undefined}
-                      agents={workspace.profiles()}
-                      mentionAgents={channelView.mentionAgents()}
-                      modelOptions={[]}
-                      messages={channelView.messages()}
-                      unreadCount={channelView.unreadCount()}
-                      firstUnreadMessageId={channelView.firstUnreadMessageId()}
-                      loaded={channelView.loaded()}
-                      hasOlder={channelView.hasOlder()}
-                      unloadedHistory={channelView.unloadedHistory()}
-                      activeTurnId={channelView.activeTurnId()}
-                      skillsMarketplaceOpen={marketplaceOpen()}
-                      mcpSettingsOpen={serverSettings.state.open || marketplaceOpen()}
-                      globalOverlayOpen={
-                        serverSettings.state.open || searchOpen() || marketplaceOpen() || hasVisibleToasts()
-                      }
-                      settingsRequest={channelView.settingsRequest()}
-                      messageFocusRequest={messageFocusRequest()}
-                      queue={undefined}
-                      browserRuntime={workspace.runtime.browser}
-                      browserTabs={workspace.state.browserTabs}
-                      activeBrowserTabId={workspace.state.activeBrowserTabId}
-                      browserVisibilitySuspended={workspace.state.status !== "online" || pageCovered()}
-                      workspaceCovered={pageCovered() || hostOffline()}
-                      browserControlState={workspace.state.browserControlState}
-                      server={server()}
-                      presence={
-                        workspace.state.presence ?? { serverId: server()?.id ?? null, members: [], updatedAt: "" }
-                      }
-                      currentUserEmail={props.accountEmail ?? ""}
-                      isOwnSender={isOwnSender}
-                      browserEnabled={browserEnabled()}
-                      remoteDesktopEnabled={false}
-                      remoteDesktopSessionActive={false}
-                      remoteDesktopVisible={false}
-                      prompt={channelView.prompt()}
-                      promptUiBlock={channelView.promptUiBlock()}
-                      approval={channelView.approval()}
-                      browserTakeover={channelView.browserTakeover()}
-                      onSelectAgent={(id) => {
-                        setMobilePane("conversation");
-                        void select(id);
-                      }}
-                      onUpdateAgent={async (agentId, updates) => {
-                        await updateRemoteAgent(
-                          remoteAgentAdmin,
-                          { agentId, ...updates },
-                          workspace.runtime.updateAgent,
-                        );
-                        await workspace.refresh();
-                      }}
-                      onSetAgentAvatar={async (agentId, image) => {
-                        await workspace.runtime.setAvatar(agentId, image);
-                        await workspace.refresh();
-                      }}
-                      onSendMessage={(text, attachments, replyTo, target, clientMessageId) => {
-                        // A sent request is what a notification later reports, so the browser asks here, from the user's action.
-                        requestWebNotificationPermission();
-                        return channelView.onSendMessage(text, attachments, replyTo, target, clientMessageId);
-                      }}
-                      onMarkRead={channelView.onMarkRead}
-                      onLoadOlder={channelView.onLoadOlder}
-                      onTypingChange={() => {}}
-                      onAnswerPrompt={channelView.onAnswerPrompt}
-                      onRespondToApproval={channelView.onRespondToApproval}
-                      onRespondToBrowserTakeover={channelView.onRespondToBrowserTakeover}
-                      onCancelQueuedMessage={() => {}}
-                      onSteerQueuedMessage={() => {}}
-                      onUpdateQueuedMessage={() => Promise.resolve(false)}
-                      onReorderQueue={() => {}}
-                      onActivateBrowserTab={workspace.activateBrowserTab}
-                      onCloseBrowserTab={(tabId) => workspace.runtime.closeBrowserTab(tabId)}
-                      onOpenRemoteDesktop={unavailable}
-                      onStop={channelView.onStop}
-                    />
+                    <ChannelWithMembers
+                      members={channelView.members()}
+                      onRespondToApproval={channelView.onRespondToMemberApproval}
+                    >
+                      <Conversation
+                        runtime={runtime}
+                        channel={channelView.source}
+                        notice={<ChannelErrorNotice />}
+                        connectors={connectors}
+                        agentStatus={workspace.state.status === "online" ? providerAdmin.status() : CONNECTING_STATUS}
+                        agent={undefined}
+                        agents={workspace.profiles()}
+                        mentionAgents={channelView.mentionAgents()}
+                        modelOptions={[]}
+                        messages={channelView.messages()}
+                        unreadCount={channelView.unreadCount()}
+                        firstUnreadMessageId={channelView.firstUnreadMessageId()}
+                        loaded={channelView.loaded()}
+                        hasOlder={channelView.hasOlder()}
+                        unloadedHistory={channelView.unloadedHistory()}
+                        activeTurnId={channelView.activeTurnId()}
+                        skillsMarketplaceOpen={marketplaceOpen()}
+                        mcpSettingsOpen={serverSettings.state.open || marketplaceOpen()}
+                        globalOverlayOpen={
+                          serverSettings.state.open || searchOpen() || marketplaceOpen() || hasVisibleToasts()
+                        }
+                        settingsRequest={channelView.settingsRequest()}
+                        messageFocusRequest={messageFocusRequest()}
+                        queue={undefined}
+                        browserRuntime={workspace.runtime.browser}
+                        browserTabs={workspace.state.browserTabs}
+                        activeBrowserTabId={workspace.state.activeBrowserTabId}
+                        browserVisibilitySuspended={workspace.state.status !== "online" || pageCovered()}
+                        workspaceCovered={pageCovered() || hostOffline()}
+                        browserControlState={workspace.state.browserControlState}
+                        server={server()}
+                        presence={
+                          workspace.state.presence ?? { serverId: server()?.id ?? null, members: [], updatedAt: "" }
+                        }
+                        currentUserEmail={props.accountEmail ?? ""}
+                        isOwnSender={isOwnSender}
+                        browserEnabled={browserEnabled()}
+                        remoteDesktopEnabled={false}
+                        remoteDesktopSessionActive={false}
+                        remoteDesktopVisible={false}
+                        prompt={channelView.prompt()}
+                        promptUiBlock={channelView.promptUiBlock()}
+                        approval={channelView.approval()}
+                        browserTakeover={channelView.browserTakeover()}
+                        onSelectAgent={(id) => {
+                          setMobilePane("conversation");
+                          void select(id);
+                        }}
+                        onUpdateAgent={async (agentId, updates) => {
+                          await updateRemoteAgent(
+                            remoteAgentAdmin,
+                            { agentId, ...updates },
+                            workspace.runtime.updateAgent,
+                          );
+                          await workspace.refresh();
+                        }}
+                        onSetAgentAvatar={async (agentId, image) => {
+                          await workspace.runtime.setAvatar(agentId, image);
+                          await workspace.refresh();
+                        }}
+                        onSendMessage={(text, attachments, replyTo, target, clientMessageId) => {
+                          // A sent request is what a notification later reports, so the browser asks here, from the user's action.
+                          requestWebNotificationPermission();
+                          return channelView.onSendMessage(text, attachments, replyTo, target, clientMessageId);
+                        }}
+                        onMarkRead={channelView.onMarkRead}
+                        onLoadOlder={channelView.onLoadOlder}
+                        onTypingChange={() => {}}
+                        onAnswerPrompt={channelView.onAnswerPrompt}
+                        onRespondToApproval={channelView.onRespondToApproval}
+                        onRespondToBrowserTakeover={channelView.onRespondToBrowserTakeover}
+                        onCancelQueuedMessage={() => {}}
+                        onSteerQueuedMessage={() => {}}
+                        onUpdateQueuedMessage={() => Promise.resolve(false)}
+                        onReorderQueue={() => {}}
+                        onActivateBrowserTab={workspace.activateBrowserTab}
+                        onCloseBrowserTab={(tabId) => workspace.runtime.closeBrowserTab(tabId)}
+                        onOpenRemoteDesktop={unavailable}
+                        onStop={channelView.onStop}
+                      />
+                    </ChannelWithMembers>
                   );
                 }}
               </Show>
