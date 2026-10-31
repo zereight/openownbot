@@ -11,6 +11,7 @@ export const messages = defineMessages("shell", {
   "shell.members.label": "Agents in this channel",
   "shell.members.count": { one: "{count} agent", other: "{count} agents" },
   "shell.members.hide": "Hide agents",
+  "shell.members.show": "Show agents",
   "shell.member.idle": "Idle",
   "shell.member.working": "Working",
   "shell.member.waitingApproval": "Waits for your approval",

@@ -8,9 +8,14 @@ import { Button, ErrorReference } from "@robot/ui";
 import { SettingsPanel, SettingsPanelContent, SettingsPanelHeader } from "@robot/ui/components/SettingsPanel";
 import { ChannelAvatar } from "@robot/ui/features/channels/ChannelAvatar";
 import { ChannelStoppedTasks } from "@robot/ui/features/channels/ChannelStoppedTasks";
+import { MemberPanel } from "@robot/ui/features/shell/MemberPanel";
+import type { ShellMember } from "@robot/ui/features/shell/shell-types";
+import { UsersRound } from "@robot/ui/icons";
 import { useText } from "@robot/ui/text";
+import type { JSX } from "@solidjs/web";
 import { createEffect, createMemo, createStore, Show } from "solid-js";
 import { createSettingsPanelWidth, saveSettingsPanelWidth } from "../../components/settings-panel-width";
+import { useLayout } from "../../layout";
 import { AgentMemoriesModal } from "../conversation/AgentMemoriesModal";
 import { AgentRoutinesSettings } from "../conversation/AgentRoutinesSettings";
 import type { ConversationChannelSettingsPaneProps } from "../conversation/conversation-types";
@@ -85,6 +90,48 @@ export function ChannelHeaderTitle(props: { channelId: string; onOpenSettings: (
         </Button>
       )}
     </Show>
+  );
+}
+
+/** Shows or hides the agents of the channel beside the chat, as the member list of a chat server does. */
+export function ChannelMembersToggle() {
+  const layout = useLayout();
+  const { t } = useText();
+  const label = () => t(layout.channelMembersVisible() ? "shell.members.hide" : "shell.members.show");
+  return (
+    <Button
+      variant="ghost"
+      type="button"
+      class="header-panel-toggle channel-members-toggle no-drag"
+      aria-label={label()}
+      title={label()}
+      aria-pressed={layout.channelMembersVisible() ? "true" : "false"}
+      onClick={() => layout.setChannelMembersVisible(!layout.channelMembersVisible())}
+    >
+      <UsersRound aria-hidden="true" class="size-[14px]" />
+    </Button>
+  );
+}
+
+/** The channel's chat with its agents beside it while the reader shows them. */
+export function ChannelWithMembers(props: {
+  members: readonly ShellMember[];
+  onRespondToApproval: (agentId: string, decision: "accept" | "decline") => Promise<boolean>;
+  children: JSX.Element;
+}) {
+  const layout = useLayout();
+  return (
+    <div class="channel-with-members">
+      {props.children}
+      <Show when={layout.channelMembersVisible() && props.members.length > 0}>
+        <MemberPanel
+          members={props.members}
+          onHide={() => layout.setChannelMembersVisible(false)}
+          onAllow={(agentId) => void props.onRespondToApproval(agentId, "accept")}
+          onDeny={(agentId) => void props.onRespondToApproval(agentId, "decline")}
+        />
+      </Show>
+    </div>
   );
 }
 

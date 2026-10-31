@@ -18,7 +18,7 @@ import { useSettings } from "../settings/settings-context";
 import { isReaderAuthor } from "../team/reader-identity";
 import { usePresence } from "../team/team-context";
 import { useWindowPage } from "../window/window-page-context";
-import { ChannelErrorNotice } from "./ChannelConversationParts";
+import { ChannelErrorNotice, ChannelWithMembers } from "./ChannelConversationParts";
 import { createChannelConversation } from "./channel-conversation";
 import { useChannels } from "./channels-context";
 
@@ -88,73 +88,75 @@ function DesktopChannelConversation(props: { channelId: string; account: () => C
     hiddenAgentIds: userHiddenAgentIds,
   });
   return (
-    <Conversation
-      channel={view.source}
-      notice={<ChannelErrorNotice />}
-      platform={platform.appInfo()?.platform}
-      connectors={connectors.active}
-      agentStatus={scope.loaded() ? agentStatus() : { ...agentStatus(), phase: "starting" }}
-      agent={undefined}
-      agents={agentList()}
-      mentionAgents={view.mentionAgents()}
-      modelOptions={[]}
-      messages={view.messages()}
-      unreadCount={view.unreadCount()}
-      firstUnreadMessageId={view.firstUnreadMessageId()}
-      loaded={view.loaded()}
-      hasOlder={view.hasOlder()}
-      unloadedHistory={view.unloadedHistory()}
-      queue={undefined}
-      browserTabs={browserTabs()}
-      activeBrowserTabId={activeBrowserTabId()}
-      browserVisibilitySuspended={browserVisibilitySuspended()}
-      workspaceCovered={windowPage.conversationCovered()}
-      browserControlState={browserControlState()}
-      server={activeServer()}
-      presence={teamPresence()}
-      currentUserEmail={props.account().email}
-      isOwnSender={isOwnSender}
-      browserEnabled={!platform.landingPreview && activeServerSupportsCapability("browser-control")}
-      openLinksInBrowser={generalSettings().externalLinkTarget.kind === "openownbot"}
-      remoteDesktopSessionActive={Boolean(activeRemoteDesktopSession())}
-      remoteDesktopVisible={remoteDesktopWorkspaceVisible()}
-      remoteDesktopEnabled={!platform.landingPreview && activeServerSupportsCapability("remote-desktop")}
-      prompt={view.prompt()}
-      promptUiBlock={view.promptUiBlock()}
-      approval={view.approval()}
-      browserTakeover={view.browserTakeover()}
-      activeTurnId={view.activeTurnId()}
-      skillsMarketplaceOpen={skillsMarketplaceOpen()}
-      mcpSettingsOpen={serverSettingsOpen() || skillsMarketplaceOpen()}
-      globalOverlayOpen={
-        globalSearchOpen() ||
-        joinServerOpen() ||
-        serverSettingsOpen() ||
-        appSettingsOpen() ||
-        skillsMarketplaceOpen() ||
-        hasVisibleToasts()
-      }
-      settingsRequest={view.settingsRequest()}
-      messageFocusRequest={messageFocusRequest()}
-      onSelectAgent={selectAgent}
-      onUpdateAgent={updateAgent}
-      onSetAgentAvatar={setAgentAvatar}
-      onSendMessage={view.onSendMessage}
-      onMarkRead={view.onMarkRead}
-      onLoadOlder={view.onLoadOlder}
-      onTypingChange={() => {}}
-      onAnswerPrompt={view.onAnswerPrompt}
-      onRespondToApproval={view.onRespondToApproval}
-      onRespondToBrowserTakeover={view.onRespondToBrowserTakeover}
-      onCancelQueuedMessage={() => {}}
-      onSteerQueuedMessage={() => {}}
-      onUpdateQueuedMessage={() => Promise.resolve(false)}
-      onReorderQueue={() => {}}
-      onActivateBrowserTab={activateBrowserTab}
-      onCloseBrowserTab={closeBrowserTab}
-      onResyncBrowserTabs={resyncBrowserTabs}
-      onOpenRemoteDesktop={openRemoteDesktopWorkspace}
-      onStop={view.onStop}
-    />
+    <ChannelWithMembers members={view.members()} onRespondToApproval={view.onRespondToMemberApproval}>
+      <Conversation
+        channel={view.source}
+        notice={<ChannelErrorNotice />}
+        platform={platform.appInfo()?.platform}
+        connectors={connectors.active}
+        agentStatus={scope.loaded() ? agentStatus() : { ...agentStatus(), phase: "starting" }}
+        agent={undefined}
+        agents={agentList()}
+        mentionAgents={view.mentionAgents()}
+        modelOptions={[]}
+        messages={view.messages()}
+        unreadCount={view.unreadCount()}
+        firstUnreadMessageId={view.firstUnreadMessageId()}
+        loaded={view.loaded()}
+        hasOlder={view.hasOlder()}
+        unloadedHistory={view.unloadedHistory()}
+        queue={undefined}
+        browserTabs={browserTabs()}
+        activeBrowserTabId={activeBrowserTabId()}
+        browserVisibilitySuspended={browserVisibilitySuspended()}
+        workspaceCovered={windowPage.conversationCovered()}
+        browserControlState={browserControlState()}
+        server={activeServer()}
+        presence={teamPresence()}
+        currentUserEmail={props.account().email}
+        isOwnSender={isOwnSender}
+        browserEnabled={!platform.landingPreview && activeServerSupportsCapability("browser-control")}
+        openLinksInBrowser={generalSettings().externalLinkTarget.kind === "openownbot"}
+        remoteDesktopSessionActive={Boolean(activeRemoteDesktopSession())}
+        remoteDesktopVisible={remoteDesktopWorkspaceVisible()}
+        remoteDesktopEnabled={!platform.landingPreview && activeServerSupportsCapability("remote-desktop")}
+        prompt={view.prompt()}
+        promptUiBlock={view.promptUiBlock()}
+        approval={view.approval()}
+        browserTakeover={view.browserTakeover()}
+        activeTurnId={view.activeTurnId()}
+        skillsMarketplaceOpen={skillsMarketplaceOpen()}
+        mcpSettingsOpen={serverSettingsOpen() || skillsMarketplaceOpen()}
+        globalOverlayOpen={
+          globalSearchOpen() ||
+          joinServerOpen() ||
+          serverSettingsOpen() ||
+          appSettingsOpen() ||
+          skillsMarketplaceOpen() ||
+          hasVisibleToasts()
+        }
+        settingsRequest={view.settingsRequest()}
+        messageFocusRequest={messageFocusRequest()}
+        onSelectAgent={selectAgent}
+        onUpdateAgent={updateAgent}
+        onSetAgentAvatar={setAgentAvatar}
+        onSendMessage={view.onSendMessage}
+        onMarkRead={view.onMarkRead}
+        onLoadOlder={view.onLoadOlder}
+        onTypingChange={() => {}}
+        onAnswerPrompt={view.onAnswerPrompt}
+        onRespondToApproval={view.onRespondToApproval}
+        onRespondToBrowserTakeover={view.onRespondToBrowserTakeover}
+        onCancelQueuedMessage={() => {}}
+        onSteerQueuedMessage={() => {}}
+        onUpdateQueuedMessage={() => Promise.resolve(false)}
+        onReorderQueue={() => {}}
+        onActivateBrowserTab={activateBrowserTab}
+        onCloseBrowserTab={closeBrowserTab}
+        onResyncBrowserTabs={resyncBrowserTabs}
+        onOpenRemoteDesktop={openRemoteDesktopWorkspace}
+        onStop={view.onStop}
+      />
+    </ChannelWithMembers>
   );
 }

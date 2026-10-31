@@ -100,6 +100,7 @@ export function ConversationHeader() {
     <SharedConversationHeader
       agent={props.agent}
       title={channel ? <channel.HeaderTitle onOpenSettings={() => setActiveRightPanel("settings")} /> : undefined}
+      actions={channel?.HeaderActions ? <channel.HeaderActions /> : undefined}
       onSettingsIntent={() => void loadAgentSettingsPanel()}
       onOpenSettings={() => setActiveRightPanel("settings")}
       onOpenChat={openMainChat()}

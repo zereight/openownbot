@@ -22,6 +22,7 @@ import {
   ChannelAboveComposer,
   ChannelEmptyState,
   ChannelHeaderTitle,
+  ChannelMembersToggle,
   type ChannelRoutineHost,
   ChannelSettingsPane,
 } from "./ChannelConversationParts";
@@ -37,6 +38,7 @@ import {
   sentChannelMessageId,
   waitingChannelPrompt,
 } from "./channel-conversation-rows";
+import { channelMembers } from "./channel-members";
 import { useChannels } from "./channels-context";
 
 export interface ChannelConversationEnvironment {
@@ -57,7 +59,7 @@ export interface ChannelConversationEnvironment {
 /** Must run inside the view that shows the channel: it reads the channel store and the interface text. */
 export function createChannelConversation(env: ChannelConversationEnvironment) {
   const channels = useChannels();
-  const { t, errorMessage } = useText();
+  const { t, errorMessage, sourceText } = useText();
   const channelId = env.channelId;
   const page = () => {
     const current = channels.state.page;
@@ -123,6 +125,18 @@ export function createChannelConversation(env: ChannelConversationEnvironment) {
   const browserTakeover = createMemo(() => {
     const current = page();
     return current ? channelBrowserTakeover(current, threads(), env.takeovers()) : undefined;
+  });
+  const members = createMemo(() => {
+    const current = page();
+    return current
+      ? channelMembers({
+          page: current,
+          threads: threads(),
+          approvals: env.approvals(),
+          agents: channels.agents(),
+          failure: sourceText,
+        })
+      : [];
   });
   const activeRuns = createMemo(() => {
     const current = page();
@@ -252,6 +266,7 @@ export function createChannelConversation(env: ChannelConversationEnvironment) {
       });
     },
     HeaderTitle: (props) => <ChannelHeaderTitle channelId={channelId} onOpenSettings={props.onOpenSettings} />,
+    HeaderActions: () => <ChannelMembersToggle />,
     SettingsPane: (props) => (
       <ChannelSettingsPane
         channelId={channelId}
@@ -317,6 +332,13 @@ export function createChannelConversation(env: ChannelConversationEnvironment) {
     },
     onRespondToApproval: (decision: "accept" | "decline") => {
       const requestId = approval()?.requestId;
+      if (requestId === undefined) return Promise.resolve(false);
+      return respond(() => channels.port().agent.respondToApproval({ requestId, decision }));
+    },
+    members,
+    /** The member panel answers the approval of one agent; the composer answers the newest one. */
+    onRespondToMemberApproval: (agentId: string, decision: "accept" | "decline") => {
+      const requestId = approval()?.agentId === agentId ? approval()?.requestId : undefined;
       if (requestId === undefined) return Promise.resolve(false);
       return respond(() => channels.port().agent.respondToApproval({ requestId, decision }));
     },

@@ -442,3 +442,18 @@
   line-height: var(--openownbot-leading-sm);
   text-align: center;
 }
+
+/* The open channel and its agents side by side, as a chat server shows a channel and its members. */
+.channel-with-members {
+  display: flex;
+  min-width: 0;
+}
+
+.channel-with-members > .conversation-panel {
+  flex: 1;
+  min-width: 0;
+}
+
+.channel-with-members > .shell-side {
+  border-left: 1px solid var(--openownbot-border-strong);
+}

@@ -10,6 +10,8 @@ export const SERVER_VIEW_STORAGE_KEY = "openownbot:server-view";
 /** Whether the middle shows the open agent's chat or its routines. */
 export const SIDEBAR_VIEW_STORAGE_KEY = "openownbot:sidebar-view";
 /** The pages that the user pinned to the page rail or took off it: a JSON record of booleans. */
+/** Whether an open channel shows its agents beside the chat. Shown unless the user hid them. */
+export const CHANNEL_MEMBERS_HIDDEN_STORAGE_KEY = "openownbot:channel-members-hidden";
 export const RAIL_PINS_STORAGE_KEY = "openownbot:rail-pins";
 export const LEFT_PANEL_DEFAULT = 280;
 export const LEFT_PANEL_MIN = 128;
