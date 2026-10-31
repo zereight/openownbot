@@ -92,8 +92,11 @@ of a server, and the user talks to them in channels and direct messages.
   the selected row, links and the main button. A light theme uses the same layout.
 - **Mobile**: the same three levels as screens: servers and list, then chat, then members as a sheet.
 
-This reading of "Discord bot style" is not confirmed by the developer. Phase 4 starts the UI step
-with a Storybook story of this layout; the developer can change it there.
+Decided 2026-11-01: the developer chose this layout from three Storybook prototypes (classic, threads,
+activity), with one change from the activity one: the member panel shows what each agent does now.
+A working agent shows its step, a waiting agent shows the command with Allow once and Deny in its
+row, and a failed agent shows why. The parts are in `packages/ui/src/features/shell/`
+(`ShellFrame`, `ServerRail`, `PlaceList`, `MemberPanel`) with the story `Shell/RobotShell`.
 
 ## Order of phase 4
 
@@ -103,7 +106,8 @@ with a Storybook story of this layout; the developer can change it there.
 2. Main and IPC, feature by feature. Done 2026-10-31: old data file readers removed; plain data file names; `robot-` schemes and
    `thread-` ids; `createApplicationServices` split into `src/main/startup/`; every file of `src/main`
    except `index.ts` in a feature folder (`agents/`, `providers/`, `remote-servers/`, `security/`, ...).
-3. Shared UI and renderer in the new design.
+3. Shared UI and renderer in the new design. Started 2026-11-01: the shell parts and their story, not yet
+   used by the app. Next: the renderer puts the existing chat into `ShellFrame`, then the chat rows.
 4. Team API, team client and mobile together.
 
 Each step keeps the app working: a new module is written beside the old one, the callers move, and

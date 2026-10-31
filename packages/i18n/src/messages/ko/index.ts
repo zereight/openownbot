@@ -39,6 +39,7 @@ import { messages as server } from "./server";
 import { messages as settings } from "./settings";
 import { shared } from "./shared";
 import { messages as sharedTable } from "./sharedTable";
+import { messages as shell } from "./shell";
 import { messages as sidebar } from "./sidebar";
 import { messages as sitePage } from "./sitePage";
 import { messages as skill } from "./skill";
@@ -103,6 +104,7 @@ export const ko = {
   ...onboarding,
   ...usage,
   ...sidebar,
+  ...shell,
   ...channel,
   ...diagram,
   ...workflow,

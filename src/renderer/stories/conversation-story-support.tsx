@@ -153,7 +153,9 @@ export function StoryConversation(props: Partial<Parameters<typeof ConversationV
   window.openownbot = mock.api;
   onCleanup(() => {
     mock.dispose();
-    window.openownbot = previousApi;
+    // A re-render builds the next view before this one is disposed. Restoring then would take the
+    // bridge away from the next view, so only the view that still owns the bridge restores it.
+    if (window.openownbot === mock.api) window.openownbot = previousApi;
   });
   return (
     <div class="conversation-story-frame">
