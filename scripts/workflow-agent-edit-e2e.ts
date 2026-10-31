@@ -842,7 +842,7 @@ try {
     fromAgent?.text,
   );
   const beforeTask = toolLogs().length;
-  await runCauseEffect(agents.startTask({ agentId: planner.id, text: callText(refMain, [addNote]) }));
+  await runCauseEffect(agents.tasks.start({ agentId: planner.id, text: callText(refMain, [addNote]) }));
   const [fromTask] = await nextTools("task thread", beforeTask, 1);
   pass(
     "A person's task thread cannot use the workflow tools",

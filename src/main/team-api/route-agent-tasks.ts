@@ -23,29 +23,29 @@ import {
  */
 export async function routeAgentTasks(
   context: TeamApiRequestContext,
-  tasks: TeamApiAgentTasks | undefined,
+  agents: TeamApiAgentTasks | undefined,
   hiddenAgentIds: ReadonlySet<string>,
 ): Promise<RouteOutcome> {
   const { method, url, capabilities, request, json, member } = context;
   if (method !== "POST" || !Object.values(AGENT_TASKS_ROUTES).some((path) => path === url.pathname)) return "unmatched";
-  if (!tasks || !capabilities.has(AGENT_TASKS_CAPABILITY))
+  if (!agents || !capabilities.has(AGENT_TASKS_CAPABILITY))
     throw new HttpError(400, sourceText("error.backend.threadRemoteUnsupported"));
   const body = await readJson(request);
   const agentId = stringField(body, "agentId");
   if (hiddenAgentIds.has(agentId)) throw new HttpError(404, sourceText("error.team.agentNotFound"));
-  requireListedAgent(tasks, agentId);
-  if (url.pathname === AGENT_TASKS_ROUTES.list) return json(200, tasks.listTasks(agentId));
+  requireListedAgent(agents, agentId);
+  if (url.pathname === AGENT_TASKS_ROUTES.list) return json(200, agents.tasks.list(agentId));
   if (url.pathname !== AGENT_TASKS_ROUTES.read) requireAgentLevel(context, agentId, "chat");
-  if (url.pathname === AGENT_TASKS_ROUTES.start) return json(200, await startTask(tasks, agentId, body, member));
+  if (url.pathname === AGENT_TASKS_ROUTES.start) return json(200, await startTask(agents, agentId, body, member));
   const taskId = stringField(body, "taskId");
   switch (url.pathname) {
     case AGENT_TASKS_ROUTES.read:
-      return json(200, conversationSnapshotForCapabilities(tasks.readTask(agentId, taskId), capabilities));
+      return json(200, conversationSnapshotForCapabilities(agents.tasks.read(agentId, taskId), capabilities));
     case AGENT_TASKS_ROUTES.send:
       return json(
         202,
         await runCauseEffect(
-          tasks.sendMessage(
+          agents.sendMessage(
             {
               agentId,
               taskId,
@@ -57,21 +57,21 @@ export async function routeAgentTasks(
         ),
       );
     case AGENT_TASKS_ROUTES.stop:
-      await runCauseEffect(tasks.stopTask({ agentId, taskId }));
+      await runCauseEffect(agents.tasks.stop({ agentId, taskId }));
       return json(200, {});
     case AGENT_TASKS_ROUTES.close:
-      await runCauseEffect(tasks.closeTask({ agentId, taskId }));
+      await runCauseEffect(agents.tasks.close({ agentId, taskId }));
       return json(200, {});
     case AGENT_TASKS_ROUTES.reopen:
-      tasks.reopenTask({ agentId, taskId });
+      agents.tasks.reopen({ agentId, taskId });
       return json(200, {});
   }
   return "unmatched";
 }
 
-function startTask(tasks: TeamApiAgentTasks, agentId: string, body: DynamicRecord, member: TeamMemberSummary) {
+function startTask(agents: TeamApiAgentTasks, agentId: string, body: DynamicRecord, member: TeamMemberSummary) {
   return runCauseEffect(
-    tasks.startTask(
+    agents.tasks.start(
       { agentId, text: stringField(body, "text", false, INPUT_LIMITS.messageText), ...clientMessageId(body) },
       memberSender(member),
     ),

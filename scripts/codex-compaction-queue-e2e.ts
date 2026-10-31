@@ -379,7 +379,7 @@ try {
     () => mainContext()?.compaction?.status === "completed" && mainContext(),
   );
   const mainStartsBefore = mainCompactStarts();
-  const task = await runCauseEffect(agents.startTask({ agentId: owner.id, text: "Thread message." }));
+  const task = await runCauseEffect(agents.tasks.start({ agentId: owner.id, text: "Thread message." }));
   const taskSession = await waitFor(
     "the thread session",
     () => store.database.activeProviderSession(task.threadId, "codex")?.externalSessionId,
@@ -390,7 +390,7 @@ try {
   // The thread's turn reports 90% of the window, so the thread compacts at the end of the turn.
   const automatic = await waitFor("the thread's automatic compaction", () => {
     const state = threadContext();
-    const idle = agents.listTasks(owner.id).tasks.find((candidate) => candidate.id === task.id)?.state === "idle";
+    const idle = agents.tasks.list(owner.id).tasks.find((candidate) => candidate.id === task.id)?.state === "idle";
     return idle && compactions().length === 1 && state?.compaction?.status === "completed" ? state : null;
   });
   await runCauseEffect(agents.compactTaskContext({ agentId: owner.id, taskId: task.id }));

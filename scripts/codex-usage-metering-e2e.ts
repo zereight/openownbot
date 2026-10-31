@@ -310,13 +310,13 @@ try {
   );
   check("chat turn", chatThread, chatTurn, agent.id, expected([12000, 15000], 0));
 
-  const task = await runCauseEffect(agents.startTask({ agentId: agent.id, text: "prompts=12000,15000" }));
+  const task = await runCauseEffect(agents.tasks.start({ agentId: agent.id, text: "prompts=12000,15000" }));
   assert.notEqual(task.threadId, chatThread, "The task runs in its own thread.");
   const taskTurn = await waitFor(
     "the task turn to report usage",
     () => records(turnsOf(task.threadId)[0] ?? "").length === 2 && turnsOf(task.threadId)[0],
   );
-  await waitFor("the task turn to end", () => agents.listTasks(agent.id).tasks.find((t) => t.id === task.id)?.outcome);
+  await waitFor("the task turn to end", () => agents.tasks.list(agent.id).tasks.find((t) => t.id === task.id)?.outcome);
   check("task turn", task.threadId, taskTurn, agent.id, expected([12000, 15000], 0));
 
   // Under the old rule, any update with 200,000 or more input tokens stayed unpriced.
