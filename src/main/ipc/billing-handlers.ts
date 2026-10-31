@@ -3,7 +3,7 @@
 import { parseBillingPortalRequest } from "@robot/contracts/billing";
 import { sourceText } from "@robot/i18n/source";
 import { runCauseEffect } from "../../backend/effect-boundary";
-import type { BillingDesktopService } from "../billing-service";
+import type { BillingDesktopService } from "../account/billing-service";
 import { handler, type IpcGroupHandlers, payloadHandler } from "./define-ipc-group";
 
 export function billingIpcHandlers({ billing }: { billing: BillingDesktopService }): Pick<IpcGroupHandlers, "billing"> {

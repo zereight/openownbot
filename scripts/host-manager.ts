@@ -1,15 +1,15 @@
 import { chown, lstat, mkdir } from "node:fs/promises";
 import { join } from "node:path";
 import { runCauseEffect } from "../src/backend/effect-boundary";
-import { HostManager } from "../src/main/host-manager";
+import { HostManager } from "../src/main/host/host-manager";
 import {
   HOST_MANAGER_DIRECTORY,
   HOST_POLL_MS,
   hostConfigSchema,
   readHostConfig,
   writeProtocolJson,
-} from "../src/main/host-update-files";
-import { relaunchManagedTenant } from "../src/main/host-update-relaunch";
+} from "../src/main/updates/host-update-files";
+import { relaunchManagedTenant } from "../src/main/updates/host-update-relaunch";
 import {
   ensureHostDirectory,
   macHostOperations,

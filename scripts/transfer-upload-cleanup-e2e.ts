@@ -13,10 +13,10 @@ import {
   INSTANCE_TRANSFER_FORMAT,
   INSTANCE_TRANSFER_MANIFEST,
   INSTANCE_TRANSFER_VERSION,
-} from "../src/main/instance-transfer-manifest";
-import { type InstanceTransferOptions, InstanceTransferService } from "../src/main/instance-transfer-service";
-import { LocalSkillFailure } from "../src/main/local-skill-library";
-import { SkillMarketplaceFailure } from "../src/main/skill-marketplace-service";
+} from "../src/main/agents/instance-transfer-manifest";
+import { type InstanceTransferOptions, InstanceTransferService } from "../src/main/agents/instance-transfer-service";
+import { LocalSkillFailure } from "../src/main/skills/local-skill-library";
+import { SkillMarketplaceFailure } from "../src/main/skills/skill-marketplace-service";
 
 const run = Effect.runPromise;
 const exportInput = { agentIds: [], includeFiles: false, includeSettings: false };

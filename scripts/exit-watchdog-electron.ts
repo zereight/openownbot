@@ -7,8 +7,8 @@ import { open, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { createInterface } from "node:readline";
 import { app } from "electron";
-import { stopStuckExitAfterLimit } from "../src/main/exit-watchdog";
-import { startMainLog } from "../src/main/provider-log";
+import { stopStuckExitAfterLimit } from "../src/main/platform/exit-watchdog";
+import { startMainLog } from "../src/main/providers/provider-log";
 
 // The default size of the libuv thread pool.
 const LIBUV_THREADS = 4;

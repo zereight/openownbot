@@ -38,7 +38,7 @@ table, IPC channel or product string, or when a term in the code disagrees with 
   answers in its own execution thread (`projection_messaging_threads`, `MessagingLink`). A Slack
   channel is a `platformChannelId`, never a **channel**.
 - **server**: a joined team server (`ServerSummary`, `servers:*`), the local Team API host
-  (`HostStatus`, `host:*`, `src/main/team-api-server.ts`), the account API (`apps/auth-api`,
+  (`HostStatus`, `host:*`, `src/main/team-api/team-api-server.ts`), the account API (`apps/auth-api`,
   `auth:*`), or an MCP server (`createSdkMcpServer`).
 - **thread**: durable `projection_threads` record. **conversation**: its read projection, with no
   separate table. **provider session**: private CLI resume state (`projection_provider_sessions`).

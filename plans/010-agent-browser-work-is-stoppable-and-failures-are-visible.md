@@ -131,9 +131,9 @@ same wording as the chat ("needs you"), and never as working.
 
 ## Where to look first
 
-- `src/backend/browser-host.ts`, `src/main/browser-view-gateway.ts`
+- `src/backend/browser-host.ts`, `src/main/browser/browser-view-gateway.ts`
 - `src/renderer/src/features/conversation/` (stop button, `Esc` handling, badge)
-- `src/main/provider-log.ts`, IPC `browser:*` and `agent:channels:command`
+- `src/main/providers/provider-log.ts`, IPC `browser:*` and `agent:channels:command`
   (the last one returned `error` in `trace.ndjson` before the quit)
 
 ## Acceptance

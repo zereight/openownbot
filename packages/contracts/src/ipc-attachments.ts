@@ -193,7 +193,7 @@ export function isFilePreviewPageUrl(value: unknown): value is string {
 
 /**
  * The preview kind a file gets from its name and MIME type. Both sides of the IPC boundary read it:
- * `src/main/file-preview.ts` for a file it reads from disk, and the renderer for an attachment it
+ * `src/main/windows/file-preview.ts` for a file it reads from disk, and the renderer for an attachment it
  * fetches through `previewUrl`. One function keeps the two from drifting apart.
  */
 export function filePreviewKindForFile(name: string, mimeType: string): FilePreviewKind {

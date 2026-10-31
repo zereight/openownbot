@@ -1,6 +1,6 @@
 import { REMOTE_ACCOUNT_CHECK_INTERVAL_MS } from "@robot/team-client";
 import { runCauseEffect } from "../../backend/effect-boundary";
-import type { CentralAuthManager } from "../central-auth-manager";
+import type { CentralAuthManager } from "../account/central-auth-manager";
 import type { ApplicationServiceContext } from "./application-service-types";
 import { TEARDOWN_ORDER } from "./teardown-order";
 

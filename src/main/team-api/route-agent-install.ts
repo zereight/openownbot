@@ -5,8 +5,8 @@ import { AGENT_UPDATE_CAPABILITY, AGENT_UPDATE_ROUTES } from "@robot/contracts/t
 import { sourceText } from "@robot/i18n/source";
 import type { Effect } from "effect";
 import { runCauseEffect } from "../../backend/effect-boundary";
-import type { AgentMarketplaceFailure } from "../agent-marketplace-service";
-import type { AgentTemplateFailure } from "../agent-template-service";
+import type { AgentMarketplaceFailure } from "../agents/agent-marketplace-service";
+import type { AgentTemplateFailure } from "../agents/agent-template-service";
 import { parseInstallAgentTemplate } from "../ipc/agent-template-handlers";
 import { parseInstallMarketplaceAgent } from "../ipc/app-inputs";
 import type { TeamApiAdmin } from "./dependencies";

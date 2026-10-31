@@ -30,8 +30,8 @@ export default defineConfig({
           "agent-database-host": resolve("src/backend/agent-data/agent-database-host.ts"),
           // The voice hosts are their own processes too. They import only node:* and load the
           // sherpa-onnx addon by path.
-          "voice-transcription-host": resolve("src/main/voice-transcription-host.ts"),
-          "voice-speech-host": resolve("src/main/voice-speech-host.ts"),
+          "voice-transcription-host": resolve("src/main/voice/voice-transcription-host.ts"),
+          "voice-speech-host": resolve("src/main/voice/voice-speech-host.ts"),
         },
       },
     },

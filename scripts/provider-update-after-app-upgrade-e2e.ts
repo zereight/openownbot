@@ -13,8 +13,8 @@ import { basename, dirname, join, resolve } from "node:path";
 import type { ManagedProviderId } from "@robot/contracts/agent-providers";
 import type { ProviderRuntimeSnapshot } from "@robot/contracts/ipc";
 import { runCauseEffect } from "../src/backend/effect-boundary";
-import { createProviderCliAppVersionStore } from "../src/main/provider-cli-app-version-store";
-import { ProviderRuntimeManager } from "../src/main/provider-runtime-manager";
+import { createProviderCliAppVersionStore } from "../src/main/providers/provider-cli-app-version-store";
+import { ProviderRuntimeManager } from "../src/main/providers/provider-runtime-manager";
 
 const OUT = resolve(import.meta.dirname, "../.openownbot-build/provider-update-after-app-upgrade-e2e");
 const WAIT_MS = 15_000;

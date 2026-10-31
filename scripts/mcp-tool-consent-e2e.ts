@@ -21,7 +21,7 @@ import {
   getString,
   type RequestId,
 } from "../src/backend/protocol";
-import { ApprovalAutomation } from "../src/main/approval-automation-store";
+import { ApprovalAutomation } from "../src/main/agents/approval-automation-store";
 
 const OUT = resolve(import.meta.dirname, "../.openownbot-build/mcp-tool-consent-e2e");
 const DECISION = "mcp-elicitation-decision";

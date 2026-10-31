@@ -3,20 +3,20 @@ import { join, resolve } from "node:path";
 import { Effect } from "effect";
 import { app } from "electron";
 import { runCauseEffect } from "../../backend/effect-boundary";
-import { SpeechPreferenceStore } from "../speech-preference-store";
-import { VoiceApiKeyStore } from "../voice-api-key-store";
-import { openScribeSocket } from "../voice-cloud-stream";
+import { SpeechPreferenceStore } from "../voice/speech-preference-store";
+import { VoiceApiKeyStore } from "../voice/voice-api-key-store";
+import { openScribeSocket } from "../voice/voice-cloud-stream";
 import {
   BARK_PLUS_MODEL_DIRECTORY,
   PARAKEET_MODEL_DIRECTORY,
   SUPERTONIC_MODEL_DIRECTORY,
   WHISPER_TURBO_MODEL_DIRECTORY,
-} from "../voice-model-service";
-import { VoicePreferenceStore } from "../voice-preference-store";
-import { spawnVoiceSpeechHost } from "../voice-speech-host-process";
-import { VoiceSpeechService } from "../voice-speech-service";
-import { spawnVoiceTranscriptionHost } from "../voice-transcription-host-process";
-import { VoiceTranscriptionService } from "../voice-transcription-service";
+} from "../voice/voice-model-service";
+import { VoicePreferenceStore } from "../voice/voice-preference-store";
+import { spawnVoiceSpeechHost } from "../voice/voice-speech-host-process";
+import { VoiceSpeechService } from "../voice/voice-speech-service";
+import { spawnVoiceTranscriptionHost } from "../voice/voice-transcription-host-process";
+import { VoiceTranscriptionService } from "../voice/voice-transcription-service";
 import type { ApplicationServiceContext } from "./application-service-types";
 import type { safeStorageCipher } from "./platform";
 import { TEARDOWN_ORDER } from "./teardown-order";

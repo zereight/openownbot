@@ -4,8 +4,8 @@ import { Effect } from "effect";
 // no Team API route reaches these.
 
 import { runCauseEffect } from "../../backend/effect-boundary";
-import type { ProviderDetection } from "../provider-detection";
-import type { ProviderDetectionSettingsStore } from "../provider-detection-settings-store";
+import type { ProviderDetection } from "../providers/provider-detection";
+import type { ProviderDetectionSettingsStore } from "../providers/provider-detection-settings-store";
 import { handler, type IpcGroupHandlers, payloadHandler } from "./define-ipc-group";
 import { parseDiscoverModels, parseProviderDetectionSettings } from "./provider-detection-inputs";
 

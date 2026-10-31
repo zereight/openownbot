@@ -14,7 +14,7 @@
 import { existsSync, readdirSync, readFileSync, rmSync } from "node:fs";
 import { join, resolve } from "node:path";
 import { isDynamicRecord, isNumber, isOneOf, isString } from "@robot/contracts/runtime-values";
-import { devRuntimeDirectory } from "../../src/main/development-runtime-directory";
+import { devRuntimeDirectory } from "../../src/main/platform/development-runtime-directory";
 import {
   assertRegistryDirectoryOwnership,
   ensureOwnerOnlyDirectory,

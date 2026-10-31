@@ -61,7 +61,7 @@ export function pinRemoteDesktopRuntime(
  * `remoteDesktop`. Zod keeps what its schema names and drops the rest, which is harmless while
  * reading and destroys the file on the way back out -- serializing the parsed lock over it deletes
  * every provider runtime pin, the assets and digests and licence hashes
- * `src/main/provider-runtime-manager.ts` reads to bundle the CLIs. Nothing downstream caught it: the
+ * `src/main/providers/provider-runtime-manager.ts` reads to bundle the CLIs. Nothing downstream caught it: the
  * pin written was correct, and the publish job's guard counts the files a pin changed rather than
  * the keys it lost, so eighty deleted lines left every check green.
  */

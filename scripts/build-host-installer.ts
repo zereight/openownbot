@@ -4,7 +4,7 @@ import { tmpdir } from "node:os";
 import { dirname, join, resolve } from "node:path";
 import { promisify } from "node:util";
 import { z } from "zod";
-import { HOST_MANAGER_DIRECTORY } from "../src/main/host-update-files";
+import { HOST_MANAGER_DIRECTORY } from "../src/main/updates/host-update-files";
 import {
   HOST_EXECUTABLES,
   HOST_FILES,

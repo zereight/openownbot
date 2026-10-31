@@ -14,10 +14,10 @@ import type {
   MarketplaceAgentDetail,
 } from "@robot/contracts/ipc";
 import { Effect, Exit, Schema } from "effect";
-import { type AgentMarketplaceFailure, AgentMarketplaceService } from "../src/main/agent-marketplace-service";
-import { CentralAuthOperationError } from "../src/main/central-auth-effects";
-import { CentralAuthManager } from "../src/main/central-auth-manager";
-import { SkillMarketplaceFailure } from "../src/main/skill-marketplace-service";
+import { CentralAuthOperationError } from "../src/main/account/central-auth-effects";
+import { CentralAuthManager } from "../src/main/account/central-auth-manager";
+import { type AgentMarketplaceFailure, AgentMarketplaceService } from "../src/main/agents/agent-marketplace-service";
+import { SkillMarketplaceFailure } from "../src/main/skills/skill-marketplace-service";
 
 type AgentMarketplaceDependencies = ConstructorParameters<typeof AgentMarketplaceService>;
 type AgentStore = AgentMarketplaceDependencies[1];

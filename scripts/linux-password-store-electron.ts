@@ -2,7 +2,7 @@
 // `src/main/index.ts` does, then writes the `safeStorage` backend to `--ready-file` and quits.
 import { writeFileSync } from "node:fs";
 import { app, safeStorage } from "electron";
-import { configureLinuxPasswordStore } from "../src/main/linux-password-store";
+import { configureLinuxPasswordStore } from "../src/main/platform/linux-password-store";
 
 function argument(name: string): string {
   const value = process.argv.find((item) => item.startsWith(`--${name}=`));

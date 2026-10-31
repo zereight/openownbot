@@ -3,7 +3,7 @@
 import type { BrowserDockAction, BrowserDockFrame, BrowserDockPresentation } from "@robot/contracts/ipc";
 import { Effect } from "effect";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { BROWSER_DOCK_OVERLAY_WIDTH, browserDockLayout } from "../browser-dock-overlay";
+import { BROWSER_DOCK_OVERLAY_WIDTH, browserDockLayout } from "../browser/browser-dock-overlay";
 import { browserDockIpcHandlers } from "./browser-dock-handlers";
 
 // Same reason as define-ipc-group.test.ts: electron cannot be imported outside an Electron process, so

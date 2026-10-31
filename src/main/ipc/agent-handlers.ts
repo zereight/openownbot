@@ -61,8 +61,8 @@ import { duplicateAgentIntoLayout } from "../../backend/agent/duplication-gate";
 import type { AgentService } from "../../backend/agent-service";
 import { runCauseEffect } from "../../backend/effect-boundary";
 import type { SidebarLayoutStore } from "../../backend/sidebar-layout-store";
-import type { HostService } from "../host-service";
-import { type MessageLinkRelay, openHttpLink } from "../message-link-relay";
+import type { HostService } from "../host/host-service";
+import { type MessageLinkRelay, openHttpLink } from "../messaging/message-link-relay";
 import {
   decodeAccountUsageFromHost,
   decodeAgentAnalyticsFromHost,
@@ -80,10 +80,10 @@ import {
   decodeRemoteAgentTasks,
   decodeRemoteTaskConversation,
   decodeSidebarLayoutSnapshot,
-} from "../remote-agent-decoding";
-import { acceptEmpty, decodeVoid, type ResponseDecoder } from "../remote-host-decoding";
-import type { RemoteServerManager } from "../remote-server-manager";
-import type { SkillMarketplaceService } from "../skill-marketplace-service";
+} from "../remote-servers/remote-agent-decoding";
+import { acceptEmpty, decodeVoid, type ResponseDecoder } from "../remote-servers/remote-host-decoding";
+import type { RemoteServerManager } from "../remote-servers/remote-server-manager";
+import type { SkillMarketplaceService } from "../skills/skill-marketplace-service";
 import {
   parseAcknowledgeFailedTurn,
   parseAgentId,

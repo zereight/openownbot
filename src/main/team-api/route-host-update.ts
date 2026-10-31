@@ -13,7 +13,7 @@ import {
 } from "@robot/contracts/team-protocol/host-update-v1";
 import { sourceText } from "@robot/i18n/source";
 import { runCauseEffect } from "../../backend/effect-boundary";
-import { RequestedUpdateRefusal } from "../requested-update";
+import { RequestedUpdateRefusal } from "../updates/requested-update";
 import type { TeamApiAdmin } from "./dependencies";
 import { HttpError } from "./http-error";
 import type { RouteOutcome, TeamApiRequestContext } from "./request-context";

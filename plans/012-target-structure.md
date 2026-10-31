@@ -100,7 +100,9 @@ with a Storybook story of this layout; the developer can change it there.
 1. Backend services and stores, feature by feature, behind the existing IPC.
    Method: `AgentService` exposes a feature service as a property (`service.memories`) and loses its
    forwarding methods; ports that callers declare keep their own shape. Done 2026-10-31: memories; routines, channel memories and channel routines; MCP; provider operations; routine timer, waits, conversation search; six hook methods out of the constructor; queue edits; the six hook objects in `src/backend/agent/hooks/`, which reach the service through `AgentService.parts`.
-2. Main and IPC, feature by feature.
+2. Main and IPC, feature by feature. Done 2026-10-31: old data file readers removed; plain data file names; `robot-` schemes and
+   `thread-` ids; `createApplicationServices` split into `src/main/startup/`; every file of `src/main`
+   except `index.ts` in a feature folder (`agents/`, `providers/`, `remote-servers/`, `security/`, ...).
 3. Shared UI and renderer in the new design.
 4. Team API, team client and mobile together.
 

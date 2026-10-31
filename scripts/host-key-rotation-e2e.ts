@@ -26,7 +26,7 @@ import { decodeRecord, requiredString } from "@robot/contracts/ipc-decoding";
 import { verifyEd25519Base64Url } from "@robot/team-client/ed25519";
 import { followHostKeyHandovers, remoteHostFingerprint } from "@robot/team-client/host-key-handover";
 import { Effect } from "effect";
-import { verifyHostKeySignature } from "../src/main/remote-server-host-directory";
+import { verifyHostKeySignature } from "../src/main/remote-servers/remote-server-host-directory";
 
 const OUT = resolve(import.meta.dirname, "../.openownbot-build/host-key-rotation-e2e");
 const HOST_LINE = "host-key-rotation ";
@@ -53,7 +53,7 @@ interface StepResult {
 
 async function runHost(file: string, step: Step): Promise<void> {
   const { runCauseEffect } = await import("../src/backend/effect-boundary");
-  const { TeamStore } = await import("../src/main/team-store");
+  const { TeamStore } = await import("../src/main/team/team-store");
   const store = new TeamStore(file);
   await runCauseEffect(store.initialize());
   if (step === "begin") {
@@ -144,7 +144,7 @@ async function follows(input: {
   return desktop;
 }
 
-/** The fingerprint that the desktop main process stores, from `src/main/team-store.ts`. */
+/** The fingerprint that the desktop main process stores, from `src/main/team/team-store.ts`. */
 function hostFingerprint(publicKey: string): string {
   return createHash("sha256").update(publicKey).digest("base64url");
 }

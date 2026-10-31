@@ -81,8 +81,8 @@ async function runHost(root: string, configure: boolean): Promise<void> {
       }));
     },
   });
-  const { TeamApiServer } = await import("../src/main/team-api-server");
-  const { TeamStore } = await import("../src/main/team-store");
+  const { TeamApiServer } = await import("../src/main/team-api/team-api-server");
+  const { TeamStore } = await import("../src/main/team/team-store");
 
   const unused = () => Effect.die(new Error("Not used by this check."));
   const agentBrowser: AgentBrowserHost = {

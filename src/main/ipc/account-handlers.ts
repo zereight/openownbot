@@ -2,9 +2,9 @@
 
 import { INPUT_LIMITS } from "@robot/contracts/input-limits";
 import { runCauseEffect } from "../../backend/effect-boundary";
-import type { CentralAuthManager } from "../central-auth-manager";
-import type { HostService } from "../host-service";
-import { createHostedMobileConnect, createHostedMobileConnectLink } from "../mobile-connect-host";
+import type { CentralAuthManager } from "../account/central-auth-manager";
+import type { HostService } from "../host/host-service";
+import { createHostedMobileConnect, createHostedMobileConnectLink } from "../remote-servers/mobile-connect-host";
 import { parseEmailCodeVerification, parseProfileName } from "./app-inputs";
 import { parseAvatarImage } from "./avatar-inputs";
 import { handler, type IpcGroupHandlers, payloadHandler } from "./define-ipc-group";

@@ -15,7 +15,7 @@ table in `packages/contracts/AGENTS.md`: the handlers that `registerIpcGroups` b
 against.
 
 ```bash
-bun run test:desktop -- src/main/ipc-channel-coverage.test.ts
+bun run test:desktop -- src/main/security/ipc-channel-coverage.test.ts
 ```
 
 That test links main and preload. The mock is covered by `tsc` in both directions, so what is left

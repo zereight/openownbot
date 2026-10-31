@@ -4,8 +4,8 @@ import { decodeChannelMemories, decodeChannelMemory } from "@robot/contracts/ipc
 import { CHANNEL_ROUTES } from "@robot/contracts/team-protocol/channels-v1";
 import type { AgentService } from "../../backend/agent-service";
 import { runCauseEffect } from "../../backend/effect-boundary";
-import { decodeVoid } from "../remote-host-decoding";
-import type { RemoteServerManager } from "../remote-server-manager";
+import { decodeVoid } from "../remote-servers/remote-host-decoding";
+import type { RemoteServerManager } from "../remote-servers/remote-server-manager";
 import {
   parseChannelId,
   parseCreateChannelMemory,

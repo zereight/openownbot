@@ -4,16 +4,17 @@ import { join, resolve } from "node:path";
 import { Effect } from "effect";
 import { app } from "electron";
 import { runCauseEffect } from "../../backend/effect-boundary";
-import { ComputerUseHighlightController } from "../computer-use-highlight-window";
+import { ComputerUseHighlightController } from "../computer-use/computer-use-highlight-window";
 import {
   COMPUTER_USE_ACTION_MAX_AGE_MS,
   COMPUTER_USE_CURSOR_MAX_AGE_MS,
   chooseTarget,
   liveSession,
-} from "../computer-use-target-window";
-import { isSupportedCuaDriverTarget, resolveCuaDriver } from "../cua-driver-artifact";
-import { CuaDriverDaemonClient } from "../cua-driver-daemon-client";
-import { CuaDriverRuntime, cuaDriverCommandAlias, resolveCuaDriverEndpoint } from "../cua-driver-runtime";
+} from "../computer-use/computer-use-target-window";
+import { isSupportedCuaDriverTarget, resolveCuaDriver } from "../computer-use/cua-driver-artifact";
+import { CuaDriverDaemonClient } from "../computer-use/cua-driver-daemon-client";
+import { CuaDriverRuntime, cuaDriverCommandAlias, resolveCuaDriverEndpoint } from "../computer-use/cua-driver-runtime";
+import { appendRemoteDiagnosticLog } from "../remote-servers/remote-diagnostics";
 import {
   computerUseCoveringWindowIds,
   computerUseDesktopPoint,
@@ -22,8 +23,7 @@ import {
   createComputerUseHighlightWindow,
   loadComputerUseHighlightRenderer,
   sendComputerUseHighlightPlacement,
-} from "../main-window";
-import { appendRemoteDiagnosticLog } from "../remote-diagnostics";
+} from "../windows/main-window";
 import type { ApplicationServiceContext } from "./application-service-types";
 import { DEVELOPMENT_BUNDLE_IDENTIFIER, PACKAGED_BUNDLE_IDENTIFIER } from "./platform";
 import { TEARDOWN_ORDER } from "./teardown-order";

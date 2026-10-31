@@ -22,19 +22,19 @@ import { TEAM_BROWSER_NAVIGATION_CAPABILITY } from "@robot/contracts/team-protoc
 import { sourceText } from "@robot/i18n/source";
 import type { BrowserHost } from "../../backend/browser-host";
 import { runCauseEffect } from "../../backend/effect-boundary";
-import type { BrowserPictureInPicture } from "../browser-picture-in-picture";
-import { isBrowserSignedInPage } from "../browser-sign-in-page";
-import type { BrowserViewClient } from "../browser-view-client";
-import type { LocalSignInWindows } from "../local-sign-in-window";
+import type { BrowserPictureInPicture } from "../browser/browser-picture-in-picture";
+import { isBrowserSignedInPage } from "../browser/browser-sign-in-page";
+import type { BrowserViewClient } from "../browser/browser-view-client";
+import type { LocalSignInWindows } from "../browser/local-sign-in-window";
 import {
   decodeBrowserControlState,
   decodeBrowserDisplayState,
   decodeBrowserPreviewFromHost,
   decodeBrowserTab,
   decodeBrowserTabs,
-} from "../remote-device-decoding";
-import { decodeVoid } from "../remote-host-decoding";
-import type { RemoteServerManager } from "../remote-server-manager";
+} from "../remote-servers/remote-device-decoding";
+import { decodeVoid } from "../remote-servers/remote-host-decoding";
+import type { RemoteServerManager } from "../remote-servers/remote-server-manager";
 import {
   parseBrowserBounds,
   parseBrowserNavigate,

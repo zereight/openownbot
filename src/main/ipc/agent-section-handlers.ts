@@ -7,7 +7,7 @@ import type { ExportAgentSectionInput, ImportAgentSectionInput } from "@robot/co
 import type { AppTranslate } from "@robot/i18n";
 import { app, type BrowserWindow, dialog, type OpenDialogOptions, type SaveDialogOptions } from "electron";
 import { runCauseEffect } from "../../backend/effect-boundary";
-import type { AgentSectionService } from "../agent-section-service";
+import type { AgentSectionService } from "../agents/agent-section-service";
 import { handler, type IpcGroupHandlers, payloadHandler } from "./define-ipc-group";
 import { isObject, requireString } from "./validation";
 

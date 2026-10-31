@@ -9,7 +9,7 @@ import { execFile } from "node:child_process";
 import { homedir } from "node:os";
 import { resolve } from "node:path";
 import { promisify } from "node:util";
-import { CUA_DRIVER_VENDOR_CALLS_OFF, resolveCuaDriver } from "../src/main/cua-driver-artifact";
+import { CUA_DRIVER_VENDOR_CALLS_OFF, resolveCuaDriver } from "../src/main/computer-use/cua-driver-artifact";
 
 const run = promisify(execFile);
 

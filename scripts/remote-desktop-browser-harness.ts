@@ -6,8 +6,8 @@ import { createOpenOwnBotLogger, toLogValue } from "@robot/logging";
 import { Effect } from "effect";
 import { z } from "zod";
 import { runCauseEffect } from "../src/backend/effect-boundary";
-import { resolveRemoteDesktopRuntime } from "../src/main/remote-desktop-runtime-artifact";
-import { RemoteScreenGateway } from "../src/main/remote-screen-gateway";
+import { resolveRemoteDesktopRuntime } from "../src/main/remote-desktop/remote-desktop-runtime-artifact";
+import { RemoteScreenGateway } from "../src/main/remote-desktop/remote-screen-gateway";
 
 const logger = createOpenOwnBotLogger("remote-desktop-browser-harness");
 

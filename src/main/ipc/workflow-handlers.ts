@@ -18,10 +18,10 @@ import {
 import type { Effect } from "effect";
 import { runCauseEffect } from "../../backend/effect-boundary";
 import type { WorkflowsHandle } from "../../backend/workflows/workflows";
-import type { HostEventsService } from "../host-events-service";
-import { acceptEmpty, type ResponseDecoder } from "../remote-host-decoding";
-import type { RemoteRequestInit } from "../remote-server-client";
-import type { RemoteWorkflowError } from "../remote-service-effects";
+import type { HostEventsService } from "../events/host-events-service";
+import { acceptEmpty, type ResponseDecoder } from "../remote-servers/remote-host-decoding";
+import type { RemoteRequestInit } from "../remote-servers/remote-server-client";
+import type { RemoteWorkflowError } from "../remote-servers/remote-service-effects";
 import type { IpcGroupHandlers } from "./define-ipc-group";
 import { scopedHandler, scopedQueryHandler } from "./scoped-handler";
 import {

@@ -204,7 +204,7 @@ whose profile no longer exists fails with `browserProfileMissing`; it never fall
 `#configureSession` applies the same user agent, headers, permissions and download policy to every
 partition. Shutdown and `flushPersistentStorage` flush every persistent partition.
 
-`src/main/browser-profile-service.ts` owns the operations: list, create (name of 1 to 60
+`src/main/browser/browser-profile-service.ts` owns the operations: list, create (name of 1 to 60
 characters, unique, at most 100 profiles), update (name or color), clear data, delete, and assign.
 Clear and delete close the tabs in the partition before they clear its storage and cache. Delete also
 moves the profile's agents to Shared. Each named profile has a color (`hue`), one of the agent avatar

@@ -14,8 +14,8 @@ import type { AgentClient } from "../src/backend/agent-client";
 import { runInLoginShell } from "../src/backend/cli";
 import { runCauseEffect } from "../src/backend/effect-boundary";
 import { requireProviderDriver } from "../src/backend/provider-drivers";
-import { createCustomAgentChanges } from "../src/main/custom-agent-changes";
-import { CustomAgentStore } from "../src/main/custom-agent-store";
+import { createCustomAgentChanges } from "../src/main/agents/custom-agent-changes";
+import { CustomAgentStore } from "../src/main/agents/custom-agent-store";
 import { stopClients, xorCipher } from "./provider-fakes/host";
 
 // The interpreter has a name no system folder holds, so the result does not depend on whether this

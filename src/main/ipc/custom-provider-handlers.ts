@@ -2,7 +2,7 @@
 // the writes; the `providers-v1` host routes use the same instance.
 
 import { runCauseEffect } from "../../backend/effect-boundary";
-import type { CustomProviderChanges } from "../custom-provider-changes";
+import type { CustomProviderChanges } from "../providers/custom-provider-changes";
 import {
   parseDeleteCustomProvider,
   parseSaveCustomProvider,

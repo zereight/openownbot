@@ -10,8 +10,8 @@ import { join } from "node:path";
 import { PassThrough } from "node:stream";
 import { Effect, Result } from "effect";
 import { restartActivityGeneration } from "../src/backend/restart-activity";
-import type { TeamWebRtcBridge } from "../src/main/team-webrtc-bridge";
-import { TeamWebRtcFileTransfer } from "../src/main/team-webrtc-file-transfer";
+import type { TeamWebRtcBridge } from "../src/main/team/team-webrtc-bridge";
+import { TeamWebRtcFileTransfer } from "../src/main/team/team-webrtc-file-transfer";
 
 type BridgeEvents = TeamWebRtcBridge extends EventEmitter<infer Events> ? Events : never;
 

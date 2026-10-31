@@ -1,6 +1,6 @@
 // What the account API's `/v2/remote/*` responses mean, for every client that connects through it.
 //
-// `apps/auth-api` serves them and two independent clients read them: `src/main/central-auth-manager.ts`
+// `apps/auth-api` serves them and two independent clients read them: `src/main/account/central-auth-manager.ts`
 // on the desktop and `packages/team-client/src/remote-directory.ts` on mobile. Each carried its own
 // copy of these shapes, including the Signal URL scheme check - a security rule that decides whether
 // a ticket may be carried over an unencrypted socket, and the one thing two implementations of the

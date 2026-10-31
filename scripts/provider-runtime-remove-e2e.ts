@@ -13,7 +13,7 @@ import { tmpdir } from "node:os";
 import { basename, dirname, join, resolve } from "node:path";
 import type { AgentProviderId, ManagedProviderId } from "@robot/contracts/agent-providers";
 import { runCauseEffect } from "../src/backend/effect-boundary";
-import { ProviderRuntimeManager } from "../src/main/provider-runtime-manager";
+import { ProviderRuntimeManager } from "../src/main/providers/provider-runtime-manager";
 
 const OUT = resolve(import.meta.dirname, "../.openownbot-build/provider-runtime-remove-e2e");
 const DAY_MS = 24 * 60 * 60 * 1000;

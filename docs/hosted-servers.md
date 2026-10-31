@@ -39,10 +39,10 @@ has its own Stripe plan. Its machine comes from the plan
 | --- | --- | --- |
 | Account Worker | `apps/auth-api/src/server/hosted-server-service.ts`, `boat-client.ts` | Creates, restarts and deletes sandboxes. Stores state in D1 (`0023_hosted_servers.sql`, `0028_hosted_server_lifecycle.sql`). |
 | Server template | `scripts/hosting/` | Builds the boat named snapshot that each server starts from. |
-| Server bootstrap | `src/main/hosted-server-bootstrap.ts` | On the first start, redeems the claim, signs in, and publishes the host. |
-| Start retry | `src/main/hosted-server-start-retry.ts` | Publishes the host again after a failed start. |
-| Activity report | `src/main/hosted-server-activity.ts` | Tells the Worker that the server is in use, and when its next routine runs. |
-| Memory guard | `src/main/server-memory.ts`, `src/backend/agent/memory-hold.ts`, `turn-slots.ts` | Reads the memory of the server, holds new turns when it is low, and limits the turns that run at the same time. See [Memory](#memory). |
+| Server bootstrap | `src/main/host/hosted-server-bootstrap.ts` | On the first start, redeems the claim, signs in, and publishes the host. |
+| Start retry | `src/main/host/hosted-server-start-retry.ts` | Publishes the host again after a failed start. |
+| Activity report | `src/main/host/hosted-server-activity.ts` | Tells the Worker that the server is in use, and when its next routine runs. |
+| Memory guard | `src/main/host/server-memory.ts`, `src/backend/agent/memory-hold.ts`, `turn-slots.ts` | Reads the memory of the server, holds new turns when it is low, and limits the turns that run at the same time. See [Memory](#memory). |
 | Billing link | `apps/auth-api/src/server/hosted-billing.ts`, `billing-service.ts` | Opens Stripe Checkout for a new server. Tells the hosting service when a subscription changes. |
 | Desktop and web clients | `AddServerOverlay`, `SettingsHostedServersTab`, `hosted-server-service.ts`, `web-hosted-servers.ts`, `web-hosted-server-wake.ts` | Pick a plan, pay, list, start, renew and delete. The web app shows the list in Billing. Start a stopped server when a connection fails. |
 | Mobile client | `mobile-workspace-context.tsx` | Starts the selected stopped server when a connection fails. |
@@ -311,7 +311,7 @@ with `getServerEntitlement` when a member joins or is reactivated, and refuses a
   mobile member screens show it. They use 3 when an older Worker sends no limit.
 - After each subscription sync, the Worker sends `account-servers-changed` to each active member,
   so their devices read the host list, and the new limit, again.
-- A host that is not on an account keeps 3 in its own store (`src/main/team-store.ts`). It has no plan.
+- A host that is not on an account keeps 3 in its own store (`src/main/team/team-store.ts`). It has no plan.
 
 ## Configure the test Worker
 
@@ -487,7 +487,7 @@ from a removed snapshot keep running.
 Server Settings > Updates has the same controls as on a computer that updates itself: download,
 **Update when idle**, **Restart now**, automatic updates, and the switch that lets members update.
 ROBot runs as the service user from a release that root owns, so it asks root to do the work
-(`src/main/hosted-update-adapter.ts`). It makes an empty file in its runtime directory:
+(`src/main/updates/hosted-update-adapter.ts`). It makes an empty file in its runtime directory:
 `/run/openownbot/update-stage` to download, and `/run/openownbot/update-install` to install.
 `openownbot-update-request.path` then starts `openownbot-update-request.service`, which runs
 `openownbot-hosted-update request` as root. That removes the file without reading it and runs `stage`.
@@ -640,7 +640,7 @@ do not all pass the check before their processes grow. A start that fails counts
 | `low` | Free memory is less than 512 MB or 12% of the total. | No new turn starts; the message stays queued. The agent shows one notice in each low period. The browser opens no new tab. |
 | `critical` | Free memory is less than 256 MB or 6% of the total. | As `low`. Also, the provider threads with no turn close one time. They open again from their session at the next turn. Leftover agent processes stop (see below). |
 
-Agent processes (`AgentProcesses` in `src/main/server-memory.ts`):
+Agent processes (`AgentProcesses` in `src/main/host/server-memory.ts`):
 
 - Each provider process gets `OPENOWNBOT_AGENT_PROCESS=1`, so every program that an agent starts has
   it too. A job that an agent detaches (`nohup`, `&`, a routine wake-up job), and the workers of a
@@ -721,7 +721,7 @@ holds it:
    sends it again on the host's next hello: the first socket can close before the host handled it. The
    transports drop an event that they already handled.
 
-The host makes its queue key once (`src/main/ingress-queue-key.ts`, `ingress-queue-key.json`
+The host makes its queue key once (`src/main/messaging/ingress-queue-key.ts`, `ingress-queue-key.json`
 in the user data folder), encrypted by the operating system, and sends the public half in each
 `ingress` hello. An older host sends no key, so Signal keeps nothing for it; a hello with no key
 removes the key that Signal had. A kept delivery that arrives before its connection has started waits

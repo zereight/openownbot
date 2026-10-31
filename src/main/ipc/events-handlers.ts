@@ -16,17 +16,17 @@ import { WEBHOOK_TESTS_CAPABILITY, WEBHOOK_TESTS_ROUTES } from "@robot/contracts
 import { sourceText } from "@robot/i18n/source";
 import type { Effect } from "effect";
 import { runCauseEffect } from "../../backend/effect-boundary";
-import type { HostEventsApi } from "../host-events-api";
+import type { HostEventsApi } from "../events/host-events-api";
 import {
   parseEventRoutineRef,
   parseListEventActivity,
   parseListEventRoutineRuns,
   parseListEventRoutines,
   parseSaveEventRoutine,
-} from "../host-events-inputs";
-import { acceptEmpty, type ResponseDecoder } from "../remote-host-decoding";
-import type { RemoteRequestInit } from "../remote-server-client";
-import type { RemoteWorkflowError } from "../remote-service-effects";
+} from "../events/host-events-inputs";
+import { acceptEmpty, type ResponseDecoder } from "../remote-servers/remote-host-decoding";
+import type { RemoteRequestInit } from "../remote-servers/remote-server-client";
+import type { RemoteWorkflowError } from "../remote-servers/remote-service-effects";
 import type { IpcGroupHandlers } from "./define-ipc-group";
 import { scopedHandler, scopedQueryHandler } from "./scoped-handler";
 

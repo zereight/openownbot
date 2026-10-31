@@ -1,7 +1,7 @@
 #!/bin/bash
 # The terminal command of a self-hosted server. openownbot-server-setup links it to
 # /usr/local/bin/openownbot. It talks to the running ROBot over the control socket in
-# src/main/server-mode.ts, and to systemd for the service.
+# src/main/host/server-mode.ts, and to systemd for the service.
 #
 # The socket is in /run/openownbot, which only the service user can enter. Run this as that user or
 # with sudo. In the Docker image (`mode` is `container`) there is no systemd: Docker starts, stops

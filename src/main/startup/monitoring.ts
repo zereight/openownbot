@@ -4,9 +4,9 @@ import { Effect } from "effect";
 import { app } from "electron";
 import type { AgentService } from "../../backend/agent-service";
 import type { BrowserHost } from "../../backend/browser-host";
-import { ResourceMonitor } from "../resource-monitor";
-import type { StatementTimings } from "../resource-summary";
-import { TraceFile } from "../trace-file";
+import { ResourceMonitor } from "../platform/resource-monitor";
+import type { StatementTimings } from "../platform/resource-summary";
+import { TraceFile } from "../platform/trace-file";
 import type { ApplicationServiceContext } from "./application-service-types";
 import { TEARDOWN_ORDER } from "./teardown-order";
 

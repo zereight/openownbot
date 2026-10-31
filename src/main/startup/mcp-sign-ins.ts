@@ -1,17 +1,17 @@
 import { createOpenOwnBotLogger, toLogValue } from "@robot/logging";
 import { Effect } from "effect";
 import { McpOAuth } from "../../backend/mcp-oauth-provider";
-import { MCP_OAUTH_REDIRECT_URL } from "../deep-link-router";
-import type { LanguageService } from "../language-service";
-import { showMainWindow } from "../main-window";
-import type { McpOAuthProxySettingsFile } from "../mcp-oauth-proxy-store";
+import { SignInRelayClient } from "../account/sign-in-relay-client";
+import type { McpOAuthProxySettingsFile } from "../connectors/mcp-oauth-proxy-store";
 import {
   MCP_OAUTH_REDIRECT_PATH,
   MCP_OAUTH_REDIRECT_PORT,
   startMcpOAuthRedirectServer,
-} from "../mcp-oauth-redirect-server";
-import type { McpOAuthStore } from "../mcp-oauth-store";
-import { SignInRelayClient } from "../sign-in-relay-client";
+} from "../connectors/mcp-oauth-redirect-server";
+import type { McpOAuthStore } from "../connectors/mcp-oauth-store";
+import type { LanguageService } from "../settings/language-service";
+import { MCP_OAUTH_REDIRECT_URL } from "../windows/deep-link-router";
+import { showMainWindow } from "../windows/main-window";
 import type { ApplicationServiceContext } from "./application-service-types";
 import { TEARDOWN_ORDER } from "./teardown-order";
 

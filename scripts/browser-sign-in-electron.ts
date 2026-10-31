@@ -7,7 +7,7 @@ import { redactText } from "@robot/logging";
 import { app, BrowserWindow, session, type WebContents, webContents } from "electron";
 import { BrowserHost } from "../src/backend/browser-host";
 import { runCauseEffect } from "../src/backend/effect-boundary";
-import { LocalSignInWindows } from "../src/main/local-sign-in-window";
+import { LocalSignInWindows } from "../src/main/browser/local-sign-in-window";
 
 /** Electron reports the OS sandbox of a process on macOS and Windows only. */
 function assertSandboxed(contents: WebContents, name: string): void {

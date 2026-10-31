@@ -24,7 +24,7 @@ import { TEAM_API_ROUTES } from "@robot/contracts/team-api-routes";
 import { sourceText } from "@robot/i18n/source";
 import { Deferred, Effect } from "effect";
 import { runCauseEffect } from "../../backend/effect-boundary";
-import { remoteCall } from "../remote-service-effects";
+import { remoteCall } from "../remote-servers/remote-service-effects";
 import type { TeamApiAgents, TeamApiMailbox } from "./dependencies";
 import { HttpError } from "./http-error";
 import type { RouteOutcome, TeamApiRequestContext } from "./request-context";

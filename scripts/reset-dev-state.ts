@@ -4,7 +4,7 @@ import { dirname, parse, resolve } from "node:path";
 import { pathToFileURL } from "node:url";
 import { createOpenOwnBotLogger, toLogValue } from "@robot/logging";
 import { isMissingFileError } from "../src/backend/file-errors";
-import { type DevelopmentProfile, developmentUserDataName } from "../src/main/development-profile";
+import { type DevelopmentProfile, developmentUserDataName } from "../src/main/platform/development-profile";
 import { resolveDevelopmentAppDataRoot } from "./development-state-paths";
 import { readScriptArguments } from "./script-arguments";
 import { cleanupSeedOwnedTransfers, isDevelopmentProfileActive } from "./seed-dev-state";

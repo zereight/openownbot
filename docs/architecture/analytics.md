@@ -52,7 +52,7 @@ The invitation-page funnel is separate: `join_page_action` with `action=view` fo
 
 ## Resource sampling
 
-`ResourceMonitor` (`src/main/resource-monitor.ts`) samples once a minute while the computer is awake.
+`ResourceMonitor` (`src/main/platform/resource-monitor.ts`) samples once a minute while the computer is awake.
 It reads `app.getAppMetrics()` for the Electron processes and groups them by type: the utility process
 `name` separates the database and voice hosts, and `BrowserHost.tabProcessIds()` separates browser
 tabs from windows. On macOS and Linux one `ps` call lists all processes. The descendants of the main

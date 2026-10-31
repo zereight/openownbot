@@ -11,7 +11,7 @@ import { WorkflowRunStore } from "../../backend/workflows/workflow-run-store";
 import { WorkflowStore } from "../../backend/workflows/workflow-store";
 import { workflowScheduleDueAt } from "../../backend/workflows/workflow-triggers";
 import { createWorkflows } from "../../backend/workflows/workflows";
-import type { ServerTimezonePreferenceStore } from "../server-timezone-preference-store";
+import type { ServerTimezonePreferenceStore } from "../host/server-timezone-preference-store";
 import type { ApplicationServiceContext } from "./application-service-types";
 import { TEARDOWN_ORDER } from "./teardown-order";
 

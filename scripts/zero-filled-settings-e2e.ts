@@ -13,9 +13,9 @@ import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import { writeJsonFileAtomically } from "../src/backend/atomic-json-file";
 import { runCauseEffect } from "../src/backend/effect-boundary";
-import { RemoteServerStore } from "../src/main/remote-server-store";
-import { emptyStoredRemoteServers } from "../src/main/remote-server-stored-shape";
-import { TeamStore } from "../src/main/team-store";
+import { RemoteServerStore } from "../src/main/remote-servers/remote-server-store";
+import { emptyStoredRemoteServers } from "../src/main/remote-servers/remote-server-stored-shape";
+import { TeamStore } from "../src/main/team/team-store";
 
 const ROOT = resolve(import.meta.dirname, "..");
 const OUT = join(ROOT, ".openownbot-build", "zero-filled-settings-e2e");

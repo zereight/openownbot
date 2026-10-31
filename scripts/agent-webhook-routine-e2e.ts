@@ -41,7 +41,7 @@ const { AgentStore } = await import("../src/backend/agent-store");
 const { runCauseEffect } = await import("../src/backend/effect-boundary");
 const { MailboxStore } = await import("../src/backend/mailbox-store");
 const { OpenOwnBotDatabase } = await import("../src/backend/openownbot-database");
-const { agentWebhookRoutineWriter, HostEventsService } = await import("../src/main/host-events-service");
+const { agentWebhookRoutineWriter, HostEventsService } = await import("../src/main/events/host-events-service");
 
 const RELAY_ORIGIN = "https://signal.example.test";
 const CALL_MARK = "WEBHOOK-CALL";

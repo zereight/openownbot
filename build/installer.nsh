@@ -144,7 +144,7 @@
 ; After the new copy is installed, delete the earlier app from the folder with user data. Only the
 ; files and folders that a ROBot installation has are deleted, so the agent folders stay. A file
 ; that Windows still holds stays too; it does not stop the update. The login item names the
-; executable (`src/main/login-item.ts`), and Electron calls it by the AppUserModelId: point it at
+; executable (`src/main/windows/login-item.ts`), and Electron calls it by the AppUserModelId: point it at
 ; the new copy, or ROBot no longer opens at sign-in.
 !macro openOwnBotRemoveAppFromDataFolder
   ${if} $openOwnBotDataFolderInstall != ""

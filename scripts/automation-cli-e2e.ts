@@ -18,7 +18,7 @@ import {
 import { ContextResetBusyError } from "@robot/contracts/team-protocol/context-reset-v1";
 import { Effect } from "effect";
 import { AgentSettingsRefused } from "../src/backend/agent/agent-settings-refused";
-import { AutomationServer, type UpdatedAgent } from "../src/main/automation-server";
+import { AutomationServer, type UpdatedAgent } from "../src/main/agents/automation-server";
 
 const OUT = resolve(import.meta.dirname, "../.openownbot-build/automation-cli-e2e");
 const CLI = resolve(import.meta.dirname, "../resources/cli/openownbot-cli.mjs");

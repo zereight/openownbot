@@ -14,8 +14,8 @@ import type {
 import { sourceText } from "@robot/i18n/source";
 import type { AgentService } from "../../backend/agent-service";
 import { runCauseEffect } from "../../backend/effect-boundary";
-import type { VoiceSpeechService } from "../voice-speech-service";
-import type { VoiceTranscriptionService } from "../voice-transcription-service";
+import type { VoiceSpeechService } from "../voice/voice-speech-service";
+import type { VoiceTranscriptionService } from "../voice/voice-transcription-service";
 import { handler, type IpcGroupHandlers, payloadHandler } from "./define-ipc-group";
 import {
   parseSpeechInput,

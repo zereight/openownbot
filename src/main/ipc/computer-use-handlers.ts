@@ -2,9 +2,9 @@
 
 import { createOpenOwnBotLogger, toLogValue } from "@robot/logging";
 import { runCauseEffect } from "../../backend/effect-boundary";
-import type { ComputerUsePermissionHelpWindowController } from "../computer-use-permission-help-window";
-import type { CuaDriverRuntime } from "../cua-driver-runtime";
-import { MAC_PERMISSION_URLS } from "../mac-permission-urls";
+import type { ComputerUsePermissionHelpWindowController } from "../computer-use/computer-use-permission-help-window";
+import type { CuaDriverRuntime } from "../computer-use/cua-driver-runtime";
+import { MAC_PERMISSION_URLS } from "../computer-use/mac-permission-urls";
 import { parseMacPermission } from "./app-inputs";
 import { eventHandler, handler, type IpcGroupHandlers, payloadHandler } from "./define-ipc-group";
 

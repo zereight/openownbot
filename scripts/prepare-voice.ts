@@ -4,7 +4,7 @@ import { copyFileSync, createReadStream, existsSync, readFileSync, writeFileSync
 import { mkdir, mkdtemp, readdir, readFile, rename, rm, stat, writeFile } from "node:fs/promises";
 import { join, resolve } from "node:path";
 import { createOpenOwnBotLogger } from "@robot/logging";
-import { PARAKEET_MODEL_FILES, VOICE_RUNTIME_ADDON } from "../src/main/voice-model-service";
+import { PARAKEET_MODEL_FILES, VOICE_RUNTIME_ADDON } from "../src/main/voice/voice-model-service";
 import { elfSearchPaths, ORIGIN_SEARCH_PATH } from "./elf-search-paths";
 
 const logger = createOpenOwnBotLogger("prepare-voice");

@@ -1,5 +1,5 @@
 import type { HostManagerConfig, HostTenantStatus, HostUpdateState } from "../packages/contracts/src/host-manager";
-import { HOST_HEARTBEAT_TIMEOUT_MS, HOST_IDLE_GRACE_MS } from "../src/main/host-update-files";
+import { HOST_HEARTBEAT_TIMEOUT_MS, HOST_IDLE_GRACE_MS } from "../src/main/updates/host-update-files";
 
 export interface HostTenant {
   name: string;

@@ -1,7 +1,7 @@
 // The agent marketplace: browsing, submitting and installing a published agent.
 
 import { runCauseEffect } from "../../backend/effect-boundary";
-import type { AgentMarketplaceService } from "../agent-marketplace-service";
+import type { AgentMarketplaceService } from "../agents/agent-marketplace-service";
 import { parseInstallMarketplaceAgent, parseMarketplaceAgentQuery, parseSubmitMarketplaceAgent } from "./app-inputs";
 import { handler, type IpcGroupHandlers, payloadHandler } from "./define-ipc-group";
 import { nullishPayload, stringPayload } from "./validation";

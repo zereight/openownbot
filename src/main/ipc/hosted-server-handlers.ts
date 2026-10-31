@@ -9,7 +9,7 @@ import {
 } from "@robot/contracts/hosted-servers";
 import { INPUT_LIMITS } from "@robot/contracts/input-limits";
 import { runCauseEffect } from "../../backend/effect-boundary";
-import type { HostedServerDesktopService } from "../hosted-server-service";
+import type { HostedServerDesktopService } from "../host/hosted-server-service";
 import { handler, type IpcGroupHandlers, payloadHandler } from "./define-ipc-group";
 import { requireString } from "./validation";
 

@@ -157,7 +157,7 @@ win:
 # The assisted installer lets the user choose the disk and folder. `build/installer.nsh` keeps it
 # per-user and moves the install into a `ROBot` subfolder when the chosen folder holds other
 # files, because the uninstaller deletes the whole folder. An update reads the folder from
-# `InstallLocation`. The app starts it silently (`src/main/update-service.ts`), so an update shows
+# `InstallLocation`. The app starts it silently (`src/main/updates/update-service.ts`), so an update shows
 # no page.
 nsis:
   oneClick: false

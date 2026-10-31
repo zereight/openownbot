@@ -26,7 +26,7 @@ export const WAKE_RECONNECT_STATES: ReadonlySet<HostedServerState> = new Set([
 /**
  * How long a client waits for the host of a `running` server to connect. The account server sees only the
  * machine, not OpenOwnBot on it, and the host retries its own sign-in for longer than 5 minutes
- * (`src/main/hosted-server-start-retry.ts`). A machine that still starts has no limit.
+ * (`src/main/host/hosted-server-start-retry.ts`). A machine that still starts has no limit.
  */
 export const HOSTED_HOST_READY_LIMIT_MS = 15 * 60_000;
 /** While a hosted server starts, the client reads its state this often, to show the step. */

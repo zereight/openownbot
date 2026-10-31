@@ -10,7 +10,7 @@ import { join, resolve } from "node:path";
 import type { McpTestResult, SignInRelayStatus } from "@robot/contracts/ipc";
 import { sourceText, translateFor } from "@robot/i18n";
 import { Deferred, Effect } from "effect";
-import { SignInRelayClient, type SignInRelayRemote } from "../src/main/sign-in-relay-client";
+import { SignInRelayClient, type SignInRelayRemote } from "../src/main/account/sign-in-relay-client";
 
 const OUT = resolve(import.meta.dirname, "../.openownbot-build/sign-in-relay-paste-e2e");
 

@@ -35,7 +35,7 @@ runs do not change.
 - `webhook-trigger.ts` has trigger validation, filter matching, the run instruction, and template
   filling.
 - Main owns the secret cipher, signature checks, and the relay: `HostEventsService`
-  (`src/main/host-events-service.ts`), `WebhookRelay`, `HostEventsRuntime`, and `webhook-security.ts`.
+  (`src/main/events/host-events-service.ts`), `WebhookRelay`, `HostEventsRuntime`, and `webhook-security.ts`.
 
 ## Route lifecycle
 

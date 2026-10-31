@@ -78,8 +78,8 @@ plugin({
   },
 });
 
-const { TeamApiServer } = await import("../src/main/team-api-server");
-const { TeamStore } = await import("../src/main/team-store");
+const { TeamApiServer } = await import("../src/main/team-api/team-api-server");
+const { TeamStore } = await import("../src/main/team/team-store");
 
 interface Step {
   name: string;

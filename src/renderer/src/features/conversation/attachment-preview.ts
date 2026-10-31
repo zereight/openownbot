@@ -19,7 +19,7 @@ const LOCAL_ATTACHMENT_URL = /^robot-attachment:/u;
  * Builds the file preview panel's `FilePreview` from an attachment record. `AttachmentSummary`
  * keeps a narrow `previewKind`, because the released Team API v1-v4 validators accept only image,
  * pdf, text, and none. The panel kind is derived from the name and MIME type instead, the same way
- * `src/main/file-preview.ts` derives it for a file on disk.
+ * `src/main/windows/file-preview.ts` derives it for a file on disk.
  *
  * An image, PDF, or media file keeps `bytes: null`: the panel points at `previewUrl` for those, so
  * a 100 MB video is never copied into the renderer to be shown.

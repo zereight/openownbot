@@ -1,12 +1,12 @@
 import { createOpenOwnBotLogger } from "@robot/logging";
 import { Effect } from "effect";
-import type { readInstallationMode } from "../host-release-service";
+import type { readInstallationMode } from "../updates/host-release-service";
 import {
   CONTAINER_UPDATE_PATHS,
   CONTAINER_UPDATE_TRIGGER,
   HOSTED_UPDATE_TRIGGER,
   HostedUpdateAdapter,
-} from "../hosted-update-adapter";
+} from "../updates/hosted-update-adapter";
 
 /**
  * The composition root. Every long-lived service the desktop app owns is built here, in one
@@ -34,7 +34,7 @@ import { homedir } from "node:os";
 import { join } from "node:path";
 import { LOCAL_ONLY } from "@robot/contracts/local-only";
 import { app } from "electron";
-import type { readUpdatePreference } from "../update-preference-store";
+import type { readUpdatePreference } from "../updates/update-preference-store";
 import {
   createDisabledUpdateAdapter,
   isNixStoreInstall,
@@ -42,8 +42,8 @@ import {
   supportsInstalledUpdates,
   type UpdateAdapter,
   UpdateService,
-} from "../update-service";
-import { listSiblingOpenOwnBotInstances } from "../update-sibling-instances";
+} from "../updates/update-service";
+import { listSiblingOpenOwnBotInstances } from "../updates/update-sibling-instances";
 import type { ApplicationServiceContext } from "./application-service-types";
 import { electronUpdaterCacheRoot } from "./platform";
 import { TEARDOWN_ORDER } from "./teardown-order";

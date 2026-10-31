@@ -240,7 +240,7 @@ links `/usr/local/bin/openownbot`.
 
 With `mode` set to `self`, `openownbot-hosted-server` does not wait for a claim or for a boat desktop.
 It starts a D-Bus session with an unlocked keyring, as on a hosted server, and runs ROBot under
-Xvfb with `OPENOWNBOT_SERVER=1`. Main (`src/main/server-mode.ts`) then opens the control socket
+Xvfb with `OPENOWNBOT_SERVER=1`. Main (`src/main/host/server-mode.ts`) then opens the control socket
 `/run/openownbot/control.sock` and publishes the host after each sign-in.
 
 The server has two Xvfb displays, one in each of two nested `xvfb-run` commands that share one

@@ -2,7 +2,7 @@
 //
 // - `resources/agent-runtime/cpu-limit.cjs` makes os.cpus() follow the CPU limit of a container, for
 //   CommonJS and for ESM imports, in a real Node 24 container with `--cpus 2`.
-// - `ServerMemory` from src/main/server-memory.ts runs as "main" in a Bun container with a 1 GiB
+// - `ServerMemory` from src/main/host/server-memory.ts runs as "main" in a Bun container with a 1 GiB
 //   memory limit and no swap, behind docker-init as PID 1, as ROBot runs behind tini. It must give
 //   marked agent processes nice 10 and an OOM value of 500, also after they leave its tree; leave an
 //   unmarked orphan (as Xvfb is) and itself alone; and when a marked detached job fills the memory,
@@ -182,11 +182,11 @@ async function until<A>(label: string, read: () => Promise<A | null>, timeoutMs 
   }
 }
 
-let serverMemoryModule: typeof import("../src/main/server-memory");
+let serverMemoryModule: typeof import("../src/main/host/server-memory");
 
 async function inside(): Promise<void> {
-  serverMemoryModule = await import("../src/main/server-memory");
-  const stopped: import("../src/main/server-memory").StoppedAgentProcess[] = [];
+  serverMemoryModule = await import("../src/main/host/server-memory");
+  const stopped: import("../src/main/host/server-memory").StoppedAgentProcess[] = [];
   const memory = new serverMemoryModule.ServerMemory({
     hostedPlan: false,
     onError: (message) => process.stderr.write(`${message}\n`),

@@ -7,7 +7,7 @@ import {
 } from "@robot/contracts/ipc";
 import { sourceText } from "@robot/i18n/source";
 import { runCauseEffect } from "../../backend/effect-boundary";
-import type { AgentTemplateService } from "../agent-template-service";
+import type { AgentTemplateService } from "../agents/agent-template-service";
 import { handler, type IpcGroupHandlers, payloadHandler } from "./define-ipc-group";
 import { isObject, requireString, stringPayload } from "./validation";
 

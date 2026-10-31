@@ -2,7 +2,7 @@ import { PROVIDERS_V5_CAPABILITY, PROVIDERS_V5_ROUTES } from "@robot/contracts/t
 import { PROVIDERS_V8_CAPABILITY, PROVIDERS_V8_ROUTES } from "@robot/contracts/team-protocol/providers-v8";
 import { Cause, Effect, Exit, Fiber } from "effect";
 import type { ProviderOperations } from "../../backend/agent/provider-runtime";
-import type { RemoteWorkflowError } from "../remote-service-effects";
+import type { RemoteWorkflowError } from "../remote-servers/remote-service-effects";
 // The providers of one server's host: code sign-in, API keys, managed CLI runtimes and custom
 // endpoints. On a joined server they belong to the host, so the request goes there, and the host
 // answers only an owner or admin. A key only travels towards the host; no result carries one.
@@ -67,18 +67,18 @@ import { AgentLifecycleFailed } from "../../backend/agent/agent-lifecycle-failed
 import { normalizePastedCode } from "../../backend/agent/cli-code-login";
 import type { AgentService } from "../../backend/agent-service";
 import { runCauseEffect } from "../../backend/effect-boundary";
-import type { PeerCustomProviderChanges } from "../custom-provider-changes";
-import type { ProviderCredentialStore } from "../provider-credential-store";
-import type { ProviderRuntimeManager } from "../provider-runtime-manager";
+import { type SignInRelayClient, signInRelayRemote } from "../account/sign-in-relay-client";
+import type { PeerCustomProviderChanges } from "../providers/custom-provider-changes";
+import type { ProviderCredentialStore } from "../providers/provider-credential-store";
+import type { ProviderRuntimeManager } from "../providers/provider-runtime-manager";
 import {
   decodeAgentStatusFromHost,
   decodeHostProviderAccountsFromHost,
   decodeProviderUsageResetOutcomeFromHost,
   decodeProviderUsageResetsFromHost,
-} from "../remote-agent-decoding";
-import { acceptEmpty, type ResponseDecoder } from "../remote-host-decoding";
-import type { RemoteRequestInit } from "../remote-server-client";
-import { type SignInRelayClient, signInRelayRemote } from "../sign-in-relay-client";
+} from "../remote-servers/remote-agent-decoding";
+import { acceptEmpty, type ResponseDecoder } from "../remote-servers/remote-host-decoding";
+import type { RemoteRequestInit } from "../remote-servers/remote-server-client";
 import { parseProviderId } from "./app-inputs";
 import { parseDeleteCustomProvider, parseSaveCustomProvider } from "./custom-provider-inputs";
 import type { IpcGroupHandlers } from "./define-ipc-group";

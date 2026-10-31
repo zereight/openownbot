@@ -64,7 +64,7 @@ body:has(.browser-full-view) .app-frame {
 
 /*
  * On macOS the window is `titleBarStyle: "hidden"` and the traffic lights are drawn over the view.
- * `trafficLightPosition: { x: 12, y: 13 }` (`src/main/main-window.ts`) puts the group at x 12..71, so
+ * `trafficLightPosition: { x: 12, y: 13 }` (`src/main/windows/main-window.ts`) puts the group at x 12..71, so
  * the first control starts at x 82, where the top row of the app frame starts beside those dots.
  */
 .browser-full-view-mac-controls .browser-full-top {

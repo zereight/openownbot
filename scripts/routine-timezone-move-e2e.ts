@@ -23,7 +23,7 @@ import { runCauseEffect } from "../src/backend/effect-boundary";
 import { MailboxStore } from "../src/backend/mailbox-store";
 import { OpenOwnBotDatabase } from "../src/backend/openownbot-database";
 import { RoutineTimer } from "../src/backend/routine-timer";
-import { parseSaveEventRoutine } from "../src/main/host-events-inputs";
+import { parseSaveEventRoutine } from "../src/main/events/host-events-inputs";
 
 const ROOT = resolve(import.meta.dirname, "..");
 const OUT = join(ROOT, ".openownbot-build", "routine-timezone-move-e2e");

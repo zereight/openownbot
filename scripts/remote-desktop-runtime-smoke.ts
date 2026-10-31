@@ -5,8 +5,8 @@ import { join, resolve } from "node:path";
 import { createOpenOwnBotLogger } from "@robot/logging";
 import { Effect } from "effect";
 import { runCauseEffect } from "../src/backend/effect-boundary";
-import { resolveRemoteDesktopRuntime } from "../src/main/remote-desktop-runtime-artifact";
-import { SunshineMoonlightRuntime } from "../src/main/sunshine-moonlight-runtime";
+import { resolveRemoteDesktopRuntime } from "../src/main/remote-desktop/remote-desktop-runtime-artifact";
+import { SunshineMoonlightRuntime } from "../src/main/remote-desktop/sunshine-moonlight-runtime";
 
 const logger = createOpenOwnBotLogger("remote-desktop-runtime-smoke");
 

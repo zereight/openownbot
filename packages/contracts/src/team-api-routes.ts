@@ -1,10 +1,10 @@
 // Every Team API path the desktop builds, in one place.
 //
-// The host router in `src/main/team-api/` and the client in `src/main/remote-server-client.ts`
+// The host router in `src/main/team-api/` and the client in `src/main/remote-servers/remote-server-client.ts`
 // are two hand-written halves of one HTTP surface, and until this table every path was a bare string
 // literal on both of them - plus a third copy in the IPC handlers that call through. Nothing linked
 // the copies, so a rename that missed one half broke every remote server silently. The IPC channel
-// version of that mistake is caught by `src/main/ipc-channel-coverage.test.ts`.
+// version of that mistake is caught by `src/main/security/ipc-channel-coverage.test.ts`.
 //
 // These are path *builders*, not a matcher, and every entry is exactly what the host compares
 // `url.pathname` against - queries stay at the call site that knows the parameters. The host does not

@@ -3,7 +3,7 @@
 
 import type { IpcMainInvokeEvent } from "electron";
 import { runCauseEffect } from "../../backend/effect-boundary";
-import { type DynamicIslandWindowController, requireDynamicIslandSender } from "../dynamic-island-window";
+import { type DynamicIslandWindowController, requireDynamicIslandSender } from "../windows/dynamic-island-window";
 import {
   parseDynamicIslandAction,
   parseDynamicIslandInteractive,

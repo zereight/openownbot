@@ -12,31 +12,31 @@ any of them before an upgrade. A renamed constant means the old file is never re
 | File | Constant | Version handling |
 | --- | --- | --- |
 | `openbot.db` | `DatabaseCore` in `src/backend/database/database-core.ts` | `schema_migrations`, gate A |
-| `openbot-setup-v2.json` | `SETUP_FILE`, `src/main/application-services.ts` | `src/main/setup-store.ts` accepts only `version === 2`, silent default otherwise |
-| `openbot-analytics-preference-v1.json` | `ANALYTICS_PREFERENCE_FILE`, `src/main/application-services.ts` | `src/main/analytics-preference-store.ts` |
-| `openbot-update-preference-v1.json` | `UPDATE_PREFERENCE_FILE`, `src/main/application-services.ts` | `src/main/update-preference-store.ts` |
-| `openbot-dynamic-island-preference-v1.json` | `DYNAMIC_ISLAND_PREFERENCE_FILE`, `src/main/application-services.ts` | `src/main/dynamic-island-preference-store.ts` reads `version` 1 and 2 forward into 3 |
-| `openbot-main-window-state-v1.json` | `MAIN_WINDOW_STATE_FILE`, `src/main/index.ts` | `src/main/main-window-state.ts` accepts only `version === 1` |
-| `openbot-browser-state-v1.json` | `BROWSER_STATE_FILE`, `src/main/application-services.ts` | `readBrowserState` in `src/backend/browser-state.ts` reads `version` 1 and 2 forward into 2 |
-| `openbot-sidebar-layout-v1.json` | `SIDEBAR_LAYOUT_FILE`, `src/main/application-services.ts` | `src/backend/sidebar-layout-store.ts` |
-| `openbot-team-server-v1.json` | `TEAM_FILE`, `src/main/application-services.ts` | frozen as the last pre-accounts build left it |
-| `openbot-team-server-v2.json` | `TEAM_FILE_V2`, `src/main/application-services.ts` | `src/main/team-store.ts`; both files coexist so a downgrade still finds its host |
-| `openbot-remote-servers-v1.json` | `REMOTE_SERVERS_FILE`, `src/main/application-services.ts` | `src/main/remote-server-stored-shape.ts` reads v1/v2 as v3, preserves unreadable entries, refuses unknown versions |
-| `openbot-central-auth-v1.bin` | `CENTRAL_AUTH_FILE`, `src/main/application-services.ts` | `safeStorage`-encrypted; `src/main/central-auth-manager.ts` **throws** on anything but `version === 2` and `#initialize` catches that into `#clearStoredSession()`, so a bad shape signs the user out; undecryptable if `appId` or the signing identity changes |
-| `openbot-remote-desktop-credential-v1.json` | `LEGACY_REMOTE_DESKTOP_CREDENTIAL_FILE`, `src/main/application-services.ts` | legacy, still read |
-| `openbot-remote-desktop-runtime-v1.json` | `REMOTE_DESKTOP_RUNTIME_SECRET_FILE`, `src/main/application-services.ts` | `safeStorage`-encrypted; `src/main/remote-desktop-secret-store.ts` accepts only `version: 1` |
-| `remote/connection-<stack pid>.json` in the dev runtime directory | `developmentRemoteConnectionPath`, `src/main/development-runtime-directory.ts` | development only |
+| `openbot-setup-v2.json` | `SETUP_FILE`, `src/main/startup/application-services.ts` | `src/main/settings/setup-store.ts` accepts only `version === 2`, silent default otherwise |
+| `openbot-analytics-preference-v1.json` | `ANALYTICS_PREFERENCE_FILE`, `src/main/startup/application-services.ts` | `src/main/analytics-preference-store.ts` |
+| `openbot-update-preference-v1.json` | `UPDATE_PREFERENCE_FILE`, `src/main/startup/application-services.ts` | `src/main/updates/update-preference-store.ts` |
+| `openbot-dynamic-island-preference-v1.json` | `DYNAMIC_ISLAND_PREFERENCE_FILE`, `src/main/startup/application-services.ts` | `src/main/settings/dynamic-island-preference-store.ts` reads `version` 1 and 2 forward into 3 |
+| `openbot-main-window-state-v1.json` | `MAIN_WINDOW_STATE_FILE`, `src/main/index.ts` | `src/main/windows/main-window-state.ts` accepts only `version === 1` |
+| `openbot-browser-state-v1.json` | `BROWSER_STATE_FILE`, `src/main/startup/application-services.ts` | `readBrowserState` in `src/backend/browser-state.ts` reads `version` 1 and 2 forward into 2 |
+| `openbot-sidebar-layout-v1.json` | `SIDEBAR_LAYOUT_FILE`, `src/main/startup/application-services.ts` | `src/backend/sidebar-layout-store.ts` |
+| `openbot-team-server-v1.json` | `TEAM_FILE`, `src/main/startup/application-services.ts` | frozen as the last pre-accounts build left it |
+| `openbot-team-server-v2.json` | `TEAM_FILE_V2`, `src/main/startup/application-services.ts` | `src/main/team/team-store.ts`; both files coexist so a downgrade still finds its host |
+| `openbot-remote-servers-v1.json` | `REMOTE_SERVERS_FILE`, `src/main/startup/application-services.ts` | `src/main/remote-servers/remote-server-stored-shape.ts` reads v1/v2 as v3, preserves unreadable entries, refuses unknown versions |
+| `openbot-central-auth-v1.bin` | `CENTRAL_AUTH_FILE`, `src/main/startup/application-services.ts` | `safeStorage`-encrypted; `src/main/account/central-auth-manager.ts` **throws** on anything but `version === 2` and `#initialize` catches that into `#clearStoredSession()`, so a bad shape signs the user out; undecryptable if `appId` or the signing identity changes |
+| `openbot-remote-desktop-credential-v1.json` | `LEGACY_REMOTE_DESKTOP_CREDENTIAL_FILE`, `src/main/startup/application-services.ts` | legacy, still read |
+| `openbot-remote-desktop-runtime-v1.json` | `REMOTE_DESKTOP_RUNTIME_SECRET_FILE`, `src/main/startup/application-services.ts` | `safeStorage`-encrypted; `src/main/remote-desktop/remote-desktop-secret-store.ts` accepts only `version: 1` |
+| `remote/connection-<stack pid>.json` in the dev runtime directory | `developmentRemoteConnectionPath`, `src/main/platform/development-runtime-directory.ts` | development only |
 | `bots.json` | `LEGACY_AGENTS_STATE_FILE`, `src/backend/agent-store.ts` | permanent name; imported once under command id `legacy-import:bots:v1` |
 | `mailbox.json` | `src/backend/mailbox-store.ts` | permanent name |
-| `sunshine-credentials.json`, `sunshine-state.json`, `sunshine-apps.json`, `moonlight-config.json`, `moonlight-data.json` | `src/main/sunshine-moonlight-runtime.ts` | written by the vendored runtimes, not by OpenOwnBot |
+| `sunshine-credentials.json`, `sunshine-state.json`, `sunshine-apps.json`, `moonlight-config.json`, `moonlight-data.json` | `src/main/remote-desktop/sunshine-moonlight-runtime.ts` | written by the vendored runtimes, not by OpenOwnBot |
 | `avatars/agents/`, `agent-duplications/` | `src/backend/agent-store.ts` | directories under `userData` |
 | `legacy-backup-v1/` | `DatabaseCore.backupLegacyFile` | one copy per named legacy file, `COPYFILE_EXCL`; **not** a general backup |
 
-`openbot-data.json` in `src/main/maintenance-service.ts` is the user-initiated export manifest, not
+`openbot-data.json` in `src/main/host/maintenance-service.ts` is the user-initiated export manifest, not
 persisted state.
 
 One versioned file lives outside `userData`: `.openownbot/skills-lock.json` under each agent workspace,
-written by `src/main/skill-marketplace-service.ts`, which accepts only `version === 1`. It records
+written by `src/main/skills/skill-marketplace-service.ts`, which accepts only `version === 1`. It records
 the marketplace skills installed into that workspace and is unrelated to the repository's own
 `.agents/skills/`.
 
@@ -154,7 +154,7 @@ untouched — they already spell the agent `agent` on both sides.
 | `src/preload/index.ts` | the `invoke` calls the renderer reaches |
 | `src/renderer/src/preview/mock-openownbot.ts` | the second implementation Storybook and the preview run against |
 
-`src/main/ipc-channel-coverage.test.ts` links main and preload statically. The mock is covered by
+`src/main/security/ipc-channel-coverage.test.ts` links main and preload statically. The mock is covered by
 `tsc` in both directions because it is annotated `: OpenOwnBotDesktopApi`.
 
 ## Account Worker
@@ -180,6 +180,6 @@ deploy-race reasoning in gate E only holds while *both* keep that order.
 | Path | Fields that matter |
 | --- | --- |
 | `electron-builder.yml` | `appId` (`app.robot.desktop`), `artifactName`, `electronUpdaterCompatibility`, `publish` owner/repo, `mac.extendInfo.ElectronTeamID` (`ZTRDTUL87R`), `extraResources` |
-| `src/main/update-service.ts` | the four `UpdateAdapter` behaviours, documented on the type |
+| `src/main/updates/update-service.ts` | the four `UpdateAdapter` behaviours, documented on the type |
 | `scripts/verify-update-artifacts.ts` | 700 MiB update artifact, 750 MiB DMG, manifest, blockmap, no voice model |
 | `.github/workflows/release.yml` | macOS ZIP must be under 800,000,000 bytes **and** smaller than the `v0.1.21` ZIP |

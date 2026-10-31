@@ -364,7 +364,7 @@ export interface ProviderClientContext {
   /**
    * Variables that every provider process gets on a server, and so every program an agent starts: the
    * marker that the server memory guard finds leftover processes by, and the CPU limit module for Node
-   * (`agentProcessEnvironment` in `src/main/server-memory.ts`). Fixed while the app runs. They are not
+   * (`agentProcessEnvironment` in `src/main/host/server-memory.ts`). Fixed while the app runs. They are not
    * part of `agentEnvironment`: Codex gets that in each thread configuration and replaces a session
    * whose variables change, so Codex gets these in the spawn environment of its app-server instead.
    */

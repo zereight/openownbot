@@ -3,7 +3,7 @@
 import type { DecisionModelState, DecisionModelTestResult } from "@robot/contracts/ipc";
 import { DECISION_TIMEOUT_MS, type DecisionMember, decideMember } from "../../backend/channel-decision";
 import { runCauseEffect } from "../../backend/effect-boundary";
-import type { DecisionModelStore } from "../decision-model-store";
+import type { DecisionModelStore } from "../agents/decision-model-store";
 import { parseSaveDecisionModel } from "./decision-model-inputs";
 import { handler, type IpcGroupHandlers, payloadHandler } from "./define-ipc-group";
 

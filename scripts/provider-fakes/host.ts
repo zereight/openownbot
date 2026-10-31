@@ -5,7 +5,7 @@ import { dirname, resolve } from "node:path";
 import type { AgentClient } from "../../src/backend/agent-client";
 import { runCauseEffect } from "../../src/backend/effect-boundary";
 import { type AppServerNotification, getRecord, getString, isRecord } from "../../src/backend/protocol";
-import type { CustomProviderCipher } from "../../src/main/custom-provider-store";
+import type { CustomProviderCipher } from "../../src/main/providers/custom-provider-store";
 
 /**
  * Writes an executable that starts `agents/<agent>.ts` with the Bun that runs the test. `env` is set

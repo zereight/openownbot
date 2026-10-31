@@ -5,7 +5,7 @@ import {
   type LiveActivityPushRegistration,
 } from "@robot/contracts/team-protocol/live-activity-push-v1";
 import { sourceText } from "@robot/i18n/source";
-import type { LiveActivityPushService } from "../live-activity-push";
+import type { LiveActivityPushService } from "../team/live-activity-push";
 import { HttpError } from "./http-error";
 import type { RouteOutcome, TeamApiRequestContext } from "./request-context";
 import { markerExclusionsForCapabilities, readJson } from "./request-helpers";

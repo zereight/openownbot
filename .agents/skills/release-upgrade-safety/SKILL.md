@@ -100,7 +100,7 @@ a gate can be selected without opening anything:
 - **A. SQLite schema** → [gate-a-sqlite.md](references/gate-a-sqlite.md)
   `src/backend/openownbot-database-schema.ts`, `src/backend/database/`.
 - **B. On-disk state outside SQLite** → [gate-b-on-disk-state.md](references/gate-b-on-disk-state.md)
-  `src/main/index.ts`, `src/backend/workspace-paths.ts`, `src/main/sunshine-moonlight-runtime.ts`,
+  `src/main/index.ts`, `src/backend/workspace-paths.ts`, `src/main/remote-desktop/sunshine-moonlight-runtime.ts`,
   `electron-builder.yml`, **any file that decodes a versioned payload**, and **any file that reads
   or writes a client-side store or its keys** — `localStorage` under `src/renderer/src/**`,
   `SecureStore` and `AsyncStorage` under `apps/mobile/src/**`, and `packages/team-client/src/**`.
@@ -119,7 +119,7 @@ a gate can be selected without opening anything:
   four files that decide deploy order: `.github/workflows/ci.yml`, `scripts/deploy-auth-api.ts`,
   `apps/auth-api/package.json`, `apps/auth-api/wrangler.jsonc`.
 - **F. The updater itself** → [gate-f-updater.md](references/gate-f-updater.md)
-  `electron-builder.yml`, `src/main/update-service.ts`, `package.json` (including its dependencies),
+  `electron-builder.yml`, `src/main/updates/update-service.ts`, `package.json` (including its dependencies),
   and the two files that enforce the gate at release time: `scripts/verify-update-artifacts.ts` and
   `.github/workflows/release.yml`. Weakening a size limit or a manifest check lives only in those
   two, so omitting them makes the weakening read as "not triggered".

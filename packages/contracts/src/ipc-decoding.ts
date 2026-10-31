@@ -2,7 +2,7 @@
 //
 // `src/preload/index.ts` decodes what the main process sends the renderer; the
 // `src/main/remote-*-decoding.ts` family decodes what a remote team server sends this machine;
-// `src/main/central-auth-manager.ts` decodes what the account API answers; `src/backend/protocol.ts`
+// `src/main/account/central-auth-manager.ts` decodes what the account API answers; `src/backend/protocol.ts`
 // decodes what a provider CLI writes to its own stdout; `remote-control-plane.ts` beside this file
 // decodes the account API's `/v2/remote/*` shapes. Each had a hand-written copy of the same readers,
 // with identical logic and identical messages, and each was the kind of function whose second copy

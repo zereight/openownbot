@@ -18,7 +18,7 @@ import {
 } from "@robot/team-client/live-activity-seal";
 import { Effect } from "effect";
 import { openSealedLiveActivity } from "../apps/mobile/src/features/live-activity/model/live-activity-open";
-import { LiveActivityPushService } from "../src/main/live-activity-push";
+import { LiveActivityPushService } from "../src/main/team/live-activity-push";
 
 const ROOT = resolve(import.meta.dirname, "..");
 const DEADLINE_MS = 10_000;
@@ -34,7 +34,7 @@ const CASES = [
 ];
 const SOURCES = [
   "scripts/live-activity-inline-fence-e2e.ts",
-  "src/main/live-activity-push.ts",
+  "src/main/team/live-activity-push.ts",
   "packages/team-client/src/dynamic-island-coordinator.ts",
   "packages/team-client/src/dynamic-island-presentation.ts",
   "packages/team-client/src/agent-message-text.ts",

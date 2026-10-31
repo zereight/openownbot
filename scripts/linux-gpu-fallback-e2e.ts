@@ -1,4 +1,4 @@
-// Runs the real Electron with the Linux GPU mode of `src/main/linux-gpu-mode.ts` (#992):
+// Runs the real Electron with the Linux GPU mode of `src/main/platform/linux-gpu-mode.ts` (#992):
 // 1. A first start uses the GPU. A crash of the real GPU process (SIGSEGV) writes `gpu-crash.json`.
 // 2. The next start uses software rendering. `OPENOWNBOT_DISABLE_GPU=0` uses the GPU again.
 // 3. A crash file from another Chromium major version does not count, and a clean quit removes the start file.
@@ -22,7 +22,7 @@ import { withoutElectronRuntimeFlags } from "./electron-spawn-env";
 const ROOT = resolve(import.meta.dirname, "..");
 const OUT = join(ROOT, ".openownbot-build", "linux-gpu-fallback-e2e");
 const STATE_TIMEOUT_MS = 30_000;
-// The file names of `src/main/linux-gpu-mode.ts`, which imports Electron and cannot load in Bun.
+// The file names of `src/main/platform/linux-gpu-mode.ts`, which imports Electron and cannot load in Bun.
 const GPU_START_FILE = "gpu-start.json";
 const GPU_CRASH_FILE = "gpu-crash.json";
 // The Electron binary itself, not the `.bin/electron` Node wrapper: the test kills the main process.

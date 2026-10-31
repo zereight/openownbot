@@ -25,7 +25,7 @@ here registers anything: `index.ts` spreads them all into `registerIpcGroups`, w
 
 Step 3 is the point. In a bridged group every step announces itself. In a hand-written group, a
 hand-written signature in step 2 compiles, so review must check that it uses `Invoke`, and a missing
-preload call is found by `src/main/ipc-channel-coverage.test.ts`, not by the types.
+preload call is found by `src/main/security/ipc-channel-coverage.test.ts`, not by the types.
 
 A group is the unit one registrar covers in full, which is why a wire prefix can span several: the
 `agent:` channels are eight groups in seven registrars, because the exhaustiveness a group buys is only

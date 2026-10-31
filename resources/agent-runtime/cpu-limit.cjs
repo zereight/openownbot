@@ -1,6 +1,6 @@
 // @ts-check
 // Loaded with `--require` in NODE_OPTIONS into every Node program that an agent starts on a server
-// (see agentProcessEnvironment in src/main/server-memory.ts). In a container or a systemd unit with
+// (see agentProcessEnvironment in src/main/host/server-memory.ts). In a container or a systemd unit with
 // a CPU limit, os.cpus() still lists every CPU of the host, and build tools such as Next.js start one
 // worker for each: 63 workers on a 64-CPU host that gives the server 8. This makes os.cpus() and
 // os.availableParallelism() count only as many CPUs as the process may use. It changes nothing when

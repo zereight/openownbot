@@ -85,7 +85,7 @@ safe to replay. Keep domain retry and recovery rules at their existing owners.
     remote-debugging CDP port and never launches a second instance, seeds, or resets the dev profile.
     Because several worktrees run dev side by side, each instance publishes its worktree, profile,
     renderer port and debugging port to a registry in the dev runtime directory
-    (`devRuntimeDirectory()` in `src/main/development-runtime-directory.ts`,
+    (`devRuntimeDirectory()` in `src/main/platform/development-runtime-directory.ts`,
     `scripts/dev-automation/instance-registry.ts`). That directory does not follow `TMPDIR`, which can
     differ from one shell to the next, so every command reads the registry the stack wrote to. The
     file in which a dev host hands its test client the connection is there too, one for each stack.

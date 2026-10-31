@@ -4,8 +4,8 @@ import { dirname, join, resolve, sep } from "node:path";
 import { promisify } from "node:util";
 import { z } from "zod";
 import { runCauseEffect } from "../src/backend/effect-boundary";
-import type { HostManagerOperations } from "../src/main/host-manager";
-import { HOST_MANAGER_DIRECTORY, verifyHostDirectory } from "../src/main/host-update-files";
+import type { HostManagerOperations } from "../src/main/host/host-manager";
+import { HOST_MANAGER_DIRECTORY, verifyHostDirectory } from "../src/main/updates/host-update-files";
 
 const exec = promisify(execFile);
 export const SHARED_APP = "/Applications/ROBot.app";

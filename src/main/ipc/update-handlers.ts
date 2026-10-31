@@ -1,10 +1,10 @@
 // The application updater, its preferences, and the restart an admin of a joined server asked for.
 
 import { runCauseEffect } from "../../backend/effect-boundary";
-import type { IdleRestart } from "../idle-restart";
-import type { RequestedUpdate } from "../requested-update";
-import { readUpdatePreference } from "../update-preference-store";
-import type { UpdateService } from "../update-service";
+import type { IdleRestart } from "../host/idle-restart";
+import type { RequestedUpdate } from "../updates/requested-update";
+import { readUpdatePreference } from "../updates/update-preference-store";
+import type { UpdateService } from "../updates/update-service";
 import { parseIdleRestartTarget, parseUpdatePreference } from "./app-inputs";
 import { handler, type IpcGroupHandlers, payloadHandler } from "./define-ipc-group";
 

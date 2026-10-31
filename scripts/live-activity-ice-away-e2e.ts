@@ -22,7 +22,7 @@ import {
 } from "@robot/team-client/live-activity-seal";
 import { Effect } from "effect";
 import { openSealedLiveActivity } from "../apps/mobile/src/features/live-activity/model/live-activity-open";
-import { LiveActivityPushService } from "../src/main/live-activity-push";
+import { LiveActivityPushService } from "../src/main/team/live-activity-push";
 
 const OUT = resolve(import.meta.dirname, "../.openownbot-build/live-activity-ice-away-e2e");
 const STEP_DEADLINE_MS = 10_000;

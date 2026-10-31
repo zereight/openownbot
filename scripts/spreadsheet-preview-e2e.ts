@@ -7,7 +7,7 @@ import { createHash } from "node:crypto";
 import { mkdirSync, readFileSync, realpathSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { createOpenOwnBotLogger } from "@robot/logging";
-import { developmentUserDataName, readDevelopmentInstanceId } from "../src/main/development-profile";
+import { developmentUserDataName, readDevelopmentInstanceId } from "../src/main/platform/development-profile";
 import { type AutomationSession, assertMutationAllowed, connectToDevApp } from "./dev-automation/cdp-client";
 import { type DevInstanceRecord, readDevInstanceRecords } from "./dev-automation/instance-registry";
 

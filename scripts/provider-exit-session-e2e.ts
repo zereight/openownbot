@@ -40,7 +40,7 @@ mkdirSync(home, { recursive: true });
 
 const { AgentService } = await import("../src/backend/agent-service");
 const { AgentStore } = await import("../src/backend/agent-store");
-const { CuaDriverRuntime } = await import("../src/main/cua-driver-runtime");
+const { CuaDriverRuntime } = await import("../src/main/computer-use/cua-driver-runtime");
 const { runCauseEffect } = await import("../src/backend/effect-boundary");
 const { MailboxStore } = await import("../src/backend/mailbox-store");
 const { OpenOwnBotDatabase } = await import("../src/backend/openownbot-database");

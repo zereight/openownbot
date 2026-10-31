@@ -12,9 +12,9 @@ import { Effect, Exit, Result, Schema } from "effect";
 import { zipSync } from "fflate";
 import { AgentLifecycleFailed } from "../src/backend/agent/agent-lifecycle-failed";
 import { isMissingFileError } from "../src/backend/file-errors";
-import { CentralAuthOperationError } from "../src/main/central-auth-effects";
-import { CentralAuthManager } from "../src/main/central-auth-manager";
-import { type SkillMarketplaceFailure, SkillMarketplaceService } from "../src/main/skill-marketplace-service";
+import { CentralAuthOperationError } from "../src/main/account/central-auth-effects";
+import { CentralAuthManager } from "../src/main/account/central-auth-manager";
+import { type SkillMarketplaceFailure, SkillMarketplaceService } from "../src/main/skills/skill-marketplace-service";
 
 interface ScenarioOptions {
   detail?: Partial<MarketplaceSkillDetail>;

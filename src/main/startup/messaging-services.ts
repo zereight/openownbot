@@ -13,10 +13,10 @@ import { SlackConnectFailed, toSlackConnectFailed } from "../../backend/messagin
 import { slackDriver } from "../../backend/messaging/slack/slack-driver";
 import { telegramDriver } from "../../backend/messaging/telegram/telegram-driver";
 import type { SidebarLayoutStore } from "../../backend/sidebar-layout-store";
-import type { CentralAuthManager } from "../central-auth-manager";
-import { loadIngressQueueKey } from "../ingress-queue-key";
-import { MessagingCredentialStore } from "../messaging-credential-store";
-import { toRemoteWorkflowError } from "../remote-service-effects";
+import type { CentralAuthManager } from "../account/central-auth-manager";
+import { loadIngressQueueKey } from "../messaging/ingress-queue-key";
+import { MessagingCredentialStore } from "../messaging/messaging-credential-store";
+import { toRemoteWorkflowError } from "../remote-servers/remote-service-effects";
 import { INGRESS_QUEUE_KEY_FILE, MESSAGING_CREDENTIAL_FILE } from "./data-files";
 import type { safeStorageCipher } from "./platform";
 import { TEARDOWN_ORDER } from "./teardown-order";
@@ -42,9 +42,9 @@ import { TEARDOWN_ORDER } from "./teardown-order";
  * when - see `teardown-registry.ts` for why shutdown here is not the reverse of construction.
  */
 
-import { SignalIngress } from "../signal-ingress";
-import { SLACK_DEV_CALLBACK_PATH, startSlackDevCallbackServer } from "../slack-dev-callback-server";
-import type { TeardownRegistry } from "../teardown-registry";
+import { SignalIngress } from "../messaging/signal-ingress";
+import { SLACK_DEV_CALLBACK_PATH, startSlackDevCallbackServer } from "../messaging/slack-dev-callback-server";
+import type { TeardownRegistry } from "../platform/teardown-registry";
 
 export const logger = createOpenOwnBotLogger("application-services");
 

@@ -19,20 +19,20 @@ import { join, resolve } from "node:path";
 import { isLocalVoiceModelId, type LocalVoiceModelId } from "@robot/contracts/ipc";
 import { createOpenOwnBotLogger } from "@robot/logging";
 import { Effect } from "effect";
-import { VoiceApiKeyStore } from "../src/main/voice-api-key-store";
-import { openScribeSocket } from "../src/main/voice-cloud-stream";
-import { BARK_PLUS_MODEL_DIRECTORY, WHISPER_TURBO_MODEL_DIRECTORY } from "../src/main/voice-model-service";
-import { VoicePreferenceStore } from "../src/main/voice-preference-store";
+import { VoiceApiKeyStore } from "../src/main/voice/voice-api-key-store";
+import { openScribeSocket } from "../src/main/voice/voice-cloud-stream";
+import { BARK_PLUS_MODEL_DIRECTORY, WHISPER_TURBO_MODEL_DIRECTORY } from "../src/main/voice/voice-model-service";
+import { VoicePreferenceStore } from "../src/main/voice/voice-preference-store";
 import type {
   VoiceTranscriptionFailure,
   VoiceTranscriptionHostProcess,
   VoiceTranscriptionResponse,
-} from "../src/main/voice-transcription-protocol";
-import { VoiceTranscriptionService } from "../src/main/voice-transcription-service";
+} from "../src/main/voice/voice-transcription-protocol";
+import { VoiceTranscriptionService } from "../src/main/voice/voice-transcription-service";
 
 const RESOURCES_ROOT = resolve(".openownbot-build/voice");
 const OUTPUT = resolve(".openownbot-build/voice-transcription-smoke");
-const HOST = resolve("src/main/voice-transcription-host.ts");
+const HOST = resolve("src/main/voice/voice-transcription-host.ts");
 const ELECTRON = resolve("node_modules/electron/dist/Electron.app/Contents/MacOS/Electron");
 /** The same directories as the dev app in `application-services.ts`. */
 const MODEL_DIRECTORIES: Record<LocalVoiceModelId, string> = {

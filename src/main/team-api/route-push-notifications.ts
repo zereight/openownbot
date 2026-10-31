@@ -7,8 +7,8 @@ import {
   PUSH_NOTIFICATIONS_ROUTES,
 } from "@robot/contracts/team-protocol/push-notifications-v1";
 import { sourceText } from "@robot/i18n/source";
-import { type PushTarget, readAndroidPushRegistration, readPushRegistration } from "../push-notification-store";
-import type { PushNotificationService } from "../push-notifications";
+import { type PushTarget, readAndroidPushRegistration, readPushRegistration } from "../team/push-notification-store";
+import type { PushNotificationService } from "../team/push-notifications";
 import { HttpError } from "./http-error";
 import type { RouteOutcome, TeamApiRequestContext } from "./request-context";
 import { readJson } from "./request-helpers";

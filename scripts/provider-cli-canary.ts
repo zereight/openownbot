@@ -18,14 +18,14 @@ import type { AgentClient } from "../src/backend/agent-client";
 import { runCauseEffect } from "../src/backend/effect-boundary";
 import { decodeModelListResponse } from "../src/backend/protocol";
 import { NO_PROVIDER_CREDENTIALS, requireProviderDriver } from "../src/backend/provider-drivers";
-import { providerRuntimeDescriptor, type RuntimeTarget } from "../src/main/provider-runtime-descriptors";
-import { olderVersion, ProviderRuntimeManager, runtimeTarget } from "../src/main/provider-runtime-manager";
+import { providerRuntimeDescriptor, type RuntimeTarget } from "../src/main/providers/provider-runtime-descriptors";
+import { olderVersion, ProviderRuntimeManager, runtimeTarget } from "../src/main/providers/provider-runtime-manager";
 import {
   type BlockedVersions,
   fetchBlockedVersions,
   type LatestReleaseContext,
   latestRelease,
-} from "../src/main/provider-runtime-releases";
+} from "../src/main/providers/provider-runtime-releases";
 import { parseAgentRuntimeLock } from "./agent-runtime-lock";
 import { runTurn, startThread, stopClients } from "./provider-fakes/host";
 

@@ -11,8 +11,8 @@ import {
   developmentInstanceIdForWorktree,
   developmentUserDataName,
   readDevelopmentInstanceId,
-} from "../src/main/development-profile";
-import { developmentRemoteConnectionPath } from "../src/main/development-runtime-directory";
+} from "../src/main/platform/development-profile";
+import { developmentRemoteConnectionPath } from "../src/main/platform/development-runtime-directory";
 import {
   type DevInstanceRecord,
   removeDevInstanceRecord,
