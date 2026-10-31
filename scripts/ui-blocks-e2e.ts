@@ -12,12 +12,7 @@ import {
   type ConversationSnapshot,
   isConversationMessage,
 } from "@robot/contracts/ipc";
-import {
-  TEAM_BOOTSTRAP_CAPABILITIES,
-  TEAM_CURRENT_CAPABILITIES,
-  TEAM_UI_BLOCKS_CAPABILITY,
-  teamCapabilitiesForProtocol,
-} from "@robot/contracts/team-protocol/current";
+import { TEAM_CURRENT_CAPABILITIES, TEAM_UI_BLOCKS_CAPABILITY } from "@robot/contracts/team-protocol/current";
 import {
   decodeTeamProtocolV6CurrentHttpResponse,
   encodeTeamProtocolV6CurrentHttpResponse,
@@ -248,11 +243,8 @@ await rm(OUT, { recursive: true, force: true });
 await mkdir(OUT, { recursive: true });
 
 try {
-  await step("capability: current clients advertise it, bootstrap and protocol 6 do not", () => {
+  await step("capability: current clients advertise it", () => {
     assert.ok(TEAM_CURRENT_CAPABILITIES.includes(TEAM_UI_BLOCKS_CAPABILITY));
-    assert.ok(!new Set<string>(TEAM_BOOTSTRAP_CAPABILITIES).has(TEAM_UI_BLOCKS_CAPABILITY));
-    assert.ok(!teamCapabilitiesForProtocol(6).includes(TEAM_UI_BLOCKS_CAPABILITY));
-    assert.ok(teamCapabilitiesForProtocol(7).includes(TEAM_UI_BLOCKS_CAPABILITY));
   });
 
   // Answers on the host.

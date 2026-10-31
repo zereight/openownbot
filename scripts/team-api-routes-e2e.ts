@@ -17,7 +17,6 @@ import { join, resolve } from "node:path";
 import { isDeepStrictEqual } from "node:util";
 import { ATTACHMENT_LIMITS, INPUT_LIMITS } from "@robot/contracts/input-limits";
 import {
-  AGENT_PROVIDERS,
   type AgentModelId,
   type AgentProviderId,
   type AgentStatus,
@@ -93,7 +92,6 @@ import { type BitwardenCliRunner, BitwardenConnectorService } from "../src/main/
 import { BitwardenConnectorStore } from "../src/main/connectors/bitwarden-connector-store";
 import { TeamStore } from "../src/main/team/team-store";
 import type { TeamApiAgents, TeamApiBrowser, TeamApiMailbox } from "../src/main/team-api/dependencies";
-import { isPeerHiddenProvider } from "../src/main/team-api/provider-visibility";
 import { TeamApiServer } from "../src/main/team-api/team-api-server";
 import { VaultService } from "../src/main/vault/vault-service";
 import { VaultStore } from "../src/main/vault/vault-store";
@@ -789,7 +787,7 @@ try {
   const base = `http://127.0.0.1:${port}`;
 
   function protocolHeaders(options: CallOptions): Record<string, string> {
-    const protocol = options.protocol === undefined ? 7 : options.protocol;
+    const protocol = options.protocol === undefined ? 8 : options.protocol;
     return {
       ...(protocol === null
         ? {}
@@ -862,9 +860,9 @@ try {
   {
     const compatibility = await call("GET", TEAM_API_ROUTES.compatibility, { protocol: null });
     check(
-      "compatibility answers without protocol headers and names the supported range",
+      "compatibility answers without protocol headers and names the one protocol",
       compatibility.status === 200 &&
-        field(compatibility.body, "protocol", "minimum") === 1 &&
+        field(compatibility.body, "protocol", "minimum") === 8 &&
         field(compatibility.body, "protocol", "maximum") === 8,
       summary(compatibility),
     );
@@ -889,6 +887,12 @@ try {
         field(newer.body, "code") === "host_update_required" &&
         field(newer.body, "client", "protocol") === 9,
       summary(newer),
+    );
+    const older = await call("GET", TEAM_API_ROUTES.identity, { protocol: 7 });
+    check(
+      "an older protocol gets 426 client_update_required: the host keeps no adapter for it",
+      older.status === 426 && field(older.body, "code") === "client_update_required",
+      summary(older),
     );
     const zero = await call("GET", TEAM_API_ROUTES.identity, { protocol: 0 });
     check(
@@ -1030,114 +1034,33 @@ try {
     );
   }
 
-  // ---- Agents hidden from an older protocol ----
+  // ---- Agents on the one protocol ----
   {
-    const notFound = sourceText("error.team.agentNotFound");
     const ids = (reply: Reply) => list(reply.body).map((item) => field(item, "id"));
-    const v3 = await call("GET", TEAM_API_ROUTES.agents.all, { token: bobToken, protocol: 3 });
-    const v6 = await call("GET", TEAM_API_ROUTES.agents.all, { token: bobToken, protocol: 6 });
-    const v7 = await call("GET", TEAM_API_ROUTES.agents.all, { token: bobToken });
-    const v8 = await call("GET", TEAM_API_ROUTES.agents.all, { token: bobToken, protocol: 8 });
+    const all = await call("GET", TEAM_API_ROUTES.agents.all, { token: bobToken });
     check(
-      "the agent list leaves out the agents whose provider the client protocol does not know",
-      isDeepStrictEqual(ids(v3), ["agent-ada"]) &&
-        isDeepStrictEqual(ids(v6), ["agent-ada", "agent-oc"]) &&
-        isDeepStrictEqual(ids(v7), ["agent-ada", "agent-oc", "agent-pi"]) &&
-        isDeepStrictEqual(ids(v8), ["agent-ada", "agent-oc", "agent-pi"]),
-      { v3: ids(v3), v6: ids(v6), v7: ids(v7), v8: ids(v8) },
+      "the agent list has every agent: the one protocol knows every provider",
+      isDeepStrictEqual(ids(all), ["agent-ada", "agent-oc", "agent-pi"]),
+      { agents: ids(all) },
     );
-    // Each frozen list is the released vocabulary of its protocol. Protocol 8 and later hide none.
-    const hiddenBy = (protocol: number) =>
-      AGENT_PROVIDERS.filter((provider) => isPeerHiddenProvider(provider, protocol));
-    const expectedHidden: Record<number, readonly string[]> = {
-      1: [
-        "opencode",
-        "antigravity",
-        "acp",
-        "cursor",
-        "cline",
-        "pi",
-        "pi-bolt",
-        "muse",
-        "inception",
-        "deepseek",
-        "openrouter",
-      ],
-      3: [
-        "opencode",
-        "antigravity",
-        "acp",
-        "cursor",
-        "cline",
-        "pi",
-        "pi-bolt",
-        "muse",
-        "inception",
-        "deepseek",
-        "openrouter",
-      ],
-      4: ["antigravity", "acp", "cursor", "cline", "pi", "pi-bolt", "muse", "inception", "deepseek", "openrouter"],
-      5: ["cursor", "cline", "pi", "pi-bolt", "muse", "inception", "deepseek", "openrouter"],
-      6: ["pi", "pi-bolt", "muse", "inception", "deepseek", "openrouter"],
-      7: ["pi-bolt", "inception", "deepseek", "openrouter"],
-      8: [],
-      9: [],
-    };
-    const hiddenRows = Object.entries(expectedHidden).map(([protocol, expected]) => ({
-      protocol: Number(protocol),
-      hidden: hiddenBy(Number(protocol)),
-      expected: AGENT_PROVIDERS.filter((provider) => expected.includes(provider)),
-    }));
-    check(
-      "the frozen provider lists hide each provider that a protocol below 8 does not know, and protocol 8 hides none",
-      hiddenRows.every((row) => isDeepStrictEqual(row.hidden, row.expected)),
-      hiddenRows,
-    );
-    const listQueueCalls = callsOf("listQueue").length;
-    const pathV3 = await call("GET", TEAM_API_ROUTES.agent.queue("agent-oc"), { token: bobToken, protocol: 3 });
-    const pathV6 = await call("GET", TEAM_API_ROUTES.agent.queue("agent-pi"), { token: bobToken, protocol: 6 });
-    const queryV6 = await call("GET", `${TEAM_API_ROUTES.workspaceFiles}?botId=agent-pi&path=notes.md`, {
-      token: bobToken,
-      protocol: 6,
-    });
-    check(
-      "a hidden agent in the path or in the botId query gets 404 agentNotFound and reaches no service",
-      [pathV3, pathV6, queryV6].every((reply) => errorIs(reply, 404, notFound)) &&
-        callsOf("listQueue").length === listQueueCalls &&
-        callsOf("resolveWorkspaceFile").length === 0,
-      [summary(pathV3), summary(pathV6), summary(queryV6)],
-    );
-    const pathV7 = await call("GET", TEAM_API_ROUTES.agent.queue("agent-pi"), { token: bobToken });
-    check("the same agent is reachable on protocol 7", pathV7.status === 200, summary(pathV7));
+    const queue = await call("GET", TEAM_API_ROUTES.agent.queue("agent-pi"), { token: bobToken });
+    check("an agent of a later provider is reachable", queue.status === 200, summary(queue));
 
     const readHidden = await call("POST", AGENT_HIDDEN_ROUTES.read, { token: bobToken, json: {} });
-    const readHiddenV6 = await call("POST", AGENT_HIDDEN_ROUTES.read, { token: bobToken, json: {}, protocol: 6 });
     check(
-      "a member reads the hidden agents, without the agents that the client protocol does not know",
+      "a member reads the hidden agents",
       readHidden.status === 200 &&
         isDeepStrictEqual(
           list(field(readHidden.body, "agents")).map((item) => field(item, "agentId")),
           ["agent-pi"],
-        ) &&
-        readHiddenV6.status === 200 &&
-        list(field(readHiddenV6.body, "agents")).length === 0,
-      [summary(readHidden), summary(readHiddenV6)],
+        ),
+      summary(readHidden),
     );
     const unsupported = await call("POST", AGENT_HIDDEN_ROUTES.read, { token: bobToken, json: {}, capabilities: [] });
     check(
       "the hidden-agent routes without the capability get 400 agentHideUnsupported",
       errorIs(unsupported, 400, sourceText("error.team.agentHideUnsupported")),
       summary(unsupported),
-    );
-    const adminSetHidden = await call("POST", AGENT_HIDDEN_ROUTES.set, {
-      token: adaToken,
-      json: { agentId: "agent-pi", hidden: false },
-      protocol: 6,
-    });
-    check(
-      "an admin cannot change an agent that the client protocol does not show",
-      errorIs(adminSetHidden, 404, notFound) && callsOf("setAgentHidden").length === 0,
-      summary(adminSetHidden),
     );
     const adminSet = await call("POST", AGENT_HIDDEN_ROUTES.set, {
       token: adaToken,
@@ -1327,31 +1250,12 @@ try {
         errorIs(missing, 404, sourceText("error.team.agentNotFound")),
       [summary(adminClear), summary(missing)],
     );
-    const hiddenRead = await call("POST", AGENT_TASK_LIMIT_ROUTES.settings, {
-      token: adaToken,
-      json: { agentId: "agent-pi" },
-      capabilities: limitCapabilities,
-      protocol: 6,
-    });
-    const hiddenSet = await call("POST", AGENT_TASK_LIMIT_ROUTES.update, {
-      token: adaToken,
-      json: { agentId: "agent-pi", taskLimit: 3 },
-      capabilities: limitCapabilities,
-      protocol: 6,
-    });
-    check(
-      "an admin cannot read or set the task limit of an agent that the client protocol does not show",
-      errorIs(hiddenRead, 404, sourceText("error.team.agentNotFound")) &&
-        errorIs(hiddenSet, 404, sourceText("error.team.agentNotFound")) &&
-        callsOf("updateAgent").length === writes + 2,
-      [summary(hiddenRead), summary(hiddenSet)],
-    );
   }
 
   // ---- Memory review (memory-review-v1) ----
   {
     const capabilities = [MEMORY_REVIEW_CAPABILITY];
-    const compatibility = await call("GET", TEAM_API_ROUTES.compatibility, { protocol: 7 });
+    const compatibility = await call("GET", TEAM_API_ROUTES.compatibility);
     check(
       "the host advertises memory-review-v1",
       list(field(compatibility.body, "capabilities")).includes(MEMORY_REVIEW_CAPABILITY),
@@ -1410,7 +1314,7 @@ try {
   // ---- Default provider (provider-default-v1) ----
   {
     const capabilities = [PROVIDER_DEFAULT_CAPABILITY];
-    const compatibility = await call("GET", TEAM_API_ROUTES.compatibility, { protocol: 7 });
+    const compatibility = await call("GET", TEAM_API_ROUTES.compatibility);
     check(
       "the host advertises provider-default-v1",
       list(field(compatibility.body, "capabilities")).includes(PROVIDER_DEFAULT_CAPABILITY),
@@ -1444,52 +1348,29 @@ try {
       unknownProvider.status === 400 && badModel.status === 400 && callsOf("setDefaultProvider").length === writes,
       [summary(unknownProvider), summary(badModel)],
     );
-    const hiddenSet = await call("POST", PROVIDER_DEFAULT_ROUTES.update, {
-      token: adaToken,
-      json: { provider: "deepseek", model: null },
-      capabilities,
-    });
-    check(
-      "a protocol 7 admin cannot set DeepSeek, which that protocol does not show",
-      hiddenSet.status === 400 && callsOf("setDefaultProvider").length === writes,
-      summary(hiddenSet),
-    );
     const adminSet = await call("POST", PROVIDER_DEFAULT_ROUTES.update, {
       token: adaToken,
       json: { provider: "deepseek", model: null },
       capabilities,
-      protocol: 8,
     });
-    const readBack = await call("POST", PROVIDER_DEFAULT_ROUTES.settings, {
-      token: adaToken,
-      json: {},
-      capabilities,
-      protocol: 8,
-    });
-    const oldRead = await call("POST", PROVIDER_DEFAULT_ROUTES.settings, { token: adaToken, json: {}, capabilities });
+    const readBack = await call("POST", PROVIDER_DEFAULT_ROUTES.settings, { token: adaToken, json: {}, capabilities });
     check(
-      "a protocol 8 admin sets DeepSeek as the default and reads it back; protocol 7 reads no default",
+      "an admin sets DeepSeek as the default and reads it back",
       adminSet.status === 200 &&
         isDeepStrictEqual(adminSet.body, { provider: "deepseek", model: null }) &&
         isDeepStrictEqual(readBack.body, { provider: "deepseek", model: null }) &&
-        isDeepStrictEqual(oldRead.body, { provider: null, model: null }) &&
         isDeepStrictEqual(callsOf("setDefaultProvider").at(-1), [
           { preferredProvider: "deepseek", preferredModel: null },
         ]),
-      [summary(adminSet), summary(readBack), summary(oldRead)],
+      [summary(adminSet), summary(readBack)],
     );
   }
 
   // ---- Browser profiles (browser-profiles-v1) ----
   {
     const profileCapabilities = [AGENT_HIDDEN_CAPABILITY, TEAM_QUEUE_EDIT_CAPABILITY, BROWSER_PROFILES_CAPABILITY];
-    const admin = (path: string, json: Json = {}, protocol?: number) =>
-      call("POST", path, {
-        token: adaToken,
-        json,
-        capabilities: profileCapabilities,
-        ...(protocol === undefined ? {} : { protocol }),
-      });
+    const admin = (path: string, json: Json = {}) =>
+      call("POST", path, { token: adaToken, json, capabilities: profileCapabilities });
     const unsupported = await call("POST", BROWSER_PROFILES_ROUTES.list, { token: adaToken, json: {} });
     const unsupportedTabs = await call("POST", BROWSER_PROFILES_ROUTES.tabs, { token: bobToken, json: {} });
     check(
@@ -1541,22 +1422,12 @@ try {
       profile: { kind: "profile", profileId: "0".repeat(32) },
     });
     const unknownAgent = await admin(BROWSER_PROFILES_ROUTES.agent, { agentId: "agent-none" });
-    const hiddenRead = await admin(BROWSER_PROFILES_ROUTES.agent, { agentId: "agent-pi" }, 6);
-    const hiddenAssign = await admin(
-      BROWSER_PROFILES_ROUTES.updateAgent,
-      { agentId: "agent-pi", profile: { kind: "agent" } },
-      6,
-    );
-    const olderList = await admin(BROWSER_PROFILES_ROUTES.list, {}, 6);
     check(
-      "an unknown profile gets 409; an unknown agent, or one that the client protocol does not show, gets 404",
+      "an unknown profile gets 409 and an unknown agent gets 404",
       errorIs(unknownProfile, 409, sourceText("error.backend.browserProfileNotFound")) &&
         errorIs(unknownAgent, 404, sourceText("error.team.agentNotFound")) &&
-        errorIs(hiddenRead, 404, sourceText("error.team.agentNotFound")) &&
-        errorIs(hiddenAssign, 404, sourceText("error.team.agentNotFound")) &&
-        isDeepStrictEqual(field(olderList.body, "sharedAgentIds"), ["agent-oc"]) &&
         callsOf("updateAgentBrowserProfile").length === 1,
-      [summary(unknownProfile), summary(unknownAgent), summary(hiddenRead), summary(hiddenAssign), summary(olderList)],
+      [summary(unknownProfile), summary(unknownAgent)],
     );
     profileTabs.push(
       { tabId: "tab-open", tabSession: { kind: "profile", profileId } },
@@ -2260,17 +2131,10 @@ try {
       json: begin,
       capabilities: [],
     });
-    const oldProtocol = await call("POST", TEAM_API_ROUTES.agent.queueEdit("agent-ada"), {
-      token: bobToken,
-      json: begin,
-      protocol: 2,
-    });
     check(
-      "queue edit without the capability or below protocol 3 gets 400 queueEditUnsupported",
-      errorIs(noCapability, 400, unsupported) &&
-        errorIs(oldProtocol, 400, unsupported) &&
-        callsOf("editQueuedMessage").length === 0,
-      [summary(noCapability), summary(oldProtocol)],
+      "queue edit without the capability gets 400 queueEditUnsupported",
+      errorIs(noCapability, 400, unsupported) && callsOf("editQueuedMessage").length === 0,
+      summary(noCapability),
     );
     const edit = await call("POST", TEAM_API_ROUTES.agent.queueEdit("agent-ada"), { token: bobToken, json: begin });
     check(
@@ -2331,23 +2195,15 @@ try {
       empty.status === 400 && malformed.status === 400 && callsOf("askSideQuestion").length === 0,
       [summary(empty), summary(malformed)],
     );
-    const hiddenAgent = await call("POST", SIDE_QUESTION_ROUTES.ask, {
-      token: bobToken,
-      capabilities: sideCapabilities,
-      protocol: 6,
-      json: { agentId: "agent-pi", question: "Hello?", earlier: [] },
-    });
     const missingAgent = await call("POST", SIDE_QUESTION_ROUTES.ask, {
       token: bobToken,
       capabilities: sideCapabilities,
       json: { agentId: "agent-gone", question: "Hello?", earlier: [] },
     });
     check(
-      "a side question to an agent hidden from the client or not on the host gets 404",
-      errorIs(hiddenAgent, 404, sourceText("error.team.agentNotFound")) &&
-        errorIs(missingAgent, 404, sourceText("error.team.agentNotFound")) &&
-        callsOf("askSideQuestion").length === 0,
-      [summary(hiddenAgent), summary(missingAgent)],
+      "a side question to an agent that is not on the host gets 404",
+      errorIs(missingAgent, 404, sourceText("error.team.agentNotFound")) && callsOf("askSideQuestion").length === 0,
+      summary(missingAgent),
     );
     const earlier = [{ question: "Which flag?", answer: "The --force flag." }];
     // Two at once, as a member asks while another side question still runs.

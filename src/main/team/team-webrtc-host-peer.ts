@@ -32,36 +32,7 @@ import {
   type TeamProtocolV2RpcFrame,
   teamProtocolV2AuthenticationTranscript,
 } from "@robot/contracts/team-protocol/v2";
-import { createTeamProtocolV2Event } from "@robot/contracts/team-protocol/v2-adapter";
-import {
-  decodeTeamProtocolV3WebRtcHttpRequest,
-  encodeTeamProtocolV3WebRtcHttpResponse,
-  isTeamProtocolV3OnlyRoute,
-} from "@robot/contracts/team-protocol/v3-webrtc-adapter";
-import {
-  createTeamProtocolV4Event,
-  decodeTeamProtocolV4WebRtcHttpRequest,
-  encodeTeamProtocolV4WebRtcHttpResponse,
-} from "@robot/contracts/team-protocol/v4-webrtc-adapter";
-import { TEAM_LOCAL_PROVIDERS_CAPABILITY } from "@robot/contracts/team-protocol/v5";
-import {
-  createTeamProtocolV5Event,
-  decodeTeamProtocolV5WebRtcHttpRequest,
-  encodeTeamProtocolV5WebRtcHttpResponse,
-} from "@robot/contracts/team-protocol/v5-webrtc-adapter";
-import { TEAM_CURSOR_CLINE_CAPABILITY } from "@robot/contracts/team-protocol/v6";
-import {
-  createTeamProtocolV6Event,
-  decodeTeamProtocolV6WebRtcHttpRequest,
-  encodeTeamProtocolV6WebRtcHttpResponse,
-} from "@robot/contracts/team-protocol/v6-webrtc-adapter";
-import { TEAM_PI_MUSE_CAPABILITY } from "@robot/contracts/team-protocol/v7";
-import {
-  createTeamProtocolV7Event,
-  decodeTeamProtocolV7WebRtcHttpRequest,
-  encodeTeamProtocolV7WebRtcHttpResponse,
-} from "@robot/contracts/team-protocol/v7-webrtc-adapter";
-import { TEAM_OPEN_PROVIDERS_CAPABILITY } from "@robot/contracts/team-protocol/v8";
+import { TEAM_OPEN_PROVIDERS_CAPABILITY, TEAM_PROTOCOL_V8 } from "@robot/contracts/team-protocol/v8";
 import {
   createTeamProtocolV8Event,
   decodeTeamProtocolV8WebRtcHttpRequest,
@@ -633,31 +604,14 @@ export class TeamWebRtcHostPeer {
     uploaded: ReceivedWebRtcFile | null,
   ): Effect.fn.Return<TeamProtocolV2Json, RemoteWorkflowError, HostPeerTransport> {
     const sideRoute = teamSideRouteCodec(input.path);
-    const protocol = peerCapabilities.has(TEAM_OPEN_PROVIDERS_CAPABILITY)
-      ? 8
-      : peerCapabilities.has(TEAM_PI_MUSE_CAPABILITY)
-        ? 7
-        : peerCapabilities.has(TEAM_CURSOR_CLINE_CAPABILITY)
-          ? 6
-          : peerCapabilities.has(TEAM_LOCAL_PROVIDERS_CAPABILITY)
-            ? 5
-            : peerCapabilities.has("opencode")
-              ? 4
-              : isTeamProtocolV3OnlyRoute(input.method, input.path)
-                ? 3
-                : 1;
-    const decodeRequest =
-      protocol === 8
-        ? decodeTeamProtocolV8WebRtcHttpRequest
-        : protocol === 7
-          ? decodeTeamProtocolV7WebRtcHttpRequest
-          : protocol === 6
-            ? decodeTeamProtocolV6WebRtcHttpRequest
-            : protocol === 5
-              ? decodeTeamProtocolV5WebRtcHttpRequest
-              : protocol === 4
-                ? decodeTeamProtocolV4WebRtcHttpRequest
-                : decodeTeamProtocolV3WebRtcHttpRequest;
+    // One protocol: a client of this build sends the protocol 8 marker with every request. The
+    // compatibility read stays open to an older client, so it learns that it has to update.
+    const protocol = TEAM_PROTOCOL_V8;
+    if (!peerCapabilities.has(TEAM_OPEN_PROVIDERS_CAPABILITY) && input.path !== TEAM_API_ROUTES.compatibility)
+      return yield* new RemoteWorkflowError({
+        cause: new GatewayError(426, "client_update_required", sourceText("error.team.clientUpdateRequired")),
+      });
+    const decodeRequest = decodeTeamProtocolV8WebRtcHttpRequest;
     const requestBody =
       input.method === "GET"
         ? undefined
@@ -745,17 +699,7 @@ export class TeamWebRtcHostPeer {
             status: response.status,
             body: sideRoute
               ? sideRoute.response(input.path, response.status, body, responseOptions)
-              : (peerCapabilities.has(TEAM_OPEN_PROVIDERS_CAPABILITY)
-                  ? encodeTeamProtocolV8WebRtcHttpResponse
-                  : peerCapabilities.has(TEAM_PI_MUSE_CAPABILITY)
-                    ? encodeTeamProtocolV7WebRtcHttpResponse
-                    : peerCapabilities.has(TEAM_CURSOR_CLINE_CAPABILITY)
-                      ? encodeTeamProtocolV6WebRtcHttpResponse
-                      : peerCapabilities.has(TEAM_LOCAL_PROVIDERS_CAPABILITY)
-                        ? encodeTeamProtocolV5WebRtcHttpResponse
-                        : peerCapabilities.has("opencode")
-                          ? encodeTeamProtocolV4WebRtcHttpResponse
-                          : encodeTeamProtocolV3WebRtcHttpResponse)(
+              : encodeTeamProtocolV8WebRtcHttpResponse(
                   input.method,
                   input.path,
                   response.status,
@@ -804,17 +748,7 @@ export class TeamWebRtcHostPeer {
                 sequence: this.#nextEventSequence,
                 payload: channel,
               })
-            : (this.#peerCapabilities.has(TEAM_OPEN_PROVIDERS_CAPABILITY)
-                ? createTeamProtocolV8Event
-                : this.#peerCapabilities.has(TEAM_PI_MUSE_CAPABILITY)
-                  ? createTeamProtocolV7Event
-                  : this.#peerCapabilities.has(TEAM_CURSOR_CLINE_CAPABILITY)
-                    ? createTeamProtocolV6Event
-                    : this.#peerCapabilities.has(TEAM_LOCAL_PROVIDERS_CAPABILITY)
-                      ? createTeamProtocolV5Event
-                      : this.#peerCapabilities.has("opencode")
-                        ? createTeamProtocolV4Event
-                        : createTeamProtocolV2Event)(this.#nextEventSequence, event, {
+            : createTeamProtocolV8Event(this.#nextEventSequence, event, {
                 preserveSemanticTags: supportsTeamSemanticTags(this.#peerCapabilities),
                 preserveBrowserSecrets: this.#peerCapabilities.has("browser-secret-handoff"),
                 // Only the V8 event reads them.
@@ -1102,13 +1036,7 @@ function isHttpRequest(value: TeamProtocolV2Json): value is TeamProtocolV2Json &
     value.path.length <= 2_048 &&
     Object.hasOwn(value, "body") &&
     (value.capabilities === undefined ||
-      (Array.isArray(value.capabilities) &&
-        value.capabilities.length <=
-          (value.capabilities.includes(TEAM_PI_MUSE_CAPABILITY) ||
-          value.capabilities.includes(TEAM_OPEN_PROVIDERS_CAPABILITY)
-            ? 128
-            : 64) &&
-        value.capabilities.every(isString))) &&
+      (Array.isArray(value.capabilities) && value.capabilities.length <= 128 && value.capabilities.every(isString))) &&
     (value.bodyTransferId === undefined || isString(value.bodyTransferId)) &&
     (value.contentType === undefined || isString(value.contentType))
   );

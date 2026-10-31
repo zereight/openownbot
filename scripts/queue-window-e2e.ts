@@ -17,9 +17,9 @@ import { isQueueSnapshot, type QueueSnapshot } from "@robot/contracts/ipc";
 import { isDynamicRecord, isNumber } from "@robot/contracts/runtime-values";
 import {
   supportsTeamSemanticTags,
+  TEAM_CURRENT_CAPABILITIES,
   TEAM_HISTORY_EXTENT_CAPABILITY,
   TEAM_QUEUE_WINDOW_CAPABILITY,
-  teamCapabilitiesForProtocol,
 } from "@robot/contracts/team-protocol/current";
 import { teamHttpCodec } from "@robot/contracts/team-protocol/http-codecs";
 import { TEAM_CAPABILITIES_HEADER, TEAM_PROTOCOL_VERSION_HEADER } from "@robot/contracts/team-protocol/v1";
@@ -204,7 +204,7 @@ async function read(
   name: string,
   input: { method: "GET" | "POST"; path: string; body?: object; protocol: number; queueWindow: boolean },
 ): Promise<QueueSnapshot | null> {
-  const capabilities = teamCapabilitiesForProtocol(input.protocol).filter(
+  const capabilities = TEAM_CURRENT_CAPABILITIES.filter(
     (capability) => input.queueWindow || capability !== TEAM_QUEUE_WINDOW_CAPABILITY,
   );
   assert.equal(

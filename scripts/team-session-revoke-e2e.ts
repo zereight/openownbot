@@ -18,10 +18,10 @@ import {
   TEAM_APP_VERSION_HEADER,
   TEAM_CAPABILITIES_HEADER,
   TEAM_PROTOCOL_V1_WEBSOCKET,
-  TEAM_PROTOCOL_V7,
-  TEAM_PROTOCOL_V7_CAPABILITIES,
+  TEAM_PROTOCOL_V8,
   TEAM_PROTOCOL_VERSION_HEADER,
 } from "@robot/contracts/team-protocol";
+import { TEAM_CURRENT_CAPABILITIES } from "@robot/contracts/team-protocol/current";
 import { plugin } from "bun";
 import { Effect } from "effect";
 import type { AgentBrowserHost } from "../src/backend/agent/turn-lifecycle";
@@ -302,9 +302,9 @@ async function call(
 ): Promise<{ status: number; body: unknown }> {
   const headers: Record<string, string> = {
     Accept: "application/json",
-    [TEAM_PROTOCOL_VERSION_HEADER]: String(TEAM_PROTOCOL_V7),
+    [TEAM_PROTOCOL_VERSION_HEADER]: String(TEAM_PROTOCOL_V8),
     [TEAM_APP_VERSION_HEADER]: HOST_VERSION,
-    [TEAM_CAPABILITIES_HEADER]: TEAM_PROTOCOL_V7_CAPABILITIES.join(","),
+    [TEAM_CAPABILITIES_HEADER]: TEAM_CURRENT_CAPABILITIES.join(","),
   };
   if (input.body !== undefined) headers["Content-Type"] = "application/json";
   if (input.token) headers.Authorization = `Bearer ${input.token}`;

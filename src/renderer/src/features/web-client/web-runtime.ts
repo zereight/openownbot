@@ -79,13 +79,12 @@ import {
   TEAM_BROWSER_VIEW_CLIPBOARD_CAPABILITY,
   TEAM_BROWSER_VIEW_FRAME_POINT_CAPABILITY,
 } from "@robot/contracts/team-protocol/browser-view-v1";
-import { TEAM_BROWSER_NAVIGATION_CAPABILITY } from "@robot/contracts/team-protocol/current";
+import { TEAM_BROWSER_NAVIGATION_CAPABILITY, TEAM_PROTOCOL_RANGE } from "@robot/contracts/team-protocol/current";
 import { FOCUS_USE_ROUTES } from "@robot/contracts/team-protocol/focus-use-v1";
 import { PROVIDER_ACCOUNTS_CAPABILITY } from "@robot/contracts/team-protocol/provider-accounts-v1";
 import { ROUTINE_FLOWS_CAPABILITY } from "@robot/contracts/team-protocol/routine-flows-v1";
 import { type TeamProtocolSupportV1, teamProtocolUpdateDirection } from "@robot/contracts/team-protocol/v1";
 import type { TeamProtocolV2Json } from "@robot/contracts/team-protocol/v2";
-import { TEAM_PROTOCOL_V3 } from "@robot/contracts/team-protocol/v3";
 import { decodeTeamProtocolSupportV7Base } from "@robot/contracts/team-protocol/v7-base";
 import {
   WORKSPACE_DIRECTORY_CAPABILITY,
@@ -612,10 +611,7 @@ export function createWebWorkspaceRuntime(
           result.ok ? null : (result.reference ?? null),
         );
       const support = decodeTeamProtocolSupportV7Base(await request("GET", TEAM_API_ROUTES.compatibility));
-      const updateDirection = teamProtocolUpdateDirection(
-        { minimum: TEAM_PROTOCOL_V3, maximum: TEAM_PROTOCOL_V3 },
-        support.protocol,
-      );
+      const updateDirection = teamProtocolUpdateDirection(TEAM_PROTOCOL_RANGE, support.protocol);
       if (updateDirection) throw new WebHostIncompatibleError(support, updateDirection);
       capabilities = support.capabilities;
       if (retryDraftCleanup) await discardCompletedDrafts(host.hostId);

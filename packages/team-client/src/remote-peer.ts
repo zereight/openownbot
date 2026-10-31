@@ -17,10 +17,10 @@ import {
   decodeTeamProtocolV8WebRtcHttpResponse,
   encodeTeamProtocolV2Frame,
   encodeTeamProtocolV8WebRtcHttpRequest,
+  TEAM_CURRENT_CAPABILITIES,
   TEAM_PROTOCOL_V2_CHANNELS,
   type TeamProtocolV2AuthFrame,
   type TeamProtocolV2Json,
-  teamCapabilitiesForProtocol,
   teamProtocolV2AuthenticationTranscript,
 } from "@robot/contracts/team-protocol";
 import { optionalTeamEvent, optionalTeamEventToCurrent } from "@robot/contracts/team-protocol/optional-events";
@@ -29,7 +29,6 @@ import {
   type TeamProtocolV1CurrentEventControl,
   toWireTeamProtocolV1ClientEvent,
 } from "@robot/contracts/team-protocol/v1-adapter";
-import { decodeTeamProtocolSupportV7Base } from "@robot/contracts/team-protocol/v7-base";
 import { sourceText } from "@robot/i18n/source";
 import { errorReference, referenceFrom } from "@robot/user-errors/reference";
 import { Context, Deferred, Effect, Exit, Layer, ManagedRuntime, Result, Schema, Scope, Semaphore } from "effect";
@@ -341,7 +340,6 @@ interface PeerState {
   answeredRequest: boolean;
   /** The close code of the last Signal socket, so a connection timeout can name it. */
   lastSignalClose: number | null;
-  hostProtocol?: number;
 }
 
 const CHANNELS: ChannelKind[] = ["rpc", "events", "files", "desktop"];
@@ -1272,9 +1270,6 @@ export function createRemoteTeamPeer(actions: ActionsRef, options: { waitForHost
           const sideRoute = teamSideRouteCodec(pending.path);
           const status = frame.result.status;
           const body = frame.result.body;
-          if (pending.method === "GET" && pending.path === TEAM_API_ROUTES.compatibility && status === 200) {
-            state.hostProtocol = (yield* peerDecode(() => decodeTeamProtocolSupportV7Base(body))).protocol.maximum;
-          }
           pending.resolve({
             status: frame.result.status,
             body: sideRoute
@@ -1437,7 +1432,7 @@ export function createRemoteTeamPeer(actions: ActionsRef, options: { waitForHost
               path,
               body: payloadBody,
               ...(bodyTransferId && upload ? { bodyTransferId, contentType: upload.mimeType } : {}),
-              capabilities: [...teamCapabilitiesForProtocol(checksConnection ? undefined : state.hostProtocol)],
+              capabilities: [...TEAM_CURRENT_CAPABILITIES],
             },
           }),
         );

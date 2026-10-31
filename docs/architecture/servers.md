@@ -315,9 +315,8 @@ window: the newest 100 by `createdAt` stay, while they fit, for the receipts of 
 The kept deliveries stay in queue order, and the wire shape and keys do not change. A request
 without the capability, and every protocol 6 or older request, gets the full list as before.
 
-Every current client sends `teamCapabilitiesForProtocol(7)`, so the phone, the web client and a
-joined desktop get the window without other client code. A released phone keeps the full list
-until it updates. `scripts/queue-window-e2e.ts` checks the frame size with and without the
+Every client sends `TEAM_CURRENT_CAPABILITIES`, so the phone, the web client and a joined desktop
+get the window without other client code. `scripts/queue-window-e2e.ts` checks the frame size with and without the
 capability.
 
 ### Browser control and page state

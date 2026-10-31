@@ -35,7 +35,7 @@ import type {
 import { decodeRecord } from "@robot/contracts/ipc-decoding";
 import { isString } from "@robot/contracts/runtime-values";
 import { TEAM_API_ROUTES } from "@robot/contracts/team-api-routes";
-import { type TeamCurrentCapability, teamCapabilitiesForProtocol } from "@robot/contracts/team-protocol/current";
+import { TEAM_CURRENT_CAPABILITIES, type TeamCurrentCapability } from "@robot/contracts/team-protocol/current";
 import { TEAM_PROTOCOL_V1_WEBSOCKET } from "@robot/contracts/team-protocol/v1";
 import {
   encodeTeamProtocolV1CurrentClientEvent,
@@ -664,13 +664,7 @@ export class RemoteEventStream {
       encodeTeamProtocolV1CurrentClientEvent({
         type: "agent-event-scope",
         includeConversations: this.#servers.activeServerId === serverId || this.#chatWindowServerIds.has(serverId),
-        ...(this.#appVersion
-          ? {
-              capabilities: teamCapabilitiesForProtocol(
-                this.#connections.compatibilityFor(serverId)?.negotiatedProtocol,
-              ),
-            }
-          : {}),
+        ...(this.#appVersion ? { capabilities: TEAM_CURRENT_CAPABILITIES } : {}),
       }),
     );
   }

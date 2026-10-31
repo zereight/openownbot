@@ -482,9 +482,8 @@ Team API adapters are permanent (see [Team API compatibility](team-api.md)). Wor
 3. **Codecs.** Spread the codec map into `CODECS` in
    [`optional-routes.ts`](../../packages/contracts/src/team-protocol/optional-routes.ts).
 4. **Capability list.** Add the capability to `TEAM_CURRENT_CAPABILITIES` in
-   [`current.ts`](../../packages/contracts/src/team-protocol/current.ts), and exclude it from
-   `TEAM_BOOTSTRAP_CAPABILITIES` and `legacyTeamCapabilities`. Older peers read a limited number of
-   bootstrap capabilities, so a new optional one stays out of bootstrap.
+   [`current.ts`](../../packages/contracts/src/team-protocol/current.ts). Every client sends the full
+   list, and a peer reads at most 128 capabilities.
 5. **Host route.** Add `src/main/team-api/route-<name>.ts`. Return `"unmatched"` for other paths,
    refuse with `400` when the capability is off, and call `requireAdmin` for admin routes. Register
    it in `TeamApiServer.#handle` in [`team-api-server.ts`](../../src/main/team-api/team-api-server.ts), and

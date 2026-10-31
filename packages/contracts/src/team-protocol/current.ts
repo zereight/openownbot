@@ -85,7 +85,7 @@ import { SKILLS_EVENTS_CAPABILITY } from "./skills-events-v1";
 import { STORAGE_DISK_CAPABILITY } from "./storage-disk-v1";
 import { TEAM_SUBAGENTS_CAPABILITY } from "./subagents-v1";
 import { TEAM_UI_BLOCKS_CAPABILITY } from "./ui-blocks-v1";
-import { TEAM_OPEN_PROVIDERS_CAPABILITY, TEAM_PROTOCOL_V8_CAPABILITIES } from "./v8";
+import { TEAM_PROTOCOL_V8, TEAM_PROTOCOL_V8_CAPABILITIES } from "./v8";
 import { VAULT_IMPORT_CAPABILITY } from "./vault-import-v1";
 import { VAULT_CAPABILITY } from "./vault-v1";
 import { WEBHOOK_TESTS_CAPABILITY } from "./webhook-tests-v1";
@@ -387,139 +387,9 @@ export function isAgentMessageRoute(method: string, path: string): boolean {
   return method === "POST" && /^\/v1\/agents\/[^/]+\/messages$/u.test(new URL(path, "http://openbot.invalid").pathname);
 }
 
-// Keep the first request readable by every released peer. The v7 marker lets a current
-// host return the expanded list; older hosts ignore the marker and retain all old features.
-// A protocol 6 peer reads at most 64 capabilities, so each new capability is v7 only.
-// The v8 marker stays out: a client sends it only after the host reports protocol 8.
-export const TEAM_BOOTSTRAP_CAPABILITIES = TEAM_CURRENT_CAPABILITIES.filter(
-  (capability) =>
-    capability !== TEAM_OPEN_PROVIDERS_CAPABILITY &&
-    capability !== AGENT_MEMORIES_CAPABILITY &&
-    capability !== AGENT_SESSION_SETTINGS_CAPABILITY &&
-    capability !== ACP_REGISTRY_CAPABILITY &&
-    capability !== PROVIDERS_V5_CAPABILITY &&
-    capability !== PROVIDERS_V8_CAPABILITY &&
-    capability !== PROVIDER_HOST_SIGN_IN_CAPABILITY &&
-    capability !== MCP_SIGN_IN_APP_CAPABILITY &&
-    capability !== SIGN_IN_RELAY_CAPABILITY &&
-    capability !== CONNECTORS_CAPABILITY &&
-    capability !== CONVERSATION_FILE_SEARCH_CAPABILITY &&
-    capability !== ROUTINE_FLOWS_CAPABILITY &&
-    capability !== TEAM_HISTORY_EXTENT_CAPABILITY &&
-    capability !== PUSH_NOTIFICATIONS_CAPABILITY &&
-    capability !== ANDROID_PUSH_NOTIFICATIONS_CAPABILITY &&
-    capability !== PROVIDER_ACCOUNTS_CAPABILITY &&
-    capability !== ONEPASSWORD_CONNECTOR_CAPABILITY &&
-    capability !== HOST_TIMEZONE_CAPABILITY &&
-    capability !== ROUTINE_RECOVERY_CAPABILITY &&
-    capability !== INSTANCE_TRANSFER_CAPABILITY &&
-    capability !== FOCUS_USE_CAPABILITY &&
-    capability !== AGENT_HIDDEN_CAPABILITY &&
-    capability !== TEAM_QUEUE_WINDOW_CAPABILITY &&
-    capability !== BROWSER_USER_CONTROL_CAPABILITY &&
-    capability !== BROWSER_PAGE_STATE_CAPABILITY &&
-    capability !== BROWSER_SIGN_IN_CAPABILITY &&
-    capability !== TEAM_UI_BLOCKS_CAPABILITY &&
-    capability !== AGENT_TASKS_CAPABILITY &&
-    capability !== AGENT_MEMORY_LIMIT_CAPABILITY &&
-    capability !== DISCORD_ACCESS_CAPABILITY &&
-    capability !== SIDE_QUESTION_CAPABILITY &&
-    capability !== TEAM_SUBAGENTS_CAPABILITY &&
-    capability !== AGENT_ACCESS_CAPABILITY &&
-    capability !== TEAM_PROMPT_MULTI_SELECT_CAPABILITY &&
-    capability !== TEAM_CHANNEL_ATTENTION_CAPABILITY &&
-    capability !== AGENT_BACKUP_MODELS_CAPABILITY &&
-    capability !== ROUTINE_RESULTS_CAPABILITY &&
-    capability !== WEBHOOK_TESTS_CAPABILITY &&
-    capability !== PROVIDER_USAGE_RESET_CAPABILITY &&
-    capability !== BITWARDEN_CONNECTOR_CAPABILITY &&
-    capability !== AGENT_TASK_LIMIT_CAPABILITY &&
-    capability !== BROWSER_PROFILES_CAPABILITY &&
-    capability !== PROVIDER_ACCOUNT_RELAY_CAPABILITY &&
-    capability !== STORAGE_DISK_CAPABILITY &&
-    capability !== PROMPT_CACHE_TTL_CAPABILITY &&
-    capability !== PROVIDER_DEFAULT_CAPABILITY &&
-    capability !== CLAUDE_API_KEY_CAPABILITY &&
-    capability !== WORKFLOWS_CAPABILITY &&
-    capability !== AGENT_THREADS_CAPABILITY &&
-    capability !== TEAM_MP4_ATTACHMENTS_CAPABILITY &&
-    capability !== VAULT_CAPABILITY &&
-    capability !== BROWSER_SECRET_VAULT_CAPABILITY &&
-    capability !== VAULT_IMPORT_CAPABILITY &&
-    capability !== AGENT_TASK_UI_BLOCKS_CAPABILITY &&
-    capability !== TEAM_CONTEXT_USAGE_CAPABILITY &&
-    capability !== MEMORY_REVIEW_CAPABILITY,
-);
-// A v7 host does not know the v8 markers, so a client sends them only after it negotiates protocol 8.
-const TEAM_PROTOCOL_V7_CURRENT_CAPABILITIES = TEAM_CURRENT_CAPABILITIES.filter(
-  (capability) =>
-    capability !== TEAM_OPEN_PROVIDERS_CAPABILITY &&
-    capability !== PROVIDERS_V8_CAPABILITY &&
-    capability !== TEAM_CONTEXT_USAGE_CAPABILITY,
-);
-export function teamCapabilitiesForProtocol(protocol: number | null | undefined): readonly TeamCurrentCapability[] {
-  if (protocol === null || protocol === undefined || protocol < 7) return TEAM_BOOTSTRAP_CAPABILITIES;
-  return protocol >= 8 ? TEAM_CURRENT_CAPABILITIES : TEAM_PROTOCOL_V7_CURRENT_CAPABILITIES;
-}
-export function legacyTeamCapabilities(capabilities: readonly string[]): string[] {
-  return capabilities.filter(
-    (capability) =>
-      capability !== "local-providers-v3" &&
-      capability !== TEAM_OPEN_PROVIDERS_CAPABILITY &&
-      capability !== AGENT_MEMORIES_CAPABILITY &&
-      capability !== AGENT_SESSION_SETTINGS_CAPABILITY &&
-      capability !== ACP_REGISTRY_CAPABILITY &&
-      capability !== PROVIDERS_V5_CAPABILITY &&
-      capability !== PROVIDERS_V8_CAPABILITY &&
-      capability !== PROVIDER_HOST_SIGN_IN_CAPABILITY &&
-      capability !== MCP_SIGN_IN_APP_CAPABILITY &&
-      capability !== SIGN_IN_RELAY_CAPABILITY &&
-      capability !== CONNECTORS_CAPABILITY &&
-      capability !== CONVERSATION_FILE_SEARCH_CAPABILITY &&
-      capability !== ROUTINE_FLOWS_CAPABILITY &&
-      capability !== TEAM_HISTORY_EXTENT_CAPABILITY &&
-      capability !== PUSH_NOTIFICATIONS_CAPABILITY &&
-      capability !== ANDROID_PUSH_NOTIFICATIONS_CAPABILITY &&
-      capability !== PROVIDER_ACCOUNTS_CAPABILITY &&
-      capability !== ONEPASSWORD_CONNECTOR_CAPABILITY &&
-      capability !== HOST_TIMEZONE_CAPABILITY &&
-      capability !== ROUTINE_RECOVERY_CAPABILITY &&
-      capability !== INSTANCE_TRANSFER_CAPABILITY &&
-      capability !== FOCUS_USE_CAPABILITY &&
-      capability !== AGENT_HIDDEN_CAPABILITY &&
-      capability !== TEAM_QUEUE_WINDOW_CAPABILITY &&
-      capability !== BROWSER_USER_CONTROL_CAPABILITY &&
-      capability !== BROWSER_PAGE_STATE_CAPABILITY &&
-      capability !== BROWSER_SIGN_IN_CAPABILITY &&
-      capability !== TEAM_UI_BLOCKS_CAPABILITY &&
-      capability !== AGENT_TASKS_CAPABILITY &&
-      capability !== AGENT_MEMORY_LIMIT_CAPABILITY &&
-      capability !== DISCORD_ACCESS_CAPABILITY &&
-      capability !== SIDE_QUESTION_CAPABILITY &&
-      capability !== TEAM_SUBAGENTS_CAPABILITY &&
-      capability !== AGENT_ACCESS_CAPABILITY &&
-      capability !== TEAM_PROMPT_MULTI_SELECT_CAPABILITY &&
-      capability !== TEAM_CHANNEL_ATTENTION_CAPABILITY &&
-      capability !== AGENT_BACKUP_MODELS_CAPABILITY &&
-      capability !== ROUTINE_RESULTS_CAPABILITY &&
-      capability !== WEBHOOK_TESTS_CAPABILITY &&
-      capability !== PROVIDER_USAGE_RESET_CAPABILITY &&
-      capability !== BITWARDEN_CONNECTOR_CAPABILITY &&
-      capability !== AGENT_TASK_LIMIT_CAPABILITY &&
-      capability !== BROWSER_PROFILES_CAPABILITY &&
-      capability !== PROVIDER_ACCOUNT_RELAY_CAPABILITY &&
-      capability !== STORAGE_DISK_CAPABILITY &&
-      capability !== PROMPT_CACHE_TTL_CAPABILITY &&
-      capability !== PROVIDER_DEFAULT_CAPABILITY &&
-      capability !== CLAUDE_API_KEY_CAPABILITY &&
-      capability !== WORKFLOWS_CAPABILITY &&
-      capability !== AGENT_THREADS_CAPABILITY &&
-      capability !== TEAM_MP4_ATTACHMENTS_CAPABILITY &&
-      capability !== VAULT_CAPABILITY &&
-      capability !== BROWSER_SECRET_VAULT_CAPABILITY &&
-      capability !== VAULT_IMPORT_CAPABILITY &&
-      capability !== AGENT_TASK_UI_BLOCKS_CAPABILITY &&
-      capability !== TEAM_CONTEXT_USAGE_CAPABILITY &&
-      capability !== MEMORY_REVIEW_CAPABILITY,
-  );
-}
+/**
+ * The one Team API protocol of this build. The desktop host, the desktop client, the web client and
+ * the phone ship from one commit, so each one speaks only this protocol and tells a peer of another
+ * release to update.
+ */
+export const TEAM_PROTOCOL_RANGE = { minimum: TEAM_PROTOCOL_V8, maximum: TEAM_PROTOCOL_V8 } as const;

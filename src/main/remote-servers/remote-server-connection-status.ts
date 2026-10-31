@@ -11,14 +11,15 @@ import { TEAM_PROTOCOL_V8 } from "@robot/contracts/team-protocol/v8";
 // classifier here, not another ladder somewhere else.
 
 import type { ServerCompatibility, ServerConnectionIssue, ServerSummary } from "@robot/contracts/ipc";
-import { TEAM_PROTOCOL_V1, type TeamProtocolSupportV1 } from "@robot/contracts/team-protocol/v1";
-import { TEAM_PROTOCOL_V3_CAPABILITIES } from "@robot/contracts/team-protocol/v3";
+import { TEAM_CURRENT_CAPABILITIES, TEAM_PROTOCOL_RANGE } from "@robot/contracts/team-protocol/current";
+import type { TeamProtocolSupportV1 } from "@robot/contracts/team-protocol/v1";
 import { sourceText } from "@robot/i18n/source";
 import { referenceFrom } from "@robot/user-errors";
 import { RemoteProtocolError, RemoteRequestError } from "./remote-server-errors";
 
 // The protocol range this build speaks. Every compatibility record reports it as the local half.
-export const LOCAL_TEAM_PROTOCOL = { minimum: TEAM_PROTOCOL_V1, maximum: TEAM_PROTOCOL_V8 } as const;
+/** This build speaks one protocol. A host of another release is told which side to update. */
+export const LOCAL_TEAM_PROTOCOL = TEAM_PROTOCOL_RANGE;
 
 // Everything the app tracks about one server's connection, and the whole of what `list()` reports
 // beyond the server's stored fields.
@@ -248,8 +249,8 @@ export function assumedCompatibility(localAppVersion: string | null): ServerComp
     ...checkingCompatibility(localAppVersion),
     hostAppVersion: "0.0.0",
     hostProtocol: LOCAL_TEAM_PROTOCOL,
-    negotiatedProtocol: TEAM_PROTOCOL_V1,
-    capabilities: [...TEAM_PROTOCOL_V3_CAPABILITIES],
+    negotiatedProtocol: TEAM_PROTOCOL_V8,
+    capabilities: [...TEAM_CURRENT_CAPABILITIES],
   };
 }
 

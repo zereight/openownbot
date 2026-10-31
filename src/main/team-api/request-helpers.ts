@@ -43,12 +43,9 @@ import {
 } from "@robot/contracts/team-protocol/current";
 import { teamHttpCodec } from "@robot/contracts/team-protocol/http-codecs";
 import { teamSideRouteCodec } from "@robot/contracts/team-protocol/side-routes";
-import {
-  TEAM_CAPABILITIES_HEADER,
-  TEAM_PROTOCOL_V1,
-  TEAM_PROTOCOL_VERSION_HEADER,
-} from "@robot/contracts/team-protocol/v1";
+import { TEAM_CAPABILITIES_HEADER, TEAM_PROTOCOL_VERSION_HEADER } from "@robot/contracts/team-protocol/v1";
 import { TEAM_PROTOCOL_V2_MAX_JSON_FRAME_BYTES } from "@robot/contracts/team-protocol/v2";
+import { TEAM_PROTOCOL_V8 } from "@robot/contracts/team-protocol/v8";
 import { sourceText } from "@robot/i18n/source";
 import { readBodyWithin } from "../platform/http-body";
 import { HttpError } from "./http-error";
@@ -63,7 +60,7 @@ export function requestCapabilities(request: IncomingMessage): Set<string> {
   const value = Array.isArray(header) ? header.join(",") : header;
   if (!value || value.length > 4_096) return new Set();
   const capabilities = value.split(",").map((capability) => capability.trim());
-  if (capabilities.length > (requestProtocol(request) >= 7 ? 128 : 64)) return new Set();
+  if (capabilities.length > 128) return new Set();
   return new Set(capabilities.filter(isTeamCurrentCapability));
 }
 
@@ -261,10 +258,14 @@ export async function readJson(request: IncomingMessage): Promise<DynamicRecord>
   }
 }
 
+/**
+ * The protocol a request names. The protocol gate refuses every other protocol, so a request that
+ * names none, such as the compatibility read of an older client, is answered in the one protocol.
+ */
 export function requestProtocol(request: IncomingMessage): number {
   const raw = firstHeaderValue(request.headers[TEAM_PROTOCOL_VERSION_HEADER.toLowerCase()]);
-  const protocol = raw ? Number(raw) : TEAM_PROTOCOL_V1;
-  return Number.isSafeInteger(protocol) ? protocol : TEAM_PROTOCOL_V1;
+  const protocol = raw ? Number(raw) : TEAM_PROTOCOL_V8;
+  return Number.isSafeInteger(protocol) ? protocol : TEAM_PROTOCOL_V8;
 }
 
 export function stringField(
