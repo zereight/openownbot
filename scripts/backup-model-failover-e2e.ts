@@ -934,18 +934,18 @@ try {
     await restart();
     const agent = await createCodex("Task fallback", automaticBackups);
     const before = turns().length;
-    const task = await runCauseEffect(service.startTask({ agentId: agent.id, text: "usage-tool-only case:task" }));
+    const task = await runCauseEffect(service.tasks.start({ agentId: agent.id, text: "usage-tool-only case:task" }));
     await waitFor(
       "the task to complete on its backup",
       () =>
         turns().length > before &&
-        service.readTask(agent.id, task.id).messages.some((message) => message.text === "Done."),
+        service.tasks.read(agent.id, task.id).messages.some((message) => message.text === "Done."),
     );
-    const snapshot = service.readTask(agent.id, task.id);
+    const snapshot = service.tasks.read(agent.id, task.id);
     assert.equal(snapshot.threadId, task.threadId);
     assert.ok(turns()[before]?.input.includes("checkpoint-result=task"));
     assert.ok(turns()[before]?.input.includes("Continue the unfinished task"));
-    assert.equal(service.listTasks(agent.id).tasks.length, 1);
+    assert.equal(service.tasks.list(agent.id).tasks.length, 1);
     return { taskId: task.id, threadId: snapshot.threadId };
   });
 

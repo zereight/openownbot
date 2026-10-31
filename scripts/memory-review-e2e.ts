@@ -288,9 +288,9 @@ async function send(agentId: string, text: string, taskId?: string) {
 
 /** Starts a side thread and waits for its first turn to end. */
 async function startTask(agentId: string, text: string) {
-  const task = await runCauseEffect(service.startTask({ agentId, text }));
+  const task = await runCauseEffect(service.tasks.start({ agentId, text }));
   await waitFor(`"${text}" to end`, () =>
-    service.readTask(agentId, task.id).messages.some((message) => message.text === "Done."),
+    service.tasks.read(agentId, task.id).messages.some((message) => message.text === "Done."),
   );
   return task;
 }
@@ -455,7 +455,7 @@ try {
     await send(third.id, "Sort them by date.", task.id);
     await settle();
     assert.equal(reviews().length, 4, "Two side-thread turns start no review.");
-    await runCauseEffect(service.closeTask({ agentId: third.id, taskId: task.id }));
+    await runCauseEffect(service.tasks.close({ agentId: third.id, taskId: task.id }));
     await reviewed(5);
     const prompt = reviews()[4] ?? "";
     assert.ok(prompt.includes("Sort them by date."), "The review reads the side thread.");
@@ -470,7 +470,7 @@ try {
     const before = service.memories.list(third.id).length;
     control("I think the user likes cats.");
     const failed = await startTask(third.id, "Cats are fine.");
-    await runCauseEffect(service.closeTask({ agentId: third.id, taskId: failed.id }));
+    await runCauseEffect(service.tasks.close({ agentId: third.id, taskId: failed.id }));
     await reviewed(6);
     await settle();
     assert.equal(service.memories.list(third.id).length, before, "Nothing changed.");
@@ -478,7 +478,7 @@ try {
     assert.equal(errorsFor(third.id, since).length, 0, "No error shows.");
     control({ operations: [{ type: "add", text: "The user has two dogs.", inclusion: "searchable" }] });
     const next = await startTask(third.id, "I have two dogs.");
-    await runCauseEffect(service.closeTask({ agentId: third.id, taskId: next.id }));
+    await runCauseEffect(service.tasks.close({ agentId: third.id, taskId: next.id }));
     await reviewed(7);
     await waitFor("the next review's memory", () =>
       service.memories.list(third.id).some((memory) => memory.text === "The user has two dogs."),
@@ -493,7 +493,7 @@ try {
       1_500,
     );
     const task = await startTask(third.id, "I like rye.");
-    await runCauseEffect(service.closeTask({ agentId: third.id, taskId: task.id }));
+    await runCauseEffect(service.tasks.close({ agentId: third.id, taskId: task.id }));
     await waitFor("the side thread's review", () => reviews().length >= 8);
     await runCauseEffect(service.clearAgentContext(third.id));
     await reviewed(9);
@@ -540,7 +540,7 @@ try {
     const task = await startTask(quiet.id, "Off in a side thread.");
     await send(quiet.id, "Off again.", task.id);
     await send(quiet.id, "Off once more.", task.id);
-    await runCauseEffect(service.closeTask({ agentId: quiet.id, taskId: task.id }));
+    await runCauseEffect(service.tasks.close({ agentId: quiet.id, taskId: task.id }));
     await send(quiet.id, "Off before the clear.");
     await send(quiet.id, "Off before the clear, two.");
     await send(quiet.id, "Off before the clear, three.");
@@ -558,9 +558,9 @@ try {
     const since = events.length;
     control({ operations: [{ type: "add", text: "Never saved from a thread.", inclusion: "searchable" }] }, 3_000);
     const task = await startTask(third.id, "I like figs.");
-    await runCauseEffect(service.closeTask({ agentId: third.id, taskId: task.id }));
+    await runCauseEffect(service.tasks.close({ agentId: third.id, taskId: task.id }));
     await reviewed(12);
-    await runCauseEffect(service.deleteTask({ agentId: third.id, taskId: task.id }));
+    await runCauseEffect(service.tasks.delete({ agentId: third.id, taskId: task.id }));
     await new Promise((done) => setTimeout(done, 3_500));
     assert.ok(
       !service.memories.list(third.id).some((memory) => memory.text === "Never saved from a thread."),

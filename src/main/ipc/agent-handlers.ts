@@ -620,7 +620,7 @@ export function agentIpcHandlers({
       }),
       // A joined server has tasks through `agent-tasks-v1`. A server without it shows no task.
       listTasks: scopedHandler(parseAgentId, {
-        local: (agentId) => service.listTasks(agentId),
+        local: (agentId) => service.tasks.list(agentId),
         remote: (agentId, serverId) =>
           remoteServers.supportsCapability(serverId, AGENT_TASKS_CAPABILITY)
             ? runCauseEffect(
@@ -632,12 +632,12 @@ export function agentIpcHandlers({
             : { agentId, tasks: [], limit: 1 },
       }),
       readTask: scopedHandler(parseAgentTask, {
-        local: (parsed) => service.readTask(parsed.agentId, parsed.taskId),
+        local: (parsed) => service.tasks.read(parsed.agentId, parsed.taskId),
         remote: (parsed, serverId) =>
           remoteTaskRequest(serverId, AGENT_TASKS_ROUTES.read, decodeRemoteTaskConversation, agentTaskBody(parsed)),
       }),
       startTask: scopedHandler(parseStartAgentTask, {
-        local: (input) => runCauseEffect(service.startTask(input, host.conversationSender())),
+        local: (input) => runCauseEffect(service.tasks.start(input, host.conversationSender())),
         // `agent-tasks-v1` carries text only.
         remote: (input, serverId) => {
           if (input.attachmentDraftIds?.length) taskRemoteUnsupported();
@@ -650,32 +650,32 @@ export function agentIpcHandlers({
       }),
       // Local only: `agent-tasks-v1` does not move a queued message into a task.
       runQueuedMessageAsTask: scopedHandler(parseRunQueuedMessageAsTask, {
-        local: (parsed) => runCauseEffect(service.runQueuedMessageAsTask(parsed)),
+        local: (parsed) => runCauseEffect(service.tasks.runQueuedMessage(parsed)),
         remote: taskRemoteUnsupported,
       }),
       // Local only: `agent-tasks-v1` has no fork.
       forkThread: scopedHandler(parseForkAgentThread, {
-        local: (parsed) => runCauseEffect(service.forkThread(parsed)),
+        local: (parsed) => runCauseEffect(service.tasks.fork(parsed)),
         remote: taskRemoteUnsupported,
       }),
       stopTask: scopedHandler(parseAgentTask, {
-        local: (parsed) => runCauseEffect(service.stopTask(parsed)),
+        local: (parsed) => runCauseEffect(service.tasks.stop(parsed)),
         remote: (parsed, serverId) =>
           remoteTaskRequest(serverId, AGENT_TASKS_ROUTES.stop, acceptEmpty, agentTaskBody(parsed)),
       }),
       closeTask: scopedHandler(parseAgentTask, {
-        local: (parsed) => runCauseEffect(service.closeTask(parsed)),
+        local: (parsed) => runCauseEffect(service.tasks.close(parsed)),
         remote: (parsed, serverId) =>
           remoteTaskRequest(serverId, AGENT_TASKS_ROUTES.close, acceptEmpty, agentTaskBody(parsed)),
       }),
       reopenTask: scopedHandler(parseAgentTask, {
-        local: (parsed) => service.reopenTask(parsed),
+        local: (parsed) => service.tasks.reopen(parsed),
         remote: (parsed, serverId) =>
           remoteTaskRequest(serverId, AGENT_TASKS_ROUTES.reopen, acceptEmpty, agentTaskBody(parsed)),
       }),
       // A joined server renames and deletes through `agent-threads-v1`; `agent-tasks-v1` has neither.
       renameTask: scopedHandler(parseRenameAgentTask, {
-        local: (parsed) => service.renameTask(parsed, parsed.title),
+        local: (parsed) => service.tasks.rename(parsed, parsed.title),
         remote: (parsed, serverId) =>
           remoteThreadRequest(serverId, AGENT_THREADS_ROUTES.rename, {
             agentId: parsed.agentId,
@@ -684,7 +684,7 @@ export function agentIpcHandlers({
           }),
       }),
       deleteTask: scopedHandler(parseAgentTask, {
-        local: (parsed) => runCauseEffect(service.deleteTask(parsed)),
+        local: (parsed) => runCauseEffect(service.tasks.delete(parsed)),
         remote: (parsed, serverId) => remoteThreadRequest(serverId, AGENT_THREADS_ROUTES.delete, agentTaskBody(parsed)),
       }),
       acknowledgeFailedTurn: scopedHandler(parseAcknowledgeFailedTurn, {

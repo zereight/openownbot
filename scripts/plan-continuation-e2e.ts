@@ -566,7 +566,7 @@ try {
     const agent = await createAgent("Threads");
     const mark = loggedTurns().length;
     const task = await runCauseEffect(
-      current.service.startTask({
+      current.service.tasks.start({
         agentId: agent.id,
         text: `Check the links. ${plan(
           {
@@ -586,7 +586,7 @@ try {
       }),
     );
     await waitFor("the side thread to finish", () =>
-      current.service.readTask(agent.id, task.id).messages.some((message) => message.text === "All links work."),
+      current.service.tasks.read(agent.id, task.id).messages.some((message) => message.text === "All links work."),
     );
     assert.deepEqual(
       turnsSince(mark).map((turn) => turn.note),
