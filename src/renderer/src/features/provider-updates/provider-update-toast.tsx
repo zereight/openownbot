@@ -254,7 +254,8 @@ function liveToast(provider: AgentProviderId, update: ProviderUpdate): LiveProvi
     const live: LiveProviderUpdateToast = {
       present: (nextUpdate) => {
         const previous = untrack(current);
-        const next = presentProviderUpdate(nextUpdate);
+        // Only `failed` and `detail` are compared here, so the text is read once in this language.
+        const next = untrack(() => presentProviderUpdate(nextUpdate));
         setLatest(nextUpdate);
         // A retry closes the old failure, so the next one opens at its first lines. A retry that
         // fails before it starts goes from one failure to the next, so new words close it too.
@@ -334,7 +335,8 @@ export function showProviderUpdateToast(update: ProviderUpdate, onUpdate: () => 
   const timer = dismissTimers.get(update.provider);
   if (timer !== undefined) window.clearTimeout(timer);
   dismissTimers.delete(update.provider);
-  const presentation = presentProviderUpdate(update);
+  // Only `updatable` is read here; the toast itself follows a language change.
+  const presentation = untrack(() => presentProviderUpdate(update));
   const live = liveToast(update.provider, update);
   live.present(update);
   live.setAct(onUpdate);
@@ -366,7 +368,8 @@ export function hideProviderUpdateToast(provider: AgentProviderId): void {
 export function reportProviderUpdateToast(update: ProviderUpdate, onRetry: () => void): void {
   const live = liveToasts.get(update.provider);
   if (!live) return;
-  const presentation = presentProviderUpdate(update);
+  // Only `updatable` is read here; the toast itself follows a language change.
+  const presentation = untrack(() => presentProviderUpdate(update));
   live.present(update);
   live.setAct(onRetry);
   live.setOffer(presentation.updatable ? update.availableVersion : null);

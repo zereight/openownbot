@@ -1,5 +1,5 @@
 import { useText } from "@robot/ui/text";
-import { createEffect, createSignal, Loading, Show } from "solid-js";
+import { createEffect, createSignal, Loading, Show, untrack } from "solid-js";
 import { useAuth } from "./features/account/account-context";
 import { useProviderDetection } from "./features/custom-providers/provider-detection-context";
 import { createLanguageStep } from "./features/onboarding/language-step";
@@ -53,7 +53,7 @@ export function AppAccessGate() {
   createEffect(
     () => auth.centralAuth().status === "signed_in",
     (signedIn) => {
-      if (signedIn && !languageStep.done()) languageStep.complete();
+      if (signedIn && !untrack(languageStep.done)) languageStep.complete();
     },
   );
   // A startup mark for `dev:bench`: the first moment the app can leave the splash.
