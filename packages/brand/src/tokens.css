@@ -376,6 +376,8 @@
   --openownbot-loading-indicator-delay: 400ms;
   --openownbot-ease-out: cubic-bezier(0.23, 1, 0.32, 1);
   --openownbot-ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  /* A sheet or a panel that slides in from an edge, as an iOS drawer does. */
+  --openownbot-ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
   --openownbot-shadow-raised: 0 12px 32px var(--openownbot-shadow-popover-ambient);
   --openownbot-shadow-card: 0 0 0 transparent;
   --openownbot-shadow-overlay: 0 12px 32px rgba(0, 0, 0, 0.48);

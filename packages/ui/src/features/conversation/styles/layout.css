@@ -6,8 +6,7 @@
   min-width: 0;
   flex-direction: column;
   background: var(--openownbot-bg-canvas);
-  transition: padding-right var(--panel-resize-duration, var(--openownbot-duration-overlay))
-    cubic-bezier(0.22, 1, 0.36, 1);
+  transition: padding-right var(--panel-resize-duration, var(--openownbot-duration-overlay)) var(--openownbot-ease-out);
   --conversation-column-width: 1440px;
 }
 

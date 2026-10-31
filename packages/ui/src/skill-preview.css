@@ -131,8 +131,8 @@
   --page-blur: 3px;
   --page-stagger: 0ms;
   --page-exit-enabled: 1;
-  --page-slide-ease: cubic-bezier(0.22, 1, 0.36, 1);
-  --page-fade-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --page-slide-ease: var(--openownbot-ease-out);
+  --page-fade-ease: var(--openownbot-ease-out);
 }
 
 .t-page-slide {
@@ -189,7 +189,7 @@
 
 :root {
   --resize-dur: 300ms;
-  --resize-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --resize-ease: var(--openownbot-ease-out);
 }
 
 .t-resize {

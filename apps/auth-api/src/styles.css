@@ -233,7 +233,7 @@ a {
 
 .site-nav {
   /* A long, soft settle: fast out of the gate, then a slow glide into place. */
-  --site-nav-ease: cubic-bezier(0.32, 0.72, 0, 1);
+  --site-nav-ease: var(--openownbot-ease-drawer);
   --site-nav-duration: 460ms;
   --site-nav-quick: 300ms;
   --site-nav-blur: 8px;
@@ -800,7 +800,7 @@ a {
     border-radius: 1px;
     background: currentColor;
     transform: translateY(-3.5px);
-    transition: transform 360ms cubic-bezier(0.22, 1, 0.36, 1);
+    transition: transform 360ms var(--openownbot-ease-out);
   }
 
   .site-menu-button-line + .site-menu-button-line {
@@ -866,8 +866,8 @@ a {
     transform: none;
     transition:
       opacity 380ms ease,
-      filter 460ms cubic-bezier(0.32, 0.72, 0, 1),
-      transform 560ms cubic-bezier(0.32, 0.72, 0, 1);
+      filter 460ms var(--openownbot-ease-drawer),
+      transform 560ms var(--openownbot-ease-drawer);
     transition-delay: calc(var(--site-sheet-index) * 50ms + 40ms);
   }
 
@@ -1774,7 +1774,7 @@ a {
 
 .landing-download-heading[data-revealed="true"],
 .landing-download-card[data-revealed="true"] {
-  animation: landing-download-reveal 760ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  animation: landing-download-reveal 760ms var(--openownbot-ease-out) backwards;
 }
 
 .landing-download-card:nth-child(2)[data-revealed="true"] {
@@ -1913,7 +1913,7 @@ a {
 .landing-pricing-eyebrow[data-revealed="true"],
 .landing-pricing-note[data-revealed="true"],
 .landing-pricing-compare[data-revealed="true"] {
-  animation: landing-download-reveal 760ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  animation: landing-download-reveal 760ms var(--openownbot-ease-out) backwards;
 }
 
 .landing-pricing-note[data-revealed="true"] {
@@ -1930,7 +1930,7 @@ a {
    a jump. */
 .landing-pricing-amount[data-revealed="true"] {
   animation:
-    landing-price-enter 1200ms cubic-bezier(0.22, 1, 0.36, 1) 60ms backwards,
+    landing-price-enter 1200ms var(--openownbot-ease-out) 60ms backwards,
     landing-price-sheen 14s ease-in-out 1260ms infinite alternate;
 }
 
@@ -2260,7 +2260,7 @@ a {
   grid-area: 1 / 1;
   transition:
     opacity 260ms ease,
-    transform 360ms cubic-bezier(0.22, 1, 0.36, 1);
+    transform 360ms var(--openownbot-ease-out);
 }
 
 .landing-team-typing {
@@ -2421,7 +2421,7 @@ a {
 }
 
 .landing-feature[data-feature="local"]:hover .landing-lock-shackle {
-  animation: landing-lock-click 520ms cubic-bezier(0.22, 1, 0.36, 1);
+  animation: landing-lock-click 520ms var(--openownbot-ease-out);
 }
 
 .landing-local-files {
@@ -2496,7 +2496,7 @@ a {
   white-space: nowrap;
   transition:
     opacity 220ms ease,
-    transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
+    transform 320ms var(--openownbot-ease-out);
 }
 
 .landing-persist-provider + .landing-persist-provider {
@@ -2577,8 +2577,8 @@ a {
   margin-top: -14px;
   opacity: 0;
   transition:
-    grid-template-rows 420ms cubic-bezier(0.22, 1, 0.36, 1),
-    margin-top 420ms cubic-bezier(0.22, 1, 0.36, 1),
+    grid-template-rows 420ms var(--openownbot-ease-out),
+    margin-top 420ms var(--openownbot-ease-out),
     opacity 260ms ease;
 }
 
@@ -2907,7 +2907,7 @@ a {
   grid-template-rows: 0fr;
   opacity: 0;
   transition:
-    grid-template-rows 360ms cubic-bezier(0.22, 1, 0.36, 1),
+    grid-template-rows 360ms var(--openownbot-ease-out),
     opacity 220ms ease;
 }
 
@@ -2954,7 +2954,7 @@ a {
   white-space: nowrap;
   transition:
     opacity 200ms ease,
-    transform 300ms cubic-bezier(0.22, 1, 0.36, 1);
+    transform 300ms var(--openownbot-ease-out);
 }
 
 .landing-queue-placeholder {
@@ -3134,7 +3134,7 @@ a {
 
 .landing-section[data-revealed="true"]
   :is(.landing-section-heading, .landing-feature, .compare-faq-item, .landing-compare-links li) {
-  animation: landing-download-reveal 720ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  animation: landing-download-reveal 720ms var(--openownbot-ease-out) backwards;
   animation-delay: calc(120ms + var(--landing-index, 0) * 80ms);
 }
 
@@ -3442,7 +3442,7 @@ a {
 }
 
 .landing-footer [data-revealed="true"] {
-  animation: landing-footer-reveal 900ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  animation: landing-footer-reveal 900ms var(--openownbot-ease-out) backwards;
 }
 
 .landing-footer-columns[data-revealed="true"] {
@@ -4055,12 +4055,12 @@ a {
 }
 
 .landing-network[data-playing="true"] .landing-network-word {
-  animation: landing-network-word 640ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  animation: landing-network-word 640ms var(--openownbot-ease-out) backwards;
   animation-delay: calc(var(--landing-network-word) * 90ms);
 }
 
 .landing-network[data-playing="true"] .landing-network-description {
-  animation: landing-download-reveal 720ms cubic-bezier(0.22, 1, 0.36, 1) 560ms backwards;
+  animation: landing-download-reveal 720ms var(--openownbot-ease-out) 560ms backwards;
 }
 
 /* After the rules above, so it overrides their animation shorthand. */
@@ -4442,7 +4442,7 @@ a {
 }
 
 .teams-page .teams-section[data-revealed="true"] > * {
-  animation: landing-download-reveal 720ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  animation: landing-download-reveal 720ms var(--openownbot-ease-out) backwards;
 }
 
 .teams-page .teams-section[data-revealed="true"] > :nth-child(2) {
@@ -4901,7 +4901,7 @@ a {
 }
 
 .teams-page [data-play="true"] :is(.teams-step-number, .teams-step-title) {
-  animation: landing-download-reveal 720ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  animation: landing-download-reveal 720ms var(--openownbot-ease-out) backwards;
   animation-delay: calc(320ms + var(--teams-index) * 500ms);
 }
 
@@ -4971,7 +4971,7 @@ a {
 }
 
 .teams-page [data-revealed="true"] .teams-marquee-row {
-  animation: landing-download-reveal 720ms cubic-bezier(0.22, 1, 0.36, 1) 200ms backwards;
+  animation: landing-download-reveal 720ms var(--openownbot-ease-out) 200ms backwards;
 }
 
 .teams-page [data-revealed="true"] .teams-marquee-row[data-row="1"] {
@@ -5649,7 +5649,7 @@ a {
 
 .post-grid-section[data-revealed="true"] .post-card,
 .post-more[data-revealed="true"] .post-card {
-  animation: landing-download-reveal 720ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  animation: landing-download-reveal 720ms var(--openownbot-ease-out) backwards;
   animation-delay: calc(var(--post-card-index, 0) * 80ms);
 }
 
@@ -5673,7 +5673,7 @@ a {
 [data-enter="post-prose"] {
   animation-name: landing-download-reveal;
   animation-duration: 720ms;
-  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  animation-timing-function: var(--openownbot-ease-out);
   animation-fill-mode: backwards;
 }
 
@@ -5979,7 +5979,7 @@ a {
 }
 
 .post-more[data-revealed="true"] .post-more-title {
-  animation: landing-download-reveal 720ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  animation: landing-download-reveal 720ms var(--openownbot-ease-out) backwards;
 }
 
 /* A honeycomb of agent faces and art tiles. A cell is a regular hexagon with a point at
@@ -6339,7 +6339,7 @@ a {
   --reading-track: rgba(255, 255, 255, 0.1);
   --reading-glow: color-mix(in srgb, var(--reading-accent) 60%, transparent);
   /* The header menu's motion. Its tokens live on .site-nav, out of reach here. */
-  --reading-ease: cubic-bezier(0.32, 0.72, 0, 1);
+  --reading-ease: var(--openownbot-ease-drawer);
   --reading-duration: 460ms;
   --reading-quick: 300ms;
   --reading-blur: 8px;
@@ -6715,11 +6715,11 @@ a {
   border: 1px solid var(--openownbot-border-strong);
   border-radius: 16px;
   pointer-events: none;
-  animation: compare-rise 720ms cubic-bezier(0.22, 1, 0.36, 1) 160ms backwards;
+  animation: compare-rise 720ms var(--openownbot-ease-out) 160ms backwards;
 }
 
 .compare-stage-art {
-  animation: compare-fade 900ms cubic-bezier(0.22, 1, 0.36, 1) 160ms backwards;
+  animation: compare-fade 900ms var(--openownbot-ease-out) 160ms backwards;
 }
 
 /* One frosted plate holds both marks, split by a hairline with "vs" on it: two
@@ -6735,7 +6735,7 @@ a {
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.14);
   -webkit-backdrop-filter: blur(24px) saturate(1.4);
   backdrop-filter: blur(24px) saturate(1.4);
-  animation: compare-plate-in 800ms cubic-bezier(0.22, 1, 0.36, 1) 320ms backwards;
+  animation: compare-plate-in 800ms var(--openownbot-ease-out) 320ms backwards;
 }
 
 .compare-mark {
@@ -6745,7 +6745,7 @@ a {
   gap: 12px;
   min-width: clamp(96px, 9vw, 128px);
   color: var(--openownbot-text-primary);
-  animation: compare-mark-in 800ms cubic-bezier(0.22, 1, 0.36, 1) 420ms backwards;
+  animation: compare-mark-in 800ms var(--openownbot-ease-out) 420ms backwards;
 }
 
 .compare-mark:last-child {
@@ -7535,7 +7535,7 @@ a {
 }
 
 .compare-section[data-revealed="true"] > * {
-  animation: landing-download-reveal 720ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  animation: landing-download-reveal 720ms var(--openownbot-ease-out) backwards;
 }
 
 .compare-section[data-revealed="true"] > :nth-child(2) {
@@ -7547,7 +7547,7 @@ a {
 }
 
 .compare-section[data-revealed="true"] .compare-pair > :nth-child(2) {
-  animation: landing-download-reveal 720ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  animation: landing-download-reveal 720ms var(--openownbot-ease-out) backwards;
   animation-delay: 200ms;
 }
 
@@ -7555,7 +7555,7 @@ a {
 .compare-section[data-revealed="true"] .compare-plan,
 .compare-section[data-revealed="true"] .compare-roundup-list > li,
 .compare-section[data-revealed="true"] .compare-faq-item {
-  animation: landing-download-reveal 620ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  animation: landing-download-reveal 620ms var(--openownbot-ease-out) backwards;
   animation-delay: calc(160ms + var(--compare-index, 0) * 70ms);
 }
 
@@ -7712,12 +7712,12 @@ a {
 
 .compare-index-grid[data-revealed="true"] .compare-index-card {
   --compare-delay: calc(160ms + var(--compare-index, 0) * 80ms);
-  animation: compare-rise 720ms cubic-bezier(0.22, 1, 0.36, 1) var(--compare-delay) backwards;
+  animation: compare-rise 720ms var(--openownbot-ease-out) var(--compare-delay) backwards;
 }
 
 .compare-index-grid[data-revealed="true"] .compare-index-card :is(.post-gradient, .compare-marks),
 .compare-index-grid[data-revealed="true"] .compare-index-copy {
-  animation: compare-fade 720ms cubic-bezier(0.22, 1, 0.36, 1) var(--compare-delay) backwards;
+  animation: compare-fade 720ms var(--openownbot-ease-out) var(--compare-delay) backwards;
 }
 
 @media (max-width: 900px) {
@@ -8103,7 +8103,7 @@ a {
 
 .compare-section[data-revealed="true"] .provider-step,
 .compare-section[data-revealed="true"] .provider-add {
-  animation: landing-download-reveal 620ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  animation: landing-download-reveal 620ms var(--openownbot-ease-out) backwards;
   animation-delay: calc(160ms + var(--compare-index, 0) * 70ms);
 }
 
@@ -8410,7 +8410,7 @@ a {
 }
 
 .plugin-grid-section[data-revealed="true"] .plugin-card {
-  animation: landing-download-reveal 720ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  animation: landing-download-reveal 720ms var(--openownbot-ease-out) backwards;
   animation-delay: calc(var(--plugin-card-index, 0) * 80ms);
 }
 
@@ -9668,7 +9668,7 @@ a {
   --changelog-hairline: color-mix(in srgb, var(--openownbot-text-primary) 8%, transparent);
   --changelog-scroll-offset: 24px;
   /* The header menu's motion, so a change of app reads as a change of menu section. */
-  --changelog-swap-ease: cubic-bezier(0.32, 0.72, 0, 1);
+  --changelog-swap-ease: var(--openownbot-ease-drawer);
   --changelog-swap-duration: 460ms;
   --changelog-swap-quick: 300ms;
 }
@@ -9788,7 +9788,7 @@ a {
   inset: 0;
   border-radius: inherit;
   background: var(--openownbot-success);
-  animation: changelog-pulse 2.4s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+  animation: changelog-pulse 2.4s var(--openownbot-ease-out) infinite;
 }
 
 @keyframes changelog-pulse {
@@ -10095,7 +10095,7 @@ a {
 }
 
 .changelog-release[data-revealed="true"] {
-  animation: landing-download-reveal 720ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  animation: landing-download-reveal 720ms var(--openownbot-ease-out) backwards;
 }
 
 .changelog-release-meta {

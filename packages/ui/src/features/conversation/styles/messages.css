@@ -136,7 +136,7 @@
  * Windows reports while its animation effects are off) still shows.
  */
 .message-entry-animated {
-  animation: message-in var(--openownbot-duration-normal) cubic-bezier(0.23, 1, 0.32, 1) both;
+  animation: message-in var(--openownbot-duration-normal) var(--openownbot-ease-out) both;
 }
 
 .message-shell {
@@ -402,7 +402,7 @@
 
 .chat-action-entry-animated {
   width: 100%;
-  animation: message-in var(--openownbot-duration-normal) cubic-bezier(0.23, 1, 0.32, 1) both;
+  animation: message-in var(--openownbot-duration-normal) var(--openownbot-ease-out) both;
 }
 
 .agent-activity-slot[data-reserved="true"] {

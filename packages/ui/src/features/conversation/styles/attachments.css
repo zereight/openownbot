@@ -110,7 +110,7 @@
   transition:
     background-color var(--openownbot-duration-hover) ease,
     color var(--openownbot-duration-hover) ease,
-    transform var(--openownbot-duration-normal) cubic-bezier(0.23, 1, 0.32, 1);
+    transform var(--openownbot-duration-normal) var(--openownbot-ease-out);
 }
 
 .attachment-open-button svg {
@@ -164,7 +164,7 @@
   background: var(--openownbot-queue-surface);
   padding-bottom: var(--queue-composer-overlap);
   box-shadow: none;
-  animation: queue-panel-in var(--openownbot-duration-normal) cubic-bezier(0.23, 1, 0.32, 1) both;
+  animation: queue-panel-in var(--openownbot-duration-normal) var(--openownbot-ease-out) both;
 }
 
 .agent-queue-slot {

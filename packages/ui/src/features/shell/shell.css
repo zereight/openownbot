@@ -36,6 +36,7 @@
 }
 
 .shell-frame .shell-server {
+  position: relative;
   display: grid;
   place-items: center;
   width: 48px;
@@ -59,6 +60,32 @@
   color: var(--openownbot-text-primary);
   background: var(--openownbot-bg-surface-raised);
   box-shadow: inset 0 0 0 2px var(--openownbot-accent);
+}
+
+/*
+ * The pill at the rail's edge says which server is open, as on a chat server. It grows from the
+ * middle of the button; it moves only `transform`, so a quick pass over the rail stays smooth.
+ */
+.shell-frame .shell-server:not(.shell-server-add)::before {
+  content: "";
+  position: absolute;
+  inset-inline-start: -12px;
+  top: 50%;
+  width: 4px;
+  height: 40px;
+  margin-top: -20px;
+  border-radius: 0 var(--openownbot-radius-pill) var(--openownbot-radius-pill) 0;
+  background: var(--openownbot-text-primary);
+  transform: scaleY(0);
+  transition: transform var(--openownbot-duration-slow) var(--openownbot-ease-out);
+}
+
+.shell-frame .shell-server:not(.shell-server-add):hover::before {
+  transform: scaleY(0.5);
+}
+
+.shell-frame .shell-server[aria-pressed="true"]::before {
+  transform: scaleY(1);
 }
 
 .shell-frame .shell-server:focus-visible,
@@ -223,6 +250,7 @@
   border: 2px solid var(--openownbot-bg-canvas);
   border-radius: var(--openownbot-radius-pill);
   background: var(--openownbot-text-dim);
+  transition: background-color var(--openownbot-duration-normal) ease;
 }
 
 .shell-avatar-small .shell-status {
@@ -232,6 +260,29 @@
 
 .shell-status-working {
   background: var(--openownbot-success);
+}
+
+/* A ring that breathes while the agent works, so a long task does not look stuck. */
+.shell-status-working::after {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  box-shadow: 0 0 0 2px var(--openownbot-success);
+  opacity: 0;
+  animation: shell-status-breathe 2s var(--openownbot-ease-in-out) infinite;
+}
+
+@keyframes shell-status-breathe {
+  0% {
+    opacity: 0.6;
+    transform: scale(0.85);
+  }
+  70%,
+  100% {
+    opacity: 0;
+    transform: scale(1.5);
+  }
 }
 
 .shell-status-waiting {
@@ -248,6 +299,17 @@
   width: 240px;
   flex: none;
   background: var(--openownbot-bg-canvas);
+  transition:
+    opacity var(--openownbot-duration-slow) var(--openownbot-ease-out),
+    transform var(--openownbot-duration-slow) var(--openownbot-ease-out);
+}
+
+/* The member list comes in from the edge it sits on. It closes at once, as the reader asked. */
+@starting-style {
+  .shell-side {
+    opacity: 0;
+    transform: translateX(12px);
+  }
 }
 
 .shell-members {
@@ -263,6 +325,7 @@
   align-items: flex-start;
   gap: var(--openownbot-space-3);
   padding: var(--openownbot-space-2) var(--openownbot-space-4);
+  transition: background-color var(--openownbot-duration-normal) ease;
 }
 
 .shell-member-text {
@@ -303,13 +366,46 @@
   overflow-wrap: anywhere;
 }
 
+/* An agent that waits for the reader is the one row that asks for attention. */
+.shell-member-waiting {
+  background: var(--openownbot-warning-soft);
+}
+
 .shell-member-actions {
   display: flex;
   flex-wrap: wrap;
   gap: var(--openownbot-space-2);
   margin-top: var(--openownbot-space-2);
+  transition:
+    opacity var(--openownbot-duration-slow) var(--openownbot-ease-out),
+    transform var(--openownbot-duration-slow) var(--openownbot-ease-out);
+}
+
+@starting-style {
+  .shell-member-actions {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
 }
 
 .shell-member-actions > * {
   flex: 1 1 auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shell-status-working::after {
+    animation: none;
+  }
+
+  .shell-side,
+  .shell-member-actions {
+    transition: opacity var(--openownbot-duration-slow) ease;
+  }
+
+  @starting-style {
+    .shell-side,
+    .shell-member-actions {
+      transform: none;
+    }
+  }
 }
