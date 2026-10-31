@@ -1369,25 +1369,16 @@ try {
       errorIs(unsupported, 400, sourceText("error.team.memoryReviewUnsupported")),
       summary(unsupported),
     );
-    const memberRead = await call("POST", MEMORY_REVIEW_ROUTES.settings, { token: bobToken, json: {}, capabilities });
-    const memberSet = await call("POST", MEMORY_REVIEW_ROUTES.update, {
-      token: bobToken,
-      json: { interval: 0 },
-      capabilities,
-    });
     const invalid = await call("POST", MEMORY_REVIEW_ROUTES.update, {
       token: adaToken,
       json: { interval: 15 },
       capabilities,
     });
     check(
-      "a member cannot read or set the memory review, the host refuses a value it does not permit, and nothing is saved",
-      errorIs(memberRead, 403, sourceText("error.team.adminRequired")) &&
-        errorIs(memberSet, 403, sourceText("error.team.adminRequired")) &&
-        invalid.status === 400 &&
-        memoryReview.get().interval === 20 &&
-        !existsSync(memoryReviewFile),
-      [summary(memberRead), summary(memberSet), summary(invalid)],
+      // The host has no members, only devices of its owner, so the admin check has no caller to refuse here.
+      "the host refuses a memory review value it does not permit, and nothing is saved",
+      invalid.status === 400 && memoryReview.get().interval === 20 && !existsSync(memoryReviewFile),
+      summary(invalid),
     );
     const off = await call("POST", MEMORY_REVIEW_ROUTES.update, {
       token: adaToken,

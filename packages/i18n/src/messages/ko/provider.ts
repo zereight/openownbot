@@ -244,6 +244,12 @@ export const messages = {
   "provider.settings.update": "업데이트",
   "provider.settings.downloadLabel": "{name} 다운로드",
   "provider.settings.diagnostics": "진단",
+  "provider.settings.cache": "캐시",
+  "provider.settings.promptCache": "프롬프트 캐시",
+  "provider.settings.promptCacheDescription": "Claude가 턴 사이에 에이전트의 컨텍스트를 캐시에 보관하는 시간이에요.",
+  "provider.settings.promptCacheHour": "1시간",
+  "provider.settings.promptCacheDefault": "Claude Code 기본값",
+  "provider.settings.promptCacheLoadFailed": "이 서버의 프롬프트 캐시 시간을 불러올 수 없어요.",
   "provider.settings.environment": "환경변수",
   "provider.settings.environmentDescription":
     "Claude를 시작할 때 이 변수들이 전달되고, Claude 설정 파일에 같은 이름이 있으면 이 값이 우선해요. 비밀로 표시한 값은 암호화해서 저장하고 다시 보여주지 않아요. 바꾼 내용은 새 세션부터 적용돼요.",

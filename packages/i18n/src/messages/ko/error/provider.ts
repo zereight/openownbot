@@ -281,6 +281,7 @@ export const messages = {
     "에이전트 ID는 소문자, 숫자, `-`만 사용할 수 있고 기본 제공 제공자의 ID와 같을 수 없어요.",
   "error.provider.customAgentEnvInvalid":
     "변수 이름은 문자, 숫자, `_`만 사용할 수 있고 숫자로 시작할 수 없어요. 이름은 한 번씩만, 최대 16개까지 사용하세요.",
+  "error.provider.customAgentUsagePromptInvalid": "사용량 명령은 256자 이하의 한 줄이어야 해요.",
   "error.provider.customAgentCommandInvalid":
     "명령은 전체 경로, ~/로 시작하는 경로, 또는 공백이 없는 명령 이름이어야 해요.",
   "error.provider.customAgentArgsInvalid": "인수에는 줄바꿈을 넣을 수 없어요. 인수는 최대 32개까지 사용하세요.",

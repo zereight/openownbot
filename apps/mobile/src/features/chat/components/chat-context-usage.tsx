@@ -1,9 +1,20 @@
-import { AGENT_CONTEXT_CATEGORIES, type AgentContextState } from "@robot/contracts/ipc";
+import { AGENT_CONTEXT_CATEGORIES, type AgentContextCategory, type AgentContextState } from "@robot/contracts/ipc";
 import { Typography } from "heroui-native";
 import { Alert, Pressable, View } from "react-native";
 import { haptics } from "@/shared/lib/haptics";
 import { useText } from "@/shared/lib/text";
 import { typeScale } from "@/shared/lib/type-scale";
+
+/** The label of each part of the context, named here so the catalog check finds each key. */
+const CATEGORY_KEYS = {
+  systemPrompt: "mobile.chat.context.category.systemPrompt",
+  memoryFiles: "mobile.chat.context.category.memoryFiles",
+  tools: "mobile.chat.context.category.tools",
+  skills: "mobile.chat.context.category.skills",
+  toolResults: "mobile.chat.context.category.toolResults",
+  messages: "mobile.chat.context.category.messages",
+  other: "mobile.chat.context.category.other",
+} as const satisfies Record<AgentContextCategory, string>;
 
 /** The share of the window that is used, from 0 to 1. */
 function usedShare(usedTokens: number, windowTokens: number): number {
@@ -31,7 +42,7 @@ export function ChatContextUsage({ state }: { state: AgentContextState | undefin
     void haptics.selection();
     const rows = AGENT_CONTEXT_CATEGORIES.flatMap((category) => {
       const tokens = usage.categories?.find((row) => row.category === category)?.tokens ?? 0;
-      return tokens > 0 ? [`${t(`mobile.chat.context.category.${category}`)}: ${format.number(tokens)}`] : [];
+      return tokens > 0 ? [`${t(CATEGORY_KEYS[category])}: ${format.number(tokens)}`] : [];
     });
     const compaction = state.compaction;
     const lines = [
