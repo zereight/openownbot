@@ -28,7 +28,7 @@ import {
   agentHiddenEvent,
 } from "@robot/contracts/team-protocol/agent-hidden-v1";
 import { TEAM_CURRENT_CAPABILITIES } from "@robot/contracts/team-protocol/current";
-import { TEAM_PROTOCOL_V7 } from "@robot/contracts/team-protocol/v7";
+import { TEAM_PROTOCOL_V8 } from "@robot/contracts/team-protocol/v8";
 import { sourceText } from "@robot/i18n/source";
 import { plugin } from "bun";
 import { Effect } from "effect";
@@ -250,7 +250,7 @@ async function call(
 ): Promise<{ status: number; body: unknown }> {
   const headers: Record<string, string> = {
     Accept: "application/json",
-    [TEAM_PROTOCOL_VERSION_HEADER]: String(TEAM_PROTOCOL_V7),
+    [TEAM_PROTOCOL_VERSION_HEADER]: String(TEAM_PROTOCOL_V8),
     [TEAM_APP_VERSION_HEADER]: HOST_VERSION,
     [TEAM_CAPABILITIES_HEADER]: TEAM_CURRENT_CAPABILITIES.join(","),
   };

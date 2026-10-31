@@ -18,7 +18,7 @@ import { AGENT_MEMORY_LIMIT_CAPABILITY } from "@robot/contracts/team-protocol/ag
 import { AGENT_PUBLISH_CAPABILITY } from "@robot/contracts/team-protocol/agent-publish-v1";
 import { BITWARDEN_CONNECTOR_CAPABILITY } from "@robot/contracts/team-protocol/bitwarden-connector-v1";
 import { CONNECTORS_CAPABILITY } from "@robot/contracts/team-protocol/connectors-v1";
-import { TEAM_AGENT_CREATE_MODEL_CAPABILITY } from "@robot/contracts/team-protocol/current";
+import { TEAM_AGENT_CREATE_MODEL_CAPABILITY, TEAM_PROTOCOL_RANGE } from "@robot/contracts/team-protocol/current";
 import { EVENTS_CAPABILITY } from "@robot/contracts/team-protocol/events-v1";
 import { FOCUS_USE_CAPABILITY, FOCUS_USE_ROUTES } from "@robot/contracts/team-protocol/focus-use-v1";
 import { HOST_ADMIN_CAPABILITY } from "@robot/contracts/team-protocol/host-admin-v1";
@@ -38,8 +38,8 @@ import { ROUTINE_RECOVERY_CAPABILITY } from "@robot/contracts/team-protocol/rout
 import { ROUTINE_RESULTS_CAPABILITY } from "@robot/contracts/team-protocol/routine-results-v1";
 import { SHARED_TABLES_CAPABILITY } from "@robot/contracts/team-protocol/shared-tables-v1";
 import { SKILLS_ADMIN_CAPABILITY } from "@robot/contracts/team-protocol/skills-admin-v1";
+import { teamProtocolUpdateDirection } from "@robot/contracts/team-protocol/v1";
 import type { TeamProtocolV2Json } from "@robot/contracts/team-protocol/v2";
-import { TEAM_PROTOCOL_V3 } from "@robot/contracts/team-protocol/v3";
 import { decodeTeamProtocolSupportV7Base } from "@robot/contracts/team-protocol/v7-base";
 import { VAULT_IMPORT_CAPABILITY } from "@robot/contracts/team-protocol/vault-import-v1";
 import { VAULT_CAPABILITY } from "@robot/contracts/team-protocol/vault-v1";
@@ -753,7 +753,7 @@ export function MobileWorkspaceProvider({ children }: PropsWithChildren) {
         "connection",
         `${serverId} host ${PRODUCT_NAME} ${compatibility.appVersion}, protocol ${compatibility.protocol.minimum}-${compatibility.protocol.maximum}, capabilities: ${compatibility.capabilities.join(" ")}`,
       );
-      if (compatibility.protocol.minimum > TEAM_PROTOCOL_V3 || compatibility.protocol.maximum < TEAM_PROTOCOL_V3) {
+      if (teamProtocolUpdateDirection(TEAM_PROTOCOL_RANGE, compatibility.protocol)) {
         throw new Error(sourceText("error.remote.mobileUpdateRequired"));
       }
       serverCapabilities.current.set(serverId, compatibility.capabilities);

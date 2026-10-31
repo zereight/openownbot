@@ -6,8 +6,8 @@ import {
 } from "@robot/contracts/ipc";
 import { guardedListDecoder } from "@robot/contracts/ipc-decoding";
 import { TEAM_API_ROUTES } from "@robot/contracts/team-api-routes";
+import { TEAM_PROTOCOL_RANGE } from "@robot/contracts/team-protocol/current";
 import { teamProtocolUpdateDirection } from "@robot/contracts/team-protocol/v1";
-import { TEAM_PROTOCOL_V3 } from "@robot/contracts/team-protocol/v3";
 import { decodeTeamProtocolSupportV7Base } from "@robot/contracts/team-protocol/v7-base";
 import { agentEventCanNotify } from "@robot/team-client/agent-notifications";
 import type { RemoteTeamHost } from "@robot/team-client/remote-directory";
@@ -231,7 +231,7 @@ export function createWebHostConnections(options: {
           );
         const support = decodeTeamProtocolSupportV7Base(response.body);
         // The same rule as opening the host, so the rail and the open agree.
-        if (teamProtocolUpdateDirection({ minimum: TEAM_PROTOCOL_V3, maximum: TEAM_PROTOCOL_V3 }, support.protocol)) {
+        if (teamProtocolUpdateDirection(TEAM_PROTOCOL_RANGE, support.protocol)) {
           entry.incompatible = true;
           recovery.suspend();
         } else if (options.onNotice) void readAgents(entry);

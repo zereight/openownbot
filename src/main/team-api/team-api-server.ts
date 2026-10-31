@@ -66,7 +66,6 @@ import {
   INSTANCE_TRANSFER_CAPABILITY,
   isTeamCurrentCapability,
   LIVE_ACTIVITY_PUSH_CAPABILITY,
-  legacyTeamCapabilities,
   MCP_SERVERS_CAPABILITY,
   MCP_SIGN_IN_APP_CAPABILITY,
   MCP_SIGN_IN_CAPABILITY,
@@ -121,7 +120,6 @@ import { teamSideRouteCodec } from "@robot/contracts/team-protocol/side-routes";
 import { STORAGE_DISK_CAPABILITY } from "@robot/contracts/team-protocol/storage-disk-v1";
 import {
   TEAM_APP_VERSION_HEADER,
-  TEAM_PROTOCOL_V1,
   TEAM_PROTOCOL_V1_CAPABILITIES,
   TEAM_PROTOCOL_V1_WEBSOCKET,
   TEAM_PROTOCOL_VERSION_HEADER,
@@ -697,7 +695,7 @@ export class TeamApiServer {
       // a browser fetching the viewer sends neither protocol headers nor a bearer token. It is not a
       // route in the table; the gateway decides for itself which paths are its own.
       if (method === "GET" && url.pathname === TEAM_API_ROUTES.compatibility) {
-        return this.#json(response, 200, this.#protocolSupport(requestProtocol(request) >= 7));
+        return this.#json(response, 200, this.#protocolSupport());
       }
 
       if (this.#options.remoteScreen?.handlesHttp(url)) {
@@ -1764,12 +1762,12 @@ export class TeamApiServer {
     return new Set();
   }
 
-  #protocolSupport(expanded = false): TeamProtocolSupportV1 {
+  /** The host speaks one protocol: the one that this build's desktop, web and phone clients speak. */
+  #protocolSupport(): TeamProtocolSupportV1 {
     return {
       appVersion: this.#options.appVersion ?? "0.0.0",
-      protocol: { minimum: TEAM_PROTOCOL_V1, maximum: TEAM_PROTOCOL_V8 },
+      protocol: { minimum: TEAM_PROTOCOL_V8, maximum: TEAM_PROTOCOL_V8 },
       capabilities: TEAM_CURRENT_CAPABILITIES.filter((capability) => {
-        if (!expanded && !legacyTeamCapabilities([capability]).length) return false;
         if (capability === "channel-chats-v1" || capability === CHANNEL_DELETE_CAPABILITY)
           return this.#options.channels !== undefined;
         // Advertised only when this host can serve it: a client that negotiated it gets a route,
@@ -1863,7 +1861,9 @@ export class TeamApiServer {
     const rawProtocol = firstHeaderValue(request.headers[TEAM_PROTOCOL_VERSION_HEADER.toLowerCase()]);
     const clientAppVersion = firstHeaderValue(request.headers[TEAM_APP_VERSION_HEADER.toLowerCase()]);
     const protocol = rawProtocol ? Number(rawProtocol) : null;
-    const host = this.#protocolSupport();
+    // The refusal names the host's release and protocol so that the client can say which side to
+    // update. It needs no capability list, and the error body of every codec holds the empty one.
+    const host = { ...this.#protocolSupport(), capabilities: [] };
     if (!rawProtocol || !clientAppVersion) {
       return {
         status: 426,
@@ -1886,8 +1886,8 @@ export class TeamApiServer {
         body: { error: "Invalid Team API protocol headers.", code: "protocol_error", host },
       };
     }
-    if (protocol >= TEAM_PROTOCOL_V1 && protocol <= TEAM_PROTOCOL_V8) return null;
-    const clientIsOlder = protocol < TEAM_PROTOCOL_V1;
+    if (protocol === TEAM_PROTOCOL_V8) return null;
+    const clientIsOlder = protocol < TEAM_PROTOCOL_V8;
     return {
       status: 426,
       body: {

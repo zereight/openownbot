@@ -253,7 +253,7 @@ without losing revocations when Signal is temporarily unavailable.
 Protocol v1 remains frozen for compatibility fixtures, but its public HTTP, WebSocket, and Cloudflare
 Tunnel transport is retired. The old public endpoints return `host_update_required`.
 
-The desktop client starts each remote connection with `GET /v1/compatibility`. The response contains the host application version, the minimum and maximum Team API protocol versions, and host capabilities. The client selects the highest protocol in the shared range. Application SemVer does not select or reject a protocol.
+The desktop client starts each remote connection with `GET /v1/compatibility`. The response contains the host application version, the minimum and maximum Team API protocol versions, and host capabilities. The desktop host, the desktop client, the web client and the phone ship from one commit and speak one protocol, `TEAM_PROTOCOL_RANGE` in `current.ts` (protocol 8 only), and send the full `TEAM_CURRENT_CAPABILITIES` list. A peer on another protocol gets `426` with `client_update_required` or `host_update_required`, and the user updates that side. The host keeps no adapter for an older peer. Application SemVer does not select or reject a protocol.
 
 The first released Team API protocol is `1`. All later HTTP requests include `OpenBot-Protocol-Version` and `OpenBot-App-Version`. The event socket uses the `openbot-team-v1` WebSocket subprotocol. A host without the compatibility endpoint is treated as an old host and is blocked. A request without the required protocol headers is treated as an old client and is blocked.
 

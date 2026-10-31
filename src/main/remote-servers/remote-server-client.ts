@@ -25,17 +25,18 @@ import {
   isAgentCreateRoute,
   supportsTeamSemanticTags,
   TEAM_AGENT_CREATE_MODEL_CAPABILITY,
-  TEAM_BOOTSTRAP_CAPABILITIES,
+  TEAM_CURRENT_CAPABILITIES,
   type TeamCurrentCapability,
-  teamCapabilitiesForProtocol,
 } from "@robot/contracts/team-protocol/current";
 import {
   highestCommonTeamProtocol,
   TEAM_APP_VERSION_HEADER,
   TEAM_CAPABILITIES_HEADER,
   TEAM_PROTOCOL_VERSION_HEADER,
+  type TeamProtocolSupportV1,
   teamProtocolUpdateDirection,
 } from "@robot/contracts/team-protocol/v1";
+import { TEAM_PROTOCOL_V8 } from "@robot/contracts/team-protocol/v8";
 import { sourceText } from "@robot/i18n/source";
 import { Deferred, Effect, Result } from "effect";
 import { fingerprint } from "../team/team-store";
@@ -255,7 +256,7 @@ export class RemoteServerClient {
       headers.set(TEAM_PROTOCOL_VERSION_HEADER, String(compatibility.negotiatedProtocol));
       if (this.#appVersion) {
         headers.set(TEAM_APP_VERSION_HEADER, this.#appVersion);
-        headers.set(TEAM_CAPABILITIES_HEADER, teamCapabilitiesForProtocol(compatibility.negotiatedProtocol).join(","));
+        headers.set(TEAM_CAPABILITIES_HEADER, TEAM_CURRENT_CAPABILITIES.join(","));
       }
       const response = yield* remoteFetch(input, { ...init, headers }, timeoutMs).pipe(
         Effect.mapError(
@@ -295,7 +296,7 @@ export class RemoteServerClient {
     return {
       ...(protocol === null ? {} : { protocol }),
       ...(appVersion === null ? {} : { appVersion }),
-      ...(appVersion ? { capabilities: teamCapabilitiesForProtocol(protocol) } : {}),
+      ...(appVersion ? { capabilities: TEAM_CURRENT_CAPABILITIES } : {}),
       preserveSemanticTags: supportsTeamSemanticTags(compatibility.capabilities),
     };
   }
@@ -413,8 +414,8 @@ export class RemoteServerClient {
     if (!this.#appVersion) return assumedCompatibility(this.#appVersion);
     const attempt4 = yield* Effect.gen({ self: this }, function* () {
       return yield* requestJson(apiUrl, TEAM_API_ROUTES.compatibility, decodeTeamProtocolSupportV7Base, {
-        protocol: 7,
-        capabilities: TEAM_BOOTSTRAP_CAPABILITIES,
+        protocol: TEAM_PROTOCOL_V8,
+        capabilities: TEAM_CURRENT_CAPABILITIES,
       }).pipe(
         Effect.mapError(
           (failure) =>
@@ -442,18 +443,9 @@ export class RemoteServerClient {
       return yield* new RemoteWorkflowError({ cause: error });
     }
     const host = attempt4.success;
-    const negotiatedProtocol = highestCommonTeamProtocol(LOCAL_TEAM_PROTOCOL, host.protocol);
-    if (negotiatedProtocol === null) {
-      if (teamProtocolUpdateDirection(LOCAL_TEAM_PROTOCOL, host.protocol) === "client_update_required") {
-        return yield* new RemoteWorkflowError({
-          cause: new RemoteProtocolError("client_update_required", sourceText("error.remote.appUpdateRequired"), host),
-        });
-      }
-      return yield* new RemoteWorkflowError({
-        cause: new RemoteProtocolError("host_update_required", sourceText("error.team.hostUpdateRequired"), host),
-      });
-    }
-    return negotiatedCompatibility(this.#appVersion, host, negotiatedProtocol);
+    const mismatch = protocolMismatch(host);
+    if (mismatch) return yield* new RemoteWorkflowError({ cause: mismatch });
+    return negotiatedCompatibility(this.#appVersion, host, TEAM_PROTOCOL_V8);
   }).bind(this);
 
   /**
@@ -583,12 +575,12 @@ export class RemoteServerClient {
     serverId: string,
   ): Effect.fn.Return<ServerCompatibility, RemoteWorkflowError> {
     const value = yield* this.#hostRequestEffect(serverId, TEAM_API_ROUTES.compatibility);
-    return yield* remoteDecode(() =>
-      webRtcCompatibility(
-        this.#appVersion,
-        decodeOrProtocolError(decodeTeamProtocolSupportV7Base, value, sourceText("error.remote.invalidCompatibility")),
-      ),
+    const host = yield* remoteDecode(() =>
+      decodeOrProtocolError(decodeTeamProtocolSupportV7Base, value, sourceText("error.remote.invalidCompatibility")),
     );
+    const mismatch = protocolMismatch(host);
+    if (mismatch) return yield* new RemoteWorkflowError({ cause: mismatch });
+    return webRtcCompatibility(this.#appVersion, host);
   });
 
   /**
@@ -641,4 +633,15 @@ function decodeOrProtocolError<T>(
 function rethrowAsRemoteRequestError(error: unknown): never {
   if (error instanceof TeamWebRtcRequestError) throw new RemoteRequestError(error.status, error.message, error.code);
   throw error;
+}
+
+/**
+ * The host must speak the one protocol of this build. Desktop, web and phone ship together, so a host
+ * of another release gets no adapter: the user is told which side to update.
+ */
+function protocolMismatch(host: TeamProtocolSupportV1): RemoteProtocolError | null {
+  if (highestCommonTeamProtocol(LOCAL_TEAM_PROTOCOL, host.protocol) !== null) return null;
+  return teamProtocolUpdateDirection(LOCAL_TEAM_PROTOCOL, host.protocol) === "client_update_required"
+    ? new RemoteProtocolError("client_update_required", sourceText("error.remote.appUpdateRequired"), host)
+    : new RemoteProtocolError("host_update_required", sourceText("error.team.hostUpdateRequired"), host);
 }
