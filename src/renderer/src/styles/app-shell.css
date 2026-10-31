@@ -38,7 +38,7 @@
   background: var(--openownbot-bg-canvas);
   box-shadow: none;
   transition: grid-template-columns var(--panel-resize-duration, var(--openownbot-duration-overlay))
-    cubic-bezier(0.32, 0.72, 0, 1);
+    var(--openownbot-ease-drawer);
 }
 
 .app-frame-with-server-rail {
@@ -1248,7 +1248,7 @@ textarea {
     background-color var(--openownbot-duration-hover) ease,
     color var(--openownbot-duration-hover) ease,
     opacity var(--openownbot-duration-normal) ease,
-    transform var(--openownbot-duration-normal) cubic-bezier(0.23, 1, 0.32, 1);
+    transform var(--openownbot-duration-normal) var(--openownbot-ease-out);
 }
 
 .sidebar-icon-button:hover {
@@ -1285,7 +1285,7 @@ textarea {
     background-color var(--openownbot-duration-hover) ease,
     box-shadow var(--openownbot-duration-hover) ease,
     color var(--openownbot-duration-hover) ease,
-    transform var(--openownbot-duration-fast) cubic-bezier(0.23, 1, 0.32, 1);
+    transform var(--openownbot-duration-fast) var(--openownbot-ease-out);
 }
 
 .header-panel-toggle:hover {
@@ -1388,7 +1388,7 @@ textarea {
     background-color var(--openownbot-duration-hover) ease,
     color var(--openownbot-duration-hover) ease,
     opacity var(--openownbot-duration-fast) ease,
-    transform var(--openownbot-duration-slow) cubic-bezier(0.32, 0.72, 0, 1);
+    transform var(--openownbot-duration-slow) var(--openownbot-ease-drawer);
 }
 
 .sidebar-compact-search:hover {
@@ -1417,7 +1417,7 @@ textarea {
     background-color var(--openownbot-duration-hover) ease,
     box-shadow var(--openownbot-duration-hover) ease,
     opacity var(--openownbot-duration-fast) ease,
-    transform var(--openownbot-duration-slow) cubic-bezier(0.32, 0.72, 0, 1);
+    transform var(--openownbot-duration-slow) var(--openownbot-ease-drawer);
 }
 
 .search-field:focus-within {
@@ -1471,7 +1471,7 @@ textarea {
 
 .sidebar-chat-group + .sidebar-chat-group {
   margin-top: 6px;
-  transition: margin-top var(--panel-resize-duration, var(--openownbot-duration-overlay)) cubic-bezier(0.32, 0.72, 0, 1);
+  transition: margin-top var(--panel-resize-duration, var(--openownbot-duration-overlay)) var(--openownbot-ease-drawer);
 }
 
 /**
@@ -1574,9 +1574,9 @@ textarea {
   opacity: 1;
   transform: translateY(0);
   transition:
-    height var(--panel-resize-duration, var(--openownbot-duration-overlay)) cubic-bezier(0.32, 0.72, 0, 1),
+    height var(--panel-resize-duration, var(--openownbot-duration-overlay)) var(--openownbot-ease-drawer),
     opacity var(--openownbot-duration-fast) ease,
-    transform var(--openownbot-duration-slow) cubic-bezier(0.32, 0.72, 0, 1);
+    transform var(--openownbot-duration-slow) var(--openownbot-ease-drawer);
 }
 
 .sidebar-section-drag-handle,
@@ -2123,7 +2123,7 @@ textarea {
   flex: 0 0 36px;
   place-items: center;
   transform: translateX(0);
-  transition: transform var(--panel-resize-duration, var(--openownbot-duration-overlay)) cubic-bezier(0.32, 0.72, 0, 1);
+  transition: transform var(--panel-resize-duration, var(--openownbot-duration-overlay)) var(--openownbot-ease-drawer);
 }
 
 /* A hidden agent sleeps, so its face is faded and has no colour. */
@@ -2313,7 +2313,7 @@ textarea {
 }
 
 .agent-row-agent-status-entering {
-  animation: sidebar-reply-in var(--openownbot-duration-overlay) cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: sidebar-reply-in var(--openownbot-duration-overlay) var(--openownbot-ease-out) both;
 }
 
 @keyframes typing-dot-pulse {
@@ -2500,7 +2500,7 @@ textarea {
     inset 0 1px var(--openownbot-hover);
   backdrop-filter: blur(18px);
   transform-origin: var(--kb-popover-content-transform-origin);
-  animation: avatar-editor-in var(--openownbot-duration-normal) cubic-bezier(0.23, 1, 0.32, 1) both;
+  animation: avatar-editor-in var(--openownbot-duration-normal) var(--openownbot-ease-out) both;
 }
 
 @keyframes avatar-editor-in {
@@ -2785,7 +2785,7 @@ textarea {
   transform: translateX(0);
   transition:
     opacity var(--openownbot-duration-fast) ease,
-    transform var(--openownbot-duration-slow) cubic-bezier(0.32, 0.72, 0, 1);
+    transform var(--openownbot-duration-slow) var(--openownbot-ease-drawer);
 }
 
 .agent-row-heading {

@@ -483,7 +483,7 @@
   align-items: flex-start;
   color: var(--openownbot-onboarding-desktop-indigo);
   pointer-events: none;
-  animation: provider-picker-callout-in 420ms cubic-bezier(0.23, 1, 0.32, 1) both;
+  animation: provider-picker-callout-in 420ms var(--openownbot-ease-out) both;
 }
 
 .provider-picker-callout-title {

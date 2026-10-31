@@ -78,7 +78,7 @@
   transition:
     border-color var(--openownbot-duration-hover) ease,
     background-color var(--openownbot-duration-hover) ease,
-    transform var(--openownbot-duration-fast) cubic-bezier(0.23, 1, 0.32, 1);
+    transform var(--openownbot-duration-fast) var(--openownbot-ease-out);
 }
 
 .provider-model-trigger:hover:not(:disabled),
@@ -593,7 +593,7 @@
 /* Effort as segments, in the SlidingTabs look and timing. */
 .provider-model-effort-segments {
   --provider-model-effort-duration: 250ms;
-  --provider-model-effort-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --provider-model-effort-ease: var(--openownbot-ease-out);
   position: relative;
   display: flex;
   /* On a line of their own, the segments can shrink. A long label then ends in an ellipsis. */

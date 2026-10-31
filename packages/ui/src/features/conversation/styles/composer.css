@@ -734,7 +734,7 @@
   color: var(--openownbot-queue-text);
   box-shadow: none;
   transform-origin: bottom center;
-  animation: mention-picker-in var(--openownbot-duration-normal) cubic-bezier(0.23, 1, 0.32, 1) both;
+  animation: mention-picker-in var(--openownbot-duration-normal) var(--openownbot-ease-out) both;
 }
 
 /*

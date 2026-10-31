@@ -18,7 +18,7 @@
   --ui-menu-ease: cubic-bezier(0.16, 1, 0.3, 1);
   --ui-menu-duration: 150ms;
   /* A submenu opens and closes slower than the root menu, on a softer curve. */
-  --ui-submenu-ease: cubic-bezier(0.32, 0.72, 0, 1);
+  --ui-submenu-ease: var(--openownbot-ease-drawer);
   --ui-submenu-duration: var(--openownbot-duration-slow);
 }
 

@@ -15,7 +15,7 @@
   border-radius: var(--openownbot-radius-lg);
   background: var(--openownbot-queue-surface);
   padding-bottom: var(--awaiting-composer-overlap);
-  animation: queue-panel-in var(--openownbot-duration-normal) cubic-bezier(0.23, 1, 0.32, 1) both;
+  animation: queue-panel-in var(--openownbot-duration-normal) var(--openownbot-ease-out) both;
 }
 
 .awaiting-replies.task-list .task-list-header {
