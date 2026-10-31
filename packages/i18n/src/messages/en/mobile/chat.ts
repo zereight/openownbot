@@ -382,7 +382,6 @@ export const messages = defineMessages("mobile.chat", {
   "mobile.chat.context.labelEstimated": "Context about {percent} full",
   "mobile.chat.context.labelCompacting": "Compacting context",
   "mobile.chat.context.title": "Context",
-  "mobile.chat.context.percent": "{percent} full",
   "mobile.chat.context.tokens": "{used} of {total} tokens",
   "mobile.chat.context.tokensEstimated": "Estimated: {used} of {total} tokens",
   "mobile.chat.context.breakdown": "What fills the context",

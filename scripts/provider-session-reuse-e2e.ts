@@ -44,6 +44,8 @@ const mcpScript = join(root, "echo-mcp.js");
 const agyInstall = join(root, "antigravity");
 const fakeAgy = join(agyInstall, "bin", "agy_acp_server");
 const agyLog = join(root, "agy.jsonl");
+/** The start of the channel lead's completion check (`src/backend/channel-supervision.ts`), which runs as a separate decision. */
+const COMPLETION_CHECK = "You lead this channel. Every agent is idle now.";
 const CLAUDE_MODEL = defaultProviderModel("claude");
 
 // Before the service modules load: the stores and the CLI search read these.
@@ -640,14 +642,18 @@ try {
     assert.ok(fourth && fifth, "The later channel prompts reached Antigravity.");
     details.afterCompaction = { sessionId: fourth.sessionId, repeatsFirstRequest: fourth.text.includes(FIRST) };
     details.afterRotation = { sessionId: fifth.sessionId, repeatsFirstRequest: fifth.text.includes(FIRST) };
-    details.channelPromptCount = prompts().length - beforeChannel;
     assert.equal(fourth.sessionId, first.sessionId, "A compaction by the agent keeps the session.");
     assert.ok(fourth.text.includes(FIRST), "After the agent compacts, the next packet is complete.");
     assert.notEqual(fifth.sessionId, first.sessionId, "A nearly full channel session is replaced.");
     assert.ok(fifth.text.includes(FIRST), "The replacement channel session gets the complete packet.");
     // A channel summary would run as more prompts: the new session's unknown window must not shrink
     // the packet budget to a few characters.
-    assert.equal(prompts().length - beforeChannel, 5, "Each channel message is one prompt, with no summary prompts.");
+    // The lead's completion check after each task is a decision of its own, not part of the packet.
+    const channelPrompts = prompts()
+      .slice(beforeChannel)
+      .filter((prompt) => !prompt.text.includes(COMPLETION_CHECK));
+    details.channelPromptCount = channelPrompts.length;
+    assert.equal(channelPrompts.length, 5, "Each channel message is one prompt, with no summary prompts.");
   });
 
   report.passed = report.cases.length === 3 && report.cases.every((entry) => entry.passed);

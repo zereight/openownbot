@@ -127,6 +127,8 @@ export const messages = {
   "error.backend.recipientHidden": "이 에이전트는 숨겨져 있어요. 메시지를 보내려면 복원하세요.",
   "error.backend.attachBetween": "파일을 1개에서 {limit}개 사이로 첨부하세요.",
   "error.backend.attachmentNotFile": "첨부 파일이 파일이 아니에요: {path}",
+  "error.backend.attachSvg":
+    "{name}은(는) SVG 파일이라 첨부할 수 없어요. 답변에 절대 경로를 쓰면 채팅에 그 이미지가 표시돼요.",
   "error.backend.generatedImageTooLarge": "생성된 이미지가 100MB 한도를 넘었어요.",
   "error.backend.attachmentNotRegularFile": "일반 파일만 첨부할 수 있어요: {name}",
   "error.backend.attachmentCopyFailed": "ROBot이 {name}을(를) 복사할 수 없었어요.",
@@ -257,6 +259,7 @@ export const messages = {
   "error.backend.uiBlockAnswerInvalid": "이 답변은 에이전트의 블록과 맞지 않아요.",
   "error.backend.uiBlockActionNotAllowed": "서버 소유자 또는 관리자만 이 작업을 선택할 수 있어요.",
   "error.backend.approvalInactive": "이 승인은 더 이상 활성 상태가 아니에요.",
+  "error.backend.approvalOwnerOnly": "서버 소유자만 이 작업을 승인할 수 있어요.",
   "error.backend.takeoverInactive": "이 브라우저 제어권 가져오기는 더 이상 활성 상태가 아니에요.",
   "error.backend.authSubmitting": "인증을 이미 제출하는 중이에요.",
   "error.backend.apiKeySaveFailed": "ROBot이 API 키를 저장할 수 없었어요. 다시 시도해 주세요.",

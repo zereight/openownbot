@@ -19,6 +19,8 @@ export const messages = {
   "dialog.saveAgentSection": "섹션 저장",
   "dialog.chooseAgentSection": "섹션 파일 선택",
   "dialog.filter.agentSections": "섹션 파일",
+  "dialog.chooseVaultCsv": "비밀번호 내보내기 파일 선택",
+  "dialog.filter.csv": "CSV 파일",
   "dialog.saveExportSkill": "내보내기 스킬 저장",
   "dialog.saveTransfer": "전송 파일 저장",
   "dialog.chooseTransfer": "전송 파일 선택",
