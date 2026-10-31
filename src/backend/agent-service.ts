@@ -131,6 +131,7 @@ import {
   startingChoice,
   startingModel,
 } from "./agent/model-choice";
+import { agentModelChoice, type ModelMove, ModelMoves } from "./agent/model-moves";
 import { OpenOwnBotToolRouter } from "./agent/openownbot-tool-router";
 import { PlanContinuation } from "./agent/plan-continuation";
 import { ProfileClients } from "./agent/profile-clients";
@@ -163,7 +164,7 @@ import { ThreadLifecycle } from "./agent/thread-lifecycle";
 import { toToolOperationFailed } from "./agent/tool-operation";
 import { type AgentBrowserHost, TurnLifecycle } from "./agent/turn-lifecycle";
 import { memoryReviewUsageObserver, workflowUsageObserver } from "./agent/usage-collection";
-import { UsageLimitGate, type UsageLimitKey } from "./agent/usage-limit-gate";
+import { UsageLimitGate } from "./agent/usage-limit-gate";
 import { WarmGenerations } from "./agent/warm-generations";
 import type { WebhookRoutineWriter } from "./agent/webhook-routine-tool";
 import type { AgentApiKeys } from "./agent-api-keys";
@@ -442,6 +443,7 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
   readonly queue: QueueOperations;
   /** Start, fork, stop, close, rename and delete the tasks of each agent. */
   readonly tasks: TaskOperations;
+  readonly #moves: ModelMoves;
   readonly #attachments: AttachmentGateway;
   readonly #browserUploads: BrowserUploads;
   readonly #mailboxSync: MailboxSync;
@@ -511,8 +513,8 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
       get endpoints() {
         return service.#endpoints;
       },
-      followPendingRuntime: service.#followPendingRuntime.bind(service),
-      followUsageLimit: service.#followUsageLimit.bind(service),
+      followPendingRuntime: (agentId: string) => service.#moves.followPendingRuntime(agentId),
+      followUsageLimit: (agentId: string) => service.#moves.followUsageLimit(agentId),
       forgetExecutionThread: service.#forgetExecutionThread.bind(service),
       getStatus: service.getStatus.bind(service),
       interrupt: service.interrupt.bind(service),
@@ -532,7 +534,7 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
       get memoryReview() {
         return service.#memoryReview;
       },
-      pendingRuntimeDue: service.#pendingRuntimeDue.bind(service),
+      pendingRuntimeDue: (agentId: string) => service.#moves.pendingRuntimeDue(agentId),
       preferredProvider: service.preferredProvider.bind(service),
       get profileClients() {
         return service.#profileClients;
@@ -579,8 +581,8 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
         return service.#turn;
       },
       updateAgent: service.updateAgent.bind(service),
-      usageLimitBackup: service.#usageLimitBackup.bind(service),
-      usageLimitMove: service.#usageLimitMove.bind(service),
+      usageLimitBackup: (agentId: string) => service.#moves.usageLimitBackup(agentId),
+      usageLimitMove: (agentId: string) => service.#moves.usageLimitMove(agentId),
       get usageLimits() {
         return service.#usageLimits;
       },
@@ -1143,6 +1145,9 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
       },
     });
     this.queue = this.#queue;
+    this.#moves = new ModelMoves(parts, {
+      applyAgentUpdate: (input, initiatingAgentId, move) => this.#applyAgentUpdate(input, initiatingAgentId, move),
+    });
     this.tasks = new TaskOperations(parts, {
       sendMessage: (...args) => this.sendMessage(...args),
       cancelQueued: (agentId, deliveryId) => this.#cancelQueued(agentId, deliveryId),
@@ -2455,166 +2460,6 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
     }
     return agent;
   }, Effect.uninterruptible);
-
-  /**
-   * The model a usage limit or a provider error moves this agent to now, or null. An agent goes back
-   * to the model it left once no limit or provider error holds that model. An agent held by a limit,
-   * or whose model failed a turn with a provider error, set to switch without asking and with queued
-   * work or channel work that waits for it, moves to its first backup model that is ready. Only an
-   * agent with no started work moves; the end of its turn tries again.
-   */
-  #usageLimitMove(agentId: string): { input: UpdateAgentInput; move: ModelMove | null } | null {
-    const agent = this.#store.list().find((candidate) => candidate.id === agentId);
-    if (!agent || (!agent.usageLimitReturn && !agent.backupModels?.automatic)) return null;
-    if (this.#runsTurn(agentId) || this.#mailbox.hasStartedDelivery(agentId)) return null;
-    // The agent keeps its reasoning effort where the other model has it. It goes back with the effort it left.
-    const move = (choice: AgentModelChoice, reasoningEffort = agent.reasoningEffort) => {
-      const model = this.#endpoints
-        .available()
-        .find((option) => option.provider === choice.provider && option.id === choice.model);
-      return {
-        agentId,
-        provider: choice.provider,
-        model: choice.model,
-        providerAccountId: choice.providerAccountId ?? null,
-        reasoningEffort:
-          model && !model.supportedReasoningEfforts.includes(reasoningEffort)
-            ? model.defaultReasoningEffort
-            : reasoningEffort,
-      };
-    };
-    if (agent.usageLimitReturn && this.#usageLimitReady(agent.usageLimitReturn))
-      return { input: move(agent.usageLimitReturn, agent.usageLimitReturn.reasoningEffort), move: "return" };
-    const limited = !this.#usageLimits.mayDrain(agentId);
-    const failed = !limited && this.#usageLimits.isFailed(usageLimitOf(agentModelChoice(agent)));
-    if (!limited && !failed) return null;
-    const taskWork = () =>
-      this.#mailbox.queuedTaskIds(agentId).some((taskId) => this.#mailbox.nextQueued(agentId, taskId));
-    // A channel task that the limit refused went back to its channel, so the queue can be empty.
-    if (!this.#mailbox.nextQueued(agentId) && !taskWork() && !this.channels.ownsWaitingWork(agentId)) return null;
-    const next = this.#usageLimitBackup(agentId);
-    return next ? { input: { ...move(next), leaveUsageLimit: true }, move: failed ? "provider-error" : null } : null;
-  }
-
-  /** The first ready backup model of an agent set to switch without asking, or undefined. */
-  #usageLimitBackup(agentId: string): AgentModelChoice | undefined {
-    const agent = this.#store.list().find((candidate) => candidate.id === agentId);
-    if (!agent?.backupModels?.automatic) return undefined;
-    const current = agentModelChoice(agent);
-    return agent.backupModels.order.find(
-      (choice) => !sameAgentModelChoice(choice, current) && this.#usageLimitReady(choice),
-    );
-  }
-
-  /** Whether the model is ready, and no usage limit or provider error holds it. */
-  #usageLimitReady(choice: AgentModelChoice): boolean {
-    const limit = usageLimitOf(choice);
-    return this.#modelChoiceReady(choice) && !this.#usageLimits.isLimited(limit) && !this.#usageLimits.isFailed(limit);
-  }
-
-  /**
-   * Whether the provider is on and signed in, the account is connected, and the model list has the
-   * model. The same check as `backupModelOption` in the settings page and the chat card.
-   */
-  #modelChoiceReady(choice: AgentModelChoice): boolean {
-    const accountId = choice.providerAccountId ?? DEFAULT_PROVIDER_ACCOUNT_ID;
-    const provider = this.getStatus().providers?.find((status) => status.id === choice.provider);
-    const accounts = provider?.accounts;
-    return (
-      provider !== undefined &&
-      provider.off !== true &&
-      provider.state === "available" &&
-      (accounts === undefined
-        ? accountId === DEFAULT_PROVIDER_ACCOUNT_ID
-        : accounts.some((account) => account.id === accountId && account.state === "connected")) &&
-      this.#endpoints.available().some((model) => model.provider === choice.provider && model.id === choice.model)
-    );
-  }
-
-  /**
-   * True while a provider handover would break a running turn, task, or started delivery. It sees a
-   * turn that the database still records too, as the idle check of `#applyAgentUpdate` does, so a
-   * queued change waits for that turn and is not dropped as a failure.
-   */
-  #runtimeHandoverBusy(agentId: string): boolean {
-    const threadId = this.#store.list().find((candidate) => candidate.id === agentId)?.threadId;
-    return (
-      this.#runsTurn(agentId) ||
-      this.#mailbox.hasStartedDelivery(agentId) ||
-      this.#conversation.workingTaskSnapshots(agentId).length > 0 ||
-      (threadId ? this.#store.database.readActiveTurnId(agentId, threadId) !== null : false)
-    );
-  }
-
-  /** A queued provider change is ready to apply: the agent is idle. */
-  #pendingRuntimeDue(agentId: string): boolean {
-    const agent = this.#store.list().find((candidate) => candidate.id === agentId);
-    return Boolean(agent?.pendingRuntime) && !this.#runtimeHandoverBusy(agentId);
-  }
-
-  /** Applies `pendingRuntime` once the agent is idle. True when the agent moved. */
-  readonly #followPendingRuntime = Effect.fn("AgentService.followPendingRuntime")(function* (
-    this: AgentService,
-    agentId: string,
-  ) {
-    return yield* this.#endpoints
-      .runExclusive(() =>
-        Effect.gen({ self: this }, function* () {
-          const agent = this.#store.list().find((candidate) => candidate.id === agentId);
-          const pending = agent?.pendingRuntime;
-          if (!pending || this.#runtimeHandoverBusy(agentId)) return false;
-          yield* this.#applyAgentUpdate(
-            {
-              agentId,
-              provider: pending.provider,
-              model: pending.model,
-              reasoningEffort: pending.reasoningEffort,
-              providerAccountId: pending.providerAccountId ?? null,
-            },
-            undefined,
-            "next-turn",
-          );
-          return true;
-        }),
-      )
-      .pipe(
-        Effect.catch((failure) =>
-          Effect.gen({ self: this }, function* () {
-            this.#emitError("pending_runtime_switch_failed", failure, agentId);
-            // A change that fails on an idle agent, such as a provider that is now off, would fail again
-            // before each turn. The agent stays on its provider, and the header stops showing the change.
-            if (this.#runtimeHandoverBusy(agentId)) return false;
-            const cleared = yield* Effect.exit(this.#store.updateAgent({ agentId, pendingRuntime: null }));
-            if (Exit.isSuccess(cleared)) this.#emit({ type: "agents-changed", agents: this.listAgents() });
-            return false;
-          }),
-        ),
-      );
-  });
-
-  /** Makes the move of `#usageLimitMove`, if one is due. True when the agent moved. */
-  readonly #followUsageLimit = Effect.fn("AgentService.followUsageLimit")(function* (
-    this: AgentService,
-    agentId: string,
-  ) {
-    return yield* this.#endpoints
-      .runExclusive(() =>
-        Effect.gen({ self: this }, function* () {
-          const move = this.#usageLimitMove(agentId);
-          if (!move) return false;
-          yield* this.#applyAgentUpdate(move.input, undefined, move.move);
-          return true;
-        }),
-      )
-      .pipe(
-        Effect.catch((failure) =>
-          Effect.sync(() => {
-            this.#emitError("usage_limit_switch_failed", failure, agentId);
-            return false;
-          }),
-        ),
-      );
-  });
 
   /** Appends a system line to the agent's own chat, outside any turn. */
   #appendSystemMessage(agentId: string, message: ConversationMessage, eventType: string): void {
@@ -4038,9 +3883,6 @@ export class AgentService extends EventEmitter<AgentServiceEvents> {
   }, Effect.uninterruptible);
 }
 
-/** Why `#usageLimitMove` changes an agent's model, when it is not the switch for a usage limit. */
-type ModelMove = "return" | "provider-error" | "next-turn";
-
 /** The fields of an update that a queued `pendingRuntime` holds. */
 const RUNTIME_UPDATE_KEYS: ReadonlySet<string> = new Set([
   "agentId",
@@ -4057,18 +3899,6 @@ const MODEL_SWITCH_TEXT = {
   "provider-error": "status.agent.modelSwitchedForError",
   "provider-error-ended": "status.agent.modelReturnedAfterError",
 } as const;
-
-function agentModelChoice(agent: AgentSummary): AgentModelChoice {
-  return {
-    provider: agent.provider,
-    model: agent.model,
-    ...(agent.providerAccountId ? { providerAccountId: agent.providerAccountId } : {}),
-  };
-}
-
-function usageLimitOf(choice: AgentModelChoice): UsageLimitKey {
-  return { provider: choice.provider, accountId: agentProviderAccount(choice), model: choice.model };
-}
 
 /** These tasks already run; stopping the service joins them without starting new work. */
 function settleLifecycleTasks<A>(
