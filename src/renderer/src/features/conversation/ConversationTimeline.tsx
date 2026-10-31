@@ -348,8 +348,6 @@ export function ConversationTimeline() {
               kind: "text",
             }}
             author={exchangeAuthor(current())}
-            showAuthor
-            showTime
             agents={props.agents}
             referencedMessage={quoted()}
             referencedAuthorName={quotedAuthorName()}
@@ -670,9 +668,16 @@ export function ConversationTimeline() {
                   const current = message();
                   const sender = otherSender(current);
                   if (sender) return memberAuthor(sender);
-                  if (current?.author === "you") return { kind: "you", name: t("chat.message.you") };
+                  if (current?.author === "you") {
+                    const user = { name: null, email: props.currentUserEmail, avatarUrl: null };
+                    return { kind: "you", name: t("chat.message.you"), user };
+                  }
                   if (channel && current) return channel.author(current);
-                  return { kind: "agent", name: props.agent?.name ?? t("chat.message.agentFallback") };
+                  return {
+                    kind: "agent",
+                    name: props.agent?.name ?? t("chat.message.agentFallback"),
+                    agent: props.agent ?? undefined,
+                  };
                 });
                 const referencedMessage = createMemo(() => {
                   const replyToMessageId = message()?.replyToMessageId;
@@ -1190,12 +1195,7 @@ export function ConversationTimeline() {
                           <ChatMessageRow
                             message={message() ?? initialMessage}
                             author={author()}
-                            showAuthor={
-                              author().kind === "member" || (channel && author().kind === "agent")
-                                ? !continuesRun()
-                                : undefined
-                            }
-                            showTime={!continuesRun()}
+                            showAuthor={!continuesRun()}
                             animate={animateEntrance}
                             agents={props.agents}
                             skills={installedSkills()}

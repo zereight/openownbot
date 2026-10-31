@@ -1,4 +1,4 @@
-import type { AttachmentSummary, ConversationReaction, InstalledSkill } from "@robot/contracts/ipc";
+import type { AttachmentSummary, CentralAuthUser, ConversationReaction, InstalledSkill } from "@robot/contracts/ipc";
 import {
   Bubble,
   BubbleContent,
@@ -15,6 +15,7 @@ import { createMemo, For, Show } from "solid-js";
 import { avatarHeadColor } from "../../bloub-avatar";
 import type { AgentMessage, AgentProfile } from "../../data";
 import { useText } from "../../text";
+import { UserAvatar } from "../../user-avatar";
 import { AgentAvatar } from "../agents/AgentAvatar";
 import type { AttachmentMediaSource } from "./AttachmentCards";
 import type { MessageImageFile } from "./MarkdownMessageText";
@@ -23,32 +24,28 @@ import { conversationBubbleVariant, MessageBody } from "./MessageRendering";
 /**
  * Who wrote a message, as much as a row needs to draw it.
  *
- * `you` draws neither a face nor a name: a chat does not tell the reader who they are. `member` is
- * another person in an agent chat. People stand on the right and agents on the left, so a member
- * row stands with the reader's own and adds a name, and a bubble in that person's colour. Everything else is an author with an
- * identity, whether it is an agent of this chat or a member of a channel.
+ * Every row stands on the left, as in a chat server: the reader's own messages, other people and
+ * agents. `agent` is an agent of this chat or a member of a channel, and its name carries a BOT tag.
  */
 export interface ChatMessageAuthor {
   kind: "you" | "agent" | "member";
   name: string;
-  /** Missing for an author the agent list no longer holds, and for the reader's own messages. */
+  /** Missing for an author the agent list no longer holds, and for people. */
   agent?: AgentProfile | undefined;
   /** The face to draw when the profile is gone: the author id keeps deleted agents apart. */
   avatarSeed?: string | undefined;
+  /** The account of a person, for the face of their rows. Without it, the face shows the name's initials. */
+  user?: Pick<CentralAuthUser, "name" | "email" | "avatarUrl"> | undefined;
 }
 
 export interface ChatMessageRowProps {
   message: AgentMessage;
   author: ChatMessageAuthor;
   /**
-   * Whether the face stands beside the bubble and the name above it. The agent chat never shows a
-   * face - one chat has one agent, and its name is in the header - but names another person once
-   * for a run of their messages. A channel shows both once for a run of messages by one author.
-   * `false` keeps an empty gutter where the face stands; leave it out when the row has no face.
+   * Whether the row starts a run of messages by one author: it shows the face, the name and the
+   * time. A row that continues a run shows only its message, and its time on hover. Default true.
    */
   showAuthor?: boolean | undefined;
-  /** Whether the time stands beside the author name. Without a name, the time is in the action row. */
-  showTime?: boolean | undefined;
   animate?: boolean;
   agents: AgentProfile[];
   skills?: InstalledSkill[] | undefined;
@@ -86,20 +83,16 @@ export interface ChatMessageRowProps {
 }
 
 /**
- * One message of a chat: the alignment, the face, the name, the bubble, its reactions, the action
- * row under the bubble.
+ * One message of a chat: the face, the name with its BOT tag, the message, its reactions, and the
+ * actions that show on hover.
  *
- * It is shared because the agent chat and the channel chat draw the same message. They differed on
- * every part around the bubble - the channel had no entrance animation, no streaming state on the
- * bubble and no toolbar - for as long as each wrote its own row, and this component is what stops
- * that from happening a third time. It reads no context and no store: what a caller knows about a
- * conversation arrives as a prop.
+ * It is shared because the agent chat and the channel chat draw the same message. It reads no
+ * context and no store: what a caller knows about a conversation arrives as a prop.
  */
 export function ChatMessageRow(props: ChatMessageRowProps): JSX.Element {
   const { t } = useText();
-  const own = () => props.author.kind === "you";
-  const member = () => props.author.kind === "member";
-  const person = () => own() || member();
+  const person = () => props.author.kind !== "agent";
+  const header = () => props.showAuthor !== false;
   // A memo, because `Bubble` reads the variant more than once and it splits the whole body.
   const variant = createMemo(() => conversationBubbleVariant(props.message));
   const seed = () => props.author.agent?.avatarSeed ?? props.author.avatarSeed;
@@ -108,7 +101,7 @@ export function ChatMessageRow(props: ChatMessageRowProps): JSX.Element {
   // face beside it.
   const authorStyle = () => {
     const currentSeed = seed();
-    if (own() || currentSeed === undefined) return undefined;
+    if (person() || currentSeed === undefined) return undefined;
     return `--message-author-color: ${avatarHeadColor(currentSeed, props.author.agent?.avatarHue ?? null)}`;
   };
   const rowClass = () => [
@@ -117,7 +110,7 @@ export function ChatMessageRow(props: ChatMessageRowProps): JSX.Element {
       "message-entry-animated": props.animate === true,
       "message-entry-user": person(),
       "message-entry-agent": !person(),
-      "message-entry-with-author": props.showAuthor === true && !person(),
+      "message-entry-continues": !header(),
     },
     props.class,
   ];
@@ -162,31 +155,45 @@ export function ChatMessageRow(props: ChatMessageRowProps): JSX.Element {
       { capture: true },
     );
   };
+  const time = () => (
+    <time class="message-time" datetime={props.message.createdAt}>
+      {props.message.time}
+    </time>
+  );
+  const face = () => (
+    <Show
+      when={props.author.agent}
+      fallback={
+        <Show when={person()} fallback={<AgentAvatar seed={seed()} />}>
+          <UserAvatar
+            class="message-person-avatar"
+            user={props.author.user ?? { name: props.author.name, email: "", avatarUrl: null }}
+            decorative
+          />
+        </Show>
+      }
+    >
+      {(agent) => (
+        <Button
+          variant="ghost"
+          class="message-author-avatar-button"
+          aria-label={t("chat.row.openChat", { name: props.author.name })}
+          onClick={() => props.onSelectAgent(agent().id)}
+        >
+          <AgentAvatar agent={agent()} seed={seed()} />
+        </Button>
+      )}
+    </Show>
+  );
   const body = (): JSX.Element => (
     <>
-      <Show when={props.showAuthor && !person()}>
-        <MessageAvatar class="message-author-avatar">
-          <Show when={props.author.agent} fallback={<AgentAvatar seed={seed()} />}>
-            {(agent) => (
-              <Button
-                variant="ghost"
-                class="message-author-avatar-button"
-                aria-label={t("chat.row.openChat", { name: props.author.name })}
-                onClick={() => props.onSelectAgent(agent().id)}
-              >
-                <AgentAvatar agent={agent()} seed={seed()} />
-              </Button>
-            )}
-          </Show>
-        </MessageAvatar>
-      </Show>
-      <Show when={props.showAuthor === false && !person()}>
-        <div class="message-author-gutter" aria-hidden="true" />
+      <Show when={header()} fallback={<div class="message-gutter">{time()}</div>}>
+        <MessageAvatar class="message-author-avatar">{face()}</MessageAvatar>
       </Show>
       <MessageContent>
-        <Show when={props.showAuthor && !own()}>
+        <Show when={header()}>
           <MessageHeader class="message-author-name">
-            <Show when={props.author.agent} fallback={<span>{props.author.name}</span>}>
+            <Show when={props.author.agent} fallback={<span class="message-author-label">{props.author.name}</span>}>
               {(agent) => (
                 <Button
                   variant="ghost"
@@ -198,17 +205,15 @@ export function ChatMessageRow(props: ChatMessageRowProps): JSX.Element {
                 </Button>
               )}
             </Show>
-            <Show when={props.showTime}>
-              <time class="message-time" datetime={props.message.createdAt}>
-                {props.message.time}
-              </time>
+            <Show when={!person()}>
+              <span class="message-bot-tag">{t("chat.row.bot")}</span>
             </Show>
+            {time()}
           </MessageHeader>
         </Show>
         <div class="message-shell">
           <Bubble
-            class={member() ? "message-bubble-member" : undefined}
-            align={person() ? "end" : "start"}
+            align="start"
             variant={variant()}
             data-author={person() ? "user" : "assistant"}
             data-streaming={props.message.streaming === true ? "" : undefined}
@@ -241,7 +246,7 @@ export function ChatMessageRow(props: ChatMessageRowProps): JSX.Element {
             <Show when={(props.reactions?.length ?? 0) > 0}>
               <BubbleReactions
                 class="message-reaction-anchor"
-                align={person() ? "start" : "end"}
+                align="start"
                 overflowCount={props.reactionOverflowCount}
                 role="group"
                 aria-label={t("chat.row.reactions", {
@@ -284,15 +289,10 @@ export function ChatMessageRow(props: ChatMessageRowProps): JSX.Element {
             </Show>
           </Bubble>
         </div>
-        {/* The actions and the time stand under the bubble. A named author shows the time beside the name. */}
-        <div class="message-action-row">
-          {props.actions}
-          <Show when={!props.showAuthor || own()}>
-            <time class="message-time" datetime={props.message.createdAt}>
-              {props.message.time}
-            </time>
-          </Show>
-        </div>
+        {/* The actions float over the top end of the row while it is hovered or focused. */}
+        <Show when={props.actions}>
+          <div class="message-action-row">{props.actions}</div>
+        </Show>
       </MessageContent>
     </>
   );
@@ -302,7 +302,7 @@ export function ChatMessageRow(props: ChatMessageRowProps): JSX.Element {
       fallback={
         <Message
           role="article"
-          align={person() ? "end" : "start"}
+          align="start"
           aria-label={t("chat.row.label", { name: props.author.name })}
           data-author={person() ? "user" : "assistant"}
           data-chat-search-message={props["data-chat-search-message"]}
@@ -336,7 +336,7 @@ export function ChatMessageRow(props: ChatMessageRowProps): JSX.Element {
             // The trigger is the row, so it draws the `Message` primitive's element itself:
             // `as={Message}` would spread Kobalte's own props onto the DOM.
             data-slot="message"
-            data-align={person() ? "end" : "start"}
+            data-align="start"
             aria-label={t("chat.row.label", { name: props.author.name })}
             data-author={person() ? "user" : "assistant"}
             data-chat-search-message={props["data-chat-search-message"]}

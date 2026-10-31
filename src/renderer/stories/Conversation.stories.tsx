@@ -1077,7 +1077,7 @@ function playLiveDictation(
   return () => window.clearInterval(timer);
 }
 
-function MockedConversation(props: {
+interface MockedConversationProps {
   args: Parameters<typeof Conversation>[0];
   messages?: RendererAgentMessage[];
   initialAttachments?: DraftAttachment[];
@@ -1087,7 +1087,14 @@ function MockedConversation(props: {
   takeoverStateGallery?: boolean;
   conversationError?: string;
   replyToMessageId?: string;
-}) {
+}
+
+/**
+ * The Solid renderer of Storybook sets the args store again after the first render, and that clears
+ * the args that a story sets over the defaults, such as `messages`. The story reads its args once.
+ */
+function MockedConversation(input: MockedConversationProps) {
+  const props: MockedConversationProps = { ...input, args: { ...input.args } };
   const previousApi = window.openownbot;
   const mock = createMockOpenOwnBot();
   const controller = createConversationController({ onTypingChange: props.args.onTypingChange });
@@ -1194,7 +1201,7 @@ function MockedConversation(props: {
     if (takeoverGalleryScrollTimer !== undefined) window.clearTimeout(takeoverGalleryScrollTimer);
     for (const previewUrl of previewUrls) URL.revokeObjectURL(previewUrl);
     mock.dispose();
-    window.openownbot = previousApi;
+    if (window.openownbot === mock.api) window.openownbot = previousApi;
   });
   return (
     <div ref={setStoryFrameElement} class="conversation-story-frame">
