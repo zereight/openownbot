@@ -1,3 +1,11 @@
+// The composition root of main: it builds every service of the app in startup order and registers
+// each one's teardown. It is longer than 800 lines on purpose. Most statements construct one service
+// from services built above it, so the order of the statements is the order of the startup, and a
+// split that moves a run of them into another file must also carry that order. The self-contained
+// steps live in this folder (`startComputerUse`, `startFlows`, `startUpdater`, ...). What stays here
+// are the steps that share mutable state, such as `hostedServerSignedIn`, or that need many
+// services from all over the startup.
+
 import { isManagedRuntimeProvider } from "@robot/contracts/agent-providers";
 import { Effect, Fiber } from "effect";
 import { toAgentRemovalFailed } from "../../backend/agent/agent-removal";
@@ -264,6 +272,7 @@ import { startUpdater } from "./updater";
 import { startVoice } from "./voice";
 
 const logger = createOpenOwnBotLogger("application-services");
+
 export async function createApplicationServices({
   mainWindow,
   windows,
