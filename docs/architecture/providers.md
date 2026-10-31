@@ -726,11 +726,8 @@ Team API v8 opens the profile: `providers` and `authKinds` are `"open"`, so any 
 provider added after v8 needs no new protocol version. The `providers-v8` routes
 (`/v1/admin/providers/v8/*`) carry the runtimes as a keyed list, not as one fixed object.
 
-The host hides a provider from a peer below v8 when that protocol's frozen list does not have it
-(`FROZEN_PROVIDERS` in `src/main/team-api/provider-visibility.ts`). So a new provider is hidden
-from old peers with no change there. Do not edit those lists. A key-only provider
-(`KEY_ONLY_PROVIDERS`, now Inception, DeepSeek and OpenRouter) is not in any frozen list, so a v8
-peer is the first to see it. The `providers-v8` key routes read, set and clear its key. A key set
+Every peer speaks v8, so every peer sees every provider. A key-only provider
+(`KEY_ONLY_PROVIDERS`, now Inception, DeepSeek and OpenRouter) is managed through `providers-v8`. The `providers-v8` key routes read, set and clear its key. A key set
 there starts the host's Pi download when Pi cannot start, and does not wait for it. Until Pi is
 ready no process uses the key, so the route saves only the key; the provider is checked again when Pi
 is ready. The `providers-v5` and `providers-v1` key routes refuse its key.
@@ -996,9 +993,8 @@ without confinement support.
 
 ## Protocol compatibility
 
-Team API v7 adds Pi and Muse provider values. Released v1–v6 adapters remain unchanged. Older
-clients do not receive providers they cannot decode. Custom agents already named `pi` or `muse`
-remain valid; the names are reserved only for new custom-agent creation.
+Every peer speaks Team API v8, where provider ids are open values. Custom agents named `pi` or
+`muse` stay valid; the names are reserved only for new custom-agent creation.
 
 Optional `providers-v5` routes include the new runtimes and write-only provider keys.
 `agent-session-settings-v1` adds read, set, reset, and an agent-ID-only invalidation event.

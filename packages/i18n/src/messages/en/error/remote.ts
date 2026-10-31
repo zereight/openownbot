@@ -2,7 +2,6 @@ import { defineMessages } from "../../../message";
 
 export const messages = defineMessages("error.remote", {
   // Errors from remote servers, WebRTC transport, remote desktop, and the team client.
-  "error.remote.desktopSetupClientUpdate": "Update the client to use remote desktop setup.",
   "error.remote.desktopSetupUnavailable": "Remote desktop setup is unavailable.",
   "error.remote.desktopTestUnavailable": "Remote desktop testing is unavailable.",
   "error.remote.controlUnavailable": "Remote control is unavailable.",

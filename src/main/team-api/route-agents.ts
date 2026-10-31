@@ -7,7 +7,6 @@ import {
   parseHostAnalyticsInput,
   parseSaveAgentProfile,
 } from "@robot/contracts/ipc";
-import { hiddenProviderAgentIds, isPeerHiddenProvider } from "./provider-visibility";
 // Agents: the collection, the sidebar that arranges them, and everything under one agent's id.
 //
 // The order in this file is the one thing about it that is not free. The static collection paths -
@@ -23,14 +22,13 @@ import { hiddenProviderAgentIds, isPeerHiddenProvider } from "./provider-visibil
 import { readFile } from "node:fs/promises";
 import { isAvatarMimeType } from "@robot/contracts/avatar-images";
 import { AVATAR_IMAGE_LIMITS, INPUT_LIMITS } from "@robot/contracts/input-limits";
-import { type CreateAgentInput, type DuplicateAgentResult, WORKFLOWS_USAGE_ID } from "@robot/contracts/ipc";
+import { type DuplicateAgentResult, WORKFLOWS_USAGE_ID } from "@robot/contracts/ipc";
 import { TEAM_API_ROUTES } from "@robot/contracts/team-api-routes";
 import {
   BROWSER_SECRET_VAULT_CAPABILITY,
   BROWSER_SECRET_VAULT_ROUTES,
 } from "@robot/contracts/team-protocol/browser-secret-vault-v1";
-import { V5_AGENT_MODEL } from "@robot/contracts/team-protocol/v5-adapter";
-import { V6_AGENT_MODEL } from "@robot/contracts/team-protocol/v6-adapter";
+import { V8_AGENT_MODEL } from "@robot/contracts/team-protocol/v8-adapter";
 import { WORKFLOWS_CAPABILITY } from "@robot/contracts/team-protocol/workflows-v1";
 import { sourceText } from "@robot/i18n/source";
 import type { Effect } from "effect";
@@ -77,30 +75,6 @@ export async function routeAgents(
   { agents, skills, sidebarLayout, duplicateAgent }: AgentRouteDependencies,
 ): Promise<RouteOutcome> {
   const { method, url, request, response, member, capabilities, json, empty } = context;
-  const hidden = hiddenProviderAgentIds(agents.listAgents(), context.protocol);
-  function requireCompatibleDefault(): void {
-    if (context.protocol < 4 && agents.preferredProvider() === "opencode") {
-      throw new HttpError(400, sourceText("error.team.defaultProviderRequiresV4"));
-    }
-  }
-  /**
-   * A peer cannot start an agent on a provider that its protocol does not show: the agent would be
-   * hidden from the peer that made it. A named model decides the provider too; with neither named,
-   * the provider is the one the host starts a new agent on.
-   */
-  function requireVisibleProvider(input: Pick<CreateAgentInput, "provider" | "model"> = {}): void {
-    if (input.provider !== undefined) {
-      if (isPeerHiddenProvider(input.provider, context.protocol)) throw new HttpError(400, "provider is invalid.");
-      return;
-    }
-    const provider = agents.newAgentProvider(input);
-    if (provider && isPeerHiddenProvider(provider, context.protocol)) {
-      throw new HttpError(400, sourceText("error.team.newAgentProviderLocalOnly"));
-    }
-  }
-  function requireVisible(id: string | undefined | null): void {
-    if (id && hidden.has(id)) throw new HttpError(404, sourceText("error.team.agentNotFound"));
-  }
   // An answer to a prompt, an approval or a browser request acts for its agent, so it needs `chat`.
   // The agent service refuses a request that is not pending.
   function requireRequestAgent(agentId: string | undefined): void {
@@ -139,11 +113,6 @@ export async function routeAgents(
     if (!capabilities.has("agent-profile-generation"))
       throw new HttpError(400, sourceText("error.team.profileGenerationUnsupported"));
     const body = await readJson(request);
-    if (typeof body.agentId === "string") requireVisible(body.agentId);
-    else {
-      requireCompatibleDefault();
-      requireVisibleProvider();
-    }
     if (url.pathname === TEAM_API_ROUTES.agents.generateProfile) {
       return json(
         200,
@@ -182,8 +151,6 @@ export async function routeAgents(
   }
   if (method === "POST" && url.pathname === TEAM_API_ROUTES.sidebarLayout.actions) {
     const action = parseSidebarLayoutAction(await readJson(request));
-    if ("agentId" in action) requireVisible(action.agentId);
-    if ("beforeAgentId" in action) requireVisible(action.beforeAgentId);
     const layout = await runCauseEffect(sidebarLayout.mutate(action, agents.sidebarChatIds()));
     return json(200, layout);
   }
@@ -194,12 +161,10 @@ export async function routeAgents(
     return json(200, { ...usage, limits: usage.limits.filter((limit) => limit.accountId === undefined) });
   }
   if (method === "GET" && url.pathname === TEAM_API_ROUTES.agents.models) {
-    // Only ids the peer's protocol accepts: its model list decoder fails closed on the whole array, and
-    // `isAgentModel` also accepts `=` and `,`, which only protocol 6 knows.
-    const modelId = context.protocol < 6 ? V5_AGENT_MODEL : V6_AGENT_MODEL;
+    // Only ids the codec accepts: the model list decoder of a client fails closed on the whole array.
     return json(
       200,
-      (await agents.listModels()).filter((model) => modelId.test(model.id)),
+      (await agents.listModels()).filter((model) => V8_AGENT_MODEL.test(model.id)),
     );
   }
   if (method === "GET" && url.pathname === TEAM_API_ROUTES.agents.all) {
@@ -209,9 +174,7 @@ export async function routeAgents(
     return json(200, agents.conversations.listReads(member.id, markerExclusionsForCapabilities(capabilities)));
   }
   if (method === "POST" && url.pathname === TEAM_API_ROUTES.agents.all) {
-    requireCompatibleDefault();
     const input = agentCreate(await readJson(request));
-    requireVisibleProvider(input);
     return json(201, await runCauseEffect(agents.createAgent(input, undefined, undefined, memberSender(member))));
   }
 
@@ -243,7 +206,6 @@ export async function routeAgents(
     }
     if (method === "PATCH" && !action) {
       const input = agentUpdate(await readJson(request), agentId);
-      if (input.provider !== undefined) requireVisibleProvider({ provider: input.provider });
       // The released protocol has no `pendingRuntime`, so a provider change during work is refused.
       return json(200, await runCauseEffect(agents.updateAgent(input, undefined, false)));
     }

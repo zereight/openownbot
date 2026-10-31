@@ -41,7 +41,7 @@ import {
   supportsTeamSemanticTags,
   TEAM_AGENT_CREATE_MODEL_CAPABILITY,
 } from "@robot/contracts/team-protocol/current";
-import { teamHttpCodec } from "@robot/contracts/team-protocol/http-codecs";
+import { TEAM_HTTP_CODEC } from "@robot/contracts/team-protocol/http-codecs";
 import { teamSideRouteCodec } from "@robot/contracts/team-protocol/side-routes";
 import { TEAM_CAPABILITIES_HEADER, TEAM_PROTOCOL_VERSION_HEADER } from "@robot/contracts/team-protocol/v1";
 import { TEAM_PROTOCOL_V2_MAX_JSON_FRAME_BYTES } from "@robot/contracts/team-protocol/v2";
@@ -249,7 +249,7 @@ export async function readJson(request: IncomingMessage): Promise<DynamicRecord>
       return input;
     }
     const capabilities = requestCapabilities(request);
-    return teamHttpCodec(requestProtocol(request)).decodeRequest(request.method ?? "GET", path, value, {
+    return TEAM_HTTP_CODEC.decodeRequest(request.method ?? "GET", path, value, {
       preserveSemanticTags: supportsTeamSemanticTags(capabilities),
       agentCreateModel: capabilities.has(TEAM_AGENT_CREATE_MODEL_CAPABILITY),
     });

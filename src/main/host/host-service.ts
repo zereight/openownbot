@@ -327,7 +327,7 @@ export class HostService extends EventEmitter<HostEvents> {
               );
             },
             // The Team API server is made below. A notification reads it when it is sent.
-            hiddenAgentIds: (protocol, capabilities) => this.#api.hiddenAgentIds(protocol, capabilities),
+            hiddenAgentIds: (capabilities) => this.#api.hiddenAgentIds(capabilities),
             randomBytes: (size) => new Uint8Array(randomBytes(size)),
             memberActive: (memberId) => {
               const member = options.store.getMember(memberId);

@@ -34,7 +34,6 @@ import {
 } from "../ipc/workflow-inputs";
 import type { TeamApiAgents, TeamApiWorkflows } from "./dependencies";
 import { HttpError } from "./http-error";
-import { isPeerHiddenProvider } from "./provider-visibility";
 import type { RouteOutcome, TeamApiRequestContext } from "./request-context";
 import { readJson, requireAdmin, requireAgentLevel, stringField, WEBRTC_FRAME_BODY_BUDGET } from "./request-helpers";
 import { runEventsEffect } from "./route-events";
@@ -99,9 +98,9 @@ function trimmed<A>(whole: A, lists: readonly WorkflowStep[][]): A {
 
 /**
  * The workflows of a server, their versions and their runs, for a member. A member reads and uses a
- * workflow only when every agent of its agent steps, and every provider of its model steps, is visible
- * to them; otherwise it answers as missing. The answer filter in `provider-visibility.ts` would drop
- * the settings of such a node, and the member's save would then lose them. An owner or admin also
+ * workflow only when every agent of its agent steps is visible to them; otherwise it answers as
+ * missing. The answer filter in `agent-visibility.ts` would drop the settings of such a node, and the
+ * member's save would then lose them. An owner or admin also
  * sees a workflow whose agent was deleted, so that they can fix or delete it. A run or a decision
  * needs the chat level for each of those agents; a change, a delete or a restore needs the manage
  * level, before and after the change. A graph that names no agent needs no level, by product decision.
@@ -114,7 +113,7 @@ export async function routeWorkflows(
   agents: Pick<TeamApiAgents, "listAgents">,
   hiddenAgentIds: ReadonlySet<string>,
 ): Promise<RouteOutcome> {
-  const { method, url, capabilities, member, request, json, protocol } = context;
+  const { method, url, capabilities, member, request, json } = context;
   const path = url.pathname;
   if (method !== "POST" || !WORKFLOW_PATHS.has(path)) return "unmatched";
   if (!workflows || !capabilities.has(WORKFLOWS_CAPABILITY))
@@ -126,9 +125,7 @@ export async function routeWorkflows(
 
   const visibleAgents = (agentIds: readonly string[], known: ReadonlySet<string>) =>
     agentIds.every((agentId) => !hiddenAgentIds.has(agentId) && (admin || known.has(agentId)));
-  const visibleGraph = (graph: WorkflowGraph, known: ReadonlySet<string>) =>
-    visibleAgents(graphAgentIds(graph), known) &&
-    graph.nodes.every((node) => !isPeerHiddenProvider(node.fields.provider, protocol));
+  const visibleGraph = (graph: WorkflowGraph, known: ReadonlySet<string>) => visibleAgents(graphAgentIds(graph), known);
   /** A graph that the member can read and use at `level`, or a 404 as for a missing workflow. */
   const requireUsable = (graph: WorkflowGraph, level: Exclude<AgentAccessLevel, "none">) => {
     if (!visibleGraph(graph, listed())) workflowMissing();

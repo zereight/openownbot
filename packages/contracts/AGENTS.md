@@ -1,32 +1,24 @@
 # `packages/contracts`
 
-> [Plan 012](../../plans/012-in-place-rewrite.md) removes the compatibility rules below. Until phase 1
-> deletes this section, follow plan 012 where they conflict.
-
 The IPC channel list, the IPC payload types, and the frozen Team API wire protocol. Everything here
 is a contract someone else already implements — a shipped desktop build, a remote host, a renderer
 mock — so the cost of a change is paid by code you cannot edit.
 
-## Team API protocol compatibility
+## Team API protocol
 
+- The desktop host, the desktop client, the web client and the phone ship from one commit and speak
+  one protocol: `TEAM_PROTOCOL_RANGE` in `src/team-protocol/current.ts`. A peer on another protocol
+  gets `426` with `client_update_required` or `host_update_required`. Keep no adapter for an older
+  peer ([plan 012](../../plans/012-in-place-rewrite.md)).
 - Never use the application SemVer as a wire protocol version; application versions are diagnostic
   metadata only.
-- Keep a frozen codec, adapter, and client and host fixtures for each released protocol under
-  `src/team-protocol`, and one registered adapter per supported protocol. The fixtures are the record
-  of each released wire format; no unit test reads them, so compare a codec change against them by
-  hand. Do not serialize current IPC types across the boundary.
-- Use capabilities for additive, optional behaviour; a missing capability disables only its own
-  feature.
-- A required field, a removed field, or a semantic change needs a new protocol version. Never change
-  the meaning of a released one.
-- A new value in an open field is not a protocol change. From protocol 8, provider ids and auth
-  kinds are open (`OPEN_PROVIDER_ID`): a new provider needs no new version. Peers below 8 keep their
-  frozen lists, and the host hides each provider outside them (`FROZEN_PROVIDERS` in
-  `src/main/team-api/provider-visibility.ts`). A client keeps an agent of a provider it does not know.
-- Age, release count and SemVer distance are not reasons to remove an adapter. Removal needs a
-  separate architecture decision — a security issue, data-loss risk, semantics that cannot be kept,
-  or cost an adapter cannot contain — plus a changelog entry, update instructions, an E2E check of
-  both update directions, and clear UI text.
+- Use capabilities for optional behaviour; a missing capability disables only its own feature.
+  Every client sends the full `TEAM_CURRENT_CAPABILITIES` list, and a peer reads at most 128.
+- Do not serialize current IPC types across the boundary. The `v*-base` files hold the wire
+  vocabulary that the protocol codec (`v8-adapter.ts`) reuses.
+- Provider ids and auth kinds are open values (`OPEN_PROVIDER_ID`): a new provider needs no protocol
+  change. The host hides only an agent that the codec cannot describe
+  (`src/main/team-api/agent-visibility.ts`).
 - Malformed known payloads fail closed as `protocol_error`. Unknown optional events are ignored.
 
 ## One channel list, two mirrors

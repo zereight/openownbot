@@ -8,7 +8,6 @@
 import { INPUT_LIMITS } from "@robot/contracts/input-limits";
 import { isMessageReaction } from "@robot/contracts/ipc";
 import { isString } from "@robot/contracts/runtime-values";
-import { TEAM_PROTOCOL_V3 } from "@robot/contracts/team-protocol/v3";
 import { sourceText } from "@robot/i18n/source";
 import { runCauseEffect } from "../../backend/effect-boundary";
 import type { TeamApiAgents } from "./dependencies";
@@ -46,7 +45,7 @@ export async function routeAgentConversation(
   { agentId, action }: AgentRouteTarget,
   { agents }: AgentConversationRouteDependencies,
 ): Promise<RouteOutcome> {
-  const { method, url, request, member, protocol, capabilities, json, empty } = context;
+  const { method, url, request, member, capabilities, json, empty } = context;
 
   if (method === "GET" && action === "conversation") {
     requireListedAgent(agents, agentId);
@@ -66,10 +65,7 @@ export async function routeAgentConversation(
     }
   }
   if (method === "POST" && action === "conversation/unread") {
-    // `context.protocol` is the same `requestProtocol(request)` this branch used to recompute for
-    // itself. It has to be: the negotiated protocol also picks the adapter `json` encodes with, so a
-    // route deciding on a different number than the encoder would answer in a shape it just refused.
-    if (protocol < TEAM_PROTOCOL_V3 || !capabilities.has("conversation-unread")) {
+    if (!capabilities.has("conversation-unread")) {
       throw new HttpError(400, sourceText("error.team.markUnreadUnsupported"));
     }
     await readJson(request);

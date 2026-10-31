@@ -18,13 +18,11 @@ import { readJson, requireAdmin, requireVisibleBodyAgent } from "./request-helpe
  * A new agent on this computer from a marketplace listing or a shared template, added from a joined
  * server, or an agent from a listing updated to its current version. This computer downloads the
  * listing or template with its own account. Frozen by `agent-install-v1` and `agent-update-v1`.
- * `newAgentHidden` says that a new agent would start on a provider that the caller does not see.
  */
 export async function routeAgentInstall(
   context: TeamApiRequestContext,
   admin: TeamApiAdmin | undefined,
   hiddenAgentIds: ReadonlySet<string>,
-  newAgentHidden: () => boolean,
 ): Promise<RouteOutcome> {
   const { method, url, capabilities, member, request, json } = context;
   const marketplace = method === "POST" && url.pathname === AGENT_INSTALL_ROUTES.marketplace;
@@ -45,7 +43,6 @@ export async function routeAgentInstall(
     throw new HttpError(400, sourceText("error.team.agentInstallUnsupported"));
   requireAdmin(member);
   const body = await readJson(request);
-  if (newAgentHidden()) throw new HttpError(400, sourceText("error.team.newAgentProviderLocalOnly"));
   return answer(
     json,
     marketplace ? addFromMarketplace(marketplaceAgents, body) : addFromTemplate(agentTemplates, body),

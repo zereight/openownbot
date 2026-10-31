@@ -1,7 +1,7 @@
 // Checks that a remote client can read the queue of an agent with a long history (#2368). Runs the
 // real mailbox store and SQLite on a temporary profile, and the real Team API queue route behind a
 // local HTTP server. The client sends the capabilities and the protocol header that a current phone,
-// web client or desktop sends, then the response goes through the V7 WebRTC encoder and the RPC
+// web client or desktop sends, then the response goes through the WebRTC encoder and the RPC
 // frame encoder that the host peer uses. A frame larger than the WebRTC JSON limit throws there, as
 // it does on a real host. No app, provider, account or network is started.
 //
@@ -21,7 +21,7 @@ import {
   TEAM_HISTORY_EXTENT_CAPABILITY,
   TEAM_QUEUE_WINDOW_CAPABILITY,
 } from "@robot/contracts/team-protocol/current";
-import { teamHttpCodec } from "@robot/contracts/team-protocol/http-codecs";
+import { TEAM_HTTP_CODEC } from "@robot/contracts/team-protocol/http-codecs";
 import { TEAM_CAPABILITIES_HEADER, TEAM_PROTOCOL_VERSION_HEADER } from "@robot/contracts/team-protocol/v1";
 import {
   decodeTeamProtocolV2RpcFrame,
@@ -29,13 +29,9 @@ import {
   TEAM_PROTOCOL_V2_MAX_JSON_FRAME_BYTES,
 } from "@robot/contracts/team-protocol/v2";
 import {
-  decodeTeamProtocolV6WebRtcHttpResponse,
-  encodeTeamProtocolV6WebRtcHttpResponse,
-} from "@robot/contracts/team-protocol/v6-webrtc-adapter";
-import {
-  decodeTeamProtocolV7WebRtcHttpResponse,
-  encodeTeamProtocolV7WebRtcHttpResponse,
-} from "@robot/contracts/team-protocol/v7-webrtc-adapter";
+  decodeTeamProtocolV8WebRtcHttpResponse,
+  encodeTeamProtocolV8WebRtcHttpResponse,
+} from "@robot/contracts/team-protocol/v8-webrtc-adapter";
 import { Effect } from "effect";
 import { runCauseEffect } from "../src/backend/effect-boundary";
 import { MailboxStore } from "../src/backend/mailbox-store";
@@ -101,8 +97,7 @@ const member = {
   disabled: false,
 } as const;
 
-const V7_WEBRTC = { encode: encodeTeamProtocolV7WebRtcHttpResponse, decode: decodeTeamProtocolV7WebRtcHttpResponse };
-const V6_WEBRTC = { encode: encodeTeamProtocolV6WebRtcHttpResponse, decode: decodeTeamProtocolV6WebRtcHttpResponse };
+const WEBRTC = { encode: encodeTeamProtocolV8WebRtcHttpResponse, decode: decodeTeamProtocolV8WebRtcHttpResponse };
 
 function snapshotDeliveries(value: unknown): number {
   assert.ok(isQueueSnapshot(value), "The host answers a valid queue snapshot.");
@@ -154,7 +149,7 @@ function requestContext(request: IncomingMessage, response: ServerResponse, url:
     sessionId: "session",
     sessionExpiresAt: new Date(Date.now() + 60_000).toISOString(),
     json: (status, value) => {
-      const body = teamHttpCodec(protocol).encodeResponse(method, url.pathname, status, value, {
+      const body = TEAM_HTTP_CODEC.encodeResponse(method, url.pathname, status, value, {
         preserveSemanticTags: supportsTeamSemanticTags(capabilities),
         historyExtent: capabilities.has(TEAM_HISTORY_EXTENT_CAPABILITY),
       });
@@ -197,7 +192,7 @@ async function startHost(agents: AgentQueueRouteDependencies["agents"]): Promise
 
 /**
  * One queue read as a remote client makes it over WebRTC: the host peer forwards it to the local Team
- * API, encodes the answer again for V7 and puts it in one RPC frame. The client decodes the frame.
+ * API, encodes the answer again for WebRTC and puts it in one RPC frame. The client decodes the frame.
  */
 async function read(
   origin: string,
@@ -219,14 +214,12 @@ async function read(
       [TEAM_PROTOCOL_VERSION_HEADER]: String(input.protocol),
       [TEAM_CAPABILITIES_HEADER]: capabilities.join(","),
     },
-    ...(input.body
-      ? { body: teamHttpCodec(input.protocol).encodeRequest(input.method, input.path, input.body, {}) }
-      : {}),
+    ...(input.body ? { body: TEAM_HTTP_CODEC.encodeRequest(input.method, input.path, input.body, {}) } : {}),
   });
   const text = await response.text();
   assert.equal(response.status, 200, `${name}: ${text.slice(0, 200)}`);
   const body = JSON.parse(text);
-  const webRtc = input.protocol >= 7 ? V7_WEBRTC : V6_WEBRTC;
+  const webRtc = WEBRTC;
   // What the host peer sends: the local answer encoded again for the peer's protocol, in one RPC frame.
   const frame = {
     version: 2,
@@ -248,7 +241,7 @@ async function read(
     httpBodyBytes: Buffer.byteLength(text),
     frameBytes,
     fits: frameBytes <= TEAM_PROTOCOL_V2_MAX_JSON_FRAME_BYTES,
-    deliveries: snapshotDeliveries(teamHttpCodec(input.protocol).decodeResponse(input.method, input.path, 200, body)),
+    deliveries: snapshotDeliveries(TEAM_HTTP_CODEC.decodeResponse(input.method, input.path, 200, body)),
   };
   report.reads[name] = result;
   if (!result.fits) {
@@ -306,7 +299,7 @@ async function checkOldFailure(origin: string, mailbox: MailboxStore): Promise<v
   const snapshot = await read(origin, "old-failure-with-window", {
     method: "GET",
     path: `/v1/agents/${OLD_FAILURE_AGENT}/queue`,
-    protocol: 7,
+    protocol: 8,
     queueWindow: true,
   });
   assert.ok(snapshot, "The snapshot with an old failure fits in one frame.");
@@ -330,10 +323,10 @@ async function checkLongMessages(origin: string, mailbox: MailboxStore): Promise
   const history = await seedHistory(mailbox, LONG_AGENT, LONG, LONG_TEXT_BYTES);
   const path = `/v1/agents/${LONG_AGENT}/queue`;
   assert.equal(
-    await read(origin, "long-without-window", { method: "GET", path, protocol: 7, queueWindow: false }),
+    await read(origin, "long-without-window", { method: "GET", path, protocol: 8, queueWindow: false }),
     null,
   );
-  const windowed = await read(origin, "long-with-window", { method: "GET", path, protocol: 7, queueWindow: true });
+  const windowed = await read(origin, "long-with-window", { method: "GET", path, protocol: 8, queueWindow: true });
   assert.ok(windowed, "With the capability the snapshot of long messages fits in one frame.");
   assert.ok(windowed.deliveries.length > 0 && windowed.deliveries.length < LONG);
   assert.deepEqual(
@@ -350,19 +343,14 @@ async function checkHistoryOnly(origin: string, mailbox: MailboxStore, history: 
   const path = `/v1/agents/${HISTORY_AGENT}/queue`;
   assert.equal(mailbox.listQueue(HISTORY_AGENT).deliveries.length, HISTORY);
 
-  const legacy = await read(origin, "history-without-window", { method: "GET", path, protocol: 7, queueWindow: false });
+  const legacy = await read(origin, "history-without-window", { method: "GET", path, protocol: 8, queueWindow: false });
   assert.equal(report.reads["history-without-window"]?.deliveries, HISTORY);
   assert.equal(legacy, null, "Without the capability the host keeps the full list, which passes one frame.");
   report.checks.push(
     `without queue-window-v1: the full list of ${HISTORY} deliveries, larger than one frame (the reported failure)`,
   );
 
-  const released = await read(origin, "history-protocol-6", { method: "GET", path, protocol: 6, queueWindow: false });
-  assert.equal(released, null);
-  assert.equal(report.reads["history-protocol-6"]?.deliveries, HISTORY);
-  report.checks.push("protocol 6: the full list, as the released contract says");
-
-  const windowed = await read(origin, "history-with-window", { method: "GET", path, protocol: 7, queueWindow: true });
+  const windowed = await read(origin, "history-with-window", { method: "GET", path, protocol: 8, queueWindow: true });
   assert.ok(windowed, "With the capability the snapshot fits in one frame.");
   const frameBytes = report.reads["history-with-window"]?.frameBytes ?? Number.POSITIVE_INFINITY;
   assert.ok(frameBytes <= TEAM_PROTOCOL_V2_MAX_JSON_FRAME_BYTES);
@@ -401,14 +389,14 @@ async function checkMixed(origin: string, mailbox: MailboxStore): Promise<void> 
     method: "POST",
     path: `${path}/edit`,
     body: { action: "begin", deliveryId: edited, editId: "edit-1" },
-    protocol: 7,
+    protocol: 8,
     queueWindow: true,
   });
   assert.ok(begin, "The queue edit answer fits in one frame.");
   assert.equal(begin.deliveries.find((delivery) => delivery.id === edited)?.editing, true);
   report.checks.push("queue/edit begin with queue-window-v1: fits in one frame and marks the edited message");
 
-  const snapshot = await read(origin, "mixed-with-window", { method: "GET", path, protocol: 7, queueWindow: true });
+  const snapshot = await read(origin, "mixed-with-window", { method: "GET", path, protocol: 8, queueWindow: true });
   assert.ok(snapshot);
   const byId = new Map(snapshot.deliveries.map((delivery) => [delivery.id, delivery]));
   for (const id of queued) assert.equal(byId.get(id)?.status, "queued", "Every queued delivery stays.");
@@ -437,7 +425,7 @@ async function checkMixed(origin: string, mailbox: MailboxStore): Promise<void> 
   );
 
   assert.equal(
-    await read(origin, "mixed-without-window", { method: "GET", path, protocol: 7, queueWindow: false }),
+    await read(origin, "mixed-without-window", { method: "GET", path, protocol: 8, queueWindow: false }),
     null,
   );
   report.checks.push("mixed without queue-window-v1: the full list, larger than one frame");

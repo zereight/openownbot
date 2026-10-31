@@ -2,7 +2,6 @@ import type { PartialTranslation } from "../../../message";
 import type { messages as source } from "../../en/error/remote";
 
 export const messages = {
-  "error.remote.desktopSetupClientUpdate": "원격 데스크톱 설정을 사용하려면 클라이언트를 업데이트해 주세요.",
   "error.remote.desktopSetupUnavailable": "원격 데스크톱 설정을 사용할 수 없어요.",
   "error.remote.desktopTestUnavailable": "원격 데스크톱 테스트를 사용할 수 없어요.",
   "error.remote.controlUnavailable": "원격 제어를 사용할 수 없어요.",

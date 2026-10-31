@@ -24,8 +24,8 @@ import type {
   UpdateStatus,
 } from "@robot/contracts/ipc";
 import { SIDEBAR_UNASSIGNED_SECTION_ID } from "@robot/contracts/ipc";
-import { TEAM_CURRENT_CAPABILITIES } from "@robot/contracts/team-protocol/current";
-import { TEAM_PROTOCOL_V6 } from "@robot/contracts/team-protocol/v6";
+import { TEAM_CURRENT_CAPABILITIES, TEAM_PROTOCOL_RANGE } from "@robot/contracts/team-protocol/current";
+import { TEAM_PROTOCOL_V8 } from "@robot/contracts/team-protocol/v8";
 import developmentLogoUrl from "../assets/openownbot-logo-dev.png";
 import productionLogoUrl from "../assets/openownbot-logo-production.png";
 import { STORY_AGENT_STATUS, STORY_PRESENCE } from "./fixtures";
@@ -298,9 +298,9 @@ function landingServers(): ServerSummary[] {
       compatibility: {
         localAppVersion: "preview",
         hostAppVersion: "preview",
-        localProtocol: { minimum: TEAM_PROTOCOL_V6, maximum: TEAM_PROTOCOL_V6 },
-        hostProtocol: { minimum: TEAM_PROTOCOL_V6, maximum: TEAM_PROTOCOL_V6 },
-        negotiatedProtocol: TEAM_PROTOCOL_V6,
+        localProtocol: TEAM_PROTOCOL_RANGE,
+        hostProtocol: TEAM_PROTOCOL_RANGE,
+        negotiatedProtocol: TEAM_PROTOCOL_V8,
         capabilities: [...TEAM_CURRENT_CAPABILITIES],
       },
     },
