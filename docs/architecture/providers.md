@@ -383,7 +383,7 @@ paid catalog. So `AcpAgentClient` derives `#signedIn` from the models `session/n
 from a credential, and a keyless OpenCode reports `available`. `AcpProviderOptions.extraEnv` is read
 at every spawn, which is what lets a key saved in Settings reach the next process with no other
 plumbing, and what carries `OPENCODE_DISABLE_AUTOUPDATE` to a managed install so the CLI cannot
-update past the pin. `src/main/provider-credential-store.ts` holds that optional key, encrypted by
+update past the pin. `src/main/providers/provider-credential-store.ts` holds that optional key, encrypted by
 `safeStorage` in a `0o600` envelope under `userData`. Only a status (`missing`, `saved` or
 `unreadable`) crosses IPC; no getter returns the key. A file the store cannot read does not stop
 startup: OpenCode runs keyless, Settings reports the key as unreadable, and the file stays until the
@@ -467,7 +467,7 @@ accept only `AGENT_PROVIDERS` and reject other values before they write an event
 
 The Gemini provider (id `antigravity`) starts Google's Antigravity ACP server
 (`agy_acp_server`). Google's license does not allow redistribution, so the runtime manager
-downloads the zip on the user's computer. `extractZipFiles` in `src/main/provider-runtime-archive.ts`
+downloads the zip on the user's computer. `extractZipFiles` in `src/main/providers/provider-runtime-archive.ts`
 accepts only the server and `localharness_external`, which the server starts from its own folder.
 The server has no `--version`, so staging writes `antigravity-package.json` and
 `verifyInstalledRuntime` reads the version from that file (`versionFile`). ROBot never searches
@@ -631,7 +631,7 @@ routes let an owner or admin start that sign-in and see the page through the liv
 
 The Cursor provider (id `cursor`) starts the Cursor CLI with `cursor-agent acp`. Cursor's terms do
 not allow redistribution, so the runtime manager downloads the archive on the user's computer.
-`extractZipTree` in `src/main/provider-runtime-archive.ts` extracts the Windows zip and accepts only
+`extractZipTree` in `src/main/providers/provider-runtime-archive.ts` extracts the Windows zip and accepts only
 entries in its `dist-package` folder; staging renames that folder to `bin`. The CLI's `--version`
 is not usable on Windows, where the launcher is a `.cmd` file, so staging writes
 `cursor-package.json` and `verifyInstalledRuntime` reads the version from it. A lock install also
@@ -760,7 +760,7 @@ runtime hands the conversation over as for a provider switch. When a process tha
 exits, the router exits, and every custom agent restarts. When a model list process exits, the
 next list starts another.
 
-`src/main/custom-agent-store.ts` keeps `custom-agents.json`: env names in plain text and all env
+`src/main/agents/custom-agent-store.ts` keeps `custom-agents.json`: env names in plain text and all env
 values in one `safeStorage` ciphertext. `list()` returns summaries; only the backend gets the
 values. `customAgents.check` starts the program in a temporary folder, sends `initialize`, opens one
 `session/new` there with no MCP servers to read the model names, and stops its process group. A
@@ -794,7 +794,7 @@ saves a custom agent.
 
 The `providerDetection` IPC group scans local model servers and custom agents, loads the models of
 an address, and reads and writes the Local detection settings
-(`src/main/provider-detection-settings-store.ts`). `customProviders.update` edits a saved endpoint:
+(`src/main/providers/provider-detection-settings-store.ts`). `customProviders.update` edits a saved endpoint:
 a key or headers that the renderer does not send stay as stored, and a new origin with a kept key is
 refused. Both are local only: `providerAdmin` and the Team API take `PeerCustomProviderChanges`
 (`list`, `save` and `remove`), so a peer cannot reach them. The renderer

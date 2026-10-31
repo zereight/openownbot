@@ -1,5 +1,5 @@
 import { Effect } from "effect";
-import type { RemoteWorkflowError } from "../remote-service-effects";
+import type { RemoteWorkflowError } from "../remote-servers/remote-service-effects";
 // Routines: the scheduled standing instructions attached to one agent, and the calendar of every
 // routine of a host.
 
@@ -16,16 +16,16 @@ import { sourceText } from "@robot/i18n/source";
 import { buildRoutineCalendar, type RoutineCalendarSource } from "@robot/team-client/routine-calendar";
 import type { AgentService } from "../../backend/agent-service";
 import { runCauseEffect } from "../../backend/effect-boundary";
-import { localRoutineCalendarSource } from "../local-routine-calendar";
+import { localRoutineCalendarSource } from "../events/local-routine-calendar";
 import {
   decodeAgentSummaries,
   decodeRoutine,
   decodeRoutineRun,
   decodeRoutineRuns,
   decodeRoutines,
-} from "../remote-agent-decoding";
-import { decodeVoid } from "../remote-host-decoding";
-import type { RemoteServerManager } from "../remote-server-manager";
+} from "../remote-servers/remote-agent-decoding";
+import { decodeVoid } from "../remote-servers/remote-host-decoding";
+import type { RemoteServerManager } from "../remote-servers/remote-server-manager";
 import {
   parseAgentId,
   parseCreateRoutine,

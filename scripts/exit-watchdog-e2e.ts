@@ -1,4 +1,4 @@
-// Runs the real Electron with the exit watchdog of `src/main/exit-watchdog.ts`:
+// Runs the real Electron with the exit watchdog of `src/main/platform/exit-watchdog.ts`:
 // 1. Without a stalled file request, `app.quit`, `app.exit` and `process.exit` end the process with
 //    code 0, and the main log has no watchdog line.
 // 2. With an open on every libuv thread that never finishes, each of the three used to stay in

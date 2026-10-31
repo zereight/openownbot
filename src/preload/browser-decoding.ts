@@ -227,11 +227,11 @@ function controlSession(session: DynamicRecord): BrowserControlSession {
   };
 }
 
-// A `FromMain` decoder has a same-shaped `FromHost` twin in `src/main/remote-host-decoding.ts` and
+// A `FromMain` decoder has a same-shaped `FromHost` twin in `src/main/remote-servers/remote-host-decoding.ts` and
 // its four wire-area siblings, and is deliberately not the same function: this side is checking what
 // the main process sent the renderer, which is a trusted sender, while that side is checking a remote
 // team server, which is not. The suffix is there so a later reader does not merge them onto whichever
-// is looser. `src/main/ipc-channel-coverage.test.ts` checks the two sets name for name, so dropping a
+// is looser. `src/main/security/ipc-channel-coverage.test.ts` checks the two sets name for name, so dropping a
 // suffix or deleting one half is a red test rather than a comment nobody read.
 export function decodeBrowserPreviewFromMain(value: unknown): BrowserPreview {
   const preview = decodeRecord(value, "browser preview");

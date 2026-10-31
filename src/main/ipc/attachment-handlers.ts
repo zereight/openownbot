@@ -42,11 +42,11 @@ import { type Zippable, zip } from "fflate";
 import type { AgentService } from "../../backend/agent-service";
 import { causeHelpers, runCauseEffect } from "../../backend/effect-boundary";
 import type { MailboxStore } from "../../backend/mailbox-store";
-import { filePreviewFromBytes, localFilePreview, mimeTypeForName } from "../file-preview";
-import { filePreviewPages } from "../file-preview-pages";
-import { decodeVoid } from "../remote-host-decoding";
-import type { RemoteServerManager } from "../remote-server-manager";
-import { remoteCall, remoteDecode } from "../remote-service-effects";
+import { decodeVoid } from "../remote-servers/remote-host-decoding";
+import type { RemoteServerManager } from "../remote-servers/remote-server-manager";
+import { remoteCall, remoteDecode } from "../remote-servers/remote-service-effects";
+import { filePreviewFromBytes, localFilePreview, mimeTypeForName } from "../windows/file-preview";
+import { filePreviewPages } from "../windows/file-preview-pages";
 import {
   agentRequest,
   parseAttachmentData,

@@ -1,7 +1,7 @@
 // The iCalendar feed of this computer's routines. It is local only: the feed listens on this computer.
 
 import { runCauseEffect } from "../../backend/effect-boundary";
-import type { RoutineFeedServer } from "../routine-feed-server";
+import type { RoutineFeedServer } from "../events/routine-feed-server";
 import { handler, type IpcGroupHandlers } from "./define-ipc-group";
 
 export interface RoutineFeedIpcDependencies {

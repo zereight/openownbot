@@ -21,24 +21,24 @@ import { version as developmentVersion } from "../../../package.json";
 import type { AgentService } from "../../backend/agent-service";
 import type { BrowserHost } from "../../backend/browser-host";
 import type { MailboxStore } from "../../backend/mailbox-store";
-import type { AgentDefaultsPreferenceStore } from "../agent-defaults-preference-store";
-import type { AgentMemoryLimitSetting } from "../agent-memory-limit-preference-store";
-import type { AppBehaviorService } from "../app-behavior-service";
-import type { AppearanceService } from "../appearance-service";
-import type { ApprovalAutomation } from "../approval-automation-store";
-import type { BusyMessageModePreferenceStore } from "../busy-message-mode-preference-store";
-import type { ExternalLinkOpener, ExternalLinkPreferenceStore } from "../external-link-opener";
-import type { InterfaceSizeService } from "../interface-size-service";
-import type { LanguageService } from "../language-service";
-import type { LogoColorService } from "../logo-color-service";
-import { MAC_PERMISSION_URLS } from "../mac-permission-urls";
-import { exportDiagnostics, exportOpenOwnBotData } from "../maintenance-service";
-import { isTailscaleConnected } from "../private-network-detection";
-import type { RemoteNetworkRoutePreferenceStore } from "../remote-network-route-preference-store";
-import type { RemoteSessionCache } from "../remote-session-cache";
-import type { RemoteSessionReusePreferenceStore } from "../remote-session-reuse-preference-store";
-import { readSetupState, writeSetupState } from "../setup-store";
-import type { UpdateService } from "../update-service";
+import type { AgentDefaultsPreferenceStore } from "../agents/agent-defaults-preference-store";
+import type { AgentMemoryLimitSetting } from "../agents/agent-memory-limit-preference-store";
+import type { ApprovalAutomation } from "../agents/approval-automation-store";
+import type { BusyMessageModePreferenceStore } from "../agents/busy-message-mode-preference-store";
+import { MAC_PERMISSION_URLS } from "../computer-use/mac-permission-urls";
+import { exportDiagnostics, exportOpenOwnBotData } from "../host/maintenance-service";
+import { isTailscaleConnected } from "../platform/private-network-detection";
+import type { RemoteNetworkRoutePreferenceStore } from "../remote-servers/remote-network-route-preference-store";
+import type { RemoteSessionCache } from "../remote-servers/remote-session-cache";
+import type { RemoteSessionReusePreferenceStore } from "../remote-servers/remote-session-reuse-preference-store";
+import type { AppBehaviorService } from "../settings/app-behavior-service";
+import type { AppearanceService } from "../settings/appearance-service";
+import type { InterfaceSizeService } from "../settings/interface-size-service";
+import type { LanguageService } from "../settings/language-service";
+import type { LogoColorService } from "../settings/logo-color-service";
+import { readSetupState, writeSetupState } from "../settings/setup-store";
+import type { UpdateService } from "../updates/update-service";
+import type { ExternalLinkOpener, ExternalLinkPreferenceStore } from "../windows/external-link-opener";
 import {
   parseAgentDefaults,
   parseAppAppearancePreference,
@@ -82,9 +82,9 @@ const EXTERNAL_DESTINATIONS: Record<ExternalDestination, string> = {
 };
 
 import { runCauseEffect } from "../../backend/effect-boundary";
-import { openHttpLink } from "../message-link-relay";
-import type { ResourceMonitor } from "../resource-monitor";
-import type { TraceFile } from "../trace-file";
+import { openHttpLink } from "../messaging/message-link-relay";
+import type { ResourceMonitor } from "../platform/resource-monitor";
+import type { TraceFile } from "../platform/trace-file";
 import { handler, type IpcGroupHandlers, payloadHandler } from "./define-ipc-group";
 
 export interface AppIpcDependencies {

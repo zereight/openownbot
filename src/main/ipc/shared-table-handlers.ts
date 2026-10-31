@@ -1,5 +1,5 @@
 import type { Effect } from "effect";
-import type { RemoteWorkflowError } from "../remote-service-effects";
+import type { RemoteWorkflowError } from "../remote-servers/remote-service-effects";
 // The tables agents create for themselves, in `~/OpenBot/Shared/Data/agent-data.db`.
 //
 // Neither call takes an agent: every agent shares every table, and the user's delete is not
@@ -13,8 +13,8 @@ import { SHARED_TABLES_CAPABILITY, SHARED_TABLES_ROUTES } from "@robot/contracts
 import { sourceText } from "@robot/i18n/source";
 import type { AgentService } from "../../backend/agent-service";
 import { runCauseEffect } from "../../backend/effect-boundary";
-import { acceptEmpty, type ResponseDecoder } from "../remote-host-decoding";
-import type { RemoteRequestInit } from "../remote-server-client";
+import { acceptEmpty, type ResponseDecoder } from "../remote-servers/remote-host-decoding";
+import type { RemoteRequestInit } from "../remote-servers/remote-server-client";
 import type { IpcGroupHandlers } from "./define-ipc-group";
 import { scopedHandler, scopedQueryHandler } from "./scoped-handler";
 

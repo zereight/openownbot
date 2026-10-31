@@ -1,5 +1,5 @@
 import type { Effect } from "effect";
-import type { RemoteWorkflowError } from "../remote-service-effects";
+import type { RemoteWorkflowError } from "../remote-servers/remote-service-effects";
 // Publishing a local directory to a hosted site, and the sites of one server.
 //
 // Publishing is local: agents publish from the computer that runs them. The list and the delete are
@@ -14,9 +14,9 @@ import type { AppTranslate } from "@robot/i18n";
 import { sourceText } from "@robot/i18n/source";
 import { type BrowserWindow, dialog, type OpenDialogOptions } from "electron";
 import { runCauseEffect } from "../../backend/effect-boundary";
-import type { HostedSiteDesktopService } from "../hosted-site-service";
-import { acceptEmpty, type ResponseDecoder } from "../remote-host-decoding";
-import type { RemoteRequestInit } from "../remote-server-client";
+import type { HostedSiteDesktopService } from "../host/hosted-site-service";
+import { acceptEmpty, type ResponseDecoder } from "../remote-servers/remote-host-decoding";
+import type { RemoteRequestInit } from "../remote-servers/remote-server-client";
 import { parseDeleteHostedSite, parsePublishHostedSite, parseReplaceHostedSite } from "./app-inputs";
 import { handler, type IpcGroupHandlers, payloadHandler } from "./define-ipc-group";
 import { scopedHandler, scopedQueryHandler } from "./scoped-handler";

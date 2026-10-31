@@ -5,7 +5,7 @@ import type { AgentService } from "../../backend/agent-service";
 import type { AgentStore } from "../../backend/agent-store";
 import type { MailboxStore } from "../../backend/mailbox-store";
 import { StorageUsageScanner, StorageUsageService } from "../../backend/storage-usage";
-import { providerRuntimeRoot } from "../provider-runtime-manager";
+import { providerRuntimeRoot } from "../providers/provider-runtime-manager";
 import type { ApplicationServiceContext } from "./application-service-types";
 import { TEARDOWN_ORDER } from "./teardown-order";
 

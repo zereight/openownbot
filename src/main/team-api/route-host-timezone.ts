@@ -1,7 +1,7 @@
 import { HOST_TIMEZONE_CAPABILITY, HOST_TIMEZONE_ROUTES } from "@robot/contracts/team-protocol/host-timezone-v1";
 import { sourceText } from "@robot/i18n/source";
 import { runCauseEffect } from "../../backend/effect-boundary";
-import { parseServerTimezone } from "../server-timezone-preference-store";
+import { parseServerTimezone } from "../host/server-timezone-preference-store";
 import type { TeamApiAdmin } from "./dependencies";
 import { HttpError } from "./http-error";
 import type { RouteOutcome, TeamApiRequestContext } from "./request-context";

@@ -7,14 +7,14 @@ import {
 import { WEBHOOK_TESTS_CAPABILITY, WEBHOOK_TESTS_ROUTES } from "@robot/contracts/team-protocol/webhook-tests-v1";
 import { sourceText } from "@robot/i18n/source";
 import { Effect } from "effect";
-import { type HostEventsApi, HostEventsFailure, hostEventsFailureMessage } from "../host-events-api";
+import { type HostEventsApi, HostEventsFailure, hostEventsFailureMessage } from "../events/host-events-api";
 import {
   parseEventRoutineRef,
   parseListEventActivity,
   parseListEventRoutineRuns,
   parseListEventRoutines,
   parseSaveEventRoutine,
-} from "../host-events-inputs";
+} from "../events/host-events-inputs";
 import { HttpError } from "./http-error";
 import type { RouteOutcome, TeamApiRequestContext } from "./request-context";
 import { readJson, requireAdmin, requireReleasedSchedule } from "./request-helpers";

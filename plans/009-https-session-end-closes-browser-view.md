@@ -6,7 +6,7 @@
 > improvise. When done, set the state of this plan in `plans/README.md`.
 >
 > **Drift check (run first)**:
-> `git diff --stat ac4880d86..HEAD -- src/main/team-api/route-team.ts src/main/team-api-server.ts src/main/host-service.ts src/main/browser-view-gateway.ts src/main/team-api/dependencies.ts`
+> `git diff --stat ac4880d86..HEAD -- src/main/team-api/route-team.ts src/main/team-api/team-api-server.ts src/main/host/host-service.ts src/main/browser/browser-view-gateway.ts src/main/team-api/dependencies.ts`
 > If a file changed, compare the "Current state" excerpts with the live code.
 > On a mismatch, STOP.
 
@@ -22,7 +22,7 @@
 ## Why this matters
 
 A team member can open a live view of a host browser tab
-(`BrowserViewGateway`, `src/main/browser-view-gateway.ts`). The gateway checks
+(`BrowserViewGateway`, `src/main/browser/browser-view-gateway.ts`). The gateway checks
 the member's token only when the WebSocket opens (`#authorized`, line 257).
 After that, frames and input flow until something calls
 `revokeTeamSession(teamSessionId)` or `closeMemberSession`.
@@ -64,7 +64,7 @@ close it. This plan makes the two HTTPS routes do the same.
     refreshPresence();
     return empty(204);
     ```
-- `src/main/team-api-server.ts:861-872`, `#routeTeam`: passes `store`,
+- `src/main/team-api/team-api-server.ts:861-872`, `#routeTeam`: passes `store`,
   `remoteScreen`, `createInvite`, `updateMember`, `removeMember`,
   `onSessionRevoked`, `getPresence`, `refreshPresence`. Line 894 shows that
   `this.#options.browserView` exists (it is passed to `routeBrowser`).
@@ -75,15 +75,15 @@ close it. This plan makes the two HTTPS routes do the same.
     "handlesUpgrade" | "handleUpgrade" | "stop" | "createSession" | "closeMemberSession" | "revokeTeamSession"
   >;
   ```
-- `src/main/browser-view-gateway.ts:193-203`, `revokeTeamSession(teamSessionId)`:
+- `src/main/browser/browser-view-gateway.ts:193-203`, `revokeTeamSession(teamSessionId)`:
   closes each view session whose `teamSessionId` matches, with the reason
   "Team access ended.". It returns `Effect<void, RemoteWorkflowError>` (the
   `BrowserViewPort` requirement is provided inside).
 - The paths that already close browser views, for comparison:
-  - `src/main/host-service.ts:1170-1178`, `HostService.revokeSession`:
+  - `src/main/host/host-service.ts:1170-1178`, `HostService.revokeSession`:
     `#revokeWebRtcSession`, `store.revokeSession`, `remoteScreen.revokeTeamSession`, `browserView.revokeTeamSession`.
-  - `src/main/host-service.ts:1214-1223`, `#closeLocalSession`: also `browserView.revokeTeamSession`.
-  - `src/main/host-service.ts:429-435`, the WebRTC `closeSession` callback: also `browserView.revokeTeamSession`.
+  - `src/main/host/host-service.ts:1214-1223`, `#closeLocalSession`: also `browserView.revokeTeamSession`.
+  - `src/main/host/host-service.ts:429-435`, the WebRTC `closeSession` callback: also `browserView.revokeTeamSession`.
 
 ## Commands you will need
 
@@ -93,7 +93,7 @@ close it. This plan makes the two HTTPS routes do the same.
 | New E2E | `bun scripts/team-session-end-e2e.ts` | `PASS`, exit 0 |
 | Related tests | `bun run test:related -- src/main/team-api/route-team.ts` | exit 0 |
 | Typecheck | `bun run typecheck:node` | exit 0 |
-| Lint changed files | `biome check --write --max-diagnostics=none src/main/team-api/route-team.ts src/main/team-api-server.ts scripts/team-session-end-e2e.ts` | exit 0 |
+| Lint changed files | `biome check --write --max-diagnostics=none src/main/team-api/route-team.ts src/main/team-api/team-api-server.ts scripts/team-session-end-e2e.ts` | exit 0 |
 
 Do not run `bun run typecheck`, builds or full suites.
 
@@ -101,7 +101,7 @@ Do not run `bun run typecheck`, builds or full suites.
 
 **In scope**:
 - `src/main/team-api/route-team.ts`
-- `src/main/team-api-server.ts` (only `#routeTeam`)
+- `src/main/team-api/team-api-server.ts` (only `#routeTeam`)
 - `scripts/team-session-end-e2e.ts` (create)
 - `changelog.d/<branch>.md` (create)
 
@@ -186,7 +186,7 @@ fails because it loads Electron, STOP and report.
 
 ### Step 3: Lint and release note
 
-`biome check --write --max-diagnostics=none src/main/team-api/route-team.ts src/main/team-api-server.ts scripts/team-session-end-e2e.ts` → exit 0.
+`biome check --write --max-diagnostics=none src/main/team-api/route-team.ts src/main/team-api/team-api-server.ts scripts/team-session-end-e2e.ts` → exit 0.
 Create `changelog.d/<branch>.md` with one `### Fixed` item, for example:
 "Signing out, or ending a session from a phone or the web, now also closes that session's live browser view."
 
@@ -202,7 +202,7 @@ Create `changelog.d/<branch>.md` with one `### Fixed` item, for example:
 - [ ] `bun scripts/team-session-end-e2e.ts` exits 0 and the report has `"passed": true`
 - [ ] `bun run typecheck:node` exits 0
 - [ ] `grep -n "browserView.revokeTeamSession" src/main/team-api/route-team.ts` shows 2 lines
-- [ ] `grep -n "browserView: this.#options.browserView" src/main/team-api-server.ts` shows the `#routeTeam` line
+- [ ] `grep -n "browserView: this.#options.browserView" src/main/team-api/team-api-server.ts` shows the `#routeTeam` line
 - [ ] `git status` shows only the in-scope files
 - [ ] `plans/README.md` state for 009 is updated
 

@@ -5,10 +5,10 @@
   "src/backend/browser-diagnostics.test.ts": 0,
   "src/backend/openownbot-database.test.ts": 1.81,
   "src/backend/stderr-diagnostics.test.ts": 0,
-  "src/main/content-security-policy.test.ts": 0,
-  "src/main/ipc-channel-coverage.test.ts": 0.01,
+  "src/main/security/content-security-policy.test.ts": 0,
+  "src/main/security/ipc-channel-coverage.test.ts": 0.01,
   "src/main/ipc/define-ipc-group.test.ts": 0,
-  "src/main/renderer-permissions.test.ts": 0,
-  "src/main/trusted-ipc.test.ts": 0,
+  "src/main/security/renderer-permissions.test.ts": 0,
+  "src/main/security/trusted-ipc.test.ts": 0,
   "src/preload/provider-runtime.test.ts": 0
 }

@@ -3,7 +3,7 @@
 // the payload copied into a local name for both arms. Here each arm takes the decoded payload.
 
 import type { AgentIpcRequest } from "@robot/contracts/ipc";
-import type { PayloadDecoder } from "../trusted-ipc";
+import type { PayloadDecoder } from "../security/trusted-ipc";
 import { agentRequest, agentScope } from "./agent-inputs";
 import { type BoundHandler, payloadHandler } from "./define-ipc-group";
 import { routeToServer } from "./route-to-server";

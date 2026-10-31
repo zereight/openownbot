@@ -19,7 +19,7 @@ import { ProviderAccounts, type ProviderAccountsHost } from "../src/backend/agen
 import { runCauseEffect } from "../src/backend/effect-boundary";
 import { CLAUDE_API_KEY_ACCOUNT_TYPE } from "../src/backend/protocol";
 import { BUILT_IN_PROVIDER_DRIVERS, NO_PROVIDER_CREDENTIALS } from "../src/backend/provider-drivers";
-import { ProviderAccountsHost as PeerAccountsHost } from "../src/main/provider-accounts-host";
+import { ProviderAccountsHost as PeerAccountsHost } from "../src/main/providers/provider-accounts-host";
 
 const OUT = resolve(import.meta.dirname, "../.openownbot-build/claude-api-key-e2e");
 const KEY = "sk-ant-e2e-0f3c9a71";

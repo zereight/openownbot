@@ -4,7 +4,7 @@ import { Effect, Semaphore } from "effect";
 // reaches these. `custom-agent-changes.ts` owns the order of the writes.
 
 import { runCauseEffect } from "../../backend/effect-boundary";
-import type { CustomAgentChanges } from "../custom-agent-changes";
+import type { CustomAgentChanges } from "../agents/custom-agent-changes";
 import { parseCheckCustomAgent, parseDeleteCustomAgent, parseSaveCustomAgent } from "./custom-agent-inputs";
 import { handler, type IpcGroupHandlers, payloadHandler } from "./define-ipc-group";
 

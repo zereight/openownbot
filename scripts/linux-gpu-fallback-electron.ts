@@ -4,7 +4,7 @@
 // quits the app, so the app also quits when the test stops.
 import { writeFileSync } from "node:fs";
 import { app, BrowserWindow } from "electron";
-import { configureLinuxGpu } from "../src/main/linux-gpu-mode";
+import { configureLinuxGpu } from "../src/main/platform/linux-gpu-mode";
 
 function argument(name: string): string {
   const value = process.argv.find((item) => item.startsWith(`--${name}=`));

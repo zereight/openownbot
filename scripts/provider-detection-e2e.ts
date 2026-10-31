@@ -11,10 +11,10 @@ import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import { Effect } from "effect";
 import { runCauseEffect } from "../src/backend/effect-boundary";
-import { type CustomProviderCipher, CustomProviderStore } from "../src/main/custom-provider-store";
-import { probeModels } from "../src/main/model-server-probe";
-import { createProviderDetection } from "../src/main/provider-detection";
-import { ProviderDetectionSettingsStore } from "../src/main/provider-detection-settings-store";
+import { probeModels } from "../src/main/host/model-server-probe";
+import { type CustomProviderCipher, CustomProviderStore } from "../src/main/providers/custom-provider-store";
+import { createProviderDetection } from "../src/main/providers/provider-detection";
+import { ProviderDetectionSettingsStore } from "../src/main/providers/provider-detection-settings-store";
 
 const OUT = resolve(import.meta.dirname, "../.openownbot-build/provider-detection-e2e");
 const KEY = "sk-e2e-endpoint-key";

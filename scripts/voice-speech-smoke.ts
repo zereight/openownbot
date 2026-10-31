@@ -17,14 +17,14 @@ import { join, resolve } from "node:path";
 import type { SpeechAudio, SpeechLanguage, SpeechVoice } from "@robot/contracts/ipc";
 import { createOpenOwnBotLogger } from "@robot/logging";
 import { Effect } from "effect";
-import { SpeechPreferenceStore } from "../src/main/speech-preference-store";
-import { SUPERTONIC_MODEL_DIRECTORY } from "../src/main/voice-model-service";
-import type { VoiceSpeechHostProcess, VoiceSpeechResponse } from "../src/main/voice-speech-protocol";
-import { VoiceSpeechService } from "../src/main/voice-speech-service";
+import { SpeechPreferenceStore } from "../src/main/voice/speech-preference-store";
+import { SUPERTONIC_MODEL_DIRECTORY } from "../src/main/voice/voice-model-service";
+import type { VoiceSpeechHostProcess, VoiceSpeechResponse } from "../src/main/voice/voice-speech-protocol";
+import { VoiceSpeechService } from "../src/main/voice/voice-speech-service";
 
 const RESOURCES_ROOT = resolve(".openownbot-build/voice");
 const OUTPUT = resolve(".openownbot-build/voice-speech-smoke");
-const HOST = resolve("src/main/voice-speech-host.ts");
+const HOST = resolve("src/main/voice/voice-speech-host.ts");
 const ELECTRON = resolve("node_modules/electron/dist/Electron.app/Contents/MacOS/Electron");
 
 const logger = createOpenOwnBotLogger("voice-speech-smoke");

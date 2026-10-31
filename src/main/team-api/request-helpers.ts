@@ -50,7 +50,7 @@ import {
 } from "@robot/contracts/team-protocol/v1";
 import { TEAM_PROTOCOL_V2_MAX_JSON_FRAME_BYTES } from "@robot/contracts/team-protocol/v2";
 import { sourceText } from "@robot/i18n/source";
-import { readBodyWithin } from "../http-body";
+import { readBodyWithin } from "../platform/http-body";
 import { HttpError } from "./http-error";
 import type { TeamApiRequestContext } from "./request-context";
 

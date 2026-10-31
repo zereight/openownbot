@@ -6,10 +6,10 @@ import { sourceText } from "@robot/i18n/source";
 import type { Effect } from "effect";
 import { runCauseEffect } from "../../backend/effect-boundary";
 import type { RoutineFlowsHandle } from "../../backend/routine-flows/routine-flows";
-import { decodeRemoteRoutineFlowCanvas, decodeRemoteRoutineFlowLink } from "../remote-agent-decoding";
-import { acceptEmpty, type ResponseDecoder } from "../remote-host-decoding";
-import type { RemoteRequestInit } from "../remote-server-client";
-import type { RemoteWorkflowError } from "../remote-service-effects";
+import { decodeRemoteRoutineFlowCanvas, decodeRemoteRoutineFlowLink } from "../remote-servers/remote-agent-decoding";
+import { acceptEmpty, type ResponseDecoder } from "../remote-servers/remote-host-decoding";
+import type { RemoteRequestInit } from "../remote-servers/remote-server-client";
+import type { RemoteWorkflowError } from "../remote-servers/remote-service-effects";
 import { parseAgentId } from "./agent-inputs";
 import type { IpcGroupHandlers } from "./define-ipc-group";
 import {

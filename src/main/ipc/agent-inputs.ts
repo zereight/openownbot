@@ -80,7 +80,7 @@ import {
 import { isBoolean, isNumber, isOneOf, isString } from "@robot/contracts/runtime-values";
 import { decodeQueueEditRequest } from "@robot/contracts/team-protocol/queue-edit-v1";
 import { sourceText } from "@robot/i18n/source";
-import type { PayloadDecoder } from "../trusted-ipc";
+import type { PayloadDecoder } from "../security/trusted-ipc";
 import { parseAvatarImage } from "./avatar-inputs";
 import { isObject, requireString } from "./validation";
 

@@ -137,9 +137,9 @@ exchange, refresh and the `auth()` driver. What this stage added:
 - `src/backend/mcp-oauth-provider.ts` - `McpOAuth`, the authority, and the
   `OAuthClientProvider` it builds per server. A sign-in is keyed by a `state`
   this run generated, so a grant the run did not ask for finds nothing.
-- `src/main/mcp-oauth-store.ts` - the encrypted file, a copy of
+- `src/main/connectors/mcp-oauth-store.ts` - the encrypted file, a copy of
   `provider-credential-store.ts` with the cipher passed in as two callbacks.
-- `src/main/deep-link-router.ts` - the `mcp-auth` variant, classified with the
+- `src/main/windows/deep-link-router.ts` - the `mcp-auth` variant, classified with the
   other two and then never sent to a renderer: a grant is a secret.
 - `mcp-provider-shapes.ts` - `McpAuthorizationSource` threaded through
   `usableMcpServers`, and `mcpHandoffHeaders`, which adds `Authorization` at

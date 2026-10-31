@@ -344,7 +344,7 @@ host that reports the page state; for an older host, Back and Forward stay enabl
 `browser-sign-in-v1` adds `POST /v1/browser/sign-in` with `{ tabId, cookies }`, up to 150 cookies,
 and answers with `{ cookies }`, the count that the host set. Some sites refuse a sign-in from a
 data-center address, but accept the session that the member's own computer made. The desktop opens a
-window on this computer (`src/main/local-sign-in-window.ts`) with its own session in memory, the
+window on this computer (`src/main/browser/local-sign-in-window.ts`) with its own session in memory, the
 sandbox of the embedded browser, and no downloads or permissions other than a clipboard write. When
 the member selects Done, it sends only the cookies of the tab's site: the tab's host, a parent domain
 that is not a top-level one, or a subdomain (`browserSignInCookieFitsHost`, which both sides apply).
@@ -358,7 +358,7 @@ the `browser-takeover-requested` event and in `pendingBrowserTakeovers`, only fo
 the desktop app shows the button for a web tab. With the reason, the card asks only for the sign-in
 on this computer and has no "I'm done" button. A sign-in that sets cookies completes the takeover of
 that tab.
-The window also sends by itself (`src/main/browser-sign-in-page.ts`): after a page with a sign-in
+The window also sends by itself (`src/main/browser/browser-sign-in-page.ts`): after a page with a sign-in
 address or a visible password field, a new `HttpOnly` cookie of the site, and then a page of the site
 that is not a sign-in step. This is a guess, so after that send the desktop reads the server's tab
 list. When the tab still shows a sign-in step, it opens the window's page in the tab (with
@@ -520,7 +520,7 @@ A removed account with a saved key comes back at the next account check. An adde
 the key. An older host saved the key but did not use it, so a client shows the Claude key only when
 the host advertises the capability.
 
-`host-update-v1` runs the same update as the host's own Settings. `src/main/requested-update.ts`
+`host-update-v1` runs the same update as the host's own Settings. `src/main/updates/requested-update.ts`
 keeps the schedule in memory: who asked, and whether the restart waits until
 `describeRestartReadiness` reports no running work or happens as soon as the update is ready. The
 host user can turn the routes off with "Allow updates from server members" (`update-preference.json`,
@@ -709,10 +709,10 @@ payload manifest. Package installation preserves host registration and state; on
 is automatically updated. A Host Manager upgrade requires an administrator-installed signed PKG.
 
 The optional standalone root helper (`scripts/host-manager.ts`) uses the lifecycle in
-`src/main/host-manager.ts` and fixed macOS operations in `scripts/host-manager-macos.ts`.
-`src/main/host-update-coordinator.ts` is the unprivileged tenant client, not an update leader.
+`src/main/host/host-manager.ts` and fixed macOS operations in `scripts/host-manager-macos.ts`.
+`src/main/updates/host-update-coordinator.ts` is the unprivileged tenant client, not an update leader.
 The local protocol types live in `packages/contracts/src/host-manager.ts`; bounded file parsing
-and owner checks live in `src/main/host-update-files.ts`. Only the helper publishes host control
+and owner checks live in `src/main/updates/host-update-files.ts`. Only the helper publishes host control
 state or replaces the shared application. It has no dependency on tenant storage services.
 The tenant process owns an in-memory activity generation in `src/backend/restart-activity.ts`.
 Backend work and main-process sessions advance it, so work between status polls resets the idle
@@ -736,7 +736,7 @@ turns while it is low and limits the turns that run at the same time. See
 
 A self-hosted server uses the same Linux build, scripts and units on the owner's own computer, with
 `/opt/ROBot/hosted/mode` set to `self`. It has no claim: main starts in server mode
-(`src/main/server-mode.ts`, `OPENOWNBOT_SERVER=1`), and the `openownbot` terminal command signs it in over
+(`src/main/host/server-mode.ts`, `OPENOWNBOT_SERVER=1`), and the `openownbot` terminal command signs it in over
 a Unix socket in the 0700 runtime directory of the service user. Main publishes the host after each
 sign-in. See [self-hosted servers](../self-hosted-server.md).
 

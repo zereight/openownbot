@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { HOST_MANAGER_DIRECTORY } from "../src/main/host-update-files";
+import { HOST_MANAGER_DIRECTORY } from "../src/main/updates/host-update-files";
 
 export const HOST_TEAM_ID = "ZTRDTUL87R";
 export const HOST_PACKAGE_ID = "app.openownbot.host";

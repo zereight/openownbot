@@ -1,4 +1,4 @@
-import { localSkillTools } from "../local-skill-tools";
+import { localSkillTools } from "../skills/local-skill-tools";
 import {
   parseCreateLocalSkill,
   parseInstallLocalSkill,
@@ -10,7 +10,7 @@ import {
 import type { AppTranslate } from "@robot/i18n";
 import { type BrowserWindow, dialog, type OpenDialogOptions } from "electron";
 import { runCauseEffect } from "../../backend/effect-boundary";
-import type { SkillMarketplaceService } from "../skill-marketplace-service";
+import type { SkillMarketplaceService } from "../skills/skill-marketplace-service";
 import {
   parseInstallSkill,
   parseMarketplaceSkillQuery,

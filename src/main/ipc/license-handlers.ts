@@ -7,7 +7,7 @@ import {
 } from "@robot/contracts/license";
 import { sourceText } from "@robot/i18n/source";
 import { runCauseEffect } from "../../backend/effect-boundary";
-import type { LicenseDesktopService } from "../license-service";
+import type { LicenseDesktopService } from "../account/license-service";
 import { handler, type IpcGroupHandlers, payloadHandler } from "./define-ipc-group";
 
 export function licenseIpcHandlers({ license }: { license: LicenseDesktopService }): Pick<IpcGroupHandlers, "license"> {

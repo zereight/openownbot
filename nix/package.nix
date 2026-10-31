@@ -2,7 +2,7 @@
 # names the release and its hashes; `bun scripts/nix-sources.ts` writes it after each release.
 #
 # OpenOwnBot does not update itself from the Nix store (`isNixStoreInstall` in
-# src/main/update-service.ts). Nix replaces the whole package instead.
+# src/main/updates/update-service.ts). Nix replaces the whole package instead.
 {
   lib,
   stdenvNoCC,

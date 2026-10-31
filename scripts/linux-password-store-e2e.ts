@@ -1,4 +1,4 @@
-// Runs the real Electron with the Linux password store choice of `src/main/linux-password-store.ts`
+// Runs the real Electron with the Linux password store choice of `src/main/platform/linux-password-store.ts`
 // (#2374) and reads the `safeStorage` backend that Chromium selected:
 // 1. A desktop that Chromium does not map (Hyprland, sway, LXQt, none) gets `gnome_libsecret`.
 //    Without the change, these get `basic_text`.

@@ -11,7 +11,7 @@ import { browserUserControlResult } from "../src/backend/agent/prompts";
 import { BrowserHost } from "../src/backend/browser-host";
 import { runCauseEffect } from "../src/backend/effect-boundary";
 import type { DynamicToolCallParams, DynamicToolResult } from "../src/backend/protocol";
-import { RemoteEventRefresh } from "../src/main/remote-server-event-refresh";
+import { RemoteEventRefresh } from "../src/main/remote-servers/remote-server-event-refresh";
 
 const argument = (name: string) => {
   const value = process.argv.find((item) => item.startsWith(`--${name}=`))?.slice(name.length + 3);

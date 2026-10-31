@@ -3,7 +3,7 @@
 
 import type { IpcMainInvokeEvent } from "electron";
 import { runCauseEffect } from "../../backend/effect-boundary";
-import { type BrowserDockOverlay, requireBrowserDockSender } from "../browser-dock-overlay";
+import { type BrowserDockOverlay, requireBrowserDockSender } from "../browser/browser-dock-overlay";
 import { parseBrowserDockAction, parseBrowserDockFrame, parseBrowserDockPresentation } from "./app-inputs";
 import { authorizedHandler, eventHandler, type IpcGroupHandlers } from "./define-ipc-group";
 

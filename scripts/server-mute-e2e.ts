@@ -109,12 +109,12 @@ plugin({
     }));
   },
 });
-const { RemoteServerManager } = await import("../src/main/remote-server-manager");
-const { RemoteDesktopManager } = await import("../src/main/remote-desktop-manager");
-const { HostService } = await import("../src/main/host-service");
-const { TeamStore } = await import("../src/main/team-store");
+const { RemoteServerManager } = await import("../src/main/remote-servers/remote-server-manager");
+const { RemoteDesktopManager } = await import("../src/main/remote-desktop/remote-desktop-manager");
+const { HostService } = await import("../src/main/host/host-service");
+const { TeamStore } = await import("../src/main/team/team-store");
 const { teamIpcHandlers } = await import("../src/main/ipc/team-handlers");
-const { createRendererForwarders } = await import("../src/main/renderer-forwarders");
+const { createRendererForwarders } = await import("../src/main/windows/renderer-forwarders");
 const { BrowserWindow } = await import("electron");
 const mainWindow = new BrowserWindow();
 

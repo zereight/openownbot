@@ -12,10 +12,10 @@ import type { TeamCurrentCapability } from "@robot/contracts/team-protocol/curre
 import { sourceText } from "@robot/i18n/source";
 import type { Effect } from "effect";
 import { runCauseEffect } from "../../backend/effect-boundary";
-import type { GitHubConnectorService } from "../github-connector-service";
-import type { ResponseDecoder } from "../remote-host-decoding";
-import type { RemoteRequestInit } from "../remote-server-client";
-import type { RemoteWorkflowError } from "../remote-service-effects";
+import type { GitHubConnectorService } from "../connectors/github-connector-service";
+import type { ResponseDecoder } from "../remote-servers/remote-host-decoding";
+import type { RemoteRequestInit } from "../remote-servers/remote-server-client";
+import type { RemoteWorkflowError } from "../remote-servers/remote-service-effects";
 import { handler, type IpcGroupHandlers } from "./define-ipc-group";
 import { scopedQueryHandler } from "./scoped-handler";
 

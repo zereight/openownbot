@@ -410,7 +410,7 @@ See [web client delivery](docs/web-client.md) for the release gate and focused c
 | `bun run package:linux` | Build an unpacked local Linux x64 application on Linux. |
 | `bun run package:linux:arm64` | Build an unpacked local Linux arm64 application on arm64 Linux. |
 | `bun run package:linux:verify` | Build and verify the Linux x64 application on Linux. Run it under `xvfb-run -a` without a display. |
-| `bun scripts/create-github-app.ts [--org <org>]` | Create the ROBot GitHub App from `scripts/github-app/manifest.json` with the manifest flow. Prints the Client ID for `src/main/github-connector-config.ts` and writes the app secrets to `~/.config/openownbot/github-app-<slug>.json` (mode 0600). Enable Device Flow in the app settings after the run. |
+| `bun scripts/create-github-app.ts [--org <org>]` | Create the ROBot GitHub App from `scripts/github-app/manifest.json` with the manifest flow. Prints the Client ID for `src/main/connectors/github-connector-config.ts` and writes the app secrets to `~/.config/openownbot/github-app-<slug>.json` (mode 0600). Enable Device Flow in the app settings after the run. |
 | `bun run release:preflight` | Verify version, Git state, and GitHub release secrets before tagging. |
 | `bun run dist:mac` | Build unsigned local DMG and ZIP update artifacts for this Mac. |
 | `bun run dist:win` | Build an unsigned Windows x64 NSIS installer on Windows. |
@@ -638,7 +638,7 @@ that site sees the request. And the provider programs that ROBot starts (such as
 Code) make their own network connections, which ROBot does not control.
 
 How this is kept: `packages/contracts/src/local-only.json` has `"localOnly": true`. The app then refuses
-every request to a ROBot service (`src/main/local-only-guard.ts`), the telemetry and update code stays
+every request to a ROBot service (`src/main/security/local-only-guard.ts`), the telemetry and update code stays
 off, and `bun run check:local-only` stops a change that names such a service. The plugin marketplace and
 chat links do not ask other sites for icons while the switch is on. A measured list of the connections
 an idle app makes is planned and not written yet.

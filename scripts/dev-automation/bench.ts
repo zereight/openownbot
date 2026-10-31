@@ -19,7 +19,7 @@ import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { createOpenOwnBotLogger, toLogValue } from "@robot/logging";
 import { type Browser, chromium, type Page } from "playwright-core";
-import { developmentInstanceIdForWorktree, developmentUserDataName } from "../../src/main/development-profile";
+import { developmentInstanceIdForWorktree, developmentUserDataName } from "../../src/main/platform/development-profile";
 import { resolveDevelopmentAppDataRoot } from "../development-state-paths";
 import { readScriptArguments } from "../script-arguments";
 import { cleanupSeedOwnedTransfers, seedDevelopmentState } from "../seed-dev-state";

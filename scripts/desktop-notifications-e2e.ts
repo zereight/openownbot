@@ -29,7 +29,7 @@ import { runCauseEffect } from "../src/backend/effect-boundary";
 import { MailboxStore } from "../src/backend/mailbox-store";
 import { OpenOwnBotDatabase } from "../src/backend/openownbot-database";
 import { SidebarLayoutStore } from "../src/backend/sidebar-layout-store";
-import type { NotificationRelayRequest } from "../src/main/push-notifications";
+import type { NotificationRelayRequest } from "../src/main/team/push-notifications";
 
 const OUT = resolve(import.meta.dirname, "../.openownbot-build/desktop-notifications-e2e");
 const APP_VERSION = "0.0.0-e2e";
@@ -113,10 +113,10 @@ plugin({
     }));
   },
 });
-const { RemoteServerManager } = await import("../src/main/remote-server-manager");
-const { createRendererForwarders } = await import("../src/main/renderer-forwarders");
-const { desktopShowsAgentEvent } = await import("../src/main/desktop-notifications");
-const { PushNotificationService } = await import("../src/main/push-notifications");
+const { RemoteServerManager } = await import("../src/main/remote-servers/remote-server-manager");
+const { createRendererForwarders } = await import("../src/main/windows/renderer-forwarders");
+const { desktopShowsAgentEvent } = await import("../src/main/windows/desktop-notifications");
+const { PushNotificationService } = await import("../src/main/team/push-notifications");
 const { BrowserWindow } = await import("electron");
 const mainWindow = new BrowserWindow();
 

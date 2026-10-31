@@ -17,7 +17,7 @@ SCRIPT=${0:A}
 cd "${SCRIPT:h}/.." || exit 1
 
 REAL_PROFILE="$HOME/Library/Application Support/OpenBot"
-# 앱이 worktree 경로의 SHA-256으로 정하는 개발 프로필 이름임 (src/main/development-profile.ts).
+# 앱이 worktree 경로의 SHA-256으로 정하는 개발 프로필 이름임 (src/main/platform/development-profile.ts).
 DEV_PROFILE="$HOME/Library/Application Support/ROBot Dev wt-$(printf %s "$PWD" | shasum -a 256 | cut -d' ' -f1)"
 BRANCH=zereight
 

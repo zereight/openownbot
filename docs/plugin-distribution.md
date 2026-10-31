@@ -146,7 +146,7 @@ existing MCP server form. A secret is never in a public file, in a log, or in an
 
 The skills are pins into the skills marketplace. They are `marketplace_skills` identifiers and
 version identifiers. Thus the install reuses `installVersion` in
-`src/main/skill-marketplace-service.ts`. The catalog carries no bundle bytes.
+`src/main/skills/skill-marketplace-service.ts`. The catalog carries no bundle bytes.
 
 ### 2.4 How the catalog is published
 
@@ -182,7 +182,7 @@ Two controls protect the catalog:
 
 - HTTPS to `openbot.run`, which is a Cloudflare custom domain;
 - `detailSha256` in the index. The main process compares the hash after each detail download. This
-  is the control that `src/main/skill-marketplace-service.ts` already uses for a skill bundle
+  is the control that `src/main/skills/skill-marketplace-service.ts` already uses for a skill bundle
   (`sha256(bundle) === detail.bundleSha256`).
 
 There is **no signature**. The party that holds a signing key would also be the party that deploys
@@ -191,7 +191,7 @@ only if the catalog moves to a host that ROBot does not control.
 
 ### 2.6 Fetch and cache in the app
 
-A new `src/main/plugin-catalog-service.ts` owns this. `src/main/application-services.ts` builds it.
+A new `src/main/plugin-catalog-service.ts` owns this. `src/main/startup/application-services.ts` builds it.
 It does not use `CentralAuthManager`, because the browse path must work when the user is not signed
 in.
 
@@ -219,7 +219,7 @@ does over `packages/contracts/src/ipc-mcp-servers.ts`.
 
 New channels: `plugins:list`, `plugins:get`, `plugins:install-state`, `plugins:install`,
 `plugins:uninstall`. Each one gets a decoder in `src/preload/index.ts` and a mirror in
-`src/renderer/src/preview/mock-openownbot.ts`. `src/main/ipc-channel-coverage.test.ts` enforces the
+`src/renderer/src/preview/mock-openownbot.ts`. `src/main/security/ipc-channel-coverage.test.ts` enforces the
 mirror.
 
 ## 3. What "Install plugin" does
@@ -231,7 +231,7 @@ the first agent. The app page has no agent picker.
 2. Check before any write: build the `McpServerConfig`, run `mcpConfigErrors`, and refuse a reserved
    name or a name that another plugin uses.
 3. Install each pinned skill into the chosen agent with
-   `installVersion({ agentId, skillId, versionId })` in `src/main/skill-marketplace-service.ts`.
+   `installVersion({ agentId, skillId, versionId })` in `src/main/skills/skill-marketplace-service.ts`.
 4. Save the MCP server with `saveMcpServer` in `src/backend/agent-service.ts`, which writes through
    `src/backend/mcp-server-store.ts` and then refreshes each agent runtime. The server is saved with
    `enabled: false` when it needs credentials. A server that cannot connect must not go to each agent
@@ -245,7 +245,7 @@ The skills are installed before the app. Thus a failure leaves no server that ha
 ### 3.1 Failure
 
 A failure removes the skills that this attempt installed, and does not write the MCP record.
-`src/main/agent-marketplace-service.ts` already works in this way. A skill that the agent had before
+`src/main/agents/agent-marketplace-service.ts` already works in this way. A skill that the agent had before
 the attempt stays. A failed receipt write does not cancel the install, because the state is read
 again from the store.
 
@@ -356,7 +356,7 @@ The parser accepts a URL only when:
 
 ### 4.3 The main process
 
-A new `src/main/deep-link-router.ts` holds the kinds:
+A new `src/main/windows/deep-link-router.ts` holds the kinds:
 
 ```ts
 export type DeepLink = { kind: "invite"; url: string } | { kind: "plugin"; slug: string };
@@ -442,7 +442,7 @@ mandatory. Check the link forms, the page, the install and the uninstall end to 
 
 | File | What it proves |
 | --- | --- |
-| `src/main/ipc-channel-coverage.test.ts` | Exists. It fails until the channels are in the contracts, the preload and the mock. |
+| `src/main/security/ipc-channel-coverage.test.ts` | Exists. It fails until the channels are in the contracts, the preload and the mock. |
 
 ## 7. Open questions
 
@@ -488,7 +488,7 @@ Ordered by cost.
    `installVersion`. A failure unwinds the skills this attempt installed, and writes no MCP record.
    Uninstall is done as well: see 3.3. The MCP settings panel and the agent's skills panel still
    remove one piece at a time, for a user who wants only one of them.
-8. ~~The deep-link router and the share link.~~ Done. `src/main/deep-link-router.ts` decides which
+8. ~~The deep-link router and the share link.~~ Done. `src/main/windows/deep-link-router.ts` decides which
    kind an `openownbot://` link is, `openownbot://plugins/<slug>` opens that app's page in the Apps tab
    and installs nothing, and `openbot.run/plugins/<slug>` now answers, so the detail page offers
    `Copy link` again. The public pages read the same catalog source as the tab, through the generated

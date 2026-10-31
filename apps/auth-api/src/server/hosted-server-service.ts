@@ -88,7 +88,7 @@ const SANDBOX_NAME_MAX_LENGTH = 120;
 /** A server that reports no activity this long stops. The next use starts it again. */
 const IDLE_STOP_AFTER_MS = 15 * 60_000;
 /**
- * A server in use reports each 5 minutes (`src/main/hosted-server-activity.ts`). A resize stops the
+ * A server in use reports each 5 minutes (`src/main/host/hosted-server-activity.ts`). A resize stops the
  * server, so it waits until the server sent no report for this long.
  */
 const RESIZE_AFTER_NO_USE_MS = 7 * 60_000;

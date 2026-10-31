@@ -7,10 +7,10 @@ import { join } from "node:path";
 import { createOpenOwnBotLogger } from "@robot/logging";
 import { Effect } from "effect";
 import { app, BrowserWindow, crashReporter } from "electron";
-import { startMainLog } from "../src/main/provider-log";
-import { ResourceMonitor } from "../src/main/resource-monitor";
-import { StatementTimings } from "../src/main/resource-summary";
-import { TraceFile } from "../src/main/trace-file";
+import { ResourceMonitor } from "../src/main/platform/resource-monitor";
+import { StatementTimings } from "../src/main/platform/resource-summary";
+import { TraceFile } from "../src/main/platform/trace-file";
+import { startMainLog } from "../src/main/providers/provider-log";
 
 function argument(name: string): string {
   const value = process.argv.find((item) => item.startsWith(`--${name}=`));

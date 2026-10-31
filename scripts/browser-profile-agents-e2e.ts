@@ -22,7 +22,7 @@ import { BrowserProfileStore } from "../src/backend/browser-profiles/browser-pro
 import { runCauseEffect } from "../src/backend/effect-boundary";
 import { MailboxStore } from "../src/backend/mailbox-store";
 import { OpenOwnBotDatabase } from "../src/backend/openownbot-database";
-import { type BrowserProfileService, createBrowserProfileService } from "../src/main/browser-profile-service";
+import { type BrowserProfileService, createBrowserProfileService } from "../src/main/browser/browser-profile-service";
 
 const OUT = resolve(import.meta.dirname, "../.openownbot-build/browser-profile-agents-e2e");
 const root = await mkdtemp(join(tmpdir(), "openownbot-browser-profile-agents-"));

@@ -65,10 +65,10 @@ and at `/token`. The three must agree, or the authorization server stops the sig
 page, where ROBot can see nothing and can explain nothing. Canva does this: it accepts
 `openownbot://mcp-auth` at registration and then answers `Invalid redirect URI.` at `/authorize`.
 
-So `src/main/mcp-oauth-redirect-server.ts` listens on `127.0.0.1` and the address it listens on is
+So `src/main/connectors/mcp-oauth-redirect-server.ts` listens on `127.0.0.1` and the address it listens on is
 the redirect address. This is the loopback redirect of RFC 8252, and it is the form every signed-in
 listing in the catalog accepts. `openownbot://mcp-auth` stays as the fallback for a machine where no
-port can be bound, and `src/main/deep-link-router.ts` keeps that kind of link.
+port can be bound, and `src/main/windows/deep-link-router.ts` keeps that kind of link.
 
 There is no configuration for a developer or for a packaged build:
 

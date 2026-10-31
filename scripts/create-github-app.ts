@@ -178,7 +178,7 @@ async function main(): Promise<void> {
 
   // The public settings first: they stay on the terminal if the secrets cannot be written.
   logger.info(`GitHub created the app ${conversion.slug}: ${conversion.html_url}`);
-  logger.info("Put the Client ID in GITHUB_APP_CLIENT_ID in src/main/github-connector-config.ts:");
+  logger.info("Put the Client ID in GITHUB_APP_CLIENT_ID in src/main/connectors/github-connector-config.ts:");
   process.stdout.write(`${conversion.client_id}\n`);
   let secretsPath: string;
   try {

@@ -9,9 +9,9 @@ import {
 } from "@robot/team-client/team-api-requests";
 import type { AgentService } from "../../backend/agent-service";
 import { runCauseEffect } from "../../backend/effect-boundary";
-import { decodeAgentMemory } from "../remote-agent-decoding";
-import { decodeVoid } from "../remote-host-decoding";
-import type { RemoteServerManager } from "../remote-server-manager";
+import { decodeAgentMemory } from "../remote-servers/remote-agent-decoding";
+import { decodeVoid } from "../remote-servers/remote-host-decoding";
+import type { RemoteServerManager } from "../remote-servers/remote-server-manager";
 import {
   parseAgentId,
   parseCreateAgentMemory,

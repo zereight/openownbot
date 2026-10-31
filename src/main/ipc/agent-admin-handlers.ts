@@ -1,5 +1,5 @@
 import type { Effect } from "effect";
-import type { RemoteWorkflowError } from "../remote-service-effects";
+import type { RemoteWorkflowError } from "../remote-servers/remote-service-effects";
 // Access, auto-approve and skills of one agent, and adding an agent from the marketplace or a
 // shared template. On a joined server they belong to the host, so the request goes there, and the
 // host answers only an owner or admin.
@@ -50,15 +50,15 @@ import type { TeamCurrentCapability } from "@robot/contracts/team-protocol/curre
 import { SKILLS_ADMIN_CAPABILITY, SKILLS_ADMIN_ROUTES } from "@robot/contracts/team-protocol/skills-admin-v1";
 import { sourceText } from "@robot/i18n/source";
 import { runCauseEffect } from "../../backend/effect-boundary";
-import type { AgentAdminSettingsService } from "../agent-admin-settings";
-import type { AgentHostSettingsService } from "../agent-host-settings";
-import type { AgentMarketplaceService } from "../agent-marketplace-service";
-import type { AgentTemplateService } from "../agent-template-service";
-import type { BrowserProfileService } from "../browser-profile-service";
-import { decodeAgentHostSettingsFromHost } from "../remote-agent-decoding";
-import { acceptEmpty, type ResponseDecoder } from "../remote-host-decoding";
-import type { RemoteRequestInit } from "../remote-server-client";
-import type { SkillMarketplaceService } from "../skill-marketplace-service";
+import type { AgentAdminSettingsService } from "../agents/agent-admin-settings";
+import type { AgentHostSettingsService } from "../agents/agent-host-settings";
+import type { AgentMarketplaceService } from "../agents/agent-marketplace-service";
+import type { AgentTemplateService } from "../agents/agent-template-service";
+import type { BrowserProfileService } from "../browser/browser-profile-service";
+import { decodeAgentHostSettingsFromHost } from "../remote-servers/remote-agent-decoding";
+import { acceptEmpty, type ResponseDecoder } from "../remote-servers/remote-host-decoding";
+import type { RemoteRequestInit } from "../remote-servers/remote-server-client";
+import type { SkillMarketplaceService } from "../skills/skill-marketplace-service";
 import { parseInstallAgentTemplate } from "./agent-template-handlers";
 import {
   parseInstallMarketplaceAgent,

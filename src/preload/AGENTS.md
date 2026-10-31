@@ -22,7 +22,7 @@ renderer-to-main trust boundary. [Main-process rules](../main/AGENTS.md#trust-bo
   `invokeAgentForServer`, or `ipcRenderer.invoke` for the untyped endpoint. Subscribe through
   `listen` and decode the raw value in the handler. Do not call `ipcRenderer.on` directly.
 - Invoke only request endpoints from `IPC_ENDPOINTS`, and subscribe only to event endpoints.
-  `src/main/ipc-channel-coverage.test.ts` reads these sources and fails on an unused or extra channel.
+  `src/main/security/ipc-channel-coverage.test.ts` reads these sources and fails on an unused or extra channel.
 - Do not expose `ipcRenderer`, Electron objects, or Node APIs to the page. `team-webrtc.ts` gives
   the hidden WebRTC window only one `MessagePort`.
 - Add a method in the same change as its channel, handler, and preview mock. See
@@ -35,4 +35,4 @@ renderer-to-main trust boundary. [Main-process rules](../main/AGENTS.md#trust-bo
   entry in `HAND_WRITTEN_METHODS`. CI runs it after the build in `check:desktop:static`.
 
 Run one test file: `bun run test:desktop -- src/preload/<name>.test.ts`. For a channel change, also
-run `bun run test:desktop -- src/main/ipc-channel-coverage.test.ts`.
+run `bun run test:desktop -- src/main/security/ipc-channel-coverage.test.ts`.

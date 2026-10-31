@@ -30,7 +30,7 @@ does not make links. `.openownbot/skills-lock.json` in the workspace records the
 `.openownbot/skills-disabled/` holds disabled skills. A bundled skill has an `.robot-managed.json`
 marker.
 
-`src/main/skill-folder-discovery.ts` lists all other skills in the seven workspace folders as
+`src/main/skills/skill-folder-discovery.ts` lists all other skills in the seven workspace folders as
 `workspace` skills. The list is read-only: ROBot never writes, moves or deletes these folders, and
 they do not count toward the agent's skill limit. A folder without `SKILL.md` is not a skill. A
 skill gets a `problem` when its `SKILL.md` does not follow the specification, or when it is in a
@@ -74,11 +74,11 @@ and its user settings (see `plans/003-mcp-works-on-a-clean-machine.md`). The pan
 environment values, `src/backend/mcp-redaction.ts` removes them from logs, and OAuth tokens are in
 `safeStorage`.
 
-The 1Password connector is built in and has no SQLite row. `src/main/onepassword-connector-service.ts`
+The 1Password connector is built in and has no SQLite row. `src/main/connectors/onepassword-connector-service.ts`
 runs the user's `op` CLI once to create the vault "Shared with ROBot" and a `read_items` service
 account, or takes a pasted service account token. Before Connect, the page shows three setup steps
 that `checkSetup()` reads: a CLI of 2.18 or later (the user's own on `PATH`, else the copy that
-`src/main/onepassword-cli-installer.ts` downloads, with a SHA-256 pinned per target, into
+`src/main/connectors/onepassword-cli-installer.ts` downloads, with a SHA-256 pinned per target, into
 `<userData>/provider-state/1password-cli`), the 1Password app's CLI integration (`op account list`
 answers at least one account), and Connect. The service keeps only the token in
 `onepassword-connector.json`, encrypted with `safeStorage`. It reads the vault with
@@ -135,13 +135,13 @@ the personal API key (`client_id`, `client_secret`) and the master password in t
 client. The host keeps them in `bitwarden-connector.json`, encrypted with `safeStorage`,
 and its CLI data in `<userData>/provider-state/bitwarden-host` (`BITWARDENCLI_APPDATA_DIR`), apart from
 any `bw` configuration of the user. Without `bw` on `PATH`, it downloads the release that
-`src/main/bitwarden-cli-installer.ts` pins, with a SHA-256 per target, into
+`src/main/connectors/bitwarden-cli-installer.ts` pins, with a SHA-256 per target, into
 `<userData>/provider-state/bitwarden-cli`. It runs `bw config server`, `bw login --apikey` and
 `bw unlock --passwordenv`; the secrets go to `bw` only in its environment. After a restart or eight
 idle hours, the next vault call unlocks again from the stored record. Disconnect removes the record and
 the CLI data. The phone shows the connector with no action.
 
-The GitHub connector is built in and has no SQLite row. `src/main/github-connector-service.ts` signs
+The GitHub connector is built in and has no SQLite row. `src/main/connectors/github-connector-service.ts` signs
 in to the `openownbotgit` GitHub App with the device flow, which needs only the public Client ID, and keeps
 the tokens in `github-connector.json`, encrypted with `safeStorage`. While it is
 connected, `McpGateway.enabled()` adds the `openownbot-github` server (`api.githubcopilot.com/mcp/`),
@@ -157,10 +157,10 @@ the user token to `POST /v1/github/installation-tokens` on the account Worker
 (`GITHUB_APP_PRIVATE_KEY`, PKCS #8) and signs an app JWT. It mints one installation token for each
 installation of this app, limited to the repositories where the user can push, maintain or
 administer, and stores nothing. With no key it answers 503, and the desktop keeps the user token.
-`src/main/github-bot-tokens.ts` renews the set ten minutes before the first token expires.
+`src/main/connectors/github-bot-tokens.ts` renews the set ten minutes before the first token expires.
 - `git`: the helper runs with `useHttpPath`, and takes the bot token for the repository from
   `provider-state/github/repositories`, or else the user token.
-- MCP: `src/main/github-mcp-proxy.ts` is a loopback MCP server with a secret bearer. It forwards to
+- MCP: `src/main/connectors/github-mcp-proxy.ts` is a loopback MCP server with a secret bearer. It forwards to
   `api.githubcopilot.com/mcp/` with one upstream client for each token, because GitHub binds an MCP
   session to its token. A tool call with `owner` and `repo` arguments uses that repository's bot
   token. The port and the secret stay in the encrypted record, so a resumed Codex session keeps its
@@ -173,7 +173,7 @@ person.
 
 ## Local skill library
 
-`src/main/local-skill-library.ts` owns immutable revisions under the application's user-data directory, in `local-skills/<local-skill-uuid>/<revision>/bundle.zip`. A staging directory is renamed only after the bundle is written; reads ignore unpublished staging directories. Revisions are serialized and checked against the caller's expected revision. No SQLite migration is required.
+`src/main/skills/local-skill-library.ts` owns immutable revisions under the application's user-data directory, in `local-skills/<local-skill-uuid>/<revision>/bundle.zip`. A staging directory is renamed only after the bundle is written; reads ignore unpublished staging directories. Revisions are serialized and checked against the caller's expected revision. No SQLite migration is required.
 
 The shared package validator handles local and marketplace bundles. The existing installer owns per-agent files, hashes, disabled storage, and both provider directories. Local installations skip marketplace downloads and receipt requests. Installation operations are serialized per agent; a library revision does not update installed copies.
 
@@ -185,4 +185,4 @@ The backend local skill tools derive the agent from the calling provider session
 
 A plugin is one developer's bundle: an MCP server, shown as an app, the skills that drive it, and the listing text. The catalog of available plugins is a static file set that the Account Worker serves from `openbot.run` without an account, and the main process keeps a copy in the user-data directory rather than in SQLite, because a remote catalog is a cache and not the source of truth. An install saves the app as a host-global MCP server and installs the pinned skills into the chosen agent. A share link at `openbot.run/plugins/<slug>` opens a public page, and `openownbot://plugins/<slug>` opens the listing in the app; neither one installs anything.
 
-See [plugin distribution and sharing](../plugin-distribution.md) for the catalog shape, the fetch and cache rules, the install and uninstall order, the deep-link parser rules, and the security review. Three parts of that design run today. The Apps tab installs the listing's pinned skills into the chosen agent and saves its app as a host-global MCP server. The links work: `openbot.run/plugins` and `openbot.run/plugins/<slug>` are pages on the public site, and `openownbot://plugins/<slug>` opens that listing in the app, which is one of the link kinds that `src/main/deep-link-router.ts` recognises beside an invitation. Both sides read one catalog, generated from `marketplace/plugin-catalog/`, because a listing that said one thing on the page and another in the app would be two catalogs. The Apps tab also uninstalls a listing. The catalog files, the Worker routes that serve them, and the cache in the main process are still design.
+See [plugin distribution and sharing](../plugin-distribution.md) for the catalog shape, the fetch and cache rules, the install and uninstall order, the deep-link parser rules, and the security review. Three parts of that design run today. The Apps tab installs the listing's pinned skills into the chosen agent and saves its app as a host-global MCP server. The links work: `openbot.run/plugins` and `openbot.run/plugins/<slug>` are pages on the public site, and `openownbot://plugins/<slug>` opens that listing in the app, which is one of the link kinds that `src/main/windows/deep-link-router.ts` recognises beside an invitation. Both sides read one catalog, generated from `marketplace/plugin-catalog/`, because a listing that said one thing on the page and another in the app would be two catalogs. The Apps tab also uninstalls a listing. The catalog files, the Worker routes that serve them, and the cache in the main process are still design.

@@ -11,7 +11,7 @@ import type { TeamPresenceSnapshot } from "@robot/contracts/ipc";
 import { TEAM_API_ROUTES } from "@robot/contracts/team-api-routes";
 import { sourceText } from "@robot/i18n/source";
 import { runCauseEffect } from "../../backend/effect-boundary";
-import type { TeamStore } from "../team-store";
+import type { TeamStore } from "../team/team-store";
 import type { TeamApiBrowser, TeamApiBrowserView, TeamApiRemoteScreen } from "./dependencies";
 import type { RouteOutcome, TeamApiRequestContext } from "./request-context";
 import { pathIdentifier, requireAdmin } from "./request-helpers";

@@ -1,6 +1,6 @@
 import { Duration, Effect } from "effect";
 import type { McpOperations } from "../../backend/agent/mcp-gateway";
-import type { RemoteWorkflowError } from "../remote-service-effects";
+import type { RemoteWorkflowError } from "../remote-servers/remote-service-effects";
 // MCP servers: the model-context servers an agent on this server may use.
 //
 // "Server" here is a joined team server or the local host; the MCP server is an unrelated thing, so
@@ -27,10 +27,10 @@ import { sourceText } from "@robot/i18n/source";
 import { runCauseEffect } from "../../backend/effect-boundary";
 import { MCP_STDIO_PROBE_TIMEOUT_MS } from "../../backend/mcp-probe";
 import { type McpToolRuntimes, needsManagedRuntime } from "../../backend/mcp-provider-shapes";
-import type { ProviderRuntimeManager } from "../provider-runtime-manager";
-import type { ResponseDecoder } from "../remote-host-decoding";
-import type { RemoteRequestInit } from "../remote-server-client";
-import { type SignInRelayClient, type SignInRelayRemote, signInRelayRemote } from "../sign-in-relay-client";
+import { type SignInRelayClient, type SignInRelayRemote, signInRelayRemote } from "../account/sign-in-relay-client";
+import type { ProviderRuntimeManager } from "../providers/provider-runtime-manager";
+import type { ResponseDecoder } from "../remote-servers/remote-host-decoding";
+import type { RemoteRequestInit } from "../remote-servers/remote-server-client";
 import type { IpcGroupHandlers } from "./define-ipc-group";
 import {
   parseCancelMcpSignIn,

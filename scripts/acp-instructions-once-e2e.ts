@@ -11,7 +11,7 @@ import { join, resolve } from "node:path";
 import type { AgentClient } from "../src/backend/agent-client";
 import { runCauseEffect } from "../src/backend/effect-boundary";
 import { requireProviderDriver } from "../src/backend/provider-drivers";
-import { CustomAgentStore } from "../src/main/custom-agent-store";
+import { CustomAgentStore } from "../src/main/agents/custom-agent-store";
 import { installFakeAgent, readJsonl, runTurn, startThread, stopClients, xorCipher } from "./provider-fakes/host";
 
 const OUT = resolve(import.meta.dirname, "../.openownbot-build/acp-instructions-once-e2e");

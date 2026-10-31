@@ -2,8 +2,8 @@ import { Effect } from "effect";
 import type { AgentService } from "../../backend/agent-service";
 import type { AgentStore } from "../../backend/agent-store";
 import type { MailboxStore } from "../../backend/mailbox-store";
-import type { createAgentDefaultsPreferenceStore } from "../agent-defaults-preference-store";
-import { AutomationServer } from "../automation-server";
+import type { createAgentDefaultsPreferenceStore } from "../agents/agent-defaults-preference-store";
+import { AutomationServer } from "../agents/automation-server";
 import type { ApplicationServiceContext } from "./application-service-types";
 import { TEARDOWN_ORDER } from "./teardown-order";
 

@@ -22,10 +22,10 @@ import { sourceText } from "@robot/i18n/source";
 import { Effect } from "effect";
 import { runCauseEffect } from "../../backend/effect-boundary";
 import type { MessagingService } from "../../backend/messaging/messaging-service";
-import type { RelayedMessagingInstalls } from "../relayed-messaging-installs";
-import type { ResponseDecoder } from "../remote-host-decoding";
-import type { RemoteRequestInit } from "../remote-server-client";
-import type { RemoteWorkflowError } from "../remote-service-effects";
+import type { RelayedMessagingInstalls } from "../messaging/relayed-messaging-installs";
+import type { ResponseDecoder } from "../remote-servers/remote-host-decoding";
+import type { RemoteRequestInit } from "../remote-servers/remote-server-client";
+import type { RemoteWorkflowError } from "../remote-servers/remote-service-effects";
 import { handler, type IpcGroupHandlers, payloadHandler } from "./define-ipc-group";
 import {
   parseAddMessagingOrchestratorInput,

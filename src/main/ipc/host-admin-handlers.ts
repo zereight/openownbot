@@ -1,7 +1,7 @@
 import { HOST_MEMBER_UPDATE_CAPABILITY, memberUpdateRoute } from "@robot/contracts/team-protocol/host-member-update-v1";
 import { HOST_RELEASE_CAPABILITY, HOST_RELEASE_ROUTES } from "@robot/contracts/team-protocol/host-release-v1";
 import type { Effect } from "effect";
-import type { RemoteWorkflowError } from "../remote-service-effects";
+import type { RemoteWorkflowError } from "../remote-servers/remote-service-effects";
 // The server name, logo, timezone, agent memory limit, memory review, prompt cache time and app
 // update of one server's host. On a joined server the request goes to the host. Identity, timezone,
 // memory limit, memory review, prompt cache time, settings, cancellation, and forced restarts require
@@ -42,13 +42,17 @@ import {
 } from "@robot/contracts/team-protocol/prompt-cache-ttl-v1";
 import { sourceText } from "@robot/i18n/source";
 import { runCauseEffect } from "../../backend/effect-boundary";
-import type { AgentMemoryLimitSetting } from "../agent-memory-limit-preference-store";
-import type { HostService } from "../host-service";
-import type { MemoryReviewPreferenceStore } from "../memory-review-preference-store";
-import type { PromptCacheTtlPreferenceStore } from "../prompt-cache-ttl-preference-store";
-import { acceptEmpty, decodeHostReleaseStatusFromHost, type ResponseDecoder } from "../remote-host-decoding";
-import type { RemoteRequestInit } from "../remote-server-client";
-import { parseServerTimezone, type ServerTimezonePreferenceStore } from "../server-timezone-preference-store";
+import type { AgentMemoryLimitSetting } from "../agents/agent-memory-limit-preference-store";
+import type { MemoryReviewPreferenceStore } from "../agents/memory-review-preference-store";
+import type { PromptCacheTtlPreferenceStore } from "../agents/prompt-cache-ttl-preference-store";
+import type { HostService } from "../host/host-service";
+import { parseServerTimezone, type ServerTimezonePreferenceStore } from "../host/server-timezone-preference-store";
+import {
+  acceptEmpty,
+  decodeHostReleaseStatusFromHost,
+  type ResponseDecoder,
+} from "../remote-servers/remote-host-decoding";
+import type { RemoteRequestInit } from "../remote-servers/remote-server-client";
 import { parseAgentMemoryLimitPreference, parseHostUpdateSettings, parseMemoryReviewPreference } from "./app-inputs";
 import type { IpcGroupHandlers } from "./define-ipc-group";
 import { scopedHandler, scopedQueryHandler } from "./scoped-handler";

@@ -3,7 +3,7 @@
 // Three parties handle it and none of them ships together. `apps/auth-api` mints it
 // (`remote-control-plane.ts`), the Signal service verifies it before it will relay anything
 // (`remote/api/src/tokens.ts`), and the desktop host verifies the copy a client presents over the
-// data channel (`src/main/central-auth-manager.ts`). Every one of them used to spell the audience
+// data channel (`src/main/account/central-auth-manager.ts`). Every one of them used to spell the audience
 // and the protocol range out as a bare literal, so the issuer and its two verifiers agreed by
 // coincidence rather than by construction.
 //

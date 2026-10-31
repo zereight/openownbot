@@ -28,25 +28,11 @@ import {
   shell,
 } from "electron";
 import { runCauseEffect } from "../backend/effect-boundary";
-import { readAppVariant, resolveAppIconPath, resolveLogoColorIconPath } from "./app-icon";
-import { createApplicationServices } from "./application-services";
-import { type BackgroundTray, createBackgroundTray } from "./background-tray";
-import { removeClaudeCodeSessionEnvironment } from "./claude-session-environment";
-import { type DeepLink, findDeepLink, parseDeepLink } from "./deep-link-router";
-import { requestNotificationPermission, showRetainedNotification } from "./desktop-notifications";
-import { guardDevelopmentOutput } from "./development-output";
-import {
-  developmentUserDataName,
-  readDevelopmentInstanceId,
-  readDevelopmentProfile,
-  readDevelopmentRemoteDebuggingPort,
-  shouldAutoStartHost,
-} from "./development-profile";
-import { stopStuckExitAfterLimit } from "./exit-watchdog";
-import { filePreviewPages } from "./file-preview-pages";
-import { hostAllowsTenantLaunch } from "./host-update-coordinator";
-import { takeHostedServerEnvironment } from "./hosted-server-bootstrap";
-import { takeHostingDeveloperKey } from "./hosted-server-service";
+import { RoutineWake } from "./events/routine-wake";
+import { takeHostedServerEnvironment } from "./host/hosted-server-bootstrap";
+import { takeHostingDeveloperKey } from "./host/hosted-server-service";
+import { KeepAwake } from "./host/keep-awake";
+import { takeServerModeEnvironment } from "./host/server-mode";
 import { accountIpcHandlers } from "./ipc/account-handlers";
 import { acpRegistryIpcHandlers } from "./ipc/acp-registry-handlers";
 import { agentAdminIpcHandlers } from "./ipc/agent-admin-handlers";
@@ -98,36 +84,55 @@ import { updateIpcHandlers } from "./ipc/update-handlers";
 import { vaultIpcHandlers } from "./ipc/vault-handlers";
 import { voiceIpcHandlers } from "./ipc/voice-handlers";
 import { workflowIpcHandlers } from "./ipc/workflow-handlers";
-import { KeepAwake } from "./keep-awake";
-import { stopAppImageCrashpadHandlerAtExit } from "./linux-appimage-crashpad";
-import { installLinuxDesktopEntry } from "./linux-desktop-entry";
-import { configureLinuxGpu } from "./linux-gpu-mode";
-import { configureLinuxPasswordStore } from "./linux-password-store";
-import { installLocalOnlyGuard } from "./local-only-guard";
-import { MacHapticFeedback } from "./mac-haptic-feedback";
+import { MessageLinkRelay, openHttpLink } from "./messaging/message-link-relay";
+import { guardDevelopmentOutput } from "./platform/development-output";
+import {
+  developmentUserDataName,
+  readDevelopmentInstanceId,
+  readDevelopmentProfile,
+  readDevelopmentRemoteDebuggingPort,
+  shouldAutoStartHost,
+} from "./platform/development-profile";
+import { stopStuckExitAfterLimit } from "./platform/exit-watchdog";
+import { stopAppImageCrashpadHandlerAtExit } from "./platform/linux-appimage-crashpad";
+import { installLinuxDesktopEntry } from "./platform/linux-desktop-entry";
+import { configureLinuxGpu } from "./platform/linux-gpu-mode";
+import { configureLinuxPasswordStore } from "./platform/linux-password-store";
+import {
+  acquireSingleInstanceLock,
+  lockHolderPid,
+  processIsAlive,
+  sleepMilliseconds,
+} from "./platform/single-instance-lock";
+import { trustSystemCertificates } from "./platform/system-certificates";
+import { TeardownRegistry } from "./platform/teardown-registry";
+import type { TraceFile } from "./platform/trace-file";
+import { removeClaudeCodeSessionEnvironment } from "./providers/claude-session-environment";
+import { startMainLog } from "./providers/provider-log";
+import { watchRemoteHostDirectory } from "./remote-servers/remote-server-host-directory";
+import { installLocalOnlyGuard } from "./security/local-only-guard";
+import { setIpcCallObserver } from "./security/trusted-ipc";
+import type { ApplicationServices } from "./startup/application-service-types";
+import { createApplicationServices } from "./startup/application-services";
+import { hostAllowsTenantLaunch } from "./updates/host-update-coordinator";
+import { readAppVariant, resolveAppIconPath, resolveLogoColorIconPath } from "./windows/app-icon";
+import { type BackgroundTray, createBackgroundTray } from "./windows/background-tray";
+import { type DeepLink, findDeepLink, parseDeepLink } from "./windows/deep-link-router";
+import { requestNotificationPermission, showRetainedNotification } from "./windows/desktop-notifications";
+import { filePreviewPages } from "./windows/file-preview-pages";
+import { MacHapticFeedback } from "./windows/mac-haptic-feedback";
 import {
   configureApplicationMenu,
   createMainWindowController,
   createMainWindowHolder,
   hideWindowsForQuit,
   showMainWindow,
-} from "./main-window";
-import { ensureMacApplicationPresence, secondLaunchResponse } from "./main-window-state";
-import { MessageLinkRelay, openHttpLink } from "./message-link-relay";
-import { startMainLog } from "./provider-log";
-import { watchRemoteHostDirectory } from "./remote-server-host-directory";
-import { createRendererForwarders } from "./renderer-forwarders";
-import { sendToRenderer } from "./renderer-ipc";
-import { RoutineWake } from "./routine-wake";
-import { takeServerModeEnvironment } from "./server-mode";
-import { configureContentSecurityPolicy, configureRendererPermissions } from "./session-configuration";
-import { acquireSingleInstanceLock, lockHolderPid, processIsAlive, sleepMilliseconds } from "./single-instance-lock";
-import type { ApplicationServices } from "./startup/application-service-types";
-import { trustSystemCertificates } from "./system-certificates";
-import { TeardownRegistry } from "./teardown-registry";
-import type { TraceFile } from "./trace-file";
-import { setIpcCallObserver } from "./trusted-ipc";
-import { setWindowAppearance } from "./window-appearance";
+} from "./windows/main-window";
+import { ensureMacApplicationPresence, secondLaunchResponse } from "./windows/main-window-state";
+import { createRendererForwarders } from "./windows/renderer-forwarders";
+import { sendToRenderer } from "./windows/renderer-ipc";
+import { configureContentSecurityPolicy, configureRendererPermissions } from "./windows/session-configuration";
+import { setWindowAppearance } from "./windows/window-appearance";
 
 const logger = createOpenOwnBotLogger("main");
 

@@ -35,8 +35,8 @@ const { WorkflowRunStore } = await import("../src/backend/workflows/workflow-run
 const { WorkflowStore } = await import("../src/backend/workflows/workflow-store");
 const { workflowScheduleDueAt } = await import("../src/backend/workflows/workflow-triggers");
 const { createWorkflows } = await import("../src/backend/workflows/workflows");
-const { HostEventsService } = await import("../src/main/host-events-service");
-const { signWebhookBody } = await import("../src/main/webhook-security");
+const { HostEventsService } = await import("../src/main/events/host-events-service");
+const { signWebhookBody } = await import("../src/main/events/webhook-security");
 
 const RELAY_ORIGIN = "https://signal.example.test";
 const DATA_MARKER = "order-7f3a";

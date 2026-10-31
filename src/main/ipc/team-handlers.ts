@@ -1,8 +1,8 @@
 import { type HostStatus, LOCAL_SERVER_ID, type ServerSummary } from "@robot/contracts/ipc";
 import { runCauseEffect } from "../../backend/effect-boundary";
-import type { HostService } from "../host-service";
-import type { RemoteDesktopManager } from "../remote-desktop-manager";
-import type { RemoteServerManager } from "../remote-server-manager";
+import type { HostService } from "../host/host-service";
+import type { RemoteDesktopManager } from "../remote-desktop/remote-desktop-manager";
+import type { RemoteServerManager } from "../remote-servers/remote-server-manager";
 import { handler, type IpcGroupHandlers, payloadHandler } from "./define-ipc-group";
 import { routeToServer } from "./route-to-server";
 import {

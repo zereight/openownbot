@@ -23,7 +23,7 @@ export type FailureKind =
 interface MessagingProvider {
   /** The provider's logo, from the shared integration settings. */
   mark: () => JSX.Element;
-  /** The `openownbot://` host that takes the sealed grant. `src/main/deep-link-router.ts` owns these. */
+  /** The `openownbot://` host that takes the sealed grant. `src/main/windows/deep-link-router.ts` owns these. */
   deepLinkHost: string;
   /** The page's own code when the fragment has no grant and no error. */
   failedCode: string;

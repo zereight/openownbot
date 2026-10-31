@@ -1,11 +1,11 @@
 import { Effect } from "effect";
 import type { AgentService } from "../../backend/agent-service";
-import type { CentralAuthManager } from "../central-auth-manager";
-import { HostEventsRuntime } from "../host-events-runtime";
-import { HostEventsService } from "../host-events-service";
-import type { SignalIngress } from "../signal-ingress";
-import type { TeamStore } from "../team-store";
-import { WebhookRelay } from "../webhook-relay";
+import type { CentralAuthManager } from "../account/central-auth-manager";
+import { HostEventsRuntime } from "../events/host-events-runtime";
+import { HostEventsService } from "../events/host-events-service";
+import { WebhookRelay } from "../events/webhook-relay";
+import type { SignalIngress } from "../messaging/signal-ingress";
+import type { TeamStore } from "../team/team-store";
 import type { ApplicationServiceContext } from "./application-service-types";
 import type { StartedFlows } from "./flows";
 import type { safeStorageCipher } from "./platform";

@@ -17,7 +17,7 @@ import { DatabaseSync } from "node:sqlite";
 import { type MobileConnectHostBinding, parseMobileConnectUrl } from "@robot/contracts/mobile-connect";
 import { isDynamicRecord, isNumber, isString } from "@robot/contracts/runtime-values";
 import { runCauseEffect } from "../src/backend/effect-boundary";
-import { CentralAuthManager } from "../src/main/central-auth-manager";
+import { CentralAuthManager } from "../src/main/account/central-auth-manager";
 
 const ROOT = resolve(import.meta.dirname, "..");
 const OUT = join(ROOT, ".openownbot-build", "mobile-connected-devices-e2e");

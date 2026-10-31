@@ -1,5 +1,5 @@
 import type { Effect } from "effect";
-import type { RemoteWorkflowError } from "../remote-service-effects";
+import type { RemoteWorkflowError } from "../remote-servers/remote-service-effects";
 // Storage: what the files, chats and caches of the local host or a joined server take on disk.
 //
 // Every method takes the server explicitly, because Server Settings can be open for a server that
@@ -24,9 +24,9 @@ import { STORAGE_ROUTES } from "@robot/contracts/team-protocol/storage-v1";
 import { sourceText } from "@robot/i18n/source";
 import { runCauseEffect } from "../../backend/effect-boundary";
 import type { StorageAgent, StorageUsageService } from "../../backend/storage-usage";
-import type { ProviderRuntimeManager } from "../provider-runtime-manager";
-import type { ResponseDecoder } from "../remote-host-decoding";
-import type { RemoteRequestInit } from "../remote-server-client";
+import type { ProviderRuntimeManager } from "../providers/provider-runtime-manager";
+import type { ResponseDecoder } from "../remote-servers/remote-host-decoding";
+import type { RemoteRequestInit } from "../remote-servers/remote-server-client";
 import { agentRequest } from "./agent-inputs";
 import { type OpenAttachmentDependencies, openAttachmentForServer } from "./attachment-handlers";
 import { handler, type IpcGroupHandlers, payloadHandler } from "./define-ipc-group";

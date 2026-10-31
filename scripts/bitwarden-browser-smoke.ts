@@ -5,7 +5,7 @@ import { webContents } from "electron";
 import type { BrowserHost } from "../src/backend/browser-host";
 import { runCauseEffect } from "../src/backend/effect-boundary";
 import { passwordVaultRouter } from "../src/backend/password-vault-router";
-import { BitwardenConnectorService } from "../src/main/bitwarden-connector-service";
+import { BitwardenConnectorService } from "../src/main/connectors/bitwarden-connector-service";
 import { waitForPresentedFrame } from "./browser-smoke-frames";
 
 const ORIGIN = "https://authentication.openbot.test";

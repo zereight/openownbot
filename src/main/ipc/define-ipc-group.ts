@@ -33,7 +33,7 @@ import {
   removeTrustedHandler,
   type TakesEventOnly,
   type TakesNoArguments,
-} from "../trusted-ipc";
+} from "../security/trusted-ipc";
 
 // A bound handler is the registration itself, deferred until the channel is known. Keeping it a
 // closure rather than a record of its parts is what lets each constructor call `handleTrusted` with

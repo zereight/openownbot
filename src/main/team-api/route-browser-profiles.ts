@@ -13,8 +13,8 @@ import {
 } from "@robot/contracts/team-protocol/browser-profiles-v1";
 import { sourceText } from "@robot/i18n/source";
 import { runCauseEffect } from "../../backend/effect-boundary";
-import { AgentNotFoundError } from "../agent-admin-settings";
-import { BrowserProfileRejectedError } from "../browser-profile-service";
+import { AgentNotFoundError } from "../agents/agent-admin-settings";
+import { BrowserProfileRejectedError } from "../browser/browser-profile-service";
 import type { TeamApiBrowser, TeamApiBrowserProfiles } from "./dependencies";
 import { HttpError } from "./http-error";
 import type { RouteOutcome, TeamApiRequestContext } from "./request-context";

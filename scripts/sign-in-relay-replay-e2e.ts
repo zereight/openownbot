@@ -10,7 +10,7 @@ import { createServer, type Server } from "node:http";
 import { join, resolve } from "node:path";
 import type { McpTestResult } from "@robot/contracts/ipc";
 import { Effect } from "effect";
-import { SignInRelayHost } from "../src/main/sign-in-relay-host";
+import { SignInRelayHost } from "../src/main/account/sign-in-relay-host";
 
 const OUT = resolve(import.meta.dirname, "../.openownbot-build/sign-in-relay-replay-e2e");
 const MEMBER = "member-1";

@@ -2,7 +2,7 @@
 
 ## Local scripts API
 
-`src/main/automation-server.ts` is a loopback HTTP listener through which a local script sends
+`src/main/agents/automation-server.ts` is a loopback HTTP listener through which a local script sends
 messages, runs routines, and answers pending questions and approvals for an enabled agent. It also
 reads delivery results, changes the agent's model and account, and starts a new chat. [docs/automation.md](../automation.md) has the routes and the
 commands. The listener runs only while at least one agent has `allowAutomation`, and binds
@@ -115,8 +115,8 @@ id and its context. A restart during a run marks the run interrupted: the sessio
 
 ## Routine calendar feed
 
-`src/main/routine-feed-server.ts` is a loopback HTTP listener that serves the routines of this
-computer as an iCalendar feed (`src/main/routine-feed-ics.ts`) for Server Settings > Routines. It
+`src/main/events/routine-feed-server.ts` is a loopback HTTP listener that serves the routines of this
+computer as an iCalendar feed (`src/main/events/routine-feed-ics.ts`) for Server Settings > Routines. It
 runs only after the user makes a feed URL, and binds `127.0.0.1`. The URL is
 `/routines/<token>.ics`, with an optional `?agent=<id>`: a calendar app cannot send a header, so the
 token is in the path. `<userData>/routine-feed.json` keeps the token, encrypted with the
@@ -643,7 +643,7 @@ agent. This does not introduce a schema migration or alter released protocol cod
 Server Settings > Import moves agents from a `.zip` export into the local host, or into a remote host
 that serves `agent-import-v1` (see [Agent import from a joined server](servers.md#agent-import-from-a-joined-server)).
 The format is `robot-import.json` plus `agents/<key>/`
-folders. `resources/agent-import/grok-bot/SKILL.md` writes it and `src/main/agent-import-manifest.ts`
+folders. `resources/agent-import/grok-bot/SKILL.md` writes it and `src/main/agents/agent-import-manifest.ts`
 reads it; both are a product contract, so add only optional fields and raise `version` for a change
 of meaning. The renderer never names a path: `agent-import:choose` opens the dialog in main, and
 `AgentImportService` keeps the checked export and its SHA-256 under a single-use token; `apply`
@@ -671,7 +671,7 @@ belong to the app, not to a server, so they are not in the file.
 The file has `robot-transfer.json` at its root, `agents/<key>/` folders (`avatar.<ext>`,
 `skills/<slug>/` and `workspace/`), and `shared/` for `~/OpenBot/Shared`. The manifest is
 `{ format: "openownbot-instance-transfer", version: 1, source, agents, settings, shared, signedIn }`.
-`src/main/instance-transfer-manifest.ts` writes and reads it with Effect `Schema`; it is a contract
+`src/main/agents/instance-transfer-manifest.ts` writes and reads it with Effect `Schema`; it is a contract
 between app versions, so add only optional fields and raise `version` for a change of meaning. A file
 with a higher `version` is refused. An invalid agent is left out with a warning and the others are
 offered; invalid settings are left out the same way.
@@ -697,9 +697,9 @@ data, approval automation and the per-agent access, Computer Use and automation 
 exported, so an imported agent gets the defaults of a new agent on the new computer. Shared tables
 (`Shared/Data/agent-data.db`) are left out because their owners are agent ids.
 
-`InstanceTransferService` (`src/main/instance-transfer-service.ts`) writes the archive one file at a
+`InstanceTransferService` (`src/main/agents/instance-transfer-service.ts`) writes the archive one file at a
 time, stored and not compressed, to `<name>.zip.part`, and renames it when it is complete. Import uses
-the same checks as the agent import (`src/main/agent-archive.ts`): the file stays under a single-use
+the same checks as the agent import (`src/main/agents/agent-archive.ts`): the file stays under a single-use
 token with its SHA-256, under 2 GB and 50,000 files. `apply` first adds the custom providers that are missing. It never saves a custom ACP agent:
 a saved custom agent starts its command to list its models, so a warning names the agent and its command,
 and the user adds it again after checking it. The models of an added provider are not listed yet: a save does not wait for
@@ -718,7 +718,7 @@ were signed in on the other computer and are not signed in here, each with a sig
 An agent template is a link-only copy of one local agent: the name, title and instructions, the
 avatar, the routines, marketplace skills as references to approved versions, and local skills as
 their `SKILL.md` text. It has no workspace files and no memories. The Publish button in the chat
-header opens `PublishAgentDialog`; `src/main/agent-template-service.ts` builds the snapshot, stops
+header opens `PublishAgentDialog`; `src/main/agents/agent-template-service.ts` builds the snapshot, stops
 when a text field looks like a secret, and posts it to the Account Worker. The Worker keeps one row
 per account and local agent in D1 `agent_templates`, so a second publish updates the same link.
 Unpublish clears the row's content and images and sets `unpublished_at`, but keeps the row, so the
@@ -733,7 +733,7 @@ as the page's `og:image`, so a post on X shows the agent. `openbot.run/agents/<i
 card page, tinted with the avatar colour. The Bloub library uses browser-only APIs when its module
 loads, so the page loads the avatar and its colour in the browser after hydration. Its button opens
 `openownbot://agents/<id>`, the third renderer link kind in
-`src/main/deep-link-router.ts`. The app then shows the template in `AgentTemplateInstallDialog`;
+`src/main/windows/deep-link-router.ts`. The app then shows the template in `AgentTemplateInstallDialog`;
 like a plugin link, the link itself installs nothing. The page's fallback line also links
 `/app?agent=<id>`, where the browser client shows the same preview. In the same way, the invitation
 page links `/app` with the four invitation fields, and a plugin page links `/app?plugin=<slug>`. The

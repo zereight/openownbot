@@ -7,7 +7,7 @@ import {
 } from "@robot/contracts/team-protocol/vault-v1";
 import { isFixedSourceText, sourceText } from "@robot/i18n/source";
 import { runCauseEffect } from "../../backend/effect-boundary";
-import { decodeVaultSaveInput, decodeVaultSecretRequest } from "../vault-inputs";
+import { decodeVaultSaveInput, decodeVaultSecretRequest } from "../vault/vault-inputs";
 import type { TeamApiVault } from "./dependencies";
 import { HttpError } from "./http-error";
 import type { RouteOutcome, TeamApiRequestContext } from "./request-context";

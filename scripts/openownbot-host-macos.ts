@@ -14,7 +14,7 @@ import {
   tenantStatusSchema,
   verifyHostDirectory,
   verifyTenantDirectory,
-} from "../src/main/host-update-files";
+} from "../src/main/updates/host-update-files";
 import {
   HOST_AGENT_PLIST,
   HOST_DAEMON_PLIST,

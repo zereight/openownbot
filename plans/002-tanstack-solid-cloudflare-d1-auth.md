@@ -60,7 +60,7 @@ Checked by reading code at `bb1e59935`. Nothing was run, and no installed host w
 ### What the code does now
 
 - The host stores a scrypt hash and salt for a member in the team store file
-  (`passwordHash`, `passwordSalt` in `src/main/team-store.ts`). The file is JSON (`StoredTeam`,
+  (`passwordHash`, `passwordSalt` in `src/main/team/team-store.ts`). The file is JSON (`StoredTeam`,
   `version: 1`), not SQLite.
 - Two functions write a hash: `configure` and `changePassword`. Two functions read it: `login` and
   `changePassword`. Nothing else in `src`, `packages` or `apps` touches it.
@@ -173,7 +173,7 @@ the desktop remote sign-in sends an account ticket to `/v1/auth/account`.
 
 Removed:
 
-- The host route `POST /v1/auth/login` (`src/main/team-api-server.ts`) and `TEAM_API_ROUTES.auth.login`.
+- The host route `POST /v1/auth/login` (`src/main/team-api/team-api-server.ts`) and `TEAM_API_ROUTES.auth.login`.
 - `TeamStore.login`, `TeamStore.configure`, the scrypt helpers, `validateUsername`, `validatePassword`
   and `#requireUnchangedState`. Only the removed code used them.
 - Four texts that only that code used (`error.team.loginIncorrect`, `usernameInvalid`, `passwordLength`
@@ -231,7 +231,7 @@ Electron keeps the token through `safeStorage`.
 The developer chose option 2 on 2026-10-31, which includes option C. The merge of the code needs the
 words "해시 삭제 승인" from the developer. Deleting is irreversible, and no backup exists.
 
-What the code deletes (`dropPasswordData` in `src/main/team-store.ts`):
+What the code deletes (`dropPasswordData` in `src/main/team/team-store.ts`):
 
 - `passwordHash` and `passwordSalt` of a member that has an account. This happens when the member
   signs in with an account (`loginWithAccount`), when an account is applied to the member

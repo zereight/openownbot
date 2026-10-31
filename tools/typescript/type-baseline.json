@@ -5,6 +5,6 @@
     "packages/ui/src/switch.tsx": 1,
     "src/backend/local-mcp-bridge.ts": 1,
     "src/backend/mcp-probe.ts": 1,
-    "src/main/github-mcp-proxy.ts": 2
+    "src/main/connectors/github-mcp-proxy.ts": 2
   }
 }

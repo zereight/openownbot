@@ -11,9 +11,9 @@ import {
 import { ACP_REGISTRY_CAPABILITY, ACP_REGISTRY_ROUTES } from "@robot/contracts/team-protocol/acp-registry-v1";
 import { sourceText } from "@robot/i18n/source";
 import { runCauseEffect } from "../../backend/effect-boundary";
-import type { AcpRegistry } from "../acp-registry";
-import { acceptEmpty } from "../remote-host-decoding";
-import type { RemoteServerManager } from "../remote-server-manager";
+import type { AcpRegistry } from "../providers/acp-registry";
+import { acceptEmpty } from "../remote-servers/remote-host-decoding";
+import type { RemoteServerManager } from "../remote-servers/remote-server-manager";
 import type { IpcGroupHandlers } from "./define-ipc-group";
 import { scopedHandler, scopedQueryHandler } from "./scoped-handler";
 

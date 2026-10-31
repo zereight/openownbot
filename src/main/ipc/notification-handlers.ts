@@ -4,8 +4,8 @@ import type { AppTranslate } from "@robot/i18n";
 import { sourceText } from "@robot/i18n/source";
 import { Notification } from "electron";
 import { runCauseEffect } from "../../backend/effect-boundary";
-import { notificationSettingsUrl, showRetainedNotification } from "../desktop-notifications";
-import type { NotificationPreferenceStore } from "../notification-preference-store";
+import type { NotificationPreferenceStore } from "../settings/notification-preference-store";
+import { notificationSettingsUrl, showRetainedNotification } from "../windows/desktop-notifications";
 import { parseNotificationPreference } from "./app-inputs";
 import { handler, type IpcGroupHandlers, payloadHandler } from "./define-ipc-group";
 

@@ -21,8 +21,8 @@
 > ```
 >
 > The plan was written at commit `8229759`, but the working tree was dirty. The
-> files `src/main/host-service.ts`, `src/main/remote-server-manager.ts`,
-> `src/main/team-api-server.ts`, `src/main/team-store.ts` and the new UI
+> files `src/main/host/host-service.ts`, `src/main/remote-servers/remote-server-manager.ts`,
+> `src/main/team-api/team-api-server.ts`, `src/main/team/team-store.ts` and the new UI
 > components were uncommitted. `git diff 8229759..HEAD` alone will not detect
 > changes in those files. Compare the "Current state" section against the live
 > code as well. If the contracts or the authorization flow differ from the
@@ -181,15 +181,15 @@ installed by Bun 1.3.11. The full quality gate is `bun run check`.
 
 The relevant files and the existing problem:
 
-- `src/main/team-store.ts:23-26` extends a member with `passwordSalt` and
+- `src/main/team/team-store.ts:23-26` extends a member with `passwordSalt` and
   `passwordHash`.
-- `src/main/team-store.ts:130-161` configures the host with a local owner, a
+- `src/main/team/team-store.ts:130-161` configures the host with a local owner, a
   username and a password.
-- `src/main/team-store.ts:207-305` creates local invitations, accepts a password,
+- `src/main/team/team-store.ts:207-305` creates local invitations, accepts a password,
   signs in and changes the password.
-- `src/main/team-api-server.ts:82-132` exposes `/v1/join`,
+- `src/main/team-api/team-api-server.ts:82-132` exposes `/v1/join`,
   `/v1/auth/login`, logout and a local password change.
-- `src/main/remote-server-manager.ts:105-172` sends a username and a password to
+- `src/main/remote-servers/remote-server-manager.ts:105-172` sends a username and a password to
   the host, then stores the encrypted host token.
 - `packages/contracts/src/ipc.ts:85-116` has `JoinServerInput`, `LoginServerInput` and
   `ConfigureHostInput` with username/password fields.
@@ -202,7 +202,7 @@ The relevant files and the existing problem:
 The current shape that must go away:
 
 ```ts
-// src/main/team-store.ts:23-26
+// src/main/team/team-store.ts:23-26
 interface StoredMember extends TeamMemberSummary {
   passwordSalt: string;
   passwordHash: string;
@@ -368,12 +368,12 @@ this table before writing code. Do not skip the equivalents of these checks.
 - `apps/auth-api/test/**` — unit and integration tests.
 - `apps/auth-api/Dockerfile`, `apps/auth-api/.env.example`,
   `apps/auth-api/README.md` — deployment.
-- `src/main/central-auth-manager.ts` and its test — the central session in
+- `src/main/account/central-auth-manager.ts` and its test — the central session in
   Electron main.
-- `src/main/team-store.ts` and its test — the v2 whitelist schema.
-- `src/main/team-api-server.ts` and its test — token validation and roles.
-- `src/main/host-service.ts` and its test — the owner from the central identity.
-- `src/main/remote-server-manager.ts` and its test — a host-scoped token instead
+- `src/main/team/team-store.ts` and its test — the v2 whitelist schema.
+- `src/main/team-api/team-api-server.ts` and its test — token validation and roles.
+- `src/main/host/host-service.ts` and its test — the owner from the central identity.
+- `src/main/remote-servers/remote-server-manager.ts` and its test — a host-scoped token instead
   of signing in to the host.
 - `src/main/index.ts` — lifecycle and IPC.
 - `src/preload/index.ts` — the typed central auth API.
@@ -563,7 +563,7 @@ and key rotation pass.
 
 ### Step 5: Add the central session to Electron main
 
-Create `src/main/central-auth-manager.ts`. The manager is responsible for:
+Create `src/main/account/central-auth-manager.ts`. The manager is responsible for:
 
 - register, verify email, login, logout, `me`, list/revoke session;
 - password reset;
@@ -641,7 +641,7 @@ setup ends with an actionable error.
 
 ```bash
 bun run test -- src/main/team-store.test.ts src/main/host-service.test.ts
-rg -n "passwordHash|passwordSalt|nickname|username" src/main/team-store.ts src/main/host-service.ts
+rg -n "passwordHash|passwordSalt|nickname|username" src/main/team/team-store.ts src/main/host/host-service.ts
 ```
 
 Expected result: the tests pass; `rg` finds no forbidden fields in the production
@@ -649,7 +649,7 @@ code of those modules.
 
 ### Step 7: Replace host auth with token and whitelist verification
 
-In `src/main/team-api-server.ts` add a `HostTicketVerifier` with a fetch adapter
+In `src/main/team-api/team-api-server.ts` add a `HostTicketVerifier` with a fetch adapter
 and a testable clock. The verifier:
 
 1. accepts only `Authorization: Bearer <token>`;
@@ -678,7 +678,7 @@ email, a missing whitelist entry, a disabled entry and the first bind pass.
 
 ### Step 8: Move the remote client to the host-scoped token
 
-In `src/main/remote-server-manager.ts` remove the direct sign-in to the host and
+In `src/main/remote-servers/remote-server-manager.ts` remove the direct sign-in to the host and
 the locally stored host session token. A stored server carries:
 
 ```ts
@@ -707,7 +707,7 @@ no email.
 
 ```bash
 bun run test -- src/main/remote-server-manager.test.ts
-rg -n "LoginServerInput|/v1/auth/login|encryptedSessionToken|sessionToken" src/main/remote-server-manager.ts packages/contracts/src/ipc.ts src/preload/index.ts
+rg -n "LoginServerInput|/v1/auth/login|encryptedSessionToken|sessionToken" src/main/remote-servers/remote-server-manager.ts packages/contracts/src/ipc.ts src/preload/index.ts
 ```
 
 Expected result: the tests pass; `rg` finds neither the removed host-login nor a
@@ -881,10 +881,10 @@ Every condition must hold:
 - [ ] The host accepts no JWKS URL, issuer or key from a user's link.
 - [ ] The host stores only the `userId`, the email, the role and the whitelist
       state.
-- [ ] `rg -n "passwordHash|passwordSalt" src/main/team-store.ts` returns nothing.
+- [ ] `rg -n "passwordHash|passwordSalt" src/main/team/team-store.ts` returns nothing.
 - [ ] `rg -n "LoginServerInput|/v1/join|/v1/auth/login|/v1/auth/password" src`
       returns nothing for production host auth.
-- [ ] `rg -n "username|nickname" src/main/team-store.ts src/main/host-service.ts`
+- [ ] `rg -n "username|nickname" src/main/team/team-store.ts src/main/host/host-service.ts`
       returns nothing.
 - [ ] The central session token never reaches a renderer payload.
 - [ ] The host ticket is not written into the server configuration or to disk.

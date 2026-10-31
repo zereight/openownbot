@@ -20,7 +20,7 @@ computer of the user who signs in. A sign-in uses one of these kinds:
 
 | Kind | Example | On this computer | On a joined server |
 | --- | --- | --- | --- |
-| Loopback callback | URL MCP servers (`McpOAuth`), Codex browser sign-in, a page that an agent's CLI prints | The page sends the browser to `http://127.0.0.1:<port>/...`. The MCP listener uses port 28417 and path `/mcp-auth` ([`mcp-oauth-redirect-server.ts`](../../src/main/mcp-oauth-redirect-server.ts)). | The [callback relay](#remote-sign-in-the-callback-relay) (`sign-in-relay-v1`). MCP on an older host: the host's live view (`mcp-sign-in-v1`). |
+| Loopback callback | URL MCP servers (`McpOAuth`), Codex browser sign-in, a page that an agent's CLI prints | The page sends the browser to `http://127.0.0.1:<port>/...`. The MCP listener uses port 28417 and path `/mcp-auth` ([`mcp-oauth-redirect-server.ts`](../../src/main/connectors/mcp-oauth-redirect-server.ts)). | The [callback relay](#remote-sign-in-the-callback-relay) (`sign-in-relay-v1`). MCP on an older host: the host's live view (`mcp-sign-in-v1`). |
 | Device code | Codex (`codex-device`), Grok, Cline, Muse, the GitHub connector | The user types a short code on the provider's page. Nothing comes back to ROBot. | The host starts it and the client shows the code (`providers-v1` to `providers-v5`). Muse: the relay opens its device page with no callback. GitHub: `connectors-v1`. |
 | Pasted code | Claude on Linux (`cli` / `paste`), Cursor (`cli` / `link`) | The page shows a code, and the user pastes it into ROBot. | The host starts it and the client takes the code (`providers-v3` to `providers-v5`). |
 | CLI-owned browser login | Claude (`auth login`), Codex, Gemini (`acp-authenticate`) | The provider's CLI opens the browser and takes its own callback. | The relay (`provider/start`): the host captures the page, and the client sends the callback query to the CLI's listener on the host. Grok, Cursor and Cline: a code kind. |
@@ -143,18 +143,18 @@ POST complete {flowId, query} ----------------> check state, give code to McpOAu
 | Part | File |
 | --- | --- |
 | Frozen wire contract | [`packages/contracts/src/team-protocol/sign-in-relay-v1.ts`](../../packages/contracts/src/team-protocol/sign-in-relay-v1.ts) |
-| Host flows (single use, expiry, member, state) | [`src/main/sign-in-relay-host.ts`](../../src/main/sign-in-relay-host.ts) |
+| Host flows (single use, expiry, member, state) | [`src/main/account/sign-in-relay-host.ts`](../../src/main/account/sign-in-relay-host.ts) |
 | Host route (`requireAdmin` on every route) | [`src/main/team-api/route-sign-in-relay.ts`](../../src/main/team-api/route-sign-in-relay.ts) |
-| Host sign-in with no tab (`"relay"` mode) | [`src/main/host-sign-in-pages.ts`](../../src/main/host-sign-in-pages.ts), [`src/main/mcp-host-sign-ins.ts`](../../src/main/mcp-host-sign-ins.ts) |
-| Client flow (listen, open, complete, paste) | [`src/main/sign-in-relay-client.ts`](../../src/main/sign-in-relay-client.ts) |
-| Loopback listener checks (Host, method, path) | [`src/main/loopback-callback-server.ts`](../../src/main/loopback-callback-server.ts) |
+| Host sign-in with no tab (`"relay"` mode) | [`src/main/account/host-sign-in-pages.ts`](../../src/main/account/host-sign-in-pages.ts), [`src/main/connectors/mcp-host-sign-ins.ts`](../../src/main/connectors/mcp-host-sign-ins.ts) |
+| Client flow (listen, open, complete, paste) | [`src/main/account/sign-in-relay-client.ts`](../../src/main/account/sign-in-relay-client.ts) |
+| Loopback listener checks (Host, method, path) | [`src/main/account/loopback-callback-server.ts`](../../src/main/account/loopback-callback-server.ts) |
 | Desktop IPC (`servers:mcp:sign-in-relay`, `servers:mcp:open-sign-in-relay`, `servers:mcp:complete-sign-in-relay`) | [`src/main/ipc/mcp-server-handlers.ts`](../../src/main/ipc/mcp-server-handlers.ts) |
 | Paste dialog | `McpSignInRelayDialog` in [`packages/ui/src/features/settings/McpSignInPage.tsx`](../../packages/ui/src/features/settings/McpSignInPage.tsx) |
 | Browser client (paste only) | [`src/renderer/src/features/web-client/web-server-settings.ts`](../../src/renderer/src/features/web-client/web-server-settings.ts) |
 | Marketplace | [`src/renderer/src/features/settings/marketplace-controller.ts`](../../src/renderer/src/features/settings/marketplace-controller.ts), [`web-marketplace.ts`](../../src/renderer/src/features/web-client/web-marketplace.ts) |
-| Provider page capture on the host (`BROWSER` command, ACP link) | [`src/backend/agent/browser-capture.ts`](../../src/backend/agent/browser-capture.ts), [`src/main/provider-host-sign-ins.ts`](../../src/main/provider-host-sign-ins.ts) |
+| Provider page capture on the host (`BROWSER` command, ACP link) | [`src/backend/agent/browser-capture.ts`](../../src/backend/agent/browser-capture.ts), [`src/main/providers/provider-host-sign-ins.ts`](../../src/main/providers/provider-host-sign-ins.ts) |
 | Provider Connect on a joined server | [`src/main/ipc/provider-admin-handlers.ts`](../../src/main/ipc/provider-admin-handlers.ts), [`web-provider-relay.ts`](../../src/renderer/src/features/web-client/web-provider-relay.ts) |
-| Agent links (`agent:open-message-link`, `agent:paste-message-link`, `agent:cancel-message-link`) | [`src/main/message-link-relay.ts`](../../src/main/message-link-relay.ts), [`web-message-link-relay.ts`](../../src/renderer/src/features/web-client/web-message-link-relay.ts) |
+| Agent links (`agent:open-message-link`, `agent:paste-message-link`, `agent:cancel-message-link`) | [`src/main/messaging/message-link-relay.ts`](../../src/main/messaging/message-link-relay.ts), [`web-message-link-relay.ts`](../../src/renderer/src/features/web-client/web-message-link-relay.ts) |
 
 ### How the client takes the callback
 
@@ -249,7 +249,7 @@ other places.
    `src/backend/process-confinement.ts`, `providerLabel` in `src/backend/agent/thread-items.ts` and
    `src/backend/agent/provider-diagnostics.ts`.
 4. **Managed runtime** (when ROBot installs the CLI): `native-runtime.lock.json`,
-   `scripts/agent-runtime-lock.ts`, and `src/main/provider-runtime-descriptors.ts`,
+   `scripts/agent-runtime-lock.ts`, and `src/main/providers/provider-runtime-descriptors.ts`,
    `provider-runtime-releases.ts` and `provider-runtime-manager.ts`.
 5. **Contracts and preload.** The `AgentAuthState` arm in `ipc-agent-status.ts`, then
    `ipc-provider-admin.ts`, `src/preload/provider-runtime.ts` and `src/preload/agent-decoding.ts`.
@@ -368,12 +368,12 @@ state on each of them.
 
 | Connector | Service | Sign-in | Contract |
 | --- | --- | --- | --- |
-| GitHub | [`github-connector-service.ts`](../../src/main/github-connector-service.ts), `github-device-flow.ts` | Device flow of a GitHub App with only the public client ID | `ipc-github-connector.ts`; joined server: `connectors-v1` GitHub routes |
+| GitHub | [`github-connector-service.ts`](../../src/main/connectors/github-connector-service.ts), `github-device-flow.ts` | Device flow of a GitHub App with only the public client ID | `ipc-github-connector.ts`; joined server: `connectors-v1` GitHub routes |
 | Slack | `src/backend/messaging/slack/` | Hosted OAuth in the account Worker, which ends in `openownbot://slack-workspace` with a sealed grant | `slack-workspace-grant.ts`, `ipc-messaging.ts` |
 | Discord | `src/backend/messaging/discord/` | The same, with `openownbot://discord-guild` | `discord-guild-grant.ts`, `ipc-messaging.ts` |
 | Telegram | `src/backend/messaging/telegram/` | A one-use link code in a `t.me` link. No OAuth | `telegram-app.ts`, `ipc-messaging.ts` |
-| 1Password | [`onepassword-connector-service.ts`](../../src/main/onepassword-connector-service.ts) | The user's `op` session creates a read-only service account, or the user pastes a token | `ipc-onepassword-connector.ts`; joined server: `onepassword-connector-v1` (token only) |
-| Bitwarden | [`bitwarden-connector-service.ts`](../../src/main/bitwarden-connector-service.ts) | A `bw` session key, kept in memory only; a joined server signs in with an API key and the master password | `ipc-bitwarden-connector.ts`; joined server: `bitwarden-connector-v1` |
+| 1Password | [`onepassword-connector-service.ts`](../../src/main/connectors/onepassword-connector-service.ts) | The user's `op` session creates a read-only service account, or the user pastes a token | `ipc-onepassword-connector.ts`; joined server: `onepassword-connector-v1` (token only) |
+| Bitwarden | [`bitwarden-connector-service.ts`](../../src/main/connectors/bitwarden-connector-service.ts) | A `bw` session key, kept in memory only; a joined server signs in with an API key and the master password | `ipc-bitwarden-connector.ts`; joined server: `bitwarden-connector-v1` |
 
 To add a connector:
 
@@ -384,7 +384,7 @@ To add a connector:
    and call `registerSecretValue` on every token before the first log line.
 3. Prefer a device code: it works on any computer and through any joined server. A deep link
    (`openownbot://...`) reaches only the computer that opened the page. Add its kind to
-   [`deep-link-router.ts`](../../src/main/deep-link-router.ts), and keep a grant out of the renderer.
+   [`deep-link-router.ts`](../../src/main/windows/deep-link-router.ts), and keep a grant out of the renderer.
 4. Add the id to `CONNECTOR_IDS` and its entry to `CONNECTORS` in
    [`connectors.ts`](../../packages/ui/src/features/connectors/connectors.ts). `server` is the capability that
    lets a joined server run it, or `null` when only the user's own computer can, as for a vault app.
@@ -419,7 +419,7 @@ and Telegram:
 - **Slack and Discord**: the host answers the install page and a `nonce`, and opens nothing. The
   client opens the page. The install ends in an `openownbot://` link on the client, with a grant that is
   sealed to a one-use key of the host. `RelayedMessagingInstalls`
-  ([`relayed-messaging-installs.ts`](../../src/main/relayed-messaging-installs.ts)) sends the grant
+  ([`relayed-messaging-installs.ts`](../../src/main/messaging/relayed-messaging-installs.ts)) sends the grant
   with `messagingComplete` only to the server whose install this computer opened, and only once. The
   client cannot open the grant.
 - **Telegram**: the client opens the `t.me` link. There is no callback.
@@ -487,11 +487,11 @@ Team API adapters are permanent (see [Team API compatibility](team-api.md)). Wor
    bootstrap capabilities, so a new optional one stays out of bootstrap.
 5. **Host route.** Add `src/main/team-api/route-<name>.ts`. Return `"unmatched"` for other paths,
    refuse with `400` when the capability is off, and call `requireAdmin` for admin routes. Register
-   it in `TeamApiServer.#handle` in [`team-api-server.ts`](../../src/main/team-api-server.ts), and
+   it in `TeamApiServer.#handle` in [`team-api-server.ts`](../../src/main/team-api/team-api-server.ts), and
    advertise the capability in `#protocolSupport` only when its dependency is present. Add the
    dependency type to [`team-api/dependencies.ts`](../../src/main/team-api/dependencies.ts), and
-   create it in [`application-services.ts`](../../src/main/application-services.ts), which passes it
-   through [`host-service.ts`](../../src/main/host-service.ts).
+   create it in [`application-services.ts`](../../src/main/startup/application-services.ts), which passes it
+   through [`host-service.ts`](../../src/main/host/host-service.ts).
 6. **Client gate.** Add the capability to the explicit list in `serverSupportsCapability`
    ([`server-capabilities.ts`](../../src/renderer/src/features/servers/server-capabilities.ts)), so
    an older host that never sent it is not given the benefit of the doubt. In main, gate with

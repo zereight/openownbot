@@ -7,9 +7,9 @@ import { type DynamicRecord, isDynamicRecord } from "@robot/contracts/runtime-va
 import { createOpenOwnBotLogger } from "@robot/logging";
 import { Effect } from "effect";
 import { type FastRunResult, runFastComputerUse } from "../src/backend/computer-use-fast";
-import { CUA_DRIVER_VENDOR_CALLS_OFF } from "../src/main/cua-driver-artifact";
-import { CuaDriverToolClient } from "../src/main/cua-driver-tool-client";
-import { createFastComputerUseHost } from "../src/main/fast-computer-use-host";
+import { CUA_DRIVER_VENDOR_CALLS_OFF } from "../src/main/computer-use/cua-driver-artifact";
+import { CuaDriverToolClient } from "../src/main/computer-use/cua-driver-tool-client";
+import { createFastComputerUseHost } from "../src/main/computer-use/fast-computer-use-host";
 
 /**
  * Drives the real driver daemon and the real Calculator through the fast path, with a local oracle in

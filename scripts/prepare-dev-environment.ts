@@ -3,7 +3,7 @@ import { createHash } from "node:crypto";
 import { constants, copyFileSync, existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, isAbsolute, join, normalize, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
-import { developmentInstanceIdForWorktree } from "../src/main/development-profile";
+import { developmentInstanceIdForWorktree } from "../src/main/platform/development-profile";
 import { type DevelopmentStateOutcome, ensureDevelopmentState } from "./development-secrets";
 
 const scriptsRoot = dirname(fileURLToPath(import.meta.url));

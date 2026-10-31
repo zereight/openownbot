@@ -10,7 +10,7 @@ import { createServer } from "node:http";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import { runCauseEffect } from "../src/backend/effect-boundary";
-import { CentralAuthManager } from "../src/main/central-auth-manager";
+import { CentralAuthManager } from "../src/main/account/central-auth-manager";
 
 const ROOT = resolve(import.meta.dirname, "..");
 const OUT = join(ROOT, ".openownbot-build", "central-auth-startup-stall-e2e");

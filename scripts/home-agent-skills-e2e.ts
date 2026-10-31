@@ -17,7 +17,7 @@ import { developerInstructions } from "../src/backend/agent/developer-instructio
 import { ClaudeAgentClient } from "../src/backend/claude-client";
 import { runCauseEffect } from "../src/backend/effect-boundary";
 import { listHomeSkills } from "../src/backend/home-skills";
-import { listHomeFolderSkills } from "../src/main/skill-folder-discovery";
+import { listHomeFolderSkills } from "../src/main/skills/skill-folder-discovery";
 
 const OUT = resolve(import.meta.dirname, "../.openownbot-build/home-agent-skills-e2e");
 const ROOT_VARIABLE = "OPENOWNBOT_HOME_SKILLS_E2E_ROOT";

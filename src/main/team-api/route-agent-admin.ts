@@ -19,7 +19,7 @@ import {
 } from "@robot/contracts/team-protocol/agent-task-limit-v1";
 import { sourceText } from "@robot/i18n/source";
 import { runCauseEffect } from "../../backend/effect-boundary";
-import { AgentNotFoundError } from "../agent-admin-settings";
+import { AgentNotFoundError } from "../agents/agent-admin-settings";
 import type { TeamApiAdmin } from "./dependencies";
 import { HttpError } from "./http-error";
 import type { RouteOutcome, TeamApiRequestContext } from "./request-context";
