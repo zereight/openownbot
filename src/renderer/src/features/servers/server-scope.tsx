@@ -103,6 +103,8 @@ const ServerScope = createSimpleContext({
     });
     const selectedServer = () => servers().find((candidate) => candidate.id === activeServerId());
     const transportReady = () => selectedServer()?.kind !== "remote" || selectedServer()?.state === "online";
+    /** The server at the moment of a load. A load reads it once and does not follow later changes. */
+    const currentServer = () => untrack(selectedServer);
     const loaded = () =>
       connection.hasContent &&
       !connection.loading &&
@@ -142,12 +144,12 @@ const ServerScope = createSimpleContext({
     let loadGeneration = 0;
     async function loadWorkspace(): Promise<void> {
       const generation = ++loadGeneration;
-      const serverId = activeServerId();
-      const server = selectedServer();
+      const serverId = untrack(activeServerId);
+      const server = currentServer();
       const sequence = server?.connectionSequence;
       const isCurrent = () =>
-        scopeIsCurrent() && generation === loadGeneration && sequence === selectedServer()?.connectionSequence;
-      if (!isCurrent() || !transportReady()) return;
+        scopeIsCurrent() && generation === loadGeneration && sequence === currentServer()?.connectionSequence;
+      if (!isCurrent() || !untrack(transportReady)) return;
       loadedAccount = untrack(signedInAccount);
       setConnection((draft) => {
         draft.failed = false;
@@ -188,10 +190,10 @@ const ServerScope = createSimpleContext({
 
     async function loadPanels() {
       const generation = loadGeneration;
-      const server = selectedServer();
+      const server = currentServer();
       const sequence = server?.connectionSequence;
       const isCurrent = () =>
-        scopeIsCurrent() && generation === loadGeneration && sequence === selectedServer()?.connectionSequence;
+        scopeIsCurrent() && generation === loadGeneration && sequence === currentServer()?.connectionSequence;
       setConnection((draft) => {
         draft.panelsFailed = false;
         draft.panelsLoading = true;
