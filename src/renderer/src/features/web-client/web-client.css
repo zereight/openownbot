@@ -273,7 +273,7 @@
 
 .web-connect-header .ui-heading {
   font-size: var(--openownbot-text-3xl);
-  font-weight: var(--openownbot-weight-bold);
+  font-weight: var(--openownbot-weight-semibold);
   line-height: var(--openownbot-leading-3xl);
 }
 

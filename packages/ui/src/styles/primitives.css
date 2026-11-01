@@ -4,18 +4,22 @@
   font-family: var(--openownbot-font-sans);
 }
 
-.ui-server-gradient-logo {
-  width: var(--server-gradient-logo-size, 40px);
-  height: var(--server-gradient-logo-size, 40px);
-  display: block;
+.ui-server-monogram {
+  --server-monogram-size: 40px;
+  display: grid;
+  width: var(--server-monogram-size);
+  height: var(--server-monogram-size);
   flex: 0 0 auto;
+  place-items: center;
   overflow: hidden;
-  border-radius: var(--server-gradient-logo-radius, var(--openownbot-radius-lg));
-  background-color: var(--server-gradient-base);
-  background-image: var(--server-gradient-layers);
-  background-repeat: no-repeat;
-  outline: 1px solid var(--openownbot-image-outline);
-  outline-offset: -1px;
+  border: 1px solid var(--openownbot-border);
+  border-radius: var(--server-monogram-radius, var(--openownbot-radius-lg));
+  background: var(--openownbot-bg-surface);
+  color: var(--openownbot-text-secondary);
+  font-size: var(--server-monogram-font-size, var(--openownbot-text-lg));
+  font-weight: var(--openownbot-weight-medium);
+  line-height: 1;
+  white-space: nowrap;
 }
 
 :where(.ui-text)[data-tone="secondary"],

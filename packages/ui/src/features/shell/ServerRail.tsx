@@ -1,18 +1,9 @@
 import { For } from "solid-js";
 import { Button } from "../../button";
 import { Plus } from "../../icons";
+import { serverInitials } from "../../server-monogram";
 import { useText } from "../../text";
 import type { ShellServer } from "./shell-types";
-
-/** Up to two letters of a server name: the first letter of each of its first two words. */
-export function serverInitials(name: string): string {
-  const words = name.trim().split(/\s+/u).filter(Boolean);
-  const letters = words.length > 1 ? [words[0], words[1]] : [words[0] ?? ""];
-  return letters
-    .map((word) => Array.from(word ?? "")[0] ?? "")
-    .join("")
-    .toLocaleUpperCase();
-}
 
 /** The column of server icons. The selected server is a rounded square, as in Discord. */
 export function ServerRail(props: {

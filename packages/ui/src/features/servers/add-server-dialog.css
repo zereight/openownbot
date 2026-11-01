@@ -55,7 +55,7 @@
 .add-server-intro .ui-heading {
   padding-inline: calc(var(--openownbot-control-md) + var(--openownbot-space-2));
   font-size: var(--openownbot-text-3xl);
-  font-weight: var(--openownbot-weight-bold);
+  font-weight: var(--openownbot-weight-semibold);
   line-height: var(--openownbot-leading-3xl);
   letter-spacing: var(--openownbot-tracking-tight);
 }
@@ -207,28 +207,14 @@
   opacity: 0.5;
 }
 
-/* A cool-to-warm line on the top edge and a soft glow at the bottom of the recommended plan. */
+/* The recommended plan: one accent hairline on its top edge. */
 .hosted-plan[data-recommended]::before {
   content: "";
   position: absolute;
   inset: 0 0 auto;
   height: 1px;
-  background: linear-gradient(90deg, transparent, var(--openownbot-accent), var(--openownbot-warning), transparent);
-  opacity: 0.8;
+  background: var(--openownbot-accent);
   pointer-events: none;
-}
-
-.hosted-plan[data-recommended]::after {
-  content: "";
-  position: absolute;
-  inset: auto 0 0;
-  z-index: -1;
-  height: 50%;
-  background: linear-gradient(90deg, var(--openownbot-accent), var(--openownbot-warning));
-  opacity: 0.22;
-  mask-image: radial-gradient(90% 100% at 50% 100%, var(--openownbot-text-primary), transparent);
-  pointer-events: none;
-  transition: opacity var(--openownbot-duration-overlay) var(--openownbot-ease-out);
 }
 
 /* A fixed height, so that the badge does not move this column's content down. */
@@ -565,8 +551,6 @@
 
 .add-server-light[data-state="active"]::after {
   background: var(--openownbot-accent);
-  box-shadow: 0 0 6px var(--openownbot-accent);
-  animation: add-server-light-flicker 1.3s steps(1, end) infinite;
 }
 
 .add-server-light[data-state="done"]::after {
@@ -720,25 +704,6 @@
 }
 
 /* An uneven pattern, as disk activity is. */
-@keyframes add-server-light-flicker {
-  0%,
-  22%,
-  34%,
-  58%,
-  64%,
-  88% {
-    opacity: 1;
-  }
-
-  18%,
-  30%,
-  54%,
-  61%,
-  84% {
-    opacity: 0.25;
-  }
-}
-
 @keyframes add-server-segment-breathe {
   to {
     opacity: 0.55;
@@ -757,10 +722,6 @@
 @media (hover: hover) {
   .hosted-plan:not([data-recommended]):hover {
     background: var(--openownbot-bg-surface);
-  }
-
-  .hosted-plan[data-recommended]:hover::after {
-    opacity: 0.3;
   }
 
   .hosted-plan:hover .hosted-plan-facts svg {

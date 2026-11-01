@@ -502,7 +502,7 @@
 }
 
 .wfn-stage .wfn-text-input[data-bold] {
-  font-weight: var(--openownbot-weight-bold);
+  font-weight: var(--openownbot-weight-semibold);
 }
 
 .wfn-stage .wfn-text-input:focus-visible {
@@ -755,7 +755,7 @@
   bottom: var(--openownbot-space-1);
   color: var(--openownbot-text-secondary);
   font-size: var(--openownbot-glyph-sm);
-  font-weight: var(--openownbot-weight-bold);
+  font-weight: var(--openownbot-weight-semibold);
   letter-spacing: var(--openownbot-tracking-wide);
 }
 
@@ -2672,7 +2672,7 @@ fieldset.wfn-picker-group {
 }
 
 .wfn-stage .wfn-note-input[data-bold] {
-  font-weight: var(--openownbot-weight-bold);
+  font-weight: var(--openownbot-weight-semibold);
 }
 
 .wfn-note-author {

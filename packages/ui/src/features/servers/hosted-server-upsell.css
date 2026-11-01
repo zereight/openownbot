@@ -1,6 +1,7 @@
 /*
  * The offer of a hosted server: a notice at the routine list, a modal after a new routine, and a
- * line in the offline notice. A border beam marks it as an offer, not a fault.
+ * line in the offline notice. The notice is a plain raised surface: an offer, not a fault, and not an
+ * alarm either.
  */
 
 /* The notice: the icon on the title line, and the actions under the text. */
@@ -16,9 +17,10 @@
   width: var(--openownbot-space-8);
   height: var(--openownbot-space-8);
   padding: var(--openownbot-space-1-5);
+  border: 1px solid var(--openownbot-border);
   border-radius: var(--openownbot-radius-md);
-  background: linear-gradient(135deg, var(--openownbot-beam-blue), var(--openownbot-beam-pink));
-  color: var(--openownbot-text-on-accent);
+  background: var(--openownbot-bg-surface);
+  color: var(--openownbot-text-secondary);
 }
 
 .hosted-upsell-notice .ui-alert-title {
@@ -30,90 +32,8 @@
   margin-top: var(--openownbot-space-2);
 }
 
-/*
- * The border beam, after libraries.dev/beam: a conic gradient that turns around the border, and a
- * soft glow outside it.
- */
-@property --hosted-upsell-beam-angle {
-  syntax: "<angle>";
-  inherits: false;
-  initial-value: 0deg;
-}
-
-.hosted-upsell-beam {
-  position: relative;
-  border-color: transparent;
-  background:
-    radial-gradient(
-      120% 140% at 0% 0%,
-      color-mix(in srgb, var(--openownbot-beam-blue) 12%, transparent),
-      transparent 60%
-    ),
-    var(--openownbot-bg-surface-raised);
-}
-
-/* The sharp line: the gradient, masked to a 1px ring. */
-.hosted-upsell-beam::before,
-.hosted-upsell-beam-glow > span {
-  position: absolute;
-  border-radius: inherit;
-  content: "";
-  pointer-events: none;
-  mask:
-    linear-gradient(currentColor 0 0) content-box exclude,
-    linear-gradient(currentColor 0 0);
-  animation: hosted-upsell-beam-turn 6s linear infinite;
-}
-
-.hosted-upsell-beam::before {
-  inset: 0;
-  padding: 1px;
-  background: conic-gradient(
-    from var(--hosted-upsell-beam-angle),
-    color-mix(in srgb, var(--openownbot-beam-blue) 18%, transparent) 0deg,
-    color-mix(in srgb, var(--openownbot-beam-blue) 18%, transparent) 180deg,
-    var(--openownbot-beam-teal) 240deg,
-    var(--openownbot-beam-blue) 290deg,
-    var(--openownbot-beam-pink) 330deg,
-    color-mix(in srgb, var(--openownbot-beam-blue) 18%, transparent) 360deg
-  );
-}
-
-/* The glow: a wider ring of the beam colours, blurred by its parent, so the mask does not cut the blur. */
-.hosted-upsell-beam-glow {
-  position: absolute;
-  inset: calc(-1 * var(--openownbot-space-3));
-  border-radius: inherit;
-  filter: blur(6px);
-  opacity: 0.5;
-  pointer-events: none;
-}
-
-.hosted-upsell-beam-glow > span {
-  inset: var(--openownbot-space-3);
-  padding: 2px;
-  background: conic-gradient(
-    from var(--hosted-upsell-beam-angle),
-    transparent 0deg,
-    transparent 210deg,
-    var(--openownbot-beam-teal) 250deg,
-    var(--openownbot-beam-blue) 290deg,
-    var(--openownbot-beam-pink) 330deg,
-    transparent 360deg
-  );
-}
-
-@keyframes hosted-upsell-beam-turn {
-  to {
-    --hosted-upsell-beam-angle: 360deg;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .hosted-upsell-beam::before,
-  .hosted-upsell-beam-glow > span {
-    animation: none;
-  }
+.hosted-upsell-notice {
+  background: var(--openownbot-bg-surface-raised);
 }
 
 /* The modal. It portals out of the workspace, so the rules match the content element itself. */

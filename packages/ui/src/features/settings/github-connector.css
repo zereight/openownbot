@@ -7,8 +7,8 @@
   place-items: center;
   overflow: hidden;
   border-radius: var(--openownbot-radius-pill);
-  background: linear-gradient(135deg, var(--openownbot-accent-strong), var(--openownbot-onboarding-desktop-indigo));
-  color: var(--openownbot-text-primary);
+  background: var(--openownbot-bg-surface);
+  color: var(--openownbot-text-secondary);
   font-size: var(--openownbot-text-sm);
   font-weight: var(--openownbot-weight-semibold);
 }

@@ -17,7 +17,7 @@
 
 .initial-setup-screen {
   padding: 52px 24px 32px;
-  background: radial-gradient(circle at 50% 18%, var(--openownbot-hover), transparent 34%), var(--openownbot-bg-canvas);
+  background: var(--openownbot-bg-canvas);
 }
 
 .account-login-shell {
@@ -44,7 +44,7 @@
 .account-login-wordmark {
   color: var(--openownbot-text-primary);
   font-size: var(--openownbot-text-display);
-  font-weight: 620;
+  font-weight: var(--openownbot-weight-semibold);
   letter-spacing: -0.015em;
   line-height: var(--openownbot-leading-display);
 }
@@ -129,7 +129,7 @@
   background: var(--openownbot-surface-light);
   color: var(--openownbot-text-on-light);
   font-size: var(--openownbot-text-md);
-  font-weight: 650;
+  font-weight: var(--openownbot-weight-semibold);
   transition:
     background-color var(--openownbot-duration-hover) ease,
     border-color var(--openownbot-duration-hover) ease,

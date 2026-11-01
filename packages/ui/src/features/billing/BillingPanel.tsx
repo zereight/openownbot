@@ -28,7 +28,7 @@ import {
   ItemTitle,
   OctagonX,
   RotateCcw,
-  ServerGradientLogo,
+  ServerMonogram,
   SlidersHorizontal,
   Spinner,
   Text,
@@ -306,7 +306,7 @@ function BillingServerRow(props: { server: BillingServerPlan; store: BillingStor
   return (
     <Item class="billing-server" role="listitem">
       <ItemMedia>
-        <ServerGradientLogo class="billing-server-logo" seed={props.server.serverId ?? props.server.subscriptionId} />
+        <ServerMonogram class="billing-server-logo" name={name()} />
       </ItemMedia>
       <ItemContent>
         <div class="billing-server-title">

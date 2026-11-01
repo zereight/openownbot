@@ -35,9 +35,9 @@
   text-align: center;
 }
 
-.billing-server-logo {
-  width: 32px;
-  height: 32px;
+.ui-server-monogram.billing-server-logo {
+  --server-monogram-size: 32px;
+  --server-monogram-font-size: var(--openownbot-text-sm);
   border-radius: var(--openownbot-radius-md);
 }
 
@@ -97,7 +97,7 @@
 .billing-dialog-title {
   margin: 0;
   font-size: var(--openownbot-text-2xl);
-  font-weight: var(--openownbot-weight-bold);
+  font-weight: var(--openownbot-weight-semibold);
   line-height: var(--openownbot-leading-2xl);
 }
 
@@ -255,7 +255,7 @@
 
 .billing-license-total-amount {
   font-size: var(--openownbot-text-2xl);
-  font-weight: var(--openownbot-weight-bold);
+  font-weight: var(--openownbot-weight-semibold);
   font-variant-numeric: tabular-nums;
 }
 

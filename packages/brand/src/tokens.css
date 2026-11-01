@@ -216,10 +216,6 @@
      announcement is not an action. */
   --openownbot-badge-new: #ff1e5e;
   --openownbot-badge-new-soft: rgba(255, 30, 94, 0.16);
-  /* The moving border of an offer, such as the hosted server offer: teal, blue, then pink. */
-  --openownbot-beam-teal: var(--openownbot-file-teal);
-  --openownbot-beam-blue: var(--openownbot-accent-text);
-  --openownbot-beam-pink: var(--openownbot-file-pink);
   --openownbot-approval-badge-soft: rgba(255, 148, 18, 0.18);
   /* One red. The palette carried four families - danger (#e47d75), danger-strong
      (#ff4058), settings-danger (#eb4145) and button-destructive (oklch, #ff6467) -

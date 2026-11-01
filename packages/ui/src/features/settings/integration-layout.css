@@ -259,7 +259,7 @@
   margin-inline: var(--openownbot-space-1);
   border-radius: var(--openownbot-radius-pill);
   background:
-    linear-gradient(to right, var(--openownbot-success), var(--openownbot-accent)) no-repeat,
+    linear-gradient(var(--openownbot-success), var(--openownbot-success)) no-repeat,
     var(--openownbot-border-strong);
   background-size:
     0% 100%,

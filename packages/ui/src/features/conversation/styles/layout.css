@@ -294,7 +294,7 @@
   background: var(--openownbot-success);
   color: var(--openownbot-success);
   font-size: var(--openownbot-text-xl);
-  font-weight: 650;
+  font-weight: var(--openownbot-weight-semibold);
 }
 
 .direct-composer > button:disabled {

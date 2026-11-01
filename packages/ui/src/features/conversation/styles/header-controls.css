@@ -535,7 +535,7 @@
 .provider-model-heading strong {
   color: var(--openownbot-text-primary);
   font-size: var(--openownbot-text-lg);
-  font-weight: 620;
+  font-weight: var(--openownbot-weight-semibold);
   line-height: 20px;
 }
 

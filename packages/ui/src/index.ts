@@ -20,7 +20,7 @@ export * from "./qr-code";
 export * from "./questionnaire";
 export * from "./radial-progress";
 export * from "./select";
-export * from "./server-gradient-logo";
+export * from "./server-monogram";
 export * from "./settings";
 export * from "./slider";
 export * from "./sliding-tabs";

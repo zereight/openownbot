@@ -77,8 +77,6 @@
   color: var(--openownbot-text-dim);
   font-family: var(--openownbot-font-mono);
   font-size: var(--openownbot-text-sm);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
   opacity: 0;
   transition: opacity var(--openownbot-duration-slow) ease;
 }

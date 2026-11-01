@@ -1284,7 +1284,7 @@ button.chat-action-target:active,
   backdrop-filter: blur(12px) saturate(1.15);
   -webkit-backdrop-filter: blur(12px) saturate(1.15);
   font-size: var(--openownbot-text-sm);
-  font-weight: 650;
+  font-weight: var(--openownbot-weight-semibold);
   opacity: 0;
   pointer-events: none;
   transform: translateY(4px);

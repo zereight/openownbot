@@ -1,6 +1,6 @@
 import type { HostedServerSleep, ServerConnectionState, ServerSummary } from "@robot/contracts/ipc";
 import type { AppTextKey, AppTranslate } from "@robot/i18n";
-import { BellOff, buttonVariants, ContextMenu, ServerGradientLogo, Tooltip } from "@robot/ui";
+import { BellOff, buttonVariants, ContextMenu, ServerMonogram, Tooltip } from "@robot/ui";
 import { createEffect, createSignal, createStore, For, onCleanup, Show } from "solid-js";
 import { createScrollFades } from "../../components/createScrollFades";
 import { createVerticalDragPreview } from "../../components/createVerticalDragPreview";
@@ -488,7 +488,7 @@ export function ServerMark(props: { server: ServerSummary }) {
     },
   );
   return (
-    <Show when={!failed() ? props.server.logoUrl : null} fallback={<ServerGradientLogo seed={props.server.id} />}>
+    <Show when={!failed() ? props.server.logoUrl : null} fallback={<ServerMonogram name={props.server.name} />}>
       {(url) => <img class="server-rail-logo" src={url()} alt="" draggable={false} onError={() => setFailed(true)} />}
     </Show>
   );

@@ -221,7 +221,7 @@ body:has(.computer-use-highlight-surface),
   stroke-width: 5;
   /* Under the fill, so the outline reads as an edge rather than as a second, thicker dart. */
   paint-order: stroke fill;
-  filter: drop-shadow(0 0 6px var(--openownbot-accent-strong));
+  filter: drop-shadow(0 1px 3px var(--openownbot-shadow-popover-ambient));
   /* No transition: `ComputerUseAgentCursor` plays each move, and a transition would fight it. */
   pointer-events: none;
 }

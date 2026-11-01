@@ -955,7 +955,7 @@
   background: var(--file-reference-soft, var(--openownbot-hover));
   color: var(--file-reference-color, var(--openownbot-text-muted));
   font-size: var(--openownbot-text-sm);
-  font-weight: 700;
+  font-weight: var(--openownbot-weight-semibold);
   line-height: 1;
 }
 
