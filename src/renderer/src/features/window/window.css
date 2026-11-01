@@ -7,12 +7,39 @@
   /* The thin frame at the right and the bottom of the card */
   --window-edge: var(--openownbot-space-1);
   --window-hairline-height: var(--openownbot-icon-lg);
+  --server-rail-width: 64px;
   display: grid;
   width: 100%;
   height: 100%;
   min-height: 0;
-  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-columns: auto auto minmax(0, 1fr);
   background: var(--window-frame);
+}
+
+/* The server rail is the left edge of the window and holds the macOS window buttons. It is on the
+ * frame colour, with no line between it and the page rail. */
+.app-window-platform-darwin {
+  --server-rail-width: 72px;
+}
+
+.app-window > .server-rail {
+  width: var(--server-rail-width);
+  background: var(--window-frame);
+}
+
+.app-window > .server-rail::before,
+.app-window > .server-rail::after {
+  content: none;
+}
+
+@media (max-width: 800px) {
+  .app-window:not(.app-window-platform-darwin) {
+    --server-rail-width: 56px;
+  }
+
+  .app-window > .server-rail {
+    --server-rail-inline-padding: 5px;
+  }
 }
 
 /* A hidden rail stays out of the grid. The frame keeps the last column, which then takes the whole
@@ -41,7 +68,10 @@
  * and the rows below it, at all widths. The web frame has the macOS class but no buttons. The
  * selector must out-rank the macOS rule below, which also matches the web frame. */
 .app-window
-  > :is(.web-app-frame, .app-frame:not(.app-frame-platform-darwin)):not(.app-frame-with-server-rail)
+  > :is(.web-app-frame, .app-frame:not(.app-frame-platform-darwin)):not(
+    .app-frame-with-server-rail,
+    .app-frame-after-server-rail
+  )
   > .sidebar:not(.sidebar-compact)
   .sidebar-topbar {
   padding-left: var(--openownbot-space-3);
@@ -53,10 +83,10 @@
     position: relative;
   }
 
-  /* The rail holds the window buttons, so the server menu needs only the part of them that is past
-   * the rail. */
+  /* The page rail holds the window buttons, so the server menu needs only the part of them that is
+   * past the rail. A server rail at the window edge holds all of them. */
   .app-window
-    > .app-frame-platform-darwin:not(.app-frame-with-server-rail)
+    > .app-frame-platform-darwin:not(.app-frame-with-server-rail, .app-frame-after-server-rail)
     > .sidebar:not(.sidebar-compact)
     .sidebar-topbar {
     padding-left: var(--openownbot-space-6);
