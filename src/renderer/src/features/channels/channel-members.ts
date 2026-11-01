@@ -1,10 +1,15 @@
-import type { AgentApproval, ChannelPage, ChannelThread } from "@robot/contracts/ipc";
+import type { AgentApproval, ChannelPage, ChannelTask, ChannelThread } from "@robot/contracts/ipc";
 import type { AgentProfile } from "@robot/ui/data";
-import type { ShellAgentState, ShellMember } from "@robot/ui/features/shell/shell-types";
+import type { ShellAgentState, ShellMember, ShellPlanStep } from "@robot/ui/features/shell/shell-types";
 import { channelApproval, waitingChannelPrompt } from "./channel-conversation-rows";
 
 /** How much of a task's instruction the member panel shows as the agent's step. */
 const STEP_LENGTH = 80;
+/** How much of a part's instruction its checklist line shows. */
+const PLAN_STEP_LENGTH = 48;
+/** The checklist lines of one agent. A longer plan shows its first parts. */
+const PLAN_LIMIT = 8;
+const ACTIVE_STATES: ReadonlySet<ChannelTask["state"]> = new Set(["queued", "running", "waiting"]);
 
 /**
  * The members of the open channel with what each one does now. A wait comes first, because it needs
@@ -26,7 +31,13 @@ export function channelMembers(input: {
     const agent = agents.get(member.agentId);
     if (!agent) return [];
     const state = memberState(input.page, agent.id, approval, asking);
-    return [{ agent, state: state.kind === "failed" ? { ...state, reason: input.failure(state.reason) } : state }];
+    return [
+      {
+        agent,
+        state: state.kind === "failed" ? { ...state, reason: input.failure(state.reason) } : state,
+        plan: memberPlan(input.page, agent.id),
+      },
+    ];
   });
 }
 
@@ -47,8 +58,45 @@ function memberState(
   return { kind: "idle" };
 }
 
-function step(instruction: string): string | null {
+/**
+ * The parts that an agent gave to others in its newest work that still runs: the tasks whose parent
+ * is the agent's task. Work that ended shows no plan, so the panel shows only what happens now.
+ */
+function memberPlan(page: ChannelPage, agentId: string): ShellPlanStep[] {
+  const children = new Map<string, ChannelTask[]>();
+  for (const task of page.tasks) {
+    if (!task.parentTaskId) continue;
+    const known = children.get(task.parentTaskId);
+    if (known) known.push(task);
+    else children.set(task.parentTaskId, [task]);
+  }
+  const parent = page.tasks.findLast((task) => {
+    if (task.ownerAgentId !== agentId) return false;
+    const parts = children.get(task.id);
+    return (
+      parts !== undefined && (ACTIVE_STATES.has(task.state) || parts.some((part) => ACTIVE_STATES.has(part.state)))
+    );
+  });
+  if (!parent) return [];
+  // A cancelled part is no longer part of the work.
+  const parts = (children.get(parent.id) ?? []).filter((part) => part.state !== "cancelled");
+  return parts.slice(0, PLAN_LIMIT).map((part) => ({
+    id: part.id,
+    label: step(part.instruction, PLAN_STEP_LENGTH) ?? part.expectedResult,
+    state: planState(part.state),
+  }));
+}
+
+function planState(state: ChannelTask["state"]): ShellPlanStep["state"] {
+  if (state === "completed") return "done";
+  if (state === "running" || state === "waiting") return "running";
+  if (state === "failed") return "failed";
+  return "todo";
+}
+
+/** The first line of an instruction, cut to `length`. */
+function step(instruction: string, length = STEP_LENGTH): string | null {
   const line = instruction.trim().split("\n", 1)[0]?.trim() ?? "";
   if (!line) return null;
-  return line.length > STEP_LENGTH ? `${line.slice(0, STEP_LENGTH - 1)}…` : line;
+  return line.length > length ? `${line.slice(0, length - 1)}…` : line;
 }

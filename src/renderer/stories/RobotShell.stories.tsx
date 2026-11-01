@@ -42,7 +42,16 @@ const BUILDER = agent("builder", "Builder", 30);
 const LAUNCH = agent("launch", "Launch", 280);
 const REVIEWER = agent("reviewer", "Pull request reviewer with a very long name", 0);
 const MEMBERS: ShellMember[] = [
-  { agent: CHIEF, state: { kind: "working", step: "Reviewing the draft" } },
+  {
+    agent: CHIEF,
+    state: { kind: "working", step: "Reviewing the draft" },
+    plan: [
+      { id: "pricing", label: "Pricing table", state: "done" },
+      { id: "draft", label: "Draft post", state: "running" },
+      { id: "changelog", label: "Changelog page with a very long name that does not fit", state: "todo" },
+      { id: "review", label: "Review with you", state: "failed" },
+    ],
+  },
   { agent: RESEARCH, state: { kind: "working", step: "web_search · pricing pages" } },
   { agent: BUILDER, state: { kind: "waiting", reason: "approval", detail: "bun run build:changelog" } },
   { agent: REVIEWER, state: { kind: "failed", reason: "Claude usage limit until 14:00" } },

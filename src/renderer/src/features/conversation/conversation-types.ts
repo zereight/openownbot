@@ -33,6 +33,7 @@ import type { ConversationUiBlock } from "@robot/contracts/ui-blocks";
 import type { AgentMessage, AgentProfile, ComposerAgent } from "@robot/ui/data";
 import type { BrowserViewRuntime } from "@robot/ui/features/browser/BrowserLiveView";
 import type { ChannelWorker } from "@robot/ui/features/channels/ChannelActivityIndicator";
+import type { ThreadChipModel } from "@robot/ui/features/channels/ThreadChips";
 import type { AwaitingReplyItem } from "@robot/ui/features/conversation/AwaitingReplies";
 import type { UsageLimitAskCardProps } from "@robot/ui/features/conversation/BackupModels";
 import type { ChatMessageAuthor } from "@robot/ui/features/conversation/ChatMessageRow";
@@ -113,6 +114,8 @@ export interface ConversationChannelSource {
   interactionAgentName: () => string | undefined;
   /** The agents that a lead asked and that did not reply yet. */
   awaitingReplies: () => readonly AwaitingReplyItem[];
+  /** The parts of the work that the rows with these ids gave to other agents, as chips under the row. */
+  threadChips: (messageIds: readonly string[]) => readonly ConversationThreadChip[];
   HeaderTitle: (props: { onOpenSettings: () => void }) => JSX.Element;
   /** Buttons of the channel in the header's action row. */
   HeaderActions?: (() => JSX.Element) | undefined;
@@ -121,6 +124,11 @@ export interface ConversationChannelSource {
   AboveComposer: () => JSX.Element;
   /** Shows in place of the transcript while the channel has no message. */
   EmptyState: () => JSX.Element;
+}
+
+/** A thread chip, with the reply that it leads to. */
+export interface ConversationThreadChip extends ThreadChipModel {
+  latestMessageId: string;
 }
 
 export interface ConversationChannelSettingsPaneProps {

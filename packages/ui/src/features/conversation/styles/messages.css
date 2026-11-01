@@ -123,8 +123,9 @@
   flex: none;
   padding: 0 var(--openownbot-space-1);
   border-radius: var(--openownbot-radius-sm);
-  /* Darker than the accent, so the tag text keeps a 4.5:1 contrast at this size. */
-  background: color-mix(in srgb, var(--openownbot-accent) 78%, var(--openownbot-text-on-light));
+  /* Darker than the accent, so the tag text keeps a 4.5:1 contrast at this size. The paper ink is
+     dark in both themes; the light theme swaps the text-on-light colour to the page colour. */
+  background: color-mix(in srgb, var(--openownbot-accent) 78%, var(--openownbot-paper-text));
   color: var(--openownbot-text-on-accent);
   font-size: var(--openownbot-text-sm);
   font-weight: var(--openownbot-weight-semibold);

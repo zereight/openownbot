@@ -4,6 +4,7 @@ import type { ConversationUiBlock } from "@robot/contracts/ui-blocks";
 import { Button } from "@robot/ui";
 import type { AgentMessage, ChatActionMarkerModel } from "@robot/ui/data";
 import { ChannelActivityIndicator } from "@robot/ui/features/channels/ChannelActivityIndicator";
+import { ThreadChips } from "@robot/ui/features/channels/ThreadChips";
 import { AgentActivityIndicator } from "@robot/ui/features/conversation/AgentActivity";
 import { AgentChatEmptyState } from "@robot/ui/features/conversation/AgentChatEmptyState";
 import { AgentStepsDisclosure, type AgentStepsTrace } from "@robot/ui/features/conversation/AgentSteps";
@@ -691,6 +692,16 @@ export function ConversationTimeline() {
                   const current = message();
                   if (current) void replyJump.openReference(current);
                 };
+                // The parts of the work that this row gave to other agents. A group row asks for each message in it.
+                const threadChips = createMemo(() => {
+                  const current = message();
+                  return channel && current ? channel.threadChips([current.id, ...(current.itemIds ?? [])]) : [];
+                });
+                const openThread = (taskId: string) => {
+                  const current = message();
+                  const chip = threadChips().find((candidate) => candidate.taskId === taskId);
+                  if (current && chip) void replyJump.openMessage(current.id, chip.latestMessageId);
+                };
                 // A quote of another person's message names them; any other quote keeps its label.
                 const referencedAuthorName = () => {
                   const referenced = referencedMessage();
@@ -1301,6 +1312,9 @@ export function ConversationTimeline() {
                                   onSeek={(seconds) => player()?.onSeek?.(seconds)}
                                 />
                               )}
+                            </Show>
+                            <Show when={threadChips().length > 0}>
+                              <ThreadChips chips={threadChips()} onOpen={openThread} />
                             </Show>
                           </ChatMessageRow>
                         }

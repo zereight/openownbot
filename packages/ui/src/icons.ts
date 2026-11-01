@@ -1,3 +1,4 @@
+export { default as Activity } from "lucide-solid/icons/activity";
 export { default as AlarmClock } from "lucide-solid/icons/alarm-clock";
 export { default as AppWindow } from "lucide-solid/icons/app-window";
 export { default as Archive } from "lucide-solid/icons/archive";
@@ -29,6 +30,7 @@ export { default as ChevronLeft } from "lucide-solid/icons/chevron-left";
 export { default as ChevronRight } from "lucide-solid/icons/chevron-right";
 export { default as ChevronUp } from "lucide-solid/icons/chevron-up";
 export { default as ChevronsUpDown } from "lucide-solid/icons/chevrons-up-down";
+export { default as Circle } from "lucide-solid/icons/circle";
 export { default as CircleAlert } from "lucide-solid/icons/circle-alert";
 export { default as CircleArrowDown } from "lucide-solid/icons/circle-arrow-down";
 export { default as CircleCheck } from "lucide-solid/icons/circle-check";

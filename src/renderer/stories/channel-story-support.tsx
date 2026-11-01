@@ -11,8 +11,12 @@ import type { ChannelWorker } from "@robot/ui/features/channels/ChannelActivityI
 import { ChannelAvatar } from "@robot/ui/features/channels/ChannelAvatar";
 import { ChannelStoppedTasks } from "@robot/ui/features/channels/ChannelStoppedTasks";
 import type { AwaitingReplyItem } from "@robot/ui/features/conversation/AwaitingReplies";
+import { Hash } from "@robot/ui/icons";
 import { fn } from "storybook/test";
-import type { ConversationChannelSource } from "../src/features/conversation/conversation-types";
+import type {
+  ConversationChannelSource,
+  ConversationThreadChip,
+} from "../src/features/conversation/conversation-types";
 import { StoryConversation } from "./conversation-story-support";
 import { requireFixture, STORY_AGENTS } from "./fixtures";
 
@@ -99,6 +103,8 @@ export interface ChannelStoryProps {
   activeTurnId?: string | null;
   unreadCount?: number;
   firstUnreadMessageId?: string | null;
+  /** Thread chips by the id of the message they show under. */
+  threadChips?: Record<string, ConversationThreadChip[]>;
 }
 
 /** The channel chat on a mocked bridge, for a story that shows a channel or composes screens. */
@@ -117,11 +123,13 @@ export function StoryChannelConversation(props: ChannelStoryProps) {
     workingTurns: () => [],
     interactionAgentName: () => undefined,
     awaitingReplies: () => props.awaiting ?? [],
+    threadChips: (messageIds) => messageIds.flatMap((id) => props.threadChips?.[id] ?? []),
     HeaderTitle: () => (
       <Button variant="ghost" size="sm" class="conversation-title channel-title no-drag" aria-label="Channel settings">
-        <ChannelAvatar members={members} agents={STORY_AGENTS} />
+        <Hash aria-hidden="true" class="channel-title-hash" />
         <span class="channel-header-copy">
           <h1>{name()}</h1>
+          <span class="channel-header-divider" aria-hidden="true" />
           <span class="channel-header-title">Quarterly launch</span>
         </span>
       </Button>

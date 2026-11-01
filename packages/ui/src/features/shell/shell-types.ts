@@ -27,8 +27,17 @@ export type ShellAgentState =
   | { kind: "waiting"; reason: "approval" | "answer"; detail: string | null }
   | { kind: "failed"; reason: string };
 
+/** One part of the work that an agent gave to others, as a line of its checklist. */
+export interface ShellPlanStep {
+  id: string;
+  label: string;
+  state: "todo" | "running" | "done" | "failed";
+}
+
 /** One agent in the member panel. */
 export interface ShellMember {
   agent: ShellAgentIdentity;
   state: ShellAgentState;
+  /** The parts of its running work that the agent gave to others. Empty when it split nothing. */
+  plan?: readonly ShellPlanStep[];
 }

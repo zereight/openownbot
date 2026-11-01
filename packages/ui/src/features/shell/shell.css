@@ -135,9 +135,17 @@
   color: var(--openownbot-text-muted);
 }
 
-.shell-side-header .shell-section {
+.shell-side-title {
   flex: 1;
   margin: 0;
+  font-size: var(--openownbot-text-md);
+  font-weight: var(--openownbot-weight-semibold);
+}
+
+.shell-side-icon {
+  width: 16px;
+  height: 16px;
+  color: var(--openownbot-text-muted);
 }
 
 .shell-frame .shell-place {
@@ -312,11 +320,15 @@
   }
 }
 
+/* One card for each agent, as the "Now" column of a chat server's activity panel. */
 .shell-members {
+  display: flex;
   flex: 1;
+  flex-direction: column;
+  gap: var(--openownbot-space-2);
   overflow-y: auto;
   margin: 0;
-  padding: var(--openownbot-space-2) 0;
+  padding: var(--openownbot-space-2);
   list-style: none;
 }
 
@@ -324,8 +336,68 @@
   display: flex;
   align-items: flex-start;
   gap: var(--openownbot-space-3);
-  padding: var(--openownbot-space-2) var(--openownbot-space-4);
+  border-radius: var(--openownbot-radius-md);
+  background: var(--openownbot-bg-surface);
+  padding: var(--openownbot-space-3);
   transition: background-color var(--openownbot-duration-normal) ease;
+}
+
+.shell-plan {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin: var(--openownbot-space-2) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.shell-plan-step {
+  display: flex;
+  align-items: center;
+  gap: var(--openownbot-space-2);
+  min-width: 0;
+  font-size: var(--openownbot-text-sm);
+  line-height: 18px;
+  color: var(--openownbot-text-secondary);
+}
+
+.shell-plan-step > svg {
+  width: 13px;
+  height: 13px;
+  flex: none;
+}
+
+.shell-plan-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.shell-plan-step-done {
+  color: var(--openownbot-text-muted);
+}
+
+.shell-plan-step-done > svg {
+  color: var(--openownbot-success);
+}
+
+.shell-plan-step-running {
+  color: var(--openownbot-text-primary);
+}
+
+.shell-plan-step-running > svg {
+  color: var(--openownbot-success);
+  animation: shell-plan-spin 1.2s linear infinite;
+}
+
+.shell-plan-step-failed > svg {
+  color: var(--openownbot-danger);
+}
+
+@keyframes shell-plan-spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .shell-member-text {
@@ -393,7 +465,8 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .shell-status-working::after {
+  .shell-status-working::after,
+  .shell-plan-step-running > svg {
     animation: none;
   }
 

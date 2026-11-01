@@ -10,7 +10,7 @@ import { ChannelAvatar } from "@robot/ui/features/channels/ChannelAvatar";
 import { ChannelStoppedTasks } from "@robot/ui/features/channels/ChannelStoppedTasks";
 import { MemberPanel } from "@robot/ui/features/shell/MemberPanel";
 import type { ShellMember } from "@robot/ui/features/shell/shell-types";
-import { UsersRound } from "@robot/ui/icons";
+import { Hash, UsersRound } from "@robot/ui/icons";
 import { useText } from "@robot/ui/text";
 import type { JSX } from "@solidjs/web";
 import { createEffect, createMemo, createStore, Show } from "solid-js";
@@ -65,8 +65,8 @@ export function ChannelErrorNotice() {
   );
 }
 
+/** The channel's name after a `#`, and its topic after a line, as a chat server heads a channel. */
 export function ChannelHeaderTitle(props: { channelId: string; onOpenSettings: () => void }) {
-  const channels = useChannels();
   const { t } = useText();
   const page = useOpenChannel(props.channelId);
   return (
@@ -80,11 +80,16 @@ export function ChannelHeaderTitle(props: { channelId: string; onOpenSettings: (
           onClick={props.onOpenSettings}
           disabled={current().channel.archived}
         >
-          <ChannelAvatar members={current().channel.members} agents={channels.agents()} />
+          <Hash aria-hidden="true" class="channel-title-hash" />
           <span class="channel-header-copy">
             <h1>{current().channel.name}</h1>
             <Show when={current().channel.title.trim()}>
-              {(title) => <span class="channel-header-title">{title()}</span>}
+              {(title) => (
+                <>
+                  <span class="channel-header-divider" aria-hidden="true" />
+                  <span class="channel-header-title">{title()}</span>
+                </>
+              )}
             </Show>
           </span>
         </Button>
