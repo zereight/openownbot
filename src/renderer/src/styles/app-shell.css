@@ -1641,12 +1641,15 @@ textarea {
   scale: 0.96;
 }
 
+/* A section reads as a category of a chat server: small capitals above its places. */
 .sidebar-section-name {
   min-width: 0;
   overflow: hidden;
   font-size: var(--openownbot-text-sm);
-  font-weight: 400;
+  font-weight: var(--openownbot-weight-semibold);
+  letter-spacing: 0.02em;
   line-height: 16px;
+  text-transform: uppercase;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -2078,17 +2081,18 @@ textarea {
   font-weight: 680;
 }
 
+/* One line per agent or channel, as the member list of a chat server: the face or `#`, then the name. */
 .agent-row {
   display: flex;
   width: 100%;
-  height: 54px;
-  min-height: 54px;
+  height: 34px;
+  min-height: 34px;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   border: 0;
-  border-radius: var(--openownbot-radius-md);
+  border-radius: var(--openownbot-radius-sm);
   background: transparent;
-  padding: 8px;
+  padding: 4px 8px;
   color: inherit;
   text-align: left;
   transition:
@@ -2098,7 +2102,7 @@ textarea {
 }
 
 .agent-row + .agent-row {
-  margin-top: 4px;
+  margin-top: 2px;
 }
 
 .agent-row:hover {
@@ -2118,9 +2122,9 @@ textarea {
 .agent-row-avatar {
   position: relative;
   display: grid;
-  width: 36px;
-  height: 36px;
-  flex: 0 0 36px;
+  width: 24px;
+  height: 24px;
+  flex: 0 0 24px;
   place-items: center;
   transform: translateX(0);
   transition: transform var(--panel-resize-duration, var(--openownbot-duration-overlay)) var(--openownbot-ease-drawer);
@@ -2135,7 +2139,7 @@ textarea {
 .agent-row-agent-status {
   position: absolute;
   z-index: 1;
-  right: -5px;
+  right: -4px;
   bottom: -3px;
   display: inline-flex;
   align-items: center;
@@ -2150,11 +2154,16 @@ textarea {
 }
 
 .agent-row-agent-status-working {
-  width: 24px;
-  height: 16px;
+  width: 12px;
+  height: 12px;
   border-radius: var(--openownbot-radius-pill);
-  background: var(--openownbot-bg-surface);
-  color: var(--openownbot-text-secondary);
+  background: var(--openownbot-success);
+  color: var(--openownbot-success);
+}
+
+/* The dot says enough at this size; the dots inside it would be a smudge. */
+.agent-row-agent-status-working .agent-row-thinking-dots {
+  display: none;
 }
 
 .agent-row-thinking-dots {
@@ -2181,14 +2190,15 @@ textarea {
 }
 
 .agent-row-agent-status-responded {
-  width: 16px;
-  height: 16px;
+  width: 12px;
+  height: 12px;
   border-radius: var(--openownbot-radius-pill);
   background: var(--openownbot-success);
   color: var(--openownbot-success);
 }
 
 .agent-row-agent-status-responded svg {
+  display: none;
   width: 10px;
   height: 10px;
   fill: none;
@@ -2199,8 +2209,8 @@ textarea {
 }
 
 .agent-row-agent-status-unread {
-  min-width: 16px;
-  height: 16px;
+  min-width: 14px;
+  height: 14px;
   border-radius: var(--openownbot-radius-pill);
   background: var(--openownbot-text-primary);
   padding: 0 3px;
@@ -2212,8 +2222,8 @@ textarea {
 
 .agent-row-agent-status-routine,
 .agent-row-agent-status-limited {
-  width: 16px;
-  height: 16px;
+  width: 14px;
+  height: 14px;
   border-radius: var(--openownbot-radius-pill);
   background: var(--openownbot-bg-surface);
   color: var(--openownbot-text-secondary);
@@ -2221,8 +2231,8 @@ textarea {
 
 .agent-row-agent-status-routine svg,
 .agent-row-agent-status-limited svg {
-  width: 10px;
-  height: 10px;
+  width: 9px;
+  height: 9px;
 }
 
 .agent-row-agent-status-routine-failed {
@@ -2232,16 +2242,16 @@ textarea {
 /* An agent that waits for the user: amber, and a little larger than the routine marks, so it is
    the first badge the eye finds in a busy list. */
 .agent-row-agent-status-waiting {
-  width: 18px;
-  height: 18px;
+  width: 14px;
+  height: 14px;
   border-radius: var(--openownbot-radius-pill);
   background: var(--openownbot-warning);
   color: var(--openownbot-bg-sidebar);
 }
 
 .agent-row-agent-status-waiting svg {
-  width: 11px;
-  height: 11px;
+  width: 9px;
+  height: 9px;
 }
 
 /* The action chip takes the time slot: the time does not matter while the agent waits. */
@@ -2473,15 +2483,15 @@ textarea {
 }
 
 .agent-row .agent-avatar {
-  --agent-avatar-optical-offset: -4px;
+  --agent-avatar-optical-offset: -2px;
 
-  width: 36px;
-  height: 36px;
+  width: 24px;
+  height: 24px;
 }
 
 .person-row .person-avatar {
-  width: 36px;
-  height: 36px;
+  width: 24px;
+  height: 24px;
 }
 
 .avatar-editor {
@@ -2837,12 +2847,55 @@ textarea {
 .channel-row .agent-row-heading strong {
   min-width: 0;
   overflow: hidden;
-  color: var(--openownbot-text-primary);
-  font-size: var(--openownbot-text-lg);
+  color: var(--openownbot-text-muted);
+  font-size: var(--openownbot-text-md);
   line-height: 20px;
   font-weight: 500;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+/* The open place and a place with news read in the primary text tone, as on a chat server. */
+:is(.agent-row-active, .agent-row-unread, .agent-row:hover) .agent-row-heading strong {
+  color: var(--openownbot-text-primary);
+}
+
+.agent-row-unread .agent-row-heading strong {
+  font-weight: var(--openownbot-weight-semibold);
+}
+
+.agent-row-count {
+  flex: 0 0 auto;
+  min-width: 18px;
+  height: 16px;
+  justify-content: center;
+  border-radius: var(--openownbot-radius-pill);
+  padding: 0 5px;
+  font-size: var(--openownbot-text-sm);
+  font-weight: var(--openownbot-weight-bold);
+  line-height: 16px;
+}
+
+.channel-row-hash {
+  color: var(--openownbot-text-dim);
+}
+
+.channel-row-hash > svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* A channel with running work: a small success dot on its `#`. */
+.channel-row-working::after {
+  content: "";
+  position: absolute;
+  right: -2px;
+  bottom: 0;
+  width: 8px;
+  height: 8px;
+  border: 2px solid var(--openownbot-bg-sidebar);
+  border-radius: var(--openownbot-radius-pill);
+  background: var(--openownbot-success);
 }
 
 .agent-role-badge {
@@ -2871,41 +2924,7 @@ textarea {
   white-space: nowrap;
 }
 
-.agent-row-time,
-.person-row .agent-row-heading > span,
-.channel-row .agent-row-time {
-  min-width: 0;
-  flex: 0 0 auto;
-  color: var(--openownbot-text-readable);
-  font-size: var(--openownbot-text-sm);
-  line-height: 16px;
-  white-space: nowrap;
-}
-
-/* Narrow panel: name and badge win over time and date. The time element keeps
-   no reserved width, so long names get the space instead of truncating to a
-   few characters beside a date. */
-@container (max-width: 210px) {
-  .agent-row-time,
-  .person-row .agent-row-heading > span,
-  .channel-row .agent-row-time {
-    display: none;
-  }
-}
-
-.agent-row-preview {
-  display: block;
-  margin-top: 0;
-  overflow: hidden;
-  color: var(--openownbot-text-muted);
-  font-size: var(--openownbot-text-md);
-  line-height: 18px;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-/* The reference list extends agent tiles beyond the chat-list inset while the
-   shared row anatomy supplies its 54px row and 36px avatar proportions. */
+/* The list extends rows beyond the chat-list inset, so their hover fills reach the column edges. */
 .sidebar:not(.sidebar-compact) .agent-row {
   width: calc(100% + var(--openownbot-space-2));
   margin-inline: calc(var(--openownbot-space-1) * -1);

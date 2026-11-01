@@ -6,8 +6,10 @@
  *
  * A row in the team view is `fixed`: the teams are not places in the layout either, so it does not drag.
  *
- * A hidden agent's row sits in the "Hidden" group. It does not drag either. It sleeps, shows no state,
- * and shows when the user hid it in place of the last message.
+ * A hidden agent's row sits in the "Hidden" group. It does not drag either. It sleeps and shows no state.
+ *
+ * A row is one line, as a member of a chat server is: the face with its state, and the name. The last
+ * message and the date when the user hid the agent stay in the accessible label.
  */
 
 import { AppWindow, Badge, buttonVariants, Clock3, ContextMenu, Lock } from "@robot/ui";
@@ -19,7 +21,7 @@ import { AgentAvatar } from "../agents/AgentAvatar";
 import { agentAccessLockLabel } from "../agents/agent-access";
 import { SidebarAgentContextMenu } from "./SidebarAgentContextMenu";
 import { SidebarAgentIndicator, SidebarWaitChip, SidebarWaitTooltip } from "./SidebarAgentIndicator";
-import { sidebarAgentStateLabel, sidebarMessageTime, sidebarUsageResetTime } from "./sidebar-filtering";
+import { sidebarAgentStateLabel, sidebarUsageResetTime } from "./sidebar-filtering";
 import { useSidebarScope } from "./sidebar-scope";
 
 /**
@@ -90,6 +92,7 @@ export function SidebarAgentRow(rowProps: {
           "agent-row",
           {
             "agent-row-active": props.activeAgentId === rowProps.agent.id,
+            "agent-row-unread": state()?.kind === "unread",
             "sidebar-agent-row-dragging": draggedChatId() === rowProps.agent.id,
           },
         ]}
@@ -132,18 +135,7 @@ export function SidebarAgentRow(rowProps: {
             <Show
               when={wait()}
               fallback={
-                <Show
-                  when={limit()}
-                  fallback={
-                    <Show when={!rowProps.userHidden}>
-                      <span class="agent-row-time">
-                        {rowProps.agent.updatedAt
-                          ? sidebarMessageTime(rowProps.agent.updatedAt, format)
-                          : rowProps.agent.time}
-                      </span>
-                    </Show>
-                  }
-                >
+                <Show when={limit()}>
                   {(current) => (
                     <span class="agent-row-wait-chip">
                       <Clock3 aria-hidden="true" />
@@ -156,7 +148,6 @@ export function SidebarAgentRow(rowProps: {
               {(current) => <SidebarWaitChip reason={current().reason} />}
             </Show>
           </span>
-          <span class="agent-row-preview">{detail()}</span>
         </span>
         <Show when={state()}>
           {(state) => <span class="sr-only">{sidebarAgentStateLabel(state(), t, format)}</span>}
