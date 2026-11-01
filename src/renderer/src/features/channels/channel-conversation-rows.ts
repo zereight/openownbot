@@ -67,6 +67,80 @@ export function channelConversationRows(entries: readonly ChannelMessage[]): Age
   );
 }
 
+/** A part of the work that an agent gave to another, as a chip under the message that gave it. */
+export interface ChannelThreadChip {
+  taskId: string;
+  /** The agent that does the part. */
+  agentId: string | null;
+  /** The first line of the part's instruction. */
+  label: string;
+  replies: number;
+  latestMessageId: string;
+  latestAt: string;
+}
+
+/** How much of a part's instruction its chip shows. */
+const THREAD_LABEL_LENGTH = 40;
+
+function threadLabel(instruction: string): string {
+  const line = instruction.trim().split("\n", 1)[0]?.trim() ?? "";
+  return line.length > THREAD_LABEL_LENGTH ? `${line.slice(0, THREAD_LABEL_LENGTH - 1)}…` : line;
+}
+
+/** A row of the transcript that answers: an agent's message, not its folded thinking or a routing receipt. */
+function replyEntry(entry: ChannelMessage): boolean {
+  return entry.author.kind === "agent" && !foldedEntry(entry) && !channelRoutingConversationEvent(entry.message);
+}
+
+/**
+ * The chips of the parts of the work, by the id of the message they show under. A part is a task with
+ * a parent. Its chip shows under the newest message that the parent's owner wrote before the part's
+ * first reply, which is the message that split the work; without one, under the request. A part with
+ * no reply yet has no chip. The replies stay in the transcript; the chip counts them and leads to the
+ * newest one.
+ */
+export function channelThreadChips(
+  page: ChannelPage,
+  entries: readonly ChannelMessage[],
+): ReadonlyMap<string, readonly ChannelThreadChip[]> {
+  const tasks = new Map(page.tasks.map((task) => [task.id, task] as const));
+  const replies = new Map<string, ChannelMessage[]>();
+  for (const entry of entries) {
+    if (!entry.taskId || !replyEntry(entry)) continue;
+    const known = replies.get(entry.taskId);
+    if (known) known.push(entry);
+    else replies.set(entry.taskId, [entry]);
+  }
+  const chips = new Map<string, ChannelThreadChip[]>();
+  for (const task of page.tasks) {
+    const parent = task.parentTaskId ? tasks.get(task.parentTaskId) : undefined;
+    const answers = replies.get(task.id);
+    const first = answers?.[0];
+    const latest = answers?.at(-1);
+    if (!parent || !first || !latest) continue;
+    const splitter = entries.findLast(
+      (entry) =>
+        entry.sequence < first.sequence &&
+        entry.taskId === parent.id &&
+        entry.author.id === parent.ownerAgentId &&
+        replyEntry(entry),
+    );
+    const anchor = splitter?.id ?? task.requestMessageId;
+    const chip: ChannelThreadChip = {
+      taskId: task.id,
+      agentId: task.ownerAgentId,
+      label: threadLabel(task.instruction),
+      replies: answers.length,
+      latestMessageId: latest.id,
+      latestAt: latest.message.createdAt,
+    };
+    const known = chips.get(anchor);
+    if (known) known.push(chip);
+    else chips.set(anchor, [chip]);
+  }
+  return chips;
+}
+
 /**
  * The turns whose steps show under the activity line: the newest thinking turn of each member whose
  * task runs. A stop or a resume keeps the task id, so a turn whose task this view saw stop goes into

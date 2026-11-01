@@ -381,39 +381,30 @@
   padding: var(--channel-dialog-inset);
 }
 
-/* The header title is the agent chat's `.conversation-title`, so the member stack has to be the
-   avatar that title draws: 18px, and lifted by the same optical offset, because the bloub is drawn
-   at 128% of its box and sits low in it without one. */
-.channel-title .channel-avatar {
-  min-width: 18px;
-  height: 18px;
-}
-.channel-title .agent-avatar {
-  --agent-avatar-optical-offset: -2px;
-
+/* The header title is the agent chat's `.conversation-title`: a `#` in the place of its avatar. */
+.channel-title-hash {
   width: 18px;
   height: 18px;
+  flex: none;
+  color: var(--openownbot-text-dim);
 }
-.channel-title .channel-avatar .agent-avatar + .agent-avatar {
-  margin-left: -8px;
-}
-/* The faces overlap, and each outline cuts the face below it in the colour of the page. The framed
-   window puts the title on the top row instead (window.css). */
-.channel-title,
+/* The faces overlap, and each outline cuts the face below it in the colour of the page. */
 .channel-empty {
   --agent-avatar-outline: var(--openownbot-bg-canvas);
-}
-@media (hover: hover) and (pointer: fine) and (min-width: 601px) {
-  /* The title is a ghost button, so its hover fill is under the faces. */
-  .conversation-header .channel-title:hover:not(:disabled) {
-    --agent-avatar-outline: var(--openownbot-bg-control-hover);
-  }
 }
 .channel-header-copy {
   display: flex;
   min-width: 0;
-  align-items: baseline;
-  gap: var(--openownbot-space-2);
+  align-items: center;
+  gap: var(--openownbot-space-3);
+}
+
+/* A short line between the name and the topic. */
+.channel-header-divider {
+  width: 1px;
+  height: 16px;
+  flex: none;
+  background: var(--openownbot-border-strong);
 }
 .channel-header-copy h1 {
   min-width: 0;

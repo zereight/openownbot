@@ -83,6 +83,7 @@
     "./features/billing/LicenseSection": "./src/features/billing/LicenseSection.tsx",
     "./features/billing/license-store": "./src/features/billing/license-store.ts",
     "./features/channels/ChannelActivityIndicator": "./src/features/channels/ChannelActivityIndicator.tsx",
+    "./features/channels/ThreadChips": "./src/features/channels/ThreadChips.tsx",
     "./features/shell/MemberPanel": "./src/features/shell/MemberPanel.tsx",
     "./features/shell/PlaceList": "./src/features/shell/PlaceList.tsx",
     "./features/shell/ServerRail": "./src/features/shell/ServerRail.tsx",

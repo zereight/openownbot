@@ -46,7 +46,7 @@
  * an avatar outline there would be a halo. A row that paints its own hover or selected fill sets the
  * outline again. */
 :root[data-openownbot-window-glass] .app-window > .app-frame-edge > .sidebar,
-:root[data-openownbot-window-glass] .app-window > .app-frame-edge :is(.channel-empty, .channel-title),
+:root[data-openownbot-window-glass] .app-window > .app-frame-edge .channel-empty,
 :root[data-openownbot-window-glass]
   .app-window
   > .app-frame-edge
@@ -56,12 +56,12 @@
   --agent-avatar-outline: transparent;
 }
 
-/* With no outline, faces that overlap would merge into one shape, so the channel title and the empty
- * state put them side by side. This also covers the title's hover fill, which has no clear part. */
+/* With no outline, faces that overlap would merge into one shape, so the empty state puts them side
+ * by side. */
 :root[data-openownbot-window-glass]
   .app-window
   > .app-frame-edge
-  :is(.channel-empty, .channel-title)
+  .channel-empty
   .channel-avatar
   .agent-avatar
   + .agent-avatar {

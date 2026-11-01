@@ -49,6 +49,32 @@ export const OneWorker: Story = {
   },
 };
 
+/** The lead split the work: a chip under its message for each part, with the replies so far. */
+export const ThreadChips: Story = {
+  args: {
+    threadChips: {
+      m2: [
+        {
+          taskId: "part-numbers",
+          name: sales.name,
+          label: "Check last quarter's numbers",
+          replies: 2,
+          latestAt: new Date().toISOString(),
+          latestMessageId: "m4",
+        },
+        {
+          taskId: "part-pricing",
+          name: research.name,
+          label: "Find what the three closest tools charge for their team plans",
+          replies: 6,
+          latestAt: new Date().toISOString(),
+          latestMessageId: "m4",
+        },
+      ],
+    },
+  },
+};
+
 /** Wrapped text, a long name, and an author whose profile is no longer available. */
 export const AuthorLayout: Story = {
   args: {

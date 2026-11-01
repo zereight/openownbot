@@ -28,10 +28,12 @@ import {
 } from "./ChannelConversationParts";
 import {
   activeChannelRuns,
+  type ChannelThreadChip,
   channelApproval,
   channelBrowserTakeover,
   channelConversationRows,
   channelMessageHasContent,
+  channelThreadChips,
   channelWorkers,
   channelWorkingTurns,
   firstUnreadChannelMessageId,
@@ -93,6 +95,10 @@ export function createChannelConversation(env: ChannelConversationEnvironment) {
     });
     rowsById = next;
     return rows;
+  });
+  const threadChips = createMemo(() => {
+    const current = page();
+    return current ? channelThreadChips(current, entries()) : new Map<string, readonly ChannelThreadChip[]>();
   });
   const unreadCount = () => summary()?.unreadCount ?? 0;
   const stoppedTurns = new Set<string>();
@@ -265,6 +271,17 @@ export function createChannelConversation(env: ChannelConversationEnvironment) {
         channelId: current.channel.id,
       });
     },
+    threadChips: (messageIds) =>
+      messageIds.flatMap((id) =>
+        (threadChips().get(id) ?? []).map((chip) => ({
+          taskId: chip.taskId,
+          name: agentName(chip.agentId),
+          label: chip.label,
+          replies: chip.replies,
+          latestAt: chip.latestAt,
+          latestMessageId: chip.latestMessageId,
+        })),
+      ),
     HeaderTitle: (props) => <ChannelHeaderTitle channelId={channelId} onOpenSettings={props.onOpenSettings} />,
     HeaderActions: () => <ChannelMembersToggle />,
     SettingsPane: (props) => (

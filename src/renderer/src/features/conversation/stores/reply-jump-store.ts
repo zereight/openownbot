@@ -171,20 +171,27 @@ export function createReplyJumpStore(deps: ReplyJumpStoreDeps) {
   }
 
   async function openReference(reply: AgentMessage): Promise<void> {
-    const targetId = reply.replyToMessageId;
-    if (!targetId || jumping) return;
+    if (reply.replyToMessageId) await openMessage(reply.id, reply.replyToMessageId);
+  }
+
+  /*
+   * Scrolls from the message `fromId` to the message `targetId` and offers the way back. A quote
+   * leads to its original, and a thread chip leads to the newest reply of its part.
+   */
+  async function openMessage(fromId: string, targetId: string): Promise<void> {
+    if (jumping) return;
     const agentId = deps.props.agent?.id;
     jumping = true;
     setUnavailableReplyId(null);
     try {
-      const row = await reveal(targetId, reply.id, agentId);
+      const row = await reveal(targetId, fromId, agentId);
       if (!isOpen(agentId)) return;
       if (!row) {
-        setUnavailableReplyId(reply.id);
+        setUnavailableReplyId(fromId);
         return;
       }
       flash(row);
-      setReturnReplyId(reply.id);
+      setReturnReplyId(fromId);
       // A page load removes the quote that had focus. Focus then goes to the way back.
       if (!document.activeElement || document.activeElement === document.body) {
         await nextFrame();
@@ -248,6 +255,7 @@ export function createReplyJumpStore(deps: ReplyJumpStoreDeps) {
     returnReplyId,
     reveal,
     openReference,
+    openMessage,
     returnToReply,
     stayHere,
     updateReturnVisibility,

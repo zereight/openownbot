@@ -92,3 +92,48 @@
   background: var(--openownbot-surface-light);
   box-shadow: 0 0 0 1px var(--openownbot-text-dim-on-light);
 }
+
+/* The parts of the work that a message gave to other agents, under its text. */
+.thread-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--openownbot-space-1);
+  margin-top: var(--openownbot-space-2);
+}
+
+.ui-button.thread-chip {
+  display: inline-flex;
+  max-width: 100%;
+  height: 28px;
+  align-items: center;
+  gap: var(--openownbot-space-2);
+  border-radius: var(--openownbot-radius-sm);
+  background: var(--openownbot-bg-surface);
+  padding: 0 var(--openownbot-space-2);
+  font-size: var(--openownbot-text-sm);
+  font-weight: var(--openownbot-weight-regular);
+}
+
+.ui-button.thread-chip:hover {
+  background: var(--openownbot-bg-control-hover);
+}
+
+.thread-chip > svg {
+  width: 14px;
+  height: 14px;
+  flex: none;
+  color: var(--openownbot-text-muted);
+}
+
+.thread-chip-label {
+  overflow: hidden;
+  color: var(--openownbot-accent-text);
+  font-weight: var(--openownbot-weight-semibold);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.thread-chip-meta {
+  flex: none;
+  color: var(--openownbot-text-muted);
+}
