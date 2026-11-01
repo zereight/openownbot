@@ -9,7 +9,6 @@ import { For, Show } from "solid-js";
 import { useText } from "../../text";
 import { TeamPersonAvatar, teamMemberName } from "../team/TeamPersonAvatar";
 import { SidebarSectionHeader } from "./SidebarSectionHeader";
-import { sidebarMessageTime } from "./sidebar-filtering";
 import { useSidebarScope } from "./sidebar-scope";
 
 export function SidebarPeopleSection(sectionProps: { sectionId: string }) {
@@ -25,7 +24,7 @@ export function SidebarPeopleSection(sectionProps: { sectionId: string }) {
     startPersonDragging,
     stopSidebarDragging,
   } = useSidebarScope();
-  const { t, format } = useText();
+  const { t } = useText();
   const presence = (online: boolean) => (online ? t("sidebar.people.online") : t("sidebar.people.offline"));
   const sectionId = () => sectionProps.sectionId;
   return (
@@ -97,9 +96,7 @@ export function SidebarPeopleSection(sectionProps: { sectionId: string }) {
                       <span class="agent-row-copy">
                         <span class="agent-row-heading">
                           <strong>{teamMemberName(member)}</strong>
-                          <span>{thread() ? sidebarMessageTime(thread()?.updatedAt ?? "", format) : ""}</span>
                         </span>
-                        <span class="agent-row-preview">{thread()?.lastMessage.text ?? presence(member.online)}</span>
                       </span>
                       <Show when={(thread()?.unreadCount ?? 0) > 0}>
                         <span class="sr-only">{t("sidebar.people.unread", { count: thread()?.unreadCount ?? 0 })}</span>

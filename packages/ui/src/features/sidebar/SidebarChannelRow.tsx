@@ -1,7 +1,8 @@
 /**
  * One channel in a section. A channel is filed and dragged exactly like an agent, so this shares
  * the agent row's drag wrapper, its `.agent-row` anatomy and its context menu's pin and "Move to"
- * items; what differs is the avatar, the preview line and the agent-only actions it leaves out.
+ * items. A channel is a `#` and its name, as on a chat server; its newest message stays in the
+ * accessible label, and running work shows as a dot on the `#`.
  *
  * A channel whose work waits for the user sits in the "Needs you" group, as a waiting agent does.
  * There it does not drag, and it has the same badge, chip and tooltip as the agent row.
@@ -11,11 +12,11 @@ import type { ChannelSummary } from "@robot/contracts/ipc";
 import { Badge, buttonVariants, ContextMenu } from "@robot/ui";
 import type { JSX } from "@solidjs/web";
 import { createSignal, Show } from "solid-js";
+import { Hash } from "../../icons";
 import { useText } from "../../text";
-import { ChannelAvatar } from "../channels/ChannelAvatar";
 import { SidebarAgentIndicator, SidebarWaitChip, SidebarWaitTooltip } from "./SidebarAgentIndicator";
 import { SidebarChannelContextMenu, SidebarDeletedChannelContextMenu } from "./SidebarChannelContextMenu";
-import { sidebarAgentStateLabel, sidebarMessageTime } from "./sidebar-filtering";
+import { sidebarAgentStateLabel } from "./sidebar-filtering";
 import { useSidebarScope } from "./sidebar-scope";
 
 /** `waiting` is set by the "Needs you" group, as on `SidebarAgentRow`. */
@@ -31,6 +32,7 @@ export function SidebarChannelRow(rowProps: { channel: ChannelSummary; waiting?:
   } = useSidebarScope();
   const { t, format } = useText();
   const active = () => props.activeChannelId === rowProps.channel.id;
+  const working = () => (rowProps.channel.pausedTasks ?? 0) === 0 && rowProps.channel.activeTasks > 0;
   const channelWait = () => props.channelWaits?.[rowProps.channel.id];
   const wait = () => (rowProps.waiting ? channelWait() : undefined);
   const waitLabel = () => {
@@ -58,6 +60,7 @@ export function SidebarChannelRow(rowProps: { channel: ChannelSummary; waiting?:
           "agent-row channel-row",
           {
             "agent-row-active": active(),
+            "agent-row-unread": rowProps.channel.unreadCount > 0,
             "sidebar-agent-row-dragging": draggedChatId() === rowProps.channel.id,
           },
         ]}
@@ -68,18 +71,9 @@ export function SidebarChannelRow(rowProps: { channel: ChannelSummary; waiting?:
           if (!sidebarClickIsSuppressed(event)) props.onSelectChannel?.(rowProps.channel.id);
         }}
       >
-        <span class="agent-row-avatar">
-          <ChannelAvatar members={rowProps.channel.members} agents={props.agents} layout="cluster" />
-          <Show
-            when={channelWait()}
-            fallback={
-              <Show when={rowProps.channel.unreadCount > 0}>
-                <Badge class="person-unread-badge" variant="primary-light" aria-hidden="true">
-                  {Math.min(rowProps.channel.unreadCount, 99)}
-                </Badge>
-              </Show>
-            }
-          >
+        <span class={["agent-row-avatar channel-row-hash", { "channel-row-working": working() }]}>
+          <Hash aria-hidden="true" />
+          <Show when={channelWait()}>
             <SidebarAgentIndicator state={channelWait} />
           </Show>
         </span>
@@ -98,15 +92,16 @@ export function SidebarChannelRow(rowProps: { channel: ChannelSummary; waiting?:
             <Show
               when={wait()}
               fallback={
-                <span class="agent-row-time">
-                  {sidebarMessageTime(rowProps.channel.lastMessage?.at ?? rowProps.channel.createdAt, format)}
-                </span>
+                <Show when={rowProps.channel.unreadCount > 0}>
+                  <Badge class="agent-row-count" variant="primary-light" aria-hidden="true">
+                    {Math.min(rowProps.channel.unreadCount, 99)}
+                  </Badge>
+                </Show>
               }
             >
               {(current) => <SidebarWaitChip reason={current().reason} />}
             </Show>
           </span>
-          <span class="agent-row-preview">{preview()}</span>
         </span>
         <Show when={rowProps.channel.unreadCount > 0}>
           <span class="sr-only">{t("sidebar.channel.unread", { count: rowProps.channel.unreadCount })}</span>
