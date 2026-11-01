@@ -214,8 +214,12 @@ export function WorkspaceShell(props: { account: () => CentralAuthUser }) {
   return (
     // The overlays and the chat cards show the same connectors.
     <ConnectorsProvider>
-      {/* The page rail sits at the left of the frame. The frame is the card of the page that the rail selects. */}
-      <div class="app-window">
+      {/* The server rail is the left edge of the window, as on a chat server app. The page rail follows
+          it, and the frame is the card of the page that the page rail selects. */}
+      <div class={["app-window", { "app-window-platform-darwin": platform.appInfo()?.platform === "darwin" }]}>
+        <Show when={!chatWindow && !remoteDesktopWorkspaceVisible()}>
+          <WorkspaceServerRail />
+        </Show>
         <WorkspacePageRail hidden={chatWindow || remoteDesktopWorkspaceVisible()} />
         <WorkspaceFrame
           class={chatWindow ? "app-frame-chat-window" : undefined}
@@ -277,9 +281,9 @@ export function WorkspaceShell(props: { account: () => CentralAuthUser }) {
           onRetryServer={retryServerConnection}
           windowPage={windowPage.page()}
           sidebarHidden={tasksAgentsHidden()}
+          serverRailOutside
           left={
             <Show when={!chatWindow}>
-              <WorkspaceServerRail />
               <WorkspaceSidebar peopleEnabled={activePeopleEnabled()} />
             </Show>
           }

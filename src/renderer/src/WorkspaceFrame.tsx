@@ -19,6 +19,8 @@ type WorkspaceFrameProps = ParentProps<
     onRetryServer: (serverId: string) => Promise<void>;
     /** The rails and the sidebar, in paint order. */
     left: JSX.Element;
+    /** The server rail is drawn before the frame, at the left edge of the window, not in `left`. */
+    serverRailOutside?: boolean;
     /** The page of the rail. A page of another kind than the agents covers the middle panes, and makes them inert. */
     windowPage: WindowPage;
     /** Hides the sidebar below the top row. The middle panes then span it; the server menu stays. */
@@ -49,6 +51,7 @@ export function WorkspaceFrame(props: WorkspaceFrameProps) {
     "blockedServer",
     "onRetryServer",
     "left",
+    "serverRailOutside",
     "windowPage",
     "sidebarHidden",
     "page",
@@ -71,7 +74,8 @@ export function WorkspaceFrame(props: WorkspaceFrameProps) {
         {
           "app-frame-sidebar-compact": props.compact,
           "app-frame-edge": platform.appInfo() !== null,
-          "app-frame-with-server-rail": layout.serverRailVisible(),
+          "app-frame-with-server-rail": layout.serverRailVisible() && !props.serverRailOutside,
+          "app-frame-after-server-rail": layout.serverRailVisible() && props.serverRailOutside === true,
           "app-frame-page-open": pageOpen(),
           "app-frame-sidebar-hidden": props.sidebarHidden === true,
           "app-frame-platform-darwin": platform.appInfo()?.platform === "darwin",
