@@ -22,33 +22,24 @@ export interface AgentChatEmptyStateProps {
 const STEP_MS = 900;
 const HOLD_STEPS = 3;
 
-/** Splits the translated sentence around its `{word}`, which the empty state writes by hand. */
-const WORD_MARK = "\u0000";
-
 const noop = () => undefined;
 
 /**
- * A direct chat before its first message: the agent, its line, and a faint turn that plays its
+ * A direct chat before its first message, as a chat server opens a direct message: the agent's face
+ * and name, a line that says the chat starts here, its description, and a faint turn that plays its
  * work one step at a time from its own routine and skill. The turn is decoration: a reader does
  * not hear it, and a pointer or a key cannot reach it. The composer stays the only action.
  */
 export function AgentChatEmptyState(props: AgentChatEmptyStateProps) {
   const { t } = useText();
-  // Less motion: the title word is written and the turn stands still from the start.
+  // Less motion: the turn stands still from the start.
   const still = prefersReducedMotion();
-  const watchParts = createMemo(() => t("chat.empty.agent.watch", { word: WORD_MARK }).split(WORD_MARK));
   return (
     <div class="agent-chat-empty" data-still={still ? "" : undefined}>
       <div class="agent-chat-empty-pitch">
         <AgentAvatar agent={props.agent} mood="idle" motion="always" class="agent-chat-empty-avatar" />
-        <h2 class="agent-chat-empty-title">
-          <span class="agent-chat-empty-ready">{t("chat.empty.agent.ready", { name: props.agent.name })}</span>
-          <span>
-            {watchParts()[0]}
-            <span class="agent-chat-empty-hand">{t("chat.empty.agent.watchWord")}</span>
-            {watchParts()[1]}
-          </span>
-        </h2>
+        <h2 class="agent-chat-empty-title">{props.agent.name}</h2>
+        <p class="agent-chat-empty-start">{t("chat.empty.agent.start")}</p>
         <Show when={props.agent.description.trim()}>
           {(description) => <p class="agent-chat-empty-description">{description()}</p>}
         </Show>

@@ -209,7 +209,7 @@ export const messages = {
   "routine.calendar.sample.pipelineUp": "지난달보다\n12% 증가",
   "routine.calendar.sample.meetings": "회의 3건,\n2시에 1건 겹침",
   "routine.calendar.sample.quietDay": "조용한 날,\n3건 정리",
-  "routine.calendar.sample.dealWon": "Acme가 승낙했어요!",
+  "routine.calendar.sample.dealWon": "Acme가 계약에 서명했어요",
   "routine.calendar.sample.inboxZero": "9:04까지\n받은편지함 비움",
   "routine.calendar.sample.papers": "읽어 볼 만한\n논문 2편",
   "routine.calendar.sample.replies": "답장 4건,\n통화 1건 예약",

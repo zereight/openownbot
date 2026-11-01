@@ -10,18 +10,6 @@ export interface HostedServerUpsellNoticeProps {
   onDismiss: () => void;
 }
 
-/**
- * The glow outside the moving border. A mask applies after the filter of the same element, so the
- * blur is on this element and the masked ring is its child.
- */
-function HostedUpsellBeamGlow() {
-  return (
-    <span class="hosted-upsell-beam-glow" aria-hidden="true">
-      <span />
-    </span>
-  );
-}
-
 /** The offer of a hosted server at the routine list, while routines depend on a computer. */
 export function HostedServerUpsellNotice(props: HostedServerUpsellNoticeProps) {
   const { t } = useText();
@@ -32,8 +20,7 @@ export function HostedServerUpsellNotice(props: HostedServerUpsellNoticeProps) {
       : t("server.upsell.notice.title.remote", { count: props.count, server: host.name });
   };
   return (
-    <Alert class="hosted-upsell-notice hosted-upsell-beam" role="status" report={false}>
-      <HostedUpsellBeamGlow />
+    <Alert class="hosted-upsell-notice" role="status" report={false}>
       <AlertIcon>
         <Moon />
       </AlertIcon>

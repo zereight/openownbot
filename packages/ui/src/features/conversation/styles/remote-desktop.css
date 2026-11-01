@@ -136,7 +136,6 @@
   width: 56px;
   height: 56px;
   margin-bottom: 5px;
-  filter: drop-shadow(0 8px 18px var(--openownbot-accent-soft));
   opacity: 1;
   transform: translateY(0) scale(1);
   transition:

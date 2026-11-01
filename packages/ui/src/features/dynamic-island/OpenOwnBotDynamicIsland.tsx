@@ -49,7 +49,6 @@ import {
   For,
   Match,
   onCleanup,
-  onSettled,
   children as resolveChildren,
   Show,
   Switch,
@@ -57,7 +56,6 @@ import {
 } from "solid-js";
 import { AgentAvatar } from "../agents/AgentAvatar";
 import { StopIcon } from "../conversation/ConversationIcons";
-import { playIdleGreetingMotion } from "./idle-greeting-motion";
 import {
   animateModeLayers,
   type CapturedModeLayerState,
@@ -98,27 +96,6 @@ export interface OpenOwnBotDynamicIslandProps {
 
 const COMPACT_INDICES = [0, 1, 2] as const;
 const ROW_INDICES = [0, 1, 2] as const;
-const IDLE_GREETING_EMOJIS = ["👋", "😊", "🙌", "✨"] as const;
-type IdleGreetingEmoji = (typeof IDLE_GREETING_EMOJIS)[number];
-/** Each greeting has a small motion of its own when it shows; the CSS finds it by this name. */
-const IDLE_GREETING_NAMES = {
-  "👋": "wave",
-  "😊": "smile",
-  "🙌": "cheer",
-  "✨": "sparkles",
-} as const satisfies Record<IdleGreetingEmoji, string>;
-/**
- * The emoji on the back of a greeting's 3D card. The card turns to it as the greeting moves: the
- * wave turns into heart hands, the smile spins into a grin, and the raised hands turn to clap.
- * Heart hands, not a thumbs up or an OK hand: those two are rude in some places.
- */
-const IDLE_GREETING_BACKS: Record<IdleGreetingEmoji, string | undefined> = {
-  "👋": "🫶",
-  "😊": "😄",
-  "🙌": "👏",
-  "✨": undefined,
-};
-const IDLE_GREETING_INTERVAL = 8_000;
 const QUESTION_SWAP_EXIT_DURATION = 200;
 const QUESTION_SWAP_ENTER_DURATION = 320;
 const QUESTION_SWAP_BLUR = 6;
@@ -146,11 +123,11 @@ const STATUS_COMPACT_NAME_MAX_WIDTH = { notch: 72, island: 96 } as const;
 /** The narrowest idle ear beside a notch: the 20px logo, its 16px edge inset and a 4px gap. */
 const IDLE_COMPACT_NOTCH_EAR_MIN_WIDTH = COMPACT_LEADING_SIZE + 20;
 /**
- * The narrowest idle island on a built-in display with no notch: the 20px logo and the 16px greeting,
+ * The narrowest idle island on a built-in display with no notch: the 20px logo and the 16px idle mark,
  * each 16px from its edge, with a 16px gap between them.
  */
 const IDLE_COMPACT_NO_NOTCH_MIN_WIDTH = 16 + COMPACT_LEADING_SIZE + 16 + 16 + 16;
-/** The narrowest idle capsule: the logo and the greeting with their insets and a gap between them. */
+/** The narrowest idle capsule: the logo and the idle mark with their insets and a gap between them. */
 const IDLE_COMPACT_ISLAND_MIN_WIDTH = 74;
 
 interface SharedLeadingMotion {
@@ -808,7 +785,7 @@ function CompactTrailing(props: { presentation: DynamicIslandPresentation }): JS
       <Switch>
         <Match when={statusMode(props.presentation.mode)}>{(mode) => <CompactStatusBadge mode={mode()} />}</Match>
         <Match when={props.presentation.mode === "idle"}>
-          <IdleGreetingEmoji />
+          <IdleMark />
         </Match>
       </Switch>
     </IslandContentSwap>
@@ -866,104 +843,15 @@ function CompactStatusBadge(props: { mode: StatusMode }): JSX.Element {
   );
 }
 
-/** A greeting as a card with a front and a back face, so its motion can turn it in 3D. */
-/**
- * The sparkles glyph drawn three times, each copy masked to one star, so each star can light up and
- * twinkle on its own. Together the three copies are the whole glyph.
- */
-const SPARKLE_STAR_CLASSES = [
-  "dynamic-island-surface-idle-greeting-sparkle dynamic-island-surface-idle-greeting-sparkle-large",
-  "dynamic-island-surface-idle-greeting-sparkle dynamic-island-surface-idle-greeting-sparkle-upper",
-  "dynamic-island-surface-idle-greeting-sparkle dynamic-island-surface-idle-greeting-sparkle-lower",
-] as const;
-
-function IdleGreetingCard(props: { emoji: IdleGreetingEmoji }): JSX.Element {
-  return (
-    <span class="dynamic-island-surface-idle-greeting-card">
-      <span class="dynamic-island-surface-idle-greeting-face">
-        <Show when={props.emoji === "✨"} fallback={props.emoji}>
-          <For each={SPARKLE_STAR_CLASSES}>{(starClass) => <span class={starClass}>{props.emoji}</span>}</For>
-        </Show>
-      </span>
-      <Show when={IDLE_GREETING_BACKS[props.emoji]}>
-        {(back) => (
-          <span class="dynamic-island-surface-idle-greeting-face dynamic-island-surface-idle-greeting-face-back">
-            {back()}
-          </span>
-        )}
-      </Show>
-    </span>
-  );
-}
-
-function IdleGreetingEmoji(): JSX.Element {
-  const [index, setIndex] = createSignal(0);
-  const [activeSlot, setActiveSlot] = createSignal<0 | 1>(0);
-  const [firstEmoji, setFirstEmoji] = createSignal<IdleGreetingEmoji>(IDLE_GREETING_EMOJIS[0]);
-  const [secondEmoji, setSecondEmoji] = createSignal<IdleGreetingEmoji>(IDLE_GREETING_EMOJIS[0]);
-  let animationFrame: number | undefined;
-  const layers: [HTMLSpanElement | undefined, HTMLSpanElement | undefined] = [undefined, undefined];
-  // Each layer keeps its motion until it shows again, so the one that fades out keeps its last pose.
-  const motions: [Animation[], Animation[]] = [[], []];
-
-  function playMotion(slot: 0 | 1, emoji: IdleGreetingEmoji): void {
-    for (const motion of motions[slot]) motion.cancel();
-    motions[slot] = [];
-    const layer = layers[slot];
-    if (!layer || prefersReducedMotion()) return;
-    motions[slot] = playIdleGreetingMotion(IDLE_GREETING_NAMES[emoji], layer);
-  }
-
-  onSettled(() => {
-    playMotion(0, IDLE_GREETING_EMOJIS[0]);
-    const timer = setInterval(() => {
-      const nextIndex = (index() + 1) % IDLE_GREETING_EMOJIS.length;
-      const nextEmoji = IDLE_GREETING_EMOJIS[nextIndex] ?? IDLE_GREETING_EMOJIS[0];
-      const nextSlot = activeSlot() === 0 ? 1 : 0;
-      if (nextSlot === 0) setFirstEmoji(nextEmoji);
-      else setSecondEmoji(nextEmoji);
-      animationFrame = requestAnimationFrame(() => {
-        setIndex(nextIndex);
-        setActiveSlot(nextSlot);
-        playMotion(nextSlot, nextEmoji);
-      });
-    }, IDLE_GREETING_INTERVAL);
-    return () => {
-      clearInterval(timer);
-      if (animationFrame !== undefined) cancelAnimationFrame(animationFrame);
-      for (const motion of [...motions[0], ...motions[1]]) motion.cancel();
-    };
-  });
-
+/** The trailing mark of the idle island: a quiet dot. */
+function IdleMark(): JSX.Element {
   return (
     <span
-      class="dynamic-island-surface-idle-greeting"
-      data-active-slot={activeSlot()}
+      class="dynamic-island-surface-idle-mark"
       data-island-motion-content
       data-island-spatial-anchor="end"
       aria-hidden="true"
-    >
-      <span
-        ref={(element) => {
-          layers[0] = element;
-        }}
-        class="dynamic-island-surface-idle-greeting-layer"
-        data-greeting={IDLE_GREETING_NAMES[firstEmoji()]}
-        data-active={activeSlot() === 0 ? "true" : undefined}
-      >
-        <IdleGreetingCard emoji={firstEmoji()} />
-      </span>
-      <span
-        ref={(element) => {
-          layers[1] = element;
-        }}
-        class="dynamic-island-surface-idle-greeting-layer"
-        data-greeting={IDLE_GREETING_NAMES[secondEmoji()]}
-        data-active={activeSlot() === 1 ? "true" : undefined}
-      >
-        <IdleGreetingCard emoji={secondEmoji()} />
-      </span>
-    </span>
+    />
   );
 }
 

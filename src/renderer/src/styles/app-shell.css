@@ -692,7 +692,7 @@
   background: var(--openownbot-bg-surface);
   color: var(--openownbot-text-secondary);
   font-size: var(--openownbot-text-sm);
-  font-weight: 740;
+  font-weight: var(--openownbot-weight-semibold);
   letter-spacing: -0.02em;
 }
 
@@ -1650,15 +1650,13 @@ textarea {
   scale: 0.96;
 }
 
-/* A section reads as a category of a chat server: small capitals above its places. */
+/* A section name keeps the case its author wrote; size and colour set it apart from its places. */
 .sidebar-section-name {
   min-width: 0;
   overflow: hidden;
   font-size: var(--openownbot-text-sm);
-  font-weight: var(--openownbot-weight-semibold);
-  letter-spacing: 0.02em;
+  font-weight: var(--openownbot-weight-medium);
   line-height: 16px;
-  text-transform: uppercase;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -2044,7 +2042,7 @@ textarea {
   border-radius: var(--openownbot-radius-md);
   color: var(--openownbot-success);
   font-size: var(--openownbot-text-sm);
-  font-weight: 680;
+  font-weight: var(--openownbot-weight-semibold);
   letter-spacing: 0.02em;
 }
 
@@ -2087,7 +2085,7 @@ textarea {
   padding: 0 3px;
   color: var(--openownbot-bg-sidebar);
   font-size: var(--openownbot-text-sm);
-  font-weight: 680;
+  font-weight: var(--openownbot-weight-semibold);
 }
 
 /* One line per agent or channel, as the member list of a chat server: the face or `#`, then the name. */
@@ -2225,7 +2223,7 @@ textarea {
   padding: 0 3px;
   color: var(--openownbot-bg-sidebar);
   font-size: var(--openownbot-text-sm);
-  font-weight: 650;
+  font-weight: var(--openownbot-weight-semibold);
   line-height: 12px;
 }
 
@@ -2547,9 +2545,7 @@ textarea {
   padding: 7px 10px 3px 13px;
   color: var(--openownbot-text-secondary);
   font-size: var(--openownbot-text-sm);
-  font-weight: 590;
-  letter-spacing: 0.02em;
-  text-transform: uppercase;
+  font-weight: var(--openownbot-weight-medium);
 }
 
 .avatar-editor-heading > span {
@@ -2787,7 +2783,7 @@ textarea {
   box-shadow: none;
   color: var(--openownbot-text-secondary);
   font-size: var(--openownbot-text-sm);
-  font-weight: 650;
+  font-weight: var(--openownbot-weight-semibold);
 }
 
 .conversation-title .agent-avatar {
@@ -2881,7 +2877,7 @@ textarea {
   border-radius: var(--openownbot-radius-pill);
   padding: 0 5px;
   font-size: var(--openownbot-text-sm);
-  font-weight: var(--openownbot-weight-bold);
+  font-weight: var(--openownbot-weight-semibold);
   line-height: 16px;
 }
 

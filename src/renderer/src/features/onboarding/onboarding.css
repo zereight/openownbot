@@ -488,7 +488,7 @@
 
 .provider-picker-callout-title {
   font-size: var(--openownbot-text-md);
-  font-weight: 620;
+  font-weight: var(--openownbot-weight-semibold);
   line-height: 18px;
 }
 

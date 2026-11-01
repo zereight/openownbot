@@ -14,63 +14,39 @@
 }
 
 .agent-chat-empty-pitch {
-  --agent-chat-empty-title-size: var(--openownbot-text-display);
-  --agent-chat-empty-hand-size: calc(var(--agent-chat-empty-title-size) * 1.2);
   display: grid;
   justify-items: center;
-  gap: var(--openownbot-space-2);
+  gap: var(--openownbot-space-1);
   text-align: center;
 }
 
 .agent-chat-empty-avatar.agent-avatar {
   width: calc(var(--openownbot-control-xl) * 1.6);
   height: calc(var(--openownbot-control-xl) * 1.6);
-  margin-bottom: var(--openownbot-space-2);
+  margin-bottom: var(--openownbot-space-3);
 }
 
 .agent-chat-empty-title {
   margin: 0;
-  font-size: var(--agent-chat-empty-title-size);
-  font-weight: var(--openownbot-weight-semibold);
-  letter-spacing: -0.01em;
+  color: var(--openownbot-text-primary);
+  font-size: var(--openownbot-text-3xl);
+  font-weight: var(--openownbot-weight-medium);
   line-height: 1.2;
 }
 
-.agent-chat-empty-title > span {
-  display: block;
-}
-
-.agent-chat-empty-ready,
-.agent-chat-empty-description {
-  color: var(--openownbot-text-muted);
+.agent-chat-empty-start {
+  margin: 0;
+  color: var(--openownbot-text-secondary);
+  font-size: var(--openownbot-text-lg);
 }
 
 .agent-chat-empty-description {
   max-width: 30rem;
-  margin: 0;
-  font-size: var(--openownbot-text-xl);
+  margin: var(--openownbot-space-2) 0 0;
+  color: var(--openownbot-text-muted);
+  font-size: var(--openownbot-text-md);
   line-height: 1.5;
   text-wrap: balance;
-}
-
-/* The one handwritten word. It writes itself once, from left to right. The brand has no hand
-   font, so the system ones stand in. */
-.agent-chat-empty-hand {
-  display: inline-block;
-  color: var(--openownbot-accent-text);
-  font-family: "Bradley Hand", "Noteworthy", "Segoe Print", cursive;
-  font-size: var(--agent-chat-empty-hand-size);
-  line-height: 1;
-  transform: rotate(-2deg);
-  clip-path: inset(-0.4em 100% -0.4em -0.2em);
-  animation: agent-chat-empty-write calc(var(--openownbot-duration-slow) * 2.8) linear
-    calc(var(--openownbot-duration-slow) * 2.5) forwards;
-}
-
-@keyframes agent-chat-empty-write {
-  to {
-    clip-path: inset(-0.4em -0.2em -0.4em -0.2em);
-  }
 }
 
 /* The faint turn, in a column of chat width. Its rows are the chat's own. */
@@ -103,19 +79,4 @@
   opacity: 0;
   filter: blur(3px);
   transform: translateY(-6px);
-}
-
-@container (max-width: 520px) {
-  .agent-chat-empty-pitch {
-    --agent-chat-empty-title-size: var(--openownbot-text-3xl);
-  }
-
-  .agent-chat-empty-description {
-    font-size: var(--openownbot-text-lg);
-  }
-}
-
-.agent-chat-empty[data-still] .agent-chat-empty-hand {
-  animation: none;
-  clip-path: none;
 }

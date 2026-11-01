@@ -76,8 +76,12 @@
 
 /* A server logo in the island server list, at the size of the billing server rows. */
 .settings-dynamic-island-server-mark {
-  --server-gradient-logo-size: 32px;
-  --server-gradient-logo-radius: var(--openownbot-radius-md);
+  --server-monogram-radius: var(--openownbot-radius-md);
+}
+
+.settings-dynamic-island-server-mark > .ui-server-monogram {
+  --server-monogram-size: 32px;
+  --server-monogram-font-size: var(--openownbot-text-sm);
 }
 
 .settings-dynamic-island-server-mark > img {

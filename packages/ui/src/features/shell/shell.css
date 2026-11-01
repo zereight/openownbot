@@ -130,8 +130,6 @@
   margin: var(--openownbot-space-4) var(--openownbot-space-2) var(--openownbot-space-1);
   font-size: var(--openownbot-text-sm);
   font-weight: var(--openownbot-weight-semibold);
-  letter-spacing: var(--openownbot-tracking-wide);
-  text-transform: uppercase;
   color: var(--openownbot-text-muted);
 }
 
@@ -190,7 +188,7 @@
   padding: 0 var(--openownbot-space-1-5);
   border-radius: var(--openownbot-radius-pill);
   font-size: var(--openownbot-text-sm);
-  font-weight: var(--openownbot-weight-bold);
+  font-weight: var(--openownbot-weight-semibold);
   text-align: center;
   color: var(--openownbot-unread-text);
   background: var(--openownbot-unread-surface);

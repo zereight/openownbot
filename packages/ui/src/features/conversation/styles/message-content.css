@@ -1517,7 +1517,7 @@
 
 .attachment-reference-visual > span {
   font-size: var(--openownbot-glyph-sm);
-  font-weight: 750;
+  font-weight: var(--openownbot-weight-semibold);
   letter-spacing: -0.2px;
   line-height: 1;
 }

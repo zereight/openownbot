@@ -221,7 +221,7 @@ export const messages = defineMessages("routine", {
   "routine.calendar.sample.pipelineUp": "up 12% on\nlast month",
   "routine.calendar.sample.meetings": "3 meetings,\none clash at 2",
   "routine.calendar.sample.quietDay": "quiet day,\n3 sorted",
-  "routine.calendar.sample.dealWon": "Acme said yes!",
+  "routine.calendar.sample.dealWon": "Acme signed the contract",
   "routine.calendar.sample.inboxZero": "inbox zero\nby 9:04",
   "routine.calendar.sample.papers": "2 worth\nreading",
   "routine.calendar.sample.replies": "4 replies,\n1 call booked",
